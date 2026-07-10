@@ -1,57 +1,51 @@
 # Current Project Status
 
-## Text/Image V1.0 Release Candidate
+`ui/contentops_v5/` is the canonical product UI. `ui/institutional_operator_cockpit_v4/` is fallback/reference only. GitHub remote commits and fetched repo files remain runtime authority above this status doc.
 
-Run `contentops_v1_0_rc_20260711_1` is `AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC`. The EIA oil-supply article is public on Substack with three manifest-bound charts, and Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community passed strict text/media/link readback. TikTok, YouTube video, and Shorts were not invoked. All nine surfaces are frozen pending the operator audit packet at `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/operator_manual_audit_packet_v1.json`; no v1.0 tag exists.
+The canonical publishing profile is Microsoft Edge at `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`. Substack remains canonical; YouTube Community remains the default YouTube text/image derivative surface, while video and Shorts are separate non-default modes.
 
-## Authority
+## Current Classification
 
-GitHub remote commits and fetched repo files remain runtime authority above this status doc. `ui/contentops_v5/` is the canonical UI; `ui/institutional_operator_cockpit_v4/` is fallback/reference only.
+`PASS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`
 
-Canonical browser profile: `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`.
+Task: `TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`.
 
-## Current Task Result
+Run `contentops_v1_0_rc_20260711_1` remains frozen and is classified `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR`. Its machine transport proof is preserved, but it is not an accepted generalized tier-1 release and no `v1.0` tag exists.
 
-`TASK_CONTENTOPS_HEAVY_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3`
+## Canonical Architecture
 
-Classification: `PASS_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3`.
+`live_contentops.eight_platform_substack_first_pipeline_v1` remains the canonical entrypoint. Its generic prepare-only mode consumes `CapitalChronicleContentEvidencePacketV2` through either `--capital-chronicle-root` or `--cc-evidence-packet`, then runs:
 
-The canonical Substack article and all existing social/community outputs were preserved. The only live write was an authorized in-place edit of LinkedIn activity `7481311616265895936`; no third LinkedIn post was created.
+```text
+source capability resolution
+-> claim-level evidence and DQR permissions
+-> freshness and market-state policy
+-> visual research, rights, diversity, and quantitative method gates
+-> eight bounded editorial roles
+-> local publication eligibility evidence
+```
 
-## Editorial And SEO
+Oil and Fed builders remain legacy adapters/regression fixtures. They no longer define the canonical generalized assignment, evidence, freshness, visual, or editorial architecture.
 
-The public Fed funds article remains frozen. Its local audit scores `60/100` for tier-1 editorial quality and `86/100` for SEO. A local-only revised candidate removes editorial-process narration, retains the source and three-chart chain, reduces length from 1,476 to 663 words, and scores `93/100` editorial and `100/100` SEO. A bounded LLM standards review passed all 14 semantic checks. The combined gate requires deterministic and LLM PASS, and LLM output cannot override deterministic blockers. The candidate was not published.
+## Real Rehearsal
 
-## Platform Quality
+Evidence: `docs/automation/V6_GENERIC_EVIDENCE_FABRIC/generic_fabric_v2_real_rehearsal_20260711/`.
 
-| Surface | Current status |
-| --- | --- |
-| Substack, Telegram, Discord | Accepted and frozen. |
-| Facebook | Correct chart replacement accepted and frozen. |
-| Instagram | Chart/caption accepted; exact URL text is visible, while feed-caption clickability is optional. |
-| YouTube Community | Accepted and frozen. |
-| X | Transport succeeded, but the six-reply live chain fails V3 sentence/balance/media quality; preserved as fixture. |
-| Threads | Transport succeeded, but the live root lacks the approved chart and replies contain fragments; preserved as fixture. |
-| LinkedIn | Earlier activity `7481289145206644736` accepted; latest `7481311616265895936` edited in place and verified. |
-| TikTok native | Blocked on OAuth callback, user authorization, token refresh, adapter, identity, and app audit. |
-| YouTube long-form/Shorts | Explicit non-default capability lanes; no V3 execution approval. |
+The read-only ingestion rehearsal correctly blocks publication. The committed Capital Chronicle market snapshot was generated July 5, its observations are stale at the July 11 as-of time, and its DQR has `reporting_allowed=false`. ContentOps preserves those constraints and does not create a separate MT5, FRED, or EIA truth path.
 
-The corrected local X and Threads layouts each use a root plus two replies, preserve sentence boundaries, and distribute `primary`, `policy_corridor`, and `sofr_context` exactly once.
+## RC Operator Audit
 
-## Safety
+Operator findings: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/operator_manual_audit_findings_v2.json`.
 
-Fast Ship allows approved execution, not secret disclosure. Builders may check variable names and redacted presence booleans. They must never print raw environment values, credentials, tokens, webhook URLs, cookies, localStorage, sessionStorage, authorization headers, or browser-session secrets.
+- LinkedIn failed fresh-run integrity by editing historical activity `7481311616265895936`.
+- Two malformed standalone Threads continuations remain preserved.
+- Facebook copy, public process vocabulary, source-calibrated headline wording, chart methodology, visual diversity, and story freshness require targeted repair.
+- Discord `The Macro Pigeon` is an approved Capital Chronicle community persona.
+- LinkedIn is founder-led personal distribution.
+- No secret material was exposed in operator screenshots.
 
-V3 published no TikTok content, YouTube video, YouTube Short, or private video upload.
+## Safety And Next Task
 
-## Diagnosis
+All public outputs remain frozen. No platform write, browser/CDP action, webhook, video, TikTok, deletion, repair, or tag was authorized or performed in this architecture task.
 
-Use `platform_delivery_contract_v1.json#failure_resolution_map` to move from a failure signature to the payload compiler, adapter, media authority, readback, ledger, focused tests, and evidence path.
-
-Current evidence root: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/`.
-
-## Current Next Recommended Task
-
-`TASK_CONTENTOPS_V6_RELIABILITY_EVIDENCE_DASHBOARD_AND_VIDEO_AUTH_HANDOFF_V1`
-
-Render V3 reliability evidence and non-secret video authorization handoffs in V5. Do not start a new canonical run or upload video.
+Next task: `TASK_CONTENTOPS_TARGETED_LIVE_REPAIR_AND_V1_0_REAUDIT_V1`, requiring separate explicit live authorization.

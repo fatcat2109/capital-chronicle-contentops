@@ -1,0 +1,26 @@
+{
+  "schema_version": "contentops.generalized_story_fixture_matrix.v2",
+  "public_write_performed": false,
+  "story_families": [
+    {"fixture": "central_bank_rates_decision", "story_type": "policy_decision", "capability_resolution": "PASS"},
+    {"fixture": "inflation_labor_release", "story_type": "data_release", "capability_resolution": "PASS"},
+    {"fixture": "geopolitical_supply_chain_event", "story_type": "geopolitical_event", "capability_resolution": "PASS"},
+    {"fixture": "commodity_market_move", "story_type": "market_move", "capability_resolution": "PASS"},
+    {"fixture": "fiscal_regulatory_event", "story_type": "regulatory_fiscal_event", "capability_resolution": "PASS"},
+    {"fixture": "equity_volatility_story", "story_type": "company_sector_event", "capability_resolution": "PASS"}
+  ],
+  "rc_regressions": [
+    "fresh_linkedin_story_cannot_edit_historical_activity",
+    "threads_reply_requires_nonempty_parent_id",
+    "internal_process_vocabulary_manifest_bound",
+    "awkward_relevant_transmission_channel_is_reopened",
+    "headline_escalates_pre_conflict_to_pre_war",
+    "average_absolute_move_mislabeled_as_realized_volatility",
+    "partial_year_requires_ytd_label",
+    "underlying_series_overused",
+    "stale_chartable_story_blocked",
+    "generic_cross_asset_assertions_without_evidence",
+    "approved_discord_persona_not_account_drift"
+  ],
+  "result": "PASS_LOCAL_FIXTURE_COVERAGE"
+}

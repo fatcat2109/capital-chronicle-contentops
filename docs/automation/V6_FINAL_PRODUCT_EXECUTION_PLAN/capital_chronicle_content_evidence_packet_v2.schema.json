@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://capitalchronicle.com/contentops/CapitalChronicleContentEvidencePacketV2.schema.json",
+  "title": "CapitalChronicleContentEvidencePacketV2",
+  "type": "object",
+  "required": ["schema_version", "packet_id", "generated_at_utc", "as_of_utc", "story_window", "events", "official_source_documents", "numeric_claims", "market_snapshots", "source_state", "candidate_visual_inputs", "citation_map", "provenance", "public_claim_permissions", "blockers"],
+  "properties": {
+    "schema_version": {"const": "capital_chronicle_content_evidence_packet.v2"},
+    "packet_id": {"type": "string", "minLength": 8},
+    "generated_at_utc": {"type": "string", "format": "date-time"},
+    "as_of_utc": {"type": "string", "format": "date-time"},
+    "story_window": {"type": "object"},
+    "events": {"type": "array"},
+    "headlines": {"type": "array"},
+    "official_source_documents": {"type": "array"},
+    "numeric_claims": {"type": "array", "items": {"type": "object", "required": ["claim_id", "metric", "value", "unit", "observation_time_utc", "source_id", "source_artifact_ref", "public_claim_allowed", "llm_numeric_authority"]}},
+    "market_snapshots": {"type": "array"},
+    "source_state": {"type": "object"},
+    "candidate_visual_inputs": {"type": "array"},
+    "citation_map": {"type": "object"},
+    "provenance": {"type": "object"},
+    "public_claim_permissions": {"type": "object"},
+    "blockers": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

@@ -1,70 +1,42 @@
 {
-  "schema_version": "contentops.platform_delivery_contract.v1.1",
+  "schema_version": "contentops.platform_delivery_contract.v2",
   "canonical_surface": "substack",
   "canonical_runner": "live_contentops.eight_platform_substack_first_pipeline_v1",
   "canonical_edge_profile": "A:\\Capital Chronicle\\operator-browser-profiles\\contentops-social-main",
   "current_cdp_port": 9223,
-  "media_authority": "generated_media_manifest_exact_hash_binding",
+  "media_authority": "approved_evidence_packet_visual_manifest_exact_hash_binding",
   "overflow_policy": "sentence_and_paragraph_aware_balanced_root_reply_chain",
-  "success_policy": "stable_public_identity_plus_complete_text_media_link_chain_readback",
   "editorial_gate": "live_contentops.tier1_editorial_quality_v1",
   "editorial_gate_policy": "deterministic_and_bounded_llm_must_both_pass_llm_cannot_override_deterministic_blockers",
-  "video_capability_gate": "live_contentops.video_platform_capability_matrix_v1",
+  "canonical_generic_mode": "--prepare-generic-fabric",
+  "prepublication_contracts": [
+    "CapitalChronicleContentEvidencePacketV2",
+    "freshness_market_state_decision.v2",
+    "visual_composition_decision.v2",
+    "editorial_review_orchestrator.v2",
+    "distribution_identity_persona_registry.v2"
+  ],
+  "fresh_run_rules": {
+    "linkedin": "new story requires fresh activity; historical edit only for exact same-story reconciliation",
+    "threads": "reply requires nonempty parent ID",
+    "all": "unknown write outcome requires read-only reconciliation before retry"
+  },
   "destinations": {
-    "substack": {"role": "canonical_full_article", "requires": ["tier1_editorial_gate", "seo_gate", "three_in_body_visuals", "public_url", "public_readback"]},
-    "telegram": {"role": "distribution_derivative", "requires": ["text", "approved_media", "canonical_url", "message_id", "readback"]},
-    "x": {"role": "three_post_semantic_thread", "requires": ["root_text_chart_url", "two_sentence_complete_replies", "three_unique_article_visuals", "ordered_chain_readback"]},
-    "discord": {"role": "newsroom_derivative", "requires": ["text", "canonical_url", "message_id", "readback"]},
-    "linkedin": {"role": "analytical_derivative", "requires": ["root_text", "approved_chart", "canonical_url", "exact_activity_reconciliation", "readback"]},
-    "facebook_page": {"role": "native_photo_derivative", "requires": ["complete_text", "approved_chart", "canonical_url", "post_id", "readback"]},
-    "instagram_business": {"role": "native_feed_media_derivative", "requires": ["complete_caption", "approved_chart", "canonical_url_exact_text", "clear_cta", "media_id", "readback"], "caption_link_clickable_required": false},
-    "threads": {"role": "three_post_semantic_thread", "requires": ["root_text_chart_url", "two_sentence_complete_replies", "three_unique_article_visuals", "ordered_chain_readback"]},
-    "youtube_community": {"role": "community_text_image_derivative", "default_surface": true, "requires": ["text", "approved_image", "canonical_url", "community_post_id", "readback"]},
-    "tiktok_native": {"role": "explicit_non_default_video_or_photo_capability", "default_surface": false, "current_blocker": "BLOCKED_TIKTOK_OAUTH_ADAPTER_AND_APP_AUDIT_INCOMPLETE"},
-    "youtube_long_form": {"role": "explicit_non_default_video_capability", "default_surface": false, "current_blocker": "BLOCKED_YOUTUBE_LONG_FORM_EXPLICIT_MODE_AND_AUDIT_REQUIRED"},
-    "youtube_shorts": {"role": "explicit_non_default_short_video_capability", "default_surface": false, "current_blocker": "BLOCKED_YOUTUBE_SHORTS_PUBLIC_EXECUTION_NOT_AUTHORIZED"}
+    "substack": {"identity_class": "brand_account", "role": "canonical_full_article", "requires": ["evidence_permission", "freshness_pass", "visual_pass", "editorial_pass", "public_readback"]},
+    "telegram": {"identity_class": "brand_account", "role": "text_image_derivative"},
+    "x": {"identity_class": "brand_account", "role": "root_and_ordered_replies"},
+    "discord": {"identity_class": "approved_editorial_community_persona", "approved_visible_identity": "The Macro Pigeon", "role": "community_derivative"},
+    "linkedin": {"identity_class": "founder_led_personal_distribution", "approved_visible_identity": "Jim Pham", "role": "founder_analysis"},
+    "facebook_page": {"identity_class": "brand_account", "role": "native_derivative"},
+    "instagram_business": {"identity_class": "brand_account", "role": "native_derivative", "caption_link_clickable_required": false},
+    "threads": {"identity_class": "brand_account", "role": "root_and_ordered_replies"},
+    "youtube_community": {"identity_class": "brand_account", "role": "community_text_image", "default_surface": true},
+    "tiktok_native": {"default_surface": false},
+    "youtube_long_form": {"default_surface": false},
+    "youtube_shorts": {"default_surface": false}
   },
-  "failure_resolution_map": {
-    "substack": {
-      "product_surface": "canonical full article",
-      "adapter": "edge_cdp_publishing_adapter_v1.publish_substack_article_via_edge",
-      "payload_compiler": "substack_first_north_star_pipeline_loop_v1.export_canonical_article",
-      "media_authority": "media_manifest_authority_v1",
-      "public_readback": "edge_cdp_publishing_adapter_v1._audit_public_substack_article",
-      "idempotency_ledger": "run_evidence_v1.json canonical reentry guard",
-      "focused_tests": ["test_edge_cdp_publishing_adapter_v1.py", "test_substack_first_north_star_pipeline_loop_v1.py", "test_tier1_editorial_quality_v1.py"],
-      "common_failures": ["editorial_process_language", "seo_gate_failure", "llm_editorial_review_invalid_or_unavailable", "filechooser_missed", "fewer_than_three_body_visuals", "private_editor_url_only"],
-      "allowed_recovery": ["repair deterministic editorial blockers before LLM review", "rerun one bounded structured LLM review", "read exact draft/run evidence", "retry chooser once via newest input", "resume exact failed draft only"],
-      "forbidden_fallback": ["new duplicate article", "local markdown counted as canonical success", "Windows dialog automation"],
-      "evidence": "EIGHT_PLATFORM_FULL_PIPELINE_V1/<run-id>/run_evidence_v1.json"
-    },
-    "telegram": {
-      "product_surface": "channel derivative", "adapter": "substack_first_north_star_pipeline_loop_v1.complete_substack_first_pipeline", "payload_compiler": "_telegram_caption", "media_authority": "approved media manifest", "public_readback": "provider message readback", "idempotency_ledger": "public_dispatch_duplicate_ledger_v6.jsonl", "focused_tests": ["test_substack_first_north_star_pipeline_loop_v1.py"], "common_failures": ["missing canonical URL", "duplicate message"], "allowed_recovery": ["edit exact message ID"], "forbidden_fallback": ["create replacement when edit is authorized"], "evidence": "run_evidence_v1.json#results.telegram"
-    },
-    "x": {
-      "product_surface": "root plus ordered replies", "adapter": "edge_cdp_publishing_adapter_v1.publish_x_post_via_edge/publish_x_reply_via_edge", "payload_compiler": "eight_platform_substack_first_pipeline_v1._semantic_thread_layout", "media_authority": "three exact manifest assets", "public_readback": "edge_cdp_publishing_adapter_v1.readback_x_thread_via_edge", "idempotency_ledger": "platform_dispatch_ledger_v1.jsonl", "focused_tests": ["test_eight_platform_substack_first_pipeline_v1.py", "test_edge_cdp_publishing_adapter_v1.py"], "common_failures": ["mid_sentence_split", "fragment_reply", "six_reply_chain", "missing reply charts"], "allowed_recovery": ["compile local semantic plan", "repair only a failed non-success destination under explicit scope"], "forbidden_fallback": ["hard character slicing", "repost preserved successful legacy thread", "reply IDs without media/text readback counted as PASS"], "evidence": "planned_semantic_variants_v1.json#planned_layouts.x"
-    },
-    "discord": {
-      "product_surface": "newsroom derivative", "adapter": "discord_live_adapter_v6.execute_discord_post", "payload_compiler": "build_native_derivative_payloads.discord", "media_authority": "manifest/link preview", "public_readback": "provider message ID plus operator audit", "idempotency_ledger": "platform_dispatch_ledger_v1.jsonl", "focused_tests": ["test_eight_platform_substack_first_pipeline_v1.py"], "common_failures": ["preview logo instead of chart"], "allowed_recovery": ["record preview enhancement separately"], "forbidden_fallback": ["duplicate accepted post"], "evidence": "run_evidence_v1.json#results.discord"
-    },
-    "linkedin": {
-      "product_surface": "personal analytical post", "adapter": "edge_cdp_publishing_adapter_v1.edit_existing_linkedin_post_via_edge", "payload_compiler": "build_native_derivative_payloads.linkedin", "media_authority": "exact chart fingerprint", "public_readback": "readback_linkedin_activity_via_edge", "idempotency_ledger": "platform_dispatch_ledger_v1.jsonl exact activity scope", "focused_tests": ["test_eight_platform_substack_first_pipeline_v1.py", "test_edge_cdp_publishing_adapter_v1.py"], "common_failures": ["image_only_activity", "permalink_delayed", "UNKNOWN_write_outcome", "text_lost_after_media"], "allowed_recovery": ["read exact activities", "edit exact malformed activity", "freeze UNKNOWN until read-only resolution"], "forbidden_fallback": ["automatic replacement from UNKNOWN", "third root post", "image-only success"], "evidence": "linkedin_activity_pair_reconciliation_v1.json"
-    },
-    "facebook_page": {
-      "product_surface": "Page photo post", "adapter": "facebook_page_adapter_v6", "payload_compiler": "build_native_derivative_payloads.facebook_page", "media_authority": "exact manifest hash", "public_readback": "readback_facebook_post", "idempotency_ledger": "platform_dispatch_ledger_v1.jsonl", "focused_tests": ["test_media_manifest_authority_v1.py", "test_eight_platform_substack_first_pipeline_v1.py"], "common_failures": ["avatar_or_logo_selected"], "allowed_recovery": ["supersede immutable malformed post", "one corrected replacement"], "forbidden_fallback": ["DOM image scraping", "delete old post without authorization"], "evidence": "run_evidence_v1.json#results.facebook_page"
-    },
-    "instagram_business": {
-      "product_surface": "Business feed media", "adapter": "instagram_adapter_v6", "payload_compiler": "build_native_derivative_payloads.instagram_business", "media_authority": "exact manifest hash", "public_readback": "readback_instagram_media", "idempotency_ledger": "platform_dispatch_ledger_v1.jsonl", "focused_tests": ["test_instagram_adapter_v6.py", "test_media_manifest_authority_v1.py"], "common_failures": ["avatar_or_logo_selected", "caption URL expected to be clickable"], "allowed_recovery": ["require exact URL text and clear CTA", "supersede immutable wrong-media post"], "forbidden_fallback": ["fail solely because caption URL is non-clickable", "modify bio or publish Story without scope"], "evidence": "run_evidence_v1.json#results.instagram_business"
-    },
-    "threads": {
-      "product_surface": "root plus ordered replies", "adapter": "threads_adapter_v6.execute_threads_post", "payload_compiler": "eight_platform_substack_first_pipeline_v1._semantic_thread_layout", "media_authority": "three exact manifest assets", "public_readback": "threads_adapter_v6.readback_threads_post/readback_threads_chain", "idempotency_ledger": "platform_dispatch_ledger_v1.jsonl", "focused_tests": ["test_eight_platform_substack_first_pipeline_v1.py", "test_threads_adapter_v6.py"], "common_failures": ["root missing approved chart", "mid_sentence split", "fragment reply", "media only in one reply"], "allowed_recovery": ["compile local three-post plan", "verify root and both reply charts in a future authorized run"], "forbidden_fallback": ["repost preserved legacy thread", "text-only root in a new run", "reply IDs alone counted as PASS"], "evidence": "planned_semantic_variants_v1.json#planned_layouts.threads"
-    },
-    "youtube_community": {
-      "product_surface": "Community text/image post", "adapter": "edge_cdp_publishing_adapter_v1.publish_youtube_community_post_via_edge", "payload_compiler": "build_native_derivative_payloads.youtube", "media_authority": "approved lead chart", "public_readback": "readback_youtube_community_post_via_edge", "idempotency_ledger": "youtube_community_post scope", "focused_tests": ["test_edge_cdp_publishing_adapter_v1.py", "test_eight_platform_substack_first_pipeline_v1.py"], "common_failures": ["wrong video surface", "missing chart or canonical URL"], "allowed_recovery": ["Community-only targeted repair"], "forbidden_fallback": ["Short or video substitution"], "evidence": "run_evidence_v1.json#results.youtube"
-    },
-    "video_capabilities": {
-      "product_surface": "TikTok native, YouTube long-form, YouTube Shorts", "adapter": "video_platform_capability_matrix_v1 capability audit", "payload_compiler": "build_youtube_upload_request local private request", "media_authority": "separate video rights/metadata gate", "public_readback": "not applicable in capability-audit mode", "idempotency_ledger": "separate future explicit-mode ledger", "focused_tests": ["test_video_platform_capability_matrix_v1.py", "test_source_chart_short_video_v1.py"], "common_failures": ["app keys mistaken for OAuth readiness", "video surface invoked by article runner"], "allowed_recovery": ["complete OAuth/callback/audit", "separate explicit execution approval"], "forbidden_fallback": ["any public or private upload during capability audit", "video or Short from default article runner"], "evidence": "video_platform_capability_matrix_v1.json"
-    }
-  },
-  "failure_conditions": ["wrong_media", "process_language", "weak_news_peg", "hard_or_mid_sentence_truncation", "orphan_reply_fragment", "missing_canonical_url_semantics", "incomplete_visual_distribution", "missing_public_identity", "unresolved_unknown_write", "wrong_account_or_surface"]
+  "success_policy": "stable identity plus approved text media link account surface and chain readback",
+  "failure_conditions": ["wrong_media", "process_language", "weak_news_peg", "hard_or_mid_sentence_truncation", "orphan_reply_fragment", "missing_canonical_url_semantics", "incomplete_visual_distribution", "missing_public_identity", "unresolved_unknown_write", "wrong_account_or_surface"],
+  "current_public_state": "frozen_manual_audit_partial_pass_blocked_for_targeted_repair",
+  "v1_0_tag_allowed": false
 }

@@ -12,6 +12,8 @@ This file is the first file every AI IDE/CLI builder must read before touching t
 6. [Next task pointer](docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md)
 7. [Platform delivery contract](docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json)
 8. [Edge publishing runbook](docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/operator_browser_lab_runbook.md)
+9. [Generic evidence/freshness/visual/editorial contract](docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/generic_evidence_freshness_visual_editorial_fabric_v2.md)
+10. [RC operator audit findings](docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/operator_manual_audit_findings_v2.json)
 
 ## Authority Order
 
@@ -30,6 +32,7 @@ If status docs conflict with current repo evidence, treat current repo evidence 
 - Canonical backend/read-model logic: `live_contentops/`.
 - Canonical strategy/status docs: `docs/status/` and `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/`.
 - Canonical live runner: `live_contentops.eight_platform_substack_first_pipeline_v1`.
+- Canonical generic local mode: the same runner with `--prepare-generic-fabric`; topic-specific oil/Fed builders are legacy adapters, not the generalized architecture.
 - Canonical browser profile: Microsoft Edge at `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`.
 
 Do not revive deleted or archived UI surfaces as product surfaces unless a newer committed authority file explicitly says so.
@@ -41,6 +44,7 @@ Do not revive deleted or archived UI surfaces as product surfaces unless a newer
 - Under Fast Ship Mode, live executions, network runs, `.env`/credential reads, and automated posting/editing/commenting are fully authorized and prioritized to enable direct no-ceremony shipping. Under normal mode, live dispatch and env access remain restricted to local dry-run boundaries.
 - Fast Ship authorizes only the minimum redacted capability checks needed for execution. It never authorizes printing, logging, persisting, or committing raw environment values, credentials, tokens, provider keys, webhook URLs, cookies, authorization headers, localStorage, sessionStorage, or browser-session secrets.
 - Allowed credential diagnostics: environment-variable names, presence booleans, redacted capability status, and non-secret account/scope readiness.
+- Current public outputs are frozen at `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR`. No live repair or `v1.0` tag is authorized without a newer explicit operator task.
 
 
 ## Task Protocol

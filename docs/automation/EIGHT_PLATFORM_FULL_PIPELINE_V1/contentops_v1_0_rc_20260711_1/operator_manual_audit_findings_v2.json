@@ -1,0 +1,52 @@
+{
+  "schema_version": "contentops.operator_manual_audit_findings.v2",
+  "run_id": "contentops_v1_0_rc_20260711_1",
+  "classification": "MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR",
+  "machine_transport_evidence_preserved": true,
+  "generalized_release_accepted": false,
+  "v1_0_tag_allowed": false,
+  "public_repair_authorized_in_this_task": false,
+  "accepted": {
+    "substack_transport": "public article and three-image transport proved",
+    "telegram": "text, chart, and canonical link visible",
+    "x": "root and ordered two-reply chain structurally good",
+    "facebook_transport": "post and intended chart visible",
+    "instagram_business": "caption, chart, and canonical URL text visible",
+    "threads_corrected_chain": "root and ordered two-reply chain structurally good",
+    "youtube_community": "community text, chart, and canonical link visible",
+    "discord": "message accepted under approved editorial persona The Macro Pigeon"
+  },
+  "caveated": {
+    "discord_identity": "The Macro Pigeon is an approved Capital Chronicle editorial/community persona and must not be renamed to Capital Chronicle.",
+    "linkedin_surface": "LinkedIn is founder-led personal distribution unless future authority explicitly switches to a company page.",
+    "screenshots": "No secret material was exposed in operator screenshots."
+  },
+  "failed": {
+    "linkedin": "Fresh oil run edited historical activity 7481311616265895936 instead of creating a fresh founder-led post.",
+    "facebook_copy": "Awkward generated construction: The relevant transmission channel is Reopened.",
+    "substack_editorial": [
+      "Internal vocabulary such as manifest-bound leaked into public prose.",
+      "Headline pre-war escalated the official source wording pre-conflict."
+    ],
+    "chart_methodology": [
+      "Realized volatility label used a rolling average absolute daily move rather than correctly defined realized volatility.",
+      "Annual-range chart used incomplete 2026 observations without explicit YTD labeling."
+    ],
+    "visual_diversity": "All three visuals were transformations of one FRED WTI series.",
+    "freshness": "Story followed the primary release by several days despite the within-24-hour news policy and did not consume fresher Capital Chronicle market state."
+  },
+  "unresolved": {
+    "historical_linkedin_integrity": "Requires separately authorized restoration and one fresh oil activity.",
+    "malformed_threads_standalone_posts": [
+      {"id": "17967130901934350", "url": "https://www.threads.com/@official.capitalchronicle/post/DaoFORbk9vY"},
+      {"id": "18368836642225190", "url": "https://www.threads.com/@official.capitalchronicle/post/DaoFQMQk33-"}
+    ],
+    "targeted_article_and_chart_repair": "Requires separately authorized live task and re-audit."
+  },
+  "safety": {
+    "public_outputs_frozen": true,
+    "no_secret_material_seen_in_operator_screenshots": true,
+    "no_deletion_authorized": true,
+    "no_tag_created": true
+  }
+}

@@ -1,0 +1,438 @@
+{
+  "as_of_utc": "2026-07-11T02:00:00Z",
+  "blockers": [
+    "capital_chronicle_dqr_reporting_not_allowed",
+    "capital_chronicle_dqr_degraded"
+  ],
+  "bridge_safety": {
+    "network_call_made": false,
+    "secret_files_read": false,
+    "source_repo_modified": false
+  },
+  "candidate_visual_inputs": [
+    {
+      "evidence_dimension": "market_series:DXY",
+      "modality": "time_series",
+      "public_claim_allowed": false,
+      "rights_status": "capital_chronicle_internal_data_visualization_allowed",
+      "role_candidates": [
+        "primary_quantitative_chart",
+        "cross_asset_chart"
+      ],
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.DXY",
+      "underlying_series_ids": [
+        "DXY"
+      ],
+      "visual_input_id": "series:DXY"
+    },
+    {
+      "evidence_dimension": "market_series:Gold_spot",
+      "modality": "time_series",
+      "public_claim_allowed": false,
+      "rights_status": "capital_chronicle_internal_data_visualization_allowed",
+      "role_candidates": [
+        "primary_quantitative_chart",
+        "cross_asset_chart"
+      ],
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.Gold_spot",
+      "underlying_series_ids": [
+        "Gold_spot"
+      ],
+      "visual_input_id": "series:Gold_spot"
+    },
+    {
+      "evidence_dimension": "market_series:SPX_spot",
+      "modality": "time_series",
+      "public_claim_allowed": false,
+      "rights_status": "capital_chronicle_internal_data_visualization_allowed",
+      "role_candidates": [
+        "primary_quantitative_chart",
+        "cross_asset_chart"
+      ],
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.SPX_spot",
+      "underlying_series_ids": [
+        "SPX_spot"
+      ],
+      "visual_input_id": "series:SPX_spot"
+    },
+    {
+      "evidence_dimension": "market_series:US10Y_yield",
+      "modality": "time_series",
+      "public_claim_allowed": false,
+      "rights_status": "capital_chronicle_internal_data_visualization_allowed",
+      "role_candidates": [
+        "primary_quantitative_chart",
+        "cross_asset_chart"
+      ],
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.US10Y_yield",
+      "underlying_series_ids": [
+        "US10Y_yield"
+      ],
+      "visual_input_id": "series:US10Y_yield"
+    },
+    {
+      "evidence_dimension": "market_series:USDJPY",
+      "modality": "time_series",
+      "public_claim_allowed": false,
+      "rights_status": "capital_chronicle_internal_data_visualization_allowed",
+      "role_candidates": [
+        "primary_quantitative_chart",
+        "cross_asset_chart"
+      ],
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.USDJPY",
+      "underlying_series_ids": [
+        "USDJPY"
+      ],
+      "visual_input_id": "series:USDJPY"
+    },
+    {
+      "evidence_dimension": "market_series:VIX",
+      "modality": "time_series",
+      "public_claim_allowed": false,
+      "rights_status": "capital_chronicle_internal_data_visualization_allowed",
+      "role_candidates": [
+        "primary_quantitative_chart",
+        "cross_asset_chart"
+      ],
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.VIX",
+      "underlying_series_ids": [
+        "VIX"
+      ],
+      "visual_input_id": "series:VIX"
+    },
+    {
+      "evidence_dimension": "market_series:WTI_front",
+      "modality": "time_series",
+      "public_claim_allowed": false,
+      "rights_status": "capital_chronicle_internal_data_visualization_allowed",
+      "role_candidates": [
+        "primary_quantitative_chart",
+        "cross_asset_chart"
+      ],
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.WTI_front",
+      "underlying_series_ids": [
+        "WTI_front"
+      ],
+      "visual_input_id": "series:WTI_front"
+    }
+  ],
+  "citation_map": {
+    "market:DXY:20260703T205959Z": [
+      "data/state/current/MarketSnapshot.json#metrics.DXY"
+    ],
+    "market:Gold_spot:20260703T165959Z": [
+      "data/state/current/MarketSnapshot.json#metrics.Gold_spot"
+    ],
+    "market:SPX_spot:20260703T165959Z": [
+      "data/state/current/MarketSnapshot.json#metrics.SPX_spot"
+    ],
+    "market:US10Y_yield:20260702T185956Z": [
+      "data/state/current/MarketSnapshot.json#metrics.US10Y_yield"
+    ],
+    "market:USDJPY:20260703T205855Z": [
+      "data/state/current/MarketSnapshot.json#metrics.USDJPY"
+    ],
+    "market:VIX:20260703T153001Z": [
+      "data/state/current/MarketSnapshot.json#metrics.VIX"
+    ],
+    "market:WTI_front:20260703T165959Z": [
+      "data/state/current/MarketSnapshot.json#metrics.WTI_front"
+    ]
+  },
+  "cross_asset_context": [
+    "market:DXY:20260703T205959Z",
+    "market:Gold_spot:20260703T165959Z",
+    "market:SPX_spot:20260703T165959Z",
+    "market:US10Y_yield:20260702T185956Z",
+    "market:USDJPY:20260703T205855Z",
+    "market:VIX:20260703T153001Z",
+    "market:WTI_front:20260703T165959Z"
+  ],
+  "events": [],
+  "generated_at_utc": "2026-07-10T22:53:17.969476Z",
+  "headlines": [],
+  "market_snapshots": [
+    {
+      "claim_ids": [
+        "market:DXY:20260703T205959Z",
+        "market:Gold_spot:20260703T165959Z",
+        "market:SPX_spot:20260703T165959Z",
+        "market:US10Y_yield:20260702T185956Z",
+        "market:USDJPY:20260703T205855Z",
+        "market:VIX:20260703T153001Z",
+        "market:WTI_front:20260703T165959Z"
+      ],
+      "generated_at_utc": "2026-07-05T06:53:53Z",
+      "market_session_state": "regular",
+      "snapshot_id": "snapshot_20260705T065353Z",
+      "snapshot_quality": "ready",
+      "ttl_policy_seconds": 900
+    }
+  ],
+  "numeric_claims": [
+    {
+      "ask": null,
+      "bid": null,
+      "canonical_symbol": "DXY",
+      "claim_id": "market:DXY:20260703T205959Z",
+      "freshness_class": "fresh",
+      "ingestion_time_utc": "2026-07-05T06:53:53Z",
+      "interval": "latest_committed_observation",
+      "last": 100.857,
+      "llm_numeric_authority": false,
+      "metric": "DXY",
+      "mid": null,
+      "move_since_prior_close": -0.003001,
+      "move_since_prior_close_percent": -0.002975,
+      "observation_time_utc": "2026-07-03T20:59:59Z",
+      "prior_close": 100.86000061035156,
+      "provider_symbol": "dxy_candidate_http",
+      "public_claim_allowed": false,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "session_state": "regular",
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.DXY",
+      "source_authority": "numeric_truth_established",
+      "source_health": "fresh",
+      "source_id": "dxy_candidate_http",
+      "source_method": "http",
+      "unit": "index_points",
+      "value": 100.857
+    },
+    {
+      "ask": null,
+      "bid": null,
+      "canonical_symbol": "Gold_spot",
+      "claim_id": "market:Gold_spot:20260703T165959Z",
+      "freshness_class": "fresh",
+      "ingestion_time_utc": "2026-07-05T06:53:53Z",
+      "interval": "latest_committed_observation",
+      "last": 4175.117,
+      "llm_numeric_authority": false,
+      "metric": "Gold_spot",
+      "mid": null,
+      "move_since_prior_close": 0.168,
+      "move_since_prior_close_percent": 0.004024,
+      "observation_time_utc": "2026-07-03T16:59:59Z",
+      "prior_close": 4174.949,
+      "provider_symbol": "gold_spot_candidate_mt5",
+      "public_claim_allowed": false,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "session_state": "regular",
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.Gold_spot",
+      "source_authority": "numeric_truth_established",
+      "source_health": "fresh",
+      "source_id": "gold_spot_candidate_mt5",
+      "source_method": "cdp",
+      "unit": "usd_per_oz",
+      "value": 4175.117
+    },
+    {
+      "ask": null,
+      "bid": null,
+      "canonical_symbol": "SPX_spot",
+      "claim_id": "market:SPX_spot:20260703T165959Z",
+      "freshness_class": "fresh",
+      "ingestion_time_utc": "2026-07-05T06:53:53Z",
+      "interval": "latest_committed_observation",
+      "last": 7514.27,
+      "llm_numeric_authority": false,
+      "metric": "SPX_spot",
+      "mid": null,
+      "move_since_prior_close": 0.6,
+      "move_since_prior_close_percent": 0.007985,
+      "observation_time_utc": "2026-07-03T16:59:59Z",
+      "prior_close": 7513.67,
+      "provider_symbol": "spx_spot_candidate_mt5",
+      "public_claim_allowed": false,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "session_state": "regular",
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.SPX_spot",
+      "source_authority": "numeric_truth_established",
+      "source_health": "fresh",
+      "source_id": "spx_spot_candidate_mt5",
+      "source_method": "cdp",
+      "unit": "index_points",
+      "value": 7514.27
+    },
+    {
+      "ask": null,
+      "bid": null,
+      "canonical_symbol": "US10Y_yield",
+      "claim_id": "market:US10Y_yield:20260702T185956Z",
+      "freshness_class": "fresh",
+      "ingestion_time_utc": "2026-07-05T06:53:53Z",
+      "interval": "latest_committed_observation",
+      "last": 4.4849997,
+      "llm_numeric_authority": false,
+      "metric": "US10Y_yield",
+      "mid": null,
+      "move_since_prior_close": -0.0,
+      "move_since_prior_close_percent": -1e-05,
+      "observation_time_utc": "2026-07-02T18:59:56Z",
+      "prior_close": 4.485000133514404,
+      "provider_symbol": "us10y_yield_candidate_http",
+      "public_claim_allowed": false,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "session_state": "regular",
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.US10Y_yield",
+      "source_authority": "numeric_truth_established",
+      "source_health": "fresh",
+      "source_id": "us10y_yield_candidate_http",
+      "source_method": "http",
+      "unit": "percent",
+      "value": 4.4849997
+    },
+    {
+      "ask": null,
+      "bid": null,
+      "canonical_symbol": "USDJPY",
+      "claim_id": "market:USDJPY:20260703T205855Z",
+      "freshness_class": "fresh",
+      "ingestion_time_utc": "2026-07-05T06:53:53Z",
+      "interval": "latest_committed_observation",
+      "last": 161.374,
+      "llm_numeric_authority": false,
+      "metric": "USDJPY",
+      "mid": null,
+      "move_since_prior_close": 0.012,
+      "move_since_prior_close_percent": 0.007437,
+      "observation_time_utc": "2026-07-03T20:58:55Z",
+      "prior_close": 161.362,
+      "provider_symbol": "usdjpy_candidate_mt5",
+      "public_claim_allowed": false,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "session_state": "regular",
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.USDJPY",
+      "source_authority": "numeric_truth_established",
+      "source_health": "fresh",
+      "source_id": "usdjpy_candidate_mt5",
+      "source_method": "cdp",
+      "unit": "fx_rate",
+      "value": 161.374
+    },
+    {
+      "ask": null,
+      "bid": null,
+      "canonical_symbol": "VIX",
+      "claim_id": "market:VIX:20260703T153001Z",
+      "freshness_class": "fresh",
+      "ingestion_time_utc": "2026-07-05T06:53:53Z",
+      "interval": "latest_committed_observation",
+      "last": 15.81,
+      "llm_numeric_authority": false,
+      "metric": "VIX",
+      "mid": null,
+      "move_since_prior_close": -0.34,
+      "move_since_prior_close_percent": -2.105261,
+      "observation_time_utc": "2026-07-03T15:30:01Z",
+      "prior_close": 16.149999618530273,
+      "provider_symbol": "vix_candidate_http",
+      "public_claim_allowed": false,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "session_state": "regular",
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.VIX",
+      "source_authority": "numeric_truth_established",
+      "source_health": "fresh",
+      "source_id": "vix_candidate_http",
+      "source_method": "http",
+      "unit": "index_points",
+      "value": 15.81
+    },
+    {
+      "ask": null,
+      "bid": null,
+      "canonical_symbol": "WTI_front",
+      "claim_id": "market:WTI_front:20260703T165959Z",
+      "freshness_class": "fresh",
+      "ingestion_time_utc": "2026-07-05T06:53:53Z",
+      "interval": "latest_committed_observation",
+      "last": 68.78,
+      "llm_numeric_authority": false,
+      "metric": "WTI_front",
+      "mid": null,
+      "move_since_prior_close": 0.089998,
+      "move_since_prior_close_percent": 0.13102,
+      "observation_time_utc": "2026-07-03T16:59:59Z",
+      "prior_close": 68.69000244140625,
+      "provider_symbol": "wti_front_candidate_http",
+      "public_claim_allowed": false,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "session_state": "regular",
+      "source_artifact_ref": "data/state/current/MarketSnapshot.json#metrics.WTI_front",
+      "source_authority": "numeric_truth_established",
+      "source_health": "fresh",
+      "source_id": "wti_front_candidate_http",
+      "source_method": "http",
+      "unit": "usd_per_barrel",
+      "value": 68.78
+    }
+  ],
+  "official_source_documents": [],
+  "packet_id": "cc-evidence-a58887bc8f7183a8",
+  "provenance": {
+    "DataQualityReport.json": {
+      "last_write_time_utc": "2026-07-05T06:47:54.778860Z",
+      "relative_path": "data/state/current/DataQualityReport.json",
+      "sha256": "2ec859a7bfefec4a66a8b11e7ba84014a320e77f048d7db2966d27256ca16772"
+    },
+    "InputStateManifest.json": {
+      "last_write_time_utc": "2026-06-14T16:33:00.500629Z",
+      "relative_path": "data/state/current/InputStateManifest.json",
+      "sha256": "b8b12c18289ec8269527724d478de265d52457a5083949dd9cc55423ef0f65e8"
+    },
+    "MarketHistory.json": {
+      "last_write_time_utc": "2026-07-05T06:53:55.642626Z",
+      "relative_path": "data/state/current/MarketHistory.json",
+      "sha256": "4c697bc111f84f696f1105a792b83f11240b9498b0a709a9e1d3114496d62e04"
+    },
+    "MarketSnapshot.json": {
+      "last_write_time_utc": "2026-07-05T06:53:55.642626Z",
+      "relative_path": "data/state/current/MarketSnapshot.json",
+      "sha256": "511eb69a52bbebd9554a79cd148ffe88213b9337802b8b885ec48a0cf5b71071"
+    },
+    "SourceHealth.json": {
+      "last_write_time_utc": "2026-06-14T16:33:00.499629Z",
+      "relative_path": "data/state/current/SourceHealth.json",
+      "sha256": "797f771ee69d6234fe37ef4d8ebedcbec7efb4dcf527dda70d2c1de3ce930b7a"
+    }
+  },
+  "public_claim_permissions": {
+    "decision": "BLOCK",
+    "llm_numeric_authority": false,
+    "narrative_synthesis_allowed": false,
+    "numeric_claims_allowed": false
+  },
+  "schema_version": "capital_chronicle_content_evidence_packet.v2",
+  "source_state": {
+    "dqr_generated_at_utc": "2026-06-08T23:00:00Z",
+    "dqr_report_id": "dqr_sha256_sha256:e2d6506bf",
+    "dqr_status": "degraded",
+    "input_state_manifest_authority": "lineage_readiness_evidence_only",
+    "reporting_allowed": false,
+    "source_health_generated_at_utc": "2026-06-08T23:00:00Z",
+    "source_health_status": "degraded"
+  },
+  "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+  "story_window": {
+    "end_utc": "2026-07-11T02:00:00Z",
+    "hours": 24,
+    "start_utc": null
+  },
+  "time_series_references": [
+    "data/state/current/MarketSnapshot.json#metrics.DXY",
+    "data/state/current/MarketSnapshot.json#metrics.Gold_spot",
+    "data/state/current/MarketSnapshot.json#metrics.SPX_spot",
+    "data/state/current/MarketSnapshot.json#metrics.US10Y_yield",
+    "data/state/current/MarketSnapshot.json#metrics.USDJPY",
+    "data/state/current/MarketSnapshot.json#metrics.VIX",
+    "data/state/current/MarketSnapshot.json#metrics.WTI_front"
+  ],
+  "validation_blockers": []
+}

@@ -1,13 +1,17 @@
 # V6 Next Task Pointer
 
-Current completed task: `TASK_CONTENTOPS_FINAL_TEXT_IMAGE_PLATFORM_LIVE_LOCK_AND_V1_0_RELEASE_V1`
+Completed: `TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`
 
-Classification: `AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC`
-
-Current evidence: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/`
+Classification: `PASS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`
 
 ## Next Task
 
-`TASK_CONTENTOPS_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC`
+`TASK_CONTENTOPS_TARGETED_LIVE_REPAIR_AND_V1_0_REAUDIT_V1`
 
-Audit the nine frozen text/image surfaces listed in `operator_manual_audit_packet_v1.json`. Do not publish, edit, reply, delete, regenerate, or tag during the audit. Record operator acceptance or exact per-surface defects. Create the v1.0 tag only in a later task after explicit operator acceptance.
+This next task requires separate explicit live authorization. It must be targeted and idempotent, not a broad rerun:
+
+1. Restore historical LinkedIn activity `7481311616265895936` and create exactly one fresh founder-led oil post.
+2. Repair approved article headline/copy, chart methodology, YTD labeling, freshness context, and visual diversity.
+3. Correct Facebook derivative prose.
+4. Obtain operator disposition for malformed Threads posts `17967130901934350` and `18368836642225190` before destructive action.
+5. Re-audit every repaired surface and reassess `v1.0`; do not tag without explicit operator acceptance.

@@ -1,23 +1,20 @@
 # V6 Supersession Map
 
-The current authority is `current_v6_master_plan.md`, the machine status JSON, the platform delivery registry, and the current live evidence packet.
+Current authority is the V6 master plan, machine status JSON, generic fabric contract, platform/identity registries, RC operator audit, and current code/tests.
 
-| Stale claim or model | Current authority |
+| Superseded claim | Current authority |
 | --- | --- |
-| Substack is unpublished or blocked by Chrome file-URL access | Superseded. Substack is public and frozen; uploads use Edge Playwright file chooser/direct input handling. |
-| Chrome or Antigravity profile is a publishing surface | Superseded. Only the dedicated Microsoft Edge ContentOps profile is valid. |
-| Local Markdown/HTML is canonical success | Superseded. Exports are fallback evidence only; Substack public/draft readback is canonical. |
-| Telegram is the article host | Superseded. Telegram is a derivative linking to Substack. |
-| Manual/fixture/pre-live lanes define the product | Superseded. Manual action is recovery context; ContentOps adapters own writes. |
-| Public Substack DOM image selection | Superseded. Exact generated media-manifest binding is mandatory. |
-| Image count proves media success | Superseded. Hash/dimension/role and public visual readback are required. |
-| Hard truncation is an acceptable variant strategy | Superseded. Ordered root/reply chains preserve complete text. |
-| YouTube Short/video represents article distribution | Superseded. YouTube Community text/image/link is the default; video is explicit non-default mode. |
-| API success or clicking Post proves delivery | Superseded. Stable public ID/URL plus text/media/link/account readback is required. |
-| A malformed post can be silently retried | Superseded. Reconcile, edit/comment, then one linked replacement; preserve prior output. |
-| Word-safe character packing is sufficient thread quality | Superseded. V3 requires sentence/paragraph units, balanced replies, section mapping, and three-image distribution. |
-| The historical X/Threads transport PASS proves variant quality | Superseded. Operator audit preserves both as live regression fixtures; the V3 local compiler is the future contract. |
-| Instagram feed captions must expose clickable URLs | Superseded. Exact URL text and CTA are required; clickability is optional capability. |
-| TikTok app keys imply posting readiness | Superseded. OAuth callback, user authorization, tokens, adapter, identity, and app audit remain required. |
+| Nine-surface machine PASS means v1.0 readiness | Operator audit overrides release acceptance: `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR`. |
+| `fed_funds / oil / unsupported` is the canonical story model | Capability-driven story types and evidence requirements are canonical; topic builders are legacy adapters. |
+| Duplicate guard proves news freshness | Duplicate and freshness gates are separate. |
+| Direct FRED/EIA fetchers are future numeric authority | `CapitalChronicleContentEvidencePacketV2` is the canonical consumer boundary. |
+| Three charts from one series meet visual requirements | Require visual/evidence diversity and normally no more than two assets per underlying series. |
+| Average absolute daily move is realized volatility | Realized volatility requires a declared standard-deviation method and annualization. |
+| Incomplete 2026 data is a full annual comparison | Partial periods require YTD/through-date labeling. |
+| Search result ranking grants image provenance or rights | Google grounding is discovery-only; source page, owner, rights, context, and dimensions require independent verification. |
+| Every destination identity must display Capital Chronicle | Approved personas and founder-led surfaces are registry entries; wrong identities still block. |
+| A fresh LinkedIn story may reuse an editable historical activity | Fresh runs require a fresh story activity unless reconciling the exact same story. |
+| Empty Threads parent IDs may degrade to root posts | Reply dispatch fails closed without a parent. |
+| LLM review can certify or override deterministic blockers | Writer cannot self-certify; final reviewer has no publication authority; deterministic blockers win. |
 
-Archived strategy documents remain historical references only. They must link forward to this plan and cannot override current evidence.
+Earlier Chrome, Telegram-host, local-export, arbitrary DOM-image, hard-truncation, video-as-YouTube-default, and click-equals-success models remain superseded as documented by prior commits.

@@ -1,0 +1,93 @@
+{
+  "schema_version": "contentops.generic_fabric_task_completion_evidence.v2",
+  "task_label": "TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2",
+  "classification": "PASS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2",
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "branch": "master",
+  "starting_local_head": "95d1bb67be6daa833430e4ab5305ca7c814cf9c8",
+  "starting_remote_head": "95d1bb67be6daa833430e4ab5305ca7c814cf9c8",
+  "initial_dirty_worktree": ["exports/daily_contentops/fed_funds_policy_signal_article_v1.md"],
+  "excluded_operator_owned_drift": ["exports/daily_contentops/fed_funds_policy_signal_article_v1.md"],
+  "contentops_authority_inspected": [
+    "AGENTS.md",
+    "docs/AI_BUILDER_BOOTSTRAP.md",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md",
+    "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1",
+    "live_contentops/eight_platform_substack_first_pipeline_v1.py",
+    "live_contentops/substack_first_north_star_pipeline_loop_v1.py",
+    "live_contentops/tier1_editorial_quality_v1.py",
+    "live_contentops/media_manifest_authority_v1.py"
+  ],
+  "ingestion_repo_inspected_read_only": {
+    "root": "A:/Capital Chronicle/Headline Raw data local json/capital-chronicle-ingestion",
+    "head": "24dc41a41c80f87e14e05494e55fb5de24ee01d4",
+    "files": [
+      "README.md",
+      "SKILL.md",
+      "schemas/state/MarketSnapshot.schema.json",
+      "schemas/state/InputStateManifest.schema.json",
+      "schemas/state/SourceHealth.schema.json",
+      "schemas/state/DataQualityReport.schema.json",
+      "data/state/current/MarketSnapshot.json",
+      "data/state/current/MarketHistory.json",
+      "data/state/current/DataQualityReport.json",
+      "data/state/current/InputStateManifest.json",
+      "data/state/current/SourceHealth.json",
+      "data/state/current/MarketDataSourceRegistry.json"
+    ],
+    "modified_by_contentops_task": false,
+    "secret_files_read": false
+  },
+  "architecture_decisions": [
+    "Retain eight_platform_substack_first_pipeline_v1 as canonical entrypoint with generic prepare-only mode.",
+    "Use CapitalChronicleContentEvidencePacketV2 as claim-level consumer boundary; no second direct MT5 truth path.",
+    "Keep duplicate and freshness gates separate and cadence-configurable.",
+    "Treat Google web/image grounding as discovery only, never provenance or reuse permission.",
+    "Require visual modality/evidence diversity and quantitative methodology metadata.",
+    "Use eight bounded editorial roles; writer cannot self-certify and model output cannot override deterministic blockers.",
+    "Use a versioned identity registry for brand, approved persona, founder-led, and wrong-account decisions."
+  ],
+  "real_rehearsal": {
+    "path": "docs/automation/V6_GENERIC_EVIDENCE_FABRIC/generic_fabric_v2_real_rehearsal_20260711",
+    "classification": "PASS_GENERIC_FABRIC_FAIL_CLOSED_REHEARSAL",
+    "publication_eligible": false,
+    "expected_blockers": ["DQR reporting permission false", "stale market observation", "stale database ingest", "no fresh material delta"],
+    "public_write_performed": false,
+    "browser_or_cdp_used": false,
+    "platform_adapter_called": false
+  },
+  "validation": {
+    "focused_generic_suite": "19 passed in 1.12s",
+    "canonical_authority_compatibility_suite": "21 passed in 1.50s",
+    "final_relevant_broad_suite": "93 passed in 33.10s",
+    "full_repo_suite": "attempted; timed out after 904 seconds without a terminal pytest result; generated fixture artifacts were removed",
+    "py_compile": "PASS for eight touched Python modules",
+    "json_parse": "PASS for seven authority and registry files",
+    "json_schema": "real evidence packet validates against draft 2020-12 schema",
+    "git_diff_check": "PASS",
+    "task_owned_secret_scan": "PASS; 34 files; zero webhook/token/bearer/private-key-block matches",
+    "telemetry_or_dispatch_ledger_diff": "NONE",
+    "no_v1_0_tag": true,
+    "ci_status": "not available; no CI PASS claim"
+  },
+  "google_official_research": {
+    "search_grounding": "https://ai.google.dev/gemini-api/docs/google-search",
+    "image_search_grounding": "https://ai.google.dev/gemini-api/docs/image-generation",
+    "implemented_api_family": "Gemini Interactions API google_search with web_search and image_search",
+    "live_credential_used": false,
+    "image_generated": false
+  },
+  "rc_operator_status": "MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR",
+  "public_outputs_frozen": true,
+  "v1_0_tag_created": false,
+  "commit_subject": "feat: generalize content evidence freshness and visual editorial fabric",
+  "final_commit_sha": "reported_after_commit_to_avoid_self_referential_hash",
+  "next_task": "TASK_CONTENTOPS_TARGETED_LIVE_REPAIR_AND_V1_0_REAUDIT_V1"
+}

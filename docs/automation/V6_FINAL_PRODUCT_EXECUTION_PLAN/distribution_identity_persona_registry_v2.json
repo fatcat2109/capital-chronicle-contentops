@@ -1,0 +1,15 @@
+{
+  "schema_version": "contentops.distribution_identity_persona_registry.v2",
+  "destinations": {
+    "substack": {"identity_class": "brand_account", "approved_visible_identities": ["Capital Chronicle"]},
+    "telegram": {"identity_class": "brand_account", "approved_visible_identities": ["@CapitalChronicle", "Capital Chronicle"]},
+    "discord": {"identity_class": "approved_editorial_community_persona", "approved_visible_identities": ["The Macro Pigeon"], "brand_relationship": "Capital Chronicle approved community persona"},
+    "x": {"identity_class": "brand_account", "approved_visible_identities": ["@Capitalnicle", "Capital Chronicle"]},
+    "linkedin": {"identity_class": "founder_led_personal_distribution", "approved_visible_identities": ["Jim Pham", "linkedin:jimcc"], "fresh_run_policy": "new_story_requires_fresh_activity_unless_exact_same-story_reconciliation"},
+    "facebook_page": {"identity_class": "brand_account", "approved_visible_identities": ["Capital Chronicle"]},
+    "instagram_business": {"identity_class": "brand_account", "approved_visible_identities": ["official.capitalchronicle"]},
+    "threads": {"identity_class": "brand_account", "approved_visible_identities": ["official.capitalchronicle"]},
+    "youtube_community": {"identity_class": "brand_account", "approved_visible_identities": ["@CapitalChronicleYouTube", "Capital Chronicle"]}
+  },
+  "wrong_identity_behavior": "block_before_write_and_require_operator_reconciliation"
+}

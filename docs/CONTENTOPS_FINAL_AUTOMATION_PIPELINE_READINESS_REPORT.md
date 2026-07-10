@@ -1,48 +1,25 @@
 # ContentOps Final Automation Pipeline Readiness Report
 
-Current RC evidence (2026-07-11): the Substack-first nine-surface text/image run `contentops_v1_0_rc_20260711_1` passed machine QA and is awaiting read-only operator audit. TikTok, YouTube video, and Shorts were excluded; no v1.0 tag has been created.
+Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`. Substack is the canonical article surface, and YouTube Community is the default YouTube text/image derivative; video and Shorts remain separate non-default modes.
 
-Status: V3 reliability hardening PASS with preserved legacy X/Threads live-quality defects
-
-Canonical browser profile: `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`
+Status: `PASS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2` for local architecture; `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR` for the public RC.
 
 ## Proven
 
-- Substack-first publication, three source-backed visuals, canonical URL/readback, and re-entry guard.
-- Deterministic media ID/hash binding and avatar/logo exclusion.
-- Dual deterministic and bounded LLM tier-1 editorial gate, fail-closed schema validation, and clean rendered-body separation. LLM PASS cannot override deterministic blockers.
-- Sentence-aware balanced X/Threads plans with root plus two replies and all three visuals.
-- Exact LinkedIn activity reconciliation and in-place edit without a third post.
-- Platform-accurate Instagram feed URL semantics.
-- Redacted TikTok/YouTube video capability audit with no upload.
+- Substack-first nine-surface text/image transport and strict readback.
+- Read-only ingestion bridge with claim IDs, timestamps, source refs, hashes, DQR permissions, market snapshots, and visual inputs.
+- Separate freshness and duplicate policies.
+- Generic story capability registry across macro, policy, geopolitical, market, supply-chain, regulatory, structural, and company/sector stories.
+- Provider-neutral visual discovery, Google image-search grounding request contract, rights/provenance gate, diversity gate, and quantitative-method gate.
+- Eight bounded editorial roles with independent fail-closed final review.
+- Brand, approved persona, founder-led, and wrong-account identity classes.
 
-Fed fixture results:
+## Not Ready
 
-| Gate | Before | Local revised candidate |
-| --- | ---: | ---: |
-| Tier-1 editorial | 60 | 93 |
-| SEO | 86 | 100 |
+The RC is not v1.0-ready. LinkedIn historical integrity, malformed Threads standalone posts, awkward Facebook copy, internal article vocabulary, headline source calibration, volatility methodology, partial-year labeling, visual diversity, and story freshness require targeted repair and operator re-audit.
 
-The revised candidate is local evidence only. Its bounded LLM review passed all 14 semantic checks and the combined gate passed. The public Substack article was not edited.
+The real ingestion rehearsal is intentionally not publication-eligible because the committed July 5 market state is stale at the July 11 as-of time and DQR reporting permission is false. This is a successful fail-closed result.
 
-## Preserved Live Findings
+## Safety
 
-X transport exists but its six replies contain arbitrary sentence splits and uneven fragments. Threads transport exists but its root lacks the approved chart and replies contain fragments. Neither was modified or reposted in V3. Their corrected local plans are in `planned_semantic_variants_v1.json`.
-
-Both known LinkedIn activities now have verified text, chart, and canonical link after activity `7481311616265895936` was edited in place. Activity `7481289145206644736` remains accepted.
-
-Instagram’s exact canonical URL is visible as caption text. Feed-caption clickability is optional platform capability, not a failure.
-
-## Video Capability Boundary
-
-YouTube Community remains the only default article-distribution route. TikTok native, YouTube long-form, and YouTube Shorts are explicit non-default modes.
-
-TikTok app-key names are present, but OAuth callback/authorization, tokens, `open_id`, runtime refresh, native adapter, account binding, and app audit are incomplete. YouTube long-form and Shorts remain capability-only and blocked from public execution. V3 performed no public or private video upload.
-
-## Remaining Work
-
-1. Render V3 scores, live-quality failures, corrected plans, activity relationships, link semantics, and video capability blockers in `ui/contentops_v5/`.
-2. Complete non-secret TikTok OAuth/callback design and YouTube explicit-mode review.
-3. Use the corrected compiler on a future fresh article only after separate authorization.
-
-Canonical diagnosis map: `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json#failure_resolution_map`.
+This architecture task performed no browser/CDP use, platform write, webhook, comment, reply, edit, deletion, video/TikTok action, or tag creation. No CI PASS is claimed.

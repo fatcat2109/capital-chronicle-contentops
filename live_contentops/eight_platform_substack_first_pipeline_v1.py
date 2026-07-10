@@ -3225,10 +3225,43 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--compile-variants-only", action="store_true")
     parser.add_argument("--finalize-reliability-evidence", action="store_true")
     parser.add_argument("--prepare-only", action="store_true")
+    parser.add_argument("--prepare-generic-fabric", action="store_true")
+    parser.add_argument("--capital-chronicle-root", type=Path)
+    parser.add_argument("--cc-evidence-packet", type=Path)
+    parser.add_argument("--generic-story-request", type=Path)
+    parser.add_argument("--generic-as-of-utc")
+    parser.add_argument("--allow-legacy-topic-adapter", action="store_true")
     parser.add_argument("--build-operator-audit-packet", action="store_true")
     args = parser.parse_args(argv)
     output = args.output_dir or OUTPUT_ROOT / args.run_id
+    if args.prepare_generic_fabric:
+        from live_contentops.generic_editorial_fabric_v2 import run_generic_prepare_only
+
+        if not args.generic_story_request or not args.generic_story_request.is_file():
+            raise ValueError("generic_story_request_required")
+        story_request = _read_json(args.generic_story_request)
+        result = run_generic_prepare_only(
+            output_dir=output,
+            story_request=story_request,
+            capital_chronicle_root=args.capital_chronicle_root,
+            evidence_packet_path=args.cc_evidence_packet,
+            as_of_utc=args.generic_as_of_utc,
+        )
+        print(json.dumps({
+            "classification": result["classification"],
+            "run_id": args.run_id,
+            "publication_eligible": result["publication_eligible"],
+            "public_write_performed": result["public_write_performed"],
+        }, indent=2, sort_keys=True))
+        return 0
     if args.prepare_only:
+        if not args.allow_legacy_topic_adapter:
+            print(json.dumps({
+                "classification": "BLOCKED_LEGACY_TOPIC_ADAPTER_NOT_CANONICAL",
+                "reason": "use_prepare_generic_fabric_or_explicit_legacy_regression_opt_in",
+                "public_write_performed": False,
+            }, indent=2, sort_keys=True))
+            return 2
         result = prepare_text_image_release_candidate(
             run_id=args.run_id,
             output_dir=output,
@@ -3288,6 +3321,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             platforms=args.resume_platform or None,
         )
     else:
+        if not args.allow_legacy_topic_adapter:
+            print(json.dumps({
+                "classification": "BLOCKED_LEGACY_TOPIC_ADAPTER_NOT_CANONICAL",
+                "reason": "fresh_publication_requires_generic_fabric_integration_or_explicit_legacy_regression_opt_in",
+            }, sort_keys=True))
+            return 2
         result = run_eight_platform_substack_first_pipeline(
             run_id=args.run_id,
             output_dir=output,

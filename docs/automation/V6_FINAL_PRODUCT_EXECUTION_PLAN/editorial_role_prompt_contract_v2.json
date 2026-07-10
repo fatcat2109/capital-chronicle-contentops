@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.editorial_role_prompt_contract.v2",
+  "roles": ["assignment_editor", "evidence_planner", "reporter_writer", "quantitative_editor", "visual_editor", "copy_editor", "platform_editor", "adversarial_final_reviewer"],
+  "rules": {
+    "reporter_writer": ["use only approved claim IDs and citation map entries", "never invent numeric truth", "do not self-certify"],
+    "quantitative_editor": ["verify units, frequency, sample window, annualization, transformations, and partial periods"],
+    "visual_editor": ["require useful diversity, provenance, rights, recency, role, caption, alt text, and headline support"],
+    "copy_editor": ["calibrate headline to source wording", "remove internal pipeline vocabulary and awkward templates"],
+    "adversarial_final_reviewer": ["review final rendered article", "return structured PASS or blockers", "publication_authority must be false"]
+  },
+  "deterministic_blockers_override_model_pass": true,
+  "malformed_or_unavailable_review": "fail_closed"
+}

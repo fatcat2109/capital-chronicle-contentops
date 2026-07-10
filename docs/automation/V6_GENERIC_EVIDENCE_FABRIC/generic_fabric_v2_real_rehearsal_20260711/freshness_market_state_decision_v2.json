@@ -1,0 +1,28 @@
+{
+  "blockers": [
+    "capital_chronicle_dqr_reporting_not_allowed",
+    "capital_chronicle_dqr_degraded",
+    "analysis_requires_fresh_material_delta_or_current_reaction",
+    "market_sensitive_story_snapshot_stale_or_missing",
+    "market_sensitive_story_ingest_stale_or_missing"
+  ],
+  "decision": "BLOCK",
+  "duplicate_policy_is_separate": true,
+  "effective_article_mode": "analysis",
+  "event_age_hours": null,
+  "expected_source_cadence": "market_session",
+  "fresh_material_delta": false,
+  "headline_age_hours": null,
+  "latest_database_ingest_age_hours": 139.102,
+  "latest_market_observation_age_hours": 173.0,
+  "market_sensitive": true,
+  "market_session_state": "regular",
+  "primary_source_age_hours": null,
+  "requested_article_mode": "analysis",
+  "schema_version": "contentops.freshness_market_state_decision.v2",
+  "thresholds": {
+    "analysis_market_hours": 24.0,
+    "ingest_hours": 24.0,
+    "straight_news_hours": 24.0
+  }
+}
