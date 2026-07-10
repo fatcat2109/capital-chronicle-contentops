@@ -1,0 +1,464 @@
+{
+  "created_at": "2026-07-10T09:14:29Z",
+  "forbidden_uses": [
+    "market_price_truth",
+    "macro_print_truth",
+    "source_clearance",
+    "trade_signal",
+    "broker_execution_input"
+  ],
+  "headline_examples": [
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP SAYS THERE CAN'T BE A DEADLINE.",
+      "headline_timestamp": "2026-07-08 20:21:16 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP STATED HE WOULD VISIT UKRAINE AND PREFERS AN END TO THE WAR.",
+      "headline_timestamp": "2026-07-08 20:21:13 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP BELIEVES UKRAINE CAN FAST-TRACK PRODUCTION OF PATRIOT MISSILES.",
+      "headline_timestamp": "2026-07-08 20:21:09 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP DOES NOT BELIEVE RUSSIA WILL ATTACK UKRAINE AGAIN AFTER THE WAR ENDS. HE SAID PATRIOT PRODUCTION LICENSES WILL BE QUICK TO OBTAIN, BUT NOT ENOUGH PATRIOTS ARE AVAILABLE FOR U.S. NEEDS.",
+      "headline_timestamp": "2026-07-08 20:21:06 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "central_bank"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_central_bank_statement_or_calendar"
+      ],
+      "headline_text": "IMF OFFICIAL SAYS CENTRAL BANK MESSAGES ARE CRUCIAL IN TIMES OF GREAT UNCERTAINTY.",
+      "headline_timestamp": "2026-07-08 20:21:03 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP DISCUSSES SECURITY GUARANTEE FOR UKRAINE, PROMISING SUPPORT FOR EUROPE WITH A SECURITY PACKAGE IF A GOOD DEAL IS REACHED.",
+      "headline_timestamp": "2026-07-08 20:21:01 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "*TRUMP: DON'T SEE RUSSIA ATTACKING UKRAINE AGAIN AFTER WAR END",
+      "headline_timestamp": "2026-07-08 20:20:44 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "*TRUMP: I WOULD GO TO UKRAINE, WOULD RATHER HAVE THE WAR BE OVER",
+      "headline_timestamp": "2026-07-08 20:19:20 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "*TRUMP: WE DON'T HAVE THAT MANY PATRIOTS, NEED THEM FOR OURSELVES *TRUMP: THINK UKRAINE WILL BE ABLE TO PRODUCE PATRIOTS QUICKLY",
+      "headline_timestamp": "2026-07-08 20:19:02 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "\ud83d\udea8The FBI just got caught with a secret room full of hidden sealed Seth Rich files that they claimed didn\u2019t exist for years. Our Chief White House Correspondent Gary Franchi Reports @nextnews @TrumpDailyPosts",
+      "headline_timestamp": "2026-07-08 20:19:00 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "\ud83d\udea8 Hidden FBI room. Seth Rich files inside. After years of \u201cno records,\u201d the paper trail suddenly appears in a sealed Hoover SCIF tied to burn bags. Who hid them\u2014and why? Comey\u2019s FBI has serious questions to answer. Watch this now. https://t.co/3Kt4CjzlHK",
+      "headline_timestamp": "2026-07-08 11:19:29 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "Trump: Putin wants to meet Zelenskiy in Moscow, not likely.",
+      "headline_timestamp": "2026-07-08 20:17:22 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "Trump on war in Ukraine: Putin wants to meet in Moscow",
+      "headline_timestamp": "2026-07-08 20:17:09 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "RUTTE FROM NATO SAYS HE CONFIDENTLY BELIEVES TRUMP AND THE U.S. ARE FULLY DEDICATED TO NATO.",
+      "headline_timestamp": "2026-07-08 20:17:05 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP SAYS PUTIN WANTS A MEETING IN MOSCOW REGARDING THE UKRAINE WAR.",
+      "headline_timestamp": "2026-07-08 20:17:02 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "NATO'S RUTTE NOTED A STRONG FEELING OF SOLIDARITY AMONG 32 LEADERS IN THE ROOM.",
+      "headline_timestamp": "2026-07-08 20:17:00 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP EXPRESSES DESIRE TO ARRANGE A MEETING REGARDING THE WAR IN UKRAINE SOON.",
+      "headline_timestamp": "2026-07-08 20:16:57 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "NATO WILL INVEST \u20ac27 BILLION TO IMPROVE FUEL SUPPLY LINES, SAYS RUTTE.",
+      "headline_timestamp": "2026-07-08 20:16:54 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP BELIEVES THAT RUSSIA'S TERMS FOR ENDING THE WAR ARE EVOLVING.",
+      "headline_timestamp": "2026-07-08 20:15:46 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "ZELENSKIY INTENDS TO TALK ABOUT A DRONE AGREEMENT WITH TRUMP AND BELIEVES RUSSIAN PEACE CONDITIONS ARE EVOLVING.",
+      "headline_timestamp": "2026-07-08 20:15:43 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "IMF OFFICIAL STRESSES THAT TARIFFS AND GLOBAL SPLIT ARE SIGNIFICANT RISKS, BUT NEW TRADE AGREEMENTS PROVIDE SOME POSITIVE POTENTIAL.",
+      "headline_timestamp": "2026-07-08 20:15:40 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP BELIEVES PUTIN'S TERMS FOR ENDING THE UKRAINE WAR ARE EVOLVING.",
+      "headline_timestamp": "2026-07-08 20:15:36 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP STATED HE DISCUSSES WITH PUTIN FREQUENTLY.",
+      "headline_timestamp": "2026-07-08 20:15:33 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "NATO'S RUTTE SAYS ALLIES ARE MAKING A SIGNIFICANT MOVE TO SECURE FUEL STORAGE FOR THE ALLIANCE.",
+      "headline_timestamp": "2026-07-08 20:15:30 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "IMF Official: Tariffs and fragmentation are important risk, but new trade deals offer some upside.",
+      "headline_timestamp": "2026-07-08 20:14:43 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "*TRUMP: I TALK TO ZELENSKYY A LITTLE LESS THAN PUTIN *TRUMP: TALK WITH PUTIN A LOT *TRUMP: THINK RUSSIA'S CONDITIONS FOR WAR END ARE CHANGING",
+      "headline_timestamp": "2026-07-08 20:14:06 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "MACRON WILL TALK ABOUT SUPPORT FOR UKRAINE'S AIR DEFENSE ON JULY 13.",
+      "headline_timestamp": "2026-07-08 20:13:01 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "MACRON CALLS US TROOP REDEPLOYMENT IN EUROPE 'LEGITIMATE'.",
+      "headline_timestamp": "2026-07-08 20:12:58 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP TO HOLD DISCUSSION WITH PUTIN TODAY.",
+      "headline_timestamp": "2026-07-08 20:12:54 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP STATES WE'LL PROVIDE SECURITY GUARANTEES IN UKRAINE TO SAVE LIVES.",
+      "headline_timestamp": "2026-07-08 20:12:52 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "Trump: I will be speaking with Putin today.",
+      "headline_timestamp": "2026-07-08 20:12:43 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "IMF OFFICIAL WARNED THAT AN INCREASE IN MIDDLE EAST TENSIONS POSES A SIGNIFICANT RISK TO THE WORLD ECONOMY.",
+      "headline_timestamp": "2026-07-08 20:11:15 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP SAYS HE HAS PUT PRESSURE ON PUTIN, WHO ISN'T HAPPY ABOUT IT.",
+      "headline_timestamp": "2026-07-08 20:11:12 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "IMF official: An escalation of the Middle East conflict is a key downside risk facing the global economy",
+      "headline_timestamp": "2026-07-08 20:11:08 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [
+        "official_numeric_source_required_before_truth_use"
+      ],
+      "headline_text": "NVIDIA'S VALUATION IS NOW THE LOWEST IT HAS BEEN DURING THE AI BOOM Nvidia $NVDA is now trading under a 20 price to earnings ratio at its lowest levels since early 2019 - Bloomberg https://t.co/nexPEqNSzg",
+      "headline_timestamp": "2026-07-08 20:10:53 GMT+7"
+    },
+    {
+      "candidate_catalyst_tags": [
+        "geopolitics"
+      ],
+      "follow_up_data_need_candidates": [],
+      "headline_text": "TRUMP SAYS NEGOTIATORS CAN KEEP TALKING WITH IRAN AND WILL SEE HOW IT UNFOLDS.",
+      "headline_timestamp": "2026-07-08 20:09:54 GMT+7"
+    }
+  ],
+  "headline_sidecars_are_catalyst_only": true,
+  "schedule_date": "2026-07-08",
+  "schedule_path": "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
+  "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+  "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+  "slots": [
+    {
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 77,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review",
+        "official-release chart or table screenshot replacement generated from source data"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 1,
+      "source_clearance_authority": false,
+      "source_headline_author": "MikeZaccardi",
+      "source_headline_timestamp": "2026-07-08 19:06:00 GMT+7",
+      "source_needs": [
+        "Federal Reserve policy/communication source",
+        "Primary energy/geopolitical source check before drafting"
+      ],
+      "suggested_article_type": "official_release",
+      "tags": [
+        "central_bank",
+        "energy",
+        "official_central_bank_statement_or_calendar",
+        "official_energy_inventory_or_opec_release"
+      ],
+      "topic": "When oil and yields stop moving together, it signals the Fed's problem has shifted from headline to core... cheaper oil alone won't open the door to cuts -Torst",
+      "urgency_score": 62
+    },
+    {
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 77,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review",
+        "official-release chart or table screenshot replacement generated from source data"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 2,
+      "source_clearance_authority": false,
+      "source_headline_author": "wallstengine",
+      "source_headline_timestamp": "2026-07-08 15:09:56 GMT+7",
+      "source_needs": [
+        "Federal Reserve policy/communication source",
+        "Primary energy/geopolitical source check before drafting"
+      ],
+      "suggested_article_type": "official_release",
+      "tags": [
+        "central_bank",
+        "fiscal",
+        "geopolitics",
+        "official_central_bank_statement_or_calendar",
+        "official_treasury_or_budget_release"
+      ],
+      "topic": "Today's Key Events (All EST) \u2014 07/08/2026 04:00: Trump to speak at Ankara NATO Summit 07:00: US MBA Mortgage Applications 10:00: US Wholesale Inventories MoM Re",
+      "urgency_score": 62
+    },
+    {
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 77,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review",
+        "official-release chart or table screenshot replacement generated from source data"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 3,
+      "source_clearance_authority": false,
+      "source_headline_author": "TrumpTruthOnX",
+      "source_headline_timestamp": "2026-07-08 10:12:56 GMT+7",
+      "source_needs": [
+        "Federal Reserve policy/communication source",
+        "Primary energy/geopolitical source check before drafting"
+      ],
+      "suggested_article_type": "rapid_analysis",
+      "tags": [
+        "central_bank",
+        "geopolitics",
+        "official_central_bank_statement_or_calendar",
+        "official_numeric_source_required_before_truth_use"
+      ],
+      "topic": "Fed Reserve working paper suggests Biden illegal immigrant wave caused 30% of home price increases: https://t.co/GVnfx0HhPi",
+      "urgency_score": 62
+    },
+    {
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 75,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 4,
+      "source_clearance_authority": false,
+      "source_headline_author": "FirstSquawk",
+      "source_headline_timestamp": "2026-07-08 10:02:01 GMT+7",
+      "source_needs": [
+        "EIA energy release/source table",
+        "Primary energy/geopolitical source check before drafting"
+      ],
+      "suggested_article_type": "official_release",
+      "tags": [
+        "energy",
+        "geopolitics",
+        "official_energy_inventory_or_opec_release"
+      ],
+      "topic": "Global oil output to return to pre-Iran war level by year\u2019s end, U.S. EIA says",
+      "urgency_score": 60
+    },
+    {
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 75,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 5,
+      "source_clearance_authority": false,
+      "source_headline_author": "DeItaone",
+      "source_headline_timestamp": "2026-07-08 04:30:21 GMT+7",
+      "source_needs": [
+        "Primary energy/geopolitical source check before drafting",
+        "U.S. Treasury rates/source table"
+      ],
+      "suggested_article_type": "official_release",
+      "tags": [
+        "energy",
+        "fiscal",
+        "geopolitics",
+        "official_energy_inventory_or_opec_release",
+        "official_treasury_or_budget_release"
+      ],
+      "topic": "IRAN'S FOREIGN MINISTRY CONDEMNS U.S. TREASURY MOVE TO REVOKE TEMPORARY SUSPENSION OF SANCTIONS ON IRANIAN OIL SALES -STATEMENT",
+      "urgency_score": 60
+    },
+    {
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 63,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "official-release chart or table screenshot replacement generated from source data"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 6,
+      "source_clearance_authority": false,
+      "source_headline_author": "financialjuice",
+      "source_headline_timestamp": "2026-07-08 20:00:28 GMT+7",
+      "source_needs": [
+        "Federal Reserve policy/communication source"
+      ],
+      "suggested_article_type": "rapid_analysis",
+      "tags": [
+        "central_bank",
+        "official_central_bank_statement_or_calendar"
+      ],
+      "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+      "urgency_score": 50
+    }
+  ]
+}

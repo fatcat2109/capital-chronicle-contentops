@@ -1,0 +1,219 @@
+"""Deterministic derivative-media authority for ContentOps publication runs."""
+from __future__ import annotations
+
+import hashlib
+import io
+import mimetypes
+import re
+import urllib.parse
+import urllib.request
+from pathlib import Path
+from typing import Any, Mapping, Sequence
+
+
+SCHEMA_VERSION = "contentops.delivery_media_manifest.v1"
+MIN_CHART_WIDTH = 800
+MIN_CHART_HEIGHT = 400
+MAX_IMAGE_BYTES = 20 * 1024 * 1024
+PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM = 0.93
+
+_CHART_TITLES = {
+    "primary": "Effective Fed Funds Rate Inside the Policy Corridor",
+    "policy_corridor": "Federal Reserve Administered Rates and Effective Fed Funds",
+    "sofr_context": "Rates Context: Overnight Policy Rate vs Treasury Curve Points",
+}
+_ARTICLE_SECTIONS = {
+    "primary": "lede_and_current_policy_signal",
+    "policy_corridor": "policy_transmission_mechanism",
+    "sofr_context": "cross_asset_and_treasury_curve_context",
+}
+
+
+def sha256_file(path: str | Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def sha256_bytes(value: bytes) -> str:
+    return hashlib.sha256(value).hexdigest()
+
+
+def original_substack_media_url(value: str) -> str:
+    decoded = urllib.parse.unquote(str(value or ""))
+    match = re.search(r"https://substack-post-media\.s3\.amazonaws\.com/public/images/[^?#\s]+", decoded)
+    return match.group(0) if match else str(value or "")
+
+
+def read_public_image_bytes(url: str, *, timeout_seconds: int = 20) -> bytes:
+    request = urllib.request.Request(url, headers={"User-Agent": "CapitalChronicleContentOps/6.0"})
+    with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
+        content_type = str(response.headers.get("Content-Type") or "").lower()
+        if content_type and not content_type.startswith("image/"):
+            raise ValueError("public_media_url_is_not_image")
+        value = response.read(MAX_IMAGE_BYTES + 1)
+    if len(value) > MAX_IMAGE_BYTES:
+        raise ValueError("public_media_exceeds_size_limit")
+    return value
+
+
+def image_metadata_from_bytes(value: bytes) -> dict[str, Any]:
+    from PIL import Image
+
+    image = Image.open(io.BytesIO(value))
+    image.load()
+    mime = Image.MIME.get(image.format or "") or "application/octet-stream"
+    return {"mime_type": mime, "width": int(image.width), "height": int(image.height)}
+
+
+def image_metadata_from_file(path: str | Path) -> dict[str, Any]:
+    from PIL import Image
+
+    target = Path(path)
+    image = Image.open(target)
+    image.load()
+    mime = Image.MIME.get(image.format or "") or mimetypes.guess_type(target.name)[0] or "application/octet-stream"
+    return {"mime_type": mime, "width": int(image.width), "height": int(image.height)}
+
+
+def visual_similarity_to_local_file(value: bytes, local_path: str | Path) -> float:
+    from PIL import Image, ImageChops, ImageFilter, ImageStat
+
+    reference = Image.open(Path(local_path)).convert("RGB").resize((96, 64))
+    rendered = Image.open(io.BytesIO(value)).convert("RGB").resize((96, 64))
+    rgb_difference = ImageChops.difference(reference, rendered)
+    grayscale_difference = ImageChops.difference(reference.convert("L"), rendered.convert("L"))
+    edge_difference = ImageChops.difference(
+        reference.convert("L").filter(ImageFilter.FIND_EDGES),
+        rendered.convert("L").filter(ImageFilter.FIND_EDGES),
+    )
+    rgb_error = sum(float(item) for item in ImageStat.Stat(rgb_difference).mean) / (3.0 * 255.0)
+    grayscale_error = float(ImageStat.Stat(grayscale_difference).mean[0]) / 255.0
+    edge_error = float(ImageStat.Stat(edge_difference).mean[0]) / 255.0
+    return round(max(0.0, 1.0 - (0.50 * rgb_error + 0.20 * grayscale_error + 0.30 * edge_error)), 4)
+
+
+def validate_chart_media_object(media: Mapping[str, Any]) -> list[str]:
+    blockers: list[str] = []
+    path = Path(str(media.get("absolute_local_source_path") or ""))
+    if not path.is_absolute() or not path.is_file():
+        blockers.append("absolute_local_source_path_required")
+    if str(media.get("media_role") or "") != "primary_chart":
+        blockers.append("primary_chart_role_required")
+    width = int(media.get("width") or 0)
+    height = int(media.get("height") or 0)
+    if width < MIN_CHART_WIDTH or height < MIN_CHART_HEIGHT:
+        blockers.append("chart_dimensions_below_threshold")
+    if width and height and 0.90 <= width / height <= 1.10:
+        blockers.append("square_branding_or_avatar_rejected")
+    if not str(media.get("sha256") or ""):
+        blockers.append("media_sha256_required")
+    if not str(media.get("verified_public_delivery_url") or ""):
+        blockers.append("verified_public_delivery_url_required")
+    if media.get("local_public_hash_continuity") is not True:
+        blockers.append("local_public_hash_continuity_required")
+    return blockers
+
+
+def build_delivery_media_manifest(
+    *,
+    media_packet: Mapping[str, Any],
+    public_image_urls: Sequence[str],
+    run_id: str,
+    remote_bytes_by_url: Mapping[str, bytes] | None = None,
+) -> dict[str, Any]:
+    """Bind each approved local chart to an exact public object by SHA-256."""
+    remote_objects: list[dict[str, Any]] = []
+    for supplied_url in public_image_urls:
+        original_url = original_substack_media_url(supplied_url)
+        try:
+            value = bytes((remote_bytes_by_url or {}).get(original_url) or read_public_image_bytes(original_url))
+            metadata = image_metadata_from_bytes(value)
+            remote_objects.append(
+                {
+                    "supplied_url": supplied_url,
+                    "original_url": original_url,
+                    "sha256": sha256_bytes(value),
+                    **metadata,
+                }
+            )
+        except Exception as exc:
+            remote_objects.append(
+                {
+                    "supplied_url": supplied_url,
+                    "original_url": original_url,
+                    "sha256": None,
+                    "error_class": type(exc).__name__,
+                }
+            )
+
+    assets: list[dict[str, Any]] = []
+    blockers: list[str] = []
+    for source in media_packet.get("assets") or []:
+        source_path = Path(str(source.get("path") or source.get("local_path") or "")).resolve()
+        local_exists = source_path.is_file()
+        local_sha = sha256_file(source_path) if local_exists else None
+        declared_sha = str(source.get("sha256") or "") or None
+        metadata = image_metadata_from_file(source_path) if local_exists else {"mime_type": None, "width": 0, "height": 0}
+        public_match = next((item for item in remote_objects if local_sha and item.get("sha256") == local_sha), None)
+        asset_id = str(source.get("asset_id") or "")
+        row = {
+            "media_asset_id": asset_id,
+            "media_role": str(source.get("media_role") or ""),
+            "absolute_local_source_path": str(source_path),
+            "sha256": local_sha,
+            "declared_sha256": declared_sha,
+            "mime_type": metadata.get("mime_type"),
+            "width": metadata.get("width"),
+            "height": metadata.get("height"),
+            "source_provenance": {
+                "status": source.get("provenance_status"),
+                "source_label": source.get("source_label"),
+                "source_page_url": source.get("source_page_url"),
+                "caption": source.get("caption"),
+            },
+            "chart_title": str(source.get("chart_title") or _CHART_TITLES.get(asset_id) or source.get("caption") or ""),
+            "alt_text": str(source.get("alt_text") or ""),
+            "canonical_article_section_association": str(
+                source.get("canonical_article_section_association") or _ARTICLE_SECTIONS.get(asset_id) or asset_id
+            ),
+            "verified_public_delivery_url": public_match.get("original_url") if public_match else None,
+            "public_delivery_sha256": public_match.get("sha256") if public_match else None,
+            "local_public_hash_continuity": bool(public_match and local_sha == public_match.get("sha256")),
+        }
+        assets.append(row)
+        if not local_exists:
+            blockers.append(f"media_file_missing:{asset_id}")
+        if declared_sha and local_sha != declared_sha:
+            blockers.append(f"declared_local_hash_mismatch:{asset_id}")
+        if not public_match:
+            blockers.append(f"public_object_hash_match_missing:{asset_id}")
+
+    primary = next((asset for asset in assets if asset.get("media_role") == "primary_chart"), None)
+    if not primary:
+        blockers.append("primary_chart_missing")
+    else:
+        blockers.extend(validate_chart_media_object(primary))
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "run_id": run_id,
+        "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+        "status": "PASS" if not blockers else "BLOCKED",
+        "blockers": list(dict.fromkeys(blockers)),
+        "minimum_chart_dimensions": {"width": MIN_CHART_WIDTH, "height": MIN_CHART_HEIGHT},
+        "assets": assets,
+        "selected_primary_media_asset_id": primary.get("media_asset_id") if primary else None,
+        "selected_primary_media_sha256": primary.get("sha256") if primary else None,
+        "remote_objects_audited": remote_objects,
+    }
+
+
+def select_primary_chart(manifest: Mapping[str, Any]) -> dict[str, Any]:
+    if manifest.get("status") != "PASS":
+        raise ValueError("delivery_media_manifest_not_pass")
+    primary = next((dict(asset) for asset in manifest.get("assets") or [] if asset.get("media_role") == "primary_chart"), None)
+    if not primary or validate_chart_media_object(primary):
+        raise ValueError("approved_primary_chart_not_available")
+    return primary

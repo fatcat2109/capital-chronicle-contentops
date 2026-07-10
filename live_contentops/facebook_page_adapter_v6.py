@@ -13,6 +13,13 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
+from .media_manifest_authority_v1 import (
+    PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM,
+    read_public_image_bytes,
+    sha256_bytes,
+    visual_similarity_to_local_file,
+)
+
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0"
 GRAPH_VERSION = "v21.0"
 
@@ -51,6 +58,13 @@ def _post_form(url: str, payload: dict[str, Any]) -> tuple[dict[str, Any], int]:
     req.add_header("Content-Type", "application/x-www-form-urlencoded")
     with urllib.request.urlopen(req, timeout=15) as response:
         return json.loads(response.read().decode("utf-8")), len(data)
+
+
+def _get_json(url: str, payload: dict[str, Any]) -> dict[str, Any]:
+    query = urllib.parse.urlencode(payload)
+    request = urllib.request.Request(f"{url}?{query}", method="GET")
+    with urllib.request.urlopen(request, timeout=20) as response:
+        return json.loads(response.read().decode("utf-8"))
 
 
 def compile_facebook_post_payload(message: str, link: str | None = None) -> dict[str, Any]:
@@ -113,6 +127,7 @@ def execute_facebook_photo(
     access_token: str | None = None,
     message: str = "",
     image_url: str = "",
+    expected_media_sha256: str | None = None,
     dry_run: bool = False,
 ) -> dict[str, Any]:
     """Executes a POST request to graph.facebook.com to publish a Page photo."""
@@ -125,6 +140,12 @@ def execute_facebook_photo(
     ]
     if missing:
         return _validation_failed(missing)
+    if expected_media_sha256:
+        try:
+            if sha256_bytes(read_public_image_bytes(image_url)) != expected_media_sha256:
+                return {"status": "VALIDATION_FAILED", "validation_failures": ["media_manifest_hash_continuity_failed"]}
+        except Exception as exc:
+            return {"status": "VALIDATION_FAILED", "validation_failures": [f"media_manifest_url_unreadable:{type(exc).__name__}"]}
 
     url = f"https://graph.facebook.com/{GRAPH_VERSION}/{page_id}/photos"
     payload = compile_facebook_photo_payload(message, image_url)
@@ -152,6 +173,67 @@ def execute_facebook_photo(
 
     classify_and_record_dispatch("facebook_page", "photo", result, (time.perf_counter() - t0) * 1000.0, payload_size)
     return result
+
+
+def readback_facebook_post(
+    *,
+    post_id: str,
+    expected_text: str,
+    canonical_url: str,
+    expected_media_local_path: str,
+    page_id: str | None = None,
+    access_token: str | None = None,
+) -> dict[str, Any]:
+    """Verify message, chart, canonical link, page identity, and permalink."""
+    page_id = _facebook_page_id(page_id)
+    access_token = _facebook_token(access_token)
+    if not post_id or not access_token:
+        return _validation_failed([name for name, value in (("post_id", post_id), ("access_token", access_token)) if not value])
+    try:
+        value = _get_json(
+            f"https://graph.facebook.com/{GRAPH_VERSION}/{post_id}",
+            {
+                "fields": "id,message,permalink_url,full_picture,from",
+                "access_token": access_token,
+            },
+        )
+    except urllib.error.HTTPError as error:
+        return _parse_http_error(error, "FAILED_READBACK")
+    except Exception as error:
+        return {"status": "FAILED_READBACK", "error_class": type(error).__name__}
+    message = " ".join(str(value.get("message") or "").split())
+    title_line = next((line.strip() for line in expected_text.splitlines() if line.strip()), expected_text)
+    picture_url = str(value.get("full_picture") or "")
+    similarity = None
+    if picture_url:
+        try:
+            similarity = visual_similarity_to_local_file(read_public_image_bytes(picture_url), expected_media_local_path)
+        except Exception:
+            similarity = None
+    permalink = str(value.get("permalink_url") or "") or None
+    page_identity_verified = bool(not page_id or str((value.get("from") or {}).get("id") or "") == page_id)
+    verified = bool(
+        title_line.casefold() in message.casefold()
+        and canonical_url in message
+        and similarity is not None
+        and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
+        and permalink
+        and page_identity_verified
+    )
+    return {
+        "status": "SUCCESS" if verified else "FAILED_FACEBOOK_STRICT_READBACK",
+        "platform": "facebook_page",
+        "post_id": str(value.get("id") or post_id),
+        "public_url": permalink,
+        "destination_identity": str((value.get("from") or {}).get("name") or "Capital Chronicle"),
+        "page_identity_verified": page_identity_verified,
+        "visible_body_text": message,
+        "body_text_visible": title_line.casefold() in message.casefold(),
+        "substack_url_visible": canonical_url in message,
+        "meaningful_media_visible": bool(similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM),
+        "expected_chart_visual_similarity": similarity,
+        "public_image_url_present": bool(picture_url),
+    }
 
 
 def execute_facebook_comment(

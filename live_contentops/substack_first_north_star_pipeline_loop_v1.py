@@ -363,12 +363,22 @@ def _media_manifest_from_assets(assets: Sequence[Mapping[str, Any]], *, output_d
             "sha256": _sha256_file(local_path) if local_path.exists() else None,
             "media_class": str(source.get("media_class") or ""),
             "media_role": str(source.get("media_role") or ""),
+            "chart_title": str(source.get("chart_title") or ""),
+            "canonical_article_section_association": str(source.get("canonical_article_section_association") or ""),
             "source_label": str(source.get("source_label") or ""),
             "source_page_url": str(source.get("source_page_url") or ""),
             "provenance_status": str(source.get("provenance_status") or ""),
             "caption": str(source.get("caption") or ""),
             "alt_text": str(source.get("alt_text") or ""),
             "why_selected": str(source.get("why_selected") or ""),
+            # Keep the small numeric/source anchor used to ground any LLM
+            # wording. These fields are provenance, not a second data source.
+            "latest_observation_value": source.get("latest_observation_value"),
+            "latest_observation_date": str(source.get("latest_observation_date") or ""),
+            "prior_observation_value": source.get("prior_observation_value"),
+            "prior_observation_date": str(source.get("prior_observation_date") or ""),
+            "target_lower": source.get("target_lower"),
+            "target_upper": source.get("target_upper"),
         }
         rows.append(row)
         for required in ("asset_id", "source_label", "source_page_url", "provenance_status", "caption", "alt_text"):
@@ -422,6 +432,59 @@ def _grounded_support_blockers(slot: Mapping[str, Any], candidate: Mapping[str, 
     return blockers
 
 
+def _ground_selection_to_media(selection: Mapping[str, Any], media: Mapping[str, Any]) -> dict[str, Any]:
+    """Replace stale LLM numeric wording with the value carried by the chart source."""
+    grounded = dict(selection)
+    primary = next((asset for asset in media.get("assets") or [] if asset.get("asset_id") == "primary"), {})
+    if str(grounded.get("article_family") or "") != "fed_funds":
+        return grounded
+    try:
+        latest_value = float(primary.get("latest_observation_value"))
+    except (TypeError, ValueError):
+        return grounded
+    latest_date = str(primary.get("latest_observation_date") or "").strip()
+    lower = primary.get("target_lower")
+    upper = primary.get("target_upper")
+    original_title = str(grounded.get("title") or "")
+    grounded["llm_title_before_source_grounding"] = original_title
+    grounded["title"] = f"Effective Fed Funds Rate Holds at {latest_value:.2f}% as Policy Calibration Continues"
+    grounded["seo_title"] = f"Effective Fed Funds Rate at {latest_value:.2f}% and the Policy Corridor"
+    grounded["slug"] = f"effective-fed-funds-rate-{latest_value:.2f}-policy-calibration".replace(".", "-")
+    grounded["market_mechanism"] = (
+        "The effective federal funds rate is the volume-weighted median of overnight unsecured transactions "
+        "between depository institutions. Its position inside the policy corridor is evidence about overnight "
+        "rate implementation, while funding spreads and the yield curve provide the broader conditions context."
+    )
+    grounded["policy_context"] = (
+        "The target range and administered rates frame the overnight operating environment. A reading inside that "
+        "corridor shows where the implementation channel is operating, but it does not by itself establish the next "
+        "policy decision or the direction of longer-dated yields."
+    )
+    grounded["cross_asset_implications"] = (
+        "The overnight benchmark matters for cash and short-rate pricing; longer Treasury yields, credit, equities, "
+        "and foreign exchange can still reprice through separate growth, inflation, supply, and risk-premium channels."
+    )
+    if latest_date:
+        grounded["thesis"] = (
+            f"FRED's latest effective federal funds rate reading was {latest_value:.2f}% on {latest_date}. "
+            "The observation shows where the overnight policy-transmission channel is operating, "
+            "but it does not by itself settle the broader financial-conditions outlook."
+        )
+        corridor = ""
+        try:
+            corridor = f" inside the {float(lower):.2f}% to {float(upper):.2f}% target range"
+        except (TypeError, ValueError):
+            pass
+        grounded["dek"] = f"FRED's latest effective federal funds reading was {latest_value:.2f}% on {latest_date}{corridor}, keeping the policy-transmission question in focus."
+    grounded["media_numeric_anchor"] = {
+        "source_asset_id": "primary",
+        "latest_observation_value": latest_value,
+        "latest_observation_date": latest_date or None,
+        "source_grounding_applied": True,
+    }
+    return grounded
+
+
 def select_grounded_article_ready_idea(
     *,
     context: Mapping[str, Any],
@@ -461,6 +524,7 @@ def select_grounded_article_ready_idea(
         if manifest["media_gate_status"] != "PASS" or support_blockers:
             continue
         selected = {**candidate, "topic": str(slot.get("topic") or ""), "angle": str(slot.get("angle") or ""), "tags": list(slot.get("tags") or [])}
+        selected = _ground_selection_to_media(selected, manifest)
         selected["topic_hash"] = build_public_dispatch_topic_hash(selected["topic"], selected["angle"])
         selected["canonicalization_repair"] = _find_uncanonicalized_distribution_repair(selected["topic"])
         support = {
@@ -889,6 +953,16 @@ def complete_substack_first_pipeline(
     message_id = str(telegram_result.get("id") or "")
     if message_id:
         telegram_url = f"https://t.me/CapitalChronicle/{message_id}"
+    telegram_provider_message = (
+        ((telegram_result.get("response") or {}).get("result") or {})
+        if isinstance(telegram_result.get("response"), Mapping)
+        else {}
+    )
+    telegram_caption_url_visible_in_readback = bool(
+        canonical_url
+        and isinstance(telegram_provider_message, Mapping)
+        and canonical_url in str(telegram_provider_message.get("caption") or "")
+    )
     evidence = {
         "schema_version": SCHEMA_VERSION,
         "task_label": TASK_LABEL,
@@ -907,6 +981,7 @@ def complete_substack_first_pipeline(
             "public_url": telegram_url,
             "media_attached": bool(repair or telegram_result.get("action") == "photo"),
             "substack_url_included": bool(canonical_url and canonical_url in caption),
+            "substack_url_visible_in_provider_readback": telegram_caption_url_visible_in_readback,
             "caption_sha256": _sha256_text(caption) if caption else None,
             "duplicate_guard": guard,
             "result_redacted": _redact_telegram_result(telegram_result),

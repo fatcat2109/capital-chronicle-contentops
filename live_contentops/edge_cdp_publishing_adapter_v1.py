@@ -1,0 +1,2830 @@
+"""Direct-CDP publishing adapters bound to the canonical ContentOps Edge profile.
+
+The adapters connect to an already-running Microsoft Edge profile after the
+profile doctor validates ownership. They never clone or read profile files and
+only persist public publication facts and redacted UI outcomes.
+"""
+from __future__ import annotations
+
+import hashlib
+import io
+import re
+import time
+import urllib.parse
+import urllib.request
+from contextlib import contextmanager
+from pathlib import Path
+from typing import Any, Iterator, Mapping, Sequence
+
+from live_contentops.publishing_profile_registry_v1 import (
+    CANONICAL_PROFILE_ID,
+    PublishingProfileError,
+    assert_canonical_edge_cdp,
+)
+
+
+_VISUAL_MARKER_RE = re.compile(r"\[\[VISUAL:([A-Za-z0-9_-]+)\]\]")
+_PRIVATE_SUBSTACK_PATH_MARKER = "/publish/"
+_MEANINGFUL_IMAGE_MIN_WIDTH = 200
+_MEANINGFUL_IMAGE_MIN_HEIGHT = 100
+_LINKEDIN_CHART_SIMILARITY_MINIMUM = 0.78
+_YOUTUBE_COMMUNITY_HANDLE = "@CapitalChronicleYouTube"
+_TECHNICAL_PUBLIC_TEXT_RE = re.compile(
+    r"(?:eight[_ -]?platform[_ -]?live|run[_ -]?id|recovery\d+|docs[\\/]automation|[A-Za-z]:\\)",
+    re.IGNORECASE,
+)
+
+
+def _is_public_substack_url(value: str | None) -> bool:
+    if not value:
+        return False
+    parsed = urllib.parse.urlparse(value)
+    return bool(
+        parsed.scheme == "https"
+        and parsed.netloc.endswith("substack.com")
+        and "/p/" in parsed.path
+        and _PRIVATE_SUBSTACK_PATH_MARKER not in parsed.path
+    )
+
+
+def _absolute_substack_url(value: str | None) -> str | None:
+    if not value:
+        return None
+    if value.startswith("/"):
+        return f"https://capitalchronicle.substack.com{value}"
+    return value
+
+
+def _public_x_url(value: str | None) -> str | None:
+    if not value:
+        return None
+    parsed = urllib.parse.urlparse(value)
+    if parsed.scheme == "https" and parsed.netloc in {"x.com", "www.x.com"} and "/status/" in parsed.path:
+        return value.split("?", 1)[0]
+    return None
+
+
+def _sha256(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def _first_visible(page: Any, selectors: Sequence[str]) -> tuple[Any | None, str | None]:
+    for selector in selectors:
+        try:
+            candidates = page.locator(selector)
+            for index in range(min(candidates.count(), 8)):
+                locator = candidates.nth(index)
+                if locator.is_visible(timeout=1200):
+                    return locator, selector
+        except Exception:
+            continue
+    return None, None
+
+
+def _click_first_visible(page: Any, selectors: Sequence[str]) -> str | None:
+    for start_index, start_selector in enumerate(selectors):
+        locator, selector = _first_visible(page, selectors[start_index:])
+        if not locator:
+            return None
+        try:
+            locator.click(timeout=6000)
+            return selector
+        except Exception:
+            continue
+    return None
+
+
+def _set_first_file_input(page: Any, file_path: str | Path) -> str | None:
+    resolved = str(Path(file_path).resolve())
+    for selector in ("input[type='file']", "[data-testid='fileInput']"):
+        try:
+            for input_locator in page.locator(selector).all():
+                try:
+                    input_locator.set_input_files(resolved, timeout=10000)
+                    return selector
+                except Exception:
+                    continue
+        except Exception:
+            continue
+    return None
+
+
+def _file_input_snapshot(page: Any) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    try:
+        inputs = page.locator("input[type='file']").all()
+    except Exception:
+        return rows
+    for index, locator in enumerate(inputs):
+        try:
+            rows.append(
+                {
+                    "index": index,
+                    "accept": str(locator.get_attribute("accept") or "").lower(),
+                    "disabled": bool(locator.is_disabled(timeout=500)),
+                    "connected": bool(locator.evaluate("node => node.isConnected")),
+                }
+            )
+        except Exception:
+            rows.append({"index": index, "accept": "", "disabled": True, "connected": False})
+    return rows
+
+
+def _accepts_media_kind(accept: str, media_kind: str, *, exclusive: bool = False) -> bool:
+    normalized = str(accept or "").lower()
+    markers = {
+        "image": ("image/", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".heic", ".heif"),
+        "video": ("video/", ".mp4", ".mov", ".webm", ".m4v"),
+    }
+    if media_kind not in markers or not any(marker in normalized for marker in markers[media_kind]):
+        return False
+    if exclusive:
+        other_kind = "video" if media_kind == "image" else "image"
+        if any(marker in normalized for marker in markers[other_kind]):
+            return False
+    return True
+
+
+def _newest_activated_media_input(
+    page: Any,
+    *,
+    before: Sequence[Mapping[str, Any]],
+    media_kind: str,
+    exclusive: bool = False,
+    timeout_seconds: float = 8.0,
+) -> tuple[Any | None, dict[str, Any]]:
+    """Return only a newly created or newly enabled matching file input."""
+    deadline = time.monotonic() + timeout_seconds
+    last_after: list[dict[str, Any]] = []
+    while time.monotonic() < deadline:
+        last_after = _file_input_snapshot(page)
+        try:
+            locators = page.locator("input[type='file']").all()
+        except Exception:
+            locators = []
+        for index in range(len(locators) - 1, -1, -1):
+            state = last_after[index]
+            if state["disabled"] or not state["connected"]:
+                continue
+            if not _accepts_media_kind(str(state["accept"]), media_kind, exclusive=exclusive):
+                continue
+            is_new = index >= len(before)
+            newly_enabled = index < len(before) and bool(before[index].get("disabled"))
+            accept_changed = index < len(before) and str(before[index].get("accept") or "") != str(state["accept"])
+            if is_new or newly_enabled or accept_changed:
+                return locators[index], {
+                    "input_index": index,
+                    "activation": "new_input" if is_new else "newly_enabled_or_retyped_input",
+                    "input_count_before": len(before),
+                    "input_count_after": len(last_after),
+                }
+        time.sleep(0.2)
+    return None, {
+        "input_index": None,
+        "activation": "no_new_or_newly_enabled_matching_input",
+        "input_count_before": len(before),
+        "input_count_after": len(last_after),
+    }
+
+
+def _activate_file_upload(
+    page: Any,
+    *,
+    trigger: Any,
+    file_path: str | Path,
+    media_kind: str,
+    exclusive: bool = False,
+    chooser_timeout_ms: int = 8000,
+) -> dict[str, Any]:
+    """Set a local file through Playwright without interacting with native dialogs."""
+    resolved = Path(file_path).resolve()
+    if not resolved.exists():
+        return {"status": "file_missing", "upload_transport": None}
+    before = _file_input_snapshot(page)
+    chooser = None
+    chooser_error_class = None
+    try:
+        with page.expect_file_chooser(timeout=chooser_timeout_ms) as chooser_info:
+            trigger.click(timeout=6000)
+        chooser = chooser_info.value
+        chooser.set_files(str(resolved))
+        return {
+            "status": "file_set",
+            "upload_transport": "playwright_file_chooser",
+            "native_dialog_automation_used": False,
+            "input_count_before": len(before),
+        }
+    except Exception as exc:
+        chooser_error_class = type(exc).__name__
+        if chooser is not None:
+            try:
+                chooser.set_files([])
+            except Exception:
+                pass
+
+    input_locator, input_meta = _newest_activated_media_input(
+        page,
+        before=before,
+        media_kind=media_kind,
+        exclusive=exclusive,
+    )
+    if input_locator is None:
+        return {
+            "status": "file_input_not_found",
+            "upload_transport": None,
+            "chooser_error_class": chooser_error_class,
+            "native_dialog_automation_used": False,
+            **input_meta,
+        }
+    try:
+        input_locator.set_input_files(str(resolved), timeout=15000)
+    except Exception as exc:
+        return {
+            "status": "set_input_files_failed",
+            "upload_transport": "newest_activated_file_input",
+            "chooser_error_class": chooser_error_class,
+            "set_input_error_class": type(exc).__name__,
+            "native_dialog_automation_used": False,
+            **input_meta,
+        }
+    return {
+        "status": "file_set",
+        "upload_transport": "newest_activated_file_input",
+        "chooser_error_class": chooser_error_class,
+        "native_dialog_automation_used": False,
+        **input_meta,
+    }
+
+
+def _meaningful_image_dimensions(
+    *,
+    rendered_width: float,
+    rendered_height: float,
+    natural_width: float | None = None,
+    natural_height: float | None = None,
+) -> bool:
+    natural_ok = True
+    if natural_width is not None and natural_height is not None:
+        natural_ok = natural_width >= _MEANINGFUL_IMAGE_MIN_WIDTH and natural_height >= _MEANINGFUL_IMAGE_MIN_HEIGHT
+    return bool(
+        rendered_width >= _MEANINGFUL_IMAGE_MIN_WIDTH
+        and rendered_height >= _MEANINGFUL_IMAGE_MIN_HEIGHT
+        and natural_ok
+    )
+
+
+def _editor_image_count(page: Any) -> int:
+    try:
+        return page.locator(".ProseMirror img, div.ProseMirror img").count()
+    except Exception:
+        return 0
+
+
+def _append_editor_text(page: Any, editor: Any, text: str, *, clear: bool = False) -> None:
+    if not text:
+        return
+    editor.click(timeout=6000)
+    if clear:
+        page.keyboard.press("Control+A")
+        page.keyboard.press("Backspace")
+    else:
+        page.keyboard.press("Control+End")
+    # Real keyboard input lets Substack apply its normal paragraph and heading handling.
+    page.keyboard.type(text, delay=0)
+
+
+def _normalise_editor_text(value: str) -> str:
+    without_headings = re.sub(r"(?m)^#{1,6}\s+", "", value or "")
+    # Rich-text input rules can normalize punctuation while preserving the
+    # article itself. Compare stable word tokens for an in-place recovery.
+    return " ".join(re.findall(r"[\w]+", without_headings.casefold()))
+
+
+def _split_substack_body(body_markdown: str) -> list[tuple[str, str]]:
+    parts: list[tuple[str, str]] = []
+    previous = 0
+    for match in _VISUAL_MARKER_RE.finditer(body_markdown or ""):
+        if match.start() > previous:
+            parts.append(("text", body_markdown[previous:match.start()]))
+        parts.append(("visual", match.group(1)))
+        previous = match.end()
+    if previous < len(body_markdown or ""):
+        parts.append(("text", body_markdown[previous:]))
+    return parts or [("text", body_markdown)]
+
+
+def _substack_upload_pending(page: Any) -> bool:
+    return bool(
+        _first_visible(
+            page,
+            (
+                ".ProseMirror [data-testid*='uploading']",
+                ".ProseMirror [class*='uploading']",
+                ".ProseMirror [aria-label*='Uploading']",
+                ".ProseMirror [role='progressbar']",
+            ),
+        )[0]
+    )
+
+
+def _substack_saved(page: Any) -> bool:
+    return bool(_first_visible(page, ("text=Saved", "[data-testid*='saved']"))[0])
+
+
+def _editor_image_readback(image: Any) -> dict[str, Any]:
+    try:
+        dimensions = image.evaluate(
+            "node => ({complete: Boolean(node.complete), naturalWidth: node.naturalWidth || 0, "
+            "naturalHeight: node.naturalHeight || 0, inBody: Boolean(node.closest('.ProseMirror'))})"
+        )
+        box = image.bounding_box() or {}
+        visible = bool(image.is_visible(timeout=1000))
+    except Exception:
+        return {
+            "complete": False,
+            "natural_width": 0,
+            "natural_height": 0,
+            "rendered_width": 0,
+            "rendered_height": 0,
+            "in_article_body": False,
+            "visible": False,
+        }
+    return {
+        "complete": bool(dimensions.get("complete")),
+        "natural_width": int(dimensions.get("naturalWidth") or 0),
+        "natural_height": int(dimensions.get("naturalHeight") or 0),
+        "rendered_width": round(float(box.get("width") or 0), 1),
+        "rendered_height": round(float(box.get("height") or 0), 1),
+        "in_article_body": bool(dimensions.get("inBody")),
+        "visible": visible,
+    }
+
+
+def _upload_substack_image(
+    page: Any,
+    editor: Any,
+    file_path: str | Path,
+    alt_text: str,
+    *,
+    asset_id: str,
+    expected_image_index: int,
+) -> dict[str, Any]:
+    before = _editor_image_count(page)
+    editor.click(timeout=6000)
+    page.keyboard.press("Control+End")
+    toolbar_selector = _click_first_visible(
+        page,
+        (
+            "button[aria-label='Image']",
+            "button[aria-label*='Image']",
+            "button[title*='Image']",
+            "button[title*='image']",
+        ),
+    )
+    if toolbar_selector:
+        time.sleep(0.6)
+    menu_item, menu_selector = _first_visible(
+        page,
+        (
+            "[role='menuitem']:has-text('Image')",
+            "[role='menuitem'] :text-is('Image')",
+            "text=Image",
+        ),
+    )
+    if not menu_item:
+        return {
+            "status": "file_input_not_found",
+            "asset_id": asset_id,
+            "toolbar_selector": toolbar_selector,
+            "menu_selector": menu_selector,
+            "editor_image_count_before": before,
+            "editor_image_count_after": _editor_image_count(page),
+            "alt_text_status": "not_attempted",
+            "native_dialog_automation_used": False,
+        }
+    transfer = _activate_file_upload(
+        page,
+        trigger=menu_item,
+        file_path=file_path,
+        media_kind="image",
+        exclusive=True,
+    )
+    if transfer["status"] != "file_set":
+        return {
+            "status": transfer["status"],
+            "asset_id": asset_id,
+            "toolbar_selector": toolbar_selector,
+            "menu_selector": menu_selector,
+            "editor_image_count_before": before,
+            "editor_image_count_after": _editor_image_count(page),
+            "alt_text_status": "not_attempted",
+            **transfer,
+        }
+    deadline = time.monotonic() + 60
+    after = _editor_image_count(page)
+    image_state: dict[str, Any] = {}
+    while time.monotonic() < deadline:
+        after = _editor_image_count(page)
+        if after == before + 1:
+            image_state = _editor_image_readback(page.locator(".ProseMirror img, div.ProseMirror img").nth(before))
+            meaningful = _meaningful_image_dimensions(
+                rendered_width=float(image_state.get("rendered_width") or 0),
+                rendered_height=float(image_state.get("rendered_height") or 0),
+                natural_width=float(image_state.get("natural_width") or 0),
+                natural_height=float(image_state.get("natural_height") or 0),
+            )
+            if (
+                image_state.get("complete")
+                and image_state.get("visible")
+                and image_state.get("in_article_body")
+                and meaningful
+                and not _substack_upload_pending(page)
+            ):
+                break
+        elif after > before + 1:
+            break
+        time.sleep(0.5)
+
+    alt_status = "not_exposed_by_current_editor"
+    if after == before + 1 and alt_text:
+        try:
+            last_image = page.locator(".ProseMirror img, div.ProseMirror img").nth(before)
+            last_image.click(timeout=3000)
+            alt_input, _alt_selector = _first_visible(
+                page,
+                (
+                    "input[placeholder*='Alt']",
+                    "textarea[placeholder*='Alt']",
+                    "input[aria-label*='Alt']",
+                ),
+            )
+            if alt_input:
+                alt_input.fill(alt_text)
+                page.keyboard.press("Enter")
+                alt_status = "set_in_editor"
+        except Exception:
+            alt_status = "not_exposed_by_current_editor"
+    saved_deadline = time.monotonic() + 30
+    draft_saved = _substack_saved(page)
+    while time.monotonic() < saved_deadline and not draft_saved:
+        time.sleep(0.4)
+        draft_saved = _substack_saved(page)
+    count_exact = after == before + 1
+    intended_position = before == expected_image_index and count_exact
+    meaningful_dimensions = _meaningful_image_dimensions(
+        rendered_width=float(image_state.get("rendered_width") or 0),
+        rendered_height=float(image_state.get("rendered_height") or 0),
+        natural_width=float(image_state.get("natural_width") or 0),
+        natural_height=float(image_state.get("natural_height") or 0),
+    )
+    spinner_cleared = not _substack_upload_pending(page)
+    blockers: list[str] = []
+    if not count_exact:
+        blockers.append("editor_image_count_did_not_increase_by_exactly_one")
+    if not image_state.get("in_article_body"):
+        blockers.append("inserted_image_not_in_article_body")
+    if not meaningful_dimensions:
+        blockers.append("inserted_image_dimensions_below_chart_threshold")
+    if not image_state.get("complete") or not image_state.get("visible"):
+        blockers.append("inserted_image_not_loaded_and_visible")
+    if not spinner_cleared:
+        blockers.append("image_upload_spinner_or_placeholder_present")
+    if not draft_saved:
+        blockers.append("substack_draft_not_saved_after_image_upload")
+    if not intended_position:
+        blockers.append("image_not_at_expected_sequential_marker_position")
+    return {
+        **transfer,
+        "status": "uploaded" if not blockers else "upload_unverified",
+        "asset_id": asset_id,
+        "blockers": blockers,
+        "toolbar_selector": toolbar_selector,
+        "menu_selector": menu_selector,
+        "editor_image_count_before": before,
+        "editor_image_count_after": after,
+        "editor_image_count_increment_exactly_one": count_exact,
+        "inserted_image_index": before if count_exact else None,
+        "intended_marker_position_verified": intended_position,
+        "image_readback": image_state,
+        "meaningful_dimensions_verified": meaningful_dimensions,
+        "upload_spinner_or_placeholder_cleared": spinner_cleared,
+        "draft_saved_after_upload": draft_saved,
+        "alt_text_status": alt_status,
+    }
+
+
+@contextmanager
+def canonical_edge_page(cdp_port: int) -> Iterator[Any]:
+    """Yield a fresh tab attached to validated Edge without closing Edge itself."""
+    assert_canonical_edge_cdp(cdp_port)
+    from playwright.sync_api import sync_playwright
+
+    playwright = sync_playwright().start()
+    page = None
+    try:
+        browser = playwright.chromium.connect_over_cdp(f"http://127.0.0.1:{cdp_port}", timeout=15000)
+        if not browser.contexts:
+            raise PublishingProfileError("canonical_edge_has_no_browser_context")
+        page = browser.contexts[0].new_page()
+        yield page
+    finally:
+        try:
+            if page:
+                page.close()
+        finally:
+            playwright.stop()
+
+
+def capture_public_destination_via_edge(
+    *,
+    cdp_port: int,
+    public_url: str,
+    screenshot_path: str | Path,
+    expected_domain: str,
+) -> dict[str, Any]:
+    """Capture a public destination for visual QA without reading browser storage."""
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        target = Path(screenshot_path)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        page.screenshot(path=str(target), full_page=False)
+        domain = urllib.parse.urlparse(page.url).netloc
+        return {
+            "status": "SUCCESS" if expected_domain in domain else "FAILED_PUBLIC_DESTINATION_DOMAIN_MISMATCH",
+            "requested_public_url": public_url,
+            "final_public_url": page.url,
+            "expected_domain": expected_domain,
+            "final_domain": domain,
+            "public_screenshot_path": str(target),
+            "browser_write_performed": False,
+            "cookies_read": False,
+            "storage_read": False,
+        }
+
+
+def probe_authenticated_platform_session(cdp_port: int, platform: str) -> dict[str, Any]:
+    """Perform a light login/destination check without dumping DOM or session data."""
+    targets = {
+        "substack": ("https://capitalchronicle.substack.com/publish/post", ("a:has-text('Sign in')", "button:has-text('Sign in')"), ("#post-title", "div.ProseMirror", ".ProseMirror")),
+        "x": ("https://x.com/home", ("a[href='/i/flow/login']", "text=Sign in"), ("[data-testid='tweetTextarea_0']", "[data-testid='AppTabBar_Profile_Link']")),
+        "linkedin": ("https://www.linkedin.com/feed/", ("a:has-text('Sign in')", "a:has-text('Join now')"), ("button:has-text('Start a post')", "text=Start a post")),
+        "tiktok": ("https://www.tiktok.com/tiktokstudio/upload", ("text=Log in", "button:has-text('Log in')"), ("input[type='file']", "[data-e2e*='upload']")),
+        "youtube": ("https://studio.youtube.com/", ("a:has-text('Sign in')", "text=Sign in"), ("#create-icon", "ytcp-button#avatar-btn", "ytcp-button[aria-label*='Create']", "ytcp-button[aria-label*='Tạo']", "button[aria-label*='Create']", "button[aria-label*='Tạo']", "text=Channel dashboard")),
+    }
+    if platform not in targets:
+        raise ValueError("unsupported_browser_platform_probe")
+    target_url, login_selectors, authenticated_selectors = targets[platform]
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(target_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(4)
+        login_detected = bool(_first_visible(page, login_selectors)[0])
+        if platform == "tiktok" and "tiktok.com/login" in page.url:
+            login_detected = True
+        authenticated_selector = _first_visible(page, authenticated_selectors)[1]
+        identity = None
+        if platform == "x":
+            profile_link, _selector = _first_visible(page, ("[data-testid='AppTabBar_Profile_Link']",))
+            try:
+                href = profile_link.get_attribute("href") if profile_link else None
+                if href and href.startswith("/") and "/" not in href[1:]:
+                    identity = "@" + href.lstrip("/")
+            except Exception:
+                pass
+        elif platform == "linkedin":
+            link, _selector = _first_visible(page, ("a[href*='/in/']",))
+            try:
+                href = link.get_attribute("href") if link else None
+                match = re.search(r"/in/([^/?#]+)", href or "")
+                if match:
+                    identity = "linkedin:" + match.group(1)
+            except Exception:
+                pass
+        authenticated = bool(authenticated_selector and not login_detected)
+        if platform == "tiktok":
+            authenticated = bool("tiktokstudio/upload" in page.url and authenticated_selector and not login_detected)
+        return {
+            "platform": platform,
+            "profile_id": CANONICAL_PROFILE_ID,
+            "authenticated": authenticated,
+            "login_control_detected": login_detected,
+            "authenticated_ui_selector": authenticated_selector,
+            "destination_identity": identity,
+            "page_domain": urllib.parse.urlparse(page.url).netloc,
+            "cookies_read": False,
+            "storage_read": False,
+            "dom_dump_persisted": False,
+        }
+
+
+def _extract_substack_public_url(page: Any) -> str | None:
+    candidates: list[str] = [page.url]
+    for selector, attribute in (("link[rel='canonical']", "href"), ("meta[property='og:url']", "content")):
+        try:
+            value = page.locator(selector).first.get_attribute(attribute)
+            if value:
+                candidates.append(value)
+        except Exception:
+            continue
+    try:
+        for link in page.locator("a[href*='/p/']").all():
+            value = link.get_attribute("href")
+            if value:
+                candidates.append(value)
+    except Exception:
+        pass
+    for candidate in candidates:
+        absolute = _absolute_substack_url(candidate)
+        if _is_public_substack_url(absolute):
+            return absolute.split("?", 1)[0]
+    return None
+
+
+def _substack_draft_id(url: str) -> str | None:
+    match = re.search(r"/publish/post/(\d+)", url or "")
+    return match.group(1) if match else None
+
+
+def _audit_public_substack_article(page: Any, public_url: str, screenshot_path: str | Path | None) -> dict[str, Any]:
+    page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+    time.sleep(4)
+    image_rows: list[dict[str, Any]] = []
+    for selector in ("article img", "[class*='post'] img"):
+        try:
+            images = page.locator(selector).all()
+            if images:
+                for image in images:
+                    image.scroll_into_view_if_needed(timeout=5000)
+                    time.sleep(0.4)
+                    src = image.get_attribute("src") or ""
+                    if src.startswith("https"):
+                        box = image.bounding_box()
+                        width = float((box or {}).get("width") or 0)
+                        height = float((box or {}).get("height") or 0)
+                        dimensions = image.evaluate(
+                            "node => ({naturalWidth: node.naturalWidth || 0, naturalHeight: node.naturalHeight || 0, complete: Boolean(node.complete)})"
+                        )
+                        natural_width = float(dimensions.get("naturalWidth") or 0)
+                        natural_height = float(dimensions.get("naturalHeight") or 0)
+                        # Ignore author avatars and UI icons; canonical media
+                        # must be a chart-sized in-body image.
+                        if not dimensions.get("complete") or not _meaningful_image_dimensions(
+                            rendered_width=width,
+                            rendered_height=height,
+                            natural_width=natural_width,
+                            natural_height=natural_height,
+                        ):
+                            continue
+                        document_top = float(
+                            image.evaluate("node => node.getBoundingClientRect().top + window.scrollY") or 0
+                        )
+                        image_rows.append(
+                            {
+                                "src": src,
+                                "top": round(document_top, 1),
+                                "width": round(width, 1),
+                                "height": round(height, 1),
+                                "natural_width": int(natural_width),
+                                "natural_height": int(natural_height),
+                                "alt_present": bool((image.get_attribute("alt") or "").strip()),
+                            }
+                        )
+                if image_rows:
+                    break
+        except Exception:
+            continue
+    image_rows = list({row["src"]: row for row in image_rows}.values())
+    tops = sorted(row["top"] for row in image_rows)
+    visual_spread = len(tops) >= 3 and all((right - left) >= 240 for left, right in zip(tops, tops[1:]))
+    saved_screenshot = None
+    if screenshot_path:
+        path = Path(screenshot_path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        page.screenshot(path=str(path), full_page=True)
+        saved_screenshot = str(path)
+    return {
+        "public_url": public_url,
+        "public_image_count": len(image_rows),
+        "public_image_urls": [row["src"] for row in image_rows[:3]],
+        "public_image_alt_count": sum(1 for row in image_rows if row["alt_present"]),
+        "visual_spread_through_public_body": visual_spread,
+        "public_screenshot_path": saved_screenshot,
+    }
+
+
+def readback_public_substack_article_via_edge(
+    *,
+    cdp_port: int,
+    public_url: str,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Refresh public media readback without opening or publishing an editor draft."""
+    if not _is_public_substack_url(public_url):
+        return {"status": "BLOCKED_INVALID_PUBLIC_SUBSTACK_URL", "platform": "substack"}
+    with canonical_edge_page(cdp_port) as page:
+        readback = _audit_public_substack_article(page, public_url, public_screenshot_path)
+    return {"status": "SUCCESS", "platform": "substack", "public_url": public_url, "readback": readback}
+
+
+def publish_substack_article_via_edge(
+    *,
+    cdp_port: int,
+    title: str,
+    subtitle: str,
+    body_markdown: str,
+    image_assets: Sequence[Mapping[str, Any]],
+    public_screenshot_path: str | Path | None = None,
+    existing_draft_id: str | None = None,
+) -> dict[str, Any]:
+    """Publish one canonical article with source-backed images embedded in order."""
+    assets = {str(item.get("asset_id") or ""): dict(item) for item in image_assets}
+    expected_ids = _VISUAL_MARKER_RE.findall(body_markdown)
+    if len(expected_ids) < 3 or len(set(expected_ids)) < 3 or list(assets) != expected_ids:
+        return {"status": "BLOCKED_INVALID_SUBSTACK_MEDIA_MANIFEST", "platform": "substack"}
+    for asset_id in expected_ids:
+        if not Path(str(assets[asset_id].get("local_path") or assets[asset_id].get("path") or "")).exists():
+            return {"status": "BLOCKED_SUBSTACK_LOCAL_MEDIA_MISSING", "platform": "substack", "asset_id": asset_id}
+
+    with canonical_edge_page(cdp_port) as page:
+        editor_url = "https://capitalchronicle.substack.com/publish/post"
+        if existing_draft_id:
+            editor_url = f"{editor_url}/{existing_draft_id}"
+        page.goto(editor_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(3)
+        title_input, title_selector = _first_visible(page, ("#post-title", "input[name='title']", "input[placeholder*='Title']"))
+        editor, editor_selector = _first_visible(page, ("div.ProseMirror", ".ProseMirror", "div[contenteditable='true']"))
+        if not title_input or not editor:
+            return {"status": "BLOCKED_SUBSTACK_EDITOR_NOT_READY", "platform": "substack", "title_selector": title_selector, "editor_selector": editor_selector}
+        if existing_draft_id:
+            existing_title = title_input.input_value(timeout=3000).strip()
+            if existing_title and existing_title != title:
+                return {"status": "BLOCKED_SUBSTACK_RESUME_DRAFT_TITLE_MISMATCH", "platform": "substack", "draft_id": existing_draft_id}
+            if not existing_title:
+                title_input.fill(title)
+        else:
+            title_input.fill(title)
+        subtitle_input, _subtitle_selector = _first_visible(page, ("textarea[placeholder*='subtitle']", "textarea[placeholder*='Subtitle']", "#post-subtitle"))
+        if subtitle and subtitle_input:
+            subtitle_input.fill(subtitle)
+
+        segments = _split_substack_body(body_markdown)
+        upload_rows: list[dict[str, Any]] = []
+        first_text = True
+        resume_segment_index = 0
+        if existing_draft_id:
+            existing_text = _normalise_editor_text(editor.inner_text(timeout=3000) or "")
+            expected_intro = _normalise_editor_text(segments[0][1] if segments and segments[0][0] == "text" else "")
+            if _editor_image_count(page) == 0 and expected_intro and expected_intro[:500] in existing_text:
+                resume_segment_index = 1
+                first_text = False
+            elif existing_text:
+                return {
+                    "status": "BLOCKED_SUBSTACK_RESUME_DRAFT_BODY_UNRECOGNIZED",
+                    "platform": "substack",
+                    "draft_id": existing_draft_id,
+                    "editor_body_image_count": _editor_image_count(page),
+                }
+        for kind, value in segments[resume_segment_index:]:
+            if kind == "text":
+                _append_editor_text(page, editor, value, clear=first_text)
+                first_text = False
+                continue
+            asset = assets[value]
+            local_path = str(asset.get("local_path") or asset.get("path"))
+            upload = _upload_substack_image(
+                page,
+                editor,
+                local_path,
+                str(asset.get("alt_text") or ""),
+                asset_id=value,
+                expected_image_index=expected_ids.index(value),
+            )
+            upload_rows.append(dict(upload))
+            if upload["status"] != "uploaded":
+                return {
+                    "status": "FAILED_SUBSTACK_IMAGE_UPLOAD",
+                    "platform": "substack",
+                    "draft_id": _substack_draft_id(page.url),
+                    "editor_body_image_count": _editor_image_count(page),
+                    "upload_rows": upload_rows,
+                }
+            _append_editor_text(page, editor, "\n\n")
+
+        editor_image_count = _editor_image_count(page)
+        if editor_image_count < 3:
+            return {"status": "FAILED_SUBSTACK_EDITOR_IMAGE_COUNT", "platform": "substack", "draft_id": _substack_draft_id(page.url), "editor_body_image_count": editor_image_count, "upload_rows": upload_rows}
+        editor_text = _normalise_editor_text(editor.inner_text(timeout=5000) or "")
+        missing_captions = [
+            asset_id
+            for asset_id in expected_ids
+            if _normalise_editor_text(str(assets[asset_id].get("caption") or "")) not in editor_text
+        ]
+        if missing_captions:
+            return {
+                "status": "FAILED_SUBSTACK_CAPTION_READBACK",
+                "platform": "substack",
+                "draft_id": _substack_draft_id(page.url),
+                "editor_body_image_count": editor_image_count,
+                "missing_caption_asset_ids": missing_captions,
+                "upload_rows": upload_rows,
+            }
+        time.sleep(3)
+        draft_id = _substack_draft_id(page.url)
+        continue_selector = _click_first_visible(page, ("button:has-text('Continue')", "button:has-text('Publish...')", "button:has-text('Publish')"))
+        if continue_selector:
+            time.sleep(3)
+        publish_selector = _click_first_visible(page, ("button:has-text('Send to everyone now')", "button:has-text('Publish now')", "button:has-text('Publish post now')"))
+        if not publish_selector:
+            return {"status": "BLOCKED_SUBSTACK_PUBLISH_CONTROL_NOT_FOUND", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows}
+        time.sleep(4)
+        _click_first_visible(page, ("button:has-text('Publish without buttons')", "button:has-text('Confirm')", "button:has-text('Publish now')"))
+        time.sleep(8)
+        public_url = _extract_substack_public_url(page)
+        if not public_url:
+            try:
+                page.goto("https://capitalchronicle.substack.com/publish/posts", wait_until="domcontentloaded", timeout=45000)
+                time.sleep(3)
+                for link in page.locator("a[href*='/p/']").all():
+                    if title.lower() in (link.inner_text(timeout=1200) or "").lower():
+                        public_url = _absolute_substack_url(link.get_attribute("href"))
+                        if _is_public_substack_url(public_url):
+                            break
+            except Exception:
+                public_url = None
+        if not _is_public_substack_url(public_url):
+            return {"status": "FAILED_SUBSTACK_PUBLIC_URL_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows}
+        readback = _audit_public_substack_article(page, public_url, public_screenshot_path)
+        if readback["public_image_count"] < 3 or not readback["visual_spread_through_public_body"]:
+            return {"status": "FAILED_SUBSTACK_PUBLIC_VISUAL_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows, "public_url": public_url, "readback": readback}
+        return {
+            "status": "SUCCESS",
+            "platform": "substack",
+            "action": "publish",
+            "draft_id": draft_id,
+            "public_url": public_url,
+            "editor_body_image_count": editor_image_count,
+            "in_body_visual_asset_ids": expected_ids,
+            "upload_rows": upload_rows,
+            "readback": readback,
+        }
+
+
+def _x_permalink_from_profile(page: Any, handle: str | None, expected_text: str) -> str | None:
+    if not handle:
+        return None
+    page.goto(f"https://x.com/{handle.lstrip('@')}", wait_until="domcontentloaded", timeout=45000)
+    time.sleep(5)
+    needle = expected_text[:80].lower()
+    for article in page.locator("article").all():
+        try:
+            if needle not in (article.inner_text(timeout=1200) or "").lower():
+                continue
+            for link in article.locator("a[href*='/status/']").all():
+                href = link.get_attribute("href")
+                candidate = f"https://x.com{href}" if href and href.startswith("/") else href
+                public_url = _public_x_url(candidate)
+                if public_url:
+                    return public_url
+        except Exception:
+            continue
+    return None
+
+
+def publish_x_post_via_edge(*, cdp_port: int, text: str, image_path: str | Path | None = None) -> dict[str, Any]:
+    if len(text) > 280:
+        return {"status": "BLOCKED_X_TEXT_OVER_280_CHARACTERS", "platform": "x"}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto("https://x.com/home", wait_until="domcontentloaded", timeout=45000)
+        time.sleep(3)
+        profile_link, _profile_selector = _first_visible(page, ("[data-testid='AppTabBar_Profile_Link']",))
+        handle = None
+        try:
+            href = profile_link.get_attribute("href") if profile_link else None
+            if href and href.startswith("/"):
+                handle = href.strip("/")
+        except Exception:
+            pass
+        page.goto("https://x.com/compose/post", wait_until="domcontentloaded", timeout=45000)
+        time.sleep(2)
+        composer, composer_selector = _first_visible(page, ("[data-testid='tweetTextarea_0']", "div[role='textbox'][data-testid*='tweetTextarea']"))
+        if not composer:
+            return {"status": "BLOCKED_X_COMPOSER_NOT_READY", "platform": "x", "composer_selector": composer_selector, "destination_identity": "@" + handle if handle else None}
+        composer.click()
+        page.keyboard.type(text, delay=0)
+        media_status = "not_requested"
+        if image_path:
+            selector = _set_first_file_input(page, image_path)
+            media_status = "uploaded" if selector else "file_input_not_found"
+            if not selector:
+                return {"status": "FAILED_X_MEDIA_UPLOAD", "platform": "x", "destination_identity": "@" + handle if handle else None, "media_status": media_status}
+            time.sleep(4)
+        post_selector = _click_first_visible(page, ("[data-testid='tweetButton']", "[data-testid='tweetButtonInline']"))
+        if not post_selector:
+            return {"status": "BLOCKED_X_POST_CONTROL_NOT_FOUND", "platform": "x", "destination_identity": "@" + handle if handle else None, "media_status": media_status}
+        time.sleep(6)
+        public_url = _x_permalink_from_profile(page, handle, text)
+        if not public_url:
+            return {"status": "FAILED_X_PERMALINK_READBACK", "platform": "x", "destination_identity": "@" + handle if handle else None, "media_status": media_status, "payload_sha256": _sha256(text)}
+        return {"status": "SUCCESS", "platform": "x", "action": "post", "public_url": public_url, "post_id": public_url.rsplit("/", 1)[-1], "destination_identity": "@" + handle if handle else None, "media_status": media_status, "payload_sha256": _sha256(text)}
+
+
+def _x_article_for_status(page: Any, status_id: str) -> Any | None:
+    for article in page.locator("article").all():
+        try:
+            if article.locator(f"a[href*='/status/{status_id}']").count():
+                return article
+        except Exception:
+            continue
+    return None
+
+
+def publish_x_reply_via_edge(*, cdp_port: int, parent_url: str, text: str) -> dict[str, Any]:
+    if len(text) > 280 or "..." in text:
+        return {"status": "BLOCKED_X_REPLY_PAYLOAD_INVALID", "platform": "x"}
+    parent_id = str(parent_url).rstrip("/").rsplit("/", 1)[-1]
+    if not parent_id.isdigit():
+        return {"status": "BLOCKED_X_REPLY_PARENT_INVALID", "platform": "x"}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(parent_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        composer, composer_selector = _first_visible(
+            page,
+            (
+                "[data-testid='tweetTextarea_0']",
+                "div[role='textbox'][data-testid*='tweetTextarea']",
+            ),
+        )
+        if not composer:
+            return {"status": "BLOCKED_X_REPLY_COMPOSER_NOT_READY", "platform": "x", "parent_id": parent_id}
+        composer.click(timeout=6000)
+        page.keyboard.insert_text(text)
+        reply_selector = _click_first_visible(page, ("[data-testid='tweetButtonInline']", "[data-testid='tweetButton']"))
+        if not reply_selector:
+            return {"status": "BLOCKED_X_REPLY_CONTROL_NOT_FOUND", "platform": "x", "parent_id": parent_id, "composer_selector": composer_selector}
+        time.sleep(7)
+        reply_url = None
+        needle = _normalised_visible_text(text).casefold()[:90]
+        for article in page.locator("article").all():
+            try:
+                if needle not in _normalised_visible_text(article.inner_text(timeout=1500)).casefold():
+                    continue
+                for link in article.locator("a[href*='/status/']").all():
+                    href = str(link.get_attribute("href") or "")
+                    candidate = _public_x_url("https://x.com" + href if href.startswith("/") else href)
+                    if candidate and not candidate.rstrip("/").endswith("/" + parent_id):
+                        reply_url = candidate
+                        break
+                if reply_url:
+                    break
+            except Exception:
+                continue
+        if not reply_url:
+            return {"status": "FAILED_X_REPLY_PERMALINK_READBACK", "platform": "x", "parent_id": parent_id, "payload_sha256": _sha256(text)}
+        return {
+            "status": "SUCCESS",
+            "platform": "x",
+            "action": "reply",
+            "parent_id": parent_id,
+            "parent_url": parent_url,
+            "post_id": reply_url.rstrip("/").rsplit("/", 1)[-1],
+            "public_url": reply_url,
+            "payload_sha256": _sha256(text),
+        }
+
+
+def readback_x_thread_via_edge(
+    *,
+    cdp_port: int,
+    root_url: str,
+    canonical_url: str,
+    expected_chart_path: str | Path,
+    replies: Sequence[Mapping[str, Any]],
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    root_id = str(root_url).rstrip("/").rsplit("/", 1)[-1]
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(root_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        root = _x_article_for_status(page, root_id)
+        root_text = _normalised_visible_text(root.inner_text(timeout=2500)) if root else ""
+        root_image, root_media = _meaningful_image_in_scope(root) if root else (None, None)
+        chart_similarity = _visual_similarity_to_local_image(root_image, expected_chart_path) if root_image else None
+        ordered: list[dict[str, Any]] = []
+        for index, reply in enumerate(replies, start=1):
+            reply_url = str(reply.get("public_url") or "")
+            reply_id = reply_url.rstrip("/").rsplit("/", 1)[-1]
+            try:
+                page.goto(reply_url, wait_until="domcontentloaded", timeout=45000)
+                time.sleep(3)
+                article = _x_article_for_status(page, reply_id)
+                visible = _normalised_visible_text(article.inner_text(timeout=2000)) if article else ""
+                parent_visible = bool(_x_article_for_status(page, str(reply.get("parent_id") or "")))
+            except Exception:
+                visible = ""
+                parent_visible = False
+            expected = _normalised_visible_text(str(reply.get("text") or ""))
+            ordered.append(
+                {
+                    "order": index,
+                    "id": reply_id,
+                    "public_url": reply_url,
+                    "parent_id": reply.get("parent_id"),
+                    "text_verified": bool(expected and expected.casefold() in visible.casefold()),
+                    "parent_child_verified": parent_visible,
+                }
+            )
+        screenshot = None
+        page.goto(root_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(3)
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+        canonical_visible = _canonical_reference_visible(root_text, canonical_url)
+        verified = bool(
+            root
+            and canonical_visible
+            and chart_similarity is not None
+            and chart_similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM
+            and ordered
+            and all(row["text_verified"] and row["parent_child_verified"] for row in ordered)
+        )
+        return {
+            "status": "SUCCESS" if verified else "FAILED_X_THREAD_STRICT_READBACK",
+            "platform": "x",
+            "root_id": root_id,
+            "root_public_url": root_url,
+            "root_visible_text": root_text,
+            "substack_url_visible": canonical_visible,
+            "meaningful_media_visible": bool(chart_similarity is not None and chart_similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM),
+            "expected_chart_visual_similarity": chart_similarity,
+            "ordered_replies": ordered,
+            "reply_chain_complete": bool(ordered and all(row["text_verified"] and row["parent_child_verified"] for row in ordered)),
+            "public_screenshot_path": screenshot,
+        }
+
+
+def _normalised_visible_text(value: str) -> str:
+    return " ".join(str(value or "").split())
+
+
+def _canonical_reference_visible(value: str, canonical_url: str) -> bool:
+    normalized = _normalised_visible_text(value)
+    if canonical_url in normalized:
+        return True
+    compact = re.sub(r"\s+", "", normalized)
+    parsed = urllib.parse.urlparse(canonical_url)
+    visible_prefix = f"{parsed.netloc}{parsed.path[:28]}"
+    return visible_prefix.casefold() in compact.casefold()
+
+
+def _meaningful_image_in_scope(scope: Any) -> tuple[Any | None, dict[str, Any] | None]:
+    try:
+        images = scope.locator("img").all()
+    except Exception:
+        return None, None
+    for image in images:
+        try:
+            if not image.is_visible(timeout=500):
+                continue
+            dimensions = image.evaluate(
+                "node => ({complete: Boolean(node.complete), naturalWidth: node.naturalWidth || 0, "
+                "naturalHeight: node.naturalHeight || 0})"
+            )
+            box = image.bounding_box() or {}
+            if dimensions.get("complete") and _meaningful_image_dimensions(
+                rendered_width=float(box.get("width") or 0),
+                rendered_height=float(box.get("height") or 0),
+                natural_width=float(dimensions.get("naturalWidth") or 0),
+                natural_height=float(dimensions.get("naturalHeight") or 0),
+            ):
+                return image, {
+                    "natural_width": int(dimensions.get("naturalWidth") or 0),
+                    "natural_height": int(dimensions.get("naturalHeight") or 0),
+                    "rendered_width": round(float(box.get("width") or 0), 1),
+                    "rendered_height": round(float(box.get("height") or 0), 1),
+                }
+        except Exception:
+            continue
+    return None, None
+
+
+def _visual_similarity_to_local_image(image: Any, reference_path: str | Path) -> float | None:
+    """Compare a rendered provider image with a local source chart."""
+    try:
+        from PIL import Image, ImageChops, ImageFilter, ImageStat
+
+        reference = Image.open(Path(reference_path)).convert("RGB").resize((96, 64))
+        rendered = Image.open(io.BytesIO(image.screenshot(type="png"))).convert("RGB").resize((96, 64))
+        grayscale_difference = ImageChops.difference(reference.convert("L"), rendered.convert("L"))
+        edge_difference = ImageChops.difference(
+            reference.convert("L").filter(ImageFilter.FIND_EDGES),
+            rendered.convert("L").filter(ImageFilter.FIND_EDGES),
+        )
+        grayscale_error = float(ImageStat.Stat(grayscale_difference).mean[0]) / 255.0
+        edge_error = float(ImageStat.Stat(edge_difference).mean[0]) / 255.0
+        return round(max(0.0, 1.0 - (0.35 * grayscale_error + 0.65 * edge_error)), 4)
+    except Exception:
+        return None
+
+
+def _linkedin_cards(page: Any) -> list[Any]:
+    for selector in (
+        ".feed-shared-update-v2[data-urn*='urn:li:activity:']",
+        "[data-urn^='urn:li:activity:']",
+        "article",
+    ):
+        try:
+            cards = page.locator(selector).all()
+        except Exception:
+            continue
+        if cards:
+            return cards
+    return []
+
+
+def _linkedin_card_urn(card: Any) -> str | None:
+    try:
+        urn = str(card.get_attribute("data-urn") or "")
+        if urn.startswith("urn:li:activity:"):
+            return urn
+    except Exception:
+        pass
+    try:
+        nested = card.locator("[data-urn^='urn:li:activity:']").first
+        urn = str(nested.get_attribute("data-urn") or "") if nested.count() else ""
+        return urn if urn.startswith("urn:li:activity:") else None
+    except Exception:
+        return None
+
+
+def _linkedin_card_permalink(card: Any) -> str | None:
+    urn = _linkedin_card_urn(card)
+    if urn:
+        return f"https://www.linkedin.com/feed/update/{urn}/"
+    try:
+        for link in card.locator("a[href*='/feed/update/'], a[href*='/posts/']").all():
+            href = str(link.get_attribute("href") or "")
+            if href.startswith("/"):
+                href = "https://www.linkedin.com" + href
+            if href.startswith("https://www.linkedin.com/"):
+                return href.split("?", 1)[0]
+    except Exception:
+        pass
+    return None
+
+
+def _linkedin_commentary_text(card: Any) -> str:
+    for selector in (
+        "[data-testid='main-feed-activity-card__commentary']",
+        ".update-components-text",
+        ".feed-shared-update-v2__description-wrapper",
+        ".feed-shared-update-v2__description",
+    ):
+        try:
+            locator = card.locator(selector).first
+            if locator.count() and locator.is_visible(timeout=500):
+                value = _normalised_visible_text(locator.inner_text(timeout=1500))
+                if value:
+                    return value
+        except Exception:
+            continue
+    return ""
+
+
+def _linkedin_card_author_matches(card: Any, expected_profile_slug: str) -> bool:
+    try:
+        if card.locator(f"a[href*='/in/{expected_profile_slug}']").count():
+            return True
+    except Exception:
+        pass
+    try:
+        actor = card.locator(".update-components-actor__name, .update-components-actor__title").first
+        return "jim pham" in _normalised_visible_text(actor.inner_text(timeout=1200)).casefold()
+    except Exception:
+        return False
+
+
+def _linkedin_card_timestamp(card: Any) -> str | None:
+    for selector in (
+        ".update-components-actor__sub-description span[aria-hidden='true']",
+        ".update-components-actor__sub-description",
+        "time",
+    ):
+        try:
+            value = _normalised_visible_text(card.locator(selector).first.inner_text(timeout=1000))
+            if value:
+                return value
+        except Exception:
+            continue
+    return None
+
+
+def _linkedin_card_by_post_id(page: Any, post_id: str | None) -> Any | None:
+    for card in _linkedin_cards(page):
+        urn = _linkedin_card_urn(card) or ""
+        if not post_id or urn.endswith(":" + str(post_id)):
+            return card
+    return None
+
+
+def _linkedin_card_readback(card: Any, *, expected_text: str, canonical_url: str) -> dict[str, Any]:
+    commentary = _linkedin_commentary_text(card)
+    image, image_readback = _meaningful_image_in_scope(card)
+    del image
+    title_line = next((line.strip() for line in expected_text.splitlines() if line.strip()), expected_text)
+    body_text_visible = bool(
+        commentary
+        and _normalised_visible_text(title_line).casefold() in commentary.casefold()
+        and len(commentary) >= min(120, max(40, len(_normalised_visible_text(title_line))))
+    )
+    canonical_url_text_visible = canonical_url in commentary
+    canonical_link_target_verified = canonical_url_text_visible
+    visible_link_text = canonical_url if canonical_url_text_visible else None
+    if not canonical_link_target_verified:
+        try:
+            for link in card.locator("a[href]").all():
+                href = str(link.get_attribute("href") or "")
+                link_text = _normalised_visible_text(link.inner_text(timeout=500))
+                if "lnkd.in/" not in href and "linkedin.com/redir" not in href:
+                    continue
+                request = urllib.request.Request(href, headers={"User-Agent": "CapitalChronicleContentOps/6.0"})
+                with urllib.request.urlopen(request, timeout=12) as response:
+                    final_url = str(response.geturl() or "")
+                    response_body = response.read(256 * 1024).decode("utf-8", errors="ignore")
+                final_parsed = urllib.parse.urlparse(final_url)
+                canonical_parsed = urllib.parse.urlparse(canonical_url)
+                if (
+                    final_parsed.netloc == canonical_parsed.netloc
+                    and final_parsed.path.rstrip("/") == canonical_parsed.path.rstrip("/")
+                ) or canonical_url.rstrip("/") in response_body:
+                    canonical_link_target_verified = True
+                    visible_link_text = link_text or href
+                    break
+        except Exception:
+            canonical_link_target_verified = False
+    canonical_url_visible = canonical_url_text_visible or canonical_link_target_verified
+    permalink = _linkedin_card_permalink(card)
+    urn = _linkedin_card_urn(card) or ""
+    return {
+        "status": "SUCCESS" if body_text_visible and canonical_url_visible and image_readback and permalink else "FAILED_LINKEDIN_STRICT_READBACK",
+        "platform": "linkedin",
+        "action": "readback_existing_post",
+        "post_id": urn.rsplit(":", 1)[-1] if urn else None,
+        "public_url": permalink,
+        "visible_body_text": commentary,
+        "body_text_visible": body_text_visible,
+        "substack_url_visible": canonical_url_visible,
+        "canonical_url_text_visible": canonical_url_text_visible,
+        "canonical_link_target_verified": canonical_link_target_verified,
+        "visible_link_text": visible_link_text,
+        "meaningful_media_visible": bool(image_readback),
+        "media_readback": image_readback,
+        "destination_identity": "linkedin:jimcc" if _linkedin_card_author_matches(card, "jimcc") else None,
+    }
+
+
+def _linkedin_permalink_from_feed(page: Any, expected_text: str) -> str | None:
+    title_line = next((line.strip() for line in expected_text.splitlines() if line.strip()), expected_text)
+    needle = " ".join(title_line.split()).casefold()[:70]
+    selectors = ("[data-urn*='urn:li:activity:']", "article", ".feed-shared-update-v2")
+    for selector in selectors:
+        try:
+            cards = page.locator(selector).all()
+        except Exception:
+            continue
+        for card in cards:
+            try:
+                card_text = " ".join((card.inner_text(timeout=1500) or "").split()).casefold()
+                if needle not in card_text:
+                    continue
+                urn = card.get_attribute("data-urn") or ""
+                if not urn.startswith("urn:li:activity:"):
+                    urn_locator = card.locator("[data-urn*='urn:li:activity:']").first
+                    urn = urn_locator.get_attribute("data-urn") if urn_locator.count() else ""
+                if urn and urn.startswith("urn:li:activity:"):
+                    return f"https://www.linkedin.com/feed/update/{urn}/"
+                for link in card.locator("a[href*='/feed/update/'], a[href*='/posts/']").all():
+                    href = link.get_attribute("href") or ""
+                    if href.startswith("/"):
+                        href = "https://www.linkedin.com" + href
+                    if href.startswith("https://www.linkedin.com/"):
+                        return href.split("?", 1)[0]
+            except Exception:
+                continue
+    return None
+
+
+def readback_linkedin_post_via_edge(
+    *,
+    cdp_port: int,
+    expected_text: str,
+    canonical_url: str,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Find an already-published LinkedIn post without performing a write."""
+    with canonical_edge_page(cdp_port) as page:
+        public_url = None
+        title_line = next((line.strip() for line in expected_text.splitlines() if line.strip()), expected_text)
+        for target in (
+            "https://www.linkedin.com/in/jimcc/recent-activity/posts/",
+            "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+            "https://www.linkedin.com/feed/",
+            "https://www.linkedin.com/search/results/content/?keywords="
+            + urllib.parse.quote(title_line)
+            + "&origin=GLOBAL_SEARCH_HEADER",
+        ):
+            page.goto(target, wait_until="domcontentloaded", timeout=45000)
+            time.sleep(4)
+            for _ in range(4):
+                public_url = _linkedin_permalink_from_feed(page, expected_text)
+                if public_url:
+                    break
+                try:
+                    title_locator = page.locator("text=" + title_line).first
+                    if title_locator.count():
+                        card = title_locator.locator("xpath=ancestor::*[@data-urn][1]")
+                        urn = card.get_attribute("data-urn") if card.count() else ""
+                        if urn and urn.startswith("urn:li:activity:"):
+                            public_url = f"https://www.linkedin.com/feed/update/{urn}/"
+                            break
+                except Exception:
+                    pass
+                page.evaluate("window.scrollBy(0, Math.max(window.innerHeight * 1.5, 900))")
+                time.sleep(1.5)
+            if public_url:
+                break
+        if not public_url:
+            screenshot = None
+            if public_screenshot_path:
+                target = Path(public_screenshot_path)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                page.screenshot(path=str(target), full_page=False)
+                screenshot = str(target)
+            return {"status": "BLOCKED_LINKEDIN_EXISTING_POST_NOT_FOUND", "platform": "linkedin", "public_screenshot_path": screenshot}
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(4)
+        match = re.search(r"urn:li:activity:(\d+)", public_url)
+        card = _linkedin_card_by_post_id(page, match.group(1) if match else None)
+        readback = _linkedin_card_readback(card, expected_text=expected_text, canonical_url=canonical_url) if card else {
+            "status": "FAILED_LINKEDIN_STRICT_READBACK",
+            "platform": "linkedin",
+            "post_id": match.group(1) if match else None,
+            "public_url": public_url,
+            "body_text_visible": False,
+            "substack_url_visible": False,
+            "meaningful_media_visible": False,
+        }
+        screenshot = None
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+        return {**readback, "public_screenshot_path": screenshot, "browser_write_performed": False}
+
+
+def reconcile_existing_linkedin_post_via_edge(
+    *,
+    cdp_port: int,
+    expected_text: str,
+    canonical_url: str,
+    chart_path: str | Path,
+    expected_payload_sha256: str | None = None,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Identify the existing chart post before any edit; this function never writes."""
+    with canonical_edge_page(cdp_port) as page:
+        candidate: dict[str, Any] | None = None
+        candidate_card = None
+        targets_visited: list[str] = []
+        best_similarity: float | None = None
+        for target_url in (
+            "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+            "https://www.linkedin.com/in/jimcc/recent-activity/posts/",
+            "https://www.linkedin.com/in/jimcc/recent-activity/images/",
+            "https://www.linkedin.com/feed/",
+        ):
+            page.goto(target_url, wait_until="domcontentloaded", timeout=45000)
+            targets_visited.append(page.url)
+            time.sleep(5)
+            if "/recent-activity/" in page.url:
+                _click_first_visible(page, ("button:has-text('Posts')", "a:has-text('Posts')"))
+                time.sleep(1)
+            for scroll_index in range(5):
+                for index, card in enumerate(_linkedin_cards(page)[:30]):
+                    if not _linkedin_card_author_matches(card, "jimcc"):
+                        continue
+                    image, image_readback = _meaningful_image_in_scope(card)
+                    if image is None or image_readback is None:
+                        continue
+                    similarity = _visual_similarity_to_local_image(image, chart_path)
+                    if similarity is not None and (best_similarity is None or similarity > best_similarity):
+                        best_similarity = similarity
+                    if similarity is None or similarity < _LINKEDIN_CHART_SIMILARITY_MINIMUM:
+                        continue
+                    permalink = _linkedin_card_permalink(card)
+                    urn = _linkedin_card_urn(card) or ""
+                    if not permalink or not urn:
+                        continue
+                    candidate_card = card
+                    candidate = {
+                        "activity_index": index,
+                        "scroll_index": scroll_index,
+                        "reconciled_from": page.url,
+                        "post_id": urn.rsplit(":", 1)[-1],
+                        "public_url": permalink,
+                        "publication_timestamp_readback": _linkedin_card_timestamp(card),
+                        "chart_similarity_score": similarity,
+                        "chart_similarity_minimum": _LINKEDIN_CHART_SIMILARITY_MINIMUM,
+                        "media_readback": image_readback,
+                        "destination_identity": "linkedin:jimcc",
+                        "account_identity_verified": True,
+                        "source_chart_verified": True,
+                        "article_topic_match_via_source_chart": True,
+                        "expected_payload_sha256": expected_payload_sha256,
+                    }
+                    break
+                if candidate:
+                    break
+                page.evaluate("window.scrollBy(0, Math.max(window.innerHeight * 1.25, 800))")
+                time.sleep(1.2)
+            if candidate:
+                break
+        screenshot = None
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+        if not candidate or candidate_card is None:
+            return {
+                "status": "BLOCKED_EXISTING_LINKEDIN_POST_NOT_RECONCILED",
+                "platform": "linkedin",
+                "browser_write_performed": False,
+                "public_screenshot_path": screenshot,
+                "targets_visited": targets_visited,
+                "best_chart_similarity_score": best_similarity,
+            }
+        strict = _linkedin_card_readback(candidate_card, expected_text=expected_text, canonical_url=canonical_url)
+        if strict.get("status") == "SUCCESS":
+            return {
+                **candidate,
+                **strict,
+                "status": "SUCCESS",
+                "reconciliation_state": "ALREADY_CORRECTED_STRICT_READBACK",
+                "browser_write_performed": False,
+                "public_screenshot_path": screenshot,
+            }
+        commentary = _linkedin_commentary_text(candidate_card)
+        return {
+            **candidate,
+            "status": "MALFORMED_EXISTING_POST_REQUIRES_EDIT",
+            "platform": "linkedin",
+            "action": "reconcile_existing_post",
+            "visible_body_text": commentary,
+            "body_text_visible": bool(commentary),
+            "substack_url_visible": canonical_url in commentary,
+            "meaningful_media_visible": True,
+            "browser_write_performed": False,
+            "public_screenshot_path": screenshot,
+        }
+
+
+def edit_existing_linkedin_post_via_edge(
+    *,
+    cdp_port: int,
+    public_url: str,
+    post_id: str,
+    text: str,
+    canonical_url: str,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Edit a reconciled LinkedIn post in place. It can never create a post."""
+    if not post_id or f"urn:li:activity:{post_id}" not in public_url:
+        return {"status": "BLOCKED_LINKEDIN_EDIT_TARGET_MISMATCH", "platform": "linkedin", "public_url": public_url}
+    if not text.strip() or canonical_url not in text or _TECHNICAL_PUBLIC_TEXT_RE.search(text):
+        return {"status": "BLOCKED_LINKEDIN_PUBLIC_PAYLOAD_INVALID", "platform": "linkedin", "public_url": public_url}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        card = _linkedin_card_by_post_id(page, post_id)
+        if card is None or not _linkedin_card_author_matches(card, "jimcc"):
+            return {"status": "BLOCKED_EXISTING_LINKEDIN_POST_CANNOT_BE_EDITED", "platform": "linkedin", "public_url": public_url, "post_id": post_id, "reason": "reconciled_activity_card_not_available"}
+        before_image, before_media = _meaningful_image_in_scope(card)
+        del before_image
+        if not before_media:
+            return {"status": "BLOCKED_EXISTING_LINKEDIN_POST_CANNOT_BE_EDITED", "platform": "linkedin", "public_url": public_url, "post_id": post_id, "reason": "reconciled_chart_not_visible_before_edit"}
+        menu, menu_selector = _first_visible(
+            card,
+            (
+                "button[aria-label*='Open control menu']",
+                "button[aria-label*='Control Menu']",
+                "button[aria-label*='More actions']",
+                "button.artdeco-dropdown__trigger",
+            ),
+        )
+        if not menu:
+            return {"status": "BLOCKED_EXISTING_LINKEDIN_POST_CANNOT_BE_EDITED", "platform": "linkedin", "public_url": public_url, "post_id": post_id, "reason": "post_control_menu_not_available"}
+        menu.click(timeout=6000)
+        time.sleep(1)
+        edit_selector = _click_first_visible(
+            page,
+            (
+                "[role='menuitem']:has-text('Edit post')",
+                "[role='menuitem']:has-text('Chỉnh sửa bài đăng')",
+                "div[role='button']:has-text('Edit post')",
+                "div[role='button']:has-text('Chỉnh sửa bài đăng')",
+                "li:has-text('Edit post')",
+            ),
+        )
+        if not edit_selector:
+            return {"status": "BLOCKED_EXISTING_LINKEDIN_POST_CANNOT_BE_EDITED", "platform": "linkedin", "public_url": public_url, "post_id": post_id, "reason": "edit_post_control_not_available", "menu_selector": menu_selector}
+        time.sleep(2)
+        editor, editor_selector = _first_visible(
+            page,
+            (
+                "div[role='dialog'] div.ql-editor[contenteditable='true']",
+                "div[role='dialog'] [role='textbox'][contenteditable='true']",
+                "div[role='dialog'] div[contenteditable='true']",
+            ),
+        )
+        if not editor:
+            return {"status": "BLOCKED_EXISTING_LINKEDIN_POST_CANNOT_BE_EDITED", "platform": "linkedin", "public_url": public_url, "post_id": post_id, "reason": "edit_post_editor_not_available", "edit_selector": edit_selector}
+        try:
+            editor.fill(text)
+        except Exception:
+            editor.click(timeout=6000)
+            page.keyboard.press("Control+A")
+            page.keyboard.press("Backspace")
+            page.keyboard.insert_text(text)
+        save_selector = _click_first_visible(
+            page,
+            (
+                "div[role='dialog'] button:has-text('Save')",
+                "div[role='dialog'] button:has-text('Lưu')",
+                "button.share-actions__primary-action:has-text('Save')",
+            ),
+        )
+        if not save_selector:
+            return {"status": "BLOCKED_EXISTING_LINKEDIN_POST_CANNOT_BE_EDITED", "platform": "linkedin", "public_url": public_url, "post_id": post_id, "reason": "edit_post_save_control_not_available", "editor_selector": editor_selector}
+        time.sleep(7)
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        card = _linkedin_card_by_post_id(page, post_id)
+        readback = _linkedin_card_readback(card, expected_text=text, canonical_url=canonical_url) if card else {
+            "status": "FAILED_LINKEDIN_STRICT_READBACK",
+            "post_id": post_id,
+            "public_url": public_url,
+            "body_text_visible": False,
+            "substack_url_visible": False,
+            "meaningful_media_visible": False,
+        }
+        screenshot = None
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+        verified = bool(
+            readback.get("status") == "SUCCESS"
+            and readback.get("body_text_visible")
+            and readback.get("substack_url_visible")
+            and readback.get("meaningful_media_visible")
+            and readback.get("public_url")
+        )
+        return {
+            "status": "SUCCESS" if verified else "FAILED_LINKEDIN_EDIT_READBACK",
+            "platform": "linkedin",
+            "action": "edit_existing_post",
+            "post_id": post_id,
+            "public_url": public_url,
+            "payload_sha256": _sha256(text),
+            "media_status": "preserved_existing_chart",
+            "media_transfer": {"upload_transport": "preserved_existing_media_no_reupload"},
+            "provider_readback_verified": verified,
+            "readback": {**readback, "public_screenshot_path": screenshot},
+            "new_post_created": False,
+            "menu_selector": menu_selector,
+            "edit_selector": edit_selector,
+            "editor_selector": editor_selector,
+            "save_selector": save_selector,
+        }
+
+
+def comment_existing_linkedin_post_via_edge(
+    *,
+    cdp_port: int,
+    public_url: str,
+    post_id: str,
+    text: str,
+    canonical_url: str,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Add an author comment to a reconciled image-only post; never create a root."""
+    if not post_id or canonical_url not in text or _TECHNICAL_PUBLIC_TEXT_RE.search(text):
+        return {"status": "BLOCKED_LINKEDIN_COMMENT_PAYLOAD_INVALID", "platform": "linkedin"}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        card = _linkedin_card_by_post_id(page, post_id)
+        if card is None or not _linkedin_card_author_matches(card, "jimcc"):
+            return {"status": "BLOCKED_LINKEDIN_AUTHOR_COMMENT_NOT_AVAILABLE", "platform": "linkedin", "public_url": public_url}
+        image, media = _meaningful_image_in_scope(card)
+        del image
+        if not media:
+            return {"status": "BLOCKED_LINKEDIN_AUTHOR_COMMENT_NOT_AVAILABLE", "platform": "linkedin", "public_url": public_url, "reason": "root_chart_not_visible"}
+        _click_first_visible(card, ("button:has-text('Comment')", "button[aria-label*='Comment']"))
+        time.sleep(1)
+        editor, editor_selector = _first_visible(
+            card,
+            (
+                "div.ql-editor[contenteditable='true']",
+                "[role='textbox'][contenteditable='true']",
+                "div[contenteditable='true']",
+            ),
+        )
+        if not editor:
+            return {"status": "BLOCKED_LINKEDIN_AUTHOR_COMMENT_NOT_AVAILABLE", "platform": "linkedin", "public_url": public_url, "reason": "comment_editor_not_found"}
+        editor.click(timeout=6000)
+        page.keyboard.insert_text(text)
+        submit_selector = _click_first_visible(
+            card,
+            (
+                "button.comments-comment-box__submit-button",
+                "button:has-text('Comment')",
+                "button:has-text('Bình luận')",
+            ),
+        )
+        if not submit_selector:
+            return {"status": "BLOCKED_LINKEDIN_AUTHOR_COMMENT_NOT_AVAILABLE", "platform": "linkedin", "public_url": public_url, "reason": "comment_submit_not_found", "editor_selector": editor_selector}
+        time.sleep(7)
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        visible = _normalised_visible_text(page.locator("main").inner_text(timeout=5000))
+        comment_visible = _normalised_visible_text(text)[:120].casefold() in visible.casefold()
+        canonical_visible = canonical_url in visible
+        comment_id = None
+        try:
+            needle = next((line.strip() for line in text.splitlines() if line.strip()), text)
+            locator = page.get_by_text(needle, exact=False).first
+            container = locator.locator("xpath=ancestor::*[@data-id or @data-urn][1]")
+            comment_id = container.get_attribute("data-id") or container.get_attribute("data-urn") if container.count() else None
+        except Exception:
+            comment_id = None
+        screenshot = None
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+        verified = bool(comment_visible and canonical_visible and media and public_url)
+        return {
+            "status": "SUCCESS" if verified else "FAILED_LINKEDIN_AUTHOR_COMMENT_READBACK",
+            "platform": "linkedin",
+            "action": "author_comment_repair",
+            "post_id": post_id,
+            "comment_id": comment_id,
+            "public_url": public_url,
+            "payload_sha256": _sha256(text),
+            "provider_readback_verified": verified,
+            "media_transfer": {"upload_transport": "preserved_existing_media_no_reupload"},
+            "readback": {
+                "status": "SUCCESS" if verified else "FAILED_LINKEDIN_AUTHOR_COMMENT_READBACK",
+                "public_url": public_url,
+                "body_text_visible": comment_visible,
+                "substack_url_visible": canonical_visible,
+                "meaningful_media_visible": True,
+                "public_screenshot_path": screenshot,
+                "comment_id": comment_id,
+            },
+            "new_post_created": False,
+            "editor_selector": editor_selector,
+            "submit_selector": submit_selector,
+        }
+
+
+def readback_youtube_public_video_via_edge(
+    *,
+    cdp_port: int,
+    public_url: str,
+    expected_title: str,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Verify an existing public YouTube video without touching Studio."""
+    video_id = _youtube_video_id_from_value(public_url)
+    if not video_id:
+        return {"status": "BLOCKED_INVALID_YOUTUBE_PUBLIC_URL", "platform": "youtube"}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        title_value = ""
+        try:
+            title_value = page.locator("meta[property='og:title']").first.get_attribute("content") or page.title()
+        except Exception:
+            pass
+        title_matches = " ".join(expected_title.split()).casefold()[:60] in " ".join(str(title_value).split()).casefold()
+        player_visible = bool(_first_visible(page, ("#movie_player", "video", "ytd-watch-flexy"))[0])
+        private_badge_visible = bool(_first_visible(page, ("text=Riêng tư", "text=Private"))[0])
+        public_visibility_verified = bool(player_visible and not private_badge_visible)
+        screenshot = None
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+        return {
+            "status": "SUCCESS" if public_visibility_verified else "BLOCKED_YOUTUBE_PUBLIC_VISIBILITY_NOT_VERIFIED",
+            "platform": "youtube",
+            "video_id": video_id,
+            "public_url": public_url,
+            "title_matches": title_matches,
+            "player_visible": player_visible,
+            "private_badge_visible": private_badge_visible,
+            "public_visibility_verified": public_visibility_verified,
+            "public_screenshot_path": screenshot,
+            "browser_write_performed": False,
+        }
+
+
+def edit_youtube_video_metadata_via_edge(
+    *,
+    cdp_port: int,
+    video_id: str,
+    title: str,
+    description: str,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Repair metadata on an existing video; never create or upload a video."""
+    if not re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id or ""):
+        return {"status": "BLOCKED_INVALID_YOUTUBE_VIDEO_ID", "platform": "youtube"}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(f"https://studio.youtube.com/video/{video_id}/edit", wait_until="domcontentloaded", timeout=45000)
+        time.sleep(4)
+        title_box, title_selector = _first_visible(
+            page,
+            (
+                "#title-textarea #textbox",
+                "ytcp-mention-textbox#title-textarea #textbox",
+                "[aria-label*='Add a title']",
+                "[aria-label*='Tiêu đề']",
+            ),
+        )
+        if not title_box:
+            return {"status": "BLOCKED_YOUTUBE_METADATA_TITLE_EDITOR_NOT_FOUND", "platform": "youtube"}
+        title_box.fill(title[:100])
+        description_box, description_selector = _first_visible(
+            page,
+            (
+                "#description-textarea #textbox",
+                "ytcp-mention-textbox#description-textarea #textbox",
+                "[aria-label*='Tell viewers about your video']",
+                "[aria-label*='Mô tả']",
+            ),
+        )
+        if not description_box:
+            return {"status": "BLOCKED_YOUTUBE_METADATA_DESCRIPTION_EDITOR_NOT_FOUND", "platform": "youtube", "title_selector": title_selector}
+        description_box.fill(description[:4900])
+        save_selector = _click_first_visible(
+            page,
+            (
+                "#save",
+                "ytcp-button#save",
+                "button:has-text('Save')",
+                "button:has-text('Lưu')",
+            ),
+        )
+        if not save_selector:
+            return {
+                "status": "BLOCKED_YOUTUBE_METADATA_SAVE_CONTROL_NOT_FOUND",
+                "platform": "youtube",
+                "title_selector": title_selector,
+                "description_selector": description_selector,
+            }
+        time.sleep(5)
+    public_url = f"https://www.youtube.com/watch?v={video_id}"
+    readback = readback_youtube_public_video_via_edge(
+        cdp_port=cdp_port,
+        public_url=public_url,
+        expected_title=title,
+        public_screenshot_path=public_screenshot_path,
+    )
+    return {
+        "status": "SUCCESS" if readback.get("status") == "SUCCESS" and readback.get("title_matches") else "FAILED_YOUTUBE_METADATA_PUBLIC_READBACK",
+        "platform": "youtube",
+        "action": "edit_metadata",
+        "video_id": video_id,
+        "public_url": public_url,
+        "title_selector": title_selector,
+        "description_selector": description_selector,
+        "save_selector": save_selector,
+        "readback": readback,
+        "new_video_created": False,
+    }
+
+
+def set_youtube_video_public_via_edge(
+    *,
+    cdp_port: int,
+    video_id: str,
+    expected_title: str,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Change only the recorded video's visibility to Public."""
+    if not re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id or ""):
+        return {"status": "BLOCKED_INVALID_YOUTUBE_VIDEO_ID", "platform": "youtube"}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(f"https://studio.youtube.com/video/{video_id}/edit", wait_until="domcontentloaded", timeout=45000)
+        time.sleep(4)
+        current_visibility, current_selector = _first_visible(page, ("text=Riêng tư", "text=Private"))
+        if not current_visibility:
+            public_readback = readback_youtube_public_video_via_edge(
+                cdp_port=cdp_port,
+                public_url=f"https://www.youtube.com/watch?v={video_id}",
+                expected_title=expected_title,
+                public_screenshot_path=public_screenshot_path,
+            )
+            return {
+                "status": "SUCCESS" if public_readback.get("public_visibility_verified") else "BLOCKED_YOUTUBE_PRIVATE_VISIBILITY_CONTROL_NOT_FOUND",
+                "platform": "youtube",
+                "action": "verify_or_set_public_visibility",
+                "video_id": video_id,
+                "public_url": f"https://www.youtube.com/watch?v={video_id}",
+                "readback": public_readback,
+                "new_video_created": False,
+            }
+        current_visibility.scroll_into_view_if_needed(timeout=5000)
+        current_visibility.click(timeout=6000)
+        time.sleep(1)
+        public_selector = _click_first_visible(
+            page,
+            (
+                "tp-yt-paper-radio-button[name='PUBLIC']",
+                "[name='PUBLIC']",
+                "text=Công khai",
+                "text=Public",
+            ),
+        )
+        if not public_selector:
+            return {"status": "BLOCKED_YOUTUBE_PUBLIC_VISIBILITY_CONTROL_NOT_FOUND", "platform": "youtube", "current_visibility_selector": current_selector}
+        time.sleep(0.5)
+        done_selector = _click_first_visible(
+            page,
+            (
+                "ytcp-button#done-button",
+                "#done-button",
+                "button:has-text('Xong')",
+                "button:has-text('Done')",
+            ),
+        )
+        time.sleep(0.8)
+        save_selector = _click_first_visible(
+            page,
+            (
+                "#save",
+                "ytcp-button#save",
+                "button:has-text('Save')",
+                "button:has-text('Lưu')",
+            ),
+        )
+        if not save_selector:
+            return {
+                "status": "BLOCKED_YOUTUBE_PUBLIC_VISIBILITY_SAVE_NOT_FOUND",
+                "platform": "youtube",
+                "current_visibility_selector": current_selector,
+                "public_selector": public_selector,
+                "done_selector": done_selector,
+            }
+        time.sleep(6)
+    public_url = f"https://www.youtube.com/watch?v={video_id}"
+    readback = readback_youtube_public_video_via_edge(
+        cdp_port=cdp_port,
+        public_url=public_url,
+        expected_title=expected_title,
+        public_screenshot_path=public_screenshot_path,
+    )
+    return {
+        "status": "SUCCESS" if readback.get("status") == "SUCCESS" and readback.get("public_visibility_verified") else "FAILED_YOUTUBE_PUBLIC_VISIBILITY_READBACK",
+        "platform": "youtube",
+        "action": "set_public_visibility",
+        "video_id": video_id,
+        "public_url": public_url,
+        "current_visibility_selector": current_selector,
+        "public_selector": public_selector,
+        "done_selector": done_selector,
+        "save_selector": save_selector,
+        "readback": readback,
+        "new_video_created": False,
+    }
+
+
+def _wait_for_meaningful_visible_image(
+    page: Any,
+    selectors: Sequence[str],
+    *,
+    timeout_seconds: float = 20.0,
+) -> dict[str, Any] | None:
+    deadline = time.monotonic() + timeout_seconds
+    while time.monotonic() < deadline:
+        for selector in selectors:
+            try:
+                candidates = page.locator(selector).all()
+            except Exception:
+                continue
+            for image in candidates:
+                try:
+                    if not image.is_visible(timeout=500):
+                        continue
+                    dimensions = image.evaluate(
+                        "node => ({complete: Boolean(node.complete), naturalWidth: node.naturalWidth || 0, naturalHeight: node.naturalHeight || 0})"
+                    )
+                    box = image.bounding_box() or {}
+                    if dimensions.get("complete") and _meaningful_image_dimensions(
+                        rendered_width=float(box.get("width") or 0),
+                        rendered_height=float(box.get("height") or 0),
+                        natural_width=float(dimensions.get("naturalWidth") or 0),
+                        natural_height=float(dimensions.get("naturalHeight") or 0),
+                    ):
+                        return {
+                            "selector": selector,
+                            "natural_width": int(dimensions.get("naturalWidth") or 0),
+                            "natural_height": int(dimensions.get("naturalHeight") or 0),
+                            "rendered_width": round(float(box.get("width") or 0), 1),
+                            "rendered_height": round(float(box.get("height") or 0), 1),
+                        }
+                except Exception:
+                    continue
+        time.sleep(0.4)
+    return None
+
+
+def publish_linkedin_post_via_edge(
+    *,
+    cdp_port: int,
+    text: str,
+    image_path: str | Path | None = None,
+    canonical_url: str | None = None,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    with canonical_edge_page(cdp_port) as page:
+        page.goto("https://www.linkedin.com/feed/", wait_until="domcontentloaded", timeout=45000)
+        time.sleep(4)
+        start_selector = _click_first_visible(page, ("button:has-text('Start a post')", "text=Start a post", "button[aria-label*='Start a post']"))
+        if not start_selector:
+            return {"status": "BLOCKED_LINKEDIN_COMPOSER_NOT_READY", "platform": "linkedin"}
+        time.sleep(2)
+        editor, editor_selector = _first_visible(page, ("div[role='dialog'] div.ql-editor", "div[role='dialog'] [role='textbox']", "div.ql-editor"))
+        if not editor:
+            return {"status": "BLOCKED_LINKEDIN_EDITOR_NOT_READY", "platform": "linkedin", "editor_selector": editor_selector}
+        editor.click()
+        page.keyboard.type(text, delay=0)
+        media_status = "not_requested"
+        media_transfer: dict[str, Any] = {}
+        media_preview: dict[str, Any] | None = None
+        if image_path:
+            media_control, media_control_selector = _first_visible(
+                page,
+                (
+                    "button[aria-label*='Add media']",
+                    "button[aria-label*='Add a photo']",
+                    "button[aria-label*='Media']",
+                    "button:has-text('Add media')",
+                ),
+            )
+            if not media_control:
+                return {"status": "BLOCKED_LINKEDIN_MEDIA_CONTROL_NOT_FOUND", "platform": "linkedin"}
+            media_transfer = _activate_file_upload(
+                page,
+                trigger=media_control,
+                file_path=image_path,
+                media_kind="image",
+                exclusive=False,
+            )
+            media_status = "uploaded" if media_transfer.get("status") == "file_set" else "file_input_not_found"
+            if media_transfer.get("status") != "file_set":
+                return {
+                    "status": "FAILED_LINKEDIN_MEDIA_UPLOAD",
+                    "platform": "linkedin",
+                    "media_status": media_status,
+                    "media_control_selector": media_control_selector,
+                    "media_transfer": media_transfer,
+                }
+            media_preview = _wait_for_meaningful_visible_image(
+                page,
+                (
+                    "div[role='dialog'] img",
+                    ".share-creation-state__preview img",
+                    "img[alt*='preview']",
+                ),
+                timeout_seconds=25,
+            )
+            if not media_preview:
+                return {
+                    "status": "FAILED_LINKEDIN_MEDIA_PREVIEW_READBACK",
+                    "platform": "linkedin",
+                    "media_status": media_status,
+                    "media_control_selector": media_control_selector,
+                    "media_transfer": media_transfer,
+                }
+            next_selector = _click_first_visible(
+                page,
+                (
+                    "div[role='dialog'] button:has-text('Next')",
+                    "button[aria-label='Next']",
+                    "button:has-text('Next')",
+                    "button:has-text('Tiếp')",
+                ),
+            )
+            if next_selector:
+                time.sleep(2)
+        editor_before_post, _editor_before_post_selector = _first_visible(
+            page,
+            ("div[role='dialog'] div.ql-editor", "div[role='dialog'] [role='textbox']", "div.ql-editor"),
+        )
+        visible_draft_text = ""
+        if editor_before_post:
+            try:
+                visible_draft_text = _normalised_visible_text(editor_before_post.inner_text(timeout=1500))
+            except Exception:
+                visible_draft_text = ""
+        title_line = next((line.strip() for line in text.splitlines() if line.strip()), text)
+        if title_line.casefold() not in visible_draft_text.casefold():
+            if not editor_before_post:
+                return {"status": "BLOCKED_LINKEDIN_TEXT_EDITOR_LOST_AFTER_MEDIA", "platform": "linkedin", "media_status": media_status}
+            try:
+                editor_before_post.fill(text)
+            except Exception:
+                editor_before_post.click(timeout=6000)
+                page.keyboard.press("Control+A")
+                page.keyboard.press("Backspace")
+                page.keyboard.insert_text(text)
+            visible_draft_text = _normalised_visible_text(editor_before_post.inner_text(timeout=1500))
+        if title_line.casefold() not in visible_draft_text.casefold() or (canonical_url and canonical_url not in visible_draft_text):
+            return {
+                "status": "BLOCKED_LINKEDIN_TEXT_MEDIA_PREPOST_GATE",
+                "platform": "linkedin",
+                "media_status": media_status,
+                "body_text_present": title_line.casefold() in visible_draft_text.casefold(),
+                "canonical_url_present": bool(canonical_url and canonical_url in visible_draft_text),
+            }
+        post_selector = _click_first_visible(page, ("div[role='dialog'] button.share-actions__primary-action", "div[role='dialog'] button:has-text('Post')", "button.share-actions__primary-action"))
+        if not post_selector:
+            return {"status": "BLOCKED_LINKEDIN_POST_CONTROL_NOT_FOUND", "platform": "linkedin", "media_status": media_status}
+        time.sleep(8)
+        permalink = _linkedin_permalink_from_feed(page, text)
+        if not permalink:
+            return {"status": "FAILED_LINKEDIN_PERMALINK_READBACK", "platform": "linkedin", "media_status": media_status, "media_transfer": media_transfer, "media_preview": media_preview, "payload_sha256": _sha256(text)}
+        post_id = permalink.rsplit(":", 1)[-1].rstrip("/")
+        page.goto(permalink, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(4)
+        card = _linkedin_card_by_post_id(page, post_id)
+        readback = _linkedin_card_readback(card, expected_text=text, canonical_url=str(canonical_url or "")) if card and canonical_url else {}
+        screenshot = None
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+        verified = bool(readback.get("status") == "SUCCESS")
+        return {
+            "status": "SUCCESS" if verified else "FAILED_LINKEDIN_STRICT_READBACK",
+            "platform": "linkedin",
+            "action": "post",
+            "public_url": permalink,
+            "post_id": post_id,
+            "media_status": media_status,
+            "media_transfer": media_transfer,
+            "media_preview": media_preview,
+            "provider_readback_verified": verified,
+            "readback": {**readback, "public_screenshot_path": screenshot} if readback else {},
+            "payload_sha256": _sha256(text),
+        }
+
+
+def publish_tiktok_video_via_edge(*, cdp_port: int, video_path: str | Path, caption: str) -> dict[str, Any]:
+    """Upload a native short video when the canonical Edge profile is authenticated."""
+    with canonical_edge_page(cdp_port) as page:
+        navigation_error = None
+        try:
+            page.goto("https://www.tiktok.com/tiktokstudio/upload", wait_until="domcontentloaded", timeout=45000)
+        except Exception as exc:
+            navigation_error = exc
+        time.sleep(3)
+        if "tiktok.com/login" in page.url or _first_visible(page, ("text=Log in to TikTok", "button:has-text('Log in')", "text=Use phone / email / username"))[0]:
+            return {"status": "BLOCKED_TIKTOK_LOGIN_REQUIRED", "platform": "tiktok", "required_unblock": "Log in to the intended Capital Chronicle TikTok creator account in the canonical Edge profile, then rerun only TikTok."}
+        if navigation_error:
+            return {"status": "BLOCKED_TIKTOK_STUDIO_NAVIGATION", "platform": "tiktok", "error_class": type(navigation_error).__name__}
+        upload_selector = _set_first_file_input(page, video_path)
+        if not upload_selector:
+            return {"status": "BLOCKED_TIKTOK_UPLOAD_INPUT_NOT_FOUND", "platform": "tiktok"}
+        time.sleep(8)
+        caption_box, caption_selector = _first_visible(page, ("div[contenteditable='true']", "textarea[placeholder*='caption']", "textarea"))
+        if not caption_box:
+            return {"status": "BLOCKED_TIKTOK_CAPTION_EDITOR_NOT_FOUND", "platform": "tiktok", "upload_selector": upload_selector, "caption_selector": caption_selector}
+        caption_box.click()
+        page.keyboard.type(caption, delay=0)
+        post_selector = _click_first_visible(page, ("button:has-text('Post')", "button:has-text('Publish')"))
+        if not post_selector:
+            return {"status": "BLOCKED_TIKTOK_POST_CONTROL_NOT_FOUND", "platform": "tiktok", "upload_selector": upload_selector}
+        time.sleep(8)
+        return {"status": "FAILED_TIKTOK_PERMALINK_READBACK", "platform": "tiktok", "payload_sha256": _sha256(caption), "upload_selector": upload_selector}
+
+
+def validate_youtube_community_payload(
+    *,
+    text: str,
+    image_path: str | Path,
+    canonical_url: str,
+) -> dict[str, Any]:
+    blockers: list[str] = []
+    if not _normalised_visible_text(text):
+        blockers.append("non_empty_text_required")
+    if not canonical_url or canonical_url not in text:
+        blockers.append("canonical_substack_url_required")
+    if not Path(image_path).is_file():
+        blockers.append("source_backed_image_required")
+    if _TECHNICAL_PUBLIC_TEXT_RE.search(text):
+        blockers.append("technical_run_identifier_forbidden")
+    return {
+        "status": "VALID" if not blockers else "INVALID",
+        "blockers": blockers,
+        "text_present": bool(_normalised_visible_text(text)),
+        "image_present": Path(image_path).is_file(),
+        "canonical_url_present": bool(canonical_url and canonical_url in text),
+        "technical_run_identifier_absent": not bool(_TECHNICAL_PUBLIC_TEXT_RE.search(text)),
+    }
+
+
+def _youtube_community_post_id(value: str | None) -> str | None:
+    match = re.search(r"(?:youtube\.com)?/post/([A-Za-z0-9_-]+)", str(value or ""))
+    return match.group(1) if match else None
+
+
+def _youtube_community_cards(page: Any) -> list[Any]:
+    for selector in (
+        "ytd-backstage-post-thread-renderer",
+        "ytd-backstage-post-renderer",
+        "[data-post-id]",
+    ):
+        try:
+            cards = page.locator(selector).all()
+        except Exception:
+            continue
+        if cards:
+            return cards
+    return []
+
+
+def _youtube_community_card_text(card: Any) -> str:
+    for selector in ("#content-text", "yt-formatted-string#content-text", "#content"):
+        try:
+            locator = card.locator(selector).first
+            if locator.count() and locator.is_visible(timeout=500):
+                value = _normalised_visible_text(locator.inner_text(timeout=1500))
+                if value:
+                    return value
+        except Exception:
+            continue
+    try:
+        return _normalised_visible_text(card.inner_text(timeout=2000))
+    except Exception:
+        return ""
+
+
+def _youtube_community_permalink_from_card(card: Any) -> str | None:
+    try:
+        for link in card.locator("a[href*='/post/']").all():
+            href = str(link.get_attribute("href") or "")
+            if href.startswith("/"):
+                href = "https://www.youtube.com" + href
+            post_id = _youtube_community_post_id(href)
+            if post_id:
+                return f"https://www.youtube.com/post/{post_id}"
+    except Exception:
+        pass
+    return None
+
+
+def _youtube_community_card_for_text(page: Any, expected_text: str) -> Any | None:
+    title_line = next((line.strip() for line in expected_text.splitlines() if line.strip()), expected_text)
+    needle = _normalised_visible_text(title_line).casefold()[:70]
+    for card in _youtube_community_cards(page):
+        if needle and needle in _youtube_community_card_text(card).casefold():
+            return card
+    return None
+
+
+def _youtube_community_canonical_link_readback(card: Any, canonical_url: str) -> dict[str, Any]:
+    try:
+        for link in card.locator("a[href]").all():
+            href = str(link.get_attribute("href") or "")
+            visible_text = _normalised_visible_text(link.inner_text(timeout=500))
+            parsed = urllib.parse.urlparse(href)
+            candidates = [href]
+            query = urllib.parse.parse_qs(parsed.query)
+            for key in ("q", "url", "u"):
+                candidates.extend(query.get(key) or [])
+            for candidate in candidates:
+                target = urllib.parse.urlparse(urllib.parse.unquote(candidate))
+                canonical = urllib.parse.urlparse(canonical_url)
+                if target.netloc == canonical.netloc and target.path.rstrip("/") == canonical.path.rstrip("/"):
+                    return {
+                        "verified": True,
+                        "visible_link_text": visible_text or href,
+                        "link_href_kind": "youtube_redirect" if "youtube.com/redirect" in href else "direct",
+                    }
+    except Exception:
+        pass
+    return {"verified": False, "visible_link_text": None, "link_href_kind": None}
+
+
+def _youtube_channel_identity_verified(page: Any, expected_handle: str) -> bool:
+    expected = expected_handle.casefold()
+    if expected in page.url.casefold():
+        return True
+    try:
+        for link in page.locator("a[href*='@']").all():
+            href = str(link.get_attribute("href") or "").casefold()
+            text = _normalised_visible_text(link.inner_text(timeout=500)).casefold()
+            if expected in href or expected in text:
+                return True
+    except Exception:
+        pass
+    return False
+
+
+def readback_youtube_community_post_via_edge(
+    *,
+    cdp_port: int,
+    public_url: str,
+    expected_text: str,
+    canonical_url: str,
+    expected_handle: str = _YOUTUBE_COMMUNITY_HANDLE,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    post_id = _youtube_community_post_id(public_url)
+    if not post_id:
+        return {"status": "BLOCKED_INVALID_YOUTUBE_COMMUNITY_URL", "platform": "youtube", "public_url": public_url}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        card = _youtube_community_card_for_text(page, expected_text)
+        visible_text = _youtube_community_card_text(card) if card else ""
+        image, image_readback = _meaningful_image_in_scope(card) if card else (None, None)
+        del image
+        title_line = next((line.strip() for line in expected_text.splitlines() if line.strip()), expected_text)
+        text_visible = bool(_normalised_visible_text(title_line).casefold() in visible_text.casefold())
+        canonical_url_text_visible = canonical_url in visible_text
+        canonical_link = _youtube_community_canonical_link_readback(card, canonical_url) if card else {"verified": False}
+        canonical_url_visible = canonical_url_text_visible or bool(canonical_link.get("verified"))
+        channel_identity_verified = _youtube_channel_identity_verified(page, expected_handle)
+        screenshot = None
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+        verified = bool(text_visible and canonical_url_visible and image_readback and channel_identity_verified)
+        return {
+            "status": "SUCCESS" if verified else "FAILED_YOUTUBE_COMMUNITY_STRICT_READBACK",
+            "platform": "youtube",
+            "action": "readback_community_post",
+            "post_id": post_id,
+            "public_url": f"https://www.youtube.com/post/{post_id}",
+            "destination_identity": expected_handle if channel_identity_verified else None,
+            "channel_identity_verified": channel_identity_verified,
+            "visible_body_text": visible_text,
+            "body_text_visible": text_visible,
+            "substack_url_visible": canonical_url_visible,
+            "canonical_url_text_visible": canonical_url_text_visible,
+            "canonical_link_target_verified": bool(canonical_link.get("verified")),
+            "visible_link_text": canonical_link.get("visible_link_text"),
+            "link_href_kind": canonical_link.get("link_href_kind"),
+            "meaningful_media_visible": bool(image_readback),
+            "media_readback": image_readback,
+            "public_screenshot_path": screenshot,
+            "browser_write_performed": False,
+        }
+
+
+def _youtube_community_surface_diagnostics(page: Any) -> dict[str, Any]:
+    contenteditables: list[dict[str, Any]] = []
+    try:
+        for locator in page.locator("[contenteditable='true']").all()[:12]:
+            contenteditables.append(
+                {
+                    "tag": locator.evaluate("node => node.tagName.toLowerCase()"),
+                    "id": locator.get_attribute("id"),
+                    "role": locator.get_attribute("role"),
+                    "aria_label": locator.get_attribute("aria-label"),
+                    "visible": locator.is_visible(timeout=300),
+                }
+            )
+    except Exception:
+        pass
+    controls: list[dict[str, Any]] = []
+    try:
+        for locator in page.locator("button, ytd-button-renderer, tp-yt-paper-button").all()[:80]:
+            try:
+                if not locator.is_visible(timeout=200):
+                    continue
+                text_value = _normalised_visible_text(locator.inner_text(timeout=300))[:80]
+                aria = str(locator.get_attribute("aria-label") or "")[:80]
+                if text_value or aria:
+                    controls.append({"text": text_value, "aria_label": aria})
+            except Exception:
+                continue
+    except Exception:
+        pass
+    creation_text = ""
+    try:
+        creation = page.locator("ytd-backstage-post-creation-renderer").first
+        creation_text = _normalised_visible_text(creation.inner_text(timeout=1500))[:500] if creation.count() else ""
+    except Exception:
+        pass
+    image_control_ancestors: list[dict[str, Any]] = []
+    try:
+        image_control = page.get_by_text("Hình ảnh", exact=True).first
+        if image_control.count():
+            image_control_ancestors = image_control.evaluate(
+                "node => { const rows = []; let current = node; for (let i = 0; current && i < 8; i++, current = current.parentElement) "
+                "rows.push({tag: current.tagName.toLowerCase(), id: current.id || null, cls: String(current.className || '').slice(0, 160)}); return rows; }"
+            )
+    except Exception:
+        pass
+    post_related_tags: list[str] = []
+    try:
+        post_related_tags = page.evaluate(
+            "() => Array.from(new Set(Array.from(document.querySelectorAll('*')).map(node => node.tagName.toLowerCase())"
+            ".filter(tag => tag.includes('post') || tag.includes('backstage') || tag.includes('creation')))).sort()"
+        )
+    except Exception:
+        pass
+    dialog_descendants: list[dict[str, Any]] = []
+    try:
+        dialog = page.locator("ytd-backstage-post-dialog-renderer").first
+        if dialog.count():
+            for locator in dialog.locator("textarea, input, [contenteditable], [role='textbox'], [id]").all()[:80]:
+                try:
+                    dialog_descendants.append(
+                        {
+                            "tag": locator.evaluate("node => node.tagName.toLowerCase()"),
+                            "id": locator.get_attribute("id"),
+                            "type": locator.get_attribute("type"),
+                            "contenteditable": locator.get_attribute("contenteditable"),
+                            "role": locator.get_attribute("role"),
+                            "aria_label": locator.get_attribute("aria-label"),
+                            "disabled": locator.get_attribute("disabled"),
+                            "aria_disabled": locator.get_attribute("aria-disabled"),
+                            "visible": locator.is_visible(timeout=200),
+                        }
+                    )
+                except Exception:
+                    continue
+    except Exception:
+        pass
+    post_control_state: dict[str, Any] = {}
+    try:
+        post_control = page.locator("ytd-backstage-post-dialog-renderer #post-button").first
+        button = post_control.locator("button").first if post_control.count() else None
+        post_control_state = {
+            "renderer_count": post_control.count(),
+            "renderer_visible": post_control.is_visible(timeout=300) if post_control.count() else False,
+            "renderer_disabled": post_control.get_attribute("disabled") if post_control.count() else None,
+            "button_count": button.count() if button else 0,
+            "button_visible": button.is_visible(timeout=300) if button and button.count() else False,
+            "button_disabled": button.is_disabled(timeout=300) if button and button.count() else None,
+            "button_aria_disabled": button.get_attribute("aria-disabled") if button and button.count() else None,
+            "button_text": _normalised_visible_text(button.inner_text(timeout=500)) if button and button.count() else None,
+        }
+    except Exception:
+        pass
+    return {
+        "page_url": page.url,
+        "creation_renderer_count": page.locator("ytd-backstage-post-creation-renderer").count(),
+        "post_dialog_count": page.locator("ytd-backstage-post-dialog").count(),
+        "file_input_count": page.locator("input[type='file']").count(),
+        "creation_renderer_text": creation_text,
+        "contenteditables": contenteditables,
+        "visible_controls": controls[:30],
+        "image_control_ancestors": image_control_ancestors,
+        "post_related_tags": post_related_tags[:80],
+        "dialog_descendants": dialog_descendants,
+        "post_control_state": post_control_state,
+    }
+
+
+def probe_youtube_community_surface_via_edge(
+    *,
+    cdp_port: int,
+    expected_handle: str = _YOUTUBE_COMMUNITY_HANDLE,
+    screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Read-only selector probe for the authenticated Community composer."""
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(f"https://www.youtube.com/{expected_handle}/posts", wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        screenshot = None
+        if screenshot_path:
+            target = Path(screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+        return {
+            "status": "SUCCESS",
+            "channel_identity_verified": _youtube_channel_identity_verified(page, expected_handle),
+            "diagnostics": _youtube_community_surface_diagnostics(page),
+            "public_screenshot_path": screenshot,
+            "browser_write_performed": False,
+        }
+
+
+def publish_youtube_community_post_via_edge(
+    *,
+    cdp_port: int,
+    text: str,
+    image_path: str | Path,
+    canonical_url: str,
+    expected_handle: str = _YOUTUBE_COMMUNITY_HANDLE,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Publish one channel Community text/image post; video upload is impossible here."""
+    validation = validate_youtube_community_payload(text=text, image_path=image_path, canonical_url=canonical_url)
+    if validation["status"] != "VALID":
+        return {"status": "BLOCKED_YOUTUBE_COMMUNITY_PAYLOAD_INVALID", "platform": "youtube", "validation": validation}
+    with canonical_edge_page(cdp_port) as page:
+        channel_url = f"https://www.youtube.com/{expected_handle}/posts"
+        page.goto(channel_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        if _first_visible(page, ("a:has-text('Sign in')", "text=Sign in"))[0]:
+            return {"status": "BLOCKED_YOUTUBE_LOGIN_REQUIRED", "platform": "youtube"}
+        if not _youtube_channel_identity_verified(page, expected_handle):
+            return {"status": "BLOCKED_YOUTUBE_CHANNEL_IDENTITY_MISMATCH", "platform": "youtube", "page_domain": urllib.parse.urlparse(page.url).netloc}
+
+        composer, composer_selector = _first_visible(
+            page,
+            (
+                "ytd-backstage-post-dialog #contenteditable-root",
+                "ytd-backstage-post-dialog [contenteditable='true']",
+                "ytd-backstage-post-dialog-renderer #contenteditable-root",
+                "ytd-backstage-post-dialog-renderer [contenteditable='true']",
+                "ytd-backstage-post-creation-renderer #contenteditable-root",
+                "ytd-backstage-post-creation-renderer [contenteditable='true']",
+                "#contenteditable-textarea [contenteditable='true']",
+                "yt-formatted-string[contenteditable='true']",
+            ),
+        )
+        if not composer:
+            _click_first_visible(
+                page,
+                (
+                    "ytd-backstage-post-creation-renderer #placeholder",
+                    "ytd-backstage-post-dialog-renderer #commentbox-placeholder",
+                    "ytd-backstage-post-dialog-renderer #placeholder-area",
+                    "ytd-backstage-post-creation-renderer:has-text('Share an image')",
+                    "ytd-backstage-post-creation-renderer:has-text('Chia sẻ hình ảnh')",
+                    "text=Share an image to start a conversation",
+                    "text=Chia sẻ hình ảnh để bắt đầu cuộc trò chuyện",
+                ),
+            )
+            time.sleep(1.5)
+            composer, composer_selector = _first_visible(
+                page,
+                (
+                    "ytd-backstage-post-dialog #contenteditable-root",
+                    "ytd-backstage-post-dialog [contenteditable='true']",
+                    "ytd-backstage-post-dialog-renderer #contenteditable-root",
+                    "ytd-backstage-post-dialog-renderer [contenteditable='true']",
+                    "ytd-backstage-post-creation-renderer #contenteditable-root",
+                    "ytd-backstage-post-creation-renderer [contenteditable='true']",
+                    "#contenteditable-textarea [contenteditable='true']",
+                ),
+            )
+        if not composer:
+            screenshot = None
+            if public_screenshot_path:
+                target = Path(public_screenshot_path)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                page.screenshot(path=str(target), full_page=False)
+                screenshot = str(target)
+            return {
+                "status": "BLOCKED_YOUTUBE_COMMUNITY_NOT_AVAILABLE",
+                "platform": "youtube",
+                "reason": "community_text_composer_not_found",
+                "diagnostics": _youtube_community_surface_diagnostics(page),
+                "public_screenshot_path": screenshot,
+            }
+        composer.click(timeout=6000)
+        try:
+            composer.fill(text)
+        except Exception:
+            page.keyboard.insert_text(text)
+
+        image_control, image_control_selector = _first_visible(
+            page,
+            (
+                "ytd-backstage-post-dialog button[aria-label*='Image']",
+                "ytd-backstage-post-dialog button[aria-label*='Hình ảnh']",
+                "ytd-backstage-post-dialog-renderer #image-button button",
+                "ytd-backstage-post-dialog-renderer button[aria-label*='Thêm hình ảnh']",
+                "ytd-backstage-post-dialog-renderer button[aria-label*='Image']",
+                "ytd-backstage-post-creation-renderer button[aria-label*='Image']",
+                "ytd-backstage-post-creation-renderer button[aria-label*='Hình ảnh']",
+                "ytd-backstage-post-dialog ytd-button-renderer:has-text('Image')",
+                "ytd-backstage-post-dialog ytd-button-renderer:has-text('Hình ảnh')",
+                "ytd-backstage-post-creation-renderer ytd-button-renderer:has-text('Image')",
+                "ytd-backstage-post-creation-renderer ytd-button-renderer:has-text('Hình ảnh')",
+            ),
+        )
+        if not image_control:
+            return {"status": "BLOCKED_YOUTUBE_COMMUNITY_NOT_AVAILABLE", "platform": "youtube", "reason": "community_image_control_not_found", "composer_selector": composer_selector}
+        upload_transfer = _activate_file_upload(
+            page,
+            trigger=image_control,
+            file_path=image_path,
+            media_kind="image",
+            exclusive=True,
+            chooser_timeout_ms=10000,
+        )
+        secondary_image_control_selector = None
+        if upload_transfer.get("status") != "file_set":
+            time.sleep(1)
+            secondary_image_control, secondary_image_control_selector = _first_visible(
+                page,
+                (
+                    "ytd-backstage-post-dialog-renderer #select-link",
+                    "ytd-backstage-post-dialog-renderer #dropzone",
+                    "ytd-backstage-post-dialog-renderer a:has-text('select')",
+                    "ytd-backstage-post-dialog-renderer a:has-text('chọn')",
+                ),
+            )
+            if secondary_image_control:
+                upload_transfer = _activate_file_upload(
+                    page,
+                    trigger=secondary_image_control,
+                    file_path=image_path,
+                    media_kind="image",
+                    exclusive=True,
+                    chooser_timeout_ms=10000,
+                )
+        if upload_transfer.get("status") != "file_set":
+            return {
+                "status": "BLOCKED_YOUTUBE_COMMUNITY_IMAGE_UPLOAD",
+                "platform": "youtube",
+                "composer_selector": composer_selector,
+                "image_control_selector": image_control_selector,
+                "secondary_image_control_selector": secondary_image_control_selector,
+                "media_transfer": upload_transfer,
+                "diagnostics": _youtube_community_surface_diagnostics(page),
+            }
+        preview = _wait_for_meaningful_visible_image(
+            page,
+            (
+                "ytd-backstage-post-dialog img",
+                "ytd-backstage-post-dialog-renderer #attachment-preview img",
+                "ytd-backstage-post-dialog-renderer ytd-backstage-image-preview-renderer img",
+                "ytd-backstage-post-dialog-renderer ytd-backstage-image-renderer img",
+                "ytd-backstage-post-creation-renderer img",
+                "#image-preview img",
+                "ytd-backstage-image-renderer img",
+            ),
+            timeout_seconds=30,
+        )
+        if not preview:
+            return {"status": "FAILED_YOUTUBE_COMMUNITY_IMAGE_PREVIEW_READBACK", "platform": "youtube", "media_transfer": upload_transfer}
+        post_selector = _click_first_visible(
+            page,
+            (
+                "ytd-backstage-post-dialog #submit-button button",
+                "ytd-backstage-post-dialog-renderer #post-button button",
+                "ytd-backstage-post-dialog-renderer #post-button",
+                "ytd-backstage-post-dialog button:has-text('Post')",
+                "ytd-backstage-post-dialog button:has-text('Đăng')",
+                "ytd-backstage-post-creation-renderer #submit-button button",
+                "ytd-backstage-post-creation-renderer button:has-text('Post')",
+                "ytd-backstage-post-creation-renderer button:has-text('Đăng')",
+                "yt-posts-creation-options-editor-view-model button:has-text('Post')",
+                "yt-posts-creation-options-editor-view-model button:has-text('Đăng')",
+                "button:has-text('Post')",
+                "button:has-text('Đăng')",
+                "yt-button-shape:has-text('Post')",
+                "yt-button-shape:has-text('Đăng')",
+            ),
+        )
+        if not post_selector:
+            screenshot = None
+            if public_screenshot_path:
+                target = Path(public_screenshot_path)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                page.screenshot(path=str(target), full_page=False)
+                screenshot = str(target)
+            return {
+                "status": "BLOCKED_YOUTUBE_COMMUNITY_POST_CONTROL_NOT_FOUND",
+                "platform": "youtube",
+                "media_transfer": upload_transfer,
+                "media_preview": preview,
+                "diagnostics": _youtube_community_surface_diagnostics(page),
+                "public_screenshot_path": screenshot,
+            }
+        deadline = time.monotonic() + 35
+        public_url = None
+        while time.monotonic() < deadline and not public_url:
+            card = _youtube_community_card_for_text(page, text)
+            public_url = _youtube_community_permalink_from_card(card) if card else None
+            if not public_url:
+                time.sleep(1)
+        if not public_url:
+            return {
+                "status": "FAILED_YOUTUBE_COMMUNITY_POST_URL_READBACK",
+                "platform": "youtube",
+                "action": "community_post",
+                "media_transfer": upload_transfer,
+                "media_preview": preview,
+                "payload_sha256": _sha256(text),
+            }
+
+    readback = readback_youtube_community_post_via_edge(
+        cdp_port=cdp_port,
+        public_url=public_url,
+        expected_text=text,
+        canonical_url=canonical_url,
+        expected_handle=expected_handle,
+        public_screenshot_path=public_screenshot_path,
+    )
+    verified = readback.get("status") == "SUCCESS"
+    return {
+        "status": "SUCCESS" if verified else "FAILED_YOUTUBE_COMMUNITY_POST_READBACK",
+        "platform": "youtube",
+        "action": "community_post",
+        "post_id": _youtube_community_post_id(public_url),
+        "public_url": public_url,
+        "destination_identity": expected_handle,
+        "media_transfer": upload_transfer,
+        "media_preview": preview,
+        "provider_readback_verified": verified,
+        "readback": readback,
+        "payload_sha256": _sha256(text),
+        "video_or_short_created": False,
+    }
+
+
+def _youtube_video_id_from_value(value: str | None) -> str | None:
+    raw = str(value or "")
+    for pattern in (
+        r"/video/([A-Za-z0-9_-]{11})",
+        r"youtu\.be/([A-Za-z0-9_-]{11})",
+        r"[?&]v=([A-Za-z0-9_-]{11})",
+        r"/shorts/([A-Za-z0-9_-]{11})",
+    ):
+        match = re.search(pattern, raw)
+        if match:
+            return match.group(1)
+    return None
+
+
+def _youtube_video_id_readback(page: Any) -> str | None:
+    candidates = [page.url]
+    for selector, attribute in (
+        ("a[href*='youtu.be/']", "href"),
+        ("a[href*='youtube.com/watch']", "href"),
+        ("a[href*='/shorts/']", "href"),
+        ("input[value*='youtu.be/']", "value"),
+        ("input[value*='youtube.com/watch']", "value"),
+    ):
+        try:
+            for locator in page.locator(selector).all():
+                value = locator.get_attribute(attribute)
+                if value:
+                    candidates.append(value)
+        except Exception:
+            continue
+    for candidate in candidates:
+        video_id = _youtube_video_id_from_value(candidate)
+        if video_id:
+            return video_id
+    return None
+
+
+def publish_youtube_short_via_edge(
+    *,
+    cdp_port: int,
+    video_path: str | Path,
+    title: str,
+    description: str,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Upload and publish a vertical source-chart sequence as a public YouTube Short."""
+    with canonical_edge_page(cdp_port) as page:
+        try:
+            page.goto("https://studio.youtube.com/", wait_until="domcontentloaded", timeout=45000)
+        except Exception as exc:
+            if "studio.youtube.com" not in page.url:
+                return {"status": "BLOCKED_YOUTUBE_STUDIO_NAVIGATION", "platform": "youtube", "error_class": type(exc).__name__}
+        time.sleep(3)
+        if _first_visible(page, ("a:has-text('Sign in')", "text=Sign in"))[0]:
+            return {"status": "BLOCKED_YOUTUBE_LOGIN_REQUIRED", "platform": "youtube"}
+        create_selector = _click_first_visible(page, ("#create-icon", "ytcp-button[aria-label*='Create']", "ytcp-button[aria-label*='Tạo']", "button[aria-label*='Create']", "button[aria-label*='Tạo']", "button:has-text('Create')", "button:has-text('Tạo')"))
+        if not create_selector:
+            return {"status": "BLOCKED_YOUTUBE_CREATE_CONTROL_NOT_FOUND", "platform": "youtube"}
+        time.sleep(0.7)
+        upload_item_selector = _click_first_visible(
+            page,
+            (
+                "tp-yt-paper-item:has-text('Tải video lên')",
+                "[role='menuitem']:has-text('Tải video lên')",
+                "tp-yt-paper-item:has-text('Upload videos')",
+                "[role='menuitem']:has-text('Upload videos')",
+            ),
+        )
+        if not upload_item_selector:
+            return {"status": "BLOCKED_YOUTUBE_UPLOAD_MENU_ITEM_NOT_FOUND", "platform": "youtube", "create_selector": create_selector}
+        time.sleep(1)
+        select_files, select_files_selector = _first_visible(
+            page,
+            (
+                "ytcp-button#select-files-button",
+                "#select-files-button",
+                "button:has-text('SELECT FILES')",
+                "button:has-text('Select files')",
+                "button:has-text('CHỌN TỆP')",
+                "button:has-text('Chọn tệp')",
+                "ytcp-button:has-text('CHỌN TỆP')",
+                "ytcp-button:has-text('Chọn tệp')",
+            ),
+        )
+        if not select_files:
+            return {
+                "status": "BLOCKED_YOUTUBE_SELECT_FILES_CONTROL_NOT_FOUND",
+                "platform": "youtube",
+                "create_selector": create_selector,
+                "upload_item_selector": upload_item_selector,
+            }
+        upload_transfer = _activate_file_upload(
+            page,
+            trigger=select_files,
+            file_path=video_path,
+            media_kind="video",
+            exclusive=False,
+            chooser_timeout_ms=10000,
+        )
+        upload_selector = str(upload_transfer.get("upload_transport") or "")
+        if upload_transfer.get("status") != "file_set":
+            return {
+                "status": "BLOCKED_YOUTUBE_UPLOAD_INPUT_NOT_FOUND",
+                "platform": "youtube",
+                "create_selector": create_selector,
+                "upload_item_selector": upload_item_selector,
+                "select_files_selector": select_files_selector,
+                "upload_transfer": upload_transfer,
+            }
+        deadline = time.monotonic() + 40
+        title_box = None
+        while time.monotonic() < deadline and not title_box:
+            title_box, _title_selector = _first_visible(page, ("#title-textarea #textbox", "ytcp-mention-textbox#title-textarea #textbox", "[aria-label*='Add a title']", "[aria-label*='Tiêu đề']"))
+            if not title_box:
+                time.sleep(1)
+        if not title_box:
+            return {"status": "BLOCKED_YOUTUBE_DETAILS_EDITOR_NOT_FOUND", "platform": "youtube", "upload_selector": upload_selector}
+        title_box.click()
+        page.keyboard.press("Control+A")
+        page.keyboard.type(title[:100], delay=0)
+        description_box, _description_selector = _first_visible(page, ("#description-textarea #textbox", "ytcp-mention-textbox#description-textarea #textbox", "[aria-label*='Tell viewers about your video']", "[aria-label*='Mô tả']"))
+        if description_box:
+            description_box.click()
+            page.keyboard.type(description[:4900], delay=0)
+        _click_first_visible(page, ("tp-yt-paper-radio-button[name='VIDEO_MADE_FOR_KIDS_NOT_MFK']", "text=No, it's not made for kids", "text=Không, video này không dành cho trẻ em"))
+        for _ in range(3):
+            selector = _click_first_visible(page, ("#next-button", "ytcp-button#next-button", "button:has-text('Next')", "button:has-text('Tiếp')"))
+            if not selector:
+                break
+            time.sleep(2)
+        visibility_selector = _click_first_visible(page, ("tp-yt-paper-radio-button[name='PUBLIC']", "text=Public", "text=Công khai"))
+        if not visibility_selector:
+            return {"status": "BLOCKED_YOUTUBE_PUBLIC_VISIBILITY_CONTROL_NOT_FOUND", "platform": "youtube", "upload_selector": upload_selector}
+        done_selector = _click_first_visible(page, ("#done-button", "ytcp-button#done-button", "button:has-text('Publish')", "button:has-text('Save')", "button:has-text('Xuất bản')", "button:has-text('Lưu')"))
+        if not done_selector:
+            return {"status": "BLOCKED_YOUTUBE_PUBLISH_CONTROL_NOT_FOUND", "platform": "youtube", "upload_selector": upload_selector}
+        deadline = time.monotonic() + 35
+        video_id = _youtube_video_id_readback(page)
+        while time.monotonic() < deadline and not video_id:
+            time.sleep(1)
+            video_id = _youtube_video_id_readback(page)
+        if not video_id:
+            return {"status": "FAILED_YOUTUBE_PUBLIC_URL_READBACK", "platform": "youtube", "upload_selector": upload_selector, "upload_transfer": upload_transfer, "payload_sha256": _sha256(title + "\n" + description)}
+        public_url = f"https://www.youtube.com/watch?v={video_id}"
+        screenshot = None
+        public_title_readback = False
+        if public_screenshot_path:
+            page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+            time.sleep(5)
+            try:
+                public_title = page.locator("meta[property='og:title']").first.get_attribute("content") or page.title()
+                public_title_readback = title[:60].casefold() in str(public_title or "").casefold()
+            except Exception:
+                public_title_readback = False
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+        return {"status": "SUCCESS", "platform": "youtube", "action": "public_short", "video_id": video_id, "public_url": public_url, "upload_selector": upload_selector, "upload_transfer": upload_transfer, "public_screenshot_path": screenshot, "public_title_readback": public_title_readback, "payload_sha256": _sha256(title + "\n" + description)}

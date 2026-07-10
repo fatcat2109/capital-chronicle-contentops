@@ -66,6 +66,12 @@ def _fake_visual_builder(_topic: str, output_dir: Path, as_of_date=None) -> list
                 "caption": f"{asset_id} chart. Source: FRED / Federal Reserve.",
                 "alt_text": f"{asset_id} source-backed chart",
                 "why_selected": "Tests three in-body source-backed charts.",
+                "latest_observation_value": 3.62,
+                "latest_observation_date": "2026-07-08",
+                "prior_observation_value": 3.63,
+                "prior_observation_date": "2026-07-07",
+                "target_lower": 3.50,
+                "target_upper": 3.75,
             }
         )
     return rows
@@ -92,6 +98,10 @@ def test_prepare_uses_llm_ranking_then_requires_three_chart_media(tmp_path: Path
     request = json.loads(request_path.read_text(encoding="utf-8"))
 
     assert context["selection"]["slot_index"] == 6
+    assert context["selection"]["title"] == "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues"
+    assert "3.62% on 2026-07-08" in context["article"]["substack_body_markdown"]
+    assert "printed at 3.63%" not in context["article"]["substack_body_markdown"]
+    assert "3.63%" not in context["selection"]["market_mechanism"]
     assert context["media"]["media_asset_count"] == 3
     assert {asset["media_class"] for asset in context["media"]["assets"]} == {"data_chart"}
     assert context["article"]["word_count"] >= 1200

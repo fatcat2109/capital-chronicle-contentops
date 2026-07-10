@@ -1,11 +1,11 @@
-"""Operator-owned browser lab for social credential setup.
+"""Operator-owned browser lab using the canonical Microsoft Edge profile.
 
-Opens official developer portals in persistent operator profile. Not runtime publish
-authority. Never inspects browser state.
+Portal setup remains a distinct capability from live publishing, but every launch
+now uses the same Edge-only profile authority used by the production adapters.
 """
 from __future__ import annotations
 
-import argparse, json, os, shutil, subprocess, time, urllib.request
+import argparse, json, os, subprocess, urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Mapping, Sequence
@@ -25,12 +25,20 @@ from live_contentops.x_cdp_exact_live_click_execution_prep_v6 import build_execu
 from live_contentops.x_cdp_exact_live_click_authorization_v6 import build_exact_live_click_authorization
 from live_contentops.x_cdp_exact_live_click_execution_v6 import build_exact_live_click_execution
 from live_contentops.platform_publication_identity_registry_v6 import DEFAULT_REGISTRY_PATH, audit_registry_records
+from live_contentops.publishing_profile_registry_v1 import (
+    CANONICAL_PROFILE_ROOT,
+    CANONICAL_CDP_PORTS,
+    browser_doctor,
+    build_edge_command,
+    find_edge_binary,
+    open_or_attach_canonical_edge,
+)
 
 TASK_LABEL = "TASK_CONTENTOPS_OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP_WORKBENCH_V0"
-DEFAULT_PROFILE_ROOT = Path(r"A:\Capital Chronicle\operator-browser-profiles\contentops-social-main")
+DEFAULT_PROFILE_ROOT = CANONICAL_PROFILE_ROOT
 PROFILE_ENV_KEY = "CONTENTOPS_OPERATOR_BROWSER_PROFILE_ROOT"
 CDP_PORT_ENV_KEY = "CONTENTOPS_OPERATOR_BROWSER_CDP_PORT"
-DEFAULT_CDP_PORT = 9222
+DEFAULT_CDP_PORT = CANONICAL_CDP_PORTS[0]
 BROWSER_BINARY_ENV_KEY = "CONTENTOPS_OPERATOR_BROWSER_BINARY"
 
 FORBIDDEN_BROWSER_STATE_ACTIONS = ("cookie_dump", "cookies_read", "localStorage_read", "sessionStorage_read", "dom_dump", "screenshot_with_secret")
@@ -118,18 +126,7 @@ def labels_for_platform(platform: str) -> list[str]:
     return [PORTAL_TARGETS[platform].label]
 
 def find_browser_binary(env: Mapping[str, str] | None = None) -> str | None:
-    source = os.environ if env is None else env
-    configured = source.get(BROWSER_BINARY_ENV_KEY)
-    if configured:
-        return configured
-    candidates = ["chrome.exe", "msedge.exe", "chromium.exe", "google-chrome", "chromium", "chrome", "msedge", r"C:\Program Files\Google\Chrome\Application\chrome.exe", r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"]
-    for candidate in candidates:
-        found = shutil.which(candidate)
-        if found:
-            return found
-        if Path(candidate).exists():
-            return candidate
-    return None
+    return find_edge_binary(env)
 
 def assert_no_secret_like_command(command: Sequence[str]) -> None:
     joined = "\n".join(command).lower()
@@ -138,20 +135,17 @@ def assert_no_secret_like_command(command: Sequence[str]) -> None:
         raise ValueError("secret_like_browser_command_blocked")
 
 def build_browser_command(browser_binary: str, profile_root: Path, cdp_port: int, platform: str) -> list[str]:
-    command = [
+    command = build_edge_command(
         browser_binary,
-        f"--user-data-dir={profile_root}",
-        f"--remote-debugging-port={cdp_port}",
-        "--no-first-run",
-        "--disable-default-apps",
-        "--new-window",
-    ]
-    command.extend(urls_for_platform(platform))
+        profile_root=profile_root,
+        cdp_port=cdp_port,
+        urls=urls_for_platform(platform),
+    )
     assert_no_secret_like_command(command)
     return command
 
 def safe_open_summary(platform: str, profile_root: Path, cdp_port: int) -> dict[str, object]:
-    return {"task_label": TASK_LABEL, "platform": platform, "portal_labels": labels_for_platform(platform), "portal_url_count": len(urls_for_platform(platform)), "profile_policy": validate_profile_policy(profile_root), "cdp_port": cdp_port, "cookie_dump_performed": False, "localStorage_dump_performed": False, "sessionStorage_dump_performed": False, "dom_dump_performed": False, "platform_write_performed": False, "raw_secret_output": False}
+    return {"task_label": TASK_LABEL, "platform": platform, "portal_labels": labels_for_platform(platform), "portal_url_count": len(urls_for_platform(platform)), "profile_policy": validate_profile_policy(profile_root), "browser_family": "microsoft_edge", "cdp_port": cdp_port, "cookie_dump_performed": False, "localStorage_dump_performed": False, "sessionStorage_dump_performed": False, "dom_dump_performed": False, "platform_write_performed": False, "raw_secret_output": False}
 
 
 def probe_cdp(cdp_port: int, timeout: float = 3.0) -> dict[str, object]:
@@ -192,15 +186,14 @@ def open_platform(platform: str, repo_root: Path | None = None, dry_run: bool = 
     summary["browser_command_arg_count"] = len(command)
     summary["status"] = "dry_run_ready" if dry_run else "opened"
     if not dry_run:
-        profile_root.mkdir(parents=True, exist_ok=True)
-        proc = subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        time.sleep(2)
-        summary["browser_process_exited"] = proc.poll() is not None
-        summary.update(probe_cdp(cdp_port, timeout=2.0))
-        if summary["browser_process_exited"]:
-            summary["status"] = "blocked_browser_exited_after_launch"
-        elif not summary["cdp_alive"]:
-            summary["status"] = "blocked_cdp_not_alive_after_launch"
+        launch = open_or_attach_canonical_edge(urls=urls_for_platform(platform), env=env)
+        summary["canonical_edge_status"] = launch.get("status")
+        summary["cdp_port"] = launch.get("cdp_port") or launch.get("recommended_cdp_port") or cdp_port
+        summary.update(probe_cdp(int(summary["cdp_port"]), timeout=2.0))
+        if str(launch.get("status") or "").startswith(("ATTACHED", "LAUNCHED")):
+            summary["status"] = "opened"
+        else:
+            summary["status"] = "blocked_canonical_edge_profile"
     return summary
 
 def main(argv: list[str] | None = None) -> int:
@@ -210,6 +203,8 @@ def main(argv: list[str] | None = None) -> int:
     open_parser.add_argument("--platform", required=True, choices=sorted([*PORTAL_TARGETS.keys(), "all-docs"]))
     open_parser.add_argument("--repo-root", default=".")
     open_parser.add_argument("--dry-run", action="store_true")
+    doctor_parser = sub.add_parser("doctor")
+    doctor_parser.add_argument("--no-probe", action="store_true")
     guard_parser = sub.add_parser("guard-x-cdp")
     guard_parser.add_argument("--dry-run", action="store_true", help="Required; guard mode never launches or clicks.")
     guard_parser.add_argument("--cdp-port", type=int, default=DEFAULT_CDP_PORT)
@@ -293,6 +288,10 @@ def main(argv: list[str] | None = None) -> int:
         result = open_platform(args.platform, Path(args.repo_root), args.dry_run)
         print(json.dumps(result, sort_keys=True))
         return 0 if str(result.get("status")).startswith(("opened", "dry_run")) else 2
+    if args.command == "doctor":
+        result = browser_doctor(probe=not args.no_probe)
+        print(json.dumps(result, sort_keys=True))
+        return 0 if str(result.get("status", "")).startswith("READY") else 2
     if args.command == "guard-x-cdp":
         if not args.dry_run:
             print(json.dumps({"status": "blocked_dry_run_flag_required", "live_click_allowed": False}, sort_keys=True))

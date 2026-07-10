@@ -1,0 +1,10 @@
+{
+  "duration_seconds": 15,
+  "ffmpeg_exit_code": 0,
+  "media_kind": "source_backed_chart_sequence_video",
+  "output_bytes": 100775,
+  "source_chart_count": 3,
+  "status": "SUCCESS",
+  "synthetic_image_generated": false,
+  "video_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\video\\eight_platform_live_20260710_recovery1_source_charts_short.mp4"
+}

@@ -1,0 +1,78 @@
+{
+  "created_at": "2026-07-10T09:15:00Z",
+  "duplicate_hotspot_decision": {
+    "existing_telegram_message_id": "61",
+    "existing_telegram_url": "https://t.me/CapitalChronicle/61",
+    "reason": "A matching recent Telegram distribution exists without a canonical Substack URL; update its caption after canonical Substack readback rather than send a duplicate post.",
+    "repair_mode": "CANONICALIZATION_REPAIR_EXISTING_DISTRIBUTION",
+    "source_created_at": "2026-07-09T22:29:02Z",
+    "source_evidence_path": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\run_evidence_v1.json",
+    "source_run_id": "terra_ultra_north_star_live_20260710"
+  },
+  "llm_selection_rationale": "The decoupling of oil prices and Treasury yields represents a fundamental shift in the macroeconomic regime, signaling that the Federal Reserve's primary policy challenge has migrated from headline energy shocks to sticky core services and structural domestic inflation. This theme (Slot 1) provides the most robust framework to integrate hard market data, including the stable Effective Fed Funds Rate at 3.63% (Slot 6) and the shifting geopolitical risk premium in energy markets driven by the U.S. EIA's projection of a return to pre-war supply levels (Slot 4) alongside the U.S. Treasury's revocation of Iranian oil sanction suspensions (Slot 5). Other slots, such as the working paper on immigration (Slot 3) and general calendar events (Slot 2), lack the immediate, tradeable cross-asset transmission mechanisms required for a lead market story.",
+  "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+  "selected": {
+    "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+    "article_family": "fed_funds",
+    "breaking_or_hotspot": false,
+    "canonicalization_repair": {
+      "existing_telegram_message_id": "61",
+      "existing_telegram_url": "https://t.me/CapitalChronicle/61",
+      "reason": "A matching recent Telegram distribution exists without a canonical Substack URL; update its caption after canonical Substack readback rather than send a duplicate post.",
+      "repair_mode": "CANONICALIZATION_REPAIR_EXISTING_DISTRIBUTION",
+      "source_created_at": "2026-07-09T22:29:02Z",
+      "source_evidence_path": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\run_evidence_v1.json",
+      "source_run_id": "terra_ultra_north_star_live_20260710"
+    },
+    "cross_asset_implications": "The overnight benchmark matters for cash and short-rate pricing; longer Treasury yields, credit, equities, and foreign exchange can still reprice through separate growth, inflation, supply, and risk-premium channels.",
+    "dek": "FRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus.",
+    "llm_title_before_source_grounding": "Fed Funds Rate Holds Flat at 3.63% as Policy Restricton Collides with Market Easing Hopes",
+    "market_mechanism": "The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions. Its position inside the policy corridor is evidence about overnight rate implementation, while funding spreads and the yield curve provide the broader conditions context.",
+    "media_numeric_anchor": {
+      "latest_observation_date": "2026-07-08",
+      "latest_observation_value": 3.62,
+      "source_asset_id": "primary",
+      "source_grounding_applied": true
+    },
+    "policy_context": "The target range and administered rates frame the overnight operating environment. A reading inside that corridor shows where the implementation channel is operating, but it does not by itself establish the next policy decision or the direction of longer-dated yields.",
+    "rank": 3,
+    "seo_title": "Effective Fed Funds Rate at 3.62% and the Policy Corridor",
+    "slot_index": 6,
+    "slug": "effective-fed-funds-rate-3-62-policy-calibration",
+    "tags": [
+      "central_bank",
+      "official_central_bank_statement_or_calendar"
+    ],
+    "thesis": "FRED's latest effective federal funds rate reading was 3.62% on 2026-07-08. The observation shows where the overnight policy-transmission channel is operating, but it does not by itself settle the broader financial-conditions outlook.",
+    "title": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues",
+    "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+    "topic_hash": "8a4bc478b749f915",
+    "why_ranked": "While highly factual and supported by official central bank data, this candidate is primarily a status-quo update that lacks the dynamic narrative catalyst of the higher-ranked slots."
+  },
+  "selection_method": "live_llm_ranking_then_grounded_media_support_gate",
+  "support_attempts": [
+    {
+      "grounded_support_blockers": [
+        "llm_media_family_mismatch:fed_funds!=oil",
+        "primary_federal_reserve_source_required_by_schedule_not_present_in_media_pack"
+      ],
+      "media_asset_count": 3,
+      "slot_index": 1,
+      "status": "REJECTED_GROUNDED_SUPPORT"
+    },
+    {
+      "grounded_support_blockers": [
+        "primary_eia_source_required_by_schedule_not_present_in_media_pack"
+      ],
+      "media_asset_count": 3,
+      "slot_index": 4,
+      "status": "REJECTED_GROUNDED_SUPPORT"
+    },
+    {
+      "grounded_support_blockers": [],
+      "media_asset_count": 3,
+      "slot_index": 6,
+      "status": "PASS"
+    }
+  ]
+}

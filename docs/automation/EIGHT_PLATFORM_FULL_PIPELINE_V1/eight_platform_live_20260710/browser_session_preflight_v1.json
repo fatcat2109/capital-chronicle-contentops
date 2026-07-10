@@ -1,0 +1,62 @@
+{
+  "linkedin": {
+    "authenticated": true,
+    "authenticated_ui_selector": "text=Start a post",
+    "cookies_read": false,
+    "destination_identity": "linkedin:jimcc",
+    "dom_dump_persisted": false,
+    "login_control_detected": false,
+    "page_domain": "www.linkedin.com",
+    "platform": "linkedin",
+    "profile_id": "contentops-social-main",
+    "storage_read": false
+  },
+  "substack": {
+    "authenticated": true,
+    "authenticated_ui_selector": "#post-title",
+    "cookies_read": false,
+    "destination_identity": null,
+    "dom_dump_persisted": false,
+    "login_control_detected": false,
+    "page_domain": "capitalchronicle.substack.com",
+    "platform": "substack",
+    "profile_id": "contentops-social-main",
+    "storage_read": false
+  },
+  "tiktok": {
+    "authenticated": true,
+    "authenticated_ui_selector": "text=Upload",
+    "cookies_read": false,
+    "destination_identity": null,
+    "dom_dump_persisted": false,
+    "login_control_detected": false,
+    "page_domain": "www.tiktok.com",
+    "platform": "tiktok",
+    "profile_id": "contentops-social-main",
+    "storage_read": false
+  },
+  "x": {
+    "authenticated": true,
+    "authenticated_ui_selector": "[data-testid='tweetTextarea_0']",
+    "cookies_read": false,
+    "destination_identity": "@Capitalnicle",
+    "dom_dump_persisted": false,
+    "login_control_detected": false,
+    "page_domain": "x.com",
+    "platform": "x",
+    "profile_id": "contentops-social-main",
+    "storage_read": false
+  },
+  "youtube": {
+    "authenticated": true,
+    "authenticated_ui_selector": "button[aria-label*='T\u1ea1o']",
+    "cookies_read": false,
+    "destination_identity": null,
+    "dom_dump_persisted": false,
+    "login_control_detected": false,
+    "page_domain": "studio.youtube.com",
+    "platform": "youtube",
+    "profile_id": "contentops-social-main",
+    "storage_read": false
+  }
+}

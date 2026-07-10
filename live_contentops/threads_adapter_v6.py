@@ -13,6 +13,13 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
+from .media_manifest_authority_v1 import (
+    PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM,
+    read_public_image_bytes,
+    sha256_bytes,
+    visual_similarity_to_local_file,
+)
+
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0"
 THREADS_GRAPH_VERSION = "v1.0"
 
@@ -53,6 +60,13 @@ def _post_form(url: str, payload: dict[str, Any]) -> tuple[dict[str, Any], int]:
         return json.loads(response.read().decode("utf-8")), len(data)
 
 
+def _get_json(url: str, payload: dict[str, Any]) -> dict[str, Any]:
+    query = urllib.parse.urlencode(payload)
+    request = urllib.request.Request(f"{url}?{query}", method="GET")
+    with urllib.request.urlopen(request, timeout=20) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
 def compile_threads_payload(text: str, media_type: str = "TEXT", image_url: str | None = None, reply_to_id: str | None = None) -> dict[str, Any]:
     """Compiles the payload for creating a Threads media container."""
     payload: dict[str, Any] = {"media_type": media_type, "text": text}
@@ -70,6 +84,7 @@ def execute_threads_post(
     media_type: str | None = None,
     image_url: str | None = None,
     reply_to_id: str | None = None,
+    expected_media_sha256: str | None = None,
     dry_run: bool = False,
 ) -> dict[str, Any]:
     """Executes the two-step Threads Graph API publishing flow."""
@@ -78,6 +93,12 @@ def execute_threads_post(
     missing = [name for name, value in (("threads_user_id", threads_user_id), ("access_token", access_token), ("text", text)) if not value]
     if missing:
         return _validation_failed(missing)
+    if image_url and expected_media_sha256:
+        try:
+            if sha256_bytes(read_public_image_bytes(image_url)) != expected_media_sha256:
+                return {"status": "VALIDATION_FAILED", "validation_failures": ["media_manifest_hash_continuity_failed"]}
+        except Exception as exc:
+            return {"status": "VALIDATION_FAILED", "validation_failures": [f"media_manifest_url_unreadable:{type(exc).__name__}"]}
 
     media_type = media_type or ("IMAGE" if image_url else "TEXT")
     create_url = f"https://graph.threads.net/{THREADS_GRAPH_VERSION}/{threads_user_id}/threads"
@@ -121,6 +142,123 @@ def execute_threads_post(
 
     classify_and_record_dispatch("threads", "reply" if reply_to_id else "post", result, (time.perf_counter() - t0) * 1000.0, payload_size)
     return result
+
+
+def readback_threads_post(
+    *,
+    post_id: str,
+    expected_text: str,
+    canonical_url: str | None = None,
+    expected_media_local_path: str | None = None,
+    access_token: str | None = None,
+) -> dict[str, Any]:
+    access_token = _threads_token(access_token)
+    if not post_id or not access_token:
+        return _validation_failed([name for name, value in (("post_id", post_id), ("access_token", access_token)) if not value])
+    try:
+        value = _get_json(
+            f"https://graph.threads.net/{THREADS_GRAPH_VERSION}/{post_id}",
+            {"fields": "id,text,media_type,media_url,permalink,username,timestamp", "access_token": access_token},
+        )
+    except urllib.error.HTTPError as error:
+        return _parse_http_error(error, "FAILED_READBACK")
+    except Exception as error:
+        return {"status": "FAILED_READBACK", "error_class": type(error).__name__}
+    visible_text = " ".join(str(value.get("text") or "").split())
+    expected_normalized = " ".join(expected_text.split())
+    text_verified = bool(expected_normalized and expected_normalized.casefold() in visible_text.casefold())
+    media_url = str(value.get("media_url") or "")
+    similarity = None
+    if media_url and expected_media_local_path:
+        try:
+            similarity = visual_similarity_to_local_file(read_public_image_bytes(media_url), expected_media_local_path)
+        except Exception:
+            similarity = None
+    media_verified = True if not expected_media_local_path else bool(
+        similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
+    )
+    meaningful_media_visible = bool(
+        media_url
+        and (
+            not expected_media_local_path
+            or (similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM)
+        )
+    )
+    link_verified = True if not canonical_url else canonical_url in visible_text
+    permalink = str(value.get("permalink") or "") or None
+    username = str(value.get("username") or "")
+    verified = bool(text_verified and media_verified and link_verified and permalink and username.casefold() == "official.capitalchronicle")
+    return {
+        "status": "SUCCESS" if verified else "FAILED_THREADS_STRICT_READBACK",
+        "platform": "threads",
+        "post_id": str(value.get("id") or post_id),
+        "public_url": permalink,
+        "destination_identity": username,
+        "account_identity_verified": username.casefold() == "official.capitalchronicle",
+        "visible_body_text": visible_text,
+        "body_text_visible": text_verified,
+        "substack_url_visible": link_verified,
+        "meaningful_media_visible": meaningful_media_visible,
+        "expected_chart_visual_similarity": similarity,
+        "media_type": value.get("media_type"),
+    }
+
+
+def readback_threads_chain(
+    *,
+    root_id: str,
+    reply_expectations: list[dict[str, Any]],
+    access_token: str | None = None,
+) -> dict[str, Any]:
+    access_token = _threads_token(access_token)
+    if not root_id or not access_token:
+        return _validation_failed([name for name, value in (("root_id", root_id), ("access_token", access_token)) if not value])
+    try:
+        edge = _get_json(
+            f"https://graph.threads.net/{THREADS_GRAPH_VERSION}/{root_id}/replies",
+            {"fields": "id,text,media_type,media_url,permalink,username,timestamp", "reverse": "true", "access_token": access_token},
+        )
+    except Exception as error:
+        return {"status": "FAILED_THREADS_REPLY_EDGE_READBACK", "error_class": type(error).__name__}
+    rows = list(edge.get("data") or [])
+    edge_ids = [str(row.get("id") or "") for row in rows]
+    ordered: list[dict[str, Any]] = []
+    for index, expectation in enumerate(reply_expectations, start=1):
+        reply_id = str(expectation.get("id") or "")
+        row = next((item for item in rows if str(item.get("id") or "") == reply_id), None)
+        text = " ".join(str((row or {}).get("text") or "").split())
+        expected_text = " ".join(str(expectation.get("text") or "").split())
+        ordered.append(
+            {
+                "order": index,
+                "id": reply_id,
+                "public_url": (row or {}).get("permalink"),
+                "parent_root_id": root_id,
+                "parent_child_verified": reply_id in edge_ids,
+                "text_verified": bool(expected_text and expected_text.casefold() in text.casefold()),
+            }
+        )
+    expected_ids = [str(item.get("id") or "") for item in reply_expectations]
+    chronological_ids = [
+        str(row.get("id") or "")
+        for row in sorted(rows, key=lambda row: str(row.get("timestamp") or ""))
+    ]
+    provider_positions = [chronological_ids.index(reply_id) for reply_id in expected_ids if reply_id in chronological_ids]
+    provider_order_verified = len(provider_positions) == len(expected_ids) and provider_positions == sorted(provider_positions)
+    success = bool(
+        ordered
+        and provider_order_verified
+        and all(row["parent_child_verified"] and row["text_verified"] for row in ordered)
+    )
+    return {
+        "status": "SUCCESS" if success else "FAILED_THREADS_REPLY_CHAIN_READBACK",
+        "platform": "threads",
+        "root_id": root_id,
+        "reply_ids_in_provider_order": edge_ids,
+        "reply_ids_in_chronological_order": chronological_ids,
+        "provider_order_verified": provider_order_verified,
+        "ordered_replies": ordered,
+    }
 
 
 def execute_threads_edit(*args: Any, **kwargs: Any) -> dict[str, Any]:

@@ -1,151 +1,77 @@
-# Operator Browser Lab Runbook
+# ContentOps Edge Publishing Runbook
 
-Task: `TASK_CONTENTOPS_OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP_WORKBENCH_V0`
+This is the single current operator browser and supervised publishing runbook.
 
-## Purpose
-
-Browser Lab gives operator persistent Chrome/CDP profile for manual social account login, official developer portal access, and credential retrieval. It is not runtime posting authority.
-
-## Defaults
-
-- Profile root: `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`
-- Profile override env key: `CONTENTOPS_OPERATOR_BROWSER_PROFILE_ROOT`
-- CDP port: `9222`
-- CDP override env key: `CONTENTOPS_OPERATOR_BROWSER_CDP_PORT`
-
-Default profile is outside repo. Repo-local override is sensitive and must remain gitignored.
-
-## Known Good Substack/CDP Profile
-
-Use the operator Browser Lab profile, not Edge's built-in `Default`, `Profile 1`, or `Profile 2` folders. Those Edge profiles may be logged out or unrelated.
-
-Known-good profile root:
+## Canonical Profile
 
 ```text
-A:\Capital Chronicle\operator-browser-profiles\contentops-social-main
+Browser: Microsoft Edge
+Profile: A:\Capital Chronicle\operator-browser-profiles\contentops-social-main
+Preferred CDP port: 9223 when 9222 is occupied by Chrome/Antigravity
 ```
 
-Preferred launch command:
+Never publish from Edge built-in profiles, temporary profiles, Antigravity Chrome, or an unknown CDP owner. The profile lives outside the repo and must not be committed.
+
+## Open And Diagnose
 
 ```powershell
 python -m live_contentops.operator_browser_lab open --platform substack
+python -m live_contentops.publishing_profile_registry_v1 doctor
 ```
 
-Equivalent direct Edge command, with quoted `--user-data-dir` because the path contains spaces:
+The doctor must report `READY_TO_ATTACH`, Microsoft Edge, and the exact profile root. Port `9222` is rejected when owned by noncanonical Chrome; current live evidence uses `9223`.
+
+Safe readiness checks may inspect browser family, CDP reachability, process/profile ownership, destination identity, and visible authenticated UI selectors. They must not read or persist cookies, localStorage, sessionStorage, authorization headers, tokens, webhook values, or raw secret values.
+
+## Canonical Runner
 
 ```powershell
-& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --user-data-dir="A:\Capital Chronicle\operator-browser-profiles\contentops-social-main" --remote-debugging-port=9222 --no-first-run --disable-default-apps --new-window "https://substack.com/"
+python -m live_contentops.eight_platform_substack_first_pipeline_v1 `
+  --run-id <run-id> `
+  --output-dir docs\automation\EIGHT_PLATFORM_FULL_PIPELINE_V1\<run-id> `
+  --cdp-port 9223 `
+  --operator-approved-full-live-run
 ```
 
-CDP readiness check:
+For failed-destination repair, use derivative-only resume:
 
 ```powershell
-python -c "import json, urllib.request; data=json.load(urllib.request.urlopen('http://127.0.0.1:9222/json/version', timeout=3)); print(json.dumps({'Browser': bool(data.get('Browser')), 'webSocketDebuggerUrl': bool(data.get('webSocketDebuggerUrl'))}, sort_keys=True))"
+python -m live_contentops.eight_platform_substack_first_pipeline_v1 `
+  --run-id <existing-run-id> `
+  --output-dir docs\automation\EIGHT_PLATFORM_FULL_PIPELINE_V1\<existing-run-id> `
+  --cdp-port 9223 `
+  --operator-approved-full-live-run `
+  --resume-derivatives `
+  --resume-platform <destination>
 ```
 
-Expected output:
+Do not use derivative resume to reopen Substack, Telegram, Discord, or any already successful destination.
 
-```json
-{"Browser": true, "webSocketDebuggerUrl": true}
-```
+## Media Upload
 
-If CDP fails, close all `msedge.exe` processes and relaunch with the preferred Browser Lab command. Do not switch to Edge built-in profiles unless intentionally rebuilding login state.
+Local browser uploads use Playwright `expect_file_chooser()` and `file_chooser.set_files()` first. If no chooser event is reliable, the adapter selects the newest connected and newly enabled image input and calls `set_input_files()` directly. It never clicks the file input or automates Windows Explorer.
 
-## Known Good X/CDP Profile and Port Guard
+Uploads are sequential. Each insert must show one new in-body image, meaningful natural dimensions, no spinner/placeholder, visible loaded media, intended marker placement, and saved state.
 
-TASK 0087AD proved the X no-paid-API path works when the browser is the standard ContentOps profile:
+## Product Contracts
 
-```text
-A:\Capital Chronicle\operator-browser-profiles\contentops-social-main
-```
+- Substack is canonical and requires three distributed source-backed visuals.
+- Derivatives use exact media-manifest asset/hash binding.
+- X and Threads overflow into ordered replies; hard truncation is forbidden.
+- YouTube uses Community text + image + Substack link. Video/Short is non-default.
+- TikTok must report the exact authentication blocker when unavailable.
+- A write is successful only after stable public URL/ID and text/media/link/account readback.
 
-Do not attach live publishing scripts to Antigravity's internal Chrome profile:
+## Reconciliation
 
-```text
-C:\Users\bullw\.gemini\antigravity-browser-profile
-```
+Before retrying malformed or uncertain output:
 
-Why this matters:
+1. Identify the exact existing post by account, topic, timestamp, payload, and media fingerprint.
+2. Prefer edit, then author comment/reply, then one corrected replacement.
+3. Preserve and label the malformed post; never silently delete it.
+4. Record the relationship, payload hash, media hash, root/reply IDs, and readback.
+5. Unknown write outcomes block automatic retry.
 
-- Antigravity Chrome may own CDP `9222`.
-- Attaching to that port can target a logged-out X onboarding page.
-- A live script must block before click if the CDP process command line is Antigravity or unknown.
-- If `9222` is occupied by Antigravity Chrome, use a free Edge ContentOps CDP port such as `9223`.
+## TikTok Handoff
 
-Safe verification uses only non-secret metadata:
-
-```text
-/json/version Browser + webSocketDebuggerUrl
-Windows process command line containing --remote-debugging-port=<port> and --user-data-dir=<profile>
-```
-
-Never verify by reading cookies, localStorage, sessionStorage, authorization headers, tokens, DOM dumps, or screenshots containing secrets.
-
-TASK 0087AE promotes this rule into reusable guard code: `live_contentops/x_cdp_profile_guard_v6.py`.
-
-## Commands
-
-```powershell
-python -m live_contentops.operator_browser_lab open --platform telegram
-python -m live_contentops.operator_browser_lab open --platform x
-python -m live_contentops.operator_browser_lab open --platform linkedin
-python -m live_contentops.operator_browser_lab open --platform meta
-python -m live_contentops.operator_browser_lab open --platform tiktok
-python -m live_contentops.operator_browser_lab open --platform youtube
-python -m live_contentops.operator_browser_lab open --platform substack
-python -m live_contentops.operator_browser_lab open --platform all-docs
-```
-
-Use `--dry-run` for command validation without opening browser.
-
-## Allowed
-
-- operator manual login
-- official portal browsing
-- manual API/OAuth credential retrieval
-- local storage in `.env.local` or approved local secret files
-
-## Forbidden
-
-- no posting, publishing, upload, schedule, reply, or DM
-- no Telegram `sendMessage` or `sendPhoto`
-- no X tweet creation
-- no LinkedIn post creation
-- no Meta, Instagram, Threads post
-- no TikTok upload or publish
-- no YouTube upload
-- no Substack publish
-- no provider LLM API call
-- no scraping
-- no cookie dump
-- no `localStorage` dump
-- no `sessionStorage` dump
-- no DOM dump
-- no screenshot containing token/key/secret
-- no OpenClaw runtime integration
-
-## Browser-Assisted Publish Policy
-
-Browser Lab may help with login, API key retrieval, and manual publish setup only. It is not runtime authority.
-
-Future browser-assisted publish requires:
-
-- approved payload hash
-- destination/account pre-click compare
-- Jim present
-- no cookie/session dump
-- stop on UI uncertainty
-- no generic publish-all
-- no autonomous replies/DMs
-
-## OAuth Callback Scaffold
-
-Suggested callback root: `http://127.0.0.1:8765/oauth/{platform}/callback`
-
-- X: `http://127.0.0.1:8765/oauth/x/callback`
-- LinkedIn: `http://127.0.0.1:8765/oauth/linkedin/callback`
-- Meta: `http://127.0.0.1:8765/oauth/meta/callback`
-- TikTok: `http://127.0.0.1:8765/oauth/tiktok/callback`
-- YouTube: `http://127.0.0.1:8765/oauth/youtube/callback`
-
-Scaffold must not log authorization codes or tokens. It must require operator confirmation before writing token file and must never commit token files.
+Open TikTok through the canonical profile and let the operator authenticate manually. Do not inspect or export session storage. After identity is visibly confirmed, rerun safe session readiness and only then enable the reviewed native derivative adapter. Do not substitute YouTube, Instagram, video, or another account.

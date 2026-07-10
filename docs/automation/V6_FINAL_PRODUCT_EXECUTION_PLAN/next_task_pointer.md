@@ -1,57 +1,24 @@
 # V6 Next Task Pointer
 
-Current task: `TASK_CONTENTOPS_SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_DEBUG_AND_COMPLETION_V1`.
+Current completed task: `TASK_CONTENTOPS_HEAVY_NORTH_STAR_MASTER_PLAN_REBUILD_AND_MULTI_PLATFORM_LIVE_OUTPUT_REPAIR_V2`
 
-Result:
-- Classification: `BLOCKED`.
-- Selected topic: `Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th`.
-- Article title: `Effective Fed Funds Rate Holds Steady at 3.63% Amid Policy Calibration`.
-- Selection method: LLM ranking across the current schedule, followed by a grounded support/media gate. Higher-ranked oil and Iran candidates were rejected because their source/media packs did not satisfy the required topic-specific support rule.
-- Duplicate/hotspot result: `CANONICALIZATION_REPAIR_EXISTING_DISTRIBUTION_MESSAGE_61_NO_NEW_TELEGRAM_POST`.
-- Media automation gate: `PASS` before browser upload.
-- ContentOps-built data charts: `3`.
-- Media paths:
-  - `docs/automation/SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1/substack_first_north_star_live_20260710/media_assets/slot_6/fed_funds_policy_corridor_context_4e1243215297.png`
-  - `docs/automation/SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1/substack_first_north_star_live_20260710/media_assets/slot_6/fed_funds_administered_rates_context_4e1243215297.png`
-  - `docs/automation/SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1/substack_first_north_star_live_20260710/media_assets/slot_6/fed_funds_sofr_context_4e1243215297.png`
-- Article reader-facing word count: `1485`.
-- Article visual placement: `PASS_VISUALS_SPREAD_THROUGH_ARTICLE`.
-- Substack draft ID: `206403125`.
-- Saved Substack state: title, subtitle, and opening analysis saved; `editor_body_image_count=0`.
-- Substack external preview/public URL: none. The private editor route is deliberately not persisted as a distribution URL.
-- Upload blocker: `BLOCKED_REQUIRES_CHROME_EXTENSION_FILE_URL_ACCESS`.
-- Telegram status: `NOT_ATTEMPTED`; message `61` was not edited and no new Telegram post was created.
-- X status: `NOT_ATTEMPTED`; canonical Substack URL is a prerequisite.
-- No raw credentials, cookies, tokens, session data, webhook values, or private editor URL were committed.
+Current run: `eight_platform_live_20260710_recovery1`
 
-Evidence:
-- Run context: `docs/automation/SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1/substack_first_north_star_live_20260710/run_context_v1.json`.
-- Browser request: `docs/automation/SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1/substack_first_north_star_live_20260710/substack_browser_request_v1.json`.
-- Blocked Substack readback: `docs/automation/SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1/substack_first_north_star_live_20260710/substack_browser_blocked_readback_v1.json`.
-- Run evidence: `docs/automation/SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1/substack_first_north_star_live_20260710/run_evidence_v1.json`.
-- Article manifest: `docs/automation/SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1/substack_first_north_star_live_20260710/article_manifest_v1.json`.
-- Pipeline handoff: `docs/automation/SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1/README.md`.
+Classification: `PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1`
 
-Recommended next task:
-```text
-TASK_CONTENTOPS_RESUME_SUBSTACK_CHART_UPLOAD_AND_CANONICALIZATION_REPAIR_V1
-```
+Evidence: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/`
 
-Required operator/browser unblock:
-1. Go to `chrome://extensions` in Chrome.
-2. Open Details for the Codex extension.
-3. Enable `Allow access to file URLs`.
+The accepted Substack article and successful derivatives are frozen. TikTok remains `BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED`.
 
-Resume sequence:
-1. Claim the saved Substack draft ID `206403125`.
-2. Upload the prepared `primary`, `policy_corridor`, and `sofr_context` charts in order through the body.
-3. Verify three in-body images and obtain an externally usable Substack preview/public URL.
-4. Record a successful Substack readback using the current request hash.
-5. Edit existing Telegram message `61` with the verified URL and confirm the URL is visible in a Telegram readback. Do not create a new message.
-6. Attempt X only after the canonical URL and Telegram repair succeed.
+## Next Task
 
-Hard safety rules:
-- Never place a private `/publish/` editor URL into Telegram or X.
-- Do not create another Telegram post for this repair.
-- Keep the three source-backed charts spread through the body; do not cluster them at the end.
-- Do not bypass duplicate/hotspot, source-provenance, browser-profile, or secret-hygiene gates.
+`TASK_CONTENTOPS_V6_PLATFORM_DELIVERY_READBACK_DASHBOARD_AND_TIKTOK_AUTH_HANDOFF_V1`
+
+Required scope:
+
+1. Render the normalized platform matrix, root/reply chains, media asset/hash continuity, supersession relationships, and blockers in `ui/contentops_v5/`.
+2. Keep the current canonical article and all successful live destinations read-only.
+3. Add an operator handoff for authenticating TikTok in `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main` without reading or persisting browser storage or secret values.
+4. Run UI and backend read-model tests; do not start a new publication run.
+
+After that task, schedule one fresh supported-idea rehearsal through the full Substack-first pipeline.

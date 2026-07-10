@@ -9,14 +9,16 @@ from __future__ import annotations
 
 import csv
 import hashlib
+import io
 import json
 import re
 import time
 import urllib.parse
 import urllib.request
+import zipfile
 from datetime import date, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, Mapping
 
 DEFAULT_MEDIA_DIR = Path("docs/automation/V6_MEDIA_SYSTEM/downloads")
 WTI_SERIES_ID = "DCOILWTICO"
@@ -27,6 +29,8 @@ EIA_HORMUZ_CONTEXT_URL = "https://www.eia.gov/todayinenergy/detail.php?id=65504"
 DFF_SERIES_ID = "DFF"
 DFF_FRED_CSV_URL = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={DFF_SERIES_ID}"
 DFF_FRED_SERIES_URL = f"https://fred.stlouisfed.org/series/{DFF_SERIES_ID}"
+FED_RATES_FRED_CSV_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFF,DFEDTARL,DFEDTARU,IORB,SOFR,DGS2,DGS10,DGS30"
+FED_RATES_FRED_SERIES_IDS = ("DFF", "DFEDTARL", "DFEDTARU", "IORB", "SOFR", "DGS2", "DGS10", "DGS30")
 FED_H15_URL = "https://www.federalreserve.gov/releases/h15/"
 FED_OPENMARKET_URL = "https://www.federalreserve.gov/monetarypolicy/openmarket.htm"
 FED_IORB_URL = "https://www.federalreserve.gov/monetarypolicy/reserve-balances.htm"
@@ -52,17 +56,6 @@ def _looks_like_fed_funds_topic(text: str) -> bool:
         "rates candidate",
     )
     return any(term in text for term in terms)
-
-
-def _fed_funds_fixture_scope() -> dict[str, Any]:
-    return {
-        "content_authority_scope": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
-        "future_numeric_source_authority": "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY",
-        "contentops_role": "temporary deterministic fallback fixture for dry-run/public-candidate readiness only",
-        "future_required_input": "CC_CONTENT_ARTIFACT_PACKET",
-        "source_truth_boundary": "ContentOps does not own Fed/FRED/NY Fed/Treasury rates source truth; it must consume approved Capital Chronicle artifacts later.",
-        "no_new_source_family_rule": "No additional source families should be added directly to ContentOps unless explicitly approved.",
-    }
 
 
 def _as_of_year(as_of_date: str | None = None) -> int:
@@ -412,22 +405,60 @@ def render_current_wti_visual_pack(
     return assets
 
 
-def _fed_funds_fixture_points() -> list[tuple[date, float]]:
-    raw = [
-        ("2026-06-22", 3.63),
-        ("2026-06-23", 3.63),
-        ("2026-06-24", 3.63),
-        ("2026-06-25", 3.63),
-        ("2026-06-26", 3.63),
-        ("2026-06-29", 3.63),
-        ("2026-06-30", 3.63),
-        ("2026-07-01", 3.63),
-        ("2026-07-02", 3.63),
-        ("2026-07-03", 3.63),
-        ("2026-07-06", 3.63),
-        ("2026-07-07", 3.63),
-    ]
-    return [(datetime.strptime(day, "%Y-%m-%d").date(), value) for day, value in raw]
+def _read_fred_multi_series(
+    fetch_url: str = FED_RATES_FRED_CSV_URL,
+    series_ids: tuple[str, ...] = FED_RATES_FRED_SERIES_IDS,
+) -> dict[str, list[tuple[date, float]]]:
+    """Read current FRED series, including its ZIP multi-frequency response."""
+    request = urllib.request.Request(fetch_url, headers={"User-Agent": "CapitalChronicleContentOps/1.0"})
+    with urllib.request.urlopen(request, timeout=20) as response:
+        raw = response.read()
+    if raw[:2] == b"PK":
+        with zipfile.ZipFile(io.BytesIO(raw)) as archive:
+            csv_texts = [
+                archive.read(name).decode("utf-8", errors="ignore")
+                for name in archive.namelist()
+                if name.lower().endswith(".csv")
+            ]
+    else:
+        csv_texts = [raw.decode("utf-8", errors="ignore")]
+
+    output: dict[str, list[tuple[date, float]]] = {series_id: [] for series_id in series_ids}
+    for text in csv_texts:
+        for row in csv.DictReader(text.splitlines()):
+            raw_date = row.get("DATE") or row.get("observation_date") or ""
+            try:
+                observation_date = datetime.strptime(raw_date, "%Y-%m-%d").date()
+            except ValueError:
+                continue
+            for series_id in series_ids:
+                raw_value = str(row.get(series_id) or "").strip()
+                if raw_value in {"", "."}:
+                    continue
+                try:
+                    output[series_id].append((observation_date, float(raw_value)))
+                except ValueError:
+                    continue
+    for series_id, points in output.items():
+        output[series_id] = sorted({item_date: value for item_date, value in points}.items())
+    return output
+
+
+def _latest_at_or_before(points: list[tuple[date, float]], cutoff: date) -> tuple[date, float] | None:
+    for item in reversed(points):
+        if item[0] <= cutoff:
+            return item
+    return None
+
+
+def _bounded_points(points: list[tuple[date, float]], as_of_date: str | None) -> list[tuple[date, float]]:
+    if not as_of_date:
+        return points
+    try:
+        cutoff = datetime.strptime(as_of_date[:10], "%Y-%m-%d").date()
+    except ValueError:
+        return points
+    return [item for item in points if item[0] <= cutoff]
 
 
 def render_current_fed_funds_visual_pack(
@@ -435,8 +466,9 @@ def render_current_fed_funds_visual_pack(
     article_title: str,
     output_dir: str | Path = DEFAULT_MEDIA_DIR,
     as_of_date: str | None = None,
+    fetch_url: str = FED_RATES_FRED_CSV_URL,
+    series_loader: Callable[[str], Mapping[str, list[tuple[date, float]]]] | None = None,
 ) -> list[dict[str, Any]]:
-    del as_of_date
     try:
         import matplotlib
         matplotlib.use("Agg")
@@ -444,59 +476,84 @@ def render_current_fed_funds_visual_pack(
     except Exception:
         return []
 
+    loader = series_loader or _read_fred_multi_series
+    try:
+        source_series = {
+            series_id: _bounded_points(list(points), as_of_date)
+            for series_id, points in loader(fetch_url).items()
+        }
+    except Exception:
+        return []
+    points = source_series.get("DFF") or []
+    if len(points) < 2:
+        return []
+    latest_date, latest_value = points[-1]
+    prior_date, prior_value = points[-2]
+    lower_point = _latest_at_or_before(source_series.get("DFEDTARL") or [], latest_date)
+    upper_point = _latest_at_or_before(source_series.get("DFEDTARU") or [], latest_date)
+    iorb_point = _latest_at_or_before(source_series.get("IORB") or [], latest_date)
+    sofr_point = _latest_at_or_before(source_series.get("SOFR") or [], latest_date)
+    two_year_point = _latest_at_or_before(source_series.get("DGS2") or [], latest_date)
+    ten_year_point = _latest_at_or_before(source_series.get("DGS10") or [], latest_date)
+    thirty_year_point = _latest_at_or_before(source_series.get("DGS30") or [], latest_date)
+    if not all((lower_point, upper_point, iorb_point, sofr_point, two_year_point, ten_year_point, thirty_year_point)):
+        return []
+
     out_dir = Path(output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     safe = hashlib.sha256(article_title.lower().encode("utf-8")).hexdigest()[:12]
-    points = _fed_funds_fixture_points()
-    latest_date, latest_value = points[-1]
-    prior_date, prior_value = points[-2]
     latest_year = latest_date.year
-    target_lower = 3.50
-    target_upper = 3.75
-    midpoint = 3.625
-    iorb = 3.65
-    on_rrp = 3.50
-    standing_repo = 3.75
-    primary_credit = 3.75
-    two_year = 3.77
-    ten_year = 4.34
-    thirty_year = 4.92
+    target_lower = lower_point[1]
+    target_upper = upper_point[1]
+    iorb = iorb_point[1]
+    recent_points = points[-90:]
+    target_floor_points = [(_latest_at_or_before(source_series["DFEDTARL"], item_date) or lower_point)[1] for item_date, _value in recent_points]
+    target_ceiling_points = [(_latest_at_or_before(source_series["DFEDTARU"], item_date) or upper_point)[1] for item_date, _value in recent_points]
 
     base_meta = {
-        **_fed_funds_fixture_scope(),
+        "content_authority_scope": "SOURCE_BACKED_FRED_VISUAL_CONSTRUCTION",
+        "capital_chronicle_database_role": "Capital Chronicle remains the durable numeric and context authority; this run retrieves official FRED series only to render cited charts.",
         "url": DFF_FRED_SERIES_URL,
         "source_url": DFF_FRED_SERIES_URL,
         "source_page_url": DFF_FRED_SERIES_URL,
         "source_domain": "fred.stlouisfed.org",
         "image_url": None,
-        "source_label": "FRED / Federal Reserve Board",
-        "canonical_source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+        "source_label": "FRED / Board of Governors of the Federal Reserve System",
+        "canonical_source_label": "FRED series DFF, DFEDTARL, DFEDTARU, IORB, SOFR, DGS2, DGS10, and DGS30; Board of Governors and Federal Reserve Bank of New York sources",
         "query": article_title,
         "recency_days": 365,
         "time_filter": "current_source_series_latest_available_observation",
         "retrieval_timestamp": _retrieved_at(),
+        "source_data_fetch_url": fetch_url,
+        "source_series_ids": list(FED_RATES_FRED_SERIES_IDS),
+        "data_fetch_method": "fred_csv_live_or_injected_fixture",
         "rights_status": "source_backed_generated_visual_cc_owned",
         "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
         "operator_review_required": False,
         "latest_observation_date": latest_date.isoformat(),
         "latest_observation_year": latest_year,
+        "latest_observation_value": latest_value,
+        "prior_observation_date": prior_date.isoformat(),
+        "prior_observation_value": prior_value,
+        "target_lower": target_lower,
+        "target_upper": target_upper,
+        "iorb_value": iorb,
         "time_coverage_end_year": latest_year,
         "public_url": None,
-        "dry_run_fixture_asset": False,
+        "dry_run_fixture_asset": str(fetch_url).startswith("file:"),
     }
 
     assets: list[dict[str, Any]] = []
 
     primary_path = out_dir / f"fed_funds_policy_corridor_context_{safe}.png"
     fig, ax = plt.subplots(figsize=(10.8, 5.8), dpi=150)
-    ax.plot([dt for dt, _ in points], [value for _, value in points], color="#1d4ed8", linewidth=2.4, marker="o", markersize=3.4)
-    ax.fill_between([points[0][0], latest_date], target_lower, target_upper, color="#dbeafe", alpha=0.72, label="Target range")
+    ax.plot([dt for dt, _ in recent_points], [value for _, value in recent_points], color="#1d4ed8", linewidth=2.4, marker="o", markersize=3.4, label="Effective fed funds")
+    ax.fill_between([dt for dt, _ in recent_points], target_floor_points, target_ceiling_points, color="#dbeafe", alpha=0.72, label="Target range")
     ax.axhline(iorb, color="#7c3aed", linewidth=1.8, linestyle="--", label="IORB")
-    ax.axhline(midpoint, color="#64748b", linewidth=1.4, linestyle=":", label="Midpoint")
     ax.set_title("Effective Fed Funds Rate Inside the Policy Corridor")
     ax.set_ylabel("Percent")
-    ax.set_xlabel("Source: FRED DFF; Federal Reserve H.15 and policy tools")
-    ax.set_ylim(3.40, 3.85)
+    ax.set_xlabel("Source: FRED DFF, DFEDTARL, DFEDTARU, and IORB")
+    ax.set_ylim(min(target_floor_points + [latest_value, iorb]) - 0.10, max(target_ceiling_points + [latest_value, iorb]) + 0.10)
     ax.grid(True, alpha=0.24)
     ax.annotate(f"{latest_value:.2f}%\n{latest_date.isoformat()}", xy=(latest_date, latest_value), xytext=(-92, 24), textcoords="offset points", fontsize=8, arrowprops={"arrowstyle": "->", "color": "#64748b"})
     ax.legend(loc="lower right", fontsize=8)
@@ -508,14 +565,16 @@ def render_current_fed_funds_visual_pack(
         "asset_id": "primary",
         "media_class": "data_chart",
         "media_role": "primary_chart",
+        "chart_title": "Effective Fed Funds Rate Inside the Policy Corridor",
+        "canonical_article_section_association": "lede_and_current_policy_signal",
         "why_selected": "Primary source-backed chart showing the effective fed funds rate inside the Federal Reserve policy corridor for the selected non-oil topic.",
         "visual_metric": "fed funds policy rates effective federal funds rate policy corridor iorb interest rate context",
         "media_subject": "Effective federal funds rate and policy corridor context",
         "recent_direction": "flat",
         "prior_observation_date": prior_date.isoformat(),
         "prior_observation_value": prior_value,
-        "caption": f"Effective federal funds rate at {latest_value:.2f}% on {latest_date.isoformat()}, unchanged from {prior_value:.2f}% on {prior_date.isoformat()}, inside the {target_lower:.2f}% to {target_upper:.2f}% target range. Source: FRED DFF and Federal Reserve policy tools.",
-        "alt_text": "Line chart showing the effective federal funds rate inside the Federal Reserve target range with IORB and midpoint lines.",
+        "caption": f"Effective federal funds rate at {latest_value:.2f}% on {latest_date.isoformat()}, compared with {prior_value:.2f}% on {prior_date.isoformat()}, inside the {target_lower:.2f}% to {target_upper:.2f}% target range. Source: FRED DFF, DFEDTARL, DFEDTARU, and IORB.",
+        "alt_text": "Line chart showing the effective federal funds rate inside the Federal Reserve target range with an IORB reference line.",
         "local_path": str(primary_path),
     }
     _write_metadata(primary_path, primary_meta)
@@ -524,18 +583,17 @@ def render_current_fed_funds_visual_pack(
     corridor_path = out_dir / f"fed_funds_administered_rates_context_{safe}.png"
     fig, ax = plt.subplots(figsize=(10.8, 6.0), dpi=150)
     rate_rows = [
-        ("ON RRP", on_rrp, "#0f766e"),
+        ("Target lower", target_lower, "#0f766e"),
         ("DFF", latest_value, "#1d4ed8"),
         ("IORB", iorb, "#7c3aed"),
-        ("Standing repo", standing_repo, "#dc2626"),
-        ("Primary credit", primary_credit, "#b45309"),
+        ("Target upper", target_upper, "#dc2626"),
     ]
     labels = [item[0] for item in rate_rows]
     values = [item[1] for item in rate_rows]
     colors = [item[2] for item in rate_rows]
     bars = ax.barh(labels, values, color=colors, alpha=0.9)
     ax.axvspan(target_lower, target_upper, color="#dbeafe", alpha=0.72, label="Target range")
-    ax.set_xlim(3.35, 3.85)
+    ax.set_xlim(min(values) - 0.10, max(values) + 0.10)
     ax.set_xlabel("Percent")
     ax.set_title("Federal Reserve Administered Rates and Effective Fed Funds")
     ax.grid(True, axis="x", alpha=0.22)
@@ -545,7 +603,7 @@ def render_current_fed_funds_visual_pack(
     fig.text(
         0.5,
         0.01,
-        "Sources: Federal Reserve policy tools, reserve-balance materials, and FRED DFF.",
+        "Sources: FRED DFF, DFEDTARL, DFEDTARU, and IORB; Board of Governors of the Federal Reserve System.",
         ha="center",
         fontsize=8.3,
         color="#475569",
@@ -558,18 +616,20 @@ def render_current_fed_funds_visual_pack(
         "asset_id": "policy_corridor",
         "media_class": "data_chart",
         "media_role": "supporting_policy_rates_chart",
-        "url": FED_OPENMARKET_URL,
-        "source_url": FED_OPENMARKET_URL,
+        "chart_title": "Federal Reserve Administered Rates and Effective Fed Funds",
+        "canonical_article_section_association": "policy_transmission_mechanism",
+        "url": DFF_FRED_SERIES_URL,
+        "source_url": DFF_FRED_SERIES_URL,
         "source_page_url": FED_OPENMARKET_URL,
-        "source_domain": "federalreserve.gov",
-        "source_label": "Federal Reserve Board",
-        "canonical_source_label": "Federal Reserve policy corridor, IORB, ON RRP, standing repo, and primary credit context",
-        "why_selected": "Source-backed administered-rates chart gives the policy mechanism without using a decorative or static schematic.",
-        "visual_metric": "fed funds administered rates dff iorb on rrp standing repo primary credit data chart",
-        "media_subject": "Federal Reserve administered rates and effective fed funds comparison",
+        "source_domain": "fred.stlouisfed.org",
+        "source_label": "FRED / Board of Governors of the Federal Reserve System",
+        "canonical_source_label": "FRED series DFF, DFEDTARL, DFEDTARU, and IORB policy-corridor comparison",
+        "why_selected": "Source-backed administered-rates chart gives the policy mechanism without a decorative schematic or fixed-rate fallback.",
+        "visual_metric": "fed funds target range dff iorb administered rates data chart",
+        "media_subject": "Federal Reserve target range, IORB, and effective fed funds comparison",
         "recent_direction": "current_level_comparison",
-        "caption": "Federal Reserve administered-rate comparison: ON RRP, DFF, IORB, standing repo, and primary credit against the target range. Sources: Federal Reserve policy tools and FRED DFF.",
-        "alt_text": "Horizontal bar chart comparing ON RRP, effective fed funds, IORB, standing repo, and primary credit rates against the Federal Reserve target range.",
+        "caption": f"Policy-corridor comparison on the latest DFF date: target lower {target_lower:.2f}%, DFF {latest_value:.2f}%, IORB {iorb:.2f}%, and target upper {target_upper:.2f}%. Sources: FRED DFF, DFEDTARL, DFEDTARU, and IORB.",
+        "alt_text": "Horizontal bar chart comparing the Federal Reserve target lower bound, effective fed funds rate, IORB, and target upper bound using FRED data.",
         "local_path": str(corridor_path),
     }
     _write_metadata(corridor_path, corridor_meta)
@@ -577,21 +637,21 @@ def render_current_fed_funds_visual_pack(
 
     sofr_path = out_dir / f"fed_funds_sofr_context_{safe}.png"
     fig, ax = plt.subplots(figsize=(10.8, 5.8), dpi=150)
-    labels = ["DFF", "2Y Treasury", "10Y Treasury", "30Y Treasury"]
-    values = [latest_value, two_year, ten_year, thirty_year]
-    colors = ["#1d4ed8", "#0f766e", "#b45309", "#7c2d12"]
+    labels = ["DFF", "SOFR", "2Y Treasury", "10Y Treasury", "30Y Treasury"]
+    values = [latest_value, sofr_point[1], two_year_point[1], ten_year_point[1], thirty_year_point[1]]
+    colors = ["#1d4ed8", "#0f766e", "#b45309", "#7c2d12", "#7c3aed"]
     ax.bar(labels, values, color=colors, alpha=0.88)
-    ax.set_ylim(3.3, 5.15)
+    ax.set_ylim(min(values) - 0.15, max(values) + 0.25)
     ax.set_ylabel("Percent")
     ax.set_title("Rates Context: Overnight Policy Rate vs Treasury Curve Points")
-    ax.set_xlabel("Sources: FRED DFF, Federal Reserve H.15, and NY Fed SOFR methodology context")
+    ax.set_xlabel("Sources: FRED DFF, SOFR, DGS2, DGS10, and DGS30")
     ax.grid(True, axis="y", alpha=0.24)
     for idx, value in enumerate(values):
         ax.text(idx, value + 0.04, f"{value:.2f}%", ha="center", fontsize=9, color="#0f172a")
     ax.text(
         0.04,
-        3.42,
-        "SOFR note: New York Fed defines SOFR as secured overnight Treasury repo financing context; no unverified SOFR level is asserted here.",
+        min(values) - 0.09,
+        f"Latest available dates: DFF {latest_date.isoformat()}; SOFR {sofr_point[0].isoformat()}; Treasury yields {two_year_point[0].isoformat()}.",
         fontsize=8.4,
         color="#475569",
     )
@@ -603,18 +663,20 @@ def render_current_fed_funds_visual_pack(
         "asset_id": "sofr_context",
         "media_class": "data_chart",
         "media_role": "supporting_rates_chart",
+        "chart_title": "Rates Context: Overnight Policy Rate vs Treasury Curve Points",
+        "canonical_article_section_association": "cross_asset_and_treasury_curve_context",
         "url": NYFED_SOFR_URL,
         "source_url": NYFED_SOFR_URL,
         "source_page_url": NYFED_SOFR_URL,
-        "source_domain": "newyorkfed.org",
-        "source_label": "Federal Reserve Bank of New York / Federal Reserve H.15",
-        "canonical_source_label": "NY Fed SOFR methodology context and Federal Reserve H.15 selected interest rates",
-        "why_selected": "Supporting rates-context visual distinguishes DFF from SOFR methodology and Treasury yields without using oil-family visuals.",
+        "source_domain": "fred.stlouisfed.org",
+        "source_label": "FRED / Federal Reserve Bank of New York / Board of Governors",
+        "canonical_source_label": "FRED series DFF, SOFR, DGS2, DGS10, and DGS30; Federal Reserve Bank of New York and Board of Governors sources",
+        "why_selected": "Supporting rates-context visual distinguishes DFF, SOFR, and Treasury yields using current source data rather than fixed values.",
         "visual_metric": "fed funds sofr treasury rates overnight policy interest rate context",
         "media_subject": "SOFR methodology and Treasury rates context for fed funds article",
         "recent_direction": "contextual",
-        "caption": f"Rates context panel: DFF {latest_value:.2f}%, 2-year Treasury {two_year:.2f}%, 10-year Treasury {ten_year:.2f}%, and 30-year Treasury {thirty_year:.2f}%. Sources: FRED DFF, Federal Reserve H.15, and NY Fed SOFR methodology.",
-        "alt_text": "Bar chart comparing DFF with 2-year, 10-year, and 30-year Treasury rates, with a note that SOFR is secured repo context.",
+        "caption": f"Latest available rates: DFF {latest_value:.2f}% ({latest_date.isoformat()}), SOFR {sofr_point[1]:.2f}% ({sofr_point[0].isoformat()}), 2-year Treasury {two_year_point[1]:.2f}%, 10-year Treasury {ten_year_point[1]:.2f}%, and 30-year Treasury {thirty_year_point[1]:.2f}% ({two_year_point[0].isoformat()}). Sources: FRED DFF, SOFR, DGS2, DGS10, and DGS30.",
+        "alt_text": "Bar chart comparing the effective fed funds rate, SOFR, and 2-year, 10-year, and 30-year Treasury yields using FRED data.",
         "local_path": str(sofr_path),
     }
     _write_metadata(sofr_path, sofr_meta)
@@ -622,10 +684,20 @@ def render_current_fed_funds_visual_pack(
     return assets
 
 
-def build_current_macro_visual_pack(article_title: str, output_dir: str | Path = DEFAULT_MEDIA_DIR, as_of_date: str | None = None) -> list[dict[str, Any]]:
+def build_current_macro_visual_pack(
+    article_title: str,
+    output_dir: str | Path = DEFAULT_MEDIA_DIR,
+    as_of_date: str | None = None,
+    fed_fetch_url: str = FED_RATES_FRED_CSV_URL,
+) -> list[dict[str, Any]]:
     lowered = article_title.lower()
     if _looks_like_fed_funds_topic(lowered):
-        return render_current_fed_funds_visual_pack(article_title=article_title, output_dir=output_dir, as_of_date=as_of_date)
+        return render_current_fed_funds_visual_pack(
+            article_title=article_title,
+            output_dir=output_dir,
+            as_of_date=as_of_date,
+            fetch_url=fed_fetch_url,
+        )
     if _looks_like_oil_topic(lowered):
         return render_current_wti_visual_pack(article_title=article_title, output_dir=output_dir, as_of_date=as_of_date)
     return []

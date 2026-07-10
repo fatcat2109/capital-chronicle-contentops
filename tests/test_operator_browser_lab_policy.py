@@ -27,7 +27,7 @@ def test_cdp_default_port_and_override():
 
 
 def test_browser_command_never_includes_secrets():
-    cmd = lab.build_browser_command("chrome.exe", Path(r"A:\Capital Chronicle\operator-browser-profiles\contentops-social-main"), 9222, "telegram")
+    cmd = lab.build_browser_command("msedge.exe", Path(r"A:\Capital Chronicle\operator-browser-profiles\contentops-social-main"), 9222, "telegram")
     joined = "\n".join(cmd).lower()
     assert "bot_token" not in joined
     assert "client_secret" not in joined
@@ -35,6 +35,15 @@ def test_browser_command_never_includes_secrets():
     assert "cookie" not in joined
     assert "--new-window" in cmd
     assert "https://core.telegram.org/bots/api" in cmd
+
+
+def test_browser_command_rejects_chrome_for_publishing_authority():
+    try:
+        lab.build_browser_command("chrome.exe", Path(r"A:\Capital Chronicle\operator-browser-profiles\contentops-social-main"), 9222, "telegram")
+    except RuntimeError as error:
+        assert "microsoft_edge" in str(error)
+    else:
+        raise AssertionError("Chrome must not be accepted as the publishing browser")
 
 
 def test_policy_forbids_browser_state_dumps_and_publish_actions():

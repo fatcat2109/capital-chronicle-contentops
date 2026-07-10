@@ -1,0 +1,107 @@
+{
+  "assets": [
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\media_assets\\slot_6\\fed_funds_policy_corridor_context_4e1243215297.png",
+      "alt_text": "Line chart showing the effective federal funds rate inside the Federal Reserve target range with an IORB reference line.",
+      "canonical_article_section_association": "lede_and_current_policy_signal",
+      "chart_title": "Effective Fed Funds Rate Inside the Policy Corridor",
+      "declared_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
+      "height": 870,
+      "local_public_hash_continuity": true,
+      "media_asset_id": "primary",
+      "media_role": "primary_chart",
+      "mime_type": "image/png",
+      "public_delivery_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
+      "sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
+      "source_provenance": {
+        "caption": "Effective federal funds rate at 3.62% on 2026-07-08, compared with 3.63% on 2026-07-07, inside the 3.50% to 3.75% target range. Source: FRED DFF, DFEDTARL, DFEDTARU, and IORB.",
+        "source_label": "FRED / Board of Governors of the Federal Reserve System",
+        "source_page_url": "https://fred.stlouisfed.org/series/DFF",
+        "status": "source_backed_generated_from_public_federal_reserve_data"
+      },
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/e7bee715-9fe3-49f5-b685-61a6ab6bafd8_1620x870.png",
+      "width": 1620
+    },
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\media_assets\\slot_6\\fed_funds_administered_rates_context_4e1243215297.png",
+      "alt_text": "Horizontal bar chart comparing the Federal Reserve target lower bound, effective fed funds rate, IORB, and target upper bound using FRED data.",
+      "canonical_article_section_association": "policy_transmission_mechanism",
+      "chart_title": "Federal Reserve Administered Rates and Effective Fed Funds",
+      "declared_sha256": "4e41a27ad3a4b6e713e3b95d8fbd441b387d3ff60a3c7adf833dd3b9c8b31a36",
+      "height": 900,
+      "local_public_hash_continuity": true,
+      "media_asset_id": "policy_corridor",
+      "media_role": "supporting_policy_rates_chart",
+      "mime_type": "image/png",
+      "public_delivery_sha256": "4e41a27ad3a4b6e713e3b95d8fbd441b387d3ff60a3c7adf833dd3b9c8b31a36",
+      "sha256": "4e41a27ad3a4b6e713e3b95d8fbd441b387d3ff60a3c7adf833dd3b9c8b31a36",
+      "source_provenance": {
+        "caption": "Policy-corridor comparison on the latest DFF date: target lower 3.50%, DFF 3.62%, IORB 3.65%, and target upper 3.75%. Sources: FRED DFF, DFEDTARL, DFEDTARU, and IORB.",
+        "source_label": "FRED / Board of Governors of the Federal Reserve System",
+        "source_page_url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+        "status": "source_backed_generated_from_public_federal_reserve_data"
+      },
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/e2ba9f27-9286-4bcb-b5eb-3334e27d9bb9_1620x900.png",
+      "width": 1620
+    },
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\media_assets\\slot_6\\fed_funds_sofr_context_4e1243215297.png",
+      "alt_text": "Bar chart comparing the effective fed funds rate, SOFR, and 2-year, 10-year, and 30-year Treasury yields using FRED data.",
+      "canonical_article_section_association": "cross_asset_and_treasury_curve_context",
+      "chart_title": "Rates Context: Overnight Policy Rate vs Treasury Curve Points",
+      "declared_sha256": "8f25c7048e0a604d16ada66885712c62f24c6a3c021380cfd195a118814c2239",
+      "height": 870,
+      "local_public_hash_continuity": true,
+      "media_asset_id": "sofr_context",
+      "media_role": "supporting_rates_chart",
+      "mime_type": "image/png",
+      "public_delivery_sha256": "8f25c7048e0a604d16ada66885712c62f24c6a3c021380cfd195a118814c2239",
+      "sha256": "8f25c7048e0a604d16ada66885712c62f24c6a3c021380cfd195a118814c2239",
+      "source_provenance": {
+        "caption": "Latest available rates: DFF 3.62% (2026-07-08), SOFR 3.58% (2026-07-08), 2-year Treasury 4.21%, 10-year Treasury 4.56%, and 30-year Treasury 5.06% (2026-07-08). Sources: FRED DFF, SOFR, DGS2, DGS10, and DGS30.",
+        "source_label": "FRED / Federal Reserve Bank of New York / Board of Governors",
+        "source_page_url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+        "status": "source_backed_generated_from_public_federal_reserve_data"
+      },
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/21943954-65b7-4138-ab5a-4b25225d4e95_1620x870.png",
+      "width": 1620
+    }
+  ],
+  "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+  "blockers": [],
+  "minimum_chart_dimensions": {
+    "height": 400,
+    "width": 800
+  },
+  "remote_objects_audited": [
+    {
+      "height": 870,
+      "mime_type": "image/png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/e7bee715-9fe3-49f5-b685-61a6ab6bafd8_1620x870.png",
+      "sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!EpcZ!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe7bee715-9fe3-49f5-b685-61a6ab6bafd8_1620x870.png",
+      "width": 1620
+    },
+    {
+      "height": 900,
+      "mime_type": "image/png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/e2ba9f27-9286-4bcb-b5eb-3334e27d9bb9_1620x900.png",
+      "sha256": "4e41a27ad3a4b6e713e3b95d8fbd441b387d3ff60a3c7adf833dd3b9c8b31a36",
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!X0_2!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe2ba9f27-9286-4bcb-b5eb-3334e27d9bb9_1620x900.png",
+      "width": 1620
+    },
+    {
+      "height": 870,
+      "mime_type": "image/png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/21943954-65b7-4138-ab5a-4b25225d4e95_1620x870.png",
+      "sha256": "8f25c7048e0a604d16ada66885712c62f24c6a3c021380cfd195a118814c2239",
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!eHG7!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F21943954-65b7-4138-ab5a-4b25225d4e95_1620x870.png",
+      "width": 1620
+    }
+  ],
+  "run_id": "eight_platform_live_20260710_recovery1",
+  "schema_version": "contentops.delivery_media_manifest.v1",
+  "selected_primary_media_asset_id": "primary",
+  "selected_primary_media_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
+  "status": "PASS"
+}

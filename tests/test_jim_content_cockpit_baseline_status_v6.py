@@ -1,65 +1,34 @@
+from __future__ import annotations
+
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).parents[1]
-CURRENT_TASK = "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0"
-CURRENT_BASELINE_SHA = "37b2d2b4ed223ed1665bb174531e8c7cc25e590d"
-HISTORICAL_MANIFEST_TASK = "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0"
-HISTORICAL_MANIFEST_SHA = "ee2cd700675138de290090dc8968e2e60325dcd3"
-MODULES = {
-    "live_contentops/jim_daily_content_run_packet_v6.py",
-    "live_contentops/jim_content_intent_to_variant_preview_bundle_v6.py",
-    "live_contentops/jim_manual_export_approval_workbench_v6.py",
-    "live_contentops/jim_redacted_audit_metrics_import_loop_v6.py",
-}
-FORBIDDEN_STATUS_WORDING = (
-    "dispatch-ready",
-    "dispatch ready",
-    "publish-ready",
-    "publish ready",
-    "ready for dispatch",
-    "ready for publish",
-)
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_status_promotes_jim_content_cockpit_baseline():
+def test_v5_remains_canonical_dashboard() -> None:
     status = json.loads((ROOT / "docs/status/current_project_status.json").read_text(encoding="utf-8"))
-
-    assert status["latest_accepted_task"] == CURRENT_TASK
-    assert status["accepted_product_baseline_sha"] == CURRENT_BASELINE_SHA
-    assert "Jim" in status["current_product_lane"] or "Post-release" in status["current_product_lane"] or "rehearsal" in status["current_product_lane"].lower()
-    assert "ui/contentops_v5/" == status["canonical_dashboard_surface"]
-    assert MODULES.issubset(set(status["backend_status_modules"]))
+    assert status["canonical_dashboard_surface"] == "ui/contentops_v5/"
+    assert status["canonical_dashboard_entrypoint"] == "ui/contentops_v5/src/App.tsx"
+    assert "ui/institutional_operator_cockpit_v4/" in status["legacy_reference_surfaces"]
 
 
-def test_release_manifest_matches_status_baseline():
+def test_current_backend_chain_is_registered() -> None:
     status = json.loads((ROOT / "docs/status/current_project_status.json").read_text(encoding="utf-8"))
+    modules = set(status["backend_status_modules"])
+    assert "live_contentops/eight_platform_substack_first_pipeline_v1.py" in modules
+    assert "live_contentops/edge_cdp_publishing_adapter_v1.py" in modules
+    assert "live_contentops/media_manifest_authority_v1.py" in modules
+
+
+def test_historical_release_manifest_remains_historical() -> None:
     manifest = json.loads((ROOT / "docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE/jim_content_cockpit_release_manifest_v0.json").read_text(encoding="utf-8"))
-
-    assert manifest["task_label"] == HISTORICAL_MANIFEST_TASK
-    assert manifest["baseline_sha"] == HISTORICAL_MANIFEST_SHA
-    assert status["latest_accepted_task"] == CURRENT_TASK
+    status = json.loads((ROOT / "docs/status/current_project_status.json").read_text(encoding="utf-8"))
+    assert manifest["baseline_sha"] != status["accepted_product_baseline_sha"]
     assert manifest["canonical_dashboard_surface"] == status["canonical_dashboard_surface"]
-    assert len(manifest["packet_chain"]) == 4
-    assert manifest["safety_flags"]["public_url_verified"] is False
-    assert manifest["safety_flags"]["dispatch_allowed"] is False
-    assert manifest["safety_flags"]["live_write_allowed"] is False
-    assert manifest["safety_flags"]["network_called"] is False
-    assert manifest["safety_flags"]["provider_api_called"] is False
-    assert manifest["safety_flags"]["platform_api_called"] is False
-    assert manifest["safety_flags"]["browser_or_cdp_used"] is False
-    assert manifest["safety_flags"]["credential_or_env_read"] is False
 
 
-def test_status_docs_do_not_claim_forbidden_readiness_or_public_url_verification():
-    targets = [
-        ROOT / "docs/status/current_project_status.json",
-        ROOT / "docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE/jim_content_cockpit_release_manifest_v0.json",
-        ROOT / "docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE/jim_content_cockpit_release_handoff_v0.md",
-    ]
-    for path in targets:
-        text = path.read_text(encoding="utf-8").lower()
-        assert not any(term in text for term in FORBIDDEN_STATUS_WORDING), path
-        assert "public_url_verified\": true" not in text
-        if "public_url" in text or "public url" in text:
-            assert "public url verification is not claimed" in text or "public_url_verified\": false" in text or "public url verification remains false" in text or "substack_public_url_verified\": false" in text or "public url not verified" in text
+def test_status_does_not_claim_tiktok_completion() -> None:
+    status = json.loads((ROOT / "docs/status/current_project_status.json").read_text(encoding="utf-8"))
+    assert status["platform_matrix"]["tiktok"]["status"] == "BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED"

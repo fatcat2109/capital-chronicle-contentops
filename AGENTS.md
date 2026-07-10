@@ -10,6 +10,8 @@ This file is the first file every AI IDE/CLI builder must read before touching t
 4. [V6 current master plan](docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md)
 5. [V6 25-task ledger](docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md)
 6. [Next task pointer](docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md)
+7. [Platform delivery contract](docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json)
+8. [Edge publishing runbook](docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/operator_browser_lab_runbook.md)
 
 ## Authority Order
 
@@ -27,6 +29,8 @@ If status docs conflict with current repo evidence, treat current repo evidence 
 - Canonical UI entrypoint: `ui/contentops_v5/src/App.tsx`.
 - Canonical backend/read-model logic: `live_contentops/`.
 - Canonical strategy/status docs: `docs/status/` and `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/`.
+- Canonical live runner: `live_contentops.eight_platform_substack_first_pipeline_v1`.
+- Canonical browser profile: Microsoft Edge at `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`.
 
 Do not revive deleted or archived UI surfaces as product surfaces unless a newer committed authority file explicitly says so.
 

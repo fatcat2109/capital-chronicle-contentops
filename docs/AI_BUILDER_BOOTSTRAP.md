@@ -1,12 +1,8 @@
 # AI Builder Bootstrap
 
-Purpose: make every fresh AI IDE/CLI builder session productive without stale chat memory, duplicate docs, wrong UI surfaces, or unsafe live execution.
+Start at root `AGENTS.md`, then use this file. Repo evidence beats chat memory and archived plans.
 
-This is the repo-native bootstrap file for AI IDE/CLI builders. Start at [AGENTS.md](../AGENTS.md) at the repository root, then read this file, then read the current status and master-plan files listed below.
-
-## 1. Fresh Session Start Sequence
-
-Every fresh builder session must begin by verifying local authority, then reading current repo-native files.
+## Verify Authority
 
 ```powershell
 git remote get-url origin
@@ -16,171 +12,83 @@ git ls-remote origin refs/heads/master
 git status --short
 ```
 
-Do not read `.env` or any credential/session store during this check.
+Do not read secret values during authority checks. Preserve coherent local work; never reset or clean over an interrupted task.
 
-If local HEAD differs from remote `origin/master`, stop unless Jim explicitly instructs you to commit, push, or reconcile.
+## Mandatory Read Order
 
-## 2. Mandatory Read Order
+1. `AGENTS.md`
+2. `docs/AI_BUILDER_BOOTSTRAP.md`
+3. `docs/status/CURRENT_PROJECT_STATUS.md`
+4. `docs/status/current_project_status.json`
+5. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
+6. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
+7. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json`
+8. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+9. `docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/operator_browser_lab_runbook.md`
 
-Read these files in order before planning implementation:
+## Current North Star
 
-1. [AGENTS.md](../AGENTS.md)
-2. [AI_BUILDER_BOOTSTRAP.md](AI_BUILDER_BOOTSTRAP.md)
-3. [CURRENT_PROJECT_STATUS.md](status/CURRENT_PROJECT_STATUS.md)
-4. [current_project_status.json](status/current_project_status.json)
-5. [current_v6_master_plan.md](automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md)
-6. [v6_25_task_ledger.md](automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md)
-7. [next_task_pointer.md](automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md)
-8. [DASHBOARD_SURFACE_AUTHORITY.md](status/DASHBOARD_SURFACE_AUTHORITY.md)
-9. [STATUS_LEDGER_SHA_MODEL.md](status/STATUS_LEDGER_SHA_MODEL.md)
-10. [STATUS_AND_PROGRESS_DOCS_MAP.md](status/STATUS_AND_PROGRESS_DOCS_MAP.md)
-11. [TASK_STATUS_UPDATE_PROTOCOL.md](status/TASK_STATUS_UPDATE_PROTOCOL.md)
-
-Short handoff prompt for future fresh AI IDE/CLI sessions:
+Capital Chronicle ContentOps V6 is an AI-native automated editorial production and supervised distribution operating system.
 
 ```text
-Start at AGENTS.md, then read docs/AI_BUILDER_BOOTSTRAP.md and follow its mandatory read order before touching code.
+current headlines/CDP
+-> LLM semantic selection and duplicate/hotspot policy
+-> grounded source packet
+-> tier-1 SEO article
+-> at least three source-backed analytical visuals
+-> canonical Substack publication/readback
+-> native derivatives linked to Substack
+-> exact media-manifest binding
+-> ordered reply chains for overflow
+-> adapter writes, idempotency, and strict public readback
+-> evidence and operator review
 ```
 
-## 3. Runtime Authority Order
+Substack is canonical. Local exports are fallback evidence. Manual action is recovery context, not the product.
 
-1. GitHub remote `fatcat2109/capital-chronicle-contentops` on `master`.
-2. Current committed repo files, tests, schemas, packets, generated fixtures, and evidence.
-3. `docs/status/` ledgers.
-4. Current V6 master-plan files in `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/`.
-5. Current root entrypoints such as [README.md](../README.md) and [AGENTS.md](../AGENTS.md).
-6. Archived docs, pasted summaries, chat memory, no-extension response files, and Project Sources.
+## Canonical Surfaces
 
-If status docs conflict with current repo evidence, current repo evidence wins. Record the mismatch in task evidence and reconcile the status docs during the same task when practical; do not stop solely because status docs are stale when Jim explicitly directs continuation.
+| Surface | Authority |
+| --- | --- |
+| Product UI | `ui/contentops_v5/` |
+| UI entrypoint | `ui/contentops_v5/src/App.tsx` |
+| Backend/read models | `live_contentops/` |
+| Live runner | `live_contentops.eight_platform_substack_first_pipeline_v1` |
+| Status | `docs/status/` |
+| Strategy/contract | `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/` |
+| Browser | Microsoft Edge profile `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main` |
 
-## 4. North Star
+V4 and archived dashboards are fallback/reference only.
 
-Capital Chronicle ContentOps V6 is an AI-native editorial, publishing, and community operating system for governed market commentary workflows.
+## Non-Negotiable Product Rules
 
-Daily ContentOps operating loop:
+- LLM semantic ranking chooses ideas; keyword scoring is helper-only.
+- Repeats inside 24 hours require a documented breaking/hotspot exception.
+- Numeric truth comes from the Capital Chronicle source packet and cited primary data.
+- Article media requires three analytical roles, provenance, captions, alt text, and body distribution.
+- Derivative media comes only from exact approved manifest IDs/hashes; avatars and logos fail.
+- Hard truncation fails. Use ordered replies/comments.
+- YouTube defaults to Community text + image + canonical link. Video/Short is separate non-default mode.
+- TikTok remains blocked until the canonical profile is authenticated.
+- A click or API response is not success. Require stable public identity plus text/media/link/account readback.
+- Derivative-only resume freezes Substack and every successful destination.
 
-1. Collect X/CDP headlines from the last successful checkpoint, or from the last 24 hours when no checkpoint exists.
-2. Write the raw headline pull to a local evidence file before any article decision.
-3. Cluster, dedupe, rank, and convert headlines into article ideas.
-4. Select ideas using freshness, macro/market relevance, SEO potential, platform suitability, prior-topic repetition, and agreed topic balance; do not repeat stale/non-hot topics unless the last 24h contains a genuine hot update, breaking news, or meaningful new catalyst.
-5. Query/read the Capital Chronicle database/exporter authority for supporting data after idea selection.
-6. Treat article drafting, SEO, media generation, platform variants, and multi-platform posting automation as downstream stages.
-7. Public dispatch remains separately gated, and the fast fixture-based Discord post does not prove the full pipeline.
-8. ContentOps must not become a second macro database; the Capital Chronicle local database remains numeric/source/context authority.
+## Current Evidence
 
-The product is not a signal service, broker, trading bot, portfolio manager, investment adviser, or financial advice engine.
+Run `eight_platform_live_20260710_recovery1` is `PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1`, with TikTok explicitly blocked by canonical-profile authentication.
 
-## 5. Canonical Surfaces
+Evidence: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/`.
 
-Use current status docs to verify, but the current canonical map is:
+## Task Protocol
 
-| Surface | Canonical path | Rule |
-|---|---|---|
-| UI app | `ui/contentops_v5/` | Product UI work targets V5 unless newer committed authority supersedes it. |
-| UI entrypoint | `ui/contentops_v5/src/App.tsx` | Do not create a standalone product dashboard. |
-| V6 command center | `ui/contentops_v5/src/views/V6CommandCenter.tsx` | Jim-facing source-to-audit cockpit. |
-| Deterministic adapters | `ui/contentops_v5/src/data/` | UI should consume deterministic adapter output, not scattered inline samples. |
-| Backend/read models | `live_contentops/` | Local deterministic packet builders and guards. |
-| Tests | `tests/` and `ui/contentops_v5/src/test/` | Leave focused runnable checks for non-trivial logic. |
-| Status | `docs/status/` | Update after product/status authority changes. |
-| Master plan | `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/` | Strategy and next-task authority. |
+1. Verify repo/branch/remote/dirty state.
+2. Read current authority files above.
+3. Search before creating files; keep one canonical surface per purpose.
+4. Implement through ContentOps adapters, not ad hoc browser production clicks.
+5. Run focused tests, integration checks, `py_compile`, `git diff --check`, and secret-like scans.
+6. Update status and next-task authority whenever product state changes.
+7. Commit and push coherent work to `master` unless a real blocker prevents it.
 
-Archived or deleted UI folders are reference only. Do not revive `ui/institutional_*`, `ui/daily_content_studio/`, or standalone approval/evidence dashboards as canonical surfaces unless a newer committed authority document says so.
+## Safety
 
-## 6. Platform and Media Scope
-
-The north-star platform universe includes Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback.
-
-Media policy is source-aware:
-
-- News/current-event topics use the Google Image Search and Downloader pipeline (`google_image_search_v6.py`) to fetch and download header images.
-- Capital Chronicle internal alpha / analysis-report topics prefer built-in charts/cards generated from internal data. The dedicated chart rendering pipeline will be implemented AFTER the Capital Chronicle project is fully completed. Until then, these will fall back to using news Google Image search or candidate metadata.
-- External media remains candidate metadata until operator approval, rights notes, attribution, alt text, and stable media-hash participation exist.
-
-## 7. Live, Env, Credential, and Browser Boundaries
-
-- Under Fast Ship Mode, live execution, network runs, `.env`/credential reads, and real-time social posting/editing/commenting are fully authorized. This allows builders to directly deploy, execute, and verify live integrations without ceremony or dry-run locks.
-- Under normal mode, the default posture is local deterministic review only, with env access and live dispatch restricted to pre-live/dry-run boundaries.
-- Staged commits should still avoid tracking actual raw secrets or staging unredacted `.env` files in git.
-
-
-## 8. Task Intake Protocol
-
-For every task:
-
-1. Verify repo, branch, remote SHA, and dirty state.
-2. Read the required files listed in this bootstrap.
-3. Search for existing files with the same purpose before creating files.
-4. Prefer editing existing repo-native docs/code over creating duplicates.
-5. Identify whether the task is product code, governance/docs, live-gated, or status-only.
-6. If live-gated, stop unless the task contains exact approval scope and safety gates.
-7. Keep work in heavy coherent batches; avoid micro-task churn.
-
-## 9. Implementation Discipline
-
-- Smallest durable diff wins.
-- Stdlib/native/local deterministic code first; do not add dependencies for trivial work.
-- Keep packet builders deterministic and testable.
-- Bind review decisions to exact payload hashes.
-- Distinguish fixture/manual/operator-supplied evidence from provider/API/network-verified evidence.
-- Preserve unrelated comments, docs, and evidence.
-- Archive or delete stale scratch/test scripts after they are no longer useful; do not keep clutter “just in case”.
-
-## 10. Validation Protocol
-
-Run the narrowest useful checks for touched areas.
-
-Typical checks:
-
-```powershell
-python -m pytest tests/<focused_test>.py
-npm test -- --run
-npm run build
-```
-
-Use the UI package directory for npm commands:
-
-```powershell
-# cwd: ui/contentops_v5
-npm test -- --run
-npm run build
-```
-
-For docs-only governance changes, validate referenced paths and run a lightweight status/readback check instead of broad product tests.
-
-## 11. Evidence Packet Template
-
-End every completed task with a concise evidence packet:
-
-```text
-Task: <task id>
-Repo: fatcat2109/capital-chronicle-contentops
-Branch: master
-Commit: <sha>
-Changed files:
-- <path>
-Validation:
-- <command>: PASS/FAIL/BLOCKED
-Safety:
-- env/credential read: no
-- browser/session read: no
-- provider/API/network/live action: no
-- dispatch/publish/schedule: no
-Next task:
-- <exact next task prompt>
-```
-
-## 12. Conflict and Blocker Protocol
-
-Report exact blockers instead of guessing.
-
-Use these labels:
-
-- `STATUS_RECONCILE: status/repo authority mismatch`
-- `BLOCKED: local/remote authority conflict`
-- `BLOCKED: missing exact live approval`
-- `BLOCKED: credential/session boundary`
-- `BLOCKED: canonical surface unclear`
-- `BLOCKED: validation failed`
-
-When blocked, do not continue into adjacent work unless Jim explicitly approves the reconciliation path.
+Do not expose or commit raw tokens, cookies, localStorage, sessionStorage, webhook URLs, provider keys, or browser-session secrets. Do not present output as financial advice. Preserve malformed live posts as evidence unless the operator separately authorizes destructive cleanup.

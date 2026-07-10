@@ -14,6 +14,13 @@ import urllib.request
 from io import BytesIO
 from typing import Any
 
+from .media_manifest_authority_v1 import (
+    PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM,
+    read_public_image_bytes,
+    sha256_bytes,
+    visual_similarity_to_local_file,
+)
+
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0"
 GRAPH_VERSION = "v21.0"
 
@@ -52,6 +59,13 @@ def _post_form(url: str, payload: dict[str, Any]) -> tuple[dict[str, Any], int]:
     req.add_header("Content-Type", "application/x-www-form-urlencoded")
     with urllib.request.urlopen(req, timeout=15) as response:
         return json.loads(response.read().decode("utf-8")), len(data)
+
+
+def _get_json(url: str, payload: dict[str, Any]) -> dict[str, Any]:
+    query = urllib.parse.urlencode(payload)
+    request = urllib.request.Request(f"{url}?{query}", method="GET")
+    with urllib.request.urlopen(request, timeout=20) as response:
+        return json.loads(response.read().decode("utf-8"))
 
 
 def compile_instagram_media_payload(image_url: str, caption: str) -> dict[str, Any]:
@@ -124,6 +138,7 @@ def execute_instagram_post(
     access_token: str | None = None,
     image_url: str = "",
     caption: str = "",
+    expected_media_sha256: str | None = None,
     dry_run: bool = False,
 ) -> dict[str, Any]:
     """Executes the two-step Instagram Graph API media publishing flow."""
@@ -132,6 +147,12 @@ def execute_instagram_post(
     missing = [name for name, value in (("ig_id", ig_id), ("access_token", access_token), ("image_url", image_url), ("caption", caption)) if not value]
     if missing:
         return _validation_failed(missing)
+    if expected_media_sha256:
+        try:
+            if sha256_bytes(read_public_image_bytes(image_url)) != expected_media_sha256:
+                return {"status": "VALIDATION_FAILED", "validation_failures": ["media_manifest_hash_continuity_failed"]}
+        except Exception as exc:
+            return {"status": "VALIDATION_FAILED", "validation_failures": [f"media_manifest_url_unreadable:{type(exc).__name__}"]}
 
     create_url = f"https://graph.facebook.com/{GRAPH_VERSION}/{ig_id}/media"
     create_payload = compile_instagram_media_payload(image_url, caption)
@@ -177,6 +198,61 @@ def execute_instagram_post(
 
     classify_and_record_dispatch("instagram", "post", result, (time.perf_counter() - t0) * 1000.0, payload_size)
     return result
+
+
+def readback_instagram_media(
+    *,
+    media_id: str,
+    expected_caption: str,
+    canonical_url: str,
+    expected_media_local_path: str,
+    access_token: str | None = None,
+) -> dict[str, Any]:
+    access_token = _instagram_token(access_token)
+    if not media_id or not access_token:
+        return _validation_failed([name for name, value in (("media_id", media_id), ("access_token", access_token)) if not value])
+    try:
+        value = _get_json(
+            f"https://graph.facebook.com/{GRAPH_VERSION}/{media_id}",
+            {"fields": "id,caption,media_type,media_url,permalink,username,timestamp", "access_token": access_token},
+        )
+    except urllib.error.HTTPError as error:
+        return _parse_http_error(error, "FAILED_READBACK")
+    except Exception as error:
+        return {"status": "FAILED_READBACK", "error_class": type(error).__name__}
+    caption = " ".join(str(value.get("caption") or "").split())
+    title_line = next((line.strip() for line in expected_caption.splitlines() if line.strip()), expected_caption)
+    media_url = str(value.get("media_url") or "")
+    similarity = None
+    if media_url:
+        try:
+            similarity = visual_similarity_to_local_file(read_public_image_bytes(media_url), expected_media_local_path)
+        except Exception:
+            similarity = None
+    permalink = str(value.get("permalink") or "") or None
+    username = str(value.get("username") or "")
+    verified = bool(
+        title_line.casefold() in caption.casefold()
+        and canonical_url in caption
+        and similarity is not None
+        and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
+        and permalink
+        and username.casefold() == "official.capitalchronicle"
+    )
+    return {
+        "status": "SUCCESS" if verified else "FAILED_INSTAGRAM_STRICT_READBACK",
+        "platform": "instagram_business",
+        "media_id": str(value.get("id") or media_id),
+        "public_url": permalink,
+        "destination_identity": username,
+        "account_identity_verified": username.casefold() == "official.capitalchronicle",
+        "visible_body_text": caption,
+        "body_text_visible": title_line.casefold() in caption.casefold(),
+        "substack_url_visible": canonical_url in caption,
+        "meaningful_media_visible": bool(similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM),
+        "expected_chart_visual_similarity": similarity,
+        "media_type": value.get("media_type"),
+    }
 
 
 def execute_instagram_comment(

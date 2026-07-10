@@ -1,0 +1,35 @@
+{
+  "facebook_page": {
+    "browser_write_performed": false,
+    "cookies_read": false,
+    "expected_domain": "facebook.com",
+    "final_domain": "www.facebook.com",
+    "final_public_url": "https://www.facebook.com/1342369584748125/posts/1342374731414277",
+    "public_screenshot_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\public_facebook_page_readback.png",
+    "requested_public_url": "https://www.facebook.com/1342369584748125/posts/1342374731414277",
+    "status": "SUCCESS",
+    "storage_read": false
+  },
+  "instagram_business": {
+    "browser_write_performed": false,
+    "cookies_read": false,
+    "expected_domain": "instagram.com",
+    "final_domain": "www.instagram.com",
+    "final_public_url": "https://www.instagram.com/p/DanF4lxDmDs/",
+    "public_screenshot_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\public_instagram_business_readback.png",
+    "requested_public_url": "https://www.instagram.com/p/DanF4lxDmDs/",
+    "status": "SUCCESS",
+    "storage_read": false
+  },
+  "threads_chart_reply": {
+    "browser_write_performed": false,
+    "cookies_read": false,
+    "expected_domain": "threads.com",
+    "final_domain": "www.threads.com",
+    "final_public_url": "https://www.threads.com/@official.capitalchronicle/post/DanFyHuEw6Q",
+    "public_screenshot_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\public_threads_chart_reply_readback.png",
+    "requested_public_url": "https://www.threads.com/@official.capitalchronicle/post/DanFyHuEw6Q",
+    "status": "SUCCESS",
+    "storage_read": false
+  }
+}

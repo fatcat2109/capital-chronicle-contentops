@@ -10,6 +10,20 @@ from live_contentops.media_content_audit_v6 import (
 )
 
 
+def _write_fed_rates_csv(path: Path) -> None:
+    rows = ["observation_date,DFF,DFEDTARL,DFEDTARU,IORB,SOFR,DGS2,DGS10,DGS30"]
+    for day, dff, sofr, two, ten, thirty in (
+        ("2026-07-01", "3.62", "3.63", "4.10", "4.45", "4.98"),
+        ("2026-07-02", "3.62", "3.63", "4.11", "4.46", "4.99"),
+        ("2026-07-03", "3.62", "3.63", "4.12", "4.47", "5.00"),
+        ("2026-07-06", "3.61", "3.62", "4.13", "4.48", "5.01"),
+        ("2026-07-07", "3.61", "3.62", "4.14", "4.49", "5.02"),
+        ("2026-07-08", "3.60", "3.61", "4.15", "4.50", "5.03"),
+    ):
+        rows.append(f"{day},{dff},3.50,3.75,3.65,{sofr},{two},{ten},{thirty}")
+    path.write_text("\n".join(rows) + "\n", encoding="utf-8")
+
+
 def test_audit_rejects_stale_wikimedia_chart_for_current_oil_article(tmp_path):
     image_path = tmp_path / "stale.png"
     image_path.write_bytes(b"\x89PNG\r\n\x1a\n" + b"0" * 4096)
@@ -89,10 +103,13 @@ def test_render_current_wti_visual_pack_writes_assets_and_metadata(tmp_path):
 
 
 def test_fed_funds_visual_pack_writes_non_oil_assets_and_metadata(tmp_path):
+    csv_path = tmp_path / "fed_rates.csv"
+    _write_fed_rates_csv(csv_path)
     assets = render_current_fed_funds_visual_pack(
         article_title="Fed Funds at 3.63 Percent: Reading the Policy Corridor Without Overreach",
         output_dir=tmp_path,
         as_of_date="2026-07-09",
+        fetch_url=csv_path.resolve().as_uri(),
     )
 
     assert len(assets) == 3
@@ -104,23 +121,26 @@ def test_fed_funds_visual_pack_writes_non_oil_assets_and_metadata(tmp_path):
         metadata = json.loads(path.with_suffix(".json").read_text(encoding="utf-8"))
         assert metadata["latest_observation_year"] == 2026
         assert metadata["rights_status"] == "source_backed_generated_visual_cc_owned"
-        assert metadata["content_authority_scope"] == "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE"
-        assert metadata["future_numeric_source_authority"] == "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY"
-        assert metadata["future_required_input"] == "CC_CONTENT_ARTIFACT_PACKET"
+        assert metadata["content_authority_scope"] == "SOURCE_BACKED_FRED_VISUAL_CONSTRUCTION"
+        assert metadata["data_fetch_method"] == "fred_csv_live_or_injected_fixture"
+        assert metadata["latest_observation_value"] == 3.6
         blob = json.dumps(metadata).lower()
         assert "wti" not in blob
         assert "hormuz" not in blob
         assert "crude" not in blob
     assert "DFF" in assets[0]["canonical_source_label"]
-    assert "Federal Reserve policy corridor" in assets[1]["canonical_source_label"]
+    assert "policy-corridor" in assets[1]["canonical_source_label"]
     assert "SOFR" in assets[2]["canonical_source_label"]
 
 
 def test_build_current_macro_visual_pack_routes_fed_funds_without_oil(tmp_path):
+    csv_path = tmp_path / "fed_rates.csv"
+    _write_fed_rates_csv(csv_path)
     assets = build_current_macro_visual_pack(
         "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
         output_dir=tmp_path,
         as_of_date="2026-07-09",
+        fed_fetch_url=csv_path.resolve().as_uri(),
     )
 
     assert len(assets) == 3

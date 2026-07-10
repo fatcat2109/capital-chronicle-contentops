@@ -1,0 +1,65 @@
+{
+  "schema_version": "contentops.platform_delivery_contract.v1",
+  "canonical_surface": "substack",
+  "canonical_runner": "live_contentops.eight_platform_substack_first_pipeline_v1",
+  "canonical_edge_profile": "A:\\Capital Chronicle\\operator-browser-profiles\\contentops-social-main",
+  "current_cdp_port": 9223,
+  "media_authority": "generated_media_manifest_exact_hash_binding",
+  "overflow_policy": "ordered_root_reply_chain_no_hard_truncation",
+  "success_policy": "stable_public_id_or_url_plus_account_text_media_link_readback",
+  "destinations": {
+    "substack": {
+      "role": "canonical_full_article",
+      "requires": ["seo_article", "three_in_body_source_backed_visuals", "public_url", "public_readback"]
+    },
+    "telegram": {
+      "role": "distribution_derivative",
+      "requires": ["text", "approved_media", "canonical_substack_url", "message_id", "readback"]
+    },
+    "x": {
+      "role": "root_and_reply_derivative",
+      "requires": ["root_text", "approved_media", "canonical_substack_url", "ordered_replies_when_needed", "readback"]
+    },
+    "discord": {
+      "role": "newsroom_derivative",
+      "requires": ["text", "canonical_substack_url", "message_id", "readback"]
+    },
+    "linkedin": {
+      "role": "analytical_derivative",
+      "requires": ["analytical_text", "approved_media", "canonical_substack_url", "permalink", "readback"]
+    },
+    "facebook_page": {
+      "role": "native_photo_derivative",
+      "requires": ["text", "approved_media", "canonical_substack_url", "post_id", "readback"]
+    },
+    "instagram_business": {
+      "role": "native_media_derivative",
+      "requires": ["caption", "approved_media", "canonical_substack_url", "media_id", "readback"]
+    },
+    "threads": {
+      "role": "root_and_reply_derivative",
+      "requires": ["root_text", "approved_media", "canonical_substack_url", "ordered_replies_when_needed", "readback"]
+    },
+    "youtube": {
+      "role": "community_text_image_derivative",
+      "default_surface": "community_post",
+      "forbidden_default_surfaces": ["video", "short", "slideshow", "source_chart_video"],
+      "requires": ["text", "approved_media", "canonical_substack_url", "community_post_id", "readback"]
+    },
+    "tiktok": {
+      "role": "native_derivative_or_explicit_blocker",
+      "requires": ["canonical_profile_authentication", "reviewed_native_payload", "public_id", "readback"]
+    }
+  },
+  "failure_conditions": [
+    "wrong_media_or_unapproved_hash",
+    "avatar_logo_or_thumbnail_used_for_chart_role",
+    "missing_or_hard_truncated_text",
+    "missing_canonical_substack_url",
+    "incomplete_reply_chain",
+    "missing_public_permalink_or_id",
+    "public_readback_mismatch",
+    "wrong_account_or_platform_surface",
+    "youtube_video_or_short_substituted_for_community"
+  ]
+}

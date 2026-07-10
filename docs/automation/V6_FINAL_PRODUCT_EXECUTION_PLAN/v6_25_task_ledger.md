@@ -1,77 +1,51 @@
-# V6 25-Task / Roadmap Ledger
+# ContentOps V6 25-Task Product Ledger
 
-This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progress aid, not runtime authority over GitHub. Status values are conservative: fixture/manual evidence is not live/provider/API evidence.
+This is the current execution ledger. Historical manual/fixture lanes are superseded and do not define product readiness.
 
-## Status Vocabulary
+| # | Product task | Status | Evidence or acceptance |
+| --- | --- | --- | --- |
+| 1 | Canonical V5 command surface | DONE | `ui/contentops_v5/` remains the only product UI. |
+| 2 | Current CDP/headline intake | DONE | Repo ingestion and run packet inputs. |
+| 3 | LLM semantic clustering and impact ranking | DONE | Current selector ranks ideas and records rationale. |
+| 4 | 24-hour duplicate/hotspot policy | DONE | Repeat guard plus explicit breaking-event exception. |
+| 5 | Database/source support gate | DONE | Unsupported candidates are rejected before drafting. |
+| 6 | Tier-1 article compiler | DONE | SEO, mechanism, policy, cross-asset, synthesis, caveat. |
+| 7 | Three-role analytical media builder | DONE | Signal, policy mechanism, and curve context charts. |
+| 8 | In-body visual placement | DONE | Three charts verified through the canonical article body. |
+| 9 | Substack canonical browser adapter | DONE | Edge/CDP publication, chooser upload, URL/readback. |
+| 10 | Canonical publication re-entry guard | DONE | Existing run evidence blocks duplicate publication. |
+| 11 | Deterministic derivative media manifest | DONE | Exact asset ID/hash/path/dimension/provenance binding. |
+| 12 | Avatar/logo/thumbnail rejection | DONE | Dimension, shape, role, hash, and visual-readback gates. |
+| 13 | Native derivative compiler | DONE | Per-platform editorial payload contracts. |
+| 14 | Platform-limit-aware reply compiler | DONE | No hard truncation; complete ordered chunks. |
+| 15 | Telegram and Discord delivery | DONE | Frozen accepted outputs with canonical links. |
+| 16 | X root/reply dispatch and readback | DONE | Existing root plus six ordered verified replies. |
+| 17 | Threads root/reply dispatch and readback | DONE | Chart reply plus two continuation replies. |
+| 18 | LinkedIn reconciliation hierarchy | DONE | Existing original edited; image-only replacement superseded. |
+| 19 | Facebook/Instagram wrong-media repair | DONE | Correct chart replacements; malformed originals preserved. |
+| 20 | YouTube Community adapter | DONE | Community text/image/link post; default Short path prohibited. |
+| 21 | Strict public text/media/link/account readback | DONE | Stable IDs/URLs and visual verification required. |
+| 22 | Idempotent targeted resume and supersession | DONE | Frozen destinations remain untouched; unknown writes block retry. |
+| 23 | TikTok canonical-profile authentication | BLOCKED_EXTERNAL | `BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED`. |
+| 24 | V5 delivery/readback dashboard | NEXT | Surface matrix, replies, hashes, supersession, and blockers. |
+| 25 | Fresh scheduled-run rehearsal and telemetry | PENDING | One new supported idea after task 24 and TikTok handoff. |
 
-- `complete`: implemented and accepted for its stated local/product scope.
-- `complete_fixture_only`: complete using fixture/manual/operator-supplied evidence only.
-- `complete_pre_live_no_send`: complete up to pre-live/dry-run/governance boundary with no live send.
-- `partially_complete`: meaningful repo evidence exists, but lane is not complete.
-- `pending`: no accepted implementation evidence found for the lane in this refresh.
-- `deferred`: intentionally later/not active.
-- `blocked_until_explicit_live_scope`: cannot proceed without exact live/provider/platform authorization.
+## Current Acceptance Snapshot
 
-## Ledger
+Run: `eight_platform_live_20260710_recovery1`
 
-| # | Task / Lane | Status | Current repo evidence and caveats |
-|---:|---|---|---|
-| 01 | V6 master plan authority | complete | Expanded in `current_v6_master_plan.md`; GitHub remote remains runtime authority. |
-| 02 | Unified redacted credential capability matrix | complete | Redacted capability/readiness artifacts exist; no raw secret values are authority. |
-| 03 | Platform universe and adapter taxonomy | partially_complete | Registry/docs and canonical V5 Command Center cover Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback. Fast Ship live adapters were verified under E2E live run `v6_pipeline_3c19fed2b5df` for Substack, LinkedIn, X, Discord, Telegram, Facebook Page, and Threads; scoped retry `v6_pipeline_a2d260907953` verified Instagram without reposting prior successes. |
-| 04 | Canonical Substack article workflow | complete | Live Substack publishing is verified under Fast Ship Mode. Scoped visual repair run `v6_pipeline_d49f6e14a856` published `https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c`, uploaded 2 in-body visual slots, and public readback found 2 public images with order/placement status PASS. |
-| 05 | AI research grounding lane | complete | Research/canonical article packet builders exist for local deterministic workflow. |
-| 06 | SEO and editorial refinement lane | complete_pre_live_no_send | `TASK_CONTENTOPS_V6_EDITORIAL_NEWSROOM_MEDIA_DIVERSIFICATION_SCHEDULER_AND_8_PLATFORM_FINAL_CANDIDATE_V0` remediates the prior local editorial blockers. Latest local Crude Awakenings candidate is `EDITORIAL_APPROVED` with 2,174 words, 9 sections, 8 source-trail rows, 8 citations, SEO keyword `oil volatility recession risk`, 3 visual slots, and no unrelated Yahoo/search citation contamination. This is local final-candidate evidence only; public live readback still requires a fresh non-duplicate 8-platform run. |
-| 07 | Platform-native variant generator | complete_fixture_only | Deterministic adapter output now drives full-platform variant rows in the V5 Command Center with stable payload hashes and manual dispatch gates. Live platform behavior remains gated. |
-| 08 | Discord webhook/community drop lane | complete_pre_live_no_send | Discord dry-run/outbox/pre-live artifacts exist and are surfaced in the V5 Command Center bridge panel as redacted local-only status; no live send is claimed here. |
-| 09 | Telegram remote operator lane | complete_fixture_only | Telegram checkpoint/manual lane evidence is surfaced in the V5 Command Center bridge panel as redacted local-only status; no bot/API send, token read, browser/CDP, or scheduler is claimed. |
-| 10 | Approval/outbox/audit integration | complete_fixture_only | Payload hash, approval, outbox, bridge, manual/deferred distribution, audit, and final action-strip artifacts exist across lanes. CC artifact packet intake V0 adds component/approval hashes and local rehearsal intent. Operator-decision V1 now supports default block-first gating plus `OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY`, which converts DQR/candidate/internal-only/source-quality blockers into visible warnings for local candidate-commentary preview when disclaimer, hash continuity, duplicate guard, no-advice, and no-authority-promotion checks pass. Local/manual preview evidence only; no dispatch authorization. |
-| 11 | Public URL capture and reconciliation | complete_fixture_only | Substack and LinkedIn URL/audit imports are operator-supplied/manual only. |
-| 12 | Community feedback intake | complete_fixture_only | Operator-supplied feedback intake packet exists locally; no live community activity, scrape, fetch, API, browser, or provider call is claimed. |
-| 13 | LLM feedback summarizer | deferred | Current backlog summary uses deterministic tag grouping only; no LLM/provider call is claimed. |
-| 14 | Backlog/next-idea generator | complete_fixture_only | Deterministic backlog candidates are generated from operator-supplied fixture feedback; recommendations remain review-only. |
-| 15 | Media asset export lane | complete_pre_live_no_send | Media transport and media judgment are live-proven across implemented lanes. Scoped repair run `v6_pipeline_d49f6e14a856` rejected weak search media, selected current FRED/EIA WTI chart assets through 2026-06-29, uploaded Substack visuals in-body with public placement PASS, and required LinkedIn native media upload/preview proof before post success. Current north-star correction requires 3 spread visuals and now builds a FRED-only WTI chart pack: primary WTI volatility chart, supporting recent WTI price chart, and supporting multi-year range/average chart. Google/Commons discovery remains review-only unless recency/source/rights metadata are complete. |
-| 16 | V6 UI command surface | complete_fixture_only | Final V6 command center is integrated into canonical `ui/contentops_v5/` with local deterministic adapter model, inspector selectors, nav route, disabled live-action controls, full platform universe, source-aware media lanes, manual audit lane, and final operator action strip. |
-| 17 | Operator review dashboard | partially_complete | V5 Approval Queue/Evidence Vault show fixture/manual evidence; no live controls authorized. |
-| 18 | Credential setup workbench alignment | blocked_until_explicit_live_scope | Credential/env value reads are forbidden unless a future exact scope allows safe handling. |
-| 19 | Platform registry alignment | partially_complete | Registry contract now marks Meta-family official API lanes live-capable under Fast Ship Mode when credential rows are present; future UI/reporting tasks should surface per-platform evidence and blocked reasons. |
-| 20 | Adapter safety policies | partially_complete | Focused tests cover Meta adapter validation, dry-run, live request construction, failure shaping, env fallbacks, and unsupported edit outcomes. Platform actions remain governed by Fast Ship evidence and redacted status docs. |
-| 21 | Browser/CDP supervised adapter boundary | complete_pre_live_no_send | X TASK 0087AD proved standard ContentOps profile CDP post/capture/reply with registry audit; reusable profile guard, pre-live post packet, GO-phrase gate, exact authorization/scope/execution packets, and registry reconciliation are complete as local supervised packet evidence. `TASK_CONTENTOPS_V6_X_CDP_REGISTRY_TO_OPERATOR_WORKFLOW_BATCH_V0` finishes the remaining registry idempotency/readback lane: exact execution rows append idempotently by natural key, registry rows audit locally without public fetch, operator_browser_lab has a read-only audit command, and V5 Command Center shows Registry Readback. Browser/CDP remains supervised and cannot read session/secret stores; no public URL fetch is claimed. |
-| 22 | Manual fallback playbooks | complete_fixture_only | Substack/LinkedIn runbooks exist, and Facebook Page/Threads/Instagram/TikTok/Generic Manual manual/deferred distribution rows are hardened in the canonical V5 Command Center as local-only handoff/status evidence. |
-| 23 | Evidence packet standardization | complete_fixture_only | Final release packet, acceptance record, red-team report, and browser-QA boundary are generated under `docs/automation/V6_FINAL_RELEASE/`; no live/API/provider evidence is claimed. |
-| 24 | End-to-end dry-run acceptance | complete_pre_live_no_send | Existing full dry-run and fresh non-oil rehearsal evidence remain accepted. CC artifact packet intake V0, operator-decision V1, and public-permissive supervised mode V0 add local-only packet-to-preview gates from the Capital Chronicle database/exporter authority layer. The current V0 packet can now reach `PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS` only under explicit operator public override and candidate-commentary mode; this is not a live runner invocation and not dispatch authorization. |
-| 25 | Final product readiness review | complete | Prior final/product readiness evidence remains historical context. Durable numeric/source authority routes through `CC_CONTENT_ARTIFACT_PACKET` exported by the Capital Chronicle local database at `A:\Capital Chronicle\Headline Raw data local json\capital-chronicle-ingestion`. ContentOps may prepare public candidate-commentary previews from DQR-blocked/candidate/internal-only packets under explicit operator public override with visible caveats, but public screenshot/crop/readback QA, Telegram Bot API photo proof, platform permalink/readback hardening, platform/API execution, and public writes remain future live-task requirements only after exact live-dispatch authorization. ContentOps must not own macro source truth. |
+Classification: `PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1`
 
-Completed CC artifact packet intake lane: `TASK_CONTENTOPS_CC_ARTIFACT_PACKET_INTAKE_TO_REHEARSAL_BRIDGE_HEAVY_BATCH_V0`. ContentOps copied pinned schema/sample from main repo handoff commit `74ccf071ac8558d54e6a3c9d7d2a05ecbf42a2f2`, validates DQR-blocked candidate packets, preserves caveats in internal draft rendering, computes component and approval hashes, and emits local dry-run/rehearsal-intent artifacts. Classification is `PASS_WITH_CAVEAT_CONTENTOPS_CC_PACKET_INTAKE_V0` because direct approval queue integration is caveated. Safety: no public dispatch, platform API, browser/CDP, network/source fetch, credential/session read, scheduler/retry, main-repo mutation, Analysis Alpha, or ContentOps source-brain expansion.
+Primary media SHA-256: `b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af`
 
-Completed CC artifact packet public-permissive supervised lane: `TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0`. Default mode remains block-first. Under explicit `--operator-public-override --public-mode candidate_commentary`, the current packet reaches `PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS` with approval hash continuity PASS, deterministic duplicate guard `PASS_DETERMINISTIC_NO_DUPLICATE`, mandatory disclaimer present, candidate/proxy labels visible, DQR BLOCKED visible, no exact-authority promotion, and no trading advice. Old DQR/candidate/internal-only/source-quality blockers become warnings only in this mode. Safety: no public dispatch, platform API, browser/CDP, network/source fetch, credential/session read, scheduler/retry/outbox execution, main-repo mutation, Analysis Alpha, or ContentOps source-brain expansion.
+Substack, Telegram, Discord, X, Threads, LinkedIn, Facebook, Instagram, and YouTube Community have accepted strict readback. TikTok remains an explicit authentication blocker and is not fabricated as complete.
 
-## Accepted Lane Highlights
+## Completion Rule
 
-- Status docs/protocol exist in `docs/status/`.
-- Canonical dashboard is `ui/contentops_v5/`.
-- Substack manual publication evidence is complete as fixture/manual local evidence.
-- LinkedIn manual publication evidence is complete as fixture/manual local evidence and accepted at `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb` after this status repair.
-- Discord, Telegram, Facebook Page, Threads, LinkedIn, X, and Substack have live success evidence under E2E rehearsal `v6_pipeline_3c19fed2b5df`; Instagram has live scoped retry success evidence under `v6_pipeline_a2d260907953`.
-- X CDP pre-live post command, GO-phrase gate, exact execution outcome, registry reconciliation, and registry idempotency/readback audit are complete as local supervised/packet evidence; no repo-driven X click, API call, session read, or public URL fetch is claimed.
-- Live/provider/platform execution is enabled under Fast Ship Mode for implemented lanes with evidence; unsupported, missing-input, and media-validation outcomes are recorded explicitly.
+Tasks are complete only when implementation, tests, durable evidence, and the relevant public readback agree. A post button click, upload success, API response, or local export is not completion. Old malformed posts remain linked to their accepted correction and cannot be counted as success.
 
-Completed Terra Ultra north-star automation lane: `TASK_CONTENTOPS_TERRA_ULTRA_COMPLETE_NORTH_STAR_FULL_AUTOMATION_V1`. The latest live run selected the fresh non-oil Fed funds/rates schedule topic, avoided the duplicate-frozen oil lane, built three ContentOps-owned rates visuals, exported `exports/daily_contentops/fed_funds_policy_signal_article_v1.md` with `PASS_VISUALS_SPREAD_THROUGH_ARTICLE`, and sent Telegram photo message `61` with the required candidate caveat plus local article fallback. Classification is `PASS_PARTIAL_NORTH_STAR_FULL_CONTENTOPS_AUTOMATION_V1` because Substack remains `BLOCKED_REQUIRES_SUPERVISED_BROWSER_PROFILE_AND_PUBLIC_URL_READBACK` and X remains `BLOCKED_REQUIRES_EXACT_CDP_LIVE_CLICK_WITH_PROFILE_GUARD`.
+## Next Product Task
 
-Completed lane: `TASK_CONTENTOPS_V6_MEDIA_JUDGMENT_AND_ARTICLE_VISUAL_STRUCTURE_GATE_V0`. Clickable links and real media dispatches remain integrated, but selected visuals now must pass a deterministic content audit before counting as launch-ready evidence. The audit rejects stale, weakly sourced, directionally mismatched, unverified, or generated fallback visuals; oil-topic runs can generate current WTI/FRED chart packs with machine-readable attribution; Substack variants now carry multiple in-body visual markers; and article quality gates require SEO metadata plus purposeful visual slots. Focused verification: `python -m py_compile ...` passed; `python -m pytest tests/test_media_content_audit_v6.py tests/test_google_image_search_v6.py tests/test_substack_browser_adapter_v6.py tests/test_ai_research_canonical_article_engine_v6.py -q` -> 19 passed; `python -m pytest tests/test_platform_native_variant_generator_live.py tests/test_live_production_pipeline_runner.py -q` -> 20 passed; `python -m pytest tests/test_instagram_adapter_v6.py tests/test_facebook_page_adapter_v6.py tests/test_telegram_live_adapter_v6.py -q` -> 28 passed.
+`TASK_CONTENTOPS_V6_PLATFORM_DELIVERY_READBACK_DASHBOARD_AND_TIKTOK_AUTH_HANDOFF_V1`
 
-Completed restore lane: `TASK_CONTENTOPS_V6_RESTORE_NON_BYPASSED_FULL_AUTOMATION_SUCCESS_AND_EDITORIAL_QUALITY_V0`. Clean restore worktree at remote HEAD `bb3a0ffe50c201011903f211d1caf62c6fdb556c` ran `python -m live_contentops.live_production_pipeline_runner_v6 --live-run --dispatch-live` with `CONTENTOPS_BYPASS_QUALITY_GATES=false`. Final run `v6_pipeline_3c44a9855cc6` reached true `DISPATCH_COMPLETE`. Article gates passed (2,009 words, 8 sections, 18 numeric references, SEO metadata, 2 visual slots); media audit passed with current FRED/EIA WTI assets; Substack public visual readback passed with 2 public images; all implemented platform lanes returned SUCCESS. Recommended next lane: `TASK_CONTENTOPS_V6_PROVIDER_NATIVE_DRAFT_RELIABILITY_AND_PLATFORM_VISUAL_QA_V0`.
-
-Completed visual repair lane: `TASK_CONTENTOPS_V6_LINKEDIN_NATIVE_IMAGE_AND_SUBSTACK_IN_BODY_VISUAL_PLACEMENT_REPAIR_V0`. Manual QA found that prior `DISPATCH_COMPLETE` evidence was not product-acceptable because LinkedIn could pass as text-only and Substack images could be grouped near the end despite upload counts. The repair added required LinkedIn media upload/preview proof, Substack segment-by-segment visual insertion, visual-slot/marker-heading placement inference, and public visual order checks. Scoped live run `v6_pipeline_d49f6e14a856` reached `DISPATCH_COMPLETE` for Substack + LinkedIn with no bypass: Substack public readback PASS with 2 in-body images, LinkedIn native media `uploaded` and `media_preview_detected=true`. Focused verification: `python -m pytest tests/test_linkedin_browser_adapter_v6.py tests/test_substack_browser_adapter_v6.py tests/test_platform_native_variant_generator_live.py tests/test_live_production_pipeline_runner.py` -> 36 passed.
-
-Completed editorial QA gate lane: `TASK_CONTENTOPS_V6_POST_VISUAL_REPAIR_BASELINE_AND_EDITORIAL_QA_GATE_V0`. Baseline now reconciles visual repair commit `6a810aadadef4b3c9078173b32bed4b243f8552a` and Step 1 headline ingestion commit `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`. New module `live_contentops/editorial_quality_audit_v6.py` audits topic/source semantic relevance, citation/source-note support, unrelated search contamination, SEO keyword alignment, tier-1 structure, macro/geopolitical source diversity, and public-body tone. Current Crude Awakenings packet remains accepted as dispatch proof but is not tier-1 editorial approved: `editorial_acceptance_status=EDITORIAL_BLOCKED`, `tier1_editorial_approved=false`. Evidence: `docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json`. Recommended next lane is media diversification + rights/provenance + public visual QA, not TikTok or video.
-
-Completed local newsroom/media/scheduler lane: `TASK_CONTENTOPS_V6_EDITORIAL_NEWSROOM_MEDIA_DIVERSIFICATION_SCHEDULER_AND_8_PLATFORM_FINAL_CANDIDATE_V0`. Starting remote HEAD was `bea4aaedfdeccd936c807af53080d22d2932e6b9`. The task added `live_contentops/media_diversification_audit_v6.py`, `live_contentops/daily_editorial_scheduler_v6.py`, stricter search-image provenance metadata, dispatch QA gates for editorial/media status, and a 3-asset source-backed oil media pack. Local final candidate `local_static_final_candidate_2026_07_08` is `EDITORIAL_APPROVED`, media diversification `PASS`, variant status `VARIANT_READY`, and scheduler output written to `docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_2026_07_08.json`. No live dispatch was run because the clean checkout had no headline sidecars and reposting Crude Awakenings would create duplicates. Recommended next lane is a fresh-news, non-bypassed 8-platform public candidate with readback/crop QA; TikTok/video remains out of scope and YouTube Community remains future text/image work after current 8-platform QA is hardened.
-
-## How to Update This Ledger
-
-1. Update this file only on roadmap/lane completion or execution-plan refresh.
-2. Use conservative statuses and distinguish local/fixture/manual evidence from live/API/provider evidence.
-3. Never hardcode a future next task as permanent truth.
-4. Keep recommendations soft and timestamp/context dependent.
-5. If a lane claims live/public/API verification, cite committed evidence and tests; otherwise mark it manual/fixture/pre-live.
+The next task must not publish a new canonical article. It consumes the existing final matrix in the V5 command center, verifies status/readback rendering, and guides the operator through TikTok login in the canonical Edge profile without reading or persisting session secrets.
