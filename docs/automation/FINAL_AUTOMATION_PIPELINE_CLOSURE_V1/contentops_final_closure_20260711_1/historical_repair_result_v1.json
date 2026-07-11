@@ -1,0 +1,314 @@
+{
+  "classification": "BLOCKED_HISTORICAL_RC_TARGETED_REPAIR",
+  "facebook": {
+    "after": {
+      "body_text_visible": true,
+      "destination_identity": "Capital Chronicle",
+      "expected_chart_visual_similarity": 0.9946,
+      "meaningful_media_visible": true,
+      "page_identity_verified": true,
+      "platform": "facebook_page",
+      "post_id": "106091951705748_1342707111381039",
+      "public_image_url_present": true,
+      "public_url": "https://www.facebook.com/1342369584748125/posts/1342707111381039",
+      "status": "SUCCESS",
+      "substack_url_visible": true,
+      "visible_body_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand. The market mechanism is reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices. Read the full article: https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war For informational purposes only; not financial advice."
+    },
+    "before": {
+      "body_text_visible": true,
+      "destination_identity": "Capital Chronicle",
+      "expected_chart_visual_similarity": 0.9946,
+      "meaningful_media_visible": true,
+      "page_identity_verified": true,
+      "platform": "facebook_page",
+      "post_id": "106091951705748_1342707111381039",
+      "public_image_url_present": true,
+      "public_url": "https://www.facebook.com/1342369584748125/posts/1342707111381039",
+      "status": "SUCCESS",
+      "substack_url_visible": true,
+      "visible_body_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand. The relevant transmission channel is Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices. Read the full article: https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war For informational purposes only; not financial advice."
+    },
+    "edit": {
+      "id": "106091951705748_1342707111381039",
+      "response": {
+        "success": true
+      },
+      "status": "SUCCESS"
+    },
+    "payload_sha256": "8668adbc316f777d2251d4b11914aca75fbde6cd3924e95573baf60f85022d46",
+    "post_id": "106091951705748_1342707111381039",
+    "public_url": "https://www.facebook.com/1342369584748125/posts/1342707111381039",
+    "status": "SUCCESS"
+  },
+  "fresh_oil_linkedin_created": false,
+  "linkedin": {
+    "after": {
+      "action": "readback_existing_post",
+      "body_text_visible": true,
+      "browser_write_performed": false,
+      "canonical_link_target_verified": true,
+      "canonical_url_text_visible": false,
+      "chart_similarity_score": 0.8629,
+      "destination_identity": "linkedin:jimcc",
+      "meaningful_media_visible": true,
+      "media_readback": {
+        "natural_height": 429,
+        "natural_width": 800,
+        "rendered_height": 207.8,
+        "rendered_width": 387.0
+      },
+      "platform": "linkedin",
+      "post_id": "7481311616265895936",
+      "public_screenshot_path": null,
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+      "status": "SUCCESS",
+      "substack_url_visible": true,
+      "visible_body_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues FRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus. The mechanism: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions. Its position inside the policy corridor is evidence about overnight rate implementation, while funding spreads and the yield curve provide the broader conditions context. The policy context: The target range and administered rates frame the overnight operating environment. A reading inside that corridor shows where the implementation channel is operating, but it does not by itself establish the next policy decision or the direction of longer-dated yields. Read the full Capital Chronicle analysis: https://lnkd.in/g5sgqw4b For informational purposes only; not financial advice.",
+      "visible_link_text": "https://lnkd.in/g5sgqw4b"
+    },
+    "before": {
+      "action": "readback_existing_post",
+      "body_text_visible": true,
+      "browser_write_performed": false,
+      "canonical_link_target_verified": false,
+      "canonical_url_text_visible": false,
+      "chart_similarity_score": 0.8647,
+      "destination_identity": "linkedin:jimcc",
+      "meaningful_media_visible": true,
+      "media_readback": {
+        "natural_height": 429,
+        "natural_width": 800,
+        "rendered_height": 207.8,
+        "rendered_width": 387.0
+      },
+      "platform": "linkedin",
+      "post_id": "7481311616265895936",
+      "public_screenshot_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\linkedin_historical_before.png",
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+      "status": "FAILED_LINKEDIN_EXACT_ACTIVITY_READBACK",
+      "substack_url_visible": false,
+      "visible_body_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand. The mechanism: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices. The policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Read the full Capital Chronicle analysis: https://lnkd.in/g2a64Nyn For informational purposes only; not financial advice.",
+      "visible_link_text": null
+    },
+    "edit": {
+      "action": "edit_existing_post",
+      "edit_selector": "div[role='button']:has-text('Edit post')",
+      "editor_selector": "div[role='dialog'] div.ql-editor[contenteditable='true']",
+      "media_status": "preserved_existing_chart",
+      "media_transfer": {
+        "upload_transport": "preserved_existing_media_no_reupload"
+      },
+      "menu_selector": "button[aria-label*='Open control menu']",
+      "new_post_created": false,
+      "payload_sha256": "20bbbc270591c7d16e90c56180924203146eb74f58558651a556d8b7b20d5d80",
+      "platform": "linkedin",
+      "post_id": "7481311616265895936",
+      "provider_readback_verified": true,
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+      "readback": {
+        "action": "readback_existing_post",
+        "body_text_visible": true,
+        "canonical_link_target_verified": true,
+        "canonical_url_text_visible": false,
+        "destination_identity": "linkedin:jimcc",
+        "meaningful_media_visible": true,
+        "media_readback": {
+          "natural_height": 429,
+          "natural_width": 800,
+          "rendered_height": 207.8,
+          "rendered_width": 387.0
+        },
+        "platform": "linkedin",
+        "post_id": "7481311616265895936",
+        "public_screenshot_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\linkedin_historical_after.png",
+        "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+        "status": "SUCCESS",
+        "substack_url_visible": true,
+        "visible_body_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues FRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus. The mechanism: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions. Its position inside the policy corridor is evidence about overnight rate implementation, while funding spreads and the yield curve provide the broader conditions context. The policy context: The target range and administered rates frame the overnight operating environment. A reading inside that corridor shows where the implementation channel is operating, but it does not by itself establish the next policy decision or the direction of longer-dated yields. Read the full Capital Chronicle analysis: https://lnkd.in/g5sgqw4b For informational purposes only; not financial advice.",
+        "visible_link_text": "https://lnkd.in/g5sgqw4b"
+      },
+      "save_selector": "div[role='dialog'] button:has-text('Save')",
+      "status": "SUCCESS"
+    },
+    "media_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
+    "payload_sha256": "20bbbc270591c7d16e90c56180924203146eb74f58558651a556d8b7b20d5d80",
+    "post_id": "7481311616265895936",
+    "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+    "status": "SUCCESS"
+  },
+  "oil_substack_edited": false,
+  "schema_version": "contentops.final_automation_historical_repair_result.v1",
+  "successful_components_frozen_on_resume": [
+    "linkedin",
+    "facebook"
+  ],
+  "task_label": "TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_LIVE_REPAIR_CANARY_AND_V1_0_RC_V1",
+  "threads": {
+    "deleted_post_ids": [
+      "17967130901934350",
+      "18368836642225190"
+    ],
+    "deletion_receipts": [
+      {
+        "before_readback": {
+          "error_code": 400,
+          "error_response": {
+            "error": {
+              "code": 100,
+              "error_subcode": 33,
+              "fbtrace_id": "AB62XnUcUzAza65qbK2z2kk",
+              "message": "Unsupported get request. Object with ID '17967130901934350' does not exist, cannot be loaded due to missing permissions, or does not support this operation",
+              "type": "THApiException"
+            }
+          },
+          "status": "FAILED_READBACK"
+        },
+        "delete_transport": "canonical_edge_exact_text_scoped_retry",
+        "edge_fallback": {
+          "action": "delete_exact_post_via_edge",
+          "delete_performed": true,
+          "destination_identity": "official.capitalchronicle",
+          "platform": "threads",
+          "post_id": "17967130901934350",
+          "public_screenshot_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\threads_deleted_17967130901934350.png",
+          "public_unavailability_verified": true,
+          "public_url": "https://www.threads.com/@official.capitalchronicle/post/DaoFORbk9vY",
+          "status": "SUCCESS"
+        },
+        "expected_permalink": "https://www.threads.com/@official.capitalchronicle/post/DaoFORbk9vY",
+        "idempotency_state": "ALREADY_DELETED_VERIFIED_FROZEN",
+        "post_id": "17967130901934350",
+        "status": "SUCCESS"
+      },
+      {
+        "api_fallback_reason": "threads_api_application_permission_denied",
+        "before_readback": {
+          "account_identity_verified": true,
+          "body_text_visible": true,
+          "destination_identity": "official.capitalchronicle",
+          "expected_chart_visual_similarity": null,
+          "meaningful_media_visible": true,
+          "media_type": "IMAGE",
+          "platform": "threads",
+          "post_id": "18368836642225190",
+          "public_url": "https://www.threads.com/@official.capitalchronicle/post/DaoFQMQk33-",
+          "status": "SUCCESS",
+          "substack_url_visible": true,
+          "visible_body_text": "Policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Cross-asset context: A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields."
+        },
+        "delete_transport": "canonical_edge_exact_post_fallback",
+        "edge_fallback": {
+          "action": "delete_exact_post_via_edge",
+          "delete_performed": true,
+          "destination_identity": "official.capitalchronicle",
+          "platform": "threads",
+          "post_id": "18368836642225190",
+          "public_screenshot_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\threads_deleted_18368836642225190.png",
+          "public_unavailability_verified": true,
+          "public_url": "https://www.threads.com/@official.capitalchronicle/post/DaoFQMQk33-",
+          "status": "SUCCESS"
+        },
+        "error_code": 500,
+        "error_response": {
+          "error": {
+            "code": 10,
+            "fbtrace_id": "AsjTzF3HEGmNymKr02hG25H",
+            "message": "Application does not have permission for this action",
+            "type": "THApiException"
+          }
+        },
+        "idempotency_state": "ALREADY_DELETED_VERIFIED_FROZEN",
+        "post_id": "18368836642225190",
+        "status": "SUCCESS"
+      }
+    ],
+    "preserved_valid_chain": {
+      "complete_article_visual_count": 1,
+      "ordered_replies": [
+        {
+          "expected_chart_visual_similarity": null,
+          "expected_media_local_path": null,
+          "id": "18402541432082518",
+          "media_required": false,
+          "media_verified": true,
+          "order": 1,
+          "parent_child_verified": false,
+          "parent_root_id": "18087989708109547",
+          "public_url": null,
+          "text_verified": false,
+          "visible_body_text": ""
+        },
+        {
+          "expected_chart_visual_similarity": null,
+          "expected_media_local_path": null,
+          "id": "18166762501444151",
+          "media_required": false,
+          "media_verified": true,
+          "order": 2,
+          "parent_child_verified": true,
+          "parent_root_id": "18087989708109547",
+          "public_url": "https://www.threads.com/@official.capitalchronicle/post/DaoGSdtk7QA",
+          "text_verified": true,
+          "visible_body_text": "Policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Cross-asset context: A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields."
+        }
+      ],
+      "platform": "threads",
+      "provider_order_verified": false,
+      "reply_ids_in_chronological_order": [
+        "18166762501444151"
+      ],
+      "reply_ids_in_provider_order": [
+        "18166762501444151"
+      ],
+      "root_id": "18087989708109547",
+      "status": "FAILED_THREADS_REPLY_CHAIN_READBACK"
+    },
+    "preserved_valid_root": {
+      "account_identity_verified": true,
+      "body_text_visible": true,
+      "destination_identity": "official.capitalchronicle",
+      "expected_chart_visual_similarity": null,
+      "meaningful_media_visible": true,
+      "media_type": "IMAGE",
+      "platform": "threads",
+      "post_id": "18087989708109547",
+      "public_url": "https://www.threads.com/@official.capitalchronicle/post/DaoGFXikwV3",
+      "status": "SUCCESS",
+      "substack_url_visible": true,
+      "visible_body_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand. https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war"
+    },
+    "status": "SUCCESS_WITH_REPLACED_VALID_REPLY_ORDER_CAVEAT",
+    "valid_chain_recovery": {
+      "deleted_valid_reply_id": "18402541432082518",
+      "order_caveat": "replacement first-mechanism reply is newer than preserved policy-context reply 18166762501444151",
+      "parent_root_id": "18087989708109547",
+      "readback": {
+        "account_identity_verified": true,
+        "body_text_visible": true,
+        "destination_identity": "official.capitalchronicle",
+        "expected_chart_visual_similarity": 0.9966,
+        "meaningful_media_visible": true,
+        "media_type": "IMAGE",
+        "platform": "threads",
+        "post_id": "18366144508233800",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DapN1ptE5o8",
+        "status": "SUCCESS",
+        "substack_url_visible": true,
+        "visible_body_text": "Why it matters: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices. For informational purposes only; not financial advice."
+      },
+      "reason": "authorized malformed target and valid first reply shared identical text on the Threads permalink page; exact-ID API delete was permission-blocked and the UI fallback removed the valid duplicate-text reply",
+      "replacement_public_url": "https://www.threads.com/@official.capitalchronicle/post/DapN1ptE5o8",
+      "replacement_reply_id": "18366144508233800",
+      "status": "SUCCESS",
+      "write": {
+        "container_id": "18136480738529547",
+        "id": "18366144508233800",
+        "response": {
+          "id": "18366144508233800"
+        },
+        "status": "SUCCESS"
+      }
+    }
+  }
+}

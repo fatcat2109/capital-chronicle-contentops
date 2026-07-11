@@ -1,0 +1,23 @@
+{
+  "api_family": "gemini_interactions_api",
+  "credential_value_read": false,
+  "input": "official WTI oil infrastructure and market context",
+  "model": "gemini-3.1-flash-image",
+  "network_call_made": false,
+  "required_response_evidence": [
+    "url_citation",
+    "google_search_result.search_suggestions",
+    "containing_page_url",
+    "direct_image_url"
+  ],
+  "tools": [
+    {
+      "search_types": [
+        "web_search",
+        "image_search"
+      ],
+      "type": "google_search"
+    }
+  ],
+  "usage_boundary": "discovery_only_not_provenance_or_reuse_permission"
+}

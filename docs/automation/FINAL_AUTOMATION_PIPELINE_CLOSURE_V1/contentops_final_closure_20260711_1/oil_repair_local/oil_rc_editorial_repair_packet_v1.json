@@ -1,0 +1,109 @@
+{
+  "article_mode": "analysis",
+  "as_of_utc": "2026-07-06T23:59:59Z",
+  "body_markdown": "## Supply Recovery Is Now an Analysis, Not Breaking News\n\nThe U.S. Energy Information Administration published its July Short-Term Energy Outlook on July 7, 2026. The agency said global crude production and trade could move back toward pre-conflict levels by year-end as traffic through the Strait of Hormuz resumes and shut-in output returns. This article treats that release as an analysis anchor, not a live breaking-news event. Market observations cited below run only through 2026-07-06 and should not be read as a current-session price.\n\nThe distinction matters. EIA forecasts describe a conditional path, not an observed outcome. The supply outlook depends on continued transit normalization, field restarts, freight conditions, and inventories. Capital Chronicle analysis separates those conditions from the agency's published figures and does not use the forecast as proof that the adjustment is complete.\n\n[[VISUAL:hormuz_map]]\n\n*The Strait of Hormuz and regional pipeline alternatives. Source: U.S. Energy Information Administration, World Oil Transit Chokepoints report. EIA publication; reused with attribution under EIA's public-domain reuse policy. [Source](https://www.eia.gov/international/content/analysis/special_topics/World_Oil_Transit_Chokepoints/)*\n\n## The Chokepoint Connects Production to Delivered Supply\n\nHormuz is not merely a line on a shipping map. It links Persian Gulf production with refineries and customers outside the region. When transit is constrained, available production may not translate into prompt delivered barrels; freight, insurance, and route risk can widen the gap. Reopening the route allows restored production to reach buyers and can reduce those logistical premia before every facility is fully normalized.\n\nThat mechanism is why physical confirmation matters. Sustained tanker movements, fewer shut-ins, and a turn toward inventory rebuilding would support the EIA's normalization case. Renewed disruption, slower field restarts, or persistent draws would challenge it.\n\n[[VISUAL:wti_volatility]]\n\n*WTI price and 30-observation annualized realized volatility through 2026-07-06. Source: FRED DCOILWTICO; underlying source: U.S. EIA. Capital Chronicle calculation: standard deviation of simple daily returns over 30 observations, annualized by the square root of 252. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)*\n\n## Price Is a Check on the Forecast, Not Its Authority\n\nThe FRED series shows the market level from which investors were testing the supply outlook through July 6. The volatility panel uses a conventional realized-volatility definition: the rolling standard deviation of simple daily returns, annualized. It does not relabel an average absolute move as volatility.\n\nPrice alone cannot identify the cause of a move. A decline can reflect improving supply, weaker demand, changing risk premia, or several channels at once. The EIA release and physical-flow evidence establish the supply thesis; the market series shows how that thesis was being priced at the stated as-of date.\n\n## Inflation And Cross-Asset Effects Remain Conditional\n\nLower crude and gasoline costs can reduce headline inflation and some transport expenses. That does not mechanically determine Federal Reserve policy, core-services inflation, or longer-term Treasury yields. Those outcomes also depend on labor conditions, fiscal supply, growth expectations, and inflation persistence.\n\nFor currencies and equities, exposure matters more than a generic risk-on label. Large energy importers may receive terms-of-trade relief, while producer revenues face pressure if lower prices persist. Refiners, transport-intensive companies, and upstream producers can therefore respond differently to the same crude move. These are transmission channels to monitor, not unconditional predictions.\n\n[[VISUAL:wti_ranges]]\n\n*WTI annual low-high ranges and averages. Source: FRED DCOILWTICO; underlying source: U.S. EIA. Capital Chronicle calculations. 2026 is explicitly shown as YTD through 2026-07-06, not as a complete calendar year. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)*\n\n## What Would Confirm Or Challenge The Rebalance\n\nConfirmation requires the physical and financial evidence to align: continued Hormuz transit, restored output, inventory rebuilding, and prices behaving consistently with easing scarcity. The thesis would weaken if the route is disrupted again, production recovery stalls, inventories keep drawing, or prices remain elevated despite improving flows.\n\nThe article's source facts come from the July 7 EIA outlook and the cited EIA chokepoint report. The charts are Capital Chronicle transformations of FRED DCOILWTICO, whose underlying source is the EIA. All dates and partial periods are stated explicitly. This article is for informational purposes only and is not financial advice.\n",
+  "body_sha256": "ea8212af7529d1f498fbb1ce3ff421affe03d43e53890d511f268ed304423f73",
+  "process_language_absent": true,
+  "public_write_performed": false,
+  "schema_version": "contentops.oil_rc_editorial_repair.v1",
+  "source_wording_calibrated": true,
+  "status": "PASS_LOCAL_REPAIR_PACKET_NOT_PUBLISHED",
+  "subtitle": "An analysis of the July 7 EIA forecast, the physical chokepoint, and the market evidence available through July 6.",
+  "title": "EIA Sees Oil Supply Nearing Pre-Conflict Levels as Hormuz Flows Resume",
+  "underlying_series_max_reuse": 2,
+  "visual_asset_count": 3,
+  "visual_assets": [
+    {
+      "alt_text": "EIA map of the Strait of Hormuz and pipeline alternatives across the Arabian Peninsula.",
+      "article_section": "physical_mechanism",
+      "asset_id": "hormuz_map",
+      "caption": "The Strait of Hormuz and regional pipeline alternatives.",
+      "evidence_dimension": "physical_geography",
+      "height": 526,
+      "local_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\oil_repair_local\\eia_strait_of_hormuz_map.png",
+      "modality": "map",
+      "publication_date": "2026-03",
+      "publisher": "U.S. Energy Information Administration",
+      "relevance_rationale": "The physical chokepoint directly supports the headline's transit-normalization mechanism.",
+      "rights_policy_url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "rights_status": "public_domain",
+      "role": "lead_contextual",
+      "sha256": "7375de63ec03df0277c48dc5bb36cc5be6c28f3d89a20eae2cd556b89b14bfaa",
+      "source_asset_url": "https://www.eia.gov/international/content/analysis/special_topics/World_Oil_Transit_Chokepoints/images/fig4.png",
+      "source_page_url": "https://www.eia.gov/international/content/analysis/special_topics/World_Oil_Transit_Chokepoints/",
+      "supports_headline": true,
+      "transformation_note": "Capital Chronicle resized the official EIA map for editorial readability without altering its content.",
+      "underlying_series_ids": [],
+      "width": 800
+    },
+    {
+      "alt_text": "Two-panel WTI price and annualized realized-volatility chart.",
+      "article_section": "market_evidence",
+      "asset_id": "wti_volatility",
+      "caption": "WTI price and correctly defined 30-observation annualized realized volatility through the latest observation.",
+      "chart_title": "WTI Price and 30-Observation Annualized Realized Volatility",
+      "evidence_dimension": "price_and_volatility",
+      "height": 1280,
+      "local_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\oil_repair_local\\wti_price_and_30_observation_realized_volatility.png",
+      "modality": "chart",
+      "publication_date": "2026-07-06",
+      "publisher": "Capital Chronicle from FRED/EIA data",
+      "quantitative_method": {
+        "annualization": "sqrt(252)",
+        "annualization_factor": "sqrt(252)",
+        "calculation": "standard deviation of simple daily returns",
+        "frequency": "daily",
+        "metric_definition": "annualized standard deviation of simple daily returns",
+        "partial_period": false,
+        "sample_window": "30 observations",
+        "transformation_owner": "Capital Chronicle",
+        "units": "percent"
+      },
+      "relevance_rationale": "Separates the observed market level and variability from the EIA forecast.",
+      "rights_status": "capital_chronicle_owned",
+      "role": "primary_quantitative_chart",
+      "sha256": "bff5c935c879cf1f6f1b52ef9587f4b4a839a81defdeae2042bdfee99a1e0515",
+      "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "underlying_series_ids": [
+        "DCOILWTICO"
+      ],
+      "width": 1920
+    },
+    {
+      "alt_text": "WTI annual low-high ranges and averages with the incomplete current year labelled YTD.",
+      "article_section": "historical_context",
+      "asset_id": "wti_ranges",
+      "caption": "WTI annual low-high ranges and averages with 2026 explicitly labelled YTD through 2026-07-06.",
+      "chart_title": "WTI Annual Ranges, Including 2026 YTD",
+      "evidence_dimension": "historical_range",
+      "height": 960,
+      "local_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\oil_repair_local\\wti_annual_ranges_2026_ytd.png",
+      "modality": "chart",
+      "publication_date": "2026-07-06",
+      "publisher": "Capital Chronicle from FRED/EIA data",
+      "quantitative_method": {
+        "annualization": "none",
+        "frequency": "daily",
+        "metric_definition": "annual minimum maximum and arithmetic mean",
+        "partial_period": true,
+        "sample_window": "calendar year or YTD",
+        "transformation_owner": "Capital Chronicle",
+        "units": "USD per barrel"
+      },
+      "relevance_rationale": "Places the stated market observation in a clearly labelled multi-year range context.",
+      "rights_status": "capital_chronicle_owned",
+      "role": "historical_context_chart",
+      "sha256": "a96615c73a3d8163f5243b7899bbd3763f80d7ed0608dc5eaf7f60fb5a537fdd",
+      "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "underlying_series_ids": [
+        "DCOILWTICO"
+      ],
+      "width": 1920
+    }
+  ],
+  "visual_modalities": [
+    "chart",
+    "map"
+  ],
+  "word_count": 654
+}

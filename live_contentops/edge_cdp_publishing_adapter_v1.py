@@ -863,6 +863,107 @@ def readback_public_substack_article_via_edge(
     return {"status": "SUCCESS", "platform": "substack", "public_url": public_url, "readback": readback}
 
 
+def delete_threads_post_via_edge_exact(
+    *,
+    cdp_port: int,
+    public_url: str,
+    post_id: str,
+    expected_text: str,
+    allowed_post_ids: set[str] | frozenset[str],
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Delete one allowlisted Threads post through its exact public page."""
+    parsed = urllib.parse.urlparse(public_url)
+    if (
+        post_id not in allowed_post_ids
+        or parsed.netloc not in {"threads.com", "www.threads.com"}
+        or parsed.path.count("/") < 3
+        or not parsed.path.startswith("/@official.capitalchronicle/post/")
+    ):
+        return {"status": "BLOCKED_THREADS_EDGE_DELETE_TARGET_MISMATCH", "post_id": post_id, "public_url": public_url}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(4)
+        visible = _normalised_visible_text(page.locator("body").inner_text(timeout=5000))
+        expected = _normalised_visible_text(expected_text)
+        if "official.capitalchronicle" not in visible.casefold() or expected.casefold() not in visible.casefold():
+            return {"status": "BLOCKED_THREADS_EDGE_DELETE_IDENTITY_OR_TEXT_MISMATCH", "post_id": post_id, "public_url": public_url}
+        text_anchor = page.get_by_text(expected[:120], exact=False).first
+        if not text_anchor.count() or not text_anchor.is_visible(timeout=2000):
+            return {"status": "BLOCKED_THREADS_EDGE_DELETE_TEXT_ANCHOR_NOT_FOUND", "post_id": post_id, "public_url": public_url}
+        scope = text_anchor.locator(
+            "xpath=ancestor::div[.//*[@role='button' and @aria-haspopup='menu']][1]"
+        )
+        menu_control = scope.locator("[role='button'][aria-haspopup='menu']").first if scope.count() else None
+        if menu_control is None or not menu_control.count() or not menu_control.is_visible(timeout=2000):
+            return {"status": "BLOCKED_THREADS_EDGE_DELETE_MENU_NOT_FOUND", "post_id": post_id, "public_url": public_url}
+        menu_control.click(timeout=6000)
+        time.sleep(1)
+        delete_menu = page.locator("[role='menuitem']:has-text('Delete')").last
+        if not delete_menu.count() or not delete_menu.is_visible(timeout=2000):
+            return {"status": "BLOCKED_THREADS_EDGE_DELETE_ACTION_NOT_FOUND", "post_id": post_id, "public_url": public_url}
+        delete_menu.click(timeout=6000)
+        time.sleep(1)
+        dialog = page.locator("[role='dialog']")
+        confirm = dialog.locator("[role='button']:has-text('Delete')").last if dialog.count() else page.locator("[role='button']:has-text('Delete')").last
+        if not confirm.count() or not confirm.is_visible(timeout=2500):
+            return {"status": "BLOCKED_THREADS_EDGE_DELETE_CONFIRMATION_NOT_FOUND", "post_id": post_id, "public_url": public_url}
+        confirm.click(timeout=6000)
+        time.sleep(8)
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(7)
+        after_text = _normalised_visible_text(page.locator("body").inner_text(timeout=5000))
+        unavailable = expected.casefold() not in after_text.casefold()
+        screenshot = None
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+    return {
+        "status": "SUCCESS" if unavailable else "FAILED_THREADS_EDGE_DELETE_STILL_PUBLIC",
+        "platform": "threads",
+        "action": "delete_exact_post_via_edge",
+        "post_id": post_id,
+        "public_url": public_url,
+        "destination_identity": "official.capitalchronicle",
+        "delete_performed": True,
+        "public_unavailability_verified": unavailable,
+        "public_screenshot_path": screenshot,
+    }
+
+
+def verify_threads_post_unavailable_via_edge(
+    *,
+    cdp_port: int,
+    public_url: str,
+    expected_text: str,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Read-only confirmation that an exact Threads URL no longer exposes its prior text."""
+    parsed = urllib.parse.urlparse(public_url)
+    if parsed.netloc not in {"threads.com", "www.threads.com"}:
+        return {"status": "BLOCKED_INVALID_THREADS_PUBLIC_URL", "public_url": public_url}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        visible = _normalised_visible_text(page.locator("body").inner_text(timeout=5000))
+        unavailable = _normalised_visible_text(expected_text).casefold() not in visible.casefold()
+        screenshot = None
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+    return {
+        "status": "SUCCESS" if unavailable else "FAILED_THREADS_POST_STILL_PUBLIC",
+        "public_url": public_url,
+        "public_unavailability_verified": unavailable,
+        "browser_write_performed": False,
+        "public_screenshot_path": screenshot,
+    }
+
+
 def audit_public_substack_article_via_edge(
     *,
     cdp_port: int,

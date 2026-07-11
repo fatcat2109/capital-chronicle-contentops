@@ -1,0 +1,26 @@
+{
+  "blockers": [
+    "historical_repairs_complete",
+    "oil_substack_repaired",
+    "fresh_oil_linkedin_created",
+    "generic_live_path_used",
+    "freshness_passed",
+    "dqr_permissions_passed",
+    "substack_plus_eight_derivatives_passed"
+  ],
+  "checks": {
+    "dqr_permissions_passed": false,
+    "fresh_oil_linkedin_created": false,
+    "freshness_passed": false,
+    "generic_live_path_used": false,
+    "historical_repairs_complete": false,
+    "no_unresolved_unknown": true,
+    "oil_substack_repaired": false,
+    "substack_plus_eight_derivatives_passed": false
+  },
+  "classification": "BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE",
+  "release_finalizer_command": "python -m live_contentops.eight_platform_substack_first_pipeline_v1 --run-id contentops-v1.0.0 --output-dir \"docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\" --finalize-v1-tag --operator-final-acceptance ACCEPT",
+  "schema_version": "contentops.final_release_readiness_verifier.v1",
+  "task_label": "TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_LIVE_REPAIR_CANARY_AND_V1_0_RC_V1",
+  "v1_0_tag_allowed": false
+}

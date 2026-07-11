@@ -44,8 +44,14 @@ Operator findings: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v
 - LinkedIn is founder-led personal distribution.
 - No secret material was exposed in operator screenshots.
 
-## Safety And Next Task
+## Final Closure Attempt
 
-All public outputs remain frozen. No platform write, browser/CDP action, webhook, video, TikTok, deletion, repair, or tag was authorized or performed in this architecture task.
+Evidence: `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/contentops_final_closure_20260711_1/`.
 
-Next task: `TASK_CONTENTOPS_TARGETED_LIVE_REPAIR_AND_V1_0_REAUDIT_V1`, requiring separate explicit live authorization.
+- LinkedIn historical activity `7481311616265895936` was restored in place with strict text, chart, link, identity, and stable-ID readback.
+- Facebook post `106091951705748_1342707111381039` was corrected in place and passed strict readback.
+- Authorized malformed Threads IDs `17967130901934350` and `18368836642225190` were deleted. UI fallback also removed valid reply `18402541432082518`; the pipeline recreated its approved content as reply `18366144508233800`. The root and policy reply remain, but ordering requires operator review.
+- A repaired oil analysis packet passes local editorial, rights, diversity, and quantitative-method gates. It was not published.
+- Main-repo readiness is `BLOCKED_PLACEHOLDER_BASELINE_CLEAN`; DQR is degraded and reporting is disallowed. The generic canary rehearsal correctly performed zero public writes.
+
+Current classification: `BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE`. Resume the same task only after upstream DQR/reporting authority and fresh headline/market evidence change. No `v1.0` tag exists.

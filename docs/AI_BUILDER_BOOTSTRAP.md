@@ -36,6 +36,8 @@ Substack is the canonical article surface. YouTube Community is the default YouT
 
 Numeric truth must come from approved evidence claim IDs. DQR blocks cannot be overridden by SourceHealth, InputStateManifest, or LLM output. Google visual grounding is candidate discovery only and grants neither provenance nor reuse permission.
 
-## Next Route
+## Final Closure State
 
-Only a separately authorized targeted repair may restore historical LinkedIn content, create one fresh LinkedIn oil post, repair article/chart/copy defects, resolve malformed Threads disposition, and re-audit. Do not run a broad publication or create a tag from this bootstrap.
+`TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_LIVE_REPAIR_CANARY_AND_V1_0_RC_V1` is blocked, not complete. Historical LinkedIn activity `7481311616265895936` was restored and Facebook copy was corrected. Both authorized malformed Threads posts were deleted; recovery recreated the accidentally removed valid first reply as `18366144508233800`, leaving a public reply-order caveat for operator review.
+
+The current ingestion readiness authority is `BLOCKED_PLACEHOLDER_BASELINE_CLEAN`: DQR is degraded and `reporting_allowed=false`. The generic rehearsal therefore failed closed with zero public writes. The repaired oil article/visual packet passes locally but was not published; no fresh oil LinkedIn activity or generalized canary exists. Resume this same closure task only after upstream DQR and fresh evidence are publication-eligible. Do not create a tag.

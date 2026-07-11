@@ -64,10 +64,14 @@ Deterministic blockers remain authoritative over model review. The writer cannot
 
 Distribution identity is registry-driven. `The Macro Pigeon` is an approved Discord community persona. LinkedIn is founder-led personal distribution. A fresh LinkedIn story cannot edit a historical activity, and a Threads reply cannot dispatch without a parent ID.
 
-## Current Evidence And Next Route
+## Current Evidence And Closure Blocker
 
 Generic rehearsal: `docs/automation/V6_GENERIC_EVIDENCE_FABRIC/generic_fabric_v2_real_rehearsal_20260711/`.
 
 RC operator audit: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/operator_manual_audit_findings_v2.json`.
 
-Next task is separately authorized targeted live repair and re-audit. It must restore historical LinkedIn integrity, create one fresh oil post, repair article/copy/chart/visual defects, resolve malformed Threads disposition, and reassess `v1.0`. It must not become a broad rerun.
+Final-closure evidence: `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/contentops_final_closure_20260711_1/`.
+
+Bounded repairs restored historical LinkedIn content, corrected Facebook copy, and deleted the two authorized malformed Threads posts. A valid Threads reply had to be recreated after duplicate-text UI ambiguity, leaving an operator-visible order caveat. The oil editorial repair passes locally but is unpublished.
+
+The upstream ingestion authority remains degraded with `reporting_allowed=false`; therefore the generalized live canary is blocked and no release tag is allowed. Resume the same closure task after fresh, publication-eligible Capital Chronicle evidence exists. Successful destinations and repairs are frozen.

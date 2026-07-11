@@ -67,6 +67,14 @@ def _get_json(url: str, payload: dict[str, Any]) -> dict[str, Any]:
         return json.loads(response.read().decode("utf-8"))
 
 
+def _delete_json(url: str, payload: dict[str, Any]) -> dict[str, Any]:
+    query = urllib.parse.urlencode(payload)
+    request = urllib.request.Request(f"{url}?{query}", method="DELETE")
+    with urllib.request.urlopen(request, timeout=20) as response:
+        raw = response.read().decode("utf-8")
+        return json.loads(raw) if raw else {"success": True}
+
+
 def compile_threads_payload(text: str, media_type: str = "TEXT", image_url: str | None = None, reply_to_id: str | None = None) -> dict[str, Any]:
     """Compiles the payload for creating a Threads media container."""
     payload: dict[str, Any] = {"media_type": media_type, "text": text}
@@ -278,3 +286,75 @@ def readback_threads_chain(
 def execute_threads_edit(*args: Any, **kwargs: Any) -> dict[str, Any]:
     """Threads API does not support editing existing posts."""
     return {"status": "UNSUPPORTED", "action": "edit", "platform_id": "threads", "reason": "threads_api_does_not_support_post_edit"}
+
+
+def execute_threads_delete_exact(
+    *,
+    post_id: str,
+    expected_permalink: str,
+    expected_text: str,
+    allowed_post_ids: set[str] | frozenset[str],
+    access_token: str | None = None,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Delete one explicitly allowlisted Threads post after strict identity readback."""
+    access_token = _threads_token(access_token)
+    if not post_id or not access_token:
+        return _validation_failed([name for name, value in (("post_id", post_id), ("access_token", access_token)) if not value])
+    if post_id not in allowed_post_ids:
+        return {"status": "BLOCKED_THREADS_DELETE_TARGET_NOT_ALLOWLISTED", "post_id": post_id}
+    before = readback_threads_post(post_id=post_id, expected_text=expected_text, access_token=access_token)
+    if not (
+        before.get("status") == "SUCCESS"
+        and before.get("account_identity_verified")
+        and str(before.get("public_url") or "").rstrip("/") == expected_permalink.rstrip("/")
+    ):
+        return {
+            "status": "BLOCKED_THREADS_DELETE_EXACT_IDENTITY_MISMATCH",
+            "post_id": post_id,
+            "expected_permalink": expected_permalink,
+            "before_readback": before,
+        }
+    if dry_run:
+        return {
+            "status": "DRY_RUN_PASS",
+            "action": "delete_exact_post",
+            "post_id": post_id,
+            "public_url": expected_permalink,
+            "before_readback": before,
+            "delete_performed": False,
+        }
+    try:
+        response = _delete_json(
+            f"https://graph.threads.net/{THREADS_GRAPH_VERSION}/{post_id}",
+            {"access_token": access_token},
+        )
+    except urllib.error.HTTPError as error:
+        return {**_parse_http_error(error, "FAILED_THREADS_DELETE"), "post_id": post_id, "before_readback": before}
+    except Exception as error:
+        return {"status": "FAILED_THREADS_DELETE", "post_id": post_id, "error_class": type(error).__name__, "before_readback": before}
+    try:
+        after_raw = _get_json(
+            f"https://graph.threads.net/{THREADS_GRAPH_VERSION}/{post_id}",
+            {"fields": "id,text,permalink,username", "access_token": access_token},
+        )
+        after = {"status": "FAILED_THREADS_DELETE_STILL_PUBLIC", "provider_object": bool(after_raw.get("id"))}
+    except urllib.error.HTTPError as error:
+        after = {"status": "NOT_PUBLIC_AFTER_DELETE", "provider_status_code": error.code}
+    except Exception as error:
+        after = {"status": "UNKNOWN_THREADS_DELETE_READBACK", "error_class": type(error).__name__}
+    verified = bool(response.get("success") and after.get("status") == "NOT_PUBLIC_AFTER_DELETE")
+    result = {
+        "status": "SUCCESS" if verified else str(after.get("status") or "FAILED_THREADS_DELETE_READBACK"),
+        "action": "delete_exact_post",
+        "post_id": post_id,
+        "public_url": expected_permalink,
+        "destination_identity": before.get("destination_identity"),
+        "before_readback": before,
+        "after_readback": after,
+        "provider_delete_acknowledged": bool(response.get("success")),
+        "delete_performed": True,
+    }
+    from .live_telemetry_v6 import classify_and_record_dispatch
+    classify_and_record_dispatch("threads", "delete", result, 0.0, 0)
+    return result

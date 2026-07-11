@@ -614,6 +614,11 @@ def test_derivative_only_resume_preserves_successful_destinations(tmp_path: Path
     )
     monkeypatch.setattr(
         pipeline,
+        "readback_linkedin_post_via_edge",
+        lambda **kwargs: {"status": "FAILED_LINKEDIN_POST_NOT_FOUND"},
+    )
+    monkeypatch.setattr(
+        pipeline,
         "edit_existing_linkedin_post_via_edge",
         lambda **kwargs: calls.append(kwargs)
         or {

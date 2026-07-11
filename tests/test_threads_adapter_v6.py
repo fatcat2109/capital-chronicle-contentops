@@ -91,3 +91,43 @@ def test_execute_edit_unsupported():
     res = adapter.execute_threads_edit()
     assert res["status"] == "UNSUPPORTED"
     assert res["platform_id"] == "threads"
+
+
+def test_delete_exact_rejects_non_allowlisted_target(monkeypatch):
+    monkeypatch.setenv("THREADS_USER_ACCESS_TOKEN", "fake_token")
+    result = adapter.execute_threads_delete_exact(
+        post_id="unrelated",
+        expected_permalink="https://www.threads.com/@official.capitalchronicle/post/unrelated",
+        expected_text="text",
+        allowed_post_ids={"approved"},
+        dry_run=True,
+    )
+    assert result["status"] == "BLOCKED_THREADS_DELETE_TARGET_NOT_ALLOWLISTED"
+
+
+def test_delete_exact_requires_matching_readback(monkeypatch):
+    monkeypatch.setenv("THREADS_USER_ACCESS_TOKEN", "fake_token")
+    monkeypatch.setattr(adapter, "readback_threads_post", lambda **_: {"status": "SUCCESS", "account_identity_verified": True, "public_url": "https://wrong.example/post"})
+    result = adapter.execute_threads_delete_exact(
+        post_id="approved",
+        expected_permalink="https://www.threads.com/@official.capitalchronicle/post/approved",
+        expected_text="text",
+        allowed_post_ids={"approved"},
+        dry_run=True,
+    )
+    assert result["status"] == "BLOCKED_THREADS_DELETE_EXACT_IDENTITY_MISMATCH"
+
+
+def test_delete_exact_dry_run_preserves_target(monkeypatch):
+    monkeypatch.setenv("THREADS_USER_ACCESS_TOKEN", "fake_token")
+    permalink = "https://www.threads.com/@official.capitalchronicle/post/approved"
+    monkeypatch.setattr(adapter, "readback_threads_post", lambda **_: {"status": "SUCCESS", "account_identity_verified": True, "destination_identity": "official.capitalchronicle", "public_url": permalink})
+    result = adapter.execute_threads_delete_exact(
+        post_id="approved",
+        expected_permalink=permalink,
+        expected_text="text",
+        allowed_post_ids={"approved"},
+        dry_run=True,
+    )
+    assert result["status"] == "DRY_RUN_PASS"
+    assert result["delete_performed"] is False

@@ -1,0 +1,36 @@
+{
+  "body_sha256": "ea8212af7529d1f498fbb1ce3ff421affe03d43e53890d511f268ed304423f73",
+  "deterministic_checks": {
+    "analysis_mode_explicit": true,
+    "as_of_explicit": true,
+    "process_language_absent": true,
+    "source_wording_calibrated": true,
+    "three_visuals": true,
+    "visual_composition": true,
+    "zero_public_writes": true
+  },
+  "public_write_performed": false,
+  "schema_version": "contentops.oil_rc_visual_editorial_gate.v1",
+  "status": "PASS_LOCAL_REPAIR_GATES_NOT_PUBLISHED",
+  "visual_composition": {
+    "asset_count": 3,
+    "blockers": [],
+    "decision_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "editorial_exception": null,
+    "evidence_dimensions": [
+      "historical_range",
+      "physical_geography",
+      "price_and_volatility"
+    ],
+    "modalities": [
+      "chart",
+      "map"
+    ],
+    "schema_version": "contentops.visual_composition_decision.v2",
+    "status": "PASS",
+    "story_type": "supply_chain_event",
+    "underlying_series_counts": {
+      "DCOILWTICO": 2
+    }
+  }
+}

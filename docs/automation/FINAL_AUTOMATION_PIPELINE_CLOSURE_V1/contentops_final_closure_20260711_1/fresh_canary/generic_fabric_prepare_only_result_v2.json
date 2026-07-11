@@ -1,0 +1,41 @@
+{
+  "blockers": [
+    "capital_chronicle_dqr_reporting_not_allowed",
+    "capital_chronicle_dqr_degraded",
+    "analysis_requires_fresh_material_delta_or_current_reaction",
+    "market_sensitive_story_snapshot_stale_or_missing",
+    "market_sensitive_story_ingest_stale_or_missing",
+    "evidence_packet_public_claim_permission_blocked"
+  ],
+  "browser_or_cdp_used": false,
+  "capabilities": {
+    "freshness_policy": "market_session",
+    "market_context_required": true,
+    "required_evidence_capabilities": [
+      "current_market_snapshot",
+      "prior_close",
+      "catalyst_evidence"
+    ],
+    "source_adapter_families": [
+      "capital_chronicle_market_state",
+      "official_catalyst"
+    ],
+    "status": "PASS",
+    "story_type": "market_move",
+    "visual_roles": [
+      "lead_contextual",
+      "primary_quantitative_chart",
+      "cross_asset_chart"
+    ]
+  },
+  "classification": "PASS_GENERIC_FABRIC_FAIL_CLOSED_REHEARSAL",
+  "editorial_review_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\fresh_canary\\editorial_review_orchestrator_v2.json",
+  "evidence_packet_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\fresh_canary\\capital_chronicle_content_evidence_packet_v2.json",
+  "freshness_decision_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\fresh_canary\\freshness_market_state_decision_v2.json",
+  "platform_adapter_called": false,
+  "public_write_performed": false,
+  "publication_eligible": false,
+  "schema_version": "contentops.generic_evidence_freshness_visual_editorial_fabric.v2",
+  "video_or_tiktok_adapter_called": false,
+  "visual_decision_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\fresh_canary\\visual_composition_decision_v2.json"
+}

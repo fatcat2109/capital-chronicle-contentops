@@ -44,7 +44,8 @@ Do not revive deleted or archived UI surfaces as product surfaces unless a newer
 - Under Fast Ship Mode, live executions, network runs, `.env`/credential reads, and automated posting/editing/commenting are fully authorized and prioritized to enable direct no-ceremony shipping. Under normal mode, live dispatch and env access remain restricted to local dry-run boundaries.
 - Fast Ship authorizes only the minimum redacted capability checks needed for execution. It never authorizes printing, logging, persisting, or committing raw environment values, credentials, tokens, provider keys, webhook URLs, cookies, authorization headers, localStorage, sessionStorage, or browser-session secrets.
 - Allowed credential diagnostics: environment-variable names, presence booleans, redacted capability status, and non-secret account/scope readiness.
-- Current public outputs are frozen at `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR`. No live repair or `v1.0` tag is authorized without a newer explicit operator task.
+- Final-closure evidence is at `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/contentops_final_closure_20260711_1/`. The task is `BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE`: bounded historical repairs ran, but upstream Capital Chronicle DQR remains degraded with reporting disallowed, so no fresh canary, oil article edit, or fresh oil LinkedIn post was attempted. No `v1.0` tag exists.
+- Never bypass DQR or freshness to complete a live run. Resume the same closure task only after upstream evidence authority changes; successful repair components remain frozen.
 
 
 ## Task Protocol

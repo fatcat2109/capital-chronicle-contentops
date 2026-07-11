@@ -1,0 +1,167 @@
+{
+  "deleted_post_ids": [
+    "17967130901934350",
+    "18368836642225190"
+  ],
+  "deletion_receipts": [
+    {
+      "before_readback": {
+        "error_code": 400,
+        "error_response": {
+          "error": {
+            "code": 100,
+            "error_subcode": 33,
+            "fbtrace_id": "AB62XnUcUzAza65qbK2z2kk",
+            "message": "Unsupported get request. Object with ID '17967130901934350' does not exist, cannot be loaded due to missing permissions, or does not support this operation",
+            "type": "THApiException"
+          }
+        },
+        "status": "FAILED_READBACK"
+      },
+      "delete_transport": "canonical_edge_exact_text_scoped_retry",
+      "edge_fallback": {
+        "action": "delete_exact_post_via_edge",
+        "delete_performed": true,
+        "destination_identity": "official.capitalchronicle",
+        "platform": "threads",
+        "post_id": "17967130901934350",
+        "public_screenshot_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\threads_deleted_17967130901934350.png",
+        "public_unavailability_verified": true,
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DaoFORbk9vY",
+        "status": "SUCCESS"
+      },
+      "expected_permalink": "https://www.threads.com/@official.capitalchronicle/post/DaoFORbk9vY",
+      "idempotency_state": "ALREADY_DELETED_VERIFIED_FROZEN",
+      "post_id": "17967130901934350",
+      "status": "SUCCESS"
+    },
+    {
+      "api_fallback_reason": "threads_api_application_permission_denied",
+      "before_readback": {
+        "account_identity_verified": true,
+        "body_text_visible": true,
+        "destination_identity": "official.capitalchronicle",
+        "expected_chart_visual_similarity": null,
+        "meaningful_media_visible": true,
+        "media_type": "IMAGE",
+        "platform": "threads",
+        "post_id": "18368836642225190",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DaoFQMQk33-",
+        "status": "SUCCESS",
+        "substack_url_visible": true,
+        "visible_body_text": "Policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Cross-asset context: A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields."
+      },
+      "delete_transport": "canonical_edge_exact_post_fallback",
+      "edge_fallback": {
+        "action": "delete_exact_post_via_edge",
+        "delete_performed": true,
+        "destination_identity": "official.capitalchronicle",
+        "platform": "threads",
+        "post_id": "18368836642225190",
+        "public_screenshot_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\threads_deleted_18368836642225190.png",
+        "public_unavailability_verified": true,
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DaoFQMQk33-",
+        "status": "SUCCESS"
+      },
+      "error_code": 500,
+      "error_response": {
+        "error": {
+          "code": 10,
+          "fbtrace_id": "AsjTzF3HEGmNymKr02hG25H",
+          "message": "Application does not have permission for this action",
+          "type": "THApiException"
+        }
+      },
+      "idempotency_state": "ALREADY_DELETED_VERIFIED_FROZEN",
+      "post_id": "18368836642225190",
+      "status": "SUCCESS"
+    }
+  ],
+  "preserved_valid_chain": {
+    "complete_article_visual_count": 1,
+    "ordered_replies": [
+      {
+        "expected_chart_visual_similarity": null,
+        "expected_media_local_path": null,
+        "id": "18402541432082518",
+        "media_required": false,
+        "media_verified": true,
+        "order": 1,
+        "parent_child_verified": false,
+        "parent_root_id": "18087989708109547",
+        "public_url": null,
+        "text_verified": false,
+        "visible_body_text": ""
+      },
+      {
+        "expected_chart_visual_similarity": null,
+        "expected_media_local_path": null,
+        "id": "18166762501444151",
+        "media_required": false,
+        "media_verified": true,
+        "order": 2,
+        "parent_child_verified": true,
+        "parent_root_id": "18087989708109547",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DaoGSdtk7QA",
+        "text_verified": true,
+        "visible_body_text": "Policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Cross-asset context: A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields."
+      }
+    ],
+    "platform": "threads",
+    "provider_order_verified": false,
+    "reply_ids_in_chronological_order": [
+      "18166762501444151"
+    ],
+    "reply_ids_in_provider_order": [
+      "18166762501444151"
+    ],
+    "root_id": "18087989708109547",
+    "status": "FAILED_THREADS_REPLY_CHAIN_READBACK"
+  },
+  "preserved_valid_root": {
+    "account_identity_verified": true,
+    "body_text_visible": true,
+    "destination_identity": "official.capitalchronicle",
+    "expected_chart_visual_similarity": null,
+    "meaningful_media_visible": true,
+    "media_type": "IMAGE",
+    "platform": "threads",
+    "post_id": "18087989708109547",
+    "public_url": "https://www.threads.com/@official.capitalchronicle/post/DaoGFXikwV3",
+    "status": "SUCCESS",
+    "substack_url_visible": true,
+    "visible_body_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand. https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war"
+  },
+  "status": "SUCCESS_WITH_REPLACED_VALID_REPLY_ORDER_CAVEAT",
+  "valid_chain_recovery": {
+    "deleted_valid_reply_id": "18402541432082518",
+    "order_caveat": "replacement first-mechanism reply is newer than preserved policy-context reply 18166762501444151",
+    "parent_root_id": "18087989708109547",
+    "readback": {
+      "account_identity_verified": true,
+      "body_text_visible": true,
+      "destination_identity": "official.capitalchronicle",
+      "expected_chart_visual_similarity": 0.9966,
+      "meaningful_media_visible": true,
+      "media_type": "IMAGE",
+      "platform": "threads",
+      "post_id": "18366144508233800",
+      "public_url": "https://www.threads.com/@official.capitalchronicle/post/DapN1ptE5o8",
+      "status": "SUCCESS",
+      "substack_url_visible": true,
+      "visible_body_text": "Why it matters: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices. For informational purposes only; not financial advice."
+    },
+    "reason": "authorized malformed target and valid first reply shared identical text on the Threads permalink page; exact-ID API delete was permission-blocked and the UI fallback removed the valid duplicate-text reply",
+    "replacement_public_url": "https://www.threads.com/@official.capitalchronicle/post/DapN1ptE5o8",
+    "replacement_reply_id": "18366144508233800",
+    "status": "SUCCESS",
+    "write": {
+      "container_id": "18136480738529547",
+      "id": "18366144508233800",
+      "response": {
+        "id": "18366144508233800"
+      },
+      "status": "SUCCESS"
+    }
+  }
+}

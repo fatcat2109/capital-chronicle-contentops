@@ -20,6 +20,10 @@ The RC is not v1.0-ready. LinkedIn historical integrity, malformed Threads stand
 
 The real ingestion rehearsal is intentionally not publication-eligible because the committed July 5 market state is stale at the July 11 as-of time and DQR reporting permission is false. This is a successful fail-closed result.
 
-## Safety
+## Final Closure Attempt
 
-This architecture task performed no browser/CDP use, platform write, webhook, comment, reply, edit, deletion, video/TikTok action, or tag creation. No CI PASS is claimed.
+The bounded live phase restored historical LinkedIn activity `7481311616265895936`, corrected the existing Facebook post, and deleted the two operator-authorized malformed Threads posts. Duplicate-text ambiguity in the Threads UI also removed valid reply `18402541432082518`; ContentOps recreated its approved content under root `18087989708109547` as reply `18366144508233800`. This order caveat remains an operator audit item.
+
+The repaired oil packet now has a public-domain EIA map plus two Capital Chronicle charts, correct realized-volatility methodology, explicit YTD treatment, source-calibrated language, and passing local gates. It was not published because the current ingestion readiness result is `BLOCKED_PLACEHOLDER_BASELINE_CLEAN`, DQR is degraded, and reporting is disallowed. The fresh generic canary remained prepare-only with zero public writes.
+
+Status: `BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE`. No CI PASS is claimed and no `v1.0` tag exists.

@@ -18,16 +18,18 @@
 | 14 | Eight-role editorial orchestration | DONE_V2 |
 | 15 | Source-calibrated copy/final-render gate | DONE_V2 |
 | 16 | Distribution identity/persona registry | DONE_V2 |
-| 17 | LinkedIn exact-activity idempotency and fresh-run integrity | CODE_GATE_DONE_LIVE_REPAIR_PENDING |
-| 18 | Non-empty Threads reply parent | CODE_GATE_DONE_LIVE_DISPOSITION_PENDING |
+| 17 | LinkedIn exact-activity idempotency and fresh-run integrity | HISTORICAL_RESTORED_FRESH_OIL_POST_BLOCKED_BY_RELEASE_GATE |
+| 18 | Non-empty Threads reply parent | MALFORMED_IDS_DELETED_VALID_REPLY_RECREATED_ORDER_AUDIT_REQUIRED |
 | 19 | Substack canonical publication/re-entry guard | TRANSPORT_PROVED_FROZEN |
 | 20 | Nine text/image destinations and YouTube Community default | TRANSPORT_PROVED_OPERATOR_PARTIAL |
 | 21 | Real ingestion rehearsal | DONE_FAIL_CLOSED |
 | 22 | Six generalized story fixtures | DONE_LOCAL_ONLY |
 | 23 | V5 evidence dashboard | PENDING |
-| 24 | Targeted RC repair/re-audit | NEXT_SEPARATE_LIVE_AUTHORIZATION |
+| 24 | Targeted RC repair/re-audit | PARTIAL_BLOCKED_BY_UPSTREAM_DQR |
 | 25 | v1.0 tag | BLOCKED_UNTIL_OPERATOR_ACCEPTANCE |
 
-Current task: `TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`.
+Current task: `TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_LIVE_REPAIR_CANARY_AND_V1_0_RC_V1`.
 
-Next task: `TASK_CONTENTOPS_TARGETED_LIVE_REPAIR_AND_V1_0_REAUDIT_V1`.
+Completed architecture authority: `TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`.
+
+Next route: `RESUME_TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_AFTER_UPSTREAM_DQR_STATE_CHANGE`.

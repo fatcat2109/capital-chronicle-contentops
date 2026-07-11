@@ -14,17 +14,13 @@ def _json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_status_promotes_v3_reliability_authority() -> None:
+def test_status_records_blocked_final_closure_authority() -> None:
     status = _json(STATUS)
-    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_HEAVY_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3"
-    assert status["current_task_classification"] == "PASS_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3"
-    assert (status["editorial_score_before"], status["editorial_score_after"]) == (60, 93)
-    assert (status["seo_score_before"], status["seo_score_after"]) == (86, 100)
-    assert status["combined_editorial_gate"] == "PASS"
-    assert status["llm_editorial_review_status"] == "SUCCESS"
-    assert status["llm_editorial_review_decision"] == "PASS"
-    assert status["llm_editorial_review_check_count"] == 14
-    assert status["llm_cannot_override_deterministic_blockers"] is True
+    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2"
+    assert status["current_task_classification"] == "BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE"
+    assert status["upstream_readiness"]["dqr_status"] == "degraded"
+    assert status["upstream_readiness"]["reporting_allowed"] is False
+    assert status["v1_0_tag_exists"] is False
 
 
 def test_current_evidence_separates_transport_from_quality() -> None:

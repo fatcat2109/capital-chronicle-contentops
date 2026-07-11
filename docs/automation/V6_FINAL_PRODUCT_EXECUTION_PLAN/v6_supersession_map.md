@@ -18,3 +18,5 @@ Current authority is the V6 master plan, machine status JSON, generic fabric con
 | LLM review can certify or override deterministic blockers | Writer cannot self-certify; final reviewer has no publication authority; deterministic blockers win. |
 
 Earlier Chrome, Telegram-host, local-export, arbitrary DOM-image, hard-truncation, video-as-YouTube-default, and click-equals-success models remain superseded as documented by prior commits.
+
+The planned clean targeted-repair state is also superseded by final-closure evidence: repairs are partial, both authorized malformed Threads posts are deleted, a valid reply was recreated with an ordering caveat, and the generalized canary is blocked by upstream DQR rather than pending implementation convenience.

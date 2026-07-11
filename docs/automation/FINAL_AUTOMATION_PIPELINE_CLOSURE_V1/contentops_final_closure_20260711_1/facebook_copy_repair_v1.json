@@ -1,0 +1,41 @@
+{
+  "after": {
+    "body_text_visible": true,
+    "destination_identity": "Capital Chronicle",
+    "expected_chart_visual_similarity": 0.9946,
+    "meaningful_media_visible": true,
+    "page_identity_verified": true,
+    "platform": "facebook_page",
+    "post_id": "106091951705748_1342707111381039",
+    "public_image_url_present": true,
+    "public_url": "https://www.facebook.com/1342369584748125/posts/1342707111381039",
+    "status": "SUCCESS",
+    "substack_url_visible": true,
+    "visible_body_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand. The market mechanism is reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices. Read the full article: https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war For informational purposes only; not financial advice."
+  },
+  "before": {
+    "body_text_visible": true,
+    "destination_identity": "Capital Chronicle",
+    "expected_chart_visual_similarity": 0.9946,
+    "meaningful_media_visible": true,
+    "page_identity_verified": true,
+    "platform": "facebook_page",
+    "post_id": "106091951705748_1342707111381039",
+    "public_image_url_present": true,
+    "public_url": "https://www.facebook.com/1342369584748125/posts/1342707111381039",
+    "status": "SUCCESS",
+    "substack_url_visible": true,
+    "visible_body_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand. The relevant transmission channel is Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices. Read the full article: https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war For informational purposes only; not financial advice."
+  },
+  "edit": {
+    "id": "106091951705748_1342707111381039",
+    "response": {
+      "success": true
+    },
+    "status": "SUCCESS"
+  },
+  "payload_sha256": "8668adbc316f777d2251d4b11914aca75fbde6cd3924e95573baf60f85022d46",
+  "post_id": "106091951705748_1342707111381039",
+  "public_url": "https://www.facebook.com/1342369584748125/posts/1342707111381039",
+  "status": "SUCCESS"
+}

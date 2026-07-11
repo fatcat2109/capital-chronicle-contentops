@@ -1,0 +1,95 @@
+{
+  "after": {
+    "action": "readback_existing_post",
+    "body_text_visible": true,
+    "browser_write_performed": false,
+    "canonical_link_target_verified": true,
+    "canonical_url_text_visible": false,
+    "chart_similarity_score": 0.8629,
+    "destination_identity": "linkedin:jimcc",
+    "meaningful_media_visible": true,
+    "media_readback": {
+      "natural_height": 429,
+      "natural_width": 800,
+      "rendered_height": 207.8,
+      "rendered_width": 387.0
+    },
+    "platform": "linkedin",
+    "post_id": "7481311616265895936",
+    "public_screenshot_path": null,
+    "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+    "status": "SUCCESS",
+    "substack_url_visible": true,
+    "visible_body_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues FRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus. The mechanism: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions. Its position inside the policy corridor is evidence about overnight rate implementation, while funding spreads and the yield curve provide the broader conditions context. The policy context: The target range and administered rates frame the overnight operating environment. A reading inside that corridor shows where the implementation channel is operating, but it does not by itself establish the next policy decision or the direction of longer-dated yields. Read the full Capital Chronicle analysis: https://lnkd.in/g5sgqw4b For informational purposes only; not financial advice.",
+    "visible_link_text": "https://lnkd.in/g5sgqw4b"
+  },
+  "before": {
+    "action": "readback_existing_post",
+    "body_text_visible": true,
+    "browser_write_performed": false,
+    "canonical_link_target_verified": false,
+    "canonical_url_text_visible": false,
+    "chart_similarity_score": 0.8647,
+    "destination_identity": "linkedin:jimcc",
+    "meaningful_media_visible": true,
+    "media_readback": {
+      "natural_height": 429,
+      "natural_width": 800,
+      "rendered_height": 207.8,
+      "rendered_width": 387.0
+    },
+    "platform": "linkedin",
+    "post_id": "7481311616265895936",
+    "public_screenshot_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\linkedin_historical_before.png",
+    "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+    "status": "FAILED_LINKEDIN_EXACT_ACTIVITY_READBACK",
+    "substack_url_visible": false,
+    "visible_body_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand. The mechanism: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices. The policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Read the full Capital Chronicle analysis: https://lnkd.in/g2a64Nyn For informational purposes only; not financial advice.",
+    "visible_link_text": null
+  },
+  "edit": {
+    "action": "edit_existing_post",
+    "edit_selector": "div[role='button']:has-text('Edit post')",
+    "editor_selector": "div[role='dialog'] div.ql-editor[contenteditable='true']",
+    "media_status": "preserved_existing_chart",
+    "media_transfer": {
+      "upload_transport": "preserved_existing_media_no_reupload"
+    },
+    "menu_selector": "button[aria-label*='Open control menu']",
+    "new_post_created": false,
+    "payload_sha256": "20bbbc270591c7d16e90c56180924203146eb74f58558651a556d8b7b20d5d80",
+    "platform": "linkedin",
+    "post_id": "7481311616265895936",
+    "provider_readback_verified": true,
+    "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+    "readback": {
+      "action": "readback_existing_post",
+      "body_text_visible": true,
+      "canonical_link_target_verified": true,
+      "canonical_url_text_visible": false,
+      "destination_identity": "linkedin:jimcc",
+      "meaningful_media_visible": true,
+      "media_readback": {
+        "natural_height": 429,
+        "natural_width": 800,
+        "rendered_height": 207.8,
+        "rendered_width": 387.0
+      },
+      "platform": "linkedin",
+      "post_id": "7481311616265895936",
+      "public_screenshot_path": "docs\\automation\\FINAL_AUTOMATION_PIPELINE_CLOSURE_V1\\contentops_final_closure_20260711_1\\linkedin_historical_after.png",
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+      "status": "SUCCESS",
+      "substack_url_visible": true,
+      "visible_body_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues FRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus. The mechanism: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions. Its position inside the policy corridor is evidence about overnight rate implementation, while funding spreads and the yield curve provide the broader conditions context. The policy context: The target range and administered rates frame the overnight operating environment. A reading inside that corridor shows where the implementation channel is operating, but it does not by itself establish the next policy decision or the direction of longer-dated yields. Read the full Capital Chronicle analysis: https://lnkd.in/g5sgqw4b For informational purposes only; not financial advice.",
+      "visible_link_text": "https://lnkd.in/g5sgqw4b"
+    },
+    "save_selector": "div[role='dialog'] button:has-text('Save')",
+    "status": "SUCCESS"
+  },
+  "media_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
+  "payload_sha256": "20bbbc270591c7d16e90c56180924203146eb74f58558651a556d8b7b20d5d80",
+  "post_id": "7481311616265895936",
+  "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+  "status": "SUCCESS"
+}

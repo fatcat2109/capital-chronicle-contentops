@@ -1,0 +1,46 @@
+{
+  "created_at_utc": "2026-07-11T07:20:38Z",
+  "facebook_edit": {
+    "canonical_url": "https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war",
+    "post_id": "106091951705748_1342707111381039",
+    "public_url": "https://www.facebook.com/1342369584748125/posts/1342707111381039"
+  },
+  "fresh_generalized_canary": {
+    "status": "BLOCKED_UNTIL_GENERIC_DQR_AND_FRESHNESS_PASS"
+  },
+  "fresh_oil_linkedin": {
+    "status": "BLOCKED_UNTIL_REPAIRED_OIL_ARTICLE_PASSES"
+  },
+  "linkedin_restore": {
+    "canonical_url": "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at",
+    "chart_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\media_assets\\slot_6\\fed_funds_policy_corridor_context_4e1243215297.png",
+    "chart_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
+    "post_id": "7481311616265895936",
+    "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+    "text": null,
+    "text_authority_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\native_payloads_v1.json",
+    "text_sha256": "20bbbc270591c7d16e90c56180924203146eb74f58558651a556d8b7b20d5d80"
+  },
+  "schema_version": "contentops.final_automation_historical_repair_plan.v1",
+  "task_label": "TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_LIVE_REPAIR_CANARY_AND_V1_0_RC_V1",
+  "threads_delete_allowlist": [
+    {
+      "post_id": "17967130901934350",
+      "text": "Why it matters: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.",
+      "url": "https://www.threads.com/@official.capitalchronicle/post/DaoFORbk9vY"
+    },
+    {
+      "post_id": "18368836642225190",
+      "text": "Policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations.",
+      "url": "https://www.threads.com/@official.capitalchronicle/post/DaoFQMQk33-"
+    }
+  ],
+  "threads_valid_chain": {
+    "reply_ids": [
+      "18402541432082518",
+      "18166762501444151"
+    ],
+    "root_id": "18087989708109547",
+    "root_url": "https://www.threads.com/@official.capitalchronicle/post/DaoGFXikwV3"
+  }
+}

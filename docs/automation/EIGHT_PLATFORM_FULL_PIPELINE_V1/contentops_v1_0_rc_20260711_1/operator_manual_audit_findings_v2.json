@@ -43,6 +43,22 @@
     ],
     "targeted_article_and_chart_repair": "Requires separately authorized live task and re-audit."
   },
+  "repair_addendum_20260711": {
+    "task": "TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_LIVE_REPAIR_CANARY_AND_V1_0_RC_V1",
+    "classification": "BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE",
+    "historical_linkedin": "Restored exact prior Fed content in activity 7481311616265895936 with strict readback.",
+    "facebook_copy": "Corrected existing post in place with strict readback.",
+    "threads": {
+      "authorized_malformed_ids_deleted": ["17967130901934350", "18368836642225190"],
+      "valid_reply_removed_during_exact_ui_fallback": "18402541432082518",
+      "valid_reply_recreated_as": "18366144508233800",
+      "order_caveat_requires_operator_audit": true
+    },
+    "oil_repair": "Local editorial and visual gates pass; article remains unchanged publicly.",
+    "fresh_canary": "Withheld because upstream DQR is degraded and reporting_allowed=false.",
+    "evidence_path": "docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/contentops_final_closure_20260711_1",
+    "no_v1_0_tag": true
+  },
   "safety": {
     "public_outputs_frozen": true,
     "no_secret_material_seen_in_operator_screenshots": true,

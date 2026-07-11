@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from live_contentops import edge_cdp_publishing_adapter_v1 as adapter
 from live_contentops.edge_cdp_publishing_adapter_v1 import (
     _activate_file_upload,
     _file_input_snapshot,
@@ -262,3 +263,14 @@ def test_youtube_community_payload_rejects_technical_run_identifiers(tmp_path: P
 
     assert invalid["status"] == "INVALID"
     assert "technical_run_identifier_forbidden" in invalid["blockers"]
+
+
+def test_threads_edge_delete_rejects_non_allowlisted_target():
+    result = adapter.delete_threads_post_via_edge_exact(
+        cdp_port=9222,
+        public_url="https://www.threads.com/@official.capitalchronicle/post/example",
+        post_id="unrelated",
+        expected_text="text",
+        allowed_post_ids={"approved"},
+    )
+    assert result["status"] == "BLOCKED_THREADS_EDGE_DELETE_TARGET_MISMATCH"

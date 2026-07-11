@@ -1,0 +1,84 @@
+{
+  "blockers": [
+    "evidence_packet_public_claim_permission_blocked",
+    "capital_chronicle_dqr_reporting_not_allowed",
+    "capital_chronicle_dqr_degraded",
+    "analysis_requires_fresh_material_delta_or_current_reaction",
+    "market_sensitive_story_snapshot_stale_or_missing",
+    "market_sensitive_story_ingest_stale_or_missing"
+  ],
+  "deterministic_blockers_authoritative": true,
+  "final_render_reviewed": true,
+  "packet_hash": "729b70c7e6b7812fb449a5a8453ca985611396392b64f6f2cd732478a0886760",
+  "role_order": [
+    "assignment_editor",
+    "evidence_planner",
+    "reporter_writer",
+    "quantitative_editor",
+    "visual_editor",
+    "copy_editor",
+    "platform_editor",
+    "adversarial_final_reviewer"
+  ],
+  "roles": [
+    {
+      "blockers": [],
+      "output_hash": "0adb805502d7eb802f9623729c761a05a8e878a99e8ecfa395e3c6b471d9388c",
+      "role": "assignment_editor",
+      "status": "PASS"
+    },
+    {
+      "blockers": [
+        "evidence_packet_public_claim_permission_blocked"
+      ],
+      "output_hash": "aee4ff3d7966d62a66135c17a04934fc313961caba4a0bcf494c6b62ea224854",
+      "role": "evidence_planner",
+      "status": "BLOCK"
+    },
+    {
+      "blockers": [],
+      "output_hash": "88857e5adafc4c88ae09fcbfa9f54569baa95b5972349855d740f71123a5de0d",
+      "role": "reporter_writer",
+      "status": "PASS"
+    },
+    {
+      "blockers": [],
+      "output_hash": "10a4fb2ff05b94c2527af4617b8bd7547cc91d8d06b4cb28a81f0cad19999e15",
+      "role": "quantitative_editor",
+      "status": "PASS"
+    },
+    {
+      "blockers": [],
+      "output_hash": "9bd04b3263e9128d662d3c4fdaceb84ff56450babec605a63fa224a32ad69d76",
+      "role": "visual_editor",
+      "status": "PASS"
+    },
+    {
+      "blockers": [],
+      "output_hash": "6b105f2ef26b1cf6ad3b327502454b14e1ba1d40033e6c82147ecd3691362e79",
+      "role": "copy_editor",
+      "status": "PASS"
+    },
+    {
+      "blockers": [],
+      "output_hash": "785e1bf22cca2a4b606e24f409956f2496a0a99465e03538391bc67bcde08328",
+      "role": "platform_editor",
+      "status": "PASS"
+    },
+    {
+      "blockers": [
+        "capital_chronicle_dqr_reporting_not_allowed",
+        "capital_chronicle_dqr_degraded",
+        "analysis_requires_fresh_material_delta_or_current_reaction",
+        "market_sensitive_story_snapshot_stale_or_missing",
+        "market_sensitive_story_ingest_stale_or_missing"
+      ],
+      "output_hash": "e75f463cd151ff962640734b2c6768da523f087a356f7edadffcfecf9889e715",
+      "role": "adversarial_final_reviewer",
+      "status": "BLOCK"
+    }
+  ],
+  "schema_version": "contentops.editorial_review_orchestrator.v2",
+  "status": "BLOCK",
+  "writer_self_certification_allowed": false
+}

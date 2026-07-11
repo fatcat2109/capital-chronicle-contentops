@@ -3232,8 +3232,44 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--generic-as-of-utc")
     parser.add_argument("--allow-legacy-topic-adapter", action="store_true")
     parser.add_argument("--build-operator-audit-packet", action="store_true")
+    parser.add_argument("--closure-historical-repair", action="store_true")
+    parser.add_argument("--closure-release-verify", action="store_true")
+    parser.add_argument("--closure-generic-result", type=Path)
+    parser.add_argument("--finalize-v1-tag", action="store_true")
+    parser.add_argument("--operator-final-acceptance")
+    parser.add_argument("--release-verifier-path", type=Path)
     args = parser.parse_args(argv)
     output = args.output_dir or OUTPUT_ROOT / args.run_id
+    if args.finalize_v1_tag:
+        from live_contentops.final_automation_closure_v1 import finalize_v1_tag
+
+        verifier_path = args.release_verifier_path or output / "final_release_readiness_v1.json"
+        result = finalize_v1_tag(
+            verifier_path=verifier_path,
+            operator_acceptance=str(args.operator_final_acceptance or ""),
+        )
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0 if result["status"] == "SUCCESS_RELEASE_TAG_CREATED_AND_PUSHED" else 2
+    if args.closure_historical_repair:
+        from live_contentops.final_automation_closure_v1 import run_historical_repairs
+
+        if not args.operator_approved_full_live_run:
+            print(json.dumps({"classification": "BLOCKED_HISTORICAL_RC_TARGETED_REPAIR", "reason": "operator_approved_full_live_run_flag_required"}, sort_keys=True))
+            return 2
+        result = run_historical_repairs(output_dir=output, cdp_port=args.cdp_port)
+        print(json.dumps({
+            "classification": result["classification"],
+            "linkedin": result["linkedin"].get("status"),
+            "threads": result["threads"].get("status"),
+            "facebook": result["facebook"].get("status"),
+        }, indent=2, sort_keys=True))
+        return 0 if result["classification"].startswith("PASS") else 1
+    if args.closure_release_verify:
+        from live_contentops.final_automation_closure_v1 import verify_release_readiness
+
+        result = verify_release_readiness(output_dir=output, generic_result_path=args.closure_generic_result)
+        print(json.dumps({"classification": result["classification"], "blockers": result["blockers"]}, indent=2, sort_keys=True))
+        return 0 if result["classification"].startswith("AWAITING_OPERATOR") else 2
     if args.prepare_generic_fabric:
         from live_contentops.generic_editorial_fabric_v2 import run_generic_prepare_only
 
