@@ -1,33 +1,30 @@
 # ContentOps Final Automation Pipeline Readiness Report
 
-Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`. Substack is the canonical article surface, and YouTube Community is the default YouTube text/image derivative; video and Shorts remain separate non-default modes.
+Status: `AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS`.
 
-Status: `PASS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2` for local architecture; `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR` for the public RC.
+Canonical supervised publishing profile: Microsoft Edge at `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`. Substack is canonical and YouTube Community is the default YouTube article derivative.
 
-## Proven
+Canonical evidence: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`.
 
-- Substack-first nine-surface text/image transport and strict readback.
-- Read-only ingestion bridge with claim IDs, timestamps, source refs, hashes, DQR permissions, market snapshots, and visual inputs.
-- Separate freshness and duplicate policies.
-- Generic story capability registry across macro, policy, geopolitical, market, supply-chain, regulatory, structural, and company/sector stories.
-- Provider-neutral visual discovery, Google image-search grounding request contract, rights/provenance gate, diversity gate, and quantitative-method gate.
-- Eight bounded editorial roles with independent fail-closed final review.
-- Brand, approved persona, founder-led, and wrong-account identity classes.
+## Release-Candidate Proof
 
-## Not Ready
+- The canonical runner consumed a real Capital Chronicle story-scoped publication packet; it did not use legacy oil/Fed routing.
+- The packet granted `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED` for one exact Treasury story while global DQR remained blocked.
+- Freshness, source permission, quantitative methodology, visual diversity, deterministic editorial gates, bounded LLM review, identity preflight, and release-lock hashes passed before writes.
+- The article uses two quantitative Treasury views plus one official Treasury document/data excerpt. The one-basis-point 2s10s change is described as edging wider, not a decisive steepening.
+- Substack plus Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community have stable public IDs or provider IDs and strict readback.
+- X and Threads each preserve an ordered root plus two-reply chain and distribute the three approved visuals once.
+- A bounded Substack update removed a duplicate truncated caption fragment without changing the canonical URL or touching derivatives.
+- Machine audit classification is `AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC`; machine QA is `PASS`.
 
-The RC is not v1.0-ready. LinkedIn historical integrity, malformed Threads standalone posts, awkward Facebook copy, internal article vocabulary, headline source calibration, volatility methodology, partial-year labeling, visual diversity, and story freshness require targeted repair and operator re-audit.
+## Explicit Caveats
 
-The real ingestion rehearsal is intentionally not publication-eligible because the committed July 5 market state is stale at the July 11 as-of time and DQR reporting permission is false. This is a successful fail-closed result.
+Telegram provider readback verifies message `63`, exact text, chart, and canonical link. Local Edge could not resolve `t.me`, so the audit records a DNS-unavailable provider-readback fallback instead of fabricating a browser screenshot.
 
-## Final Closure Attempt
+TikTok was not part of the authorized eight-destination article run and remains blocked by canonical-profile authentication. YouTube video and Shorts were not invoked.
 
-The bounded live phase restored historical LinkedIn activity `7481311616265895936`, corrected the existing Facebook post, and deleted the two operator-authorized malformed Threads posts. Duplicate-text ambiguity in the Threads UI also removed valid reply `18402541432082518`; ContentOps recreated its approved content under root `18087989708109547` as reply `18366144508233800`. This order caveat remains an operator audit item.
+No CI PASS is claimed. No `v1.0` tag exists.
 
-The repaired oil packet now has a public-domain EIA map plus two Capital Chronicle charts, correct realized-volatility methodology, explicit YTD treatment, source-calibrated language, and passing local gates. It was not published because the current ingestion readiness result is `BLOCKED_PLACEHOLDER_BASELINE_CLEAN`, DQR is degraded, and reporting is disallowed. The fresh generic canary remained prepare-only with zero public writes.
+## Release Gate
 
-Status: `BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE`. No CI PASS is claimed and no `v1.0` tag exists.
-
-## July 14 Governed Database Gate
-
-`live_contentops.cc_evidence_bridge_v2` now verifies and consumes the accepted analyzer handoff and point-in-time DuckDB before legacy state artifacts. The canonical runner command without a supplied story request performs governed assignment preflight and fails closed with exit code `2`. Evidence at `docs/automation/DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1/contentops_database_backed_live_run_20260714_1/` records `dqr=BLOCKED`, candidate-only consumers, absent public reporting permission, no governed headline/public source URL, stale unidentified market context, and non-publication-ready source health. No browser, CDP, Substack, or derivative adapter was invoked.
+There is no remaining engineering blocker for this RC. Jim must visually inspect the short operator audit set and explicitly accept or reject the output. Tag creation remains prohibited until that acceptance and a passing final release verifier.

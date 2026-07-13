@@ -1,15 +1,11 @@
 # V6 Next Task Pointer
 
-Current task: `TASK_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1`
+Current task: `TASK_CONTENTOPS_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1`
 
-Completed architecture authority: `TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`
+Classification: `AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS`
 
-Classification: `BLOCKED_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1`
+## Next Action
 
-## Resume Condition
+`TASK_CONTENTOPS_OPERATOR_FINAL_V1_0_ACCEPTANCE_AND_TAG`
 
-Resume this same database-backed run only after the Capital Chronicle ingestion authority produces publication-eligible governed evidence: explicit ContentOps/public reporting permission, DQR publication clearance, a fresh identified headline/event, a public official-source URL, fresh identified market state with units, and publication-ready source health. Do not create a new engineering task merely to repeat the blocked run.
-
-Machine route: `RESUME_TASK_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_AFTER_UPSTREAM_PUBLICATION_AUTHORITY_CHANGE`.
-
-On resume, keep all historical repairs frozen. Re-run the canonical database preflight first; select and publish exactly one new generic story only if every governed permission, freshness, source, visual, deterministic editorial, and bounded LLM gate passes. No tag is allowed before the final verifier and explicit operator acceptance.
+No engineering work or broad rerun is pending. Jim should inspect the short audit set for run `contentops_database_publication_live_20260714_1`, accept or reject the editorial and visual output, and only after explicit acceptance run the prepared release verifier/finalizer. All current public outputs are frozen. No `v1.0` tag exists.

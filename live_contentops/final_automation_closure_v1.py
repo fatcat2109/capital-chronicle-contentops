@@ -327,16 +327,52 @@ def verify_release_readiness(*, output_dir: Path, generic_result_path: Path | No
     repair_path = output_dir / "historical_repair_result_v1.json"
     repair = _read(repair_path) if repair_path.is_file() else {}
     generic = _read(generic_result_path) if generic_result_path and generic_result_path.is_file() else {}
-    checks = {
-        "historical_repairs_complete": repair.get("classification") == "PASS_HISTORICAL_RC_TARGETED_REPAIR",
-        "oil_substack_repaired": bool(repair.get("oil_substack_edited")),
-        "fresh_oil_linkedin_created": bool(repair.get("fresh_oil_linkedin_created")),
-        "generic_live_path_used": bool(generic.get("generic_live_path_used")),
-        "freshness_passed": bool(generic.get("freshness_passed")),
-        "dqr_permissions_passed": bool(generic.get("dqr_permissions_passed")),
-        "substack_plus_eight_derivatives_passed": bool(generic.get("substack_plus_eight_derivatives_passed")),
-        "no_unresolved_unknown": not bool(generic.get("unresolved_unknown_writes")),
-    }
+    current_generic_run = bool(generic.get("generic_live_path_used") and isinstance(generic.get("results"), dict))
+    if current_generic_run:
+        run_dir = generic_result_path.parent if generic_result_path else output_dir
+        preflight = _read(run_dir / "generic_database_preflight_result_v1.json")
+        freshness = _read(run_dir / "freshness_market_state_decision_v2.json")
+        release_lock = _read(run_dir / "release_candidate_lock_v1.json")
+        audit = _read(run_dir / "operator_manual_audit_packet_v1.json")
+        required = ("substack", "telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube")
+        results = generic.get("results") or {}
+        try:
+            tag_absent = not subprocess.run(
+                ["git", "tag", "--list", "contentops-v1.0.0"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+        except (OSError, subprocess.CalledProcessError):
+            tag_absent = False
+        checks = {
+            "generic_live_path_used": True,
+            "legacy_topic_adapter_not_used": generic.get("legacy_topic_adapter_used") is False,
+            "story_scoped_publication_authorized": preflight.get("publication_eligible") is True,
+            "freshness_passed": freshness.get("decision") == "PASS" and not freshness.get("blockers"),
+            "release_lock_passed": bool(
+                release_lock.get("generic_live_path_used")
+                and release_lock.get("legacy_topic_adapter_used") is False
+                and release_lock.get("lock_sha256")
+                and all(row.get("exists") for row in (release_lock.get("artifacts") or {}).values())
+            ),
+            "substack_plus_eight_derivatives_passed": all((results.get(name) or {}).get("status") == "SUCCESS" for name in required),
+            "no_unresolved_unknown": not any("UNKNOWN" in str((results.get(name) or {}).get("status") or "") for name in required),
+            "substack_caption_repair_verified": (generic.get("substack_caption_repair") or {}).get("status") == "SUCCESS",
+            "machine_audit_passed": (audit.get("machine_qa") or {}).get("status") == "PASS",
+            "v1_tag_absent": tag_absent,
+        }
+    else:
+        checks = {
+            "historical_repairs_complete": repair.get("classification") == "PASS_HISTORICAL_RC_TARGETED_REPAIR",
+            "oil_substack_repaired": bool(repair.get("oil_substack_edited")),
+            "fresh_oil_linkedin_created": bool(repair.get("fresh_oil_linkedin_created")),
+            "generic_live_path_used": bool(generic.get("generic_live_path_used")),
+            "freshness_passed": bool(generic.get("freshness_passed")),
+            "dqr_permissions_passed": bool(generic.get("dqr_permissions_passed")),
+            "substack_plus_eight_derivatives_passed": bool(generic.get("substack_plus_eight_derivatives_passed")),
+            "no_unresolved_unknown": not bool(generic.get("unresolved_unknown_writes")),
+        }
     blockers = [name for name, passed in checks.items() if not passed]
     result = {
         "schema_version": "contentops.final_release_readiness_verifier.v1",

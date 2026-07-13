@@ -1,0 +1,17 @@
+{
+  "body_markdown_sha256": "bf4376efc326d0702772244eceb1744cf037cdfa9801973ddc8d8d35a0c20f11",
+  "browser_session_material_recorded": false,
+  "draft_url": null,
+  "editor_body_image_count": 3,
+  "in_body_visual_asset_ids": [
+    "treasury_curve_snapshot",
+    "treasury_source_excerpt",
+    "treasury_2s10s_history"
+  ],
+  "public_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+  "publication_state": "published",
+  "run_id": "contentops_database_publication_live_20260714_1",
+  "schema_version": "contentops.substack_supervised_browser_readback.v1",
+  "status": "SUCCESS",
+  "title": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%"
+}

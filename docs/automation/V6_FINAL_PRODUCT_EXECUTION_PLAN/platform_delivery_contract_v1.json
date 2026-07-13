@@ -9,6 +9,8 @@
   "editorial_gate": "live_contentops.tier1_editorial_quality_v1",
   "editorial_gate_policy": "deterministic_and_bounded_llm_must_both_pass_llm_cannot_override_deterministic_blockers",
   "canonical_generic_mode": "--prepare-generic-fabric",
+  "canonical_generic_live_release_mode": "--prepare-generic-live-release",
+  "story_scoped_publication_authority": "contentops_publication plus reporting_allowed=true plus PASS_PUBLICATION_AUTHORIZED; global DQR remains independent",
   "prepublication_contracts": [
     "CapitalChronicleContentEvidencePacketV2",
     "freshness_market_state_decision.v2",
@@ -49,15 +51,19 @@
     "video_capabilities": {"adapter": "video_platform_capability_matrix_v1", "payload_compiler": "separate explicit mode", "public_readback": "not applicable in capability audit", "idempotency_ledger": "separate explicit-mode ledger", "focused_tests": ["test_video_platform_capability_matrix_v1.py"], "common_failures": ["credentials confused with authorization"], "allowed_recovery": ["complete separate OAuth review"], "forbidden_fallback": ["default article runner upload"], "evidence": "video_platform_capability_matrix_v1.json"}
   },
   "failure_conditions": ["wrong_media", "process_language", "weak_news_peg", "hard_or_mid_sentence_truncation", "orphan_reply_fragment", "missing_canonical_url_semantics", "incomplete_visual_distribution", "missing_public_identity", "unresolved_unknown_write", "wrong_account_or_surface"],
-  "current_public_state": "frozen_blocked_final_closure_after_bounded_historical_repairs",
+  "current_public_state": "frozen_generic_treasury_canary_machine_qa_pass_operator_acceptance_pending",
   "release_gate": {
-    "classification": "BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE",
-    "upstream_dqr_reporting_allowed": false,
-    "fresh_generic_canary_published": false,
+    "classification": "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS",
+    "global_dqr_status": "BLOCKED",
+    "story_scoped_reporting_allowed": true,
+    "story_scoped_decision": "PASS_PUBLICATION_AUTHORIZED",
+    "fresh_generic_canary_published": true,
+    "fresh_generic_canary_run_id": "contentops_database_publication_live_20260714_1",
+    "nine_surface_machine_qa": "PASS",
     "oil_substack_repaired_live": false,
     "fresh_oil_linkedin_created": false,
-    "threads_order_caveat": true,
-    "resume_policy": "freeze_successes_and_resume_only_after_upstream_evidence_authority_changes"
+    "threads_order_caveat": false,
+    "resume_policy": "freeze_all_outputs_pending_operator_acceptance"
   },
   "v1_0_tag_allowed": false
 }

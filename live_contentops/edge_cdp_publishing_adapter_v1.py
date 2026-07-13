@@ -298,6 +298,26 @@ def _append_editor_text(page: Any, editor: Any, text: str, *, clear: bool = Fals
     page.keyboard.type(text, delay=0)
 
 
+def _append_editor_tail_after_media(page: Any, editor: Any, text: str) -> None:
+    """Place a missing final text segment after the last ProseMirror media node."""
+    if not text:
+        return
+    editor.scroll_into_view_if_needed(timeout=5000)
+    editor.evaluate(
+        """element => {
+            element.focus();
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(element);
+            range.collapse(false);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }"""
+    )
+    page.keyboard.press("Enter")
+    page.keyboard.insert_text(text)
+
+
 def _normalise_editor_text(value: str) -> str:
     without_headings = re.sub(r"(?m)^#{1,6}\s+", "", value or "")
     # Rich-text input rules can normalize punctuation while preserving the
@@ -1013,8 +1033,15 @@ def capture_public_destination_screenshot_via_edge(
     parsed = urllib.parse.urlparse(public_url)
     if parsed.scheme != "https" or _PRIVATE_SUBSTACK_PATH_MARKER in parsed.path:
         return {"status": "BLOCKED_INVALID_PUBLIC_SCREENSHOT_URL", "public_url": public_url}
+    navigation_url = public_url
     with canonical_edge_page(cdp_port) as page:
-        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        try:
+            page.goto(navigation_url, wait_until="domcontentloaded", timeout=45000)
+        except Exception:
+            if parsed.netloc.casefold() != "t.me":
+                raise
+            navigation_url = urllib.parse.urlunparse(parsed._replace(netloc="telegram.me"))
+            page.goto(navigation_url, wait_until="domcontentloaded", timeout=45000)
         time.sleep(5)
         try:
             visible_text = _normalised_visible_text(page.locator("body").inner_text(timeout=5000))
@@ -1027,6 +1054,7 @@ def capture_public_destination_screenshot_via_edge(
     return {
         "status": "SUCCESS" if target.is_file() and target.stat().st_size > 0 else "FAILED_PUBLIC_SCREENSHOT_CAPTURE",
         "public_url": public_url,
+        "navigation_url": navigation_url,
         "public_screenshot_path": str(target),
         "page_domain": parsed.netloc,
         "expected_text_visible": expected_visible,
@@ -1043,6 +1071,7 @@ def publish_substack_article_via_edge(
     image_assets: Sequence[Mapping[str, Any]],
     public_screenshot_path: str | Path | None = None,
     existing_draft_id: str | None = None,
+    existing_public_url: str | None = None,
 ) -> dict[str, Any]:
     """Publish one canonical article with source-backed images embedded in order."""
     assets = {str(item.get("asset_id") or ""): dict(item) for item in image_assets}
@@ -1079,10 +1108,50 @@ def publish_substack_article_via_edge(
         upload_rows: list[dict[str, Any]] = []
         first_text = True
         resume_segment_index = 0
+        resume_tail_after_media = False
         if existing_draft_id:
             existing_text = _normalise_editor_text(editor.inner_text(timeout=3000) or "")
             expected_intro = _normalise_editor_text(segments[0][1] if segments and segments[0][0] == "text" else "")
-            if _editor_image_count(page) == 0 and expected_intro and expected_intro[:500] in existing_text:
+            existing_image_count = _editor_image_count(page)
+            expected_captions = [
+                _normalise_editor_text(str(assets[asset_id].get("caption") or ""))
+                for asset_id in expected_ids
+            ]
+            if (
+                existing_image_count >= len(expected_ids)
+                and expected_intro
+                and expected_intro[:500] in existing_text
+                and all(caption and caption in existing_text for caption in expected_captions)
+            ):
+                # Exact recovery of a fully composed draft that stopped at a
+                # readback gate. Never retype the body or reupload its media.
+                resume_segment_index = len(segments)
+                first_text = False
+            elif existing_image_count >= len(expected_ids):
+                text_segment_indexes = [index for index, row in enumerate(segments) if row[0] == "text"]
+                trailing_index = text_segment_indexes[-1] if text_segment_indexes else -1
+                preceding_text_matches = all(
+                    _normalise_editor_text(segments[index][1])[:300] in existing_text
+                    for index in text_segment_indexes[:-1]
+                    if _normalise_editor_text(segments[index][1])
+                )
+                trailing_text = _normalise_editor_text(segments[trailing_index][1]) if trailing_index >= 0 else ""
+                trailing_absent = bool(trailing_text) and trailing_text[:80] not in existing_text
+                if expected_intro and expected_intro[:500] in existing_text and preceding_text_matches and trailing_absent:
+                    # A prior bounded upload may have stopped after the final
+                    # image but before the last text segment. Append only that
+                    # proven-missing tail; successful media remains untouched.
+                    resume_segment_index = trailing_index
+                    first_text = False
+                    resume_tail_after_media = True
+                else:
+                    return {
+                        "status": "BLOCKED_SUBSTACK_RESUME_DRAFT_BODY_UNRECOGNIZED",
+                        "platform": "substack",
+                        "draft_id": existing_draft_id,
+                        "editor_body_image_count": existing_image_count,
+                    }
+            elif existing_image_count == 0 and expected_intro and expected_intro[:500] in existing_text:
                 resume_segment_index = 1
                 first_text = False
             elif existing_text:
@@ -1094,7 +1163,11 @@ def publish_substack_article_via_edge(
                 }
         for kind, value in segments[resume_segment_index:]:
             if kind == "text":
-                _append_editor_text(page, editor, value, clear=first_text)
+                if resume_tail_after_media:
+                    _append_editor_tail_after_media(page, editor, value)
+                    resume_tail_after_media = False
+                else:
+                    _append_editor_text(page, editor, value, clear=first_text)
                 first_text = False
                 continue
             asset = assets[value]
@@ -1138,16 +1211,37 @@ def publish_substack_article_via_edge(
             }
         time.sleep(3)
         draft_id = _substack_draft_id(page.url)
-        continue_selector = _click_first_visible(page, ("button:has-text('Continue')", "button:has-text('Publish...')", "button:has-text('Publish')"))
+        continue_selector = _click_first_visible(page, ("button:has-text('Update')", "button:has-text('Continue')", "button:has-text('Publish...')", "button:has-text('Publish')"))
         if continue_selector:
             time.sleep(3)
-        publish_selector = _click_first_visible(page, ("button:has-text('Send to everyone now')", "button:has-text('Publish now')", "button:has-text('Publish post now')"))
-        if not publish_selector:
-            return {"status": "BLOCKED_SUBSTACK_PUBLISH_CONTROL_NOT_FOUND", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows}
-        time.sleep(4)
-        _click_first_visible(page, ("button:has-text('Publish without buttons')", "button:has-text('Confirm')", "button:has-text('Publish now')"))
-        time.sleep(8)
-        public_url = _extract_substack_public_url(page)
+        update_mode = bool(continue_selector and "Update" in continue_selector)
+        if update_mode:
+            publish_selector = continue_selector
+            time.sleep(3)
+            # Published posts can require a second confirmation after the
+            # editor-level Update action. Keep this bounded to update-only
+            # controls so an existing article can never enter create mode.
+            _click_first_visible(
+                page,
+                (
+                    "button:has-text('Update post')",
+                    "button:has-text('Update now')",
+                    "button:has-text('Confirm update')",
+                ),
+            )
+            time.sleep(7)
+        else:
+            publish_selector = _click_first_visible(page, ("button:has-text('Send to everyone now')", "button:has-text('Publish now')", "button:has-text('Publish post now')"))
+            if not publish_selector:
+                return {"status": "BLOCKED_SUBSTACK_PUBLISH_CONTROL_NOT_FOUND", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows}
+            time.sleep(4)
+            _click_first_visible(page, ("button:has-text('Publish without buttons')", "button:has-text('Confirm')", "button:has-text('Publish now')"))
+            time.sleep(8)
+        public_url = (
+            str(existing_public_url)
+            if update_mode and _is_public_substack_url(str(existing_public_url or ""))
+            else _extract_substack_public_url(page)
+        )
         if not public_url:
             try:
                 page.goto("https://capitalchronicle.substack.com/publish/posts", wait_until="domcontentloaded", timeout=45000)
@@ -1178,12 +1272,93 @@ def publish_substack_article_via_edge(
             "status": "SUCCESS",
             "platform": "substack",
             "action": "publish",
+            "publication_write_mode": "update_existing_public_article" if update_mode else "create_new_public_article",
             "draft_id": draft_id,
             "public_url": public_url,
             "editor_body_image_count": editor_image_count,
             "in_body_visual_asset_ids": expected_ids,
             "upload_rows": upload_rows,
             "readback": readback,
+        }
+
+
+def repair_substack_duplicate_caption_fragment_via_edge(
+    *,
+    cdp_port: int,
+    draft_id: str,
+    expected_title: str,
+    caption_prefix: str,
+) -> dict[str, Any]:
+    """Remove one proven short duplicate caption fragment from an exact draft."""
+    if not str(draft_id).isdigit() or len(_normalise_editor_text(caption_prefix)) < 20:
+        return {"status": "BLOCKED_SUBSTACK_CAPTION_REPAIR_IDENTITY_INVALID", "platform": "substack"}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(
+            f"https://capitalchronicle.substack.com/publish/post/{draft_id}",
+            wait_until="domcontentloaded",
+            timeout=45000,
+        )
+        time.sleep(3)
+        title_input, _ = _first_visible(page, ("#post-title", "input[name='title']", "input[placeholder*='Title']"))
+        editor, _ = _first_visible(page, ("div.ProseMirror", ".ProseMirror", "div[contenteditable='true']"))
+        if not title_input or not editor or title_input.input_value(timeout=3000).strip() != expected_title:
+            return {"status": "BLOCKED_SUBSTACK_CAPTION_REPAIR_IDENTITY_MISMATCH", "platform": "substack", "draft_id": draft_id}
+        expected = _normalise_editor_text(caption_prefix)
+        matches: list[tuple[Any, str, str]] = []
+        for node in editor.locator("p").all():
+            try:
+                visible = " ".join((node.inner_text(timeout=600) or "").split())
+            except Exception:
+                continue
+            normalized = _normalise_editor_text(visible)
+            if expected[:35] in normalized:
+                matches.append((node, visible, normalized))
+        if len(matches) == 1 and len(matches[0][1]) > 120:
+            return {
+                "status": "ALREADY_CLEAN_IDEMPOTENT",
+                "platform": "substack",
+                "draft_id": draft_id,
+                "remaining_caption_node_count": 1,
+                "browser_write_performed": False,
+            }
+        if len(matches) != 2:
+            return {"status": "BLOCKED_SUBSTACK_CAPTION_REPAIR_AMBIGUOUS", "platform": "substack", "draft_id": draft_id, "matching_node_count": len(matches)}
+        short = min(matches, key=lambda row: len(row[1]))
+        long = max(matches, key=lambda row: len(row[1]))
+        if not (0 < len(short[1]) < 80 and len(long[1]) > 150 and long[2].startswith(short[2])):
+            return {"status": "BLOCKED_SUBSTACK_CAPTION_REPAIR_PREFIX_NOT_PROVEN", "platform": "substack", "draft_id": draft_id}
+        short[0].evaluate(
+            """element => {
+                element.scrollIntoView({block: 'center'});
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(element);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }"""
+        )
+        page.keyboard.press("Backspace")
+        time.sleep(2)
+        deadline = time.monotonic() + 12
+        while time.monotonic() < deadline and not _substack_saved(page):
+            time.sleep(0.5)
+        remaining = []
+        for node in editor.locator("p").all():
+            try:
+                normalized = _normalise_editor_text(node.inner_text(timeout=500) or "")
+            except Exception:
+                continue
+            if expected[:35] in normalized:
+                remaining.append(normalized)
+        verified = len(remaining) == 1 and expected in remaining[0] and _substack_saved(page)
+        return {
+            "status": "SUCCESS" if verified else "FAILED_SUBSTACK_CAPTION_REPAIR_READBACK",
+            "platform": "substack",
+            "draft_id": draft_id,
+            "removed_fragment_character_count": len(short[1]),
+            "remaining_caption_node_count": len(remaining),
+            "draft_saved": _substack_saved(page),
+            "browser_write_performed": True,
         }
 
 

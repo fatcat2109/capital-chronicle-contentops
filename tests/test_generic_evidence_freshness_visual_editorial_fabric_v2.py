@@ -49,33 +49,30 @@ def _asset(asset_id: str, role: str, modality: str, dimension: str, series=()) -
     return {"asset_id": asset_id, "role": role, "modality": modality, "evidence_dimension": dimension, "source_page_url": "https://official.example/item", "publisher": "Official owner", "publication_date": "2026-07-11", "rights_status": "public_domain", "caption": "Grounded caption", "alt_text": "Grounded visual", "width": 1400, "height": 900, "sha256": (asset_id[0] * 64), "article_section": asset_id, "relevance_rationale": "Supports the assigned evidence role", "supports_headline": role == "lead_contextual", "is_logo": False, "is_avatar": False, "is_thumbnail": False, "is_synthetic": False, "is_manipulated": False, "underlying_series_ids": list(series), **({"chart_title": f"{asset_id} through July 11", "quantitative_method": {"metric_definition": asset_id, "units": "index", "frequency": "daily", "sample_window": "30 sessions", "transformation_owner": "Capital Chronicle", "calculation": "indexed levels", "partial_period": False}} if modality == "chart" else {})}
 
 
-def test_real_cc_bridge_is_read_only_and_preserves_dqr_blocker():
+def test_real_cc_bridge_prefers_story_scoped_publication_authority_without_global_dqr_override():
     cc_root = Path(r"A:\Capital Chronicle\Headline Raw data local json\capital-chronicle-ingestion")
     if not cc_root.exists():
         pytest.skip("local ingestion repo unavailable")
-    packet = build_evidence_packet_from_cc_root(cc_root, as_of_utc="2026-07-11T02:00:00Z")
-    assert packet["status"] == "PASS_CONTRACT_BLOCKED_PUBLICATION"
-    assert packet["public_claim_permissions"]["decision"] == "BLOCK"
-    assert "capital_chronicle_dqr_blocked" in packet["blockers"]
-    assert "governed_reporting_permission_not_granted" in packet["blockers"]
-    assert "governed_authority_candidate_snapshot_only" in packet["blockers"]
-    assert packet["governed_contract"]["mode"] == "governed_point_in_time_handoff_v1"
-    assert packet["governed_contract"]["database_sha256_matches"] is True
+    packet = build_evidence_packet_from_cc_root(cc_root)
+    assert packet["status"] == "PASS_PUBLICATION_AUTHORIZED"
+    assert packet["public_claim_permissions"]["decision"] == "ALLOW"
+    assert packet["source_state"]["dqr_status"] == "BLOCKED"
+    assert packet["source_state"]["global_dqr_reporting_allowed"] is False
+    assert packet["source_state"]["story_scoped_reporting_allowed"] is True
+    assert packet["governed_contract"]["mode"] == "story_scoped_publication_evidence_v1"
+    assert packet["governed_contract"]["global_dqr_override"] is False
     assert packet["bridge_safety"] == {
         "source_repo_modified": False,
         "secret_files_read": False,
         "network_call_made": False,
-        "database_open_mode": "read_only",
+        "database_open_mode": "packet_read_only",
         "legacy_state_fallback_used": False,
     }
     assert not validate_evidence_packet(packet)
     assert packet["events"]
     assert packet["numeric_claims"]
-    assert all(row["public_claim_allowed"] is False for row in packet["numeric_claims"])
-    assert packet["public_claim_permissions"]["observed_allowed_consumer_classes"] == [
-        "bounded_outcome_candidate",
-        "point_in_time_candidate",
-    ]
+    assert all(row["public_claim_allowed"] is True for row in packet["numeric_claims"])
+    assert "contentops_publication" in packet["public_claim_permissions"]["consumer_class"]
 
 
 def test_governed_bridge_does_not_treat_candidate_consumers_as_reporting_permission():
@@ -221,10 +218,11 @@ def test_generic_prepare_only_real_rehearsal_calls_no_platform(tmp_path, monkeyp
     import live_contentops.edge_cdp_publishing_adapter_v1 as edge
     monkeypatch.setattr(edge, "publish_substack_article_via_edge", lambda **_: (_ for _ in ()).throw(AssertionError("no write")))
     result = run_generic_prepare_only(output_dir=tmp_path, story_request=json.loads(REAL_REQUEST.read_text()), capital_chronicle_root=cc_root, as_of_utc="2026-07-11T02:00:00Z")
-    assert result["classification"] == "PASS_GENERIC_FABRIC_FAIL_CLOSED_REHEARSAL"
+    assert result["classification"] == "PASS_GENERIC_PREPARE_ONLY"
     assert result["public_write_performed"] is False
     assert result["platform_adapter_called"] is False
-    assert "market_sensitive_story_snapshot_stale_or_missing" in result["blockers"]
+    assert result["publication_eligible"] is True
+    assert result["blockers"] == []
 
 
 def test_canonical_runner_generic_mode_cannot_enter_browser_or_publish_paths(tmp_path, monkeypatch):
@@ -245,7 +243,7 @@ def test_canonical_runner_generic_mode_cannot_enter_browser_or_publish_paths(tmp
     assert result["browser_or_cdp_used"] is False
 
 
-def test_canonical_runner_database_preflight_has_blocked_exit_code(tmp_path, monkeypatch):
+def test_canonical_runner_database_preflight_passes_story_scoped_publication_packet(tmp_path, monkeypatch):
     cc_root = Path(r"A:\Capital Chronicle\Headline Raw data local json\capital-chronicle-ingestion")
     if not cc_root.exists():
         pytest.skip("local ingestion repo unavailable")
@@ -256,9 +254,9 @@ def test_canonical_runner_database_preflight_has_blocked_exit_code(tmp_path, mon
         "--prepare-generic-fabric", "--capital-chronicle-root", str(cc_root),
         "--generic-as-of-utc", "2026-07-14T12:00:00Z",
     ])
-    assert code == 2
+    assert code == 0
     result = json.loads((tmp_path / "generic_database_preflight_result_v1.json").read_text())
-    assert result["publication_eligible"] is False
+    assert result["publication_eligible"] is True
     assert result["public_write_performed"] is False
 
 

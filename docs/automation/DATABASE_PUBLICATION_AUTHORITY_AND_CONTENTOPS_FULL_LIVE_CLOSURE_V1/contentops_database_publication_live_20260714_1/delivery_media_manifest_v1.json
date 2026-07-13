@@ -1,0 +1,107 @@
+{
+  "assets": [
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_curve_latest_vs_previous.png",
+      "alt_text": "Line chart comparing the latest official U.S. Treasury par yield curve with the previous session across maturities.",
+      "canonical_article_section_association": "The curve moved at more than one point",
+      "chart_title": "U.S. Treasury Yield Curve: 2026-07-13 vs 2026-07-10",
+      "declared_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "height": 900,
+      "local_public_hash_continuity": true,
+      "media_asset_id": "treasury_curve_snapshot",
+      "media_role": "primary_chart",
+      "mime_type": "image/png",
+      "public_delivery_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "source_provenance": {
+        "caption": "The latest official Treasury curve sits above the previous session at the long end.",
+        "source_label": "U.S. Department of the Treasury",
+        "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "status": "source_backed_capital_chronicle_render_from_official_public_data"
+      },
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/1a8f20e7-64d0-477c-a060-ca6a71f5eb4f_1620x900.png",
+      "width": 1620
+    },
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_official_data_excerpt.png",
+      "alt_text": "Table excerpt listing official 2-year, 10-year and 30-year Treasury par yields for the latest and previous sessions.",
+      "canonical_article_section_association": "Why a 5% long bond matters",
+      "chart_title": "Official Treasury Daily Par Yield Curve Excerpt",
+      "declared_sha256": "6530dab8c56cc2161155c2726b00dc30614d99fe8a594edb0e82cb6ffd924d92",
+      "height": 900,
+      "local_public_hash_continuity": true,
+      "media_asset_id": "treasury_source_excerpt",
+      "media_role": "official_source_excerpt",
+      "mime_type": "image/png",
+      "public_delivery_sha256": "6530dab8c56cc2161155c2726b00dc30614d99fe8a594edb0e82cb6ffd924d92",
+      "sha256": "6530dab8c56cc2161155c2726b00dc30614d99fe8a594edb0e82cb6ffd924d92",
+      "source_provenance": {
+        "caption": "Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle.",
+        "source_label": "U.S. Department of the Treasury",
+        "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "status": "source_backed_capital_chronicle_render_from_official_public_data"
+      },
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/1f085c31-04ce-45de-89d5-ab48c98e87b6_1600x900.png",
+      "width": 1600
+    },
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_2s10s_history.png",
+      "alt_text": "Line chart showing the U.S. Treasury 2-year to 10-year par-yield spread in basis points through the latest official close.",
+      "canonical_article_section_association": "The slope is positive, but the change is modest",
+      "chart_title": "U.S. Treasury 2s10s Spread Through 2026-07-13",
+      "declared_sha256": "2f6f106671cecc0d56edc39d7f9cbd2ad4b52b62e3a51807614c672f538fa2b7",
+      "height": 900,
+      "local_public_hash_continuity": true,
+      "media_asset_id": "treasury_2s10s_history",
+      "media_role": "supporting_curve_chart",
+      "mime_type": "image/png",
+      "public_delivery_sha256": "2f6f106671cecc0d56edc39d7f9cbd2ad4b52b62e3a51807614c672f538fa2b7",
+      "sha256": "2f6f106671cecc0d56edc39d7f9cbd2ad4b52b62e3a51807614c672f538fa2b7",
+      "source_provenance": {
+        "caption": "The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields.",
+        "source_label": "U.S. Department of the Treasury",
+        "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "status": "source_backed_capital_chronicle_render_from_official_public_data"
+      },
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/e478885d-17a2-47da-bbe2-7a659cc9252b_1620x900.png",
+      "width": 1620
+    }
+  ],
+  "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+  "blockers": [],
+  "minimum_chart_dimensions": {
+    "height": 400,
+    "width": 800
+  },
+  "remote_objects_audited": [
+    {
+      "height": 900,
+      "mime_type": "image/png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/1a8f20e7-64d0-477c-a060-ca6a71f5eb4f_1620x900.png",
+      "sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!5zRz!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1a8f20e7-64d0-477c-a060-ca6a71f5eb4f_1620x900.png",
+      "width": 1620
+    },
+    {
+      "height": 900,
+      "mime_type": "image/png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/1f085c31-04ce-45de-89d5-ab48c98e87b6_1600x900.png",
+      "sha256": "6530dab8c56cc2161155c2726b00dc30614d99fe8a594edb0e82cb6ffd924d92",
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!78bu!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1f085c31-04ce-45de-89d5-ab48c98e87b6_1600x900.png",
+      "width": 1600
+    },
+    {
+      "height": 900,
+      "mime_type": "image/png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/e478885d-17a2-47da-bbe2-7a659cc9252b_1620x900.png",
+      "sha256": "2f6f106671cecc0d56edc39d7f9cbd2ad4b52b62e3a51807614c672f538fa2b7",
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!6QF1!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe478885d-17a2-47da-bbe2-7a659cc9252b_1620x900.png",
+      "width": 1620
+    }
+  ],
+  "run_id": "contentops_database_publication_live_20260714_1",
+  "schema_version": "contentops.delivery_media_manifest.v1",
+  "selected_primary_media_asset_id": "treasury_curve_snapshot",
+  "selected_primary_media_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+  "status": "PASS"
+}

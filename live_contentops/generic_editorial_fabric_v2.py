@@ -46,10 +46,15 @@ def evaluate_assignment_readiness(packet: Mapping[str, Any]) -> dict[str, Any]:
         rejection_reasons.append("no_event_with_public_claim_permission")
     if not any(row.get("public_claim_allowed") for row in (packet.get("numeric_claims") or [])):
         rejection_reasons.append("no_numeric_claim_with_public_claim_permission")
+    selected_story = None
+    if not rejection_reasons:
+        selected_story = dict(packet.get("publication_assignment") or {})
+        if not selected_story and packet.get("headlines"):
+            selected_story = dict((packet.get("headlines") or [])[0])
     return {
         "schema_version": "contentops.generic_assignment_readiness.v1",
         "decision": "PASS" if not rejection_reasons else "BLOCK",
-        "selected_story": None,
+        "selected_story": selected_story,
         "candidate_count": len(packet.get("headlines") or []),
         "rejection_reasons": list(dict.fromkeys(rejection_reasons)),
         "selection_method": "governed_packet_only_no_topic_fallback",

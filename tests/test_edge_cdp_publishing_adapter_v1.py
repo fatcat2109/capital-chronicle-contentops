@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 from pathlib import Path
 
 from live_contentops import edge_cdp_publishing_adapter_v1 as adapter
@@ -12,6 +13,13 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     _split_substack_body,
     validate_youtube_community_payload,
 )
+
+
+def test_substack_update_mode_preserves_public_url_and_confirms_update() -> None:
+    source = inspect.getsource(adapter.publish_substack_article_via_edge)
+    assert "existing_public_url" in source
+    assert "button:has-text('Update post')" in source
+    assert 'publication_write_mode": "update_existing_public_article"' in source
 
 
 def test_public_substack_content_checks_require_reader_text_sources_and_captions() -> None:

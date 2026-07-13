@@ -22,6 +22,9 @@ GOVERNED_HANDOFF_ROOT = Path(
 GOVERNED_FINAL_EVIDENCE = GOVERNED_HANDOFF_ROOT / "DATABASE_FINAL_EVIDENCE_PACKET_V1.json"
 GOVERNED_HANDOFF = GOVERNED_HANDOFF_ROOT / "ANALYZER_CLOSED_LOOP_DATA_HANDOFF_V1.json"
 GOVERNED_VALIDATION = GOVERNED_HANDOFF_ROOT / "ANALYZER_HANDOFF_VALIDATION_V1.json"
+PUBLICATION_EVIDENCE = Path(
+    "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json"
+)
 PUBLIC_REPORTING_CONSUMERS = {
     "contentops_publication",
     "editorial_publication",
@@ -86,6 +89,135 @@ def _has_public_reporting_permission(sources: Sequence[Mapping[str, Any]]) -> bo
         if consumers.intersection(PUBLIC_REPORTING_CONSUMERS):
             return True
     return False
+
+
+def _build_evidence_packet_from_publication_packet(
+    root: Path,
+    *,
+    as_of_utc: str | None,
+    story_window_hours: int,
+) -> dict[str, Any]:
+    """Translate the story-scoped database product without widening global DQR."""
+    source_path = root / PUBLICATION_EVIDENCE
+    source = _read_json(source_path)
+    if source.get("schema_version") != "capital_chronicle.publication_evidence_packet.v1":
+        raise ValueError("unsupported_publication_evidence_packet_schema")
+    consumers = {str(value) for value in source.get("consumer_class") or []}
+    story_authority = dict(source.get("story_authority") or {})
+    permissions = dict(source.get("public_claim_permissions") or {})
+    contract_blockers: list[str] = []
+    if source.get("status") != "PASS_PUBLICATION_AUTHORIZED":
+        contract_blockers.append("publication_evidence_packet_not_authorized")
+    if "contentops_publication" not in consumers:
+        contract_blockers.append("contentops_publication_consumer_not_granted")
+    if story_authority.get("decision") != "ALLOW" or permissions.get("decision") != "ALLOW":
+        contract_blockers.append("story_scoped_publication_authority_blocked")
+    if story_authority.get("global_dqr_override") is not False:
+        contract_blockers.append("publication_packet_attempts_global_dqr_override")
+    if (source.get("global_authority") or {}).get("dqr") != "BLOCKED":
+        contract_blockers.append("global_dqr_boundary_not_preserved")
+
+    packet_ref = str(PUBLICATION_EVIDENCE).replace("\\", "/")
+    numeric_claims = []
+    for index, source_claim in enumerate(source.get("numeric_claims") or []):
+        claim = dict(source_claim)
+        claim.setdefault("release_time_utc", None)
+        claim.setdefault("ingestion_time_utc", source.get("generated_at_utc"))
+        claim.setdefault("revision_time_utc", None)
+        claim.setdefault("freshness_class", "story_scoped_publication_authorized")
+        claim.setdefault("source_health", (source.get("source_health") or {}).get("status"))
+        claim.setdefault("source_artifact_ref", f"{packet_ref}#numeric_claims/{index}")
+        numeric_claims.append(claim)
+
+    source_documents = []
+    for index, row in enumerate(source.get("official_source_documents") or []):
+        document = dict(row)
+        document.setdefault("document_id", f"publication-source-{index + 1}")
+        document.setdefault("source_artifact_ref", f"{packet_ref}#official_source_documents/{index}")
+        source_documents.append(document)
+
+    source_blockers = list(source.get("blockers") or [])
+    blockers = list(dict.fromkeys([*contract_blockers, *source_blockers]))
+    as_of = as_of_utc or str(source.get("as_of_utc") or _iso_now())
+    as_of_dt = _parse_timestamp(as_of)
+    if as_of_dt is None:
+        raise ValueError("invalid_as_of_utc")
+    packet_core = {
+        "schema_version": SCHEMA_VERSION,
+        "generated_at_utc": _iso_now(),
+        "as_of_utc": as_of,
+        "story_window": {
+            "hours": story_window_hours,
+            "start_utc": (as_of_dt - timedelta(hours=story_window_hours)).isoformat().replace("+00:00", "Z"),
+            "end_utc": as_of,
+        },
+        "publication_assignment": dict(source.get("assignment") or {}),
+        "events": list(source.get("events") or []),
+        "headlines": list(source.get("headlines") or []),
+        "official_source_documents": source_documents,
+        "numeric_claims": numeric_claims,
+        "market_snapshots": [
+            {
+                **dict(row),
+                "generated_at_utc": row.get("generated_at_utc") or row.get("ingestion_time_utc") or source.get("generated_at_utc"),
+            }
+            for row in (source.get("market_snapshots") or [])
+        ],
+        "time_series": dict(source.get("time_series") or {}),
+        "time_series_references": [f"{packet_ref}#time_series"],
+        "cross_asset_context": [],
+        "source_state": {
+            "dqr_status": (source.get("global_authority") or {}).get("dqr"),
+            "global_dqr_reporting_allowed": False,
+            "story_scoped_reporting_allowed": bool(permissions.get("reporting_allowed")),
+            "source_health_status": (source.get("source_health") or {}).get("status"),
+            "global_state_unchanged": (source.get("global_authority") or {}).get("global_state_unchanged"),
+        },
+        "candidate_visual_inputs": list(source.get("candidate_visual_inputs") or []),
+        "citation_map": dict(source.get("citation_map") or {}),
+        "provenance": {
+            "publication_packet": {
+                "relative_path": packet_ref,
+                "sha256": _sha256_file(source_path),
+                "upstream_packet_id": source.get("packet_id"),
+                "upstream_provenance": source.get("provenance") or {},
+            }
+        },
+        "public_claim_permissions": {
+            "numeric_claims_allowed": bool(permissions.get("reporting_allowed")) and not blockers,
+            "narrative_synthesis_allowed": bool(permissions.get("reporting_allowed")) and not blockers,
+            "reporting_allowed": bool(permissions.get("reporting_allowed")) and not blockers,
+            "llm_numeric_authority": False,
+            "decision": "ALLOW" if not blockers else "BLOCK",
+            "consumer_class": sorted(consumers),
+        },
+        "blockers": blockers,
+        "governed_contract": {
+            "mode": "story_scoped_publication_evidence_v1",
+            "global_dqr_override": False,
+            "upstream_packet_id": source.get("packet_id"),
+            "upstream_packet_sha256": _sha256_file(source_path),
+            "upstream_database_commit": (source.get("provenance") or {}).get("database_commit"),
+        },
+        "bridge_safety": {
+            "source_repo_modified": False,
+            "secret_files_read": False,
+            "network_call_made": False,
+            "database_open_mode": "packet_read_only",
+            "legacy_state_fallback_used": False,
+        },
+    }
+    packet_id = "cc-evidence-" + hashlib.sha256(
+        json.dumps(packet_core, sort_keys=True).encode()
+    ).hexdigest()[:16]
+    packet = {"packet_id": packet_id, **packet_core}
+    packet["validation_blockers"] = validate_evidence_packet(packet)
+    packet["status"] = (
+        "PASS_PUBLICATION_AUTHORIZED"
+        if not blockers and not packet["validation_blockers"]
+        else "FAIL_SCHEMA" if packet["validation_blockers"] else "PASS_CONTRACT_BLOCKED_PUBLICATION"
+    )
+    return packet
 
 
 def _build_evidence_packet_from_governed_handoff(
@@ -472,6 +604,12 @@ def build_evidence_packet_from_cc_root(
     story_window_hours: int = 24,
 ) -> dict[str, Any]:
     root = Path(capital_chronicle_root).resolve()
+    if (root / PUBLICATION_EVIDENCE).is_file():
+        return _build_evidence_packet_from_publication_packet(
+            root,
+            as_of_utc=as_of_utc,
+            story_window_hours=story_window_hours,
+        )
     if all((root / path).is_file() for path in (GOVERNED_FINAL_EVIDENCE, GOVERNED_HANDOFF, GOVERNED_VALIDATION)):
         return _build_evidence_packet_from_governed_handoff(
             root,

@@ -1,0 +1,12 @@
+{
+  "assignment_decision_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\generic_assignment_readiness_v1.json",
+  "blockers": [],
+  "browser_or_cdp_used": false,
+  "classification": "PASS_GENERIC_DATABASE_PREFLIGHT",
+  "evidence_packet_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\capital_chronicle_content_evidence_packet_v2.json",
+  "platform_adapter_called": false,
+  "public_write_performed": false,
+  "publication_eligible": true,
+  "schema_version": "contentops.generic_database_preflight.v1",
+  "video_or_tiktok_adapter_called": false
+}

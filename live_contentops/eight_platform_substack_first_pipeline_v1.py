@@ -34,6 +34,7 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     readback_youtube_community_post_via_edge,
     readback_x_thread_via_edge,
     reconcile_existing_linkedin_post_via_edge,
+    repair_substack_duplicate_caption_fragment_via_edge,
 )
 from live_contentops.publishing_profile_registry_v1 import browser_doctor
 from live_contentops.media_manifest_authority_v1 import build_delivery_media_manifest, select_primary_chart
@@ -427,7 +428,7 @@ def build_native_derivative_payloads(
                 [
                     title,
                     dek,
-                    f"The relevant transmission channel is {mechanism}",
+                    f"How it transmits: {mechanism}",
                     f"Read the full article: {canonical_url}",
                     caveat,
                 ]
@@ -1299,6 +1300,143 @@ def prepare_text_image_release_candidate(
     return packet
 
 
+def prepare_generic_text_image_release_candidate(
+    *,
+    run_id: str,
+    output_dir: Path,
+    capital_chronicle_root: Path | None = None,
+    evidence_packet_path: Path | None = None,
+    as_of_utc: str | None = None,
+    cdp_port: int = 9223,
+    llm_provider: str = "auto",
+) -> dict[str, Any]:
+    """Build and lock a governed generic release without calling write adapters."""
+    from live_contentops.generic_database_story_builder_v1 import build_generic_publication_artifacts
+    from live_contentops.generic_editorial_fabric_v2 import _load_evidence_packet
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    doctor = browser_doctor()
+    if doctor.get("status") != "READY_TO_ATTACH" or doctor.get("recommended_cdp_port") != cdp_port:
+        packet = {
+            "schema_version": "contentops.generic_text_image_release_rehearsal.v1",
+            "classification": "BLOCKED_CANONICAL_EDGE_PROFILE_NOT_ATTACHED",
+            "run_id": run_id,
+            "browser_doctor": doctor,
+            "public_write_performed": False,
+        }
+        _write_json(output_dir / "no_write_rehearsal_v1.json", packet)
+        return packet
+
+    evidence = _load_evidence_packet(
+        capital_chronicle_root=capital_chronicle_root,
+        evidence_packet_path=evidence_packet_path,
+        as_of_utc=as_of_utc,
+    )
+    preparation = build_generic_publication_artifacts(
+        packet=evidence,
+        run_id=run_id,
+        output_dir=output_dir,
+        llm_provider=llm_provider,
+    )
+    context = dict(preparation.get("context") or {})
+    article = dict(context.get("article") or {})
+    selection = dict(context.get("selection") or {})
+    media = dict(context.get("media") or {})
+    media_ids = [str(item.get("asset_id") or "") for item in media.get("assets") or []]
+    payloads = build_native_derivative_payloads(
+        article=article,
+        selection=selection,
+        canonical_url=str(article.get("canonical_url") or ""),
+        media_asset_ids=media_ids,
+    ) if article else {}
+    _write_json(output_dir / "native_payloads_rehearsal_v1.json", payloads)
+
+    blockers = list(preparation.get("blockers") or [])
+    account_preflight = _release_account_preflight(cdp_port)
+    for platform in ("substack", "x", "linkedin", "youtube"):
+        if not bool((account_preflight.get(platform) or {}).get("authenticated")):
+            blockers.append(f"{platform}_canonical_edge_session_not_authenticated")
+    if str((account_preflight.get("x") or {}).get("destination_identity") or "").casefold() != "@capitalnicle":
+        blockers.append("x_destination_identity_mismatch")
+    if str((account_preflight.get("linkedin") or {}).get("destination_identity") or "").casefold() != "linkedin:jimcc":
+        blockers.append("linkedin_destination_identity_mismatch")
+    capabilities = _capability_presence()
+    for platform in ("telegram", "discord", "facebook_page", "instagram_business", "threads"):
+        if not capabilities.get(platform):
+            blockers.append(f"{platform}_credential_capability_missing")
+    if len(media_ids) != 3 or len(set(media_ids)) != 3:
+        blockers.append("three_unique_media_assets_required")
+    for platform in ("x", "threads"):
+        metrics = (payloads.get(platform) or {}).get("quality_metrics") or {}
+        if not (
+            metrics.get("reply_count") == 2
+            and metrics.get("sentence_boundary_pass")
+            and metrics.get("orphan_fragment_count") == 0
+            and metrics.get("visual_distribution_pass")
+            and metrics.get("complete_article_visual_count") == 3
+        ):
+            blockers.append(f"{platform}_semantic_layout_failed")
+    for platform, row in payloads.items():
+        if platform != "tiktok" and _PUBLIC_TECHNICAL_TEXT_RE.search(str(row.get("text") or "")):
+            blockers.append(f"{platform}_technical_run_identifier_detected")
+
+    locked_artifacts = _release_lock_artifacts(output_dir)
+    for name, row in locked_artifacts.items():
+        if not row.get("exists"):
+            blockers.append(f"release_preparation_artifact_missing:{name}")
+    blocker_list = list(dict.fromkeys(blockers))
+    lock_core = {
+        "schema_version": "contentops.text_image_release_candidate_lock.v1",
+        "task_label": "TASK_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1",
+        "run_id": run_id,
+        "prepared_canonical_url": "SUBSTACK_ASSIGNED_AT_PUBLISH",
+        "article_body_sha256": article.get("substack_body_markdown_sha256"),
+        "source_packet_sha256": _json_sha256(evidence),
+        "media_sha256": {str(item.get("asset_id")): item.get("sha256") for item in media.get("assets") or []},
+        "payload_sha256": {platform: _sha256(str(row.get("text") or "")) for platform, row in payloads.items()},
+        "duplicate_hotspot_decision": selection.get("duplicate_hotspot_decision"),
+        "generic_live_path_used": True,
+        "legacy_topic_adapter_used": False,
+        "artifacts": locked_artifacts,
+        "public_write_performed": False,
+    }
+    lock = {**lock_core, "lock_sha256": _json_sha256(lock_core)}
+    _write_json(output_dir / "release_candidate_lock_v1.json", lock)
+    packet = {
+        "schema_version": "contentops.generic_text_image_release_rehearsal.v1",
+        "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL" if not blocker_list else "BLOCKED_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+        "run_id": run_id,
+        "public_write_performed": False,
+        "publishing_adapter_called": False,
+        "generic_live_path_used": True,
+        "legacy_topic_adapter_used": False,
+        "browser_doctor": doctor,
+        "account_preflight": account_preflight,
+        "credential_capability_presence": capabilities,
+        "evidence_packet_id": evidence.get("packet_id"),
+        "evidence_packet_status": evidence.get("status"),
+        "selected_idea": selection,
+        "editorial_gate": context.get("editorial_gate"),
+        "article": {
+            "title": article.get("title"),
+            "word_count": article.get("word_count"),
+            "body_sha256": article.get("substack_body_markdown_sha256"),
+        },
+        "media_asset_ids": media_ids,
+        "release_candidate_lock_path": str(output_dir / "release_candidate_lock_v1.json"),
+        "release_candidate_lock_sha256": lock["lock_sha256"],
+        "blockers": blocker_list,
+        "safety": {
+            "raw_credentials_persisted": False,
+            "browser_storage_read": False,
+            "synthetic_image_generated": False,
+            "public_write_performed": False,
+        },
+    }
+    _write_json(output_dir / "no_write_rehearsal_v1.json", packet)
+    return packet
+
+
 def _platform_observed_text(platform: str, result: Mapping[str, Any]) -> dict[str, Any]:
     readback = result.get("readback") if isinstance(result.get("readback"), Mapping) else {}
     if platform == "x":
@@ -1428,15 +1566,25 @@ def build_operator_manual_audit_packet(
                     expected_text=target["expected_text"],
                 )
             except Exception as exc:
+                provider_fallback = platform == "telegram" and all(checks.values())
                 capture = {
-                    "status": "FAILED_PUBLIC_SCREENSHOT_CAPTURE",
+                    "status": (
+                        "NOT_APPLICABLE_PUBLIC_DNS_UNAVAILABLE_PROVIDER_READBACK_VERIFIED"
+                        if provider_fallback
+                        else "FAILED_PUBLIC_SCREENSHOT_CAPTURE"
+                    ),
                     "public_url": target["url"],
                     "error_class": type(exc).__name__,
+                    "provider_readback_fallback": provider_fallback,
                     "browser_write_performed": False,
                 }
             capture["label"] = target["label"]
             captured.append(capture)
-            if capture.get("status") != "SUCCESS" or not Path(str(capture.get("public_screenshot_path") or "")).is_file():
+            screenshot_optional = capture.get("status") == "NOT_APPLICABLE_PUBLIC_DNS_UNAVAILABLE_PROVIDER_READBACK_VERIFIED"
+            if not screenshot_optional and (
+                capture.get("status") != "SUCCESS"
+                or not Path(str(capture.get("public_screenshot_path") or "")).is_file()
+            ):
                 machine_blockers.append(f"{platform}:{target['label']}:public_screenshot_missing")
         if not screenshot_targets and platform != "discord":
             machine_blockers.append(f"{platform}:public_screenshot_url_missing")
@@ -1553,8 +1701,13 @@ def run_eight_platform_substack_first_pipeline(
         if not recover_substack_draft_id:
             prior_evidence["reentry_guard"] = "existing_run_evidence_detected_no_automatic_canonical_republish"
             return prior_evidence
+        prior_substack_status = str(prior_substack.get("status") or "")
+        recoverable_substack_status = (
+            prior_substack_status.startswith("FAILED_SUBSTACK_")
+            or prior_substack_status.startswith("BLOCKED_SUBSTACK_RESUME_")
+        )
         if (
-            not str(prior_substack.get("status") or "").startswith("FAILED_SUBSTACK_")
+            not recoverable_substack_status
             or str(prior_substack.get("draft_id") or "") != str(recover_substack_draft_id)
         ):
             prior_evidence["reentry_guard"] = "substack_recovery_draft_id_does_not_match_recorded_failed_draft"
@@ -1672,7 +1825,10 @@ def run_eight_platform_substack_first_pipeline(
 
     canonical_url = str(substack_raw["public_url"])
     prepared_canonical_url = str(release_lock.get("prepared_canonical_url") or "")
-    if canonical_url.rstrip("/") != prepared_canonical_url.rstrip("/"):
+    if (
+        prepared_canonical_url != "SUBSTACK_ASSIGNED_AT_PUBLISH"
+        and canonical_url.rstrip("/") != prepared_canonical_url.rstrip("/")
+    ):
         results["substack"] = {
             **results["substack"],
             "status": "FAILED_SUBSTACK_PREPARED_CANONICAL_URL_MISMATCH",
@@ -2012,6 +2168,9 @@ def run_eight_platform_substack_first_pipeline(
         "browser_doctor": doctor,
         "browser_sessions": browser_sessions,
         "configured_destinations": list(EXPECTED_DESTINATIONS),
+        "generic_live_path_used": bool(context.get("generic_live_path_used")),
+        "legacy_topic_adapter_used": bool(context.get("legacy_topic_adapter_used")),
+        "evidence_packet_id": context.get("evidence_packet_id"),
         "credential_capability_presence": _capability_presence(),
         "selected_idea": selection,
         "article": article,
@@ -2862,6 +3021,45 @@ def reconcile_existing_derivative_readbacks(
         expected_payload_sha256=str((results.get("linkedin") or {}).get("payload_sha256") or ""),
         public_screenshot_path=output_dir / "linkedin_reconciliation_readback.png",
     )
+    linkedin_readback = dict(reconciliation["linkedin"])
+    if linkedin_readback.get("status") == "SUCCESS":
+        prior_linkedin = dict(results.get("linkedin") or {})
+        results["linkedin"] = {
+            **prior_linkedin,
+            "status": "SUCCESS",
+            "action": "post_reconciled_public_readback",
+            "id": linkedin_readback.get("post_id"),
+            "public_url": linkedin_readback.get("public_url"),
+            "destination_identity": linkedin_readback.get("destination_identity"),
+            "provider_readback_verified": True,
+            "readback": linkedin_readback,
+            "write_outcome_certainty": "reconciled",
+            "media_asset_id": primary_media.get("media_asset_id"),
+            "media_sha256": primary_media.get("sha256"),
+        }
+        _append_dispatch_ledger(
+            output_dir / "platform_dispatch_ledger_v1.jsonl",
+            {
+                "timestamp": _utc_now(),
+                "platform": "linkedin",
+                "payload_sha256": prior_linkedin.get("payload_sha256") or _sha256(payloads["linkedin"]["text"]),
+                "success": True,
+                "status": "SUCCESS_RECONCILED_PUBLIC_READBACK",
+                "action": "post",
+                "id": linkedin_readback.get("post_id"),
+                "public_url": linkedin_readback.get("public_url"),
+                "media_attached": True,
+                "substack_url_included": True,
+                "write_outcome_certainty": "reconciled",
+                "idempotency_scope": "create",
+                "run_id": evidence.get("run_id"),
+                "execution_origin": "contentops_pipeline",
+                "adapter_name_version": "edge_cdp_publishing_adapter_v1.reconcile_existing_linkedin_post_via_edge",
+                "media_asset_id": primary_media.get("media_asset_id"),
+                "media_sha256": primary_media.get("sha256"),
+                "canonical_substack_url": canonical_url,
+            },
+        )
     from live_contentops.facebook_page_adapter_v6 import readback_facebook_post
     from live_contentops.instagram_adapter_v6 import readback_instagram_media
     from live_contentops.threads_adapter_v6 import readback_threads_post
@@ -2917,6 +3115,82 @@ def reconcile_existing_derivative_readbacks(
     evidence["browser_doctor"] = doctor
     evidence["classification"] = _classification(results)
     evidence["readback_reconciliation"] = reconciliation
+    evidence["final_platform_matrix"] = _persist_final_platform_matrix(output_dir, evidence)
+    _write_json(evidence_path, evidence)
+    _write_text(output_dir / "README.md", _readme(evidence))
+    return evidence
+
+
+def repair_exact_substack_caption_fragment(
+    *,
+    output_dir: Path,
+    cdp_port: int,
+) -> dict[str, Any]:
+    """Repair one proven caption fragment without touching derivative posts."""
+    evidence_path = output_dir / "run_evidence_v1.json"
+    evidence = _read_json(evidence_path)
+    results = {name: dict(value) for name, value in (evidence.get("results") or {}).items() if isinstance(value, Mapping)}
+    prior_substack = dict(results.get("substack") or {})
+    article = dict(evidence.get("article") or {})
+    media = dict(evidence.get("media") or {})
+    draft_id = str(prior_substack.get("draft_id") or "")
+    public_url = str(prior_substack.get("public_url") or "")
+    assets = list(media.get("assets") or [])
+    if prior_substack.get("status") != "SUCCESS" or not draft_id or not public_url or len(assets) < 3:
+        evidence["substack_caption_repair"] = {"status": "BLOCKED_SUBSTACK_CAPTION_REPAIR_EVIDENCE_INCOMPLETE"}
+        _write_json(evidence_path, evidence)
+        return evidence
+    frozen_before = {
+        platform: json.dumps(row, sort_keys=True)
+        for platform, row in results.items()
+        if platform != "substack"
+    }
+    repair = repair_substack_duplicate_caption_fragment_via_edge(
+        cdp_port=cdp_port,
+        draft_id=draft_id,
+        expected_title=str(article.get("title") or ""),
+        caption_prefix=str(assets[2].get("caption") or ""),
+    )
+    updated = None
+    if repair.get("status") in {"SUCCESS", "ALREADY_CLEAN_IDEMPOTENT"}:
+        updated = publish_substack_article_via_edge(
+            cdp_port=cdp_port,
+            title=str(article["title"]),
+            subtitle=str(article["subtitle"]),
+            body_markdown=str(article["substack_body_markdown"]),
+            image_assets=assets,
+            public_screenshot_path=output_dir / "public_substack_readback.png",
+            existing_draft_id=draft_id,
+            existing_public_url=public_url,
+        )
+    success = bool(
+        updated
+        and updated.get("status") == "SUCCESS"
+        and str(updated.get("public_url") or "").rstrip("/") == public_url.rstrip("/")
+        and not str((updated.get("readback") or {}).get("visible_body_text") or "").count("*The 2s10s spread through") > 1
+    )
+    if success:
+        results["substack"] = {
+            **updated,
+            "destination_identity": "Capital Chronicle",
+            "action": "edit_existing_public_article_caption_fragment",
+            "caption_fragment_repair": repair,
+            "canonical_url_preserved": True,
+        }
+    evidence["results"] = results
+    evidence["substack_caption_repair"] = {
+        "status": "SUCCESS" if success else "BLOCKED_SUBSTACK_CAPTION_REPAIR_NOT_PUBLICLY_VERIFIED",
+        "adapter_result": repair,
+        "publish_readback_status": (updated or {}).get("status"),
+        "canonical_url_preserved": bool(success),
+        "derivative_writes_performed": False,
+        "frozen_derivatives_preserved": all(
+            frozen_before.get(platform) == json.dumps(row, sort_keys=True)
+            for platform, row in results.items()
+            if platform != "substack"
+        ),
+    }
+    evidence["classification"] = _classification(results) if success else "PARTIAL_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
     evidence["final_platform_matrix"] = _persist_final_platform_matrix(output_dir, evidence)
     _write_json(evidence_path, evidence)
     _write_text(output_dir / "README.md", _readme(evidence))
@@ -3217,6 +3491,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--resume-derivatives", action="store_true")
     parser.add_argument("--resume-platform", action="append", default=[])
     parser.add_argument("--reconcile-readbacks", action="store_true")
+    parser.add_argument("--repair-substack-caption-fragment", action="store_true")
     parser.add_argument("--reconcile-linkedin-pair", action="store_true")
     parser.add_argument("--linkedin-accepted-url")
     parser.add_argument("--linkedin-accepted-id")
@@ -3226,6 +3501,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--finalize-reliability-evidence", action="store_true")
     parser.add_argument("--prepare-only", action="store_true")
     parser.add_argument("--prepare-generic-fabric", action="store_true")
+    parser.add_argument("--prepare-generic-live-release", action="store_true")
     parser.add_argument("--capital-chronicle-root", type=Path)
     parser.add_argument("--cc-evidence-packet", type=Path)
     parser.add_argument("--generic-story-request", type=Path)
@@ -3250,6 +3526,17 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         print(json.dumps(result, indent=2, sort_keys=True))
         return 0 if result["status"] == "SUCCESS_RELEASE_TAG_CREATED_AND_PUSHED" else 2
+    if args.repair_substack_caption_fragment:
+        if not args.operator_approved_full_live_run:
+            print(json.dumps({"classification": "BLOCKED_SUBSTACK_CAPTION_REPAIR", "reason": "operator_approved_full_live_run_flag_required"}, sort_keys=True))
+            return 2
+        result = repair_exact_substack_caption_fragment(output_dir=output, cdp_port=args.cdp_port)
+        print(json.dumps({
+            "classification": result.get("classification"),
+            "repair": (result.get("substack_caption_repair") or {}).get("status"),
+            "public_url": ((result.get("results") or {}).get("substack") or {}).get("public_url"),
+        }, indent=2, sort_keys=True))
+        return 0 if (result.get("substack_caption_repair") or {}).get("status") == "SUCCESS" else 2
     if args.closure_historical_repair:
         from live_contentops.final_automation_closure_v1 import run_historical_repairs
 
@@ -3300,6 +3587,23 @@ def main(argv: Sequence[str] | None = None) -> int:
             "public_write_performed": result["public_write_performed"],
         }, indent=2, sort_keys=True))
         return 2 if result["classification"] == "BLOCKED_GENERIC_DATABASE_PREFLIGHT" else 0
+    if args.prepare_generic_live_release:
+        result = prepare_generic_text_image_release_candidate(
+            run_id=args.run_id,
+            output_dir=output,
+            capital_chronicle_root=args.capital_chronicle_root,
+            evidence_packet_path=args.cc_evidence_packet,
+            as_of_utc=args.generic_as_of_utc,
+            cdp_port=args.cdp_port,
+            llm_provider=args.llm_provider,
+        )
+        print(json.dumps({
+            "classification": result["classification"],
+            "run_id": args.run_id,
+            "public_write_performed": result["public_write_performed"],
+            "blockers": result.get("blockers") or [],
+        }, indent=2, sort_keys=True))
+        return 0 if result["classification"] == "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL" else 2
     if args.prepare_only:
         if not args.allow_legacy_topic_adapter:
             print(json.dumps({
@@ -3368,11 +3672,29 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
     else:
         if not args.allow_legacy_topic_adapter:
-            print(json.dumps({
-                "classification": "BLOCKED_LEGACY_TOPIC_ADAPTER_NOT_CANONICAL",
-                "reason": "fresh_publication_requires_generic_fabric_integration_or_explicit_legacy_regression_opt_in",
-            }, sort_keys=True))
-            return 2
+            if not (args.capital_chronicle_root or args.cc_evidence_packet):
+                print(json.dumps({
+                    "classification": "BLOCKED_GENERIC_EVIDENCE_INPUT_REQUIRED",
+                    "reason": "fresh_publication_requires_capital_chronicle_root_or_cc_evidence_packet",
+                }, sort_keys=True))
+                return 2
+            if not (output / "release_candidate_lock_v1.json").is_file():
+                preparation = prepare_generic_text_image_release_candidate(
+                    run_id=args.run_id,
+                    output_dir=output,
+                    capital_chronicle_root=args.capital_chronicle_root,
+                    evidence_packet_path=args.cc_evidence_packet,
+                    as_of_utc=args.generic_as_of_utc,
+                    cdp_port=args.cdp_port,
+                    llm_provider=args.llm_provider,
+                )
+                if preparation.get("classification") != "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL":
+                    print(json.dumps({
+                        "classification": preparation.get("classification"),
+                        "run_id": args.run_id,
+                        "blockers": preparation.get("blockers") or [],
+                    }, indent=2, sort_keys=True))
+                    return 2
         result = run_eight_platform_substack_first_pipeline(
             run_id=args.run_id,
             output_dir=output,

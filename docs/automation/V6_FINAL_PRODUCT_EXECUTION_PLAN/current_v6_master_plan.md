@@ -1,16 +1,16 @@
 # ContentOps V6 Current Master Plan
 
-Completed architecture task: `TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`.
+Completed live closure task: `TASK_CONTENTOPS_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1`.
 
 Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`. Substack is canonical, and YouTube Community is the default YouTube article-distribution surface; video and Shorts are separate explicit non-default modes.
 
-Authority date: 2026-07-11
+Authority date: 2026-07-14
 
-Current classification: `PASS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`.
+Current classification: `AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS`.
 
 ## Product State
 
-The July 11 RC proved Substack-first transport, but operator audit classified it `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR`. Transport evidence is historical proof, not generalized release acceptance. Public outputs are frozen and no `v1.0` tag exists.
+The July 11 RC remains historical transport evidence. The July 14 generic Treasury canary is the current release candidate: it consumed exact story-scoped database publication authority, passed Substack plus eight derivative readback, and passed machine audit. Public outputs are frozen for operator acceptance and no `v1.0` tag exists.
 
 ## Product North Star
 
@@ -36,7 +36,7 @@ headline/CDP intake
 
 Canonical entrypoint: `live_contentops.eight_platform_substack_first_pipeline_v1`.
 
-Generic local mode: `--prepare-generic-fabric` with exactly one of `--capital-chronicle-root` or `--cc-evidence-packet`. Omitting `--generic-story-request` runs the governed database assignment preflight and returns exit code `2` when no eligible assignment exists; it cannot enter browser or platform adapters.
+Generic local mode: `--prepare-generic-fabric`. Generic live release preparation: `--prepare-generic-live-release`. Both accept `--capital-chronicle-root` or `--cc-evidence-packet`; live dispatch remains in this same canonical runner and requires the locked release artifacts plus explicit operator authorization.
 
 ## Evidence Authority
 
@@ -64,7 +64,7 @@ Deterministic blockers remain authoritative over model review. The writer cannot
 
 Distribution identity is registry-driven. `The Macro Pigeon` is an approved Discord community persona. LinkedIn is founder-led personal distribution. A fresh LinkedIn story cannot edit a historical activity, and a Threads reply cannot dispatch without a parent ID.
 
-## Current Evidence And Closure Blocker
+## Current Evidence And Release Gate
 
 Generic rehearsal: `docs/automation/V6_GENERIC_EVIDENCE_FABRIC/generic_fabric_v2_real_rehearsal_20260711/`.
 
@@ -74,4 +74,8 @@ Final-closure evidence: `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/co
 
 Bounded repairs restored historical LinkedIn content, corrected Facebook copy, and deleted the two authorized malformed Threads posts. A valid Threads reply had to be recreated after duplicate-text UI ambiguity, leaving an operator-visible order caveat. The oil editorial repair passes locally but is unpublished.
 
-The July 14 governed preflight is blocked: the accepted handoff is candidate-only, DQR is blocked, public reporting permission is absent, and no fresh identifiable headline/market packet is available. No browser or platform adapter ran. Resume the same database-backed task after publication-eligible Capital Chronicle evidence exists. Successful destinations and repairs are frozen.
+Current generic live evidence: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`.
+
+Database packet `cc-publication-73ff151c3d3094741b6c` grants story-scoped `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED` while preserving global `dqr=BLOCKED`. The canonical runner published `Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%`, then produced eight native derivatives with strict readback. A bounded update repaired one Substack caption fragment without derivative writes. Machine QA passes.
+
+The only remaining gate is `TASK_CONTENTOPS_OPERATOR_FINAL_V1_0_ACCEPTANCE_AND_TAG`. No engineering rerun is authorized or required; current outputs remain frozen.

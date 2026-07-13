@@ -334,6 +334,8 @@ def test_operator_audit_gate_requires_all_nine_strict_public_surfaces(tmp_path: 
 
     def capture(**kwargs):
         target = Path(kwargs["output_path"])
+        if "telegram_root" in target.name:
+            raise RuntimeError("simulated t.me DNS failure")
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(b"png")
         return {"status": "SUCCESS", "public_url": kwargs["public_url"], "public_screenshot_path": str(target), "browser_write_performed": False}
@@ -342,6 +344,7 @@ def test_operator_audit_gate_requires_all_nine_strict_public_surfaces(tmp_path: 
     packet = pipeline.build_operator_manual_audit_packet(output_dir=tmp_path)
     assert packet["classification"] == "AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC"
     assert packet["machine_qa"]["status"] == "PASS"
+    assert packet["screenshots"]["telegram"][0]["status"] == "NOT_APPLICABLE_PUBLIC_DNS_UNAVAILABLE_PROVIDER_READBACK_VERIFIED"
     assert len(packet["screenshots"]["x"]) == 3
     assert len(packet["screenshots"]["threads"]) == 3
 

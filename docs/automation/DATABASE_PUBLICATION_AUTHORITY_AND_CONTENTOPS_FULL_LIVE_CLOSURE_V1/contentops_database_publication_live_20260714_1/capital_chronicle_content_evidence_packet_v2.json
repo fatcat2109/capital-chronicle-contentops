@@ -1,0 +1,6246 @@
+{
+  "as_of_utc": "2026-07-13T22:27:31.358283Z",
+  "blockers": [],
+  "bridge_safety": {
+    "database_open_mode": "packet_read_only",
+    "legacy_state_fallback_used": false,
+    "network_call_made": false,
+    "secret_files_read": false,
+    "source_repo_modified": false
+  },
+  "candidate_visual_inputs": [
+    {
+      "article_section": "The curve at a glance",
+      "chart_title": "U.S. Treasury Yield Curve: 2026-07-13 vs 2026-07-10",
+      "evidence_dimension": "yield_curve_shape",
+      "modality": "chart",
+      "role": "lead_contextual",
+      "supports_headline": true,
+      "underlying_series_ids": [
+        "TREASURY_CURVE_SNAPSHOT"
+      ],
+      "visual_input_id": "ust_curve_latest_vs_previous"
+    },
+    {
+      "article_section": "What the slope says",
+      "chart_title": "U.S. Treasury 2s10s Spread Through 2026-07-13",
+      "evidence_dimension": "curve_slope",
+      "modality": "chart",
+      "role": "primary_quantitative_chart",
+      "supports_headline": true,
+      "underlying_series_ids": [
+        "TREASURY_2S10S"
+      ],
+      "visual_input_id": "ust_2s10s_history"
+    },
+    {
+      "article_section": "Pressure at the long end",
+      "chart_title": "U.S. Treasury 10-Year and 30-Year Yields Through 2026-07-13",
+      "evidence_dimension": "long_end_term_structure",
+      "modality": "chart",
+      "role": "cross_asset_chart",
+      "supports_headline": true,
+      "underlying_series_ids": [
+        "TREASURY_10S30S"
+      ],
+      "visual_input_id": "ust_10s30s_history"
+    }
+  ],
+  "citation_map": {
+    "UST:10Y:2026-07-13": [
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+    ],
+    "UST:2S10S:2026-07-13": [
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+    ],
+    "UST:2Y:2026-07-13": [
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+    ],
+    "UST:30Y:2026-07-13": [
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+    ]
+  },
+  "cross_asset_context": [],
+  "events": [
+    {
+      "event_id": "ust-curve-2026-07-13",
+      "event_time_utc": "2026-07-13T00:00:00Z",
+      "public_claim_allowed": true,
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+    }
+  ],
+  "generated_at_utc": "2026-07-13T22:27:58.899626Z",
+  "governed_contract": {
+    "global_dqr_override": false,
+    "mode": "story_scoped_publication_evidence_v1",
+    "upstream_database_commit": null,
+    "upstream_packet_id": "cc-publication-73ff151c3d3094741b6c",
+    "upstream_packet_sha256": "b70f8006736fd7ac646769040d57a1589753d3c98f26c3b99f814a6861498021"
+  },
+  "headlines": [
+    {
+      "headline_id": "ust-curve-headline-2026-07-13",
+      "public_claim_allowed": true,
+      "published_at_utc": "2026-07-13T00:00:00Z",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+    }
+  ],
+  "market_snapshots": [
+    {
+      "claim_ids": [
+        "UST:2Y:2026-07-13",
+        "UST:10Y:2026-07-13",
+        "UST:30Y:2026-07-13",
+        "UST:2S10S:2026-07-13"
+      ],
+      "ingestion_time_utc": "2026-07-13T22:27:31.358283Z",
+      "market_session_state": "latest_official_business_day",
+      "observation_time_utc": "2026-07-13T00:00:00Z",
+      "snapshot_id": "ust-curve-2026-07-13",
+      "snapshot_quality": "exact_official_public_non_executable",
+      "unit": "percent"
+    }
+  ],
+  "numeric_claims": [
+    {
+      "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+      "change_basis_points": 5.0,
+      "claim_id": "UST:2Y:2026-07-13",
+      "freshness_class": "story_scoped_publication_authorized",
+      "ingestion_time_utc": "2026-07-13T22:27:31.358283Z",
+      "known_at_precision": "retrieval_upper_bound",
+      "known_at_utc": "2026-07-13T22:27:31.358283Z",
+      "llm_numeric_authority": false,
+      "metric": "U.S. Treasury 2Y par yield",
+      "observation_time_utc": "2026-07-13T00:00:00Z",
+      "prior_observation_date": "2026-07-10",
+      "prior_value": 4.21,
+      "public_claim_allowed": true,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "source_artifact_ref": "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json#numeric_claims/0",
+      "source_authority": "exact_official_public",
+      "source_health": "HEALTHY",
+      "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "unit": "percent",
+      "value": 4.26
+    },
+    {
+      "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+      "change_basis_points": 6.0,
+      "claim_id": "UST:10Y:2026-07-13",
+      "freshness_class": "story_scoped_publication_authorized",
+      "ingestion_time_utc": "2026-07-13T22:27:31.358283Z",
+      "known_at_precision": "retrieval_upper_bound",
+      "known_at_utc": "2026-07-13T22:27:31.358283Z",
+      "llm_numeric_authority": false,
+      "metric": "U.S. Treasury 10Y par yield",
+      "observation_time_utc": "2026-07-13T00:00:00Z",
+      "prior_observation_date": "2026-07-10",
+      "prior_value": 4.56,
+      "public_claim_allowed": true,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "source_artifact_ref": "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json#numeric_claims/1",
+      "source_authority": "exact_official_public",
+      "source_health": "HEALTHY",
+      "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "unit": "percent",
+      "value": 4.62
+    },
+    {
+      "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+      "change_basis_points": 4.0,
+      "claim_id": "UST:30Y:2026-07-13",
+      "freshness_class": "story_scoped_publication_authorized",
+      "ingestion_time_utc": "2026-07-13T22:27:31.358283Z",
+      "known_at_precision": "retrieval_upper_bound",
+      "known_at_utc": "2026-07-13T22:27:31.358283Z",
+      "llm_numeric_authority": false,
+      "metric": "U.S. Treasury 30Y par yield",
+      "observation_time_utc": "2026-07-13T00:00:00Z",
+      "prior_observation_date": "2026-07-10",
+      "prior_value": 5.06,
+      "public_claim_allowed": true,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "source_artifact_ref": "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json#numeric_claims/2",
+      "source_authority": "exact_official_public",
+      "source_health": "HEALTHY",
+      "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "unit": "percent",
+      "value": 5.1
+    },
+    {
+      "calculation": "(10-year par yield minus 2-year par yield) multiplied by 100",
+      "change_basis_points": 1.0,
+      "claim_id": "UST:2S10S:2026-07-13",
+      "freshness_class": "story_scoped_publication_authorized",
+      "ingestion_time_utc": "2026-07-13T22:27:31.358283Z",
+      "known_at_precision": "retrieval_upper_bound",
+      "known_at_utc": "2026-07-13T22:27:31.358283Z",
+      "llm_numeric_authority": false,
+      "metric": "U.S. Treasury 2s10s par-yield spread",
+      "observation_time_utc": "2026-07-13T00:00:00Z",
+      "prior_observation_date": "2026-07-10",
+      "prior_value": 35.0,
+      "public_claim_allowed": true,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "source_artifact_ref": "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json#numeric_claims/3",
+      "source_authority": "capital_chronicle_calculation_from_exact_official_public",
+      "source_health": "HEALTHY",
+      "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "unit": "basis_points",
+      "value": 36.0
+    }
+  ],
+  "official_source_documents": [
+    {
+      "data_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "document_id": "ust-daily-yield-curve-2026-07-13",
+      "public_claim_allowed": true,
+      "published_at_utc": "2026-07-13T00:00:00Z",
+      "publisher": "U.S. Department of the Treasury",
+      "raw_sha256": "dae34a2d15f948bc501443cb8c9b1f0dd12e7eee3bdac72fa9bb322afe1e99ec",
+      "rights_status": "public_domain_us_government",
+      "source_artifact_ref": "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json#official_source_documents/0",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "title": "Daily Treasury Par Yield Curve Rates"
+    }
+  ],
+  "packet_id": "cc-evidence-9052ed65ac6cec10",
+  "provenance": {
+    "publication_packet": {
+      "relative_path": "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json",
+      "sha256": "b70f8006736fd7ac646769040d57a1589753d3c98f26c3b99f814a6861498021",
+      "upstream_packet_id": "cc-publication-73ff151c3d3094741b6c",
+      "upstream_provenance": {
+        "parser": "publication_evidence_fabric_v1.parse_treasury_yield_curve_xml",
+        "raw_bytes": 204613,
+        "raw_sha256": "dae34a2d15f948bc501443cb8c9b1f0dd12e7eee3bdac72fa9bb322afe1e99ec",
+        "retrieved_at_utc": "2026-07-13T22:27:31.358283Z",
+        "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+      }
+    }
+  },
+  "public_claim_permissions": {
+    "consumer_class": [
+      "contentops_publication",
+      "contentops_publication_candidate"
+    ],
+    "decision": "ALLOW",
+    "llm_numeric_authority": false,
+    "narrative_synthesis_allowed": true,
+    "numeric_claims_allowed": true,
+    "reporting_allowed": true
+  },
+  "publication_assignment": {
+    "article_mode": "analysis",
+    "duplicate_key": "us-treasury-curve-2026-07-13",
+    "fresh_material_delta": true,
+    "market_sensitive": true,
+    "selection_rationale": "Latest official Treasury curve record contains a fresh, measurable slope and long-end update.",
+    "story_type": "market_move",
+    "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+    "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+  },
+  "schema_version": "capital_chronicle_content_evidence_packet.v2",
+  "source_state": {
+    "dqr_status": "BLOCKED",
+    "global_dqr_reporting_allowed": false,
+    "global_state_unchanged": true,
+    "source_health_status": "HEALTHY",
+    "story_scoped_reporting_allowed": true
+  },
+  "status": "PASS_PUBLICATION_AUTHORIZED",
+  "story_window": {
+    "end_utc": "2026-07-13T22:27:31.358283Z",
+    "hours": 24,
+    "start_utc": "2026-07-12T22:27:31.358283Z"
+  },
+  "time_series": {
+    "curve_history": [
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.66
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.67
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.91
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.1
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.29
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.88
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.9
+          }
+        ],
+        "observation_date": "2026-04-09"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.67
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.81
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.8
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.94
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.12
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.31
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.89
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.91
+          }
+        ],
+        "observation_date": "2026-04-10"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.92
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.1
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.3
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.88
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.9
+          }
+        ],
+        "observation_date": "2026-04-13"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.87
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.06
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.26
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.84
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.87
+          }
+        ],
+        "observation_date": "2026-04-14"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.9
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.08
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.29
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.87
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.89
+          }
+        ],
+        "observation_date": "2026-04-15"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.8
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.91
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.1
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.32
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.9
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.93
+          }
+        ],
+        "observation_date": "2026-04-16"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.64
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.84
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.04
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.26
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.85
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.88
+          }
+        ],
+        "observation_date": "2026-04-17"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.65
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.86
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.04
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.26
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.85
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.88
+          }
+        ],
+        "observation_date": "2026-04-20"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.67
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.8
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.91
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.09
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.3
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.87
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.89
+          }
+        ],
+        "observation_date": "2026-04-21"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.81
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.91
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.1
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.3
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.87
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.9
+          }
+        ],
+        "observation_date": "2026-04-22"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.83
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.84
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.96
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.13
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.34
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.9
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.92
+          }
+        ],
+        "observation_date": "2026-04-23"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.67
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.8
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.92
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.1
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.31
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.88
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.91
+          }
+        ],
+        "observation_date": "2026-04-24"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.83
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.94
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.14
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.35
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.92
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.94
+          }
+        ],
+        "observation_date": "2026-04-27"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.84
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.86
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.97
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.16
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.36
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.92
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.94
+          }
+        ],
+        "observation_date": "2026-04-28"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.92
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.94
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.05
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.23
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.42
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.97
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.98
+          }
+        ],
+        "observation_date": "2026-04-29"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.88
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.91
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.02
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.2
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.4
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.97
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.98
+          }
+        ],
+        "observation_date": "2026-04-30"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.88
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.91
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.02
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.2
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.39
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.96
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.97
+          }
+        ],
+        "observation_date": "2026-05-01"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.95
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.98
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.08
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.26
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.45
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.01
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.02
+          }
+        ],
+        "observation_date": "2026-05-04"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.93
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.97
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.08
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.25
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.43
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.98
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.98
+          }
+        ],
+        "observation_date": "2026-05-05"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.87
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.89
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 3.99
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.17
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.36
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.92
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.94
+          }
+        ],
+        "observation_date": "2026-05-06"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.92
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.94
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.04
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.22
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.41
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.96
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.97
+          }
+        ],
+        "observation_date": "2026-05-07"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.9
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.92
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.02
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.19
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.38
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.93
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.95
+          }
+        ],
+        "observation_date": "2026-05-08"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.95
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 3.96
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.07
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.24
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.42
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.97
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.98
+          }
+        ],
+        "observation_date": "2026-05-11"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.8
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.0
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.01
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.12
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.29
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.46
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.02
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.03
+          }
+        ],
+        "observation_date": "2026-05-12"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.98
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.0
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.12
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.28
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.46
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.03
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.03
+          }
+        ],
+        "observation_date": "2026-05-13"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.0
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.04
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.13
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.29
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.47
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.01
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.02
+          }
+        ],
+        "observation_date": "2026-05-14"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.82
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.09
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.14
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.26
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.43
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.59
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.14
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.12
+          }
+        ],
+        "observation_date": "2026-05-15"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.81
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.07
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.14
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.27
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.43
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.61
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.14
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.14
+          }
+        ],
+        "observation_date": "2026-05-18"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.66
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.66
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.66
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.67
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.83
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.13
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.2
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.32
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.5
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.67
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.19
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.18
+          }
+        ],
+        "observation_date": "2026-05-19"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.65
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.65
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.65
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.65
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.04
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.11
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.22
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.39
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.57
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.1
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.11
+          }
+        ],
+        "observation_date": "2026-05-20"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.83
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.08
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.13
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.25
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.41
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.57
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.09
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.1
+          }
+        ],
+        "observation_date": "2026-05-21"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.86
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.13
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.18
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.27
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.41
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.56
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.06
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.07
+          }
+        ],
+        "observation_date": "2026-05-22"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.8
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.82
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.01
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.1
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.19
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.33
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.5
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.03
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.03
+          }
+        ],
+        "observation_date": "2026-05-26"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.8
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.0
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.09
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.17
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.32
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.48
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.01
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.01
+          }
+        ],
+        "observation_date": "2026-05-27"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.8
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.99
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.07
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.15
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.29
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.45
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.98
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.98
+          }
+        ],
+        "observation_date": "2026-05-28"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 3.98
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.06
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.13
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.27
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.45
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.98
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.99
+          }
+        ],
+        "observation_date": "2026-05-29"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.8
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.83
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.05
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.09
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.18
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.32
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.47
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.99
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.99
+          }
+        ],
+        "observation_date": "2026-06-01"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.82
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.05
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.09
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.17
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.31
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.46
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.97
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.97
+          }
+        ],
+        "observation_date": "2026-06-02"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.84
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.08
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.14
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.21
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.34
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.49
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.0
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.99
+          }
+        ],
+        "observation_date": "2026-06-03"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.82
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.05
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.1
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.18
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.32
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.47
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.98
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.97
+          }
+        ],
+        "observation_date": "2026-06-04"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.81
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.88
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.17
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.22
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.29
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.41
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.55
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.03
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.01
+          }
+        ],
+        "observation_date": "2026-06-05"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.8
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.83
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.85
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.15
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.21
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.29
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.42
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.56
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.05
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.03
+          }
+        ],
+        "observation_date": "2026-06-08"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.82
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.9
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.13
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.16
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.26
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.39
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.53
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.02
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.01
+          }
+        ],
+        "observation_date": "2026-06-09"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.8
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.82
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.9
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.13
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.17
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.27
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.4
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.55
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.04
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.03
+          }
+        ],
+        "observation_date": "2026-06-10"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.81
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.85
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.05
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.09
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.18
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.31
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.45
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.96
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.95
+          }
+        ],
+        "observation_date": "2026-06-11"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.78
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.82
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.86
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.09
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.12
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.21
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.34
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.48
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.98
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.97
+          }
+        ],
+        "observation_date": "2026-06-12"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.81
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.84
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.07
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.1
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.18
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.32
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.47
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.97
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.97
+          }
+        ],
+        "observation_date": "2026-06-15"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.67
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.81
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.84
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.05
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.08
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.16
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.28
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.43
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.92
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.93
+          }
+        ],
+        "observation_date": "2026-06-16"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.68
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.83
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.85
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.91
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.98
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.2
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.23
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.27
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.37
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.49
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.95
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.93
+          }
+        ],
+        "observation_date": "2026-06-17"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.83
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.85
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.92
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 4.0
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.19
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.19
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.23
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.34
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.46
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.91
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.9
+          }
+        ],
+        "observation_date": "2026-06-18"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.66
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.85
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.89
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.98
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 4.04
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.24
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.25
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.29
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.39
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.51
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.97
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.95
+          }
+        ],
+        "observation_date": "2026-06-22"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.65
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.85
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.89
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.96
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 4.01
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.16
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.22
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.27
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.38
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.5
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.96
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.94
+          }
+        ],
+        "observation_date": "2026-06-23"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.66
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.85
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.9
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.95
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.99
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.11
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.15
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.17
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.28
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.41
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.87
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.86
+          }
+        ],
+        "observation_date": "2026-06-24"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.84
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.9
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.95
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.96
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.09
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.13
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.15
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.26
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.4
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.87
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.86
+          }
+        ],
+        "observation_date": "2026-06-25"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.83
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.89
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.94
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.94
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.07
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.09
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.12
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.23
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.38
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.87
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.87
+          }
+        ],
+        "observation_date": "2026-06-26"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.87
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.92
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 4.0
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.97
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.1
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.1
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.14
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.24
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.38
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.86
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.86
+          }
+        ],
+        "observation_date": "2026-06-29"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.77
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.87
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.92
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 4.01
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.98
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.14
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.15
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.19
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.3
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.44
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.93
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.91
+          }
+        ],
+        "observation_date": "2026-06-30"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.67
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.85
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.95
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 4.0
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 4.0
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.17
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.19
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.24
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.35
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.48
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.97
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.97
+          }
+        ],
+        "observation_date": "2026-07-01"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.7
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.81
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.82
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.91
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.98
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.96
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.14
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.16
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.23
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.35
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.49
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.99
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.98
+          }
+        ],
+        "observation_date": "2026-07-02"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.75
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.81
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.87
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.93
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.98
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 3.95
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.13
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.14
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.21
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.33
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.48
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 4.99
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 4.99
+          }
+        ],
+        "observation_date": "2026-07-06"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.69
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.82
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.86
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.94
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.99
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 4.06
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.19
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.18
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.27
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.4
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.55
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.05
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.05
+          }
+        ],
+        "observation_date": "2026-07-07"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.67
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.82
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.87
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.94
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.99
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 4.06
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.21
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.21
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.31
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.43
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.56
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.07
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.06
+          }
+        ],
+        "observation_date": "2026-07-08"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.72
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.79
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.83
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.91
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.96
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 4.02
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.16
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.18
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.27
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.4
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.54
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.06
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.05
+          }
+        ],
+        "observation_date": "2026-07-09"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.71
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.74
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.81
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.85
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.94
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 3.99
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 4.06
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.21
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.22
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.3
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.42
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.56
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.08
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.06
+          }
+        ],
+        "observation_date": "2026-07-10"
+      },
+      {
+        "curve": [
+          {
+            "field_id": "BC_1MONTH",
+            "maturity": "1M",
+            "maturity_years": 0.08333333333333333,
+            "value": 3.73
+          },
+          {
+            "field_id": "BC_1_5MONTH",
+            "maturity": "1.5M",
+            "maturity_years": 0.125,
+            "value": 3.76
+          },
+          {
+            "field_id": "BC_2MONTH",
+            "maturity": "2M",
+            "maturity_years": 0.16666666666666666,
+            "value": 3.82
+          },
+          {
+            "field_id": "BC_3MONTH",
+            "maturity": "3M",
+            "maturity_years": 0.25,
+            "value": 3.89
+          },
+          {
+            "field_id": "BC_4MONTH",
+            "maturity": "4M",
+            "maturity_years": 0.3333333333333333,
+            "value": 3.97
+          },
+          {
+            "field_id": "BC_6MONTH",
+            "maturity": "6M",
+            "maturity_years": 0.5,
+            "value": 4.03
+          },
+          {
+            "field_id": "BC_1YEAR",
+            "maturity": "1Y",
+            "maturity_years": 1,
+            "value": 4.12
+          },
+          {
+            "field_id": "BC_2YEAR",
+            "maturity": "2Y",
+            "maturity_years": 2,
+            "value": 4.26
+          },
+          {
+            "field_id": "BC_3YEAR",
+            "maturity": "3Y",
+            "maturity_years": 3,
+            "value": 4.3
+          },
+          {
+            "field_id": "BC_5YEAR",
+            "maturity": "5Y",
+            "maturity_years": 5,
+            "value": 4.37
+          },
+          {
+            "field_id": "BC_7YEAR",
+            "maturity": "7Y",
+            "maturity_years": 7,
+            "value": 4.48
+          },
+          {
+            "field_id": "BC_10YEAR",
+            "maturity": "10Y",
+            "maturity_years": 10,
+            "value": 4.62
+          },
+          {
+            "field_id": "BC_20YEAR",
+            "maturity": "20Y",
+            "maturity_years": 20,
+            "value": 5.11
+          },
+          {
+            "field_id": "BC_30YEAR",
+            "maturity": "30Y",
+            "maturity_years": 30,
+            "value": 5.1
+          }
+        ],
+        "observation_date": "2026-07-13"
+      }
+    ],
+    "latest_curve": {
+      "curve": [
+        {
+          "field_id": "BC_1MONTH",
+          "maturity": "1M",
+          "maturity_years": 0.08333333333333333,
+          "value": 3.73
+        },
+        {
+          "field_id": "BC_1_5MONTH",
+          "maturity": "1.5M",
+          "maturity_years": 0.125,
+          "value": 3.76
+        },
+        {
+          "field_id": "BC_2MONTH",
+          "maturity": "2M",
+          "maturity_years": 0.16666666666666666,
+          "value": 3.82
+        },
+        {
+          "field_id": "BC_3MONTH",
+          "maturity": "3M",
+          "maturity_years": 0.25,
+          "value": 3.89
+        },
+        {
+          "field_id": "BC_4MONTH",
+          "maturity": "4M",
+          "maturity_years": 0.3333333333333333,
+          "value": 3.97
+        },
+        {
+          "field_id": "BC_6MONTH",
+          "maturity": "6M",
+          "maturity_years": 0.5,
+          "value": 4.03
+        },
+        {
+          "field_id": "BC_1YEAR",
+          "maturity": "1Y",
+          "maturity_years": 1,
+          "value": 4.12
+        },
+        {
+          "field_id": "BC_2YEAR",
+          "maturity": "2Y",
+          "maturity_years": 2,
+          "value": 4.26
+        },
+        {
+          "field_id": "BC_3YEAR",
+          "maturity": "3Y",
+          "maturity_years": 3,
+          "value": 4.3
+        },
+        {
+          "field_id": "BC_5YEAR",
+          "maturity": "5Y",
+          "maturity_years": 5,
+          "value": 4.37
+        },
+        {
+          "field_id": "BC_7YEAR",
+          "maturity": "7Y",
+          "maturity_years": 7,
+          "value": 4.48
+        },
+        {
+          "field_id": "BC_10YEAR",
+          "maturity": "10Y",
+          "maturity_years": 10,
+          "value": 4.62
+        },
+        {
+          "field_id": "BC_20YEAR",
+          "maturity": "20Y",
+          "maturity_years": 20,
+          "value": 5.11
+        },
+        {
+          "field_id": "BC_30YEAR",
+          "maturity": "30Y",
+          "maturity_years": 30,
+          "value": 5.1
+        }
+      ],
+      "observation_date": "2026-07-13"
+    },
+    "previous_curve": {
+      "curve": [
+        {
+          "field_id": "BC_1MONTH",
+          "maturity": "1M",
+          "maturity_years": 0.08333333333333333,
+          "value": 3.71
+        },
+        {
+          "field_id": "BC_1_5MONTH",
+          "maturity": "1.5M",
+          "maturity_years": 0.125,
+          "value": 3.74
+        },
+        {
+          "field_id": "BC_2MONTH",
+          "maturity": "2M",
+          "maturity_years": 0.16666666666666666,
+          "value": 3.81
+        },
+        {
+          "field_id": "BC_3MONTH",
+          "maturity": "3M",
+          "maturity_years": 0.25,
+          "value": 3.85
+        },
+        {
+          "field_id": "BC_4MONTH",
+          "maturity": "4M",
+          "maturity_years": 0.3333333333333333,
+          "value": 3.94
+        },
+        {
+          "field_id": "BC_6MONTH",
+          "maturity": "6M",
+          "maturity_years": 0.5,
+          "value": 3.99
+        },
+        {
+          "field_id": "BC_1YEAR",
+          "maturity": "1Y",
+          "maturity_years": 1,
+          "value": 4.06
+        },
+        {
+          "field_id": "BC_2YEAR",
+          "maturity": "2Y",
+          "maturity_years": 2,
+          "value": 4.21
+        },
+        {
+          "field_id": "BC_3YEAR",
+          "maturity": "3Y",
+          "maturity_years": 3,
+          "value": 4.22
+        },
+        {
+          "field_id": "BC_5YEAR",
+          "maturity": "5Y",
+          "maturity_years": 5,
+          "value": 4.3
+        },
+        {
+          "field_id": "BC_7YEAR",
+          "maturity": "7Y",
+          "maturity_years": 7,
+          "value": 4.42
+        },
+        {
+          "field_id": "BC_10YEAR",
+          "maturity": "10Y",
+          "maturity_years": 10,
+          "value": 4.56
+        },
+        {
+          "field_id": "BC_20YEAR",
+          "maturity": "20Y",
+          "maturity_years": 20,
+          "value": 5.08
+        },
+        {
+          "field_id": "BC_30YEAR",
+          "maturity": "30Y",
+          "maturity_years": 30,
+          "value": 5.06
+        }
+      ],
+      "observation_date": "2026-07-10"
+    },
+    "series_units": "percent",
+    "transformation_owner": "Capital Chronicle"
+  },
+  "time_series_references": [
+    "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json#time_series"
+  ],
+  "validation_blockers": []
+}

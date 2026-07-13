@@ -27,10 +27,24 @@ Fast Ship does not relax this boundary. Environment-variable name checks and pre
 
 ## Canonical Runner
 
+Prepare a database-authorized generic release before enabling writes:
+
 ```powershell
 python -m live_contentops.eight_platform_substack_first_pipeline_v1 `
   --run-id <run-id> `
-  --output-dir docs\automation\EIGHT_PLATFORM_FULL_PIPELINE_V1\<run-id> `
+  --output-dir <evidence-dir> `
+  --capital-chronicle-root <ingestion-repo> `
+  --prepare-generic-live-release `
+  --cdp-port <canonical-edge-port>
+```
+
+The prepare step must produce and hash-lock `run_context_v1.json`, `article_manifest_v1.json`, `media_manifest_v1.json`, `substack_browser_request_v1.json`, `native_payloads_rehearsal_v1.json`, and `release_candidate_lock_v1.json`. A story-scoped packet may authorize one exact story while global DQR remains blocked; both states must be preserved in evidence.
+
+```powershell
+python -m live_contentops.eight_platform_substack_first_pipeline_v1 `
+  --run-id <run-id> `
+  --output-dir <evidence-dir> `
+  --capital-chronicle-root <ingestion-repo> `
   --cdp-port 9223 `
   --operator-approved-full-live-run
 ```
@@ -48,6 +62,8 @@ python -m live_contentops.eight_platform_substack_first_pipeline_v1 `
 ```
 
 Do not use derivative resume to reopen Substack, Telegram, Discord, or any already successful destination.
+
+Build the final read-only audit packet with `--build-operator-audit-packet`. If local DNS cannot resolve `t.me`, Telegram may use strict provider message/media/link readback as an explicitly labelled fallback; never fabricate a browser screenshot.
 
 ## Media Upload
 

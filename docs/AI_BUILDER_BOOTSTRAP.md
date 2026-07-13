@@ -4,9 +4,9 @@ Start at root `AGENTS.md`. Repo evidence beats chat memory and archived plans.
 
 ## Current State
 
-`TASK_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1` is blocked at the governed database gate. The bridge now consumes and hash-verifies the accepted point-in-time handoff before any legacy current-state fallback, but the handoff grants only candidate consumers and does not grant ContentOps public reporting.
+`TASK_CONTENTOPS_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1` completed the first database-authorized generic live canary. The main database granted exact story-scoped `contentops_publication` permission while global DQR remained blocked; ContentOps consumed that packet without a legacy oil/Fed fallback.
 
-The July 11 RC remains `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR`. Machine transport proof is preserved, but generalized release acceptance failed. All public surfaces are frozen and no `v1.0` tag exists.
+Run `contentops_database_publication_live_20260714_1` passed Substack plus eight configured derivatives, machine audit, and the final release verifier. It is frozen at `AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS`. No `v1.0` tag exists.
 
 ## Read Order
 
@@ -25,6 +25,7 @@ The July 11 RC remains `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR`. 
 - Browser publishing profile: Microsoft Edge at `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`
 - Runner: `live_contentops.eight_platform_substack_first_pipeline_v1`
 - Generic prepare-only mode: `--prepare-generic-fabric`
+- Generic live release preparation: `--prepare-generic-live-release`
 - Evidence bridge: `live_contentops.cc_evidence_bridge_v2`
 - Freshness: `live_contentops.freshness_market_state_v2`
 - Visual fabric: `live_contentops.editorial_visual_research_v2`
@@ -38,6 +39,6 @@ Numeric truth must come from approved evidence claim IDs. DQR blocks cannot be o
 
 ## Final Closure State
 
-`TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_LIVE_REPAIR_CANARY_AND_V1_0_RC_V1` is blocked, not complete. Historical LinkedIn activity `7481311616265895936` was restored and Facebook copy was corrected. Both authorized malformed Threads posts were deleted; recovery recreated the accidentally removed valid first reply as `18366144508233800`, leaving a public reply-order caveat for operator review.
+The upstream publication packet at database commit `49525e0f17c2eb448ac3343f63559f5021fea47c` grants only the exact Treasury story. ContentOps calibrated the headline, produced two quantitative charts plus an official Treasury data excerpt, passed deterministic and bounded LLM editorial review, and published through the canonical runner.
 
-The current accepted database foundation is complete for analyzer handoff, but its actual governed rows remain `dqr=BLOCKED`, `candidate_snapshot_only`, and limited to `point_in_time_candidate` / `bounded_outcome_candidate`. The July 14 ContentOps preflight also found no governed headline candidate, no public official-source URL, no fresh identified market state, and no claim with public permission. It exited `2` before browser or platform adapters and performed zero public writes. Resume the database-backed run only after upstream emits explicit editorial/public reporting authority plus fresh identifiable event, source, and market evidence. Do not create a tag.
+Canonical article: `https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider`. All eight configured derivatives have stable IDs and strict readback in the run evidence. A bounded Substack update removed one duplicate caption fragment without touching derivatives. The machine audit passes; do not rerun or edit these outputs. Await Jim's visual/content acceptance. Do not create a tag without that explicit acceptance.

@@ -1,0 +1,22 @@
+{
+  "blockers": [],
+  "decision": "PASS",
+  "duplicate_policy_is_separate": true,
+  "effective_article_mode": "analysis",
+  "event_age_hours": 22.459,
+  "expected_source_cadence": "official_business_day",
+  "fresh_material_delta": true,
+  "headline_age_hours": 22.459,
+  "latest_database_ingest_age_hours": 0.0,
+  "latest_market_observation_age_hours": 22.459,
+  "market_sensitive": true,
+  "market_session_state": "latest_official_business_day",
+  "primary_source_age_hours": 22.459,
+  "requested_article_mode": "analysis",
+  "schema_version": "contentops.freshness_market_state_decision.v2",
+  "thresholds": {
+    "analysis_market_hours": 24.0,
+    "ingest_hours": 24.0,
+    "straight_news_hours": 24.0
+  }
+}

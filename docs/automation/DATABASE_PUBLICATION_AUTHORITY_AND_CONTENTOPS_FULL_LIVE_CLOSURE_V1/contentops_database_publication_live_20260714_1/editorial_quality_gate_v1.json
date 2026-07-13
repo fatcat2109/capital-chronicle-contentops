@@ -1,0 +1,204 @@
+{
+  "blockers": [],
+  "classification": "PASS",
+  "deterministic": {
+    "caveat_count": 1,
+    "classification": "PASS",
+    "duplicated_sentence_count": 0,
+    "editorial_blockers": [],
+    "editorial_checks": {
+      "concise_nut_graf": true,
+      "confirmation_condition": true,
+      "context_present": true,
+      "falsification_condition": true,
+      "high_information_density": true,
+      "lede_market_consequence": true,
+      "lede_what_changed": true,
+      "lede_why_now": true,
+      "mechanism_present": true,
+      "mode_declared": true,
+      "named_next_catalysts": true,
+      "no_fabricated_quotes": true,
+      "no_financial_advice": true,
+      "no_process_language": true,
+      "single_caveat": true
+    },
+    "editorial_score": 100,
+    "filler_hits": [],
+    "process_language_hits": [],
+    "rendered_body_sha256": "cacc7738352d2524de9f657d95eb235d04d6d2a64a9d3eee845047e05a936837",
+    "schema_version": "contentops.tier1_editorial_quality.v1",
+    "seo_blockers": [],
+    "seo_checks": {
+      "canonical_url_metadata": true,
+      "chart_metadata": true,
+      "clean_rendered_body": true,
+      "heading_hierarchy": true,
+      "meta_description": true,
+      "primary_topic_in_opening": true,
+      "reader_headline": true,
+      "semantic_keyword_coverage": true,
+      "seo_title": true,
+      "slug": true,
+      "social_og_lead_media": true,
+      "source_reference_links": true,
+      "title_dek_not_duplicated": true,
+      "visual_markers_complete": true
+    },
+    "seo_score": 100,
+    "source_urls": [
+      "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=dailytreasuryyieldcurve",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=dailytreasuryyieldcurve&fieldtdrdatevalue=2026"
+    ],
+    "visual_asset_ids": [
+      "treasury_curve_snapshot",
+      "treasury_source_excerpt",
+      "treasury_2s10s_history"
+    ],
+    "word_count": 1147
+  },
+  "freshness": {
+    "blockers": [],
+    "decision": "PASS",
+    "duplicate_policy_is_separate": true,
+    "effective_article_mode": "analysis",
+    "event_age_hours": 22.459,
+    "expected_source_cadence": "official_business_day",
+    "fresh_material_delta": true,
+    "headline_age_hours": 22.459,
+    "latest_database_ingest_age_hours": 0.0,
+    "latest_market_observation_age_hours": 22.459,
+    "market_sensitive": true,
+    "market_session_state": "latest_official_business_day",
+    "primary_source_age_hours": 22.459,
+    "requested_article_mode": "analysis",
+    "schema_version": "contentops.freshness_market_state_decision.v2",
+    "thresholds": {
+      "analysis_market_hours": 24.0,
+      "ingest_hours": 24.0,
+      "straight_news_hours": 24.0
+    }
+  },
+  "llm_semantic_review": {
+    "checks": {
+      "clear_news_peg": true,
+      "concise_nut_graf": true,
+      "high_information_density": true,
+      "material_market_consequence": true,
+      "mode_consistent": true,
+      "no_fabricated_quotes": true,
+      "no_financial_advice": true,
+      "no_unsupported_certainty": true,
+      "reader_facing_prose": true,
+      "relevant_context": true,
+      "source_backed_mechanism": true,
+      "specific_confirmation_condition": true,
+      "specific_falsification_condition": true,
+      "why_now": true
+    },
+    "decision": "PASS",
+    "failed_checks": [],
+    "issues": [],
+    "missing_or_invalid_checks": [],
+    "mode": "analysis",
+    "prompt_sha256": "856cbcf805fff12172654e1d6421c0640a25c85bbbc90c7650ac1e79ef0c626f",
+    "provider": "9router",
+    "publication_authority": false,
+    "review_sha256": "c24381d08dfe9bd003e143ab32a68c6590bb964b443de3e3442d080913d56d65",
+    "status": "SUCCESS",
+    "summary": "The article is a well-structured, compliant piece of financial analysis. It clearly establishes its news peg (the July 13 Treasury yield curve data), explains the underlying economic mechanisms of the yield curve slope and long-end yields without asserting unsupported certainty, and provides concrete, observable confirmation and falsification conditions (CPI releases, Treasury auctions, and specific yield levels). No internal pipeline or prompt language is present in the reader-facing text."
+  },
+  "multi_role_review": {
+    "blockers": [],
+    "deterministic_blockers_authoritative": true,
+    "final_render_reviewed": true,
+    "packet_hash": "c20c805e10fd6599467007e1e4d9eb8489084061eb61319ca5223f8c2c09f710",
+    "role_order": [
+      "assignment_editor",
+      "evidence_planner",
+      "reporter_writer",
+      "quantitative_editor",
+      "visual_editor",
+      "copy_editor",
+      "platform_editor",
+      "adversarial_final_reviewer"
+    ],
+    "roles": [
+      {
+        "blockers": [],
+        "output_hash": "0adb805502d7eb802f9623729c761a05a8e878a99e8ecfa395e3c6b471d9388c",
+        "role": "assignment_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "7937cd7520809b5e6c0e4613fe2d4961c70a68c52864551b3411bb0544720297",
+        "role": "evidence_planner",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "88857e5adafc4c88ae09fcbfa9f54569baa95b5972349855d740f71123a5de0d",
+        "role": "reporter_writer",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "10a4fb2ff05b94c2527af4617b8bd7547cc91d8d06b4cb28a81f0cad19999e15",
+        "role": "quantitative_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "9bd04b3263e9128d662d3c4fdaceb84ff56450babec605a63fa224a32ad69d76",
+        "role": "visual_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "6b105f2ef26b1cf6ad3b327502454b14e1ba1d40033e6c82147ecd3691362e79",
+        "role": "copy_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "785e1bf22cca2a4b606e24f409956f2496a0a99465e03538391bc67bcde08328",
+        "role": "platform_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "c993f9bc7717e300d7d7e4ddde95e0a244b0a09f0501a1a8f2a3b85c36cb3c8d",
+        "role": "adversarial_final_reviewer",
+        "status": "PASS"
+      }
+    ],
+    "schema_version": "contentops.editorial_review_orchestrator.v2",
+    "status": "PASS",
+    "writer_self_certification_allowed": false
+  },
+  "visual": {
+    "asset_count": 3,
+    "blockers": [],
+    "decision_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "editorial_exception": null,
+    "evidence_dimensions": [
+      "curve_slope",
+      "official_source_record",
+      "yield_curve_shape"
+    ],
+    "modalities": [
+      "chart",
+      "document_excerpt"
+    ],
+    "schema_version": "contentops.visual_composition_decision.v2",
+    "status": "PASS",
+    "story_type": "market_move",
+    "underlying_series_counts": {
+      "TREASURY_2S10S": 1,
+      "TREASURY_CURVE_SNAPSHOT": 1,
+      "TREASURY_OFFICIAL_DOCUMENT": 1
+    }
+  }
+}

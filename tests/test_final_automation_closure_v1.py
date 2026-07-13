@@ -40,6 +40,32 @@ def test_release_verifier_accepts_complete_machine_evidence(tmp_path: Path):
     assert result["classification"] == "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS"
 
 
+def test_release_verifier_accepts_story_scoped_generic_live_evidence(tmp_path: Path):
+    required = ("substack", "telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube")
+    generic = tmp_path / "run_evidence_v1.json"
+    closure._write(generic, {
+        "generic_live_path_used": True,
+        "legacy_topic_adapter_used": False,
+        "substack_caption_repair": {"status": "SUCCESS"},
+        "results": {name: {"status": "SUCCESS"} for name in required},
+    })
+    closure._write(tmp_path / "generic_database_preflight_result_v1.json", {"publication_eligible": True})
+    closure._write(tmp_path / "freshness_market_state_decision_v2.json", {"decision": "PASS", "blockers": []})
+    closure._write(tmp_path / "release_candidate_lock_v1.json", {
+        "generic_live_path_used": True,
+        "legacy_topic_adapter_used": False,
+        "lock_sha256": "a" * 64,
+        "artifacts": {"run_context_v1.json": {"exists": True}},
+    })
+    closure._write(tmp_path / "operator_manual_audit_packet_v1.json", {"machine_qa": {"status": "PASS"}})
+
+    result = closure.verify_release_readiness(output_dir=tmp_path, generic_result_path=generic)
+
+    assert result["classification"] == "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS"
+    assert result["checks"]["story_scoped_publication_authorized"] is True
+    assert result["checks"]["v1_tag_absent"] is True
+
+
 def test_release_finalizer_fails_closed_without_acceptance(tmp_path: Path):
     verifier = tmp_path / "verifier.json"
     closure._write(verifier, {

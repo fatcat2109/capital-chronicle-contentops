@@ -1,0 +1,1065 @@
+{
+  "article": {
+    "editorial_score": null,
+    "llm_review": {
+      "checks": {
+        "clear_news_peg": true,
+        "concise_nut_graf": true,
+        "high_information_density": true,
+        "material_market_consequence": true,
+        "mode_consistent": true,
+        "no_fabricated_quotes": true,
+        "no_financial_advice": true,
+        "no_unsupported_certainty": true,
+        "reader_facing_prose": true,
+        "relevant_context": true,
+        "source_backed_mechanism": true,
+        "specific_confirmation_condition": true,
+        "specific_falsification_condition": true,
+        "why_now": true
+      },
+      "decision": "PASS",
+      "failed_checks": [],
+      "issues": [],
+      "missing_or_invalid_checks": [],
+      "mode": "analysis",
+      "prompt_sha256": "856cbcf805fff12172654e1d6421c0640a25c85bbbc90c7650ac1e79ef0c626f",
+      "provider": "9router",
+      "publication_authority": false,
+      "review_sha256": "c24381d08dfe9bd003e143ab32a68c6590bb964b443de3e3442d080913d56d65",
+      "status": "SUCCESS",
+      "summary": "The article is a well-structured, compliant piece of financial analysis. It clearly establishes its news peg (the July 13 Treasury yield curve data), explains the underlying economic mechanisms of the yield curve slope and long-end yields without asserting unsupported certainty, and provides concrete, observable confirmation and falsification conditions (CPI releases, Treasury auctions, and specific yield levels). No internal pipeline or prompt language is present in the reader-facing text."
+    },
+    "public_substack_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+    "seo_score": null,
+    "subtitle": "The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.",
+    "title": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%",
+    "word_count": 1147
+  },
+  "blockers": [],
+  "candidate_ranking": null,
+  "classification": "AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC",
+  "created_at": "2026-07-13T23:22:09.840306Z",
+  "machine_qa": {
+    "all_nine_public_surfaces_required": true,
+    "blockers": [],
+    "status": "PASS",
+    "video_or_tiktok_write_performed": false
+  },
+  "operator_checklist": [
+    "Confirm the Substack headline, subtitle, article body, three distributed charts, captions, alt text, and sources.",
+    "Confirm Telegram and Discord use native text, the intended chart or chart preview, and the canonical Substack URL.",
+    "Confirm X and Threads each show one root plus exactly two coherent replies with all three visuals once.",
+    "Confirm LinkedIn, Facebook, and Instagram show complete text, the approved chart, and canonical URL semantics.",
+    "Confirm YouTube is a Community text-and-image post on Capital Chronicle, not a video or Short.",
+    "Report any failed destination with its URL and screenshot; accepted destinations will remain frozen."
+  ],
+  "platforms": {
+    "discord": {
+      "destination_identity": "discord_channel:1519311669216673802",
+      "idempotency_state": "create",
+      "intended_text": "**Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%**\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\n**Why it matters:** Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nFull analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice.",
+      "machine_checks": {
+        "account_identity_verified": true,
+        "canonical_link_verified": true,
+        "media_verified": true,
+        "public_text_verified": true,
+        "stable_public_identity": true,
+        "status_success": true,
+        "thread_structure_verified": true
+      },
+      "media_asset_id": "treasury_curve_snapshot",
+      "media_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "observed_text": {
+        "replies": [],
+        "root": "**Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%**\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\n**Why it matters:** Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nFull analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice."
+      },
+      "payload_sha256": "613539d1720f2a0e46fe18adef0cc1ee2ecf606065017373f1cfe792a008b7a6",
+      "public_url": null,
+      "readback": {
+        "attached_article_visual": false,
+        "body_text_visible": true,
+        "channel_id": "1519311669216673802",
+        "message_id": "1526360069338435605",
+        "public_url": null,
+        "rich_preview_behavior": "article_chart",
+        "status": "SUCCESS",
+        "substack_url_visible": true,
+        "visible_body_text": "**Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%**\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\n**Why it matters:** Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nFull analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice."
+      },
+      "reply_chain": [],
+      "screenshots": [
+        {
+          "browser_write_performed": false,
+          "label": "provider_readback",
+          "reason": "stable_channel_and_message_id_with_strict_provider_readback_no_public_browser_url",
+          "status": "NOT_APPLICABLE_PRIVATE_WEBHOOK_DESTINATION"
+        }
+      ],
+      "stable_id": "1526360069338435605",
+      "status": "SUCCESS"
+    },
+    "facebook_page": {
+      "destination_identity": "Capital Chronicle",
+      "idempotency_state": "create",
+      "intended_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nHow it transmits: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nRead the full article: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice.",
+      "machine_checks": {
+        "account_identity_verified": true,
+        "canonical_link_verified": true,
+        "media_verified": true,
+        "public_text_verified": true,
+        "stable_public_identity": true,
+        "status_success": true,
+        "thread_structure_verified": true
+      },
+      "media_asset_id": "treasury_curve_snapshot",
+      "media_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "observed_text": {
+        "replies": [],
+        "root": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus. How it transmits: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation. Read the full article: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider For informational purposes only; not financial advice."
+      },
+      "payload_sha256": "76cf7f6e0df2744014dceacf8f6f5723aade27da8ba1b762c9b44a532a69555b",
+      "public_url": "https://www.facebook.com/1342369584748125/posts/1345093677809049",
+      "readback": {
+        "body_text_visible": true,
+        "destination_identity": "Capital Chronicle",
+        "expected_chart_visual_similarity": 0.9975,
+        "meaningful_media_visible": true,
+        "page_identity_verified": true,
+        "platform": "facebook_page",
+        "post_id": "106091951705748_1345093677809049",
+        "public_image_url_present": true,
+        "public_url": "https://www.facebook.com/1342369584748125/posts/1345093677809049",
+        "status": "SUCCESS",
+        "substack_url_visible": true,
+        "visible_body_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus. How it transmits: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation. Read the full article: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider For informational purposes only; not financial advice."
+      },
+      "reply_chain": [],
+      "screenshots": [
+        {
+          "browser_write_performed": false,
+          "expected_text_visible": false,
+          "label": "root",
+          "navigation_url": "https://www.facebook.com/1342369584748125/posts/1345093677809049",
+          "page_domain": "www.facebook.com",
+          "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\facebook_page_root.png",
+          "public_url": "https://www.facebook.com/1342369584748125/posts/1345093677809049",
+          "status": "SUCCESS"
+        }
+      ],
+      "stable_id": "106091951705748_1345093677809049",
+      "status": "SUCCESS"
+    },
+    "instagram_business": {
+      "destination_identity": "official.capitalchronicle",
+      "idempotency_state": "create",
+      "intended_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe chart is a checkpoint, not a verdict: A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange.\n\nFull analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice.\n\n#CapitalChronicle #Macro #Markets",
+      "machine_checks": {
+        "account_identity_verified": true,
+        "canonical_link_verified": true,
+        "media_verified": true,
+        "public_text_verified": true,
+        "stable_public_identity": true,
+        "status_success": true,
+        "thread_structure_verified": true
+      },
+      "media_asset_id": "treasury_curve_snapshot",
+      "media_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "observed_text": {
+        "replies": [],
+        "root": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The chart is a checkpoint, not a verdict: A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange. Full analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider For informational purposes only; not financial advice. #CapitalChronicle #Macro #Markets"
+      },
+      "payload_sha256": "61e1c26e41d90294c7d86e574926c6720cf08b0aeda50cfbc1294af6a2bb20ef",
+      "public_url": "https://www.instagram.com/p/DawBzUhIKxd/",
+      "readback": {
+        "account_identity_verified": true,
+        "body_text_visible": true,
+        "canonical_url_exact": true,
+        "canonical_url_text_visible": true,
+        "caption_link_clickable": false,
+        "caption_link_clickable_required": false,
+        "cta_mode": "canonical_url_text",
+        "destination_identity": "official.capitalchronicle",
+        "expected_chart_visual_similarity": 0.9978,
+        "link_semantics_classification": "PASS_FEED_CAPTION_URL_TEXT",
+        "meaningful_media_visible": true,
+        "media_id": "17947324965236004",
+        "media_type": "IMAGE",
+        "platform": "instagram_business",
+        "profile_bio_link_verified": null,
+        "public_url": "https://www.instagram.com/p/DawBzUhIKxd/",
+        "status": "SUCCESS",
+        "story_link_sticker_available": null,
+        "substack_url_visible": true,
+        "visible_body_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The chart is a checkpoint, not a verdict: A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange. Full analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider For informational purposes only; not financial advice. #CapitalChronicle #Macro #Markets"
+      },
+      "reply_chain": [],
+      "screenshots": [
+        {
+          "browser_write_performed": false,
+          "expected_text_visible": true,
+          "label": "root",
+          "navigation_url": "https://www.instagram.com/p/DawBzUhIKxd/",
+          "page_domain": "www.instagram.com",
+          "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\instagram_business_root.png",
+          "public_url": "https://www.instagram.com/p/DawBzUhIKxd/",
+          "status": "SUCCESS"
+        }
+      ],
+      "stable_id": "17947324965236004",
+      "status": "SUCCESS"
+    },
+    "linkedin": {
+      "destination_identity": "linkedin:jimcc",
+      "idempotency_state": "create",
+      "intended_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nThe mechanism: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nThe policy context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk.\n\nRead the full Capital Chronicle analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice.",
+      "machine_checks": {
+        "account_identity_verified": true,
+        "canonical_link_verified": true,
+        "media_verified": true,
+        "public_text_verified": true,
+        "stable_public_identity": true,
+        "status_success": true,
+        "thread_structure_verified": true
+      },
+      "media_asset_id": "treasury_curve_snapshot",
+      "media_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "observed_text": {
+        "replies": [],
+        "root": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus. The mechanism: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation. The policy context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. Read the full Capital Chronicle analysis: https://lnkd.in/gVNHb2Nw For informational purposes only; not financial advice."
+      },
+      "payload_sha256": "92002ec646755eca5818b3dde2fd4c74318c5b52da5a7e8f37fa128b11b55a96",
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7482566999894552576/",
+      "readback": {
+        "account_identity_verified": true,
+        "action": "readback_existing_post",
+        "activity_index": 0,
+        "article_topic_match_via_source_chart": true,
+        "body_text_visible": true,
+        "browser_write_performed": false,
+        "canonical_link_target_verified": true,
+        "canonical_url_text_visible": false,
+        "chart_similarity_minimum": 0.78,
+        "chart_similarity_score": 0.8859,
+        "destination_identity": "linkedin:jimcc",
+        "expected_payload_sha256": "92002ec646755eca5818b3dde2fd4c74318c5b52da5a7e8f37fa128b11b55a96",
+        "meaningful_media_visible": true,
+        "media_readback": {
+          "natural_height": 444,
+          "natural_width": 800,
+          "rendered_height": 188.3,
+          "rendered_width": 339.0
+        },
+        "platform": "linkedin",
+        "post_id": "7482566999894552576",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\linkedin_reconciliation_readback.png",
+        "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7482566999894552576/",
+        "publication_timestamp_readback": "8m \u2022",
+        "reconciled_from": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+        "reconciliation_state": "ALREADY_CORRECTED_STRICT_READBACK",
+        "scroll_index": 0,
+        "source_chart_verified": true,
+        "status": "SUCCESS",
+        "substack_url_visible": true,
+        "visible_body_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus. The mechanism: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation. The policy context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. Read the full Capital Chronicle analysis: https://lnkd.in/gVNHb2Nw For informational purposes only; not financial advice.",
+        "visible_link_text": "https://lnkd.in/gVNHb2Nw"
+      },
+      "reply_chain": [],
+      "screenshots": [
+        {
+          "browser_write_performed": false,
+          "expected_text_visible": false,
+          "label": "root",
+          "navigation_url": "https://www.linkedin.com/feed/update/urn:li:activity:7482566999894552576/",
+          "page_domain": "www.linkedin.com",
+          "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\linkedin_root.png",
+          "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7482566999894552576/",
+          "status": "SUCCESS"
+        }
+      ],
+      "stable_id": "7482566999894552576",
+      "status": "SUCCESS"
+    },
+    "substack": {
+      "destination_identity": "Capital Chronicle",
+      "idempotency_state": null,
+      "intended_text": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10, to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence the discount rates used in valuation and the rates faced by long-lived borrowers, even though the pass-through is neither immediate nor one-for-one. The article makes no claim that equities, credit or foreign exchange moved in a particular direction without separate governed observations for those markets.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in the 10-year and 30-year sectors relative to the 2-year, accompanied by firm demand evidence from Treasury auctions, would confirm that the long-end pressure is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThe boundary is equally important. This article uses the latest governed official close available as of the packet timestamp. It does not substitute stale data for a live quote, and it does not infer moves in assets for which the evidence packet contains no public claim permission. Readers should treat the curve as one input into a broader market assessment.\n\nConfirmation would be several official sessions with a wider 2s10s spread and persistent 30-year yields above 5%, supported by firm Treasury auction demand. A reversal below 5% at the long end alongside a narrowing spread would challenge the signal. Treasury auctions and CPI are the next named catalysts for testing those conditions.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+      "machine_checks": {
+        "account_identity_verified": true,
+        "canonical_link_verified": true,
+        "media_verified": true,
+        "public_text_verified": true,
+        "stable_public_identity": true,
+        "status_success": true,
+        "thread_structure_verified": true
+      },
+      "media_asset_id": null,
+      "media_sha256": null,
+      "observed_text": {
+        "replies": [],
+        "root": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\nCAPITAL CHRONICLE\nJUL 14, 2026\nShare\n\nThe U.S. Treasury\u2019s 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\nThe latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.\n\nThe Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10, to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\nSelected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).\n\nWhy a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence the discount rates used in valuation and the rates faced by long-lived borrowers, even though the pass-through is neither immediate nor one-for-one. The article makes no claim that equities, credit or foreign exchange moved in a particular direction without separate governed observations for those markets.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve\u2019s next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\nThe Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in the 10-year and 30-year sectors relative to the 2-year, accompanied by firm demand evidence from Treasury auctions, would confirm that the long-end pressure is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThe boundary is equally important. This article uses the latest governed official close available as of the packet timestamp. It does not substitute stale data for a live quote, and it does not infer moves in assets for which the evidence packet contains no public claim permission. Readers should treat the curve as one input into a broader market assessment.\n\nConfirmation would be several official sessions with a wider 2s10s spread and persistent 30-year yields above 5%, supported by firm Treasury auction demand. A reversal below 5% at the long end alongside a narrowing spread would challenge the signal. Treasury auctions and CPI are the next named catalysts for testing those conditions.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n\nShare"
+      },
+      "payload_sha256": "bf4376efc326d0702772244eceb1744cf037cdfa9801973ddc8d8d35a0c20f11",
+      "public_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+      "readback": {
+        "body_anchor_count": 21,
+        "body_complete": true,
+        "caption_accessibility_fallback_verified": true,
+        "caption_count_expected": 3,
+        "captions_visible": true,
+        "content_readback_verified": true,
+        "editorial_process_language_absent": true,
+        "image_accessibility_mode": "visible_caption_fallback_substack_alt_control_not_exposed",
+        "public_image_alt_count": 0,
+        "public_image_alt_or_caption_count": 3,
+        "public_image_count": 3,
+        "public_image_urls": [
+          "https://substackcdn.com/image/fetch/$s_!5zRz!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1a8f20e7-64d0-477c-a060-ca6a71f5eb4f_1620x900.png",
+          "https://substackcdn.com/image/fetch/$s_!78bu!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1f085c31-04ce-45de-89d5-ab48c98e87b6_1600x900.png",
+          "https://substackcdn.com/image/fetch/$s_!6QF1!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe478885d-17a2-47da-bbe2-7a659cc9252b_1620x900.png"
+        ],
+        "public_meta_description_present": true,
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\public_substack_readback.png",
+        "public_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+        "source_links_visible": true,
+        "source_url_count_expected": 6,
+        "subtitle_visible": true,
+        "title_visible": true,
+        "visible_body_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\nCAPITAL CHRONICLE\nJUL 14, 2026\nShare\n\nThe U.S. Treasury\u2019s 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\nThe latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.\n\nThe Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10, to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\nSelected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).\n\nWhy a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence the discount rates used in valuation and the rates faced by long-lived borrowers, even though the pass-through is neither immediate nor one-for-one. The article makes no claim that equities, credit or foreign exchange moved in a particular direction without separate governed observations for those markets.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve\u2019s next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\nThe Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in the 10-year and 30-year sectors relative to the 2-year, accompanied by firm demand evidence from Treasury auctions, would confirm that the long-end pressure is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThe boundary is equally important. This article uses the latest governed official close available as of the packet timestamp. It does not substitute stale data for a live quote, and it does not infer moves in assets for which the evidence packet contains no public claim permission. Readers should treat the curve as one input into a broader market assessment.\n\nConfirmation would be several official sessions with a wider 2s10s spread and persistent 30-year yields above 5%, supported by firm Treasury auction demand. A reversal below 5% at the long end alongside a narrowing spread would challenge the signal. Treasury auctions and CPI are the next named catalysts for testing those conditions.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n\nShare",
+        "visual_spread_through_public_body": true
+      },
+      "reply_chain": [],
+      "screenshots": [
+        {
+          "browser_write_performed": false,
+          "expected_text_visible": true,
+          "label": "root",
+          "navigation_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+          "page_domain": "capitalchronicle.substack.com",
+          "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\substack_root.png",
+          "public_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+          "status": "SUCCESS"
+        }
+      ],
+      "stable_id": "206928132",
+      "status": "SUCCESS"
+    },
+    "telegram": {
+      "destination_identity": "@CapitalChronicle",
+      "idempotency_state": "create",
+      "intended_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nRead the full analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice.",
+      "machine_checks": {
+        "account_identity_verified": true,
+        "canonical_link_verified": true,
+        "media_verified": true,
+        "public_text_verified": true,
+        "stable_public_identity": true,
+        "status_success": true,
+        "thread_structure_verified": true
+      },
+      "media_asset_id": "treasury_curve_snapshot",
+      "media_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "observed_text": {
+        "replies": [],
+        "root": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nRead the full analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice."
+      },
+      "payload_sha256": "5f649f0e87db2fc7439173db2a394026b5a48860879381b805a7b84e6682d19c",
+      "public_url": "https://t.me/CapitalChronicle/63",
+      "readback": {
+        "account_identity_verified": true,
+        "body_text_visible": true,
+        "meaningful_media_visible": true,
+        "message_id": "63",
+        "public_url": "https://t.me/CapitalChronicle/63",
+        "status": "SUCCESS",
+        "substack_url_visible": true,
+        "visible_body_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nRead the full analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice."
+      },
+      "reply_chain": [],
+      "screenshots": [
+        {
+          "browser_write_performed": false,
+          "error_class": "Error",
+          "label": "root",
+          "provider_readback_fallback": true,
+          "public_url": "https://t.me/CapitalChronicle/63",
+          "status": "NOT_APPLICABLE_PUBLIC_DNS_UNAVAILABLE_PROVIDER_READBACK_VERIFIED"
+        }
+      ],
+      "stable_id": "63",
+      "status": "SUCCESS"
+    },
+    "threads": {
+      "destination_identity": "official.capitalchronicle",
+      "idempotency_state": "create",
+      "intended_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nhttps://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+      "machine_checks": {
+        "account_identity_verified": true,
+        "canonical_link_verified": true,
+        "media_verified": true,
+        "public_text_verified": true,
+        "stable_public_identity": true,
+        "status_success": true,
+        "thread_structure_verified": true
+      },
+      "media_asset_id": "treasury_curve_snapshot",
+      "media_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "observed_text": {
+        "replies": [
+          "Why it matters: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation. For informational purposes only; not financial advice.",
+          "Policy context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. Cross-asset context: A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange."
+        ],
+        "root": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus. https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider"
+      },
+      "payload_sha256": "423af28e2fea3cefd267e54e9470cb1d82a3524063abc77355fc6612570998b5",
+      "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawB0qfk5hP",
+      "readback": {
+        "chain": {
+          "complete_article_visual_count": 3,
+          "ordered_replies": [
+            {
+              "expected_chart_visual_similarity": 0.9968,
+              "expected_media_local_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_official_data_excerpt.png",
+              "id": "18085557665162884",
+              "media_required": true,
+              "media_verified": true,
+              "order": 1,
+              "parent_child_verified": true,
+              "parent_root_id": "18079645337680012",
+              "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawCYB1E3Cu",
+              "text_verified": true,
+              "visible_body_text": "Why it matters: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation. For informational purposes only; not financial advice."
+            },
+            {
+              "expected_chart_visual_similarity": 0.9979,
+              "expected_media_local_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_2s10s_history.png",
+              "id": "18157883710472686",
+              "media_required": true,
+              "media_verified": true,
+              "order": 2,
+              "parent_child_verified": true,
+              "parent_root_id": "18079645337680012",
+              "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawCaPzE0hn",
+              "text_verified": true,
+              "visible_body_text": "Policy context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. Cross-asset context: A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange."
+            }
+          ],
+          "platform": "threads",
+          "provider_order_verified": true,
+          "reply_ids_in_chronological_order": [
+            "18085557665162884",
+            "18157883710472686"
+          ],
+          "reply_ids_in_provider_order": [
+            "18157883710472686",
+            "18085557665162884"
+          ],
+          "root_id": "18079645337680012",
+          "status": "SUCCESS"
+        },
+        "root": {
+          "account_identity_verified": true,
+          "body_text_visible": true,
+          "destination_identity": "official.capitalchronicle",
+          "expected_chart_visual_similarity": null,
+          "meaningful_media_visible": true,
+          "media_type": "IMAGE",
+          "platform": "threads",
+          "post_id": "18079645337680012",
+          "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawB0qfk5hP",
+          "status": "SUCCESS",
+          "substack_url_visible": true,
+          "visible_body_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus. https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider"
+        }
+      },
+      "reply_chain": [
+        {
+          "action": "reply",
+          "adapter_name_version": "threads_adapter_v6.execute_threads_post",
+          "canonical_substack_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+          "destination_identity": null,
+          "diagnostics": null,
+          "error_class": null,
+          "error_code": null,
+          "execution_origin": "contentops_pipeline",
+          "expected_media_local_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_official_data_excerpt.png",
+          "id": "18085557665162884",
+          "idempotency_scope": "threads_reply:18079645337680012:1",
+          "media_asset_id": "treasury_source_excerpt",
+          "media_attached": true,
+          "media_sha256": "6530dab8c56cc2161155c2726b00dc30614d99fe8a594edb0e82cb6ffd924d92",
+          "media_transfer": {},
+          "media_upload_transport": null,
+          "order": 1,
+          "parent_id": "18079645337680012",
+          "payload_sha256": "7c1311c31f40cd8a8bfbc71c34e65add2471d71e7cc5c391d5adb6bffb3edce6",
+          "platform": "threads",
+          "provider_readback_verified": true,
+          "public_screenshot_path": null,
+          "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawCYB1E3Cu",
+          "readback": {
+            "account_identity_verified": true,
+            "body_text_visible": true,
+            "destination_identity": "official.capitalchronicle",
+            "expected_chart_visual_similarity": 0.9968,
+            "meaningful_media_visible": true,
+            "media_type": "IMAGE",
+            "platform": "threads",
+            "post_id": "18085557665162884",
+            "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawCYB1E3Cu",
+            "status": "SUCCESS",
+            "substack_url_visible": true,
+            "visible_body_text": "Why it matters: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation. For informational purposes only; not financial advice."
+          },
+          "reason": null,
+          "run_id": "contentops_database_publication_live_20260714_1",
+          "runner_command": "python -m live_contentops.eight_platform_substack_first_pipeline_v1 --run-id contentops_database_publication_live_20260714_1 --resume-derivatives --resume-platform threads",
+          "runner_module": "live_contentops.eight_platform_substack_first_pipeline_v1",
+          "status": "SUCCESS",
+          "substack_url_included": false,
+          "text": "Why it matters: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nFor informational purposes only; not financial advice.",
+          "validation": null,
+          "write_outcome_certainty": "confirmed"
+        },
+        {
+          "action": "reply",
+          "adapter_name_version": "threads_adapter_v6.execute_threads_post",
+          "canonical_substack_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+          "destination_identity": null,
+          "diagnostics": null,
+          "error_class": null,
+          "error_code": null,
+          "execution_origin": "contentops_pipeline",
+          "expected_media_local_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_2s10s_history.png",
+          "id": "18157883710472686",
+          "idempotency_scope": "threads_reply:18079645337680012:2",
+          "media_asset_id": "treasury_2s10s_history",
+          "media_attached": true,
+          "media_sha256": "2f6f106671cecc0d56edc39d7f9cbd2ad4b52b62e3a51807614c672f538fa2b7",
+          "media_transfer": {},
+          "media_upload_transport": null,
+          "order": 2,
+          "parent_id": "18079645337680012",
+          "payload_sha256": "4fad264b3823c9bc7227f2c5b3cbe77fd69ec66db470101ee788e62974d93025",
+          "platform": "threads",
+          "provider_readback_verified": true,
+          "public_screenshot_path": null,
+          "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawCaPzE0hn",
+          "readback": {
+            "account_identity_verified": true,
+            "body_text_visible": true,
+            "destination_identity": "official.capitalchronicle",
+            "expected_chart_visual_similarity": 0.9979,
+            "meaningful_media_visible": true,
+            "media_type": "IMAGE",
+            "platform": "threads",
+            "post_id": "18157883710472686",
+            "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawCaPzE0hn",
+            "status": "SUCCESS",
+            "substack_url_visible": true,
+            "visible_body_text": "Policy context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. Cross-asset context: A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange."
+          },
+          "reason": null,
+          "run_id": "contentops_database_publication_live_20260714_1",
+          "runner_command": "python -m live_contentops.eight_platform_substack_first_pipeline_v1 --run-id contentops_database_publication_live_20260714_1 --resume-derivatives --resume-platform threads",
+          "runner_module": "live_contentops.eight_platform_substack_first_pipeline_v1",
+          "status": "SUCCESS",
+          "substack_url_included": false,
+          "text": "Policy context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. Cross-asset context: A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange.",
+          "validation": null,
+          "write_outcome_certainty": "confirmed"
+        }
+      ],
+      "screenshots": [
+        {
+          "browser_write_performed": false,
+          "expected_text_visible": false,
+          "label": "root",
+          "navigation_url": "https://www.threads.com/@official.capitalchronicle/post/DawB0qfk5hP",
+          "page_domain": "www.threads.com",
+          "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\threads_root.png",
+          "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawB0qfk5hP",
+          "status": "SUCCESS"
+        },
+        {
+          "browser_write_performed": false,
+          "expected_text_visible": true,
+          "label": "reply_1",
+          "navigation_url": "https://www.threads.com/@official.capitalchronicle/post/DawCYB1E3Cu",
+          "page_domain": "www.threads.com",
+          "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\threads_reply_1.png",
+          "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawCYB1E3Cu",
+          "status": "SUCCESS"
+        },
+        {
+          "browser_write_performed": false,
+          "expected_text_visible": true,
+          "label": "reply_2",
+          "navigation_url": "https://www.threads.com/@official.capitalchronicle/post/DawCaPzE0hn",
+          "page_domain": "www.threads.com",
+          "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\threads_reply_2.png",
+          "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawCaPzE0hn",
+          "status": "SUCCESS"
+        }
+      ],
+      "stable_id": "18079645337680012",
+      "status": "SUCCESS"
+    },
+    "x": {
+      "destination_identity": "@Capitalnicle",
+      "idempotency_state": "create",
+      "intended_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 30-year Treasury par yield reached 5.10% as the 2s10s slope edged to 36 basis points.\n\nhttps://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+      "machine_checks": {
+        "account_identity_verified": true,
+        "canonical_link_verified": true,
+        "media_verified": true,
+        "public_text_verified": true,
+        "stable_public_identity": true,
+        "status_success": true,
+        "thread_structure_verified": true
+      },
+      "media_asset_id": "treasury_curve_snapshot",
+      "media_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "observed_text": {
+        "replies": [
+          "Capital Chronicle @Capitalnicle Why it matters: The long end reflects future-rate expectations, duration supply and term-premium compensation; a one-basis-point slope change is context, not a regime call. For informational purposes only; not financial advice. 5:48 AM \u00b7 Jul 14, 2026 \u00b7 1 View 1",
+          "Capital Chronicle @Capitalnicle Policy context: The 2-year and 30-year maturities carry different policy and duration sensitivities. Cross-asset context: Long rates can influence discount rates and financing benchmarks. 5:48 AM \u00b7 Jul 14, 2026 \u00b7 1 View"
+        ],
+        "root": "Capital Chronicle @Capitalnicle Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The 30-year Treasury par yield reached 5.10% as the 2s10s slope edged to 36 basis points. https:// capitalchronicle.substack.com/p/treasury-yie ld-curve-edges-wider \u2026 5:48 AM \u00b7 Jul 14, 2026 \u00b7 17 Views 1"
+      },
+      "payload_sha256": "2732f358ad17b88e88cfc0a4cef5daf207e1436caabf2f2d9d0e352ea69772f9",
+      "public_url": "https://x.com/Capitalnicle/status/2076800892091920422",
+      "readback": {
+        "complete_article_visual_count": 3,
+        "expected_chart_visual_similarity": 0.9887,
+        "meaningful_media_visible": true,
+        "ordered_replies": [
+          {
+            "expected_chart_visual_similarity": 0.9855,
+            "expected_media_local_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_official_data_excerpt.png",
+            "id": "2076800993883554148",
+            "media_required": true,
+            "media_verified": true,
+            "order": 1,
+            "parent_child_verified": true,
+            "parent_id": "2076800892091920422",
+            "public_url": "https://x.com/Capitalnicle/status/2076800993883554148",
+            "text_verified": true,
+            "visible_body_text": "Capital Chronicle @Capitalnicle Why it matters: The long end reflects future-rate expectations, duration supply and term-premium compensation; a one-basis-point slope change is context, not a regime call. For informational purposes only; not financial advice. 5:48 AM \u00b7 Jul 14, 2026 \u00b7 1 View 1"
+          },
+          {
+            "expected_chart_visual_similarity": 0.9878,
+            "expected_media_local_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_2s10s_history.png",
+            "id": "2076801081917755773",
+            "media_required": true,
+            "media_verified": true,
+            "order": 2,
+            "parent_child_verified": true,
+            "parent_id": "2076800993883554148",
+            "public_url": "https://x.com/Capitalnicle/status/2076801081917755773",
+            "text_verified": true,
+            "visible_body_text": "Capital Chronicle @Capitalnicle Policy context: The 2-year and 30-year maturities carry different policy and duration sensitivities. Cross-asset context: Long rates can influence discount rates and financing benchmarks. 5:48 AM \u00b7 Jul 14, 2026 \u00b7 1 View"
+          }
+        ],
+        "platform": "x",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\public_x_thread_readback.png",
+        "reply_chain_complete": true,
+        "root_id": "2076800892091920422",
+        "root_public_url": "https://x.com/Capitalnicle/status/2076800892091920422",
+        "root_visible_text": "Capital Chronicle @Capitalnicle Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The 30-year Treasury par yield reached 5.10% as the 2s10s slope edged to 36 basis points. https:// capitalchronicle.substack.com/p/treasury-yie ld-curve-edges-wider \u2026 5:48 AM \u00b7 Jul 14, 2026 \u00b7 17 Views 1",
+        "status": "SUCCESS",
+        "substack_url_visible": true
+      },
+      "reply_chain": [
+        {
+          "action": "reply",
+          "adapter_name_version": "edge_cdp_publishing_adapter_v1.publish_x_reply_via_edge",
+          "canonical_substack_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+          "destination_identity": null,
+          "diagnostics": null,
+          "error_class": null,
+          "error_code": null,
+          "execution_origin": "contentops_pipeline",
+          "expected_media_local_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_official_data_excerpt.png",
+          "id": "2076800993883554148",
+          "idempotency_scope": "x_reply:2076800892091920422:1",
+          "media_asset_id": "treasury_source_excerpt",
+          "media_attached": true,
+          "media_sha256": "6530dab8c56cc2161155c2726b00dc30614d99fe8a594edb0e82cb6ffd924d92",
+          "media_transfer": {},
+          "media_upload_transport": null,
+          "order": 1,
+          "parent_id": "2076800892091920422",
+          "payload_sha256": "3e5e4b46576e1d9138d4d12bab65e79cc17d7e3d4cf3592a804187332eee3dd0",
+          "platform": "x",
+          "provider_readback_verified": true,
+          "public_screenshot_path": null,
+          "public_url": "https://x.com/Capitalnicle/status/2076800993883554148",
+          "readback": null,
+          "reason": null,
+          "run_id": "contentops_database_publication_live_20260714_1",
+          "runner_command": "python -m live_contentops.eight_platform_substack_first_pipeline_v1 --run-id contentops_database_publication_live_20260714_1 --operator-approved-full-live-run",
+          "runner_module": "live_contentops.eight_platform_substack_first_pipeline_v1",
+          "status": "SUCCESS",
+          "substack_url_included": false,
+          "text": "Why it matters: The long end reflects future-rate expectations, duration supply and term-premium compensation; a one-basis-point slope change is context, not a regime call.\n\nFor informational purposes only; not financial advice.",
+          "validation": null,
+          "write_outcome_certainty": "confirmed"
+        },
+        {
+          "action": "reply",
+          "adapter_name_version": "edge_cdp_publishing_adapter_v1.publish_x_reply_via_edge",
+          "canonical_substack_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+          "destination_identity": null,
+          "diagnostics": null,
+          "error_class": null,
+          "error_code": null,
+          "execution_origin": "contentops_pipeline",
+          "expected_media_local_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_2s10s_history.png",
+          "id": "2076801081917755773",
+          "idempotency_scope": "x_reply:2076800892091920422:2",
+          "media_asset_id": "treasury_2s10s_history",
+          "media_attached": true,
+          "media_sha256": "2f6f106671cecc0d56edc39d7f9cbd2ad4b52b62e3a51807614c672f538fa2b7",
+          "media_transfer": {},
+          "media_upload_transport": null,
+          "order": 2,
+          "parent_id": "2076800993883554148",
+          "payload_sha256": "04970375db15be1d5abbbe37aa6d9c84ad8d2186c48bfda85a31aa5cb3c5865a",
+          "platform": "x",
+          "provider_readback_verified": true,
+          "public_screenshot_path": null,
+          "public_url": "https://x.com/Capitalnicle/status/2076801081917755773",
+          "readback": null,
+          "reason": null,
+          "run_id": "contentops_database_publication_live_20260714_1",
+          "runner_command": "python -m live_contentops.eight_platform_substack_first_pipeline_v1 --run-id contentops_database_publication_live_20260714_1 --operator-approved-full-live-run",
+          "runner_module": "live_contentops.eight_platform_substack_first_pipeline_v1",
+          "status": "SUCCESS",
+          "substack_url_included": false,
+          "text": "Policy context: The 2-year and 30-year maturities carry different policy and duration sensitivities. Cross-asset context: Long rates can influence discount rates and financing benchmarks.",
+          "validation": null,
+          "write_outcome_certainty": "confirmed"
+        }
+      ],
+      "screenshots": [
+        {
+          "browser_write_performed": false,
+          "expected_text_visible": false,
+          "label": "root",
+          "navigation_url": "https://x.com/Capitalnicle/status/2076800892091920422",
+          "page_domain": "x.com",
+          "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\x_root.png",
+          "public_url": "https://x.com/Capitalnicle/status/2076800892091920422",
+          "status": "SUCCESS"
+        },
+        {
+          "browser_write_performed": false,
+          "expected_text_visible": true,
+          "label": "reply_1",
+          "navigation_url": "https://x.com/Capitalnicle/status/2076800993883554148",
+          "page_domain": "x.com",
+          "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\x_reply_1.png",
+          "public_url": "https://x.com/Capitalnicle/status/2076800993883554148",
+          "status": "SUCCESS"
+        },
+        {
+          "browser_write_performed": false,
+          "expected_text_visible": true,
+          "label": "reply_2",
+          "navigation_url": "https://x.com/Capitalnicle/status/2076801081917755773",
+          "page_domain": "x.com",
+          "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\x_reply_2.png",
+          "public_url": "https://x.com/Capitalnicle/status/2076801081917755773",
+          "status": "SUCCESS"
+        }
+      ],
+      "stable_id": "2076800892091920422",
+      "status": "SUCCESS"
+    },
+    "youtube": {
+      "destination_identity": "@CapitalChronicleYouTube",
+      "idempotency_state": "youtube_community_post",
+      "intended_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nWhy it matters: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nPolicy and curve context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange.\n\nRead the full analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice.",
+      "machine_checks": {
+        "account_identity_verified": true,
+        "canonical_link_verified": true,
+        "media_verified": true,
+        "public_text_verified": true,
+        "stable_public_identity": true,
+        "status_success": true,
+        "thread_structure_verified": true
+      },
+      "media_asset_id": "treasury_curve_snapshot",
+      "media_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "observed_text": {
+        "replies": [],
+        "root": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus. Why it matters: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation. Policy and curve context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange. Read the full analysis: https://capitalchronicle.substack.com... For informational purposes only; not financial advice."
+      },
+      "payload_sha256": "c4f0ac086a8f2ec33847c02bb40753c5aecdc65d0536832780875bcfdd022c03",
+      "public_url": "https://www.youtube.com/post/UgkxGQA5S5D24avZ2-piE1cInscs8VEzPYvm",
+      "readback": {
+        "action": "readback_community_post",
+        "body_text_visible": true,
+        "browser_write_performed": false,
+        "canonical_link_target_verified": true,
+        "canonical_url_text_visible": false,
+        "channel_identity_verified": true,
+        "destination_identity": "@CapitalChronicleYouTube",
+        "link_href_kind": "youtube_redirect",
+        "meaningful_media_visible": true,
+        "media_readback": {
+          "natural_height": 356,
+          "natural_width": 640,
+          "rendered_height": 284.8,
+          "rendered_width": 512.0
+        },
+        "platform": "youtube",
+        "post_id": "UgkxGQA5S5D24avZ2-piE1cInscs8VEzPYvm",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\public_youtube_community_readback.png",
+        "public_url": "https://www.youtube.com/post/UgkxGQA5S5D24avZ2-piE1cInscs8VEzPYvm",
+        "status": "SUCCESS",
+        "substack_url_visible": true,
+        "visible_body_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10% The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus. Why it matters: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation. Policy and curve context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange. Read the full analysis: https://capitalchronicle.substack.com... For informational purposes only; not financial advice.",
+        "visible_link_text": "https://capitalchronicle.substack.com..."
+      },
+      "reply_chain": [],
+      "screenshots": [
+        {
+          "browser_write_performed": false,
+          "expected_text_visible": false,
+          "label": "root",
+          "navigation_url": "https://www.youtube.com/post/UgkxGQA5S5D24avZ2-piE1cInscs8VEzPYvm",
+          "page_domain": "www.youtube.com",
+          "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\youtube_root.png",
+          "public_url": "https://www.youtube.com/post/UgkxGQA5S5D24avZ2-piE1cInscs8VEzPYvm",
+          "status": "SUCCESS"
+        }
+      ],
+      "stable_id": "UgkxGQA5S5D24avZ2-piE1cInscs8VEzPYvm",
+      "status": "SUCCESS"
+    }
+  },
+  "public_write_performed_by_audit_builder": false,
+  "rejected_alternatives": [],
+  "run_id": "contentops_database_publication_live_20260714_1",
+  "schema_version": "contentops.text_image_operator_manual_audit_packet.v1",
+  "screenshots": {
+    "discord": [
+      {
+        "browser_write_performed": false,
+        "label": "provider_readback",
+        "reason": "stable_channel_and_message_id_with_strict_provider_readback_no_public_browser_url",
+        "status": "NOT_APPLICABLE_PRIVATE_WEBHOOK_DESTINATION"
+      }
+    ],
+    "facebook_page": [
+      {
+        "browser_write_performed": false,
+        "expected_text_visible": false,
+        "label": "root",
+        "navigation_url": "https://www.facebook.com/1342369584748125/posts/1345093677809049",
+        "page_domain": "www.facebook.com",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\facebook_page_root.png",
+        "public_url": "https://www.facebook.com/1342369584748125/posts/1345093677809049",
+        "status": "SUCCESS"
+      }
+    ],
+    "instagram_business": [
+      {
+        "browser_write_performed": false,
+        "expected_text_visible": true,
+        "label": "root",
+        "navigation_url": "https://www.instagram.com/p/DawBzUhIKxd/",
+        "page_domain": "www.instagram.com",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\instagram_business_root.png",
+        "public_url": "https://www.instagram.com/p/DawBzUhIKxd/",
+        "status": "SUCCESS"
+      }
+    ],
+    "linkedin": [
+      {
+        "browser_write_performed": false,
+        "expected_text_visible": false,
+        "label": "root",
+        "navigation_url": "https://www.linkedin.com/feed/update/urn:li:activity:7482566999894552576/",
+        "page_domain": "www.linkedin.com",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\linkedin_root.png",
+        "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7482566999894552576/",
+        "status": "SUCCESS"
+      }
+    ],
+    "substack": [
+      {
+        "browser_write_performed": false,
+        "expected_text_visible": true,
+        "label": "root",
+        "navigation_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+        "page_domain": "capitalchronicle.substack.com",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\substack_root.png",
+        "public_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+        "status": "SUCCESS"
+      }
+    ],
+    "telegram": [
+      {
+        "browser_write_performed": false,
+        "error_class": "Error",
+        "label": "root",
+        "provider_readback_fallback": true,
+        "public_url": "https://t.me/CapitalChronicle/63",
+        "status": "NOT_APPLICABLE_PUBLIC_DNS_UNAVAILABLE_PROVIDER_READBACK_VERIFIED"
+      }
+    ],
+    "threads": [
+      {
+        "browser_write_performed": false,
+        "expected_text_visible": false,
+        "label": "root",
+        "navigation_url": "https://www.threads.com/@official.capitalchronicle/post/DawB0qfk5hP",
+        "page_domain": "www.threads.com",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\threads_root.png",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawB0qfk5hP",
+        "status": "SUCCESS"
+      },
+      {
+        "browser_write_performed": false,
+        "expected_text_visible": true,
+        "label": "reply_1",
+        "navigation_url": "https://www.threads.com/@official.capitalchronicle/post/DawCYB1E3Cu",
+        "page_domain": "www.threads.com",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\threads_reply_1.png",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawCYB1E3Cu",
+        "status": "SUCCESS"
+      },
+      {
+        "browser_write_performed": false,
+        "expected_text_visible": true,
+        "label": "reply_2",
+        "navigation_url": "https://www.threads.com/@official.capitalchronicle/post/DawCaPzE0hn",
+        "page_domain": "www.threads.com",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\threads_reply_2.png",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DawCaPzE0hn",
+        "status": "SUCCESS"
+      }
+    ],
+    "x": [
+      {
+        "browser_write_performed": false,
+        "expected_text_visible": false,
+        "label": "root",
+        "navigation_url": "https://x.com/Capitalnicle/status/2076800892091920422",
+        "page_domain": "x.com",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\x_root.png",
+        "public_url": "https://x.com/Capitalnicle/status/2076800892091920422",
+        "status": "SUCCESS"
+      },
+      {
+        "browser_write_performed": false,
+        "expected_text_visible": true,
+        "label": "reply_1",
+        "navigation_url": "https://x.com/Capitalnicle/status/2076800993883554148",
+        "page_domain": "x.com",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\x_reply_1.png",
+        "public_url": "https://x.com/Capitalnicle/status/2076800993883554148",
+        "status": "SUCCESS"
+      },
+      {
+        "browser_write_performed": false,
+        "expected_text_visible": true,
+        "label": "reply_2",
+        "navigation_url": "https://x.com/Capitalnicle/status/2076801081917755773",
+        "page_domain": "x.com",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\x_reply_2.png",
+        "public_url": "https://x.com/Capitalnicle/status/2076801081917755773",
+        "status": "SUCCESS"
+      }
+    ],
+    "youtube": [
+      {
+        "browser_write_performed": false,
+        "expected_text_visible": false,
+        "label": "root",
+        "navigation_url": "https://www.youtube.com/post/UgkxGQA5S5D24avZ2-piE1cInscs8VEzPYvm",
+        "page_domain": "www.youtube.com",
+        "public_screenshot_path": "docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\audit_screenshots\\youtube_root.png",
+        "public_url": "https://www.youtube.com/post/UgkxGQA5S5D24avZ2-piE1cInscs8VEzPYvm",
+        "status": "SUCCESS"
+      }
+    ]
+  },
+  "selected_story": {
+    "article_mode": "analysis",
+    "cross_asset_implications": "A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange.",
+    "database_title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%",
+    "dek": "The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.",
+    "duplicate_hotspot_decision": {
+      "decision": "PASS_UNIQUE_GOVERNED_STORY",
+      "publish_allowed": true
+    },
+    "duplicate_key": "us-treasury-curve-2026-07-13",
+    "fresh_material_delta": true,
+    "headline_calibration": "database_steepens_softened_to_edges_wider_for_one_basis_point_change",
+    "market_mechanism": "Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.",
+    "market_sensitive": true,
+    "policy_context": "The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk.",
+    "selection_method": "story_scoped_publication_authority_no_legacy_topic_fallback",
+    "selection_rationale": "Latest official Treasury curve record contains a fresh, measurable slope and long-end update.",
+    "seo_title": "Treasury Yield Curve Edges Wider as 30-Year Hits 5.10%",
+    "slug": "us-treasury-30-year-yield-curve-slope",
+    "story_type": "market_move",
+    "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+    "thesis": "The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.",
+    "title": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%",
+    "topic_hash": "13ea08adbbcf3be16cfb0b41"
+  },
+  "source_packet_sha256": null,
+  "task_label": "TASK_CONTENTOPS_FINAL_TEXT_IMAGE_PLATFORM_LIVE_LOCK_AND_V1_0_RELEASE_V1",
+  "visuals": [
+    {
+      "alt_text": "Line chart comparing the latest official U.S. Treasury par yield curve with the previous session across maturities.",
+      "article_placement": "The curve moved at more than one point",
+      "caption": "The latest official Treasury curve sits above the previous session at the long end.",
+      "chart_title": "U.S. Treasury Yield Curve: 2026-07-13 vs 2026-07-10",
+      "media_asset_id": "treasury_curve_snapshot",
+      "media_sha256": "b17ea7ad2f64f92fa4ce0d291ff5ebac4c4dac1916116a3c313ea070c6dcdd8c",
+      "preview_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_curve_latest_vs_previous.png",
+      "source_provenance": {
+        "caption": "The latest official Treasury curve sits above the previous session at the long end.",
+        "source_label": "U.S. Department of the Treasury",
+        "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "status": "source_backed_capital_chronicle_render_from_official_public_data"
+      }
+    },
+    {
+      "alt_text": "Table excerpt listing official 2-year, 10-year and 30-year Treasury par yields for the latest and previous sessions.",
+      "article_placement": "Why a 5% long bond matters",
+      "caption": "Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle.",
+      "chart_title": "Official Treasury Daily Par Yield Curve Excerpt",
+      "media_asset_id": "treasury_source_excerpt",
+      "media_sha256": "6530dab8c56cc2161155c2726b00dc30614d99fe8a594edb0e82cb6ffd924d92",
+      "preview_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_official_data_excerpt.png",
+      "source_provenance": {
+        "caption": "Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle.",
+        "source_label": "U.S. Department of the Treasury",
+        "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "status": "source_backed_capital_chronicle_render_from_official_public_data"
+      }
+    },
+    {
+      "alt_text": "Line chart showing the U.S. Treasury 2-year to 10-year par-yield spread in basis points through the latest official close.",
+      "article_placement": "The slope is positive, but the change is modest",
+      "caption": "The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields.",
+      "chart_title": "U.S. Treasury 2s10s Spread Through 2026-07-13",
+      "media_asset_id": "treasury_2s10s_history",
+      "media_sha256": "2f6f106671cecc0d56edc39d7f9cbd2ad4b52b62e3a51807614c672f538fa2b7",
+      "preview_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\\media_assets\\treasury_2s10s_history.png",
+      "source_provenance": {
+        "caption": "The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields.",
+        "source_label": "U.S. Department of the Treasury",
+        "source_page_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "status": "source_backed_capital_chronicle_render_from_official_public_data"
+      }
+    }
+  ]
+}

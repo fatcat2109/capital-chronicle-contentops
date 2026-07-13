@@ -1,0 +1,28 @@
+{
+  "selected": {
+    "article_mode": "analysis",
+    "cross_asset_implications": "A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange.",
+    "database_title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%",
+    "dek": "The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.",
+    "duplicate_hotspot_decision": {
+      "decision": "PASS_UNIQUE_GOVERNED_STORY",
+      "publish_allowed": true
+    },
+    "duplicate_key": "us-treasury-curve-2026-07-13",
+    "fresh_material_delta": true,
+    "headline_calibration": "database_steepens_softened_to_edges_wider_for_one_basis_point_change",
+    "market_mechanism": "Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.",
+    "market_sensitive": true,
+    "policy_context": "The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk.",
+    "selection_method": "story_scoped_publication_authority_no_legacy_topic_fallback",
+    "selection_rationale": "Latest official Treasury curve record contains a fresh, measurable slope and long-end update.",
+    "seo_title": "Treasury Yield Curve Edges Wider as 30-Year Hits 5.10%",
+    "slug": "us-treasury-30-year-yield-curve-slope",
+    "story_type": "market_move",
+    "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+    "thesis": "The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.",
+    "title": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%",
+    "topic_hash": "13ea08adbbcf3be16cfb0b41"
+  },
+  "selection_method": "story_scoped_publication_authority_no_legacy_topic_fallback"
+}

@@ -1,0 +1,182 @@
+{
+  "discord": {
+    "format": "newsroom_embed_with_chart",
+    "text": "**Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%**\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\n**Why it matters:** Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nFull analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice."
+  },
+  "facebook_page": {
+    "format": "page_photo_post",
+    "text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nHow it transmits: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nRead the full article: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice."
+  },
+  "instagram_business": {
+    "format": "chart_caption",
+    "text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe chart is a checkpoint, not a verdict: A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange.\n\nFull analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice.\n\n#CapitalChronicle #Macro #Markets"
+  },
+  "linkedin": {
+    "format": "professional_analytical_note_with_chart",
+    "text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nThe mechanism: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nThe policy context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk.\n\nRead the full Capital Chronicle analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice."
+  },
+  "telegram": {
+    "format": "channel_photo_with_caption",
+    "media_asset_ids": [
+      "treasury_curve_snapshot"
+    ],
+    "platform_limit": 1024,
+    "text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nRead the full analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice."
+  },
+  "threads": {
+    "format": "root_chart_post_with_ordered_media_replies",
+    "full_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nhttps://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nWhy it matters: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nFor informational purposes only; not financial advice.\n\nPolicy context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. Cross-asset context: A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange.",
+    "hard_truncation_used": false,
+    "overflow_strategy": "semantic_three_post_thread",
+    "platform_limit": 500,
+    "posts": [
+      {
+        "article_sections": [
+          "lede_and_current_market_signal"
+        ],
+        "media_asset_ids": [
+          "treasury_curve_snapshot"
+        ],
+        "order": 0,
+        "role": "root",
+        "text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nhttps://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider"
+      },
+      {
+        "article_sections": [
+          "market_mechanism"
+        ],
+        "media_asset_ids": [
+          "treasury_source_excerpt"
+        ],
+        "order": 1,
+        "role": "reply",
+        "text": "Why it matters: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nFor informational purposes only; not financial advice."
+      },
+      {
+        "article_sections": [
+          "policy_and_cross_asset_context",
+          "confirmation_and_limits"
+        ],
+        "media_asset_ids": [
+          "treasury_2s10s_history"
+        ],
+        "order": 2,
+        "role": "reply",
+        "text": "Policy context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. Cross-asset context: A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange."
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 3,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.51,
+        0.416,
+        0.648
+      ],
+      "post_character_counts": [
+        255,
+        208,
+        324
+      ],
+      "reply_count": 2,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 0.642,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [
+      "Why it matters: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nFor informational purposes only; not financial advice.",
+      "Policy context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. Cross-asset context: A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange."
+    ],
+    "reserved_costs": {
+      "canonical_url_characters": 72,
+      "media_characters": 0
+    },
+    "root_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nhttps://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+    "text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nhttps://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider"
+  },
+  "tiktok": {
+    "format": "source_chart_sequence_caption",
+    "text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%. Three source-backed charts show the signal, the policy mechanism, and the curve context. Full article: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider. For informational purposes only; not financial advice."
+  },
+  "x": {
+    "format": "root_chart_post_with_ordered_replies",
+    "full_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 30-year Treasury par yield reached 5.10% as the 2s10s slope edged to 36 basis points.\n\nhttps://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nWhy it matters: The long end reflects future-rate expectations, duration supply and term-premium compensation; a one-basis-point slope change is context, not a regime call.\n\nFor informational purposes only; not financial advice.\n\nPolicy context: The 2-year and 30-year maturities carry different policy and duration sensitivities. Cross-asset context: Long rates can influence discount rates and financing benchmarks.",
+    "hard_truncation_used": false,
+    "overflow_strategy": "semantic_three_post_thread",
+    "platform_limit": 280,
+    "posts": [
+      {
+        "article_sections": [
+          "lede_and_current_market_signal"
+        ],
+        "media_asset_ids": [
+          "treasury_curve_snapshot"
+        ],
+        "order": 0,
+        "role": "root",
+        "text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 30-year Treasury par yield reached 5.10% as the 2s10s slope edged to 36 basis points.\n\nhttps://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider"
+      },
+      {
+        "article_sections": [
+          "market_mechanism"
+        ],
+        "media_asset_ids": [
+          "treasury_source_excerpt"
+        ],
+        "order": 1,
+        "role": "reply",
+        "text": "Why it matters: The long end reflects future-rate expectations, duration supply and term-premium compensation; a one-basis-point slope change is context, not a regime call.\n\nFor informational purposes only; not financial advice."
+      },
+      {
+        "article_sections": [
+          "policy_and_cross_asset_context",
+          "confirmation_and_limits"
+        ],
+        "media_asset_ids": [
+          "treasury_2s10s_history"
+        ],
+        "order": 2,
+        "role": "reply",
+        "text": "Policy context: The 2-year and 30-year maturities carry different policy and duration sensitivities. Cross-asset context: Long rates can influence discount rates and financing benchmarks."
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 3,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.793,
+        0.814,
+        0.668
+      ],
+      "post_character_counts": [
+        222,
+        228,
+        187
+      ],
+      "reply_count": 2,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 0.82,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [
+      "Why it matters: The long end reflects future-rate expectations, duration supply and term-premium compensation; a one-basis-point slope change is context, not a regime call.\n\nFor informational purposes only; not financial advice.",
+      "Policy context: The 2-year and 30-year maturities carry different policy and duration sensitivities. Cross-asset context: Long rates can influence discount rates and financing benchmarks."
+    ],
+    "reserved_costs": {
+      "canonical_url_characters": 72,
+      "media_characters": 0
+    },
+    "root_text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 30-year Treasury par yield reached 5.10% as the 2s10s slope edged to 36 basis points.\n\nhttps://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+    "text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 30-year Treasury par yield reached 5.10% as the 2s10s slope edged to 36 basis points.\n\nhttps://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider"
+  },
+  "youtube": {
+    "format": "community_text_image_post",
+    "hard_truncation_used": false,
+    "platform_limit": 1000,
+    "text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%\n\nThe 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.\n\nWhy it matters: Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.\n\nPolicy and curve context: The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk. A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange.\n\nRead the full analysis: https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider\n\nFor informational purposes only; not financial advice."
+  }
+}

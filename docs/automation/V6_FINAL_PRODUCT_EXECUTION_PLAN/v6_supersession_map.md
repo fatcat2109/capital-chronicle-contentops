@@ -19,4 +19,4 @@ Current authority is the V6 master plan, machine status JSON, generic fabric con
 
 Earlier Chrome, Telegram-host, local-export, arbitrary DOM-image, hard-truncation, video-as-YouTube-default, and click-equals-success models remain superseded as documented by prior commits.
 
-The planned clean targeted-repair state is also superseded by final-closure evidence: repairs are partial, both authorized malformed Threads posts are deleted, a valid reply was recreated with an ordering caveat, and the generalized canary is blocked by upstream DQR rather than pending implementation convenience.
+The former global-DQR closure blocker is superseded by story-scoped publication authority. Global DQR remains blocked, but the exact Treasury packet grants `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED`; the resulting generic live canary passed nine-surface machine QA and now awaits operator acceptance.

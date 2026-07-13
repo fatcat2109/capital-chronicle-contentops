@@ -1,63 +1,44 @@
 # Current Project Status
 
-`ui/contentops_v5/` is the canonical product UI. `ui/institutional_operator_cockpit_v4/` is fallback/reference only. GitHub remote commits and fetched repo files remain runtime authority above this status doc.
-
-The canonical publishing profile is Microsoft Edge at `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`. Substack remains canonical; YouTube Community remains the default YouTube text/image derivative surface, while video and Shorts are separate non-default modes.
+`ui/contentops_v5/` is the canonical product UI. `ui/institutional_operator_cockpit_v4/` is fallback/reference only. GitHub remote commits and fetched repo files remain runtime authority above this status doc. Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`. Substack is canonical; YouTube Community is the default YouTube text/image surface. Video and Shorts remain separate non-default modes.
 
 ## Current Classification
 
-`BLOCKED_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1`
+`AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS`
 
-Task: `TASK_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1`.
+Task: `TASK_CONTENTOPS_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1`.
 
-Run `contentops_v1_0_rc_20260711_1` remains frozen and is classified `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR`. Its machine transport proof is preserved, but it is not an accepted generalized tier-1 release and no `v1.0` tag exists.
+No `v1.0` tag exists. Current outputs are frozen pending Jim's final visual/content acceptance.
 
-## Canonical Architecture
+## Database Authority
 
-`live_contentops.eight_platform_substack_first_pipeline_v1` remains the canonical entrypoint. Its generic prepare-only mode consumes `CapitalChronicleContentEvidencePacketV2` through either `--capital-chronicle-root` or `--cc-evidence-packet`, then runs:
+The main database repo now emits exact story-scoped publication authority without clearing global DQR. Database commits:
 
-```text
-source capability resolution
--> claim-level evidence and DQR permissions
--> freshness and market-state policy
--> visual research, rights, diversity, and quantitative method gates
--> eight bounded editorial roles
--> local publication eligibility evidence
-```
+- `b03a1acabe0ec10794f948e61a005d4348f69ca3` adds `contentops_publication` authority.
+- `49525e0f17c2eb448ac3343f63559f5021fea47c` refreshes the publication packet used by the live run.
 
-Oil and Fed builders remain legacy adapters/regression fixtures. They no longer define the canonical generalized assignment, evidence, freshness, visual, or editorial architecture.
+The upstream repo has since advanced cleanly to `7793720bfe2e9beacb29dcd20e58a19f3d302cae`; that later authority work does not change the immutable packet producer commit recorded for this canary.
 
-## Real Rehearsal
+Packet `cc-publication-73ff151c3d3094741b6c` grants `reporting_allowed=true` and `PASS_PUBLICATION_AUTHORIZED` for the exact Treasury story. Global `dqr=BLOCKED` remains intact and was not bypassed.
 
-Evidence: `docs/automation/V6_GENERIC_EVIDENCE_FABRIC/generic_fabric_v2_real_rehearsal_20260711/`.
+## Generic Live Run
 
-The read-only ingestion rehearsal correctly blocks publication. The committed Capital Chronicle market snapshot was generated July 5, its observations are stale at the July 11 as-of time, and its DQR has `reporting_allowed=false`. ContentOps preserves those constraints and does not create a separate MT5, FRED, or EIA truth path.
+Run: `contentops_database_publication_live_20260714_1`.
 
-## Governed Database Run
+Evidence: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`.
 
-Evidence: `docs/automation/DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1/contentops_database_backed_live_run_20260714_1/`.
+`live_contentops.eight_platform_substack_first_pipeline_v1` remained the canonical runner. It consumed the publication packet, calibrated the headline to a one-basis-point slope move, generated a 1,147-word article, built two Treasury charts plus one official Treasury data-page excerpt, passed deterministic and bounded LLM review, created the locked release artifacts, and dispatched only after browser/account preflight.
 
-ContentOps now prefers the accepted analyzer point-in-time handoff, verifies the bound DuckDB SHA-256, opens it read-only, and carries governed authority, health, freshness, and consumer permissions into `CapitalChronicleContentEvidencePacketV2`. The July 14 canonical preflight found only candidate-bound evidence: `dqr=BLOCKED`, no public reporting consumer, no governed headline, one event outside 24 hours, stale unidentified context observations, and no public official-source URL. It exited `2` before browser/CDP or platform adapters. No article or derivative was created or changed.
+Canonical article: `https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider`.
 
-## RC Operator Audit
+Substack and all eight configured derivatives passed strict identity, text, media, link, parent-chain, and stable-ID readback. A bounded update removed one duplicate third-caption fragment from draft `206928132`; the canonical URL remained unchanged and no derivative was rerun. Telegram public screenshot navigation was unavailable because local Edge DNS could not resolve `t.me`; strict provider readback, message ID, media, text, and link verification remain PASS and the audit records this explicit fallback.
 
-Operator findings: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/operator_manual_audit_findings_v2.json`.
+TikTok is outside this eight-destination run and remains `BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED`.
 
-- LinkedIn failed fresh-run integrity by editing historical activity `7481311616265895936`.
-- Two malformed standalone Threads continuations remain preserved.
-- Facebook copy, public process vocabulary, source-calibrated headline wording, chart methodology, visual diversity, and story freshness require targeted repair.
-- Discord `The Macro Pigeon` is an approved Capital Chronicle community persona.
-- LinkedIn is founder-led personal distribution.
-- No secret material was exposed in operator screenshots.
+## Historical Authority
 
-## Final Closure Attempt
+The July 11 RC and final-closure evidence remain historical. They prove earlier transport and repair behavior but no longer describe current readiness. Current status is governed by the July 14 story-scoped packet, generic canary evidence, final platform matrix, and operator audit packet.
 
-Evidence: `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/contentops_final_closure_20260711_1/`.
+## Next Action
 
-- LinkedIn historical activity `7481311616265895936` was restored in place with strict text, chart, link, identity, and stable-ID readback.
-- Facebook post `106091951705748_1342707111381039` was corrected in place and passed strict readback.
-- Authorized malformed Threads IDs `17967130901934350` and `18368836642225190` were deleted. UI fallback also removed valid reply `18402541432082518`; the pipeline recreated its approved content as reply `18366144508233800`. The root and policy reply remain, but ordering requires operator review.
-- A repaired oil analysis packet passes local editorial, rights, diversity, and quantitative-method gates. It was not published.
-- Main-repo readiness is `BLOCKED_PLACEHOLDER_BASELINE_CLEAN`; DQR is degraded and reporting is disallowed. The generic canary rehearsal correctly performed zero public writes.
-
-Current classification: `BLOCKED_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1`. Resume this same database-backed run only after upstream grants explicit public/editorial reporting permission and provides a fresh governed headline/event, public official-source URL, identified market state with units, and publication-ready source health. Historical repairs remain frozen. No `v1.0` tag exists.
+Only `TASK_CONTENTOPS_OPERATOR_FINAL_V1_0_ACCEPTANCE_AND_TAG` remains. Jim should inspect the recorded Substack article and derivative URLs. A tag may be created only after explicit acceptance and a passing release verifier. No CI PASS is claimed because no repository status checks exist for this run.

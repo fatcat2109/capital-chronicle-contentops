@@ -14,12 +14,15 @@ def _json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_status_records_blocked_final_closure_authority() -> None:
+def test_status_records_database_authorized_generic_canary_authority() -> None:
     status = _json(STATUS)
-    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2"
-    assert status["current_task_classification"] == "BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE"
-    assert status["upstream_readiness"]["dqr_status"] == "degraded"
-    assert status["upstream_readiness"]["reporting_allowed"] is False
+    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1"
+    assert status["current_task_classification"] == "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS"
+    assert status["upstream_readiness"]["dqr_status"] == "BLOCKED"
+    assert status["upstream_readiness"]["reporting_allowed"] is True
+    assert status["upstream_readiness"]["publication_decision"] == "PASS_PUBLICATION_AUTHORIZED"
+    assert status["database_publication_live_run"]["substack_plus_eight_derivatives_success"] is True
+    assert status["database_publication_live_run"]["global_dqr_bypassed"] is False
     assert status["v1_0_tag_exists"] is False
 
 
