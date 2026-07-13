@@ -6,9 +6,9 @@ The canonical publishing profile is Microsoft Edge at `A:\Capital Chronicle\oper
 
 ## Current Classification
 
-`PASS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`
+`BLOCKED_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1`
 
-Task: `TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`.
+Task: `TASK_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1`.
 
 Run `contentops_v1_0_rc_20260711_1` remains frozen and is classified `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR`. Its machine transport proof is preserved, but it is not an accepted generalized tier-1 release and no `v1.0` tag exists.
 
@@ -33,6 +33,12 @@ Evidence: `docs/automation/V6_GENERIC_EVIDENCE_FABRIC/generic_fabric_v2_real_reh
 
 The read-only ingestion rehearsal correctly blocks publication. The committed Capital Chronicle market snapshot was generated July 5, its observations are stale at the July 11 as-of time, and its DQR has `reporting_allowed=false`. ContentOps preserves those constraints and does not create a separate MT5, FRED, or EIA truth path.
 
+## Governed Database Run
+
+Evidence: `docs/automation/DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1/contentops_database_backed_live_run_20260714_1/`.
+
+ContentOps now prefers the accepted analyzer point-in-time handoff, verifies the bound DuckDB SHA-256, opens it read-only, and carries governed authority, health, freshness, and consumer permissions into `CapitalChronicleContentEvidencePacketV2`. The July 14 canonical preflight found only candidate-bound evidence: `dqr=BLOCKED`, no public reporting consumer, no governed headline, one event outside 24 hours, stale unidentified context observations, and no public official-source URL. It exited `2` before browser/CDP or platform adapters. No article or derivative was created or changed.
+
 ## RC Operator Audit
 
 Operator findings: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/operator_manual_audit_findings_v2.json`.
@@ -54,4 +60,4 @@ Evidence: `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/contentops_final
 - A repaired oil analysis packet passes local editorial, rights, diversity, and quantitative-method gates. It was not published.
 - Main-repo readiness is `BLOCKED_PLACEHOLDER_BASELINE_CLEAN`; DQR is degraded and reporting is disallowed. The generic canary rehearsal correctly performed zero public writes.
 
-Current classification: `BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE`. Resume the same task only after upstream DQR/reporting authority and fresh headline/market evidence change. No `v1.0` tag exists.
+Current classification: `BLOCKED_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1`. Resume this same database-backed run only after upstream grants explicit public/editorial reporting permission and provides a fresh governed headline/event, public official-source URL, identified market state with units, and publication-ready source health. Historical repairs remain frozen. No `v1.0` tag exists.

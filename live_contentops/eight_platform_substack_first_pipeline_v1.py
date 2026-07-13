@@ -3271,25 +3271,35 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(json.dumps({"classification": result["classification"], "blockers": result["blockers"]}, indent=2, sort_keys=True))
         return 0 if result["classification"].startswith("AWAITING_OPERATOR") else 2
     if args.prepare_generic_fabric:
-        from live_contentops.generic_editorial_fabric_v2 import run_generic_prepare_only
-
-        if not args.generic_story_request or not args.generic_story_request.is_file():
-            raise ValueError("generic_story_request_required")
-        story_request = _read_json(args.generic_story_request)
-        result = run_generic_prepare_only(
-            output_dir=output,
-            story_request=story_request,
-            capital_chronicle_root=args.capital_chronicle_root,
-            evidence_packet_path=args.cc_evidence_packet,
-            as_of_utc=args.generic_as_of_utc,
+        from live_contentops.generic_editorial_fabric_v2 import (
+            run_generic_database_preflight,
+            run_generic_prepare_only,
         )
+
+        if args.generic_story_request:
+            if not args.generic_story_request.is_file():
+                raise ValueError("generic_story_request_not_found")
+            result = run_generic_prepare_only(
+                output_dir=output,
+                story_request=_read_json(args.generic_story_request),
+                capital_chronicle_root=args.capital_chronicle_root,
+                evidence_packet_path=args.cc_evidence_packet,
+                as_of_utc=args.generic_as_of_utc,
+            )
+        else:
+            result = run_generic_database_preflight(
+                output_dir=output,
+                capital_chronicle_root=args.capital_chronicle_root,
+                evidence_packet_path=args.cc_evidence_packet,
+                as_of_utc=args.generic_as_of_utc,
+            )
         print(json.dumps({
             "classification": result["classification"],
             "run_id": args.run_id,
             "publication_eligible": result["publication_eligible"],
             "public_write_performed": result["public_write_performed"],
         }, indent=2, sort_keys=True))
-        return 0
+        return 2 if result["classification"] == "BLOCKED_GENERIC_DATABASE_PREFLIGHT" else 0
     if args.prepare_only:
         if not args.allow_legacy_topic_adapter:
             print(json.dumps({

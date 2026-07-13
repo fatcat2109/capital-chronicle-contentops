@@ -1,0 +1,21 @@
+{
+  "candidate_count": 0,
+  "decision": "BLOCK",
+  "rejection_reasons": [
+    "capital_chronicle_dqr_blocked",
+    "governed_authority_candidate_snapshot_only",
+    "governed_reporting_permission_not_granted",
+    "governed_event_outside_story_window",
+    "governed_official_document_public_url_missing",
+    "governed_market_state_stale",
+    "governed_market_identity_or_unit_missing",
+    "governed_source_health_not_publication_ready",
+    "no_governed_headline_candidates",
+    "no_public_official_source_url",
+    "no_event_with_public_claim_permission",
+    "no_numeric_claim_with_public_claim_permission"
+  ],
+  "schema_version": "contentops.generic_assignment_readiness.v1",
+  "selected_story": null,
+  "selection_method": "governed_packet_only_no_topic_fallback"
+}

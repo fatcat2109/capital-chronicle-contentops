@@ -1,15 +1,15 @@
 # V6 Next Task Pointer
 
-Current task: `TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_LIVE_REPAIR_CANARY_AND_V1_0_RC_V1`
+Current task: `TASK_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1`
 
 Completed architecture authority: `TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`
 
-Classification: `BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE`
+Classification: `BLOCKED_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1`
 
 ## Resume Condition
 
-Resume this same closure task only after the Capital Chronicle ingestion authority produces publication-eligible evidence: DQR not degraded, `reporting_allowed=true`, and a genuinely fresh headline/market-state packet. Do not create a new engineering task merely to repeat the blocked run.
+Resume this same database-backed run only after the Capital Chronicle ingestion authority produces publication-eligible governed evidence: explicit ContentOps/public reporting permission, DQR publication clearance, a fresh identified headline/event, a public official-source URL, fresh identified market state with units, and publication-ready source health. Do not create a new engineering task merely to repeat the blocked run.
 
-Machine route: `RESUME_TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_AFTER_UPSTREAM_DQR_STATE_CHANGE`.
+Machine route: `RESUME_TASK_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_AFTER_UPSTREAM_PUBLICATION_AUTHORITY_CHANGE`.
 
-On resume, freeze successful LinkedIn/Facebook repairs and exact Threads deletions; first audit the recreated Threads reply order, then publish the repaired oil article/fresh oil LinkedIn post and one generalized canary only if all deterministic gates pass. No tag is allowed before the final verifier and explicit operator acceptance.
+On resume, keep all historical repairs frozen. Re-run the canonical database preflight first; select and publish exactly one new generic story only if every governed permission, freshness, source, visual, deterministic editorial, and bounded LLM gate passes. No tag is allowed before the final verifier and explicit operator acceptance.

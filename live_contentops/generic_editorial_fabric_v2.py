@@ -21,6 +21,79 @@ def _default_reviewer(_role: str, _context: Mapping[str, Any]) -> dict[str, Any]
     return {"decision": "PASS", "publication_authority": False, "review_scope": "fixture_or_local_structured_review"}
 
 
+def _load_evidence_packet(
+    *,
+    capital_chronicle_root: str | Path | None,
+    evidence_packet_path: str | Path | None,
+    as_of_utc: str | None,
+) -> dict[str, Any]:
+    if bool(capital_chronicle_root) == bool(evidence_packet_path):
+        raise ValueError("exactly_one_evidence_input_required")
+    return (
+        build_evidence_packet_from_cc_root(capital_chronicle_root, as_of_utc=as_of_utc)
+        if capital_chronicle_root
+        else json.loads(Path(str(evidence_packet_path)).read_text(encoding="utf-8"))
+    )
+
+
+def evaluate_assignment_readiness(packet: Mapping[str, Any]) -> dict[str, Any]:
+    rejection_reasons = list(packet.get("blockers") or [])
+    if not packet.get("headlines"):
+        rejection_reasons.append("no_governed_headline_candidates")
+    if not any(row.get("source_url") for row in (packet.get("official_source_documents") or [])):
+        rejection_reasons.append("no_public_official_source_url")
+    if not any(row.get("public_claim_allowed") for row in (packet.get("events") or [])):
+        rejection_reasons.append("no_event_with_public_claim_permission")
+    if not any(row.get("public_claim_allowed") for row in (packet.get("numeric_claims") or [])):
+        rejection_reasons.append("no_numeric_claim_with_public_claim_permission")
+    return {
+        "schema_version": "contentops.generic_assignment_readiness.v1",
+        "decision": "PASS" if not rejection_reasons else "BLOCK",
+        "selected_story": None,
+        "candidate_count": len(packet.get("headlines") or []),
+        "rejection_reasons": list(dict.fromkeys(rejection_reasons)),
+        "selection_method": "governed_packet_only_no_topic_fallback",
+    }
+
+
+def run_generic_database_preflight(
+    *,
+    output_dir: Path,
+    capital_chronicle_root: str | Path | None = None,
+    evidence_packet_path: str | Path | None = None,
+    as_of_utc: str | None = None,
+) -> dict[str, Any]:
+    packet = _load_evidence_packet(
+        capital_chronicle_root=capital_chronicle_root,
+        evidence_packet_path=evidence_packet_path,
+        as_of_utc=as_of_utc,
+    )
+    packet["validation_blockers"] = validate_evidence_packet(packet)
+    assignment = evaluate_assignment_readiness(packet)
+    blockers = list(assignment["rejection_reasons"])
+    blockers.extend(packet["validation_blockers"])
+    result = {
+        "schema_version": "contentops.generic_database_preflight.v1",
+        "classification": (
+            "PASS_GENERIC_DATABASE_PREFLIGHT"
+            if not blockers
+            else "BLOCKED_GENERIC_DATABASE_PREFLIGHT"
+        ),
+        "publication_eligible": not blockers,
+        "public_write_performed": False,
+        "browser_or_cdp_used": False,
+        "platform_adapter_called": False,
+        "video_or_tiktok_adapter_called": False,
+        "assignment_decision_path": str(output_dir / "generic_assignment_readiness_v1.json"),
+        "evidence_packet_path": str(output_dir / "capital_chronicle_content_evidence_packet_v2.json"),
+        "blockers": list(dict.fromkeys(blockers)),
+    }
+    _write(output_dir / "capital_chronicle_content_evidence_packet_v2.json", packet)
+    _write(output_dir / "generic_assignment_readiness_v1.json", assignment)
+    _write(output_dir / "generic_database_preflight_result_v1.json", result)
+    return result
+
+
 def run_generic_prepare_only(
     *,
     output_dir: Path,
@@ -30,12 +103,10 @@ def run_generic_prepare_only(
     as_of_utc: str | None = None,
     structured_reviewer=_default_reviewer,
 ) -> dict[str, Any]:
-    if bool(capital_chronicle_root) == bool(evidence_packet_path):
-        raise ValueError("exactly_one_evidence_input_required")
-    packet = (
-        build_evidence_packet_from_cc_root(capital_chronicle_root, as_of_utc=as_of_utc)
-        if capital_chronicle_root
-        else json.loads(Path(str(evidence_packet_path)).read_text(encoding="utf-8"))
+    packet = _load_evidence_packet(
+        capital_chronicle_root=capital_chronicle_root,
+        evidence_packet_path=evidence_packet_path,
+        as_of_utc=as_of_utc,
     )
     packet["validation_blockers"] = validate_evidence_packet(packet)
     capabilities = resolve_story_capabilities(story_request, load_source_capability_registry())

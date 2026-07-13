@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -16,6 +16,18 @@ REQUIRED_STATE_FILES = (
     "InputStateManifest.json",
     "SourceHealth.json",
 )
+GOVERNED_HANDOFF_ROOT = Path(
+    "docs/research/database_foundation/final_database_adjudication_and_analyzer_handoff_v1"
+)
+GOVERNED_FINAL_EVIDENCE = GOVERNED_HANDOFF_ROOT / "DATABASE_FINAL_EVIDENCE_PACKET_V1.json"
+GOVERNED_HANDOFF = GOVERNED_HANDOFF_ROOT / "ANALYZER_CLOSED_LOOP_DATA_HANDOFF_V1.json"
+GOVERNED_VALIDATION = GOVERNED_HANDOFF_ROOT / "ANALYZER_HANDOFF_VALIDATION_V1.json"
+PUBLIC_REPORTING_CONSUMERS = {
+    "contentops_publication",
+    "editorial_publication",
+    "public_claim",
+    "public_reporting",
+}
 
 
 def _sha256_file(path: Path) -> str:
@@ -37,6 +49,273 @@ def _iso_now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
+def _parse_timestamp(value: Any) -> datetime | None:
+    if not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _utc_text(value: Any) -> str | None:
+    parsed = _parse_timestamp(value)
+    return parsed.isoformat().replace("+00:00", "Z") if parsed else None
+
+
+def _load_payload_rows(connection: Any, table: str) -> list[dict[str, Any]]:
+    rows = []
+    for row_id, payload_json in connection.execute(
+        f'SELECT id, payload_json FROM "{table}" ORDER BY id'
+    ).fetchall():
+        payload = json.loads(payload_json)
+        if isinstance(payload, dict):
+            rows.append({"governed_row_id": row_id, **payload})
+    return rows
+
+
+def _has_public_reporting_permission(sources: Sequence[Mapping[str, Any]]) -> bool:
+    for source in sources:
+        consumers = {
+            str(value).strip().lower().replace(" ", "_")
+            for value in (source.get("allowed_consumers") or [])
+        }
+        if consumers.intersection(PUBLIC_REPORTING_CONSUMERS):
+            return True
+    return False
+
+
+def _build_evidence_packet_from_governed_handoff(
+    root: Path,
+    *,
+    as_of_utc: str | None,
+    story_window_hours: int,
+) -> dict[str, Any]:
+    try:
+        import duckdb
+    except ImportError as exc:  # pragma: no cover - runtime dependency guard
+        raise RuntimeError("duckdb_required_for_governed_cc_handoff") from exc
+
+    final_path = root / GOVERNED_FINAL_EVIDENCE
+    handoff_path = root / GOVERNED_HANDOFF
+    validation_path = root / GOVERNED_VALIDATION
+    final = _read_json(final_path)
+    handoff = _read_json(handoff_path)
+    validation = _read_json(validation_path)
+    database_binding = handoff.get("point_in_time_database") or {}
+    database_path = root / str(database_binding.get("path") or "")
+    if not database_path.is_file():
+        raise FileNotFoundError(f"missing_governed_point_in_time_database:{database_path}")
+
+    expected_database_sha = str(database_binding.get("physical_sha256") or "")
+    actual_database_sha = _sha256_file(database_path)
+    hash_matches = bool(expected_database_sha) and actual_database_sha == expected_database_sha
+    as_of = as_of_utc or _iso_now()
+    as_of_dt = _parse_timestamp(as_of)
+    if as_of_dt is None:
+        raise ValueError("invalid_as_of_utc")
+    story_start = as_of_dt - timedelta(hours=story_window_hours)
+
+    with duckdb.connect(str(database_path), read_only=True) as connection:
+        events = _load_payload_rows(connection, "event")
+        documents = _load_payload_rows(connection, "document")
+        market_rows = _load_payload_rows(connection, "market_observation")
+        sources = _load_payload_rows(connection, "source")
+        authority_rows = _load_payload_rows(connection, "authority_state_snapshot")
+        field_rows = _load_payload_rows(connection, "field_availability_snapshot")
+        source_health_rows = _load_payload_rows(connection, "source_health_snapshot")
+
+    reporting_allowed = _has_public_reporting_permission(sources)
+    candidate_only = any(
+        str(row.get("consumer_eligibility") or "").lower() == "candidate_snapshot_only"
+        for row in authority_rows
+    )
+    dqr_status = str((handoff.get("current_limitations") or {}).get("dqr") or "UNKNOWN")
+
+    normalized_events = []
+    for row in events:
+        event_time = _utc_text(row.get("published_at") or row.get("provider_updated_at"))
+        normalized_events.append({
+            "event_id": row.get("record_id") or row["governed_row_id"],
+            "event_time_utc": event_time,
+            "known_at_utc": None,
+            "source_artifact_ref": f"{database_binding.get('path')}#event/{row['governed_row_id']}",
+            "content_sha256": row.get("content_sha256"),
+            "public_claim_allowed": False,
+            "authority_class": "candidate_context",
+        })
+
+    normalized_documents = []
+    for row in documents:
+        published = _utc_text(row.get("published_at") or row.get("provider_updated_at"))
+        normalized_documents.append({
+            "document_id": row.get("document_id") or row["governed_row_id"],
+            "published_at_utc": published,
+            "source_id": row.get("target_id"),
+            "source_url": None,
+            "content_sha256": row.get("content_sha256"),
+            "source_artifact_ref": f"{database_binding.get('path')}#document/{row['governed_row_id']}",
+            "public_claim_allowed": False,
+            "authority_class": "candidate_context",
+        })
+
+    numeric_claims = []
+    for row in market_rows:
+        observation_time = _utc_text(row.get("observation_time"))
+        claim_id = f"governed-market:{row.get('observation_id') or row['governed_row_id']}"
+        numeric_claims.append({
+            "claim_id": claim_id,
+            "metric": "unidentified_market_context",
+            "value": row.get("value"),
+            "unit": "unknown",
+            "observation_time_utc": observation_time,
+            "release_time_utc": None,
+            "ingestion_time_utc": _utc_text(row.get("first_known_time")),
+            "revision_time_utc": None,
+            "source_id": "governed_point_in_time_market_observation",
+            "source_authority": row.get("source_quality") or "context",
+            "freshness_class": "governed_as_of_candidate",
+            "source_health": "unbound_to_specific_source_health_row",
+            "source_artifact_ref": f"{database_binding.get('path')}#market_observation/{row['governed_row_id']}",
+            "public_claim_allowed": False,
+            "llm_numeric_authority": False,
+        })
+
+    event_times = [time for time in (_parse_timestamp(row.get("event_time_utc")) for row in normalized_events) if time]
+    market_times = [time for time in (_parse_timestamp(row.get("observation_time_utc")) for row in numeric_claims) if time]
+    fresh_event_count = sum(story_start <= time <= as_of_dt for time in event_times)
+    fresh_market_count = sum(story_start <= time <= as_of_dt for time in market_times)
+
+    blockers = []
+    if not hash_matches:
+        blockers.append("governed_point_in_time_database_hash_mismatch")
+    if not final.get("analyzer_data_handoff_ready") or validation.get("status") != "PASS":
+        blockers.append("governed_analyzer_handoff_not_validated")
+    if dqr_status.upper() != "READY":
+        blockers.append(f"capital_chronicle_dqr_{dqr_status.lower()}")
+    if candidate_only:
+        blockers.append("governed_authority_candidate_snapshot_only")
+    if not reporting_allowed:
+        blockers.append("governed_reporting_permission_not_granted")
+    if not normalized_events:
+        blockers.append("governed_event_evidence_missing")
+    elif not fresh_event_count:
+        blockers.append("governed_event_outside_story_window")
+    if not normalized_documents:
+        blockers.append("governed_official_document_missing")
+    elif not any(row.get("source_url") for row in normalized_documents):
+        blockers.append("governed_official_document_public_url_missing")
+    if not numeric_claims:
+        blockers.append("governed_market_state_missing")
+    elif not fresh_market_count:
+        blockers.append("governed_market_state_stale")
+    if any(row.get("unit") == "unknown" for row in numeric_claims):
+        blockers.append("governed_market_identity_or_unit_missing")
+    if not any(str(row.get("health_state") or "").upper() in {"HEALTHY", "HEALTHY_UNCHANGED"} for row in source_health_rows):
+        blockers.append("governed_source_health_not_publication_ready")
+
+    provenance_paths = (final_path, handoff_path, validation_path, database_path)
+    packet_core = {
+        "schema_version": SCHEMA_VERSION,
+        "generated_at_utc": _iso_now(),
+        "as_of_utc": as_of,
+        "story_window": {
+            "hours": story_window_hours,
+            "start_utc": story_start.isoformat().replace("+00:00", "Z"),
+            "end_utc": as_of,
+        },
+        "events": normalized_events,
+        "headlines": [],
+        "official_source_documents": normalized_documents,
+        "numeric_claims": numeric_claims,
+        "market_snapshots": [{
+            "snapshot_id": "governed-point-in-time-market-observations",
+            "generated_at_utc": max(
+                (row.get("ingestion_time_utc") for row in numeric_claims if row.get("ingestion_time_utc")),
+                default=None,
+            ),
+            "market_session_state": "unknown",
+            "snapshot_quality": "candidate_context_only",
+            "claim_ids": [row["claim_id"] for row in numeric_claims],
+        }],
+        "time_series_references": [row["source_artifact_ref"] for row in numeric_claims],
+        "cross_asset_context": [],
+        "source_state": {
+            "dqr_status": dqr_status,
+            "reporting_allowed": reporting_allowed,
+            "candidate_snapshot_only": candidate_only,
+            "source_health_rows": len(source_health_rows),
+            "healthy_source_rows": sum(
+                str(row.get("health_state") or "").upper() in {"HEALTHY", "HEALTHY_UNCHANGED"}
+                for row in source_health_rows
+            ),
+            "authority_semantics": handoff.get("authority_semantics") or [],
+            "field_authority_states": sorted({str(row.get("state") or "unknown") for row in field_rows}),
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+            row["claim_id"]: [row["source_artifact_ref"]]
+            for row in numeric_claims
+        },
+        "provenance": {
+            str(path.relative_to(root)).replace("\\", "/"): {
+                "relative_path": str(path.relative_to(root)).replace("\\", "/"),
+                "sha256": _sha256_file(path),
+                "last_write_time_utc": datetime.fromtimestamp(
+                    path.stat().st_mtime, timezone.utc
+                ).isoformat().replace("+00:00", "Z"),
+            }
+            for path in provenance_paths
+        },
+        "public_claim_permissions": {
+            "numeric_claims_allowed": False,
+            "narrative_synthesis_allowed": False,
+            "reporting_allowed": reporting_allowed,
+            "llm_numeric_authority": False,
+            "decision": "BLOCK",
+            "required_public_consumer_classes": sorted(PUBLIC_REPORTING_CONSUMERS),
+            "observed_allowed_consumer_classes": sorted({
+                str(value)
+                for source in sources
+                for value in (source.get("allowed_consumers") or [])
+            }),
+        },
+        "blockers": list(dict.fromkeys(blockers)),
+        "governed_contract": {
+            "mode": "governed_point_in_time_handoff_v1",
+            "database_relative_path": database_binding.get("path"),
+            "database_sha256_expected": expected_database_sha,
+            "database_sha256_actual": actual_database_sha,
+            "database_sha256_matches": hash_matches,
+            "query_views": handoff.get("query_view_inventory") or [],
+            "fresh_event_count": fresh_event_count,
+            "fresh_market_observation_count": fresh_market_count,
+            "incremental_refresh_authority": "candidate_metadata_only_numeric_truth_not_promoted",
+        },
+        "bridge_safety": {
+            "source_repo_modified": False,
+            "secret_files_read": False,
+            "network_call_made": False,
+            "database_open_mode": "read_only",
+            "legacy_state_fallback_used": False,
+        },
+    }
+    packet_id = "cc-evidence-" + hashlib.sha256(
+        json.dumps(packet_core, sort_keys=True).encode()
+    ).hexdigest()[:16]
+    packet = {"packet_id": packet_id, **packet_core}
+    packet["validation_blockers"] = validate_evidence_packet(packet)
+    packet["status"] = (
+        "FAIL_SCHEMA"
+        if packet["validation_blockers"]
+        else "PASS_CONTRACT_BLOCKED_PUBLICATION"
+    )
+    return packet
+
+
 def validate_evidence_packet(packet: Mapping[str, Any]) -> list[str]:
     blockers: list[str] = []
     required = (
@@ -55,7 +334,7 @@ def validate_evidence_packet(packet: Mapping[str, Any]) -> list[str]:
     return blockers
 
 
-def build_evidence_packet_from_cc_root(
+def _build_evidence_packet_from_legacy_state(
     capital_chronicle_root: str | Path,
     *,
     as_of_utc: str | None = None,
@@ -184,6 +463,26 @@ def build_evidence_packet_from_cc_root(
     packet["validation_blockers"] = validate_evidence_packet(packet)
     packet["status"] = "PASS_CONTRACT_BLOCKED_PUBLICATION" if hard_blockers and not packet["validation_blockers"] else ("PASS" if not packet["validation_blockers"] else "FAIL_SCHEMA")
     return packet
+
+
+def build_evidence_packet_from_cc_root(
+    capital_chronicle_root: str | Path,
+    *,
+    as_of_utc: str | None = None,
+    story_window_hours: int = 24,
+) -> dict[str, Any]:
+    root = Path(capital_chronicle_root).resolve()
+    if all((root / path).is_file() for path in (GOVERNED_FINAL_EVIDENCE, GOVERNED_HANDOFF, GOVERNED_VALIDATION)):
+        return _build_evidence_packet_from_governed_handoff(
+            root,
+            as_of_utc=as_of_utc,
+            story_window_hours=story_window_hours,
+        )
+    return _build_evidence_packet_from_legacy_state(
+        root,
+        as_of_utc=as_of_utc,
+        story_window_hours=story_window_hours,
+    )
 
 
 def main(argv: Sequence[str] | None = None) -> int:

@@ -1,0 +1,61 @@
+{
+  "task": "TASK_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1",
+  "run_id": "contentops_database_backed_live_run_20260714_1",
+  "classification": "BLOCKED_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1",
+  "contentops_starting_head": "5505c32592cc87fbd51e112c365014b1aadb2a28",
+  "database_starting_head": "c14e5a7f48d1d949da60c217c4467c2418f1fbf6",
+  "database_foundation_complete": true,
+  "analyzer_handoff_ready": true,
+  "governed_database_sha256_matches": true,
+  "selected_story": null,
+  "canonical_preflight_exit_code": 2,
+  "publication_eligible": false,
+  "public_write_performed": false,
+  "browser_or_cdp_used": false,
+  "platform_adapter_called": false,
+  "upstream_repo_modified": false,
+  "incremental_refresh_executed": false,
+  "incremental_refresh_reason": "accepted refresh implementation emits candidate metadata only, sets numeric_truth_promoted=false and dqr=BLOCKED, and cannot create publication authority",
+  "blockers": [
+    "capital_chronicle_dqr_blocked",
+    "governed_authority_candidate_snapshot_only",
+    "governed_reporting_permission_not_granted",
+    "governed_event_outside_story_window",
+    "governed_official_document_public_url_missing",
+    "governed_market_state_stale",
+    "governed_market_identity_or_unit_missing",
+    "governed_source_health_not_publication_ready",
+    "no_governed_headline_candidates",
+    "no_event_with_public_claim_permission",
+    "no_numeric_claim_with_public_claim_permission"
+  ],
+  "frozen_historical_records": {
+    "linkedin_activity": "7481311616265895936",
+    "facebook_post": "106091951705748_1342707111381039",
+    "deleted_threads_ids": ["17967130901934350", "18368836642225190"],
+    "accepted_threads_reply": "18366144508233800"
+  },
+  "live_destination_results": {
+    "substack": "NOT_ATTEMPTED_GATE_BLOCKED",
+    "telegram": "NOT_ATTEMPTED_GATE_BLOCKED",
+    "discord": "NOT_ATTEMPTED_GATE_BLOCKED",
+    "x": "NOT_ATTEMPTED_GATE_BLOCKED",
+    "linkedin": "NOT_ATTEMPTED_GATE_BLOCKED",
+    "facebook_page": "NOT_ATTEMPTED_GATE_BLOCKED",
+    "instagram_business": "NOT_ATTEMPTED_GATE_BLOCKED",
+    "threads": "NOT_ATTEMPTED_GATE_BLOCKED",
+    "youtube_community": "NOT_ATTEMPTED_GATE_BLOCKED"
+  },
+  "forbidden_modes_invoked": false,
+  "validation": {
+    "bridge_and_generic_fabric_tests": "23 passed",
+    "focused_pipeline_closure_status_tests": "60 passed",
+    "full_repository_suite": "timed out after 604 seconds with no terminal result; no pass claim",
+    "py_compile": "PASS",
+    "json_validation": "PASS",
+    "git_diff_check": "PASS",
+    "high_confidence_secret_pattern_scan": "NO_MATCHES",
+    "upstream_worktree": "CLEAN"
+  },
+  "v1_0_tag_created": false
+}

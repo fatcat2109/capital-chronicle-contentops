@@ -46,6 +46,7 @@ Do not revive deleted or archived UI surfaces as product surfaces unless a newer
 - Allowed credential diagnostics: environment-variable names, presence booleans, redacted capability status, and non-secret account/scope readiness.
 - Final-closure evidence is at `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/contentops_final_closure_20260711_1/`. The task is `BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE`: bounded historical repairs ran, but upstream Capital Chronicle DQR remains degraded with reporting disallowed, so no fresh canary, oil article edit, or fresh oil LinkedIn post was attempted. No `v1.0` tag exists.
 - Never bypass DQR or freshness to complete a live run. Resume the same closure task only after upstream evidence authority changes; successful repair components remain frozen.
+- The July 14 database-backed run evidence is at `docs/automation/DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1/contentops_database_backed_live_run_20260714_1/`. The governed handoff is hash-valid but grants only candidate consumers, carries `dqr=BLOCKED`, and has no fresh identified market/headline packet or public reporting permission. The canonical runner therefore stopped before browser/platform adapters with zero public writes.
 
 
 ## Task Protocol

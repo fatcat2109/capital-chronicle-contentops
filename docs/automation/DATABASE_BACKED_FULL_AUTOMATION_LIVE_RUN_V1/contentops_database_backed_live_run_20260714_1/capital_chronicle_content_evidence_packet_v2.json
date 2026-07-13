@@ -1,0 +1,199 @@
+{
+  "as_of_utc": "2026-07-14T12:00:00Z",
+  "blockers": [
+    "capital_chronicle_dqr_blocked",
+    "governed_authority_candidate_snapshot_only",
+    "governed_reporting_permission_not_granted",
+    "governed_event_outside_story_window",
+    "governed_official_document_public_url_missing",
+    "governed_market_state_stale",
+    "governed_market_identity_or_unit_missing",
+    "governed_source_health_not_publication_ready"
+  ],
+  "bridge_safety": {
+    "database_open_mode": "read_only",
+    "legacy_state_fallback_used": false,
+    "network_call_made": false,
+    "secret_files_read": false,
+    "source_repo_modified": false
+  },
+  "candidate_visual_inputs": [],
+  "citation_map": {
+    "governed-market:a665270e4d024f94a948872f248ac48635f9fd2d059b2c5d1fee3506348ac152": [
+      "data/local_db/analyzer_ready_point_in_time_outcome_fabric_v1.duckdb#market_observation/market_observation_963b19097676f4af7da956eb7d361ff9"
+    ],
+    "governed-market:c982510cacd9b26b14917ecb9c584e9e28c48b050382a4be442dc04a24a5dbba": [
+      "data/local_db/analyzer_ready_point_in_time_outcome_fabric_v1.duckdb#market_observation/market_observation_644e44c5e1d1c558cc42f79401372fdd"
+    ]
+  },
+  "cross_asset_context": [],
+  "events": [
+    {
+      "authority_class": "candidate_context",
+      "content_sha256": "9784e2f404b5f915ddad5cb579f035b4518e836de6c79af812ce6bb3df834fed",
+      "event_id": "48b2b58c2bfd2a6c66f7b8c5046978d94b4f86b7cc10e10693d5ab055d398e70",
+      "event_time_utc": "2026-07-09T17:00:00Z",
+      "known_at_utc": null,
+      "public_claim_allowed": false,
+      "source_artifact_ref": "data/local_db/analyzer_ready_point_in_time_outcome_fabric_v1.duckdb#event/event_06339e51b5eeabe1013b5e101226c49d"
+    }
+  ],
+  "generated_at_utc": "2026-07-13T21:05:29.552806Z",
+  "governed_contract": {
+    "database_relative_path": "data/local_db/analyzer_ready_point_in_time_outcome_fabric_v1.duckdb",
+    "database_sha256_actual": "b74017504266e82cb110b16c473aa2def8b7fbb3ffe9df2a8ec363956c526f49",
+    "database_sha256_expected": "b74017504266e82cb110b16c473aa2def8b7fbb3ffe9df2a8ec363956c526f49",
+    "database_sha256_matches": true,
+    "fresh_event_count": 0,
+    "fresh_market_observation_count": 0,
+    "incremental_refresh_authority": "candidate_metadata_only_numeric_truth_not_promoted",
+    "mode": "governed_point_in_time_handoff_v1",
+    "query_views": [
+      "latest_version_known_at",
+      "all_versions_known_at",
+      "first_release_known_at",
+      "latest_revised_value_as_of",
+      "source_health_as_of",
+      "authority_status_as_of",
+      "field_availability_as_of",
+      "events_in_bounded_lookback",
+      "market_observation_before_after",
+      "outcome_window_availability"
+    ]
+  },
+  "headlines": [],
+  "market_snapshots": [
+    {
+      "claim_ids": [
+        "governed-market:c982510cacd9b26b14917ecb9c584e9e28c48b050382a4be442dc04a24a5dbba",
+        "governed-market:a665270e4d024f94a948872f248ac48635f9fd2d059b2c5d1fee3506348ac152"
+      ],
+      "generated_at_utc": "2026-07-13T19:07:20Z",
+      "market_session_state": "unknown",
+      "snapshot_id": "governed-point-in-time-market-observations",
+      "snapshot_quality": "candidate_context_only"
+    }
+  ],
+  "numeric_claims": [
+    {
+      "claim_id": "governed-market:c982510cacd9b26b14917ecb9c584e9e28c48b050382a4be442dc04a24a5dbba",
+      "freshness_class": "governed_as_of_candidate",
+      "ingestion_time_utc": "2026-07-13T19:07:20Z",
+      "llm_numeric_authority": false,
+      "metric": "unidentified_market_context",
+      "observation_time_utc": "2026-07-09T23:59:59Z",
+      "public_claim_allowed": false,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "source_artifact_ref": "data/local_db/analyzer_ready_point_in_time_outcome_fabric_v1.duckdb#market_observation/market_observation_644e44c5e1d1c558cc42f79401372fdd",
+      "source_authority": "context",
+      "source_health": "unbound_to_specific_source_health_row",
+      "source_id": "governed_point_in_time_market_observation",
+      "unit": "unknown",
+      "value": 4.54
+    },
+    {
+      "claim_id": "governed-market:a665270e4d024f94a948872f248ac48635f9fd2d059b2c5d1fee3506348ac152",
+      "freshness_class": "governed_as_of_candidate",
+      "ingestion_time_utc": "2026-07-13T19:07:20Z",
+      "llm_numeric_authority": false,
+      "metric": "unidentified_market_context",
+      "observation_time_utc": "2026-07-08T23:59:59Z",
+      "public_claim_allowed": false,
+      "release_time_utc": null,
+      "revision_time_utc": null,
+      "source_artifact_ref": "data/local_db/analyzer_ready_point_in_time_outcome_fabric_v1.duckdb#market_observation/market_observation_963b19097676f4af7da956eb7d361ff9",
+      "source_authority": "context",
+      "source_health": "unbound_to_specific_source_health_row",
+      "source_id": "governed_point_in_time_market_observation",
+      "unit": "unknown",
+      "value": 4.56
+    }
+  ],
+  "official_source_documents": [
+    {
+      "authority_class": "candidate_context",
+      "content_sha256": "9784e2f404b5f915ddad5cb579f035b4518e836de6c79af812ce6bb3df834fed",
+      "document_id": "e3711cffdd743f1f9363a2bc36ef5b2870cd1e8ca530a1a2d5d30e3b805ac730",
+      "public_claim_allowed": false,
+      "published_at_utc": "2026-07-09T17:00:00Z",
+      "source_artifact_ref": "data/local_db/analyzer_ready_point_in_time_outcome_fabric_v1.duckdb#document/document_52b37de0f16ab043d4215afe9c79ba6c",
+      "source_id": "DBH2_FEDERAL_REGISTER_SEC",
+      "source_url": null
+    }
+  ],
+  "packet_id": "cc-evidence-bca4dce66ac8d429",
+  "provenance": {
+    "data/local_db/analyzer_ready_point_in_time_outcome_fabric_v1.duckdb": {
+      "last_write_time_utc": "2026-07-13T19:47:09.243265Z",
+      "relative_path": "data/local_db/analyzer_ready_point_in_time_outcome_fabric_v1.duckdb",
+      "sha256": "b74017504266e82cb110b16c473aa2def8b7fbb3ffe9df2a8ec363956c526f49"
+    },
+    "docs/research/database_foundation/final_database_adjudication_and_analyzer_handoff_v1/ANALYZER_CLOSED_LOOP_DATA_HANDOFF_V1.json": {
+      "last_write_time_utc": "2026-07-13T20:26:08.405544Z",
+      "relative_path": "docs/research/database_foundation/final_database_adjudication_and_analyzer_handoff_v1/ANALYZER_CLOSED_LOOP_DATA_HANDOFF_V1.json",
+      "sha256": "358b1739e4aafad59c6ff9957bfbfde75cbc2bf82e93b82c6e16d4b6a5f615e8"
+    },
+    "docs/research/database_foundation/final_database_adjudication_and_analyzer_handoff_v1/ANALYZER_HANDOFF_VALIDATION_V1.json": {
+      "last_write_time_utc": "2026-07-13T20:26:08.409114Z",
+      "relative_path": "docs/research/database_foundation/final_database_adjudication_and_analyzer_handoff_v1/ANALYZER_HANDOFF_VALIDATION_V1.json",
+      "sha256": "cda96ce529f768028665f90b4d2d6523e72a3e77041a96473803c2f1be492aee"
+    },
+    "docs/research/database_foundation/final_database_adjudication_and_analyzer_handoff_v1/DATABASE_FINAL_EVIDENCE_PACKET_V1.json": {
+      "last_write_time_utc": "2026-07-13T20:29:26.662892Z",
+      "relative_path": "docs/research/database_foundation/final_database_adjudication_and_analyzer_handoff_v1/DATABASE_FINAL_EVIDENCE_PACKET_V1.json",
+      "sha256": "e79e4e50df698a64bb4fe249703a099145ed468140183bf822c29b22e06fec9d"
+    }
+  },
+  "public_claim_permissions": {
+    "decision": "BLOCK",
+    "llm_numeric_authority": false,
+    "narrative_synthesis_allowed": false,
+    "numeric_claims_allowed": false,
+    "observed_allowed_consumer_classes": [
+      "bounded_outcome_candidate",
+      "point_in_time_candidate"
+    ],
+    "reporting_allowed": false,
+    "required_public_consumer_classes": [
+      "contentops_publication",
+      "editorial_publication",
+      "public_claim",
+      "public_reporting"
+    ]
+  },
+  "schema_version": "capital_chronicle_content_evidence_packet.v2",
+  "source_state": {
+    "authority_semantics": [
+      "exact",
+      "proxy",
+      "context",
+      "missing",
+      "blocked",
+      "license_required",
+      "environment_required"
+    ],
+    "candidate_snapshot_only": true,
+    "dqr_status": "BLOCKED",
+    "field_authority_states": [
+      "eligible_candidate_context",
+      "eligible_candidate_proxy",
+      "environment_required",
+      "license_required"
+    ],
+    "healthy_source_rows": 0,
+    "reporting_allowed": false,
+    "source_health_rows": 18
+  },
+  "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+  "story_window": {
+    "end_utc": "2026-07-14T12:00:00Z",
+    "hours": 24,
+    "start_utc": "2026-07-13T12:00:00Z"
+  },
+  "time_series_references": [
+    "data/local_db/analyzer_ready_point_in_time_outcome_fabric_v1.duckdb#market_observation/market_observation_644e44c5e1d1c558cc42f79401372fdd",
+    "data/local_db/analyzer_ready_point_in_time_outcome_fabric_v1.duckdb#market_observation/market_observation_963b19097676f4af7da956eb7d361ff9"
+  ],
+  "validation_blockers": []
+}

@@ -36,7 +36,7 @@ headline/CDP intake
 
 Canonical entrypoint: `live_contentops.eight_platform_substack_first_pipeline_v1`.
 
-Generic local mode: `--prepare-generic-fabric` with exactly one of `--capital-chronicle-root` or `--cc-evidence-packet`.
+Generic local mode: `--prepare-generic-fabric` with exactly one of `--capital-chronicle-root` or `--cc-evidence-packet`. Omitting `--generic-story-request` runs the governed database assignment preflight and returns exit code `2` when no eligible assignment exists; it cannot enter browser or platform adapters.
 
 ## Evidence Authority
 
@@ -44,7 +44,7 @@ Numeric truth comes from approved Capital Chronicle evidence claims, never LLM p
 
 ContentOps reads committed ingestion artifacts and does not create a second direct MT5 truth path. DQR can block publication. SourceHealth and InputStateManifest provide health and lineage but cannot override DQR.
 
-The current ingestion repo does not yet emit `CapitalChronicleContentEvidencePacketV2` directly. ContentOps therefore provides a read-only resolver over documented current-state artifacts plus the producer handoff in `generic_evidence_freshness_visual_editorial_fabric_v2.md`.
+The current ingestion repo does not yet emit `CapitalChronicleContentEvidencePacketV2` directly. ContentOps first consumes and hash-verifies the accepted analyzer handoff and its point-in-time DuckDB in read-only mode, translating governed rows and consumer permissions into the packet. Legacy current-state artifacts are fallback compatibility only when the governed handoff is absent.
 
 ## Freshness
 
@@ -74,4 +74,4 @@ Final-closure evidence: `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/co
 
 Bounded repairs restored historical LinkedIn content, corrected Facebook copy, and deleted the two authorized malformed Threads posts. A valid Threads reply had to be recreated after duplicate-text UI ambiguity, leaving an operator-visible order caveat. The oil editorial repair passes locally but is unpublished.
 
-The upstream ingestion authority remains degraded with `reporting_allowed=false`; therefore the generalized live canary is blocked and no release tag is allowed. Resume the same closure task after fresh, publication-eligible Capital Chronicle evidence exists. Successful destinations and repairs are frozen.
+The July 14 governed preflight is blocked: the accepted handoff is candidate-only, DQR is blocked, public reporting permission is absent, and no fresh identifiable headline/market packet is available. No browser or platform adapter ran. Resume the same database-backed task after publication-eligible Capital Chronicle evidence exists. Successful destinations and repairs are frozen.

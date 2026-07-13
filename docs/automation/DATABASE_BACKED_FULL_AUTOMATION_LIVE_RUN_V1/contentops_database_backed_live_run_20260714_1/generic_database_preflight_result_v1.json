@@ -1,0 +1,25 @@
+{
+  "assignment_decision_path": "docs\\automation\\DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1\\contentops_database_backed_live_run_20260714_1\\generic_assignment_readiness_v1.json",
+  "blockers": [
+    "capital_chronicle_dqr_blocked",
+    "governed_authority_candidate_snapshot_only",
+    "governed_reporting_permission_not_granted",
+    "governed_event_outside_story_window",
+    "governed_official_document_public_url_missing",
+    "governed_market_state_stale",
+    "governed_market_identity_or_unit_missing",
+    "governed_source_health_not_publication_ready",
+    "no_governed_headline_candidates",
+    "no_public_official_source_url",
+    "no_event_with_public_claim_permission",
+    "no_numeric_claim_with_public_claim_permission"
+  ],
+  "browser_or_cdp_used": false,
+  "classification": "BLOCKED_GENERIC_DATABASE_PREFLIGHT",
+  "evidence_packet_path": "docs\\automation\\DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1\\contentops_database_backed_live_run_20260714_1\\capital_chronicle_content_evidence_packet_v2.json",
+  "platform_adapter_called": false,
+  "public_write_performed": false,
+  "publication_eligible": false,
+  "schema_version": "contentops.generic_database_preflight.v1",
+  "video_or_tiktok_adapter_called": false
+}

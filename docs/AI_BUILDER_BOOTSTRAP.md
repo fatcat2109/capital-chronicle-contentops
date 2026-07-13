@@ -4,7 +4,7 @@ Start at root `AGENTS.md`. Repo evidence beats chat memory and archived plans.
 
 ## Current State
 
-`TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2` is complete with `PASS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`.
+`TASK_CONTENTOPS_DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1` is blocked at the governed database gate. The bridge now consumes and hash-verifies the accepted point-in-time handoff before any legacy current-state fallback, but the handoff grants only candidate consumers and does not grant ContentOps public reporting.
 
 The July 11 RC remains `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR`. Machine transport proof is preserved, but generalized release acceptance failed. All public surfaces are frozen and no `v1.0` tag exists.
 
@@ -40,4 +40,4 @@ Numeric truth must come from approved evidence claim IDs. DQR blocks cannot be o
 
 `TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_LIVE_REPAIR_CANARY_AND_V1_0_RC_V1` is blocked, not complete. Historical LinkedIn activity `7481311616265895936` was restored and Facebook copy was corrected. Both authorized malformed Threads posts were deleted; recovery recreated the accidentally removed valid first reply as `18366144508233800`, leaving a public reply-order caveat for operator review.
 
-The current ingestion readiness authority is `BLOCKED_PLACEHOLDER_BASELINE_CLEAN`: DQR is degraded and `reporting_allowed=false`. The generic rehearsal therefore failed closed with zero public writes. The repaired oil article/visual packet passes locally but was not published; no fresh oil LinkedIn activity or generalized canary exists. Resume this same closure task only after upstream DQR and fresh evidence are publication-eligible. Do not create a tag.
+The current accepted database foundation is complete for analyzer handoff, but its actual governed rows remain `dqr=BLOCKED`, `candidate_snapshot_only`, and limited to `point_in_time_candidate` / `bounded_outcome_candidate`. The July 14 ContentOps preflight also found no governed headline candidate, no public official-source URL, no fresh identified market state, and no claim with public permission. It exited `2` before browser or platform adapters and performed zero public writes. Resume the database-backed run only after upstream emits explicit editorial/public reporting authority plus fresh identifiable event, source, and market evidence. Do not create a tag.

@@ -27,3 +27,7 @@ The bounded live phase restored historical LinkedIn activity `748131161626589593
 The repaired oil packet now has a public-domain EIA map plus two Capital Chronicle charts, correct realized-volatility methodology, explicit YTD treatment, source-calibrated language, and passing local gates. It was not published because the current ingestion readiness result is `BLOCKED_PLACEHOLDER_BASELINE_CLEAN`, DQR is degraded, and reporting is disallowed. The fresh generic canary remained prepare-only with zero public writes.
 
 Status: `BLOCKED_FINAL_AUTOMATION_PIPELINE_CLOSURE`. No CI PASS is claimed and no `v1.0` tag exists.
+
+## July 14 Governed Database Gate
+
+`live_contentops.cc_evidence_bridge_v2` now verifies and consumes the accepted analyzer handoff and point-in-time DuckDB before legacy state artifacts. The canonical runner command without a supplied story request performs governed assignment preflight and fails closed with exit code `2`. Evidence at `docs/automation/DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1/contentops_database_backed_live_run_20260714_1/` records `dqr=BLOCKED`, candidate-only consumers, absent public reporting permission, no governed headline/public source URL, stale unidentified market context, and non-publication-ready source health. No browser, CDP, Substack, or derivative adapter was invoked.

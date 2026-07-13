@@ -11,7 +11,11 @@ from live_contentops.distribution_identity_registry_v2 import load_identity_regi
 from live_contentops.editorial_review_orchestrator_v2 import run_editorial_review
 from live_contentops.editorial_visual_research_v2 import GoogleImageSearchGroundingProvider, evaluate_visual_composition, validate_chart_methodology
 from live_contentops.freshness_market_state_v2 import evaluate_freshness
-from live_contentops.generic_editorial_fabric_v2 import run_generic_prepare_only
+from live_contentops.generic_editorial_fabric_v2 import (
+    evaluate_assignment_readiness,
+    run_generic_database_preflight,
+    run_generic_prepare_only,
+)
 from live_contentops.source_capability_registry_v2 import load_source_capability_registry, resolve_story_capabilities
 
 
@@ -52,13 +56,68 @@ def test_real_cc_bridge_is_read_only_and_preserves_dqr_blocker():
     packet = build_evidence_packet_from_cc_root(cc_root, as_of_utc="2026-07-11T02:00:00Z")
     assert packet["status"] == "PASS_CONTRACT_BLOCKED_PUBLICATION"
     assert packet["public_claim_permissions"]["decision"] == "BLOCK"
-    assert "capital_chronicle_dqr_reporting_not_allowed" in packet["blockers"]
-    assert packet["bridge_safety"] == {"source_repo_modified": False, "secret_files_read": False, "network_call_made": False}
+    assert "capital_chronicle_dqr_blocked" in packet["blockers"]
+    assert "governed_reporting_permission_not_granted" in packet["blockers"]
+    assert "governed_authority_candidate_snapshot_only" in packet["blockers"]
+    assert packet["governed_contract"]["mode"] == "governed_point_in_time_handoff_v1"
+    assert packet["governed_contract"]["database_sha256_matches"] is True
+    assert packet["bridge_safety"] == {
+        "source_repo_modified": False,
+        "secret_files_read": False,
+        "network_call_made": False,
+        "database_open_mode": "read_only",
+        "legacy_state_fallback_used": False,
+    }
     assert not validate_evidence_packet(packet)
-    wti = next(row for row in packet["numeric_claims"] if row["canonical_symbol"] == "WTI_front")
-    assert wti["provider_symbol"]
-    assert wti["prior_close"] is not None
-    assert wti["move_since_prior_close"] is not None
+    assert packet["events"]
+    assert packet["numeric_claims"]
+    assert all(row["public_claim_allowed"] is False for row in packet["numeric_claims"])
+    assert packet["public_claim_permissions"]["observed_allowed_consumer_classes"] == [
+        "bounded_outcome_candidate",
+        "point_in_time_candidate",
+    ]
+
+
+def test_governed_bridge_does_not_treat_candidate_consumers_as_reporting_permission():
+    from live_contentops.cc_evidence_bridge_v2 import _has_public_reporting_permission
+
+    assert not _has_public_reporting_permission([
+        {"allowed_consumers": ["point_in_time_candidate", "bounded_outcome_candidate"]}
+    ])
+    assert _has_public_reporting_permission([
+        {"allowed_consumers": ["contentops_publication"]}
+    ])
+
+
+def test_generic_database_preflight_blocks_before_any_write_adapter(tmp_path):
+    packet = _fresh_packet()
+    packet["public_claim_permissions"]["decision"] = "BLOCK"
+    packet["blockers"] = ["governed_reporting_permission_not_granted"]
+    packet["headlines"] = []
+    packet["official_source_documents"][0]["source_url"] = None
+    packet["events"][0]["public_claim_allowed"] = False
+    packet["numeric_claims"][0]["public_claim_allowed"] = False
+    packet_path = tmp_path / "packet.json"
+    packet_path.write_text(json.dumps(packet), encoding="utf-8")
+
+    result = run_generic_database_preflight(
+        output_dir=tmp_path / "out",
+        evidence_packet_path=packet_path,
+    )
+    assert result["classification"] == "BLOCKED_GENERIC_DATABASE_PREFLIGHT"
+    assert result["publication_eligible"] is False
+    assert result["public_write_performed"] is False
+    assert result["browser_or_cdp_used"] is False
+    assert result["platform_adapter_called"] is False
+    assert "no_governed_headline_candidates" in result["blockers"]
+
+
+def test_assignment_readiness_never_uses_topic_fallback():
+    packet = _fresh_packet()
+    decision = evaluate_assignment_readiness(packet)
+    assert decision["selection_method"] == "governed_packet_only_no_topic_fallback"
+    assert decision["selected_story"] is None
+    assert decision["decision"] == "BLOCK"
 
 
 def test_packet_and_registry_json_schemas_validate():
@@ -184,6 +243,23 @@ def test_canonical_runner_generic_mode_cannot_enter_browser_or_publish_paths(tmp
     result = json.loads((tmp_path / "generic_fabric_prepare_only_result_v2.json").read_text())
     assert result["public_write_performed"] is False
     assert result["browser_or_cdp_used"] is False
+
+
+def test_canonical_runner_database_preflight_has_blocked_exit_code(tmp_path, monkeypatch):
+    cc_root = Path(r"A:\Capital Chronicle\Headline Raw data local json\capital-chronicle-ingestion")
+    if not cc_root.exists():
+        pytest.skip("local ingestion repo unavailable")
+    monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", lambda **_: (_ for _ in ()).throw(AssertionError("no substack write")))
+    monkeypatch.setattr(pipeline, "browser_doctor", lambda: (_ for _ in ()).throw(AssertionError("no browser doctor")))
+    code = pipeline.main([
+        "--run-id", "governed-preflight", "--output-dir", str(tmp_path),
+        "--prepare-generic-fabric", "--capital-chronicle-root", str(cc_root),
+        "--generic-as-of-utc", "2026-07-14T12:00:00Z",
+    ])
+    assert code == 2
+    result = json.loads((tmp_path / "generic_database_preflight_result_v1.json").read_text())
+    assert result["publication_eligible"] is False
+    assert result["public_write_performed"] is False
 
 
 def test_legacy_topic_prepare_is_not_canonical_without_explicit_opt_in(tmp_path):
