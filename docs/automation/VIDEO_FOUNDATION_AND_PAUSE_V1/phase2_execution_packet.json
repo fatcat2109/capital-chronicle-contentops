@@ -1,0 +1,290 @@
+{
+  "task_label": "TASK_CONTENTOPS_VIDEO_FOUNDATION_DEEP_REPO_DISCOVERY_AND_EXECUTION_PACKET_V1",
+  "phase1_classification": "PASS_VIDEO_FOUNDATION_DEEP_REPO_DISCOVERY_AND_EXECUTION_PACKET_V1",
+  "verified_starting_authority": {
+    "repo": "fatcat2109/capital-chronicle-contentops",
+    "branch": "master",
+    "local_head": "821450d0f2b5a18051a1bc684bea2a4709a5ba01",
+    "upstream": "origin/master",
+    "remote_head": "821450d0f2b5a18051a1bc684bea2a4709a5ba01",
+    "expected_commit_matched": true,
+    "head_tags": [],
+    "unrelated_drift_excluded": [
+      "exports/daily_contentops/fed_funds_policy_signal_article_v1.md"
+    ]
+  },
+  "verified_database_authority": {
+    "repo": "fatcat2109/Headline-Raw-data-json",
+    "branch": "main",
+    "commit": "c14e5a7f48d1d949da60c217c4467c2418f1fbf6",
+    "evidence_path": "docs/research/database_foundation/final_database_adjudication_and_analyzer_handoff_v1/DATABASE_FINAL_EVIDENCE_PACKET_V1.json",
+    "classification": "PASS_PUBLIC_FREE_V1_DATABASE_FOUNDATION_COMPLETE_ANALYZER_HANDOFF_READY_WITH_EXPLICIT_NON_GATING_LIMITATIONS",
+    "public_free_v1_database_foundation_complete": true,
+    "analyzer_data_handoff_ready": true,
+    "gating_blocker_count": 0,
+    "unadjudicated_blocker_count": 0,
+    "database_analyzer_next_task": "TASK_ANALYZER_FORECAST_INPUT_FABRIC_INTEGRATION_V1",
+    "contentops_next_task": "RESUME_TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_AFTER_UPSTREAM_DQR_STATE_CHANGE",
+    "limitations": {
+      "dqr": "BLOCKED",
+      "exact_authority_sufficient": false,
+      "forecast_runtime_ready": false,
+      "current_canonical_apply": false,
+      "broker_execution_ready": false,
+      "institutional_exact_authority_complete": false
+    },
+    "publication_eligibility_inference_allowed": false
+  },
+  "renderer_decision": {
+    "selected_family": "python_local_media_pipeline_plus_ffmpeg",
+    "selected": true,
+    "remotion_selected": false,
+    "evidence": [
+      "live_contentops/source_chart_short_video_v1.py",
+      "live_contentops/macro_chart_renderer_v6.py",
+      "live_contentops/media_manifest_authority_v1.py",
+      "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/video/eight_platform_live_20260710_recovery1_source_charts_short.mp4"
+    ],
+    "why_not_remotion": [
+      "no_remotion_dependency_found",
+      "no_node_video_render_project_found",
+      "repo_runtime_is_python_first",
+      "existing_ffmpeg_renderer_already_present"
+    ]
+  },
+  "text_image_lane_lock": {
+    "state": "FROZEN_WAITING_FOR_PUBLICATION_ELIGIBLE_UPSTREAM_EVIDENCE",
+    "superseded_state": "FROZEN_WAITING_FOR_DATABASE_BUILD_COMPLETION",
+    "resume_requires": [
+      "packet_level_dqr_or_public_use_permission",
+      "reporting_allowed_true_where_required",
+      "fresh_headline_or_event_evidence",
+      "fresh_market_state_for_market_sensitive_stories",
+      "deterministic_editorial_visual_rights_and_freshness_gates",
+      "explicit_operator_authorization"
+    ],
+    "new_runtime_module": "live_contentops/text_image_lane_lock_v1.py",
+    "new_lock_file": "docs/automation/VIDEO_FOUNDATION_AND_PAUSE_V1/text_image_lane_lock_v1.json",
+    "safe_modes": [
+      "prepare_generic_fabric",
+      "build_operator_audit_packet",
+      "reconcile_readbacks",
+      "closure_release_verify",
+      "video_capability_audit",
+      "local_video_proof_render"
+    ],
+    "blocked_modes": [
+      "text_image_live_run",
+      "resume_derivatives",
+      "linkedin_pair_reconciliation",
+      "closure_historical_repair",
+      "finalize_v1_tag"
+    ],
+    "generic_bypass_allowed": false
+  },
+  "canonical_video_runner": {
+    "new_module": "live_contentops/video_foundation_runner_v1.py",
+    "cli_modes": [
+      "build_scene_graph",
+      "proof_render_local",
+      "build_youtube_request",
+      "build_tiktok_request",
+      "build_provider_request_elevenlabs",
+      "build_provider_request_heygen",
+      "build_provider_request_d_id",
+      "validate_video_packet"
+    ],
+    "public_write_allowed_in_phase2": false
+  },
+  "files_to_reuse": [
+    "live_contentops/eight_platform_substack_first_pipeline_v1.py",
+    "live_contentops/generic_editorial_fabric_v2.py",
+    "live_contentops/cc_evidence_bridge_v2.py",
+    "live_contentops/freshness_market_state_v2.py",
+    "live_contentops/editorial_visual_research_v2.py",
+    "live_contentops/editorial_review_orchestrator_v2.py",
+    "live_contentops/distribution_identity_registry_v2.py",
+    "live_contentops/media_manifest_authority_v1.py",
+    "live_contentops/source_chart_short_video_v1.py",
+    "live_contentops/video_platform_capability_matrix_v1.py",
+    "live_contentops/edge_cdp_publishing_adapter_v1.py",
+    "live_contentops/macro_chart_renderer_v6.py"
+  ],
+  "files_to_modify": [
+    "live_contentops/eight_platform_substack_first_pipeline_v1.py",
+    "live_contentops/video_platform_capability_matrix_v1.py",
+    "live_contentops/source_chart_short_video_v1.py",
+    "live_contentops/media_manifest_authority_v1.py",
+    "AGENTS.md",
+    "docs/AI_BUILDER_BOOTSTRAP.md",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json"
+  ],
+  "proposed_new_files": [
+    "live_contentops/text_image_lane_lock_v1.py",
+    "live_contentops/video_foundation_runner_v1.py",
+    "live_contentops/video_assignment_contract_v1.py",
+    "live_contentops/video_scene_graph_v1.py",
+    "live_contentops/video_claim_script_binding_v1.py",
+    "live_contentops/video_media_manifest_v1.py",
+    "live_contentops/video_subtitle_pipeline_v1.py",
+    "live_contentops/video_source_credit_packet_v1.py",
+    "live_contentops/video_proof_render_qa_v1.py",
+    "live_contentops/video_provider_boundaries_v1.py",
+    "live_contentops/video_operator_router_v1.py",
+    "live_contentops/video_metadata_probe_v1.py",
+    "docs/automation/VIDEO_FOUNDATION_AND_PAUSE_V1/text_image_lane_lock_v1.json",
+    "tests/test_text_image_lane_lock_v1.py",
+    "tests/test_video_foundation_runner_v1.py",
+    "tests/test_video_assignment_contract_v1.py",
+    "tests/test_video_scene_graph_v1.py",
+    "tests/test_video_claim_script_binding_v1.py",
+    "tests/test_video_media_manifest_v1.py",
+    "tests/test_video_subtitle_pipeline_v1.py",
+    "tests/test_video_source_credit_packet_v1.py",
+    "tests/test_video_proof_render_qa_v1.py",
+    "tests/test_video_provider_boundaries_v1.py",
+    "tests/test_video_metadata_probe_v1.py",
+    "tests/test_text_image_runner_pause_guard_v1.py"
+  ],
+  "phase2_sequence": [
+    "add_lane_lock_schema_and_runtime_reader",
+    "gate_all_public_text_image_write_paths",
+    "add_video_assignment_scene_graph_claim_binding_contracts",
+    "add_local_video_metadata_probe",
+    "extend_or_wrap_local_ffmpeg_chart_sequence_renderer",
+    "add_video_media_manifest_and_qa_packets",
+    "add_subtitle_and_source_credit_sidecars",
+    "add_consolidated_provider_request_boundaries",
+    "add_canonical_video_runner_cli",
+    "run_local_tests_and_proof_render",
+    "reconcile_docs"
+  ],
+  "test_matrix": {
+    "existing_tests_to_keep_green": [
+      "tests/test_eight_platform_substack_first_pipeline_v1.py",
+      "tests/test_video_platform_capability_matrix_v1.py",
+      "tests/test_source_chart_short_video_v1.py",
+      "tests/test_media_manifest_authority_v1.py",
+      "tests/test_macro_chart_renderer_v6.py",
+      "tests/test_edge_cdp_publishing_adapter_v1.py",
+      "tests/test_generic_evidence_freshness_visual_editorial_fabric_v2.py"
+    ],
+    "new_tests": [
+      "tests/test_text_image_lane_lock_v1.py",
+      "tests/test_video_foundation_runner_v1.py",
+      "tests/test_video_assignment_contract_v1.py",
+      "tests/test_video_scene_graph_v1.py",
+      "tests/test_video_claim_script_binding_v1.py",
+      "tests/test_video_media_manifest_v1.py",
+      "tests/test_video_subtitle_pipeline_v1.py",
+      "tests/test_video_source_credit_packet_v1.py",
+      "tests/test_video_proof_render_qa_v1.py",
+      "tests/test_video_provider_boundaries_v1.py",
+      "tests/test_video_metadata_probe_v1.py",
+      "tests/test_text_image_runner_pause_guard_v1.py"
+    ]
+  },
+  "local_proof_render_plan": {
+    "public_write_allowed": false,
+    "uses_existing_source_assets": true,
+    "expected_outputs": [
+      "small_mp4",
+      "scene_graph_json",
+      "subtitle_sidecar",
+      "source_credit_packet",
+      "qa_packet"
+    ]
+  },
+  "freeze_verification_plan": [
+    "block_default_text_image_live_run_when_locked",
+    "block_resume_derivatives_when_locked",
+    "block_closure_historical_repair_when_locked",
+    "allow_prepare_generic_fabric_when_locked",
+    "allow_reconcile_readbacks_when_locked",
+    "allow_build_operator_audit_packet_when_locked",
+    "prove_default_runner_still_does_not_call_shorts_or_video_upload_helpers",
+    "preserve_frozen_public_repair_evidence"
+  ],
+  "documentation_reconciliation_plan": [
+    "update_AGENTS_entry_contract_for_lane_lock_and_video_runner",
+    "update_bootstrap_current_state_with_pause_package_authority",
+    "update_status_docs_with_video_foundation_local_only_state",
+    "update_v6_master_plan_and_ledger_for_explicit_video_lane",
+    "update_platform_delivery_contract_for_locked_text_image_lane_and_non_default_video",
+    "update_VIDEO_FOUNDATION_AND_PAUSE_V1_docs_with_final_commands_and_schemas"
+  ],
+  "expected_final_commands": [
+    "python -m live_contentops.video_foundation_runner_v1 --run-id <id> --output-dir <dir> --proof-render-local --scene-graph <scene_graph.json>",
+    "python -m live_contentops.video_foundation_runner_v1 --run-id <id> --output-dir <dir> --build-youtube-request --scene-graph <scene_graph.json>",
+    "python -m live_contentops.video_foundation_runner_v1 --run-id <id> --output-dir <dir> --build-tiktok-request --scene-graph <scene_graph.json>",
+    "python -m live_contentops.video_foundation_runner_v1 --run-id <id> --output-dir <dir> --build-provider-request --provider elevenlabs --scene-graph <scene_graph.json>",
+    "python -m live_contentops.eight_platform_substack_first_pipeline_v1 --run-id <id> --output-dir <dir> --prepare-generic-fabric ..."
+  ],
+  "acceptance_criteria": [
+    "machine_readable_text_image_lane_lock_exists",
+    "canonical_runner_enforces_lock_on_all_public_write_paths",
+    "safe_non_write_branches_remain_available",
+    "canonical_video_runner_exists",
+    "scene_graph_claim_script_subtitle_credit_and_qa_schemas_exist",
+    "local_proof_render_works_without_network_or_platform_writes",
+    "consolidated_provider_request_boundaries_exist_without_upload_calls",
+    "default_text_image_runner_still_excludes_video_short_helpers",
+    "docs_reconciled",
+    "no_public_evidence_history_mutated_unintentionally"
+  ],
+  "known_risks": [
+    "canonical_text_image_runner_is_already_large_and_fragile",
+    "python_rendering_dependencies_are_used_but_not_fully_formalized_in_manifests",
+    "live_provider_docs_require_revalidation_before_any_future_integration",
+    "binary_artifact_growth_if_proof_renders_are_not_bounded",
+    "weak_pause_design_could_leave_indirect_write_paths_open"
+  ],
+  "blockers": [],
+  "deferred_prerequisites": [
+    "LIVE_PROVIDER_DOC_REVALIDATION_REQUIRED_BEFORE_PROVIDER_INTEGRATION"
+  ],
+  "phase2_authorized": false,
+  "explicit_no_write_boundary": {
+    "substack_or_social_publish": false,
+    "youtube_or_tiktok_upload": false,
+    "elevenlabs_heygen_did_calls": false,
+    "ingestion_repo_modification": false,
+    "release_tag_creation": false,
+    "automatic_frozen_public_repair_rerun": false
+  },
+  "repo_grounded_provider_doc_urls_already_present": {
+    "youtube_videos_insert": "https://developers.google.com/youtube/v3/docs/videos/insert",
+    "youtube_upload_guide": "https://developers.google.com/youtube/v3/guides/uploading_a_video",
+    "youtube_shorts_help": "https://support.google.com/youtube/answer/15424877",
+    "tiktok_content_posting": "https://developers.tiktok.com/doc/content-posting-api-get-started/"
+  },
+  "repo_grounded_provider_doc_snapshot": {
+    "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+    "docs_checked_at": "2026-06-23T07:09:32Z",
+    "fresh_phase1_reinspection_completed": false
+  },
+  "fresh_official_doc_research": {
+    "attempted_urls": [
+      "https://elevenlabs.io/docs/api-reference/text-to-speech",
+      "https://elevenlabs.io/docs/api-reference/pronunciation-dictionaries",
+      "https://docs.heygen.com/",
+      "https://docs.d-id.com/",
+      "https://developers.google.com/youtube/v3/docs/videos/insert",
+      "https://developers.google.com/youtube/v3/guides/uploading_a_video",
+      "https://support.google.com/youtube/answer/15424877",
+      "https://developers.tiktok.com/doc/content-posting-api-get-started/",
+      "https://remotion.dev/docs",
+      "https://ffmpeg.org/ffmpeg-doc.html"
+    ],
+    "result": "not_freshly_verified_deferred_non_blocking_for_phase1",
+    "inspection_date": "2026-07-11",
+    "operator_override": "fresh_external_provider_document_fetching_is_not_a_phase1_blocker_for_local_non_posting_request_builder_only_phase2",
+    "required_before_provider_execution": "LIVE_DOCUMENT_REVALIDATION_REQUIRED_BEFORE_PROVIDER_EXECUTION"
+  }
+}
