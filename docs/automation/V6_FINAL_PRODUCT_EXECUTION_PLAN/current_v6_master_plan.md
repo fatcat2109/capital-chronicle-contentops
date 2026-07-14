@@ -6,11 +6,11 @@ Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicl
 
 Authority date: 2026-07-14
 
-Current classification: `AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS`.
+Current classification: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
 
 ## Product State
 
-The July 11 RC remains historical transport evidence. The July 14 generic Treasury canary is the current release candidate: it consumed exact story-scoped database publication authority, passed Substack plus eight derivative readback, and passed machine audit. Public outputs are frozen for operator acceptance and no `v1.0` tag exists.
+The July 11 RC remains historical transport evidence. The July 14 generic Treasury canary is the accepted v1.0 release: it consumed exact story-scoped database publication authority, passed Substack plus eight derivative readback and machine audit, received the exact final auction-logic repair, preserved all derivative identities, and passed operator acceptance. Public outputs remain frozen and annotated tag `v1.0` marks the completing release commit.
 
 ## Product North Star
 
@@ -76,6 +76,6 @@ Bounded repairs restored historical LinkedIn content, corrected Facebook copy, a
 
 Current generic live evidence: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`.
 
-Database packet `cc-publication-73ff151c3d3094741b6c` grants story-scoped `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED` while preserving global `dqr=BLOCKED`. The canonical runner published `Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%`, then produced eight native derivatives with strict readback. A bounded update repaired one Substack caption fragment without derivative writes. Machine QA passes.
+Database packet `cc-publication-73ff151c3d3094741b6c` grants story-scoped `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED` while preserving global `dqr=BLOCKED`. The canonical runner published `Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%`, then produced eight native derivatives with strict readback. Bounded updates repaired the Substack caption fragment, tightened the RC, and corrected the final auction-confirmation logic without derivative or video writes. Strict readback preserved all three ordered visuals, captions, sources, and numeric claims. Machine QA and the final release verifier pass.
 
-The only remaining gate is `TASK_CONTENTOPS_OPERATOR_FINAL_V1_0_ACCEPTANCE_AND_TAG`. No engineering rerun is authorized or required; current outputs remain frozen.
+ContentOps v1.0 is operator-accepted. The next route is `TASK_CONTENTOPS_NEWSROOM_CANDIDATE_ASSIGNMENT_AND_FIVE_WINDOW_SCHEDULING_V1`; newsroom implementation was not started during release closure.

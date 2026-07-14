@@ -1,6 +1,9 @@
 {
   "blockers": [],
   "checks": {
+    "final_auction_logic_repair_verified": true,
+    "final_repair_derivatives_frozen": true,
+    "final_repair_numeric_claims_preserved": true,
     "freshness_passed": true,
     "generic_live_path_used": true,
     "legacy_topic_adapter_not_used": true,
@@ -13,7 +16,7 @@
     "v1_tag_absent": true
   },
   "classification": "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS",
-  "release_finalizer_command": "python -m live_contentops.eight_platform_substack_first_pipeline_v1 --run-id contentops-v1.0.0 --output-dir \"docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\" --finalize-v1-tag --operator-final-acceptance ACCEPT",
+  "release_finalizer_command": "python -m live_contentops.eight_platform_substack_first_pipeline_v1 --run-id v1.0 --output-dir \"docs\\automation\\DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1\\contentops_database_publication_live_20260714_1\" --finalize-v1-tag --operator-final-acceptance ACCEPT",
   "schema_version": "contentops.final_release_readiness_verifier.v1",
   "task_label": "TASK_CONTENTOPS_FINAL_AUTOMATION_PIPELINE_CLOSURE_LIVE_REPAIR_CANARY_AND_V1_0_RC_V1",
   "v1_0_tag_allowed": false

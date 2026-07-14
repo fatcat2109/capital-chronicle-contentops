@@ -6,7 +6,7 @@ The latest official Treasury curve sits above the previous session at the long e
 
 The Curve Moved at More Than One Point
 
-The official table shows the 2-year yield rising five basis points from July 10, to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.
+The official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.
 
 The 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.
 
@@ -34,7 +34,7 @@ For companies and households, the practical issue is the broader cost of capital
 
 What Would Confirm or Challenge the Signal
 
-Confirmation would require more than another one-basis-point widening. A sustained rise in the 10-year and 30-year sectors relative to the 2-year, accompanied by firm demand evidence from Treasury auctions, would confirm that the long-end pressure is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.
+Confirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.
 
 The signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.
 

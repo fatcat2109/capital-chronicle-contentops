@@ -1,11 +1,11 @@
 # V6 Next Task Pointer
 
-Current task: `TASK_CONTENTOPS_V1_0_RC_TARGETED_EDITORIAL_REPAIR_AND_ACCEPTANCE_PREP_V1`
+Completed task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`
 
-Classification: `AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS`
+Classification: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`
 
 ## Next Action
 
-`TASK_CONTENTOPS_OPERATOR_FINAL_V1_0_ACCEPTANCE_AND_TAG`
+`TASK_CONTENTOPS_NEWSROOM_CANDIDATE_ASSIGNMENT_AND_FIVE_WINDOW_SCHEDULING_V1`
 
-The Treasury Substack RC was tightened in place on its existing URL. Strict readback reconfirmed the title, subtitle, full body, sources, captions, and three distributed visuals; all eight derivative records remained unchanged and no derivative write ran. No engineering work or broad rerun is pending. Jim should inspect the short audit set for run `contentops_database_publication_live_20260714_1`, accept or reject the editorial and visual output, and only after explicit acceptance run the prepared release verifier/finalizer. All current public outputs are frozen. No `v1.0` tag exists.
+ContentOps v1.0 was operator-accepted after the exact Treasury auction-logic repair, strict public readback, independent visual audit, frozen eight-derivative proof, and zero-blocker release verifier. The annotated `v1.0` tag binds the completing release commit. Newsroom implementation was not started in this release-closure task; the next task begins candidate assignment and configurable five-window scheduling under the tracked newsroom master plan.

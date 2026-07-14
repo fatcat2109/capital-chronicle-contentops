@@ -103,6 +103,21 @@ TREASURY_RC_EDITORIAL_REPLACEMENTS = (
     },
 )
 
+FINAL_TREASURY_AUCTION_LOGIC_REPLACEMENTS = (
+    {
+        "old": "A sustained rise in the 10-year and 30-year sectors relative to the 2-year, accompanied by firm demand evidence from Treasury auctions, would confirm that the long-end pressure is persistent.",
+        "new": "A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent.",
+    },
+    {
+        "old": "The official table shows the 2-year yield rising five basis points from July 10, to 4.26%",
+        "new": "The official table shows the 2-year yield rising five basis points from July 10 to 4.26%",
+    },
+)
+FINAL_TREASURY_TITLE = "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%"
+FINAL_TREASURY_SUBTITLE = "The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus."
+FINAL_TREASURY_DRAFT_ID = "206928132"
+FINAL_TREASURY_PUBLIC_URL = "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider"
+
 
 def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -3344,6 +3359,236 @@ def repair_exact_treasury_release_candidate_editorial(
     return evidence
 
 
+def repair_final_treasury_auction_logic(
+    *,
+    output_dir: Path,
+    cdp_port: int,
+) -> dict[str, Any]:
+    """Apply only the operator-authorized final Treasury copy corrections."""
+    evidence_path = output_dir / "run_evidence_v1.json"
+    evidence = _read_json(evidence_path)
+    prior_repair = dict(evidence.get("final_auction_logic_repair") or {})
+    if prior_repair.get("status") == "SUCCESS":
+        return evidence
+    if (prior_repair.get("adapter_result") or {}).get("browser_write_performed"):
+        prior_repair["status"] = "BLOCKED_FINAL_AUCTION_LOGIC_REPAIR_RECONCILIATION_REQUIRED"
+        prior_repair["automatic_retry_blocked"] = True
+        evidence["final_auction_logic_repair"] = prior_repair
+        _write_json(evidence_path, evidence)
+        return evidence
+
+    results = {
+        name: dict(value)
+        for name, value in (evidence.get("results") or {}).items()
+        if isinstance(value, Mapping)
+    }
+    prior_substack = dict(results.get("substack") or {})
+    article = dict(evidence.get("article") or {})
+    assets = list((evidence.get("media") or {}).get("assets") or [])
+    identity_valid = bool(
+        article.get("title") == FINAL_TREASURY_TITLE
+        and article.get("subtitle") == FINAL_TREASURY_SUBTITLE
+        and prior_substack.get("draft_id") == FINAL_TREASURY_DRAFT_ID
+        and str(prior_substack.get("public_url") or "").rstrip("/") == FINAL_TREASURY_PUBLIC_URL
+        and len(assets) == 3
+    )
+    if not identity_valid:
+        evidence["final_auction_logic_repair"] = {
+            "status": "BLOCKED_FINAL_AUCTION_LOGIC_REPAIR_IDENTITY_MISMATCH",
+            "browser_write_performed": False,
+            "derivative_writes_performed": False,
+            "video_adapters_invoked": False,
+        }
+        _write_json(evidence_path, evidence)
+        return evidence
+
+    original_markdown = str(article.get("substack_body_markdown") or "")
+    original_rendered = str(article.get("rendered_body") or "")
+    try:
+        revised_markdown = _apply_exact_editorial_replacements(
+            original_markdown, FINAL_TREASURY_AUCTION_LOGIC_REPLACEMENTS
+        )
+        revised_rendered = _apply_exact_editorial_replacements(
+            original_rendered, FINAL_TREASURY_AUCTION_LOGIC_REPLACEMENTS
+        )
+        editor_replacements: list[dict[str, str]] = []
+        markdown_paragraphs = re.split(r"\n\s*\n", original_markdown)
+        for row in FINAL_TREASURY_AUCTION_LOGIC_REPLACEMENTS:
+            old_fragment = str(row["old"])
+            new_fragment = str(row["new"])
+            matching_paragraphs = [
+                paragraph for paragraph in markdown_paragraphs
+                if old_fragment in paragraph
+            ]
+            if len(matching_paragraphs) != 1:
+                raise ValueError(
+                    f"exact_editorial_paragraph_count_invalid:{_sha256(old_fragment)}"
+                )
+            old_paragraph = matching_paragraphs[0]
+            editor_replacements.append(
+                {
+                    "old": old_paragraph,
+                    "new": old_paragraph.replace(old_fragment, new_fragment, 1),
+                }
+            )
+    except ValueError as error:
+        evidence["final_auction_logic_repair"] = {
+            "status": "BLOCKED_FINAL_AUCTION_LOGIC_REPAIR_EXACT_MATCH_FAILED",
+            "reason": str(error),
+            "browser_write_performed": False,
+            "derivative_writes_performed": False,
+            "video_adapters_invoked": False,
+        }
+        _write_json(evidence_path, evidence)
+        return evidence
+
+    numeric_pattern = re.compile(r"\b\d+(?:\.\d+)?%?|\b\d{4}-\d{2}-\d{2}\b")
+    numeric_claims_before = numeric_pattern.findall(original_rendered)
+    numeric_claims_after = numeric_pattern.findall(revised_rendered)
+    frozen_before = {
+        platform: _json_sha256(row)
+        for platform, row in results.items()
+        if platform != "substack"
+    }
+    frozen_identities_before = {
+        platform: {
+            "id": row.get("id"),
+            "public_url": row.get("public_url"),
+            "payload_sha256": row.get("payload_sha256"),
+        }
+        for platform, row in results.items()
+        if platform != "substack"
+    }
+
+    editor_repair = repair_substack_editorial_paragraphs_via_edge(
+        cdp_port=cdp_port,
+        draft_id=FINAL_TREASURY_DRAFT_ID,
+        expected_title=FINAL_TREASURY_TITLE,
+        replacements=editor_replacements,
+    )
+    updated = None
+    if editor_repair.get("status") == "SUCCESS":
+        updated = publish_substack_article_via_edge(
+            cdp_port=cdp_port,
+            title=FINAL_TREASURY_TITLE,
+            subtitle=FINAL_TREASURY_SUBTITLE,
+            body_markdown=revised_markdown,
+            image_assets=assets,
+            public_screenshot_path=output_dir / "public_substack_readback.png",
+            existing_draft_id=FINAL_TREASURY_DRAFT_ID,
+            existing_public_url=FINAL_TREASURY_PUBLIC_URL,
+        )
+
+    readback = dict((updated or {}).get("readback") or {})
+    visible_text = " ".join(str(readback.get("visible_body_text") or "").split())
+    new_auction_sentence = FINAL_TREASURY_AUCTION_LOGIC_REPLACEMENTS[0]["new"]
+    corrected_yield_fragment = FINAL_TREASURY_AUCTION_LOGIC_REPLACEMENTS[1]["new"]
+    old_fragments = [str(row["old"]) for row in FINAL_TREASURY_AUCTION_LOGIC_REPLACEMENTS]
+    forbidden_process_terms = (
+        "governed",
+        "packet timestamp",
+        "evidence packet",
+        "public claim permission",
+    )
+    frozen_after = {
+        platform: _json_sha256(row)
+        for platform, row in results.items()
+        if platform != "substack"
+    }
+    frozen_identities_after = {
+        platform: {
+            "id": row.get("id"),
+            "public_url": row.get("public_url"),
+            "payload_sha256": row.get("payload_sha256"),
+        }
+        for platform, row in results.items()
+        if platform != "substack"
+    }
+    success = bool(
+        updated
+        and updated.get("status") == "SUCCESS"
+        and updated.get("publication_write_mode") == "update_existing_public_article"
+        and updated.get("draft_id") == FINAL_TREASURY_DRAFT_ID
+        and str(updated.get("public_url") or "").rstrip("/") == FINAL_TREASURY_PUBLIC_URL
+        and readback.get("title_visible") is True
+        and readback.get("subtitle_visible") is True
+        and readback.get("body_complete") is True
+        and readback.get("captions_visible") is True
+        and readback.get("content_readback_verified") is True
+        and readback.get("source_links_visible") is True
+        and readback.get("source_url_count_expected") == 6
+        and readback.get("public_image_count") == 3
+        and readback.get("public_image_alt_or_caption_count") == 3
+        and readback.get("visual_spread_through_public_body") is True
+        and visible_text.count(new_auction_sentence) == 1
+        and visible_text.count(corrected_yield_fragment) == 1
+        and all(fragment not in visible_text for fragment in old_fragments)
+        and all(term not in visible_text.casefold() for term in forbidden_process_terms)
+        and numeric_claims_before == numeric_claims_after
+        and frozen_before == frozen_after
+        and frozen_identities_before == frozen_identities_after
+    )
+    if success:
+        article["substack_body_markdown"] = revised_markdown
+        article["substack_body_markdown_sha256"] = _sha256(revised_markdown)
+        article["rendered_body"] = revised_rendered
+        article["article_markdown_sha256"] = _sha256(revised_rendered)
+        article["word_count"] = len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", revised_rendered))
+        results["substack"] = {
+            **updated,
+            "destination_identity": "Capital Chronicle",
+            "action": "edit_existing_final_treasury_auction_logic",
+            "canonical_url_preserved": True,
+            "editorial_repair": editor_repair,
+        }
+        _write_text(output_dir / "canonical_article.md", revised_rendered)
+        readback_path = output_dir / "substack_browser_readback_v1.json"
+        browser_readback = _read_json(readback_path) if readback_path.is_file() else {}
+        browser_readback.update(
+            {
+                "body_markdown_sha256": _sha256(revised_markdown),
+                "editor_body_image_count": 3,
+                "public_url": FINAL_TREASURY_PUBLIC_URL,
+                "status": "SUCCESS",
+            }
+        )
+        _write_json(readback_path, browser_readback)
+
+    evidence["article"] = article
+    evidence["results"] = results
+    evidence["final_auction_logic_repair"] = {
+        "status": "SUCCESS" if success else "BLOCKED_FINAL_AUCTION_LOGIC_REPAIR_NOT_PUBLICLY_VERIFIED",
+        "adapter_result": editor_repair,
+        "publish_readback_status": (updated or {}).get("status"),
+        "canonical_url_preserved": bool(success),
+        "before_body_sha256": _sha256(original_markdown),
+        "after_body_sha256": _sha256(revised_markdown),
+        "replacement_count": len(FINAL_TREASURY_AUCTION_LOGIC_REPLACEMENTS),
+        "old_text_sha256": [_sha256(str(row["old"])) for row in FINAL_TREASURY_AUCTION_LOGIC_REPLACEMENTS],
+        "new_text_sha256": [_sha256(str(row["new"])) for row in FINAL_TREASURY_AUCTION_LOGIC_REPLACEMENTS],
+        "numeric_claims_preserved": numeric_claims_before == numeric_claims_after,
+        "treasury_auction_mechanics_inspection": {
+            "url": "https://www.treasurydirect.gov/auctions/how-auctions-work/",
+            "inspected_on": "2026-07-14",
+            "finding": "competitive bids are accepted from lowest to highest yield and all successful bidders receive the highest accepted yield",
+        },
+        "strict_public_readback": readback,
+        "derivative_writes_performed": False,
+        "video_adapters_invoked": False,
+        "frozen_derivative_payload_hashes_before": frozen_before,
+        "frozen_derivative_payload_hashes_after": frozen_after,
+        "frozen_derivative_identities_before": frozen_identities_before,
+        "frozen_derivative_identities_after": frozen_identities_after,
+        "frozen_derivatives_preserved": frozen_before == frozen_after and frozen_identities_before == frozen_identities_after,
+        "automatic_retry_blocked_after_unknown_write": True,
+    }
+    if success:
+        evidence["classification"] = "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS"
+    evidence["final_platform_matrix"] = _persist_final_platform_matrix(output_dir, evidence)
+    _write_json(evidence_path, evidence)
+    return evidence
+
+
 def reconcile_linkedin_activity_pair(
     *,
     output_dir: Path,
@@ -3640,6 +3885,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--reconcile-readbacks", action="store_true")
     parser.add_argument("--repair-substack-caption-fragment", action="store_true")
     parser.add_argument("--repair-treasury-rc-editorial", action="store_true")
+    parser.add_argument("--repair-final-treasury-auction-logic", action="store_true")
     parser.add_argument("--reconcile-linkedin-pair", action="store_true")
     parser.add_argument("--linkedin-accepted-url")
     parser.add_argument("--linkedin-accepted-id")
@@ -3696,6 +3942,18 @@ def main(argv: Sequence[str] | None = None) -> int:
             "public_url": ((result.get("results") or {}).get("substack") or {}).get("public_url"),
         }, indent=2, sort_keys=True))
         return 0 if (result.get("targeted_editorial_repair") or {}).get("status") == "SUCCESS" else 2
+    if args.repair_final_treasury_auction_logic:
+        if not args.operator_approved_full_live_run:
+            print(json.dumps({"classification": "BLOCKED_FINAL_AUCTION_LOGIC_REPAIR", "reason": "operator_approved_full_live_run_flag_required"}, sort_keys=True))
+            return 2
+        result = repair_final_treasury_auction_logic(output_dir=output, cdp_port=args.cdp_port)
+        repair = dict(result.get("final_auction_logic_repair") or {})
+        print(json.dumps({
+            "classification": result.get("classification"),
+            "repair": repair.get("status"),
+            "public_url": ((result.get("results") or {}).get("substack") or {}).get("public_url"),
+        }, indent=2, sort_keys=True))
+        return 0 if repair.get("status") == "SUCCESS" else 2
     if args.closure_historical_repair:
         from live_contentops.final_automation_closure_v1 import run_historical_repairs
 

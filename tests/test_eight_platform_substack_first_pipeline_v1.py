@@ -49,6 +49,133 @@ def test_exact_editorial_replacement_fails_on_missing_or_ambiguous_source() -> N
         pipeline._apply_exact_editorial_replacements("exact paragraph exact paragraph", replacement)
 
 
+def _final_treasury_evidence() -> dict:
+    punctuation = (
+        "The official table shows the 2-year yield rising five basis points from July 10, to 4.26%, "
+        "while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%."
+    )
+    auction = (
+        "Confirmation would require more than another one-basis-point widening. "
+        "A sustained rise in the 10-year and 30-year sectors relative to the 2-year, accompanied by firm demand evidence from Treasury auctions, would confirm that the long-end pressure is persistent. "
+        "The next CPI release and subsequent official curve closes are named catalysts."
+    )
+    body = f"Opening paragraph.\n\n{punctuation}\n\n{auction}\n"
+    results = {
+        name: {"status": "SUCCESS", "id": f"{name}-id", "public_url": f"https://example.com/{name}", "payload_sha256": name}
+        for name in pipeline.EXPECTED_DESTINATIONS
+    }
+    results["substack"] = {
+        "status": "SUCCESS",
+        "draft_id": pipeline.FINAL_TREASURY_DRAFT_ID,
+        "public_url": pipeline.FINAL_TREASURY_PUBLIC_URL,
+    }
+    return {
+        "article": {
+            "title": pipeline.FINAL_TREASURY_TITLE,
+            "subtitle": pipeline.FINAL_TREASURY_SUBTITLE,
+            "substack_body_markdown": body,
+            "rendered_body": body,
+        },
+        "media": {"assets": [{"asset_id": value} for value in ("one", "two", "three")]},
+        "results": results,
+    }
+
+
+def test_final_treasury_auction_repair_is_exact_and_freezes_derivatives(tmp_path: Path, monkeypatch) -> None:
+    evidence = _final_treasury_evidence()
+    (tmp_path / "run_evidence_v1.json").write_text(json.dumps(evidence), encoding="utf-8")
+    frozen_before = json.loads(json.dumps(evidence["results"]))
+    captured: dict = {}
+
+    def editor(**kwargs):
+        captured["replacements"] = kwargs["replacements"]
+        assert len(kwargs["replacements"]) == 2
+        assert all(row["old"].count(".") >= 1 for row in kwargs["replacements"])
+        return {"status": "SUCCESS", "browser_write_performed": True}
+
+    revised = pipeline._apply_exact_editorial_replacements(
+        evidence["article"]["substack_body_markdown"],
+        pipeline.FINAL_TREASURY_AUCTION_LOGIC_REPLACEMENTS,
+    )
+    visible = " ".join(revised.split())
+    monkeypatch.setattr(pipeline, "repair_substack_editorial_paragraphs_via_edge", editor)
+    monkeypatch.setattr(
+        pipeline,
+        "publish_substack_article_via_edge",
+        lambda **kwargs: {
+            "status": "SUCCESS",
+            "draft_id": pipeline.FINAL_TREASURY_DRAFT_ID,
+            "public_url": pipeline.FINAL_TREASURY_PUBLIC_URL,
+            "publication_write_mode": "update_existing_public_article",
+            "readback": {
+                "title_visible": True,
+                "subtitle_visible": True,
+                "body_complete": True,
+                "captions_visible": True,
+                "content_readback_verified": True,
+                "source_links_visible": True,
+                "source_url_count_expected": 6,
+                "public_image_count": 3,
+                "public_image_alt_or_caption_count": 3,
+                "visual_spread_through_public_body": True,
+                "visible_body_text": visible,
+            },
+        },
+    )
+    monkeypatch.setattr(pipeline, "_persist_final_platform_matrix", lambda *_args, **_kwargs: {})
+
+    result = pipeline.repair_final_treasury_auction_logic(output_dir=tmp_path, cdp_port=9223)
+
+    repair = result["final_auction_logic_repair"]
+    assert repair["status"] == "SUCCESS"
+    assert repair["replacement_count"] == 2
+    assert repair["numeric_claims_preserved"] is True
+    assert repair["frozen_derivatives_preserved"] is True
+    assert repair["derivative_writes_performed"] is False
+    assert repair["video_adapters_invoked"] is False
+    for name, row in frozen_before.items():
+        if name != "substack":
+            assert result["results"][name] == row
+    assert len(captured["replacements"]) == 2
+    assert "July 10 to 4.26%" in result["article"]["rendered_body"]
+    assert "firm demand evidence" not in result["article"]["rendered_body"]
+
+
+def test_final_treasury_auction_repair_blocks_identity_mismatch_without_browser(tmp_path: Path, monkeypatch) -> None:
+    evidence = _final_treasury_evidence()
+    evidence["article"]["subtitle"] = "unauthorized subtitle"
+    (tmp_path / "run_evidence_v1.json").write_text(json.dumps(evidence), encoding="utf-8")
+    monkeypatch.setattr(
+        pipeline,
+        "repair_substack_editorial_paragraphs_via_edge",
+        lambda **kwargs: (_ for _ in ()).throw(AssertionError("browser must not run")),
+    )
+
+    result = pipeline.repair_final_treasury_auction_logic(output_dir=tmp_path, cdp_port=9223)
+
+    assert result["final_auction_logic_repair"]["status"] == "BLOCKED_FINAL_AUCTION_LOGIC_REPAIR_IDENTITY_MISMATCH"
+
+
+def test_final_treasury_auction_repair_never_retries_unknown_write(tmp_path: Path, monkeypatch) -> None:
+    evidence = _final_treasury_evidence()
+    evidence["final_auction_logic_repair"] = {
+        "status": "BLOCKED_FINAL_AUCTION_LOGIC_REPAIR_NOT_PUBLICLY_VERIFIED",
+        "adapter_result": {"browser_write_performed": True},
+    }
+    (tmp_path / "run_evidence_v1.json").write_text(json.dumps(evidence), encoding="utf-8")
+    monkeypatch.setattr(
+        pipeline,
+        "repair_substack_editorial_paragraphs_via_edge",
+        lambda **kwargs: (_ for _ in ()).throw(AssertionError("unknown write must reconcile, not retry")),
+    )
+
+    result = pipeline.repair_final_treasury_auction_logic(output_dir=tmp_path, cdp_port=9223)
+
+    repair = result["final_auction_logic_repair"]
+    assert repair["status"] == "BLOCKED_FINAL_AUCTION_LOGIC_REPAIR_RECONCILIATION_REQUIRED"
+    assert repair["automatic_retry_blocked"] is True
+
+
 def test_native_payloads_are_distinct_and_carry_canonical_url():
     canonical_url = "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-policy-calibration"
     payloads = build_native_derivative_payloads(article=_article(), selection=_selection(), canonical_url=canonical_url)

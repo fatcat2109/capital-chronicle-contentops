@@ -21,15 +21,15 @@
 | 17 | LinkedIn exact-activity idempotency and fresh-run integrity | DONE_GENERIC_CANARY_FRESH_ACTIVITY_STRICT_READBACK |
 | 18 | Non-empty Threads reply parent | DONE_GENERIC_CANARY_ORDERED_TWO_REPLY_CHAIN |
 | 19 | Substack canonical publication/re-entry guard | DONE_GENERIC_CANARY_AND_BOUNDED_UPDATE |
-| 20 | Nine text/image destinations and YouTube Community default | DONE_MACHINE_QA_PASS_OPERATOR_AUDIT_PENDING |
+| 20 | Nine text/image destinations and YouTube Community default | DONE_MACHINE_QA_AND_OPERATOR_ACCEPTED |
 | 21 | Real ingestion rehearsal | DONE_FAIL_CLOSED |
 | 22 | Six generalized story fixtures | DONE_LOCAL_ONLY |
 | 23 | V5 evidence dashboard | PENDING |
-| 24 | Database-authorized generic live canary/re-audit | DONE_MACHINE_QA_PASS |
-| 25 | v1.0 tag | BLOCKED_UNTIL_OPERATOR_ACCEPTANCE |
+| 24 | Database-authorized generic live canary/re-audit | DONE_MACHINE_QA_PASS_OPERATOR_ACCEPTED |
+| 25 | v1.0 tag | DONE_ANNOTATED_OPERATOR_ACCEPTED_RELEASE |
 
-Current task: `TASK_CONTENTOPS_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1`.
+Current task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1` — `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
 
 Completed architecture authority: `TASK_CONTENTOPS_GENERIC_EVIDENCE_FRESHNESS_VISUAL_EDITORIAL_FABRIC_V2`.
 
-Next route: `TASK_CONTENTOPS_OPERATOR_FINAL_V1_0_ACCEPTANCE_AND_TAG`.
+Next route: `TASK_CONTENTOPS_NEWSROOM_CANDIDATE_ASSIGNMENT_AND_FIVE_WINDOW_SCHEDULING_V1`.

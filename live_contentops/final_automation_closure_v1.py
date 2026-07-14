@@ -338,13 +338,14 @@ def verify_release_readiness(*, output_dir: Path, generic_result_path: Path | No
         results = generic.get("results") or {}
         try:
             tag_absent = not subprocess.run(
-                ["git", "tag", "--list", "contentops-v1.0.0"],
+                ["git", "tag", "--list", "v1.0"],
                 check=True,
                 capture_output=True,
                 text=True,
             ).stdout.strip()
         except (OSError, subprocess.CalledProcessError):
             tag_absent = False
+        final_repair = dict(generic.get("final_auction_logic_repair") or {})
         checks = {
             "generic_live_path_used": True,
             "legacy_topic_adapter_not_used": generic.get("legacy_topic_adapter_used") is False,
@@ -359,6 +360,13 @@ def verify_release_readiness(*, output_dir: Path, generic_result_path: Path | No
             "substack_plus_eight_derivatives_passed": all((results.get(name) or {}).get("status") == "SUCCESS" for name in required),
             "no_unresolved_unknown": not any("UNKNOWN" in str((results.get(name) or {}).get("status") or "") for name in required),
             "substack_caption_repair_verified": (generic.get("substack_caption_repair") or {}).get("status") == "SUCCESS",
+            "final_auction_logic_repair_verified": final_repair.get("status") == "SUCCESS",
+            "final_repair_numeric_claims_preserved": final_repair.get("numeric_claims_preserved") is True,
+            "final_repair_derivatives_frozen": bool(
+                final_repair.get("frozen_derivatives_preserved")
+                and final_repair.get("derivative_writes_performed") is False
+                and final_repair.get("video_adapters_invoked") is False
+            ),
             "machine_audit_passed": (audit.get("machine_qa") or {}).get("status") == "PASS",
             "v1_tag_absent": tag_absent,
         }
@@ -381,7 +389,7 @@ def verify_release_readiness(*, output_dir: Path, generic_result_path: Path | No
         "checks": checks,
         "blockers": blockers,
         "v1_0_tag_allowed": False,
-        "release_finalizer_command": f'python -m live_contentops.eight_platform_substack_first_pipeline_v1 --run-id contentops-v1.0.0 --output-dir "{output_dir}" --finalize-v1-tag --operator-final-acceptance ACCEPT',
+        "release_finalizer_command": f'python -m live_contentops.eight_platform_substack_first_pipeline_v1 --run-id v1.0 --output-dir "{output_dir}" --finalize-v1-tag --operator-final-acceptance ACCEPT',
     }
     _write(output_dir / "final_release_readiness_v1.json", result)
     return result
@@ -401,16 +409,19 @@ def finalize_v1_tag(*, verifier_path: Path, operator_acceptance: str) -> dict[st
             ["git", *args], check=True, capture_output=True, text=True
         ).stdout.strip()
 
+    tag_name = "v1.0"
+    tag_message = "Capital Chronicle ContentOps v1.0 — database-authorized supervised nine-surface release"
     try:
         branch = git("branch", "--show-current")
         local_head = git("rev-parse", "HEAD")
         remote_head = git("rev-parse", "origin/master")
-        existing_tag = git("tag", "--list", "contentops-v1.0.0")
+        existing_tag = git("tag", "--list", tag_name)
     except (OSError, subprocess.CalledProcessError) as error:
         return {
             "status": "BLOCKED_RELEASE_FINALIZER_GIT_STATE_UNAVAILABLE",
             "checks": checks,
             "error_type": type(error).__name__,
+            "tag_created": False,
         }
     checks.update({
         "branch_is_master": branch == "master",
@@ -426,12 +437,35 @@ def finalize_v1_tag(*, verifier_path: Path, operator_acceptance: str) -> dict[st
             "remote_head": remote_head,
             "tag_created": False,
         }
-    git("tag", "-a", "contentops-v1.0.0", "-m", "Capital Chronicle ContentOps v1.0.0")
-    git("push", "origin", "contentops-v1.0.0")
+    try:
+        git("tag", "-a", tag_name, "-m", tag_message)
+        git("push", "origin", tag_name)
+        remote_tag = git("ls-remote", "origin", f"refs/tags/{tag_name}^{{}}")
+    except (OSError, subprocess.CalledProcessError) as error:
+        return {
+            "status": "BLOCKED_RELEASE_TAG_CREATE_OR_PUSH_FAILED",
+            "checks": checks,
+            "tag": tag_name,
+            "commit_sha": local_head,
+            "tag_created": bool(git("tag", "--list", tag_name)),
+            "error_type": type(error).__name__,
+        }
+    remote_commit = remote_tag.split()[0] if remote_tag else ""
+    if remote_commit != local_head:
+        return {
+            "status": "BLOCKED_RELEASE_REMOTE_TAG_VERIFICATION_FAILED",
+            "checks": checks,
+            "tag": tag_name,
+            "commit_sha": local_head,
+            "remote_tag_commit_sha": remote_commit or None,
+            "tag_created": True,
+        }
     return {
         "status": "SUCCESS_RELEASE_TAG_CREATED_AND_PUSHED",
         "checks": checks,
-        "tag": "contentops-v1.0.0",
+        "tag": tag_name,
+        "tag_message": tag_message,
         "commit_sha": local_head,
+        "remote_tag_commit_sha": remote_commit,
         "tag_created": True,
     }
