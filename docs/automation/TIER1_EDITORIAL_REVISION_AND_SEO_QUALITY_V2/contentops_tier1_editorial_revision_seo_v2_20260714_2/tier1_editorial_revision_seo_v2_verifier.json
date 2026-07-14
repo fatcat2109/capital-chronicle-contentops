@@ -1,41 +1,35 @@
 {
-  "classification": "PASS_COMPLETE_MANDATORY_TIER1_V2_LOCAL_NO_WRITE",
+  "classification": "PASS_COMPLETE_NEWSROOM_TIER1_EDITORIAL_AUTOMATED_OPERATOR_PACKET_V2_LOCAL_NO_WRITE",
   "integrity": {
     "artifact_records": [
       {
         "path": "content_unit_claim_graph_v2.json",
         "schema_version": "contentops.editorial_revision_contract.v2",
-        "sha256": "836503c794973ba610c51e20b1562f8d74e13f608e1c0610426fbafd47587049",
+        "sha256": "69edf719fcf863058faaaa04e85cc60f967621e837b9c6b231702d7d5609a914",
         "status_or_classification": "PASS"
       },
       {
         "path": "editorial_revision_contract_v2.json",
         "schema_version": "contentops.editorial_revision_contract.v2",
-        "sha256": "126a1fcaa91c29121e24b7f00c67be7e89286720a104ca05de235ea29e40828e",
+        "sha256": "26475867c2194e9a3d8f372f522991d082a1263732b4a86822f69befc29aed54",
         "status_or_classification": "PASS"
-      },
-      {
-        "path": "operator_review_evidence_map_v2.json",
-        "schema_version": "contentops.operator_review_evidence_map.v2",
-        "sha256": "502559319331979be8a577c5e58c9ec48cd053b9030a52a66e6c15c43c29e7e0",
-        "status_or_classification": "PASS_COMPLETE_MANDATORY_TIER1_V2_LOCAL_NO_WRITE"
       },
       {
         "path": "README.md",
         "schema_version": null,
-        "sha256": "2b8f30ce37373ef0ee06b058a27b11126bde55e80eb80033a1605aa5110cd643",
+        "sha256": "95a5fbc6cc3087736065dc02a18d8cafb3e4c596d3b92c003984668e84d9ca41",
         "status_or_classification": null
       },
       {
         "path": "treasury_editorial_revision_v2_request.json",
         "schema_version": "contentops.treasury_editorial_revision_v2_request.v1",
-        "sha256": "536416e431278ff54a5530165f7fecaaf8fbdffa4c678ce433ef31ad1827c0c3",
+        "sha256": "8759684835063ab9c453e2cf2d36d22f72f90388d3fdd9212e8f887f9cf1c4a4",
         "status_or_classification": null
       },
       {
         "path": "treasury_revision_stage_inputs_v0_v8.json",
         "schema_version": "contentops.treasury_revision_stage_inputs.v0_v8",
-        "sha256": "d7a1a9c41aedf9860bcf0b25899fb057618efff25cb18ab19be1dfc7bc07345c",
+        "sha256": "36cfddb2a7c2bc721d91bde758a3b013353880078ce66b191f35852fa1068279",
         "status_or_classification": null
       }
     ]
@@ -51,14 +45,14 @@
   },
   "schema_version": "contentops.tier1_editorial_revision_seo_v2_verifier.v2",
   "source_commit": "c0885ac188140d44685f26f2d1e2ca59f52d73a6",
-  "task": "TASK_CONTENTOPS_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V1",
+  "task": "TASK_CONTENTOPS_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V2",
   "validation": {
     "accepted_public_body_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
-    "canonical_public_url": "https://capitalchronicle.substack.com/p/us-treasury-30-year-yield-curve-slope",
+    "canonical_public_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
     "claim_graph_status": "PASS",
     "content_unit_count": 50,
     "continuous_content_hashes": true,
-    "focused_pytest": "41 passed",
+    "focused_pytest": "55 passed",
     "json_and_sha256_validation": "PASS",
     "python_compile": "PASS",
     "revision_contract_status": "PASS",

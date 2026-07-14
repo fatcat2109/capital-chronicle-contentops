@@ -22,6 +22,7 @@ def base_window():
         "minimum_urgency_threshold": 60,
         "minimum_impact_threshold": 55,
         "preemption_allowed": True,
+        "minimum_preemption_impact_delta": 15.0,
         "daily_portfolio_limit": 2,
         "score_weights": {
             "urgency": 0.4,
@@ -37,8 +38,11 @@ def mock_candidate():
         "candidate_id": "cc-candidate-11111111111111111111",
         "story_id": "cc-story-11111111111111111111",
         "cluster_id": "cc-cluster-11111111111111111111",
+        "update_chain_id": "cc-update-chain-11111111111111111111",
         "source_packet_id": "cc-packet-1",
         "source_family": "story_scoped_publication_evidence_v1",
+        "evidence_hash": "c" * 64,
+        "source_packet_logical_hash": "d" * 64,
         "story_family": "central_bank",
         "article_mode": "rapid_analysis",
         "title": "Fed announces unexpected rate cut",
@@ -48,11 +52,30 @@ def mock_candidate():
         "relationship": "new_phase",
         "eligible": True,
         "blockers": [],
+        "evidence_class": "exact",
         "authority": {
             "story_decision": "ALLOW",
             "global_dqr": "BLOCKED",
             "global_dqr_override": False,
             "source_authorities": ["Federal Reserve Board"],
+        },
+        "claim_permissions": {
+            "decision": "ALLOW",
+            "reporting_allowed": True,
+            "numeric_claims_allowed": True,
+        },
+        "source_health": {"status": "HEALTHY", "parse_status": "PASS"},
+        "source_documents": [{"source_url": "https://www.federalreserve.gov/monetarypolicy.htm"}],
+        "numeric_claims": [{
+            "claim_id": "fed-rate-change",
+            "metric": "Federal funds target range change",
+            "value": -50,
+            "unit": "basis_points",
+            "source_url": "https://www.federalreserve.gov/monetarypolicy.htm",
+            "public_claim_allowed": True,
+        }],
+        "citation_map": {
+            "fed-rate-change": ["https://www.federalreserve.gov/monetarypolicy.htm"],
         },
         "freshness": {
             "age_hours": 1.5,
@@ -103,23 +126,41 @@ def mock_pool(mock_candidate):
     }
 
 
-def test_score_explainability(mock_candidate):
+def test_score_explainability_preserves_unavailable_dimensions(mock_candidate):
     from datetime import datetime, timezone
     cutoff = datetime(2026, 7, 13, 13, 30, 0, tzinfo=timezone.utc)
     weights = {"urgency": 0.4, "impact": 0.4, "freshness": 0.2}
     scores = calculate_candidate_scores(mock_candidate, cutoff, weights)
-    
-    # Fed is an official source term -> official_bonus 15
-    # central_bank (20) + rates (10) -> tag_impact 30
-    # raw_impact = 40 + 30 + 15 = 85
-    assert scores["impact"] == 85.0
-    # raw_urgency = 35 + 30 * 1.2 + 15 = 86
-    assert scores["urgency"] == 86.0
-    # Freshness: age is 1h 25m = 5100s. max age is 36h = 129600s
-    # decay = (1 - 5100/129600) * 100 = 96.06
-    assert abs(scores["freshness"] - 96.06) < 0.1
-    # total = 85 * 0.4 + 86 * 0.4 + 96.06 * 0.2 = 34 + 34.4 + 19.21 = 87.61
-    assert abs(scores["total"] - 87.61) < 0.1
+
+    assert scores["ranking_model_version"] == "contentops.newsroom_ranking.v2.0.0"
+    assert len(scores["dimensions"]) == 14
+    assert scores["dimensions"]["materiality"] == {
+        "availability": "UNAVAILABLE",
+        "score": None,
+        "reason_codes": ["unavailable_no_measured_change"],
+        "evidence_refs": [],
+    }
+    assert scores["dimensions"]["source_authority"]["score"] == 100.0
+    assert abs(scores["dimensions"]["freshness"]["score"] - 96.06) < 0.1
+    assert scores["availability_summary"] == {
+        "available": 6,
+        "unavailable": 8,
+        "unknown_explicit_inputs": [],
+    }
+    assert abs(scores["impact"] - 97.74) < 0.1
+    assert abs(scores["urgency"] - 95.95) < 0.1
+    assert abs(scores["total"] - 97.51) < 0.1
+
+
+def test_score_is_not_changed_by_keyword_or_tag_injection(mock_candidate):
+    from datetime import datetime, timezone
+    cutoff = datetime(2026, 7, 13, 13, 30, 0, tzinfo=timezone.utc)
+    weights = {"urgency": 0.4, "impact": 0.4, "freshness": 0.2}
+    baseline = calculate_candidate_scores(mock_candidate, cutoff, weights)
+    injected = copy.deepcopy(mock_candidate)
+    injected["title"] = "Fed Treasury FOMC OPEC payroll inflation volatility"
+    injected["tags"] = ["central_bank", "inflation", "energy", "geopolitics", "volatility"]
+    assert calculate_candidate_scores(injected, cutoff, weights) == baseline
 
 
 def test_deterministic_window_decision_publish(base_window, mock_pool):
@@ -129,9 +170,9 @@ def test_deterministic_window_decision_publish(base_window, mock_pool):
         pool=mock_pool,
         previously_published=[],
     )
-    assert res["decision"] == "PUBLISH"
+    assert res["decision"] == "PUBLISH_BREAKING_OR_HIGH_IMPACT"
     assert res["selected_candidate"]["candidate_id"] == "cc-candidate-11111111111111111111"
-    assert "Top-ranked candidate meets thresholds" in res["rationale"]
+    assert "Top-ranked fully gated candidate meets thresholds" in res["rationale"]
 
 
 def test_cutoff_time_no_future_leakage(base_window, mock_pool):
@@ -184,7 +225,10 @@ def test_update_chain_blocker_without_material_update(base_window, mock_pool):
     )
     assert res["decision"] == "NO_PUBLICATION_THRESHOLD_NOT_MET"
     assert res["selected_candidate"] is None
-    assert any(b["blocked_reason"] == "update_chain_without_material_update" for b in res["backlog_candidates"])
+    assert any(
+        "update_chain_without_material_update" in row["blocked_reasons"]
+        for row in res["backlog_candidates"]
+    )
 
 
 def test_preemption_on_highly_urgent_item(base_window, mock_pool):
@@ -193,16 +237,26 @@ def test_preemption_on_highly_urgent_item(base_window, mock_pool):
     window["daily_portfolio_limit"] = 0
     window["preemption_allowed"] = True
     
-    # Under standard rules, we shouldn't publish. But candidate urgency is high (~86 >= 80)
-    # So preemption should trigger!
+    previous = {
+        "candidate_id": "cc-candidate-prior",
+        "_schedule_window_id": "london_open",
+        "_schedule_final_score": 40.0,
+    }
     res = evaluate_window_decision(
         window=window,
         schedule_date="2026-07-13",
         pool=mock_pool,
-        previously_published=[{}],
+        previously_published=[previous],
     )
-    assert res["decision"] == "PUBLISH"
-    assert "Preempted daily portfolio limit" in res["rationale"]
+    assert res["decision"] == "PUBLISH_BREAKING_OR_HIGH_IMPACT"
+    contract = res["preemption_contract"]
+    assert contract["preempted_window"] == "london_open"
+    assert contract["selected_candidate"] == mock_pool["eligible_candidates"][0]["candidate_id"]
+    assert contract["preempted_candidate"] == "cc-candidate-prior"
+    assert contract["impact_delta"] >= base_window["minimum_preemption_impact_delta"]
+    assert len(contract["decision_hash"]) == 64
+    assert contract["operator_state"] == "OPERATOR_REVIEW_REQUIRED"
+    assert "impact delta" in res["rationale"]
 
 
 def test_preemption_blocked_if_preemption_disabled(base_window, mock_pool):
@@ -220,6 +274,77 @@ def test_preemption_blocked_if_preemption_disabled(base_window, mock_pool):
     assert res["selected_candidate"] is None
 
 
+def test_hard_gate_blocks_candidate_with_revoked_reporting_permission(base_window, mock_pool):
+    pool = copy.deepcopy(mock_pool)
+    pool["eligible_candidates"][0]["claim_permissions"]["reporting_allowed"] = False
+    res = evaluate_window_decision(
+        window=base_window,
+        schedule_date="2026-07-13",
+        pool=pool,
+        previously_published=[],
+    )
+    assert res["selected_candidate"] is None
+    assert res["score_details"]["raw_scores"] is None
+    assert "reporting_permission_not_granted" in res["backlog_candidates"][0]["blocked_reasons"]
+
+
+def test_hard_gate_blocks_invalid_evidence_binding(base_window, mock_pool):
+    pool = copy.deepcopy(mock_pool)
+    pool["eligible_candidates"][0]["evidence_hash"] = "not-a-sha256"
+    res = evaluate_window_decision(
+        window=base_window,
+        schedule_date="2026-07-13",
+        pool=pool,
+        previously_published=[],
+    )
+    assert res["selected_candidate"] is None
+    assert "evidence_hash_invalid" in res["backlog_candidates"][0]["blocked_reasons"]
+
+
+def test_hard_gate_blocks_claim_known_after_cutoff(base_window, mock_pool):
+    pool = copy.deepcopy(mock_pool)
+    pool["eligible_candidates"][0]["numeric_claims"][0]["known_at_utc"] = "2026-07-13T14:00:00Z"
+    res = evaluate_window_decision(
+        window=base_window,
+        schedule_date="2026-07-13",
+        pool=pool,
+        previously_published=[],
+    )
+    assert res["selected_candidate"] is None
+    assert "claim_known_at_utc_after_window_cutoff" in res["backlog_candidates"][0]["blocked_reasons"]
+
+
+def test_deterministic_tie_break_uses_candidate_id(base_window, mock_pool):
+    pool = copy.deepcopy(mock_pool)
+    second = copy.deepcopy(pool["eligible_candidates"][0])
+    second["candidate_id"] = "cc-candidate-00000000000000000000"
+    second["story_id"] = "cc-story-00000000000000000000"
+    second["cluster_id"] = "cc-cluster-00000000000000000000"
+    second["update_chain_id"] = "cc-update-chain-00000000000000000000"
+    pool["eligible_candidates"] = [pool["eligible_candidates"][0], second]
+    res = evaluate_window_decision(
+        window=base_window,
+        schedule_date="2026-07-13",
+        pool=pool,
+        previously_published=[],
+    )
+    assert res["selected_candidate"]["candidate_id"] == second["candidate_id"]
+
+
+def test_same_candidate_cannot_publish_twice_even_as_new_phase(base_window, mock_pool):
+    previous = copy.deepcopy(mock_pool["eligible_candidates"][0])
+    previous["_schedule_window_id"] = "asia_open"
+    previous["_schedule_final_score"] = 70.0
+    res = evaluate_window_decision(
+        window=base_window,
+        schedule_date="2026-07-13",
+        pool=mock_pool,
+        previously_published=[previous],
+    )
+    assert res["selected_candidate"] is None
+    assert "candidate_already_published_today" in res["backlog_candidates"][0]["blocked_reasons"]
+
+
 def test_full_newsroom_scheduling_flow(tmp_path, mock_pool):
     pool_file = tmp_path / "candidate_pool.json"
     pool_file.write_text(json.dumps(mock_pool), encoding="utf-8")
@@ -234,6 +359,7 @@ def test_full_newsroom_scheduling_flow(tmp_path, mock_pool):
                 "minimum_urgency_threshold": 60,
                 "minimum_impact_threshold": 55,
                 "preemption_allowed": True,
+                "minimum_preemption_impact_delta": 15.0,
                 "daily_portfolio_limit": 2,
                 "score_weights": {"urgency": 0.4, "impact": 0.4, "freshness": 0.2},
             }
@@ -242,13 +368,26 @@ def test_full_newsroom_scheduling_flow(tmp_path, mock_pool):
     windows_file = tmp_path / "windows.json"
     windows_file.write_text(json.dumps(windows_config), encoding="utf-8")
     
+    first_output = tmp_path / "first"
+    second_output = tmp_path / "second"
     schedule = build_newsroom_schedule(
         schedule_date="2026-07-13",
         pool_path=pool_file,
         windows_path=windows_file,
-        output_dir=tmp_path / "out",
+        output_dir=first_output,
     )
-    
+    replay = build_newsroom_schedule(
+        schedule_date="2026-07-13",
+        pool_path=pool_file,
+        windows_path=windows_file,
+        output_dir=second_output,
+    )
+
+    first_path = first_output / "newsroom_schedule_2026_07_13.json"
+    second_path = second_output / "newsroom_schedule_2026_07_13.json"
     assert schedule["schema_version"] == "capital_chronicle.newsroom_schedule_decision.v1"
+    assert schedule["generated_at_utc"] == mock_pool["generated_at_utc"]
     assert schedule["summary"]["publications"] == 1
-    assert (tmp_path / "out" / "newsroom_schedule_2026_07_13.json").exists()
+    assert schedule["decisions"][0]["decision"] == "PUBLISH_BREAKING_OR_HIGH_IMPACT"
+    assert replay == schedule
+    assert first_path.read_bytes() == second_path.read_bytes()

@@ -12,6 +12,12 @@ from .editorial_visual_research_v2 import GoogleImageSearchGroundingProvider, ev
 from .freshness_market_state_v2 import evaluate_freshness
 from .source_capability_registry_v2 import load_source_capability_registry, resolve_story_capabilities
 
+NEWSROOM_PUBLISH_DECISIONS = frozenset({
+    "PUBLISH_BREAKING_OR_HIGH_IMPACT",
+    "PUBLISH_FRESH_ANALYSIS",
+    "PUBLISH_DEEP_ANALYSIS",
+})
+
 
 def _write(path: Path, value: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -87,7 +93,7 @@ def run_generic_database_preflight(
         authorized = False
         target_id = candidate_id or packet.get("governed_contract", {}).get("upstream_candidate_id")
         for dec in schedule.get("decisions") or []:
-            if dec.get("decision") == "PUBLISH":
+            if dec.get("decision") in NEWSROOM_PUBLISH_DECISIONS:
                 selected_cand = dec.get("selected_candidate") or {}
                 if selected_cand.get("candidate_id") == target_id:
                     authorized = True
@@ -165,7 +171,7 @@ def run_generic_prepare_only(
         authorized = False
         target_id = candidate_id or packet.get("governed_contract", {}).get("upstream_candidate_id")
         for dec in schedule.get("decisions") or []:
-            if dec.get("decision") == "PUBLISH":
+            if dec.get("decision") in NEWSROOM_PUBLISH_DECISIONS:
                 selected_cand = dec.get("selected_candidate") or {}
                 if selected_cand.get("candidate_id") == target_id:
                     authorized = True

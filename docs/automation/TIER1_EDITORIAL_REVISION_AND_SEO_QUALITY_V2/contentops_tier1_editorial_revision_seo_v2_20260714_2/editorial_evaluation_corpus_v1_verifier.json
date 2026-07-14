@@ -1,0 +1,26 @@
+{
+  "blockers": [],
+  "corpus_logical_hash": "c4cb0c32a2802e9d937b6e5c16034a6a40c280be98d0300c3394f021ea3041b4",
+  "publication_authority": false,
+  "schema_version": "contentops.editorial_evaluation_corpus_verifier.v1",
+  "status": "PASS",
+  "summary": {
+    "accepted_count": 4,
+    "case_count": 12,
+    "coverage_labels": [
+      "excellent_original_value",
+      "factual_error",
+      "overclaiming",
+      "poor_seo",
+      "proxy_misuse",
+      "repetition",
+      "semantic_error",
+      "stale_story",
+      "strong_headline",
+      "weak_headline"
+    ],
+    "pairwise_count": 3,
+    "rejected_count": 8,
+    "story_type_count": 9
+  }
+}

@@ -1,10 +1,24 @@
 {
+  "automated_operator_packet": {
+    "path": "docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_2/automated_operator_evidence_packet_v2.json",
+    "schema_version": "contentops.automated_operator_evidence_packet.v2",
+    "sha256": "d3c65933105cc5b38fd7c0f8bcc5222cb4d637a11ed84fd75a83f69f1c728dd6",
+    "status_or_classification": "PASS_COMPLETE_NEWSROOM_TIER1_EDITORIAL_AUTOMATED_OPERATOR_PACKET_V2_LOCAL_NO_WRITE"
+  },
   "checks": {
     "all_public_use_allowed": true,
     "all_rendered_sentences_mapped": true,
     "article_mode": "analysis",
-    "canonical_url_frozen": "https://capitalchronicle.substack.com/p/us-treasury-30-year-yield-curve-slope",
+    "candidate_pool_verifier_valid": true,
+    "canonical_url_frozen": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+    "canonical_url_matches_strict_browser_readback": true,
     "continuous_content_hashes": true,
+    "editorial_corpus_case_count": 12,
+    "editorial_corpus_required_failure_classes": 10,
+    "editorial_corpus_status": "PASS",
+    "explicit_preemption_delta_all_windows": 15.0,
+    "five_decision_windows_verified": true,
+    "focused_pytest": "55 passed",
     "headline_precision": "edges_wider_not_decisive_steepening",
     "original_value": "mechanism_and_falsifiable_confirmation_challenge_framework",
     "public_readback_source": {
@@ -12,6 +26,8 @@
       "sha256": "6ec2e4d91d314eccf83c383389b0d0031abf9e76f727e78f4c2cd9ebc9a6a254"
     },
     "revision_stage_count": 9,
+    "scheduler_dimension_count": 14,
+    "scheduler_v2_ranking_model": "contentops.newsroom_ranking.v2.0.0",
     "semantic_redundancy_review": "PASS_ACCEPTED_PUBLIC_ARTICLE",
     "sentence_graph_nonempty": true,
     "seo_metadata_source": {
@@ -20,17 +36,19 @@
     },
     "v8_matches_accepted_public_body": true
   },
-  "classification": "PASS_COMPLETE_MANDATORY_TIER1_V2_LOCAL_NO_WRITE",
+  "classification": "PASS_COMPLETE_NEWSROOM_TIER1_EDITORIAL_AUTOMATED_OPERATOR_PACKET_V2_LOCAL_NO_WRITE",
   "prior_packet_limitation": "V2 status was NOT_REQUESTED with an empty claim graph and no v0-v8 stages.",
   "safety": {
     "browser_or_cdp_used": false,
     "credential_values_read_or_logged": false,
+    "global_dqr_bypassed": false,
     "network_call_made": false,
     "platform_adapter_called": false,
     "public_write_performed": false,
-    "publication_authority_granted_by_v2_contract": false
+    "publication_authority_granted_by_v2_contract": false,
+    "v1_0_moved_recreated_deleted_or_retagged": false
   },
   "schema_version": "contentops.operator_review_evidence_map.v2",
   "supersedes_packet": "contentops_tier1_editorial_revision_seo_v2_20260714_1",
-  "task": "TASK_CONTENTOPS_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V1"
+  "task": "TASK_CONTENTOPS_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V2"
 }

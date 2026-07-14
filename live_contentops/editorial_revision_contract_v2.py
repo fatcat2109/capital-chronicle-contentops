@@ -57,11 +57,41 @@ def _public_claims(packet: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
     }
 
 
+def _public_documents(packet: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
+    return {
+        str(row["document_id"]): row
+        for row in packet.get("official_source_documents") or []
+        if row.get("document_id") and row.get("public_claim_allowed") is True
+    }
+
+
+def _authorized_urls(
+    *,
+    claim_ids: Sequence[str],
+    document_ids: Sequence[str],
+    claims: Mapping[str, Mapping[str, Any]],
+    documents: Mapping[str, Mapping[str, Any]],
+    citations: Mapping[str, Any],
+) -> set[str]:
+    urls: set[str] = set()
+    for claim_id in claim_ids:
+        urls.update(str(value) for value in citations.get(claim_id) or [] if str(value))
+        source_url = (claims.get(claim_id) or {}).get("source_url")
+        if source_url:
+            urls.add(str(source_url))
+    for document_id in document_ids:
+        document = documents.get(document_id) or {}
+        urls.update(str(document.get(field)) for field in ("source_url", "data_url") if document.get(field))
+    return urls
+
+
 def build_content_unit_claim_graph(*, article: Mapping[str, Any], packet: Mapping[str, Any], unit_mappings: Sequence[Mapping[str, Any]] = ()) -> dict[str, Any]:
-    """Map each rendered sentence; factual mappings must use public cited claims."""
+    """Map every rendered unit and fail closed on implicit or unbound factual authority."""
     mappings = {str(row["content_unit_id"]): dict(row) for row in unit_mappings if row.get("content_unit_id")}
     claims = _public_claims(packet)
+    documents = _public_documents(packet)
     citations = packet.get("citation_map") or {}
+    governed_mode = str((packet.get("governed_contract") or {}).get("mode") or "")
     blockers: list[str] = []
     units: list[dict[str, Any]] = []
     for index, text in enumerate(_article_sentences(article), 1):
@@ -69,40 +99,92 @@ def build_content_unit_claim_graph(*, article: Mapping[str, Any], packet: Mappin
         mapping = mappings.get(unit_id)
         if mapping is None:
             blockers.append(f"content_unit_mapping_missing:{unit_id}")
-            mapping = {"content_unit_type": "non_factual_framing", "claim_ids": [], "source_urls": []}
+            mapping = {"content_unit_type": "", "claim_ids": [], "document_ids": [], "source_urls": []}
         kind = str(mapping.get("content_unit_type") or "")
         claim_ids = [str(value) for value in mapping.get("claim_ids") or []]
+        document_ids = [str(value) for value in mapping.get("document_ids") or []]
         source_urls = [str(value) for value in mapping.get("source_urls") or [] if str(value)]
+        factual = kind in FACTUAL_UNIT_TYPES
         if kind not in CONTENT_UNIT_TYPES:
             blockers.append(f"content_unit_type_invalid:{unit_id}")
-        if kind in FACTUAL_UNIT_TYPES and not claim_ids:
-            blockers.append(f"factual_content_unit_claims_required:{unit_id}")
-        if kind in FACTUAL_UNIT_TYPES and not source_urls:
+        if factual and not claim_ids and not document_ids:
+            blockers.append(f"factual_content_unit_authority_required:{unit_id}")
+        if factual and not source_urls:
             blockers.append(f"factual_content_unit_source_urls_required:{unit_id}")
+        for field in ("authority_class", "exact_proxy_context", "inference_class", "citation_rendering", "public_use_allowed"):
+            if factual and field not in mapping:
+                blockers.append(f"factual_content_unit_explicit_{field}_required:{unit_id}")
         for claim_id in claim_ids:
             if claim_id not in claims:
                 blockers.append(f"content_unit_unapproved_claim:{unit_id}:{claim_id}")
             if not citations.get(claim_id):
                 blockers.append(f"content_unit_claim_missing_citation:{unit_id}:{claim_id}")
+        for document_id in document_ids:
+            if document_id not in documents:
+                blockers.append(f"content_unit_unapproved_document:{unit_id}:{document_id}")
+        authorized_urls = _authorized_urls(
+            claim_ids=claim_ids,
+            document_ids=document_ids,
+            claims=claims,
+            documents=documents,
+            citations=citations,
+        )
+        for source_url in source_urls:
+            if source_url not in authorized_urls:
+                blockers.append(f"content_unit_source_url_not_authorized:{unit_id}:{source_url}")
+        authority_class = str(mapping.get("authority_class") or "")
+        allowed_authorities = {governed_mode}
+        allowed_authorities.update(str((claims.get(claim_id) or {}).get("source_authority") or "") for claim_id in claim_ids)
+        allowed_authorities.update(str((claims.get(claim_id) or {}).get("authority_scope") or "") for claim_id in claim_ids)
+        allowed_authorities.discard("")
+        if factual and authority_class not in allowed_authorities:
+            blockers.append(f"content_unit_authority_class_mismatch:{unit_id}")
+        exact_proxy_context = str(mapping.get("exact_proxy_context") or "")
+        allowed_contexts = {
+            str((claims.get(claim_id) or {}).get(field) or "")
+            for claim_id in claim_ids
+            for field in ("source_authority", "authority_scope")
+        }
+        allowed_contexts.discard("")
+        if factual and claim_ids and exact_proxy_context not in allowed_contexts:
+            blockers.append(f"content_unit_exact_proxy_context_mismatch:{unit_id}")
+        observation_time = mapping.get("observation_time_utc")
+        known_at = mapping.get("known_at_utc")
+        if factual and claim_ids:
+            if not observation_time:
+                blockers.append(f"factual_content_unit_observation_time_required:{unit_id}")
+            if not known_at:
+                blockers.append(f"factual_content_unit_known_at_required:{unit_id}")
+            claim_observations = {str((claims.get(claim_id) or {}).get("observation_time_utc") or "") for claim_id in claim_ids}
+            claim_known_at = {str((claims.get(claim_id) or {}).get("known_at_utc") or (claims.get(claim_id) or {}).get("ingestion_time_utc") or "") for claim_id in claim_ids}
+            if observation_time and str(observation_time) not in claim_observations:
+                blockers.append(f"content_unit_observation_time_mismatch:{unit_id}")
+            if known_at and str(known_at) not in claim_known_at:
+                blockers.append(f"content_unit_known_at_mismatch:{unit_id}")
+        explicit_public_use = mapping.get("public_use_allowed") is True
+        upstream_public_use = all(claim_id in claims for claim_id in claim_ids) and all(document_id in documents for document_id in document_ids)
+        if factual and not explicit_public_use:
+            blockers.append(f"factual_content_unit_public_use_not_allowed:{unit_id}")
         units.append({
             "content_unit_id": unit_id,
             "text_hash": _hash(text),
             "content_unit_type": kind,
             "claim_ids": claim_ids,
+            "document_ids": document_ids,
             "source_urls": source_urls,
-            "authority_class": str(mapping.get("authority_class") or "governed_packet"),
-            "exact_proxy_context": str(mapping.get("exact_proxy_context") or "exact"),
-            "observation_time_utc": mapping.get("observation_time_utc"),
-            "known_at_utc": mapping.get("known_at_utc"),
-            "inference_class": str(mapping.get("inference_class") or "none"),
+            "authorized_source_urls": sorted(authorized_urls),
+            "authority_class": authority_class,
+            "exact_proxy_context": exact_proxy_context,
+            "observation_time_utc": observation_time,
+            "known_at_utc": known_at,
+            "inference_class": str(mapping.get("inference_class") or ""),
             "calculation_reference": mapping.get("calculation_reference"),
-            "citation_rendering": str(mapping.get("citation_rendering") or "source_link"),
-            "public_use_allowed": all(claim_id in claims for claim_id in claim_ids),
+            "citation_rendering": str(mapping.get("citation_rendering") or ""),
+            "public_use_allowed": explicit_public_use and upstream_public_use,
         })
     rendered_ids = {row["content_unit_id"] for row in units}
     blockers.extend(f"content_unit_mapping_not_rendered:{unit_id}" for unit_id in sorted(set(mappings) - rendered_ids))
-    markdown = str(article.get("substack_body_markdown") or article.get("body_markdown") or "")
-    rendered = str(article.get("rendered_body") or rendered_body(markdown))
+    rendered = _rendered_article_body(article)
     return {
         "schema_version": SCHEMA_VERSION,
         "status": "PASS" if not blockers else "BLOCK",
@@ -114,12 +196,22 @@ def build_content_unit_claim_graph(*, article: Mapping[str, Any], packet: Mappin
     }
 
 
+def _stage_title_body(content: Any, fallback_title: str) -> tuple[str, str]:
+    if isinstance(content, Mapping):
+        title = str(content.get("title") or fallback_title)
+        body_value = content.get("rendered_body", content.get("body_markdown", content))
+        body = body_value if isinstance(body_value, str) else json.dumps(body_value, sort_keys=True, separators=(",", ":"), default=str)
+        return title, body
+    return fallback_title, str(content)
+
+
 def build_revision_chain(*, article: Mapping[str, Any], claim_graph: Mapping[str, Any], stages: Sequence[Mapping[str, Any]] = ()) -> dict[str, Any]:
-    """Validate the fixed sequence against actual, continuous stage content."""
+    """Validate continuous, decision-bound v0-v8 content and logical evidence."""
     supplied = {str(row["stage_id"]): dict(row) for row in stages if row.get("stage_id")}
     blockers: list[str] = []
     records: list[dict[str, Any]] = []
     previous_output_hash: str | None = None
+    final_title_hash = _content_hash(str(article.get("title") or ""))
     final_body_hash = _content_hash(_rendered_article_body(article))
     for stage_id, role in REVISION_STAGES:
         source = supplied.get(stage_id, {})
@@ -136,28 +228,62 @@ def build_revision_chain(*, article: Mapping[str, Any], claim_graph: Mapping[str
             blockers.append(f"revision_stage_input_content_missing:{stage_id}")
         if not output_present:
             blockers.append(f"revision_stage_output_content_missing:{stage_id}")
-        input_hash = _content_hash(source.get("input_content")) if input_present else ""
-        output_hash = _content_hash(source.get("output_content")) if output_present else ""
+        input_content = source.get("input_content")
+        output_content = source.get("output_content")
+        input_hash = _content_hash(input_content) if input_present else ""
+        output_hash = _content_hash(output_content) if output_present else ""
+        input_title, input_body = _stage_title_body(input_content, str(article.get("title") or ""))
+        output_title, output_body = _stage_title_body(output_content, str(article.get("title") or ""))
+        input_title_hash, output_title_hash = _content_hash(input_title), _content_hash(output_title)
+        input_body_hash, output_body_hash = _content_hash(input_body), _content_hash(output_body)
         if source.get("input_content_sha256") not in {None, input_hash}:
             blockers.append(f"revision_stage_input_hash_mismatch:{stage_id}")
         if source.get("output_content_sha256") not in {None, output_hash}:
             blockers.append(f"revision_stage_output_hash_mismatch:{stage_id}")
         if previous_output_hash is not None and input_hash != previous_output_hash:
             blockers.append(f"revision_stage_previous_output_link_broken:{stage_id}")
-        record = {
+        structured_diff = [dict(value) for value in source.get("structured_diff") or [] if isinstance(value, Mapping)]
+        changed = input_title_hash != output_title_hash or input_body_hash != output_body_hash
+        if decision == "PASS_NO_CHANGE" and changed:
+            blockers.append(f"revision_stage_pass_no_change_hash_mismatch:{stage_id}")
+        if decision == "REVISE" and (not changed or not structured_diff):
+            blockers.append(f"revision_stage_revise_requires_change_and_diff:{stage_id}")
+        unresolved = [str(value) for value in source.get("unresolved_issues") or []]
+        if unresolved:
+            blockers.append(f"revision_stage_unresolved_material_issues:{stage_id}")
+        for field in ("issues_addressed", "issues_introduced", "model_or_rule_version", "deterministic_timestamp_utc"):
+            if field not in source:
+                blockers.append(f"revision_stage_{field}_missing:{stage_id}")
+        record_core = {
             "stage_id": stage_id,
             "role": role,
+            "input_content_ref": str(source.get("input_content_ref") or "embedded_input_content"),
+            "output_content_ref": str(source.get("output_content_ref") or "embedded_output_content"),
             "input_content_sha256": input_hash,
             "output_content_sha256": output_hash,
-            "rule_version": str(source.get("rule_version") or SCHEMA_VERSION),
+            "input_title_sha256": input_title_hash,
+            "output_title_sha256": output_title_hash,
+            "input_rendered_body_sha256": input_body_hash,
+            "output_rendered_body_sha256": output_body_hash,
+            "model_or_rule_version": str(source.get("model_or_rule_version") or ""),
+            "deterministic_timestamp_utc": str(source.get("deterministic_timestamp_utc") or ""),
             "decision": decision,
-            "changes": [str(value) for value in source.get("changes") or []],
-            "unresolved_issues": [str(value) for value in source.get("unresolved_issues") or []],
+            "structured_diff": structured_diff,
+            "issues_addressed": [str(value) for value in source.get("issues_addressed") or []],
+            "issues_introduced": [str(value) for value in source.get("issues_introduced") or []],
+            "unresolved_issues": unresolved,
         }
-        records.append(record)
+        supplied_logical_hash = source.get("stage_logical_hash")
+        logical_hash = _hash(record_core)
+        if supplied_logical_hash not in {None, logical_hash}:
+            blockers.append(f"revision_stage_logical_hash_mismatch:{stage_id}")
+        records.append({**record_core, "stage_logical_hash": logical_hash})
         previous_output_hash = output_hash
-    if records and records[-1]["output_content_sha256"] != final_body_hash:
-        blockers.append("revision_chain_final_body_hash_mismatch")
+    if records:
+        if records[-1]["output_title_sha256"] != final_title_hash:
+            blockers.append("revision_chain_final_title_hash_mismatch")
+        if records[-1]["output_rendered_body_sha256"] != final_body_hash:
+            blockers.append("revision_chain_final_body_hash_mismatch")
     if any(row["decision"] in {"BLOCK", "ESCALATE_OPERATOR"} for row in records):
         blockers.append("revision_chain_contains_nonrelease_decision")
     if claim_graph.get("status") != "PASS":
@@ -167,7 +293,8 @@ def build_revision_chain(*, article: Mapping[str, Any], claim_graph: Mapping[str
         "status": "PASS" if not blockers else "BLOCK",
         "revision_stage_count": len(records),
         "stages": records,
-        "final_output_hash": previous_output_hash or "",
+        "final_output_hash": records[-1]["output_rendered_body_sha256"] if records else "",
+        "final_title_sha256": final_title_hash,
         "rendered_body_sha256": final_body_hash,
         "blockers": list(dict.fromkeys(blockers)),
         "publication_authority": False,

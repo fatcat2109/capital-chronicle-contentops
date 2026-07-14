@@ -16,21 +16,134 @@ from typing import Any, Mapping, Sequence
 
 SCHEMA_VERSION = "capital_chronicle.newsroom_schedule_decision.v1"
 
-TAG_WEIGHTS = {
-    "central_bank": 20,
-    "inflation": 18,
-    "labor": 16,
-    "energy": 16,
-    "geopolitics": 16,
-    "volatility": 12,
-    "risk_off": 12,
-    "rates": 10,
-    "earnings": 8,
+RANKING_MODEL_VERSION = "contentops.newsroom_ranking.v2.0.0"
+RANKING_DIMENSION_WEIGHTS = {
+    "materiality": 0.12,
+    "policy_economic_geopolitical_significance": 0.08,
+    "surprise": 0.08,
+    "affected_market_economy_breadth": 0.07,
+    "source_authority": 0.10,
+    "freshness": 0.10,
+    "evidence_completeness": 0.10,
+    "audience_relevance": 0.07,
+    "novelty": 0.07,
+    "durability": 0.05,
+    "original_analysis_potential": 0.06,
+    "visual_feasibility": 0.03,
+    "overclaiming_risk": 0.04,
+    "topic_source_day_concentration": 0.03,
 }
+PUBLISH_DECISIONS = frozenset({
+    "PUBLISH_BREAKING_OR_HIGH_IMPACT",
+    "PUBLISH_FRESH_ANALYSIS",
+    "PUBLISH_DEEP_ANALYSIS",
+})
+BLOCKED_UPDATE_RELATIONSHIPS = frozenset({"duplicate", "incremental_update"})
+ALLOWED_EVIDENCE_CLASSES = frozenset({"exact", "proxy"})
 
-OFFICIAL_SOURCE_TERMS = {
-    "fed", "fomc", "treasury", "eia", "cpi", "jobs", "payroll", "opec", "inventory"
-}
+
+def _candidate_hard_gate(candidate: Mapping[str, Any], cutoff_dt: datetime) -> list[str]:
+    """Return deterministic publication blockers; an empty list is the only pass."""
+    blockers = [str(code) for code in (candidate.get("blockers") or [])]
+    authority = candidate.get("authority") or {}
+    permissions = candidate.get("claim_permissions") or {}
+    health = candidate.get("source_health") or {}
+    freshness = candidate.get("freshness") or {}
+    source_documents = candidate.get("source_documents") or []
+    numeric_claims = candidate.get("numeric_claims") or []
+    citation_map = candidate.get("citation_map") or {}
+
+    required_ids = ("candidate_id", "story_id", "cluster_id", "update_chain_id", "source_packet_id", "source_family")
+    for field in required_ids:
+        if not candidate.get(field):
+            blockers.append(f"missing_{field}")
+    for field in ("evidence_hash", "source_packet_logical_hash"):
+        if not re.fullmatch(r"[0-9a-f]{64}", str(candidate.get(field) or "")):
+            blockers.append(f"{field}_invalid")
+    if candidate.get("eligible") is not True:
+        blockers.append("upstream_candidate_not_eligible")
+    if authority.get("story_decision") != "ALLOW":
+        blockers.append("story_authority_not_allowed")
+    if authority.get("global_dqr_override") is not False:
+        blockers.append("global_dqr_override_not_false")
+    if permissions.get("decision") != "ALLOW" or permissions.get("reporting_allowed") is not True:
+        blockers.append("reporting_permission_not_granted")
+    if permissions.get("numeric_claims_allowed") is not True:
+        blockers.append("numeric_claim_permission_not_granted")
+    if candidate.get("evidence_class") not in ALLOWED_EVIDENCE_CLASSES:
+        blockers.append("evidence_class_not_publishable")
+    if health.get("status") != "HEALTHY" or health.get("parse_status") != "PASS":
+        blockers.append("source_health_not_healthy")
+    if candidate.get("unresolved_contradictions"):
+        blockers.append("unresolved_contradiction")
+    if candidate.get("relationship") == "contradiction" and not candidate.get("contradiction_resolved"):
+        blockers.append("unresolved_contradiction")
+
+    authorized_urls = {
+        str(url)
+        for row in source_documents
+        for url in (row.get("source_url"), row.get("data_url"))
+        if url
+    }
+    if not source_documents or not authorized_urls:
+        blockers.append("public_source_url_missing")
+    if not numeric_claims:
+        blockers.append("numeric_claims_missing")
+    for claim in numeric_claims:
+        claim_id = str(claim.get("claim_id") or "")
+        if not claim_id or claim.get("public_claim_allowed") is not True:
+            blockers.append("claim_public_use_not_allowed")
+        if claim.get("value") is None or not claim.get("metric") or not claim.get("unit"):
+            blockers.append("numeric_claim_identity_or_unit_missing")
+        claim_url = str(claim.get("source_url") or "")
+        if not claim_url:
+            blockers.append("numeric_claim_source_url_missing")
+        citations = {str(url) for url in (citation_map.get(claim_id) or []) if url}
+        if not citations:
+            blockers.append("numeric_claim_citation_missing")
+        if claim_url and claim_url not in authorized_urls:
+            blockers.append("numeric_claim_source_not_authorized")
+        if citations and not citations.issubset(authorized_urls):
+            blockers.append("citation_url_not_authorized")
+        for timestamp_field in ("observation_time_utc", "known_at_utc"):
+            if claim.get(timestamp_field):
+                try:
+                    claim_dt = _parse_utc(str(claim[timestamp_field]))
+                except (TypeError, ValueError):
+                    blockers.append(f"claim_{timestamp_field}_invalid")
+                else:
+                    if claim_dt > cutoff_dt:
+                        blockers.append(f"claim_{timestamp_field}_after_window_cutoff")
+
+    for timestamp_field in ("event_time_utc", "known_at_utc"):
+        try:
+            parsed_dt = _parse_utc(str(candidate.get(timestamp_field) or ""))
+        except (TypeError, ValueError):
+            blockers.append(f"{timestamp_field}_invalid")
+            continue
+        if parsed_dt > cutoff_dt:
+            blockers.append(f"candidate_{timestamp_field}_after_window_cutoff")
+    try:
+        known_dt = _parse_utc(str(candidate.get("known_at_utc") or ""))
+    except (TypeError, ValueError):
+        known_dt = None
+    if known_dt is not None:
+        max_age = freshness.get("max_age_hours")
+        if max_age is None:
+            blockers.append("freshness_limit_missing")
+        elif (cutoff_dt - known_dt).total_seconds() > float(max_age) * 3600.0:
+            blockers.append("candidate_stale_at_window_cutoff")
+    return sorted(set(blockers))
+
+
+def _publication_decision(scored: Mapping[str, Any]) -> str:
+    scores = scored["raw_scores"]
+    candidate = scored["candidate"]
+    if scores["urgency"] >= 80.0 or scores["impact"] >= 80.0:
+        return "PUBLISH_BREAKING_OR_HIGH_IMPACT"
+    if candidate.get("article_mode") in {"analysis", "deep_analysis", "research_note"}:
+        return "PUBLISH_DEEP_ANALYSIS"
+    return "PUBLISH_FRESH_ANALYSIS"
 
 
 def _canonical_json(value: Any) -> bytes:
@@ -48,47 +161,186 @@ def _parse_utc(value: str) -> datetime:
     return parsed.astimezone(timezone.utc)
 
 
+def _dimension(
+    score: float | None,
+    reason_codes: Sequence[str],
+    evidence_refs: Sequence[str] = (),
+) -> dict[str, Any]:
+    available = score is not None
+    return {
+        "availability": "AVAILABLE" if available else "UNAVAILABLE",
+        "score": round(max(0.0, min(100.0, float(score))), 2) if available else None,
+        "reason_codes": list(reason_codes),
+        "evidence_refs": list(evidence_refs),
+    }
+
+
+def _explicit_dimension(candidate: Mapping[str, Any], name: str) -> dict[str, Any] | None:
+    value = (candidate.get("ranking_inputs") or {}).get(name)
+    if value is None:
+        return None
+    if not isinstance(value, Mapping):
+        return _dimension(None, ["invalid_explicit_ranking_input"])
+    if value.get("availability") == "UNAVAILABLE" or value.get("score") is None:
+        return _dimension(None, value.get("reason_codes") or ["explicitly_unavailable"])
+    return _dimension(
+        float(value["score"]),
+        value.get("reason_codes") or ["explicit_governed_ranking_input"],
+        value.get("evidence_refs") or [],
+    )
+
+
+def _weighted_available_average(dimensions: Mapping[str, Mapping[str, Any]], names: Sequence[str]) -> float:
+    measured = [
+        (RANKING_DIMENSION_WEIGHTS[name], float(dimensions[name]["score"]))
+        for name in names
+        if dimensions[name]["availability"] == "AVAILABLE"
+    ]
+    if not measured:
+        return 0.0
+    weight_total = sum(weight for weight, _ in measured)
+    return round(sum(weight * score for weight, score in measured) / weight_total, 2)
+
+
 def calculate_candidate_scores(
     candidate: Mapping[str, Any],
     cutoff_dt: datetime,
     weights: Mapping[str, float],
+    concentration_context: Mapping[str, bool] | None = None,
 ) -> dict[str, Any]:
-    """Calculate normalized scores for a candidate at a given point in time."""
-    title_summary = f"{candidate.get('title', '')} {candidate.get('summary', '')}".lower()
-    tags = candidate.get("tags") or []
-    
-    # 1. Base Impact Score
-    tag_impact = sum(TAG_WEIGHTS.get(str(t).lower(), 0) for t in tags)
-    official_bonus = 15 if any(term in title_summary for term in OFFICIAL_SOURCE_TERMS) else 0
-    raw_impact = 40 + tag_impact + official_bonus
-    impact_score = min(100.0, max(0.0, float(raw_impact)))
-    
-    # 2. Base Urgency Score
-    raw_urgency = 35 + (tag_impact * 1.2) + official_bonus
-    urgency_score = min(100.0, max(0.0, float(raw_urgency)))
-    
-    # 3. Freshness Score
-    known_at = _parse_utc(candidate["known_at_utc"])
-    age_seconds = max(0.0, (cutoff_dt - known_at).total_seconds())
-    max_age_hours = float((candidate.get("freshness") or {}).get("max_age_hours") or 36.0)
-    max_age_seconds = max_age_hours * 3600.0
-    
-    # Freshness decays linearly
-    freshness_score = min(100.0, max(0.0, (1.0 - (age_seconds / max_age_seconds)) * 100.0))
-    
-    # 4. Weighted Total
-    total_score = (
-        impact_score * weights.get("impact", 0.3) +
-        urgency_score * weights.get("urgency", 0.4) +
-        freshness_score * weights.get("freshness", 0.3)
+    """Build an inspectable evidence-derived ranking; unavailable never means zero."""
+    dimensions: dict[str, dict[str, Any]] = {}
+    explicit_names = set((candidate.get("ranking_inputs") or {}).keys())
+
+    numeric_claims = list(candidate.get("numeric_claims") or [])
+    changes = [abs(float(row["change_basis_points"])) for row in numeric_claims if row.get("change_basis_points") is not None]
+    dimensions["materiality"] = _explicit_dimension(candidate, "materiality") or (
+        _dimension(min(100.0, max(changes) * 10.0), ["measured_numeric_change_basis_points"], [str(row.get("claim_id")) for row in numeric_claims])
+        if changes else _dimension(None, ["unavailable_no_measured_change"])
     )
-    
-    return {
-        "impact": round(impact_score, 2),
-        "urgency": round(urgency_score, 2),
-        "freshness": round(freshness_score, 2),
-        "total": round(total_score, 2),
+    for name in (
+        "policy_economic_geopolitical_significance",
+        "surprise",
+        "affected_market_economy_breadth",
+        "audience_relevance",
+        "durability",
+        "visual_feasibility",
+    ):
+        dimensions[name] = _explicit_dimension(candidate, name) or _dimension(None, [f"unavailable_no_explicit_{name}_evidence"])
+
+    authority_score = {"exact": 100.0, "proxy": 60.0}.get(str(candidate.get("evidence_class") or ""))
+    dimensions["source_authority"] = _explicit_dimension(candidate, "source_authority") or _dimension(
+        authority_score,
+        ["evidence_class_exact" if authority_score == 100.0 else "evidence_class_proxy"] if authority_score is not None else ["unavailable_non_publishable_evidence_class"],
+        [str(candidate.get("source_packet_id") or "")],
+    )
+
+    try:
+        known_at = _parse_utc(str(candidate["known_at_utc"]))
+        age_seconds = max(0.0, (cutoff_dt - known_at).total_seconds())
+        max_age_seconds = float((candidate.get("freshness") or {}).get("max_age_hours")) * 3600.0
+        freshness_score = min(100.0, max(0.0, (1.0 - age_seconds / max_age_seconds) * 100.0))
+        dimensions["freshness"] = _explicit_dimension(candidate, "freshness") or _dimension(
+            freshness_score, ["point_in_time_linear_decay"], [str(candidate.get("known_at_utc"))]
+        )
+    except (KeyError, TypeError, ValueError, ZeroDivisionError):
+        dimensions["freshness"] = _explicit_dimension(candidate, "freshness") or _dimension(None, ["unavailable_invalid_freshness_inputs"])
+
+    completeness_checks = {
+        "source_documents": bool(candidate.get("source_documents")),
+        "numeric_claims": bool(numeric_claims),
+        "citation_map": bool(candidate.get("citation_map")),
+        "permissions": (candidate.get("claim_permissions") or {}).get("decision") == "ALLOW",
+        "source_health": (candidate.get("source_health") or {}).get("status") == "HEALTHY",
     }
+    dimensions["evidence_completeness"] = _explicit_dimension(candidate, "evidence_completeness") or _dimension(
+        100.0 * sum(completeness_checks.values()) / len(completeness_checks),
+        [f"{name}_{'present' if passed else 'missing'}" for name, passed in completeness_checks.items()],
+    )
+    novelty_scores = {"new_phase": 90.0, "material_update": 80.0, "correction": 75.0}
+    novelty_score = novelty_scores.get(str(candidate.get("relationship") or ""))
+    dimensions["novelty"] = _explicit_dimension(candidate, "novelty") or _dimension(
+        novelty_score,
+        [f"update_relationship_{candidate.get('relationship') or 'missing'}"] if novelty_score is not None else ["unavailable_no_qualifying_update_relationship"],
+        [str(candidate.get("update_chain_id") or "")],
+    )
+    calculated_claims = [str(row.get("claim_id")) for row in numeric_claims if row.get("calculation")]
+    dimensions["original_analysis_potential"] = _explicit_dimension(candidate, "original_analysis_potential") or (
+        _dimension(85.0, ["reproducible_calculated_claim_present"], calculated_claims)
+        if calculated_claims else _dimension(None, ["unavailable_no_reproducible_original_calculation"])
+    )
+    low_overclaim_risk = (
+        candidate.get("evidence_class") in ALLOWED_EVIDENCE_CLASSES
+        and all(row.get("public_claim_allowed") is True for row in numeric_claims)
+        and not candidate.get("blockers")
+    )
+    dimensions["overclaiming_risk"] = _explicit_dimension(candidate, "overclaiming_risk") or _dimension(
+        100.0 if low_overclaim_risk else 25.0,
+        ["low_overclaiming_risk_explicit_authority" if low_overclaim_risk else "elevated_overclaiming_risk"],
+    )
+    concentration_context = dict(concentration_context or {})
+    concentration_reasons = [name for name, present in concentration_context.items() if present]
+    concentration_score = max(0.0, 100.0 - 25.0 * len(concentration_reasons))
+    dimensions["topic_source_day_concentration"] = _explicit_dimension(candidate, "topic_source_day_concentration") or _dimension(
+        concentration_score,
+        concentration_reasons or ["no_prior_topic_source_or_mode_concentration"],
+    )
+
+    # Guard against misspelled explicit inputs silently escaping the inspectable model.
+    unknown_inputs = sorted(explicit_names - set(RANKING_DIMENSION_WEIGHTS))
+    impact_names = (
+        "materiality", "policy_economic_geopolitical_significance", "affected_market_economy_breadth",
+        "source_authority", "evidence_completeness", "audience_relevance", "novelty", "durability",
+        "original_analysis_potential", "overclaiming_risk",
+    )
+    urgency_names = ("materiality", "surprise", "freshness", "novelty", "source_authority")
+    return {
+        "ranking_model_version": RANKING_MODEL_VERSION,
+        "dimensions": dimensions,
+        "availability_summary": {
+            "available": sum(row["availability"] == "AVAILABLE" for row in dimensions.values()),
+            "unavailable": sum(row["availability"] == "UNAVAILABLE" for row in dimensions.values()),
+            "unknown_explicit_inputs": unknown_inputs,
+        },
+        "impact": _weighted_available_average(dimensions, impact_names),
+        "urgency": _weighted_available_average(dimensions, urgency_names),
+        "freshness": float(dimensions["freshness"]["score"] or 0.0),
+        "total": _weighted_available_average(dimensions, tuple(RANKING_DIMENSION_WEIGHTS)),
+        "legacy_window_weights_observed": dict(weights),
+    }
+
+
+def evaluate_deep_analysis_fallback(candidate: Mapping[str, Any] | None, raw_scores: Mapping[str, Any] | None) -> dict[str, Any]:
+    """Evaluate the required fallback ladder in strict order without granting authority."""
+    candidate = candidate or {}
+    raw_scores = raw_scores or {}
+    dimensions = raw_scores.get("dimensions") or {}
+    checks = [
+        ("material_update", candidate.get("relationship") == "material_update", ["relationship_material_update"]),
+        (
+            "fresh_official_data_analysis",
+            candidate.get("evidence_class") == "exact" and (dimensions.get("freshness") or {}).get("availability") == "AVAILABLE" and float((dimensions.get("freshness") or {}).get("score") or 0.0) > 0.0,
+            ["exact_source", "freshness_measured", "numeric_claims_present"],
+        ),
+        (
+            "structural_analysis_with_measurable_new_delta",
+            (dimensions.get("original_analysis_potential") or {}).get("availability") == "AVAILABLE" and (dimensions.get("materiality") or {}).get("availability") == "AVAILABLE",
+            ["original_calculation_present", "material_delta_measured"],
+        ),
+        (
+            "conditional_scenario",
+            candidate.get("article_mode") == "scenario_outlook" and bool(candidate.get("scenario_conditions")),
+            ["conditional_scenario_explicit"],
+        ),
+    ]
+    steps = []
+    selected = "no_publication"
+    for index, (name, available, reasons) in enumerate(checks, start=1):
+        steps.append({"order": index, "fallback": name, "available": bool(available), "reason_codes": reasons})
+        if selected == "no_publication" and available:
+            selected = name
+    steps.append({"order": 5, "fallback": "no_publication", "available": selected == "no_publication", "reason_codes": ["no_earlier_fallback_available"]})
+    return {"ordered_steps": steps, "selected_fallback": selected, "publication_authority": False}
 
 
 def evaluate_window_decision(
@@ -98,131 +350,152 @@ def evaluate_window_decision(
     pool: Mapping[str, Any],
     previously_published: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
-    """Execute the deterministic scheduling logic for a single decision window."""
-    window_id = window["window_id"]
-    cutoff_time_str = window["target_cutoff_utc"]
-    
-    # Parse target cutoff datetime
-    target_time = time.fromisoformat(cutoff_time_str)
+    """Execute one deterministic, fail-closed newsroom decision window."""
+    window_id = str(window["window_id"])
+    target_time = time.fromisoformat(str(window["target_cutoff_utc"]))
     base_date = datetime.strptime(schedule_date, "%Y-%m-%d").date()
     cutoff_dt = datetime.combine(base_date, target_time, tzinfo=timezone.utc)
-    
-    # Invariant checks on the pool
     if pool.get("schema_version") != "capital_chronicle.newsroom_candidate_pool.v1":
         raise ValueError("unsupported_candidate_pool_schema")
-        
-    # Filter eligible candidates known before/at the cutoff
-    eligible_pool = pool.get("eligible_candidates") or []
-    candidates = []
-    
-    for c in eligible_pool:
-        known_dt = _parse_utc(c["known_at_utc"])
-        if known_dt <= cutoff_dt:
-            candidates.append(c)
-            
-    # Track concentration metrics for previously published stories
-    published_topics = {p["story_family"] for p in previously_published if p.get("story_family")}
-    published_modes = {p["article_mode"] for p in previously_published if p.get("article_mode")}
+
+    published_topics = {p.get("story_family") for p in previously_published if p.get("story_family")}
+    published_modes = {p.get("article_mode") for p in previously_published if p.get("article_mode")}
     published_authorities = {
-        auth
-        for p in previously_published
+        auth for p in previously_published
         for auth in (p.get("authority") or {}).get("source_authorities") or []
     }
-    
-    scored_candidates = []
-    backlog = []
-    
-    for c in candidates:
-        scores = calculate_candidate_scores(c, cutoff_dt, window["score_weights"])
-        
-        # Apply concentration penalties
-        penalties = []
+    published_candidate_ids = {p.get("candidate_id") for p in previously_published if p.get("candidate_id")}
+    published_chains = {p.get("update_chain_id") for p in previously_published if p.get("update_chain_id")}
+    scored_candidates: list[dict[str, Any]] = []
+    backlog: list[dict[str, Any]] = []
+
+    for candidate in pool.get("eligible_candidates") or []:
+        gate_blockers = _candidate_hard_gate(candidate, cutoff_dt)
+        relation = str(candidate.get("relationship") or "")
+        if candidate.get("candidate_id") in published_candidate_ids:
+            gate_blockers.append("candidate_already_published_today")
+        if relation in BLOCKED_UPDATE_RELATIONSHIPS:
+            gate_blockers.append("update_chain_without_material_update")
+        if candidate.get("update_chain_id") in published_chains and relation not in {"material_update", "correction", "contradiction", "new_phase"}:
+            gate_blockers.append("same_day_update_chain_without_material_change")
+        if gate_blockers:
+            backlog.append({
+                "candidate": candidate,
+                "raw_scores": None,
+                "penalties": [],
+                "penalty_total": 0.0,
+                "final_score": 0.0,
+                "gate_blockers": sorted(set(gate_blockers)),
+            })
+            continue
+
+        concentration_context = {
+            "topic_concentration": candidate.get("story_family") in published_topics,
+            "mode_concentration": candidate.get("article_mode") in published_modes,
+            "source_concentration": bool(set((candidate.get("authority") or {}).get("source_authorities") or []).intersection(published_authorities)),
+        }
+        scores = calculate_candidate_scores(candidate, cutoff_dt, window["score_weights"], concentration_context)
+        penalties: list[str] = []
         penalty_total = 0.0
-        
-        if c.get("story_family") in published_topics:
+        if concentration_context["topic_concentration"]:
             penalties.append("topic_concentration")
             penalty_total += 15.0
-        if c.get("article_mode") in published_modes:
+        if concentration_context["mode_concentration"]:
             penalties.append("mode_concentration")
             penalty_total += 10.0
-        
-        c_authorities = set((c.get("authority") or {}).get("source_authorities") or [])
-        if c_authorities.intersection(published_authorities):
+        if concentration_context["source_concentration"]:
             penalties.append("source_concentration")
             penalty_total += 12.0
-            
-        final_score = round(max(0.0, scores["total"] - penalty_total), 2)
-        
-        # Block update chain candidates if not material_update
-        blocked_by_relationship = False
-        relation = c.get("relationship")
-        if relation in ("duplicate", "incremental_update"):
-            blocked_by_relationship = True
-            
-        scored_info = {
-            "candidate": c,
+        scored_candidates.append({
+            "candidate": candidate,
             "raw_scores": scores,
             "penalties": penalties,
             "penalty_total": penalty_total,
-            "final_score": final_score,
-            "relationship_blocked": blocked_by_relationship,
-        }
-        
-        if blocked_by_relationship:
-            backlog.append(scored_info)
-        else:
-            scored_candidates.append(scored_info)
-            
-    # Sort candidates by final score descending
-    scored_candidates.sort(key=lambda x: x["final_score"], reverse=True)
-    
-    # Check preemption (high urgency items)
-    preempted = None
-    if window.get("preemption_allowed") and len(previously_published) >= window.get("daily_portfolio_limit", 99):
-        # We are at or over limit, check if any eligible candidate qualifies for preemption
-        high_urgency_candidates = [
-            x for x in scored_candidates
-            if x["raw_scores"]["urgency"] >= 80.0
-            and x["final_score"] >= window["minimum_urgency_threshold"]
-        ]
-        if high_urgency_candidates:
-            preempted = high_urgency_candidates[0]
-            
-    # Select candidate
+            "final_score": round(max(0.0, scores["total"] - penalty_total), 2),
+            "gate_blockers": [],
+        })
+
+    scored_candidates.sort(key=lambda row: (
+        -row["final_score"],
+        -row["raw_scores"]["urgency"],
+        -row["raw_scores"]["impact"],
+        str(row["candidate"].get("known_at_utc") or ""),
+        str(row["candidate"].get("candidate_id") or ""),
+    ))
     selected = None
+    preemption_contract = None
     decision = "NO_PUBLICATION_THRESHOLD_NOT_MET"
-    rationale = "No eligible candidates met the window urgency/impact thresholds."
-    
-    if preempted:
-        selected = preempted
-        decision = "PUBLISH"
-        rationale = f"Preempted daily portfolio limit with highly urgent candidate: {selected['candidate']['title']}"
-    elif len(previously_published) < window.get("daily_portfolio_limit", 99) and scored_candidates:
-        top = scored_candidates[0]
-        min_urgency = window["minimum_urgency_threshold"]
-        min_impact = window["minimum_impact_threshold"]
-        
-        if (top["raw_scores"]["urgency"] >= min_urgency and 
-            top["raw_scores"]["impact"] >= min_impact and 
-            top["final_score"] >= min_urgency):
+    rationale = "No fully gated candidate met the window urgency and impact thresholds."
+    minimum_urgency = float(window["minimum_urgency_threshold"])
+    minimum_impact = float(window["minimum_impact_threshold"])
+
+    threshold_candidates = [row for row in scored_candidates if (
+        row["raw_scores"]["urgency"] >= minimum_urgency
+        and row["raw_scores"]["impact"] >= minimum_impact
+        and row["final_score"] >= minimum_urgency
+    )]
+    at_limit = len(previously_published) >= int(window.get("daily_portfolio_limit", 99))
+    if threshold_candidates and not at_limit:
+        selected = threshold_candidates[0]
+        decision = _publication_decision(selected)
+        rationale = f"Top-ranked fully gated candidate meets thresholds: {selected['candidate']['title']}"
+    elif threshold_candidates and at_limit and window.get("preemption_allowed"):
+        top = threshold_candidates[0]
+        prior = min(
+            previously_published,
+            key=lambda row: (float(row.get("_schedule_final_score", 0.0)), str(row.get("candidate_id") or "")),
+            default=None,
+        )
+        baseline_score = float((prior or {}).get("_schedule_final_score", 0.0))
+        impact_delta = round(top["final_score"] - baseline_score, 2)
+        minimum_delta = float(window.get("minimum_preemption_impact_delta", 15.0))
+        if (
+            prior
+            and prior.get("_schedule_window_id")
+            and top["raw_scores"]["urgency"] >= 80.0
+            and impact_delta >= minimum_delta
+        ):
             selected = top
-            decision = "PUBLISH"
-            rationale = f"Top-ranked candidate meets thresholds: {selected['candidate']['title']}"
-        elif (top["raw_scores"]["urgency"] >= (min_urgency - 10.0) or 
-              top["raw_scores"]["impact"] >= (min_impact - 10.0) or 
-              top["final_score"] >= (min_urgency - 10.0)):
+            decision = "PUBLISH_BREAKING_OR_HIGH_IMPACT"
+            rationale = f"Fully gated breaking candidate preempts {prior['_schedule_window_id']} with impact delta {impact_delta:.2f}."
+            preemption_contract = {
+                "trigger_time": cutoff_dt.isoformat().replace("+00:00", "Z"),
+                "selected_candidate": top["candidate"]["candidate_id"],
+                "preempted_window": prior["_schedule_window_id"],
+                "preempted_candidate": prior.get("candidate_id"),
+                "impact_delta": impact_delta,
+                "reason_codes": ["fully_gated_breaking_candidate", "configured_impact_delta_exceeded"],
+                "evidence_requirements": ["candidate_hard_gates_passed", "urgency_at_least_80", "minimum_preemption_delta_met"],
+                "operator_state": "OPERATOR_REVIEW_REQUIRED",
+                "publication_deadline": cutoff_dt.isoformat().replace("+00:00", "Z"),
+            }
+            preemption_contract["decision_hash"] = _logical_hash(preemption_contract)
+    elif scored_candidates and not at_limit:
+        top = scored_candidates[0]
+        if (
+            top["raw_scores"]["urgency"] >= minimum_urgency - 10.0
+            or top["raw_scores"]["impact"] >= minimum_impact - 10.0
+            or top["final_score"] >= minimum_urgency - 10.0
+        ):
             decision = "HOLD_FOR_MORE_EVIDENCE"
-            rationale = f"Top candidate {top['candidate']['title']} is close to thresholds; holding."
-            
-    # Build result
+            rationale = f"Top fully gated candidate {top['candidate']['title']} is close to thresholds; holding."
+
     considered = selected or (scored_candidates[0] if scored_candidates else None)
-    decision_packet = {
+    selected_id = (selected or {}).get("candidate", {}).get("candidate_id")
+    ranked_backlog = [row for row in scored_candidates if row["candidate"].get("candidate_id") != selected_id]
+    return {
         "window_id": window_id,
         "name": window["name"],
         "cutoff_time_utc": cutoff_dt.isoformat().replace("+00:00", "Z"),
         "decision": decision,
         "rationale": rationale,
+        "ranking_model_version": RANKING_MODEL_VERSION,
         "selected_candidate": selected["candidate"] if selected else None,
+        "preemption_contract": preemption_contract,
+        "deep_analysis_fallback_evidence": evaluate_deep_analysis_fallback(
+            considered["candidate"] if considered else None,
+            considered["raw_scores"] if considered else None,
+        ),
         "score_details": {
             "raw_scores": considered["raw_scores"] if considered else None,
             "penalties": considered["penalties"] if considered else [],
@@ -231,24 +504,15 @@ def evaluate_window_decision(
         },
         "backlog_candidates": [
             {
-                "candidate_id": item["candidate"]["candidate_id"],
-                "title": item["candidate"]["title"],
-                "final_score": item["final_score"],
-                "relationship": item["candidate"]["relationship"],
+                "candidate_id": row["candidate"].get("candidate_id"),
+                "title": row["candidate"].get("title"),
+                "final_score": row["final_score"],
+                "relationship": row["candidate"].get("relationship"),
+                "blocked_reasons": row.get("gate_blockers") or [],
             }
-            for item in sorted(scored_candidates[1:] if selected and not preempted else scored_candidates, key=lambda x: x["final_score"], reverse=True)
-        ] + [
-            {
-                "candidate_id": item["candidate"]["candidate_id"],
-                "title": item["candidate"]["title"],
-                "final_score": item["final_score"],
-                "relationship": item["candidate"]["relationship"],
-                "blocked_reason": "update_chain_without_material_update",
-            }
-            for item in backlog
-        ]
+            for row in ranked_backlog + sorted(backlog, key=lambda item: str(item["candidate"].get("candidate_id") or ""))
+        ],
     }
-    return decision_packet
 
 
 def build_newsroom_schedule(
@@ -268,12 +532,18 @@ def build_newsroom_schedule(
         errors.append("pool_schema_version_invalid")
     if not pool.get("database_binding") or not pool["database_binding"].get("head_sha"):
         errors.append("database_binding_missing")
-        
+    pool_generated_at = pool.get("generated_at_utc")
+    try:
+        if not isinstance(pool_generated_at, str) or _parse_utc(pool_generated_at).utcoffset() != timedelta(0):
+            raise ValueError
+    except (TypeError, ValueError):
+        errors.append("pool_generated_at_utc_invalid")
+
     core = {k: v for k, v in pool.items() if k not in ("pool_id", "logical_hash")}
     expected_hash = _logical_hash(core)
     if pool.get("logical_hash") != expected_hash:
         errors.append("pool_logical_hash_mismatch")
-        
+
     if errors:
         raise ValueError(f"candidate_pool_invalid: {', '.join(errors)}")
         
@@ -288,13 +558,16 @@ def build_newsroom_schedule(
             previously_published=previously_published,
         )
         decisions.append(dec)
-        if dec["decision"] == "PUBLISH":
-            previously_published.append(dec["selected_candidate"])
+        if dec["decision"] in PUBLISH_DECISIONS:
+            published = dict(dec["selected_candidate"])
+            published["_schedule_window_id"] = dec["window_id"]
+            published["_schedule_final_score"] = dec["score_details"]["final_score"]
+            previously_published.append(published)
             
     schedule = {
         "schema_version": SCHEMA_VERSION,
         "schedule_date": schedule_date,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "generated_at_utc": pool_generated_at,
         "database_head_sha": pool["database_binding"]["head_sha"],
         "pool_logical_hash": pool["logical_hash"],
         "decisions": decisions,

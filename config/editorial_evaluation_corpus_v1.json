@@ -1,0 +1,407 @@
+{
+  "cases": [
+    {
+      "case_id": "treasury-analysis-accepted-001",
+      "coverage_labels": [
+        "strong_headline",
+        "excellent_original_value"
+      ],
+      "draft_excerpt": "Official daily par yields show a one-basis-point widening in 2s10s. The analysis labels the observation as a daily proxy rather than an executable quote, explains the term-premium mechanism, and states what would confirm or challenge the move.",
+      "expected_disposition": "ACCEPT",
+      "headline": "Treasury Curve Edges Wider as the Long End Holds Above 5%",
+      "human_rationale": "Precise framing, governed calculations, explicit proxy limits, and a falsifiable original mechanism.",
+      "human_rubric": {
+        "accuracy": 5,
+        "claim_traceability": 5,
+        "headline_calibration": 5,
+        "information_density": 5,
+        "materiality": 4,
+        "mechanism_quality": 5,
+        "originality": 5,
+        "overall_acceptance": "ACCEPT",
+        "reader_utility": 5,
+        "seo_hygiene": 4,
+        "source_quality": 5,
+        "structure": 5,
+        "uncertainty_handling": 5,
+        "visual_utility": 4
+      },
+      "source_condition": "official_same_date_curve_observations_bound_to_claim_ids",
+      "story_type": "treasury_curve"
+    },
+    {
+      "case_id": "treasury-analysis-rejected-002",
+      "coverage_labels": [
+        "weak_headline",
+        "overclaiming"
+      ],
+      "draft_excerpt": "A one-basis-point curve change proves recession is inevitable and investors must sell risk assets now.",
+      "expected_disposition": "REJECT",
+      "headline": "Bond Market Proves a Historic Recession Is Guaranteed",
+      "human_rationale": "The headline and conclusion exceed the evidence and include prohibited financial advice.",
+      "human_rubric": {
+        "accuracy": 1,
+        "claim_traceability": 1,
+        "headline_calibration": 1,
+        "information_density": 2,
+        "materiality": 2,
+        "mechanism_quality": 1,
+        "originality": 1,
+        "overall_acceptance": "REJECT",
+        "reader_utility": 1,
+        "seo_hygiene": 2,
+        "source_quality": 4,
+        "structure": 2,
+        "uncertainty_handling": 1,
+        "visual_utility": 2
+      },
+      "source_condition": "same_observations_as_treasury-analysis-accepted-001",
+      "story_type": "treasury_curve"
+    },
+    {
+      "case_id": "fed-policy-rejected-003",
+      "coverage_labels": [
+        "factual_error"
+      ],
+      "draft_excerpt": "The draft states that the target range rose 25 basis points, while the bound decision record shows no change.",
+      "expected_disposition": "REJECT",
+      "headline": "Fed Raises Rates After July Meeting",
+      "human_rationale": "A material numeric and directional contradiction with the official decision is publication-blocking.",
+      "human_rubric": {
+        "accuracy": 1,
+        "claim_traceability": 2,
+        "headline_calibration": 1,
+        "information_density": 3,
+        "materiality": 5,
+        "mechanism_quality": 2,
+        "originality": 2,
+        "overall_acceptance": "REJECT",
+        "reader_utility": 1,
+        "seo_hygiene": 4,
+        "source_quality": 5,
+        "structure": 3,
+        "uncertainty_handling": 2,
+        "visual_utility": 3
+      },
+      "source_condition": "official_decision_record_conflicts_with_draft",
+      "story_type": "central_bank_policy"
+    },
+    {
+      "case_id": "fed-policy-rejected-004",
+      "coverage_labels": [
+        "semantic_error",
+        "overclaiming"
+      ],
+      "draft_excerpt": "The statement caused every major equity move, although the packet contains no market-reaction observations or causal identification.",
+      "expected_disposition": "REJECT",
+      "headline": "Fed Statement Sends Stocks Higher",
+      "human_rationale": "Temporal proximity is incorrectly promoted to exclusive causality.",
+      "human_rubric": {
+        "accuracy": 2,
+        "claim_traceability": 1,
+        "headline_calibration": 1,
+        "information_density": 3,
+        "materiality": 4,
+        "mechanism_quality": 1,
+        "originality": 2,
+        "overall_acceptance": "REJECT",
+        "reader_utility": 2,
+        "seo_hygiene": 3,
+        "source_quality": 4,
+        "structure": 3,
+        "uncertainty_handling": 1,
+        "visual_utility": 2
+      },
+      "source_condition": "policy_text_only_without_market_reaction_evidence",
+      "story_type": "central_bank_policy"
+    },
+    {
+      "case_id": "inflation-release-rejected-005",
+      "coverage_labels": [
+        "stale_story"
+      ],
+      "draft_excerpt": "The article calls a two-week-old CPI release new after a subsequent payroll report and policy decision changed the information set.",
+      "expected_disposition": "REJECT",
+      "headline": "New CPI Report Reshapes the Rate Outlook",
+      "human_rationale": "Facts may remain accurate, but freshness and why-now claims are no longer valid.",
+      "human_rubric": {
+        "accuracy": 3,
+        "claim_traceability": 4,
+        "headline_calibration": 2,
+        "information_density": 3,
+        "materiality": 2,
+        "mechanism_quality": 3,
+        "originality": 2,
+        "overall_acceptance": "REJECT",
+        "reader_utility": 2,
+        "seo_hygiene": 4,
+        "source_quality": 5,
+        "structure": 3,
+        "uncertainty_handling": 3,
+        "visual_utility": 3
+      },
+      "source_condition": "source_age_and_intervening_events_exceed_release_window",
+      "story_type": "macro_data_release"
+    },
+    {
+      "case_id": "oil-market-rejected-006",
+      "coverage_labels": [
+        "proxy_misuse"
+      ],
+      "draft_excerpt": "A delayed daily FRED observation is described as a live executable WTI quote without an as-of label.",
+      "expected_disposition": "REJECT",
+      "headline": "WTI Trades at $74 in Real Time",
+      "human_rationale": "The source is useful only when labeled as a delayed daily proxy, not a live tradable quote.",
+      "human_rubric": {
+        "accuracy": 2,
+        "claim_traceability": 3,
+        "headline_calibration": 2,
+        "information_density": 3,
+        "materiality": 4,
+        "mechanism_quality": 2,
+        "originality": 2,
+        "overall_acceptance": "REJECT",
+        "reader_utility": 2,
+        "seo_hygiene": 4,
+        "source_quality": 4,
+        "structure": 3,
+        "uncertainty_handling": 1,
+        "visual_utility": 3
+      },
+      "source_condition": "daily_observation_used_as_live_market_price",
+      "story_type": "commodity_market"
+    },
+    {
+      "case_id": "credit-analysis-rejected-007",
+      "coverage_labels": [
+        "repetition",
+        "semantic_error"
+      ],
+      "draft_excerpt": "Three consecutive sections repeat that refinancing risk persists, with no additional evidence, mechanism, counterexample, or decision-useful distinction.",
+      "expected_disposition": "REJECT",
+      "headline": "Credit Spreads Narrow as Refinancing Risk Persists",
+      "human_rationale": "Accurate repetition is still an editorial failure when it adds no new information.",
+      "human_rubric": {
+        "accuracy": 4,
+        "claim_traceability": 4,
+        "headline_calibration": 4,
+        "information_density": 1,
+        "materiality": 3,
+        "mechanism_quality": 2,
+        "originality": 1,
+        "overall_acceptance": "REJECT",
+        "reader_utility": 2,
+        "seo_hygiene": 3,
+        "source_quality": 4,
+        "structure": 2,
+        "uncertainty_handling": 3,
+        "visual_utility": 2
+      },
+      "source_condition": "supported_theme_repeated_without_incremental_value",
+      "story_type": "credit_markets"
+    },
+    {
+      "case_id": "fx-explainer-rejected-008",
+      "coverage_labels": [
+        "poor_seo",
+        "weak_headline"
+      ],
+      "draft_excerpt": "A useful dollar-liquidity explainer has no descriptive title, search phrase, meta description, canonical URL, headings, or source links.",
+      "expected_disposition": "REJECT",
+      "headline": "Some Thoughts on What Happened",
+      "human_rationale": "Editorial substance does not excuse unusable discovery and rendered-page metadata.",
+      "human_rubric": {
+        "accuracy": 4,
+        "claim_traceability": 3,
+        "headline_calibration": 1,
+        "information_density": 4,
+        "materiality": 3,
+        "mechanism_quality": 4,
+        "originality": 3,
+        "overall_acceptance": "REJECT",
+        "reader_utility": 3,
+        "seo_hygiene": 1,
+        "source_quality": 4,
+        "structure": 2,
+        "uncertainty_handling": 4,
+        "visual_utility": 2
+      },
+      "source_condition": "content_supported_but_packaging_metadata_absent",
+      "story_type": "foreign_exchange"
+    },
+    {
+      "case_id": "payrolls-release-accepted-009",
+      "coverage_labels": [
+        "strong_headline"
+      ],
+      "draft_excerpt": "The lede separates release values from revisions, labels the observation time, compares the result with a documented consensus, and avoids inferring the next policy decision.",
+      "expected_disposition": "ACCEPT",
+      "headline": "Payroll Growth Slows to 95,000 as Unemployment Holds at 4.2%",
+      "human_rationale": "A calibrated release story distinguishes facts, revisions, expectations, and bounded implications.",
+      "human_rubric": {
+        "accuracy": 5,
+        "claim_traceability": 5,
+        "headline_calibration": 5,
+        "information_density": 5,
+        "materiality": 5,
+        "mechanism_quality": 4,
+        "originality": 3,
+        "overall_acceptance": "ACCEPT",
+        "reader_utility": 5,
+        "seo_hygiene": 5,
+        "source_quality": 5,
+        "structure": 5,
+        "uncertainty_handling": 5,
+        "visual_utility": 4
+      },
+      "source_condition": "official_release_and_vintage_bound_consensus",
+      "story_type": "macro_data_release"
+    },
+    {
+      "case_id": "bank-earnings-accepted-010",
+      "coverage_labels": [
+        "excellent_original_value",
+        "strong_headline"
+      ],
+      "draft_excerpt": "The analysis reconciles reported net interest income with deposit beta and provisions, identifies a cross-bank divergence, documents the calculation, and gives explicit limits to comparability.",
+      "expected_disposition": "ACCEPT",
+      "headline": "Deposit Costs Ease, but Credit Provisions Define the Bank Earnings Split",
+      "human_rationale": "The piece contributes a reproducible comparison rather than paraphrasing management commentary.",
+      "human_rubric": {
+        "accuracy": 5,
+        "claim_traceability": 5,
+        "headline_calibration": 5,
+        "information_density": 5,
+        "materiality": 4,
+        "mechanism_quality": 5,
+        "originality": 5,
+        "overall_acceptance": "ACCEPT",
+        "reader_utility": 5,
+        "seo_hygiene": 4,
+        "source_quality": 5,
+        "structure": 5,
+        "uncertainty_handling": 4,
+        "visual_utility": 5
+      },
+      "source_condition": "issuer_filings_and_reconciled_calculations",
+      "story_type": "corporate_earnings"
+    },
+    {
+      "case_id": "geopolitics-rejected-011",
+      "coverage_labels": [
+        "overclaiming",
+        "semantic_error"
+      ],
+      "draft_excerpt": "A preliminary statement is treated as completed logistics normalization and a deterministic price forecast despite unresolved implementation conditions.",
+      "expected_disposition": "REJECT",
+      "headline": "Ceasefire Guarantees Oil Will Collapse",
+      "human_rationale": "Sensitive geopolitical and forecast boundaries require conditional language and execution evidence.",
+      "human_rubric": {
+        "accuracy": 2,
+        "claim_traceability": 2,
+        "headline_calibration": 1,
+        "information_density": 3,
+        "materiality": 5,
+        "mechanism_quality": 2,
+        "originality": 2,
+        "overall_acceptance": "REJECT",
+        "reader_utility": 2,
+        "seo_hygiene": 3,
+        "source_quality": 3,
+        "structure": 3,
+        "uncertainty_handling": 1,
+        "visual_utility": 2
+      },
+      "source_condition": "preliminary_statement_without_execution_readback",
+      "story_type": "geopolitical_catalyst"
+    },
+    {
+      "case_id": "liquidity-explainer-accepted-012",
+      "coverage_labels": [
+        "excellent_original_value"
+      ],
+      "draft_excerpt": "The explainer distinguishes overnight implementation from term premium and issuance, uses official definitions, maps the transmission chain, and names observations that would invalidate the interpretation.",
+      "expected_disposition": "ACCEPT",
+      "headline": "Why Stable Fed Funds Can Coexist With Pressure in Longer Yields",
+      "human_rationale": "The explainer adds a clear mechanism and falsifiable distinctions without turning them into advice.",
+      "human_rubric": {
+        "accuracy": 5,
+        "claim_traceability": 5,
+        "headline_calibration": 5,
+        "information_density": 5,
+        "materiality": 4,
+        "mechanism_quality": 5,
+        "originality": 5,
+        "overall_acceptance": "ACCEPT",
+        "reader_utility": 5,
+        "seo_hygiene": 4,
+        "source_quality": 5,
+        "structure": 5,
+        "uncertainty_handling": 5,
+        "visual_utility": 4
+      },
+      "source_condition": "official_rate_definitions_and_governed_curve_observations",
+      "story_type": "market_structure_explainer"
+    }
+  ],
+  "corpus_id": "capital-chronicle-golden-editorial-corpus-v1",
+  "fixture_only": true,
+  "labeling_authority": "HUMAN_EDITORIAL_RUBRIC_FIXTURE",
+  "pairwise_judgments": [
+    {
+      "dimensions": [
+        "headline_calibration",
+        "uncertainty_handling",
+        "reader_utility"
+      ],
+      "human_rationale": "The preferred case preserves the measured magnitude and conditional meaning of the same source observations.",
+      "pair_id": "treasury-calibration-001",
+      "preferred_case_id": "treasury-analysis-accepted-001",
+      "rejected_case_id": "treasury-analysis-rejected-002"
+    },
+    {
+      "dimensions": [
+        "claim_traceability",
+        "mechanism_quality",
+        "uncertainty_handling"
+      ],
+      "human_rationale": "The preferred case explains transmission without claiming unsupported exclusive causality.",
+      "pair_id": "fed-evidence-boundary-002",
+      "preferred_case_id": "liquidity-explainer-accepted-012",
+      "rejected_case_id": "fed-policy-rejected-004"
+    },
+    {
+      "dimensions": [
+        "materiality",
+        "headline_calibration",
+        "reader_utility"
+      ],
+      "human_rationale": "The preferred case is current at its decision cutoff and labels its information vintage.",
+      "pair_id": "macro-freshness-003",
+      "preferred_case_id": "payrolls-release-accepted-009",
+      "rejected_case_id": "inflation-release-rejected-005"
+    }
+  ],
+  "publication_authority": false,
+  "required_coverage_labels": [
+    "strong_headline",
+    "weak_headline",
+    "factual_error",
+    "semantic_error",
+    "overclaiming",
+    "stale_story",
+    "proxy_misuse",
+    "repetition",
+    "poor_seo",
+    "excellent_original_value"
+  ],
+  "rubric_scale": {
+    "acceptance_values": [
+      "ACCEPT",
+      "REJECT"
+    ],
+    "maximum": 5,
+    "minimum": 1
+  },
+  "schema_version": "contentops.editorial_evaluation_corpus.v1"
+}

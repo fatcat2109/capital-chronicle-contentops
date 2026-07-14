@@ -218,11 +218,11 @@ def test_generic_prepare_only_real_rehearsal_calls_no_platform(tmp_path, monkeyp
     import live_contentops.edge_cdp_publishing_adapter_v1 as edge
     monkeypatch.setattr(edge, "publish_substack_article_via_edge", lambda **_: (_ for _ in ()).throw(AssertionError("no write")))
     result = run_generic_prepare_only(output_dir=tmp_path, story_request=json.loads(REAL_REQUEST.read_text()), capital_chronicle_root=cc_root, as_of_utc="2026-07-11T02:00:00Z")
-    assert result["classification"] == "PASS_GENERIC_PREPARE_ONLY"
+    assert result["classification"] == "PASS_GENERIC_FABRIC_FAIL_CLOSED_REHEARSAL"
     assert result["public_write_performed"] is False
     assert result["platform_adapter_called"] is False
-    assert result["publication_eligible"] is True
-    assert result["blockers"] == []
+    assert result["publication_eligible"] is False
+    assert any(blocker.startswith("editorial_revision_v2:") for blocker in result["blockers"])
 
 
 def test_canonical_runner_generic_mode_cannot_enter_browser_or_publish_paths(tmp_path, monkeypatch):
@@ -272,7 +272,7 @@ def test_newsroom_pool_and_schedule_integration(tmp_path):
         "decisions": [
             {
                 "window_id": "us_open",
-                "decision": "PUBLISH",
+                "decision": "PUBLISH_BREAKING_OR_HIGH_IMPACT",
                 "selected_candidate": {
                     "candidate_id": "cc-candidate-11111111111111111111"
                 }
@@ -362,6 +362,19 @@ def test_newsroom_pool_and_schedule_integration(tmp_path):
     )
     assert res_b["publication_eligible"] is False
     assert "newsroom_schedule_decision_not_publish" in res_b["blockers"]
+
+    # Case C: Retired ambiguous PUBLISH token must not grant authority.
+    packet["governed_contract"]["upstream_candidate_id"] = "cc-candidate-11111111111111111111"
+    packet_path.write_text(json.dumps(packet), encoding="utf-8")
+    schedule["decisions"][0]["decision"] = "PUBLISH"
+    schedule_path.write_text(json.dumps(schedule), encoding="utf-8")
+    res_c = run_generic_database_preflight(
+        output_dir=tmp_path / "out_c",
+        evidence_packet_path=packet_path,
+        newsroom_schedule_path=schedule_path,
+    )
+    assert res_c["publication_eligible"] is False
+    assert "newsroom_schedule_decision_not_publish" in res_c["blockers"]
 
 
 

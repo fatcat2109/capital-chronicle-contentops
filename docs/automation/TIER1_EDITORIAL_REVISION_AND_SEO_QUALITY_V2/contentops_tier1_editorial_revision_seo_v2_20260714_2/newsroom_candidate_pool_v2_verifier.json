@@ -1,0 +1,7 @@
+{
+  "errors": [],
+  "pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3",
+  "schema_version": "capital_chronicle.newsroom_candidate_pool_verifier.v1",
+  "valid": true,
+  "verified_logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b"
+}

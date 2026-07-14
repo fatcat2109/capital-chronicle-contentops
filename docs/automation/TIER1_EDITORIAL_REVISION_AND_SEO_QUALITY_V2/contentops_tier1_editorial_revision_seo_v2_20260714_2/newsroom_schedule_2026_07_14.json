@@ -1,0 +1,694 @@
+{
+  "database_head_sha": "d014a4a311ad1c9c6b15e0c26cf2f9271cb9e95c",
+  "decisions": [
+    {
+      "backlog_candidates": [],
+      "cutoff_time_utc": "2026-07-14T01:00:00Z",
+      "decision": "PUBLISH_BREAKING_OR_HIGH_IMPACT",
+      "deep_analysis_fallback_evidence": {
+        "ordered_steps": [
+          {
+            "available": false,
+            "fallback": "material_update",
+            "order": 1,
+            "reason_codes": [
+              "relationship_material_update"
+            ]
+          },
+          {
+            "available": true,
+            "fallback": "fresh_official_data_analysis",
+            "order": 2,
+            "reason_codes": [
+              "exact_source",
+              "freshness_measured",
+              "numeric_claims_present"
+            ]
+          },
+          {
+            "available": true,
+            "fallback": "structural_analysis_with_measurable_new_delta",
+            "order": 3,
+            "reason_codes": [
+              "original_calculation_present",
+              "material_delta_measured"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "conditional_scenario",
+            "order": 4,
+            "reason_codes": [
+              "conditional_scenario_explicit"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "no_publication",
+            "order": 5,
+            "reason_codes": [
+              "no_earlier_fallback_available"
+            ]
+          }
+        ],
+        "publication_authority": false,
+        "selected_fallback": "fresh_official_data_analysis"
+      },
+      "name": "Asia Pacific Open Window",
+      "preemption_contract": null,
+      "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+      "rationale": "Top-ranked fully gated candidate meets thresholds: U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%",
+      "score_details": {
+        "final_score": 88.54,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": {
+          "availability_summary": {
+            "available": 8,
+            "unavailable": 6,
+            "unknown_explicit_inputs": []
+          },
+          "dimensions": {
+            "affected_market_economy_breadth": {
+              "availability": "UNAVAILABLE",
+              "evidence_refs": [],
+              "reason_codes": [
+                "unavailable_no_explicit_affected_market_economy_breadth_evidence"
+              ],
+              "score": null
+            },
+            "audience_relevance": {
+              "availability": "UNAVAILABLE",
+              "evidence_refs": [],
+              "reason_codes": [
+                "unavailable_no_explicit_audience_relevance_evidence"
+              ],
+              "score": null
+            },
+            "durability": {
+              "availability": "UNAVAILABLE",
+              "evidence_refs": [],
+              "reason_codes": [
+                "unavailable_no_explicit_durability_evidence"
+              ],
+              "score": null
+            },
+            "evidence_completeness": {
+              "availability": "AVAILABLE",
+              "evidence_refs": [],
+              "reason_codes": [
+                "source_documents_present",
+                "numeric_claims_present",
+                "citation_map_present",
+                "permissions_present",
+                "source_health_present"
+              ],
+              "score": 100.0
+            },
+            "freshness": {
+              "availability": "AVAILABLE",
+              "evidence_refs": [
+                "2026-07-13T22:27:31.358283Z"
+              ],
+              "reason_codes": [
+                "point_in_time_linear_decay"
+              ],
+              "score": 92.94
+            },
+            "materiality": {
+              "availability": "AVAILABLE",
+              "evidence_refs": [
+                "UST:2Y:2026-07-13",
+                "UST:10Y:2026-07-13",
+                "UST:30Y:2026-07-13",
+                "UST:2S10S:2026-07-13"
+              ],
+              "reason_codes": [
+                "measured_numeric_change_basis_points"
+              ],
+              "score": 60.0
+            },
+            "novelty": {
+              "availability": "AVAILABLE",
+              "evidence_refs": [
+                "cc-update-chain-7aa53a08e0a4b35873af"
+              ],
+              "reason_codes": [
+                "update_relationship_new_phase"
+              ],
+              "score": 90.0
+            },
+            "original_analysis_potential": {
+              "availability": "AVAILABLE",
+              "evidence_refs": [
+                "UST:2S10S:2026-07-13"
+              ],
+              "reason_codes": [
+                "reproducible_calculated_claim_present"
+              ],
+              "score": 85.0
+            },
+            "overclaiming_risk": {
+              "availability": "AVAILABLE",
+              "evidence_refs": [],
+              "reason_codes": [
+                "low_overclaiming_risk_explicit_authority"
+              ],
+              "score": 100.0
+            },
+            "policy_economic_geopolitical_significance": {
+              "availability": "UNAVAILABLE",
+              "evidence_refs": [],
+              "reason_codes": [
+                "unavailable_no_explicit_policy_economic_geopolitical_significance_evidence"
+              ],
+              "score": null
+            },
+            "source_authority": {
+              "availability": "AVAILABLE",
+              "evidence_refs": [
+                "cc-publication-73ff151c3d3094741b6c"
+              ],
+              "reason_codes": [
+                "evidence_class_exact"
+              ],
+              "score": 100.0
+            },
+            "surprise": {
+              "availability": "UNAVAILABLE",
+              "evidence_refs": [],
+              "reason_codes": [
+                "unavailable_no_explicit_surprise_evidence"
+              ],
+              "score": null
+            },
+            "topic_source_day_concentration": {
+              "availability": "AVAILABLE",
+              "evidence_refs": [],
+              "reason_codes": [
+                "no_prior_topic_source_or_mode_concentration"
+              ],
+              "score": 100.0
+            },
+            "visual_feasibility": {
+              "availability": "UNAVAILABLE",
+              "evidence_refs": [],
+              "reason_codes": [
+                "unavailable_no_explicit_visual_feasibility_evidence"
+              ],
+              "score": null
+            }
+          },
+          "freshness": 92.94,
+          "impact": 86.94,
+          "legacy_window_weights_observed": {
+            "freshness": 0.2,
+            "impact": 0.3,
+            "urgency": 0.5
+          },
+          "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+          "total": 88.54,
+          "urgency": 84.09
+        }
+      },
+      "selected_candidate": {
+        "article_mode": "analysis",
+        "authority": {
+          "global_dqr": "BLOCKED",
+          "global_dqr_override": false,
+          "source_authorities": [
+            "capital_chronicle_calculation_from_exact_official_public",
+            "exact_official_public"
+          ],
+          "story_decision": "ALLOW"
+        },
+        "blockers": [],
+        "candidate_id": "cc-candidate-120438cc800db7f941be",
+        "citation_map": {
+          "UST:10Y:2026-07-13": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          ],
+          "UST:2S10S:2026-07-13": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          ],
+          "UST:2Y:2026-07-13": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          ],
+          "UST:30Y:2026-07-13": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          ]
+        },
+        "claim_permissions": {
+          "consumer": "contentops_publication",
+          "decision": "ALLOW",
+          "global_dqr_override": false,
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": true,
+          "numeric_claims_allowed": true,
+          "reporting_allowed": true
+        },
+        "cluster_id": "cc-cluster-7aa53a08e0a4b35873af",
+        "eligible": true,
+        "event_time_utc": "2026-07-13T00:00:00Z",
+        "evidence_class": "exact",
+        "evidence_hash": "120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f",
+        "freshness": {
+          "age_hours": 22.459,
+          "evaluated_at_utc": "2026-07-14T00:00:00Z",
+          "max_age_hours": 36.0
+        },
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "limitations": [
+          "candidate_pool_does_not_grant_dispatch_authority",
+          "global_dqr_remains_unchanged",
+          "llm_is_not_numeric_authority",
+          "official_daily_par_yield_curve_not_trade_execution_price"
+        ],
+        "numeric_claims": [
+          {
+            "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+            "change_basis_points": 5.0,
+            "claim_id": "UST:2Y:2026-07-13",
+            "known_at_precision": "retrieval_upper_bound",
+            "known_at_utc": "2026-07-13T22:27:31.358283Z",
+            "llm_numeric_authority": false,
+            "metric": "U.S. Treasury 2Y par yield",
+            "observation_time_utc": "2026-07-13T00:00:00Z",
+            "prior_observation_date": "2026-07-10",
+            "prior_value": 4.21,
+            "public_claim_allowed": true,
+            "source_authority": "exact_official_public",
+            "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+            "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "unit": "percent",
+            "value": 4.26
+          },
+          {
+            "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+            "change_basis_points": 6.0,
+            "claim_id": "UST:10Y:2026-07-13",
+            "known_at_precision": "retrieval_upper_bound",
+            "known_at_utc": "2026-07-13T22:27:31.358283Z",
+            "llm_numeric_authority": false,
+            "metric": "U.S. Treasury 10Y par yield",
+            "observation_time_utc": "2026-07-13T00:00:00Z",
+            "prior_observation_date": "2026-07-10",
+            "prior_value": 4.56,
+            "public_claim_allowed": true,
+            "source_authority": "exact_official_public",
+            "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+            "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "unit": "percent",
+            "value": 4.62
+          },
+          {
+            "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+            "change_basis_points": 4.0,
+            "claim_id": "UST:30Y:2026-07-13",
+            "known_at_precision": "retrieval_upper_bound",
+            "known_at_utc": "2026-07-13T22:27:31.358283Z",
+            "llm_numeric_authority": false,
+            "metric": "U.S. Treasury 30Y par yield",
+            "observation_time_utc": "2026-07-13T00:00:00Z",
+            "prior_observation_date": "2026-07-10",
+            "prior_value": 5.06,
+            "public_claim_allowed": true,
+            "source_authority": "exact_official_public",
+            "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+            "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "unit": "percent",
+            "value": 5.1
+          },
+          {
+            "calculation": "(10-year par yield minus 2-year par yield) multiplied by 100",
+            "change_basis_points": 1.0,
+            "claim_id": "UST:2S10S:2026-07-13",
+            "known_at_precision": "retrieval_upper_bound",
+            "known_at_utc": "2026-07-13T22:27:31.358283Z",
+            "llm_numeric_authority": false,
+            "metric": "U.S. Treasury 2s10s par-yield spread",
+            "observation_time_utc": "2026-07-13T00:00:00Z",
+            "prior_observation_date": "2026-07-10",
+            "prior_value": 35.0,
+            "public_claim_allowed": true,
+            "source_authority": "capital_chronicle_calculation_from_exact_official_public",
+            "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+            "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "unit": "basis_points",
+            "value": 36.0
+          }
+        ],
+        "relationship": "new_phase",
+        "source_documents": [
+          {
+            "data_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "document_id": "ust-daily-yield-curve-2026-07-13",
+            "public_claim_allowed": true,
+            "published_at_utc": "2026-07-13T00:00:00Z",
+            "publisher": "U.S. Department of the Treasury",
+            "raw_sha256": "dae34a2d15f948bc501443cb8c9b1f0dd12e7eee3bdac72fa9bb322afe1e99ec",
+            "rights_status": "public_domain_us_government",
+            "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "title": "Daily Treasury Par Yield Curve Rates"
+          }
+        ],
+        "source_family": "story_scoped_publication_evidence_v1",
+        "source_health": {
+          "freshness_age_hours": 22.459,
+          "http_status": 200,
+          "latest_observation_date": "2026-07-13",
+          "parse_status": "PASS",
+          "previous_observation_date": "2026-07-10",
+          "status": "HEALTHY"
+        },
+        "source_packet_id": "cc-publication-73ff151c3d3094741b6c",
+        "source_packet_logical_hash": "5ac72fb83ea5e8ecb65c6b023cbda66bbd02280f9dd4ff614553699b4712f8e5",
+        "story_family": "market_move",
+        "story_id": "cc-story-b032aaca7d2d27af3f67",
+        "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+        "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%",
+        "update_chain_id": "cc-update-chain-7aa53a08e0a4b35873af"
+      },
+      "window_id": "asia_open"
+    },
+    {
+      "backlog_candidates": [
+        {
+          "blocked_reasons": [
+            "candidate_already_published_today"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "final_score": 0.0,
+          "relationship": "new_phase",
+          "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+        }
+      ],
+      "cutoff_time_utc": "2026-07-14T07:30:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "deep_analysis_fallback_evidence": {
+        "ordered_steps": [
+          {
+            "available": false,
+            "fallback": "material_update",
+            "order": 1,
+            "reason_codes": [
+              "relationship_material_update"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "fresh_official_data_analysis",
+            "order": 2,
+            "reason_codes": [
+              "exact_source",
+              "freshness_measured",
+              "numeric_claims_present"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "structural_analysis_with_measurable_new_delta",
+            "order": 3,
+            "reason_codes": [
+              "original_calculation_present",
+              "material_delta_measured"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "conditional_scenario",
+            "order": 4,
+            "reason_codes": [
+              "conditional_scenario_explicit"
+            ]
+          },
+          {
+            "available": true,
+            "fallback": "no_publication",
+            "order": 5,
+            "reason_codes": [
+              "no_earlier_fallback_available"
+            ]
+          }
+        ],
+        "publication_authority": false,
+        "selected_fallback": "no_publication"
+      },
+      "name": "London/European Open Window",
+      "preemption_contract": null,
+      "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+      "rationale": "No fully gated candidate met the window urgency and impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "london_open"
+    },
+    {
+      "backlog_candidates": [
+        {
+          "blocked_reasons": [
+            "candidate_already_published_today"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "final_score": 0.0,
+          "relationship": "new_phase",
+          "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+        }
+      ],
+      "cutoff_time_utc": "2026-07-14T13:30:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "deep_analysis_fallback_evidence": {
+        "ordered_steps": [
+          {
+            "available": false,
+            "fallback": "material_update",
+            "order": 1,
+            "reason_codes": [
+              "relationship_material_update"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "fresh_official_data_analysis",
+            "order": 2,
+            "reason_codes": [
+              "exact_source",
+              "freshness_measured",
+              "numeric_claims_present"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "structural_analysis_with_measurable_new_delta",
+            "order": 3,
+            "reason_codes": [
+              "original_calculation_present",
+              "material_delta_measured"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "conditional_scenario",
+            "order": 4,
+            "reason_codes": [
+              "conditional_scenario_explicit"
+            ]
+          },
+          {
+            "available": true,
+            "fallback": "no_publication",
+            "order": 5,
+            "reason_codes": [
+              "no_earlier_fallback_available"
+            ]
+          }
+        ],
+        "publication_authority": false,
+        "selected_fallback": "no_publication"
+      },
+      "name": "United States/New York Open Window",
+      "preemption_contract": null,
+      "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+      "rationale": "No fully gated candidate met the window urgency and impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "us_open"
+    },
+    {
+      "backlog_candidates": [
+        {
+          "blocked_reasons": [
+            "candidate_already_published_today"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "final_score": 0.0,
+          "relationship": "new_phase",
+          "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+        }
+      ],
+      "cutoff_time_utc": "2026-07-14T20:00:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "deep_analysis_fallback_evidence": {
+        "ordered_steps": [
+          {
+            "available": false,
+            "fallback": "material_update",
+            "order": 1,
+            "reason_codes": [
+              "relationship_material_update"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "fresh_official_data_analysis",
+            "order": 2,
+            "reason_codes": [
+              "exact_source",
+              "freshness_measured",
+              "numeric_claims_present"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "structural_analysis_with_measurable_new_delta",
+            "order": 3,
+            "reason_codes": [
+              "original_calculation_present",
+              "material_delta_measured"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "conditional_scenario",
+            "order": 4,
+            "reason_codes": [
+              "conditional_scenario_explicit"
+            ]
+          },
+          {
+            "available": true,
+            "fallback": "no_publication",
+            "order": 5,
+            "reason_codes": [
+              "no_earlier_fallback_available"
+            ]
+          }
+        ],
+        "publication_authority": false,
+        "selected_fallback": "no_publication"
+      },
+      "name": "United States/New York Close Window",
+      "preemption_contract": null,
+      "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+      "rationale": "No fully gated candidate met the window urgency and impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "us_close"
+    },
+    {
+      "backlog_candidates": [
+        {
+          "blocked_reasons": [
+            "candidate_already_published_today"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "final_score": 0.0,
+          "relationship": "new_phase",
+          "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+        }
+      ],
+      "cutoff_time_utc": "2026-07-14T23:30:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "deep_analysis_fallback_evidence": {
+        "ordered_steps": [
+          {
+            "available": false,
+            "fallback": "material_update",
+            "order": 1,
+            "reason_codes": [
+              "relationship_material_update"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "fresh_official_data_analysis",
+            "order": 2,
+            "reason_codes": [
+              "exact_source",
+              "freshness_measured",
+              "numeric_claims_present"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "structural_analysis_with_measurable_new_delta",
+            "order": 3,
+            "reason_codes": [
+              "original_calculation_present",
+              "material_delta_measured"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "conditional_scenario",
+            "order": 4,
+            "reason_codes": [
+              "conditional_scenario_explicit"
+            ]
+          },
+          {
+            "available": true,
+            "fallback": "no_publication",
+            "order": 5,
+            "reason_codes": [
+              "no_earlier_fallback_available"
+            ]
+          }
+        ],
+        "publication_authority": false,
+        "selected_fallback": "no_publication"
+      },
+      "name": "Global Reconcile and Summary Window",
+      "preemption_contract": null,
+      "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+      "rationale": "No fully gated candidate met the window urgency and impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "global_recon"
+    }
+  ],
+  "generated_at_utc": "2026-07-14T00:00:00Z",
+  "logical_hash": "3d56edf0f302bbdb7a7e8252d01e31be403a59f0cc46c8cdac0ea21309376d07",
+  "pool_logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+  "schedule_date": "2026-07-14",
+  "schedule_id": "cc-schedule-3d56edf0f302bbdb7a7e",
+  "schema_version": "capital_chronicle.newsroom_schedule_decision.v1",
+  "summary": {
+    "backlog_count": 4,
+    "publications": 1,
+    "total_windows": 5
+  }
+}

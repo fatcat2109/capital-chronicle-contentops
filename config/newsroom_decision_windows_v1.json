@@ -8,6 +8,7 @@
       "minimum_urgency_threshold": 50,
       "minimum_impact_threshold": 45,
       "preemption_allowed": true,
+      "minimum_preemption_impact_delta": 15.0,
       "daily_portfolio_limit": 2,
       "score_weights": {
         "urgency": 0.5,
@@ -22,6 +23,7 @@
       "minimum_urgency_threshold": 55,
       "minimum_impact_threshold": 50,
       "preemption_allowed": true,
+      "minimum_preemption_impact_delta": 15.0,
       "daily_portfolio_limit": 2,
       "score_weights": {
         "urgency": 0.4,
@@ -36,6 +38,7 @@
       "minimum_urgency_threshold": 60,
       "minimum_impact_threshold": 55,
       "preemption_allowed": true,
+      "minimum_preemption_impact_delta": 15.0,
       "daily_portfolio_limit": 3,
       "score_weights": {
         "urgency": 0.4,
@@ -50,6 +53,7 @@
       "minimum_urgency_threshold": 55,
       "minimum_impact_threshold": 55,
       "preemption_allowed": false,
+      "minimum_preemption_impact_delta": 15.0,
       "daily_portfolio_limit": 2,
       "score_weights": {
         "urgency": 0.3,
@@ -64,6 +68,7 @@
       "minimum_urgency_threshold": 45,
       "minimum_impact_threshold": 45,
       "preemption_allowed": false,
+      "minimum_preemption_impact_delta": 15.0,
       "daily_portfolio_limit": 1,
       "score_weights": {
         "urgency": 0.3,
