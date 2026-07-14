@@ -27,7 +27,7 @@ Run: `contentops_database_publication_live_20260714_1`.
 
 Evidence: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`.
 
-Canonical article: `https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider`.
+Canonical article: `https://capitalchronicle.substack.com/p/us-treasury-30-year-yield-curve-slope`.
 
 The final bounded edit removed the comma after “July 10” and replaced the auction-confirmation sentence with mechanics-accurate language requiring greater compensation to absorb long-duration supply. Strict public readback passed with title, subtitle, numeric claims, complete body, six source links, three ordered visuals, and three captions preserved. The final body SHA-256 is `05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc`.
 
@@ -45,11 +45,11 @@ The July 11 RC and final-closure evidence remain historical. They prove earlier 
 
 ## Tier-1 Editorial Revision and SEO Quality V2
 
-`TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2` is complete as a bounded local, no-write implementation. It adds deterministic sentence-level claim graphs, a nine-stage hash-linked revision chain, mode-aware original-value checks, redundancy detection, a non-authoritative headline desk, and fail-closed generic prepare integration.
+`TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2` is complete after bounded Task 2 repair `TASK_CONTENTOPS_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V1`. It includes deterministic sentence-level claim graphs, a nine-stage content-hash-linked revision chain, mode-aware original-value checks, redundancy detection, a non-authoritative headline desk, and fail-closed generic prepare integration.
 
-Evidence: `docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_1/`.
+Superseding evidence: `docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_2/`.
 
-Focused validation passed `36` tests. The governed local replay passed prepare-only with no browser/CDP, platform adapter, network, credential, or public-write action. The replayed legacy request did not opt into V2 and correctly records `NOT_REQUESTED`; dedicated tests prove invalid explicitly requested V2 contracts block the claim graph, editorial review, and preparation eligibility.
+Independent acceptance audit found that the earlier `_1` replay recorded `NOT_REQUESTED` and therefore did not demonstrate the mandatory V2 gate. The `_2` packet corrects that mismatch with a `PASS` 50-unit Treasury claim graph, exactly nine continuous v0–v8 stages, and v8 bound to accepted body SHA-256 `05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc`. Focused validation passed `41` tests. No browser/CDP, platform adapter, network, credential, public-write, or publication-authority action occurred.
 
 ## Next Action
 

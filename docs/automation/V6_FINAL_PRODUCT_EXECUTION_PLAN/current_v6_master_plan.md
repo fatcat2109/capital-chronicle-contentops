@@ -2,6 +2,8 @@
 
 Completed live closure task: `TASK_CONTENTOPS_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1`.
 
+Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
+
 Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`. Substack is canonical, and YouTube Community is the default YouTube article-distribution surface; video and Shorts are separate explicit non-default modes.
 
 Authority date: 2026-07-14
@@ -78,4 +80,4 @@ Current generic live evidence: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_A
 
 Database packet `cc-publication-73ff151c3d3094741b6c` grants story-scoped `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED` while preserving global `dqr=BLOCKED`. The canonical runner published `Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%`, then produced eight native derivatives with strict readback. Bounded updates repaired the Substack caption fragment, tightened the RC, and corrected the final auction-confirmation logic without derivative or video writes. Strict readback preserved all three ordered visuals, captions, sources, and numeric claims. Machine QA and the final release verifier pass.
 
-ContentOps v1.0 remains operator-accepted. Newsroom scheduling and the bounded Tier-1 editorial revision/SEO V2 implementation are complete local authorities. Tier-1 evidence is `docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_1/`; the next route is operator acceptance or rejection of that evidence, not a new implementation task.
+ContentOps v1.0 remains operator-accepted. Newsroom scheduling and the bounded Tier-1 editorial revision/SEO V2 implementation are complete local authorities. Independent audit found the original `_1` replay did not demonstrate mandatory V2 because it recorded `NOT_REQUESTED`; bounded completion repair superseded it with `docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_2/`, containing a passing 50-unit claim graph and nine continuous content-bound stages through the accepted final body. The next route remains operator acceptance or rejection of the repaired evidence, not a new implementation task.

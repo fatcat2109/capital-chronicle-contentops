@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "all_public_use_allowed": true,
+    "all_rendered_sentences_mapped": true,
+    "article_mode": "analysis",
+    "canonical_url_frozen": "https://capitalchronicle.substack.com/p/us-treasury-30-year-yield-curve-slope",
+    "continuous_content_hashes": true,
+    "headline_precision": "edges_wider_not_decisive_steepening",
+    "original_value": "mechanism_and_falsifiable_confirmation_challenge_framework",
+    "public_readback_source": {
+      "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/substack_browser_readback_v1.json",
+      "sha256": "6ec2e4d91d314eccf83c383389b0d0031abf9e76f727e78f4c2cd9ebc9a6a254"
+    },
+    "revision_stage_count": 9,
+    "semantic_redundancy_review": "PASS_ACCEPTED_PUBLIC_ARTICLE",
+    "sentence_graph_nonempty": true,
+    "seo_metadata_source": {
+      "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/run_evidence_v1.json",
+      "sha256": "45cd090029be58966709654132fd49f4fa4d03724174a87660193f7b2a4281ad"
+    },
+    "v8_matches_accepted_public_body": true
+  },
+  "classification": "PASS_COMPLETE_MANDATORY_TIER1_V2_LOCAL_NO_WRITE",
+  "prior_packet_limitation": "V2 status was NOT_REQUESTED with an empty claim graph and no v0-v8 stages.",
+  "safety": {
+    "browser_or_cdp_used": false,
+    "credential_values_read_or_logged": false,
+    "network_call_made": false,
+    "platform_adapter_called": false,
+    "public_write_performed": false,
+    "publication_authority_granted_by_v2_contract": false
+  },
+  "schema_version": "contentops.operator_review_evidence_map.v2",
+  "supersedes_packet": "contentops_tier1_editorial_revision_seo_v2_20260714_1",
+  "task": "TASK_CONTENTOPS_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V1"
+}

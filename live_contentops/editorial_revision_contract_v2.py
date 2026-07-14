@@ -1,4 +1,4 @@
-﻿"""Deterministic claim-graph and revision-chain contracts for editorial V2."""
+"""Deterministic claim-graph and revision-chain contracts for editorial V2."""
 from __future__ import annotations
 
 import hashlib
@@ -30,9 +30,22 @@ def _hash(value: Any) -> str:
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")).hexdigest()
 
 
-def _article_sentences(article: Mapping[str, Any]) -> list[str]:
+def _content_hash(value: Any) -> str:
+    """Hash strings as exact UTF-8 content and structured content canonically."""
+    if isinstance(value, str):
+        payload = value.encode("utf-8")
+    else:
+        payload = json.dumps(value, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _rendered_article_body(article: Mapping[str, Any]) -> str:
     markdown = str(article.get("substack_body_markdown") or article.get("body_markdown") or "")
-    body = str(article.get("rendered_body") or rendered_body(markdown))
+    return str(article.get("rendered_body") or rendered_body(markdown))
+
+
+def _article_sentences(article: Mapping[str, Any]) -> list[str]:
+    body = _rendered_article_body(article)
     return [value.strip() for value in SENTENCE_RE.split(" ".join(body.split())) if value.strip()]
 
 
@@ -93,7 +106,7 @@ def build_content_unit_claim_graph(*, article: Mapping[str, Any], packet: Mappin
     return {
         "schema_version": SCHEMA_VERSION,
         "status": "PASS" if not blockers else "BLOCK",
-        "rendered_body_sha256": _hash(rendered),
+        "rendered_body_sha256": _content_hash(rendered),
         "content_unit_count": len(units),
         "content_units": units,
         "blockers": list(dict.fromkeys(blockers)),
@@ -102,11 +115,12 @@ def build_content_unit_claim_graph(*, article: Mapping[str, Any], packet: Mappin
 
 
 def build_revision_chain(*, article: Mapping[str, Any], claim_graph: Mapping[str, Any], stages: Sequence[Mapping[str, Any]] = ()) -> dict[str, Any]:
-    """Validate the fixed, hash-linked revision sequence without retaining reasoning."""
+    """Validate the fixed sequence against actual, continuous stage content."""
     supplied = {str(row["stage_id"]): dict(row) for row in stages if row.get("stage_id")}
     blockers: list[str] = []
     records: list[dict[str, Any]] = []
-    previous = _hash({"title": article.get("title"), "rendered_body_sha256": claim_graph.get("rendered_body_sha256")})
+    previous_output_hash: str | None = None
+    final_body_hash = _content_hash(_rendered_article_body(article))
     for stage_id, role in REVISION_STAGES:
         source = supplied.get(stage_id, {})
         if not source:
@@ -116,19 +130,34 @@ def build_revision_chain(*, article: Mapping[str, Any], claim_graph: Mapping[str
             blockers.append(f"revision_stage_decision_invalid:{stage_id}")
         if source.get("role") not in {None, role}:
             blockers.append(f"revision_stage_role_invalid:{stage_id}")
+        input_present = "input_content" in source
+        output_present = "output_content" in source
+        if not input_present:
+            blockers.append(f"revision_stage_input_content_missing:{stage_id}")
+        if not output_present:
+            blockers.append(f"revision_stage_output_content_missing:{stage_id}")
+        input_hash = _content_hash(source.get("input_content")) if input_present else ""
+        output_hash = _content_hash(source.get("output_content")) if output_present else ""
+        if source.get("input_content_sha256") not in {None, input_hash}:
+            blockers.append(f"revision_stage_input_hash_mismatch:{stage_id}")
+        if source.get("output_content_sha256") not in {None, output_hash}:
+            blockers.append(f"revision_stage_output_hash_mismatch:{stage_id}")
+        if previous_output_hash is not None and input_hash != previous_output_hash:
+            blockers.append(f"revision_stage_previous_output_link_broken:{stage_id}")
         record = {
             "stage_id": stage_id,
             "role": role,
-            "input_hash": previous,
-            "output_hash": "",
+            "input_content_sha256": input_hash,
+            "output_content_sha256": output_hash,
             "rule_version": str(source.get("rule_version") or SCHEMA_VERSION),
             "decision": decision,
             "changes": [str(value) for value in source.get("changes") or []],
             "unresolved_issues": [str(value) for value in source.get("unresolved_issues") or []],
         }
-        record["output_hash"] = _hash({key: value for key, value in record.items() if key != "output_hash"})
-        previous = record["output_hash"]
         records.append(record)
+        previous_output_hash = output_hash
+    if records and records[-1]["output_content_sha256"] != final_body_hash:
+        blockers.append("revision_chain_final_body_hash_mismatch")
     if any(row["decision"] in {"BLOCK", "ESCALATE_OPERATOR"} for row in records):
         blockers.append("revision_chain_contains_nonrelease_decision")
     if claim_graph.get("status") != "PASS":
@@ -138,20 +167,55 @@ def build_revision_chain(*, article: Mapping[str, Any], claim_graph: Mapping[str
         "status": "PASS" if not blockers else "BLOCK",
         "revision_stage_count": len(records),
         "stages": records,
-        "final_output_hash": previous,
-        "rendered_body_sha256": claim_graph.get("rendered_body_sha256"),
+        "final_output_hash": previous_output_hash or "",
+        "rendered_body_sha256": final_body_hash,
         "blockers": list(dict.fromkeys(blockers)),
         "publication_authority": False,
     }
 
 
-def build_editorial_revision_contract(*, article: Mapping[str, Any], packet: Mapping[str, Any], revision_input: Mapping[str, Any] | None) -> dict[str, Any]:
-    """Emit a V2-shaped no-op, or validate an explicitly requested V2 revision contract."""
+def build_editorial_revision_contract(
+    *,
+    article: Mapping[str, Any],
+    packet: Mapping[str, Any],
+    revision_input: Mapping[str, Any] | None,
+    revision_required: bool = True,
+) -> dict[str, Any]:
+    """Validate mandatory V2 evidence, or emit an explicit compatibility no-op."""
     if not revision_input:
-        markdown = str(article.get("substack_body_markdown") or article.get("body_markdown") or "")
-        rendered = str(article.get("rendered_body") or rendered_body(markdown))
-        not_requested = {"schema_version": SCHEMA_VERSION, "status": "NOT_REQUESTED", "rendered_body_sha256": _hash(rendered), "blockers": [], "publication_authority": False}
-        return {"schema_version": SCHEMA_VERSION, "status": "NOT_REQUESTED", "claim_graph": {**not_requested, "content_units": []}, "revision_chain": {**not_requested, "stages": []}, "blockers": [], "publication_authority": False}
+        rendered_hash = _content_hash(_rendered_article_body(article))
+        if revision_required:
+            blocker = "editorial_revision_v2_required"
+            blocked = {
+                "schema_version": SCHEMA_VERSION,
+                "status": "BLOCK",
+                "rendered_body_sha256": rendered_hash,
+                "blockers": [blocker],
+                "publication_authority": False,
+            }
+            return {
+                "schema_version": SCHEMA_VERSION,
+                "status": "BLOCK",
+                "claim_graph": {**blocked, "content_units": []},
+                "revision_chain": {**blocked, "stages": []},
+                "blockers": [blocker],
+                "publication_authority": False,
+            }
+        not_requested = {
+            "schema_version": SCHEMA_VERSION,
+            "status": "NOT_REQUESTED",
+            "rendered_body_sha256": rendered_hash,
+            "blockers": [],
+            "publication_authority": False,
+        }
+        return {
+            "schema_version": SCHEMA_VERSION,
+            "status": "NOT_REQUESTED",
+            "claim_graph": {**not_requested, "content_units": []},
+            "revision_chain": {**not_requested, "stages": []},
+            "blockers": [],
+            "publication_authority": False,
+        }
     graph = build_content_unit_claim_graph(article=article, packet=packet, unit_mappings=revision_input.get("content_unit_mappings") or [])
     chain = build_revision_chain(article=article, claim_graph=graph, stages=revision_input.get("revision_stages") or [])
     blockers = list(dict.fromkeys([*graph["blockers"], *chain["blockers"]]))

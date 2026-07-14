@@ -1,0 +1,1363 @@
+{
+  "accepted_public_body_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+  "article": {
+    "article_mode": "analysis",
+    "canonical_url": "https://capitalchronicle.substack.com/p/us-treasury-30-year-yield-curve-slope",
+    "claim_ids_used": [
+      "UST:2Y:2026-07-13",
+      "UST:10Y:2026-07-13",
+      "UST:30Y:2026-07-13",
+      "UST:2S10S:2026-07-13"
+    ],
+    "numeric_claims_from_llm": false,
+    "rendered_body": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+    "subtitle": "The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.",
+    "title": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%"
+  },
+  "canonical_public_url": "https://capitalchronicle.substack.com/p/us-treasury-30-year-yield-curve-slope",
+  "editorial_revision_v2": {
+    "content_unit_mappings": [
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-001",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-002",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-003",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-004",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-005",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-006",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-007",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-008",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-009",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-010",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-011",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "editorial_control_statement",
+        "calculation_reference": null,
+        "citation_rendering": "not_applicable",
+        "claim_ids": [],
+        "content_unit_id": "sentence-012",
+        "content_unit_type": "limitation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "none",
+        "known_at_utc": null,
+        "observation_time_utc": null,
+        "source_urls": []
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-013",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-014",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-015",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-016",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-017",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-018",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-019",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-020",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-021",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-022",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-023",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-024",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-025",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-026",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-027",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-028",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-029",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-030",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-031",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-032",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-033",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-034",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-035",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-036",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-037",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-038",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-039",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-040",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-041",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-042",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-043",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-044",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-045",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "editorial_control_statement",
+        "calculation_reference": null,
+        "citation_rendering": "not_applicable",
+        "claim_ids": [],
+        "content_unit_id": "sentence-046",
+        "content_unit_type": "limitation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "none",
+        "known_at_utc": null,
+        "observation_time_utc": null,
+        "source_urls": []
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-047",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-048",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ]
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-049",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      {
+        "authority_class": "editorial_control_statement",
+        "calculation_reference": null,
+        "citation_rendering": "not_applicable",
+        "claim_ids": [],
+        "content_unit_id": "sentence-050",
+        "content_unit_type": "limitation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "none",
+        "known_at_utc": null,
+        "observation_time_utc": null,
+        "source_urls": []
+      }
+    ],
+    "revision_stages": [
+      {
+        "changes": [
+          "Bound the committed Treasury selection to an analysis-mode assignment with precise framing."
+        ],
+        "decision": "REVISE",
+        "input_content": {
+          "article_mode": "analysis",
+          "cross_asset_implications": "A long bond above 5% keeps discount rates and long-duration borrowing costs in focus without proving a move in equities, credit or foreign exchange.",
+          "database_title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%",
+          "dek": "The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.",
+          "duplicate_hotspot_decision": {
+            "decision": "PASS_UNIQUE_GOVERNED_STORY",
+            "publish_allowed": true
+          },
+          "duplicate_key": "us-treasury-curve-2026-07-13",
+          "fresh_material_delta": true,
+          "headline_calibration": "database_steepens_softened_to_edges_wider_for_one_basis_point_change",
+          "market_mechanism": "Longer maturities combine expectations for future short rates with duration supply, inflation uncertainty and term-premium compensation.",
+          "market_sensitive": true,
+          "policy_context": "The 2-year sector is more exposed to the expected policy path, while the 30-year sector carries much more duration and fiscal-supply risk.",
+          "selection_method": "story_scoped_publication_authority_no_legacy_topic_fallback",
+          "selection_rationale": "Latest official Treasury curve record contains a fresh, measurable slope and long-end update.",
+          "seo_title": "Treasury Yield Curve Edges Wider as 30-Year Hits 5.10%",
+          "slug": "us-treasury-30-year-yield-curve-slope",
+          "story_type": "market_move",
+          "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+          "thesis": "The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.",
+          "title": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%",
+          "topic_hash": "13ea08adbbcf3be16cfb0b41"
+        },
+        "output_content": {
+          "article_mode": "analysis",
+          "canonical_url": "https://capitalchronicle.substack.com/p/us-treasury-30-year-yield-curve-slope",
+          "headline_precision": "edges wider; do not characterize one basis point as decisive steepening",
+          "public_claim_ids": [
+            "UST:2Y:2026-07-13",
+            "UST:10Y:2026-07-13",
+            "UST:30Y:2026-07-13",
+            "UST:2S10S:2026-07-13"
+          ],
+          "source_artifact": {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/idea_selection_v1.json",
+            "sha256": "5eb62b3fd7d148ef3352824a0eac8c083c79c13586c46e1a1910cf030336665e"
+          },
+          "stage": "assignment_brief",
+          "story": "U.S. Treasury curve at the 2026-07-13 official close"
+        },
+        "role": "assignment_editor",
+        "source_artifacts": [
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/idea_selection_v1.json",
+            "sha256": "5eb62b3fd7d148ef3352824a0eac8c083c79c13586c46e1a1910cf030336665e"
+          }
+        ],
+        "stage_id": "v0_assignment_brief",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Bound four story-scoped public claims, official Treasury citations, observation time, and limitations."
+        ],
+        "decision": "REVISE",
+        "input_content": {
+          "article_mode": "analysis",
+          "canonical_url": "https://capitalchronicle.substack.com/p/us-treasury-30-year-yield-curve-slope",
+          "headline_precision": "edges wider; do not characterize one basis point as decisive steepening",
+          "public_claim_ids": [
+            "UST:2Y:2026-07-13",
+            "UST:10Y:2026-07-13",
+            "UST:30Y:2026-07-13",
+            "UST:2S10S:2026-07-13"
+          ],
+          "source_artifact": {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/idea_selection_v1.json",
+            "sha256": "5eb62b3fd7d148ef3352824a0eac8c083c79c13586c46e1a1910cf030336665e"
+          },
+          "stage": "assignment_brief",
+          "story": "U.S. Treasury curve at the 2026-07-13 official close"
+        },
+        "output_content": {
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "limitations": [
+            "official daily par yields, not executable prices",
+            "no unsupported cross-asset move claims"
+          ],
+          "observation_time_utc": "2026-07-13T00:00:00Z",
+          "official_source_urls": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+          ],
+          "public_claim_ids": [
+            "UST:2Y:2026-07-13",
+            "UST:10Y:2026-07-13",
+            "UST:30Y:2026-07-13",
+            "UST:2S10S:2026-07-13"
+          ],
+          "source_artifact": {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/capital_chronicle_content_evidence_packet_v2.json",
+            "sha256": "127081565d8414d27b988c906b5f307c32b205a12a64f915729008bdb9dc17b3"
+          },
+          "stage": "evidence_outline"
+        },
+        "role": "evidence_planner",
+        "source_artifacts": [
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/capital_chronicle_content_evidence_packet_v2.json",
+            "sha256": "127081565d8414d27b988c906b5f307c32b205a12a64f915729008bdb9dc17b3"
+          }
+        ],
+        "stage_id": "v1_evidence_outline",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Loaded the exact accepted reporter body preserved in committed run evidence."
+        ],
+        "decision": "REVISE",
+        "input_content": {
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "limitations": [
+            "official daily par yields, not executable prices",
+            "no unsupported cross-asset move claims"
+          ],
+          "observation_time_utc": "2026-07-13T00:00:00Z",
+          "official_source_urls": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+          ],
+          "public_claim_ids": [
+            "UST:2Y:2026-07-13",
+            "UST:10Y:2026-07-13",
+            "UST:30Y:2026-07-13",
+            "UST:2S10S:2026-07-13"
+          ],
+          "source_artifact": {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/capital_chronicle_content_evidence_packet_v2.json",
+            "sha256": "127081565d8414d27b988c906b5f307c32b205a12a64f915729008bdb9dc17b3"
+          },
+          "stage": "evidence_outline"
+        },
+        "output_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "role": "reporter_writer",
+        "source_artifacts": [
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/article_manifest_v1.json",
+            "sha256": "5fcf0580fa889f4fd8f188fdbcb9849a538fae545713b825c72166e496562253"
+          }
+        ],
+        "stage_id": "v2_reporter_draft",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Verified 2Y, 10Y, 30Y, prior-session changes, and calculated 2s10s spread; no body change required."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "output_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "role": "quantitative_editor",
+        "source_artifacts": [
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/editorial_quality_gate_v1.json",
+            "sha256": "3228db352413cfeee411374facf1ed7c268061e9bfa18bb0c7189f96bdd35595"
+          },
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/capital_chronicle_content_evidence_packet_v2.json",
+            "sha256": "127081565d8414d27b988c906b5f307c32b205a12a64f915729008bdb9dc17b3"
+          }
+        ],
+        "stage_id": "v3_quantitative_edit",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Verified precise 'edges wider' framing and 5.10% long-end peg; no body change required."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "output_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "role": "headline_editor",
+        "source_artifacts": [
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/article_manifest_v1.json",
+            "sha256": "5fcf0580fa889f4fd8f188fdbcb9849a538fae545713b825c72166e496562253"
+          },
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/editorial_quality_gate_v1.json",
+            "sha256": "3228db352413cfeee411374facf1ed7c268061e9bfa18bb0c7189f96bdd35595"
+          }
+        ],
+        "stage_id": "v4_headline_structure_edit",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Verified the committed accepted copy after recorded comma and auction-mechanics corrections; no further change required."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "output_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "role": "copy_editor",
+        "source_artifacts": [
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/run_evidence_v1.json",
+            "sha256": "45cd090029be58966709654132fd49f4fa4d03724174a87660193f7b2a4281ad"
+          }
+        ],
+        "stage_id": "v5_copy_edit",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Verified title, subtitle, metadata, links, visuals, captions, and rendered structure; no body change required."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "output_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "role": "seo_editor",
+        "source_artifacts": [
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/operator_manual_audit_packet_v1.json",
+            "sha256": "7bb78b671cc7b4d50ecd5c17877ce3e4a63653cc4db5c5bec7986edac0349509"
+          },
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/substack_browser_readback_v1.json",
+            "sha256": "6ec2e4d91d314eccf83c383389b0d0031abf9e76f727e78f4c2cd9ebc9a6a254"
+          }
+        ],
+        "stage_id": "v6_seo_rendered_page_edit",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Verified limitations, causality boundaries, falsifiability, and no-advice disclosure; no body change required."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "output_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "role": "adversarial_final_reviewer",
+        "source_artifacts": [
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/editorial_quality_gate_v1.json",
+            "sha256": "3228db352413cfeee411374facf1ed7c268061e9bfa18bb0c7189f96bdd35595"
+          },
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/operator_manual_audit_packet_v1.json",
+            "sha256": "7bb78b671cc7b4d50ecd5c17877ce3e4a63653cc4db5c5bec7986edac0349509"
+          }
+        ],
+        "stage_id": "v7_adversarial_standards_review",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Bound the exact accepted public body and authoritative frozen canonical URL."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "output_content": "The U.S. Treasury's 30-year par yield reached 5.10% on July 13, while the 10-year yield closed at 4.62% and the 2-year yield at 4.26%. The gap between the 2-year and 10-year maturities edged to 36 basis points from 35 basis points in the previous official session. The move is small, but the level of the long end keeps the cost of duration at the center of the market debate.\n\nWhat matters is not a one-basis-point change by itself. The useful signal is the combination of a positive 2s10s slope and a 30-year yield above 5%. That configuration separates the path expected for near-term policy from the compensation investors require to hold longer-maturity government debt. It is an analysis of the official July 13 close, not a claim about an intraday move after that timestamp.\n\n[[VISUAL:treasury_curve_snapshot]]\n\n*The latest official Treasury curve sits above the previous session at the long end. Source: [U.S. Treasury daily par yield curve](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve). Capital Chronicle chart.*\n\n## The Curve Moved at More Than One Point\n\nThe official table shows the 2-year yield rising five basis points from July 10 to 4.26%, while the 10-year yield rose six basis points to 4.62% and the 30-year yield rose four basis points to 5.10%. Those changes are measured from daily par-yield observations, not executable market prices. Treasury describes the series as indicative par yields derived from market quotations, which makes it appropriate for public curve analysis but not for trade execution.\n\nThe 2s10s spread therefore widened by one basis point. That is better described as the slope edging wider than as a decisive steepening event. A larger or more persistent move would be needed before the curve alone could support a stronger claim about a change in the macro regime.\n\nThe distinction matters because adjacent maturities can move for different reasons. The front and intermediate sectors are sensitive to the expected policy path and incoming economic data. The long end also reflects duration supply, uncertainty around inflation and growth, and the term premium investors demand for holding bonds over a longer horizon. The official observations identify the price configuration; they do not identify one exclusive cause.\n\n[[VISUAL:treasury_source_excerpt]]\n\n*Selected entries from the official July 13 Treasury table, with previous-session comparisons calculated by Capital Chronicle. Source: [Treasury XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026).*\n\n## Why a 5% Long Bond Matters\n\nA 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.\n\nThe level also focuses attention on the supply and duration channel. Investors deciding whether to absorb longer-dated issuance weigh the income offered by the bond against uncertainty over inflation, fiscal borrowing and future short rates. A higher yield can reflect more than one of those forces. The data establish the level; interpretation requires checking auctions, official economic releases and subsequent curve behavior.\n\nThis is why the long end should not be read as a direct forecast of the Federal Reserve's next decision. The 2-year sector is generally more exposed to the expected policy path, while the 30-year sector carries much more duration. When both rise but the 10-year moves slightly more than the 2-year, the result is a modestly wider 2s10s spread, not proof that one narrative has won.\n\n## The Slope Is Positive, but the Change Is Modest\n\nThe 36-basis-point 2s10s spread is a compact way to describe the distance between two points on the curve. Capital Chronicle calculates it by subtracting the 2-year par yield from the 10-year par yield and multiplying the percentage-point difference by 100. The calculation uses the same official observation date for both maturities.\n\n[[VISUAL:treasury_2s10s_history]]\n\n*The 2s10s spread through 2026-07-13; Capital Chronicle calculation from official Treasury par yields. Source: [Treasury interest-rate statistics](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics).*\n\nThe chart shows why the latest reading should be treated as context rather than spectacle. Daily changes can reverse, and a positive slope can coexist with restrictive absolute yield levels. The next question is whether the spread continues to widen because shorter yields fall, because longer yields rise, or because both ends move at different speeds. Each route would imply a different transmission mechanism.\n\nFor companies and households, the practical issue is the broader cost of capital rather than the label attached to a single curve move. Long rates can feed into borrowing benchmarks and valuation assumptions, while short rates shape cash and near-term funding decisions. A curve with both the 2-year above 4.25% and the 30-year above 5% presents a different financing backdrop from one in which the slope widens because short rates collapse.\n\n## What Would Confirm or Challenge the Signal\n\nConfirmation would require more than another one-basis-point widening. A sustained rise in 10-year and 30-year yields relative to the 2-year, reinforced by auction results showing investors require greater compensation to absorb long-duration supply, would strengthen the case that pressure at the long end is persistent. The next CPI release and subsequent official curve closes are named catalysts because they can change expectations for inflation and the policy path.\n\nThe signal would be challenged if the 30-year yield moved back below 5% and the 2s10s spread narrowed over several official sessions. It would also weaken if the latest configuration proved to be a single-session adjustment that was not confirmed by auctions or incoming data. Those conditions are observable and keep the analysis falsifiable.\n\nThis analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.\n\n## Sources and Method\n\nThe yield levels come from the [U.S. Treasury Daily Treasury Par Yield Curve Rates](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve) and its [official XML data](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026). Methodology context comes from the Treasury's [interest-rate statistics page](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics). Capital Chronicle produced the charts and calculated the 2s10s spread from same-date official observations. This article is for informational purposes only and is not financial advice.\n",
+        "role": "release_editor",
+        "source_artifacts": [
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/run_evidence_v1.json",
+            "sha256": "45cd090029be58966709654132fd49f4fa4d03724174a87660193f7b2a4281ad"
+          },
+          {
+            "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/substack_browser_readback_v1.json",
+            "sha256": "6ec2e4d91d314eccf83c383389b0d0031abf9e76f727e78f4c2cd9ebc9a6a254"
+          }
+        ],
+        "stage_id": "v8_final_release_candidate",
+        "unresolved_issues": []
+      }
+    ]
+  },
+  "publication_authority": false,
+  "schema_version": "contentops.treasury_editorial_revision_v2_request.v1",
+  "source_packet": {
+    "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/capital_chronicle_content_evidence_packet_v2.json",
+    "sha256": "127081565d8414d27b988c906b5f307c32b205a12a64f915729008bdb9dc17b3"
+  },
+  "task": "TASK_CONTENTOPS_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V1"
+}

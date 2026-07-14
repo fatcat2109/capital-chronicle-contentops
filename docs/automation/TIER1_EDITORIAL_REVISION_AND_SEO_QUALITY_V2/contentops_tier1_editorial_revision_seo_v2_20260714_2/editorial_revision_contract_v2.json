@@ -1,0 +1,1292 @@
+{
+  "blockers": [],
+  "claim_graph": {
+    "blockers": [],
+    "content_unit_count": 50,
+    "content_units": [
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-001",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "d07587402e0745ec2cf39699ae36d8a34d41b2ad1714c56d975879b11fc54cac"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-002",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "409e735e82b9685457cd9d304ad35b2af6d73ad0a8801e3bc26c0b4643665bf2"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-003",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "ccf77a827da7dc8443780b8cbca7ba6ad639a488318afeb28d555d27396e2dcf"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-004",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "558dd903397b0a099e7f41fa16e7a7afe4a4994a1c70185154ee6ae01e842d68"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-005",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "dcee516ed4a592c3e071dd34f9703b1ec3340e6fadb8b0e56fcf6943e139ad55"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-006",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "ef734e680455db914fa8dad6d032930be2d4745c91f2bd1ef1a1180faccf1d8e"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-007",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "98695bd94ec0d559fd1994b60de5ad676c66cb0a279133f2724d7495d8acd3a5"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-008",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "32c97332270d31de05cc2c8b14f4378c24000e9eff3acf324506b32729b8cab2"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-009",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "391a169f7d058ff2f998930dc3dbf821a91cda6f71e7f389d05b609525a963d7"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-010",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "888cbe77eb75b7344be79418b24f53d2cc9cbea32cf13ba66577acf78b997ca3"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-011",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "a99ac5b1b77dcb0800b23e546dbc5d510bf3349928dac24875f7d92b28231035"
+      },
+      {
+        "authority_class": "editorial_control_statement",
+        "calculation_reference": null,
+        "citation_rendering": "not_applicable",
+        "claim_ids": [],
+        "content_unit_id": "sentence-012",
+        "content_unit_type": "limitation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "none",
+        "known_at_utc": null,
+        "observation_time_utc": null,
+        "public_use_allowed": true,
+        "source_urls": [],
+        "text_hash": "032fac6a5e5944f8aa82a41b121220357dc12ffab536f0673bc76f6aac696ba9"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-013",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "f4c6e4aaa49485b8ac7952d0c9d0138612e7f703d349ed5553e565c02c1a06c4"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-014",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "010e9d73be07780c9a4d0fcd9b7079ba288b6dd4e0a5865399ff4f00b2c69086"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-015",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "923e597d7072d64ae25febc315c42d27b44bcd476c4cfa9b1ba5851ae870ab7e"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-016",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "de6e39a234a28a3dea082c9aa91764b65619214b739e98649403060a71772cf5"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-017",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "c4c1689573356249ba54cc219235a66c9cc5c261f77f90c9d2c0dd6a223219bb"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-018",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "66f37ffb2f5601637fa3ba3b99978c36ba3bf0e4ffcde7b1ecbba4a819951ec7"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-019",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "077384dcdd9c0d254b257cdbd23a37c050bb794965c225f530ade4e45032bba0"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-020",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "a4e59a6c70eb3722f5d1cc9e75ad9fa9f9feaf9859be42b3200e97a413c613dd"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-021",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "f7b8f32ca5dcf9a9eca63aefe713910c3ed0cb8d65d47551a013e633985417b7"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-022",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "757c97362469b82a635b949bfc27d0e35e3d9fb4bfa533f6e27ed07170bd0bad"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-023",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "e5ca5b205b172926dc32ab8b03f7eeaedfe96dc537ca3f57ddcb572ce8a8f1e7"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-024",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "fcb24a706644618bf25d4cb3e70552dccf55ea9ed3469564622eb38107abd4b2"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-025",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "5d5916fb5e12fc64405fef2ff465e9a7767019184c6bf55d19dffe82a20a2187"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-026",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "eb710d0470a5ce120bb6d68eac001a8001fbc68f81e4faa1e57dc1834b8731a3"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-027",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "5091fb302da6b9c4e0714eca8bcfda27fc269439ec67657c71f64e5c649a54d1"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-028",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "e3fcdfde5e4f0b82ef95fed7519961a589b51ee6dc8c4f18622459387f91b241"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-029",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "a00bb79f3583da7145da83d406d427fc64ceda42ed9280272e7e66f10806eed8"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-030",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "b45f227d5b85e1215f688ad0f64ebab5dee83b7c2aa1e86273bc5d0b51951345"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-031",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "560090a178ac823c8b2bcec42289667d71b0b9043970666a4079bf612c5167bc"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-032",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "b9fd345e39f676c8f1f5bfb6f538fe9991d60584575b3f33c51e56f1377a1fc1"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-033",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "961f5264e9fe4a39e215d426da0040dc2d7daa33643924a4ee9b23469b3e9a6d"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-034",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "6e42700a7e406958fa8b6a56966550e4a684420febda6732948d6c04e4e67e95"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-035",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "4c9ab4f7db342481e795c044ad1203366859f53150b55c60a11efe0ea6b01e48"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-036",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "a460b497659ff882ce52a1bbffe3a8b7e4043f77831825003af9ab4a866e1c13"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-037",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "6d2a1be005b377ca76c689cb42295d656080d3e3f5994a6d6a9e3f6d1e13825d"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-038",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "55873a616127f8bda9a87169146611dae738ed9a878ccdf547f5271b761d93f0"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-039",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "3540873898863d73df7fbc6f014efb10b3b2899caa7a8325a3dbc05d7ecb5b9c"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-040",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "313ab9d332f905da5142ce3b515279d15197ba2749fddcbb897b2b3e36982d04"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-041",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "5bb0baf10b37a680a1c537a91bb2f87a7d0441fa05358277d29863cfb43c3557"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-042",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "387f0c2df9df4fbaa98e389bea0ead42c060270fe79f6ad0f081d76c8b5a21bf"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-043",
+        "content_unit_type": "scenario",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "conditional_forward_scenario",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "bd5f9a9dc1c1a900a92cbdd431a11ad8ba20db84a56584b882938d6bc3dc1cd4"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-044",
+        "content_unit_type": "capital_chronicle_inference",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_editorial_inference",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "618cd9a34bddd75e7247ac192b5a0a8ab640929f13023b5179259a6e835c823a"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-045",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "26c2091b7e9ffd1aa7f7bee4abe53e9977342894df2c22e98b0295852411163f"
+      },
+      {
+        "authority_class": "editorial_control_statement",
+        "calculation_reference": null,
+        "citation_rendering": "not_applicable",
+        "claim_ids": [],
+        "content_unit_id": "sentence-046",
+        "content_unit_type": "limitation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "none",
+        "known_at_utc": null,
+        "observation_time_utc": null,
+        "public_use_allowed": true,
+        "source_urls": [],
+        "text_hash": "b75f847c24c99cd3f876e3efa1b84f2a0ef735796ccc4f3fe93939dd01bf12bc"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-047",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "e8246ff9bfa3c1ba0fc9015f98c607c1f0f73f70e0ec7d8e21120a21b126c965"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": null,
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-048",
+        "content_unit_type": "source_attributed_interpretation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "bounded_analysis_from_governed_curve_observations",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        ],
+        "text_hash": "8344fb6acb7bbd1a85e1f25ee5448fad7f0887309ec9c1faeb12e3f9470a460b"
+      },
+      {
+        "authority_class": "story_scoped_publication_evidence_v1",
+        "calculation_reference": "UST:2S10S:2026-07-13",
+        "citation_rendering": "inline_source_link",
+        "claim_ids": [
+          "UST:2Y:2026-07-13",
+          "UST:10Y:2026-07-13",
+          "UST:30Y:2026-07-13",
+          "UST:2S10S:2026-07-13"
+        ],
+        "content_unit_id": "sentence-049",
+        "content_unit_type": "direct_calculation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "deterministic_same_date_calculation",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observation_time_utc": "2026-07-13T00:00:00Z",
+        "public_use_allowed": true,
+        "source_urls": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "text_hash": "eff3fec07feb1f7c4b4f47baf692ae3e4b0f7ce0d3b5ca9f511ed5eacd66ae5b"
+      },
+      {
+        "authority_class": "editorial_control_statement",
+        "calculation_reference": null,
+        "citation_rendering": "not_applicable",
+        "claim_ids": [],
+        "content_unit_id": "sentence-050",
+        "content_unit_type": "limitation",
+        "exact_proxy_context": "official_daily_par_yield_curve_not_trade_execution_price",
+        "inference_class": "none",
+        "known_at_utc": null,
+        "observation_time_utc": null,
+        "public_use_allowed": true,
+        "source_urls": [],
+        "text_hash": "2beb0e4b610104d4caf99860e02d3440733538bbc984193404573927e86273e8"
+      }
+    ],
+    "publication_authority": false,
+    "rendered_body_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+    "schema_version": "contentops.editorial_revision_contract.v2",
+    "status": "PASS"
+  },
+  "publication_authority": false,
+  "revision_chain": {
+    "blockers": [],
+    "final_output_hash": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+    "publication_authority": false,
+    "rendered_body_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+    "revision_stage_count": 9,
+    "schema_version": "contentops.editorial_revision_contract.v2",
+    "stages": [
+      {
+        "changes": [
+          "Bound the committed Treasury selection to an analysis-mode assignment with precise framing."
+        ],
+        "decision": "REVISE",
+        "input_content_sha256": "49905d432efcdd472c36f6bfdc0846dfcaa2a805c74e0bdbc7083bdcc6fd973c",
+        "output_content_sha256": "1767f1d0ea39ff90e1fecd0e420ff12f8fabb05ad2a77b5f569c4bdd25849401",
+        "role": "assignment_editor",
+        "rule_version": "contentops.editorial_revision_contract.v2",
+        "stage_id": "v0_assignment_brief",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Bound four story-scoped public claims, official Treasury citations, observation time, and limitations."
+        ],
+        "decision": "REVISE",
+        "input_content_sha256": "1767f1d0ea39ff90e1fecd0e420ff12f8fabb05ad2a77b5f569c4bdd25849401",
+        "output_content_sha256": "7bc60b642c110d429db9d0b97a5726d162ff1756abe76d92552e97f4645115f5",
+        "role": "evidence_planner",
+        "rule_version": "contentops.editorial_revision_contract.v2",
+        "stage_id": "v1_evidence_outline",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Loaded the exact accepted reporter body preserved in committed run evidence."
+        ],
+        "decision": "REVISE",
+        "input_content_sha256": "7bc60b642c110d429db9d0b97a5726d162ff1756abe76d92552e97f4645115f5",
+        "output_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "role": "reporter_writer",
+        "rule_version": "contentops.editorial_revision_contract.v2",
+        "stage_id": "v2_reporter_draft",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Verified 2Y, 10Y, 30Y, prior-session changes, and calculated 2s10s spread; no body change required."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "output_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "role": "quantitative_editor",
+        "rule_version": "contentops.editorial_revision_contract.v2",
+        "stage_id": "v3_quantitative_edit",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Verified precise 'edges wider' framing and 5.10% long-end peg; no body change required."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "output_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "role": "headline_editor",
+        "rule_version": "contentops.editorial_revision_contract.v2",
+        "stage_id": "v4_headline_structure_edit",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Verified the committed accepted copy after recorded comma and auction-mechanics corrections; no further change required."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "output_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "role": "copy_editor",
+        "rule_version": "contentops.editorial_revision_contract.v2",
+        "stage_id": "v5_copy_edit",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Verified title, subtitle, metadata, links, visuals, captions, and rendered structure; no body change required."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "output_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "role": "seo_editor",
+        "rule_version": "contentops.editorial_revision_contract.v2",
+        "stage_id": "v6_seo_rendered_page_edit",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Verified limitations, causality boundaries, falsifiability, and no-advice disclosure; no body change required."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "output_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "role": "adversarial_final_reviewer",
+        "rule_version": "contentops.editorial_revision_contract.v2",
+        "stage_id": "v7_adversarial_standards_review",
+        "unresolved_issues": []
+      },
+      {
+        "changes": [
+          "Bound the exact accepted public body and authoritative frozen canonical URL."
+        ],
+        "decision": "PASS_NO_CHANGE",
+        "input_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "output_content_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+        "role": "release_editor",
+        "rule_version": "contentops.editorial_revision_contract.v2",
+        "stage_id": "v8_final_release_candidate",
+        "unresolved_issues": []
+      }
+    ],
+    "status": "PASS"
+  },
+  "schema_version": "contentops.editorial_revision_contract.v2",
+  "status": "PASS"
+}

@@ -365,6 +365,27 @@ def test_newsroom_pool_and_schedule_integration(tmp_path):
 
 
 
+def test_generic_prepare_only_blocks_missing_mandatory_revision_contract(tmp_path) -> None:
+    packet_path = tmp_path / "packet.json"
+    packet_path.write_text(json.dumps(_fresh_packet()), encoding="utf-8")
+    request = json.loads(REAL_REQUEST.read_text())
+    request.pop("editorial_revision_v2")
+
+    result = run_generic_prepare_only(
+        output_dir=tmp_path / "out_missing",
+        story_request=request,
+        evidence_packet_path=packet_path,
+    )
+    contract = json.loads((tmp_path / "out_missing" / "editorial_revision_contract_v2.json").read_text())
+    review = json.loads((tmp_path / "out_missing" / "editorial_review_orchestrator_v2.json").read_text())
+    assert result["publication_eligible"] is False
+    assert "editorial_revision_v2_required" in result["blockers"]
+    assert contract["status"] == "BLOCK"
+    assert review["status"] == "BLOCK"
+    assert "editorial_revision_v2:editorial_revision_v2_required" in review["blockers"]
+    assert result["public_write_performed"] is False
+
+
 def test_generic_prepare_only_blocks_explicit_invalid_revision_contract(tmp_path) -> None:
     packet = _fresh_packet()
     packet_path = tmp_path / "packet.json"

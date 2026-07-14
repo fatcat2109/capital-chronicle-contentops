@@ -1,0 +1,68 @@
+{
+  "classification": "PASS_COMPLETE_MANDATORY_TIER1_V2_LOCAL_NO_WRITE",
+  "integrity": {
+    "artifact_records": [
+      {
+        "path": "content_unit_claim_graph_v2.json",
+        "schema_version": "contentops.editorial_revision_contract.v2",
+        "sha256": "836503c794973ba610c51e20b1562f8d74e13f608e1c0610426fbafd47587049",
+        "status_or_classification": "PASS"
+      },
+      {
+        "path": "editorial_revision_contract_v2.json",
+        "schema_version": "contentops.editorial_revision_contract.v2",
+        "sha256": "126a1fcaa91c29121e24b7f00c67be7e89286720a104ca05de235ea29e40828e",
+        "status_or_classification": "PASS"
+      },
+      {
+        "path": "operator_review_evidence_map_v2.json",
+        "schema_version": "contentops.operator_review_evidence_map.v2",
+        "sha256": "502559319331979be8a577c5e58c9ec48cd053b9030a52a66e6c15c43c29e7e0",
+        "status_or_classification": "PASS_COMPLETE_MANDATORY_TIER1_V2_LOCAL_NO_WRITE"
+      },
+      {
+        "path": "README.md",
+        "schema_version": null,
+        "sha256": "2b8f30ce37373ef0ee06b058a27b11126bde55e80eb80033a1605aa5110cd643",
+        "status_or_classification": null
+      },
+      {
+        "path": "treasury_editorial_revision_v2_request.json",
+        "schema_version": "contentops.treasury_editorial_revision_v2_request.v1",
+        "sha256": "536416e431278ff54a5530165f7fecaaf8fbdffa4c678ce433ef31ad1827c0c3",
+        "status_or_classification": null
+      },
+      {
+        "path": "treasury_revision_stage_inputs_v0_v8.json",
+        "schema_version": "contentops.treasury_revision_stage_inputs.v0_v8",
+        "sha256": "d7a1a9c41aedf9860bcf0b25899fb057618efff25cb18ab19be1dfc7bc07345c",
+        "status_or_classification": null
+      }
+    ]
+  },
+  "publication_authority": false,
+  "safety": {
+    "browser_or_cdp_used": false,
+    "credential_values_read_or_logged": false,
+    "network_call_made": false,
+    "platform_adapter_called": false,
+    "public_write_performed": false,
+    "publication_authority_granted_by_v2_contract": false
+  },
+  "schema_version": "contentops.tier1_editorial_revision_seo_v2_verifier.v2",
+  "source_commit": "c0885ac188140d44685f26f2d1e2ca59f52d73a6",
+  "task": "TASK_CONTENTOPS_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V1",
+  "validation": {
+    "accepted_public_body_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+    "canonical_public_url": "https://capitalchronicle.substack.com/p/us-treasury-30-year-yield-curve-slope",
+    "claim_graph_status": "PASS",
+    "content_unit_count": 50,
+    "continuous_content_hashes": true,
+    "focused_pytest": "41 passed",
+    "json_and_sha256_validation": "PASS",
+    "python_compile": "PASS",
+    "revision_contract_status": "PASS",
+    "revision_stage_count": 9,
+    "v8_matches_accepted_public_body": true
+  }
+}
