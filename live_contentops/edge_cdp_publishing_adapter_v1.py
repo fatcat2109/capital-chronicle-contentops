@@ -35,7 +35,8 @@ _TECHNICAL_PUBLIC_TEXT_RE = re.compile(
 )
 _EDITORIAL_PROCESS_TEXT_RE = re.compile(
     r"(?:the editorial task|the reporting discipline|the newsroom standard|"
-    r"the schedule and sidecars|the chart manifest|editors should look|pipeline narration|prompt narration)",
+    r"the schedule and sidecars|the chart manifest|editors should look|pipeline narration|prompt narration|"
+    r"manifest-bound|packet timestamp|evidence packet|public claim permission)",
     re.IGNORECASE,
 )
 
@@ -1357,6 +1358,110 @@ def repair_substack_duplicate_caption_fragment_via_edge(
             "draft_id": draft_id,
             "removed_fragment_character_count": len(short[1]),
             "remaining_caption_node_count": len(remaining),
+            "draft_saved": _substack_saved(page),
+            "browser_write_performed": True,
+        }
+
+
+def repair_substack_editorial_paragraphs_via_edge(
+    *,
+    cdp_port: int,
+    draft_id: str,
+    expected_title: str,
+    replacements: Sequence[Mapping[str, str]],
+) -> dict[str, Any]:
+    """Apply exact paragraph edits to one identified draft without rebuilding media."""
+    if not str(draft_id).isdigit() or not replacements:
+        return {"status": "BLOCKED_SUBSTACK_EDITORIAL_REPAIR_IDENTITY_INVALID", "platform": "substack"}
+    normalized_rows = [
+        {
+            "old": " ".join(str(row.get("old") or "").split()),
+            "new": " ".join(str(row.get("new") or "").split()),
+        }
+        for row in replacements
+    ]
+    if any(not row["old"] or row["old"] == row["new"] for row in normalized_rows):
+        return {"status": "BLOCKED_SUBSTACK_EDITORIAL_REPAIR_REPLACEMENT_INVALID", "platform": "substack"}
+
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(
+            f"https://capitalchronicle.substack.com/publish/post/{draft_id}",
+            wait_until="domcontentloaded",
+            timeout=45000,
+        )
+        time.sleep(3)
+        title_input, _ = _first_visible(page, ("#post-title", "input[name='title']", "input[placeholder*='Title']"))
+        editor, _ = _first_visible(page, ("div.ProseMirror", ".ProseMirror", "div[contenteditable='true']"))
+        if not title_input or not editor or title_input.input_value(timeout=3000).strip() != expected_title:
+            return {"status": "BLOCKED_SUBSTACK_EDITORIAL_REPAIR_IDENTITY_MISMATCH", "platform": "substack", "draft_id": draft_id}
+
+        images_before = editor.locator("img").evaluate_all(
+            "nodes => nodes.map(node => ({src: node.currentSrc || node.src || '', alt: node.alt || ''}))"
+        )
+        paragraph_nodes = editor.locator("p").all()
+        matches: list[tuple[int, Any, dict[str, str]]] = []
+        for row in normalized_rows:
+            row_matches: list[tuple[int, Any]] = []
+            for index, node in enumerate(paragraph_nodes):
+                try:
+                    visible = " ".join((node.inner_text(timeout=700) or "").split())
+                except Exception:
+                    continue
+                if visible == row["old"]:
+                    row_matches.append((index, node))
+            if len(row_matches) != 1:
+                return {
+                    "status": "BLOCKED_SUBSTACK_EDITORIAL_REPAIR_EXACT_MATCH_FAILED",
+                    "platform": "substack",
+                    "draft_id": draft_id,
+                    "old_text_sha256": _sha256(row["old"]),
+                    "matching_paragraph_count": len(row_matches),
+                    "browser_write_performed": False,
+                }
+            matches.append((*row_matches[0], row))
+
+        for _index, node, row in sorted(matches, key=lambda item: item[0], reverse=True):
+            node.evaluate(
+                """element => {
+                    element.scrollIntoView({block: 'center'});
+                    element.focus();
+                    const selection = window.getSelection();
+                    const range = document.createRange();
+                    range.selectNodeContents(element);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }"""
+            )
+            if row["new"]:
+                page.keyboard.insert_text(row["new"])
+            else:
+                page.keyboard.press("Backspace")
+            time.sleep(1)
+
+        deadline = time.monotonic() + 18
+        while time.monotonic() < deadline and not _substack_saved(page):
+            time.sleep(0.5)
+        editor_text = "\n".join(
+            " ".join((node.inner_text(timeout=700) or "").split())
+            for node in editor.locator("p").all()
+        )
+        images_after = editor.locator("img").evaluate_all(
+            "nodes => nodes.map(node => ({src: node.currentSrc || node.src || '', alt: node.alt || ''}))"
+        )
+        old_absent = all(row["old"] not in editor_text for row in normalized_rows)
+        new_present = all(not row["new"] or row["new"] in editor_text for row in normalized_rows)
+        media_preserved = len(images_before) == 3 and images_after == images_before
+        verified = bool(old_absent and new_present and media_preserved and _substack_saved(page))
+        return {
+            "status": "SUCCESS" if verified else "FAILED_SUBSTACK_EDITORIAL_REPAIR_READBACK",
+            "platform": "substack",
+            "draft_id": draft_id,
+            "replacement_count": len(normalized_rows),
+            "old_text_absent": old_absent,
+            "new_text_present": new_present,
+            "editor_body_image_count_before": len(images_before),
+            "editor_body_image_count_after": len(images_after),
+            "editor_image_order_preserved": images_after == images_before,
             "draft_saved": _substack_saved(page),
             "browser_write_performed": True,
         }

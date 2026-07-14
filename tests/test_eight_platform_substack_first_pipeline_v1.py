@@ -24,6 +24,31 @@ def _selection() -> dict:
     }
 
 
+def test_treasury_rc_editorial_replacements_remove_process_copy_and_repetition() -> None:
+    original = "\n\n".join(str(row["old"]) for row in pipeline.TREASURY_RC_EDITORIAL_REPLACEMENTS)
+    revised = pipeline._apply_exact_editorial_replacements(
+        original,
+        pipeline.TREASURY_RC_EDITORIAL_REPLACEMENTS,
+    )
+
+    assert "governed" not in revised
+    assert "packet timestamp" not in revised
+    assert "evidence packet" not in revised
+    assert "public claim permission" not in revised
+    assert pipeline.TREASURY_RC_EDITORIAL_REPLACEMENTS[2]["old"] not in revised
+    assert "official July 13 close rather than a live quote" in revised
+
+
+def test_exact_editorial_replacement_fails_on_missing_or_ambiguous_source() -> None:
+    import pytest
+
+    replacement = ({"old": "exact paragraph", "new": "revised paragraph"},)
+    with pytest.raises(ValueError, match="exact_editorial_replacement_count_invalid"):
+        pipeline._apply_exact_editorial_replacements("different paragraph", replacement)
+    with pytest.raises(ValueError, match="exact_editorial_replacement_count_invalid"):
+        pipeline._apply_exact_editorial_replacements("exact paragraph exact paragraph", replacement)
+
+
 def test_native_payloads_are_distinct_and_carry_canonical_url():
     canonical_url = "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-policy-calibration"
     payloads = build_native_derivative_payloads(article=_article(), selection=_selection(), canonical_url=canonical_url)

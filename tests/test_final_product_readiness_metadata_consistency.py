@@ -16,13 +16,15 @@ def _json(path: Path) -> dict:
 
 def test_status_records_database_authorized_generic_canary_authority() -> None:
     status = _json(STATUS)
-    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1"
+    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_V1_0_RC_TARGETED_EDITORIAL_REPAIR_AND_ACCEPTANCE_PREP_V1"
     assert status["current_task_classification"] == "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS"
     assert status["upstream_readiness"]["dqr_status"] == "BLOCKED"
     assert status["upstream_readiness"]["reporting_allowed"] is True
     assert status["upstream_readiness"]["publication_decision"] == "PASS_PUBLICATION_AUTHORIZED"
     assert status["database_publication_live_run"]["substack_plus_eight_derivatives_success"] is True
     assert status["database_publication_live_run"]["global_dqr_bypassed"] is False
+    assert status["database_publication_live_run"]["targeted_editorial_repair"] == "PASS_EXACT_EXISTING_ARTICLE_UPDATE_STRICT_READBACK"
+    assert status["database_publication_live_run"]["all_eight_derivative_evidence_rows_unchanged"] is True
     assert status["v1_0_tag_exists"] is False
 
 

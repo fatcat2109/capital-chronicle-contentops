@@ -35,6 +35,7 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     readback_x_thread_via_edge,
     reconcile_existing_linkedin_post_via_edge,
     repair_substack_duplicate_caption_fragment_via_edge,
+    repair_substack_editorial_paragraphs_via_edge,
 )
 from live_contentops.publishing_profile_registry_v1 import browser_doctor
 from live_contentops.media_manifest_authority_v1 import build_delivery_media_manifest, select_primary_chart
@@ -86,6 +87,21 @@ UNKNOWN_WRITE_STATUSES = {
     "FAILED_X_REPLY_PERMALINK_READBACK",
 }
 TEXT_IMAGE_PASS_DESTINATIONS = tuple(platform for platform in EXPECTED_DESTINATIONS if platform != "tiktok")
+
+TREASURY_RC_EDITORIAL_REPLACEMENTS = (
+    {
+        "old": "A 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence the discount rates used in valuation and the rates faced by long-lived borrowers, even though the pass-through is neither immediate nor one-for-one. The article makes no claim that equities, credit or foreign exchange moved in a particular direction without separate governed observations for those markets.",
+        "new": "A 30-year yield above 5% matters because long-duration government borrowing provides a reference point for other financing decisions. It can influence valuation discount rates and borrowing costs for long-lived assets, although the pass-through is neither immediate nor one-for-one. Separate market data would be needed to claim a move in equities, credit or foreign exchange.",
+    },
+    {
+        "old": "The boundary is equally important. This article uses the latest governed official close available as of the packet timestamp. It does not substitute stale data for a live quote, and it does not infer moves in assets for which the evidence packet contains no public claim permission. Readers should treat the curve as one input into a broader market assessment.",
+        "new": "This analysis uses the official July 13 close rather than a live quote. It does not infer moves in other assets without separate market data, and the curve should be treated as one input into a broader market assessment.",
+    },
+    {
+        "old": "Confirmation would be several official sessions with a wider 2s10s spread and persistent 30-year yields above 5%, supported by firm Treasury auction demand. A reversal below 5% at the long end alongside a narrowing spread would challenge the signal. Treasury auctions and CPI are the next named catalysts for testing those conditions.",
+        "new": "",
+    },
+)
 
 
 def _utc_now() -> str:
@@ -3197,6 +3213,137 @@ def repair_exact_substack_caption_fragment(
     return evidence
 
 
+def _apply_exact_editorial_replacements(value: str, replacements: Sequence[Mapping[str, str]]) -> str:
+    updated = value
+    for row in replacements:
+        old = str(row.get("old") or "")
+        new = str(row.get("new") or "")
+        if not old or updated.count(old) != 1:
+            raise ValueError(f"exact_editorial_replacement_count_invalid:{_sha256(old)}")
+        updated = updated.replace(old, new, 1)
+    return re.sub(r"\n{3,}", "\n\n", updated).strip() + "\n"
+
+
+def repair_exact_treasury_release_candidate_editorial(
+    *,
+    output_dir: Path,
+    cdp_port: int,
+) -> dict[str, Any]:
+    """Tighten the identified Treasury article while freezing every derivative."""
+    evidence_path = output_dir / "run_evidence_v1.json"
+    evidence = _read_json(evidence_path)
+    results = {name: dict(value) for name, value in (evidence.get("results") or {}).items() if isinstance(value, Mapping)}
+    prior_substack = dict(results.get("substack") or {})
+    article = dict(evidence.get("article") or {})
+    media = dict(evidence.get("media") or {})
+    draft_id = str(prior_substack.get("draft_id") or "")
+    public_url = str(prior_substack.get("public_url") or "")
+    assets = list(media.get("assets") or [])
+    expected_url = "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider"
+    if (
+        str(article.get("title") or "") != "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%"
+        or draft_id != "206928132"
+        or public_url.rstrip("/") != expected_url
+        or len(assets) != 3
+    ):
+        evidence["targeted_editorial_repair"] = {"status": "BLOCKED_TREASURY_RC_IDENTITY_MISMATCH"}
+        _write_json(evidence_path, evidence)
+        return evidence
+
+    original_markdown = str(article.get("substack_body_markdown") or "")
+    original_rendered = str(article.get("rendered_body") or "")
+    revised_markdown = _apply_exact_editorial_replacements(original_markdown, TREASURY_RC_EDITORIAL_REPLACEMENTS)
+    revised_rendered = _apply_exact_editorial_replacements(original_rendered, TREASURY_RC_EDITORIAL_REPLACEMENTS)
+    frozen_before = {
+        platform: _json_sha256(row)
+        for platform, row in results.items()
+        if platform not in {"substack", "tiktok"}
+    }
+
+    editor_repair = repair_substack_editorial_paragraphs_via_edge(
+        cdp_port=cdp_port,
+        draft_id=draft_id,
+        expected_title=str(article["title"]),
+        replacements=TREASURY_RC_EDITORIAL_REPLACEMENTS,
+    )
+    updated = None
+    if editor_repair.get("status") == "SUCCESS":
+        updated = publish_substack_article_via_edge(
+            cdp_port=cdp_port,
+            title=str(article["title"]),
+            subtitle=str(article["subtitle"]),
+            body_markdown=revised_markdown,
+            image_assets=assets,
+            public_screenshot_path=output_dir / "public_substack_readback.png",
+            existing_draft_id=draft_id,
+            existing_public_url=public_url,
+        )
+    readback = dict((updated or {}).get("readback") or {})
+    visible_text = str(readback.get("visible_body_text") or "")
+    forbidden = ("governed", "packet timestamp", "evidence packet", "public claim permission")
+    derivative_hashes_after = {
+        platform: _json_sha256(row)
+        for platform, row in results.items()
+        if platform not in {"substack", "tiktok"}
+    }
+    success = bool(
+        updated
+        and updated.get("status") == "SUCCESS"
+        and updated.get("publication_write_mode") == "update_existing_public_article"
+        and str(updated.get("public_url") or "").rstrip("/") == expected_url
+        and readback.get("content_readback_verified") is True
+        and readback.get("public_image_count") == 3
+        and readback.get("visual_spread_through_public_body") is True
+        and all(term not in visible_text.casefold() for term in forbidden)
+        and TREASURY_RC_EDITORIAL_REPLACEMENTS[2]["old"] not in visible_text
+        and frozen_before == derivative_hashes_after
+    )
+    if success:
+        article["substack_body_markdown"] = revised_markdown
+        article["substack_body_markdown_sha256"] = _sha256(revised_markdown)
+        article["rendered_body"] = revised_rendered
+        article["article_markdown_sha256"] = _sha256(revised_rendered)
+        article["word_count"] = len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", revised_rendered))
+        results["substack"] = {
+            **updated,
+            "destination_identity": "Capital Chronicle",
+            "action": "edit_existing_treasury_rc_editorial_copy",
+            "canonical_url_preserved": True,
+            "editorial_repair": editor_repair,
+        }
+        _write_text(output_dir / "canonical_article.md", revised_rendered)
+        readback_path = output_dir / "substack_browser_readback_v1.json"
+        browser_readback = _read_json(readback_path)
+        browser_readback["body_markdown_sha256"] = _sha256(revised_markdown)
+        browser_readback["editor_body_image_count"] = 3
+        browser_readback["public_url"] = expected_url
+        browser_readback["status"] = "SUCCESS"
+        _write_json(readback_path, browser_readback)
+
+    evidence["article"] = article
+    evidence["results"] = results
+    evidence["targeted_editorial_repair"] = {
+        "status": "SUCCESS" if success else "BLOCKED_TREASURY_RC_EDITORIAL_REPAIR_NOT_PUBLICLY_VERIFIED",
+        "adapter_result": editor_repair,
+        "publish_readback_status": (updated or {}).get("status"),
+        "canonical_url_preserved": bool(success),
+        "before_body_sha256": _sha256(original_markdown),
+        "after_body_sha256": _sha256(revised_markdown),
+        "replacement_count": len(TREASURY_RC_EDITORIAL_REPLACEMENTS),
+        "removed_text_sha256": [_sha256(str(row["old"])) for row in TREASURY_RC_EDITORIAL_REPLACEMENTS],
+        "derivative_writes_performed": False,
+        "frozen_derivative_payload_hashes_before": frozen_before,
+        "frozen_derivative_payload_hashes_after": derivative_hashes_after,
+        "frozen_derivatives_preserved": frozen_before == derivative_hashes_after,
+        "strict_public_readback": readback,
+    }
+    if success:
+        evidence["classification"] = "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS"
+    evidence["final_platform_matrix"] = _persist_final_platform_matrix(output_dir, evidence)
+    _write_json(evidence_path, evidence)
+    return evidence
+
+
 def reconcile_linkedin_activity_pair(
     *,
     output_dir: Path,
@@ -3492,6 +3639,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--resume-platform", action="append", default=[])
     parser.add_argument("--reconcile-readbacks", action="store_true")
     parser.add_argument("--repair-substack-caption-fragment", action="store_true")
+    parser.add_argument("--repair-treasury-rc-editorial", action="store_true")
     parser.add_argument("--reconcile-linkedin-pair", action="store_true")
     parser.add_argument("--linkedin-accepted-url")
     parser.add_argument("--linkedin-accepted-id")
@@ -3537,6 +3685,17 @@ def main(argv: Sequence[str] | None = None) -> int:
             "public_url": ((result.get("results") or {}).get("substack") or {}).get("public_url"),
         }, indent=2, sort_keys=True))
         return 0 if (result.get("substack_caption_repair") or {}).get("status") == "SUCCESS" else 2
+    if args.repair_treasury_rc_editorial:
+        if not args.operator_approved_full_live_run:
+            print(json.dumps({"classification": "BLOCKED_TREASURY_RC_EDITORIAL_REPAIR", "reason": "operator_approved_full_live_run_flag_required"}, sort_keys=True))
+            return 2
+        result = repair_exact_treasury_release_candidate_editorial(output_dir=output, cdp_port=args.cdp_port)
+        print(json.dumps({
+            "classification": result.get("classification"),
+            "repair": (result.get("targeted_editorial_repair") or {}).get("status"),
+            "public_url": ((result.get("results") or {}).get("substack") or {}).get("public_url"),
+        }, indent=2, sort_keys=True))
+        return 0 if (result.get("targeted_editorial_repair") or {}).get("status") == "SUCCESS" else 2
     if args.closure_historical_repair:
         from live_contentops.final_automation_closure_v1 import run_historical_repairs
 

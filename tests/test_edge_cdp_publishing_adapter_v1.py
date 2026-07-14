@@ -22,6 +22,16 @@ def test_substack_update_mode_preserves_public_url_and_confirms_update() -> None
     assert 'publication_write_mode": "update_existing_public_article"' in source
 
 
+def test_targeted_substack_editorial_repair_is_exact_and_preserves_three_images() -> None:
+    source = inspect.getsource(adapter.repair_substack_editorial_paragraphs_via_edge)
+    assert 'visible == row["old"]' in source
+    assert "len(row_matches) != 1" in source
+    assert "len(images_before) == 3" in source
+    assert "images_after == images_before" in source
+    assert "page.keyboard.insert_text" in source
+    assert "Control+A" not in source
+
+
 def test_public_substack_content_checks_require_reader_text_sources_and_captions() -> None:
     source_url = "https://www.eia.gov/pressroom/releases/press590.php"
     body = f"""## Supply Reset
@@ -60,6 +70,19 @@ WTI current market signal. [Source]({source_url})
     )
     assert failed["content_readback_verified"] is False
     assert failed["editorial_process_language_absent"] is False
+
+    for internal_phrase in ("packet timestamp", "evidence packet", "public claim permission", "manifest-bound"):
+        failed = _public_substack_content_checks(
+            visible_text=visible + f" Internal phrase: {internal_phrase}.",
+            hrefs=[source_url],
+            meta_description="EIA oil supply analysis with market and inflation context.",
+            expected_title="EIA Sees Oil Supply Nearing Pre-War Levels",
+            expected_subtitle="The supply path is changing.",
+            expected_body_markdown=body,
+            expected_image_assets=[{"caption": "WTI current market signal."}],
+        )
+        assert failed["content_readback_verified"] is False
+        assert failed["editorial_process_language_absent"] is False
 
 
 class _FakeInput:

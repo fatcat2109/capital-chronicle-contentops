@@ -6,7 +6,7 @@
 
 `AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS`
 
-Task: `TASK_CONTENTOPS_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1`.
+Task: `TASK_CONTENTOPS_V1_0_RC_TARGETED_EDITORIAL_REPAIR_AND_ACCEPTANCE_PREP_V1`.
 
 No `v1.0` tag exists. Current outputs are frozen pending Jim's final visual/content acceptance.
 
@@ -27,11 +27,11 @@ Run: `contentops_database_publication_live_20260714_1`.
 
 Evidence: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`.
 
-`live_contentops.eight_platform_substack_first_pipeline_v1` remained the canonical runner. It consumed the publication packet, calibrated the headline to a one-basis-point slope move, generated a 1,147-word article, built two Treasury charts plus one official Treasury data-page excerpt, passed deterministic and bounded LLM review, created the locked release artifacts, and dispatched only after browser/account preflight.
+`live_contentops.eight_platform_substack_first_pipeline_v1` remained the canonical runner. It consumed the publication packet, calibrated the headline to a one-basis-point slope move, generated the Treasury analysis, built two Treasury charts plus one official Treasury data-page excerpt, passed deterministic and bounded LLM review, created the locked release artifacts, and dispatched only after browser/account preflight.
 
 Canonical article: `https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider`.
 
-Substack and all eight configured derivatives passed strict identity, text, media, link, parent-chain, and stable-ID readback. A bounded update removed one duplicate third-caption fragment from draft `206928132`; the canonical URL remained unchanged and no derivative was rerun. Telegram public screenshot navigation was unavailable because local Edge DNS could not resolve `t.me`; strict provider readback, message ID, media, text, and link verification remain PASS and the audit records this explicit fallback.
+Substack and all eight configured derivatives passed strict identity, text, media, link, parent-chain, and stable-ID readback. A bounded update removed one duplicate third-caption fragment from draft `206928132`. The final targeted editorial repair then removed reader-facing process vocabulary, consolidated the repeated confirmation/falsification summary, and tightened redundant prose in the same draft and public URL. Strict readback reconfirmed title, subtitle, complete body, six source links, three captions, and three distributed visuals. All eight derivative evidence rows remained identical to starting commit `48320531c9bca29c5ebff1ee3dbbe6c43098ae86`; no derivative adapter ran. Telegram public screenshot navigation was unavailable because local Edge DNS could not resolve `t.me`; strict provider readback, message ID, media, text, and link verification remain PASS and the audit records this explicit fallback.
 
 TikTok is outside this eight-destination run and remains `BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED`.
 

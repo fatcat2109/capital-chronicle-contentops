@@ -1,6 +1,6 @@
 {
   "canonical_substack_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
-  "classification": "AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC",
+  "classification": "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS",
   "destinations": {
     "discord": {
       "adapter_name_version": "discord_live_adapter_v6.execute_discord_post+strict_provider_readback",
