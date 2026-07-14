@@ -39,7 +39,14 @@ PUBLISH_DECISIONS = frozenset({
     "PUBLISH_DEEP_ANALYSIS",
 })
 BLOCKED_UPDATE_RELATIONSHIPS = frozenset({"duplicate", "incremental_update"})
+ALLOWED_REENTRY_RELATIONSHIPS = frozenset({"material_update", "correction", "contradiction", "new_phase"})
 ALLOWED_EVIDENCE_CLASSES = frozenset({"exact", "proxy"})
+EXPECTED_UPSTREAM_REPOSITORY = "fatcat2109/Headline-Raw-data-json"
+EXPECTED_UPSTREAM_BRANCH = "main"
+EXPECTED_CANDIDATE_POOL_PRODUCER_COMMIT_SHA = "8c63faca0603f81bebfbb68380a0dc4ad51ab87d"
+BREAKING_MINIMUM_MATERIALITY = 80.0
+BREAKING_MINIMUM_URGENCY = 80.0
+BREAKING_MINIMUM_SIGNIFICANCE_OR_BREADTH = 70.0
 
 
 def _candidate_hard_gate(candidate: Mapping[str, Any], cutoff_dt: datetime) -> list[str]:
@@ -136,11 +143,56 @@ def _candidate_hard_gate(candidate: Mapping[str, Any], cutoff_dt: datetime) -> l
     return sorted(set(blockers))
 
 
-def _publication_decision(scored: Mapping[str, Any]) -> str:
-    scores = scored["raw_scores"]
+def _available_score(dimensions: Mapping[str, Mapping[str, Any]], name: str) -> float | None:
+    row = dimensions.get(name) or {}
+    if row.get("availability") != "AVAILABLE" or row.get("score") is None:
+        return None
+    return float(row["score"])
+
+
+def _breaking_qualification(scored: Mapping[str, Any]) -> dict[str, Any]:
+    """Qualify breaking status from material event evidence, never evidence quality."""
     candidate = scored["candidate"]
-    if scores["urgency"] >= 80.0 or scores["impact"] >= 80.0:
+    scores = scored["raw_scores"]
+    dimensions = scores["dimensions"]
+    materiality = _available_score(dimensions, "materiality")
+    significance = _available_score(dimensions, "policy_economic_geopolitical_significance")
+    breadth = _available_score(dimensions, "affected_market_economy_breadth")
+    significance_or_breadth = max(value for value in (significance, breadth) if value is not None) if any(
+        value is not None for value in (significance, breadth)
+    ) else None
+    relationship = str(candidate.get("relationship") or "")
+    event_evidence = candidate.get("breaking_event_evidence")
+    material_update_evidence = candidate.get("material_update_evidence")
+    event_or_update = bool(event_evidence) or (
+        relationship == "material_update" and bool(material_update_evidence)
+    )
+    checks = {
+        "materiality": materiality is not None and materiality >= BREAKING_MINIMUM_MATERIALITY,
+        "urgency": float(scores["urgency"]) >= BREAKING_MINIMUM_URGENCY,
+        "significance_or_breadth": significance_or_breadth is not None and significance_or_breadth >= BREAKING_MINIMUM_SIGNIFICANCE_OR_BREADTH,
+        "breaking_event_or_material_update_evidence": event_or_update,
+    }
+    return {
+        "qualified": all(checks.values()),
+        "checks": checks,
+        "observed": {
+            "materiality": materiality,
+            "urgency": float(scores["urgency"]),
+            "significance": significance,
+            "breadth": breadth,
+            "relationship": relationship,
+        },
+    }
+
+
+def _publication_decision(scored: Mapping[str, Any]) -> str:
+    candidate = scored["candidate"]
+    if _breaking_qualification(scored)["qualified"]:
         return "PUBLISH_BREAKING_OR_HIGH_IMPACT"
+    fallback = evaluate_deep_analysis_fallback(candidate, scored["raw_scores"])["selected_fallback"]
+    if fallback == "fresh_official_data_analysis":
+        return "PUBLISH_FRESH_ANALYSIS"
     if candidate.get("article_mode") in {"analysis", "deep_analysis", "research_note"}:
         return "PUBLISH_DEEP_ANALYSIS"
     return "PUBLISH_FRESH_ANALYSIS"
@@ -365,6 +417,7 @@ def evaluate_window_decision(
         for auth in (p.get("authority") or {}).get("source_authorities") or []
     }
     published_candidate_ids = {p.get("candidate_id") for p in previously_published if p.get("candidate_id")}
+    published_clusters = {p.get("cluster_id") for p in previously_published if p.get("cluster_id")}
     published_chains = {p.get("update_chain_id") for p in previously_published if p.get("update_chain_id")}
     scored_candidates: list[dict[str, Any]] = []
     backlog: list[dict[str, Any]] = []
@@ -372,12 +425,17 @@ def evaluate_window_decision(
     for candidate in pool.get("eligible_candidates") or []:
         gate_blockers = _candidate_hard_gate(candidate, cutoff_dt)
         relation = str(candidate.get("relationship") or "")
-        if candidate.get("candidate_id") in published_candidate_ids:
-            gate_blockers.append("candidate_already_published_today")
+        reentry_justification = str(candidate.get("article_version_justification") or "").strip()
+        same_candidate = candidate.get("candidate_id") in published_candidate_ids
+        same_cluster = candidate.get("cluster_id") in published_clusters
+        same_chain = candidate.get("update_chain_id") in published_chains
+        reentry_allowed = relation in ALLOWED_REENTRY_RELATIONSHIPS and bool(reentry_justification)
+        if same_candidate:
+            gate_blockers.append("candidate_already_published")
         if relation in BLOCKED_UPDATE_RELATIONSHIPS:
             gate_blockers.append("update_chain_without_material_update")
-        if candidate.get("update_chain_id") in published_chains and relation not in {"material_update", "correction", "contradiction", "new_phase"}:
-            gate_blockers.append("same_day_update_chain_without_material_change")
+        if (same_cluster or same_chain) and not reentry_allowed:
+            gate_blockers.append("historical_cluster_or_chain_without_justified_new_version")
         if gate_blockers:
             backlog.append({
                 "candidate": candidate,
@@ -449,10 +507,11 @@ def evaluate_window_decision(
         baseline_score = float((prior or {}).get("_schedule_final_score", 0.0))
         impact_delta = round(top["final_score"] - baseline_score, 2)
         minimum_delta = float(window.get("minimum_preemption_impact_delta", 15.0))
+        qualification = _breaking_qualification(top)
         if (
             prior
             and prior.get("_schedule_window_id")
-            and top["raw_scores"]["urgency"] >= 80.0
+            and qualification["qualified"]
             and impact_delta >= minimum_delta
         ):
             selected = top
@@ -464,8 +523,9 @@ def evaluate_window_decision(
                 "preempted_window": prior["_schedule_window_id"],
                 "preempted_candidate": prior.get("candidate_id"),
                 "impact_delta": impact_delta,
-                "reason_codes": ["fully_gated_breaking_candidate", "configured_impact_delta_exceeded"],
-                "evidence_requirements": ["candidate_hard_gates_passed", "urgency_at_least_80", "minimum_preemption_delta_met"],
+                "reason_codes": ["explicit_breaking_qualification_passed", "configured_impact_delta_exceeded"],
+                "evidence_requirements": ["candidate_hard_gates_passed", "breaking_materiality_urgency_significance_and_event_checks_passed", "minimum_preemption_delta_met"],
+                "breaking_qualification": qualification,
                 "operator_state": "OPERATOR_REVIEW_REQUIRED",
                 "publication_deadline": cutoff_dt.isoformat().replace("+00:00", "Z"),
             }
@@ -492,6 +552,7 @@ def evaluate_window_decision(
         "ranking_model_version": RANKING_MODEL_VERSION,
         "selected_candidate": selected["candidate"] if selected else None,
         "preemption_contract": preemption_contract,
+        "breaking_qualification": _breaking_qualification(considered) if considered and considered["raw_scores"] else None,
         "deep_analysis_fallback_evidence": evaluate_deep_analysis_fallback(
             considered["candidate"] if considered else None,
             considered["raw_scores"] if considered else None,
@@ -521,17 +582,33 @@ def build_newsroom_schedule(
     pool_path: Path,
     windows_path: Path,
     output_dir: Path,
+    historical_publications_path: Path | None = None,
 ) -> dict[str, Any]:
-    """Process all five windows sequentially to produce the newsroom schedule."""
+    """Process all five windows from governed history to produce the newsroom schedule."""
     pool = json.loads(pool_path.read_text(encoding="utf-8"))
     config = json.loads(windows_path.read_text(encoding="utf-8"))
-    
-    # Simple self-contained schema/invariants verification
+
     errors = []
     if pool.get("schema_version") != "capital_chronicle.newsroom_candidate_pool.v1":
         errors.append("pool_schema_version_invalid")
     if not pool.get("database_binding") or not pool["database_binding"].get("head_sha"):
         errors.append("database_binding_missing")
+    producer = pool.get("producer_binding") or {}
+    expected_producer = {
+        "upstream_repository": EXPECTED_UPSTREAM_REPOSITORY,
+        "upstream_branch": EXPECTED_UPSTREAM_BRANCH,
+        "candidate_pool_producer_commit_sha": EXPECTED_CANDIDATE_POOL_PRODUCER_COMMIT_SHA,
+    }
+    for field, expected in expected_producer.items():
+        if producer.get(field) != expected:
+            errors.append(f"producer_binding_{field}_missing_or_mismatched")
+    required_producer_fields = (
+        "candidate_pool_artifact_sha256", "pool_id", "pool_logical_hash", "schema_version",
+        "schema_hash", "candidate_hashes", "cutoff_time_utc",
+    )
+    for field in required_producer_fields:
+        if producer.get(field) in (None, "", []):
+            errors.append(f"producer_binding_{field}_missing")
     pool_generated_at = pool.get("generated_at_utc")
     try:
         if not isinstance(pool_generated_at, str) or _parse_utc(pool_generated_at).utcoffset() != timedelta(0):
@@ -539,17 +616,36 @@ def build_newsroom_schedule(
     except (TypeError, ValueError):
         errors.append("pool_generated_at_utc_invalid")
 
-    core = {k: v for k, v in pool.items() if k not in ("pool_id", "logical_hash")}
+    core = {k: v for k, v in pool.items() if k not in ("pool_id", "logical_hash", "producer_binding")}
     expected_hash = _logical_hash(core)
     if pool.get("logical_hash") != expected_hash:
         errors.append("pool_logical_hash_mismatch")
+    if producer:
+        if producer.get("pool_id") != pool.get("pool_id") or producer.get("pool_logical_hash") != pool.get("logical_hash"):
+            errors.append("producer_binding_pool_identity_mismatch")
+        if producer.get("schema_version") != pool.get("schema_version") or producer.get("cutoff_time_utc") != pool.get("cutoff_time_utc"):
+            errors.append("producer_binding_pool_contract_mismatch")
+        actual_candidate_hashes = sorted(
+            str(row.get("evidence_hash")) for row in [*(pool.get("eligible_candidates") or []), *(pool.get("rejected_candidates") or [])]
+        )
+        if producer.get("candidate_hashes") != actual_candidate_hashes:
+            errors.append("producer_binding_candidate_hashes_mismatch")
 
     if errors:
         raise ValueError(f"candidate_pool_invalid: {', '.join(errors)}")
-        
-    previously_published = []
+
+    historical_seed = []
+    if historical_publications_path is not None:
+        history = json.loads(historical_publications_path.read_text(encoding="utf-8"))
+        if history.get("schema_version") != "contentops.historical_publication_seed.v1":
+            raise ValueError("historical_publication_seed_schema_invalid")
+        historical_seed = list(history.get("publications") or [])
+        if not historical_seed:
+            raise ValueError("historical_publication_seed_empty")
+    previously_published = [dict(row) for row in historical_seed]
     decisions = []
-    
+    new_publications = []
+
     for window in config["windows"]:
         dec = evaluate_window_decision(
             window=window,
@@ -563,17 +659,26 @@ def build_newsroom_schedule(
             published["_schedule_window_id"] = dec["window_id"]
             published["_schedule_final_score"] = dec["score_details"]["final_score"]
             previously_published.append(published)
-            
+            new_publications.append(published)
+
     schedule = {
         "schema_version": SCHEMA_VERSION,
         "schedule_date": schedule_date,
         "generated_at_utc": pool_generated_at,
-        "database_head_sha": pool["database_binding"]["head_sha"],
+        "database_input_authority_sha": pool["database_binding"]["head_sha"],
+        "candidate_pool_producer_binding": producer,
+        "pool_id": pool["pool_id"],
         "pool_logical_hash": pool["logical_hash"],
+        "historical_publication_seed": {
+            "path": str(historical_publications_path).replace("\\", "/") if historical_publications_path else None,
+            "count": len(historical_seed),
+            "logical_hash": _logical_hash({"publications": historical_seed}) if historical_seed else None,
+        },
         "decisions": decisions,
         "summary": {
             "total_windows": len(decisions),
-            "publications": len(previously_published),
+            "historical_publications_seeded": len(historical_seed),
+            "publications": len(new_publications),
             "backlog_count": sum(len(d["backlog_candidates"]) for d in decisions),
         }
     }
@@ -594,14 +699,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--pool", type=Path, required=True)
     parser.add_argument("--windows", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--historical-publications", type=Path)
     args = parser.parse_args(argv)
-    
+
     try:
         schedule = build_newsroom_schedule(
             schedule_date=args.date,
             pool_path=args.pool,
             windows_path=args.windows,
             output_dir=args.output_dir,
+            historical_publications_path=args.historical_publications,
         )
         print(json.dumps({
             "schedule_id": schedule["schedule_id"],

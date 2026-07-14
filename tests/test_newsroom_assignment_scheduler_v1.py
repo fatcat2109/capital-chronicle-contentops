@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from live_contentops.newsroom_assignment_scheduler_v1 import (
+    EXPECTED_CANDIDATE_POOL_PRODUCER_COMMIT_SHA,
     build_newsroom_schedule,
     calculate_candidate_scores,
     evaluate_window_decision,
@@ -115,14 +116,27 @@ def mock_pool(mock_candidate):
         },
         "status": "PASS_CANDIDATE_POOL_READY",
     }
-    # Deterministic simple hashing for test verification mock
+    # Producer binding is outside the pool's non-recursive logical identity.
     import hashlib
     serialized = json.dumps(core, sort_keys=True, separators=(",", ":")).encode()
     digest = hashlib.sha256(serialized).hexdigest()
+    pool_id = f"cc-newsroom-pool-{digest[:20]}"
     return {
         **core,
-        "pool_id": f"cc-newsroom-pool-{digest[:20]}",
+        "pool_id": pool_id,
         "logical_hash": digest,
+        "producer_binding": {
+            "upstream_repository": "fatcat2109/Headline-Raw-data-json",
+            "upstream_branch": "main",
+            "candidate_pool_producer_commit_sha": EXPECTED_CANDIDATE_POOL_PRODUCER_COMMIT_SHA,
+            "candidate_pool_artifact_sha256": "e" * 64,
+            "pool_id": pool_id,
+            "pool_logical_hash": digest,
+            "schema_version": core["schema_version"],
+            "schema_hash": "f" * 64,
+            "candidate_hashes": [mock_candidate["evidence_hash"]],
+            "cutoff_time_utc": core["cutoff_time_utc"],
+        },
     }
 
 
@@ -170,8 +184,9 @@ def test_deterministic_window_decision_publish(base_window, mock_pool):
         pool=mock_pool,
         previously_published=[],
     )
-    assert res["decision"] == "PUBLISH_BREAKING_OR_HIGH_IMPACT"
+    assert res["decision"] == "PUBLISH_FRESH_ANALYSIS"
     assert res["selected_candidate"]["candidate_id"] == "cc-candidate-11111111111111111111"
+    assert res["breaking_qualification"]["qualified"] is False
     assert "Top-ranked fully gated candidate meets thresholds" in res["rationale"]
 
 
@@ -242,6 +257,12 @@ def test_preemption_on_highly_urgent_item(base_window, mock_pool):
         "_schedule_window_id": "london_open",
         "_schedule_final_score": 40.0,
     }
+    candidate = mock_pool["eligible_candidates"][0]
+    candidate["ranking_inputs"] = {
+        "materiality": {"availability": "AVAILABLE", "score": 95, "reason_codes": ["governed_material_event"]},
+        "policy_economic_geopolitical_significance": {"availability": "AVAILABLE", "score": 90, "reason_codes": ["governed_significance"]},
+    }
+    candidate["breaking_event_evidence"] = {"event_id": "governed-breaking-event"}
     res = evaluate_window_decision(
         window=window,
         schedule_date="2026-07-13",
@@ -251,11 +272,12 @@ def test_preemption_on_highly_urgent_item(base_window, mock_pool):
     assert res["decision"] == "PUBLISH_BREAKING_OR_HIGH_IMPACT"
     contract = res["preemption_contract"]
     assert contract["preempted_window"] == "london_open"
-    assert contract["selected_candidate"] == mock_pool["eligible_candidates"][0]["candidate_id"]
+    assert contract["selected_candidate"] == candidate["candidate_id"]
     assert contract["preempted_candidate"] == "cc-candidate-prior"
     assert contract["impact_delta"] >= base_window["minimum_preemption_impact_delta"]
     assert len(contract["decision_hash"]) == 64
     assert contract["operator_state"] == "OPERATOR_REVIEW_REQUIRED"
+    assert contract["breaking_qualification"]["qualified"] is True
     assert "impact delta" in res["rationale"]
 
 
@@ -342,7 +364,56 @@ def test_same_candidate_cannot_publish_twice_even_as_new_phase(base_window, mock
         previously_published=[previous],
     )
     assert res["selected_candidate"] is None
-    assert "candidate_already_published_today" in res["backlog_candidates"][0]["blocked_reasons"]
+    assert "candidate_already_published" in res["backlog_candidates"][0]["blocked_reasons"]
+
+
+def test_materiality_sixty_with_significance_unavailable_is_fresh_analysis(base_window, mock_pool):
+    candidate = mock_pool["eligible_candidates"][0]
+    candidate["ranking_inputs"] = {
+        "materiality": {"availability": "AVAILABLE", "score": 60, "reason_codes": ["governed_modest_move"]},
+        "policy_economic_geopolitical_significance": {"availability": "UNAVAILABLE", "score": None},
+        "affected_market_economy_breadth": {"availability": "UNAVAILABLE", "score": None},
+    }
+    candidate["breaking_event_evidence"] = {"event_id": "quality-alone-is-not-impact"}
+    result = evaluate_window_decision(window=base_window, schedule_date="2026-07-13", pool=mock_pool, previously_published=[])
+    assert result["decision"] == "PUBLISH_FRESH_ANALYSIS"
+    assert result["breaking_qualification"]["checks"]["materiality"] is False
+    assert result["breaking_qualification"]["checks"]["significance_or_breadth"] is False
+
+
+def test_historical_cluster_suppression_and_justified_reentry(base_window, mock_pool):
+    candidate = mock_pool["eligible_candidates"][0]
+    history = [{"candidate_id": "historic-id", "cluster_id": candidate["cluster_id"], "update_chain_id": candidate["update_chain_id"]}]
+    unchanged = evaluate_window_decision(window=base_window, schedule_date="2026-07-13", pool=mock_pool, previously_published=history)
+    assert unchanged["selected_candidate"] is None
+    assert "historical_cluster_or_chain_without_justified_new_version" in unchanged["backlog_candidates"][0]["blocked_reasons"]
+
+    candidate["relationship"] = "material_update"
+    candidate["article_version_justification"] = "New governed curve observation changes the accepted analysis."
+    candidate["material_update_evidence"] = {"claim_id": "fed-rate-change"}
+    material_update = evaluate_window_decision(window=base_window, schedule_date="2026-07-13", pool=mock_pool, previously_published=history)
+    assert material_update["selected_candidate"] is not None
+
+    candidate["relationship"] = "new_phase"
+    candidate["article_version_justification"] = "A separately timed policy phase warrants a new article version."
+    candidate.pop("material_update_evidence")
+    new_phase = evaluate_window_decision(window=base_window, schedule_date="2026-07-13", pool=mock_pool, previously_published=history)
+    assert new_phase["selected_candidate"] is not None
+
+
+def test_build_rejects_missing_or_mismatched_producer_binding(tmp_path, mock_pool):
+    windows_file = tmp_path / "windows.json"
+    windows_file.write_text(json.dumps({"windows": []}), encoding="utf-8")
+    for mutation in ("missing", "mismatched"):
+        pool = copy.deepcopy(mock_pool)
+        if mutation == "missing":
+            pool.pop("producer_binding")
+        else:
+            pool["producer_binding"]["candidate_pool_producer_commit_sha"] = "0" * 40
+        pool_file = tmp_path / f"pool-{mutation}.json"
+        pool_file.write_text(json.dumps(pool), encoding="utf-8")
+        with pytest.raises(ValueError, match="producer_binding_candidate_pool_producer_commit_sha_missing_or_mismatched"):
+            build_newsroom_schedule(schedule_date="2026-07-13", pool_path=pool_file, windows_path=windows_file, output_dir=tmp_path / mutation)
 
 
 def test_full_newsroom_scheduling_flow(tmp_path, mock_pool):
@@ -388,6 +459,7 @@ def test_full_newsroom_scheduling_flow(tmp_path, mock_pool):
     assert schedule["schema_version"] == "capital_chronicle.newsroom_schedule_decision.v1"
     assert schedule["generated_at_utc"] == mock_pool["generated_at_utc"]
     assert schedule["summary"]["publications"] == 1
-    assert schedule["decisions"][0]["decision"] == "PUBLISH_BREAKING_OR_HIGH_IMPACT"
+    assert schedule["decisions"][0]["decision"] == "PUBLISH_FRESH_ANALYSIS"
+    assert schedule["candidate_pool_producer_binding"]["candidate_pool_producer_commit_sha"] == EXPECTED_CANDIDATE_POOL_PRODUCER_COMMIT_SHA
     assert replay == schedule
     assert first_path.read_bytes() == second_path.read_bytes()

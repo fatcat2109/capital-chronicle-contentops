@@ -18,7 +18,7 @@ def test_canonical_editorial_evaluation_corpus_passes() -> None:
     result = verify_editorial_evaluation_corpus(_corpus())
     assert result["status"] == "PASS"
     assert result["blockers"] == []
-    assert result["summary"]["case_count"] == 12
+    assert result["summary"]["case_count"] == 15
     assert result["summary"]["story_type_count"] >= 5
     assert result["summary"]["accepted_count"] > 0
     assert result["summary"]["rejected_count"] > 0
@@ -34,6 +34,14 @@ def test_corpus_verifier_fails_closed_on_missing_required_class() -> None:
     result = verify_editorial_evaluation_corpus(corpus)
     assert result["status"] == "BLOCKED"
     assert "required_coverage_missing:proxy_misuse" in result["blockers"]
+
+
+def test_corpus_verifier_rejects_configured_matrix_drift() -> None:
+    corpus = _corpus()
+    corpus["required_coverage_labels"].remove("clickbait_headline")
+    result = verify_editorial_evaluation_corpus(corpus)
+    assert result["status"] == "BLOCKED"
+    assert "configured_coverage_matrix_mismatch" in result["blockers"]
 
 
 def test_corpus_verifier_rejects_incomplete_human_rubric() -> None:

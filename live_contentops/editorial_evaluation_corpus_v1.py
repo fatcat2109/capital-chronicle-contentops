@@ -16,6 +16,10 @@ RUBRIC_FIELDS = (
 REQUIRED_COVERAGE = {
     "strong_headline", "weak_headline", "factual_error", "semantic_error", "overclaiming",
     "stale_story", "proxy_misuse", "repetition", "poor_seo", "excellent_original_value",
+    "malformed_reviewer_output", "scenario_correctly_labeled", "scenario_masquerading_as_forecast",
+    "unsupported_numeric_claim", "missing_citation", "proxy_promoted_to_exact",
+    "semantic_paraphrase_repetition", "repeated_conclusion", "internal_workflow_vocabulary",
+    "clickbait_headline",
 }
 
 
@@ -33,10 +37,13 @@ def verify_editorial_evaluation_corpus(corpus: Mapping[str, Any]) -> dict[str, A
     story_types = {str(row.get("story_type") or "") for row in cases}
     if corpus.get("schema_version") != "contentops.editorial_evaluation_corpus.v1": blockers.append("schema_version_invalid")
     if corpus.get("publication_authority") is not False or corpus.get("fixture_only") is not True: blockers.append("corpus_must_be_fixture_only_without_publication_authority")
-    if len(cases) < 10: blockers.append("minimum_case_count_not_met")
+    if len(cases) < 15: blockers.append("minimum_case_count_not_met")
     if len(story_types) < 5: blockers.append("multiple_story_types_not_met")
     if dispositions != {"ACCEPT", "REJECT"}: blockers.append("accepted_and_rejected_cases_required")
     if len(case_ids) != len(set(case_ids)) or not all(case_ids): blockers.append("case_ids_invalid_or_duplicate")
+    configured_coverage = {str(label) for label in (corpus.get("required_coverage_labels") or [])}
+    if configured_coverage != REQUIRED_COVERAGE:
+        blockers.append("configured_coverage_matrix_mismatch")
     missing_coverage = sorted(REQUIRED_COVERAGE - labels)
     if missing_coverage: blockers.append("required_coverage_missing:" + ",".join(missing_coverage))
     for row in cases:

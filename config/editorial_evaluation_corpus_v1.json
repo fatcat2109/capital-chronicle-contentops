@@ -342,6 +342,98 @@
       },
       "source_condition": "official_rate_definitions_and_governed_curve_observations",
       "story_type": "market_structure_explainer"
+    },
+    {
+      "case_id": "scenario-analysis-accepted-013",
+      "coverage_labels": [
+        "scenario_correctly_labeled",
+        "strong_headline"
+      ],
+      "draft_excerpt": "The analysis states that a further rise in term premium could steepen the curve if auction demand weakens, labels the path as conditional, and lists the auction and inflation observations that would invalidate it.",
+      "expected_disposition": "ACCEPT",
+      "headline": "Treasury Steepening Scenario Depends on Auction Demand and Term Premium",
+      "human_rationale": "The scenario is explicitly conditional, evidence-bound, and falsifiable rather than presented as a forecast.",
+      "human_rubric": {
+        "accuracy": 5,
+        "claim_traceability": 5,
+        "headline_calibration": 5,
+        "information_density": 5,
+        "materiality": 4,
+        "mechanism_quality": 5,
+        "originality": 4,
+        "overall_acceptance": "ACCEPT",
+        "reader_utility": 5,
+        "seo_hygiene": 5,
+        "source_quality": 5,
+        "structure": 5,
+        "uncertainty_handling": 5,
+        "visual_utility": 4
+      },
+      "source_condition": "official_curve_and_auction_inputs_with_explicit_conditional_bounds",
+      "story_type": "conditional_scenario"
+    },
+    {
+      "case_id": "reviewer-output-rejected-014",
+      "coverage_labels": [
+        "malformed_reviewer_output",
+        "unsupported_numeric_claim",
+        "missing_citation",
+        "proxy_promoted_to_exact"
+      ],
+      "draft_excerpt": "The reviewer returns truncated JSON, invents a 4.75% live yield without a claim identifier or citation, and describes a delayed daily observation as an exact executable price.",
+      "expected_disposition": "REJECT",
+      "headline": "Live Treasury Yield Hits 4.75%",
+      "human_rationale": "Malformed review output cannot authorize publication, and the uncited number improperly promotes proxy evidence to exact market truth.",
+      "human_rubric": {
+        "accuracy": 1,
+        "claim_traceability": 1,
+        "headline_calibration": 1,
+        "information_density": 2,
+        "materiality": 4,
+        "mechanism_quality": 1,
+        "originality": 1,
+        "overall_acceptance": "REJECT",
+        "reader_utility": 1,
+        "seo_hygiene": 3,
+        "source_quality": 2,
+        "structure": 1,
+        "uncertainty_handling": 1,
+        "visual_utility": 2
+      },
+      "source_condition": "truncated_reviewer_json_with_uncited_proxy_numeric_claim",
+      "story_type": "reviewer_failure"
+    },
+    {
+      "case_id": "scenario-packaging-rejected-015",
+      "coverage_labels": [
+        "scenario_masquerading_as_forecast",
+        "semantic_paraphrase_repetition",
+        "repeated_conclusion",
+        "internal_workflow_vocabulary",
+        "clickbait_headline"
+      ],
+      "draft_excerpt": "The draft says the curve will steepen next week, repeats the same conclusion in four paraphrased sections, and exposes phrases such as gate blocker, packet verifier, and operator disposition to public readers.",
+      "expected_disposition": "REJECT",
+      "headline": "This One Bond Signal Will Shock Every Investor Next Week",
+      "human_rationale": "An unlabeled conditional path is presented as certain, while semantic repetition, leaked workflow language, and clickbait packaging destroy calibration and reader utility.",
+      "human_rubric": {
+        "accuracy": 2,
+        "claim_traceability": 2,
+        "headline_calibration": 1,
+        "information_density": 1,
+        "materiality": 3,
+        "mechanism_quality": 2,
+        "originality": 1,
+        "overall_acceptance": "REJECT",
+        "reader_utility": 1,
+        "seo_hygiene": 2,
+        "source_quality": 3,
+        "structure": 1,
+        "uncertainty_handling": 1,
+        "visual_utility": 2
+      },
+      "source_condition": "conditional_inputs_without_forecast_authority_and_repetitive_internal_copy",
+      "story_type": "conditional_scenario"
     }
   ],
   "corpus_id": "capital-chronicle-golden-editorial-corpus-v1",
@@ -393,7 +485,17 @@
     "proxy_misuse",
     "repetition",
     "poor_seo",
-    "excellent_original_value"
+    "excellent_original_value",
+    "malformed_reviewer_output",
+    "scenario_correctly_labeled",
+    "scenario_masquerading_as_forecast",
+    "unsupported_numeric_claim",
+    "missing_citation",
+    "proxy_promoted_to_exact",
+    "semantic_paraphrase_repetition",
+    "repeated_conclusion",
+    "internal_workflow_vocabulary",
+    "clickbait_headline"
   ],
   "rubric_scale": {
     "acceptance_values": [

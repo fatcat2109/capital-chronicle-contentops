@@ -1,0 +1,74 @@
+{
+  "classification": "PASS_NEWSROOM_AND_TIER1_FINAL_GAP_CLOSURE_AWAITING_CHATGPT_AUDIT",
+  "files": [
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/editorial_evaluation_corpus_v1_verifier_v3.json",
+      "schema_version": "contentops.editorial_evaluation_corpus_verifier.v1",
+      "sha256": "7610caa26b0d74c7769da604e1be6bdfd746cb8295550a125d3d9c785a9509fc",
+      "status_or_classification": "PASS"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/historical_publication_seed_v1_0.json",
+      "schema_version": "contentops.historical_publication_seed.v1",
+      "sha256": "92b21f2a20acac197667eacf34a702b8f79464bf2415374ba29e01059c4976d7",
+      "status_or_classification": null
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/newsroom_candidate_pool_upstream_bound_v3.json",
+      "schema_version": "capital_chronicle.newsroom_candidate_pool.v1",
+      "sha256": "ec3a203213d78db519f43f27f42395493df58bc71c8c873f4b08f047a3017ce3",
+      "status_or_classification": "PASS_CANDIDATE_POOL_READY"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/newsroom_candidate_pool_upstream_verifier_v3.json",
+      "schema_version": "contentops.newsroom_candidate_pool_upstream_binding_verifier.v3",
+      "sha256": "8d1e394367b4bd201b5986f7e53a64fa305939a6a3b580e47432cba9dc8f41cb",
+      "status_or_classification": "PASS"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/newsroom_schedule_2026_07_14.json",
+      "schema_version": "capital_chronicle.newsroom_schedule_decision.v1",
+      "sha256": "961b93f58c9037ed81e624f7a7a2d8964c2e26f8aa24ef2e9b86d67547b6974d",
+      "status_or_classification": null
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/public_rendered_seo_audit_v1.json",
+      "schema_version": "contentops.public_rendered_seo_audit.v1",
+      "sha256": "88270ab11372d8a72c985dc9603cf88507cb1176f86d87ab711d6e0465584445",
+      "status_or_classification": "PASS_AUDIT_COMPLETE_WITH_DOCUMENTED_EXISTING_SITE_DEFECTS"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/public_treasury_desktop_20260714.png",
+      "schema_version": null,
+      "sha256": "2aa873b52310d54ca785da10108440c66bd4e270089e4d69eef148e31bf92d7a",
+      "status_or_classification": null
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/public_treasury_mobile_20260714.png",
+      "schema_version": null,
+      "sha256": "2c41e16bff9295a060c1dfaa79f65aee4be5b4ce788ca132adf47630d00cf2fc",
+      "status_or_classification": null
+    }
+  ],
+  "logical_hash": "26b2a2b35713d65ce2135a9ac8ddc67fe1c890f53d5f1d3e4e66fdaf619f474e",
+  "packet": {
+    "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/newsroom_tier1_final_gap_closure_packet_v3.json",
+    "schema_version": "contentops.newsroom_tier1_final_acceptance_gap_closure.v3",
+    "sha256": "1e2d698c90174f662123e6f48685d45dbd6915eb9bf14dd20f3599142b1ad49a",
+    "status_or_classification": "PASS_NEWSROOM_AND_TIER1_FINAL_GAP_CLOSURE_AWAITING_CHATGPT_AUDIT"
+  },
+  "safety": {
+    "credential_values_read_or_logged": false,
+    "financial_advice_presented": false,
+    "global_dqr_bypassed": false,
+    "jim_audit_claimed": false,
+    "platform_adapter_called": false,
+    "public_write_performed": false,
+    "publication_authority_granted": false,
+    "task_3_started": false,
+    "upstream_repository_modified": false,
+    "v1_0_moved_recreated_deleted_or_retagged": false
+  },
+  "schema_version": "contentops.newsroom_tier1_final_gap_closure_manifest.v3",
+  "task": "TASK_CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3"
+}

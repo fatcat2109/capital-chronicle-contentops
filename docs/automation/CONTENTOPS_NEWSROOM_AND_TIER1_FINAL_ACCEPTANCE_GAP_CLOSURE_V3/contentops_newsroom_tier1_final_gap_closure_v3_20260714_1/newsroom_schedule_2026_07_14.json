@@ -1,0 +1,429 @@
+{
+  "candidate_pool_producer_binding": {
+    "candidate_hashes": [
+      "120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f",
+      "3f705fbf747b1838ca10ac789910bb949232ec386ce758d7abe3a36825f6dd4a",
+      "d68a10790ca2d7f74c383265fa00e7fa9b40adafbb6fe28b59aaa32ee766c70d"
+    ],
+    "candidate_pool_artifact_sha256": "33ed20ab85b19d0b3bfd0699e346097715022d9e248a3e06cbae96ecda7139e8",
+    "candidate_pool_producer_commit_sha": "8c63faca0603f81bebfbb68380a0dc4ad51ab87d",
+    "cutoff_time_utc": "2026-07-14T00:00:00Z",
+    "pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3",
+    "pool_logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+    "schema_hash": "5bd4c4e69472b612905af9c25e12ab6d279f7b1e00a1f3be67d231a57db3f3a3",
+    "schema_version": "capital_chronicle.newsroom_candidate_pool.v1",
+    "upstream_branch": "main",
+    "upstream_repository": "fatcat2109/Headline-Raw-data-json"
+  },
+  "database_input_authority_sha": "d014a4a311ad1c9c6b15e0c26cf2f9271cb9e95c",
+  "decisions": [
+    {
+      "backlog_candidates": [
+        {
+          "blocked_reasons": [
+            "candidate_already_published",
+            "historical_cluster_or_chain_without_justified_new_version"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "final_score": 0.0,
+          "relationship": "new_phase",
+          "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+        }
+      ],
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T01:00:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "deep_analysis_fallback_evidence": {
+        "ordered_steps": [
+          {
+            "available": false,
+            "fallback": "material_update",
+            "order": 1,
+            "reason_codes": [
+              "relationship_material_update"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "fresh_official_data_analysis",
+            "order": 2,
+            "reason_codes": [
+              "exact_source",
+              "freshness_measured",
+              "numeric_claims_present"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "structural_analysis_with_measurable_new_delta",
+            "order": 3,
+            "reason_codes": [
+              "original_calculation_present",
+              "material_delta_measured"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "conditional_scenario",
+            "order": 4,
+            "reason_codes": [
+              "conditional_scenario_explicit"
+            ]
+          },
+          {
+            "available": true,
+            "fallback": "no_publication",
+            "order": 5,
+            "reason_codes": [
+              "no_earlier_fallback_available"
+            ]
+          }
+        ],
+        "publication_authority": false,
+        "selected_fallback": "no_publication"
+      },
+      "name": "Asia Pacific Open Window",
+      "preemption_contract": null,
+      "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+      "rationale": "No fully gated candidate met the window urgency and impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "asia_open"
+    },
+    {
+      "backlog_candidates": [
+        {
+          "blocked_reasons": [
+            "candidate_already_published",
+            "historical_cluster_or_chain_without_justified_new_version"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "final_score": 0.0,
+          "relationship": "new_phase",
+          "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+        }
+      ],
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T07:30:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "deep_analysis_fallback_evidence": {
+        "ordered_steps": [
+          {
+            "available": false,
+            "fallback": "material_update",
+            "order": 1,
+            "reason_codes": [
+              "relationship_material_update"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "fresh_official_data_analysis",
+            "order": 2,
+            "reason_codes": [
+              "exact_source",
+              "freshness_measured",
+              "numeric_claims_present"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "structural_analysis_with_measurable_new_delta",
+            "order": 3,
+            "reason_codes": [
+              "original_calculation_present",
+              "material_delta_measured"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "conditional_scenario",
+            "order": 4,
+            "reason_codes": [
+              "conditional_scenario_explicit"
+            ]
+          },
+          {
+            "available": true,
+            "fallback": "no_publication",
+            "order": 5,
+            "reason_codes": [
+              "no_earlier_fallback_available"
+            ]
+          }
+        ],
+        "publication_authority": false,
+        "selected_fallback": "no_publication"
+      },
+      "name": "London/European Open Window",
+      "preemption_contract": null,
+      "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+      "rationale": "No fully gated candidate met the window urgency and impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "london_open"
+    },
+    {
+      "backlog_candidates": [
+        {
+          "blocked_reasons": [
+            "candidate_already_published",
+            "historical_cluster_or_chain_without_justified_new_version"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "final_score": 0.0,
+          "relationship": "new_phase",
+          "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+        }
+      ],
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T13:30:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "deep_analysis_fallback_evidence": {
+        "ordered_steps": [
+          {
+            "available": false,
+            "fallback": "material_update",
+            "order": 1,
+            "reason_codes": [
+              "relationship_material_update"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "fresh_official_data_analysis",
+            "order": 2,
+            "reason_codes": [
+              "exact_source",
+              "freshness_measured",
+              "numeric_claims_present"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "structural_analysis_with_measurable_new_delta",
+            "order": 3,
+            "reason_codes": [
+              "original_calculation_present",
+              "material_delta_measured"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "conditional_scenario",
+            "order": 4,
+            "reason_codes": [
+              "conditional_scenario_explicit"
+            ]
+          },
+          {
+            "available": true,
+            "fallback": "no_publication",
+            "order": 5,
+            "reason_codes": [
+              "no_earlier_fallback_available"
+            ]
+          }
+        ],
+        "publication_authority": false,
+        "selected_fallback": "no_publication"
+      },
+      "name": "United States/New York Open Window",
+      "preemption_contract": null,
+      "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+      "rationale": "No fully gated candidate met the window urgency and impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "us_open"
+    },
+    {
+      "backlog_candidates": [
+        {
+          "blocked_reasons": [
+            "candidate_already_published",
+            "historical_cluster_or_chain_without_justified_new_version"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "final_score": 0.0,
+          "relationship": "new_phase",
+          "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+        }
+      ],
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T20:00:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "deep_analysis_fallback_evidence": {
+        "ordered_steps": [
+          {
+            "available": false,
+            "fallback": "material_update",
+            "order": 1,
+            "reason_codes": [
+              "relationship_material_update"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "fresh_official_data_analysis",
+            "order": 2,
+            "reason_codes": [
+              "exact_source",
+              "freshness_measured",
+              "numeric_claims_present"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "structural_analysis_with_measurable_new_delta",
+            "order": 3,
+            "reason_codes": [
+              "original_calculation_present",
+              "material_delta_measured"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "conditional_scenario",
+            "order": 4,
+            "reason_codes": [
+              "conditional_scenario_explicit"
+            ]
+          },
+          {
+            "available": true,
+            "fallback": "no_publication",
+            "order": 5,
+            "reason_codes": [
+              "no_earlier_fallback_available"
+            ]
+          }
+        ],
+        "publication_authority": false,
+        "selected_fallback": "no_publication"
+      },
+      "name": "United States/New York Close Window",
+      "preemption_contract": null,
+      "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+      "rationale": "No fully gated candidate met the window urgency and impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "us_close"
+    },
+    {
+      "backlog_candidates": [
+        {
+          "blocked_reasons": [
+            "candidate_already_published",
+            "historical_cluster_or_chain_without_justified_new_version"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "final_score": 0.0,
+          "relationship": "new_phase",
+          "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+        }
+      ],
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T23:30:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "deep_analysis_fallback_evidence": {
+        "ordered_steps": [
+          {
+            "available": false,
+            "fallback": "material_update",
+            "order": 1,
+            "reason_codes": [
+              "relationship_material_update"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "fresh_official_data_analysis",
+            "order": 2,
+            "reason_codes": [
+              "exact_source",
+              "freshness_measured",
+              "numeric_claims_present"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "structural_analysis_with_measurable_new_delta",
+            "order": 3,
+            "reason_codes": [
+              "original_calculation_present",
+              "material_delta_measured"
+            ]
+          },
+          {
+            "available": false,
+            "fallback": "conditional_scenario",
+            "order": 4,
+            "reason_codes": [
+              "conditional_scenario_explicit"
+            ]
+          },
+          {
+            "available": true,
+            "fallback": "no_publication",
+            "order": 5,
+            "reason_codes": [
+              "no_earlier_fallback_available"
+            ]
+          }
+        ],
+        "publication_authority": false,
+        "selected_fallback": "no_publication"
+      },
+      "name": "Global Reconcile and Summary Window",
+      "preemption_contract": null,
+      "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+      "rationale": "No fully gated candidate met the window urgency and impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "global_recon"
+    }
+  ],
+  "generated_at_utc": "2026-07-14T00:00:00Z",
+  "historical_publication_seed": {
+    "count": 1,
+    "logical_hash": "5180f79ad5fe6d86911a010d97dcce10bb3892ff052365bccc3c1a6bb8aedee4",
+    "path": "A:/Capital Chronicle/tools/cc-live-contentops-editorial-qa/docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/historical_publication_seed_v1_0.json"
+  },
+  "logical_hash": "20a9e04e65c7ce9d7d2ffa64d2dc19e24c73e57f75514ca99758f6235ab22418",
+  "pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3",
+  "pool_logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+  "schedule_date": "2026-07-14",
+  "schedule_id": "cc-schedule-20a9e04e65c7ce9d7d2f",
+  "schema_version": "capital_chronicle.newsroom_schedule_decision.v1",
+  "summary": {
+    "backlog_count": 5,
+    "historical_publications_seeded": 1,
+    "publications": 0,
+    "total_windows": 5
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "logical_hash": "97ef482dd84d6741d7f6b89734b96ab5283b003c48f0c7d8e33e650c2633775d",
+  "publication_authority": false,
+  "publications": [
+    {
+      "accepted_public_body_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+      "article_mode": "analysis",
+      "authority": {
+        "global_dqr": "BLOCKED",
+        "global_dqr_override": false,
+        "source_authorities": [
+          "capital_chronicle_calculation_from_exact_official_public",
+          "exact_official_public"
+        ],
+        "story_decision": "ALLOW"
+      },
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "canonical_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+      "cluster_id": "cc-cluster-7aa53a08e0a4b35873af",
+      "published_at_utc": "2026-07-13T22:47:12Z",
+      "release_tag": "v1.0",
+      "story_family": "market_move",
+      "story_id": "cc-story-b032aaca7d2d27af3f67",
+      "update_chain_id": "cc-update-chain-7aa53a08e0a4b35873af"
+    }
+  ],
+  "schema_version": "contentops.historical_publication_seed.v1",
+  "seed_id": "contentops-v1-0-treasury-publication-20260714",
+  "source": {
+    "accepted_public_body_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+    "accepted_publication_evidence_path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1",
+    "canonical_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+    "release_commit_sha": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+    "release_tag": "v1.0",
+    "release_tag_object_sha": "a021df7fd0264d9f160bdd605509da925f0bf131"
+  }
+}

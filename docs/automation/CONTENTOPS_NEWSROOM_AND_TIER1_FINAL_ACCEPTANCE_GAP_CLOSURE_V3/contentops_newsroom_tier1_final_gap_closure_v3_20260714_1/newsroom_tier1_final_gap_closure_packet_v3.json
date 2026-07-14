@@ -1,0 +1,257 @@
+{
+  "artifact_bindings": [
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/newsroom_candidate_pool_upstream_bound_v3.json",
+      "schema_version": "capital_chronicle.newsroom_candidate_pool.v1",
+      "sha256": "ec3a203213d78db519f43f27f42395493df58bc71c8c873f4b08f047a3017ce3",
+      "status_or_classification": "PASS_CANDIDATE_POOL_READY"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/newsroom_candidate_pool_upstream_verifier_v3.json",
+      "schema_version": "contentops.newsroom_candidate_pool_upstream_binding_verifier.v3",
+      "sha256": "8d1e394367b4bd201b5986f7e53a64fa305939a6a3b580e47432cba9dc8f41cb",
+      "status_or_classification": "PASS"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/historical_publication_seed_v1_0.json",
+      "schema_version": "contentops.historical_publication_seed.v1",
+      "sha256": "92b21f2a20acac197667eacf34a702b8f79464bf2415374ba29e01059c4976d7",
+      "status_or_classification": null
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/newsroom_schedule_2026_07_14.json",
+      "schema_version": "capital_chronicle.newsroom_schedule_decision.v1",
+      "sha256": "961b93f58c9037ed81e624f7a7a2d8964c2e26f8aa24ef2e9b86d67547b6974d",
+      "status_or_classification": null
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/editorial_evaluation_corpus_v1_verifier_v3.json",
+      "schema_version": "contentops.editorial_evaluation_corpus_verifier.v1",
+      "sha256": "7610caa26b0d74c7769da604e1be6bdfd746cb8295550a125d3d9c785a9509fc",
+      "status_or_classification": "PASS"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/public_rendered_seo_audit_v1.json",
+      "schema_version": "contentops.public_rendered_seo_audit.v1",
+      "sha256": "88270ab11372d8a72c985dc9603cf88507cb1176f86d87ab711d6e0465584445",
+      "status_or_classification": "PASS_AUDIT_COMPLETE_WITH_DOCUMENTED_EXISTING_SITE_DEFECTS"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/public_treasury_desktop_20260714.png",
+      "schema_version": null,
+      "sha256": "2aa873b52310d54ca785da10108440c66bd4e270089e4d69eef148e31bf92d7a",
+      "status_or_classification": null
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/public_treasury_mobile_20260714.png",
+      "schema_version": null,
+      "sha256": "2c41e16bff9295a060c1dfaa79f65aee4be5b4ce788ca132adf47630d00cf2fc",
+      "status_or_classification": null
+    },
+    {
+      "path": "docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_2/content_unit_claim_graph_v2.json",
+      "schema_version": "contentops.editorial_revision_contract.v2",
+      "sha256": "69edf719fcf863058faaaa04e85cc60f967621e837b9c6b231702d7d5609a914",
+      "status_or_classification": "PASS"
+    },
+    {
+      "path": "docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_2/editorial_revision_contract_v2.json",
+      "schema_version": "contentops.editorial_revision_contract.v2",
+      "sha256": "26475867c2194e9a3d8f372f522991d082a1263732b4a86822f69befc29aed54",
+      "status_or_classification": "PASS"
+    },
+    {
+      "path": "docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_2/treasury_revision_stage_inputs_v0_v8.json",
+      "schema_version": "contentops.treasury_revision_stage_inputs.v0_v8",
+      "sha256": "36cfddb2a7c2bc721d91bde758a3b013353880078ce66b191f35852fa1068279",
+      "status_or_classification": null
+    },
+    {
+      "path": "docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_2/tier1_editorial_revision_seo_v2_verifier.json",
+      "schema_version": "contentops.tier1_editorial_revision_seo_v2_verifier.v2",
+      "sha256": "8e4e81c1e26da8175ec162b1d617503d0a8e810c59345b50878ee4a2722e342b",
+      "status_or_classification": "PASS_COMPLETE_NEWSROOM_TIER1_EDITORIAL_AUTOMATED_OPERATOR_PACKET_V2_LOCAL_NO_WRITE"
+    },
+    {
+      "path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/run_evidence_v1.json",
+      "schema_version": "contentops.eight_platform_substack_first_pipeline.v1",
+      "sha256": "45cd090029be58966709654132fd49f4fa4d03724174a87660193f7b2a4281ad",
+      "status_or_classification": "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS"
+    }
+  ],
+  "classification": "PASS_NEWSROOM_AND_TIER1_FINAL_GAP_CLOSURE_AWAITING_CHATGPT_AUDIT",
+  "editorial_evaluation_corpus": {
+    "accepted_count": 5,
+    "case_count": 15,
+    "coverage_labels": [
+      "clickbait_headline",
+      "excellent_original_value",
+      "factual_error",
+      "internal_workflow_vocabulary",
+      "malformed_reviewer_output",
+      "missing_citation",
+      "overclaiming",
+      "poor_seo",
+      "proxy_misuse",
+      "proxy_promoted_to_exact",
+      "repeated_conclusion",
+      "repetition",
+      "scenario_correctly_labeled",
+      "scenario_masquerading_as_forecast",
+      "semantic_error",
+      "semantic_paraphrase_repetition",
+      "stale_story",
+      "strong_headline",
+      "unsupported_numeric_claim",
+      "weak_headline"
+    ],
+    "fixture_only": true,
+    "pairwise_count": 3,
+    "publication_authority": false,
+    "rejected_count": 10,
+    "required_coverage_label_count": 20,
+    "status": "PASS",
+    "story_type_count": 11
+  },
+  "historical_publication_suppression": {
+    "accepted_public_body_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+    "all_five_windows_suppressed_existing_candidate": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+    "reentry_requires_article_version_justification": true,
+    "release_commit_sha": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+    "release_tag": "v1.0",
+    "release_tag_object_sha": "a021df7fd0264d9f160bdd605509da925f0bf131",
+    "required_reentry_relationships": [
+      "material_update",
+      "correction",
+      "contradiction",
+      "new_phase"
+    ],
+    "schedule_publication_count": 0,
+    "seed_count": 1,
+    "status": "PASS"
+  },
+  "limitations": [
+    "awaiting_independent_chatgpt_audit",
+    "public_seo_audit_documents_rendered_hygiene_and_existing_defects_not_search_performance",
+    "candidate_pool_and_schedule_do_not_grant_dispatch_authority",
+    "editorial_evaluation_corpus_is_fixture_only"
+  ],
+  "logical_hash": "e69e9e43dad670c04abd31fde34d9920b27a527be3cbe982f85be716e9906b64",
+  "public_rendered_seo_audit": {
+    "canonical_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+    "existing_site_defect_count": 5,
+    "public_write_performed": false,
+    "search_performance": "NOT_COLLECTED_TASK3_SCOPE",
+    "search_performance_claims_made": false,
+    "status": "PASS_AUDIT_COMPLETE_WITH_DOCUMENTED_EXISTING_SITE_DEFECTS"
+  },
+  "repository_binding": {
+    "branch": "master",
+    "completion_commit_sha": "REPORTED_AFTER_COMMIT_NON_RECURSIVE",
+    "repo_full_name": "fatcat2109/capital-chronicle-contentops",
+    "starting_head_sha": "8dc6d444ff6bef8b3e724c961a064dacfec4a7b3"
+  },
+  "safety": {
+    "credential_values_read_or_logged": false,
+    "financial_advice_presented": false,
+    "global_dqr_bypassed": false,
+    "jim_audit_claimed": false,
+    "platform_adapter_called": false,
+    "public_write_performed": false,
+    "publication_authority_granted": false,
+    "task_3_started": false,
+    "upstream_repository_modified": false,
+    "v1_0_moved_recreated_deleted_or_retagged": false
+  },
+  "scheduler": {
+    "breaking_requires_governed_event_materiality": true,
+    "decision_window_count": 5,
+    "explicit_minimum_preemption_impact_delta": 15.0,
+    "high_quality_without_event_materiality_classified_as_fresh_analysis": true,
+    "minimum_breaking_materiality": 80.0,
+    "minimum_breaking_significance_or_breadth": 70.0,
+    "minimum_breaking_urgency": 80.0,
+    "ranking_dimension_count": 14,
+    "ranking_model_version": "contentops.newsroom_ranking.v2.0.0",
+    "schedule_id": "cc-schedule-20a9e04e65c7ce9d7d2f",
+    "schedule_logical_hash": "20a9e04e65c7ce9d7d2ffa64d2dc19e24c73e57f75514ca99758f6235ab22418",
+    "status": "PASS"
+  },
+  "schema_version": "contentops.newsroom_tier1_final_acceptance_gap_closure.v3",
+  "superseded_disposition": {
+    "classification": "PARTIAL_PASS_CORE_CONTRACTS_IMPLEMENTED",
+    "reason_codes": [
+      "candidate_pool_missing_immutable_upstream_producer_binding",
+      "schedule_republished_already_accepted_treasury_cluster_without_historical_seed",
+      "editorial_corpus_below_required_15_case_minimum",
+      "rendered_public_seo_audit_not_bound_into_operator_packet"
+    ],
+    "task": "TASK_CONTENTOPS_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V2"
+  },
+  "task": "TASK_CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3",
+  "tier1_editorial_revision_seo_v2": {
+    "claim_graph_status": "PASS",
+    "content_unit_count": 50,
+    "final_output_hash": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+    "publication_authority": false,
+    "revision_stage_count": 9,
+    "status": "PASS"
+  },
+  "upstream_candidate_pool_authority": {
+    "branch": "main",
+    "candidate_hashes": [
+      "120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f",
+      "3f705fbf747b1838ca10ac789910bb949232ec386ce758d7abe3a36825f6dd4a",
+      "d68a10790ca2d7f74c383265fa00e7fa9b40adafbb6fe28b59aaa32ee766c70d"
+    ],
+    "main_repository_modified": false,
+    "pool_artifact_sha256": "33ed20ab85b19d0b3bfd0699e346097715022d9e248a3e06cbae96ecda7139e8",
+    "pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3",
+    "pool_logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+    "producer_commit_sha": "8c63faca0603f81bebfbb68380a0dc4ad51ab87d",
+    "repository": "fatcat2109/Headline-Raw-data-json",
+    "schema_sha256": "5bd4c4e69472b612905af9c25e12ab6d279f7b1e00a1f3be67d231a57db3f3a3",
+    "status": "PASS",
+    "upstream_verifier_valid": true
+  },
+  "upstream_source_bindings": [
+    {
+      "branch": "main",
+      "commit_sha": "8c63faca0603f81bebfbb68380a0dc4ad51ab87d",
+      "path": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "sha256": "33ed20ab85b19d0b3bfd0699e346097715022d9e248a3e06cbae96ecda7139e8"
+    },
+    {
+      "branch": "main",
+      "commit_sha": "8c63faca0603f81bebfbb68380a0dc4ad51ab87d",
+      "path": "docs/research/newsroom_candidate_pool_v1/NEWSROOM_CANDIDATE_POOL_VERIFIER_V1.json",
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "sha256": "a927b2ebb7d6edb293c4ec13564051a07d412de1b49548b14f8f71a8544daac1"
+    },
+    {
+      "branch": "main",
+      "commit_sha": "8c63faca0603f81bebfbb68380a0dc4ad51ab87d",
+      "path": "schemas/publication/CapitalChronicleNewsroomCandidatePoolV1.schema.json",
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "sha256": "5bd4c4e69472b612905af9c25e12ab6d279f7b1e00a1f3be67d231a57db3f3a3"
+    },
+    {
+      "branch": "main",
+      "commit_sha": "8c63faca0603f81bebfbb68380a0dc4ad51ab87d",
+      "path": "tools/data_foundation/newsroom_candidate_pool_v1.py",
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "sha256": "87a0f46a80cf8ecefcbfc8959f5840f2ebb5ea6f01f8676651541d1714101392"
+    }
+  ],
+  "validation": {
+    "breaking_materiality_regressions": "PASS",
+    "focused_pytest": "22 passed",
+    "historical_suppression_and_reentry_tests": "PASS",
+    "json_and_sha256_validation": "PASS",
+    "producer_binding_negative_tests": "PASS",
+    "python_compile": "PASS",
+    "schedule_replay_with_historical_seed": "PASS_ZERO_NEW_PUBLICATIONS"
+  }
+}

@@ -1,0 +1,448 @@
+{
+  "candidate_only": true,
+  "clusters": [
+    {
+      "candidate_ids": [
+        "cc-candidate-120438cc800db7f941be"
+      ],
+      "cluster_id": "cc-cluster-7aa53a08e0a4b35873af",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "previous_candidate_id": null,
+          "relationship": "new_phase"
+        }
+      ],
+      "story_id": "cc-story-b032aaca7d2d27af3f67",
+      "update_chain_id": "cc-update-chain-7aa53a08e0a4b35873af"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-d68a10790ca2d7f74c38"
+      ],
+      "cluster_id": "cc-cluster-82074448f74d409f5ee5",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-d68a10790ca2d7f74c38",
+          "previous_candidate_id": null,
+          "relationship": "new_phase"
+        }
+      ],
+      "story_id": "cc-story-f552ecd3f524353add50",
+      "update_chain_id": "cc-update-chain-82074448f74d409f5ee5"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-3f705fbf747b1838ca10"
+      ],
+      "cluster_id": "cc-cluster-f2c748be332951ad98f6",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-3f705fbf747b1838ca10",
+          "previous_candidate_id": null,
+          "relationship": "new_phase"
+        }
+      ],
+      "story_id": "cc-story-a2a08f3d8e89411a086c",
+      "update_chain_id": "cc-update-chain-f2c748be332951ad98f6"
+    }
+  ],
+  "counts": {
+    "clusters": 3,
+    "eligible": 1,
+    "inputs": 3,
+    "rejected": 2
+  },
+  "cutoff_time_utc": "2026-07-14T00:00:00Z",
+  "database_binding": {
+    "head_sha": "d014a4a311ad1c9c6b15e0c26cf2f9271cb9e95c",
+    "input_logical_hash": "a275d7f9a54a8e34def68d51ba3391ce7de6fb9a8a6c0e54460a105d2cb608cf"
+  },
+  "eligible_candidates": [
+    {
+      "article_mode": "analysis",
+      "authority": {
+        "global_dqr": "BLOCKED",
+        "global_dqr_override": false,
+        "source_authorities": [
+          "capital_chronicle_calculation_from_exact_official_public",
+          "exact_official_public"
+        ],
+        "story_decision": "ALLOW"
+      },
+      "blockers": [],
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "citation_map": {
+        "UST:10Y:2026-07-13": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "UST:2S10S:2026-07-13": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "UST:2Y:2026-07-13": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ],
+        "UST:30Y:2026-07-13": [
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+        ]
+      },
+      "claim_permissions": {
+        "consumer": "contentops_publication",
+        "decision": "ALLOW",
+        "global_dqr_override": false,
+        "llm_numeric_authority": false,
+        "narrative_synthesis_allowed": true,
+        "numeric_claims_allowed": true,
+        "reporting_allowed": true
+      },
+      "cluster_id": "cc-cluster-7aa53a08e0a4b35873af",
+      "eligible": true,
+      "event_time_utc": "2026-07-13T00:00:00Z",
+      "evidence_class": "exact",
+      "evidence_hash": "120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f",
+      "freshness": {
+        "age_hours": 22.459,
+        "evaluated_at_utc": "2026-07-14T00:00:00Z",
+        "max_age_hours": 36.0
+      },
+      "known_at_utc": "2026-07-13T22:27:31.358283Z",
+      "limitations": [
+        "candidate_pool_does_not_grant_dispatch_authority",
+        "global_dqr_remains_unchanged",
+        "llm_is_not_numeric_authority",
+        "official_daily_par_yield_curve_not_trade_execution_price"
+      ],
+      "numeric_claims": [
+        {
+          "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+          "change_basis_points": 5.0,
+          "claim_id": "UST:2Y:2026-07-13",
+          "known_at_precision": "retrieval_upper_bound",
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "llm_numeric_authority": false,
+          "metric": "U.S. Treasury 2Y par yield",
+          "observation_time_utc": "2026-07-13T00:00:00Z",
+          "prior_observation_date": "2026-07-10",
+          "prior_value": 4.21,
+          "public_claim_allowed": true,
+          "source_authority": "exact_official_public",
+          "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+          "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "unit": "percent",
+          "value": 4.26
+        },
+        {
+          "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+          "change_basis_points": 6.0,
+          "claim_id": "UST:10Y:2026-07-13",
+          "known_at_precision": "retrieval_upper_bound",
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "llm_numeric_authority": false,
+          "metric": "U.S. Treasury 10Y par yield",
+          "observation_time_utc": "2026-07-13T00:00:00Z",
+          "prior_observation_date": "2026-07-10",
+          "prior_value": 4.56,
+          "public_claim_allowed": true,
+          "source_authority": "exact_official_public",
+          "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+          "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "unit": "percent",
+          "value": 4.62
+        },
+        {
+          "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+          "change_basis_points": 4.0,
+          "claim_id": "UST:30Y:2026-07-13",
+          "known_at_precision": "retrieval_upper_bound",
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "llm_numeric_authority": false,
+          "metric": "U.S. Treasury 30Y par yield",
+          "observation_time_utc": "2026-07-13T00:00:00Z",
+          "prior_observation_date": "2026-07-10",
+          "prior_value": 5.06,
+          "public_claim_allowed": true,
+          "source_authority": "exact_official_public",
+          "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+          "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "unit": "percent",
+          "value": 5.1
+        },
+        {
+          "calculation": "(10-year par yield minus 2-year par yield) multiplied by 100",
+          "change_basis_points": 1.0,
+          "claim_id": "UST:2S10S:2026-07-13",
+          "known_at_precision": "retrieval_upper_bound",
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "llm_numeric_authority": false,
+          "metric": "U.S. Treasury 2s10s par-yield spread",
+          "observation_time_utc": "2026-07-13T00:00:00Z",
+          "prior_observation_date": "2026-07-10",
+          "prior_value": 35.0,
+          "public_claim_allowed": true,
+          "source_authority": "capital_chronicle_calculation_from_exact_official_public",
+          "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+          "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "unit": "basis_points",
+          "value": 36.0
+        }
+      ],
+      "relationship": "new_phase",
+      "source_documents": [
+        {
+          "data_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "document_id": "ust-daily-yield-curve-2026-07-13",
+          "public_claim_allowed": true,
+          "published_at_utc": "2026-07-13T00:00:00Z",
+          "publisher": "U.S. Department of the Treasury",
+          "raw_sha256": "dae34a2d15f948bc501443cb8c9b1f0dd12e7eee3bdac72fa9bb322afe1e99ec",
+          "rights_status": "public_domain_us_government",
+          "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "title": "Daily Treasury Par Yield Curve Rates"
+        }
+      ],
+      "source_family": "story_scoped_publication_evidence_v1",
+      "source_health": {
+        "freshness_age_hours": 22.459,
+        "http_status": 200,
+        "latest_observation_date": "2026-07-13",
+        "parse_status": "PASS",
+        "previous_observation_date": "2026-07-10",
+        "status": "HEALTHY"
+      },
+      "source_packet_id": "cc-publication-73ff151c3d3094741b6c",
+      "source_packet_logical_hash": "5ac72fb83ea5e8ecb65c6b023cbda66bbd02280f9dd4ff614553699b4712f8e5",
+      "story_family": "market_move",
+      "story_id": "cc-story-b032aaca7d2d27af3f67",
+      "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+      "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%",
+      "update_chain_id": "cc-update-chain-7aa53a08e0a4b35873af"
+    }
+  ],
+  "generated_at_utc": "2026-07-14T00:00:00Z",
+  "global_dqr_override": false,
+  "logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+  "pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3",
+  "producer_binding": {
+    "candidate_hashes": [
+      "120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f",
+      "3f705fbf747b1838ca10ac789910bb949232ec386ce758d7abe3a36825f6dd4a",
+      "d68a10790ca2d7f74c383265fa00e7fa9b40adafbb6fe28b59aaa32ee766c70d"
+    ],
+    "candidate_pool_artifact_sha256": "33ed20ab85b19d0b3bfd0699e346097715022d9e248a3e06cbae96ecda7139e8",
+    "candidate_pool_producer_commit_sha": "8c63faca0603f81bebfbb68380a0dc4ad51ab87d",
+    "cutoff_time_utc": "2026-07-14T00:00:00Z",
+    "pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3",
+    "pool_logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+    "schema_hash": "5bd4c4e69472b612905af9c25e12ab6d279f7b1e00a1f3be67d231a57db3f3a3",
+    "schema_version": "capital_chronicle.newsroom_candidate_pool.v1",
+    "upstream_branch": "main",
+    "upstream_repository": "fatcat2109/Headline-Raw-data-json"
+  },
+  "producer_version": "newsroom_candidate_pool_v1.1.0",
+  "rejected_candidates": [
+    {
+      "article_mode": "analysis",
+      "authority": {
+        "global_dqr": null,
+        "global_dqr_override": false,
+        "source_authorities": [
+          "context_only"
+        ],
+        "story_decision": "NOT_GRANTED"
+      },
+      "blockers": [
+        "narrative_context_not_numeric_truth",
+        "numeric_claims_missing",
+        "public_source_url_mapping_incomplete",
+        "reporting_permission_not_granted",
+        "story_scoped_reporting_authority_required"
+      ],
+      "candidate_id": "cc-candidate-d68a10790ca2d7f74c38",
+      "citation_map": {},
+      "claim_permissions": {
+        "global_dqr_override": false,
+        "narrative_synthesis_allowed": false,
+        "numeric_claims_allowed": false,
+        "reporting_allowed": false
+      },
+      "cluster_id": "cc-cluster-82074448f74d409f5ee5",
+      "eligible": false,
+      "event_time_utc": "2026-07-09T17:00:00Z",
+      "evidence_class": "context",
+      "evidence_hash": "d68a10790ca2d7f74c383265fa00e7fa9b40adafbb6fe28b59aaa32ee766c70d",
+      "freshness": {
+        "age_hours": null,
+        "availability": "UNAVAILABLE_NO_SOURCE_FRESHNESS_MAPPING",
+        "evaluated_at_utc": "2026-07-14T00:00:00Z",
+        "max_age_hours": null
+      },
+      "known_at_utc": "2026-07-14T00:00:00Z",
+      "limitations": [
+        "candidate_pool_does_not_grant_dispatch_authority",
+        "context_not_numeric_truth",
+        "global_dqr_remains_unchanged",
+        "narrative_context_not_numeric_truth",
+        "numeric_claims_missing",
+        "public_source_url_mapping_incomplete",
+        "reporting_permission_not_granted",
+        "story_scoped_reporting_authority_required"
+      ],
+      "numeric_claims": [],
+      "relationship": "new_phase",
+      "source_documents": [],
+      "source_family": "official_catalyst_sidecars_hb8",
+      "source_health": {
+        "parse_status": "NOT_EVALUATED",
+        "status": "NOT_MAPPED"
+      },
+      "source_identity": {
+        "context_id": "catalyst_83cf90dae9cb1a4d64a5ec49db399d7e",
+        "record_id": "e3711cffdd743f1f9363a2bc36ef5b2870cd1e8ca530a1a2d5d30e3b805ac730",
+        "version_id": "e5a97004548ac04c8ab2210a7bdd148c8ad33eeac354d25083fa38b4ed17715c"
+      },
+      "source_packet_id": "catalyst_83cf90dae9cb1a4d64a5ec49db399d7e",
+      "source_packet_logical_hash": "2ac3cd080d13e625f101e49481f6518f137d167fc6e8060649b34df6ecbe2281",
+      "story_family": "official_catalyst_context",
+      "story_id": "cc-story-f552ecd3f524353add50",
+      "summary": "The governed record is narrative context only and grants no numeric-truth, scoring, or reporting authority.",
+      "title": "Official-document catalyst context awaits story authority",
+      "update_chain_id": "cc-update-chain-82074448f74d409f5ee5"
+    },
+    {
+      "article_mode": "analysis",
+      "authority": {
+        "global_dqr": null,
+        "global_dqr_override": false,
+        "source_authorities": [
+          "context_only"
+        ],
+        "story_decision": "NOT_GRANTED"
+      },
+      "blockers": [
+        "candidate_only_no_forecast_authority",
+        "numeric_claims_missing",
+        "public_source_url_mapping_incomplete",
+        "real_regime_undetermined",
+        "reporting_permission_not_granted",
+        "story_scoped_reporting_authority_required"
+      ],
+      "candidate_id": "cc-candidate-3f705fbf747b1838ca10",
+      "citation_map": {},
+      "claim_permissions": {
+        "global_dqr_override": false,
+        "narrative_synthesis_allowed": false,
+        "numeric_claims_allowed": false,
+        "reporting_allowed": false
+      },
+      "cluster_id": "cc-cluster-f2c748be332951ad98f6",
+      "eligible": false,
+      "event_time_utc": "2026-07-14T00:00:00Z",
+      "evidence_class": "context",
+      "evidence_hash": "3f705fbf747b1838ca10ac789910bb949232ec386ce758d7abe3a36825f6dd4a",
+      "freshness": {
+        "age_hours": null,
+        "availability": "UNAVAILABLE_NO_SOURCE_FRESHNESS_MAPPING",
+        "evaluated_at_utc": "2026-07-14T00:00:00Z",
+        "max_age_hours": null
+      },
+      "known_at_utc": "2026-07-14T00:00:00Z",
+      "limitations": [
+        "candidate_only_no_forecast_authority",
+        "candidate_pool_does_not_grant_dispatch_authority",
+        "context_not_numeric_truth",
+        "global_dqr_remains_unchanged",
+        "numeric_claims_missing",
+        "public_source_url_mapping_incomplete",
+        "real_regime_undetermined",
+        "reporting_permission_not_granted",
+        "story_scoped_reporting_authority_required"
+      ],
+      "numeric_claims": [],
+      "relationship": "new_phase",
+      "source_documents": [],
+      "source_family": "macro_state_phase_b",
+      "source_health": {
+        "parse_status": "NOT_EVALUATED",
+        "status": "NOT_MAPPED"
+      },
+      "source_identity": {
+        "macro_state_id": "macro_state_2664710c2feb53e2076d6166c53cf0e5",
+        "phase_a_snapshot_id": "analyzer_input_f18f7d5b836946209c9530b73e7a38d3"
+      },
+      "source_packet_id": "macro_state_2664710c2feb53e2076d6166c53cf0e5",
+      "source_packet_logical_hash": "bbc5a2b9ecccf4fe3c003a3a4afbcef0b64a24db65f7d692f9fbc7138689efa8",
+      "story_family": "macro_state_context",
+      "story_id": "cc-story-a2a08f3d8e89411a086c",
+      "summary": "Phase B records partial rates context, no exact inputs, and insufficient required macro domains.",
+      "title": "Macro state remains context-only with required-domain gaps",
+      "update_chain_id": "cc-update-chain-f2c748be332951ad98f6"
+    }
+  ],
+  "schema_version": "capital_chronicle.newsroom_candidate_pool.v1",
+  "source_coverage": [
+    {
+      "blocker_codes": [
+        "reporting_permission_not_granted",
+        "public_source_url_mapping_incomplete",
+        "claim_unit_or_metric_mapping_incomplete"
+      ],
+      "configured_status": "BLOCKED_PENDING_NEWSROOM_AUTHORITY_MAPPING",
+      "family_id": "governed_point_in_time_handoff_v1",
+      "input_count": 0
+    },
+    {
+      "blocker_codes": [
+        "headline_context_not_source_clearance",
+        "headline_context_not_numeric_truth",
+        "primary_source_required"
+      ],
+      "configured_status": "CONTEXT_ONLY",
+      "family_id": "headline_and_x_sidecars",
+      "input_count": 0
+    },
+    {
+      "blocker_codes": [
+        "real_regime_undetermined",
+        "candidate_only_no_forecast_authority",
+        "story_scoped_reporting_authority_required"
+      ],
+      "configured_status": "CONTEXT_ONLY",
+      "family_id": "macro_state_phase_b",
+      "input_count": 1
+    },
+    {
+      "blocker_codes": [
+        "narrative_context_not_numeric_truth",
+        "story_scoped_reporting_authority_required"
+      ],
+      "configured_status": "CONTEXT_ONLY",
+      "family_id": "official_catalyst_sidecars_hb8",
+      "input_count": 1
+    },
+    {
+      "blocker_codes": [],
+      "configured_status": "SUPPORTED",
+      "family_id": "story_scoped_publication_evidence_v1",
+      "input_count": 1
+    },
+    {
+      "blocker_codes": [
+        "source_specific_timestamp_mapping_required",
+        "claim_permission_mapping_required",
+        "citation_mapping_required"
+      ],
+      "configured_status": "BLOCKED_PENDING_NEWSROOM_AUTHORITY_MAPPING",
+      "family_id": "weather_energy_sanctions_trade_calendar",
+      "input_count": 0
+    }
+  ],
+  "source_inventory": {
+    "inventory_id": "NEWSROOM_CANDIDATE_SOURCES_V1",
+    "logical_hash": "3af8f25c579681316af500a9e9cb9153bafa77cd1ce378923a4b92a1a83c16db"
+  },
+  "status": "PASS_CANDIDATE_POOL_READY"
+}

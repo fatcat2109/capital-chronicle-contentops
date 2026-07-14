@@ -4,11 +4,11 @@
 
 ## Current Classification
 
-`PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`
+`PASS_NEWSROOM_AND_TIER1_FINAL_GAP_CLOSURE_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
+Completed task: `TASK_CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3`.
 
-The operator accepted the final release after the exact Treasury auction-logic repair, independent public visual audit, frozen-derivative proof, and zero-blocker release verifier. The annotated `v1.0` tag is the release marker for the completing commit.
+The accepted product baseline remains `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`. Annotated tag `v1.0` (tag object `a021df7fd0264d9f160bdd605509da925f0bf131`, release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`) remains immutable and was not moved, recreated, deleted, or retagged by this local evidence task.
 
 ## Database Authority
 
@@ -39,16 +39,20 @@ The release verifier passed every story authority, freshness, release-lock, mach
 
 The July 11 RC and final-closure evidence remain historical. They prove earlier transport and repair behavior but do not override this accepted July 14 release authority.
 
-## Newsroom Scheduling and Tier-1 Editorial Completion Repair V2
+## Newsroom Scheduling and Tier-1 Final Acceptance Gap Closure V3
 
-`TASK_CONTENTOPS_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V2` is complete as a deterministic local, no-write authority. The candidate pool binds three governed inputs: one exact story-scoped eligible Treasury candidate and two context-only rejections. The five-window scheduler uses `contentops.newsroom_ranking.v2.0.0`, records all 14 required ranking dimensions, preserves unavailable dimensions as auditable `null` values rather than zero-filling them, enforces explicit `15.0` preemption deltas, and remains fail-closed on hard gates and update relationships.
+`TASK_CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3` supersedes the V2 partial acceptance disposition. The scheduler now fails closed unless the candidate pool carries the exact upstream producer binding for `fatcat2109/Headline-Raw-data-json` branch `main` at commit `8c63faca0603f81bebfbb68380a0dc4ad51ab87d`, including immutable pool, schema, producer, verifier, candidate, and logical hashes.
 
-The same repair completes mandatory Tier-1 editorial revision/SEO V2 with a 50-unit sentence-level claim graph, exactly nine continuous content-hash-linked v0–v8 stages, mode-aware original-value checks, redundancy detection, a non-authoritative headline desk, and fail-closed generic prepare integration. The new 12-case fixture-only editorial evaluation corpus covers 10 required quality/failure classes across nine story types, including three pairwise preferences; it grants no publication authority.
+The accepted Treasury publication is seeded from immutable `v1.0` history into all five decision windows. The replay emits zero new publications and blocks the existing candidate and cluster unless a governed `material_update`, `correction`, `contradiction`, or `new_phase` includes an article-version justification. Breaking classification requires explicit governed event evidence plus materiality `>=80`, urgency `>=80`, and significance or breadth `>=70`; high editorial quality alone remains fresh analysis rather than breaking.
 
-Superseding automated operator evidence: `docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_2/automated_operator_evidence_packet_v2.json`.
+The fixture-only editorial corpus now has 15 cases, 11 story types, three pairwise judgments, and the complete 20-label required coverage matrix. Tier-1 V2 authority remains bound to the 50-unit claim graph, nine continuous v0–v8 stages, and accepted public body SHA-256 `05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc`.
 
-The packet supersedes the incomplete `_1` acceptance replay and extends the earlier `_2` Tier-1-only repair with candidate coverage, a fresh five-window V2 schedule, the corpus verifier, source/artifact SHA-256 bindings, and consolidated safety declarations. Focused validation passed `55` tests; Python compilation and JSON/SHA-256/continuity validation passed. No browser/CDP, platform adapter, network, credential, public-write, global-DQR-bypass, or publication-authority action occurred. The accepted release and existing `v1.0` marker were not moved, recreated, deleted, or retagged.
+Final evidence: `docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/newsroom_tier1_final_gap_closure_packet_v3.json`.
+
+The read-only public SEO audit records five existing rendered-site defects; it makes no traffic, ranking, impression, or click claims, and search performance remains `NOT_COLLECTED_TASK3_SCOPE`. Focused validation passed `22` tests and Python compilation. Independent replay verified seven logical-hash contracts, 13 packet artifact bindings, nine manifest bindings, and zero schedule publications. No public write, browser edit, platform adapter, credential read, global-DQR bypass, publication authority, Task 3 work, or upstream-repository modification occurred.
 
 ## Next Action
 
-Operator acceptance or rejection of the combined repaired newsroom, scheduler, Tier-1 editorial, SEO, and evaluation-corpus evidence. No new implementation task is started by this update.
+`INDEPENDENT_CHATGPT_AUDIT_CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3`
+
+Audit or reject the immutable V3 packet. Do not start Task 3, republish the accepted Treasury cluster, modify `v1.0`, or claim search performance.

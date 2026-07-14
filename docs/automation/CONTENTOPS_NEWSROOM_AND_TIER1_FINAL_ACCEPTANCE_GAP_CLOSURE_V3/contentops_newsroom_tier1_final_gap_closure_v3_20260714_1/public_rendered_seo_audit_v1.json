@@ -1,0 +1,68 @@
+{
+  "audit_mode": "read_only_public_browser_audit",
+  "audited_at_utc": "2026-07-14T22:42:59Z",
+  "canonical_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+  "documented_existing_site_defects": [
+    "three_body_images_have_empty_alt_text",
+    "two_intended_h2_sections_render_as_literal_markdown_paragraphs",
+    "publication_has_no_sitemap",
+    "json_ld_publisher_name_is_jims_substack_not_capital_chronicle",
+    "json_ld_date_modified_does_not_reflect_observed_post_edit_metadata"
+  ],
+  "indexability_and_discovery": {
+    "public_post_allowed_by_robots_txt": true,
+    "sitemap_status": "MISSING_PUBLICATION_HAS_NO_SITEMAP",
+    "sitemap_url": "https://capitalchronicle.substack.com/sitemap.xml"
+  },
+  "logical_hash": "5816516f3ce48c67fd4f6d2243a0f5f85a801c592536be8c1fa3fa878e071ad6",
+  "metadata": {
+    "canonical": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+    "json_ld_date_published": "2026-07-13T22:47:12+00:00",
+    "json_ld_is_accessible_for_free": true,
+    "json_ld_type": "NewsArticle",
+    "meta_description": "The 2s10s spread moved to 36 basis points on 2026-07-13, a modest shift that keeps long-duration financing costs in focus.",
+    "og_title_matches_h1": true,
+    "og_type": "article",
+    "robots_meta_present": false,
+    "title": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%",
+    "twitter_card": "summary_large_image"
+  },
+  "public_write_performed": false,
+  "publication_authority": false,
+  "redirect_observed": false,
+  "rendered_page": {
+    "actual_h2_count": 3,
+    "body_image_count": 3,
+    "external_treasury_source_link_count": 3,
+    "h1": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%",
+    "h1_count": 1,
+    "image_caption_count": 3,
+    "images_with_nonempty_alt_count": 0,
+    "literal_markdown_heading_count": 2,
+    "title_h1_parity": true,
+    "visible_duplicate_main_body_found": false,
+    "visible_truncation_found": false
+  },
+  "schema_version": "contentops.public_rendered_seo_audit.v1",
+  "search_performance": {
+    "claims_made": false,
+    "reason": "No Search Console or analytics access was used; the audit documents rendered SEO hygiene only.",
+    "status": "NOT_COLLECTED_TASK3_SCOPE"
+  },
+  "status": "PASS_AUDIT_COMPLETE_WITH_DOCUMENTED_EXISTING_SITE_DEFECTS",
+  "viewport_evidence": {
+    "desktop": {
+      "configured_window": "1440x1000",
+      "observed_viewport": "1416x908",
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/public_treasury_desktop_20260714.png",
+      "sha256": "2aa873b52310d54ca785da10108440c66bd4e270089e4d69eef148e31bf92d7a"
+    },
+    "mobile": {
+      "configured_window": "390x844",
+      "observed_viewport": "492x752",
+      "os_minimum_width_caveat": true,
+      "path": "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/public_treasury_mobile_20260714.png",
+      "sha256": "2c41e16bff9295a060c1dfaa79f65aee4be5b4ce788ca132adf47630d00cf2fc"
+    }
+  }
+}

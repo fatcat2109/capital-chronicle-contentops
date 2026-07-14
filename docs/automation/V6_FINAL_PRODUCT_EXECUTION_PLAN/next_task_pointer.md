@@ -2,14 +2,16 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Completed task: `TASK_CONTENTOPS_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V2`
+Completed task: `TASK_CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3`
 
-Classification: `PASS_COMPLETE_NEWSROOM_TIER1_EDITORIAL_AUTOMATED_OPERATOR_PACKET_V2_LOCAL_NO_WRITE`
+Classification: `PASS_NEWSROOM_AND_TIER1_FINAL_GAP_CLOSURE_AWAITING_CHATGPT_AUDIT`
 
-Evidence: `docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_2/automated_operator_evidence_packet_v2.json`.
+Evidence: `docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/newsroom_tier1_final_gap_closure_packet_v3.json`.
+
+The packet binds upstream producer commit `8c63faca0603f81bebfbb68380a0dc4ad51ab87d`, seeds immutable `v1.0` publication history, emits zero new publications across five windows, verifies the 15-case/20-label fixture-only corpus, preserves the 50-unit and nine-stage Tier-1 authority, and documents five existing rendered SEO defects without making search-performance claims.
 
 ## Next Action
 
-`OPERATOR_ACCEPT_OR_REJECT_NEWSROOM_AND_TIER1_EDITORIAL_COMPLETION_REPAIR_V2`
+`INDEPENDENT_CHATGPT_AUDIT_CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3`
 
-The deterministic local packet combines the governed three-input candidate pool and verifier, fresh five-window schedule using the 14-dimension `contentops.newsroom_ranking.v2.0.0` model, explicit preemption thresholds, 50-unit claim graph, nine continuous v0–v8 stages, and 12-case fixture-only editorial corpus. Focused validation passed 55 tests plus compilation and JSON/SHA-256 continuity checks. It grants no publication authority and made no browser/CDP, platform-adapter, network, credential, global-DQR-bypass, or public-write action. Do not start Task 3 or another implementation task before operator disposition.
+Audit or reject the immutable V3 packet. Do not start Task 3, republish the accepted Treasury cluster, modify `v1.0`, or claim traffic, ranking, impression, or click performance.

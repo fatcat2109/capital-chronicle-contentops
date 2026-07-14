@@ -1,0 +1,36 @@
+{
+  "blockers": [],
+  "corpus_logical_hash": "e9c9cffef12587f84bf2b83527de40733b24c50dabbf1c291fbfa1bcf95af537",
+  "publication_authority": false,
+  "schema_version": "contentops.editorial_evaluation_corpus_verifier.v1",
+  "status": "PASS",
+  "summary": {
+    "accepted_count": 5,
+    "case_count": 15,
+    "coverage_labels": [
+      "clickbait_headline",
+      "excellent_original_value",
+      "factual_error",
+      "internal_workflow_vocabulary",
+      "malformed_reviewer_output",
+      "missing_citation",
+      "overclaiming",
+      "poor_seo",
+      "proxy_misuse",
+      "proxy_promoted_to_exact",
+      "repeated_conclusion",
+      "repetition",
+      "scenario_correctly_labeled",
+      "scenario_masquerading_as_forecast",
+      "semantic_error",
+      "semantic_paraphrase_repetition",
+      "stale_story",
+      "strong_headline",
+      "unsupported_numeric_claim",
+      "weak_headline"
+    ],
+    "pairwise_count": 3,
+    "rejected_count": 10,
+    "story_type_count": 11
+  }
+}
