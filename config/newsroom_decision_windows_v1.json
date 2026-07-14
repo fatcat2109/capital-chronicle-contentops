@@ -1,0 +1,75 @@
+{
+  "schema_version": "capital_chronicle.newsroom_decision_windows.v1",
+  "windows": [
+    {
+      "window_id": "asia_open",
+      "name": "Asia Pacific Open Window",
+      "target_cutoff_utc": "01:00:00",
+      "minimum_urgency_threshold": 50,
+      "minimum_impact_threshold": 45,
+      "preemption_allowed": true,
+      "daily_portfolio_limit": 2,
+      "score_weights": {
+        "urgency": 0.5,
+        "impact": 0.3,
+        "freshness": 0.2
+      }
+    },
+    {
+      "window_id": "london_open",
+      "name": "London/European Open Window",
+      "target_cutoff_utc": "07:30:00",
+      "minimum_urgency_threshold": 55,
+      "minimum_impact_threshold": 50,
+      "preemption_allowed": true,
+      "daily_portfolio_limit": 2,
+      "score_weights": {
+        "urgency": 0.4,
+        "impact": 0.4,
+        "freshness": 0.2
+      }
+    },
+    {
+      "window_id": "us_open",
+      "name": "United States/New York Open Window",
+      "target_cutoff_utc": "13:30:00",
+      "minimum_urgency_threshold": 60,
+      "minimum_impact_threshold": 55,
+      "preemption_allowed": true,
+      "daily_portfolio_limit": 3,
+      "score_weights": {
+        "urgency": 0.4,
+        "impact": 0.5,
+        "freshness": 0.1
+      }
+    },
+    {
+      "window_id": "us_close",
+      "name": "United States/New York Close Window",
+      "target_cutoff_utc": "20:00:00",
+      "minimum_urgency_threshold": 55,
+      "minimum_impact_threshold": 55,
+      "preemption_allowed": false,
+      "daily_portfolio_limit": 2,
+      "score_weights": {
+        "urgency": 0.3,
+        "impact": 0.5,
+        "freshness": 0.2
+      }
+    },
+    {
+      "window_id": "global_recon",
+      "name": "Global Reconcile and Summary Window",
+      "target_cutoff_utc": "23:30:00",
+      "minimum_urgency_threshold": 45,
+      "minimum_impact_threshold": 45,
+      "preemption_allowed": false,
+      "daily_portfolio_limit": 1,
+      "score_weights": {
+        "urgency": 0.3,
+        "impact": 0.3,
+        "freshness": 0.4
+      }
+    }
+  ]
+}

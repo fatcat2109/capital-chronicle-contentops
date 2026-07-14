@@ -26,11 +26,12 @@ def _load_evidence_packet(
     capital_chronicle_root: str | Path | None,
     evidence_packet_path: str | Path | None,
     as_of_utc: str | None,
+    candidate_id: str | None = None,
 ) -> dict[str, Any]:
     if bool(capital_chronicle_root) == bool(evidence_packet_path):
         raise ValueError("exactly_one_evidence_input_required")
     return (
-        build_evidence_packet_from_cc_root(capital_chronicle_root, as_of_utc=as_of_utc)
+        build_evidence_packet_from_cc_root(capital_chronicle_root, as_of_utc=as_of_utc, candidate_id=candidate_id)
         if capital_chronicle_root
         else json.loads(Path(str(evidence_packet_path)).read_text(encoding="utf-8"))
     )
@@ -67,16 +68,31 @@ def run_generic_database_preflight(
     capital_chronicle_root: str | Path | None = None,
     evidence_packet_path: str | Path | None = None,
     as_of_utc: str | None = None,
+    candidate_id: str | None = None,
+    newsroom_schedule_path: str | Path | None = None,
 ) -> dict[str, Any]:
     packet = _load_evidence_packet(
         capital_chronicle_root=capital_chronicle_root,
         evidence_packet_path=evidence_packet_path,
         as_of_utc=as_of_utc,
+        candidate_id=candidate_id,
     )
     packet["validation_blockers"] = validate_evidence_packet(packet)
     assignment = evaluate_assignment_readiness(packet)
     blockers = list(assignment["rejection_reasons"])
     blockers.extend(packet["validation_blockers"])
+    if newsroom_schedule_path:
+        schedule = json.loads(Path(newsroom_schedule_path).read_text(encoding="utf-8"))
+        authorized = False
+        target_id = candidate_id or packet.get("governed_contract", {}).get("upstream_candidate_id")
+        for dec in schedule.get("decisions") or []:
+            if dec.get("decision") == "PUBLISH":
+                selected_cand = dec.get("selected_candidate") or {}
+                if selected_cand.get("candidate_id") == target_id:
+                    authorized = True
+                    break
+        if not authorized:
+            blockers.append("newsroom_schedule_decision_not_publish")
     result = {
         "schema_version": "contentops.generic_database_preflight.v1",
         "classification": (
@@ -107,11 +123,14 @@ def run_generic_prepare_only(
     evidence_packet_path: str | Path | None = None,
     as_of_utc: str | None = None,
     structured_reviewer=_default_reviewer,
+    newsroom_schedule_path: str | Path | None = None,
 ) -> dict[str, Any]:
+    candidate_id = story_request.get("candidate_id")
     packet = _load_evidence_packet(
         capital_chronicle_root=capital_chronicle_root,
         evidence_packet_path=evidence_packet_path,
         as_of_utc=as_of_utc,
+        candidate_id=candidate_id,
     )
     packet["validation_blockers"] = validate_evidence_packet(packet)
     capabilities = resolve_story_capabilities(story_request, load_source_capability_registry())
@@ -136,6 +155,18 @@ def run_generic_prepare_only(
     for row in (capabilities, freshness, visual, editorial):
         if row.get("status") == "BLOCK" or row.get("decision") == "BLOCK":
             blockers.extend(row.get("blockers") or [])
+    if newsroom_schedule_path:
+        schedule = json.loads(Path(newsroom_schedule_path).read_text(encoding="utf-8"))
+        authorized = False
+        target_id = candidate_id or packet.get("governed_contract", {}).get("upstream_candidate_id")
+        for dec in schedule.get("decisions") or []:
+            if dec.get("decision") == "PUBLISH":
+                selected_cand = dec.get("selected_candidate") or {}
+                if selected_cand.get("candidate_id") == target_id:
+                    authorized = True
+                    break
+        if not authorized:
+            blockers.append("newsroom_schedule_decision_not_publish")
     result = {
         "schema_version": "contentops.generic_evidence_freshness_visual_editorial_fabric.v2",
         "classification": "PASS_GENERIC_PREPARE_ONLY" if not blockers else "PASS_GENERIC_FABRIC_FAIL_CLOSED_REHEARSAL",

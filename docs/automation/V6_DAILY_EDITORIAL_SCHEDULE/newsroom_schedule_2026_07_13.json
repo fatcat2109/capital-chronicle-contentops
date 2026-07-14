@@ -1,0 +1,254 @@
+{
+  "database_head_sha": "419caa95c90704acfd2ad2685be30317813a12b3",
+  "decisions": [
+    {
+      "backlog_candidates": [],
+      "cutoff_time_utc": "2026-07-13T01:00:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "name": "Asia Pacific Open Window",
+      "rationale": "No eligible candidates met the window urgency/impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "asia_open"
+    },
+    {
+      "backlog_candidates": [],
+      "cutoff_time_utc": "2026-07-13T07:30:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "name": "London/European Open Window",
+      "rationale": "No eligible candidates met the window urgency/impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "london_open"
+    },
+    {
+      "backlog_candidates": [],
+      "cutoff_time_utc": "2026-07-13T13:30:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "name": "United States/New York Open Window",
+      "rationale": "No eligible candidates met the window urgency/impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "us_open"
+    },
+    {
+      "backlog_candidates": [],
+      "cutoff_time_utc": "2026-07-13T20:00:00Z",
+      "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+      "name": "United States/New York Close Window",
+      "rationale": "No eligible candidates met the window urgency/impact thresholds.",
+      "score_details": {
+        "final_score": 0.0,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": null
+      },
+      "selected_candidate": null,
+      "window_id": "us_close"
+    },
+    {
+      "backlog_candidates": [],
+      "cutoff_time_utc": "2026-07-13T23:30:00Z",
+      "decision": "PUBLISH",
+      "name": "Global Reconcile and Summary Window",
+      "rationale": "Top-ranked candidate meets thresholds: U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%",
+      "score_details": {
+        "final_score": 70.34,
+        "penalties": [],
+        "penalty_total": 0.0,
+        "raw_scores": {
+          "freshness": 97.11,
+          "impact": 55.0,
+          "total": 70.34,
+          "urgency": 50.0
+        }
+      },
+      "selected_candidate": {
+        "article_mode": "analysis",
+        "authority": {
+          "global_dqr": "BLOCKED",
+          "global_dqr_override": false,
+          "source_authorities": [
+            "capital_chronicle_calculation_from_exact_official_public",
+            "exact_official_public"
+          ],
+          "story_decision": "ALLOW"
+        },
+        "blockers": [],
+        "candidate_id": "cc-candidate-120438cc800db7f941be",
+        "citation_map": {
+          "UST:10Y:2026-07-13": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          ],
+          "UST:2S10S:2026-07-13": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          ],
+          "UST:2Y:2026-07-13": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          ],
+          "UST:30Y:2026-07-13": [
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          ]
+        },
+        "claim_permissions": {
+          "consumer": "contentops_publication",
+          "decision": "ALLOW",
+          "global_dqr_override": false,
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": true,
+          "numeric_claims_allowed": true,
+          "reporting_allowed": true
+        },
+        "cluster_id": "cc-cluster-7aa53a08e0a4b35873af",
+        "eligible": true,
+        "event_time_utc": "2026-07-13T00:00:00Z",
+        "evidence_hash": "120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f",
+        "freshness": {
+          "age_hours": 22.459,
+          "evaluated_at_utc": "2026-07-13T23:00:00Z",
+          "max_age_hours": 36.0
+        },
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "limitations": [
+          "candidate_pool_does_not_grant_dispatch_authority",
+          "global_dqr_remains_unchanged",
+          "llm_is_not_numeric_authority",
+          "official_daily_par_yield_curve_not_trade_execution_price"
+        ],
+        "numeric_claims": [
+          {
+            "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+            "change_basis_points": 5.0,
+            "claim_id": "UST:2Y:2026-07-13",
+            "known_at_precision": "retrieval_upper_bound",
+            "known_at_utc": "2026-07-13T22:27:31.358283Z",
+            "llm_numeric_authority": false,
+            "metric": "U.S. Treasury 2Y par yield",
+            "observation_time_utc": "2026-07-13T00:00:00Z",
+            "prior_observation_date": "2026-07-10",
+            "prior_value": 4.21,
+            "public_claim_allowed": true,
+            "source_authority": "exact_official_public",
+            "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+            "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "unit": "percent",
+            "value": 4.26
+          },
+          {
+            "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+            "change_basis_points": 6.0,
+            "claim_id": "UST:10Y:2026-07-13",
+            "known_at_precision": "retrieval_upper_bound",
+            "known_at_utc": "2026-07-13T22:27:31.358283Z",
+            "llm_numeric_authority": false,
+            "metric": "U.S. Treasury 10Y par yield",
+            "observation_time_utc": "2026-07-13T00:00:00Z",
+            "prior_observation_date": "2026-07-10",
+            "prior_value": 4.56,
+            "public_claim_allowed": true,
+            "source_authority": "exact_official_public",
+            "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+            "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "unit": "percent",
+            "value": 4.62
+          },
+          {
+            "authority_scope": "official_daily_par_yield_curve_not_trade_execution_price",
+            "change_basis_points": 4.0,
+            "claim_id": "UST:30Y:2026-07-13",
+            "known_at_precision": "retrieval_upper_bound",
+            "known_at_utc": "2026-07-13T22:27:31.358283Z",
+            "llm_numeric_authority": false,
+            "metric": "U.S. Treasury 30Y par yield",
+            "observation_time_utc": "2026-07-13T00:00:00Z",
+            "prior_observation_date": "2026-07-10",
+            "prior_value": 5.06,
+            "public_claim_allowed": true,
+            "source_authority": "exact_official_public",
+            "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+            "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "unit": "percent",
+            "value": 5.1
+          },
+          {
+            "calculation": "(10-year par yield minus 2-year par yield) multiplied by 100",
+            "change_basis_points": 1.0,
+            "claim_id": "UST:2S10S:2026-07-13",
+            "known_at_precision": "retrieval_upper_bound",
+            "known_at_utc": "2026-07-13T22:27:31.358283Z",
+            "llm_numeric_authority": false,
+            "metric": "U.S. Treasury 2s10s par-yield spread",
+            "observation_time_utc": "2026-07-13T00:00:00Z",
+            "prior_observation_date": "2026-07-10",
+            "prior_value": 35.0,
+            "public_claim_allowed": true,
+            "source_authority": "capital_chronicle_calculation_from_exact_official_public",
+            "source_id": "US_TREASURY_DAILY_PAR_YIELD_CURVE",
+            "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "unit": "basis_points",
+            "value": 36.0
+          }
+        ],
+        "relationship": "new_phase",
+        "source_documents": [
+          {
+            "data_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+            "document_id": "ust-daily-yield-curve-2026-07-13",
+            "public_claim_allowed": true,
+            "published_at_utc": "2026-07-13T00:00:00Z",
+            "publisher": "U.S. Department of the Treasury",
+            "raw_sha256": "dae34a2d15f948bc501443cb8c9b1f0dd12e7eee3bdac72fa9bb322afe1e99ec",
+            "rights_status": "public_domain_us_government",
+            "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+            "title": "Daily Treasury Par Yield Curve Rates"
+          }
+        ],
+        "source_family": "story_scoped_publication_evidence_v1",
+        "source_health": {
+          "freshness_age_hours": 22.459,
+          "http_status": 200,
+          "latest_observation_date": "2026-07-13",
+          "parse_status": "PASS",
+          "previous_observation_date": "2026-07-10",
+          "status": "HEALTHY"
+        },
+        "source_packet_id": "cc-publication-73ff151c3d3094741b6c",
+        "story_family": "market_move",
+        "story_id": "cc-story-b032aaca7d2d27af3f67",
+        "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+        "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+      },
+      "window_id": "global_recon"
+    }
+  ],
+  "generated_at_utc": "2026-07-14T18:24:28.833384Z",
+  "logical_hash": "f0822a8a1d19b14a5b967b82545b52205c0ae84860d6501357f3d99ad00a5d7a",
+  "pool_logical_hash": "2abbb478be40e04ae31146b65efeb7949573691dbb383d3a24ff56a6feebb769",
+  "schedule_date": "2026-07-13",
+  "schedule_id": "cc-schedule-f0822a8a1d19b14a5b96",
+  "schema_version": "capital_chronicle.newsroom_schedule_decision.v1",
+  "summary": {
+    "backlog_count": 0,
+    "publications": 1,
+    "total_windows": 5
+  }
+}

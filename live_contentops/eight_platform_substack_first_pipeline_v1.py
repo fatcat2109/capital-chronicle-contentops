@@ -3908,6 +3908,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--finalize-v1-tag", action="store_true")
     parser.add_argument("--operator-final-acceptance")
     parser.add_argument("--release-verifier-path", type=Path)
+    parser.add_argument("--candidate-id")
+    parser.add_argument("--newsroom-schedule-path", type=Path)
     args = parser.parse_args(argv)
     output = args.output_dir or OUTPUT_ROOT / args.run_id
     if args.finalize_v1_tag:
@@ -3989,6 +3991,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 capital_chronicle_root=args.capital_chronicle_root,
                 evidence_packet_path=args.cc_evidence_packet,
                 as_of_utc=args.generic_as_of_utc,
+                newsroom_schedule_path=args.newsroom_schedule_path,
             )
         else:
             result = run_generic_database_preflight(
@@ -3996,6 +3999,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 capital_chronicle_root=args.capital_chronicle_root,
                 evidence_packet_path=args.cc_evidence_packet,
                 as_of_utc=args.generic_as_of_utc,
+                candidate_id=args.candidate_id,
+                newsroom_schedule_path=args.newsroom_schedule_path,
             )
         print(json.dumps({
             "classification": result["classification"],

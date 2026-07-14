@@ -1,0 +1,17 @@
+{
+  "candidate_count": 1,
+  "decision": "PASS",
+  "rejection_reasons": [],
+  "schema_version": "contentops.generic_assignment_readiness.v1",
+  "selected_story": {
+    "article_mode": "analysis",
+    "duplicate_key": "us-treasury-curve-2026-07-13",
+    "fresh_material_delta": true,
+    "market_sensitive": true,
+    "selection_rationale": "Latest official Treasury curve record contains a fresh, measurable slope and long-end update.",
+    "story_type": "market_move",
+    "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+    "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+  },
+  "selection_method": "governed_packet_only_no_topic_fallback"
+}

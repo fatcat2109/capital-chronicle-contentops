@@ -264,3 +264,102 @@ def test_legacy_topic_prepare_is_not_canonical_without_explicit_opt_in(tmp_path)
     code = pipeline.main(["--run-id", "legacy-block", "--output-dir", str(tmp_path), "--prepare-only"])
     assert code == 2
     assert not (tmp_path / "run_context_v1.json").exists()
+
+
+def test_newsroom_pool_and_schedule_integration(tmp_path):
+    # Create mock schedule
+    schedule = {
+        "decisions": [
+            {
+                "window_id": "us_open",
+                "decision": "PUBLISH",
+                "selected_candidate": {
+                    "candidate_id": "cc-candidate-11111111111111111111"
+                }
+            },
+            {
+                "window_id": "us_close",
+                "decision": "NO_PUBLICATION_THRESHOLD_NOT_MET",
+                "selected_candidate": None
+            }
+        ]
+    }
+    schedule_path = tmp_path / "schedule.json"
+    schedule_path.write_text(json.dumps(schedule), encoding="utf-8")
+    
+    # Create mock packet
+    packet = {
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "packet_id": "cc-evidence-test",
+        "generated_at_utc": "2026-07-14T12:00:00Z",
+        "as_of_utc": "2026-07-14T12:00:00Z",
+        "story_window": {"hours": 24, "start_utc": "2026-07-13T12:00:00Z", "end_utc": "2026-07-14T12:00:00Z"},
+        "blockers": [],
+        "headlines": [{"headline_id": "test"}],
+        "events": [
+            {
+                "event_id": "event1",
+                "event_time_utc": "2026-07-14T12:00:00Z",
+                "public_claim_allowed": True
+            }
+        ],
+        "official_source_documents": [{"document_id": "doc1", "source_url": "https://test.url"}],
+        "numeric_claims": [
+            {
+                "claim_id": "claim1",
+                "metric": "UST:10Y",
+                "value": 4.56,
+                "unit": "percent",
+                "observation_time_utc": "2026-07-14T12:00:00Z",
+                "source_id": "doc1",
+                "source_artifact_ref": "ref1",
+                "llm_numeric_authority": False,
+                "public_claim_allowed": True
+            }
+        ],
+        "market_snapshots": [],
+        "source_state": {
+            "dqr_status": "BLOCKED",
+            "global_dqr_reporting_allowed": False,
+            "story_scoped_reporting_allowed": True,
+            "source_health_status": "HEALTHY",
+            "global_state_unchanged": True,
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {"claim1": ["doc1"]},
+        "provenance": {},
+        "public_claim_permissions": {
+            "numeric_claims_allowed": True,
+            "narrative_synthesis_allowed": True,
+            "reporting_allowed": True,
+            "decision": "ALLOW",
+            "consumer_class": ["contentops_publication"]
+        },
+        "governed_contract": {
+            "upstream_candidate_id": "cc-candidate-11111111111111111111"
+        },
+    }
+    packet_path = tmp_path / "packet.json"
+    packet_path.write_text(json.dumps(packet), encoding="utf-8")
+    
+    # Case A: Candidate is in schedule as PUBLISH -> Should be eligible
+    res_a = run_generic_database_preflight(
+        output_dir=tmp_path / "out_a",
+        evidence_packet_path=packet_path,
+        newsroom_schedule_path=schedule_path,
+    )
+    assert res_a["publication_eligible"] is True
+    assert "newsroom_schedule_decision_not_publish" not in res_a["blockers"]
+    
+    # Case B: Candidate is not in schedule as PUBLISH -> Should be blocked
+    packet["governed_contract"]["upstream_candidate_id"] = "cc-candidate-22222222222222222222"
+    packet_path.write_text(json.dumps(packet), encoding="utf-8")
+    
+    res_b = run_generic_database_preflight(
+        output_dir=tmp_path / "out_b",
+        evidence_packet_path=packet_path,
+        newsroom_schedule_path=schedule_path,
+    )
+    assert res_b["publication_eligible"] is False
+    assert "newsroom_schedule_decision_not_publish" in res_b["blockers"]
+

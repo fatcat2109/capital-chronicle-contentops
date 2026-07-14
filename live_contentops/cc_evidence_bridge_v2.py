@@ -25,6 +25,9 @@ GOVERNED_VALIDATION = GOVERNED_HANDOFF_ROOT / "ANALYZER_HANDOFF_VALIDATION_V1.js
 PUBLICATION_EVIDENCE = Path(
     "docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json"
 )
+NEWSROOM_POOL_EVIDENCE = Path(
+    "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json"
+)
 PUBLIC_REPORTING_CONSUMERS = {
     "contentops_publication",
     "editorial_publication",
@@ -597,13 +600,64 @@ def _build_evidence_packet_from_legacy_state(
     return packet
 
 
+def _build_evidence_packet_from_pool_candidate(
+    candidate: Mapping[str, Any],
+    pool_path: Path,
+    pool_hash: str,
+    root: Path,
+    *,
+    as_of_utc: str | None,
+    story_window_hours: int,
+) -> dict[str, Any]:
+    packet = _build_evidence_packet_from_publication_packet(
+        root,
+        as_of_utc=as_of_utc,
+        story_window_hours=story_window_hours,
+    )
+    packet_ref = str(pool_path.relative_to(pool_path.parents[2])).replace("\\", "/")
+    packet["provenance"]["pool_candidate"] = {
+        "relative_path": packet_ref,
+        "sha256": pool_hash,
+        "upstream_candidate_id": candidate.get("candidate_id"),
+    }
+    packet["governed_contract"]["upstream_candidate_id"] = candidate.get("candidate_id")
+    
+    if candidate.get("eligible") is not True:
+        packet["blockers"] = list(dict.fromkeys(packet["blockers"] + (candidate.get("blockers") or [])))
+        packet["status"] = "PASS_CONTRACT_BLOCKED_PUBLICATION"
+        
+    return packet
+
+
 def build_evidence_packet_from_cc_root(
     capital_chronicle_root: str | Path,
     *,
     as_of_utc: str | None = None,
     story_window_hours: int = 24,
+    candidate_id: str | None = None,
 ) -> dict[str, Any]:
     root = Path(capital_chronicle_root).resolve()
+    if candidate_id:
+        pool_path = root / NEWSROOM_POOL_EVIDENCE
+        if pool_path.is_file():
+            pool = _read_json(pool_path)
+            candidate = None
+            for c in (pool.get("eligible_candidates") or []) + (pool.get("rejected_candidates") or []):
+                if c.get("candidate_id") == candidate_id:
+                    candidate = c
+                    break
+            if candidate:
+                return _build_evidence_packet_from_pool_candidate(
+                    candidate,
+                    pool_path,
+                    _sha256_file(pool_path),
+                    root,
+                    as_of_utc=as_of_utc,
+                    story_window_hours=story_window_hours,
+                )
+            raise ValueError(f"candidate_not_found_in_pool:{candidate_id}")
+        raise FileNotFoundError(f"missing_candidate_pool_file:{pool_path}")
+
     if (root / PUBLICATION_EVIDENCE).is_file():
         return _build_evidence_packet_from_publication_packet(
             root,

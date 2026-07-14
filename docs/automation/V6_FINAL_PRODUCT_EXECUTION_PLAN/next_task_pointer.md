@@ -1,11 +1,11 @@
 # V6 Next Task Pointer
 
-Completed task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`
+Completed task: `TASK_CONTENTOPS_NEWSROOM_CANDIDATE_ASSIGNMENT_AND_FIVE_WINDOW_SCHEDULING_V1`
 
-Classification: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`
+Classification: `PASS_NEWSROOM_CANDIDATE_POOL_V1_DETERMINISTIC_CANDIDATE_ONLY`
 
 ## Next Action
 
-`TASK_CONTENTOPS_NEWSROOM_CANDIDATE_ASSIGNMENT_AND_FIVE_WINDOW_SCHEDULING_V1`
+`TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2`
 
-ContentOps v1.0 was operator-accepted after the exact Treasury auction-logic repair, strict public readback, independent visual audit, frozen eight-derivative proof, and zero-blocker release verifier. The annotated `v1.0` tag binds the completing release commit. Newsroom implementation was not started in this release-closure task; the next task begins candidate assignment and configurable five-window scheduling under the tracked newsroom master plan.
+ContentOps Newsroom intelligence and scheduling completed successfully, verifying the read-only scheduler, timezone cutoffs, and evidence packet translation. Next stage is Tier-1 editorial revision and SEO quality checks.

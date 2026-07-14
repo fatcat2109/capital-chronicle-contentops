@@ -118,9 +118,9 @@
     "youtube_shorts": {"quality_status": "NON_DEFAULT_NON_POSTING_CAPABILITY"}
   },
   "active_live_repair_blockers": [],
-  "next_task": "TASK_CONTENTOPS_NEWSROOM_CANDIDATE_ASSIGNMENT_AND_FIVE_WINDOW_SCHEDULING_V1",
-  "current_next_recommended_task": "TASK_CONTENTOPS_NEWSROOM_CANDIDATE_ASSIGNMENT_AND_FIVE_WINDOW_SCHEDULING_V1",
-  "next_recommended_task": "TASK_CONTENTOPS_NEWSROOM_CANDIDATE_ASSIGNMENT_AND_FIVE_WINDOW_SCHEDULING_V1",
+  "next_task": "TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
+  "current_next_recommended_task": "TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
+  "next_recommended_task": "TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
   "next_task_requires_separate_live_authorization": false,
   "legacy_reference_surfaces": ["ui/institutional_operator_cockpit_v4/"],
   "stale_wrong_surfaces": ["ui/operator_approval_queue_evidence_vault/"],

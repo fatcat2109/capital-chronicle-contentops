@@ -39,6 +39,10 @@ The release verifier passed every story authority, freshness, release-lock, mach
 
 The July 11 RC and final-closure evidence remain historical. They prove earlier transport and repair behavior but do not override this accepted July 14 release authority.
 
+## Newsroom Scheduling Authority
+
+`TASK_CONTENTOPS_NEWSROOM_CANDIDATE_ASSIGNMENT_AND_FIVE_WINDOW_SCHEDULING_V1` completed successfully. The read-only daily macro-scheduler processes candidates deterministically across five timezone cutoffs, enforcing topic concentration, preemption limits, and update relationships. Replay proof validation passed with byte/hash parity.
+
 ## Next Action
 
-`TASK_CONTENTOPS_NEWSROOM_CANDIDATE_ASSIGNMENT_AND_FIVE_WINDOW_SCHEDULING_V1` is next. Newsroom implementation was not started during release closure. No CI PASS is claimed unless repository checks are actually reported for the completing commit.
+`TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2` is next. It will implement the next stage of editorial revisions, SEO checks, and quality-audit fabric updates under the project plan. No new tasks are started before this pointer is explicitly authorized.
