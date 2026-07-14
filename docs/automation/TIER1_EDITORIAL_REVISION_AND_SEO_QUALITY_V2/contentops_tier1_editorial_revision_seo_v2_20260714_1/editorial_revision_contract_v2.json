@@ -1,0 +1,22 @@
+{
+  "blockers": [],
+  "claim_graph": {
+    "blockers": [],
+    "content_units": [],
+    "publication_authority": false,
+    "rendered_body_sha256": "441ea63708d7dc0045d407cdc5426dd813cf3b12c4567642c1d4e7225b6b7d6d",
+    "schema_version": "contentops.editorial_revision_contract.v2",
+    "status": "NOT_REQUESTED"
+  },
+  "publication_authority": false,
+  "revision_chain": {
+    "blockers": [],
+    "publication_authority": false,
+    "rendered_body_sha256": "441ea63708d7dc0045d407cdc5426dd813cf3b12c4567642c1d4e7225b6b7d6d",
+    "schema_version": "contentops.editorial_revision_contract.v2",
+    "stages": [],
+    "status": "NOT_REQUESTED"
+  },
+  "schema_version": "contentops.editorial_revision_contract.v2",
+  "status": "NOT_REQUESTED"
+}

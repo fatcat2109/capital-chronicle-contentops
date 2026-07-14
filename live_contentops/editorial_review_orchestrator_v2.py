@@ -56,9 +56,12 @@ def run_editorial_review(
     freshness_decision: Mapping[str, Any],
     visual_decision: Mapping[str, Any],
     structured_reviewer: Callable[[str, Mapping[str, Any]], Mapping[str, Any]] | None = None,
+    revision_contract: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     roles: list[dict[str, Any]] = []
     global_blockers: list[str] = []
+    if revision_contract and revision_contract.get("status") == "BLOCK":
+        global_blockers.extend(f"editorial_revision_v2:{value}" for value in revision_contract.get("blockers") or [])
     for role in ROLE_ORDER:
         blockers: list[str] = []
         if role == "assignment_editor" and not request.get("story_type"):
@@ -108,5 +111,6 @@ def run_editorial_review(
         "deterministic_blockers_authoritative": True,
         "final_render_reviewed": bool(article.get("rendered_body")),
         "blockers": list(dict.fromkeys(global_blockers)),
-        "packet_hash": _hash({"roles": roles, "article": article}),
+        "revision_contract_status": (revision_contract or {}).get("status", "NOT_REQUESTED"),
+        "packet_hash": _hash({"roles": roles, "article": article, "revision_contract": revision_contract or {}}),
     }

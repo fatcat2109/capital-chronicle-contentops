@@ -363,3 +363,39 @@ def test_newsroom_pool_and_schedule_integration(tmp_path):
     assert res_b["publication_eligible"] is False
     assert "newsroom_schedule_decision_not_publish" in res_b["blockers"]
 
+
+
+def test_generic_prepare_only_blocks_explicit_invalid_revision_contract(tmp_path) -> None:
+    packet = _fresh_packet()
+    packet_path = tmp_path / "packet.json"
+    packet_path.write_text(json.dumps(packet), encoding="utf-8")
+    request = {
+        "story_type": "market_move", "article_mode": "analysis", "market_sensitive": True,
+        "fresh_material_delta": True, "expected_source_cadence": "market_session",
+        "article_candidate": {
+            "title": "Official WTI data update", "article_mode": "analysis",
+            "as_of_utc": "2026-07-11T02:00:00Z",
+            "rendered_body": "WTI printed 70 dollars.", "claim_ids_used": ["c1"],
+            "numeric_claims_from_llm": False, "quantitative_blockers": [], "hard_truncation_used": False,
+        },
+        "visual_assets": [
+            _asset("lead", "lead_contextual", "official_photo", "physical"),
+            _asset("price", "primary_quantitative_chart", "chart", "price", ["WTI"]),
+            _asset("map", "map_geography", "map", "geography"),
+        ],
+        "editorial_revision_v2": {
+            "content_unit_mappings": [{
+                "content_unit_id": "sentence-001", "content_unit_type": "fact",
+                "claim_ids": ["not-approved"], "source_urls": ["https://official.example/item"],
+            }],
+            "revision_stages": [],
+        },
+    }
+    result = run_generic_prepare_only(output_dir=tmp_path / "out", story_request=request, evidence_packet_path=packet_path)
+    contract = json.loads((tmp_path / "out" / "editorial_revision_contract_v2.json").read_text())
+    review = json.loads((tmp_path / "out" / "editorial_review_orchestrator_v2.json").read_text())
+    assert result["publication_eligible"] is False
+    assert contract["status"] == "BLOCK"
+    assert review["status"] == "BLOCK"
+    assert any(value.startswith("editorial_revision_v2:") for value in review["blockers"])
+    assert result["public_write_performed"] is False

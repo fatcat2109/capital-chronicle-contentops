@@ -43,6 +43,14 @@ The July 11 RC and final-closure evidence remain historical. They prove earlier 
 
 `TASK_CONTENTOPS_NEWSROOM_CANDIDATE_ASSIGNMENT_AND_FIVE_WINDOW_SCHEDULING_V1` completed successfully. The read-only daily macro-scheduler processes candidates deterministically across five timezone cutoffs, enforcing topic concentration, preemption limits, and update relationships. Replay proof validation passed with byte/hash parity.
 
+## Tier-1 Editorial Revision and SEO Quality V2
+
+`TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2` is complete as a bounded local, no-write implementation. It adds deterministic sentence-level claim graphs, a nine-stage hash-linked revision chain, mode-aware original-value checks, redundancy detection, a non-authoritative headline desk, and fail-closed generic prepare integration.
+
+Evidence: `docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_1/`.
+
+Focused validation passed `36` tests. The governed local replay passed prepare-only with no browser/CDP, platform adapter, network, credential, or public-write action. The replayed legacy request did not opt into V2 and correctly records `NOT_REQUESTED`; dedicated tests prove invalid explicitly requested V2 contracts block the claim graph, editorial review, and preparation eligibility.
+
 ## Next Action
 
-`TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2` is next. It will implement the next stage of editorial revisions, SEO checks, and quality-audit fabric updates under the project plan. No new tasks are started before this pointer is explicitly authorized.
+Operator acceptance or rejection of the recorded Tier-1 V2 local evidence. No new implementation task is started by this update.

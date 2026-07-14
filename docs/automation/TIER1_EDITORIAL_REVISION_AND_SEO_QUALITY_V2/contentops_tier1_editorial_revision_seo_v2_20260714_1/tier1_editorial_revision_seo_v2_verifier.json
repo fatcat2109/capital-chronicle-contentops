@@ -1,0 +1,70 @@
+{
+  "classification": "PASS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2_LOCAL_NO_WRITE",
+  "integrity": {
+    "artifact_records": [
+      {
+        "classification_or_status": "PASS_PUBLICATION_AUTHORIZED",
+        "path": "capital_chronicle_content_evidence_packet_v2.json",
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "sha256": "6774369b9a42cdce3897403b13c0138bbd13864ee0a27057251e67de0d65edca"
+      },
+      {
+        "classification_or_status": "PASS",
+        "path": "editorial_review_orchestrator_v2.json",
+        "schema_version": "contentops.editorial_review_orchestrator.v2",
+        "sha256": "66b933a94647eac439a9f932a1b57e2090ab82f2a013a9fd1785ef2228c6e98f"
+      },
+      {
+        "classification_or_status": "NOT_REQUESTED",
+        "path": "editorial_revision_contract_v2.json",
+        "schema_version": "contentops.editorial_revision_contract.v2",
+        "sha256": "013c33d0152fa1edc0586aca5e7b32d1950f25c90ccfb9b5516d315b2ca36678"
+      },
+      {
+        "classification_or_status": null,
+        "path": "freshness_market_state_decision_v2.json",
+        "schema_version": "contentops.freshness_market_state_decision.v2",
+        "sha256": "0850668f8096adf194a091671857594fac51f43a6e338faec74c77716a38b919"
+      },
+      {
+        "classification_or_status": "PASS_GENERIC_PREPARE_ONLY",
+        "path": "generic_fabric_prepare_only_result_v2.json",
+        "schema_version": "contentops.generic_evidence_freshness_visual_editorial_fabric.v2",
+        "sha256": "9ce9f5c6bac7d17fde020a40570e576a185f1ec1739e99c134f2a2afb62dc8ea"
+      },
+      {
+        "classification_or_status": null,
+        "path": "google_visual_discovery_request_rehearsal_v2.json",
+        "schema_version": null,
+        "sha256": "ab1a2ed5d90472651c4c0139bdff248c01c612d0e6a2ee65575f75d876ffa0e6"
+      },
+      {
+        "classification_or_status": "PASS",
+        "path": "visual_composition_decision_v2.json",
+        "schema_version": "contentops.visual_composition_decision.v2",
+        "sha256": "61724f4ec2411eb786a8798cecf60fc244814ee1eba464534a06db2ad0463530"
+      }
+    ]
+  },
+  "safety": {
+    "credential_values_read_or_logged": false,
+    "network_call_made": false,
+    "public_write_performed": false,
+    "publication_authority_granted_by_v2_contract": false
+  },
+  "schema_version": "contentops.tier1_editorial_revision_seo_v2_verifier.v1",
+  "source_commit": "5a6deb3def8de31f68197da83c8f014db413a8ff",
+  "task": "TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
+  "validation": {
+    "browser_or_cdp_used": false,
+    "editorial_review_revision_contract_status": "NOT_REQUESTED",
+    "explicit_v2_invalid_contract_fail_closed_covered_by_test": true,
+    "focused_pytest": "36 passed",
+    "generic_prepare_only_classification": "PASS_GENERIC_PREPARE_ONLY",
+    "platform_adapter_called": false,
+    "public_write_performed": false,
+    "publication_eligible": true,
+    "python_compile": "PASS",
+    "revision_contract_replay_status": "NOT_REQUESTED"
+  }
+}

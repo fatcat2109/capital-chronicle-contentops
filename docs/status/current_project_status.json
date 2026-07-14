@@ -3,17 +3,17 @@
   "status_doc_kind": "current_product_authority",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "f9c53c4c88c23706e7a5b081cefc47b1c4ed60da",
+  "last_verified_remote_sha": "5a6deb3def8de31f68197da83c8f014db413a8ff",
   "accepted_product_baseline_sha": "f9c53c4c88c23706e7a5b081cefc47b1c4ed60da",
   "last_status_commit_sha": "f9c53c4c88c23706e7a5b081cefc47b1c4ed60da",
   "accepted_baseline_summary": "Starting authority f9c53c4c88c23706e7a5b081cefc47b1c4ed60da; the operator accepted the exact final Treasury repair after strict public readback, frozen-derivative proof, and a zero-blocker release verifier. The completing commit is bound by annotated tag v1.0 and reported externally under the non-recursive SHA convention.",
-  "starting_authority_sha": "f9c53c4c88c23706e7a5b081cefc47b1c4ed60da",
+  "starting_authority_sha": "5a6deb3def8de31f68197da83c8f014db413a8ff",
   "latest_accepted_task": "TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1",
-  "last_updated_by_task": "TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1",
+  "last_updated_by_task": "TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
   "latest_accepted_task_result": "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED",
-  "latest_completed_task": "TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1",
-  "latest_terminal_task_result": "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED",
-  "current_task_classification": "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED",
+  "latest_completed_task": "TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
+  "latest_terminal_task_result": "PASS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2_LOCAL_NO_WRITE",
+  "current_task_classification": "AWAITING_OPERATOR_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2_ACCEPTANCE",
   "canonical_runner": "live_contentops.eight_platform_substack_first_pipeline_v1",
   "canonical_backend_runner": "live_contentops.eight_platform_substack_first_pipeline_v1",
   "canonical_dashboard_surface": "ui/contentops_v5/",
@@ -32,7 +32,8 @@
     "live_contentops/editorial_review_orchestrator_v2.py",
     "live_contentops/source_capability_registry_v2.py",
     "live_contentops/distribution_identity_registry_v2.py",
-    "live_contentops/generic_editorial_fabric_v2.py"
+    "live_contentops/generic_editorial_fabric_v2.py",
+    "live_contentops/editorial_revision_contract_v2.py"
   ],
   "rc_run_id": "contentops_v1_0_rc_20260711_1",
   "rc_machine_transport_status": "PASS_NINE_SURFACE_TRANSPORT_PROOF_PRESERVED",
@@ -41,7 +42,7 @@
   "v1_0_tag_exists": true,
   "v1_0_tag_name": "v1.0",
   "v1_0_tag_annotated": true,
-  "v1_0_tag_message": "Capital Chronicle ContentOps v1.0 — database-authorized supervised nine-surface release",
+  "v1_0_tag_message": "Capital Chronicle ContentOps v1.0 \u2014 database-authorized supervised nine-surface release",
   "operator_acceptance": "ACCEPT",
   "public_outputs_frozen": true,
   "final_closure_evidence_path": "docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/contentops_final_closure_20260711_1",
@@ -53,7 +54,9 @@
     "dqr_status": "BLOCKED",
     "reporting_allowed": true,
     "consumer_eligibility": "story_scoped_contentops_publication",
-    "allowed_consumers": ["contentops_publication"],
+    "allowed_consumers": [
+      "contentops_publication"
+    ],
     "publication_decision": "PASS_PUBLICATION_AUTHORIZED",
     "packet_id": "cc-publication-73ff151c3d3094741b6c",
     "fresh_generalized_canary_allowed": true
@@ -96,34 +99,75 @@
     "path": "docs/automation/V6_GENERIC_EVIDENCE_FABRIC/generic_fabric_v2_real_rehearsal_20260711",
     "classification": "PASS_GENERIC_FABRIC_FAIL_CLOSED_REHEARSAL",
     "publication_eligible": false,
-    "reasons": ["capital_chronicle_dqr_reporting_not_allowed", "stale_market_snapshot", "stale_database_ingest", "no_fresh_material_delta"],
+    "reasons": [
+      "capital_chronicle_dqr_reporting_not_allowed",
+      "stale_market_snapshot",
+      "stale_database_ingest",
+      "no_fresh_material_delta"
+    ],
     "public_write_performed": false
   },
   "identity_authority": {
-    "discord": {"identity_class": "approved_editorial_community_persona", "visible_identity": "The Macro Pigeon"},
-    "linkedin": {"identity_class": "founder_led_personal_distribution", "visible_identity": "Jim Pham"}
+    "discord": {
+      "identity_class": "approved_editorial_community_persona",
+      "visible_identity": "The Macro Pigeon"
+    },
+    "linkedin": {
+      "identity_class": "founder_led_personal_distribution",
+      "visible_identity": "Jim Pham"
+    }
   },
   "platform_matrix": {
-    "substack": {"quality_status": "PASS_CANONICAL_PUBLIC_READBACK_EDITORIAL_COPY_TIGHTENED_IN_PLACE"},
-    "telegram": {"quality_status": "PASS_PROVIDER_READBACK_DNS_SCREENSHOT_CAVEAT"},
-    "x": {"quality_status": "PASS_ROOT_TWO_REPLIES_THREE_VISUALS"},
-    "discord": {"quality_status": "PASS_APPROVED_PERSONA"},
-    "linkedin": {"quality_status": "PASS_FRESH_FOUNDER_ACTIVITY"},
-    "facebook_page": {"quality_status": "PASS"},
-    "instagram_business": {"quality_status": "PASS_FEED_CAPTION_URL_TEXT", "caption_link_clickable": false, "frozen": true},
-    "threads": {"quality_status": "PASS_ROOT_TWO_REPLIES_THREE_VISUALS"},
-    "youtube_community": {"quality_status": "PASS"},
-    "tiktok_native": {"quality_status": "NON_POSTING_CAPABILITY_BLOCKED"},
-    "youtube_long_form": {"quality_status": "NON_DEFAULT_NON_POSTING_CAPABILITY"},
-    "youtube_shorts": {"quality_status": "NON_DEFAULT_NON_POSTING_CAPABILITY"}
+    "substack": {
+      "quality_status": "PASS_CANONICAL_PUBLIC_READBACK_EDITORIAL_COPY_TIGHTENED_IN_PLACE"
+    },
+    "telegram": {
+      "quality_status": "PASS_PROVIDER_READBACK_DNS_SCREENSHOT_CAVEAT"
+    },
+    "x": {
+      "quality_status": "PASS_ROOT_TWO_REPLIES_THREE_VISUALS"
+    },
+    "discord": {
+      "quality_status": "PASS_APPROVED_PERSONA"
+    },
+    "linkedin": {
+      "quality_status": "PASS_FRESH_FOUNDER_ACTIVITY"
+    },
+    "facebook_page": {
+      "quality_status": "PASS"
+    },
+    "instagram_business": {
+      "quality_status": "PASS_FEED_CAPTION_URL_TEXT",
+      "caption_link_clickable": false,
+      "frozen": true
+    },
+    "threads": {
+      "quality_status": "PASS_ROOT_TWO_REPLIES_THREE_VISUALS"
+    },
+    "youtube_community": {
+      "quality_status": "PASS"
+    },
+    "tiktok_native": {
+      "quality_status": "NON_POSTING_CAPABILITY_BLOCKED"
+    },
+    "youtube_long_form": {
+      "quality_status": "NON_DEFAULT_NON_POSTING_CAPABILITY"
+    },
+    "youtube_shorts": {
+      "quality_status": "NON_DEFAULT_NON_POSTING_CAPABILITY"
+    }
   },
   "active_live_repair_blockers": [],
-  "next_task": "TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
-  "current_next_recommended_task": "TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
-  "next_recommended_task": "TASK_CONTENTOPS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
+  "next_task": "OPERATOR_ACCEPT_OR_REJECT_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
+  "current_next_recommended_task": "OPERATOR_ACCEPT_OR_REJECT_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
+  "next_recommended_task": "OPERATOR_ACCEPT_OR_REJECT_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2",
   "next_task_requires_separate_live_authorization": false,
-  "legacy_reference_surfaces": ["ui/institutional_operator_cockpit_v4/"],
-  "stale_wrong_surfaces": ["ui/operator_approval_queue_evidence_vault/"],
+  "legacy_reference_surfaces": [
+    "ui/institutional_operator_cockpit_v4/"
+  ],
+  "stale_wrong_surfaces": [
+    "ui/operator_approval_queue_evidence_vault/"
+  ],
   "mandatory_read_before_task": [
     "AGENTS.md",
     "docs/AI_BUILDER_BOOTSTRAP.md",
@@ -147,5 +191,17 @@
     "do not invoke public write paths during generic prepare-only rehearsal"
   ],
   "sha_model": "Baseline fields identify the immutable starting authority; the final completing SHA is reported after this self-referential status file is committed.",
-  "no_ci_pass_claim": true
+  "no_ci_pass_claim": true,
+  "tier1_editorial_revision_seo_v2": {
+    "evidence_path": "docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/contentops_tier1_editorial_revision_seo_v2_20260714_1",
+    "classification": "PASS_TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2_LOCAL_NO_WRITE",
+    "focused_pytest": "36 passed",
+    "public_write_performed": false,
+    "browser_or_cdp_used": false,
+    "platform_adapter_called": false,
+    "network_call_made": false,
+    "publication_authority_granted": false,
+    "legacy_replay_revision_contract_status": "NOT_REQUESTED",
+    "explicit_invalid_v2_contract_fail_closed_covered_by_test": true
+  }
 }

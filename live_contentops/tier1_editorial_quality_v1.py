@@ -10,7 +10,10 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
 
-SCHEMA_VERSION = "contentops.tier1_editorial_quality.v1"
+SCHEMA_VERSION = "contentops.tier1_editorial_quality.v2"
+SUPPORTED_ARTICLE_MODES = {"straight_news", "data_release", "policy_decision", "market_move", "explainer", "deep_analysis", "scenario_outlook", "analysis"}
+ANALYSIS_MODES = {"deep_analysis", "scenario_outlook"}
+HEADLINE_MAX_LENGTHS = {"reader": 95, "seo": 70, "social": 120, "push": 70, "youtube_community": 100}
 PROCESS_LANGUAGE_PATTERNS = (
     r"\bthe editorial task\b",
     r"\bthe reporting discipline\b",
@@ -97,6 +100,44 @@ def _word_count(markdown: str) -> int:
     return len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", rendered_body(markdown)))
 
 
+def _paragraph_redundancy(markdown: str) -> list[dict[str, Any]]:
+    paragraphs = [re.sub(r"^#{1,6}\s+", "", value).strip() for value in str(markdown or "").split("\n\n")]
+    paragraphs = [value for value in paragraphs if value and not VISUAL_RE.fullmatch(value)]
+    findings: list[dict[str, Any]] = []
+    for index, left in enumerate(paragraphs):
+        left_terms = set(re.findall(r"[a-z0-9]{4,}", left.casefold()))
+        if len(left_terms) < 6:
+            continue
+        for right_index in range(index + 1, len(paragraphs)):
+            right_terms = set(re.findall(r"[a-z0-9]{4,}", paragraphs[right_index].casefold()))
+            overlap = len(left_terms & right_terms) / max(1, len(left_terms | right_terms))
+            if overlap >= 0.72:
+                findings.append({"paragraph_a": index + 1, "paragraph_b": right_index + 1, "token_overlap": round(overlap, 3)})
+    return findings
+
+
+def evaluate_headline_desk(article: Mapping[str, Any]) -> dict[str, Any]:
+    """Evaluate supplied packaging variants; no variant conveys publication permission."""
+    variants = {
+        "reader": article.get("title"), "seo": article.get("seo_title"), "social": article.get("social_headline"),
+        "push": article.get("push_headline"), "youtube_community": article.get("youtube_community_headline"),
+    }
+    keyword = str(article.get("seo_primary_keyword") or "").casefold()
+    results = []
+    for channel, raw in variants.items():
+        text = _normalise(str(raw or ""))
+        checks = {
+            "present": bool(text), "length": bool(text) and len(text) <= HEADLINE_MAX_LENGTHS[channel],
+            "specificity": bool(re.search(r"\d|%|\b[A-Z]{2,}\b", text)) or len(text.split()) >= 5,
+            "search_intent": channel != "seo" or bool(keyword and keyword in text.casefold()),
+            "no_clickbait": not bool(re.search(r"\b(shocking|you won.t believe|guaranteed|secret)\b", text, re.I)),
+            "no_mismatch": not bool(re.search(r"\b(always|never|proves)\b", text, re.I)),
+        }
+        rejected = [name for name, passed in checks.items() if not passed]
+        results.append({"channel": channel, "text": text, "score": round(100 * sum(checks.values()) / len(checks)), "checks": checks, "rejection_reasons": rejected})
+    return {"schema_version": SCHEMA_VERSION, "publication_authority": False, "variants": results, "rejected_variant_count": sum(bool(row["rejection_reasons"]) for row in results)}
+
+
 def _all_terms_present(text: str, terms: Sequence[str]) -> bool:
     lowered = text.casefold()
     return bool(terms) and all(str(term).casefold() in lowered for term in terms)
@@ -116,6 +157,9 @@ def audit_tier1_article(
     advice_hits = _pattern_hits(rendered, ADVICE_PATTERNS)
     caveat_count = len(re.findall(r"not financial advice", rendered, flags=re.IGNORECASE))
     duplicate_sentences = _duplicate_sentence_count(body)
+    paragraph_redundancy = _paragraph_redundancy(body)
+    mode = str(article.get("editorial_mode") or article.get("article_mode") or "")
+    original_value = dict(article.get("original_value") or {})
     quote_count = len(re.findall(r"[\"“][^\"”]{18,}[\"”]", rendered))
     source_urls = sorted(set(URL_RE.findall(rendered)))
     media_ids = [str(item.get("asset_id") or item.get("media_asset_id") or "") for item in media_assets]
@@ -136,7 +180,9 @@ def audit_tier1_article(
         "lede_why_now": bool(re.search(r"\b(latest|raised|released|on (?:january|february|march|april|may|june|july|august|september|october|november|december|20\d\d)|now|new reading|new forecast)\b", opening, re.IGNORECASE)),
         "lede_market_consequence": any(term.casefold() in opening.casefold() for term in market_consequence_terms),
         "concise_nut_graf": bool(re.search(r"\b(the distinction|the issue|what matters|the signal)\b", opening, re.IGNORECASE)),
-        "mode_declared": str(article.get("editorial_mode") or "") in {"straight_news", "analysis", "explainer"},
+        "mode_declared": mode in SUPPORTED_ARTICLE_MODES,
+        "mode_rubric": (mode not in {"market_move", "data_release", "policy_decision"} or bool(article.get("as_of_utc"))) and (mode not in ANALYSIS_MODES or all(original_value.get(key) for key in ("original_value_type", "original_value_description", "methodology", "limitations"))),
+        "original_value_claim_support": mode not in ANALYSIS_MODES or bool(original_value.get("supporting_claim_ids")),
         "mechanism_present": any(term.casefold() in rendered.casefold() for term in mechanism_terms),
         "context_present": bool(re.search(r"\b(liquidity|issuance|treasury|term premium|cross-asset|foreign exchange|credit)\b", rendered, re.IGNORECASE)),
         "confirmation_condition": bool(re.search(r"\b(would confirm|confirmation would|confirm the)\b", closing, re.IGNORECASE)),
@@ -146,7 +192,7 @@ def audit_tier1_article(
         "no_fabricated_quotes": quote_count == 0 or bool(article.get("quote_source_records")),
         "no_financial_advice": not advice_hits,
         "single_caveat": caveat_count <= 1,
-        "high_information_density": not filler_hits and duplicate_sentences == 0 and 550 <= _word_count(body) <= 1400,
+        "high_information_density": not filler_hits and duplicate_sentences == 0 and not paragraph_redundancy and _word_count(body) >= 300,
     }
     editorial_score = round(100 * sum(editorial_checks.values()) / len(editorial_checks))
 
@@ -173,6 +219,7 @@ def audit_tier1_article(
         "visual_markers_complete": visual_ids == expected_visual_ids,
     }
     seo_score = round(100 * sum(seo_checks.values()) / len(seo_checks))
+    headline_desk = evaluate_headline_desk(article)
     blockers = [name for name, passed in editorial_checks.items() if not passed]
     seo_blockers = [name for name, passed in seo_checks.items() if not passed]
     return {
@@ -180,11 +227,15 @@ def audit_tier1_article(
         "classification": "PASS" if editorial_score >= 85 and seo_score >= 85 and not process_hits else "NEEDS_REVISION",
         "editorial_score": editorial_score,
         "seo_score": seo_score,
+        "seo_hygiene_score": seo_score,
+        "seo_hygiene_is_observed_search_performance": False,
         "word_count": _word_count(body),
         "process_language_hits": process_hits,
         "filler_hits": filler_hits,
         "caveat_count": caveat_count,
         "duplicated_sentence_count": duplicate_sentences,
+        "paragraph_redundancy_findings": paragraph_redundancy,
+        "headline_desk": headline_desk,
         "editorial_checks": editorial_checks,
         "seo_checks": seo_checks,
         "editorial_blockers": blockers,

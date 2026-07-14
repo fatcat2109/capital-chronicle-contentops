@@ -1,0 +1,22 @@
+{
+  "asset_count": 3,
+  "blockers": [],
+  "decision_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "editorial_exception": null,
+  "evidence_dimensions": [
+    "cross_asset",
+    "current_price",
+    "physical_infrastructure"
+  ],
+  "modalities": [
+    "chart",
+    "official_photo"
+  ],
+  "schema_version": "contentops.visual_composition_decision.v2",
+  "status": "PASS",
+  "story_type": "market_move",
+  "underlying_series_counts": {
+    "US10Y_yield": 1,
+    "WTI_front": 2
+  }
+}

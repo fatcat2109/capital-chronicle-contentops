@@ -7,6 +7,7 @@ from live_contentops.tier1_editorial_quality_v1 import (
     combine_editorial_gates,
     rendered_body,
     review_tier1_article_with_llm,
+    evaluate_headline_desk,
 )
 
 
@@ -149,3 +150,23 @@ def test_grounded_oil_release_candidate_passes_topic_aware_gate() -> None:
     assert not audit["process_language_hits"]
     assert "July 15 Weekly Petroleum Status Report" in article["substack_body_markdown"]
     assert "August 11 Short-Term Energy Outlook" in article["substack_body_markdown"]
+
+
+def test_deep_analysis_requires_original_value_and_detects_semantic_redundancy() -> None:
+    article = {
+        "editorial_mode": "deep_analysis",
+        "substack_body_markdown": "## A\n\nThis sentence repeats the same market mechanism and conditions in detail for readers.\n\n## B\n\nThis sentence repeats the same market mechanism and conditions in detail for readers.",
+    }
+    audit = audit_tier1_article(article, media_assets=_media())
+    assert audit["editorial_checks"]["mode_rubric"] is False
+    assert audit["editorial_checks"]["original_value_claim_support"] is False
+    assert audit["paragraph_redundancy_findings"]
+    assert audit["seo_hygiene_is_observed_search_performance"] is False
+
+
+def test_headline_desk_preserves_clickbait_rejection_without_authority() -> None:
+    desk = evaluate_headline_desk({"title": "Official data update", "seo_title": "Official data update", "seo_primary_keyword": "official", "social_headline": "Shocking secret proves markets always rise"})
+    social = next(row for row in desk["variants"] if row["channel"] == "social")
+    assert "no_clickbait" in social["rejection_reasons"]
+    assert "no_mismatch" in social["rejection_reasons"]
+    assert desk["publication_authority"] is False

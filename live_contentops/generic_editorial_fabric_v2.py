@@ -7,6 +7,7 @@ from typing import Any, Mapping
 
 from .cc_evidence_bridge_v2 import build_evidence_packet_from_cc_root, validate_evidence_packet
 from .editorial_review_orchestrator_v2 import run_editorial_review
+from .editorial_revision_contract_v2 import build_editorial_revision_contract
 from .editorial_visual_research_v2 import GoogleImageSearchGroundingProvider, evaluate_visual_composition
 from .freshness_market_state_v2 import evaluate_freshness
 from .source_capability_registry_v2 import load_source_capability_registry, resolve_story_capabilities
@@ -142,6 +143,9 @@ def run_generic_prepare_only(
         story_type=str(story_request.get("story_type") or ""),
     )
     article = dict(story_request.get("article_candidate") or {})
+    revision_contract = build_editorial_revision_contract(
+        article=article, packet=packet, revision_input=story_request.get("editorial_revision_v2")
+    )
     editorial = run_editorial_review(
         request=story_request,
         packet=packet,
@@ -149,10 +153,11 @@ def run_generic_prepare_only(
         freshness_decision=freshness,
         visual_decision=visual,
         structured_reviewer=structured_reviewer,
+        revision_contract=revision_contract,
     )
     google_request = GoogleImageSearchGroundingProvider().build_request(str(story_request.get("visual_research_query") or story_request.get("title") or ""))
     blockers = []
-    for row in (capabilities, freshness, visual, editorial):
+    for row in (capabilities, freshness, visual, editorial, revision_contract):
         if row.get("status") == "BLOCK" or row.get("decision") == "BLOCK":
             blockers.extend(row.get("blockers") or [])
     if newsroom_schedule_path:
@@ -179,6 +184,7 @@ def run_generic_prepare_only(
         "freshness_decision_path": str(output_dir / "freshness_market_state_decision_v2.json"),
         "visual_decision_path": str(output_dir / "visual_composition_decision_v2.json"),
         "editorial_review_path": str(output_dir / "editorial_review_orchestrator_v2.json"),
+        "editorial_revision_contract_path": str(output_dir / "editorial_revision_contract_v2.json"),
         "capabilities": capabilities,
         "blockers": list(dict.fromkeys(blockers)),
     }
@@ -186,6 +192,7 @@ def run_generic_prepare_only(
     _write(output_dir / "freshness_market_state_decision_v2.json", freshness)
     _write(output_dir / "visual_composition_decision_v2.json", visual)
     _write(output_dir / "editorial_review_orchestrator_v2.json", editorial)
+    _write(output_dir / "editorial_revision_contract_v2.json", revision_contract)
     _write(output_dir / "google_visual_discovery_request_rehearsal_v2.json", google_request)
     _write(output_dir / "generic_fabric_prepare_only_result_v2.json", result)
     return result
