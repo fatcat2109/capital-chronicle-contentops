@@ -206,3 +206,157 @@ def test_real_loop_manifest_and_writer_are_deterministic_and_scoped(tmp_path):
     repo.mkdir()
     with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_real_content_idea_loop"):
         learning.write_real_content_idea_loop_artifacts(repo, tmp_path / "other")
+
+
+def test_adaptive_treasury_authority_uses_only_final_public_body():
+    authority = learning.normalize_treasury_learning_authority()
+    assert authority["canonical_slug"] == "treasury-yield-curve-edges-wider"
+    assert authority["canonical_url"].endswith("/p/treasury-yield-curve-edges-wider")
+    assert authority["learning_body_sha256"] == learning.TREASURY_FINAL_ACCEPTED_BODY_SHA256
+    assert authority["final_public_body"]["accepted_for_learning"] is True
+    assert authority["stale_article_export"]["accepted_for_learning"] is False
+    assert authority["historical_embedded_manifest_body"]["accepted_for_learning"] is False
+    assert authority["pre_final_repair_public_body"]["accepted_for_learning"] is False
+    assert authority["stale_body_fallback_allowed"] is False
+    for stale_hash in (
+        learning.TREASURY_STALE_ARTICLE_EXPORT_SHA256,
+        learning.TREASURY_STALE_DECLARED_EXPORT_SHA256,
+        learning.TREASURY_HISTORICAL_MANIFEST_BODY_SHA256,
+        learning.TREASURY_PRE_FINAL_REPAIR_BODY_SHA256,
+    ):
+        with pytest.raises(ValueError, match="stale_treasury_body_rejected_for_learning"):
+            learning.normalize_treasury_learning_authority(observed_body_sha256=stale_hash)
+
+
+def test_adaptive_pool_binding_is_exact_and_fails_closed():
+    artifacts = learning.build_adaptive_newsroom_learning_loop()
+    binding = artifacts["replay"]["upstream_candidate_pool_binding"]
+    assert binding == artifacts["manifest"]["upstream_candidate_pool_binding"]
+    assert binding["repository"] == "fatcat2109/Headline-Raw-data-json"
+    assert binding["branch"] == "main"
+    assert binding["commit_sha"] == "9bff5453a118486740ccc8957fcabd3c139fb3d2"
+    assert binding["artifact_path"] == learning.UPSTREAM_POOL_ARTIFACT_PATH
+    assert binding["git_blob_sha1"] == learning.UPSTREAM_POOL_BLOB_SHA1
+    assert binding["file_sha256"] == learning.UPSTREAM_POOL_FILE_SHA256
+    assert binding["pool_logical_hash"] == learning.UPSTREAM_POOL_LOGICAL_HASH
+    assert binding["read_only"] is True
+    root = Path(learning.__file__).resolve().parents[1]
+    pool = learning._read_json(root, learning.POOL_REL_PATH)
+    tampered = {**pool, "logical_hash": "0" * 64}
+    with pytest.raises(ValueError, match="latest_upstream_pool_logical_hash_mismatch"):
+        learning.build_adaptive_newsroom_learning_loop(candidate_pool=tampered)
+
+
+def _adaptive_candidate(relationship="new_phase", *, authorized=True, candidate_id="candidate", cluster_id="cluster"):
+    return {
+        "candidate_id": candidate_id,
+        "cluster_id": cluster_id,
+        "relationship": relationship,
+        "eligible": authorized,
+        "claim_permissions": {"reporting_allowed": authorized},
+        "blockers": [] if authorized else ["story_scoped_reporting_authority_required"],
+    }
+
+
+@pytest.mark.parametrize("relationship", ["material_update", "confirmation", "contradiction", "correction"])
+def test_adaptive_outcome_classifier_detects_governed_update_types(relationship):
+    outcomes = learning.classify_adaptive_outcomes(
+        _adaptive_candidate(relationship),
+        published_candidate_ids=set(),
+        published_cluster_ids=set(),
+        packaging_gap_present=False,
+    )
+    assert outcomes[relationship] is True
+    assert outcomes["duplicate"] is False
+    assert outcomes["insufficient_authority"] is False
+
+
+def test_adaptive_outcome_classifier_covers_new_phase_refresh_gap_duplicate_filler_and_authority():
+    published_candidate_ids, published_cluster_ids = {"published"}, {"published-cluster"}
+    refresh = learning.classify_adaptive_outcomes(
+        _adaptive_candidate(candidate_id="published", cluster_id="published-cluster"),
+        published_candidate_ids=published_candidate_ids,
+        published_cluster_ids=published_cluster_ids,
+        packaging_gap_present=True,
+    )
+    assert refresh["new_phase"] and refresh["evergreen_refresh"]
+    assert refresh["packaging_gap"] and refresh["duplicate"]
+    assert not refresh["filler"]
+    filler = learning.classify_adaptive_outcomes(
+        _adaptive_candidate(candidate_id="published", cluster_id="published-cluster"),
+        published_candidate_ids=published_candidate_ids,
+        published_cluster_ids=published_cluster_ids,
+        packaging_gap_present=False,
+    )
+    assert filler["duplicate"] and filler["filler"]
+    assert not filler["evergreen_refresh"] and not filler["packaging_gap"]
+    insufficient = learning.classify_adaptive_outcomes(
+        _adaptive_candidate(authorized=False),
+        published_candidate_ids=set(),
+        published_cluster_ids=set(),
+        packaging_gap_present=False,
+    )
+    assert insufficient["new_phase"] and insufficient["insufficient_authority"]
+
+
+def test_adaptive_shadow_replay_is_deterministic_inspectable_and_no_publication():
+    first = learning.build_adaptive_newsroom_learning_loop()
+    second = learning.build_adaptive_newsroom_learning_loop()
+    assert first == second
+    decision, replay, manifest = first["decision"], first["replay"], first["manifest"]
+    assert decision["schema_version"] == "contentops.learning_decision.v1"
+    assert decision["learning_decision_id"].endswith(decision["logical_hash"][:24])
+    assert decision["sample_size"] == 9
+    assert decision["distinct_content_count"] == 1
+    assert len(decision["input_snapshot_ids"]) == 9
+    assert len(decision["input_gap_ids"]) == 2
+    assert len(decision["input_idea_ids"]) == 1
+    assert decision["feature_availability"]["performance_metric_values"] is False
+    assert decision["confidence"] == "BOUNDED_CONTENT_AND_AUTHORITY_ONLY_NO_PERFORMANCE_METRICS"
+    assert decision["operator_state"] == "OPERATOR_REVIEW_REQUIRED_SHADOW_ONLY"
+    assert set(decision["detected_outcomes"]) == {
+        "new_phase", "evergreen_refresh", "packaging_gap", "duplicate", "insufficient_authority"
+    }
+    assert len(replay["candidate_records"]) == 3
+    assert [record["shadow_rank"] for record in replay["candidate_records"]] == [1, 2, 3]
+    assert all("feature_values" in record and "penalties" in record for record in replay["candidate_records"])
+    assert all(record["ranking_reasons"] for record in replay["candidate_records"])
+    assert all(record["publication_selected"] is False for record in replay["candidate_records"])
+    assert len(decision["no_publication_decisions"]) == 3
+    assert all(row["decision"] == "NO_PUBLICATION" for row in decision["no_publication_decisions"])
+    assert manifest["publication_count"] == manifest["policy_mutation_count"] == 0
+    assert manifest["terminal_classification"] == learning.ADAPTIVE_TERMINAL
+    assert manifest["next_action"] == learning.ADAPTIVE_NEXT_ACTION
+
+
+def test_adaptive_learning_firewall_is_complete_and_proposals_remain_review_only():
+    decision = learning.build_adaptive_newsroom_learning_loop()["decision"]
+    assert tuple(decision["forbidden_effects_checked"]) == learning.ADAPTIVE_FORBIDDEN_EFFECTS
+    flags = decision["safety_flags"]
+    assert flags["shadow_mode"] and flags["operator_review_required"]
+    assert flags["learning_firewall_enforced"] and flags["final_public_body_authority_enforced"]
+    for key, value in flags.items():
+        if key.endswith("_mutated") or key.endswith("_performed") or key in {
+            "network_performed", "browser_session_used", "credential_accessed",
+            "automatic_assignment_created",
+        }:
+            assert value is False, key
+    assert all(proposal["numeric_prior_delta"] is None for proposal in decision["proposed_ranking_prior_changes"])
+    assert all(proposal["numeric_prior_delta"] is None for proposal in decision["proposed_publication_window_changes"])
+    for key in ("proposed_headline_changes", "proposed_visual_changes", "proposed_format_changes"):
+        assert all(proposal["automatic_change"] is False for proposal in decision[key])
+
+
+def test_adaptive_writer_is_scoped_and_artifacts_match_rebuild(tmp_path):
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    source_root = Path(learning.__file__).resolve().parents[1]
+    with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_adaptive_newsroom_learning_loop"):
+        learning.write_adaptive_newsroom_learning_artifacts(source_root, tmp_path / "other")
+    result = learning.write_adaptive_newsroom_learning_artifacts(source_root)
+    rebuilt = learning.build_adaptive_newsroom_learning_loop(source_root)
+    assert result["artifacts"] == rebuilt
+    for key, path in result["paths"].items():
+        assert Path(path).is_file(), key
+    assert learning._digest(rebuilt["decision"]) == rebuilt["manifest"]["artifact_hashes"]["decision"]
+    assert learning._digest(rebuilt["replay"]) == rebuilt["manifest"]["artifact_hashes"]["replay"]

@@ -1,0 +1,204 @@
+{
+  "cohort_definition": "accepted final Treasury publication, nine unavailable-metric destination snapshots, Task 3 gaps, and the latest three-candidate governed upstream pool",
+  "confidence": "BOUNDED_CONTENT_AND_AUTHORITY_ONLY_NO_PERFORMANCE_METRICS",
+  "detected_outcomes": [
+    "new_phase",
+    "evergreen_refresh",
+    "packaging_gap",
+    "duplicate",
+    "insufficient_authority"
+  ],
+  "distinct_content_count": 1,
+  "evidence_refs": [
+    "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/canonical_article.md",
+    "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/article_manifest_v1.json",
+    "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/run_evidence_v1.json",
+    "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/substack_browser_readback_v1.json",
+    "docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3/contentops_newsroom_tier1_final_gap_closure_v3_20260714_1/newsroom_candidate_pool_upstream_bound_v3.json",
+    "docs/automation/CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1/coverage_gap_report_v1.json",
+    "docs/automation/CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1/generated_ideas_v1.json",
+    "docs/automation/CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1/editorial_briefs_v1.json",
+    "docs/automation/CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1/derivative_content_comparison_v1.json",
+    "fatcat2109/Headline-Raw-data-json@9bff5453a118486740ccc8957fcabd3c139fb3d2:docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json"
+  ],
+  "feature_availability": {
+    "candidate_authority": true,
+    "content_identity": true,
+    "coverage_gaps": true,
+    "derivative_packaging": true,
+    "governed_ideas": true,
+    "performance_metric_values": false,
+    "performance_snapshots": true
+  },
+  "feature_values": {
+    "cc-candidate-120438cc800db7f941be": {
+      "authority": 1.0,
+      "distinct_contribution": 0.45,
+      "freshness": 0.376139,
+      "material_update": 0.0,
+      "novelty": 0.0,
+      "packaging_gap": 1.0,
+      "performance_metric": null
+    },
+    "cc-candidate-3f705fbf747b1838ca10": {
+      "authority": 0.0,
+      "distinct_contribution": 0.1,
+      "freshness": null,
+      "material_update": 0.0,
+      "novelty": 0.5,
+      "packaging_gap": 0.0,
+      "performance_metric": null
+    },
+    "cc-candidate-d68a10790ca2d7f74c38": {
+      "authority": 0.0,
+      "distinct_contribution": 0.1,
+      "freshness": null,
+      "material_update": 0.0,
+      "novelty": 0.5,
+      "packaging_gap": 0.0,
+      "performance_metric": null
+    }
+  },
+  "forbidden_effects_checked": [
+    "canonical_scheduler_policy",
+    "canonical_editorial_policy",
+    "factual_claims",
+    "dqr",
+    "permissions",
+    "source_authority",
+    "exact_proxy_context_labels",
+    "risk_language",
+    "citations",
+    "automatic_assignment",
+    "publication",
+    "dispatch"
+  ],
+  "input_content_ids": [
+    "contentops-v1-0-treasury-publication-20260714"
+  ],
+  "input_gap_ids": [
+    "gap_confirmation_follow_up_0f4e8fe6c6e6ba69",
+    "gap_derivative_confirmation_0f4e8fe6c6e6ba69"
+  ],
+  "input_idea_ids": [
+    "governed_idea_603624b5aeabe17c4a9adccd"
+  ],
+  "input_snapshot_ids": [
+    "performance_snapshot_316181f5bd21f4d154b75b41",
+    "performance_snapshot_afad831df4c9f00bbb7e1c1e",
+    "performance_snapshot_81fbfed86f5801c4ea2dcd4c",
+    "performance_snapshot_726ffe88aed6d5b8ae69b472",
+    "performance_snapshot_259935e3edb28bb681c497aa",
+    "performance_snapshot_edec1e081c3f4e1e9499e69c",
+    "performance_snapshot_3e9897019d682d873fca41ad",
+    "performance_snapshot_1b8f8bb2379178d8a4bfb1b1",
+    "performance_snapshot_5e2d5a43c23e48bfe8f643fe"
+  ],
+  "learning_decision_id": "learning_decision_7888c9e14111e1499f18dc09",
+  "logical_hash": "7888c9e14111e1499f18dc0957c09ed7611dacd605328ea8c34507ad96b706b9",
+  "method_version": "contentops.adaptive_newsroom_learning_loop.v1",
+  "no_publication_decisions": [
+    {
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "decision": "NO_PUBLICATION",
+      "reasons": [
+        "accepted Task 3 confirmation/limits packaging gap supports internal evidence refresh",
+        "published candidate or cluster match blocks a new article",
+        "performance metrics are unavailable; no performance prior is learned",
+        "declared new_phase does not override exact published identity"
+      ]
+    },
+    {
+      "candidate_id": "cc-candidate-3f705fbf747b1838ca10",
+      "decision": "NO_PUBLICATION",
+      "reasons": [
+        "story-scoped reporting authority is absent",
+        "performance metrics are unavailable; no performance prior is learned"
+      ]
+    },
+    {
+      "candidate_id": "cc-candidate-d68a10790ca2d7f74c38",
+      "decision": "NO_PUBLICATION",
+      "reasons": [
+        "story-scoped reporting authority is absent",
+        "performance metrics are unavailable; no performance prior is learned"
+      ]
+    }
+  ],
+  "operator_state": "OPERATOR_REVIEW_REQUIRED_SHADOW_ONLY",
+  "penalties": {
+    "duplicate": 60.0,
+    "filler": 0.0,
+    "insufficient_authority": 200.0,
+    "unavailable_metrics": 45.0
+  },
+  "proposed_format_changes": [
+    {
+      "automatic_change": false,
+      "proposal": "preserve confirmation conditions and limits in ordered platform payloads"
+    }
+  ],
+  "proposed_headline_changes": [
+    {
+      "automatic_change": false,
+      "proposal": "review confirm-or-challenge framing after fresh authority exists"
+    }
+  ],
+  "proposed_publication_window_changes": [
+    {
+      "numeric_prior_delta": null,
+      "proposal": "retain existing publication-window priors",
+      "reason": "No comparable timing metrics are available."
+    }
+  ],
+  "proposed_ranking_prior_changes": [
+    {
+      "numeric_prior_delta": null,
+      "proposal": "add evidence-refresh contribution as an operator-review shadow feature",
+      "reason": "Task 3 found a real confirmation gap, but no performance value exists."
+    }
+  ],
+  "proposed_visual_changes": [
+    {
+      "automatic_change": false,
+      "proposal": "review an exact-official before/after curve comparison"
+    }
+  ],
+  "ranking_reasons": [
+    "accepted Task 3 confirmation/limits packaging gap supports internal evidence refresh",
+    "published candidate or cluster match blocks a new article",
+    "performance metrics are unavailable; no performance prior is learned",
+    "declared new_phase does not override exact published identity",
+    "story-scoped reporting authority is absent"
+  ],
+  "safety_flags": {
+    "automatic_assignment_created": false,
+    "browser_session_used": false,
+    "citations_mutated": false,
+    "claim_mutated": false,
+    "credential_accessed": false,
+    "dispatch_performed": false,
+    "dqr_mutated": false,
+    "editorial_policy_mutated": false,
+    "final_public_body_authority_enforced": true,
+    "labels_mutated": false,
+    "learning_firewall_enforced": true,
+    "live_metric_collection_performed": false,
+    "metrics_unavailable_preserved_as_null": true,
+    "network_performed": false,
+    "operator_review_required": true,
+    "permission_mutated": false,
+    "public_interaction_performed": false,
+    "publication_performed": false,
+    "risk_language_mutated": false,
+    "scheduler_mutated": false,
+    "shadow_mode": true,
+    "source_authority_mutated": false,
+    "upstream_repository_mutated": false
+  },
+  "sample_size": 9,
+  "schema_version": "contentops.learning_decision.v1",
+  "selected_brief_ids": [
+    "editorial_brief_09f0b852208bcf99fd88310f"
+  ]
+}

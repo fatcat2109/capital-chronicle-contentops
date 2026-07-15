@@ -542,8 +542,594 @@ def write_real_content_idea_loop_artifacts(repo_root: str | Path = ".", output_d
     return {"artifacts": artifacts, "paths": paths}
 
 
+# Adaptive newsroom learning loop.  Task 3 artifacts are accepted as an
+# internal retrospective/idea baseline, but their stale article export is never
+# accepted as the content body for learning.  Final public readback is the only
+# body authority for the Treasury release.
+ADAPTIVE_TASK_LABEL = "TASK_CONTENTOPS_ADAPTIVE_NEWSROOM_LEARNING_LOOP_V1"
+ADAPTIVE_MODEL_VERSION = "contentops.adaptive_newsroom_learning_loop.v1"
+ADAPTIVE_TERMINAL = "PASS_ADAPTIVE_NEWSROOM_LEARNING_LOOP_V1_AWAITING_CHATGPT_AUDIT"
+ADAPTIVE_NEXT_ACTION = "INDEPENDENT_CHATGPT_AUDIT_ADAPTIVE_NEWSROOM_LEARNING_LOOP_V1"
+ADAPTIVE_REL_DIR = Path("docs") / "automation" / "CONTENTOPS_ADAPTIVE_NEWSROOM_LEARNING_LOOP_V1"
+TASK3_REL_DIR = REAL_LOOP_REL_DIR
+UPSTREAM_POOL_ARTIFACT_PATH = "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json"
+UPSTREAM_POOL_COMMIT = "9bff5453a118486740ccc8957fcabd3c139fb3d2"
+UPSTREAM_POOL_BLOB_SHA1 = "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d"
+UPSTREAM_POOL_FILE_SHA256 = "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be"
+UPSTREAM_POOL_LOGICAL_HASH = "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b"
+UPSTREAM_POOL_ID = "cc-newsroom-pool-f385e6914bf6870bafd3"
+TREASURY_CANONICAL_SLUG = "treasury-yield-curve-edges-wider"
+TREASURY_CANONICAL_URL = "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider"
+TREASURY_STALE_ARTICLE_EXPORT_SHA256 = "0f4e8fe6c6e6ba6999082c5f7663aa6d1414d9ecd1a0e2900c61618999981b95"
+TREASURY_STALE_DECLARED_EXPORT_SHA256 = "3379415581f7cdf00aefb0afb2aa5815906abbaf8871f473e681dfc15f97152f"
+TREASURY_HISTORICAL_MANIFEST_BODY_SHA256 = "bf4376efc326d0702772244eceb1744cf037cdfa9801973ddc8d8d35a0c20f11"
+TREASURY_PRE_FINAL_REPAIR_BODY_SHA256 = "d61ca814f953e39fdc10873cd4e05e561e1ca634d38a8f4f3029aeb16e1623ea"
+TREASURY_FINAL_ACCEPTED_BODY_SHA256 = "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc"
+LEARNING_OUTCOMES = (
+    "material_update", "confirmation", "contradiction", "correction",
+    "new_phase", "evergreen_refresh", "packaging_gap", "duplicate",
+    "filler", "insufficient_authority",
+)
+ADAPTIVE_FORBIDDEN_EFFECTS = (
+    "canonical_scheduler_policy", "canonical_editorial_policy", "factual_claims",
+    "dqr", "permissions", "source_authority", "exact_proxy_context_labels",
+    "risk_language", "citations", "automatic_assignment", "publication",
+    "dispatch",
+)
+ADAPTIVE_FILENAMES = {
+    "decision": "contentops_learning_decision_v1.json",
+    "replay": "adaptive_newsroom_shadow_replay_v1.json",
+    "manifest": "adaptive_newsroom_learning_loop_manifest_v1.json",
+    "runbook": "adaptive_newsroom_learning_loop_v1.md",
+}
+
+
+@dataclass(frozen=True)
+class ContentOpsLearningDecisionV1:
+    schema_version: str
+    learning_decision_id: str
+    input_content_ids: tuple[str, ...]
+    input_snapshot_ids: tuple[str, ...]
+    input_gap_ids: tuple[str, ...]
+    input_idea_ids: tuple[str, ...]
+    cohort_definition: str
+    sample_size: int
+    distinct_content_count: int
+    method_version: str
+    feature_availability: dict[str, bool]
+    feature_values: dict[str, Any]
+    penalties: dict[str, float]
+    ranking_reasons: tuple[str, ...]
+    confidence: str
+    detected_outcomes: tuple[str, ...]
+    proposed_ranking_prior_changes: tuple[dict[str, Any], ...]
+    proposed_publication_window_changes: tuple[dict[str, Any], ...]
+    proposed_headline_changes: tuple[dict[str, Any], ...]
+    proposed_visual_changes: tuple[dict[str, Any], ...]
+    proposed_format_changes: tuple[dict[str, Any], ...]
+    selected_brief_ids: tuple[str, ...]
+    no_publication_decisions: tuple[dict[str, Any], ...]
+    forbidden_effects_checked: tuple[str, ...]
+    operator_state: str
+    logical_hash: str
+    evidence_refs: tuple[str, ...]
+    safety_flags: dict[str, bool]
+
+
+def adaptive_safety_flags() -> dict[str, bool]:
+    return {
+        "shadow_mode": True,
+        "operator_review_required": True,
+        "learning_firewall_enforced": True,
+        "final_public_body_authority_enforced": True,
+        "metrics_unavailable_preserved_as_null": True,
+        "network_performed": False,
+        "browser_session_used": False,
+        "credential_accessed": False,
+        "live_metric_collection_performed": False,
+        "scheduler_mutated": False,
+        "editorial_policy_mutated": False,
+        "claim_mutated": False,
+        "dqr_mutated": False,
+        "permission_mutated": False,
+        "source_authority_mutated": False,
+        "labels_mutated": False,
+        "risk_language_mutated": False,
+        "citations_mutated": False,
+        "automatic_assignment_created": False,
+        "public_interaction_performed": False,
+        "publication_performed": False,
+        "dispatch_performed": False,
+        "upstream_repository_mutated": False,
+    }
+
+
+def normalize_treasury_learning_authority(
+    repo_root: str | Path | None = None,
+    *,
+    observed_body_sha256: str | None = None,
+) -> dict[str, Any]:
+    """Return the one accepted Treasury learning body or fail closed.
+
+    Historical/stale hashes remain inspectable lineage.  None means that the
+    caller asks the committed final-readback authority to select the body; any
+    explicit non-final hash is rejected rather than silently normalized.
+    """
+    root = _module_root() if repo_root is None else Path(repo_root).resolve()
+    manifest = _read_json(root, MANIFEST_REL_PATH)
+    readback_path = RELEASE_REL_DIR / "substack_browser_readback_v1.json"
+    readback = _read_json(root, readback_path)
+    run_evidence_text = _read_text(root, RELEASE_REL_DIR / "run_evidence_v1.json")
+    article_sha = _normalized_sha256(_read_text(root, ARTICLE_REL_PATH))
+    embedded_sha = _normalized_sha256(str(manifest.get("substack_body_markdown") or ""))
+    if article_sha != TREASURY_STALE_ARTICLE_EXPORT_SHA256:
+        raise ValueError("unexpected_treasury_article_export_lineage")
+    if embedded_sha != TREASURY_HISTORICAL_MANIFEST_BODY_SHA256:
+        raise ValueError("unexpected_treasury_historical_manifest_body_lineage")
+    if str(readback.get("body_markdown_sha256") or "") != TREASURY_FINAL_ACCEPTED_BODY_SHA256:
+        raise ValueError("final_treasury_public_readback_hash_mismatch")
+    if TREASURY_PRE_FINAL_REPAIR_BODY_SHA256 not in run_evidence_text:
+        raise ValueError("pre_final_repair_body_authority_missing")
+    if TREASURY_FINAL_ACCEPTED_BODY_SHA256 not in run_evidence_text:
+        raise ValueError("final_repair_body_authority_missing")
+    if observed_body_sha256 is not None and observed_body_sha256 != TREASURY_FINAL_ACCEPTED_BODY_SHA256:
+        raise ValueError("stale_treasury_body_rejected_for_learning")
+    return {
+        "canonical_slug": TREASURY_CANONICAL_SLUG,
+        "canonical_url": TREASURY_CANONICAL_URL,
+        "learning_body_sha256": TREASURY_FINAL_ACCEPTED_BODY_SHA256,
+        "learning_body_status": "FINAL_ACCEPTED_PUBLIC_BODY",
+        "stale_article_export": {
+            "actual_sha256": article_sha,
+            "declared_sha256": str(manifest.get("article_markdown_sha256") or ""),
+            "accepted_for_learning": False,
+        },
+        "historical_embedded_manifest_body": {
+            "sha256": embedded_sha,
+            "accepted_for_learning": False,
+        },
+        "pre_final_repair_public_body": {
+            "sha256": TREASURY_PRE_FINAL_REPAIR_BODY_SHA256,
+            "accepted_for_learning": False,
+        },
+        "final_public_body": {
+            "sha256": TREASURY_FINAL_ACCEPTED_BODY_SHA256,
+            "accepted_for_learning": True,
+            "readback_status": readback.get("status"),
+        },
+        "stale_body_fallback_allowed": False,
+        "evidence_refs": [
+            ARTICLE_REL_PATH.as_posix(),
+            MANIFEST_REL_PATH.as_posix(),
+            (RELEASE_REL_DIR / "run_evidence_v1.json").as_posix(),
+            readback_path.as_posix(),
+        ],
+    }
+
+
+def _latest_pool_binding(pool: dict[str, Any]) -> dict[str, Any]:
+    if pool.get("logical_hash") != UPSTREAM_POOL_LOGICAL_HASH:
+        raise ValueError("latest_upstream_pool_logical_hash_mismatch")
+    if pool.get("pool_id") != UPSTREAM_POOL_ID:
+        raise ValueError("latest_upstream_pool_id_mismatch")
+    counts = pool.get("counts", {})
+    if counts != {"clusters": 3, "eligible": 1, "inputs": 3, "rejected": 2}:
+        raise ValueError("latest_upstream_pool_count_mismatch")
+    return {
+        "repository": PINNED_UPSTREAM_REPOSITORY,
+        "branch": PINNED_UPSTREAM_BRANCH,
+        "commit_sha": UPSTREAM_POOL_COMMIT,
+        "artifact_path": UPSTREAM_POOL_ARTIFACT_PATH,
+        "git_blob_sha1": UPSTREAM_POOL_BLOB_SHA1,
+        "file_sha256": UPSTREAM_POOL_FILE_SHA256,
+        "pool_id": pool["pool_id"],
+        "pool_logical_hash": pool["logical_hash"],
+        "producer_version": pool.get("producer_version"),
+        "status": pool.get("status"),
+        "read_only": True,
+    }
+
+
+def classify_adaptive_outcomes(
+    candidate: dict[str, Any],
+    *,
+    published_candidate_ids: set[str],
+    published_cluster_ids: set[str],
+    packaging_gap_present: bool,
+) -> dict[str, bool]:
+    """Classify all governed Task 4 outcomes without inventing authority."""
+    candidate_id = str(candidate.get("candidate_id") or "")
+    cluster_id = str(candidate.get("cluster_id") or "")
+    relationship = str(candidate.get("relationship") or "").lower()
+    permissions = candidate.get("claim_permissions", {})
+    authorized = bool(
+        candidate.get("eligible") is True
+        and permissions.get("reporting_allowed") is True
+        and not candidate.get("blockers")
+    )
+    duplicate = candidate_id in published_candidate_ids or cluster_id in published_cluster_ids
+    material_update = authorized and relationship == "material_update" and not duplicate
+    confirmation = authorized and relationship == "confirmation" and not duplicate
+    contradiction = authorized and relationship == "contradiction" and not duplicate
+    correction = authorized and relationship == "correction" and not duplicate
+    new_phase = relationship == "new_phase"
+    evergreen_refresh = duplicate and packaging_gap_present
+    filler = authorized and duplicate and not packaging_gap_present
+    return {
+        "material_update": material_update,
+        "confirmation": confirmation,
+        "contradiction": contradiction,
+        "correction": correction,
+        "new_phase": new_phase,
+        "evergreen_refresh": evergreen_refresh,
+        "packaging_gap": packaging_gap_present and duplicate,
+        "duplicate": duplicate,
+        "filler": filler,
+        "insufficient_authority": not authorized,
+    }
+
+
+def _candidate_shadow_record(
+    candidate: dict[str, Any],
+    outcomes: dict[str, bool],
+    *,
+    metric_available: bool,
+    selected_brief_id: str | None,
+) -> dict[str, Any]:
+    freshness = candidate.get("freshness", {})
+    age, maximum = freshness.get("age_hours"), freshness.get("max_age_hours")
+    freshness_value = None
+    if isinstance(age, (int, float)) and isinstance(maximum, (int, float)) and maximum > 0:
+        freshness_value = round(max(0.0, 1.0 - float(age) / float(maximum)), 6)
+    authority_value = 0.0 if outcomes["insufficient_authority"] else 1.0
+    contribution_value = 0.45 if outcomes["packaging_gap"] else (0.1 if outcomes["insufficient_authority"] else 0.25)
+    feature_values = {
+        "authority": authority_value,
+        "freshness": freshness_value,
+        "distinct_contribution": contribution_value,
+        "material_update": 1.0 if outcomes["material_update"] else 0.0,
+        "packaging_gap": 1.0 if outcomes["packaging_gap"] else 0.0,
+        "novelty": 0.0 if outcomes["duplicate"] else 0.5,
+        "performance_metric": None,
+    }
+    penalties = {
+        "duplicate": 60.0 if outcomes["duplicate"] else 0.0,
+        "insufficient_authority": 100.0 if outcomes["insufficient_authority"] else 0.0,
+        "filler": 25.0 if outcomes["filler"] else 0.0,
+        "unavailable_metrics": 15.0 if not metric_available else 0.0,
+    }
+    score = max(0.0, round(
+        100.0 * authority_value
+        + 30.0 * contribution_value
+        + 20.0 * feature_values["packaging_gap"]
+        + 10.0 * feature_values["novelty"]
+        - sum(penalties.values()),
+        3,
+    ))
+    reasons = []
+    if outcomes["packaging_gap"]:
+        reasons.append("accepted Task 3 confirmation/limits packaging gap supports internal evidence refresh")
+    if outcomes["duplicate"]:
+        reasons.append("published candidate or cluster match blocks a new article")
+    if outcomes["insufficient_authority"]:
+        reasons.append("story-scoped reporting authority is absent")
+    if not metric_available:
+        reasons.append("performance metrics are unavailable; no performance prior is learned")
+    if outcomes["new_phase"] and outcomes["duplicate"]:
+        reasons.append("declared new_phase does not override exact published identity")
+    return {
+        "candidate_id": candidate.get("candidate_id"),
+        "cluster_id": candidate.get("cluster_id"),
+        "story_id": candidate.get("story_id"),
+        "update_chain_id": candidate.get("update_chain_id"),
+        "source_idea_id": candidate.get("source_idea_id"),
+        "outcomes": outcomes,
+        "feature_availability": {
+            "authority": True,
+            "freshness": freshness_value is not None,
+            "distinct_contribution": True,
+            "material_update": True,
+            "packaging": True,
+            "performance_metric": metric_available,
+        },
+        "feature_values": feature_values,
+        "penalties": penalties,
+        "shadow_score": score,
+        "ranking_reasons": reasons,
+        "selected_brief_id": selected_brief_id,
+        "publication_selected": False,
+    }
+
+
+def build_learning_decision(
+    *,
+    input_content_ids: Sequence[str],
+    input_snapshot_ids: Sequence[str],
+    input_gap_ids: Sequence[str],
+    input_idea_ids: Sequence[str],
+    candidate_records: Sequence[dict[str, Any]],
+    selected_brief_ids: Sequence[str],
+    evidence_refs: Sequence[str],
+) -> ContentOpsLearningDecisionV1:
+    detected = tuple(name for name in LEARNING_OUTCOMES if any(record["outcomes"].get(name) for record in candidate_records))
+    sample_size = len(input_snapshot_ids)
+    metric_available = any(record["feature_availability"]["performance_metric"] for record in candidate_records)
+    feature_availability = {
+        "content_identity": bool(input_content_ids),
+        "performance_snapshots": bool(input_snapshot_ids),
+        "performance_metric_values": metric_available,
+        "coverage_gaps": bool(input_gap_ids),
+        "governed_ideas": bool(input_idea_ids),
+        "candidate_authority": True,
+        "derivative_packaging": True,
+    }
+    proposals = {
+        "ranking": ({
+            "proposal": "add evidence-refresh contribution as an operator-review shadow feature",
+            "numeric_prior_delta": None,
+            "reason": "Task 3 found a real confirmation gap, but no performance value exists.",
+        },),
+        "window": ({
+            "proposal": "retain existing publication-window priors",
+            "numeric_prior_delta": None,
+            "reason": "No comparable timing metrics are available.",
+        },),
+        "headline": ({
+            "proposal": "review confirm-or-challenge framing after fresh authority exists",
+            "automatic_change": False,
+        },),
+        "visual": ({
+            "proposal": "review an exact-official before/after curve comparison",
+            "automatic_change": False,
+        },),
+        "format": ({
+            "proposal": "preserve confirmation conditions and limits in ordered platform payloads",
+            "automatic_change": False,
+        },),
+    }
+    no_publication = tuple({
+        "candidate_id": record["candidate_id"],
+        "decision": "NO_PUBLICATION",
+        "reasons": record["ranking_reasons"],
+    } for record in candidate_records)
+    combined_penalties = {
+        name: round(sum(float(record["penalties"].get(name, 0.0)) for record in candidate_records), 3)
+        for name in ("duplicate", "insufficient_authority", "filler", "unavailable_metrics")
+    }
+    ranking_reasons = _unique(tuple(reason for record in candidate_records for reason in record["ranking_reasons"]))
+    draft = {
+        "schema_version": "contentops.learning_decision.v1",
+        "input_content_ids": _unique(input_content_ids),
+        "input_snapshot_ids": _unique(input_snapshot_ids),
+        "input_gap_ids": _unique(input_gap_ids),
+        "input_idea_ids": _unique(input_idea_ids),
+        "cohort_definition": "accepted final Treasury publication, nine unavailable-metric destination snapshots, Task 3 gaps, and the latest three-candidate governed upstream pool",
+        "sample_size": sample_size,
+        "distinct_content_count": len(set(input_content_ids)),
+        "method_version": ADAPTIVE_MODEL_VERSION,
+        "feature_availability": feature_availability,
+        "feature_values": {record["candidate_id"]: record["feature_values"] for record in candidate_records},
+        "penalties": combined_penalties,
+        "ranking_reasons": ranking_reasons,
+        "confidence": "BOUNDED_CONTENT_AND_AUTHORITY_ONLY_NO_PERFORMANCE_METRICS",
+        "detected_outcomes": detected,
+        "proposed_ranking_prior_changes": proposals["ranking"],
+        "proposed_publication_window_changes": proposals["window"],
+        "proposed_headline_changes": proposals["headline"],
+        "proposed_visual_changes": proposals["visual"],
+        "proposed_format_changes": proposals["format"],
+        "selected_brief_ids": _unique(selected_brief_ids),
+        "no_publication_decisions": no_publication,
+        "forbidden_effects_checked": ADAPTIVE_FORBIDDEN_EFFECTS,
+        "operator_state": "OPERATOR_REVIEW_REQUIRED_SHADOW_ONLY",
+        "evidence_refs": _unique(evidence_refs),
+        "safety_flags": adaptive_safety_flags(),
+    }
+    logical_hash = _digest(draft)
+    return ContentOpsLearningDecisionV1(
+        learning_decision_id="learning_decision_" + logical_hash[:24],
+        logical_hash=logical_hash,
+        **draft,
+    )
+
+
+def build_adaptive_newsroom_learning_loop(
+    repo_root: str | Path | None = None,
+    *,
+    candidate_pool: dict[str, Any] | None = None,
+    observed_treasury_body_sha256: str | None = None,
+) -> dict[str, Any]:
+    """Run a deterministic, reusable shadow loop with no policy mutation."""
+    root = _module_root() if repo_root is None else Path(repo_root).resolve()
+    authority = normalize_treasury_learning_authority(
+        root, observed_body_sha256=observed_treasury_body_sha256
+    )
+    pool = candidate_pool if candidate_pool is not None else _read_json(root, POOL_REL_PATH)
+    upstream_binding = _latest_pool_binding(pool)
+    performance_packet = build_contract_packet(root)
+    gap_packet = _read_json(root, TASK3_REL_DIR / REAL_LOOP_FILENAMES["coverage_gaps"])
+    idea_packet = _read_json(root, TASK3_REL_DIR / REAL_LOOP_FILENAMES["generated_ideas"])
+    brief_packet = _read_json(root, TASK3_REL_DIR / REAL_LOOP_FILENAMES["briefs"])
+    comparison = _read_json(root, TASK3_REL_DIR / REAL_LOOP_FILENAMES["derivative_comparison"])
+    gaps = list(gap_packet.get("gaps", []))
+    ideas = list(idea_packet.get("records", []))
+    briefs = list(brief_packet.get("records", []))
+    if len(gaps) != 2 or len(ideas) != 1 or len(briefs) != 1:
+        raise ValueError("accepted_task3_baseline_shape_mismatch")
+    if comparison.get("metric_status") != COLLECTION_UNAVAILABLE:
+        raise ValueError("unexpected_task3_metric_authority")
+    packaging_gap_present = any(gap.get("mechanism") == "derivative_content_depth" for gap in gaps)
+    published_ids = {str(performance_packet.source_bindings["candidate_id"])}
+    published_clusters = {str(performance_packet.source_bindings["cluster_id"])}
+    candidates = [*pool.get("eligible_candidates", []), *pool.get("rejected_candidates", [])]
+    if len(candidates) != 3:
+        raise ValueError("adaptive_shadow_loop_requires_three_governed_candidates")
+    source_idea_id = str(ideas[0]["idea_id"])
+    selected_brief_id = str(briefs[0]["brief_id"])
+    records = []
+    for candidate in candidates:
+        copied = dict(candidate)
+        if str(candidate.get("candidate_id")) in published_ids:
+            copied["source_idea_id"] = source_idea_id
+        outcomes = classify_adaptive_outcomes(
+            copied,
+            published_candidate_ids=published_ids,
+            published_cluster_ids=published_clusters,
+            packaging_gap_present=packaging_gap_present,
+        )
+        records.append(_candidate_shadow_record(
+            copied,
+            outcomes,
+            metric_available=False,
+            selected_brief_id=selected_brief_id if outcomes["evergreen_refresh"] else None,
+        ))
+    records.sort(key=lambda record: (-record["shadow_score"], str(record["candidate_id"])))
+    for rank, record in enumerate(records, start=1):
+        record["shadow_rank"] = rank
+    refs = [
+        *authority["evidence_refs"],
+        POOL_REL_PATH.as_posix(),
+        (TASK3_REL_DIR / REAL_LOOP_FILENAMES["coverage_gaps"]).as_posix(),
+        (TASK3_REL_DIR / REAL_LOOP_FILENAMES["generated_ideas"]).as_posix(),
+        (TASK3_REL_DIR / REAL_LOOP_FILENAMES["briefs"]).as_posix(),
+        (TASK3_REL_DIR / REAL_LOOP_FILENAMES["derivative_comparison"]).as_posix(),
+        f"{PINNED_UPSTREAM_REPOSITORY}@{UPSTREAM_POOL_COMMIT}:{UPSTREAM_POOL_ARTIFACT_PATH}",
+    ]
+    decision = build_learning_decision(
+        input_content_ids=("contentops-v1-0-treasury-publication-20260714",),
+        input_snapshot_ids=tuple(snapshot.snapshot_id for snapshot in performance_packet.snapshots),
+        input_gap_ids=tuple(str(gap["gap_id"]) for gap in gaps),
+        input_idea_ids=(source_idea_id,),
+        candidate_records=records,
+        selected_brief_ids=(selected_brief_id,),
+        evidence_refs=refs,
+    )
+    outcome_matrix = [{
+        "outcome": name,
+        "detected": any(record["outcomes"][name] for record in records),
+        "candidate_ids": [record["candidate_id"] for record in records if record["outcomes"][name]],
+    } for name in LEARNING_OUTCOMES]
+    replay = {
+        "schema_version": "contentops.adaptive_newsroom_shadow_replay.v1",
+        "task_label": ADAPTIVE_TASK_LABEL,
+        "model_version": ADAPTIVE_MODEL_VERSION,
+        "treasury_authority": authority,
+        "upstream_candidate_pool_binding": upstream_binding,
+        "accepted_task3_baseline": {
+            "status": "ACCEPTED_INTERNAL_ONLY_RETROSPECTIVE_IDEA_ASSIGNMENT_BASELINE",
+            "gap_ids": [gap["gap_id"] for gap in gaps],
+            "idea_ids": [source_idea_id],
+            "brief_ids": [selected_brief_id],
+            "stale_article_body_reused": False,
+        },
+        "metric_state": {
+            "snapshot_count": len(performance_packet.snapshots),
+            "available_metric_value_count": sum(snapshot.metric_value is not None for snapshot in performance_packet.snapshots),
+            "status": COLLECTION_UNAVAILABLE,
+            "null_means_zero": False,
+        },
+        "derivative_packaging": {
+            "comparison_id": comparison.get("comparison_id"),
+            "row_count": len(comparison.get("rows", [])),
+            "comparison_basis": comparison.get("comparison_basis"),
+            "performance_basis_used": False,
+        },
+        "outcome_detection_matrix": outcome_matrix,
+        "candidate_records": records,
+        "selected_brief_ids": [selected_brief_id],
+        "publication_decisions": [
+            {"candidate_id": record["candidate_id"], "decision": "NO_PUBLICATION"}
+            for record in records
+        ],
+        "canonical_scheduler_mutated": False,
+        "canonical_editorial_policy_mutated": False,
+        "operator_review_required": True,
+        "safety_flags": adaptive_safety_flags(),
+    }
+    decision_dict = _asdict(decision)
+    artifact_hashes = {
+        "decision": _digest(decision_dict),
+        "replay": _digest(replay),
+    }
+    manifest = {
+        "schema_version": "contentops.adaptive_newsroom_learning_loop_manifest.v1",
+        "task_label": ADAPTIVE_TASK_LABEL,
+        "model_version": ADAPTIVE_MODEL_VERSION,
+        "terminal_classification": ADAPTIVE_TERMINAL,
+        "next_action": ADAPTIVE_NEXT_ACTION,
+        "learning_decision_id": decision.learning_decision_id,
+        "learning_decision_logical_hash": decision.logical_hash,
+        "artifact_hashes": artifact_hashes,
+        "upstream_candidate_pool_binding": upstream_binding,
+        "final_public_body_sha256": TREASURY_FINAL_ACCEPTED_BODY_SHA256,
+        "stale_body_learning_blocked": True,
+        "candidate_count": len(records),
+        "selected_brief_count": len(decision.selected_brief_ids),
+        "publication_count": 0,
+        "policy_mutation_count": 0,
+        "safety_flags": adaptive_safety_flags(),
+    }
+    return {"decision": decision_dict, "replay": replay, "manifest": manifest}
+
+
+def render_adaptive_runbook(artifacts: dict[str, Any]) -> str:
+    manifest, decision = artifacts["manifest"], artifacts["decision"]
+    return "\n".join((
+        "# ContentOps Adaptive Newsroom Learning Loop V1",
+        "",
+        f"- terminal_classification: `{manifest['terminal_classification']}`",
+        f"- learning_decision_id: `{decision['learning_decision_id']}`",
+        f"- logical_hash: `{decision['logical_hash']}`",
+        f"- next_action: `{manifest['next_action']}`",
+        "",
+        "## Authority normalization",
+        "",
+        f"- Canonical URL: `{TREASURY_CANONICAL_URL}`.",
+        f"- Final accepted learning body: `{TREASURY_FINAL_ACCEPTED_BODY_SHA256}`.",
+        "- The article export, historical embedded manifest body, and pre-final-repair body are explicit stale lineage and are never learning inputs.",
+        "",
+        "## Shadow decision",
+        "",
+        "- The replay consumes one accepted content identity, nine unavailable-metric snapshots, two Task 3 gaps, one governed idea, one internal brief, and three pinned upstream candidates.",
+        "- Feature values, penalties, ranking reasons, outcome detections, selected briefs, and no-publication decisions are inspectable.",
+        "- No performance winner, timing prior, or causal packaging effect is claimed.",
+        "",
+        "## Feedback firewall",
+        "",
+        "- All proposals are operator-review hypotheses only.",
+        "- Scheduler/editorial policy, facts, DQR, permissions, authority, labels, risk language, citations, publication, and dispatch remain unchanged.",
+        "",
+    ))
+
+
+def write_adaptive_newsroom_learning_artifacts(
+    repo_root: str | Path = ".",
+    output_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    root = Path(repo_root).resolve()
+    allowed = (root / ADAPTIVE_REL_DIR).resolve()
+    output = allowed if output_dir is None else Path(output_dir).resolve()
+    if output != allowed:
+        raise ValueError("artifact_writer_refuses_paths_outside_adaptive_newsroom_learning_loop")
+    artifacts = build_adaptive_newsroom_learning_loop(root)
+    output.mkdir(parents=True, exist_ok=True)
+    paths = {}
+    for key in ("decision", "replay", "manifest"):
+        path = output / ADAPTIVE_FILENAMES[key]
+        path.write_text(
+            json.dumps(artifacts[key], ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        paths[key] = str(path)
+    runbook_path = output / ADAPTIVE_FILENAMES["runbook"]
+    runbook_path.write_text(render_adaptive_runbook(artifacts), encoding="utf-8", newline="\n")
+    paths["runbook"] = str(runbook_path)
+    return {"artifacts": artifacts, "paths": paths}
+
+
 def main() -> int:
-    result = write_real_content_idea_loop_artifacts(_module_root())
+    result = write_adaptive_newsroom_learning_artifacts(_module_root())
     print(json.dumps({"terminal_classification": result["artifacts"]["manifest"]["terminal_classification"], "paths": result["paths"]}, sort_keys=True))
     return 0
 

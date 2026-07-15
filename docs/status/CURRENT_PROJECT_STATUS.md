@@ -4,9 +4,9 @@
 
 ## Current Classification
 
-`PASS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_INTERNAL_ASSIGNMENT_ONLY_AWAITING_INDEPENDENT_AUDIT`
+`PASS_ADAPTIVE_NEWSROOM_LEARNING_LOOP_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1`.
+Completed task: `TASK_CONTENTOPS_ADAPTIVE_NEWSROOM_LEARNING_LOOP_V1`.
 
 The accepted product baseline remains `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`. Annotated tag `v1.0` (tag object `a021df7fd0264d9f160bdd605509da925f0bf131`, release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`) remains immutable and was not moved, recreated, deleted, or retagged by this local evidence task.
 
@@ -61,8 +61,14 @@ No committed analytics measurement exists, so performance metrics remain `UNAVAI
 
 The replay also records an existing repository lineage mismatch: the current `canonical_article.md` hash does not match the stale `article_markdown_sha256` field, while the manifest's embedded published body validates exactly to its declared `substack_body_markdown_sha256`. This mismatch is evidence, not silently waived authority. No public write, browser/CDP use, platform adapter, credential read, global-DQR bypass, upstream-repository modification, `v1.0` mutation, or Task 4 work occurred. Focused validation passed `41` tests and Python compilation.
 
+## Adaptive Newsroom Learning Loop V1
+
+`TASK_CONTENTOPS_ADAPTIVE_NEWSROOM_LEARNING_LOOP_V1` implements the adaptive newsroom learning loop. It consumes the latest governed main-repo candidate pool at the verified commit `9bff5453a118486740ccc8957fcabd3c139fb3d2` (blob `e4f60146e26d5f52dec91f92a345e81d0fb1cc8d`, file SHA-256 `a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be`). It normalizes the exact final accepted Treasury authority (`treasury-yield-curve-edges-wider` with final accepted body hash `05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc`), rejecting the stale article export, pre-repair manifest body, and pre-repair public body for learning.
+
+The shadow replay runs across the accepted published-content history, candidate update chains, coverage gaps, unavailable metrics, and derivative packaging characteristics. It classifies all required outcomes without mutation of scheduler policy, factual claims, DQR, permissions, source authority, proxy labels, risk language, or citations. It produces inspectable idea feature values, penalties, ranking reasons, selected briefs, and no-publication decisions. Focused validation passed `22` focused tests, compilation, and deterministic replay checks.
+
 ## Next Action
 
-`INDEPENDENT_AUDIT_CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1`
+`INDEPENDENT_CHATGPT_AUDIT_ADAPTIVE_NEWSROOM_LEARNING_LOOP_V1`
 
-Audit or reject the deterministic local replay and its internal-only assignment. Do not begin Task 4, collect or invent live metrics, grant publication authority, republish the accepted Treasury cluster, modify `v1.0`, or enable automatic editorial or dispatch behavior.
+Audit or reject the deterministic local shadow learning replay and its manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.
