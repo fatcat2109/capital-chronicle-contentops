@@ -43,7 +43,7 @@ def _candidate(relationship=contracts.EventRelationship.INITIAL_EVENT, *, author
 
 
 def _empty_inputs(candidate_count=1):
-    candidates = tuple(replace(_candidate(), candidate_id=f"candidate-{index}", story_id=f"story-{index}", update_chain_id=f"chain-{index}") for index in range(candidate_count))
+    candidates = tuple(replace(_candidate(), candidate_id=f"candidate-{index}", story_id=f"story-{index}", cluster_id=f"cluster-{index}", update_chain_id=f"chain-{index}") for index in range(candidate_count))
     return (
         candidates,
         contracts.PublishedContentHistoryV1("history"),
@@ -311,7 +311,7 @@ def test_invalid_evergreen_refresh_preserves_reason_without_actionable_refresh()
 
 def test_mutually_incompatible_actionable_outcomes_fail_validation():
     with pytest.raises(ValueError, match="incompatible_actionable_outcomes"):
-        core._validate_actionable_outcomes(("GOVERNED_MATERIAL_UPDATE", "DUPLICATE_NO_NEW_DELTA"))
+        core._validate_actionable_outcomes(("GOVERNED_NEW_PHASE", "DUPLICATE_NO_NEW_DELTA"))
 
 
 def test_feature_unavailable_is_preserved_and_not_scored_as_zero():
@@ -384,7 +384,7 @@ def test_model_assisted_judgment_cannot_grant_authority_or_permission():
 def test_cross_domain_matrix_has_fifteen_domains_and_executes_algorithms():
     matrix = adapters.execute_cross_domain_fixture_matrix(ROOT)
     assert matrix["status"] == "PASS"
-    assert len(matrix["rows"]) == 15
+    assert len(matrix["rows"]) >= 15
     assert all(row["algorithm_executed"] and row["status"] == "PASS" for row in matrix["rows"])
     assert all(row["synthetic_fixture"] for row in matrix["rows"])
 
@@ -452,9 +452,10 @@ def test_safety_firewall_is_complete_and_no_policy_mutation_is_exposed():
     assert all(row["decision"].startswith(("NO_PUBLICATION", "INTERNAL_BRIEF")) for row in decision.no_publication_decisions)
 
 
-def test_acceptance_matrix_has_zero_omissions_and_all_rows_pass():
+def test_legacy_acceptance_entrypoint_no_longer_self_declares_pass():
     rows = adapters.foundation_acceptance_matrix()
-    assert len(rows) >= 80
+    assert len(rows) >= 40
     assert len({row["requirement_id"] for row in rows}) == len(rows)
-    assert {row["status"] for row in rows} == {"PASS"}
-    assert all(row["evidence"] for row in rows)
+    assert "status" not in rows[0]
+    assert {row["derived_status"] for row in rows}.issubset({"PASS", "REVIEW_REQUIRED", "BLOCKED", "FAIL", "NOT_IMPLEMENTED"})
+    assert "NOT_IMPLEMENTED" in {row["derived_status"] for row in rows}

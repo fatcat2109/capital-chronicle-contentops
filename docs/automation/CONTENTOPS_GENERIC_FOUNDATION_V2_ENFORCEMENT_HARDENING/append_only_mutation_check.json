@@ -1,0 +1,64 @@
+{
+  "all_rejection_cases_pass": true,
+  "negative_cases": [
+    {
+      "case": "missing_prior_id",
+      "expected_blocker": "prior_decision_id_missing",
+      "observed_blockers": [
+        "prior_decision_id_missing",
+        "invalid_linear_successor_fork",
+        "successor_logical_hash_invalid"
+      ],
+      "status": "PASS"
+    },
+    {
+      "case": "missing_prior_hash",
+      "expected_blocker": "prior_decision_logical_hash_missing",
+      "observed_blockers": [
+        "prior_decision_logical_hash_missing",
+        "successor_logical_hash_invalid"
+      ],
+      "status": "PASS"
+    },
+    {
+      "case": "wrong_prior_hash",
+      "expected_blocker": "prior_decision_logical_hash_mismatch",
+      "observed_blockers": [
+        "prior_decision_logical_hash_mismatch",
+        "successor_logical_hash_invalid"
+      ],
+      "status": "PASS"
+    },
+    {
+      "case": "missing_reason",
+      "expected_blocker": "supersession_reason_missing",
+      "observed_blockers": [
+        "supersession_reason_missing",
+        "successor_logical_hash_invalid"
+      ],
+      "status": "PASS"
+    },
+    {
+      "case": "invalid_fork",
+      "expected_blocker": "invalid_linear_successor_fork",
+      "observed_blockers": [
+        "prior_decision_id_mismatch",
+        "invalid_linear_successor_fork",
+        "successor_logical_hash_invalid"
+      ],
+      "status": "PASS"
+    },
+    {
+      "case": "malformed_time",
+      "expected_blocker": "logical_time_basis_malformed",
+      "observed_blockers": [
+        "logical_time_basis_malformed",
+        "successor_logical_hash_invalid"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "prior_serialization_unchanged": true,
+  "schema_version": "contentops.append_only_mutation_check.v2",
+  "status": "PASS"
+}

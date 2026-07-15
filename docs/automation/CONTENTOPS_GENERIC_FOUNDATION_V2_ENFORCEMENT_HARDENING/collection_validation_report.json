@@ -1,0 +1,47 @@
+{
+  "candidate_validation_pass": true,
+  "cases": [
+    {
+      "case": "duplicate_article_version",
+      "expected_blocker": "duplicate_article_version_id:content",
+      "observed_blockers": [
+        "duplicate_article_version_id:content"
+      ],
+      "status": "PASS"
+    },
+    {
+      "case": "duplicate_gap_and_idea",
+      "expected_blocker": "duplicate_gap_id",
+      "observed_blockers": [
+        "duplicate_gap_id",
+        "duplicate_idea_id"
+      ],
+      "status": "PASS"
+    },
+    {
+      "case": "duplicate_observation",
+      "expected_blocker": "duplicate_observation_id",
+      "observed_blockers": [
+        "duplicate_observation_id",
+        "duplicate_observation_collision"
+      ],
+      "status": "PASS"
+    },
+    {
+      "case": "duplicate_candidate",
+      "expected_blocker": "duplicate_candidate_id",
+      "observed_blockers": [
+        "duplicate_candidate_id"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "fixed_collection_counts": [],
+  "gap_validation_pass": true,
+  "history_validation_pass": true,
+  "learning_input_validation_pass": true,
+  "observation_validation_pass": true,
+  "schema_version": "contentops.collection_validation_report.v2",
+  "status": "PASS",
+  "supports_zero_one_arbitrary_cardinalities": true
+}

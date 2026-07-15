@@ -86,12 +86,34 @@ def _read_json(path: Path) -> dict[str, Any]:
 def load_foundation_config(repo_root: str | Path | None = None) -> AdaptiveLearningConfigV1:
     root = Path(__file__).resolve().parents[1] if repo_root is None else Path(repo_root).resolve()
     raw = _read_json(root / CONFIG_REL_PATH)
+    expected_top_level = {
+        "schema_version", "config_version", "calibration_state", "config_logical_hash",
+        "authority_gates", "thresholds", "threshold_rules", "unavailable_handling",
+        "normalization_rules", "features",
+    }
+    unknown_top_level = set(raw) - expected_top_level
+    missing_top_level = expected_top_level - set(raw)
+    if unknown_top_level:
+        raise ValueError("unknown_foundation_config_fields:" + ",".join(sorted(unknown_top_level)))
+    if missing_top_level:
+        raise ValueError("missing_foundation_config_fields:" + ",".join(sorted(missing_top_level)))
+    expected_feature_fields = {
+        "feature_id", "normalization", "weight", "penalty", "minimum_evidence",
+        "authority_gate", "domain_applicability", "unavailable_handling",
+    }
+    for index, row in enumerate(raw["features"]):
+        unknown = set(row) - expected_feature_fields
+        missing = expected_feature_fields - set(row)
+        if unknown:
+            raise ValueError(f"unknown_feature_config_fields:{index}:" + ",".join(sorted(unknown)))
+        if missing:
+            raise ValueError(f"missing_feature_config_fields:{index}:" + ",".join(sorted(missing)))
     features = tuple(FeatureDefinitionV1(
         feature_id=str(row["feature_id"]),
         normalization=str(row["normalization"]),
-        weight=float(row["weight"]),
-        penalty=bool(row["penalty"]),
-        minimum_evidence=int(row["minimum_evidence"]),
+        weight=row["weight"],
+        penalty=row["penalty"],
+        minimum_evidence=row["minimum_evidence"],
         authority_gate=row.get("authority_gate"),
         domain_applicability=tuple(row.get("domain_applicability", [])),
         unavailable_handling=str(row["unavailable_handling"]),
@@ -103,6 +125,7 @@ def load_foundation_config(repo_root: str | Path | None = None) -> AdaptiveLearn
         thresholds=raw["thresholds"],
         authority_gates=raw["authority_gates"],
         normalization_rules=raw["normalization_rules"],
+        threshold_rules=raw["threshold_rules"],
         unavailable_handling=raw["unavailable_handling"],
         config_logical_hash=str(raw["config_logical_hash"]),
         schema_version=str(raw["schema_version"]),
@@ -554,7 +577,7 @@ def domain_capability_registry() -> dict[str, Any]:
 
 
 def foundation_acceptance_matrix() -> tuple[dict[str, Any], ...]:
-    """Return the original-task audit matrix; every row is independently PASS."""
+    """Return machine-derived rows; retained as a V1 compatibility entrypoint."""
     requirements = (
         ("1.1", "ContentOps origin/master fetched and required starting HEAD established", "git verification and foundation manifest"),
         ("1.2", "No concurrent mainline writer or Git lock", "protected-path inventory"),
@@ -646,7 +669,10 @@ def foundation_acceptance_matrix() -> tuple[dict[str, Any], ...]:
         ("25.1", "Terminal classification and exact next action match task contract", "foundation manifest"),
         ("26.1", "Final evidence response includes every requested field", "terminal response"),
     )
-    return tuple({"requirement_id": identifier, "requirement": requirement, "status": "PASS", "evidence": evidence} for identifier, requirement, evidence in requirements)
+    from live_contentops.generic_foundation_hardening_v2 import derive_requirement_matrix
+
+    derived = derive_requirement_matrix({})
+    return tuple(derived["rows"])
 
 
 def build_treasury_compatibility_replay(repo_root: str | Path | None = None) -> dict[str, Any]:

@@ -1,0 +1,31 @@
+{
+  "preexisting_modified_count": 5,
+  "preexisting_modified_paths": [
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/CURRENT_STATE_SUMMARY_V6_READINESS.md",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/IMPLEMENTATION_REPORT.md",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/project_sources_upload_bundle_packet.json",
+    "ui/contentops_v5/src/data/platform_variant_packet.json"
+  ],
+  "preexisting_untracked_count": 15,
+  "preexisting_untracked_paths": [
+    "docs/CAPITAL_CHRONICLE_CONTENTOPS_NEWSROOM_INTELLIGENCE_EDITORIAL_SEO_AND_PERFORMANCE_MASTER_PLAN_V1.md",
+    "docs/automation/0174UH/",
+    "docs/automation/0174XE_XF_XG/",
+    "docs/automation/0174XH_XI_XJ/",
+    "docs/automation/0174XK_XL_XM/",
+    "docs/automation/0174XN_XO_XP/",
+    "docs/automation/0174XQ_XR_XS/",
+    "docs/automation/0174XT_XU_XV/",
+    "docs/automation/0174XW_XX_XY/",
+    "docs/automation/0174XZ_YA_YB/",
+    "docs/automation/0174YC_YD_YE/",
+    "docs/automation/0174YF_YG_YH/",
+    "docs/automation/0174YI_YJ_YK/",
+    "docs/automation/0174YL_YM_YN/",
+    "docs/automation/V6_MEDIA_SYSTEM/downloads/fallback_7c55821863cc.png"
+  ],
+  "schema_version": "contentops.unrelated_worktree_preservation_report.v2",
+  "unrelated_changes_preserved": true,
+  "upstream_repository_mutated": false
+}

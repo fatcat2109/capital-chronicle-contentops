@@ -1,0 +1,186 @@
+{
+  "false_gates_block": true,
+  "rows": [
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "scheduled price statistics",
+      "feature_id": "authority_readiness",
+      "fixture_id": "scheduled_price_release",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "physical infrastructure disruption",
+      "feature_id": "authority_readiness",
+      "fixture_id": "physical_network_disruption",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "sovereign curve confirmation",
+      "feature_id": "authority_readiness",
+      "fixture_id": "sovereign_curve_confirmation",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "official hearing confirmation",
+      "feature_id": "authority_readiness",
+      "fixture_id": "official_hearing_confirmation",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "diplomatic record contradiction",
+      "feature_id": "authority_readiness",
+      "fixture_id": "diplomatic_record_contradiction",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "cross-source market contradiction",
+      "feature_id": "authority_readiness",
+      "fixture_id": "cross_source_market_contradiction",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "growth statistics correction",
+      "feature_id": "authority_readiness",
+      "fixture_id": "growth_revision_correction",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "issuer filing correction",
+      "feature_id": "authority_readiness",
+      "fixture_id": "issuer_filing_correction",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "monetary policy new phase",
+      "feature_id": "authority_readiness",
+      "fixture_id": "monetary_policy_new_phase",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "regulatory regime new phase",
+      "feature_id": "authority_readiness",
+      "fixture_id": "regulatory_regime_new_phase",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "housing explainer refresh",
+      "feature_id": "authority_readiness",
+      "fixture_id": "housing_evergreen_refresh",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "supply-chain explainer refresh",
+      "feature_id": "authority_readiness",
+      "fixture_id": "supply_chain_evergreen_refresh",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "survey packaging gap",
+      "feature_id": "authority_readiness",
+      "fixture_id": "survey_packaging_gap",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "filing packaging gap",
+      "feature_id": "authority_readiness",
+      "fixture_id": "filing_packaging_gap",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "commodity duplicate identity",
+      "feature_id": "authority_readiness",
+      "fixture_id": "commodity_duplicate",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "legal document duplicate identity",
+      "feature_id": "authority_readiness",
+      "fixture_id": "legal_document_duplicate",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "trade context filler",
+      "feature_id": "authority_readiness",
+      "fixture_id": "trade_context_filler",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": true,
+      "availability": "available",
+      "domain": "disaster context filler",
+      "feature_id": "authority_readiness",
+      "fixture_id": "disaster_context_filler",
+      "unavailable_reason": null
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": false,
+      "availability": "blocked",
+      "domain": "export-control authority gap",
+      "feature_id": "authority_readiness",
+      "fixture_id": "export_control_insufficient",
+      "unavailable_reason": "authority_gate_false"
+    },
+    {
+      "authority_gate_id": "source_authority_ready",
+      "authority_gate_result": false,
+      "availability": "blocked",
+      "domain": "intraday volatility authority gap",
+      "feature_id": "authority_readiness",
+      "fixture_id": "intraday_volatility_insufficient",
+      "unavailable_reason": "authority_gate_false"
+    }
+  ],
+  "schema_version": "contentops.feature_authority_gate_report.v2"
+}

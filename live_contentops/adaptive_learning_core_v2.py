@@ -2,14 +2,17 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
+import re
 from typing import Any, Mapping, Sequence
 
 from live_contentops.content_intelligence_contracts_v2 import (
     AdaptiveLearningConfigV1,
     AvailabilityState,
     CalibrationState,
+    CapabilityDimensionsV1,
     ContentGapSetV1,
     ContentOpsLearningDecisionV2,
+    EvidenceReferenceV1,
     EventRelationship,
     FeatureEvaluationV1,
     GapType,
@@ -18,6 +21,8 @@ from live_contentops.content_intelligence_contracts_v2 import (
     PublishedContentHistoryV1,
     RankingRowV1,
     logical_hash,
+    canonical_json,
+    parse_utc,
     primitive,
 )
 
@@ -37,8 +42,6 @@ FORBIDDEN_LEARNING_EFFECTS = (
 )
 
 INCOMPATIBLE_ACTIONABLE_OUTCOMES = (
-    frozenset({"GOVERNED_MATERIAL_UPDATE", "DUPLICATE_NO_NEW_DELTA"}),
-    frozenset({"GOVERNED_CORRECTION", "DUPLICATE_NO_NEW_DELTA"}),
     frozenset({"GOVERNED_NEW_PHASE", "DUPLICATE_NO_NEW_DELTA"}),
     frozenset({"FILLER_NO_READER_CONTRIBUTION", "GOVERNED_MATERIAL_UPDATE"}),
     frozenset({"FILLER_NO_READER_CONTRIBUTION", "GOVERNED_CONFIRMATION"}),
@@ -57,6 +60,7 @@ class FeatureInputV1:
     unavailable_reason: str | None = None
     evidence_refs: tuple[str, ...] = ()
     reason_codes: tuple[str, ...] = ()
+    evidence_count: int | None = None
 
 
 @dataclass(frozen=True)
@@ -89,6 +93,9 @@ class LearningCandidateV2:
     feature_inputs: tuple[FeatureInputV1, ...] = ()
     evidence_refs: tuple[str, ...] = ()
     internal_brief_ids: tuple[str, ...] = ()
+    capabilities: CapabilityDimensionsV1 = CapabilityDimensionsV1()
+    evidence_records: tuple[EvidenceReferenceV1, ...] = ()
+    authority_gate_results: Mapping[str, bool] | None = None
 
 
 def _authorized(candidate: LearningCandidateV2) -> bool:
@@ -117,29 +124,30 @@ def evaluate_outcome(
     reasons: list[str] = []
     duplicate = candidate.history_identity_match or relationship == EventRelationship.DUPLICATE
     packaging_gap = GapType.DERIVATIVE_PACKAGING_GAP in candidate.gap_types
+    governed_evidence_present = bool(candidate.evidence_refs or candidate.evidence_records)
 
     if relationship == EventRelationship.MATERIAL_UPDATE:
-        if authorized and candidate.governed_material_delta and not duplicate:
+        if authorized and candidate.governed_material_delta and governed_evidence_present:
             outcomes.append("GOVERNED_MATERIAL_UPDATE")
         else:
-            reasons.append("material_update_requires_authority_governed_delta_and_nonduplicate_identity")
+            reasons.append("material_update_requires_authority_permission_governed_delta_and_evidence")
     if relationship == EventRelationship.CONFIRMATION:
-        if authorized and candidate.prior_testable_proposition_ref and candidate.governed_new_evidence_ref:
+        if authorized and candidate.prior_testable_proposition_ref and candidate.governed_new_evidence_ref and governed_evidence_present:
             outcomes.append("GOVERNED_CONFIRMATION")
         else:
             reasons.append("confirmation_requires_authority_prior_proposition_and_new_evidence")
     if relationship == EventRelationship.CONTRADICTION:
-        if authorized and candidate.prior_testable_proposition_ref and candidate.conflicting_evidence_ref:
+        if authorized and candidate.prior_testable_proposition_ref and candidate.conflicting_evidence_ref and governed_evidence_present:
             outcomes.append("GOVERNED_CONTRADICTION")
         else:
             reasons.append("contradiction_requires_authority_prior_proposition_and_conflicting_evidence")
     if relationship == EventRelationship.CORRECTION:
-        if authorized and (candidate.prior_error_ref or candidate.authoritative_correction_ref):
+        if authorized and (candidate.prior_error_ref or candidate.authoritative_correction_ref) and governed_evidence_present:
             outcomes.append("GOVERNED_CORRECTION")
         else:
             reasons.append("correction_requires_authority_and_identified_error_or_authoritative_correction")
     if relationship == EventRelationship.NEW_PHASE:
-        if authorized and candidate.update_chain_continuity and candidate.distinct_new_event_ref and not duplicate:
+        if authorized and candidate.update_chain_continuity and candidate.distinct_new_event_ref and not duplicate and governed_evidence_present:
             outcomes.append("GOVERNED_NEW_PHASE")
         else:
             reasons.append("new_phase_requires_authority_chain_continuity_distinct_event_and_nonduplicate_identity")
@@ -165,6 +173,7 @@ def evaluate_outcome(
         and candidate.content_age_hours is not None
         and candidate.reader_utility is not None
         and candidate.update_justification_ref
+        and governed_evidence_present
         and candidate.durability >= evergreen_thresholds["durability"]
         and candidate.content_age_hours >= evergreen_thresholds["age"]
         and candidate.reader_utility >= evergreen_thresholds["utility"]
@@ -201,6 +210,8 @@ def evaluate_outcome(
         publication_disposition=publication,
         reason_codes=tuple(dict.fromkeys(reasons)),
         evidence_refs=tuple(dict.fromkeys(candidate.evidence_refs)),
+        authority_result=candidate.authority_ready and not candidate.authority_blockers,
+        reporting_permission_result=candidate.reporting_allowed,
     )
 
 
@@ -218,13 +229,107 @@ def _normalize(raw: float | bool, method: str, rule: Mapping[str, Any]) -> float
         minimum, maximum = float(rule["minimum"]), float(rule["maximum"])
         if maximum <= minimum:
             raise ValueError("invalid_min_max_normalization")
-        return max(0.0, min(1.0, (numeric - minimum) / (maximum - minimum)))
+        if numeric < minimum or numeric > maximum:
+            raise ValueError("min_max_normalization_out_of_range")
+        return (numeric - minimum) / (maximum - minimum)
     if method == "inverse_min_max":
         minimum, maximum = float(rule["minimum"]), float(rule["maximum"])
         if maximum <= minimum:
             raise ValueError("invalid_inverse_min_max_normalization")
-        return 1.0 - max(0.0, min(1.0, (numeric - minimum) / (maximum - minimum)))
+        if numeric < minimum or numeric > maximum:
+            raise ValueError("inverse_min_max_normalization_out_of_range")
+        return 1.0 - (numeric - minimum) / (maximum - minimum)
     raise ValueError(f"unsupported_normalization:{method}")
+
+
+def _capability_tokens(capabilities: CapabilityDimensionsV1) -> set[str]:
+    profile = capabilities.profile()
+    tokens = {
+        *(f"evidence_modality:{value.value}" for value in capabilities.evidence_modalities),
+        *(f"temporal_character:{value.value}" for value in capabilities.temporal_characters),
+        *(f"story_mode:{value.value}" for value in capabilities.story_modes),
+        *(f"geography:{value}" for value in capabilities.geography_ids),
+        *(f"entity:{value}" for value in capabilities.entity_ids),
+        *(f"economic_domain:{value}" for value in capabilities.affected_economic_domains),
+        *(f"asset_class:{value}" for value in capabilities.affected_asset_classes),
+        *(f"source_family:{value}" for value in capabilities.source_family_ids),
+        *(f"source_authority:{value}" for value in capabilities.source_authority_classes),
+    }
+    for name, value in profile.items():
+        if value is True:
+            tokens.add(f"profile:{name.removesuffix('_profile')}")
+    if int(profile["source_count"] or 0) > 0:
+        tokens.add("profile:source_present")
+    for name in ("source", "geography", "entity", "economic_domain", "asset_class"):
+        if int(profile[f"{name}_count"] or 0) > 1:
+            tokens.add(f"profile:multi_{name}")
+    return tokens
+
+
+def _applicability(definition: Any, capabilities: CapabilityDimensionsV1) -> tuple[bool, tuple[str, ...]]:
+    selectors = tuple(definition.domain_applicability)
+    if "*" in selectors:
+        return True, ("*",)
+    tokens = _capability_tokens(capabilities)
+    matched = tuple(selector for selector in selectors if selector in tokens)
+    return bool(matched), matched
+
+
+def _derived_feature_inputs(
+    candidate: LearningCandidateV2,
+    config: AdaptiveLearningConfigV1,
+    observations: PerformanceObservationSetV1,
+) -> dict[str, FeatureInputV1]:
+    metric_count = observations.cardinalities()["metric_bearing_observation_count"]
+    profile = candidate.capabilities.profile()
+    evidence_refs = tuple(dict.fromkeys((
+        *candidate.evidence_refs,
+        *(row.evidence_ref for row in candidate.evidence_records),
+    )))
+    source_count = int(profile["source_count"] or 0)
+    diversity_target = max(1.0, float(config.thresholds["source_diversity_full_count"]))
+    breadth_count = max(
+        int(profile["geography_count"] or 0),
+        int(profile["economic_domain_count"] or 0),
+        int(profile["asset_class_count"] or 0),
+    )
+    breadth_target = max(1.0, float(config.thresholds["breadth_full_count"]))
+    return {
+        "source_diversity": FeatureInputV1(
+            "source_diversity", source_count > 0,
+            AvailabilityState.AVAILABLE if source_count else AvailabilityState.UNSUPPORTED,
+            min(1.0, source_count / diversity_target) if source_count else None,
+            None if source_count else "source_dimension_not_supplied", evidence_refs,
+            ("derived_from_source_family_count",), source_count,
+        ),
+        "scheduled_catalyst_relevance": FeatureInputV1(
+            "scheduled_catalyst_relevance", candidate.capabilities.scheduled_event_state is True,
+            AvailabilityState.AVAILABLE if candidate.capabilities.scheduled_event_state is True else AvailabilityState.UNSUPPORTED,
+            1.0 if candidate.capabilities.scheduled_event_state is True else None,
+            None if candidate.capabilities.scheduled_event_state is True else "scheduled_event_not_applicable",
+            evidence_refs, ("derived_from_scheduled_event_state",), len(evidence_refs),
+        ),
+        "cross_market_or_economy_breadth": FeatureInputV1(
+            "cross_market_or_economy_breadth", breadth_count > 1,
+            AvailabilityState.AVAILABLE if breadth_count > 1 else AvailabilityState.UNSUPPORTED,
+            min(1.0, (breadth_count - 1) / breadth_target) if breadth_count > 1 else None,
+            None if breadth_count > 1 else "cross_dimension_breadth_not_applicable",
+            evidence_refs, ("derived_from_orthogonal_breadth_counts",), len(evidence_refs),
+        ),
+        "performance_evidence_availability": FeatureInputV1(
+            "performance_evidence_availability", True,
+            AvailabilityState.AVAILABLE if metric_count else AvailabilityState.UNAVAILABLE,
+            1.0 if metric_count else None,
+            None if metric_count else "no_metric_bearing_observations", (),
+            ("content_analysis_remains_available",), metric_count,
+        ),
+        "sample_size_confidence": FeatureInputV1(
+            "sample_size_confidence", True,
+            AvailabilityState.AVAILABLE if metric_count else AvailabilityState.UNAVAILABLE,
+            min(1.0, metric_count / max(1.0, float(config.thresholds["minimum_metric_observations"]))) if metric_count else None,
+            None if metric_count else "no_metric_bearing_observations", (), (), metric_count,
+        ),
+    }
 
 
 def evaluate_features(
@@ -234,24 +339,9 @@ def evaluate_features(
 ) -> tuple[FeatureEvaluationV1, ...]:
     """Evaluate registered features while preserving unavailable and zero."""
     supplied = {row.feature_id: row for row in candidate.feature_inputs}
-    metric_count = observations.cardinalities()["metric_bearing_observation_count"]
-    derived: dict[str, FeatureInputV1] = {
-        "performance_evidence_availability": FeatureInputV1(
-            "performance_evidence_availability",
-            True,
-            AvailabilityState.AVAILABLE if metric_count else AvailabilityState.UNAVAILABLE,
-            1.0 if metric_count else None,
-            None if metric_count else "no_metric_bearing_observations",
-            reason_codes=("content_analysis_remains_available",),
-        ),
-        "sample_size_confidence": FeatureInputV1(
-            "sample_size_confidence",
-            True,
-            AvailabilityState.AVAILABLE if metric_count else AvailabilityState.UNAVAILABLE,
-            min(1.0, metric_count / max(1.0, float(config.thresholds.get("minimum_metric_observations", 1.0)))) if metric_count else None,
-            None if metric_count else "no_metric_bearing_observations",
-        ),
-    }
+    if len(supplied) != len(candidate.feature_inputs):
+        raise ValueError("duplicate_feature_input_id")
+    derived = _derived_feature_inputs(candidate, config, observations)
     rows: list[FeatureEvaluationV1] = []
     for definition in config.features:
         item = supplied.get(definition.feature_id) or derived.get(definition.feature_id)
@@ -263,38 +353,81 @@ def evaluate_features(
                 None,
                 "feature_input_not_supplied",
             )
-        if not item.applicable:
-            rows.append(FeatureEvaluationV1(
-                definition.feature_id, False, AvailabilityState.UNSUPPORTED,
-                item.unavailable_reason or "not_applicable", item.raw_value,
-                definition.normalization, None, definition.weight, None, None,
-                item.evidence_refs, item.reason_codes,
-            ))
+        domain_applicable, dimensions_used = _applicability(definition, candidate.capabilities)
+        applicable = bool(item.applicable and domain_applicable)
+        effective_refs = item.evidence_refs or tuple(dict.fromkeys((
+            *candidate.evidence_refs,
+            *(row.evidence_ref for row in candidate.evidence_records),
+        )))
+        evidence_count = item.evidence_count if item.evidence_count is not None else len(set(effective_refs))
+        gate_result: bool | None = None
+        if definition.authority_gate:
+            candidate_gates = candidate.authority_gate_results or {}
+            built_in = {
+                "source_authority_ready": candidate.authority_ready and not candidate.authority_blockers,
+                "reporting_allowed": candidate.reporting_allowed,
+            }
+            gate_result = bool(config.authority_gates[definition.authority_gate] and candidate_gates.get(definition.authority_gate, built_in.get(definition.authority_gate, False)))
+
+        def abstain(state: AvailabilityState, reason: str, extra_codes: tuple[str, ...] = ()) -> FeatureEvaluationV1:
+            return FeatureEvaluationV1(
+                feature_id=definition.feature_id,
+                applicable=applicable,
+                availability=state,
+                unavailable_reason=reason,
+                raw_value=item.raw_value if state == AvailabilityState.UNSUPPORTED else None,
+                normalization_method=definition.normalization,
+                normalized_value=None,
+                configured_weight=definition.weight,
+                contribution=None,
+                penalty=None,
+                evidence_refs=effective_refs,
+                reason_codes=tuple(dict.fromkeys((*item.reason_codes, *extra_codes))),
+                capability_dimensions_used=dimensions_used,
+                normalization_parameters=dict(config.normalization_rules[definition.normalization]),
+                evidence_count=evidence_count,
+                configured_minimum_evidence=definition.minimum_evidence,
+                authority_gate_id=definition.authority_gate,
+                authority_gate_result=gate_result,
+                domain_applicability_result=domain_applicable,
+            )
+
+        if not applicable:
+            rows.append(abstain(AvailabilityState.UNSUPPORTED, item.unavailable_reason or "domain_or_input_not_applicable", ("feature_not_applicable",)))
+            continue
+        if gate_result is False:
+            rows.append(abstain(AvailabilityState.BLOCKED, "authority_gate_false", ("authority_gate_failed",)))
+            continue
+        if evidence_count < definition.minimum_evidence:
+            state = AvailabilityState.BLOCKED if definition.unavailable_handling == "block" else AvailabilityState.UNAVAILABLE
+            rows.append(abstain(state, "minimum_evidence_not_met", ("minimum_evidence_failed",)))
             continue
         if item.availability in {AvailabilityState.UNAVAILABLE, AvailabilityState.BLOCKED, AvailabilityState.UNSUPPORTED}:
             if item.raw_value is not None:
                 raise ValueError(f"unavailable_feature_carries_value:{definition.feature_id}")
-            rows.append(FeatureEvaluationV1(
-                definition.feature_id, True, item.availability,
-                item.unavailable_reason or "reason_required", None,
-                definition.normalization, None, definition.weight, None, None,
-                item.evidence_refs, item.reason_codes,
-            ))
+            rows.append(abstain(item.availability, item.unavailable_reason or "reason_required"))
             continue
         if item.raw_value is None:
-            raise ValueError(f"available_feature_missing_value:{definition.feature_id}")
-        normalized = _normalize(
-            item.raw_value,
-            definition.normalization,
-            config.normalization_rules[definition.normalization],
-        )
+            rows.append(abstain(AvailabilityState.UNAVAILABLE, "available_feature_missing_raw_value", ("raw_value_missing",)))
+            continue
+        try:
+            normalized = _normalize(item.raw_value, definition.normalization, config.normalization_rules[definition.normalization])
+        except (KeyError, TypeError, ValueError) as error:
+            rows.append(abstain(AvailabilityState.BLOCKED, str(error), ("normalization_failed",)))
+            continue
         penalty = abs(definition.weight * normalized) if definition.penalty else 0.0
         contribution = 0.0 if definition.penalty else definition.weight * normalized
         rows.append(FeatureEvaluationV1(
-            definition.feature_id, True, item.availability,
-            item.unavailable_reason, item.raw_value, definition.normalization,
-            round(normalized, 8), definition.weight, round(contribution, 8),
-            round(penalty, 8), item.evidence_refs, item.reason_codes,
+            feature_id=definition.feature_id, applicable=True, availability=item.availability,
+            unavailable_reason=item.unavailable_reason, raw_value=item.raw_value,
+            normalization_method=definition.normalization, normalized_value=round(normalized, 8),
+            configured_weight=definition.weight, contribution=round(contribution, 8),
+            penalty=round(penalty, 8), evidence_refs=effective_refs,
+            reason_codes=item.reason_codes, capability_dimensions_used=dimensions_used,
+            normalization_parameters=dict(config.normalization_rules[definition.normalization]),
+            evidence_count=evidence_count, configured_minimum_evidence=definition.minimum_evidence,
+            authority_gate_id=definition.authority_gate, authority_gate_result=gate_result,
+            domain_applicability_result=domain_applicable,
         ))
     return tuple(rows)
 
@@ -337,6 +470,71 @@ def _proposals(
     return tuple(rows)
 
 
+LOGICAL_TIME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:/+-]{2,127}$")
+
+
+def validate_candidate_collection(candidates: Sequence[LearningCandidateV2]) -> tuple[str, ...]:
+    blockers: list[str] = []
+    ids = [row.candidate_id for row in candidates]
+    if len(ids) != len(set(ids)):
+        blockers.append("duplicate_candidate_id")
+    cluster_chains: dict[str, str | None] = {}
+    for row in candidates:
+        if not row.candidate_id:
+            blockers.append("empty_candidate_id")
+        if not row.story_id:
+            blockers.append(f"empty_candidate_story_id:{row.candidate_id}")
+        if not isinstance(row.source_relationship, EventRelationship):
+            blockers.append(f"invalid_source_relationship:{row.candidate_id}")
+        if row.cluster_id and not row.update_chain_id:
+            blockers.append(f"cluster_requires_update_chain:{row.candidate_id}")
+        if row.cluster_id in cluster_chains and cluster_chains[row.cluster_id] != row.update_chain_id:
+            blockers.append(f"cluster_update_chain_inconsistent:{row.cluster_id}")
+        if row.cluster_id:
+            cluster_chains[row.cluster_id] = row.update_chain_id
+        if row.authority_ready and row.authority_blockers:
+            blockers.append(f"authority_ready_conflicts_with_blockers:{row.candidate_id}")
+        if row.reporting_allowed and not row.authority_ready:
+            blockers.append(f"reporting_permission_without_authority:{row.candidate_id}")
+        if len(row.evidence_refs) != len(set(row.evidence_refs)):
+            blockers.append(f"duplicate_candidate_evidence_ref:{row.candidate_id}")
+        if len(row.internal_brief_ids) != len(set(row.internal_brief_ids)):
+            blockers.append(f"duplicate_internal_brief_id:{row.candidate_id}")
+        blockers.extend(f"{value}:{row.candidate_id}" for value in row.capabilities.validate())
+        evidence_ids = [value.evidence_ref for value in row.evidence_records]
+        if len(evidence_ids) != len(set(evidence_ids)):
+            blockers.append(f"duplicate_evidence_record:{row.candidate_id}")
+        blockers.extend(f"{value}:{row.candidate_id}" for evidence in row.evidence_records for value in evidence.validate())
+        if row.authority_gate_results is not None:
+            if any(not key or not isinstance(value, bool) for key, value in row.authority_gate_results.items()):
+                blockers.append(f"invalid_authority_gate_result:{row.candidate_id}")
+    return tuple(dict.fromkeys(blockers))
+
+
+def _validate_learning_inputs(
+    *,
+    candidates: Sequence[LearningCandidateV2],
+    history: PublishedContentHistoryV1,
+    gaps: ContentGapSetV1,
+    observations: PerformanceObservationSetV1,
+    config: AdaptiveLearningConfigV1,
+    input_bindings: Mapping[str, str],
+    logical_time_basis: str,
+) -> tuple[str, ...]:
+    blockers = [
+        *history.validate(), *gaps.validate(), *observations.validate(), *config.validate(),
+        *validate_candidate_collection(candidates),
+    ]
+    for key, value in input_bindings.items():
+        if not isinstance(key, str) or not key.strip():
+            blockers.append("input_binding_key_empty")
+        if not isinstance(value, str) or not value.strip():
+            blockers.append(f"input_binding_value_empty:{key}")
+    if not LOGICAL_TIME_RE.fullmatch(logical_time_basis or ""):
+        blockers.append("logical_time_basis_malformed")
+    return tuple(dict.fromkeys(blockers))
+
+
 def build_learning_decision_v2(
     *,
     candidates: Sequence[LearningCandidateV2],
@@ -350,11 +548,32 @@ def build_learning_decision_v2(
     supersession_reason: str | None = None,
 ) -> ContentOpsLearningDecisionV2:
     """Build a deterministic, append-only shadow decision for any cohort size."""
-    blockers = [*history.validate(), *observations.validate(), *config.validate()]
+    blockers = _validate_learning_inputs(
+        candidates=candidates, history=history, gaps=gaps, observations=observations,
+        config=config, input_bindings=input_bindings, logical_time_basis=logical_time_basis,
+    )
     if blockers:
         raise ValueError("invalid_learning_inputs:" + ",".join(blockers))
     if prior_decision and not supersession_reason:
         raise ValueError("supersession_reason_required")
+    sorted_bindings = dict(sorted(input_bindings.items()))
+    input_binding_hash = logical_hash(sorted_bindings)
+    content_history_hash = logical_hash(history)
+    gap_set_hash = logical_hash(gaps)
+    observation_set_hash = logical_hash(observations)
+    candidate_cohort_hash = logical_hash(tuple(sorted((primitive(candidate) for candidate in candidates), key=lambda row: row["candidate_id"])))
+    if prior_decision:
+        material_changed = any((
+            prior_decision.config_logical_hash != config.config_logical_hash,
+            prior_decision.input_binding_hash != input_binding_hash,
+            prior_decision.content_history_hash != content_history_hash,
+            prior_decision.gap_set_hash != gap_set_hash,
+            prior_decision.observation_set_hash != observation_set_hash,
+            prior_decision.candidate_cohort_hash != candidate_cohort_hash,
+            prior_decision.logical_time_basis != logical_time_basis,
+        ))
+        if not material_changed:
+            raise ValueError("successor_requires_material_binding_config_or_authority_change")
     outcomes = {candidate.candidate_id: evaluate_outcome(candidate, config) for candidate in candidates}
     provisional: list[RankingRowV1] = []
     for candidate in candidates:
@@ -415,15 +634,17 @@ def build_learning_decision_v2(
     draft = {
         "schema_version": "contentops.learning_decision.v2",
         "prior_decision_id": prior_decision.decision_id if prior_decision else None,
+        "prior_decision_logical_hash": prior_decision.logical_hash if prior_decision else None,
         "supersession_reason": supersession_reason,
         "config_version": config.config_version,
-        "input_bindings": dict(sorted(input_bindings.items())),
-        "cohort_identity": logical_hash({
-            "candidate_ids": sorted(candidate.candidate_id for candidate in candidates),
-            "history_id": history.history_id,
-            "gap_set_id": gaps.gap_set_id,
-            "observation_set_id": observations.observation_set_id,
-        }),
+        "config_logical_hash": config.config_logical_hash,
+        "input_bindings": sorted_bindings,
+        "input_binding_hash": input_binding_hash,
+        "content_history_hash": content_history_hash,
+        "gap_set_hash": gap_set_hash,
+        "observation_set_hash": observation_set_hash,
+        "candidate_cohort_hash": candidate_cohort_hash,
+        "cohort_identity": candidate_cohort_hash,
         "observation_cardinalities": observation_cardinalities,
         "feature_availability": feature_availability,
         "outcome_matrix": outcome_matrix,
@@ -449,14 +670,53 @@ def build_learning_decision_v2(
 def validate_append_only_successor(
     prior: ContentOpsLearningDecisionV2,
     successor: ContentOpsLearningDecisionV2,
+    *,
+    prior_serialized_hash_before: str | None = None,
+    prior_serialized_hash_after: str | None = None,
+    linear_succession_required: bool = True,
 ) -> tuple[str, ...]:
-    blockers = []
-    if successor.prior_decision_id != prior.decision_id:
+    blockers: list[str] = []
+    if not successor.prior_decision_id:
+        blockers.append("prior_decision_id_missing")
+    elif successor.prior_decision_id != prior.decision_id:
         blockers.append("prior_decision_id_mismatch")
+    if not successor.prior_decision_logical_hash:
+        blockers.append("prior_decision_logical_hash_missing")
+    elif successor.prior_decision_logical_hash != prior.logical_hash:
+        blockers.append("prior_decision_logical_hash_mismatch")
     if not successor.supersession_reason:
         blockers.append("supersession_reason_missing")
-    if successor.decision_id == prior.decision_id:
-        blockers.append("successor_identity_must_change")
-    if successor.logical_hash == prior.logical_hash:
-        blockers.append("successor_logical_hash_must_change")
-    return tuple(blockers)
+    if not LOGICAL_TIME_RE.fullmatch(successor.logical_time_basis or ""):
+        blockers.append("logical_time_basis_malformed")
+    binding_fields = (
+        "config_logical_hash", "input_binding_hash", "content_history_hash", "gap_set_hash",
+        "observation_set_hash", "candidate_cohort_hash", "logical_time_basis", "operator_state",
+    )
+    changed_fields = [name for name in binding_fields if getattr(prior, name) != getattr(successor, name)]
+    if not changed_fields:
+        blockers.append("successor_authority_unchanged")
+        if successor.decision_id != prior.decision_id:
+            blockers.append("different_successor_identity_without_material_change")
+    elif successor.decision_id == prior.decision_id or successor.logical_hash == prior.logical_hash:
+        blockers.append("successor_identity_unchanged_after_material_change")
+    if linear_succession_required and successor.prior_decision_id != prior.decision_id:
+        blockers.append("invalid_linear_successor_fork")
+    removed_bindings = set(prior.input_bindings) - set(successor.input_bindings)
+    reason = (successor.supersession_reason or "").casefold()
+    if removed_bindings and "input binding deletion" not in reason:
+        blockers.append("input_binding_deletion_requires_explicit_reason")
+    version_pattern = re.compile(r"(\d+)\.(\d+)\.(\d+)$")
+    old_match, new_match = version_pattern.search(prior.config_version), version_pattern.search(successor.config_version)
+    if old_match and new_match and tuple(map(int, new_match.groups())) < tuple(map(int, old_match.groups())) and "config downgrade" not in reason:
+        blockers.append("config_downgrade_requires_explicit_reason")
+    serialized_hash = logical_hash(primitive(prior))
+    if prior_serialized_hash_before and prior_serialized_hash_before != serialized_hash:
+        blockers.append("prior_serialization_before_mismatch")
+    if prior_serialized_hash_after and prior_serialized_hash_after != serialized_hash:
+        blockers.append("prior_serialization_mutated")
+    successor_material = primitive(successor)
+    declared_logical_hash = successor_material.pop("logical_hash")
+    successor_material.pop("decision_id")
+    if logical_hash(successor_material) != declared_logical_hash:
+        blockers.append("successor_logical_hash_invalid")
+    return tuple(dict.fromkeys(blockers))

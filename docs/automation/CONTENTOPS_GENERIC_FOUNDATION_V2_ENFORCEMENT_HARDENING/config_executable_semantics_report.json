@@ -1,0 +1,17 @@
+{
+  "authority_gate_references_valid": true,
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "config_logical_hash": "2358e96e474384608d86ed2e9fd7cfc10ba69960fad41337fe25bf7000825ef7",
+  "config_version": "contentops.adaptive_learning.foundation.v2.0.0",
+  "feature_count": 21,
+  "field_usage_status": "PASS",
+  "finite_thresholds": true,
+  "finite_weights": true,
+  "minimum_evidence_valid": true,
+  "normalization_parameters_executable": true,
+  "schema_version": "contentops.config_executable_semantics_report.v2",
+  "status": "PASS",
+  "strict_unknown_field_policy": "FAIL_UNKNOWN_TOP_LEVEL_OR_FEATURE_FIELD",
+  "unavailable_handling_references_valid": true,
+  "validation_blockers": []
+}

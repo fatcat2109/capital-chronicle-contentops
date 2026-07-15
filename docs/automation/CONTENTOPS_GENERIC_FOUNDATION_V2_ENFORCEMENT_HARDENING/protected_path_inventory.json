@@ -1,0 +1,13 @@
+{
+  "historical_tree_objects": {
+    "original_v2": "1fb3d2c731c484048fc254ca918b4d751c4d1a66",
+    "release": "99fcf88fdc0205e60aff151b1c9650e2045da133",
+    "task3": "ac586628d9c92fd6cb5cd7b48aa790079ae5284d",
+    "task4": "1711e61347b403b8145108c101fb5931e366b9a8"
+  },
+  "schema_version": "contentops.protected_path_inventory.v2",
+  "v1_release_commit_after": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "v1_release_commit_before": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "v1_tag_object_after": "a021df7fd0264d9f160bdd605509da925f0bf131",
+  "v1_tag_object_before": "a021df7fd0264d9f160bdd605509da925f0bf131"
+}

@@ -1,0 +1,195 @@
+{
+  "rows": [
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core"
+      ],
+      "contract": "FeatureDefinitionV1",
+      "field": "feature_id",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core"
+      ],
+      "contract": "FeatureDefinitionV1",
+      "field": "normalization",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core"
+      ],
+      "contract": "FeatureDefinitionV1",
+      "field": "weight",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core"
+      ],
+      "contract": "FeatureDefinitionV1",
+      "field": "penalty",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core"
+      ],
+      "contract": "FeatureDefinitionV1",
+      "field": "minimum_evidence",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core"
+      ],
+      "contract": "FeatureDefinitionV1",
+      "field": "authority_gate",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core"
+      ],
+      "contract": "FeatureDefinitionV1",
+      "field": "domain_applicability",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core",
+        "loader"
+      ],
+      "contract": "FeatureDefinitionV1",
+      "field": "unavailable_handling",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core",
+        "loader"
+      ],
+      "contract": "AdaptiveLearningConfigV1",
+      "field": "config_version",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "loader"
+      ],
+      "contract": "AdaptiveLearningConfigV1",
+      "field": "calibration_state",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core",
+        "loader"
+      ],
+      "contract": "AdaptiveLearningConfigV1",
+      "field": "features",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core",
+        "loader"
+      ],
+      "contract": "AdaptiveLearningConfigV1",
+      "field": "thresholds",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core",
+        "loader"
+      ],
+      "contract": "AdaptiveLearningConfigV1",
+      "field": "authority_gates",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core",
+        "loader"
+      ],
+      "contract": "AdaptiveLearningConfigV1",
+      "field": "normalization_rules",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "loader"
+      ],
+      "contract": "AdaptiveLearningConfigV1",
+      "field": "threshold_rules",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core",
+        "loader"
+      ],
+      "contract": "AdaptiveLearningConfigV1",
+      "field": "unavailable_handling",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "core",
+        "loader"
+      ],
+      "contract": "AdaptiveLearningConfigV1",
+      "field": "config_logical_hash",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    },
+    {
+      "consumed": true,
+      "consumption_targets": [
+        "contracts",
+        "loader"
+      ],
+      "contract": "AdaptiveLearningConfigV1",
+      "field": "schema_version",
+      "verification_method": "static_source_reference_plus_runtime_tests"
+    }
+  ],
+  "schema_version": "contentops.config_field_usage_report.v2",
+  "status": "PASS",
+  "unused_material_field_count": 0
+}

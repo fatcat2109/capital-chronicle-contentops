@@ -1,0 +1,416 @@
+{
+  "accepted_release_variant_cardinalities": {
+    "distinct_content_count": 1,
+    "distinct_story_count": 1,
+    "distinct_update_chain_count": 1,
+    "metric_bearing_observation_count": 0,
+    "observation_count": 9,
+    "platform_variant_count": 9
+  },
+  "fixture_cardinalities": [
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 2,
+        "economic_domain_count": 1,
+        "entity_count": 1,
+        "geography_count": 1,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "scheduled_price_release",
+      "gap_count": 0,
+      "history_content_item_count": 0,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 1,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 2,
+        "economic_domain_count": 2,
+        "entity_count": 2,
+        "geography_count": 2,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "physical_network_disruption",
+      "gap_count": 0,
+      "history_content_item_count": 0,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 2,
+        "economic_domain_count": 1,
+        "entity_count": 1,
+        "geography_count": 2,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "sovereign_curve_confirmation",
+      "gap_count": 0,
+      "history_content_item_count": 1,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 0,
+        "economic_domain_count": 1,
+        "entity_count": 2,
+        "geography_count": 1,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "official_hearing_confirmation",
+      "gap_count": 0,
+      "history_content_item_count": 1,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 2,
+        "economic_domain_count": 2,
+        "entity_count": 3,
+        "geography_count": 3,
+        "source_count": 3
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "diplomatic_record_contradiction",
+      "gap_count": 0,
+      "history_content_item_count": 1,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 3,
+        "economic_domain_count": 2,
+        "entity_count": 2,
+        "geography_count": 2,
+        "source_count": 3
+      },
+      "distinct_content_count": 3,
+      "distinct_story_count": 3,
+      "distinct_update_chain_count": 3,
+      "fixture_id": "cross_source_market_contradiction",
+      "gap_count": 0,
+      "history_content_item_count": 1,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 3,
+      "observation_count": 3,
+      "platform_variant_count": 3
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 1,
+        "economic_domain_count": 1,
+        "entity_count": 1,
+        "geography_count": 2,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "growth_revision_correction",
+      "gap_count": 0,
+      "history_content_item_count": 1,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 2,
+        "economic_domain_count": 1,
+        "entity_count": 2,
+        "geography_count": 1,
+        "source_count": 2
+      },
+      "distinct_content_count": 3,
+      "distinct_story_count": 3,
+      "distinct_update_chain_count": 3,
+      "fixture_id": "issuer_filing_correction",
+      "gap_count": 0,
+      "history_content_item_count": 1,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 3,
+      "observation_count": 3,
+      "platform_variant_count": 3
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 2,
+        "economic_domain_count": 2,
+        "entity_count": 2,
+        "geography_count": 2,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "monetary_policy_new_phase",
+      "gap_count": 0,
+      "history_content_item_count": 1,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 2,
+        "economic_domain_count": 2,
+        "entity_count": 2,
+        "geography_count": 3,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "regulatory_regime_new_phase",
+      "gap_count": 0,
+      "history_content_item_count": 1,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 1,
+        "economic_domain_count": 1,
+        "entity_count": 1,
+        "geography_count": 2,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "housing_evergreen_refresh",
+      "gap_count": 1,
+      "history_content_item_count": 0,
+      "idea_count": 1,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 2,
+        "economic_domain_count": 2,
+        "entity_count": 3,
+        "geography_count": 3,
+        "source_count": 3
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "supply_chain_evergreen_refresh",
+      "gap_count": 1,
+      "history_content_item_count": 0,
+      "idea_count": 1,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 1,
+        "economic_domain_count": 1,
+        "entity_count": 1,
+        "geography_count": 1,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "survey_packaging_gap",
+      "gap_count": 1,
+      "history_content_item_count": 0,
+      "idea_count": 1,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 1,
+        "economic_domain_count": 1,
+        "entity_count": 2,
+        "geography_count": 1,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "filing_packaging_gap",
+      "gap_count": 1,
+      "history_content_item_count": 0,
+      "idea_count": 1,
+      "metric_bearing_observation_count": 1,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 2,
+        "economic_domain_count": 1,
+        "entity_count": 2,
+        "geography_count": 2,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "commodity_duplicate",
+      "gap_count": 0,
+      "history_content_item_count": 1,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 0,
+        "economic_domain_count": 1,
+        "entity_count": 2,
+        "geography_count": 2,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "legal_document_duplicate",
+      "gap_count": 0,
+      "history_content_item_count": 1,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 1,
+        "economic_domain_count": 1,
+        "entity_count": 2,
+        "geography_count": 2,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "trade_context_filler",
+      "gap_count": 0,
+      "history_content_item_count": 0,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 1,
+        "economic_domain_count": 1,
+        "entity_count": 2,
+        "geography_count": 3,
+        "source_count": 2
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "disaster_context_filler",
+      "gap_count": 0,
+      "history_content_item_count": 0,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 1,
+        "economic_domain_count": 2,
+        "entity_count": 2,
+        "geography_count": 2,
+        "source_count": 1
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "export_control_insufficient",
+      "gap_count": 0,
+      "history_content_item_count": 0,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    {
+      "candidate_count": 1,
+      "capability_profile": {
+        "asset_class_count": 3,
+        "economic_domain_count": 1,
+        "entity_count": 1,
+        "geography_count": 2,
+        "source_count": 1
+      },
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "fixture_id": "intraday_volatility_insufficient",
+      "gap_count": 0,
+      "history_content_item_count": 1,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 0,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    }
+  ],
+  "one_article_nine_variants_is_one_content_sample": true,
+  "performance_and_cardinality_pass": true,
+  "performance_prior_requires_minimum_metric_observations": true,
+  "schema_version": "contentops.observation_cardinality_report.v2"
+}

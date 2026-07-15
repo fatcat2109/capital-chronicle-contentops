@@ -1,0 +1,57 @@
+{
+  "accepted_lineage": {
+    "accepted_authority_state": "FINAL_ACCEPTED_PUBLIC_BODY",
+    "canonical_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+    "final_accepted_public_body_sha256": "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc",
+    "historical_manifest_body_sha256": "bf4376efc326d0702772244eceb1744cf037cdfa9801973ddc8d8d35a0c20f11",
+    "pre_final_repair_body_sha256": "d61ca814f953e39fdc10873cd4e05e561e1ca634d38a8f4f3029aeb16e1623ea",
+    "rejected_authority_states_preserved": true,
+    "stale_article_export_sha256": "0f4e8fe6c6e6ba6999082c5f7663aa6d1414d9ecd1a0e2900c61618999981b95",
+    "stale_declared_export_sha256": "3379415581f7cdf00aefb0afb2aa5815906abbaf8871f473e681dfc15f97152f"
+  },
+  "final_accepted_body_only": true,
+  "historical_artifacts_mutated": false,
+  "history_item_count": 1,
+  "schema_version": "contentops.adaptive_learning_v1_compatibility_migration.v1",
+  "stale_lineage_rejected": true,
+  "status": "PASS",
+  "task3": {
+    "artifact_hash": "1aa3805d82a3b9afb3ad9633b8f6d86a26580e76a93f66e25b52d18cbb4a3b66",
+    "assignment_id": "internal_assignment_8b478e501a13d196b44d93be",
+    "brief_ids": [
+      "editorial_brief_09f0b852208bcf99fd88310f"
+    ],
+    "gap_ids": [
+      "gap_confirmation_follow_up_0f4e8fe6c6e6ba69",
+      "gap_derivative_confirmation_0f4e8fe6c6e6ba69"
+    ],
+    "historical_status": "IMMUTABLE_TASK3_EVIDENCE_ADAPTED_NOT_REWRITTEN",
+    "idea_ids": [
+      "governed_idea_603624b5aeabe17c4a9adccd"
+    ],
+    "rejected_idea_ids": [
+      "governed_idea_f9bf483bbf28044bafe10c0d",
+      "governed_idea_9b634b3d79a257ed5077c87d"
+    ],
+    "retrospective_id": "real_retrospective_9f06642a6c6b2cdd5c88052b"
+  },
+  "task4": {
+    "artifact_hash": "03ac52b237d1229b6e7f5f61edd3d3e99262a43369cc72fc399b04eaf1336aa0",
+    "candidate_count": 3,
+    "decision_id": "learning_decision_7888c9e14111e1499f18dc09",
+    "fixed_shape_limitations": {
+      "candidates": 3,
+      "gaps": 2,
+      "ideas": 1,
+      "platform_variants": 9
+    },
+    "historical_status": "ACCEPTED_TREASURY_SPECIFIC_SHADOW_PROTOTYPE_SUPERSEDED_AS_FOUNDATION_BY_V2",
+    "historical_value_preserved": true,
+    "metric_snapshot_count": 9
+  },
+  "v1_contract_module": "live_contentops.performance_learning_v1",
+  "v1_decision_id": "learning_decision_7888c9e14111e1499f18dc09",
+  "v1_manifest_classification": "PASS_ADAPTIVE_NEWSROOM_LEARNING_LOOP_V1_AWAITING_CHATGPT_AUDIT",
+  "v1_module_remains_operational": true,
+  "v2_adapter_module": "live_contentops.adaptive_learning_adapters_v2"
+}

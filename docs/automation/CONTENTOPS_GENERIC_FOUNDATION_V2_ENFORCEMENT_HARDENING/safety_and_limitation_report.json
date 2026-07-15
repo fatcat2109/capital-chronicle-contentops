@@ -1,0 +1,30 @@
+{
+  "browser_or_cdp_used": false,
+  "credential_accessed": false,
+  "dispatch_performed": false,
+  "dqr_mutated": false,
+  "editorial_policy_mutated": false,
+  "evidence_classes": {
+    "explicit_zero_preserved": true,
+    "historical_compatibility_evidence": true,
+    "operator_review_proposals_only": true,
+    "publication_authorized_outputs": 0,
+    "real_committed_evidence": "historical compatibility and Git-bound upstream bytes",
+    "synthetic_validation_fixtures": 20,
+    "unavailable_data_preserved": true,
+    "weights": "UNCALIBRATED_FOUNDATION"
+  },
+  "live_metric_collection_performed": false,
+  "model_firewall_pass": true,
+  "no_forbidden_effects": true,
+  "permission_mutated": false,
+  "provider_called": false,
+  "public_http_performed": false,
+  "public_interaction_performed": false,
+  "public_write_performed": false,
+  "publication_authority_granted": false,
+  "scheduler_mutated": false,
+  "schema_version": "contentops.safety_and_limitation_report.v2",
+  "source_authority_mutated": false,
+  "ui_built": false
+}

@@ -1,0 +1,16 @@
+{
+  "original_v2_tree_after": "1fb3d2c731c484048fc254ca918b4d751c4d1a66",
+  "original_v2_tree_before": "1fb3d2c731c484048fc254ca918b4d751c4d1a66",
+  "original_v2_tree_unchanged": true,
+  "release_tree_after": "99fcf88fdc0205e60aff151b1c9650e2045da133",
+  "release_tree_before": "99fcf88fdc0205e60aff151b1c9650e2045da133",
+  "release_tree_unchanged": true,
+  "schema_version": "contentops.task3_task4_preservation_report.v2",
+  "status": "PASS",
+  "task3_tree_after": "ac586628d9c92fd6cb5cd7b48aa790079ae5284d",
+  "task3_tree_before": "ac586628d9c92fd6cb5cd7b48aa790079ae5284d",
+  "task3_unchanged": true,
+  "task4_tree_after": "1711e61347b403b8145108c101fb5931e366b9a8",
+  "task4_tree_before": "1711e61347b403b8145108c101fb5931e366b9a8",
+  "task4_unchanged": true
+}

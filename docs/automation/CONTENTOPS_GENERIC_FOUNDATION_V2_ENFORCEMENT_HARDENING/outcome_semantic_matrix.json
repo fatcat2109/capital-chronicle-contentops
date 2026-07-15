@@ -1,0 +1,439 @@
+{
+  "governed_semantics_pass": true,
+  "orthogonal_fields": [
+    "source_relationship",
+    "evidence_state",
+    "authority_state",
+    "history_relationship",
+    "content_gap_state",
+    "actionable_outcomes",
+    "publication_disposition",
+    "authority_result",
+    "reporting_permission_result"
+  ],
+  "other_semantics_pass": true,
+  "rows": [
+    {
+      "actionable_outcomes": [
+        "GOVERNED_MATERIAL_UPDATE"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:scheduled_price_release:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:scheduled_price_release:evidence:0",
+        "synthetic:scheduled_price_release:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "scheduled_price_release",
+      "history_relationship": "not_matched",
+      "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "material_update"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_MATERIAL_UPDATE"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:physical_network_disruption:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:physical_network_disruption:evidence:0",
+        "synthetic:physical_network_disruption:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "physical_network_disruption",
+      "history_relationship": "not_matched",
+      "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "material_update"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_CONFIRMATION"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:sovereign_curve_confirmation:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:sovereign_curve_confirmation:evidence:0",
+        "synthetic:sovereign_curve_confirmation:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "sovereign_curve_confirmation",
+      "history_relationship": "not_matched",
+      "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "confirmation"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_CONFIRMATION"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:official_hearing_confirmation:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:official_hearing_confirmation:evidence:0",
+        "synthetic:official_hearing_confirmation:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "official_hearing_confirmation",
+      "history_relationship": "not_matched",
+      "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "confirmation"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_CONTRADICTION"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:diplomatic_record_contradiction:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:diplomatic_record_contradiction:evidence:0",
+        "synthetic:diplomatic_record_contradiction:evidence:1",
+        "synthetic:diplomatic_record_contradiction:evidence:2"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "diplomatic_record_contradiction",
+      "history_relationship": "not_matched",
+      "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "contradiction"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_CONTRADICTION"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:cross_source_market_contradiction:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:cross_source_market_contradiction:evidence:0",
+        "synthetic:cross_source_market_contradiction:evidence:1",
+        "synthetic:cross_source_market_contradiction:evidence:2"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "cross_source_market_contradiction",
+      "history_relationship": "not_matched",
+      "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "contradiction"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_CORRECTION"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:growth_revision_correction:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:growth_revision_correction:evidence:0",
+        "synthetic:growth_revision_correction:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "growth_revision_correction",
+      "history_relationship": "not_matched",
+      "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "correction"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_CORRECTION"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:issuer_filing_correction:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:issuer_filing_correction:evidence:0",
+        "synthetic:issuer_filing_correction:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "issuer_filing_correction",
+      "history_relationship": "not_matched",
+      "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "correction"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_NEW_PHASE"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:monetary_policy_new_phase:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:monetary_policy_new_phase:evidence:0",
+        "synthetic:monetary_policy_new_phase:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "monetary_policy_new_phase",
+      "history_relationship": "not_matched",
+      "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "new_phase"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_NEW_PHASE"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:regulatory_regime_new_phase:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:regulatory_regime_new_phase:evidence:0",
+        "synthetic:regulatory_regime_new_phase:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "regulatory_regime_new_phase",
+      "history_relationship": "not_matched",
+      "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "new_phase"
+    },
+    {
+      "actionable_outcomes": [
+        "EVERGREEN_REFRESH_JUSTIFIED"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:housing_evergreen_refresh:candidate",
+      "content_gap_state": "evergreen_refresh",
+      "evidence_refs": [
+        "synthetic:housing_evergreen_refresh:evidence:0",
+        "synthetic:housing_evergreen_refresh:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "housing_evergreen_refresh",
+      "history_relationship": "not_matched",
+      "publication_disposition": "NO_PUBLICATION_NO_GOVERNED_ACTIONABLE_OUTCOME",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "retrospective_refresh"
+    },
+    {
+      "actionable_outcomes": [
+        "EVERGREEN_REFRESH_JUSTIFIED"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:supply_chain_evergreen_refresh:candidate",
+      "content_gap_state": "evergreen_refresh",
+      "evidence_refs": [
+        "synthetic:supply_chain_evergreen_refresh:evidence:0",
+        "synthetic:supply_chain_evergreen_refresh:evidence:1",
+        "synthetic:supply_chain_evergreen_refresh:evidence:2"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "supply_chain_evergreen_refresh",
+      "history_relationship": "not_matched",
+      "publication_disposition": "NO_PUBLICATION_NO_GOVERNED_ACTIONABLE_OUTCOME",
+      "reason_codes": [],
+      "reporting_permission_result": true,
+      "source_relationship": "retrospective_refresh"
+    },
+    {
+      "actionable_outcomes": [
+        "DERIVATIVE_PACKAGING_GAP"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:survey_packaging_gap:candidate",
+      "content_gap_state": "derivative_packaging_gap",
+      "evidence_refs": [
+        "synthetic:survey_packaging_gap:evidence:0",
+        "synthetic:survey_packaging_gap:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "survey_packaging_gap",
+      "history_relationship": "not_matched",
+      "publication_disposition": "NO_PUBLICATION_NO_GOVERNED_ACTIONABLE_OUTCOME",
+      "reason_codes": [
+        "packaging_gap_changes_payload_structure_not_factual_authority"
+      ],
+      "reporting_permission_result": true,
+      "source_relationship": "packaging_only_update"
+    },
+    {
+      "actionable_outcomes": [
+        "DERIVATIVE_PACKAGING_GAP"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:filing_packaging_gap:candidate",
+      "content_gap_state": "derivative_packaging_gap",
+      "evidence_refs": [
+        "synthetic:filing_packaging_gap:evidence:0",
+        "synthetic:filing_packaging_gap:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "filing_packaging_gap",
+      "history_relationship": "not_matched",
+      "publication_disposition": "NO_PUBLICATION_NO_GOVERNED_ACTIONABLE_OUTCOME",
+      "reason_codes": [
+        "packaging_gap_changes_payload_structure_not_factual_authority"
+      ],
+      "reporting_permission_result": true,
+      "source_relationship": "packaging_only_update"
+    },
+    {
+      "actionable_outcomes": [
+        "DUPLICATE_NO_NEW_DELTA"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:commodity_duplicate:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:commodity_duplicate:evidence:0",
+        "synthetic:commodity_duplicate:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "commodity_duplicate",
+      "history_relationship": "duplicate",
+      "publication_disposition": "NO_PUBLICATION_DUPLICATE_WITHOUT_GOVERNED_DELTA",
+      "reason_codes": [
+        "duplicate_is_identity_relationship_not_automatic_filler"
+      ],
+      "reporting_permission_result": true,
+      "source_relationship": "duplicate"
+    },
+    {
+      "actionable_outcomes": [
+        "DUPLICATE_NO_NEW_DELTA"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:legal_document_duplicate:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:legal_document_duplicate:evidence:0",
+        "synthetic:legal_document_duplicate:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "legal_document_duplicate",
+      "history_relationship": "duplicate",
+      "publication_disposition": "NO_PUBLICATION_DUPLICATE_WITHOUT_GOVERNED_DELTA",
+      "reason_codes": [
+        "duplicate_is_identity_relationship_not_automatic_filler"
+      ],
+      "reporting_permission_result": true,
+      "source_relationship": "duplicate"
+    },
+    {
+      "actionable_outcomes": [
+        "FILLER_NO_READER_CONTRIBUTION"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:trade_context_filler:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:trade_context_filler:evidence:0",
+        "synthetic:trade_context_filler:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "trade_context_filler",
+      "history_relationship": "not_matched",
+      "publication_disposition": "NO_PUBLICATION_FILLER",
+      "reason_codes": [
+        "evidence_review_found_no_material_reader_contribution"
+      ],
+      "reporting_permission_result": true,
+      "source_relationship": "incremental_update"
+    },
+    {
+      "actionable_outcomes": [
+        "FILLER_NO_READER_CONTRIBUTION"
+      ],
+      "authority_result": true,
+      "authority_state": "AUTHORIZED",
+      "candidate_id": "synthetic:disaster_context_filler:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:disaster_context_filler:evidence:0",
+        "synthetic:disaster_context_filler:evidence:1"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "disaster_context_filler",
+      "history_relationship": "not_matched",
+      "publication_disposition": "NO_PUBLICATION_FILLER",
+      "reason_codes": [
+        "evidence_review_found_no_material_reader_contribution"
+      ],
+      "reporting_permission_result": true,
+      "source_relationship": "incremental_update"
+    },
+    {
+      "actionable_outcomes": [
+        "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+      ],
+      "authority_result": false,
+      "authority_state": "INSUFFICIENT_AUTHORITY",
+      "candidate_id": "synthetic:export_control_insufficient:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:export_control_insufficient:evidence:0"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "export_control_insufficient",
+      "history_relationship": "not_matched",
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [
+        "material_update_requires_authority_permission_governed_delta_and_evidence",
+        "insufficient_authority_is_disposition_not_topic"
+      ],
+      "reporting_permission_result": false,
+      "source_relationship": "material_update"
+    },
+    {
+      "actionable_outcomes": [
+        "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+      ],
+      "authority_result": false,
+      "authority_state": "INSUFFICIENT_AUTHORITY",
+      "candidate_id": "synthetic:intraday_volatility_insufficient:candidate",
+      "content_gap_state": "none",
+      "evidence_refs": [
+        "synthetic:intraday_volatility_insufficient:evidence:0"
+      ],
+      "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+      "fixture_id": "intraday_volatility_insufficient",
+      "history_relationship": "not_matched",
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [
+        "confirmation_requires_authority_prior_proposition_and_new_evidence",
+        "insufficient_authority_is_disposition_not_topic"
+      ],
+      "reporting_permission_result": false,
+      "source_relationship": "confirmation"
+    }
+  ],
+  "schema_version": "contentops.outcome_semantic_matrix.v2",
+  "separation_pass": true,
+  "status": "PASS"
+}

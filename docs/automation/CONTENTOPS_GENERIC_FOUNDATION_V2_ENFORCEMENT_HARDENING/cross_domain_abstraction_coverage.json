@@ -1,0 +1,255 @@
+{
+  "abstractions_below_two_domain_proof": 0,
+  "rows": [
+    {
+      "abstraction": "governed_material_update",
+      "domain_count": 2,
+      "domains": [
+        "physical infrastructure disruption",
+        "scheduled price statistics"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "governed_confirmation",
+      "domain_count": 2,
+      "domains": [
+        "official hearing confirmation",
+        "sovereign curve confirmation"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "governed_contradiction",
+      "domain_count": 2,
+      "domains": [
+        "cross-source market contradiction",
+        "diplomatic record contradiction"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "governed_correction",
+      "domain_count": 2,
+      "domains": [
+        "growth statistics correction",
+        "issuer filing correction"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "governed_new_phase",
+      "domain_count": 2,
+      "domains": [
+        "monetary policy new phase",
+        "regulatory regime new phase"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "evergreen_refresh",
+      "domain_count": 2,
+      "domains": [
+        "housing explainer refresh",
+        "supply-chain explainer refresh"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "packaging_gap",
+      "domain_count": 2,
+      "domains": [
+        "filing packaging gap",
+        "survey packaging gap"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "duplicate",
+      "domain_count": 2,
+      "domains": [
+        "commodity duplicate identity",
+        "legal document duplicate identity"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "filler",
+      "domain_count": 2,
+      "domains": [
+        "disaster context filler",
+        "trade context filler"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "insufficient_authority",
+      "domain_count": 2,
+      "domains": [
+        "export-control authority gap",
+        "intraday volatility authority gap"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "scheduled_catalyst_applicability",
+      "domain_count": 5,
+      "domains": [
+        "growth statistics correction",
+        "monetary policy new phase",
+        "official hearing confirmation",
+        "scheduled price statistics",
+        "survey packaging gap"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "document_only_evidence",
+      "domain_count": 8,
+      "domains": [
+        "diplomatic record contradiction",
+        "export-control authority gap",
+        "filing packaging gap",
+        "legal document duplicate identity",
+        "monetary policy new phase",
+        "official hearing confirmation",
+        "regulatory regime new phase",
+        "trade context filler"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "numeric_evidence",
+      "domain_count": 12,
+      "domains": [
+        "commodity duplicate identity",
+        "cross-source market contradiction",
+        "disaster context filler",
+        "growth statistics correction",
+        "housing explainer refresh",
+        "intraday volatility authority gap",
+        "issuer filing correction",
+        "physical infrastructure disruption",
+        "scheduled price statistics",
+        "sovereign curve confirmation",
+        "supply-chain explainer refresh",
+        "survey packaging gap"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "mixed_evidence",
+      "domain_count": 6,
+      "domains": [
+        "commodity duplicate identity",
+        "cross-source market contradiction",
+        "disaster context filler",
+        "issuer filing correction",
+        "physical infrastructure disruption",
+        "supply-chain explainer refresh"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "source_diversity",
+      "domain_count": 20,
+      "domains": [
+        "commodity duplicate identity",
+        "cross-source market contradiction",
+        "diplomatic record contradiction",
+        "disaster context filler",
+        "export-control authority gap",
+        "filing packaging gap",
+        "growth statistics correction",
+        "housing explainer refresh",
+        "intraday volatility authority gap",
+        "issuer filing correction",
+        "legal document duplicate identity",
+        "monetary policy new phase",
+        "official hearing confirmation",
+        "physical infrastructure disruption",
+        "regulatory regime new phase",
+        "scheduled price statistics",
+        "sovereign curve confirmation",
+        "supply-chain explainer refresh",
+        "survey packaging gap",
+        "trade context filler"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "multi_geography_or_economy_breadth",
+      "domain_count": 15,
+      "domains": [
+        "commodity duplicate identity",
+        "cross-source market contradiction",
+        "diplomatic record contradiction",
+        "disaster context filler",
+        "export-control authority gap",
+        "growth statistics correction",
+        "housing explainer refresh",
+        "intraday volatility authority gap",
+        "legal document duplicate identity",
+        "monetary policy new phase",
+        "physical infrastructure disruption",
+        "regulatory regime new phase",
+        "sovereign curve confirmation",
+        "supply-chain explainer refresh",
+        "trade context filler"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "cross_asset_breadth",
+      "domain_count": 11,
+      "domains": [
+        "commodity duplicate identity",
+        "cross-source market contradiction",
+        "diplomatic record contradiction",
+        "intraday volatility authority gap",
+        "issuer filing correction",
+        "monetary policy new phase",
+        "physical infrastructure disruption",
+        "regulatory regime new phase",
+        "scheduled price statistics",
+        "sovereign curve confirmation",
+        "supply-chain explainer refresh"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "unavailable_metrics",
+      "domain_count": 16,
+      "domains": [
+        "commodity duplicate identity",
+        "diplomatic record contradiction",
+        "disaster context filler",
+        "export-control authority gap",
+        "growth statistics correction",
+        "housing explainer refresh",
+        "intraday volatility authority gap",
+        "legal document duplicate identity",
+        "monetary policy new phase",
+        "official hearing confirmation",
+        "physical infrastructure disruption",
+        "regulatory regime new phase",
+        "sovereign curve confirmation",
+        "supply-chain explainer refresh",
+        "survey packaging gap",
+        "trade context filler"
+      ],
+      "status": "PASS"
+    },
+    {
+      "abstraction": "explicit_authoritative_zero",
+      "domain_count": 2,
+      "domains": [
+        "filing packaging gap",
+        "scheduled price statistics"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.cross_domain_abstraction_coverage.v2",
+  "status": "PASS"
+}

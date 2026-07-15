@@ -1,0 +1,1473 @@
+{
+  "blockers": [],
+  "changed_config_creates_new_identity": true,
+  "changed_fields": [
+    "input_binding_hash",
+    "logical_time_basis"
+  ],
+  "changed_input_creates_new_identity": true,
+  "identical_input_replay_same_identity": true,
+  "linear_chain_status": "PASS",
+  "prior": {
+    "authority_matrix": [
+      {
+        "authority_blockers": [],
+        "authority_ready": true,
+        "authority_state": "AUTHORIZED",
+        "candidate_id": "synthetic:scheduled_price_release:candidate",
+        "reporting_allowed": true
+      }
+    ],
+    "calibration_state": "UNCALIBRATED_FOUNDATION",
+    "candidate_cohort_hash": "cfc48835d8df10471efd011d07c3323ea2197b61d248d1bac950e1cebc26e485",
+    "cohort_identity": "cfc48835d8df10471efd011d07c3323ea2197b61d248d1bac950e1cebc26e485",
+    "confidence": "CONTENT_ANALYSIS_ONLY_PERFORMANCE_EVIDENCE_INSUFFICIENT",
+    "config_logical_hash": "2358e96e474384608d86ed2e9fd7cfc10ba69960fad41337fe25bf7000825ef7",
+    "config_version": "contentops.adaptive_learning.foundation.v2.0.0",
+    "content_history_hash": "a0cd01cb20e602157c00eca2a4c90f77725cb088af0ff86df5636832a194511d",
+    "decision_id": "learning_decision_v2_33f09e86bce8e2bc31a96c5b",
+    "feature_availability": {
+      "synthetic:scheduled_price_release:candidate:authority_readiness": "available",
+      "synthetic:scheduled_price_release:candidate:cross_market_or_economy_breadth": "available",
+      "synthetic:scheduled_price_release:candidate:duplication_risk": "explicit_zero",
+      "synthetic:scheduled_price_release:candidate:durability": "available",
+      "synthetic:scheduled_price_release:candidate:evidence_completeness": "available",
+      "synthetic:scheduled_price_release:candidate:filler_risk": "explicit_zero",
+      "synthetic:scheduled_price_release:candidate:freshness": "available",
+      "synthetic:scheduled_price_release:candidate:geopolitical_significance": "unsupported",
+      "synthetic:scheduled_price_release:candidate:material_delta": "available",
+      "synthetic:scheduled_price_release:candidate:novelty": "available",
+      "synthetic:scheduled_price_release:candidate:original_value_opportunity": "unavailable",
+      "synthetic:scheduled_price_release:candidate:overclaiming_risk": "available",
+      "synthetic:scheduled_price_release:candidate:packaging_gap": "available",
+      "synthetic:scheduled_price_release:candidate:performance_evidence_availability": "available",
+      "synthetic:scheduled_price_release:candidate:policy_significance": "unsupported",
+      "synthetic:scheduled_price_release:candidate:reader_utility": "available",
+      "synthetic:scheduled_price_release:candidate:sample_size_confidence": "unavailable",
+      "synthetic:scheduled_price_release:candidate:scheduled_catalyst_relevance": "available",
+      "synthetic:scheduled_price_release:candidate:source_diversity": "available",
+      "synthetic:scheduled_price_release:candidate:update_chain_significance": "unavailable",
+      "synthetic:scheduled_price_release:candidate:visual_feasibility": "unavailable"
+    },
+    "forbidden_effects_checked": [
+      "factual_claims",
+      "source_authority",
+      "permissions",
+      "dqr",
+      "exact_proxy_context_labels",
+      "citation_requirements",
+      "risk_language",
+      "numeric_truth",
+      "publication_blockers",
+      "automatic_publication",
+      "dispatch"
+    ],
+    "gap_set_hash": "04a422f3ff095dc860bef6c5c30368c55e45274191458ef7f0dd06ff30c416f4",
+    "input_binding_hash": "4c4d49a5faae25ed679c635a4792e11be92e2d88f3c01a5ed53077273aef9751",
+    "input_bindings": {
+      "fixture": "authority-v1"
+    },
+    "logical_hash": "33f09e86bce8e2bc31a96c5bb2055b6f4efb025b77ff429282bad57fc6e6d8dc",
+    "logical_time_basis": "lineage-v1",
+    "no_publication_decisions": [
+      {
+        "candidate_id": "synthetic:scheduled_price_release:candidate",
+        "decision": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+        "reason_codes": []
+      }
+    ],
+    "observation_cardinalities": {
+      "candidate_count": 1,
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "gap_count": 0,
+      "history_content_item_count": 0,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 1,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    "observation_set_hash": "4ec2990546e7c43030ade74bb4930bf2186493db0376ff3366856e47ef17a210",
+    "operator_state": "OPERATOR_REVIEW_REQUIRED_SHADOW_ONLY",
+    "outcome_matrix": [
+      {
+        "actionable_outcomes": [
+          "GOVERNED_MATERIAL_UPDATE"
+        ],
+        "authority_result": true,
+        "authority_state": "AUTHORIZED",
+        "candidate_id": "synthetic:scheduled_price_release:candidate",
+        "content_gap_state": "none",
+        "evidence_refs": [
+          "synthetic:scheduled_price_release:evidence:0",
+          "synthetic:scheduled_price_release:evidence:1"
+        ],
+        "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+        "history_relationship": "not_matched",
+        "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+        "reason_codes": [],
+        "reporting_permission_result": true,
+        "source_relationship": "material_update"
+      }
+    ],
+    "prior_decision_id": null,
+    "prior_decision_logical_hash": null,
+    "proposals": [],
+    "ranking_rows": [
+      {
+        "candidate_id": "synthetic:scheduled_price_release:candidate",
+        "features": [
+          {
+            "applicable": true,
+            "authority_gate_id": "source_authority_ready",
+            "authority_gate_result": true,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 1.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "authority_readiness",
+            "normalization_method": "boolean",
+            "normalization_parameters": {
+              "kind": "boolean"
+            },
+            "normalized_value": 1.0,
+            "penalty": 0.0,
+            "raw_value": 1.0,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.8,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "freshness",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.8,
+            "penalty": 0.0,
+            "raw_value": 0.8,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 1.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "material_delta",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 1.0,
+            "penalty": 0.0,
+            "raw_value": 1.0,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.7,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "novelty",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.7,
+            "penalty": 0.0,
+            "raw_value": 0.7,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unavailable",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "update_chain_significance",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": null,
+            "reason_codes": [],
+            "unavailable_reason": "feature_input_not_supplied"
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.9,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "evidence_completeness",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.9,
+            "penalty": 0.0,
+            "raw_value": 0.9,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "profile:source_present"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.66666667,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "source_diversity",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.66666667,
+            "penalty": 0.0,
+            "raw_value": 0.6666666666666666,
+            "reason_codes": [
+              "derived_from_source_family_count"
+            ],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.8,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "reader_utility",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.8,
+            "penalty": 0.0,
+            "raw_value": 0.8,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unavailable",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "original_value_opportunity",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": null,
+            "reason_codes": [],
+            "unavailable_reason": "feature_input_not_supplied"
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "profile:multi_asset_class"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.5,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "cross_market_or_economy_breadth",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.5,
+            "penalty": 0.0,
+            "raw_value": 0.5,
+            "reason_codes": [
+              "derived_from_orthogonal_breadth_counts"
+            ],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": false,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unsupported",
+            "capability_dimensions_used": [],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": false,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "policy_significance",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": 0.75,
+            "reason_codes": [
+              "feature_not_applicable"
+            ],
+            "unavailable_reason": "domain_or_input_not_applicable"
+          },
+          {
+            "applicable": false,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unsupported",
+            "capability_dimensions_used": [],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": false,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "geopolitical_significance",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": 0.75,
+            "reason_codes": [
+              "feature_not_applicable"
+            ],
+            "unavailable_reason": "domain_or_input_not_applicable"
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.8,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "durability",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.8,
+            "penalty": 0.0,
+            "raw_value": 0.8,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "profile:scheduled_event_state"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 1.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "scheduled_catalyst_relevance",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 1.0,
+            "penalty": 0.0,
+            "raw_value": 1.0,
+            "reason_codes": [
+              "derived_from_scheduled_event_state"
+            ],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unavailable",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "visual_feasibility",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": null,
+            "reason_codes": [],
+            "unavailable_reason": "feature_input_not_supplied"
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "packaging_gap",
+            "normalization_method": "boolean",
+            "normalization_parameters": {
+              "kind": "boolean"
+            },
+            "normalized_value": 0.0,
+            "penalty": 0.0,
+            "raw_value": 0.0,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "explicit_zero",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "duplication_risk",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.0,
+            "penalty": 0.0,
+            "raw_value": 0.0,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "explicit_zero",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "filler_risk",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.0,
+            "penalty": 0.0,
+            "raw_value": 0.0,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "overclaiming_risk",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.1,
+            "penalty": 0.1,
+            "raw_value": 0.1,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 1.0,
+            "domain_applicability_result": true,
+            "evidence_count": 1,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "performance_evidence_availability",
+            "normalization_method": "boolean",
+            "normalization_parameters": {
+              "kind": "boolean"
+            },
+            "normalized_value": 1.0,
+            "penalty": 0.0,
+            "raw_value": 1.0,
+            "reason_codes": [
+              "content_analysis_remains_available"
+            ],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unavailable",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 3,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": true,
+            "evidence_count": 1,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "sample_size_confidence",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": null,
+            "reason_codes": [
+              "minimum_evidence_failed"
+            ],
+            "unavailable_reason": "minimum_evidence_not_met"
+          }
+        ],
+        "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+        "rank": 1,
+        "score": 9.06666667,
+        "selected_internal_brief_ids": [
+          "synthetic:scheduled_price_release:brief"
+        ],
+        "story_id": "synthetic:scheduled_price_release:story",
+        "update_chain_id": "synthetic:scheduled_price_release:chain"
+      }
+    ],
+    "schema_version": "contentops.learning_decision.v2",
+    "selected_internal_briefs": [
+      "synthetic:scheduled_price_release:brief"
+    ],
+    "supersession_reason": null
+  },
+  "prior_serialized_hash_after": "21aed5591d9b29a18385bae086fdf9409c650470a6d989505861b7474e3cd41b",
+  "prior_serialized_hash_before": "21aed5591d9b29a18385bae086fdf9409c650470a6d989505861b7474e3cd41b",
+  "schema_version": "contentops.append_only_lineage_replay.v2",
+  "successor": {
+    "authority_matrix": [
+      {
+        "authority_blockers": [],
+        "authority_ready": true,
+        "authority_state": "AUTHORIZED",
+        "candidate_id": "synthetic:scheduled_price_release:candidate",
+        "reporting_allowed": true
+      }
+    ],
+    "calibration_state": "UNCALIBRATED_FOUNDATION",
+    "candidate_cohort_hash": "cfc48835d8df10471efd011d07c3323ea2197b61d248d1bac950e1cebc26e485",
+    "cohort_identity": "cfc48835d8df10471efd011d07c3323ea2197b61d248d1bac950e1cebc26e485",
+    "confidence": "CONTENT_ANALYSIS_ONLY_PERFORMANCE_EVIDENCE_INSUFFICIENT",
+    "config_logical_hash": "2358e96e474384608d86ed2e9fd7cfc10ba69960fad41337fe25bf7000825ef7",
+    "config_version": "contentops.adaptive_learning.foundation.v2.0.0",
+    "content_history_hash": "a0cd01cb20e602157c00eca2a4c90f77725cb088af0ff86df5636832a194511d",
+    "decision_id": "learning_decision_v2_13e66175af1e1cfd8d36cc90",
+    "feature_availability": {
+      "synthetic:scheduled_price_release:candidate:authority_readiness": "available",
+      "synthetic:scheduled_price_release:candidate:cross_market_or_economy_breadth": "available",
+      "synthetic:scheduled_price_release:candidate:duplication_risk": "explicit_zero",
+      "synthetic:scheduled_price_release:candidate:durability": "available",
+      "synthetic:scheduled_price_release:candidate:evidence_completeness": "available",
+      "synthetic:scheduled_price_release:candidate:filler_risk": "explicit_zero",
+      "synthetic:scheduled_price_release:candidate:freshness": "available",
+      "synthetic:scheduled_price_release:candidate:geopolitical_significance": "unsupported",
+      "synthetic:scheduled_price_release:candidate:material_delta": "available",
+      "synthetic:scheduled_price_release:candidate:novelty": "available",
+      "synthetic:scheduled_price_release:candidate:original_value_opportunity": "unavailable",
+      "synthetic:scheduled_price_release:candidate:overclaiming_risk": "available",
+      "synthetic:scheduled_price_release:candidate:packaging_gap": "available",
+      "synthetic:scheduled_price_release:candidate:performance_evidence_availability": "available",
+      "synthetic:scheduled_price_release:candidate:policy_significance": "unsupported",
+      "synthetic:scheduled_price_release:candidate:reader_utility": "available",
+      "synthetic:scheduled_price_release:candidate:sample_size_confidence": "unavailable",
+      "synthetic:scheduled_price_release:candidate:scheduled_catalyst_relevance": "available",
+      "synthetic:scheduled_price_release:candidate:source_diversity": "available",
+      "synthetic:scheduled_price_release:candidate:update_chain_significance": "unavailable",
+      "synthetic:scheduled_price_release:candidate:visual_feasibility": "unavailable"
+    },
+    "forbidden_effects_checked": [
+      "factual_claims",
+      "source_authority",
+      "permissions",
+      "dqr",
+      "exact_proxy_context_labels",
+      "citation_requirements",
+      "risk_language",
+      "numeric_truth",
+      "publication_blockers",
+      "automatic_publication",
+      "dispatch"
+    ],
+    "gap_set_hash": "04a422f3ff095dc860bef6c5c30368c55e45274191458ef7f0dd06ff30c416f4",
+    "input_binding_hash": "d6b4d374eb3d77cbe5f8624d3affe11d01878fd8ed43101bfefbb7aa5fcc904a",
+    "input_bindings": {
+      "fixture": "authority-v2"
+    },
+    "logical_hash": "13e66175af1e1cfd8d36cc90a6f88c6c71b28d811ce147304d627c3629b7c895",
+    "logical_time_basis": "lineage-v2",
+    "no_publication_decisions": [
+      {
+        "candidate_id": "synthetic:scheduled_price_release:candidate",
+        "decision": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+        "reason_codes": []
+      }
+    ],
+    "observation_cardinalities": {
+      "candidate_count": 1,
+      "distinct_content_count": 1,
+      "distinct_story_count": 1,
+      "distinct_update_chain_count": 1,
+      "gap_count": 0,
+      "history_content_item_count": 0,
+      "idea_count": 0,
+      "metric_bearing_observation_count": 1,
+      "observation_count": 1,
+      "platform_variant_count": 1
+    },
+    "observation_set_hash": "4ec2990546e7c43030ade74bb4930bf2186493db0376ff3366856e47ef17a210",
+    "operator_state": "OPERATOR_REVIEW_REQUIRED_SHADOW_ONLY",
+    "outcome_matrix": [
+      {
+        "actionable_outcomes": [
+          "GOVERNED_MATERIAL_UPDATE"
+        ],
+        "authority_result": true,
+        "authority_state": "AUTHORIZED",
+        "candidate_id": "synthetic:scheduled_price_release:candidate",
+        "content_gap_state": "none",
+        "evidence_refs": [
+          "synthetic:scheduled_price_release:evidence:0",
+          "synthetic:scheduled_price_release:evidence:1"
+        ],
+        "evidence_state": "SYNTHETIC_VALIDATION_EVIDENCE",
+        "history_relationship": "not_matched",
+        "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+        "reason_codes": [],
+        "reporting_permission_result": true,
+        "source_relationship": "material_update"
+      }
+    ],
+    "prior_decision_id": "learning_decision_v2_33f09e86bce8e2bc31a96c5b",
+    "prior_decision_logical_hash": "33f09e86bce8e2bc31a96c5bb2055b6f4efb025b77ff429282bad57fc6e6d8dc",
+    "proposals": [],
+    "ranking_rows": [
+      {
+        "candidate_id": "synthetic:scheduled_price_release:candidate",
+        "features": [
+          {
+            "applicable": true,
+            "authority_gate_id": "source_authority_ready",
+            "authority_gate_result": true,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 1.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "authority_readiness",
+            "normalization_method": "boolean",
+            "normalization_parameters": {
+              "kind": "boolean"
+            },
+            "normalized_value": 1.0,
+            "penalty": 0.0,
+            "raw_value": 1.0,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.8,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "freshness",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.8,
+            "penalty": 0.0,
+            "raw_value": 0.8,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 1.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "material_delta",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 1.0,
+            "penalty": 0.0,
+            "raw_value": 1.0,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.7,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "novelty",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.7,
+            "penalty": 0.0,
+            "raw_value": 0.7,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unavailable",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "update_chain_significance",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": null,
+            "reason_codes": [],
+            "unavailable_reason": "feature_input_not_supplied"
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.9,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "evidence_completeness",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.9,
+            "penalty": 0.0,
+            "raw_value": 0.9,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "profile:source_present"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.66666667,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "source_diversity",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.66666667,
+            "penalty": 0.0,
+            "raw_value": 0.6666666666666666,
+            "reason_codes": [
+              "derived_from_source_family_count"
+            ],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.8,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "reader_utility",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.8,
+            "penalty": 0.0,
+            "raw_value": 0.8,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unavailable",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "original_value_opportunity",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": null,
+            "reason_codes": [],
+            "unavailable_reason": "feature_input_not_supplied"
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "profile:multi_asset_class"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.5,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "cross_market_or_economy_breadth",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.5,
+            "penalty": 0.0,
+            "raw_value": 0.5,
+            "reason_codes": [
+              "derived_from_orthogonal_breadth_counts"
+            ],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": false,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unsupported",
+            "capability_dimensions_used": [],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": false,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "policy_significance",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": 0.75,
+            "reason_codes": [
+              "feature_not_applicable"
+            ],
+            "unavailable_reason": "domain_or_input_not_applicable"
+          },
+          {
+            "applicable": false,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unsupported",
+            "capability_dimensions_used": [],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": false,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "geopolitical_significance",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": 0.75,
+            "reason_codes": [
+              "feature_not_applicable"
+            ],
+            "unavailable_reason": "domain_or_input_not_applicable"
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.8,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "durability",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.8,
+            "penalty": 0.0,
+            "raw_value": 0.8,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "profile:scheduled_event_state"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 1.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "scheduled_catalyst_relevance",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 1.0,
+            "penalty": 0.0,
+            "raw_value": 1.0,
+            "reason_codes": [
+              "derived_from_scheduled_event_state"
+            ],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unavailable",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "visual_feasibility",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": null,
+            "reason_codes": [],
+            "unavailable_reason": "feature_input_not_supplied"
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "packaging_gap",
+            "normalization_method": "boolean",
+            "normalization_parameters": {
+              "kind": "boolean"
+            },
+            "normalized_value": 0.0,
+            "penalty": 0.0,
+            "raw_value": 0.0,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "explicit_zero",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "duplication_risk",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.0,
+            "penalty": 0.0,
+            "raw_value": 0.0,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "explicit_zero",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "filler_risk",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.0,
+            "penalty": 0.0,
+            "raw_value": 0.0,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 0.0,
+            "domain_applicability_result": true,
+            "evidence_count": 2,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "overclaiming_risk",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": 0.1,
+            "penalty": 0.1,
+            "raw_value": 0.1,
+            "reason_codes": [],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "available",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 1,
+            "configured_weight": 1.0,
+            "contribution": 1.0,
+            "domain_applicability_result": true,
+            "evidence_count": 1,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "performance_evidence_availability",
+            "normalization_method": "boolean",
+            "normalization_parameters": {
+              "kind": "boolean"
+            },
+            "normalized_value": 1.0,
+            "penalty": 0.0,
+            "raw_value": 1.0,
+            "reason_codes": [
+              "content_analysis_remains_available"
+            ],
+            "unavailable_reason": null
+          },
+          {
+            "applicable": true,
+            "authority_gate_id": null,
+            "authority_gate_result": null,
+            "availability": "unavailable",
+            "capability_dimensions_used": [
+              "*"
+            ],
+            "configured_minimum_evidence": 3,
+            "configured_weight": 1.0,
+            "contribution": null,
+            "domain_applicability_result": true,
+            "evidence_count": 1,
+            "evidence_refs": [
+              "synthetic:scheduled_price_release:evidence:0",
+              "synthetic:scheduled_price_release:evidence:1"
+            ],
+            "feature_id": "sample_size_confidence",
+            "normalization_method": "bounded_0_1",
+            "normalization_parameters": {
+              "kind": "bounded_0_1"
+            },
+            "normalized_value": null,
+            "penalty": null,
+            "raw_value": null,
+            "reason_codes": [
+              "minimum_evidence_failed"
+            ],
+            "unavailable_reason": "minimum_evidence_not_met"
+          }
+        ],
+        "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+        "rank": 1,
+        "score": 9.06666667,
+        "selected_internal_brief_ids": [
+          "synthetic:scheduled_price_release:brief"
+        ],
+        "story_id": "synthetic:scheduled_price_release:story",
+        "update_chain_id": "synthetic:scheduled_price_release:chain"
+      }
+    ],
+    "schema_version": "contentops.learning_decision.v2",
+    "selected_internal_briefs": [
+      "synthetic:scheduled_price_release:brief"
+    ],
+    "supersession_reason": "input authority binding changed"
+  },
+  "successor_bindings": {
+    "candidate_cohort_hash": "cfc48835d8df10471efd011d07c3323ea2197b61d248d1bac950e1cebc26e485",
+    "config_logical_hash": "2358e96e474384608d86ed2e9fd7cfc10ba69960fad41337fe25bf7000825ef7",
+    "content_history_hash": "a0cd01cb20e602157c00eca2a4c90f77725cb088af0ff86df5636832a194511d",
+    "gap_set_hash": "04a422f3ff095dc860bef6c5c30368c55e45274191458ef7f0dd06ff30c416f4",
+    "input_binding_hash": "d6b4d374eb3d77cbe5f8624d3affe11d01878fd8ed43101bfefbb7aa5fcc904a",
+    "observation_set_hash": "4ec2990546e7c43030ade74bb4930bf2186493db0376ff3366856e47ef17a210"
+  },
+  "validation_result": "PASS"
+}

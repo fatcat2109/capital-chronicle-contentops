@@ -2,7 +2,7 @@
   "schema_version": "contentops.adaptive_learning_config.v1",
   "config_version": "contentops.adaptive_learning.foundation.v2.0.0",
   "calibration_state": "UNCALIBRATED_FOUNDATION",
-  "config_logical_hash": "de56ff73f42669fd822c1b82d5ed7a18020e1a8a254440ccc22f12de2b4a7967",
+  "config_logical_hash": "2358e96e474384608d86ed2e9fd7cfc10ba69960fad41337fe25bf7000825ef7",
   "authority_gates": {
     "reporting_allowed": true,
     "source_authority_ready": true
@@ -11,7 +11,17 @@
     "evergreen_min_age_hours": 168.0,
     "evergreen_min_durability": 0.6,
     "evergreen_min_reader_utility": 0.6,
-    "minimum_metric_observations": 3.0
+    "minimum_metric_observations": 3,
+    "source_diversity_full_count": 3,
+    "breadth_full_count": 2
+  },
+  "threshold_rules": {
+    "evergreen_min_age_hours": {"kind": "duration_hours", "minimum": 0.0},
+    "evergreen_min_durability": {"kind": "bounded_0_1", "minimum": 0.0, "maximum": 1.0},
+    "evergreen_min_reader_utility": {"kind": "bounded_0_1", "minimum": 0.0, "maximum": 1.0},
+    "minimum_metric_observations": {"kind": "count", "minimum": 0, "integer": true},
+    "source_diversity_full_count": {"kind": "count", "minimum": 1, "integer": true},
+    "breadth_full_count": {"kind": "count", "minimum": 1, "integer": true}
   },
   "unavailable_handling": {
     "preserve": "Keep null with an explicit unavailable reason; do not score.",
@@ -42,14 +52,14 @@
     {"feature_id": "novelty", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
     {"feature_id": "update_chain_significance", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
     {"feature_id": "evidence_completeness", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
-    {"feature_id": "source_diversity", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
+    {"feature_id": "source_diversity", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["profile:source_present"], "unavailable_handling": "preserve"},
     {"feature_id": "reader_utility", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
     {"feature_id": "original_value_opportunity", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
-    {"feature_id": "cross_market_or_economy_breadth", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
-    {"feature_id": "policy_significance", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
-    {"feature_id": "geopolitical_significance", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
+    {"feature_id": "cross_market_or_economy_breadth", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["profile:multi_geography", "profile:multi_economic_domain", "profile:multi_asset_class"], "unavailable_handling": "preserve"},
+    {"feature_id": "policy_significance", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["story_mode:policy_decision", "economic_domain:policy"], "unavailable_handling": "preserve"},
+    {"feature_id": "geopolitical_significance", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["economic_domain:geopolitical_risk"], "unavailable_handling": "preserve"},
     {"feature_id": "durability", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
-    {"feature_id": "scheduled_catalyst_relevance", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
+    {"feature_id": "scheduled_catalyst_relevance", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["profile:scheduled_event_state"], "unavailable_handling": "preserve"},
     {"feature_id": "visual_feasibility", "normalization": "bounded_0_1", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
     {"feature_id": "packaging_gap", "normalization": "boolean", "weight": 1.0, "penalty": false, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},
     {"feature_id": "duplication_risk", "normalization": "bounded_0_1", "weight": 1.0, "penalty": true, "minimum_evidence": 1, "authority_gate": null, "domain_applicability": ["*"], "unavailable_handling": "preserve"},

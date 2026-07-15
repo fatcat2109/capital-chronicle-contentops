@@ -1,0 +1,149 @@
+{
+  "arithmetic_pass": true,
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "deterministic_tie_breaker": "descending score then ascending candidate_id",
+  "publication_authority_created": false,
+  "rows": [
+    {
+      "calculated_score": 9.06666667,
+      "declared_score": 9.06666667,
+      "fixture_id": "scheduled_price_release",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 7.06666667,
+      "declared_score": 7.06666667,
+      "fixture_id": "physical_network_disruption",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 6.06666667,
+      "declared_score": 6.06666667,
+      "fixture_id": "sovereign_curve_confirmation",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 7.31666667,
+      "declared_score": 7.31666667,
+      "fixture_id": "official_hearing_confirmation",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 7.65,
+      "declared_score": 7.65,
+      "fixture_id": "diplomatic_record_contradiction",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 8.9,
+      "declared_score": 8.9,
+      "fixture_id": "cross_source_market_contradiction",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 7.06666667,
+      "declared_score": 7.06666667,
+      "fixture_id": "growth_revision_correction",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 8.06666667,
+      "declared_score": 8.06666667,
+      "fixture_id": "issuer_filing_correction",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 7.81666667,
+      "declared_score": 7.81666667,
+      "fixture_id": "monetary_policy_new_phase",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 6.56666667,
+      "declared_score": 6.56666667,
+      "fixture_id": "regulatory_regime_new_phase",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 6.06666667,
+      "declared_score": 6.06666667,
+      "fixture_id": "housing_evergreen_refresh",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 6.9,
+      "declared_score": 6.9,
+      "fixture_id": "supply_chain_evergreen_refresh",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 7.56666667,
+      "declared_score": 7.56666667,
+      "fixture_id": "survey_packaging_gap",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 7.56666667,
+      "declared_score": 7.56666667,
+      "fixture_id": "filing_packaging_gap",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 4.36666667,
+      "declared_score": 4.36666667,
+      "fixture_id": "commodity_duplicate",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 4.36666667,
+      "declared_score": 4.36666667,
+      "fixture_id": "legal_document_duplicate",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 5.06666667,
+      "declared_score": 5.06666667,
+      "fixture_id": "trade_context_filler",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 5.56666667,
+      "declared_score": 5.56666667,
+      "fixture_id": "disaster_context_filler",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 6.48333333,
+      "declared_score": 6.48333333,
+      "fixture_id": "export_control_insufficient",
+      "matches": true,
+      "rank": 1
+    },
+    {
+      "calculated_score": 5.23333333,
+      "declared_score": 5.23333333,
+      "fixture_id": "intraday_volatility_insufficient",
+      "matches": true,
+      "rank": 1
+    }
+  ],
+  "schema_version": "contentops.ranking_arithmetic_report.v2"
+}

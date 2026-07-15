@@ -84,6 +84,8 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` — `PASS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2_AWAITING_CHATGPT_AUDIT`.
+Current completed architecture task: `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_ENFORCEMENT_HARDENING` — `PASS_GENERIC_FOUNDATION_V2_ENFORCEMENT_HARDENING_AWAITING_CHATGPT_AUDIT`.
 
-Next action: `INDEPENDENT_CHATGPT_AUDIT_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`.
+Commit `073766b912643ea34c545b29e669c3ff2a62c17c` is retained as `PARTIAL_PASS_GENERIC_CORE_AND_BINDING_SUPERSEDED_BY_ENFORCEMENT_HARDENING`. The hardening makes every retained config field executable, introduces validated optional capability dimensions, executes them across 20 domain fixtures, strengthens collection and append-only lineage checks, and derives acceptance from observed evidence. It remains deterministic, uncalibrated, local, and no-publication.
+
+Next action: `INDEPENDENT_CHATGPT_AUDIT_GENERIC_FOUNDATION_V2_ENFORCEMENT_HARDENING`.

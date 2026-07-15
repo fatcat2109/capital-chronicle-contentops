@@ -1,0 +1,25 @@
+{
+  "all_dimensions_executed": true,
+  "authority_gates_executed": true,
+  "dimension_usage_counts": {
+    "affected_asset_classes": 18,
+    "affected_economic_domains": 20,
+    "entity_ids": 20,
+    "evidence_modalities": 20,
+    "geography_ids": 20,
+    "nonnumeric_evidence_present": 20,
+    "numeric_evidence_present": 20,
+    "scheduled_event_state": 20,
+    "source_authority_classes": 20,
+    "source_family_ids": 20,
+    "story_modes": 20,
+    "temporal_characters": 20
+  },
+  "evidence_minimums_executed": true,
+  "execution_dimensions_pass": true,
+  "feature_applicability_executed": true,
+  "schema_version": "contentops.capability_dimension_execution_report.v2",
+  "status": "PASS",
+  "unavailable_feature_row_count": 94,
+  "unsupported_feature_row_count": 54
+}

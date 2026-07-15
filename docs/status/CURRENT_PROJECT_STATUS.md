@@ -4,9 +4,9 @@
 
 ## Current Classification
 
-`PASS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2_AWAITING_CHATGPT_AUDIT`
+`PASS_GENERIC_FOUNDATION_V2_ENFORCEMENT_HARDENING_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`.
+Completed task: `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_ENFORCEMENT_HARDENING`.
 
 The accepted product baseline remains `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`. Annotated tag `v1.0` (tag object `a021df7fd0264d9f160bdd605509da925f0bf131`, release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`) remains immutable and was not moved, recreated, deleted, or retagged by this local evidence task.
 
@@ -77,8 +77,16 @@ The exact upstream artifact pinned at `dced71f92239201945dee5c9bd1c706ef9a76f02`
 
 The synthetic 15-domain golden matrix executes generic outcome, feature, authority, observation-cardinality, and decision algorithms across empty, singleton, and multi-item cohorts. The machine genericity guard passes. Historical release, Task 3, and Task 4 evidence is consumed only through compatibility adapters; no historical artifact was rewritten. No new publication is authorized, and no browser, network, credential, provider, scheduler-policy, editorial-policy, upstream-repository, or `v1.0` mutation occurred.
 
+## Generic Foundation V2 Enforcement Hardening
+
+`TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_ENFORCEMENT_HARDENING` supersedes commit `073766b912643ea34c545b29e669c3ff2a62c17c` as `PARTIAL_PASS_GENERIC_CORE_AND_BINDING_SUPERSEDED_BY_ENFORCEMENT_HARDENING`. The accepted `v1.0` release remains a separate immutable product baseline, and Task 4 remains `ACCEPTED_TREASURY_SPECIFIC_SHADOW_PROTOTYPE_SUPERSEDED_AS_FOUNDATION_BY_V2`.
+
+The hardening executes every retained config field, validates optional orthogonal capability dimensions, strengthens history/candidate/gap/observation collections, binds complete append-only decision lineage, and replaces self-declared acceptance rows with observed-value derivation. Twenty synthetic domain fixtures execute shared applicability, evidence-minimum, authority-gate, outcome, ranking, and no-publication algorithms; every repaired abstraction has at least two unrelated-domain proofs. The AST-aware guard covers core, config consumption, the active evidence generator, and generic-execution tests.
+
+Current upstream `fatcat2109/Headline-Raw-data-json` `main` was inspected read-only at `f4a365803385997265320e4b468c22028aea5a67`. The newsroom pool remains blob `e4f60146e26d5f52dec91f92a345e81d0fb1cc8d`, so comparison with both historical exports is `SAME_BYTES_AND_IDENTITY`. No upstream or historical evidence was modified, no publication authority was granted, and weights remain `UNCALIBRATED_FOUNDATION`.
+
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`
+`INDEPENDENT_CHATGPT_AUDIT_GENERIC_FOUNDATION_V2_ENFORCEMENT_HARDENING`
 
-Audit or reject the generic V2 contracts, immutable binding verification, cross-domain executions, compatibility replay, append-only decisions, genericity report, and manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.
+Audit or reject the hardened contracts, config execution, capability dimensions, collection checks, 20-domain executions, append-only lineage, AST guard, machine-derived acceptance, upstream comparison, compatibility replay, and manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.

@@ -1,0 +1,45 @@
+{
+  "classification": "SAME_BYTES_AND_IDENTITY",
+  "comparisons": [
+    {
+      "authority": "historical_9bff5453",
+      "byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+      "classification": "SAME_BYTES_AND_IDENTITY",
+      "git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d",
+      "logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+      "pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3"
+    },
+    {
+      "authority": "foundation_dced71f",
+      "byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+      "classification": "SAME_BYTES_AND_IDENTITY",
+      "git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d",
+      "logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+      "pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3"
+    }
+  ],
+  "current_candidate_hashes": {
+    "cc-candidate-120438cc800db7f941be": "120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f",
+    "cc-candidate-3f705fbf747b1838ca10": "3f705fbf747b1838ca10ac789910bb949232ec386ce758d7abe3a36825f6dd4a",
+    "cc-candidate-d68a10790ca2d7f74c38": "d68a10790ca2d7f74c383265fa00e7fa9b40adafbb6fe28b59aaa32ee766c70d"
+  },
+  "current_cutoff_time_utc": "2026-07-14T00:00:00Z",
+  "current_exact_file_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+  "current_git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d",
+  "current_head": "f4a365803385997265320e4b468c22028aea5a67",
+  "current_logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+  "current_pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3",
+  "current_producer_version": "newsroom_candidate_pool_v1.1.0",
+  "current_schema_version": "capital_chronicle.newsroom_candidate_pool.v1",
+  "current_source_family_coverage": [
+    "governed_point_in_time_handoff_v1",
+    "headline_and_x_sidecars",
+    "macro_state_phase_b",
+    "official_catalyst_sidecars_hb8",
+    "story_scoped_publication_evidence_v1",
+    "weather_energy_sanctions_trade_calendar"
+  ],
+  "dced71f_is_historical_pinned_authority_not_current_head": true,
+  "schema_version": "contentops.upstream_historical_comparison.v2",
+  "upstream_repository_mutated": false
+}

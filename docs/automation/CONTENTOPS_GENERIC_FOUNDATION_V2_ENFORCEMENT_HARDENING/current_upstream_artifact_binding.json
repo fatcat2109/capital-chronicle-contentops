@@ -1,0 +1,51 @@
+{
+  "artifact_path": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+  "binding": {
+    "artifact_path": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+    "binding_id": "pool_binding_current_a92cdff58c6f4ecc5b68e774",
+    "branch": "main",
+    "candidate_hashes": {
+      "cc-candidate-120438cc800db7f941be": "120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f",
+      "cc-candidate-3f705fbf747b1838ca10": "3f705fbf747b1838ca10ac789910bb949232ec386ce758d7abe3a36825f6dd4a",
+      "cc-candidate-d68a10790ca2d7f74c38": "d68a10790ca2d7f74c383265fa00e7fa9b40adafbb6fe28b59aaa32ee766c70d"
+    },
+    "consumed_byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+    "contract_schema_version": "contentops.governed_candidate_pool_binding.v1",
+    "cutoff_time_utc": "2026-07-14T00:00:00Z",
+    "git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d",
+    "immutable_binding_status": "READ_ONLY_CURRENT_UPSTREAM_GIT_OBJECT",
+    "logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+    "pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3",
+    "producer_commit": "f4a365803385997265320e4b468c22028aea5a67",
+    "producer_version": "newsroom_candidate_pool_v1.1.0",
+    "repository": "fatcat2109/Headline-Raw-data-json",
+    "schema_version": "capital_chronicle.newsroom_candidate_pool.v1",
+    "source_family_coverage": [
+      "governed_point_in_time_handoff_v1",
+      "headline_and_x_sidecars",
+      "macro_state_phase_b",
+      "official_catalyst_sidecars_hb8",
+      "story_scoped_publication_evidence_v1",
+      "weather_energy_sanctions_trade_calendar"
+    ]
+  },
+  "byte_length": 17722,
+  "exact_file_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+  "git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d",
+  "inspected_current_head": "f4a365803385997265320e4b468c22028aea5a67",
+  "schema_version": "contentops.current_upstream_artifact_binding.v2",
+  "status": "PASS",
+  "upstream_branch": "main",
+  "upstream_repository": "fatcat2109/Headline-Raw-data-json",
+  "verification": {
+    "actual_byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+    "actual_git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d",
+    "binding_hash": "d10b2a26196699b07addb5e1e49c94f7a21071f642e193f7d8069f12f7720874",
+    "blockers": [],
+    "calculated_logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+    "candidate_hashes_verified": 3,
+    "point_in_time_fields_checked": 20,
+    "status": "PASS_IMMUTABLE_BINDING_VERIFIED",
+    "verification_id": "artifact_verification_946f9e1d38c805368518ec30"
+  }
+}
