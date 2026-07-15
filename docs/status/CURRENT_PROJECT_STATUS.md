@@ -4,9 +4,9 @@
 
 ## Current Classification
 
-`PASS_NEWSROOM_AND_TIER1_FINAL_GAP_CLOSURE_AWAITING_CHATGPT_AUDIT`
+`PASS_CONTENTOPS_CROSS_PLATFORM_PERFORMANCE_INTELLIGENCE_V1_LOCAL_READ_ONLY_AWAITING_INDEPENDENT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3`.
+Completed task: `TASK_CONTENTOPS_CROSS_PLATFORM_PERFORMANCE_INTELLIGENCE_V1`.
 
 The accepted product baseline remains `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`. Annotated tag `v1.0` (tag object `a021df7fd0264d9f160bdd605509da925f0bf131`, release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`) remains immutable and was not moved, recreated, deleted, or retagged by this local evidence task.
 
@@ -51,8 +51,16 @@ Final evidence: `docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_
 
 The read-only public SEO audit records five existing rendered-site defects; it makes no traffic, ranking, impression, or click claims, and search performance remains `NOT_COLLECTED_TASK3_SCOPE`. Focused validation passed `22` tests and Python compilation. Independent replay verified seven logical-hash contracts, 13 packet artifact bindings, nine manifest bindings, and zero schedule publications. No public write, browser edit, platform adapter, credential read, global-DQR bypass, publication authority, Task 3 work, or upstream-repository modification occurred.
 
+## Cross-Platform Performance Intelligence V1
+
+`TASK_CONTENTOPS_CROSS_PLATFORM_PERFORMANCE_INTELLIGENCE_V1` adds a deterministic, append-only, local performance-learning contract at `live_contentops/performance_learning_v1.py`. It binds existing evidence identity references and operator-attested manual publish/metric records into `ContentOpsContentIdentityV1` and `ContentOpsPerformanceSnapshotV1`, then produces only conservative `ContentOpsContentRetrospectiveV1` records and operator-review-only `ContentOpsIdeaCandidateV1` records.
+
+The fixture packet is `docs/automation/CONTENTOPS_CROSS_PLATFORM_PERFORMANCE_INTELLIGENCE_V1/contentops_performance_learning_v1_packet.json`. Its one-record cohort is intentionally `INCONCLUSIVE_INSUFFICIENT_COHORT`; it makes no comparative performance, traffic, ranking, impression, click, or causal claim. The contract prohibits API/browser/network/env/credential/LLM/scraper/scheduler behavior, automatic editorial mutation, source/DQR/permission/citation/risk-language changes, automatic briefs, publication, and dispatch. It preserves manual-entry limitations and requires operator review for every learning candidate.
+
+The previous V3 newsroom/Tier-1 packet remains historical evidence. This explicitly requested task superseded its stale next-pointer route only for the local read-only performance contract; it did not alter public outputs, accepted release authority, `v1.0`, DQR, the evidence packet schema, or scheduler behavior.
+
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_GAP_CLOSURE_V3`
+`INDEPENDENT_AUDIT_CONTENTOPS_CROSS_PLATFORM_PERFORMANCE_INTELLIGENCE_V1`
 
-Audit or reject the immutable V3 packet. Do not start Task 3, republish the accepted Treasury cluster, modify `v1.0`, or claim search performance.
+Audit or reject the immutable local performance-learning packet. Do not collect live metrics, claim platform performance truth, republish the accepted Treasury cluster, modify `v1.0`, or enable automatic editorial or dispatch behavior.
