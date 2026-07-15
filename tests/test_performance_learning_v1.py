@@ -138,3 +138,71 @@ def test_artifact_writer_is_scoped_and_source_has_no_live_integrations(tmp_path)
         assert needle not in text
     for needle in ("network_performed", "browser_session_used", "automatic_editorial_mutation", "llm_provider_called"):
         assert needle in text
+
+
+def test_real_content_loop_reads_bodies_and_examines_three_governed_mechanisms():
+    first = learning.build_real_content_idea_loop()
+    second = learning.build_real_content_idea_loop()
+    assert first == second
+    retrospective = first["retrospective"]
+    assert retrospective["article_word_count_read"] >= 500
+    assert all(retrospective["article_coverage"].values())
+    assert retrospective["native_derivative_count_examined"] == 8
+    assert retrospective["metric_status"] == learning.COLLECTION_UNAVAILABLE
+    assert retrospective["performance_conclusion"] is None
+    assert first["backlog"]["examined_idea_count"] == 3
+    assert len(first["generated_ideas"]["records"]) == 1
+    assert len(first["rejected_ideas"]["records"]) == 2
+
+
+def test_real_content_loop_assigns_evidence_refresh_not_article_or_public_write():
+    result = learning.build_real_content_idea_loop()
+    idea = result["generated_ideas"]["records"][0]
+    assert idea["status"] == "ASSIGNABLE_FOR_EVIDENCE_REFRESH_ONLY"
+    assert idea["duplicate_published_cluster_suppressed"] is True
+    assert idea["new_article_authorized"] is False
+    brief = result["briefs"]["records"][0]
+    assert len(brief["required_existing_claim_ids"]) == 4
+    assert not brief["can_draft_article"]
+    assert not brief["can_publish"]
+    assert not brief["can_dispatch"]
+    assignment = result["assignment"]
+    assert assignment["assignment_status"] == "INTERNAL_RESEARCH_ASSIGNMENT_CREATED"
+    assert assignment["public_write_performed"] is False
+    assert assignment["publication_authority_granted"] is False
+
+
+def test_blocked_pool_mechanisms_preserve_real_ids_and_blockers():
+    result = learning.build_real_content_idea_loop()
+    records = {record["source_candidate_id"]: record for record in result["rejected_ideas"]["records"]}
+    catalyst = records["cc-candidate-d68a10790ca2d7f74c38"]
+    macro = records["cc-candidate-3f705fbf747b1838ca10"]
+    assert catalyst["status"] == "REJECT_NOT_REPORTABLE"
+    assert "story_scoped_reporting_authority_required" in catalyst["blockers"]
+    assert macro["status"] == "HOLD_AUTHORITY_GAP"
+    assert "real_regime_undetermined" in macro["blockers"]
+    assert not catalyst["reporting_allowed"] and not macro["reporting_allowed"]
+    assert catalyst["numeric_claims"] == macro["numeric_claims"] == []
+
+
+def test_derivative_comparison_is_content_only_and_not_performance_ranking():
+    comparison = learning.build_real_content_idea_loop()["derivative_comparison"]
+    assert comparison["metric_status"] == learning.COLLECTION_UNAVAILABLE
+    assert comparison["comparison_basis"] == "literal content coverage only; not performance"
+    assert len(comparison["rows"]) == 8
+    assert all(row["public_destination_status"] == "SUCCESS" for row in comparison["rows"])
+    assert all(len(row["payload_text_sha256"]) == 64 for row in comparison["rows"])
+
+
+def test_real_loop_manifest_and_writer_are_deterministic_and_scoped(tmp_path):
+    manifest = learning.build_real_content_idea_loop()["manifest"]
+    assert manifest["terminal_classification"] == learning.REAL_LOOP_TERMINAL
+    assert manifest["pinned_upstream"]["commit_sha"] == learning.PINNED_UPSTREAM_COMMIT
+    assert manifest["pinned_upstream"]["pool_artifact_sha256"].startswith("e4f60146")
+    assert manifest["real_article_body_read"] and manifest["real_native_payloads_read"]
+    assert manifest["public_write_performed"] is False
+    assert manifest["task_4_started"] is False
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_real_content_idea_loop"):
+        learning.write_real_content_idea_loop_artifacts(repo, tmp_path / "other")

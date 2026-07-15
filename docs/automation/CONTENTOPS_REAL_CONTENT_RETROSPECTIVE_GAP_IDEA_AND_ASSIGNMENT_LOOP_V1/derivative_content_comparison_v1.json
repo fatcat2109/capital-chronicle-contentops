@@ -1,0 +1,193 @@
+{
+  "canonical_article_sha256": "0f4e8fe6c6e6ba6999082c5f7663aa6d1414d9ecd1a0e2900c61618999981b95",
+  "comparison_basis": "literal content coverage only; not performance",
+  "comparison_id": "derivative_comparison_ce7e33a6ae888122835f0dca",
+  "metric_status": "UNAVAILABLE",
+  "rows": [
+    {
+      "character_count": 488,
+      "coverage": {
+        "confirmation_and_limits": false,
+        "cross_asset_boundary": false,
+        "current_signal": true,
+        "market_mechanism": true,
+        "policy_context": false,
+        "sources_and_method": false
+      },
+      "covered_section_count": 2,
+      "format": "newsroom_embed_with_chart",
+      "hard_truncation_used": false,
+      "omitted_sections": [
+        "policy_context",
+        "cross_asset_boundary",
+        "confirmation_and_limits",
+        "sources_and_method"
+      ],
+      "payload_text_sha256": "613539d1720f2a0e46fe18adef0cc1ee2ecf606065017373f1cfe792a008b7a6",
+      "platform_id": "discord",
+      "public_destination_status": "SUCCESS"
+    },
+    {
+      "character_count": 490,
+      "coverage": {
+        "confirmation_and_limits": false,
+        "cross_asset_boundary": false,
+        "current_signal": true,
+        "market_mechanism": true,
+        "policy_context": false,
+        "sources_and_method": false
+      },
+      "covered_section_count": 2,
+      "format": "page_photo_post",
+      "hard_truncation_used": false,
+      "omitted_sections": [
+        "policy_context",
+        "cross_asset_boundary",
+        "confirmation_and_limits",
+        "sources_and_method"
+      ],
+      "payload_text_sha256": "76cf7f6e0df2744014dceacf8f6f5723aade27da8ba1b762c9b44a532a69555b",
+      "platform_id": "facebook_page",
+      "public_destination_status": "SUCCESS"
+    },
+    {
+      "character_count": 429,
+      "coverage": {
+        "confirmation_and_limits": false,
+        "cross_asset_boundary": false,
+        "current_signal": false,
+        "market_mechanism": false,
+        "policy_context": false,
+        "sources_and_method": false
+      },
+      "covered_section_count": 0,
+      "format": "chart_caption",
+      "hard_truncation_used": false,
+      "omitted_sections": [
+        "current_signal",
+        "market_mechanism",
+        "policy_context",
+        "cross_asset_boundary",
+        "confirmation_and_limits",
+        "sources_and_method"
+      ],
+      "payload_text_sha256": "61e1c26e41d90294c7d86e574926c6720cf08b0aeda50cfbc1294af6a2bb20ef",
+      "platform_id": "instagram_business",
+      "public_destination_status": "SUCCESS"
+    },
+    {
+      "character_count": 666,
+      "coverage": {
+        "confirmation_and_limits": false,
+        "cross_asset_boundary": false,
+        "current_signal": true,
+        "market_mechanism": true,
+        "policy_context": true,
+        "sources_and_method": false
+      },
+      "covered_section_count": 3,
+      "format": "professional_analytical_note_with_chart",
+      "hard_truncation_used": false,
+      "omitted_sections": [
+        "cross_asset_boundary",
+        "confirmation_and_limits",
+        "sources_and_method"
+      ],
+      "payload_text_sha256": "92002ec646755eca5818b3dde2fd4c74318c5b52da5a7e8f37fa128b11b55a96",
+      "platform_id": "linkedin",
+      "public_destination_status": "SUCCESS"
+    },
+    {
+      "character_count": 335,
+      "coverage": {
+        "confirmation_and_limits": false,
+        "cross_asset_boundary": false,
+        "current_signal": true,
+        "market_mechanism": false,
+        "policy_context": false,
+        "sources_and_method": false
+      },
+      "covered_section_count": 1,
+      "format": "channel_photo_with_caption",
+      "hard_truncation_used": false,
+      "omitted_sections": [
+        "market_mechanism",
+        "policy_context",
+        "cross_asset_boundary",
+        "confirmation_and_limits",
+        "sources_and_method"
+      ],
+      "payload_text_sha256": "5f649f0e87db2fc7439173db2a394026b5a48860879381b805a7b84e6682d19c",
+      "platform_id": "telegram",
+      "public_destination_status": "SUCCESS"
+    },
+    {
+      "character_count": 791,
+      "coverage": {
+        "confirmation_and_limits": false,
+        "cross_asset_boundary": false,
+        "current_signal": true,
+        "market_mechanism": true,
+        "policy_context": true,
+        "sources_and_method": false
+      },
+      "covered_section_count": 3,
+      "format": "root_chart_post_with_ordered_media_replies",
+      "hard_truncation_used": false,
+      "omitted_sections": [
+        "cross_asset_boundary",
+        "confirmation_and_limits",
+        "sources_and_method"
+      ],
+      "payload_text_sha256": "2652abc1f130e4c45be37ddc74ec6126a08118c7d8489697e1da474f9d71b720",
+      "platform_id": "threads",
+      "public_destination_status": "SUCCESS"
+    },
+    {
+      "character_count": 641,
+      "coverage": {
+        "confirmation_and_limits": false,
+        "cross_asset_boundary": false,
+        "current_signal": true,
+        "market_mechanism": true,
+        "policy_context": false,
+        "sources_and_method": false
+      },
+      "covered_section_count": 2,
+      "format": "root_chart_post_with_ordered_replies",
+      "hard_truncation_used": false,
+      "omitted_sections": [
+        "policy_context",
+        "cross_asset_boundary",
+        "confirmation_and_limits",
+        "sources_and_method"
+      ],
+      "payload_text_sha256": "3733675f15ca989d618fbd5df08925e0ce9c661c7bfc76ee421d4a59340a3777",
+      "platform_id": "x",
+      "public_destination_status": "SUCCESS"
+    },
+    {
+      "character_count": 804,
+      "coverage": {
+        "confirmation_and_limits": false,
+        "cross_asset_boundary": false,
+        "current_signal": true,
+        "market_mechanism": true,
+        "policy_context": true,
+        "sources_and_method": false
+      },
+      "covered_section_count": 3,
+      "format": "community_text_image_post",
+      "hard_truncation_used": false,
+      "omitted_sections": [
+        "cross_asset_boundary",
+        "confirmation_and_limits",
+        "sources_and_method"
+      ],
+      "payload_text_sha256": "c4f0ac086a8f2ec33847c02bb40753c5aecdc65d0536832780875bcfdd022c03",
+      "platform_id": "youtube",
+      "public_destination_status": "SUCCESS"
+    }
+  ],
+  "schema_version": "contentops.derivative_content_comparison.v1"
+}

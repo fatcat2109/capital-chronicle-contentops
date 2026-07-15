@@ -1,0 +1,65 @@
+{
+  "examined_idea_count": 3,
+  "ranked_assignable_idea_ids": [
+    "governed_idea_603624b5aeabe17c4a9adccd"
+  ],
+  "ranking_policy": "authority_then_contribution; no performance score",
+  "records": [
+    {
+      "duplicate_published_cluster_suppressed": true,
+      "idea_id": "governed_idea_603624b5aeabe17c4a9adccd",
+      "mechanism": "published_content_confirmation_gap",
+      "new_article_authorized": false,
+      "required_human_review": true,
+      "source_candidate_id": "cc-candidate-120438cc800db7f941be",
+      "source_claim_ids": [
+        "UST:2Y:2026-07-13",
+        "UST:10Y:2026-07-13",
+        "UST:30Y:2026-07-13",
+        "UST:2S10S:2026-07-13"
+      ],
+      "source_cluster_id": "cc-cluster-7aa53a08e0a4b35873af",
+      "source_gap_id": "gap_confirmation_follow_up_0f4e8fe6c6e6ba69",
+      "status": "ASSIGNABLE_FOR_EVIDENCE_REFRESH_ONLY",
+      "title": "Recheck whether the July 13 Treasury curve signal was confirmed or challenged"
+    },
+    {
+      "blockers": [
+        "candidate_only_no_forecast_authority",
+        "numeric_claims_missing",
+        "public_source_url_mapping_incomplete",
+        "real_regime_undetermined",
+        "reporting_permission_not_granted",
+        "story_scoped_reporting_authority_required"
+      ],
+      "idea_id": "governed_idea_f9bf483bbf28044bafe10c0d",
+      "mechanism": "macro_state_context",
+      "numeric_claims": [],
+      "reporting_allowed": false,
+      "required_human_review": true,
+      "source_candidate_id": "cc-candidate-3f705fbf747b1838ca10",
+      "source_cluster_id": "cc-cluster-f2c748be332951ad98f6",
+      "status": "HOLD_AUTHORITY_GAP",
+      "title": "Macro state remains context-only with required-domain gaps"
+    },
+    {
+      "blockers": [
+        "narrative_context_not_numeric_truth",
+        "numeric_claims_missing",
+        "public_source_url_mapping_incomplete",
+        "reporting_permission_not_granted",
+        "story_scoped_reporting_authority_required"
+      ],
+      "idea_id": "governed_idea_9b634b3d79a257ed5077c87d",
+      "mechanism": "official_catalyst_context",
+      "numeric_claims": [],
+      "reporting_allowed": false,
+      "required_human_review": true,
+      "source_candidate_id": "cc-candidate-d68a10790ca2d7f74c38",
+      "source_cluster_id": "cc-cluster-82074448f74d409f5ee5",
+      "status": "REJECT_NOT_REPORTABLE",
+      "title": "Official-document catalyst context awaits story authority"
+    }
+  ],
+  "schema_version": "contentops.governed_idea_backlog.v1"
+}

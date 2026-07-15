@@ -254,3 +254,299 @@ def write_artifacts(repo_root: str | Path = ".", output_dir: str | Path | None =
 
 
 def contract_checksum() -> str: return build_contract_packet().packet_hash
+
+
+# Real-content retrospective and governed idea/assignment replay.  This layer is
+# additive: the accepted V1 publication identity and UNAVAILABLE metric contract
+# above remain unchanged.
+REAL_LOOP_TASK_LABEL = "TASK_CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1"
+REAL_LOOP_MODEL_VERSION = "contentops.real_content_idea_assignment_loop.v1"
+REAL_LOOP_REL_DIR = Path("docs") / "automation" / "CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1"
+ARTICLE_REL_PATH = RELEASE_REL_DIR / "canonical_article.md"
+NATIVE_PAYLOADS_REL_PATH = RELEASE_REL_DIR / "native_payloads_v1.json"
+MANIFEST_REL_PATH = RELEASE_REL_DIR / "article_manifest_v1.json"
+MATRIX_REL_PATH = RELEASE_REL_DIR / "final_platform_matrix_v1.json"
+REAL_LOOP_FILENAMES = {
+    "retrospective": "published_content_retrospective_v1.json",
+    "derivative_comparison": "derivative_content_comparison_v1.json",
+    "coverage_gaps": "coverage_gap_report_v1.json",
+    "generated_ideas": "generated_ideas_v1.json",
+    "rejected_ideas": "rejected_ideas_v1.json",
+    "backlog": "governed_idea_backlog_v1.json",
+    "briefs": "editorial_briefs_v1.json",
+    "assignment": "assignment_replay_v1.json",
+    "manifest": "real_content_idea_loop_manifest_v1.json",
+}
+REAL_LOOP_TERMINAL = "PASS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_INTERNAL_ASSIGNMENT_ONLY"
+
+
+def _read_text(root: Path, relative_path: Path) -> str:
+    try:
+        return (root / relative_path).read_text(encoding="utf-8-sig")
+    except FileNotFoundError as error:
+        raise ValueError(f"missing_committed_evidence:{relative_path.as_posix()}") from error
+
+
+def _normalized_sha256(text: str) -> str:
+    return sha256(text.replace("\r\n", "\n").encode("utf-8")).hexdigest()
+
+
+def _payload_text(payload: dict[str, Any]) -> str:
+    if isinstance(payload.get("full_text"), str):
+        return str(payload["full_text"])
+    return str(payload.get("text") or "")
+
+
+def _contains_any(text: str, needles: Sequence[str]) -> bool:
+    lowered = text.lower()
+    return any(needle.lower() in lowered for needle in needles)
+
+
+def build_real_content_idea_loop(repo_root: str | Path | None = None) -> dict[str, Any]:
+    """Replay real published content into a governed, internal-only assignment.
+
+    This function performs no collection and grants no new factual, publication,
+    DQR, scheduling, or dispatch authority.  Candidate IDs and claim IDs are
+    copied verbatim from committed bridge-read evidence.
+    """
+    root = _module_root() if repo_root is None else Path(repo_root).resolve()
+    article = _read_text(root, ARTICLE_REL_PATH)
+    manifest = _read_json(root, MANIFEST_REL_PATH)
+    payloads = _read_json(root, NATIVE_PAYLOADS_REL_PATH)
+    matrix = _read_json(root, MATRIX_REL_PATH)
+    pool = _read_json(root, POOL_REL_PATH)
+    article_sha = _normalized_sha256(article)
+    declared_article_sha = str(manifest.get("article_markdown_sha256") or "")
+    embedded_published_body = str(manifest.get("substack_body_markdown") or "")
+    embedded_published_body_sha = _normalized_sha256(embedded_published_body)
+    declared_published_body_sha = str(manifest.get("substack_body_markdown_sha256") or "")
+    if embedded_published_body_sha != declared_published_body_sha:
+        raise ValueError("embedded_published_body_hash_mismatch")
+    article_export_hash_matches_manifest = article_sha == declared_article_sha
+    if not article.strip() or len(article.split()) < 500:
+        raise ValueError("canonical_article_body_not_substantive")
+
+    successes = {key for key, value in matrix.get("destinations", {}).items() if value.get("status") == "SUCCESS"}
+    expected_payload_platforms = successes - {"substack"}
+    missing_payloads = sorted(expected_payload_platforms - set(payloads))
+    if missing_payloads:
+        raise ValueError("missing_native_payloads:" + ",".join(missing_payloads))
+
+    section_checks = {
+        "current_signal": ("30-year par yield reached 5.10%", "36 basis points"),
+        "market_mechanism": ("term premium", "duration supply"),
+        "policy_context": ("expected policy path", "30-year sector"),
+        "cross_asset_boundary": ("without separate market data", "does not infer moves in other assets"),
+        "confirmation_and_limits": ("What Would Confirm or Challenge", "signal would be challenged"),
+        "sources_and_method": ("Sources and Method", "Daily Treasury Par Yield Curve Rates"),
+    }
+    article_coverage = {name: _contains_any(article, needles) for name, needles in section_checks.items()}
+    if not all(article_coverage.values()):
+        raise ValueError("canonical_article_required_section_missing")
+
+    derivative_rows = []
+    for platform_id in sorted(expected_payload_platforms):
+        payload = payloads[platform_id]
+        text = _payload_text(payload)
+        if not text.strip():
+            raise ValueError(f"empty_native_payload:{platform_id}")
+        coverage = {name: _contains_any(text, needles) for name, needles in section_checks.items()}
+        derivative_rows.append({
+            "platform_id": platform_id,
+            "format": payload.get("format"),
+            "payload_text_sha256": _normalized_sha256(text),
+            "character_count": len(text),
+            "coverage": coverage,
+            "covered_section_count": sum(coverage.values()),
+            "omitted_sections": [name for name, present in coverage.items() if not present],
+            "hard_truncation_used": bool(payload.get("hard_truncation_used", False)),
+            "public_destination_status": matrix["destinations"][platform_id]["status"],
+        })
+
+    claim_ids = tuple(str(value) for value in manifest.get("claim_ids_used", []))
+    if len(claim_ids) != 4 or any(not value for value in claim_ids):
+        raise ValueError("published_article_claim_lineage_incomplete")
+    eligible = list(pool.get("eligible_candidates", []))
+    rejected = list(pool.get("rejected_candidates", []))
+    if len(eligible) != 1 or len(rejected) != 2:
+        raise ValueError("governed_pool_expected_three_mechanisms")
+    published_candidate = eligible[0]
+    published_binding = build_contract_packet(root).source_bindings
+    if published_candidate.get("candidate_id") != published_binding.get("candidate_id") or published_candidate.get("cluster_id") != published_binding.get("cluster_id"):
+        raise ValueError("published_cluster_identity_mismatch")
+
+    retrospective = {
+        "schema_version": "contentops.published_content_retrospective.v1",
+        "retrospective_id": "real_retrospective_" + _digest({"article": article_sha, "payloads": derivative_rows})[:24],
+        "article_path": ARTICLE_REL_PATH.as_posix(),
+        "article_sha256": article_sha,
+        "declared_article_export_sha256": declared_article_sha,
+        "article_export_hash_matches_manifest": article_export_hash_matches_manifest,
+        "embedded_published_body_sha256": declared_published_body_sha,
+        "article_word_count_read": len(article.split()),
+        "article_claim_ids": list(claim_ids),
+        "article_coverage": article_coverage,
+        "published_candidate_id": published_candidate["candidate_id"],
+        "published_cluster_id": published_candidate["cluster_id"],
+        "successful_destination_count": len(successes),
+        "native_derivative_count_examined": len(derivative_rows),
+        "metric_status": COLLECTION_UNAVAILABLE,
+        "performance_conclusion": None,
+        "content_findings": [
+            "The canonical article explains the signal, mechanism, policy context, cross-asset boundary, and falsifiable confirmation conditions.",
+            "Short derivatives consistently retain the current signal; mechanism and confirmation coverage varies by platform format.",
+            "No platform-performance winner or causal packaging conclusion is permitted because committed metrics remain unavailable.",
+        ],
+        "evidence_refs": [ARTICLE_REL_PATH.as_posix(), MANIFEST_REL_PATH.as_posix(), NATIVE_PAYLOADS_REL_PATH.as_posix(), MATRIX_REL_PATH.as_posix()],
+    }
+    comparison = {
+        "schema_version": "contentops.derivative_content_comparison.v1",
+        "comparison_id": "derivative_comparison_" + _digest(derivative_rows)[:24],
+        "canonical_article_sha256": article_sha,
+        "rows": derivative_rows,
+        "comparison_basis": "literal content coverage only; not performance",
+        "metric_status": COLLECTION_UNAVAILABLE,
+    }
+    gap_report = {
+        "schema_version": "contentops.coverage_gap_report.v1",
+        "gap_report_id": "coverage_gap_" + _digest({"article": article_sha, "rows": derivative_rows})[:24],
+        "gaps": [
+            {
+                "gap_id": "gap_confirmation_follow_up_" + article_sha[:16],
+                "mechanism": "confirmation_or_challenge_follow_up",
+                "source_article_section": "What Would Confirm or Challenge the Signal",
+                "finding": "The article names subsequent official curve closes, Treasury auctions, and CPI as evidence needed to confirm or challenge the signal; the current packet ends at the July 13 close.",
+                "required_claim_ids": list(claim_ids),
+                "required_new_authority": ["fresh_exact_official_curve_claims", "story_scoped_reporting_authority", "citation_mapping"],
+                "publication_ready": False,
+            },
+            {
+                "gap_id": "gap_derivative_confirmation_" + article_sha[:16],
+                "mechanism": "derivative_content_depth",
+                "finding": "Confirmation and limits are absent from most single-post derivatives and preserved most fully in ordered thread formats.",
+                "affected_platforms": [row["platform_id"] for row in derivative_rows if not row["coverage"]["confirmation_and_limits"]],
+                "publication_ready": False,
+            },
+        ],
+        "performance_basis_used": False,
+    }
+
+    generated_id = "governed_idea_" + _digest({"gap": gap_report["gaps"][0], "candidate": published_candidate["candidate_id"]})[:24]
+    generated = [{
+        "idea_id": generated_id,
+        "mechanism": "published_content_confirmation_gap",
+        "title": "Recheck whether the July 13 Treasury curve signal was confirmed or challenged",
+        "source_candidate_id": published_candidate["candidate_id"],
+        "source_cluster_id": published_candidate["cluster_id"],
+        "source_claim_ids": list(claim_ids),
+        "source_gap_id": gap_report["gaps"][0]["gap_id"],
+        "status": "ASSIGNABLE_FOR_EVIDENCE_REFRESH_ONLY",
+        "duplicate_published_cluster_suppressed": True,
+        "new_article_authorized": False,
+        "required_human_review": True,
+    }]
+    rejected_ideas = []
+    for candidate in sorted(rejected, key=lambda item: str(item.get("candidate_id"))):
+        blockers = list(candidate.get("blockers", []))
+        disposition = "HOLD_AUTHORITY_GAP" if "real_regime_undetermined" in blockers else "REJECT_NOT_REPORTABLE"
+        rejected_ideas.append({
+            "idea_id": "governed_idea_" + _digest({"candidate": candidate.get("candidate_id"), "blockers": blockers})[:24],
+            "mechanism": candidate.get("story_family"),
+            "title": candidate.get("title"),
+            "source_candidate_id": candidate.get("candidate_id"),
+            "source_cluster_id": candidate.get("cluster_id"),
+            "status": disposition,
+            "blockers": blockers,
+            "reporting_allowed": candidate.get("claim_permissions", {}).get("reporting_allowed") is True,
+            "numeric_claims": list(candidate.get("numeric_claims", [])),
+            "required_human_review": True,
+        })
+    backlog = {
+        "schema_version": "contentops.governed_idea_backlog.v1",
+        "examined_idea_count": 3,
+        "records": [*generated, *rejected_ideas],
+        "ranking_policy": "authority_then_contribution; no performance score",
+        "ranked_assignable_idea_ids": [generated_id],
+    }
+    brief_id = "editorial_brief_" + _digest(generated[0])[:24]
+    briefs = [{
+        "brief_id": brief_id,
+        "idea_id": generated_id,
+        "brief_type": "EVIDENCE_REFRESH_AND_RETROSPECTIVE_FOLLOW_UP",
+        "research_question": "Do fresh official curve closes and governed auction/CPI evidence confirm or challenge the July 13 configuration?",
+        "required_existing_claim_ids": list(claim_ids),
+        "required_new_evidence": gap_report["gaps"][0]["required_new_authority"],
+        "must_preserve": ["official-close timestamp boundary", "no cross-asset inference without separate claims", "not financial advice"],
+        "can_draft_article": False,
+        "can_publish": False,
+        "can_dispatch": False,
+    }]
+    assignment = {
+        "schema_version": "contentops.internal_assignment_replay.v1",
+        "assignment_id": "internal_assignment_" + _digest({"brief": brief_id, "idea": generated_id})[:24],
+        "idea_id": generated_id,
+        "brief_id": brief_id,
+        "assignment_status": "INTERNAL_RESEARCH_ASSIGNMENT_CREATED",
+        "assignee_role": "operator_selected_researcher",
+        "public_write_performed": False,
+        "scheduler_mutated": False,
+        "publication_authority_granted": False,
+        "next_gate": "OPERATOR_REVIEW_AND_FRESH_STORY_SCOPED_EVIDENCE",
+    }
+    artifacts = {
+        "retrospective": retrospective,
+        "derivative_comparison": comparison,
+        "coverage_gaps": gap_report,
+        "generated_ideas": {"schema_version": "contentops.generated_ideas.v1", "records": generated},
+        "rejected_ideas": {"schema_version": "contentops.rejected_ideas.v1", "records": rejected_ideas},
+        "backlog": backlog,
+        "briefs": {"schema_version": "contentops.editorial_briefs.v1", "records": briefs},
+        "assignment": assignment,
+    }
+    artifact_hashes = {key: _digest(value) for key, value in artifacts.items()}
+    run_manifest = {
+        "schema_version": "contentops.real_content_idea_loop_manifest.v1",
+        "task_label": REAL_LOOP_TASK_LABEL,
+        "model_version": REAL_LOOP_MODEL_VERSION,
+        "terminal_classification": REAL_LOOP_TERMINAL,
+        "pinned_upstream": {"repository": PINNED_UPSTREAM_REPOSITORY, "branch": PINNED_UPSTREAM_BRANCH, "commit_sha": PINNED_UPSTREAM_COMMIT, "pool_artifact_sha256": "e4f60146f9e870e5cc87bf30caa3ec51a930e3442458b95a42cdb5863b6bff5c"},
+        "artifact_hashes": artifact_hashes,
+        "real_article_body_read": True,
+        "real_article_export_hash_matches_manifest": article_export_hash_matches_manifest,
+        "real_native_payloads_read": True,
+        "examined_idea_count": 3,
+        "internal_assignment_count": 1,
+        "metric_values_available": False,
+        "performance_claim_made": False,
+        "public_write_performed": False,
+        "upstream_repository_mutated": False,
+        "task_4_started": False,
+    }
+    artifacts["manifest"] = run_manifest
+    return artifacts
+
+
+def write_real_content_idea_loop_artifacts(repo_root: str | Path = ".", output_dir: str | Path | None = None) -> dict[str, Any]:
+    root = Path(repo_root).resolve()
+    allowed = (root / REAL_LOOP_REL_DIR).resolve()
+    output = allowed if output_dir is None else Path(output_dir).resolve()
+    if output != allowed:
+        raise ValueError("artifact_writer_refuses_paths_outside_real_content_idea_loop")
+    artifacts = build_real_content_idea_loop(root)
+    output.mkdir(parents=True, exist_ok=True)
+    paths = {}
+    for key, filename in REAL_LOOP_FILENAMES.items():
+        path = output / filename
+        path.write_text(json.dumps(artifacts[key], ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+        paths[key] = str(path)
+    return {"artifacts": artifacts, "paths": paths}
+
+
+def main() -> int:
+    result = write_real_content_idea_loop_artifacts(_module_root())
+    print(json.dumps({"terminal_classification": result["artifacts"]["manifest"]["terminal_classification"], "paths": result["paths"]}, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

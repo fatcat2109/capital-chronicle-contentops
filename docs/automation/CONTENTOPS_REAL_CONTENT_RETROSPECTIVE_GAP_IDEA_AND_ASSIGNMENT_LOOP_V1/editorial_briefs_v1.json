@@ -1,0 +1,30 @@
+{
+  "records": [
+    {
+      "brief_id": "editorial_brief_09f0b852208bcf99fd88310f",
+      "brief_type": "EVIDENCE_REFRESH_AND_RETROSPECTIVE_FOLLOW_UP",
+      "can_dispatch": false,
+      "can_draft_article": false,
+      "can_publish": false,
+      "idea_id": "governed_idea_603624b5aeabe17c4a9adccd",
+      "must_preserve": [
+        "official-close timestamp boundary",
+        "no cross-asset inference without separate claims",
+        "not financial advice"
+      ],
+      "required_existing_claim_ids": [
+        "UST:2Y:2026-07-13",
+        "UST:10Y:2026-07-13",
+        "UST:30Y:2026-07-13",
+        "UST:2S10S:2026-07-13"
+      ],
+      "required_new_evidence": [
+        "fresh_exact_official_curve_claims",
+        "story_scoped_reporting_authority",
+        "citation_mapping"
+      ],
+      "research_question": "Do fresh official curve closes and governed auction/CPI evidence confirm or challenge the July 13 configuration?"
+    }
+  ],
+  "schema_version": "contentops.editorial_briefs.v1"
+}

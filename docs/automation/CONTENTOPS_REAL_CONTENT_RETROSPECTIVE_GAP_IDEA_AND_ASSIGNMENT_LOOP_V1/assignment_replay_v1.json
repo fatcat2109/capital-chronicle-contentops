@@ -1,0 +1,12 @@
+{
+  "assignee_role": "operator_selected_researcher",
+  "assignment_id": "internal_assignment_8b478e501a13d196b44d93be",
+  "assignment_status": "INTERNAL_RESEARCH_ASSIGNMENT_CREATED",
+  "brief_id": "editorial_brief_09f0b852208bcf99fd88310f",
+  "idea_id": "governed_idea_603624b5aeabe17c4a9adccd",
+  "next_gate": "OPERATOR_REVIEW_AND_FRESH_STORY_SCOPED_EVIDENCE",
+  "public_write_performed": false,
+  "publication_authority_granted": false,
+  "scheduler_mutated": false,
+  "schema_version": "contentops.internal_assignment_replay.v1"
+}

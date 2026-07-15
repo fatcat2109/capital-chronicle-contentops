@@ -1,0 +1,32 @@
+{
+  "artifact_hashes": {
+    "assignment": "0c7ae8491e234817b5786b7faddaaa00d282c52b7f8a7565e7d45ef38ee3c89d",
+    "backlog": "0af9eba0f9eed92164e8fd5fa88d065129b4df100e99af16711ed06532ffc7b4",
+    "briefs": "00b2451fb19ffdb03a981ae8fdf0173166422e5da5dabb0c406fd940b1b005d4",
+    "coverage_gaps": "966fa2f9771d96e319bd1b476dac4b86e4c874c90cfd5ad245bf7dc53870fb38",
+    "derivative_comparison": "0411645d444e12f185b6dd4f7b701567ee639bb04371ddedd6a2fa29b6a9effc",
+    "generated_ideas": "ae31109bcb44f0838d86d82cc462c80ac07363ad79cecbddf66d10968cda6a9e",
+    "rejected_ideas": "63113a733c3f5e6f83ee7d8eb0a7bfe74ed88f0d2780bad9c56e68f94f900ffc",
+    "retrospective": "3609e584bf1e4f6a0c34124e60df68e6b2224ce1d60877d118ef7362a9a58fcf"
+  },
+  "examined_idea_count": 3,
+  "internal_assignment_count": 1,
+  "metric_values_available": false,
+  "model_version": "contentops.real_content_idea_assignment_loop.v1",
+  "performance_claim_made": false,
+  "pinned_upstream": {
+    "branch": "main",
+    "commit_sha": "0cd7f5545169389204d5f62fdf5a74a73394411b",
+    "pool_artifact_sha256": "e4f60146f9e870e5cc87bf30caa3ec51a930e3442458b95a42cdb5863b6bff5c",
+    "repository": "fatcat2109/Headline-Raw-data-json"
+  },
+  "public_write_performed": false,
+  "real_article_body_read": true,
+  "real_article_export_hash_matches_manifest": false,
+  "real_native_payloads_read": true,
+  "schema_version": "contentops.real_content_idea_loop_manifest.v1",
+  "task_4_started": false,
+  "task_label": "TASK_CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1",
+  "terminal_classification": "PASS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_INTERNAL_ASSIGNMENT_ONLY",
+  "upstream_repository_mutated": false
+}

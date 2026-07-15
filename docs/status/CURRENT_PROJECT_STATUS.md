@@ -4,9 +4,9 @@
 
 ## Current Classification
 
-`PASS_CONTENTOPS_CROSS_PLATFORM_PERFORMANCE_INTELLIGENCE_AND_CONTENT_IDEA_LOOP_V1_NO_IDEA_ALREADY_PUBLISHED_CLUSTER_AWAITING_INDEPENDENT_AUDIT`
+`PASS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_INTERNAL_ASSIGNMENT_ONLY_AWAITING_INDEPENDENT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_CROSS_PLATFORM_PERFORMANCE_INTELLIGENCE_AND_CONTENT_IDEA_LOOP_V1_COMPLETION`.
+Completed task: `TASK_CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1`.
 
 The accepted product baseline remains `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`. Annotated tag `v1.0` (tag object `a021df7fd0264d9f160bdd605509da925f0bf131`, release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`) remains immutable and was not moved, recreated, deleted, or retagged by this local evidence task.
 
@@ -51,18 +51,18 @@ Final evidence: `docs/automation/CONTENTOPS_NEWSROOM_AND_TIER1_FINAL_ACCEPTANCE_
 
 The read-only public SEO audit records five existing rendered-site defects; it makes no traffic, ranking, impression, or click claims, and search performance remains `NOT_COLLECTED_TASK3_SCOPE`. Focused validation passed `22` tests and Python compilation. Independent replay verified seven logical-hash contracts, 13 packet artifact bindings, nine manifest bindings, and zero schedule publications. No public write, browser edit, platform adapter, credential read, global-DQR bypass, publication authority, Task 3 work, or upstream-repository modification occurred.
 
-## Cross-Platform Performance Intelligence and Content Idea Loop V1
+## Real Content Retrospective, Gap, Idea, and Assignment Loop V1
 
-`TASK_CONTENTOPS_CROSS_PLATFORM_PERFORMANCE_INTELLIGENCE_AND_CONTENT_IDEA_LOOP_V1_COMPLETION` replaces the rejected fixture-only skeleton with a deterministic, append-only replay at `live_contentops/performance_learning_v1.py`. It binds the accepted Treasury v1.0 release manifest, final platform matrix, historical publication seed, and Newsroom Candidate Pool record to nine `ContentOpsContentIdentityV1` records: Substack plus the eight accepted derivatives.
+`TASK_CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1` supersedes the rejected full-PASS/no-idea disposition while retaining the accepted publication-identity and unavailable-metric foundation. The additive deterministic replay in `live_contentops/performance_learning_v1.py` reads the actual committed `canonical_article.md`, the eight native derivative payload bodies, the final nine-destination publication matrix, and the pinned governed candidate pool from `fatcat2109/Headline-Raw-data-json` commit `0cd7f5545169389204d5f62fdf5a74a73394411b`.
 
-The real evidence packet is `docs/automation/CONTENTOPS_CROSS_PLATFORM_PERFORMANCE_INTELLIGENCE_V1/contentops_performance_learning_v1_packet.json` (SHA-256 `122d51c397568c6765a943a264fa0e0a4119452ea03c846d78ca481b30525c25`). It records one `ContentOpsPerformanceSnapshotV1` per published destination. No operator-attested analytics measurement exists in the committed evidence, so all nine snapshots use `metric_value=null` and `collection_status=UNAVAILABLE`; null is unavailable, not zero. The retrospective is `NO_PERFORMANCE_CONCLUSION_UNAVAILABLE_METRICS` and makes no comparative performance, traffic, ranking, impression, click, causal, or platform-truth claim.
+Evidence is under `docs/automation/CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1/`. The replay emits a published-content retrospective, literal derivative-content comparison, coverage-gap report, generated and rejected idea records, governed backlog, editorial brief, internal assignment, and terminal manifest. It examines three real governed mechanisms: the published Treasury confirmation gap is `ASSIGNABLE_FOR_EVIDENCE_REFRESH_ONLY`; macro-state context is `HOLD_AUTHORITY_GAP`; official-catalyst context is `REJECT_NOT_REPORTABLE`. The already-published Treasury cluster remains duplicate-suppressed and no new article is authorized.
 
-The sole eligible candidate (`cc-candidate-120438cc800db7f941be`) maps to the accepted published cluster (`cc-cluster-7aa53a08e0a4b35873af`), so the loop terminally emits `no_idea`: a new idea requires separately governed material-update, correction, contradiction, or new-phase evidence. The contract prohibits API/browser/network/env/credential/LLM/scraper/scheduler behavior, automatic editorial mutation, source/DQR/permission/citation/risk-language changes, automatic briefs, publication, and dispatch. The main repository stayed read-only; its bound upstream commit is `0cd7f5545169389204d5f62fdf5a74a73394411b`.
+No committed analytics measurement exists, so performance metrics remain `UNAVAILABLE`, no comparative or causal performance claim is made, and idea ranking uses authority and contribution rather than a fabricated performance score. The sole assignment is an internal research/evidence-refresh assignment requiring operator review and fresh story-scoped authority; it cannot draft, publish, dispatch, or mutate the scheduler.
 
-The previous V3 newsroom/Tier-1 packet remains historical evidence. This task did not alter public outputs, accepted release authority, `v1.0`, DQR, the evidence packet schema, or scheduler behavior.
+The replay also records an existing repository lineage mismatch: the current `canonical_article.md` hash does not match the stale `article_markdown_sha256` field, while the manifest's embedded published body validates exactly to its declared `substack_body_markdown_sha256`. This mismatch is evidence, not silently waived authority. No public write, browser/CDP use, platform adapter, credential read, global-DQR bypass, upstream-repository modification, `v1.0` mutation, or Task 4 work occurred. Focused validation passed `41` tests and Python compilation.
 
 ## Next Action
 
-`INDEPENDENT_AUDIT_CONTENTOPS_CROSS_PLATFORM_PERFORMANCE_INTELLIGENCE_V1`
+`INDEPENDENT_AUDIT_CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1`
 
-Audit or reject the immutable local performance-learning packet. Do not collect live metrics, claim platform performance truth, republish the accepted Treasury cluster, modify `v1.0`, or enable automatic editorial or dispatch behavior.
+Audit or reject the deterministic local replay and its internal-only assignment. Do not begin Task 4, collect or invent live metrics, grant publication authority, republish the accepted Treasury cluster, modify `v1.0`, or enable automatic editorial or dispatch behavior.

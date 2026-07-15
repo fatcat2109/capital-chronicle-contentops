@@ -1,0 +1,41 @@
+{
+  "article_claim_ids": [
+    "UST:2Y:2026-07-13",
+    "UST:10Y:2026-07-13",
+    "UST:30Y:2026-07-13",
+    "UST:2S10S:2026-07-13"
+  ],
+  "article_coverage": {
+    "confirmation_and_limits": true,
+    "cross_asset_boundary": true,
+    "current_signal": true,
+    "market_mechanism": true,
+    "policy_context": true,
+    "sources_and_method": true
+  },
+  "article_export_hash_matches_manifest": false,
+  "article_path": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/canonical_article.md",
+  "article_sha256": "0f4e8fe6c6e6ba6999082c5f7663aa6d1414d9ecd1a0e2900c61618999981b95",
+  "article_word_count_read": 1000,
+  "content_findings": [
+    "The canonical article explains the signal, mechanism, policy context, cross-asset boundary, and falsifiable confirmation conditions.",
+    "Short derivatives consistently retain the current signal; mechanism and confirmation coverage varies by platform format.",
+    "No platform-performance winner or causal packaging conclusion is permitted because committed metrics remain unavailable."
+  ],
+  "declared_article_export_sha256": "3379415581f7cdf00aefb0afb2aa5815906abbaf8871f473e681dfc15f97152f",
+  "embedded_published_body_sha256": "bf4376efc326d0702772244eceb1744cf037cdfa9801973ddc8d8d35a0c20f11",
+  "evidence_refs": [
+    "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/canonical_article.md",
+    "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/article_manifest_v1.json",
+    "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/native_payloads_v1.json",
+    "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/final_platform_matrix_v1.json"
+  ],
+  "metric_status": "UNAVAILABLE",
+  "native_derivative_count_examined": 8,
+  "performance_conclusion": null,
+  "published_candidate_id": "cc-candidate-120438cc800db7f941be",
+  "published_cluster_id": "cc-cluster-7aa53a08e0a4b35873af",
+  "retrospective_id": "real_retrospective_9f06642a6c6b2cdd5c88052b",
+  "schema_version": "contentops.published_content_retrospective.v1",
+  "successful_destination_count": 9
+}
