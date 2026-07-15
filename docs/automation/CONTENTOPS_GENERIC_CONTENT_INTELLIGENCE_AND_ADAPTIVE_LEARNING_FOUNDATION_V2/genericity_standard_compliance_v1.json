@@ -1,0 +1,5 @@
+{
+  "mandatory_bootstrap_reference": "AGENTS.md",
+  "standard": "docs/architecture/CONTENTOPS_GENERICITY_AND_DOMAIN_GENERALIZATION_STANDARD_V1.md",
+  "status": "PASS"
+}

@@ -1,0 +1,38 @@
+{
+  "multi_story": {
+    "candidate_count": 3,
+    "distinct_content_count": 1,
+    "distinct_story_count": 1,
+    "distinct_update_chain_count": 1,
+    "gap_count": 3,
+    "history_content_item_count": 2,
+    "idea_count": 2,
+    "metric_bearing_observation_count": 0,
+    "observation_count": 1,
+    "platform_variant_count": 1
+  },
+  "one_article_nine_variants_is_one_content": {
+    "candidate_count": 1,
+    "distinct_content_count": 1,
+    "distinct_story_count": 1,
+    "distinct_update_chain_count": 1,
+    "gap_count": 2,
+    "history_content_item_count": 1,
+    "idea_count": 1,
+    "metric_bearing_observation_count": 0,
+    "observation_count": 9,
+    "platform_variant_count": 9
+  },
+  "representative": {
+    "candidate_count": 1,
+    "distinct_content_count": 1,
+    "distinct_story_count": 1,
+    "distinct_update_chain_count": 1,
+    "gap_count": 1,
+    "history_content_item_count": 1,
+    "idea_count": 1,
+    "metric_bearing_observation_count": 1,
+    "observation_count": 1,
+    "platform_variant_count": 1
+  }
+}

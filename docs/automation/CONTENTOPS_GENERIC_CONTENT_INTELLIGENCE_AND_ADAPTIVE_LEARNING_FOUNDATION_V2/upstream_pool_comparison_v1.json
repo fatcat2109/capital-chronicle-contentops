@@ -1,0 +1,13 @@
+{
+  "artifact_path": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+  "classification": "SAME_BYTES_AND_IDENTITY",
+  "current_byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+  "current_logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+  "current_pinned_commit": "dced71f92239201945dee5c9bd1c706ef9a76f02",
+  "current_pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3",
+  "historical_byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+  "historical_logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+  "historical_pinned_commit": "9bff5453a118486740ccc8957fcabd3c139fb3d2",
+  "historical_pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3",
+  "same_git_blob_sha1": true
+}

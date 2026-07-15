@@ -1,0 +1,23 @@
+{
+  "acceptance_matrix": "PASS_ZERO_OMITTED_REQUIRED_ROWS",
+  "artifact_logical_hash_validation": "PASS_19_GENERATED_ARTIFACTS",
+  "binding_hash_validation": "PASS",
+  "changed_file_inventory": "PASS",
+  "ci_status": "NOT_RUN_NO_GITHUB_CHECKS_CLAIMED",
+  "deterministic_two_run_byte_parity": "PASS",
+  "deterministic_two_run_logical_parity": "PASS",
+  "focused_v2_plus_existing_performance_learning_pytest": "83 passed",
+  "focused_v2_pytest": "61 passed",
+  "full_suite_collection": "6482 tests collected",
+  "full_suite_pass_claimed": false,
+  "full_suite_result": "TIMEOUT_AFTER_904_SECONDS_NO_RESULT",
+  "genericity_guard": "PASS",
+  "git_diff_check": "PASS",
+  "json_parse": "PASS_2505_JSON_FILES",
+  "json_schema_validation": "NOT_USED_TYPED_DATACLASS_CONTRACTS_AND_EXPLICIT_VALIDATORS",
+  "protected_path_inventory": "PASS",
+  "python_compileall": "PASS",
+  "redacted_secret_shaped_scan": "PASS_38_TASK_OWNED_PATHS",
+  "relevant_newsroom_evidence_editorial_status_pytest": "92 passed",
+  "schema_version": "contentops.foundation_v2_validation_summary.v1"
+}

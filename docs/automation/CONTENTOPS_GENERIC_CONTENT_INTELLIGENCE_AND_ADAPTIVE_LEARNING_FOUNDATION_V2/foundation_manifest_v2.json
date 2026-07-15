@@ -1,0 +1,46 @@
+{
+  "artifact_logical_hashes": {
+    "acceptance_matrix_v1.json": "e0f8d347e6c90ce9a23926ff80cb82d2323dcac30b87e46a299010883508cbd0",
+    "append_only_decision_replay_v1.json": "beed1129e2191f5c3160ac574ef42a3c27f5edc89c78614c5f4e92acfae87365",
+    "changed_file_inventory_v1.json": "5a00677f62d0366108d376380d5d5eb79b059216c194abf61aa52ed63f5b454d",
+    "contract_inventory_v1.json": "25d6abee064bb91fed16c76ba8aca451c7886ff780d59a634f02a64a12edadb3",
+    "cross_domain_fixture_matrix_v1.json": "28e343bc0bc1f0344b2c1ab14bc8c4c3fc6819971c2cb9993ffd2fa8fa9d1dad",
+    "domain_capability_registry_v1.json": "c2769a4a23c35809d99e30c6acc5e1c063197358f8c810d455a8cb411f1f34af",
+    "feature_contribution_evidence_v1.json": "a9210c2ec16014cf745c9b72b404c8727c7699e3636b7233157f75a5d7d57ab4",
+    "generic_outcome_matrix_v1.json": "60ae7659400ec75ea36050167ba0e25bc83970b5ef0d33c673bd1cd4e326651f",
+    "genericity_guard_report_v1.json": "770b7be3e2f8ebf1a6d79af05f6ebf5afb4e66c81888befc39c59aea562f52be",
+    "genericity_standard_compliance_v1.json": "a151798c624723ff429ed152861a87b42ee327f7eee3a926dc92051125840b10",
+    "multi_story_generic_replay_v1.json": "9c8e1d0f5b6365209825ad0d15e751ab6ae22cc79670b0de0c6c6b7da69fd0ff",
+    "observation_cardinality_evidence_v1.json": "f08780b4a1404dadd0fb8a2bb6a4301d2d02ff7ee08e69b72e980925a8149ff7",
+    "protected_path_inventory_v1.json": "f632c7d45055913f150ef3110d270e98b49395744c367d10fa13857a63fff984",
+    "ranking_configuration_v1.json": "194f82fc53812b5e172fd59804c6aaa3ba8633e7f67f3cf61e6bf64de9cb6861",
+    "safety_and_limitation_report_v1.json": "cc8a3837cb8ad5ad4956901a829cc0db19daeecf200e15041acfff1166074f15",
+    "test_and_validation_summary_v1.json": "699f3060ac903c120a5da03ded344556b8d92b0f174504db69ee16695ea3ab49",
+    "treasury_compatibility_replay_v2.json": "7c95bfacc7858f76a5df00f00d1bea3f607af0470be9a21539f8a8fa14ab00cb",
+    "upstream_artifact_binding_verification_v1.json": "518de4ca980f112fdac398c25b77c5ebb7d71c6c887cf49e803969b68b65f75c",
+    "upstream_pool_comparison_v1.json": "72e51e15088b0d1ef17871ac82182ca64959b223a15ccac9279d9100de31bb63"
+  },
+  "configuration_calibration_state": "UNCALIBRATED_FOUNDATION",
+  "cross_domain_matrix_status": "PASS",
+  "genericity_guard_status": "PASS",
+  "immutable_export_artifacts": {
+    "current_pinned": {
+      "byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+      "filename": "upstream_candidate_pool_dced71f_immutable_export.json",
+      "git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d"
+    },
+    "historical_pinned": {
+      "byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+      "filename": "upstream_candidate_pool_9bff5453_historical_export.json",
+      "git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d"
+    }
+  },
+  "next_action": "INDEPENDENT_CHATGPT_AUDIT_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2",
+  "publication_authority_granted": false,
+  "schema_version": "contentops.generic_content_intelligence_foundation_manifest.v2",
+  "starting_contentops_head": "4a8d49555e692f730f8a1eaf0fd554175a9cf777",
+  "task_label": "TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2",
+  "terminal_classification": "PASS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2_AWAITING_CHATGPT_AUDIT",
+  "upstream_binding_status": "PASS_IMMUTABLE_BINDING_VERIFIED",
+  "upstream_pool_comparison": "SAME_BYTES_AND_IDENTITY"
+}

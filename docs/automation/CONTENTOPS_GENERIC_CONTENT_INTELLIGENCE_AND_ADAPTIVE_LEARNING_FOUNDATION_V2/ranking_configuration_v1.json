@@ -1,0 +1,292 @@
+{
+  "authority_gates": {
+    "reporting_allowed": true,
+    "source_authority_ready": true
+  },
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "config_logical_hash": "de56ff73f42669fd822c1b82d5ed7a18020e1a8a254440ccc22f12de2b4a7967",
+  "config_version": "contentops.adaptive_learning.foundation.v2.0.0",
+  "features": [
+    {
+      "authority_gate": "source_authority_ready",
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "authority_readiness",
+      "minimum_evidence": 1,
+      "normalization": "boolean",
+      "penalty": false,
+      "unavailable_handling": "block",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "freshness",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "material_delta",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "novelty",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "update_chain_significance",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "evidence_completeness",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "source_diversity",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "reader_utility",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "original_value_opportunity",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "cross_market_or_economy_breadth",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "policy_significance",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "geopolitical_significance",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "durability",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "scheduled_catalyst_relevance",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "visual_feasibility",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "packaging_gap",
+      "minimum_evidence": 1,
+      "normalization": "boolean",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "duplication_risk",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": true,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "filler_risk",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": true,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "overclaiming_risk",
+      "minimum_evidence": 1,
+      "normalization": "bounded_0_1",
+      "penalty": true,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "performance_evidence_availability",
+      "minimum_evidence": 1,
+      "normalization": "boolean",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    },
+    {
+      "authority_gate": null,
+      "domain_applicability": [
+        "*"
+      ],
+      "feature_id": "sample_size_confidence",
+      "minimum_evidence": 3,
+      "normalization": "bounded_0_1",
+      "penalty": false,
+      "unavailable_handling": "preserve",
+      "weight": 1.0
+    }
+  ],
+  "normalization_rules": {
+    "boolean": {
+      "kind": "boolean"
+    },
+    "bounded_0_1": {
+      "kind": "bounded_0_1"
+    },
+    "inverse_min_max": {
+      "kind": "inverse_min_max",
+      "maximum": 100.0,
+      "minimum": 0.0
+    },
+    "min_max": {
+      "kind": "min_max",
+      "maximum": 100.0,
+      "minimum": 0.0
+    }
+  },
+  "schema_version": "contentops.adaptive_learning_config.v1",
+  "thresholds": {
+    "evergreen_min_age_hours": 168.0,
+    "evergreen_min_durability": 0.6,
+    "evergreen_min_reader_utility": 0.6,
+    "minimum_metric_observations": 3.0
+  },
+  "unavailable_handling": {
+    "block": "Fail the affected authority-gated decision without changing unrelated content analysis.",
+    "preserve": "Keep null with an explicit unavailable reason; do not score."
+  }
+}

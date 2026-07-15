@@ -1,6 +1,6 @@
 # ContentOps Final Automation Pipeline Readiness Report
 
-Status: `AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS`.
+Status: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
 
 Canonical supervised publishing profile: Microsoft Edge at `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`. Substack is canonical and YouTube Community is the default YouTube article derivative.
 
@@ -15,7 +15,7 @@ Canonical evidence: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTO
 - Substack plus Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community have stable public IDs or provider IDs and strict readback.
 - X and Threads each preserve an ordered root plus two-reply chain and distribute the three approved visuals once.
 - A bounded Substack update removed a duplicate truncated caption fragment without changing the canonical URL or touching derivatives.
-- Machine audit classification is `AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC`; machine QA is `PASS`.
+- Machine QA, final release verification, and operator acceptance are `PASS`; annotated tag `v1.0` marks release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
 
 ## Explicit Caveats
 
@@ -23,8 +23,10 @@ Telegram provider readback verifies message `63`, exact text, chart, and canonic
 
 TikTok was not part of the authorized eight-destination article run and remains blocked by canonical-profile authentication. YouTube video and Shorts were not invoked.
 
-No CI PASS is claimed. No `v1.0` tag exists.
+No CI PASS is claimed. Annotated tag `v1.0` exists and is immutable.
 
 ## Release Gate
 
-There is no remaining engineering blocker for this RC. Jim must visually inspect the short operator audit set and explicitly accept or reject the output. Tag creation remains prohibited until that acceptance and a passing final release verifier.
+There is no remaining engineering or operator-acceptance blocker for the v1.0 release. Public outputs remain frozen and the tag must not be moved, deleted, recreated, or retagged.
+
+The current local backend authority is `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`, classified `PASS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2_AWAITING_CHATGPT_AUDIT`. It performs no publication, dispatch, policy mutation, browser, provider, credential, or live-metric action.

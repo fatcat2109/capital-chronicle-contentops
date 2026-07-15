@@ -1,0 +1,32 @@
+{
+  "concurrent_mainline_writer_detected": false,
+  "contentops_starting_head": "4a8d49555e692f730f8a1eaf0fd554175a9cf777",
+  "explicit_path_staging_only": true,
+  "initial_unrelated_tracked_changes_preserved": [
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/CURRENT_STATE_SUMMARY_V6_READINESS.md",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/IMPLEMENTATION_REPORT.md",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/project_sources_upload_bundle_packet.json",
+    "ui/contentops_v5/src/data/platform_variant_packet.json"
+  ],
+  "initial_unrelated_untracked_change_groups_preserved": [
+    "docs/CAPITAL_CHRONICLE_CONTENTOPS_NEWSROOM_INTELLIGENCE_EDITORIAL_SEO_AND_PERFORMANCE_MASTER_PLAN_V1.md",
+    "docs/automation/0174*",
+    "docs/automation/V6_MEDIA_SYSTEM/downloads/fallback_7c55821863cc.png"
+  ],
+  "schema_version": "contentops.foundation_v2_protected_path_inventory.v1",
+  "status": "PASS_PROTECTED_PATHS_PRESERVED",
+  "task3_or_task4_historical_artifact_modified": false,
+  "task3_path": "docs/automation/CONTENTOPS_REAL_CONTENT_RETROSPECTIVE_GAP_IDEA_AND_ASSIGNMENT_LOOP_V1",
+  "task4_path": "docs/automation/CONTENTOPS_ADAPTIVE_NEWSROOM_LEARNING_LOOP_V1",
+  "test_side_effect_files_restored_to_head_content": [
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "docs/automation/V6_POST_RELEASE_GOVERNANCE/operator_governance_summary.json"
+  ],
+  "upstream_pinned_commit_inspected": "dced71f92239201945dee5c9bd1c706ef9a76f02",
+  "upstream_repository": "fatcat2109/Headline-Raw-data-json",
+  "upstream_worktree_modified_by_task": false,
+  "v1_0_mutated": false,
+  "v1_0_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "v1_0_tag_object": "a021df7fd0264d9f160bdd605509da925f0bf131"
+}

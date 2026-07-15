@@ -51,9 +51,9 @@
     "video_capabilities": {"adapter": "video_platform_capability_matrix_v1", "payload_compiler": "separate explicit mode", "public_readback": "not applicable in capability audit", "idempotency_ledger": "separate explicit-mode ledger", "focused_tests": ["test_video_platform_capability_matrix_v1.py"], "common_failures": ["credentials confused with authorization"], "allowed_recovery": ["complete separate OAuth review"], "forbidden_fallback": ["default article runner upload"], "evidence": "video_platform_capability_matrix_v1.json"}
   },
   "failure_conditions": ["wrong_media", "process_language", "weak_news_peg", "hard_or_mid_sentence_truncation", "orphan_reply_fragment", "missing_canonical_url_semantics", "incomplete_visual_distribution", "missing_public_identity", "unresolved_unknown_write", "wrong_account_or_surface"],
-  "current_public_state": "frozen_generic_treasury_canary_machine_qa_pass_operator_acceptance_pending",
+  "current_public_state": "frozen_v1_0_operator_accepted_release",
   "release_gate": {
-    "classification": "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS",
+    "classification": "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED",
     "global_dqr_status": "BLOCKED",
     "story_scoped_reporting_allowed": true,
     "story_scoped_decision": "PASS_PUBLICATION_AUTHORIZED",
@@ -63,7 +63,10 @@
     "oil_substack_repaired_live": false,
     "fresh_oil_linkedin_created": false,
     "threads_order_caveat": false,
-    "resume_policy": "freeze_all_outputs_pending_operator_acceptance"
+    "resume_policy": "freeze_all_accepted_v1_0_outputs"
   },
-  "v1_0_tag_allowed": false
+  "v1_0_tag_allowed": false,
+  "v1_0_tag_exists": true,
+  "v1_0_tag_immutable": true,
+  "v1_0_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b"
 }

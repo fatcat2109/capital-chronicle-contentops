@@ -4,7 +4,7 @@ Current authority is the V6 master plan, machine status JSON, generic fabric con
 
 | Superseded claim | Current authority |
 | --- | --- |
-| Nine-surface machine PASS means v1.0 readiness | Operator audit overrides release acceptance: `MANUAL_AUDIT_PARTIAL_PASS_BLOCKED_FOR_TARGETED_REPAIR`. |
+| Nine-surface machine PASS alone means v1.0 acceptance | Machine proof required later operator acceptance and final repair verification; those gates passed and immutable annotated tag `v1.0` now marks the accepted release. |
 | `fed_funds / oil / unsupported` is the canonical story model | Capability-driven story types and evidence requirements are canonical; topic builders are legacy adapters. |
 | Duplicate guard proves news freshness | Duplicate and freshness gates are separate. |
 | Direct FRED/EIA fetchers are future numeric authority | `CapitalChronicleContentEvidencePacketV2` is the canonical consumer boundary. |
@@ -19,4 +19,6 @@ Current authority is the V6 master plan, machine status JSON, generic fabric con
 
 Earlier Chrome, Telegram-host, local-export, arbitrary DOM-image, hard-truncation, video-as-YouTube-default, and click-equals-success models remain superseded as documented by prior commits.
 
-The former global-DQR closure blocker is superseded by story-scoped publication authority. Global DQR remains blocked, but the exact Treasury packet grants `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED`; the resulting generic live canary passed nine-surface machine QA and now awaits operator acceptance.
+The former global-DQR closure blocker is superseded by story-scoped publication authority. Global DQR remains blocked, but the exact Treasury packet grants `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED`; the resulting generic live canary passed nine-surface machine QA, final bounded repair, operator acceptance, and immutable `v1.0` tagging.
+
+The Task 4 Treasury-specific learning prototype is superseded only as the reusable foundation by `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`. Historical Task 4 evidence remains accepted and immutable; new learning features must follow the genericity standard, external uncalibrated configuration, exact-byte artifact verification, and cross-domain execution evidence.

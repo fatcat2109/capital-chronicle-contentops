@@ -6,7 +6,7 @@ Start at root `AGENTS.md`. Repo evidence beats chat memory and archived plans.
 
 `TASK_CONTENTOPS_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1` completed the first database-authorized generic live canary. The main database granted exact story-scoped `contentops_publication` permission while global DQR remained blocked; ContentOps consumed that packet without a legacy oil/Fed fallback.
 
-Run `contentops_database_publication_live_20260714_1` passed Substack plus eight configured derivatives, machine audit, and the final release verifier. It is frozen at `AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS`. No `v1.0` tag exists.
+Run `contentops_database_publication_live_20260714_1` passed Substack plus eight configured derivatives, machine audit, the final release verifier, and operator acceptance. Annotated tag `v1.0` marks immutable release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
 
 ## Read Order
 
@@ -41,4 +41,6 @@ Numeric truth must come from approved evidence claim IDs. DQR blocks cannot be o
 
 The upstream publication packet at database commit `49525e0f17c2eb448ac3343f63559f5021fea47c` grants only the exact Treasury story. ContentOps calibrated the headline, produced two quantitative charts plus an official Treasury data excerpt, passed deterministic and bounded LLM editorial review, and published through the canonical runner.
 
-Canonical article: `https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider`. All eight configured derivatives have stable IDs and strict readback in the run evidence. A bounded Substack update removed one duplicate caption fragment without touching derivatives. The machine audit passes; do not rerun or edit these outputs. Await Jim's visual/content acceptance. Do not create a tag without that explicit acceptance.
+Canonical article: `https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider`. All eight configured derivatives have stable IDs and strict readback in the run evidence. A bounded Substack update removed one duplicate caption fragment without touching derivatives. The machine audit and operator acceptance pass; do not rerun or edit these outputs, and do not move, delete, recreate, or retag `v1.0`.
+
+The current reusable learning authority is `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`. Read `docs/architecture/CONTENTOPS_GENERICITY_AND_DOMAIN_GENERALIZATION_STANDARD_V1.md` before extending ContentOps intelligence or learning features.

@@ -1,0 +1,51 @@
+{
+  "authority_is_orthogonal_to_domain": true,
+  "design": "capability_first",
+  "event_relationships": [
+    "initial_event",
+    "duplicate",
+    "correction",
+    "incremental_update",
+    "material_update",
+    "confirmation",
+    "contradiction",
+    "new_phase",
+    "scheduled_follow_up",
+    "retrospective_refresh",
+    "packaging_only_update"
+  ],
+  "fixture_domains": [
+    "inflation data release",
+    "labor-market release",
+    "GDP or macro revision",
+    "central-bank policy decision",
+    "sovereign yield-curve update",
+    "FX volatility or cross-asset market move",
+    "commodity or energy supply update",
+    "sanctions or export-control action",
+    "geopolitical escalation or de-escalation",
+    "trade tariff or regulatory action",
+    "weather disaster or infrastructure disruption",
+    "official speech testimony hearing or policy document",
+    "corporate or sector financial event",
+    "cross-source confirmation",
+    "cross-source contradiction"
+  ],
+  "gap_types": [
+    "unanswered_question",
+    "missing_evidence",
+    "missing_transmission_analysis",
+    "missing_visual_explanation",
+    "unresolved_contradiction",
+    "scheduled_follow_up",
+    "thesis_re_evaluation",
+    "correction",
+    "evergreen_refresh",
+    "derivative_packaging_gap",
+    "stale_evidence",
+    "repeated_topic_with_no_new_delta"
+  ],
+  "new_domain_requires_core_change": false,
+  "permission_is_orthogonal_to_domain": true,
+  "schema_version": "contentops.domain_capability_registry.v1"
+}

@@ -1,0 +1,541 @@
+{
+  "all_pass": true,
+  "omitted_required_rows": 0,
+  "required_row_count": 89,
+  "rows": [
+    {
+      "evidence": "git verification and foundation manifest",
+      "requirement": "ContentOps origin/master fetched and required starting HEAD established",
+      "requirement_id": "1.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "protected-path inventory",
+      "requirement": "No concurrent mainline writer or Git lock",
+      "requirement_id": "1.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "changed/protected-path inventories",
+      "requirement": "Unrelated worktree changes preserved and explicit-path staging required",
+      "requirement_id": "1.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "upstream binding verification",
+      "requirement": "Upstream repository inspected read-only at pinned commit",
+      "requirement_id": "1.4",
+      "status": "PASS"
+    },
+    {
+      "evidence": "protected-path inventory and safety report",
+      "requirement": "Immutable v1.0 tag not moved deleted recreated or retagged",
+      "requirement_id": "1.5",
+      "status": "PASS"
+    },
+    {
+      "evidence": "foundation manifest input audit",
+      "requirement": "Fresh-session authority and bootstrap files read",
+      "requirement_id": "2.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "compatibility replay",
+      "requirement": "Task 3 and Task 4 evidence inspected",
+      "requirement_id": "2.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "immutable exported artifact",
+      "requirement": "Pinned upstream candidate pool read from Git object authority",
+      "requirement_id": "2.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "genericity standard and guard",
+      "requirement": "Generic-by-default product invariant implemented",
+      "requirement_id": "3.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "generic core and guard report",
+      "requirement": "Core reasons from contracts rather than topic names",
+      "requirement_id": "3.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "15-domain algorithm execution matrix",
+      "requirement": "Scenario fixtures never become architecture boundaries",
+      "requirement_id": "3.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "cross-domain matrix and focused tests",
+      "requirement": "Repaired abstractions execute in unrelated domains",
+      "requirement_id": "3.4",
+      "status": "PASS"
+    },
+    {
+      "evidence": "protected paths and compatibility replay",
+      "requirement": "Task 3 and Task 4 historical artifacts preserved",
+      "requirement_id": "4.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "Task 4 adapter disposition",
+      "requirement": "Task 4 retained as useful Treasury-specific shadow prototype",
+      "requirement_id": "4.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "three V2 modules and compatibility replay",
+      "requirement": "V2 is new reusable authority with compatibility adapters",
+      "requirement_id": "4.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "docs/architecture/CONTENTOPS_GENERICITY_AND_DOMAIN_GENERALIZATION_STANDARD_V1.md",
+      "requirement": "Durable genericity architecture standard created",
+      "requirement_id": "5.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "genericity standard compliance",
+      "requirement": "Standard covers core/adapters/config/fixtures anti-overfitting unavailable evidence time performance model and PASS rules",
+      "requirement_id": "5.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "AGENTS.md",
+      "requirement": "Mandatory builder entry reference added",
+      "requirement_id": "5.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "changed-file inventory",
+      "requirement": "No additional master plan created",
+      "requirement_id": "5.4",
+      "status": "PASS"
+    },
+    {
+      "evidence": "contract inventory",
+      "requirement": "Cohesive contracts core and adapters modules created",
+      "requirement_id": "6.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "genericity guard and source test",
+      "requirement": "Generic core does not import adapters",
+      "requirement_id": "6.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "v1 compatibility replay and existing tests",
+      "requirement": "V1 remains operational through compatibility adapter",
+      "requirement_id": "6.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "contract inventory and vocabulary test",
+      "requirement": "All required event relationships implemented",
+      "requirement_id": "7.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "contract inventory and vocabulary test",
+      "requirement": "All required evidence modalities implemented",
+      "requirement_id": "7.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "contract inventory and vocabulary test",
+      "requirement": "All required temporal characters implemented",
+      "requirement_id": "7.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "contract inventory and vocabulary test",
+      "requirement": "All required story and analysis modes implemented",
+      "requirement_id": "7.4",
+      "status": "PASS"
+    },
+    {
+      "evidence": "contracts and domain registry",
+      "requirement": "Authority permission and optional dimensions remain orthogonal",
+      "requirement_id": "7.5",
+      "status": "PASS"
+    },
+    {
+      "evidence": "contracts and focused tests",
+      "requirement": "PublishedContentHistoryV1 supports histories versions variants lineage repairs and supersession",
+      "requirement_id": "8.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "binding verification evidence",
+      "requirement": "GovernedCandidatePoolBindingV1 captures complete immutable binding",
+      "requirement_id": "8.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "contracts and focused tests",
+      "requirement": "ContentGapSetV1 supports all required finding classes and arbitrary counts",
+      "requirement_id": "8.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "observation cardinality evidence",
+      "requirement": "PerformanceObservationSetV1 preserves all required cardinalities and authority states",
+      "requirement_id": "8.4",
+      "status": "PASS"
+    },
+    {
+      "evidence": "ranking configuration",
+      "requirement": "AdaptiveLearningConfigV1 externalizes registry normalization weights thresholds penalties gates applicability unavailable and calibration",
+      "requirement_id": "8.5",
+      "status": "PASS"
+    },
+    {
+      "evidence": "multi-story replay",
+      "requirement": "ContentOpsLearningDecisionV2 preserves bindings cohort cardinalities features contributions outcomes authority ranks briefs abstentions proposals confidence calibration firewall operator and hash",
+      "requirement_id": "8.6",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused tests and contract inventory",
+      "requirement": "All contracts support empty singleton and multi-item collections without topic-required fields",
+      "requirement_id": "8.7",
+      "status": "PASS"
+    },
+    {
+      "evidence": "upstream artifact binding verification",
+      "requirement": "Verifier hashes exact consumed bytes and Git blob",
+      "requirement_id": "9.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "upstream artifact binding verification",
+      "requirement": "Repository branch commit path schema producer pool logical record source and time metadata verified",
+      "requirement_id": "9.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "binding-focused tests",
+      "requirement": "All specified mismatch and future-leak conditions fail closed",
+      "requirement_id": "9.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "evidence directory",
+      "requirement": "Offline replay includes immutable export binding envelope and verifier result",
+      "requirement_id": "9.4",
+      "status": "PASS"
+    },
+    {
+      "evidence": "SAME_BYTES_AND_IDENTITY comparison",
+      "requirement": "Pinned versus historical pool classified truthfully",
+      "requirement_id": "9.5",
+      "status": "PASS"
+    },
+    {
+      "evidence": "OutcomeDecisionV1",
+      "requirement": "Source relationship evidence authority history gap actionable outcome and publication disposition separated",
+      "requirement_id": "10.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "core and focused tests",
+      "requirement": "Material confirmation contradiction correction and new-phase rules require governed evidence",
+      "requirement_id": "10.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "core and focused tests",
+      "requirement": "Packaging duplicate filler evergreen authority and no-publication semantics separated",
+      "requirement_id": "10.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused tests",
+      "requirement": "Incompatible outcomes fail and compatible observations coexist",
+      "requirement_id": "10.4",
+      "status": "PASS"
+    },
+    {
+      "evidence": "outcome matrix",
+      "requirement": "Reason codes and evidence references retained",
+      "requirement_id": "10.5",
+      "status": "PASS"
+    },
+    {
+      "evidence": "external ranking configuration and guard",
+      "requirement": "No embedded arbitrary product weights in generic Python",
+      "requirement_id": "11.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "ranking configuration",
+      "requirement": "Neutral configuration explicitly UNCALIBRATED_FOUNDATION",
+      "requirement_id": "11.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "feature contribution evidence",
+      "requirement": "Every feature preserves applicability availability raw normalized weight contribution penalty refs and reasons",
+      "requirement_id": "11.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused tests and feature evidence",
+      "requirement": "Unavailable never becomes zero and performance prior abstains without metrics",
+      "requirement_id": "11.4",
+      "status": "PASS"
+    },
+    {
+      "evidence": "observation cardinality evidence",
+      "requirement": "Nine platform variants remain one distinct content item",
+      "requirement_id": "11.5",
+      "status": "PASS"
+    },
+    {
+      "evidence": "cross-domain and compatibility replays",
+      "requirement": "Content analysis operates without performance metrics",
+      "requirement_id": "12.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "core and config",
+      "requirement": "Performance learning requires metric-bearing observations and cohort threshold",
+      "requirement_id": "12.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "forbidden-effects firewall",
+      "requirement": "Performance feedback cannot mutate truth authority permission DQR labels citations risk or blockers",
+      "requirement_id": "12.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "Treasury compatibility replay",
+      "requirement": "Accepted publication final-body and stale-lineage adapter implemented",
+      "requirement_id": "13.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "compatibility replay",
+      "requirement": "Task 3 Task 4 governed pools and performance snapshots adapted",
+      "requirement_id": "13.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "genericity guard",
+      "requirement": "Scenario-specific constants remain in adapters only",
+      "requirement_id": "13.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "cross-domain fixture matrix",
+      "requirement": "All 15 required domains present",
+      "requirement_id": "14.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "matrix coverage object",
+      "requirement": "Numeric/nonnumeric modality source geography asset schedule authority cardinality and metric coverage complete",
+      "requirement_id": "14.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "cross-domain fixture rows",
+      "requirement": "Each fixture states capability no-branch rationale expected outcome disposition and unavailable fields",
+      "requirement_id": "14.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "algorithm_executed and decision IDs",
+      "requirement": "Fixtures execute algorithms rather than serialization only",
+      "requirement_id": "14.4",
+      "status": "PASS"
+    },
+    {
+      "evidence": "genericity guard report",
+      "requirement": "Genericity guard scans generic modules for topic IDs URLs hashes routes counts dates weights coercion and inference",
+      "requirement_id": "15.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "genericity_guard_report_v1.json",
+      "requirement": "Machine-readable genericity report has zero findings",
+      "requirement_id": "15.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "append-only replay",
+      "requirement": "Decisions are append-only with prior identity config bindings logical time reason operator and hash",
+      "requirement_id": "16.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused tests",
+      "requirement": "Identical inputs deterministic and changed authority/config changes identity",
+      "requirement_id": "16.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "ModelAssistedJudgmentV1",
+      "requirement": "Bounded model-assisted record preserves required metadata without hidden reasoning",
+      "requirement_id": "17.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused tests and safety report",
+      "requirement": "Core runs without live LLM and models cannot grant authority or permission",
+      "requirement_id": "17.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "foundation manifest artifact inventory",
+      "requirement": "All required bounded V2 evidence artifacts emitted",
+      "requirement_id": "18.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "safety report and fixture matrix",
+      "requirement": "Historical synthetic unavailable uncalibrated proposal and authorization classes distinguished",
+      "requirement_id": "18.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "safety report",
+      "requirement": "No V2 artifact claims new publication authority",
+      "requirement_id": "18.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused pytest",
+      "requirement": "Contract and arbitrary-cardinality tests pass",
+      "requirement_id": "19.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused pytest",
+      "requirement": "Binding mismatch and point-in-time tests pass",
+      "requirement_id": "19.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused pytest",
+      "requirement": "Outcome semantic tests pass",
+      "requirement_id": "19.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused pytest",
+      "requirement": "Ranking availability arithmetic sample and multi-story tests pass",
+      "requirement_id": "19.4",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused pytest",
+      "requirement": "Genericity cross-domain and repaired-abstraction tests pass",
+      "requirement_id": "19.5",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused pytest",
+      "requirement": "No-policy no-live no-secret safety tests pass",
+      "requirement_id": "19.6",
+      "status": "PASS"
+    },
+    {
+      "evidence": "focused and existing pytest",
+      "requirement": "Historical/V1 compatibility and deterministic append-only tests pass",
+      "requirement_id": "19.7",
+      "status": "PASS"
+    },
+    {
+      "evidence": "test and validation summary",
+      "requirement": "Focused V2 existing performance relevant and broader tests reported truthfully",
+      "requirement_id": "20.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "test and validation summary",
+      "requirement": "Compilation JSON hash parity genericity diff and scans reported",
+      "requirement_id": "20.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "validation summary and safety report",
+      "requirement": "No CI PASS claimed without GitHub checks",
+      "requirement_id": "20.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "changed-file inventory",
+      "requirement": "All mandatory status master ledger pointer readiness and supersession authorities reconciled",
+      "requirement_id": "21.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "AGENTS bootstrap readiness status and platform contract",
+      "requirement": "Stale release tag and operator-acceptance claims corrected",
+      "requirement_id": "21.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "status files",
+      "requirement": "Task 4 exact supersession disposition and V2 audit state recorded",
+      "requirement_id": "21.3",
+      "status": "PASS"
+    },
+    {
+      "evidence": "acceptance_matrix_v1.json",
+      "requirement": "Original prompt audited with zero omitted requirements",
+      "requirement_id": "22.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "acceptance_matrix_v1.json",
+      "requirement": "Every acceptance row is exactly PASS with evidence",
+      "requirement_id": "22.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "safety report",
+      "requirement": "No publish dispatch schedule platform browser storage credential env webhook public fetch metrics policy UI or live collection action",
+      "requirement_id": "23.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "foundation manifest",
+      "requirement": "Backend deterministic shadow scope only",
+      "requirement_id": "23.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "changed-file inventory",
+      "requirement": "Only task-owned paths are eligible for explicit staging",
+      "requirement_id": "24.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "terminal Git verification",
+      "requirement": "Commit push and final Git verification required before terminal response",
+      "requirement_id": "24.2",
+      "status": "PASS"
+    },
+    {
+      "evidence": "foundation manifest",
+      "requirement": "Terminal classification and exact next action match task contract",
+      "requirement_id": "25.1",
+      "status": "PASS"
+    },
+    {
+      "evidence": "terminal response",
+      "requirement": "Final evidence response includes every requested field",
+      "requirement_id": "26.1",
+      "status": "PASS"
+    }
+  ]
+}

@@ -14,6 +14,7 @@ This file is the first file every AI IDE/CLI builder must read before touching t
 8. [Edge publishing runbook](docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/operator_browser_lab_runbook.md)
 9. [Generic evidence/freshness/visual/editorial contract](docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/generic_evidence_freshness_visual_editorial_fabric_v2.md)
 10. [RC operator audit findings](docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/operator_manual_audit_findings_v2.json)
+11. [Mandatory genericity and domain-generalization standard](docs/architecture/CONTENTOPS_GENERICITY_AND_DOMAIN_GENERALIZATION_STANDARD_V1.md)
 
 ## Authority Order
 
@@ -46,7 +47,7 @@ Do not revive deleted or archived UI surfaces as product surfaces unless a newer
 - Allowed credential diagnostics: environment-variable names, presence booleans, redacted capability status, and non-secret account/scope readiness.
 - The current generic live evidence is at `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`. Story-scoped `contentops_publication` authority permitted this Treasury story while global DQR correctly remained blocked. Substack plus all eight configured derivatives passed strict readback; TikTok remains outside this run and blocked by canonical-profile authentication.
 - Never bypass global DQR. Publication is allowed only when an exact story-scoped packet independently grants `reporting_allowed=true`, `PASS_PUBLICATION_AUTHORIZED`, fresh source authority, and public claim permissions.
-- No `v1.0` tag exists. Current state is `AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS`; the only next action is operator acceptance or rejection of the recorded public outputs.
+- Annotated tag `v1.0` exists at immutable release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`; the release is operator accepted. The current next action is the independent audit named in `next_task_pointer.md`.
 
 
 ## Task Protocol

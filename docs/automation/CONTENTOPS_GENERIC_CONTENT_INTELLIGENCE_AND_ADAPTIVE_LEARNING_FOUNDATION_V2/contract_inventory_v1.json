@@ -1,0 +1,13 @@
+{
+  "contracts": [
+    "PublishedContentHistoryV1",
+    "GovernedCandidatePoolBindingV1",
+    "ContentGapSetV1",
+    "PerformanceObservationSetV1",
+    "AdaptiveLearningConfigV1",
+    "ContentOpsLearningDecisionV2",
+    "ModelAssistedJudgmentV1"
+  ],
+  "empty_singleton_multi_supported": true,
+  "topic_specific_required_fields": []
+}

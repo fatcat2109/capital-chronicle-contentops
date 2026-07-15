@@ -1,0 +1,16 @@
+{
+  "browser_or_cdp_used": false,
+  "configuration_calibration_state": "UNCALIBRATED_FOUNDATION",
+  "credential_accessed": false,
+  "editorial_policy_mutated": false,
+  "new_publication_authorized": false,
+  "operator_review_proposals_only": true,
+  "provider_action_performed": false,
+  "public_http_performed": false,
+  "public_write_performed": false,
+  "publication_authorized_outputs": 0,
+  "release_tag_mutated": false,
+  "scheduler_policy_mutated": false,
+  "synthetic_fixtures_are_real_observations": false,
+  "upstream_repository_mutated": false
+}
