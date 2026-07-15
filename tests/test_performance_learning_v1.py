@@ -1,4 +1,4 @@
-﻿from dataclasses import replace
+from dataclasses import replace
 from pathlib import Path
 import pytest
 from live_contentops import manual_publish_record_metrics_ledger_contract as ledger
@@ -35,20 +35,28 @@ def _snapshot(identity=None, **metric_changes):
     )
 
 
-def test_contract_packet_is_deterministic_redacted_and_inconclusive():
+def test_contract_packet_is_deterministic_and_terminates_with_real_evidence_no_idea():
     first, second = learning.build_contract_packet(), learning.build_contract_packet()
     assert first == second
     assert first.packet_hash == second.packet_hash
     assert first.all_records_manual_only and first.all_learning_review_only
     assert first.no_collection_performed and first.no_api_verification and first.no_scraping
     assert first.no_automatic_editorial_mutation and first.no_auto_publish and first.no_dispatch
-    snapshot = first.snapshots[0]
+    assert first.terminal_classification == learning.TERMINAL_NO_IDEA
+    assert first.source_bindings["candidate_id"] == "cc-candidate-120438cc800db7f941be"
+    assert first.source_bindings["cluster_id"] == "cc-cluster-7aa53a08e0a4b35873af"
+    assert len(first.identities) == len(first.snapshots) == 9
+    assert {snapshot.platform_id for snapshot in first.snapshots} == {
+        "discord", "facebook_page", "instagram_business", "linkedin", "substack",
+        "telegram", "threads", "x", "youtube",
+    }
+    assert all(snapshot.metric_value is None for snapshot in first.snapshots)
+    assert all(snapshot.collection_status == learning.COLLECTION_UNAVAILABLE for snapshot in first.snapshots)
     retrospective, idea = first.retrospectives[0], first.idea_candidates[0]
-    assert snapshot.authority_class == learning.AUTHORITY_MANUAL_OPERATOR_ENTRY
-    assert snapshot.collection_status == learning.COLLECTION_RECORDED_REVIEW_ONLY
-    assert retrospective.retrospective_status == learning.RETROSPECTIVE_INCONCLUSIVE
-    assert retrospective.sample_size == 1 and retrospective.distinct_content_identity_count == 1
-    assert idea.candidate_type == "observation_plan"
+    assert retrospective.retrospective_status == learning.RETROSPECTIVE_UNAVAILABLE
+    assert retrospective.available_metric_count == 0
+    assert idea.candidate_type == learning.IDEA_NO_IDEA
+    assert "already represented" in idea.hypothesis
     assert "raw-secret" not in learning._json(first)
 
 
