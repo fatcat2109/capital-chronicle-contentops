@@ -440,6 +440,7 @@ def _fixture_candidate(fixture: Mapping[str, Any], index: int = 0) -> LearningCa
         material_reader_contribution=True,
         feature_inputs=feature_inputs,
         evidence_refs=(f"synthetic:{fixture['fixture_id']}",),
+        governed_evidence_refs=(f"synthetic:{fixture['fixture_id']}",) if authorized else (),
         internal_brief_ids=(f"synthetic:{fixture['fixture_id']}:brief",),
     )
 

@@ -1,0 +1,19 @@
+{
+  "all_v2_pytest": "162 passed",
+  "broader_relevant_pytest": "63 passed",
+  "ci_status": "NOT_CHECKED_PRECOMMIT_NO_CI_PASS_CLAIMED",
+  "config_validation": "PASS_UNCALIBRATED_FOUNDATION_ZERO_BLOCKERS",
+  "deterministic_regeneration": "PASS_TWO_IDENTICAL_COMPLETE_EVIDENCE_GENERATIONS",
+  "final_combined_elapsed_seconds": 11.85,
+  "final_combined_relevant_pytest": "247 passed",
+  "focused_repair_pytest": "43 passed",
+  "full_suite_result": "NOT_RUN_NO_FULL_SUITE_PASS_CLAIMED",
+  "genericity_ast_guard": "PASS_ZERO_FINDINGS",
+  "git_diff_check": "PASS",
+  "json_parse": "PASS_2543_JSON_FILES",
+  "python_compileall": "PASS",
+  "redacted_secret_shaped_scan": "PASS_ZERO_FINDINGS",
+  "schema_version": "contentops.authority_integrity_repair_test_summary.v2",
+  "status": "PASS",
+  "v1_compatibility_pytest": "22 passed"
+}

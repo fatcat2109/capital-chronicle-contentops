@@ -42,8 +42,8 @@ def _candidate(*, authorized=True, capabilities=None, feature_inputs=(), relatio
         authority_ready=authorized, reporting_allowed=authorized,
         authority_blockers=() if authorized else ("authority_missing",), history_identity_match=False,
         material_reader_contribution=True, feature_inputs=tuple(feature_inputs), evidence_refs=refs,
+        governed_evidence_refs=refs,
         capabilities=capabilities or _capabilities(),
-        authority_gate_results={"source_authority_ready": authorized, "reporting_allowed": authorized},
     )
     return replace(candidate, **changes)
 

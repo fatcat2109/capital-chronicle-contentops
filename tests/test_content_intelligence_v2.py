@@ -37,6 +37,7 @@ def _candidate(relationship=contracts.EventRelationship.INITIAL_EVENT, *, author
             core.FeatureInputV1("duplication_risk", True, contracts.AvailabilityState.EXPLICIT_ZERO, 0.0),
         ),
         evidence_refs=("evidence:a",),
+        governed_evidence_refs=("evidence:a",),
         internal_brief_ids=("brief:a",),
     )
     return replace(candidate, **changes)

@@ -1,0 +1,61 @@
+{
+  "canonical_derivation_fields": {
+    "reporting_allowed": [
+      "reporting_allowed"
+    ],
+    "source_authority_ready": [
+      "authority_ready",
+      "authority_blockers"
+    ]
+  },
+  "canonical_gate_ids": [
+    "reporting_allowed",
+    "source_authority_ready"
+  ],
+  "rows": [
+    {
+      "case": "unauthorized_without_override",
+      "expected": "BLOCKED_NO_CONTRIBUTION",
+      "observed": "BLOCKED_NO_CONTRIBUTION",
+      "status": "PASS"
+    },
+    {
+      "case": "unauthorized_true_canonical_override",
+      "expected": "REJECT_CANONICAL_OVERRIDE",
+      "observed": "REJECT_CANONICAL_OVERRIDE",
+      "status": "PASS"
+    },
+    {
+      "case": "authorized_false_canonical_override",
+      "expected": "REJECT_CANONICAL_OVERRIDE",
+      "observed": "REJECT_CANONICAL_OVERRIDE",
+      "status": "PASS"
+    },
+    {
+      "case": "unknown_extension_gate",
+      "expected": "REJECT_UNKNOWN_EXTENSION_GATE",
+      "observed": "REJECT_UNKNOWN_EXTENSION_GATE",
+      "status": "PASS"
+    },
+    {
+      "case": "declared_extension_false",
+      "expected": "BLOCKED_NO_CONTRIBUTION",
+      "observed": "BLOCKED_NO_CONTRIBUTION",
+      "status": "PASS"
+    },
+    {
+      "case": "declared_extension_true",
+      "expected": "AVAILABLE_CONTRIBUTED",
+      "observed": "AVAILABLE_CONTRIBUTED",
+      "status": "PASS"
+    },
+    {
+      "case": "disabled_extension_true_contradiction",
+      "expected": "REJECT_CONTRADICTORY_EXTENSION_GATE",
+      "observed": "REJECT_CONTRADICTORY_EXTENSION_GATE",
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.authority_gate_override_matrix.v2",
+  "status": "PASS"
+}

@@ -252,6 +252,8 @@ def run_genericity_ast_guard(repo_root: str | Path) -> dict[str, Any]:
         root / "live_contentops" / "generic_foundation_hardening_v2.py",
         root / "tests" / "test_content_intelligence_v2.py",
         root / "tests" / "test_generic_foundation_hardening_v2.py",
+        root / "live_contentops" / "generic_foundation_authority_integrity_repair_v2.py",
+        root / "tests" / "test_generic_foundation_authority_integrity_repair_v2.py",
     )
     findings: list[dict[str, Any]] = []
 
@@ -293,7 +295,7 @@ def run_genericity_ast_guard(repo_root: str | Path) -> dict[str, Any]:
                 add(path, rule, "TEXT_PATTERN", pattern)
 
     hardening_text = auxiliary_targets[1].read_text(encoding="utf-8-sig")
-    for path in (auxiliary_targets[1], auxiliary_targets[3]):
+    for path in (auxiliary_targets[1], auxiliary_targets[3], auxiliary_targets[4], auxiliary_targets[5]):
         if path.exists():
             text = path.read_text(encoding="utf-8-sig")
             tree = ast.parse(text)
@@ -445,7 +447,6 @@ def _fixture_inputs(spec: Mapping[str, Any]) -> tuple[core.LearningCandidateV2, 
         gap_types=tuple(gap_types), feature_inputs=feature_inputs, evidence_refs=refs,
         internal_brief_ids=(f"synthetic:{fixture_id}:brief",), capabilities=capabilities,
         evidence_records=evidence_records,
-        authority_gate_results={"source_authority_ready": authorized, "reporting_allowed": authorized},
     )
     history_items = ()
     if relationship in {contracts.EventRelationship.CONFIRMATION, contracts.EventRelationship.CONTRADICTION, contracts.EventRelationship.CORRECTION, contracts.EventRelationship.NEW_PHASE} or spec.get("duplicate"):

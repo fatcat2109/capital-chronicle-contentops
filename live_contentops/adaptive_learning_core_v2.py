@@ -8,6 +8,7 @@ from typing import Any, Mapping, Sequence
 from live_contentops.content_intelligence_contracts_v2 import (
     AdaptiveLearningConfigV1,
     AvailabilityState,
+    CANONICAL_AUTHORITY_GATE_IDS,
     CalibrationState,
     CapabilityDimensionsV1,
     ContentGapSetV1,
@@ -16,6 +17,7 @@ from live_contentops.content_intelligence_contracts_v2 import (
     EventRelationship,
     FeatureEvaluationV1,
     GapType,
+    IDENTIFIER_RE,
     OutcomeDecisionV1,
     PerformanceObservationSetV1,
     PublishedContentHistoryV1,
@@ -42,7 +44,13 @@ FORBIDDEN_LEARNING_EFFECTS = (
 )
 
 INCOMPATIBLE_ACTIONABLE_OUTCOMES = (
-    frozenset({"GOVERNED_NEW_PHASE", "DUPLICATE_NO_NEW_DELTA"}),
+    *(frozenset({outcome, "DUPLICATE_NO_NEW_DELTA"}) for outcome in (
+        "GOVERNED_MATERIAL_UPDATE",
+        "GOVERNED_CONFIRMATION",
+        "GOVERNED_CONTRADICTION",
+        "GOVERNED_CORRECTION",
+        "GOVERNED_NEW_PHASE",
+    )),
     frozenset({"FILLER_NO_READER_CONTRIBUTION", "GOVERNED_MATERIAL_UPDATE"}),
     frozenset({"FILLER_NO_READER_CONTRIBUTION", "GOVERNED_CONFIRMATION"}),
     frozenset({"FILLER_NO_READER_CONTRIBUTION", "GOVERNED_CONTRADICTION"}),
@@ -95,6 +103,7 @@ class LearningCandidateV2:
     internal_brief_ids: tuple[str, ...] = ()
     capabilities: CapabilityDimensionsV1 = CapabilityDimensionsV1()
     evidence_records: tuple[EvidenceReferenceV1, ...] = ()
+    governed_evidence_refs: tuple[str, ...] = ()
     authority_gate_results: Mapping[str, bool] | None = None
 
 
@@ -104,6 +113,93 @@ def _authorized(candidate: LearningCandidateV2) -> bool:
         and candidate.reporting_allowed
         and not candidate.authority_blockers
     )
+
+
+def _deduplicated_valid_evidence_refs(*groups: Sequence[str]) -> tuple[str, ...]:
+    refs: list[str] = []
+    for group in groups:
+        for ref in group:
+            if not isinstance(ref, str) or not IDENTIFIER_RE.fullmatch(ref):
+                raise ValueError(f"malformed_evidence_ref:{ref}")
+            refs.append(ref)
+    return tuple(dict.fromkeys(refs))
+
+
+def _complete_evidence_lineage(
+    candidate: LearningCandidateV2,
+    *additional_groups: Sequence[str],
+    include_semantic_refs: bool = False,
+) -> tuple[str, ...]:
+    record_refs: list[str] = []
+    for record in candidate.evidence_records:
+        blockers = record.validate()
+        if blockers:
+            raise ValueError("invalid_evidence_record:" + ",".join(blockers))
+        record_refs.append(record.evidence_ref)
+    semantic_refs = ()
+    if include_semantic_refs:
+        semantic_refs = tuple(ref for ref in (
+            candidate.governed_new_evidence_ref,
+            candidate.conflicting_evidence_ref,
+            candidate.authoritative_correction_ref,
+            candidate.distinct_new_event_ref,
+            candidate.update_justification_ref,
+        ) if ref)
+    return _deduplicated_valid_evidence_refs(
+        *additional_groups,
+        candidate.evidence_refs,
+        tuple(record_refs),
+        candidate.governed_evidence_refs,
+        semantic_refs,
+    )
+
+
+def _feature_evidence_lineage(
+    candidate: LearningCandidateV2,
+    item_refs: Sequence[str],
+) -> tuple[str, ...]:
+    record_refs: list[str] = []
+    for record in candidate.evidence_records:
+        blockers = record.validate()
+        if blockers:
+            raise ValueError("invalid_evidence_record:" + ",".join(blockers))
+        record_refs.append(record.evidence_ref)
+    primary_refs = tuple(item_refs) if item_refs else candidate.evidence_refs
+    return _deduplicated_valid_evidence_refs(primary_refs, tuple(record_refs))
+
+
+def _qualifying_governed_evidence_refs(candidate: LearningCandidateV2) -> tuple[str, ...]:
+    lineage = set(_deduplicated_valid_evidence_refs(
+        candidate.evidence_refs,
+        tuple(record.evidence_ref for record in candidate.evidence_records),
+    ))
+    verified_refs = _deduplicated_valid_evidence_refs(candidate.governed_evidence_refs)
+    if any(ref not in lineage for ref in verified_refs):
+        raise ValueError("verified_governed_evidence_ref_missing_from_lineage")
+    qualified_records = tuple(
+        record.evidence_ref
+        for record in candidate.evidence_records
+        if record.qualifies_for_governed_outcome()
+    )
+    return _deduplicated_valid_evidence_refs(verified_refs, qualified_records)
+
+
+def _authority_gate_input_blockers(
+    candidate: LearningCandidateV2,
+    config: AdaptiveLearningConfigV1,
+) -> tuple[str, ...]:
+    blockers: list[str] = []
+    for gate_id, value in (candidate.authority_gate_results or {}).items():
+        if not isinstance(gate_id, str) or not IDENTIFIER_RE.fullmatch(gate_id) or not isinstance(value, bool):
+            blockers.append(f"invalid_authority_gate_result:{gate_id}")
+            continue
+        if gate_id in CANONICAL_AUTHORITY_GATE_IDS:
+            blockers.append(f"canonical_authority_gate_override_forbidden:{gate_id}")
+        elif gate_id not in config.authority_gates:
+            blockers.append(f"unknown_extension_authority_gate:{gate_id}")
+        elif value and config.authority_gates[gate_id] is not True:
+            blockers.append(f"contradictory_extension_authority_gate:{gate_id}")
+    return tuple(dict.fromkeys(blockers))
 
 
 def _validate_actionable_outcomes(outcomes: Sequence[str]) -> None:
@@ -124,7 +220,9 @@ def evaluate_outcome(
     reasons: list[str] = []
     duplicate = candidate.history_identity_match or relationship == EventRelationship.DUPLICATE
     packaging_gap = GapType.DERIVATIVE_PACKAGING_GAP in candidate.gap_types
-    governed_evidence_present = bool(candidate.evidence_refs or candidate.evidence_records)
+    complete_evidence_lineage = _complete_evidence_lineage(candidate, include_semantic_refs=True)
+    qualifying_governed_refs = _qualifying_governed_evidence_refs(candidate)
+    governed_evidence_present = bool(qualifying_governed_refs)
 
     if relationship == EventRelationship.MATERIAL_UPDATE:
         if authorized and candidate.governed_material_delta and governed_evidence_present:
@@ -147,16 +245,25 @@ def evaluate_outcome(
         else:
             reasons.append("correction_requires_authority_and_identified_error_or_authoritative_correction")
     if relationship == EventRelationship.NEW_PHASE:
-        if authorized and candidate.update_chain_continuity and candidate.distinct_new_event_ref and not duplicate and governed_evidence_present:
+        if authorized and candidate.update_chain_continuity and candidate.distinct_new_event_ref and governed_evidence_present:
             outcomes.append("GOVERNED_NEW_PHASE")
         else:
-            reasons.append("new_phase_requires_authority_chain_continuity_distinct_event_and_nonduplicate_identity")
+            reasons.append("new_phase_requires_authority_chain_continuity_distinct_event_and_governed_evidence")
+    governed_delta_present = any(value in outcomes for value in (
+        "GOVERNED_MATERIAL_UPDATE",
+        "GOVERNED_CONFIRMATION",
+        "GOVERNED_CONTRADICTION",
+        "GOVERNED_CORRECTION",
+        "GOVERNED_NEW_PHASE",
+    ))
     if packaging_gap:
         outcomes.append("DERIVATIVE_PACKAGING_GAP")
         reasons.append("packaging_gap_changes_payload_structure_not_factual_authority")
-    if duplicate:
+    if duplicate and not governed_delta_present:
         outcomes.append("DUPLICATE_NO_NEW_DELTA")
         reasons.append("duplicate_is_identity_relationship_not_automatic_filler")
+    elif duplicate:
+        reasons.append("published_identity_match_preserved_with_governed_delta")
     if candidate.material_reader_contribution is False:
         outcomes.append("FILLER_NO_READER_CONTRIBUTION")
         reasons.append("evidence_review_found_no_material_reader_contribution")
@@ -169,6 +276,7 @@ def evaluate_outcome(
     evergreen_requested = GapType.EVERGREEN_REFRESH in candidate.gap_types
     evergreen_valid = bool(
         evergreen_requested
+        and authorized
         and candidate.durability is not None
         and candidate.content_age_hours is not None
         and candidate.reader_utility is not None
@@ -204,14 +312,23 @@ def evaluate_outcome(
         source_relationship=relationship,
         evidence_state=candidate.evidence_state,
         authority_state=candidate.authority_state,
-        history_relationship="duplicate" if duplicate else "not_matched",
+        history_relationship=(
+            "PUBLISHED_IDENTITY_MATCH_WITH_GOVERNED_DELTA"
+            if duplicate and governed_delta_present
+            else "PUBLISHED_IDENTITY_MATCH_NO_NEW_DELTA"
+            if duplicate
+            else "NOT_MATCHED"
+        ),
         content_gap_state=";".join(sorted(gap.value for gap in candidate.gap_types)) or "none",
         actionable_outcomes=tuple(dict.fromkeys(outcomes)),
         publication_disposition=publication,
         reason_codes=tuple(dict.fromkeys(reasons)),
-        evidence_refs=tuple(dict.fromkeys(candidate.evidence_refs)),
+        evidence_refs=complete_evidence_lineage,
         authority_result=candidate.authority_ready and not candidate.authority_blockers,
         reporting_permission_result=candidate.reporting_allowed,
+        history_identity_match=duplicate,
+        governed_delta_present=governed_delta_present,
+        qualifying_governed_evidence_refs=qualifying_governed_refs,
     )
 
 
@@ -300,34 +417,34 @@ def _derived_feature_inputs(
             AvailabilityState.AVAILABLE if source_count else AvailabilityState.UNSUPPORTED,
             min(1.0, source_count / diversity_target) if source_count else None,
             None if source_count else "source_dimension_not_supplied", evidence_refs,
-            ("derived_from_source_family_count",), source_count,
+            ("derived_from_source_family_count",),
         ),
         "scheduled_catalyst_relevance": FeatureInputV1(
             "scheduled_catalyst_relevance", candidate.capabilities.scheduled_event_state is True,
             AvailabilityState.AVAILABLE if candidate.capabilities.scheduled_event_state is True else AvailabilityState.UNSUPPORTED,
             1.0 if candidate.capabilities.scheduled_event_state is True else None,
             None if candidate.capabilities.scheduled_event_state is True else "scheduled_event_not_applicable",
-            evidence_refs, ("derived_from_scheduled_event_state",), len(evidence_refs),
+            evidence_refs, ("derived_from_scheduled_event_state",),
         ),
         "cross_market_or_economy_breadth": FeatureInputV1(
             "cross_market_or_economy_breadth", breadth_count > 1,
             AvailabilityState.AVAILABLE if breadth_count > 1 else AvailabilityState.UNSUPPORTED,
             min(1.0, (breadth_count - 1) / breadth_target) if breadth_count > 1 else None,
             None if breadth_count > 1 else "cross_dimension_breadth_not_applicable",
-            evidence_refs, ("derived_from_orthogonal_breadth_counts",), len(evidence_refs),
+            evidence_refs, ("derived_from_orthogonal_breadth_counts",),
         ),
         "performance_evidence_availability": FeatureInputV1(
             "performance_evidence_availability", True,
             AvailabilityState.AVAILABLE if metric_count else AvailabilityState.UNAVAILABLE,
             1.0 if metric_count else None,
             None if metric_count else "no_metric_bearing_observations", (),
-            ("content_analysis_remains_available",), metric_count,
+            ("content_analysis_remains_available",),
         ),
         "sample_size_confidence": FeatureInputV1(
             "sample_size_confidence", True,
             AvailabilityState.AVAILABLE if metric_count else AvailabilityState.UNAVAILABLE,
             min(1.0, metric_count / max(1.0, float(config.thresholds["minimum_metric_observations"]))) if metric_count else None,
-            None if metric_count else "no_metric_bearing_observations", (), (), metric_count,
+            None if metric_count else "no_metric_bearing_observations", (), (),
         ),
     }
 
@@ -338,6 +455,12 @@ def evaluate_features(
     observations: PerformanceObservationSetV1,
 ) -> tuple[FeatureEvaluationV1, ...]:
     """Evaluate registered features while preserving unavailable and zero."""
+    config_blockers = config.validate()
+    if config_blockers:
+        raise ValueError("invalid_adaptive_learning_config:" + ",".join(config_blockers))
+    gate_blockers = _authority_gate_input_blockers(candidate, config)
+    if gate_blockers:
+        raise ValueError("invalid_candidate_authority_gates:" + ",".join(gate_blockers))
     supplied = {row.feature_id: row for row in candidate.feature_inputs}
     if len(supplied) != len(candidate.feature_inputs):
         raise ValueError("duplicate_feature_input_id")
@@ -355,19 +478,29 @@ def evaluate_features(
             )
         domain_applicable, dimensions_used = _applicability(definition, candidate.capabilities)
         applicable = bool(item.applicable and domain_applicable)
-        effective_refs = item.evidence_refs or tuple(dict.fromkeys((
-            *candidate.evidence_refs,
-            *(row.evidence_ref for row in candidate.evidence_records),
-        )))
-        evidence_count = item.evidence_count if item.evidence_count is not None else len(set(effective_refs))
+        effective_refs = _feature_evidence_lineage(candidate, item.evidence_refs)
+        evidence_count = len(effective_refs)
+        if item.evidence_count is not None:
+            if isinstance(item.evidence_count, bool) or not isinstance(item.evidence_count, int) or item.evidence_count < 0:
+                raise ValueError(f"declared_evidence_count_invalid:{definition.feature_id}")
+            if item.evidence_count != evidence_count:
+                raise ValueError(
+                    f"declared_evidence_count_mismatch:{definition.feature_id}:"
+                    f"declared={item.evidence_count}:derived={evidence_count}"
+                )
         gate_result: bool | None = None
         if definition.authority_gate:
-            candidate_gates = candidate.authority_gate_results or {}
-            built_in = {
+            canonical_gates = {
                 "source_authority_ready": candidate.authority_ready and not candidate.authority_blockers,
                 "reporting_allowed": candidate.reporting_allowed,
             }
-            gate_result = bool(config.authority_gates[definition.authority_gate] and candidate_gates.get(definition.authority_gate, built_in.get(definition.authority_gate, False)))
+            if definition.authority_gate in CANONICAL_AUTHORITY_GATE_IDS:
+                gate_result = canonical_gates[definition.authority_gate]
+            else:
+                gate_result = bool(
+                    config.authority_gates[definition.authority_gate]
+                    and (candidate.authority_gate_results or {}).get(definition.authority_gate, False)
+                )
 
         def abstain(state: AvailabilityState, reason: str, extra_codes: tuple[str, ...] = ()) -> FeatureEvaluationV1:
             return FeatureEvaluationV1(
@@ -473,7 +606,10 @@ def _proposals(
 LOGICAL_TIME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:/+-]{2,127}$")
 
 
-def validate_candidate_collection(candidates: Sequence[LearningCandidateV2]) -> tuple[str, ...]:
+def validate_candidate_collection(
+    candidates: Sequence[LearningCandidateV2],
+    config: AdaptiveLearningConfigV1 | None = None,
+) -> tuple[str, ...]:
     blockers: list[str] = []
     ids = [row.candidate_id for row in candidates]
     if len(ids) != len(set(ids)):
@@ -498,6 +634,12 @@ def validate_candidate_collection(candidates: Sequence[LearningCandidateV2]) -> 
             blockers.append(f"reporting_permission_without_authority:{row.candidate_id}")
         if len(row.evidence_refs) != len(set(row.evidence_refs)):
             blockers.append(f"duplicate_candidate_evidence_ref:{row.candidate_id}")
+        if any(not isinstance(ref, str) or not IDENTIFIER_RE.fullmatch(ref) for ref in row.evidence_refs):
+            blockers.append(f"malformed_candidate_evidence_ref:{row.candidate_id}")
+        if len(row.governed_evidence_refs) != len(set(row.governed_evidence_refs)):
+            blockers.append(f"duplicate_governed_evidence_ref:{row.candidate_id}")
+        if any(not isinstance(ref, str) or not IDENTIFIER_RE.fullmatch(ref) for ref in row.governed_evidence_refs):
+            blockers.append(f"malformed_governed_evidence_ref:{row.candidate_id}")
         if len(row.internal_brief_ids) != len(set(row.internal_brief_ids)):
             blockers.append(f"duplicate_internal_brief_id:{row.candidate_id}")
         blockers.extend(f"{value}:{row.candidate_id}" for value in row.capabilities.validate())
@@ -505,9 +647,27 @@ def validate_candidate_collection(candidates: Sequence[LearningCandidateV2]) -> 
         if len(evidence_ids) != len(set(evidence_ids)):
             blockers.append(f"duplicate_evidence_record:{row.candidate_id}")
         blockers.extend(f"{value}:{row.candidate_id}" for evidence in row.evidence_records for value in evidence.validate())
-        if row.authority_gate_results is not None:
-            if any(not key or not isinstance(value, bool) for key, value in row.authority_gate_results.items()):
-                blockers.append(f"invalid_authority_gate_result:{row.candidate_id}")
+        available_lineage = set(row.evidence_refs) | set(evidence_ids)
+        if any(ref not in available_lineage for ref in row.governed_evidence_refs):
+            blockers.append(f"verified_governed_evidence_ref_missing_from_lineage:{row.candidate_id}")
+        if config is not None:
+            blockers.extend(f"{value}:{row.candidate_id}" for value in _authority_gate_input_blockers(row, config))
+        elif row.authority_gate_results is not None:
+            for key, value in row.authority_gate_results.items():
+                if not key or not isinstance(value, bool):
+                    blockers.append(f"invalid_authority_gate_result:{row.candidate_id}")
+                elif key in CANONICAL_AUTHORITY_GATE_IDS:
+                    blockers.append(f"canonical_authority_gate_override_forbidden:{key}:{row.candidate_id}")
+        try:
+            for item in row.feature_inputs:
+                refs = _feature_evidence_lineage(row, item.evidence_refs)
+                if item.evidence_count is not None:
+                    if isinstance(item.evidence_count, bool) or not isinstance(item.evidence_count, int) or item.evidence_count < 0:
+                        blockers.append(f"declared_evidence_count_invalid:{item.feature_id}:{row.candidate_id}")
+                    elif item.evidence_count != len(refs):
+                        blockers.append(f"declared_evidence_count_mismatch:{item.feature_id}:{row.candidate_id}")
+        except ValueError as error:
+            blockers.append(f"{error}:{row.candidate_id}")
     return tuple(dict.fromkeys(blockers))
 
 
@@ -523,7 +683,7 @@ def _validate_learning_inputs(
 ) -> tuple[str, ...]:
     blockers = [
         *history.validate(), *gaps.validate(), *observations.validate(), *config.validate(),
-        *validate_candidate_collection(candidates),
+        *validate_candidate_collection(candidates, config),
     ]
     for key, value in input_bindings.items():
         if not isinstance(key, str) or not key.strip():

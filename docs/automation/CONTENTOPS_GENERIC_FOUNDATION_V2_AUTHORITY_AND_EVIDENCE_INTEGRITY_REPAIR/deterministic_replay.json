@@ -1,0 +1,8 @@
+{
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "config_logical_hash": "2358e96e474384608d86ed2e9fd7cfc10ba69960fad41337fe25bf7000825ef7",
+  "core_report_bundle_sha256": "c16ff7721dee9f55def098b80e9ef03ba8cb5acc4f1ac11f9fcdc9d0fd20019c",
+  "schema_version": "contentops.authority_integrity_repair_deterministic_replay.v2",
+  "status": "PASS",
+  "two_independent_core_report_builds_identical": true
+}

@@ -1,0 +1,21 @@
+{
+  "architecture_preserved": true,
+  "browser_or_cdp_used": false,
+  "configuration_calibration_state": "UNCALIBRATED_FOUNDATION",
+  "credential_values_read": false,
+  "dispatch_performed": false,
+  "dqr_mutated": false,
+  "editorial_policy_mutated": false,
+  "historical_evidence_mutated": false,
+  "live_metrics_collected": false,
+  "permission_authority_mutated": false,
+  "provider_called": false,
+  "public_write_performed": false,
+  "publication_authority_granted": false,
+  "scheduler_mutated": false,
+  "schema_version": "contentops.authority_integrity_repair_safety.v2",
+  "status": "PASS",
+  "upstream_repository_mutated": false,
+  "v1_0_mutated": false,
+  "v1_compatibility_preserved": true
+}

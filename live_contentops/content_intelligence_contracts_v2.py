@@ -26,6 +26,25 @@ COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 SHA1_RE = re.compile(r"^[0-9a-f]{40}$")
 IDENTIFIER_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:/+-]*$")
+CANONICAL_AUTHORITY_GATE_IDS = frozenset({"source_authority_ready", "reporting_allowed"})
+QUALIFYING_GOVERNED_EVIDENCE_AUTHORITY_STATES = frozenset({
+    "VERIFIED_GOVERNED",
+    "OFFICIAL_VERIFIED",
+    "FIRST_PARTY_VERIFIED",
+    "SYNTHETIC_AUTHORIZED",
+})
+QUALIFYING_GOVERNED_EVIDENCE_PERMISSION_STATES = frozenset({
+    "REPORTING_ALLOWED",
+    "PUBLIC_CLAIM_ALLOWED",
+})
+DISQUALIFYING_GOVERNED_EVIDENCE_REASON_CODES = frozenset({
+    "authority_blocked",
+    "context_only",
+    "malformed",
+    "permission_blocked",
+    "unavailable",
+    "unverified",
+})
 
 
 class EventRelationship(str, Enum):
@@ -281,6 +300,20 @@ class EvidenceReferenceV1:
             except ValueError as error:
                 blockers.append(str(error))
         return _unique(blockers)
+
+    def qualifies_for_governed_outcome(self) -> bool:
+        """Return whether this record may support a governed outcome.
+
+        Validation, authority, and permission are deliberately independent.
+        Context-only, blocked, unavailable, malformed, and unverified records
+        remain valid evidence records but cannot satisfy governed evidence.
+        """
+        return bool(
+            not self.validate()
+            and self.authority_state in QUALIFYING_GOVERNED_EVIDENCE_AUTHORITY_STATES
+            and self.permission_state in QUALIFYING_GOVERNED_EVIDENCE_PERMISSION_STATES
+            and not (set(self.reason_codes) & DISQUALIFYING_GOVERNED_EVIDENCE_REASON_CODES)
+        )
 
 
 @dataclass(frozen=True)
@@ -652,6 +685,12 @@ class AdaptiveLearningConfigV1:
         for name, value in self.authority_gates.items():
             if not IDENTIFIER_RE.fullmatch(name) or not isinstance(value, bool):
                 blockers.append(f"authority_gate_invalid:{name}")
+        missing_canonical_gates = CANONICAL_AUTHORITY_GATE_IDS - set(self.authority_gates)
+        for name in sorted(missing_canonical_gates):
+            blockers.append(f"canonical_authority_gate_missing:{name}")
+        for name in sorted(CANONICAL_AUTHORITY_GATE_IDS & set(self.authority_gates)):
+            if self.authority_gates[name] is not True:
+                blockers.append(f"canonical_authority_gate_must_be_enabled:{name}")
         for name, value in self.unavailable_handling.items():
             if not IDENTIFIER_RE.fullmatch(name) or not isinstance(value, str) or not value.strip():
                 blockers.append(f"unavailable_handling_invalid:{name}")
@@ -694,6 +733,9 @@ class OutcomeDecisionV1:
     evidence_refs: tuple[str, ...]
     authority_result: bool = False
     reporting_permission_result: bool = False
+    history_identity_match: bool = False
+    governed_delta_present: bool = False
+    qualifying_governed_evidence_refs: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)

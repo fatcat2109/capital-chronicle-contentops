@@ -1,0 +1,68 @@
+{
+  "identity_and_delta_are_orthogonal": true,
+  "incompatible_pairs_rejected": true,
+  "rows": [
+    {
+      "actionable_outcomes": [
+        "GOVERNED_MATERIAL_UPDATE"
+      ],
+      "case": "material_update",
+      "governed_delta_present": true,
+      "history_relationship": "PUBLISHED_IDENTITY_MATCH_WITH_GOVERNED_DELTA",
+      "identity_match": true,
+      "status": "PASS"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_CONFIRMATION"
+      ],
+      "case": "confirmation",
+      "governed_delta_present": true,
+      "history_relationship": "PUBLISHED_IDENTITY_MATCH_WITH_GOVERNED_DELTA",
+      "identity_match": true,
+      "status": "PASS"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_CONTRADICTION"
+      ],
+      "case": "contradiction",
+      "governed_delta_present": true,
+      "history_relationship": "PUBLISHED_IDENTITY_MATCH_WITH_GOVERNED_DELTA",
+      "identity_match": true,
+      "status": "PASS"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_CORRECTION"
+      ],
+      "case": "correction",
+      "governed_delta_present": true,
+      "history_relationship": "PUBLISHED_IDENTITY_MATCH_WITH_GOVERNED_DELTA",
+      "identity_match": true,
+      "status": "PASS"
+    },
+    {
+      "actionable_outcomes": [
+        "GOVERNED_NEW_PHASE"
+      ],
+      "case": "new_phase",
+      "governed_delta_present": true,
+      "history_relationship": "PUBLISHED_IDENTITY_MATCH_WITH_GOVERNED_DELTA",
+      "identity_match": true,
+      "status": "PASS"
+    },
+    {
+      "actionable_outcomes": [
+        "DUPLICATE_NO_NEW_DELTA"
+      ],
+      "case": "unchanged_duplicate",
+      "governed_delta_present": false,
+      "history_relationship": "PUBLISHED_IDENTITY_MATCH_NO_NEW_DELTA",
+      "identity_match": true,
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.duplicate_delta_semantic_matrix.v2",
+  "status": "PASS"
+}

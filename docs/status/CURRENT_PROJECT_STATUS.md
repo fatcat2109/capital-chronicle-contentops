@@ -4,9 +4,9 @@
 
 ## Current Classification
 
-`PASS_GENERIC_FOUNDATION_V2_ENFORCEMENT_HARDENING_AWAITING_CHATGPT_AUDIT`
+`PASS_GENERIC_FOUNDATION_V2_AUTHORITY_AND_EVIDENCE_INTEGRITY_REPAIR_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_ENFORCEMENT_HARDENING`.
+Completed task: `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_AUTHORITY_AND_EVIDENCE_INTEGRITY_REPAIR`.
 
 The accepted product baseline remains `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`. Annotated tag `v1.0` (tag object `a021df7fd0264d9f160bdd605509da925f0bf131`, release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`) remains immutable and was not moved, recreated, deleted, or retagged by this local evidence task.
 
@@ -85,8 +85,16 @@ The hardening executes every retained config field, validates optional orthogona
 
 Current upstream `fatcat2109/Headline-Raw-data-json` `main` was inspected read-only at `f4a365803385997265320e4b468c22028aea5a67`. The newsroom pool remains blob `e4f60146e26d5f52dec91f92a345e81d0fb1cc8d`, so comparison with both historical exports is `SAME_BYTES_AND_IDENTITY`. No upstream or historical evidence was modified, no publication authority was granted, and weights remain `UNCALIBRATED_FOUNDATION`.
 
+## Generic Foundation V2 Authority and Evidence Integrity Repair
+
+`TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_AUTHORITY_AND_EVIDENCE_INTEGRITY_REPAIR` accepts commit `11124edc623d480736966fa54b44bb6289a935fd` as `ACCEPT_GENERIC_FOUNDATION_V2_ENFORCEMENT_WITH_AUTHORITY_INTEGRITY_GAPS` and supersedes it only for the four repaired generic trust boundaries. Reserved canonical authority gates now derive exclusively from `authority_ready`, `reporting_allowed`, and authority blockers; candidate-supplied canonical, unknown, and contradictory extension gates fail closed. Declared evidence counts must exactly match deduplicated validated refs and records.
+
+Governed material updates, confirmations, contradictions, corrections, new phases, and evergreen refreshes require explicit qualifying governed evidence. Outcome lineage includes deduplicated direct, record-backed, verified, and relationship refs. A published identity match with a real governed delta is now `PUBLISHED_IDENTITY_MATCH_WITH_GOVERNED_DELTA`; only unchanged identity matches retain `DUPLICATE_NO_NEW_DELTA`.
+
+The 20 domain specifications were not refined. Architecture, V1 compatibility, historical evidence, `UNCALIBRATED_FOUNDATION`, the `v1.0` tag, and the no-publication boundary remain unchanged. Upstream `main` authority is read-only at `e1f2ff48d7ac979a8fbda9e66192150f2681a52d`.
+
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_GENERIC_FOUNDATION_V2_ENFORCEMENT_HARDENING`
+`INDEPENDENT_CHATGPT_AUDIT_GENERIC_FOUNDATION_V2_AUTHORITY_AND_EVIDENCE_INTEGRITY_REPAIR`
 
-Audit or reject the hardened contracts, config execution, capability dimensions, collection checks, 20-domain executions, append-only lineage, AST guard, machine-derived acceptance, upstream comparison, compatibility replay, and manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.
+Audit or reject the repaired canonical gates, evidence-count derivation, governed-evidence qualification and lineage, duplicate/delta semantics, compatibility evidence, safety boundary, and manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.

@@ -1,0 +1,78 @@
+{
+  "caller_count_role": "DECLARED_COUNT_MUST_EXACTLY_MATCH_DERIVED_COUNT",
+  "count_authority": "UNIQUE_VALIDATED_EVIDENCE_REFS_AND_RECORDS",
+  "rows": [
+    {
+      "case": "inflated",
+      "declared_count": 3,
+      "expected_derived_count": null,
+      "expected_state": "REJECT_MISMATCH",
+      "input_ref_count": 2,
+      "observed_derived_count": null,
+      "observed_state": "REJECT_MISMATCH",
+      "status": "PASS"
+    },
+    {
+      "case": "understated",
+      "declared_count": 1,
+      "expected_derived_count": null,
+      "expected_state": "REJECT_MISMATCH",
+      "input_ref_count": 2,
+      "observed_derived_count": null,
+      "observed_state": "REJECT_MISMATCH",
+      "status": "PASS"
+    },
+    {
+      "case": "duplicate_refs",
+      "declared_count": 1,
+      "expected_derived_count": 1,
+      "expected_state": "available",
+      "input_ref_count": 2,
+      "observed_derived_count": 1,
+      "observed_state": "available",
+      "status": "PASS"
+    },
+    {
+      "case": "zero",
+      "declared_count": 0,
+      "expected_derived_count": 0,
+      "expected_state": "unavailable",
+      "input_ref_count": 0,
+      "observed_derived_count": 0,
+      "observed_state": "unavailable",
+      "status": "PASS"
+    },
+    {
+      "case": "valid",
+      "declared_count": 2,
+      "expected_derived_count": 2,
+      "expected_state": "available",
+      "input_ref_count": 2,
+      "observed_derived_count": 2,
+      "observed_state": "available",
+      "status": "PASS"
+    },
+    {
+      "case": "record_direct_ref_deduplicated",
+      "declared_count": 1,
+      "expected_derived_count": 1,
+      "expected_state": "available",
+      "input_ref_count": 1,
+      "observed_derived_count": 1,
+      "observed_state": "available",
+      "status": "PASS"
+    },
+    {
+      "case": "duplicate_records_deduplicated",
+      "declared_count": 1,
+      "expected_derived_count": 1,
+      "expected_state": "available",
+      "input_ref_count": 1,
+      "observed_derived_count": 1,
+      "observed_state": "available",
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.evidence_count_integrity_matrix.v2",
+  "status": "PASS"
+}

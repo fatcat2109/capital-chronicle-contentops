@@ -1,0 +1,38 @@
+{
+  "accepted_release_sha": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "artifact_sha256": {
+    "authority_gate_override_matrix.json": "d3cff4d0771c565768cf3d126a3955e837e0e75967164698d0f51b7e653bc243",
+    "changed_protected_paths.json": "b250fd1a0d348d25c210736ba65535c77a67173c97bb37a006d7d5b98b18ac78",
+    "deterministic_replay.json": "b715c45b5bcc42264dbb2e61aa5e7a2109416d8fcb3c79dd634146b4bf5a08ce",
+    "duplicate_delta_semantic_matrix.json": "a61baa2fa3379e067b2be9a437ad65f1d218eb81c7bb1bfde60fc606630bdf58",
+    "evidence_count_integrity_matrix.json": "ffd72f59b7a85ab8d416961e1ea6cce627bb485c5ee07be14b6afe69b5659084",
+    "focused_test_summary.json": "84a0f9b385e660dd57a3350be90ef9f6324e731c15f4e40a411b2f96ba41aa29",
+    "genericity_guard_report.json": "f7a9ec091dcb4738dda81a1ab439c6615038477d180a8b4761b3c7e1386265aa",
+    "governed_evidence_lineage_report.json": "2f2dfcb0e9177a6f47a446e1772f19e0fc2e066f68de511c19b90857d8112af0",
+    "governed_evidence_qualification_matrix.json": "1cb073e24d09ce5b2fef4374ce4cf4c8bf573297a980a1a07f6904d233bee2bc",
+    "safety_report.json": "330ae2a57ff9ec6ae5c54a52e67ede53b2a420ead7249bf294a497ce445f4d9a"
+  },
+  "configuration_calibration_state": "UNCALIBRATED_FOUNDATION",
+  "failing_artifacts": [],
+  "final_sha_reported_after_commit": null,
+  "latest_verified_precommit_sha": "11124edc623d480736966fa54b44bb6289a935fd",
+  "manifest_self_hash_excluded": true,
+  "missing_required_artifacts": [],
+  "next_action": "INDEPENDENT_CHATGPT_AUDIT_GENERIC_FOUNDATION_V2_AUTHORITY_AND_EVIDENCE_INTEGRITY_REPAIR",
+  "operator_disposition": "ACCEPT_GENERIC_FOUNDATION_V2_ENFORCEMENT_WITH_AUTHORITY_INTEGRITY_GAPS",
+  "publication_authority_granted": false,
+  "repaired_boundaries": [
+    "canonical_authority_gates",
+    "evidence_count_integrity",
+    "governed_evidence_qualification_and_lineage",
+    "duplicate_versus_governed_delta_semantics"
+  ],
+  "required_artifact_count": 11,
+  "schema_version": "contentops.generic_foundation_authority_integrity_repair_manifest.v2",
+  "task_label": "TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_AUTHORITY_AND_EVIDENCE_INTEGRITY_REPAIR",
+  "task_starting_sha": "11124edc623d480736966fa54b44bb6289a935fd",
+  "terminal_classification": "PASS_GENERIC_FOUNDATION_V2_AUTHORITY_AND_EVIDENCE_INTEGRITY_REPAIR_AWAITING_CHATGPT_AUDIT",
+  "upstream_branch": "main",
+  "upstream_repository": "fatcat2109/Headline-Raw-data-json",
+  "upstream_verified_head": "e1f2ff48d7ac979a8fbda9e66192150f2681a52d"
+}

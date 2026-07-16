@@ -1,0 +1,146 @@
+{
+  "all_governed_outcomes_have_qualifying_nonempty_lineage": true,
+  "complete_lineage_sources": [
+    "candidate.evidence_refs",
+    "candidate.evidence_records",
+    "candidate.governed_evidence_refs",
+    "relationship_evidence_refs"
+  ],
+  "rows": [
+    {
+      "case": "material_update",
+      "evidence_refs": [
+        "evidence:direct",
+        "evidence:shared",
+        "evidence:record"
+      ],
+      "expected_outcome": "GOVERNED_MATERIAL_UPDATE",
+      "lineage_deduplicated": true,
+      "lineage_nonempty": true,
+      "observed_outcomes": [
+        "GOVERNED_MATERIAL_UPDATE"
+      ],
+      "qualifying_governed_evidence_refs": [
+        "evidence:direct",
+        "evidence:shared",
+        "evidence:record"
+      ],
+      "record_ref_in_lineage": true,
+      "record_ref_qualifies": true,
+      "status": "PASS"
+    },
+    {
+      "case": "confirmation",
+      "evidence_refs": [
+        "evidence:direct",
+        "evidence:shared",
+        "evidence:record",
+        "evidence:new"
+      ],
+      "expected_outcome": "GOVERNED_CONFIRMATION",
+      "lineage_deduplicated": true,
+      "lineage_nonempty": true,
+      "observed_outcomes": [
+        "GOVERNED_CONFIRMATION"
+      ],
+      "qualifying_governed_evidence_refs": [
+        "evidence:direct",
+        "evidence:shared",
+        "evidence:record"
+      ],
+      "record_ref_in_lineage": true,
+      "record_ref_qualifies": true,
+      "status": "PASS"
+    },
+    {
+      "case": "contradiction",
+      "evidence_refs": [
+        "evidence:direct",
+        "evidence:shared",
+        "evidence:record",
+        "evidence:conflict"
+      ],
+      "expected_outcome": "GOVERNED_CONTRADICTION",
+      "lineage_deduplicated": true,
+      "lineage_nonempty": true,
+      "observed_outcomes": [
+        "GOVERNED_CONTRADICTION"
+      ],
+      "qualifying_governed_evidence_refs": [
+        "evidence:direct",
+        "evidence:shared",
+        "evidence:record"
+      ],
+      "record_ref_in_lineage": true,
+      "record_ref_qualifies": true,
+      "status": "PASS"
+    },
+    {
+      "case": "correction",
+      "evidence_refs": [
+        "evidence:direct",
+        "evidence:shared",
+        "evidence:record",
+        "evidence:correction"
+      ],
+      "expected_outcome": "GOVERNED_CORRECTION",
+      "lineage_deduplicated": true,
+      "lineage_nonempty": true,
+      "observed_outcomes": [
+        "GOVERNED_CORRECTION"
+      ],
+      "qualifying_governed_evidence_refs": [
+        "evidence:direct",
+        "evidence:shared",
+        "evidence:record"
+      ],
+      "record_ref_in_lineage": true,
+      "record_ref_qualifies": true,
+      "status": "PASS"
+    },
+    {
+      "case": "new_phase",
+      "evidence_refs": [
+        "evidence:direct",
+        "evidence:shared",
+        "evidence:record",
+        "evidence:new-phase"
+      ],
+      "expected_outcome": "GOVERNED_NEW_PHASE",
+      "lineage_deduplicated": true,
+      "lineage_nonempty": true,
+      "observed_outcomes": [
+        "GOVERNED_NEW_PHASE"
+      ],
+      "qualifying_governed_evidence_refs": [
+        "evidence:direct",
+        "evidence:shared",
+        "evidence:record"
+      ],
+      "record_ref_in_lineage": true,
+      "record_ref_qualifies": true,
+      "status": "PASS"
+    },
+    {
+      "case": "evergreen_refresh",
+      "evidence_refs": [
+        "evidence:evergreen",
+        "evidence:refresh"
+      ],
+      "expected_outcome": "EVERGREEN_REFRESH_JUSTIFIED",
+      "lineage_deduplicated": true,
+      "lineage_nonempty": true,
+      "observed_outcomes": [
+        "EVERGREEN_REFRESH_JUSTIFIED"
+      ],
+      "qualifying_governed_evidence_refs": [
+        "evidence:evergreen"
+      ],
+      "record_ref_in_lineage": true,
+      "record_ref_qualifies": true,
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.governed_evidence_lineage_report.v2",
+  "status": "PASS"
+}

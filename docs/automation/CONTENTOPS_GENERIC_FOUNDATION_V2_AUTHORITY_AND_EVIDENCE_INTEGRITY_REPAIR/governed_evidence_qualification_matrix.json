@@ -1,0 +1,105 @@
+{
+  "accepted_authority_states": [
+    "FIRST_PARTY_VERIFIED",
+    "OFFICIAL_VERIFIED",
+    "SYNTHETIC_AUTHORIZED",
+    "VERIFIED_GOVERNED"
+  ],
+  "accepted_permission_states": [
+    "PUBLIC_CLAIM_ALLOWED",
+    "REPORTING_ALLOWED"
+  ],
+  "disqualifying_reason_codes": [
+    "authority_blocked",
+    "context_only",
+    "malformed",
+    "permission_blocked",
+    "unavailable",
+    "unverified"
+  ],
+  "rows": [
+    {
+      "authority_state": "VERIFIED_GOVERNED",
+      "case": "qualifying_record",
+      "error_disposition": null,
+      "expected_qualified": true,
+      "governed_outcome_emitted": true,
+      "observed_qualified": true,
+      "permission_state": "REPORTING_ALLOWED",
+      "reason_codes": [],
+      "status": "PASS"
+    },
+    {
+      "authority_state": "UNVERIFIED",
+      "case": "unverified",
+      "error_disposition": null,
+      "expected_qualified": false,
+      "governed_outcome_emitted": false,
+      "observed_qualified": false,
+      "permission_state": "REPORTING_ALLOWED",
+      "reason_codes": [],
+      "status": "PASS"
+    },
+    {
+      "authority_state": "VERIFIED_GOVERNED",
+      "case": "context_only",
+      "error_disposition": null,
+      "expected_qualified": false,
+      "governed_outcome_emitted": false,
+      "observed_qualified": false,
+      "permission_state": "CONTEXT_ONLY",
+      "reason_codes": [],
+      "status": "PASS"
+    },
+    {
+      "authority_state": "VERIFIED_GOVERNED",
+      "case": "permission_blocked",
+      "error_disposition": null,
+      "expected_qualified": false,
+      "governed_outcome_emitted": false,
+      "observed_qualified": false,
+      "permission_state": "REPORTING_NOT_ALLOWED",
+      "reason_codes": [],
+      "status": "PASS"
+    },
+    {
+      "authority_state": "VERIFIED_GOVERNED",
+      "case": "unavailable",
+      "error_disposition": null,
+      "expected_qualified": false,
+      "governed_outcome_emitted": false,
+      "observed_qualified": false,
+      "permission_state": "REPORTING_ALLOWED",
+      "reason_codes": [
+        "unavailable"
+      ],
+      "status": "PASS"
+    },
+    {
+      "authority_state": "VERIFIED_GOVERNED",
+      "case": "explicit_blocker",
+      "error_disposition": null,
+      "expected_qualified": false,
+      "governed_outcome_emitted": false,
+      "observed_qualified": false,
+      "permission_state": "REPORTING_ALLOWED",
+      "reason_codes": [
+        "authority_blocked"
+      ],
+      "status": "PASS"
+    },
+    {
+      "authority_state": "VERIFIED_GOVERNED",
+      "case": "malformed",
+      "error_disposition": "REJECT_MALFORMED",
+      "expected_qualified": false,
+      "governed_outcome_emitted": false,
+      "observed_qualified": false,
+      "permission_state": "REPORTING_ALLOWED",
+      "reason_codes": [],
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.governed_evidence_qualification_matrix.v2",
+  "status": "PASS"
+}
