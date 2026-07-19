@@ -1,0 +1,223 @@
+{
+  "excluded": [
+    {
+      "artifact_path_pattern": "data/archive/official_sources/us_census_public_api/*/raw_response.bin",
+      "artifact_schema_or_external_shape": "HTML Missing Key response",
+      "blockers": [
+        "committed_artifact_is_missing_key_error",
+        "credential_required_for_usable_capture"
+      ],
+      "conformance_readiness": "EXCLUDED",
+      "current_authority_state": "UNAVAILABLE",
+      "current_permission_state": "UNAVAILABLE",
+      "extractor_availability": "NOT_REGISTERED",
+      "feature_derivations_available": [],
+      "intrinsic_timestamps": [],
+      "numeric_nonnumeric_modality": "nonnumeric_error",
+      "recommended_adapter_priority": "not_selected",
+      "source_family": "us_census_public_api_legacy_capture",
+      "verifier_availability": "SCHEMA_NOT_ALLOWLISTED"
+    },
+    {
+      "artifact_path_pattern": "data/archive/official_sources/bea_public_data_api/*/redacted_response.json",
+      "artifact_schema_or_external_shape": "redacted BEA API response",
+      "blockers": [
+        "credential_dependent_source",
+        "redacted_or_nonvalue_capture_not_selected"
+      ],
+      "conformance_readiness": "EXCLUDED",
+      "current_authority_state": "UNAVAILABLE",
+      "current_permission_state": "UNAVAILABLE",
+      "extractor_availability": "NOT_REGISTERED",
+      "feature_derivations_available": [],
+      "intrinsic_timestamps": [],
+      "numeric_nonnumeric_modality": "mixed_redacted",
+      "recommended_adapter_priority": "not_selected",
+      "source_family": "bea_public_data_api_redacted_capture",
+      "verifier_availability": "SCHEMA_NOT_ALLOWLISTED"
+    }
+  ],
+  "existing_compatible": [
+    {
+      "artifact_path_pattern": "data/archive/official_sources/bls_public_data_api/bls_cpi_live_20260531_132121_1fcff5e55d1b/raw_response.json",
+      "artifact_schema_or_external_shape": "external.bls_public_data_response.v1",
+      "blockers": [],
+      "conformance_readiness": "PASS",
+      "current_authority_state": "OFFICIAL_VERIFIED",
+      "current_permission_state": "CONTEXT_ONLY",
+      "extractor_availability": "contentops.bls_series_observation_extractor@v1",
+      "feature_derivations_available": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "intrinsic_timestamps": "registered_artifact_native_rules",
+      "numeric_nonnumeric_modality": "registered_adapter",
+      "recommended_adapter_priority": "existing_compatible",
+      "source_family": "bls_public_data_api",
+      "verifier_availability": "contentops.exact_git_artifact_verifier@v1"
+    },
+    {
+      "artifact_path_pattern": "data/audit/data_sufficiency/task_calendar_event_spine_batch_a1_treasury_auctions_live_capture/raw_archive/req1_treasury_auctions_recent_announcements.json",
+      "artifact_schema_or_external_shape": "external.us_treasury_auction_announcement_response.v1",
+      "blockers": [],
+      "conformance_readiness": "PASS",
+      "current_authority_state": "OFFICIAL_VERIFIED",
+      "current_permission_state": "CONTEXT_ONLY",
+      "extractor_availability": "contentops.treasury_auction_announcement_extractor@v1",
+      "feature_derivations_available": [
+        "evidence_completeness",
+        "policy_significance"
+      ],
+      "intrinsic_timestamps": "registered_artifact_native_rules",
+      "numeric_nonnumeric_modality": "registered_adapter",
+      "recommended_adapter_priority": "existing_compatible",
+      "source_family": "us_treasury_fiscaldata_auction_announcements",
+      "verifier_availability": "contentops.exact_git_artifact_verifier@v1"
+    },
+    {
+      "artifact_path_pattern": "data/audit/data_sufficiency/task_300aa_304z/raw_archive/nyfed_reference_rates/batch_e_nyfed_reference_rates_20260606T154423Z_a0793ac6/raw_response.bin",
+      "artifact_schema_or_external_shape": "external.nyfed_reference_rates_response.v1",
+      "blockers": [],
+      "conformance_readiness": "PASS",
+      "current_authority_state": "OFFICIAL_VERIFIED",
+      "current_permission_state": "CONTEXT_ONLY",
+      "extractor_availability": "contentops.nyfed_reference_rate_extractor@v1",
+      "feature_derivations_available": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "intrinsic_timestamps": "registered_artifact_native_rules",
+      "numeric_nonnumeric_modality": "registered_adapter",
+      "recommended_adapter_priority": "existing_compatible",
+      "source_family": "nyfed_reference_rates",
+      "verifier_availability": "contentops.exact_git_artifact_verifier@v1"
+    },
+    {
+      "artifact_path_pattern": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+      "artifact_schema_or_external_shape": "capital_chronicle.newsroom_candidate_pool.v1",
+      "blockers": [],
+      "conformance_readiness": "PASS",
+      "current_authority_state": "VERIFIED_GOVERNED",
+      "current_permission_state": "PUBLIC_CLAIM_ALLOWED",
+      "extractor_availability": "contentops.newsroom_candidate_extractor@v1",
+      "feature_derivations_available": [
+        "authority_readiness",
+        "evidence_completeness",
+        "material_delta"
+      ],
+      "intrinsic_timestamps": "registered_artifact_native_rules",
+      "numeric_nonnumeric_modality": "registered_adapter",
+      "recommended_adapter_priority": "existing_compatible",
+      "source_family": "governed_newsroom_candidate_pool",
+      "verifier_availability": "contentops.exact_git_artifact_verifier@v1"
+    }
+  ],
+  "inventory_artifacts_changed_in_later_head": false,
+  "pinned_head_is_ancestor_of_later": true,
+  "schema_version": "contentops.production_adapter_inventory.v1",
+  "selected_next_batch": [
+    {
+      "artifact_path_pattern": "data/audit/data_sufficiency/task_300aa_304z/raw_archive/treasury_daily_yield_curve/*/raw_response.bin",
+      "artifact_schema_or_external_shape": "Treasury Atom/OData DailyTreasuryYieldCurveRateData XML",
+      "blockers": [
+        "versioned_extractor_record_required",
+        "artifact_schema_verifier_allowlist_extension_required",
+        "namespace_aware_xml_shape_validation_required"
+      ],
+      "byte_length": 385873,
+      "byte_sha256": "b2eebbbe396380fb3872e031e8b759088bb41c746ce716773800506c94c9908f",
+      "commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+      "conformance_readiness": "BOUNDED_NEXT_BATCH",
+      "current_authority_state": "UNAVAILABLE_PENDING_REGISTERED_EXTRACTION",
+      "current_permission_state": "UNAVAILABLE_PENDING_REGISTERED_EXTRACTION",
+      "extractor_availability": "NOT_REGISTERED",
+      "feature_derivations_available": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "git_blob_sha1": "4c6cb14c58b3e16422eca115fecb1d883a98d79f",
+      "intrinsic_timestamps": [
+        "feed.updated",
+        "entry.updated",
+        "m:properties/d:NEW_DATE"
+      ],
+      "nonnumeric": false,
+      "numeric": true,
+      "numeric_nonnumeric_modality": "numeric_time_series",
+      "path": "data/audit/data_sufficiency/task_300aa_304z/raw_archive/treasury_daily_yield_curve/batch_e_treasury_daily_yield_curve_20260606T154421Z_e34b3214/raw_response.bin",
+      "recommended_adapter_priority": 1,
+      "representative_path": "data/audit/data_sufficiency/task_300aa_304z/raw_archive/treasury_daily_yield_curve/batch_e_treasury_daily_yield_curve_20260606T154421Z_e34b3214/raw_response.bin",
+      "source_family": "us_treasury_daily_yield_curve",
+      "verifier_availability": "VERIFIER_IMPLEMENTATION_PRESENT_SCHEMA_NOT_ALLOWLISTED"
+    },
+    {
+      "artifact_path_pattern": "data/audit/data_sufficiency/task_392aa_396z/raw_archive/cftc_cot/*/raw_response.bin",
+      "artifact_schema_or_external_shape": "CFTC legacy futures-only commitments CSV without header row",
+      "blockers": [
+        "versioned_extractor_record_required",
+        "artifact_schema_verifier_allowlist_extension_required",
+        "official_column_layout_binding_required"
+      ],
+      "byte_length": 415757,
+      "byte_sha256": "286bda7d111c7d7eb3756a919a6489ddf310d42a108b2c154408093e706aa02e",
+      "commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+      "conformance_readiness": "BOUNDED_NEXT_BATCH",
+      "current_authority_state": "UNAVAILABLE_PENDING_REGISTERED_EXTRACTION",
+      "current_permission_state": "UNAVAILABLE_PENDING_REGISTERED_EXTRACTION",
+      "extractor_availability": "NOT_REGISTERED",
+      "feature_derivations_available": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "git_blob_sha1": "d76fafa828839ce774626ee2654b6477904e5260",
+      "intrinsic_timestamps": [
+        "report_date_as_yyyy_mm_dd",
+        "report_date_as_yyMMdd"
+      ],
+      "nonnumeric": true,
+      "numeric": true,
+      "numeric_nonnumeric_modality": "official_table",
+      "path": "data/audit/data_sufficiency/task_392aa_396z/raw_archive/cftc_cot/cftc_cot_20260607T140054Z/raw_response.bin",
+      "recommended_adapter_priority": 2,
+      "representative_path": "data/audit/data_sufficiency/task_392aa_396z/raw_archive/cftc_cot/cftc_cot_20260607T140054Z/raw_response.bin",
+      "source_family": "cftc_commitments_of_traders",
+      "verifier_availability": "VERIFIER_IMPLEMENTATION_PRESENT_SCHEMA_NOT_ALLOWLISTED"
+    },
+    {
+      "artifact_path_pattern": "data/audit/data_sufficiency/task_404sidea_408sidea/raw_archive/fed_board_h41/*.zip",
+      "artifact_schema_or_external_shape": "Federal Reserve H.4.1 ZIP containing SDMX-like data XML, structure XML, and XSDs",
+      "blockers": [
+        "versioned_zip_extractor_record_required",
+        "artifact_schema_verifier_allowlist_extension_required",
+        "bounded_streaming_inner_file_validation_required",
+        "existing_numeric_truth_quarantine_must_remain"
+      ],
+      "byte_length": 8952712,
+      "byte_sha256": "4f35601dfa72aaed42c6584f538a613392fa7f03f1f79e953e7aec3a37c15f7f",
+      "commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+      "conformance_readiness": "BOUNDED_NEXT_BATCH",
+      "current_authority_state": "UNAVAILABLE_PENDING_REGISTERED_EXTRACTION",
+      "current_permission_state": "UNAVAILABLE_PENDING_REGISTERED_EXTRACTION",
+      "extractor_availability": "NOT_REGISTERED",
+      "feature_derivations_available": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "git_blob_sha1": "fd52a7682725d15aa5d997201c52ebae4e291cce",
+      "intrinsic_timestamps": [
+        "H41_data.xml observation time period",
+        "release cadence metadata"
+      ],
+      "nonnumeric": true,
+      "numeric": true,
+      "numeric_nonnumeric_modality": "official_table",
+      "path": "data/audit/data_sufficiency/task_404sidea_408sidea/raw_archive/fed_board_h41/h41_4f35601dfa72.zip",
+      "recommended_adapter_priority": 3,
+      "representative_path": "data/audit/data_sufficiency/task_404sidea_408sidea/raw_archive/fed_board_h41/h41_4f35601dfa72.zip",
+      "source_family": "federal_reserve_h41",
+      "verifier_availability": "VERIFIER_IMPLEMENTATION_PRESENT_SCHEMA_NOT_ALLOWLISTED"
+    }
+  ],
+  "upstream_later_observed_head": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+  "upstream_pinned_head": "85fc4ac3ab0d4d61692492558e6abb854a7a0639"
+}

@@ -1,0 +1,18 @@
+{
+  "all_v2_foundation": "252 passed in 154.83s",
+  "ci": "NOT_YET_OBSERVED_BEFORE_PUSH",
+  "ci_pass_claimed": false,
+  "deterministic_regeneration": "PASS_TWO_IDENTICAL_RUNS",
+  "focused_freeze_conformance": "9 passed in 11.83s",
+  "freeze_manifest_and_hash_validation": "PASS",
+  "full_suite": "ATTEMPTED_NOT_PASS_80_PASSED_1_FAILED_MAXFAIL1",
+  "full_suite_blocker": "pre_existing_missing_archived_TASK_CONTENTOPS_0073_EXTREME_LOCAL_ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_FINAL_BUNDLE_AND_PATH_REPAIR_V0.md",
+  "full_suite_pass_claimed": false,
+  "genericity_guards": "PASS_BOTH_ZERO_FINDINGS",
+  "json_parse": "PASS_2623_FILES",
+  "python_compileall": "PASS",
+  "relevant_status_readiness": "31 passed in 3.98s",
+  "schema_version": "contentops.foundation_freeze_test_summary.v1",
+  "status": "PASS_SCOPED_VALIDATION",
+  "v1_compatibility": "22 passed in 1.45s"
+}

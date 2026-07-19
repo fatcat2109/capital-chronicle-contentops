@@ -1,0 +1,23 @@
+{
+  "adapter_owned": [
+    "selectors",
+    "path_patterns",
+    "field_mappings",
+    "source_specific_timestamp_extraction",
+    "source_specific_shape_validation",
+    "artifact_specific_feature_derivation"
+  ],
+  "allowed": [
+    "new_extractor_records",
+    "new_verifier_records",
+    "new_evidence_modalities_or_domains",
+    "new_adapter_implementations",
+    "new_aggregation_contracts",
+    "new_artifact_schemas",
+    "new_contract_versions"
+  ],
+  "registry_rule": "baseline records immutable; additions require successor version and logical hash",
+  "scenario_fixtures_frozen": false,
+  "schema_version": "contentops.versioned_extension_policy.v1",
+  "source_counts_frozen": false
+}

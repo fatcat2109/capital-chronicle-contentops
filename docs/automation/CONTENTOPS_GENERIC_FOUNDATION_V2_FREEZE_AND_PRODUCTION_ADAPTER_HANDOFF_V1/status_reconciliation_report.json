@@ -1,0 +1,15 @@
+{
+  "accepted_foundation_commit": "a2fb7c0a9a64ea12a6988e79da74d789c7553bd4",
+  "accepted_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "ci_pass_observed": false,
+  "foundation_work_complete": true,
+  "full_suite_pass_observed": false,
+  "global_disposition": "GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2_ACCEPTED_AND_FROZEN_FOR_ADAPTER_INTEGRATION",
+  "implementation_worker": "Codex selected by operator",
+  "independent_audit": "PASS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1",
+  "next_action": "TASK_CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1",
+  "schema_version": "contentops.foundation_status_reconciliation.v1",
+  "selected_artifacts_unchanged_at_later_head": true,
+  "upstream_later_observed_head": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+  "upstream_task_start_head": "85fc4ac3ab0d4d61692492558e6abb854a7a0639"
+}

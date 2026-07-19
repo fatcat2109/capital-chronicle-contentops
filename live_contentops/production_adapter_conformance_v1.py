@@ -1,0 +1,292 @@
+"""Deterministic, local-only conformance for V2 production evidence adapters.
+
+The harness consumes exact Git objects already present in a local repository.
+It never fetches, writes upstream state, publishes, dispatches, or mutates
+authority, editorial, scheduler, DQR, permission, or ranking configuration.
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass, replace
+import json
+from pathlib import Path
+import subprocess
+from typing import Any, Mapping, Sequence
+
+from live_contentops import adaptive_learning_adapters_v2 as adapters
+from live_contentops import adaptive_learning_core_v2 as core
+from live_contentops import content_intelligence_contracts_v2 as contracts
+from live_contentops import schema_aware_evidence_extraction_v1 as extraction
+
+
+SCHEMA_VERSION = "contentops.production_adapter_conformance_result.v1"
+HARNESS_VERSION = "contentops.production_adapter_conformance.v1.0.0"
+UPSTREAM_REPOSITORY = "fatcat2109/Headline-Raw-data-json"
+UPSTREAM_BRANCH = "main"
+DECISION_CUTOFF_UTC = "2026-07-19T12:00:00Z"
+
+
+@dataclass(frozen=True)
+class ProductionAdapterSpecV1:
+    adapter_id: str
+    artifact_family: str
+    artifact_path: str
+    artifact_schema_version: str
+    extractor_id: str
+    selector: Mapping[str, str]
+    feature_targets: tuple[str, ...]
+    modality: contracts.EvidenceModality
+    numeric: bool
+    nonnumeric: bool
+    candidate_id: str
+    story_id: str
+    evidence_scope: contracts.EvidenceScope = contracts.EvidenceScope.FEATURE_SPECIFIC
+
+
+PRODUCTION_ADAPTERS_V1: tuple[ProductionAdapterSpecV1, ...] = (
+    ProductionAdapterSpecV1(
+        "bls_series_observation_v1", "bls_public_data_api",
+        "data/archive/official_sources/bls_public_data_api/bls_cpi_live_20260531_132121_1fcff5e55d1b/raw_response.json",
+        "external.bls_public_data_response.v1", "contentops.bls_series_observation_extractor",
+        {"series_id": "CUUR0000SA0", "year": "2026", "period": "M04"},
+        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
+        True, False, "conformance:candidate:bls-cpi", "conformance:story:bls-cpi",
+    ),
+    ProductionAdapterSpecV1(
+        "us_treasury_auction_announcement_v1", "us_treasury_fiscaldata_auction_announcements",
+        "data/audit/data_sufficiency/task_calendar_event_spine_batch_a1_treasury_auctions_live_capture/raw_archive/req1_treasury_auctions_recent_announcements.json",
+        "external.us_treasury_auction_announcement_response.v1", "contentops.treasury_auction_announcement_extractor",
+        {"cusip": "912810UU0", "announcement_date": "2026-06-04"},
+        ("evidence_completeness", "policy_significance"), contracts.EvidenceModality.OFFICIAL_DOCUMENT,
+        True, True, "conformance:candidate:treasury-auction", "conformance:story:treasury-auction",
+    ),
+    ProductionAdapterSpecV1(
+        "nyfed_reference_rate_v1", "nyfed_reference_rates",
+        "data/audit/data_sufficiency/task_300aa_304z/raw_archive/nyfed_reference_rates/batch_e_nyfed_reference_rates_20260606T154423Z_a0793ac6/raw_response.bin",
+        "external.nyfed_reference_rates_response.v1", "contentops.nyfed_reference_rate_extractor",
+        {"rate_type": "SOFR", "effective_date": "2026-06-04"},
+        ("evidence_completeness", "freshness"), contracts.EvidenceModality.MARKET_SNAPSHOT,
+        True, False, "conformance:candidate:nyfed-sofr", "conformance:story:nyfed-sofr",
+    ),
+    ProductionAdapterSpecV1(
+        "newsroom_candidate_pool_v1", "governed_newsroom_candidate_pool",
+        "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+        "capital_chronicle.newsroom_candidate_pool.v1", "contentops.newsroom_candidate_extractor",
+        {"candidate_id": "cc-candidate-120438cc800db7f941be"},
+        ("authority_readiness", "evidence_completeness", "material_delta"),
+        contracts.EvidenceModality.CROSS_SOURCE_RECONCILIATION, True, True,
+        "conformance:candidate:newsroom", "conformance:story:newsroom",
+        contracts.EvidenceScope.CANDIDATE_WIDE,
+    ),
+)
+
+
+def _git_prefix(repository: Path) -> list[str]:
+    return ["git", "--git-dir", str(repository)] if repository.suffix == ".git" else ["git", "-C", str(repository)]
+
+
+def _git_bytes(repository: Path, commit: str, path: str) -> bytes:
+    try:
+        return subprocess.run(
+            [*_git_prefix(repository), "show", f"{commit}:{path}"], check=True,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        ).stdout
+    except subprocess.CalledProcessError as error:
+        raise ValueError("conformance_artifact_resolution_failed") from error
+
+
+def _git_commit_time(repository: Path, commit: str) -> str:
+    try:
+        value = subprocess.run(
+            [*_git_prefix(repository), "show", "-s", "--format=%cI", commit], check=True,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+        ).stdout.strip()
+    except subprocess.CalledProcessError as error:
+        raise ValueError("conformance_commit_time_unavailable") from error
+    return value.replace("+00:00", "Z")
+
+
+def _artifact_contract(consumed: bytes, spec: ProductionAdapterSpecV1, commit_time: str, shape_contract: str) -> tuple[str, str]:
+    if spec.extractor_id != "contentops.newsroom_candidate_extractor":
+        return commit_time, shape_contract
+    try:
+        artifact = json.loads(consumed)
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise ValueError("conformance_internal_artifact_json_invalid") from error
+    return str(artifact.get("cutoff_time_utc", "")), str(artifact.get("producer_version", ""))
+
+
+def _probe_reason_codes(
+    *, record: contracts.ExtractedEvidenceRecordV1,
+    expected_evidence_refs: Sequence[str] | None,
+    claimed_authority_state: str | None,
+    claimed_permission_state: str | None,
+    claimed_roles: Sequence[contracts.EvidenceRole] | None,
+    aggregation_input_refs: Sequence[str] | None,
+) -> tuple[str, ...]:
+    reasons: list[str] = []
+    if claimed_authority_state is not None and claimed_authority_state != record.authority_state and contracts.AUTHORITY_STATE_RANK.get(claimed_authority_state, -1) >= contracts.AUTHORITY_STATE_RANK.get(record.authority_state, -1):
+        reasons.append("caller_authority_upgrade_forbidden")
+    if claimed_permission_state is not None and claimed_permission_state != record.permission_state and contracts.PERMISSION_STATE_RANK.get(claimed_permission_state, -1) >= contracts.PERMISSION_STATE_RANK.get(record.permission_state, -1):
+        reasons.append("caller_permission_upgrade_forbidden")
+    if claimed_roles is not None and any(role not in record.evidence_roles for role in claimed_roles):
+        reasons.append("caller_evidence_role_addition_forbidden")
+    if expected_evidence_refs is not None and set(expected_evidence_refs) != {record.evidence_ref}:
+        reasons.append("arbitrary_or_incomplete_evidence_ref_set")
+    if aggregation_input_refs is not None and set(aggregation_input_refs) != {record.evidence_ref}:
+        reasons.append("feature_aggregation_exact_set_mismatch")
+    return tuple(dict.fromkeys(reasons))
+
+
+def run_adapter_conformance(
+    spec: ProductionAdapterSpecV1,
+    *,
+    repo_root: str | Path,
+    upstream_git_repository: str | Path,
+    upstream_commit: str,
+    branch_authority_ref: str = "refs/remotes/origin/main",
+    decision_cutoff_utc: str = DECISION_CUTOFF_UTC,
+    expected_evidence_refs: Sequence[str] | None = None,
+    claimed_authority_state: str | None = None,
+    claimed_permission_state: str | None = None,
+    claimed_roles: Sequence[contracts.EvidenceRole] | None = None,
+    aggregation_input_refs: Sequence[str] | None = None,
+) -> Mapping[str, Any]:
+    """Conform one adapter without network access or repository writes."""
+    root, upstream = Path(repo_root).resolve(), Path(upstream_git_repository).resolve()
+    verifier_registry = adapters.load_trusted_verifier_registry(root)
+    extractor_registry = extraction.load_extractor_registry(root)
+    extractor = extractor_registry.resolve(spec.extractor_id, "v1")
+    if extractor is None or not extractor.enabled:
+        raise ValueError("conformance_extractor_unavailable")
+    consumed = _git_bytes(upstream, upstream_commit, spec.artifact_path)
+    artifact_cutoff, producer_version = _artifact_contract(
+        consumed, spec, _git_commit_time(upstream, upstream_commit), extractor.shape_contract_id,
+    )
+    receipt = adapters.build_local_git_artifact_receipt(
+        git_repository=upstream, repository_identity=UPSTREAM_REPOSITORY,
+        branch=UPSTREAM_BRANCH, commit=upstream_commit, artifact_path=spec.artifact_path,
+        artifact_schema_version=spec.artifact_schema_version, producer_version=producer_version,
+        artifact_cutoff_utc=artifact_cutoff, evidence_refs=(),
+        source_authority_class="official_public_data", registry=verifier_registry,
+        verification_time_utc=decision_cutoff_utc, branch_authority_ref=branch_authority_ref,
+    )
+    record, feature_values = extraction.extract_artifact_evidence(
+        consumed, receipt=receipt, registry=extractor_registry,
+        extractor_id=spec.extractor_id, extractor_version="v1", selector=spec.selector,
+        feature_targets=spec.feature_targets, decision_cutoff_utc=decision_cutoff_utc,
+        evidence_scope=spec.evidence_scope,
+    )
+    probe_reasons = _probe_reason_codes(
+        record=record, expected_evidence_refs=expected_evidence_refs,
+        claimed_authority_state=claimed_authority_state,
+        claimed_permission_state=claimed_permission_state, claimed_roles=claimed_roles,
+        aggregation_input_refs=aggregation_input_refs,
+    )
+    context = contracts.EvidenceDecisionContextV1(
+        verifier_registry, (receipt,), decision_cutoff_utc,
+        extractor_registry, (record,), tuple(feature_values), (),
+    )
+    context_blockers = context.validate()
+    binding = adapters.build_receipt_backed_evidence_binding(
+        context, evidence_ref=record.evidence_ref, evidence_roles=record.evidence_roles,
+        evidence_scope=record.evidence_scope, authority_state=record.authority_state,
+        permission_state=record.permission_state, target_feature_ids=record.feature_targets,
+        as_of_utc=artifact_cutoff,
+    )
+    relationship = contracts.EventRelationship.NEW_PHASE if contracts.EvidenceRole.NEW_PHASE in record.evidence_roles else contracts.EventRelationship.INITIAL_EVENT
+    candidate_draft = core.LearningCandidateV2(
+        candidate_id=spec.candidate_id, story_id=spec.story_id,
+        cluster_id=f"conformance:cluster:{spec.artifact_family}",
+        update_chain_id=f"conformance:chain:{spec.artifact_family}",
+        source_relationship=relationship, evidence_state="SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+        authority_state="BLOCKED", authority_ready=False, reporting_allowed=False,
+        authority_blockers=("candidate_authority_not_yet_derived",),
+        history_identity_match=False, update_chain_continuity=relationship == contracts.EventRelationship.NEW_PHASE,
+        distinct_new_event_ref=record.evidence_ref if relationship == contracts.EventRelationship.NEW_PHASE else None,
+        material_reader_contribution=True,
+        feature_inputs=tuple(core.FeatureInputV1(
+            row.feature_id, True, row.availability, row.value,
+            unavailable_reason=row.reason_code if row.value is None else None,
+            evidence_refs=(record.evidence_ref,), evidence_roles=(contracts.EvidenceRole.FEATURE_SUPPORT,),
+            evidence_scope=record.evidence_scope,
+        ) for row in feature_values),
+        evidence_refs=(record.evidence_ref,), governed_evidence_bindings=(binding,),
+        capabilities=contracts.CapabilityDimensionsV1(
+            evidence_modalities=(spec.modality,), temporal_characters=(contracts.TemporalCharacter.POINT_IN_TIME,),
+            story_modes=(contracts.StoryMode.DATA_RELEASE,), source_family_ids=(spec.artifact_family,),
+            source_authority_classes=("official_public_data",),
+            numeric_evidence_present=spec.numeric, nonnumeric_evidence_present=spec.nonnumeric,
+        ), evidence_context=context,
+    )
+    derived_authority = core.derive_candidate_authority_v1(candidate_draft, context)
+    candidate = replace(
+        candidate_draft, authority_state=derived_authority.authority_state,
+        authority_ready=derived_authority.authority_ready,
+        reporting_allowed=derived_authority.reporting_allowed,
+        authority_blockers=derived_authority.authority_blockers,
+    )
+    candidate_blockers = core.validate_candidate_collection(
+        (candidate,), adapters.load_foundation_config(root), evidence_context=context,
+    )
+    decision = core.build_learning_decision_v2(
+        candidates=(candidate,), history=contracts.PublishedContentHistoryV1("conformance:history:none"),
+        gaps=contracts.ContentGapSetV1("conformance:gaps:none"),
+        observations=contracts.PerformanceObservationSetV1("conformance:observations:none"),
+        config=adapters.load_foundation_config(root),
+        input_bindings={"receipt": receipt.logical_hash, "extraction": record.extraction_logical_hash},
+        logical_time_basis="production-adapter-conformance-v1",
+        decision_cutoff_utc=decision_cutoff_utc, evidence_context=context,
+    )
+    outcome = decision.outcome_matrix[0]
+    checks = {
+        "exact_git_receipt": not receipt.validate(),
+        "historical_ancestry": receipt.producer_commit_reachable_from_branch,
+        "registry_membership": extractor.enabled and not verifier_registry.validate() and not extractor_registry.validate(),
+        "shape_and_schema": record.artifact_schema_verified and record.producer_version_verified,
+        "byte_derived_evidence_ref": record.evidence_ref.startswith("extracted:"),
+        "point_in_time": not context_blockers,
+        "derived_authority_permission_roles": not probe_reasons,
+        "scope_feature_consistency": set(record.feature_targets) == set(spec.feature_targets),
+        "derived_or_unavailable_features": all(row.value is not None or row.reason_code for row in feature_values),
+        "exact_evidence_set": not probe_reasons,
+        "candidate_authority_consistency": not candidate_blockers,
+        "no_publication": "NO_PUBLICATION" in str(outcome["publication_disposition"]),
+        "no_external_mutation": True,
+    }
+    reasons = tuple(dict.fromkeys((*probe_reasons, *context_blockers, *candidate_blockers)))
+    passed = all(checks.values()) and not reasons
+    return {
+        "schema_version": SCHEMA_VERSION, "harness_version": HARNESS_VERSION,
+        "adapter_id": spec.adapter_id, "artifact_family": spec.artifact_family,
+        "status": "PASS" if passed else "REJECTED", "reason_codes": list(reasons),
+        "upstream": {"repository": UPSTREAM_REPOSITORY, "branch": UPSTREAM_BRANCH,
+                     "commit": upstream_commit, "path": spec.artifact_path,
+                     "branch_head_observed": receipt.branch_head_observed,
+                     "commit_reachable_from_branch": receipt.producer_commit_reachable_from_branch,
+                     "git_blob_sha1": receipt.git_blob_sha1, "byte_sha256": receipt.consumed_byte_sha256},
+        "receipt_id": receipt.receipt_id, "extractor_id": record.extractor_id,
+        "extractor_version": record.extractor_version, "evidence_ref": record.evidence_ref,
+        "authority_state": record.authority_state, "permission_state": record.permission_state,
+        "evidence_roles": [role.value for role in record.evidence_roles],
+        "evidence_scope": record.evidence_scope.value,
+        "feature_results": contracts.primitive(feature_values), "checks": checks,
+        "publication_disposition": outcome["publication_disposition"],
+        "publication_authority_granted": False, "writes_performed": 0,
+    }
+
+
+def run_four_adapter_conformance(
+    *, repo_root: str | Path, upstream_git_repository: str | Path,
+    upstream_commit: str, branch_authority_ref: str = "refs/remotes/origin/main",
+) -> Mapping[str, Any]:
+    results = [run_adapter_conformance(
+        spec, repo_root=repo_root, upstream_git_repository=upstream_git_repository,
+        upstream_commit=upstream_commit, branch_authority_ref=branch_authority_ref,
+    ) for spec in PRODUCTION_ADAPTERS_V1]
+    return {
+        "schema_version": "contentops.production_adapter_conformance_set.v1",
+        "harness_version": HARNESS_VERSION, "upstream_commit": upstream_commit,
+        "status": "PASS" if all(row["status"] == "PASS" for row in results) else "FAIL",
+        "adapter_count": len(results), "results": results,
+        "network_calls": 0, "writes_performed": 0, "publication_authority_granted": False,
+    }

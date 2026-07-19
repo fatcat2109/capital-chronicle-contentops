@@ -1,0 +1,9 @@
+{
+  "conformance_logical_hash": "25edc410e09adb5daa35d941c0bae96974e4d958066722b68cebdbaa520cc4e2",
+  "later_observed_upstream_head": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+  "outputs_equal": true,
+  "runs": 2,
+  "schema_version": "contentops.foundation_freeze_deterministic_replay.v1",
+  "status": "PASS",
+  "upstream_head": "85fc4ac3ab0d4d61692492558e6abb854a7a0639"
+}

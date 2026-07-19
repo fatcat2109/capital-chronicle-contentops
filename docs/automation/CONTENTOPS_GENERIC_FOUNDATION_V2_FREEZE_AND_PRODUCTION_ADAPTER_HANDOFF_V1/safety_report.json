@@ -1,0 +1,14 @@
+{
+  "browser_or_provider_calls": 0,
+  "credential_reads": 0,
+  "dqr_permission_editorial_mutations": 0,
+  "machine_local_absolute_paths_emitted": false,
+  "network_fetches_by_harness": 0,
+  "no_publication_boundary_preserved": true,
+  "publication_or_dispatch": 0,
+  "ranking_calibration_changes": 0,
+  "scheduler_mutations": 0,
+  "schema_version": "contentops.foundation_freeze_safety_report.v1",
+  "status": "PASS",
+  "upstream_writes": 0
+}

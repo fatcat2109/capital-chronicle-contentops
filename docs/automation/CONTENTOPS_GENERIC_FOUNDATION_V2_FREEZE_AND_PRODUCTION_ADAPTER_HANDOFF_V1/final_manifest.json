@@ -1,0 +1,75 @@
+{
+  "artifact_count": 15,
+  "artifacts": [
+    {
+      "path": "adapter_inventory.json",
+      "sha256": "1c775656369167f5583a3b7f0f20e4af4ac5d71151e03f50e0007c220a0c9a6d"
+    },
+    {
+      "path": "changed_protected_paths.json",
+      "sha256": "9d0b9646123088e9c945afd798fdfb8fb8a48ff2e7304edd2b42e78f4478e07e"
+    },
+    {
+      "path": "compatibility_report.json",
+      "sha256": "959afcb757cf6eb59e1586f226b3af59d444e813cd6550d88fcd243e25fccdf6"
+    },
+    {
+      "path": "conformance_harness_contract.json",
+      "sha256": "5579d838b15a97864ec228ce5d49d3ebfc6950cce827a0c04cd3f8725bcdd140"
+    },
+    {
+      "path": "deterministic_replay.json",
+      "sha256": "6749ec5033af705a92eed547130465f8602117a4ccc94c6ec5ce37180301b351"
+    },
+    {
+      "path": "foundation_freeze_manifest.json",
+      "sha256": "e90985bdeac4d698bba278211b9c9147a16adcc45c73a14c161727da21522c08"
+    },
+    {
+      "path": "four_adapter_conformance_results.json",
+      "sha256": "2614251a8e3ec618932f56954101ebb49ac8f25e84f77fc35b9f573d168aa75d"
+    },
+    {
+      "path": "frozen_semantic_interface_inventory.json",
+      "sha256": "b2a963882c802a91cee127a5f9a95e4c3de7220db212a8a6f586045b9ad86598"
+    },
+    {
+      "path": "next_heavy_batch_selection.json",
+      "sha256": "319e9ac401399da4223787668bcdc2e57d3807f03638c7935e954fc52e8e289e"
+    },
+    {
+      "path": "next_task_specification.md",
+      "sha256": "94f7980ba4c15cbeafcf1b58da1f6b2c65c1683903e83a00aeebf8ead9d0ae59"
+    },
+    {
+      "path": "public_adapter_api_inventory.json",
+      "sha256": "062a1ad746364e718c32b3417912a3ca0d0d912d3febaa61262e0dfcf337757e"
+    },
+    {
+      "path": "safety_report.json",
+      "sha256": "0d35cb9aaa4043ef9dd03c5149d7f3460fead829aaa102a33ef3d3d8dda3cb17"
+    },
+    {
+      "path": "status_reconciliation_report.json",
+      "sha256": "18e4116bf12871e769237019e720d803a80a33d347bc604184fe0ee4c1a00862"
+    },
+    {
+      "path": "test_summary.json",
+      "sha256": "c0752d8e4bd49cbbc10877931b69591f79cc4d5ef64fa9eba12a093c8fa42ff8"
+    },
+    {
+      "path": "versioned_extension_policy.json",
+      "sha256": "20c49e457851e53443a7d393a374cbcd3547bd8fa73060dc71cde80c92475f11"
+    }
+  ],
+  "classification": "PASS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1_AWAITING_CHATGPT_AUDIT",
+  "conformance_status": "PASS",
+  "freeze_manifest_logical_hash": "cc8f153b6e85edfc623db318e8202c35a3351f73cbd3669cee754e220e154555",
+  "logical_hash": "d7aafa550ac2d746d466f82caabd3fb4375ad7622e834f3a48aa6a5074834ec8",
+  "next_action": "TASK_CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1",
+  "schema_version": "contentops.foundation_freeze_handoff_final_manifest.v1",
+  "starting_sha": "a2fb7c0a9a64ea12a6988e79da74d789c7553bd4",
+  "task": "TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1",
+  "upstream_head": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+  "upstream_later_observed_head": "251ba1804c5d495884343adad6be0d0e6ba8c121"
+}

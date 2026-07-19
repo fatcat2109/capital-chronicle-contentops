@@ -1,0 +1,24 @@
+{
+  "intended_changed_paths": [
+    "live_contentops/generic_foundation_freeze_manifest_v1.json",
+    "live_contentops/generic_foundation_freeze_v1.py",
+    "live_contentops/production_adapter_conformance_v1.py",
+    "live_contentops/generic_foundation_freeze_handoff_evidence_v1.py",
+    "tests/test_generic_foundation_freeze_and_production_adapter_conformance_v1.py",
+    "tests/test_final_product_readiness_metadata_consistency.py",
+    "docs/automation/CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json",
+    "docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md"
+  ],
+  "protected_unchanged": [
+    "read_only_upstream",
+    "v1.0_tag",
+    "accepted_release_commit",
+    "prior_foundation_evidence_trees",
+    "uncalibrated_ranking_weights",
+    "unrelated_dirty_worktree_paths"
+  ],
+  "schema_version": "contentops.foundation_freeze_changed_protected_paths.v1"
+}

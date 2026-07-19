@@ -1,0 +1,28 @@
+{
+  "classes": [
+    "content_intelligence_contracts_v2.ArtifactEvidenceExtractorRegistryV1",
+    "content_intelligence_contracts_v2.EvidenceDecisionContextV1",
+    "content_intelligence_contracts_v2.EvidenceRole",
+    "content_intelligence_contracts_v2.EvidenceScope",
+    "content_intelligence_contracts_v2.ExtractedEvidenceRecordV1",
+    "content_intelligence_contracts_v2.ExtractedFeatureValueV1",
+    "content_intelligence_contracts_v2.FeatureEvidenceAggregationV1",
+    "content_intelligence_contracts_v2.TrustedVerifierRegistryV1",
+    "content_intelligence_contracts_v2.VerifiedProducerArtifactReceiptV1",
+    "adaptive_learning_core_v2.FeatureInputV1",
+    "adaptive_learning_core_v2.LearningCandidateV2"
+  ],
+  "functions": [
+    "adaptive_learning_adapters_v2.build_local_git_artifact_receipt",
+    "adaptive_learning_adapters_v2.build_receipt_backed_evidence_binding",
+    "adaptive_learning_adapters_v2.load_foundation_config",
+    "adaptive_learning_adapters_v2.load_trusted_verifier_registry",
+    "adaptive_learning_core_v2.build_learning_decision_v2",
+    "adaptive_learning_core_v2.derive_candidate_authority_v1",
+    "adaptive_learning_core_v2.evaluate_features",
+    "adaptive_learning_core_v2.evaluate_outcome",
+    "schema_aware_evidence_extraction_v1.extract_artifact_evidence",
+    "schema_aware_evidence_extraction_v1.load_extractor_registry"
+  ],
+  "schema_version": "contentops.public_adapter_api_inventory.v1"
+}

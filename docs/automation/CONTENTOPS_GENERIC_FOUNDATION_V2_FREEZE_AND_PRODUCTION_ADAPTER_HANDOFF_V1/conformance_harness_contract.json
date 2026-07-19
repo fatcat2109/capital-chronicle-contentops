@@ -1,0 +1,33 @@
+{
+  "harness": "live_contentops.production_adapter_conformance_v1",
+  "prohibited_effects": [
+    "network",
+    "provider",
+    "browser",
+    "credential",
+    "publication",
+    "dispatch",
+    "scheduler_mutation",
+    "dqr_mutation",
+    "permission_mutation",
+    "editorial_mutation"
+  ],
+  "required_checks": [
+    "exact_git_receipt",
+    "historical_ancestry",
+    "registry_membership",
+    "shape_and_schema",
+    "byte_derived_evidence_ref",
+    "point_in_time",
+    "derived_authority_permission_roles",
+    "scope_feature_consistency",
+    "derived_or_unavailable_features",
+    "exact_evidence_set",
+    "candidate_authority_consistency",
+    "no_publication",
+    "no_external_mutation"
+  ],
+  "result_contract": "machine_readable_status_reason_codes_and_repo_relative_identity_only",
+  "result_schema": "contentops.production_adapter_conformance_result.v1",
+  "schema_version": "contentops.production_adapter_conformance_contract.v1"
+}

@@ -1,0 +1,26 @@
+{
+  "config_calibration_state": "UNCALIBRATED_FOUNDATION",
+  "existing_adapter_results": [
+    {
+      "adapter_id": "bls_series_observation_v1",
+      "status": "PASS"
+    },
+    {
+      "adapter_id": "us_treasury_auction_announcement_v1",
+      "status": "PASS"
+    },
+    {
+      "adapter_id": "nyfed_reference_rate_v1",
+      "status": "PASS"
+    },
+    {
+      "adapter_id": "newsroom_candidate_pool_v1",
+      "status": "PASS"
+    }
+  ],
+  "release_tag_unchanged": true,
+  "schema_version": "contentops.foundation_freeze_compatibility_report.v1",
+  "status": "PASS",
+  "v1_compatibility_preserved": true,
+  "v2_semantics_changed": false
+}

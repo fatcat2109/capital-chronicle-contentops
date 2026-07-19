@@ -1,0 +1,187 @@
+{
+  "accepted_audit": "PASS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1",
+  "accepted_foundation_commit": "a2fb7c0a9a64ea12a6988e79da74d789c7553bd4",
+  "config": {
+    "calibration_state": "UNCALIBRATED_FOUNDATION",
+    "config_logical_hash": "2358e96e474384608d86ed2e9fd7cfc10ba69960fad41337fe25bf7000825ef7",
+    "config_version": "contentops.adaptive_learning.foundation.v2.0.0",
+    "path": "live_contentops/adaptive_learning_foundation_v2_config.json",
+    "schema_version": "contentops.adaptive_learning_config.v1"
+  },
+  "contract_schema_versions": [
+    "contentops.adaptive_learning_config.v1",
+    "contentops.artifact_evidence_extractor_registry.v1",
+    "contentops.content_gap_set.v1",
+    "contentops.extracted_evidence_record.v1",
+    "contentops.extracted_feature_value.v1",
+    "contentops.feature_evidence_aggregation.v1",
+    "contentops.governed_candidate_pool_binding.v1",
+    "contentops.governed_evidence_binding.v1",
+    "contentops.learning_decision.v2",
+    "contentops.model_assisted_judgment.v1",
+    "contentops.performance_observation_set.v1",
+    "contentops.published_content_history.v1",
+    "contentops.trusted_evidence_verifier_registry.v1",
+    "contentops.verified_producer_artifact_receipt.v1"
+  ],
+  "exact_semantic_files": [
+    {
+      "git_blob_sha1": "85dce1cfe35e8f90024d0c11866f364de0d34f6f",
+      "path": "live_contentops/content_intelligence_contracts_v2.py",
+      "sha256": "e1699d09055eb8004ac92c5ca16e41d44543ea2714492ab620478185c48c62dd"
+    },
+    {
+      "git_blob_sha1": "e313d32623f6509eb0557afbfaaff45cbfbd2a3b",
+      "path": "live_contentops/schema_aware_evidence_extraction_v1.py",
+      "sha256": "0ee2d28a6cf1f7a801972ea966a4703f91b1e93f232f53da3dc34927d90e95b7"
+    },
+    {
+      "git_blob_sha1": "093c7f15fe4c2ac57fb30820efcccc50841c301a",
+      "path": "live_contentops/adaptive_learning_adapters_v2.py",
+      "sha256": "93097e70276cbb161d3261420e027c606bf76081a7f196c1c5424fd1526b285a"
+    },
+    {
+      "git_blob_sha1": "32c35afdcdad30d6a8b35233d5c7a08cf3004567",
+      "path": "live_contentops/adaptive_learning_core_v2.py",
+      "sha256": "4376cf8824fbd6b31e23f78ccbe6cf03bf3f83e97b85e39be5920b87eeb9b774"
+    },
+    {
+      "git_blob_sha1": "2ecef4b0e172f657f1d2badb37f85fb8990d6275",
+      "path": "live_contentops/adaptive_learning_foundation_v2_config.json",
+      "sha256": "0ae74c34b766a1d578ddf1a5664d79afa4e4561ce117f0b9bec4ce7509ae98a4"
+    }
+  ],
+  "exact_source_counts_frozen": false,
+  "extension_points": [
+    "append_new_immutable_registry_record_under_a_new_registry_version_and_hash",
+    "add_adapter_owned_selectors_shapes_timestamps_and_derivations",
+    "add_superseding_contract_or_aggregation_versions_with_compatibility_evidence"
+  ],
+  "freeze_version": "contentops.generic_foundation.freeze.v1.0.0",
+  "frozen_invariants": [
+    "authority_permission_and_roles_are_derived_from_governed_committed_bytes",
+    "caller_claims_may_narrow_but_never_upgrade_derived_trust",
+    "evidence_refs_are_byte_and_extracted_record_derived",
+    "feature_aggregation_binds_the_exact_evidence_set",
+    "future_evidence_is_rejected_at_the_decision_cutoff",
+    "candidate_authority_is_combined_from_all_bound_extracted_records",
+    "decisions_are_append_only_and_no_publication_by_default",
+    "ranking_configuration_remains_uncalibrated"
+  ],
+  "global_disposition": "GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2_ACCEPTED_AND_FROZEN_FOR_ADAPTER_INTEGRATION",
+  "interface_classification": {
+    "ADAPTER_OWNED": [
+      "selectors",
+      "path_patterns",
+      "field_mappings",
+      "source_specific_timestamp_extraction",
+      "source_specific_shape_validation",
+      "artifact_specific_feature_derivation"
+    ],
+    "FROZEN_SEMANTICS": [
+      "content_intelligence_v2_contract_meanings",
+      "authority_and_permission_derivation",
+      "semantic_evidence_roles",
+      "trusted_verifier_behavior",
+      "exact_git_producer_receipts",
+      "schema_aware_extraction_trust_boundary",
+      "point_in_time_validation",
+      "candidate_authorization_combination",
+      "evidence_scope_resolution",
+      "exact_set_feature_aggregation",
+      "append_only_learning_decision_behavior",
+      "no_publication_boundary",
+      "uncalibrated_foundation_configuration_state"
+    ],
+    "VERSIONED_APPEND_ONLY_EXTENSION": [
+      "new_extractor_records",
+      "new_verifier_records",
+      "new_evidence_modalities_or_domains",
+      "new_adapter_implementations",
+      "new_aggregation_contracts",
+      "new_artifact_schemas",
+      "new_contract_versions"
+    ]
+  },
+  "manifest_logical_hash": "cc8f153b6e85edfc623db318e8202c35a3351f73cbd3669cee754e220e154555",
+  "prohibited_mutation_classes": [
+    "silent_change_to_frozen_semantic_file",
+    "in_place_change_to_baseline_registry_record",
+    "caller_authority_permission_or_role_upgrade",
+    "unversioned_contract_semantic_change",
+    "production_weight_calibration",
+    "publication_dispatch_or_external_mutation",
+    "source_count_or_scenario_fixture_freeze"
+  ],
+  "public_adapter_api": {
+    "classes": [
+      "content_intelligence_contracts_v2.ArtifactEvidenceExtractorRegistryV1",
+      "content_intelligence_contracts_v2.EvidenceDecisionContextV1",
+      "content_intelligence_contracts_v2.EvidenceRole",
+      "content_intelligence_contracts_v2.EvidenceScope",
+      "content_intelligence_contracts_v2.ExtractedEvidenceRecordV1",
+      "content_intelligence_contracts_v2.ExtractedFeatureValueV1",
+      "content_intelligence_contracts_v2.FeatureEvidenceAggregationV1",
+      "content_intelligence_contracts_v2.TrustedVerifierRegistryV1",
+      "content_intelligence_contracts_v2.VerifiedProducerArtifactReceiptV1",
+      "adaptive_learning_core_v2.FeatureInputV1",
+      "adaptive_learning_core_v2.LearningCandidateV2"
+    ],
+    "functions": [
+      "adaptive_learning_adapters_v2.build_local_git_artifact_receipt",
+      "adaptive_learning_adapters_v2.build_receipt_backed_evidence_binding",
+      "adaptive_learning_adapters_v2.load_foundation_config",
+      "adaptive_learning_adapters_v2.load_trusted_verifier_registry",
+      "adaptive_learning_core_v2.build_learning_decision_v2",
+      "adaptive_learning_core_v2.derive_candidate_authority_v1",
+      "adaptive_learning_core_v2.evaluate_features",
+      "adaptive_learning_core_v2.evaluate_outcome",
+      "schema_aware_evidence_extraction_v1.extract_artifact_evidence",
+      "schema_aware_evidence_extraction_v1.load_extractor_registry"
+    ]
+  },
+  "registry_baselines": [
+    {
+      "path": "live_contentops/trusted_evidence_verifier_registry_v1.json",
+      "record_hashes": {
+        "contentops.disabled_legacy_verifier@v1": "c5c821efc4bca6a07071344549a923278266ec854f96d6523f75510bb18c9b7d",
+        "contentops.exact_git_artifact_verifier@v1": "c73627cc3a9e5212074d687b1625d1f3ff6eb5c15ca2ede56687ff4244182a44"
+      },
+      "record_identity_fields": [
+        "verifier_id",
+        "verifier_version"
+      ],
+      "registry_logical_hash": "8c3f42e4777098f2b5056b4cc498c5bd1b69017ef11c0a33e0a02812d7fec05b",
+      "registry_version": "trusted-evidence-registry-1.0.0"
+    },
+    {
+      "path": "live_contentops/artifact_evidence_extractor_registry_v1.json",
+      "record_hashes": {
+        "contentops.bls_series_observation_extractor@v1": "7b75e1b7592465c25a0938b06764f477f23b35ed6e80ab6e50ce6eefc219c666",
+        "contentops.disabled_legacy_extractor@v1": "7b1feb791a3566f67a78b3d82f7247c6a16018512eecea74127ed345aaa66427",
+        "contentops.newsroom_candidate_extractor@v1": "229b8e34f6d1b2ea2ed3db2175e0ae7fe03e2ac486920e1237fa92d0f4db3b6e",
+        "contentops.nyfed_reference_rate_extractor@v1": "890e325a6f17d80b0b95cb80c74bff2ee4474bf2270d49b6afbdd15df1c7056f",
+        "contentops.treasury_auction_announcement_extractor@v1": "fd60a28d38820f9c8d01e97fbb2c4e4fa164d849ad74167dd96beaf388c75457"
+      },
+      "record_identity_fields": [
+        "extractor_id",
+        "extractor_version"
+      ],
+      "registry_logical_hash": "65d41a4d991791e0e17ee685dd412e01a30996b3d196af3172a7d0513b200421",
+      "registry_version": "artifact-evidence-extractor-registry-1.0.0"
+    }
+  ],
+  "release": {
+    "release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+    "tag": "v1.0",
+    "tag_object": "a021df7fd0264d9f160bdd605509da925f0bf131"
+  },
+  "scenario_fixtures_frozen": false,
+  "schema_version": "contentops.generic_foundation_freeze_manifest.v1",
+  "semantic_change_requirements": [
+    "demonstrated_material_defect",
+    "superseding_versioned_contract",
+    "compatibility_evidence",
+    "explicit_operator_acceptance"
+  ]
+}

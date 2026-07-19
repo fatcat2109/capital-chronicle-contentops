@@ -1,0 +1,312 @@
+{
+  "adapter_count": 4,
+  "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+  "network_calls": 0,
+  "publication_authority_granted": false,
+  "results": [
+    {
+      "adapter_id": "bls_series_observation_v1",
+      "artifact_family": "bls_public_data_api",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:0dabc9cdb42bbe533569a5aad40d5321",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.bls_series_observation_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:0dabc9cdb42bbe533569a5aad40d5321"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "2e37254644171348e4622b3664716d1ec1e5ddf014146f03c9f6d844255c6c57",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "unavailable",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:0dabc9cdb42bbe533569a5aad40d5321"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "19a717f26b8d4f865f3ba9ff84db1173f59464fe6b889b3825e671597a74a4b4",
+          "reason_code": "artifact_native_timestamp_unavailable",
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": null
+        }
+      ],
+      "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:e20c601cb0d6977455238244",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "upstream": {
+        "branch": "main",
+        "branch_head_observed": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+        "byte_sha256": "1fcff5e55d1b293b002d848ab4b3b3f308042a145079aa426de1e4c9d934e3b9",
+        "commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "36ee1268268acec4538f7ae1b32bfe728fa896cc",
+        "path": "data/archive/official_sources/bls_public_data_api/bls_cpi_live_20260531_132121_1fcff5e55d1b/raw_response.json",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "us_treasury_auction_announcement_v1",
+      "artifact_family": "us_treasury_fiscaldata_auction_announcements",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:4d358f6f237a09809b246f5947002b15",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.treasury_auction_announcement_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:4d358f6f237a09809b246f5947002b15"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "9e5322cecc0a40e308e2d45154cd524aca338920e93526998be6f0b4ab3beb84",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "unavailable",
+          "derivation_contract": "UNAVAILABLE_WITHOUT_POLICY_MATERIALITY_CONTRACT_V1",
+          "evidence_refs": [
+            "extracted:4d358f6f237a09809b246f5947002b15"
+          ],
+          "feature_id": "policy_significance",
+          "logical_hash": "1e782ba4cf6a5ee166cbb32e686f7c95758e7265be4ab9501092ba302ffc3347",
+          "reason_code": "policy_materiality_derivation_contract_unavailable",
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": null
+        }
+      ],
+      "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:d804f711a1cef1ac6728a10f",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "upstream": {
+        "branch": "main",
+        "branch_head_observed": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+        "byte_sha256": "e08b8a4c78f89ac53c244b95379a84408b159cf67549202fdec84ee774c8d6c5",
+        "commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "dba7f5af655c75e83d3ad05cd30b3bee76cd4380",
+        "path": "data/audit/data_sufficiency/task_calendar_event_spine_batch_a1_treasury_auctions_live_capture/raw_archive/req1_treasury_auctions_recent_announcements.json",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "nyfed_reference_rate_v1",
+      "artifact_family": "nyfed_reference_rates",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:5c0f91e979dfbc2cba578e74569caf5b",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.nyfed_reference_rate_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:5c0f91e979dfbc2cba578e74569caf5b"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "6b81a9e82569a04b8afbd6240d00e6006085eee0c0bf4e8213cdeba18e862e98",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:5c0f91e979dfbc2cba578e74569caf5b"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "291b20454409b8d4003aee6b8d8a4f04423d08d9f7edc2afb10ec1044fb6285a",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:bf1f950e3ad1da424049a217",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "upstream": {
+        "branch": "main",
+        "branch_head_observed": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+        "byte_sha256": "334d8fc5f895a275fd12bb970e69274d257531b6ffe9b36c46d8c85b03a34075",
+        "commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "68861abbcb6cb39f0b2a52698df2052ec5784b0b",
+        "path": "data/audit/data_sufficiency/task_300aa_304z/raw_archive/nyfed_reference_rates/batch_e_nyfed_reference_rates_20260606T154423Z_a0793ac6/raw_response.bin",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "newsroom_candidate_pool_v1",
+      "artifact_family": "governed_newsroom_candidate_pool",
+      "authority_state": "VERIFIED_GOVERNED",
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:668f739d80d869be4da18cf2039b9f67",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "CANDIDATE_WIDE",
+      "extractor_id": "contentops.newsroom_candidate_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "CANDIDATE_AUTHORITY_PERMISSION_BOOLEAN_V1",
+          "evidence_refs": [
+            "extracted:668f739d80d869be4da18cf2039b9f67"
+          ],
+          "feature_id": "authority_readiness",
+          "logical_hash": "0684ccb77d7c72b711033dfee535de23d750dd3eb797a7850f0448de24ee8ae7",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:668f739d80d869be4da18cf2039b9f67"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "b995a863f87739a50a40ad5f431e22f053d092108e31fe6e327efe15b5f2c623",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.5833333333333334
+        },
+        {
+          "availability": "available",
+          "derivation_contract": "GOVERNED_RELATIONSHIP_BOOLEAN_V1",
+          "evidence_refs": [
+            "extracted:668f739d80d869be4da18cf2039b9f67"
+          ],
+          "feature_id": "material_delta",
+          "logical_hash": "d7702b632fdfab40c9034ecc9c77a357910dfe7ac3978036c5d2ced85b37006e",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        }
+      ],
+      "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+      "permission_state": "PUBLIC_CLAIM_ALLOWED",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_NO_GOVERNED_ACTIONABLE_OUTCOME",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:a60218a14fa9b8823e831214",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "upstream": {
+        "branch": "main",
+        "branch_head_observed": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+        "byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+        "commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d",
+        "path": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    }
+  ],
+  "schema_version": "contentops.production_adapter_conformance_set.v1",
+  "status": "PASS",
+  "upstream_commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+  "writes_performed": 0
+}

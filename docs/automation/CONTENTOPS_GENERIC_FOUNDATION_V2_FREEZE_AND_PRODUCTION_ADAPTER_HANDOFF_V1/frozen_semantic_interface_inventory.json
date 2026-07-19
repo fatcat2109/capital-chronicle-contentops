@@ -1,0 +1,80 @@
+{
+  "classification": {
+    "ADAPTER_OWNED": [
+      "selectors",
+      "path_patterns",
+      "field_mappings",
+      "source_specific_timestamp_extraction",
+      "source_specific_shape_validation",
+      "artifact_specific_feature_derivation"
+    ],
+    "FROZEN_SEMANTICS": [
+      "content_intelligence_v2_contract_meanings",
+      "authority_and_permission_derivation",
+      "semantic_evidence_roles",
+      "trusted_verifier_behavior",
+      "exact_git_producer_receipts",
+      "schema_aware_extraction_trust_boundary",
+      "point_in_time_validation",
+      "candidate_authorization_combination",
+      "evidence_scope_resolution",
+      "exact_set_feature_aggregation",
+      "append_only_learning_decision_behavior",
+      "no_publication_boundary",
+      "uncalibrated_foundation_configuration_state"
+    ],
+    "VERSIONED_APPEND_ONLY_EXTENSION": [
+      "new_extractor_records",
+      "new_verifier_records",
+      "new_evidence_modalities_or_domains",
+      "new_adapter_implementations",
+      "new_aggregation_contracts",
+      "new_artifact_schemas",
+      "new_contract_versions"
+    ]
+  },
+  "exact_semantic_files": [
+    {
+      "git_blob_sha1": "85dce1cfe35e8f90024d0c11866f364de0d34f6f",
+      "path": "live_contentops/content_intelligence_contracts_v2.py",
+      "sha256": "e1699d09055eb8004ac92c5ca16e41d44543ea2714492ab620478185c48c62dd"
+    },
+    {
+      "git_blob_sha1": "e313d32623f6509eb0557afbfaaff45cbfbd2a3b",
+      "path": "live_contentops/schema_aware_evidence_extraction_v1.py",
+      "sha256": "0ee2d28a6cf1f7a801972ea966a4703f91b1e93f232f53da3dc34927d90e95b7"
+    },
+    {
+      "git_blob_sha1": "093c7f15fe4c2ac57fb30820efcccc50841c301a",
+      "path": "live_contentops/adaptive_learning_adapters_v2.py",
+      "sha256": "93097e70276cbb161d3261420e027c606bf76081a7f196c1c5424fd1526b285a"
+    },
+    {
+      "git_blob_sha1": "32c35afdcdad30d6a8b35233d5c7a08cf3004567",
+      "path": "live_contentops/adaptive_learning_core_v2.py",
+      "sha256": "4376cf8824fbd6b31e23f78ccbe6cf03bf3f83e97b85e39be5920b87eeb9b774"
+    },
+    {
+      "git_blob_sha1": "2ecef4b0e172f657f1d2badb37f85fb8990d6275",
+      "path": "live_contentops/adaptive_learning_foundation_v2_config.json",
+      "sha256": "0ae74c34b766a1d578ddf1a5664d79afa4e4561ce117f0b9bec4ce7509ae98a4"
+    }
+  ],
+  "frozen_invariants": [
+    "authority_permission_and_roles_are_derived_from_governed_committed_bytes",
+    "caller_claims_may_narrow_but_never_upgrade_derived_trust",
+    "evidence_refs_are_byte_and_extracted_record_derived",
+    "feature_aggregation_binds_the_exact_evidence_set",
+    "future_evidence_is_rejected_at_the_decision_cutoff",
+    "candidate_authority_is_combined_from_all_bound_extracted_records",
+    "decisions_are_append_only_and_no_publication_by_default",
+    "ranking_configuration_remains_uncalibrated"
+  ],
+  "schema_version": "contentops.frozen_semantic_interface_inventory.v1",
+  "semantic_change_requirements": [
+    "demonstrated_material_defect",
+    "superseding_versioned_contract",
+    "compatibility_evidence",
+    "explicit_operator_acceptance"
+  ]
+}
