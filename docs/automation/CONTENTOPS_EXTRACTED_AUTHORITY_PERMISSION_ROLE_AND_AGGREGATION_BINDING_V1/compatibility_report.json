@@ -1,0 +1,12 @@
+{
+  "existing_real_canary": "PASS_NO_PUBLICATION",
+  "prior_evidence_trees_modified": false,
+  "schema_version": "contentops.extracted_authority_aggregation_compatibility.v1",
+  "status": "PASS",
+  "uncalibrated_config_modified": false,
+  "v1_0_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "v1_0_tag_object": "a021df7fd0264d9f160bdd605509da925f0bf131",
+  "v1_0_unchanged": true,
+  "v1_tests": "22 passed",
+  "v2_tests": "243 passed"
+}

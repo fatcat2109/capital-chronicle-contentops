@@ -1,0 +1,12 @@
+{
+  "branch": "main",
+  "governed_newsroom_candidate_pool_changed": false,
+  "later_changes_outside_task_consumed_artifact": true,
+  "later_observed_head": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+  "pinned_is_ancestor_of_later": true,
+  "repository": "fatcat2109/Headline-Raw-data-json",
+  "schema_version": "contentops.upstream_point_in_time_report.v1",
+  "status": "PASS",
+  "task_pinned_head": "210548f65afea9e5175641e959260002efde9762",
+  "upstream_repository_modified": false
+}

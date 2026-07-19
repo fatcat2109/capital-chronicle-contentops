@@ -1,0 +1,38 @@
+{
+  "caller_policy": "SUBSET_ONLY_NO_ROLE_ADDITION",
+  "external_roles": [
+    "feature_support"
+  ],
+  "newsroom_role_contract": "NEWSROOM_GOVERNED_RELATIONSHIP_SUPPORTING_FIELDS_V1",
+  "required_fields": {
+    "confirmation": [
+      "prior_testable_proposition_ref",
+      "governed_new_evidence_ref"
+    ],
+    "contradiction": [
+      "prior_testable_proposition_ref",
+      "conflicting_evidence_ref"
+    ],
+    "correction": [
+      "prior_error_ref",
+      "authoritative_correction_ref"
+    ],
+    "evergreen_justification": [
+      "update_justification_ref"
+    ],
+    "feature_support": [
+      "evidence_hash",
+      "source_packet_id"
+    ],
+    "material_delta": [
+      "governed_material_delta",
+      "material_delta_evidence_ref"
+    ],
+    "new_phase": [
+      "update_chain_continuity",
+      "distinct_new_event_ref"
+    ]
+  },
+  "schema_version": "contentops.extracted_role_derivation_matrix.v1",
+  "status": "PASS"
+}

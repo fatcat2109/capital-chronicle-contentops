@@ -1,0 +1,22 @@
+{
+  "changed_path_classes": [
+    "generic_contracts",
+    "generic_core",
+    "extractor_registry",
+    "schema_extraction",
+    "binding_adapter",
+    "real_canary_adapter",
+    "focused_tests",
+    "current_authority_docs",
+    "superseding_evidence"
+  ],
+  "protected_unchanged": [
+    "live_contentops/adaptive_learning_foundation_v2_config.json",
+    "tests/fixtures/generic_foundation_v2",
+    "all_prior_docs/automation evidence trees",
+    "accepted v1.0 release artifacts",
+    "upstream repository worktree"
+  ],
+  "schema_version": "contentops.extracted_authority_aggregation_paths.v1",
+  "unrelated_preexisting_dirty_paths_staged": false
+}

@@ -24,6 +24,7 @@ from live_contentops.content_intelligence_contracts_v2 import (
     AdaptiveLearningConfigV1,
     ArticleVersionV1,
     AvailabilityState,
+    AUTHORITY_STATE_RANK,
     CalibrationState,
     ContentGapFindingV1,
     ContentGapSetV1,
@@ -37,6 +38,7 @@ from live_contentops.content_intelligence_contracts_v2 import (
     GovernedCandidatePoolBindingV1,
     TrustedVerifierRecordV1,
     TrustedVerifierRegistryV1,
+    PERMISSION_STATE_RANK,
     build_governed_evidence_binding_v1,
     build_evidence_reference_v1,
     build_verified_producer_artifact_receipt_v1,
@@ -299,36 +301,77 @@ def build_receipt_backed_evidence_binding(
     context: EvidenceDecisionContextV1,
     *,
     evidence_ref: str,
-    evidence_roles: Sequence[EvidenceRole],
-    evidence_scope: EvidenceScope,
-    authority_state: str = "SYNTHETIC_AUTHORIZED",
-    permission_state: str = "REPORTING_ALLOWED",
-    target_feature_ids: Sequence[str] = (),
+    evidence_roles: Sequence[EvidenceRole] | None = None,
+    evidence_scope: EvidenceScope | None = None,
+    authority_state: str | None = None,
+    permission_state: str | None = None,
+    target_feature_ids: Sequence[str] | None = None,
     as_of_utc: str | None = None,
-    reason_codes: Sequence[str] = ("synthetic_validation_only",),
+    reason_codes: Sequence[str] | None = None,
     verification_status: EvidenceVerificationStatus = EvidenceVerificationStatus.VERIFIED,
 ) -> Any:
     extracted = next((row for row in context.extracted_evidence_records if row.evidence_ref == evidence_ref), None)
     if extracted is not None:
         receipt = next(row for row in context.producer_receipts if row.receipt_id == extracted.producer_receipt_id)
+        selected_authority = extracted.authority_state if authority_state is None else authority_state
+        selected_permission = extracted.permission_state if permission_state is None else permission_state
+        if selected_authority not in AUTHORITY_STATE_RANK or (
+            selected_authority != extracted.authority_state
+            and AUTHORITY_STATE_RANK[selected_authority] >= AUTHORITY_STATE_RANK[extracted.authority_state]
+        ):
+            raise ValueError("binding_authority_upgrade_forbidden")
+        if selected_permission not in PERMISSION_STATE_RANK or (
+            selected_permission != extracted.permission_state
+            and PERMISSION_STATE_RANK[selected_permission] >= PERMISSION_STATE_RANK[extracted.permission_state]
+        ):
+            raise ValueError("binding_permission_upgrade_forbidden")
+        selected_roles = extracted.evidence_roles if evidence_roles is None else tuple(evidence_roles)
+        if not set(selected_roles).issubset(set(extracted.evidence_roles)):
+            raise ValueError("binding_role_addition_forbidden")
+        selected_scope = extracted.evidence_scope if evidence_scope is None else evidence_scope
+        if selected_scope != extracted.evidence_scope and not (
+            extracted.evidence_scope == EvidenceScope.CANDIDATE_WIDE
+            and selected_scope == EvidenceScope.FEATURE_SPECIFIC
+        ):
+            raise ValueError("binding_scope_broadening_forbidden")
+        selected_targets = extracted.feature_targets if target_feature_ids is None else tuple(target_feature_ids)
+        if not set(selected_targets).issubset(set(extracted.feature_targets)):
+            raise ValueError("binding_feature_target_addition_forbidden")
+        selected_reasons = list(extracted.qualification_reason_codes)
+        if selected_authority != extracted.authority_state:
+            selected_reasons.append("caller_authority_narrowed")
+        if selected_permission != extracted.permission_state:
+            selected_reasons.append("caller_permission_narrowed")
+        if reason_codes is not None and tuple(reason_codes) != tuple(dict.fromkeys(selected_reasons)):
+            raise ValueError("binding_qualification_reason_mismatch")
+        if verification_status != EvidenceVerificationStatus.VERIFIED:
+            raise ValueError("binding_verification_status_mismatch")
+        if as_of_utc is not None and as_of_utc != receipt.artifact_cutoff_utc:
+            raise ValueError("binding_as_of_mismatch")
     else:
         receipt = next(row for row in context.producer_receipts if evidence_ref in row.evidence_refs)
+        selected_authority = authority_state or "SYNTHETIC_AUTHORIZED"
+        selected_permission = permission_state or "REPORTING_ALLOWED"
+        selected_roles = tuple(evidence_roles or (EvidenceRole.FEATURE_SUPPORT,))
+        selected_scope = evidence_scope or EvidenceScope.CANDIDATE_WIDE
+        selected_targets = tuple(target_feature_ids or ())
+        selected_reasons = list(reason_codes or ("synthetic_validation_only",))
     return build_governed_evidence_binding_v1(
         evidence_ref=evidence_ref,
-        evidence_roles=evidence_roles,
+        evidence_roles=selected_roles,
         producer_artifact_binding_hash=receipt.consumed_byte_sha256,
         producer_receipt_id=receipt.receipt_id,
         producer_receipt_logical_hash=receipt.logical_hash,
         as_of_utc=as_of_utc or receipt.artifact_cutoff_utc,
-        authority_state=authority_state,
-        permission_state=permission_state,
+        authority_state=selected_authority,
+        permission_state=selected_permission,
         verifier_id=receipt.verifier_id,
         verifier_version=receipt.verifier_version,
         verification_status=verification_status,
-        evidence_scope=evidence_scope,
+        evidence_scope=selected_scope,
         source_authority_class=receipt.source_authority_class,
-        target_feature_ids=target_feature_ids,
-        reason_codes=reason_codes,
+        target_feature_ids=selected_targets,
+        reason_codes=tuple(dict.fromkeys(selected_reasons)),
     )
 
 

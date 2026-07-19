@@ -34,6 +34,10 @@ def load_extractor_registry(repo_root: str | Path | None = None) -> contracts.Ar
         required_fields=tuple(row["required_fields"]),
         evidence_ref_derivation_rule=str(row["evidence_ref_derivation_rule"]),
         timestamp_extraction_rules=dict(row["timestamp_extraction_rules"]),
+        authority_derivation_rule=str(row["authority_derivation_rule"]),
+        permission_derivation_rule=str(row["permission_derivation_rule"]),
+        role_derivation_rule=str(row["role_derivation_rule"]),
+        role_required_fields={key: tuple(values) for key, values in row.get("role_required_fields", {}).items()},
         supported_evidence_roles=tuple(contracts.EvidenceRole(value) for value in row["supported_evidence_roles"]),
         supported_evidence_scopes=tuple(contracts.EvidenceScope(value) for value in row["supported_evidence_scopes"]),
         supported_feature_ids=tuple(row["supported_feature_ids"]),
@@ -129,9 +133,14 @@ def _select_record(
         fields = (
             "candidate_id", "evidence_hash", "authority", "claim_permissions", "event_time_utc",
             "known_at_utc", "source_packet_id", "source_packet_logical_hash", "relationship",
+            "eligible", "blockers", "update_chain_id", "governed_material_delta",
+            "material_delta_evidence_ref", "prior_testable_proposition_ref",
+            "governed_new_evidence_ref", "conflicting_evidence_ref", "prior_error_ref",
+            "authoritative_correction_ref", "update_chain_continuity",
+            "distinct_new_event_ref", "update_justification_ref", "numeric_claims", "source_documents",
         )
-        _required(row, fields)
-        if row["authority"].get("story_decision") not in {"ALLOW", "BLOCK"}:
+        _required(row, fields[:9])
+        if row["authority"].get("story_decision") not in {"ALLOW", "BLOCK", "NOT_GRANTED"}:
             raise ValueError("newsroom_candidate_authority_malformed")
         if row["claim_permissions"].get("reporting_allowed") not in {True, False}:
             raise ValueError("newsroom_candidate_permission_malformed")
@@ -142,8 +151,83 @@ def _select_record(
             "observed_at_utc": row.get("event_time_utc"), "known_at_utc": row.get("known_at_utc"),
             "published_at_utc": published, "revision_at_utc": None,
         }
-        return {key: row.get(key) for key in fields}, str(row["candidate_id"]), fields, times
+        selected = {key: row.get(key) for key in fields}
+        selected["eligible"] = row.get("eligible", any(
+            item.get("candidate_id") == row.get("candidate_id")
+            for item in artifact.get("eligible_candidates", [])
+        ))
+        selected["blockers"] = tuple(row.get("blockers") or ())
+        return selected, str(row["candidate_id"]), fields, times
     raise ValueError("unsupported_extractor_implementation")
+
+
+def _derive_authority_permission_roles(
+    extractor: contracts.ArtifactEvidenceExtractorRecordV1,
+    record: Mapping[str, Any],
+) -> tuple[str, str, tuple[contracts.EvidenceRole, ...], str, tuple[str, ...]]:
+    """Derive maximum semantic authority from bytes under the registered contract."""
+    if extractor.schema_authority == "EXTERNAL_ASSIGNED":
+        authority = "OFFICIAL_VERIFIED"
+        permission = "CONTEXT_ONLY"
+        roles = (contracts.EvidenceRole.FEATURE_SUPPORT,)
+        return authority, permission, roles, "NOT_QUALIFYING_GOVERNED", ("context_only", "external_official_context_only")
+
+    authority_payload = record.get("authority") or {}
+    permission_payload = record.get("claim_permissions") or {}
+    blockers = tuple(str(value) for value in (record.get("blockers") or ()))
+    authority_ready = bool(
+        record.get("eligible") is True
+        and authority_payload.get("story_decision") == "ALLOW"
+        and not blockers
+    )
+    authority = "VERIFIED_GOVERNED" if authority_ready else "BLOCKED"
+    reporting_allowed = bool(
+        authority_ready
+        and permission_payload.get("reporting_allowed") is True
+        and permission_payload.get("decision", "ALLOW") == "ALLOW"
+    )
+    public_markers = [
+        bool(row.get("public_claim_allowed"))
+        for row in (*tuple(record.get("numeric_claims") or ()), *tuple(record.get("source_documents") or ()))
+        if isinstance(row, Mapping) and "public_claim_allowed" in row
+    ]
+    if reporting_allowed and public_markers and all(public_markers):
+        permission = "PUBLIC_CLAIM_ALLOWED"
+    elif reporting_allowed:
+        permission = "REPORTING_ALLOWED"
+    else:
+        permission = "REPORTING_NOT_ALLOWED"
+
+    roles: list[contracts.EvidenceRole] = [contracts.EvidenceRole.FEATURE_SUPPORT]
+    relationship = str(record.get("relationship") or "")
+    role_for_relationship = {
+        "material_update": contracts.EvidenceRole.MATERIAL_DELTA,
+        "confirmation": contracts.EvidenceRole.CONFIRMATION,
+        "contradiction": contracts.EvidenceRole.CONTRADICTION,
+        "correction": contracts.EvidenceRole.CORRECTION,
+        "new_phase": contracts.EvidenceRole.NEW_PHASE,
+    }.get(relationship)
+    if authority_ready and reporting_allowed and role_for_relationship is not None:
+        required = extractor.role_required_fields.get(role_for_relationship.value, ())
+        if required and all(record.get(field) not in (None, "", False) for field in required):
+            roles.append(role_for_relationship)
+    reason_codes = []
+    if not authority_ready:
+        reason_codes.extend(("authority_blocked", *blockers))
+    if not reporting_allowed:
+        reason_codes.append("permission_blocked")
+    status = "QUALIFYING_GOVERNED" if authority_ready and reporting_allowed else "NOT_QUALIFYING_GOVERNED"
+    return authority, permission, tuple(roles), status, tuple(dict.fromkeys(reason_codes))
+
+
+def _narrow_state(requested: str | None, derived: str, ranks: Mapping[str, int], kind: str) -> str:
+    if requested is None or requested == derived:
+        return derived
+    if requested not in ranks:
+        raise ValueError(f"unknown_requested_{kind}_state")
+    if ranks[requested] >= ranks[derived]:
+        raise ValueError(f"caller_{kind}_upgrade_forbidden")
+    return requested
 
 
 def _feature_value(
@@ -213,10 +297,10 @@ def extract_artifact_evidence(
     selector: Mapping[str, str],
     feature_targets: Sequence[str],
     decision_cutoff_utc: str,
-    evidence_roles: Sequence[contracts.EvidenceRole] = (contracts.EvidenceRole.FEATURE_SUPPORT,),
+    evidence_roles: Sequence[contracts.EvidenceRole] | None = None,
     evidence_scope: contracts.EvidenceScope = contracts.EvidenceScope.FEATURE_SPECIFIC,
-    authority_state: str = "OFFICIAL_VERIFIED",
-    permission_state: str = "CONTEXT_ONLY",
+    authority_state: str | None = None,
+    permission_state: str | None = None,
 ) -> tuple[contracts.ExtractedEvidenceRecordV1, tuple[contracts.ExtractedFeatureValueV1, ...]]:
     """Emit semantic refs only after registered extraction from exact receipt bytes."""
     if registry.validate():
@@ -234,8 +318,6 @@ def extract_artifact_evidence(
         raise ValueError("extractor_path_mismatch")
     if receipt.artifact_schema_version not in extractor.supported_artifact_schema_versions:
         raise ValueError("extractor_schema_mismatch")
-    if any(role not in extractor.supported_evidence_roles for role in evidence_roles):
-        raise ValueError("extractor_evidence_role_unsupported")
     if evidence_scope not in extractor.supported_evidence_scopes:
         raise ValueError("extractor_evidence_scope_unsupported")
     if any(feature not in extractor.supported_feature_ids for feature in feature_targets):
@@ -261,6 +343,24 @@ def extract_artifact_evidence(
     elif receipt.producer_version != extractor.shape_contract_id:
         raise ValueError("external_shape_contract_producer_mismatch")
     record, record_key, source_fields, times = _select_record(extractor, artifact, selector)
+    (
+        derived_authority, derived_permission, derived_roles,
+        qualification_status, qualification_reason_codes,
+    ) = _derive_authority_permission_roles(extractor, record)
+    selected_roles = derived_roles if evidence_roles is None else tuple(evidence_roles)
+    if any(role not in derived_roles for role in selected_roles):
+        raise ValueError("caller_evidence_role_addition_forbidden")
+    if any(role not in extractor.supported_evidence_roles for role in selected_roles):
+        raise ValueError("extractor_evidence_role_unsupported")
+    selected_authority = _narrow_state(authority_state, derived_authority, contracts.AUTHORITY_STATE_RANK, "authority")
+    selected_permission = _narrow_state(permission_state, derived_permission, contracts.PERMISSION_STATE_RANK, "permission")
+    if selected_authority != derived_authority:
+        qualification_reason_codes = (*qualification_reason_codes, "caller_authority_narrowed")
+        qualification_status = "NOT_QUALIFYING_GOVERNED"
+    if selected_permission != derived_permission:
+        qualification_reason_codes = (*qualification_reason_codes, "caller_permission_narrowed")
+        if selected_permission not in contracts.QUALIFYING_GOVERNED_EVIDENCE_PERMISSION_STATES:
+            qualification_status = "NOT_QUALIFYING_GOVERNED"
     cutoff = contracts.parse_utc(decision_cutoff_utc, field_name="decision_cutoff_utc")
     for name, timestamp in times.items():
         if timestamp and contracts.parse_utc(timestamp, field_name=name) > cutoff:
@@ -289,16 +389,21 @@ def extract_artifact_evidence(
         observed_at_utc=times["observed_at_utc"], known_at_utc=times["known_at_utc"],
         published_at_utc=times["published_at_utc"], revision_at_utc=times["revision_at_utc"],
         cutoff_utc=receipt.artifact_cutoff_utc,
-        evidence_roles=tuple(evidence_roles), evidence_scope=evidence_scope,
+        evidence_roles=tuple(selected_roles), evidence_scope=evidence_scope,
         feature_targets=tuple(feature_targets),
         derivation_contract=extractor.implementation_contract_id,
-        authority_state=authority_state, permission_state=permission_state,
+        authority_state=selected_authority, permission_state=selected_permission,
         source_authority_class=receipt.source_authority_class,
         artifact_schema_version=receipt.artifact_schema_version,
         schema_authority=extractor.schema_authority,
         artifact_schema_verified=True, producer_version_verified=True,
         internal_logical_hash_verified=internal_hash_verified,
         extraction_logical_hash="",
+        authority_derivation_rule=extractor.authority_derivation_rule,
+        permission_derivation_rule=extractor.permission_derivation_rule,
+        role_derivation_rule=extractor.role_derivation_rule,
+        qualification_status=qualification_status,
+        qualification_reason_codes=tuple(dict.fromkeys(qualification_reason_codes)),
     )
     draft = contracts.ExtractedEvidenceRecordV1(**values)
     extracted = replace(draft, extraction_logical_hash=draft.calculated_logical_hash())

@@ -117,6 +117,89 @@ class LearningCandidateV2:
     evidence_context: EvidenceDecisionContextV1 | None = None
 
 
+@dataclass(frozen=True)
+class CandidateAuthorityDerivationV1:
+    schema_version: str
+    authority_state: str
+    authority_ready: bool
+    reporting_allowed: bool
+    authority_blockers: tuple[str, ...]
+    reporting_blockers: tuple[str, ...]
+    evidence_refs: tuple[str, ...]
+    combination_rule: str
+    logical_hash: str
+
+
+def derive_candidate_authority_v1(
+    candidate: LearningCandidateV2,
+    context: EvidenceDecisionContextV1,
+) -> CandidateAuthorityDerivationV1:
+    """Fail-closed all-record authority/permission combination over bound extracted refs."""
+    governed_inputs = (
+        *candidate.governed_evidence_bindings,
+        *(row for row in candidate.evidence_records if row.producer_receipt_id and row.verifier_id),
+    )
+    candidate_refs = {row.evidence_ref for row in governed_inputs}
+    records = tuple(
+        row for row in context.extracted_evidence_records
+        if row.evidence_ref in candidate_refs
+        or (row.schema_authority == "INTERNAL_DECLARED" and row.record_key == candidate.candidate_id)
+    )
+    authority_blockers: list[str] = []
+    reporting_blockers: list[str] = []
+    if not records:
+        authority_blockers.append("governed_extracted_authority_inputs_missing")
+        reporting_blockers.append("governed_extracted_permission_inputs_missing")
+    for row in records:
+        evidence = next((value for value in governed_inputs if value.evidence_ref == row.evidence_ref), None)
+        trust_blockers = trusted_evidence_blockers(evidence, context) if evidence is not None else ("trusted_evidence_binding_missing",)
+        if row.authority_state not in {
+            "VERIFIED_GOVERNED", "OFFICIAL_VERIFIED", "FIRST_PARTY_VERIFIED", "SYNTHETIC_AUTHORIZED"
+        } or row.qualification_status == "NOT_QUALIFYING_GOVERNED" and "authority_blocked" in row.qualification_reason_codes or any(
+            value not in {"evidence_permission_state_not_allowed"} for value in trust_blockers
+        ):
+            authority_blockers.append(f"evidence_authority_blocked:{row.evidence_ref}")
+        if row.permission_state not in {"REPORTING_ALLOWED", "PUBLIC_CLAIM_ALLOWED"}:
+            reporting_blockers.append(f"evidence_permission_blocked:{row.evidence_ref}")
+    authority_ready = bool(records and not authority_blockers)
+    reporting_allowed = bool(authority_ready and not reporting_blockers)
+    authority_state = (
+        "AUTHORIZED" if reporting_allowed
+        else "AUTHORITY_READY_REPORTING_BLOCKED" if authority_ready
+        else "BLOCKED"
+    )
+    material = {
+        "schema_version": "contentops.candidate_authority_derivation.v1",
+        "authority_state": authority_state,
+        "authority_ready": authority_ready,
+        "reporting_allowed": reporting_allowed,
+        "authority_blockers": tuple(dict.fromkeys(authority_blockers)),
+        "reporting_blockers": tuple(dict.fromkeys(reporting_blockers)),
+        "evidence_refs": tuple(row.evidence_ref for row in records),
+        "combination_rule": "ALL_BOUND_EXTRACTED_RECORDS_MUST_ALLOW_V1",
+    }
+    return CandidateAuthorityDerivationV1(**material, logical_hash=logical_hash(material))
+
+
+def _candidate_authority_consistency_blockers(
+    candidate: LearningCandidateV2,
+    context: EvidenceDecisionContextV1 | None,
+) -> tuple[str, ...]:
+    if context is None or context.extractor_registry is None:
+        return ()
+    derived = derive_candidate_authority_v1(candidate, context)
+    blockers: list[str] = []
+    if candidate.authority_state != derived.authority_state:
+        blockers.append("candidate_authority_state_mismatch")
+    if candidate.authority_ready is not derived.authority_ready:
+        blockers.append("candidate_authority_ready_mismatch")
+    if candidate.reporting_allowed is not derived.reporting_allowed:
+        blockers.append("candidate_reporting_allowed_mismatch")
+    if tuple(candidate.authority_blockers) != derived.authority_blockers:
+        blockers.append("candidate_authority_blockers_mismatch")
+    return tuple(blockers)
+
+
 def _authorized(candidate: LearningCandidateV2) -> bool:
     return bool(
         candidate.authority_ready
@@ -408,6 +491,10 @@ def evaluate_outcome(
     evidence_context: EvidenceDecisionContextV1 | None = None,
 ) -> OutcomeDecisionV1:
     """Separate source relationship, authority, history, gaps, and action."""
+    evidence_context = evidence_context or candidate.evidence_context
+    authority_consistency = _candidate_authority_consistency_blockers(candidate, evidence_context)
+    if authority_consistency:
+        raise ValueError("candidate_authority_mismatch:" + ",".join(authority_consistency))
     authorized = _authorized(candidate)
     relationship = candidate.source_relationship
     outcomes: list[str] = []
@@ -415,7 +502,6 @@ def evaluate_outcome(
     duplicate = candidate.history_identity_match or relationship == EventRelationship.DUPLICATE
     packaging_gap = GapType.DERIVATIVE_PACKAGING_GAP in candidate.gap_types
     complete_evidence_lineage = _complete_evidence_lineage(candidate, include_semantic_refs=True)
-    evidence_context = evidence_context or candidate.evidence_context
     qualifying_governed_refs, governed_roles, disqualified_evidence = _governed_evidence_inventory(candidate, evidence_context)
 
     def relationship_ref(ref: str | None, role: EvidenceRole) -> tuple[str, ...]:
@@ -724,17 +810,65 @@ def evaluate_features(
             and item.evidence_scope in {EvidenceScope.FEATURE_SPECIFIC, EvidenceScope.CANDIDATE_WIDE}
             and effective_refs
         ):
-            extracted_values = tuple(
+            candidate_lineage = set(_complete_evidence_lineage(candidate))
+            expected_refs = {
+                row.evidence_ref for row in evidence_context.extracted_evidence_records
+                if row.evidence_ref in candidate_lineage
+                and definition.feature_id in row.feature_targets
+                and (
+                    row.evidence_scope == item.evidence_scope
+                    or row.evidence_scope == EvidenceScope.CANDIDATE_WIDE
+                    and item.evidence_scope == EvidenceScope.FEATURE_SPECIFIC
+                )
+            }
+            if expected_refs and set(effective_refs) != expected_refs:
+                raise ValueError(f"feature_evidence_set_mismatch:{definition.feature_id}")
+            exact_values = tuple(
                 row for row in evidence_context.extracted_feature_values
                 if row.feature_id == definition.feature_id
-                and set(row.evidence_refs).issubset(set(effective_refs))
+                and set(row.evidence_refs) == set(effective_refs)
             )
-            if not extracted_values:
-                raise ValueError(f"extracted_feature_value_missing:{definition.feature_id}")
-            states = {(row.availability, row.value, row.reason_code) for row in extracted_values}
-            if len(states) != 1:
-                raise ValueError(f"contradictory_extracted_feature_values:{definition.feature_id}")
-            extracted_state, extracted_value, extracted_reason = next(iter(states))
+            if len(exact_values) > 1:
+                states = {(row.availability, row.value, row.reason_code) for row in exact_values}
+                if len(states) != 1:
+                    raise ValueError(f"contradictory_extracted_feature_values:{definition.feature_id}")
+            if exact_values:
+                extracted_state, extracted_value, extracted_reason = (
+                    exact_values[0].availability, exact_values[0].value, exact_values[0].reason_code
+                )
+            else:
+                aggregations = tuple(
+                    row for row in evidence_context.registered_feature_aggregations
+                    if row.feature_id == definition.feature_id
+                    and set(row.input_evidence_refs) == set(effective_refs)
+                )
+                if not aggregations:
+                    reason = "feature_aggregation_required" if len(effective_refs) > 1 else "extracted_feature_value_missing"
+                    raise ValueError(f"{reason}:{definition.feature_id}")
+                if len(aggregations) != 1:
+                    raise ValueError(f"contradictory_feature_aggregations:{definition.feature_id}")
+                aggregation = aggregations[0]
+                aggregation_blockers = aggregation.validate()
+                if aggregation_blockers:
+                    raise ValueError("invalid_feature_aggregation:" + ",".join(aggregation_blockers))
+                individual_values: dict[str, float] = {}
+                for ref in effective_refs:
+                    ref_rows = tuple(
+                        row for row in evidence_context.extracted_feature_values
+                        if row.feature_id == definition.feature_id and row.evidence_refs == (ref,)
+                    )
+                    states = {(row.availability, row.value) for row in ref_rows}
+                    if len(states) != 1:
+                        raise ValueError(f"aggregation_individual_value_missing_or_contradictory:{definition.feature_id}:{ref}")
+                    availability, value = next(iter(states))
+                    if availability not in {AvailabilityState.AVAILABLE, AvailabilityState.EXPLICIT_ZERO} or value is None:
+                        raise ValueError(f"aggregation_individual_value_unavailable:{definition.feature_id}:{ref}")
+                    individual_values[ref] = float(value)
+                if aggregation.individual_values != individual_values:
+                    raise ValueError(f"aggregation_individual_value_mismatch:{definition.feature_id}")
+                extracted_value = aggregation.output_value
+                extracted_state = AvailabilityState.EXPLICIT_ZERO if extracted_value == 0.0 else AvailabilityState.AVAILABLE
+                extracted_reason = None
             if item.availability != extracted_state or item.raw_value != extracted_value:
                 raise ValueError(f"caller_feature_value_mismatch:{definition.feature_id}")
             if extracted_reason and item.unavailable_reason not in {None, extracted_reason}:
@@ -839,6 +973,9 @@ def evaluate_features(
             verifier_id_versions=verifier_ids,
             point_in_time_result=point_in_time_result,
         ))
+    authority_consistency = _candidate_authority_consistency_blockers(candidate, evidence_context)
+    if authority_consistency:
+        raise ValueError("candidate_authority_mismatch:" + ",".join(authority_consistency))
     return tuple(rows)
 
 
@@ -941,6 +1078,11 @@ def validate_candidate_collection(
                     blockers.append(f"invalid_authority_gate_result:{row.candidate_id}")
                 elif key in CANONICAL_AUTHORITY_GATE_IDS:
                     blockers.append(f"canonical_authority_gate_override_forbidden:{key}:{row.candidate_id}")
+        effective_context = evidence_context or row.evidence_context
+        blockers.extend(
+            f"{value}:{row.candidate_id}"
+            for value in _candidate_authority_consistency_blockers(row, effective_context)
+        )
         try:
             for item in row.feature_inputs:
                 refs, *_ = _feature_evidence_lineage(

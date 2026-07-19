@@ -1,0 +1,26 @@
+{
+  "exact_single_ref": "PASS_EXACT_EVIDENCE_SET",
+  "minimum_evidence_uses_consumed_set": true,
+  "multi_ref_without_contract": "BLOCK_FEATURE_AGGREGATION_REQUIRED",
+  "registered_contract_example": {
+    "aggregation_id": "evidence:deterministic-mean",
+    "aggregation_rule": "ARITHMETIC_MEAN_V1",
+    "aggregation_version": "v1",
+    "feature_id": "evidence_completeness",
+    "individual_values": {
+      "evidence:a": 0.5,
+      "evidence:b": 1.0
+    },
+    "input_evidence_refs": [
+      "evidence:a",
+      "evidence:b"
+    ],
+    "logical_hash": "8527e6136567c7a19467f858d129b2c44c8aba6c546b030884df967ef608a4fa",
+    "output_value": 0.75,
+    "schema_version": "contentops.feature_evidence_aggregation.v1"
+  },
+  "schema_version": "contentops.feature_aggregation_matrix.v1",
+  "status": "PASS",
+  "subset_or_omitted_refs": "BLOCK_FEATURE_EVIDENCE_SET_MISMATCH",
+  "unrelated_extra_refs": "BLOCK_EXACT_SET_MISMATCH"
+}

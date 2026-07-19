@@ -1,0 +1,9 @@
+{
+  "aggregation_logical_hash": "8527e6136567c7a19467f858d129b2c44c8aba6c546b030884df967ef608a4fa",
+  "byte_identical": true,
+  "extractor_registry_logical_hash": "65d41a4d991791e0e17ee685dd412e01a30996b3d196af3172a7d0513b200421",
+  "first_logical_hash": "949e2f7b567950d7c3c1648d1ee436d701e9020a70c5db4c2cfcc0fcfcaff558",
+  "schema_version": "contentops.extracted_authority_aggregation_deterministic_replay.v1",
+  "second_logical_hash": "949e2f7b567950d7c3c1648d1ee436d701e9020a70c5db4c2cfcc0fcfcaff558",
+  "status": "PASS"
+}

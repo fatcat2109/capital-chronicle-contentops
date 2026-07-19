@@ -1,0 +1,25 @@
+{
+  "cases": [
+    {
+      "inputs": "no governed extracted bindings",
+      "reason": "governed_extracted_authority_inputs_missing",
+      "result": "BLOCKED"
+    },
+    {
+      "inputs": "all authority and permission qualifying",
+      "result": "AUTHORIZED"
+    },
+    {
+      "inputs": "authority qualifying and any permission blocking",
+      "result": "AUTHORITY_READY_REPORTING_BLOCKED"
+    },
+    {
+      "inputs": "any authority blocking",
+      "permissive_override_allowed": false,
+      "result": "BLOCKED"
+    }
+  ],
+  "combination_rule": "ALL_BOUND_EXTRACTED_RECORDS_MUST_ALLOW_V1",
+  "schema_version": "contentops.candidate_authority_consistency_matrix.v1",
+  "status": "PASS"
+}

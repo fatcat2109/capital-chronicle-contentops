@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "authority_exact_or_narrower",
+    "permission_exact_or_narrower",
+    "roles_subset_only",
+    "scope_exact_or_candidate_wide_to_feature_specific",
+    "feature_targets_subset_only",
+    "verification_status_exact",
+    "qualification_reason_codes_exact_with_declared_narrowing",
+    "source_authority_and_receipt_copied"
+  ],
+  "schema_version": "contentops.binding_consistency_matrix.v1",
+  "status": "PASS"
+}

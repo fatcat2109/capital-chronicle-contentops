@@ -141,7 +141,6 @@ def run_schema_aware_real_canary(
             evidence_roles=record.evidence_roles, evidence_scope=record.evidence_scope,
             authority_state=record.authority_state, permission_state=record.permission_state,
             target_feature_ids=record.feature_targets, as_of_utc=receipt.artifact_cutoff_utc,
-            reason_codes=("real_editorial_extracted_evidence_no_publication_authority",),
         )
         inputs = tuple(core.FeatureInputV1(
             row.feature_id, True, row.availability, row.value,
@@ -162,9 +161,9 @@ def run_schema_aware_real_canary(
             update_chain_id="real-canary-v2:chain:" + str(spec["artifact_family"]),
             source_relationship=contracts.EventRelationship.INITIAL_EVENT,
             evidence_state="SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
-            authority_state="OFFICIAL_CONTEXT_NO_PUBLICATION_AUTHORITY",
-            authority_ready=False, reporting_allowed=False,
-            authority_blockers=("real_canary_no_publication_authority",),
+            authority_state="AUTHORITY_READY_REPORTING_BLOCKED",
+            authority_ready=True, reporting_allowed=False,
+            authority_blockers=(),
             history_identity_match=False, material_reader_contribution=True,
             feature_inputs=inputs, evidence_refs=(record.evidence_ref,),
             governed_evidence_bindings=(binding,), capabilities=capabilities,

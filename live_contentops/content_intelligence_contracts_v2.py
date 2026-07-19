@@ -28,6 +28,7 @@ SCHEMA_PRODUCER_ARTIFACT_RECEIPT_V1 = "contentops.verified_producer_artifact_rec
 SCHEMA_EVIDENCE_EXTRACTOR_REGISTRY_V1 = "contentops.artifact_evidence_extractor_registry.v1"
 SCHEMA_EXTRACTED_EVIDENCE_RECORD_V1 = "contentops.extracted_evidence_record.v1"
 SCHEMA_EXTRACTED_FEATURE_VALUE_V1 = "contentops.extracted_feature_value.v1"
+SCHEMA_FEATURE_EVIDENCE_AGGREGATION_V1 = "contentops.feature_evidence_aggregation.v1"
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 SHA1_RE = re.compile(r"^[0-9a-f]{40}$")
@@ -60,6 +61,17 @@ KNOWN_GOVERNED_EVIDENCE_PERMISSION_STATES = frozenset({
     *QUALIFYING_GOVERNED_EVIDENCE_PERMISSION_STATES,
     "CONTEXT_ONLY", "REPORTING_NOT_ALLOWED", "PERMISSION_BLOCKED", "UNAVAILABLE",
 })
+AUTHORITY_STATE_RANK = {
+    "UNAVAILABLE": 0, "UNVERIFIED": 0, "BLOCKED": 0,
+    "SYNTHETIC_UNAUTHORIZED": 0, "CONTEXT_ONLY": 1,
+    "VERIFIED_GOVERNED": 2, "OFFICIAL_VERIFIED": 2,
+    "FIRST_PARTY_VERIFIED": 2, "SYNTHETIC_AUTHORIZED": 2,
+}
+PERMISSION_STATE_RANK = {
+    "UNAVAILABLE": 0, "PERMISSION_BLOCKED": 0,
+    "REPORTING_NOT_ALLOWED": 0, "CONTEXT_ONLY": 1,
+    "REPORTING_ALLOWED": 2, "PUBLIC_CLAIM_ALLOWED": 3,
+}
 
 
 class EventRelationship(str, Enum):
@@ -384,6 +396,10 @@ class ArtifactEvidenceExtractorRecordV1:
     required_fields: tuple[str, ...]
     evidence_ref_derivation_rule: str
     timestamp_extraction_rules: Mapping[str, str]
+    authority_derivation_rule: str
+    permission_derivation_rule: str
+    role_derivation_rule: str
+    role_required_fields: Mapping[str, tuple[str, ...]]
     supported_evidence_roles: tuple[EvidenceRole, ...]
     supported_evidence_scopes: tuple[EvidenceScope, ...]
     supported_feature_ids: tuple[str, ...]
@@ -397,6 +413,9 @@ class ArtifactEvidenceExtractorRecordV1:
             ("extractor_version", self.extractor_version),
             ("implementation_contract_id", self.implementation_contract_id),
             ("shape_contract_id", self.shape_contract_id),
+            ("authority_derivation_rule", self.authority_derivation_rule),
+            ("permission_derivation_rule", self.permission_derivation_rule),
+            ("role_derivation_rule", self.role_derivation_rule),
         ):
             if not value or not IDENTIFIER_RE.fullmatch(value):
                 blockers.append(f"malformed_{name}")
@@ -419,6 +438,10 @@ class ArtifactEvidenceExtractorRecordV1:
             blockers.append("unsupported_evidence_ref_derivation_rule")
         if not self.timestamp_extraction_rules:
             blockers.append("timestamp_extraction_rules_empty")
+        if set(self.role_required_fields) - {role.value for role in self.supported_evidence_roles}:
+            blockers.append("role_required_fields_not_supported")
+        if any(not isinstance(values, tuple) or not values for values in self.role_required_fields.values()):
+            blockers.append("invalid_role_required_fields")
         if not self.supported_evidence_roles or any(not isinstance(value, EvidenceRole) for value in self.supported_evidence_roles):
             blockers.append("invalid_extractor_evidence_roles")
         if not self.supported_evidence_scopes or any(not isinstance(value, EvidenceScope) for value in self.supported_evidence_scopes):
@@ -486,6 +509,11 @@ class ExtractedEvidenceRecordV1:
     producer_version_verified: bool
     internal_logical_hash_verified: bool | None
     extraction_logical_hash: str
+    authority_derivation_rule: str = "LEGACY_CALLER_ASSERTED"
+    permission_derivation_rule: str = "LEGACY_CALLER_ASSERTED"
+    role_derivation_rule: str = "LEGACY_CALLER_ASSERTED"
+    qualification_status: str = "LEGACY_UNSPECIFIED"
+    qualification_reason_codes: tuple[str, ...] = ()
     schema_version: str = SCHEMA_EXTRACTED_EVIDENCE_RECORD_V1
 
     def calculated_logical_hash(self) -> str:
@@ -503,6 +531,10 @@ class ExtractedEvidenceRecordV1:
             ("evidence_ref", self.evidence_ref),
             ("derivation_contract", self.derivation_contract),
             ("artifact_schema_version", self.artifact_schema_version),
+            ("authority_derivation_rule", self.authority_derivation_rule),
+            ("permission_derivation_rule", self.permission_derivation_rule),
+            ("role_derivation_rule", self.role_derivation_rule),
+            ("qualification_status", self.qualification_status),
         ):
             if not value or not IDENTIFIER_RE.fullmatch(value):
                 blockers.append(f"malformed_{name}")
@@ -519,6 +551,23 @@ class ExtractedEvidenceRecordV1:
             blockers.append("invalid_source_fields_used")
         if not self.evidence_roles or any(not isinstance(value, EvidenceRole) for value in self.evidence_roles):
             blockers.append("invalid_extracted_evidence_roles")
+        if self.authority_state not in KNOWN_GOVERNED_EVIDENCE_AUTHORITY_STATES:
+            blockers.append("unknown_extracted_authority_state")
+        if self.permission_state not in KNOWN_GOVERNED_EVIDENCE_PERMISSION_STATES:
+            blockers.append("unknown_extracted_permission_state")
+        if self.qualification_status not in {"QUALIFYING_GOVERNED", "NOT_QUALIFYING_GOVERNED", "LEGACY_UNSPECIFIED"}:
+            blockers.append("unknown_extracted_qualification_status")
+        if (
+            self.qualification_status == "QUALIFYING_GOVERNED"
+            and (
+                self.authority_state not in QUALIFYING_GOVERNED_EVIDENCE_AUTHORITY_STATES
+                or self.permission_state not in QUALIFYING_GOVERNED_EVIDENCE_PERMISSION_STATES
+                or set(self.qualification_reason_codes) & DISQUALIFYING_GOVERNED_EVIDENCE_REASON_CODES
+            )
+        ):
+            blockers.append("contradictory_extracted_qualification")
+        if any(not IDENTIFIER_RE.fullmatch(value) for value in self.qualification_reason_codes):
+            blockers.append("malformed_qualification_reason_code")
         if not isinstance(self.evidence_scope, EvidenceScope):
             blockers.append("invalid_extracted_evidence_scope")
         if self.schema_authority not in {"INTERNAL_DECLARED", "EXTERNAL_ASSIGNED"}:
@@ -576,6 +625,61 @@ class ExtractedFeatureValueV1:
 
 
 @dataclass(frozen=True)
+class FeatureEvidenceAggregationV1:
+    """Registered, hash-bound derivation over an exact evidence set."""
+
+    aggregation_id: str
+    aggregation_version: str
+    feature_id: str
+    input_evidence_refs: tuple[str, ...]
+    individual_values: Mapping[str, float]
+    aggregation_rule: str
+    output_value: float
+    logical_hash: str
+    schema_version: str = SCHEMA_FEATURE_EVIDENCE_AGGREGATION_V1
+
+    def calculated_output(self) -> float:
+        ordered = [float(self.individual_values[ref]) for ref in self.input_evidence_refs]
+        if self.aggregation_rule == "ARITHMETIC_MEAN_V1":
+            return sum(ordered) / len(ordered)
+        if self.aggregation_rule == "MINIMUM_V1":
+            return min(ordered)
+        if self.aggregation_rule == "MAXIMUM_V1":
+            return max(ordered)
+        if self.aggregation_rule == "BOOLEAN_ALL_V1":
+            if any(value not in {0.0, 1.0} for value in ordered):
+                raise ValueError("boolean_aggregation_requires_zero_or_one")
+            return 1.0 if all(ordered) else 0.0
+        raise ValueError("unregistered_feature_aggregation_rule")
+
+    def calculated_logical_hash(self) -> str:
+        material = {key: value for key, value in asdict(self).items() if key != "logical_hash"}
+        return logical_hash(material)
+
+    def validate(self) -> tuple[str, ...]:
+        blockers: list[str] = []
+        if self.schema_version != SCHEMA_FEATURE_EVIDENCE_AGGREGATION_V1:
+            blockers.append("feature_aggregation_schema_mismatch")
+        for name, value in (("aggregation_id", self.aggregation_id), ("aggregation_version", self.aggregation_version), ("feature_id", self.feature_id)):
+            if not IDENTIFIER_RE.fullmatch(value or ""):
+                blockers.append(f"malformed_{name}")
+        if not self.input_evidence_refs or len(self.input_evidence_refs) != len(set(self.input_evidence_refs)):
+            blockers.append("invalid_aggregation_input_refs")
+        if set(self.individual_values) != set(self.input_evidence_refs):
+            blockers.append("aggregation_individual_value_refs_mismatch")
+        if self.aggregation_rule not in {"ARITHMETIC_MEAN_V1", "MINIMUM_V1", "MAXIMUM_V1", "BOOLEAN_ALL_V1"}:
+            blockers.append("unregistered_feature_aggregation_rule")
+        try:
+            if not blockers and not math.isclose(float(self.output_value), self.calculated_output(), rel_tol=0.0, abs_tol=1e-12):
+                blockers.append("feature_aggregation_output_mismatch")
+        except (KeyError, TypeError, ValueError):
+            blockers.append("feature_aggregation_inputs_invalid")
+        if self.logical_hash != self.calculated_logical_hash():
+            blockers.append("feature_aggregation_logical_hash_mismatch")
+        return _unique(blockers)
+
+
+@dataclass(frozen=True)
 class EvidenceDecisionContextV1:
     verifier_registry: TrustedVerifierRegistryV1
     producer_receipts: tuple[VerifiedProducerArtifactReceiptV1, ...]
@@ -583,6 +687,7 @@ class EvidenceDecisionContextV1:
     extractor_registry: ArtifactEvidenceExtractorRegistryV1 | None = None
     extracted_evidence_records: tuple[ExtractedEvidenceRecordV1, ...] = ()
     extracted_feature_values: tuple[ExtractedFeatureValueV1, ...] = ()
+    registered_feature_aggregations: tuple[FeatureEvidenceAggregationV1, ...] = ()
 
     def validate(self) -> tuple[str, ...]:
         blockers = list(self.verifier_registry.validate())
@@ -623,10 +728,28 @@ class EvidenceDecisionContextV1:
                 blockers.append(f"unsupported_extractor:{row.extractor_id}")
             elif extractor is not None and not extractor.enabled:
                 blockers.append(f"extractor_disabled:{row.extractor_id}")
+            elif extractor is not None:
+                if row.authority_derivation_rule != extractor.authority_derivation_rule:
+                    blockers.append(f"authority_derivation_rule_mismatch:{row.evidence_ref}")
+                if row.permission_derivation_rule != extractor.permission_derivation_rule:
+                    blockers.append(f"permission_derivation_rule_mismatch:{row.evidence_ref}")
+                if row.role_derivation_rule != extractor.role_derivation_rule:
+                    blockers.append(f"role_derivation_rule_mismatch:{row.evidence_ref}")
+                if any(role not in extractor.supported_evidence_roles for role in row.evidence_roles):
+                    blockers.append(f"extracted_role_not_supported:{row.evidence_ref}")
+                if any(feature not in extractor.supported_feature_ids for feature in row.feature_targets):
+                    blockers.append(f"extracted_feature_not_supported:{row.evidence_ref}")
         for row in self.extracted_feature_values:
             blockers.extend(row.validate())
             if any(ref not in record_refs for ref in row.evidence_refs):
                 blockers.append(f"extracted_feature_ref_missing:{row.feature_id}")
+        aggregation_ids = [row.aggregation_id for row in self.registered_feature_aggregations]
+        if len(aggregation_ids) != len(set(aggregation_ids)):
+            blockers.append("duplicate_feature_aggregation_id")
+        for row in self.registered_feature_aggregations:
+            blockers.extend(row.validate())
+            if any(ref not in record_refs for ref in row.input_evidence_refs):
+                blockers.append(f"feature_aggregation_ref_missing:{row.feature_id}")
         return _unique(blockers)
 
 
@@ -1711,6 +1834,12 @@ def trusted_evidence_blockers(
         blockers.append("evidence_authority_state_not_allowed")
     if evidence.permission_state not in verifier.allowed_permission_states:
         blockers.append("evidence_permission_state_not_allowed")
+    if (
+        evidence.authority_state in QUALIFYING_GOVERNED_EVIDENCE_AUTHORITY_STATES
+        and evidence.permission_state in QUALIFYING_GOVERNED_EVIDENCE_PERMISSION_STATES
+        and set(evidence.reason_codes) & DISQUALIFYING_GOVERNED_EVIDENCE_REASON_CODES
+    ):
+        blockers.append("contradictory_qualification_reason_codes")
     if any(role not in verifier.allowed_evidence_roles for role in evidence.evidence_roles):
         blockers.append("evidence_role_not_allowed")
     if evidence.evidence_scope not in verifier.allowed_evidence_scopes:
@@ -1737,12 +1866,45 @@ def trusted_evidence_blockers(
                 blockers.append("extracted_record_receipt_mismatch")
             if extracted.source_authority_class != receipt.source_authority_class:
                 blockers.append("extracted_record_authority_class_mismatch")
+            if evidence.authority_state != extracted.authority_state:
+                if AUTHORITY_STATE_RANK.get(evidence.authority_state, 99) >= AUTHORITY_STATE_RANK.get(extracted.authority_state, -1):
+                    blockers.append("evidence_authority_upgrade_from_extracted_record")
+                elif "caller_authority_narrowed" not in evidence.reason_codes:
+                    blockers.append("evidence_authority_narrowing_reason_missing")
+            if evidence.permission_state != extracted.permission_state:
+                if PERMISSION_STATE_RANK.get(evidence.permission_state, 99) >= PERMISSION_STATE_RANK.get(extracted.permission_state, -1):
+                    blockers.append("evidence_permission_upgrade_from_extracted_record")
+                elif "caller_permission_narrowed" not in evidence.reason_codes:
+                    blockers.append("evidence_permission_narrowing_reason_missing")
             if not set(evidence.evidence_roles).issubset(set(extracted.evidence_roles)):
                 blockers.append("evidence_roles_absent_from_extracted_record")
-            if evidence.evidence_scope != extracted.evidence_scope:
+            if evidence.evidence_scope != extracted.evidence_scope and not (
+                extracted.evidence_scope == EvidenceScope.CANDIDATE_WIDE
+                and evidence.evidence_scope == EvidenceScope.FEATURE_SPECIFIC
+            ):
                 blockers.append("evidence_scope_absent_from_extracted_record")
             if not set(evidence.target_feature_ids).issubset(set(extracted.feature_targets)):
                 blockers.append("feature_targets_absent_from_extracted_record")
+            expected_reasons = list(extracted.qualification_reason_codes)
+            if evidence.authority_state != extracted.authority_state:
+                expected_reasons.append("caller_authority_narrowed")
+            if evidence.permission_state != extracted.permission_state:
+                expected_reasons.append("caller_permission_narrowed")
+            if tuple(evidence.reason_codes) != _unique(expected_reasons):
+                blockers.append("evidence_qualification_reason_mismatch")
+            derived_qualifying = bool(
+                evidence.authority_state in QUALIFYING_GOVERNED_EVIDENCE_AUTHORITY_STATES
+                and evidence.permission_state in QUALIFYING_GOVERNED_EVIDENCE_PERMISSION_STATES
+                and not (set(evidence.reason_codes) & DISQUALIFYING_GOVERNED_EVIDENCE_REASON_CODES)
+            )
+            if derived_qualifying and extracted.qualification_status != "QUALIFYING_GOVERNED":
+                blockers.append("evidence_qualification_status_mismatch")
+            elif (
+                evidence.authority_state == extracted.authority_state
+                and evidence.permission_state == extracted.permission_state
+                and derived_qualifying != (extracted.qualification_status == "QUALIFYING_GOVERNED")
+            ):
+                blockers.append("evidence_qualification_status_mismatch")
     elif evidence.evidence_ref not in receipt.evidence_refs:
         blockers.append("evidence_ref_absent_from_producer_receipt")
     else:

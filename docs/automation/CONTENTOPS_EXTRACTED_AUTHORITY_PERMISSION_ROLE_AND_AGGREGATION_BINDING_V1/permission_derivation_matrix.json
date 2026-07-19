@@ -1,0 +1,21 @@
+{
+  "rows": [
+    {
+      "artifact_class": "external_official_raw",
+      "maximum_permission": "CONTEXT_ONLY",
+      "upgrade_blocked": true
+    },
+    {
+      "artifact_class": "eligible_newsroom_candidate",
+      "maximum_permission": "PUBLIC_CLAIM_ALLOWED_OR_REPORTING_ALLOWED_FROM_EXPLICIT_FIELDS",
+      "upgrade_blocked": true
+    },
+    {
+      "artifact_class": "rejected_or_reporting_disallowed_candidate",
+      "maximum_permission": "REPORTING_NOT_ALLOWED",
+      "qualifying_governed_evidence": false
+    }
+  ],
+  "schema_version": "contentops.extracted_permission_derivation_matrix.v1",
+  "status": "PASS"
+}

@@ -1,0 +1,26 @@
+{
+  "rows": [
+    {
+      "artifact_class": "external_official_raw",
+      "caller_policy": "EXACT_OR_NARROW_ONLY",
+      "derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "extractors": [
+        "contentops.bls_series_observation_extractor",
+        "contentops.treasury_auction_announcement_extractor",
+        "contentops.nyfed_reference_rate_extractor"
+      ],
+      "maximum_authority": "OFFICIAL_VERIFIED"
+    },
+    {
+      "artifact_class": "internal_newsroom_candidate",
+      "combination_rule": "ALL_BOUND_EXTRACTED_RECORDS_MUST_ALLOW_V1",
+      "derivation_rule": "NEWSROOM_CANDIDATE_AUTHORITY_ELIGIBILITY_BLOCKERS_V1",
+      "extractors": [
+        "contentops.newsroom_candidate_extractor"
+      ],
+      "maximum_authority": "VERIFIED_GOVERNED_IF_ELIGIBLE_ALLOW_AND_BLOCKER_FREE_ELSE_BLOCKED"
+    }
+  ],
+  "schema_version": "contentops.extracted_authority_derivation_matrix.v1",
+  "status": "PASS"
+}

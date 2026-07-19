@@ -4,9 +4,17 @@
 
 ## Current Classification
 
-`PASS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1`.
+Completed task: `TASK_CONTENTOPS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1`.
+
+## Extracted Authority, Permission, Role, And Aggregation Binding V1
+
+Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is accepted as `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding generic repair makes each extractor contract derive maximum authority, permission, and roles from selected artifact bytes. External official artifacts remain `OFFICIAL_VERIFIED` plus `CONTEXT_ONLY` and `FEATURE_SUPPORT`; internal newsroom candidates require explicit eligibility, authority, blocker, claim-permission, reporting, relationship, and supporting-field consistency. Callers may narrow but cannot upgrade or introduce roles.
+
+Receipt-backed bindings copy or validate extracted qualification metadata. Candidate authority uses `ALL_BOUND_EXTRACTED_RECORDS_MUST_ALLOW_V1`, so caller-only authorization fails closed and a blocking record cannot be overridden by a permissive record. Feature evaluation requires the value derivation to consume the exact effective evidence set; multi-ref values require a registered versioned aggregation binding feature ID, refs, individual values, rule, output, and logical hash.
+
+Evidence: `docs/automation/CONTENTOPS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1/final_manifest.json`. Focused repair plus schema-aware validation passed 29 tests, all V2 foundation validation passed 243 tests, V1 compatibility passed 22 tests, and relevant broader validation passed 9 tests. No full-suite or CI pass is claimed. The point-in-time upstream head `210548f65afea9e5175641e959260002efde9762` is an ancestor of later observed head `85fc4ac3ab0d4d61692492558e6abb854a7a0639`; the governed newsroom candidate pool did not change. The existing BLS/Treasury/New York Fed canary remains no-publication; prior evidence, domain fixtures, `UNCALIBRATED_FOUNDATION`, DQR/permission policy, upstream state, and `v1.0` remain unchanged.
 
 The accepted product baseline remains `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`. Annotated tag `v1.0` (tag object `a021df7fd0264d9f160bdd605509da925f0bf131`, release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`) remains immutable and was not moved, recreated, deleted, or retagged by this local evidence task.
 
@@ -119,6 +127,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1`
+`INDEPENDENT_CHATGPT_AUDIT_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1`
 
-Audit or reject portable historical Git ancestry, extractor registry authority, byte-derived evidence refs, artifact shape/internal-hash checks, internal point-in-time timestamps, derived-or-unavailable feature values, the real editorial canary, compatibility, safety boundary, and manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.
+Audit or reject extractor-derived authority, permission and roles; receipt-backed binding consistency; all-record candidate authority combination; exact-set feature derivation and registered aggregation; deterministic replay; compatibility; safety; and the manifest. Do not mutate scheduler/editorial/DQR/permission policy, publish, dispatch, modify upstream, or modify `v1.0`.

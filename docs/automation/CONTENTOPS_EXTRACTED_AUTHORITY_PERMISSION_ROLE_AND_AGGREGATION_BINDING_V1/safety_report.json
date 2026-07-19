@@ -1,0 +1,15 @@
+{
+  "browser_or_cdp_used": false,
+  "credentials_read_or_logged": false,
+  "dqr_mutated_or_bypassed": false,
+  "editorial_policy_mutated": false,
+  "live_collection_performed": false,
+  "permission_authority_mutated": false,
+  "public_write_performed": false,
+  "publication_authority_granted": false,
+  "scheduler_mutated": false,
+  "schema_version": "contentops.extracted_authority_aggregation_safety.v1",
+  "status": "PASS",
+  "upstream_repository_modified": false,
+  "v1_0_modified": false
+}

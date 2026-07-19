@@ -1,0 +1,30 @@
+{
+  "artifact_count": 12,
+  "artifact_hashes": {
+    "authority_derivation_matrix.json": "f5f8d7c05a645b657610d84265927d37216a0f7d30ec9fed40a62bdd604b3b5b",
+    "binding_consistency_matrix.json": "2b406637906fe79cd8cba881da80b59bcb5d53962ca4eeccff9e81357c8ed364",
+    "candidate_authority_consistency_matrix.json": "d7f84ab18641479597b45e005aebbfdfb6987860ab7b5421511e3357551c4f78",
+    "changed_protected_paths.json": "39f649931605b13fc3ae4a074c3b930868091837fbf829dda307a3b266a663cd",
+    "compatibility_report.json": "d68232929e0ce9a28e3ca4028c183a2a594322af3d15d3d8c73d8b452d6a5a8c",
+    "deterministic_replay.json": "91b6ac39f03fb054e98f12db982694aa44e9f974163e5e11c2f90bf4f81a95e8",
+    "feature_aggregation_matrix.json": "1afd066d5c318961400440cb2d05e7f84516e2d16367212cfc1143963157bb33",
+    "focused_test_summary.json": "4fe5e22555ca5dc639b02a4f1b6cc84d22a049b05e6eb411f605d133cb1ca46a",
+    "permission_derivation_matrix.json": "9d9f3f11de4878c096b32ed0a79f32139758dc9bcc7a24f5d3562ee0628d98fe",
+    "role_derivation_matrix.json": "4224a38ffeec72e570fa9e3024fe2c1ce5d3c782653161a96aacce2e1bb06836",
+    "safety_report.json": "9ab1973d601671ce3eec7fc4affb15ecda70e712a5665dcfd3cfdc11e87aa1f4",
+    "upstream_point_in_time_report.json": "77fe4557afd45febd1593dd3f104089d1ba691f11bdebb7fa3ef2037870d8e03"
+  },
+  "classification": "PASS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1_AWAITING_CHATGPT_AUDIT",
+  "independent_audit_claimed": false,
+  "next_action": "INDEPENDENT_CHATGPT_AUDIT_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1",
+  "schema_version": "contentops.extracted_authority_aggregation_final_manifest.v1",
+  "status": "PASS",
+  "task": "TASK_CONTENTOPS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1",
+  "task_starting_sha": "165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4",
+  "upstream_branch": "main",
+  "upstream_later_change_outside_consumed_artifact": true,
+  "upstream_later_observed_head": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+  "upstream_pinned_is_ancestor_of_later": true,
+  "upstream_pinned_point_in_time_head": "210548f65afea9e5175641e959260002efde9762",
+  "upstream_repository": "fatcat2109/Headline-Raw-data-json"
+}
