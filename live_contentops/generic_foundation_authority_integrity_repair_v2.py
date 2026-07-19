@@ -61,7 +61,16 @@ def _record(
     permission: str = "REPORTING_ALLOWED",
     reasons: tuple[str, ...] = (),
 ) -> contracts.EvidenceReferenceV1:
-    return contracts.EvidenceReferenceV1(ref, authority, permission, reason_codes=reasons)
+    draft = contracts.EvidenceReferenceV1(
+        ref, authority, permission, reason_codes=reasons,
+        evidence_roles=tuple(contracts.EvidenceRole),
+        evidence_scope=contracts.EvidenceScope.CANDIDATE_WIDE,
+        verifier_id="repair.synthetic_verifier", verifier_version="v1",
+        verification_status=contracts.EvidenceVerificationStatus.VERIFIED,
+        producer_artifact_binding_hash=sha256(ref.encode("utf-8")).hexdigest(),
+        as_of_utc="2026-01-01T00:00:00Z",
+    )
+    return replace(draft, logical_hash=draft.calculated_logical_hash())
 
 
 def _candidate(
@@ -70,10 +79,36 @@ def _candidate(
     authorized: bool = True,
     evidence_refs: tuple[str, ...] = ("evidence:primary",),
     evidence_records: tuple[contracts.EvidenceReferenceV1, ...] = (),
-    governed_evidence_refs: tuple[str, ...] = ("evidence:primary",),
+    legacy_declared_governed_evidence_refs: tuple[str, ...] = ("evidence:primary",),
     feature_inputs: tuple[core.FeatureInputV1, ...] = (),
     **changes: Any,
 ) -> core.LearningCandidateV2:
+    if relationship == contracts.EventRelationship.MATERIAL_UPDATE and changes.get("governed_material_delta"):
+        fallback = legacy_declared_governed_evidence_refs or evidence_refs or tuple(row.evidence_ref for row in evidence_records) or (None,)
+        changes.setdefault("material_delta_evidence_ref", fallback[0])
+    record_refs = {row.evidence_ref for row in evidence_records}
+    bindings = tuple(contracts.build_governed_evidence_binding_v1(
+        evidence_ref=ref, evidence_roles=tuple(contracts.EvidenceRole),
+        producer_artifact_binding_hash=sha256(ref.encode("utf-8")).hexdigest(),
+        as_of_utc="2026-01-01T00:00:00Z",
+        verifier_id="repair.synthetic_verifier",
+    ) for ref in legacy_declared_governed_evidence_refs if ref not in record_refs)
+    semantic_refs = tuple(ref for ref in (
+        changes.get("material_delta_evidence_ref"), changes.get("governed_new_evidence_ref"),
+        changes.get("conflicting_evidence_ref"), changes.get("authoritative_correction_ref"),
+        changes.get("distinct_new_event_ref"), changes.get("update_justification_ref"),
+        changes.get("prior_testable_proposition_ref"), changes.get("prior_error_ref"),
+    ) if ref)
+    all_refs = tuple(dict.fromkeys((*evidence_refs, *legacy_declared_governed_evidence_refs, *semantic_refs)))
+    bound = {row.evidence_ref for row in bindings} | {row.evidence_ref for row in evidence_records}
+    bindings += tuple(contracts.build_governed_evidence_binding_v1(
+        evidence_ref=ref, evidence_roles=tuple(contracts.EvidenceRole),
+        producer_artifact_binding_hash=sha256(ref.encode("utf-8")).hexdigest(),
+        as_of_utc="2026-01-01T00:00:00Z",
+        verifier_id="repair.synthetic_verifier",
+    ) for ref in semantic_refs if ref not in bound and ref not in {
+        changes.get("prior_testable_proposition_ref"), changes.get("prior_error_ref")
+    })
     candidate = core.LearningCandidateV2(
         candidate_id="repair:candidate",
         story_id="repair:story",
@@ -88,9 +123,9 @@ def _candidate(
         history_identity_match=False,
         material_reader_contribution=True,
         feature_inputs=feature_inputs,
-        evidence_refs=evidence_refs,
+        evidence_refs=all_refs,
         evidence_records=evidence_records,
-        governed_evidence_refs=governed_evidence_refs,
+        governed_evidence_bindings=bindings,
     )
     return replace(candidate, **changes)
 
@@ -125,7 +160,7 @@ def build_authority_gate_override_matrix(repo_root: str | Path) -> dict[str, Any
     unauthorized = _candidate(
         authorized=False,
         feature_inputs=(authority_input,),
-        governed_evidence_refs=(),
+        legacy_declared_governed_evidence_refs=(),
     )
     canonical = _feature(unauthorized, config, "authority_readiness")
     override_error = _caught(lambda: _feature(
@@ -239,7 +274,7 @@ def build_evidence_count_integrity_matrix(repo_root: str | Path) -> dict[str, An
         candidate = _candidate(
             evidence_refs=candidate_refs,
             evidence_records=tuple(records),
-            governed_evidence_refs=candidate_refs,
+            legacy_declared_governed_evidence_refs=candidate_refs,
             feature_inputs=(item,),
         )
         try:
@@ -301,7 +336,7 @@ def build_governed_evidence_qualification_matrix(repo_root: str | Path) -> dict[
             contracts.EventRelationship.MATERIAL_UPDATE,
             evidence_refs=(),
             evidence_records=(record,),
-            governed_evidence_refs=(),
+            legacy_declared_governed_evidence_refs=(),
             governed_material_delta=True,
         )
         error = _caught(lambda: core.evaluate_outcome(candidate, config))
@@ -345,7 +380,7 @@ def _governed_cases() -> tuple[tuple[str, contracts.EventRelationship, Mapping[s
         ("material_update", contracts.EventRelationship.MATERIAL_UPDATE, {"governed_material_delta": True}, "GOVERNED_MATERIAL_UPDATE"),
         ("confirmation", contracts.EventRelationship.CONFIRMATION, {"prior_testable_proposition_ref": "history:proposition", "governed_new_evidence_ref": "evidence:new"}, "GOVERNED_CONFIRMATION"),
         ("contradiction", contracts.EventRelationship.CONTRADICTION, {"prior_testable_proposition_ref": "history:proposition", "conflicting_evidence_ref": "evidence:conflict"}, "GOVERNED_CONTRADICTION"),
-        ("correction", contracts.EventRelationship.CORRECTION, {"authoritative_correction_ref": "evidence:correction"}, "GOVERNED_CORRECTION"),
+        ("correction", contracts.EventRelationship.CORRECTION, {"prior_error_ref": "history:error", "authoritative_correction_ref": "evidence:correction"}, "GOVERNED_CORRECTION"),
         ("new_phase", contracts.EventRelationship.NEW_PHASE, {"update_chain_continuity": True, "distinct_new_event_ref": "evidence:new-phase"}, "GOVERNED_NEW_PHASE"),
     )
 
@@ -358,7 +393,7 @@ def build_governed_evidence_lineage_report(repo_root: str | Path) -> dict[str, A
             relationship,
             evidence_refs=("evidence:direct", "evidence:shared"),
             evidence_records=(_record("evidence:shared"), _record("evidence:record")),
-            governed_evidence_refs=("evidence:direct",),
+            legacy_declared_governed_evidence_refs=("evidence:direct",),
             **changes,
         )
         outcome = core.evaluate_outcome(candidate, config)
@@ -377,8 +412,8 @@ def build_governed_evidence_lineage_report(repo_root: str | Path) -> dict[str, A
         })
     evergreen = _candidate(
         evidence_refs=(),
-        evidence_records=(_record("evidence:evergreen"),),
-        governed_evidence_refs=(),
+        evidence_records=(_record("evidence:refresh"),),
+        legacy_declared_governed_evidence_refs=(),
         gap_types=(contracts.GapType.EVERGREEN_REFRESH,),
         durability=0.8,
         content_age_hours=240.0,
@@ -392,15 +427,15 @@ def build_governed_evidence_lineage_report(repo_root: str | Path) -> dict[str, A
         "observed_outcomes": list(evergreen_outcome.actionable_outcomes),
         "evidence_refs": list(evergreen_outcome.evidence_refs),
         "qualifying_governed_evidence_refs": list(evergreen_outcome.qualifying_governed_evidence_refs),
-        "record_ref_in_lineage": "evidence:evergreen" in evergreen_outcome.evidence_refs,
-        "record_ref_qualifies": "evidence:evergreen" in evergreen_outcome.qualifying_governed_evidence_refs,
+        "record_ref_in_lineage": "evidence:refresh" in evergreen_outcome.evidence_refs,
+        "record_ref_qualifies": "evidence:refresh" in evergreen_outcome.qualifying_governed_evidence_refs,
         "lineage_nonempty": bool(evergreen_outcome.evidence_refs),
         "lineage_deduplicated": len(evergreen_outcome.evidence_refs) == len(set(evergreen_outcome.evidence_refs)),
         "status": "PASS" if "EVERGREEN_REFRESH_JUSTIFIED" in evergreen_outcome.actionable_outcomes and evergreen_outcome.evidence_refs else "FAIL",
     })
     return {
         "schema_version": "contentops.governed_evidence_lineage_report.v2",
-        "complete_lineage_sources": ["candidate.evidence_refs", "candidate.evidence_records", "candidate.governed_evidence_refs", "relationship_evidence_refs"],
+        "complete_lineage_sources": ["candidate.evidence_refs", "candidate.evidence_records", "candidate.governed_evidence_bindings", "relationship_evidence_refs"],
         "rows": rows,
         "all_governed_outcomes_have_qualifying_nonempty_lineage": all(row["status"] == "PASS" for row in rows),
         "status": "PASS" if all(row["status"] == "PASS" for row in rows) else "FAIL",

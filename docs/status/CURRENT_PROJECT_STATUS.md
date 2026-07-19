@@ -4,9 +4,9 @@
 
 ## Current Classification
 
-`PASS_GENERIC_FOUNDATION_V2_AUTHORITY_AND_EVIDENCE_INTEGRITY_REPAIR_AWAITING_CHATGPT_AUDIT`
+`PASS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_AUTHORITY_AND_EVIDENCE_INTEGRITY_REPAIR`.
+Completed task: `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING`.
 
 The accepted product baseline remains `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`. Annotated tag `v1.0` (tag object `a021df7fd0264d9f160bdd605509da925f0bf131`, release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`) remains immutable and was not moved, recreated, deleted, or retagged by this local evidence task.
 
@@ -93,8 +93,16 @@ Governed material updates, confirmations, contradictions, corrections, new phase
 
 The 20 domain specifications were not refined. Architecture, V1 compatibility, historical evidence, `UNCALIBRATED_FOUNDATION`, the `v1.0` tag, and the no-publication boundary remain unchanged. Upstream `main` authority is read-only at `e1f2ff48d7ac979a8fbda9e66192150f2681a52d`.
 
+## Generic Foundation V2 Governed Evidence Provenance and Role Binding
+
+`TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING` accepts commit `6f2755a471c41ccc5a6c06e8babcae2534dd065d` as `ACCEPT_GENERIC_AUTHORITY_GATE_COUNT_AND_DUPLICATE_REPAIR`. The unsafe candidate bare-ref shortcut is removed. Governed evidence now carries a versioned verifier identity, verification state, producer/artifact binding hash, point-in-time authority, semantic roles, scope, reason codes, and logical hash. An equivalent `EvidenceReferenceV1` may qualify only with the same complete provenance.
+
+Material updates, confirmations, contradictions, corrections, new phases, and evergreen refreshes require their exact relationship ref to carry the matching governed evidence role. Feature evidence counts use explicitly feature-bound evidence or verified candidate-wide feature-support evidence; unrelated records are retained with exclusion reasons rather than silently counted. Outcomes expose complete, qualifying, relationship-specific, historical-only, and disqualified lineage.
+
+The task-pinned upstream authority remains `e1f2ff48d7ac979a8fbda9e66192150f2681a52d`. A read-only remote check on 2026-07-19 observed later HEAD `4827ca1e327e3e20275b4422203417f89e12167c`, whose sole changed path is outside the governed newsroom candidate pool; no upstream ref or file was modified. The 20 domain specifications, architecture, V1 compatibility, prior evidence, `UNCALIBRATED_FOUNDATION`, `v1.0`, and no-publication remain unchanged.
+
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_GENERIC_FOUNDATION_V2_AUTHORITY_AND_EVIDENCE_INTEGRITY_REPAIR`
+`INDEPENDENT_CHATGPT_AUDIT_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING`
 
-Audit or reject the repaired canonical gates, evidence-count derivation, governed-evidence qualification and lineage, duplicate/delta semantics, compatibility evidence, safety boundary, and manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.
+Audit or reject governed evidence provenance, exact semantic-role qualification, feature evidence scopes/counts, complete-versus-qualifying lineage, migration compatibility, safety boundary, and manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.

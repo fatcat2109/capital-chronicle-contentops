@@ -254,6 +254,8 @@ def run_genericity_ast_guard(repo_root: str | Path) -> dict[str, Any]:
         root / "tests" / "test_generic_foundation_hardening_v2.py",
         root / "live_contentops" / "generic_foundation_authority_integrity_repair_v2.py",
         root / "tests" / "test_generic_foundation_authority_integrity_repair_v2.py",
+        root / "live_contentops" / "generic_foundation_governed_evidence_provenance_role_binding_v2.py",
+        root / "tests" / "test_generic_foundation_governed_evidence_provenance_role_binding_v2.py",
     )
     findings: list[dict[str, Any]] = []
 
@@ -295,7 +297,7 @@ def run_genericity_ast_guard(repo_root: str | Path) -> dict[str, Any]:
                 add(path, rule, "TEXT_PATTERN", pattern)
 
     hardening_text = auxiliary_targets[1].read_text(encoding="utf-8-sig")
-    for path in (auxiliary_targets[1], auxiliary_targets[3], auxiliary_targets[4], auxiliary_targets[5]):
+    for path in (auxiliary_targets[1], auxiliary_targets[3], auxiliary_targets[4], auxiliary_targets[5], auxiliary_targets[6], auxiliary_targets[7]):
         if path.exists():
             text = path.read_text(encoding="utf-8-sig")
             tree = ast.parse(text)
@@ -403,11 +405,46 @@ def _fixture_inputs(spec: Mapping[str, Any]) -> tuple[core.LearningCandidateV2, 
     ) for index in range(spec["sources"]))
     refs = tuple(row.evidence_ref for row in evidence_records)
     relationship = contracts.EventRelationship(spec["relationship"])
+    relationship_ref = {
+        contracts.EventRelationship.MATERIAL_UPDATE: refs[0] if refs else f"synthetic:{fixture_id}:material_delta",
+        contracts.EventRelationship.CONFIRMATION: "synthetic:new",
+        contracts.EventRelationship.CONTRADICTION: "synthetic:conflict",
+        contracts.EventRelationship.CORRECTION: "synthetic:correction",
+        contracts.EventRelationship.NEW_PHASE: "synthetic:distinct_event",
+    }.get(relationship)
+    relationship_role = {
+        contracts.EventRelationship.MATERIAL_UPDATE: contracts.EvidenceRole.MATERIAL_DELTA,
+        contracts.EventRelationship.CONFIRMATION: contracts.EvidenceRole.CONFIRMATION,
+        contracts.EventRelationship.CONTRADICTION: contracts.EvidenceRole.CONTRADICTION,
+        contracts.EventRelationship.CORRECTION: contracts.EvidenceRole.CORRECTION,
+        contracts.EventRelationship.NEW_PHASE: contracts.EvidenceRole.NEW_PHASE,
+    }.get(relationship)
     gap_types: list[contracts.GapType] = []
     if spec.get("packaging"):
         gap_types.append(contracts.GapType.DERIVATIVE_PACKAGING_GAP)
     if spec.get("evergreen"):
         gap_types.append(contracts.GapType.EVERGREEN_REFRESH)
+    bindings = []
+    if authorized and relationship_ref and relationship_role:
+        bindings.append(contracts.build_governed_evidence_binding_v1(
+            evidence_ref=relationship_ref,
+            evidence_roles=(relationship_role, contracts.EvidenceRole.FEATURE_SUPPORT),
+            producer_artifact_binding_hash=sha256(f"{fixture_id}:relationship".encode("utf-8")).hexdigest(),
+            as_of_utc="2026-01-01T00:00:00Z",
+            authority_state="SYNTHETIC_AUTHORIZED",
+            evidence_scope=contracts.EvidenceScope.CANDIDATE_WIDE,
+            reason_codes=("synthetic_validation_only",),
+        ))
+    if authorized and spec.get("evergreen"):
+        bindings.append(contracts.build_governed_evidence_binding_v1(
+            evidence_ref="synthetic:refresh_justification",
+            evidence_roles=(contracts.EvidenceRole.EVERGREEN_JUSTIFICATION,),
+            producer_artifact_binding_hash=sha256(f"{fixture_id}:evergreen".encode("utf-8")).hexdigest(),
+            as_of_utc="2026-01-01T00:00:00Z",
+            authority_state="SYNTHETIC_AUTHORIZED",
+            evidence_scope=contracts.EvidenceScope.FEATURE_SPECIFIC,
+            reason_codes=("synthetic_validation_only",),
+        ))
     feature_inputs = (
         core.FeatureInputV1("authority_readiness", True, contracts.AvailabilityState.AVAILABLE, 1.0 if authorized else 0.0, evidence_refs=refs),
         core.FeatureInputV1("freshness", True, contracts.AvailabilityState.AVAILABLE, 0.8, evidence_refs=refs),
@@ -432,6 +469,7 @@ def _fixture_inputs(spec: Mapping[str, Any]) -> tuple[core.LearningCandidateV2, 
         authority_blockers=() if authorized else ("synthetic_authority_missing",),
         history_identity_match=bool(spec.get("duplicate")),
         governed_material_delta=relationship == contracts.EventRelationship.MATERIAL_UPDATE,
+        material_delta_evidence_ref=refs[0] if relationship == contracts.EventRelationship.MATERIAL_UPDATE and refs else None,
         prior_testable_proposition_ref="synthetic:prior" if relationship in {contracts.EventRelationship.CONFIRMATION, contracts.EventRelationship.CONTRADICTION} else None,
         governed_new_evidence_ref="synthetic:new" if relationship == contracts.EventRelationship.CONFIRMATION else None,
         conflicting_evidence_ref="synthetic:conflict" if relationship == contracts.EventRelationship.CONTRADICTION else None,
@@ -444,9 +482,11 @@ def _fixture_inputs(spec: Mapping[str, Any]) -> tuple[core.LearningCandidateV2, 
         content_age_hours=240.0 if spec.get("evergreen") else None,
         reader_utility=0.8 if spec.get("evergreen") else None,
         update_justification_ref="synthetic:refresh_justification" if spec.get("evergreen") else None,
-        gap_types=tuple(gap_types), feature_inputs=feature_inputs, evidence_refs=refs,
+        gap_types=tuple(gap_types), feature_inputs=feature_inputs,
+        evidence_refs=tuple(dict.fromkeys((*refs, *((relationship_ref,) if relationship_ref else ()), *(("synthetic:refresh_justification",) if spec.get("evergreen") else ())))),
         internal_brief_ids=(f"synthetic:{fixture_id}:brief",), capabilities=capabilities,
         evidence_records=evidence_records,
+        governed_evidence_bindings=tuple(bindings),
     )
     history_items = ()
     if relationship in {contracts.EventRelationship.CONFIRMATION, contracts.EventRelationship.CONTRADICTION, contracts.EventRelationship.CORRECTION, contracts.EventRelationship.NEW_PHASE} or spec.get("duplicate"):

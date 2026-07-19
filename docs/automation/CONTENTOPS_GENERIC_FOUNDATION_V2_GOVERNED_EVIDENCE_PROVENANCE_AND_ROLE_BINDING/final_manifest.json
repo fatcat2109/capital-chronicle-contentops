@@ -1,0 +1,26 @@
+{
+  "all_required_artifacts_present": true,
+  "artifact_count_excluding_manifest": 12,
+  "artifact_hashes": {
+    "changed_protected_paths.json": "10485d47c75db11df287a66cbd2ebb625d5c88e558965af81923ad4cfc44f1de",
+    "compatibility_report.json": "bccd5b0100a7f9e8f47138c2006da8572c53f6b906817b269d01f647c270a4d6",
+    "complete_vs_qualifying_lineage_report.json": "e5a2c279c9e2ba02c68a2b1b205904e860836d67a800a99ce44cdc9fe8cbae42",
+    "contract_inventory.json": "32bbe5f73e1c35e053ff0da9a34b4f86b7c35199072c6f37513324a5b122ec88",
+    "deterministic_replay.json": "4c5d1dc40080c3b94a330f78b009d9e863553f32b206eaaed76c3fa5c301eed5",
+    "feature_evidence_scope_matrix.json": "7021bf15389cb702d6ad491645629041c8d36fd8af34b16cb55ba4145e921ed0",
+    "focused_test_summary.json": "73fe09a9a319ac3247f5f74d75243cb281243c4ec100bc10f95738cd4844d7fb",
+    "genericity_guard_report.json": "a1ace248893813fd52ef5007dffc954ac5cd19ee0f47b7dd1f717cda53acda34",
+    "governed_evidence_role_matrix.json": "19bcee5ec282fa0a3eae7f46f2646726d65ae39a1988207cabbfe81e0f76e5a4",
+    "relationship_qualification_matrix.json": "283dad38bd79e70ac12cfe207f1ee937441d3d31dc4dda25aea019e67ad2fe42",
+    "safety_report.json": "e874c2f31a9328acf1b9438b27e9a14bb5142e343ba7b18d3d98004fd491d3d9",
+    "self_certification_rejection_matrix.json": "d3d8566e14e20d3aeb43595fdc3c2939dbace2cfe0333de144f0d613a1ab0910"
+  },
+  "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING",
+  "manifest_self_hash_excluded": true,
+  "pinned_upstream_point_in_time_sha": "e1f2ff48d7ac979a8fbda9e66192150f2681a52d",
+  "schema_version": "contentops.governed_evidence_provenance_role_binding_manifest.v1",
+  "starting_contentops_sha": "6f2755a471c41ccc5a6c06e8babcae2534dd065d",
+  "status": "PASS",
+  "task": "TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING",
+  "terminal_classification": "PASS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING_AWAITING_CHATGPT_AUDIT"
+}

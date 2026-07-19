@@ -1,0 +1,57 @@
+{
+  "changed_paths": [
+    "AGENTS.md",
+    "docs/AI_BUILDER_BOOTSTRAP.md",
+    "docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md",
+    "docs/automation/CONTENTOPS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING/",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json",
+    "live_contentops/adaptive_learning_adapters_v2.py",
+    "live_contentops/adaptive_learning_core_v2.py",
+    "live_contentops/content_intelligence_contracts_v2.py",
+    "live_contentops/generic_foundation_authority_integrity_repair_v2.py",
+    "live_contentops/generic_foundation_governed_evidence_provenance_role_binding_v2.py",
+    "live_contentops/generic_foundation_hardening_v2.py",
+    "tests/test_content_intelligence_v2.py",
+    "tests/test_generic_foundation_authority_integrity_repair_v2.py",
+    "tests/test_generic_foundation_governed_evidence_provenance_role_binding_v2.py",
+    "tests/test_generic_foundation_hardening_v2.py"
+  ],
+  "protected_paths": {
+    "enforcement_evidence_tree": "ab702d9ff68af2669794b33158c83b733cd4e9bf",
+    "original_v2_evidence_tree": "1fb3d2c731c484048fc254ca918b4d751c4d1a66",
+    "prior_repair_evidence_tree": "44ceccaef407ccce713af83fe34759f0f26fa8ab",
+    "task3_tree": "ac586628d9c92fd6cb5cd7b48aa790079ae5284d",
+    "task4_tree": "1711e61347b403b8145108c101fb5931e366b9a8",
+    "v1_0_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+    "v1_0_tag_object": "a021df7fd0264d9f160bdd605509da925f0bf131",
+    "v1_0_tree": "d76ed91bfcde7e587a7ff6ff15cdf025349920e1"
+  },
+  "schema_version": "contentops.governed_evidence_changed_protected_paths.v1",
+  "status": "PASS",
+  "unrelated_worktree": {
+    "modified_paths": [
+      "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/CURRENT_STATE_SUMMARY_V6_READINESS.md",
+      "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/IMPLEMENTATION_REPORT.md",
+      "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md",
+      "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/project_sources_upload_bundle_packet.json",
+      "ui/contentops_v5/src/data/platform_variant_packet.json"
+    ],
+    "preserved": true,
+    "untracked_path_root_count": 15
+  },
+  "upstream_observation": {
+    "branch": "main",
+    "candidate_pool_changed_by_later_commit": false,
+    "later_commit_changed_path": "docs/research/analyzer_program_foundation/paper_hypothesis_and_validation_ledger_v1/PHASE_D_CANONICAL_EVIDENCE_MANIFEST_V1.json",
+    "later_head_parent": "e1f2ff48d7ac979a8fbda9e66192150f2681a52d",
+    "later_observed_remote_head": "4827ca1e327e3e20275b4422203417f89e12167c",
+    "pinned_point_in_time_sha": "e1f2ff48d7ac979a8fbda9e66192150f2681a52d",
+    "repository": "fatcat2109/Headline-Raw-data-json",
+    "repository_modified": false
+  }
+}

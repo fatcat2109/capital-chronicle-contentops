@@ -18,6 +18,38 @@ def _config():
 
 
 def _candidate(relationship=contracts.EventRelationship.INITIAL_EVENT, *, authorized=True, **changes):
+    if relationship == contracts.EventRelationship.MATERIAL_UPDATE and changes.get("governed_material_delta"):
+        changes.setdefault("material_delta_evidence_ref", "evidence:a")
+    relationship_ref = {
+        contracts.EventRelationship.MATERIAL_UPDATE: changes.get("material_delta_evidence_ref"),
+        contracts.EventRelationship.CONFIRMATION: changes.get("governed_new_evidence_ref"),
+        contracts.EventRelationship.CONTRADICTION: changes.get("conflicting_evidence_ref"),
+        contracts.EventRelationship.CORRECTION: changes.get("authoritative_correction_ref"),
+        contracts.EventRelationship.NEW_PHASE: changes.get("distinct_new_event_ref"),
+    }.get(relationship)
+    relationship_role = {
+        contracts.EventRelationship.MATERIAL_UPDATE: contracts.EvidenceRole.MATERIAL_DELTA,
+        contracts.EventRelationship.CONFIRMATION: contracts.EvidenceRole.CONFIRMATION,
+        contracts.EventRelationship.CONTRADICTION: contracts.EvidenceRole.CONTRADICTION,
+        contracts.EventRelationship.CORRECTION: contracts.EvidenceRole.CORRECTION,
+        contracts.EventRelationship.NEW_PHASE: contracts.EvidenceRole.NEW_PHASE,
+    }.get(relationship)
+    refs = tuple(dict.fromkeys(ref for ref in (
+        "evidence:a", relationship_ref, changes.get("prior_testable_proposition_ref"),
+        changes.get("prior_error_ref"), changes.get("update_justification_ref"),
+    ) if ref))
+    bindings = []
+    if relationship_ref and relationship_role:
+        bindings.append(contracts.build_governed_evidence_binding_v1(
+            evidence_ref=relationship_ref, evidence_roles=(relationship_role,),
+            producer_artifact_binding_hash="a" * 64, as_of_utc="2026-01-01T00:00:00Z",
+        ))
+    if changes.get("update_justification_ref"):
+        bindings.append(contracts.build_governed_evidence_binding_v1(
+            evidence_ref=changes["update_justification_ref"],
+            evidence_roles=(contracts.EvidenceRole.EVERGREEN_JUSTIFICATION,),
+            producer_artifact_binding_hash="b" * 64, as_of_utc="2026-01-01T00:00:00Z",
+        ))
     candidate = core.LearningCandidateV2(
         candidate_id="candidate-a",
         story_id="story-a",
@@ -32,12 +64,12 @@ def _candidate(relationship=contracts.EventRelationship.INITIAL_EVENT, *, author
         history_identity_match=False,
         material_reader_contribution=True,
         feature_inputs=(
-            core.FeatureInputV1("authority_readiness", True, contracts.AvailabilityState.AVAILABLE, 1.0 if authorized else 0.0),
-            core.FeatureInputV1("freshness", True, contracts.AvailabilityState.AVAILABLE, 0.8),
-            core.FeatureInputV1("duplication_risk", True, contracts.AvailabilityState.EXPLICIT_ZERO, 0.0),
+            core.FeatureInputV1("authority_readiness", True, contracts.AvailabilityState.AVAILABLE, 1.0 if authorized else 0.0, evidence_refs=("evidence:a",)),
+            core.FeatureInputV1("freshness", True, contracts.AvailabilityState.AVAILABLE, 0.8, evidence_refs=("evidence:a",)),
+            core.FeatureInputV1("duplication_risk", True, contracts.AvailabilityState.EXPLICIT_ZERO, 0.0, evidence_refs=("evidence:a",)),
         ),
-        evidence_refs=("evidence:a",),
-        governed_evidence_refs=("evidence:a",),
+        evidence_refs=refs,
+        governed_evidence_bindings=tuple(bindings),
         internal_brief_ids=("brief:a",),
     )
     return replace(candidate, **changes)
@@ -259,8 +291,8 @@ def test_contradiction_requires_conflicting_evidence():
     assert "GOVERNED_CONTRADICTION" in core.evaluate_outcome(candidate, _config()).actionable_outcomes
 
 
-def test_correction_requires_prior_error_or_authoritative_correction():
-    candidate = _candidate(contracts.EventRelationship.CORRECTION, prior_error_ref="prior-error")
+def test_correction_requires_prior_error_and_authoritative_correction():
+    candidate = _candidate(contracts.EventRelationship.CORRECTION, prior_error_ref="prior-error", authoritative_correction_ref="correction")
     assert "GOVERNED_CORRECTION" in core.evaluate_outcome(candidate, _config()).actionable_outcomes
 
 
@@ -316,7 +348,7 @@ def test_mutually_incompatible_actionable_outcomes_fail_validation():
 
 
 def test_feature_unavailable_is_preserved_and_not_scored_as_zero():
-    candidate = _candidate(feature_inputs=(core.FeatureInputV1("freshness", True, contracts.AvailabilityState.UNAVAILABLE, None, "not_measured"),))
+    candidate = _candidate(feature_inputs=(core.FeatureInputV1("freshness", True, contracts.AvailabilityState.UNAVAILABLE, None, "not_measured", evidence_refs=("evidence:a",)),))
     features = core.evaluate_features(candidate, _config(), contracts.PerformanceObservationSetV1("empty"))
     freshness = next(row for row in features if row.feature_id == "freshness")
     assert freshness.raw_value is freshness.normalized_value is freshness.contribution is None
@@ -324,7 +356,7 @@ def test_feature_unavailable_is_preserved_and_not_scored_as_zero():
 
 
 def test_feature_explicit_zero_remains_available_zero():
-    candidate = _candidate(feature_inputs=(core.FeatureInputV1("duplication_risk", True, contracts.AvailabilityState.EXPLICIT_ZERO, 0.0),))
+    candidate = _candidate(feature_inputs=(core.FeatureInputV1("duplication_risk", True, contracts.AvailabilityState.EXPLICIT_ZERO, 0.0, evidence_refs=("evidence:a",)),))
     feature = next(row for row in core.evaluate_features(candidate, _config(), contracts.PerformanceObservationSetV1("empty")) if row.feature_id == "duplication_risk")
     assert feature.raw_value == feature.normalized_value == feature.penalty == 0.0
 

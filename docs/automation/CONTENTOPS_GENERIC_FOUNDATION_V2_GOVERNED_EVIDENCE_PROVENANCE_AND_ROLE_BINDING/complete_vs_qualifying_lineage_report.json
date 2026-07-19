@@ -1,0 +1,54 @@
+{
+  "outcome": {
+    "actionable_outcomes": [
+      "GOVERNED_CONFIRMATION"
+    ],
+    "authority_result": true,
+    "authority_state": "AUTHORIZED",
+    "complete_evidence_lineage": [
+      "evidence:confirmation",
+      "evidence:context",
+      "history:proposition"
+    ],
+    "content_gap_state": "none",
+    "disqualified_evidence": [
+      {
+        "evidence_ref": "evidence:context",
+        "reason_codes": [
+          "permission_not_qualifying",
+          "evidence_not_qualifying"
+        ]
+      },
+      {
+        "evidence_ref": "history:proposition",
+        "reason_codes": [
+          "caller_only_assertion_without_validated_provenance"
+        ]
+      }
+    ],
+    "evidence_refs": [
+      "evidence:confirmation",
+      "evidence:context",
+      "history:proposition"
+    ],
+    "evidence_state": "GOVERNED_EVIDENCE",
+    "governed_delta_present": true,
+    "historical_only_refs": [
+      "history:proposition"
+    ],
+    "history_identity_match": false,
+    "history_relationship": "NOT_MATCHED",
+    "publication_disposition": "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY",
+    "qualifying_governed_evidence_refs": [
+      "evidence:confirmation"
+    ],
+    "reason_codes": [],
+    "relationship_specific_qualifying_refs": [
+      "evidence:confirmation"
+    ],
+    "reporting_permission_result": true,
+    "source_relationship": "confirmation"
+  },
+  "schema_version": "contentops.complete_vs_qualifying_evidence_lineage.v1",
+  "status": "PASS"
+}

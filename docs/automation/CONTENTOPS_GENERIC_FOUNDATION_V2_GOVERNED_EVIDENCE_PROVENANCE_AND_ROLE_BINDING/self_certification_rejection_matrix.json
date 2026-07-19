@@ -1,0 +1,38 @@
+{
+  "rows": [
+    {
+      "case": "caller_only_plain_ref",
+      "disqualification_reasons": [
+        "caller_only_assertion_without_validated_provenance"
+      ],
+      "governed_outcome": false,
+      "status": "PASS"
+    },
+    {
+      "case": "missing_verifier",
+      "error": "invalid_governed_evidence_binding:malformed_verifier_id,evidence_logical_hash_mismatch",
+      "rejected": true,
+      "status": "PASS"
+    },
+    {
+      "case": "missing_binding_hash",
+      "error": "invalid_governed_evidence_binding:malformed_producer_artifact_binding_hash,evidence_logical_hash_mismatch",
+      "rejected": true,
+      "status": "PASS"
+    },
+    {
+      "case": "logical_hash_mismatch",
+      "error": "invalid_governed_evidence_binding:evidence_logical_hash_mismatch",
+      "rejected": true,
+      "status": "PASS"
+    },
+    {
+      "case": "binding_ref_absent_from_candidate_lineage",
+      "error": "governed_evidence_ref_missing_from_lineage",
+      "rejected": true,
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.self_certification_rejection_matrix.v1",
+  "status": "PASS"
+}

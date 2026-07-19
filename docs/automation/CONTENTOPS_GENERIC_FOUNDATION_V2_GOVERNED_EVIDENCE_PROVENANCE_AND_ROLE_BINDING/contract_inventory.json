@@ -1,0 +1,40 @@
+{
+  "binding_fields": [
+    "as_of_utc",
+    "authority_state",
+    "evidence_ref",
+    "evidence_roles",
+    "evidence_scope",
+    "logical_hash",
+    "permission_state",
+    "producer_artifact_binding_hash",
+    "reason_codes",
+    "schema_version",
+    "source_authority_class",
+    "source_family_id",
+    "verification_status",
+    "verifier_id",
+    "verifier_version"
+  ],
+  "binding_schema_version": "contentops.governed_evidence_binding.v1",
+  "candidate_bare_ref_shortcut_present": false,
+  "candidate_binding_field_present": true,
+  "roles": [
+    "material_delta",
+    "confirmation",
+    "contradiction",
+    "correction",
+    "new_phase",
+    "evergreen_justification",
+    "feature_support"
+  ],
+  "schema_version": "contentops.governed_evidence_contract_inventory.v1",
+  "scopes": [
+    "FEATURE_SPECIFIC",
+    "CANDIDATE_WIDE",
+    "PERFORMANCE_OBSERVATION",
+    "CONTENT_HISTORY",
+    "DERIVED_CAPABILITY"
+  ],
+  "status": "PASS"
+}

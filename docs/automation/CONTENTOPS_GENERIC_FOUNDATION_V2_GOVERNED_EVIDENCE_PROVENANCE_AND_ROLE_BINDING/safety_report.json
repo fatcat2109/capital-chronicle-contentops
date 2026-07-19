@@ -1,0 +1,13 @@
+{
+  "credentials_read": false,
+  "editorial_dqr_permission_authority_mutated": false,
+  "network_calls_performed_by_repair": false,
+  "no_publication_boundary_preserved": true,
+  "publication_or_dispatch_performed": false,
+  "scheduler_mutated": false,
+  "schema_version": "contentops.governed_evidence_safety_report.v1",
+  "status": "PASS",
+  "uncalibrated_config_preserved": true,
+  "upstream_modified": false,
+  "v1_0_modified": false
+}

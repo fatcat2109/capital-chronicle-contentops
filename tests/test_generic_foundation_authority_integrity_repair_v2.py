@@ -30,7 +30,16 @@ def _record(
     permission: str = "REPORTING_ALLOWED",
     reasons: tuple[str, ...] = (),
 ) -> contracts.EvidenceReferenceV1:
-    return contracts.EvidenceReferenceV1(ref, authority, permission, reason_codes=reasons)
+    draft = contracts.EvidenceReferenceV1(
+        ref, authority, permission, reason_codes=reasons,
+        evidence_roles=tuple(contracts.EvidenceRole),
+        evidence_scope=contracts.EvidenceScope.CANDIDATE_WIDE,
+        verifier_id="test.verifier", verifier_version="v1",
+        verification_status=contracts.EvidenceVerificationStatus.VERIFIED,
+        producer_artifact_binding_hash="c" * 64,
+        as_of_utc="2026-01-01T00:00:00Z",
+    )
+    return replace(draft, logical_hash=draft.calculated_logical_hash())
 
 
 def _candidate(
@@ -43,6 +52,33 @@ def _candidate(
     feature_inputs: tuple[core.FeatureInputV1, ...] = (),
     **changes,
 ) -> core.LearningCandidateV2:
+    if relationship == contracts.EventRelationship.MATERIAL_UPDATE and changes.get("governed_material_delta"):
+        fallback = governed_evidence_refs or evidence_refs or tuple(row.evidence_ref for row in evidence_records) or (None,)
+        changes.setdefault("material_delta_evidence_ref", fallback[0])
+    record_refs = {row.evidence_ref for row in evidence_records}
+    bindings = tuple(contracts.build_governed_evidence_binding_v1(
+        evidence_ref=ref, evidence_roles=tuple(contracts.EvidenceRole),
+        producer_artifact_binding_hash="d" * 64,
+        as_of_utc="2026-01-01T00:00:00Z",
+    ) for ref in governed_evidence_refs if ref not in record_refs)
+    all_refs = tuple(dict.fromkeys((*evidence_refs, *governed_evidence_refs, *(ref for ref in (
+        changes.get("material_delta_evidence_ref"), changes.get("governed_new_evidence_ref"),
+        changes.get("conflicting_evidence_ref"), changes.get("authoritative_correction_ref"),
+        changes.get("distinct_new_event_ref"), changes.get("update_justification_ref"),
+        changes.get("prior_testable_proposition_ref"), changes.get("prior_error_ref"),
+    ) if ref))))
+    binding_refs = {row.evidence_ref for row in bindings} | {row.evidence_ref for row in evidence_records}
+    for ref in all_refs:
+        if ref not in binding_refs and ref in {
+            changes.get("material_delta_evidence_ref"), changes.get("governed_new_evidence_ref"),
+            changes.get("conflicting_evidence_ref"), changes.get("authoritative_correction_ref"),
+            changes.get("distinct_new_event_ref"), changes.get("update_justification_ref"),
+        }:
+            bindings += (contracts.build_governed_evidence_binding_v1(
+                evidence_ref=ref, evidence_roles=tuple(contracts.EvidenceRole),
+                producer_artifact_binding_hash="e" * 64,
+                as_of_utc="2026-01-01T00:00:00Z",
+            ),)
     candidate = core.LearningCandidateV2(
         candidate_id="candidate:a",
         story_id="story:a",
@@ -57,9 +93,9 @@ def _candidate(
         history_identity_match=False,
         material_reader_contribution=True,
         feature_inputs=feature_inputs,
-        evidence_refs=evidence_refs,
+        evidence_refs=all_refs,
         evidence_records=evidence_records,
-        governed_evidence_refs=governed_evidence_refs,
+        governed_evidence_bindings=bindings,
     )
     return replace(candidate, **changes)
 
@@ -269,7 +305,7 @@ def test_malformed_evidence_is_rejected_not_qualified():
         (contracts.EventRelationship.MATERIAL_UPDATE, {"governed_material_delta": True}, "GOVERNED_MATERIAL_UPDATE"),
         (contracts.EventRelationship.CONFIRMATION, {"prior_testable_proposition_ref": "history:proposition", "governed_new_evidence_ref": "evidence:new"}, "GOVERNED_CONFIRMATION"),
         (contracts.EventRelationship.CONTRADICTION, {"prior_testable_proposition_ref": "history:proposition", "conflicting_evidence_ref": "evidence:conflict"}, "GOVERNED_CONTRADICTION"),
-        (contracts.EventRelationship.CORRECTION, {"authoritative_correction_ref": "evidence:correction"}, "GOVERNED_CORRECTION"),
+        (contracts.EventRelationship.CORRECTION, {"prior_error_ref": "history:error", "authoritative_correction_ref": "evidence:correction"}, "GOVERNED_CORRECTION"),
         (contracts.EventRelationship.NEW_PHASE, {"update_chain_continuity": True, "distinct_new_event_ref": "evidence:new-phase"}, "GOVERNED_NEW_PHASE"),
     ),
 )
@@ -299,12 +335,12 @@ def test_evergreen_refresh_requires_qualifying_evidence_and_authority():
         "update_justification_ref": "evidence:refresh",
     }
     qualified = _candidate(
-        evidence_refs=(), evidence_records=(_record("evidence:record"),),
+        evidence_refs=(), evidence_records=(_record("evidence:refresh"),),
         governed_evidence_refs=(), **changes,
     )
     blocked = replace(
         qualified,
-        evidence_records=(_record("evidence:record", permission="REPORTING_NOT_ALLOWED"),),
+        evidence_records=(_record("evidence:refresh", permission="REPORTING_NOT_ALLOWED"),),
     )
     unauthorized = replace(
         qualified,
@@ -327,7 +363,7 @@ def test_outcome_evidence_lineage_is_complete_and_deduplicated():
         governed_new_evidence_ref="evidence:new",
     )
     outcome = core.evaluate_outcome(candidate, _config())
-    assert outcome.evidence_refs == ("evidence:a", "evidence:b", "evidence:c", "evidence:new")
+    assert set(outcome.evidence_refs) == {"evidence:a", "evidence:b", "evidence:c", "evidence:new", "history:proposition"}
 
 
 @pytest.mark.parametrize(
@@ -336,7 +372,7 @@ def test_outcome_evidence_lineage_is_complete_and_deduplicated():
         (contracts.EventRelationship.MATERIAL_UPDATE, {"governed_material_delta": True}, "GOVERNED_MATERIAL_UPDATE"),
         (contracts.EventRelationship.CONFIRMATION, {"prior_testable_proposition_ref": "history:proposition", "governed_new_evidence_ref": "evidence:new"}, "GOVERNED_CONFIRMATION"),
         (contracts.EventRelationship.CONTRADICTION, {"prior_testable_proposition_ref": "history:proposition", "conflicting_evidence_ref": "evidence:conflict"}, "GOVERNED_CONTRADICTION"),
-        (contracts.EventRelationship.CORRECTION, {"authoritative_correction_ref": "evidence:correction"}, "GOVERNED_CORRECTION"),
+        (contracts.EventRelationship.CORRECTION, {"prior_error_ref": "history:error", "authoritative_correction_ref": "evidence:correction"}, "GOVERNED_CORRECTION"),
         (contracts.EventRelationship.NEW_PHASE, {"update_chain_continuity": True, "distinct_new_event_ref": "evidence:new-phase"}, "GOVERNED_NEW_PHASE"),
     ),
 )

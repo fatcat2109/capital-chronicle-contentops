@@ -35,14 +35,17 @@ def _capabilities(**changes):
 
 
 def _candidate(*, authorized=True, capabilities=None, feature_inputs=(), relationship=contracts.EventRelationship.INITIAL_EVENT, **changes):
-    refs = ("evidence:a",)
+    refs = tuple(dict.fromkeys(("evidence:a", *(ref for item in feature_inputs for ref in item.evidence_refs))))
     candidate = core.LearningCandidateV2(
         candidate_id="candidate-a", story_id="story-a", cluster_id="cluster-a", update_chain_id="chain-a",
         source_relationship=relationship, evidence_state="GOVERNED", authority_state="AUTHORIZED" if authorized else "BLOCKED",
         authority_ready=authorized, reporting_allowed=authorized,
         authority_blockers=() if authorized else ("authority_missing",), history_identity_match=False,
         material_reader_contribution=True, feature_inputs=tuple(feature_inputs), evidence_refs=refs,
-        governed_evidence_refs=refs,
+        governed_evidence_bindings=(contracts.build_governed_evidence_binding_v1(
+            evidence_ref=refs[0], evidence_roles=(contracts.EvidenceRole.FEATURE_SUPPORT,),
+            producer_artifact_binding_hash="f" * 64, as_of_utc="2026-01-01T00:00:00Z",
+        ),),
         capabilities=capabilities or _capabilities(),
     )
     return replace(candidate, **changes)

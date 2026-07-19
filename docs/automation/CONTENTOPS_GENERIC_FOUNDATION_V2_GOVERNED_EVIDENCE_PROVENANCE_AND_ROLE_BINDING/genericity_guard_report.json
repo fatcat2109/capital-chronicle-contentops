@@ -1,0 +1,42 @@
+{
+  "ast_inspection_scope": {
+    "config_loader": "live_contentops/adaptive_learning_adapters_v2.py",
+    "evidence_generator": "live_contentops/generic_foundation_hardening_v2.py",
+    "generic_core": [
+      "live_contentops/content_intelligence_contracts_v2.py",
+      "live_contentops/adaptive_learning_core_v2.py"
+    ],
+    "generic_execution_test": "tests/test_generic_foundation_hardening_v2.py"
+  },
+  "finding_count": 0,
+  "findings": [],
+  "prohibited_finding_count": 0,
+  "rule_inventory": [
+    "CORE_IMPORTS_ADAPTER",
+    "TOPIC_OR_ID_LITERAL_IN_CORE",
+    "TOPIC_CONDITIONED_BRANCH",
+    "FIXED_COLLECTION_COUNT",
+    "UNAVAILABLE_TO_ZERO",
+    "ONE_STORY_ASSUMPTION",
+    "NUMERIC_ONLY_ASSUMPTION",
+    "PLATFORM_COUNT_ASSUMPTION",
+    "UNUSED_CONFIG_FIELD",
+    "UNUSED_CAPABILITY_DIMENSION",
+    "FIXTURE_BYPASSES_GENERIC_ALGORITHMS",
+    "SYNTHETIC_EXPECTED_COPIED_TO_OBSERVED"
+  ],
+  "schema_version": "contentops.genericity_ast_guard_report.v2",
+  "status": "PASS",
+  "targets": [
+    "live_contentops/content_intelligence_contracts_v2.py",
+    "live_contentops/adaptive_learning_core_v2.py",
+    "live_contentops/adaptive_learning_adapters_v2.py",
+    "live_contentops/generic_foundation_hardening_v2.py",
+    "tests/test_content_intelligence_v2.py",
+    "tests/test_generic_foundation_hardening_v2.py",
+    "live_contentops/generic_foundation_authority_integrity_repair_v2.py",
+    "tests/test_generic_foundation_authority_integrity_repair_v2.py",
+    "live_contentops/generic_foundation_governed_evidence_provenance_role_binding_v2.py",
+    "tests/test_generic_foundation_governed_evidence_provenance_role_binding_v2.py"
+  ]
+}

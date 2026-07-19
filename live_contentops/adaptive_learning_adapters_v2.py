@@ -26,10 +26,13 @@ from live_contentops.content_intelligence_contracts_v2 import (
     CalibrationState,
     ContentGapFindingV1,
     ContentGapSetV1,
+    EvidenceRole,
+    EvidenceScope,
     EventRelationship,
     FeatureDefinitionV1,
     GapType,
     GovernedCandidatePoolBindingV1,
+    build_governed_evidence_binding_v1,
     MetricAuthorityClass,
     PerformanceObservationSetV1,
     PerformanceObservationV1,
@@ -406,18 +409,45 @@ def _fixture_observations(fixture: Mapping[str, Any]) -> PerformanceObservationS
 def _fixture_candidate(fixture: Mapping[str, Any], index: int = 0) -> LearningCandidateV2:
     relationship = EventRelationship(str(fixture["relationship"]))
     authorized = bool(fixture["authorized"])
+    primary_ref = f"synthetic:{fixture['fixture_id']}"
+    relationship_ref = {
+        EventRelationship.MATERIAL_UPDATE: primary_ref,
+        EventRelationship.CONFIRMATION: "synthetic:new_evidence",
+        EventRelationship.CONTRADICTION: "synthetic:conflicting_evidence",
+        EventRelationship.CORRECTION: "synthetic:authoritative_correction",
+        EventRelationship.NEW_PHASE: "synthetic:distinct_event",
+    }.get(relationship)
+    relationship_role = {
+        EventRelationship.MATERIAL_UPDATE: EvidenceRole.MATERIAL_DELTA,
+        EventRelationship.CONFIRMATION: EvidenceRole.CONFIRMATION,
+        EventRelationship.CONTRADICTION: EvidenceRole.CONTRADICTION,
+        EventRelationship.CORRECTION: EvidenceRole.CORRECTION,
+        EventRelationship.NEW_PHASE: EvidenceRole.NEW_PHASE,
+    }.get(relationship)
+    feature_refs = (primary_ref,)
     feature_inputs = (
-        FeatureInputV1("authority_readiness", True, AvailabilityState.AVAILABLE, 1.0 if authorized else 0.0, evidence_refs=(f"synthetic:{fixture['fixture_id']}",)),
-        FeatureInputV1("freshness", True, AvailabilityState.AVAILABLE, 0.8),
-        FeatureInputV1("material_delta", True, AvailabilityState.AVAILABLE, 1.0 if relationship == EventRelationship.MATERIAL_UPDATE else 0.0),
-        FeatureInputV1("novelty", True, AvailabilityState.AVAILABLE, 0.7),
-        FeatureInputV1("evidence_completeness", True, AvailabilityState.AVAILABLE, 0.8),
-        FeatureInputV1("source_diversity", True, AvailabilityState.AVAILABLE, min(1.0, float(fixture["sources"]) / 3.0)),
-        FeatureInputV1("reader_utility", True, AvailabilityState.AVAILABLE, 0.7),
-        FeatureInputV1("duplication_risk", True, AvailabilityState.EXPLICIT_ZERO, 0.0),
-        FeatureInputV1("filler_risk", True, AvailabilityState.EXPLICIT_ZERO, 0.0),
-        FeatureInputV1("overclaiming_risk", True, AvailabilityState.AVAILABLE, 0.1),
+        FeatureInputV1("authority_readiness", True, AvailabilityState.AVAILABLE, 1.0 if authorized else 0.0, evidence_refs=feature_refs),
+        FeatureInputV1("freshness", True, AvailabilityState.AVAILABLE, 0.8, evidence_refs=feature_refs),
+        FeatureInputV1("material_delta", True, AvailabilityState.AVAILABLE, 1.0 if relationship == EventRelationship.MATERIAL_UPDATE else 0.0, evidence_refs=feature_refs),
+        FeatureInputV1("novelty", True, AvailabilityState.AVAILABLE, 0.7, evidence_refs=feature_refs),
+        FeatureInputV1("evidence_completeness", True, AvailabilityState.AVAILABLE, 0.8, evidence_refs=feature_refs),
+        FeatureInputV1("source_diversity", True, AvailabilityState.AVAILABLE, min(1.0, float(fixture["sources"]) / 3.0), evidence_refs=feature_refs),
+        FeatureInputV1("reader_utility", True, AvailabilityState.AVAILABLE, 0.7, evidence_refs=feature_refs),
+        FeatureInputV1("duplication_risk", True, AvailabilityState.EXPLICIT_ZERO, 0.0, evidence_refs=feature_refs),
+        FeatureInputV1("filler_risk", True, AvailabilityState.EXPLICIT_ZERO, 0.0, evidence_refs=feature_refs),
+        FeatureInputV1("overclaiming_risk", True, AvailabilityState.AVAILABLE, 0.1, evidence_refs=feature_refs),
     )
+    bindings = ()
+    if authorized and relationship_ref and relationship_role:
+        bindings = (build_governed_evidence_binding_v1(
+            evidence_ref=relationship_ref,
+            evidence_roles=(relationship_role, EvidenceRole.FEATURE_SUPPORT),
+            producer_artifact_binding_hash=sha256(primary_ref.encode("utf-8")).hexdigest(),
+            as_of_utc="2026-01-01T00:00:00Z",
+            authority_state="SYNTHETIC_AUTHORIZED",
+            evidence_scope=EvidenceScope.CANDIDATE_WIDE,
+            reason_codes=("synthetic_validation_only",),
+        ),)
     return LearningCandidateV2(
         candidate_id=f"synthetic:{fixture['fixture_id']}:candidate:{index}",
         story_id=f"synthetic:{fixture['fixture_id']}:story:{index}",
@@ -431,16 +461,18 @@ def _fixture_candidate(fixture: Mapping[str, Any], index: int = 0) -> LearningCa
         authority_blockers=() if authorized else ("synthetic_authority_unavailable",),
         history_identity_match=False,
         governed_material_delta=relationship == EventRelationship.MATERIAL_UPDATE,
+        material_delta_evidence_ref=primary_ref if relationship == EventRelationship.MATERIAL_UPDATE else None,
         prior_testable_proposition_ref="synthetic:prior_proposition" if relationship in {EventRelationship.CONFIRMATION, EventRelationship.CONTRADICTION} else None,
         governed_new_evidence_ref="synthetic:new_evidence" if relationship == EventRelationship.CONFIRMATION else None,
         conflicting_evidence_ref="synthetic:conflicting_evidence" if relationship == EventRelationship.CONTRADICTION else None,
         prior_error_ref="synthetic:prior_error" if relationship == EventRelationship.CORRECTION else None,
+        authoritative_correction_ref="synthetic:authoritative_correction" if relationship == EventRelationship.CORRECTION else None,
         update_chain_continuity=relationship == EventRelationship.NEW_PHASE,
         distinct_new_event_ref="synthetic:distinct_event" if relationship == EventRelationship.NEW_PHASE else None,
         material_reader_contribution=True,
         feature_inputs=feature_inputs,
-        evidence_refs=(f"synthetic:{fixture['fixture_id']}",),
-        governed_evidence_refs=(f"synthetic:{fixture['fixture_id']}",) if authorized else (),
+        evidence_refs=tuple(dict.fromkeys((primary_ref, relationship_ref) if relationship_ref else (primary_ref,))),
+        governed_evidence_bindings=bindings,
         internal_brief_ids=(f"synthetic:{fixture['fixture_id']}:brief",),
     )
 

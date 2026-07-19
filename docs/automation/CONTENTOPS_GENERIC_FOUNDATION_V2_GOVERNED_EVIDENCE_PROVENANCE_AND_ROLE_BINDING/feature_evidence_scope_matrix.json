@@ -1,0 +1,136 @@
+{
+  "rows": [
+    {
+      "applicable": true,
+      "authority_gate_id": null,
+      "authority_gate_result": null,
+      "availability": "available",
+      "capability_dimensions_used": [
+        "*"
+      ],
+      "case": "candidate_wide_reuse",
+      "configured_minimum_evidence": 1,
+      "configured_weight": 1.0,
+      "contribution": 0.8,
+      "domain_applicability_result": true,
+      "evidence_count": 1,
+      "evidence_exclusion_reasons": {
+        "evidence:unrelated": [
+          "feature_support_role_missing"
+        ]
+      },
+      "evidence_refs": [
+        "evidence:reusable"
+      ],
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "CANDIDATE_WIDE",
+      "excluded_evidence_refs": [
+        "evidence:unrelated"
+      ],
+      "expected_count": 1,
+      "feature_id": "freshness",
+      "normalization_method": "bounded_0_1",
+      "normalization_parameters": {
+        "kind": "bounded_0_1"
+      },
+      "normalized_value": 0.8,
+      "penalty": 0.0,
+      "raw_value": 0.8,
+      "reason_codes": [],
+      "status": "PASS",
+      "unavailable_reason": null
+    },
+    {
+      "applicable": true,
+      "authority_gate_id": null,
+      "authority_gate_result": null,
+      "availability": "available",
+      "capability_dimensions_used": [
+        "*"
+      ],
+      "case": "explicit_feature_binding",
+      "configured_minimum_evidence": 1,
+      "configured_weight": 1.0,
+      "contribution": 0.8,
+      "domain_applicability_result": true,
+      "evidence_count": 1,
+      "evidence_exclusion_reasons": {
+        "evidence:reusable": [
+          "not_bound_to_feature_or_reusable_candidate_scope"
+        ]
+      },
+      "evidence_refs": [
+        "evidence:unrelated"
+      ],
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "excluded_evidence_refs": [
+        "evidence:reusable"
+      ],
+      "expected_count": 1,
+      "feature_id": "freshness",
+      "normalization_method": "bounded_0_1",
+      "normalization_parameters": {
+        "kind": "bounded_0_1"
+      },
+      "normalized_value": 0.8,
+      "penalty": 0.0,
+      "raw_value": 0.8,
+      "reason_codes": [],
+      "status": "PASS",
+      "unavailable_reason": null
+    },
+    {
+      "applicable": true,
+      "authority_gate_id": null,
+      "authority_gate_result": null,
+      "availability": "unavailable",
+      "capability_dimensions_used": [
+        "*"
+      ],
+      "case": "no_implicit_reuse",
+      "configured_minimum_evidence": 1,
+      "configured_weight": 1.0,
+      "contribution": null,
+      "domain_applicability_result": true,
+      "evidence_count": 0,
+      "evidence_exclusion_reasons": {
+        "evidence:reusable": [
+          "not_bound_to_feature_or_reusable_candidate_scope"
+        ],
+        "evidence:unrelated": [
+          "feature_support_role_missing"
+        ]
+      },
+      "evidence_refs": [],
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "excluded_evidence_refs": [
+        "evidence:reusable",
+        "evidence:unrelated"
+      ],
+      "expected_count": 0,
+      "feature_id": "freshness",
+      "normalization_method": "bounded_0_1",
+      "normalization_parameters": {
+        "kind": "bounded_0_1"
+      },
+      "normalized_value": null,
+      "penalty": null,
+      "raw_value": null,
+      "reason_codes": [
+        "minimum_evidence_failed"
+      ],
+      "status": "PASS",
+      "unavailable_reason": "minimum_evidence_not_met"
+    }
+  ],
+  "schema_version": "contentops.feature_evidence_scope_matrix.v1",
+  "status": "PASS"
+}

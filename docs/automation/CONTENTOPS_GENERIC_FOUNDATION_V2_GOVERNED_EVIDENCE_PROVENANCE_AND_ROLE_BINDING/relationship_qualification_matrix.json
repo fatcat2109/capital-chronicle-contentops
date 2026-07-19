@@ -1,0 +1,89 @@
+{
+  "all_governed_outcomes_have_matching_role_refs": true,
+  "rows": [
+    {
+      "expected_outcome": "GOVERNED_MATERIAL_UPDATE",
+      "observed_outcomes": [
+        "GOVERNED_MATERIAL_UPDATE"
+      ],
+      "relationship": "material_update",
+      "relationship_specific_qualifying_refs": [
+        "evidence:material_delta"
+      ],
+      "required_role": "material_delta",
+      "status": "PASS"
+    },
+    {
+      "expected_outcome": "GOVERNED_CONFIRMATION",
+      "observed_outcomes": [
+        "GOVERNED_CONFIRMATION"
+      ],
+      "relationship": "confirmation",
+      "relationship_specific_qualifying_refs": [
+        "evidence:confirmation"
+      ],
+      "required_role": "confirmation",
+      "status": "PASS"
+    },
+    {
+      "expected_outcome": "GOVERNED_CONTRADICTION",
+      "observed_outcomes": [
+        "GOVERNED_CONTRADICTION"
+      ],
+      "relationship": "contradiction",
+      "relationship_specific_qualifying_refs": [
+        "evidence:contradiction"
+      ],
+      "required_role": "contradiction",
+      "status": "PASS"
+    },
+    {
+      "expected_outcome": "GOVERNED_CORRECTION",
+      "observed_outcomes": [
+        "GOVERNED_CORRECTION"
+      ],
+      "relationship": "correction",
+      "relationship_specific_qualifying_refs": [
+        "evidence:correction"
+      ],
+      "required_role": "correction",
+      "status": "PASS"
+    },
+    {
+      "expected_outcome": "GOVERNED_NEW_PHASE",
+      "observed_outcomes": [
+        "GOVERNED_NEW_PHASE"
+      ],
+      "relationship": "new_phase",
+      "relationship_specific_qualifying_refs": [
+        "evidence:new_phase"
+      ],
+      "required_role": "new_phase",
+      "status": "PASS"
+    },
+    {
+      "expected_outcome": "GOVERNED_CONFIRMATION",
+      "observed_outcomes": [
+        "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+      ],
+      "relationship": "confirmation",
+      "relationship_specific_qualifying_refs": [],
+      "required_role": "confirmation",
+      "status": "PASS",
+      "supplied_role": "feature_support"
+    },
+    {
+      "observed_outcomes": [
+        "EVERGREEN_REFRESH_JUSTIFIED"
+      ],
+      "relationship": "evergreen_refresh",
+      "relationship_specific_qualifying_refs": [
+        "evidence:refresh"
+      ],
+      "required_role": "evergreen_justification",
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.relationship_evidence_qualification_matrix.v1",
+  "status": "PASS"
+}

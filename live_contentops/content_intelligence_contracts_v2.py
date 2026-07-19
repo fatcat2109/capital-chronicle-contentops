@@ -22,6 +22,7 @@ SCHEMA_GAP_SET_V1 = "contentops.content_gap_set.v1"
 SCHEMA_OBSERVATION_SET_V1 = "contentops.performance_observation_set.v1"
 SCHEMA_CONFIG_V1 = "contentops.adaptive_learning_config.v1"
 SCHEMA_MODEL_JUDGMENT_V1 = "contentops.model_assisted_judgment.v1"
+SCHEMA_GOVERNED_EVIDENCE_BINDING_V1 = "contentops.governed_evidence_binding.v1"
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 SHA1_RE = re.compile(r"^[0-9a-f]{40}$")
@@ -44,6 +45,15 @@ DISQUALIFYING_GOVERNED_EVIDENCE_REASON_CODES = frozenset({
     "permission_blocked",
     "unavailable",
     "unverified",
+})
+KNOWN_GOVERNED_EVIDENCE_AUTHORITY_STATES = frozenset({
+    *QUALIFYING_GOVERNED_EVIDENCE_AUTHORITY_STATES,
+    "UNVERIFIED", "BLOCKED", "CONTEXT_ONLY", "UNAVAILABLE",
+    "SYNTHETIC_UNAUTHORIZED",
+})
+KNOWN_GOVERNED_EVIDENCE_PERMISSION_STATES = frozenset({
+    *QUALIFYING_GOVERNED_EVIDENCE_PERMISSION_STATES,
+    "CONTEXT_ONLY", "REPORTING_NOT_ALLOWED", "PERMISSION_BLOCKED", "UNAVAILABLE",
 })
 
 
@@ -142,6 +152,31 @@ class CalibrationState(str, Enum):
     UNCALIBRATED_FOUNDATION = "UNCALIBRATED_FOUNDATION"
     SHADOW_CALIBRATION = "SHADOW_CALIBRATION"
     OPERATOR_ACCEPTED = "OPERATOR_ACCEPTED"
+
+
+class EvidenceRole(str, Enum):
+    MATERIAL_DELTA = "material_delta"
+    CONFIRMATION = "confirmation"
+    CONTRADICTION = "contradiction"
+    CORRECTION = "correction"
+    NEW_PHASE = "new_phase"
+    EVERGREEN_JUSTIFICATION = "evergreen_justification"
+    FEATURE_SUPPORT = "feature_support"
+
+
+class EvidenceScope(str, Enum):
+    FEATURE_SPECIFIC = "FEATURE_SPECIFIC"
+    CANDIDATE_WIDE = "CANDIDATE_WIDE"
+    PERFORMANCE_OBSERVATION = "PERFORMANCE_OBSERVATION"
+    CONTENT_HISTORY = "CONTENT_HISTORY"
+    DERIVED_CAPABILITY = "DERIVED_CAPABILITY"
+
+
+class EvidenceVerificationStatus(str, Enum):
+    VERIFIED = "VERIFIED"
+    UNVERIFIED = "UNVERIFIED"
+    BLOCKED = "BLOCKED"
+    UNAVAILABLE = "UNAVAILABLE"
 
 
 def primitive(value: Any) -> Any:
@@ -279,6 +314,14 @@ class EvidenceReferenceV1:
     temporal_character: TemporalCharacter | None = None
     source_family_id: str | None = None
     source_authority_class: str | None = None
+    evidence_roles: tuple[EvidenceRole, ...] = ()
+    evidence_scope: EvidenceScope | None = None
+    verifier_id: str | None = None
+    verifier_version: str | None = None
+    verification_status: EvidenceVerificationStatus | None = None
+    producer_artifact_binding_hash: str | None = None
+    as_of_utc: str | None = None
+    logical_hash: str | None = None
 
     def validate(self) -> tuple[str, ...]:
         blockers: list[str] = []
@@ -288,6 +331,18 @@ class EvidenceReferenceV1:
             blockers.append("missing_evidence_authority_state")
         if not self.permission_state:
             blockers.append("missing_evidence_permission_state")
+        if self.authority_state not in KNOWN_GOVERNED_EVIDENCE_AUTHORITY_STATES:
+            blockers.append("unknown_evidence_authority_state")
+        if self.permission_state not in KNOWN_GOVERNED_EVIDENCE_PERMISSION_STATES:
+            blockers.append("unknown_evidence_permission_state")
+        if len(self.evidence_roles) != len(set(self.evidence_roles)):
+            blockers.append("duplicate_evidence_role")
+        if any(not isinstance(value, EvidenceRole) for value in self.evidence_roles):
+            blockers.append("unknown_evidence_role")
+        if self.evidence_scope is not None and not isinstance(self.evidence_scope, EvidenceScope):
+            blockers.append("unknown_evidence_scope")
+        if self.verification_status is not None and not isinstance(self.verification_status, EvidenceVerificationStatus):
+            blockers.append("unknown_evidence_verification_status")
         for name, value in (
             ("source_family_id", self.source_family_id),
             ("source_authority_class", self.source_authority_class),
@@ -299,6 +354,45 @@ class EvidenceReferenceV1:
                 parse_utc(self.observed_at_utc, field_name="evidence_observed_at_utc")
             except ValueError as error:
                 blockers.append(str(error))
+        if self.as_of_utc:
+            try:
+                parse_utc(self.as_of_utc, field_name="evidence_as_of_utc")
+            except ValueError as error:
+                blockers.append(str(error))
+        if self.verifier_id is not None and not IDENTIFIER_RE.fullmatch(self.verifier_id):
+            blockers.append("malformed_evidence_verifier_id")
+        if self.verifier_version is not None and not IDENTIFIER_RE.fullmatch(self.verifier_version):
+            blockers.append("malformed_evidence_verifier_version")
+        if self.producer_artifact_binding_hash is not None and not SHA256_RE.fullmatch(self.producer_artifact_binding_hash):
+            blockers.append("malformed_producer_artifact_binding_hash")
+        if self.logical_hash is not None and not SHA256_RE.fullmatch(self.logical_hash):
+            blockers.append("malformed_evidence_logical_hash")
+        if self.logical_hash is not None and self.logical_hash != self.calculated_logical_hash():
+            blockers.append("evidence_logical_hash_mismatch")
+        return _unique(blockers)
+
+    def calculated_logical_hash(self) -> str:
+        material = {key: value for key, value in asdict(self).items() if key != "logical_hash"}
+        return logical_hash(material)
+
+    def provenance_blockers(self) -> tuple[str, ...]:
+        blockers = list(self.validate())
+        if not self.evidence_roles:
+            blockers.append("missing_evidence_roles")
+        if self.evidence_scope is None:
+            blockers.append("missing_evidence_scope")
+        if not self.verifier_id:
+            blockers.append("missing_evidence_verifier_id")
+        if not self.verifier_version:
+            blockers.append("missing_evidence_verifier_version")
+        if self.verification_status is None:
+            blockers.append("missing_evidence_verification_status")
+        if not self.producer_artifact_binding_hash:
+            blockers.append("missing_producer_artifact_binding_hash")
+        if not self.as_of_utc:
+            blockers.append("missing_evidence_as_of_utc")
+        if not self.logical_hash:
+            blockers.append("missing_evidence_logical_hash")
         return _unique(blockers)
 
     def qualifies_for_governed_outcome(self) -> bool:
@@ -309,11 +403,140 @@ class EvidenceReferenceV1:
         remain valid evidence records but cannot satisfy governed evidence.
         """
         return bool(
+            not self.provenance_blockers()
+            and self.authority_state in QUALIFYING_GOVERNED_EVIDENCE_AUTHORITY_STATES
+            and self.permission_state in QUALIFYING_GOVERNED_EVIDENCE_PERMISSION_STATES
+            and self.verification_status == EvidenceVerificationStatus.VERIFIED
+            and not (set(self.reason_codes) & DISQUALIFYING_GOVERNED_EVIDENCE_REASON_CODES)
+        )
+
+
+@dataclass(frozen=True)
+class GovernedEvidenceBindingV1:
+    evidence_ref: str
+    authority_state: str
+    permission_state: str
+    evidence_roles: tuple[EvidenceRole, ...]
+    verifier_id: str
+    verifier_version: str
+    verification_status: EvidenceVerificationStatus
+    producer_artifact_binding_hash: str
+    as_of_utc: str
+    logical_hash: str
+    evidence_scope: EvidenceScope = EvidenceScope.CANDIDATE_WIDE
+    source_family_id: str | None = None
+    source_authority_class: str | None = None
+    reason_codes: tuple[str, ...] = ()
+    schema_version: str = SCHEMA_GOVERNED_EVIDENCE_BINDING_V1
+
+    def calculated_logical_hash(self) -> str:
+        material = {key: value for key, value in asdict(self).items() if key != "logical_hash"}
+        return logical_hash(material)
+
+    def validate(self) -> tuple[str, ...]:
+        blockers: list[str] = []
+        if self.schema_version != SCHEMA_GOVERNED_EVIDENCE_BINDING_V1:
+            blockers.append("unknown_governed_evidence_binding_schema")
+        if not self.evidence_ref or not IDENTIFIER_RE.fullmatch(self.evidence_ref):
+            blockers.append("malformed_evidence_ref")
+        if self.authority_state not in KNOWN_GOVERNED_EVIDENCE_AUTHORITY_STATES:
+            blockers.append("unknown_evidence_authority_state")
+        if self.permission_state not in KNOWN_GOVERNED_EVIDENCE_PERMISSION_STATES:
+            blockers.append("unknown_evidence_permission_state")
+        if not self.evidence_roles:
+            blockers.append("missing_evidence_roles")
+        if len(self.evidence_roles) != len(set(self.evidence_roles)):
+            blockers.append("duplicate_evidence_role")
+        if any(not isinstance(value, EvidenceRole) for value in self.evidence_roles):
+            blockers.append("unknown_evidence_role")
+        if not isinstance(self.evidence_scope, EvidenceScope):
+            blockers.append("unknown_evidence_scope")
+        if not isinstance(self.verification_status, EvidenceVerificationStatus):
+            blockers.append("unknown_evidence_verification_status")
+        for name, value in (("verifier_id", self.verifier_id), ("verifier_version", self.verifier_version)):
+            if not value or not IDENTIFIER_RE.fullmatch(value):
+                blockers.append(f"malformed_{name}")
+        if not SHA256_RE.fullmatch(self.producer_artifact_binding_hash or ""):
+            blockers.append("malformed_producer_artifact_binding_hash")
+        try:
+            parse_utc(self.as_of_utc, field_name="evidence_as_of_utc")
+        except ValueError as error:
+            blockers.append(str(error))
+        for name, value in (("source_family_id", self.source_family_id), ("source_authority_class", self.source_authority_class)):
+            if value is not None and not IDENTIFIER_RE.fullmatch(value):
+                blockers.append(f"malformed_{name}")
+        if not SHA256_RE.fullmatch(self.logical_hash or ""):
+            blockers.append("malformed_evidence_logical_hash")
+        elif self.logical_hash != self.calculated_logical_hash():
+            blockers.append("evidence_logical_hash_mismatch")
+        return _unique(blockers)
+
+    def qualifies_for_governed_outcome(self) -> bool:
+        return bool(
             not self.validate()
             and self.authority_state in QUALIFYING_GOVERNED_EVIDENCE_AUTHORITY_STATES
             and self.permission_state in QUALIFYING_GOVERNED_EVIDENCE_PERMISSION_STATES
+            and self.verification_status == EvidenceVerificationStatus.VERIFIED
             and not (set(self.reason_codes) & DISQUALIFYING_GOVERNED_EVIDENCE_REASON_CODES)
         )
+
+
+def build_evidence_reference_v1(
+    *, evidence_ref: str, authority_state: str, permission_state: str,
+    evidence_roles: Sequence[EvidenceRole], producer_artifact_binding_hash: str,
+    as_of_utc: str, evidence_scope: EvidenceScope,
+    verifier_id: str = "contentops.evidence_reference_verifier",
+    verifier_version: str = "v1",
+    verification_status: EvidenceVerificationStatus = EvidenceVerificationStatus.VERIFIED,
+    modality: EvidenceModality | None = None,
+    observed_at_utc: str | None = None,
+    reason_codes: Sequence[str] = (),
+    temporal_character: TemporalCharacter | None = None,
+    source_family_id: str | None = None,
+    source_authority_class: str | None = None,
+) -> EvidenceReferenceV1:
+    values = dict(
+        evidence_ref=evidence_ref, authority_state=authority_state,
+        permission_state=permission_state, modality=modality,
+        observed_at_utc=observed_at_utc, reason_codes=tuple(reason_codes),
+        temporal_character=temporal_character, source_family_id=source_family_id,
+        source_authority_class=source_authority_class,
+        evidence_roles=tuple(evidence_roles), evidence_scope=evidence_scope,
+        verifier_id=verifier_id, verifier_version=verifier_version,
+        verification_status=verification_status,
+        producer_artifact_binding_hash=producer_artifact_binding_hash,
+        as_of_utc=as_of_utc, logical_hash=None,
+    )
+    draft = EvidenceReferenceV1(**values)
+    return EvidenceReferenceV1(**{**values, "logical_hash": draft.calculated_logical_hash()})
+
+
+def build_governed_evidence_binding_v1(
+    *, evidence_ref: str, evidence_roles: Sequence[EvidenceRole],
+    producer_artifact_binding_hash: str, as_of_utc: str,
+    authority_state: str = "VERIFIED_GOVERNED",
+    permission_state: str = "REPORTING_ALLOWED",
+    verifier_id: str = "contentops.governed_evidence_verifier",
+    verifier_version: str = "v1",
+    verification_status: EvidenceVerificationStatus = EvidenceVerificationStatus.VERIFIED,
+    evidence_scope: EvidenceScope = EvidenceScope.CANDIDATE_WIDE,
+    source_family_id: str | None = None,
+    source_authority_class: str | None = None,
+    reason_codes: Sequence[str] = (),
+) -> GovernedEvidenceBindingV1:
+    values = dict(
+        evidence_ref=evidence_ref, authority_state=authority_state,
+        permission_state=permission_state, evidence_roles=tuple(evidence_roles),
+        verifier_id=verifier_id, verifier_version=verifier_version,
+        verification_status=verification_status,
+        producer_artifact_binding_hash=producer_artifact_binding_hash,
+        as_of_utc=as_of_utc, logical_hash="", evidence_scope=evidence_scope,
+        source_family_id=source_family_id,
+        source_authority_class=source_authority_class,
+        reason_codes=tuple(reason_codes),
+    )
+    draft = GovernedEvidenceBindingV1(**values)
+    return GovernedEvidenceBindingV1(**{**values, "logical_hash": draft.calculated_logical_hash()})
 
 
 @dataclass(frozen=True)
@@ -718,6 +941,16 @@ class FeatureEvaluationV1:
     authority_gate_id: str | None = None
     authority_gate_result: bool | None = None
     domain_applicability_result: bool = True
+    evidence_roles: tuple[EvidenceRole, ...] = ()
+    evidence_scope: EvidenceScope = EvidenceScope.FEATURE_SPECIFIC
+    excluded_evidence_refs: tuple[str, ...] = ()
+    evidence_exclusion_reasons: Mapping[str, tuple[str, ...]] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class DisqualifiedEvidenceV1:
+    evidence_ref: str
+    reason_codes: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -736,6 +969,10 @@ class OutcomeDecisionV1:
     history_identity_match: bool = False
     governed_delta_present: bool = False
     qualifying_governed_evidence_refs: tuple[str, ...] = ()
+    complete_evidence_lineage: tuple[str, ...] = ()
+    relationship_specific_qualifying_refs: tuple[str, ...] = ()
+    historical_only_refs: tuple[str, ...] = ()
+    disqualified_evidence: tuple[DisqualifiedEvidenceV1, ...] = ()
 
 
 @dataclass(frozen=True)

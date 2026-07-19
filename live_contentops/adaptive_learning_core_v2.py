@@ -13,7 +13,11 @@ from live_contentops.content_intelligence_contracts_v2 import (
     CapabilityDimensionsV1,
     ContentGapSetV1,
     ContentOpsLearningDecisionV2,
+    DisqualifiedEvidenceV1,
+    EvidenceRole,
     EvidenceReferenceV1,
+    EvidenceScope,
+    GovernedEvidenceBindingV1,
     EventRelationship,
     FeatureEvaluationV1,
     GapType,
@@ -69,6 +73,8 @@ class FeatureInputV1:
     evidence_refs: tuple[str, ...] = ()
     reason_codes: tuple[str, ...] = ()
     evidence_count: int | None = None
+    evidence_roles: tuple[EvidenceRole, ...] = (EvidenceRole.FEATURE_SUPPORT,)
+    evidence_scope: EvidenceScope = EvidenceScope.FEATURE_SPECIFIC
 
 
 @dataclass(frozen=True)
@@ -85,6 +91,7 @@ class LearningCandidateV2:
     authority_blockers: tuple[str, ...]
     history_identity_match: bool
     governed_material_delta: bool = False
+    material_delta_evidence_ref: str | None = None
     prior_testable_proposition_ref: str | None = None
     governed_new_evidence_ref: str | None = None
     conflicting_evidence_ref: str | None = None
@@ -103,7 +110,7 @@ class LearningCandidateV2:
     internal_brief_ids: tuple[str, ...] = ()
     capabilities: CapabilityDimensionsV1 = CapabilityDimensionsV1()
     evidence_records: tuple[EvidenceReferenceV1, ...] = ()
-    governed_evidence_refs: tuple[str, ...] = ()
+    governed_evidence_bindings: tuple[GovernedEvidenceBindingV1, ...] = ()
     authority_gate_results: Mapping[str, bool] | None = None
 
 
@@ -136,11 +143,20 @@ def _complete_evidence_lineage(
         if blockers:
             raise ValueError("invalid_evidence_record:" + ",".join(blockers))
         record_refs.append(record.evidence_ref)
+    binding_refs: list[str] = []
+    for binding in candidate.governed_evidence_bindings:
+        blockers = binding.validate()
+        if blockers:
+            raise ValueError("invalid_governed_evidence_binding:" + ",".join(blockers))
+        binding_refs.append(binding.evidence_ref)
     semantic_refs = ()
     if include_semantic_refs:
         semantic_refs = tuple(ref for ref in (
+            candidate.material_delta_evidence_ref,
             candidate.governed_new_evidence_ref,
             candidate.conflicting_evidence_ref,
+            candidate.prior_testable_proposition_ref,
+            candidate.prior_error_ref,
             candidate.authoritative_correction_ref,
             candidate.distinct_new_event_ref,
             candidate.update_justification_ref,
@@ -149,39 +165,118 @@ def _complete_evidence_lineage(
         *additional_groups,
         candidate.evidence_refs,
         tuple(record_refs),
-        candidate.governed_evidence_refs,
+        tuple(binding_refs),
         semantic_refs,
     )
 
 
 def _feature_evidence_lineage(
     candidate: LearningCandidateV2,
-    item_refs: Sequence[str],
-) -> tuple[str, ...]:
-    record_refs: list[str] = []
-    for record in candidate.evidence_records:
-        blockers = record.validate()
-        if blockers:
-            raise ValueError("invalid_evidence_record:" + ",".join(blockers))
-        record_refs.append(record.evidence_ref)
-    primary_refs = tuple(item_refs) if item_refs else candidate.evidence_refs
-    return _deduplicated_valid_evidence_refs(primary_refs, tuple(record_refs))
+    item: FeatureInputV1,
+) -> tuple[tuple[str, ...], Mapping[str, tuple[str, ...]]]:
+    complete = _complete_evidence_lineage(candidate)
+    available = set(complete)
+    explicit = _deduplicated_valid_evidence_refs(item.evidence_refs)
+    if item.evidence_scope not in {EvidenceScope.PERFORMANCE_OBSERVATION, EvidenceScope.CONTENT_HISTORY} and any(ref not in available for ref in explicit):
+        raise ValueError(f"feature_evidence_ref_missing_from_lineage:{item.feature_id}")
+    selected = list(explicit)
+    if item.evidence_scope == EvidenceScope.CANDIDATE_WIDE:
+        for evidence in (*candidate.governed_evidence_bindings, *candidate.evidence_records):
+            if (
+                evidence.evidence_scope == EvidenceScope.CANDIDATE_WIDE
+                and EvidenceRole.FEATURE_SUPPORT in evidence.evidence_roles
+                and evidence.qualifies_for_governed_outcome()
+            ):
+                selected.append(evidence.evidence_ref)
+    selected_refs = _deduplicated_valid_evidence_refs(tuple(selected))
+    excluded: dict[str, tuple[str, ...]] = {}
+    selected_set = set(selected_refs)
+    governed_by_ref = {
+        evidence.evidence_ref: evidence
+        for evidence in (*candidate.governed_evidence_bindings, *candidate.evidence_records)
+    }
+    for ref in complete:
+        if ref not in selected_set:
+            evidence = governed_by_ref.get(ref)
+            reasons: list[str] = []
+            if evidence is None:
+                reasons.append("not_bound_to_feature")
+            else:
+                if evidence.evidence_scope != EvidenceScope.CANDIDATE_WIDE:
+                    reasons.append("evidence_scope_does_not_permit_candidate_wide_reuse")
+                if EvidenceRole.FEATURE_SUPPORT not in evidence.evidence_roles:
+                    reasons.append("feature_support_role_missing")
+                if not evidence.qualifies_for_governed_outcome():
+                    reasons.append("evidence_not_qualifying_for_reuse")
+            excluded[ref] = tuple(reasons or ("not_bound_to_feature_or_reusable_candidate_scope",))
+    return selected_refs, excluded
 
 
-def _qualifying_governed_evidence_refs(candidate: LearningCandidateV2) -> tuple[str, ...]:
+def _governed_evidence_inventory(
+    candidate: LearningCandidateV2,
+) -> tuple[tuple[str, ...], Mapping[str, frozenset[EvidenceRole]], tuple[DisqualifiedEvidenceV1, ...]]:
     lineage = set(_deduplicated_valid_evidence_refs(
         candidate.evidence_refs,
         tuple(record.evidence_ref for record in candidate.evidence_records),
     ))
-    verified_refs = _deduplicated_valid_evidence_refs(candidate.governed_evidence_refs)
-    if any(ref not in lineage for ref in verified_refs):
-        raise ValueError("verified_governed_evidence_ref_missing_from_lineage")
-    qualified_records = tuple(
-        record.evidence_ref
-        for record in candidate.evidence_records
-        if record.qualifies_for_governed_outcome()
+    qualifying: list[str] = []
+    roles: dict[str, set[EvidenceRole]] = {}
+    disqualified: dict[str, list[str]] = {}
+    supplied_refs: set[str] = set()
+    provenance_fingerprints: dict[str, tuple[Any, ...]] = {}
+    for evidence in (*candidate.governed_evidence_bindings, *candidate.evidence_records):
+        supplied_refs.add(evidence.evidence_ref)
+        fingerprint = None
+        if evidence.verification_status is not None and evidence.producer_artifact_binding_hash and evidence.as_of_utc:
+            fingerprint = (
+                evidence.authority_state, evidence.permission_state,
+                evidence.verification_status, tuple(evidence.evidence_roles),
+                evidence.evidence_scope, evidence.producer_artifact_binding_hash,
+                evidence.as_of_utc,
+            )
+        existing_fingerprint = provenance_fingerprints.get(evidence.evidence_ref)
+        if existing_fingerprint is not None and fingerprint is not None and existing_fingerprint != fingerprint:
+            raise ValueError(f"contradictory_evidence_provenance:{evidence.evidence_ref}")
+        if fingerprint is not None:
+            provenance_fingerprints[evidence.evidence_ref] = fingerprint
+        if evidence.evidence_ref not in lineage:
+            raise ValueError("governed_evidence_ref_missing_from_lineage")
+        if isinstance(evidence, GovernedEvidenceBindingV1):
+            blockers = evidence.validate()
+        else:
+            blockers = evidence.provenance_blockers()
+        if blockers:
+            if isinstance(evidence, GovernedEvidenceBindingV1):
+                raise ValueError("invalid_governed_evidence_binding:" + ",".join(blockers))
+            disqualified.setdefault(evidence.evidence_ref, []).extend(blockers)
+            continue
+        if evidence.qualifies_for_governed_outcome():
+            qualifying.append(evidence.evidence_ref)
+            roles.setdefault(evidence.evidence_ref, set()).update(evidence.evidence_roles)
+        else:
+            if evidence.verification_status is not None and evidence.verification_status.value != "VERIFIED":
+                disqualified.setdefault(evidence.evidence_ref, []).append(
+                    f"verification_status_{evidence.verification_status.value.lower()}"
+                )
+            if evidence.authority_state not in {
+                "VERIFIED_GOVERNED", "OFFICIAL_VERIFIED", "FIRST_PARTY_VERIFIED", "SYNTHETIC_AUTHORIZED"
+            }:
+                disqualified.setdefault(evidence.evidence_ref, []).append("authority_not_qualifying")
+            if evidence.permission_state not in {"REPORTING_ALLOWED", "PUBLIC_CLAIM_ALLOWED"}:
+                disqualified.setdefault(evidence.evidence_ref, []).append("permission_not_qualifying")
+            disqualified.setdefault(evidence.evidence_ref, []).extend(evidence.reason_codes or ("evidence_not_qualifying",))
+    for ref in candidate.evidence_refs:
+        if ref not in supplied_refs:
+            disqualified.setdefault(ref, []).append("caller_only_assertion_without_validated_provenance")
+    rows = tuple(
+        DisqualifiedEvidenceV1(ref, tuple(dict.fromkeys(reason_codes)))
+        for ref, reason_codes in sorted(disqualified.items())
     )
-    return _deduplicated_valid_evidence_refs(verified_refs, qualified_records)
+    return (
+        _deduplicated_valid_evidence_refs(tuple(qualifying)),
+        {ref: frozenset(values) for ref, values in roles.items()},
+        rows,
+    )
 
 
 def _authority_gate_input_blockers(
@@ -221,31 +316,42 @@ def evaluate_outcome(
     duplicate = candidate.history_identity_match or relationship == EventRelationship.DUPLICATE
     packaging_gap = GapType.DERIVATIVE_PACKAGING_GAP in candidate.gap_types
     complete_evidence_lineage = _complete_evidence_lineage(candidate, include_semantic_refs=True)
-    qualifying_governed_refs = _qualifying_governed_evidence_refs(candidate)
-    governed_evidence_present = bool(qualifying_governed_refs)
+    qualifying_governed_refs, governed_roles, disqualified_evidence = _governed_evidence_inventory(candidate)
+
+    def relationship_ref(ref: str | None, role: EvidenceRole) -> tuple[str, ...]:
+        if ref and ref in governed_roles and role in governed_roles[ref]:
+            return (ref,)
+        return ()
+
+    relationship_specific_refs: tuple[str, ...] = ()
 
     if relationship == EventRelationship.MATERIAL_UPDATE:
-        if authorized and candidate.governed_material_delta and governed_evidence_present:
+        relationship_specific_refs = relationship_ref(candidate.material_delta_evidence_ref, EvidenceRole.MATERIAL_DELTA)
+        if authorized and candidate.governed_material_delta and relationship_specific_refs:
             outcomes.append("GOVERNED_MATERIAL_UPDATE")
         else:
             reasons.append("material_update_requires_authority_permission_governed_delta_and_evidence")
     if relationship == EventRelationship.CONFIRMATION:
-        if authorized and candidate.prior_testable_proposition_ref and candidate.governed_new_evidence_ref and governed_evidence_present:
+        relationship_specific_refs = relationship_ref(candidate.governed_new_evidence_ref, EvidenceRole.CONFIRMATION)
+        if authorized and candidate.prior_testable_proposition_ref and relationship_specific_refs:
             outcomes.append("GOVERNED_CONFIRMATION")
         else:
             reasons.append("confirmation_requires_authority_prior_proposition_and_new_evidence")
     if relationship == EventRelationship.CONTRADICTION:
-        if authorized and candidate.prior_testable_proposition_ref and candidate.conflicting_evidence_ref and governed_evidence_present:
+        relationship_specific_refs = relationship_ref(candidate.conflicting_evidence_ref, EvidenceRole.CONTRADICTION)
+        if authorized and candidate.prior_testable_proposition_ref and relationship_specific_refs:
             outcomes.append("GOVERNED_CONTRADICTION")
         else:
             reasons.append("contradiction_requires_authority_prior_proposition_and_conflicting_evidence")
     if relationship == EventRelationship.CORRECTION:
-        if authorized and (candidate.prior_error_ref or candidate.authoritative_correction_ref) and governed_evidence_present:
+        relationship_specific_refs = relationship_ref(candidate.authoritative_correction_ref, EvidenceRole.CORRECTION)
+        if authorized and candidate.prior_error_ref and relationship_specific_refs:
             outcomes.append("GOVERNED_CORRECTION")
         else:
             reasons.append("correction_requires_authority_and_identified_error_or_authoritative_correction")
     if relationship == EventRelationship.NEW_PHASE:
-        if authorized and candidate.update_chain_continuity and candidate.distinct_new_event_ref and governed_evidence_present:
+        relationship_specific_refs = relationship_ref(candidate.distinct_new_event_ref, EvidenceRole.NEW_PHASE)
+        if authorized and candidate.update_chain_continuity and relationship_specific_refs:
             outcomes.append("GOVERNED_NEW_PHASE")
         else:
             reasons.append("new_phase_requires_authority_chain_continuity_distinct_event_and_governed_evidence")
@@ -274,20 +380,21 @@ def evaluate_outcome(
         "utility": float(config.thresholds.get("evergreen_min_reader_utility", 0.0)),
     }
     evergreen_requested = GapType.EVERGREEN_REFRESH in candidate.gap_types
+    evergreen_refs = relationship_ref(candidate.update_justification_ref, EvidenceRole.EVERGREEN_JUSTIFICATION)
     evergreen_valid = bool(
         evergreen_requested
         and authorized
         and candidate.durability is not None
         and candidate.content_age_hours is not None
         and candidate.reader_utility is not None
-        and candidate.update_justification_ref
-        and governed_evidence_present
+        and evergreen_refs
         and candidate.durability >= evergreen_thresholds["durability"]
         and candidate.content_age_hours >= evergreen_thresholds["age"]
         and candidate.reader_utility >= evergreen_thresholds["utility"]
     )
     if evergreen_valid:
         outcomes.append("EVERGREEN_REFRESH_JUSTIFIED")
+        relationship_specific_refs = _deduplicated_valid_evidence_refs(relationship_specific_refs, evergreen_refs)
     elif evergreen_requested:
         reasons.append("evergreen_refresh_criteria_not_met")
 
@@ -329,6 +436,13 @@ def evaluate_outcome(
         history_identity_match=duplicate,
         governed_delta_present=governed_delta_present,
         qualifying_governed_evidence_refs=qualifying_governed_refs,
+        complete_evidence_lineage=complete_evidence_lineage,
+        relationship_specific_qualifying_refs=relationship_specific_refs,
+        historical_only_refs=_deduplicated_valid_evidence_refs(tuple(ref for ref in (
+            candidate.prior_testable_proposition_ref,
+            candidate.prior_error_ref,
+        ) if ref and ref not in qualifying_governed_refs)),
+        disqualified_evidence=disqualified_evidence,
     )
 
 
@@ -418,6 +532,7 @@ def _derived_feature_inputs(
             min(1.0, source_count / diversity_target) if source_count else None,
             None if source_count else "source_dimension_not_supplied", evidence_refs,
             ("derived_from_source_family_count",),
+            evidence_scope=EvidenceScope.DERIVED_CAPABILITY,
         ),
         "scheduled_catalyst_relevance": FeatureInputV1(
             "scheduled_catalyst_relevance", candidate.capabilities.scheduled_event_state is True,
@@ -425,6 +540,7 @@ def _derived_feature_inputs(
             1.0 if candidate.capabilities.scheduled_event_state is True else None,
             None if candidate.capabilities.scheduled_event_state is True else "scheduled_event_not_applicable",
             evidence_refs, ("derived_from_scheduled_event_state",),
+            evidence_scope=EvidenceScope.DERIVED_CAPABILITY,
         ),
         "cross_market_or_economy_breadth": FeatureInputV1(
             "cross_market_or_economy_breadth", breadth_count > 1,
@@ -432,19 +548,24 @@ def _derived_feature_inputs(
             min(1.0, (breadth_count - 1) / breadth_target) if breadth_count > 1 else None,
             None if breadth_count > 1 else "cross_dimension_breadth_not_applicable",
             evidence_refs, ("derived_from_orthogonal_breadth_counts",),
+            evidence_scope=EvidenceScope.DERIVED_CAPABILITY,
         ),
         "performance_evidence_availability": FeatureInputV1(
             "performance_evidence_availability", True,
             AvailabilityState.AVAILABLE if metric_count else AvailabilityState.UNAVAILABLE,
             1.0 if metric_count else None,
-            None if metric_count else "no_metric_bearing_observations", (),
+            None if metric_count else "no_metric_bearing_observations",
+            tuple(row.observation_id for row in observations.observations if row.metric_value is not None),
             ("content_analysis_remains_available",),
+            evidence_scope=EvidenceScope.PERFORMANCE_OBSERVATION,
         ),
         "sample_size_confidence": FeatureInputV1(
             "sample_size_confidence", True,
             AvailabilityState.AVAILABLE if metric_count else AvailabilityState.UNAVAILABLE,
             min(1.0, metric_count / max(1.0, float(config.thresholds["minimum_metric_observations"]))) if metric_count else None,
-            None if metric_count else "no_metric_bearing_observations", (), (),
+            None if metric_count else "no_metric_bearing_observations",
+            tuple(row.observation_id for row in observations.observations if row.metric_value is not None), (),
+            evidence_scope=EvidenceScope.PERFORMANCE_OBSERVATION,
         ),
     }
 
@@ -478,7 +599,11 @@ def evaluate_features(
             )
         domain_applicable, dimensions_used = _applicability(definition, candidate.capabilities)
         applicable = bool(item.applicable and domain_applicable)
-        effective_refs = _feature_evidence_lineage(candidate, item.evidence_refs)
+        if not isinstance(item.evidence_scope, EvidenceScope):
+            raise ValueError(f"unknown_feature_evidence_scope:{definition.feature_id}")
+        if not item.evidence_roles or any(not isinstance(role, EvidenceRole) for role in item.evidence_roles):
+            raise ValueError(f"invalid_feature_evidence_roles:{definition.feature_id}")
+        effective_refs, excluded_refs = _feature_evidence_lineage(candidate, item)
         evidence_count = len(effective_refs)
         if item.evidence_count is not None:
             if isinstance(item.evidence_count, bool) or not isinstance(item.evidence_count, int) or item.evidence_count < 0:
@@ -523,6 +648,10 @@ def evaluate_features(
                 authority_gate_id=definition.authority_gate,
                 authority_gate_result=gate_result,
                 domain_applicability_result=domain_applicable,
+                evidence_roles=item.evidence_roles,
+                evidence_scope=item.evidence_scope,
+                excluded_evidence_refs=tuple(excluded_refs),
+                evidence_exclusion_reasons=excluded_refs,
             )
 
         if not applicable:
@@ -531,14 +660,14 @@ def evaluate_features(
         if gate_result is False:
             rows.append(abstain(AvailabilityState.BLOCKED, "authority_gate_false", ("authority_gate_failed",)))
             continue
-        if evidence_count < definition.minimum_evidence:
-            state = AvailabilityState.BLOCKED if definition.unavailable_handling == "block" else AvailabilityState.UNAVAILABLE
-            rows.append(abstain(state, "minimum_evidence_not_met", ("minimum_evidence_failed",)))
-            continue
         if item.availability in {AvailabilityState.UNAVAILABLE, AvailabilityState.BLOCKED, AvailabilityState.UNSUPPORTED}:
             if item.raw_value is not None:
                 raise ValueError(f"unavailable_feature_carries_value:{definition.feature_id}")
             rows.append(abstain(item.availability, item.unavailable_reason or "reason_required"))
+            continue
+        if evidence_count < definition.minimum_evidence:
+            state = AvailabilityState.BLOCKED if definition.unavailable_handling == "block" else AvailabilityState.UNAVAILABLE
+            rows.append(abstain(state, "minimum_evidence_not_met", ("minimum_evidence_failed",)))
             continue
         if item.raw_value is None:
             rows.append(abstain(AvailabilityState.UNAVAILABLE, "available_feature_missing_raw_value", ("raw_value_missing",)))
@@ -561,6 +690,8 @@ def evaluate_features(
             evidence_count=evidence_count, configured_minimum_evidence=definition.minimum_evidence,
             authority_gate_id=definition.authority_gate, authority_gate_result=gate_result,
             domain_applicability_result=domain_applicable,
+            evidence_roles=item.evidence_roles, evidence_scope=item.evidence_scope,
+            excluded_evidence_refs=tuple(excluded_refs), evidence_exclusion_reasons=excluded_refs,
         ))
     return tuple(rows)
 
@@ -636,10 +767,13 @@ def validate_candidate_collection(
             blockers.append(f"duplicate_candidate_evidence_ref:{row.candidate_id}")
         if any(not isinstance(ref, str) or not IDENTIFIER_RE.fullmatch(ref) for ref in row.evidence_refs):
             blockers.append(f"malformed_candidate_evidence_ref:{row.candidate_id}")
-        if len(row.governed_evidence_refs) != len(set(row.governed_evidence_refs)):
-            blockers.append(f"duplicate_governed_evidence_ref:{row.candidate_id}")
-        if any(not isinstance(ref, str) or not IDENTIFIER_RE.fullmatch(ref) for ref in row.governed_evidence_refs):
-            blockers.append(f"malformed_governed_evidence_ref:{row.candidate_id}")
+        binding_ids = [value.evidence_ref for value in row.governed_evidence_bindings]
+        if len(binding_ids) != len(set(binding_ids)):
+            blockers.append(f"duplicate_governed_evidence_binding_ref:{row.candidate_id}")
+        blockers.extend(
+            f"{value}:{row.candidate_id}"
+            for binding in row.governed_evidence_bindings for value in binding.validate()
+        )
         if len(row.internal_brief_ids) != len(set(row.internal_brief_ids)):
             blockers.append(f"duplicate_internal_brief_id:{row.candidate_id}")
         blockers.extend(f"{value}:{row.candidate_id}" for value in row.capabilities.validate())
@@ -648,8 +782,8 @@ def validate_candidate_collection(
             blockers.append(f"duplicate_evidence_record:{row.candidate_id}")
         blockers.extend(f"{value}:{row.candidate_id}" for evidence in row.evidence_records for value in evidence.validate())
         available_lineage = set(row.evidence_refs) | set(evidence_ids)
-        if any(ref not in available_lineage for ref in row.governed_evidence_refs):
-            blockers.append(f"verified_governed_evidence_ref_missing_from_lineage:{row.candidate_id}")
+        if any(ref not in available_lineage for ref in binding_ids):
+            blockers.append(f"governed_evidence_binding_ref_missing_from_lineage:{row.candidate_id}")
         if config is not None:
             blockers.extend(f"{value}:{row.candidate_id}" for value in _authority_gate_input_blockers(row, config))
         elif row.authority_gate_results is not None:
@@ -660,7 +794,7 @@ def validate_candidate_collection(
                     blockers.append(f"canonical_authority_gate_override_forbidden:{key}:{row.candidate_id}")
         try:
             for item in row.feature_inputs:
-                refs = _feature_evidence_lineage(row, item.evidence_refs)
+                refs, _ = _feature_evidence_lineage(row, item)
                 if item.evidence_count is not None:
                     if isinstance(item.evidence_count, bool) or not isinstance(item.evidence_count, int) or item.evidence_count < 0:
                         blockers.append(f"declared_evidence_count_invalid:{item.feature_id}:{row.candidate_id}")
