@@ -1,0 +1,36 @@
+{
+  "rows": [
+    {
+      "case": "trusted_receipt_matching_material_role",
+      "outcomes": [
+        "GOVERNED_MATERIAL_UPDATE"
+      ],
+      "qualifying_lineage": [
+        "evidence:governed-outcome-probe"
+      ],
+      "relationship_specific_refs": [
+        "evidence:governed-outcome-probe"
+      ],
+      "status": "PASS"
+    },
+    {
+      "case": "random_sha_shaped_producer_hash",
+      "disqualified": [
+        {
+          "evidence_ref": "evidence:governed-outcome-probe",
+          "reason_codes": [
+            "producer_byte_hash_mismatch",
+            "synthetic_validation_only"
+          ]
+        }
+      ],
+      "outcomes": [
+        "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.governed_outcome_provenance_matrix.v1",
+  "status": "PASS",
+  "synthetic_probe_authority": "ALGORITHM_VALIDATION_ONLY_NO_PUBLICATION"
+}

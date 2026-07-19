@@ -47,7 +47,7 @@ Do not revive deleted or archived UI surfaces as product surfaces unless a newer
 - Allowed credential diagnostics: environment-variable names, presence booleans, redacted capability status, and non-secret account/scope readiness.
 - The current generic live evidence is at `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`. Story-scoped `contentops_publication` authority permitted this Treasury story while global DQR correctly remained blocked. Substack plus all eight configured derivatives passed strict readback; TikTok remains outside this run and blocked by canonical-profile authentication.
 - Never bypass global DQR. Publication is allowed only when an exact story-scoped packet independently grants `reporting_allowed=true`, `PASS_PUBLICATION_AUTHORIZED`, fresh source authority, and public claim permissions.
-- Annotated tag `v1.0` exists at immutable release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`; the release is operator accepted. The reusable backend foundation is now the governed-evidence provenance and semantic-role binding repair over the accepted authority-integrity repair; the current next action is the independent audit named in `next_task_pointer.md`.
+- Annotated tag `v1.0` exists at immutable release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`; the release is operator accepted. The reusable backend foundation is now the trusted-verifier registry, exact producer-receipt, point-in-time, and real multi-topic canary repair over the accepted provenance-and-role model; the current next action is the independent audit named in `next_task_pointer.md`.
 
 
 ## Task Protocol

@@ -1,0 +1,34 @@
+{
+  "logical_time_is_evidence_authority": false,
+  "rows": [
+    {
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "decision_cutoff_utc": "2026-07-19T01:22:00Z",
+      "feature_point_in_time_results": {
+        "evidence_completeness": "PASS_ALL_SELECTED_EVIDENCE_AT_OR_BEFORE_CUTOFF",
+        "source_diversity": "PASS_DERIVED_FROM_VALIDATED_DIMENSIONS"
+      },
+      "status": "PASS"
+    },
+    {
+      "candidate_id": "real-canary:candidate:consumer-prices",
+      "decision_cutoff_utc": "2026-07-19T01:22:00Z",
+      "feature_point_in_time_results": {
+        "freshness": "PASS_ALL_SELECTED_EVIDENCE_AT_OR_BEFORE_CUTOFF",
+        "source_diversity": "PASS_DERIVED_FROM_VALIDATED_DIMENSIONS"
+      },
+      "status": "PASS"
+    },
+    {
+      "candidate_id": "real-canary:candidate:official-release-access",
+      "decision_cutoff_utc": "2026-07-19T01:22:00Z",
+      "feature_point_in_time_results": {
+        "policy_significance": "PASS_ALL_SELECTED_EVIDENCE_AT_OR_BEFORE_CUTOFF",
+        "source_diversity": "PASS_DERIVED_FROM_VALIDATED_DIMENSIONS"
+      },
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.point_in_time_matrix.v1",
+  "status": "PASS"
+}

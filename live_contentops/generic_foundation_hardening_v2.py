@@ -530,6 +530,7 @@ def _fixture_inputs(spec: Mapping[str, Any]) -> tuple[core.LearningCandidateV2, 
             unavailable_reason="synthetic_metric_unavailable", evidence_refs=(refs[0],),
         ),)
     observations = contracts.PerformanceObservationSetV1(f"synthetic:{fixture_id}:observations", observation_rows)
+    candidate = adapters.attach_trusted_context_to_candidate(candidate, repo_root=Path(__file__).resolve().parents[1])
     return candidate, history, gaps, observations
 
 
@@ -556,6 +557,8 @@ def execute_hardening_cross_domain_matrix(repo_root: str | Path) -> tuple[dict[s
             candidates=(candidate,), history=history, gaps=gaps, observations=observations,
             config=config, input_bindings={"fixture": contracts.logical_hash(spec)},
             logical_time_basis="synthetic-hardening-fixture-v2",
+            decision_cutoff_utc=candidate.evidence_context.decision_cutoff_utc,
+            evidence_context=candidate.evidence_context,
         )
         outcome_row = decision.outcome_matrix[0]
         feature_rows = [contracts.primitive(value) for value in decision.ranking_rows[0].features]
@@ -758,7 +761,11 @@ def _rehashed_config(config: contracts.AdaptiveLearningConfigV1, **changes: Any)
 def build_lineage_reports(repo_root: str | Path) -> tuple[dict[str, Any], dict[str, Any]]:
     config = adapters.load_foundation_config(repo_root)
     candidate, history, gaps, observations = _fixture_inputs(FIXTURE_SPECS[0])
-    kwargs = dict(candidates=(candidate,), history=history, gaps=gaps, observations=observations, config=config)
+    kwargs = dict(
+        candidates=(candidate,), history=history, gaps=gaps, observations=observations, config=config,
+        decision_cutoff_utc=candidate.evidence_context.decision_cutoff_utc,
+        evidence_context=candidate.evidence_context,
+    )
     prior = core.build_learning_decision_v2(**kwargs, input_bindings={"fixture": "authority-v1"}, logical_time_basis="lineage-v1")
     repeat = core.build_learning_decision_v2(**kwargs, input_bindings={"fixture": "authority-v1"}, logical_time_basis="lineage-v1")
     prior_hash_before = contracts.logical_hash(contracts.primitive(prior))
@@ -776,6 +783,8 @@ def build_lineage_reports(repo_root: str | Path) -> tuple[dict[str, Any], dict[s
     config_successor = core.build_learning_decision_v2(
         candidates=(candidate,), history=history, gaps=gaps, observations=observations,
         config=changed_config, input_bindings={"fixture": "authority-v1"}, logical_time_basis="lineage-v1",
+        decision_cutoff_utc=candidate.evidence_context.decision_cutoff_utc,
+        evidence_context=candidate.evidence_context,
         prior_decision=prior, supersession_reason="config authority changed",
     )
     negative_cases = []

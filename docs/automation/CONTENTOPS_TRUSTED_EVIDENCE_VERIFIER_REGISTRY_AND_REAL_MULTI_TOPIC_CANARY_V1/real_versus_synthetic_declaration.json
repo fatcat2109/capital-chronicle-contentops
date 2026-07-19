@@ -1,0 +1,9 @@
+{
+  "real_canary_artifacts": 3,
+  "real_canary_publication_authority_granted": false,
+  "schema_version": "contentops.real_versus_synthetic_declaration.v1",
+  "status": "PASS",
+  "synthetic_algorithm_probes_are_real_observations": false,
+  "synthetic_algorithm_probes_grant_publication_authority": false,
+  "synthetic_canary_artifacts": 0
+}

@@ -53,6 +53,7 @@ def _binding(
     permission: str = "REPORTING_ALLOWED",
     status: contracts.EvidenceVerificationStatus = contracts.EvidenceVerificationStatus.VERIFIED,
     reasons: Sequence[str] = (),
+    target_feature_ids: Sequence[str] = (),
 ) -> contracts.GovernedEvidenceBindingV1:
     return contracts.build_governed_evidence_binding_v1(
         evidence_ref=ref, evidence_roles=(role,), evidence_scope=scope,
@@ -62,6 +63,7 @@ def _binding(
         as_of_utc="2026-07-19T00:00:00Z",
         verifier_id="contentops.provenance_role_repair_verifier",
         reason_codes=tuple(reasons),
+        target_feature_ids=tuple(target_feature_ids),
     )
 
 
@@ -82,7 +84,9 @@ def _candidate(
         material_reader_contribution=True, feature_inputs=tuple(feature_inputs),
         evidence_refs=refs, governed_evidence_bindings=tuple(bindings),
     )
-    return replace(candidate, **changes)
+    return adapters.attach_trusted_context_to_candidate(
+        replace(candidate, **changes), repo_root=Path(__file__).resolve().parents[1],
+    )
 
 
 def _relationship_case(
@@ -139,10 +143,16 @@ def build_self_certification_rejection_matrix(root: str | Path) -> Mapping[str, 
     )
     plain_outcome = core.evaluate_outcome(plain, config)
     valid_binding = _binding("evidence:delta", contracts.EvidenceRole.MATERIAL_DELTA)
+    valid_candidate = _candidate(
+        relationship=contracts.EventRelationship.MATERIAL_UPDATE,
+        bindings=(valid_binding,), governed_material_delta=True,
+        material_delta_evidence_ref=valid_binding.evidence_ref,
+    )
+    trusted_binding = valid_candidate.governed_evidence_bindings[0]
     invalid_cases = {
-        "missing_verifier": replace(valid_binding, verifier_id=""),
-        "missing_binding_hash": replace(valid_binding, producer_artifact_binding_hash=""),
-        "logical_hash_mismatch": replace(valid_binding, logical_hash="0" * 64),
+        "missing_verifier": replace(trusted_binding, verifier_id=""),
+        "missing_binding_hash": replace(trusted_binding, producer_artifact_binding_hash=""),
+        "logical_hash_mismatch": replace(trusted_binding, logical_hash="0" * 64),
     }
     rows = [{
         "case": "caller_only_plain_ref",
@@ -151,11 +161,7 @@ def build_self_certification_rejection_matrix(root: str | Path) -> Mapping[str, 
         "status": "PASS" if "GOVERNED_MATERIAL_UPDATE" not in plain_outcome.actionable_outcomes else "FAIL",
     }]
     for case, binding in invalid_cases.items():
-        candidate = _candidate(
-            relationship=contracts.EventRelationship.MATERIAL_UPDATE,
-            bindings=(binding,), governed_material_delta=True,
-            material_delta_evidence_ref=binding.evidence_ref,
-        )
+        candidate = replace(valid_candidate, governed_evidence_bindings=(binding,))
         try:
             core.evaluate_outcome(candidate, config)
             rejected, error = False, None
@@ -234,7 +240,17 @@ def build_feature_scope_matrix(root: str | Path) -> Mapping[str, Any]:
             "freshness", True, contracts.AvailabilityState.AVAILABLE, 0.8,
             evidence_refs=tuple(explicit), evidence_scope=scope,
         )
-        candidate = _candidate(bindings=(reusable, unrelated), feature_inputs=(item,))
+        bindings = (reusable, unrelated)
+        if scope == contracts.EvidenceScope.FEATURE_SPECIFIC and explicit:
+            bindings = (
+                reusable,
+                _binding(
+                    explicit[0], contracts.EvidenceRole.FEATURE_SUPPORT,
+                    scope=contracts.EvidenceScope.FEATURE_SPECIFIC,
+                    target_feature_ids=("freshness",),
+                ),
+            )
+        candidate = _candidate(bindings=bindings, feature_inputs=(item,))
         return next(row for row in core.evaluate_features(candidate, config, contracts.PerformanceObservationSetV1("none")) if row.feature_id == "freshness")
 
     candidate_wide = row_for(contracts.EvidenceScope.CANDIDATE_WIDE)

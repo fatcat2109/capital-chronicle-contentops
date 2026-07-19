@@ -50,7 +50,7 @@ def _candidate(*, relationship=contracts.EventRelationship.INITIAL_EVENT, bindin
         material_reader_contribution=True, feature_inputs=tuple(feature_inputs),
         evidence_refs=refs, governed_evidence_bindings=tuple(bindings),
     )
-    return replace(candidate, **changes)
+    return adapters.attach_trusted_context_to_candidate(replace(candidate, **changes), repo_root=ROOT)
 
 
 def _outcome_candidate(relationship, ref, role):
@@ -82,12 +82,12 @@ def test_bare_governed_ref_shortcut_is_removed_and_plain_ref_is_disqualified():
     ({"logical_hash": "0" * 64}, "evidence_logical_hash_mismatch"),
 ])
 def test_missing_verifier_binding_hash_and_logical_mismatch_are_rejected(mutation, expected):
-    binding = replace(_binding("evidence:delta", contracts.EvidenceRole.MATERIAL_DELTA), **mutation)
     candidate = _candidate(
         relationship=contracts.EventRelationship.MATERIAL_UPDATE,
-        bindings=(binding,), governed_material_delta=True,
+        bindings=(_binding("evidence:delta", contracts.EvidenceRole.MATERIAL_DELTA),), governed_material_delta=True,
         material_delta_evidence_ref="evidence:delta",
     )
+    candidate = replace(candidate, governed_evidence_bindings=(replace(candidate.governed_evidence_bindings[0], **mutation),))
     with pytest.raises(ValueError, match=expected):
         core.evaluate_outcome(candidate, _config())
 
@@ -152,7 +152,12 @@ def test_evergreen_requires_justification_ref_itself_to_have_evergreen_role():
         content_age_hours=240.0, reader_utility=0.9,
         update_justification_ref="evidence:refresh",
     )
-    wrong = replace(valid, governed_evidence_bindings=(_binding("evidence:refresh", contracts.EvidenceRole.CONFIRMATION),))
+    wrong_draft = replace(
+        valid.governed_evidence_bindings[0],
+        evidence_roles=(contracts.EvidenceRole.CONFIRMATION,), logical_hash="",
+    )
+    wrong_binding = replace(wrong_draft, logical_hash=wrong_draft.calculated_logical_hash())
+    wrong = replace(valid, governed_evidence_bindings=(wrong_binding,))
     assert "EVERGREEN_REFRESH_JUSTIFIED" in core.evaluate_outcome(valid, _config()).actionable_outcomes
     assert "EVERGREEN_REFRESH_JUSTIFIED" not in core.evaluate_outcome(wrong, _config()).actionable_outcomes
 

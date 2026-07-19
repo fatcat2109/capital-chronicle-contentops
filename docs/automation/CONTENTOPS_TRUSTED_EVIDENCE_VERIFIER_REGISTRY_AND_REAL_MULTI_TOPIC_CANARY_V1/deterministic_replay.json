@@ -1,0 +1,7 @@
+{
+  "first_decision_id": "learning_decision_v2_5b852848db1673a260915671",
+  "schema_version": "contentops.trusted_evidence_deterministic_replay.v1",
+  "second_decision_id": "learning_decision_v2_5b852848db1673a260915671",
+  "status": "PASS",
+  "two_independent_complete_canary_runs_identical": true
+}

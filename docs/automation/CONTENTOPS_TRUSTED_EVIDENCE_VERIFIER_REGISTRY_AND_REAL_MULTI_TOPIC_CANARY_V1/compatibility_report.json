@@ -1,0 +1,12 @@
+{
+  "architecture_rewritten": false,
+  "domain_fixture_specifications_refined": false,
+  "no_publication_boundary_preserved": true,
+  "prior_evidence_trees_unchanged": true,
+  "schema_version": "contentops.trusted_evidence_compatibility_report.v1",
+  "status": "PASS",
+  "task3_task4_preserved": true,
+  "uncalibrated_config_preserved": true,
+  "v1_0_unchanged": true,
+  "v1_compatibility_pytest": "22 passed"
+}

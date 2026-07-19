@@ -23,6 +23,8 @@ SCHEMA_OBSERVATION_SET_V1 = "contentops.performance_observation_set.v1"
 SCHEMA_CONFIG_V1 = "contentops.adaptive_learning_config.v1"
 SCHEMA_MODEL_JUDGMENT_V1 = "contentops.model_assisted_judgment.v1"
 SCHEMA_GOVERNED_EVIDENCE_BINDING_V1 = "contentops.governed_evidence_binding.v1"
+SCHEMA_TRUSTED_VERIFIER_REGISTRY_V1 = "contentops.trusted_evidence_verifier_registry.v1"
+SCHEMA_PRODUCER_ARTIFACT_RECEIPT_V1 = "contentops.verified_producer_artifact_receipt.v1"
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 SHA1_RE = re.compile(r"^[0-9a-f]{40}$")
@@ -179,6 +181,213 @@ class EvidenceVerificationStatus(str, Enum):
     UNAVAILABLE = "UNAVAILABLE"
 
 
+@dataclass(frozen=True)
+class TrustedVerifierRecordV1:
+    """Governed allow-list entry for one verifier implementation/version."""
+
+    verifier_id: str
+    verifier_version: str
+    implementation_contract_id: str
+    allowed_authority_states: tuple[str, ...]
+    allowed_permission_states: tuple[str, ...]
+    allowed_evidence_roles: tuple[EvidenceRole, ...]
+    allowed_evidence_scopes: tuple[EvidenceScope, ...]
+    allowed_artifact_schema_versions: tuple[str, ...]
+    allowed_repositories: tuple[str, ...]
+    allowed_source_authority_classes: tuple[str, ...]
+    point_in_time_policy: str
+    candidate_wide_reuse_allowed: bool
+    enabled: bool
+
+    def validate(self) -> tuple[str, ...]:
+        blockers: list[str] = []
+        for name, value in (
+            ("verifier_id", self.verifier_id),
+            ("verifier_version", self.verifier_version),
+            ("implementation_contract_id", self.implementation_contract_id),
+            ("point_in_time_policy", self.point_in_time_policy),
+        ):
+            if not value or not IDENTIFIER_RE.fullmatch(value):
+                blockers.append(f"malformed_{name}")
+        for name, values in (
+            ("authority_state", self.allowed_authority_states),
+            ("permission_state", self.allowed_permission_states),
+            ("artifact_schema_version", self.allowed_artifact_schema_versions),
+            ("repository", self.allowed_repositories),
+            ("source_authority_class", self.allowed_source_authority_classes),
+        ):
+            if not values:
+                blockers.append(f"empty_allowed_{name}")
+            if len(values) != len(set(values)):
+                blockers.append(f"duplicate_allowed_{name}")
+            if any(not isinstance(value, str) or not value.strip() for value in values):
+                blockers.append(f"malformed_allowed_{name}")
+        if any(value not in KNOWN_GOVERNED_EVIDENCE_AUTHORITY_STATES for value in self.allowed_authority_states):
+            blockers.append("unknown_allowed_authority_state")
+        if any(value not in KNOWN_GOVERNED_EVIDENCE_PERMISSION_STATES for value in self.allowed_permission_states):
+            blockers.append("unknown_allowed_permission_state")
+        if not self.allowed_evidence_roles or len(self.allowed_evidence_roles) != len(set(self.allowed_evidence_roles)):
+            blockers.append("invalid_allowed_evidence_roles")
+        if any(not isinstance(value, EvidenceRole) for value in self.allowed_evidence_roles):
+            blockers.append("unknown_allowed_evidence_role")
+        if not self.allowed_evidence_scopes or len(self.allowed_evidence_scopes) != len(set(self.allowed_evidence_scopes)):
+            blockers.append("invalid_allowed_evidence_scopes")
+        if any(not isinstance(value, EvidenceScope) for value in self.allowed_evidence_scopes):
+            blockers.append("unknown_allowed_evidence_scope")
+        if self.point_in_time_policy != "STRICT_OBSERVED_AS_OF_CUTOFF_V1":
+            blockers.append("unsupported_point_in_time_policy")
+        if not isinstance(self.candidate_wide_reuse_allowed, bool) or not isinstance(self.enabled, bool):
+            blockers.append("invalid_verifier_boolean_policy")
+        return _unique(blockers)
+
+
+@dataclass(frozen=True)
+class TrustedVerifierRegistryV1:
+    registry_version: str
+    records: tuple[TrustedVerifierRecordV1, ...]
+    registry_logical_hash: str
+    schema_version: str = SCHEMA_TRUSTED_VERIFIER_REGISTRY_V1
+
+    def calculated_logical_hash(self) -> str:
+        material = {key: value for key, value in asdict(self).items() if key != "registry_logical_hash"}
+        return logical_hash(material)
+
+    def validate(self) -> tuple[str, ...]:
+        blockers: list[str] = []
+        if self.schema_version != SCHEMA_TRUSTED_VERIFIER_REGISTRY_V1:
+            blockers.append("trusted_verifier_registry_schema_mismatch")
+        if not self.registry_version or not IDENTIFIER_RE.fullmatch(self.registry_version):
+            blockers.append("malformed_registry_version")
+        keys = [(row.verifier_id, row.verifier_version) for row in self.records]
+        if len(keys) != len(set(keys)):
+            blockers.append("duplicate_verifier_id_version")
+        blockers.extend(blocker for row in self.records for blocker in row.validate())
+        if not SHA256_RE.fullmatch(self.registry_logical_hash or ""):
+            blockers.append("malformed_registry_logical_hash")
+        elif self.registry_logical_hash != self.calculated_logical_hash():
+            blockers.append("registry_logical_hash_mismatch")
+        return _unique(blockers)
+
+    def resolve(self, verifier_id: str, verifier_version: str) -> TrustedVerifierRecordV1 | None:
+        return next((row for row in self.records if row.verifier_id == verifier_id and row.verifier_version == verifier_version), None)
+
+
+@dataclass(frozen=True)
+class VerifiedProducerArtifactReceiptV1:
+    receipt_id: str
+    repository: str
+    branch: str
+    producer_commit: str
+    artifact_path: str
+    git_blob_sha1: str
+    consumed_byte_sha256: str
+    artifact_schema_version: str
+    producer_version: str
+    artifact_logical_hash: str
+    artifact_cutoff_utc: str
+    verification_status: EvidenceVerificationStatus
+    verifier_id: str
+    verifier_version: str
+    implementation_contract_id: str
+    registry_version: str
+    registry_logical_hash: str
+    evidence_refs: tuple[str, ...]
+    evidence_ref_derivations: Mapping[str, str]
+    source_authority_class: str
+    logical_hash: str
+    schema_version: str = SCHEMA_PRODUCER_ARTIFACT_RECEIPT_V1
+
+    def calculated_logical_hash(self) -> str:
+        material = {key: value for key, value in asdict(self).items() if key != "logical_hash"}
+        return logical_hash(material)
+
+    def validate(self) -> tuple[str, ...]:
+        blockers: list[str] = []
+        if self.schema_version != SCHEMA_PRODUCER_ARTIFACT_RECEIPT_V1:
+            blockers.append("producer_receipt_schema_mismatch")
+        for name, value in (
+            ("receipt_id", self.receipt_id), ("repository", self.repository),
+            ("branch", self.branch), ("artifact_schema_version", self.artifact_schema_version),
+            ("producer_version", self.producer_version), ("verifier_id", self.verifier_id),
+            ("verifier_version", self.verifier_version),
+            ("implementation_contract_id", self.implementation_contract_id),
+            ("registry_version", self.registry_version),
+            ("source_authority_class", self.source_authority_class),
+        ):
+            if not value or (name not in {"repository"} and not IDENTIFIER_RE.fullmatch(value)):
+                blockers.append(f"malformed_{name}")
+        if not self.artifact_path or self.artifact_path.startswith(("/", "\\")) or ".." in self.artifact_path.replace("\\", "/").split("/"):
+            blockers.append("malformed_artifact_path")
+        if not COMMIT_RE.fullmatch(self.producer_commit or ""):
+            blockers.append("malformed_producer_commit")
+        if not SHA1_RE.fullmatch(self.git_blob_sha1 or ""):
+            blockers.append("malformed_git_blob_sha1")
+        for name, value in (
+            ("consumed_byte_sha256", self.consumed_byte_sha256),
+            ("artifact_logical_hash", self.artifact_logical_hash),
+            ("registry_logical_hash", self.registry_logical_hash),
+            ("logical_hash", self.logical_hash),
+        ):
+            if not SHA256_RE.fullmatch(value or ""):
+                blockers.append(f"malformed_{name}")
+        try:
+            parse_utc(self.artifact_cutoff_utc, field_name="artifact_cutoff_utc")
+        except ValueError as error:
+            blockers.append(str(error))
+        if self.verification_status != EvidenceVerificationStatus.VERIFIED:
+            blockers.append("producer_receipt_not_verified")
+        if not self.evidence_refs:
+            blockers.append("producer_receipt_evidence_refs_empty")
+        if len(self.evidence_refs) != len(set(self.evidence_refs)):
+            blockers.append("duplicate_producer_receipt_evidence_ref")
+        if any(not IDENTIFIER_RE.fullmatch(ref) for ref in self.evidence_refs):
+            blockers.append("malformed_producer_receipt_evidence_ref")
+        if set(self.evidence_ref_derivations) != set(self.evidence_refs):
+            blockers.append("producer_receipt_evidence_ref_derivation_keys_mismatch")
+        for ref, derivation_hash in self.evidence_ref_derivations.items():
+            expected = logical_hash({
+                "artifact_logical_hash": self.artifact_logical_hash,
+                "evidence_ref": ref,
+                "derivation_contract": "contentops.artifact_evidence_ref_derivation.v1",
+            })
+            if not SHA256_RE.fullmatch(derivation_hash or "") or derivation_hash != expected:
+                blockers.append(f"producer_receipt_evidence_ref_derivation_mismatch:{ref}")
+        if SHA256_RE.fullmatch(self.logical_hash or "") and self.logical_hash != self.calculated_logical_hash():
+            blockers.append("producer_receipt_logical_hash_mismatch")
+        return _unique(blockers)
+
+
+@dataclass(frozen=True)
+class EvidenceDecisionContextV1:
+    verifier_registry: TrustedVerifierRegistryV1
+    producer_receipts: tuple[VerifiedProducerArtifactReceiptV1, ...]
+    decision_cutoff_utc: str
+
+    def validate(self) -> tuple[str, ...]:
+        blockers = list(self.verifier_registry.validate())
+        try:
+            cutoff = parse_utc(self.decision_cutoff_utc, field_name="decision_cutoff_utc")
+        except ValueError as error:
+            blockers.append(str(error))
+            cutoff = None
+        ids = [row.receipt_id for row in self.producer_receipts]
+        if len(ids) != len(set(ids)):
+            blockers.append("duplicate_producer_receipt_id")
+        for receipt in self.producer_receipts:
+            blockers.extend(receipt.validate())
+            if receipt.registry_version != self.verifier_registry.registry_version:
+                blockers.append(f"producer_receipt_registry_version_mismatch:{receipt.receipt_id}")
+            if receipt.registry_logical_hash != self.verifier_registry.registry_logical_hash:
+                blockers.append(f"producer_receipt_registry_hash_mismatch:{receipt.receipt_id}")
+            if cutoff is not None:
+                try:
+                    if parse_utc(receipt.artifact_cutoff_utc) > cutoff:
+                        blockers.append(f"future_producer_receipt:{receipt.receipt_id}")
+                except ValueError:
+                    pass
+        return _unique(blockers)
+
+
 def primitive(value: Any) -> Any:
     if is_dataclass(value):
         return {key: primitive(item) for key, item in asdict(value).items()}
@@ -320,6 +529,9 @@ class EvidenceReferenceV1:
     verifier_version: str | None = None
     verification_status: EvidenceVerificationStatus | None = None
     producer_artifact_binding_hash: str | None = None
+    producer_receipt_id: str | None = None
+    producer_receipt_logical_hash: str | None = None
+    target_feature_ids: tuple[str, ...] = ()
     as_of_utc: str | None = None
     logical_hash: str | None = None
 
@@ -365,6 +577,11 @@ class EvidenceReferenceV1:
             blockers.append("malformed_evidence_verifier_version")
         if self.producer_artifact_binding_hash is not None and not SHA256_RE.fullmatch(self.producer_artifact_binding_hash):
             blockers.append("malformed_producer_artifact_binding_hash")
+        if self.producer_receipt_id is not None and not IDENTIFIER_RE.fullmatch(self.producer_receipt_id):
+            blockers.append("malformed_producer_receipt_id")
+        if self.producer_receipt_logical_hash is not None and not SHA256_RE.fullmatch(self.producer_receipt_logical_hash):
+            blockers.append("malformed_producer_receipt_logical_hash")
+        blockers.extend(_validate_identifier_values(self.target_feature_ids, "target_feature_id"))
         if self.logical_hash is not None and not SHA256_RE.fullmatch(self.logical_hash):
             blockers.append("malformed_evidence_logical_hash")
         if self.logical_hash is not None and self.logical_hash != self.calculated_logical_hash():
@@ -389,6 +606,10 @@ class EvidenceReferenceV1:
             blockers.append("missing_evidence_verification_status")
         if not self.producer_artifact_binding_hash:
             blockers.append("missing_producer_artifact_binding_hash")
+        if not self.producer_receipt_id:
+            blockers.append("missing_producer_receipt_id")
+        if not self.producer_receipt_logical_hash:
+            blockers.append("missing_producer_receipt_logical_hash")
         if not self.as_of_utc:
             blockers.append("missing_evidence_as_of_utc")
         if not self.logical_hash:
@@ -427,6 +648,9 @@ class GovernedEvidenceBindingV1:
     source_family_id: str | None = None
     source_authority_class: str | None = None
     reason_codes: tuple[str, ...] = ()
+    producer_receipt_id: str = ""
+    producer_receipt_logical_hash: str = ""
+    target_feature_ids: tuple[str, ...] = ()
     schema_version: str = SCHEMA_GOVERNED_EVIDENCE_BINDING_V1
 
     def calculated_logical_hash(self) -> str:
@@ -458,6 +682,11 @@ class GovernedEvidenceBindingV1:
                 blockers.append(f"malformed_{name}")
         if not SHA256_RE.fullmatch(self.producer_artifact_binding_hash or ""):
             blockers.append("malformed_producer_artifact_binding_hash")
+        if not self.producer_receipt_id or not IDENTIFIER_RE.fullmatch(self.producer_receipt_id):
+            blockers.append("malformed_producer_receipt_id")
+        if not SHA256_RE.fullmatch(self.producer_receipt_logical_hash or ""):
+            blockers.append("malformed_producer_receipt_logical_hash")
+        blockers.extend(_validate_identifier_values(self.target_feature_ids, "target_feature_id"))
         try:
             parse_utc(self.as_of_utc, field_name="evidence_as_of_utc")
         except ValueError as error:
@@ -494,6 +723,9 @@ def build_evidence_reference_v1(
     temporal_character: TemporalCharacter | None = None,
     source_family_id: str | None = None,
     source_authority_class: str | None = None,
+    producer_receipt_id: str | None = None,
+    producer_receipt_logical_hash: str | None = None,
+    target_feature_ids: Sequence[str] = (),
 ) -> EvidenceReferenceV1:
     values = dict(
         evidence_ref=evidence_ref, authority_state=authority_state,
@@ -505,6 +737,9 @@ def build_evidence_reference_v1(
         verifier_id=verifier_id, verifier_version=verifier_version,
         verification_status=verification_status,
         producer_artifact_binding_hash=producer_artifact_binding_hash,
+        producer_receipt_id=producer_receipt_id,
+        producer_receipt_logical_hash=producer_receipt_logical_hash,
+        target_feature_ids=tuple(target_feature_ids),
         as_of_utc=as_of_utc, logical_hash=None,
     )
     draft = EvidenceReferenceV1(**values)
@@ -523,6 +758,9 @@ def build_governed_evidence_binding_v1(
     source_family_id: str | None = None,
     source_authority_class: str | None = None,
     reason_codes: Sequence[str] = (),
+    producer_receipt_id: str = "",
+    producer_receipt_logical_hash: str = "",
+    target_feature_ids: Sequence[str] = (),
 ) -> GovernedEvidenceBindingV1:
     values = dict(
         evidence_ref=evidence_ref, authority_state=authority_state,
@@ -534,6 +772,9 @@ def build_governed_evidence_binding_v1(
         source_family_id=source_family_id,
         source_authority_class=source_authority_class,
         reason_codes=tuple(reason_codes),
+        producer_receipt_id=producer_receipt_id,
+        producer_receipt_logical_hash=producer_receipt_logical_hash,
+        target_feature_ids=tuple(target_feature_ids),
     )
     draft = GovernedEvidenceBindingV1(**values)
     return GovernedEvidenceBindingV1(**{**values, "logical_hash": draft.calculated_logical_hash()})
@@ -557,6 +798,7 @@ class ArticleVersionV1:
     supersedes_article_version_id: str | None = None
     correction_refs: tuple[str, ...] = ()
     bounded_repair_refs: tuple[str, ...] = ()
+    created_at_utc: str | None = None
 
 
 @dataclass(frozen=True)
@@ -620,6 +862,11 @@ class PublishedContentHistoryV1:
                     blockers.append(f"article_version_self_supersession:{row.article_version_id}")
                 elif parent and parent not in versions:
                     blockers.append(f"superseded_article_version_missing:{row.article_version_id}")
+                if row.created_at_utc:
+                    try:
+                        parse_utc(row.created_at_utc, field_name="article_version_created_at_utc")
+                    except ValueError as error:
+                        blockers.append(f"{error}:{row.article_version_id}")
             for start in version_ids:
                 seen: set[str] = set()
                 cursor: str | None = start
@@ -945,6 +1192,11 @@ class FeatureEvaluationV1:
     evidence_scope: EvidenceScope = EvidenceScope.FEATURE_SPECIFIC
     excluded_evidence_refs: tuple[str, ...] = ()
     evidence_exclusion_reasons: Mapping[str, tuple[str, ...]] = field(default_factory=dict)
+    target_feature_id: str | None = None
+    resolved_evidence_types: tuple[str, ...] = ()
+    producer_receipt_ids: tuple[str, ...] = ()
+    verifier_id_versions: tuple[str, ...] = ()
+    point_in_time_result: str = "NOT_EVALUATED"
 
 
 @dataclass(frozen=True)
@@ -1056,12 +1308,199 @@ class ContentOpsLearningDecisionV2:
     forbidden_effects_checked: tuple[str, ...]
     operator_state: str
     logical_time_basis: str
+    decision_cutoff_utc: str
+    verifier_registry_version: str
+    verifier_registry_logical_hash: str
     logical_hash: str
     schema_version: str = SCHEMA_DECISION_V2
 
 
 def _git_blob_sha1(data: bytes) -> str:
     return sha1(f"blob {len(data)}\0".encode("ascii") + data).hexdigest()
+
+
+def build_verified_producer_artifact_receipt_v1(
+    consumed_bytes: bytes,
+    *,
+    registry: TrustedVerifierRegistryV1,
+    verifier_id: str,
+    verifier_version: str,
+    repository: str,
+    branch: str,
+    producer_commit: str,
+    artifact_path: str,
+    expected_git_blob_sha1: str,
+    artifact_schema_version: str,
+    producer_version: str,
+    artifact_cutoff_utc: str,
+    evidence_refs: Sequence[str],
+    source_authority_class: str,
+    declared_artifact_logical_hash: str | None = None,
+    resolved_repository: str | None = None,
+    resolved_branch: str | None = None,
+    resolved_commit: str | None = None,
+    resolved_artifact_path: str | None = None,
+) -> VerifiedProducerArtifactReceiptV1:
+    """Create a receipt only after exact consumed bytes match the Git blob binding."""
+    registry_blockers = registry.validate()
+    if registry_blockers:
+        raise ValueError("invalid_trusted_verifier_registry:" + ",".join(registry_blockers))
+    verifier = registry.resolve(verifier_id, verifier_version)
+    if verifier is None:
+        raise ValueError("unknown_verifier_id_version")
+    if not verifier.enabled:
+        raise ValueError("trusted_verifier_disabled")
+    if verifier.implementation_contract_id != "contentops.exact_git_artifact_verifier.v1":
+        raise ValueError("verifier_implementation_contract_mismatch")
+    if repository not in verifier.allowed_repositories:
+        raise ValueError("verifier_repository_not_allowed")
+    if resolved_repository != repository:
+        raise ValueError("producer_repository_identity_mismatch")
+    if resolved_branch != branch:
+        raise ValueError("producer_branch_identity_mismatch")
+    if resolved_commit != producer_commit:
+        raise ValueError("producer_commit_identity_mismatch")
+    if resolved_artifact_path != artifact_path:
+        raise ValueError("producer_artifact_path_identity_mismatch")
+    if artifact_schema_version not in verifier.allowed_artifact_schema_versions:
+        raise ValueError("verifier_artifact_schema_not_allowed")
+    if source_authority_class not in verifier.allowed_source_authority_classes:
+        raise ValueError("verifier_source_authority_class_not_allowed")
+    actual_blob = _git_blob_sha1(consumed_bytes)
+    if not SHA1_RE.fullmatch(expected_git_blob_sha1 or "") or actual_blob != expected_git_blob_sha1:
+        raise ValueError("producer_git_blob_mismatch")
+    if not COMMIT_RE.fullmatch(producer_commit or ""):
+        raise ValueError("producer_commit_malformed")
+    parsed: Any
+    try:
+        parsed = json.loads(consumed_bytes)
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        parsed = {"byte_sha256": sha256(consumed_bytes).hexdigest()}
+    artifact_hash = logical_hash(parsed)
+    if declared_artifact_logical_hash is not None and declared_artifact_logical_hash != artifact_hash:
+        raise ValueError("producer_artifact_logical_hash_mismatch")
+    byte_hash = sha256(consumed_bytes).hexdigest()
+    receipt_material = {
+        "repository": repository,
+        "branch": branch,
+        "producer_commit": producer_commit,
+        "artifact_path": artifact_path,
+        "git_blob_sha1": actual_blob,
+        "consumed_byte_sha256": byte_hash,
+        "artifact_schema_version": artifact_schema_version,
+        "producer_version": producer_version,
+        "artifact_logical_hash": artifact_hash,
+        "artifact_cutoff_utc": artifact_cutoff_utc,
+        "verification_status": EvidenceVerificationStatus.VERIFIED,
+        "verifier_id": verifier_id,
+        "verifier_version": verifier_version,
+        "implementation_contract_id": verifier.implementation_contract_id,
+        "registry_version": registry.registry_version,
+        "registry_logical_hash": registry.registry_logical_hash,
+        "evidence_refs": _unique(evidence_refs),
+        "evidence_ref_derivations": {
+            ref: logical_hash({
+                "artifact_logical_hash": artifact_hash,
+                "evidence_ref": ref,
+                "derivation_contract": "contentops.artifact_evidence_ref_derivation.v1",
+            })
+            for ref in _unique(evidence_refs)
+        },
+        "source_authority_class": source_authority_class,
+        "schema_version": SCHEMA_PRODUCER_ARTIFACT_RECEIPT_V1,
+    }
+    identity = logical_hash(receipt_material)
+    values = {
+        **receipt_material,
+        "receipt_id": "producer_receipt:" + identity[:24],
+        "logical_hash": "",
+    }
+    draft = VerifiedProducerArtifactReceiptV1(**values)
+    receipt = VerifiedProducerArtifactReceiptV1(**{**values, "logical_hash": draft.calculated_logical_hash()})
+    blockers = receipt.validate()
+    if blockers:
+        raise ValueError("invalid_producer_receipt:" + ",".join(blockers))
+    return receipt
+
+
+def trusted_evidence_blockers(
+    evidence: EvidenceReferenceV1 | GovernedEvidenceBindingV1,
+    context: EvidenceDecisionContextV1,
+    *,
+    required_role: EvidenceRole | None = None,
+    required_scope: EvidenceScope | None = None,
+    target_feature_id: str | None = None,
+) -> tuple[str, ...]:
+    """Validate registry, receipt, state, role/scope, and point-in-time binding."""
+    blockers = list(context.validate())
+    verifier = context.verifier_registry.resolve(evidence.verifier_id or "", evidence.verifier_version or "")
+    if verifier is None:
+        blockers.append("unknown_verifier_id_version")
+        return _unique(blockers)
+    if not verifier.enabled:
+        blockers.append("trusted_verifier_disabled")
+    receipt = next((row for row in context.producer_receipts if row.receipt_id == evidence.producer_receipt_id), None)
+    if receipt is None:
+        blockers.append("producer_receipt_missing")
+        return _unique(blockers)
+    if receipt.logical_hash != evidence.producer_receipt_logical_hash:
+        blockers.append("producer_receipt_hash_mismatch")
+    if receipt.consumed_byte_sha256 != evidence.producer_artifact_binding_hash:
+        blockers.append("producer_byte_hash_mismatch")
+    if receipt.verifier_id != evidence.verifier_id or receipt.verifier_version != evidence.verifier_version:
+        blockers.append("producer_receipt_verifier_mismatch")
+    if receipt.implementation_contract_id != verifier.implementation_contract_id:
+        blockers.append("producer_receipt_implementation_contract_mismatch")
+    if receipt.artifact_schema_version not in verifier.allowed_artifact_schema_versions:
+        blockers.append("producer_receipt_schema_not_allowed")
+    if receipt.repository not in verifier.allowed_repositories:
+        blockers.append("producer_receipt_repository_not_allowed")
+    if receipt.source_authority_class not in verifier.allowed_source_authority_classes:
+        blockers.append("producer_receipt_authority_class_not_allowed")
+    if evidence.source_authority_class and evidence.source_authority_class not in verifier.allowed_source_authority_classes:
+        blockers.append("evidence_authority_class_not_allowed")
+    if evidence.authority_state not in verifier.allowed_authority_states:
+        blockers.append("evidence_authority_state_not_allowed")
+    if evidence.permission_state not in verifier.allowed_permission_states:
+        blockers.append("evidence_permission_state_not_allowed")
+    if any(role not in verifier.allowed_evidence_roles for role in evidence.evidence_roles):
+        blockers.append("evidence_role_not_allowed")
+    if evidence.evidence_scope not in verifier.allowed_evidence_scopes:
+        blockers.append("evidence_scope_not_allowed")
+    if required_role is not None and required_role not in evidence.evidence_roles:
+        blockers.append("required_evidence_role_missing")
+    if required_scope is not None and evidence.evidence_scope != required_scope:
+        blockers.append("required_evidence_scope_mismatch")
+    if evidence.evidence_scope == EvidenceScope.CANDIDATE_WIDE and not verifier.candidate_wide_reuse_allowed:
+        blockers.append("candidate_wide_reuse_not_allowed")
+    if target_feature_id is not None and evidence.evidence_scope == EvidenceScope.FEATURE_SPECIFIC and target_feature_id not in evidence.target_feature_ids:
+        blockers.append("feature_target_mismatch")
+    if evidence.evidence_ref not in receipt.evidence_refs:
+        blockers.append("evidence_ref_absent_from_producer_receipt")
+    else:
+        expected_derivation = logical_hash({
+            "artifact_logical_hash": receipt.artifact_logical_hash,
+            "evidence_ref": evidence.evidence_ref,
+            "derivation_contract": "contentops.artifact_evidence_ref_derivation.v1",
+        })
+        if receipt.evidence_ref_derivations.get(evidence.evidence_ref) != expected_derivation:
+            blockers.append("evidence_ref_derivation_mismatch")
+    try:
+        cutoff = parse_utc(context.decision_cutoff_utc)
+        as_of = parse_utc(evidence.as_of_utc or "", field_name="evidence_as_of_utc")
+        if as_of > cutoff:
+            blockers.append("future_evidence_as_of")
+        producer_cutoff = parse_utc(receipt.artifact_cutoff_utc)
+        if producer_cutoff > cutoff:
+            blockers.append("future_producer_cutoff")
+        if producer_cutoff > as_of:
+            blockers.append("producer_cutoff_after_evidence_as_of")
+        observed_at = getattr(evidence, "observed_at_utc", None)
+        if observed_at and parse_utc(observed_at) > as_of:
+            blockers.append("observed_after_evidence_as_of")
+    except ValueError as error:
+        blockers.append(str(error))
+    return _unique(blockers)
 
 
 def _timestamps(value: Any, *, prefix: str = "") -> Iterable[tuple[str, str]]:

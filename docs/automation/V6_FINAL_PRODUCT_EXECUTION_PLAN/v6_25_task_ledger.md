@@ -30,7 +30,7 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Latest completed task: `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING` — `PASS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING_AWAITING_CHATGPT_AUDIT`.
+Latest completed task: `TASK_CONTENTOPS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1` — `PASS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1_AWAITING_CHATGPT_AUDIT`.
 
 Completed architecture authority: `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`. Task 4 remains `ACCEPTED_TREASURY_SPECIFIC_SHADOW_PROTOTYPE_SUPERSEDED_AS_FOUNDATION_BY_V2`. V2 evidence is at `docs/automation/CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2/`.
 
@@ -40,4 +40,6 @@ The enforcement commit `11124edc623d480736966fa54b44bb6289a935fd` is `ACCEPT_GEN
 
 Commit `6f2755a471c41ccc5a6c06e8babcae2534dd065d` is `ACCEPT_GENERIC_AUTHORITY_GATE_COUNT_AND_DUPLICATE_REPAIR`. The superseding provenance-and-role repair binds governed evidence to verified hashes and semantic roles, constrains feature evidence scopes, and preserves full lineage without changing product features or publication authority.
 
-Next route: `INDEPENDENT_CHATGPT_AUDIT_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING`.
+Commit `96a53eee8beefed9ecf669f930a6436fe4641468` is `ACCEPT_GOVERNED_EVIDENCE_ROLE_AND_LINEAGE_MODEL_WITHOUT_TRUST_ANCHOR`. The superseding trusted-evidence repair anchors verifier authority in committed config and exact Git receipts, enforces point-in-time and collection resolution, and proves the generic core over three real committed topic families with zero public writes.
+
+Next route: `INDEPENDENT_CHATGPT_AUDIT_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1`.

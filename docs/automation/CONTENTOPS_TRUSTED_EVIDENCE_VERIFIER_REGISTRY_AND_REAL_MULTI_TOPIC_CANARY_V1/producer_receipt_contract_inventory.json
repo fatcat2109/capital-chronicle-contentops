@@ -1,0 +1,35 @@
+{
+  "arbitrary_sha_is_authority": false,
+  "evidence_binding_receipt_fields": [
+    "producer_receipt_id",
+    "producer_receipt_logical_hash",
+    "producer_artifact_binding_hash"
+  ],
+  "receipt_contract_schema": "contentops.verified_producer_artifact_receipt.v1",
+  "receipt_fields": [
+    "receipt_id",
+    "repository",
+    "branch",
+    "producer_commit",
+    "artifact_path",
+    "git_blob_sha1",
+    "consumed_byte_sha256",
+    "artifact_schema_version",
+    "producer_version",
+    "artifact_logical_hash",
+    "artifact_cutoff_utc",
+    "verification_status",
+    "verifier_id",
+    "verifier_version",
+    "implementation_contract_id",
+    "registry_version",
+    "registry_logical_hash",
+    "evidence_refs",
+    "evidence_ref_derivations",
+    "source_authority_class",
+    "logical_hash",
+    "schema_version"
+  ],
+  "schema_version": "contentops.producer_receipt_contract_inventory.v1",
+  "status": "PASS"
+}

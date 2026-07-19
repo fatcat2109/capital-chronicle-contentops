@@ -1,0 +1,45 @@
+{
+  "rows": [
+    {
+      "artifact_logical_hash": "355805fa2bbc631accdb08883cd6ba268cb2ce59a8d8dd5c2a22761c4bcf7d92",
+      "branch": "main",
+      "byte_sha256": "1fcff5e55d1b293b002d848ab4b3b3f308042a145079aa426de1e4c9d934e3b9",
+      "commit": "4827ca1e327e3e20275b4422203417f89e12167c",
+      "exact_binding_complete": true,
+      "git_blob_sha1": "36ee1268268acec4538f7ae1b32bfe728fa896cc",
+      "path": "data/archive/official_sources/bls_public_data_api/bls_cpi_live_20260531_132121_1fcff5e55d1b/raw_response.json",
+      "receipt_id": "producer_receipt:bc4d0fc5e270986cfaf3673d",
+      "receipt_logical_hash": "a848f65ba6bfde9825523966b23f7cbcc41b9be2d7defc03f30e9bdbfaa3f364",
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "status": "PASS"
+    },
+    {
+      "artifact_logical_hash": "7a5a65998d8ac06cd9cd94350e075a80dfd8e9cb94985f149a74f37d7e685901",
+      "branch": "main",
+      "byte_sha256": "27179b2c15d8ce9864b53e92f67cc7c0e6f9b0208f9d55db44f8d5e863aa8eb1",
+      "commit": "4827ca1e327e3e20275b4422203417f89e12167c",
+      "exact_binding_complete": true,
+      "git_blob_sha1": "0c1fb98a72559a0f6202a39fda6bd076f1d05ec7",
+      "path": "config/data_foundation/HB8_OFFICIAL_CATALYST_SOURCE_ACCESS_CONTRACT_V1.json",
+      "receipt_id": "producer_receipt:42093dfdf0eb8475ec310cc7",
+      "receipt_logical_hash": "0207582442f84ed211a5c2bc4719f3c5dc5fa5305fe731c433ec7fa6bc9ca210",
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "status": "PASS"
+    },
+    {
+      "artifact_logical_hash": "c616c01e7a8af1c4b7b2ca0f3362483271c6c107bfdad7ff226969e118346723",
+      "branch": "main",
+      "byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+      "commit": "4827ca1e327e3e20275b4422203417f89e12167c",
+      "exact_binding_complete": true,
+      "git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d",
+      "path": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+      "receipt_id": "producer_receipt:d1db5d371701f23961deb4ae",
+      "receipt_logical_hash": "829561ff7d987d461d9b2eedc0de78a92a97370b98b0cd9254b8cb54d229016d",
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.producer_receipt_verification_matrix.v1",
+  "status": "PASS"
+}

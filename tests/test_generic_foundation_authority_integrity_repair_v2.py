@@ -92,12 +92,15 @@ def _candidate(
         authority_blockers=() if authorized else ("authority_missing",),
         history_identity_match=False,
         material_reader_contribution=True,
-        feature_inputs=feature_inputs,
+        feature_inputs=tuple(replace(item, evidence_scope=contracts.EvidenceScope.CANDIDATE_WIDE) for item in feature_inputs),
         evidence_refs=all_refs,
         evidence_records=evidence_records,
         governed_evidence_bindings=bindings,
     )
-    return replace(candidate, **changes)
+    candidate = replace(candidate, **changes)
+    if any(not contracts.IDENTIFIER_RE.fullmatch(ref) for ref in all_refs):
+        return candidate
+    return adapters.attach_trusted_context_to_candidate(candidate, repo_root=ROOT)
 
 
 def _feature(candidate: core.LearningCandidateV2, feature_id: str, config=None):

@@ -10,6 +10,7 @@ from hashlib import sha256
 import json
 from pathlib import Path
 import re
+import subprocess
 from typing import Any, Mapping, Sequence
 
 from live_contentops.adaptive_learning_core_v2 import (
@@ -28,11 +29,17 @@ from live_contentops.content_intelligence_contracts_v2 import (
     ContentGapSetV1,
     EvidenceRole,
     EvidenceScope,
+    EvidenceDecisionContextV1,
+    EvidenceVerificationStatus,
     EventRelationship,
     FeatureDefinitionV1,
     GapType,
     GovernedCandidatePoolBindingV1,
+    TrustedVerifierRecordV1,
+    TrustedVerifierRegistryV1,
     build_governed_evidence_binding_v1,
+    build_evidence_reference_v1,
+    build_verified_producer_artifact_receipt_v1,
     MetricAuthorityClass,
     PerformanceObservationSetV1,
     PerformanceObservationV1,
@@ -50,6 +57,7 @@ TERMINAL_CLASSIFICATION = "PASS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNI
 NEXT_ACTION = "INDEPENDENT_CHATGPT_AUDIT_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2"
 EVIDENCE_REL_DIR = Path("docs") / "automation" / "CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2"
 CONFIG_REL_PATH = Path("live_contentops") / "adaptive_learning_foundation_v2_config.json"
+TRUSTED_VERIFIER_REGISTRY_REL_PATH = Path("live_contentops") / "trusted_evidence_verifier_registry_v1.json"
 UPSTREAM_REPOSITORY = "fatcat2109/Headline-Raw-data-json"
 UPSTREAM_BRANCH = "main"
 UPSTREAM_PINNED_COMMIT = "dced71f92239201945dee5c9bd1c706ef9a76f02"
@@ -72,6 +80,7 @@ STALE_DECLARED_EXPORT_SHA256 = "3379415581f7cdf00aefb0afb2aa5815906abbaf8871f473
 HISTORICAL_MANIFEST_BODY_SHA256 = "bf4376efc326d0702772244eceb1744cf037cdfa9801973ddc8d8d35a0c20f11"
 PRE_FINAL_REPAIR_BODY_SHA256 = "d61ca814f953e39fdc10873cd4e05e561e1ca634d38a8f4f3029aeb16e1623ea"
 FINAL_ACCEPTED_BODY_SHA256 = "05b3520f1d6e4201d16e9daeac42992bde12e9f60a09f0e13bfeb95406788ecc"
+_SYNTHETIC_CONTEXT_CACHE: dict[tuple[str, tuple[str, ...], str], EvidenceDecisionContextV1] = {}
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -137,6 +146,239 @@ def load_foundation_config(repo_root: str | Path | None = None) -> AdaptiveLearn
     if blockers:
         raise ValueError("invalid_foundation_config:" + ",".join(blockers))
     return config
+
+
+def load_trusted_verifier_registry(repo_root: str | Path | None = None) -> TrustedVerifierRegistryV1:
+    root = Path(__file__).resolve().parents[1] if repo_root is None else Path(repo_root).resolve()
+    raw = _read_json(root / TRUSTED_VERIFIER_REGISTRY_REL_PATH)
+    records = tuple(TrustedVerifierRecordV1(
+        verifier_id=str(row["verifier_id"]),
+        verifier_version=str(row["verifier_version"]),
+        implementation_contract_id=str(row["implementation_contract_id"]),
+        allowed_authority_states=tuple(row["allowed_authority_states"]),
+        allowed_permission_states=tuple(row["allowed_permission_states"]),
+        allowed_evidence_roles=tuple(EvidenceRole(value) for value in row["allowed_evidence_roles"]),
+        allowed_evidence_scopes=tuple(EvidenceScope(value) for value in row["allowed_evidence_scopes"]),
+        allowed_artifact_schema_versions=tuple(row["allowed_artifact_schema_versions"]),
+        allowed_repositories=tuple(row["allowed_repositories"]),
+        allowed_source_authority_classes=tuple(row["allowed_source_authority_classes"]),
+        point_in_time_policy=str(row["point_in_time_policy"]),
+        candidate_wide_reuse_allowed=row["candidate_wide_reuse_allowed"],
+        enabled=row["enabled"],
+    ) for row in raw["records"])
+    registry = TrustedVerifierRegistryV1(
+        registry_version=str(raw["registry_version"]), records=records,
+        registry_logical_hash=str(raw["registry_logical_hash"]),
+        schema_version=str(raw["schema_version"]),
+    )
+    blockers = registry.validate()
+    if blockers:
+        raise ValueError("invalid_trusted_verifier_registry:" + ",".join(blockers))
+    return registry
+
+
+def build_local_git_artifact_receipt(
+    *,
+    git_repository: str | Path,
+    repository_identity: str,
+    branch: str,
+    commit: str,
+    artifact_path: str,
+    artifact_schema_version: str,
+    producer_version: str,
+    artifact_cutoff_utc: str,
+    evidence_refs: Sequence[str],
+    source_authority_class: str,
+    registry: TrustedVerifierRegistryV1 | None = None,
+) -> Any:
+    """Resolve exact committed bytes and blob identity before issuing a receipt."""
+    location = Path(git_repository).resolve()
+    prefix = ["git", "--git-dir", str(location)] if location.is_file() or location.suffix == ".git" else ["git", "-C", str(location)]
+    try:
+        branch_candidates = (f"refs/heads/{branch}", f"refs/remotes/origin/{branch}", "FETCH_HEAD")
+        resolved_branch_commits = set()
+        for candidate_ref in branch_candidates:
+            result = subprocess.run(
+                [*prefix, "rev-parse", "--verify", candidate_ref],
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+            )
+            if result.returncode == 0:
+                resolved_branch_commits.add(result.stdout.strip())
+        if commit not in resolved_branch_commits:
+            raise ValueError("committed_artifact_branch_commit_mismatch")
+        consumed_bytes = subprocess.run(
+            [*prefix, "show", f"{commit}:{artifact_path}"], check=True,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        ).stdout
+        blob = subprocess.run(
+            [*prefix, "rev-parse", f"{commit}:{artifact_path}"], check=True,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+        ).stdout.strip()
+    except subprocess.CalledProcessError as error:
+        raise ValueError("committed_artifact_resolution_failed") from error
+    registry = registry or load_trusted_verifier_registry()
+    return build_verified_producer_artifact_receipt_v1(
+        consumed_bytes,
+        registry=registry,
+        verifier_id="contentops.exact_git_artifact_verifier",
+        verifier_version="v1",
+        repository=repository_identity,
+        branch=branch,
+        producer_commit=commit,
+        artifact_path=artifact_path,
+        expected_git_blob_sha1=blob,
+        artifact_schema_version=artifact_schema_version,
+        producer_version=producer_version,
+        artifact_cutoff_utc=artifact_cutoff_utc,
+        evidence_refs=evidence_refs,
+        source_authority_class=source_authority_class,
+        resolved_repository=repository_identity,
+        resolved_branch=branch,
+        resolved_commit=commit,
+        resolved_artifact_path=artifact_path,
+    )
+
+
+def build_synthetic_validation_context(
+    evidence_refs: Sequence[str],
+    *,
+    decision_cutoff_utc: str = "2026-07-19T01:22:00Z",
+    repo_root: str | Path | None = None,
+) -> EvidenceDecisionContextV1:
+    """Bind synthetic contract tests to unchanged committed config bytes."""
+    root = Path(__file__).resolve().parents[1] if repo_root is None else Path(repo_root).resolve()
+    normalized_refs = tuple(dict.fromkeys(evidence_refs))
+    cache_key = (str(root), normalized_refs, decision_cutoff_utc)
+    if cache_key in _SYNTHETIC_CONTEXT_CACHE:
+        return _SYNTHETIC_CONTEXT_CACHE[cache_key]
+    commit = subprocess.run(
+        ["git", "-C", str(root), "rev-parse", "HEAD"], check=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+    ).stdout.strip()
+    commit_time = subprocess.run(
+        ["git", "-C", str(root), "show", "-s", "--format=%cI", commit], check=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+    ).stdout.strip().replace("+00:00", "Z")
+    registry = load_trusted_verifier_registry(root)
+    receipt = build_local_git_artifact_receipt(
+        git_repository=root,
+        repository_identity="fatcat2109/capital-chronicle-contentops",
+        branch="master",
+        commit=commit,
+        artifact_path=CONFIG_REL_PATH.as_posix(),
+        artifact_schema_version="contentops.adaptive_learning_config.v1",
+        producer_version="adaptive-learning-foundation-2.0.0",
+        artifact_cutoff_utc=commit_time,
+        evidence_refs=normalized_refs,
+        source_authority_class="governed_synthetic_validation",
+        registry=registry,
+    )
+    context = EvidenceDecisionContextV1(registry, (receipt,), decision_cutoff_utc)
+    _SYNTHETIC_CONTEXT_CACHE[cache_key] = context
+    return context
+
+
+def build_receipt_backed_evidence_binding(
+    context: EvidenceDecisionContextV1,
+    *,
+    evidence_ref: str,
+    evidence_roles: Sequence[EvidenceRole],
+    evidence_scope: EvidenceScope,
+    authority_state: str = "SYNTHETIC_AUTHORIZED",
+    permission_state: str = "REPORTING_ALLOWED",
+    target_feature_ids: Sequence[str] = (),
+    as_of_utc: str | None = None,
+    reason_codes: Sequence[str] = ("synthetic_validation_only",),
+    verification_status: EvidenceVerificationStatus = EvidenceVerificationStatus.VERIFIED,
+) -> Any:
+    receipt = next(row for row in context.producer_receipts if evidence_ref in row.evidence_refs)
+    return build_governed_evidence_binding_v1(
+        evidence_ref=evidence_ref,
+        evidence_roles=evidence_roles,
+        producer_artifact_binding_hash=receipt.consumed_byte_sha256,
+        producer_receipt_id=receipt.receipt_id,
+        producer_receipt_logical_hash=receipt.logical_hash,
+        as_of_utc=as_of_utc or receipt.artifact_cutoff_utc,
+        authority_state=authority_state,
+        permission_state=permission_state,
+        verifier_id=receipt.verifier_id,
+        verifier_version=receipt.verifier_version,
+        verification_status=verification_status,
+        evidence_scope=evidence_scope,
+        source_authority_class=receipt.source_authority_class,
+        target_feature_ids=target_feature_ids,
+        reason_codes=reason_codes,
+    )
+
+
+def attach_trusted_context_to_candidate(
+    candidate: LearningCandidateV2,
+    *,
+    repo_root: str | Path | None = None,
+    decision_cutoff_utc: str = "2026-07-19T01:22:00Z",
+) -> LearningCandidateV2:
+    """Compatibility adapter for synthetic tests; production uses explicit receipts."""
+    refs = tuple(dict.fromkeys((
+        *candidate.evidence_refs,
+        *(row.evidence_ref for row in candidate.evidence_records),
+        *(row.evidence_ref for row in candidate.governed_evidence_bindings),
+    )))
+    context = build_synthetic_validation_context(refs or ("synthetic:no-evidence",), decision_cutoff_utc=decision_cutoff_utc, repo_root=repo_root)
+    bindings = tuple(build_receipt_backed_evidence_binding(
+        context,
+        evidence_ref=row.evidence_ref,
+        evidence_roles=row.evidence_roles,
+        evidence_scope=row.evidence_scope,
+        authority_state=row.authority_state,
+        permission_state=row.permission_state,
+        target_feature_ids=row.target_feature_ids,
+        as_of_utc=context.producer_receipts[0].artifact_cutoff_utc,
+        reason_codes=row.reason_codes,
+        verification_status=row.verification_status,
+    ) for row in candidate.governed_evidence_bindings)
+    bound_refs = {row.evidence_ref for row in bindings}
+    missing_feature_targets: dict[tuple[str, EvidenceScope], list[str]] = {}
+    for item in candidate.feature_inputs:
+        if item.evidence_scope in {EvidenceScope.DERIVED_CAPABILITY, EvidenceScope.PERFORMANCE_OBSERVATION, EvidenceScope.CONTENT_HISTORY}:
+            continue
+        for ref in item.evidence_refs:
+            if ref not in bound_refs:
+                missing_feature_targets.setdefault((ref, item.evidence_scope), []).append(item.feature_id)
+    bindings += tuple(build_receipt_backed_evidence_binding(
+        context,
+        evidence_ref=ref,
+        evidence_roles=(EvidenceRole.FEATURE_SUPPORT,),
+        evidence_scope=scope,
+        target_feature_ids=tuple(dict.fromkeys(targets)) if scope == EvidenceScope.FEATURE_SPECIFIC else (),
+    ) for (ref, scope), targets in missing_feature_targets.items())
+    upgraded_records = []
+    for row in candidate.evidence_records:
+        if not row.evidence_roles and not row.verifier_id and not row.producer_artifact_binding_hash:
+            upgraded_records.append(row)
+            continue
+        upgraded_records.append(build_evidence_reference_v1(
+            evidence_ref=row.evidence_ref,
+            authority_state=row.authority_state,
+            permission_state=row.permission_state,
+            evidence_roles=row.evidence_roles,
+            producer_artifact_binding_hash=context.producer_receipts[0].consumed_byte_sha256,
+            producer_receipt_id=context.producer_receipts[0].receipt_id,
+            producer_receipt_logical_hash=context.producer_receipts[0].logical_hash,
+            as_of_utc=context.producer_receipts[0].artifact_cutoff_utc,
+            evidence_scope=row.evidence_scope or EvidenceScope.CANDIDATE_WIDE,
+            verifier_id=context.producer_receipts[0].verifier_id,
+            verifier_version=context.producer_receipts[0].verifier_version,
+            verification_status=row.verification_status or EvidenceVerificationStatus.VERIFIED,
+            modality=row.modality,
+            observed_at_utc=row.observed_at_utc,
+            reason_codes=row.reason_codes,
+            temporal_character=row.temporal_character,
+            source_family_id=row.source_family_id,
+            source_authority_class=context.producer_receipts[0].source_authority_class,
+            target_feature_ids=row.target_feature_ids,
+        ))
+    records = tuple(upgraded_records)
+    return replace(candidate, governed_evidence_bindings=bindings, evidence_records=records, evidence_context=context)
 
 
 def build_upstream_binding(consumed_bytes: bytes) -> GovernedCandidatePoolBindingV1:
@@ -406,7 +648,10 @@ def _fixture_observations(fixture: Mapping[str, Any]) -> PerformanceObservationS
     return PerformanceObservationSetV1(f"synthetic:{fixture['fixture_id']}:observations", rows)
 
 
-def _fixture_candidate(fixture: Mapping[str, Any], index: int = 0) -> LearningCandidateV2:
+def _fixture_candidate(
+    fixture: Mapping[str, Any], index: int = 0,
+    evidence_context: EvidenceDecisionContextV1 | None = None,
+) -> LearningCandidateV2:
     relationship = EventRelationship(str(fixture["relationship"]))
     authorized = bool(fixture["authorized"])
     primary_ref = f"synthetic:{fixture['fixture_id']}"
@@ -437,17 +682,17 @@ def _fixture_candidate(fixture: Mapping[str, Any], index: int = 0) -> LearningCa
         FeatureInputV1("filler_risk", True, AvailabilityState.EXPLICIT_ZERO, 0.0, evidence_refs=feature_refs),
         FeatureInputV1("overclaiming_risk", True, AvailabilityState.AVAILABLE, 0.1, evidence_refs=feature_refs),
     )
-    bindings = ()
+    lineage_refs = tuple(dict.fromkeys((primary_ref, relationship_ref) if relationship_ref else (primary_ref,)))
+    evidence_context = evidence_context or build_synthetic_validation_context(lineage_refs, repo_root=None)
+    roles_by_ref: dict[str, list[EvidenceRole]] = {primary_ref: [EvidenceRole.FEATURE_SUPPORT]}
     if authorized and relationship_ref and relationship_role:
-        bindings = (build_governed_evidence_binding_v1(
-            evidence_ref=relationship_ref,
-            evidence_roles=(relationship_role, EvidenceRole.FEATURE_SUPPORT),
-            producer_artifact_binding_hash=sha256(primary_ref.encode("utf-8")).hexdigest(),
-            as_of_utc="2026-01-01T00:00:00Z",
-            authority_state="SYNTHETIC_AUTHORIZED",
-            evidence_scope=EvidenceScope.CANDIDATE_WIDE,
-            reason_codes=("synthetic_validation_only",),
-        ),)
+        roles_by_ref.setdefault(relationship_ref, []).append(relationship_role)
+    bindings = tuple(build_receipt_backed_evidence_binding(
+        evidence_context,
+        evidence_ref=ref,
+        evidence_roles=tuple(dict.fromkeys(roles)),
+        evidence_scope=EvidenceScope.CANDIDATE_WIDE,
+    ) for ref, roles in roles_by_ref.items())
     return LearningCandidateV2(
         candidate_id=f"synthetic:{fixture['fixture_id']}:candidate:{index}",
         story_id=f"synthetic:{fixture['fixture_id']}:story:{index}",
@@ -470,9 +715,10 @@ def _fixture_candidate(fixture: Mapping[str, Any], index: int = 0) -> LearningCa
         update_chain_continuity=relationship == EventRelationship.NEW_PHASE,
         distinct_new_event_ref="synthetic:distinct_event" if relationship == EventRelationship.NEW_PHASE else None,
         material_reader_contribution=True,
-        feature_inputs=feature_inputs,
-        evidence_refs=tuple(dict.fromkeys((primary_ref, relationship_ref) if relationship_ref else (primary_ref,))),
+        feature_inputs=tuple(replace(row, evidence_refs=(), evidence_scope=EvidenceScope.CANDIDATE_WIDE) for row in feature_inputs),
+        evidence_refs=lineage_refs,
         governed_evidence_bindings=bindings,
+        evidence_context=evidence_context,
         internal_brief_ids=(f"synthetic:{fixture['fixture_id']}:brief",),
     )
 
@@ -481,7 +727,18 @@ def execute_cross_domain_fixture_matrix(repo_root: str | Path | None = None) -> 
     config = load_foundation_config(repo_root)
     execution_rows = []
     for fixture in DOMAIN_FIXTURES:
-        candidates = tuple(_fixture_candidate(fixture, index) for index in range(int(fixture["candidate_count"])))
+        relationship = EventRelationship(str(fixture["relationship"]))
+        primary_ref = f"synthetic:{fixture['fixture_id']}"
+        relationship_ref = {
+            EventRelationship.MATERIAL_UPDATE: primary_ref,
+            EventRelationship.CONFIRMATION: "synthetic:new_evidence",
+            EventRelationship.CONTRADICTION: "synthetic:conflicting_evidence",
+            EventRelationship.CORRECTION: "synthetic:authoritative_correction",
+            EventRelationship.NEW_PHASE: "synthetic:distinct_event",
+        }.get(relationship)
+        lineage_refs = tuple(dict.fromkeys((primary_ref, relationship_ref) if relationship_ref else (primary_ref,)))
+        context = build_synthetic_validation_context(lineage_refs, repo_root=repo_root)
+        candidates = tuple(_fixture_candidate(fixture, index, context) for index in range(int(fixture["candidate_count"])))
         history, gaps, observations = _fixture_history(fixture), _fixture_gap_set(fixture), _fixture_observations(fixture)
         decision = build_learning_decision_v2(
             candidates=candidates,
@@ -491,6 +748,8 @@ def execute_cross_domain_fixture_matrix(repo_root: str | Path | None = None) -> 
             config=config,
             input_bindings={"fixture": logical_hash(fixture)},
             logical_time_basis="synthetic-fixture-v1",
+            decision_cutoff_utc=context.decision_cutoff_utc,
+            evidence_context=context,
         )
         configured_expected = str(fixture["expected"])
         if configured_expected == "EMPTY_COHORT_VALID":
@@ -506,7 +765,7 @@ def execute_cross_domain_fixture_matrix(repo_root: str | Path | None = None) -> 
             expected_outcome = configured_expected
             expected_disposition = "INTERNAL_BRIEF_ELIGIBLE_OPERATOR_REVIEW_NO_PUBLICATION_AUTHORITY"
         if candidates:
-            primary_outcome = evaluate_outcome(candidates[0], config)
+            primary_outcome = evaluate_outcome(candidates[0], config, context)
             observed = primary_outcome.actionable_outcomes[0]
             disposition = primary_outcome.publication_disposition
             expected_pass = expected_outcome in set(primary_outcome.actionable_outcomes) and expected_disposition == disposition
@@ -759,10 +1018,13 @@ def build_treasury_compatibility_replay(repo_root: str | Path | None = None) -> 
         ),
         evidence_refs=(TASK3_REL_DIR.as_posix(), TASK4_REL_DIR.as_posix()),
     )
+    candidate = attach_trusted_context_to_candidate(candidate, repo_root=repo_root)
     decision = build_learning_decision_v2(
         candidates=(candidate,), history=history, gaps=gaps, observations=observations,
         config=config, input_bindings={"history": logical_hash(history), "task3": task3["artifact_hash"]},
         logical_time_basis="historical-compatibility-replay-v1",
+        decision_cutoff_utc=candidate.evidence_context.decision_cutoff_utc,
+        evidence_context=candidate.evidence_context,
     )
     return {
         "schema_version": "contentops.treasury_compatibility_replay.v2",
@@ -806,6 +1068,8 @@ def build_foundation_evidence(
         gaps=_fixture_gap_set(representative_fixture), observations=_fixture_observations(representative_fixture),
         config=config, input_bindings={"fixture": logical_hash(representative_fixture)},
         logical_time_basis="foundation-evidence-v1",
+        decision_cutoff_utc=representative_candidate.evidence_context.decision_cutoff_utc,
+        evidence_context=representative_candidate.evidence_context,
     )
     multi_fixture = DOMAIN_FIXTURES[2]
     multi_candidates = tuple(_fixture_candidate(multi_fixture, index) for index in range(3))
@@ -813,12 +1077,16 @@ def build_foundation_evidence(
         candidates=multi_candidates, history=_fixture_history(multi_fixture), gaps=_fixture_gap_set(multi_fixture),
         observations=_fixture_observations(multi_fixture), config=config,
         input_bindings={"fixture": logical_hash(multi_fixture)}, logical_time_basis="multi-story-replay-v1",
+        decision_cutoff_utc=multi_candidates[0].evidence_context.decision_cutoff_utc,
+        evidence_context=multi_candidates[0].evidence_context,
     )
     successor = build_learning_decision_v2(
         candidates=multi_candidates, history=_fixture_history(multi_fixture), gaps=_fixture_gap_set(multi_fixture),
         observations=_fixture_observations(multi_fixture), config=config,
         input_bindings={"fixture": logical_hash(multi_fixture), "authority_revision": "synthetic-v2"},
         logical_time_basis="multi-story-replay-v2", prior_decision=multi_decision,
+        decision_cutoff_utc=multi_candidates[0].evidence_context.decision_cutoff_utc,
+        evidence_context=multi_candidates[0].evidence_context,
         supersession_reason="synthetic authority binding changed",
     )
     guard = run_genericity_guard(root)

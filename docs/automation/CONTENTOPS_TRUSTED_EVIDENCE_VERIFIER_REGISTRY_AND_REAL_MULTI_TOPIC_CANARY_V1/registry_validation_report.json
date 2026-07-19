@@ -1,0 +1,10 @@
+{
+  "blockers": [],
+  "calculated_hash": "724088d3434537017fd573ed95af4099770d7be10fb243b273d1a1d87c9674dc",
+  "declared_hash": "724088d3434537017fd573ed95af4099770d7be10fb243b273d1a1d87c9674dc",
+  "disabled_verifier_count": 1,
+  "enabled_verifier_count": 1,
+  "registry_version": "trusted-evidence-registry-1.0.0",
+  "schema_version": "contentops.trusted_verifier_registry_validation.v1",
+  "status": "PASS"
+}

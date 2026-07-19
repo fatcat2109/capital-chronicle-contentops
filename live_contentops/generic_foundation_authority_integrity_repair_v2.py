@@ -122,12 +122,15 @@ def _candidate(
         authority_blockers=() if authorized else ("authority_missing",),
         history_identity_match=False,
         material_reader_contribution=True,
-        feature_inputs=feature_inputs,
+        feature_inputs=tuple(replace(item, evidence_scope=contracts.EvidenceScope.CANDIDATE_WIDE) for item in feature_inputs),
         evidence_refs=all_refs,
         evidence_records=evidence_records,
         governed_evidence_bindings=bindings,
     )
-    return replace(candidate, **changes)
+    candidate = replace(candidate, **changes)
+    if any(not contracts.IDENTIFIER_RE.fullmatch(ref) for ref in all_refs):
+        return candidate
+    return adapters.attach_trusted_context_to_candidate(candidate, repo_root=Path(__file__).resolve().parents[1])
 
 
 def _feature(
@@ -347,7 +350,7 @@ def build_governed_evidence_qualification_matrix(repo_root: str | Path) -> dict[
         else:
             outcome = core.evaluate_outcome(candidate, config)
             observed_error = None
-            qualified = record.qualifies_for_governed_outcome()
+            qualified = candidate.evidence_records[0].qualifies_for_governed_outcome()
             governed_outcome = "GOVERNED_MATERIAL_UPDATE" in outcome.actionable_outcomes
         status = "PASS" if (
             qualified == expected_qualified

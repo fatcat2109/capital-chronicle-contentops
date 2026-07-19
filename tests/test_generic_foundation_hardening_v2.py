@@ -48,7 +48,7 @@ def _candidate(*, authorized=True, capabilities=None, feature_inputs=(), relatio
         ),),
         capabilities=capabilities or _capabilities(),
     )
-    return replace(candidate, **changes)
+    return adapters.attach_trusted_context_to_candidate(replace(candidate, **changes), repo_root=ROOT)
 
 
 def _feature(candidate, feature_id, config=None, observations=None):
@@ -232,7 +232,8 @@ def test_observation_set_hardening_validation():
 
 def test_learning_inputs_empty_and_arbitrary_cardinalities():
     config = _config()
-    common = dict(history=contracts.PublishedContentHistoryV1("history"), gaps=contracts.ContentGapSetV1("gaps"), observations=contracts.PerformanceObservationSetV1("observations"), config=config, input_bindings={"input": "binding"}, logical_time_basis="fixture-time")
+    context = _candidate().evidence_context
+    common = dict(history=contracts.PublishedContentHistoryV1("history"), gaps=contracts.ContentGapSetV1("gaps"), observations=contracts.PerformanceObservationSetV1("observations"), config=config, input_bindings={"input": "binding"}, logical_time_basis="fixture-time", decision_cutoff_utc=context.decision_cutoff_utc, evidence_context=context)
     assert core.build_learning_decision_v2(candidates=(), **common).ranking_rows == ()
     candidates = tuple(replace(_candidate(), candidate_id=f"candidate-{i}", story_id=f"story-{i}", cluster_id=f"cluster-{i}", update_chain_id=f"chain-{i}") for i in range(11))
     assert len(core.build_learning_decision_v2(candidates=candidates, **common).ranking_rows) == 11
@@ -283,9 +284,10 @@ def test_deterministic_and_changed_authority_lineage():
 def test_unchanged_successor_is_rejected():
     config = _config()
     candidate, history, gaps, observations = hardening._fixture_inputs(hardening.FIXTURE_SPECS[0])
-    prior = core.build_learning_decision_v2(candidates=(candidate,), history=history, gaps=gaps, observations=observations, config=config, input_bindings={"input": "same"}, logical_time_basis="same-time")
+    context = candidate.evidence_context
+    prior = core.build_learning_decision_v2(candidates=(candidate,), history=history, gaps=gaps, observations=observations, config=config, input_bindings={"input": "same"}, logical_time_basis="same-time", decision_cutoff_utc=context.decision_cutoff_utc, evidence_context=context)
     with pytest.raises(ValueError, match="successor_requires_material"):
-        core.build_learning_decision_v2(candidates=(candidate,), history=history, gaps=gaps, observations=observations, config=config, input_bindings={"input": "same"}, logical_time_basis="same-time", prior_decision=prior, supersession_reason="no change")
+        core.build_learning_decision_v2(candidates=(candidate,), history=history, gaps=gaps, observations=observations, config=config, input_bindings={"input": "same"}, logical_time_basis="same-time", decision_cutoff_utc=context.decision_cutoff_utc, evidence_context=context, prior_decision=prior, supersession_reason="no change")
 
 
 def test_model_assisted_judgment_firewall():

@@ -72,7 +72,7 @@ def _candidate(relationship=contracts.EventRelationship.INITIAL_EVENT, *, author
         governed_evidence_bindings=tuple(bindings),
         internal_brief_ids=("brief:a",),
     )
-    return replace(candidate, **changes)
+    return adapters.attach_trusted_context_to_candidate(replace(candidate, **changes), repo_root=ROOT)
 
 
 def _empty_inputs(candidate_count=1):
@@ -87,14 +87,18 @@ def _empty_inputs(candidate_count=1):
 
 def _decision(candidates=None, history=None, gaps=None, observations=None, **kwargs):
     default_candidates, default_history, default_gaps, default_observations = _empty_inputs()
+    selected_candidates = default_candidates if candidates is None else candidates
+    context = selected_candidates[0].evidence_context if selected_candidates else adapters.build_synthetic_validation_context(("synthetic:empty-cohort",), repo_root=ROOT)
     return core.build_learning_decision_v2(
-        candidates=default_candidates if candidates is None else candidates,
+        candidates=selected_candidates,
         history=default_history if history is None else history,
         gaps=default_gaps if gaps is None else gaps,
         observations=default_observations if observations is None else observations,
         config=_config(),
         input_bindings=kwargs.pop("input_bindings", {"test": "binding"}),
         logical_time_basis=kwargs.pop("logical_time_basis", "test-logical-time"),
+        decision_cutoff_utc=context.decision_cutoff_utc,
+        evidence_context=context,
         **kwargs,
     )
 

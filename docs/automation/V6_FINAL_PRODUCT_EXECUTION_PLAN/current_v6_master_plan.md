@@ -84,7 +84,7 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING` — `PASS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING_AWAITING_CHATGPT_AUDIT`.
+Current completed architecture task: `TASK_CONTENTOPS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1` — `PASS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1_AWAITING_CHATGPT_AUDIT`.
 
 Commit `073766b912643ea34c545b29e669c3ff2a62c17c` is retained as `PARTIAL_PASS_GENERIC_CORE_AND_BINDING_SUPERSEDED_BY_ENFORCEMENT_HARDENING`. The hardening makes every retained config field executable, introduces validated optional capability dimensions, executes them across 20 domain fixtures, strengthens collection and append-only lineage checks, and derives acceptance from observed evidence. It remains deterministic, uncalibrated, local, and no-publication.
 
@@ -92,4 +92,6 @@ Commit `11124edc623d480736966fa54b44bb6289a935fd` is retained as `ACCEPT_GENERIC
 
 Commit `6f2755a471c41ccc5a6c06e8babcae2534dd065d` is retained as `ACCEPT_GENERIC_AUTHORITY_GATE_COUNT_AND_DUPLICATE_REPAIR`. The provenance-and-role repair removes the remaining caller-only governed evidence shortcut, requires exact semantic roles for governed relationships, scopes feature evidence reuse, and exposes complete and qualifying lineage separately. It preserves the accepted architecture and all protected boundaries.
 
-Next action: `INDEPENDENT_CHATGPT_AUDIT_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING`.
+Commit `96a53eee8beefed9ecf669f930a6436fe4641468` is retained as `ACCEPT_GOVERNED_EVIDENCE_ROLE_AND_LINEAGE_MODEL_WITHOUT_TRUST_ANCHOR`. The trusted-evidence task adds the committed verifier registry, exact Git producer receipts, decision cutoffs, collection-resolved feature evidence, and the real three-topic no-write canary. It does not add a product feature, alter the uncalibrated config, grant publication authority, or modify prior evidence, Task 3/Task 4, or `v1.0`.
+
+Next action: `INDEPENDENT_CHATGPT_AUDIT_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1`.

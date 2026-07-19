@@ -4,9 +4,9 @@
 
 ## Current Classification
 
-`PASS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING_AWAITING_CHATGPT_AUDIT`
+`PASS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING`.
+Completed task: `TASK_CONTENTOPS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1`.
 
 The accepted product baseline remains `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`. Annotated tag `v1.0` (tag object `a021df7fd0264d9f160bdd605509da925f0bf131`, release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`) remains immutable and was not moved, recreated, deleted, or retagged by this local evidence task.
 
@@ -99,10 +99,18 @@ The 20 domain specifications were not refined. Architecture, V1 compatibility, h
 
 Material updates, confirmations, contradictions, corrections, new phases, and evergreen refreshes require their exact relationship ref to carry the matching governed evidence role. Feature evidence counts use explicitly feature-bound evidence or verified candidate-wide feature-support evidence; unrelated records are retained with exclusion reasons rather than silently counted. Outcomes expose complete, qualifying, relationship-specific, historical-only, and disqualified lineage.
 
-The task-pinned upstream authority remains `e1f2ff48d7ac979a8fbda9e66192150f2681a52d`. A read-only remote check on 2026-07-19 observed later HEAD `4827ca1e327e3e20275b4422203417f89e12167c`, whose sole changed path is outside the governed newsroom candidate pool; no upstream ref or file was modified. The 20 domain specifications, architecture, V1 compatibility, prior evidence, `UNCALIBRATED_FOUNDATION`, `v1.0`, and no-publication remain unchanged.
+The pinned upstream authority for that task remains `e1f2ff48d7ac979a8fbda9e66192150f2681a52d`. A read-only remote check on 2026-07-19 observed later HEAD `4827ca1e327e3e20275b4422203417f89e12167c`, whose sole changed path is outside the governed newsroom candidate pool; no upstream ref or file was modified. The 20 domain specifications, architecture, V1 compatibility, prior evidence, `UNCALIBRATED_FOUNDATION`, `v1.0`, and no-publication remain unchanged.
+
+## Trusted Evidence Verifier Registry and Real Multi-Topic Canary V1
+
+`TASK_CONTENTOPS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1` accepts commit `96a53eee8beefed9ecf669f930a6436fe4641468` as `ACCEPT_GOVERNED_EVIDENCE_ROLE_AND_LINEAGE_MODEL_WITHOUT_TRUST_ANCHOR`. The generic trust boundary now uses a committed, versioned, logical-hash-bound verifier registry and verified producer receipts that bind repository, branch, commit, path, Git blob, exact bytes, artifact schema and logical hash, producer version, point-in-time cutoff, verifier identity, evidence refs, and receipt hash. Arbitrary SHA-shaped values, unknown or disabled verifiers, disallowed states/roles/scopes/schemas/repositories, receipt mismatches, and future evidence fail closed.
+
+Feature-specific evidence requires `FEATURE_SUPPORT`, exact scope, and exact target feature. Candidate-wide reuse is registry-controlled. Performance and history refs resolve against the supplied collections and cutoff; derived capability evidence comes only from validated dimensions. Governed outcomes require matching receipt-backed role evidence and nonempty qualifying lineage. The decision contract carries a UTC evidence cutoff independently of its non-authoritative logical-time label.
+
+The real local no-write canary runs the same generic core over three exact artifacts at read-only upstream commit `4827ca1e327e3e20275b4422203417f89e12167c`: BLS CPI data, the official catalyst access contract, and the governed newsroom candidate pool. It covers three stories, three topics, three artifact families, three modalities, and both numeric and nonnumeric evidence. No synthetic artifact is counted as real, and every canary disposition remains no-publication. V1 compatibility, Task 3/Task 4 evidence, prior foundation evidence, `UNCALIBRATED_FOUNDATION`, `v1.0`, DQR, permissions, scheduler/editorial policy, and the no-publication boundary remain unchanged.
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING`
+`INDEPENDENT_CHATGPT_AUDIT_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1`
 
-Audit or reject governed evidence provenance, exact semantic-role qualification, feature evidence scopes/counts, complete-versus-qualifying lineage, migration compatibility, safety boundary, and manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.
+Audit or reject the trusted verifier registry, exact producer receipts, point-in-time enforcement, feature collection resolution, governed outcome provenance, real multi-topic canary, compatibility, safety boundary, and manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.

@@ -1,0 +1,19 @@
+{
+  "all_v2_foundation_pytest": "214 passed in 91.12s",
+  "broader_relevant_pytest": "71 passed in 5.28s",
+  "ci": "NOT_CHECKED_NO_CI_PASS_CLAIMED",
+  "deterministic_regeneration": "PASS_TWO_IDENTICAL_COMPLETE_PACKET_GENERATIONS",
+  "focused_task_pytest": "29 passed in 16.95s",
+  "full_suite": "NOT_RUN_NO_FULL_SUITE_PASS_CLAIMED",
+  "genericity_guard": "PASS_ZERO_FINDINGS",
+  "git_diff_check": "PASS",
+  "json_parse": "PASS_2574_JSON_FILES",
+  "point_in_time_validation": "PASS",
+  "python_compileall": "PASS",
+  "receipt_and_exact_artifact_validation": "PASS",
+  "redacted_secret_scan": "PASS_ZERO_TASK_OWNED_FINDINGS",
+  "registry_hash_validation": "PASS",
+  "schema_version": "contentops.trusted_evidence_test_summary.v1",
+  "status": "PASS",
+  "v1_compatibility_pytest": "22 passed in 1.17s"
+}

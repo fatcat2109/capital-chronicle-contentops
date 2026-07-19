@@ -1,0 +1,265 @@
+{
+  "all_selected_refs_receipt_backed": true,
+  "rows": [
+    {
+      "applicable": true,
+      "authority_gate_id": null,
+      "authority_gate_result": null,
+      "availability": "available",
+      "capability_dimensions_used": [
+        "*"
+      ],
+      "configured_minimum_evidence": 1,
+      "configured_weight": 1.0,
+      "contribution": 0.9,
+      "domain_applicability_result": true,
+      "evidence_count": 1,
+      "evidence_exclusion_reasons": {},
+      "evidence_refs": [
+        "artifact:newsroom-pool:cc-candidate-120438cc800db7f941be"
+      ],
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "excluded_evidence_refs": [],
+      "feature_id": "evidence_completeness",
+      "normalization_method": "bounded_0_1",
+      "normalization_parameters": {
+        "kind": "bounded_0_1"
+      },
+      "normalized_value": 0.9,
+      "penalty": 0.0,
+      "point_in_time_result": "PASS_ALL_SELECTED_EVIDENCE_AT_OR_BEFORE_CUTOFF",
+      "producer_receipt_ids": [
+        "producer_receipt:d1db5d371701f23961deb4ae"
+      ],
+      "raw_value": 0.9,
+      "reason_codes": [],
+      "resolved_evidence_types": [
+        "trusted_evidence_binding"
+      ],
+      "target_feature_id": "evidence_completeness",
+      "unavailable_reason": null,
+      "verifier_id_versions": [
+        "contentops.exact_git_artifact_verifier@v1"
+      ]
+    },
+    {
+      "applicable": true,
+      "authority_gate_id": null,
+      "authority_gate_result": null,
+      "availability": "available",
+      "capability_dimensions_used": [
+        "profile:source_present"
+      ],
+      "configured_minimum_evidence": 1,
+      "configured_weight": 1.0,
+      "contribution": 0.33333333,
+      "domain_applicability_result": true,
+      "evidence_count": 1,
+      "evidence_exclusion_reasons": {},
+      "evidence_refs": [
+        "derived-capability:source_diversity:271bd16fe681dad1e9e9421e"
+      ],
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "DERIVED_CAPABILITY",
+      "excluded_evidence_refs": [],
+      "feature_id": "source_diversity",
+      "normalization_method": "bounded_0_1",
+      "normalization_parameters": {
+        "kind": "bounded_0_1"
+      },
+      "normalized_value": 0.33333333,
+      "penalty": 0.0,
+      "point_in_time_result": "PASS_DERIVED_FROM_VALIDATED_DIMENSIONS",
+      "producer_receipt_ids": [],
+      "raw_value": 0.3333333333333333,
+      "reason_codes": [
+        "derived_from_source_family_count"
+      ],
+      "resolved_evidence_types": [
+        "validated_capability_dimensions"
+      ],
+      "target_feature_id": "source_diversity",
+      "unavailable_reason": null,
+      "verifier_id_versions": []
+    },
+    {
+      "applicable": true,
+      "authority_gate_id": null,
+      "authority_gate_result": null,
+      "availability": "available",
+      "capability_dimensions_used": [
+        "*"
+      ],
+      "configured_minimum_evidence": 1,
+      "configured_weight": 1.0,
+      "contribution": 0.8,
+      "domain_applicability_result": true,
+      "evidence_count": 1,
+      "evidence_exclusion_reasons": {},
+      "evidence_refs": [
+        "artifact:bls-cpi:CUUR0000SA0:2026-M04"
+      ],
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "excluded_evidence_refs": [],
+      "feature_id": "freshness",
+      "normalization_method": "bounded_0_1",
+      "normalization_parameters": {
+        "kind": "bounded_0_1"
+      },
+      "normalized_value": 0.8,
+      "penalty": 0.0,
+      "point_in_time_result": "PASS_ALL_SELECTED_EVIDENCE_AT_OR_BEFORE_CUTOFF",
+      "producer_receipt_ids": [
+        "producer_receipt:bc4d0fc5e270986cfaf3673d"
+      ],
+      "raw_value": 0.8,
+      "reason_codes": [],
+      "resolved_evidence_types": [
+        "trusted_evidence_binding"
+      ],
+      "target_feature_id": "freshness",
+      "unavailable_reason": null,
+      "verifier_id_versions": [
+        "contentops.exact_git_artifact_verifier@v1"
+      ]
+    },
+    {
+      "applicable": true,
+      "authority_gate_id": null,
+      "authority_gate_result": null,
+      "availability": "available",
+      "capability_dimensions_used": [
+        "profile:source_present"
+      ],
+      "configured_minimum_evidence": 1,
+      "configured_weight": 1.0,
+      "contribution": 0.33333333,
+      "domain_applicability_result": true,
+      "evidence_count": 1,
+      "evidence_exclusion_reasons": {},
+      "evidence_refs": [
+        "derived-capability:source_diversity:5ba647af2f180e822787d3e3"
+      ],
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "DERIVED_CAPABILITY",
+      "excluded_evidence_refs": [],
+      "feature_id": "source_diversity",
+      "normalization_method": "bounded_0_1",
+      "normalization_parameters": {
+        "kind": "bounded_0_1"
+      },
+      "normalized_value": 0.33333333,
+      "penalty": 0.0,
+      "point_in_time_result": "PASS_DERIVED_FROM_VALIDATED_DIMENSIONS",
+      "producer_receipt_ids": [],
+      "raw_value": 0.3333333333333333,
+      "reason_codes": [
+        "derived_from_source_family_count"
+      ],
+      "resolved_evidence_types": [
+        "validated_capability_dimensions"
+      ],
+      "target_feature_id": "source_diversity",
+      "unavailable_reason": null,
+      "verifier_id_versions": []
+    },
+    {
+      "applicable": true,
+      "authority_gate_id": null,
+      "authority_gate_result": null,
+      "availability": "available",
+      "capability_dimensions_used": [
+        "profile:source_present"
+      ],
+      "configured_minimum_evidence": 1,
+      "configured_weight": 1.0,
+      "contribution": 0.33333333,
+      "domain_applicability_result": true,
+      "evidence_count": 1,
+      "evidence_exclusion_reasons": {},
+      "evidence_refs": [
+        "derived-capability:source_diversity:b78e5b0953674dd4096b2ac9"
+      ],
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "DERIVED_CAPABILITY",
+      "excluded_evidence_refs": [],
+      "feature_id": "source_diversity",
+      "normalization_method": "bounded_0_1",
+      "normalization_parameters": {
+        "kind": "bounded_0_1"
+      },
+      "normalized_value": 0.33333333,
+      "penalty": 0.0,
+      "point_in_time_result": "PASS_DERIVED_FROM_VALIDATED_DIMENSIONS",
+      "producer_receipt_ids": [],
+      "raw_value": 0.3333333333333333,
+      "reason_codes": [
+        "derived_from_source_family_count"
+      ],
+      "resolved_evidence_types": [
+        "validated_capability_dimensions"
+      ],
+      "target_feature_id": "source_diversity",
+      "unavailable_reason": null,
+      "verifier_id_versions": []
+    },
+    {
+      "applicable": true,
+      "authority_gate_id": null,
+      "authority_gate_result": null,
+      "availability": "available",
+      "capability_dimensions_used": [
+        "story_mode:policy_decision"
+      ],
+      "configured_minimum_evidence": 1,
+      "configured_weight": 1.0,
+      "contribution": 0.7,
+      "domain_applicability_result": true,
+      "evidence_count": 1,
+      "evidence_exclusion_reasons": {},
+      "evidence_refs": [
+        "artifact:official-catalyst:hb8-v1"
+      ],
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "excluded_evidence_refs": [],
+      "feature_id": "policy_significance",
+      "normalization_method": "bounded_0_1",
+      "normalization_parameters": {
+        "kind": "bounded_0_1"
+      },
+      "normalized_value": 0.7,
+      "penalty": 0.0,
+      "point_in_time_result": "PASS_ALL_SELECTED_EVIDENCE_AT_OR_BEFORE_CUTOFF",
+      "producer_receipt_ids": [
+        "producer_receipt:42093dfdf0eb8475ec310cc7"
+      ],
+      "raw_value": 0.7,
+      "reason_codes": [],
+      "resolved_evidence_types": [
+        "trusted_evidence_binding"
+      ],
+      "target_feature_id": "policy_significance",
+      "unavailable_reason": null,
+      "verifier_id_versions": [
+        "contentops.exact_git_artifact_verifier@v1"
+      ]
+    }
+  ],
+  "schema_version": "contentops.feature_scope_resolution_matrix.v1",
+  "status": "PASS"
+}

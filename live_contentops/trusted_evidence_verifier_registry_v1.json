@@ -1,0 +1,37 @@
+{
+  "schema_version": "contentops.trusted_evidence_verifier_registry.v1",
+  "registry_version": "trusted-evidence-registry-1.0.0",
+  "registry_logical_hash": "724088d3434537017fd573ed95af4099770d7be10fb243b273d1a1d87c9674dc",
+  "records": [
+    {
+      "verifier_id": "contentops.exact_git_artifact_verifier",
+      "verifier_version": "v1",
+      "implementation_contract_id": "contentops.exact_git_artifact_verifier.v1",
+      "allowed_authority_states": ["VERIFIED_GOVERNED", "OFFICIAL_VERIFIED", "FIRST_PARTY_VERIFIED", "SYNTHETIC_AUTHORIZED"],
+      "allowed_permission_states": ["REPORTING_ALLOWED", "PUBLIC_CLAIM_ALLOWED", "CONTEXT_ONLY"],
+      "allowed_evidence_roles": ["material_delta", "confirmation", "contradiction", "correction", "new_phase", "evergreen_justification", "feature_support"],
+      "allowed_evidence_scopes": ["FEATURE_SPECIFIC", "CANDIDATE_WIDE", "PERFORMANCE_OBSERVATION", "CONTENT_HISTORY"],
+      "allowed_artifact_schema_versions": ["capital_chronicle.newsroom_candidate_pool.v1", "upstream.bls_public_data_response.v1", "capital_chronicle.official_catalyst_access_contract.v1", "contentops.synthetic_validation_artifact.v1", "contentops.performance_observation_set.v1", "contentops.published_content_history.v1", "contentops.adaptive_learning_config.v1"],
+      "allowed_repositories": ["fatcat2109/capital-chronicle-contentops", "fatcat2109/Headline-Raw-data-json"],
+      "allowed_source_authority_classes": ["exact_committed_artifact", "official_public_data", "governed_synthetic_validation"],
+      "point_in_time_policy": "STRICT_OBSERVED_AS_OF_CUTOFF_V1",
+      "candidate_wide_reuse_allowed": true,
+      "enabled": true
+    },
+    {
+      "verifier_id": "contentops.disabled_legacy_verifier",
+      "verifier_version": "v1",
+      "implementation_contract_id": "contentops.exact_git_artifact_verifier.v1",
+      "allowed_authority_states": ["SYNTHETIC_AUTHORIZED"],
+      "allowed_permission_states": ["CONTEXT_ONLY"],
+      "allowed_evidence_roles": ["feature_support"],
+      "allowed_evidence_scopes": ["FEATURE_SPECIFIC"],
+      "allowed_artifact_schema_versions": ["contentops.synthetic_validation_artifact.v1"],
+      "allowed_repositories": ["fatcat2109/capital-chronicle-contentops"],
+      "allowed_source_authority_classes": ["governed_synthetic_validation"],
+      "point_in_time_policy": "STRICT_OBSERVED_AS_OF_CUTOFF_V1",
+      "candidate_wide_reuse_allowed": false,
+      "enabled": false
+    }
+  ]
+}
