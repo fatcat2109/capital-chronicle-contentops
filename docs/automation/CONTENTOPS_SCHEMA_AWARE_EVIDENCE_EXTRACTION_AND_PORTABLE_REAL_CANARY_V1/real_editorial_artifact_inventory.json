@@ -1,0 +1,186 @@
+{
+  "artifact_count": 3,
+  "artifacts": [
+    {
+      "ancestry_verified": true,
+      "artifact_family": "bls_public_data_api",
+      "artifact_schema_verified": true,
+      "branch": "main",
+      "branch_head_observed": "48ec657bb66758b444b12ef7467ab2687d200c6a",
+      "byte_sha256": "1fcff5e55d1b293b002d848ab4b3b3f308042a145079aa426de1e4c9d934e3b9",
+      "editorial_class": "official_numeric_macroeconomic_data",
+      "evidence_ref": "extracted:7f8a641ecb9a1290af0c9b91e4c14b05",
+      "extracted_record_hash": "8e5cac614fa329ae7c4ac70fe73b646c5b6449aa0b82d4edbe995856ed70cd9b",
+      "extractor_id": "contentops.bls_series_observation_extractor",
+      "extractor_version": "v1",
+      "feature_values": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:7f8a641ecb9a1290af0c9b91e4c14b05"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "a0e7e353eba6464386aecc4d52d0034c2dc71665c905949020949a02023976d9",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "unavailable",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:7f8a641ecb9a1290af0c9b91e4c14b05"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "959d50e08c2627bacb4d496ba9a5d7c6069812f99001318d6613f63a1ea4c7b6",
+          "reason_code": "artifact_native_timestamp_unavailable",
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": null
+        }
+      ],
+      "git_blob_sha1": "36ee1268268acec4538f7ae1b32bfe728fa896cc",
+      "internal_access_contract": false,
+      "internal_timestamps": {
+        "known_at_utc": null,
+        "observed_at_utc": null,
+        "published_at_utc": null,
+        "revision_at_utc": null
+      },
+      "nonnumeric": false,
+      "numeric": true,
+      "path": "data/archive/official_sources/bls_public_data_api/bls_cpi_live_20260531_132121_1fcff5e55d1b/raw_response.json",
+      "pinned_commit": "48ec657bb66758b444b12ef7467ab2687d200c6a",
+      "real_editorial_artifact": true,
+      "receipt_id": "producer_receipt:1d99699dab52a70df44c26cd",
+      "record_key": "CUUR0000SA0:2026:M04",
+      "record_selector": "{\"period\":\"M04\",\"series_id\":\"CUUR0000SA0\",\"year\":\"2026\"}",
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "schema_authority": "EXTERNAL_ASSIGNED",
+      "story_id": "real-canary-v2:story:cpi-index-april-2026",
+      "synthetic": false
+    },
+    {
+      "ancestry_verified": true,
+      "artifact_family": "us_treasury_fiscaldata_auction_announcements",
+      "artifact_schema_verified": true,
+      "branch": "main",
+      "branch_head_observed": "48ec657bb66758b444b12ef7467ab2687d200c6a",
+      "byte_sha256": "e08b8a4c78f89ac53c244b95379a84408b159cf67549202fdec84ee774c8d6c5",
+      "editorial_class": "official_action_auction_announcement",
+      "evidence_ref": "extracted:658239079f577e729cc032236a5aeb67",
+      "extracted_record_hash": "456ae6bad7a14065a720a75d8269eff848f5344ee14a67c2970f4d55420ebc16",
+      "extractor_id": "contentops.treasury_auction_announcement_extractor",
+      "extractor_version": "v1",
+      "feature_values": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:658239079f577e729cc032236a5aeb67"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "a8693cffd352add96148653e709b371ce4b06e08ab75542751c1edcf85336281",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "unavailable",
+          "derivation_contract": "UNAVAILABLE_WITHOUT_POLICY_MATERIALITY_CONTRACT_V1",
+          "evidence_refs": [
+            "extracted:658239079f577e729cc032236a5aeb67"
+          ],
+          "feature_id": "policy_significance",
+          "logical_hash": "ab94ebc9e18d013b20e54d06309fe9f53b499693249956b835fc988a2660781b",
+          "reason_code": "policy_materiality_derivation_contract_unavailable",
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": null
+        }
+      ],
+      "git_blob_sha1": "dba7f5af655c75e83d3ad05cd30b3bee76cd4380",
+      "internal_access_contract": false,
+      "internal_timestamps": {
+        "known_at_utc": "2026-06-04T00:00:00Z",
+        "observed_at_utc": "2026-06-04T00:00:00Z",
+        "published_at_utc": "2026-06-04T00:00:00Z",
+        "revision_at_utc": null
+      },
+      "nonnumeric": true,
+      "numeric": true,
+      "path": "data/audit/data_sufficiency/task_calendar_event_spine_batch_a1_treasury_auctions_live_capture/raw_archive/req1_treasury_auctions_recent_announcements.json",
+      "pinned_commit": "48ec657bb66758b444b12ef7467ab2687d200c6a",
+      "real_editorial_artifact": true,
+      "receipt_id": "producer_receipt:2271d8c5ea4d5749291c18f0",
+      "record_key": "912810UU0:2026-06-04",
+      "record_selector": "{\"announcement_date\":\"2026-06-04\",\"cusip\":\"912810UU0\"}",
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "schema_authority": "EXTERNAL_ASSIGNED",
+      "story_id": "real-canary-v2:story:treasury-30y-reopening-announcement",
+      "synthetic": false
+    },
+    {
+      "ancestry_verified": true,
+      "artifact_family": "nyfed_reference_rates",
+      "artifact_schema_verified": true,
+      "branch": "main",
+      "branch_head_observed": "48ec657bb66758b444b12ef7467ab2687d200c6a",
+      "byte_sha256": "334d8fc5f895a275fd12bb970e69274d257531b6ffe9b36c46d8c85b03a34075",
+      "editorial_class": "market_rates_observation",
+      "evidence_ref": "extracted:163d6e5e0fd1d9f8fa39b7c51f6c317e",
+      "extracted_record_hash": "c7996da5e007c9de913f9adcb055fd5bab34e3eb80e637e4bde035aa29426366",
+      "extractor_id": "contentops.nyfed_reference_rate_extractor",
+      "extractor_version": "v1",
+      "feature_values": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:163d6e5e0fd1d9f8fa39b7c51f6c317e"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "6528e1789ae0ca51d9d3896cd8ee9a422a0a34045a9943495447b26dafb45e66",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:163d6e5e0fd1d9f8fa39b7c51f6c317e"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "bcf637582c47feb4c150423a5613db2bbd8d351a47ce601d8aa23e82acc7a299",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "git_blob_sha1": "68861abbcb6cb39f0b2a52698df2052ec5784b0b",
+      "internal_access_contract": false,
+      "internal_timestamps": {
+        "known_at_utc": "2026-06-04T00:00:00Z",
+        "observed_at_utc": "2026-06-04T00:00:00Z",
+        "published_at_utc": null,
+        "revision_at_utc": null
+      },
+      "nonnumeric": false,
+      "numeric": true,
+      "path": "data/audit/data_sufficiency/task_300aa_304z/raw_archive/nyfed_reference_rates/batch_e_nyfed_reference_rates_20260606T154423Z_a0793ac6/raw_response.bin",
+      "pinned_commit": "48ec657bb66758b444b12ef7467ab2687d200c6a",
+      "real_editorial_artifact": true,
+      "receipt_id": "producer_receipt:dbfb61b990400ea8066925ee",
+      "record_key": "SOFR:2026-06-04",
+      "record_selector": "{\"effective_date\":\"2026-06-04\",\"rate_type\":\"SOFR\"}",
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "schema_authority": "EXTERNAL_ASSIGNED",
+      "story_id": "real-canary-v2:story:sofr-june-4-2026",
+      "synthetic": false
+    }
+  ],
+  "internal_access_contracts_counted": 0,
+  "schema_version": "contentops.real_editorial_artifact_inventory.v1",
+  "status": "PASS",
+  "synthetic_counted": 0
+}

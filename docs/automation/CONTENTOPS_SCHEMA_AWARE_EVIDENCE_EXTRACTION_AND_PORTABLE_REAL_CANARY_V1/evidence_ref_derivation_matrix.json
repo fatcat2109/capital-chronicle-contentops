@@ -1,0 +1,30 @@
+{
+  "rows": [
+    {
+      "caller_supplied": false,
+      "evidence_ref": "extracted:7f8a641ecb9a1290af0c9b91e4c14b05",
+      "extracted_record_hash": "8e5cac614fa329ae7c4ac70fe73b646c5b6449aa0b82d4edbe995856ed70cd9b",
+      "extractor_id": "contentops.bls_series_observation_extractor",
+      "record_key": "CUUR0000SA0:2026:M04",
+      "record_selector": "{\"period\":\"M04\",\"series_id\":\"CUUR0000SA0\",\"year\":\"2026\"}"
+    },
+    {
+      "caller_supplied": false,
+      "evidence_ref": "extracted:658239079f577e729cc032236a5aeb67",
+      "extracted_record_hash": "456ae6bad7a14065a720a75d8269eff848f5344ee14a67c2970f4d55420ebc16",
+      "extractor_id": "contentops.treasury_auction_announcement_extractor",
+      "record_key": "912810UU0:2026-06-04",
+      "record_selector": "{\"announcement_date\":\"2026-06-04\",\"cusip\":\"912810UU0\"}"
+    },
+    {
+      "caller_supplied": false,
+      "evidence_ref": "extracted:163d6e5e0fd1d9f8fa39b7c51f6c317e",
+      "extracted_record_hash": "c7996da5e007c9de913f9adcb055fd5bab34e3eb80e637e4bde035aa29426366",
+      "extractor_id": "contentops.nyfed_reference_rate_extractor",
+      "record_key": "SOFR:2026-06-04",
+      "record_selector": "{\"effective_date\":\"2026-06-04\",\"rate_type\":\"SOFR\"}"
+    }
+  ],
+  "schema_version": "contentops.evidence_ref_derivation_matrix.v1",
+  "status": "PASS"
+}

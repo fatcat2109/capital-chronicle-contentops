@@ -1,0 +1,81 @@
+{
+  "derived_count": 4,
+  "hard_coded_real_canary_values": 0,
+  "rows": [
+    {
+      "availability": "available",
+      "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+      "evidence_refs": [
+        "extracted:7f8a641ecb9a1290af0c9b91e4c14b05"
+      ],
+      "feature_id": "evidence_completeness",
+      "logical_hash": "a0e7e353eba6464386aecc4d52d0034c2dc71665c905949020949a02023976d9",
+      "reason_code": null,
+      "schema_version": "contentops.extracted_feature_value.v1",
+      "value": 1.0
+    },
+    {
+      "availability": "unavailable",
+      "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+      "evidence_refs": [
+        "extracted:7f8a641ecb9a1290af0c9b91e4c14b05"
+      ],
+      "feature_id": "freshness",
+      "logical_hash": "959d50e08c2627bacb4d496ba9a5d7c6069812f99001318d6613f63a1ea4c7b6",
+      "reason_code": "artifact_native_timestamp_unavailable",
+      "schema_version": "contentops.extracted_feature_value.v1",
+      "value": null
+    },
+    {
+      "availability": "available",
+      "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+      "evidence_refs": [
+        "extracted:658239079f577e729cc032236a5aeb67"
+      ],
+      "feature_id": "evidence_completeness",
+      "logical_hash": "a8693cffd352add96148653e709b371ce4b06e08ab75542751c1edcf85336281",
+      "reason_code": null,
+      "schema_version": "contentops.extracted_feature_value.v1",
+      "value": 1.0
+    },
+    {
+      "availability": "unavailable",
+      "derivation_contract": "UNAVAILABLE_WITHOUT_POLICY_MATERIALITY_CONTRACT_V1",
+      "evidence_refs": [
+        "extracted:658239079f577e729cc032236a5aeb67"
+      ],
+      "feature_id": "policy_significance",
+      "logical_hash": "ab94ebc9e18d013b20e54d06309fe9f53b499693249956b835fc988a2660781b",
+      "reason_code": "policy_materiality_derivation_contract_unavailable",
+      "schema_version": "contentops.extracted_feature_value.v1",
+      "value": null
+    },
+    {
+      "availability": "available",
+      "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+      "evidence_refs": [
+        "extracted:163d6e5e0fd1d9f8fa39b7c51f6c317e"
+      ],
+      "feature_id": "evidence_completeness",
+      "logical_hash": "6528e1789ae0ca51d9d3896cd8ee9a422a0a34045a9943495447b26dafb45e66",
+      "reason_code": null,
+      "schema_version": "contentops.extracted_feature_value.v1",
+      "value": 1.0
+    },
+    {
+      "availability": "explicit_zero",
+      "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+      "evidence_refs": [
+        "extracted:163d6e5e0fd1d9f8fa39b7c51f6c317e"
+      ],
+      "feature_id": "freshness",
+      "logical_hash": "bcf637582c47feb4c150423a5613db2bbd8d351a47ce601d8aa23e82acc7a299",
+      "reason_code": null,
+      "schema_version": "contentops.extracted_feature_value.v1",
+      "value": 0.0
+    }
+  ],
+  "schema_version": "contentops.feature_value_derivation_matrix.v1",
+  "status": "PASS",
+  "unavailable_count": 2
+}

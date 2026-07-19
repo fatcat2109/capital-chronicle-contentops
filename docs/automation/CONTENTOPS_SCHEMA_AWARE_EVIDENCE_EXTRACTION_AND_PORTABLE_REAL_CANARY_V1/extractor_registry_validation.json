@@ -1,0 +1,8 @@
+{
+  "blockers": [],
+  "record_count": 5,
+  "registry_logical_hash": "54af7bc92352940eed149747559cc8b64a2ba893455f4e6d967ccf9e1c9bce54",
+  "registry_version": "artifact-evidence-extractor-registry-1.0.0",
+  "schema_version": "contentops.extractor_registry_validation.v1",
+  "status": "PASS"
+}

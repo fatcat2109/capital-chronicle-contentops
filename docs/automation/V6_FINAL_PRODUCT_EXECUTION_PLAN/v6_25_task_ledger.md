@@ -30,7 +30,7 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Latest completed task: `TASK_CONTENTOPS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1` — `PASS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1_AWAITING_CHATGPT_AUDIT`.
+Latest completed task: `TASK_CONTENTOPS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1` — `PASS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1_AWAITING_CHATGPT_AUDIT`.
 
 Completed architecture authority: `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`. Task 4 remains `ACCEPTED_TREASURY_SPECIFIC_SHADOW_PROTOTYPE_SUPERSEDED_AS_FOUNDATION_BY_V2`. V2 evidence is at `docs/automation/CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2/`.
 
@@ -42,4 +42,6 @@ Commit `6f2755a471c41ccc5a6c06e8babcae2534dd065d` is `ACCEPT_GENERIC_AUTHORITY_G
 
 Commit `96a53eee8beefed9ecf669f930a6436fe4641468` is `ACCEPT_GOVERNED_EVIDENCE_ROLE_AND_LINEAGE_MODEL_WITHOUT_TRUST_ANCHOR`. The superseding trusted-evidence repair anchors verifier authority in committed config and exact Git receipts, enforces point-in-time and collection resolution, and proves the generic core over three real committed topic families with zero public writes.
 
-Next route: `INDEPENDENT_CHATGPT_AUDIT_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1`.
+Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is `ACCEPT_TRUSTED_VERIFIER_REGISTRY_EXACT_GIT_RECEIPTS_AND_COLLECTION_SCOPE_RESOLUTION`. The superseding schema-aware repair makes semantic evidence byte-extracted, validates internal/external artifact shape and timestamps, preserves historical ancestor replay, and runs three actual editorial source families with derived values or explicit abstention.
+
+Next route: `INDEPENDENT_CHATGPT_AUDIT_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1`.

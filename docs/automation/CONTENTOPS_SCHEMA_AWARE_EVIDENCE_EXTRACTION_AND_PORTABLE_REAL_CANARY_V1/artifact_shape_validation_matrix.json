@@ -1,0 +1,30 @@
+{
+  "rows": [
+    {
+      "artifact_family": "bls_public_data_api",
+      "artifact_schema_verified": true,
+      "extractor_id": "contentops.bls_series_observation_extractor",
+      "record_key": "CUUR0000SA0:2026:M04",
+      "schema_authority": "EXTERNAL_ASSIGNED",
+      "status": "PASS"
+    },
+    {
+      "artifact_family": "us_treasury_fiscaldata_auction_announcements",
+      "artifact_schema_verified": true,
+      "extractor_id": "contentops.treasury_auction_announcement_extractor",
+      "record_key": "912810UU0:2026-06-04",
+      "schema_authority": "EXTERNAL_ASSIGNED",
+      "status": "PASS"
+    },
+    {
+      "artifact_family": "nyfed_reference_rates",
+      "artifact_schema_verified": true,
+      "extractor_id": "contentops.nyfed_reference_rate_extractor",
+      "record_key": "SOFR:2026-06-04",
+      "schema_authority": "EXTERNAL_ASSIGNED",
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.artifact_shape_validation_matrix.v1",
+  "status": "PASS"
+}

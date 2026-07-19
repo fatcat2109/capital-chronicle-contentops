@@ -1,0 +1,39 @@
+{
+  "rows": [
+    {
+      "does_not_prove": [
+        "semantic_record",
+        "evidence_ref",
+        "feature_value",
+        "publication_authority"
+      ],
+      "layer": "transport_receipt",
+      "proves": [
+        "repository",
+        "branch_ancestry",
+        "pinned_commit",
+        "path",
+        "git_blob",
+        "exact_bytes"
+      ]
+    },
+    {
+      "does_not_prove": [
+        "publication_authority",
+        "DQR_clearance",
+        "permission_override"
+      ],
+      "layer": "registered_extractor",
+      "proves": [
+        "artifact_shape",
+        "selected_record",
+        "record_hash",
+        "byte_derived_evidence_ref",
+        "internal_timestamps",
+        "derived_or_unavailable_feature_value"
+      ]
+    }
+  ],
+  "schema_version": "contentops.transport_versus_semantic_authority_matrix.v1",
+  "status": "PASS"
+}

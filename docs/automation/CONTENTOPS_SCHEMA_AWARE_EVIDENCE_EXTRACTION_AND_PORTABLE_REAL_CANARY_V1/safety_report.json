@@ -1,0 +1,19 @@
+{
+  "browser_or_cdp_used": false,
+  "configuration_calibration_state": "UNCALIBRATED_FOUNDATION",
+  "credentials_read": false,
+  "editorial_policy_mutated": false,
+  "global_dqr_bypassed": false,
+  "live_data_collected": false,
+  "permission_authority_mutated": false,
+  "provider_call_made": false,
+  "public_write_performed": false,
+  "publication_authority_granted": false,
+  "scheduler_mutated": false,
+  "schema_version": "contentops.schema_aware_safety_report.v1",
+  "source_access_contract_counted_as_editorial_topic": false,
+  "status": "PASS",
+  "synthetic_artifacts_counted_as_real": 0,
+  "upstream_repository_modified": false,
+  "v1_0_modified": false
+}

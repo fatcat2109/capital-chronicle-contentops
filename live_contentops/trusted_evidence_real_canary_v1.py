@@ -103,6 +103,35 @@ def run_real_multi_topic_canary(
     *, repo_root: str | Path,
     upstream_git_dir: str | Path,
 ) -> Mapping[str, Any]:
+    """Compatibility adapter onto the superseding schema-aware real canary."""
+    from live_contentops import schema_aware_real_canary_v1 as schema_aware
+
+    report = dict(schema_aware.run_schema_aware_real_canary(
+        repo_root=repo_root, upstream_git_repository=upstream_git_dir,
+    ))
+    coverage = dict(report["coverage"])
+    coverage["distinct_topic_count"] = coverage["distinct_editorial_class_count"]
+    report["coverage"] = coverage
+    report["artifact_inventory"] = [
+        {**row, "commit": row["pinned_commit"]} for row in report["artifact_inventory"]
+    ]
+    report["decision_rows"] = [
+        {
+            **row,
+            "contributing_features": [
+                feature for feature in row["features"]
+                if feature.get("contribution") is not None or feature.get("penalty") is not None
+            ],
+        }
+        for row in report["decision_rows"]
+    ]
+    return report
+
+
+def _run_legacy_transport_only_canary(
+    *, repo_root: str | Path,
+    upstream_git_dir: str | Path,
+) -> Mapping[str, Any]:
     root, git_dir = Path(repo_root).resolve(), Path(upstream_git_dir).resolve()
     registry = adapters.load_trusted_verifier_registry(root)
     commit_time = subprocess.run(
@@ -121,6 +150,7 @@ def run_real_multi_topic_canary(
         evidence_refs=(str(spec["evidence_ref"]),),
         source_authority_class=str(spec["source_authority_class"]),
         registry=registry,
+        branch_authority_ref="refs/remotes/read-only-upstream/main",
     ) for spec in REAL_ARTIFACTS)
     context = contracts.EvidenceDecisionContextV1(registry, receipts, DECISION_CUTOFF_UTC)
     if context.validate():

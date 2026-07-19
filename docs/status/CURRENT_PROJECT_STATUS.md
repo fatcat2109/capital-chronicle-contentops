@@ -4,9 +4,9 @@
 
 ## Current Classification
 
-`PASS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1`.
+Completed task: `TASK_CONTENTOPS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1`.
 
 The accepted product baseline remains `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`. Annotated tag `v1.0` (tag object `a021df7fd0264d9f160bdd605509da925f0bf131`, release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`) remains immutable and was not moved, recreated, deleted, or retagged by this local evidence task.
 
@@ -109,8 +109,16 @@ Feature-specific evidence requires `FEATURE_SUPPORT`, exact scope, and exact tar
 
 The real local no-write canary runs the same generic core over three exact artifacts at read-only upstream commit `4827ca1e327e3e20275b4422203417f89e12167c`: BLS CPI data, the official catalyst access contract, and the governed newsroom candidate pool. It covers three stories, three topics, three artifact families, three modalities, and both numeric and nonnumeric evidence. No synthetic artifact is counted as real, and every canary disposition remains no-publication. V1 compatibility, Task 3/Task 4 evidence, prior foundation evidence, `UNCALIBRATED_FOUNDATION`, `v1.0`, DQR, permissions, scheduler/editorial policy, and the no-publication boundary remain unchanged.
 
+## Schema-Aware Evidence Extraction and Portable Real Canary V1
+
+`TASK_CONTENTOPS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1` accepts commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` as `ACCEPT_TRUSTED_VERIFIER_REGISTRY_EXACT_GIT_RECEIPTS_AND_COLLECTION_SCOPE_RESOLUTION`. Exact Git receipts remain transport proof and now bind the pinned producer commit separately from the observed branch head, verified ancestry, and deterministic verification time. A pinned ancestor remains replayable after branch advancement; unrelated history fails closed.
+
+The committed extractor registry binds implementations, repository/path/schema or external-shape contracts, required fields, timestamp rules, roles/scopes, supported features, derivations, enabled state, and logical hash. Semantic evidence refs are emitted only from selected records in exact consumed bytes. Internal newsroom schema, producer, cutoff, candidate authority/permission/source-packet fields, and logical hash verify independently; schemaless public API responses are explicitly externally assigned shapes.
+
+The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and New York Fed reference rates through the same generic core. BLS freshness and Treasury policy significance truthfully abstain; stale NY Fed freshness is explicit zero. The internal source-access contract is not counted as an editorial topic. All three dispositions are `NO_PUBLICATION_INSUFFICIENT_AUTHORITY`. The upstream `main` authority was fetched read-only at `48ec657bb66758b444b12ef7467ab2687d200c6a`. V1/V2 compatibility, prior evidence trees, `UNCALIBRATED_FOUNDATION`, `v1.0`, DQR, permissions, scheduler/editorial policy, and no-publication remain unchanged.
+
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1`
+`INDEPENDENT_CHATGPT_AUDIT_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1`
 
-Audit or reject the trusted verifier registry, exact producer receipts, point-in-time enforcement, feature collection resolution, governed outcome provenance, real multi-topic canary, compatibility, safety boundary, and manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.
+Audit or reject portable historical Git ancestry, extractor registry authority, byte-derived evidence refs, artifact shape/internal-hash checks, internal point-in-time timestamps, derived-or-unavailable feature values, the real editorial canary, compatibility, safety boundary, and manifest. Do not mutate scheduler, publish, dispatch, or modify `v1.0`.

@@ -1,0 +1,14 @@
+{
+  "historical_artifacts_mutated": false,
+  "legacy_v2_canary_adapter": "PASS_SCHEMA_AWARE_DELEGATION",
+  "prior_evidence_trees_changed": 0,
+  "schema_version": "contentops.schema_aware_compatibility_report.v1",
+  "status": "PASS",
+  "task3_status": "IMMUTABLE_TASK3_EVIDENCE_ADAPTED_NOT_REWRITTEN",
+  "task4_status": "ACCEPTED_TREASURY_SPECIFIC_SHADOW_PROTOTYPE_SUPERSEDED_AS_FOUNDATION_BY_V2",
+  "uncalibrated_configuration_preserved": true,
+  "v1_0_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "v1_compatibility_pytest": "22 passed in 1.12s",
+  "v1_module_operational": true,
+  "v2_foundation_pytest": "233 passed in 178.79s"
+}

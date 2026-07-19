@@ -2,16 +2,16 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Completed task: `TASK_CONTENTOPS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1`
+Completed task: `TASK_CONTENTOPS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1`
 
-Classification: `PASS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1_AWAITING_CHATGPT_AUDIT`
+Classification: `PASS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1_AWAITING_CHATGPT_AUDIT`
 
-Evidence: `docs/automation/CONTENTOPS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1/final_manifest.json`.
+Evidence: `docs/automation/CONTENTOPS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1/final_manifest.json`.
 
-The task accepts commit `96a53eee8beefed9ecf669f930a6436fe4641468` as `ACCEPT_GOVERNED_EVIDENCE_ROLE_AND_LINEAGE_MODEL_WITHOUT_TRUST_ANCHOR`. Governed and feature evidence now require a committed-registry-trusted verifier and exact receipt binding to Git repository, branch, commit, path, blob, bytes, schema, logical hash, cutoff, and evidence ref. Feature-specific targets, candidate-wide reuse, performance/history resolution, derived dimensions, and decision point-in-time fail closed. The real local canary uses three exact upstream artifact families and no synthetic artifact as real evidence. Architecture, V1 compatibility, Task 3/Task 4 and prior evidence, `UNCALIBRATED_FOUNDATION`, DQR/permissions, `v1.0`, and no-publication remain unchanged.
+The task accepts commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` as `ACCEPT_TRUSTED_VERIFIER_REGISTRY_EXACT_GIT_RECEIPTS_AND_COLLECTION_SCOPE_RESOLUTION`. Exact Git receipts remain transport proof and now support pinned historical ancestors after branch advancement. Registered extractors, not callers or transport labels, verify schema/internal logical authority, select records from exact bytes, emit evidence refs, inspect artifact-native timestamps, and derive feature values or abstain. The real no-write canary uses BLS CPI, U.S. Treasury auction announcements, and New York Fed reference rates; it excludes source-access configuration and grants no publication authority. Architecture, V1/V2 compatibility, Task 3/Task 4 and prior evidence, `UNCALIBRATED_FOUNDATION`, DQR/permissions, `v1.0`, and no-publication remain unchanged.
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1`
+`INDEPENDENT_CHATGPT_AUDIT_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1`
 
-Audit or reject the trusted verifier registry, producer receipts, point-in-time enforcement, feature collection resolution, governed outcome provenance, real multi-topic canary, migration compatibility, deterministic evidence, and safety. Do not begin the next product task, mutate scheduler/editorial/DQR/permission authority, publish, dispatch, or modify `v1.0`.
+Audit or reject portable Git ancestry, extractor registry authority, byte-derived evidence refs, internal/external shape verification, artifact-native point-in-time enforcement, derived-or-unavailable feature values, the three-family real editorial canary, compatibility, deterministic evidence, and safety. Do not begin a product feature, mutate scheduler/editorial/DQR/permission authority, publish, dispatch, or modify `v1.0`.

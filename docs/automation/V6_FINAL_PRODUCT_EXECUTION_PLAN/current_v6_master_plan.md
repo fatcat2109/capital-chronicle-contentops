@@ -84,7 +84,7 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1` — `PASS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1_AWAITING_CHATGPT_AUDIT`.
+Current completed architecture task: `TASK_CONTENTOPS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1` — `PASS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1_AWAITING_CHATGPT_AUDIT`.
 
 Commit `073766b912643ea34c545b29e669c3ff2a62c17c` is retained as `PARTIAL_PASS_GENERIC_CORE_AND_BINDING_SUPERSEDED_BY_ENFORCEMENT_HARDENING`. The hardening makes every retained config field executable, introduces validated optional capability dimensions, executes them across 20 domain fixtures, strengthens collection and append-only lineage checks, and derives acceptance from observed evidence. It remains deterministic, uncalibrated, local, and no-publication.
 
@@ -94,4 +94,6 @@ Commit `6f2755a471c41ccc5a6c06e8babcae2534dd065d` is retained as `ACCEPT_GENERIC
 
 Commit `96a53eee8beefed9ecf669f930a6436fe4641468` is retained as `ACCEPT_GOVERNED_EVIDENCE_ROLE_AND_LINEAGE_MODEL_WITHOUT_TRUST_ANCHOR`. The trusted-evidence task adds the committed verifier registry, exact Git producer receipts, decision cutoffs, collection-resolved feature evidence, and the real three-topic no-write canary. It does not add a product feature, alter the uncalibrated config, grant publication authority, or modify prior evidence, Task 3/Task 4, or `v1.0`.
 
-Next action: `INDEPENDENT_CHATGPT_AUDIT_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1`.
+Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is retained as `ACCEPT_TRUSTED_VERIFIER_REGISTRY_EXACT_GIT_RECEIPTS_AND_COLLECTION_SCOPE_RESOLUTION`. The schema-aware repair separates portable Git transport proof from semantic extractor authority, derives refs/timestamps/feature values from exact bytes, and replaces the access-contract canary topic with real Treasury official-action and New York Fed rates artifacts. It preserves the generic core, configuration calibration state, protected history, DQR/permission boundaries, and no-publication behavior.
+
+Next action: `INDEPENDENT_CHATGPT_AUDIT_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1`.

@@ -1,0 +1,69 @@
+{
+  "decision_cutoff_utc": "2026-07-19T02:30:00Z",
+  "inputs": [
+    {
+      "artifact_family": "bls_public_data_api",
+      "artifact_schema_version": "external.bls_public_data_response.v1",
+      "candidate_id": "real-canary-v2:candidate:cpi-index-april-2026",
+      "editorial_class": "official_numeric_macroeconomic_data",
+      "extractor_id": "contentops.bls_series_observation_extractor",
+      "feature_targets": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "modality": "numeric_time_series",
+      "nonnumeric": false,
+      "numeric": true,
+      "path": "data/archive/official_sources/bls_public_data_api/bls_cpi_live_20260531_132121_1fcff5e55d1b/raw_response.json",
+      "selector": {
+        "period": "M04",
+        "series_id": "CUUR0000SA0",
+        "year": "2026"
+      },
+      "story_id": "real-canary-v2:story:cpi-index-april-2026"
+    },
+    {
+      "artifact_family": "us_treasury_fiscaldata_auction_announcements",
+      "artifact_schema_version": "external.us_treasury_auction_announcement_response.v1",
+      "candidate_id": "real-canary-v2:candidate:treasury-30y-reopening-announcement",
+      "editorial_class": "official_action_auction_announcement",
+      "extractor_id": "contentops.treasury_auction_announcement_extractor",
+      "feature_targets": [
+        "evidence_completeness",
+        "policy_significance"
+      ],
+      "modality": "official_document",
+      "nonnumeric": true,
+      "numeric": true,
+      "path": "data/audit/data_sufficiency/task_calendar_event_spine_batch_a1_treasury_auctions_live_capture/raw_archive/req1_treasury_auctions_recent_announcements.json",
+      "selector": {
+        "announcement_date": "2026-06-04",
+        "cusip": "912810UU0"
+      },
+      "story_id": "real-canary-v2:story:treasury-30y-reopening-announcement"
+    },
+    {
+      "artifact_family": "nyfed_reference_rates",
+      "artifact_schema_version": "external.nyfed_reference_rates_response.v1",
+      "candidate_id": "real-canary-v2:candidate:sofr-june-4-2026",
+      "editorial_class": "market_rates_observation",
+      "extractor_id": "contentops.nyfed_reference_rate_extractor",
+      "feature_targets": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "modality": "market_snapshot",
+      "nonnumeric": false,
+      "numeric": true,
+      "path": "data/audit/data_sufficiency/task_300aa_304z/raw_archive/nyfed_reference_rates/batch_e_nyfed_reference_rates_20260606T154423Z_a0793ac6/raw_response.bin",
+      "selector": {
+        "effective_date": "2026-06-04",
+        "rate_type": "SOFR"
+      },
+      "story_id": "real-canary-v2:story:sofr-june-4-2026"
+    }
+  ],
+  "schema_version": "contentops.schema_aware_real_canary_inputs.v1",
+  "status": "PASS",
+  "upstream_head": "48ec657bb66758b444b12ef7467ab2687d200c6a"
+}

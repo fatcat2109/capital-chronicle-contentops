@@ -1,0 +1,33 @@
+{
+  "domain_fixture_specifications_modified": false,
+  "preexisting_unrelated_dirty_changes_preserved": true,
+  "protected_prior_evidence_tree_changes": 0,
+  "schema_version": "contentops.schema_aware_changed_protected_paths.v1",
+  "status": "PASS",
+  "task_owned_paths": [
+    "AGENTS.md",
+    "docs/AI_BUILDER_BOOTSTRAP.md",
+    "docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+    "live_contentops/content_intelligence_contracts_v2.py",
+    "live_contentops/adaptive_learning_core_v2.py",
+    "live_contentops/adaptive_learning_adapters_v2.py",
+    "live_contentops/generic_foundation_hardening_v2.py",
+    "live_contentops/trusted_evidence_verifier_registry_v1.json",
+    "live_contentops/trusted_evidence_real_canary_v1.py",
+    "live_contentops/artifact_evidence_extractor_registry_v1.json",
+    "live_contentops/schema_aware_evidence_extraction_v1.py",
+    "live_contentops/schema_aware_real_canary_v1.py",
+    "live_contentops/schema_aware_canary_evidence_v1.py",
+    "tests/test_trusted_evidence_verifier_registry_and_real_multi_topic_canary_v1.py",
+    "tests/test_schema_aware_evidence_extraction_and_portable_real_canary_v1.py",
+    "docs/automation/CONTENTOPS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1/"
+  ],
+  "upstream_repository_modified": false,
+  "v1_0_modified": false
+}

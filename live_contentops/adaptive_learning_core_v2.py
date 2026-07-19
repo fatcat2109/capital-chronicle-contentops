@@ -718,6 +718,29 @@ def evaluate_features(
             verifier_ids, point_in_time_result,
         ) = _feature_evidence_lineage(candidate, item, observations, history, evidence_context)
         evidence_count = len(effective_refs)
+        if (
+            evidence_context is not None
+            and evidence_context.extractor_registry is not None
+            and item.evidence_scope in {EvidenceScope.FEATURE_SPECIFIC, EvidenceScope.CANDIDATE_WIDE}
+            and effective_refs
+        ):
+            extracted_values = tuple(
+                row for row in evidence_context.extracted_feature_values
+                if row.feature_id == definition.feature_id
+                and set(row.evidence_refs).issubset(set(effective_refs))
+            )
+            if not extracted_values:
+                raise ValueError(f"extracted_feature_value_missing:{definition.feature_id}")
+            states = {(row.availability, row.value, row.reason_code) for row in extracted_values}
+            if len(states) != 1:
+                raise ValueError(f"contradictory_extracted_feature_values:{definition.feature_id}")
+            extracted_state, extracted_value, extracted_reason = next(iter(states))
+            if item.availability != extracted_state or item.raw_value != extracted_value:
+                raise ValueError(f"caller_feature_value_mismatch:{definition.feature_id}")
+            if extracted_reason and item.unavailable_reason not in {None, extracted_reason}:
+                raise ValueError(f"caller_feature_unavailable_reason_mismatch:{definition.feature_id}")
+            if item.unavailable_reason is None and extracted_reason:
+                item = replace(item, unavailable_reason=extracted_reason)
         if item.evidence_count is not None:
             if isinstance(item.evidence_count, bool) or not isinstance(item.evidence_count, int) or item.evidence_count < 0:
                 raise ValueError(f"declared_evidence_count_invalid:{definition.feature_id}")

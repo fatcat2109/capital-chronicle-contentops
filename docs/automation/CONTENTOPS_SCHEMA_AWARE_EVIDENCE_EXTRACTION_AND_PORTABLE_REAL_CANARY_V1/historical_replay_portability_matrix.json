@@ -1,0 +1,18 @@
+{
+  "machine_local_absolute_path_required": false,
+  "portable_test_repository": true,
+  "rows": [
+    {
+      "case": "pinned_commit_A_branch_advances_to_B",
+      "expected": "PASS_ANCESTOR_REPLAY",
+      "observed": "PASS"
+    },
+    {
+      "case": "unrelated_branch_commit",
+      "expected": "REJECT_NOT_REACHABLE",
+      "observed": "PASS"
+    }
+  ],
+  "schema_version": "contentops.historical_replay_portability_matrix.v1",
+  "status": "PASS"
+}

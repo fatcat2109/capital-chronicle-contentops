@@ -256,6 +256,10 @@ def run_genericity_ast_guard(repo_root: str | Path) -> dict[str, Any]:
         root / "tests" / "test_generic_foundation_authority_integrity_repair_v2.py",
         root / "live_contentops" / "generic_foundation_governed_evidence_provenance_role_binding_v2.py",
         root / "tests" / "test_generic_foundation_governed_evidence_provenance_role_binding_v2.py",
+        root / "live_contentops" / "schema_aware_evidence_extraction_v1.py",
+        root / "live_contentops" / "schema_aware_real_canary_v1.py",
+        root / "live_contentops" / "schema_aware_canary_evidence_v1.py",
+        root / "tests" / "test_schema_aware_evidence_extraction_and_portable_real_canary_v1.py",
     )
     findings: list[dict[str, Any]] = []
 
@@ -297,7 +301,7 @@ def run_genericity_ast_guard(repo_root: str | Path) -> dict[str, Any]:
                 add(path, rule, "TEXT_PATTERN", pattern)
 
     hardening_text = auxiliary_targets[1].read_text(encoding="utf-8-sig")
-    for path in (auxiliary_targets[1], auxiliary_targets[3], auxiliary_targets[4], auxiliary_targets[5], auxiliary_targets[6], auxiliary_targets[7]):
+    for path in auxiliary_targets[1:]:
         if path.exists():
             text = path.read_text(encoding="utf-8-sig")
             tree = ast.parse(text)

@@ -1,0 +1,31 @@
+{
+  "abstentions": [
+    {
+      "availability": "unavailable",
+      "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+      "evidence_refs": [
+        "extracted:7f8a641ecb9a1290af0c9b91e4c14b05"
+      ],
+      "feature_id": "freshness",
+      "logical_hash": "959d50e08c2627bacb4d496ba9a5d7c6069812f99001318d6613f63a1ea4c7b6",
+      "reason_code": "artifact_native_timestamp_unavailable",
+      "schema_version": "contentops.extracted_feature_value.v1",
+      "value": null
+    },
+    {
+      "availability": "unavailable",
+      "derivation_contract": "UNAVAILABLE_WITHOUT_POLICY_MATERIALITY_CONTRACT_V1",
+      "evidence_refs": [
+        "extracted:658239079f577e729cc032236a5aeb67"
+      ],
+      "feature_id": "policy_significance",
+      "logical_hash": "ab94ebc9e18d013b20e54d06309fe9f53b499693249956b835fc988a2660781b",
+      "reason_code": "policy_materiality_derivation_contract_unavailable",
+      "schema_version": "contentops.extracted_feature_value.v1",
+      "value": null
+    }
+  ],
+  "invented_neutral_scores": 0,
+  "schema_version": "contentops.schema_aware_abstention_report.v1",
+  "status": "PASS"
+}

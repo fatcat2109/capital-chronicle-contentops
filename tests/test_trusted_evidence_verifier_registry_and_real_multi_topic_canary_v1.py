@@ -7,12 +7,12 @@ import pytest
 from live_contentops import adaptive_learning_adapters_v2 as adapters
 from live_contentops import adaptive_learning_core_v2 as core
 from live_contentops import content_intelligence_contracts_v2 as contracts
-from live_contentops import trusted_evidence_real_canary_v1 as canary
-from live_contentops import trusted_evidence_canary_evidence_v1 as evidence_builder
+from live_contentops import schema_aware_real_canary_v1 as canary
+from live_contentops import schema_aware_canary_evidence_v1 as evidence_builder
 
 
 ROOT = Path(__file__).resolve().parents[1]
-UPSTREAM_GIT = Path(r"C:\Users\bullw\.codex\upstream-readonly\headline-raw-data-json-hardening.git")
+UPSTREAM_GIT = ROOT
 
 
 def _context(*refs: str, cutoff: str = "2026-07-19T01:22:00Z"):
@@ -358,29 +358,29 @@ def test_governed_outcome_requires_trusted_receipt_and_emits_nonempty_lineage():
 
 
 def test_real_multi_topic_canary_uses_three_exact_committed_artifacts_and_no_synthetic_count():
-    report = canary.run_real_multi_topic_canary(repo_root=ROOT, upstream_git_dir=UPSTREAM_GIT)
+    report = canary.run_schema_aware_real_canary(repo_root=ROOT, upstream_git_repository=UPSTREAM_GIT)
     assert report["status"] == "PASS"
     assert report["coverage"]["distinct_story_count"] >= 3
-    assert report["coverage"]["distinct_topic_count"] >= 3
+    assert report["coverage"]["distinct_editorial_class_count"] >= 3
     assert report["coverage"]["distinct_artifact_family_count"] >= 3
     assert report["coverage"]["distinct_modality_count"] >= 2
     assert report["coverage"]["numeric_present"] and report["coverage"]["nonnumeric_present"]
     assert report["coverage"]["synthetic_artifacts_counted"] == 0
-    assert all(row["commit"] == canary.UPSTREAM_HEAD and row["git_blob_sha1"] and row["byte_sha256"] for row in report["artifact_inventory"])
-    assert all(row["contributing_features"] for row in report["decision_rows"])
+    assert all(row["pinned_commit"] == canary.UPSTREAM_HEAD and row["git_blob_sha1"] and row["byte_sha256"] for row in report["artifact_inventory"])
+    assert all(row["features"] for row in report["decision_rows"])
     assert report["publication_authority_granted"] is False
 
 
 def test_real_canary_is_deterministic():
-    first = canary.run_real_multi_topic_canary(repo_root=ROOT, upstream_git_dir=UPSTREAM_GIT)
-    second = canary.run_real_multi_topic_canary(repo_root=ROOT, upstream_git_dir=UPSTREAM_GIT)
+    first = canary.run_schema_aware_real_canary(repo_root=ROOT, upstream_git_repository=UPSTREAM_GIT)
+    second = canary.run_schema_aware_real_canary(repo_root=ROOT, upstream_git_repository=UPSTREAM_GIT)
     assert contracts.canonical_json(first) == contracts.canonical_json(second)
 
 
 def test_evidence_manifest_hashes_every_required_nonself_report(tmp_path):
     summary = {"schema_version": "test", "status": "PASS"}
     manifest = evidence_builder.generate_evidence(
-        repo_root=ROOT, upstream_git_dir=UPSTREAM_GIT,
+        repo_root=ROOT, upstream_git_repository=UPSTREAM_GIT,
         test_summary=summary,
         changed_protected_paths={"schema_version": "test", "status": "PASS"},
         compatibility_report={"schema_version": "test", "status": "PASS"},

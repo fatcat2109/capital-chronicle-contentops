@@ -190,22 +190,39 @@ def build_local_git_artifact_receipt(
     evidence_refs: Sequence[str],
     source_authority_class: str,
     registry: TrustedVerifierRegistryV1 | None = None,
+    verification_time_utc: str | None = None,
+    branch_authority_ref: str | None = None,
 ) -> Any:
-    """Resolve exact committed bytes and blob identity before issuing a receipt."""
+    """Resolve a pinned commit reachable from the observed branch, then bind exact bytes."""
     location = Path(git_repository).resolve()
     prefix = ["git", "--git-dir", str(location)] if location.is_file() or location.suffix == ".git" else ["git", "-C", str(location)]
     try:
-        branch_candidates = (f"refs/heads/{branch}", f"refs/remotes/origin/{branch}", "FETCH_HEAD")
-        resolved_branch_commits = set()
+        branch_candidates = tuple(dict.fromkeys(filter(None, (
+            branch_authority_ref, f"refs/heads/{branch}", f"refs/remotes/origin/{branch}",
+        ))))
+        branch_head = None
         for candidate_ref in branch_candidates:
             result = subprocess.run(
                 [*prefix, "rev-parse", "--verify", candidate_ref],
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
             )
             if result.returncode == 0:
-                resolved_branch_commits.add(result.stdout.strip())
-        if commit not in resolved_branch_commits:
-            raise ValueError("committed_artifact_branch_commit_mismatch")
+                branch_head = result.stdout.strip()
+                break
+        if branch_head is None:
+            raise ValueError("committed_artifact_branch_authority_missing")
+        commit_check = subprocess.run(
+            [*prefix, "cat-file", "-e", f"{commit}^{{commit}}"],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        )
+        if commit_check.returncode != 0:
+            raise ValueError("committed_artifact_commit_missing")
+        ancestry = subprocess.run(
+            [*prefix, "merge-base", "--is-ancestor", commit, branch_head],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        )
+        if ancestry.returncode != 0:
+            raise ValueError("committed_artifact_not_reachable_from_branch")
         consumed_bytes = subprocess.run(
             [*prefix, "show", f"{commit}:{artifact_path}"], check=True,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
@@ -236,6 +253,9 @@ def build_local_git_artifact_receipt(
         resolved_branch=branch,
         resolved_commit=commit,
         resolved_artifact_path=artifact_path,
+        branch_head_observed=branch_head,
+        producer_commit_reachable_from_branch=True,
+        verification_time_utc=verification_time_utc or artifact_cutoff_utc,
     )
 
 
@@ -255,10 +275,6 @@ def build_synthetic_validation_context(
         ["git", "-C", str(root), "rev-parse", "HEAD"], check=True,
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
     ).stdout.strip()
-    commit_time = subprocess.run(
-        ["git", "-C", str(root), "show", "-s", "--format=%cI", commit], check=True,
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
-    ).stdout.strip().replace("+00:00", "Z")
     registry = load_trusted_verifier_registry(root)
     receipt = build_local_git_artifact_receipt(
         git_repository=root,
@@ -268,10 +284,11 @@ def build_synthetic_validation_context(
         artifact_path=CONFIG_REL_PATH.as_posix(),
         artifact_schema_version="contentops.adaptive_learning_config.v1",
         producer_version="adaptive-learning-foundation-2.0.0",
-        artifact_cutoff_utc=commit_time,
+        artifact_cutoff_utc=decision_cutoff_utc,
         evidence_refs=normalized_refs,
         source_authority_class="governed_synthetic_validation",
         registry=registry,
+        verification_time_utc=decision_cutoff_utc,
     )
     context = EvidenceDecisionContextV1(registry, (receipt,), decision_cutoff_utc)
     _SYNTHETIC_CONTEXT_CACHE[cache_key] = context
@@ -291,7 +308,11 @@ def build_receipt_backed_evidence_binding(
     reason_codes: Sequence[str] = ("synthetic_validation_only",),
     verification_status: EvidenceVerificationStatus = EvidenceVerificationStatus.VERIFIED,
 ) -> Any:
-    receipt = next(row for row in context.producer_receipts if evidence_ref in row.evidence_refs)
+    extracted = next((row for row in context.extracted_evidence_records if row.evidence_ref == evidence_ref), None)
+    if extracted is not None:
+        receipt = next(row for row in context.producer_receipts if row.receipt_id == extracted.producer_receipt_id)
+    else:
+        receipt = next(row for row in context.producer_receipts if evidence_ref in row.evidence_refs)
     return build_governed_evidence_binding_v1(
         evidence_ref=evidence_ref,
         evidence_roles=evidence_roles,
