@@ -30,7 +30,9 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Latest completed task: `TASK_CONTENTOPS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1` — `PASS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1_AWAITING_CHATGPT_AUDIT`.
+Latest completed task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1` — `PASS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1_AWAITING_CHATGPT_AUDIT`.
+
+The frozen generic learning foundation now has one bounded three-adapter production extension: Treasury yield-curve Atom/OData XML, CFTC legacy futures-only headerless CSV, and Federal Reserve H.4.1 ZIP/XML/XSD. Exact Git/byte bindings, append-only registries, context-only feature-support authority, H.4.1 numeric quarantine, deterministic frozen-harness conformance, and no-publication are preserved. Evidence is at `docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1/`.
 
 Completed architecture authority: `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`. Task 4 remains `ACCEPTED_TREASURY_SPECIFIC_SHADOW_PROTOTYPE_SUPERSEDED_AS_FOUNDATION_BY_V2`. V2 evidence is at `docs/automation/CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2/`.
 

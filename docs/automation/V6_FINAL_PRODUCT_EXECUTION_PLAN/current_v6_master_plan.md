@@ -84,7 +84,9 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1` — `PASS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1_AWAITING_CHATGPT_AUDIT`.
+Current completed architecture task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1` — `PASS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1_AWAITING_CHATGPT_AUDIT`.
+
+The first heavy production-adapter batch extends the frozen foundation only through versioned append-only verifier/extractor records and adapter-owned code. Exact upstream commit `251ba1804c5d495884343adad6be0d0e6ba8c121` supplies Treasury daily yield-curve Atom/OData XML, CFTC legacy futures-only headerless CSV, and Federal Reserve H.4.1 ZIP/XML/XSD. Treasury selection is namespace-aware and deterministic; CFTC binds all 129 positions to a committed official-layout contract; H.4.1 is processed with allowlists, duplicate and zip-slip rejection, bounded streaming, XML/XSD structure validation, and numeric-value quarantine. All three remain context-only feature support and no-publication.
 
 Commit `073766b912643ea34c545b29e669c3ff2a62c17c` is retained as `PARTIAL_PASS_GENERIC_CORE_AND_BINDING_SUPERSEDED_BY_ENFORCEMENT_HARDENING`. The hardening makes every retained config field executable, introduces validated optional capability dimensions, executes them across 20 domain fixtures, strengthens collection and append-only lineage checks, and derives acceptance from observed evidence. It remains deterministic, uncalibrated, local, and no-publication.
 
@@ -98,4 +100,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is retained as `ACCEPT_TRUSTED
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is retained as `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair derives authority, permission, and roles from registered extractors, copies qualification into receipt-backed bindings, derives candidate authority across every bound extracted record, and requires exact-set or registered feature aggregation. It adds no scenario, calibration, product, publication, or policy behavior.
 
-Next action: `INDEPENDENT_CHATGPT_AUDIT_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1`.
+Next action: `INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1`.

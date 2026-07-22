@@ -15,6 +15,7 @@ from typing import Any, Mapping, Sequence
 from live_contentops import adaptive_learning_adapters_v2 as adapters
 from live_contentops import adaptive_learning_core_v2 as core
 from live_contentops import content_intelligence_contracts_v2 as contracts
+from live_contentops import production_evidence_adapters_batch_v1 as production_batch
 from live_contentops import schema_aware_evidence_extraction_v1 as extraction
 
 
@@ -40,6 +41,11 @@ class ProductionAdapterSpecV1:
     candidate_id: str
     story_id: str
     evidence_scope: contracts.EvidenceScope = contracts.EvidenceScope.FEATURE_SPECIFIC
+    extractor_version: str = "v1"
+    verifier_id: str = "contentops.exact_git_artifact_verifier"
+    verifier_version: str = "v1"
+    expected_git_blob_sha1: str | None = None
+    expected_byte_sha256: str | None = None
 
 
 PRODUCTION_ADAPTERS_V1: tuple[ProductionAdapterSpecV1, ...] = (
@@ -76,6 +82,42 @@ PRODUCTION_ADAPTERS_V1: tuple[ProductionAdapterSpecV1, ...] = (
         contracts.EvidenceModality.CROSS_SOURCE_RECONCILIATION, True, True,
         "conformance:candidate:newsroom", "conformance:story:newsroom",
         contracts.EvidenceScope.CANDIDATE_WIDE,
+    ),
+)
+
+
+PRODUCTION_ADAPTER_BATCH_TREASURY_CFTC_H41_V1: tuple[ProductionAdapterSpecV1, ...] = (
+    ProductionAdapterSpecV1(
+        "us_treasury_daily_yield_curve_atom_v1", "us_treasury_daily_yield_curve",
+        production_batch.TREASURY_PATH, production_batch.TREASURY_SCHEMA,
+        production_batch.TREASURY_EXTRACTOR_ID,
+        {"record_date": "1991-03-14", "maturity": "BC_10YEAR"},
+        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
+        True, False, "conformance:candidate:treasury-yield", "conformance:story:treasury-yield",
+        verifier_id=production_batch.VERIFIER_ID, verifier_version=production_batch.VERIFIER_VERSION,
+        expected_git_blob_sha1=production_batch.PINNED_ARTIFACTS[production_batch.TREASURY_EXTRACTOR_ID]["git_blob_sha1"],
+        expected_byte_sha256=production_batch.PINNED_ARTIFACTS[production_batch.TREASURY_EXTRACTOR_ID]["byte_sha256"],
+    ),
+    ProductionAdapterSpecV1(
+        "cftc_legacy_futures_only_cot_v1", "cftc_legacy_futures_only_cot",
+        production_batch.CFTC_PATH, production_batch.CFTC_SCHEMA,
+        production_batch.CFTC_EXTRACTOR_ID,
+        {"contract_market_code": "001602", "report_date": "2026-06-02"},
+        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
+        True, True, "conformance:candidate:cftc-cot", "conformance:story:cftc-cot",
+        verifier_id=production_batch.VERIFIER_ID, verifier_version=production_batch.VERIFIER_VERSION,
+        expected_git_blob_sha1=production_batch.PINNED_ARTIFACTS[production_batch.CFTC_EXTRACTOR_ID]["git_blob_sha1"],
+        expected_byte_sha256=production_batch.PINNED_ARTIFACTS[production_batch.CFTC_EXTRACTOR_ID]["byte_sha256"],
+    ),
+    ProductionAdapterSpecV1(
+        "federal_reserve_h41_zip_structure_v1", "federal_reserve_h41",
+        production_batch.H41_PATH, production_batch.H41_SCHEMA,
+        production_batch.H41_EXTRACTOR_ID, {"dataset_id": "H41"},
+        ("evidence_completeness", "freshness"), contracts.EvidenceModality.OFFICIAL_DOCUMENT,
+        False, True, "conformance:candidate:fed-h41", "conformance:story:fed-h41",
+        verifier_id=production_batch.VERIFIER_ID, verifier_version=production_batch.VERIFIER_VERSION,
+        expected_git_blob_sha1=production_batch.PINNED_ARTIFACTS[production_batch.H41_EXTRACTOR_ID]["git_blob_sha1"],
+        expected_byte_sha256=production_batch.PINNED_ARTIFACTS[production_batch.H41_EXTRACTOR_ID]["byte_sha256"],
     ),
 )
 
@@ -155,27 +197,50 @@ def run_adapter_conformance(
     root, upstream = Path(repo_root).resolve(), Path(upstream_git_repository).resolve()
     verifier_registry = adapters.load_trusted_verifier_registry(root)
     extractor_registry = extraction.load_extractor_registry(root)
-    extractor = extractor_registry.resolve(spec.extractor_id, "v1")
+    extractor = extractor_registry.resolve(spec.extractor_id, spec.extractor_version)
     if extractor is None or not extractor.enabled:
         raise ValueError("conformance_extractor_unavailable")
     consumed = _git_bytes(upstream, upstream_commit, spec.artifact_path)
     artifact_cutoff, producer_version = _artifact_contract(
         consumed, spec, _git_commit_time(upstream, upstream_commit), extractor.shape_contract_id,
     )
-    receipt = adapters.build_local_git_artifact_receipt(
-        git_repository=upstream, repository_identity=UPSTREAM_REPOSITORY,
-        branch=UPSTREAM_BRANCH, commit=upstream_commit, artifact_path=spec.artifact_path,
-        artifact_schema_version=spec.artifact_schema_version, producer_version=producer_version,
-        artifact_cutoff_utc=artifact_cutoff, evidence_refs=(),
-        source_authority_class="official_public_data", registry=verifier_registry,
-        verification_time_utc=decision_cutoff_utc, branch_authority_ref=branch_authority_ref,
-    )
-    record, feature_values = extraction.extract_artifact_evidence(
-        consumed, receipt=receipt, registry=extractor_registry,
-        extractor_id=spec.extractor_id, extractor_version="v1", selector=spec.selector,
-        feature_targets=spec.feature_targets, decision_cutoff_utc=decision_cutoff_utc,
-        evidence_scope=spec.evidence_scope,
-    )
+    if spec.verifier_id == production_batch.VERIFIER_ID:
+        receipt = production_batch.build_production_git_artifact_receipt(
+            git_repository=upstream, registry=verifier_registry, commit=upstream_commit,
+            artifact_path=spec.artifact_path, artifact_schema_version=spec.artifact_schema_version,
+            producer_version=producer_version, artifact_cutoff_utc=artifact_cutoff,
+            verification_time_utc=decision_cutoff_utc, branch_authority_ref=branch_authority_ref,
+            expected_git_blob_sha1=spec.expected_git_blob_sha1,
+            expected_byte_sha256=spec.expected_byte_sha256,
+        )
+    else:
+        receipt = adapters.build_local_git_artifact_receipt(
+            git_repository=upstream, repository_identity=UPSTREAM_REPOSITORY,
+            branch=UPSTREAM_BRANCH, commit=upstream_commit, artifact_path=spec.artifact_path,
+            artifact_schema_version=spec.artifact_schema_version, producer_version=producer_version,
+            artifact_cutoff_utc=artifact_cutoff, evidence_refs=(),
+            source_authority_class="official_public_data", registry=verifier_registry,
+            verification_time_utc=decision_cutoff_utc, branch_authority_ref=branch_authority_ref,
+        )
+    if spec.extractor_id in {
+        production_batch.TREASURY_EXTRACTOR_ID,
+        production_batch.CFTC_EXTRACTOR_ID,
+        production_batch.H41_EXTRACTOR_ID,
+    }:
+        record, feature_values = production_batch.extract_production_artifact_evidence(
+            consumed, receipt=receipt, registry=extractor_registry,
+            extractor_id=spec.extractor_id, extractor_version=spec.extractor_version,
+            selector=spec.selector, feature_targets=spec.feature_targets,
+            decision_cutoff_utc=decision_cutoff_utc, evidence_scope=spec.evidence_scope,
+            repo_root=root,
+        )
+    else:
+        record, feature_values = extraction.extract_artifact_evidence(
+            consumed, receipt=receipt, registry=extractor_registry,
+            extractor_id=spec.extractor_id, extractor_version=spec.extractor_version,
+            selector=spec.selector, feature_targets=spec.feature_targets,
+            decision_cutoff_utc=decision_cutoff_utc, evidence_scope=spec.evidence_scope,
+        )
     probe_reasons = _probe_reason_codes(
         record=record, expected_evidence_refs=expected_evidence_refs,
         claimed_authority_state=claimed_authority_state,
@@ -271,7 +336,8 @@ def run_adapter_conformance(
         "evidence_scope": record.evidence_scope.value,
         "feature_results": contracts.primitive(feature_values), "checks": checks,
         "publication_disposition": outcome["publication_disposition"],
-        "publication_authority_granted": False, "writes_performed": 0,
+        "publication_authority_granted": False, "numeric_truth_granted": False,
+        "writes_performed": 0,
     }
 
 
@@ -289,4 +355,23 @@ def run_four_adapter_conformance(
         "status": "PASS" if all(row["status"] == "PASS" for row in results) else "FAIL",
         "adapter_count": len(results), "results": results,
         "network_calls": 0, "writes_performed": 0, "publication_authority_granted": False,
+    }
+
+
+def run_treasury_cftc_h41_adapter_conformance(
+    *, repo_root: str | Path, upstream_git_repository: str | Path,
+    upstream_commit: str = production_batch.UPSTREAM_PINNED_COMMIT,
+    branch_authority_ref: str = production_batch.UPSTREAM_PINNED_COMMIT,
+) -> Mapping[str, Any]:
+    results = [run_adapter_conformance(
+        spec, repo_root=repo_root, upstream_git_repository=upstream_git_repository,
+        upstream_commit=upstream_commit, branch_authority_ref=branch_authority_ref,
+    ) for spec in PRODUCTION_ADAPTER_BATCH_TREASURY_CFTC_H41_V1]
+    return {
+        "schema_version": "contentops.production_adapter_conformance_set.v1",
+        "harness_version": HARNESS_VERSION, "upstream_commit": upstream_commit,
+        "status": "PASS" if all(row["status"] == "PASS" for row in results) else "FAIL",
+        "adapter_count": len(results), "results": results,
+        "network_calls": 0, "writes_performed": 0,
+        "publication_authority_granted": False, "numeric_truth_granted": False,
     }

@@ -1,0 +1,21 @@
+{
+  "schema_version": "contentops.production_adapter_batch_test_summary.v1",
+  "focused_adapter_batch": "23 passed in 6.54s",
+  "combined_v2_initial_attempt": "274 passed, 1 failed in 133.36s",
+  "combined_v2_initial_failure": "historical test asserted frozen registry container version 1.0.0 despite authorized append-only 1.1.0 extension",
+  "historical_test_reconciled_to_validate_major-version compatibility_and_baseline_record_presence": true,
+  "combined_v2_final": "275 passed in 124.28s",
+  "v1_compatibility": "22 passed in 1.29s",
+  "relevant_adapter_status": "33 passed",
+  "deterministic_real_replay": "PASS",
+  "python_compileall": "PASS",
+  "json_and_hash_validation": "PASS_2622_JSON_FILES_AND_ALL_REGISTRY_FREEZE_LAYOUT_HASHES",
+  "genericity_guards": "PASS_BOTH_ZERO_FINDINGS",
+  "git_diff_check": "PASS",
+  "redacted_secret_scan": "PASS_26_TASK_OWNED_FILES_ZERO_FINDINGS",
+  "full_suite": "ATTEMPTED_NOT_PASS_80_PASSED_1_FAILED_MAXFAIL1",
+  "full_suite_blocker": "pre_existing_missing_archived_TASK_CONTENTOPS_0073_EXTREME_LOCAL_ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_FINAL_BUNDLE_AND_PATH_REPAIR_V0.md",
+  "full_suite_pass_claimed": false,
+  "ci_pass_claimed": false,
+  "status": "PASS_SCOPED_VALIDATION"
+}

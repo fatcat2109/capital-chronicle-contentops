@@ -1,0 +1,34 @@
+{
+  "schema_version": "contentops.production_adapter_exact_artifact_inventory.v1",
+  "upstream_repository": "fatcat2109/Headline-Raw-data-json",
+  "upstream_branch": "main",
+  "pinned_commit": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+  "later_observed_descendant": "aed2e64c76a264862bc44006a13ffaf41883af75",
+  "pinned_commit_reachable_from_later_observed_branch": true,
+  "artifacts": [
+    {
+      "adapter_id": "us_treasury_daily_yield_curve_atom_v1",
+      "path": "data/audit/data_sufficiency/task_300aa_304z/raw_archive/treasury_daily_yield_curve/batch_e_treasury_daily_yield_curve_20260606T154421Z_e34b3214/raw_response.bin",
+      "git_blob_sha1": "4c6cb14c58b3e16422eca115fecb1d883a98d79f",
+      "byte_sha256": "b2eebbbe396380fb3872e031e8b759088bb41c746ce716773800506c94c9908f",
+      "byte_length": 385873,
+      "schema_version": "external.us_treasury_daily_yield_curve_atom.v1"
+    },
+    {
+      "adapter_id": "cftc_legacy_futures_only_cot_v1",
+      "path": "data/audit/data_sufficiency/task_392aa_396z/raw_archive/cftc_cot/cftc_cot_20260607T140054Z/raw_response.bin",
+      "git_blob_sha1": "d76fafa828839ce774626ee2654b6477904e5260",
+      "byte_sha256": "286bda7d111c7d7eb3756a919a6489ddf310d42a108b2c154408093e706aa02e",
+      "byte_length": 415757,
+      "schema_version": "external.cftc_legacy_futures_only_cot.v1"
+    },
+    {
+      "adapter_id": "federal_reserve_h41_zip_structure_v1",
+      "path": "data/audit/data_sufficiency/task_404sidea_408sidea/raw_archive/fed_board_h41/h41_4f35601dfa72.zip",
+      "git_blob_sha1": "fd52a7682725d15aa5d997201c52ebae4e291cce",
+      "byte_sha256": "4f35601dfa72aaed42c6584f538a613392fa7f03f1f79e953e7aec3a37c15f7f",
+      "byte_length": 8952712,
+      "schema_version": "external.federal_reserve_h41_zip.v1"
+    }
+  ]
+}

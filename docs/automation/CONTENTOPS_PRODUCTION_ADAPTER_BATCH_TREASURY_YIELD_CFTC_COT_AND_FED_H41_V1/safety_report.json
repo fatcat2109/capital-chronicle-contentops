@@ -1,0 +1,21 @@
+{
+  "schema_version": "contentops.production_adapter_batch_safety_report.v1",
+  "network_fetch_performed": false,
+  "browser_or_cdp_used": false,
+  "credential_or_environment_secret_read": false,
+  "provider_call_made": false,
+  "scheduler_mutated": false,
+  "editorial_policy_mutated": false,
+  "dqr_mutated_or_bypassed": false,
+  "permission_authority_mutated": false,
+  "upstream_repository_modified": false,
+  "public_write_performed": false,
+  "publication_or_dispatch_performed": false,
+  "live_metrics_collected": false,
+  "ranking_configuration_modified": false,
+  "scenario_or_domain_fixture_refined": false,
+  "numeric_truth_granted_to_h41": false,
+  "all_decisions_no_publication": true,
+  "v1_0_moved_recreated_deleted_or_retagged": false,
+  "status": "PASS"
+}

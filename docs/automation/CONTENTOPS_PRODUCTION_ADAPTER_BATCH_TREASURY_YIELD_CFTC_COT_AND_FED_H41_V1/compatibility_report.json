@@ -1,0 +1,14 @@
+{
+  "schema_version": "contentops.production_adapter_batch_compatibility_report.v1",
+  "frozen_manifest_validation": "PASS",
+  "frozen_semantic_files_byte_identical": true,
+  "baseline_registry_records_unchanged": true,
+  "existing_four_adapter_conformance": "PASS_INCLUDED_IN_COMBINED_V2_275_TESTS",
+  "v1_performance_learning": "PASS_22_TESTS",
+  "v2_foundation": "PASS_275_TESTS",
+  "uncalibrated_configuration_preserved": true,
+  "historical_evidence_trees_modified": false,
+  "v1_0_tag_modified": false,
+  "relevant_status_readiness": "PASS_33_TESTS",
+  "status": "PASS"
+}

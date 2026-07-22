@@ -1,0 +1,45 @@
+{
+  "schema_version": "contentops.production_adapter_extraction_matrices.v1",
+  "matrices": [
+    {
+      "adapter_id": "us_treasury_daily_yield_curve_atom_v1",
+      "format": "Atom/OData XML",
+      "shape_checks": ["Atom feed namespace", "OData metadata properties namespace", "OData data-property namespace", "non-empty entries", "unique Id/date identity", "valid feed updated timestamp", "valid record date", "allowlisted maturity", "exactly one selector match"],
+      "selector": {"record_date": "1991-03-14", "maturity": "BC_10YEAR"},
+      "selected_record_key": "1991-03-14:BC_10YEAR",
+      "record_timestamp_sources": {"observed_at_utc": "NEW_DATE", "known_at_utc": "feed.updated", "published_at_utc": "feed.updated"},
+      "evidence_ref": "extracted:1f8ff3abedffb243a99a7f3b7b6c0bdd",
+      "evidence_completeness": 1.0,
+      "freshness": {"availability": "explicit_zero", "value": 0.0}
+    },
+    {
+      "adapter_id": "cftc_legacy_futures_only_cot_v1",
+      "format": "headerless legacy futures-only CSV",
+      "shape_checks": ["strict UTF-8 CSV", "129 columns on every row", "committed official ordered layout", "valid ISO report date on every row", "YYMMDD and YYYY-MM-DD equivalence", "exactly one selector match"],
+      "layout_contract": "live_contentops/cftc_legacy_futures_only_column_layout_v1.json",
+      "layout_contract_logical_hash": "658184b07f5dc3136716d8b96e3522e62cbe55edaedc7df188d3dbd3497c7711",
+      "row_count": 364,
+      "selector": {"contract_market_code": "001602", "report_date": "2026-06-02"},
+      "selected_record_key": "001602:2026-06-02",
+      "record_timestamp_sources": {"observed_at_utc": "as_of_date_in_form_yyyy_mm_dd", "known_at_utc": null, "published_at_utc": null},
+      "evidence_ref": "extracted:8ec3ba2032c06dd2993ff864407dad41",
+      "evidence_completeness": 1.0,
+      "freshness": {"availability": "explicit_zero", "value": 0.0}
+    },
+    {
+      "adapter_id": "federal_reserve_h41_zip_structure_v1",
+      "format": "ZIP containing SDMX XML and XSD",
+      "shape_checks": ["ZIP allowlist and bounds", "XSD target namespaces and required declarations", "structure document dataset ID H41", "message root namespace", "required series attributes", "required observation attributes", "valid TIME_PERIOD dates", "non-empty series and observations"],
+      "selector": {"dataset_id": "H41"},
+      "selected_record_key": "H41:2026-06-03:STRUCTURE_ONLY",
+      "series_count": 1332,
+      "observation_count": 1631700,
+      "record_timestamp_sources": {"observed_at_utc": "maximum TIME_PERIOD", "known_at_utc": null, "published_at_utc": null},
+      "evidence_ref": "extracted:21b3dd02e1b921f93983aaae207bcab0",
+      "evidence_completeness": 1.0,
+      "freshness": {"availability": "explicit_zero", "value": 0.0},
+      "numeric_truth_granted": false
+    }
+  ],
+  "common_derived_states": {"authority_state": "OFFICIAL_VERIFIED", "permission_state": "CONTEXT_ONLY", "evidence_roles": ["feature_support"], "qualification_status": "NOT_QUALIFYING_GOVERNED"}
+}

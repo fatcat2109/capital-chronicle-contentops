@@ -1,0 +1,17 @@
+{
+  "schema_version": "contentops.h41_numeric_truth_quarantine_report.v1",
+  "artifact": "Federal Reserve H.4.1 ZIP",
+  "observation_value_field": "OBS_VALUE",
+  "observation_value_structure_validated": true,
+  "observation_value_coerced_to_numeric": false,
+  "observation_value_emitted_in_selected_record": false,
+  "observation_value_used_for_feature_derivation": false,
+  "numeric_observation_values_quarantined": true,
+  "numeric_truth_granted": false,
+  "authority_state": "OFFICIAL_VERIFIED",
+  "permission_state": "CONTEXT_ONLY",
+  "evidence_roles": ["feature_support"],
+  "publication_authority_granted": false,
+  "test": "test_h41_quarantine_preserves_structure_without_numeric_truth",
+  "status": "PASS_QUARANTINE_PRESERVED"
+}

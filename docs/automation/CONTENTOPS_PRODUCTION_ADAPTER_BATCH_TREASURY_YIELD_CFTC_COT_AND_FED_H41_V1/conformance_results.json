@@ -1,0 +1,16 @@
+{
+  "schema_version": "contentops.production_adapter_batch_conformance_results.v1",
+  "harness": "contentops.production_adapter_conformance.v1.0.0",
+  "upstream_commit": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+  "branch_head_observed": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+  "status": "PASS",
+  "results": [
+    {"adapter_id": "us_treasury_daily_yield_curve_atom_v1", "receipt_id": "producer_receipt:0f22f8787d383aaab21755c2", "evidence_ref": "extracted:1f8ff3abedffb243a99a7f3b7b6c0bdd", "authority_state": "OFFICIAL_VERIFIED", "permission_state": "CONTEXT_ONLY", "evidence_roles": ["feature_support"], "evidence_completeness": 1.0, "freshness": 0.0, "freshness_availability": "explicit_zero", "checks_passed": 13, "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY"},
+    {"adapter_id": "cftc_legacy_futures_only_cot_v1", "receipt_id": "producer_receipt:5d9e9afb1763f0b3bab6778d", "evidence_ref": "extracted:8ec3ba2032c06dd2993ff864407dad41", "authority_state": "OFFICIAL_VERIFIED", "permission_state": "CONTEXT_ONLY", "evidence_roles": ["feature_support"], "evidence_completeness": 1.0, "freshness": 0.0, "freshness_availability": "explicit_zero", "checks_passed": 13, "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY"},
+    {"adapter_id": "federal_reserve_h41_zip_structure_v1", "receipt_id": "producer_receipt:702d5449dbd76a49b805c8a1", "evidence_ref": "extracted:21b3dd02e1b921f93983aaae207bcab0", "authority_state": "OFFICIAL_VERIFIED", "permission_state": "CONTEXT_ONLY", "evidence_roles": ["feature_support"], "evidence_completeness": 1.0, "freshness": 0.0, "freshness_availability": "explicit_zero", "checks_passed": 13, "numeric_truth_granted": false, "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY"}
+  ],
+  "network_calls": 0,
+  "writes_performed": 0,
+  "publication_authority_granted": false,
+  "numeric_truth_granted": false
+}

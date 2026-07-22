@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.h41_zip_safety_matrix.v1",
+  "allowed_members": ["H41_H41.xsd", "H41_data.xml", "H41_struct.xml", "frb_common.xsd"],
+  "limits": {"entry_count": 8, "compressed_total_bytes": 16777216, "uncompressed_total_bytes": 134217728, "data_member_uncompressed_bytes": 131072000, "compression_ratio": 25.0, "stream_chunk_bytes": 1048576},
+  "real_inventory": [
+    {"name": "H41_H41.xsd", "compressed": 4170, "uncompressed": 44219, "crc32": "95ba2bbb", "byte_sha256": "b3e10b0a4ffdb0dccede83c0c16b385f1f4382ce29e962787c0f655fcf4d74a8"},
+    {"name": "H41_data.xml", "compressed": 8925378, "uncompressed": 124824816, "crc32": "96482c21"},
+    {"name": "H41_struct.xml", "compressed": 13420, "uncompressed": 124477, "crc32": "7be70632", "byte_sha256": "06b9184f7779378810a3a519199192d6fcb631a057f73da920809c1b0fa0d4ae"},
+    {"name": "frb_common.xsd", "compressed": 9316, "uncompressed": 139952, "crc32": "0595350d", "byte_sha256": "a5bc6a7d9d3dcac55a81142d3a8b63110b721b9a79ed79f765bdda0f8fca4155"}
+  ],
+  "rejections": {"duplicate_member": "TESTED_PASS", "zip_slip_or_absolute_path": "TESTED_PASS", "unknown_member": "TESTED_PASS", "encrypted_member": "IMPLEMENTED_FAIL_CLOSED", "symlink_member": "IMPLEMENTED_FAIL_CLOSED", "entry_count": "IMPLEMENTED_FAIL_CLOSED", "compressed_total": "TESTED_PASS", "uncompressed_member_and_total": "IMPLEMENTED_AND_STREAM_BOUNDED", "compression_ratio": "IMPLEMENTED_FAIL_CLOSED", "CRC_or_size_mismatch": "IMPLEMENTED_FAIL_CLOSED"},
+  "status": "PASS"
+}

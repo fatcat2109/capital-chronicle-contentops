@@ -4,9 +4,17 @@
 
 ## Current Classification
 
-`PASS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1`.
+Completed task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1`.
+
+## Production Adapter Batch: Treasury Yield, CFTC COT, And Fed H.4.1
+
+The bounded no-write production batch adds exactly three adapter-owned implementations over upstream commit `251ba1804c5d495884343adad6be0d0e6ba8c121`: Treasury daily yield-curve Atom/OData XML, CFTC legacy futures-only headerless CSV, and Federal Reserve H.4.1 ZIP/XML/XSD. Each artifact is pinned by repository, branch, commit, path, Git blob, byte SHA-256, and byte length. Later observed upstream branch head `aed2e64c76a264862bc44006a13ffaf41883af75` retains the pinned commit as an ancestor.
+
+The verifier registry advances append-only to `trusted-evidence-registry-1.1.0`; the extractor registry advances append-only to `artifact-evidence-extractor-registry-1.1.0`. All baseline records and the five frozen semantic files remain unchanged. CFTC binds all 129 positions to the committed versioned official layout contract. H.4.1 enforces exact member allowlists, duplicate and zip-slip rejection, bounded counts/sizes/ratios/streaming, XML/XSD structural validation, and numeric-value quarantine.
+
+All three real historical conformance results are `OFFICIAL_VERIFIED + CONTEXT_ONLY + FEATURE_SUPPORT` and `NO_PUBLICATION_INSUFFICIENT_AUTHORITY`. Evidence completeness is derived as `1.0`; stale freshness is preserved as explicit zero. No adapter grants governed outcome evidence, numeric truth, publication authority, DQR/permission changes, calibration, or external mutation. Evidence: `docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1/final_manifest.json`.
 
 ## Generic Foundation V2 Accepted Freeze And Adapter Handoff
 
@@ -14,7 +22,7 @@ The independent audit result is `PASS_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AG
 
 The freeze manifest pins contract meanings, authority/permission/role derivation, exact Git receipts, schema-aware extraction, point-in-time checks, candidate authority combination, evidence scope, exact-set aggregation, append-only decisions, no-publication, and `UNCALIBRATED_FOUNDATION`. It permits versioned append-only records and adapter-owned selectors, path patterns, field maps, timestamps, shape checks, and artifact-specific feature derivations; source counts and scenario fixtures are not frozen.
 
-The deterministic no-write conformance harness passes BLS series observation, U.S. Treasury auction announcement, New York Fed reference rate, and newsroom candidate pool against task-start upstream `85fc4ac3ab0d4d61692492558e6abb854a7a0639`. During final validation upstream advanced to `251ba1804c5d495884343adad6be0d0e6ba8c121`; the pinned head remains an ancestor and none of the four conformance or three selected inventory artifacts changed. The first three adapters remain `OFFICIAL_VERIFIED` plus `CONTEXT_ONLY`; the newsroom candidate is byte-derived under its governed contract. All four results remain no-publication. The selected next batch is Treasury daily yield-curve XML, CFTC Commitments of Traders CSV, and Federal Reserve H.4.1 ZIP/XML. Codex remains the implementation worker selected by the operator.
+The deterministic no-write conformance harness passes BLS series observation, U.S. Treasury auction announcement, New York Fed reference rate, and newsroom candidate pool against initial upstream `85fc4ac3ab0d4d61692492558e6abb854a7a0639`. During final validation upstream advanced to `251ba1804c5d495884343adad6be0d0e6ba8c121`; the pinned head remains an ancestor and none of the four conformance or three selected inventory artifacts changed. The first three adapters remain `OFFICIAL_VERIFIED` plus `CONTEXT_ONLY`; the newsroom candidate is byte-derived under its governed contract. All four results remain no-publication. The selected next batch is Treasury daily yield-curve XML, CFTC Commitments of Traders CSV, and Federal Reserve H.4.1 ZIP/XML. Codex remains the implementation worker selected by the operator.
 
 Evidence: `docs/automation/CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1/final_manifest.json`. The accepted product release remains separate at `6983bfb3ef300414b744f3f8f97ca81ff699348b`; annotated tag object `a021df7fd0264d9f160bdd605509da925f0bf131` is unchanged. The full suite was attempted with `--maxfail=1` and stopped after 80 passes on the pre-existing missing archived Task 0073 document; no full-suite PASS is claimed. CI is not claimed before post-push observation.
 
@@ -137,6 +145,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`TASK_CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1`
+`INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1`
 
-Implement the bounded, versioned, no-write Treasury daily yield-curve XML, CFTC Commitments of Traders CSV, and Federal Reserve H.4.1 ZIP/XML adapter batch. Preserve the foundation freeze byte-for-byte, external evidence permission limits, H.4.1 numeric quarantine, no-publication, `UNCALIBRATED_FOUNDATION`, upstream read-only boundary, and immutable `v1.0`.
+Independently audit the three exact upstream bindings, append-only registry deltas, Treasury namespace and selector logic, CFTC 129-column contract, H.4.1 ZIP bounds and numeric quarantine, frozen-manifest integrity, deterministic conformance, compatibility, no-publication, and evidence hashes.

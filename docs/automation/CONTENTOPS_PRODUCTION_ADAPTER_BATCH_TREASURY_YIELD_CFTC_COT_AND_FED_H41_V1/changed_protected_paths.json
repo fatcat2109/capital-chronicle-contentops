@@ -1,0 +1,7 @@
+{
+  "schema_version": "contentops.production_adapter_batch_changed_protected_paths.v1",
+  "changed_path_classes": ["append-only verifier registry", "append-only extractor registry", "adapter implementation", "versioned CFTC layout contract", "conformance harness extension", "focused tests", "superseding evidence", "current authority/status documents"],
+  "protected_unchanged": ["live_contentops/content_intelligence_contracts_v2.py", "live_contentops/schema_aware_evidence_extraction_v1.py", "live_contentops/adaptive_learning_adapters_v2.py", "live_contentops/adaptive_learning_core_v2.py", "live_contentops/adaptive_learning_foundation_v2_config.json", "prior docs/automation evidence trees", "tests/fixtures domain and scenario data", "ui/contentops_v5", "scheduler", "DQR and permission authority", "upstream repository", "annotated tag v1.0"],
+  "pre_existing_dirty_paths_staged": false,
+  "status": "PASS_SCOPE_ISOLATED"
+}

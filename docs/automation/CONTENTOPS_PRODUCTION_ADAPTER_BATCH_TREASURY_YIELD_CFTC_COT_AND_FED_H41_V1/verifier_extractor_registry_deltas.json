@@ -1,0 +1,24 @@
+{
+  "schema_version": "contentops.production_adapter_registry_delta.v1",
+  "append_only_validation": "PASS_BASELINE_RECORDS_UNCHANGED",
+  "verifier_registry": {
+    "baseline_version": "trusted-evidence-registry-1.0.0",
+    "current_version": "trusted-evidence-registry-1.1.0",
+    "current_logical_hash": "9968c7be098ed117c1deb9ea338a2e755aa76116ad34cf2fdee44934b004d7e6",
+    "added_records": ["contentops.production_external_exact_git_verifier@v1"],
+    "implementation_contract": "contentops.exact_git_artifact_verifier.v1"
+  },
+  "extractor_registry": {
+    "baseline_version": "artifact-evidence-extractor-registry-1.0.0",
+    "current_version": "artifact-evidence-extractor-registry-1.1.0",
+    "current_logical_hash": "8a0dd92ef5fd2a2336ab5535d8d1e06c42dff47df5ba8801ee68a4ff7c56acb0",
+    "added_records": [
+      "contentops.treasury_daily_yield_curve_atom_extractor@v1",
+      "contentops.cftc_legacy_futures_only_cot_extractor@v1",
+      "contentops.federal_reserve_h41_zip_structure_extractor@v1"
+    ]
+  },
+  "frozen_semantic_files_changed": false,
+  "configuration_changed": false,
+  "configuration_calibration_state": "UNCALIBRATED_FOUNDATION"
+}

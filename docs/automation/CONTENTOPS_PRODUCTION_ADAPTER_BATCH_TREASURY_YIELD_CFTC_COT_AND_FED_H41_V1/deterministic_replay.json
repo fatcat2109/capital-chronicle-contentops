@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.production_adapter_batch_deterministic_replay.v1",
+  "input_commit": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+  "decision_cutoff_utc": "2026-07-19T12:00:00Z",
+  "run_count": 2,
+  "complete_result_equality": true,
+  "complete_result_logical_hash": "5f198ca3464aa68febff1e6f0bf510773e026a7dbfbb56344d095e40db941fbe",
+  "receipt_ids_equal": true,
+  "evidence_refs_equal": true,
+  "feature_values_and_hashes_equal": true,
+  "publication_dispositions_equal": true,
+  "status": "PASS_TWO_IDENTICAL_RUNS"
+}

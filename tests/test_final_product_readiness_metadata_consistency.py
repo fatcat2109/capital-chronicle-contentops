@@ -18,7 +18,7 @@ def test_status_records_database_authorized_generic_canary_authority() -> None:
     status = _json(STATUS)
     assert status["latest_accepted_task"] == "TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1"
     assert status["latest_accepted_task_result"] == "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED"
-    assert status["current_task_classification"] == "PASS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1_AWAITING_CHATGPT_AUDIT"
+    assert status["current_task_classification"] == "PASS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1_AWAITING_CHATGPT_AUDIT"
     assert status["accepted_product_baseline_sha"] == "6983bfb3ef300414b744f3f8f97ca81ff699348b"
     assert status["upstream_readiness"]["dqr_status"] == "BLOCKED"
     assert status["upstream_readiness"]["reporting_allowed"] is True
@@ -33,7 +33,7 @@ def test_status_records_database_authorized_generic_canary_authority() -> None:
     assert status["generalized_release_accepted"] is True
     assert status["v1_0_tag_exists"] is True
     assert status["v1_0_tag_name"] == "v1.0"
-    assert status["next_task"] == "TASK_CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1"
+    assert status["next_task"] == "INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1"
 
 
 def test_current_evidence_separates_transport_from_quality() -> None:

@@ -79,8 +79,9 @@ def _rebind_to_context(binding, context):
 def test_registry_is_committed_versioned_hash_bound_and_enabled():
     registry = adapters.load_trusted_verifier_registry(ROOT)
     assert registry.validate() == ()
-    assert registry.registry_version == "trusted-evidence-registry-1.0.0"
+    assert registry.registry_version.startswith("trusted-evidence-registry-1.")
     assert registry.registry_logical_hash == registry.calculated_logical_hash()
+    assert registry.resolve("contentops.exact_git_artifact_verifier", "v1") is not None
     assert any(row.enabled for row in registry.records)
     assert any(not row.enabled for row in registry.records)
 
