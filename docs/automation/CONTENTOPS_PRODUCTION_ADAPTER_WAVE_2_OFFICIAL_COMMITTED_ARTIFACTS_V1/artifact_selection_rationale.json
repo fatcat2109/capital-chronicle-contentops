@@ -1,0 +1,45 @@
+{
+  "excluded": [
+    {
+      "family": "bea_public_data_api",
+      "reason": "committed response contains caller credential identifier"
+    },
+    {
+      "family": "us_census_public_api",
+      "reason": "error-only HTML capture reporting Missing Key"
+    },
+    {
+      "family": "fred_observations",
+      "reason": "redacted-response artifacts excluded"
+    },
+    {
+      "family": "fred_and_eia_api_families",
+      "reason": "credential-dependent capture routes excluded"
+    },
+    {
+      "family": "treasury_tga",
+      "reason": "same FiscalData shape family as stronger selected Debt to the Penny artifact"
+    },
+    {
+      "family": "prior_wave_treasury_yield_cftc_cot_fed_h41",
+      "reason": "already accepted adapter families; not wave-2 additions"
+    }
+  ],
+  "schema_version": "contentops.production_adapter_wave2_selection_rationale.v1",
+  "selected": [
+    {
+      "family": "us_treasury_fiscaldata_debt_to_penny",
+      "reason": "official public JSON; exact stable bytes; intrinsic record date; numeric feature support; no secret used"
+    },
+    {
+      "family": "bls_public_unemployment_series",
+      "reason": "official public API JSON; exact stable bytes; intrinsic observation month; numeric feature support; lineage says raw_secret_present=false"
+    },
+    {
+      "family": "federal_reserve_fomc_calendar",
+      "reason": "official public HTML; exact stable bytes; intrinsic meeting and dated-document dates; nonnumeric feature support"
+    }
+  ],
+  "selected_family_count": 3,
+  "status": "PASS_EVIDENCE_BACKED_SELECTION"
+}

@@ -1,0 +1,122 @@
+{
+  "evidence_refs_derived_from_exact_bytes": true,
+  "explicit_zero_preserved": true,
+  "rows": [
+    {
+      "adapter_id": "us_treasury_debt_to_penny_v1",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "evidence_ref": "extracted:15226bf7658c16486f0d6e6a16277cdb",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "extractor_id": "contentops.treasury_debt_to_penny_extractor",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:15226bf7658c16486f0d6e6a16277cdb"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "8de4f5545e5e587d81e8a56d663049185ea5f298dd8ee49562bfbe3c3cef4422",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:15226bf7658c16486f0d6e6a16277cdb"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "82274193cb76491458668a38d1d8cfd310550170e4b0e966940b683e7305fbe6",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY"
+    },
+    {
+      "adapter_id": "bls_unemployment_series_v1",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "evidence_ref": "extracted:4767b44dd4be17c8a95e53b73f78d18f",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "extractor_id": "contentops.bls_unemployment_series_extractor",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:4767b44dd4be17c8a95e53b73f78d18f"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "1ee6b58bc3d5d6eab90aa9e54092261ea635fb89448201d57be31fc62ac8521d",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:4767b44dd4be17c8a95e53b73f78d18f"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "5f75d5bc095bde2d9bf94ca37e1177791bede8f3c489e3513500d12b4f18dd3d",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY"
+    },
+    {
+      "adapter_id": "federal_reserve_fomc_calendar_html_v1",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "evidence_ref": "extracted:9fc8121b5eeb142e8a2ec815685c3d08",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "extractor_id": "contentops.fomc_calendar_html_extractor",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:9fc8121b5eeb142e8a2ec815685c3d08"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "aff4b46e028ee0928db12a4793e1c22fbbac3181671013162fa562007dd33cc1",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:9fc8121b5eeb142e8a2ec815685c3d08"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "4755e24145d1f06fabe5c2a833e59f352bd48ee006194d3c1edc4c3bf5178b46",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY"
+    }
+  ],
+  "schema_version": "contentops.production_adapter_wave2_extraction_matrices.v1",
+  "timestamps_derived_from_selected_records": true
+}

@@ -1,0 +1,29 @@
+{
+  "branch_advancement_test": "PASS_PINNED_ANCESTOR_SEPARATE_FROM_OBSERVED_DESCENDANT",
+  "branch_authority_does_not_default_to_pinned_commit": true,
+  "branch_authority_ref": "refs/remotes/origin/main",
+  "observed_branch_head": "aed2e64c76a264862bc44006a13ffaf41883af75",
+  "producer_and_branch_head_fields_separate": true,
+  "producer_commit_bindings": [
+    {
+      "adapter_id": "us_treasury_debt_to_penny_v1",
+      "observed_branch_head": "aed2e64c76a264862bc44006a13ffaf41883af75",
+      "producer_commit": "788c86f8a71528683789581af4e77b529d92a97e",
+      "reachable": true
+    },
+    {
+      "adapter_id": "bls_unemployment_series_v1",
+      "observed_branch_head": "aed2e64c76a264862bc44006a13ffaf41883af75",
+      "producer_commit": "7cae8aa1727f8d78e5801b76702fb928b92476fc",
+      "reachable": true
+    },
+    {
+      "adapter_id": "federal_reserve_fomc_calendar_html_v1",
+      "observed_branch_head": "aed2e64c76a264862bc44006a13ffaf41883af75",
+      "producer_commit": "94c0482f40e764c6ad34707ab28ffe36df57c202",
+      "reachable": true
+    }
+  ],
+  "schema_version": "contentops.production_adapter_wave2_portability_ancestry.v1",
+  "unrelated_history_test": "PASS_FAILS_CLOSED"
+}

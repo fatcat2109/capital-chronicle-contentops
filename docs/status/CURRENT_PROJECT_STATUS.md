@@ -4,11 +4,19 @@
 
 ## Current Classification
 
-`PASS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1`.
+Completed task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1`.
 
-## Production Adapter Batch: Treasury Yield, CFTC COT, And Fed H.4.1
+## Production Adapter Wave 2: Official Committed Artifacts
+
+Wave 2 adds exactly three materially distinct official/public upstream families: Treasury Debt to the Penny JSON, BLS unemployment-series JSON, and Federal Reserve FOMC calendar HTML. Each is bound to its historical producer commit, path, Git blob, byte SHA-256, and byte length, while the separately fetched `refs/remotes/origin/main` head is `aed2e64c76a264862bc44006a13ffaf41883af75`. All producer commits are verified ancestors of that observed head.
+
+The verifier and extractor registries advance append-only to `trusted-evidence-registry-1.2.0` and `artifact-evidence-extractor-registry-1.2.0`. Exact-byte extraction validates each external shape, selects one record deterministically, derives evidence refs and intrinsic timestamps, preserves explicit zero, and emits only `OFFICIAL_VERIFIED + CONTEXT_ONLY + FEATURE_SUPPORT`. All three frozen-harness decisions remain `NO_PUBLICATION_INSUFFICIENT_AUTHORITY`.
+
+The prior task is accepted as `PASS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1_WITH_MINOR_PORTABILITY_EVIDENCE_GAP`. This wave repairs that gap: conformance uses the actual fetched branch ref, reports producer commit and observed branch head separately, proves ancestry before byte consumption, and includes branch-advancement and unrelated-history rejection tests. Evidence: `docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1/final_manifest.json`.
+
+## Accepted Prior Production Adapter Batch: Treasury Yield, CFTC COT, And Fed H.4.1
 
 The bounded no-write production batch adds exactly three adapter-owned implementations over upstream commit `251ba1804c5d495884343adad6be0d0e6ba8c121`: Treasury daily yield-curve Atom/OData XML, CFTC legacy futures-only headerless CSV, and Federal Reserve H.4.1 ZIP/XML/XSD. Each artifact is pinned by repository, branch, commit, path, Git blob, byte SHA-256, and byte length. Later observed upstream branch head `aed2e64c76a264862bc44006a13ffaf41883af75` retains the pinned commit as an ancestor.
 
@@ -145,6 +153,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1`
+`INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1`
 
-Independently audit the three exact upstream bindings, append-only registry deltas, Treasury namespace and selector logic, CFTC 129-column contract, H.4.1 ZIP bounds and numeric quarantine, frozen-manifest integrity, deterministic conformance, compatibility, no-publication, and evidence hashes.
+Independently audit wave-2 selection exclusions, the three exact historical bindings and observed-branch ancestry, append-only registry deltas, JSON/HTML shape validation, deterministic selectors and timestamps, explicit-zero handling, authority/permission/role ceilings, frozen-manifest integrity, compatibility, no-publication, and evidence hashes.

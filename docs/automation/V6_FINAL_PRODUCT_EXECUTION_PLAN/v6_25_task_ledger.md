@@ -30,9 +30,9 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Latest completed task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1` — `PASS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1_AWAITING_CHATGPT_AUDIT`.
+Latest completed task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1` — `PASS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1_AWAITING_CHATGPT_AUDIT`.
 
-The frozen generic learning foundation now has one bounded three-adapter production extension: Treasury yield-curve Atom/OData XML, CFTC legacy futures-only headerless CSV, and Federal Reserve H.4.1 ZIP/XML/XSD. Exact Git/byte bindings, append-only registries, context-only feature-support authority, H.4.1 numeric quarantine, deterministic frozen-harness conformance, and no-publication are preserved. Evidence is at `docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1/`.
+The prior production batch is accepted with a minor portability-evidence gap. Wave 2 closes that gap and adds three bounded official/public families: Treasury Debt to the Penny JSON, BLS unemployment-series JSON, and Federal Reserve FOMC calendar HTML. Historical pins are proven ancestors of the separately observed branch head; append-only registries, context-only feature support, deterministic frozen-harness conformance, and no-publication are preserved. Evidence is at `docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1/`.
 
 Completed architecture authority: `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`. Task 4 remains `ACCEPTED_TREASURY_SPECIFIC_SHADOW_PROTOTYPE_SUPERSEDED_AS_FOUNDATION_BY_V2`. V2 evidence is at `docs/automation/CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2/`.
 
@@ -48,4 +48,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is `ACCEPT_TRUSTED_VERIFIER_RE
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair closes extracted authority, permission, semantic-role, candidate consistency, and multi-evidence aggregation gaps without modifying fixtures, calibration, policy, publication authority, or the accepted release.
 
-Next route: `INDEPENDENT_CHATGPT_AUDIT_EXTRACTED_AUTHORITY_PERMISSION_ROLE_AND_AGGREGATION_BINDING_V1`.
+Next route: `INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1`.

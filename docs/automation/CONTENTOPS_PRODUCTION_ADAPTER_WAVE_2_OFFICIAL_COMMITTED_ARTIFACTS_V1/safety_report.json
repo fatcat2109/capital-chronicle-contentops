@@ -1,0 +1,19 @@
+{
+  "all_decisions_no_publication": true,
+  "browser_used": false,
+  "credentials_or_environment_read": false,
+  "dqr_mutated": false,
+  "editorial_mutated": false,
+  "external_authority_ceiling": "OFFICIAL_VERIFIED",
+  "external_permission_ceiling": "CONTEXT_ONLY",
+  "external_role_ceiling": "feature_support",
+  "network_fetch_during_adapter_execution": false,
+  "numeric_truth_granted": false,
+  "permission_authority_mutated": false,
+  "provider_calls": false,
+  "publication_or_dispatch": false,
+  "scheduler_mutated": false,
+  "schema_version": "contentops.production_adapter_wave2_safety.v1",
+  "status": "PASS_NO_WRITE_BOUNDARY",
+  "upstream_writes": false
+}

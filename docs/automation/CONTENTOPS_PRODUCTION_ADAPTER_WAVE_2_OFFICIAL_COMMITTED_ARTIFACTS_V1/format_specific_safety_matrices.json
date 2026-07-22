@@ -1,0 +1,31 @@
+{
+  "bounded_local_read_only": true,
+  "formats": {
+    "bls_json": [
+      "success status",
+      "Results.series shape",
+      "unique series/period selector",
+      "M01-M12 validation",
+      "month-name agreement",
+      "finite numeric value"
+    ],
+    "fomc_html": [
+      "UTF-8",
+      "exact official og:url",
+      "year-section boundary",
+      "unique month/date selector",
+      "valid calendar date",
+      "date-bound official document link"
+    ],
+    "treasury_json": [
+      "object/data/meta/links shape",
+      "meta count equality",
+      "unique record-date selector",
+      "ISO date",
+      "finite decimal strings",
+      "required fields"
+    ]
+  },
+  "malformed_and_selector_mismatch_tests": "PASS",
+  "schema_version": "contentops.production_adapter_wave2_format_safety.v1"
+}

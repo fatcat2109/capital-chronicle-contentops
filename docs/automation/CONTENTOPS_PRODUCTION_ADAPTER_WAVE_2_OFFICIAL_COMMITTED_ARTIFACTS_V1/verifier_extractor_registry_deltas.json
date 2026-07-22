@@ -1,0 +1,34 @@
+{
+  "extension_policy": "VERSIONED_APPEND_ONLY",
+  "extractor_registry": {
+    "after": "artifact-evidence-extractor-registry-1.2.0",
+    "baseline_records_mutated": false,
+    "before": "artifact-evidence-extractor-registry-1.1.0",
+    "new_records": [
+      [
+        "contentops.treasury_debt_to_penny_extractor",
+        "v1"
+      ],
+      [
+        "contentops.bls_unemployment_series_extractor",
+        "v1"
+      ],
+      [
+        "contentops.fomc_calendar_html_extractor",
+        "v1"
+      ]
+    ]
+  },
+  "schema_version": "contentops.production_adapter_wave2_registry_deltas.v1",
+  "verifier_registry": {
+    "after": "trusted-evidence-registry-1.2.0",
+    "baseline_records_mutated": false,
+    "before": "trusted-evidence-registry-1.1.0",
+    "new_records": [
+      [
+        "contentops.production_external_exact_git_verifier_wave2",
+        "v1"
+      ]
+    ]
+  }
+}

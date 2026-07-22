@@ -16,6 +16,7 @@ from live_contentops import adaptive_learning_adapters_v2 as adapters
 from live_contentops import adaptive_learning_core_v2 as core
 from live_contentops import content_intelligence_contracts_v2 as contracts
 from live_contentops import production_evidence_adapters_batch_v1 as production_batch
+from live_contentops import production_evidence_adapters_wave2_v1 as production_wave2
 from live_contentops import schema_aware_evidence_extraction_v1 as extraction
 
 
@@ -46,6 +47,7 @@ class ProductionAdapterSpecV1:
     verifier_version: str = "v1"
     expected_git_blob_sha1: str | None = None
     expected_byte_sha256: str | None = None
+    pinned_producer_commit: str | None = None
 
 
 PRODUCTION_ADAPTERS_V1: tuple[ProductionAdapterSpecV1, ...] = (
@@ -122,6 +124,43 @@ PRODUCTION_ADAPTER_BATCH_TREASURY_CFTC_H41_V1: tuple[ProductionAdapterSpecV1, ..
 )
 
 
+PRODUCTION_ADAPTER_WAVE2_V1: tuple[ProductionAdapterSpecV1, ...] = (
+    ProductionAdapterSpecV1(
+        "us_treasury_debt_to_penny_v1", "us_treasury_fiscaldata_debt_to_penny",
+        production_wave2.TREASURY_PATH, production_wave2.TREASURY_SCHEMA,
+        production_wave2.TREASURY_EXTRACTOR_ID, {"record_date": "2026-06-01"},
+        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
+        True, False, "conformance:candidate:treasury-debt", "conformance:story:treasury-debt",
+        verifier_id=production_wave2.VERIFIER_ID, verifier_version=production_wave2.VERIFIER_VERSION,
+        expected_git_blob_sha1=production_wave2.PINNED_ARTIFACTS[production_wave2.TREASURY_EXTRACTOR_ID]["git_blob_sha1"],
+        expected_byte_sha256=production_wave2.PINNED_ARTIFACTS[production_wave2.TREASURY_EXTRACTOR_ID]["byte_sha256"],
+        pinned_producer_commit=production_wave2.PINNED_ARTIFACTS[production_wave2.TREASURY_EXTRACTOR_ID]["producer_commit"],
+    ),
+    ProductionAdapterSpecV1(
+        "bls_unemployment_series_v1", "bls_public_unemployment_series",
+        production_wave2.BLS_PATH, production_wave2.BLS_SCHEMA,
+        production_wave2.BLS_EXTRACTOR_ID, {"series_id": "LNS14000000", "year": "2026", "period": "M05"},
+        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
+        True, False, "conformance:candidate:bls-unemployment", "conformance:story:bls-unemployment",
+        verifier_id=production_wave2.VERIFIER_ID, verifier_version=production_wave2.VERIFIER_VERSION,
+        expected_git_blob_sha1=production_wave2.PINNED_ARTIFACTS[production_wave2.BLS_EXTRACTOR_ID]["git_blob_sha1"],
+        expected_byte_sha256=production_wave2.PINNED_ARTIFACTS[production_wave2.BLS_EXTRACTOR_ID]["byte_sha256"],
+        pinned_producer_commit=production_wave2.PINNED_ARTIFACTS[production_wave2.BLS_EXTRACTOR_ID]["producer_commit"],
+    ),
+    ProductionAdapterSpecV1(
+        "federal_reserve_fomc_calendar_html_v1", "federal_reserve_fomc_calendar",
+        production_wave2.FOMC_PATH, production_wave2.FOMC_SCHEMA,
+        production_wave2.FOMC_EXTRACTOR_ID, {"year": "2026", "month": "January", "meeting_dates": "27-28"},
+        ("evidence_completeness", "freshness"), contracts.EvidenceModality.OFFICIAL_DOCUMENT,
+        False, True, "conformance:candidate:fomc-calendar", "conformance:story:fomc-calendar",
+        verifier_id=production_wave2.VERIFIER_ID, verifier_version=production_wave2.VERIFIER_VERSION,
+        expected_git_blob_sha1=production_wave2.PINNED_ARTIFACTS[production_wave2.FOMC_EXTRACTOR_ID]["git_blob_sha1"],
+        expected_byte_sha256=production_wave2.PINNED_ARTIFACTS[production_wave2.FOMC_EXTRACTOR_ID]["byte_sha256"],
+        pinned_producer_commit=production_wave2.PINNED_ARTIFACTS[production_wave2.FOMC_EXTRACTOR_ID]["producer_commit"],
+    ),
+)
+
+
 def _git_prefix(repository: Path) -> list[str]:
     return ["git", "--git-dir", str(repository)] if repository.suffix == ".git" else ["git", "-C", str(repository)]
 
@@ -145,6 +184,24 @@ def _git_commit_time(repository: Path, commit: str) -> str:
     except subprocess.CalledProcessError as error:
         raise ValueError("conformance_commit_time_unavailable") from error
     return value.replace("+00:00", "Z")
+
+
+def _verify_commit_ancestry(repository: Path, commit: str, branch_authority_ref: str) -> None:
+    """Reject a producer commit before consuming bytes unless the fetched ref contains it."""
+    prefix = _git_prefix(repository)
+    try:
+        branch_head = subprocess.run(
+            [*prefix, "rev-parse", "--verify", branch_authority_ref], check=True,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        ).stdout.strip()
+    except subprocess.CalledProcessError as error:
+        raise ValueError("conformance_branch_authority_ref_unavailable") from error
+    ancestry = subprocess.run(
+        [*prefix, "merge-base", "--is-ancestor", commit, branch_head],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    )
+    if ancestry.returncode != 0:
+        raise ValueError("committed_artifact_not_reachable_from_observed_branch")
 
 
 def _artifact_contract(consumed: bytes, spec: ProductionAdapterSpecV1, commit_time: str, shape_contract: str) -> tuple[str, str]:
@@ -200,12 +257,22 @@ def run_adapter_conformance(
     extractor = extractor_registry.resolve(spec.extractor_id, spec.extractor_version)
     if extractor is None or not extractor.enabled:
         raise ValueError("conformance_extractor_unavailable")
+    _verify_commit_ancestry(upstream, upstream_commit, branch_authority_ref)
     consumed = _git_bytes(upstream, upstream_commit, spec.artifact_path)
     artifact_cutoff, producer_version = _artifact_contract(
         consumed, spec, _git_commit_time(upstream, upstream_commit), extractor.shape_contract_id,
     )
     if spec.verifier_id == production_batch.VERIFIER_ID:
         receipt = production_batch.build_production_git_artifact_receipt(
+            git_repository=upstream, registry=verifier_registry, commit=upstream_commit,
+            artifact_path=spec.artifact_path, artifact_schema_version=spec.artifact_schema_version,
+            producer_version=producer_version, artifact_cutoff_utc=artifact_cutoff,
+            verification_time_utc=decision_cutoff_utc, branch_authority_ref=branch_authority_ref,
+            expected_git_blob_sha1=spec.expected_git_blob_sha1,
+            expected_byte_sha256=spec.expected_byte_sha256,
+        )
+    elif spec.verifier_id == production_wave2.VERIFIER_ID:
+        receipt = production_wave2.build_wave2_git_artifact_receipt(
             git_repository=upstream, registry=verifier_registry, commit=upstream_commit,
             artifact_path=spec.artifact_path, artifact_schema_version=spec.artifact_schema_version,
             producer_version=producer_version, artifact_cutoff_utc=artifact_cutoff,
@@ -233,6 +300,17 @@ def run_adapter_conformance(
             selector=spec.selector, feature_targets=spec.feature_targets,
             decision_cutoff_utc=decision_cutoff_utc, evidence_scope=spec.evidence_scope,
             repo_root=root,
+        )
+    elif spec.extractor_id in {
+        production_wave2.TREASURY_EXTRACTOR_ID,
+        production_wave2.BLS_EXTRACTOR_ID,
+        production_wave2.FOMC_EXTRACTOR_ID,
+    }:
+        record, feature_values = production_wave2.extract_wave2_artifact_evidence(
+            consumed, receipt=receipt, registry=extractor_registry,
+            extractor_id=spec.extractor_id, extractor_version=spec.extractor_version,
+            selector=spec.selector, feature_targets=spec.feature_targets,
+            decision_cutoff_utc=decision_cutoff_utc, evidence_scope=spec.evidence_scope,
         )
     else:
         record, feature_values = extraction.extract_artifact_evidence(
@@ -325,7 +403,8 @@ def run_adapter_conformance(
         "adapter_id": spec.adapter_id, "artifact_family": spec.artifact_family,
         "status": "PASS" if passed else "REJECTED", "reason_codes": list(reasons),
         "upstream": {"repository": UPSTREAM_REPOSITORY, "branch": UPSTREAM_BRANCH,
-                     "commit": upstream_commit, "path": spec.artifact_path,
+                     "commit": upstream_commit, "producer_commit": upstream_commit,
+                     "branch_authority_ref": branch_authority_ref, "path": spec.artifact_path,
                      "branch_head_observed": receipt.branch_head_observed,
                      "commit_reachable_from_branch": receipt.producer_commit_reachable_from_branch,
                      "git_blob_sha1": receipt.git_blob_sha1, "byte_sha256": receipt.consumed_byte_sha256},
@@ -361,7 +440,7 @@ def run_four_adapter_conformance(
 def run_treasury_cftc_h41_adapter_conformance(
     *, repo_root: str | Path, upstream_git_repository: str | Path,
     upstream_commit: str = production_batch.UPSTREAM_PINNED_COMMIT,
-    branch_authority_ref: str = production_batch.UPSTREAM_PINNED_COMMIT,
+    branch_authority_ref: str = "refs/remotes/origin/main",
 ) -> Mapping[str, Any]:
     results = [run_adapter_conformance(
         spec, repo_root=repo_root, upstream_git_repository=upstream_git_repository,
@@ -370,6 +449,31 @@ def run_treasury_cftc_h41_adapter_conformance(
     return {
         "schema_version": "contentops.production_adapter_conformance_set.v1",
         "harness_version": HARNESS_VERSION, "upstream_commit": upstream_commit,
+        "status": "PASS" if all(row["status"] == "PASS" for row in results) else "FAIL",
+        "adapter_count": len(results), "results": results,
+        "network_calls": 0, "writes_performed": 0,
+        "publication_authority_granted": False, "numeric_truth_granted": False,
+    }
+
+
+def run_wave2_adapter_conformance(
+    *, repo_root: str | Path, upstream_git_repository: str | Path,
+    branch_authority_ref: str = "refs/remotes/origin/main",
+    pinned_commit_override: str | None = None,
+) -> Mapping[str, Any]:
+    """Run wave 2 with historical pins and the actual fetched branch ref."""
+    results = [run_adapter_conformance(
+        spec, repo_root=repo_root, upstream_git_repository=upstream_git_repository,
+        upstream_commit=pinned_commit_override or str(spec.pinned_producer_commit),
+        branch_authority_ref=branch_authority_ref,
+    ) for spec in PRODUCTION_ADAPTER_WAVE2_V1]
+    observed = sorted({row["upstream"]["branch_head_observed"] for row in results})
+    return {
+        "schema_version": "contentops.production_adapter_conformance_set.v1",
+        "harness_version": HARNESS_VERSION,
+        "branch_authority_ref": branch_authority_ref,
+        "observed_branch_heads": observed,
+        "producer_commits": [row["upstream"]["producer_commit"] for row in results],
         "status": "PASS" if all(row["status"] == "PASS" for row in results) else "FAIL",
         "adapter_count": len(results), "results": results,
         "network_calls": 0, "writes_performed": 0,

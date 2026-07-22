@@ -1,0 +1,246 @@
+{
+  "adapter_count": 3,
+  "branch_authority_ref": "refs/remotes/origin/main",
+  "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+  "network_calls": 0,
+  "numeric_truth_granted": false,
+  "observed_branch_heads": [
+    "aed2e64c76a264862bc44006a13ffaf41883af75"
+  ],
+  "producer_commits": [
+    "788c86f8a71528683789581af4e77b529d92a97e",
+    "7cae8aa1727f8d78e5801b76702fb928b92476fc",
+    "94c0482f40e764c6ad34707ab28ffe36df57c202"
+  ],
+  "publication_authority_granted": false,
+  "results": [
+    {
+      "adapter_id": "us_treasury_debt_to_penny_v1",
+      "artifact_family": "us_treasury_fiscaldata_debt_to_penny",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:15226bf7658c16486f0d6e6a16277cdb",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.treasury_debt_to_penny_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:15226bf7658c16486f0d6e6a16277cdb"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "8de4f5545e5e587d81e8a56d663049185ea5f298dd8ee49562bfbe3c3cef4422",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:15226bf7658c16486f0d6e6a16277cdb"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "82274193cb76491458668a38d1d8cfd310550170e4b0e966940b683e7305fbe6",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:8d938eb13a08b82e71c542b7",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "aed2e64c76a264862bc44006a13ffaf41883af75",
+        "byte_sha256": "28d55402e421cd437727d7f280d2c0da9dba45ea25ba122059a7f55f24ef51ee",
+        "commit": "788c86f8a71528683789581af4e77b529d92a97e",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "263e213836403661f0bfe8248c42410d3859506e",
+        "path": "data/archive/official_sources/us_treasury_fiscaldata_api/us_treasury_fiscaldata_api_live_20260603_121640_28d55402e421/raw_response.json",
+        "producer_commit": "788c86f8a71528683789581af4e77b529d92a97e",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "bls_unemployment_series_v1",
+      "artifact_family": "bls_public_unemployment_series",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:4767b44dd4be17c8a95e53b73f78d18f",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.bls_unemployment_series_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:4767b44dd4be17c8a95e53b73f78d18f"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "1ee6b58bc3d5d6eab90aa9e54092261ea635fb89448201d57be31fc62ac8521d",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:4767b44dd4be17c8a95e53b73f78d18f"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "5f75d5bc095bde2d9bf94ca37e1177791bede8f3c489e3513500d12b4f18dd3d",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:d5b07eea82d2a01f4fed0d35",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "aed2e64c76a264862bc44006a13ffaf41883af75",
+        "byte_sha256": "254b1137dfcc482a9c37581463b0ea393b90cd110c88ae5b7d5c91c06be2acc6",
+        "commit": "7cae8aa1727f8d78e5801b76702fb928b92476fc",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "17a19353e038ff33ac9f9584314af91a1908d0cc",
+        "path": "data/audit/data_sufficiency/task_244aa_248z/raw_archive/bls_beyond_cpi/capture_bls_beyond_cpi_20260605T152047Z_763dd2aa.body",
+        "producer_commit": "7cae8aa1727f8d78e5801b76702fb928b92476fc",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "federal_reserve_fomc_calendar_html_v1",
+      "artifact_family": "federal_reserve_fomc_calendar",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:9fc8121b5eeb142e8a2ec815685c3d08",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.fomc_calendar_html_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:9fc8121b5eeb142e8a2ec815685c3d08"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "aff4b46e028ee0928db12a4793e1c22fbbac3181671013162fa562007dd33cc1",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:9fc8121b5eeb142e8a2ec815685c3d08"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "4755e24145d1f06fabe5c2a833e59f352bd48ee006194d3c1edc4c3bf5178b46",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:46d3dcb616935bc9e5b2a628",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "aed2e64c76a264862bc44006a13ffaf41883af75",
+        "byte_sha256": "8c6cd522e52a3847683dc74bafc32589bd22c67cd1908f88a2fe0807253e7621",
+        "commit": "94c0482f40e764c6ad34707ab28ffe36df57c202",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "d036fec5666b38c8cbb5bc1079f820f4db5571f1",
+        "path": "data/audit/raw_archive/task_calendar_event_spine_batch_a2_page_only_controlled_live_capture/fomc_calendar_statements_2026-06-09T02_57_12Z.html",
+        "producer_commit": "94c0482f40e764c6ad34707ab28ffe36df57c202",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    }
+  ],
+  "schema_version": "contentops.production_adapter_conformance_set.v1",
+  "status": "PASS",
+  "writes_performed": 0
+}

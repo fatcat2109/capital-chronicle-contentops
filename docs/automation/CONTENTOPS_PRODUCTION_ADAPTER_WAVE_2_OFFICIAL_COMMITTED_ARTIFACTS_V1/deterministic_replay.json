@@ -1,0 +1,7 @@
+{
+  "byte_identical_primitive_results": true,
+  "run_1_logical_hash": "ff5985fb467a856077ae14e53a80345480eebd049b89875d171a609bd42c7bea",
+  "run_2_logical_hash": "ff5985fb467a856077ae14e53a80345480eebd049b89875d171a609bd42c7bea",
+  "schema_version": "contentops.production_adapter_wave2_deterministic_replay.v1",
+  "status": "PASS_TWO_IDENTICAL_RUNS"
+}

@@ -1,0 +1,28 @@
+{
+  "changed_path_classes": [
+    "append-only verifier registry",
+    "append-only extractor registry",
+    "wave2 adapter implementation",
+    "conformance portability repair and extension",
+    "focused tests",
+    "superseding evidence",
+    "current authority/status documents"
+  ],
+  "pre_existing_dirty_paths_staged": false,
+  "protected_unchanged": [
+    "live_contentops/content_intelligence_contracts_v2.py",
+    "live_contentops/schema_aware_evidence_extraction_v1.py",
+    "live_contentops/adaptive_learning_adapters_v2.py",
+    "live_contentops/adaptive_learning_core_v2.py",
+    "live_contentops/adaptive_learning_foundation_v2_config.json",
+    "prior docs/automation evidence trees",
+    "tests/fixtures domain and scenario data",
+    "ui/contentops_v5",
+    "scheduler",
+    "DQR and permission authority",
+    "upstream repository",
+    "annotated tag v1.0"
+  ],
+  "schema_version": "contentops.production_adapter_wave2_changed_protected_paths.v1",
+  "status": "PASS_SCOPE_ISOLATED"
+}

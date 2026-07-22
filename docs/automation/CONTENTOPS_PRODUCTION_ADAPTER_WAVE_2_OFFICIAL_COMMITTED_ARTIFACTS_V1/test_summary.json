@@ -1,0 +1,18 @@
+{
+  "all_v2_foundation": "287 passed in 178.23s",
+  "ci_pass_claimed": false,
+  "deterministic_regeneration": "PASS",
+  "focused_wave2_and_prior_batch": "35 passed in 10.95s",
+  "full_suite": "ATTEMPTED_NOT_PASS_80_PASSED_1_FAILED_MAXFAIL1",
+  "full_suite_blocker": "pre_existing_missing_archived_TASK_CONTENTOPS_0073_EXTREME_LOCAL_ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_FINAL_BUNDLE_AND_PATH_REPAIR_V0.md",
+  "full_suite_pass_claimed": false,
+  "genericity_guards": "PASS_BOTH_ZERO_FINDINGS",
+  "git_diff_check": "PASS",
+  "json_and_hash_validation": "PASS",
+  "python_compileall": "PASS",
+  "redacted_secret_scan": "PASS",
+  "relevant_status": "25 passed in 2.15s",
+  "schema_version": "contentops.production_adapter_wave2_test_summary.v1",
+  "status": "PASS_SCOPED_VALIDATION",
+  "v1_compatibility": "22 passed in 1.34s"
+}
