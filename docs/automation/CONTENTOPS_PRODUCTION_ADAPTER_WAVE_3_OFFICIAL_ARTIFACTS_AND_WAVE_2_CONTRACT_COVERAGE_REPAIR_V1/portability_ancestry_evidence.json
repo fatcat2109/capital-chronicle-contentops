@@ -38,7 +38,7 @@
     }
   ],
   "branch_advancement_test": "PASS",
-  "branch_authority_ref": "refs/remotes/origin/main",
+  "branch_authority_ref": "refs/remotes/read-only-upstream/main",
   "observed_branch_head": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
   "producer_and_observed_head_separate": true,
   "schema_version": "contentops.production_adapter_wave3_ancestry.v1",

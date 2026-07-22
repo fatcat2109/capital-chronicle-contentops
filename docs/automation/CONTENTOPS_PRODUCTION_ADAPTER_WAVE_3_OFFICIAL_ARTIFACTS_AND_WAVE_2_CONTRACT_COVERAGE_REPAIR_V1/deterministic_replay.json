@@ -2,8 +2,8 @@
   "byte_identical_primitive_results": true,
   "schema_version": "contentops.production_adapter_wave3_deterministic_replay.v1",
   "status": "PASS_TWO_IDENTICAL_RUNS",
-  "wave2_run_1_hash": "d2540af71e0fd2aba915938ed58c530ba18490118f9586c342f04f93ea700723",
-  "wave2_run_2_hash": "d2540af71e0fd2aba915938ed58c530ba18490118f9586c342f04f93ea700723",
-  "wave3_run_1_hash": "0000996593a67fc254f11a17798da0ec62fe2368cda45355d49aae960976b2a7",
-  "wave3_run_2_hash": "0000996593a67fc254f11a17798da0ec62fe2368cda45355d49aae960976b2a7"
+  "wave2_run_1_hash": "a0711b1adaa574b7369354d792cb6b253647017955164fb70cefeb2262d7e404",
+  "wave2_run_2_hash": "a0711b1adaa574b7369354d792cb6b253647017955164fb70cefeb2262d7e404",
+  "wave3_run_1_hash": "4ddd47ea50711bee2d7f1f88da239d6876900e0c6a0bdc86f2c1eaa2e42e61d6",
+  "wave3_run_2_hash": "4ddd47ea50711bee2d7f1f88da239d6876900e0c6a0bdc86f2c1eaa2e42e61d6"
 }

@@ -29,7 +29,8 @@ NEXT = "INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_WAVE_3_AND_WAVE_2_CONTRACT_
 
 
 def emit(name: str, payload: object) -> None:
-    (OUT / name).write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    # Explicit LF bytes keep manifest hashes identical to portable Git blobs.
+    (OUT / name).write_bytes((json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8"))
 
 
 def main() -> int:
@@ -135,8 +136,8 @@ def main() -> int:
     })
     emit("test_summary.json", {
         "schema_version": "contentops.production_adapter_wave3_test_summary.v1", "status": "PASS_SCOPED_VALIDATION",
-        "focused_wave2_repair_and_wave3": "29 passed in 20.05s", "all_v2_foundation_and_adapters": "304 passed in 208.64s",
-        "v1_compatibility": "22 passed in 1.40s", "relevant_status": "30 passed in 2.91s",
+        "focused_wave2_repair_and_wave3": "29 passed", "all_v2_foundation_and_adapters": "304 passed",
+        "v1_compatibility": "22 passed", "relevant_status": "29 passed",
         "python_compileall": "PASS", "json_and_hash_validation": "PASS", "genericity_guards": "PASS_BOTH_ZERO_FINDINGS",
         "deterministic_regeneration": "PASS", "git_diff_check": "PASS", "redacted_secret_scan": "PASS",
         "full_suite": "ATTEMPTED_NOT_PASS_80_PASSED_1_FAILED_MAXFAIL1",
