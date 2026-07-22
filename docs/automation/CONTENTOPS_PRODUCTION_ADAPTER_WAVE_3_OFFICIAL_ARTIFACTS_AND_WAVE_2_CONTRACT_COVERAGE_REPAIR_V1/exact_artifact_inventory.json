@@ -28,7 +28,7 @@
   ],
   "branch": "main",
   "observed_branch_head": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
-  "observed_branch_ref": "refs/remotes/read-only-upstream/main",
+  "observed_branch_ref": "refs/remotes/origin/main",
   "repository": "fatcat2109/Headline-Raw-data-json",
   "schema_version": "contentops.production_adapter_wave3_exact_inventory.v1"
 }

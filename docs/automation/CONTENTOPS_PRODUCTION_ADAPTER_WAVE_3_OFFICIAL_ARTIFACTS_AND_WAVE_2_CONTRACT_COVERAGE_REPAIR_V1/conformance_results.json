@@ -3,7 +3,7 @@
   "status": "PASS",
   "wave2_repair": {
     "adapter_count": 3,
-    "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+    "branch_authority_ref": "refs/remotes/origin/main",
     "harness_version": "contentops.production_adapter_conformance.v1.0.0",
     "network_calls": 0,
     "numeric_truth_granted": false,
@@ -88,7 +88,7 @@
         },
         "upstream": {
           "branch": "main",
-          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_authority_ref": "refs/remotes/origin/main",
           "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
           "byte_sha256": "28d55402e421cd437727d7f280d2c0da9dba45ea25ba122059a7f55f24ef51ee",
           "commit": "788c86f8a71528683789581af4e77b529d92a97e",
@@ -171,7 +171,7 @@
         },
         "upstream": {
           "branch": "main",
-          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_authority_ref": "refs/remotes/origin/main",
           "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
           "byte_sha256": "254b1137dfcc482a9c37581463b0ea393b90cd110c88ae5b7d5c91c06be2acc6",
           "commit": "7cae8aa1727f8d78e5801b76702fb928b92476fc",
@@ -254,7 +254,7 @@
         },
         "upstream": {
           "branch": "main",
-          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_authority_ref": "refs/remotes/origin/main",
           "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
           "byte_sha256": "8c6cd522e52a3847683dc74bafc32589bd22c67cd1908f88a2fe0807253e7621",
           "commit": "94c0482f40e764c6ad34707ab28ffe36df57c202",
@@ -273,7 +273,7 @@
   },
   "wave3": {
     "adapter_count": 3,
-    "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+    "branch_authority_ref": "refs/remotes/origin/main",
     "harness_version": "contentops.production_adapter_conformance.v1.0.0",
     "network_calls": 0,
     "numeric_truth_granted": false,
@@ -358,7 +358,7 @@
         },
         "upstream": {
           "branch": "main",
-          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_authority_ref": "refs/remotes/origin/main",
           "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
           "byte_sha256": "fdfe780d622e0dcc2586496bba179a36d8571103071fe1dc5294d78cc40ff615",
           "commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
@@ -441,7 +441,7 @@
         },
         "upstream": {
           "branch": "main",
-          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_authority_ref": "refs/remotes/origin/main",
           "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
           "byte_sha256": "9754c1372e9973982abac470ab9d91738a346ecbdb76d56e119b7f460405d506",
           "commit": "0eb73c46c0c9f43b810d4f4ff30ba6695f3a3257",
@@ -524,7 +524,7 @@
         },
         "upstream": {
           "branch": "main",
-          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_authority_ref": "refs/remotes/origin/main",
           "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
           "byte_sha256": "6f91af6847f89310b70df3213995808187c8af147ac34ff96ef8130c8285c1e2",
           "commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
