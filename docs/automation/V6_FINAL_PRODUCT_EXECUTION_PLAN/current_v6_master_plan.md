@@ -84,7 +84,7 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1` — `PASS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1_AWAITING_CHATGPT_AUDIT`.
+Current completed architecture task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1` — `PASS_PRODUCTION_ADAPTER_WAVE_3_AND_WAVE_2_CONTRACT_REPAIR_V1_AWAITING_CHATGPT_AUDIT`.
 
 The prior three-adapter batch is accepted as `PASS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1_WITH_MINOR_PORTABILITY_EVIDENCE_GAP`. Wave 2 repairs branch authority portability and adds exact historical adapters for Treasury Debt to the Penny JSON, BLS unemployment-series JSON, and Federal Reserve FOMC calendar HTML. The observed upstream branch head is separate from each pinned producer commit, ancestry is verified before byte consumption, and all results remain context-only feature support with no publication authority.
 
@@ -102,4 +102,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is retained as `ACCEPT_TRUSTED
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is retained as `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair derives authority, permission, and roles from registered extractors, copies qualification into receipt-backed bindings, derives candidate authority across every bound extracted record, and requires exact-set or registered feature aggregation. It adds no scenario, calibration, product, publication, or policy behavior.
 
-Next action: `INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1`.
+Next action: `INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_WAVE_3_AND_WAVE_2_CONTRACT_REPAIR_V1`.

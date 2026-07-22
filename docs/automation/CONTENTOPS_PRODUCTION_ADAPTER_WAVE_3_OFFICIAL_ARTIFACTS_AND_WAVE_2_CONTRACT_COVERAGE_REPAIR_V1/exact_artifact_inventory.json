@@ -1,0 +1,34 @@
+{
+  "all_exact_pins_verified_by_conformance": true,
+  "artifacts": [
+    {
+      "byte_length": 125185,
+      "byte_sha256": "fdfe780d622e0dcc2586496bba179a36d8571103071fe1dc5294d78cc40ff615",
+      "extractor_id": "contentops.treasury_tic_html_extractor",
+      "git_blob_sha1": "affd19cea196614ad650b36ca7a8a50dd119bbf4",
+      "path": "data/raw/new_sources_capture_v1/source_52_repaired_evidence.bin",
+      "producer_commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d"
+    },
+    {
+      "byte_length": 942,
+      "byte_sha256": "9754c1372e9973982abac470ab9d91738a346ecbdb76d56e119b7f460405d506",
+      "extractor_id": "contentops.usgs_earthquake_geojson_extractor",
+      "git_blob_sha1": "6a6f19e18320f5cc05c68b27d09da9adafc514d4",
+      "path": "data/raw/new_sources_capture_v1/source_48_raw_evidence.bin",
+      "producer_commit": "0eb73c46c0c9f43b810d4f4ff30ba6695f3a3257"
+    },
+    {
+      "byte_length": 87277,
+      "byte_sha256": "6f91af6847f89310b70df3213995808187c8af147ac34ff96ef8130c8285c1e2",
+      "extractor_id": "contentops.fhfa_hpi_html_extractor",
+      "git_blob_sha1": "79d67fda002276cf743a64630d6a445e271febaa",
+      "path": "data/raw/new_sources_capture_v1/source_53_repaired_evidence.bin",
+      "producer_commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d"
+    }
+  ],
+  "branch": "main",
+  "observed_branch_head": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+  "observed_branch_ref": "refs/remotes/read-only-upstream/main",
+  "repository": "fatcat2109/Headline-Raw-data-json",
+  "schema_version": "contentops.production_adapter_wave3_exact_inventory.v1"
+}

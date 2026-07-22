@@ -1,0 +1,26 @@
+{
+  "changed_path_classes": [
+    "append-only registries",
+    "Wave-2 adapter-owned repair",
+    "Wave-3 adapter implementation",
+    "coverage validator",
+    "conformance extension",
+    "focused tests",
+    "superseding evidence",
+    "current authority documents"
+  ],
+  "pre_existing_dirty_paths_staged": false,
+  "protected_unchanged": [
+    "five frozen V2 semantic files",
+    "adaptive_learning_foundation_v2_config.json",
+    "prior evidence trees",
+    "domain/scenario fixtures",
+    "scheduler",
+    "editorial policy",
+    "DQR and permission authority",
+    "upstream repository",
+    "annotated tag v1.0"
+  ],
+  "schema_version": "contentops.production_adapter_wave3_changed_protected_paths.v1",
+  "status": "PASS_SCOPE_ISOLATED"
+}

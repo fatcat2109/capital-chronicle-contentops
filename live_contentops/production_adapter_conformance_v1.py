@@ -17,6 +17,8 @@ from live_contentops import adaptive_learning_core_v2 as core
 from live_contentops import content_intelligence_contracts_v2 as contracts
 from live_contentops import production_evidence_adapters_batch_v1 as production_batch
 from live_contentops import production_evidence_adapters_wave2_v1 as production_wave2
+from live_contentops import production_evidence_adapters_wave3_v1 as production_wave3
+from live_contentops import production_adapter_contract_coverage_v1 as contract_coverage
 from live_contentops import schema_aware_evidence_extraction_v1 as extraction
 
 
@@ -135,6 +137,7 @@ PRODUCTION_ADAPTER_WAVE2_V1: tuple[ProductionAdapterSpecV1, ...] = (
         expected_git_blob_sha1=production_wave2.PINNED_ARTIFACTS[production_wave2.TREASURY_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_wave2.PINNED_ARTIFACTS[production_wave2.TREASURY_EXTRACTOR_ID]["byte_sha256"],
         pinned_producer_commit=production_wave2.PINNED_ARTIFACTS[production_wave2.TREASURY_EXTRACTOR_ID]["producer_commit"],
+        extractor_version=production_wave2.EXTRACTOR_VERSION,
     ),
     ProductionAdapterSpecV1(
         "bls_unemployment_series_v1", "bls_public_unemployment_series",
@@ -146,6 +149,7 @@ PRODUCTION_ADAPTER_WAVE2_V1: tuple[ProductionAdapterSpecV1, ...] = (
         expected_git_blob_sha1=production_wave2.PINNED_ARTIFACTS[production_wave2.BLS_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_wave2.PINNED_ARTIFACTS[production_wave2.BLS_EXTRACTOR_ID]["byte_sha256"],
         pinned_producer_commit=production_wave2.PINNED_ARTIFACTS[production_wave2.BLS_EXTRACTOR_ID]["producer_commit"],
+        extractor_version=production_wave2.EXTRACTOR_VERSION,
     ),
     ProductionAdapterSpecV1(
         "federal_reserve_fomc_calendar_html_v1", "federal_reserve_fomc_calendar",
@@ -157,6 +161,44 @@ PRODUCTION_ADAPTER_WAVE2_V1: tuple[ProductionAdapterSpecV1, ...] = (
         expected_git_blob_sha1=production_wave2.PINNED_ARTIFACTS[production_wave2.FOMC_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_wave2.PINNED_ARTIFACTS[production_wave2.FOMC_EXTRACTOR_ID]["byte_sha256"],
         pinned_producer_commit=production_wave2.PINNED_ARTIFACTS[production_wave2.FOMC_EXTRACTOR_ID]["producer_commit"],
+        extractor_version=production_wave2.EXTRACTOR_VERSION,
+    ),
+)
+
+
+PRODUCTION_ADAPTER_WAVE3_V1: tuple[ProductionAdapterSpecV1, ...] = (
+    ProductionAdapterSpecV1(
+        "us_treasury_tic_official_html_v1", "us_treasury_international_capital_portal",
+        production_wave3.TIC_PATH, production_wave3.TIC_SCHEMA,
+        production_wave3.TIC_EXTRACTOR_ID, {"canonical_url": "https://home.treasury.gov/data/treasury-international-capital-tic-system"},
+        ("evidence_completeness", "freshness"), contracts.EvidenceModality.OFFICIAL_DOCUMENT,
+        False, True, "conformance:candidate:treasury-tic", "conformance:story:treasury-tic",
+        verifier_id=production_wave3.VERIFIER_ID, verifier_version=production_wave3.VERIFIER_VERSION,
+        expected_git_blob_sha1=production_wave3.PINNED_ARTIFACTS[production_wave3.TIC_EXTRACTOR_ID]["git_blob_sha1"],
+        expected_byte_sha256=production_wave3.PINNED_ARTIFACTS[production_wave3.TIC_EXTRACTOR_ID]["byte_sha256"],
+        pinned_producer_commit=production_wave3.PINNED_ARTIFACTS[production_wave3.TIC_EXTRACTOR_ID]["producer_commit"],
+    ),
+    ProductionAdapterSpecV1(
+        "usgs_earthquake_geojson_v1", "usgs_earthquake_event",
+        production_wave3.USGS_PATH, production_wave3.USGS_SCHEMA,
+        production_wave3.USGS_EXTRACTOR_ID, {"event_id": "aka2026nmtsmu"},
+        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
+        True, True, "conformance:candidate:usgs-earthquake", "conformance:story:usgs-earthquake",
+        verifier_id=production_wave3.VERIFIER_ID, verifier_version=production_wave3.VERIFIER_VERSION,
+        expected_git_blob_sha1=production_wave3.PINNED_ARTIFACTS[production_wave3.USGS_EXTRACTOR_ID]["git_blob_sha1"],
+        expected_byte_sha256=production_wave3.PINNED_ARTIFACTS[production_wave3.USGS_EXTRACTOR_ID]["byte_sha256"],
+        pinned_producer_commit=production_wave3.PINNED_ARTIFACTS[production_wave3.USGS_EXTRACTOR_ID]["producer_commit"],
+    ),
+    ProductionAdapterSpecV1(
+        "fhfa_hpi_official_html_v1", "fhfa_house_price_index_page",
+        production_wave3.FHFA_PATH, production_wave3.FHFA_SCHEMA,
+        production_wave3.FHFA_EXTRACTOR_ID, {"canonical_url": "https://www.fhfa.gov/data/hpi"},
+        ("evidence_completeness", "freshness"), contracts.EvidenceModality.OFFICIAL_DOCUMENT,
+        False, True, "conformance:candidate:fhfa-hpi", "conformance:story:fhfa-hpi",
+        verifier_id=production_wave3.VERIFIER_ID, verifier_version=production_wave3.VERIFIER_VERSION,
+        expected_git_blob_sha1=production_wave3.PINNED_ARTIFACTS[production_wave3.FHFA_EXTRACTOR_ID]["git_blob_sha1"],
+        expected_byte_sha256=production_wave3.PINNED_ARTIFACTS[production_wave3.FHFA_EXTRACTOR_ID]["byte_sha256"],
+        pinned_producer_commit=production_wave3.PINNED_ARTIFACTS[production_wave3.FHFA_EXTRACTOR_ID]["producer_commit"],
     ),
 )
 
@@ -183,7 +225,7 @@ def _git_commit_time(repository: Path, commit: str) -> str:
         ).stdout.strip()
     except subprocess.CalledProcessError as error:
         raise ValueError("conformance_commit_time_unavailable") from error
-    return value.replace("+00:00", "Z")
+    return contracts.parse_utc(value, field_name="git_commit_time").isoformat().replace("+00:00", "Z")
 
 
 def _verify_commit_ancestry(repository: Path, commit: str, branch_authority_ref: str) -> None:
@@ -254,6 +296,7 @@ def run_adapter_conformance(
     root, upstream = Path(repo_root).resolve(), Path(upstream_git_repository).resolve()
     verifier_registry = adapters.load_trusted_verifier_registry(root)
     extractor_registry = extraction.load_extractor_registry(root)
+    coverage_result = contract_coverage.validate_registry_contract_coverage(extractor_registry)
     extractor = extractor_registry.resolve(spec.extractor_id, spec.extractor_version)
     if extractor is None or not extractor.enabled:
         raise ValueError("conformance_extractor_unavailable")
@@ -273,6 +316,15 @@ def run_adapter_conformance(
         )
     elif spec.verifier_id == production_wave2.VERIFIER_ID:
         receipt = production_wave2.build_wave2_git_artifact_receipt(
+            git_repository=upstream, registry=verifier_registry, commit=upstream_commit,
+            artifact_path=spec.artifact_path, artifact_schema_version=spec.artifact_schema_version,
+            producer_version=producer_version, artifact_cutoff_utc=artifact_cutoff,
+            verification_time_utc=decision_cutoff_utc, branch_authority_ref=branch_authority_ref,
+            expected_git_blob_sha1=spec.expected_git_blob_sha1,
+            expected_byte_sha256=spec.expected_byte_sha256,
+        )
+    elif spec.verifier_id == production_wave3.VERIFIER_ID:
+        receipt = production_wave3.build_wave3_git_artifact_receipt(
             git_repository=upstream, registry=verifier_registry, commit=upstream_commit,
             artifact_path=spec.artifact_path, artifact_schema_version=spec.artifact_schema_version,
             producer_version=producer_version, artifact_cutoff_utc=artifact_cutoff,
@@ -307,6 +359,17 @@ def run_adapter_conformance(
         production_wave2.FOMC_EXTRACTOR_ID,
     }:
         record, feature_values = production_wave2.extract_wave2_artifact_evidence(
+            consumed, receipt=receipt, registry=extractor_registry,
+            extractor_id=spec.extractor_id, extractor_version=spec.extractor_version,
+            selector=spec.selector, feature_targets=spec.feature_targets,
+            decision_cutoff_utc=decision_cutoff_utc, evidence_scope=spec.evidence_scope,
+        )
+    elif spec.extractor_id in {
+        production_wave3.TIC_EXTRACTOR_ID,
+        production_wave3.USGS_EXTRACTOR_ID,
+        production_wave3.FHFA_EXTRACTOR_ID,
+    }:
+        record, feature_values = production_wave3.extract_wave3_artifact_evidence(
             consumed, receipt=receipt, registry=extractor_registry,
             extractor_id=spec.extractor_id, extractor_version=spec.extractor_version,
             selector=spec.selector, feature_targets=spec.feature_targets,
@@ -385,6 +448,7 @@ def run_adapter_conformance(
         "exact_git_receipt": not receipt.validate(),
         "historical_ancestry": receipt.producer_commit_reachable_from_branch,
         "registry_membership": extractor.enabled and not verifier_registry.validate() and not extractor_registry.validate(),
+        "registry_contract_coverage": coverage_result["status"] == "PASS",
         "shape_and_schema": record.artifact_schema_verified and record.producer_version_verified,
         "byte_derived_evidence_ref": record.evidence_ref.startswith("extracted:"),
         "point_in_time": not context_blockers,
@@ -413,6 +477,13 @@ def run_adapter_conformance(
         "authority_state": record.authority_state, "permission_state": record.permission_state,
         "evidence_roles": [role.value for role in record.evidence_roles],
         "evidence_scope": record.evidence_scope.value,
+        "timestamps": {
+            "observed_at_utc": record.observed_at_utc,
+            "known_at_utc": record.known_at_utc,
+            "published_at_utc": record.published_at_utc,
+            "revision_at_utc": record.revision_at_utc,
+            "artifact_cutoff_utc": record.cutoff_utc,
+        },
         "feature_results": contracts.primitive(feature_values), "checks": checks,
         "publication_disposition": outcome["publication_disposition"],
         "publication_authority_granted": False, "numeric_truth_granted": False,
@@ -473,6 +544,27 @@ def run_wave2_adapter_conformance(
         "harness_version": HARNESS_VERSION,
         "branch_authority_ref": branch_authority_ref,
         "observed_branch_heads": observed,
+        "producer_commits": [row["upstream"]["producer_commit"] for row in results],
+        "status": "PASS" if all(row["status"] == "PASS" for row in results) else "FAIL",
+        "adapter_count": len(results), "results": results,
+        "network_calls": 0, "writes_performed": 0,
+        "publication_authority_granted": False, "numeric_truth_granted": False,
+    }
+
+
+def run_wave3_adapter_conformance(
+    *, repo_root: str | Path, upstream_git_repository: str | Path,
+    branch_authority_ref: str = "refs/remotes/origin/main",
+) -> Mapping[str, Any]:
+    """Run Wave 3 from each historical producer pin against the fetched branch."""
+    results = [run_adapter_conformance(
+        spec, repo_root=repo_root, upstream_git_repository=upstream_git_repository,
+        upstream_commit=str(spec.pinned_producer_commit), branch_authority_ref=branch_authority_ref,
+    ) for spec in PRODUCTION_ADAPTER_WAVE3_V1]
+    return {
+        "schema_version": "contentops.production_adapter_conformance_set.v1",
+        "harness_version": HARNESS_VERSION, "branch_authority_ref": branch_authority_ref,
+        "observed_branch_heads": sorted({row["upstream"]["branch_head_observed"] for row in results}),
         "producer_commits": [row["upstream"]["producer_commit"] for row in results],
         "status": "PASS" if all(row["status"] == "PASS" for row in results) else "FAIL",
         "adapter_count": len(results), "results": results,

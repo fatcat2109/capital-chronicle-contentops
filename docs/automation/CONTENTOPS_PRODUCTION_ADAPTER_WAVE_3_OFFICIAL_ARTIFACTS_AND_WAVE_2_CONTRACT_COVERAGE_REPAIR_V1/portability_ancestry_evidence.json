@@ -1,0 +1,46 @@
+{
+  "bindings": [
+    {
+      "adapter_id": "us_treasury_debt_to_penny_v1",
+      "observed_branch_head": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+      "producer_commit": "788c86f8a71528683789581af4e77b529d92a97e",
+      "reachable": true
+    },
+    {
+      "adapter_id": "bls_unemployment_series_v1",
+      "observed_branch_head": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+      "producer_commit": "7cae8aa1727f8d78e5801b76702fb928b92476fc",
+      "reachable": true
+    },
+    {
+      "adapter_id": "federal_reserve_fomc_calendar_html_v1",
+      "observed_branch_head": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+      "producer_commit": "94c0482f40e764c6ad34707ab28ffe36df57c202",
+      "reachable": true
+    },
+    {
+      "adapter_id": "us_treasury_tic_official_html_v1",
+      "observed_branch_head": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+      "producer_commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
+      "reachable": true
+    },
+    {
+      "adapter_id": "usgs_earthquake_geojson_v1",
+      "observed_branch_head": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+      "producer_commit": "0eb73c46c0c9f43b810d4f4ff30ba6695f3a3257",
+      "reachable": true
+    },
+    {
+      "adapter_id": "fhfa_hpi_official_html_v1",
+      "observed_branch_head": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+      "producer_commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
+      "reachable": true
+    }
+  ],
+  "branch_advancement_test": "PASS",
+  "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+  "observed_branch_head": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+  "producer_and_observed_head_separate": true,
+  "schema_version": "contentops.production_adapter_wave3_ancestry.v1",
+  "unreachable_history_rejected": true
+}

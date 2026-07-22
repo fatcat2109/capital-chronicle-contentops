@@ -1,0 +1,39 @@
+{
+  "fomc_cross_container_test": "PASS",
+  "missing_and_wrong_datatype_tests": "PASS",
+  "repairs": [
+    {
+      "adapter": "treasury_debt_to_penny",
+      "enforced": [
+        "meta.count integer and equals data length",
+        "all selected field datatypes exact",
+        "record_date DATE",
+        "three monetary fields CURRENCY",
+        "exact links keys and value shape",
+        "unique selector"
+      ],
+      "superseding_version": "v2"
+    },
+    {
+      "adapter": "bls_unemployment_series",
+      "enforced": [
+        "observation month stays observed_at only",
+        "receipt cutoff supplies conservative known-by",
+        "publication unavailable"
+      ],
+      "superseding_version": "v2"
+    },
+    {
+      "adapter": "fomc_calendar_html",
+      "enforced": [
+        "exact year section",
+        "balanced selected meeting container",
+        "canonical HTML statement link inside container",
+        "no arbitrary tail crossing"
+      ],
+      "superseding_version": "v2"
+    }
+  ],
+  "schema_version": "contentops.production_adapter_wave2_contract_repair_matrix.v1",
+  "status": "PASS"
+}

@@ -1,0 +1,45 @@
+{
+  "excluded": [
+    {
+      "family": "ofac_sdn_xml",
+      "reason": "committed source_47 bytes are truncated and fail XML parsing; excluded fail-closed"
+    },
+    {
+      "family": "s_and_p_global_pmi",
+      "reason": "licensed corporate source excluded"
+    },
+    {
+      "family": "bea_census_fred_eia",
+      "reason": "credential-bearing, redacted, or error-only captures excluded"
+    },
+    {
+      "family": "mt5_demo_bridge",
+      "reason": "licensed terminal family and not an eligible official/public committed data artifact"
+    },
+    {
+      "family": "wto_usda_jodi_world_bank_opec_nar",
+      "reason": "weaker portal-only or provenance/timestamp evidence than selected batch"
+    }
+  ],
+  "network_fetch_performed": false,
+  "schema_version": "contentops.production_adapter_wave3_selection.v1",
+  "selected": [
+    {
+      "family": "us_treasury_international_capital_portal",
+      "format": "HTML",
+      "reason": "official Treasury public artifact with exact canonical identity and explicit update date"
+    },
+    {
+      "family": "usgs_earthquake_event",
+      "format": "GeoJSON",
+      "reason": "official public event artifact with event, revision, and generated timestamps plus numeric and nonnumeric fields"
+    },
+    {
+      "family": "fhfa_house_price_index_page",
+      "format": "HTML",
+      "reason": "official FHFA public artifact with exact canonical identity and explicit modified date"
+    }
+  ],
+  "status": "PASS_EVIDENCE_BACKED_SELECTION",
+  "upstream_write_performed": false
+}

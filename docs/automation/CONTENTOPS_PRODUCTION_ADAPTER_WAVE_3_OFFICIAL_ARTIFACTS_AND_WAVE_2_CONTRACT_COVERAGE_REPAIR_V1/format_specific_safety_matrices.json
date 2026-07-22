@@ -1,0 +1,31 @@
+{
+  "caller_upgrade_tests": "PASS",
+  "formats": {
+    "official_html": [
+      "UTF-8",
+      "bounded byte length",
+      "head-only parsing",
+      "unique title/canonical/metatags",
+      "exact official URL",
+      "strict date"
+    ],
+    "usgs_geojson": [
+      "bounded byte length",
+      "FeatureCollection",
+      "official query URL",
+      "HTTP status",
+      "limit/count consistency",
+      "unique event selector",
+      "finite magnitude and point coordinates",
+      "event<=revision<=generated"
+    ],
+    "wave2_json_html": [
+      "complete datatype map",
+      "link shape",
+      "balanced FOMC container",
+      "canonical statement link"
+    ]
+  },
+  "malformed_shape_selector_timestamp_tests": "PASS",
+  "schema_version": "contentops.production_adapter_wave3_format_safety.v1"
+}

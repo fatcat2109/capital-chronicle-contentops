@@ -1,0 +1,179 @@
+{
+  "blockers": [],
+  "record_count": 17,
+  "registry_version": "artifact-evidence-extractor-registry-1.3.0",
+  "rows": [
+    {
+      "classification": "RUNTIME_IMPLEMENTED_HISTORICAL_ACCEPTED",
+      "extractor_id": "contentops.bls_series_observation_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 6,
+      "required_field_rules_declared": 6,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED_HISTORICAL_ACCEPTED",
+      "extractor_id": "contentops.treasury_auction_announcement_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 7,
+      "required_field_rules_declared": 7,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED_HISTORICAL_ACCEPTED",
+      "extractor_id": "contentops.nyfed_reference_rate_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 4,
+      "required_field_rules_declared": 4,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED_HISTORICAL_ACCEPTED",
+      "extractor_id": "contentops.newsroom_candidate_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 11,
+      "required_field_rules_declared": 11,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "EXPLICIT_DOCUMENTARY_NON_RUNTIME",
+      "extractor_id": "contentops.disabled_legacy_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 1,
+      "required_field_rules_declared": 1,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 1,
+      "timestamp_rules_declared": 1
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED_HISTORICAL_ACCEPTED",
+      "extractor_id": "contentops.treasury_daily_yield_curve_atom_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 5,
+      "required_field_rules_declared": 5,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED_HISTORICAL_ACCEPTED",
+      "extractor_id": "contentops.cftc_legacy_futures_only_cot_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 5,
+      "required_field_rules_declared": 5,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED_HISTORICAL_ACCEPTED",
+      "extractor_id": "contentops.federal_reserve_h41_zip_structure_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 5,
+      "required_field_rules_declared": 5,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED_HISTORICAL_ACCEPTED",
+      "extractor_id": "contentops.treasury_debt_to_penny_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 8,
+      "required_field_rules_declared": 8,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED_HISTORICAL_ACCEPTED",
+      "extractor_id": "contentops.bls_unemployment_series_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 7,
+      "required_field_rules_declared": 7,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED_HISTORICAL_ACCEPTED",
+      "extractor_id": "contentops.fomc_calendar_html_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 5,
+      "required_field_rules_declared": 5,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED",
+      "extractor_id": "contentops.treasury_debt_to_penny_extractor",
+      "extractor_version": "v2",
+      "required_field_rules_covered": 12,
+      "required_field_rules_declared": 12,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED",
+      "extractor_id": "contentops.bls_unemployment_series_extractor",
+      "extractor_version": "v2",
+      "required_field_rules_covered": 8,
+      "required_field_rules_declared": 8,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED",
+      "extractor_id": "contentops.fomc_calendar_html_extractor",
+      "extractor_version": "v2",
+      "required_field_rules_covered": 6,
+      "required_field_rules_declared": 6,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED",
+      "extractor_id": "contentops.treasury_tic_html_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 5,
+      "required_field_rules_declared": 5,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED",
+      "extractor_id": "contentops.usgs_earthquake_geojson_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 10,
+      "required_field_rules_declared": 10,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    },
+    {
+      "classification": "RUNTIME_IMPLEMENTED",
+      "extractor_id": "contentops.fhfa_hpi_html_extractor",
+      "extractor_version": "v1",
+      "required_field_rules_covered": 4,
+      "required_field_rules_declared": 4,
+      "shape_rule_covered": true,
+      "timestamp_rules_covered": 4,
+      "timestamp_rules_declared": 4
+    }
+  ],
+  "schema_version": "contentops.production_adapter_contract_coverage.v1",
+  "status": "PASS"
+}

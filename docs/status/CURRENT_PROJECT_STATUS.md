@@ -4,13 +4,21 @@
 
 ## Current Classification
 
-`PASS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_PRODUCTION_ADAPTER_WAVE_3_AND_WAVE_2_CONTRACT_REPAIR_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1`.
+Completed task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1`.
 
-## Production Adapter Wave 2: Official Committed Artifacts
+## Production Adapter Wave 3 And Wave 2 Contract Coverage Repair
 
-Wave 2 adds exactly three materially distinct official/public upstream families: Treasury Debt to the Penny JSON, BLS unemployment-series JSON, and Federal Reserve FOMC calendar HTML. Each is bound to its historical producer commit, path, Git blob, byte SHA-256, and byte length, while the separately fetched `refs/remotes/origin/main` head is `aed2e64c76a264862bc44006a13ffaf41883af75`. All producer commits are verified ancestors of that observed head.
+The accepted prior disposition is `PASS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1_WITH_MINOR_TIMESTAMP_AND_CONTRACT_COVERAGE_GAPS`. Superseding Wave 2 v2 extractor records enforce the complete Treasury Debt-to-Penny datatype and link contract, separate observation, official-release, receipt-known-by, and revision time, prevent BLS observation month from becoming release freshness, and bind FOMC evidence to the exact selected meeting container and canonical HTML statement.
+
+Wave 3 adds three bounded official committed artifact families: U.S. Treasury TIC official HTML, USGS earthquake GeoJSON, and FHFA HPI official HTML. Every artifact is pinned to its historical producer commit, path, Git blob, byte SHA-256, and length, with ancestry verified against fetched upstream head `631ea29c5388d52d4353810b6d8b2a50d677bb44`. The truncated OFAC XML capture was explicitly rejected during selection. The deterministic registry-to-implementation audit classifies all 17 extractor records and proves complete runtime coverage for the six Wave 2 v2/Wave 3 contracts.
+
+All six real-byte conformance runs pass through the frozen harness as `OFFICIAL_VERIFIED + CONTEXT_ONLY + FEATURE_SUPPORT` and remain no-publication. The registries advance append-only to `trusted-evidence-registry-1.3.0` and `artifact-evidence-extractor-registry-1.3.0`; frozen semantics, `UNCALIBRATED_FOUNDATION`, prior evidence, upstream state, DQR/permission authority, and `v1.0` remain unchanged. Evidence: `docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json`.
+
+## Accepted Production Adapter Wave 2: Official Committed Artifacts
+
+Wave 2 is accepted as `PASS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1_WITH_MINOR_TIMESTAMP_AND_CONTRACT_COVERAGE_GAPS`. It adds exactly three materially distinct official/public upstream families: Treasury Debt to the Penny JSON, BLS unemployment-series JSON, and Federal Reserve FOMC calendar HTML. Each is bound to its historical producer commit, path, Git blob, byte SHA-256, and byte length, while the separately fetched `refs/remotes/origin/main` head is `aed2e64c76a264862bc44006a13ffaf41883af75`. All producer commits are verified ancestors of that observed head.
 
 The verifier and extractor registries advance append-only to `trusted-evidence-registry-1.2.0` and `artifact-evidence-extractor-registry-1.2.0`. Exact-byte extraction validates each external shape, selects one record deterministically, derives evidence refs and intrinsic timestamps, preserves explicit zero, and emits only `OFFICIAL_VERIFIED + CONTEXT_ONLY + FEATURE_SUPPORT`. All three frozen-harness decisions remain `NO_PUBLICATION_INSUFFICIENT_AUTHORITY`.
 
@@ -153,6 +161,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1`
+`INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_WAVE_3_AND_WAVE_2_CONTRACT_REPAIR_V1`
 
-Independently audit wave-2 selection exclusions, the three exact historical bindings and observed-branch ancestry, append-only registry deltas, JSON/HTML shape validation, deterministic selectors and timestamps, explicit-zero handling, authority/permission/role ceilings, frozen-manifest integrity, compatibility, no-publication, and evidence hashes.
+Independently audit the Wave 2 datatype, link, timestamp, and exact FOMC-container repairs; all registry coverage classifications; Wave 3 selection and exclusions; exact commit/blob/byte bindings; ancestry; deterministic replay; compatibility; protected paths; validation claims; and the no-publication boundary.

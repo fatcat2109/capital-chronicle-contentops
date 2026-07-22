@@ -1,0 +1,544 @@
+{
+  "schema_version": "contentops.production_adapter_wave3_combined_conformance.v1",
+  "status": "PASS",
+  "wave2_repair": {
+    "adapter_count": 3,
+    "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+    "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+    "network_calls": 0,
+    "numeric_truth_granted": false,
+    "observed_branch_heads": [
+      "631ea29c5388d52d4353810b6d8b2a50d677bb44"
+    ],
+    "producer_commits": [
+      "788c86f8a71528683789581af4e77b529d92a97e",
+      "7cae8aa1727f8d78e5801b76702fb928b92476fc",
+      "94c0482f40e764c6ad34707ab28ffe36df57c202"
+    ],
+    "publication_authority_granted": false,
+    "results": [
+      {
+        "adapter_id": "us_treasury_debt_to_penny_v1",
+        "artifact_family": "us_treasury_fiscaldata_debt_to_penny",
+        "authority_state": "OFFICIAL_VERIFIED",
+        "checks": {
+          "byte_derived_evidence_ref": true,
+          "candidate_authority_consistency": true,
+          "derived_authority_permission_roles": true,
+          "derived_or_unavailable_features": true,
+          "exact_evidence_set": true,
+          "exact_git_receipt": true,
+          "historical_ancestry": true,
+          "no_external_mutation": true,
+          "no_publication": true,
+          "point_in_time": true,
+          "registry_contract_coverage": true,
+          "registry_membership": true,
+          "scope_feature_consistency": true,
+          "shape_and_schema": true
+        },
+        "evidence_ref": "extracted:2845d8c6885aadd7062096f95a2e433a",
+        "evidence_roles": [
+          "feature_support"
+        ],
+        "evidence_scope": "FEATURE_SPECIFIC",
+        "extractor_id": "contentops.treasury_debt_to_penny_extractor",
+        "extractor_version": "v2",
+        "feature_results": [
+          {
+            "availability": "available",
+            "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+            "evidence_refs": [
+              "extracted:2845d8c6885aadd7062096f95a2e433a"
+            ],
+            "feature_id": "evidence_completeness",
+            "logical_hash": "fbeb44776d6b5ff359be27d17e8ccf991454ac943ffd1eabf77b8ee28dfc05ba",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 1.0
+          },
+          {
+            "availability": "explicit_zero",
+            "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+            "evidence_refs": [
+              "extracted:2845d8c6885aadd7062096f95a2e433a"
+            ],
+            "feature_id": "freshness",
+            "logical_hash": "4fb49fc97f3675a9a943d33c6e43bf1f625f19c29f20bb36d1cd2513d91c1912",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 0.0
+          }
+        ],
+        "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+        "numeric_truth_granted": false,
+        "permission_state": "CONTEXT_ONLY",
+        "publication_authority_granted": false,
+        "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+        "reason_codes": [],
+        "receipt_id": "producer_receipt:e607eb6e06d76c8e50cb9d2f",
+        "schema_version": "contentops.production_adapter_conformance_result.v1",
+        "status": "PASS",
+        "timestamps": {
+          "artifact_cutoff_utc": "2026-06-03T12:17:48Z",
+          "known_at_utc": "2026-06-03T12:17:48Z",
+          "observed_at_utc": "2026-06-01T00:00:00Z",
+          "published_at_utc": null,
+          "revision_at_utc": null
+        },
+        "upstream": {
+          "branch": "main",
+          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+          "byte_sha256": "28d55402e421cd437727d7f280d2c0da9dba45ea25ba122059a7f55f24ef51ee",
+          "commit": "788c86f8a71528683789581af4e77b529d92a97e",
+          "commit_reachable_from_branch": true,
+          "git_blob_sha1": "263e213836403661f0bfe8248c42410d3859506e",
+          "path": "data/archive/official_sources/us_treasury_fiscaldata_api/us_treasury_fiscaldata_api_live_20260603_121640_28d55402e421/raw_response.json",
+          "producer_commit": "788c86f8a71528683789581af4e77b529d92a97e",
+          "repository": "fatcat2109/Headline-Raw-data-json"
+        },
+        "writes_performed": 0
+      },
+      {
+        "adapter_id": "bls_unemployment_series_v1",
+        "artifact_family": "bls_public_unemployment_series",
+        "authority_state": "OFFICIAL_VERIFIED",
+        "checks": {
+          "byte_derived_evidence_ref": true,
+          "candidate_authority_consistency": true,
+          "derived_authority_permission_roles": true,
+          "derived_or_unavailable_features": true,
+          "exact_evidence_set": true,
+          "exact_git_receipt": true,
+          "historical_ancestry": true,
+          "no_external_mutation": true,
+          "no_publication": true,
+          "point_in_time": true,
+          "registry_contract_coverage": true,
+          "registry_membership": true,
+          "scope_feature_consistency": true,
+          "shape_and_schema": true
+        },
+        "evidence_ref": "extracted:18b32b38af45d882e39d51f8537e6220",
+        "evidence_roles": [
+          "feature_support"
+        ],
+        "evidence_scope": "FEATURE_SPECIFIC",
+        "extractor_id": "contentops.bls_unemployment_series_extractor",
+        "extractor_version": "v2",
+        "feature_results": [
+          {
+            "availability": "available",
+            "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+            "evidence_refs": [
+              "extracted:18b32b38af45d882e39d51f8537e6220"
+            ],
+            "feature_id": "evidence_completeness",
+            "logical_hash": "b947846e4f58bcb9cd578020cab3c0a556612bbadb7f16bb7899db508dedb754",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 1.0
+          },
+          {
+            "availability": "explicit_zero",
+            "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+            "evidence_refs": [
+              "extracted:18b32b38af45d882e39d51f8537e6220"
+            ],
+            "feature_id": "freshness",
+            "logical_hash": "675bf98911a347ec532d5d1da75c61a118704692187f856619a563db9f35a986",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 0.0
+          }
+        ],
+        "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+        "numeric_truth_granted": false,
+        "permission_state": "CONTEXT_ONLY",
+        "publication_authority_granted": false,
+        "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+        "reason_codes": [],
+        "receipt_id": "producer_receipt:a9f324ab740b30d4ba48a1f4",
+        "schema_version": "contentops.production_adapter_conformance_result.v1",
+        "status": "PASS",
+        "timestamps": {
+          "artifact_cutoff_utc": "2026-06-05T15:22:56Z",
+          "known_at_utc": "2026-06-05T15:22:56Z",
+          "observed_at_utc": "2026-05-01T00:00:00Z",
+          "published_at_utc": null,
+          "revision_at_utc": null
+        },
+        "upstream": {
+          "branch": "main",
+          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+          "byte_sha256": "254b1137dfcc482a9c37581463b0ea393b90cd110c88ae5b7d5c91c06be2acc6",
+          "commit": "7cae8aa1727f8d78e5801b76702fb928b92476fc",
+          "commit_reachable_from_branch": true,
+          "git_blob_sha1": "17a19353e038ff33ac9f9584314af91a1908d0cc",
+          "path": "data/audit/data_sufficiency/task_244aa_248z/raw_archive/bls_beyond_cpi/capture_bls_beyond_cpi_20260605T152047Z_763dd2aa.body",
+          "producer_commit": "7cae8aa1727f8d78e5801b76702fb928b92476fc",
+          "repository": "fatcat2109/Headline-Raw-data-json"
+        },
+        "writes_performed": 0
+      },
+      {
+        "adapter_id": "federal_reserve_fomc_calendar_html_v1",
+        "artifact_family": "federal_reserve_fomc_calendar",
+        "authority_state": "OFFICIAL_VERIFIED",
+        "checks": {
+          "byte_derived_evidence_ref": true,
+          "candidate_authority_consistency": true,
+          "derived_authority_permission_roles": true,
+          "derived_or_unavailable_features": true,
+          "exact_evidence_set": true,
+          "exact_git_receipt": true,
+          "historical_ancestry": true,
+          "no_external_mutation": true,
+          "no_publication": true,
+          "point_in_time": true,
+          "registry_contract_coverage": true,
+          "registry_membership": true,
+          "scope_feature_consistency": true,
+          "shape_and_schema": true
+        },
+        "evidence_ref": "extracted:7ccb3a58b0199a1b4bb022533a4d363b",
+        "evidence_roles": [
+          "feature_support"
+        ],
+        "evidence_scope": "FEATURE_SPECIFIC",
+        "extractor_id": "contentops.fomc_calendar_html_extractor",
+        "extractor_version": "v2",
+        "feature_results": [
+          {
+            "availability": "available",
+            "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+            "evidence_refs": [
+              "extracted:7ccb3a58b0199a1b4bb022533a4d363b"
+            ],
+            "feature_id": "evidence_completeness",
+            "logical_hash": "4a719adaf61bd297d6b3e26a657ebb66d2837b008af3b4b7a4f000b23f3d6a7b",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 1.0
+          },
+          {
+            "availability": "explicit_zero",
+            "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+            "evidence_refs": [
+              "extracted:7ccb3a58b0199a1b4bb022533a4d363b"
+            ],
+            "feature_id": "freshness",
+            "logical_hash": "dd1102eff55e1b62025bf1a8a3d8d7db0b895a456db2cab0423564558c0fccf0",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 0.0
+          }
+        ],
+        "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+        "numeric_truth_granted": false,
+        "permission_state": "CONTEXT_ONLY",
+        "publication_authority_granted": false,
+        "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+        "reason_codes": [],
+        "receipt_id": "producer_receipt:c71c67a02559c0745c168e8c",
+        "schema_version": "contentops.production_adapter_conformance_result.v1",
+        "status": "PASS",
+        "timestamps": {
+          "artifact_cutoff_utc": "2026-06-09T02:59:02Z",
+          "known_at_utc": "2026-06-09T02:59:02Z",
+          "observed_at_utc": "2026-01-28T00:00:00Z",
+          "published_at_utc": "2026-01-28T00:00:00Z",
+          "revision_at_utc": null
+        },
+        "upstream": {
+          "branch": "main",
+          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+          "byte_sha256": "8c6cd522e52a3847683dc74bafc32589bd22c67cd1908f88a2fe0807253e7621",
+          "commit": "94c0482f40e764c6ad34707ab28ffe36df57c202",
+          "commit_reachable_from_branch": true,
+          "git_blob_sha1": "d036fec5666b38c8cbb5bc1079f820f4db5571f1",
+          "path": "data/audit/raw_archive/task_calendar_event_spine_batch_a2_page_only_controlled_live_capture/fomc_calendar_statements_2026-06-09T02_57_12Z.html",
+          "producer_commit": "94c0482f40e764c6ad34707ab28ffe36df57c202",
+          "repository": "fatcat2109/Headline-Raw-data-json"
+        },
+        "writes_performed": 0
+      }
+    ],
+    "schema_version": "contentops.production_adapter_conformance_set.v1",
+    "status": "PASS",
+    "writes_performed": 0
+  },
+  "wave3": {
+    "adapter_count": 3,
+    "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+    "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+    "network_calls": 0,
+    "numeric_truth_granted": false,
+    "observed_branch_heads": [
+      "631ea29c5388d52d4353810b6d8b2a50d677bb44"
+    ],
+    "producer_commits": [
+      "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
+      "0eb73c46c0c9f43b810d4f4ff30ba6695f3a3257",
+      "04e2efe669ecd874301f24eb66dc6e68b58b9f2d"
+    ],
+    "publication_authority_granted": false,
+    "results": [
+      {
+        "adapter_id": "us_treasury_tic_official_html_v1",
+        "artifact_family": "us_treasury_international_capital_portal",
+        "authority_state": "OFFICIAL_VERIFIED",
+        "checks": {
+          "byte_derived_evidence_ref": true,
+          "candidate_authority_consistency": true,
+          "derived_authority_permission_roles": true,
+          "derived_or_unavailable_features": true,
+          "exact_evidence_set": true,
+          "exact_git_receipt": true,
+          "historical_ancestry": true,
+          "no_external_mutation": true,
+          "no_publication": true,
+          "point_in_time": true,
+          "registry_contract_coverage": true,
+          "registry_membership": true,
+          "scope_feature_consistency": true,
+          "shape_and_schema": true
+        },
+        "evidence_ref": "extracted:69aab2912897c044eb92fef72be3d080",
+        "evidence_roles": [
+          "feature_support"
+        ],
+        "evidence_scope": "FEATURE_SPECIFIC",
+        "extractor_id": "contentops.treasury_tic_html_extractor",
+        "extractor_version": "v1",
+        "feature_results": [
+          {
+            "availability": "available",
+            "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+            "evidence_refs": [
+              "extracted:69aab2912897c044eb92fef72be3d080"
+            ],
+            "feature_id": "evidence_completeness",
+            "logical_hash": "254979259875deaabc0c24fc072662085503ca2c57b81b83ac778e4e3a10ca99",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 1.0
+          },
+          {
+            "availability": "explicit_zero",
+            "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+            "evidence_refs": [
+              "extracted:69aab2912897c044eb92fef72be3d080"
+            ],
+            "feature_id": "freshness",
+            "logical_hash": "46307b3eea149c63d9f44d6f665fe83a5118cafbf410ecf2608e04a1ce1cb00e",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 0.0
+          }
+        ],
+        "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+        "numeric_truth_granted": false,
+        "permission_state": "CONTEXT_ONLY",
+        "publication_authority_granted": false,
+        "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+        "reason_codes": [],
+        "receipt_id": "producer_receipt:5f24faf9832f3558eaca61df",
+        "schema_version": "contentops.production_adapter_conformance_result.v1",
+        "status": "PASS",
+        "timestamps": {
+          "artifact_cutoff_utc": "2026-07-09T22:35:19Z",
+          "known_at_utc": "2026-07-09T22:35:19Z",
+          "observed_at_utc": null,
+          "published_at_utc": null,
+          "revision_at_utc": "2026-06-15T00:00:00Z"
+        },
+        "upstream": {
+          "branch": "main",
+          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+          "byte_sha256": "fdfe780d622e0dcc2586496bba179a36d8571103071fe1dc5294d78cc40ff615",
+          "commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
+          "commit_reachable_from_branch": true,
+          "git_blob_sha1": "affd19cea196614ad650b36ca7a8a50dd119bbf4",
+          "path": "data/raw/new_sources_capture_v1/source_52_repaired_evidence.bin",
+          "producer_commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
+          "repository": "fatcat2109/Headline-Raw-data-json"
+        },
+        "writes_performed": 0
+      },
+      {
+        "adapter_id": "usgs_earthquake_geojson_v1",
+        "artifact_family": "usgs_earthquake_event",
+        "authority_state": "OFFICIAL_VERIFIED",
+        "checks": {
+          "byte_derived_evidence_ref": true,
+          "candidate_authority_consistency": true,
+          "derived_authority_permission_roles": true,
+          "derived_or_unavailable_features": true,
+          "exact_evidence_set": true,
+          "exact_git_receipt": true,
+          "historical_ancestry": true,
+          "no_external_mutation": true,
+          "no_publication": true,
+          "point_in_time": true,
+          "registry_contract_coverage": true,
+          "registry_membership": true,
+          "scope_feature_consistency": true,
+          "shape_and_schema": true
+        },
+        "evidence_ref": "extracted:bc32d17bc40ae6943b3c65b9379f6b1e",
+        "evidence_roles": [
+          "feature_support"
+        ],
+        "evidence_scope": "FEATURE_SPECIFIC",
+        "extractor_id": "contentops.usgs_earthquake_geojson_extractor",
+        "extractor_version": "v1",
+        "feature_results": [
+          {
+            "availability": "available",
+            "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+            "evidence_refs": [
+              "extracted:bc32d17bc40ae6943b3c65b9379f6b1e"
+            ],
+            "feature_id": "evidence_completeness",
+            "logical_hash": "b4f1cf615d2d54652e2dedba488c77b4cd6ee0c2583079d868c1fe75214fb3c9",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 1.0
+          },
+          {
+            "availability": "explicit_zero",
+            "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+            "evidence_refs": [
+              "extracted:bc32d17bc40ae6943b3c65b9379f6b1e"
+            ],
+            "feature_id": "freshness",
+            "logical_hash": "acb52c6d40f05781fc21ee044114b06a3a0a962ae2fcf82e4a086bc95cceed0b",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 0.0
+          }
+        ],
+        "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+        "numeric_truth_granted": false,
+        "permission_state": "CONTEXT_ONLY",
+        "publication_authority_granted": false,
+        "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+        "reason_codes": [],
+        "receipt_id": "producer_receipt:dd6798d1a297616650ab44e0",
+        "schema_version": "contentops.production_adapter_conformance_result.v1",
+        "status": "PASS",
+        "timestamps": {
+          "artifact_cutoff_utc": "2026-07-09T21:55:11Z",
+          "known_at_utc": "2026-07-09T21:53:17.000Z",
+          "observed_at_utc": "2026-07-09T21:46:48.405Z",
+          "published_at_utc": null,
+          "revision_at_utc": "2026-07-09T21:48:25.342Z"
+        },
+        "upstream": {
+          "branch": "main",
+          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+          "byte_sha256": "9754c1372e9973982abac470ab9d91738a346ecbdb76d56e119b7f460405d506",
+          "commit": "0eb73c46c0c9f43b810d4f4ff30ba6695f3a3257",
+          "commit_reachable_from_branch": true,
+          "git_blob_sha1": "6a6f19e18320f5cc05c68b27d09da9adafc514d4",
+          "path": "data/raw/new_sources_capture_v1/source_48_raw_evidence.bin",
+          "producer_commit": "0eb73c46c0c9f43b810d4f4ff30ba6695f3a3257",
+          "repository": "fatcat2109/Headline-Raw-data-json"
+        },
+        "writes_performed": 0
+      },
+      {
+        "adapter_id": "fhfa_hpi_official_html_v1",
+        "artifact_family": "fhfa_house_price_index_page",
+        "authority_state": "OFFICIAL_VERIFIED",
+        "checks": {
+          "byte_derived_evidence_ref": true,
+          "candidate_authority_consistency": true,
+          "derived_authority_permission_roles": true,
+          "derived_or_unavailable_features": true,
+          "exact_evidence_set": true,
+          "exact_git_receipt": true,
+          "historical_ancestry": true,
+          "no_external_mutation": true,
+          "no_publication": true,
+          "point_in_time": true,
+          "registry_contract_coverage": true,
+          "registry_membership": true,
+          "scope_feature_consistency": true,
+          "shape_and_schema": true
+        },
+        "evidence_ref": "extracted:788f96eae29bbd63fb035903885b944a",
+        "evidence_roles": [
+          "feature_support"
+        ],
+        "evidence_scope": "FEATURE_SPECIFIC",
+        "extractor_id": "contentops.fhfa_hpi_html_extractor",
+        "extractor_version": "v1",
+        "feature_results": [
+          {
+            "availability": "available",
+            "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+            "evidence_refs": [
+              "extracted:788f96eae29bbd63fb035903885b944a"
+            ],
+            "feature_id": "evidence_completeness",
+            "logical_hash": "b961637a05581608b2df0ae5136a83cc0fd13c9c486444f954d06ac6be4f10ca",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 1.0
+          },
+          {
+            "availability": "explicit_zero",
+            "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+            "evidence_refs": [
+              "extracted:788f96eae29bbd63fb035903885b944a"
+            ],
+            "feature_id": "freshness",
+            "logical_hash": "fed7af91932d1f49f47cb3f9560c968601b44ea8f2aa16ece93756160e2ca1a7",
+            "reason_code": null,
+            "schema_version": "contentops.extracted_feature_value.v1",
+            "value": 0.0
+          }
+        ],
+        "harness_version": "contentops.production_adapter_conformance.v1.0.0",
+        "numeric_truth_granted": false,
+        "permission_state": "CONTEXT_ONLY",
+        "publication_authority_granted": false,
+        "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+        "reason_codes": [],
+        "receipt_id": "producer_receipt:aa0fdc4d39287524935fc57f",
+        "schema_version": "contentops.production_adapter_conformance_result.v1",
+        "status": "PASS",
+        "timestamps": {
+          "artifact_cutoff_utc": "2026-07-09T22:35:19Z",
+          "known_at_utc": "2026-07-09T22:35:19Z",
+          "observed_at_utc": null,
+          "published_at_utc": null,
+          "revision_at_utc": "2026-06-30T00:00:00Z"
+        },
+        "upstream": {
+          "branch": "main",
+          "branch_authority_ref": "refs/remotes/read-only-upstream/main",
+          "branch_head_observed": "631ea29c5388d52d4353810b6d8b2a50d677bb44",
+          "byte_sha256": "6f91af6847f89310b70df3213995808187c8af147ac34ff96ef8130c8285c1e2",
+          "commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
+          "commit_reachable_from_branch": true,
+          "git_blob_sha1": "79d67fda002276cf743a64630d6a445e271febaa",
+          "path": "data/raw/new_sources_capture_v1/source_53_repaired_evidence.bin",
+          "producer_commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
+          "repository": "fatcat2109/Headline-Raw-data-json"
+        },
+        "writes_performed": 0
+      }
+    ],
+    "schema_version": "contentops.production_adapter_conformance_set.v1",
+    "status": "PASS",
+    "writes_performed": 0
+  }
+}

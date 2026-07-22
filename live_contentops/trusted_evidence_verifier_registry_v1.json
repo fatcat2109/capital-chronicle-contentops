@@ -1,7 +1,7 @@
 {
   "schema_version": "contentops.trusted_evidence_verifier_registry.v1",
-  "registry_version": "trusted-evidence-registry-1.2.0",
-  "registry_logical_hash": "eabe6408bcaa108941d902e4a21ba364cfc1dcb288981b6fcee3c67ab294c6d6",
+  "registry_version": "trusted-evidence-registry-1.3.0",
+  "registry_logical_hash": "348368b7d49d6a518ac97dfe794d9b0be10aba6b98c76a414ba0b64986480b6c",
   "records": [
     {
       "verifier_id": "contentops.exact_git_artifact_verifier",
@@ -57,6 +57,21 @@
       "allowed_evidence_roles": ["feature_support"],
       "allowed_evidence_scopes": ["FEATURE_SPECIFIC"],
       "allowed_artifact_schema_versions": ["external.us_treasury_debt_to_penny_response.v1", "external.bls_unemployment_series_response.v1", "external.federal_reserve_fomc_calendar_html.v1"],
+      "allowed_repositories": ["fatcat2109/Headline-Raw-data-json"],
+      "allowed_source_authority_classes": ["official_public_data"],
+      "point_in_time_policy": "STRICT_OBSERVED_AS_OF_CUTOFF_V1",
+      "candidate_wide_reuse_allowed": false,
+      "enabled": true
+    },
+    {
+      "verifier_id": "contentops.production_external_exact_git_verifier_wave3",
+      "verifier_version": "v1",
+      "implementation_contract_id": "contentops.exact_git_artifact_verifier.v1",
+      "allowed_authority_states": ["OFFICIAL_VERIFIED", "BLOCKED", "UNAVAILABLE"],
+      "allowed_permission_states": ["CONTEXT_ONLY", "REPORTING_NOT_ALLOWED"],
+      "allowed_evidence_roles": ["feature_support"],
+      "allowed_evidence_scopes": ["FEATURE_SPECIFIC"],
+      "allowed_artifact_schema_versions": ["external.us_treasury_tic_official_html.v1", "external.usgs_earthquake_geojson.v1", "external.fhfa_hpi_official_html.v1"],
       "allowed_repositories": ["fatcat2109/Headline-Raw-data-json"],
       "allowed_source_authority_classes": ["official_public_data"],
       "point_in_time_policy": "STRICT_OBSERVED_AS_OF_CUTOFF_V1",

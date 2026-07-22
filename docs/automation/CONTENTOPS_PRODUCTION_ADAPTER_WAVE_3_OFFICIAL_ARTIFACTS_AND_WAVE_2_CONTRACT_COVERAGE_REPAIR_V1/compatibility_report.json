@@ -1,0 +1,14 @@
+{
+  "baseline_registry_records_unchanged": true,
+  "frozen_manifest_validation": "PASS",
+  "frozen_semantic_files_byte_identical": true,
+  "historical_evidence_trees_modified": false,
+  "prior_task_disposition": "PASS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1_WITH_MINOR_TIMESTAMP_AND_CONTRACT_COVERAGE_GAPS",
+  "schema_version": "contentops.production_adapter_wave3_compatibility.v1",
+  "status": "PASS",
+  "uncalibrated_configuration_preserved": true,
+  "v1_0_tag_modified": false,
+  "v1_compatibility": "PASS_22_TESTS",
+  "v2_foundation": "PASS_304_TESTS",
+  "wave2_gaps_repaired": true
+}

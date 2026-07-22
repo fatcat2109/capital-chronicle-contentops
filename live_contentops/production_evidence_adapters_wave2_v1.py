@@ -27,6 +27,7 @@ UPSTREAM_BRANCH = "main"
 OBSERVED_UPSTREAM_HEAD = "aed2e64c76a264862bc44006a13ffaf41883af75"
 VERIFIER_ID = "contentops.production_external_exact_git_verifier_wave2"
 VERIFIER_VERSION = "v1"
+EXTRACTOR_VERSION = "v2"
 
 TREASURY_SCHEMA = "external.us_treasury_debt_to_penny_response.v1"
 BLS_SCHEMA = "external.bls_unemployment_series_response.v1"
@@ -63,6 +64,66 @@ _FOMC_MEETING = re.compile(
     r'fomc-meeting__month[^>]*><strong>([A-Za-z]+)</strong></div>\s*'
     r'<div class="[^"]*fomc-meeting__date[^"]*">([^<]+)</div>', re.IGNORECASE,
 )
+
+_TREASURY_DATA_TYPES = {
+    "record_date": "DATE",
+    "debt_held_public_amt": "CURRENCY",
+    "intragov_hold_amt": "CURRENCY",
+    "tot_pub_debt_out_amt": "CURRENCY",
+    "src_line_nbr": "INTEGER",
+    "record_fiscal_year": "YEAR",
+    "record_fiscal_quarter": "QUARTER",
+    "record_calendar_year": "YEAR",
+    "record_calendar_quarter": "QUARTER",
+    "record_calendar_month": "MONTH",
+    "record_calendar_day": "DAY",
+}
+
+IMPLEMENTATION_CONTRACT_COVERAGE: Mapping[tuple[str, str], Mapping[str, Any]] = {
+    (TREASURY_EXTRACTOR_ID, EXTRACTOR_VERSION): {
+        "shape_contract_id": "treasury.fiscaldata.debt_to_penny.external_shape.v2",
+        "required_fields": (
+            "/data", "/data/*/record_date", "/data/*/debt_held_public_amt",
+            "/data/*/intragov_hold_amt", "/data/*/tot_pub_debt_out_amt",
+            "/meta/count", "/meta/dataTypes", "/links/self", "/links/first",
+            "/links/prev", "/links/next", "/links/last",
+        ),
+        "timestamp_extraction_rules": {
+            "observed_at_utc": "/data/*/record_date@START_OF_UTC_DAY",
+            "known_at_utc": "VERIFIED_GIT_RECEIPT_ARTIFACT_CUTOFF",
+            "published_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_RELEASE_TIMESTAMP",
+            "revision_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_REVISION_TIMESTAMP",
+        },
+    },
+    (BLS_EXTRACTOR_ID, EXTRACTOR_VERSION): {
+        "shape_contract_id": "bls.public_data.unemployment_series.external_shape.v2",
+        "required_fields": (
+            "/status", "/message", "/Results/series", "/Results/series/*/seriesID",
+            "/Results/series/*/data/*/year", "/Results/series/*/data/*/period",
+            "/Results/series/*/data/*/periodName", "/Results/series/*/data/*/value",
+        ),
+        "timestamp_extraction_rules": {
+            "observed_at_utc": "/Results/series/*/data/*/(year,period)@START_OF_UTC_MONTH",
+            "known_at_utc": "VERIFIED_GIT_RECEIPT_ARTIFACT_CUTOFF",
+            "published_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_RELEASE_TIMESTAMP",
+            "revision_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_REVISION_TIMESTAMP",
+        },
+    },
+    (FOMC_EXTRACTOR_ID, EXTRACTOR_VERSION): {
+        "shape_contract_id": "federal_reserve.fomc_calendar.official_html.external_shape.v2",
+        "required_fields": (
+            "/html/head/meta[@property=og:url]", "/html/body/*/FOMC_Meetings",
+            "/meeting/container", "/meeting/month", "/meeting/date",
+            "/meeting/dated_document_link",
+        ),
+        "timestamp_extraction_rules": {
+            "observed_at_utc": "/meeting/decision_date@START_OF_UTC_DAY",
+            "known_at_utc": "VERIFIED_GIT_RECEIPT_ARTIFACT_CUTOFF",
+            "published_at_utc": "/meeting/dated_document_link@DATE_TOKEN_START_OF_UTC_DAY",
+            "revision_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_REVISION_TIMESTAMP",
+        },
+    },
+}
 
 
 def _git_prefix(repository: Path) -> list[str]:
@@ -152,8 +213,18 @@ def _extract_treasury(consumed: bytes, selector: Mapping[str, str]):
     artifact = _json_object(consumed, "treasury_debt_json_malformed")
     if not isinstance(artifact.get("data"), list) or not isinstance(artifact.get("meta"), Mapping) or not isinstance(artifact.get("links"), Mapping):
         raise ValueError("treasury_debt_shape_mismatch")
-    if artifact["meta"].get("count") != len(artifact["data"]):
+    meta = artifact["meta"]
+    if not isinstance(meta.get("count"), int) or meta.get("count") != len(artifact["data"]):
         raise ValueError("treasury_debt_count_mismatch")
+    if meta.get("dataTypes") != _TREASURY_DATA_TYPES:
+        raise ValueError("treasury_debt_datatype_contract_mismatch")
+    links = artifact["links"]
+    if set(links) != {"self", "first", "prev", "next", "last"}:
+        raise ValueError("treasury_debt_links_shape_mismatch")
+    if any(not isinstance(links[key], str) or not links[key] for key in ("self", "first", "last")) or any(
+        links[key] is not None and not isinstance(links[key], str) for key in ("prev", "next")
+    ):
+        raise ValueError("treasury_debt_links_shape_mismatch")
     selected = [row for row in artifact["data"] if isinstance(row, Mapping) and row.get("record_date") == selector["record_date"]]
     if len(selected) != 1:
         raise ValueError("treasury_debt_record_selector_not_unique")
@@ -165,7 +236,10 @@ def _extract_treasury(consumed: bytes, selector: Mapping[str, str]):
         _decimal(row[field], "treasury_debt_numeric_value_invalid")
     observed = _utc_day(str(row["record_date"]), "treasury_debt_record_date_invalid")
     record = {field: row[field] for field in fields}
-    return record, str(row["record_date"]), fields, {"observed_at_utc": observed, "known_at_utc": observed, "published_at_utc": observed, "revision_at_utc": None}
+    record["meta_data_types"] = dict(meta["dataTypes"])
+    record["links"] = dict(links)
+    fields = (*fields, "meta_data_types", "links")
+    return record, str(row["record_date"]), fields, {"observed_at_utc": observed, "known_at_utc": None, "published_at_utc": None, "revision_at_utc": None}
 
 
 def _extract_bls(consumed: bytes, selector: Mapping[str, str]):
@@ -221,15 +295,43 @@ def _extract_fomc(consumed: bytes, selector: Mapping[str, str]):
         decision_day = date(int(year), _MONTHS[selector["month"]], end_day)
     except ValueError as error:
         raise ValueError("fomc_calendar_meeting_date_invalid") from error
-    tail = section[matches[0].end():matches[0].end() + 5000]
+    container_starts = list(re.finditer(
+        r'<div\b[^>]*class="[^"]*\bfomc-meeting\b[^"]*"[^>]*>',
+        section[:matches[0].start()], re.IGNORECASE,
+    ))
+    if not container_starts:
+        raise ValueError("fomc_calendar_meeting_container_missing")
+    container_start = container_starts[-1].start()
+    depth = 0
+    container_end = None
+    for tag in re.finditer(r"</?div\b[^>]*>", section[container_start:], re.IGNORECASE):
+        depth += -1 if tag.group(0).startswith("</") else 1
+        if depth == 0:
+            container_end = container_start + tag.end()
+            break
+    if container_end is None:
+        raise ValueError("fomc_calendar_meeting_container_malformed")
+    container = section[container_start:container_end]
+    if len(_FOMC_MEETING.findall(container)) != 1:
+        raise ValueError("fomc_calendar_meeting_container_ambiguous")
     stamp = decision_day.strftime("%Y%m%d")
-    link = re.search(rf'href="([^"]*(?:monetary|fomcpressconf|fomcpresconf){stamp}[^"]*)"', tail, re.IGNORECASE)
+    # Bind the selected meeting to its canonical HTML statement.  The same
+    # meeting container can legitimately include a statement PDF,
+    # implementation note, press conference, longer-run strategy statement,
+    # and minutes.  Those siblings must neither make selection ambiguous nor
+    # allow a link from the next meeting container to satisfy this contract.
+    statement_links = re.findall(
+        rf'href="(/newsevents/pressreleases/monetary{stamp}a\.htm)"',
+        container,
+        re.IGNORECASE,
+    )
+    link = statement_links[0] if len(statement_links) == 1 else None
     if link is None:
         raise ValueError("fomc_calendar_dated_document_link_missing")
     fields = ("official_url", "year", "month", "meeting_dates", "decision_date", "dated_document_href")
-    record = {"official_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm", "year": year, "month": selector["month"], "meeting_dates": selector["meeting_dates"], "decision_date": decision_day.isoformat(), "dated_document_href": link.group(1)}
+    record = {"official_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm", "year": year, "month": selector["month"], "meeting_dates": selector["meeting_dates"], "decision_date": decision_day.isoformat(), "dated_document_href": link}
     observed = _utc_day(decision_day.isoformat(), "fomc_calendar_meeting_date_invalid")
-    return record, f"{year}:{selector['month']}:{selector['meeting_dates']}", fields, {"observed_at_utc": observed, "known_at_utc": observed, "published_at_utc": observed, "revision_at_utc": None}
+    return record, f"{year}:{selector['month']}:{selector['meeting_dates']}", fields, {"observed_at_utc": observed, "known_at_utc": None, "published_at_utc": observed, "revision_at_utc": None}
 
 
 def _feature_value(feature_id: str, record: Mapping[str, Any], required_fields: Sequence[str], times: Mapping[str, str | None], evidence_ref: str, cutoff: str, rule: str) -> contracts.ExtractedFeatureValueV1:
@@ -237,7 +339,7 @@ def _feature_value(feature_id: str, record: Mapping[str, Any], required_fields: 
         value: float | None = sum(record.get(field) not in (None, "") for field in required_fields) / len(required_fields)
         availability, reason = (contracts.AvailabilityState.EXPLICIT_ZERO if value == 0.0 else contracts.AvailabilityState.AVAILABLE), None
     elif feature_id == "freshness":
-        basis = times.get("known_at_utc") or times.get("published_at_utc") or times.get("observed_at_utc")
+        basis = times.get("published_at_utc") or times.get("known_at_utc") or times.get("revision_at_utc")
         if basis is None:
             value, availability, reason = None, contracts.AvailabilityState.UNAVAILABLE, "artifact_native_timestamp_unavailable"
         else:
@@ -286,6 +388,8 @@ def extract_wave2_artifact_evidence(
         raise ValueError("extractor_scope_or_feature_unsupported")
     extraction = {TREASURY_EXTRACTOR_ID: _extract_treasury, BLS_EXTRACTOR_ID: _extract_bls, FOMC_EXTRACTOR_ID: _extract_fomc}[extractor_id]
     record, record_key, fields, times = extraction(consumed_bytes, selector)
+    if times.get("known_at_utc") is None:
+        times = {**times, "known_at_utc": receipt.artifact_cutoff_utc}
     cutoff = contracts.parse_utc(decision_cutoff_utc, field_name="decision_cutoff_utc")
     for name, timestamp in times.items():
         if timestamp and contracts.parse_utc(timestamp, field_name=name) > cutoff:

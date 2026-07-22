@@ -301,8 +301,8 @@ def test_frozen_manifest_integrity_and_append_only_registry_deltas():
     assert not validate_foundation_freeze(ROOT)
     verifiers = adapters.load_trusted_verifier_registry(ROOT)
     extractors = extraction.load_extractor_registry(ROOT)
-    assert verifiers.registry_version == "trusted-evidence-registry-1.2.0"
-    assert extractors.registry_version == "artifact-evidence-extractor-registry-1.2.0"
+    assert verifiers.registry_version == "trusted-evidence-registry-1.3.0"
+    assert extractors.registry_version == "artifact-evidence-extractor-registry-1.3.0"
     assert verifiers.resolve(batch.VERIFIER_ID, "v1") is not None
     assert all(extractors.resolve(extractor_id, "v1") is not None for extractor_id in ARTIFACTS)
 

@@ -1,0 +1,55 @@
+{
+  "explicit_zero_stale_semantics_preserved": true,
+  "observation_used_as_publication_freshness": false,
+  "rows": [
+    {
+      "adapter": "treasury_debt_to_penny",
+      "freshness_basis": "known_by",
+      "known_by": "verified Git receipt artifact cutoff",
+      "observation": "record_date",
+      "official_release": null,
+      "revision": null
+    },
+    {
+      "adapter": "bls_unemployment_series",
+      "freshness_basis": "known_by",
+      "known_by": "verified Git receipt artifact cutoff",
+      "observation": "year+month",
+      "official_release": null,
+      "revision": null
+    },
+    {
+      "adapter": "fomc_calendar_html",
+      "freshness_basis": "official_release",
+      "known_by": "verified Git receipt artifact cutoff",
+      "observation": "meeting decision date",
+      "official_release": "date token in canonical statement link",
+      "revision": null
+    },
+    {
+      "adapter": "treasury_tic_html",
+      "freshness_basis": "known_by",
+      "known_by": "verified Git receipt artifact cutoff",
+      "observation": null,
+      "official_release": null,
+      "revision": "og:updated_time"
+    },
+    {
+      "adapter": "usgs_earthquake_geojson",
+      "freshness_basis": "known_by",
+      "known_by": "metadata.generated",
+      "observation": "properties.time",
+      "official_release": null,
+      "revision": "properties.updated"
+    },
+    {
+      "adapter": "fhfa_hpi_html",
+      "freshness_basis": "known_by",
+      "known_by": "verified Git receipt artifact cutoff",
+      "observation": null,
+      "official_release": null,
+      "revision": "article:modified_time"
+    }
+  ],
+  "schema_version": "contentops.production_adapter_timestamp_provenance.v1"
+}

@@ -32,7 +32,16 @@ def _treasury(*, record_date: str = "2026-06-01", public_debt: str = "0") -> byt
         "record_calendar_year": "2026", "record_calendar_quarter": "2",
         "record_calendar_month": "06", "record_calendar_day": "01",
     }
-    return json.dumps({"data": [row], "meta": {"count": 1, "dataTypes": {"record_date": "DATE"}}, "links": {"self": "local"}}, separators=(",", ":")).encode()
+    data_types = {
+        "record_date": "DATE", "debt_held_public_amt": "CURRENCY",
+        "intragov_hold_amt": "CURRENCY", "tot_pub_debt_out_amt": "CURRENCY",
+        "src_line_nbr": "INTEGER", "record_fiscal_year": "YEAR",
+        "record_fiscal_quarter": "QUARTER", "record_calendar_year": "YEAR",
+        "record_calendar_quarter": "QUARTER", "record_calendar_month": "MONTH",
+        "record_calendar_day": "DAY",
+    }
+    links = {"self": "local:self", "first": "local:first", "prev": None, "next": None, "last": "local:last"}
+    return json.dumps({"data": [row], "meta": {"count": 1, "dataTypes": data_types}, "links": links}, separators=(",", ":")).encode()
 
 
 def _bls(*, year: str = "2026", period: str = "M05", period_name: str = "May", value: str = "0") -> bytes:
@@ -63,7 +72,7 @@ ARTIFACTS = {
 
 def _receipt(data: bytes, extractor_id: str):
     registry = adapters.load_trusted_verifier_registry(ROOT)
-    extractor = extraction.load_extractor_registry(ROOT).resolve(extractor_id, "v1")
+    extractor = extraction.load_extractor_registry(ROOT).resolve(extractor_id, wave2.EXTRACTOR_VERSION)
     _, path, schema, _ = ARTIFACTS[extractor_id]
     blob = sha1(f"blob {len(data)}\0".encode() + data).hexdigest()
     return contracts.build_verified_producer_artifact_receipt_v1(
@@ -83,7 +92,7 @@ def _extract(data: bytes, extractor_id: str, **changes):
     _, _, _, selector = ARTIFACTS[extractor_id]
     kwargs = {
         "receipt": _receipt(data, extractor_id), "registry": extraction.load_extractor_registry(ROOT),
-        "extractor_id": extractor_id, "extractor_version": "v1", "selector": selector,
+        "extractor_id": extractor_id, "extractor_version": wave2.EXTRACTOR_VERSION, "selector": selector,
         "feature_targets": ("evidence_completeness", "freshness"), "decision_cutoff_utc": CUTOFF,
     }
     kwargs.update(changes)
@@ -102,6 +111,7 @@ def test_valid_wave2_extraction_is_bounded_and_deterministic(extractor_id):
     assert record.evidence_roles == (contracts.EvidenceRole.FEATURE_SUPPORT,)
     assert record.qualification_status == "NOT_QUALIFYING_GOVERNED"
     assert record.observed_at_utc is not None
+    assert record.known_at_utc == "2026-06-10T00:00:00Z"
     assert next(row for row in features if row.feature_id == "evidence_completeness").value == 1.0
     freshness = next(row for row in features if row.feature_id == "freshness")
     assert freshness.value == 0.0 and freshness.availability == contracts.AvailabilityState.EXPLICIT_ZERO
@@ -124,6 +134,26 @@ def test_treasury_malformed_shape_count_date_numeric_and_selector_rejected():
     bad_count["meta"]["count"] = 2
     with pytest.raises(ValueError, match="treasury_debt_count_mismatch"):
         _extract(json.dumps(bad_count).encode(), wave2.TREASURY_EXTRACTOR_ID)
+    missing_type = json.loads(_treasury())
+    del missing_type["meta"]["dataTypes"]["debt_held_public_amt"]
+    with pytest.raises(ValueError, match="datatype_contract_mismatch"):
+        _extract(json.dumps(missing_type).encode(), wave2.TREASURY_EXTRACTOR_ID)
+    wrong_type = json.loads(_treasury())
+    wrong_type["meta"]["dataTypes"]["record_date"] = "STRING"
+    with pytest.raises(ValueError, match="datatype_contract_mismatch"):
+        _extract(json.dumps(wrong_type).encode(), wave2.TREASURY_EXTRACTOR_ID)
+    wrong_numeric_type = json.loads(_treasury())
+    wrong_numeric_type["meta"]["dataTypes"]["debt_held_public_amt"] = "NUMBER"
+    with pytest.raises(ValueError, match="datatype_contract_mismatch"):
+        _extract(json.dumps(wrong_numeric_type).encode(), wave2.TREASURY_EXTRACTOR_ID)
+    missing_selected_field = json.loads(_treasury())
+    del missing_selected_field["data"][0]["tot_pub_debt_out_amt"]
+    with pytest.raises(ValueError, match="required_field_missing"):
+        _extract(json.dumps(missing_selected_field).encode(), wave2.TREASURY_EXTRACTOR_ID)
+    bad_links = json.loads(_treasury())
+    del bad_links["links"]["last"]
+    with pytest.raises(ValueError, match="links_shape_mismatch"):
+        _extract(json.dumps(bad_links).encode(), wave2.TREASURY_EXTRACTOR_ID)
     with pytest.raises(ValueError, match="record_date_invalid"):
         _extract(_treasury(record_date="2026-99-01"), wave2.TREASURY_EXTRACTOR_ID, selector={"record_date": "2026-99-01"})
     with pytest.raises(ValueError, match="numeric_value_invalid"):
@@ -156,13 +186,49 @@ def test_fomc_official_shape_selector_link_and_future_timestamp_rejected():
         _extract(_fomc(), wave2.FOMC_EXTRACTOR_ID, decision_cutoff_utc="2026-01-01T00:00:00Z")
 
 
+def test_fomc_exact_container_selects_statement_among_sibling_documents():
+    meeting = _fomc().replace(
+        b'</a></div>',
+        b'</a><a href="/newsevents/pressreleases/monetary20260128a1.htm">Implementation Note</a>'
+        b'<a href="/monetarypolicy/fomcpressconf20260128.htm">Press Conference</a></div>',
+        1,
+    )
+    record, _ = _extract(meeting, wave2.FOMC_EXTRACTOR_ID)
+    baseline, _ = _extract(_fomc(), wave2.FOMC_EXTRACTOR_ID)
+    assert record.extracted_record_hash == baseline.extracted_record_hash
+    assert record.published_at_utc == "2026-01-28T00:00:00Z"
+    assert record.source_fields_used == (
+        "official_url", "year", "month", "meeting_dates", "decision_date", "dated_document_href",
+    )
+
+
+def test_fomc_does_not_cross_into_next_meeting_container_for_statement():
+    first = _fomc().replace(b"monetary20260128", b"monetary20260127")
+    next_meeting = b'''<div class="row fomc-meeting"><div class="fomc-meeting__month"><strong>March</strong></div>
+<div class="fomc-meeting__date">17-18</div><a href="/newsevents/pressreleases/monetary20260128a.htm">wrong meeting</a></div>'''
+    artifact = first.replace(b'<h4><a id="42827">', next_meeting + b'<h4><a id="42827">')
+    with pytest.raises(ValueError, match="dated_document_link_missing"):
+        _extract(artifact, wave2.FOMC_EXTRACTOR_ID)
+
+
+def test_timestamp_classes_do_not_masquerade_observation_as_release():
+    treasury, _ = _extract(_treasury(), wave2.TREASURY_EXTRACTOR_ID)
+    bls, _ = _extract(_bls(), wave2.BLS_EXTRACTOR_ID)
+    fomc, _ = _extract(_fomc(), wave2.FOMC_EXTRACTOR_ID)
+    assert treasury.observed_at_utc == "2026-06-01T00:00:00Z" and treasury.published_at_utc is None
+    assert bls.observed_at_utc == "2026-05-01T00:00:00Z" and bls.published_at_utc is None
+    assert fomc.observed_at_utc == "2026-01-28T00:00:00Z"
+    assert fomc.published_at_utc == "2026-01-28T00:00:00Z"
+    assert {treasury.known_at_utc, bls.known_at_utc, fomc.known_at_utc} == {"2026-06-10T00:00:00Z"}
+
+
 def test_byte_mismatch_and_caller_upgrades_rejected():
     data = _treasury()
     with pytest.raises(ValueError, match="consumed_bytes_receipt_mismatch"):
         wave2.extract_wave2_artifact_evidence(
             data + b" ", receipt=_receipt(data, wave2.TREASURY_EXTRACTOR_ID),
             registry=extraction.load_extractor_registry(ROOT), extractor_id=wave2.TREASURY_EXTRACTOR_ID,
-            extractor_version="v1", selector={"record_date": "2026-06-01"},
+            extractor_version=wave2.EXTRACTOR_VERSION, selector={"record_date": "2026-06-01"},
             feature_targets=("freshness",), decision_cutoff_utc=CUTOFF,
         )
     for field, value, reason in [
@@ -234,10 +300,10 @@ def test_append_only_registries_and_frozen_manifest_integrity():
     assert not validate_foundation_freeze(ROOT)
     verifiers = adapters.load_trusted_verifier_registry(ROOT)
     extractors = extraction.load_extractor_registry(ROOT)
-    assert verifiers.registry_version == "trusted-evidence-registry-1.2.0"
-    assert extractors.registry_version == "artifact-evidence-extractor-registry-1.2.0"
+    assert verifiers.registry_version == "trusted-evidence-registry-1.3.0"
+    assert extractors.registry_version == "artifact-evidence-extractor-registry-1.3.0"
     assert verifiers.resolve(wave2.VERIFIER_ID, "v1") is not None
-    assert all(extractors.resolve(extractor_id, "v1") is not None for extractor_id in ARTIFACTS)
+    assert all(extractors.resolve(extractor_id, wave2.EXTRACTOR_VERSION) is not None for extractor_id in ARTIFACTS)
 
 
 def test_exact_inventory_pins_are_complete():
