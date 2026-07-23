@@ -4,9 +4,25 @@
 
 ## Current Classification
 
-`PASS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1`.
+Completed task: `TASK_CONTENTOPS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1`.
+
+## Universal News/Event Candidate Fabric V2 And Cross-Domain Assignment Canary
+
+The prior independent audit disposition is `PASS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1_WITH_LEGACY_SUITE_DEBT`. The accepted 13 adapter capability bindings, 16 immutable extractor runtime proofs, four-family frozen-core canary, and exact Task 0073 archive resolution remain unchanged.
+
+Capital Chronicle ContentOps is a general global news and intelligence production OS. Its scope includes macro and economic releases; geopolitical and political events; global macro headlines; legal and regulatory events; sanctions and trade; US Big Tech and corporate filings; and markets, energy, supply chains, infrastructure, climate, and physical disruptions. Existing economic adapters are foundation evidence, not a product-domain boundary.
+
+`ContentOpsUniversalNewsCandidatePoolV2` replaces the universal numeric hard gate with a versioned claim graph, open source-family registry, and capability-selected evidence requirements. Numeric claims retain all metric, value, unit, transformation, time, source, citation, authority, and permission checks. Official actions, regulatory documents, filing facts, event occurrences, and entity relationships are structurally valid without numeric claims. Market reaction remains a separate claim capability requiring separate instrument and market evidence. The upstream V1 pool remains unchanged and is consumed through an explicit compatibility adapter.
+
+The governed read-only upstream bridge verified the exact local 101,199,872-byte DBH2 DuckDB and all nine Parquet partitions against the committed manifest at initial upstream head `c0a57145986ce9f25fc083369970e3b121a5ba73`. During final validation the fetched upstream branch advanced to descendant `1bee3f6c71e2e4e55e5b5dd90409b9051289ca9c`; the bridge keeps those identities separate and proves the initial head remains reachable. The real canary contains six categories and nine claims: four V1 Treasury numeric observations plus one Federal Register regulatory claim, one Microsoft SEC filing fact, one OFAC snapshot/entity relationship, one FOMC official-document fact, and one USGS physical-event occurrence. The upstream catalog explicitly keeps the five DBH2 families context-only; they are held and never upgraded. The OFAC snapshot is not represented as a new sanctions action, filing metadata makes no earnings or market-reaction claim, and USGS numeric text is not promoted to numeric reporting authority.
+
+The five-window path consumes the V2 pool through the canonical scheduler surface. One authorized numeric candidate receives one internal assignment; the five context-only candidates remain held; zero candidates are contract-invalid; and all five decisions preserve no-publication. Unavailable ranking inputs remain unavailable, explicit zero remains distinct, deterministic blockers override ranking, and `UNCALIBRATED_FOUNDATION` is unchanged. This task does not claim continuous live headline intake.
+
+Evidence: `docs/automation/CONTENTOPS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1/final_manifest.json`.
+
+Focused universal candidate, bridge, and assignment validation passed 65 tests; the V2 foundation/adapter matrix passed 352 tests; V1 compatibility passed 22 tests; and newsroom scheduler/status validation passed 60 tests. The known 6,729-test repository baseline remains non-green because of unrelated legacy fixture debt, so the full suite was not broadly rerun and no full-suite or CI PASS is claimed.
 
 ## Adapter Capability Conformance, Composite Canary, And Full-Suite Blocker Repair
 

@@ -1,0 +1,18 @@
+{
+  "ast_branch_count_inspected": 111,
+  "findings": [],
+  "generic_core_path": "live_contentops/universal_news_candidate_fabric_v2.py",
+  "prohibited_finding_count": 0,
+  "prohibited_literals": [
+    "microsoft",
+    "apple",
+    "fomc",
+    "ofac",
+    "usgs",
+    "federal register"
+  ],
+  "schema_version": "contentops.universal_candidate_genericity_report.v1",
+  "source_specific_mappings_location": "live_contentops/universal_news_cross_domain_canary_v1.py",
+  "status": "PASS",
+  "topic_name_branches_present": false
+}

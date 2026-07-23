@@ -1,0 +1,16 @@
+{
+  "ci_pass_claimed": false,
+  "ci_status": "NO_WORKFLOW_FILES_PRESENT_POST_PUSH_STATUS_CHECK_PENDING",
+  "full_suite_pass_claimed": false,
+  "github_workflow_files_present": false,
+  "known_starting_baseline": {
+    "classification": "NOT_GREEN_LEGACY_FIXTURE_DEBT",
+    "collected": 6729,
+    "errors": 160,
+    "failed": 456,
+    "passed": 6085,
+    "skipped": 28
+  },
+  "schema_version": "contentops.full_suite_ci_truth.v1",
+  "task_run": "NOT_RERUN_KNOWN_6729_TEST_BASELINE_NOT_GREEN_AFFECTED_SHARDS_COVERED_BY_352_V2_22_V1_AND_60_NEWSROOM_STATUS_TESTS"
+}

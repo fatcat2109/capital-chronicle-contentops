@@ -1,0 +1,74 @@
+{
+  "exclusions": [
+    {
+      "artifact": "obsolete_empty_federal_register_raw_sample",
+      "reason": "not_real_evidence"
+    },
+    {
+      "artifact": "truncated_initial_ofac_xml",
+      "reason": "malformed_not_real_evidence"
+    },
+    {
+      "artifact": "polymarket_probability_proxy",
+      "reason": "probability_is_not_reality"
+    },
+    {
+      "artifact": "unverified_or_hash_mismatched_local_binary",
+      "reason": "fail_closed"
+    }
+  ],
+  "forced_unavailable_category_count": 0,
+  "schema_version": "contentops.real_source_family_selection.v1",
+  "selected_categories": [
+    "numeric_macro_release",
+    "official_regulatory_document",
+    "corporate_filing",
+    "sanctions_entity_context",
+    "central_bank_official_document",
+    "physical_event"
+  ],
+  "source_family_records": [
+    {
+      "authority_class": "OFFICIAL_VERIFIED",
+      "enabled": true,
+      "evidence_state": "exact",
+      "permission_ceiling": "PUBLIC_CLAIM_ALLOWED",
+      "source_family_id": "story_scoped_publication_evidence_v1"
+    },
+    {
+      "authority_class": "OFFICIAL_VERIFIED",
+      "enabled": true,
+      "evidence_state": "context",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "source_family_id": "dbh2_federal_register_official_document"
+    },
+    {
+      "authority_class": "OFFICIAL_VERIFIED",
+      "enabled": true,
+      "evidence_state": "context",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "source_family_id": "dbh2_sec_official_filing_metadata"
+    },
+    {
+      "authority_class": "OFFICIAL_VERIFIED",
+      "enabled": true,
+      "evidence_state": "context",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "source_family_id": "dbh2_ofac_official_entity_snapshot"
+    },
+    {
+      "authority_class": "OFFICIAL_VERIFIED",
+      "enabled": true,
+      "evidence_state": "context",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "source_family_id": "dbh2_fomc_official_document"
+    },
+    {
+      "authority_class": "OFFICIAL_VERIFIED",
+      "enabled": true,
+      "evidence_state": "context",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "source_family_id": "dbh2_usgs_official_physical_event"
+    }
+  ]
+}

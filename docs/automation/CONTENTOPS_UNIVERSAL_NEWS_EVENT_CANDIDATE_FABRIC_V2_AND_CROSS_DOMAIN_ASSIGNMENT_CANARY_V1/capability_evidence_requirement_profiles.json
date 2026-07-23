@@ -1,0 +1,119 @@
+{
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "profiles": [
+    {
+      "accepted_claim_types": [
+        "numeric_observation",
+        "correction_or_revision"
+      ],
+      "numeric_claim_required": true,
+      "profile_id": "numeric_economic_release",
+      "required_candidate_fields": [
+        "observation_time_utc",
+        "published_at_utc",
+        "known_at_utc"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations"
+      ]
+    },
+    {
+      "accepted_claim_types": [
+        "official_action",
+        "legal_or_regulatory_action",
+        "factual_text",
+        "correction_or_revision"
+      ],
+      "numeric_claim_required": false,
+      "profile_id": "official_action",
+      "required_candidate_fields": [
+        "event_time_utc",
+        "published_at_utc",
+        "known_at_utc"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations"
+      ]
+    },
+    {
+      "accepted_claim_types": [
+        "corporate_filing_fact",
+        "factual_text",
+        "correction_or_revision"
+      ],
+      "numeric_claim_required": false,
+      "profile_id": "corporate_filing",
+      "required_candidate_fields": [
+        "published_at_utc",
+        "known_at_utc"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations"
+      ]
+    },
+    {
+      "accepted_claim_types": [
+        "official_action",
+        "event_occurrence",
+        "entity_relationship",
+        "factual_text",
+        "correction_or_revision"
+      ],
+      "numeric_claim_required": false,
+      "profile_id": "geopolitical_or_sanctions",
+      "required_candidate_fields": [
+        "event_time_utc",
+        "published_at_utc",
+        "known_at_utc"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations"
+      ]
+    },
+    {
+      "accepted_claim_types": [
+        "event_occurrence",
+        "factual_text",
+        "correction_or_revision"
+      ],
+      "numeric_claim_required": false,
+      "profile_id": "physical_disruption",
+      "required_candidate_fields": [
+        "event_time_utc",
+        "known_at_utc"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations"
+      ]
+    },
+    {
+      "accepted_claim_types": [
+        "market_reaction",
+        "correction_or_revision"
+      ],
+      "numeric_claim_required": false,
+      "profile_id": "market_reaction",
+      "required_candidate_fields": [
+        "observation_time_utc",
+        "known_at_utc"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations"
+      ]
+    }
+  ],
+  "registry_version": "contentops.evidence_requirement_profiles.v2.0.0",
+  "schema_version": "contentops.evidence_requirement_profile_evidence.v1"
+}

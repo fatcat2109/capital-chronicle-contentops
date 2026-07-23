@@ -8,7 +8,15 @@ Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicl
 
 Authority date: 2026-07-14
 
-Current classification: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
+Current architecture classification: `PASS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1_AWAITING_CHATGPT_AUDIT`.
+
+Current accepted public release: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
+
+## Universal News And Intelligence Scope
+
+ContentOps is a general global news and intelligence production OS covering macro and economic releases; geopolitical and political events; global macro headlines; legal and regulatory events; sanctions and trade; US Big Tech and corporate filings; and markets, energy, supply chains, infrastructure, climate, and physical disruptions. Economic adapters are evidence for the generic foundation, not the product boundary.
+
+`ContentOpsUniversalNewsCandidatePoolV2` provides a capability-driven claim graph and an explicit V1 compatibility adapter. A governed local cross-domain canary verifies one numeric macro candidate and five nonnumeric official/public categories through generic clustering, uncalibrated ranking, assignment, and all five decision windows. The exact DBH2 DuckDB and nine Parquet partitions match their committed manifest. Context-only regulatory, filing, sanctions-entity, central-bank-document, and physical-event evidence remains held; it is not upgraded to reporting or publication authority. The canary performs no public write and does not claim continuous live headline intake.
 
 ## Product State
 

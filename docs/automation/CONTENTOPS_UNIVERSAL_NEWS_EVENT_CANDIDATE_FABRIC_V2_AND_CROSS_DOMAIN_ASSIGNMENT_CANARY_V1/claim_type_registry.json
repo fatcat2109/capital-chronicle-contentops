@@ -1,0 +1,87 @@
+{
+  "extension_policy": "append_versioned_capabilities_without_topic_whitelists",
+  "records": [
+    {
+      "claim_type": "numeric_observation",
+      "judgment_record_required": false,
+      "numeric_fields_required": true,
+      "separate_market_evidence_required": false,
+      "statement_allowed": true,
+      "structured_payload_allowed": true
+    },
+    {
+      "claim_type": "factual_text",
+      "judgment_record_required": false,
+      "numeric_fields_required": false,
+      "separate_market_evidence_required": false,
+      "statement_allowed": true,
+      "structured_payload_allowed": true
+    },
+    {
+      "claim_type": "official_action",
+      "judgment_record_required": false,
+      "numeric_fields_required": false,
+      "separate_market_evidence_required": false,
+      "statement_allowed": true,
+      "structured_payload_allowed": true
+    },
+    {
+      "claim_type": "event_occurrence",
+      "judgment_record_required": false,
+      "numeric_fields_required": false,
+      "separate_market_evidence_required": false,
+      "statement_allowed": true,
+      "structured_payload_allowed": true
+    },
+    {
+      "claim_type": "legal_or_regulatory_action",
+      "judgment_record_required": false,
+      "numeric_fields_required": false,
+      "separate_market_evidence_required": false,
+      "statement_allowed": true,
+      "structured_payload_allowed": true
+    },
+    {
+      "claim_type": "corporate_filing_fact",
+      "judgment_record_required": false,
+      "numeric_fields_required": false,
+      "separate_market_evidence_required": false,
+      "statement_allowed": true,
+      "structured_payload_allowed": true
+    },
+    {
+      "claim_type": "entity_relationship",
+      "judgment_record_required": false,
+      "numeric_fields_required": false,
+      "separate_market_evidence_required": false,
+      "statement_allowed": true,
+      "structured_payload_allowed": true
+    },
+    {
+      "claim_type": "market_reaction",
+      "judgment_record_required": false,
+      "numeric_fields_required": false,
+      "separate_market_evidence_required": true,
+      "statement_allowed": true,
+      "structured_payload_allowed": true
+    },
+    {
+      "claim_type": "correction_or_revision",
+      "judgment_record_required": false,
+      "numeric_fields_required": false,
+      "separate_market_evidence_required": false,
+      "statement_allowed": true,
+      "structured_payload_allowed": true
+    },
+    {
+      "claim_type": "model_assisted_judgment",
+      "judgment_record_required": true,
+      "numeric_fields_required": false,
+      "separate_market_evidence_required": false,
+      "statement_allowed": true,
+      "structured_payload_allowed": true
+    }
+  ],
+  "registry_version": "contentops.universal_claim_capabilities.v2.0.0",
+  "schema_version": "contentops.universal_claim_type_registry_evidence.v1"
+}

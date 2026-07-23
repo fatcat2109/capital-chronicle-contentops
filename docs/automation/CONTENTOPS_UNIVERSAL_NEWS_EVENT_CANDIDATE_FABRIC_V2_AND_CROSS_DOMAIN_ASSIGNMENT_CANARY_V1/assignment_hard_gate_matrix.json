@@ -1,0 +1,68 @@
+{
+  "candidate_outcomes": [
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "numeric_claim_count": 4,
+      "profile_id": "numeric_economic_release",
+      "reporting_allowed": true
+    },
+    {
+      "blockers": [
+        "context_only_evidence"
+      ],
+      "candidate_id": "cc-candidate-1874a9b2785116220298",
+      "numeric_claim_count": 0,
+      "profile_id": "physical_disruption",
+      "reporting_allowed": false
+    },
+    {
+      "blockers": [
+        "context_only_evidence"
+      ],
+      "candidate_id": "cc-candidate-2a870998002dd4da1912",
+      "numeric_claim_count": 0,
+      "profile_id": "corporate_filing",
+      "reporting_allowed": false
+    },
+    {
+      "blockers": [
+        "context_only_evidence"
+      ],
+      "candidate_id": "cc-candidate-59959c3226dbf8385373",
+      "numeric_claim_count": 0,
+      "profile_id": "geopolitical_or_sanctions",
+      "reporting_allowed": false
+    },
+    {
+      "blockers": [
+        "context_only_evidence"
+      ],
+      "candidate_id": "cc-candidate-878978b853a5abd039ac",
+      "numeric_claim_count": 0,
+      "profile_id": "official_action",
+      "reporting_allowed": false
+    },
+    {
+      "blockers": [
+        "context_only_evidence"
+      ],
+      "candidate_id": "cc-candidate-a312eb8a6efe8d24273d",
+      "numeric_claim_count": 0,
+      "profile_id": "official_action",
+      "reporting_allowed": false
+    }
+  ],
+  "rules": [
+    "profile_selected_from_candidate_capabilities",
+    "numeric_profile_requires_complete_numeric_claim",
+    "nonnumeric_profiles_do_not_require_numeric_claim",
+    "context_only_cannot_become_reporting_or_publication_authority",
+    "market_reaction_requires_separate_market_evidence",
+    "future_known_at_is_rejected",
+    "deterministic_blockers_override_ranking",
+    "breaking_requires_bound_governed_event_or_material_update_evidence",
+    "portfolio_diversity_never_overrides_hard_gates"
+  ],
+  "schema_version": "contentops.capability_assignment_hard_gate_matrix.v1"
+}

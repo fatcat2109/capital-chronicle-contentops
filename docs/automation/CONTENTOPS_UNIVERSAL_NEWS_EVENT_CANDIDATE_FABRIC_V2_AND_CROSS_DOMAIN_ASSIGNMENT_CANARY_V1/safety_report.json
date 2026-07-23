@@ -1,0 +1,20 @@
+{
+  "browser_or_cdp_used": false,
+  "credential_values_read_or_logged": false,
+  "dqr_permission_editorial_or_source_authority_mutated": false,
+  "entity_snapshot_treated_as_new_action": false,
+  "live_public_data_fetch_performed": false,
+  "llm_prose_treated_as_evidence": false,
+  "market_reaction_inferred_without_market_evidence": false,
+  "missing_local_artifact_fabricated": false,
+  "prediction_probability_treated_as_reality": false,
+  "provider_or_platform_api_called": false,
+  "public_write_performed": false,
+  "publication_authority_granted": false,
+  "publication_or_dispatch_performed": false,
+  "ranking_weights_calibrated": false,
+  "scheduler_or_outbox_executed": false,
+  "schema_version": "contentops.universal_candidate_safety_report.v1",
+  "upstream_write_performed": false,
+  "v1_0_modified": false
+}

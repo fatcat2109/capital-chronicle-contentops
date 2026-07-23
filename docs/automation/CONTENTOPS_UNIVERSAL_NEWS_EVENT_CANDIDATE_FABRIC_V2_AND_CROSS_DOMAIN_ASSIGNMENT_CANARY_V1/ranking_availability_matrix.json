@@ -1,0 +1,176 @@
+{
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "explicit_zero_preserved": true,
+  "production_weights_calibrated": false,
+  "records": [
+    {
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_available_from_governed_artifact"
+          ],
+          "score": null
+        },
+        "evidence_completeness": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+          ],
+          "reason_codes": [
+            "v1_claim_document_citation_projection_complete"
+          ],
+          "score": 100.0
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+          ],
+          "reason_codes": [
+            "story_scoped_official_public_authority"
+          ],
+          "score": 100.0
+        },
+        "surprise": {
+          "availability": "EXPLICIT_ZERO",
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+          ],
+          "reason_codes": [
+            "explicit_governed_zero_no_surprise_measure"
+          ],
+          "score": 0
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-1874a9b2785116220298",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_governed_in_source_artifact"
+          ],
+          "score": null
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+          ],
+          "reason_codes": [
+            "official_verified_exact_local_bytes"
+          ],
+          "score": 100.0
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-2a870998002dd4da1912",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_governed_in_source_artifact"
+          ],
+          "score": null
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "dbh2:DBH2_SEC_MSFT_SUBMISSIONS:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008"
+          ],
+          "reason_codes": [
+            "official_verified_exact_local_bytes"
+          ],
+          "score": 100.0
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-59959c3226dbf8385373",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_governed_in_source_artifact"
+          ],
+          "score": null
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "dbh2:DBH2_OFAC_SDN_CURRENT_SNAPSHOT:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+          ],
+          "reason_codes": [
+            "official_verified_exact_local_bytes"
+          ],
+          "score": 100.0
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-878978b853a5abd039ac",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_governed_in_source_artifact"
+          ],
+          "score": null
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "dbh2:DBH2_FED_FOMC_CALENDAR_ARCHIVE:bb36b80806b8f876de544e95ad2e4cbd6028e64a5800ac2820ba8cbaaa02fa94:cfab9a0c6509cfd2445399f89a466a8ee787268f432976a48f7578a70a7b9b8f"
+          ],
+          "reason_codes": [
+            "official_verified_exact_local_bytes"
+          ],
+          "score": 100.0
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-a312eb8a6efe8d24273d",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_governed_in_source_artifact"
+          ],
+          "score": null
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+          ],
+          "reason_codes": [
+            "official_verified_exact_local_bytes"
+          ],
+          "score": 100.0
+        }
+      }
+    }
+  ],
+  "schema_version": "contentops.ranking_availability_matrix.v1",
+  "unavailable_coerced_to_zero": false
+}

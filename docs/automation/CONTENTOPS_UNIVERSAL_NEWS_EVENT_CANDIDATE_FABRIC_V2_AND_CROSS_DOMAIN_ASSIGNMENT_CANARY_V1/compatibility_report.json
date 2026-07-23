@@ -1,0 +1,11 @@
+{
+  "accepted_production_adapter_count": 13,
+  "accepted_production_adapters_unchanged": true,
+  "enabled_extractor_runtime_proof_count": 16,
+  "enabled_extractor_runtime_proofs_unchanged": true,
+  "frozen_foundation_unchanged": true,
+  "schema_version": "contentops.universal_candidate_compatibility_report.v1",
+  "v1_0_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "v1_0_tag_object": "a021df7fd0264d9f160bdd605509da925f0bf131",
+  "v1_compatibility": "PASS"
+}

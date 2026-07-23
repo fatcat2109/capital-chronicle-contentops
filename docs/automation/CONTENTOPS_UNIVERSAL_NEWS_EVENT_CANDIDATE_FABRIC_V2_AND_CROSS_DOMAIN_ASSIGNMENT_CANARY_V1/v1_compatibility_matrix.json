@@ -1,0 +1,11 @@
+{
+  "adapter": "adapt_v1_candidate",
+  "authority_and_permission_not_upgraded": true,
+  "identity_preserved": true,
+  "schema_version": "contentops.universal_candidate_v1_compatibility_matrix.v1",
+  "upstream_v1_pool_path": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+  "upstream_v1_schema_path": "schemas/publication/CapitalChronicleNewsroomCandidatePoolV1.schema.json",
+  "v1_numeric_claim_count": 4,
+  "v1_scheduler_behavior_changed": false,
+  "v2_numeric_projection_count": 4
+}

@@ -1,0 +1,352 @@
+{
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "candidate_pool_id": "cc-universal-pool-6e561701eafc6c35e165",
+  "decisions": [
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T00:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-1874a9b2785116220298",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-2a870998002dd4da1912",
+          "capability_profile": "corporate_filing"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-59959c3226dbf8385373",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-878978b853a5abd039ac",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-a312eb8a6efe8d24273d",
+          "capability_profile": "official_action"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "asia_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T07:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-1874a9b2785116220298",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-2a870998002dd4da1912",
+          "capability_profile": "corporate_filing"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-59959c3226dbf8385373",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-878978b853a5abd039ac",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-a312eb8a6efe8d24273d",
+          "capability_profile": "official_action"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "europe_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T13:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-1874a9b2785116220298",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-2a870998002dd4da1912",
+          "capability_profile": "corporate_filing"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-59959c3226dbf8385373",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-878978b853a5abd039ac",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-a312eb8a6efe8d24273d",
+          "capability_profile": "official_action"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T17:00:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-1874a9b2785116220298",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-2a870998002dd4da1912",
+          "capability_profile": "corporate_filing"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-59959c3226dbf8385373",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-878978b853a5abd039ac",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-a312eb8a6efe8d24273d",
+          "capability_profile": "official_action"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_midday"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T22:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-1874a9b2785116220298",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-2a870998002dd4da1912",
+          "capability_profile": "corporate_filing"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-59959c3226dbf8385373",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-878978b853a5abd039ac",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-a312eb8a6efe8d24273d",
+          "capability_profile": "official_action"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_close"
+    }
+  ],
+  "logical_hash": "54673ab4b6efd2bb77f55a9ac1a4629e6b43b78bf450cf8186e6747dc34a0b76",
+  "public_write_performed": false,
+  "publication_authority": false,
+  "schedule_date": "2026-07-14",
+  "schema_version": "contentops.cross_domain_five_window_assignment.v1",
+  "summary": {
+    "internal_assignment_count": 0,
+    "public_write_count": 0,
+    "publication_count": 0,
+    "window_count": 5
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "branch": "main",
+  "final_report_path": "docs/research/database_foundation/public_free_event_text_entity_history_v1/DBH2_FINAL_REPORT_V1.md",
+  "later_observed_branch_head": "1bee3f6c71e2e4e55e5b5dd90409b9051289ca9c",
+  "local_hash_mismatch_blocker": "BLOCKED_LOCAL_GOVERNED_DBH2_ARTIFACT_MISSING_OR_HASH_MISMATCH",
+  "manifest_path": "docs/research/database_foundation/public_free_event_text_entity_history_v1/DBH2_STORAGE_MANIFEST_V1.json",
+  "observed_head": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+  "observed_head_reachable_from_later_branch_head": true,
+  "point_in_time_known_at_required": true,
+  "raw_capture_fallback_allowed": false,
+  "read_only": true,
+  "repository": "fatcat2109/Headline-Raw-data-json",
+  "revision_ledger_path": "docs/research/database_foundation/public_free_event_text_entity_history_v1/DBH2_DOCUMENT_EVENT_ENTITY_REVISION_LEDGER_V1.json",
+  "schema_version": "contentops.governed_upstream_bridge_contract.v1",
+  "target_catalog_path": "config/data_foundation/PUBLIC_FREE_EVENT_TEXT_ENTITY_HISTORY_TARGET_CATALOG_V1.json"
+}

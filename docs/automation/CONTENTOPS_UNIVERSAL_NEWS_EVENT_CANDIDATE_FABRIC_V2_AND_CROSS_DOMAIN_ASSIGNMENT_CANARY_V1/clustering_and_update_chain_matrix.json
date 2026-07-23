@@ -1,0 +1,123 @@
+{
+  "clusters": [
+    {
+      "candidate_ids": [
+        "cc-candidate-1874a9b2785116220298"
+      ],
+      "cluster_id": "cc-cluster-32b30d3eb28e83c67717",
+      "identity_hash": "318e3ae502d0ce84a9242eea0eaf6d04c96772ade869dc36b5bbf27d666f3c5a",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-1874a9b2785116220298",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-32b30d3eb28e83c67717",
+      "update_chain_id": "cc-update-chain-32b30d3eb28e83c67717"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-878978b853a5abd039ac"
+      ],
+      "cluster_id": "cc-cluster-00dd67faa1d0c67cfb96",
+      "identity_hash": "3b0e8df668e0d8f886f5dfcc900dc847d59351e66da2d0ee04b2eb58a928200c",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-878978b853a5abd039ac",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-00dd67faa1d0c67cfb96",
+      "update_chain_id": "cc-update-chain-00dd67faa1d0c67cfb96"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-2a870998002dd4da1912"
+      ],
+      "cluster_id": "cc-cluster-9bf947274358c5f9f941",
+      "identity_hash": "755bd0a6eb12676aa76c9afed5e2fa5bc10c843ff0658bd97bb9d06a24775353",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-2a870998002dd4da1912",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-9bf947274358c5f9f941",
+      "update_chain_id": "cc-update-chain-9bf947274358c5f9f941"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-120438cc800db7f941be"
+      ],
+      "cluster_id": "cc-cluster-7aa53a08e0a4b35873af",
+      "identity_hash": "a35b924026cae496d0f13bd1e47ee5be77cd41af597bd3c86934d70ae06e9863",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-b032aaca7d2d27af3f67",
+      "update_chain_id": "cc-update-chain-7aa53a08e0a4b35873af"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-a312eb8a6efe8d24273d"
+      ],
+      "cluster_id": "cc-cluster-d216d00632bc53d232c2",
+      "identity_hash": "a827934d760566c1d4afe8ec5aaa968cc57c88876bebb581702516ffbb232081",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-a312eb8a6efe8d24273d",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-d216d00632bc53d232c2",
+      "update_chain_id": "cc-update-chain-d216d00632bc53d232c2"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-59959c3226dbf8385373"
+      ],
+      "cluster_id": "cc-cluster-59897116f6f616502540",
+      "identity_hash": "aa2014dab382792686aade45ca3d77355313fb6f674563b6f5858aee87f9d901",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-59959c3226dbf8385373",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-59897116f6f616502540",
+      "update_chain_id": "cc-update-chain-59897116f6f616502540"
+    }
+  ],
+  "dimensions": [
+    "source_native_event_or_document_id",
+    "normalized_entity_id",
+    "geography",
+    "claim_overlap",
+    "event_or_action_class",
+    "source_document_relationship",
+    "time_proximity",
+    "existing_story_and_update_chain_identity",
+    "validated_structured_model_similarity_only"
+  ],
+  "schema_version": "contentops.generic_clustering_update_chain_matrix.v1",
+  "supported_relationships": [
+    "initial_event",
+    "duplicate",
+    "incremental_update",
+    "material_update",
+    "confirmation",
+    "contradiction",
+    "correction",
+    "new_phase"
+  ],
+  "topic_literal_routing": false
+}

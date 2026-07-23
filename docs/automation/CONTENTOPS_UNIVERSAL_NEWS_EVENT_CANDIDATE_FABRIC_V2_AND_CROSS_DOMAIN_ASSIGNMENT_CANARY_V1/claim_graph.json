@@ -1,0 +1,456 @@
+{
+  "claim_count": 9,
+  "claim_counts_by_type": {
+    "corporate_filing_fact": 1,
+    "entity_relationship": 1,
+    "event_occurrence": 1,
+    "factual_text": 1,
+    "legal_or_regulatory_action": 1,
+    "numeric_observation": 4
+  },
+  "records": [
+    {
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "claim": {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "citations": [
+          {
+            "source_document_id": "ust-daily-yield-curve-2026-07-13",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+          },
+          {
+            "source_document_id": "ust-daily-yield-curve-2026-07-13",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          }
+        ],
+        "claim_id": "UST:2Y:2026-07-13",
+        "claim_type": "numeric_observation",
+        "entities": [],
+        "event_time_utc": null,
+        "evidence_refs": [
+          "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13"
+        ],
+        "geographies": [],
+        "judgment_record": null,
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "limitations": [
+          "official_daily_par_yield_curve_not_trade_execution_price"
+        ],
+        "logical_hash": "8478d68276834fbc016c2daee59a06a5937447f0f640d207d8600f94cf8c9645",
+        "market_evidence_refs": [],
+        "numeric": {
+          "metric": "U.S. Treasury 2Y par yield",
+          "numeric_authority_class": "exact_official_public",
+          "transformation": "source_native_value",
+          "unit": "percent",
+          "value": 4.26
+        },
+        "observed_at_utc": "2026-07-13T00:00:00Z",
+        "permission_state": "PUBLIC_CLAIM_ALLOWED",
+        "published_at_utc": "2026-07-13T00:00:00Z",
+        "revision_at_utc": null,
+        "schema_version": "contentops.universal_news_claim.v2",
+        "source_document_ids": [
+          "ust-daily-yield-curve-2026-07-13"
+        ],
+        "statement": null,
+        "structured_payload": {
+          "source_native_claim_id": "UST:2Y:2026-07-13"
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "claim": {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "citations": [
+          {
+            "source_document_id": "ust-daily-yield-curve-2026-07-13",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+          },
+          {
+            "source_document_id": "ust-daily-yield-curve-2026-07-13",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          }
+        ],
+        "claim_id": "UST:10Y:2026-07-13",
+        "claim_type": "numeric_observation",
+        "entities": [],
+        "event_time_utc": null,
+        "evidence_refs": [
+          "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13"
+        ],
+        "geographies": [],
+        "judgment_record": null,
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "limitations": [
+          "official_daily_par_yield_curve_not_trade_execution_price"
+        ],
+        "logical_hash": "abae8f53a51a7a1511bd9158dcddc67fe8f1a2124235b1817becbddcf6f62e71",
+        "market_evidence_refs": [],
+        "numeric": {
+          "metric": "U.S. Treasury 10Y par yield",
+          "numeric_authority_class": "exact_official_public",
+          "transformation": "source_native_value",
+          "unit": "percent",
+          "value": 4.62
+        },
+        "observed_at_utc": "2026-07-13T00:00:00Z",
+        "permission_state": "PUBLIC_CLAIM_ALLOWED",
+        "published_at_utc": "2026-07-13T00:00:00Z",
+        "revision_at_utc": null,
+        "schema_version": "contentops.universal_news_claim.v2",
+        "source_document_ids": [
+          "ust-daily-yield-curve-2026-07-13"
+        ],
+        "statement": null,
+        "structured_payload": {
+          "source_native_claim_id": "UST:10Y:2026-07-13"
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "claim": {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "citations": [
+          {
+            "source_document_id": "ust-daily-yield-curve-2026-07-13",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+          },
+          {
+            "source_document_id": "ust-daily-yield-curve-2026-07-13",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          }
+        ],
+        "claim_id": "UST:30Y:2026-07-13",
+        "claim_type": "numeric_observation",
+        "entities": [],
+        "event_time_utc": null,
+        "evidence_refs": [
+          "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+        ],
+        "geographies": [],
+        "judgment_record": null,
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "limitations": [
+          "official_daily_par_yield_curve_not_trade_execution_price"
+        ],
+        "logical_hash": "5b8c21431c82ddddd969f9a9527bec43c4cf4470fe01e0f8d8732ca91fba0a22",
+        "market_evidence_refs": [],
+        "numeric": {
+          "metric": "U.S. Treasury 30Y par yield",
+          "numeric_authority_class": "exact_official_public",
+          "transformation": "source_native_value",
+          "unit": "percent",
+          "value": 5.1
+        },
+        "observed_at_utc": "2026-07-13T00:00:00Z",
+        "permission_state": "PUBLIC_CLAIM_ALLOWED",
+        "published_at_utc": "2026-07-13T00:00:00Z",
+        "revision_at_utc": null,
+        "schema_version": "contentops.universal_news_claim.v2",
+        "source_document_ids": [
+          "ust-daily-yield-curve-2026-07-13"
+        ],
+        "statement": null,
+        "structured_payload": {
+          "source_native_claim_id": "UST:30Y:2026-07-13"
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "claim": {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "citations": [
+          {
+            "source_document_id": "ust-daily-yield-curve-2026-07-13",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+          },
+          {
+            "source_document_id": "ust-daily-yield-curve-2026-07-13",
+            "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+          }
+        ],
+        "claim_id": "UST:2S10S:2026-07-13",
+        "claim_type": "numeric_observation",
+        "entities": [],
+        "event_time_utc": null,
+        "evidence_refs": [
+          "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13"
+        ],
+        "geographies": [],
+        "judgment_record": null,
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "limitations": [
+          "v1_numeric_compatibility_projection"
+        ],
+        "logical_hash": "d04d33312fb105ba54924d0ee3fff19e5b174e904c47e6e92a1d7766150d9929",
+        "market_evidence_refs": [],
+        "numeric": {
+          "metric": "U.S. Treasury 2s10s par-yield spread",
+          "numeric_authority_class": "capital_chronicle_calculation_from_exact_official_public",
+          "transformation": "(10-year par yield minus 2-year par yield) multiplied by 100",
+          "unit": "basis_points",
+          "value": 36.0
+        },
+        "observed_at_utc": "2026-07-13T00:00:00Z",
+        "permission_state": "PUBLIC_CLAIM_ALLOWED",
+        "published_at_utc": "2026-07-13T00:00:00Z",
+        "revision_at_utc": null,
+        "schema_version": "contentops.universal_news_claim.v2",
+        "source_document_ids": [
+          "ust-daily-yield-curve-2026-07-13"
+        ],
+        "statement": null,
+        "structured_payload": {
+          "source_native_claim_id": "UST:2S10S:2026-07-13"
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-1874a9b2785116220298",
+      "claim": {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "citations": [
+          {
+            "citation_state": "EXACT_SOURCE_NATIVE_URL",
+            "source_document_id": "dbh2-document:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880",
+            "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000st1c"
+          }
+        ],
+        "claim_id": "claim-625ef394efce81c74029",
+        "claim_type": "event_occurrence",
+        "entities": [],
+        "event_time_utc": "2026-06-15T09:18:36.126000+00:00",
+        "evidence_refs": [
+          "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+        ],
+        "geographies": [
+          "68 km ESE of Pondaguitan, Philippines"
+        ],
+        "judgment_record": null,
+        "known_at_utc": "2026-07-12T15:56:52.355000Z",
+        "limitations": [
+          "physical_event_context_only",
+          "magnitude_text_is_not_promoted_to_numeric_reporting_authority",
+          "affected_assets_or_transmission_channels_not_inferred"
+        ],
+        "logical_hash": "05412cb962fd857abe3e336587fdabf234f4113f49f303515689a1b1f0a3dd2b",
+        "market_evidence_refs": [],
+        "numeric": null,
+        "observed_at_utc": "2026-06-15T09:18:36.126000+00:00",
+        "permission_state": "CONTEXT_ONLY",
+        "published_at_utc": "2026-06-15T09:18:36.126000+00:00",
+        "revision_at_utc": "2026-07-12T15:56:52.355000+00:00",
+        "schema_version": "contentops.universal_news_claim.v2",
+        "source_document_ids": [
+          "dbh2-document:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+        ],
+        "statement": "The official reviewed event record exists at the source-native event identity and chronology.",
+        "structured_payload": {
+          "event_id": "us7000st1c",
+          "place_text": "68 km ESE of Pondaguitan, Philippines",
+          "review_status": "reviewed"
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-2a870998002dd4da1912",
+      "claim": {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "citations": [
+          {
+            "citation_state": "EXACT_SOURCE_NATIVE_URL",
+            "source_document_id": "dbh2-document:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008",
+            "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000137/xslF345X06/form4.xml"
+          }
+        ],
+        "claim_id": "claim-08655295132c139f2df1",
+        "claim_type": "corporate_filing_fact",
+        "entities": [
+          "0000789019"
+        ],
+        "event_time_utc": "2026-07-01T00:00:00Z",
+        "evidence_refs": [
+          "dbh2:DBH2_SEC_MSFT_SUBMISSIONS:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008"
+        ],
+        "geographies": [
+          "US"
+        ],
+        "judgment_record": null,
+        "known_at_utc": "2026-07-01T22:03:47Z",
+        "limitations": [
+          "filing_metadata_only",
+          "no_earnings_revenue_valuation_or_market_reaction_claim"
+        ],
+        "logical_hash": "7281d51ed20d875aa20b8006e2e2aae4621da05ac90daee31e5ad4f548ee4163",
+        "market_evidence_refs": [],
+        "numeric": null,
+        "observed_at_utc": null,
+        "permission_state": "CONTEXT_ONLY",
+        "published_at_utc": "2026-07-01T00:00:00Z",
+        "revision_at_utc": "2026-07-01T22:03:47.000Z",
+        "schema_version": "contentops.universal_news_claim.v2",
+        "source_document_ids": [
+          "dbh2-document:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008"
+        ],
+        "statement": "The configured issuer submitted the identified form under the source-native accession.",
+        "structured_payload": {
+          "accession": "0000789019-26-000137",
+          "form": "4",
+          "issuer_entity_id": "0000789019",
+          "primary_document": "xslF345X06/form4.xml"
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-59959c3226dbf8385373",
+      "claim": {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "citations": [
+          {
+            "citation_state": "EXACT_SOURCE_NATIVE_URL",
+            "source_document_id": "dbh2-document:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3",
+            "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.XML"
+          }
+        ],
+        "claim_id": "claim-472b8510e65b22f37752",
+        "claim_type": "entity_relationship",
+        "entities": [
+          "10000"
+        ],
+        "event_time_utc": "2026-07-10T00:00:00Z",
+        "evidence_refs": [
+          "dbh2:DBH2_OFAC_SDN_CURRENT_SNAPSHOT:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+        ],
+        "geographies": [
+          "global"
+        ],
+        "judgment_record": null,
+        "known_at_utc": "2026-07-10T00:00:00Z",
+        "limitations": [
+          "current_entity_snapshot_is_context_not_a_new_sanctions_action",
+          "no_action_date_or_delta_is_inferred"
+        ],
+        "logical_hash": "85a9fc629c284b46996d2d608d8bcdd1bb63f34bcb1d9fcb990fdb88a892d79d",
+        "market_evidence_refs": [],
+        "numeric": null,
+        "observed_at_utc": null,
+        "permission_state": "CONTEXT_ONLY",
+        "published_at_utc": "2026-07-10T00:00:00Z",
+        "revision_at_utc": null,
+        "schema_version": "contentops.universal_news_claim.v2",
+        "source_document_ids": [
+          "dbh2-document:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+        ],
+        "statement": "The exact official current snapshot contains the identified entity record.",
+        "structured_payload": {
+          "entity_source_native_id": "10000",
+          "programs": [
+            "SDNT"
+          ],
+          "relationship_type": "snapshot_contains",
+          "snapshot_id": "SDN:2026-07-10"
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-878978b853a5abd039ac",
+      "claim": {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "citations": [
+          {
+            "citation_state": "EXACT_SOURCE_NATIVE_URL",
+            "source_document_id": "dbh2-document:bb36b80806b8f876de544e95ad2e4cbd6028e64a5800ac2820ba8cbaaa02fa94:cfab9a0c6509cfd2445399f89a466a8ee787268f432976a48f7578a70a7b9b8f",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm"
+          }
+        ],
+        "claim_id": "claim-36566bb25c819fb2427b",
+        "claim_type": "factual_text",
+        "entities": [
+          "FOMC"
+        ],
+        "event_time_utc": "2026-06-17T00:00:00Z",
+        "evidence_refs": [
+          "dbh2:DBH2_FED_FOMC_CALENDAR_ARCHIVE:bb36b80806b8f876de544e95ad2e4cbd6028e64a5800ac2820ba8cbaaa02fa94:cfab9a0c6509cfd2445399f89a466a8ee787268f432976a48f7578a70a7b9b8f"
+        ],
+        "geographies": [
+          "US"
+        ],
+        "judgment_record": null,
+        "known_at_utc": "2026-06-17T00:00:00Z",
+        "limitations": [
+          "document_presence_does_not_grant_numeric_policy_or_market_reaction_authority"
+        ],
+        "logical_hash": "6638dd4d474f3b7e66b8a86d9473e5871331d7ca0f6a27d5ffa9ebb64c8aad8b",
+        "market_evidence_refs": [],
+        "numeric": null,
+        "observed_at_utc": null,
+        "permission_state": "CONTEXT_ONLY",
+        "published_at_utc": "2026-06-17T00:00:00Z",
+        "revision_at_utc": null,
+        "schema_version": "contentops.universal_news_claim.v2",
+        "source_document_ids": [
+          "dbh2-document:bb36b80806b8f876de544e95ad2e4cbd6028e64a5800ac2820ba8cbaaa02fa94:cfab9a0c6509cfd2445399f89a466a8ee787268f432976a48f7578a70a7b9b8f"
+        ],
+        "statement": "The official archive contains the identified central-bank minutes document.",
+        "structured_payload": {
+          "document_class": "minutes",
+          "source_native_document_id": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm"
+        }
+      }
+    },
+    {
+      "candidate_id": "cc-candidate-a312eb8a6efe8d24273d",
+      "claim": {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "citations": [
+          {
+            "citation_state": "EXACT_SOURCE_NATIVE_URL",
+            "source_document_id": "dbh2-document:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2",
+            "url": "https://www.federalregister.gov/documents/2026/07/10/2026-13917/self-regulatory-organizations-nasdaq-phlx-llc-notice-of-filing-and-immediate-effectiveness-of"
+          }
+        ],
+        "claim_id": "claim-69e187c823327dc48ddb",
+        "claim_type": "legal_or_regulatory_action",
+        "entities": [
+          "securities-and-exchange-commission"
+        ],
+        "event_time_utc": "2026-07-10T00:00:00Z",
+        "evidence_refs": [
+          "dbh2:DBH2_FEDERAL_REGISTER_SEC:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+        ],
+        "geographies": [
+          "US"
+        ],
+        "judgment_record": null,
+        "known_at_utc": "2026-07-10T00:00:00Z",
+        "limitations": [
+          "document_metadata_does_not_establish_market_effect_or_final_rule_status"
+        ],
+        "logical_hash": "294cbae189a7d2612df02de2afdbe40505a3cd3a677cf7c7a4c78996e58c3beb",
+        "market_evidence_refs": [],
+        "numeric": null,
+        "observed_at_utc": null,
+        "permission_state": "CONTEXT_ONLY",
+        "published_at_utc": "2026-07-10T00:00:00Z",
+        "revision_at_utc": "2026-07-10T00:00:00Z",
+        "schema_version": "contentops.universal_news_claim.v2",
+        "source_document_ids": [
+          "dbh2-document:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+        ],
+        "statement": "An official regulatory notice was published with the source-native document identity and title.",
+        "structured_payload": {
+          "agencies": [
+            "securities-and-exchange-commission"
+          ],
+          "document_number": "2026-13917",
+          "document_type": "Notice"
+        }
+      }
+    }
+  ],
+  "schema_version": "contentops.universal_claim_graph_evidence.v1"
+}

@@ -1,0 +1,69 @@
+{
+  "all_protected_paths_unchanged": true,
+  "changed_paths": [
+    "live_contentops/universal_news_candidate_fabric_v2.py",
+    "live_contentops/governed_upstream_bridge_v1.py",
+    "live_contentops/universal_news_cross_domain_canary_v1.py",
+    "live_contentops/universal_news_candidate_evidence_v1.py",
+    "live_contentops/universal_claim_type_registry_v2.json",
+    "live_contentops/universal_evidence_requirement_profiles_v2.json",
+    "live_contentops/newsroom_assignment_scheduler_v1.py",
+    "schemas/ContentOpsUniversalNewsCandidatePoolV2.schema.json",
+    "tests/test_universal_news_candidate_fabric_v2.py",
+    "tests/test_governed_upstream_bridge_and_cross_domain_canary_v1.py",
+    "tests/test_final_product_readiness_metadata_consistency.py",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/automation/CONTENTOPS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1"
+  ],
+  "protected_paths": [
+    {
+      "current_sha256": "e1699d09055eb8004ac92c5ca16e41d44543ea2714492ab620478185c48c62dd",
+      "path": "live_contentops/content_intelligence_contracts_v2.py",
+      "starting_sha256": "e1699d09055eb8004ac92c5ca16e41d44543ea2714492ab620478185c48c62dd",
+      "unchanged": true
+    },
+    {
+      "current_sha256": "0ee2d28a6cf1f7a801972ea966a4703f91b1e93f232f53da3dc34927d90e95b7",
+      "path": "live_contentops/schema_aware_evidence_extraction_v1.py",
+      "starting_sha256": "0ee2d28a6cf1f7a801972ea966a4703f91b1e93f232f53da3dc34927d90e95b7",
+      "unchanged": true
+    },
+    {
+      "current_sha256": "93097e70276cbb161d3261420e027c606bf76081a7f196c1c5424fd1526b285a",
+      "path": "live_contentops/adaptive_learning_adapters_v2.py",
+      "starting_sha256": "93097e70276cbb161d3261420e027c606bf76081a7f196c1c5424fd1526b285a",
+      "unchanged": true
+    },
+    {
+      "current_sha256": "4376cf8824fbd6b31e23f78ccbe6cf03bf3f83e97b85e39be5920b87eeb9b774",
+      "path": "live_contentops/adaptive_learning_core_v2.py",
+      "starting_sha256": "4376cf8824fbd6b31e23f78ccbe6cf03bf3f83e97b85e39be5920b87eeb9b774",
+      "unchanged": true
+    },
+    {
+      "current_sha256": "0ae74c34b766a1d578ddf1a5664d79afa4e4561ce117f0b9bec4ce7509ae98a4",
+      "path": "live_contentops/adaptive_learning_foundation_v2_config.json",
+      "starting_sha256": "0ae74c34b766a1d578ddf1a5664d79afa4e4561ce117f0b9bec4ce7509ae98a4",
+      "unchanged": true
+    },
+    {
+      "current_sha256": "b75f2551799e2d370ef6c2bf2e56b93cb907f14479b4770edf222113425e957b",
+      "path": "live_contentops/trusted_evidence_verifier_registry_v1.json",
+      "starting_sha256": "b75f2551799e2d370ef6c2bf2e56b93cb907f14479b4770edf222113425e957b",
+      "unchanged": true
+    },
+    {
+      "current_sha256": "552abee3773df4823fba62029eb5128f21fb312c3498ad2e73a07ef8a063e29e",
+      "path": "live_contentops/artifact_evidence_extractor_registry_v1.json",
+      "starting_sha256": "552abee3773df4823fba62029eb5128f21fb312c3498ad2e73a07ef8a063e29e",
+      "unchanged": true
+    }
+  ],
+  "schema_version": "contentops.changed_and_protected_paths.v1",
+  "upstream_repository_modified": false,
+  "v1_0_modified": false
+}

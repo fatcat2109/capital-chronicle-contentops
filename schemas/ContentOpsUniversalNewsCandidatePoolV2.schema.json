@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://capitalchronicle.com/contentops/ContentOpsUniversalNewsCandidatePoolV2.schema.json",
+  "title": "ContentOpsUniversalNewsCandidatePoolV2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "producer_version",
+    "pool_id",
+    "generated_at_utc",
+    "cutoff_time_utc",
+    "candidate_only",
+    "global_dqr_override",
+    "publication_authority",
+    "public_write_allowed",
+    "calibration_state",
+    "claim_registry_version",
+    "evidence_profile_registry_version",
+    "source_family_registry",
+    "upstream_binding",
+    "candidates",
+    "clusters",
+    "category_blockers",
+    "counts",
+    "logical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "contentops.universal_news_candidate_pool.v2"},
+    "producer_version": {"const": "contentops.universal_news_candidate_pool.v2.0.0"},
+    "pool_id": {"type": "string", "pattern": "^cc-universal-pool-[0-9a-f]{20}$"},
+    "generated_at_utc": {"type": "string", "format": "date-time"},
+    "cutoff_time_utc": {"type": "string", "format": "date-time"},
+    "candidate_only": {"const": true},
+    "global_dqr_override": {"const": false},
+    "publication_authority": {"const": false},
+    "public_write_allowed": {"const": false},
+    "calibration_state": {"const": "UNCALIBRATED_FOUNDATION"},
+    "claim_registry_version": {"type": "string"},
+    "evidence_profile_registry_version": {"type": "string"},
+    "source_family_registry": {
+      "type": "object",
+      "required": ["schema_version", "registry_version", "records", "logical_hash"],
+      "properties": {
+        "schema_version": {"const": "contentops.source_family_registry.v2"},
+        "registry_version": {"type": "string"},
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["source_family_id", "authority_class", "permission_ceiling", "enabled"],
+            "properties": {
+              "source_family_id": {"type": "string", "minLength": 1},
+              "authority_class": {"type": "string", "minLength": 1},
+              "permission_ceiling": {"type": "string", "minLength": 1},
+              "enabled": {"type": "boolean"}
+            },
+            "additionalProperties": true
+          }
+        },
+        "logical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "upstream_binding": {"type": "object"},
+    "candidates": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/candidate"}
+    },
+    "clusters": {"type": "array", "items": {"type": "object"}},
+    "category_blockers": {"type": "object", "additionalProperties": {"type": "string"}},
+    "counts": {
+      "type": "object",
+      "required": [
+        "candidates", "claims", "numeric_claims", "nonnumeric_claims",
+        "reporting_eligible", "held", "rejected"
+      ],
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "logical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "claim": {
+      "type": "object",
+      "required": [
+        "schema_version", "claim_id", "claim_type", "structured_payload",
+        "source_document_ids", "evidence_refs", "authority_class",
+        "permission_state", "known_at_utc", "entities", "geographies",
+        "citations", "limitations", "market_evidence_refs", "logical_hash"
+      ],
+      "properties": {
+        "schema_version": {"const": "contentops.universal_news_claim.v2"},
+        "claim_id": {"type": "string", "minLength": 1},
+        "claim_type": {"type": "string", "minLength": 1},
+        "statement": {"type": ["string", "null"]},
+        "structured_payload": {"type": "object"},
+        "source_document_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+        "authority_class": {"type": "string"},
+        "permission_state": {"type": "string"},
+        "observed_at_utc": {"type": ["string", "null"], "format": "date-time"},
+        "event_time_utc": {"type": ["string", "null"], "format": "date-time"},
+        "published_at_utc": {"type": ["string", "null"], "format": "date-time"},
+        "known_at_utc": {"type": "string", "format": "date-time"},
+        "revision_at_utc": {"type": ["string", "null"], "format": "date-time"},
+        "entities": {"type": "array", "items": {"type": "string"}},
+        "geographies": {"type": "array", "items": {"type": "string"}},
+        "citations": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+        "limitations": {"type": "array", "items": {"type": "string"}},
+        "numeric": {"type": ["object", "null"]},
+        "market_evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "judgment_record": {"type": ["object", "null"]},
+        "logical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "candidate": {
+      "type": "object",
+      "required": [
+        "schema_version", "candidate_id", "story_id", "cluster_id",
+        "update_chain_id", "source_native_ids", "source_family_ids",
+        "evidence_requirement_profile_id", "capabilities", "title", "summary",
+        "relationship", "claims", "numeric_claims", "source_documents",
+        "entities", "geographies", "evidence_refs", "authority_state",
+        "reporting_allowed", "evidence_state", "known_at_utc",
+        "evidence_completeness", "freshness", "ranking_inputs", "limitations",
+        "blockers", "publication_authority", "public_write_allowed",
+        "global_dqr_override", "logical_hash"
+      ],
+      "properties": {
+        "schema_version": {"const": "contentops.universal_news_candidate.v2"},
+        "candidate_id": {"type": "string"},
+        "story_id": {"type": "string"},
+        "cluster_id": {"type": "string"},
+        "update_chain_id": {"type": "string"},
+        "source_native_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "source_family_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "evidence_requirement_profile_id": {"type": "string"},
+        "capabilities": {"type": "object"},
+        "title": {"type": "string", "minLength": 1},
+        "summary": {"type": "string"},
+        "relationship": {
+          "enum": [
+            "initial_event", "duplicate", "incremental_update", "material_update",
+            "confirmation", "contradiction", "correction", "new_phase"
+          ]
+        },
+        "claims": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/claim"}},
+        "numeric_claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+        "source_documents": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+        "entities": {"type": "array", "items": {"type": "string"}},
+        "geographies": {"type": "array", "items": {"type": "string"}},
+        "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+        "authority_state": {"type": "string"},
+        "reporting_allowed": {"type": "boolean"},
+        "evidence_state": {"enum": ["exact", "proxy", "context", "missing", "blocked", "licensed", "environment_required"]},
+        "event_time_utc": {"type": ["string", "null"], "format": "date-time"},
+        "observation_time_utc": {"type": ["string", "null"], "format": "date-time"},
+        "published_at_utc": {"type": ["string", "null"], "format": "date-time"},
+        "known_at_utc": {"type": "string", "format": "date-time"},
+        "revision_at_utc": {"type": ["string", "null"], "format": "date-time"},
+        "cutoff_time_utc": {"type": ["string", "null"], "format": "date-time"},
+        "evidence_completeness": {"type": "object"},
+        "freshness": {"type": "object"},
+        "ranking_inputs": {"type": "object"},
+        "limitations": {"type": "array", "items": {"type": "string"}},
+        "blockers": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "publication_authority": {"const": false},
+        "public_write_allowed": {"const": false},
+        "global_dqr_override": {"const": false},
+        "logical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

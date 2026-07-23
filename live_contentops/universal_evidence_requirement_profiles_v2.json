@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.evidence_requirement_profile_registry.v2",
+  "registry_version": "contentops.evidence_requirement_profiles.v2.0.0",
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "profiles": [
+    {"profile_id": "numeric_economic_release", "numeric_claim_required": true},
+    {"profile_id": "official_action", "numeric_claim_required": false},
+    {"profile_id": "corporate_filing", "numeric_claim_required": false},
+    {"profile_id": "geopolitical_or_sanctions", "numeric_claim_required": false},
+    {"profile_id": "physical_disruption", "numeric_claim_required": false},
+    {"profile_id": "market_reaction", "numeric_claim_required": false, "separate_market_evidence_required": true}
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "continuous_live_headline_intake_claimed": false,
+  "economic_adapters_are_product_boundary": false,
+  "next_recommended_task": "TASK_CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1",
+  "prior_disposition": "PASS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1_WITH_LEGACY_SUITE_DEBT",
+  "product_scope": [
+    "macro_and_economic_releases",
+    "geopolitical_and_political_events",
+    "global_macro_headlines",
+    "legal_and_regulatory_events",
+    "sanctions_and_trade",
+    "us_big_tech_and_corporate_filings",
+    "markets_energy_supply_chains_and_physical_disruptions"
+  ],
+  "schema_version": "contentops.product_domain_reconciliation.v1",
+  "task": "TASK_CONTENTOPS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1"
+}

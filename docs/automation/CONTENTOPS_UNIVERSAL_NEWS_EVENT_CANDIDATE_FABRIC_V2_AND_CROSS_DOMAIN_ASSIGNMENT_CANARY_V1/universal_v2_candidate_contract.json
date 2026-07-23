@@ -1,0 +1,10 @@
+{
+  "claim_graph_is_primary_authority_model": true,
+  "contract_schema": "contentops.universal_news_candidate_pool.v2",
+  "nonnumeric_candidate_structurally_valid": true,
+  "numeric_claims_role": "v1_compatibility_projection_only",
+  "publication_authority": false,
+  "schema_path": "schemas/ContentOpsUniversalNewsCandidatePoolV2.schema.json",
+  "schema_version": "contentops.universal_candidate_contract_evidence.v1",
+  "source_family_model": "versioned_open_registry"
+}

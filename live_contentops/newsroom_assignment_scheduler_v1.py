@@ -693,6 +693,54 @@ def build_newsroom_schedule(
     return schedule
 
 
+def evaluate_universal_v2_window_decision(
+    *,
+    window: Mapping[str, Any],
+    schedule_date: str,
+    pool: Mapping[str, Any],
+    previously_assigned: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Route V2 candidates through the versioned capability-driven path.
+
+    V1 behavior above remains byte-compatible.  The V2 implementation is kept
+    in its superseding contract module and always preserves the task's
+    no-publication boundary.
+    """
+    from live_contentops.universal_news_candidate_fabric_v2 import (
+        evaluate_v2_window_decision,
+    )
+
+    return evaluate_v2_window_decision(
+        window=window,
+        schedule_date=schedule_date,
+        pool=pool,
+        previously_assigned=previously_assigned,
+        no_publication_boundary=True,
+    )
+
+
+def build_universal_v2_newsroom_schedule(
+    *,
+    schedule_date: str,
+    pool: Mapping[str, Any],
+    windows: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Consume a universal V2 pool through the same five-window scheduler surface."""
+    from live_contentops.universal_news_candidate_fabric_v2 import (
+        run_five_window_assignment,
+        validate_pool,
+    )
+
+    blockers = validate_pool(pool)
+    if blockers:
+        raise ValueError("universal_candidate_pool_invalid:" + ",".join(blockers))
+    return run_five_window_assignment(
+        pool=pool,
+        schedule_date=schedule_date,
+        windows=windows,
+    )
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Deterministic ContentOps daily schedule.")
     parser.add_argument("--date", required=True)

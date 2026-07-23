@@ -1,0 +1,16 @@
+{
+  "all_v2_foundation_and_adapter_tests": "PASS_352_TESTS",
+  "ci_pass_claimed": false,
+  "deterministic_regeneration": "PASS_TWO_IDENTICAL_RUNS",
+  "focused_universal_candidate_claim_assignment": "PASS_65_TESTS",
+  "full_suite": "NOT_RERUN_KNOWN_6729_TEST_BASELINE_NOT_GREEN_AFFECTED_SHARDS_COVERED_BY_352_V2_22_V1_AND_60_NEWSROOM_STATUS_TESTS",
+  "full_suite_pass_claimed": false,
+  "genericity_guards": "PASS_TWO_GUARDS_ZERO_FINDINGS",
+  "git_diff_check": "PASS",
+  "json_schema_hash_validation": "PASS",
+  "newsroom_scheduler_and_status_tests": "PASS_60_TESTS",
+  "python_compilation": "PASS",
+  "redacted_secret_scan": "PASS_ZERO_FINDINGS",
+  "schema_version": "contentops.universal_candidate_validation_summary.v1",
+  "v1_compatibility_tests": "PASS_22_TESTS"
+}

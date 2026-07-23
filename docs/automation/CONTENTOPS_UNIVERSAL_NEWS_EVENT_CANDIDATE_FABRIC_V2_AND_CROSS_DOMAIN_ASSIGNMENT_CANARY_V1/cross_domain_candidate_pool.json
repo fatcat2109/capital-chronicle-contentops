@@ -1,0 +1,1629 @@
+{
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "candidate_only": true,
+  "candidates": [
+    {
+      "authority_state": "OFFICIAL_VERIFIED",
+      "blockers": [],
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "capabilities": {
+        "claim_capabilities": [
+          "numeric_observation"
+        ],
+        "nonnumeric_evidence_supported": false,
+        "numeric_evidence_required": true
+      },
+      "claims": [
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+            },
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ],
+          "claim_id": "UST:2Y:2026-07-13",
+          "claim_type": "numeric_observation",
+          "entities": [],
+          "event_time_utc": null,
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13"
+          ],
+          "geographies": [],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "limitations": [
+            "official_daily_par_yield_curve_not_trade_execution_price"
+          ],
+          "logical_hash": "8478d68276834fbc016c2daee59a06a5937447f0f640d207d8600f94cf8c9645",
+          "market_evidence_refs": [],
+          "numeric": {
+            "metric": "U.S. Treasury 2Y par yield",
+            "numeric_authority_class": "exact_official_public",
+            "transformation": "source_native_value",
+            "unit": "percent",
+            "value": 4.26
+          },
+          "observed_at_utc": "2026-07-13T00:00:00Z",
+          "permission_state": "PUBLIC_CLAIM_ALLOWED",
+          "published_at_utc": "2026-07-13T00:00:00Z",
+          "revision_at_utc": null,
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "statement": null,
+          "structured_payload": {
+            "source_native_claim_id": "UST:2Y:2026-07-13"
+          }
+        },
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+            },
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ],
+          "claim_id": "UST:10Y:2026-07-13",
+          "claim_type": "numeric_observation",
+          "entities": [],
+          "event_time_utc": null,
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13"
+          ],
+          "geographies": [],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "limitations": [
+            "official_daily_par_yield_curve_not_trade_execution_price"
+          ],
+          "logical_hash": "abae8f53a51a7a1511bd9158dcddc67fe8f1a2124235b1817becbddcf6f62e71",
+          "market_evidence_refs": [],
+          "numeric": {
+            "metric": "U.S. Treasury 10Y par yield",
+            "numeric_authority_class": "exact_official_public",
+            "transformation": "source_native_value",
+            "unit": "percent",
+            "value": 4.62
+          },
+          "observed_at_utc": "2026-07-13T00:00:00Z",
+          "permission_state": "PUBLIC_CLAIM_ALLOWED",
+          "published_at_utc": "2026-07-13T00:00:00Z",
+          "revision_at_utc": null,
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "statement": null,
+          "structured_payload": {
+            "source_native_claim_id": "UST:10Y:2026-07-13"
+          }
+        },
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+            },
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ],
+          "claim_id": "UST:30Y:2026-07-13",
+          "claim_type": "numeric_observation",
+          "entities": [],
+          "event_time_utc": null,
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+          ],
+          "geographies": [],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "limitations": [
+            "official_daily_par_yield_curve_not_trade_execution_price"
+          ],
+          "logical_hash": "5b8c21431c82ddddd969f9a9527bec43c4cf4470fe01e0f8d8732ca91fba0a22",
+          "market_evidence_refs": [],
+          "numeric": {
+            "metric": "U.S. Treasury 30Y par yield",
+            "numeric_authority_class": "exact_official_public",
+            "transformation": "source_native_value",
+            "unit": "percent",
+            "value": 5.1
+          },
+          "observed_at_utc": "2026-07-13T00:00:00Z",
+          "permission_state": "PUBLIC_CLAIM_ALLOWED",
+          "published_at_utc": "2026-07-13T00:00:00Z",
+          "revision_at_utc": null,
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "statement": null,
+          "structured_payload": {
+            "source_native_claim_id": "UST:30Y:2026-07-13"
+          }
+        },
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+            },
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ],
+          "claim_id": "UST:2S10S:2026-07-13",
+          "claim_type": "numeric_observation",
+          "entities": [],
+          "event_time_utc": null,
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13"
+          ],
+          "geographies": [],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "limitations": [
+            "v1_numeric_compatibility_projection"
+          ],
+          "logical_hash": "d04d33312fb105ba54924d0ee3fff19e5b174e904c47e6e92a1d7766150d9929",
+          "market_evidence_refs": [],
+          "numeric": {
+            "metric": "U.S. Treasury 2s10s par-yield spread",
+            "numeric_authority_class": "capital_chronicle_calculation_from_exact_official_public",
+            "transformation": "(10-year par yield minus 2-year par yield) multiplied by 100",
+            "unit": "basis_points",
+            "value": 36.0
+          },
+          "observed_at_utc": "2026-07-13T00:00:00Z",
+          "permission_state": "PUBLIC_CLAIM_ALLOWED",
+          "published_at_utc": "2026-07-13T00:00:00Z",
+          "revision_at_utc": null,
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "statement": null,
+          "structured_payload": {
+            "source_native_claim_id": "UST:2S10S:2026-07-13"
+          }
+        }
+      ],
+      "cluster_id": "cc-cluster-7aa53a08e0a4b35873af",
+      "cutoff_time_utc": "2026-07-14T00:00:00Z",
+      "entities": [],
+      "event_time_utc": "2026-07-13T00:00:00Z",
+      "evidence_completeness": {
+        "availability": "AVAILABLE",
+        "reason_codes": [
+          "v1_exact_claim_document_citation_projection_complete"
+        ],
+        "value": 1.0
+      },
+      "evidence_refs": [
+        "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13",
+        "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13",
+        "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13",
+        "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+      ],
+      "evidence_requirement_profile_id": "numeric_economic_release",
+      "evidence_state": "exact",
+      "freshness": {
+        "age_hours": 22.459,
+        "evaluated_at_utc": "2026-07-14T00:00:00Z",
+        "max_age_hours": 36.0
+      },
+      "geographies": [],
+      "global_dqr_override": false,
+      "known_at_utc": "2026-07-13T22:27:31.358283Z",
+      "limitations": [
+        "candidate_pool_does_not_grant_dispatch_authority",
+        "global_dqr_remains_unchanged",
+        "llm_is_not_numeric_authority",
+        "official_daily_par_yield_curve_not_trade_execution_price",
+        "v1_compatibility_adapter_preserves_numeric_claims_projection",
+        "candidate_contract_grants_no_publication_authority"
+      ],
+      "logical_hash": "67838742d13c3109f0b75891b107dd6ecfa1444385fb0e8e0b3c6a07d2d381c7",
+      "numeric_claims": [
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+            },
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ],
+          "claim_id": "UST:2Y:2026-07-13",
+          "claim_type": "numeric_observation",
+          "entities": [],
+          "event_time_utc": null,
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13"
+          ],
+          "geographies": [],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "limitations": [
+            "official_daily_par_yield_curve_not_trade_execution_price"
+          ],
+          "logical_hash": "8478d68276834fbc016c2daee59a06a5937447f0f640d207d8600f94cf8c9645",
+          "market_evidence_refs": [],
+          "numeric": {
+            "metric": "U.S. Treasury 2Y par yield",
+            "numeric_authority_class": "exact_official_public",
+            "transformation": "source_native_value",
+            "unit": "percent",
+            "value": 4.26
+          },
+          "observed_at_utc": "2026-07-13T00:00:00Z",
+          "permission_state": "PUBLIC_CLAIM_ALLOWED",
+          "published_at_utc": "2026-07-13T00:00:00Z",
+          "revision_at_utc": null,
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "statement": null,
+          "structured_payload": {
+            "source_native_claim_id": "UST:2Y:2026-07-13"
+          }
+        },
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+            },
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ],
+          "claim_id": "UST:10Y:2026-07-13",
+          "claim_type": "numeric_observation",
+          "entities": [],
+          "event_time_utc": null,
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13"
+          ],
+          "geographies": [],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "limitations": [
+            "official_daily_par_yield_curve_not_trade_execution_price"
+          ],
+          "logical_hash": "abae8f53a51a7a1511bd9158dcddc67fe8f1a2124235b1817becbddcf6f62e71",
+          "market_evidence_refs": [],
+          "numeric": {
+            "metric": "U.S. Treasury 10Y par yield",
+            "numeric_authority_class": "exact_official_public",
+            "transformation": "source_native_value",
+            "unit": "percent",
+            "value": 4.62
+          },
+          "observed_at_utc": "2026-07-13T00:00:00Z",
+          "permission_state": "PUBLIC_CLAIM_ALLOWED",
+          "published_at_utc": "2026-07-13T00:00:00Z",
+          "revision_at_utc": null,
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "statement": null,
+          "structured_payload": {
+            "source_native_claim_id": "UST:10Y:2026-07-13"
+          }
+        },
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+            },
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ],
+          "claim_id": "UST:30Y:2026-07-13",
+          "claim_type": "numeric_observation",
+          "entities": [],
+          "event_time_utc": null,
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+          ],
+          "geographies": [],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "limitations": [
+            "official_daily_par_yield_curve_not_trade_execution_price"
+          ],
+          "logical_hash": "5b8c21431c82ddddd969f9a9527bec43c4cf4470fe01e0f8d8732ca91fba0a22",
+          "market_evidence_refs": [],
+          "numeric": {
+            "metric": "U.S. Treasury 30Y par yield",
+            "numeric_authority_class": "exact_official_public",
+            "transformation": "source_native_value",
+            "unit": "percent",
+            "value": 5.1
+          },
+          "observed_at_utc": "2026-07-13T00:00:00Z",
+          "permission_state": "PUBLIC_CLAIM_ALLOWED",
+          "published_at_utc": "2026-07-13T00:00:00Z",
+          "revision_at_utc": null,
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "statement": null,
+          "structured_payload": {
+            "source_native_claim_id": "UST:30Y:2026-07-13"
+          }
+        },
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+            },
+            {
+              "source_document_id": "ust-daily-yield-curve-2026-07-13",
+              "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            }
+          ],
+          "claim_id": "UST:2S10S:2026-07-13",
+          "claim_type": "numeric_observation",
+          "entities": [],
+          "event_time_utc": null,
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13"
+          ],
+          "geographies": [],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-13T22:27:31.358283Z",
+          "limitations": [
+            "v1_numeric_compatibility_projection"
+          ],
+          "logical_hash": "d04d33312fb105ba54924d0ee3fff19e5b174e904c47e6e92a1d7766150d9929",
+          "market_evidence_refs": [],
+          "numeric": {
+            "metric": "U.S. Treasury 2s10s par-yield spread",
+            "numeric_authority_class": "capital_chronicle_calculation_from_exact_official_public",
+            "transformation": "(10-year par yield minus 2-year par yield) multiplied by 100",
+            "unit": "basis_points",
+            "value": 36.0
+          },
+          "observed_at_utc": "2026-07-13T00:00:00Z",
+          "permission_state": "PUBLIC_CLAIM_ALLOWED",
+          "published_at_utc": "2026-07-13T00:00:00Z",
+          "revision_at_utc": null,
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "statement": null,
+          "structured_payload": {
+            "source_native_claim_id": "UST:2S10S:2026-07-13"
+          }
+        }
+      ],
+      "observation_time_utc": "2026-07-13T00:00:00Z",
+      "producer_binding": {
+        "v1_pool_id": "cc-newsroom-pool-f385e6914bf6870bafd3",
+        "v1_pool_logical_hash": "f385e6914bf6870bafd374906d9e708081297e0e6bd9a6a0c84b228f6f8f244b",
+        "v1_pool_receipt": {
+          "artifact_path": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+          "branch": "main",
+          "byte_length": 17722,
+          "byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+          "git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d",
+          "observed_head": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+          "producer_commit": "8c63faca0603f81bebfbb68380a0dc4ad51ab87d",
+          "repository": "fatcat2109/Headline-Raw-data-json"
+        }
+      },
+      "public_write_allowed": false,
+      "publication_authority": false,
+      "published_at_utc": "2026-07-13T00:00:00Z",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_available_from_governed_artifact"
+          ],
+          "score": null
+        },
+        "evidence_completeness": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+          ],
+          "reason_codes": [
+            "v1_claim_document_citation_projection_complete"
+          ],
+          "score": 100.0
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+          ],
+          "reason_codes": [
+            "story_scoped_official_public_authority"
+          ],
+          "score": 100.0
+        },
+        "surprise": {
+          "availability": "EXPLICIT_ZERO",
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13",
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+          ],
+          "reason_codes": [
+            "explicit_governed_zero_no_surprise_measure"
+          ],
+          "score": 0
+        }
+      },
+      "relationship": "initial_event",
+      "reporting_allowed": true,
+      "revision_at_utc": null,
+      "schema_version": "contentops.universal_news_candidate.v2",
+      "source_documents": [
+        {
+          "data_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+          "document_id": "ust-daily-yield-curve-2026-07-13",
+          "public_claim_allowed": true,
+          "published_at_utc": "2026-07-13T00:00:00Z",
+          "publisher": "U.S. Department of the Treasury",
+          "raw_sha256": "dae34a2d15f948bc501443cb8c9b1f0dd12e7eee3bdac72fa9bb322afe1e99ec",
+          "rights_status": "public_domain_us_government",
+          "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+          "title": "Daily Treasury Par Yield Curve Rates"
+        }
+      ],
+      "source_family_ids": [
+        "story_scoped_publication_evidence_v1"
+      ],
+      "source_native_ids": [
+        "cc-publication-73ff151c3d3094741b6c"
+      ],
+      "story_id": "cc-story-b032aaca7d2d27af3f67",
+      "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+      "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%",
+      "update_chain_id": "cc-update-chain-7aa53a08e0a4b35873af"
+    },
+    {
+      "authority_state": "OFFICIAL_VERIFIED",
+      "blockers": [
+        "context_only_evidence"
+      ],
+      "candidate_id": "cc-candidate-1874a9b2785116220298",
+      "capabilities": {
+        "claim_capabilities": [
+          "event_occurrence"
+        ],
+        "nonnumeric_evidence_supported": true,
+        "numeric_evidence_required": false
+      },
+      "claims": [
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "citation_state": "EXACT_SOURCE_NATIVE_URL",
+              "source_document_id": "dbh2-document:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880",
+              "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000st1c"
+            }
+          ],
+          "claim_id": "claim-625ef394efce81c74029",
+          "claim_type": "event_occurrence",
+          "entities": [],
+          "event_time_utc": "2026-06-15T09:18:36.126000+00:00",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+          ],
+          "geographies": [
+            "68 km ESE of Pondaguitan, Philippines"
+          ],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-12T15:56:52.355000Z",
+          "limitations": [
+            "physical_event_context_only",
+            "magnitude_text_is_not_promoted_to_numeric_reporting_authority",
+            "affected_assets_or_transmission_channels_not_inferred"
+          ],
+          "logical_hash": "05412cb962fd857abe3e336587fdabf234f4113f49f303515689a1b1f0a3dd2b",
+          "market_evidence_refs": [],
+          "numeric": null,
+          "observed_at_utc": "2026-06-15T09:18:36.126000+00:00",
+          "permission_state": "CONTEXT_ONLY",
+          "published_at_utc": "2026-06-15T09:18:36.126000+00:00",
+          "revision_at_utc": "2026-07-12T15:56:52.355000+00:00",
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "dbh2-document:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+          ],
+          "statement": "The official reviewed event record exists at the source-native event identity and chronology.",
+          "structured_payload": {
+            "event_id": "us7000st1c",
+            "place_text": "68 km ESE of Pondaguitan, Philippines",
+            "review_status": "reviewed"
+          }
+        }
+      ],
+      "cluster_id": "cc-cluster-32b30d3eb28e83c67717",
+      "cutoff_time_utc": "2026-07-14T00:00:00Z",
+      "entities": [],
+      "event_time_utc": "2026-06-15T09:18:36.126000+00:00",
+      "evidence_completeness": {
+        "availability": "AVAILABLE",
+        "reason_codes": [
+          "exact_dbh2_record_and_manifest_lineage"
+        ],
+        "value": 1.0
+      },
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+      ],
+      "evidence_requirement_profile_id": "physical_disruption",
+      "evidence_state": "context",
+      "freshness": {
+        "availability": "UNAVAILABLE",
+        "reason_codes": [
+          "source_catalog_does_not_grant_reporting_freshness"
+        ],
+        "value": null
+      },
+      "geographies": [
+        "68 km ESE of Pondaguitan, Philippines"
+      ],
+      "global_dqr_override": false,
+      "known_at_utc": "2026-07-12T15:56:52.355000Z",
+      "limitations": [
+        "physical_event_context_only",
+        "magnitude_text_is_not_promoted_to_numeric_reporting_authority",
+        "affected_assets_or_transmission_channels_not_inferred",
+        "source_catalog_permission_ceiling_context_only",
+        "candidate_contract_grants_no_publication_authority"
+      ],
+      "logical_hash": "f9b55ea583f768aa6f32ddf1e1a2620a345befac2639a95cf80b2f146fffe8c3",
+      "numeric_claims": [],
+      "observation_time_utc": "2026-06-15T09:18:36.126000+00:00",
+      "producer_binding": {
+        "content_sha256": "2ae892a231893ae7491c59266d7db13f49332ce140246516712cdb04c1b09466",
+        "revision_relationships": [],
+        "stable_record_id": "9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6",
+        "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+        "version_id": "2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+      },
+      "public_write_allowed": false,
+      "publication_authority": false,
+      "published_at_utc": "2026-06-15T09:18:36.126000+00:00",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_governed_in_source_artifact"
+          ],
+          "score": null
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+          ],
+          "reason_codes": [
+            "official_verified_exact_local_bytes"
+          ],
+          "score": 100.0
+        }
+      },
+      "relationship": "initial_event",
+      "reporting_allowed": false,
+      "revision_at_utc": "2026-07-12T15:56:52.355000+00:00",
+      "schema_version": "contentops.universal_news_candidate.v2",
+      "source_documents": [
+        {
+          "content_sha256": "2ae892a231893ae7491c59266d7db13f49332ce140246516712cdb04c1b09466",
+          "document_id": "dbh2-document:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880",
+          "known_at_utc": "2026-07-12T15:56:52.355000Z",
+          "published_at_utc": "2026-06-15T09:18:36.126000+00:00",
+          "source_native_id": "us7000st1c",
+          "source_url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000st1c",
+          "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+          "title": "M 6.2 - 68 km ESE of Pondaguitan, Philippines"
+        }
+      ],
+      "source_family_ids": [
+        "dbh2_usgs_official_physical_event"
+      ],
+      "source_native_ids": [
+        "us7000st1c"
+      ],
+      "story_id": "cc-story-32b30d3eb28e83c67717",
+      "summary": "The official reviewed event record exists at the source-native event identity and chronology.",
+      "title": "M 6.2 - 68 km ESE of Pondaguitan, Philippines",
+      "update_chain_id": "cc-update-chain-32b30d3eb28e83c67717"
+    },
+    {
+      "authority_state": "OFFICIAL_VERIFIED",
+      "blockers": [
+        "context_only_evidence"
+      ],
+      "candidate_id": "cc-candidate-2a870998002dd4da1912",
+      "capabilities": {
+        "claim_capabilities": [
+          "corporate_filing_fact"
+        ],
+        "nonnumeric_evidence_supported": true,
+        "numeric_evidence_required": false
+      },
+      "claims": [
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "citation_state": "EXACT_SOURCE_NATIVE_URL",
+              "source_document_id": "dbh2-document:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008",
+              "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000137/xslF345X06/form4.xml"
+            }
+          ],
+          "claim_id": "claim-08655295132c139f2df1",
+          "claim_type": "corporate_filing_fact",
+          "entities": [
+            "0000789019"
+          ],
+          "event_time_utc": "2026-07-01T00:00:00Z",
+          "evidence_refs": [
+            "dbh2:DBH2_SEC_MSFT_SUBMISSIONS:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008"
+          ],
+          "geographies": [
+            "US"
+          ],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-01T22:03:47Z",
+          "limitations": [
+            "filing_metadata_only",
+            "no_earnings_revenue_valuation_or_market_reaction_claim"
+          ],
+          "logical_hash": "7281d51ed20d875aa20b8006e2e2aae4621da05ac90daee31e5ad4f548ee4163",
+          "market_evidence_refs": [],
+          "numeric": null,
+          "observed_at_utc": null,
+          "permission_state": "CONTEXT_ONLY",
+          "published_at_utc": "2026-07-01T00:00:00Z",
+          "revision_at_utc": "2026-07-01T22:03:47.000Z",
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "dbh2-document:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008"
+          ],
+          "statement": "The configured issuer submitted the identified form under the source-native accession.",
+          "structured_payload": {
+            "accession": "0000789019-26-000137",
+            "form": "4",
+            "issuer_entity_id": "0000789019",
+            "primary_document": "xslF345X06/form4.xml"
+          }
+        }
+      ],
+      "cluster_id": "cc-cluster-9bf947274358c5f9f941",
+      "cutoff_time_utc": "2026-07-14T00:00:00Z",
+      "entities": [
+        "0000789019"
+      ],
+      "event_time_utc": "2026-07-01T00:00:00Z",
+      "evidence_completeness": {
+        "availability": "AVAILABLE",
+        "reason_codes": [
+          "exact_dbh2_record_and_manifest_lineage"
+        ],
+        "value": 1.0
+      },
+      "evidence_refs": [
+        "dbh2:DBH2_SEC_MSFT_SUBMISSIONS:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008"
+      ],
+      "evidence_requirement_profile_id": "corporate_filing",
+      "evidence_state": "context",
+      "freshness": {
+        "availability": "UNAVAILABLE",
+        "reason_codes": [
+          "source_catalog_does_not_grant_reporting_freshness"
+        ],
+        "value": null
+      },
+      "geographies": [
+        "US"
+      ],
+      "global_dqr_override": false,
+      "known_at_utc": "2026-07-01T22:03:47Z",
+      "limitations": [
+        "filing_metadata_only",
+        "no_earnings_revenue_valuation_or_market_reaction_claim",
+        "source_catalog_permission_ceiling_context_only",
+        "candidate_contract_grants_no_publication_authority"
+      ],
+      "logical_hash": "b793c00006dee1994cdd59bc2921b9633e3f4629013638c916b1daf86c2959a1",
+      "numeric_claims": [],
+      "observation_time_utc": null,
+      "producer_binding": {
+        "content_sha256": "5fe5ad31b53088269843b5260baade037347281f1f6297043c45b24e52af9a3d",
+        "revision_relationships": [],
+        "stable_record_id": "f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a",
+        "target_id": "DBH2_SEC_MSFT_SUBMISSIONS",
+        "version_id": "b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008"
+      },
+      "public_write_allowed": false,
+      "publication_authority": false,
+      "published_at_utc": "2026-07-01T00:00:00Z",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_governed_in_source_artifact"
+          ],
+          "score": null
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "dbh2:DBH2_SEC_MSFT_SUBMISSIONS:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008"
+          ],
+          "reason_codes": [
+            "official_verified_exact_local_bytes"
+          ],
+          "score": 100.0
+        }
+      },
+      "relationship": "initial_event",
+      "reporting_allowed": false,
+      "revision_at_utc": "2026-07-01T22:03:47.000Z",
+      "schema_version": "contentops.universal_news_candidate.v2",
+      "source_documents": [
+        {
+          "content_sha256": "5fe5ad31b53088269843b5260baade037347281f1f6297043c45b24e52af9a3d",
+          "document_id": "dbh2-document:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008",
+          "known_at_utc": "2026-07-01T22:03:47Z",
+          "published_at_utc": "2026-07-01T00:00:00Z",
+          "source_native_id": "0000789019-26-000137",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000137/xslF345X06/form4.xml",
+          "target_id": "DBH2_SEC_MSFT_SUBMISSIONS",
+          "title": "4 0000789019-26-000137"
+        }
+      ],
+      "source_family_ids": [
+        "dbh2_sec_official_filing_metadata"
+      ],
+      "source_native_ids": [
+        "0000789019-26-000137"
+      ],
+      "story_id": "cc-story-9bf947274358c5f9f941",
+      "summary": "The configured issuer submitted the identified form under the source-native accession.",
+      "title": "4 0000789019-26-000137",
+      "update_chain_id": "cc-update-chain-9bf947274358c5f9f941"
+    },
+    {
+      "authority_state": "OFFICIAL_VERIFIED",
+      "blockers": [
+        "context_only_evidence"
+      ],
+      "candidate_id": "cc-candidate-59959c3226dbf8385373",
+      "capabilities": {
+        "claim_capabilities": [
+          "entity_relationship"
+        ],
+        "nonnumeric_evidence_supported": true,
+        "numeric_evidence_required": false
+      },
+      "claims": [
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "citation_state": "EXACT_SOURCE_NATIVE_URL",
+              "source_document_id": "dbh2-document:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3",
+              "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.XML"
+            }
+          ],
+          "claim_id": "claim-472b8510e65b22f37752",
+          "claim_type": "entity_relationship",
+          "entities": [
+            "10000"
+          ],
+          "event_time_utc": "2026-07-10T00:00:00Z",
+          "evidence_refs": [
+            "dbh2:DBH2_OFAC_SDN_CURRENT_SNAPSHOT:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+          ],
+          "geographies": [
+            "global"
+          ],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-10T00:00:00Z",
+          "limitations": [
+            "current_entity_snapshot_is_context_not_a_new_sanctions_action",
+            "no_action_date_or_delta_is_inferred"
+          ],
+          "logical_hash": "85a9fc629c284b46996d2d608d8bcdd1bb63f34bcb1d9fcb990fdb88a892d79d",
+          "market_evidence_refs": [],
+          "numeric": null,
+          "observed_at_utc": null,
+          "permission_state": "CONTEXT_ONLY",
+          "published_at_utc": "2026-07-10T00:00:00Z",
+          "revision_at_utc": null,
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "dbh2-document:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+          ],
+          "statement": "The exact official current snapshot contains the identified entity record.",
+          "structured_payload": {
+            "entity_source_native_id": "10000",
+            "programs": [
+              "SDNT"
+            ],
+            "relationship_type": "snapshot_contains",
+            "snapshot_id": "SDN:2026-07-10"
+          }
+        }
+      ],
+      "cluster_id": "cc-cluster-59897116f6f616502540",
+      "cutoff_time_utc": "2026-07-14T00:00:00Z",
+      "entities": [
+        "10000"
+      ],
+      "event_time_utc": "2026-07-10T00:00:00Z",
+      "evidence_completeness": {
+        "availability": "AVAILABLE",
+        "reason_codes": [
+          "exact_dbh2_record_and_manifest_lineage"
+        ],
+        "value": 1.0
+      },
+      "evidence_refs": [
+        "dbh2:DBH2_OFAC_SDN_CURRENT_SNAPSHOT:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+      ],
+      "evidence_requirement_profile_id": "geopolitical_or_sanctions",
+      "evidence_state": "context",
+      "freshness": {
+        "availability": "UNAVAILABLE",
+        "reason_codes": [
+          "source_catalog_does_not_grant_reporting_freshness"
+        ],
+        "value": null
+      },
+      "geographies": [
+        "global"
+      ],
+      "global_dqr_override": false,
+      "known_at_utc": "2026-07-10T00:00:00Z",
+      "limitations": [
+        "current_entity_snapshot_is_context_not_a_new_sanctions_action",
+        "no_action_date_or_delta_is_inferred",
+        "source_catalog_permission_ceiling_context_only",
+        "candidate_contract_grants_no_publication_authority"
+      ],
+      "logical_hash": "f8896dbbc2ce5247957bfd53510570c34289f6f474aca7f56bb51ff970a3f220",
+      "numeric_claims": [],
+      "observation_time_utc": null,
+      "producer_binding": {
+        "content_sha256": "0c90596d2c62cdbc7177a2759233b157b8aeb20e6db9521ca5b722c9a18a095d",
+        "revision_relationships": [
+          {
+            "evidence": "official_snapshot_membership",
+            "from_stable_record_id": "7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2",
+            "from_version_id": "610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3",
+            "relation_type": "snapshot_contains",
+            "relationship_id": "d471f46d36e49d6a4ebe63437192af1b5a2b6f05a955d9539510986d39571c6d",
+            "target_id": "DBH2_OFAC_SDN_CURRENT_SNAPSHOT",
+            "to_stable_record_id": "ced172bcfd5eac25466d951370ac239f5ba04a16e31528013e498f6a629945ac",
+            "to_version_id": "a6bc58676ec8f4dfa56f882b80917244a7c8d642bacc1270af369da20fdf6df6"
+          }
+        ],
+        "stable_record_id": "7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2",
+        "target_id": "DBH2_OFAC_SDN_CURRENT_SNAPSHOT",
+        "version_id": "610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+      },
+      "public_write_allowed": false,
+      "publication_authority": false,
+      "published_at_utc": "2026-07-10T00:00:00Z",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_governed_in_source_artifact"
+          ],
+          "score": null
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "dbh2:DBH2_OFAC_SDN_CURRENT_SNAPSHOT:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+          ],
+          "reason_codes": [
+            "official_verified_exact_local_bytes"
+          ],
+          "score": 100.0
+        }
+      },
+      "relationship": "initial_event",
+      "reporting_allowed": false,
+      "revision_at_utc": null,
+      "schema_version": "contentops.universal_news_candidate.v2",
+      "source_documents": [
+        {
+          "content_sha256": "0c90596d2c62cdbc7177a2759233b157b8aeb20e6db9521ca5b722c9a18a095d",
+          "document_id": "dbh2-document:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3",
+          "known_at_utc": "2026-07-10T00:00:00Z",
+          "published_at_utc": "2026-07-10T00:00:00Z",
+          "source_native_id": "SDN:2026-07-10",
+          "source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.XML",
+          "target_id": "DBH2_OFAC_SDN_CURRENT_SNAPSHOT",
+          "title": "OFAC SDN official current snapshot"
+        }
+      ],
+      "source_family_ids": [
+        "dbh2_ofac_official_entity_snapshot"
+      ],
+      "source_native_ids": [
+        "SDN:2026-07-10"
+      ],
+      "story_id": "cc-story-59897116f6f616502540",
+      "summary": "The exact official current snapshot contains the identified entity record.",
+      "title": "OFAC SDN official current snapshot",
+      "update_chain_id": "cc-update-chain-59897116f6f616502540"
+    },
+    {
+      "authority_state": "OFFICIAL_VERIFIED",
+      "blockers": [
+        "context_only_evidence"
+      ],
+      "candidate_id": "cc-candidate-878978b853a5abd039ac",
+      "capabilities": {
+        "claim_capabilities": [
+          "factual_text"
+        ],
+        "nonnumeric_evidence_supported": true,
+        "numeric_evidence_required": false
+      },
+      "claims": [
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "citation_state": "EXACT_SOURCE_NATIVE_URL",
+              "source_document_id": "dbh2-document:bb36b80806b8f876de544e95ad2e4cbd6028e64a5800ac2820ba8cbaaa02fa94:cfab9a0c6509cfd2445399f89a466a8ee787268f432976a48f7578a70a7b9b8f",
+              "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm"
+            }
+          ],
+          "claim_id": "claim-36566bb25c819fb2427b",
+          "claim_type": "factual_text",
+          "entities": [
+            "FOMC"
+          ],
+          "event_time_utc": "2026-06-17T00:00:00Z",
+          "evidence_refs": [
+            "dbh2:DBH2_FED_FOMC_CALENDAR_ARCHIVE:bb36b80806b8f876de544e95ad2e4cbd6028e64a5800ac2820ba8cbaaa02fa94:cfab9a0c6509cfd2445399f89a466a8ee787268f432976a48f7578a70a7b9b8f"
+          ],
+          "geographies": [
+            "US"
+          ],
+          "judgment_record": null,
+          "known_at_utc": "2026-06-17T00:00:00Z",
+          "limitations": [
+            "document_presence_does_not_grant_numeric_policy_or_market_reaction_authority"
+          ],
+          "logical_hash": "6638dd4d474f3b7e66b8a86d9473e5871331d7ca0f6a27d5ffa9ebb64c8aad8b",
+          "market_evidence_refs": [],
+          "numeric": null,
+          "observed_at_utc": null,
+          "permission_state": "CONTEXT_ONLY",
+          "published_at_utc": "2026-06-17T00:00:00Z",
+          "revision_at_utc": null,
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "dbh2-document:bb36b80806b8f876de544e95ad2e4cbd6028e64a5800ac2820ba8cbaaa02fa94:cfab9a0c6509cfd2445399f89a466a8ee787268f432976a48f7578a70a7b9b8f"
+          ],
+          "statement": "The official archive contains the identified central-bank minutes document.",
+          "structured_payload": {
+            "document_class": "minutes",
+            "source_native_document_id": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm"
+          }
+        }
+      ],
+      "cluster_id": "cc-cluster-00dd67faa1d0c67cfb96",
+      "cutoff_time_utc": "2026-07-14T00:00:00Z",
+      "entities": [
+        "FOMC"
+      ],
+      "event_time_utc": "2026-06-17T00:00:00Z",
+      "evidence_completeness": {
+        "availability": "AVAILABLE",
+        "reason_codes": [
+          "exact_dbh2_record_and_manifest_lineage"
+        ],
+        "value": 1.0
+      },
+      "evidence_refs": [
+        "dbh2:DBH2_FED_FOMC_CALENDAR_ARCHIVE:bb36b80806b8f876de544e95ad2e4cbd6028e64a5800ac2820ba8cbaaa02fa94:cfab9a0c6509cfd2445399f89a466a8ee787268f432976a48f7578a70a7b9b8f"
+      ],
+      "evidence_requirement_profile_id": "official_action",
+      "evidence_state": "context",
+      "freshness": {
+        "availability": "UNAVAILABLE",
+        "reason_codes": [
+          "source_catalog_does_not_grant_reporting_freshness"
+        ],
+        "value": null
+      },
+      "geographies": [
+        "US"
+      ],
+      "global_dqr_override": false,
+      "known_at_utc": "2026-06-17T00:00:00Z",
+      "limitations": [
+        "document_presence_does_not_grant_numeric_policy_or_market_reaction_authority",
+        "source_catalog_permission_ceiling_context_only",
+        "candidate_contract_grants_no_publication_authority"
+      ],
+      "logical_hash": "364585cbc04321bf0e64824d3c7878cbdaf518557af92f8731ba9ea88e29a691",
+      "numeric_claims": [],
+      "observation_time_utc": null,
+      "producer_binding": {
+        "content_sha256": "da4983cfdd1661e4ecdf97f7e43ff040776982d8359c9644b128f64f9bcccfb4",
+        "revision_relationships": [],
+        "stable_record_id": "bb36b80806b8f876de544e95ad2e4cbd6028e64a5800ac2820ba8cbaaa02fa94",
+        "target_id": "DBH2_FED_FOMC_CALENDAR_ARCHIVE",
+        "version_id": "cfab9a0c6509cfd2445399f89a466a8ee787268f432976a48f7578a70a7b9b8f"
+      },
+      "public_write_allowed": false,
+      "publication_authority": false,
+      "published_at_utc": "2026-06-17T00:00:00Z",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_governed_in_source_artifact"
+          ],
+          "score": null
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "dbh2:DBH2_FED_FOMC_CALENDAR_ARCHIVE:bb36b80806b8f876de544e95ad2e4cbd6028e64a5800ac2820ba8cbaaa02fa94:cfab9a0c6509cfd2445399f89a466a8ee787268f432976a48f7578a70a7b9b8f"
+          ],
+          "reason_codes": [
+            "official_verified_exact_local_bytes"
+          ],
+          "score": 100.0
+        }
+      },
+      "relationship": "initial_event",
+      "reporting_allowed": false,
+      "revision_at_utc": null,
+      "schema_version": "contentops.universal_news_candidate.v2",
+      "source_documents": [
+        {
+          "content_sha256": "da4983cfdd1661e4ecdf97f7e43ff040776982d8359c9644b128f64f9bcccfb4",
+          "document_id": "dbh2-document:bb36b80806b8f876de544e95ad2e4cbd6028e64a5800ac2820ba8cbaaa02fa94:cfab9a0c6509cfd2445399f89a466a8ee787268f432976a48f7578a70a7b9b8f",
+          "known_at_utc": "2026-06-17T00:00:00Z",
+          "published_at_utc": "2026-06-17T00:00:00Z",
+          "source_native_id": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm",
+          "source_url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm",
+          "target_id": "DBH2_FED_FOMC_CALENDAR_ARCHIVE",
+          "title": "fomcminutes20260617.htm"
+        }
+      ],
+      "source_family_ids": [
+        "dbh2_fomc_official_document"
+      ],
+      "source_native_ids": [
+        "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm"
+      ],
+      "story_id": "cc-story-00dd67faa1d0c67cfb96",
+      "summary": "The official archive contains the identified central-bank minutes document.",
+      "title": "fomcminutes20260617.htm",
+      "update_chain_id": "cc-update-chain-00dd67faa1d0c67cfb96"
+    },
+    {
+      "authority_state": "OFFICIAL_VERIFIED",
+      "blockers": [
+        "context_only_evidence"
+      ],
+      "candidate_id": "cc-candidate-a312eb8a6efe8d24273d",
+      "capabilities": {
+        "claim_capabilities": [
+          "legal_or_regulatory_action"
+        ],
+        "nonnumeric_evidence_supported": true,
+        "numeric_evidence_required": false
+      },
+      "claims": [
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "citation_state": "EXACT_SOURCE_NATIVE_URL",
+              "source_document_id": "dbh2-document:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2",
+              "url": "https://www.federalregister.gov/documents/2026/07/10/2026-13917/self-regulatory-organizations-nasdaq-phlx-llc-notice-of-filing-and-immediate-effectiveness-of"
+            }
+          ],
+          "claim_id": "claim-69e187c823327dc48ddb",
+          "claim_type": "legal_or_regulatory_action",
+          "entities": [
+            "securities-and-exchange-commission"
+          ],
+          "event_time_utc": "2026-07-10T00:00:00Z",
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+          ],
+          "geographies": [
+            "US"
+          ],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-10T00:00:00Z",
+          "limitations": [
+            "document_metadata_does_not_establish_market_effect_or_final_rule_status"
+          ],
+          "logical_hash": "294cbae189a7d2612df02de2afdbe40505a3cd3a677cf7c7a4c78996e58c3beb",
+          "market_evidence_refs": [],
+          "numeric": null,
+          "observed_at_utc": null,
+          "permission_state": "CONTEXT_ONLY",
+          "published_at_utc": "2026-07-10T00:00:00Z",
+          "revision_at_utc": "2026-07-10T00:00:00Z",
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "dbh2-document:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+          ],
+          "statement": "An official regulatory notice was published with the source-native document identity and title.",
+          "structured_payload": {
+            "agencies": [
+              "securities-and-exchange-commission"
+            ],
+            "document_number": "2026-13917",
+            "document_type": "Notice"
+          }
+        }
+      ],
+      "cluster_id": "cc-cluster-d216d00632bc53d232c2",
+      "cutoff_time_utc": "2026-07-14T00:00:00Z",
+      "entities": [
+        "securities-and-exchange-commission"
+      ],
+      "event_time_utc": "2026-07-10T00:00:00Z",
+      "evidence_completeness": {
+        "availability": "AVAILABLE",
+        "reason_codes": [
+          "exact_dbh2_record_and_manifest_lineage"
+        ],
+        "value": 1.0
+      },
+      "evidence_refs": [
+        "dbh2:DBH2_FEDERAL_REGISTER_SEC:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+      ],
+      "evidence_requirement_profile_id": "official_action",
+      "evidence_state": "context",
+      "freshness": {
+        "availability": "UNAVAILABLE",
+        "reason_codes": [
+          "source_catalog_does_not_grant_reporting_freshness"
+        ],
+        "value": null
+      },
+      "geographies": [
+        "US"
+      ],
+      "global_dqr_override": false,
+      "known_at_utc": "2026-07-10T00:00:00Z",
+      "limitations": [
+        "document_metadata_does_not_establish_market_effect_or_final_rule_status",
+        "source_catalog_permission_ceiling_context_only",
+        "candidate_contract_grants_no_publication_authority"
+      ],
+      "logical_hash": "84085fcf62ea7e53f98b60bbaa7285af346e59435c7865be88b9dcef6d9cf748",
+      "numeric_claims": [],
+      "observation_time_utc": null,
+      "producer_binding": {
+        "content_sha256": "8c59bee8489795405185ba26c5cdc04f17cd692d9a5e4af670a71135e243afeb",
+        "revision_relationships": [],
+        "stable_record_id": "61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f",
+        "target_id": "DBH2_FEDERAL_REGISTER_SEC",
+        "version_id": "655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+      },
+      "public_write_allowed": false,
+      "publication_authority": false,
+      "published_at_utc": "2026-07-10T00:00:00Z",
+      "ranking_inputs": {
+        "audience_relevance": {
+          "availability": "UNAVAILABLE",
+          "evidence_refs": [],
+          "reason_codes": [
+            "not_governed_in_source_artifact"
+          ],
+          "score": null
+        },
+        "source_authority": {
+          "availability": "AVAILABLE",
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+          ],
+          "reason_codes": [
+            "official_verified_exact_local_bytes"
+          ],
+          "score": 100.0
+        }
+      },
+      "relationship": "initial_event",
+      "reporting_allowed": false,
+      "revision_at_utc": "2026-07-10T00:00:00Z",
+      "schema_version": "contentops.universal_news_candidate.v2",
+      "source_documents": [
+        {
+          "content_sha256": "8c59bee8489795405185ba26c5cdc04f17cd692d9a5e4af670a71135e243afeb",
+          "document_id": "dbh2-document:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2",
+          "known_at_utc": "2026-07-10T00:00:00Z",
+          "published_at_utc": "2026-07-10T00:00:00Z",
+          "source_native_id": "2026-13917",
+          "source_url": "https://www.federalregister.gov/documents/2026/07/10/2026-13917/self-regulatory-organizations-nasdaq-phlx-llc-notice-of-filing-and-immediate-effectiveness-of",
+          "target_id": "DBH2_FEDERAL_REGISTER_SEC",
+          "title": "Self-Regulatory Organizations; Nasdaq PHLX LLC; Notice of Filing and Immediate Effectiveness of Proposed Rule Change To Amend PIXL"
+        }
+      ],
+      "source_family_ids": [
+        "dbh2_federal_register_official_document"
+      ],
+      "source_native_ids": [
+        "2026-13917"
+      ],
+      "story_id": "cc-story-d216d00632bc53d232c2",
+      "summary": "An official regulatory notice was published with the source-native document identity and title.",
+      "title": "Self-Regulatory Organizations; Nasdaq PHLX LLC; Notice of Filing and Immediate Effectiveness of Proposed Rule Change To Amend PIXL",
+      "update_chain_id": "cc-update-chain-d216d00632bc53d232c2"
+    }
+  ],
+  "category_blockers": {},
+  "claim_registry_version": "contentops.universal_claim_capabilities.v2.0.0",
+  "clusters": [
+    {
+      "candidate_ids": [
+        "cc-candidate-1874a9b2785116220298"
+      ],
+      "cluster_id": "cc-cluster-32b30d3eb28e83c67717",
+      "identity_hash": "318e3ae502d0ce84a9242eea0eaf6d04c96772ade869dc36b5bbf27d666f3c5a",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-1874a9b2785116220298",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-32b30d3eb28e83c67717",
+      "update_chain_id": "cc-update-chain-32b30d3eb28e83c67717"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-878978b853a5abd039ac"
+      ],
+      "cluster_id": "cc-cluster-00dd67faa1d0c67cfb96",
+      "identity_hash": "3b0e8df668e0d8f886f5dfcc900dc847d59351e66da2d0ee04b2eb58a928200c",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-878978b853a5abd039ac",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-00dd67faa1d0c67cfb96",
+      "update_chain_id": "cc-update-chain-00dd67faa1d0c67cfb96"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-2a870998002dd4da1912"
+      ],
+      "cluster_id": "cc-cluster-9bf947274358c5f9f941",
+      "identity_hash": "755bd0a6eb12676aa76c9afed5e2fa5bc10c843ff0658bd97bb9d06a24775353",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-2a870998002dd4da1912",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-9bf947274358c5f9f941",
+      "update_chain_id": "cc-update-chain-9bf947274358c5f9f941"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-120438cc800db7f941be"
+      ],
+      "cluster_id": "cc-cluster-7aa53a08e0a4b35873af",
+      "identity_hash": "a35b924026cae496d0f13bd1e47ee5be77cd41af597bd3c86934d70ae06e9863",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-b032aaca7d2d27af3f67",
+      "update_chain_id": "cc-update-chain-7aa53a08e0a4b35873af"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-a312eb8a6efe8d24273d"
+      ],
+      "cluster_id": "cc-cluster-d216d00632bc53d232c2",
+      "identity_hash": "a827934d760566c1d4afe8ec5aaa968cc57c88876bebb581702516ffbb232081",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-a312eb8a6efe8d24273d",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-d216d00632bc53d232c2",
+      "update_chain_id": "cc-update-chain-d216d00632bc53d232c2"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-59959c3226dbf8385373"
+      ],
+      "cluster_id": "cc-cluster-59897116f6f616502540",
+      "identity_hash": "aa2014dab382792686aade45ca3d77355313fb6f674563b6f5858aee87f9d901",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-59959c3226dbf8385373",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-59897116f6f616502540",
+      "update_chain_id": "cc-update-chain-59897116f6f616502540"
+    }
+  ],
+  "counts": {
+    "candidates": 6,
+    "claims": 9,
+    "held": 5,
+    "nonnumeric_claims": 5,
+    "numeric_claims": 4,
+    "rejected": 0,
+    "reporting_eligible": 1
+  },
+  "cutoff_time_utc": "2026-07-14T00:00:00Z",
+  "evidence_profile_registry_version": "contentops.evidence_requirement_profiles.v2.0.0",
+  "generated_at_utc": "2026-07-14T00:00:00Z",
+  "global_dqr_override": false,
+  "logical_hash": "13d3640d70809351206701c2fcb75fd13f780cca880d5dfdcf7687f22be88c6d",
+  "pool_id": "cc-universal-pool-6e561701eafc6c35e165",
+  "producer_version": "contentops.universal_news_candidate_pool.v2.0.0",
+  "public_write_allowed": false,
+  "publication_authority": false,
+  "schema_version": "contentops.universal_news_candidate_pool.v2",
+  "source_family_registry": {
+    "logical_hash": "1dbb20c2da79046c392a91ab587068edf8b6e8f3ffe4f4021a09e03cfdacdbef",
+    "records": [
+      {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "enabled": true,
+        "evidence_state": "context",
+        "permission_ceiling": "CONTEXT_ONLY",
+        "source_family_id": "dbh2_federal_register_official_document"
+      },
+      {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "enabled": true,
+        "evidence_state": "context",
+        "permission_ceiling": "CONTEXT_ONLY",
+        "source_family_id": "dbh2_fomc_official_document"
+      },
+      {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "enabled": true,
+        "evidence_state": "context",
+        "permission_ceiling": "CONTEXT_ONLY",
+        "source_family_id": "dbh2_ofac_official_entity_snapshot"
+      },
+      {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "enabled": true,
+        "evidence_state": "context",
+        "permission_ceiling": "CONTEXT_ONLY",
+        "source_family_id": "dbh2_sec_official_filing_metadata"
+      },
+      {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "enabled": true,
+        "evidence_state": "context",
+        "permission_ceiling": "CONTEXT_ONLY",
+        "source_family_id": "dbh2_usgs_official_physical_event"
+      },
+      {
+        "authority_class": "OFFICIAL_VERIFIED",
+        "enabled": true,
+        "evidence_state": "exact",
+        "permission_ceiling": "PUBLIC_CLAIM_ALLOWED",
+        "source_family_id": "story_scoped_publication_evidence_v1"
+      }
+    ],
+    "registry_version": "contentops.source_family_registry.v2.0.0",
+    "schema_version": "contentops.source_family_registry.v2"
+  },
+  "upstream_binding": {
+    "branch": "main",
+    "dbh2_bridge_receipt": {
+      "artifact_producer_commit": "a681e2a432846b9b7f7706d63b639ac6a1c4b3b8",
+      "artifact_producer_commit_reachable_from_observed_head": true,
+      "branch": "main",
+      "later_observed_branch_head": "1bee3f6c71e2e4e55e5b5dd90409b9051289ca9c",
+      "local_artifact_status": "PASS_ALL_EXACT_SHA256",
+      "local_artifacts": [
+        {
+          "artifact_kind": "duckdb",
+          "byte_length": 101199872,
+          "expected_sha256": "d8ea952ddf6e601a73a88f0f9ed7c49a6bba630d948163c98eeb70feb94a2088",
+          "observed_sha256": "d8ea952ddf6e601a73a88f0f9ed7c49a6bba630d948163c98eeb70feb94a2088",
+          "relative_path": "data/local_db/public_free_event_text_entity_history_integrity_repair_v1.duckdb",
+          "status": "PASS_EXACT_SHA256"
+        },
+        {
+          "artifact_kind": "parquet:DBH2_SEC_AAPL_SUBMISSIONS",
+          "byte_length": 319144,
+          "expected_sha256": "c21b3617af1a89aea77478181e87284a2b4f0d0243bfbbaf4c3e2fef79364153",
+          "observed_sha256": "c21b3617af1a89aea77478181e87284a2b4f0d0243bfbbaf4c3e2fef79364153",
+          "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_SEC_AAPL_SUBMISSIONS/records_99cd773696b8b8cb.parquet",
+          "status": "PASS_EXACT_SHA256"
+        },
+        {
+          "artifact_kind": "parquet:DBH2_SEC_MSFT_SUBMISSIONS",
+          "byte_length": 646018,
+          "expected_sha256": "51fe6679aa82ac2cedfe37fde09cbfce9f12f2f9649bc5ad847b6fdc41a0bfe8",
+          "observed_sha256": "51fe6679aa82ac2cedfe37fde09cbfce9f12f2f9649bc5ad847b6fdc41a0bfe8",
+          "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_SEC_MSFT_SUBMISSIONS/records_400c91f35c134b20.parquet",
+          "status": "PASS_EXACT_SHA256"
+        },
+        {
+          "artifact_kind": "parquet:DBH2_SEC_TICKER_EXCHANGE_SNAPSHOT",
+          "byte_length": 4391,
+          "expected_sha256": "16a4bf95b143d0c3a8cbd1f5dd4fb925a0ade43addd84c3a94350bf555f815a2",
+          "observed_sha256": "16a4bf95b143d0c3a8cbd1f5dd4fb925a0ade43addd84c3a94350bf555f815a2",
+          "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_SEC_TICKER_EXCHANGE_SNAPSHOT/records_adda20e073de7b8e.parquet",
+          "status": "PASS_EXACT_SHA256"
+        },
+        {
+          "artifact_kind": "parquet:DBH2_FEDERAL_REGISTER_FED_SYSTEM",
+          "byte_length": 3127471,
+          "expected_sha256": "e2792c34a09e46426d09ac8708592b4e123267ac7a295c85e90a1b0f739bd62f",
+          "observed_sha256": "e2792c34a09e46426d09ac8708592b4e123267ac7a295c85e90a1b0f739bd62f",
+          "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_FEDERAL_REGISTER_FED_SYSTEM/records_e44f575e81e12c85.parquet",
+          "status": "PASS_EXACT_SHA256"
+        },
+        {
+          "artifact_kind": "parquet:DBH2_FEDERAL_REGISTER_SEC",
+          "byte_length": 12313285,
+          "expected_sha256": "23216811e62d3dda3be6ce7988e4e4bb1f60b609ada651ae393aab2bc6936070",
+          "observed_sha256": "23216811e62d3dda3be6ce7988e4e4bb1f60b609ada651ae393aab2bc6936070",
+          "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_FEDERAL_REGISTER_SEC/records_ae68d7817e9a8f7c.parquet",
+          "status": "PASS_EXACT_SHA256"
+        },
+        {
+          "artifact_kind": "parquet:DBH2_USGS_SIGNIFICANT_GLOBAL",
+          "byte_length": 1689957,
+          "expected_sha256": "f947ed80002d7bd6043c3a82c5ef9d6d4b70e24b3434a541f7431ea1f02cf028",
+          "observed_sha256": "f947ed80002d7bd6043c3a82c5ef9d6d4b70e24b3434a541f7431ea1f02cf028",
+          "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_USGS_SIGNIFICANT_GLOBAL/records_5d8cbb16caade9b3.parquet",
+          "status": "PASS_EXACT_SHA256"
+        },
+        {
+          "artifact_kind": "parquet:DBH2_POLYMARKET_MACRO_EVENTS",
+          "byte_length": 7847,
+          "expected_sha256": "2593eea455bd392e2fa0951c9a1300e02f4253f082965c48a4249656c9b297f2",
+          "observed_sha256": "2593eea455bd392e2fa0951c9a1300e02f4253f082965c48a4249656c9b297f2",
+          "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_POLYMARKET_MACRO_EVENTS/records_e0adba0c7589e03b.parquet",
+          "status": "PASS_EXACT_SHA256"
+        },
+        {
+          "artifact_kind": "parquet:DBH2_FED_FOMC_CALENDAR_ARCHIVE",
+          "byte_length": 37371,
+          "expected_sha256": "892173fd05c3b8dccb8dc073925d155ce86f896dd2600d8100ace44f68fca966",
+          "observed_sha256": "892173fd05c3b8dccb8dc073925d155ce86f896dd2600d8100ace44f68fca966",
+          "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_FED_FOMC_CALENDAR_ARCHIVE/records_da44f2c0ccf8f19f.parquet",
+          "status": "PASS_EXACT_SHA256"
+        },
+        {
+          "artifact_kind": "parquet:DBH2_OFAC_SDN_CURRENT_SNAPSHOT",
+          "byte_length": 3001480,
+          "expected_sha256": "9869f39a12b2630ef2fe56959bb9bc7f1ea835e201d4d8a4e74b697a95e92be4",
+          "observed_sha256": "9869f39a12b2630ef2fe56959bb9bc7f1ea835e201d4d8a4e74b697a95e92be4",
+          "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_OFAC_SDN_CURRENT_SNAPSHOT/records_21c8f19ecb6bd011.parquet",
+          "status": "PASS_EXACT_SHA256"
+        }
+      ],
+      "manifest_logical_hash": "1e06278c61178fe061666a3097a2cc3f8aeb2efb23f320ba03b4553a57f37dc3",
+      "manifest_receipt": {
+        "artifact_path": "docs/research/database_foundation/public_free_event_text_entity_history_v1/DBH2_STORAGE_MANIFEST_V1.json",
+        "branch": "main",
+        "byte_length": 3946,
+        "byte_sha256": "462a82ad2afd1b1c29c3973222938d967b4495a46124924d0b0c2ec177fc990a",
+        "git_blob_sha1": "9732249f94f3aa95c5abc3b454b7b797811472d7",
+        "observed_head": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "producer_commit": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "observed_head": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+      "observed_head_reachable_from_later_branch_head": true,
+      "read_only": true,
+      "repository": "fatcat2109/Headline-Raw-data-json",
+      "schema_version": "contentops.governed_upstream_bridge_receipt.v1",
+      "target_catalog_exact_authority": false,
+      "target_catalog_receipt": {
+        "artifact_path": "config/data_foundation/PUBLIC_FREE_EVENT_TEXT_ENTITY_HISTORY_TARGET_CATALOG_V1.json",
+        "branch": "main",
+        "byte_length": 14496,
+        "byte_sha256": "a7d12781f863258d244002cf55afae31fb827385ef2a7fff28af2e914825c589",
+        "git_blob_sha1": "8ccc91025c3e614fcaef2d1721eeb8447c4ca34d",
+        "observed_head": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "producer_commit": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "target_catalog_schema_version": "1.0.0",
+      "upstream_write_performed": false
+    },
+    "observed_head": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+    "repository": "fatcat2109/Headline-Raw-data-json",
+    "target_catalog_receipt": {
+      "artifact_path": "config/data_foundation/PUBLIC_FREE_EVENT_TEXT_ENTITY_HISTORY_TARGET_CATALOG_V1.json",
+      "branch": "main",
+      "byte_length": 14496,
+      "byte_sha256": "a7d12781f863258d244002cf55afae31fb827385ef2a7fff28af2e914825c589",
+      "git_blob_sha1": "8ccc91025c3e614fcaef2d1721eeb8447c4ca34d",
+      "observed_head": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+      "producer_commit": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+      "repository": "fatcat2109/Headline-Raw-data-json"
+    },
+    "v1_pool_receipt": {
+      "artifact_path": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+      "branch": "main",
+      "byte_length": 17722,
+      "byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+      "git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d",
+      "observed_head": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+      "producer_commit": "8c63faca0603f81bebfbb68380a0dc4ad51ab87d",
+      "repository": "fatcat2109/Headline-Raw-data-json"
+    }
+  }
+}

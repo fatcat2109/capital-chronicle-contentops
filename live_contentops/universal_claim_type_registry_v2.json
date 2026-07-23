@@ -1,0 +1,17 @@
+{
+  "schema_version": "contentops.universal_claim_type_registry.v2",
+  "registry_version": "contentops.universal_claim_capabilities.v2.0.0",
+  "extension_policy": "append_new_versioned_claim_capabilities_without_topic_whitelists",
+  "records": [
+    {"claim_type": "numeric_observation", "numeric_fields_required": true},
+    {"claim_type": "factual_text", "numeric_fields_required": false},
+    {"claim_type": "official_action", "numeric_fields_required": false},
+    {"claim_type": "event_occurrence", "numeric_fields_required": false},
+    {"claim_type": "legal_or_regulatory_action", "numeric_fields_required": false},
+    {"claim_type": "corporate_filing_fact", "numeric_fields_required": false},
+    {"claim_type": "entity_relationship", "numeric_fields_required": false},
+    {"claim_type": "market_reaction", "numeric_fields_required": false, "separate_market_evidence_required": true},
+    {"claim_type": "correction_or_revision", "numeric_fields_required": false},
+    {"claim_type": "model_assisted_judgment", "numeric_fields_required": false, "validated_evidence_bound_judgment_required": true}
+  ]
+}

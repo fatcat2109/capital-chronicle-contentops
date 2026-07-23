@@ -1,0 +1,60 @@
+{
+  "browser_or_provider_call_performed": false,
+  "candidate_counts": {
+    "held_context_only": 5,
+    "rejected_contract_invalid": 0,
+    "reporting_eligible": 1,
+    "total": 6
+  },
+  "claim_counts_by_type": {
+    "corporate_filing_fact": 1,
+    "entity_relationship": 1,
+    "event_occurrence": 1,
+    "factual_text": 1,
+    "legal_or_regulatory_action": 1,
+    "numeric_observation": 4
+  },
+  "classification": "PASS_REAL_CROSS_DOMAIN_CANARY_NO_PUBLICATION",
+  "generated_at_utc": "2026-07-14T00:00:00Z",
+  "logical_hash": "388e0b4042751ee80cbf22916868b34227a42b804ea1b71a2de5f78ee909e714",
+  "public_write_performed": false,
+  "publication_authority": false,
+  "schema_version": "contentops.cross_domain_assignment_canary.v1",
+  "selected_real_categories": [
+    "numeric_macro_release",
+    "official_regulatory_document",
+    "corporate_filing",
+    "sanctions_entity_context",
+    "central_bank_official_document",
+    "physical_event"
+  ],
+  "source_target_authority": {
+    "DBH2_FEDERAL_REGISTER_SEC": {
+      "access_class": "public_free",
+      "authority_class": "official_regulatory_document",
+      "narrative_context_status": "context_only"
+    },
+    "DBH2_FED_FOMC_CALENDAR_ARCHIVE": {
+      "access_class": "public_free",
+      "authority_class": "official_policy_document",
+      "narrative_context_status": "context_only"
+    },
+    "DBH2_OFAC_SDN_CURRENT_SNAPSHOT": {
+      "access_class": "public_free",
+      "authority_class": "official_sanctions_entity_snapshot",
+      "narrative_context_status": "context_only"
+    },
+    "DBH2_SEC_MSFT_SUBMISSIONS": {
+      "access_class": "public_free_fair_access",
+      "authority_class": "official_filing_metadata",
+      "narrative_context_status": "filing_fact_not_numeric_mart_authorized"
+    },
+    "DBH2_USGS_SIGNIFICANT_GLOBAL": {
+      "access_class": "public_free",
+      "authority_class": "official_disaster_event",
+      "narrative_context_status": "context_only_numeric_text_not_numeric_truth"
+    }
+  },
+  "upstream_observed_head": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+  "upstream_write_performed": false
+}
