@@ -1,0 +1,15 @@
+{
+  "browser_or_provider_call_made": false,
+  "configuration_calibration_state": "UNCALIBRATED_FOUNDATION",
+  "credential_values_read_or_logged": false,
+  "genericity_ast_guard": "PASS",
+  "genericity_guard": "PASS",
+  "network_fetch_performed_by_adapter": false,
+  "numeric_truth_granted": false,
+  "publication_or_dispatch_performed": false,
+  "scheduler_editorial_dqr_permission_authority_mutated": false,
+  "schema_version": "contentops.adapter_capability_safety_report.v1",
+  "status": "PASS",
+  "upstream_repository_modified": false,
+  "v1_0_moved_recreated_deleted_or_retagged": false
+}

@@ -1,0 +1,15 @@
+{
+  "all_v2_foundation_tests": "PASS_308_TESTS",
+  "ci_pass_claimed": false,
+  "focused_repair_tests": "PASS_43_TESTS",
+  "full_repository_suite": "ATTEMPTED_NOT_PASS_MONOLITHIC_TIMEOUT_30_MINUTES_THEN_ALL_6729_TESTS_SHARDED_6085_PASSED_456_FAILED_160_ERRORS_28_SKIPPED_UNRELATED_HISTORICAL_FIXTURE_GAPS",
+  "full_suite_pass_claimed": false,
+  "genericity_guards": "PASS_BOTH_ZERO_FINDINGS",
+  "git_diff_check": "PASS",
+  "json_and_hash_validation": "PASS",
+  "python_compile": "PASS",
+  "redacted_secret_scan": "PASS",
+  "relevant_adapter_status_tests": "PASS_96_TESTS",
+  "schema_version": "contentops.adapter_capability_validation_summary.v1",
+  "v1_compatibility_tests": "PASS_22_TESTS"
+}

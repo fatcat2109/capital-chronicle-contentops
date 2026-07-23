@@ -8,6 +8,10 @@ only exact existing committed paths. Does not upload anything. Supersedes the
 import os
 
 _DOCS_DIR = os.path.join(os.path.dirname(__file__), "..", "docs")
+_HISTORICAL_DOC_DIRS = (
+    os.path.join(_DOCS_DIR, "archive", "stale_prelaunch_reset_0174CG"),
+    os.path.join(_DOCS_DIR, "archive", "_repo_cleanup_2026-07-03", "docs"),
+)
 
 # Recommended upload docs (exact underscore-convention paths, after 0073).
 RECOMMENDED_UPLOAD_PATHS = [
@@ -70,6 +74,15 @@ def build_manifest() -> dict:
     }
 
 
+def resolve_historical_doc(path: str) -> str | None:
+    """Resolve the exact committed location after documented archive moves."""
+    name = os.path.basename(path)
+    candidates = (os.path.join(_DOCS_DIR, name),) + tuple(
+        os.path.join(directory, name) for directory in _HISTORICAL_DOC_DIRS
+    )
+    return next((candidate for candidate in candidates if os.path.isfile(candidate)), None)
+
+
 def validate_manifest() -> dict:
     """Block/warn if the manifest weakens guardrail posture or is inconsistent."""
     blockers = []
@@ -78,10 +91,7 @@ def validate_manifest() -> dict:
         if path in seen:
             blockers.append("duplicate recommended upload path: %s" % path)
         seen.add(path)
-        abs_path = os.path.join(_DOCS_DIR, os.path.basename(path))
-        if not os.path.isfile(abs_path):
-            abs_path = os.path.join(_DOCS_DIR, "archive", "stale_prelaunch_reset_0174CG", os.path.basename(path))
-        if not os.path.isfile(abs_path):
+        if resolve_historical_doc(path) is None:
             blockers.append("recommended upload path does not exist: %s" % path)
         if ".gitignore" in path:
             blockers.append("bundle includes .gitignore: %s" % path)

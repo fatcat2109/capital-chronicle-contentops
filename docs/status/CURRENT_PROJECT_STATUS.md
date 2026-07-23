@@ -4,9 +4,23 @@
 
 ## Current Classification
 
-`PASS_PRODUCTION_ADAPTER_WAVE_3_AND_WAVE_2_CONTRACT_REPAIR_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1`.
+Completed task: `TASK_CONTENTOPS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1`.
+
+## Adapter Capability Conformance, Composite Canary, And Full-Suite Blocker Repair
+
+The accepted prior disposition is `PASS_PRODUCTION_ADAPTER_WAVE_3_AND_WAVE_2_CONTRACT_REPAIR_V1_WITH_TARGETED_CAPABILITY_METADATA_AND_COVERAGE_EVIDENCE_GAPS`. All 13 accepted production adapters now carry a versioned, validated capability binding for evidence modality, temporal character, story mode, scheduled state, observation/event time, numeric/nonnumeric content, applicable geography/physical capability, and source authority. The frozen conformance harness consumes those bindings directly; it no longer hardcodes point-in-time data-release semantics.
+
+All 16 enabled extractor records now have exact immutable record hashes, runtime implementation IDs/callables, and accepted evidence bindings to a historical commit, path, and independently verified manifest logical hash. The prior blanket historical runtime allowlist is removed. Registry append-only proof is anchored to starting authority `a00a702dc97c2485852ab82a70707940ed8b2083` and the accepted freeze baseline, never working-tree `HEAD`.
+
+The required upstream starting head `631ea29c5388d52d4353810b6d8b2a50d677bb44` was verified before editing. During the long validation window the fetched tracking ref later advanced to descendant `c0a57145986ce9f25fc083369970e3b121a5ba73`; the required head and every pinned producer commit remain reachable, and the two authority roles are recorded separately.
+
+The four-family composite canary combines BLS unemployment, FOMC calendar/policy, USGS earthquake, and Treasury TIC qualitative context through the same frozen generic core. Their capability metadata remains distinct; all evidence refs are receipt-backed; singleton feature evidence sets are exact; unavailable timestamps remain distinct from explicit-zero freshness; every outcome remains context-only and no-publication.
+
+The historical Task 0073 full-suite blocker was a stale lookup path, not a missing artifact. The exact original Git blob already exists at `docs/archive/_repo_cleanup_2026-07-03/docs/TASK_CONTENTOPS_0073_EXTREME_LOCAL_ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_FINAL_BUNDLE_AND_PATH_REPAIR_V0.md`; validation now resolves that committed archive authority without fabricating or rewriting the file. Evidence: `docs/automation/CONTENTOPS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1/final_manifest.json`.
+
+Focused repair validation passed 43 tests, the full V2/foundation adapter matrix passed 308 tests, V1 compatibility passed 22 tests, and relevant adapter/status validation passed 96 tests. The monolithic full suite exceeded 30 minutes without a terminal result; a complete four-shard run then measured all 6,729 tests as 6,085 passed, 456 failed, 160 errors, and 28 skipped. Those failures are broad unrelated missing historical fixtures, including later `0175*` artifacts, so no full-suite or CI PASS is claimed.
 
 ## Production Adapter Wave 3 And Wave 2 Contract Coverage Repair
 

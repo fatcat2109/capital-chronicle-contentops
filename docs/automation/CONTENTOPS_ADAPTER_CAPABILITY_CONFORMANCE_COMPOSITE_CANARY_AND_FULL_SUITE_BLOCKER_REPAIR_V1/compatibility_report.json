@@ -1,0 +1,11 @@
+{
+  "accepted_adapter_count": 13,
+  "extractor_registry_version": "artifact-evidence-extractor-registry-1.3.0",
+  "frozen_foundation_validation": [],
+  "schema_version": "contentops.adapter_capability_compatibility.v1",
+  "status": "PASS",
+  "v1_0_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "v1_0_tag_object": "a021df7fd0264d9f160bdd605509da925f0bf131",
+  "v1_compatibility_test_result": "PASS_22_TESTS",
+  "verifier_registry_version": "trusted-evidence-registry-1.3.0"
+}

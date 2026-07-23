@@ -1,0 +1,492 @@
+{
+  "adapter_count": 13,
+  "bindings": [
+    {
+      "adapter_id": "bls_series_observation_v1",
+      "affected_asset_classes": [],
+      "affected_economic_domains": [
+        "consumer_prices"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "numeric_time_series"
+      ],
+      "geography_ids": [
+        "united_states"
+      ],
+      "nonnumeric_evidence_present": false,
+      "numeric_evidence_present": true,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "period_observation",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": true,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "bls_public_data_api"
+      ],
+      "story_modes": [
+        "data_release"
+      ],
+      "temporal_characters": [
+        "scheduled",
+        "period_observation"
+      ]
+    },
+    {
+      "adapter_id": "us_treasury_auction_announcement_v1",
+      "affected_asset_classes": [
+        "government_bonds"
+      ],
+      "affected_economic_domains": [
+        "sovereign_debt"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "official_document",
+        "event_calendar"
+      ],
+      "geography_ids": [
+        "united_states"
+      ],
+      "nonnumeric_evidence_present": true,
+      "numeric_evidence_present": true,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "event_time",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": true,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "us_treasury_fiscaldata_auction_announcements"
+      ],
+      "story_modes": [
+        "data_release",
+        "straight_news"
+      ],
+      "temporal_characters": [
+        "scheduled",
+        "point_in_time"
+      ]
+    },
+    {
+      "adapter_id": "nyfed_reference_rate_v1",
+      "affected_asset_classes": [
+        "interest_rates"
+      ],
+      "affected_economic_domains": [
+        "money_markets"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "market_snapshot",
+        "numeric_time_series"
+      ],
+      "geography_ids": [
+        "united_states"
+      ],
+      "nonnumeric_evidence_present": false,
+      "numeric_evidence_present": true,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "period_observation",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": true,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "nyfed_reference_rates"
+      ],
+      "story_modes": [
+        "data_release",
+        "market_move"
+      ],
+      "temporal_characters": [
+        "scheduled",
+        "period_observation"
+      ]
+    },
+    {
+      "adapter_id": "newsroom_candidate_pool_v1",
+      "affected_asset_classes": [],
+      "affected_economic_domains": [],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "cross_source_reconciliation"
+      ],
+      "geography_ids": [],
+      "nonnumeric_evidence_present": true,
+      "numeric_evidence_present": true,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "event_time",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": false,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "governed_internal_newsroom"
+      ],
+      "source_family_ids": [
+        "governed_newsroom_candidate_pool"
+      ],
+      "story_modes": [
+        "straight_news",
+        "deep_analysis"
+      ],
+      "temporal_characters": [
+        "unscheduled",
+        "point_in_time",
+        "rolling_update"
+      ]
+    },
+    {
+      "adapter_id": "us_treasury_daily_yield_curve_atom_v1",
+      "affected_asset_classes": [
+        "government_bonds"
+      ],
+      "affected_economic_domains": [
+        "sovereign_debt"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "numeric_time_series"
+      ],
+      "geography_ids": [
+        "united_states"
+      ],
+      "nonnumeric_evidence_present": false,
+      "numeric_evidence_present": true,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "period_observation",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": true,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "us_treasury_daily_yield_curve"
+      ],
+      "story_modes": [
+        "data_release"
+      ],
+      "temporal_characters": [
+        "scheduled",
+        "period_observation"
+      ]
+    },
+    {
+      "adapter_id": "cftc_legacy_futures_only_cot_v1",
+      "affected_asset_classes": [
+        "futures"
+      ],
+      "affected_economic_domains": [
+        "derivatives_positioning"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "official_table",
+        "numeric_time_series"
+      ],
+      "geography_ids": [
+        "united_states"
+      ],
+      "nonnumeric_evidence_present": true,
+      "numeric_evidence_present": true,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "period_observation",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": true,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "cftc_legacy_futures_only_cot"
+      ],
+      "story_modes": [
+        "data_release",
+        "deep_analysis"
+      ],
+      "temporal_characters": [
+        "scheduled",
+        "period_observation"
+      ]
+    },
+    {
+      "adapter_id": "federal_reserve_h41_zip_structure_v1",
+      "affected_asset_classes": [],
+      "affected_economic_domains": [
+        "central_bank_balance_sheet"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "official_table",
+        "official_document"
+      ],
+      "geography_ids": [
+        "united_states"
+      ],
+      "nonnumeric_evidence_present": true,
+      "numeric_evidence_present": false,
+      "numeric_truth_quarantined": true,
+      "observation_time_kind": "revision_time",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": true,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "federal_reserve_h41"
+      ],
+      "story_modes": [
+        "data_release",
+        "deep_analysis"
+      ],
+      "temporal_characters": [
+        "scheduled",
+        "revised_release"
+      ]
+    },
+    {
+      "adapter_id": "us_treasury_debt_to_penny_v1",
+      "affected_asset_classes": [
+        "government_bonds"
+      ],
+      "affected_economic_domains": [
+        "sovereign_debt"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "official_table",
+        "numeric_time_series"
+      ],
+      "geography_ids": [
+        "united_states"
+      ],
+      "nonnumeric_evidence_present": false,
+      "numeric_evidence_present": true,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "mixed_observation_and_event",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": true,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "us_treasury_fiscaldata_debt_to_penny"
+      ],
+      "story_modes": [
+        "data_release"
+      ],
+      "temporal_characters": [
+        "scheduled",
+        "period_observation",
+        "point_in_time"
+      ]
+    },
+    {
+      "adapter_id": "bls_unemployment_series_v1",
+      "affected_asset_classes": [],
+      "affected_economic_domains": [
+        "labor_market"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "numeric_time_series"
+      ],
+      "geography_ids": [
+        "united_states"
+      ],
+      "nonnumeric_evidence_present": false,
+      "numeric_evidence_present": true,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "period_observation",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": true,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "bls_public_unemployment_series"
+      ],
+      "story_modes": [
+        "data_release"
+      ],
+      "temporal_characters": [
+        "scheduled",
+        "period_observation"
+      ]
+    },
+    {
+      "adapter_id": "federal_reserve_fomc_calendar_html_v1",
+      "affected_asset_classes": [
+        "interest_rates"
+      ],
+      "affected_economic_domains": [
+        "monetary_policy"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "event_calendar",
+        "official_statement"
+      ],
+      "geography_ids": [
+        "united_states"
+      ],
+      "nonnumeric_evidence_present": true,
+      "numeric_evidence_present": false,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "event_time",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": true,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "federal_reserve_fomc_calendar"
+      ],
+      "story_modes": [
+        "policy_decision"
+      ],
+      "temporal_characters": [
+        "scheduled",
+        "point_in_time"
+      ]
+    },
+    {
+      "adapter_id": "us_treasury_tic_official_html_v1",
+      "affected_asset_classes": [],
+      "affected_economic_domains": [
+        "cross_border_capital"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "official_document",
+        "qualitative_context"
+      ],
+      "geography_ids": [
+        "united_states"
+      ],
+      "nonnumeric_evidence_present": true,
+      "numeric_evidence_present": false,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "revision_time",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": false,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "us_treasury_international_capital_portal"
+      ],
+      "story_modes": [
+        "explainer",
+        "deep_analysis"
+      ],
+      "temporal_characters": [
+        "unscheduled",
+        "revised_release"
+      ]
+    },
+    {
+      "adapter_id": "usgs_earthquake_geojson_v1",
+      "affected_asset_classes": [],
+      "affected_economic_domains": [
+        "physical_hazard"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [
+        "earthquake_event"
+      ],
+      "evidence_modalities": [
+        "geospatial_or_physical_observation"
+      ],
+      "geography_ids": [
+        "alaska"
+      ],
+      "nonnumeric_evidence_present": true,
+      "numeric_evidence_present": true,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "event_time",
+      "physical_geographic_capability": true,
+      "scheduled_event_state": false,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "usgs_earthquake_event"
+      ],
+      "story_modes": [
+        "straight_news",
+        "live_update"
+      ],
+      "temporal_characters": [
+        "unscheduled",
+        "point_in_time"
+      ]
+    },
+    {
+      "adapter_id": "fhfa_hpi_official_html_v1",
+      "affected_asset_classes": [
+        "residential_real_estate"
+      ],
+      "affected_economic_domains": [
+        "housing_market"
+      ],
+      "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+      "entity_ids": [],
+      "evidence_modalities": [
+        "official_document",
+        "qualitative_context"
+      ],
+      "geography_ids": [
+        "united_states"
+      ],
+      "nonnumeric_evidence_present": true,
+      "numeric_evidence_present": false,
+      "numeric_truth_quarantined": false,
+      "observation_time_kind": "revision_time",
+      "physical_geographic_capability": false,
+      "scheduled_event_state": false,
+      "schema_version": "contentops.production_adapter_capability_binding.v1",
+      "source_authority_classes": [
+        "official_public_data"
+      ],
+      "source_family_ids": [
+        "fhfa_house_price_index_page"
+      ],
+      "story_modes": [
+        "explainer",
+        "deep_analysis"
+      ],
+      "temporal_characters": [
+        "unscheduled",
+        "revised_release"
+      ]
+    }
+  ],
+  "schema_version": "contentops.adapter_capability_binding_set.v1",
+  "status": "PASS"
+}

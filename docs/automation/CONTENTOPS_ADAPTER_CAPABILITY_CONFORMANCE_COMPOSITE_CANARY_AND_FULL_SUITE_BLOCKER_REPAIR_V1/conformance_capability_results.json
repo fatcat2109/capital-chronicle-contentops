@@ -1,0 +1,2362 @@
+{
+  "adapter_count": 13,
+  "decision_cutoff_utc": "2026-07-19T12:00:00Z",
+  "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+  "numeric_truth_granted": false,
+  "publication_authority_granted": false,
+  "results": [
+    {
+      "adapter_id": "bls_series_observation_v1",
+      "artifact_family": "bls_public_data_api",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "bls_series_observation_v1",
+        "affected_asset_classes": [],
+        "affected_economic_domains": [
+          "consumer_prices"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "numeric_time_series"
+        ],
+        "geography_ids": [
+          "united_states"
+        ],
+        "nonnumeric_evidence_present": false,
+        "numeric_evidence_present": true,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "period_observation",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": true,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "bls_public_data_api"
+        ],
+        "story_modes": [
+          "data_release"
+        ],
+        "temporal_characters": [
+          "scheduled",
+          "period_observation"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:c0aa1959f82a8d8fdf8c23d89401fa3b",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.bls_series_observation_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:c0aa1959f82a8d8fdf8c23d89401fa3b"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "fe63fa7d0f90bf0750d821fe8da71bfdaed4c9d2aa1e6e9a2831d8f13dbc61ef",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "unavailable",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:c0aa1959f82a8d8fdf8c23d89401fa3b"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "57fdaf6ef9ec5f97bfde5a596057790cadbde730539ad878ca9c85c4520a32f1",
+          "reason_code": "artifact_native_timestamp_unavailable",
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": null
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:c0aa1959f82a8d8fdf8c23d89401fa3b"
+        ],
+        "candidate_id": "conformance:candidate:bls-cpi",
+        "decision_id": "learning_decision_v2_07cdc97e83ee6bf5c1a97d69",
+        "decision_logical_hash": "07cdc97e83ee6bf5c1a97d69c64ffa4f2222e051212c443d8e9e4a46e4497d1c",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:c0aa1959f82a8d8fdf8c23d89401fa3b"
+          ],
+          "freshness": [
+            "extracted:c0aa1959f82a8d8fdf8c23d89401fa3b"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "1e5034c97390e57e02adf12e7165ca9b6c2fd793c5dcaf73ebe3e8a56de13963",
+          "receipt": "493ab469a6b8a5d877389a189dfb640e9d421e6953de7af60d8dc6d27d080934"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:bls-cpi",
+          "complete_evidence_lineage": [
+            "extracted:c0aa1959f82a8d8fdf8c23d89401fa3b"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:c0aa1959f82a8d8fdf8c23d89401fa3b",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:c0aa1959f82a8d8fdf8c23d89401fa3b"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:c7dd36470a8bbf6e09665181",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-07-19T06:27:19Z",
+        "known_at_utc": null,
+        "observed_at_utc": null,
+        "published_at_utc": null,
+        "revision_at_utc": null
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "1fcff5e55d1b293b002d848ab4b3b3f308042a145079aa426de1e4c9d934e3b9",
+        "commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "36ee1268268acec4538f7ae1b32bfe728fa896cc",
+        "path": "data/archive/official_sources/bls_public_data_api/bls_cpi_live_20260531_132121_1fcff5e55d1b/raw_response.json",
+        "producer_commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "us_treasury_auction_announcement_v1",
+      "artifact_family": "us_treasury_fiscaldata_auction_announcements",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "us_treasury_auction_announcement_v1",
+        "affected_asset_classes": [
+          "government_bonds"
+        ],
+        "affected_economic_domains": [
+          "sovereign_debt"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "official_document",
+          "event_calendar"
+        ],
+        "geography_ids": [
+          "united_states"
+        ],
+        "nonnumeric_evidence_present": true,
+        "numeric_evidence_present": true,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "event_time",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": true,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "us_treasury_fiscaldata_auction_announcements"
+        ],
+        "story_modes": [
+          "data_release",
+          "straight_news"
+        ],
+        "temporal_characters": [
+          "scheduled",
+          "point_in_time"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:74386d7b69212f11668548004cebdc50",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.treasury_auction_announcement_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:74386d7b69212f11668548004cebdc50"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "f3faf67fb058ce80be1689daa0a4d933bca5a553f8cc74f597a52448a7ef7e30",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "unavailable",
+          "derivation_contract": "UNAVAILABLE_WITHOUT_POLICY_MATERIALITY_CONTRACT_V1",
+          "evidence_refs": [
+            "extracted:74386d7b69212f11668548004cebdc50"
+          ],
+          "feature_id": "policy_significance",
+          "logical_hash": "a46ff7448b2626168e29f581c91a5c4f4202686418043fa4130b0267e1abe57b",
+          "reason_code": "policy_materiality_derivation_contract_unavailable",
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": null
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:74386d7b69212f11668548004cebdc50"
+        ],
+        "candidate_id": "conformance:candidate:treasury-auction",
+        "decision_id": "learning_decision_v2_8c74399a97d3c2df41298e42",
+        "decision_logical_hash": "8c74399a97d3c2df41298e420a154c6be5f27c6497db7ef48cd27859b07343d9",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:74386d7b69212f11668548004cebdc50"
+          ],
+          "policy_significance": [
+            "extracted:74386d7b69212f11668548004cebdc50"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "338e0413b0f1122f5220db311a6b25a12ff9ebcf523c677af5c4f785dd4814bf",
+          "receipt": "aacea2c536f55abb98835fa3de5c28c81fc0fc388dca7d01aef6b75cea3555f2"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:treasury-auction",
+          "complete_evidence_lineage": [
+            "extracted:74386d7b69212f11668548004cebdc50"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:74386d7b69212f11668548004cebdc50",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:74386d7b69212f11668548004cebdc50"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:a9cda23a6685588724ec479c",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-07-19T06:27:19Z",
+        "known_at_utc": "2026-06-04T00:00:00Z",
+        "observed_at_utc": "2026-06-04T00:00:00Z",
+        "published_at_utc": "2026-06-04T00:00:00Z",
+        "revision_at_utc": null
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "e08b8a4c78f89ac53c244b95379a84408b159cf67549202fdec84ee774c8d6c5",
+        "commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "dba7f5af655c75e83d3ad05cd30b3bee76cd4380",
+        "path": "data/audit/data_sufficiency/task_calendar_event_spine_batch_a1_treasury_auctions_live_capture/raw_archive/req1_treasury_auctions_recent_announcements.json",
+        "producer_commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "nyfed_reference_rate_v1",
+      "artifact_family": "nyfed_reference_rates",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "nyfed_reference_rate_v1",
+        "affected_asset_classes": [
+          "interest_rates"
+        ],
+        "affected_economic_domains": [
+          "money_markets"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "market_snapshot",
+          "numeric_time_series"
+        ],
+        "geography_ids": [
+          "united_states"
+        ],
+        "nonnumeric_evidence_present": false,
+        "numeric_evidence_present": true,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "period_observation",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": true,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "nyfed_reference_rates"
+        ],
+        "story_modes": [
+          "data_release",
+          "market_move"
+        ],
+        "temporal_characters": [
+          "scheduled",
+          "period_observation"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:fc081c963f70f0a17dacc608601b0b24",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.nyfed_reference_rate_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:fc081c963f70f0a17dacc608601b0b24"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "345629f7c7039f99e8f88c52c2a3a057262054ab120cf465b0289fbbd3a57f0b",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:fc081c963f70f0a17dacc608601b0b24"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "f67eb18739725b328d5b1055a2d5f826f09b357c527e856bbcbf17ff17782ea1",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:fc081c963f70f0a17dacc608601b0b24"
+        ],
+        "candidate_id": "conformance:candidate:nyfed-sofr",
+        "decision_id": "learning_decision_v2_c473be6a3d96a77ac00cb335",
+        "decision_logical_hash": "c473be6a3d96a77ac00cb335b2ee667fe8e38b683609819c98d541e6b87da26f",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:fc081c963f70f0a17dacc608601b0b24"
+          ],
+          "freshness": [
+            "extracted:fc081c963f70f0a17dacc608601b0b24"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "09e5159ea1d92ce39bc164c43d371c6f3534d1fa44b38b2ac1947d89abefc185",
+          "receipt": "5018b4ce86144cdb6ed20d035be1f643a7691aad004cb9ffed918b7c8c9b01aa"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:nyfed-sofr",
+          "complete_evidence_lineage": [
+            "extracted:fc081c963f70f0a17dacc608601b0b24"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:fc081c963f70f0a17dacc608601b0b24",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:fc081c963f70f0a17dacc608601b0b24"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:11abcb4f245038052ed29a13",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-07-19T06:27:19Z",
+        "known_at_utc": "2026-06-04T00:00:00Z",
+        "observed_at_utc": "2026-06-04T00:00:00Z",
+        "published_at_utc": null,
+        "revision_at_utc": null
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "334d8fc5f895a275fd12bb970e69274d257531b6ffe9b36c46d8c85b03a34075",
+        "commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "68861abbcb6cb39f0b2a52698df2052ec5784b0b",
+        "path": "data/audit/data_sufficiency/task_300aa_304z/raw_archive/nyfed_reference_rates/batch_e_nyfed_reference_rates_20260606T154423Z_a0793ac6/raw_response.bin",
+        "producer_commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "newsroom_candidate_pool_v1",
+      "artifact_family": "governed_newsroom_candidate_pool",
+      "authority_state": "VERIFIED_GOVERNED",
+      "capability_binding": {
+        "adapter_id": "newsroom_candidate_pool_v1",
+        "affected_asset_classes": [],
+        "affected_economic_domains": [],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "cross_source_reconciliation"
+        ],
+        "geography_ids": [],
+        "nonnumeric_evidence_present": true,
+        "numeric_evidence_present": true,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "event_time",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": false,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "governed_internal_newsroom"
+        ],
+        "source_family_ids": [
+          "governed_newsroom_candidate_pool"
+        ],
+        "story_modes": [
+          "straight_news",
+          "deep_analysis"
+        ],
+        "temporal_characters": [
+          "unscheduled",
+          "point_in_time",
+          "rolling_update"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:af54f0761b0bd82272a66ed5065b5287",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "CANDIDATE_WIDE",
+      "extractor_id": "contentops.newsroom_candidate_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "CANDIDATE_AUTHORITY_PERMISSION_BOOLEAN_V1",
+          "evidence_refs": [
+            "extracted:af54f0761b0bd82272a66ed5065b5287"
+          ],
+          "feature_id": "authority_readiness",
+          "logical_hash": "2e116ab8e9763a8cb28ea3846570081af9efe7138db6ab9d51db745ac3da70d8",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:af54f0761b0bd82272a66ed5065b5287"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "cb906a53d5bf2980be83cab996f6975300dbcaa9d82cc89526ab7823b697c6aa",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.5833333333333334
+        },
+        {
+          "availability": "available",
+          "derivation_contract": "GOVERNED_RELATIONSHIP_BOOLEAN_V1",
+          "evidence_refs": [
+            "extracted:af54f0761b0bd82272a66ed5065b5287"
+          ],
+          "feature_id": "material_delta",
+          "logical_hash": "4dbbcce91b658d5b3570637a6cb66602e54485addabed33cbaff75dafb70e46b",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:af54f0761b0bd82272a66ed5065b5287"
+        ],
+        "candidate_id": "conformance:candidate:newsroom",
+        "decision_id": "learning_decision_v2_433f505b3d5174ee4e367cc4",
+        "decision_logical_hash": "433f505b3d5174ee4e367cc45a1d5705610865379c07d3d46175cbf13a4f1d22",
+        "feature_evidence_sets": {
+          "authority_readiness": [
+            "extracted:af54f0761b0bd82272a66ed5065b5287"
+          ],
+          "evidence_completeness": [
+            "extracted:af54f0761b0bd82272a66ed5065b5287"
+          ],
+          "material_delta": [
+            "extracted:af54f0761b0bd82272a66ed5065b5287"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "954f67fb30274a8e6e40fb30e755abb29cfda560e00d7db4048a6b096909f7ae",
+          "receipt": "5a274c6570b254fee7f8c44fa18b7e8b0f377e9438dbc222daa73724fc169867"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORIZED",
+          "candidate_id": "conformance:candidate:newsroom",
+          "complete_evidence_lineage": [
+            "extracted:af54f0761b0bd82272a66ed5065b5287"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [],
+          "evidence_refs": [
+            "extracted:af54f0761b0bd82272a66ed5065b5287"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_NO_GOVERNED_ACTIONABLE_OUTCOME",
+          "qualifying_governed_evidence_refs": [
+            "extracted:af54f0761b0bd82272a66ed5065b5287"
+          ],
+          "reason_codes": [],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": true,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "PUBLIC_CLAIM_ALLOWED",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_NO_GOVERNED_ACTIONABLE_OUTCOME",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:ce404963fa898cb2313b78a9",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-07-14T00:00:00Z",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "observed_at_utc": "2026-07-13T00:00:00Z",
+        "published_at_utc": "2026-07-13T00:00:00Z",
+        "revision_at_utc": null
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "a92cdff58c6f4ecc5b68e774d2a6e7ed94db346f47ae636337510c1e37b192be",
+        "commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "e4f60146e26d5f52dec91f92a345e81d0fb1cc8d",
+        "path": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+        "producer_commit": "85fc4ac3ab0d4d61692492558e6abb854a7a0639",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "us_treasury_daily_yield_curve_atom_v1",
+      "artifact_family": "us_treasury_daily_yield_curve",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "us_treasury_daily_yield_curve_atom_v1",
+        "affected_asset_classes": [
+          "government_bonds"
+        ],
+        "affected_economic_domains": [
+          "sovereign_debt"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "numeric_time_series"
+        ],
+        "geography_ids": [
+          "united_states"
+        ],
+        "nonnumeric_evidence_present": false,
+        "numeric_evidence_present": true,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "period_observation",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": true,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "us_treasury_daily_yield_curve"
+        ],
+        "story_modes": [
+          "data_release"
+        ],
+        "temporal_characters": [
+          "scheduled",
+          "period_observation"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:168f505d230ea8fa40b6e3c538be9a20",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.treasury_daily_yield_curve_atom_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:168f505d230ea8fa40b6e3c538be9a20"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "7f0acedd8599d8e450dd9dc219823d817d6c1d4a489b67fbc814136c78146064",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:168f505d230ea8fa40b6e3c538be9a20"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "bff99412b7176815edd50356424f29fcb8ff0c5619f7ffceac1026371f7af122",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:168f505d230ea8fa40b6e3c538be9a20"
+        ],
+        "candidate_id": "conformance:candidate:treasury-yield",
+        "decision_id": "learning_decision_v2_7f3cec082f54f0c2f07403ff",
+        "decision_logical_hash": "7f3cec082f54f0c2f07403ff0a1206391b18d8af62c4d006738db92ac9815871",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:168f505d230ea8fa40b6e3c538be9a20"
+          ],
+          "freshness": [
+            "extracted:168f505d230ea8fa40b6e3c538be9a20"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "e02c5104a9b3145a96c042ed88f7fe26a8edd48f05fa8a9375f510760149c4cd",
+          "receipt": "9394253e8f4b22446eff9a6e4cdbeb10b414f2adfee1494ee7a31defb20de85b"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:treasury-yield",
+          "complete_evidence_lineage": [
+            "extracted:168f505d230ea8fa40b6e3c538be9a20"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:168f505d230ea8fa40b6e3c538be9a20",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:168f505d230ea8fa40b6e3c538be9a20"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:caffb8070f7037f9a446ec0b",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-07-19T09:41:29Z",
+        "known_at_utc": "2026-06-06T11:44:25Z",
+        "observed_at_utc": "1991-03-14T00:00:00Z",
+        "published_at_utc": "2026-06-06T11:44:25Z",
+        "revision_at_utc": null
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "b2eebbbe396380fb3872e031e8b759088bb41c746ce716773800506c94c9908f",
+        "commit": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "4c6cb14c58b3e16422eca115fecb1d883a98d79f",
+        "path": "data/audit/data_sufficiency/task_300aa_304z/raw_archive/treasury_daily_yield_curve/batch_e_treasury_daily_yield_curve_20260606T154421Z_e34b3214/raw_response.bin",
+        "producer_commit": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "cftc_legacy_futures_only_cot_v1",
+      "artifact_family": "cftc_legacy_futures_only_cot",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "cftc_legacy_futures_only_cot_v1",
+        "affected_asset_classes": [
+          "futures"
+        ],
+        "affected_economic_domains": [
+          "derivatives_positioning"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "official_table",
+          "numeric_time_series"
+        ],
+        "geography_ids": [
+          "united_states"
+        ],
+        "nonnumeric_evidence_present": true,
+        "numeric_evidence_present": true,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "period_observation",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": true,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "cftc_legacy_futures_only_cot"
+        ],
+        "story_modes": [
+          "data_release",
+          "deep_analysis"
+        ],
+        "temporal_characters": [
+          "scheduled",
+          "period_observation"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:0e724e2571dcd56d9e39f7ad5947306c",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.cftc_legacy_futures_only_cot_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:0e724e2571dcd56d9e39f7ad5947306c"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "33ff8637fe06c1ce1cd3e0e02c85738ef0ef9cef29f71f111655b181cc922133",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:0e724e2571dcd56d9e39f7ad5947306c"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "f9a4e27bc4eeac90f6b7c4caa8379ac4534b4d3ba99ed67d023b4475b21dfa7b",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:0e724e2571dcd56d9e39f7ad5947306c"
+        ],
+        "candidate_id": "conformance:candidate:cftc-cot",
+        "decision_id": "learning_decision_v2_93ea5d979d7a4a7a426cb6f4",
+        "decision_logical_hash": "93ea5d979d7a4a7a426cb6f43b6e00af25ebec20d9d23088cc27235fc9e13346",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:0e724e2571dcd56d9e39f7ad5947306c"
+          ],
+          "freshness": [
+            "extracted:0e724e2571dcd56d9e39f7ad5947306c"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "ef73f2c7cebed6c22b374294d16d07f22ce97008d7df49dacc84f802d2d7e01b",
+          "receipt": "66fe1ce4b214ac7675fc874be475b13fa2e8f6943fbefad9dfae871977c11e3e"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:cftc-cot",
+          "complete_evidence_lineage": [
+            "extracted:0e724e2571dcd56d9e39f7ad5947306c"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:0e724e2571dcd56d9e39f7ad5947306c",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:0e724e2571dcd56d9e39f7ad5947306c"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:970ef4a35284c451c75ebd56",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-07-19T09:41:29Z",
+        "known_at_utc": null,
+        "observed_at_utc": "2026-06-02T00:00:00Z",
+        "published_at_utc": null,
+        "revision_at_utc": null
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "286bda7d111c7d7eb3756a919a6489ddf310d42a108b2c154408093e706aa02e",
+        "commit": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "d76fafa828839ce774626ee2654b6477904e5260",
+        "path": "data/audit/data_sufficiency/task_392aa_396z/raw_archive/cftc_cot/cftc_cot_20260607T140054Z/raw_response.bin",
+        "producer_commit": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "federal_reserve_h41_zip_structure_v1",
+      "artifact_family": "federal_reserve_h41",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "federal_reserve_h41_zip_structure_v1",
+        "affected_asset_classes": [],
+        "affected_economic_domains": [
+          "central_bank_balance_sheet"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "official_table",
+          "official_document"
+        ],
+        "geography_ids": [
+          "united_states"
+        ],
+        "nonnumeric_evidence_present": true,
+        "numeric_evidence_present": false,
+        "numeric_truth_quarantined": true,
+        "observation_time_kind": "revision_time",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": true,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "federal_reserve_h41"
+        ],
+        "story_modes": [
+          "data_release",
+          "deep_analysis"
+        ],
+        "temporal_characters": [
+          "scheduled",
+          "revised_release"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:cf1d1fe8a7d83f533d2ac30d119c4844",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.federal_reserve_h41_zip_structure_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:cf1d1fe8a7d83f533d2ac30d119c4844"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "c6686d7cf9909afaec13a63c08935ffcf86cc01100a95c94fec142ab6de6a089",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "EVENT_TIMESTAMP_AGE_DECAY_24H_V1",
+          "evidence_refs": [
+            "extracted:cf1d1fe8a7d83f533d2ac30d119c4844"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "dcf15dc1c072c0391145beac81e965eafd9d96d9f9021c081f63af1cb17e2c85",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:cf1d1fe8a7d83f533d2ac30d119c4844"
+        ],
+        "candidate_id": "conformance:candidate:fed-h41",
+        "decision_id": "learning_decision_v2_fcb673e25b817f01667427c0",
+        "decision_logical_hash": "fcb673e25b817f01667427c05bb1f9f4417ca3ced7c1c1a27cf6aed953573894",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:cf1d1fe8a7d83f533d2ac30d119c4844"
+          ],
+          "freshness": [
+            "extracted:cf1d1fe8a7d83f533d2ac30d119c4844"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "36930ed70cd140a362d31d9f19cd402de08360047de114f9fe04fa96d1dcc9e1",
+          "receipt": "4a3831c67e1df934271a0df2b680f3f5306b6c0c5ce6c1bbc6775873e0a35455"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:fed-h41",
+          "complete_evidence_lineage": [
+            "extracted:cf1d1fe8a7d83f533d2ac30d119c4844"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:cf1d1fe8a7d83f533d2ac30d119c4844",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:cf1d1fe8a7d83f533d2ac30d119c4844"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:d696f8fc25c3d0d0b4656054",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-07-19T09:41:29Z",
+        "known_at_utc": null,
+        "observed_at_utc": "2026-06-03T00:00:00Z",
+        "published_at_utc": null,
+        "revision_at_utc": null
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "4f35601dfa72aaed42c6584f538a613392fa7f03f1f79e953e7aec3a37c15f7f",
+        "commit": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "fd52a7682725d15aa5d997201c52ebae4e291cce",
+        "path": "data/audit/data_sufficiency/task_404sidea_408sidea/raw_archive/fed_board_h41/h41_4f35601dfa72.zip",
+        "producer_commit": "251ba1804c5d495884343adad6be0d0e6ba8c121",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "us_treasury_debt_to_penny_v1",
+      "artifact_family": "us_treasury_fiscaldata_debt_to_penny",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "us_treasury_debt_to_penny_v1",
+        "affected_asset_classes": [
+          "government_bonds"
+        ],
+        "affected_economic_domains": [
+          "sovereign_debt"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "official_table",
+          "numeric_time_series"
+        ],
+        "geography_ids": [
+          "united_states"
+        ],
+        "nonnumeric_evidence_present": false,
+        "numeric_evidence_present": true,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "mixed_observation_and_event",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": true,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "us_treasury_fiscaldata_debt_to_penny"
+        ],
+        "story_modes": [
+          "data_release"
+        ],
+        "temporal_characters": [
+          "scheduled",
+          "period_observation",
+          "point_in_time"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:9c898d831332967a704190edeed21427",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.treasury_debt_to_penny_extractor",
+      "extractor_version": "v2",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:9c898d831332967a704190edeed21427"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "7512a5186b6138eef07d8f4371195ed02fb9f0eb9b6bda2460383de4a664ffee",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+          "evidence_refs": [
+            "extracted:9c898d831332967a704190edeed21427"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "5e6c54dda33dd89e972f7b526f41a9032d2ca61ac4e4b74c3606d8cafc3501fe",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:9c898d831332967a704190edeed21427"
+        ],
+        "candidate_id": "conformance:candidate:treasury-debt",
+        "decision_id": "learning_decision_v2_6d55142a0a03ff3406e6e75a",
+        "decision_logical_hash": "6d55142a0a03ff3406e6e75a035d4f0cbc81e6441543e6a766445293a045c102",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:9c898d831332967a704190edeed21427"
+          ],
+          "freshness": [
+            "extracted:9c898d831332967a704190edeed21427"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "bf092a01c7fc0e94466fe64293012fa5f536bf9cb639a9441f45308ef66327c9",
+          "receipt": "9f298542d2ae03cb3f3a5d75c2cac112cbebdc3943aeff34d1a70d402ddfb192"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:treasury-debt",
+          "complete_evidence_lineage": [
+            "extracted:9c898d831332967a704190edeed21427"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:9c898d831332967a704190edeed21427",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:9c898d831332967a704190edeed21427"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:b89b4f57aec16ba35e56f0b2",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-06-03T12:17:48Z",
+        "known_at_utc": "2026-06-03T12:17:48Z",
+        "observed_at_utc": "2026-06-01T00:00:00Z",
+        "published_at_utc": null,
+        "revision_at_utc": null
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "28d55402e421cd437727d7f280d2c0da9dba45ea25ba122059a7f55f24ef51ee",
+        "commit": "788c86f8a71528683789581af4e77b529d92a97e",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "263e213836403661f0bfe8248c42410d3859506e",
+        "path": "data/archive/official_sources/us_treasury_fiscaldata_api/us_treasury_fiscaldata_api_live_20260603_121640_28d55402e421/raw_response.json",
+        "producer_commit": "788c86f8a71528683789581af4e77b529d92a97e",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "bls_unemployment_series_v1",
+      "artifact_family": "bls_public_unemployment_series",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "bls_unemployment_series_v1",
+        "affected_asset_classes": [],
+        "affected_economic_domains": [
+          "labor_market"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "numeric_time_series"
+        ],
+        "geography_ids": [
+          "united_states"
+        ],
+        "nonnumeric_evidence_present": false,
+        "numeric_evidence_present": true,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "period_observation",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": true,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "bls_public_unemployment_series"
+        ],
+        "story_modes": [
+          "data_release"
+        ],
+        "temporal_characters": [
+          "scheduled",
+          "period_observation"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:2de27cdaf2829952984c199fa4a2bdc9",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.bls_unemployment_series_extractor",
+      "extractor_version": "v2",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:2de27cdaf2829952984c199fa4a2bdc9"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "d7dba340575987557228c9bfc94ff6ffa0807c7ec4078eb6fbaa12bcb440bc54",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+          "evidence_refs": [
+            "extracted:2de27cdaf2829952984c199fa4a2bdc9"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "6c14149ce7ddd2640fa66367f84448404cf118e926562baace018502a4589122",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:2de27cdaf2829952984c199fa4a2bdc9"
+        ],
+        "candidate_id": "conformance:candidate:bls-unemployment",
+        "decision_id": "learning_decision_v2_4ac2d995b7022a5a26f90999",
+        "decision_logical_hash": "4ac2d995b7022a5a26f90999b037a457bebdc21a21d9d8a095d62e1f37ba862c",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:2de27cdaf2829952984c199fa4a2bdc9"
+          ],
+          "freshness": [
+            "extracted:2de27cdaf2829952984c199fa4a2bdc9"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "b507a3b20b014e6d3ad5098d750407d1d41ad554a972e3f67f9bdacc03bb2412",
+          "receipt": "b3cab6f2e11a12b237c992c358ed842a44b3130ba2475fd30210c4390af6b6e9"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:bls-unemployment",
+          "complete_evidence_lineage": [
+            "extracted:2de27cdaf2829952984c199fa4a2bdc9"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:2de27cdaf2829952984c199fa4a2bdc9",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:2de27cdaf2829952984c199fa4a2bdc9"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:1e7318574069c6ca73e826b6",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-06-05T15:22:56Z",
+        "known_at_utc": "2026-06-05T15:22:56Z",
+        "observed_at_utc": "2026-05-01T00:00:00Z",
+        "published_at_utc": null,
+        "revision_at_utc": null
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "254b1137dfcc482a9c37581463b0ea393b90cd110c88ae5b7d5c91c06be2acc6",
+        "commit": "7cae8aa1727f8d78e5801b76702fb928b92476fc",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "17a19353e038ff33ac9f9584314af91a1908d0cc",
+        "path": "data/audit/data_sufficiency/task_244aa_248z/raw_archive/bls_beyond_cpi/capture_bls_beyond_cpi_20260605T152047Z_763dd2aa.body",
+        "producer_commit": "7cae8aa1727f8d78e5801b76702fb928b92476fc",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "federal_reserve_fomc_calendar_html_v1",
+      "artifact_family": "federal_reserve_fomc_calendar",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "federal_reserve_fomc_calendar_html_v1",
+        "affected_asset_classes": [
+          "interest_rates"
+        ],
+        "affected_economic_domains": [
+          "monetary_policy"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "event_calendar",
+          "official_statement"
+        ],
+        "geography_ids": [
+          "united_states"
+        ],
+        "nonnumeric_evidence_present": true,
+        "numeric_evidence_present": false,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "event_time",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": true,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "federal_reserve_fomc_calendar"
+        ],
+        "story_modes": [
+          "policy_decision"
+        ],
+        "temporal_characters": [
+          "scheduled",
+          "point_in_time"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:8e30f16146153a71e5b2e24153c80fe3",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.fomc_calendar_html_extractor",
+      "extractor_version": "v2",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:8e30f16146153a71e5b2e24153c80fe3"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "b8b8cb99250bd758d39631a02f938f8ae2ed6d0473d1c97e377b1ffe5a5b3535",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+          "evidence_refs": [
+            "extracted:8e30f16146153a71e5b2e24153c80fe3"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "17404a229f84a8e248f75e46865535bc21f4acc027341e404e95957db0b86da5",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:8e30f16146153a71e5b2e24153c80fe3"
+        ],
+        "candidate_id": "conformance:candidate:fomc-calendar",
+        "decision_id": "learning_decision_v2_756b0bdf83e3e7c20bc6161b",
+        "decision_logical_hash": "756b0bdf83e3e7c20bc6161b9be630e504340c7a37dc211266c4408cb71bbc5e",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:8e30f16146153a71e5b2e24153c80fe3"
+          ],
+          "freshness": [
+            "extracted:8e30f16146153a71e5b2e24153c80fe3"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "b34129e4b11fa17e28357053d7fc6789c1f0f2090dc22753158860042948bfa6",
+          "receipt": "eac3810e616e5a47880aaf42ef4c146137a5fc8995eaebcd9397dffa602383fd"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:fomc-calendar",
+          "complete_evidence_lineage": [
+            "extracted:8e30f16146153a71e5b2e24153c80fe3"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:8e30f16146153a71e5b2e24153c80fe3",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:8e30f16146153a71e5b2e24153c80fe3"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:3eedd6adb67200713de248ad",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-06-09T02:59:02Z",
+        "known_at_utc": "2026-06-09T02:59:02Z",
+        "observed_at_utc": "2026-01-28T00:00:00Z",
+        "published_at_utc": "2026-01-28T00:00:00Z",
+        "revision_at_utc": null
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "8c6cd522e52a3847683dc74bafc32589bd22c67cd1908f88a2fe0807253e7621",
+        "commit": "94c0482f40e764c6ad34707ab28ffe36df57c202",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "d036fec5666b38c8cbb5bc1079f820f4db5571f1",
+        "path": "data/audit/raw_archive/task_calendar_event_spine_batch_a2_page_only_controlled_live_capture/fomc_calendar_statements_2026-06-09T02_57_12Z.html",
+        "producer_commit": "94c0482f40e764c6ad34707ab28ffe36df57c202",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "us_treasury_tic_official_html_v1",
+      "artifact_family": "us_treasury_international_capital_portal",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "us_treasury_tic_official_html_v1",
+        "affected_asset_classes": [],
+        "affected_economic_domains": [
+          "cross_border_capital"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "official_document",
+          "qualitative_context"
+        ],
+        "geography_ids": [
+          "united_states"
+        ],
+        "nonnumeric_evidence_present": true,
+        "numeric_evidence_present": false,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "revision_time",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": false,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "us_treasury_international_capital_portal"
+        ],
+        "story_modes": [
+          "explainer",
+          "deep_analysis"
+        ],
+        "temporal_characters": [
+          "unscheduled",
+          "revised_release"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:37b94f0f821b5dbd2e01ca9434100b0d",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.treasury_tic_html_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:37b94f0f821b5dbd2e01ca9434100b0d"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "9b3a473f8104e72fc56ea7f6a93cdbd31204c737c557005b83a94d56d2a72d82",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+          "evidence_refs": [
+            "extracted:37b94f0f821b5dbd2e01ca9434100b0d"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "98c5e3cbf977255a844f9d3ef76742e3aa008b7ee64f46d297fbabc876229c04",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:37b94f0f821b5dbd2e01ca9434100b0d"
+        ],
+        "candidate_id": "conformance:candidate:treasury-tic",
+        "decision_id": "learning_decision_v2_7cc8426affe9d4bb0af62bd8",
+        "decision_logical_hash": "7cc8426affe9d4bb0af62bd8422da85b1bb167f9c210bc76f389d38407fcd1c3",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:37b94f0f821b5dbd2e01ca9434100b0d"
+          ],
+          "freshness": [
+            "extracted:37b94f0f821b5dbd2e01ca9434100b0d"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "4500f001a1da93b22ba0c45edc9637e72ae6f2edfb51ba69c144d15c638b8d7f",
+          "receipt": "c18243de388acaf48c89281707ceff03f949876cb9f1d074dcc8e4093884185e"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:treasury-tic",
+          "complete_evidence_lineage": [
+            "extracted:37b94f0f821b5dbd2e01ca9434100b0d"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:37b94f0f821b5dbd2e01ca9434100b0d",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:37b94f0f821b5dbd2e01ca9434100b0d"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:8beefd283b4cab5e873f1752",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-07-09T22:35:19Z",
+        "known_at_utc": "2026-07-09T22:35:19Z",
+        "observed_at_utc": null,
+        "published_at_utc": null,
+        "revision_at_utc": "2026-06-15T00:00:00Z"
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "fdfe780d622e0dcc2586496bba179a36d8571103071fe1dc5294d78cc40ff615",
+        "commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "affd19cea196614ad650b36ca7a8a50dd119bbf4",
+        "path": "data/raw/new_sources_capture_v1/source_52_repaired_evidence.bin",
+        "producer_commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "usgs_earthquake_geojson_v1",
+      "artifact_family": "usgs_earthquake_event",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "usgs_earthquake_geojson_v1",
+        "affected_asset_classes": [],
+        "affected_economic_domains": [
+          "physical_hazard"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [
+          "earthquake_event"
+        ],
+        "evidence_modalities": [
+          "geospatial_or_physical_observation"
+        ],
+        "geography_ids": [
+          "alaska"
+        ],
+        "nonnumeric_evidence_present": true,
+        "numeric_evidence_present": true,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "event_time",
+        "physical_geographic_capability": true,
+        "scheduled_event_state": false,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "usgs_earthquake_event"
+        ],
+        "story_modes": [
+          "straight_news",
+          "live_update"
+        ],
+        "temporal_characters": [
+          "unscheduled",
+          "point_in_time"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:2aff101c106a6df13fdfa3a559dcdf6d",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.usgs_earthquake_geojson_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:2aff101c106a6df13fdfa3a559dcdf6d"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "6366e8b8b62bca4761f1ff12a3d149dfc84619d2c6534a67a4ff9d8388dbd70d",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+          "evidence_refs": [
+            "extracted:2aff101c106a6df13fdfa3a559dcdf6d"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "c4d8a3e2431f2d7e6b43b68a07d83ae6a23423266b2ceaf8800516d02b122bdb",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:2aff101c106a6df13fdfa3a559dcdf6d"
+        ],
+        "candidate_id": "conformance:candidate:usgs-earthquake",
+        "decision_id": "learning_decision_v2_a4f12d0983d586d17111dc61",
+        "decision_logical_hash": "a4f12d0983d586d17111dc6168beea52a68e2ea0207ed5db6e18a0dc77b041d8",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:2aff101c106a6df13fdfa3a559dcdf6d"
+          ],
+          "freshness": [
+            "extracted:2aff101c106a6df13fdfa3a559dcdf6d"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "8fd0f5ce5c901b7ed83f00d85a42daeb4bed0f820424d29bfb1b7f206ad11f5a",
+          "receipt": "cb8e8880f226681931b4f7715c3dd7187990d8145f13f40b69634303da46e055"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:usgs-earthquake",
+          "complete_evidence_lineage": [
+            "extracted:2aff101c106a6df13fdfa3a559dcdf6d"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:2aff101c106a6df13fdfa3a559dcdf6d",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:2aff101c106a6df13fdfa3a559dcdf6d"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:676d9e1df419576c659d5cfb",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-07-09T21:55:11Z",
+        "known_at_utc": "2026-07-09T21:53:17.000Z",
+        "observed_at_utc": "2026-07-09T21:46:48.405Z",
+        "published_at_utc": null,
+        "revision_at_utc": "2026-07-09T21:48:25.342Z"
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "9754c1372e9973982abac470ab9d91738a346ecbdb76d56e119b7f460405d506",
+        "commit": "0eb73c46c0c9f43b810d4f4ff30ba6695f3a3257",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "6a6f19e18320f5cc05c68b27d09da9adafc514d4",
+        "path": "data/raw/new_sources_capture_v1/source_48_raw_evidence.bin",
+        "producer_commit": "0eb73c46c0c9f43b810d4f4ff30ba6695f3a3257",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    },
+    {
+      "adapter_id": "fhfa_hpi_official_html_v1",
+      "artifact_family": "fhfa_house_price_index_page",
+      "authority_state": "OFFICIAL_VERIFIED",
+      "capability_binding": {
+        "adapter_id": "fhfa_hpi_official_html_v1",
+        "affected_asset_classes": [
+          "residential_real_estate"
+        ],
+        "affected_economic_domains": [
+          "housing_market"
+        ],
+        "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+        "entity_ids": [],
+        "evidence_modalities": [
+          "official_document",
+          "qualitative_context"
+        ],
+        "geography_ids": [
+          "united_states"
+        ],
+        "nonnumeric_evidence_present": true,
+        "numeric_evidence_present": false,
+        "numeric_truth_quarantined": false,
+        "observation_time_kind": "revision_time",
+        "physical_geographic_capability": false,
+        "scheduled_event_state": false,
+        "schema_version": "contentops.production_adapter_capability_binding.v1",
+        "source_authority_classes": [
+          "official_public_data"
+        ],
+        "source_family_ids": [
+          "fhfa_house_price_index_page"
+        ],
+        "story_modes": [
+          "explainer",
+          "deep_analysis"
+        ],
+        "temporal_characters": [
+          "unscheduled",
+          "revised_release"
+        ]
+      },
+      "checks": {
+        "byte_derived_evidence_ref": true,
+        "candidate_authority_consistency": true,
+        "capability_binding": true,
+        "derived_authority_permission_roles": true,
+        "derived_or_unavailable_features": true,
+        "exact_evidence_set": true,
+        "exact_git_receipt": true,
+        "historical_ancestry": true,
+        "no_external_mutation": true,
+        "no_publication": true,
+        "point_in_time": true,
+        "registry_contract_coverage": true,
+        "registry_membership": true,
+        "scope_feature_consistency": true,
+        "shape_and_schema": true
+      },
+      "evidence_ref": "extracted:bb4e633b08491ebf8c939a655b0bcd2e",
+      "evidence_roles": [
+        "feature_support"
+      ],
+      "evidence_scope": "FEATURE_SPECIFIC",
+      "extractor_id": "contentops.fhfa_hpi_html_extractor",
+      "extractor_version": "v1",
+      "feature_results": [
+        {
+          "availability": "available",
+          "derivation_contract": "REQUIRED_SELECTED_RECORD_FIELDS_PRESENT_RATIO_V1",
+          "evidence_refs": [
+            "extracted:bb4e633b08491ebf8c939a655b0bcd2e"
+          ],
+          "feature_id": "evidence_completeness",
+          "logical_hash": "47ccf52de16d8f847e9d4a45975900a8ec1e8183a914456958723f65e63dad80",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 1.0
+        },
+        {
+          "availability": "explicit_zero",
+          "derivation_contract": "RELEASE_OR_VERIFIED_CAPTURE_TIMESTAMP_AGE_DECAY_24H_V2",
+          "evidence_refs": [
+            "extracted:bb4e633b08491ebf8c939a655b0bcd2e"
+          ],
+          "feature_id": "freshness",
+          "logical_hash": "25a5b389979b766b86b2cdb25abf3de4317fc4bb9c6494e519c627f98e40b516",
+          "reason_code": null,
+          "schema_version": "contentops.extracted_feature_value.v1",
+          "value": 0.0
+        }
+      ],
+      "generic_core_execution": {
+        "aggregation_bindings": [],
+        "candidate_evidence_refs": [
+          "extracted:bb4e633b08491ebf8c939a655b0bcd2e"
+        ],
+        "candidate_id": "conformance:candidate:fhfa-hpi",
+        "decision_id": "learning_decision_v2_bb38a9911fad35517a06ecb5",
+        "decision_logical_hash": "bb38a9911fad35517a06ecb5a83a4d55808e21fecc7445dd7fe5d30ed854d8a2",
+        "feature_evidence_sets": {
+          "evidence_completeness": [
+            "extracted:bb4e633b08491ebf8c939a655b0bcd2e"
+          ],
+          "freshness": [
+            "extracted:bb4e633b08491ebf8c939a655b0bcd2e"
+          ]
+        },
+        "input_bindings": {
+          "extraction": "cfd3c02e38588dad6c848d7f05a77ed42bfdb1b6255d2fb8908a583527db7878",
+          "receipt": "7db865a4e625b3f663f823db278182ca92315cf9898da53409b853dca199a777"
+        },
+        "outcome": {
+          "actionable_outcomes": [
+            "NO_ACTIONABLE_CONTENT_LEARNING_OUTCOME"
+          ],
+          "authority_result": true,
+          "authority_state": "AUTHORITY_READY_REPORTING_BLOCKED",
+          "candidate_id": "conformance:candidate:fhfa-hpi",
+          "complete_evidence_lineage": [
+            "extracted:bb4e633b08491ebf8c939a655b0bcd2e"
+          ],
+          "content_gap_state": "none",
+          "disqualified_evidence": [
+            {
+              "evidence_ref": "extracted:bb4e633b08491ebf8c939a655b0bcd2e",
+              "reason_codes": [
+                "permission_not_qualifying",
+                "context_only",
+                "external_official_context_only"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "extracted:bb4e633b08491ebf8c939a655b0bcd2e"
+          ],
+          "evidence_state": "SCHEMA_EXTRACTED_FROM_EXACT_COMMITTED_BYTES",
+          "governed_delta_present": false,
+          "historical_only_refs": [],
+          "history_identity_match": false,
+          "history_relationship": "NOT_MATCHED",
+          "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+          "qualifying_governed_evidence_refs": [],
+          "reason_codes": [
+            "insufficient_authority_is_disposition_not_topic"
+          ],
+          "relationship_specific_qualifying_refs": [],
+          "reporting_permission_result": false,
+          "source_relationship": "initial_event"
+        }
+      },
+      "harness_version": "contentops.production_adapter_conformance.v1.1.0",
+      "numeric_truth_granted": false,
+      "permission_state": "CONTEXT_ONLY",
+      "publication_authority_granted": false,
+      "publication_disposition": "NO_PUBLICATION_INSUFFICIENT_AUTHORITY",
+      "reason_codes": [],
+      "receipt_id": "producer_receipt:dbe75178c26ff10fc76fbe50",
+      "schema_version": "contentops.production_adapter_conformance_result.v1",
+      "status": "PASS",
+      "timestamps": {
+        "artifact_cutoff_utc": "2026-07-09T22:35:19Z",
+        "known_at_utc": "2026-07-09T22:35:19Z",
+        "observed_at_utc": null,
+        "published_at_utc": null,
+        "revision_at_utc": "2026-06-30T00:00:00Z"
+      },
+      "upstream": {
+        "branch": "main",
+        "branch_authority_ref": "refs/remotes/origin/main",
+        "branch_head_observed": "c0a57145986ce9f25fc083369970e3b121a5ba73",
+        "byte_sha256": "6f91af6847f89310b70df3213995808187c8af147ac34ff96ef8130c8285c1e2",
+        "commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
+        "commit_reachable_from_branch": true,
+        "git_blob_sha1": "79d67fda002276cf743a64630d6a445e271febaa",
+        "path": "data/raw/new_sources_capture_v1/source_53_repaired_evidence.bin",
+        "producer_commit": "04e2efe669ecd874301f24eb66dc6e68b58b9f2d",
+        "repository": "fatcat2109/Headline-Raw-data-json"
+      },
+      "writes_performed": 0
+    }
+  ],
+  "schema_version": "contentops.production_adapter_capability_conformance_set.v1",
+  "status": "PASS",
+  "writes_performed": 0
+}

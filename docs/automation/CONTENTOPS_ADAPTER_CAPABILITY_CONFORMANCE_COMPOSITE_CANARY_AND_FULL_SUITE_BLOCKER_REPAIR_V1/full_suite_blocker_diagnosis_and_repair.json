@@ -1,0 +1,12 @@
+{
+  "blocked_test": "tests/test_alpha_wait_state.py::test_0073_bundle_docs_exist",
+  "current_git_blob_sha1": "8aee293cccec147960ecefbfcae90a89970d34a5",
+  "diagnosis": "stale_two-location_lookup_omitted_the_committed_repo_cleanup_archive",
+  "exact_historical_blob_preserved": true,
+  "fabricated_file_created": false,
+  "historical_path": "docs/archive/_repo_cleanup_2026-07-03/docs/TASK_CONTENTOPS_0073_EXTREME_LOCAL_ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_FINAL_BUNDLE_AND_PATH_REPAIR_V0.md",
+  "original_authoritative_commit": "f9c4d6921",
+  "original_git_blob_sha1": "8aee293cccec147960ecefbfcae90a89970d34a5",
+  "repair": "resolve_historical_doc_checks_current_docs_then_both_committed_archive_authorities",
+  "schema_version": "contentops.full_suite_blocker_repair.v1"
+}

@@ -30,7 +30,9 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Latest completed task: `TASK_CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1` — `PASS_PRODUCTION_ADAPTER_WAVE_3_AND_WAVE_2_CONTRACT_REPAIR_V1_AWAITING_CHATGPT_AUDIT`.
+Latest completed task: `TASK_CONTENTOPS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1` — `PASS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1_AWAITING_CHATGPT_AUDIT`.
+
+All 13 accepted adapters now expose truthful versioned capability bindings, all 16 enabled extractor records carry exact immutable runtime/evidence proofs, and the four-family composite canary preserves distinct numeric-period, scheduled-policy, unscheduled-physical, and qualitative context semantics through the frozen generic core. The stale Task 0073 archive lookup is repaired against the unchanged historical Git blob. Evidence is at `docs/automation/CONTENTOPS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1/`.
 
 Wave 2 is accepted with minor timestamp and contract-coverage gaps. Superseding v2 records close those gaps, and Wave 3 adds three bounded official families: Treasury TIC HTML, USGS earthquake GeoJSON, and FHFA HPI HTML. Historical pins are proven ancestors of the separately observed branch head; complete registry coverage, context-only feature support, deterministic frozen-harness conformance, and no-publication are preserved. Evidence is at `docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/`.
 
@@ -48,4 +50,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is `ACCEPT_TRUSTED_VERIFIER_RE
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair closes extracted authority, permission, semantic-role, candidate consistency, and multi-evidence aggregation gaps without modifying fixtures, calibration, policy, publication authority, or the accepted release.
 
-Next route: `INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_WAVE_3_AND_WAVE_2_CONTRACT_REPAIR_V1`.
+Next route: `INDEPENDENT_CHATGPT_AUDIT_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1`.

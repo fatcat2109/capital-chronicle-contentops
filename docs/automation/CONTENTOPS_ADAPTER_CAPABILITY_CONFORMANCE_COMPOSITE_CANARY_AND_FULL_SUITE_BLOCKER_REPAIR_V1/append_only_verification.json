@@ -1,0 +1,25 @@
+{
+  "freeze_baseline_validation": [],
+  "immutable_record_hashes_verified": true,
+  "registry_rows": [
+    {
+      "baseline_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+      "baseline_prefix_unchanged": true,
+      "baseline_record_count": 5,
+      "current_record_count": 5,
+      "path": "live_contentops/trusted_evidence_verifier_registry_v1.json",
+      "registry_unchanged_in_this_task": true
+    },
+    {
+      "baseline_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+      "baseline_prefix_unchanged": true,
+      "baseline_record_count": 17,
+      "current_record_count": 17,
+      "path": "live_contentops/artifact_evidence_extractor_registry_v1.json",
+      "registry_unchanged_in_this_task": true
+    }
+  ],
+  "schema_version": "contentops.adapter_append_only_verification.v1",
+  "starting_authority_sha": "a00a702dc97c2485852ab82a70707940ed8b2083",
+  "status": "PASS"
+}

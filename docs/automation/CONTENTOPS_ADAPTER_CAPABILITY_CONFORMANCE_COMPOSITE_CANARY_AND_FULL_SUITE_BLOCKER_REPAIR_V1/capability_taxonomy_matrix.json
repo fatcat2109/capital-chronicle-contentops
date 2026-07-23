@@ -1,0 +1,54 @@
+{
+  "authority_effect": "DESCRIPTIVE_ONLY_NO_AUTHORITY_PERMISSION_ROLE_OR_PUBLICATION_UPGRADE",
+  "contract_version": "contentops.production_adapter_capabilities.v1.0.0",
+  "evidence_modalities": [
+    "numeric_time_series",
+    "official_table",
+    "official_document",
+    "official_statement",
+    "speech_or_testimony",
+    "legal_or_regulatory_text",
+    "corporate_filing",
+    "market_snapshot",
+    "survey_or_diffusion_index",
+    "event_calendar",
+    "geospatial_or_physical_observation",
+    "qualitative_context",
+    "derived_calculation",
+    "cross_source_reconciliation"
+  ],
+  "required_binding_dimensions": [
+    "evidence_modalities",
+    "temporal_characters",
+    "story_modes",
+    "scheduled_event_state",
+    "observation_time_kind",
+    "numeric_evidence_present",
+    "nonnumeric_evidence_present",
+    "source_authority_classes"
+  ],
+  "schema_version": "contentops.adapter_capability_taxonomy_matrix.v1",
+  "story_modes": [
+    "straight_news",
+    "data_release",
+    "policy_decision",
+    "market_move",
+    "explainer",
+    "deep_analysis",
+    "scenario_outlook",
+    "correction",
+    "live_update",
+    "retrospective"
+  ],
+  "temporal_characters": [
+    "scheduled",
+    "unscheduled",
+    "point_in_time",
+    "period_observation",
+    "revised_release",
+    "rolling_update",
+    "live_or_intraday",
+    "end_of_session",
+    "historical_context"
+  ]
+}

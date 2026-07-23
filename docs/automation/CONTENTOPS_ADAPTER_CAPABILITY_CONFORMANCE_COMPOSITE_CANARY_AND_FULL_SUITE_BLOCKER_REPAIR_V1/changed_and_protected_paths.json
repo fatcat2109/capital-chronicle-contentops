@@ -1,0 +1,30 @@
+{
+  "changed_paths": [
+    "live_contentops/production_adapter_capabilities_v1.py",
+    "live_contentops/production_adapter_conformance_v1.py",
+    "live_contentops/production_adapter_contract_coverage_v1.py",
+    "live_contentops/adapter_capability_conformance_evidence_v1.py",
+    "live_contentops/final_bundle_manifest.py",
+    "tests/test_adapter_capability_conformance_composite_canary_v1.py",
+    "tests/test_production_adapter_wave3_official_artifacts_and_contract_coverage_v1.py",
+    "tests/test_alpha_wait_state.py",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md"
+  ],
+  "protected_paths": [
+    "live_contentops/content_intelligence_contracts_v2.py",
+    "live_contentops/schema_aware_evidence_extraction_v1.py",
+    "live_contentops/adaptive_learning_adapters_v2.py",
+    "live_contentops/adaptive_learning_core_v2.py",
+    "live_contentops/adaptive_learning_foundation_v2_config.json",
+    "live_contentops/trusted_evidence_verifier_registry_v1.json",
+    "live_contentops/artifact_evidence_extractor_registry_v1.json",
+    "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/",
+    "upstream:fatcat2109/Headline-Raw-data-json",
+    "tag:v1.0"
+  ],
+  "schema_version": "contentops.adapter_capability_changed_protected_paths.v1"
+}

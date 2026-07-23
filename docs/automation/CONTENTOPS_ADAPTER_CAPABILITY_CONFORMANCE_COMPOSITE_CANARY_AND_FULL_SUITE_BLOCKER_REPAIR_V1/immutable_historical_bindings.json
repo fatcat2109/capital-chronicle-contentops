@@ -1,0 +1,198 @@
+{
+  "binding_count": 16,
+  "bindings": [
+    {
+      "accepted_evidence": {
+        "accepted_commit": "c0ace89f807161ad9f5e79d7f72bb7b79cfb34d9",
+        "logical_hash": "d7aafa550ac2d746d466f82caabd3fb4375ad7622e834f3a48aa6a5074834ec8",
+        "logical_hash_field": "logical_hash",
+        "path": "docs/automation/CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.bls_series_observation_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "7b75e1b7592465c25a0938b06764f477f23b35ed6e80ab6e50ce6eefc219c666",
+      "runtime_callable": "live_contentops.schema_aware_evidence_extraction_v1.extract_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "607a767154e415ea7af393be57eae030185428af",
+        "logical_hash": "f6e5b1e3994bfce98956ef48644de48724ed8435a25b182452d8a9f6c957d354",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.bls_unemployment_series_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "ccfcbb2002169291cb3075bf8d53abbae7ff53f7f5dd9c21739dbb83fad75548",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.bls_unemployment_series_extractor",
+      "extractor_version": "v2",
+      "record_logical_hash": "14ef05ce47ac2da2fd08634aa0dd262172e6c8a9e0b4ff910dcdae58495c6a2f",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "ce56a57ced0a8adad9bad2deb2d3bd6dab0976d0",
+        "logical_hash": "4c50fa522f866d8f3254884499b31ed8aae3ec949e3b580f1ba6a1ba4e6be818",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.cftc_legacy_futures_only_cot_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "9b80f2654395dbca31c124ce8b34f6a9c62506f2f3626b4796307311313d1f8b",
+      "runtime_callable": "live_contentops.production_evidence_adapters_batch_v1.extract_production_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "ce56a57ced0a8adad9bad2deb2d3bd6dab0976d0",
+        "logical_hash": "4c50fa522f866d8f3254884499b31ed8aae3ec949e3b580f1ba6a1ba4e6be818",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.federal_reserve_h41_zip_structure_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "65a6616f904574aa5e86513ff839607779a5cceeb435801b998058166cf54189",
+      "runtime_callable": "live_contentops.production_evidence_adapters_batch_v1.extract_production_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.fhfa_hpi_html_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "72a3fb2907cdcf7cbfea853f453d3cb1a4a55c42d8c333f3fd0866f2da79783b",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave3_v1.extract_wave3_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "607a767154e415ea7af393be57eae030185428af",
+        "logical_hash": "f6e5b1e3994bfce98956ef48644de48724ed8435a25b182452d8a9f6c957d354",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.fomc_calendar_html_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "2dc7f9d83c5b2020b9dba5e5e621f96a8d3e5684ad8338636fda8856c3b42a38",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.fomc_calendar_html_extractor",
+      "extractor_version": "v2",
+      "record_logical_hash": "7382dad30a77baf94c57eb00426e337813c6f7b7a6857ecfdfad761d1925810e",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "c0ace89f807161ad9f5e79d7f72bb7b79cfb34d9",
+        "logical_hash": "d7aafa550ac2d746d466f82caabd3fb4375ad7622e834f3a48aa6a5074834ec8",
+        "logical_hash_field": "logical_hash",
+        "path": "docs/automation/CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.newsroom_candidate_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "229b8e34f6d1b2ea2ed3db2175e0ae7fe03e2ac486920e1237fa92d0f4db3b6e",
+      "runtime_callable": "live_contentops.schema_aware_evidence_extraction_v1.extract_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "c0ace89f807161ad9f5e79d7f72bb7b79cfb34d9",
+        "logical_hash": "d7aafa550ac2d746d466f82caabd3fb4375ad7622e834f3a48aa6a5074834ec8",
+        "logical_hash_field": "logical_hash",
+        "path": "docs/automation/CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.nyfed_reference_rate_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "890e325a6f17d80b0b95cb80c74bff2ee4474bf2270d49b6afbdd15df1c7056f",
+      "runtime_callable": "live_contentops.schema_aware_evidence_extraction_v1.extract_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "c0ace89f807161ad9f5e79d7f72bb7b79cfb34d9",
+        "logical_hash": "d7aafa550ac2d746d466f82caabd3fb4375ad7622e834f3a48aa6a5074834ec8",
+        "logical_hash_field": "logical_hash",
+        "path": "docs/automation/CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.treasury_auction_announcement_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "fd60a28d38820f9c8d01e97fbb2c4e4fa164d849ad74167dd96beaf388c75457",
+      "runtime_callable": "live_contentops.schema_aware_evidence_extraction_v1.extract_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "ce56a57ced0a8adad9bad2deb2d3bd6dab0976d0",
+        "logical_hash": "4c50fa522f866d8f3254884499b31ed8aae3ec949e3b580f1ba6a1ba4e6be818",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.treasury_daily_yield_curve_atom_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "595d32f172e672a3e163eee7a7f9c8cc0b310821b8d9e00e174ee0093fd01f21",
+      "runtime_callable": "live_contentops.production_evidence_adapters_batch_v1.extract_production_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "607a767154e415ea7af393be57eae030185428af",
+        "logical_hash": "f6e5b1e3994bfce98956ef48644de48724ed8435a25b182452d8a9f6c957d354",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.treasury_debt_to_penny_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "a05ecb9388390ec3df074ce8b2f858f688857ed84c05bb0b4d805dc3f128eb32",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.treasury_debt_to_penny_extractor",
+      "extractor_version": "v2",
+      "record_logical_hash": "b62c6936a68899980c986f80a8abf666aee4be427bef15f77395f8f1d5ac63e9",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.treasury_tic_html_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "10399b1b8c73b7bab9538450028b888f7ccd7aa2d4fa7901299cd160ddf8bc21",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave3_v1.extract_wave3_artifact_evidence"
+    },
+    {
+      "accepted_evidence": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "extractor_id": "contentops.usgs_earthquake_geojson_extractor",
+      "extractor_version": "v1",
+      "record_logical_hash": "4a44cf593ac9035910b464096c56be460f42d9c25a1d8b024386a241e2fe998a",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave3_v1.extract_wave3_artifact_evidence"
+    }
+  ],
+  "schema_version": "contentops.immutable_extractor_runtime_binding_set.v1"
+}

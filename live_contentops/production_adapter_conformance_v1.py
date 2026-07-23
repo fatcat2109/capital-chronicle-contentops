@@ -19,11 +19,12 @@ from live_contentops import production_evidence_adapters_batch_v1 as production_
 from live_contentops import production_evidence_adapters_wave2_v1 as production_wave2
 from live_contentops import production_evidence_adapters_wave3_v1 as production_wave3
 from live_contentops import production_adapter_contract_coverage_v1 as contract_coverage
+from live_contentops import production_adapter_capabilities_v1 as capabilities
 from live_contentops import schema_aware_evidence_extraction_v1 as extraction
 
 
 SCHEMA_VERSION = "contentops.production_adapter_conformance_result.v1"
-HARNESS_VERSION = "contentops.production_adapter_conformance.v1.0.0"
+HARNESS_VERSION = "contentops.production_adapter_conformance.v1.1.0"
 UPSTREAM_REPOSITORY = "fatcat2109/Headline-Raw-data-json"
 UPSTREAM_BRANCH = "main"
 DECISION_CUTOFF_UTC = "2026-07-19T12:00:00Z"
@@ -38,9 +39,7 @@ class ProductionAdapterSpecV1:
     extractor_id: str
     selector: Mapping[str, str]
     feature_targets: tuple[str, ...]
-    modality: contracts.EvidenceModality
-    numeric: bool
-    nonnumeric: bool
+    capability_binding: capabilities.ProductionAdapterCapabilityBindingV1
     candidate_id: str
     story_id: str
     evidence_scope: contracts.EvidenceScope = contracts.EvidenceScope.FEATURE_SPECIFIC
@@ -58,24 +57,44 @@ PRODUCTION_ADAPTERS_V1: tuple[ProductionAdapterSpecV1, ...] = (
         "data/archive/official_sources/bls_public_data_api/bls_cpi_live_20260531_132121_1fcff5e55d1b/raw_response.json",
         "external.bls_public_data_response.v1", "contentops.bls_series_observation_extractor",
         {"series_id": "CUUR0000SA0", "year": "2026", "period": "M04"},
-        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
-        True, False, "conformance:candidate:bls-cpi", "conformance:story:bls-cpi",
+        ("evidence_completeness", "freshness"), capabilities.binding(
+            "bls_series_observation_v1", modalities=(contracts.EvidenceModality.NUMERIC_TIME_SERIES,),
+            temporal=(contracts.TemporalCharacter.SCHEDULED, contracts.TemporalCharacter.PERIOD_OBSERVATION),
+            story_modes=(contracts.StoryMode.DATA_RELEASE,), scheduled=True,
+            time_kind=capabilities.ObservationTimeKind.PERIOD_OBSERVATION,
+            source_family="bls_public_data_api", numeric=True, nonnumeric=False,
+            geography_ids=("united_states",), economic_domains=("consumer_prices",),
+        ), "conformance:candidate:bls-cpi", "conformance:story:bls-cpi",
     ),
     ProductionAdapterSpecV1(
         "us_treasury_auction_announcement_v1", "us_treasury_fiscaldata_auction_announcements",
         "data/audit/data_sufficiency/task_calendar_event_spine_batch_a1_treasury_auctions_live_capture/raw_archive/req1_treasury_auctions_recent_announcements.json",
         "external.us_treasury_auction_announcement_response.v1", "contentops.treasury_auction_announcement_extractor",
         {"cusip": "912810UU0", "announcement_date": "2026-06-04"},
-        ("evidence_completeness", "policy_significance"), contracts.EvidenceModality.OFFICIAL_DOCUMENT,
-        True, True, "conformance:candidate:treasury-auction", "conformance:story:treasury-auction",
+        ("evidence_completeness", "policy_significance"), capabilities.binding(
+            "us_treasury_auction_announcement_v1",
+            modalities=(contracts.EvidenceModality.OFFICIAL_DOCUMENT, contracts.EvidenceModality.EVENT_CALENDAR),
+            temporal=(contracts.TemporalCharacter.SCHEDULED, contracts.TemporalCharacter.POINT_IN_TIME),
+            story_modes=(contracts.StoryMode.DATA_RELEASE, contracts.StoryMode.STRAIGHT_NEWS), scheduled=True,
+            time_kind=capabilities.ObservationTimeKind.EVENT_TIME,
+            source_family="us_treasury_fiscaldata_auction_announcements", numeric=True, nonnumeric=True,
+            geography_ids=("united_states",), economic_domains=("sovereign_debt",), asset_classes=("government_bonds",),
+        ), "conformance:candidate:treasury-auction", "conformance:story:treasury-auction",
     ),
     ProductionAdapterSpecV1(
         "nyfed_reference_rate_v1", "nyfed_reference_rates",
         "data/audit/data_sufficiency/task_300aa_304z/raw_archive/nyfed_reference_rates/batch_e_nyfed_reference_rates_20260606T154423Z_a0793ac6/raw_response.bin",
         "external.nyfed_reference_rates_response.v1", "contentops.nyfed_reference_rate_extractor",
         {"rate_type": "SOFR", "effective_date": "2026-06-04"},
-        ("evidence_completeness", "freshness"), contracts.EvidenceModality.MARKET_SNAPSHOT,
-        True, False, "conformance:candidate:nyfed-sofr", "conformance:story:nyfed-sofr",
+        ("evidence_completeness", "freshness"), capabilities.binding(
+            "nyfed_reference_rate_v1",
+            modalities=(contracts.EvidenceModality.MARKET_SNAPSHOT, contracts.EvidenceModality.NUMERIC_TIME_SERIES),
+            temporal=(contracts.TemporalCharacter.SCHEDULED, contracts.TemporalCharacter.PERIOD_OBSERVATION),
+            story_modes=(contracts.StoryMode.DATA_RELEASE, contracts.StoryMode.MARKET_MOVE), scheduled=True,
+            time_kind=capabilities.ObservationTimeKind.PERIOD_OBSERVATION,
+            source_family="nyfed_reference_rates", numeric=True, nonnumeric=False,
+            geography_ids=("united_states",), economic_domains=("money_markets",), asset_classes=("interest_rates",),
+        ), "conformance:candidate:nyfed-sofr", "conformance:story:nyfed-sofr",
     ),
     ProductionAdapterSpecV1(
         "newsroom_candidate_pool_v1", "governed_newsroom_candidate_pool",
@@ -83,8 +102,14 @@ PRODUCTION_ADAPTERS_V1: tuple[ProductionAdapterSpecV1, ...] = (
         "capital_chronicle.newsroom_candidate_pool.v1", "contentops.newsroom_candidate_extractor",
         {"candidate_id": "cc-candidate-120438cc800db7f941be"},
         ("authority_readiness", "evidence_completeness", "material_delta"),
-        contracts.EvidenceModality.CROSS_SOURCE_RECONCILIATION, True, True,
-        "conformance:candidate:newsroom", "conformance:story:newsroom",
+        capabilities.binding(
+            "newsroom_candidate_pool_v1", modalities=(contracts.EvidenceModality.CROSS_SOURCE_RECONCILIATION,),
+            temporal=(contracts.TemporalCharacter.UNSCHEDULED, contracts.TemporalCharacter.POINT_IN_TIME, contracts.TemporalCharacter.ROLLING_UPDATE),
+            story_modes=(contracts.StoryMode.STRAIGHT_NEWS, contracts.StoryMode.DEEP_ANALYSIS), scheduled=False,
+            time_kind=capabilities.ObservationTimeKind.EVENT_TIME,
+            source_family="governed_newsroom_candidate_pool", numeric=True, nonnumeric=True,
+            source_authority="governed_internal_newsroom",
+        ), "conformance:candidate:newsroom", "conformance:story:newsroom",
         contracts.EvidenceScope.CANDIDATE_WIDE,
     ),
 )
@@ -96,8 +121,14 @@ PRODUCTION_ADAPTER_BATCH_TREASURY_CFTC_H41_V1: tuple[ProductionAdapterSpecV1, ..
         production_batch.TREASURY_PATH, production_batch.TREASURY_SCHEMA,
         production_batch.TREASURY_EXTRACTOR_ID,
         {"record_date": "1991-03-14", "maturity": "BC_10YEAR"},
-        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
-        True, False, "conformance:candidate:treasury-yield", "conformance:story:treasury-yield",
+        ("evidence_completeness", "freshness"), capabilities.binding(
+            "us_treasury_daily_yield_curve_atom_v1", modalities=(contracts.EvidenceModality.NUMERIC_TIME_SERIES,),
+            temporal=(contracts.TemporalCharacter.SCHEDULED, contracts.TemporalCharacter.PERIOD_OBSERVATION),
+            story_modes=(contracts.StoryMode.DATA_RELEASE,), scheduled=True,
+            time_kind=capabilities.ObservationTimeKind.PERIOD_OBSERVATION,
+            source_family="us_treasury_daily_yield_curve", numeric=True, nonnumeric=False,
+            geography_ids=("united_states",), economic_domains=("sovereign_debt",), asset_classes=("government_bonds",),
+        ), "conformance:candidate:treasury-yield", "conformance:story:treasury-yield",
         verifier_id=production_batch.VERIFIER_ID, verifier_version=production_batch.VERIFIER_VERSION,
         expected_git_blob_sha1=production_batch.PINNED_ARTIFACTS[production_batch.TREASURY_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_batch.PINNED_ARTIFACTS[production_batch.TREASURY_EXTRACTOR_ID]["byte_sha256"],
@@ -107,8 +138,15 @@ PRODUCTION_ADAPTER_BATCH_TREASURY_CFTC_H41_V1: tuple[ProductionAdapterSpecV1, ..
         production_batch.CFTC_PATH, production_batch.CFTC_SCHEMA,
         production_batch.CFTC_EXTRACTOR_ID,
         {"contract_market_code": "001602", "report_date": "2026-06-02"},
-        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
-        True, True, "conformance:candidate:cftc-cot", "conformance:story:cftc-cot",
+        ("evidence_completeness", "freshness"), capabilities.binding(
+            "cftc_legacy_futures_only_cot_v1",
+            modalities=(contracts.EvidenceModality.OFFICIAL_TABLE, contracts.EvidenceModality.NUMERIC_TIME_SERIES),
+            temporal=(contracts.TemporalCharacter.SCHEDULED, contracts.TemporalCharacter.PERIOD_OBSERVATION),
+            story_modes=(contracts.StoryMode.DATA_RELEASE, contracts.StoryMode.DEEP_ANALYSIS), scheduled=True,
+            time_kind=capabilities.ObservationTimeKind.PERIOD_OBSERVATION,
+            source_family="cftc_legacy_futures_only_cot", numeric=True, nonnumeric=True,
+            geography_ids=("united_states",), economic_domains=("derivatives_positioning",), asset_classes=("futures",),
+        ), "conformance:candidate:cftc-cot", "conformance:story:cftc-cot",
         verifier_id=production_batch.VERIFIER_ID, verifier_version=production_batch.VERIFIER_VERSION,
         expected_git_blob_sha1=production_batch.PINNED_ARTIFACTS[production_batch.CFTC_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_batch.PINNED_ARTIFACTS[production_batch.CFTC_EXTRACTOR_ID]["byte_sha256"],
@@ -117,8 +155,16 @@ PRODUCTION_ADAPTER_BATCH_TREASURY_CFTC_H41_V1: tuple[ProductionAdapterSpecV1, ..
         "federal_reserve_h41_zip_structure_v1", "federal_reserve_h41",
         production_batch.H41_PATH, production_batch.H41_SCHEMA,
         production_batch.H41_EXTRACTOR_ID, {"dataset_id": "H41"},
-        ("evidence_completeness", "freshness"), contracts.EvidenceModality.OFFICIAL_DOCUMENT,
-        False, True, "conformance:candidate:fed-h41", "conformance:story:fed-h41",
+        ("evidence_completeness", "freshness"), capabilities.binding(
+            "federal_reserve_h41_zip_structure_v1",
+            modalities=(contracts.EvidenceModality.OFFICIAL_TABLE, contracts.EvidenceModality.OFFICIAL_DOCUMENT),
+            temporal=(contracts.TemporalCharacter.SCHEDULED, contracts.TemporalCharacter.REVISED_RELEASE),
+            story_modes=(contracts.StoryMode.DATA_RELEASE, contracts.StoryMode.DEEP_ANALYSIS), scheduled=True,
+            time_kind=capabilities.ObservationTimeKind.REVISION_TIME,
+            source_family="federal_reserve_h41", numeric=False, nonnumeric=True,
+            geography_ids=("united_states",), economic_domains=("central_bank_balance_sheet",),
+            numeric_truth_quarantined=True,
+        ), "conformance:candidate:fed-h41", "conformance:story:fed-h41",
         verifier_id=production_batch.VERIFIER_ID, verifier_version=production_batch.VERIFIER_VERSION,
         expected_git_blob_sha1=production_batch.PINNED_ARTIFACTS[production_batch.H41_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_batch.PINNED_ARTIFACTS[production_batch.H41_EXTRACTOR_ID]["byte_sha256"],
@@ -131,8 +177,15 @@ PRODUCTION_ADAPTER_WAVE2_V1: tuple[ProductionAdapterSpecV1, ...] = (
         "us_treasury_debt_to_penny_v1", "us_treasury_fiscaldata_debt_to_penny",
         production_wave2.TREASURY_PATH, production_wave2.TREASURY_SCHEMA,
         production_wave2.TREASURY_EXTRACTOR_ID, {"record_date": "2026-06-01"},
-        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
-        True, False, "conformance:candidate:treasury-debt", "conformance:story:treasury-debt",
+        ("evidence_completeness", "freshness"), capabilities.binding(
+            "us_treasury_debt_to_penny_v1",
+            modalities=(contracts.EvidenceModality.OFFICIAL_TABLE, contracts.EvidenceModality.NUMERIC_TIME_SERIES),
+            temporal=(contracts.TemporalCharacter.SCHEDULED, contracts.TemporalCharacter.PERIOD_OBSERVATION, contracts.TemporalCharacter.POINT_IN_TIME),
+            story_modes=(contracts.StoryMode.DATA_RELEASE,), scheduled=True,
+            time_kind=capabilities.ObservationTimeKind.MIXED_OBSERVATION_AND_EVENT,
+            source_family="us_treasury_fiscaldata_debt_to_penny", numeric=True, nonnumeric=False,
+            geography_ids=("united_states",), economic_domains=("sovereign_debt",), asset_classes=("government_bonds",),
+        ), "conformance:candidate:treasury-debt", "conformance:story:treasury-debt",
         verifier_id=production_wave2.VERIFIER_ID, verifier_version=production_wave2.VERIFIER_VERSION,
         expected_git_blob_sha1=production_wave2.PINNED_ARTIFACTS[production_wave2.TREASURY_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_wave2.PINNED_ARTIFACTS[production_wave2.TREASURY_EXTRACTOR_ID]["byte_sha256"],
@@ -143,8 +196,14 @@ PRODUCTION_ADAPTER_WAVE2_V1: tuple[ProductionAdapterSpecV1, ...] = (
         "bls_unemployment_series_v1", "bls_public_unemployment_series",
         production_wave2.BLS_PATH, production_wave2.BLS_SCHEMA,
         production_wave2.BLS_EXTRACTOR_ID, {"series_id": "LNS14000000", "year": "2026", "period": "M05"},
-        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
-        True, False, "conformance:candidate:bls-unemployment", "conformance:story:bls-unemployment",
+        ("evidence_completeness", "freshness"), capabilities.binding(
+            "bls_unemployment_series_v1", modalities=(contracts.EvidenceModality.NUMERIC_TIME_SERIES,),
+            temporal=(contracts.TemporalCharacter.SCHEDULED, contracts.TemporalCharacter.PERIOD_OBSERVATION),
+            story_modes=(contracts.StoryMode.DATA_RELEASE,), scheduled=True,
+            time_kind=capabilities.ObservationTimeKind.PERIOD_OBSERVATION,
+            source_family="bls_public_unemployment_series", numeric=True, nonnumeric=False,
+            geography_ids=("united_states",), economic_domains=("labor_market",),
+        ), "conformance:candidate:bls-unemployment", "conformance:story:bls-unemployment",
         verifier_id=production_wave2.VERIFIER_ID, verifier_version=production_wave2.VERIFIER_VERSION,
         expected_git_blob_sha1=production_wave2.PINNED_ARTIFACTS[production_wave2.BLS_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_wave2.PINNED_ARTIFACTS[production_wave2.BLS_EXTRACTOR_ID]["byte_sha256"],
@@ -155,8 +214,15 @@ PRODUCTION_ADAPTER_WAVE2_V1: tuple[ProductionAdapterSpecV1, ...] = (
         "federal_reserve_fomc_calendar_html_v1", "federal_reserve_fomc_calendar",
         production_wave2.FOMC_PATH, production_wave2.FOMC_SCHEMA,
         production_wave2.FOMC_EXTRACTOR_ID, {"year": "2026", "month": "January", "meeting_dates": "27-28"},
-        ("evidence_completeness", "freshness"), contracts.EvidenceModality.OFFICIAL_DOCUMENT,
-        False, True, "conformance:candidate:fomc-calendar", "conformance:story:fomc-calendar",
+        ("evidence_completeness", "freshness"), capabilities.binding(
+            "federal_reserve_fomc_calendar_html_v1",
+            modalities=(contracts.EvidenceModality.EVENT_CALENDAR, contracts.EvidenceModality.OFFICIAL_STATEMENT),
+            temporal=(contracts.TemporalCharacter.SCHEDULED, contracts.TemporalCharacter.POINT_IN_TIME),
+            story_modes=(contracts.StoryMode.POLICY_DECISION,), scheduled=True,
+            time_kind=capabilities.ObservationTimeKind.EVENT_TIME,
+            source_family="federal_reserve_fomc_calendar", numeric=False, nonnumeric=True,
+            geography_ids=("united_states",), economic_domains=("monetary_policy",), asset_classes=("interest_rates",),
+        ), "conformance:candidate:fomc-calendar", "conformance:story:fomc-calendar",
         verifier_id=production_wave2.VERIFIER_ID, verifier_version=production_wave2.VERIFIER_VERSION,
         expected_git_blob_sha1=production_wave2.PINNED_ARTIFACTS[production_wave2.FOMC_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_wave2.PINNED_ARTIFACTS[production_wave2.FOMC_EXTRACTOR_ID]["byte_sha256"],
@@ -171,8 +237,15 @@ PRODUCTION_ADAPTER_WAVE3_V1: tuple[ProductionAdapterSpecV1, ...] = (
         "us_treasury_tic_official_html_v1", "us_treasury_international_capital_portal",
         production_wave3.TIC_PATH, production_wave3.TIC_SCHEMA,
         production_wave3.TIC_EXTRACTOR_ID, {"canonical_url": "https://home.treasury.gov/data/treasury-international-capital-tic-system"},
-        ("evidence_completeness", "freshness"), contracts.EvidenceModality.OFFICIAL_DOCUMENT,
-        False, True, "conformance:candidate:treasury-tic", "conformance:story:treasury-tic",
+        ("evidence_completeness", "freshness"), capabilities.binding(
+            "us_treasury_tic_official_html_v1",
+            modalities=(contracts.EvidenceModality.OFFICIAL_DOCUMENT, contracts.EvidenceModality.QUALITATIVE_CONTEXT),
+            temporal=(contracts.TemporalCharacter.UNSCHEDULED, contracts.TemporalCharacter.REVISED_RELEASE),
+            story_modes=(contracts.StoryMode.EXPLAINER, contracts.StoryMode.DEEP_ANALYSIS), scheduled=False,
+            time_kind=capabilities.ObservationTimeKind.REVISION_TIME,
+            source_family="us_treasury_international_capital_portal", numeric=False, nonnumeric=True,
+            geography_ids=("united_states",), economic_domains=("cross_border_capital",),
+        ), "conformance:candidate:treasury-tic", "conformance:story:treasury-tic",
         verifier_id=production_wave3.VERIFIER_ID, verifier_version=production_wave3.VERIFIER_VERSION,
         expected_git_blob_sha1=production_wave3.PINNED_ARTIFACTS[production_wave3.TIC_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_wave3.PINNED_ARTIFACTS[production_wave3.TIC_EXTRACTOR_ID]["byte_sha256"],
@@ -182,8 +255,16 @@ PRODUCTION_ADAPTER_WAVE3_V1: tuple[ProductionAdapterSpecV1, ...] = (
         "usgs_earthquake_geojson_v1", "usgs_earthquake_event",
         production_wave3.USGS_PATH, production_wave3.USGS_SCHEMA,
         production_wave3.USGS_EXTRACTOR_ID, {"event_id": "aka2026nmtsmu"},
-        ("evidence_completeness", "freshness"), contracts.EvidenceModality.NUMERIC_TIME_SERIES,
-        True, True, "conformance:candidate:usgs-earthquake", "conformance:story:usgs-earthquake",
+        ("evidence_completeness", "freshness"), capabilities.binding(
+            "usgs_earthquake_geojson_v1",
+            modalities=(contracts.EvidenceModality.GEOSPATIAL_OR_PHYSICAL_OBSERVATION,),
+            temporal=(contracts.TemporalCharacter.UNSCHEDULED, contracts.TemporalCharacter.POINT_IN_TIME),
+            story_modes=(contracts.StoryMode.STRAIGHT_NEWS, contracts.StoryMode.LIVE_UPDATE), scheduled=False,
+            time_kind=capabilities.ObservationTimeKind.EVENT_TIME,
+            source_family="usgs_earthquake_event", numeric=True, nonnumeric=True,
+            geography_ids=("alaska",), entity_ids=("earthquake_event",), economic_domains=("physical_hazard",),
+            physical_geographic=True,
+        ), "conformance:candidate:usgs-earthquake", "conformance:story:usgs-earthquake",
         verifier_id=production_wave3.VERIFIER_ID, verifier_version=production_wave3.VERIFIER_VERSION,
         expected_git_blob_sha1=production_wave3.PINNED_ARTIFACTS[production_wave3.USGS_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_wave3.PINNED_ARTIFACTS[production_wave3.USGS_EXTRACTOR_ID]["byte_sha256"],
@@ -193,8 +274,15 @@ PRODUCTION_ADAPTER_WAVE3_V1: tuple[ProductionAdapterSpecV1, ...] = (
         "fhfa_hpi_official_html_v1", "fhfa_house_price_index_page",
         production_wave3.FHFA_PATH, production_wave3.FHFA_SCHEMA,
         production_wave3.FHFA_EXTRACTOR_ID, {"canonical_url": "https://www.fhfa.gov/data/hpi"},
-        ("evidence_completeness", "freshness"), contracts.EvidenceModality.OFFICIAL_DOCUMENT,
-        False, True, "conformance:candidate:fhfa-hpi", "conformance:story:fhfa-hpi",
+        ("evidence_completeness", "freshness"), capabilities.binding(
+            "fhfa_hpi_official_html_v1",
+            modalities=(contracts.EvidenceModality.OFFICIAL_DOCUMENT, contracts.EvidenceModality.QUALITATIVE_CONTEXT),
+            temporal=(contracts.TemporalCharacter.UNSCHEDULED, contracts.TemporalCharacter.REVISED_RELEASE),
+            story_modes=(contracts.StoryMode.EXPLAINER, contracts.StoryMode.DEEP_ANALYSIS), scheduled=False,
+            time_kind=capabilities.ObservationTimeKind.REVISION_TIME,
+            source_family="fhfa_house_price_index_page", numeric=False, nonnumeric=True,
+            geography_ids=("united_states",), economic_domains=("housing_market",), asset_classes=("residential_real_estate",),
+        ), "conformance:candidate:fhfa-hpi", "conformance:story:fhfa-hpi",
         verifier_id=production_wave3.VERIFIER_ID, verifier_version=production_wave3.VERIFIER_VERSION,
         expected_git_blob_sha1=production_wave3.PINNED_ARTIFACTS[production_wave3.FHFA_EXTRACTOR_ID]["git_blob_sha1"],
         expected_byte_sha256=production_wave3.PINNED_ARTIFACTS[production_wave3.FHFA_EXTRACTOR_ID]["byte_sha256"],
@@ -294,9 +382,12 @@ def run_adapter_conformance(
 ) -> Mapping[str, Any]:
     """Conform one adapter without network access or repository writes."""
     root, upstream = Path(repo_root).resolve(), Path(upstream_git_repository).resolve()
+    capability_blockers = list(spec.capability_binding.validate())
+    if spec.capability_binding.adapter_id != spec.adapter_id:
+        capability_blockers.append("capability_binding_adapter_identity_mismatch")
     verifier_registry = adapters.load_trusted_verifier_registry(root)
     extractor_registry = extraction.load_extractor_registry(root)
-    coverage_result = contract_coverage.validate_registry_contract_coverage(extractor_registry)
+    coverage_result = contract_coverage.validate_registry_contract_coverage(extractor_registry, repo_root=root)
     extractor = extractor_registry.resolve(spec.extractor_id, spec.extractor_version)
     if extractor is None or not extractor.enabled:
         raise ValueError("conformance_extractor_unavailable")
@@ -417,12 +508,7 @@ def run_adapter_conformance(
             evidence_scope=record.evidence_scope,
         ) for row in feature_values),
         evidence_refs=(record.evidence_ref,), governed_evidence_bindings=(binding,),
-        capabilities=contracts.CapabilityDimensionsV1(
-            evidence_modalities=(spec.modality,), temporal_characters=(contracts.TemporalCharacter.POINT_IN_TIME,),
-            story_modes=(contracts.StoryMode.DATA_RELEASE,), source_family_ids=(spec.artifact_family,),
-            source_authority_classes=("official_public_data",),
-            numeric_evidence_present=spec.numeric, nonnumeric_evidence_present=spec.nonnumeric,
-        ), evidence_context=context,
+        capabilities=spec.capability_binding.dimensions, evidence_context=context,
     )
     derived_authority = core.derive_candidate_authority_v1(candidate_draft, context)
     candidate = replace(
@@ -449,6 +535,7 @@ def run_adapter_conformance(
         "historical_ancestry": receipt.producer_commit_reachable_from_branch,
         "registry_membership": extractor.enabled and not verifier_registry.validate() and not extractor_registry.validate(),
         "registry_contract_coverage": coverage_result["status"] == "PASS",
+        "capability_binding": not capability_blockers,
         "shape_and_schema": record.artifact_schema_verified and record.producer_version_verified,
         "byte_derived_evidence_ref": record.evidence_ref.startswith("extracted:"),
         "point_in_time": not context_blockers,
@@ -460,7 +547,7 @@ def run_adapter_conformance(
         "no_publication": "NO_PUBLICATION" in str(outcome["publication_disposition"]),
         "no_external_mutation": True,
     }
-    reasons = tuple(dict.fromkeys((*probe_reasons, *context_blockers, *candidate_blockers)))
+    reasons = tuple(dict.fromkeys((*capability_blockers, *probe_reasons, *context_blockers, *candidate_blockers)))
     passed = all(checks.values()) and not reasons
     return {
         "schema_version": SCHEMA_VERSION, "harness_version": HARNESS_VERSION,
@@ -474,6 +561,7 @@ def run_adapter_conformance(
                      "git_blob_sha1": receipt.git_blob_sha1, "byte_sha256": receipt.consumed_byte_sha256},
         "receipt_id": receipt.receipt_id, "extractor_id": record.extractor_id,
         "extractor_version": record.extractor_version, "evidence_ref": record.evidence_ref,
+        "capability_binding": spec.capability_binding.as_dict(),
         "authority_state": record.authority_state, "permission_state": record.permission_state,
         "evidence_roles": [role.value for role in record.evidence_roles],
         "evidence_scope": record.evidence_scope.value,
@@ -485,6 +573,18 @@ def run_adapter_conformance(
             "artifact_cutoff_utc": record.cutoff_utc,
         },
         "feature_results": contracts.primitive(feature_values), "checks": checks,
+        "generic_core_execution": {
+            "decision_id": decision.decision_id,
+            "decision_logical_hash": decision.logical_hash,
+            "candidate_id": spec.candidate_id,
+            "input_bindings": dict(decision.input_bindings),
+            "candidate_evidence_refs": list(candidate.evidence_refs),
+            "feature_evidence_sets": {
+                row.feature_id: list(row.evidence_refs) for row in feature_values
+            },
+            "aggregation_bindings": [],
+            "outcome": dict(outcome),
+        },
         "publication_disposition": outcome["publication_disposition"],
         "publication_authority_granted": False, "numeric_truth_granted": False,
         "writes_performed": 0,
@@ -570,4 +670,81 @@ def run_wave3_adapter_conformance(
         "adapter_count": len(results), "results": results,
         "network_calls": 0, "writes_performed": 0,
         "publication_authority_granted": False, "numeric_truth_granted": False,
+    }
+
+
+def run_composite_adapter_canary(
+    *,
+    repo_root: str | Path,
+    upstream_git_repository: str | Path,
+    branch_authority_ref: str = "refs/remotes/origin/main",
+    adapter_specs: Sequence[ProductionAdapterSpecV1] | None = None,
+) -> Mapping[str, Any]:
+    """Run distinct official artifact capabilities through the same frozen core."""
+    specs = tuple(adapter_specs) if adapter_specs is not None else (
+        PRODUCTION_ADAPTER_WAVE2_V1[1],  # numeric scheduled period release
+        PRODUCTION_ADAPTER_WAVE2_V1[2],  # scheduled policy/calendar event
+        PRODUCTION_ADAPTER_WAVE3_V1[1],  # unscheduled physical/geospatial event
+        PRODUCTION_ADAPTER_WAVE3_V1[0],  # qualitative official document context
+    )
+    results = [run_adapter_conformance(
+        spec,
+        repo_root=repo_root,
+        upstream_git_repository=upstream_git_repository,
+        upstream_commit=str(spec.pinned_producer_commit),
+        branch_authority_ref=branch_authority_ref,
+    ) for spec in specs]
+    profiles = {
+        (
+            tuple(row["capability_binding"]["evidence_modalities"]),
+            tuple(row["capability_binding"]["temporal_characters"]),
+            tuple(row["capability_binding"]["story_modes"]),
+            row["capability_binding"]["observation_time_kind"],
+        )
+        for row in results
+    }
+    refs = [row["evidence_ref"] for row in results]
+    exact_feature_sets = all(
+        set(feature["evidence_refs"]) == {row["evidence_ref"]}
+        for row in results for feature in row["feature_results"]
+    )
+    genericity = adapters.run_genericity_guard(Path(repo_root))
+    checks = {
+        "all_adapters_pass_conformance": all(row["status"] == "PASS" for row in results),
+        "capability_metadata_distinct": len(profiles) == len(results),
+        "context_only_no_publication_authority": all(
+            row["permission_state"] == "CONTEXT_ONLY"
+            and not row["publication_authority_granted"]
+            and "NO_PUBLICATION" in row["publication_disposition"]
+            for row in results
+        ),
+        "receipt_backed_unique_evidence_refs": len(refs) == len(set(refs)) and all(
+            row["receipt_id"].startswith("producer_receipt:") for row in results
+        ),
+        "exact_singleton_feature_evidence_sets": exact_feature_sets,
+        "no_cross_adapter_aggregation_claim": all(
+            not row["generic_core_execution"]["aggregation_bindings"] for row in results
+        ),
+        "unavailable_distinct_from_explicit_zero": any(
+            value is None for row in results for value in row["timestamps"].values()
+        ) and any(
+            feature["availability"] == "explicit_zero"
+            for row in results for feature in row["feature_results"]
+        ),
+        "generic_core_topic_branch_guard": genericity["status"] == "PASS" and not genericity["findings"],
+        "no_publication": all(row["writes_performed"] == 0 for row in results),
+    }
+    return {
+        "schema_version": "contentops.production_adapter_composite_canary.v1",
+        "harness_version": HARNESS_VERSION,
+        "status": "PASS" if all(checks.values()) else "FAIL",
+        "adapter_count": len(results),
+        "checks": checks,
+        "evidence_refs": refs,
+        "aggregation_disposition": "NO_CROSS_ADAPTER_AGGREGATION_EXACT_SINGLETON_FEATURE_SETS",
+        "genericity_guard": genericity,
+        "results": results,
+        "publication_authority_granted": False,
+        "numeric_truth_granted": False,
+        "writes_performed": 0,
     }

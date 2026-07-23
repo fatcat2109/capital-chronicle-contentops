@@ -78,12 +78,15 @@ def _extract(data: bytes, extractor_id: str, **changes):
 
 def test_registry_contract_coverage_is_complete_and_deterministic():
     registry = extraction.load_extractor_registry(ROOT)
-    first = coverage.validate_registry_contract_coverage(registry)
-    assert first == coverage.validate_registry_contract_coverage(registry)
+    first = coverage.validate_registry_contract_coverage(registry, repo_root=ROOT)
+    assert first == coverage.validate_registry_contract_coverage(registry, repo_root=ROOT)
     assert first["status"] == "PASS" and first["record_count"] == len(registry.records)
-    runtime = [row for row in first["rows"] if row["classification"] == "RUNTIME_IMPLEMENTED"]
-    assert len(runtime) == 6
-    assert all(row["shape_rule_covered"] and row["required_field_rules_declared"] == row["required_field_rules_covered"] and row["timestamp_rules_declared"] == row["timestamp_rules_covered"] for row in runtime)
+    runtime = [row for row in first["rows"] if row["classification"] == "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND"]
+    assert len(runtime) == 16
+    assert all(row["record_hash_verified"] and row["accepted_evidence_verified"] for row in runtime)
+    assert all(row["shape_contract_id"] and row["required_fields"] and row["timestamp_extraction_rules"] for row in runtime)
+    assert all(row["authority_derivation_rule"] and row["permission_derivation_rule"] and row["role_derivation_rule"] for row in runtime)
+    assert all(row["supported_evidence_roles"] and row["supported_feature_ids"] and row["implementation_contract_id"] and row["runtime_callable"] for row in runtime)
     assert all(row["classification"].startswith("RUNTIME_IMPLEMENTED") for row in first["rows"] if row["extractor_id"] != "contentops.disabled_legacy_extractor")
     assert next(row for row in first["rows"] if row["extractor_id"] == "contentops.disabled_legacy_extractor")["classification"] == "EXPLICIT_DOCUMENTARY_NON_RUNTIME"
 
@@ -95,7 +98,7 @@ def test_registry_contract_coverage_rejects_declared_runtime_drift():
     records[index] = replace(records[index], required_fields=records[index].required_fields[:-1])
     report = coverage.validate_registry_contract_coverage(replace(registry, records=tuple(records)))
     assert report["status"] == "FAIL"
-    assert report["blockers"] == [f"registry_runtime_contract_mismatch:{wave3.USGS_EXTRACTOR_ID}:v1"]
+    assert report["blockers"] == [f"registry_immutable_record_hash_mismatch:{wave3.USGS_EXTRACTOR_ID}:v1"]
 
 
 def test_registry_contract_coverage_rejects_missing_field_wrong_shape_and_timestamp_rule():
@@ -111,7 +114,7 @@ def test_registry_contract_coverage_rejects_missing_field_wrong_shape_and_timest
         records = (*registry.records[:index], mutated, *registry.records[index + 1:])
         result = coverage.validate_registry_contract_coverage(replace(registry, records=records))
         assert result["status"] == "FAIL"
-        assert result["blockers"] == [f"registry_runtime_contract_mismatch:{wave3.USGS_EXTRACTOR_ID}:v1"]
+        assert result["blockers"] == [f"registry_immutable_record_hash_mismatch:{wave3.USGS_EXTRACTOR_ID}:v1"]
 
 
 @pytest.mark.parametrize("extractor_id", tuple(ARTIFACTS))
@@ -284,7 +287,7 @@ def test_append_only_registries_pins_and_frozen_manifest_integrity():
         "live_contentops/trusted_evidence_verifier_registry_v1.json",
         "live_contentops/artifact_evidence_extractor_registry_v1.json",
     ):
-        baseline = json.loads(_git(ROOT, "show", f"HEAD:{path}"))
+        baseline = json.loads(_git(ROOT, "show", f"{coverage.STARTING_AUTHORITY_SHA}:{path}"))
         current = json.loads((ROOT / path).read_text(encoding="utf-8"))
         assert current["records"][:len(baseline["records"])] == baseline["records"]
     assert set(wave3.PINNED_ARTIFACTS) == set(ARTIFACTS)

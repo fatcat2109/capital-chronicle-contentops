@@ -1,0 +1,8 @@
+{
+  "composite_first_logical_hash": "f2e7599f8b7af4317980aacf56ea8a57e689410d8b95c13722b4c1a6b57ca23d",
+  "composite_second_logical_hash": "f2e7599f8b7af4317980aacf56ea8a57e689410d8b95c13722b4c1a6b57ca23d",
+  "conformance_first_logical_hash": "34890529b295c2e4d518da5986b1bb551b9a802743f6a487652222245aa779bb",
+  "conformance_second_logical_hash": "34890529b295c2e4d518da5986b1bb551b9a802743f6a487652222245aa779bb",
+  "schema_version": "contentops.adapter_capability_deterministic_replay.v1",
+  "status": "PASS_TWO_IDENTICAL_RUNS"
+}

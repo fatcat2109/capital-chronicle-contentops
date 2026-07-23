@@ -1,0 +1,696 @@
+{
+  "blockers": [],
+  "enabled_runtime_record_count": 16,
+  "record_count": 17,
+  "registry_version": "artifact-evidence-extractor-registry-1.3.0",
+  "rows": [
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "c0ace89f807161ad9f5e79d7f72bb7b79cfb34d9",
+        "logical_hash": "d7aafa550ac2d746d466f82caabd3fb4375ad7622e834f3a48aa6a5074834ec8",
+        "logical_hash_field": "logical_hash",
+        "path": "docs/automation/CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.bls_series_observation_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.bls_series_observation_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "7b75e1b7592465c25a0938b06764f477f23b35ed6e80ab6e50ce6eefc219c666",
+      "required_fields": [
+        "/status",
+        "/Results/series",
+        "/Results/series/*/seriesID",
+        "/Results/series/*/data/*/year",
+        "/Results/series/*/data/*/period",
+        "/Results/series/*/data/*/value"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.schema_aware_evidence_extraction_v1.extract_artifact_evidence",
+      "shape_contract_id": "bls.public_data.series_response.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP",
+        "observed_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP",
+        "published_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP",
+        "revision_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "c0ace89f807161ad9f5e79d7f72bb7b79cfb34d9",
+        "logical_hash": "d7aafa550ac2d746d466f82caabd3fb4375ad7622e834f3a48aa6a5074834ec8",
+        "logical_hash_field": "logical_hash",
+        "path": "docs/automation/CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.treasury_auction_announcement_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.treasury_auction_announcement_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "fd60a28d38820f9c8d01e97fbb2c4e4fa164d849ad74167dd96beaf388c75457",
+      "required_fields": [
+        "/data",
+        "/data/*/cusip",
+        "/data/*/announcemt_date",
+        "/data/*/auction_date",
+        "/data/*/security_type",
+        "/data/*/auction_format",
+        "/data/*/offering_amt"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.schema_aware_evidence_extraction_v1.extract_artifact_evidence",
+      "shape_contract_id": "fiscaldata.treasury_auction_response.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness",
+        "policy_significance"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "/data/*/announcemt_date@START_OF_UTC_DAY",
+        "observed_at_utc": "/data/*/announcemt_date@START_OF_UTC_DAY",
+        "published_at_utc": "/data/*/announcemt_date@START_OF_UTC_DAY",
+        "revision_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "c0ace89f807161ad9f5e79d7f72bb7b79cfb34d9",
+        "logical_hash": "d7aafa550ac2d746d466f82caabd3fb4375ad7622e834f3a48aa6a5074834ec8",
+        "logical_hash_field": "logical_hash",
+        "path": "docs/automation/CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.nyfed_reference_rate_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.nyfed_reference_rate_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "890e325a6f17d80b0b95cb80c74bff2ee4474bf2270d49b6afbdd15df1c7056f",
+      "required_fields": [
+        "/refRates",
+        "/refRates/*/effectiveDate",
+        "/refRates/*/type",
+        "/refRates/*/percentRate"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.schema_aware_evidence_extraction_v1.extract_artifact_evidence",
+      "shape_contract_id": "nyfed.reference_rates_response.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "/refRates/*/effectiveDate@START_OF_UTC_DAY",
+        "observed_at_utc": "/refRates/*/effectiveDate@START_OF_UTC_DAY",
+        "published_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP",
+        "revision_at_utc": "UNAVAILABLE_WHEN_REVISION_INDICATOR_EMPTY"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "c0ace89f807161ad9f5e79d7f72bb7b79cfb34d9",
+        "logical_hash": "d7aafa550ac2d746d466f82caabd3fb4375ad7622e834f3a48aa6a5074834ec8",
+        "logical_hash_field": "logical_hash",
+        "path": "docs/automation/CONTENTOPS_GENERIC_FOUNDATION_V2_FREEZE_AND_PRODUCTION_ADAPTER_HANDOFF_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "NEWSROOM_CANDIDATE_AUTHORITY_ELIGIBILITY_BLOCKERS_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.newsroom_candidate_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.newsroom_candidate_extractor.v1",
+      "permission_derivation_rule": "NEWSROOM_CANDIDATE_CLAIM_PERMISSION_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "229b8e34f6d1b2ea2ed3db2175e0ae7fe03e2ac486920e1237fa92d0f4db3b6e",
+      "required_fields": [
+        "/schema_version",
+        "/producer_version",
+        "/cutoff_time_utc",
+        "/logical_hash",
+        "/eligible_candidates",
+        "/eligible_candidates/*/candidate_id",
+        "/eligible_candidates/*/evidence_hash",
+        "/eligible_candidates/*/authority/story_decision",
+        "/eligible_candidates/*/claim_permissions/reporting_allowed",
+        "/eligible_candidates/*/source_packet_id",
+        "/eligible_candidates/*/source_packet_logical_hash"
+      ],
+      "role_derivation_rule": "NEWSROOM_GOVERNED_RELATIONSHIP_SUPPORTING_FIELDS_V1",
+      "runtime_callable": "live_contentops.schema_aware_evidence_extraction_v1.extract_artifact_evidence",
+      "shape_contract_id": "capital_chronicle.newsroom_candidate_pool.internal_schema.v1",
+      "supported_evidence_roles": [
+        "feature_support",
+        "material_delta",
+        "confirmation",
+        "contradiction",
+        "correction",
+        "new_phase",
+        "evergreen_justification"
+      ],
+      "supported_feature_ids": [
+        "authority_readiness",
+        "evidence_completeness",
+        "freshness",
+        "material_delta",
+        "novelty"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "CANDIDATE_SOURCE_PACKET_TIMESTAMP",
+        "observed_at_utc": "CANDIDATE_SOURCE_PACKET_TIMESTAMP",
+        "published_at_utc": "CANDIDATE_SOURCE_PACKET_TIMESTAMP_IF_PRESENT",
+        "revision_at_utc": "CANDIDATE_SOURCE_PACKET_REVISION_IF_PRESENT"
+      }
+    },
+    {
+      "classification": "EXPLICIT_DOCUMENTARY_NON_RUNTIME",
+      "extractor_id": "contentops.disabled_legacy_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.disabled_legacy_extractor.v1",
+      "record_logical_hash": "7b1feb791a3566f67a78b3d82f7247c6a16018512eecea74127ed345aaa66427"
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "ce56a57ced0a8adad9bad2deb2d3bd6dab0976d0",
+        "logical_hash": "4c50fa522f866d8f3254884499b31ed8aae3ec949e3b580f1ba6a1ba4e6be818",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.treasury_daily_yield_curve_atom_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.treasury_daily_yield_curve_atom_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "595d32f172e672a3e163eee7a7f9c8cc0b310821b8d9e00e174ee0093fd01f21",
+      "required_fields": [
+        "/feed",
+        "/feed/updated",
+        "/feed/entry/content/properties/Id",
+        "/feed/entry/content/properties/NEW_DATE",
+        "/feed/entry/content/properties/selected_maturity"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_batch_v1.extract_production_artifact_evidence",
+      "shape_contract_id": "treasury.daily_yield_curve.atom_odata.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "/feed/updated",
+        "observed_at_utc": "/feed/entry/content/properties/NEW_DATE@START_OF_UTC_DAY",
+        "published_at_utc": "/feed/updated",
+        "revision_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "ce56a57ced0a8adad9bad2deb2d3bd6dab0976d0",
+        "logical_hash": "4c50fa522f866d8f3254884499b31ed8aae3ec949e3b580f1ba6a1ba4e6be818",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.cftc_legacy_futures_only_cot_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.cftc_legacy_futures_only_cot_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "9b80f2654395dbca31c124ce8b34f6a9c62506f2f3626b4796307311313d1f8b",
+      "required_fields": [
+        "/row/market_and_exchange_names",
+        "/row/as_of_date_in_form_yymmdd",
+        "/row/as_of_date_in_form_yyyy_mm_dd",
+        "/row/cftc_contract_market_code",
+        "/row/open_interest_all"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_batch_v1.extract_production_artifact_evidence",
+      "shape_contract_id": "cftc.legacy_futures_only.headerless_csv.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "UNAVAILABLE_NO_INTRINSIC_RELEASE_TIMESTAMP",
+        "observed_at_utc": "/row/as_of_date_in_form_yyyy_mm_dd@START_OF_UTC_DAY",
+        "published_at_utc": "UNAVAILABLE_NO_INTRINSIC_RELEASE_TIMESTAMP",
+        "revision_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "ce56a57ced0a8adad9bad2deb2d3bd6dab0976d0",
+        "logical_hash": "4c50fa522f866d8f3254884499b31ed8aae3ec949e3b580f1ba6a1ba4e6be818",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.federal_reserve_h41_zip_structure_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.federal_reserve_h41_zip_structure_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "65a6616f904574aa5e86513ff839607779a5cceeb435801b998058166cf54189",
+      "required_fields": [
+        "/zip/H41_H41.xsd",
+        "/zip/H41_data.xml",
+        "/zip/H41_struct.xml",
+        "/zip/frb_common.xsd",
+        "/H41_data/MessageGroup/DataSet/Series/Obs/@TIME_PERIOD"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_batch_v1.extract_production_artifact_evidence",
+      "shape_contract_id": "federal_reserve.h41.sdmx_zip_structure.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "UNAVAILABLE_NO_INTRINSIC_RELEASE_TIMESTAMP",
+        "observed_at_utc": "/H41_data/MessageGroup/DataSet/Series/Obs/@TIME_PERIOD@MAX_START_OF_UTC_DAY",
+        "published_at_utc": "UNAVAILABLE_NO_INTRINSIC_RELEASE_TIMESTAMP",
+        "revision_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "607a767154e415ea7af393be57eae030185428af",
+        "logical_hash": "f6e5b1e3994bfce98956ef48644de48724ed8435a25b182452d8a9f6c957d354",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.treasury_debt_to_penny_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.treasury_debt_to_penny_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "a05ecb9388390ec3df074ce8b2f858f688857ed84c05bb0b4d805dc3f128eb32",
+      "required_fields": [
+        "/data",
+        "/data/*/record_date",
+        "/data/*/debt_held_public_amt",
+        "/data/*/intragov_hold_amt",
+        "/data/*/tot_pub_debt_out_amt",
+        "/meta/count",
+        "/meta/dataTypes",
+        "/links"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence",
+      "shape_contract_id": "treasury.fiscaldata.debt_to_penny.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "/data/*/record_date@START_OF_UTC_DAY",
+        "observed_at_utc": "/data/*/record_date@START_OF_UTC_DAY",
+        "published_at_utc": "/data/*/record_date@START_OF_UTC_DAY",
+        "revision_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "607a767154e415ea7af393be57eae030185428af",
+        "logical_hash": "f6e5b1e3994bfce98956ef48644de48724ed8435a25b182452d8a9f6c957d354",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.bls_unemployment_series_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.bls_unemployment_series_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "ccfcbb2002169291cb3075bf8d53abbae7ff53f7f5dd9c21739dbb83fad75548",
+      "required_fields": [
+        "/status",
+        "/message",
+        "/Results/series",
+        "/Results/series/*/seriesID",
+        "/Results/series/*/data/*/year",
+        "/Results/series/*/data/*/period",
+        "/Results/series/*/data/*/value"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence",
+      "shape_contract_id": "bls.public_data.unemployment_series.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "UNAVAILABLE_NO_INTRINSIC_RELEASE_TIMESTAMP",
+        "observed_at_utc": "/Results/series/*/data/*/(year,period)@START_OF_UTC_MONTH",
+        "published_at_utc": "UNAVAILABLE_NO_INTRINSIC_RELEASE_TIMESTAMP",
+        "revision_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "607a767154e415ea7af393be57eae030185428af",
+        "logical_hash": "f6e5b1e3994bfce98956ef48644de48724ed8435a25b182452d8a9f6c957d354",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_2_OFFICIAL_COMMITTED_ARTIFACTS_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.fomc_calendar_html_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.fomc_calendar_html_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "2dc7f9d83c5b2020b9dba5e5e621f96a8d3e5684ad8338636fda8856c3b42a38",
+      "required_fields": [
+        "/html/head/meta[@property=og:url]",
+        "/html/body/*/FOMC_Meetings",
+        "/meeting/month",
+        "/meeting/date",
+        "/meeting/dated_document_link"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence",
+      "shape_contract_id": "federal_reserve.fomc_calendar.official_html.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "/meeting/decision_date@START_OF_UTC_DAY",
+        "observed_at_utc": "/meeting/decision_date@START_OF_UTC_DAY",
+        "published_at_utc": "/meeting/decision_date@START_OF_UTC_DAY",
+        "revision_at_utc": "UNAVAILABLE_NO_INTRINSIC_TIMESTAMP"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.treasury_debt_to_penny_extractor",
+      "extractor_version": "v2",
+      "implementation_contract_id": "contentops.treasury_debt_to_penny_extractor.v2",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "b62c6936a68899980c986f80a8abf666aee4be427bef15f77395f8f1d5ac63e9",
+      "required_fields": [
+        "/data",
+        "/data/*/record_date",
+        "/data/*/debt_held_public_amt",
+        "/data/*/intragov_hold_amt",
+        "/data/*/tot_pub_debt_out_amt",
+        "/meta/count",
+        "/meta/dataTypes",
+        "/links/self",
+        "/links/first",
+        "/links/prev",
+        "/links/next",
+        "/links/last"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence",
+      "shape_contract_id": "treasury.fiscaldata.debt_to_penny.external_shape.v2",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "VERIFIED_GIT_RECEIPT_ARTIFACT_CUTOFF",
+        "observed_at_utc": "/data/*/record_date@START_OF_UTC_DAY",
+        "published_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_RELEASE_TIMESTAMP",
+        "revision_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_REVISION_TIMESTAMP"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.bls_unemployment_series_extractor",
+      "extractor_version": "v2",
+      "implementation_contract_id": "contentops.bls_unemployment_series_extractor.v2",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "14ef05ce47ac2da2fd08634aa0dd262172e6c8a9e0b4ff910dcdae58495c6a2f",
+      "required_fields": [
+        "/status",
+        "/message",
+        "/Results/series",
+        "/Results/series/*/seriesID",
+        "/Results/series/*/data/*/year",
+        "/Results/series/*/data/*/period",
+        "/Results/series/*/data/*/periodName",
+        "/Results/series/*/data/*/value"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence",
+      "shape_contract_id": "bls.public_data.unemployment_series.external_shape.v2",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "VERIFIED_GIT_RECEIPT_ARTIFACT_CUTOFF",
+        "observed_at_utc": "/Results/series/*/data/*/(year,period)@START_OF_UTC_MONTH",
+        "published_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_RELEASE_TIMESTAMP",
+        "revision_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_REVISION_TIMESTAMP"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.fomc_calendar_html_extractor",
+      "extractor_version": "v2",
+      "implementation_contract_id": "contentops.fomc_calendar_html_extractor.v2",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "7382dad30a77baf94c57eb00426e337813c6f7b7a6857ecfdfad761d1925810e",
+      "required_fields": [
+        "/html/head/meta[@property=og:url]",
+        "/html/body/*/FOMC_Meetings",
+        "/meeting/container",
+        "/meeting/month",
+        "/meeting/date",
+        "/meeting/dated_document_link"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave2_v1.extract_wave2_artifact_evidence",
+      "shape_contract_id": "federal_reserve.fomc_calendar.official_html.external_shape.v2",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "VERIFIED_GIT_RECEIPT_ARTIFACT_CUTOFF",
+        "observed_at_utc": "/meeting/decision_date@START_OF_UTC_DAY",
+        "published_at_utc": "/meeting/dated_document_link@DATE_TOKEN_START_OF_UTC_DAY",
+        "revision_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_REVISION_TIMESTAMP"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.treasury_tic_html_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.treasury_tic_html_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "10399b1b8c73b7bab9538450028b888f7ccd7aa2d4fa7901299cd160ddf8bc21",
+      "required_fields": [
+        "/html/head/title",
+        "/html/head/link[@rel=canonical]",
+        "/html/head/meta[@property=og:site_name]",
+        "/html/head/meta[@property=og:url]",
+        "/html/head/meta[@property=og:updated_time]"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave3_v1.extract_wave3_artifact_evidence",
+      "shape_contract_id": "treasury.tic.official_html.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "VERIFIED_GIT_RECEIPT_ARTIFACT_CUTOFF",
+        "observed_at_utc": "UNAVAILABLE_PAGE_HAS_NO_DISTINCT_OBSERVATION_TIMESTAMP",
+        "published_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_RELEASE_TIMESTAMP",
+        "revision_at_utc": "/html/head/meta[@property=og:updated_time]@START_OF_UTC_DAY"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.usgs_earthquake_geojson_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.usgs_earthquake_geojson_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "4a44cf593ac9035910b464096c56be460f42d9c25a1d8b024386a241e2fe998a",
+      "required_fields": [
+        "/type",
+        "/metadata/generated",
+        "/metadata/url",
+        "/metadata/status",
+        "/features/*/id",
+        "/features/*/properties/mag",
+        "/features/*/properties/time",
+        "/features/*/properties/updated",
+        "/features/*/geometry/type",
+        "/features/*/geometry/coordinates"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave3_v1.extract_wave3_artifact_evidence",
+      "shape_contract_id": "usgs.earthquake.feature_collection.geojson.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "/metadata/generated@EPOCH_MILLISECONDS",
+        "observed_at_utc": "/features/*/properties/time@EPOCH_MILLISECONDS",
+        "published_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_RELEASE_TIMESTAMP",
+        "revision_at_utc": "/features/*/properties/updated@EPOCH_MILLISECONDS"
+      }
+    },
+    {
+      "accepted_evidence_binding": {
+        "accepted_commit": "a00a702dc97c2485852ab82a70707940ed8b2083",
+        "logical_hash": "6e7fb2f09d9283c10bbfaa7494ef33510e1210daf13943785d354e320dfffc8f",
+        "logical_hash_field": "manifest_logical_hash",
+        "path": "docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/final_manifest.json"
+      },
+      "accepted_evidence_verified": true,
+      "authority_derivation_rule": "EXTERNAL_OFFICIAL_MAXIMUM_AUTHORITY_V1",
+      "classification": "RUNTIME_IMPLEMENTED_IMMUTABLY_BOUND",
+      "extractor_id": "contentops.fhfa_hpi_html_extractor",
+      "extractor_version": "v1",
+      "implementation_contract_id": "contentops.fhfa_hpi_html_extractor.v1",
+      "permission_derivation_rule": "EXTERNAL_OFFICIAL_CONTEXT_ONLY_V1",
+      "record_hash_verified": true,
+      "record_logical_hash": "72a3fb2907cdcf7cbfea853f453d3cb1a4a55c42d8c333f3fd0866f2da79783b",
+      "required_fields": [
+        "/html/head/title",
+        "/html/head/link[@rel=canonical]",
+        "/html/head/meta[@name=author]",
+        "/html/head/meta[@property=article:modified_time]"
+      ],
+      "role_derivation_rule": "EXTERNAL_FEATURE_SUPPORT_ONLY_V1",
+      "runtime_callable": "live_contentops.production_evidence_adapters_wave3_v1.extract_wave3_artifact_evidence",
+      "shape_contract_id": "fhfa.hpi.official_html.external_shape.v1",
+      "supported_evidence_roles": [
+        "feature_support"
+      ],
+      "supported_feature_ids": [
+        "evidence_completeness",
+        "freshness"
+      ],
+      "timestamp_extraction_rules": {
+        "known_at_utc": "VERIFIED_GIT_RECEIPT_ARTIFACT_CUTOFF",
+        "observed_at_utc": "UNAVAILABLE_PAGE_HAS_NO_DISTINCT_OBSERVATION_TIMESTAMP",
+        "published_at_utc": "UNAVAILABLE_NO_EXPLICIT_ARTIFACT_RELEASE_TIMESTAMP",
+        "revision_at_utc": "/html/head/meta[@property=article:modified_time]@START_OF_UTC_DAY"
+      }
+    }
+  ],
+  "schema_version": "contentops.production_adapter_contract_coverage.v2",
+  "starting_authority_sha": "a00a702dc97c2485852ab82a70707940ed8b2083",
+  "status": "PASS"
+}

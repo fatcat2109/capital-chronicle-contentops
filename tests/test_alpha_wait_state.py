@@ -77,30 +77,21 @@ def test_runbook_includes_hard_boundaries():
 
 
 def test_0073_bundle_docs_exist():
-    docs = os.path.join(os.path.dirname(__file__), "..", "docs")
     for name in ("NEW_CHAT_CONTINUATION_AFTER_0073.md",
                  "UPLOAD_BUNDLE_MANIFEST_AFTER_0073.md",
                  "PROJECT_SOURCE_EXPORT_AFTER_0073.md",
                  "CURRENT_STATE_SUMMARY_AFTER_0073.md",
                  "ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_AFTER_0073.md",
                  "TASK_CONTENTOPS_0073_EXTREME_LOCAL_ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_FINAL_BUNDLE_AND_PATH_REPAIR_V0.md"):
-        path = os.path.join(docs, name)
-        if not os.path.isfile(path):
-            path = os.path.join(docs, "archive", "stale_prelaunch_reset_0174CG", name)
-        assert os.path.isfile(path), f"missing doc: {name}"
+        assert fbm.resolve_historical_doc(name) is not None, f"missing doc: {name}"
 
 
 def test_recommended_upload_paths_exist_and_unique():
     manifest = fbm.build_manifest()
     paths = [e["path"] for e in manifest["recommended_uploads"]]
     assert len(paths) == len(set(paths)), "duplicate recommended upload paths"
-    docs = os.path.join(os.path.dirname(__file__), "..", "docs")
     for p in paths:
-        name = os.path.basename(p)
-        path = os.path.join(docs, name)
-        if not os.path.isfile(path):
-            path = os.path.join(docs, "archive", "stale_prelaunch_reset_0174CG", name)
-        assert os.path.isfile(path), f"missing: {p}"
+        assert fbm.resolve_historical_doc(p) is not None, f"missing: {p}"
 
 
 def test_manifest_excludes_gitignore_and_unsafe_categories():
