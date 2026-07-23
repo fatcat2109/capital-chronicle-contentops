@@ -1,4 +1,10 @@
 {
+  "assignment_summary": {
+    "internal_assignment_count": 1,
+    "public_write_count": 0,
+    "publication_count": 0,
+    "window_count": 5
+  },
   "browser_or_provider_call_performed": false,
   "candidate_counts": {
     "held_context_only": 5,
@@ -16,7 +22,7 @@
   },
   "classification": "PASS_REAL_CROSS_DOMAIN_CANARY_NO_PUBLICATION",
   "generated_at_utc": "2026-07-14T00:00:00Z",
-  "logical_hash": "388e0b4042751ee80cbf22916868b34227a42b804ea1b71a2de5f78ee909e714",
+  "logical_hash": "bca71d98830a7692b4715f41d2f1e0839d96430dcbdb2a59a89ef64c7fc19695",
   "public_write_performed": false,
   "publication_authority": false,
   "schema_version": "contentops.cross_domain_assignment_canary.v1",

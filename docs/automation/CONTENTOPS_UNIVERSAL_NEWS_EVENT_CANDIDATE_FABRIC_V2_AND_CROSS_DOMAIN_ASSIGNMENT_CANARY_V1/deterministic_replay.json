@@ -1,7 +1,7 @@
 {
   "exact_object_match": true,
-  "first_logical_hash": "388e0b4042751ee80cbf22916868b34227a42b804ea1b71a2de5f78ee909e714",
+  "first_logical_hash": "bca71d98830a7692b4715f41d2f1e0839d96430dcbdb2a59a89ef64c7fc19695",
   "schema_version": "contentops.cross_domain_deterministic_replay.v1",
-  "second_logical_hash": "388e0b4042751ee80cbf22916868b34227a42b804ea1b71a2de5f78ee909e714",
+  "second_logical_hash": "bca71d98830a7692b4715f41d2f1e0839d96430dcbdb2a59a89ef64c7fc19695",
   "status": "PASS"
 }

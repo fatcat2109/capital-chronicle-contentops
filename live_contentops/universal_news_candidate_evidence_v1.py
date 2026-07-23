@@ -419,8 +419,11 @@ def build_evidence(
         },
         "five_window_decisions.json": canary["assignment"],
         "cross_domain_canary_results.json": {
-            key: value for key, value in canary.items()
-            if key not in {"pool", "assignment"}
+            **{
+                key: value for key, value in canary.items()
+                if key not in {"pool", "assignment"}
+            },
+            "assignment_summary": canary["assignment"]["summary"],
         },
         "deterministic_replay.json": {
             "schema_version": "contentops.cross_domain_deterministic_replay.v1",
@@ -512,6 +515,9 @@ def build_evidence(
         "held_context_only_count": canary["candidate_counts"]["held_context_only"],
         "rejected_contract_invalid_count": canary["candidate_counts"]["rejected_contract_invalid"],
         "five_window_count": len(FIVE_WINDOWS),
+        "internal_assignment_count": canary["assignment"]["summary"][
+            "internal_assignment_count"
+        ],
         "publication_count": 0,
         "public_write_count": 0,
         "local_governed_artifact_status": "PASS_ALL_EXACT_SHA256",

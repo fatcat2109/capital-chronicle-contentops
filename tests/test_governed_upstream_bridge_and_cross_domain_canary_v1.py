@@ -172,6 +172,15 @@ def test_real_assignment_preserves_zero_unavailable_and_no_publication(real_cana
     assert numeric["ranking_inputs"]["surprise"]["score"] == 0
     assert numeric["ranking_inputs"]["audience_relevance"]["availability"] == "UNAVAILABLE"
     assert numeric["ranking_inputs"]["audience_relevance"]["score"] is None
+    assert real_canary["assignment"]["summary"]["internal_assignment_count"] == 1
+    assigned = [
+        decision
+        for decision in real_canary["assignment"]["decisions"]
+        if decision["selected_candidate_id"] is not None
+    ]
+    assert len(assigned) == 1
+    assert assigned[0]["selected_candidate_id"] == numeric["candidate_id"]
+    assert assigned[0]["decision"] == "ASSIGN_INTERNAL_NO_PUBLICATION_TASK_BOUNDARY"
     assert real_canary["assignment"]["summary"]["publication_count"] == 0
     assert real_canary["assignment"]["summary"]["public_write_count"] == 0
 

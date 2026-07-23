@@ -829,18 +829,17 @@ def evaluate_v2_window_decision(
     held = []
     prior_clusters = {row.get("cluster_id") for row in previously_assigned}
     prior_chains = {row.get("update_chain_id") for row in previously_assigned}
-    for candidate in pool.get("candidates") or []:
-        blockers = candidate_hard_gate(
-            candidate,
-            cutoff_utc=cutoff_utc,
-            source_family_registry=registry,
-        )
     cluster_by_candidate = {
         candidate_id: cluster
         for cluster in pool.get("clusters") or []
         for candidate_id in cluster.get("candidate_ids") or []
     }
     for candidate in pool.get("candidates") or []:
+        blockers = candidate_hard_gate(
+            candidate,
+            cutoff_utc=cutoff_utc,
+            source_family_registry=registry,
+        )
         cluster = cluster_by_candidate.get(candidate.get("candidate_id"))
         if cluster is None:
             blockers.append(
