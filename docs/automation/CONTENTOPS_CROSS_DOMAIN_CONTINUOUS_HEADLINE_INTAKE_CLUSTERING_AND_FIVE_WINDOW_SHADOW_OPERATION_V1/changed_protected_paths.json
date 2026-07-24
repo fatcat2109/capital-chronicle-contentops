@@ -1,0 +1,39 @@
+{
+  "changed_implementation_paths": [
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json",
+    "live_contentops/cross_domain_continuous_shadow_evidence_v1.py",
+    "live_contentops/cross_domain_continuous_shadow_v1.py",
+    "live_contentops/universal_governed_registry_v1.py",
+    "live_contentops/universal_news_candidate_fabric_v2.py",
+    "live_contentops/universal_news_cross_domain_canary_v1.py",
+    "schemas/ContentOpsUniversalNewsCandidatePoolV2.schema.json",
+    "tests/test_cross_domain_continuous_shadow_v1.py",
+    "tests/test_final_product_readiness_metadata_consistency.py",
+    "tests/test_governed_upstream_bridge_and_cross_domain_canary_v1.py",
+    "tests/test_universal_governed_registry_v1.py",
+    "tests/test_universal_news_candidate_fabric_v2.py"
+  ],
+  "new_registry_paths": [
+    "live_contentops/governed_universal_adapter_source_binding_registry_v1.json",
+    "live_contentops/governed_universal_claim_capability_registry_v1.json",
+    "live_contentops/governed_universal_evidence_profile_registry_v1.json",
+    "live_contentops/governed_universal_market_evidence_capability_registry_v1.json",
+    "live_contentops/governed_universal_source_family_registry_v1.json",
+    "live_contentops/governed_universal_registry_authority_manifest_v1.json"
+  ],
+  "protected_path_mutation_count": 0,
+  "protected_paths": [
+    "accepted public output trees",
+    "prior automation evidence trees",
+    "existing 13 production adapters",
+    "existing 16 extractor proofs",
+    "upstream repository",
+    "v1.0 tag"
+  ],
+  "schema_version": "contentops.changed_protected_paths.v1",
+  "status": "PASS"
+}

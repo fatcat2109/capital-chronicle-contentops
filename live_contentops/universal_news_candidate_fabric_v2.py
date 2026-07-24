@@ -198,7 +198,7 @@ def _unique(values: Sequence[str]) -> list[str]:
     return list(dict.fromkeys(values))
 
 
-def build_claim(
+def _build_claim_unchecked(
     *,
     claim_id: str,
     claim_type: str,
@@ -246,6 +246,29 @@ def build_claim(
     }
     values["logical_hash"] = logical_hash(values)
     return values
+
+
+def build_claim(
+    *,
+    authority_class: str,
+    permission_state: str,
+    **values: Any,
+) -> dict[str, Any]:
+    """Build an unprivileged structural claim.
+
+    Verified/governed authority and reporting-capable permission are available
+    only through ``build_governed_claim`` in the receipt-bound registry module.
+    This compatibility builder cannot manufacture those states.
+    """
+    if AUTHORITY_RANK.get(authority_class, -1) > AUTHORITY_RANK["CONTEXT_ONLY"]:
+        raise ValueError("governed_claim_authority_chain_required")
+    if PERMISSION_RANK.get(permission_state, -1) > PERMISSION_RANK["CONTEXT_ONLY"]:
+        raise ValueError("governed_claim_permission_chain_required")
+    return _build_claim_unchecked(
+        authority_class=authority_class,
+        permission_state=permission_state,
+        **values,
+    )
 
 
 def validate_claim(
@@ -318,8 +341,6 @@ def validate_claim(
         market_refs = claim.get("market_evidence_refs") or []
         if not market_refs:
             blockers.append("market_reaction_separate_evidence_missing")
-        elif not set(market_refs).issubset(set(refs)):
-            blockers.append("market_reaction_evidence_not_in_claim_lineage")
         payload = claim.get("structured_payload") or {}
         for field in ("instrument_id", "observation_time_utc", "evidence_relationship"):
             if not payload.get(field):
@@ -510,8 +531,8 @@ def adapt_v1_candidate(
             structured_payload={"source_native_claim_id": claim_id},
             source_document_ids=document_ids,
             evidence_refs=[f"v1:{candidate.get('evidence_hash')}:{claim_id}"],
-            authority_class="OFFICIAL_VERIFIED",
-            permission_state="PUBLIC_CLAIM_ALLOWED" if row.get("public_claim_allowed") is True else "REPORTING_NOT_ALLOWED",
+            authority_class="UNVERIFIED",
+            permission_state="REPORTING_NOT_ALLOWED",
             observed_at_utc=row.get("observation_time_utc"),
             published_at_utc=row.get("observation_time_utc"),
             known_at_utc=str(row.get("known_at_utc") or candidate.get("known_at_utc")),
@@ -549,8 +570,8 @@ def adapt_v1_candidate(
         "entities": [],
         "geographies": [],
         "evidence_refs": evidence_refs,
-        "authority_state": "OFFICIAL_VERIFIED",
-        "reporting_allowed": (candidate.get("claim_permissions") or {}).get("reporting_allowed") is True,
+        "authority_state": "UNVERIFIED",
+        "reporting_allowed": False,
         "evidence_state": candidate.get("evidence_class"),
         "event_time_utc": candidate.get("event_time_utc"),
         "observation_time_utc": candidate.get("event_time_utc"),
@@ -568,6 +589,7 @@ def adapt_v1_candidate(
         "limitations": _unique([
             *(str(value) for value in candidate.get("limitations") or []),
             "v1_compatibility_adapter_preserves_numeric_claims_projection",
+            "legacy_structural_adapter_does_not_grant_authority",
             "candidate_contract_grants_no_publication_authority",
         ]),
         "blockers": list(candidate.get("blockers") or []),
@@ -611,28 +633,29 @@ def assign_generic_id(prefix: str, material: Mapping[str, Any]) -> str:
 def cluster_candidates(candidates: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     groups: dict[str, list[Mapping[str, Any]]] = {}
     for candidate in candidates:
-        identity = {
-            "source_native_ids": sorted(candidate.get("source_native_ids") or []),
-            "entities": sorted(candidate.get("entities") or []),
-            "geographies": sorted(candidate.get("geographies") or []),
-            "profile": candidate.get("evidence_requirement_profile_id"),
-            "claim_types": sorted(
-                str(row.get("claim_type"))
-                for row in candidate.get("claims") or []
-                if row.get("claim_type")
-            ),
-            "time_bucket": str(
-                candidate.get("event_time_utc")
-                or candidate.get("observation_time_utc")
-                or candidate.get("published_at_utc")
-                or ""
-            )[:10],
-            "source_document_ids": sorted(
-                str(row.get("document_id"))
-                for row in candidate.get("source_documents") or []
-                if row.get("document_id")
-            ),
-        }
+        source_native_ids = sorted(candidate.get("source_native_ids") or [])
+        if source_native_ids:
+            identity = {
+                "source_native_ids": source_native_ids,
+                "profile": candidate.get("evidence_requirement_profile_id"),
+            }
+        else:
+            identity = {
+                "entities": sorted(candidate.get("entities") or []),
+                "geographies": sorted(candidate.get("geographies") or []),
+                "profile": candidate.get("evidence_requirement_profile_id"),
+                "claim_types": sorted(
+                    str(row.get("claim_type"))
+                    for row in candidate.get("claims") or []
+                    if row.get("claim_type")
+                ),
+                "time_bucket": str(
+                    candidate.get("event_time_utc")
+                    or candidate.get("observation_time_utc")
+                    or candidate.get("published_at_utc")
+                    or ""
+                )[:10],
+            }
         key = logical_hash(identity)
         groups.setdefault(key, []).append(candidate)
     clusters = []
@@ -949,7 +972,7 @@ def run_five_window_assignment(
     return result
 
 
-def build_pool(
+def _build_pool_unchecked(
     *,
     candidates: Sequence[Mapping[str, Any]],
     source_family_records: Sequence[Mapping[str, Any]],
@@ -1012,6 +1035,27 @@ def build_pool(
     values["pool_id"] = f"cc-universal-pool-{digest[:20]}"
     values["logical_hash"] = logical_hash(values)
     return values
+
+
+def build_pool(
+    *,
+    source_family_records: Sequence[Mapping[str, Any]],
+    **values: Any,
+) -> dict[str, Any]:
+    """Build only an unprivileged pool from caller-supplied family records."""
+    for record in source_family_records:
+        if AUTHORITY_RANK.get(
+            str(record.get("authority_class") or ""), -1
+        ) > AUTHORITY_RANK["CONTEXT_ONLY"]:
+            raise ValueError("caller_source_family_authority_forbidden")
+        if PERMISSION_RANK.get(
+            str(record.get("permission_ceiling") or ""), -1
+        ) > PERMISSION_RANK["CONTEXT_ONLY"]:
+            raise ValueError("caller_source_family_permission_forbidden")
+    return _build_pool_unchecked(
+        source_family_records=source_family_records,
+        **values,
+    )
 
 
 def validate_pool(pool: Mapping[str, Any]) -> list[str]:

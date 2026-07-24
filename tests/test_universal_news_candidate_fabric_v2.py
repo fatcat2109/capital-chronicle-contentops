@@ -30,8 +30,8 @@ from live_contentops.universal_news_candidate_fabric_v2 import (
 
 SOURCE_RECORD = {
     "source_family_id": "fixture_official_document",
-    "authority_class": "OFFICIAL_VERIFIED",
-    "permission_ceiling": "REPORTING_ALLOWED",
+    "authority_class": "CONTEXT_ONLY",
+    "permission_ceiling": "CONTEXT_ONLY",
     "evidence_state": "exact",
     "enabled": True,
 }
@@ -51,8 +51,8 @@ def _claim(claim_type="official_action", **overrides):
         "structured_payload": {"action_type": "published_notice"},
         "source_document_ids": ["doc:1"],
         "evidence_refs": ["evidence:1"],
-        "authority_class": "OFFICIAL_VERIFIED",
-        "permission_state": "REPORTING_ALLOWED",
+        "authority_class": "CONTEXT_ONLY",
+        "permission_state": "CONTEXT_ONLY",
         "event_time_utc": "2026-07-13T10:00:00Z",
         "published_at_utc": "2026-07-13T10:00:00Z",
         "known_at_utc": "2026-07-13T10:05:00Z",
@@ -68,7 +68,7 @@ def _candidate(
     claim=None,
     *,
     profile="official_action",
-    reporting_allowed=True,
+    reporting_allowed=False,
     evidence_state="exact",
     blockers=(),
     ranking_inputs=None,
@@ -98,7 +98,7 @@ def _candidate(
         "entities": ["entity:1"],
         "geographies": ["geo:1"],
         "evidence_refs": list(claim["evidence_refs"]),
-        "authority_state": "OFFICIAL_VERIFIED",
+        "authority_state": "CONTEXT_ONLY",
         "reporting_allowed": reporting_allowed,
         "evidence_state": evidence_state,
         "event_time_utc": "2026-07-13T10:00:00Z",
@@ -235,8 +235,8 @@ def test_source_family_registry_accepts_versioned_extension():
     extended = dict(SOURCE_REGISTRY)
     extended["additional_official_family"] = {
             "source_family_id": "additional_official_family",
-            "authority_class": "OFFICIAL_VERIFIED",
-            "permission_ceiling": "REPORTING_ALLOWED",
+            "authority_class": "CONTEXT_ONLY",
+            "permission_ceiling": "CONTEXT_ONLY",
         "enabled": True,
     }
     candidate = _candidate()
@@ -261,7 +261,7 @@ def test_candidate_reporting_cannot_upgrade_context_only_claim():
 
 
 def test_candidate_authority_cannot_upgrade_claim_or_source_family():
-    claim = _claim(authority_class="CONTEXT_ONLY")
+    claim = _claim(authority_class="UNVERIFIED")
     candidate = _candidate(claim=claim)
     assert "candidate_authority_upgrade" in validate_candidate(
         candidate,
@@ -271,8 +271,8 @@ def test_candidate_authority_cannot_upgrade_claim_or_source_family():
     restricted_registry = {
         "fixture_official_document": {
             **SOURCE_RECORD,
-            "authority_class": "CONTEXT_ONLY",
-            "permission_ceiling": "CONTEXT_ONLY",
+            "authority_class": "UNVERIFIED",
+            "permission_ceiling": "REPORTING_NOT_ALLOWED",
         }
     }
     blockers = validate_candidate(
@@ -424,7 +424,7 @@ def test_model_assisted_ranking_score_requires_candidate_bound_evidence():
     assert score_candidate(candidate)["blockers"] == []
 
 
-def test_valid_nonnumeric_candidate_reaches_assignment_without_numeric_blocker():
+def test_unprivileged_nonnumeric_candidate_is_held_without_numeric_blocker():
     candidate = _candidate(ranking_inputs={
         "source_authority": {
             "availability": "AVAILABLE",
@@ -440,8 +440,11 @@ def test_valid_nonnumeric_candidate_reaches_assignment_without_numeric_blocker()
         pool=pool,
         previously_assigned=[],
     )
-    assert result["selected_candidate_id"] == candidate["candidate_id"]
-    assert result["decision"] == "ASSIGN_INTERNAL_NO_PUBLICATION_TASK_BOUNDARY"
+    assert result["selected_candidate_id"] is None
+    assert result["decision"] == "NO_ASSIGNMENT_ALL_CANDIDATES_HELD"
+    blockers = result["held_candidates"][0]["blockers"]
+    assert "reporting_permission_not_granted" in blockers
+    assert all("numeric_claim" not in value for value in blockers)
     assert result["publication_authority"] is False
 
 
@@ -510,7 +513,10 @@ def test_breaking_requires_bound_governed_event_or_material_update_evidence():
     })
     assert breaking_qualification(candidate)["qualified"] is False
     candidate["breaking_event_evidence_ref"] = "evidence:1"
-    assert breaking_qualification(candidate)["qualified"] is True
+    qualification = breaking_qualification(candidate)
+    assert qualification["qualified"] is False
+    assert qualification["checks"]["evidence_ref_bound_to_candidate"] is True
+    assert qualification["checks"]["authority_ready"] is False
     candidate["relationship"] = "duplicate"
     assert breaking_qualification(candidate)["qualified"] is False
 

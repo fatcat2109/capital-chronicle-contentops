@@ -75,9 +75,9 @@ def test_real_canary_has_six_distinct_official_categories(real_canary):
     assert real_canary["classification"] == "PASS_REAL_CROSS_DOMAIN_CANARY_NO_PUBLICATION"
     assert len(real_canary["selected_real_categories"]) == 6
     assert real_canary["candidate_counts"] == {
-        "total": 6,
+        "total": 8,
         "reporting_eligible": 1,
-        "held_context_only": 5,
+        "held_context_only": 7,
         "rejected_contract_invalid": 0,
     }
 
@@ -88,7 +88,7 @@ def test_real_canary_claim_graph_is_numeric_and_nonnumeric(real_canary):
         "entity_relationship": 1,
         "event_occurrence": 1,
         "factual_text": 1,
-        "legal_or_regulatory_action": 1,
+        "legal_or_regulatory_action": 3,
         "numeric_observation": 4,
     }
 
@@ -120,11 +120,11 @@ def test_ofac_snapshot_is_context_not_new_sanctions_action(real_canary):
         if row["evidence_requirement_profile_id"] == "geopolitical_or_sanctions"
     )
     assert [row["claim_type"] for row in candidate["claims"]] == ["entity_relationship"]
-    assert "current_entity_snapshot_is_context_not_a_new_sanctions_action" in candidate["limitations"]
+    assert "snapshot_membership_is_not_a_new_sanctions_action" in candidate["limitations"]
     assert candidate["reporting_allowed"] is False
-    relationships = candidate["producer_binding"]["revision_relationships"]
-    assert len(relationships) == 1
-    assert relationships[0]["relation_type"] == "snapshot_contains"
+    assert candidate["claims"][0]["structured_payload"]["relationship_type"] == (
+        "snapshot_contains"
+    )
 
 
 def test_filing_metadata_does_not_claim_earnings_or_market_reaction(real_canary):

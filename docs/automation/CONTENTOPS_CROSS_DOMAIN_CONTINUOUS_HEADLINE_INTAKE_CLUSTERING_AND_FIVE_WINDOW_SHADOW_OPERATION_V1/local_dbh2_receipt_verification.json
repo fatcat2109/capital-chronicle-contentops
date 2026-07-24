@@ -1,0 +1,119 @@
+{
+  "artifact_producer_commit": "a681e2a432846b9b7f7706d63b639ac6a1c4b3b8",
+  "artifact_producer_commit_reachable_from_observed_head": true,
+  "branch": "main",
+  "later_observed_branch_head": "1700520800e8c847b7446e196c384a43dd2a6a58",
+  "local_artifact_status": "PASS_ALL_EXACT_SHA256",
+  "local_artifacts": [
+    {
+      "artifact_kind": "duckdb",
+      "byte_length": 101199872,
+      "expected_sha256": "d8ea952ddf6e601a73a88f0f9ed7c49a6bba630d948163c98eeb70feb94a2088",
+      "observed_sha256": "d8ea952ddf6e601a73a88f0f9ed7c49a6bba630d948163c98eeb70feb94a2088",
+      "relative_path": "data/local_db/public_free_event_text_entity_history_integrity_repair_v1.duckdb",
+      "status": "PASS_EXACT_SHA256"
+    },
+    {
+      "artifact_kind": "parquet:DBH2_SEC_AAPL_SUBMISSIONS",
+      "byte_length": 319144,
+      "expected_sha256": "c21b3617af1a89aea77478181e87284a2b4f0d0243bfbbaf4c3e2fef79364153",
+      "observed_sha256": "c21b3617af1a89aea77478181e87284a2b4f0d0243bfbbaf4c3e2fef79364153",
+      "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_SEC_AAPL_SUBMISSIONS/records_99cd773696b8b8cb.parquet",
+      "status": "PASS_EXACT_SHA256"
+    },
+    {
+      "artifact_kind": "parquet:DBH2_SEC_MSFT_SUBMISSIONS",
+      "byte_length": 646018,
+      "expected_sha256": "51fe6679aa82ac2cedfe37fde09cbfce9f12f2f9649bc5ad847b6fdc41a0bfe8",
+      "observed_sha256": "51fe6679aa82ac2cedfe37fde09cbfce9f12f2f9649bc5ad847b6fdc41a0bfe8",
+      "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_SEC_MSFT_SUBMISSIONS/records_400c91f35c134b20.parquet",
+      "status": "PASS_EXACT_SHA256"
+    },
+    {
+      "artifact_kind": "parquet:DBH2_SEC_TICKER_EXCHANGE_SNAPSHOT",
+      "byte_length": 4391,
+      "expected_sha256": "16a4bf95b143d0c3a8cbd1f5dd4fb925a0ade43addd84c3a94350bf555f815a2",
+      "observed_sha256": "16a4bf95b143d0c3a8cbd1f5dd4fb925a0ade43addd84c3a94350bf555f815a2",
+      "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_SEC_TICKER_EXCHANGE_SNAPSHOT/records_adda20e073de7b8e.parquet",
+      "status": "PASS_EXACT_SHA256"
+    },
+    {
+      "artifact_kind": "parquet:DBH2_FEDERAL_REGISTER_FED_SYSTEM",
+      "byte_length": 3127471,
+      "expected_sha256": "e2792c34a09e46426d09ac8708592b4e123267ac7a295c85e90a1b0f739bd62f",
+      "observed_sha256": "e2792c34a09e46426d09ac8708592b4e123267ac7a295c85e90a1b0f739bd62f",
+      "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_FEDERAL_REGISTER_FED_SYSTEM/records_e44f575e81e12c85.parquet",
+      "status": "PASS_EXACT_SHA256"
+    },
+    {
+      "artifact_kind": "parquet:DBH2_FEDERAL_REGISTER_SEC",
+      "byte_length": 12313285,
+      "expected_sha256": "23216811e62d3dda3be6ce7988e4e4bb1f60b609ada651ae393aab2bc6936070",
+      "observed_sha256": "23216811e62d3dda3be6ce7988e4e4bb1f60b609ada651ae393aab2bc6936070",
+      "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_FEDERAL_REGISTER_SEC/records_ae68d7817e9a8f7c.parquet",
+      "status": "PASS_EXACT_SHA256"
+    },
+    {
+      "artifact_kind": "parquet:DBH2_USGS_SIGNIFICANT_GLOBAL",
+      "byte_length": 1689957,
+      "expected_sha256": "f947ed80002d7bd6043c3a82c5ef9d6d4b70e24b3434a541f7431ea1f02cf028",
+      "observed_sha256": "f947ed80002d7bd6043c3a82c5ef9d6d4b70e24b3434a541f7431ea1f02cf028",
+      "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_USGS_SIGNIFICANT_GLOBAL/records_5d8cbb16caade9b3.parquet",
+      "status": "PASS_EXACT_SHA256"
+    },
+    {
+      "artifact_kind": "parquet:DBH2_POLYMARKET_MACRO_EVENTS",
+      "byte_length": 7847,
+      "expected_sha256": "2593eea455bd392e2fa0951c9a1300e02f4253f082965c48a4249656c9b297f2",
+      "observed_sha256": "2593eea455bd392e2fa0951c9a1300e02f4253f082965c48a4249656c9b297f2",
+      "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_POLYMARKET_MACRO_EVENTS/records_e0adba0c7589e03b.parquet",
+      "status": "PASS_EXACT_SHA256"
+    },
+    {
+      "artifact_kind": "parquet:DBH2_FED_FOMC_CALENDAR_ARCHIVE",
+      "byte_length": 37371,
+      "expected_sha256": "892173fd05c3b8dccb8dc073925d155ce86f896dd2600d8100ace44f68fca966",
+      "observed_sha256": "892173fd05c3b8dccb8dc073925d155ce86f896dd2600d8100ace44f68fca966",
+      "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_FED_FOMC_CALENDAR_ARCHIVE/records_da44f2c0ccf8f19f.parquet",
+      "status": "PASS_EXACT_SHA256"
+    },
+    {
+      "artifact_kind": "parquet:DBH2_OFAC_SDN_CURRENT_SNAPSHOT",
+      "byte_length": 3001480,
+      "expected_sha256": "9869f39a12b2630ef2fe56959bb9bc7f1ea835e201d4d8a4e74b697a95e92be4",
+      "observed_sha256": "9869f39a12b2630ef2fe56959bb9bc7f1ea835e201d4d8a4e74b697a95e92be4",
+      "relative_path": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_OFAC_SDN_CURRENT_SNAPSHOT/records_21c8f19ecb6bd011.parquet",
+      "status": "PASS_EXACT_SHA256"
+    }
+  ],
+  "logical_hash": "468c42f492bb9be3e71154460139eaa36c829633f080fef4c52767edbf035dd4",
+  "manifest_logical_hash": "1e06278c61178fe061666a3097a2cc3f8aeb2efb23f320ba03b4553a57f37dc3",
+  "manifest_receipt": {
+    "artifact_path": "docs/research/database_foundation/public_free_event_text_entity_history_v1/DBH2_STORAGE_MANIFEST_V1.json",
+    "branch": "main",
+    "byte_length": 3946,
+    "byte_sha256": "462a82ad2afd1b1c29c3973222938d967b4495a46124924d0b0c2ec177fc990a",
+    "git_blob_sha1": "9732249f94f3aa95c5abc3b454b7b797811472d7",
+    "observed_head": "02120f86c9e9923d9c2b49db1533443cd2849eb9",
+    "producer_commit": "02120f86c9e9923d9c2b49db1533443cd2849eb9",
+    "repository": "fatcat2109/Headline-Raw-data-json"
+  },
+  "observed_head": "02120f86c9e9923d9c2b49db1533443cd2849eb9",
+  "observed_head_reachable_from_later_branch_head": true,
+  "read_only": true,
+  "repository": "fatcat2109/Headline-Raw-data-json",
+  "schema_version": "contentops.governed_upstream_bridge_receipt.v1",
+  "target_catalog_exact_authority": false,
+  "target_catalog_receipt": {
+    "artifact_path": "config/data_foundation/PUBLIC_FREE_EVENT_TEXT_ENTITY_HISTORY_TARGET_CATALOG_V1.json",
+    "branch": "main",
+    "byte_length": 14496,
+    "byte_sha256": "a7d12781f863258d244002cf55afae31fb827385ef2a7fff28af2e914825c589",
+    "git_blob_sha1": "8ccc91025c3e614fcaef2d1721eeb8447c4ca34d",
+    "observed_head": "02120f86c9e9923d9c2b49db1533443cd2849eb9",
+    "producer_commit": "02120f86c9e9923d9c2b49db1533443cd2849eb9",
+    "repository": "fatcat2109/Headline-Raw-data-json"
+  },
+  "target_catalog_schema_version": "1.0.0",
+  "upstream_write_performed": false
+}

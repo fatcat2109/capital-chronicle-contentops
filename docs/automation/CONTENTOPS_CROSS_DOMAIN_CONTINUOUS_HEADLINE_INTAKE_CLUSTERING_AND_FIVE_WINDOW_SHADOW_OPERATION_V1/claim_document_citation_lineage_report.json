@@ -1,0 +1,212 @@
+{
+  "all_candidates_pass": true,
+  "candidate_reports": [
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "claim_reports": [
+        {
+          "blockers": [],
+          "claim_id": "UST:2Y:2026-07-13",
+          "document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13"
+          ]
+        },
+        {
+          "blockers": [],
+          "claim_id": "UST:10Y:2026-07-13",
+          "document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13"
+          ]
+        },
+        {
+          "blockers": [],
+          "claim_id": "UST:30Y:2026-07-13",
+          "document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+          ]
+        },
+        {
+          "blockers": [],
+          "claim_id": "UST:2S10S:2026-07-13",
+          "document_ids": [
+            "ust-daily-yield-curve-2026-07-13"
+          ],
+          "evidence_refs": [
+            "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13"
+          ]
+        }
+      ],
+      "logical_hash": "9e2a3eb9f51d06e2697b138b9080e96c847b8315f619f07d0a714d5bfee97ef9",
+      "schema_version": "contentops.claim_document_citation_lineage_report.v1",
+      "status": "PASS",
+      "unconsumed_authority_evidence_refs": [],
+      "unused_document_ids": []
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-1d8debb655d52c7bb9e9",
+      "claim_reports": [
+        {
+          "blockers": [],
+          "claim_id": "claim-df1dee39b0f924a9229f",
+          "document_ids": [
+            "dbh2-document:b49c560e1bde5cd739087bbc14626d0fa4df3a82a65ac1cb04e61d9d33bcd276:212a52fb318e6203c7a8bfc59cefbe7f53fd1accc9e96999c84c726fbe167c77"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_FED_FOMC_CALENDAR_ARCHIVE:b49c560e1bde5cd739087bbc14626d0fa4df3a82a65ac1cb04e61d9d33bcd276:212a52fb318e6203c7a8bfc59cefbe7f53fd1accc9e96999c84c726fbe167c77"
+          ]
+        }
+      ],
+      "logical_hash": "4d16891bc72f990229f845979441c585c68e1e1cf0368a00c1a883e2df62d386",
+      "schema_version": "contentops.claim_document_citation_lineage_report.v1",
+      "status": "PASS",
+      "unconsumed_authority_evidence_refs": [],
+      "unused_document_ids": []
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-7581732cfa4782c472f9",
+      "claim_reports": [
+        {
+          "blockers": [],
+          "claim_id": "claim-e4ec2d63d10a8c03309f",
+          "document_ids": [
+            "dbh2-document:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_SEC_MSFT_SUBMISSIONS:f12d1a82bb3c05ce1e6fecbf8ca70acb0b8af86733de5a4b845832550070631a:b6dde14249834053f343f2da052d8abf2d07c1fd8f84aa91a63489314603a008"
+          ]
+        }
+      ],
+      "logical_hash": "4bcf75acea8766005a907720ac5b3c5541c695c3c4eb186d3f1fec295e2bb876",
+      "schema_version": "contentops.claim_document_citation_lineage_report.v1",
+      "status": "PASS",
+      "unconsumed_authority_evidence_refs": [],
+      "unused_document_ids": []
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+      "claim_reports": [
+        {
+          "blockers": [],
+          "claim_id": "claim-9686ac2c5f20330357f9",
+          "document_ids": [
+            "dbh2-document:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+          ]
+        }
+      ],
+      "logical_hash": "27773c8c1f96febf4d92c41297ef330a60de3a35ba82227e7182aa818e826d5a",
+      "schema_version": "contentops.claim_document_citation_lineage_report.v1",
+      "status": "PASS",
+      "unconsumed_authority_evidence_refs": [],
+      "unused_document_ids": []
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+      "claim_reports": [
+        {
+          "blockers": [],
+          "claim_id": "claim-d300a919b2719a0069a6",
+          "document_ids": [
+            "dbh2-document:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+          ]
+        }
+      ],
+      "logical_hash": "0b3ea335684a9cc13ff8137ca8978ce56882fc992df5248483a17780043c5e1c",
+      "schema_version": "contentops.claim_document_citation_lineage_report.v1",
+      "status": "PASS",
+      "unconsumed_authority_evidence_refs": [],
+      "unused_document_ids": []
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-b113cef95f9cb5638243",
+      "claim_reports": [
+        {
+          "blockers": [],
+          "claim_id": "claim-583cbcf3e47dd9a21de1",
+          "document_ids": [
+            "dbh2-document:8ad3bdfa8d266d27eb66284caa2ad89980f60eeae92ed6302ea136b5278c8c02:b847118cb31aa33be9433dd9089fecdaecf062b0059eb6d59c22a7225cda8bfb"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:8ad3bdfa8d266d27eb66284caa2ad89980f60eeae92ed6302ea136b5278c8c02:b847118cb31aa33be9433dd9089fecdaecf062b0059eb6d59c22a7225cda8bfb"
+          ]
+        }
+      ],
+      "logical_hash": "a9199f3aa8d4ef4f21fdd0e3c3ccf1ef75ea6dca0bc6882d517c88b75f2b1af9",
+      "schema_version": "contentops.claim_document_citation_lineage_report.v1",
+      "status": "PASS",
+      "unconsumed_authority_evidence_refs": [],
+      "unused_document_ids": []
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+      "claim_reports": [
+        {
+          "blockers": [],
+          "claim_id": "claim-d4f9f32e830f1306d68f",
+          "document_ids": [
+            "dbh2-document:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_OFAC_SDN_CURRENT_SNAPSHOT:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+          ]
+        }
+      ],
+      "logical_hash": "1d3e27175c4ccb99589689c5835501b2cfe346da8082dffdac877ac2cbd3ede2",
+      "schema_version": "contentops.claim_document_citation_lineage_report.v1",
+      "status": "PASS",
+      "unconsumed_authority_evidence_refs": [],
+      "unused_document_ids": []
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-ce52c66ddc438792adbe",
+      "claim_reports": [
+        {
+          "blockers": [],
+          "claim_id": "claim-d5c991501e7ae13d2bd5",
+          "document_ids": [
+            "dbh2-document:8ad3bdfa8d266d27eb66284caa2ad89980f60eeae92ed6302ea136b5278c8c02:739690b6851119ae373e396049e90e58e50c29a06155a07db28900afeb82a3f7"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:8ad3bdfa8d266d27eb66284caa2ad89980f60eeae92ed6302ea136b5278c8c02:739690b6851119ae373e396049e90e58e50c29a06155a07db28900afeb82a3f7"
+          ]
+        }
+      ],
+      "logical_hash": "d3af171bcadf771511bf6031c1bb037859a6983fbc35d8782e9270957e18c053",
+      "schema_version": "contentops.claim_document_citation_lineage_report.v1",
+      "status": "PASS",
+      "unconsumed_authority_evidence_refs": [],
+      "unused_document_ids": []
+    }
+  ],
+  "mutation_controls": [
+    "missing_document_rejected",
+    "unauthorized_citation_url_rejected",
+    "unresolved_evidence_ref_rejected",
+    "duplicate_binding_ref_rejected",
+    "cross_candidate_ref_reuse_rejected"
+  ],
+  "schema_version": "contentops.claim_document_citation_lineage_task_report.v1",
+  "status": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "browser_or_cdp_action_performed": false,
+  "classification": "DETERMINISTIC_LOCAL_SHADOW_ONLY",
+  "credentials_read": false,
+  "dqr_authority_mutated": false,
+  "editorial_authority_mutated": false,
+  "network_fetch_performed": false,
+  "provider_call_performed": false,
+  "public_dispatch_performed": false,
+  "public_write_count": 0,
+  "publication_count": 0,
+  "scheduler_authority_mutated": false,
+  "schema_version": "contentops.safety_report.v1",
+  "status": "PASS",
+  "upstream_write_performed": false
+}

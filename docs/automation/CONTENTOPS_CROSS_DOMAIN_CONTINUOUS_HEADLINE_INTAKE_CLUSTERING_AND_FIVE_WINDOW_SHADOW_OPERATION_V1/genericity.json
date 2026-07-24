@@ -1,0 +1,9 @@
+{
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "caller_runtime_registry_creation_allowed": false,
+  "generic_core": "live_contentops/universal_governed_registry_v1.py",
+  "ranking_calibration_added": false,
+  "schema_version": "contentops.genericity_report.v1",
+  "source_specific_routes_confined_to_adapter_shadow_module": true,
+  "status": "PASS"
+}

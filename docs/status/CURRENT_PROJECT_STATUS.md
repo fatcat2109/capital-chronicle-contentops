@@ -4,9 +4,23 @@
 
 ## Current Classification
 
-`PASS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1`.
+Completed task: `TASK_CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1`.
+
+## Governed Continuous Cross-Domain Shadow Newsroom
+
+The prior independent audit is recorded as `PARTIAL_PASS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_CANARY — BLOCKED_CONTINUOUS_OPERATION_ON_GOVERNED_AUTHORITY_REGISTRY_AND_CLAIM_LINEAGE_BINDING`. The accepted prior disposition remains `ACCEPT_UNIVERSAL_V2_SCHEMA_READ_ONLY_DBH2_BRIDGE_AND_NO_PUBLICATION_CROSS_DOMAIN_CANARY`.
+
+Five committed, receipt-bound universal registries now govern claim capabilities, evidence profiles, source families, adapter/source bindings, and market-evidence capabilities. Runtime callers may select or narrow registered records but cannot manufacture verified authority or reporting/public-claim permission. The V1 numeric adapter is bound to the exact accepted upstream candidate-pool receipt instead of hardcoded authority alone.
+
+Exact claim/document/citation lineage, complete profile execution, and separately registered market evidence fail closed on missing, mismatched, duplicate, cross-candidate, unsupported, or self-declared inputs. The deterministic local replay covers six real families over nine point-in-time checkpoints and 45 five-window decisions. It exercises a real two-version Federal Register correction chain, admits records only after known-at time, holds all context-only candidates, assigns the one eligible numeric identity once, preserves explicit zero, unavailable values, and stale freshness distinctly, and produces zero publications and zero public writes.
+
+This is a deterministic local continuous shadow operation over exact governed artifacts. It performed no network intake and does not claim continuous live headline intake. `UNCALIBRATED_FOUNDATION`, the frozen V2 semantics, all accepted public outputs, the existing 13 adapters and 16 extractor proofs, upstream read-only state, and annotated `v1.0` remain unchanged.
+
+Evidence: `docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/final_manifest.json`.
+
+Focused authority/lineage/profile/market/continuous validation passed 80 tests; the affected V2 foundation and adapter shards passed 388 tests; V1 compatibility passed 22 tests; and newsroom scheduler/status validation passed 42 tests. Both genericity guards, compilation, JSON/schema/hash validation, deterministic regeneration, `git diff --check`, and the redacted scoped secret scan passed. The known full repository baseline was not rerun, CI was not available, and no full-suite or CI PASS is claimed.
 
 ## Universal News/Event Candidate Fabric V2 And Cross-Domain Assignment Canary
 

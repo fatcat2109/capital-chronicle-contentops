@@ -1,0 +1,110 @@
+{
+  "accepted_prior_disposition": "ACCEPT_UNIVERSAL_V2_SCHEMA_READ_ONLY_DBH2_BRIDGE_AND_NO_PUBLICATION_CROSS_DOMAIN_CANARY",
+  "artifacts": [
+    {
+      "byte_length": 2014,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/append_only_verification.json",
+      "sha256": "88807272416cfe286374aa6e654b967c9604a710ffef946ce91f95fa94e02b64"
+    },
+    {
+      "byte_length": 1887,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/changed_protected_paths.json",
+      "sha256": "55892d5064a6a13bcbefa2a594f9c8bbb1c0616ff9f358325dfc9d6f10a78c5d"
+    },
+    {
+      "byte_length": 7068,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/checkpoint_incremental_intake_ledger.json",
+      "sha256": "a2d1856a1a993a55c1147120270977a7a07df74fc4cb39e7df10a66fc8c5c7b2"
+    },
+    {
+      "byte_length": 7274,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/claim_authority_permission_derivation_matrix.json",
+      "sha256": "dfddbc32bcccdef819071cdc44be919069fa7f5672bedd2064af343059aabb75"
+    },
+    {
+      "byte_length": 8493,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/claim_document_citation_lineage_report.json",
+      "sha256": "420329371d7ce580350db2a3898235c009d4f331aa6fe411542d219c3b5e04d7"
+    },
+    {
+      "byte_length": 4984,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/clustering_update_chain_ledger.json",
+      "sha256": "76e2cfa45dcb0de6d7bd6ccb44fdf522c34f1b02c7e044b6cc7d84d6fb2910b4"
+    },
+    {
+      "byte_length": 468,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/compatibility.json",
+      "sha256": "7b40b750e24f4b1010cb9d1d1454044e9bf56d13250a2eb959a115af041189c2"
+    },
+    {
+      "byte_length": 109528,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/five_window_shadow_decisions.json",
+      "sha256": "aad0d9ce31fd8f92def1bb90ef22febec40918d96e9a33f348e970877fef1c0b"
+    },
+    {
+      "byte_length": 358,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/genericity.json",
+      "sha256": "c8cb23ed476d0406243ada14d248c292addf5eadb6e22e81938070ee298dd8bb"
+    },
+    {
+      "byte_length": 7838,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/governed_registry_authority_packet.json",
+      "sha256": "04df5e2b0a8bdf4f9add866971824e3701ec32bc01466f1486a3fdf2ff94ab28"
+    },
+    {
+      "byte_length": 998,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/idempotency_deterministic_replay.json",
+      "sha256": "a9f65b774c6362ce90552907fad31d920efec02580ac66e138eda3d56ca1a047"
+    },
+    {
+      "byte_length": 6602,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/local_dbh2_receipt_verification.json",
+      "sha256": "1ec0b698dcced063b803d98db1b974c59bb6a53c9e243fe14db1b6519dab6df9"
+    },
+    {
+      "byte_length": 1977,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/market_evidence_separation_report.json",
+      "sha256": "18c282aa293e5bf24e60e35841ce2a71473417ec085d7f5d14c3f3dd8549a388"
+    },
+    {
+      "byte_length": 910332,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/multi_cutoff_candidate_pools.json",
+      "sha256": "799d3a69fc77eec2fa7080cace5b00f3cd29e84a4b1ac7aa28d2a534d799a77b"
+    },
+    {
+      "byte_length": 5036,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/profile_execution_matrix.json",
+      "sha256": "846429dadbe779bbeba1e0a153367373167d7f05d7659bd5b5a70b89eed28d31"
+    },
+    {
+      "byte_length": 516,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/safety_report.json",
+      "sha256": "db497faecee9239e5ec3c4f4d467453099431f10b9fd97a10cfa37b0e053e78b"
+    },
+    {
+      "byte_length": 796,
+      "path": "docs/automation/CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1/validation_truth.json",
+      "sha256": "12928cba5480507073127cce297d1d51f03e1832babb8018286cc39fea4cd462"
+    }
+  ],
+  "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1",
+  "logical_hash": "24d08aa1f87b746fc4e3c2a5a424c6ad099e491b7999b3a78004406d12ba78ef",
+  "operation_logical_hash": "c0ad86c293081b5f9c5061ad9ed3bc990d2884e550e34a83f161de5715544577",
+  "prior_independent_audit": "PARTIAL_PASS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_CANARY \u2014 BLOCKED_CONTINUOUS_OPERATION_ON_GOVERNED_AUTHORITY_REGISTRY_AND_CLAIM_LINEAGE_BINDING",
+  "schema_version": "contentops.cross_domain_continuous_shadow_final_manifest.v1",
+  "starting_remote_head": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
+  "summary": {
+    "checkpoint_count": 9,
+    "governed_update_chain_count": 1,
+    "internal_assignment_count": 1,
+    "public_write_count": 0,
+    "publication_count": 0,
+    "real_candidate_version_count": 8,
+    "real_family_count": 6,
+    "same_cutoff_duplicate_assignment_count": 0,
+    "window_decision_count": 45
+  },
+  "task": "TASK_CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1",
+  "terminal_classification": "PASS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1_AWAITING_CHATGPT_AUDIT",
+  "upstream_observed_head": "02120f86c9e9923d9c2b49db1533443cd2849eb9"
+}

@@ -1,0 +1,139 @@
+{
+  "clusters": [
+    {
+      "candidate_ids": [
+        "cc-candidate-120438cc800db7f941be"
+      ],
+      "cluster_id": "cc-cluster-7aa53a08e0a4b35873af",
+      "identity_hash": "1a153e123519984140887c677f8fdfd60202c1f9fda4e2167d82c51517c6a665",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-b032aaca7d2d27af3f67",
+      "update_chain_id": "cc-update-chain-7aa53a08e0a4b35873af"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-7581732cfa4782c472f9"
+      ],
+      "cluster_id": "cc-cluster-c6e5aab9e8335df124a7",
+      "identity_hash": "65c0d795bd30a14f1e9f4bc1d563e0cab35b064ed94ad0ab0b80d002960a710c",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-7581732cfa4782c472f9",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-c6e5aab9e8335df124a7",
+      "update_chain_id": "cc-update-chain-c6e5aab9e8335df124a7"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-8c9959fd4388abe376d7"
+      ],
+      "cluster_id": "cc-cluster-a16151039cda545738ae",
+      "identity_hash": "850bc85bf63ba8974b7828c691fb5686e345bbfde7b0825ee9159fd1789a330e",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-a16151039cda545738ae",
+      "update_chain_id": "cc-update-chain-a16151039cda545738ae"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-7f7ea3784a117401eae8"
+      ],
+      "cluster_id": "cc-cluster-533d67ee8eebc3d7eb1c",
+      "identity_hash": "8a746441244f24bd2e27f458aa6ac1cbef2263c7de8121a6e4a77cfea3cb1cd0",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-533d67ee8eebc3d7eb1c",
+      "update_chain_id": "cc-update-chain-533d67ee8eebc3d7eb1c"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-b901e31ae8b0630d2d47"
+      ],
+      "cluster_id": "cc-cluster-fa83dc09b7d0aaff0600",
+      "identity_hash": "93754acc44c7dc4f435321815d68ac92b062c97f864544ab174e7d8125716d76",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-fa83dc09b7d0aaff0600",
+      "update_chain_id": "cc-update-chain-fa83dc09b7d0aaff0600"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-b113cef95f9cb5638243",
+        "cc-candidate-ce52c66ddc438792adbe"
+      ],
+      "cluster_id": "cc-cluster-c22bbfe3e8f925251f80",
+      "identity_hash": "9e7ff4c79d0f89fdfbf19daafa5853a701f4ddcf8c164cf5c0f8c7f1ff25ec6f",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-b113cef95f9cb5638243",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        },
+        {
+          "candidate_id": "cc-candidate-ce52c66ddc438792adbe",
+          "previous_candidate_id": "cc-candidate-b113cef95f9cb5638243",
+          "relationship": "correction"
+        }
+      ],
+      "story_id": "cc-story-c22bbfe3e8f925251f80",
+      "update_chain_id": "cc-update-chain-c22bbfe3e8f925251f80"
+    },
+    {
+      "candidate_ids": [
+        "cc-candidate-1d8debb655d52c7bb9e9"
+      ],
+      "cluster_id": "cc-cluster-aba529360778db814c6a",
+      "identity_hash": "cf80cfbb67a67ea86d0407117fa4885ae7d16938a0f4a0d050a091f827056f13",
+      "relationships": [
+        {
+          "candidate_id": "cc-candidate-1d8debb655d52c7bb9e9",
+          "previous_candidate_id": null,
+          "relationship": "initial_event"
+        }
+      ],
+      "story_id": "cc-story-aba529360778db814c6a",
+      "update_chain_id": "cc-update-chain-aba529360778db814c6a"
+    }
+  ],
+  "correction_cluster_id": "cc-cluster-c22bbfe3e8f925251f80",
+  "exercised_relationships": [
+    "initial_event",
+    "correction"
+  ],
+  "governed_correction_relationships": [
+    {
+      "evidence": "provider_reused_document_number_with_distinct_official_content_or_publication_metadata",
+      "from_stable_record_id": "8ad3bdfa8d266d27eb66284caa2ad89980f60eeae92ed6302ea136b5278c8c02",
+      "from_version_id": "739690b6851119ae373e396049e90e58e50c29a06155a07db28900afeb82a3f7",
+      "relation_type": "corrects",
+      "relationship_id": "f1e514584645d31f4bbc948d519eb83732673ca1b052194f6edd48761b8730fe",
+      "target_id": "DBH2_FEDERAL_REGISTER_SEC",
+      "to_stable_record_id": "8ad3bdfa8d266d27eb66284caa2ad89980f60eeae92ed6302ea136b5278c8c02",
+      "to_version_id": "b847118cb31aa33be9433dd9089fecdaecf062b0059eb6d59c22a7225cda8bfb"
+    }
+  ]
+}

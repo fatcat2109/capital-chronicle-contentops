@@ -3,8 +3,8 @@
 | # | Capability | Status |
 | --- | --- | --- |
 | 1 | Canonical V5 command surface | DONE |
-| 2 | Headline/event intake | DONE_V2_BOUNDED_GOVERNED_LOCAL_POOL_CONTINUOUS_INTAKE_PENDING |
-| 3 | Semantic clustering/ranking | DONE_V2_CROSS_DOMAIN_SHADOW_CANARY_UNCALIBRATED |
+| 2 | Headline/event intake | DONE_V2_GOVERNED_MULTI_CUTOFF_LOCAL_CONTINUOUS_SHADOW |
+| 3 | Semantic clustering/ranking | DONE_V2_GOVERNED_UPDATE_CHAIN_FIVE_WINDOW_SHADOW_UNCALIBRATED |
 | 4 | Duplicate/hotspot policy | DONE_SEPARATE_FROM_FRESHNESS |
 | 5 | Capital Chronicle evidence bridge | DONE_V2_READ_ONLY |
 | 6 | Claim IDs, timestamps, citations, permissions | DONE_V2 |
@@ -30,9 +30,9 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Latest completed task: `TASK_CONTENTOPS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1` — `PASS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1_AWAITING_CHATGPT_AUDIT`.
+Latest completed task: `TASK_CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1` — `PASS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1_AWAITING_CHATGPT_AUDIT`.
 
-The universal V2 candidate contract makes claim authority capability-driven instead of universally numeric. One real deterministic no-write pool covers numeric macro, official regulatory, corporate filing, sanctions-entity context, central-bank official-document, and physical-event categories. Exact local DBH2/DuckDB and Parquet lineage passes; the five DBH2 candidates retain their committed context-only ceiling, while the V1 Treasury candidate remains the sole reporting-eligible row. Generic clustering and uncalibrated five-window assignment run with zero publication authority or public writes. Continuous live headline intake remains pending and is the next product task.
+The universal V2 fabric now loads five exact committed authority registries and derives claim authority/permission from registered source, adapter, evidence receipt, source-native state, consumer permission, capability, and DQR inputs. Exact lineage and evidence-profile execution fail closed. The deterministic local continuous shadow covers six real families, nine checkpoints, 45 decisions, and a real correction chain. One eligible identity receives one internal assignment; context-only evidence remains held; explicit zero, unavailable, and stale states remain distinct; and publication/public-write counts remain zero. Continuous live network intake is not claimed.
 
 All 13 accepted adapters now expose truthful versioned capability bindings, all 16 enabled extractor records carry exact immutable runtime/evidence proofs, and the four-family composite canary preserves distinct numeric-period, scheduled-policy, unscheduled-physical, and qualitative context semantics through the frozen generic core. The stale Task 0073 archive lookup is repaired against the unchanged historical Git blob. Evidence is at `docs/automation/CONTENTOPS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1/`.
 
@@ -52,4 +52,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is `ACCEPT_TRUSTED_VERIFIER_RE
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair closes extracted authority, permission, semantic-role, candidate consistency, and multi-evidence aggregation gaps without modifying fixtures, calibration, policy, publication authority, or the accepted release.
 
-Next route: `INDEPENDENT_CHATGPT_AUDIT_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1`. After audit, the next recommended product task is `TASK_CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1`.
+Next route: `INDEPENDENT_CHATGPT_AUDIT_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1`.

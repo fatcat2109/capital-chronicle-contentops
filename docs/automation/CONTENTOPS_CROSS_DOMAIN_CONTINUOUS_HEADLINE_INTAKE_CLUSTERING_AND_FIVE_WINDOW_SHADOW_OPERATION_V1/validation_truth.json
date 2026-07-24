@@ -1,0 +1,18 @@
+{
+  "affected_v2_foundation_and_adapter_shards": "PASS_388_TESTS",
+  "ci": "NOT_AVAILABLE",
+  "ci_pass_claimed": false,
+  "deterministic_regeneration": "PASS_TWO_IDENTICAL_RUNS",
+  "focused_registry_authority_lineage_profile_market_continuous_pytest": "PASS_80_TESTS",
+  "full_suite": "NOT_RERUN_KNOWN_NON_GREEN_REPOSITORY_BASELINE_AFFECTED_SHARDS_PASSED",
+  "full_suite_pass_claimed": false,
+  "genericity_guards": "PASS_BOTH_ZERO_FINDINGS",
+  "git_diff_check": "PASS",
+  "json_schema_hash_validation": "PASS",
+  "newsroom_scheduler_and_status_pytest": "PASS_42_TESTS",
+  "python_compileall": "PASS",
+  "redacted_secret_scan": "PASS_ZERO_SCOPED_FINDINGS",
+  "schema_version": "contentops.validation_truth.v1",
+  "status": "PASS_SCOPED_VALIDATION",
+  "v1_compatibility_pytest": "PASS_22_TESTS"
+}

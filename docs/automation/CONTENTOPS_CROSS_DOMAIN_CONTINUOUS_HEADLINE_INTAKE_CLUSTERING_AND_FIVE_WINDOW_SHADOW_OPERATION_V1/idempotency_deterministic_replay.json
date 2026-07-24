@@ -1,0 +1,18 @@
+{
+  "byte_logical_equality": true,
+  "checkpoint_idempotency_keys": [
+    "779afb1f2d34ba23a8fc9532c376aad81b2afc64d1034ed0eb6b627feffa3cfb",
+    "12dcf52d77cdd863c01b76b01ffac9cddbee6c6ebf94587c6e832e7a0b7267ee",
+    "8ca69a6da1decd5dc3276a40cf53cb077cd594c94833954089f50224a4004816",
+    "38c2544aa434f9cdd13dddf84fd33671f42455c16e73b7a0cea782022a8b9a4c",
+    "dafaeac42657a7638786bb11aa7c9170c8eace912d3b77bb23929b6eb1e6802f",
+    "74e50b817ac83edf91342063cbc1b2843920840b303936249a014b9da917ee40",
+    "d41e2515c843e76d40f13834facc47affa35852ccb46baefa28316812ae868fd",
+    "044037da2f2421b19e2c95f00cb550c15503fb4d540dddc074492aebe829badb",
+    "0e3f53a9584798e74ff81b3d3deea570bd0e9f76b6a12f2f7a53a9f0194a76c0"
+  ],
+  "first_logical_hash": "c0ad86c293081b5f9c5061ad9ed3bc990d2884e550e34a83f161de5715544577",
+  "replay_logical_hash": "c0ad86c293081b5f9c5061ad9ed3bc990d2884e550e34a83f161de5715544577",
+  "schema_version": "contentops.idempotency_deterministic_replay.v1",
+  "status": "PASS"
+}

@@ -1,0 +1,198 @@
+{
+  "checkpoints": [
+    {
+      "available_candidate_count": 1,
+      "checkpoint_index": 0,
+      "cutoff_utc": "2015-07-22T00:00:00Z",
+      "future_candidate_ids": [
+        "cc-candidate-120438cc800db7f941be",
+        "cc-candidate-1d8debb655d52c7bb9e9",
+        "cc-candidate-7581732cfa4782c472f9",
+        "cc-candidate-7f7ea3784a117401eae8",
+        "cc-candidate-8c9959fd4388abe376d7",
+        "cc-candidate-b901e31ae8b0630d2d47",
+        "cc-candidate-ce52c66ddc438792adbe"
+      ],
+      "idempotency_key": "779afb1f2d34ba23a8fc9532c376aad81b2afc64d1034ed0eb6b627feffa3cfb",
+      "new_candidate_count": 1,
+      "new_candidate_ids": [
+        "cc-candidate-b113cef95f9cb5638243"
+      ],
+      "prior_cutoff_utc": null,
+      "unchanged_candidate_ids": []
+    },
+    {
+      "available_candidate_count": 2,
+      "checkpoint_index": 1,
+      "cutoff_utc": "2015-08-06T00:00:00Z",
+      "future_candidate_ids": [
+        "cc-candidate-120438cc800db7f941be",
+        "cc-candidate-1d8debb655d52c7bb9e9",
+        "cc-candidate-7581732cfa4782c472f9",
+        "cc-candidate-7f7ea3784a117401eae8",
+        "cc-candidate-8c9959fd4388abe376d7",
+        "cc-candidate-b901e31ae8b0630d2d47"
+      ],
+      "idempotency_key": "12dcf52d77cdd863c01b76b01ffac9cddbee6c6ebf94587c6e832e7a0b7267ee",
+      "new_candidate_count": 1,
+      "new_candidate_ids": [
+        "cc-candidate-ce52c66ddc438792adbe"
+      ],
+      "prior_cutoff_utc": "2015-07-22T00:00:00Z",
+      "unchanged_candidate_ids": [
+        "cc-candidate-b113cef95f9cb5638243"
+      ]
+    },
+    {
+      "available_candidate_count": 3,
+      "checkpoint_index": 2,
+      "cutoff_utc": "2026-06-18T00:00:00Z",
+      "future_candidate_ids": [
+        "cc-candidate-120438cc800db7f941be",
+        "cc-candidate-7581732cfa4782c472f9",
+        "cc-candidate-7f7ea3784a117401eae8",
+        "cc-candidate-8c9959fd4388abe376d7",
+        "cc-candidate-b901e31ae8b0630d2d47"
+      ],
+      "idempotency_key": "8ca69a6da1decd5dc3276a40cf53cb077cd594c94833954089f50224a4004816",
+      "new_candidate_count": 1,
+      "new_candidate_ids": [
+        "cc-candidate-1d8debb655d52c7bb9e9"
+      ],
+      "prior_cutoff_utc": "2015-08-06T00:00:00Z",
+      "unchanged_candidate_ids": [
+        "cc-candidate-b113cef95f9cb5638243",
+        "cc-candidate-ce52c66ddc438792adbe"
+      ]
+    },
+    {
+      "available_candidate_count": 4,
+      "checkpoint_index": 3,
+      "cutoff_utc": "2026-07-02T00:00:00Z",
+      "future_candidate_ids": [
+        "cc-candidate-120438cc800db7f941be",
+        "cc-candidate-7f7ea3784a117401eae8",
+        "cc-candidate-8c9959fd4388abe376d7",
+        "cc-candidate-b901e31ae8b0630d2d47"
+      ],
+      "idempotency_key": "38c2544aa434f9cdd13dddf84fd33671f42455c16e73b7a0cea782022a8b9a4c",
+      "new_candidate_count": 1,
+      "new_candidate_ids": [
+        "cc-candidate-7581732cfa4782c472f9"
+      ],
+      "prior_cutoff_utc": "2026-06-18T00:00:00Z",
+      "unchanged_candidate_ids": [
+        "cc-candidate-1d8debb655d52c7bb9e9",
+        "cc-candidate-b113cef95f9cb5638243",
+        "cc-candidate-ce52c66ddc438792adbe"
+      ]
+    },
+    {
+      "available_candidate_count": 6,
+      "checkpoint_index": 4,
+      "cutoff_utc": "2026-07-11T00:00:00Z",
+      "future_candidate_ids": [
+        "cc-candidate-120438cc800db7f941be",
+        "cc-candidate-8c9959fd4388abe376d7"
+      ],
+      "idempotency_key": "dafaeac42657a7638786bb11aa7c9170c8eace912d3b77bb23929b6eb1e6802f",
+      "new_candidate_count": 2,
+      "new_candidate_ids": [
+        "cc-candidate-7f7ea3784a117401eae8",
+        "cc-candidate-b901e31ae8b0630d2d47"
+      ],
+      "prior_cutoff_utc": "2026-07-02T00:00:00Z",
+      "unchanged_candidate_ids": [
+        "cc-candidate-1d8debb655d52c7bb9e9",
+        "cc-candidate-7581732cfa4782c472f9",
+        "cc-candidate-b113cef95f9cb5638243",
+        "cc-candidate-ce52c66ddc438792adbe"
+      ]
+    },
+    {
+      "available_candidate_count": 7,
+      "checkpoint_index": 5,
+      "cutoff_utc": "2026-07-13T00:00:00Z",
+      "future_candidate_ids": [
+        "cc-candidate-120438cc800db7f941be"
+      ],
+      "idempotency_key": "74e50b817ac83edf91342063cbc1b2843920840b303936249a014b9da917ee40",
+      "new_candidate_count": 1,
+      "new_candidate_ids": [
+        "cc-candidate-8c9959fd4388abe376d7"
+      ],
+      "prior_cutoff_utc": "2026-07-11T00:00:00Z",
+      "unchanged_candidate_ids": [
+        "cc-candidate-1d8debb655d52c7bb9e9",
+        "cc-candidate-7581732cfa4782c472f9",
+        "cc-candidate-7f7ea3784a117401eae8",
+        "cc-candidate-b113cef95f9cb5638243",
+        "cc-candidate-b901e31ae8b0630d2d47",
+        "cc-candidate-ce52c66ddc438792adbe"
+      ]
+    },
+    {
+      "available_candidate_count": 8,
+      "checkpoint_index": 6,
+      "cutoff_utc": "2026-07-14T00:00:00Z",
+      "future_candidate_ids": [],
+      "idempotency_key": "d41e2515c843e76d40f13834facc47affa35852ccb46baefa28316812ae868fd",
+      "new_candidate_count": 1,
+      "new_candidate_ids": [
+        "cc-candidate-120438cc800db7f941be"
+      ],
+      "prior_cutoff_utc": "2026-07-13T00:00:00Z",
+      "unchanged_candidate_ids": [
+        "cc-candidate-1d8debb655d52c7bb9e9",
+        "cc-candidate-7581732cfa4782c472f9",
+        "cc-candidate-7f7ea3784a117401eae8",
+        "cc-candidate-8c9959fd4388abe376d7",
+        "cc-candidate-b113cef95f9cb5638243",
+        "cc-candidate-b901e31ae8b0630d2d47",
+        "cc-candidate-ce52c66ddc438792adbe"
+      ]
+    },
+    {
+      "available_candidate_count": 8,
+      "checkpoint_index": 7,
+      "cutoff_utc": "2026-07-15T00:00:00Z",
+      "future_candidate_ids": [],
+      "idempotency_key": "044037da2f2421b19e2c95f00cb550c15503fb4d540dddc074492aebe829badb",
+      "new_candidate_count": 0,
+      "new_candidate_ids": [],
+      "prior_cutoff_utc": "2026-07-14T00:00:00Z",
+      "unchanged_candidate_ids": [
+        "cc-candidate-120438cc800db7f941be",
+        "cc-candidate-1d8debb655d52c7bb9e9",
+        "cc-candidate-7581732cfa4782c472f9",
+        "cc-candidate-7f7ea3784a117401eae8",
+        "cc-candidate-8c9959fd4388abe376d7",
+        "cc-candidate-b113cef95f9cb5638243",
+        "cc-candidate-b901e31ae8b0630d2d47",
+        "cc-candidate-ce52c66ddc438792adbe"
+      ]
+    },
+    {
+      "available_candidate_count": 8,
+      "checkpoint_index": 8,
+      "cutoff_utc": "2026-07-16T00:00:00Z",
+      "future_candidate_ids": [],
+      "idempotency_key": "0e3f53a9584798e74ff81b3d3deea570bd0e9f76b6a12f2f7a53a9f0194a76c0",
+      "new_candidate_count": 0,
+      "new_candidate_ids": [],
+      "prior_cutoff_utc": "2026-07-15T00:00:00Z",
+      "unchanged_candidate_ids": [
+        "cc-candidate-120438cc800db7f941be",
+        "cc-candidate-1d8debb655d52c7bb9e9",
+        "cc-candidate-7581732cfa4782c472f9",
+        "cc-candidate-7f7ea3784a117401eae8",
+        "cc-candidate-8c9959fd4388abe376d7",
+        "cc-candidate-b113cef95f9cb5638243",
+        "cc-candidate-b901e31ae8b0630d2d47",
+        "cc-candidate-ce52c66ddc438792adbe"
+      ]
+    }
+  ],
+  "schema_version": "contentops.checkpoint_incremental_intake_ledger.v1",
+  "status": "PASS"
+}

@@ -1,0 +1,56 @@
+{
+  "reports": [
+    {
+      "baseline_commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
+      "baseline_mode": "APPEND_ONLY_SUPERSET",
+      "baseline_path": "live_contentops/universal_claim_type_registry_v2.json",
+      "baseline_record_count": 10,
+      "blockers": [],
+      "current_record_count": 10,
+      "registry_id": "claim_capabilities",
+      "status": "PASS"
+    },
+    {
+      "baseline_commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
+      "baseline_mode": "APPEND_ONLY_SUPERSET",
+      "baseline_path": "live_contentops/universal_evidence_requirement_profiles_v2.json",
+      "baseline_record_count": 6,
+      "blockers": [],
+      "current_record_count": 6,
+      "registry_id": "evidence_profiles",
+      "status": "PASS"
+    },
+    {
+      "baseline_commit": "bdb2d0702ffbb5c02788dc120124acda79db4b5d",
+      "baseline_mode": "FIRST_GOVERNED_BASELINE",
+      "baseline_path": "live_contentops/governed_universal_source_family_registry_v1.json",
+      "baseline_record_count": 6,
+      "blockers": [],
+      "current_record_count": 7,
+      "registry_id": "source_families",
+      "status": "PASS"
+    },
+    {
+      "baseline_commit": "bdb2d0702ffbb5c02788dc120124acda79db4b5d",
+      "baseline_mode": "FIRST_GOVERNED_BASELINE",
+      "baseline_path": "live_contentops/governed_universal_adapter_source_binding_registry_v1.json",
+      "baseline_record_count": 6,
+      "blockers": [],
+      "current_record_count": 7,
+      "registry_id": "adapter_source_bindings",
+      "status": "PASS"
+    },
+    {
+      "baseline_commit": "bdb2d0702ffbb5c02788dc120124acda79db4b5d",
+      "baseline_mode": "FIRST_GOVERNED_BASELINE",
+      "baseline_path": "live_contentops/governed_universal_market_evidence_capability_registry_v1.json",
+      "baseline_record_count": 1,
+      "blockers": [],
+      "current_record_count": 1,
+      "registry_id": "market_evidence_capabilities",
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "contentops.append_only_verification.v1",
+  "status": "PASS"
+}

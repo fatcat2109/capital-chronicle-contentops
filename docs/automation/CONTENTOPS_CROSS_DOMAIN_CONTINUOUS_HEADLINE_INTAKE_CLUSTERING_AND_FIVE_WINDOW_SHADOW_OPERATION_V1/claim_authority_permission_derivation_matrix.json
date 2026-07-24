@@ -1,0 +1,177 @@
+{
+  "negative_controls": [
+    {
+      "case": "caller_official_authority",
+      "expected_blocker": "governed_claim_authority_chain_required",
+      "status": "PASS_REJECTED"
+    },
+    {
+      "case": "caller_reporting_or_public_permission",
+      "expected_blocker": "governed_claim_permission_chain_required",
+      "status": "PASS_REJECTED"
+    },
+    {
+      "case": "unregistered_adapter_and_source_family",
+      "expected_outcome": "UNVERIFIED_PLUS_PERMISSION_BLOCKED",
+      "status": "PASS_REJECTED"
+    }
+  ],
+  "real_claim_decisions": [
+    {
+      "authority_granted": true,
+      "blockers": [],
+      "claim_capability_record_id": "claim-capability:numeric_observation:v1",
+      "claim_id": "UST:2Y:2026-07-13",
+      "claim_type": "numeric_observation",
+      "derived_authority_class": "OFFICIAL_VERIFIED",
+      "derived_permission_state": "PUBLIC_CLAIM_ALLOWED",
+      "evidence_binding_ids": [
+        "evidence-binding-18d1365f245ad487f01d"
+      ],
+      "logical_hash": "ace22be84dd4791f1fd04aef2407522e516a3d2ccc40a1c42c7243d91af0b036",
+      "schema_version": "contentops.claim_authority_permission_derivation.v1"
+    },
+    {
+      "authority_granted": true,
+      "blockers": [],
+      "claim_capability_record_id": "claim-capability:numeric_observation:v1",
+      "claim_id": "UST:10Y:2026-07-13",
+      "claim_type": "numeric_observation",
+      "derived_authority_class": "OFFICIAL_VERIFIED",
+      "derived_permission_state": "PUBLIC_CLAIM_ALLOWED",
+      "evidence_binding_ids": [
+        "evidence-binding-ea343b8322bf48ff16b5"
+      ],
+      "logical_hash": "20fd7f85039641799e74efa1de4607ff54dd615fc96cb771d524ed9c16132b2e",
+      "schema_version": "contentops.claim_authority_permission_derivation.v1"
+    },
+    {
+      "authority_granted": true,
+      "blockers": [],
+      "claim_capability_record_id": "claim-capability:numeric_observation:v1",
+      "claim_id": "UST:30Y:2026-07-13",
+      "claim_type": "numeric_observation",
+      "derived_authority_class": "OFFICIAL_VERIFIED",
+      "derived_permission_state": "PUBLIC_CLAIM_ALLOWED",
+      "evidence_binding_ids": [
+        "evidence-binding-0daf8923dbcba372f717"
+      ],
+      "logical_hash": "08b2c58c3184d495f73461e279dd2c6c2340e9ba3ce365c327b0263f51f6152a",
+      "schema_version": "contentops.claim_authority_permission_derivation.v1"
+    },
+    {
+      "authority_granted": true,
+      "blockers": [],
+      "claim_capability_record_id": "claim-capability:numeric_observation:v1",
+      "claim_id": "UST:2S10S:2026-07-13",
+      "claim_type": "numeric_observation",
+      "derived_authority_class": "OFFICIAL_VERIFIED",
+      "derived_permission_state": "PUBLIC_CLAIM_ALLOWED",
+      "evidence_binding_ids": [
+        "evidence-binding-0de2cdbe402c254989fb"
+      ],
+      "logical_hash": "6a88e08a284f32125708e2e2a2bdf301b562d1c57240ef3fc9c67617ed445cb7",
+      "schema_version": "contentops.claim_authority_permission_derivation.v1"
+    },
+    {
+      "authority_granted": true,
+      "blockers": [],
+      "claim_capability_record_id": "claim-capability:factual_text:v1",
+      "claim_id": "claim-df1dee39b0f924a9229f",
+      "claim_type": "factual_text",
+      "derived_authority_class": "OFFICIAL_VERIFIED",
+      "derived_permission_state": "CONTEXT_ONLY",
+      "evidence_binding_ids": [
+        "evidence-binding-10be224e5a0e22cbcad7"
+      ],
+      "logical_hash": "d84c68f4a58d40abb34e873e5fbc1a24c18524ca7ac681bf9733f02388e41333",
+      "schema_version": "contentops.claim_authority_permission_derivation.v1"
+    },
+    {
+      "authority_granted": true,
+      "blockers": [],
+      "claim_capability_record_id": "claim-capability:corporate_filing_fact:v1",
+      "claim_id": "claim-e4ec2d63d10a8c03309f",
+      "claim_type": "corporate_filing_fact",
+      "derived_authority_class": "OFFICIAL_VERIFIED",
+      "derived_permission_state": "CONTEXT_ONLY",
+      "evidence_binding_ids": [
+        "evidence-binding-c54da92a889d2b10bcb7"
+      ],
+      "logical_hash": "25eb61e224b7189842db48af81742e32edca7964616f76ca189f88605ebaba17",
+      "schema_version": "contentops.claim_authority_permission_derivation.v1"
+    },
+    {
+      "authority_granted": true,
+      "blockers": [],
+      "claim_capability_record_id": "claim-capability:legal_or_regulatory_action:v1",
+      "claim_id": "claim-9686ac2c5f20330357f9",
+      "claim_type": "legal_or_regulatory_action",
+      "derived_authority_class": "OFFICIAL_VERIFIED",
+      "derived_permission_state": "CONTEXT_ONLY",
+      "evidence_binding_ids": [
+        "evidence-binding-309b818f9406473ae0d9"
+      ],
+      "logical_hash": "1001e01257042e7d75fbbe9a8f127fbc6ea7627932f2dc2b0ed027f089e1b254",
+      "schema_version": "contentops.claim_authority_permission_derivation.v1"
+    },
+    {
+      "authority_granted": true,
+      "blockers": [],
+      "claim_capability_record_id": "claim-capability:event_occurrence:v1",
+      "claim_id": "claim-d300a919b2719a0069a6",
+      "claim_type": "event_occurrence",
+      "derived_authority_class": "OFFICIAL_VERIFIED",
+      "derived_permission_state": "CONTEXT_ONLY",
+      "evidence_binding_ids": [
+        "evidence-binding-063472c420d77cbceb13"
+      ],
+      "logical_hash": "d6ddc99b44c8c5bfda0e1a9c1463e84246d712ea9beca06e860e826e08ad65d2",
+      "schema_version": "contentops.claim_authority_permission_derivation.v1"
+    },
+    {
+      "authority_granted": true,
+      "blockers": [],
+      "claim_capability_record_id": "claim-capability:legal_or_regulatory_action:v1",
+      "claim_id": "claim-583cbcf3e47dd9a21de1",
+      "claim_type": "legal_or_regulatory_action",
+      "derived_authority_class": "OFFICIAL_VERIFIED",
+      "derived_permission_state": "CONTEXT_ONLY",
+      "evidence_binding_ids": [
+        "evidence-binding-c08496bb3190c91e9b98"
+      ],
+      "logical_hash": "acb373ed5aff4ba29c885619427055a9b358bc489aacda56d7277c15708e6976",
+      "schema_version": "contentops.claim_authority_permission_derivation.v1"
+    },
+    {
+      "authority_granted": true,
+      "blockers": [],
+      "claim_capability_record_id": "claim-capability:entity_relationship:v1",
+      "claim_id": "claim-d4f9f32e830f1306d68f",
+      "claim_type": "entity_relationship",
+      "derived_authority_class": "OFFICIAL_VERIFIED",
+      "derived_permission_state": "CONTEXT_ONLY",
+      "evidence_binding_ids": [
+        "evidence-binding-5170e136cc55a435460d"
+      ],
+      "logical_hash": "63adc9974e15eb3f1e645f14fd85b9da03dc567778d2d1ca1b163f4ade78a49f",
+      "schema_version": "contentops.claim_authority_permission_derivation.v1"
+    },
+    {
+      "authority_granted": true,
+      "blockers": [],
+      "claim_capability_record_id": "claim-capability:legal_or_regulatory_action:v1",
+      "claim_id": "claim-d5c991501e7ae13d2bd5",
+      "claim_type": "legal_or_regulatory_action",
+      "derived_authority_class": "OFFICIAL_VERIFIED",
+      "derived_permission_state": "CONTEXT_ONLY",
+      "evidence_binding_ids": [
+        "evidence-binding-f823c04d1d998746f785"
+      ],
+      "logical_hash": "308e8ce9af6391c91f64e093db070d4018a5fe2d264039ddac6b1b3faa853290",
+      "schema_version": "contentops.claim_authority_permission_derivation.v1"
+    }
+  ],
+  "schema_version": "contentops.claim_authority_permission_derivation_matrix.v1",
+  "status": "PASS"
+}

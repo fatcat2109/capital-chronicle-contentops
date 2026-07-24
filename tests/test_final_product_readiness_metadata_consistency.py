@@ -19,8 +19,8 @@ def test_status_records_database_authorized_generic_canary_authority() -> None:
     assert status["latest_accepted_task"] == "TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1"
     assert status["latest_accepted_task_result"] == "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED"
     assert status["current_task_classification"] == (
-        "PASS_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_V2_AND_"
-        "CROSS_DOMAIN_ASSIGNMENT_CANARY_V1_AWAITING_CHATGPT_AUDIT"
+        "PASS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_"
+        "FIVE_WINDOW_SHADOW_OPERATION_V1_AWAITING_CHATGPT_AUDIT"
     )
     assert status["accepted_product_baseline_sha"] == "6983bfb3ef300414b744f3f8f97ca81ff699348b"
     assert status["upstream_readiness"]["dqr_status"] == "BLOCKED"
@@ -37,8 +37,8 @@ def test_status_records_database_authorized_generic_canary_authority() -> None:
     assert status["v1_0_tag_exists"] is True
     assert status["v1_0_tag_name"] == "v1.0"
     assert status["next_task"] == (
-        "INDEPENDENT_CHATGPT_AUDIT_UNIVERSAL_NEWS_EVENT_CANDIDATE_FABRIC_"
-        "V2_AND_CROSS_DOMAIN_ASSIGNMENT_CANARY_V1"
+        "INDEPENDENT_CHATGPT_AUDIT_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_"
+        "CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1"
     )
 
 

@@ -1,0 +1,11 @@
+{
+  "existing_13_adapters": "PROTECTED_UNMODIFIED",
+  "existing_16_extractor_proofs": "PROTECTED_UNMODIFIED",
+  "frozen_v2_semantics": "PRESERVED",
+  "schema_version": "contentops.compatibility_report.v1",
+  "static_cross_domain_canary": "COMPATIBILITY_PROJECTION_OF_GOVERNED_REPLAY",
+  "status": "PASS",
+  "universal_v2_schema": "PRESERVED_AND_EXTENDED",
+  "v1_0_tag": "PROTECTED_UNMODIFIED",
+  "v1_numeric_adapter": "BOUND_TO_EXACT_ACCEPTED_UPSTREAM_POOL_RECEIPT"
+}

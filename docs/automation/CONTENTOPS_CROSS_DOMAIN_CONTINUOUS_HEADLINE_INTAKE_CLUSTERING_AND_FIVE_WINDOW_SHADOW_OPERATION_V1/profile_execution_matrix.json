@@ -1,0 +1,151 @@
+{
+  "candidate_reports": [
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "composition_contract_id": null,
+      "declared_capabilities": [
+        "numeric_observation"
+      ],
+      "logical_hash": "15db8a4ef907fd7de62700d4a7eb34d6b8cce7b5f2ae55b14f5edfa2d437cd2d",
+      "present_claim_types": [
+        "numeric_observation"
+      ],
+      "profile_id": "numeric_economic_release",
+      "schema_version": "contentops.evidence_profile_execution.v1",
+      "status": "PASS"
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-1d8debb655d52c7bb9e9",
+      "composition_contract_id": null,
+      "declared_capabilities": [
+        "factual_text"
+      ],
+      "logical_hash": "33983225ec58fc0ab4a1a1777d81ac2643bee47b2723d28faed2b85e5d8ab576",
+      "present_claim_types": [
+        "factual_text"
+      ],
+      "profile_id": "official_action",
+      "schema_version": "contentops.evidence_profile_execution.v1",
+      "status": "PASS"
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-7581732cfa4782c472f9",
+      "composition_contract_id": null,
+      "declared_capabilities": [
+        "corporate_filing_fact"
+      ],
+      "logical_hash": "4b7876d9579a6f79c58f955aa99c15912c9e6c44a753284a4b90edec819f06b4",
+      "present_claim_types": [
+        "corporate_filing_fact"
+      ],
+      "profile_id": "corporate_filing",
+      "schema_version": "contentops.evidence_profile_execution.v1",
+      "status": "PASS"
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+      "composition_contract_id": null,
+      "declared_capabilities": [
+        "legal_or_regulatory_action"
+      ],
+      "logical_hash": "cffaf6f6d48777c096f717866d84e0f0ed07cf3bf6b571028fceb24f35372c40",
+      "present_claim_types": [
+        "legal_or_regulatory_action"
+      ],
+      "profile_id": "official_action",
+      "schema_version": "contentops.evidence_profile_execution.v1",
+      "status": "PASS"
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+      "composition_contract_id": null,
+      "declared_capabilities": [
+        "event_occurrence"
+      ],
+      "logical_hash": "eee707b0e2a8928193c341bafa8506208ed8b6642da9a7cf395a0be6d28a399c",
+      "present_claim_types": [
+        "event_occurrence"
+      ],
+      "profile_id": "physical_disruption",
+      "schema_version": "contentops.evidence_profile_execution.v1",
+      "status": "PASS"
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-b113cef95f9cb5638243",
+      "composition_contract_id": null,
+      "declared_capabilities": [
+        "legal_or_regulatory_action"
+      ],
+      "logical_hash": "fda712d27222036f1fa35e897b6f8cd2b5521c5f1ed8f8d9c7025e6b271ac8ef",
+      "present_claim_types": [
+        "legal_or_regulatory_action"
+      ],
+      "profile_id": "official_action",
+      "schema_version": "contentops.evidence_profile_execution.v1",
+      "status": "PASS"
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+      "composition_contract_id": null,
+      "declared_capabilities": [
+        "entity_relationship"
+      ],
+      "logical_hash": "bc79cc146cf9d7c86e96e55485823a9bf8994712ce1c538a5c020cd6446ed261",
+      "present_claim_types": [
+        "entity_relationship"
+      ],
+      "profile_id": "geopolitical_or_sanctions",
+      "schema_version": "contentops.evidence_profile_execution.v1",
+      "status": "PASS"
+    },
+    {
+      "blockers": [],
+      "candidate_id": "cc-candidate-ce52c66ddc438792adbe",
+      "composition_contract_id": null,
+      "declared_capabilities": [
+        "legal_or_regulatory_action"
+      ],
+      "logical_hash": "3cbd137d27c80b415cf2b2ed973068d88e551489864f6d22d6cb64ab0eff0849",
+      "present_claim_types": [
+        "legal_or_regulatory_action"
+      ],
+      "profile_id": "official_action",
+      "schema_version": "contentops.evidence_profile_execution.v1",
+      "status": "PASS"
+    }
+  ],
+  "composition_contracts": [
+    {
+      "additional_claim_types": [
+        "numeric_observation"
+      ],
+      "base_profile_ids": [
+        "official_action",
+        "corporate_filing",
+        "geopolitical_or_sanctions",
+        "physical_disruption",
+        "market_reaction"
+      ],
+      "contract_id": "composition:nonnumeric_plus_numeric_observation:v1",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_governed_registry_v1.validate_profile_execution",
+      "logical_hash": "d96dd151ae3209fdbe7e6ee2e742e17656ab32eb9dc7f98b947d62b4cf6bcd51",
+      "rule": "ADDITIONAL_NUMERIC_CLAIMS_RETAIN_FULL_NUMERIC_PROFILE_VALIDATION_AND_DO_NOT_UPGRADE_BASE_PROFILE_AUTHORITY"
+    }
+  ],
+  "mutation_controls": [
+    "unknown_profile_rejected",
+    "capability_mismatch_rejected",
+    "unsupported_extra_claim_rejected",
+    "missing_required_candidate_field_rejected"
+  ],
+  "schema_version": "contentops.profile_execution_matrix.v1",
+  "status": "PASS"
+}
