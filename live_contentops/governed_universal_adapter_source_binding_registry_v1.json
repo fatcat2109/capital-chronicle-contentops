@@ -3,7 +3,7 @@
     "commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
     "policy": "first_committed_governed_baseline_replacing_implicit_adapter_identity"
   },
-  "logical_hash": "af90636f617d0f33ae652e1bd65a89d289bcf16fbdf3713c01b45ada0afd22ed",
+  "logical_hash": "8955c1446f43096b0900345431187777e47f790681da50e2434af5aa0cdea339",
   "records": [
     {
       "accepted_evidence_binding": "v1_pool_exact_candidate_binding_v1",
@@ -146,8 +146,345 @@
       "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
       "record_id": "adapter-binding:governed_market_observation:v1",
       "source_family_id": "governed_market_observation"
+    },
+    {
+      "accepted_evidence_binding": "verifier_produced_git_claim_binding_v2",
+      "accepted_evidence_binding_ids": [
+        "verifier_produced_git_claim_binding_v2"
+      ],
+      "accepted_source_native_statuses": [
+        "eligible"
+      ],
+      "adapter_id": "contentops.v1_newsroom_candidate_pool_adapter.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_EXACT_GIT_CLAIM_RECEIPT_REQUIRED",
+      "discovery_contract": {
+        "artifact_path": "docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json",
+        "consumer_permission": "PUBLIC_CLAIM_ALLOWED",
+        "evidence_state": "exact",
+        "kind": "GIT_CANDIDATE_POOL",
+        "known_at_utc": "2026-07-13T22:27:31.358283Z",
+        "producer_commit": "8c63faca0603f81bebfbb68380a0dc4ad51ab87d"
+      },
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_v1_candidate_pool_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 30789,
+        "byte_sha256": "849d3c71e5ad83bb36f079fed1a8367180a35136810298ff609ca1df01270203",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_v1_candidate_pool_v2",
+        "git_blob_sha1": "debbfbb19c7334ceaae60646b64406316bb04387",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "c22ba67d18f0ec67cf66957dfe914cc6b2f634298f210fa731dd9933af4b5e4d",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "aefe2a3d8458da2b7e6cc5f815a86181e60cee67",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "b1762c54ab2c0ab0fa72f5a629141f664ce07607d23edb2fb94aa4d31800ae3a",
+      "permission_ceiling": "PUBLIC_CLAIM_ALLOWED",
+      "permission_derivation_rule": "EXACT_UPSTREAM_CLAIM_PERMISSION_AND_DQR_REQUIRED",
+      "record_id": "adapter-binding:v1_candidate_pool:v2",
+      "source_family_id": "story_scoped_publication_evidence_v1"
+    },
+    {
+      "accepted_evidence_binding": "verifier_produced_dbh2_record_binding_v2",
+      "accepted_evidence_binding_ids": [
+        "verifier_produced_dbh2_record_binding_v2"
+      ],
+      "accepted_source_native_statuses": [
+        "Notice",
+        "Rule",
+        "Proposed Rule",
+        "Presidential Document",
+        "filed",
+        "published"
+      ],
+      "adapter_id": "contentops.dbh2.federal_register_document.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_RECEIPT_REQUIRED",
+      "discovery_contract": {
+        "accepted_statuses": [
+          "Notice",
+          "Rule",
+          "Proposed Rule",
+          "Presidential Document",
+          "filed",
+          "published"
+        ],
+        "claim_type": "legal_or_regulatory_action",
+        "consumer_permission": "CONTEXT_ONLY",
+        "entities": [],
+        "evidence_state": "context",
+        "geography_field": "payload.agencies.0.name",
+        "kind": "DBH2_RECORDS",
+        "limitations": [
+          "document_presence_only",
+          "no_legal_effect_or_numeric_truth_inferred"
+        ],
+        "observation_time_from_event": false,
+        "profile_id": "official_action",
+        "provider_record_type": "federal_register_document",
+        "statement": "An official public regulatory document exists at the source-native document identity and governed version.",
+        "structured_payload_fields": {
+          "document_number": "provider_record_id",
+          "document_status": "status"
+        },
+        "target_id": "DBH2_FEDERAL_REGISTER_SEC"
+      },
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 30789,
+        "byte_sha256": "849d3c71e5ad83bb36f079fed1a8367180a35136810298ff609ca1df01270203",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "debbfbb19c7334ceaae60646b64406316bb04387",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "a8595fc6363be0ae5dee79268e4b38e6da49a3d8e0be330b07f677b87d64f529",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "aefe2a3d8458da2b7e6cc5f815a86181e60cee67",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "11d180bc17c61a572ed50a543be701d8a4df8402f08f89cf549f547df61ba651",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "adapter-binding:dbh2_federal_register:v2",
+      "source_family_id": "dbh2_federal_register_official_document"
+    },
+    {
+      "accepted_evidence_binding": "verifier_produced_dbh2_record_binding_v2",
+      "accepted_evidence_binding_ids": [
+        "verifier_produced_dbh2_record_binding_v2"
+      ],
+      "accepted_source_native_statuses": [
+        "filed"
+      ],
+      "adapter_id": "contentops.dbh2.sec_filing.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_RECEIPT_REQUIRED",
+      "discovery_contract": {
+        "accepted_statuses": [
+          "filed"
+        ],
+        "claim_type": "corporate_filing_fact",
+        "consumer_permission": "CONTEXT_ONLY",
+        "entities": [],
+        "evidence_state": "context",
+        "geography_field": "payload.stateOfIncorporation",
+        "kind": "DBH2_RECORDS",
+        "limitations": [
+          "filing_metadata_context_only",
+          "no_filing_numeric_truth_inferred"
+        ],
+        "observation_time_from_event": false,
+        "profile_id": "corporate_filing",
+        "provider_record_type": "sec_filing",
+        "statement": "An official corporate filing metadata record exists at the source-native filing identity and governed version.",
+        "structured_payload_fields": {
+          "accession_number": "provider_record_id",
+          "filing_status": "status"
+        },
+        "target_id": "DBH2_SEC_MSFT_SUBMISSIONS"
+      },
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 30789,
+        "byte_sha256": "849d3c71e5ad83bb36f079fed1a8367180a35136810298ff609ca1df01270203",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "debbfbb19c7334ceaae60646b64406316bb04387",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "a8595fc6363be0ae5dee79268e4b38e6da49a3d8e0be330b07f677b87d64f529",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "aefe2a3d8458da2b7e6cc5f815a86181e60cee67",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "5d98f62c15ce05228bacf27791d485d366027d6ff812d6f967dcdbadae62b5c1",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "adapter-binding:dbh2_sec_filing:v2",
+      "source_family_id": "dbh2_sec_official_filing_metadata"
+    },
+    {
+      "accepted_evidence_binding": "verifier_produced_dbh2_record_binding_v2",
+      "accepted_evidence_binding_ids": [
+        "verifier_produced_dbh2_record_binding_v2"
+      ],
+      "accepted_source_native_statuses": [
+        "snapshot"
+      ],
+      "adapter_id": "contentops.dbh2.ofac_snapshot.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_RECEIPT_REQUIRED",
+      "discovery_contract": {
+        "accepted_statuses": [
+          "snapshot"
+        ],
+        "claim_type": "entity_relationship",
+        "consumer_permission": "CONTEXT_ONLY",
+        "entities": [],
+        "evidence_state": "context",
+        "geography_field": "payload.country",
+        "kind": "DBH2_RECORDS",
+        "limitations": [
+          "snapshot_presence_context_only",
+          "no_listing_delta_or_current_action_inferred"
+        ],
+        "observation_time_from_event": false,
+        "profile_id": "geopolitical_or_sanctions",
+        "provider_record_type": "ofac_snapshot",
+        "statement": "An official entity-list snapshot record exists at the source-native snapshot identity and governed version.",
+        "structured_payload_fields": {
+          "snapshot_id": "provider_record_id",
+          "snapshot_status": "status"
+        },
+        "target_id": "DBH2_OFAC_SDN_CURRENT_SNAPSHOT"
+      },
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 30789,
+        "byte_sha256": "849d3c71e5ad83bb36f079fed1a8367180a35136810298ff609ca1df01270203",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "debbfbb19c7334ceaae60646b64406316bb04387",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "a8595fc6363be0ae5dee79268e4b38e6da49a3d8e0be330b07f677b87d64f529",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "aefe2a3d8458da2b7e6cc5f815a86181e60cee67",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "11fea187834dbe44aa1ccf91490720cec65cac2d974f69174db5b63b0a81655f",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "adapter-binding:dbh2_ofac_snapshot:v2",
+      "source_family_id": "dbh2_ofac_official_entity_snapshot"
+    },
+    {
+      "accepted_evidence_binding": "verifier_produced_dbh2_record_binding_v2",
+      "accepted_evidence_binding_ids": [
+        "verifier_produced_dbh2_record_binding_v2"
+      ],
+      "accepted_source_native_statuses": [
+        "published",
+        "minutes",
+        "statement"
+      ],
+      "adapter_id": "contentops.dbh2.fomc_document.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_RECEIPT_REQUIRED",
+      "discovery_contract": {
+        "accepted_statuses": [
+          "published",
+          "minutes",
+          "statement"
+        ],
+        "claim_type": "factual_text",
+        "consumer_permission": "CONTEXT_ONLY",
+        "entities": [
+          "FOMC"
+        ],
+        "evidence_state": "context",
+        "geography_field": "payload.location",
+        "kind": "DBH2_RECORDS",
+        "limitations": [
+          "document_presence_context_only",
+          "no_policy_or_numeric_truth_inferred"
+        ],
+        "observation_time_from_event": false,
+        "profile_id": "official_action",
+        "provider_record_type": "fomc_official_document",
+        "statement": "An official central-bank document exists at the source-native document identity and governed version.",
+        "structured_payload_fields": {
+          "document_id": "provider_record_id",
+          "document_status": "status"
+        },
+        "target_id": "DBH2_FED_FOMC_CALENDAR_ARCHIVE"
+      },
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 30789,
+        "byte_sha256": "849d3c71e5ad83bb36f079fed1a8367180a35136810298ff609ca1df01270203",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "debbfbb19c7334ceaae60646b64406316bb04387",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "a8595fc6363be0ae5dee79268e4b38e6da49a3d8e0be330b07f677b87d64f529",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "aefe2a3d8458da2b7e6cc5f815a86181e60cee67",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "d9915e923d3489ad928b1dccd8bfba5ebe381510f737150967865e3d1d7c1f89",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "adapter-binding:dbh2_fomc_document:v2",
+      "source_family_id": "dbh2_fomc_official_document"
+    },
+    {
+      "accepted_evidence_binding": "verifier_produced_dbh2_record_binding_v2",
+      "accepted_evidence_binding_ids": [
+        "verifier_produced_dbh2_record_binding_v2"
+      ],
+      "accepted_source_native_statuses": [
+        "reviewed"
+      ],
+      "adapter_id": "contentops.dbh2.usgs_event.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_RECEIPT_REQUIRED",
+      "discovery_contract": {
+        "accepted_statuses": [
+          "reviewed"
+        ],
+        "claim_type": "event_occurrence",
+        "consumer_permission": "CONTEXT_ONLY",
+        "entities": [],
+        "evidence_state": "context",
+        "geography_field": "payload.place",
+        "kind": "DBH2_RECORDS",
+        "limitations": [
+          "physical_event_context_only",
+          "numeric_text_not_promoted_to_numeric_truth"
+        ],
+        "observation_time_from_event": true,
+        "profile_id": "physical_disruption",
+        "provider_record_type": "usgs_event",
+        "statement": "An official reviewed physical-event record exists at the source-native event identity and governed version.",
+        "structured_payload_fields": {
+          "event_id": "provider_record_id",
+          "place_text": "payload.place",
+          "review_status": "status"
+        },
+        "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+      },
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 30789,
+        "byte_sha256": "849d3c71e5ad83bb36f079fed1a8367180a35136810298ff609ca1df01270203",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "debbfbb19c7334ceaae60646b64406316bb04387",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "a8595fc6363be0ae5dee79268e4b38e6da49a3d8e0be330b07f677b87d64f529",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "aefe2a3d8458da2b7e6cc5f815a86181e60cee67",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "d819c19e5610a2cf7b4e25e9b5f88892e065c3afa36e019fb39c1a08755f4a5f",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "adapter-binding:dbh2_usgs_event:v2",
+      "source_family_id": "dbh2_usgs_official_physical_event"
     }
   ],
-  "registry_version": "contentops.governed_adapter_source_bindings.v1.1.0",
+  "registry_version": "contentops.governed_adapter_source_bindings.v1.2.0",
   "schema_version": "contentops.governed_adapter_source_binding_registry.v1"
 }
