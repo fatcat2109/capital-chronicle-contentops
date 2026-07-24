@@ -1,0 +1,96 @@
+{
+  "schema_version": "contentops.governed_universal_registry_authority_manifest.v1",
+  "manifest_version": "contentops.governed_universal_registry_authority.v1.0.0",
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "branch": "master",
+  "producer_commit": "e583886a61446e7f3f6e8427570e0f69584baae5",
+  "starting_authority_commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
+  "receipts": [
+    {
+      "registry_id": "claim_capabilities",
+      "schema_version": "contentops.governed_claim_capability_registry.v1",
+      "registry_version": "contentops.governed_claim_capabilities.v3.0.0",
+      "path": "live_contentops/governed_universal_claim_capability_registry_v1.json",
+      "git_blob_sha1": "34992cb23232ce2527c030fd94fb79384ffbd055",
+      "byte_sha256": "628f1eb3fecc4e830e887847e51880d9f19bc4a62d379e4fc64bb93dc1147f26",
+      "byte_length": 8484
+    },
+    {
+      "registry_id": "evidence_profiles",
+      "schema_version": "contentops.governed_evidence_profile_registry.v1",
+      "registry_version": "contentops.governed_evidence_profiles.v3.0.0",
+      "path": "live_contentops/governed_universal_evidence_profile_registry_v1.json",
+      "git_blob_sha1": "895fe93939093fa4dc2f5e31f19f723cf9ea1895",
+      "byte_sha256": "798f6b04ba4b26e9fb194508e22c446941298ff505c875ef1a10ea8fdf736d63",
+      "byte_length": 7998
+    },
+    {
+      "registry_id": "source_families",
+      "schema_version": "contentops.governed_source_family_registry.v1",
+      "registry_version": "contentops.governed_source_families.v1.0.0",
+      "path": "live_contentops/governed_universal_source_family_registry_v1.json",
+      "git_blob_sha1": "b2a91cc8acec93a00f32a54904c543ab7d675006",
+      "byte_sha256": "dbd91a55f1b311218b6f5843deb6d6c039890479f4cc90e9ce441c0ec5ce176b",
+      "byte_length": 5703
+    },
+    {
+      "registry_id": "adapter_source_bindings",
+      "schema_version": "contentops.governed_adapter_source_binding_registry.v1",
+      "registry_version": "contentops.governed_adapter_source_bindings.v1.0.0",
+      "path": "live_contentops/governed_universal_adapter_source_binding_registry_v1.json",
+      "git_blob_sha1": "bb821721b10de2defd9e6893d77fd5123140ae38",
+      "byte_sha256": "fba0e7ab7a3a2418e20fb32d44b34853f0f17c1395814ea88defcbec0a3c8ca7",
+      "byte_length": 6048
+    },
+    {
+      "registry_id": "market_evidence_capabilities",
+      "schema_version": "contentops.governed_market_evidence_capability_registry.v1",
+      "registry_version": "contentops.governed_market_evidence_capabilities.v1.0.0",
+      "path": "live_contentops/governed_universal_market_evidence_capability_registry_v1.json",
+      "git_blob_sha1": "b0eb160183ee4c10d98655abb5b93f6e68574542",
+      "byte_sha256": "cd102473134ad84aa9f1e12c8d0c529f3e2523db2a0c31dbfd7a97de63f2bd85",
+      "byte_length": 1594
+    }
+  ],
+  "append_only_baselines": [
+    {
+      "registry_id": "claim_capabilities",
+      "baseline_commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
+      "baseline_path": "live_contentops/universal_claim_type_registry_v2.json",
+      "identity_field": "claim_type",
+      "preserved_fields": ["claim_type", "numeric_fields_required"]
+    },
+    {
+      "registry_id": "evidence_profiles",
+      "baseline_commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
+      "baseline_path": "live_contentops/universal_evidence_requirement_profiles_v2.json",
+      "identity_field": "profile_id",
+      "preserved_fields": ["profile_id", "numeric_claim_required"]
+    },
+    {
+      "registry_id": "source_families",
+      "baseline_commit": "bdb2d0702ffbb5c02788dc120124acda79db4b5d",
+      "baseline_path": "live_contentops/governed_universal_source_family_registry_v1.json",
+      "identity_field": "source_family_id",
+      "preserved_fields": ["source_family_id", "authority_ceiling", "permission_ceiling"],
+      "baseline_mode": "FIRST_GOVERNED_BASELINE"
+    },
+    {
+      "registry_id": "adapter_source_bindings",
+      "baseline_commit": "bdb2d0702ffbb5c02788dc120124acda79db4b5d",
+      "baseline_path": "live_contentops/governed_universal_adapter_source_binding_registry_v1.json",
+      "identity_field": "record_id",
+      "preserved_fields": ["record_id", "adapter_id", "source_family_id"],
+      "baseline_mode": "FIRST_GOVERNED_BASELINE"
+    },
+    {
+      "registry_id": "market_evidence_capabilities",
+      "baseline_commit": "bdb2d0702ffbb5c02788dc120124acda79db4b5d",
+      "baseline_path": "live_contentops/governed_universal_market_evidence_capability_registry_v1.json",
+      "identity_field": "capability_id",
+      "preserved_fields": ["capability_id", "event_self_evidence_forbidden"],
+      "baseline_mode": "FIRST_GOVERNED_BASELINE"
+    }
+  ],
+  "logical_hash": "7e09599d7b19118ad0dc5eaa5ebda40c722fb52bfab3ba2a6126ccebe233b0c5"
+}
