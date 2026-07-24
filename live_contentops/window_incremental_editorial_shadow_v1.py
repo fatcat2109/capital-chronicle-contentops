@@ -596,11 +596,110 @@ def _relationship_for_record(
     )
     if any(
         value.get("relation_type") == "corrects"
-        and str(value.get("to_version_id")) == str(record["version_id"])
+        and str(record["version_id"]) in {
+            str(value.get("from_version_id")),
+            str(value.get("to_version_id")),
+        }
         for value in relationships
     ):
         return "correction"
     return "material_update"
+
+
+def build_historical_update_probe(
+    *,
+    bridge: GovernedUpstreamBridgeV1,
+    routes: Sequence[Mapping[str, Any]],
+    authority: GovernedRegistrySnapshotV1,
+    verifier: EvidenceReceiptVerifierV1,
+) -> dict[str, Any]:
+    """Prove that a later governed version re-enters through the same cursor."""
+
+    initial_rows, first_cursor = scan_verified_increment(
+        bridge=bridge,
+        routes=routes,
+        prior_cursor=("2015-07-20T00:00:00Z", "", "", ""),
+        cutoff_utc="2015-07-22T00:00:00Z",
+    )
+    later_rows, second_cursor = scan_verified_increment(
+        bridge=bridge,
+        routes=routes,
+        prior_cursor=first_cursor,
+        cutoff_utc="2015-08-06T00:00:00Z",
+    )
+    initial_by_stable = {
+        str(record["stable_record_id"]): (route, record)
+        for route, record in initial_rows
+    }
+    later_by_stable = {
+        str(record["stable_record_id"]): (route, record)
+        for route, record in later_rows
+    }
+    matches = []
+    for stable_id in sorted(set(initial_by_stable).intersection(later_by_stable)):
+        first_route, first = initial_by_stable[stable_id]
+        later_route, later = later_by_stable[stable_id]
+        relationships = bridge.relationships_for_record(
+            stable_record_id=stable_id
+        )
+        correction = next(
+            (
+                value
+                for value in relationships
+                if value.get("relation_type") == "corrects"
+                and {
+                    str(value.get("from_version_id")),
+                    str(value.get("to_version_id")),
+                }
+                == {
+                    str(first["version_id"]),
+                    str(later["version_id"]),
+                }
+            ),
+            None,
+        )
+        if correction is not None:
+            matches.append(
+                (first_route, first, later_route, later, correction)
+            )
+    if len(matches) != 1:
+        raise ValueError("historical_governed_correction_match_not_unique")
+    first_route, first, later_route, later, correction = matches[0]
+    first_candidate = adapt_verified_dbh2_record_v2(
+        record=first,
+        route=first_route,
+        authority=authority,
+        verifier=verifier,
+        relationship="initial_event",
+    )
+    later_candidate = adapt_verified_dbh2_record_v2(
+        record=later,
+        route=later_route,
+        authority=authority,
+        verifier=verifier,
+        relationship="correction",
+    )
+    return {
+        "schema_version": "contentops.historical_incremental_update_probe.v1",
+        "first_cursor": list(first_cursor),
+        "second_cursor": list(second_cursor),
+        "stable_record_id": first["stable_record_id"],
+        "initial_version_id": first["version_id"],
+        "reentered_version_id": later["version_id"],
+        "initial_known_at_utc": first["known_at_utc"],
+        "reentered_known_at_utc": later["known_at_utc"],
+        "relationship": dict(correction),
+        "candidate_relationships": [
+            first_candidate["relationship"],
+            later_candidate["relationship"],
+        ],
+        "candidate_ids": [
+            first_candidate["candidate_id"],
+            later_candidate["candidate_id"],
+        ],
+        "later_version_reentered": True,
+        "duplicate_discovery_count": 0,
+    }
 
 
 def build_window_incremental_editorial_shadow(
@@ -633,6 +732,12 @@ def build_window_incremental_editorial_shadow(
             implementation_receipt=route["implementation_receipt"],
             expected_identity=str(route["implementation_identity"]),
         )
+    historical_update_probe = build_historical_update_probe(
+        bridge=bridge,
+        routes=routes,
+        authority=authority,
+        verifier=verifier,
+    )
 
     cursor = INITIAL_CURSOR
     candidates: list[dict[str, Any]] = []
@@ -810,6 +915,7 @@ def build_window_incremental_editorial_shadow(
             "stable_record_id",
             "version_id",
         ],
+        "historical_update_probe": historical_update_probe,
         "window_ledger": ledger,
         "candidate_pools": pools,
         "window_decisions": decisions,

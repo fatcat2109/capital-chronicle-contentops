@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from hashlib import sha1, sha256
 import importlib
+import inspect
 import json
 from pathlib import Path
 import subprocess
@@ -477,6 +478,20 @@ def verify_runtime_implementation(
     if not callable(implementation):
         raise EvidenceReceiptVerificationError(
             "implementation_callable_unavailable"
+        )
+    source_path = inspect.getsourcefile(implementation)
+    if not source_path:
+        raise EvidenceReceiptVerificationError(
+            "implementation_runtime_source_unavailable"
+        )
+    runtime_bytes = Path(source_path).read_bytes()
+    if (
+        sha256(runtime_bytes).hexdigest()
+        != implementation_receipt.get("byte_sha256")
+        or len(runtime_bytes) != implementation_receipt.get("byte_length")
+    ):
+        raise EvidenceReceiptVerificationError(
+            "implementation_runtime_bytes_mismatch"
         )
     expected_hash = _logical_hash(_without_hash(implementation_receipt))
     if implementation_receipt.get("logical_hash") != expected_hash:
