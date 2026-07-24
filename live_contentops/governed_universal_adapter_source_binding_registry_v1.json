@@ -3,7 +3,7 @@
     "commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
     "policy": "first_committed_governed_baseline_replacing_implicit_adapter_identity"
   },
-  "logical_hash": "a94d363b3989152d5dfd8603bafa9a11fdea26d8759097cb666235cd8c91a3f8",
+  "logical_hash": "af90636f617d0f33ae652e1bd65a89d289bcf16fbdf3713c01b45ada0afd22ed",
   "records": [
     {
       "accepted_evidence_binding": "v1_pool_exact_candidate_binding_v1",
@@ -125,8 +125,29 @@
       "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
       "record_id": "adapter-binding:dbh2_usgs_event:v1",
       "source_family_id": "dbh2_usgs_official_physical_event"
+    },
+    {
+      "accepted_evidence_binding": "governed_market_observation_binding_v1",
+      "accepted_evidence_binding_ids": [
+        "governed_market_observation_binding_v1"
+      ],
+      "accepted_source_native_statuses": [
+        "observed",
+        "final",
+        "revised"
+      ],
+      "adapter_id": "contentops.market.governed_observation.v1",
+      "authority_ceiling": "VERIFIED_GOVERNED",
+      "authority_derivation_rule": "SEPARATE_VERIFIED_MARKET_RECEIPT_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_governed_registry_v1.validate_market_evidence_record",
+      "logical_hash": "620043039258c8c57085f0e98e4dfe517ed236fe99b506be2ccbb1700481a293",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "adapter-binding:governed_market_observation:v1",
+      "source_family_id": "governed_market_observation"
     }
   ],
-  "registry_version": "contentops.governed_adapter_source_bindings.v1.0.0",
+  "registry_version": "contentops.governed_adapter_source_bindings.v1.1.0",
   "schema_version": "contentops.governed_adapter_source_binding_registry.v1"
 }
