@@ -24,6 +24,7 @@ AUTHORITY_MANIFEST_PATH = (
     "live_contentops/governed_universal_registry_authority_manifest_v1.json"
 )
 EXACT_BINDING_SCHEMA = "contentops.exact_claim_evidence_binding.v1"
+VERIFIED_BINDING_SCHEMA = "contentops.verifier_produced_claim_evidence_binding.v2"
 MARKET_BINDING_SCHEMA = "contentops.governed_market_evidence_binding.v1"
 
 AUTHORITY_RANK = {
@@ -395,7 +396,7 @@ def validate_evidence_binding(
     authority: GovernedRegistrySnapshotV1,
 ) -> tuple[str, ...]:
     blockers: list[str] = []
-    if binding.get("schema_version") != EXACT_BINDING_SCHEMA:
+    if binding.get("schema_version") != VERIFIED_BINDING_SCHEMA:
         blockers.append("evidence_binding_schema_invalid")
     family_id = str(binding.get("source_family_id") or "")
     adapter_id = str(binding.get("adapter_id") or "")
@@ -438,14 +439,26 @@ def validate_evidence_binding(
     if len(content_hash) != 64 or any(char not in "0123456789abcdef" for char in content_hash):
         blockers.append("evidence_binding_content_sha256_invalid")
     receipt = binding.get("receipt")
-    if not isinstance(receipt, Mapping) or receipt.get("exact_verified") is not True:
-        blockers.append("evidence_binding_exact_receipt_missing")
-    elif receipt.get("receipt_kind") not in {
-        "git_artifact",
-        "dbh2_record_version",
-        "accepted_aggregation",
-    }:
-        blockers.append("evidence_binding_receipt_kind_invalid")
+    if not isinstance(receipt, Mapping):
+        blockers.append("evidence_binding_verified_receipt_missing")
+    else:
+        from live_contentops.universal_evidence_receipt_verifier_v1 import (
+            AGGREGATION_RECEIPT_SCHEMA,
+            DBH2_RECEIPT_SCHEMA,
+            GIT_RECEIPT_SCHEMA,
+        )
+
+        receipt_schema = receipt.get("schema_version")
+        if receipt_schema not in {
+            GIT_RECEIPT_SCHEMA,
+            DBH2_RECEIPT_SCHEMA,
+            AGGREGATION_RECEIPT_SCHEMA,
+        }:
+            blockers.append("evidence_binding_verified_receipt_schema_invalid")
+        if receipt.get("logical_hash") != logical_hash(without_hash(receipt)):
+            blockers.append("evidence_binding_verified_receipt_hash_mismatch")
+    if binding.get("verifier_produced") is not True:
+        blockers.append("evidence_binding_not_verifier_produced")
     if binding.get("logical_hash") != logical_hash(without_hash(binding)):
         blockers.append("evidence_binding_logical_hash_mismatch")
     return tuple(sorted(set(blockers)))
@@ -460,8 +473,14 @@ def derive_claim_authority_permission(
     requested_authority: str | None = None,
     requested_permission: str | None = None,
 ) -> dict[str, Any]:
+    from live_contentops.universal_evidence_receipt_verifier_v1 import (
+        is_verifier_owned_index,
+    )
+
     capability = authority.claim_capabilities.get(claim_type)
     blockers: list[str] = []
+    if not is_verifier_owned_index(trusted_evidence_index):
+        blockers.append("trusted_evidence_index_not_verifier_produced")
     if not capability or capability.get("enabled") is not True:
         blockers.append("claim_capability_not_registered")
     if not evidence_bindings:
@@ -806,6 +825,8 @@ def build_exact_evidence_binding(
         "consumer_permission": consumer_permission,
         "dqr_reporting_allowed": dqr_reporting_allowed,
         "receipt": dict(receipt),
+        "verifier_produced": False,
+        "authority_effect": "NONE_CALLER_DECLARED_LEGACY_COMPATIBILITY",
     }
     value["logical_hash"] = logical_hash(value)
     return value
@@ -822,6 +843,12 @@ def build_governed_claim(
     requested_permission: str | None = None,
     **claim_values: Any,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
+    from live_contentops.universal_evidence_receipt_verifier_v1 import (
+        is_verifier_owned_index,
+    )
+
+    if not is_verifier_owned_index(trusted_evidence_index):
+        raise GovernedRegistryError("trusted_evidence_index_not_verifier_produced")
     bindings: list[Mapping[str, Any]] = []
     for evidence_ref in evidence_refs:
         binding = trusted_evidence_index.get(str(evidence_ref))
@@ -892,6 +919,10 @@ def validate_governed_candidate(
         validate_candidate,
     )
 
+    from live_contentops.universal_evidence_receipt_verifier_v1 import (
+        is_verifier_owned_index,
+    )
+
     source_family_lookup = {
         source_family_id: {
             **dict(record),
@@ -904,6 +935,8 @@ def validate_governed_candidate(
         cutoff_utc=cutoff_utc,
         source_family_registry=source_family_lookup,
     ))
+    if not is_verifier_owned_index(trusted_evidence_index):
+        blockers.append("trusted_evidence_index_not_verifier_produced")
     profile_report = validate_profile_execution(candidate, authority=authority)
     blockers.extend(profile_report["blockers"])
     lineage_report = validate_claim_document_lineage(candidate)
@@ -1030,6 +1063,12 @@ def build_governed_pool(
         _build_pool_unchecked,
     )
 
+    from live_contentops.universal_evidence_receipt_verifier_v1 import (
+        is_verifier_owned_index,
+    )
+
+    if not is_verifier_owned_index(trusted_evidence_index):
+        raise GovernedRegistryError("trusted_evidence_index_not_verifier_produced")
     family_records: list[Mapping[str, Any]] = []
     for source_family_id in sorted(set(source_family_ids)):
         record = authority.source_families.get(source_family_id)
@@ -1095,7 +1134,13 @@ def validate_governed_pool(
 ) -> tuple[str, ...]:
     from live_contentops.universal_news_candidate_fabric_v2 import validate_pool
 
+    from live_contentops.universal_evidence_receipt_verifier_v1 import (
+        is_verifier_owned_index,
+    )
+
     blockers = list(validate_pool(pool))
+    if not is_verifier_owned_index(trusted_evidence_index):
+        blockers.append("trusted_evidence_index_not_verifier_produced")
     packet = (pool.get("upstream_binding") or {}).get(
         "governed_registry_authority"
     )

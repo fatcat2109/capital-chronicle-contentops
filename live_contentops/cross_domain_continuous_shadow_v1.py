@@ -21,6 +21,10 @@ from live_contentops.universal_governed_registry_v1 import (
     logical_hash,
     validate_governed_pool,
 )
+from live_contentops.universal_evidence_receipt_verifier_v1 import (
+    EvidenceReceiptVerifierV1,
+    VerifiedEvidenceIndexV1,
+)
 from live_contentops.universal_news_candidate_fabric_v2 import (
     assign_generic_id,
     build_candidate,
@@ -213,42 +217,20 @@ def _dbh2_evidence_binding(
     record: Mapping[str, Any],
     family_id: str,
     authority: GovernedRegistrySnapshotV1,
-    bridge_packet: Mapping[str, Any],
+    verifier: EvidenceReceiptVerifierV1,
 ) -> dict[str, Any]:
     adapter_id = ADAPTER_BY_FAMILY[family_id]
     adapter = authority.adapter_bindings[adapter_id]
     document = _source_document(record)
-    evidence_ref = (
-        f"dbh2:{record['target_id']}:{record['stable_record_id']}:"
-        f"{record['version_id']}"
-    )
-    return build_exact_evidence_binding(
-        binding_id=assign_generic_id("evidence-binding", {
-            "evidence_ref": evidence_ref,
-            "adapter_binding_record_id": adapter["record_id"],
-        }),
-        accepted_evidence_binding_id=str(adapter["accepted_evidence_binding"]),
-        evidence_ref=evidence_ref,
+    return dict(verifier.verify_dbh2_record_binding(
+        record=record,
         source_family_id=family_id,
         adapter_id=adapter_id,
-        adapter_binding_record_id=str(adapter["record_id"]),
         document_id=document["document_id"],
-        source_native_id=document["source_native_id"],
-        content_sha256=str(document["content_sha256"]),
-        source_native_status=str(record["status"]),
         evidence_state="context",
         consumer_permission="CONTEXT_ONLY",
         dqr_reporting_allowed=False,
-        receipt={
-            "receipt_kind": "dbh2_record_version",
-            "exact_verified": True,
-            "bridge_authority_packet_hash": bridge_packet["logical_hash"],
-            "target_id": record["target_id"],
-            "stable_record_id": record["stable_record_id"],
-            "version_id": record["version_id"],
-            "content_sha256": record["content_sha256"],
-        },
-    )
+    ))
 
 
 def _dbh2_candidate_spec(
@@ -364,8 +346,8 @@ def _build_dbh2_candidate(
     *,
     record: Mapping[str, Any],
     authority: GovernedRegistrySnapshotV1,
-    bridge_packet: Mapping[str, Any],
-    trusted_evidence_index: dict[str, Mapping[str, Any]],
+    verifier: EvidenceReceiptVerifierV1,
+    trusted_evidence_index: VerifiedEvidenceIndexV1,
     relationship: str = "initial_event",
 ) -> dict[str, Any]:
     spec = _dbh2_candidate_spec(record)
@@ -374,10 +356,9 @@ def _build_dbh2_candidate(
         record=record,
         family_id=spec["family_id"],
         authority=authority,
-        bridge_packet=bridge_packet,
+        verifier=verifier,
     )
     evidence_ref = str(binding["evidence_ref"])
-    trusted_evidence_index[evidence_ref] = binding
     claim_id = assign_generic_id("claim", {
         "stable_record_id": record["stable_record_id"],
         "version_id": record["version_id"],
@@ -511,7 +492,8 @@ def _build_v1_candidate(
     upstream_root: Path,
     observed_head: str,
     authority: GovernedRegistrySnapshotV1,
-    trusted_evidence_index: dict[str, Mapping[str, Any]],
+    verifier: EvidenceReceiptVerifierV1,
+    trusted_evidence_index: VerifiedEvidenceIndexV1,
 ) -> tuple[dict[str, Any], Mapping[str, Any]]:
     pool, pool_receipt = read_git_json(
         root=upstream_root,
@@ -544,18 +526,11 @@ def _build_v1_candidate(
     for row in source.get("numeric_claims") or []:
         claim_id = str(row["claim_id"])
         evidence_ref = f"v1:{source['evidence_hash']}:{claim_id}"
-        binding = build_exact_evidence_binding(
-            binding_id=assign_generic_id("evidence-binding", {
-                "evidence_ref": evidence_ref,
-                "adapter_binding_record_id": adapter["record_id"],
-            }),
-            accepted_evidence_binding_id=str(
-                adapter["accepted_evidence_binding"]
-            ),
-            evidence_ref=evidence_ref,
+        binding = dict(verifier.verify_git_claim_binding(
+            artifact_path=V1_POOL_PATH,
+            producer_commit=V1_POOL_PRODUCER_COMMIT,
             source_family_id="story_scoped_publication_evidence_v1",
             adapter_id=str(adapter["adapter_id"]),
-            adapter_binding_record_id=str(adapter["record_id"]),
             document_id=str(document["document_id"]),
             source_native_id=str(document["source_native_id"]),
             content_sha256=str(document["content_sha256"]),
@@ -572,17 +547,11 @@ def _build_v1_candidate(
                 )
                 is True
             ),
-            receipt={
-                "receipt_kind": "git_artifact",
-                "exact_verified": True,
-                **pool_receipt.as_dict(),
-                "pool_id": pool["pool_id"],
-                "pool_logical_hash": pool["logical_hash"],
-                "candidate_evidence_hash": source["evidence_hash"],
-                "claim_id": claim_id,
-            },
-        )
-        trusted_evidence_index[evidence_ref] = binding
+            pool_id=str(pool["pool_id"]),
+            pool_logical_hash=str(pool["logical_hash"]),
+            candidate_evidence_hash=str(source["evidence_hash"]),
+            claim_id=claim_id,
+        ))
         bindings.append(binding)
         citations = [
             {
@@ -815,7 +784,14 @@ def build_continuous_shadow_operation(
         **bridge_packet,
         "logical_hash": logical_hash(bridge_packet),
     }
-    trusted_evidence_index: dict[str, Mapping[str, Any]] = {}
+    verifier = EvidenceReceiptVerifierV1(
+        authority=authority,
+        primary_root=repo_root,
+        upstream_root=upstream_root,
+        observed_upstream_head=observed_upstream_head,
+        bridge=bridge,
+    )
+    trusted_evidence_index = verifier.index
 
     correction_versions = _all_versions(
         bridge,
@@ -834,14 +810,14 @@ def build_continuous_shadow_operation(
         _build_dbh2_candidate(
             record=correction_versions[0],
             authority=authority,
-            bridge_packet=bridge_packet,
+            verifier=verifier,
             trusted_evidence_index=trusted_evidence_index,
             relationship="initial_event",
         ),
         _build_dbh2_candidate(
             record=correction_versions[1],
             authority=authority,
-            bridge_packet=bridge_packet,
+            verifier=verifier,
             trusted_evidence_index=trusted_evidence_index,
             relationship="correction",
         ),
@@ -850,13 +826,14 @@ def build_continuous_shadow_operation(
         all_candidates.append(_build_dbh2_candidate(
             record=record,
             authority=authority,
-            bridge_packet=bridge_packet,
+            verifier=verifier,
             trusted_evidence_index=trusted_evidence_index,
         ))
     numeric, v1_receipt = _build_v1_candidate(
         upstream_root=upstream_root,
         observed_head=observed_upstream_head,
         authority=authority,
+        verifier=verifier,
         trusted_evidence_index=trusted_evidence_index,
     )
     all_candidates.append(numeric)
@@ -878,10 +855,9 @@ def build_continuous_shadow_operation(
             for candidate in available
             for ref in candidate.get("evidence_refs") or []
         }
-        checkpoint_index_bindings = {
-            ref: trusted_evidence_index[ref]
-            for ref in sorted(consumed_refs)
-        }
+        checkpoint_index_bindings = trusted_evidence_index.subset(
+            sorted(consumed_refs)
+        )
         family_ids = {
             family_id
             for candidate in available
@@ -991,7 +967,7 @@ def build_continuous_shadow_operation(
         "continuous_live_intake_claimed": False,
         "registry_authority_packet": authority.authority_packet(),
         "local_dbh2_receipt": bridge_packet,
-        "trusted_evidence_index": dict(sorted(trusted_evidence_index.items())),
+        "trusted_evidence_index": trusted_evidence_index,
         "checkpoint_ledger": checkpoint_ledger,
         "multi_cutoff_candidate_pools": pools,
         "clustering_update_chain_ledger": {
