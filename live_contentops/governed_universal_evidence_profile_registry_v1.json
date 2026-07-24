@@ -1,0 +1,192 @@
+{
+  "baseline": {
+    "commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
+    "path": "live_contentops/universal_evidence_requirement_profiles_v2.json",
+    "policy": "append_only_semantic_superset"
+  },
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "logical_hash": "82955c4496a9d60e4d4a2c3942e80a762a288e7b4e3509d88decedfb69a2e7a4",
+  "records": [
+    {
+      "accepted_claim_types": [
+        "numeric_observation",
+        "correction_or_revision"
+      ],
+      "accepted_evidence_binding": "contentops.exact_claim_evidence_binding.v1",
+      "authority_derivation_rule": "ALL_CLAIMS_MUST_PASS_GOVERNED_CHAIN",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_candidate_fabric_v2.validate_candidate",
+      "logical_hash": "b568645e07dff57592da6b36c050a4c6306fe93a5ddfa93a06b08838c8e6c5aa",
+      "multi_profile_composition_contract_ids": [],
+      "numeric_claim_required": true,
+      "permission_derivation_rule": "NO_CLAIM_OR_CANDIDATE_UPGRADE",
+      "profile_id": "numeric_economic_release",
+      "record_id": "evidence-profile:numeric_economic_release:v1",
+      "required_candidate_fields": [
+        "observation_time_utc",
+        "published_at_utc",
+        "known_at_utc"
+      ],
+      "required_capabilities": [
+        "numeric_observation"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations"
+      ]
+    },
+    {
+      "accepted_claim_types": [
+        "official_action",
+        "legal_or_regulatory_action",
+        "factual_text",
+        "correction_or_revision"
+      ],
+      "accepted_evidence_binding": "contentops.exact_claim_evidence_binding.v1",
+      "authority_derivation_rule": "ALL_CLAIMS_MUST_PASS_GOVERNED_CHAIN",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_candidate_fabric_v2.validate_candidate",
+      "logical_hash": "29cab3243716d7d7b63f64f37adcbfd26b89400b44f646353a606e485129068d",
+      "multi_profile_composition_contract_ids": [],
+      "numeric_claim_required": false,
+      "permission_derivation_rule": "NO_CLAIM_OR_CANDIDATE_UPGRADE",
+      "profile_id": "official_action",
+      "record_id": "evidence-profile:official_action:v1",
+      "required_candidate_fields": [
+        "event_time_utc",
+        "published_at_utc",
+        "known_at_utc"
+      ],
+      "required_capabilities": [
+        "official_action"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations"
+      ]
+    },
+    {
+      "accepted_claim_types": [
+        "corporate_filing_fact",
+        "factual_text",
+        "correction_or_revision"
+      ],
+      "accepted_evidence_binding": "contentops.exact_claim_evidence_binding.v1",
+      "authority_derivation_rule": "ALL_CLAIMS_MUST_PASS_GOVERNED_CHAIN",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_candidate_fabric_v2.validate_candidate",
+      "logical_hash": "ac73a4552cf4bd74721d5f070e684979f65ed41c84e38922c3af8b3d64757044",
+      "multi_profile_composition_contract_ids": [],
+      "numeric_claim_required": false,
+      "permission_derivation_rule": "NO_CLAIM_OR_CANDIDATE_UPGRADE",
+      "profile_id": "corporate_filing",
+      "record_id": "evidence-profile:corporate_filing:v1",
+      "required_candidate_fields": [
+        "published_at_utc",
+        "known_at_utc"
+      ],
+      "required_capabilities": [
+        "corporate_filing_fact"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations"
+      ]
+    },
+    {
+      "accepted_claim_types": [
+        "official_action",
+        "event_occurrence",
+        "entity_relationship",
+        "factual_text",
+        "correction_or_revision"
+      ],
+      "accepted_evidence_binding": "contentops.exact_claim_evidence_binding.v1",
+      "authority_derivation_rule": "ALL_CLAIMS_MUST_PASS_GOVERNED_CHAIN",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_candidate_fabric_v2.validate_candidate",
+      "logical_hash": "c37f653252b654319ab228d575c03c9b1211f301ab0b90b97713e3fdb2abfd17",
+      "multi_profile_composition_contract_ids": [],
+      "numeric_claim_required": false,
+      "permission_derivation_rule": "NO_CLAIM_OR_CANDIDATE_UPGRADE",
+      "profile_id": "geopolitical_or_sanctions",
+      "record_id": "evidence-profile:geopolitical_or_sanctions:v1",
+      "required_candidate_fields": [
+        "event_time_utc",
+        "published_at_utc",
+        "known_at_utc"
+      ],
+      "required_capabilities": [
+        "entity_relationship"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations"
+      ]
+    },
+    {
+      "accepted_claim_types": [
+        "event_occurrence",
+        "factual_text",
+        "correction_or_revision"
+      ],
+      "accepted_evidence_binding": "contentops.exact_claim_evidence_binding.v1",
+      "authority_derivation_rule": "ALL_CLAIMS_MUST_PASS_GOVERNED_CHAIN",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_candidate_fabric_v2.validate_candidate",
+      "logical_hash": "4347fe3cdc7e925cfb781c29911334ddfd4e2a85bd68c9b130be0fcc02806dc8",
+      "multi_profile_composition_contract_ids": [],
+      "numeric_claim_required": false,
+      "permission_derivation_rule": "NO_CLAIM_OR_CANDIDATE_UPGRADE",
+      "profile_id": "physical_disruption",
+      "record_id": "evidence-profile:physical_disruption:v1",
+      "required_candidate_fields": [
+        "event_time_utc",
+        "known_at_utc"
+      ],
+      "required_capabilities": [
+        "event_occurrence"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations"
+      ]
+    },
+    {
+      "accepted_claim_types": [
+        "market_reaction",
+        "correction_or_revision"
+      ],
+      "accepted_evidence_binding": "contentops.governed_market_evidence_binding.v1",
+      "authority_derivation_rule": "ALL_CLAIMS_MUST_PASS_GOVERNED_MARKET_CHAIN",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_candidate_fabric_v2.validate_candidate",
+      "logical_hash": "2a35313f41f870aec69c84b3f2898c889ff52df886101f7c0c28bacfc0a7a22a",
+      "multi_profile_composition_contract_ids": [],
+      "numeric_claim_required": false,
+      "permission_derivation_rule": "NO_CLAIM_OR_CANDIDATE_UPGRADE",
+      "profile_id": "market_reaction",
+      "record_id": "evidence-profile:market_reaction:v1",
+      "required_candidate_fields": [
+        "observation_time_utc",
+        "known_at_utc"
+      ],
+      "required_capabilities": [
+        "market_reaction"
+      ],
+      "required_claim_fields": [
+        "source_document_ids",
+        "evidence_refs",
+        "citations",
+        "market_evidence_refs"
+      ]
+    }
+  ],
+  "registry_version": "contentops.governed_evidence_profiles.v3.0.0",
+  "schema_version": "contentops.governed_evidence_profile_registry.v1"
+}

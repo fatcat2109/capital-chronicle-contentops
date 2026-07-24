@@ -1,0 +1,132 @@
+{
+  "baseline": {
+    "commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
+    "policy": "first_committed_governed_baseline_replacing_implicit_adapter_identity"
+  },
+  "logical_hash": "a94d363b3989152d5dfd8603bafa9a11fdea26d8759097cb666235cd8c91a3f8",
+  "records": [
+    {
+      "accepted_evidence_binding": "v1_pool_exact_candidate_binding_v1",
+      "accepted_evidence_binding_ids": [
+        "v1_pool_exact_candidate_binding_v1"
+      ],
+      "accepted_source_native_statuses": [
+        "eligible"
+      ],
+      "adapter_id": "contentops.v1_newsroom_candidate_pool_adapter.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "PINNED_POOL_PRODUCER_RECEIPT_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_candidate_fabric_v2.adapt_v1_candidate",
+      "logical_hash": "b49cfebb04ce1dab3645d950a556363618c3359f572884298b1513f4657265fd",
+      "permission_ceiling": "PUBLIC_CLAIM_ALLOWED",
+      "permission_derivation_rule": "EXACT_UPSTREAM_CLAIM_PERMISSION_AND_DQR_REQUIRED",
+      "record_id": "adapter-binding:v1_candidate_pool:v1",
+      "source_family_id": "story_scoped_publication_evidence_v1"
+    },
+    {
+      "accepted_evidence_binding": "dbh2_exact_record_version_binding_v1",
+      "accepted_evidence_binding_ids": [
+        "dbh2_exact_record_version_binding_v1"
+      ],
+      "accepted_source_native_statuses": [
+        "Notice",
+        "Rule",
+        "Proposed Rule",
+        "Presidential Document",
+        "filed",
+        "published"
+      ],
+      "adapter_id": "contentops.dbh2.federal_register_document.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_cross_domain_canary_v1._context_candidate",
+      "logical_hash": "b6104a4f7dcb61e8bbfbfaef39cc2f4d1216459410c971bddd1d98381526527d",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "adapter-binding:dbh2_federal_register:v1",
+      "source_family_id": "dbh2_federal_register_official_document"
+    },
+    {
+      "accepted_evidence_binding": "dbh2_exact_record_version_binding_v1",
+      "accepted_evidence_binding_ids": [
+        "dbh2_exact_record_version_binding_v1"
+      ],
+      "accepted_source_native_statuses": [
+        "filed"
+      ],
+      "adapter_id": "contentops.dbh2.sec_filing.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_cross_domain_canary_v1._context_candidate",
+      "logical_hash": "379829b50194a915aec0d6e8c7dbc3a198c7d0c199f25996250cad05cbf058f4",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "adapter-binding:dbh2_sec_filing:v1",
+      "source_family_id": "dbh2_sec_official_filing_metadata"
+    },
+    {
+      "accepted_evidence_binding": "dbh2_exact_record_version_binding_v1",
+      "accepted_evidence_binding_ids": [
+        "dbh2_exact_record_version_binding_v1"
+      ],
+      "accepted_source_native_statuses": [
+        "snapshot"
+      ],
+      "adapter_id": "contentops.dbh2.ofac_snapshot.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_SNAPSHOT_AND_ENTITY_RELATIONSHIP_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_cross_domain_canary_v1._context_candidate",
+      "logical_hash": "3ac6f84370c3624fdb0c1ea2c95866e1375de53bc5e789b42f0c23b38a193077",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "adapter-binding:dbh2_ofac_snapshot:v1",
+      "source_family_id": "dbh2_ofac_official_entity_snapshot"
+    },
+    {
+      "accepted_evidence_binding": "dbh2_exact_record_version_binding_v1",
+      "accepted_evidence_binding_ids": [
+        "dbh2_exact_record_version_binding_v1"
+      ],
+      "accepted_source_native_statuses": [
+        "published",
+        "minutes",
+        "statement"
+      ],
+      "adapter_id": "contentops.dbh2.fomc_document.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_cross_domain_canary_v1._context_candidate",
+      "logical_hash": "5b3a40ae0bab46d5725c54c0582ddc951c3597c0dd8cf5940b0ddaf3cfb5b45e",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "adapter-binding:dbh2_fomc_document:v1",
+      "source_family_id": "dbh2_fomc_official_document"
+    },
+    {
+      "accepted_evidence_binding": "dbh2_exact_record_version_binding_v1",
+      "accepted_evidence_binding_ids": [
+        "dbh2_exact_record_version_binding_v1"
+      ],
+      "accepted_source_native_statuses": [
+        "reviewed"
+      ],
+      "adapter_id": "contentops.dbh2.usgs_event.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_news_cross_domain_canary_v1._context_candidate",
+      "logical_hash": "cb850d0e7ba5fc0d242b335c7d6a7c81ba2b081cd58e56dfaf06d7f39e46cbe0",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "adapter-binding:dbh2_usgs_event:v1",
+      "source_family_id": "dbh2_usgs_official_physical_event"
+    }
+  ],
+  "registry_version": "contentops.governed_adapter_source_bindings.v1.0.0",
+  "schema_version": "contentops.governed_adapter_source_binding_registry.v1"
+}

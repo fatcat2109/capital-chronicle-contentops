@@ -1,0 +1,40 @@
+{
+  "baseline": {
+    "commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
+    "policy": "first_committed_governed_baseline_replacing_string_reference_acceptance"
+  },
+  "logical_hash": "62004b4e0e2f7b398bf18665859dac0be171b9508e2fc919217889c7401b7e9b",
+  "records": [
+    {
+      "accepted_classifications": [
+        "exact",
+        "proxy",
+        "context"
+      ],
+      "accepted_evidence_binding": "contentops.governed_market_evidence_binding.v1",
+      "authority_derivation_rule": "SEPARATE_REGISTERED_MARKET_ADAPTER_AND_RECEIPT_REQUIRED",
+      "capability_id": "separate_market_observation",
+      "enabled": true,
+      "event_self_evidence_forbidden": true,
+      "implementation_identity": "live_contentops.universal_governed_registry_v1.validate_market_evidence_record",
+      "logical_hash": "0cb479f8a41cc580643782b633dc6580941d4f45a27a6fab52b9a37f26576bf0",
+      "permission_derivation_rule": "NO_EVENT_OR_MODEL_PERMISSION_INHERITANCE",
+      "record_id": "market-evidence-capability:separate_observation:v1",
+      "required_fields": [
+        "market_evidence_id",
+        "source_family_id",
+        "adapter_id",
+        "adapter_binding_record_id",
+        "instrument_id",
+        "evidence_classification",
+        "observation_time_utc",
+        "known_at_utc",
+        "evidence_refs",
+        "source_document_ids",
+        "logical_hash"
+      ]
+    }
+  ],
+  "registry_version": "contentops.governed_market_evidence_capabilities.v1.0.0",
+  "schema_version": "contentops.governed_market_evidence_capability_registry.v1"
+}
