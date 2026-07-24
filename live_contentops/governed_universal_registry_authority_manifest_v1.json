@@ -12,8 +12,8 @@
       "registry_version": "contentops.governed_claim_capabilities.v3.0.0",
       "path": "live_contentops/governed_universal_claim_capability_registry_v1.json",
       "git_blob_sha1": "34992cb23232ce2527c030fd94fb79384ffbd055",
-      "byte_sha256": "628f1eb3fecc4e830e887847e51880d9f19bc4a62d379e4fc64bb93dc1147f26",
-      "byte_length": 8484
+      "byte_sha256": "2fb81e3d9cddc05b6ee218c978866e0bac0b2d1038a7fdc5fbda677825b83a42",
+      "byte_length": 8322
     },
     {
       "registry_id": "evidence_profiles",
@@ -21,8 +21,8 @@
       "registry_version": "contentops.governed_evidence_profiles.v3.0.0",
       "path": "live_contentops/governed_universal_evidence_profile_registry_v1.json",
       "git_blob_sha1": "895fe93939093fa4dc2f5e31f19f723cf9ea1895",
-      "byte_sha256": "798f6b04ba4b26e9fb194508e22c446941298ff505c875ef1a10ea8fdf736d63",
-      "byte_length": 7998
+      "byte_sha256": "d3aff87234f1591338fcc11632ba1c0240a9d396d37b2ed9286fa879d0c5353f",
+      "byte_length": 7787
     },
     {
       "registry_id": "source_families",
@@ -30,8 +30,8 @@
       "registry_version": "contentops.governed_source_families.v1.0.0",
       "path": "live_contentops/governed_universal_source_family_registry_v1.json",
       "git_blob_sha1": "b2a91cc8acec93a00f32a54904c543ab7d675006",
-      "byte_sha256": "dbd91a55f1b311218b6f5843deb6d6c039890479f4cc90e9ce441c0ec5ce176b",
-      "byte_length": 5703
+      "byte_sha256": "21cbe1dee53cd1079f3d159f32733ecd0c70d4791679511c50cc90b3bc12eada",
+      "byte_length": 5584
     },
     {
       "registry_id": "adapter_source_bindings",
@@ -39,8 +39,8 @@
       "registry_version": "contentops.governed_adapter_source_bindings.v1.0.0",
       "path": "live_contentops/governed_universal_adapter_source_binding_registry_v1.json",
       "git_blob_sha1": "bb821721b10de2defd9e6893d77fd5123140ae38",
-      "byte_sha256": "fba0e7ab7a3a2418e20fb32d44b34853f0f17c1395814ea88defcbec0a3c8ca7",
-      "byte_length": 6048
+      "byte_sha256": "317ea34da88c4c17bbadc94a7ea6ec32858deea8defc32742204d520419770c0",
+      "byte_length": 5916
     },
     {
       "registry_id": "market_evidence_capabilities",
@@ -48,8 +48,8 @@
       "registry_version": "contentops.governed_market_evidence_capabilities.v1.0.0",
       "path": "live_contentops/governed_universal_market_evidence_capability_registry_v1.json",
       "git_blob_sha1": "b0eb160183ee4c10d98655abb5b93f6e68574542",
-      "byte_sha256": "cd102473134ad84aa9f1e12c8d0c529f3e2523db2a0c31dbfd7a97de63f2bd85",
-      "byte_length": 1594
+      "byte_sha256": "2a499c282f9c190768171c0351d9160c04aa5476aa82c906e07423704cf4344f",
+      "byte_length": 1554
     }
   ],
   "append_only_baselines": [
@@ -92,5 +92,5 @@
       "baseline_mode": "FIRST_GOVERNED_BASELINE"
     }
   ],
-  "logical_hash": "7e09599d7b19118ad0dc5eaa5ebda40c722fb52bfab3ba2a6126ccebe233b0c5"
+  "logical_hash": "8866c4a92940fc166d0dc67fe58c44501b7d63f310b93621c90314c4886c5f23"
 }
