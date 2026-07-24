@@ -5,7 +5,26 @@
     "policy": "append_only_semantic_superset"
   },
   "calibration_state": "UNCALIBRATED_FOUNDATION",
-  "logical_hash": "82955c4496a9d60e4d4a2c3942e80a762a288e7b4e3509d88decedfb69a2e7a4",
+  "composition_contracts": [
+    {
+      "additional_claim_types": [
+        "numeric_observation"
+      ],
+      "base_profile_ids": [
+        "official_action",
+        "corporate_filing",
+        "geopolitical_or_sanctions",
+        "physical_disruption",
+        "market_reaction"
+      ],
+      "contract_id": "composition:nonnumeric_plus_numeric_observation:v1",
+      "enabled": true,
+      "implementation_identity": "live_contentops.universal_governed_registry_v1.validate_profile_execution",
+      "logical_hash": "d96dd151ae3209fdbe7e6ee2e742e17656ab32eb9dc7f98b947d62b4cf6bcd51",
+      "rule": "ADDITIONAL_NUMERIC_CLAIMS_RETAIN_FULL_NUMERIC_PROFILE_VALIDATION_AND_DO_NOT_UPGRADE_BASE_PROFILE_AUTHORITY"
+    }
+  ],
+  "logical_hash": "00a61ef2877fd23bee9834a6aa9c94bb539b423b7db6f63b373f121b7fc29c6c",
   "records": [
     {
       "accepted_claim_types": [
