@@ -1,0 +1,95 @@
+{
+  "article": {
+    "article_mode": "evidence_bound_shadow_draft",
+    "as_of_utc": "2026-07-15T22:30:00Z",
+    "claim_ids_used": [
+      "UST:2Y:2026-07-13",
+      "UST:10Y:2026-07-13",
+      "UST:30Y:2026-07-13",
+      "UST:2S10S:2026-07-13"
+    ],
+    "cross_asset_assertions": false,
+    "hard_truncation_used": false,
+    "numeric_claims_from_llm": false,
+    "publication_authority": false,
+    "quantitative_blockers": [],
+    "rendered_body": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.\n\nVerified observations: U.S. Treasury 2Y par yield: 4.26 percent; U.S. Treasury 10Y par yield: 4.62 percent; U.S. Treasury 30Y par yield: 5.1 percent; U.S. Treasury 2s10s par-yield spread: 36.0 basis_points.\n\nNot financial advice.",
+    "summary": "The 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.",
+    "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+  },
+  "candidate_id": "cc-candidate-120438cc800db7f941be",
+  "editorial_review": {
+    "blockers": [],
+    "deterministic_blockers_authoritative": true,
+    "final_render_reviewed": true,
+    "packet_hash": "dcf126ee018f34cf7e621e96e0a87a4a17a2d74246c21af245250cad884aa102",
+    "revision_contract_status": "NOT_REQUESTED",
+    "role_order": [
+      "assignment_editor",
+      "evidence_planner",
+      "reporter_writer",
+      "quantitative_editor",
+      "visual_editor",
+      "copy_editor",
+      "platform_editor",
+      "adversarial_final_reviewer"
+    ],
+    "roles": [
+      {
+        "blockers": [],
+        "output_hash": "0adb805502d7eb802f9623729c761a05a8e878a99e8ecfa395e3c6b471d9388c",
+        "role": "assignment_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "7937cd7520809b5e6c0e4613fe2d4961c70a68c52864551b3411bb0544720297",
+        "role": "evidence_planner",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "88857e5adafc4c88ae09fcbfa9f54569baa95b5972349855d740f71123a5de0d",
+        "role": "reporter_writer",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "10a4fb2ff05b94c2527af4617b8bd7547cc91d8d06b4cb28a81f0cad19999e15",
+        "role": "quantitative_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "9bd04b3263e9128d662d3c4fdaceb84ff56450babec605a63fa224a32ad69d76",
+        "role": "visual_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "6b105f2ef26b1cf6ad3b327502454b14e1ba1d40033e6c82147ecd3691362e79",
+        "role": "copy_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "785e1bf22cca2a4b606e24f409956f2496a0a99465e03538391bc67bcde08328",
+        "role": "platform_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "c993f9bc7717e300d7d7e4ddde95e0a244b0a09f0501a1a8f2a3b85c36cb3c8d",
+        "role": "adversarial_final_reviewer",
+        "status": "PASS"
+      }
+    ],
+    "schema_version": "contentops.editorial_review_orchestrator.v2",
+    "status": "PASS",
+    "writer_self_certification_allowed": false
+  },
+  "public_write_performed": false,
+  "publication_authority": false,
+  "schema_version": "contentops.local_shadow_draft_evidence.v1",
+  "status": "PASS_LOCAL_ONLY"
+}

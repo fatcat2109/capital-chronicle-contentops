@@ -1,0 +1,4946 @@
+{
+  "decisions": [
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-10T00:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "asia_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-10T07:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "europe_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-10T13:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-10T17:00:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_midday"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-10T22:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_close"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-11T00:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "asia_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-11T07:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "europe_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-11T13:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-11T17:00:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_midday"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-11T22:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_close"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-12T00:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "asia_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-12T07:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "europe_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-12T13:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-12T17:00:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_midday"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-12T22:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_close"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-13T00:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "asia_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-13T07:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "europe_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-13T13:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-13T17:00:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_midday"
+    },
+    {
+      "breaking_qualification": {
+        "checks": {
+          "authority_ready": true,
+          "deterministic_materiality_available": false,
+          "evidence_ref_bound_to_candidate": false,
+          "governed_event_or_material_update": true,
+          "reporting_allowed": true
+        },
+        "publication_authority": false,
+        "qualified": false
+      },
+      "cutoff_time_utc": "2026-07-13T22:30:00Z",
+      "decision": "ASSIGN_INTERNAL_NO_PUBLICATION_TASK_BOUNDARY",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": {
+        "available_dimension_count": 0,
+        "blockers": [],
+        "calibration_state": "UNCALIBRATED_FOUNDATION",
+        "dimensions": {
+          "affected_market_economy_breadth": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "audience_relevance": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "durability": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "evidence_completeness": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "freshness": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "materiality": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "novelty": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "original_analysis_potential": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "overclaiming_risk": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "policy_economic_geopolitical_significance": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "portfolio_diversity": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "source_authority": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "surprise": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          },
+          "visual_feasibility": {
+            "availability": "UNAVAILABLE",
+            "evidence_refs": [],
+            "reason_codes": [
+              "no_governed_ranking_input"
+            ],
+            "score": null
+          }
+        },
+        "score": null,
+        "unavailable_dimension_count": 14
+      },
+      "selected_candidate_id": "cc-candidate-120438cc800db7f941be",
+      "selected_capability_profile": "numeric_economic_release",
+      "window_id": "us_close"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T00:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "prior_identity_without_governed_delta"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "asia_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T07:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "prior_identity_without_governed_delta"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "europe_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T13:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "prior_identity_without_governed_delta"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T17:00:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "prior_identity_without_governed_delta"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_midday"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-14T22:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "prior_identity_without_governed_delta"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_close"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-15T00:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "prior_identity_without_governed_delta"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "asia_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-15T07:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "prior_identity_without_governed_delta"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "europe_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-15T13:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "prior_identity_without_governed_delta"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_open"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-15T17:00:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "prior_identity_without_governed_delta"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_midday"
+    },
+    {
+      "breaking_qualification": null,
+      "cutoff_time_utc": "2026-07-15T22:30:00Z",
+      "decision": "NO_ASSIGNMENT_ALL_CANDIDATES_HELD",
+      "held_candidates": [
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "prior_identity_without_governed_delta"
+          ],
+          "candidate_id": "cc-candidate-120438cc800db7f941be",
+          "capability_profile": "numeric_economic_release"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "capability_profile": "geopolitical_or_sanctions"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "capability_profile": "official_action"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "capability_profile": "physical_disruption"
+        },
+        {
+          "blockers": [
+            "context_only_evidence",
+            "evidence_state_not_reporting_eligible",
+            "reporting_permission_not_granted"
+          ],
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "capability_profile": "physical_disruption"
+        }
+      ],
+      "public_write_performed": false,
+      "publication_authority": false,
+      "ranking": null,
+      "selected_candidate_id": null,
+      "selected_capability_profile": null,
+      "window_id": "us_close"
+    }
+  ],
+  "schema_version": "contentops.window_shadow_decisions.v1",
+  "status": "PASS",
+  "summary": {
+    "authorized_editorial_handoff_count": 1,
+    "candidate_count": 21,
+    "context_only_candidate_count": 20,
+    "discovered_version_count": 20,
+    "duplicate_discovery_count": 0,
+    "history_day_count": 6,
+    "public_write_count": 0,
+    "publication_count": 0,
+    "upstream_write_count": 0,
+    "window_count": 30
+  }
+}

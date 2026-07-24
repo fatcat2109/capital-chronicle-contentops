@@ -1,0 +1,131 @@
+{
+  "as_of_utc": "2026-07-15T22:30:00Z",
+  "blockers": [],
+  "bridge_safety": {
+    "network_call_made": false,
+    "public_write_performed": false,
+    "source_repo_modified": false
+  },
+  "candidate_visual_inputs": [],
+  "citation_map": {
+    "UST:10Y:2026-07-13": [
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+    ],
+    "UST:2S10S:2026-07-13": [
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+    ],
+    "UST:2Y:2026-07-13": [
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+    ],
+    "UST:30Y:2026-07-13": [
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+    ]
+  },
+  "events": [],
+  "generated_at_utc": "2026-07-15T22:30:00Z",
+  "market_snapshots": [],
+  "numeric_claims": [
+    {
+      "claim_id": "UST:2Y:2026-07-13",
+      "llm_numeric_authority": false,
+      "metric": "U.S. Treasury 2Y par yield",
+      "observation_time_utc": "2026-07-13T00:00:00Z",
+      "public_claim_allowed": true,
+      "source_artifact_ref": "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13",
+      "source_id": "contentops.v1_newsroom_candidate_pool_adapter.v1",
+      "unit": "percent",
+      "value": 4.26
+    },
+    {
+      "claim_id": "UST:10Y:2026-07-13",
+      "llm_numeric_authority": false,
+      "metric": "U.S. Treasury 10Y par yield",
+      "observation_time_utc": "2026-07-13T00:00:00Z",
+      "public_claim_allowed": true,
+      "source_artifact_ref": "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13",
+      "source_id": "contentops.v1_newsroom_candidate_pool_adapter.v1",
+      "unit": "percent",
+      "value": 4.62
+    },
+    {
+      "claim_id": "UST:30Y:2026-07-13",
+      "llm_numeric_authority": false,
+      "metric": "U.S. Treasury 30Y par yield",
+      "observation_time_utc": "2026-07-13T00:00:00Z",
+      "public_claim_allowed": true,
+      "source_artifact_ref": "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13",
+      "source_id": "contentops.v1_newsroom_candidate_pool_adapter.v1",
+      "unit": "percent",
+      "value": 5.1
+    },
+    {
+      "claim_id": "UST:2S10S:2026-07-13",
+      "llm_numeric_authority": false,
+      "metric": "U.S. Treasury 2s10s par-yield spread",
+      "observation_time_utc": "2026-07-13T00:00:00Z",
+      "public_claim_allowed": true,
+      "source_artifact_ref": "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13",
+      "source_id": "contentops.v1_newsroom_candidate_pool_adapter.v1",
+      "unit": "basis_points",
+      "value": 36.0
+    }
+  ],
+  "official_source_documents": [
+    {
+      "authorized_urls": [
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+      ],
+      "content_sha256": "dae34a2d15f948bc501443cb8c9b1f0dd12e7eee3bdac72fa9bb322afe1e99ec",
+      "data_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+      "document_id": "ust-daily-yield-curve-2026-07-13",
+      "public_claim_allowed": true,
+      "published_at_utc": "2026-07-13T00:00:00Z",
+      "publisher": "U.S. Department of the Treasury",
+      "raw_sha256": "dae34a2d15f948bc501443cb8c9b1f0dd12e7eee3bdac72fa9bb322afe1e99ec",
+      "rights_status": "public_domain_us_government",
+      "source_native_id": "ust-daily-yield-curve-2026-07-13",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "title": "Daily Treasury Par Yield Curve Rates"
+    }
+  ],
+  "packet_id": "cc-evidence-89c27e1ccc5feb1fedad",
+  "provenance": {
+    "candidate_logical_hash": "b40346866b0ae75a16887ac39e4f7b958715d242f7a110de949d5cacb199de1a",
+    "evidence_binding_hashes": [
+      "6460fc35302833f5d54066243373989af36a7c71a84556561b3a2c80a5474ba1",
+      "dd07b301932b9cea2ed75fbeb247b4a51ead41ad70d4f43ceea55e363601f650",
+      "c28df021e37b303ccf54723c659ef80fe118592b78b0a15abc4621f9496b7ff1",
+      "182a576d924e996eb0dd42013d21946fe1fff85ab7260ca528c5b2bc07027cde"
+    ],
+    "evidence_refs": [
+      "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:10Y:2026-07-13",
+      "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2S10S:2026-07-13",
+      "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:2Y:2026-07-13",
+      "v1:120438cc800db7f941bef89ccc9337ccbce310d5a2070b0afb0cd903ab403c9f:UST:30Y:2026-07-13"
+    ]
+  },
+  "public_claim_permissions": {
+    "decision": "ALLOW",
+    "llm_numeric_authority": false,
+    "narrative_synthesis_allowed": true,
+    "numeric_claims_allowed": true
+  },
+  "schema_version": "capital_chronicle_content_evidence_packet.v2",
+  "source_state": {
+    "authority_state": "OFFICIAL_VERIFIED",
+    "candidate_id": "cc-candidate-120438cc800db7f941be",
+    "reporting_allowed": true
+  },
+  "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+  "story_window": {
+    "end_utc": "2026-07-15T22:30:00Z",
+    "hours": 24,
+    "start_utc": null
+  },
+  "validation_blockers": []
+}

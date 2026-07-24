@@ -1,0 +1,20 @@
+{
+  "affected_v2_foundation_and_adapter_shards": "PASS_345_TESTS",
+  "ci": "NOT_AVAILABLE",
+  "ci_pass_claimed": false,
+  "deterministic_regeneration": "PASS_TWO_IDENTICAL_RUNS",
+  "focused_receipt_implementation_cursor_window_editorial_pytest": "PASS_13_TESTS",
+  "full_suite": "NOT_RERUN_KNOWN_NON_GREEN_REPOSITORY_BASELINE_AFFECTED_SHARDS_PASSED",
+  "full_suite_pass_claimed": false,
+  "genericity_guards": "PASS_BOTH_ZERO_FINDINGS",
+  "git_diff_check": "PASS",
+  "governed_registry_continuous_bridge_compatibility_pytest": "PASS_45_TESTS",
+  "governed_registry_exact_receipts_and_append_only_validation": "PASS",
+  "json_schema_and_logical_hash_validation": "PASS",
+  "python_compileall": "PASS",
+  "redacted_secret_scan": "PASS_ZERO_SCOPED_FINDINGS",
+  "scheduler_and_status_pytest": "PASS_44_TESTS",
+  "schema_version": "contentops.task_test_summary.v1",
+  "status": "PASS_SCOPED_VALIDATION",
+  "v1_compatibility_targeted_pytest": "PASS_5_TESTS"
+}

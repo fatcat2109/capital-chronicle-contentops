@@ -1,0 +1,32 @@
+{
+  "changed_paths": [
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json",
+    "live_contentops/cross_domain_continuous_shadow_v1.py",
+    "live_contentops/governed_universal_adapter_source_binding_registry_v1.json",
+    "live_contentops/governed_universal_registry_authority_manifest_v1.json",
+    "live_contentops/governed_universal_source_family_registry_v1.json",
+    "live_contentops/universal_evidence_receipt_verifier_v1.py",
+    "live_contentops/universal_governed_registry_v1.py",
+    "live_contentops/verified_evidence_window_evidence_v1.py",
+    "live_contentops/window_incremental_editorial_shadow_v1.py",
+    "tests/test_final_product_readiness_metadata_consistency.py",
+    "tests/test_verified_evidence_window_incremental_editorial_shadow_v1.py"
+  ],
+  "protected_path_mutation_count": 0,
+  "protected_paths": [
+    "prior automation evidence trees",
+    "accepted public output trees",
+    "upstream repository",
+    "v1.0 tag",
+    "scheduler authority",
+    "editorial authority",
+    "DQR authority",
+    "permission authority"
+  ],
+  "schema_version": "contentops.changed_protected_paths.v1",
+  "status": "PASS"
+}

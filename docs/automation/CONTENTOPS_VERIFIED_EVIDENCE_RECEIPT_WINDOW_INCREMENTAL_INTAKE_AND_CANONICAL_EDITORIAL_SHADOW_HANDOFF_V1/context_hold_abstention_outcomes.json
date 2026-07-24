@@ -1,0 +1,1667 @@
+{
+  "authorized_article_count": 0,
+  "outcomes": [
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-bccd520a073d89f2b652": [
+            "https://www.federalregister.gov/documents/2026/07/10/2026-13915/self-regulatory-organizations-miami-international-securities-exchange-llc-notice-of-filing-and"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://www.federalregister.gov/documents/2026/07/10/2026-13915/self-regulatory-organizations-miami-international-securities-exchange-llc-notice-of-filing-and"
+            ],
+            "content_sha256": "9784e2f404b5f915ddad5cb579f035b4518e836de6c79af812ce6bb3df834fed",
+            "document_id": "dbh2-document:1765645a2edb9bdc3f3d346d44cbd3a86baf12f49eaf3c0d204b4c378bb3f9f6:1325b3619d5a15c2fa33b539782ec6e1e457209bbee2a26df3c607711fd8a861",
+            "known_at_utc": "2026-07-10T00:00:00Z",
+            "published_at_utc": "2026-07-10T00:00:00Z",
+            "source_native_id": "2026-13915",
+            "target_id": "DBH2_FEDERAL_REGISTER_SEC",
+            "title": "Self-Regulatory Organizations: Miami International Securities Exchange, LLC; Notice of Filing and Immediate Effectiveness of a Proposed Rule Change by Miami International Securities Exchange, LLC Amend Rule 612, Aggregate Risk Manager (ARM), To Adopt a New Origin Multiplier To Be Used When Calculating a Market Maker's Option Percentage"
+          }
+        ],
+        "packet_id": "cc-evidence-66f4044d869a23b73d5c",
+        "provenance": {
+          "candidate_logical_hash": "67e47fd7752535b7a2b7f9edf5563244c5cac67fba08d27e6a59a8843b8c34b0",
+          "evidence_binding_hashes": [
+            "e5253ec3d494380266379935d25fd4675023c8651f1efb18a44e626e292ae9b0"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:1765645a2edb9bdc3f3d346d44cbd3a86baf12f49eaf3c0d204b4c378bb3f9f6:1325b3619d5a15c2fa33b539782ec6e1e457209bbee2a26df3c607711fd8a861"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-9686ac2c5f20330357f9": [
+            "https://www.federalregister.gov/documents/2026/07/10/2026-13917/self-regulatory-organizations-nasdaq-phlx-llc-notice-of-filing-and-immediate-effectiveness-of"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://www.federalregister.gov/documents/2026/07/10/2026-13917/self-regulatory-organizations-nasdaq-phlx-llc-notice-of-filing-and-immediate-effectiveness-of"
+            ],
+            "content_sha256": "8c59bee8489795405185ba26c5cdc04f17cd692d9a5e4af670a71135e243afeb",
+            "document_id": "dbh2-document:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2",
+            "known_at_utc": "2026-07-10T00:00:00Z",
+            "published_at_utc": "2026-07-10T00:00:00Z",
+            "source_native_id": "2026-13917",
+            "target_id": "DBH2_FEDERAL_REGISTER_SEC",
+            "title": "Self-Regulatory Organizations; Nasdaq PHLX LLC; Notice of Filing and Immediate Effectiveness of Proposed Rule Change To Amend PIXL"
+          }
+        ],
+        "packet_id": "cc-evidence-a6f04cd86629a0cc241b",
+        "provenance": {
+          "candidate_logical_hash": "1218b0a1e61f6d33a23b9277bb2d7cef1896750454839e2d1b27e0bfa7c5a4b1",
+          "evidence_binding_hashes": [
+            "e0dbb44190abe15b9390e905471615212266a1aa22312042d4c3aba84fc5ac95"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-6d96eb59c944d4cbca53": [
+            "https://www.federalregister.gov/documents/2026/07/10/2026-13916/self-regulatory-organizations-long-term-stock-exchange-inc-notice-of-filing-and-immediate"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://www.federalregister.gov/documents/2026/07/10/2026-13916/self-regulatory-organizations-long-term-stock-exchange-inc-notice-of-filing-and-immediate"
+            ],
+            "content_sha256": "d3191d80bc2f1a309dbcf82cf5a882e05c20d117327c8107bae9c3e5f40d4a6c",
+            "document_id": "dbh2-document:daed2baee418fd23e184bd791f9534c47d56580af4cdb6409484c9e1ec04d4e5:9d58e9315207a280d697b33abafc9791ffe3c0b3d0d08544b07e0bb56fd51dc9",
+            "known_at_utc": "2026-07-10T00:00:00Z",
+            "published_at_utc": "2026-07-10T00:00:00Z",
+            "source_native_id": "2026-13916",
+            "target_id": "DBH2_FEDERAL_REGISTER_SEC",
+            "title": "Self-Regulatory Organizations; Long-Term Stock Exchange, Inc.; Notice of Filing and Immediate Effectiveness of Proposed Rule Change To Amend LTSE Rule 11.410(a) by Adding the Texas Stock Exchange LLC and Changing Nasdaq BX, LLC to Nasdaq Texas, LLC"
+          }
+        ],
+        "packet_id": "cc-evidence-eca91729877ed13ee14d",
+        "provenance": {
+          "candidate_logical_hash": "5ca40536481f2a262b8ca2c3336528d4b7a12fa858766ef1ce639fc25a15761e",
+          "evidence_binding_hashes": [
+            "146fe531d3ce30be632218dc3dcee56785e870fa3512b6c49de0a7d5a03acd6d"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:daed2baee418fd23e184bd791f9534c47d56580af4cdb6409484c9e1ec04d4e5:9d58e9315207a280d697b33abafc9791ffe3c0b3d0d08544b07e0bb56fd51dc9"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-d4f9f32e830f1306d68f": [
+            "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.XML"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.XML"
+            ],
+            "content_sha256": "0c90596d2c62cdbc7177a2759233b157b8aeb20e6db9521ca5b722c9a18a095d",
+            "document_id": "dbh2-document:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3",
+            "known_at_utc": "2026-07-10T00:00:00Z",
+            "published_at_utc": "2026-07-10T00:00:00Z",
+            "source_native_id": "SDN:2026-07-10",
+            "target_id": "DBH2_OFAC_SDN_CURRENT_SNAPSHOT",
+            "title": "OFAC SDN official current snapshot"
+          }
+        ],
+        "packet_id": "cc-evidence-9437587a530a50595a88",
+        "provenance": {
+          "candidate_logical_hash": "10baa42943322ab51ecf1b336c6108634eaab95f651e40ce6595ea23253b7380",
+          "evidence_binding_hashes": [
+            "6f59c04203672a304cb3edf17b973fdc14d8d4b4b7ebef298525b3ab5f80eb76"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_OFAC_SDN_CURRENT_SNAPSHOT:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-933b93eab1ae0a70990c": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us7000st95"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us7000st95"
+            ],
+            "content_sha256": "118bfe8750681434e3735817d8fc4c0af65e60fbd1a1b6824c6192f1ace41eb4",
+            "document_id": "dbh2-document:16410e98973c93987641536b1fc2fe7a3b7ec3d66bdc8b14ac4d966176e5cf5a:9ffc2bfa9126a3b725e58ab86ac5c0a3983dde8084b5f5e3da4ac7c09d80b6c8",
+            "known_at_utc": "2026-07-10T03:06:04.398000Z",
+            "published_at_utc": "2026-06-16T03:27:44.379000Z",
+            "source_native_id": "us7000st95",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 6.7 - 42 km SE of Palu, Indonesia"
+          }
+        ],
+        "packet_id": "cc-evidence-2137d1084865b355271b",
+        "provenance": {
+          "candidate_logical_hash": "22ccdf77021b3efe1fdfb057af710ffa44a8222b5326acb0525c1136d1d73817",
+          "evidence_binding_hashes": [
+            "3b5d3ab0d23c8234e1b64737e543292616de066b10b7d9730cb00569f9fed9bb"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:16410e98973c93987641536b1fc2fe7a3b7ec3d66bdc8b14ac4d966176e5cf5a:9ffc2bfa9126a3b725e58ab86ac5c0a3983dde8084b5f5e3da4ac7c09d80b6c8"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-d884e5f6837440fed0c1": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rq0d"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rq0d"
+            ],
+            "content_sha256": "4bb1b2b0a9a33dd8f8b050d3eefa9b95e348400c7e2a1380bae3f801629de987",
+            "document_id": "dbh2-document:ba6b1a799b1db8f7e29760fe60ecacb7d5f7ce5c3c269410a9c614c6c3878ae6:7cc3916bd32cb162da4b5787507f7cba162c248e06eba5d56b5934de03d8b656",
+            "known_at_utc": "2026-07-10T03:36:05.408000Z",
+            "published_at_utc": "2026-01-16T03:25:53.034000Z",
+            "source_native_id": "us7000rq0d",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 6.0 - off the coast of Oregon"
+          }
+        ],
+        "packet_id": "cc-evidence-e36ca11561a7ae505552",
+        "provenance": {
+          "candidate_logical_hash": "78f0af42d47b8a9e02ff7ed372533e6ce00d6fee6222950a30ed0177b1864004",
+          "evidence_binding_hashes": [
+            "c5d4028dff66954b9bb5aff350c09b23345d1498f6fcb2630eea2a7513de9264"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:ba6b1a799b1db8f7e29760fe60ecacb7d5f7ce5c3c269410a9c614c6c3878ae6:7cc3916bd32cb162da4b5787507f7cba162c248e06eba5d56b5934de03d8b656"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-98bab06d27e6c3ba3265": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us7000srjx"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us7000srjx"
+            ],
+            "content_sha256": "0612673ee398e36c2ce8372b676cd164b24672ee00d9f79aabb5a79073b784a3",
+            "document_id": "dbh2-document:6fa9f4a6b1e2f751ab58288ba86e844434688ce36aea59b912f2aa0962a7bc17:95297a58e165be4dd7387c13a89cd86c21e4a9c142e5de09db6ed4fb1e9b1a94",
+            "known_at_utc": "2026-07-10T14:48:23.744000Z",
+            "published_at_utc": "2026-06-08T18:00:27.517000Z",
+            "source_native_id": "us7000srjx",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 6.1 - 99 km WNW of Mantua, Cuba"
+          }
+        ],
+        "packet_id": "cc-evidence-9d9d3ecfb767c7645e1c",
+        "provenance": {
+          "candidate_logical_hash": "e0d8c1e1faa3ccea4b18fb6029a5cdb364bbacc6efd66de34dd0feb7129f8b81",
+          "evidence_binding_hashes": [
+            "cf43454a6fcb577e6738d4577f01a8e2fc933d32a0773aea531f627596936724"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:6fa9f4a6b1e2f751ab58288ba86e844434688ce36aea59b912f2aa0962a7bc17:95297a58e165be4dd7387c13a89cd86c21e4a9c142e5de09db6ed4fb1e9b1a94"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-08960978f3c8923b5ebc": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us7000qsvj"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us7000qsvj"
+            ],
+            "content_sha256": "4ec44c468b42db0201666276dbbf2f31c22a677df24a1ed2363deb4d2c9f0d83",
+            "document_id": "dbh2-document:447308a4b90fa5ceefe4f59a213ca868a1f376be2c9131c3755ec9bca22c1bc1:838110f41a723cd3175d1aa2bd223f5942852558c92b12ccd76b58d6591b8fc2",
+            "known_at_utc": "2026-07-10T18:26:21.692000Z",
+            "published_at_utc": "2025-08-31T19:17:34.124000Z",
+            "source_native_id": "us7000qsvj",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 6.0 - 35 km WSW of Asad\u0101b\u0101d, Afghanistan"
+          }
+        ],
+        "packet_id": "cc-evidence-9424640d956773933a20",
+        "provenance": {
+          "candidate_logical_hash": "28bb5f8a7bc727bf605b73b90f306ceb8425ecfcf92d4e9697274ef9ee2fdaba",
+          "evidence_binding_hashes": [
+            "19507b59c7a6710d6bf45859be6bdf76e0eaa8beb54e0fe7f72b181083d111f0"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:447308a4b90fa5ceefe4f59a213ca868a1f376be2c9131c3755ec9bca22c1bc1:838110f41a723cd3175d1aa2bd223f5942852558c92b12ccd76b58d6591b8fc2"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-ee63a7a171929ddbfa31": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us6000rl31"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us6000rl31"
+            ],
+            "content_sha256": "a52cd81f9acd3dad495e6dafd3fa2912ee6c69011df8c8b652fac1329ddef260",
+            "document_id": "dbh2-document:9ed128edbe33780ede5a16832d53f2043d0bf030cc1239b1276c0a85eec91975:09872c26c1d64fe85b9c45092cc9ccb86500e318e1525791d182edc57fce908e",
+            "known_at_utc": "2026-07-10T18:27:41.771000Z",
+            "published_at_utc": "2025-11-02T20:29:02.008000Z",
+            "source_native_id": "us6000rl31",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 6.2 - 30 km SE of Maz\u0101r-e Shar\u012bf, Afghanistan"
+          }
+        ],
+        "packet_id": "cc-evidence-1ef2df05fe9e9cafa88f",
+        "provenance": {
+          "candidate_logical_hash": "fe88267489b8268f0223a02c052c3c442141d0aa81656b741d27861dfb5c978d",
+          "evidence_binding_hashes": [
+            "3a8e9d31b3631bd93954a8749bb25616f0ffb5848d7b7a85eee10abda31a8a59"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9ed128edbe33780ede5a16832d53f2043d0bf030cc1239b1276c0a85eec91975:09872c26c1d64fe85b9c45092cc9ccb86500e318e1525791d182edc57fce908e"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-c5abd5076e75ce376612": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us6000qw60"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us6000qw60"
+            ],
+            "content_sha256": "ea4fcaefb10431f705fb67c6b24bb2e2bd7fc4f7938b81d9dd4257a2bb3c6653",
+            "document_id": "dbh2-document:7af1a41164863cf4b5b02d0cae19bdd05ffbc7534687b2b37c87af84914bf8fe:a03fc8635ed5854b6422f6620f20b13466b1841321d03db5c2d7c4f4b668c8e4",
+            "known_at_utc": "2026-07-10T18:28:44.058000Z",
+            "published_at_utc": "2025-07-29T23:24:52.483000Z",
+            "source_native_id": "us6000qw60",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 8.8 - 2025 Kamchatka Peninsula, Russia Earthquake"
+          }
+        ],
+        "packet_id": "cc-evidence-a80b739250098d42312f",
+        "provenance": {
+          "candidate_logical_hash": "60445541a92ba4d65aaa8f6fc7e3ca770b1afac1583de4fc54ee6d5ea56c19af",
+          "evidence_binding_hashes": [
+            "5c8efe221815dc724f69a0ce39a834070f8dc6c558434f081c94252764a4ce0d"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:7af1a41164863cf4b5b02d0cae19bdd05ffbc7534687b2b37c87af84914bf8fe:a03fc8635ed5854b6422f6620f20b13466b1841321d03db5c2d7c4f4b668c8e4"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-8a0a536d4a4fd8531b35": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pufs"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us7000pufs"
+            ],
+            "content_sha256": "0434eff6dbd87dbb12b206b1525c72c90609f825fed81aba4b797a972c591c3b",
+            "document_id": "dbh2-document:c2d6d9616f9da999c13b1d651127705023551d93f7ae9cb6407be1b3d9fc45fb:fb63f8c2bb2e5f39affe0d26266dae702b325a24f2d34fdf02157e560185556a",
+            "known_at_utc": "2026-07-10T20:02:24.111000Z",
+            "published_at_utc": "2025-04-23T09:49:11.631000Z",
+            "source_native_id": "us7000pufs",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 6.2 - 24 km SE of Marmara Ere\u011flisi, Turkey"
+          }
+        ],
+        "packet_id": "cc-evidence-345e95f35a9c2dcf3456",
+        "provenance": {
+          "candidate_logical_hash": "d50f4a5ce46eaad6e35b1c0efcef4844f33086b451592f5cce724a8c7272abcd",
+          "evidence_binding_hashes": [
+            "af65c9e4c2280c55c1efda77bd5969d206ced5f9f4110f1ad5f2112c8cc85969"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:c2d6d9616f9da999c13b1d651127705023551d93f7ae9cb6407be1b3d9fc45fb:fb63f8c2bb2e5f39affe0d26266dae702b325a24f2d34fdf02157e560185556a"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-fbeb5c40370237ba8564": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/aka2026jcufoy"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/aka2026jcufoy"
+            ],
+            "content_sha256": "b265ffbe9a9715dc47c71259334634247542b9bc451b4c20f3d7e9ae16c3eb85",
+            "document_id": "dbh2-document:c3076a89dea04bb25335a65b0deb9930d37be33acd3b4cf2e008f79dca59af42:8d8ff852074aa67f6c38c1caefcda2bb8c6e4c9c9aa338a60e2da1fc47ff1067",
+            "known_at_utc": "2026-07-11T04:52:23.831000Z",
+            "published_at_utc": "2026-05-09T04:42:21.975000Z",
+            "source_native_id": "aka2026jcufoy",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 6.1 - Rat Islands, Aleutian Islands, Alaska"
+          }
+        ],
+        "packet_id": "cc-evidence-d7e391bd47a97d6f33b2",
+        "provenance": {
+          "candidate_logical_hash": "9c80df5ca9fb0b8529a98f01536e04eca5435a87ec00edf750478c354016f7d8",
+          "evidence_binding_hashes": [
+            "785beb4b330ec0d3ef6c9121702a3777d45b3cccf8b2092be90dfb5258659b84"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:c3076a89dea04bb25335a65b0deb9930d37be33acd3b4cf2e008f79dca59af42:8d8ff852074aa67f6c38c1caefcda2bb8c6e4c9c9aa338a60e2da1fc47ff1067"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-5c6c2b98ac68fe722b18": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us6000t7zc"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us6000t7zc"
+            ],
+            "content_sha256": "f14386ab07dc5b4f19bb574651d370c13467bd1e78f93750d2824149bb9e8c8e",
+            "document_id": "dbh2-document:9fe99a2c1753c81720ef6849aee3db19ac942a788e83f2e52b661cb0858cdef1:e91bf60ccca29e08234d6f38ddc8e67234949e596a20831c68b7efdd35f32b54",
+            "known_at_utc": "2026-07-11T18:48:10.466000Z",
+            "published_at_utc": "2026-06-24T22:04:34.363000Z",
+            "source_native_id": "us6000t7zc",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 7.2 - 21 km ENE of San Felipe, Venezuela"
+          }
+        ],
+        "packet_id": "cc-evidence-3810731167ebd8bfcbcf",
+        "provenance": {
+          "candidate_logical_hash": "24b66ec68d51d8b068c16858e97c4625de8ca52211d2a61a3ee03c570aa76da1",
+          "evidence_binding_hashes": [
+            "e575461acd2c318d7170e349395c7917fef2032d8b713da1c0b304c196e09420"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9fe99a2c1753c81720ef6849aee3db19ac942a788e83f2e52b661cb0858cdef1:e91bf60ccca29e08234d6f38ddc8e67234949e596a20831c68b7efdd35f32b54"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-e2c686da3b958fe92a55": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us6000rsy1"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us6000rsy1"
+            ],
+            "content_sha256": "1ad431fa6621186086af9f79093c5bec130896dabc26120efc0b210fb0abc98e",
+            "document_id": "dbh2-document:ec5f57df8cf10982b26445fe40fe358856e792d0154dc0bf7e96daa5229924b6:41bec0da3c122e06f6ec918018d05f665fd671d8ec5938831dd861338a425d72",
+            "known_at_utc": "2026-07-11T20:51:51.358000Z",
+            "published_at_utc": "2025-12-06T20:41:49.288000Z",
+            "source_native_id": "us6000rsy1",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 7.0 - 2025 Hubbard Glacier Earthquake"
+          }
+        ],
+        "packet_id": "cc-evidence-cfe3d1b1aa7b19ae8ba6",
+        "provenance": {
+          "candidate_logical_hash": "4b7dd9c5d16f58f7a4a94ca4c7683220a7584eca51096aa0e3bbdda3d32662eb",
+          "evidence_binding_hashes": [
+            "998f0ba53f9d868bdad1f7dca4369dc66f87c923ced8530f10c47b9d4520a8f9"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:ec5f57df8cf10982b26445fe40fe358856e792d0154dc0bf7e96daa5229924b6:41bec0da3c122e06f6ec918018d05f665fd671d8ec5938831dd861338a425d72"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-c4bbb3cc0889a56e4c27": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us6000t7zp"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us6000t7zp"
+            ],
+            "content_sha256": "8eca78003f1ef0bc74c35986bfb25b8b45a2db03d64001922308e0161efdec1f",
+            "document_id": "dbh2-document:7a0cab7c4473d24dc57e2550babc814ae182d6c8d8d9c897a6909c3ca6acf6d7:06cb042fbf349bac22520a0994453369f9af15b271054e787ee04c084079282a",
+            "known_at_utc": "2026-07-11T23:54:48.884000Z",
+            "published_at_utc": "2026-06-24T22:05:11.743000Z",
+            "source_native_id": "us6000t7zp",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 7.5 - 20 km ESE of Yumare, Venezuela"
+          }
+        ],
+        "packet_id": "cc-evidence-4bc4d0506e2d217bef89",
+        "provenance": {
+          "candidate_logical_hash": "2a8d18a2b4f60d2cae27a919d96473c72680edac69e73243633369953933cabe",
+          "evidence_binding_hashes": [
+            "697aa98c6580325946b33b95d13bcfe497aec11429b5527b31ab4d97742621c6"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:7a0cab7c4473d24dc57e2550babc814ae182d6c8d8d9c897a6909c3ca6acf6d7:06cb042fbf349bac22520a0994453369f9af15b271054e787ee04c084079282a"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-6ed884203708b3095e27": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us6000t8ec"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us6000t8ec"
+            ],
+            "content_sha256": "c95161fb91bba376e5def4322e79d4c109e928521d9ee53aac6d562ab6b9a4b9",
+            "document_id": "dbh2-document:41e5224d2c88cca81aacad758e90ea5336f241765b7271ea460a2e86e0817dfe:0316079c3899ea2ad9579c72a5418737be296e079eb8d000710484151a87512e",
+            "known_at_utc": "2026-07-12T11:19:38.631000Z",
+            "published_at_utc": "2026-06-26T11:34:41.498000Z",
+            "source_native_id": "us6000t8ec",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 6.5 - 34 km WSW of Sarangani, Philippines"
+          }
+        ],
+        "packet_id": "cc-evidence-550623b8f5ac5341d6c1",
+        "provenance": {
+          "candidate_logical_hash": "021e372993682b94bdcb3c768eb0160e1b1e378a87a360f5089ff53b0b10f5db",
+          "evidence_binding_hashes": [
+            "5470ec28deebf3cbb5a1c2d12966c69fc34f8531d694a57e21a937e5557aa6b2"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:41e5224d2c88cca81aacad758e90ea5336f241765b7271ea460a2e86e0817dfe:0316079c3899ea2ad9579c72a5418737be296e079eb8d000710484151a87512e"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-2a010a5dfe22a4f04ec0": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sr7l"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sr7l"
+            ],
+            "content_sha256": "247b900c6a5571e3238898199b6bcdebb3e7c63ef59b709cb6807c5611f5aac5",
+            "document_id": "dbh2-document:503e9af6e9c8895ed40135db043dc9a3de9eb950139fa857116d0a6360b7bfcb:1c0ee924bbf4a62c509d0429721ef7e39ea2e17659e5f00b5d69bbf2b079b17f",
+            "known_at_utc": "2026-07-12T12:41:27.923000Z",
+            "published_at_utc": "2026-06-07T10:41:56.538000Z",
+            "source_native_id": "us7000sr7l",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 6.0 - 111 km SE of Severo-Kuril\u2019sk, Russia"
+          }
+        ],
+        "packet_id": "cc-evidence-f627b8183081ec315505",
+        "provenance": {
+          "candidate_logical_hash": "ec02475ea003dfaf5c706f2a8e5083afc9d1599fb8e07235d5d20b9cf54bb3f1",
+          "evidence_binding_hashes": [
+            "ad5af64367e5f3c396e5d05d8657ea8b086c41a91c345f0289a47ff50aed088b"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:503e9af6e9c8895ed40135db043dc9a3de9eb950139fa857116d0a6360b7bfcb:1c0ee924bbf4a62c509d0429721ef7e39ea2e17659e5f00b5d69bbf2b079b17f"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-ffd1fff785680f104069": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us7000src3"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us7000src3"
+            ],
+            "content_sha256": "7f1dec4b6a3af893f59655543b54b3d42df91fab71d5b6b942772db1226abb56",
+            "document_id": "dbh2-document:5bf1386812fd6fc264ea8c8e0936f82de9dbf2534fca9e8c29c4efffd3dd5ee7:a198fc4565437e6b61636e77eaec4dbb0fa680ef9a7dbf661abca772cdd2a8e3",
+            "known_at_utc": "2026-07-12T13:30:45.741000Z",
+            "published_at_utc": "2026-06-07T23:49:13.534000Z",
+            "source_native_id": "us7000src3",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 6.0 - 5 km SSW of Pangyan, Philippines"
+          }
+        ],
+        "packet_id": "cc-evidence-98e491a5c2f5b7f669eb",
+        "provenance": {
+          "candidate_logical_hash": "ee3805943f788696623802c65754b18f43fe4e8f97783b36b02aa5569ccf2999",
+          "evidence_binding_hashes": [
+            "74421e5b1508f79ecfceb3efb7cbf30e87a2500c135cc25c8b6c96986975b4a5"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:5bf1386812fd6fc264ea8c8e0936f82de9dbf2534fca9e8c29c4efffd3dd5ee7:a198fc4565437e6b61636e77eaec4dbb0fa680ef9a7dbf661abca772cdd2a8e3"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-fb42d8960110ac8f5f54": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us7000srb1"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us7000srb1"
+            ],
+            "content_sha256": "a0ac858e8cfcd73dfec73357bd75c38980c208566c9585ac12cafbffd4f13d03",
+            "document_id": "dbh2-document:a54e5ed1dd1a1f7b7eaa0838fb4afb8eda25704c415cf80e87da7760dc90b294:531e4f3061cb9044f154f0a94505899d752f9efbfc5e0b27d33d88641c051b8f",
+            "known_at_utc": "2026-07-12T15:52:54.101000Z",
+            "published_at_utc": "2026-06-07T23:37:41.970000Z",
+            "source_native_id": "us7000srb1",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 7.8 - 25 km SW of Kablalan, Philippines"
+          }
+        ],
+        "packet_id": "cc-evidence-fbe57dbff008b95f230b",
+        "provenance": {
+          "candidate_logical_hash": "c1313c0183284b364bb69db53d964ce68399e856b941d976c04b06c9df9e86a6",
+          "evidence_binding_hashes": [
+            "af65a235b82df3ac695d5da0e08b5268b383b923e1a7ea4247e2d676e7133779"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:a54e5ed1dd1a1f7b7eaa0838fb4afb8eda25704c415cf80e87da7760dc90b294:531e4f3061cb9044f154f0a94505899d752f9efbfc5e0b27d33d88641c051b8f"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    },
+    {
+      "article": null,
+      "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+      "canonical_role_order": [
+        "assignment_editor",
+        "evidence_planner",
+        "reporter_writer",
+        "quantitative_editor",
+        "visual_editor",
+        "copy_editor",
+        "platform_editor",
+        "adversarial_final_reviewer"
+      ],
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_packet": {
+        "as_of_utc": "2026-07-15T22:30:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-d300a919b2719a0069a6": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/us7000st1c"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-07-15T22:30:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/us7000st1c"
+            ],
+            "content_sha256": "2ae892a231893ae7491c59266d7db13f49332ce140246516712cdb04c1b09466",
+            "document_id": "dbh2-document:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880",
+            "known_at_utc": "2026-07-12T15:56:52.355000Z",
+            "published_at_utc": "2026-06-15T09:18:36.126000Z",
+            "source_native_id": "us7000st1c",
+            "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+            "title": "M 6.2 - 68 km ESE of Pondaguitan, Philippines"
+          }
+        ],
+        "packet_id": "cc-evidence-40ac050dd00c34907d3a",
+        "provenance": {
+          "candidate_logical_hash": "a18a741e93eee98be151b28f1278605df3c78cf0c5440d48c7ed76ea0d69fb03",
+          "evidence_binding_hashes": [
+            "7b7ec41a1bfef2b3d65d7ca8618dc72178b5a4af5f47cb9d9fb1a238ebd2ce1a"
+          ],
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+          "reporting_allowed": false
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-07-15T22:30:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "public_write_performed": false,
+      "publication_authority": false,
+      "schema_version": "contentops.canonical_editorial_shadow_handoff.v1"
+    }
+  ],
+  "schema_version": "contentops.context_hold_abstention_outcomes.v1",
+  "status": "PASS"
+}

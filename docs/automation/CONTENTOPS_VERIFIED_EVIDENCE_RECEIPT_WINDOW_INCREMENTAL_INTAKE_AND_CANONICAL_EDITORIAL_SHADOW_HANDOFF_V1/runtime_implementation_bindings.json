@@ -1,0 +1,123 @@
+{
+  "callable_mismatch_control": "PASS_REJECTED",
+  "registry_records": [
+    {
+      "adapter_id": "contentops.dbh2.federal_register_document.v1",
+      "discovery_kind": "DBH2_RECORDS",
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "0c1a1395cff6a603b27a2f14710c010c63dd42aa319a0242a57fc54a882cf5d0",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "record_id": "adapter-binding:dbh2_federal_register:v3"
+    },
+    {
+      "adapter_id": "contentops.dbh2.fomc_document.v1",
+      "discovery_kind": "DBH2_RECORDS",
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "0c1a1395cff6a603b27a2f14710c010c63dd42aa319a0242a57fc54a882cf5d0",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "record_id": "adapter-binding:dbh2_fomc_document:v3"
+    },
+    {
+      "adapter_id": "contentops.dbh2.ofac_snapshot.v1",
+      "discovery_kind": "DBH2_RECORDS",
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "0c1a1395cff6a603b27a2f14710c010c63dd42aa319a0242a57fc54a882cf5d0",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "record_id": "adapter-binding:dbh2_ofac_snapshot:v3"
+    },
+    {
+      "adapter_id": "contentops.dbh2.sec_filing.v1",
+      "discovery_kind": "DBH2_RECORDS",
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "0c1a1395cff6a603b27a2f14710c010c63dd42aa319a0242a57fc54a882cf5d0",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "record_id": "adapter-binding:dbh2_sec_filing:v3"
+    },
+    {
+      "adapter_id": "contentops.dbh2.usgs_event.v1",
+      "discovery_kind": "DBH2_RECORDS",
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "0c1a1395cff6a603b27a2f14710c010c63dd42aa319a0242a57fc54a882cf5d0",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "record_id": "adapter-binding:dbh2_usgs_event:v3"
+    },
+    {
+      "adapter_id": "contentops.v1_newsroom_candidate_pool_adapter.v1",
+      "discovery_kind": "GIT_CANDIDATE_POOL",
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_v1_candidate_pool_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_v1_candidate_pool_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "ac520e032d5ed1e6f166ccaaea482dfb6018d2138857e18c26b69f35db581924",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "record_id": "adapter-binding:v1_candidate_pool:v3"
+    }
+  ],
+  "runtime_byte_mismatch_control": "PASS_REJECTED",
+  "schema_version": "contentops.runtime_implementation_bindings_evidence.v1",
+  "stale_identity_count": 0,
+  "status": "PASS"
+}

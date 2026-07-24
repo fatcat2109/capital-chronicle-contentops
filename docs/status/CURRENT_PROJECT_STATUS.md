@@ -4,9 +4,27 @@
 
 ## Current Classification
 
-`PASS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_EDITORIAL_SHADOW_HANDOFF_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_CROSS_DOMAIN_CONTINUOUS_HEADLINE_INTAKE_CLUSTERING_AND_FIVE_WINDOW_SHADOW_OPERATION_V1`.
+Completed task: `TASK_CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1`.
+
+## Verified Window-Incremental Intake And Canonical Editorial Shadow
+
+The prior audit is recorded as `PARTIAL_PASS_CROSS_DOMAIN_CONTINUOUS_SHADOW_OPERATION — ACCEPT_BOUNDED_LOCAL_REPLAY_BLOCK_PRODUCTION_HANDOFF_ON_RECEIPT_VERIFICATION_AND_TRUE_INCREMENTAL_DISCOVERY`.
+
+Authority-bearing evidence bindings now require typed receipts produced by the verifier from exact Git bytes, verified read-only DBH2 rows, or an exact registered aggregation input set. The trusted evidence index is verifier-owned; callers cannot insert bindings, and a caller impersonating the registered V1 source-family and adapter IDs with `exact_verified=true` remains `UNVERIFIED` and `PERMISSION_BLOCKED`.
+
+The append-only v3 adapter/source binding records point to the exact committed runtime implementation, including producer commit, path, Git blob, byte SHA-256 and length, callable identity, and implementation contract. Execution rejects a callable identity mismatch or runtime source-byte mismatch. Stale V1 and DBH2 callable identities are superseded without modifying their historical records.
+
+The generic cursor `(known_at_utc, target_id, stable_record_id, version_id)` scans every enabled registry route at each of five daily cutoffs. Six consecutive real history days produce 30 independently refreshed candidate pools, 20 newly discovered DBH2 versions, one exact V1 candidate, and zero duplicate discoveries. Real records appearing between Asia and Europe and between Europe and the US open enter at the next cutoff. A separately scanned real 2015 correction re-enters through the same cursor with its governed `corrects` relationship; no fixed record identity is used by the scanner.
+
+One internally assigned, reporting-eligible candidate produces a receipt-bound `CapitalChronicleContentEvidencePacketV2` and passes the canonical eight-role local editorial review using approved claim IDs only. Twenty context-only candidates produce abstentions and no reporting-authorized article. Publication, public-write, upstream-write, network-intake, browser/CDP, provider, credential, scheduler/outbox, approval-ledger, DQR, editorial-authority, and permission-authority actions remain zero.
+
+`UNCALIBRATED_FOUNDATION`, frozen V2 and V1 compatibility semantics, prior evidence trees, upstream read-only state, accepted public outputs, and annotated `v1.0` remain unchanged.
+
+Evidence: `docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/final_manifest.json`.
+
+Focused receipt/implementation/cursor/window/editorial validation passed 13 tests; the affected V2 foundation and adapter shard passed 345 tests; governed registry/continuous/bridge compatibility passed 45 tests; targeted V1 compatibility passed 5 tests; and scheduler/status validation passed 44 tests. Both genericity guards, compilation, JSON/logical-hash validation, exact registry receipts, append-only checks, deterministic regeneration, `git diff --check`, and the redacted scoped secret scan passed. The known non-green full repository baseline was not rerun, CI was not available, and no full-suite or CI PASS is claimed.
 
 ## Governed Continuous Cross-Domain Shadow Newsroom
 

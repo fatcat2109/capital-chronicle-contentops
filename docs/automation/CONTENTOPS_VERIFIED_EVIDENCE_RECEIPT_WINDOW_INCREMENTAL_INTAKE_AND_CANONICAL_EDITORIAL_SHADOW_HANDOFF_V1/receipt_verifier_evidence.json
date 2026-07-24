@@ -1,0 +1,36 @@
+{
+  "aggregation_receipt_checks": [
+    "aggregation_contract_hash",
+    "exact_unique_consumed_evidence_set",
+    "all_inputs_in_verifier_owned_index"
+  ],
+  "binding_count": 26,
+  "dbh2_receipt_checks": [
+    "manifest_and_local_artifact_receipts",
+    "target_id",
+    "stable_record_id",
+    "version_id",
+    "content_sha256",
+    "source_native_status",
+    "point_in_time_known_at"
+  ],
+  "fabricated_v1_registered_identity_control": "PASS_REJECTED_UNVERIFIED_PERMISSION_BLOCKED",
+  "git_receipt_checks": [
+    "repository",
+    "branch",
+    "producer_commit_ancestry",
+    "path",
+    "git_blob_sha1",
+    "byte_sha256",
+    "byte_length",
+    "artifact_logical_identity"
+  ],
+  "schema_version": "contentops.receipt_verifier_evidence.v1",
+  "status": "PASS",
+  "trusted_index_external_insert_allowed": false,
+  "trusted_index_producer": "live_contentops.universal_evidence_receipt_verifier_v1.EvidenceReceiptVerifierV1",
+  "typed_receipt_schemas": [
+    "contentops.verified_dbh2_record_receipt.v1",
+    "contentops.verified_git_evidence_receipt.v1"
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "artifacts": [
+    {
+      "byte_length": 6186,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/candidate_bound_content_evidence_packet_v2.json",
+      "sha256": "a0ce6a6b36424f92296932254ebe43a1d8e569ec96bc89b076afd277f0992d19"
+    },
+    {
+      "byte_length": 10153,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/canonical_editorial_handoff.json",
+      "sha256": "47c77a5f40f692ebe5748b3110e6ff6e0c1c59eb02ab9a631e12516f490a6e26"
+    },
+    {
+      "byte_length": 1407,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/changed_protected_paths.json",
+      "sha256": "ed1ec27b66f35d045db3f6a7e3348d10b1bfb06dfef40e062946ba20820dbeac"
+    },
+    {
+      "byte_length": 392,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/compatibility.json",
+      "sha256": "4aa19cb1bf65719b975978bedafd68a7b08f3071a18893c5faf9a07f6f19f1bb"
+    },
+    {
+      "byte_length": 66888,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/context_hold_abstention_outcomes.json",
+      "sha256": "dcb26451bad40eb51f75588453a368970023d091a1a73100ca4778599956d09b"
+    },
+    {
+      "byte_length": 24654,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/cursor_ledger.json",
+      "sha256": "3ed4be46ad4936453625999ad1014fa50afa78cd22193ff520fc1f60413c8bdf"
+    },
+    {
+      "byte_length": 294,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/deterministic_replay.json",
+      "sha256": "1d366542309452fc100abd90f008da9aed3cd1a3334e11843b32ac47e636c093"
+    },
+    {
+      "byte_length": 168924,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/five_window_shadow_decisions.json",
+      "sha256": "db9695c93100d76e98bf7bfc867305daade8b1c059f9d1123c590a69b602d361"
+    },
+    {
+      "byte_length": 469,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/genericity.json",
+      "sha256": "2a509b1d8564a0104e74cf99ea927fe816aef7eede8cb92a7708dc1bc8bb7d70"
+    },
+    {
+      "byte_length": 1855,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/governed_update_chain.json",
+      "sha256": "f00544834857f30204039fde113b30dfb58603140ee9ccf850f90d3f9bd88866"
+    },
+    {
+      "byte_length": 3418,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/local_shadow_draft.json",
+      "sha256": "65477ae4bc83dd31b99db15bc325e56c9ff635eade0ee5a37986b17a7b8656b9"
+    },
+    {
+      "byte_length": 8063226,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/per_window_intake_pools.json",
+      "sha256": "2668fb2258dbf797872fccaf466454d19d349f493a643c3cdd73d113f066a24d"
+    },
+    {
+      "byte_length": 1066,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/receipt_verifier_evidence.json",
+      "sha256": "5f55c9b9aa48a8806e4cef09655dc4cc225a06e4a80cf3de27d800f072d4f70a"
+    },
+    {
+      "byte_length": 7092,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/runtime_implementation_bindings.json",
+      "sha256": "dc564317872820b128878efb434ae0fc0f1ceeaa8ec78293a59820eb0c69d6c0"
+    },
+    {
+      "byte_length": 568,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/safety.json",
+      "sha256": "17486d2cb938e2478286ab9df937a96aa40b02a29607f32c3efec935e6ff51e6"
+    },
+    {
+      "byte_length": 954,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/tests.json",
+      "sha256": "3412cddd5b1154bd26e00d3904631adc13885b8762a3d819aac7f7960c16dea7"
+    },
+    {
+      "byte_length": 83216,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/verified_evidence_index.json",
+      "sha256": "d09c38c1448e77a6a5f8f622f12aa63d09b2528ec5434af1428c14782b264f8b"
+    },
+    {
+      "byte_length": 1821,
+      "path": "docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/window_entry_proof.json",
+      "sha256": "41bf2d91df00815a799eb83858b371d22bf68eab301c6a316606b5b26675e7ae"
+    }
+  ],
+  "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_EDITORIAL_SHADOW_HANDOFF_V1",
+  "later_observed_upstream_branch_head": "95db588644bfa3876f4f322e3c158b2c8ad5dc52",
+  "logical_hash": "0cffd954d31d14886d1c0bbeb383bd9852a5257d4093b29677fd9e7e7206f94b",
+  "operation_logical_hash": "49ad6b290df9d28d8da3ba4f5ff6fbad0a952a94f5872766080c2cd2051f473d",
+  "prior_audit": "PARTIAL_PASS_CROSS_DOMAIN_CONTINUOUS_SHADOW_OPERATION \u2014 ACCEPT_BOUNDED_LOCAL_REPLAY_BLOCK_PRODUCTION_HANDOFF_ON_RECEIPT_VERIFICATION_AND_TRUE_INCREMENTAL_DISCOVERY",
+  "schema_version": "contentops.verified_window_incremental_shadow_final_manifest.v1",
+  "starting_remote_head": "5fcebd953323cbd82d4a2906a3773e1a7337e3b2",
+  "summary": {
+    "authorized_editorial_handoff_count": 1,
+    "candidate_count": 21,
+    "context_only_candidate_count": 20,
+    "discovered_version_count": 20,
+    "duplicate_discovery_count": 0,
+    "history_day_count": 6,
+    "public_write_count": 0,
+    "publication_count": 0,
+    "upstream_write_count": 0,
+    "window_count": 30
+  },
+  "task": "TASK_CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1",
+  "terminal_classification": "PASS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_EDITORIAL_SHADOW_HANDOFF_V1_AWAITING_CHATGPT_AUDIT",
+  "upstream_point_in_time_observed_head": "1700520800e8c847b7446e196c384a43dd2a6a58"
+}

@@ -1,0 +1,11 @@
+{
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "scanner": "live_contentops.window_incremental_editorial_shadow_v1.scan_verified_increment",
+  "scanner_fixed_candidate_lists": [],
+  "scanner_fixed_record_ids": [],
+  "scanner_fixed_target_ids": [],
+  "schema_version": "contentops.genericity_report.v1",
+  "source_specific_selection_location": "append_only_adapter_discovery_contracts",
+  "status": "PASS",
+  "topic_specific_branching_in_generic_scanner": false
+}

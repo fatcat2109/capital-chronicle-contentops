@@ -1,0 +1,10 @@
+{
+  "prior_evidence_trees": "PROTECTED_UNMODIFIED",
+  "prior_registry_records": "PRESERVED_APPEND_ONLY",
+  "schema_version": "contentops.compatibility_report.v1",
+  "status": "PASS",
+  "uncalibrated_configuration": "PRESERVED",
+  "v1_0_tag": "PROTECTED_UNMODIFIED",
+  "v1_candidate_pool": "PRESERVED_THROUGH_VERIFIED_EXACT_GIT_RECEIPT_ADAPTER",
+  "v2_candidate_pool_semantics": "PRESERVED"
+}

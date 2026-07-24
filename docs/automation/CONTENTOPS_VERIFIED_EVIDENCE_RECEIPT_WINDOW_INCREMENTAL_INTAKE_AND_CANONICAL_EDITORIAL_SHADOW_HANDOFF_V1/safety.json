@@ -1,0 +1,17 @@
+{
+  "approval_ledger_action_performed": false,
+  "browser_or_cdp_used": false,
+  "classification": "DETERMINISTIC_LOCAL_NO_PUBLICATION_SHADOW",
+  "credentials_read": false,
+  "dqr_authority_mutated": false,
+  "editorial_authority_mutated": false,
+  "network_fetch_performed": false,
+  "permission_authority_mutated": false,
+  "provider_call_performed": false,
+  "public_write_count": 0,
+  "publication_count": 0,
+  "scheduler_or_outbox_action_performed": false,
+  "schema_version": "contentops.task_safety_report.v1",
+  "status": "PASS",
+  "upstream_write_count": 0
+}

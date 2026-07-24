@@ -1,0 +1,53 @@
+{
+  "asia_to_europe": {
+    "cumulative_candidate_count": 6,
+    "cursor": [
+      "2026-07-10T03:36:05.408000Z",
+      "DBH2_USGS_SIGNIFICANT_GLOBAL",
+      "ba6b1a799b1db8f7e29760fe60ecacb7d5f7ce5c3c269410a9c614c6c3878ae6",
+      "7cc3916bd32cb162da4b5787507f7cba162c248e06eba5d56b5934de03d8b656"
+    ],
+    "cutoff_utc": "2026-07-10T07:30:00Z",
+    "duplicate_discovery_count": 0,
+    "new_candidate_count": 2,
+    "new_candidate_ids": [
+      "cc-candidate-4c164cf4950f29a3e5d9",
+      "cc-candidate-8f25ed0bca45e2aa54ff"
+    ],
+    "prior_cursor": [
+      "2026-07-10T00:00:00Z",
+      "DBH2_OFAC_SDN_CURRENT_SNAPSHOT",
+      "7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2",
+      "610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+    ],
+    "schedule_date": "2026-07-10",
+    "window_id": "europe_open"
+  },
+  "europe_to_us_open": {
+    "cumulative_candidate_count": 17,
+    "cursor": [
+      "2026-07-12T12:41:27.923000Z",
+      "DBH2_USGS_SIGNIFICANT_GLOBAL",
+      "503e9af6e9c8895ed40135db043dc9a3de9eb950139fa857116d0a6360b7bfcb",
+      "1c0ee924bbf4a62c509d0429721ef7e39ea2e17659e5f00b5d69bbf2b079b17f"
+    ],
+    "cutoff_utc": "2026-07-12T13:30:00Z",
+    "duplicate_discovery_count": 0,
+    "new_candidate_count": 2,
+    "new_candidate_ids": [
+      "cc-candidate-6d7726e64c439cddc7c5",
+      "cc-candidate-86aa2e60764bc5d4bc68"
+    ],
+    "prior_cursor": [
+      "2026-07-11T23:54:48.884000Z",
+      "DBH2_USGS_SIGNIFICANT_GLOBAL",
+      "7a0cab7c4473d24dc57e2550babc814ae182d6c8d8d9c897a6909c3ca6acf6d7",
+      "06cb042fbf349bac22520a0994453369f9af15b271054e787ee04c084079282a"
+    ],
+    "schedule_date": "2026-07-12",
+    "window_id": "us_open"
+  },
+  "schema_version": "contentops.window_entry_proof.v1",
+  "status": "PASS",
+  "unchanged_identity_reentry_count": 0
+}

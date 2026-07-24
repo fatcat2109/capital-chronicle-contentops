@@ -1,0 +1,7 @@
+{
+  "first_logical_hash": "49ad6b290df9d28d8da3ba4f5ff6fbad0a952a94f5872766080c2cd2051f473d",
+  "logical_equality": true,
+  "replay_logical_hash": "49ad6b290df9d28d8da3ba4f5ff6fbad0a952a94f5872766080c2cd2051f473d",
+  "schema_version": "contentops.deterministic_replay.v1",
+  "status": "PASS"
+}

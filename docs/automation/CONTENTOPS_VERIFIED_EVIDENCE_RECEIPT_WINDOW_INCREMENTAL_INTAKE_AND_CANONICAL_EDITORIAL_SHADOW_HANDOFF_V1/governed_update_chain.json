@@ -1,0 +1,41 @@
+{
+  "candidate_ids": [
+    "cc-candidate-b113cef95f9cb5638243",
+    "cc-candidate-ce52c66ddc438792adbe"
+  ],
+  "candidate_relationships": [
+    "initial_event",
+    "correction"
+  ],
+  "duplicate_discovery_count": 0,
+  "first_cursor": [
+    "2015-07-22T00:00:00Z",
+    "DBH2_FEDERAL_REGISTER_SEC",
+    "f7ae253d01065c32ee7ec7380beba8c1e4dd72bfc8db69b5f9191adac0593d8a",
+    "4c71cf26252a39c3a235b245e8a98dca49328b800fa01857981f778ac518f312"
+  ],
+  "initial_known_at_utc": "2015-07-21T00:00:00Z",
+  "initial_version_id": "b847118cb31aa33be9433dd9089fecdaecf062b0059eb6d59c22a7225cda8bfb",
+  "later_version_reentered": true,
+  "reentered_known_at_utc": "2015-08-05T00:00:00Z",
+  "reentered_version_id": "739690b6851119ae373e396049e90e58e50c29a06155a07db28900afeb82a3f7",
+  "relationship": {
+    "evidence": "provider_reused_document_number_with_distinct_official_content_or_publication_metadata",
+    "from_stable_record_id": "8ad3bdfa8d266d27eb66284caa2ad89980f60eeae92ed6302ea136b5278c8c02",
+    "from_version_id": "739690b6851119ae373e396049e90e58e50c29a06155a07db28900afeb82a3f7",
+    "relation_type": "corrects",
+    "relationship_id": "f1e514584645d31f4bbc948d519eb83732673ca1b052194f6edd48761b8730fe",
+    "target_id": "DBH2_FEDERAL_REGISTER_SEC",
+    "to_stable_record_id": "8ad3bdfa8d266d27eb66284caa2ad89980f60eeae92ed6302ea136b5278c8c02",
+    "to_version_id": "b847118cb31aa33be9433dd9089fecdaecf062b0059eb6d59c22a7225cda8bfb"
+  },
+  "schema_version": "contentops.historical_incremental_update_probe.v1",
+  "second_cursor": [
+    "2015-08-06T00:00:00Z",
+    "DBH2_FEDERAL_REGISTER_SEC",
+    "d4abb7d20c3297c810fc693bbb86447a9da4b36df810992f22bab25b08a1237d",
+    "046d6aac3a49de0b95b57d4d5feedb19d410d9fbe48487d99455b8677cbf9b71"
+  ],
+  "stable_record_id": "8ad3bdfa8d266d27eb66284caa2ad89980f60eeae92ed6302ea136b5278c8c02",
+  "status": "PASS"
+}

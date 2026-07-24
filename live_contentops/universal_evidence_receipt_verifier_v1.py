@@ -10,6 +10,7 @@ from hashlib import sha1, sha256
 import importlib
 import inspect
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 import subprocess
 from types import MappingProxyType
@@ -66,6 +67,30 @@ def _is_ancestor(root: Path, ancestor: str, descendant: str) -> bool:
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     ).returncode == 0
+
+
+def _parse_utc(value: str) -> datetime:
+    text = value.strip()
+    if "T" not in text and " " not in text:
+        text = f"{text}T00:00:00Z"
+    parsed = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _verify_origin(root: Path, expected_repository: str) -> None:
+    try:
+        origin = _git(root, "config", "--get", "remote.origin.url").decode().strip()
+    except subprocess.CalledProcessError as error:
+        raise EvidenceReceiptVerificationError(
+            "verified_repository_origin_missing"
+        ) from error
+    normalized = origin.removesuffix(".git").replace("\\", "/").casefold()
+    if not normalized.endswith(expected_repository.casefold()):
+        raise EvidenceReceiptVerificationError(
+            "verified_repository_origin_mismatch"
+        )
 
 
 class VerifiedEvidenceIndexV1(dict[str, Mapping[str, Any]]):
@@ -149,6 +174,18 @@ class EvidenceReceiptVerifierV1:
         self.upstream_root = upstream_root.resolve()
         self.observed_upstream_head = observed_upstream_head
         self.bridge = bridge
+        _verify_origin(
+            self.primary_root,
+            "fatcat2109/capital-chronicle-contentops",
+        )
+        _verify_origin(
+            self.upstream_root,
+            "fatcat2109/Headline-Raw-data-json",
+        )
+        if bridge.branch != "main":
+            raise EvidenceReceiptVerificationError(
+                "verified_upstream_branch_mismatch"
+            )
         self.index = VerifiedEvidenceIndexV1(_INDEX_TOKEN)
 
     def _binding(
@@ -213,6 +250,7 @@ class EvidenceReceiptVerifierV1:
         evidence_state: str = "context",
         consumer_permission: str = "CONTEXT_ONLY",
         dqr_reporting_allowed: bool = False,
+        verification_cutoff_utc: str | None = None,
     ) -> Mapping[str, Any]:
         connection = self.bridge.open_duckdb()
         try:
@@ -255,6 +293,16 @@ class EvidenceReceiptVerifierV1:
                 raise EvidenceReceiptVerificationError(
                     f"dbh2_verified_record_mismatch:{field}"
                 )
+        known_at = str(record.get("known_at_utc") or observed["known_at"])
+        cutoff_utc = str(
+            verification_cutoff_utc
+            or record.get("verification_cutoff_utc")
+            or known_at
+        )
+        if _parse_utc(str(observed["known_at"])) > _parse_utc(cutoff_utc):
+            raise EvidenceReceiptVerificationError(
+                "dbh2_verified_record_future_known_at"
+            )
         bridge_packet = self.bridge.authority_packet()
         receipt = {
             "schema_version": DBH2_RECEIPT_SCHEMA,
@@ -278,6 +326,9 @@ class EvidenceReceiptVerifierV1:
             "provider_record_type": observed["provider_record_type"],
             "content_sha256": observed["content_sha256"],
             "source_native_status": observed["status"],
+            "record_known_at_utc": known_at,
+            "verification_cutoff_utc": cutoff_utc,
+            "point_in_time_eligible": True,
             "verified_from_read_only_database": True,
         }
         receipt["logical_hash"] = _logical_hash(receipt)
@@ -443,6 +494,15 @@ def verify_runtime_implementation(
 ) -> Any:
     """Verify exact committed implementation bytes and resolve that callable."""
 
+    if (
+        implementation_receipt.get("repository")
+        != "fatcat2109/capital-chronicle-contentops"
+        or implementation_receipt.get("branch") != "master"
+    ):
+        raise EvidenceReceiptVerificationError(
+            "implementation_receipt_repository_or_branch_mismatch"
+        )
+    _verify_origin(repo_root, "fatcat2109/capital-chronicle-contentops")
     if implementation_receipt.get("schema_version") != IMPLEMENTATION_RECEIPT_SCHEMA:
         raise EvidenceReceiptVerificationError(
             "implementation_receipt_schema_invalid"
