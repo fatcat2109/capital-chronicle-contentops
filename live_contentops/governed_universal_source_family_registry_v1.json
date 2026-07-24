@@ -3,7 +3,7 @@
     "commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
     "policy": "first_committed_governed_baseline_replacing_caller_records"
   },
-  "logical_hash": "5b0a4424dcd21019e310ee1efacae3740c3f2ffeb92e8478ce5e0073bc58ae65",
+  "logical_hash": "dcb3a3c74eee30509ebbc6e4b16d66019103b70c2bc11218beb29ef457cc509a",
   "records": [
     {
       "accepted_adapter_binding_ids": [
@@ -318,8 +318,194 @@
       "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
       "record_id": "source-family:dbh2_usgs_official_physical_event:v2",
       "source_family_id": "dbh2_usgs_official_physical_event"
+    },
+    {
+      "accepted_adapter_binding_ids": [
+        "adapter-binding:v1_candidate_pool:v3"
+      ],
+      "accepted_evidence_binding": "verifier_produced_git_claim_binding_v2",
+      "accepted_evidence_states": [
+        "exact"
+      ],
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_EXACT_GIT_CLAIM_RECEIPT_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_v1_candidate_pool_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_v1_candidate_pool_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "ac520e032d5ed1e6f166ccaaea482dfb6018d2138857e18c26b69f35db581924",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "84a521ed90e59cb1584f46904091a9842f6143cc40a282dbd5f60231d2125a9a",
+      "permission_ceiling": "PUBLIC_CLAIM_ALLOWED",
+      "permission_derivation_rule": "EXACT_UPSTREAM_CLAIM_PERMISSION_AND_DQR_REQUIRED",
+      "record_id": "source-family:story_scoped_publication_evidence_v1:v3",
+      "source_family_id": "story_scoped_publication_evidence_v1"
+    },
+    {
+      "accepted_adapter_binding_ids": [
+        "adapter-binding:dbh2_federal_register:v3"
+      ],
+      "accepted_evidence_binding": "verifier_produced_dbh2_record_binding_v2",
+      "accepted_evidence_states": [
+        "context"
+      ],
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_RECEIPT_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "0c1a1395cff6a603b27a2f14710c010c63dd42aa319a0242a57fc54a882cf5d0",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "d54635b2a1ec03fe7628b869a475228b1d60e67d39a12fd641a39224cba6045a",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "source-family:dbh2_federal_register_official_document:v3",
+      "source_family_id": "dbh2_federal_register_official_document"
+    },
+    {
+      "accepted_adapter_binding_ids": [
+        "adapter-binding:dbh2_sec_filing:v3"
+      ],
+      "accepted_evidence_binding": "verifier_produced_dbh2_record_binding_v2",
+      "accepted_evidence_states": [
+        "context"
+      ],
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_RECEIPT_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "0c1a1395cff6a603b27a2f14710c010c63dd42aa319a0242a57fc54a882cf5d0",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "38fa3532626cb0b8685ed79c7df9dffd19fdad890505328f839427e4d48be550",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "source-family:dbh2_sec_official_filing_metadata:v3",
+      "source_family_id": "dbh2_sec_official_filing_metadata"
+    },
+    {
+      "accepted_adapter_binding_ids": [
+        "adapter-binding:dbh2_ofac_snapshot:v3"
+      ],
+      "accepted_evidence_binding": "verifier_produced_dbh2_record_binding_v2",
+      "accepted_evidence_states": [
+        "context"
+      ],
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_RECEIPT_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "0c1a1395cff6a603b27a2f14710c010c63dd42aa319a0242a57fc54a882cf5d0",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "1b7047c56196c2f2a5ea5a7b00cf84c49e801a62581b8def9af49896571a6916",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "source-family:dbh2_ofac_official_entity_snapshot:v3",
+      "source_family_id": "dbh2_ofac_official_entity_snapshot"
+    },
+    {
+      "accepted_adapter_binding_ids": [
+        "adapter-binding:dbh2_fomc_document:v3"
+      ],
+      "accepted_evidence_binding": "verifier_produced_dbh2_record_binding_v2",
+      "accepted_evidence_states": [
+        "context"
+      ],
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_RECEIPT_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "0c1a1395cff6a603b27a2f14710c010c63dd42aa319a0242a57fc54a882cf5d0",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "5e6dcd75414af760088e92fda9a26383df26ee1d8e52dd7e3080ae442bc07caa",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "source-family:dbh2_fomc_official_document:v3",
+      "source_family_id": "dbh2_fomc_official_document"
+    },
+    {
+      "accepted_adapter_binding_ids": [
+        "adapter-binding:dbh2_usgs_event:v3"
+      ],
+      "accepted_evidence_binding": "verifier_produced_dbh2_record_binding_v2",
+      "accepted_evidence_states": [
+        "context"
+      ],
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_DBH2_RECORD_RECEIPT_REQUIRED",
+      "enabled": true,
+      "implementation_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 34430,
+        "byte_sha256": "d86d4b746ca625f4b0682b141efd30099354a8c33bde2a4f97c254100fcfee29",
+        "callable_identity": "live_contentops.window_incremental_editorial_shadow_v1.adapt_verified_dbh2_record_v2",
+        "git_blob_sha1": "089ed932e68b1e79909ff529f959d52029321e74",
+        "implementation_contract_version": "contentops.window_incremental_adapter.v2",
+        "logical_hash": "0c1a1395cff6a603b27a2f14710c010c63dd42aa319a0242a57fc54a882cf5d0",
+        "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+        "producer_commit": "9cae117bad962a9226ef063bc6a66d5f009e385d",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1"
+      },
+      "logical_hash": "296a86fe4bee461c7fd9ae5b46658ac9a83c602d369617df953b5e6cf4aefc93",
+      "permission_ceiling": "CONTEXT_ONLY",
+      "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
+      "record_id": "source-family:dbh2_usgs_official_physical_event:v3",
+      "source_family_id": "dbh2_usgs_official_physical_event"
     }
   ],
-  "registry_version": "contentops.governed_source_families.v1.2.0",
+  "registry_version": "contentops.governed_source_families.v1.3.0",
   "schema_version": "contentops.governed_source_family_registry.v1"
 }
