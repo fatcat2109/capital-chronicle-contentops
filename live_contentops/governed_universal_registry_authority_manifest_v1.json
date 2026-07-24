@@ -1,9 +1,9 @@
 {
   "schema_version": "contentops.governed_universal_registry_authority_manifest.v1",
-  "manifest_version": "contentops.governed_universal_registry_authority.v1.0.0",
+  "manifest_version": "contentops.governed_universal_registry_authority.v1.1.0",
   "repository": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "producer_commit": "455940fe683e46b358c5ffebbcc256360d28aa9a",
+  "producer_commit": "84a3d2e30a086f9a547440b753dd461d73d40a09",
   "starting_authority_commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
   "receipts": [
     {
@@ -27,20 +27,20 @@
     {
       "registry_id": "source_families",
       "schema_version": "contentops.governed_source_family_registry.v1",
-      "registry_version": "contentops.governed_source_families.v1.1.0",
+      "registry_version": "contentops.governed_source_families.v1.2.0",
       "path": "live_contentops/governed_universal_source_family_registry_v1.json",
-      "git_blob_sha1": "2e20278e15f7fd67e96429392c8431e0033713cb",
-      "byte_sha256": "58ce56ba006e891ff209d31d5ccd01c495c7331de814a4aea495b4992ccd4e2f",
-      "byte_length": 6480
+      "git_blob_sha1": "8445ed1140242fc7e157941cfb2b10465ec0311b",
+      "byte_sha256": "ae93feb22cbb182dca42debf29252b35cd919945b3faf34cd5a2c286f18cfe77",
+      "byte_length": 16690
     },
     {
       "registry_id": "adapter_source_bindings",
       "schema_version": "contentops.governed_adapter_source_binding_registry.v1",
-      "registry_version": "contentops.governed_adapter_source_bindings.v1.1.0",
+      "registry_version": "contentops.governed_adapter_source_bindings.v1.2.0",
       "path": "live_contentops/governed_universal_adapter_source_binding_registry_v1.json",
-      "git_blob_sha1": "b4399cfe59b468adfeec73b2fc2d5561eb979ef4",
-      "byte_sha256": "05e5868bb63d83d75d987ce2ce49065a54128d7e3b2b72f94daaef2389269fc2",
-      "byte_length": 6862
+      "git_blob_sha1": "028a678a7dbd60bf29ad157f05e26c813473fc6f",
+      "byte_sha256": "79cac5de9e02bbbb5a104d5e7b970e7027267de78e21265edf9f8ecf803442a8",
+      "byte_length": 22832
     },
     {
       "registry_id": "market_evidence_capabilities",
@@ -92,5 +92,5 @@
       "baseline_mode": "FIRST_GOVERNED_BASELINE"
     }
   ],
-  "logical_hash": "1b4b8272a8f8c3a4241fd388c2f4b10a5c41c827409683bd08d581a5206bceba"
+  "logical_hash": "cb2b185bb4a61cf0f86ebb42deddf07e1da45ef74729d949b8c63747d50924f8"
 }
