@@ -60,8 +60,13 @@ def operation():
 
 def test_discovery_routes_are_append_only_runtime_exact_records(authority):
     routes = enabled_discovery_routes(authority)
-    assert len(routes) == 6
-    assert all(row["record_id"].endswith(":v4") for row in routes)
+    assert len(routes) == 7
+    assert sum(row["record_id"].endswith(":v4") for row in routes) == 6
+    assert [
+        row["record_id"]
+        for row in routes
+        if row["record_id"].endswith(":v1")
+    ] == ["adapter-binding:nonnumeric_story_authority:v1"]
     for route in routes:
         implementation = verify_runtime_implementation(
             repo_root=ROOT,

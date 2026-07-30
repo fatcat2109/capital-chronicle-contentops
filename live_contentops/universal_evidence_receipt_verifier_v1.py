@@ -639,6 +639,24 @@ class EvidenceReceiptVerifierV1:
             artifact_path=artifact_path,
             producer_commit=producer_commit,
         )
+        git_receipt_fields = git_receipt.as_dict()
+        expected_git_receipt_fields = {
+            "repository": "fatcat2109/Headline-Raw-data-json",
+            "branch": "main",
+            "observed_head": self.observed_upstream_head,
+            "producer_commit": expected_commit,
+            "artifact_path": expected_path,
+            "git_blob_sha1": sha1(
+                f"blob {len(content)}\0".encode("ascii") + content
+            ).hexdigest(),
+            "byte_sha256": sha256(content).hexdigest(),
+            "byte_length": len(content),
+        }
+        for field, expected in expected_git_receipt_fields.items():
+            if git_receipt_fields.get(field) != expected:
+                raise EvidenceReceiptVerificationError(
+                    f"nonnumeric_story_git_receipt_{field}_mismatch"
+                )
         try:
             packet = json.loads(content)
         except json.JSONDecodeError as error:
@@ -1009,17 +1027,29 @@ def verify_runtime_implementation(
         raise EvidenceReceiptVerificationError(
             "implementation_callable_unavailable"
         )
-    source_path = inspect.getsourcefile(implementation)
-    if not source_path:
+    source_file = inspect.getsourcefile(implementation)
+    if not source_file:
         raise EvidenceReceiptVerificationError(
             "implementation_runtime_source_unavailable"
         )
-    runtime_bytes = Path(source_path).read_bytes()
-    if (
-        sha256(runtime_bytes).hexdigest()
-        != implementation_receipt.get("byte_sha256")
-        or len(runtime_bytes) != implementation_receipt.get("byte_length")
-    ):
+    source_path = Path(source_file).resolve()
+    try:
+        runtime_relative_path = source_path.relative_to(repo_root.resolve()).as_posix()
+    except ValueError as error:
+        raise EvidenceReceiptVerificationError(
+            "implementation_runtime_source_outside_repository"
+        ) from error
+    if runtime_relative_path != path:
+        raise EvidenceReceiptVerificationError(
+            "implementation_runtime_source_path_mismatch"
+        )
+    runtime_blob_sha1 = _git(
+        repo_root,
+        "hash-object",
+        f"--path={runtime_relative_path}",
+        runtime_relative_path,
+    ).decode("ascii").strip()
+    if runtime_blob_sha1 != implementation_receipt.get("git_blob_sha1"):
         raise EvidenceReceiptVerificationError(
             "implementation_runtime_bytes_mismatch"
         )

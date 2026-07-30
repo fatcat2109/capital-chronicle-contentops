@@ -160,17 +160,21 @@ def _packet() -> dict[str, object]:
     return packet
 
 
-def _exact_git_receipt(content: bytes) -> GitArtifactReceipt:
-    return GitArtifactReceipt(
-        repository="fatcat2109/Headline-Raw-data-json",
-        branch="main",
-        observed_head="observed-upstream-head",
-        producer_commit=UPSTREAM_PRODUCER_COMMIT,
-        artifact_path=UPSTREAM_PACKET_PATH,
-        git_blob_sha1="git-blob-sha1",
-        byte_sha256=verifier_module.sha256(content).hexdigest(),
-        byte_length=len(content),
-    )
+def _exact_git_receipt(content: bytes, **overrides: object) -> GitArtifactReceipt:
+    fields: dict[str, object] = {
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "branch": "main",
+        "observed_head": "observed-upstream-head",
+        "producer_commit": UPSTREAM_PRODUCER_COMMIT,
+        "artifact_path": UPSTREAM_PACKET_PATH,
+        "git_blob_sha1": verifier_module.sha1(
+            f"blob {len(content)}\0".encode("ascii") + content
+        ).hexdigest(),
+        "byte_sha256": verifier_module.sha256(content).hexdigest(),
+        "byte_length": len(content),
+    }
+    fields.update(overrides)
+    return GitArtifactReceipt(**fields)
 
 
 @pytest.fixture
@@ -341,3 +345,115 @@ def test_canonical_shadow_executes_all_roles_and_preserves_protected_state(verif
     )
     assert handoff["article"]["claim_ids_used"] == list(AUTHORIZED_CLAIM_IDS)
     assert handoff["article"]["numeric_claims_from_llm"] is False
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "expected"),
+    [
+        ("repository", "fatcat2109/wrong-upstream", "nonnumeric_story_git_receipt_repository_mismatch"),
+        ("branch", "wrong-branch", "nonnumeric_story_git_receipt_branch_mismatch"),
+        ("producer_commit", "0" * 40, "nonnumeric_story_git_receipt_producer_commit_mismatch"),
+        ("artifact_path", "docs/wrong.json", "nonnumeric_story_git_receipt_artifact_path_mismatch"),
+        ("git_blob_sha1", "0" * 40, "nonnumeric_story_git_receipt_git_blob_sha1_mismatch"),
+        ("byte_sha256", "0" * 64, "nonnumeric_story_git_receipt_byte_sha256_mismatch"),
+        ("byte_length", 1, "nonnumeric_story_git_receipt_byte_length_mismatch"),
+    ],
+)
+def test_returned_exact_git_receipt_metadata_mutations_fail_closed(
+    verifier, monkeypatch, field, value, expected
+):
+    instance, packet = verifier
+    content = json.dumps(packet, sort_keys=True, separators=(",", ":")).encode("utf-8")
+
+    def mutated_read(**kwargs):
+        return content, _exact_git_receipt(content, **{field: value})
+
+    monkeypatch.setattr(verifier_module, "read_git_artifact", mutated_read)
+    with pytest.raises(EvidenceReceiptVerificationError, match=expected):
+        _verify(instance)
+
+
+@pytest.mark.parametrize(
+    ("argument", "value", "expected"),
+    [
+        ("artifact_path", "docs/wrong.json", "nonnumeric_story_artifact_path_mismatch"),
+        ("producer_commit", "0" * 40, "nonnumeric_story_producer_commit_mismatch"),
+        ("requested_claim_ids", (*AUTHORIZED_CLAIM_IDS, "claim-unauthorized-third"), "nonnumeric_story_requested_claim_set_mismatch"),
+    ],
+)
+def test_caller_metadata_and_unauthorized_third_claim_fail_closed(
+    verifier, argument, value, expected
+):
+    instance, _ = verifier
+    arguments = {
+        "artifact_path": UPSTREAM_PACKET_PATH,
+        "producer_commit": UPSTREAM_PRODUCER_COMMIT,
+        "source_family_id": SOURCE_FAMILY_ID,
+        "adapter_id": ADAPTER_ID,
+        "requested_claim_ids": AUTHORIZED_CLAIM_IDS,
+    }
+    arguments[argument] = value
+    with pytest.raises(EvidenceReceiptVerificationError, match=expected):
+        instance.verify_nonnumeric_story_authority_bindings(**arguments)
+
+
+@pytest.mark.parametrize(
+    ("mutation", "expected"),
+    [
+        ("logical_hash", "nonnumeric_story_packet_logical_hash_mismatch"),
+        ("unauthorized_third_claim", "nonnumeric_story_exact_claim_set_mismatch"),
+        ("numeric_claim_insertion", "nonnumeric_story_exact_claim_set_mismatch"),
+        ("interpretation_prose", "nonnumeric_story_exact_claim_set_mismatch"),
+        ("market_reaction_prose", "nonnumeric_story_exact_claim_set_mismatch"),
+        ("family_wide_authority", "nonnumeric_story_consumer_permission_mismatch"),
+        ("dispatch_escalation", "nonnumeric_story_consumer_permission_mismatch"),
+        ("global_dqr_escalation", "nonnumeric_story_protected_state_mismatch"),
+        ("missing_official_attribution", "nonnumeric_story_public_use_scope_mismatch"),
+        ("stale_known_at", "nonnumeric_story_timestamp_lineage_mismatch"),
+        ("mismatched_version", "nonnumeric_story_identity_or_boundary_mismatch"),
+    ],
+)
+def test_required_packet_and_editorial_boundary_mutations_fail_closed(
+    verifier, monkeypatch, mutation, expected
+):
+    instance, packet = verifier
+    mutated = copy.deepcopy(packet)
+    if mutation == "logical_hash":
+        mutated["logical_hash"] = "0" * 64
+    elif mutation == "unauthorized_third_claim":
+        mutated["claims"].append({
+            **copy.deepcopy(EXPECTED_CLAIMS[0]),
+            "claim_id": "claim-unauthorized-third",
+        })
+    elif mutation == "numeric_claim_insertion":
+        mutated["claims"][0]["text"] += " It applies to 9 agencies."
+        mutated["claims"][0]["contains_numeric_assertion"] = True
+    elif mutation == "interpretation_prose":
+        mutated["claims"][0]["text"] += " This is a sweeping policy shift."
+        mutated["claims"][0]["interpretation_allowed"] = True
+    elif mutation == "market_reaction_prose":
+        mutated["claims"][0]["text"] += " Markets welcomed the change."
+    elif mutation == "family_wide_authority":
+        mutated["consumer_permissions"]["source_family_wide_authority"] = True
+    elif mutation == "dispatch_escalation":
+        mutated["consumer_permissions"]["dispatch_allowed"] = True
+    elif mutation == "global_dqr_escalation":
+        mutated["protected_state"]["global_dqr_override"] = True
+    elif mutation == "missing_official_attribution":
+        mutated["public_use_scope"]["attribution_required"] = False
+    elif mutation == "stale_known_at":
+        mutated["timestamps"]["known_at_utc"] = "2025-07-12T16:18:42.619968+00:00"
+    elif mutation == "mismatched_version":
+        mutated["selected_story"]["version_id"] = "0" * 64
+    if mutation != "logical_hash":
+        mutated["logical_hash"] = verifier_module._logical_hash(
+            {key: item for key, item in mutated.items() if key != "logical_hash"}
+        )
+    content = json.dumps(mutated, sort_keys=True, separators=(",", ":")).encode("utf-8")
+
+    def mutated_read(**kwargs):
+        return content, _exact_git_receipt(content)
+
+    monkeypatch.setattr(verifier_module, "read_git_artifact", mutated_read)
+    with pytest.raises(EvidenceReceiptVerificationError, match=expected):
+        _verify(instance)
