@@ -1,0 +1,810 @@
+{
+  "abstention_count": 20,
+  "adjudicated_sources": [
+    "DBH2_FEDERAL_REGISTER_SEC",
+    "DBH2_OFAC_SDN_CURRENT_SNAPSHOT",
+    "DBH2_USGS_SIGNIFICANT_GLOBAL"
+  ],
+  "all_articles_absent": true,
+  "all_packets_valid_v3": true,
+  "all_publication_authority_false": true,
+  "authority_ceiling_changed": false,
+  "claim_type_counts": {
+    "entity_relationship": 1,
+    "event_occurrence": 16,
+    "legal_or_regulatory_action": 3
+  },
+  "classification": "BLOCKED_NONNUMERIC_REPORTING_AUTHORITY_INPUT_MISSING",
+  "logical_hash": "340f18654c0c5efd6db31effda2772e2d801d5128a062058eec5840cd3c02ad8",
+  "outcomes": [
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+      "claim_id": "claim-bccd520a073d89f2b652",
+      "claim_type": "legal_or_regulatory_action",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_FEDERAL_REGISTER_SEC:1765645a2edb9bdc3f3d346d44cbd3a86baf12f49eaf3c0d204b4c378bb3f9f6:1325b3619d5a15c2fa33b539782ec6e1e457209bbee2a26df3c607711fd8a861"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-bccd520a073d89f2b652",
+          "claim_type": "legal_or_regulatory_action",
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:1765645a2edb9bdc3f3d346d44cbd3a86baf12f49eaf3c0d204b4c378bb3f9f6:1325b3619d5a15c2fa33b539782ec6e1e457209bbee2a26df3c607711fd8a861"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:1765645a2edb9bdc3f3d346d44cbd3a86baf12f49eaf3c0d204b4c378bb3f9f6:1325b3619d5a15c2fa33b539782ec6e1e457209bbee2a26df3c607711fd8a861"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:1765645a2edb9bdc3f3d346d44cbd3a86baf12f49eaf3c0d204b4c378bb3f9f6:1325b3619d5a15c2fa33b539782ec6e1e457209bbee2a26df3c607711fd8a861"
+      ],
+      "target_id": "DBH2_FEDERAL_REGISTER_SEC"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+      "claim_id": "claim-9686ac2c5f20330357f9",
+      "claim_type": "legal_or_regulatory_action",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_FEDERAL_REGISTER_SEC:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-9686ac2c5f20330357f9",
+          "claim_type": "legal_or_regulatory_action",
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:61c87e074db4a62df8c794adebe9c12146fc869958d55f5a8e929235d583d02f:655d891c81c62519488ba50440b818526ec51a727e9ea3e6772c6512bed0c3c2"
+      ],
+      "target_id": "DBH2_FEDERAL_REGISTER_SEC"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+      "claim_id": "claim-6d96eb59c944d4cbca53",
+      "claim_type": "legal_or_regulatory_action",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_FEDERAL_REGISTER_SEC:daed2baee418fd23e184bd791f9534c47d56580af4cdb6409484c9e1ec04d4e5:9d58e9315207a280d697b33abafc9791ffe3c0b3d0d08544b07e0bb56fd51dc9"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-6d96eb59c944d4cbca53",
+          "claim_type": "legal_or_regulatory_action",
+          "evidence_refs": [
+            "dbh2:DBH2_FEDERAL_REGISTER_SEC:daed2baee418fd23e184bd791f9534c47d56580af4cdb6409484c9e1ec04d4e5:9d58e9315207a280d697b33abafc9791ffe3c0b3d0d08544b07e0bb56fd51dc9"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:daed2baee418fd23e184bd791f9534c47d56580af4cdb6409484c9e1ec04d4e5:9d58e9315207a280d697b33abafc9791ffe3c0b3d0d08544b07e0bb56fd51dc9"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:daed2baee418fd23e184bd791f9534c47d56580af4cdb6409484c9e1ec04d4e5:9d58e9315207a280d697b33abafc9791ffe3c0b3d0d08544b07e0bb56fd51dc9"
+      ],
+      "target_id": "DBH2_FEDERAL_REGISTER_SEC"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+      "claim_id": "claim-d4f9f32e830f1306d68f",
+      "claim_type": "entity_relationship",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_OFAC_SDN_CURRENT_SNAPSHOT:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-d4f9f32e830f1306d68f",
+          "claim_type": "entity_relationship",
+          "evidence_refs": [
+            "dbh2:DBH2_OFAC_SDN_CURRENT_SNAPSHOT:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:7b46bc194617268540360399e8d74da4c83c3837b1cc572ec1dec15673d32ed2:610cfca4c830f3c56d9e44c06f7aa01f35578ccf77c487db6e00ad6c20c95bd3"
+      ],
+      "target_id": "DBH2_OFAC_SDN_CURRENT_SNAPSHOT"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+      "claim_id": "claim-933b93eab1ae0a70990c",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:16410e98973c93987641536b1fc2fe7a3b7ec3d66bdc8b14ac4d966176e5cf5a:9ffc2bfa9126a3b725e58ab86ac5c0a3983dde8084b5f5e3da4ac7c09d80b6c8"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-933b93eab1ae0a70990c",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:16410e98973c93987641536b1fc2fe7a3b7ec3d66bdc8b14ac4d966176e5cf5a:9ffc2bfa9126a3b725e58ab86ac5c0a3983dde8084b5f5e3da4ac7c09d80b6c8"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:16410e98973c93987641536b1fc2fe7a3b7ec3d66bdc8b14ac4d966176e5cf5a:9ffc2bfa9126a3b725e58ab86ac5c0a3983dde8084b5f5e3da4ac7c09d80b6c8"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:16410e98973c93987641536b1fc2fe7a3b7ec3d66bdc8b14ac4d966176e5cf5a:9ffc2bfa9126a3b725e58ab86ac5c0a3983dde8084b5f5e3da4ac7c09d80b6c8"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+      "claim_id": "claim-d884e5f6837440fed0c1",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:ba6b1a799b1db8f7e29760fe60ecacb7d5f7ce5c3c269410a9c614c6c3878ae6:7cc3916bd32cb162da4b5787507f7cba162c248e06eba5d56b5934de03d8b656"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-d884e5f6837440fed0c1",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:ba6b1a799b1db8f7e29760fe60ecacb7d5f7ce5c3c269410a9c614c6c3878ae6:7cc3916bd32cb162da4b5787507f7cba162c248e06eba5d56b5934de03d8b656"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:ba6b1a799b1db8f7e29760fe60ecacb7d5f7ce5c3c269410a9c614c6c3878ae6:7cc3916bd32cb162da4b5787507f7cba162c248e06eba5d56b5934de03d8b656"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:ba6b1a799b1db8f7e29760fe60ecacb7d5f7ce5c3c269410a9c614c6c3878ae6:7cc3916bd32cb162da4b5787507f7cba162c248e06eba5d56b5934de03d8b656"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+      "claim_id": "claim-98bab06d27e6c3ba3265",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:6fa9f4a6b1e2f751ab58288ba86e844434688ce36aea59b912f2aa0962a7bc17:95297a58e165be4dd7387c13a89cd86c21e4a9c142e5de09db6ed4fb1e9b1a94"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-98bab06d27e6c3ba3265",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:6fa9f4a6b1e2f751ab58288ba86e844434688ce36aea59b912f2aa0962a7bc17:95297a58e165be4dd7387c13a89cd86c21e4a9c142e5de09db6ed4fb1e9b1a94"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:6fa9f4a6b1e2f751ab58288ba86e844434688ce36aea59b912f2aa0962a7bc17:95297a58e165be4dd7387c13a89cd86c21e4a9c142e5de09db6ed4fb1e9b1a94"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:6fa9f4a6b1e2f751ab58288ba86e844434688ce36aea59b912f2aa0962a7bc17:95297a58e165be4dd7387c13a89cd86c21e4a9c142e5de09db6ed4fb1e9b1a94"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+      "claim_id": "claim-08960978f3c8923b5ebc",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:447308a4b90fa5ceefe4f59a213ca868a1f376be2c9131c3755ec9bca22c1bc1:838110f41a723cd3175d1aa2bd223f5942852558c92b12ccd76b58d6591b8fc2"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-08960978f3c8923b5ebc",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:447308a4b90fa5ceefe4f59a213ca868a1f376be2c9131c3755ec9bca22c1bc1:838110f41a723cd3175d1aa2bd223f5942852558c92b12ccd76b58d6591b8fc2"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:447308a4b90fa5ceefe4f59a213ca868a1f376be2c9131c3755ec9bca22c1bc1:838110f41a723cd3175d1aa2bd223f5942852558c92b12ccd76b58d6591b8fc2"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:447308a4b90fa5ceefe4f59a213ca868a1f376be2c9131c3755ec9bca22c1bc1:838110f41a723cd3175d1aa2bd223f5942852558c92b12ccd76b58d6591b8fc2"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+      "claim_id": "claim-ee63a7a171929ddbfa31",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9ed128edbe33780ede5a16832d53f2043d0bf030cc1239b1276c0a85eec91975:09872c26c1d64fe85b9c45092cc9ccb86500e318e1525791d182edc57fce908e"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-ee63a7a171929ddbfa31",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9ed128edbe33780ede5a16832d53f2043d0bf030cc1239b1276c0a85eec91975:09872c26c1d64fe85b9c45092cc9ccb86500e318e1525791d182edc57fce908e"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:9ed128edbe33780ede5a16832d53f2043d0bf030cc1239b1276c0a85eec91975:09872c26c1d64fe85b9c45092cc9ccb86500e318e1525791d182edc57fce908e"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:9ed128edbe33780ede5a16832d53f2043d0bf030cc1239b1276c0a85eec91975:09872c26c1d64fe85b9c45092cc9ccb86500e318e1525791d182edc57fce908e"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+      "claim_id": "claim-c5abd5076e75ce376612",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:7af1a41164863cf4b5b02d0cae19bdd05ffbc7534687b2b37c87af84914bf8fe:a03fc8635ed5854b6422f6620f20b13466b1841321d03db5c2d7c4f4b668c8e4"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-c5abd5076e75ce376612",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:7af1a41164863cf4b5b02d0cae19bdd05ffbc7534687b2b37c87af84914bf8fe:a03fc8635ed5854b6422f6620f20b13466b1841321d03db5c2d7c4f4b668c8e4"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:7af1a41164863cf4b5b02d0cae19bdd05ffbc7534687b2b37c87af84914bf8fe:a03fc8635ed5854b6422f6620f20b13466b1841321d03db5c2d7c4f4b668c8e4"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:7af1a41164863cf4b5b02d0cae19bdd05ffbc7534687b2b37c87af84914bf8fe:a03fc8635ed5854b6422f6620f20b13466b1841321d03db5c2d7c4f4b668c8e4"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+      "claim_id": "claim-8a0a536d4a4fd8531b35",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:c2d6d9616f9da999c13b1d651127705023551d93f7ae9cb6407be1b3d9fc45fb:fb63f8c2bb2e5f39affe0d26266dae702b325a24f2d34fdf02157e560185556a"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-8a0a536d4a4fd8531b35",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:c2d6d9616f9da999c13b1d651127705023551d93f7ae9cb6407be1b3d9fc45fb:fb63f8c2bb2e5f39affe0d26266dae702b325a24f2d34fdf02157e560185556a"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:c2d6d9616f9da999c13b1d651127705023551d93f7ae9cb6407be1b3d9fc45fb:fb63f8c2bb2e5f39affe0d26266dae702b325a24f2d34fdf02157e560185556a"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:c2d6d9616f9da999c13b1d651127705023551d93f7ae9cb6407be1b3d9fc45fb:fb63f8c2bb2e5f39affe0d26266dae702b325a24f2d34fdf02157e560185556a"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-ccd2d38e5d4621696f76",
+      "claim_id": "claim-fbeb5c40370237ba8564",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:c3076a89dea04bb25335a65b0deb9930d37be33acd3b4cf2e008f79dca59af42:8d8ff852074aa67f6c38c1caefcda2bb8c6e4c9c9aa338a60e2da1fc47ff1067"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-fbeb5c40370237ba8564",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:c3076a89dea04bb25335a65b0deb9930d37be33acd3b4cf2e008f79dca59af42:8d8ff852074aa67f6c38c1caefcda2bb8c6e4c9c9aa338a60e2da1fc47ff1067"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:c3076a89dea04bb25335a65b0deb9930d37be33acd3b4cf2e008f79dca59af42:8d8ff852074aa67f6c38c1caefcda2bb8c6e4c9c9aa338a60e2da1fc47ff1067"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:c3076a89dea04bb25335a65b0deb9930d37be33acd3b4cf2e008f79dca59af42:8d8ff852074aa67f6c38c1caefcda2bb8c6e4c9c9aa338a60e2da1fc47ff1067"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-b9b75b440b471cdae028",
+      "claim_id": "claim-5c6c2b98ac68fe722b18",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9fe99a2c1753c81720ef6849aee3db19ac942a788e83f2e52b661cb0858cdef1:e91bf60ccca29e08234d6f38ddc8e67234949e596a20831c68b7efdd35f32b54"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-5c6c2b98ac68fe722b18",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9fe99a2c1753c81720ef6849aee3db19ac942a788e83f2e52b661cb0858cdef1:e91bf60ccca29e08234d6f38ddc8e67234949e596a20831c68b7efdd35f32b54"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:9fe99a2c1753c81720ef6849aee3db19ac942a788e83f2e52b661cb0858cdef1:e91bf60ccca29e08234d6f38ddc8e67234949e596a20831c68b7efdd35f32b54"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:9fe99a2c1753c81720ef6849aee3db19ac942a788e83f2e52b661cb0858cdef1:e91bf60ccca29e08234d6f38ddc8e67234949e596a20831c68b7efdd35f32b54"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-653df6bacbb57de2095d",
+      "claim_id": "claim-e2c686da3b958fe92a55",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:ec5f57df8cf10982b26445fe40fe358856e792d0154dc0bf7e96daa5229924b6:41bec0da3c122e06f6ec918018d05f665fd671d8ec5938831dd861338a425d72"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-e2c686da3b958fe92a55",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:ec5f57df8cf10982b26445fe40fe358856e792d0154dc0bf7e96daa5229924b6:41bec0da3c122e06f6ec918018d05f665fd671d8ec5938831dd861338a425d72"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:ec5f57df8cf10982b26445fe40fe358856e792d0154dc0bf7e96daa5229924b6:41bec0da3c122e06f6ec918018d05f665fd671d8ec5938831dd861338a425d72"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:ec5f57df8cf10982b26445fe40fe358856e792d0154dc0bf7e96daa5229924b6:41bec0da3c122e06f6ec918018d05f665fd671d8ec5938831dd861338a425d72"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-069fbd5cf2f735c84642",
+      "claim_id": "claim-c4bbb3cc0889a56e4c27",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:7a0cab7c4473d24dc57e2550babc814ae182d6c8d8d9c897a6909c3ca6acf6d7:06cb042fbf349bac22520a0994453369f9af15b271054e787ee04c084079282a"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-c4bbb3cc0889a56e4c27",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:7a0cab7c4473d24dc57e2550babc814ae182d6c8d8d9c897a6909c3ca6acf6d7:06cb042fbf349bac22520a0994453369f9af15b271054e787ee04c084079282a"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:7a0cab7c4473d24dc57e2550babc814ae182d6c8d8d9c897a6909c3ca6acf6d7:06cb042fbf349bac22520a0994453369f9af15b271054e787ee04c084079282a"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:7a0cab7c4473d24dc57e2550babc814ae182d6c8d8d9c897a6909c3ca6acf6d7:06cb042fbf349bac22520a0994453369f9af15b271054e787ee04c084079282a"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-86aa2e60764bc5d4bc68",
+      "claim_id": "claim-6ed884203708b3095e27",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:41e5224d2c88cca81aacad758e90ea5336f241765b7271ea460a2e86e0817dfe:0316079c3899ea2ad9579c72a5418737be296e079eb8d000710484151a87512e"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-6ed884203708b3095e27",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:41e5224d2c88cca81aacad758e90ea5336f241765b7271ea460a2e86e0817dfe:0316079c3899ea2ad9579c72a5418737be296e079eb8d000710484151a87512e"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:41e5224d2c88cca81aacad758e90ea5336f241765b7271ea460a2e86e0817dfe:0316079c3899ea2ad9579c72a5418737be296e079eb8d000710484151a87512e"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:41e5224d2c88cca81aacad758e90ea5336f241765b7271ea460a2e86e0817dfe:0316079c3899ea2ad9579c72a5418737be296e079eb8d000710484151a87512e"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-6d7726e64c439cddc7c5",
+      "claim_id": "claim-2a010a5dfe22a4f04ec0",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:503e9af6e9c8895ed40135db043dc9a3de9eb950139fa857116d0a6360b7bfcb:1c0ee924bbf4a62c509d0429721ef7e39ea2e17659e5f00b5d69bbf2b079b17f"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-2a010a5dfe22a4f04ec0",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:503e9af6e9c8895ed40135db043dc9a3de9eb950139fa857116d0a6360b7bfcb:1c0ee924bbf4a62c509d0429721ef7e39ea2e17659e5f00b5d69bbf2b079b17f"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:503e9af6e9c8895ed40135db043dc9a3de9eb950139fa857116d0a6360b7bfcb:1c0ee924bbf4a62c509d0429721ef7e39ea2e17659e5f00b5d69bbf2b079b17f"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:503e9af6e9c8895ed40135db043dc9a3de9eb950139fa857116d0a6360b7bfcb:1c0ee924bbf4a62c509d0429721ef7e39ea2e17659e5f00b5d69bbf2b079b17f"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-8ae50646d237124f4cee",
+      "claim_id": "claim-ffd1fff785680f104069",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:5bf1386812fd6fc264ea8c8e0936f82de9dbf2534fca9e8c29c4efffd3dd5ee7:a198fc4565437e6b61636e77eaec4dbb0fa680ef9a7dbf661abca772cdd2a8e3"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-ffd1fff785680f104069",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:5bf1386812fd6fc264ea8c8e0936f82de9dbf2534fca9e8c29c4efffd3dd5ee7:a198fc4565437e6b61636e77eaec4dbb0fa680ef9a7dbf661abca772cdd2a8e3"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:5bf1386812fd6fc264ea8c8e0936f82de9dbf2534fca9e8c29c4efffd3dd5ee7:a198fc4565437e6b61636e77eaec4dbb0fa680ef9a7dbf661abca772cdd2a8e3"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:5bf1386812fd6fc264ea8c8e0936f82de9dbf2534fca9e8c29c4efffd3dd5ee7:a198fc4565437e6b61636e77eaec4dbb0fa680ef9a7dbf661abca772cdd2a8e3"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-9e6ff8ff84340c39235f",
+      "claim_id": "claim-fb42d8960110ac8f5f54",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:a54e5ed1dd1a1f7b7eaa0838fb4afb8eda25704c415cf80e87da7760dc90b294:531e4f3061cb9044f154f0a94505899d752f9efbfc5e0b27d33d88641c051b8f"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-fb42d8960110ac8f5f54",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:a54e5ed1dd1a1f7b7eaa0838fb4afb8eda25704c415cf80e87da7760dc90b294:531e4f3061cb9044f154f0a94505899d752f9efbfc5e0b27d33d88641c051b8f"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:a54e5ed1dd1a1f7b7eaa0838fb4afb8eda25704c415cf80e87da7760dc90b294:531e4f3061cb9044f154f0a94505899d752f9efbfc5e0b27d33d88641c051b8f"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:a54e5ed1dd1a1f7b7eaa0838fb4afb8eda25704c415cf80e87da7760dc90b294:531e4f3061cb9044f154f0a94505899d752f9efbfc5e0b27d33d88641c051b8f"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    },
+    {
+      "article": null,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-8c9959fd4388abe376d7",
+      "claim_id": "claim-d300a919b2719a0069a6",
+      "claim_type": "event_occurrence",
+      "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+      "editorial_review": null,
+      "evidence_refs": [
+        "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+      ],
+      "packet_permission_decision": "BLOCK",
+      "permission_state": "CONTEXT_ONLY",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "source_authority_adjudication": [
+        {
+          "approved_for_reporting": false,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [
+            "candidate_reporting_not_allowed",
+            "claim_public_permission_not_granted"
+          ],
+          "claim_id": "claim-d300a919b2719a0069a6",
+          "claim_type": "event_occurrence",
+          "evidence_refs": [
+            "dbh2:DBH2_USGS_SIGNIFICANT_GLOBAL:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+          ],
+          "permission_state": "CONTEXT_ONLY",
+          "source_document_ids": [
+            "dbh2-document:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+          ]
+        }
+      ],
+      "source_document_ids": [
+        "dbh2-document:9a9137178ec4f60c475aa56678db476dd92fbc8724876403e25b24d94d1540c6:2643d5f28d5e1b2bc3be929fd9dc842f228abd56a1766faa5970f47d1557e880"
+      ],
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL"
+    }
+  ],
+  "positive_nonnumeric_draft_count": 0,
+  "schema_version": "contentops.nonnumeric_source_authority_adjudication.v1",
+  "source_candidate_counts": {
+    "DBH2_FEDERAL_REGISTER_SEC": 3,
+    "DBH2_OFAC_SDN_CURRENT_SNAPSHOT": 1,
+    "DBH2_USGS_SIGNIFICANT_GLOBAL": 16
+  },
+  "status": "BLOCKED",
+  "task": "TASK_CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1"
+}

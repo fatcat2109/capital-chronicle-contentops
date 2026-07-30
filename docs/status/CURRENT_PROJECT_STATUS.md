@@ -4,27 +4,23 @@
 
 ## Current Classification
 
-`PASS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_EDITORIAL_SHADOW_HANDOFF_V1_AWAITING_CHATGPT_AUDIT`
+`BLOCKED_NONNUMERIC_REPORTING_AUTHORITY_INPUT_MISSING`
 
-Completed task: `TASK_CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1`.
+Completed task: `TASK_CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1`.
 
-## Verified Window-Incremental Intake And Canonical Editorial Shadow
+## Verifier-Derived Permissions, Generic V3 Claims, And Cross-Domain Editorial Shadow
 
-The prior audit is recorded as `PARTIAL_PASS_CROSS_DOMAIN_CONTINUOUS_SHADOW_OPERATION — ACCEPT_BOUNDED_LOCAL_REPLAY_BLOCK_PRODUCTION_HANDOFF_ON_RECEIPT_VERIFICATION_AND_TRUE_INCREMENTAL_DISCOVERY`.
+Runtime authority now comes exclusively from verifier-produced typed bindings and exact committed implementation receipts. The superseding authority manifest is pinned to producer commit `1b624c17042246a2a867288389566329102cbdce`; runtime callable and byte mismatches fail closed, and callers cannot promote authority or reporting permission.
 
-Authority-bearing evidence bindings now require typed receipts produced by the verifier from exact Git bytes, verified read-only DBH2 rows, or an exact registered aggregation input set. The trusted evidence index is verifier-owned; callers cannot insert bindings, and a caller impersonating the registered V1 source-family and adapter IDs with `exact_verified=true` remains `UNVERIFIED` and `PERMISSION_BLOCKED`.
+`CapitalChronicleContentEvidencePacketV3` carries a generic governed claim graph while preserving an exact V2 numeric compatibility projection. The reporting-authorized numeric candidate passes generic approved-claim validation and produces one local held draft through the canonical eight editorial roles.
 
-The append-only v3 adapter/source binding records point to the exact committed runtime implementation, including producer commit, path, Git blob, byte SHA-256 and length, callable identity, and implementation contract. Execution rejects a callable identity mismatch or runtime source-byte mismatch. Stale V1 and DBH2 callable identities are superseded without modifying their historical records.
+The honest nonnumeric adjudication inspected 20 governed cross-domain candidates. Their registered source ceilings remain `CONTEXT_ONLY`, so all 20 return `ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED`; no positive nonnumeric draft is fabricated. This is the sole terminal block: upstream reporting-authority input is unavailable, not an implementation failure.
 
-The generic cursor `(known_at_utc, target_id, stable_record_id, version_id)` scans every enabled registry route at each of five daily cutoffs. Six consecutive real history days produce 30 independently refreshed candidate pools, 20 newly discovered DBH2 versions, one exact V1 candidate, and zero duplicate discoveries. Real records appearing between Asia and Europe and between Europe and the US open enter at the next cutoff. A separately scanned real 2015 correction re-enters through the same cursor with its governed `corrects` relationship; no fixed record identity is used by the scanner.
+Publication, public-write, upstream-write, network, credential, provider, browser/CDP, scheduler, and outbox activity remain zero. Global DQR was not bypassed; the accepted v1.0 release remains unchanged.
 
-One internally assigned, reporting-eligible candidate produces a receipt-bound `CapitalChronicleContentEvidencePacketV2` and passes the canonical eight-role local editorial review using approved claim IDs only. Twenty context-only candidates produce abstentions and no reporting-authorized article. Publication, public-write, upstream-write, network-intake, browser/CDP, provider, credential, scheduler/outbox, approval-ledger, DQR, editorial-authority, and permission-authority actions remain zero.
+Evidence: `docs/automation/CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1/final_manifest.json`.
 
-`UNCALIBRATED_FOUNDATION`, frozen V2 and V1 compatibility semantics, prior evidence trees, upstream read-only state, accepted public outputs, and annotated `v1.0` remain unchanged.
-
-Evidence: `docs/automation/CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1/final_manifest.json`.
-
-Focused receipt/implementation/cursor/window/editorial validation passed 13 tests; the affected V2 foundation and adapter shard passed 345 tests; governed registry/continuous/bridge compatibility passed 45 tests; targeted V1 compatibility passed 5 tests; and scheduler/status validation passed 44 tests. Both genericity guards, compilation, JSON/logical-hash validation, exact registry receipts, append-only checks, deterministic regeneration, `git diff --check`, and the redacted scoped secret scan passed. The known non-green full repository baseline was not rerun, CI was not available, and no full-suite or CI PASS is claimed.
+The already-completed focused validation totals 88 passing tests across receipt/window/editorial, registry/cross-domain, and verifier/authority shards. Per the operator's final instruction, no additional test or audit run was performed; no full-suite or CI PASS is claimed.
 
 ## Governed Continuous Cross-Domain Shadow Newsroom
 

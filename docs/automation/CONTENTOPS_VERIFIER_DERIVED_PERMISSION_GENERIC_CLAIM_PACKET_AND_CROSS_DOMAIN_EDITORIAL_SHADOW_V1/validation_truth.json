@@ -1,0 +1,23 @@
+{
+  "ci_pass_claimed": false,
+  "focused_suites": [
+    {
+      "command": "python -m pytest tests/test_verified_evidence_window_incremental_editorial_shadow_v1.py -q",
+      "result": "17 passed"
+    },
+    {
+      "command": "python -m pytest tests/test_cross_domain_continuous_shadow_v1.py tests/test_universal_governed_registry_v1.py -q",
+      "result": "32 passed"
+    },
+    {
+      "command": "python -m pytest tests/test_trusted_evidence_verifier_registry_and_real_multi_topic_canary_v1.py tests/test_extracted_authority_permission_role_aggregation_binding_v1.py -q",
+      "result": "39 passed"
+    }
+  ],
+  "focused_test_total": 88,
+  "full_suite_pass_claimed": false,
+  "logical_hash": "1b94243137c46366d75208370648d1a10cdb4ed4224e036c8a7c3141c7af5aca",
+  "schema_version": "contentops.validation_truth.v1",
+  "status": "PASS",
+  "task": "TASK_CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1"
+}

@@ -1,0 +1,42 @@
+{
+  "artifact_receipts": [
+    {
+      "byte_length": 1199,
+      "byte_sha256": "67c6bfa4754111c331406aac7ead3c5ff2d6728e0e33c5f91f2b40d46db97784",
+      "path": "docs/automation/CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1/deterministic_replay_and_safety.json"
+    },
+    {
+      "byte_length": 39728,
+      "byte_sha256": "d60ba43dd99eca754c2a7a1491f05c72cb2c0ca797bcd82df25449f987cd2de3",
+      "path": "docs/automation/CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1/generic_v3_claim_packet_and_editorial_outcome.json"
+    },
+    {
+      "byte_length": 37110,
+      "byte_sha256": "e5629fe181877d12f7a70a068d12f4a51be8072463eb923cab761872e7067821",
+      "path": "docs/automation/CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1/nonnumeric_source_authority_adjudication.json"
+    },
+    {
+      "byte_length": 956,
+      "byte_sha256": "bc030cdb0aa34c0c88d605e9b917cdba7f1c4092bc9b2e1cbcc703318f32e7d7",
+      "path": "docs/automation/CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1/validation_truth.json"
+    },
+    {
+      "byte_length": 97474,
+      "byte_sha256": "6c218f6f304971b921896d232bffd4ccaa92983ba6cfa8cf43c0a39258155f13",
+      "path": "docs/automation/CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1/verifier_derived_permission_matrix.json"
+    }
+  ],
+  "classification": "BLOCKED_NONNUMERIC_REPORTING_AUTHORITY_INPUT_MISSING",
+  "focused_test_total": 88,
+  "implementation_commit": "46865fcab02fe122c500606393e197bec2e0141b",
+  "implementation_scope_status": "PASS",
+  "logical_hash": "2c98ac25d31849f7f742a669c33faac2140a62aeaba5b37315fb99e3aa0d3827",
+  "next_action": "INDEPENDENT_CHATGPT_AUDIT_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1",
+  "nonnumeric_positive_draft_status": "BLOCKED_AUTHORITY_INPUT_MISSING",
+  "public_write_count": 0,
+  "publication_count": 0,
+  "schema_version": "contentops.verifier_permission_generic_claim_terminal_manifest.v1",
+  "task": "TASK_CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1",
+  "upstream_observed_head": "1700520800e8c847b7446e196c384a43dd2a6a58",
+  "upstream_write_count": 0
+}

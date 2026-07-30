@@ -1,0 +1,30 @@
+{
+  "approval_ledger_execution_performed": false,
+  "browser_or_cdp_action_performed": false,
+  "credentials_read": false,
+  "first_logical_hash": "b7717d71ee3204ee59ed9a98fc76d0d009e1d3b3051246d60fc1116a67a36407",
+  "global_dqr_bypassed": false,
+  "logical_equality": true,
+  "logical_hash": "2d52c7ae72f23f30de9bb3806661b1ed914e2ae643d14b655cd6b11bee4cb5e0",
+  "network_intake_performed": false,
+  "provider_call_performed": false,
+  "public_write_performed": false,
+  "replay_logical_hash": "b7717d71ee3204ee59ed9a98fc76d0d009e1d3b3051246d60fc1116a67a36407",
+  "scheduler_or_outbox_execution_performed": false,
+  "schema_version": "contentops.deterministic_replay_and_safety.v1",
+  "status": "PASS",
+  "summary": {
+    "authorized_editorial_handoff_count": 1,
+    "candidate_count": 21,
+    "context_only_candidate_count": 20,
+    "discovered_version_count": 20,
+    "duplicate_discovery_count": 0,
+    "history_day_count": 6,
+    "public_write_count": 0,
+    "publication_count": 0,
+    "upstream_write_count": 0,
+    "window_count": 30
+  },
+  "task": "TASK_CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1",
+  "upstream_write_performed": false
+}

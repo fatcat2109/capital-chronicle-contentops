@@ -7,7 +7,7 @@
 | 3 | Semantic clustering/ranking | DONE_V2_TRUE_CURSOR_UPDATE_CHAIN_FIVE_WINDOW_SHADOW_UNCALIBRATED |
 | 4 | Duplicate/hotspot policy | DONE_SEPARATE_FROM_FRESHNESS |
 | 5 | Capital Chronicle evidence bridge | DONE_V2_READ_ONLY |
-| 6 | Claim IDs, timestamps, citations, permissions | DONE_V2 |
+| 6 | Claim IDs, timestamps, citations, permissions | DONE_V3_VERIFIER_DERIVED_WITH_EXACT_V2_NUMERIC_PROJECTION |
 | 7 | Source capability registry | DONE_V2 |
 | 8 | Generic freshness/market-state gate | DONE_V2 |
 | 9 | Provider-neutral visual research | DONE_V2 |
@@ -15,7 +15,7 @@
 | 11 | Visual rights/provenance gate | DONE_V2 |
 | 12 | Visual diversity/composition gate | DONE_V2 |
 | 13 | Quantitative chart-method gate | DONE_V2 |
-| 14 | Eight-role editorial orchestration | DONE_V2 |
+| 14 | Eight-role editorial orchestration | DONE_V3_GENERIC_APPROVED_CLAIMS_LOCAL_HOLD |
 | 15 | Source-calibrated copy/final-render gate | DONE_V2 |
 | 16 | Distribution identity/persona registry | DONE_V2 |
 | 17 | LinkedIn exact-activity idempotency and fresh-run integrity | DONE_GENERIC_CANARY_FRESH_ACTIVITY_STRICT_READBACK |
@@ -30,9 +30,9 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Latest completed task: `TASK_CONTENTOPS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_CANONICAL_EDITORIAL_SHADOW_HANDOFF_V1` — `PASS_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_EDITORIAL_SHADOW_HANDOFF_V1_AWAITING_CHATGPT_AUDIT`.
+Latest completed task: `TASK_CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1` — `BLOCKED_NONNUMERIC_REPORTING_AUTHORITY_INPUT_MISSING` with implementation scope `PASS`.
 
-The universal V2 fabric now accepts authority evidence only through verifier-produced typed receipts held in a verifier-owned index. Append-only registry records bind actual adapter callables to exact committed implementation bytes. The generic four-part cursor refreshes all enabled registry routes at every five-window cutoff over six consecutive real history days, admits between-window records at the next cutoff, avoids unchanged re-entry, and re-admits a real correction version with its governed relationship. One eligible identity receives a receipt-bound canonical editorial shadow handoff; context-only evidence abstains, and publication/public-write counts remain zero. Continuous live network intake is not claimed.
+Verifier-produced bindings now supply permission fields; V3 carries a generic governed claim graph with exact V2 numeric projection. The authorized claim produces one held local draft, while 20 nonnumeric candidates abstain because upstream source authority remains `CONTEXT_ONLY`. Publication and public writes remain zero. Evidence is at `docs/automation/CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1/final_manifest.json`.
 
 All 13 accepted adapters now expose truthful versioned capability bindings, all 16 enabled extractor records carry exact immutable runtime/evidence proofs, and the four-family composite canary preserves distinct numeric-period, scheduled-policy, unscheduled-physical, and qualitative context semantics through the frozen generic core. The stale Task 0073 archive lookup is repaired against the unchanged historical Git blob. Evidence is at `docs/automation/CONTENTOPS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1/`.
 
@@ -52,4 +52,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is `ACCEPT_TRUSTED_VERIFIER_RE
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair closes extracted authority, permission, semantic-role, candidate consistency, and multi-evidence aggregation gaps without modifying fixtures, calibration, policy, publication authority, or the accepted release.
 
-Next route: `INDEPENDENT_CHATGPT_AUDIT_VERIFIED_EVIDENCE_RECEIPT_WINDOW_INCREMENTAL_INTAKE_AND_EDITORIAL_SHADOW_HANDOFF_V1`.
+Next route: `INDEPENDENT_CHATGPT_AUDIT_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1`.
