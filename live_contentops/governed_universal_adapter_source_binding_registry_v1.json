@@ -3,7 +3,7 @@
     "commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
     "policy": "first_committed_governed_baseline_replacing_implicit_adapter_identity"
   },
-  "logical_hash": "2e6b8cd0a8b35756516122822c013d10920ac4cb7fe84efe9c03c17de04c5da1",
+  "logical_hash": "7d6b499878bf55d908f41b2a10f6c99fee2bf84275759d357106d5c05e53a0bd",
   "records": [
     {
       "accepted_evidence_binding": "v1_pool_exact_candidate_binding_v1",
@@ -1183,23 +1183,23 @@
       },
       "enabled": true,
       "implementation_identity": "live_contentops.nonnumeric_story_authority_consumer_v1.build_nonnumeric_story_shadow_packet_v1",
-      "logical_hash": "15a8418868efc33ca183d462ae6faf470fd77d6f4d8c07e9bb1c5e9b07b94286",
+      "logical_hash": "d01324559c0598886cddd305f65f1145ba80b63109409b892c246c7017e57c1f",
       "permission_ceiling": "PUBLIC_CLAIM_ALLOWED",
       "permission_derivation_rule": "EXACT_STORY_CLAIM_SET_CONSUMER_AND_DQR_MINIMUM",
       "record_id": "adapter-binding:nonnumeric_story_authority:v1",
       "source_family_id": "nonnumeric_story_scoped_publication_evidence_v1",
       "implementation_receipt": {
         "branch": "master",
-        "byte_length": 13491,
-        "byte_sha256": "b6afb86a30997acfdf0c595a1412862a3a77669b036fb42eeeb34362059b6513",
+        "byte_length": 13497,
+        "byte_sha256": "314da4e491d22f1e308da8e24b5f786f00be3f05c12c7444120dcd941ae1d0d8",
         "callable_identity": "live_contentops.nonnumeric_story_authority_consumer_v1.build_nonnumeric_story_shadow_packet_v1",
-        "git_blob_sha1": "e54b4921c49784731298aadcffcf4d20a3512a2a",
+        "git_blob_sha1": "31d7bd07492a4e2d356a27503f289b9dc4296f9f",
         "implementation_contract_version": "contentops.nonnumeric_story_authority_consumer.v1",
         "path": "live_contentops/nonnumeric_story_authority_consumer_v1.py",
-        "producer_commit": "3d241916cde448db4d7747ea7449f0efea11cadf",
+        "producer_commit": "5a5d65aac46299db18bd5055fdf7034be51e0a40",
         "repository": "fatcat2109/capital-chronicle-contentops",
         "schema_version": "contentops.verified_implementation_receipt.v1",
-        "logical_hash": "dfaef049a5708d6632b5ab2c69b2ae4fdad2ea5a3ddc6acaa7786996ce4d56e8"
+        "logical_hash": "88f6de46224e998b455c27c6fc8c367cec1b1e9be1998044630edaa52419c1f8"
       }
     }
   ],
