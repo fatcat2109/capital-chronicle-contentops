@@ -61,7 +61,7 @@ def operation():
 def test_discovery_routes_are_append_only_runtime_exact_records(authority):
     routes = enabled_discovery_routes(authority)
     assert len(routes) == 6
-    assert all(row["record_id"].endswith(":v3") for row in routes)
+    assert all(row["record_id"].endswith(":v4") for row in routes)
     for route in routes:
         implementation = verify_runtime_implementation(
             repo_root=ROOT,
