@@ -341,4 +341,3 @@ def test_canonical_shadow_executes_all_roles_and_preserves_protected_state(verif
     )
     assert handoff["article"]["claim_ids_used"] == list(AUTHORIZED_CLAIM_IDS)
     assert handoff["article"]["numeric_claims_from_llm"] is False
-
