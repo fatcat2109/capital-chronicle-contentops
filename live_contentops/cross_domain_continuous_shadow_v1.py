@@ -220,16 +220,10 @@ def _dbh2_evidence_binding(
     verifier: EvidenceReceiptVerifierV1,
 ) -> dict[str, Any]:
     adapter_id = ADAPTER_BY_FAMILY[family_id]
-    adapter = authority.adapter_bindings[adapter_id]
-    document = _source_document(record)
     return dict(verifier.verify_dbh2_record_binding(
         record=record,
         source_family_id=family_id,
         adapter_id=adapter_id,
-        document_id=document["document_id"],
-        evidence_state="context",
-        consumer_permission="CONTEXT_ONLY",
-        dqr_reporting_allowed=False,
     ))
 
 
@@ -531,25 +525,8 @@ def _build_v1_candidate(
             producer_commit=V1_POOL_PRODUCER_COMMIT,
             source_family_id="story_scoped_publication_evidence_v1",
             adapter_id=str(adapter["adapter_id"]),
-            document_id=str(document["document_id"]),
-            source_native_id=str(document["source_native_id"]),
-            content_sha256=str(document["content_sha256"]),
-            source_native_status="eligible",
-            evidence_state="exact",
-            consumer_permission=(
-                "PUBLIC_CLAIM_ALLOWED"
-                if row.get("public_claim_allowed") is True
-                else "REPORTING_NOT_ALLOWED"
-            ),
-            dqr_reporting_allowed=(
-                (source.get("claim_permissions") or {}).get(
-                    "reporting_allowed"
-                )
-                is True
-            ),
             pool_id=str(pool["pool_id"]),
-            pool_logical_hash=str(pool["logical_hash"]),
-            candidate_evidence_hash=str(source["evidence_hash"]),
+            candidate_id=str(source["candidate_id"]),
             claim_id=claim_id,
         ))
         bindings.append(binding)

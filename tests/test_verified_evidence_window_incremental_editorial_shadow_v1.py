@@ -2,9 +2,14 @@ from __future__ import annotations
 
 import copy
 import inspect
+import json
 from pathlib import Path
 
 import pytest
+
+from live_contentops.capital_chronicle_content_evidence_packet_v3 import (
+    validate_content_evidence_packet_v3,
+)
 
 from live_contentops.editorial_review_orchestrator_v2 import ROLE_ORDER
 from live_contentops.universal_evidence_receipt_verifier_v1 import (
@@ -128,7 +133,7 @@ def test_runtime_receipt_rejects_invoked_callable_mismatch(authority):
         )
 
 
-def test_dbh2_receipt_rejects_future_known_record(authority):
+def _real_verifier(authority):
     if not (UPSTREAM_ROOT / ".git").exists():
         pytest.skip("governed upstream worktree unavailable")
     bridge = GovernedUpstreamBridgeV1(
@@ -136,13 +141,17 @@ def test_dbh2_receipt_rejects_future_known_record(authority):
         observed_head=OBSERVED_UPSTREAM_HEAD,
     )
     bridge.verify_all_local_artifacts()
-    verifier = EvidenceReceiptVerifierV1(
+    return bridge, EvidenceReceiptVerifierV1(
         authority=authority,
         primary_root=ROOT,
         upstream_root=UPSTREAM_ROOT,
         observed_upstream_head=OBSERVED_UPSTREAM_HEAD,
         bridge=bridge,
     )
+
+
+def test_dbh2_receipt_rejects_future_known_record(authority):
+    bridge, verifier = _real_verifier(authority)
     record = bridge.select_record(
         target_id="DBH2_USGS_SIGNIFICANT_GLOBAL",
         provider_record_type="usgs_event",
@@ -157,8 +166,47 @@ def test_dbh2_receipt_rejects_future_known_record(authority):
             record=record,
             source_family_id="dbh2_usgs_official_physical_event",
             adapter_id="contentops.dbh2.usgs_event.v1",
-            document_id="doc:future-control",
             verification_cutoff_utc="2026-07-10T00:30:00Z",
+        )
+
+
+def test_real_dbh2_verifier_rejects_consumer_permission_upgrade(authority):
+    bridge, verifier = _real_verifier(authority)
+    record = bridge.select_record(
+        target_id="DBH2_USGS_SIGNIFICANT_GLOBAL",
+        provider_record_type="usgs_event",
+        cutoff_utc="2026-07-10T07:30:00Z",
+        required_status="reviewed",
+    )
+    with pytest.raises(
+        EvidenceReceiptVerificationError,
+        match="dbh2_requested_consumer_permission_mismatch",
+    ):
+        verifier.verify_dbh2_record_binding(
+            record=record,
+            source_family_id="dbh2_usgs_official_physical_event",
+            adapter_id="contentops.dbh2.usgs_event.v1",
+            requested_consumer_permission="PUBLIC_CLAIM_ALLOWED",
+        )
+
+
+def test_real_dbh2_verifier_rejects_dqr_reporting_upgrade(authority):
+    bridge, verifier = _real_verifier(authority)
+    record = bridge.select_record(
+        target_id="DBH2_USGS_SIGNIFICANT_GLOBAL",
+        provider_record_type="usgs_event",
+        cutoff_utc="2026-07-10T07:30:00Z",
+        required_status="reviewed",
+    )
+    with pytest.raises(
+        EvidenceReceiptVerificationError,
+        match="dbh2_requested_dqr_reporting_state_mismatch",
+    ):
+        verifier.verify_dbh2_record_binding(
+            record=record,
+            source_family_id="dbh2_usgs_official_physical_event",
+            adapter_id="contentops.dbh2.usgs_event.v1",
+            requested_dqr_reporting_allowed=True,
         )
 
 
@@ -232,25 +280,68 @@ def test_context_only_candidates_abstain_from_article_generation(operation):
     )
 
 
-def test_assigned_candidate_handoff_is_lineage_bound_and_canonical(operation):
+def test_assigned_candidate_handoff_is_v3_lineage_bound_and_holds_without_gates(
+    operation,
+):
     handoff = operation["editorial_shadow_handoff"]
     packet = handoff["evidence_packet"]
     article = handoff["article"]
     review = handoff["editorial_review"]
-    assert handoff["disposition"] == (
-        "LOCAL_SHADOW_DRAFT_REVIEWED_NO_PUBLICATION"
+    graph = packet["governed_claim_graph"]
+
+    assert handoff["disposition"] == "LOCAL_SHADOW_DRAFT_HELD"
+    assert handoff["evidence_packet_contract"] == (
+        "V3_GENERIC_WITH_EXACT_V2_COMPATIBILITY_PROJECTION"
     )
     assert packet["validation_blockers"] == []
+    assert validate_content_evidence_packet_v3(packet) == []
+    assert packet["numeric_claims"] == packet[
+        "v2_compatibility_projection"
+    ]["numeric_claims"]
     assert packet["provenance"]["evidence_refs"]
-    assert set(article["claim_ids_used"]) == {
-        row["claim_id"]
-        for row in packet["numeric_claims"]
-        if row["public_claim_allowed"]
-    }
+    assert set(article["claim_ids_used"]) == set(graph["approved_claim_ids"])
     assert handoff["canonical_role_order"] == list(ROLE_ORDER)
     assert review["role_order"] == list(ROLE_ORDER)
-    assert review["status"] == "PASS"
-    assert all(row["status"] == "PASS" for row in review["roles"])
+    assert review["status"] == "BLOCK"
+    assert review["editorial_disposition"] == "HOLD"
+    assert handoff["freshness_decision"]["decision"] == "BLOCK"
+    assert handoff["visual_decision"]["status"] == "BLOCK"
+    assert "market_sensitive_story_snapshot_stale_or_missing" in review[
+        "blockers"
+    ]
+    assert "fewer_than_three_useful_visuals" in review["blockers"]
+
+
+def test_v3_packet_schema_and_permission_mutation_fail_closed(operation):
+    jsonschema = pytest.importorskip("jsonschema")
+    packet = operation["editorial_shadow_handoff"]["evidence_packet"]
+    schema = json.loads(
+        (ROOT / "schemas/CapitalChronicleContentEvidencePacketV3.schema.json")
+        .read_text(encoding="utf-8")
+    )
+    jsonschema.Draft202012Validator(schema).validate(packet)
+
+    mutated = copy.deepcopy(packet)
+    mutated["governed_claim_graph"]["claims"][0][
+        "permission_state"
+    ] = "PERMISSION_BLOCKED"
+    blockers = validate_content_evidence_packet_v3(mutated)
+    assert any("logical_hash_mismatch" in value for value in blockers)
+    assert any("approval_decision_mismatch" in value for value in blockers)
+
+
+def test_context_only_v3_packets_remain_explicit_abstentions(operation):
+    for abstention in operation["context_only_abstentions"]:
+        packet = abstention["evidence_packet"]
+        assert packet["schema_version"] == (
+            "capital_chronicle_content_evidence_packet.v3"
+        )
+        assert packet["v2_compatibility_projection"]["schema_version"] == (
+            "capital_chronicle_content_evidence_packet.v2"
+        )
+        assert packet["generic_claim_permissions"]["decision"] == "BLOCK"
+        assert abstention["article"] is None
+        assert abstention["editorial_review"] is None
 
 
 def test_operation_preserves_zero_write_and_advanced_branch_receipt(operation):

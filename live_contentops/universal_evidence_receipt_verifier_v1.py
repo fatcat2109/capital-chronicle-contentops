@@ -246,19 +246,24 @@ class EvidenceReceiptVerifierV1:
         record: Mapping[str, Any],
         source_family_id: str,
         adapter_id: str,
-        document_id: str,
-        evidence_state: str = "context",
-        consumer_permission: str = "CONTEXT_ONLY",
-        dqr_reporting_allowed: bool = False,
         verification_cutoff_utc: str | None = None,
+        requested_consumer_permission: str | None = None,
+        requested_dqr_reporting_allowed: bool | None = None,
     ) -> Mapping[str, Any]:
+        adapter = self.authority.adapter_bindings.get(adapter_id)
+        if not adapter or adapter.get("source_family_id") != source_family_id:
+            raise EvidenceReceiptVerificationError(
+                "verified_binding_adapter_family_mismatch"
+            )
+        discovery = adapter.get("discovery_contract") or {}
         connection = self.bridge.open_duckdb()
         try:
             row = connection.execute(
                 """
                 SELECT record_id, stable_record_id, target_id,
                        provider_record_id, provider_record_type, version_id,
-                       content_sha256, status, coalesce(updated_at, published_at)
+                       content_sha256, status, coalesce(updated_at, published_at),
+                       canonical_url, exact_authority
                   FROM dbh2_records
                  WHERE stable_record_id = ? AND version_id = ?
                 """,
@@ -278,6 +283,8 @@ class EvidenceReceiptVerifierV1:
             "content_sha256": row[6],
             "status": row[7],
             "known_at": str(row[8]),
+            "canonical_url": row[9],
+            "exact_authority": row[10],
         }
         for field in (
             "record_id",
@@ -293,6 +300,23 @@ class EvidenceReceiptVerifierV1:
                 raise EvidenceReceiptVerificationError(
                     f"dbh2_verified_record_mismatch:{field}"
                 )
+        expected_target = discovery.get("target_id")
+        expected_type = discovery.get("provider_record_type")
+        accepted_statuses = {
+            str(value) for value in discovery.get("accepted_statuses") or []
+        }
+        if expected_target and str(observed["target_id"]) != str(expected_target):
+            raise EvidenceReceiptVerificationError(
+                "dbh2_verified_record_registry_target_mismatch"
+            )
+        if expected_type and str(observed["provider_record_type"]) != str(expected_type):
+            raise EvidenceReceiptVerificationError(
+                "dbh2_verified_record_registry_type_mismatch"
+            )
+        if accepted_statuses and str(observed["status"]) not in accepted_statuses:
+            raise EvidenceReceiptVerificationError(
+                "dbh2_verified_record_registry_status_blocked"
+            )
         known_at = str(record.get("known_at_utc") or observed["known_at"])
         cutoff_utc = str(
             verification_cutoff_utc
@@ -303,6 +327,35 @@ class EvidenceReceiptVerifierV1:
             raise EvidenceReceiptVerificationError(
                 "dbh2_verified_record_future_known_at"
             )
+        consumer_permission = str(
+            discovery.get("consumer_permission")
+            or adapter.get("permission_ceiling")
+            or "PERMISSION_BLOCKED"
+        )
+        evidence_state = str(discovery.get("evidence_state") or "context")
+        dqr_reporting_allowed = (
+            consumer_permission == "PUBLIC_CLAIM_ALLOWED"
+            and evidence_state == "exact"
+            and bool(observed["exact_authority"])
+        )
+        if (
+            requested_consumer_permission is not None
+            and requested_consumer_permission != consumer_permission
+        ):
+            raise EvidenceReceiptVerificationError(
+                "dbh2_requested_consumer_permission_mismatch"
+            )
+        if (
+            requested_dqr_reporting_allowed is not None
+            and requested_dqr_reporting_allowed != dqr_reporting_allowed
+        ):
+            raise EvidenceReceiptVerificationError(
+                "dbh2_requested_dqr_reporting_state_mismatch"
+            )
+        document_id = (
+            f"dbh2-document:{observed['stable_record_id']}:"
+            f"{observed['version_id']}"
+        )
         bridge_packet = self.bridge.authority_packet()
         receipt = {
             "schema_version": DBH2_RECEIPT_SCHEMA,
@@ -324,12 +377,22 @@ class EvidenceReceiptVerifierV1:
             "stable_record_id": observed["stable_record_id"],
             "version_id": observed["version_id"],
             "provider_record_type": observed["provider_record_type"],
+            "document_id": document_id,
+            "source_native_id": observed["provider_record_id"],
+            "authorized_urls": (
+                [str(observed["canonical_url"])]
+                if observed["canonical_url"] else []
+            ),
             "content_sha256": observed["content_sha256"],
             "source_native_status": observed["status"],
+            "evidence_state": evidence_state,
+            "consumer_permission": consumer_permission,
+            "dqr_reporting_allowed": dqr_reporting_allowed,
             "record_known_at_utc": known_at,
             "verification_cutoff_utc": cutoff_utc,
             "point_in_time_eligible": True,
             "verified_from_read_only_database": True,
+            "authority_derived_from_manifest_row_and_registry": True,
         }
         receipt["logical_hash"] = _logical_hash(receipt)
         evidence_ref = (
@@ -357,17 +420,11 @@ class EvidenceReceiptVerifierV1:
         producer_commit: str,
         source_family_id: str,
         adapter_id: str,
-        document_id: str,
-        source_native_id: str,
-        content_sha256: str,
-        source_native_status: str,
-        evidence_state: str,
-        consumer_permission: str,
-        dqr_reporting_allowed: bool,
         pool_id: str,
-        pool_logical_hash: str,
-        candidate_evidence_hash: str,
+        candidate_id: str,
         claim_id: str,
+        requested_consumer_permission: str | None = None,
+        requested_dqr_reporting_allowed: bool | None = None,
     ) -> Mapping[str, Any]:
         content, git_receipt = read_git_artifact(
             root=self.upstream_root,
@@ -381,39 +438,122 @@ class EvidenceReceiptVerifierV1:
             raise EvidenceReceiptVerificationError(
                 "verified_git_artifact_json_malformed"
             ) from error
-        if (
-            artifact.get("pool_id") != pool_id
-            or artifact.get("logical_hash") != pool_logical_hash
-        ):
+        if artifact.get("pool_id") != pool_id:
             raise EvidenceReceiptVerificationError(
                 "verified_git_pool_identity_mismatch"
             )
-        candidates = list(artifact.get("eligible_candidates") or [])
         candidate = next(
             (
                 value
-                for value in candidates
-                if value.get("evidence_hash") == candidate_evidence_hash
+                for value in artifact.get("eligible_candidates") or []
+                if str(value.get("candidate_id")) == candidate_id
             ),
             None,
         )
-        if candidate is None or claim_id not in {
-            str(value.get("claim_id"))
-            for value in candidate.get("numeric_claims") or []
-        }:
+        if candidate is None:
+            raise EvidenceReceiptVerificationError(
+                "verified_git_candidate_identity_missing"
+            )
+        claim = next(
+            (
+                value
+                for value in candidate.get("numeric_claims") or []
+                if str(value.get("claim_id")) == claim_id
+            ),
+            None,
+        )
+        if claim is None:
             raise EvidenceReceiptVerificationError(
                 "verified_git_claim_lineage_missing"
+            )
+        documents = list(candidate.get("source_documents") or [])
+        source_id = str(claim.get("source_id") or "")
+        document = next(
+            (
+                value for value in documents
+                if str(value.get("document_id")) == source_id
+            ),
+            documents[0] if len(documents) == 1 else None,
+        )
+        if document is None:
+            raise EvidenceReceiptVerificationError(
+                "verified_git_claim_document_missing"
+            )
+        claim_permissions = candidate.get("claim_permissions") or {}
+        candidate_reporting_allowed = (
+            claim_permissions.get("reporting_allowed") is True
+        )
+        claim_permission = (
+            "PUBLIC_CLAIM_ALLOWED"
+            if claim.get("public_claim_allowed") is True
+            else "REPORTING_NOT_ALLOWED"
+        )
+        consumer_permission = (
+            claim_permission
+            if candidate_reporting_allowed
+            else "REPORTING_NOT_ALLOWED"
+        )
+        dqr_reporting_allowed = (
+            candidate_reporting_allowed
+            and claim_permission == "PUBLIC_CLAIM_ALLOWED"
+            and (candidate.get("authority") or {}).get("story_decision") == "ALLOW"
+        )
+        if (
+            requested_consumer_permission is not None
+            and requested_consumer_permission != consumer_permission
+        ):
+            raise EvidenceReceiptVerificationError(
+                "verified_git_requested_consumer_permission_mismatch"
+            )
+        if (
+            requested_dqr_reporting_allowed is not None
+            and requested_dqr_reporting_allowed != dqr_reporting_allowed
+        ):
+            raise EvidenceReceiptVerificationError(
+                "verified_git_requested_dqr_reporting_state_mismatch"
+            )
+        authorized_urls = sorted({
+            str(value)
+            for value in (document.get("source_url"), document.get("data_url"))
+            if value
+        })
+        evidence_state = str(candidate.get("evidence_class") or "unverified")
+        source_native_status = (
+            "eligible" if candidate.get("eligible") is True else "ineligible"
+        )
+        candidate_evidence_hash = str(candidate.get("evidence_hash") or "")
+        document_id = str(document.get("document_id") or "")
+        source_native_id = document_id
+        content_sha256 = str(
+            document.get("raw_sha256") or document.get("content_sha256") or ""
+        )
+        if not all((candidate_evidence_hash, document_id, content_sha256)):
+            raise EvidenceReceiptVerificationError(
+                "verified_git_authority_field_missing"
             )
         receipt = {
             "schema_version": GIT_RECEIPT_SCHEMA,
             "receipt_kind": "git_artifact",
             "exact_verified": True,
             **git_receipt.as_dict(),
-            "pool_id": pool_id,
-            "pool_logical_hash": pool_logical_hash,
+            "pool_id": str(artifact["pool_id"]),
+            "pool_logical_hash": str(artifact.get("logical_hash") or ""),
+            "candidate_id": str(candidate["candidate_id"]),
             "candidate_evidence_hash": candidate_evidence_hash,
-            "claim_id": claim_id,
+            "claim_id": str(claim["claim_id"]),
+            "claim_type": "numeric_observation",
+            "claim_permission": claim_permission,
+            "candidate_reporting_permission": candidate_reporting_allowed,
+            "dqr_reporting_allowed": dqr_reporting_allowed,
+            "document_id": document_id,
+            "source_native_id": source_native_id,
+            "authorized_urls": authorized_urls,
+            "content_sha256": content_sha256,
+            "source_native_status": source_native_status,
+            "consumer_permission": consumer_permission,
+            "evidence_state": evidence_state,
             "verified_from_exact_git_bytes": True,
+            "authority_fields_verifier_derived": True,
         }
         receipt["logical_hash"] = _logical_hash(receipt)
         evidence_ref = f"v1:{candidate_evidence_hash}:{claim_id}"

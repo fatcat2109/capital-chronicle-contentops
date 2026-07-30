@@ -11,6 +11,10 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from live_contentops.capital_chronicle_content_evidence_packet_v3 import (
+    build_content_evidence_packet_v3,
+    validate_content_evidence_packet_v3,
+)
 from live_contentops.cc_evidence_bridge_v2 import validate_evidence_packet
 from live_contentops.cross_domain_continuous_shadow_v1 import (
     _build_v1_candidate,
@@ -20,6 +24,10 @@ from live_contentops.editorial_review_orchestrator_v2 import (
     ROLE_ORDER,
     run_editorial_review,
 )
+from live_contentops.editorial_visual_research_v2 import (
+    evaluate_visual_composition,
+)
+from live_contentops.freshness_market_state_v2 import evaluate_freshness
 from live_contentops.governed_upstream_bridge_v1 import (
     GovernedArtifactBlocked,
     GovernedUpstreamBridgeV1,
@@ -135,11 +143,14 @@ def adapt_verified_dbh2_record_v2(
         record=record,
         source_family_id=family_id,
         adapter_id=adapter_id,
-        document_id=document["document_id"],
-        evidence_state=str(discovery["evidence_state"]),
-        consumer_permission=str(discovery["consumer_permission"]),
-        dqr_reporting_allowed=False,
     ))
+    document = {
+        **document,
+        "document_id": binding["document_id"],
+        "source_native_id": binding["source_native_id"],
+        "authorized_urls": list(binding["receipt"]["authorized_urls"]),
+        "content_sha256": binding["content_sha256"],
+    }
     evidence_ref = str(binding["evidence_ref"])
     payload = {
         output: _path_value(record, str(path))
@@ -507,64 +518,272 @@ def build_candidate_bound_evidence_packet(
     return packet
 
 
+def _shadow_structured_role_reviewer(
+    role: str,
+    context: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Derive a role decision from the exact V3 packet and final render."""
+
+    packet = context["evidence_packet"]
+    article = context["article"]
+    request = context["request"]
+    graph = packet.get("governed_claim_graph") or {}
+    claim_map = {
+        str(row["claim_id"]): row
+        for row in graph.get("claims") or []
+        if row.get("claim_id")
+    }
+    approved = {
+        str(value) for value in graph.get("approved_claim_ids") or []
+    }
+    used = {
+        str(value) for value in article.get("claim_ids_used") or []
+    }
+    common_checks = {
+        "v3_packet_hash_bound": bool(packet.get("logical_hash")),
+        "claim_set_governed": bool(used) and used.issubset(approved),
+    }
+    citations = article.get("claim_citations") or {}
+    authority_used = article.get("claim_authority_used") or {}
+    permission_used = article.get("claim_permissions_used") or {}
+    role_checks: dict[str, dict[str, bool]] = {
+        "assignment_editor": {
+            "assignment_mode_bound": (
+                request.get("article_mode") == article.get("article_mode")
+            ),
+            "story_type_present": bool(request.get("story_type")),
+        },
+        "evidence_planner": {
+            "packet_contract_valid": not validate_content_evidence_packet_v3(
+                packet
+            ),
+            "claim_lineage_complete": all(
+                claim_map[claim_id].get("evidence_refs")
+                and claim_map[claim_id].get("source_document_ids")
+                for claim_id in used & set(claim_map)
+            ),
+        },
+        "reporter_writer": {
+            "body_claim_set_exact": {
+                str(value)
+                for value in article.get("body_claim_ids_used") or []
+            } == used,
+            "governed_statements_present": all(
+                str(claim_map[claim_id].get("statement") or "").strip()
+                for claim_id in used & set(claim_map)
+            ),
+        },
+        "quantitative_editor": {
+            "numeric_authority_not_delegated": (
+                article.get("numeric_claims_from_llm") is False
+            ),
+            "numeric_claims_typed": all(
+                claim_map[claim_id].get("claim_type")
+                == "numeric_observation"
+                for claim_id in context.get("numeric_claim_ids") or []
+            ),
+        },
+        "visual_editor": {
+            "visual_decision_passed": (
+                context["visual_decision"].get("status") == "PASS"
+            ),
+            "visuals_do_not_claim_authority": (
+                not article.get("visual_claim_ids_used")
+            ),
+        },
+        "copy_editor": {
+            "final_render_present": bool(article.get("rendered_body")),
+            "single_financial_disclaimer": (
+                str(article.get("rendered_body") or "")
+                .casefold()
+                .count("not financial advice")
+                == 1
+            ),
+        },
+        "platform_editor": {
+            "hard_truncation_absent": (
+                article.get("hard_truncation_used") is False
+            ),
+            "draft_has_no_publication_authority": (
+                article.get("publication_authority") is False
+            ),
+        },
+        "adversarial_final_reviewer": {
+            "prior_roles_clear": not context.get("accumulated_blockers"),
+            "freshness_decision_passed": (
+                context["freshness_decision"].get("decision") == "PASS"
+            ),
+            "citation_bindings_exact": all(
+                sorted({
+                    str(value)
+                    for value in citations.get(claim_id) or []
+                    if value
+                })
+                == sorted({
+                    str(row["url"])
+                    for row in claim_map[claim_id].get("citations") or []
+                    if row.get("url")
+                })
+                for claim_id in used & set(claim_map)
+            ),
+            "authority_and_permission_not_upgraded": all(
+                authority_used.get(claim_id)
+                == claim_map[claim_id].get("authority_class")
+                and permission_used.get(claim_id)
+                == claim_map[claim_id].get("permission_state")
+                for claim_id in used & set(claim_map)
+            ),
+        },
+    }
+    checks = {**common_checks, **role_checks[role]}
+    failed = sorted(name for name, passed in checks.items() if not passed)
+    return {
+        "decision": "PASS" if not failed else "BLOCK",
+        "publication_authority": False,
+        "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK",
+        "review_basis": {
+            "role": role,
+            "checks_derived_from_final_render_and_v3_packet": True,
+        },
+        "reviewed_claim_ids": sorted(used),
+        "evidence_packet_logical_hash": packet.get("logical_hash"),
+        "checks": checks,
+        "blockers": failed,
+    }
+
+
 def build_canonical_editorial_shadow_handoff(
     candidate: Mapping[str, Any],
     *,
     generated_at_utc: str,
 ) -> dict[str, Any]:
-    packet = build_candidate_bound_evidence_packet(
+    v2_packet = build_candidate_bound_evidence_packet(
         candidate,
         generated_at_utc=generated_at_utc,
     )
-    if packet["public_claim_permissions"]["decision"] != "ALLOW":
+    packet = build_content_evidence_packet_v3(
+        candidate,
+        generated_at_utc=generated_at_utc,
+        v2_packet=v2_packet,
+    )
+    validation_blockers = validate_content_evidence_packet_v3(packet)
+    if validation_blockers:
+        raise ValueError(
+            "canonical_editorial_v3_packet_invalid:"
+            + ",".join(validation_blockers)
+        )
+    approval_by_id = {
+        str(row["claim_id"]): row
+        for row in packet["governed_claim_graph"]["approval_decisions"]
+    }
+    source_authority_adjudication = [
+        {
+            "claim_id": str(claim["claim_id"]),
+            "claim_type": claim.get("claim_type"),
+            "source_document_ids": list(
+                claim.get("source_document_ids") or []
+            ),
+            "evidence_refs": list(claim.get("evidence_refs") or []),
+            "authority_class": claim.get("authority_class"),
+            "permission_state": claim.get("permission_state"),
+            "approved_for_reporting": approval_by_id[
+                str(claim["claim_id"])
+            ]["approved_for_reporting"],
+            "blockers": list(
+                approval_by_id[str(claim["claim_id"])]["blockers"]
+            ),
+        }
+        for claim in packet["governed_claim_graph"]["claims"]
+    ]
+    if packet["generic_claim_permissions"]["decision"] != "ALLOW":
         return {
             "schema_version": "contentops.canonical_editorial_shadow_handoff.v1",
             "candidate_id": candidate["candidate_id"],
             "disposition": "ABSTAIN_CONTEXT_ONLY_OR_UNAUTHORIZED",
+            "evidence_packet_contract": (
+                "V3_GENERIC_WITH_EXACT_V2_COMPATIBILITY_PROJECTION"
+            ),
             "evidence_packet": packet,
+            "source_authority_adjudication": source_authority_adjudication,
             "canonical_role_order": list(ROLE_ORDER),
             "editorial_review": None,
             "article": None,
             "publication_authority": False,
             "public_write_performed": False,
         }
-    approved = [
-        row for row in packet["numeric_claims"] if row["public_claim_allowed"]
-    ]
-    claim_ids = [row["claim_id"] for row in approved]
-    numeric_sentence = "; ".join(
-        f"{row['metric']}: {row['value']} {row['unit']}" for row in approved
+    claim_map = {
+        str(row["claim_id"]): row
+        for row in packet["governed_claim_graph"]["claims"]
+    }
+    claim_ids = list(
+        packet["governed_claim_graph"]["approved_claim_ids"]
     )
+    approved = [claim_map[claim_id] for claim_id in claim_ids]
+    statements = [
+        str(claim.get("statement") or "").strip() for claim in approved
+    ]
+    lead_claim_ids = claim_ids[:1]
+    lead_statement = statements[0] if statements else ""
     article = {
-        "title": candidate["title"],
-        "summary": candidate["summary"],
+        "title": lead_statement,
+        "summary": lead_statement,
         "rendered_body": (
-            f"{candidate['summary']}\n\nVerified observations: "
-            f"{numeric_sentence}.\n\nNot financial advice."
+            "\n\n".join(statements) + "\n\nNot financial advice."
         ),
         "article_mode": "evidence_bound_shadow_draft",
         "as_of_utc": generated_at_utc,
         "claim_ids_used": claim_ids,
+        "title_claim_ids_used": lead_claim_ids,
+        "summary_claim_ids_used": lead_claim_ids,
+        "body_claim_ids_used": claim_ids,
+        "claim_citations": {
+            claim_id: sorted({
+                str(row["url"])
+                for row in claim_map[claim_id].get("citations") or []
+                if row.get("url")
+            })
+            for claim_id in claim_ids
+        },
+        "claim_authority_used": {
+            claim_id: claim_map[claim_id]["authority_class"]
+            for claim_id in claim_ids
+        },
+        "claim_permissions_used": {
+            claim_id: claim_map[claim_id]["permission_state"]
+            for claim_id in claim_ids
+        },
+        "market_reaction_claim_ids": [
+            claim_id
+            for claim_id in claim_ids
+            if claim_map[claim_id].get("claim_type") == "market_reaction"
+        ],
         "numeric_claims_from_llm": False,
         "cross_asset_assertions": False,
         "hard_truncation_used": False,
         "quantitative_blockers": [],
         "publication_authority": False,
     }
+    review_request = {
+        "story_type": "evidence_bound_news_analysis",
+        "article_mode": "analysis",
+        "workflow_mode": "evidence_bound_shadow_draft",
+        "market_sensitive": True,
+        "fresh_material_delta": False,
+    }
+    article["article_mode"] = review_request["article_mode"]
+    article["workflow_mode"] = review_request["workflow_mode"]
+    freshness_decision = evaluate_freshness(packet, review_request)
+    visual_decision = evaluate_visual_composition(
+        list(packet.get("candidate_visual_inputs") or []),
+        story_type=str(review_request["story_type"]),
+    )
     review = run_editorial_review(
-        request={
-            "story_type": "evidence_bound_news_analysis",
-            "article_mode": "evidence_bound_shadow_draft",
-            "market_sensitive": True,
-        },
+        request=review_request,
         packet=packet,
         article=article,
-        freshness_decision={"decision": "PASS", "blockers": []},
-        visual_decision={"status": "PASS", "blockers": []},
-        structured_reviewer=lambda _role, _payload: {
-            "decision": "PASS",
-            "publication_authority": False,
-        },
+        freshness_decision=freshness_decision,
+        visual_decision=visual_decision,
+        structured_reviewer=_shadow_structured_role_reviewer,
     )
     return {
         "schema_version": "contentops.canonical_editorial_shadow_handoff.v1",
@@ -574,9 +793,15 @@ def build_canonical_editorial_shadow_handoff(
             if review["status"] == "PASS"
             else "LOCAL_SHADOW_DRAFT_HELD"
         ),
+        "evidence_packet_contract": (
+            "V3_GENERIC_WITH_EXACT_V2_COMPATIBILITY_PROJECTION"
+        ),
         "evidence_packet": packet,
+        "source_authority_adjudication": source_authority_adjudication,
         "canonical_role_order": list(ROLE_ORDER),
         "editorial_review": review,
+        "freshness_decision": freshness_decision,
+        "visual_decision": visual_decision,
         "article": article,
         "publication_authority": False,
         "public_write_performed": False,
