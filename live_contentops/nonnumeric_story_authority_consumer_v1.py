@@ -39,8 +39,8 @@ AUTHORIZED_CLAIM_IDS = (
     "claim-1936ed019eb6602d",
 )
 CANONICAL_CLAIM_TYPES = {
-    "official_regulatory_action": "official_action",
-    "official_regulatory_limitation": "legal_or_regulatory_action",
+    "official_regulatory_action": "legal_or_regulatory_action",
+    "official_regulatory_limitation": "factual_text",
 }
 
 
@@ -271,7 +271,7 @@ def build_nonnumeric_story_candidate_v1(
             "repository": receipt["repository"],
             "branch": receipt["branch"],
             "producer_commit": receipt["producer_commit"],
-            "path": receipt["path"],
+            "path": receipt["artifact_path"],
             "packet_id": receipt["packet_id"],
             "packet_logical_hash": receipt["packet_logical_hash"],
             "target_id": receipt["target_id"],

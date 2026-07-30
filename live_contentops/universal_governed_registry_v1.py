@@ -18,8 +18,8 @@ from typing import Any, Mapping, Sequence
 REPOSITORY = "fatcat2109/capital-chronicle-contentops"
 BRANCH = "master"
 STARTING_AUTHORITY_COMMIT = "7c5ea920cadb6efb3a8b85282f43eb05c5544374"
-REGISTRY_PRODUCER_COMMIT = "1b624c17042246a2a867288389566329102cbdce"
-AUTHORITY_MANIFEST_COMMIT = "d22a2f38e22a280096048c10ed1f8423ae4dd391"
+REGISTRY_PRODUCER_COMMIT = "55fda81b70174e1d2def169795db26fa2dcde8a0"
+AUTHORITY_MANIFEST_COMMIT = "ef9ec01d35e824adbf9a5d9988af21794f81f313"
 AUTHORITY_MANIFEST_PATH = (
     "live_contentops/governed_universal_registry_authority_manifest_v1.json"
 )
