@@ -3,7 +3,7 @@
     "commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
     "policy": "first_committed_governed_baseline_replacing_implicit_adapter_identity"
   },
-  "logical_hash": "597e087dd9e275302fbf72d317bbf8cf400432bfb546ec5e1749c741f4127411",
+  "logical_hash": "e039063fce1c289dd0331347748d7cd867e4d07c7398a4a5cd172316b03420a2",
   "records": [
     {
       "accepted_evidence_binding": "v1_pool_exact_candidate_binding_v1",
@@ -1157,8 +1157,52 @@
       "permission_derivation_rule": "CONTEXT_ONLY_CEILING",
       "record_id": "adapter-binding:dbh2_usgs_event:v4",
       "source_family_id": "dbh2_usgs_official_physical_event"
+    },
+    {
+      "accepted_evidence_binding": "verifier_produced_nonnumeric_story_authority_binding_v1",
+      "accepted_evidence_binding_ids": [
+        "verifier_produced_nonnumeric_story_authority_binding_v1"
+      ],
+      "accepted_source_native_statuses": [
+        "Rule"
+      ],
+      "adapter_id": "contentops.nonnumeric_story_authority_consumer.v1",
+      "authority_ceiling": "OFFICIAL_VERIFIED",
+      "authority_derivation_rule": "VERIFIED_EXACT_GIT_NONNUMERIC_STORY_AUTHORITY_REQUIRED",
+      "discovery_contract": {
+        "artifact_path": "docs/research/publication_evidence/current/CapitalChronicleNonnumericStoryScopedReportingAuthorityV1.json",
+        "consumer_permission": "PUBLIC_CLAIM_ALLOWED",
+        "evidence_state": "exact",
+        "kind": "GIT_NONNUMERIC_STORY_AUTHORITY",
+        "producer_commit": "ce4d011059b4a78eec47455821f93c418090d944",
+        "required_claim_ids": [
+          "claim-bfca0e50bb4f64d0",
+          "claim-1936ed019eb6602d"
+        ],
+        "target_id": "DBH2_FEDERAL_REGISTER_FED_SYSTEM"
+      },
+      "enabled": true,
+      "implementation_identity": "live_contentops.nonnumeric_story_authority_consumer_v1.build_nonnumeric_story_shadow_packet_v1",
+      "logical_hash": "15a8418868efc33ca183d462ae6faf470fd77d6f4d8c07e9bb1c5e9b07b94286",
+      "permission_ceiling": "PUBLIC_CLAIM_ALLOWED",
+      "permission_derivation_rule": "EXACT_STORY_CLAIM_SET_CONSUMER_AND_DQR_MINIMUM",
+      "record_id": "adapter-binding:nonnumeric_story_authority:v1",
+      "source_family_id": "nonnumeric_story_scoped_publication_evidence_v1",
+      "implementation_receipt": {
+        "branch": "master",
+        "byte_length": 13491,
+        "byte_sha256": "b6afb86a30997acfdf0c595a1412862a3a77669b036fb42eeeb34362059b6513",
+        "callable_identity": "live_contentops.nonnumeric_story_authority_consumer_v1.build_nonnumeric_story_shadow_packet_v1",
+        "git_blob_sha1": "e54b4921c49784731298aadcffcf4d20a3512a2a",
+        "implementation_contract_version": "contentops.nonnumeric_story_authority_consumer.v1",
+        "path": "live_contentops/nonnumeric_story_authority_consumer_v1.py",
+        "producer_commit": "3d241916cde448db4d7747ea7449f0efea11cadf",
+        "repository": "fatcat2109/capital-chronicle-contentops",
+        "schema_version": "contentops.verified_implementation_receipt.v1",
+        "logical_hash": "dfaef049a5708d6632b5ab2c69b2ae4fdad2ea5a3ddc6acaa7786996ce4d56e8"
+      }
     }
   ],
-  "registry_version": "contentops.governed_adapter_source_bindings.v1.4.0",
+  "registry_version": "contentops.governed_adapter_source_bindings.v1.5.0",
   "schema_version": "contentops.governed_adapter_source_binding_registry.v1"
 }
