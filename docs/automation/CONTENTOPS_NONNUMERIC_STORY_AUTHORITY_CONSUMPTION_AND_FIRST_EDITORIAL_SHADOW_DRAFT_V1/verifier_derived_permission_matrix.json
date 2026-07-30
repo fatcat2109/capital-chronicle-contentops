@@ -1,0 +1,76 @@
+{
+  "artifact_path": "docs/research/publication_evidence/current/CapitalChronicleNonnumericStoryScopedReportingAuthorityV1.json",
+  "authority_fields_verifier_derived": true,
+  "authorized_claim_ids": [
+    "claim-bfca0e50bb4f64d0",
+    "claim-1936ed019eb6602d"
+  ],
+  "authorized_claims": [
+    {
+      "claim_id": "claim-bfca0e50bb4f64d0",
+      "claim_type": "official_regulatory_action",
+      "contains_numeric_assertion": false,
+      "interpretation_allowed": false,
+      "reporting_allowed": true,
+      "source_field": "selected_raw_record.abstract",
+      "text": "The OCC, Board, FDIC, NCUA, CFPB, FHFA, CFTC, SEC, and Treasury are publishing a final joint rule to establish data standards to promote interoperability of financial regulatory data across these agencies."
+    },
+    {
+      "claim_id": "claim-1936ed019eb6602d",
+      "claim_type": "official_regulatory_limitation",
+      "contains_numeric_assertion": false,
+      "interpretation_allowed": false,
+      "reporting_allowed": true,
+      "source_field": "selected_raw_record.abstract",
+      "text": "At the effective date, the joint rule will not change any reporting requirements without further action by the agencies."
+    }
+  ],
+  "authorized_urls": [
+    "https://www.federalregister.gov/documents/2026/06/25/2026-12787/financial-data-transparency-act-joint-data-standards",
+    "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/2026-12787.pdf"
+  ],
+  "branch": "main",
+  "byte_length": 12528,
+  "byte_sha256": "c4195026561406d3c6f9c510ee5c65783760a171d8135a469b7369d37801571f",
+  "consumer_permission": "PUBLIC_CLAIM_ALLOWED",
+  "content_sha256": "63641fe4cec40cad1834708798b51ca38de3739f16756123de1dd8eaafe74f30",
+  "dispatch_allowed": false,
+  "dqr_reporting_allowed": true,
+  "exact_verified": true,
+  "git_blob_sha1": "a773138580ce50e9dbe72bbff144b4f4081e35a1",
+  "global_dqr_override": false,
+  "global_dqr_status": "BLOCKED",
+  "logical_hash": "aea5640563c23a7824d451f123230c614fe25c572ba1306933cdad7c215fb48c",
+  "numeric_reporting_allowed": false,
+  "observed_head": "0f5edd5ae2a2f304a72e086c0ab02519bda19fbc",
+  "ofac_context_only": true,
+  "packet_id": "cc-nonnumeric-f93c722c9c8f46741bb8",
+  "packet_logical_hash": "a5e0da85680421be8c9de713a8ab433670a6ac6f568d0e4fbb526a4a92a84291",
+  "packet_schema_version": "capital_chronicle.nonnumeric_story_scoped_reporting_authority.v1",
+  "packet_terminal_status": "PASS_NONNUMERIC_STORY_SCOPED_REPORTING_AUTHORITY_V1_AWAITING_CHATGPT_AUDIT",
+  "producer_commit": "ce4d011059b4a78eec47455821f93c418090d944",
+  "public_use_scope": {
+    "attribution_required": true,
+    "basis": "official_federal_register_and_govinfo_public_record",
+    "copyright_ownership_adjudicated": false,
+    "decision": "PASS_OFFICIAL_PUBLIC_RECORD_FACTUAL_REPORTING",
+    "scope": "quote_or_paraphrase_packet_claims_with_official_source_attribution"
+  },
+  "receipt_source": "independent_git_object_verification_not_upstream_closeout_checkout_hash",
+  "repository": "fatcat2109/Headline-Raw-data-json",
+  "schema_version": "contentops.nonnumeric_story_exact_upstream_authority_receipt_evidence.v1",
+  "source_family_wide_authority": false,
+  "status": "PASS",
+  "task": "TASK_CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1",
+  "timestamps": {
+    "event_at": "2026-06-25",
+    "event_precision": "DAY",
+    "known_at_precision": "MICROSECOND",
+    "known_at_utc": "2026-07-12T16:18:42.619968+00:00",
+    "provider_updated_at": "2026-06-25",
+    "published_at": "2026-06-25",
+    "published_precision": "DAY",
+    "revision_precision": "DAY"
+  },
+  "verified_from_exact_git_bytes": true
+}

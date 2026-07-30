@@ -1,0 +1,50 @@
+{
+  "artifact_receipts": [
+    {
+      "byte_length": 1081,
+      "byte_sha256": "2e1653c878264b42a6607d8398864b85013a1778f894b70ecff15f852ccb2eaa",
+      "path": "docs/automation/CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1/deterministic_replay_and_safety.json"
+    },
+    {
+      "byte_length": 31644,
+      "byte_sha256": "7c2b2f3197f94510391d7b2061b4f3990d3874249cce3a572cd525d361a3335f",
+      "path": "docs/automation/CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1/generic_v3_claim_packet_and_editorial_outcome.json"
+    },
+    {
+      "byte_length": 22355,
+      "byte_sha256": "efb9cdcf16ec9ccf435214b330130a4195743d95ecfdd73629c315f20667393b",
+      "path": "docs/automation/CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1/nonnumeric_source_authority_adjudication.json"
+    },
+    {
+      "byte_length": 1592,
+      "byte_sha256": "e59ca0deacf27d6d9d2953fb4f8188dbb5c789f40c408ab35ec3cc707b67dc7c",
+      "path": "docs/automation/CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1/validation_truth.json"
+    },
+    {
+      "byte_length": 3645,
+      "byte_sha256": "9371fb1dd0c944368128e9ac8ec6273b681bf8c674f2522d1bb1a1bc3ff97aa8",
+      "path": "docs/automation/CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1/verifier_derived_permission_matrix.json"
+    }
+  ],
+  "authorized_claim_ids": [
+    "claim-bfca0e50bb4f64d0",
+    "claim-1936ed019eb6602d"
+  ],
+  "canonical_shadow_state": "LOCAL_SHADOW_DRAFT_HELD",
+  "classification": "PASS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1_AWAITING_CHATGPT_AUDIT",
+  "editorial_disposition": "HOLD",
+  "global_dqr_status": "BLOCKED",
+  "implementation_commit": "14f76348df8ee2b7d0d0035221b8fa96205d2472",
+  "implementation_scope_status": "PASS",
+  "logical_hash": "eab0293721527b507728f67146814cf85ef764e90efa231f945a1ecb10fe2592",
+  "next_action": "INDEPENDENT_CHATGPT_AUDIT_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1",
+  "public_write_count": 0,
+  "publication_count": 0,
+  "schema_version": "contentops.nonnumeric_story_authority_consumption_terminal_manifest.v1",
+  "task": "TASK_CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1",
+  "upstream_packet_byte_sha256": "c4195026561406d3c6f9c510ee5c65783760a171d8135a469b7369d37801571f",
+  "upstream_packet_id": "cc-nonnumeric-f93c722c9c8f46741bb8",
+  "upstream_producer_commit": "ce4d011059b4a78eec47455821f93c418090d944",
+  "upstream_repository": "fatcat2109/Headline-Raw-data-json",
+  "upstream_write_count": 0
+}

@@ -8,7 +8,7 @@ Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicl
 
 Authority date: 2026-07-14
 
-Current architecture classification: `BLOCKED_NONNUMERIC_REPORTING_AUTHORITY_INPUT_MISSING`.
+Current architecture classification: `PASS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1_AWAITING_CHATGPT_AUDIT`.
 
 Current accepted public release: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
 
@@ -92,9 +92,11 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1` — `BLOCKED_NONNUMERIC_REPORTING_AUTHORITY_INPUT_MISSING` with implementation scope `PASS`.
+Current completed architecture task: `TASK_CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1` — `PASS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1_AWAITING_CHATGPT_AUDIT`.
 
-The bounded completion derives permission only from verifier-produced bindings, activates exact committed runtime receipts through the superseding authority manifest, and adds `CapitalChronicleContentEvidencePacketV3` with an exact V2 numeric projection. Generic approved-claim editorial validation produces one local held draft. All 20 nonnumeric candidates honestly abstain because their governed source families remain `CONTEXT_ONLY`; no authority is fabricated and publication/public-write counts remain zero. Evidence is at `docs/automation/CONTENTOPS_VERIFIER_DERIVED_PERMISSION_GENERIC_CLAIM_PACKET_AND_CROSS_DOMAIN_EDITORIAL_SHADOW_V1/final_manifest.json`.
+The bounded completion consumes exact Git bytes for upstream packet `cc-nonnumeric-f93c722c9c8f46741bb8` at producer commit `ce4d011059b4a78eec47455821f93c418090d944`, derives typed authority for exactly two nonnumeric claims, and passes them through governed candidate validation, the V3 claim graph, and all eight canonical editorial roles. The result is the first evidence-bound nonnumeric local draft with terminal state `LOCAL_SHADOW_DRAFT_HELD`, not an authority-missing abstention. Freshness, market, visual, candidate-publication, and global-DQR gates truthfully keep review at `HOLD/BLOCK`; publication and all write counts remain zero. Evidence is at `docs/automation/CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1/final_manifest.json`.
+
+The predecessor verifier-derived permission task remains accepted historical evidence: its 20 cross-domain candidates are still context-only and its prior `BLOCKED_NONNUMERIC_REPORTING_AUTHORITY_INPUT_MISSING` result is superseded only for this exact story-scoped packet.
 
 The accepted prior adapter wave is retained as `PASS_PRODUCTION_ADAPTER_WAVE_3_AND_WAVE_2_CONTRACT_REPAIR_V1_WITH_TARGETED_CAPABILITY_METADATA_AND_COVERAGE_EVIDENCE_GAPS`. The conformance repair binds truthful versioned capability metadata across all 13 accepted adapters, exact immutable runtime/evidence proofs across all 16 enabled extractor records, and a four-family numeric/policy/physical/qualitative composite canary through the unchanged generic core. The historical Task 0073 full-suite failure is repaired by resolving the exact committed cleanup-archive blob; no historical document is fabricated or rewritten. All outputs remain context-only, uncalibrated, and no-publication.
 

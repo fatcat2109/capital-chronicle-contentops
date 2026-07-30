@@ -1,0 +1,753 @@
+{
+  "article": {
+    "article_mode": "analysis",
+    "as_of_utc": "2026-07-12T16:18:42.619968+00:00",
+    "body_claim_ids_used": [
+      "claim-bfca0e50bb4f64d0",
+      "claim-1936ed019eb6602d"
+    ],
+    "claim_authority_used": {
+      "claim-1936ed019eb6602d": "OFFICIAL_VERIFIED",
+      "claim-bfca0e50bb4f64d0": "OFFICIAL_VERIFIED"
+    },
+    "claim_citations": {
+      "claim-1936ed019eb6602d": [
+        "https://www.federalregister.gov/documents/2026/06/25/2026-12787/financial-data-transparency-act-joint-data-standards",
+        "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/2026-12787.pdf"
+      ],
+      "claim-bfca0e50bb4f64d0": [
+        "https://www.federalregister.gov/documents/2026/06/25/2026-12787/financial-data-transparency-act-joint-data-standards",
+        "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/2026-12787.pdf"
+      ]
+    },
+    "claim_ids_used": [
+      "claim-bfca0e50bb4f64d0",
+      "claim-1936ed019eb6602d"
+    ],
+    "claim_permissions_used": {
+      "claim-1936ed019eb6602d": "PUBLIC_CLAIM_ALLOWED",
+      "claim-bfca0e50bb4f64d0": "PUBLIC_CLAIM_ALLOWED"
+    },
+    "cross_asset_assertions": false,
+    "hard_truncation_used": false,
+    "market_reaction_claim_ids": [],
+    "numeric_claims_from_llm": false,
+    "publication_authority": false,
+    "quantitative_blockers": [],
+    "rendered_body": "The OCC, Board, FDIC, NCUA, CFPB, FHFA, CFTC, SEC, and Treasury are publishing a final joint rule to establish data standards to promote interoperability of financial regulatory data across these agencies.\n\nAt the effective date, the joint rule will not change any reporting requirements without further action by the agencies.\n\nNot financial advice.",
+    "summary": "The OCC, Board, FDIC, NCUA, CFPB, FHFA, CFTC, SEC, and Treasury are publishing a final joint rule to establish data standards to promote interoperability of financial regulatory data across these agencies.",
+    "summary_claim_ids_used": [
+      "claim-bfca0e50bb4f64d0"
+    ],
+    "title": "The OCC, Board, FDIC, NCUA, CFPB, FHFA, CFTC, SEC, and Treasury are publishing a final joint rule to establish data standards to promote interoperability of financial regulatory data across these agencies.",
+    "title_claim_ids_used": [
+      "claim-bfca0e50bb4f64d0"
+    ],
+    "workflow_mode": "evidence_bound_shadow_draft"
+  },
+  "authorized_claim_ids": [
+    "claim-bfca0e50bb4f64d0",
+    "claim-1936ed019eb6602d"
+  ],
+  "candidate_id": "cc-candidate-c105e9a52d90cc1c8e03",
+  "canonical_role_order": [
+    "assignment_editor",
+    "evidence_planner",
+    "reporter_writer",
+    "quantitative_editor",
+    "visual_editor",
+    "copy_editor",
+    "platform_editor",
+    "adversarial_final_reviewer"
+  ],
+  "disposition": "LOCAL_SHADOW_DRAFT_HELD",
+  "editorial_review": {
+    "approved_claim_ids": [
+      "claim-1936ed019eb6602d",
+      "claim-bfca0e50bb4f64d0"
+    ],
+    "blockers": [
+      "fewer_than_three_useful_visuals",
+      "insufficient_visual_evidence_diversity",
+      "lead_visual_missing",
+      "structured_role_review_failed_or_claimed_authority:visual_editor",
+      "candidate_public_claim_permission_blocked",
+      "analysis_requires_fresh_material_delta_or_current_reaction",
+      "market_sensitive_story_snapshot_stale_or_missing",
+      "market_sensitive_story_ingest_stale_or_missing",
+      "structured_adversarial_review_failed_or_claimed_authority"
+    ],
+    "deterministic_blockers_authoritative": true,
+    "editorial_disposition": "HOLD",
+    "final_render_reviewed": true,
+    "governed_claim_contract": "V3_GENERIC_CLAIM_GRAPH",
+    "numeric_claim_ids_used": [],
+    "packet_hash": "b9490420e55177d80293e489dc9381669573c110e666f8fef0402b8b590aab57",
+    "publication_authority": false,
+    "revision_contract_status": "NOT_REQUESTED",
+    "role_order": [
+      "assignment_editor",
+      "evidence_planner",
+      "reporter_writer",
+      "quantitative_editor",
+      "visual_editor",
+      "copy_editor",
+      "platform_editor",
+      "adversarial_final_reviewer"
+    ],
+    "roles": [
+      {
+        "blockers": [],
+        "output_hash": "63f56919ca2424c5b46afa7470ddef32a637d811cfe6ec1d23b5a97a5b846607",
+        "role": "assignment_editor",
+        "status": "PASS",
+        "structured_review": {
+          "blockers": [],
+          "checks": {
+            "assignment_mode_bound": true,
+            "claim_set_governed": true,
+            "story_type_present": true,
+            "v3_packet_hash_bound": true
+          },
+          "decision": "PASS",
+          "evidence_packet_logical_hash": "42780c40ca791aea58551f49e21a6ea8b5516992cafb9b97fef9f7d43140be77",
+          "publication_authority": false,
+          "review_basis": {
+            "checks_derived_from_final_render_and_v3_packet": true,
+            "role": "assignment_editor"
+          },
+          "reviewed_claim_ids": [
+            "claim-1936ed019eb6602d",
+            "claim-bfca0e50bb4f64d0"
+          ],
+          "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+        }
+      },
+      {
+        "blockers": [],
+        "output_hash": "72f47997b65dce5ad7d4fb444d13d01112d591aa90b41709067e2996d4e68e1f",
+        "role": "evidence_planner",
+        "status": "PASS",
+        "structured_review": {
+          "blockers": [],
+          "checks": {
+            "claim_lineage_complete": true,
+            "claim_set_governed": true,
+            "packet_contract_valid": true,
+            "v3_packet_hash_bound": true
+          },
+          "decision": "PASS",
+          "evidence_packet_logical_hash": "42780c40ca791aea58551f49e21a6ea8b5516992cafb9b97fef9f7d43140be77",
+          "publication_authority": false,
+          "review_basis": {
+            "checks_derived_from_final_render_and_v3_packet": true,
+            "role": "evidence_planner"
+          },
+          "reviewed_claim_ids": [
+            "claim-1936ed019eb6602d",
+            "claim-bfca0e50bb4f64d0"
+          ],
+          "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+        }
+      },
+      {
+        "blockers": [],
+        "output_hash": "ec17c53f2079f33f0696e546ee43e2280b7271c4801190997787b5e975d89d25",
+        "role": "reporter_writer",
+        "status": "PASS",
+        "structured_review": {
+          "blockers": [],
+          "checks": {
+            "body_claim_set_exact": true,
+            "claim_set_governed": true,
+            "governed_statements_present": true,
+            "v3_packet_hash_bound": true
+          },
+          "decision": "PASS",
+          "evidence_packet_logical_hash": "42780c40ca791aea58551f49e21a6ea8b5516992cafb9b97fef9f7d43140be77",
+          "publication_authority": false,
+          "review_basis": {
+            "checks_derived_from_final_render_and_v3_packet": true,
+            "role": "reporter_writer"
+          },
+          "reviewed_claim_ids": [
+            "claim-1936ed019eb6602d",
+            "claim-bfca0e50bb4f64d0"
+          ],
+          "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+        }
+      },
+      {
+        "blockers": [],
+        "output_hash": "6d2d28c0f08c0263c2fa8261de918d9d3b30387302945787bac1df654baf9b31",
+        "role": "quantitative_editor",
+        "status": "PASS",
+        "structured_review": {
+          "blockers": [],
+          "checks": {
+            "claim_set_governed": true,
+            "numeric_authority_not_delegated": true,
+            "numeric_claims_typed": true,
+            "v3_packet_hash_bound": true
+          },
+          "decision": "PASS",
+          "evidence_packet_logical_hash": "42780c40ca791aea58551f49e21a6ea8b5516992cafb9b97fef9f7d43140be77",
+          "publication_authority": false,
+          "review_basis": {
+            "checks_derived_from_final_render_and_v3_packet": true,
+            "role": "quantitative_editor"
+          },
+          "reviewed_claim_ids": [
+            "claim-1936ed019eb6602d",
+            "claim-bfca0e50bb4f64d0"
+          ],
+          "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+        }
+      },
+      {
+        "blockers": [
+          "fewer_than_three_useful_visuals",
+          "insufficient_visual_evidence_diversity",
+          "lead_visual_missing",
+          "structured_role_review_failed_or_claimed_authority:visual_editor"
+        ],
+        "output_hash": "8fa3d2f44752c6b2a8a6e03dff9dcd502755f1d77a13594eb60e8e5a47455cac",
+        "role": "visual_editor",
+        "status": "BLOCK",
+        "structured_review": {
+          "blockers": [
+            "visual_decision_passed"
+          ],
+          "checks": {
+            "claim_set_governed": true,
+            "v3_packet_hash_bound": true,
+            "visual_decision_passed": false,
+            "visuals_do_not_claim_authority": true
+          },
+          "decision": "BLOCK",
+          "evidence_packet_logical_hash": "42780c40ca791aea58551f49e21a6ea8b5516992cafb9b97fef9f7d43140be77",
+          "publication_authority": false,
+          "review_basis": {
+            "checks_derived_from_final_render_and_v3_packet": true,
+            "role": "visual_editor"
+          },
+          "reviewed_claim_ids": [
+            "claim-1936ed019eb6602d",
+            "claim-bfca0e50bb4f64d0"
+          ],
+          "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+        }
+      },
+      {
+        "blockers": [],
+        "output_hash": "1c64fdd4949cca5134f4e0aa5e67d9115f6b5749628232aa35bcd34cd06000d7",
+        "role": "copy_editor",
+        "status": "PASS",
+        "structured_review": {
+          "blockers": [],
+          "checks": {
+            "claim_set_governed": true,
+            "final_render_present": true,
+            "single_financial_disclaimer": true,
+            "v3_packet_hash_bound": true
+          },
+          "decision": "PASS",
+          "evidence_packet_logical_hash": "42780c40ca791aea58551f49e21a6ea8b5516992cafb9b97fef9f7d43140be77",
+          "publication_authority": false,
+          "review_basis": {
+            "checks_derived_from_final_render_and_v3_packet": true,
+            "role": "copy_editor"
+          },
+          "reviewed_claim_ids": [
+            "claim-1936ed019eb6602d",
+            "claim-bfca0e50bb4f64d0"
+          ],
+          "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+        }
+      },
+      {
+        "blockers": [],
+        "output_hash": "5a0cc1a56811000ee01f773bab71f18d35a57b60eabd0b5dc62271bbec6e0270",
+        "role": "platform_editor",
+        "status": "PASS",
+        "structured_review": {
+          "blockers": [],
+          "checks": {
+            "claim_set_governed": true,
+            "draft_has_no_publication_authority": true,
+            "hard_truncation_absent": true,
+            "v3_packet_hash_bound": true
+          },
+          "decision": "PASS",
+          "evidence_packet_logical_hash": "42780c40ca791aea58551f49e21a6ea8b5516992cafb9b97fef9f7d43140be77",
+          "publication_authority": false,
+          "review_basis": {
+            "checks_derived_from_final_render_and_v3_packet": true,
+            "role": "platform_editor"
+          },
+          "reviewed_claim_ids": [
+            "claim-1936ed019eb6602d",
+            "claim-bfca0e50bb4f64d0"
+          ],
+          "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+        }
+      },
+      {
+        "blockers": [
+          "candidate_public_claim_permission_blocked",
+          "analysis_requires_fresh_material_delta_or_current_reaction",
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing",
+          "structured_adversarial_review_failed_or_claimed_authority"
+        ],
+        "output_hash": "6e0bdcff92dccdc1de77e7d3efc0735a885b64b04f61bcaa6beb49d39ccd1702",
+        "role": "adversarial_final_reviewer",
+        "status": "BLOCK",
+        "structured_review": {
+          "blockers": [
+            "freshness_decision_passed",
+            "prior_roles_clear"
+          ],
+          "checks": {
+            "authority_and_permission_not_upgraded": true,
+            "citation_bindings_exact": true,
+            "claim_set_governed": true,
+            "freshness_decision_passed": false,
+            "prior_roles_clear": false,
+            "v3_packet_hash_bound": true
+          },
+          "decision": "BLOCK",
+          "evidence_packet_logical_hash": "42780c40ca791aea58551f49e21a6ea8b5516992cafb9b97fef9f7d43140be77",
+          "publication_authority": false,
+          "review_basis": {
+            "checks_derived_from_final_render_and_v3_packet": true,
+            "role": "adversarial_final_reviewer"
+          },
+          "reviewed_claim_ids": [
+            "claim-1936ed019eb6602d",
+            "claim-bfca0e50bb4f64d0"
+          ],
+          "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+        }
+      }
+    ],
+    "schema_version": "contentops.editorial_review_orchestrator.v2",
+    "status": "BLOCK",
+    "used_claim_ids": [
+      "claim-1936ed019eb6602d",
+      "claim-bfca0e50bb4f64d0"
+    ],
+    "writer_self_certification_allowed": false
+  },
+  "evidence_packet": {
+    "as_of_utc": "2026-07-12T16:18:42.619968+00:00",
+    "blockers": [
+      "candidate_public_claim_permission_blocked"
+    ],
+    "bridge_safety": {
+      "network_call_made": false,
+      "public_write_performed": false,
+      "source_repo_modified": false
+    },
+    "candidate_visual_inputs": [],
+    "citation_map": {
+      "claim-1936ed019eb6602d": [
+        "https://www.federalregister.gov/documents/2026/06/25/2026-12787/financial-data-transparency-act-joint-data-standards",
+        "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/2026-12787.pdf"
+      ],
+      "claim-bfca0e50bb4f64d0": [
+        "https://www.federalregister.gov/documents/2026/06/25/2026-12787/financial-data-transparency-act-joint-data-standards",
+        "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/2026-12787.pdf"
+      ]
+    },
+    "events": [],
+    "generated_at_utc": "2026-07-12T16:18:42.619968+00:00",
+    "generic_claim_permissions": {
+      "approved_claim_ids": [
+        "claim-bfca0e50bb4f64d0",
+        "claim-1936ed019eb6602d"
+      ],
+      "decision": "ALLOW",
+      "no_editorial_permission_upgrade": true,
+      "reporting_claims_allowed": true
+    },
+    "governed_claim_graph": {
+      "approval_decisions": [
+        {
+          "approved_for_reporting": true,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [],
+          "claim_id": "claim-bfca0e50bb4f64d0",
+          "claim_type": "legal_or_regulatory_action",
+          "decision_source": "DERIVED_FROM_GOVERNED_CLAIM_AND_CANDIDATE",
+          "permission_state": "PUBLIC_CLAIM_ALLOWED"
+        },
+        {
+          "approved_for_reporting": true,
+          "authority_class": "OFFICIAL_VERIFIED",
+          "blockers": [],
+          "claim_id": "claim-1936ed019eb6602d",
+          "claim_type": "factual_text",
+          "decision_source": "DERIVED_FROM_GOVERNED_CLAIM_AND_CANDIDATE",
+          "permission_state": "PUBLIC_CLAIM_ALLOWED"
+        }
+      ],
+      "approved_claim_ids": [
+        "claim-bfca0e50bb4f64d0",
+        "claim-1936ed019eb6602d"
+      ],
+      "claims": [
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "attribution": "Federal Register and GovInfo official public record",
+              "citation_state": "EXACT_VERIFIER_AUTHORIZED_OFFICIAL_URL",
+              "source_document_id": "nonnumeric-story-document:cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09:a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701",
+              "url": "https://www.federalregister.gov/documents/2026/06/25/2026-12787/financial-data-transparency-act-joint-data-standards"
+            },
+            {
+              "attribution": "Federal Register and GovInfo official public record",
+              "citation_state": "EXACT_VERIFIER_AUTHORIZED_OFFICIAL_URL",
+              "source_document_id": "nonnumeric-story-document:cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09:a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701",
+              "url": "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/2026-12787.pdf"
+            }
+          ],
+          "claim_id": "claim-bfca0e50bb4f64d0",
+          "claim_type": "legal_or_regulatory_action",
+          "entities": [],
+          "event_time_utc": "2026-06-25T00:00:00Z",
+          "evidence_refs": [
+            "nonnumeric-story:cc-nonnumeric-f93c722c9c8f46741bb8:claim-bfca0e50bb4f64d0"
+          ],
+          "geographies": [
+            "United States"
+          ],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-12T16:18:42.619968+00:00",
+          "limitations": [
+            "exact_story_only",
+            "strictly_nonnumeric",
+            "interpretation_forbidden",
+            "numeric_reporting_forbidden",
+            "forecast_financial_advice_trading_and_dispatch_forbidden"
+          ],
+          "logical_hash": "de1f9b733cba86d4948e6b51cde3380af5ae1a835c2ef4df36fdb0616d57a8c0",
+          "market_evidence_refs": [],
+          "numeric": null,
+          "observed_at_utc": null,
+          "permission_state": "PUBLIC_CLAIM_ALLOWED",
+          "published_at_utc": "2026-06-25T00:00:00Z",
+          "revision_at_utc": "2026-06-25T00:00:00Z",
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "nonnumeric-story-document:cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09:a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701"
+          ],
+          "statement": "The OCC, Board, FDIC, NCUA, CFPB, FHFA, CFTC, SEC, and Treasury are publishing a final joint rule to establish data standards to promote interoperability of financial regulatory data across these agencies.",
+          "structured_payload": {
+            "contains_numeric_assertion": false,
+            "interpretation_allowed": false,
+            "reporting_allowed": true,
+            "source_field": "selected_raw_record.abstract",
+            "timestamp_precision": {
+              "event": "DAY",
+              "known_at": "MICROSECOND",
+              "published": "DAY",
+              "revision": "DAY"
+            },
+            "upstream_claim_type": "official_regulatory_action"
+          }
+        },
+        {
+          "authority_class": "OFFICIAL_VERIFIED",
+          "citations": [
+            {
+              "attribution": "Federal Register and GovInfo official public record",
+              "citation_state": "EXACT_VERIFIER_AUTHORIZED_OFFICIAL_URL",
+              "source_document_id": "nonnumeric-story-document:cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09:a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701",
+              "url": "https://www.federalregister.gov/documents/2026/06/25/2026-12787/financial-data-transparency-act-joint-data-standards"
+            },
+            {
+              "attribution": "Federal Register and GovInfo official public record",
+              "citation_state": "EXACT_VERIFIER_AUTHORIZED_OFFICIAL_URL",
+              "source_document_id": "nonnumeric-story-document:cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09:a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701",
+              "url": "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/2026-12787.pdf"
+            }
+          ],
+          "claim_id": "claim-1936ed019eb6602d",
+          "claim_type": "factual_text",
+          "entities": [],
+          "event_time_utc": "2026-06-25T00:00:00Z",
+          "evidence_refs": [
+            "nonnumeric-story:cc-nonnumeric-f93c722c9c8f46741bb8:claim-1936ed019eb6602d"
+          ],
+          "geographies": [
+            "United States"
+          ],
+          "judgment_record": null,
+          "known_at_utc": "2026-07-12T16:18:42.619968+00:00",
+          "limitations": [
+            "exact_story_only",
+            "strictly_nonnumeric",
+            "interpretation_forbidden",
+            "numeric_reporting_forbidden",
+            "forecast_financial_advice_trading_and_dispatch_forbidden"
+          ],
+          "logical_hash": "a38de93a9da06de562b9944049c3839e71cdeb0ff072c25cd3f2122fdf2ff8e5",
+          "market_evidence_refs": [],
+          "numeric": null,
+          "observed_at_utc": null,
+          "permission_state": "PUBLIC_CLAIM_ALLOWED",
+          "published_at_utc": "2026-06-25T00:00:00Z",
+          "revision_at_utc": "2026-06-25T00:00:00Z",
+          "schema_version": "contentops.universal_news_claim.v2",
+          "source_document_ids": [
+            "nonnumeric-story-document:cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09:a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701"
+          ],
+          "statement": "At the effective date, the joint rule will not change any reporting requirements without further action by the agencies.",
+          "structured_payload": {
+            "contains_numeric_assertion": false,
+            "interpretation_allowed": false,
+            "reporting_allowed": true,
+            "source_field": "selected_raw_record.abstract",
+            "timestamp_precision": {
+              "event": "DAY",
+              "known_at": "MICROSECOND",
+              "published": "DAY",
+              "revision": "DAY"
+            },
+            "upstream_claim_type": "official_regulatory_limitation"
+          }
+        }
+      ],
+      "edges": [],
+      "graph_version": "contentops.governed_generic_claim_graph.v1"
+    },
+    "logical_hash": "42780c40ca791aea58551f49e21a6ea8b5516992cafb9b97fef9f7d43140be77",
+    "market_snapshots": [],
+    "numeric_claims": [],
+    "official_source_documents": [
+      {
+        "authorized_urls": [
+          "https://www.federalregister.gov/documents/2026/06/25/2026-12787/financial-data-transparency-act-joint-data-standards",
+          "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/2026-12787.pdf"
+        ],
+        "content_sha256": "63641fe4cec40cad1834708798b51ca38de3739f16756123de1dd8eaafe74f30",
+        "document_id": "nonnumeric-story-document:cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09:a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701",
+        "known_at_utc": "2026-07-12T16:18:42.619968+00:00",
+        "public_use_scope": {
+          "attribution_required": true,
+          "basis": "official_federal_register_and_govinfo_public_record",
+          "copyright_ownership_adjudicated": false,
+          "decision": "PASS_OFFICIAL_PUBLIC_RECORD_FACTUAL_REPORTING",
+          "scope": "quote_or_paraphrase_packet_claims_with_official_source_attribution"
+        },
+        "published_at_utc": "2026-06-25T00:00:00Z",
+        "source_native_id": "2026-12787",
+        "stable_record_id": "cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09",
+        "target_id": "DBH2_FEDERAL_REGISTER_FED_SYSTEM",
+        "title": "Financial Data Transparency Act Joint Data Standards",
+        "version_id": "a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701"
+      }
+    ],
+    "packet_id": "cc-evidence-72fcb1a517bd01ec91d3",
+    "provenance": {
+      "candidate_logical_hash": "88e9ddb51833f7e82a4cb97aaf05eeb7de466e5da3e8744c641932268a813ca1",
+      "evidence_binding_hashes": [
+        "b34b20883e249b2f0a98dacd4d4dd435b3ed1aece10a10fe014795834192900e",
+        "7dc1b3183581c2954088d3494fb05f0e82e5c4cfbdde664eee5c9e6d46affbef"
+      ],
+      "evidence_refs": [
+        "nonnumeric-story:cc-nonnumeric-f93c722c9c8f46741bb8:claim-bfca0e50bb4f64d0",
+        "nonnumeric-story:cc-nonnumeric-f93c722c9c8f46741bb8:claim-1936ed019eb6602d"
+      ]
+    },
+    "public_claim_permissions": {
+      "decision": "BLOCK",
+      "llm_numeric_authority": false,
+      "narrative_synthesis_allowed": false,
+      "numeric_claims_allowed": false
+    },
+    "schema_version": "capital_chronicle_content_evidence_packet.v3",
+    "source_state": {
+      "authority_state": "OFFICIAL_VERIFIED",
+      "candidate_id": "cc-candidate-c105e9a52d90cc1c8e03",
+      "reporting_allowed": true
+    },
+    "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+    "story_window": {
+      "end_utc": "2026-07-12T16:18:42.619968+00:00",
+      "hours": 24,
+      "start_utc": null
+    },
+    "supersedes_schema_version": "capital_chronicle_content_evidence_packet.v2",
+    "v2_compatibility": {
+      "nonnumeric_claim_requires_numeric_projection": false,
+      "numeric_consumer_breaking_change": false,
+      "projection_schema_version": "capital_chronicle_content_evidence_packet.v2",
+      "top_level_numeric_claims_exact": true
+    },
+    "v2_compatibility_projection": {
+      "as_of_utc": "2026-07-12T16:18:42.619968+00:00",
+      "blockers": [
+        "candidate_public_claim_permission_blocked"
+      ],
+      "bridge_safety": {
+        "network_call_made": false,
+        "public_write_performed": false,
+        "source_repo_modified": false
+      },
+      "candidate_visual_inputs": [],
+      "citation_map": {
+        "claim-1936ed019eb6602d": [
+          "https://www.federalregister.gov/documents/2026/06/25/2026-12787/financial-data-transparency-act-joint-data-standards",
+          "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/2026-12787.pdf"
+        ],
+        "claim-bfca0e50bb4f64d0": [
+          "https://www.federalregister.gov/documents/2026/06/25/2026-12787/financial-data-transparency-act-joint-data-standards",
+          "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/2026-12787.pdf"
+        ]
+      },
+      "events": [],
+      "generated_at_utc": "2026-07-12T16:18:42.619968+00:00",
+      "market_snapshots": [],
+      "numeric_claims": [],
+      "official_source_documents": [
+        {
+          "authorized_urls": [
+            "https://www.federalregister.gov/documents/2026/06/25/2026-12787/financial-data-transparency-act-joint-data-standards",
+            "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/2026-12787.pdf"
+          ],
+          "content_sha256": "63641fe4cec40cad1834708798b51ca38de3739f16756123de1dd8eaafe74f30",
+          "document_id": "nonnumeric-story-document:cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09:a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701",
+          "known_at_utc": "2026-07-12T16:18:42.619968+00:00",
+          "public_use_scope": {
+            "attribution_required": true,
+            "basis": "official_federal_register_and_govinfo_public_record",
+            "copyright_ownership_adjudicated": false,
+            "decision": "PASS_OFFICIAL_PUBLIC_RECORD_FACTUAL_REPORTING",
+            "scope": "quote_or_paraphrase_packet_claims_with_official_source_attribution"
+          },
+          "published_at_utc": "2026-06-25T00:00:00Z",
+          "source_native_id": "2026-12787",
+          "stable_record_id": "cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09",
+          "target_id": "DBH2_FEDERAL_REGISTER_FED_SYSTEM",
+          "title": "Financial Data Transparency Act Joint Data Standards",
+          "version_id": "a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701"
+        }
+      ],
+      "packet_id": "cc-evidence-72fcb1a517bd01ec91d3",
+      "provenance": {
+        "candidate_logical_hash": "88e9ddb51833f7e82a4cb97aaf05eeb7de466e5da3e8744c641932268a813ca1",
+        "evidence_binding_hashes": [
+          "b34b20883e249b2f0a98dacd4d4dd435b3ed1aece10a10fe014795834192900e",
+          "7dc1b3183581c2954088d3494fb05f0e82e5c4cfbdde664eee5c9e6d46affbef"
+        ],
+        "evidence_refs": [
+          "nonnumeric-story:cc-nonnumeric-f93c722c9c8f46741bb8:claim-bfca0e50bb4f64d0",
+          "nonnumeric-story:cc-nonnumeric-f93c722c9c8f46741bb8:claim-1936ed019eb6602d"
+        ]
+      },
+      "public_claim_permissions": {
+        "decision": "BLOCK",
+        "llm_numeric_authority": false,
+        "narrative_synthesis_allowed": false,
+        "numeric_claims_allowed": false
+      },
+      "schema_version": "capital_chronicle_content_evidence_packet.v2",
+      "source_state": {
+        "authority_state": "OFFICIAL_VERIFIED",
+        "candidate_id": "cc-candidate-c105e9a52d90cc1c8e03",
+        "reporting_allowed": true
+      },
+      "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+      "story_window": {
+        "end_utc": "2026-07-12T16:18:42.619968+00:00",
+        "hours": 24,
+        "start_utc": null
+      },
+      "validation_blockers": []
+    },
+    "validation_blockers": []
+  },
+  "evidence_packet_contract": "V3_GENERIC_WITH_EXACT_V2_COMPATIBILITY_PROJECTION",
+  "freshness_decision": {
+    "blockers": [
+      "candidate_public_claim_permission_blocked",
+      "analysis_requires_fresh_material_delta_or_current_reaction",
+      "market_sensitive_story_snapshot_stale_or_missing",
+      "market_sensitive_story_ingest_stale_or_missing"
+    ],
+    "decision": "BLOCK",
+    "duplicate_policy_is_separate": true,
+    "effective_article_mode": "analysis",
+    "event_age_hours": null,
+    "expected_source_cadence": "config_required",
+    "fresh_material_delta": false,
+    "headline_age_hours": null,
+    "latest_database_ingest_age_hours": null,
+    "latest_market_observation_age_hours": null,
+    "market_sensitive": true,
+    "market_session_state": "unknown",
+    "primary_source_age_hours": 424.312,
+    "requested_article_mode": "analysis",
+    "schema_version": "contentops.freshness_market_state_decision.v2",
+    "thresholds": {
+      "analysis_market_hours": 24.0,
+      "ingest_hours": 24.0,
+      "straight_news_hours": 24.0
+    }
+  },
+  "logical_hash": "fa0cf17673e1c97b2e1070fb7315640315cc3ab61660441a7b51e6b4b9916f4a",
+  "public_write_performed": false,
+  "publication_authority": false,
+  "schema_version": "contentops.first_nonnumeric_editorial_shadow_draft_evidence.v1",
+  "source_authority_adjudication": [
+    {
+      "approved_for_reporting": true,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "blockers": [],
+      "claim_id": "claim-bfca0e50bb4f64d0",
+      "claim_type": "legal_or_regulatory_action",
+      "evidence_refs": [
+        "nonnumeric-story:cc-nonnumeric-f93c722c9c8f46741bb8:claim-bfca0e50bb4f64d0"
+      ],
+      "permission_state": "PUBLIC_CLAIM_ALLOWED",
+      "source_document_ids": [
+        "nonnumeric-story-document:cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09:a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701"
+      ]
+    },
+    {
+      "approved_for_reporting": true,
+      "authority_class": "OFFICIAL_VERIFIED",
+      "blockers": [],
+      "claim_id": "claim-1936ed019eb6602d",
+      "claim_type": "factual_text",
+      "evidence_refs": [
+        "nonnumeric-story:cc-nonnumeric-f93c722c9c8f46741bb8:claim-1936ed019eb6602d"
+      ],
+      "permission_state": "PUBLIC_CLAIM_ALLOWED",
+      "source_document_ids": [
+        "nonnumeric-story-document:cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09:a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701"
+      ]
+    }
+  ],
+  "status": "PASS_LOCAL_SHADOW_DRAFT_HELD",
+  "task": "TASK_CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1",
+  "visual_decision": {
+    "asset_count": 0,
+    "blockers": [
+      "fewer_than_three_useful_visuals",
+      "insufficient_visual_evidence_diversity",
+      "lead_visual_missing"
+    ],
+    "decision_hash": "41dd8c443de3169544b48a4e4b86ca5625192e0b6e6746c6556dcb8e824d4a42",
+    "editorial_exception": null,
+    "evidence_dimensions": [],
+    "modalities": [],
+    "schema_version": "contentops.visual_composition_decision.v2",
+    "status": "BLOCK",
+    "story_type": "evidence_bound_news_analysis",
+    "underlying_series_counts": {}
+  }
+}

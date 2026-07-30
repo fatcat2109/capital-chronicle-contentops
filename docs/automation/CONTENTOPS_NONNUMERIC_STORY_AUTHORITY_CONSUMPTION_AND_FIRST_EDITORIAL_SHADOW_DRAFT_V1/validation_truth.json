@@ -1,0 +1,23 @@
+{
+  "ci_pass_claimed": false,
+  "focused_suites": [
+    {
+      "command": "python -m pytest tests/test_nonnumeric_story_authority_consumer_v1.py tests/test_verified_evidence_window_incremental_editorial_shadow_v1.py tests/test_universal_governed_registry_v1.py tests/test_extracted_authority_permission_role_aggregation_binding_v1.py -q",
+      "result": "77 passed"
+    },
+    {
+      "command": "python -m pytest tests/test_v6_north_star_authority_consistency.py tests/test_status_progress_docs_v6.py tests/test_jim_content_cockpit_baseline_status_v6.py -q",
+      "result": "15 passed"
+    },
+    {
+      "caveat": "All 24 failures are in the pre-existing trusted-evidence synthetic fixture because its pinned commit is not reachable from the isolated task branch's selected branch head; the nonnumeric path and 82 other tests passed.",
+      "command": "python -m pytest tests/test_nonnumeric_story_authority_consumer_v1.py tests/test_verified_evidence_window_incremental_editorial_shadow_v1.py tests/test_universal_governed_registry_v1.py tests/test_trusted_evidence_verifier_registry_and_real_multi_topic_canary_v1.py tests/test_extracted_authority_permission_role_aggregation_binding_v1.py -q",
+      "result": "82 passed, 24 failed"
+    }
+  ],
+  "full_suite_pass_claimed": false,
+  "logical_hash": "12b3e35c4a2bb0c4aa4c565736d95e479b78bb52f746cfbbe3eab78f3693a37e",
+  "schema_version": "contentops.validation_truth.v1",
+  "status": "PASS_WITH_TRANSPARENT_COMPATIBILITY_CAVEAT",
+  "task": "TASK_CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1"
+}
