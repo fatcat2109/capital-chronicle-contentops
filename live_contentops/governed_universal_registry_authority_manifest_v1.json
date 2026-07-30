@@ -3,7 +3,7 @@
   "manifest_version": "contentops.governed_universal_registry_authority.v1.3.0",
   "repository": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "producer_commit": "1b624c170",
+  "producer_commit": "1b624c17042246a2a867288389566329102cbdce",
   "starting_authority_commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
   "receipts": [
     {
@@ -109,5 +109,5 @@
       "baseline_mode": "FIRST_GOVERNED_BASELINE"
     }
   ],
-  "logical_hash": "a7fbce0001b275f24420236f3ed265317f2082c92b5ade5efd838c20b1abed36"
+  "logical_hash": "2c129df0bf2ff617d5a9fcf01718c5ec7ad48a73477235680da9f1fb4b184f4b"
 }
