@@ -3,7 +3,7 @@
     "commit": "7c5ea920cadb6efb3a8b85282f43eb05c5544374",
     "policy": "first_committed_governed_baseline_replacing_implicit_adapter_identity"
   },
-  "logical_hash": "e039063fce1c289dd0331347748d7cd867e4d07c7398a4a5cd172316b03420a2",
+  "logical_hash": "2e6b8cd0a8b35756516122822c013d10920ac4cb7fe84efe9c03c17de04c5da1",
   "records": [
     {
       "accepted_evidence_binding": "v1_pool_exact_candidate_binding_v1",
