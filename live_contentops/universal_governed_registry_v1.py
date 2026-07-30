@@ -446,6 +446,7 @@ def validate_evidence_binding(
             AGGREGATION_RECEIPT_SCHEMA,
             DBH2_RECEIPT_SCHEMA,
             GIT_RECEIPT_SCHEMA,
+            NONNUMERIC_STORY_RECEIPT_SCHEMA,
         )
 
         receipt_schema = receipt.get("schema_version")
@@ -453,6 +454,7 @@ def validate_evidence_binding(
             GIT_RECEIPT_SCHEMA,
             DBH2_RECEIPT_SCHEMA,
             AGGREGATION_RECEIPT_SCHEMA,
+            NONNUMERIC_STORY_RECEIPT_SCHEMA,
         }:
             blockers.append("evidence_binding_verified_receipt_schema_invalid")
         if receipt.get("logical_hash") != logical_hash(without_hash(receipt)):

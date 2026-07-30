@@ -24,6 +24,9 @@ from live_contentops.governed_upstream_bridge_v1 import (
 
 
 GIT_RECEIPT_SCHEMA = "contentops.verified_git_evidence_receipt.v1"
+NONNUMERIC_STORY_RECEIPT_SCHEMA = (
+    "contentops.verified_nonnumeric_story_authority_receipt.v1"
+)
 DBH2_RECEIPT_SCHEMA = "contentops.verified_dbh2_record_receipt.v1"
 AGGREGATION_RECEIPT_SCHEMA = "contentops.verified_aggregation_receipt.v1"
 IMPLEMENTATION_RECEIPT_SCHEMA = "contentops.verified_implementation_receipt.v1"
@@ -570,6 +573,333 @@ class EvidenceReceiptVerifierV1:
             dqr_reporting_allowed=dqr_reporting_allowed,
             receipt=receipt,
         )
+
+    def verify_nonnumeric_story_authority_bindings(
+        self,
+        *,
+        artifact_path: str,
+        producer_commit: str,
+        source_family_id: str,
+        adapter_id: str,
+        requested_claim_ids: Sequence[str] | None = None,
+        requested_consumer_permission: str | None = None,
+        requested_dqr_reporting_allowed: bool | None = None,
+    ) -> tuple[Mapping[str, Any], ...]:
+        """Verify and bind the exact first nonnumeric story authority packet."""
+
+        expected_path = (
+            "docs/research/publication_evidence/current/"
+            "CapitalChronicleNonnumericStoryScopedReportingAuthorityV1.json"
+        )
+        expected_commit = "ce4d011059b4a78eec47455821f93c418090d944"
+        expected_claims = [
+            {
+                "claim_id": "claim-bfca0e50bb4f64d0",
+                "claim_type": "official_regulatory_action",
+                "contains_numeric_assertion": False,
+                "interpretation_allowed": False,
+                "reporting_allowed": True,
+                "source_field": "selected_raw_record.abstract",
+                "text": (
+                    "The OCC, Board, FDIC, NCUA, CFPB, FHFA, CFTC, SEC, and "
+                    "Treasury are publishing a final joint rule to establish "
+                    "data standards to promote interoperability of financial "
+                    "regulatory data across these agencies."
+                ),
+            },
+            {
+                "claim_id": "claim-1936ed019eb6602d",
+                "claim_type": "official_regulatory_limitation",
+                "contains_numeric_assertion": False,
+                "interpretation_allowed": False,
+                "reporting_allowed": True,
+                "source_field": "selected_raw_record.abstract",
+                "text": (
+                    "At the effective date, the joint rule will not change any "
+                    "reporting requirements without further action by the agencies."
+                ),
+            },
+        ]
+        expected_claim_ids = tuple(row["claim_id"] for row in expected_claims)
+        if artifact_path != expected_path:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_artifact_path_mismatch"
+            )
+        if producer_commit != expected_commit:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_producer_commit_mismatch"
+            )
+        if requested_claim_ids is not None and tuple(requested_claim_ids) != expected_claim_ids:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_requested_claim_set_mismatch"
+            )
+        content, git_receipt = read_git_artifact(
+            root=self.upstream_root,
+            observed_head=self.observed_upstream_head,
+            artifact_path=artifact_path,
+            producer_commit=producer_commit,
+        )
+        try:
+            packet = json.loads(content)
+        except json.JSONDecodeError as error:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_packet_json_malformed"
+            ) from error
+        if not isinstance(packet, Mapping):
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_packet_root_invalid"
+            )
+        packet_without_hash = _without_hash(packet)
+        if packet.get("logical_hash") != _logical_hash(packet_without_hash):
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_packet_logical_hash_mismatch"
+            )
+        exact_top_level = {
+            "schema_version": (
+                "capital_chronicle.nonnumeric_story_scoped_reporting_authority.v1"
+            ),
+            "packet_id": "cc-nonnumeric-f93c722c9c8f46741bb8",
+            "task_id": "TASK_DATABASE_NONNUMERIC_STORY_SCOPED_REPORTING_AUTHORITY_V1",
+            "terminal_status": (
+                "PASS_NONNUMERIC_STORY_SCOPED_REPORTING_AUTHORITY_V1_"
+                "AWAITING_CHATGPT_AUDIT"
+            ),
+            "generated_at_utc": "2026-07-12T16:18:42.619968+00:00",
+        }
+        for field, expected in exact_top_level.items():
+            if packet.get(field) != expected:
+                raise EvidenceReceiptVerificationError(
+                    f"nonnumeric_story_packet_{field}_mismatch"
+                )
+        if packet.get("claims") != expected_claims:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_exact_claim_set_mismatch"
+            )
+        selected_story = packet.get("selected_story") or {}
+        expected_story = {
+            "authorized_public_use_url": (
+                "https://www.govinfo.gov/content/pkg/FR-2026-06-25/pdf/"
+                "2026-12787.pdf"
+            ),
+            "candidate_only": True,
+            "canonical_url": (
+                "https://www.federalregister.gov/documents/2026/06/25/"
+                "2026-12787/financial-data-transparency-act-joint-data-standards"
+            ),
+            "content_sha256": (
+                "63641fe4cec40cad1834708798b51ca38de3739f16756123de1dd8eaafe74f30"
+            ),
+            "current_canonical_apply": False,
+            "document_type": "Rule",
+            "exact_numeric_authority": False,
+            "numeric_boundary": "numeric_text_not_numeric_truth",
+            "official_family": "federal_register",
+            "provider": "Federal Register",
+            "provider_record_id": "2026-12787",
+            "provider_record_type": "federal_register_document",
+            "stable_record_id": (
+                "cf9b73452130757eb3552a87bf86bf6d8bc5531c263d4d7dabad7a1169345d09"
+            ),
+            "target_id": "DBH2_FEDERAL_REGISTER_FED_SYSTEM",
+            "title": "Financial Data Transparency Act Joint Data Standards",
+            "version_id": (
+                "a6554c195bb3e7840fb66fbe986cd0f23f0a85a320d8ef4ddf8ce7346b116701"
+            ),
+        }
+        if selected_story != expected_story:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_identity_or_boundary_mismatch"
+            )
+        expected_lineage = {
+            "is_corrected": False,
+            "is_current_version": True,
+            "is_superseded": False,
+            "is_withdrawn": False,
+            "relationship_count": 0,
+            "relationships": [],
+        }
+        if packet.get("lineage") != expected_lineage:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_current_lineage_mismatch"
+            )
+        expected_timestamps = {
+            "event_at": "2026-06-25",
+            "event_precision": "DAY",
+            "known_at_precision": "MICROSECOND",
+            "known_at_utc": "2026-07-12T16:18:42.619968+00:00",
+            "provider_updated_at": "2026-06-25",
+            "published_at": "2026-06-25",
+            "published_precision": "DAY",
+            "revision_precision": "DAY",
+        }
+        if packet.get("timestamps") != expected_timestamps:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_timestamp_lineage_mismatch"
+            )
+        expected_public_scope = {
+            "attribution_required": True,
+            "basis": "official_federal_register_and_govinfo_public_record",
+            "copyright_ownership_adjudicated": False,
+            "decision": "PASS_OFFICIAL_PUBLIC_RECORD_FACTUAL_REPORTING",
+            "scope": (
+                "quote_or_paraphrase_packet_claims_with_official_source_attribution"
+            ),
+        }
+        if packet.get("public_use_scope") != expected_public_scope:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_public_use_scope_mismatch"
+            )
+        permissions = packet.get("consumer_permissions") or {}
+        expected_permissions = {
+            "authorized_claim_ids": list(expected_claim_ids),
+            "consumer_class": "contentops_publication",
+            "decision": "PASS_STORY_SCOPED_NONNUMERIC_REPORTING",
+            "derived_from_verifier": True,
+            "dispatch_allowed": False,
+            "exact_story_only": True,
+            "financial_advice_allowed": False,
+            "forecast_allowed": False,
+            "global_dqr_override": False,
+            "numeric_reporting_allowed": False,
+            "reporting_allowed": True,
+            "source_family_wide_authority": False,
+            "trading_allowed": False,
+        }
+        if permissions != expected_permissions:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_consumer_permission_mismatch"
+            )
+        if packet.get("protected_state") != {
+            "analyzer_authority_changed": False,
+            "current_canonical_authority_changed": False,
+            "global_dqr_override": False,
+            "global_dqr_status": "BLOCKED",
+            "protected_state_mutation_count": 0,
+            "source_family_promoted": False,
+        }:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_protected_state_mismatch"
+            )
+        if packet.get("ofac_boundary") != {
+            "promotion_allowed": False,
+            "reporting_authority": False,
+            "status": "context_only_current_snapshot_not_history",
+        }:
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_ofac_boundary_mismatch"
+            )
+        source_receipt = packet.get("source_receipt") or {}
+        expected_source_binding = {
+            "raw_manifest_id": (
+                "f59dcfa634f4aab184e60869d5718519071310139e92a8a0afe65355f7083415"
+            ),
+            "raw_manifest_ref": (
+                "docs/research/database_foundation/"
+                "public_free_event_text_entity_history_v1/"
+                "DBH2_RAW_MANIFEST_INDEX_V1.json"
+            ),
+            "raw_retrieved_at_utc": "2026-07-12T16:18:42.619968+00:00",
+            "raw_sha256": (
+                "5bb10637207641d5b562909f0a115e873fc75bb1a250a375586bad837a29cf2a"
+            ),
+            "parquet_sha256": (
+                "e2792c34a09e46426d09ac8708592b4e123267ac7a295c85e90a1b0f739bd62f"
+            ),
+            "raw_hash_verified": True,
+        }
+        if any(source_receipt.get(key) != value for key, value in expected_source_binding.items()):
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_source_manifest_binding_mismatch"
+            )
+        verifier = packet.get("verifier") or {}
+        checks = verifier.get("checks") or {}
+        if (
+            verifier.get("status") != "PASS"
+            or verifier.get("blockers") != []
+            or not checks
+            or not all(value is True for value in checks.values())
+        ):
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_upstream_independent_verification_not_pass"
+            )
+        consumer_permission = "PUBLIC_CLAIM_ALLOWED"
+        dqr_reporting_allowed = True
+        if (
+            requested_consumer_permission is not None
+            and requested_consumer_permission != consumer_permission
+        ):
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_requested_consumer_permission_mismatch"
+            )
+        if (
+            requested_dqr_reporting_allowed is not None
+            and requested_dqr_reporting_allowed != dqr_reporting_allowed
+        ):
+            raise EvidenceReceiptVerificationError(
+                "nonnumeric_story_requested_dqr_reporting_state_mismatch"
+            )
+        document_id = (
+            f"nonnumeric-story-document:{selected_story['stable_record_id']}:"
+            f"{selected_story['version_id']}"
+        )
+        authorized_urls = sorted([
+            selected_story["authorized_public_use_url"],
+            selected_story["canonical_url"],
+        ])
+        receipt = {
+            "schema_version": NONNUMERIC_STORY_RECEIPT_SCHEMA,
+            "receipt_kind": "exact_git_nonnumeric_story_authority",
+            "exact_verified": True,
+            **git_receipt.as_dict(),
+            "packet_logical_hash": packet["logical_hash"],
+            "packet_id": packet["packet_id"],
+            "packet_schema_version": packet["schema_version"],
+            "packet_terminal_status": packet["terminal_status"],
+            "upstream_verifier_status": verifier["status"],
+            "target_id": selected_story["target_id"],
+            "stable_record_id": selected_story["stable_record_id"],
+            "version_id": selected_story["version_id"],
+            "provider_record_id": selected_story["provider_record_id"],
+            "provider_record_type": selected_story["provider_record_type"],
+            "document_id": document_id,
+            "source_native_id": selected_story["provider_record_id"],
+            "authorized_urls": authorized_urls,
+            "content_sha256": selected_story["content_sha256"],
+            "source_native_status": selected_story["document_type"],
+            "evidence_state": "exact",
+            "consumer_permission": consumer_permission,
+            "dqr_reporting_allowed": dqr_reporting_allowed,
+            "authorized_claim_ids": list(expected_claim_ids),
+            "authorized_claims": expected_claims,
+            "timestamps": expected_timestamps,
+            "public_use_scope": expected_public_scope,
+            "global_dqr_status": "BLOCKED",
+            "global_dqr_override": False,
+            "source_family_wide_authority": False,
+            "ofac_context_only": True,
+            "numeric_reporting_allowed": False,
+            "dispatch_allowed": False,
+            "verified_from_exact_git_bytes": True,
+            "authority_fields_verifier_derived": True,
+        }
+        receipt["logical_hash"] = _logical_hash(receipt)
+        bindings = []
+        for claim_id in expected_claim_ids:
+            evidence_ref = f"nonnumeric-story:{packet['packet_id']}:{claim_id}"
+            bindings.append(self._binding(
+                evidence_ref=evidence_ref,
+                source_family_id=source_family_id,
+                adapter_id=adapter_id,
+                document_id=document_id,
+                source_native_id=str(selected_story["provider_record_id"]),
+                content_sha256=str(selected_story["content_sha256"]),
+                source_native_status=str(selected_story["document_type"]),
+                evidence_state="exact",
+                consumer_permission=consumer_permission,
+                dqr_reporting_allowed=dqr_reporting_allowed,
+                receipt=receipt,
+            ))
+        return tuple(bindings)
 
     def verify_aggregation_binding(
         self,
