@@ -4,9 +4,17 @@
 
 ## Current Classification
 
-`PASS_THREE_V3_CANONICAL_EDITORIAL_OPERATOR_PACKAGES_PENDING_DECISION_AWAITING_CHATGPT_AUDIT`
+`PASS_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_READ_ONLY_AWAITING_INDEPENDENT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1`.
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_V1`.
+
+## V5 Canonical Package Review Console
+
+The canonical V5 UI now exposes the exact FOMC, Apple SEC, and USGS unsigned operator packages through a read-only `canonical_package_review` surface. It binds the committed authority receipt, V3 packet identity, canonical article, exact used claims/citations/limitations, all eight role outcomes, freshness/visual/adversarial blockers, and six platform payload hashes per story. The surface forces `dark-evidence`, supports inspector selection for stories, role outcomes, and variants, and is responsive at desktop and mobile sizes.
+
+The console displays `PENDING_OPERATOR_DECISION` and recommends `REQUEST_REVISION` for each truthful `HOLD` package. It has no approval-ledger execution, publication, dispatch, provider, browser, credential, network, scheduler, or public-write capability. The three package authority boundaries remain unchanged and global DQR remains `BLOCKED`.
+
+Evidence remains: `docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/final_manifest.json`. UI implementation is in `ui/contentops_v5/`, with focused rendering/evidence/safety tests and desktop/mobile browser QA recorded for this task.
 
 ## Bound Three-Story Canonical Editorial Operator Packages V1
 

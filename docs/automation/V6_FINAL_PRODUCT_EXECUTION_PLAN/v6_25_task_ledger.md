@@ -24,15 +24,15 @@
 | 20 | Nine text/image destinations and YouTube Community default | DONE_MACHINE_QA_AND_OPERATOR_ACCEPTED |
 | 21 | Real ingestion rehearsal | DONE_FAIL_CLOSED |
 | 22 | Six generalized story fixtures | DONE_LOCAL_ONLY |
-| 23 | V5 evidence dashboard | PENDING |
+| 23 | V5 evidence dashboard | DONE_CANONICAL_THREE_STORY_PACKAGE_REVIEW_CONSOLE_READ_ONLY |
 | 24 | Database-authorized generic live canary/re-audit | DONE_MACHINE_QA_PASS_OPERATOR_ACCEPTED |
 | 25 | v1.0 tag | DONE_ANNOTATED_OPERATOR_ACCEPTED_RELEASE |
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Latest completed task: `TASK_CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1` — `PASS_THREE_V3_CANONICAL_EDITORIAL_OPERATOR_PACKAGES_PENDING_DECISION_AWAITING_CHATGPT_AUDIT`.
+Latest completed task: `TASK_CONTENTOPS_FAST_SHIP_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_V1` — `PASS_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_READ_ONLY_AWAITING_INDEPENDENT_AUDIT`.
 
-The three already-valid FOMC, Apple SEC, and USGS V3 packets now pass through the existing canonical eight-role local editorial handoff. Each deterministic outcome binds its V3 packet hash, canonical article ID/hash, exact article-used approved claims, citations, limitations, role outputs, freshness/visual/adversarial dispositions, and unresolved blockers. Three superseding unsigned packages bind those outcomes and all 18 platform payload hashes while remaining `PENDING_OPERATOR_DECISION`; all three editorial states are truthful `HOLD`, global DQR remains `BLOCKED`, and publication, dispatch, public write, credentials, browser/provider/network activity, and live eligibility remain zero or false. Evidence is at `docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/final_manifest.json`.
+The canonical V5 package review console exposes exact FOMC, Apple SEC, and USGS package authority, V3 identities, article copy, approved claims/citations/limitations, eight role outcomes, blockers, and all 18 platform payload hashes. It is forced to `dark-evidence`, inspector-integrated, responsive, and read-only. Packages remain `PENDING_OPERATOR_DECISION` and `HOLD`, with explicit `REQUEST_REVISION`; no publication, dispatch, credential, browser, network, scheduler, or public write occurred. Focused UI/evidence/safety tests passed, the Vite production build passed, and desktop/mobile browser QA reported no console errors. Evidence remains at the binding task's `final_manifest.json`.
 
 All 13 accepted adapters now expose truthful versioned capability bindings, all 16 enabled extractor records carry exact immutable runtime/evidence proofs, and the four-family composite canary preserves distinct numeric-period, scheduled-policy, unscheduled-physical, and qualitative context semantics through the frozen generic core. The stale Task 0073 archive lookup is repaired against the unchanged historical Git blob. Evidence is at `docs/automation/CONTENTOPS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1/`.
 
@@ -52,4 +52,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is `ACCEPT_TRUSTED_VERIFIER_RE
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair closes extracted authority, permission, semantic-role, candidate consistency, and multi-evidence aggregation gaps without modifying fixtures, calibration, policy, publication authority, or the accepted release.
 
-Next route: `INDEPENDENT_OPERATOR_AUDIT_OF_BATCH_EVIDENCE_AND_PREVIEWS`.
+Next route: `INDEPENDENT_CHATGPT_AUDIT_THREE_V3_CANONICAL_EDITORIAL_OPERATOR_PACKAGES_V1`.

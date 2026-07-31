@@ -22,7 +22,8 @@ export type ViewId =
   | 'preflight_bundle'
   | 'operator_runbook_index'
   | 'final_product_readiness'
-  | 'v6_command_center';
+  | 'v6_command_center'
+  | 'canonical_package_review';
 
 export interface SystemMode {
   code: string;

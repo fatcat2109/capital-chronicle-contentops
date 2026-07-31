@@ -25,6 +25,7 @@ import { PreflightBundle } from './views/PreflightBundle';
 import { OperatorRunbookIndex } from './views/OperatorRunbookIndex';
 import { FinalProductReadinessPanel } from './views/FinalProductReadinessPanel';
 import { V6CommandCenter } from './views/V6CommandCenter';
+import { CanonicalPackageReviewConsole } from './views/CanonicalPackageReviewConsole';
 
 export default function App() {
   const [view, setView] = useState<ViewId>('command_center');
@@ -35,11 +36,13 @@ export default function App() {
     defaultSelectionFor('command_center'),
   );
 
-  // Evidence Vault and Operator Runbook force dark evidence mode; other views use chosen theme.
-  const effectiveTheme: ThemeMode =
-    view === 'evidence_vault' || view === 'operator_runbook_index' || view === 'final_product_readiness'
-      ? 'dark-evidence'
-      : theme;
+  // Forensic review surfaces force dark-evidence mode; other views use chosen theme.
+  const isForensicView =
+    view === 'evidence_vault' ||
+    view === 'operator_runbook_index' ||
+    view === 'final_product_readiness' ||
+    view === 'canonical_package_review';
+  const effectiveTheme: ThemeMode = isForensicView ? 'dark-evidence' : theme;
 
   const ctx = useMemo(
     () => ({
@@ -225,12 +228,14 @@ function SafetyBar({
         <button
           type="button"
           id="theme-toggle"
-          disabled={view === 'evidence_vault'}
+          disabled={
+            view === 'evidence_vault' || view === 'canonical_package_review'
+          }
           onClick={() => setTheme(theme === 'light' ? 'dark-evidence' : 'light')}
           className="flex items-center gap-1.5 rounded-md border border-line bg-surface-2 px-2.5 py-1.5 font-mono text-[11px] text-fg-muted transition-colors hover:border-line-strong hover:text-fg disabled:cursor-not-allowed disabled:opacity-50"
           title={
-            view === 'evidence_vault'
-              ? 'Evidence Vault is always dark evidence mode'
+            view === 'evidence_vault' || view === 'canonical_package_review'
+              ? 'Forensic review surfaces always use dark evidence mode'
               : 'Toggle theme'
           }
         >
@@ -283,6 +288,8 @@ function ActiveView() {
       return <FinalProductReadinessPanel />;
     case 'v6_command_center':
       return <V6CommandCenter />;
+    case 'canonical_package_review':
+      return <CanonicalPackageReviewConsole />;
     default:
       return null;
   }

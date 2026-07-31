@@ -8,7 +8,7 @@ Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicl
 
 Authority date: 2026-07-14
 
-Current architecture classification: `PASS_THREE_V3_CANONICAL_EDITORIAL_OPERATOR_PACKAGES_PENDING_DECISION_AWAITING_CHATGPT_AUDIT`.
+Current architecture classification: `PASS_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_READ_ONLY_AWAITING_INDEPENDENT_AUDIT`.
 
 Current accepted public release: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
 
@@ -92,11 +92,11 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1` — `PASS_THREE_V3_CANONICAL_EDITORIAL_OPERATOR_PACKAGES_PENDING_DECISION_AWAITING_CHATGPT_AUDIT`.
+Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_V1` — `PASS_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_READ_ONLY_AWAITING_INDEPENDENT_AUDIT`.
 
-The three existing FOMC, Apple SEC, and USGS `CapitalChronicleContentEvidencePacketV3` packets are now bound through the existing canonical eight-role local editorial handoff. Every deterministic outcome records its canonical article ID/hash, exact article-used approved claim IDs, citations, limitations, role-by-role structured outputs, freshness disposition, visual disposition, final adversarial disposition, and unresolved blockers. All three editorial states remain truthful `HOLD`.
+The canonical V5 `canonical_package_review` surface exposes the exact three unsigned FOMC, Apple SEC, and USGS packages with forced `dark-evidence` styling, story tabs, authority receipts, V3 packet bindings, canonical article copy, exact claims/citations/limitations, eight role outcomes, blocker dispositions, and six platform payload hashes per story. It is read-only and inspector-integrated; no approval-ledger, publication, dispatch, browser, provider, credential, network, scheduler, or public-write capability is mounted. Browser QA passed at desktop and mobile sizes with no console errors. The packages remain `PENDING_OPERATOR_DECISION`, truthful `HOLD`, and recommended `REQUEST_REVISION`.
 
-Three superseding unsigned operator packages bind the exact upstream Git receipt, authority/story hashes, editorial outcome/article identities, exact used claim sets, and all 18 platform payload hashes. They remain `PENDING_OPERATOR_DECISION`; publication, dispatch, public write, credentials, browser/provider/network activity, scheduler activity, and live eligibility remain zero or false. Evidence is at `docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/final_manifest.json`.
+The prior three-story binding task remains accepted evidence and global DQR remains `BLOCKED`. Evidence is at `docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/final_manifest.json`.
 
 The predecessor canonical three-story package task and nonnumeric authority-consumption task remain accepted historical evidence. Neither widens authority nor overrides freshness, market, visual, publication, or global-DQR boundaries.
 
@@ -118,4 +118,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is retained as `ACCEPT_TRUSTED
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is retained as `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair derives authority, permission, and roles from registered extractors, copies qualification into receipt-backed bindings, derives candidate authority across every bound extracted record, and requires exact-set or registered feature aggregation. It adds no scenario, calibration, product, publication, or policy behavior.
 
-Next action: `INDEPENDENT_OPERATOR_AUDIT_OF_BATCH_EVIDENCE_AND_PREVIEWS`.
+Next action: `INDEPENDENT_CHATGPT_AUDIT_THREE_V3_CANONICAL_EDITORIAL_OPERATOR_PACKAGES_V1`.

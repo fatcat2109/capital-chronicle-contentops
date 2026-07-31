@@ -9,6 +9,10 @@ import { operatorReviewQueuePacket } from './data/operatorReviewQueuePacket';
 import { manualPilotTrailReconciliationPacket } from './data/manualPilotTrailReconciliationPacket';
 import { operatorRunbookIndexPacket } from './data/operatorRunbookIndexPacket';
 import { finalProductReadinessPacket } from './data/finalProductReadinessPacket';
+import {
+  canonicalReviewStories,
+  selectCanonicalReviewStory,
+} from './data/operatorPackageReviewAdapter';
 import { LifecycleStage, getStatusColor } from './data/contentLifecycleReadModelAdapter';
 import type {
   CandidateReviewItem,
@@ -482,6 +486,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectFinalProductReadinessPacket();
     case 'v6_command_center':
       return selectV6CommandCenterPacket();
+    case 'canonical_package_review':
+      return selectCanonicalReviewStory(canonicalReviewStories[0]);
   }
 }
 
