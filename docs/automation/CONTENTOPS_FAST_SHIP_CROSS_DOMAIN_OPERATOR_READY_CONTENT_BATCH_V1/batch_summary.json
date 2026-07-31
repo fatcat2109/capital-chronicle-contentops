@@ -1,0 +1,57 @@
+{
+  "authorized_candidate_count": 1,
+  "batch_size": 12,
+  "calibration_state": "UNCALIBRATED_FOUNDATION",
+  "candidate_source_family_count": 4,
+  "candidate_source_family_ids": [
+    "dbh2_federal_register_official_document",
+    "dbh2_ofac_official_entity_snapshot",
+    "dbh2_usgs_official_physical_event",
+    "story_scoped_publication_evidence_v1"
+  ],
+  "context_only_candidate_count": 11,
+  "domain_count": 4,
+  "domains": [
+    "markets",
+    "physical_events",
+    "regulatory",
+    "sanctions"
+  ],
+  "editorial_outcome_count": 5,
+  "editorial_outcomes": [
+    "HOLD_PHYSICAL_EVENT_CONTEXT_ONLY",
+    "HOLD_REGULATORY_CONTEXT_ONLY",
+    "HOLD_SANCTIONS_CONTEXT_ONLY",
+    "MONITOR_MAJOR_PHYSICAL_EVENT_CONTEXT_ONLY",
+    "REVIEWED_SHADOW_DRAFT_READY_FOR_OPERATOR_REVIEW"
+  ],
+  "governed_candidate_count": 21,
+  "governed_fabric_source_family_count": 5,
+  "governed_fabric_source_family_ids": [
+    "dbh2_federal_register_official_document",
+    "dbh2_ofac_official_entity_snapshot",
+    "dbh2_usgs_official_physical_event",
+    "platform_capability_registry_v2",
+    "story_scoped_publication_evidence_v1"
+  ],
+  "platform_preview_count": 5,
+  "platforms_with_previews": [
+    "facebook_page",
+    "linkedin",
+    "substack_newsletter",
+    "telegram",
+    "x_twitter"
+  ],
+  "public_write_count": 0,
+  "publication_count": 0,
+  "schema_version": "contentops.fast_ship_batch_summary.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1",
+  "unsupported_surfaces": [
+    {
+      "platform_id": "youtube_community",
+      "reason": "no canonical v2 local preview contract",
+      "status": "UNSUPPORTED_LOCAL_PREVIEW_CONTRACT"
+    }
+  ],
+  "upstream_write_count": 0
+}

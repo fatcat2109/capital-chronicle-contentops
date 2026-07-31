@@ -4,11 +4,21 @@
 
 ## Current Classification
 
-`PASS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1_AWAITING_INDEPENDENT_OPERATOR_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1`.
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1`.
 
-## Nonnumeric Story Authority Consumption And First Editorial Shadow Draft
+## Cross-Domain Operator-Ready Content Batch V1
+
+The deterministic local batch contains 12 governed candidates across markets, physical events, regulatory, and sanctions. Candidate evidence spans four source families; the separately governed platform capability registry brings the full fabric to five source families. The batch produces five distinct editorial outcomes, including one exact story-scoped authorized Treasury candidate and 11 context-only candidates that remain held or monitored without authority escalation.
+
+The authorized Treasury candidate compiles substantive verifier-bound title and summary copy for Substack Newsletter, LinkedIn, X, Facebook Page, and Telegram. Every preview retains governed citations, binds only deterministic citation fingerprints at the v6 hash boundary, requires operator review and approval, and remains `valid_for_dispatch=false`, `dispatch_ready=false`, `public_ready=false`, and `live_eligibility=false`. YouTube Community is explicitly `UNSUPPORTED_LOCAL_PREVIEW_CONTRACT` because no canonical v2 local preview contract exists.
+
+The terminal classification is `PASS_LOCAL_OPERATOR_READY_BATCH` with logical hash `a6248a753e252aff7fbad0d3623125c2635b122e3cd51c102794716a4dd10099`. Publication, public write, upstream write, network/provider/browser activity, credential access, and live flags all remain zero or false. Focused batch/compiler/v6-hash validation passed 53 tests.
+
+Evidence: `docs/automation/CONTENTOPS_FAST_SHIP_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1/final_manifest.json`.
+
+## Prior Nonnumeric Story Authority Consumption And First Editorial Shadow Draft
 
 ContentOps now consumes the exact upstream packet `cc-nonnumeric-f93c722c9c8f46741bb8` from producer commit `ce4d011059b4a78eec47455821f93c418090d944`. The typed receipt is derived independently from exact Git object bytes: blob `a773138580ce50e9dbe72bbff144b4f4081e35a1`, 12,528 bytes, SHA-256 `c4195026561406d3c6f9c510ee5c65783760a171d8135a469b7369d37801571f`. Upstream closeout checkout-byte hash claims are not trusted as ContentOps receipt authority.
 
@@ -223,6 +233,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1`
+`INDEPENDENT_OPERATOR_AUDIT_OF_BATCH_EVIDENCE_AND_PREVIEWS`
 
-Independently audit the exact upstream Git receipt, typed registry binding, two-claim exact-set enforcement, negative receipt/mutation/permission-escalation boundaries, governed candidate and V3 lineage, eight-role local draft, deterministic replay, truthful freshness/visual/global-DQR hold, evidence hashes, protected no-write boundaries, and remote parity. Do not reopen the foundation architecture or add another source wave.
+Independently audit the 12-candidate exact set, four candidate source families and separately counted platform capability family, four-domain and five-outcome coverage, story-scoped authorization boundary, substantive copy provenance, five platform compiler outputs, v6 citation-fingerprint hash boundary, manifest artifact hashes and logical hash, explicit unsupported YouTube result, deterministic replay, and all no-live/no-write invariants. Do not publish, dispatch, read credentials, mutate upstream, or reinterpret context-only candidates as reportable.

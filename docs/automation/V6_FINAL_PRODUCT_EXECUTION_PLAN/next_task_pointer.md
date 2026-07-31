@@ -2,16 +2,16 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Completed task: `TASK_CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1`
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1`
 
-Classification: `PASS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1_AWAITING_CHATGPT_AUDIT` with implementation scope `PASS`.
+Classification: `PASS_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1_AWAITING_INDEPENDENT_OPERATOR_AUDIT` with terminal implementation classification `PASS_LOCAL_OPERATOR_READY_BATCH`.
 
-Evidence: `docs/automation/CONTENTOPS_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1/final_manifest.json`.
+Evidence: `docs/automation/CONTENTOPS_FAST_SHIP_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1/final_manifest.json`.
 
-The exact upstream packet `cc-nonnumeric-f93c722c9c8f46741bb8` at producer commit `ce4d011059b4a78eec47455821f93c418090d944` supplies exactly two verifier-derived, story-scoped nonnumeric claims. The governed candidate, V3 packet, and canonical eight-role handoff produce `LOCAL_SHADOW_DRAFT_HELD`. Freshness, market, visual, candidate-publication, and global-DQR gates keep the result at `HOLD/BLOCK`; publication, dispatch, and all writes remain zero.
+The deterministic local batch contains 12 governed candidates across four domains, four candidate source families plus the separately counted platform capability registry family, and five editorial outcomes. One exact story-scoped Treasury candidate has five substantive review-only platform previews; 11 candidates remain context-only. YouTube Community is explicitly unsupported by the canonical v2 local preview contract. All publication, dispatch, write, credential, browser, provider, and network boundaries remain closed.
 
 ## Required Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_NONNUMERIC_STORY_AUTHORITY_CONSUMPTION_AND_FIRST_EDITORIAL_SHADOW_DRAFT_V1`
+`INDEPENDENT_OPERATOR_AUDIT_OF_BATCH_EVIDENCE_AND_PREVIEWS`
 
-Independently audit exact Git-byte receipt derivation, registry binding, the exact two-claim scope, negative mutation and permission-escalation coverage, candidate/V3 lineage, canonical role order and draft text, deterministic replay, truthful hold blockers, evidence hashes, no-write boundaries, completing commit, push, and remote parity. Do not reopen foundation architecture or add another source wave.
+Independently audit the exact candidate set, source-family accounting, domain and outcome coverage, story-scoped authorization, substantive copy provenance, five compiler outputs, citation fingerprint and payload hashes, final artifact hashes and logical hash, unsupported YouTube classification, deterministic replay, and no-live/no-write invariants. Do not publish, dispatch, read credentials, mutate upstream, or promote context-only candidates.

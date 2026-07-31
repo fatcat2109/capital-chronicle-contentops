@@ -1,0 +1,19 @@
+{
+  "batch_size_in_range": true,
+  "candidate_source_family_inventory_count": 4,
+  "compiler_payload_count_matches": true,
+  "domain_requirement_met": true,
+  "editorial_outcome_requirement_met": true,
+  "governed_fabric_source_family_requirement_met": true,
+  "no_credentials_read": true,
+  "no_live_flags_enabled": true,
+  "no_network_or_provider_calls": true,
+  "no_source_family_misattribution": true,
+  "platform_capability_family_counted_separately": true,
+  "platform_preview_requirement_met": true,
+  "public_write_count": 0,
+  "publication_count": 0,
+  "schema_version": "contentops.validation_truth.v1",
+  "status": "PASS",
+  "upstream_write_count": 0
+}

@@ -1,0 +1,508 @@
+{
+  "all_local_only": true,
+  "all_publication_authority_false": true,
+  "outcome_statuses": [
+    "HOLD_PHYSICAL_EVENT_CONTEXT_ONLY",
+    "HOLD_REGULATORY_CONTEXT_ONLY",
+    "HOLD_SANCTIONS_CONTEXT_ONLY",
+    "MONITOR_MAJOR_PHYSICAL_EVENT_CONTEXT_ONLY",
+    "REVIEWED_SHADOW_DRAFT_READY_FOR_OPERATOR_REVIEW"
+  ],
+  "outcomes": [
+    {
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "compiler_summary": {
+        "dispatch_ready": false,
+        "final_recommendation": "BLOCKED",
+        "live_eligibility": false,
+        "live_ready": false,
+        "operator_review_required": true,
+        "output_payload_count": 5,
+        "platform_count": 5,
+        "public_ready": false,
+        "reasons": [
+          "substack_newsletter:BLOCKED",
+          "linkedin:BLOCKED",
+          "x_twitter:BLOCKED",
+          "facebook_page:BLOCKED",
+          "telegram:BLOCKED"
+        ],
+        "requested_platforms": [
+          "substack_newsletter",
+          "linkedin",
+          "x_twitter",
+          "facebook_page",
+          "telegram"
+        ],
+        "validation_state": "BLOCKED"
+      },
+      "domain": "markets",
+      "editorial_outcome": "REVIEWED_SHADOW_DRAFT_READY_FOR_OPERATOR_REVIEW",
+      "evidence_state": "exact",
+      "freshness_availability": null,
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [
+          {
+            "approval_required": true,
+            "candidate_id": "cc-candidate-120438cc800db7f941be",
+            "character_count": 180,
+            "character_limit_max": 100000,
+            "citation_fingerprints": [
+              "5a54600fc9be94f5b66b4883e440048c80900e989e92f42a89bcebd7bd92de12",
+              "7e15153b8ceb31ca9258d17565fef218257c0bbac33c6ae145459aef1f661353"
+            ],
+            "citations": [
+              "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+              "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            ],
+            "content_surface": "newsletter_section",
+            "dispatch_ready": false,
+            "limitations": [
+              "local_operator_review_only",
+              "no_publication_authority"
+            ],
+            "live_eligibility": false,
+            "mode": "manual_export",
+            "operator_review_required": true,
+            "payload_hash": "60b76a638b83002a640300bcb6f4df76a561a1cdb29715bbb4aed3c5edcd41bb",
+            "payload_shape": "manual_export",
+            "platform_id": "substack_newsletter",
+            "public_ready": false,
+            "text": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%\n\nThe 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.\n\nNot financial advice.",
+            "valid_for_dispatch": false
+          },
+          {
+            "approval_required": true,
+            "candidate_id": "cc-candidate-120438cc800db7f941be",
+            "character_count": 180,
+            "character_limit_max": 3000,
+            "citation_fingerprints": [
+              "5a54600fc9be94f5b66b4883e440048c80900e989e92f42a89bcebd7bd92de12",
+              "7e15153b8ceb31ca9258d17565fef218257c0bbac33c6ae145459aef1f661353"
+            ],
+            "citations": [
+              "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+              "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            ],
+            "content_surface": "professional_post",
+            "dispatch_ready": false,
+            "limitations": [
+              "local_operator_review_only",
+              "no_publication_authority"
+            ],
+            "live_eligibility": false,
+            "mode": "dry_run",
+            "operator_review_required": true,
+            "payload_hash": "6503f51a5e01889a78b102680558a3e4aabbb84d6a5ebd2e264fdd1d4f91b977",
+            "payload_shape": "dry_run",
+            "platform_id": "linkedin",
+            "public_ready": false,
+            "text": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%\n\nThe 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.\n\nNot financial advice.",
+            "valid_for_dispatch": false
+          },
+          {
+            "approval_required": true,
+            "candidate_id": "cc-candidate-120438cc800db7f941be",
+            "character_count": 180,
+            "character_limit_max": 280,
+            "citation_fingerprints": [
+              "5a54600fc9be94f5b66b4883e440048c80900e989e92f42a89bcebd7bd92de12",
+              "7e15153b8ceb31ca9258d17565fef218257c0bbac33c6ae145459aef1f661353"
+            ],
+            "citations": [
+              "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+              "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            ],
+            "content_surface": "short_post",
+            "dispatch_ready": false,
+            "limitations": [
+              "local_operator_review_only",
+              "no_publication_authority"
+            ],
+            "live_eligibility": false,
+            "mode": "dry_run",
+            "operator_review_required": true,
+            "payload_hash": "fb65d1fd7d36f95e5ebf967bebf38a67fffee063eb163a7aeb8c45accd4b7cb8",
+            "payload_shape": "dry_run",
+            "platform_id": "x_twitter",
+            "public_ready": false,
+            "text": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%\n\nThe 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.\n\nNot financial advice.",
+            "valid_for_dispatch": false
+          },
+          {
+            "approval_required": true,
+            "candidate_id": "cc-candidate-120438cc800db7f941be",
+            "character_count": 180,
+            "character_limit_max": 63206,
+            "citation_fingerprints": [
+              "5a54600fc9be94f5b66b4883e440048c80900e989e92f42a89bcebd7bd92de12",
+              "7e15153b8ceb31ca9258d17565fef218257c0bbac33c6ae145459aef1f661353"
+            ],
+            "citations": [
+              "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+              "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            ],
+            "content_surface": "page_post",
+            "dispatch_ready": false,
+            "limitations": [
+              "local_operator_review_only",
+              "no_publication_authority"
+            ],
+            "live_eligibility": false,
+            "mode": "dry_run",
+            "operator_review_required": true,
+            "payload_hash": "de3aa95921d8b05c8be074ef4905227c858384cfc00783bf4658a7be197a7eff",
+            "payload_shape": "dry_run",
+            "platform_id": "facebook_page",
+            "public_ready": false,
+            "text": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%\n\nThe 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.\n\nNot financial advice.",
+            "valid_for_dispatch": false
+          },
+          {
+            "approval_required": true,
+            "candidate_id": "cc-candidate-120438cc800db7f941be",
+            "character_count": 180,
+            "character_limit_max": 4096,
+            "citation_fingerprints": [
+              "5a54600fc9be94f5b66b4883e440048c80900e989e92f42a89bcebd7bd92de12",
+              "7e15153b8ceb31ca9258d17565fef218257c0bbac33c6ae145459aef1f661353"
+            ],
+            "citations": [
+              "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+              "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+            ],
+            "content_surface": "channel_post",
+            "dispatch_ready": false,
+            "limitations": [
+              "local_operator_review_only",
+              "no_publication_authority"
+            ],
+            "live_eligibility": false,
+            "mode": "dry_run",
+            "operator_review_required": true,
+            "payload_hash": "af8fdf26f2350fc3e4c764ab18ce7510517d92f953bf7a9fcacc0965183adb9f",
+            "payload_shape": "dry_run",
+            "platform_id": "telegram",
+            "public_ready": false,
+            "text": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%\n\nThe 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.\n\nNot financial advice.",
+            "valid_for_dispatch": false
+          }
+        ],
+        "status": "READY_FOR_OPERATOR_REVIEW"
+      },
+      "reporting_allowed": true,
+      "sequence": 1,
+      "source_family_ids": [
+        "story_scoped_publication_evidence_v1"
+      ],
+      "source_native_ids": [
+        "cc-publication-73ff151c3d3094741b6c"
+      ],
+      "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+    },
+    {
+      "candidate_id": "cc-candidate-53ac065d3967c37ac2e3",
+      "compiler_summary": null,
+      "domain": "regulatory",
+      "editorial_outcome": "HOLD_REGULATORY_CONTEXT_ONLY",
+      "evidence_state": "context",
+      "freshness_availability": "UNAVAILABLE",
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [],
+        "status": "CONTEXT_ONLY_NO_PUBLICATION"
+      },
+      "reporting_allowed": false,
+      "sequence": 2,
+      "source_family_ids": [
+        "dbh2_federal_register_official_document"
+      ],
+      "source_native_ids": [
+        "2026-13916"
+      ],
+      "title": "Self-Regulatory Organizations; Long-Term Stock Exchange, Inc.; Notice of Filing and Immediate Effectiveness of Proposed Rule Change To Amend LTSE Rule 11.410(a) by Adding the Texas Stock Exchange LLC and Changing Nasdaq BX, LLC to Nasdaq Texas, LLC"
+    },
+    {
+      "candidate_id": "cc-candidate-7f7ea3784a117401eae8",
+      "compiler_summary": null,
+      "domain": "regulatory",
+      "editorial_outcome": "HOLD_REGULATORY_CONTEXT_ONLY",
+      "evidence_state": "context",
+      "freshness_availability": "UNAVAILABLE",
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [],
+        "status": "CONTEXT_ONLY_NO_PUBLICATION"
+      },
+      "reporting_allowed": false,
+      "sequence": 3,
+      "source_family_ids": [
+        "dbh2_federal_register_official_document"
+      ],
+      "source_native_ids": [
+        "2026-13917"
+      ],
+      "title": "Self-Regulatory Organizations; Nasdaq PHLX LLC; Notice of Filing and Immediate Effectiveness of Proposed Rule Change To Amend PIXL"
+    },
+    {
+      "candidate_id": "cc-candidate-b901e31ae8b0630d2d47",
+      "compiler_summary": null,
+      "domain": "sanctions",
+      "editorial_outcome": "HOLD_SANCTIONS_CONTEXT_ONLY",
+      "evidence_state": "context",
+      "freshness_availability": "UNAVAILABLE",
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [],
+        "status": "CONTEXT_ONLY_NO_PUBLICATION"
+      },
+      "reporting_allowed": false,
+      "sequence": 4,
+      "source_family_ids": [
+        "dbh2_ofac_official_entity_snapshot"
+      ],
+      "source_native_ids": [
+        "SDN:2026-07-10"
+      ],
+      "title": "OFAC SDN official current snapshot"
+    },
+    {
+      "candidate_id": "cc-candidate-cf1c41d0285e71e80daa",
+      "compiler_summary": null,
+      "domain": "regulatory",
+      "editorial_outcome": "HOLD_REGULATORY_CONTEXT_ONLY",
+      "evidence_state": "context",
+      "freshness_availability": "UNAVAILABLE",
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [],
+        "status": "CONTEXT_ONLY_NO_PUBLICATION"
+      },
+      "reporting_allowed": false,
+      "sequence": 5,
+      "source_family_ids": [
+        "dbh2_federal_register_official_document"
+      ],
+      "source_native_ids": [
+        "2026-13915"
+      ],
+      "title": "Self-Regulatory Organizations: Miami International Securities Exchange, LLC; Notice of Filing and Immediate Effectiveness of a Proposed Rule Change by Miami International Securities Exchange, LLC Amend Rule 612, Aggregate Risk Manager (ARM), To Adopt a New Origin Multiplier To Be Used When Calculating a Market Maker's Option Percentage"
+    },
+    {
+      "candidate_id": "cc-candidate-4c164cf4950f29a3e5d9",
+      "compiler_summary": null,
+      "domain": "physical_events",
+      "editorial_outcome": "HOLD_PHYSICAL_EVENT_CONTEXT_ONLY",
+      "evidence_state": "context",
+      "freshness_availability": "UNAVAILABLE",
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [],
+        "status": "CONTEXT_ONLY_NO_PUBLICATION"
+      },
+      "reporting_allowed": false,
+      "sequence": 6,
+      "source_family_ids": [
+        "dbh2_usgs_official_physical_event"
+      ],
+      "source_native_ids": [
+        "us7000st95"
+      ],
+      "title": "M 6.7 - 42 km SE of Palu, Indonesia"
+    },
+    {
+      "candidate_id": "cc-candidate-8f25ed0bca45e2aa54ff",
+      "compiler_summary": null,
+      "domain": "physical_events",
+      "editorial_outcome": "HOLD_PHYSICAL_EVENT_CONTEXT_ONLY",
+      "evidence_state": "context",
+      "freshness_availability": "UNAVAILABLE",
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [],
+        "status": "CONTEXT_ONLY_NO_PUBLICATION"
+      },
+      "reporting_allowed": false,
+      "sequence": 7,
+      "source_family_ids": [
+        "dbh2_usgs_official_physical_event"
+      ],
+      "source_native_ids": [
+        "us7000rq0d"
+      ],
+      "title": "M 6.0 - off the coast of Oregon"
+    },
+    {
+      "candidate_id": "cc-candidate-bcf82854936dd0e9614a",
+      "compiler_summary": null,
+      "domain": "physical_events",
+      "editorial_outcome": "HOLD_PHYSICAL_EVENT_CONTEXT_ONLY",
+      "evidence_state": "context",
+      "freshness_availability": "UNAVAILABLE",
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [],
+        "status": "CONTEXT_ONLY_NO_PUBLICATION"
+      },
+      "reporting_allowed": false,
+      "sequence": 8,
+      "source_family_ids": [
+        "dbh2_usgs_official_physical_event"
+      ],
+      "source_native_ids": [
+        "us7000srjx"
+      ],
+      "title": "M 6.1 - 99 km WNW of Mantua, Cuba"
+    },
+    {
+      "candidate_id": "cc-candidate-0bfa50458159c8a4d615",
+      "compiler_summary": null,
+      "domain": "physical_events",
+      "editorial_outcome": "MONITOR_MAJOR_PHYSICAL_EVENT_CONTEXT_ONLY",
+      "evidence_state": "context",
+      "freshness_availability": "UNAVAILABLE",
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [],
+        "status": "CONTEXT_ONLY_NO_PUBLICATION"
+      },
+      "reporting_allowed": false,
+      "sequence": 9,
+      "source_family_ids": [
+        "dbh2_usgs_official_physical_event"
+      ],
+      "source_native_ids": [
+        "us6000qw60"
+      ],
+      "title": "M 8.8 - 2025 Kamchatka Peninsula, Russia Earthquake"
+    },
+    {
+      "candidate_id": "cc-candidate-4335ae0fde846c79642a",
+      "compiler_summary": null,
+      "domain": "physical_events",
+      "editorial_outcome": "HOLD_PHYSICAL_EVENT_CONTEXT_ONLY",
+      "evidence_state": "context",
+      "freshness_availability": "UNAVAILABLE",
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [],
+        "status": "CONTEXT_ONLY_NO_PUBLICATION"
+      },
+      "reporting_allowed": false,
+      "sequence": 10,
+      "source_family_ids": [
+        "dbh2_usgs_official_physical_event"
+      ],
+      "source_native_ids": [
+        "us6000rl31"
+      ],
+      "title": "M 6.2 - 30 km SE of Maz\u0101r-e Shar\u012bf, Afghanistan"
+    },
+    {
+      "candidate_id": "cc-candidate-f6b4c963deb454aa1073",
+      "compiler_summary": null,
+      "domain": "physical_events",
+      "editorial_outcome": "HOLD_PHYSICAL_EVENT_CONTEXT_ONLY",
+      "evidence_state": "context",
+      "freshness_availability": "UNAVAILABLE",
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [],
+        "status": "CONTEXT_ONLY_NO_PUBLICATION"
+      },
+      "reporting_allowed": false,
+      "sequence": 11,
+      "source_family_ids": [
+        "dbh2_usgs_official_physical_event"
+      ],
+      "source_native_ids": [
+        "us7000qsvj"
+      ],
+      "title": "M 6.0 - 35 km WSW of Asad\u0101b\u0101d, Afghanistan"
+    },
+    {
+      "candidate_id": "cc-candidate-faceaaed05c2f023b59b",
+      "compiler_summary": null,
+      "domain": "physical_events",
+      "editorial_outcome": "HOLD_PHYSICAL_EVENT_CONTEXT_ONLY",
+      "evidence_state": "context",
+      "freshness_availability": "UNAVAILABLE",
+      "platform_preview": {
+        "approval_boundary": {
+          "approval_for_publication": false,
+          "approval_required": true,
+          "operator_approval_captured": false,
+          "valid_for_dispatch": false
+        },
+        "previews": [],
+        "status": "CONTEXT_ONLY_NO_PUBLICATION"
+      },
+      "reporting_allowed": false,
+      "sequence": 12,
+      "source_family_ids": [
+        "dbh2_usgs_official_physical_event"
+      ],
+      "source_native_ids": [
+        "us7000pufs"
+      ],
+      "title": "M 6.2 - 24 km SE of Marmara Ere\u011flisi, Turkey"
+    }
+  ],
+  "schema_version": "contentops.fast_ship_editorial_outcomes.v1"
+}

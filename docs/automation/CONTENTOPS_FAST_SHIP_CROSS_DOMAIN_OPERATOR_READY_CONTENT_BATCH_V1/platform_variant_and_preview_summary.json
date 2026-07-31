@@ -1,0 +1,167 @@
+{
+  "all_public_ready_false": true,
+  "all_valid_for_dispatch_false": true,
+  "preview_count": 5,
+  "priority_platforms": [
+    "substack_newsletter",
+    "linkedin",
+    "x_twitter",
+    "facebook_page",
+    "telegram"
+  ],
+  "schema_version": "contentops.fast_ship_platform_variant_preview_summary.v1",
+  "unsupported_surfaces": [
+    {
+      "platform_id": "youtube_community",
+      "reason": "no canonical v2 local preview contract",
+      "status": "UNSUPPORTED_LOCAL_PREVIEW_CONTRACT"
+    }
+  ],
+  "variants": [
+    {
+      "approval_required": true,
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "character_count": 180,
+      "character_limit_max": 100000,
+      "citation_fingerprints": [
+        "5a54600fc9be94f5b66b4883e440048c80900e989e92f42a89bcebd7bd92de12",
+        "7e15153b8ceb31ca9258d17565fef218257c0bbac33c6ae145459aef1f661353"
+      ],
+      "citations": [
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+      ],
+      "content_surface": "newsletter_section",
+      "dispatch_ready": false,
+      "limitations": [
+        "local_operator_review_only",
+        "no_publication_authority"
+      ],
+      "live_eligibility": false,
+      "mode": "manual_export",
+      "operator_review_required": true,
+      "payload_hash": "60b76a638b83002a640300bcb6f4df76a561a1cdb29715bbb4aed3c5edcd41bb",
+      "payload_shape": "manual_export",
+      "platform_id": "substack_newsletter",
+      "public_ready": false,
+      "text": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%\n\nThe 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.\n\nNot financial advice.",
+      "valid_for_dispatch": false
+    },
+    {
+      "approval_required": true,
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "character_count": 180,
+      "character_limit_max": 3000,
+      "citation_fingerprints": [
+        "5a54600fc9be94f5b66b4883e440048c80900e989e92f42a89bcebd7bd92de12",
+        "7e15153b8ceb31ca9258d17565fef218257c0bbac33c6ae145459aef1f661353"
+      ],
+      "citations": [
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+      ],
+      "content_surface": "professional_post",
+      "dispatch_ready": false,
+      "limitations": [
+        "local_operator_review_only",
+        "no_publication_authority"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "6503f51a5e01889a78b102680558a3e4aabbb84d6a5ebd2e264fdd1d4f91b977",
+      "payload_shape": "dry_run",
+      "platform_id": "linkedin",
+      "public_ready": false,
+      "text": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%\n\nThe 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.\n\nNot financial advice.",
+      "valid_for_dispatch": false
+    },
+    {
+      "approval_required": true,
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "character_count": 180,
+      "character_limit_max": 280,
+      "citation_fingerprints": [
+        "5a54600fc9be94f5b66b4883e440048c80900e989e92f42a89bcebd7bd92de12",
+        "7e15153b8ceb31ca9258d17565fef218257c0bbac33c6ae145459aef1f661353"
+      ],
+      "citations": [
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+      ],
+      "content_surface": "short_post",
+      "dispatch_ready": false,
+      "limitations": [
+        "local_operator_review_only",
+        "no_publication_authority"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "fb65d1fd7d36f95e5ebf967bebf38a67fffee063eb163a7aeb8c45accd4b7cb8",
+      "payload_shape": "dry_run",
+      "platform_id": "x_twitter",
+      "public_ready": false,
+      "text": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%\n\nThe 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.\n\nNot financial advice.",
+      "valid_for_dispatch": false
+    },
+    {
+      "approval_required": true,
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "character_count": 180,
+      "character_limit_max": 63206,
+      "citation_fingerprints": [
+        "5a54600fc9be94f5b66b4883e440048c80900e989e92f42a89bcebd7bd92de12",
+        "7e15153b8ceb31ca9258d17565fef218257c0bbac33c6ae145459aef1f661353"
+      ],
+      "citations": [
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+      ],
+      "content_surface": "page_post",
+      "dispatch_ready": false,
+      "limitations": [
+        "local_operator_review_only",
+        "no_publication_authority"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "de3aa95921d8b05c8be074ef4905227c858384cfc00783bf4658a7be197a7eff",
+      "payload_shape": "dry_run",
+      "platform_id": "facebook_page",
+      "public_ready": false,
+      "text": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%\n\nThe 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.\n\nNot financial advice.",
+      "valid_for_dispatch": false
+    },
+    {
+      "approval_required": true,
+      "candidate_id": "cc-candidate-120438cc800db7f941be",
+      "character_count": 180,
+      "character_limit_max": 4096,
+      "citation_fingerprints": [
+        "5a54600fc9be94f5b66b4883e440048c80900e989e92f42a89bcebd7bd92de12",
+        "7e15153b8ceb31ca9258d17565fef218257c0bbac33c6ae145459aef1f661353"
+      ],
+      "citations": [
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026"
+      ],
+      "content_surface": "channel_post",
+      "dispatch_ready": false,
+      "limitations": [
+        "local_operator_review_only",
+        "no_publication_authority"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "af8fdf26f2350fc3e4c764ab18ce7510517d92f953bf7a9fcacc0965183adb9f",
+      "payload_shape": "dry_run",
+      "platform_id": "telegram",
+      "public_ready": false,
+      "text": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%\n\nThe 2s10s spread closed at 36 basis points on 2026-07-13, while the 30-year par yield was 5.10%.\n\nNot financial advice.",
+      "valid_for_dispatch": false
+    }
+  ]
+}

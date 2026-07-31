@@ -1,0 +1,84 @@
+{
+  "artifacts": [
+    {
+      "byte_length": 1711,
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1/batch_summary.json",
+      "sha256": "1d52fffb196476bbc0c5d36d965f3fb7ad86747e2b7e3cfb8b9ec22d838bd756"
+    },
+    {
+      "byte_length": 19780,
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1/editorial_outcomes.json",
+      "sha256": "ba8a0ad132cfa8f364e1d3190325104189cdd0eed014492741326e1b5ff9cea6"
+    },
+    {
+      "byte_length": 7411,
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1/platform_variant_and_preview_summary.json",
+      "sha256": "caa598b347bd10ae346db5f595fdaf465983c14c76e8a657194c953bb5f84612"
+    },
+    {
+      "byte_length": 664,
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1/validation_truth.json",
+      "sha256": "3b278fb33a14e0e2cc82db6872ce4a42d15d16da612eaed096d1437585f6e4b6"
+    }
+  ],
+  "batch_schema_version": "contentops.fast_ship_cross_domain_operator_ready_batch.v1",
+  "candidate_ids": [
+    "cc-candidate-120438cc800db7f941be",
+    "cc-candidate-53ac065d3967c37ac2e3",
+    "cc-candidate-7f7ea3784a117401eae8",
+    "cc-candidate-b901e31ae8b0630d2d47",
+    "cc-candidate-cf1c41d0285e71e80daa",
+    "cc-candidate-4c164cf4950f29a3e5d9",
+    "cc-candidate-8f25ed0bca45e2aa54ff",
+    "cc-candidate-bcf82854936dd0e9614a",
+    "cc-candidate-0bfa50458159c8a4d615",
+    "cc-candidate-4335ae0fde846c79642a",
+    "cc-candidate-f6b4c963deb454aa1073",
+    "cc-candidate-faceaaed05c2f023b59b"
+  ],
+  "candidate_source_family_ids": [
+    "dbh2_federal_register_official_document",
+    "dbh2_ofac_official_entity_snapshot",
+    "dbh2_usgs_official_physical_event",
+    "story_scoped_publication_evidence_v1"
+  ],
+  "credential_read_performed": false,
+  "domains": [
+    "markets",
+    "physical_events",
+    "regulatory",
+    "sanctions"
+  ],
+  "editorial_outcomes": [
+    "HOLD_PHYSICAL_EVENT_CONTEXT_ONLY",
+    "HOLD_REGULATORY_CONTEXT_ONLY",
+    "HOLD_SANCTIONS_CONTEXT_ONLY",
+    "MONITOR_MAJOR_PHYSICAL_EVENT_CONTEXT_ONLY",
+    "REVIEWED_SHADOW_DRAFT_READY_FOR_OPERATOR_REVIEW"
+  ],
+  "exact_next_action": "INDEPENDENT_OPERATOR_AUDIT_OF_BATCH_EVIDENCE_AND_PREVIEWS",
+  "governed_fabric_source_family_ids": [
+    "dbh2_federal_register_official_document",
+    "dbh2_ofac_official_entity_snapshot",
+    "dbh2_usgs_official_physical_event",
+    "platform_capability_registry_v2",
+    "story_scoped_publication_evidence_v1"
+  ],
+  "logical_hash": "a6248a753e252aff7fbad0d3623125c2635b122e3cd51c102794716a4dd10099",
+  "network_intake_performed": false,
+  "observed_upstream_head": "1700520800e8c847b7446e196c384a43dd2a6a58",
+  "operation_logical_hash": "b71a249b14465bb9b4b4b6efe450d88073c6ce71365c000b93761f3ca604427f",
+  "public_write_performed": false,
+  "publication_authority": false,
+  "schema_version": "contentops.fast_ship_cross_domain_operator_ready_final_manifest.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1",
+  "terminal_classification": "PASS_LOCAL_OPERATOR_READY_BATCH",
+  "unsupported_surfaces": [
+    {
+      "platform_id": "youtube_community",
+      "reason": "no canonical v2 local preview contract",
+      "status": "UNSUPPORTED_LOCAL_PREVIEW_CONTRACT"
+    }
+  ],
+  "upstream_write_performed": false
+}
