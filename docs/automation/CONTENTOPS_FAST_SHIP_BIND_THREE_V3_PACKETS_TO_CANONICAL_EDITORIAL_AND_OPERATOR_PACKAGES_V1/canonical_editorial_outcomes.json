@@ -1,0 +1,2031 @@
+{
+  "outcome_count": 3,
+  "outcomes": [
+    {
+      "article_used_approved_claim_ids": [
+        "claim-95f6638ac5460d82"
+      ],
+      "browser_action_performed": false,
+      "candidate_id": "cc-candidate-713c5de51e9764fc8385",
+      "canonical_article": {
+        "article_mode": "analysis",
+        "as_of_utc": "2026-05-20T18:00:00Z",
+        "body_claim_ids_used": [
+          "claim-95f6638ac5460d82"
+        ],
+        "claim_authority_used": {
+          "claim-95f6638ac5460d82": "OFFICIAL_VERIFIED"
+        },
+        "claim_citations": {
+          "claim-95f6638ac5460d82": [
+            "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+          ]
+        },
+        "claim_ids_used": [
+          "claim-95f6638ac5460d82"
+        ],
+        "claim_permissions_used": {
+          "claim-95f6638ac5460d82": "PUBLIC_CLAIM_ALLOWED"
+        },
+        "cross_asset_assertions": false,
+        "hard_truncation_used": false,
+        "market_reaction_claim_ids": [],
+        "numeric_claims_from_llm": false,
+        "publication_authority": false,
+        "quantitative_blockers": [],
+        "rendered_body": "Minutes of the Federal Open Market Committee, April 28-29, 2026\n\nNot financial advice.",
+        "summary": "Minutes of the Federal Open Market Committee, April 28-29, 2026",
+        "summary_claim_ids_used": [
+          "claim-95f6638ac5460d82"
+        ],
+        "title": "Minutes of the Federal Open Market Committee, April 28-29, 2026",
+        "title_claim_ids_used": [
+          "claim-95f6638ac5460d82"
+        ],
+        "workflow_mode": "evidence_bound_shadow_draft"
+      },
+      "canonical_article_hash": "efd3a4c99803d1a3929f0e039d41ef0d34d9976ad6661212f82ee37677a4d5b0",
+      "canonical_article_id": "cc-canonical-draft-d48712897c709f99eea3",
+      "canonical_handoff_disposition": "LOCAL_SHADOW_DRAFT_HELD",
+      "citations": {
+        "claim-95f6638ac5460d82": [
+          "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+        ]
+      },
+      "dispatch_authority": false,
+      "editorial_review": {
+        "approved_claim_ids": [
+          "claim-95f6638ac5460d82"
+        ],
+        "blockers": [
+          "fewer_than_three_useful_visuals",
+          "insufficient_visual_evidence_diversity",
+          "lead_visual_missing",
+          "structured_role_review_failed_or_claimed_authority:visual_editor",
+          "candidate_public_claim_permission_blocked",
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing",
+          "structured_adversarial_review_failed_or_claimed_authority"
+        ],
+        "deterministic_blockers_authoritative": true,
+        "editorial_disposition": "HOLD",
+        "final_render_reviewed": true,
+        "governed_claim_contract": "V3_GENERIC_CLAIM_GRAPH",
+        "numeric_claim_ids_used": [],
+        "packet_hash": "bd954e3a9c24ced1c857132ebb71ad788d9800cdddc355e9f1af5dc1bba62bdd",
+        "publication_authority": false,
+        "revision_contract_status": "NOT_REQUESTED",
+        "role_order": [
+          "assignment_editor",
+          "evidence_planner",
+          "reporter_writer",
+          "quantitative_editor",
+          "visual_editor",
+          "copy_editor",
+          "platform_editor",
+          "adversarial_final_reviewer"
+        ],
+        "roles": [
+          {
+            "blockers": [],
+            "output_hash": "12cf73a6437f9da5319f3db66e5110128e2e7304662975599ffa1e7b63f9b9db",
+            "role": "assignment_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "assignment_mode_bound": true,
+                "claim_set_governed": true,
+                "story_type_present": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "assignment_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-95f6638ac5460d82"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "d7074dc70fdc4ff9c055c91aac83ae93a9f687432cff4de1fa25b2a33ffb8453",
+            "role": "evidence_planner",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_lineage_complete": true,
+                "claim_set_governed": true,
+                "packet_contract_valid": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "evidence_planner"
+              },
+              "reviewed_claim_ids": [
+                "claim-95f6638ac5460d82"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "c65ed3f4625b934e965676f3359d4a000ff2675be911653dd94f8f782ad72988",
+            "role": "reporter_writer",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "body_claim_set_exact": true,
+                "claim_set_governed": true,
+                "governed_statements_present": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "reporter_writer"
+              },
+              "reviewed_claim_ids": [
+                "claim-95f6638ac5460d82"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "6921a0bee7316618099f77745d2a4458b4d6a95c075714028ce81aa9a60da2f9",
+            "role": "quantitative_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_set_governed": true,
+                "numeric_authority_not_delegated": true,
+                "numeric_claims_typed": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "quantitative_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-95f6638ac5460d82"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [
+              "fewer_than_three_useful_visuals",
+              "insufficient_visual_evidence_diversity",
+              "lead_visual_missing",
+              "structured_role_review_failed_or_claimed_authority:visual_editor"
+            ],
+            "output_hash": "83f69101c1009f74feb0173d2554d3afcb1071802e3823d6c7c48e3cd87dfe19",
+            "role": "visual_editor",
+            "status": "BLOCK",
+            "structured_review": {
+              "blockers": [
+                "visual_decision_passed"
+              ],
+              "checks": {
+                "claim_set_governed": true,
+                "v3_packet_hash_bound": true,
+                "visual_decision_passed": false,
+                "visuals_do_not_claim_authority": true
+              },
+              "decision": "BLOCK",
+              "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "visual_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-95f6638ac5460d82"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "7bbd7e1e4387a2a5809b93c134058dc3f8a6e8fa1e5705fb1146cceaa1109e19",
+            "role": "copy_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_set_governed": true,
+                "final_render_present": true,
+                "single_financial_disclaimer": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "copy_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-95f6638ac5460d82"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "4a471bc3b155c9489d0c35a43d006982daf796f7a0f9ecb1d88db66679da45e4",
+            "role": "platform_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_set_governed": true,
+                "draft_has_no_publication_authority": true,
+                "hard_truncation_absent": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "platform_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-95f6638ac5460d82"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [
+              "candidate_public_claim_permission_blocked",
+              "market_sensitive_story_snapshot_stale_or_missing",
+              "market_sensitive_story_ingest_stale_or_missing",
+              "structured_adversarial_review_failed_or_claimed_authority"
+            ],
+            "output_hash": "709ea58f76683bf7879b6629c4d63c40fefafcbbc55cac46154bdbabe8baa7ac",
+            "role": "adversarial_final_reviewer",
+            "status": "BLOCK",
+            "structured_review": {
+              "blockers": [
+                "freshness_decision_passed",
+                "prior_roles_clear"
+              ],
+              "checks": {
+                "authority_and_permission_not_upgraded": true,
+                "citation_bindings_exact": true,
+                "claim_set_governed": true,
+                "freshness_decision_passed": false,
+                "prior_roles_clear": false,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "BLOCK",
+              "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "adversarial_final_reviewer"
+              },
+              "reviewed_claim_ids": [
+                "claim-95f6638ac5460d82"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          }
+        ],
+        "schema_version": "contentops.editorial_review_orchestrator.v2",
+        "status": "BLOCK",
+        "used_claim_ids": [
+          "claim-95f6638ac5460d82"
+        ],
+        "writer_self_certification_allowed": false
+      },
+      "editorial_review_hash": "72440252e7e5c2dea2eb453a29bf6b241a0454a22f9c590a66e7a45503465587",
+      "editorial_state": "HOLD",
+      "final_adversarial_review_disposition": {
+        "blockers": [
+          "candidate_public_claim_permission_blocked",
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing",
+          "structured_adversarial_review_failed_or_claimed_authority"
+        ],
+        "output_hash": "709ea58f76683bf7879b6629c4d63c40fefafcbbc55cac46154bdbabe8baa7ac",
+        "role": "adversarial_final_reviewer",
+        "status": "BLOCK",
+        "structured_review": {
+          "blockers": [
+            "freshness_decision_passed",
+            "prior_roles_clear"
+          ],
+          "checks": {
+            "authority_and_permission_not_upgraded": true,
+            "citation_bindings_exact": true,
+            "claim_set_governed": true,
+            "freshness_decision_passed": false,
+            "prior_roles_clear": false,
+            "v3_packet_hash_bound": true
+          },
+          "decision": "BLOCK",
+          "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+          "publication_authority": false,
+          "review_basis": {
+            "checks_derived_from_final_render_and_v3_packet": true,
+            "role": "adversarial_final_reviewer"
+          },
+          "reviewed_claim_ids": [
+            "claim-95f6638ac5460d82"
+          ],
+          "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+        }
+      },
+      "freshness_disposition": {
+        "blockers": [
+          "candidate_public_claim_permission_blocked",
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing"
+        ],
+        "decision": "BLOCK",
+        "duplicate_policy_is_separate": true,
+        "effective_article_mode": "analysis",
+        "event_age_hours": null,
+        "expected_source_cadence": "config_required",
+        "fresh_material_delta": false,
+        "headline_age_hours": null,
+        "latest_database_ingest_age_hours": null,
+        "latest_market_observation_age_hours": null,
+        "market_sensitive": true,
+        "market_session_state": "unknown",
+        "primary_source_age_hours": 0.0,
+        "requested_article_mode": "analysis",
+        "schema_version": "contentops.freshness_market_state_decision.v2",
+        "thresholds": {
+          "analysis_market_hours": 24.0,
+          "ingest_hours": 24.0,
+          "straight_news_hours": 24.0
+        }
+      },
+      "limitations": [
+        "No rate-path, policy interpretation, market-reaction, forecast, numeric, publication, dispatch, or trading authority.",
+        "Release metadata only."
+      ],
+      "network_call_performed": false,
+      "outcome_hash": "14ff0b4614c8d2e6e6ed7322d890ccb556694bb876efc6ddb4f88b95be23db97",
+      "public_write_authority": false,
+      "public_write_performed": false,
+      "publication_authority": false,
+      "role_outcomes": [
+        {
+          "blockers": [],
+          "output_hash": "12cf73a6437f9da5319f3db66e5110128e2e7304662975599ffa1e7b63f9b9db",
+          "role": "assignment_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "assignment_mode_bound": true,
+              "claim_set_governed": true,
+              "story_type_present": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "assignment_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-95f6638ac5460d82"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "d7074dc70fdc4ff9c055c91aac83ae93a9f687432cff4de1fa25b2a33ffb8453",
+          "role": "evidence_planner",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_lineage_complete": true,
+              "claim_set_governed": true,
+              "packet_contract_valid": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "evidence_planner"
+            },
+            "reviewed_claim_ids": [
+              "claim-95f6638ac5460d82"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "c65ed3f4625b934e965676f3359d4a000ff2675be911653dd94f8f782ad72988",
+          "role": "reporter_writer",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "body_claim_set_exact": true,
+              "claim_set_governed": true,
+              "governed_statements_present": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "reporter_writer"
+            },
+            "reviewed_claim_ids": [
+              "claim-95f6638ac5460d82"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "6921a0bee7316618099f77745d2a4458b4d6a95c075714028ce81aa9a60da2f9",
+          "role": "quantitative_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_set_governed": true,
+              "numeric_authority_not_delegated": true,
+              "numeric_claims_typed": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "quantitative_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-95f6638ac5460d82"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [
+            "fewer_than_three_useful_visuals",
+            "insufficient_visual_evidence_diversity",
+            "lead_visual_missing",
+            "structured_role_review_failed_or_claimed_authority:visual_editor"
+          ],
+          "output_hash": "83f69101c1009f74feb0173d2554d3afcb1071802e3823d6c7c48e3cd87dfe19",
+          "role": "visual_editor",
+          "status": "BLOCK",
+          "structured_review": {
+            "blockers": [
+              "visual_decision_passed"
+            ],
+            "checks": {
+              "claim_set_governed": true,
+              "v3_packet_hash_bound": true,
+              "visual_decision_passed": false,
+              "visuals_do_not_claim_authority": true
+            },
+            "decision": "BLOCK",
+            "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "visual_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-95f6638ac5460d82"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "7bbd7e1e4387a2a5809b93c134058dc3f8a6e8fa1e5705fb1146cceaa1109e19",
+          "role": "copy_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_set_governed": true,
+              "final_render_present": true,
+              "single_financial_disclaimer": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "copy_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-95f6638ac5460d82"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "4a471bc3b155c9489d0c35a43d006982daf796f7a0f9ecb1d88db66679da45e4",
+          "role": "platform_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_set_governed": true,
+              "draft_has_no_publication_authority": true,
+              "hard_truncation_absent": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "platform_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-95f6638ac5460d82"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [
+            "candidate_public_claim_permission_blocked",
+            "market_sensitive_story_snapshot_stale_or_missing",
+            "market_sensitive_story_ingest_stale_or_missing",
+            "structured_adversarial_review_failed_or_claimed_authority"
+          ],
+          "output_hash": "709ea58f76683bf7879b6629c4d63c40fefafcbbc55cac46154bdbabe8baa7ac",
+          "role": "adversarial_final_reviewer",
+          "status": "BLOCK",
+          "structured_review": {
+            "blockers": [
+              "freshness_decision_passed",
+              "prior_roles_clear"
+            ],
+            "checks": {
+              "authority_and_permission_not_upgraded": true,
+              "citation_bindings_exact": true,
+              "claim_set_governed": true,
+              "freshness_decision_passed": false,
+              "prior_roles_clear": false,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "BLOCK",
+            "evidence_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "adversarial_final_reviewer"
+            },
+            "reviewed_claim_ids": [
+              "claim-95f6638ac5460d82"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        }
+      ],
+      "schema_version": "contentops.canonical_local_editorial_outcome.v1",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "unresolved_blockers": [
+        "fewer_than_three_useful_visuals",
+        "insufficient_visual_evidence_diversity",
+        "lead_visual_missing",
+        "structured_role_review_failed_or_claimed_authority:visual_editor",
+        "candidate_public_claim_permission_blocked",
+        "market_sensitive_story_snapshot_stale_or_missing",
+        "market_sensitive_story_ingest_stale_or_missing",
+        "structured_adversarial_review_failed_or_claimed_authority"
+      ],
+      "v3_packet_id": "cc-evidence-4f0722ced0269d254a4d",
+      "v3_packet_logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+      "visual_disposition": {
+        "asset_count": 0,
+        "blockers": [
+          "fewer_than_three_useful_visuals",
+          "insufficient_visual_evidence_diversity",
+          "lead_visual_missing"
+        ],
+        "decision_hash": "41dd8c443de3169544b48a4e4b86ca5625192e0b6e6746c6556dcb8e824d4a42",
+        "editorial_exception": null,
+        "evidence_dimensions": [],
+        "modalities": [],
+        "schema_version": "contentops.visual_composition_decision.v2",
+        "status": "BLOCK",
+        "story_type": "evidence_bound_news_analysis",
+        "underlying_series_counts": {}
+      }
+    },
+    {
+      "article_used_approved_claim_ids": [
+        "claim-661031f2768d9629",
+        "claim-403af5e0ec85b722"
+      ],
+      "browser_action_performed": false,
+      "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b",
+      "canonical_article": {
+        "article_mode": "analysis",
+        "as_of_utc": "2026-05-01",
+        "body_claim_ids_used": [
+          "claim-661031f2768d9629",
+          "claim-403af5e0ec85b722"
+        ],
+        "claim_authority_used": {
+          "claim-403af5e0ec85b722": "OFFICIAL_VERIFIED",
+          "claim-661031f2768d9629": "OFFICIAL_VERIFIED"
+        },
+        "claim_citations": {
+          "claim-403af5e0ec85b722": [
+            "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+          ],
+          "claim-661031f2768d9629": [
+            "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+          ]
+        },
+        "claim_ids_used": [
+          "claim-661031f2768d9629",
+          "claim-403af5e0ec85b722"
+        ],
+        "claim_permissions_used": {
+          "claim-403af5e0ec85b722": "PUBLIC_CLAIM_ALLOWED",
+          "claim-661031f2768d9629": "PUBLIC_CLAIM_ALLOWED"
+        },
+        "cross_asset_assertions": false,
+        "hard_truncation_used": false,
+        "market_reaction_claim_ids": [],
+        "numeric_claims_from_llm": false,
+        "publication_authority": false,
+        "quantitative_blockers": [],
+        "rendered_body": "Apple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission.\n\nThe filing's primary document is identified by the SEC as a 10-Q.\n\nNot financial advice.",
+        "summary": "Apple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission.",
+        "summary_claim_ids_used": [
+          "claim-661031f2768d9629"
+        ],
+        "title": "Apple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission.",
+        "title_claim_ids_used": [
+          "claim-661031f2768d9629"
+        ],
+        "workflow_mode": "evidence_bound_shadow_draft"
+      },
+      "canonical_article_hash": "8580ff71ab0c7e1ec80fae2ee238b920a6ba1abdb537d8d6969d3130f5f2aa73",
+      "canonical_article_id": "cc-canonical-draft-41b557ced5ef1637788b",
+      "canonical_handoff_disposition": "LOCAL_SHADOW_DRAFT_HELD",
+      "citations": {
+        "claim-403af5e0ec85b722": [
+          "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+        ],
+        "claim-661031f2768d9629": [
+          "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+        ]
+      },
+      "dispatch_authority": false,
+      "editorial_review": {
+        "approved_claim_ids": [
+          "claim-403af5e0ec85b722",
+          "claim-661031f2768d9629"
+        ],
+        "blockers": [
+          "fewer_than_three_useful_visuals",
+          "insufficient_visual_evidence_diversity",
+          "lead_visual_missing",
+          "structured_role_review_failed_or_claimed_authority:visual_editor",
+          "candidate_public_claim_permission_blocked",
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing",
+          "structured_adversarial_review_failed_or_claimed_authority"
+        ],
+        "deterministic_blockers_authoritative": true,
+        "editorial_disposition": "HOLD",
+        "final_render_reviewed": true,
+        "governed_claim_contract": "V3_GENERIC_CLAIM_GRAPH",
+        "numeric_claim_ids_used": [],
+        "packet_hash": "2430416b1c43ba4110483b1a94f687caec97f07cce2e64fe5dabf087bf92b08a",
+        "publication_authority": false,
+        "revision_contract_status": "NOT_REQUESTED",
+        "role_order": [
+          "assignment_editor",
+          "evidence_planner",
+          "reporter_writer",
+          "quantitative_editor",
+          "visual_editor",
+          "copy_editor",
+          "platform_editor",
+          "adversarial_final_reviewer"
+        ],
+        "roles": [
+          {
+            "blockers": [],
+            "output_hash": "157eeec5543080197ac40382b3763784eb79f9b1358c669f6b2a28629606ba3e",
+            "role": "assignment_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "assignment_mode_bound": true,
+                "claim_set_governed": true,
+                "story_type_present": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "assignment_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-403af5e0ec85b722",
+                "claim-661031f2768d9629"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "999ed47f3eff243ea2d71dfdba941771e7e123624d864f1a93bf19f85d6aa30c",
+            "role": "evidence_planner",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_lineage_complete": true,
+                "claim_set_governed": true,
+                "packet_contract_valid": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "evidence_planner"
+              },
+              "reviewed_claim_ids": [
+                "claim-403af5e0ec85b722",
+                "claim-661031f2768d9629"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "23850b4ca57638d98debe954d2223cf3648ab4278612896ba04d0878d497a3aa",
+            "role": "reporter_writer",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "body_claim_set_exact": true,
+                "claim_set_governed": true,
+                "governed_statements_present": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "reporter_writer"
+              },
+              "reviewed_claim_ids": [
+                "claim-403af5e0ec85b722",
+                "claim-661031f2768d9629"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "81444fac383267243208fa68e1532c82011ed0173fc86f61802e762b736c9365",
+            "role": "quantitative_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_set_governed": true,
+                "numeric_authority_not_delegated": true,
+                "numeric_claims_typed": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "quantitative_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-403af5e0ec85b722",
+                "claim-661031f2768d9629"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [
+              "fewer_than_three_useful_visuals",
+              "insufficient_visual_evidence_diversity",
+              "lead_visual_missing",
+              "structured_role_review_failed_or_claimed_authority:visual_editor"
+            ],
+            "output_hash": "ee47074239fdb230c364528ca54b74926d6da75a720c8eff57a2c7d0604de1d8",
+            "role": "visual_editor",
+            "status": "BLOCK",
+            "structured_review": {
+              "blockers": [
+                "visual_decision_passed"
+              ],
+              "checks": {
+                "claim_set_governed": true,
+                "v3_packet_hash_bound": true,
+                "visual_decision_passed": false,
+                "visuals_do_not_claim_authority": true
+              },
+              "decision": "BLOCK",
+              "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "visual_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-403af5e0ec85b722",
+                "claim-661031f2768d9629"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "df8df6c761f7353f7a6da3c59f8c79147c84a2949a935d46e575984f6ffdf124",
+            "role": "copy_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_set_governed": true,
+                "final_render_present": true,
+                "single_financial_disclaimer": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "copy_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-403af5e0ec85b722",
+                "claim-661031f2768d9629"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "1adde62245c22c77f918056f4074ebb83874de0278b311b7012dac58b6a51b6d",
+            "role": "platform_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_set_governed": true,
+                "draft_has_no_publication_authority": true,
+                "hard_truncation_absent": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "platform_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-403af5e0ec85b722",
+                "claim-661031f2768d9629"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [
+              "candidate_public_claim_permission_blocked",
+              "market_sensitive_story_snapshot_stale_or_missing",
+              "market_sensitive_story_ingest_stale_or_missing",
+              "structured_adversarial_review_failed_or_claimed_authority"
+            ],
+            "output_hash": "897b7863f61566f02c21312faf76b6431c0da53053ceeabbb9ecbf98e0049182",
+            "role": "adversarial_final_reviewer",
+            "status": "BLOCK",
+            "structured_review": {
+              "blockers": [
+                "freshness_decision_passed",
+                "prior_roles_clear"
+              ],
+              "checks": {
+                "authority_and_permission_not_upgraded": true,
+                "citation_bindings_exact": true,
+                "claim_set_governed": true,
+                "freshness_decision_passed": false,
+                "prior_roles_clear": false,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "BLOCK",
+              "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "adversarial_final_reviewer"
+              },
+              "reviewed_claim_ids": [
+                "claim-403af5e0ec85b722",
+                "claim-661031f2768d9629"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          }
+        ],
+        "schema_version": "contentops.editorial_review_orchestrator.v2",
+        "status": "BLOCK",
+        "used_claim_ids": [
+          "claim-403af5e0ec85b722",
+          "claim-661031f2768d9629"
+        ],
+        "writer_self_certification_allowed": false
+      },
+      "editorial_review_hash": "6b89fe9158795050e2b6124d7c6eccc67df96196a5ed4078665a916455bd239d",
+      "editorial_state": "HOLD",
+      "final_adversarial_review_disposition": {
+        "blockers": [
+          "candidate_public_claim_permission_blocked",
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing",
+          "structured_adversarial_review_failed_or_claimed_authority"
+        ],
+        "output_hash": "897b7863f61566f02c21312faf76b6431c0da53053ceeabbb9ecbf98e0049182",
+        "role": "adversarial_final_reviewer",
+        "status": "BLOCK",
+        "structured_review": {
+          "blockers": [
+            "freshness_decision_passed",
+            "prior_roles_clear"
+          ],
+          "checks": {
+            "authority_and_permission_not_upgraded": true,
+            "citation_bindings_exact": true,
+            "claim_set_governed": true,
+            "freshness_decision_passed": false,
+            "prior_roles_clear": false,
+            "v3_packet_hash_bound": true
+          },
+          "decision": "BLOCK",
+          "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+          "publication_authority": false,
+          "review_basis": {
+            "checks_derived_from_final_render_and_v3_packet": true,
+            "role": "adversarial_final_reviewer"
+          },
+          "reviewed_claim_ids": [
+            "claim-403af5e0ec85b722",
+            "claim-661031f2768d9629"
+          ],
+          "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+        }
+      },
+      "freshness_disposition": {
+        "blockers": [
+          "candidate_public_claim_permission_blocked",
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing"
+        ],
+        "decision": "BLOCK",
+        "duplicate_policy_is_separate": true,
+        "effective_article_mode": "analysis",
+        "event_age_hours": null,
+        "expected_source_cadence": "config_required",
+        "fresh_material_delta": false,
+        "headline_age_hours": null,
+        "latest_database_ingest_age_hours": null,
+        "latest_market_observation_age_hours": null,
+        "market_sensitive": true,
+        "market_session_state": "unknown",
+        "primary_source_age_hours": 0.0,
+        "requested_article_mode": "analysis",
+        "schema_version": "contentops.freshness_market_state_decision.v2",
+        "thresholds": {
+          "analysis_market_hours": 24.0,
+          "ingest_hours": 24.0,
+          "straight_news_hours": 24.0
+        }
+      },
+      "limitations": [
+        "No earnings, revenue, guidance, company impact, market-reaction, interpretation, numeric, publication, dispatch, or trading authority.",
+        "SEC filing metadata only; filing-body facts are not authorized."
+      ],
+      "network_call_performed": false,
+      "outcome_hash": "1a525937ef2105f719d199cd9539aab717a7c3a1d983784be97b356fa5498fb6",
+      "public_write_authority": false,
+      "public_write_performed": false,
+      "publication_authority": false,
+      "role_outcomes": [
+        {
+          "blockers": [],
+          "output_hash": "157eeec5543080197ac40382b3763784eb79f9b1358c669f6b2a28629606ba3e",
+          "role": "assignment_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "assignment_mode_bound": true,
+              "claim_set_governed": true,
+              "story_type_present": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "assignment_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-403af5e0ec85b722",
+              "claim-661031f2768d9629"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "999ed47f3eff243ea2d71dfdba941771e7e123624d864f1a93bf19f85d6aa30c",
+          "role": "evidence_planner",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_lineage_complete": true,
+              "claim_set_governed": true,
+              "packet_contract_valid": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "evidence_planner"
+            },
+            "reviewed_claim_ids": [
+              "claim-403af5e0ec85b722",
+              "claim-661031f2768d9629"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "23850b4ca57638d98debe954d2223cf3648ab4278612896ba04d0878d497a3aa",
+          "role": "reporter_writer",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "body_claim_set_exact": true,
+              "claim_set_governed": true,
+              "governed_statements_present": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "reporter_writer"
+            },
+            "reviewed_claim_ids": [
+              "claim-403af5e0ec85b722",
+              "claim-661031f2768d9629"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "81444fac383267243208fa68e1532c82011ed0173fc86f61802e762b736c9365",
+          "role": "quantitative_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_set_governed": true,
+              "numeric_authority_not_delegated": true,
+              "numeric_claims_typed": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "quantitative_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-403af5e0ec85b722",
+              "claim-661031f2768d9629"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [
+            "fewer_than_three_useful_visuals",
+            "insufficient_visual_evidence_diversity",
+            "lead_visual_missing",
+            "structured_role_review_failed_or_claimed_authority:visual_editor"
+          ],
+          "output_hash": "ee47074239fdb230c364528ca54b74926d6da75a720c8eff57a2c7d0604de1d8",
+          "role": "visual_editor",
+          "status": "BLOCK",
+          "structured_review": {
+            "blockers": [
+              "visual_decision_passed"
+            ],
+            "checks": {
+              "claim_set_governed": true,
+              "v3_packet_hash_bound": true,
+              "visual_decision_passed": false,
+              "visuals_do_not_claim_authority": true
+            },
+            "decision": "BLOCK",
+            "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "visual_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-403af5e0ec85b722",
+              "claim-661031f2768d9629"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "df8df6c761f7353f7a6da3c59f8c79147c84a2949a935d46e575984f6ffdf124",
+          "role": "copy_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_set_governed": true,
+              "final_render_present": true,
+              "single_financial_disclaimer": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "copy_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-403af5e0ec85b722",
+              "claim-661031f2768d9629"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "1adde62245c22c77f918056f4074ebb83874de0278b311b7012dac58b6a51b6d",
+          "role": "platform_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_set_governed": true,
+              "draft_has_no_publication_authority": true,
+              "hard_truncation_absent": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "platform_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-403af5e0ec85b722",
+              "claim-661031f2768d9629"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [
+            "candidate_public_claim_permission_blocked",
+            "market_sensitive_story_snapshot_stale_or_missing",
+            "market_sensitive_story_ingest_stale_or_missing",
+            "structured_adversarial_review_failed_or_claimed_authority"
+          ],
+          "output_hash": "897b7863f61566f02c21312faf76b6431c0da53053ceeabbb9ecbf98e0049182",
+          "role": "adversarial_final_reviewer",
+          "status": "BLOCK",
+          "structured_review": {
+            "blockers": [
+              "freshness_decision_passed",
+              "prior_roles_clear"
+            ],
+            "checks": {
+              "authority_and_permission_not_upgraded": true,
+              "citation_bindings_exact": true,
+              "claim_set_governed": true,
+              "freshness_decision_passed": false,
+              "prior_roles_clear": false,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "BLOCK",
+            "evidence_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "adversarial_final_reviewer"
+            },
+            "reviewed_claim_ids": [
+              "claim-403af5e0ec85b722",
+              "claim-661031f2768d9629"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        }
+      ],
+      "schema_version": "contentops.canonical_local_editorial_outcome.v1",
+      "story_id": "apple-sec-10q-2026-000013",
+      "unresolved_blockers": [
+        "fewer_than_three_useful_visuals",
+        "insufficient_visual_evidence_diversity",
+        "lead_visual_missing",
+        "structured_role_review_failed_or_claimed_authority:visual_editor",
+        "candidate_public_claim_permission_blocked",
+        "market_sensitive_story_snapshot_stale_or_missing",
+        "market_sensitive_story_ingest_stale_or_missing",
+        "structured_adversarial_review_failed_or_claimed_authority"
+      ],
+      "v3_packet_id": "cc-evidence-9ef5cc971d4341756ad5",
+      "v3_packet_logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+      "visual_disposition": {
+        "asset_count": 0,
+        "blockers": [
+          "fewer_than_three_useful_visuals",
+          "insufficient_visual_evidence_diversity",
+          "lead_visual_missing"
+        ],
+        "decision_hash": "41dd8c443de3169544b48a4e4b86ca5625192e0b6e6746c6556dcb8e824d4a42",
+        "editorial_exception": null,
+        "evidence_dimensions": [],
+        "modalities": [],
+        "schema_version": "contentops.visual_composition_decision.v2",
+        "status": "BLOCK",
+        "story_type": "evidence_bound_news_analysis",
+        "underlying_series_counts": {}
+      }
+    },
+    {
+      "article_used_approved_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "browser_action_performed": false,
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "canonical_article": {
+        "article_mode": "analysis",
+        "as_of_utc": "2019-07-06T03:19:53.040000+00:00",
+        "body_claim_ids_used": [
+          "claim-a436944fa62bc374",
+          "claim-f1f734761cccc69a"
+        ],
+        "claim_authority_used": {
+          "claim-a436944fa62bc374": "OFFICIAL_VERIFIED",
+          "claim-f1f734761cccc69a": "OFFICIAL_VERIFIED"
+        },
+        "claim_citations": {
+          "claim-a436944fa62bc374": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+          ],
+          "claim-f1f734761cccc69a": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+          ]
+        },
+        "claim_ids_used": [
+          "claim-a436944fa62bc374",
+          "claim-f1f734761cccc69a"
+        ],
+        "claim_permissions_used": {
+          "claim-a436944fa62bc374": "PUBLIC_CLAIM_ALLOWED",
+          "claim-f1f734761cccc69a": "PUBLIC_CLAIM_ALLOWED"
+        },
+        "cross_asset_assertions": false,
+        "hard_truncation_used": false,
+        "market_reaction_claim_ids": [],
+        "numeric_claims_from_llm": false,
+        "publication_authority": false,
+        "quantitative_blockers": [],
+        "rendered_body": "USGS identifies the event as reviewed.\n\nUSGS identifies the event as part of the Ridgecrest Earthquake Sequence.\n\nNot financial advice.",
+        "summary": "USGS identifies the event as reviewed.",
+        "summary_claim_ids_used": [
+          "claim-a436944fa62bc374"
+        ],
+        "title": "USGS identifies the event as reviewed.",
+        "title_claim_ids_used": [
+          "claim-a436944fa62bc374"
+        ],
+        "workflow_mode": "evidence_bound_shadow_draft"
+      },
+      "canonical_article_hash": "d69fd108c336d79c96fe73d36a16833a85f8732e2e40c1f51060679392fb0e06",
+      "canonical_article_id": "cc-canonical-draft-0832f4eedba8936fc012",
+      "canonical_handoff_disposition": "LOCAL_SHADOW_DRAFT_HELD",
+      "citations": {
+        "claim-a436944fa62bc374": [
+          "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+        ],
+        "claim-f1f734761cccc69a": [
+          "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+        ]
+      },
+      "dispatch_authority": false,
+      "editorial_review": {
+        "approved_claim_ids": [
+          "claim-a436944fa62bc374",
+          "claim-f1f734761cccc69a"
+        ],
+        "blockers": [
+          "fewer_than_three_useful_visuals",
+          "insufficient_visual_evidence_diversity",
+          "lead_visual_missing",
+          "structured_role_review_failed_or_claimed_authority:visual_editor",
+          "candidate_public_claim_permission_blocked",
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing",
+          "structured_adversarial_review_failed_or_claimed_authority"
+        ],
+        "deterministic_blockers_authoritative": true,
+        "editorial_disposition": "HOLD",
+        "final_render_reviewed": true,
+        "governed_claim_contract": "V3_GENERIC_CLAIM_GRAPH",
+        "numeric_claim_ids_used": [],
+        "packet_hash": "356fc59ae251181e6df81f07da2d9676caa3d991a1d04b663af21bf3994d0b4b",
+        "publication_authority": false,
+        "revision_contract_status": "NOT_REQUESTED",
+        "role_order": [
+          "assignment_editor",
+          "evidence_planner",
+          "reporter_writer",
+          "quantitative_editor",
+          "visual_editor",
+          "copy_editor",
+          "platform_editor",
+          "adversarial_final_reviewer"
+        ],
+        "roles": [
+          {
+            "blockers": [],
+            "output_hash": "790e31cf946e9eeb10936070939ebe74ed4067c904dc0d16843ed0613cad2502",
+            "role": "assignment_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "assignment_mode_bound": true,
+                "claim_set_governed": true,
+                "story_type_present": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "assignment_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-a436944fa62bc374",
+                "claim-f1f734761cccc69a"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "15314ef7007afb70198c1f3261793158b308617366b2bf9ec1bd64fad68a4d22",
+            "role": "evidence_planner",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_lineage_complete": true,
+                "claim_set_governed": true,
+                "packet_contract_valid": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "evidence_planner"
+              },
+              "reviewed_claim_ids": [
+                "claim-a436944fa62bc374",
+                "claim-f1f734761cccc69a"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "8f3f49934036f64dec59360a837e8b1d919c90f4716630404a691999106a04ad",
+            "role": "reporter_writer",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "body_claim_set_exact": true,
+                "claim_set_governed": true,
+                "governed_statements_present": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "reporter_writer"
+              },
+              "reviewed_claim_ids": [
+                "claim-a436944fa62bc374",
+                "claim-f1f734761cccc69a"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "ca4299b70bd57714b99978c33ce0cb133eba0911df587c7794cc61b0916c7d8b",
+            "role": "quantitative_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_set_governed": true,
+                "numeric_authority_not_delegated": true,
+                "numeric_claims_typed": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "quantitative_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-a436944fa62bc374",
+                "claim-f1f734761cccc69a"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [
+              "fewer_than_three_useful_visuals",
+              "insufficient_visual_evidence_diversity",
+              "lead_visual_missing",
+              "structured_role_review_failed_or_claimed_authority:visual_editor"
+            ],
+            "output_hash": "c05471e59ecddb240d667b10d0dc2b5cd164ba3a7890634dfb986fab862e2d77",
+            "role": "visual_editor",
+            "status": "BLOCK",
+            "structured_review": {
+              "blockers": [
+                "visual_decision_passed"
+              ],
+              "checks": {
+                "claim_set_governed": true,
+                "v3_packet_hash_bound": true,
+                "visual_decision_passed": false,
+                "visuals_do_not_claim_authority": true
+              },
+              "decision": "BLOCK",
+              "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "visual_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-a436944fa62bc374",
+                "claim-f1f734761cccc69a"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "6c40130c2dc666d0965b24bcf857c2e8382f2abd6aa9741800176d610c99c9d5",
+            "role": "copy_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_set_governed": true,
+                "final_render_present": true,
+                "single_financial_disclaimer": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "copy_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-a436944fa62bc374",
+                "claim-f1f734761cccc69a"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [],
+            "output_hash": "4bf656a323a0615e65852e23942fdf6a697793cbcc95932635092eff5d360098",
+            "role": "platform_editor",
+            "status": "PASS",
+            "structured_review": {
+              "blockers": [],
+              "checks": {
+                "claim_set_governed": true,
+                "draft_has_no_publication_authority": true,
+                "hard_truncation_absent": true,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "PASS",
+              "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "platform_editor"
+              },
+              "reviewed_claim_ids": [
+                "claim-a436944fa62bc374",
+                "claim-f1f734761cccc69a"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          },
+          {
+            "blockers": [
+              "candidate_public_claim_permission_blocked",
+              "market_sensitive_story_snapshot_stale_or_missing",
+              "market_sensitive_story_ingest_stale_or_missing",
+              "structured_adversarial_review_failed_or_claimed_authority"
+            ],
+            "output_hash": "ae77b2494706e325de5d4e35ec40b4271824c804bfe49939d158997a37230691",
+            "role": "adversarial_final_reviewer",
+            "status": "BLOCK",
+            "structured_review": {
+              "blockers": [
+                "freshness_decision_passed",
+                "prior_roles_clear"
+              ],
+              "checks": {
+                "authority_and_permission_not_upgraded": true,
+                "citation_bindings_exact": true,
+                "claim_set_governed": true,
+                "freshness_decision_passed": false,
+                "prior_roles_clear": false,
+                "v3_packet_hash_bound": true
+              },
+              "decision": "BLOCK",
+              "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+              "publication_authority": false,
+              "review_basis": {
+                "checks_derived_from_final_render_and_v3_packet": true,
+                "role": "adversarial_final_reviewer"
+              },
+              "reviewed_claim_ids": [
+                "claim-a436944fa62bc374",
+                "claim-f1f734761cccc69a"
+              ],
+              "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+            }
+          }
+        ],
+        "schema_version": "contentops.editorial_review_orchestrator.v2",
+        "status": "BLOCK",
+        "used_claim_ids": [
+          "claim-a436944fa62bc374",
+          "claim-f1f734761cccc69a"
+        ],
+        "writer_self_certification_allowed": false
+      },
+      "editorial_review_hash": "80dada66b8f089f36a2ceb8168e12d4b8c4e3b4fbc526924309417e2b084abca",
+      "editorial_state": "HOLD",
+      "final_adversarial_review_disposition": {
+        "blockers": [
+          "candidate_public_claim_permission_blocked",
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing",
+          "structured_adversarial_review_failed_or_claimed_authority"
+        ],
+        "output_hash": "ae77b2494706e325de5d4e35ec40b4271824c804bfe49939d158997a37230691",
+        "role": "adversarial_final_reviewer",
+        "status": "BLOCK",
+        "structured_review": {
+          "blockers": [
+            "freshness_decision_passed",
+            "prior_roles_clear"
+          ],
+          "checks": {
+            "authority_and_permission_not_upgraded": true,
+            "citation_bindings_exact": true,
+            "claim_set_governed": true,
+            "freshness_decision_passed": false,
+            "prior_roles_clear": false,
+            "v3_packet_hash_bound": true
+          },
+          "decision": "BLOCK",
+          "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+          "publication_authority": false,
+          "review_basis": {
+            "checks_derived_from_final_render_and_v3_packet": true,
+            "role": "adversarial_final_reviewer"
+          },
+          "reviewed_claim_ids": [
+            "claim-a436944fa62bc374",
+            "claim-f1f734761cccc69a"
+          ],
+          "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+        }
+      },
+      "freshness_disposition": {
+        "blockers": [
+          "candidate_public_claim_permission_blocked",
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing"
+        ],
+        "decision": "BLOCK",
+        "duplicate_policy_is_separate": true,
+        "effective_article_mode": "analysis",
+        "event_age_hours": null,
+        "expected_source_cadence": "config_required",
+        "fresh_material_delta": false,
+        "headline_age_hours": null,
+        "latest_database_ingest_age_hours": null,
+        "latest_market_observation_age_hours": null,
+        "market_sensitive": true,
+        "market_session_state": "unknown",
+        "primary_source_age_hours": 0.0,
+        "requested_article_mode": "analysis",
+        "schema_version": "contentops.freshness_market_state_decision.v2",
+        "thresholds": {
+          "analysis_market_hours": 24.0,
+          "ingest_hours": 24.0,
+          "straight_news_hours": 24.0
+        }
+      },
+      "limitations": [
+        "No magnitude, damage, impact, affected-entity, market-reaction, interpretation, numeric, publication, dispatch, or trading authority.",
+        "Only the exact reviewed event identity and location wording are authorized."
+      ],
+      "network_call_performed": false,
+      "outcome_hash": "8f83e142db9e59998c55c80514b42de687314fb08c27b3cdaa522c315ecc00e6",
+      "public_write_authority": false,
+      "public_write_performed": false,
+      "publication_authority": false,
+      "role_outcomes": [
+        {
+          "blockers": [],
+          "output_hash": "790e31cf946e9eeb10936070939ebe74ed4067c904dc0d16843ed0613cad2502",
+          "role": "assignment_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "assignment_mode_bound": true,
+              "claim_set_governed": true,
+              "story_type_present": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "assignment_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-a436944fa62bc374",
+              "claim-f1f734761cccc69a"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "15314ef7007afb70198c1f3261793158b308617366b2bf9ec1bd64fad68a4d22",
+          "role": "evidence_planner",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_lineage_complete": true,
+              "claim_set_governed": true,
+              "packet_contract_valid": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "evidence_planner"
+            },
+            "reviewed_claim_ids": [
+              "claim-a436944fa62bc374",
+              "claim-f1f734761cccc69a"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "8f3f49934036f64dec59360a837e8b1d919c90f4716630404a691999106a04ad",
+          "role": "reporter_writer",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "body_claim_set_exact": true,
+              "claim_set_governed": true,
+              "governed_statements_present": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "reporter_writer"
+            },
+            "reviewed_claim_ids": [
+              "claim-a436944fa62bc374",
+              "claim-f1f734761cccc69a"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "ca4299b70bd57714b99978c33ce0cb133eba0911df587c7794cc61b0916c7d8b",
+          "role": "quantitative_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_set_governed": true,
+              "numeric_authority_not_delegated": true,
+              "numeric_claims_typed": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "quantitative_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-a436944fa62bc374",
+              "claim-f1f734761cccc69a"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [
+            "fewer_than_three_useful_visuals",
+            "insufficient_visual_evidence_diversity",
+            "lead_visual_missing",
+            "structured_role_review_failed_or_claimed_authority:visual_editor"
+          ],
+          "output_hash": "c05471e59ecddb240d667b10d0dc2b5cd164ba3a7890634dfb986fab862e2d77",
+          "role": "visual_editor",
+          "status": "BLOCK",
+          "structured_review": {
+            "blockers": [
+              "visual_decision_passed"
+            ],
+            "checks": {
+              "claim_set_governed": true,
+              "v3_packet_hash_bound": true,
+              "visual_decision_passed": false,
+              "visuals_do_not_claim_authority": true
+            },
+            "decision": "BLOCK",
+            "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "visual_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-a436944fa62bc374",
+              "claim-f1f734761cccc69a"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "6c40130c2dc666d0965b24bcf857c2e8382f2abd6aa9741800176d610c99c9d5",
+          "role": "copy_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_set_governed": true,
+              "final_render_present": true,
+              "single_financial_disclaimer": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "copy_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-a436944fa62bc374",
+              "claim-f1f734761cccc69a"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [],
+          "output_hash": "4bf656a323a0615e65852e23942fdf6a697793cbcc95932635092eff5d360098",
+          "role": "platform_editor",
+          "status": "PASS",
+          "structured_review": {
+            "blockers": [],
+            "checks": {
+              "claim_set_governed": true,
+              "draft_has_no_publication_authority": true,
+              "hard_truncation_absent": true,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "PASS",
+            "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "platform_editor"
+            },
+            "reviewed_claim_ids": [
+              "claim-a436944fa62bc374",
+              "claim-f1f734761cccc69a"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        },
+        {
+          "blockers": [
+            "candidate_public_claim_permission_blocked",
+            "market_sensitive_story_snapshot_stale_or_missing",
+            "market_sensitive_story_ingest_stale_or_missing",
+            "structured_adversarial_review_failed_or_claimed_authority"
+          ],
+          "output_hash": "ae77b2494706e325de5d4e35ec40b4271824c804bfe49939d158997a37230691",
+          "role": "adversarial_final_reviewer",
+          "status": "BLOCK",
+          "structured_review": {
+            "blockers": [
+              "freshness_decision_passed",
+              "prior_roles_clear"
+            ],
+            "checks": {
+              "authority_and_permission_not_upgraded": true,
+              "citation_bindings_exact": true,
+              "claim_set_governed": true,
+              "freshness_decision_passed": false,
+              "prior_roles_clear": false,
+              "v3_packet_hash_bound": true
+            },
+            "decision": "BLOCK",
+            "evidence_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+            "publication_authority": false,
+            "review_basis": {
+              "checks_derived_from_final_render_and_v3_packet": true,
+              "role": "adversarial_final_reviewer"
+            },
+            "reviewed_claim_ids": [
+              "claim-a436944fa62bc374",
+              "claim-f1f734761cccc69a"
+            ],
+            "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK"
+          }
+        }
+      ],
+      "schema_version": "contentops.canonical_local_editorial_outcome.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "unresolved_blockers": [
+        "fewer_than_three_useful_visuals",
+        "insufficient_visual_evidence_diversity",
+        "lead_visual_missing",
+        "structured_role_review_failed_or_claimed_authority:visual_editor",
+        "candidate_public_claim_permission_blocked",
+        "market_sensitive_story_snapshot_stale_or_missing",
+        "market_sensitive_story_ingest_stale_or_missing",
+        "structured_adversarial_review_failed_or_claimed_authority"
+      ],
+      "v3_packet_id": "cc-evidence-8ec7ffdf16b18b6254ae",
+      "v3_packet_logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+      "visual_disposition": {
+        "asset_count": 0,
+        "blockers": [
+          "fewer_than_three_useful_visuals",
+          "insufficient_visual_evidence_diversity",
+          "lead_visual_missing"
+        ],
+        "decision_hash": "41dd8c443de3169544b48a4e4b86ca5625192e0b6e6746c6556dcb8e824d4a42",
+        "editorial_exception": null,
+        "evidence_dimensions": [],
+        "modalities": [],
+        "schema_version": "contentops.visual_composition_decision.v2",
+        "status": "BLOCK",
+        "story_type": "evidence_bound_news_analysis",
+        "underlying_series_counts": {}
+      }
+    }
+  ],
+  "protected_state": {
+    "browser_action_performed": false,
+    "credential_read_allowed_now": false,
+    "dispatch_authority": false,
+    "network_call_performed": false,
+    "posting_enabled_now": false,
+    "provider_action_performed": false,
+    "public_write_authority": false,
+    "public_write_performed": false,
+    "publication_authority": false,
+    "scheduler_enabled_now": false
+  },
+  "schema_version": "contentops.three_story_canonical_editorial_outcomes.v1",
+  "story_ids": [
+    "fomc-minutes-2026-04-28-29",
+    "apple-sec-10q-2026-000013",
+    "usgs-reviewed-ridgecrest-ci38457511"
+  ],
+  "task": "TASK_CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1"
+}

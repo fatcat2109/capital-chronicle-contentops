@@ -13,7 +13,7 @@ from live_contentops.payload_preview_hash_v6 import compute_payload_hash
 
 EVIDENCE_DIR = Path(
     "docs/automation/"
-    "CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1"
+    "CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1"
 )
 UPSTREAM_AUTHORITY = Path(
     "A:/Capital Chronicle/Headline Raw data local json/"
@@ -31,73 +31,53 @@ def _authority():
     return json.loads(UPSTREAM_AUTHORITY.read_text(encoding="utf-8"))
 
 
-def test_committed_candidate_batch_has_required_scale_and_exact_five_families():
-    packet = _load("candidate_batch.json")
-    assert 15 <= packet["candidate_count"] <= 25
-    assert packet["candidate_count"] == len(packet["candidates"])
-    assert packet["source_family_count"] == 5
-    assert packet["source_family_ids"] == sorted({
-        "federal_reserve_fomc",
-        "sec_edgar",
-        "usgs_comcat",
-        "story_scoped_publication_evidence_v1",
-        "nonnumeric_story_scoped_publication_evidence_v1",
-    })
-    assert sum(row["candidate_role"] == "PRIMARY_OPERATOR_PACKAGE" for row in packet["candidates"]) == 3
-    assert all(row["publication_authority"] is False for row in packet["candidates"])
+def test_canonical_editorial_outcomes_bind_articles_claims_roles_and_holds():
+    packet = _load("canonical_editorial_outcomes.json")
+    assert packet["outcome_count"] == 3
+    assert packet["story_ids"] == list(packages.EXPECTED_STORY_IDS)
+    for outcome in packet["outcomes"]:
+        assert outcome["canonical_article_id"].startswith("cc-canonical-draft-")
+        assert outcome["canonical_article_hash"] == packages._logical_hash(
+            outcome["canonical_article"]
+        )
+        assert outcome["article_used_approved_claim_ids"] == list(
+            packages.AUTHORIZED_CLAIMS[outcome["story_id"]]
+        )
+        assert outcome["canonical_article"]["claim_ids_used"] == outcome[
+            "article_used_approved_claim_ids"
+        ]
+        assert len(outcome["role_outcomes"]) == 8
+        assert [row["role"] for row in outcome["role_outcomes"]] == [
+            "assignment_editor",
+            "evidence_planner",
+            "reporter_writer",
+            "quantitative_editor",
+            "visual_editor",
+            "copy_editor",
+            "platform_editor",
+            "adversarial_final_reviewer",
+        ]
+        assert outcome["editorial_review_hash"] == packages._logical_hash(
+            outcome["editorial_review"]
+        )
+        assert outcome["editorial_state"] == (
+            "PASS" if not outcome["unresolved_blockers"] else "HOLD"
+        )
+        unhashed = dict(outcome)
+        observed = unhashed.pop("outcome_hash")
+        assert packages._logical_hash(unhashed) == observed
 
 
-def test_committed_variants_are_six_per_story_platform_native_and_review_only():
-    packet = _load("platform_native_variants.json")
-    assert packet["variant_count"] == 18
-    assert packet["platform_ids"] == list(packages.PLATFORM_IDS)
-    for story_id in packages.EXPECTED_STORY_IDS:
-        rows = [row for row in packet["variants"] if row["story_id"] == story_id]
-        assert [row["platform_id"] for row in rows] == list(packages.PLATFORM_IDS)
-        assert len({row["text"] for row in rows}) == 6
-        for row in rows:
-            assert row["character_count"] == len(row["text"])
-            assert row["character_count"] <= row["character_limit_max"]
-            assert row["operator_review_required"] is True
-            assert row["approval_required"] is True
-            assert row["valid_for_dispatch"] is False
-            assert row["dispatch_ready"] is False
-            assert row["public_ready"] is False
-            assert row["live_eligibility"] is False
-            hash_input = {
-                key: row[key]
-                for key in (
-                    "story_id", "candidate_id", "authority_story_logical_hash",
-                    "authorized_claim_ids", "platform_id", "content_surface",
-                    "payload_shape", "mode", "text", "citation_fingerprints",
-                    "limitation_fingerprints", "policy",
-                )
-            }
-            assert row["payload_hash"] == compute_payload_hash(hash_input)
-
-
-def test_youtube_community_is_text_only_default_article_surface_not_video():
-    packet = _load("platform_native_variants.json")
-    youtube_rows = [row for row in packet["variants"] if row["platform_id"] == "youtube_community"]
-    assert len(youtube_rows) == 3
-    for row in youtube_rows:
-        assert row["content_surface"] == "community_text_post"
-        assert row["youtube_contract"] == {
-            "default_article_surface_confirmed": True,
-            "media_required": False,
-            "post_type": "text_only_community_post",
-            "surface": "youtube_community",
-            "video_upload_request": False,
-        }
-        assert "text-only Community post package" in row["text"]
-
-
-def test_operator_packages_are_unsigned_pending_and_exactly_hash_bound():
-    packet = _load("unsigned_operator_approval_packages.json")
-    variants = _load("platform_native_variants.json")["variants"]
+def test_superseding_operator_packages_are_unsigned_pending_and_fully_bound():
+    packet = _load("superseding_unsigned_operator_packages.json")
+    outcomes = {
+        row["story_id"]: row
+        for row in _load("canonical_editorial_outcomes.json")["outcomes"]
+    }
     assert packet["package_count"] == 3
     assert packet["state"] == "PENDING_OPERATOR_DECISION"
     for package in packet["packages"]:
+        outcome = outcomes[package["story_id"]]
         assert package["state"] == "PENDING_OPERATOR_DECISION"
         assert package["signature"] is None
         assert package["operator_identity"] is None
@@ -106,8 +86,19 @@ def test_operator_packages_are_unsigned_pending_and_exactly_hash_bound():
         assert package["publication_authority"] is False
         assert package["dispatch_authority"] is False
         assert package["public_write_authority"] is False
-        rows = [row for row in variants if row["story_id"] == package["story_id"]]
-        assert package["variant_payload_hashes"] == {row["platform_id"]: row["payload_hash"] for row in rows}
+        assert package["authority_binding"]["exact_git_receipt"] == packages._expected_authority_receipt()
+        binding = package["editorial_binding"]
+        assert binding["v3_packet_id"] == outcome["v3_packet_id"]
+        assert binding["v3_packet_logical_hash"] == outcome["v3_packet_logical_hash"]
+        assert binding["canonical_article_id"] == outcome["canonical_article_id"]
+        assert binding["canonical_article_hash"] == outcome["canonical_article_hash"]
+        assert binding["article_used_approved_claim_ids"] == outcome["article_used_approved_claim_ids"]
+        assert binding["editorial_review_hash"] == outcome["editorial_review_hash"]
+        assert binding["freshness_disposition"] == outcome["freshness_disposition"]
+        assert binding["visual_disposition"] == outcome["visual_disposition"]
+        assert binding["final_adversarial_review_disposition"] == outcome["final_adversarial_review_disposition"]
+        assert binding["unresolved_blockers"] == outcome["unresolved_blockers"]
+        assert len(package["variant_payload_hashes"]) == 6
         unhashed = dict(package)
         observed = unhashed.pop("package_hash")
         assert packages._logical_hash(unhashed) == observed
@@ -186,11 +177,22 @@ def test_variant_and_package_hashes_change_on_exact_copy_mutation():
     }
     assert compute_payload_hash(hash_input) != row["payload_hash"]
     story_rows = [packages._build_variant(story, packages._candidate_id(story), platform) for platform in packages.PLATFORM_IDS]
-    package = packages._build_package(story, story_rows)
+    outcome = packages._build_editorial_outcome(story)
+    receipt = packages._expected_authority_receipt()
+    package = packages._build_package(story, story_rows, outcome, receipt)
     mutated_rows = deepcopy(story_rows)
     mutated_rows[0]["payload_hash"] = "0" * 64
-    mutated_package = packages._build_package(story, mutated_rows)
+    mutated_package = packages._build_package(story, mutated_rows, outcome, receipt)
     assert mutated_package["package_hash"] != package["package_hash"]
+    mutated_outcome = deepcopy(outcome)
+    mutated_outcome["canonical_article_hash"] = "0" * 64
+    mutated_outcome["outcome_hash"] = packages._logical_hash({
+        key: value for key, value in mutated_outcome.items() if key != "outcome_hash"
+    })
+    article_mutated_package = packages._build_package(
+        story, story_rows, mutated_outcome, receipt
+    )
+    assert article_mutated_package["package_hash"] != package["package_hash"]
 
 
 def test_wrong_upstream_head_fails_closed():

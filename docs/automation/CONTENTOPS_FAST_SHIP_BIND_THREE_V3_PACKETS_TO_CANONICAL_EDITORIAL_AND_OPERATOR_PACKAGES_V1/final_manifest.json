@@ -1,0 +1,64 @@
+{
+  "artifacts": [
+    {
+      "byte_length": 81675,
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/canonical_editorial_outcomes.json",
+      "sha256": "916c3260375ab58ecb3a397102e1aabd74dc102159c004b335b547dd8e1c1d9a"
+    },
+    {
+      "byte_length": 27150,
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/superseding_unsigned_operator_packages.json",
+      "sha256": "be95c1e6fa23c35da1cbb1945f105973a869e59b32db87e4a67045f221e9f94a"
+    },
+    {
+      "byte_length": 2588,
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/validation_truth.json",
+      "sha256": "45993055d31270e9f4ac383e5a7ee895ef9917a68a62356ee2d12910f3d47322"
+    }
+  ],
+  "authority_git_receipt": {
+    "artifact_path": "docs/research/publication_evidence/current/CapitalChronicleMultiStoryScopedReportingAuthorityBatchV1.json",
+    "branch": "main",
+    "byte_length": 16646,
+    "byte_sha256": "5bc4ca67c4c149c0f68eeacdcb3899fbd29e3647945723c9ceb955a69ddb5d05",
+    "git_blob_sha1": "fbb25216d08b5a4c5ca30386cf8f47ed468c1eac",
+    "observed_head": "64834919b4f69e977475c203abeafef57791f015",
+    "producer_commit": "64834919b4f69e977475c203abeafef57791f015",
+    "repository": "fatcat2109/Headline-Raw-data-json"
+  },
+  "authority_packet_id": "cc-multi-story-authority-3ff3f14f9a231ce791a9",
+  "authority_packet_logical_hash": "f825fcfe8016b6a020d855180267f393d6df0b2f6b6e98edbb351c6b549a3840",
+  "browser_action_performed": false,
+  "canonical_editorial_outcome_count": 3,
+  "credential_read_allowed_now": false,
+  "dispatch_authority": false,
+  "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_THREE_V3_CANONICAL_EDITORIAL_OPERATOR_PACKAGES_V1",
+  "logical_hash": "ed5029e95a1d3d9022dc6ee3b23d76cd7cd1d9195d74787c450c9744201c0d73",
+  "network_call_performed": false,
+  "observed_upstream_head": "64834919b4f69e977475c203abeafef57791f015",
+  "operator_package_count": 3,
+  "operator_package_state": "PENDING_OPERATOR_DECISION",
+  "posting_enabled_now": false,
+  "provider_action_performed": false,
+  "public_write_authority": false,
+  "public_write_performed": false,
+  "publication_authority": false,
+  "scheduler_enabled_now": false,
+  "schema_version": "contentops.three_v3_canonical_editorial_operator_packages.v1",
+  "story_ids": [
+    "fomc-minutes-2026-04-28-29",
+    "apple-sec-10q-2026-000013",
+    "usgs-reviewed-ridgecrest-ci38457511"
+  ],
+  "task": "TASK_CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1",
+  "terminal_classification": "PASS_THREE_V3_CANONICAL_EDITORIAL_OPERATOR_PACKAGES_PENDING_DECISION_AWAITING_CHATGPT_AUDIT",
+  "upstream_checkout_verification": {
+    "branch": "main",
+    "observed_origin_head": "64834919b4f69e977475c203abeafef57791f015",
+    "origin_url_redacted_to_repository": "fatcat2109/Headline-Raw-data-json",
+    "producer_commit": "64834919b4f69e977475c203abeafef57791f015",
+    "producer_commit_reachable_from_observed_origin_head": true,
+    "repository": "fatcat2109/Headline-Raw-data-json",
+    "status": "PASS_EXACT_LOCAL_GIT_IDENTITY_AND_ANCESTRY"
+  }
+}
