@@ -127,16 +127,36 @@ def test_manifest_hashes_match_committed_bytes_and_replay_is_deterministic():
     assert packages._canonical(first) == packages._canonical(second)
 
 
-def test_authority_claim_mutation_fails_closed():
+def test_authority_claim_mutation_fails_closed(monkeypatch):
     authority = _authority()
     authority["stories"][0]["claims"][0]["claim_id"] = "claim-mutated"
+    story = authority["stories"][0]
+    story["logical_hash"] = packages.logical_hash({
+        key: value for key, value in story.items() if key != "logical_hash"
+    })
+    authority["logical_hash"] = packages.logical_hash({
+        key: value for key, value in authority.items() if key != "logical_hash"
+    })
+    monkeypatch.setattr(
+        packages, "EXPECTED_AUTHORITY_LOGICAL_HASH", authority["logical_hash"]
+    )
     with pytest.raises(ValueError, match="claim_allowlist_mismatch:fomc-minutes-2026-04-28-29"):
         packages.build_documents(authority, packages.EXPECTED_UPSTREAM_HEAD)
 
 
-def test_permission_upgrade_mutation_fails_closed():
+def test_permission_upgrade_mutation_fails_closed(monkeypatch):
     authority = _authority()
     authority["stories"][1]["consumer_permissions"]["publication_allowed"] = True
+    story = authority["stories"][1]
+    story["logical_hash"] = packages.logical_hash({
+        key: value for key, value in story.items() if key != "logical_hash"
+    })
+    authority["logical_hash"] = packages.logical_hash({
+        key: value for key, value in authority.items() if key != "logical_hash"
+    })
+    monkeypatch.setattr(
+        packages, "EXPECTED_AUTHORITY_LOGICAL_HASH", authority["logical_hash"]
+    )
     with pytest.raises(ValueError, match="permission_boundary_mismatch:apple-sec-10q-2026-000013"):
         packages.build_documents(authority, packages.EXPECTED_UPSTREAM_HEAD)
 

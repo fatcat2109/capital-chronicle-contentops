@@ -6,6 +6,11 @@
       "sha256": "cbce1f88b51005aaf4c6abc3766ab539aefeff35351e886badf58fdcda2445c1"
     },
     {
+      "byte_length": 31137,
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1/canonical_content_evidence_packets_v3.json",
+      "sha256": "916677993cfb1347f98c1e8fde063c8ca7b9aef9eee33ce9dd44acec6d6bc135"
+    },
+    {
       "byte_length": 35585,
       "path": "docs/automation/CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1/platform_native_variants.json",
       "sha256": "6809a1fd7280f5aa85f4068e5433811ef4fb2a4daa78bacdba1244fa139ecf75"
@@ -16,20 +21,31 @@
       "sha256": "e604f0f0b112cfc3b685c68f8da7a7a20c104999ef46ee9050e9603db4224935"
     },
     {
-      "byte_length": 1421,
+      "byte_length": 2209,
       "path": "docs/automation/CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1/validation_truth.json",
-      "sha256": "c1f6a0c028337ff7655e5941202f8070814fb40180a03e73733ad5075c116e39"
+      "sha256": "397ba9622a150c6e67edacf1fb40aa4b642d8be107bece54e4d6b19d81252091"
     }
   ],
+  "authority_git_receipt": {
+    "artifact_path": "docs/research/publication_evidence/current/CapitalChronicleMultiStoryScopedReportingAuthorityBatchV1.json",
+    "branch": "main",
+    "byte_length": 16646,
+    "byte_sha256": "5bc4ca67c4c149c0f68eeacdcb3899fbd29e3647945723c9ceb955a69ddb5d05",
+    "git_blob_sha1": "fbb25216d08b5a4c5ca30386cf8f47ed468c1eac",
+    "observed_head": "64834919b4f69e977475c203abeafef57791f015",
+    "producer_commit": "64834919b4f69e977475c203abeafef57791f015",
+    "repository": "fatcat2109/Headline-Raw-data-json"
+  },
   "authority_packet_id": "cc-multi-story-authority-3ff3f14f9a231ce791a9",
   "authority_packet_logical_hash": "f825fcfe8016b6a020d855180267f393d6df0b2f6b6e98edbb351c6b549a3840",
   "authority_relative_path": "docs/research/publication_evidence/current/CapitalChronicleMultiStoryScopedReportingAuthorityBatchV1.json",
   "browser_action_performed": false,
   "candidate_count": 15,
+  "canonical_v3_evidence_packet_count": 3,
   "credential_read_allowed_now": false,
   "dispatch_authority": false,
-  "exact_next_action": "INDEPENDENT_OPERATOR_REVIEW_OF_THREE_UNSIGNED_HASH_BOUND_PACKAGES",
-  "logical_hash": "c1c4d8e676e1a1f7be1519a42d42c76543a9f61934dd22a33a0362ee2194ed86",
+  "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_CANONICAL_THREE_STORY_EDITORIAL_OPERATOR_PACKAGES_V1",
+  "logical_hash": "2087aed8c28eba1e651f04075ae90296e8a074a12c08306ab56bf78efd7e7300",
   "network_call_performed": false,
   "observed_upstream_head": "64834919b4f69e977475c203abeafef57791f015",
   "operator_package_count": 3,
@@ -61,6 +77,6 @@
     "usgs-reviewed-ridgecrest-ci38457511"
   ],
   "task": "TASK_CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1",
-  "terminal_classification": "PASS_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_PENDING_DECISION",
+  "terminal_classification": "PASS_CANONICAL_THREE_STORY_EDITORIAL_OPERATOR_PACKAGES_PENDING_DECISION",
   "variant_count": 18
 }

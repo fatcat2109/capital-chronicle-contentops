@@ -2,14 +2,22 @@
 from __future__ import annotations
 
 import argparse
-from copy import deepcopy
 from hashlib import sha256
 import json
 from pathlib import Path
 import re
 from typing import Any, Mapping, Sequence
 
+from live_contentops.capital_chronicle_content_evidence_packet_v3 import (
+    build_content_evidence_packet_v3,
+    validate_content_evidence_packet_v3,
+)
+from live_contentops.governed_upstream_bridge_v1 import read_git_artifact
 from live_contentops.payload_preview_hash_v6 import compute_payload_hash
+from live_contentops.universal_governed_registry_v1 import logical_hash
+from live_contentops.window_incremental_editorial_shadow_v1 import (
+    build_candidate_bound_evidence_packet,
+)
 
 
 TASK = "TASK_CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1"
@@ -23,7 +31,12 @@ EVIDENCE_RELATIVE = Path(
     "docs/automation/"
     "CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1"
 )
+EXPECTED_UPSTREAM_REPOSITORY = "fatcat2109/Headline-Raw-data-json"
+EXPECTED_UPSTREAM_BRANCH = "main"
 EXPECTED_UPSTREAM_HEAD = "64834919b4f69e977475c203abeafef57791f015"
+EXPECTED_AUTHORITY_GIT_BLOB_SHA1 = "fbb25216d08b5a4c5ca30386cf8f47ed468c1eac"
+EXPECTED_AUTHORITY_BYTE_SHA256 = "5bc4ca67c4c149c0f68eeacdcb3899fbd29e3647945723c9ceb955a69ddb5d05"
+EXPECTED_AUTHORITY_BYTE_LENGTH = 16646
 EXPECTED_AUTHORITY_PACKET_ID = "cc-multi-story-authority-3ff3f14f9a231ce791a9"
 EXPECTED_AUTHORITY_LOGICAL_HASH = "f825fcfe8016b6a020d855180267f393d6df0b2f6b6e98edbb351c6b549a3840"
 EXPECTED_STORY_IDS = (
@@ -154,10 +167,16 @@ def _validate_authority(packet: Mapping[str, Any], observed_upstream_head: str) 
         raise ValueError("authority_schema_mismatch")
     if packet.get("packet_id") != EXPECTED_AUTHORITY_PACKET_ID:
         raise ValueError("authority_packet_id_mismatch")
+    packet_without_hash = {key: value for key, value in packet.items() if key != "logical_hash"}
+    if logical_hash(packet_without_hash) != packet.get("logical_hash"):
+        raise ValueError("authority_logical_hash_recomputation_mismatch")
     if packet.get("logical_hash") != EXPECTED_AUTHORITY_LOGICAL_HASH:
         raise ValueError("authority_logical_hash_mismatch")
     if packet.get("terminal_status") != "PASS_MULTI_STORY_SCOPED_REPORTING_AUTHORITY_BATCH_V1":
         raise ValueError("authority_terminal_status_not_pass")
+    verifier = packet.get("verifier") or {}
+    if verifier.get("status") != "PASS" or verifier.get("blockers") != []:
+        raise ValueError("authority_verifier_not_pass")
     protected = packet.get("protected_state") or {}
     if protected.get("global_dqr_status") != "BLOCKED" or protected.get("global_dqr_override") is not False:
         raise ValueError("global_dqr_protection_mismatch")
@@ -169,27 +188,48 @@ def _validate_authority(packet: Mapping[str, Any], observed_upstream_head: str) 
         raise ValueError("exact_story_set_or_order_mismatch")
     for story in stories:
         story_id = str(story["story_id"])
+        story_without_hash = {key: value for key, value in story.items() if key != "logical_hash"}
+        if logical_hash(story_without_hash) != story.get("logical_hash"):
+            raise ValueError(f"story_logical_hash_recomputation_mismatch:{story_id}")
         permissions = story.get("consumer_permissions") or {}
         claim_ids = tuple(claim.get("claim_id") for claim in story.get("claims", []))
         if claim_ids != AUTHORIZED_CLAIMS[story_id]:
             raise ValueError(f"claim_allowlist_mismatch:{story_id}")
         if tuple(permissions.get("authorized_claim_ids", [])) != claim_ids:
             raise ValueError(f"permission_claim_set_mismatch:{story_id}")
-        if not all(claim.get("reporting_allowed") is True for claim in story.get("claims", [])):
-            raise ValueError(f"claim_reporting_not_allowed:{story_id}")
+        if not all(
+            claim.get("reporting_allowed") is True
+            and claim.get("contains_numeric_assertion") is False
+            and claim.get("interpretation_allowed") is False
+            for claim in story.get("claims", [])
+        ):
+            raise ValueError(f"claim_reporting_boundary_mismatch:{story_id}")
         expected_permissions = {
             "reporting_allowed": True,
             "interpretation_allowed": False,
             "numeric_reporting_allowed": False,
             "market_reaction_allowed": False,
             "forecast_allowed": False,
+            "financial_advice_allowed": False,
+            "trading_allowed": False,
             "publication_allowed": False,
             "dispatch_allowed": False,
             "public_write_allowed": False,
             "global_dqr_override": False,
+            "exact_story_only": True,
+            "source_family_wide_authority": False,
+            "derived_from_verifier": True,
         }
         if any(permissions.get(key) is not value for key, value in expected_permissions.items()):
             raise ValueError(f"permission_boundary_mismatch:{story_id}")
+        dqr = story.get("dqr_decision") or {}
+        if (
+            dqr.get("global_dqr_status") != "BLOCKED"
+            or dqr.get("global_dqr_override") is not False
+            or dqr.get("reporting_allowed") is not True
+            or dqr.get("story_reporting_decision") != "PASS_STORY_SCOPED_REPORTING"
+        ):
+            raise ValueError(f"story_dqr_boundary_mismatch:{story_id}")
     return stories
 
 
@@ -236,6 +276,107 @@ def _story_candidates(story: Mapping[str, Any]) -> list[dict[str, Any]]:
             "editorial_disposition": "CONTEXT_ONLY_NO_PLATFORM_PACKAGE",
         },
     ]
+
+
+def _build_canonical_evidence_packet(story: Mapping[str, Any]) -> dict[str, Any]:
+    candidate_id = _candidate_id(story)
+    citation_url = str(story["official_urls"]["citation_url"])
+    evidence_ref = f"git-authority:{EXPECTED_UPSTREAM_HEAD}:{story['story_id']}"
+    document_id = f"document:{story['provider_record_id']}"
+    timestamp = str(story["timestamps"]["published_at"])
+    source_document = {
+        "document_id": document_id,
+        "source_native_id": story["provider_record_id"],
+        "source_family_id": story["source_family"],
+        "provider": story["provider"],
+        "record_type": story["record_type"],
+        "title": story["source_native_identity"].get("title") or _copy_fields(story)["headline"],
+        "published_at_utc": timestamp,
+        "known_at_utc": story["timestamps"]["known_at"],
+        "authorized_urls": [citation_url],
+        "content_sha256": story["source_receipt"]["sha256"],
+    }
+    binding = {
+        "evidence_ref": evidence_ref,
+        "document_id": document_id,
+        "source_family_id": story["source_family"],
+        "source_native_id": story["provider_record_id"],
+        "authority_story_logical_hash": story["logical_hash"],
+        "authority_packet_logical_hash": EXPECTED_AUTHORITY_LOGICAL_HASH,
+        "verifier_produced": True,
+    }
+    binding["logical_hash"] = logical_hash(binding)
+    claims: list[dict[str, Any]] = []
+    for upstream_claim in story["claims"]:
+        claim = {
+            "schema_version": "contentops.universal_news_claim.v2",
+            "claim_id": upstream_claim["claim_id"],
+            "claim_type": "factual_text",
+            "statement": upstream_claim["text"],
+            "structured_payload": {
+                "story_id": story["story_id"],
+                "source_field": upstream_claim["source_field"],
+            },
+            "source_document_ids": [document_id],
+            "evidence_refs": [evidence_ref],
+            "authority_class": "OFFICIAL_VERIFIED",
+            "permission_state": "PUBLIC_CLAIM_ALLOWED",
+            "observed_at_utc": None,
+            "event_time_utc": timestamp,
+            "published_at_utc": timestamp,
+            "known_at_utc": story["timestamps"]["known_at"],
+            "revision_at_utc": story["timestamps"]["provider_updated_at"],
+            "entities": [],
+            "geographies": [],
+            "citations": [{
+                "source_document_id": document_id,
+                "url": citation_url,
+                "citation_state": "EXACT_SOURCE_NATIVE_URL",
+            }],
+            "limitations": list(story["limitations"]),
+            "numeric": None,
+            "market_evidence_refs": [],
+            "judgment_record": None,
+        }
+        claim["logical_hash"] = logical_hash(claim)
+        claims.append(claim)
+    candidate = {
+        "candidate_id": candidate_id,
+        "story_id": story["story_id"],
+        "source_native_ids": [story["provider_record_id"]],
+        "source_family_ids": [story["source_family"]],
+        "adapter_id": "contentops.multi_story_exact_git_authority_adapter.v1",
+        "title": _copy_fields(story)["headline"],
+        "summary": _copy_fields(story)["summary"],
+        "claims": claims,
+        "numeric_claims": [],
+        "source_documents": [source_document],
+        "evidence_refs": [evidence_ref],
+        "evidence_bindings": [binding],
+        "authority_state": "OFFICIAL_VERIFIED",
+        "reporting_allowed": True,
+        "evidence_state": "exact",
+    }
+    candidate["logical_hash"] = logical_hash(candidate)
+    v2_packet = build_candidate_bound_evidence_packet(
+        candidate,
+        generated_at_utc=timestamp,
+    )
+    if v2_packet["validation_blockers"]:
+        raise ValueError(
+            f"canonical_v2_packet_invalid:{story['story_id']}:{v2_packet['validation_blockers']}"
+        )
+    packet = build_content_evidence_packet_v3(
+        candidate,
+        generated_at_utc=timestamp,
+        v2_packet=v2_packet,
+    )
+    validation_blockers = validate_content_evidence_packet_v3(packet)
+    if validation_blockers:
+        raise ValueError(
+            f"canonical_v3_packet_invalid:{story['story_id']}:{validation_blockers}"
+        )
+    return packet
 
 
 def _copy_fields(story: Mapping[str, Any]) -> dict[str, str]:
@@ -504,6 +645,7 @@ def build_documents(authority: Mapping[str, Any], observed_upstream_head: str) -
         raise ValueError(f"candidate_count_out_of_range:{len(candidate_rows)}")
     variants: list[dict[str, Any]] = []
     packages: list[dict[str, Any]] = []
+    evidence_packets: list[dict[str, Any]] = []
     for story in stories:
         story_variants = [
             _build_variant(story, _candidate_id(story), platform_id)
@@ -513,6 +655,7 @@ def build_documents(authority: Mapping[str, Any], observed_upstream_head: str) -
         _validate_package(story, story_variants, package)
         variants.extend(story_variants)
         packages.append(package)
+        evidence_packets.append(_build_canonical_evidence_packet(story))
     source_families = sorted({row["source_family_id"] for row in candidate_rows})
     if len(source_families) != 5:
         raise ValueError(f"source_family_count_not_five:{len(source_families)}")
@@ -528,6 +671,16 @@ def build_documents(authority: Mapping[str, Any], observed_upstream_head: str) -
         "public_write_performed": False,
     }
     documents = {
+        "canonical_content_evidence_packets_v3.json": {
+            "schema_version": "contentops.multi_story_content_evidence_packet_v3_batch.v1",
+            "task": TASK,
+            "packet_schema_version": "capital_chronicle.content_evidence_packet.v3",
+            "packet_count": len(evidence_packets),
+            "story_ids": [row["story_id"] for row in stories],
+            "packets": evidence_packets,
+            "all_packets_validated": True,
+            "protected_state": protected,
+        },
         "candidate_batch.json": {
             "schema_version": "contentops.multi_story_candidate_batch.v1",
             "task": TASK,
@@ -575,6 +728,11 @@ def build_documents(authority: Mapping[str, Any], observed_upstream_head: str) -
             "candidate_count": len(candidate_rows),
             "exact_five_source_families": len(source_families) == 5,
             "new_authorized_package_count": len(packages),
+            "canonical_v3_evidence_packet_count": len(evidence_packets),
+            "canonical_v3_evidence_packets_validated": all(
+                not validate_content_evidence_packet_v3(row)
+                for row in evidence_packets
+            ),
             "six_platform_variants_per_story": all(
                 sum(row["story_id"] == story["story_id"] for row in variants) == 6
                 for story in stories
@@ -595,9 +753,32 @@ def build_documents(authority: Mapping[str, Any], observed_upstream_head: str) -
 
 
 def generate_packages(*, repo_root: Path, upstream_root: Path, observed_upstream_head: str) -> dict[str, Any]:
-    authority_path = upstream_root / AUTHORITY_RELATIVE
-    authority = json.loads(authority_path.read_text(encoding="utf-8"))
+    authority_bytes, authority_receipt = read_git_artifact(
+        root=upstream_root,
+        observed_head=observed_upstream_head,
+        producer_commit=EXPECTED_UPSTREAM_HEAD,
+        artifact_path=AUTHORITY_RELATIVE.as_posix(),
+    )
+    receipt = authority_receipt.as_dict()
+    expected_receipt = {
+        "repository": EXPECTED_UPSTREAM_REPOSITORY,
+        "branch": EXPECTED_UPSTREAM_BRANCH,
+        "observed_head": EXPECTED_UPSTREAM_HEAD,
+        "producer_commit": EXPECTED_UPSTREAM_HEAD,
+        "artifact_path": AUTHORITY_RELATIVE.as_posix(),
+        "git_blob_sha1": EXPECTED_AUTHORITY_GIT_BLOB_SHA1,
+        "byte_sha256": EXPECTED_AUTHORITY_BYTE_SHA256,
+        "byte_length": EXPECTED_AUTHORITY_BYTE_LENGTH,
+    }
+    if receipt != expected_receipt:
+        raise ValueError(f"authority_git_receipt_mismatch:{receipt}")
+    authority = json.loads(authority_bytes)
     documents = build_documents(authority, observed_upstream_head)
+    validation = documents["validation_truth.json"]
+    validation["authority_git_receipt"] = receipt
+    validation["authority_git_receipt_exact"] = True
+    validation["authority_packet_logical_hash_recomputed"] = True
+    validation["authority_story_logical_hashes_recomputed"] = True
     output = repo_root / EVIDENCE_RELATIVE
     for name, value in documents.items():
         _write(output / name, value)
@@ -613,12 +794,14 @@ def generate_packages(*, repo_root: Path, upstream_root: Path, observed_upstream
         "schema_version": SCHEMA_VERSION,
         "task": TASK,
         "observed_upstream_head": observed_upstream_head,
+        "authority_git_receipt": receipt,
         "authority_relative_path": str(AUTHORITY_RELATIVE.as_posix()),
         "authority_packet_id": EXPECTED_AUTHORITY_PACKET_ID,
         "authority_packet_logical_hash": EXPECTED_AUTHORITY_LOGICAL_HASH,
         "story_ids": list(EXPECTED_STORY_IDS),
         "candidate_count": documents["candidate_batch.json"]["candidate_count"],
         "source_family_ids": documents["candidate_batch.json"]["source_family_ids"],
+        "canonical_v3_evidence_packet_count": documents["canonical_content_evidence_packets_v3.json"]["packet_count"],
         "platform_ids": list(PLATFORM_IDS),
         "variant_count": documents["platform_native_variants.json"]["variant_count"],
         "operator_package_count": documents["unsigned_operator_approval_packages.json"]["package_count"],
@@ -633,8 +816,8 @@ def generate_packages(*, repo_root: Path, upstream_root: Path, observed_upstream
         "network_call_performed": False,
         "browser_action_performed": False,
         "public_write_performed": False,
-        "terminal_classification": "PASS_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_PENDING_DECISION",
-        "exact_next_action": "INDEPENDENT_OPERATOR_REVIEW_OF_THREE_UNSIGNED_HASH_BOUND_PACKAGES",
+        "terminal_classification": "PASS_CANONICAL_THREE_STORY_EDITORIAL_OPERATOR_PACKAGES_PENDING_DECISION",
+        "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_CANONICAL_THREE_STORY_EDITORIAL_OPERATOR_PACKAGES_V1",
     }
     manifest["logical_hash"] = _logical_hash(manifest)
     _assert_false_flags(manifest)

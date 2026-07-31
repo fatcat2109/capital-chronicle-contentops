@@ -1,0 +1,763 @@
+{
+  "all_packets_validated": true,
+  "packet_count": 3,
+  "packet_schema_version": "capital_chronicle.content_evidence_packet.v3",
+  "packets": [
+    {
+      "as_of_utc": "2026-05-20T18:00:00Z",
+      "blockers": [
+        "candidate_public_claim_permission_blocked"
+      ],
+      "bridge_safety": {
+        "network_call_made": false,
+        "public_write_performed": false,
+        "source_repo_modified": false
+      },
+      "candidate_visual_inputs": [],
+      "citation_map": {
+        "claim-95f6638ac5460d82": [
+          "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+        ]
+      },
+      "events": [],
+      "generated_at_utc": "2026-05-20T18:00:00Z",
+      "generic_claim_permissions": {
+        "approved_claim_ids": [
+          "claim-95f6638ac5460d82"
+        ],
+        "decision": "ALLOW",
+        "no_editorial_permission_upgrade": true,
+        "reporting_claims_allowed": true
+      },
+      "governed_claim_graph": {
+        "approval_decisions": [
+          {
+            "approved_for_reporting": true,
+            "authority_class": "OFFICIAL_VERIFIED",
+            "blockers": [],
+            "claim_id": "claim-95f6638ac5460d82",
+            "claim_type": "factual_text",
+            "decision_source": "DERIVED_FROM_GOVERNED_CLAIM_AND_CANDIDATE",
+            "permission_state": "PUBLIC_CLAIM_ALLOWED"
+          }
+        ],
+        "approved_claim_ids": [
+          "claim-95f6638ac5460d82"
+        ],
+        "claims": [
+          {
+            "authority_class": "OFFICIAL_VERIFIED",
+            "citations": [
+              {
+                "citation_state": "EXACT_SOURCE_NATIVE_URL",
+                "source_document_id": "document:fomc-rss-monetary20260520a",
+                "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+              }
+            ],
+            "claim_id": "claim-95f6638ac5460d82",
+            "claim_type": "factual_text",
+            "entities": [],
+            "event_time_utc": "2026-05-20T18:00:00Z",
+            "evidence_refs": [
+              "git-authority:64834919b4f69e977475c203abeafef57791f015:fomc-minutes-2026-04-28-29"
+            ],
+            "geographies": [],
+            "judgment_record": null,
+            "known_at_utc": "2026-07-09T18:12:22.866521Z",
+            "limitations": [
+              "Release metadata only.",
+              "No rate-path, policy interpretation, market-reaction, forecast, numeric, publication, dispatch, or trading authority."
+            ],
+            "logical_hash": "1bb529f8eccefd1102a271730bec409bc5bd56bfdb6844b5948014081dd1d329",
+            "market_evidence_refs": [],
+            "numeric": null,
+            "observed_at_utc": null,
+            "permission_state": "PUBLIC_CLAIM_ALLOWED",
+            "published_at_utc": "2026-05-20T18:00:00Z",
+            "revision_at_utc": "2026-05-20T18:00:00Z",
+            "schema_version": "contentops.universal_news_claim.v2",
+            "source_document_ids": [
+              "document:fomc-rss-monetary20260520a"
+            ],
+            "statement": "Minutes of the Federal Open Market Committee, April 28-29, 2026",
+            "structured_payload": {
+              "source_field": "native_item.description",
+              "story_id": "fomc-minutes-2026-04-28-29"
+            }
+          }
+        ],
+        "edges": [],
+        "graph_version": "contentops.governed_generic_claim_graph.v1"
+      },
+      "logical_hash": "f9968577ab1d0488d91f611b080a1926a6e62ce82d58ca1636365c1ace12f825",
+      "market_snapshots": [],
+      "numeric_claims": [],
+      "official_source_documents": [
+        {
+          "authorized_urls": [
+            "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+          ],
+          "content_sha256": "3fe9851055e5bd6c89c667e08533709da7669bdf24196d1ae5a604ade450cf24",
+          "document_id": "document:fomc-rss-monetary20260520a",
+          "known_at_utc": "2026-07-09T18:12:22.866521Z",
+          "provider": "Federal Reserve Board",
+          "published_at_utc": "2026-05-20T18:00:00Z",
+          "record_type": "official_press_release_rss_item",
+          "source_family_id": "federal_reserve_fomc",
+          "source_native_id": "fomc-rss-monetary20260520a",
+          "title": "Minutes of the Federal Open Market Committee, April 28-29, 2026"
+        }
+      ],
+      "packet_id": "cc-evidence-4f0722ced0269d254a4d",
+      "provenance": {
+        "candidate_logical_hash": "a2143c78e213626630e33434eea1a2bc7c2bd52d8314f533c9041c7c5093ceb3",
+        "evidence_binding_hashes": [
+          "0018eb02e5550c0dd61d8643ca80b0cb7d9e36de4f6429208749e0d11e35fca8"
+        ],
+        "evidence_refs": [
+          "git-authority:64834919b4f69e977475c203abeafef57791f015:fomc-minutes-2026-04-28-29"
+        ]
+      },
+      "public_claim_permissions": {
+        "decision": "BLOCK",
+        "llm_numeric_authority": false,
+        "narrative_synthesis_allowed": false,
+        "numeric_claims_allowed": false
+      },
+      "schema_version": "capital_chronicle_content_evidence_packet.v3",
+      "source_state": {
+        "authority_state": "OFFICIAL_VERIFIED",
+        "candidate_id": "cc-candidate-713c5de51e9764fc8385",
+        "reporting_allowed": true
+      },
+      "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+      "story_window": {
+        "end_utc": "2026-05-20T18:00:00Z",
+        "hours": 24,
+        "start_utc": null
+      },
+      "supersedes_schema_version": "capital_chronicle_content_evidence_packet.v2",
+      "v2_compatibility": {
+        "nonnumeric_claim_requires_numeric_projection": false,
+        "numeric_consumer_breaking_change": false,
+        "projection_schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "top_level_numeric_claims_exact": true
+      },
+      "v2_compatibility_projection": {
+        "as_of_utc": "2026-05-20T18:00:00Z",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-95f6638ac5460d82": [
+            "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-05-20T18:00:00Z",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+            ],
+            "content_sha256": "3fe9851055e5bd6c89c667e08533709da7669bdf24196d1ae5a604ade450cf24",
+            "document_id": "document:fomc-rss-monetary20260520a",
+            "known_at_utc": "2026-07-09T18:12:22.866521Z",
+            "provider": "Federal Reserve Board",
+            "published_at_utc": "2026-05-20T18:00:00Z",
+            "record_type": "official_press_release_rss_item",
+            "source_family_id": "federal_reserve_fomc",
+            "source_native_id": "fomc-rss-monetary20260520a",
+            "title": "Minutes of the Federal Open Market Committee, April 28-29, 2026"
+          }
+        ],
+        "packet_id": "cc-evidence-4f0722ced0269d254a4d",
+        "provenance": {
+          "candidate_logical_hash": "a2143c78e213626630e33434eea1a2bc7c2bd52d8314f533c9041c7c5093ceb3",
+          "evidence_binding_hashes": [
+            "0018eb02e5550c0dd61d8643ca80b0cb7d9e36de4f6429208749e0d11e35fca8"
+          ],
+          "evidence_refs": [
+            "git-authority:64834919b4f69e977475c203abeafef57791f015:fomc-minutes-2026-04-28-29"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-713c5de51e9764fc8385",
+          "reporting_allowed": true
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-05-20T18:00:00Z",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "validation_blockers": []
+    },
+    {
+      "as_of_utc": "2026-05-01",
+      "blockers": [
+        "candidate_public_claim_permission_blocked"
+      ],
+      "bridge_safety": {
+        "network_call_made": false,
+        "public_write_performed": false,
+        "source_repo_modified": false
+      },
+      "candidate_visual_inputs": [],
+      "citation_map": {
+        "claim-403af5e0ec85b722": [
+          "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+        ],
+        "claim-661031f2768d9629": [
+          "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+        ]
+      },
+      "events": [],
+      "generated_at_utc": "2026-05-01",
+      "generic_claim_permissions": {
+        "approved_claim_ids": [
+          "claim-661031f2768d9629",
+          "claim-403af5e0ec85b722"
+        ],
+        "decision": "ALLOW",
+        "no_editorial_permission_upgrade": true,
+        "reporting_claims_allowed": true
+      },
+      "governed_claim_graph": {
+        "approval_decisions": [
+          {
+            "approved_for_reporting": true,
+            "authority_class": "OFFICIAL_VERIFIED",
+            "blockers": [],
+            "claim_id": "claim-661031f2768d9629",
+            "claim_type": "factual_text",
+            "decision_source": "DERIVED_FROM_GOVERNED_CLAIM_AND_CANDIDATE",
+            "permission_state": "PUBLIC_CLAIM_ALLOWED"
+          },
+          {
+            "approved_for_reporting": true,
+            "authority_class": "OFFICIAL_VERIFIED",
+            "blockers": [],
+            "claim_id": "claim-403af5e0ec85b722",
+            "claim_type": "factual_text",
+            "decision_source": "DERIVED_FROM_GOVERNED_CLAIM_AND_CANDIDATE",
+            "permission_state": "PUBLIC_CLAIM_ALLOWED"
+          }
+        ],
+        "approved_claim_ids": [
+          "claim-661031f2768d9629",
+          "claim-403af5e0ec85b722"
+        ],
+        "claims": [
+          {
+            "authority_class": "OFFICIAL_VERIFIED",
+            "citations": [
+              {
+                "citation_state": "EXACT_SOURCE_NATIVE_URL",
+                "source_document_id": "document:0000320193-26-000013",
+                "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+              }
+            ],
+            "claim_id": "claim-661031f2768d9629",
+            "claim_type": "factual_text",
+            "entities": [],
+            "event_time_utc": "2026-05-01",
+            "evidence_refs": [
+              "git-authority:64834919b4f69e977475c203abeafef57791f015:apple-sec-10q-2026-000013"
+            ],
+            "geographies": [],
+            "judgment_record": null,
+            "known_at_utc": "legacy_retrieval_timestamp_not_evidenced",
+            "limitations": [
+              "SEC filing metadata only; filing-body facts are not authorized.",
+              "No earnings, revenue, guidance, company impact, market-reaction, interpretation, numeric, publication, dispatch, or trading authority."
+            ],
+            "logical_hash": "881d2f119c7d95a4ee4ecca0640f1a5b4fe57e6f8ecd6e1d9bfef24aa198353e",
+            "market_evidence_refs": [],
+            "numeric": null,
+            "observed_at_utc": null,
+            "permission_state": "PUBLIC_CLAIM_ALLOWED",
+            "published_at_utc": "2026-05-01",
+            "revision_at_utc": "2026-05-01T10:01:00.000Z",
+            "schema_version": "contentops.universal_news_claim.v2",
+            "source_document_ids": [
+              "document:0000320193-26-000013"
+            ],
+            "statement": "Apple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission.",
+            "structured_payload": {
+              "source_field": "native_record.form",
+              "story_id": "apple-sec-10q-2026-000013"
+            }
+          },
+          {
+            "authority_class": "OFFICIAL_VERIFIED",
+            "citations": [
+              {
+                "citation_state": "EXACT_SOURCE_NATIVE_URL",
+                "source_document_id": "document:0000320193-26-000013",
+                "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+              }
+            ],
+            "claim_id": "claim-403af5e0ec85b722",
+            "claim_type": "factual_text",
+            "entities": [],
+            "event_time_utc": "2026-05-01",
+            "evidence_refs": [
+              "git-authority:64834919b4f69e977475c203abeafef57791f015:apple-sec-10q-2026-000013"
+            ],
+            "geographies": [],
+            "judgment_record": null,
+            "known_at_utc": "legacy_retrieval_timestamp_not_evidenced",
+            "limitations": [
+              "SEC filing metadata only; filing-body facts are not authorized.",
+              "No earnings, revenue, guidance, company impact, market-reaction, interpretation, numeric, publication, dispatch, or trading authority."
+            ],
+            "logical_hash": "f0cbdae9d274076110fea71625187402dd75e64e25c3a3563ab8c12ceca1fbd8",
+            "market_evidence_refs": [],
+            "numeric": null,
+            "observed_at_utc": null,
+            "permission_state": "PUBLIC_CLAIM_ALLOWED",
+            "published_at_utc": "2026-05-01",
+            "revision_at_utc": "2026-05-01T10:01:00.000Z",
+            "schema_version": "contentops.universal_news_claim.v2",
+            "source_document_ids": [
+              "document:0000320193-26-000013"
+            ],
+            "statement": "The filing's primary document is identified by the SEC as a 10-Q.",
+            "structured_payload": {
+              "source_field": "native_record.primaryDocDescription",
+              "story_id": "apple-sec-10q-2026-000013"
+            }
+          }
+        ],
+        "edges": [],
+        "graph_version": "contentops.governed_generic_claim_graph.v1"
+      },
+      "logical_hash": "985897c6ad72e56ce9f52bd31ee2e5fdd28fcbc3fc110ad2c889de3a7cc1842e",
+      "market_snapshots": [],
+      "numeric_claims": [],
+      "official_source_documents": [
+        {
+          "authorized_urls": [
+            "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+          ],
+          "content_sha256": "ea2aa552e984a29e920cf80e0827cf32b632563935f029b6ec9de7f4fa3c026d",
+          "document_id": "document:0000320193-26-000013",
+          "known_at_utc": "legacy_retrieval_timestamp_not_evidenced",
+          "provider": "U.S. Securities and Exchange Commission",
+          "published_at_utc": "2026-05-01",
+          "record_type": "official_filing_metadata",
+          "source_family_id": "sec_edgar",
+          "source_native_id": "0000320193-26-000013",
+          "title": "Apple Files Form 10-Q With the SEC"
+        }
+      ],
+      "packet_id": "cc-evidence-9ef5cc971d4341756ad5",
+      "provenance": {
+        "candidate_logical_hash": "967af851fc68a3368a57608f96540101bc5f23b9761237fdeb5b4ccc33604a72",
+        "evidence_binding_hashes": [
+          "0ba9a5af5f125f4da11d32a4d0a435b5e85b782f587198549f1d32322358d723"
+        ],
+        "evidence_refs": [
+          "git-authority:64834919b4f69e977475c203abeafef57791f015:apple-sec-10q-2026-000013"
+        ]
+      },
+      "public_claim_permissions": {
+        "decision": "BLOCK",
+        "llm_numeric_authority": false,
+        "narrative_synthesis_allowed": false,
+        "numeric_claims_allowed": false
+      },
+      "schema_version": "capital_chronicle_content_evidence_packet.v3",
+      "source_state": {
+        "authority_state": "OFFICIAL_VERIFIED",
+        "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b",
+        "reporting_allowed": true
+      },
+      "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+      "story_window": {
+        "end_utc": "2026-05-01",
+        "hours": 24,
+        "start_utc": null
+      },
+      "supersedes_schema_version": "capital_chronicle_content_evidence_packet.v2",
+      "v2_compatibility": {
+        "nonnumeric_claim_requires_numeric_projection": false,
+        "numeric_consumer_breaking_change": false,
+        "projection_schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "top_level_numeric_claims_exact": true
+      },
+      "v2_compatibility_projection": {
+        "as_of_utc": "2026-05-01",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-403af5e0ec85b722": [
+            "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+          ],
+          "claim-661031f2768d9629": [
+            "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2026-05-01",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+            ],
+            "content_sha256": "ea2aa552e984a29e920cf80e0827cf32b632563935f029b6ec9de7f4fa3c026d",
+            "document_id": "document:0000320193-26-000013",
+            "known_at_utc": "legacy_retrieval_timestamp_not_evidenced",
+            "provider": "U.S. Securities and Exchange Commission",
+            "published_at_utc": "2026-05-01",
+            "record_type": "official_filing_metadata",
+            "source_family_id": "sec_edgar",
+            "source_native_id": "0000320193-26-000013",
+            "title": "Apple Files Form 10-Q With the SEC"
+          }
+        ],
+        "packet_id": "cc-evidence-9ef5cc971d4341756ad5",
+        "provenance": {
+          "candidate_logical_hash": "967af851fc68a3368a57608f96540101bc5f23b9761237fdeb5b4ccc33604a72",
+          "evidence_binding_hashes": [
+            "0ba9a5af5f125f4da11d32a4d0a435b5e85b782f587198549f1d32322358d723"
+          ],
+          "evidence_refs": [
+            "git-authority:64834919b4f69e977475c203abeafef57791f015:apple-sec-10q-2026-000013"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b",
+          "reporting_allowed": true
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2026-05-01",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "validation_blockers": []
+    },
+    {
+      "as_of_utc": "2019-07-06T03:19:53.040000+00:00",
+      "blockers": [
+        "candidate_public_claim_permission_blocked"
+      ],
+      "bridge_safety": {
+        "network_call_made": false,
+        "public_write_performed": false,
+        "source_repo_modified": false
+      },
+      "candidate_visual_inputs": [],
+      "citation_map": {
+        "claim-a436944fa62bc374": [
+          "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+        ],
+        "claim-f1f734761cccc69a": [
+          "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+        ]
+      },
+      "events": [],
+      "generated_at_utc": "2019-07-06T03:19:53.040000+00:00",
+      "generic_claim_permissions": {
+        "approved_claim_ids": [
+          "claim-a436944fa62bc374",
+          "claim-f1f734761cccc69a"
+        ],
+        "decision": "ALLOW",
+        "no_editorial_permission_upgrade": true,
+        "reporting_claims_allowed": true
+      },
+      "governed_claim_graph": {
+        "approval_decisions": [
+          {
+            "approved_for_reporting": true,
+            "authority_class": "OFFICIAL_VERIFIED",
+            "blockers": [],
+            "claim_id": "claim-a436944fa62bc374",
+            "claim_type": "factual_text",
+            "decision_source": "DERIVED_FROM_GOVERNED_CLAIM_AND_CANDIDATE",
+            "permission_state": "PUBLIC_CLAIM_ALLOWED"
+          },
+          {
+            "approved_for_reporting": true,
+            "authority_class": "OFFICIAL_VERIFIED",
+            "blockers": [],
+            "claim_id": "claim-f1f734761cccc69a",
+            "claim_type": "factual_text",
+            "decision_source": "DERIVED_FROM_GOVERNED_CLAIM_AND_CANDIDATE",
+            "permission_state": "PUBLIC_CLAIM_ALLOWED"
+          }
+        ],
+        "approved_claim_ids": [
+          "claim-a436944fa62bc374",
+          "claim-f1f734761cccc69a"
+        ],
+        "claims": [
+          {
+            "authority_class": "OFFICIAL_VERIFIED",
+            "citations": [
+              {
+                "citation_state": "EXACT_SOURCE_NATIVE_URL",
+                "source_document_id": "document:ci38457511",
+                "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+              }
+            ],
+            "claim_id": "claim-a436944fa62bc374",
+            "claim_type": "factual_text",
+            "entities": [],
+            "event_time_utc": "2019-07-06T03:19:53.040000+00:00",
+            "evidence_refs": [
+              "git-authority:64834919b4f69e977475c203abeafef57791f015:usgs-reviewed-ridgecrest-ci38457511"
+            ],
+            "geographies": [],
+            "judgment_record": null,
+            "known_at_utc": "legacy_retrieval_timestamp_not_evidenced",
+            "limitations": [
+              "Only the exact reviewed event identity and location wording are authorized.",
+              "No magnitude, damage, impact, affected-entity, market-reaction, interpretation, numeric, publication, dispatch, or trading authority."
+            ],
+            "logical_hash": "e954f463f99a2f6b50bf7609c239cd3998cab65e60b784ee1b9fdb13187363b2",
+            "market_evidence_refs": [],
+            "numeric": null,
+            "observed_at_utc": null,
+            "permission_state": "PUBLIC_CLAIM_ALLOWED",
+            "published_at_utc": "2019-07-06T03:19:53.040000+00:00",
+            "revision_at_utc": "2026-07-04T03:30:04.295000Z",
+            "schema_version": "contentops.universal_news_claim.v2",
+            "source_document_ids": [
+              "document:ci38457511"
+            ],
+            "statement": "USGS identifies the event as reviewed.",
+            "structured_payload": {
+              "source_field": "native_event.properties.status",
+              "story_id": "usgs-reviewed-ridgecrest-ci38457511"
+            }
+          },
+          {
+            "authority_class": "OFFICIAL_VERIFIED",
+            "citations": [
+              {
+                "citation_state": "EXACT_SOURCE_NATIVE_URL",
+                "source_document_id": "document:ci38457511",
+                "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+              }
+            ],
+            "claim_id": "claim-f1f734761cccc69a",
+            "claim_type": "factual_text",
+            "entities": [],
+            "event_time_utc": "2019-07-06T03:19:53.040000+00:00",
+            "evidence_refs": [
+              "git-authority:64834919b4f69e977475c203abeafef57791f015:usgs-reviewed-ridgecrest-ci38457511"
+            ],
+            "geographies": [],
+            "judgment_record": null,
+            "known_at_utc": "legacy_retrieval_timestamp_not_evidenced",
+            "limitations": [
+              "Only the exact reviewed event identity and location wording are authorized.",
+              "No magnitude, damage, impact, affected-entity, market-reaction, interpretation, numeric, publication, dispatch, or trading authority."
+            ],
+            "logical_hash": "4a9310985281bb8dceb5e1f9504dce407560399631a1995b8fae7c91309a26fd",
+            "market_evidence_refs": [],
+            "numeric": null,
+            "observed_at_utc": null,
+            "permission_state": "PUBLIC_CLAIM_ALLOWED",
+            "published_at_utc": "2019-07-06T03:19:53.040000+00:00",
+            "revision_at_utc": "2026-07-04T03:30:04.295000Z",
+            "schema_version": "contentops.universal_news_claim.v2",
+            "source_document_ids": [
+              "document:ci38457511"
+            ],
+            "statement": "USGS identifies the event as part of the Ridgecrest Earthquake Sequence.",
+            "structured_payload": {
+              "source_field": "native_event.properties.place",
+              "story_id": "usgs-reviewed-ridgecrest-ci38457511"
+            }
+          }
+        ],
+        "edges": [],
+        "graph_version": "contentops.governed_generic_claim_graph.v1"
+      },
+      "logical_hash": "e16d7f8f8029e50ec5caf69fc52b83aa66442c5f4ef52dfa5df51cb8d2690ab0",
+      "market_snapshots": [],
+      "numeric_claims": [],
+      "official_source_documents": [
+        {
+          "authorized_urls": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+          ],
+          "content_sha256": "65889b93519363f99187e3c26205340c4746da39e3613399726ab93cbdcb7587",
+          "document_id": "document:ci38457511",
+          "known_at_utc": "legacy_retrieval_timestamp_not_evidenced",
+          "provider": "U.S. Geological Survey",
+          "published_at_utc": "2019-07-06T03:19:53.040000+00:00",
+          "record_type": "official_reviewed_physical_event",
+          "source_family_id": "usgs_comcat",
+          "source_native_id": "ci38457511",
+          "title": "M 7.1 - Ridgecrest Earthquake Sequence"
+        }
+      ],
+      "packet_id": "cc-evidence-8ec7ffdf16b18b6254ae",
+      "provenance": {
+        "candidate_logical_hash": "07b4c2ae3dec60ea781f026fdb0b1a96d05a8ea2e11ee4b48fc7b9622307a0a0",
+        "evidence_binding_hashes": [
+          "ab7ac5e264e9fcff16fa7dec042860d00928c7a2a16841f98c7d210b5d6dc57c"
+        ],
+        "evidence_refs": [
+          "git-authority:64834919b4f69e977475c203abeafef57791f015:usgs-reviewed-ridgecrest-ci38457511"
+        ]
+      },
+      "public_claim_permissions": {
+        "decision": "BLOCK",
+        "llm_numeric_authority": false,
+        "narrative_synthesis_allowed": false,
+        "numeric_claims_allowed": false
+      },
+      "schema_version": "capital_chronicle_content_evidence_packet.v3",
+      "source_state": {
+        "authority_state": "OFFICIAL_VERIFIED",
+        "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+        "reporting_allowed": true
+      },
+      "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+      "story_window": {
+        "end_utc": "2019-07-06T03:19:53.040000+00:00",
+        "hours": 24,
+        "start_utc": null
+      },
+      "supersedes_schema_version": "capital_chronicle_content_evidence_packet.v2",
+      "v2_compatibility": {
+        "nonnumeric_claim_requires_numeric_projection": false,
+        "numeric_consumer_breaking_change": false,
+        "projection_schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "top_level_numeric_claims_exact": true
+      },
+      "v2_compatibility_projection": {
+        "as_of_utc": "2019-07-06T03:19:53.040000+00:00",
+        "blockers": [
+          "candidate_public_claim_permission_blocked"
+        ],
+        "bridge_safety": {
+          "network_call_made": false,
+          "public_write_performed": false,
+          "source_repo_modified": false
+        },
+        "candidate_visual_inputs": [],
+        "citation_map": {
+          "claim-a436944fa62bc374": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+          ],
+          "claim-f1f734761cccc69a": [
+            "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+          ]
+        },
+        "events": [],
+        "generated_at_utc": "2019-07-06T03:19:53.040000+00:00",
+        "market_snapshots": [],
+        "numeric_claims": [],
+        "official_source_documents": [
+          {
+            "authorized_urls": [
+              "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+            ],
+            "content_sha256": "65889b93519363f99187e3c26205340c4746da39e3613399726ab93cbdcb7587",
+            "document_id": "document:ci38457511",
+            "known_at_utc": "legacy_retrieval_timestamp_not_evidenced",
+            "provider": "U.S. Geological Survey",
+            "published_at_utc": "2019-07-06T03:19:53.040000+00:00",
+            "record_type": "official_reviewed_physical_event",
+            "source_family_id": "usgs_comcat",
+            "source_native_id": "ci38457511",
+            "title": "M 7.1 - Ridgecrest Earthquake Sequence"
+          }
+        ],
+        "packet_id": "cc-evidence-8ec7ffdf16b18b6254ae",
+        "provenance": {
+          "candidate_logical_hash": "07b4c2ae3dec60ea781f026fdb0b1a96d05a8ea2e11ee4b48fc7b9622307a0a0",
+          "evidence_binding_hashes": [
+            "ab7ac5e264e9fcff16fa7dec042860d00928c7a2a16841f98c7d210b5d6dc57c"
+          ],
+          "evidence_refs": [
+            "git-authority:64834919b4f69e977475c203abeafef57791f015:usgs-reviewed-ridgecrest-ci38457511"
+          ]
+        },
+        "public_claim_permissions": {
+          "decision": "BLOCK",
+          "llm_numeric_authority": false,
+          "narrative_synthesis_allowed": false,
+          "numeric_claims_allowed": false
+        },
+        "schema_version": "capital_chronicle_content_evidence_packet.v2",
+        "source_state": {
+          "authority_state": "OFFICIAL_VERIFIED",
+          "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+          "reporting_allowed": true
+        },
+        "status": "PASS_CONTRACT_BLOCKED_PUBLICATION",
+        "story_window": {
+          "end_utc": "2019-07-06T03:19:53.040000+00:00",
+          "hours": 24,
+          "start_utc": null
+        },
+        "validation_blockers": []
+      },
+      "validation_blockers": []
+    }
+  ],
+  "protected_state": {
+    "browser_action_performed": false,
+    "credential_read_allowed_now": false,
+    "dispatch_authority": false,
+    "network_call_performed": false,
+    "posting_enabled_now": false,
+    "public_write_authority": false,
+    "public_write_performed": false,
+    "publication_authority": false,
+    "scheduler_enabled_now": false
+  },
+  "schema_version": "contentops.multi_story_content_evidence_packet_v3_batch.v1",
+  "story_ids": [
+    "fomc-minutes-2026-04-28-29",
+    "apple-sec-10q-2026-000013",
+    "usgs-reviewed-ridgecrest-ci38457511"
+  ],
+  "task": "TASK_CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1"
+}
