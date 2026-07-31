@@ -4,11 +4,21 @@
 
 ## Current Classification
 
-`PASS_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1_AWAITING_INDEPENDENT_OPERATOR_AUDIT`
+`PASS_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_PENDING_DECISION`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_CROSS_DOMAIN_OPERATOR_READY_CONTENT_BATCH_V1`.
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1`.
 
-## Cross-Domain Operator-Ready Content Batch V1
+## Multi-Story Platform-Native Operator Packages V1
+
+ContentOps consumed exact upstream packet `cc-multi-story-authority-3ff3f14f9a231ce791a9` at upstream commit `64834919b4f69e977475c203abeafef57791f015`. The packet grants reporting-only authority for the exact FOMC minutes, Apple SEC 10-Q filing, and reviewed USGS Ridgecrest event claim sets. It grants no interpretation, numeric reporting, market reaction, forecast, publication, dispatch, public write, or global DQR override.
+
+The deterministic local batch contains 15 governed candidates across exactly five source families. Each of the three newly authorized stories has six distinct, platform-native, review-only variants for Substack Newsletter, LinkedIn, X, Facebook Page, Telegram, and text-only YouTube Community. Every variant binds the exact authority story hash, authorized claim IDs, citations, limitations, platform contract, and copy into a deterministic payload hash.
+
+Three exact unsigned approval packages bind all 18 variant hashes and remain `PENDING_OPERATOR_DECISION`. No signature, operator identity, selected decision, publication authority, dispatch authority, public-write authority, credential read, network call, browser action, scheduler action, or public write exists. Global DQR remains `BLOCKED`. Focused authority, mutation, differentiation, YouTube Community, hash, replay, prior-batch, and capability validation passed 20 tests.
+
+Evidence: `docs/automation/CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1/final_manifest.json`.
+
+## Prior Cross-Domain Operator-Ready Content Batch V1
 
 The deterministic local batch contains 12 governed candidates across markets, physical events, regulatory, and sanctions. Candidate evidence spans four source families; the separately governed platform capability registry brings the full fabric to five source families. The batch produces five distinct editorial outcomes, including one exact story-scoped authorized Treasury candidate and 11 context-only candidates that remain held or monitored without authority escalation.
 

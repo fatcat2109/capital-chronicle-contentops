@@ -1,0 +1,198 @@
+{
+  "package_count": 3,
+  "packages": [
+    {
+      "authority_binding": {
+        "authority_packet_id": "cc-multi-story-authority-3ff3f14f9a231ce791a9",
+        "authority_packet_logical_hash": "f825fcfe8016b6a020d855180267f393d6df0b2f6b6e98edbb351c6b549a3840",
+        "authorized_claim_ids": [
+          "claim-95f6638ac5460d82"
+        ],
+        "official_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm",
+        "source_family": "federal_reserve_fomc",
+        "story_logical_hash": "a8aa016cae684f0f755ec9bcc064e81e70a801d69e7345659bd719ca6ac53f00",
+        "upstream_head": "64834919b4f69e977475c203abeafef57791f015"
+      },
+      "browser_action_performed": false,
+      "candidate_id": "cc-candidate-713c5de51e9764fc8385",
+      "credential_read_allowed_now": false,
+      "decision_options": [
+        "APPROVE_EXACT_PACKAGE",
+        "REJECT",
+        "REQUEST_REVISION"
+      ],
+      "dispatch_allowed": false,
+      "dispatch_authority": false,
+      "exact_next_gate": "OPERATOR_MUST_DECIDE_EXACT_HASH_BOUND_PACKAGE_OUTSIDE_THIS_RUN",
+      "network_call_performed": false,
+      "operator_approval_captured": false,
+      "operator_identity": null,
+      "package_hash": "3e9d9e1807ce14f2c743cd436090099687a335bce606bab5a17f128a4016ee6c",
+      "posting_enabled_now": false,
+      "public_write_allowed": false,
+      "public_write_authority": false,
+      "public_write_performed": false,
+      "publication_allowed": false,
+      "publication_authority": false,
+      "scheduler_enabled_now": false,
+      "schema_version": "contentops.unsigned_operator_approval_package.v1",
+      "selected_decision": null,
+      "signature": null,
+      "signed_at_utc": null,
+      "state": "PENDING_OPERATOR_DECISION",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "task": "TASK_CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1",
+      "variant_count": 6,
+      "variant_ids": [
+        "substack_newsletter:615f86c43bf470f6fb42714e79ba780a49ca15312dc4fcc6a289303259659d48",
+        "linkedin:66cbc5fdd0722d537e178c1956c1ddcc27d1a0cfbcd93ac9df5207af532847aa",
+        "x_twitter:b51002f49b32a69fe80190d460cc9f9aca45335ec23d8b061a6a7782f2e5ead3",
+        "facebook_page:5b24b4a31d62187ed18548ed8780a47d7343276e5777cd247126a816a8e8c788",
+        "telegram:cea1df49634e0f139fbdfc44c5c2304264be0568c9a80194fbab37d0b1bee90d",
+        "youtube_community:fa1fe97845fa247705c8bbe87082828e11d5d0eb4093691515d9f4867318b3bd"
+      ],
+      "variant_payload_hashes": {
+        "facebook_page": "5b24b4a31d62187ed18548ed8780a47d7343276e5777cd247126a816a8e8c788",
+        "linkedin": "66cbc5fdd0722d537e178c1956c1ddcc27d1a0cfbcd93ac9df5207af532847aa",
+        "substack_newsletter": "615f86c43bf470f6fb42714e79ba780a49ca15312dc4fcc6a289303259659d48",
+        "telegram": "cea1df49634e0f139fbdfc44c5c2304264be0568c9a80194fbab37d0b1bee90d",
+        "x_twitter": "b51002f49b32a69fe80190d460cc9f9aca45335ec23d8b061a6a7782f2e5ead3",
+        "youtube_community": "fa1fe97845fa247705c8bbe87082828e11d5d0eb4093691515d9f4867318b3bd"
+      }
+    },
+    {
+      "authority_binding": {
+        "authority_packet_id": "cc-multi-story-authority-3ff3f14f9a231ce791a9",
+        "authority_packet_logical_hash": "f825fcfe8016b6a020d855180267f393d6df0b2f6b6e98edbb351c6b549a3840",
+        "authorized_claim_ids": [
+          "claim-661031f2768d9629",
+          "claim-403af5e0ec85b722"
+        ],
+        "official_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm",
+        "source_family": "sec_edgar",
+        "story_logical_hash": "47c851b219379850ca2c01245d49ba8d6fcb3fe2480bc95c96206caf541c3cb6",
+        "upstream_head": "64834919b4f69e977475c203abeafef57791f015"
+      },
+      "browser_action_performed": false,
+      "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b",
+      "credential_read_allowed_now": false,
+      "decision_options": [
+        "APPROVE_EXACT_PACKAGE",
+        "REJECT",
+        "REQUEST_REVISION"
+      ],
+      "dispatch_allowed": false,
+      "dispatch_authority": false,
+      "exact_next_gate": "OPERATOR_MUST_DECIDE_EXACT_HASH_BOUND_PACKAGE_OUTSIDE_THIS_RUN",
+      "network_call_performed": false,
+      "operator_approval_captured": false,
+      "operator_identity": null,
+      "package_hash": "89f6d0220d9e1d0412e79bada6308a59f5e5456cc9961199e280e8d99e81b892",
+      "posting_enabled_now": false,
+      "public_write_allowed": false,
+      "public_write_authority": false,
+      "public_write_performed": false,
+      "publication_allowed": false,
+      "publication_authority": false,
+      "scheduler_enabled_now": false,
+      "schema_version": "contentops.unsigned_operator_approval_package.v1",
+      "selected_decision": null,
+      "signature": null,
+      "signed_at_utc": null,
+      "state": "PENDING_OPERATOR_DECISION",
+      "story_id": "apple-sec-10q-2026-000013",
+      "task": "TASK_CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1",
+      "variant_count": 6,
+      "variant_ids": [
+        "substack_newsletter:40ae930b1a51f3efa33cd64924706475ae64a3e22e4e2df85e9db265ca4e5c4b",
+        "linkedin:5d7f31ea82636f7d4054062a3b1af0a7cadfad3af23d6d4ee92d0065c9794358",
+        "x_twitter:48778b8459c19346e556da43d278b61b29bfb62a9872ae91b695db1e386bc26f",
+        "facebook_page:dbd598c17901c859b7de48693ccfbc5c21153ddbba93c8e401665918638256ec",
+        "telegram:58009fc19b804bb47b6cd318a253c473113fe2a5a5c5f037dcb9f2b1fb1c60bc",
+        "youtube_community:924bbf46241aa5b82e92a68e711a39eb3fb28887b7b348b278d151a32943cf93"
+      ],
+      "variant_payload_hashes": {
+        "facebook_page": "dbd598c17901c859b7de48693ccfbc5c21153ddbba93c8e401665918638256ec",
+        "linkedin": "5d7f31ea82636f7d4054062a3b1af0a7cadfad3af23d6d4ee92d0065c9794358",
+        "substack_newsletter": "40ae930b1a51f3efa33cd64924706475ae64a3e22e4e2df85e9db265ca4e5c4b",
+        "telegram": "58009fc19b804bb47b6cd318a253c473113fe2a5a5c5f037dcb9f2b1fb1c60bc",
+        "x_twitter": "48778b8459c19346e556da43d278b61b29bfb62a9872ae91b695db1e386bc26f",
+        "youtube_community": "924bbf46241aa5b82e92a68e711a39eb3fb28887b7b348b278d151a32943cf93"
+      }
+    },
+    {
+      "authority_binding": {
+        "authority_packet_id": "cc-multi-story-authority-3ff3f14f9a231ce791a9",
+        "authority_packet_logical_hash": "f825fcfe8016b6a020d855180267f393d6df0b2f6b6e98edbb351c6b549a3840",
+        "authorized_claim_ids": [
+          "claim-a436944fa62bc374",
+          "claim-f1f734761cccc69a"
+        ],
+        "official_url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511",
+        "source_family": "usgs_comcat",
+        "story_logical_hash": "61217db801824019f06892b26390a1be3e232c56be5ad91da42a442be33e29eb",
+        "upstream_head": "64834919b4f69e977475c203abeafef57791f015"
+      },
+      "browser_action_performed": false,
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "credential_read_allowed_now": false,
+      "decision_options": [
+        "APPROVE_EXACT_PACKAGE",
+        "REJECT",
+        "REQUEST_REVISION"
+      ],
+      "dispatch_allowed": false,
+      "dispatch_authority": false,
+      "exact_next_gate": "OPERATOR_MUST_DECIDE_EXACT_HASH_BOUND_PACKAGE_OUTSIDE_THIS_RUN",
+      "network_call_performed": false,
+      "operator_approval_captured": false,
+      "operator_identity": null,
+      "package_hash": "eade05bc6c695785519703f1ddb42250a2596a3ba427da6f911b67ec4153f137",
+      "posting_enabled_now": false,
+      "public_write_allowed": false,
+      "public_write_authority": false,
+      "public_write_performed": false,
+      "publication_allowed": false,
+      "publication_authority": false,
+      "scheduler_enabled_now": false,
+      "schema_version": "contentops.unsigned_operator_approval_package.v1",
+      "selected_decision": null,
+      "signature": null,
+      "signed_at_utc": null,
+      "state": "PENDING_OPERATOR_DECISION",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "task": "TASK_CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1",
+      "variant_count": 6,
+      "variant_ids": [
+        "substack_newsletter:cd5dcc5894c5b61e870124eefa132ece128122db7a55c45fd5c2fb175029e272",
+        "linkedin:9bd3927f7d9dcc3d072550c60eddbdd7e0570fcc05de6c512b2832921983bc1b",
+        "x_twitter:d87929e29354a08695f16d8a0a0962372175d70da2fb43a5998d711e16b3466c",
+        "facebook_page:779c7c05c88112829c88dcaf997a10908f9ec384315ea8da176bccb4fc6f1a11",
+        "telegram:753e05ce85ae38da0c213b4427a47e432a48503971a4a18e96fb86f2c6096ab7",
+        "youtube_community:fed5d7a06000cd852799a4c4e1104840ae004ecee4e1cffed73bd49fe175d949"
+      ],
+      "variant_payload_hashes": {
+        "facebook_page": "779c7c05c88112829c88dcaf997a10908f9ec384315ea8da176bccb4fc6f1a11",
+        "linkedin": "9bd3927f7d9dcc3d072550c60eddbdd7e0570fcc05de6c512b2832921983bc1b",
+        "substack_newsletter": "cd5dcc5894c5b61e870124eefa132ece128122db7a55c45fd5c2fb175029e272",
+        "telegram": "753e05ce85ae38da0c213b4427a47e432a48503971a4a18e96fb86f2c6096ab7",
+        "x_twitter": "d87929e29354a08695f16d8a0a0962372175d70da2fb43a5998d711e16b3466c",
+        "youtube_community": "fed5d7a06000cd852799a4c4e1104840ae004ecee4e1cffed73bd49fe175d949"
+      }
+    }
+  ],
+  "protected_state": {
+    "browser_action_performed": false,
+    "credential_read_allowed_now": false,
+    "dispatch_authority": false,
+    "network_call_performed": false,
+    "posting_enabled_now": false,
+    "public_write_authority": false,
+    "public_write_performed": false,
+    "publication_authority": false,
+    "scheduler_enabled_now": false
+  },
+  "schema_version": "contentops.multi_story_unsigned_operator_approval_packages.v1",
+  "state": "PENDING_OPERATOR_DECISION",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1"
+}

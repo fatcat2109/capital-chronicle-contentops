@@ -1,0 +1,257 @@
+{
+  "candidate_count": 15,
+  "candidates": [
+    {
+      "authority_story_logical_hash": "a8aa016cae684f0f755ec9bcc064e81e70a801d69e7345659bd719ca6ac53f00",
+      "authorized_claim_ids": [
+        "claim-95f6638ac5460d82"
+      ],
+      "candidate_id": "cc-candidate-713c5de51e9764fc8385",
+      "candidate_role": "PRIMARY_OPERATOR_PACKAGE",
+      "dispatch_authority": false,
+      "editorial_disposition": "READY_FOR_UNSIGNED_OPERATOR_DECISION",
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "federal_reserve_fomc",
+      "source_native_id": "fomc-rss-monetary20260520a",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "title": "Minutes of the Federal Open Market Committee, April 28-29, 2026"
+    },
+    {
+      "authority_story_logical_hash": "a8aa016cae684f0f755ec9bcc064e81e70a801d69e7345659bd719ca6ac53f00",
+      "authorized_claim_ids": [
+        "claim-95f6638ac5460d82"
+      ],
+      "candidate_id": "cc-candidate-713c5de51e9764fc8385-source",
+      "candidate_role": "SOURCE_IDENTITY_CONTEXT",
+      "dispatch_authority": false,
+      "editorial_disposition": "CONTEXT_ONLY_NO_PLATFORM_PACKAGE",
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "federal_reserve_fomc",
+      "source_native_id": "fomc-rss-monetary20260520a",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "title": "Source identity: Federal Reserve Board"
+    },
+    {
+      "authority_story_logical_hash": "a8aa016cae684f0f755ec9bcc064e81e70a801d69e7345659bd719ca6ac53f00",
+      "authorized_claim_ids": [
+        "claim-95f6638ac5460d82"
+      ],
+      "candidate_id": "cc-candidate-713c5de51e9764fc8385-limits",
+      "candidate_role": "LIMITATION_CONTEXT",
+      "dispatch_authority": false,
+      "editorial_disposition": "CONTEXT_ONLY_NO_PLATFORM_PACKAGE",
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "federal_reserve_fomc",
+      "source_native_id": "fomc-rss-monetary20260520a",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "title": "Authority limitations: Minutes of the Federal Open Market Committee, April 28-29, 2026"
+    },
+    {
+      "authority_story_logical_hash": "47c851b219379850ca2c01245d49ba8d6fcb3fe2480bc95c96206caf541c3cb6",
+      "authorized_claim_ids": [
+        "claim-661031f2768d9629",
+        "claim-403af5e0ec85b722"
+      ],
+      "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b",
+      "candidate_role": "PRIMARY_OPERATOR_PACKAGE",
+      "dispatch_authority": false,
+      "editorial_disposition": "READY_FOR_UNSIGNED_OPERATOR_DECISION",
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "sec_edgar",
+      "source_native_id": "0000320193-26-000013",
+      "story_id": "apple-sec-10q-2026-000013",
+      "title": "Apple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission."
+    },
+    {
+      "authority_story_logical_hash": "47c851b219379850ca2c01245d49ba8d6fcb3fe2480bc95c96206caf541c3cb6",
+      "authorized_claim_ids": [
+        "claim-661031f2768d9629",
+        "claim-403af5e0ec85b722"
+      ],
+      "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b-source",
+      "candidate_role": "SOURCE_IDENTITY_CONTEXT",
+      "dispatch_authority": false,
+      "editorial_disposition": "CONTEXT_ONLY_NO_PLATFORM_PACKAGE",
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "sec_edgar",
+      "source_native_id": "0000320193-26-000013",
+      "story_id": "apple-sec-10q-2026-000013",
+      "title": "Source identity: U.S. Securities and Exchange Commission"
+    },
+    {
+      "authority_story_logical_hash": "47c851b219379850ca2c01245d49ba8d6fcb3fe2480bc95c96206caf541c3cb6",
+      "authorized_claim_ids": [
+        "claim-661031f2768d9629",
+        "claim-403af5e0ec85b722"
+      ],
+      "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b-limits",
+      "candidate_role": "LIMITATION_CONTEXT",
+      "dispatch_authority": false,
+      "editorial_disposition": "CONTEXT_ONLY_NO_PLATFORM_PACKAGE",
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "sec_edgar",
+      "source_native_id": "0000320193-26-000013",
+      "story_id": "apple-sec-10q-2026-000013",
+      "title": "Authority limitations: Apple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission."
+    },
+    {
+      "authority_story_logical_hash": "61217db801824019f06892b26390a1be3e232c56be5ad91da42a442be33e29eb",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "candidate_role": "PRIMARY_OPERATOR_PACKAGE",
+      "dispatch_authority": false,
+      "editorial_disposition": "READY_FOR_UNSIGNED_OPERATOR_DECISION",
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "usgs_comcat",
+      "source_native_id": "ci38457511",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "title": "M 7.1 - Ridgecrest Earthquake Sequence"
+    },
+    {
+      "authority_story_logical_hash": "61217db801824019f06892b26390a1be3e232c56be5ad91da42a442be33e29eb",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336-source",
+      "candidate_role": "SOURCE_IDENTITY_CONTEXT",
+      "dispatch_authority": false,
+      "editorial_disposition": "CONTEXT_ONLY_NO_PLATFORM_PACKAGE",
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "usgs_comcat",
+      "source_native_id": "ci38457511",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "title": "Source identity: U.S. Geological Survey"
+    },
+    {
+      "authority_story_logical_hash": "61217db801824019f06892b26390a1be3e232c56be5ad91da42a442be33e29eb",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336-limits",
+      "candidate_role": "LIMITATION_CONTEXT",
+      "dispatch_authority": false,
+      "editorial_disposition": "CONTEXT_ONLY_NO_PLATFORM_PACKAGE",
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "usgs_comcat",
+      "source_native_id": "ci38457511",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "title": "Authority limitations: M 7.1 - Ridgecrest Earthquake Sequence"
+    },
+    {
+      "candidate_id": "cc-candidate-existing-treasury-20260713",
+      "candidate_role": "EXISTING_AUTHORIZED_FAMILY_REFERENCE",
+      "dispatch_authority": false,
+      "included_in_new_package_set": false,
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "story_scoped_publication_evidence_v1",
+      "story_id": "us-treasury-curve-2026-07-13",
+      "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+    },
+    {
+      "candidate_id": "cc-candidate-existing-federal-register-202612787",
+      "candidate_role": "EXISTING_AUTHORIZED_FAMILY_REFERENCE",
+      "dispatch_authority": false,
+      "included_in_new_package_set": false,
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "nonnumeric_story_scoped_publication_evidence_v1",
+      "story_id": "financial-data-transparency-act-joint-data-standards",
+      "title": "Financial Data Transparency Act Joint Data Standards"
+    },
+    {
+      "candidate_id": "cc-candidate-existing-federal-register-context",
+      "candidate_role": "EXISTING_AUTHORIZED_FAMILY_CONTEXT",
+      "dispatch_authority": false,
+      "included_in_new_package_set": false,
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "nonnumeric_story_scoped_publication_evidence_v1",
+      "story_id": "financial-data-transparency-act-joint-data-standards",
+      "title": "Federal Register authority limitation context"
+    },
+    {
+      "candidate_id": "cc-candidate-existing-treasury-context",
+      "candidate_role": "EXISTING_AUTHORIZED_FAMILY_CONTEXT",
+      "dispatch_authority": false,
+      "included_in_new_package_set": false,
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "story_scoped_publication_evidence_v1",
+      "story_id": "us-treasury-curve-2026-07-13",
+      "title": "Treasury authority limitation context"
+    },
+    {
+      "candidate_id": "cc-candidate-existing-federal-register-source",
+      "candidate_role": "EXISTING_AUTHORIZED_FAMILY_SOURCE",
+      "dispatch_authority": false,
+      "included_in_new_package_set": false,
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "nonnumeric_story_scoped_publication_evidence_v1",
+      "story_id": "financial-data-transparency-act-joint-data-standards",
+      "title": "Federal Register official-source context"
+    },
+    {
+      "candidate_id": "cc-candidate-existing-treasury-source",
+      "candidate_role": "EXISTING_AUTHORIZED_FAMILY_SOURCE",
+      "dispatch_authority": false,
+      "included_in_new_package_set": false,
+      "public_write_authority": false,
+      "publication_authority": false,
+      "reporting_allowed": true,
+      "source_family_id": "story_scoped_publication_evidence_v1",
+      "story_id": "us-treasury-curve-2026-07-13",
+      "title": "Treasury official-source context"
+    }
+  ],
+  "protected_state": {
+    "browser_action_performed": false,
+    "credential_read_allowed_now": false,
+    "dispatch_authority": false,
+    "network_call_performed": false,
+    "posting_enabled_now": false,
+    "public_write_authority": false,
+    "public_write_performed": false,
+    "publication_authority": false,
+    "scheduler_enabled_now": false
+  },
+  "schema_version": "contentops.multi_story_candidate_batch.v1",
+  "source_family_count": 5,
+  "source_family_ids": [
+    "federal_reserve_fomc",
+    "nonnumeric_story_scoped_publication_evidence_v1",
+    "sec_edgar",
+    "story_scoped_publication_evidence_v1",
+    "usgs_comcat"
+  ],
+  "task": "TASK_CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1"
+}
