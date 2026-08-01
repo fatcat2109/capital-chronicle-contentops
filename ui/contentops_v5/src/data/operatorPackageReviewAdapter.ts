@@ -158,6 +158,7 @@ interface CapabilityRow {
   freshness_policy?: string;
   freshness_requirements?: Record<string, unknown>;
   market_context_required?: boolean;
+  market_sensitive?: boolean;
   market_snapshot_required?: boolean;
   source_family_ids?: string[];
   visual_policy?: string;
@@ -228,7 +229,9 @@ function buildReadiness(
   const marketSnapshotRequired = Boolean(
     capability.row.market_snapshot_required ?? capability.row.market_context_required,
   );
-  const marketSensitive = marketSnapshotRequired;
+  const marketSensitive = Boolean(
+    capability.row.market_sensitive ?? capability.row.market_snapshot_required ?? capability.row.market_context_required,
+  );
   const rawFreshnessBlockers = operatorPackage.editorial_binding.freshness_disposition.blockers;
   const nonMarketFreshnessBlockers = rawFreshnessBlockers.filter((blocker) =>
     !isMarketSnapshotBlocker(blocker) && !blocker.includes('permission'),

@@ -56,6 +56,9 @@ def resolve_story_capabilities(request: Mapping[str, Any], registry: Mapping[str
         "source_family_id": source_family_id,
         "required_evidence_capabilities": list(row.get("required_evidence_capabilities") or []),
         "market_context_required": bool(row.get("market_context_required")),
+        "market_sensitive": bool(
+            row.get("market_sensitive", row.get("market_snapshot_required", row.get("market_context_required")))
+        ),
         "market_snapshot_required": bool(
             row.get("market_snapshot_required", row.get("market_context_required"))
         ),

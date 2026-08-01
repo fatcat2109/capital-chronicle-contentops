@@ -144,7 +144,7 @@ def run_generic_prepare_only(
     capability_request = dict(story_request)
     if capabilities.get("status") == "PASS":
         capability_request["article_mode"] = capabilities["article_mode"]
-        capability_request["market_sensitive"] = capabilities["market_snapshot_required"]
+        capability_request["market_sensitive"] = capabilities["market_sensitive"]
         capability_request["market_snapshot_required"] = capabilities["market_snapshot_required"]
     freshness = evaluate_freshness(packet, capability_request)
     visual_assets = list(story_request.get("visual_assets") or [])

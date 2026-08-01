@@ -223,6 +223,7 @@ def test_source_family_capabilities_derive_mode_and_market_sensitivity(
     assert decision["story_type"] == story_type
     assert decision["article_mode"] == "analysis"
     assert decision["market_snapshot_required"] is market_snapshot_required
+    assert decision["market_sensitive"] is market_snapshot_required
     assert decision["freshness_requirements"]["requires_market_snapshot"] is market_snapshot_required
 
 
