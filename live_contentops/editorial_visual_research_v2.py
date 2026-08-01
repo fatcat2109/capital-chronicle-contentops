@@ -68,7 +68,7 @@ def validate_chart_methodology(asset: Mapping[str, Any]) -> list[str]:
 
 def evaluate_visual_composition(
     assets: Sequence[Mapping[str, Any]], *, editorial_exception: str | None = None, story_type: str | None = None,
-    requirements: Mapping[str, Any] | None = None,
+    requirements: Mapping[str, Any] | None = None, policy_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     visual_requirements = {
         "minimum_visual_count": 3,
@@ -106,6 +106,12 @@ def evaluate_visual_composition(
     hashes = [str(row.get("perceptual_hash") or row.get("sha256") or "") for row in assets]
     if len([value for value in hashes if value]) != len(set(value for value in hashes if value)):
         blockers.append("duplicate_visual_hash")
+    decision_material = {
+        "blockers": list(dict.fromkeys(blockers)),
+        "policy_context": dict(policy_context or {}),
+        "requirements": visual_requirements,
+        "story_type": story_type,
+    }
     return {
         "schema_version": "contentops.visual_composition_decision.v2",
         "status": "PASS" if not blockers else "BLOCK",
@@ -115,7 +121,10 @@ def evaluate_visual_composition(
         "underlying_series_counts": series_counts,
         "editorial_exception": editorial_exception,
         "story_type": story_type,
+        "policy_context": dict(policy_context or {}),
         "requirements": visual_requirements,
-        "blockers": list(dict.fromkeys(blockers)),
-        "decision_hash": hashlib.sha256(json.dumps(blockers, sort_keys=True).encode()).hexdigest(),
+        "blockers": decision_material["blockers"],
+        "decision_hash": hashlib.sha256(
+            json.dumps(decision_material, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest(),
     }

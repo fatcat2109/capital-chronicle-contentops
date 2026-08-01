@@ -1,0 +1,31 @@
+{
+  "schema_version": "contentops.capability_policy_genericity_validation_truth.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1",
+  "checks": {
+    "deterministic_replay": true,
+    "exact_story_count_three": true,
+    "exact_platform_record_count_eighteen": true,
+    "fomc_analysis_market_sensitive_snapshot_required": true,
+    "apple_analysis_market_sensitive_snapshot_required": true,
+    "usgs_analysis_nonmarket_snapshot_not_required": true,
+    "all_records_derived_overlay": true,
+    "all_canonical_package_evidence_unchanged": true,
+    "all_publication_authority_false": true,
+    "all_dispatch_authority_false": true,
+    "all_hashes_sha256": true,
+    "exact_current_text_only_waivers_only": true
+  },
+  "blocker_count": 0,
+  "result": "PASS",
+  "replay_hash": "aaefa1ba151858518ce855742552854afccb1c34f243e21290915b7122fe9379",
+  "protected_state": {
+    "canonical_package_evidence_unchanged": true,
+    "publication_authority": false,
+    "dispatch_authority": false,
+    "approval_execution_performed": false,
+    "network_call_performed": false,
+    "provider_call_performed": false,
+    "public_write_performed": false
+  },
+  "logical_hash": "dff2e4adce29106cfc06a8c2d98484df261754d0b326fc9a4f0bbeba1da23eb3"
+}

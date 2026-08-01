@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import pytest
@@ -16,7 +17,11 @@ from live_contentops.generic_editorial_fabric_v2 import (
     run_generic_database_preflight,
     run_generic_prepare_only,
 )
-from live_contentops.source_capability_registry_v2 import load_source_capability_registry, resolve_story_capabilities
+from live_contentops.source_capability_registry_v2 import (
+    load_source_capability_registry,
+    resolve_platform_visual_expectation,
+    resolve_story_capabilities,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -196,12 +201,74 @@ def test_structured_final_review_fails_closed_when_missing_or_claiming_authority
     assert "structured_adversarial_review_failed_or_claimed_authority" in bad["blockers"]
 
 
-@pytest.mark.parametrize("story_type", ["policy_decision", "data_release", "geopolitical_event", "market_move", "regulatory_fiscal_event", "company_sector_event"])
-def test_six_generalized_story_families_resolve_without_topic_hardcoding(story_type):
-    decision = resolve_story_capabilities({"story_type": story_type}, load_source_capability_registry())
+@pytest.mark.parametrize(
+    ("story_type", "caller_mode"),
+    [
+        ("policy_decision", None),
+        ("data_release", None),
+        ("geopolitical_event", "straight_news"),
+        ("market_move", None),
+        ("regulatory_fiscal_event", "straight_news"),
+        ("company_sector_event", None),
+    ],
+)
+def test_six_generalized_story_families_resolve_without_topic_hardcoding(story_type, caller_mode):
+    request = {"story_type": story_type}
+    if caller_mode:
+        request["article_mode"] = caller_mode
+    decision = resolve_story_capabilities(request, load_source_capability_registry())
     assert decision["status"] == "PASS"
     assert decision["required_evidence_capabilities"]
     assert decision["visual_roles"]
+
+
+def test_registry_mode_is_explicit_for_data_release_and_analysis_packages():
+    registry = load_source_capability_registry()
+    assert resolve_story_capabilities({"story_type": "data_release"}, registry)["article_mode"] == "data_release"
+    for source_family in ("federal_reserve_fomc", "sec_edgar", "usgs_comcat"):
+        assert resolve_story_capabilities({"source_family_id": source_family}, registry)["article_mode"] == "analysis"
+
+
+def test_caller_mode_is_preserved_when_registry_has_no_mode_and_missing_mode_fails_closed():
+    registry = load_source_capability_registry()
+    preserved = resolve_story_capabilities(
+        {"story_type": "geopolitical_event", "article_mode": "straight_news"}, registry
+    )
+    assert preserved["status"] == "PASS"
+    assert preserved["article_mode"] == "straight_news"
+    assert preserved["article_mode_source"] == "caller"
+    unresolved = resolve_story_capabilities({"story_type": "geopolitical_event"}, registry)
+    assert unresolved["status"] == "BLOCK"
+    assert unresolved["article_mode"] == ""
+    assert unresolved["blockers"] == ["article_mode_unresolved"]
+
+
+def test_caller_mode_mismatch_with_explicit_registry_policy_fails_closed():
+    decision = resolve_story_capabilities(
+        {"story_type": "policy_decision", "article_mode": "straight_news"},
+        load_source_capability_registry(),
+    )
+    assert decision["status"] == "BLOCK"
+    assert "article_mode_mismatch_with_capability" in decision["blockers"]
+
+
+def test_invalid_caller_mode_does_not_fill_an_undeclared_registry_mode():
+    decision = resolve_story_capabilities(
+        {"story_type": "geopolitical_event", "article_mode": "generic_analysis"},
+        load_source_capability_registry(),
+    )
+    assert decision["status"] == "BLOCK"
+    assert decision["blockers"] == ["caller_article_mode_invalid"]
+
+
+def test_market_sensitivity_and_snapshot_requirement_are_independent():
+    registry = deepcopy(load_source_capability_registry())
+    registry["story_types"]["physical_event"]["market_sensitive"] = True
+    registry["story_types"]["physical_event"]["market_snapshot_required"] = False
+    decision = resolve_story_capabilities({"story_type": "physical_event"}, registry)
+    assert decision["status"] == "PASS"
+    assert decision["market_sensitive"] is True
+    assert decision["market_snapshot_required"] is False
 
 
 @pytest.mark.parametrize(
@@ -247,14 +314,73 @@ def test_usgs_physical_event_does_not_require_market_snapshot():
 
 def test_long_form_and_text_only_visual_policies_are_distinct():
     registry = load_source_capability_registry()
-    long_form = registry["platform_visual_expectations"]["substack_newsletter"]
-    text_only = registry["platform_visual_expectations"]["youtube_community"]
+    long_form = resolve_platform_visual_expectation(
+        platform_id="substack_newsletter",
+        content_surface="newsletter_note",
+        variant_mode="manual_export",
+        registry=registry,
+    )
+    text_only = resolve_platform_visual_expectation(
+        platform_id="youtube_community",
+        content_surface="community_text_post",
+        variant_mode="dry_run",
+        registry=registry,
+    )
     assert "fewer_than_three_useful_visuals" in evaluate_visual_composition(
         [], requirements=long_form
     )["blockers"]
     text_decision = evaluate_visual_composition([], requirements=text_only)
     assert text_decision["status"] == "PASS"
     assert text_decision["blockers"] == []
+
+
+@pytest.mark.parametrize("future_mode", ["image", "mixed_media", "video"])
+def test_unregistered_visual_modes_do_not_inherit_text_only_waiver(future_mode):
+    decision = resolve_platform_visual_expectation(
+        platform_id="youtube_community",
+        content_surface="community_text_post",
+        variant_mode=future_mode,
+        registry=load_source_capability_registry(),
+    )
+    assert decision["status"] == "BLOCK"
+    assert decision["minimum_visual_count"] > 0
+    assert decision["blockers"] == ["unsupported_platform_visual_mode"]
+
+
+def test_registered_non_text_mode_cannot_claim_a_zero_visual_waiver():
+    registry = deepcopy(load_source_capability_registry())
+    rule = registry["platform_visual_expectations"]["youtube_community"]["rules"][0]
+    rule["variant_mode"] = "image"
+    rule["effective_visual_mode"] = "image"
+    decision = resolve_platform_visual_expectation(
+        platform_id="youtube_community",
+        content_surface="community_text_post",
+        variant_mode="image",
+        registry=registry,
+    )
+    assert decision["status"] == "BLOCK"
+    assert decision["minimum_visual_count"] > 0
+    assert decision["blockers"] == ["malformed_platform_visual_policy"]
+
+
+def test_visual_hash_binds_requirements_and_capability_context_even_when_blockers_match():
+    base = evaluate_visual_composition(
+        [],
+        requirements={"minimum_visual_count": 0, "requires_lead_visual": False, "requires_visual_diversity": False},
+        policy_context={"article_mode": "straight_news", "market_sensitive": True, "market_snapshot_required": False},
+    )
+    requirement_mutation = evaluate_visual_composition(
+        [],
+        requirements={"minimum_visual_count": 0, "requires_lead_visual": False, "requires_visual_diversity": False, "policy_version": "mutated"},
+        policy_context={"article_mode": "straight_news", "market_sensitive": True, "market_snapshot_required": False},
+    )
+    context_mutation = evaluate_visual_composition(
+        [],
+        requirements={"minimum_visual_count": 0, "requires_lead_visual": False, "requires_visual_diversity": False},
+        policy_context={"article_mode": "straight_news", "market_sensitive": False, "market_snapshot_required": False},
+    )
+    assert base["blockers"] == requirement_mutation["blockers"] == context_mutation["blockers"] == []
+    assert len({base["decision_hash"], requirement_mutation["decision_hash"], context_mutation["decision_hash"]}) == 3
 
 
 def test_google_visual_provider_is_current_discovery_only_contract():

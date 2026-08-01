@@ -3,12 +3,16 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import App from '../App';
+import sourceCapabilityRegistry from '../../../../docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/source_evidence_capability_registry_v2.json';
 import {
   buildCanonicalReviewStories,
   canonicalReviewStories,
   canonicalReviewSummary,
   canonicalVariantEvidenceRecords,
   joinCanonicalVariantEvidence,
+  resolvePlatformVisualExpectation,
+  sha256Canonical,
+  type CapabilityRegistry,
   type CanonicalVariantJoinInput,
 } from '../data/operatorPackageReviewAdapter';
 
@@ -155,12 +159,18 @@ describe('canonical package evidence adapter', () => {
   it('binds every platform readiness record to exact package, article, V3, and variant hashes', () => {
     for (const story of canonicalReviewStories) {
       for (const variant of story.variants) {
-        expect(variant.readiness.hashes).toEqual({
+        expect(variant.readiness.hashes).toMatchObject({
           articleHash: story.article.hash,
           packageHash: story.packageHash,
           v3PacketHash: story.v3PacketLogicalHash,
           variantHash: variant.payloadHash,
         });
+        expect(variant.readiness.hashes.visualPolicyHash).toMatch(/^[a-f0-9]{64}$/);
+        expect(variant.readiness.hashes.readinessHash).toMatch(/^[a-f0-9]{64}$/);
+        expect(variant.readiness.readinessOverlay).toBe('DERIVED_READINESS_OVERLAY');
+        expect(variant.readiness.canonicalPackageEvidenceUnchanged).toBe(true);
+        expect(variant.readiness.publicationAuthority).toBe(false);
+        expect(variant.readiness.dispatchAuthority).toBe(false);
         expect(variant.readiness.publicationAuthorityBlocker).toBe('publication_authority_not_granted');
         expect(variant.readiness.dispatchReadiness).toBe('BLOCK');
         expect(variant.readiness.publicationReadiness).toBe('BLOCK');
@@ -172,6 +182,82 @@ describe('canonical package evidence adapter', () => {
     const first = buildCanonicalReviewStories();
     const second = buildCanonicalReviewStories();
     expect(JSON.stringify(second)).toBe(JSON.stringify(first));
+  });
+
+  it('keys visual waivers to the exact platform, content surface, and variant mode', () => {
+    const registry = sourceCapabilityRegistry as unknown as CapabilityRegistry;
+    const textOnly = resolvePlatformVisualExpectation(
+      'youtube_community', 'community_text_post', 'dry_run', registry,
+    );
+    const futureImageMode = resolvePlatformVisualExpectation(
+      'youtube_community', 'community_text_post', 'image', registry,
+    );
+    expect(textOnly).toMatchObject({
+      effective_visual_mode: 'text_only',
+      minimum_visual_count: 0,
+      status: 'PASS',
+    });
+    expect(futureImageMode).toMatchObject({
+      blockers: ['unsupported_platform_visual_mode'],
+      effective_visual_mode: 'fail_closed_visual_required',
+      status: 'BLOCK',
+    });
+    expect(futureImageMode.minimum_visual_count).toBeGreaterThan(0);
+
+    const malformedRegistry = structuredClone(registry);
+    const malformedRule = malformedRegistry.platform_visual_expectations.youtube_community.rules[0];
+    malformedRule.variant_mode = 'image';
+    malformedRule.effective_visual_mode = 'image';
+    const malformedImageMode = resolvePlatformVisualExpectation(
+      'youtube_community', 'community_text_post', 'image', malformedRegistry,
+    );
+    expect(malformedImageMode).toMatchObject({
+      blockers: ['malformed_platform_visual_policy'],
+      effective_visual_mode: 'fail_closed_visual_required',
+      minimum_visual_count: 1,
+      status: 'BLOCK',
+    });
+  });
+
+  it('binds readiness hashes to policy fields even when blockers remain identical', () => {
+    expect(sha256Canonical('abc')).toBe('6cc43f858fbb763301637b5af970e2a46b46f461f27e5a0f41e009c59b827b25');
+    const baseline = {
+      applicableGates: ['editorial_review'],
+      articleMode: 'analysis',
+      blockers: ['same_blocker'],
+      effectivePlatformVisualMode: 'text_only',
+      marketSensitive: true,
+      marketSnapshotRequired: false,
+      requirements: { minimumVisualCount: 0 },
+    };
+    const hashes = [
+      sha256Canonical(baseline),
+      sha256Canonical({ ...baseline, articleMode: 'straight_news' }),
+      sha256Canonical({ ...baseline, marketSensitive: false }),
+      sha256Canonical({ ...baseline, marketSnapshotRequired: true }),
+      sha256Canonical({ ...baseline, effectivePlatformVisualMode: 'mixed_media' }),
+      sha256Canonical({ ...baseline, requirements: { minimumVisualCount: 1 } }),
+    ];
+    expect(new Set(hashes).size).toBe(hashes.length);
+  });
+
+  it('changes integrated readiness hashes for independent sensitivity and visual-mode policy mutations', () => {
+    const registry = structuredClone(sourceCapabilityRegistry) as unknown as CapabilityRegistry;
+    const baseline = buildCanonicalReviewStories(registry);
+    const sensitivityMutation = structuredClone(registry);
+    sensitivityMutation.story_types.physical_event.market_sensitive = true;
+    const sensitivityStories = buildCanonicalReviewStories(sensitivityMutation);
+    const visualModeMutation = structuredClone(registry);
+    visualModeMutation.platform_visual_expectations.youtube_community.rules[0].effective_visual_mode = 'text_only_v2';
+    const visualStories = buildCanonicalReviewStories(visualModeMutation);
+    const baselineUsgs = baseline.find((story) => story.authority.sourceFamily === 'usgs_comcat')!;
+    const sensitivityUsgs = sensitivityStories.find((story) => story.authority.sourceFamily === 'usgs_comcat')!;
+    const visualUsgs = visualStories.find((story) => story.authority.sourceFamily === 'usgs_comcat')!;
+    expect(sensitivityUsgs.readiness.marketSnapshotRequired).toBe(false);
+    expect(sensitivityUsgs.readiness.marketSensitive).toBe(true);
+    expect(sensitivityUsgs.readiness.readinessHash).not.toBe(baselineUsgs.readiness.readinessHash);
+    expect(visualUsgs.variants.find((item) => item.platform === 'youtube_community')!.readiness.hashes.readinessHash)
+      .not.toBe(baselineUsgs.variants.find((item) => item.platform === 'youtube_community')!.readiness.hashes.readinessHash);
   });
 });
 
@@ -247,6 +333,10 @@ describe('canonical package review console', () => {
   it('renders the complete copy and character limits for all 18 variants', () => {
     render(<App />);
     fireEvent.click(document.getElementById('nav-canonical_package_review')!);
+    expect(screen.getByText('Canonical package/editorial state')).toBeInTheDocument();
+    expect(screen.getByText('Derived capability applicability')).toBeInTheDocument();
+    expect(screen.getByText('Publication / dispatch authority')).toBeInTheDocument();
+    expect(screen.getByText('FALSE / FALSE')).toBeInTheDocument();
 
     for (const story of canonicalReviewStories) {
       fireEvent.click(

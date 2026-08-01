@@ -116,7 +116,7 @@ function PlatformReadinessCard({
         <div className="min-w-0">
           <h3 className="text-sm font-semibold text-fg">{PLATFORM_LABELS[readiness.platform] ?? readiness.platform}</h3>
           <p className="mt-1 break-words font-mono text-[10px] uppercase tracking-wider text-accent">
-            {readiness.visualPolicy} · {readiness.articleMode}
+            {readiness.effectivePlatformVisualMode} · {readiness.contentSurface} · {readiness.variantMode}
           </p>
         </div>
         <ReadinessStatus status={readiness.editorialReadiness} />
@@ -490,6 +490,20 @@ export function CanonicalPackageReviewConsole() {
           subtitle="Story and platform gates are derived from the committed source capability registry and remain separate from dispatch/publication authority"
           actions={<StatusChip status="review">READINESS ONLY</StatusChip>}
         >
+          <div className="mb-4 grid gap-2 md:grid-cols-3" aria-label="Canonical state, derived applicability, and authority separation">
+            <div className="rounded-lg border border-line bg-bg/40 p-3">
+              <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-fg-subtle">Canonical package/editorial state</div>
+              <div className="mt-2 flex flex-wrap gap-2"><StatusChip status="review">{story.state}</StatusChip><StatusChip status="blocked">{story.editorialState}</StatusChip></div>
+            </div>
+            <div className="rounded-lg border border-accent/30 bg-accent/5 p-3">
+              <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-accent">Derived capability applicability</div>
+              <div className="mt-2"><StatusChip status="review">{story.readiness.readinessOverlay}</StatusChip></div>
+            </div>
+            <div className="rounded-lg border border-status-blocked/25 bg-status-blocked/5 p-3">
+              <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-status-blocked">Publication / dispatch authority</div>
+              <div className="mt-2 font-mono text-[10px] text-status-blocked">FALSE / FALSE</div>
+            </div>
+          </div>
           <div className="grid gap-3 xl:grid-cols-[minmax(0,0.8fr)_minmax(0,2fr)]">
             <div className="rounded-xl border border-line bg-surface-2 p-4">
               <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-accent">Story capability profile</div>

@@ -1,0 +1,45 @@
+{
+  "schema_version": "contentops.capability_policy_genericity_readiness_receipt_final_manifest.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1",
+  "starting_remote_head": "6de0a8c8fc3cfc510b9ffa0e840e701fabd6e466",
+  "terminal_classification": "PASS_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1_AWAITING_CHATGPT_AUDIT",
+  "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1",
+  "capability_registry": {
+    "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/source_evidence_capability_registry_v2.json",
+    "git_blob_sha1": "f08e89b4c097490b69f3df97eeb2a3ed35eca18c",
+    "byte_sha256": "a28dfbaa57e7047db380a2668bc4d7a1164422ce15fb1d0cf2ac8e21d50e06bf"
+  },
+  "canonical_evidence_unchanged": [
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/superseding_unsigned_operator_packages.json",
+      "byte_sha256": "be95c1e6fa23c35da1cbb1945f105973a869e59b32db87e4a67045f221e9f94a"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/canonical_editorial_outcomes.json",
+      "byte_sha256": "916c3260375ab58ecb3a397102e1aabd74dc102159c004b335b547dd8e1c1d9a"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1/platform_native_variants.json",
+      "byte_sha256": "6809a1fd7280f5aa85f4068e5433811ef4fb2a4daa78bacdba1244fa139ecf75"
+    }
+  ],
+  "output_artifacts": [
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1/capability_readiness_records.json",
+      "byte_sha256": "a937460edd26765848c2582bf915137b6d9f4afa9e0eaa5c340954762af903d5"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1/validation_truth.json",
+      "byte_sha256": "b768d833654e3aa969c86725589ec935a78f3c136000fa33559c4cead663ff79"
+    }
+  ],
+  "record_count": 18,
+  "readiness_overlay": "DERIVED_READINESS_OVERLAY",
+  "publication_authority": false,
+  "dispatch_authority": false,
+  "public_write_performed": false,
+  "monolithic_repository_suite_run": false,
+  "ci_pass_claimed": false,
+  "result": "PASS",
+  "logical_hash": "48d3f4bc92d80e7027dab413bccf13d6068e102fe1f99d7c5064a26268e56d55"
+}

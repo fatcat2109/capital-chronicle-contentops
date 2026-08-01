@@ -8,7 +8,7 @@ Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicl
 
 Authority date: 2026-07-14
 
-Current architecture classification: `PASS_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1_AWAITING_CHATGPT_AUDIT`.
+Current architecture classification: `PASS_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1_AWAITING_CHATGPT_AUDIT`.
 
 Current accepted public release: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
 
@@ -84,7 +84,7 @@ Final-closure evidence: `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/co
 
 Bounded repairs restored historical LinkedIn content, corrected Facebook copy, and deleted the two authorized malformed Threads posts. A valid Threads reply had to be recreated after duplicate-text UI ambiguity, leaving an operator-visible order caveat. The oil editorial repair passes locally but is unpublished.
 
-Current generic live evidence remains: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`. Current no-write editorial/operator evidence is `docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/final_manifest.json`; current capability-driven readiness evidence is `docs/automation/CONTENTOPS_FAST_SHIP_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1/browser_qa.json`.
+Current generic live evidence remains: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`. Current no-write editorial/operator evidence is `docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/final_manifest.json`; current capability-policy readiness evidence is `docs/automation/CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1/final_manifest.json`.
 
 Database packet `cc-publication-73ff151c3d3094741b6c` grants story-scoped `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED` while preserving global `dqr=BLOCKED`. The canonical runner published `Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%`, then produced eight native derivatives with strict readback. Bounded updates repaired the Substack caption fragment, tightened the RC, and corrected the final auction-confirmation logic without derivative or video writes. Strict readback preserved all three ordered visuals, captions, sources, and numeric claims. Machine QA and the final release verifier pass.
 
@@ -92,9 +92,9 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1` — `PASS_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1_AWAITING_CHATGPT_AUDIT`.
+Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1` — `PASS_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1_AWAITING_CHATGPT_AUDIT`.
 
-The canonical V5 review now derives article mode, market sensitivity, freshness, market snapshots, visual policy, and platform visual expectations from the committed source capability registry for the existing FOMC, Apple SEC, and USGS packages. Per-story and per-platform readiness records expose grouped editorial/freshness/visual/authority/dispatch gates, unresolved blockers, publication authority, separate editorial versus dispatch/publication readiness, and exact article/package/V3/variant hashes. USGS physical-event copy is not blocked by market snapshots; text-only surfaces do not inherit long-form visual requirements. All authoritative blockers and package HOLD states remain unchanged. Focused tests, deterministic replay, build, and fresh desktop/mobile Edge QA passed; no external action or monolithic-suite/CI claim was made.
+The canonical capability resolver has no implicit universal `analysis` fallback: committed explicit modes are deterministic, valid caller modes are preserved only where registry policy is absent, and unresolved or mismatched modes fail closed. Market sensitivity and snapshot requirements remain independent. Platform visual requirements resolve by exact platform, content surface, and variant mode, preserving only the current text-only waivers. Visual/readiness hashes bind effective policy as well as blockers and exact evidence. The compact 18-record receipt preserves all canonical HOLD states and false publication/dispatch authority. Focused tests, deterministic replay, all 203 V5 tests, build, and desktop/mobile Edge QA passed; no external action or monolithic-suite/CI claim was made.
 
 The canonical V5 `canonical_package_review` surface fail-closed joins platform-native evidence by story ID, candidate ID, platform ID, exact authorized claim set, and superseding-package payload hash. Across the exact FOMC, Apple SEC, and USGS packages, all 18 Substack, LinkedIn, X, Facebook, Telegram, and YouTube Community cards expose complete rendered copy, platform surface/mode, character count and limit, citations, limitations, claims, payload hash, and `NOT AUTHORIZED` dispatch state. It remains forced to `dark-evidence`, responsive, inspector-integrated, and without approval capture, ledger execution, publication, dispatch, provider/browser platform action, credential, network intake, scheduler, or public-write capability.
 
@@ -120,4 +120,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is retained as `ACCEPT_TRUSTED
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is retained as `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair derives authority, permission, and roles from registered extractors, copies qualification into receipt-backed bindings, derives candidate authority across every bound extracted record, and requires exact-set or registered feature aggregation. It adds no scenario, calibration, product, publication, or policy behavior.
 
-Next action: `INDEPENDENT_CHATGPT_AUDIT_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1`.
+Next action: `INDEPENDENT_CHATGPT_AUDIT_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1`.

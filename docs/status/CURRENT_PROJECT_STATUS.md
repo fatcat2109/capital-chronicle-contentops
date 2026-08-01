@@ -4,17 +4,17 @@
 
 ## Current Classification
 
-`PASS_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1`.
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1`.
 
-## Capability-Driven Editorial Readiness And Per-Platform Blockers V1
+## Capability Policy Genericity And Readiness Receipt Repair V1
 
-The canonical V5 package review now derives article mode, market sensitivity, market-snapshot requirements, freshness policy, article visual policy, and platform visual expectations from the committed source capability registry. FOMC and Apple SEC remain market-sensitive; USGS resolves to the physical-event capability with market sensitivity and market snapshots not applicable. Long-form Substack retains the article visual gate while text-only social/community surfaces do not inherit the three-visual requirement.
+The capability resolver no longer supplies an implicit universal `analysis` mode. Explicit registry modes remain deterministic, valid caller-provided modes are preserved where the registry does not define policy, missing modes fail closed, and caller/registry mismatches remain blockers. Existing FOMC, Apple SEC, and USGS behavior is preserved. Market sensitivity and market-snapshot requirements remain independently representable.
 
-Each of the three stories and all 18 platform variants now carries capability-derived applicable and passed gates, unresolved blockers, publication-authority blocker, editorial readiness separate from dispatch/publication readiness, and exact article/package/V3/variant hashes. Existing authoritative permission, editorial, freshness, visual, publication, and dispatch blockers remain fail-closed; all packages remain `HOLD`, `PENDING_OPERATOR_DECISION`, and `REQUEST_REVISION`.
+Platform visual policy is now an exact match over platform ID, content surface, and variant mode. The current text-only variants retain zero-visual requirements, while unsupported image, mixed-media, video, and future modes fail closed rather than inheriting the waiver. Visual and readiness hashes bind effective article mode, sensitivity, snapshot policy, visual mode, applicable requirements, blockers, and exact article/package/V3/variant evidence.
 
-The canonical console includes a responsive per-platform blocker matrix grouped into editorial, freshness, visual, authority, and dispatch categories. Focused capability, USGS regression, visual-policy, hash-binding, deterministic-replay, V5 UI, and production-build checks passed. Fresh local Microsoft Edge QA passed at 1440x1000 and 390x844 with no console/runtime/resource errors or horizontal overflow. Evidence is committed at `docs/automation/CONTENTOPS_FAST_SHIP_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1/`.
+The canonical console remains read-only and visibly separates canonical package/editorial state, derived capability applicability, and publication/dispatch authority. Focused policy and receipt tests, deterministic replay, all 203 V5 tests, production build, and fresh local Microsoft Edge QA at 1440x1000 and 390x844 passed. The compact committed receipt is at `docs/automation/CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1/`.
 
 No publication, dispatch, approval, credential, provider/browser action, network intake, scheduler action, or public write occurred. The monolithic repository suite was not run and no CI PASS is claimed.
 
@@ -263,6 +263,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1`
+`INDEPENDENT_CHATGPT_AUDIT_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1`
 
-Independently verify capability-derived story modes and sensitivity, USGS non-market behavior, long-form versus text-only visual policy, all per-platform gates and exact hashes, deterministic replay, committed browser evidence, responsive behavior, status consistency, and no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.
+Independently verify explicit versus caller-preserved article modes, unresolved/mismatched fail-closed behavior, independent sensitivity/snapshot policy, exact platform/surface/variant visual matching, hash mutation, deterministic receipt replay, responsive state separation, status consistency, and no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.

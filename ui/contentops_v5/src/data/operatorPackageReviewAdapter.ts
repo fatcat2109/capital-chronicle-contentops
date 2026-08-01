@@ -75,15 +75,21 @@ export interface CanonicalReadinessGate {
 export interface CanonicalReadinessHashes {
   articleHash: string;
   packageHash: string;
+  readinessHash: string;
   v3PacketHash: string;
   variantHash: string;
+  visualPolicyHash: string;
 }
 
 export interface CanonicalPlatformReadiness {
   applicableGates: string[];
   articleMode: string;
+  canonicalPackageEvidenceUnchanged: true;
+  contentSurface: string;
+  dispatchAuthority: false;
   dispatchReadiness: ReadinessGateStatus;
   editorialReadiness: ReadinessGateStatus;
+  effectivePlatformVisualMode: string;
   freshnessPolicy: string;
   gates: CanonicalReadinessGate[];
   hashes: CanonicalReadinessHashes;
@@ -91,15 +97,22 @@ export interface CanonicalPlatformReadiness {
   marketSnapshotRequired: boolean;
   passedGates: string[];
   platform: string;
+  publicationAuthority: false;
   publicationAuthorityBlocker: string;
   publicationReadiness: ReadinessGateStatus;
+  readinessOverlay: 'DERIVED_READINESS_OVERLAY';
   unresolvedBlockers: string[];
+  variantMode: string;
   visualPolicy: string;
 }
 
 export interface CanonicalStoryReadiness {
   applicableGates: string[];
   articleMode: string;
+  canonicalEditorialState: string;
+  canonicalPackageEvidenceUnchanged: true;
+  canonicalPackageState: string;
+  dispatchAuthority: false;
   dispatchReadiness: ReadinessGateStatus;
   editorialReadiness: ReadinessGateStatus;
   freshnessPolicy: string;
@@ -107,10 +120,14 @@ export interface CanonicalStoryReadiness {
   marketSensitive: boolean;
   marketSnapshotRequired: boolean;
   passedGates: string[];
+  publicationAuthority: false;
   publicationAuthorityBlocker: string;
   publicationReadiness: ReadinessGateStatus;
+  readinessHash: string;
+  readinessOverlay: 'DERIVED_READINESS_OVERLAY';
   storyType: string;
   unresolvedBlockers: string[];
+  visualPolicyHash: string;
   visualPolicy: string;
 }
 
@@ -153,7 +170,7 @@ export interface CanonicalReviewStory {
 type EditorialOutcome = (typeof editorialEvidence.outcomes)[number];
 type OperatorPackage = (typeof packageEvidence.packages)[number];
 
-interface CapabilityRow {
+export interface CapabilityRow {
   article_mode?: string;
   freshness_policy?: string;
   freshness_requirements?: Record<string, unknown>;
@@ -165,17 +182,147 @@ interface CapabilityRow {
   visual_requirements?: Record<string, unknown>;
 }
 
-interface CapabilityRegistry {
-  platform_visual_expectations: Record<string, {
+export interface PlatformVisualRule {
+    content_surface: string;
+    effective_visual_mode: string;
     minimum_visual_count: number;
     policy: string;
     requires_lead_visual: boolean;
     requires_visual_diversity: boolean;
+    variant_mode: string;
+}
+
+export interface CapabilityRegistry {
+  platform_visual_expectations: Record<string, {
+    rules: PlatformVisualRule[];
   }>;
   story_types: Record<string, CapabilityRow>;
 }
 
 const capabilityRegistry = sourceCapabilityRegistry as unknown as CapabilityRegistry;
+
+const SHA256_INITIAL = [
+  0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+  0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19,
+];
+const SHA256_K = [
+  0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+  0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+  0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+  0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+  0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+  0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+  0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+  0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
+];
+
+function canonicalJson(value: unknown): string {
+  if (value === undefined) return 'null';
+  if (value === null || typeof value !== 'object') return JSON.stringify(value);
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`;
+  const row = value as Record<string, unknown>;
+  return `{${Object.keys(row).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(row[key])}`).join(',')}}`;
+}
+
+export function sha256Canonical(value: unknown): string {
+  const bytes = [...new TextEncoder().encode(canonicalJson(value))];
+  const bitLength = bytes.length * 8;
+  bytes.push(0x80);
+  while (bytes.length % 64 !== 56) bytes.push(0);
+  for (let shift = 56; shift >= 32; shift -= 8) bytes.push(0);
+  for (let shift = 24; shift >= 0; shift -= 8) bytes.push((bitLength >>> shift) & 0xff);
+  const hash = [...SHA256_INITIAL];
+  const rotateRight = (value32: number, bits: number) => (value32 >>> bits) | (value32 << (32 - bits));
+  for (let offset = 0; offset < bytes.length; offset += 64) {
+    const words = new Array<number>(64).fill(0);
+    for (let index = 0; index < 16; index += 1) {
+      const cursor = offset + index * 4;
+      words[index] = ((bytes[cursor] << 24) | (bytes[cursor + 1] << 16) | (bytes[cursor + 2] << 8) | bytes[cursor + 3]) >>> 0;
+    }
+    for (let index = 16; index < 64; index += 1) {
+      const s0 = rotateRight(words[index - 15], 7) ^ rotateRight(words[index - 15], 18) ^ (words[index - 15] >>> 3);
+      const s1 = rotateRight(words[index - 2], 17) ^ rotateRight(words[index - 2], 19) ^ (words[index - 2] >>> 10);
+      words[index] = (words[index - 16] + s0 + words[index - 7] + s1) >>> 0;
+    }
+    let [a, b, c, d, e, f, g, h] = hash;
+    for (let index = 0; index < 64; index += 1) {
+      const sum1 = rotateRight(e, 6) ^ rotateRight(e, 11) ^ rotateRight(e, 25);
+      const choice = (e & f) ^ (~e & g);
+      const temp1 = (h + sum1 + choice + SHA256_K[index] + words[index]) >>> 0;
+      const sum0 = rotateRight(a, 2) ^ rotateRight(a, 13) ^ rotateRight(a, 22);
+      const majority = (a & b) ^ (a & c) ^ (b & c);
+      const temp2 = (sum0 + majority) >>> 0;
+      [a, b, c, d, e, f, g, h] = [(temp1 + temp2) >>> 0, a, b, c, (d + temp1) >>> 0, e, f, g];
+    }
+    [a, b, c, d, e, f, g, h].forEach((value32, index) => {
+      hash[index] = (hash[index] + value32) >>> 0;
+    });
+  }
+  return hash.map((value32) => value32.toString(16).padStart(8, '0')).join('');
+}
+
+export interface ResolvedPlatformVisualExpectation extends PlatformVisualRule {
+  blockers: string[];
+  status: 'PASS' | 'BLOCK';
+}
+
+const VALID_ARTICLE_MODES = new Set([
+  'analysis',
+  'correction',
+  'data_release',
+  'deep_analysis',
+  'explainer',
+  'live_update',
+  'market_move',
+  'policy_decision',
+  'retrospective',
+  'scenario_outlook',
+  'straight_news',
+]);
+
+export function resolvePlatformVisualExpectation(
+  platform: string,
+  contentSurface: string,
+  variantMode: string,
+  registryInput: CapabilityRegistry = capabilityRegistry,
+): ResolvedPlatformVisualExpectation {
+  const matches = (registryInput.platform_visual_expectations[platform]?.rules ?? []).filter(
+    (rule) => rule.content_surface === contentSurface && rule.variant_mode === variantMode,
+  );
+  if (matches.length !== 1) {
+    return {
+      blockers: [matches.length > 1 ? 'ambiguous_platform_visual_mode' : 'unsupported_platform_visual_mode'],
+      content_surface: contentSurface,
+      effective_visual_mode: 'fail_closed_visual_required',
+      minimum_visual_count: 1,
+      policy: 'fail_closed_unregistered_visual_mode',
+      requires_lead_visual: false,
+      requires_visual_diversity: false,
+      status: 'BLOCK',
+      variant_mode: variantMode,
+    };
+  }
+  const rule = matches[0];
+  const malformed = !rule.effective_visual_mode ||
+    !rule.policy ||
+    !Number.isInteger(rule.minimum_visual_count) ||
+    rule.minimum_visual_count < 0 ||
+    (rule.effective_visual_mode !== 'text_only' && rule.minimum_visual_count === 0);
+  if (malformed) {
+    return {
+      blockers: ['malformed_platform_visual_policy'],
+      content_surface: contentSurface,
+      effective_visual_mode: 'fail_closed_visual_required',
+      minimum_visual_count: 1,
+      policy: 'fail_closed_unregistered_visual_mode',
+      requires_lead_visual: false,
+      requires_visual_diversity: false,
+      status: 'BLOCK',
+      variant_mode: variantMode,
+    };
+  }
+  return { ...rule, blockers: [], status: 'PASS' };
+}
 
 export interface CanonicalVariantJoinInput {
   authorizedClaimIds: string[];
@@ -199,18 +346,29 @@ function unique(values: readonly string[]): string[] {
   return [...new Set(values)];
 }
 
-function resolveStoryCapability(sourceFamily: string, articleMode: string): { row: CapabilityRow; storyType: string } {
-  const matches = Object.entries(capabilityRegistry.story_types).filter(([, row]) =>
+function resolveStoryCapability(
+  sourceFamily: string,
+  articleMode: string,
+  registryInput: CapabilityRegistry,
+): { row: CapabilityRow; storyType: string } {
+  const matches = Object.entries(registryInput.story_types).filter(([, row]) =>
     row.source_family_ids?.includes(sourceFamily),
   );
   if (matches.length !== 1) {
     throw new Error(`Capability registry mismatch for source family: ${sourceFamily}`);
   }
   const [storyType, row] = matches[0];
+  if (!articleMode) throw new Error(`Capability article mode unresolved: ${sourceFamily}`);
+  if (!VALID_ARTICLE_MODES.has(articleMode)) {
+    throw new Error(`Caller capability article mode invalid: ${sourceFamily}`);
+  }
+  if (row.article_mode && !VALID_ARTICLE_MODES.has(row.article_mode)) {
+    throw new Error(`Registry capability article mode invalid: ${sourceFamily}`);
+  }
   if (row.article_mode && row.article_mode !== articleMode) {
     throw new Error(`Capability article mode mismatch: ${sourceFamily}`);
   }
-  return { row, storyType };
+  return { row: { ...row, article_mode: row.article_mode ?? articleMode }, storyType };
 }
 
 function isMarketSnapshotBlocker(value: string): boolean {
@@ -223,8 +381,11 @@ function buildReadiness(
   variants: CanonicalJoinedVariant[],
   article: CanonicalReviewStory['article'],
   sourceFamily: string,
+  canonicalEditorialState: string,
+  canonicalPackageState: string,
+  registryInput: CapabilityRegistry,
 ): { story: CanonicalStoryReadiness; platforms: Map<string, CanonicalPlatformReadiness> } {
-  const capability = resolveStoryCapability(sourceFamily, article.mode);
+  const capability = resolveStoryCapability(sourceFamily, article.mode, registryInput);
   const articleVisualRequirements = capability.row.visual_requirements ?? {};
   const marketSnapshotRequired = Boolean(
     capability.row.market_snapshot_required ?? capability.row.market_context_required,
@@ -306,9 +467,44 @@ function buildReadiness(
   const storyEditorialReadiness: ReadinessGateStatus = storyGates.some((gate) =>
     ['editorial', 'freshness', 'visual'].includes(gate.category) && gate.status === 'BLOCK',
   ) ? 'BLOCK' : 'PASS';
+  const storyUnresolved = unique([
+    ...unresolvedBlockers,
+    ...storyGates.flatMap((gate) => gate.blockers),
+  ]);
+  const storyVisualPolicyHash = sha256Canonical({
+    articleMode: article.mode,
+    marketSensitive,
+    marketSnapshotRequired,
+    storyType: capability.storyType,
+    visualPolicy: capability.row.visual_policy ?? 'long_form_article',
+    visualRequirements: articleVisualRequirements,
+  });
+  const storyReadinessHash = sha256Canonical({
+    applicableGates: storyApplicable,
+    articleHash: article.hash,
+    articleMode: article.mode,
+    canonicalEditorialState,
+    canonicalPackageState,
+    dispatchAuthority: false,
+    editorialReadiness: storyEditorialReadiness,
+    gates: storyGates,
+    marketSensitive,
+    marketSnapshotRequired,
+    packageHash: operatorPackage.package_hash,
+    publicationAuthority: false,
+    readinessOverlay: 'DERIVED_READINESS_OVERLAY',
+    storyType: capability.storyType,
+    unresolvedBlockers: storyUnresolved,
+    v3PacketHash: operatorPackage.editorial_binding.v3_packet_logical_hash,
+    visualPolicyHash: storyVisualPolicyHash,
+  });
   const storyReadiness: CanonicalStoryReadiness = {
     applicableGates: storyApplicable,
     articleMode: article.mode,
+    canonicalEditorialState,
+    canonicalPackageEvidenceUnchanged: true,
+    canonicalPackageState,
+    dispatchAuthority: false,
     dispatchReadiness: 'BLOCK',
     editorialReadiness: storyEditorialReadiness,
     freshnessPolicy: String(capability.row.freshness_policy ?? 'registry'),
@@ -316,20 +512,25 @@ function buildReadiness(
     marketSensitive,
     marketSnapshotRequired,
     passedGates: storyPassed,
+    publicationAuthority: false,
     publicationAuthorityBlocker: 'publication_authority_not_granted',
     publicationReadiness: 'BLOCK',
+    readinessHash: storyReadinessHash,
+    readinessOverlay: 'DERIVED_READINESS_OVERLAY',
     storyType: capability.storyType,
-    unresolvedBlockers: unique([
-      ...unresolvedBlockers,
-      ...storyGates.flatMap((gate) => gate.blockers),
-    ]),
+    unresolvedBlockers: storyUnresolved,
+    visualPolicyHash: storyVisualPolicyHash,
     visualPolicy: String(capability.row.visual_policy ?? 'long_form_article'),
   };
   const platforms = new Map<string, CanonicalPlatformReadiness>();
   for (const variant of variants) {
-    const expectation = capabilityRegistry.platform_visual_expectations[variant.platform];
-    if (!expectation) throw new Error(`Platform capability missing: ${variant.platform}`);
-    const visualApplicable = expectation.minimum_visual_count > 0;
+    const expectation = resolvePlatformVisualExpectation(
+      variant.platform,
+      variant.surface,
+      variant.mode,
+      registryInput,
+    );
+    const visualApplicable = expectation.status === 'BLOCK' || expectation.minimum_visual_count > 0;
     const platformBaseBlockers = unresolvedBlockers.filter((blocker) =>
       visualApplicable || (
         !visualBlockers.includes(blocker) && !blocker.includes('visual_editor')
@@ -338,9 +539,17 @@ function buildReadiness(
     const visualGate: CanonicalReadinessGate = {
       id: 'platform_visuals',
       category: 'visual',
-      detail: visualApplicable ? 'Long-form platform inherits article visual gate' : 'Text-only surface does not require article visuals',
-      blockers: visualApplicable ? visualBlockers : [],
-      status: visualApplicable ? (visualBlockers.length ? 'BLOCK' : 'PASS') : 'NOT_APPLICABLE',
+      detail: expectation.status === 'BLOCK'
+        ? 'Unregistered platform, surface, and variant-mode combination fails closed'
+        : visualApplicable
+          ? 'Registered visual mode inherits the applicable article visual gate'
+          : 'Exact registered text-only mode does not require article visuals',
+      blockers: expectation.status === 'BLOCK' ? expectation.blockers : (visualApplicable ? visualBlockers : []),
+      status: expectation.status === 'BLOCK'
+        ? 'BLOCK'
+        : visualApplicable
+          ? (visualBlockers.length ? 'BLOCK' : 'PASS')
+          : 'NOT_APPLICABLE',
     };
     const platformGates: CanonicalReadinessGate[] = storyGates
       .filter((gate) => gate.id !== 'article_visuals')
@@ -356,29 +565,79 @@ function buildReadiness(
     const platformEditorial: ReadinessGateStatus = platformGates.some((gate) =>
       ['editorial', 'freshness', 'visual'].includes(gate.category) && gate.status === 'BLOCK',
     ) ? 'BLOCK' : 'PASS';
+    const platformUnresolved = unique([
+      ...platformBaseBlockers,
+      ...platformGates.flatMap((gate) => gate.blockers),
+    ]);
+    const visualPolicyHash = sha256Canonical({
+      articleMode: article.mode,
+      contentSurface: variant.surface,
+      effectivePlatformVisualMode: expectation.effective_visual_mode,
+      marketSensitive,
+      marketSnapshotRequired,
+      platform: variant.platform,
+      requirements: {
+        minimumVisualCount: expectation.minimum_visual_count,
+        requiresLeadVisual: expectation.requires_lead_visual,
+        requiresVisualDiversity: expectation.requires_visual_diversity,
+      },
+      storyType: capability.storyType,
+      variantMode: variant.mode,
+      visualPolicy: expectation.policy,
+    });
+    const readinessHash = sha256Canonical({
+      applicableGates: platformApplicable,
+      articleHash: article.hash,
+      articleMode: article.mode,
+      canonicalEditorialState,
+      canonicalPackageState,
+      contentSurface: variant.surface,
+      dispatchAuthority: false,
+      editorialReadiness: platformEditorial,
+      effectivePlatformVisualMode: expectation.effective_visual_mode,
+      gates: platformGates,
+      marketSensitive,
+      marketSnapshotRequired,
+      packageHash: operatorPackage.package_hash,
+      platform: variant.platform,
+      publicationAuthority: false,
+      readinessOverlay: 'DERIVED_READINESS_OVERLAY',
+      storyType: capability.storyType,
+      unresolvedBlockers: platformUnresolved,
+      v3PacketHash: operatorPackage.editorial_binding.v3_packet_logical_hash,
+      variantHash: variant.payloadHash,
+      variantMode: variant.mode,
+      visualPolicyHash,
+    });
     platforms.set(variant.platform, {
       applicableGates: platformApplicable,
       articleMode: article.mode,
+      canonicalPackageEvidenceUnchanged: true,
+      contentSurface: variant.surface,
+      dispatchAuthority: false,
       dispatchReadiness: 'BLOCK',
       editorialReadiness: platformEditorial,
+      effectivePlatformVisualMode: expectation.effective_visual_mode,
       freshnessPolicy: String(capability.row.freshness_policy ?? 'registry'),
       gates: platformGates,
       hashes: {
         articleHash: article.hash,
         packageHash: operatorPackage.package_hash,
+        readinessHash,
         v3PacketHash: operatorPackage.editorial_binding.v3_packet_logical_hash,
         variantHash: variant.payloadHash,
+        visualPolicyHash,
       },
       marketSensitive,
       marketSnapshotRequired,
       passedGates: platformPassed,
       platform: variant.platform,
+      publicationAuthority: false,
       publicationAuthorityBlocker: 'publication_authority_not_granted',
       publicationReadiness: 'BLOCK',
-      unresolvedBlockers: unique([
-        ...platformBaseBlockers,
-        ...platformGates.flatMap((gate) => gate.blockers),
-      ]),
+      readinessOverlay: 'DERIVED_READINESS_OVERLAY',
+      unresolvedBlockers: platformUnresolved,
+      variantMode: variant.mode,
       visualPolicy: expectation.policy,
     });
   }
@@ -464,6 +723,7 @@ function buildClaims(outcome: EditorialOutcome): CanonicalReviewClaim[] {
 function joinStory(
   operatorPackage: OperatorPackage,
   outcome: EditorialOutcome,
+  registryInput: CapabilityRegistry,
 ): CanonicalReviewStory {
   if (operatorPackage.story_id !== outcome.story_id) {
     throw new Error(`Canonical story identity mismatch: ${operatorPackage.story_id}`);
@@ -498,6 +758,9 @@ function joinStory(
     variants,
     article,
     operatorPackage.authority_binding.source_family,
+    operatorPackage.editorial_binding.editorial_state,
+    operatorPackage.state,
+    registryInput,
   );
   return {
     article,
@@ -546,7 +809,9 @@ function joinStory(
   };
 }
 
-export function buildCanonicalReviewStories(): CanonicalReviewStory[] {
+export function buildCanonicalReviewStories(
+  registryInput: CapabilityRegistry = capabilityRegistry,
+): CanonicalReviewStory[] {
   return packageEvidence.packages.map((operatorPackage) => {
     const outcome = editorialEvidence.outcomes.find(
       (item) => item.story_id === operatorPackage.story_id,
@@ -554,7 +819,7 @@ export function buildCanonicalReviewStories(): CanonicalReviewStory[] {
     if (!outcome) {
       throw new Error(`Missing canonical editorial outcome: ${operatorPackage.story_id}`);
     }
-    return joinStory(operatorPackage, outcome);
+    return joinStory(operatorPackage, outcome, registryInput);
   });
 }
 

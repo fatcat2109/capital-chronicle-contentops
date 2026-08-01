@@ -153,6 +153,12 @@ def run_generic_prepare_only(
         editorial_exception=story_request.get("visual_editorial_exception"),
         story_type=str(capabilities.get("story_type") or story_request.get("story_type") or ""),
         requirements=capabilities.get("visual_requirements") or None,
+        policy_context={
+            "article_mode": capabilities.get("article_mode"),
+            "market_sensitive": capabilities.get("market_sensitive"),
+            "market_snapshot_required": capabilities.get("market_snapshot_required"),
+            "visual_policy": capabilities.get("visual_policy"),
+        },
     )
     article = dict(story_request.get("article_candidate") or {})
     revision_contract = build_editorial_revision_contract(
