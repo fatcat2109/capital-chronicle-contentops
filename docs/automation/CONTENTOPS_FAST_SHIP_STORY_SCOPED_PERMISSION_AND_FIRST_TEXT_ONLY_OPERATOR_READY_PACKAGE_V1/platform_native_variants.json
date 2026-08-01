@@ -1,0 +1,797 @@
+{
+  "all_copy_differentiated_per_story": true,
+  "platform_count_per_story": 6,
+  "platform_ids": [
+    "substack_newsletter",
+    "linkedin",
+    "x_twitter",
+    "facebook_page",
+    "telegram",
+    "youtube_community"
+  ],
+  "protected_state": {
+    "browser_action_performed": false,
+    "credential_read_allowed_now": false,
+    "dispatch_authority": false,
+    "network_call_performed": false,
+    "posting_enabled_now": false,
+    "provider_action_performed": false,
+    "public_write_authority": false,
+    "public_write_performed": false,
+    "publication_authority": false,
+    "scheduler_enabled_now": false
+  },
+  "schema_version": "contentops.multi_story_platform_native_variants.v1",
+  "story_count": 3,
+  "task": "TASK_CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1",
+  "variants": [
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "a8aa016cae684f0f755ec9bcc064e81e70a801d69e7345659bd719ca6ac53f00",
+      "authorized_claim_ids": [
+        "claim-95f6638ac5460d82"
+      ],
+      "candidate_id": "cc-candidate-713c5de51e9764fc8385",
+      "character_count": 240,
+      "character_limit_max": 100000,
+      "citation_fingerprints": [
+        "94080a607bd11e08b82955597f76dc3de3720170538a0bccbb995f9272e1516d"
+      ],
+      "citation_urls": [
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+      ],
+      "content_surface": "newsletter_note",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "f9d3887849e343920aa99f848d017672279ed49070651d57e1d4c1873021e3af",
+        "78298aa99b8adbd9daae9b545d4177902f010e3ea97fd6602a6d93ac27214581"
+      ],
+      "live_eligibility": false,
+      "mode": "manual_export",
+      "operator_review_required": true,
+      "payload_hash": "615f86c43bf470f6fb42714e79ba780a49ca15312dc4fcc6a289303259659d48",
+      "payload_shape": "headline_deck_body_source_note",
+      "platform_id": "substack_newsletter",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "text": "Federal Reserve Releases April 28-29 FOMC Minutes\n\nOfficial-record update\n\nThe Federal Reserve published the minutes of the Federal Open Market Committee meeting held April 28-29, 2026.\n\nSource: Federal Reserve Board.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "a8aa016cae684f0f755ec9bcc064e81e70a801d69e7345659bd719ca6ac53f00",
+      "authorized_claim_ids": [
+        "claim-95f6638ac5460d82"
+      ],
+      "candidate_id": "cc-candidate-713c5de51e9764fc8385",
+      "character_count": 326,
+      "character_limit_max": 3000,
+      "citation_fingerprints": [
+        "94080a607bd11e08b82955597f76dc3de3720170538a0bccbb995f9272e1516d"
+      ],
+      "citation_urls": [
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+      ],
+      "content_surface": "professional_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "f9d3887849e343920aa99f848d017672279ed49070651d57e1d4c1873021e3af",
+        "78298aa99b8adbd9daae9b545d4177902f010e3ea97fd6602a6d93ac27214581"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "66cbc5fdd0722d537e178c1956c1ddcc27d1a0cfbcd93ac9df5207af532847aa",
+      "payload_shape": "professional_context_source_close",
+      "platform_id": "linkedin",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "text": "Official document update: Federal Reserve Releases April 28-29 FOMC Minutes\n\nThe Federal Reserve published the minutes of the Federal Open Market Committee meeting held April 28-29, 2026.\n\nSource: Federal Reserve Board. This post stays within the exact official-record metadata authorized for reporting.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "a8aa016cae684f0f755ec9bcc064e81e70a801d69e7345659bd719ca6ac53f00",
+      "authorized_claim_ids": [
+        "claim-95f6638ac5460d82"
+      ],
+      "candidate_id": "cc-candidate-713c5de51e9764fc8385",
+      "character_count": 214,
+      "character_limit_max": 280,
+      "citation_fingerprints": [
+        "94080a607bd11e08b82955597f76dc3de3720170538a0bccbb995f9272e1516d"
+      ],
+      "citation_urls": [
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+      ],
+      "content_surface": "short_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "f9d3887849e343920aa99f848d017672279ed49070651d57e1d4c1873021e3af",
+        "78298aa99b8adbd9daae9b545d4177902f010e3ea97fd6602a6d93ac27214581"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "b51002f49b32a69fe80190d460cc9f9aca45335ec23d8b061a6a7782f2e5ead3",
+      "payload_shape": "single_compact_source_post",
+      "platform_id": "x_twitter",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "text": "Federal Reserve Releases April 28-29 FOMC Minutes. The Federal Reserve published the minutes of the Federal Open Market Committee meeting held April 28-29, 2026. Source: Federal Reserve Board. Not financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "a8aa016cae684f0f755ec9bcc064e81e70a801d69e7345659bd719ca6ac53f00",
+      "authorized_claim_ids": [
+        "claim-95f6638ac5460d82"
+      ],
+      "candidate_id": "cc-candidate-713c5de51e9764fc8385",
+      "character_count": 307,
+      "character_limit_max": 63206,
+      "citation_fingerprints": [
+        "94080a607bd11e08b82955597f76dc3de3720170538a0bccbb995f9272e1516d"
+      ],
+      "citation_urls": [
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+      ],
+      "content_surface": "page_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "f9d3887849e343920aa99f848d017672279ed49070651d57e1d4c1873021e3af",
+        "78298aa99b8adbd9daae9b545d4177902f010e3ea97fd6602a6d93ac27214581"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "5b24b4a31d62187ed18548ed8780a47d7343276e5777cd247126a816a8e8c788",
+      "payload_shape": "conversational_context_source_post",
+      "platform_id": "facebook_page",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "text": "Official-record update\n\nFederal Reserve Releases April 28-29 FOMC Minutes\n\nThe Federal Reserve published the minutes of the Federal Open Market Committee meeting held April 28-29, 2026.\n\nSource: Federal Reserve Board. The scope here is limited to the official record identified above.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "a8aa016cae684f0f755ec9bcc064e81e70a801d69e7345659bd719ca6ac53f00",
+      "authorized_claim_ids": [
+        "claim-95f6638ac5460d82"
+      ],
+      "candidate_id": "cc-candidate-713c5de51e9764fc8385",
+      "character_count": 278,
+      "character_limit_max": 4096,
+      "citation_fingerprints": [
+        "94080a607bd11e08b82955597f76dc3de3720170538a0bccbb995f9272e1516d"
+      ],
+      "citation_urls": [
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+      ],
+      "content_surface": "channel_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "f9d3887849e343920aa99f848d017672279ed49070651d57e1d4c1873021e3af",
+        "78298aa99b8adbd9daae9b545d4177902f010e3ea97fd6602a6d93ac27214581"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "cea1df49634e0f139fbdfc44c5c2304264be0568c9a80194fbab37d0b1bee90d",
+      "payload_shape": "bulletin_source_post",
+      "platform_id": "telegram",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "text": "OFFICIAL RECORD | Federal Reserve Releases April 28-29 FOMC Minutes\n\nThe Federal Reserve published the minutes of the Federal Open Market Committee meeting held April 28-29, 2026.\n\nSource: Federal Reserve Board\nScope: exact authorized record metadata only\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "a8aa016cae684f0f755ec9bcc064e81e70a801d69e7345659bd719ca6ac53f00",
+      "authorized_claim_ids": [
+        "claim-95f6638ac5460d82"
+      ],
+      "candidate_id": "cc-candidate-713c5de51e9764fc8385",
+      "character_count": 309,
+      "character_limit_max": 1500,
+      "citation_fingerprints": [
+        "94080a607bd11e08b82955597f76dc3de3720170538a0bccbb995f9272e1516d"
+      ],
+      "citation_urls": [
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+      ],
+      "content_surface": "community_text_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "f9d3887849e343920aa99f848d017672279ed49070651d57e1d4c1873021e3af",
+        "78298aa99b8adbd9daae9b545d4177902f010e3ea97fd6602a6d93ac27214581"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "fa1fe97845fa247705c8bbe87082828e11d5d0eb4093691515d9f4867318b3bd",
+      "payload_shape": "community_update_source_prompt",
+      "platform_id": "youtube_community",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "text": "Community update: Federal Reserve Releases April 28-29 FOMC Minutes\n\nThe Federal Reserve published the minutes of the Federal Open Market Committee meeting held April 28-29, 2026.\n\nSource: Federal Reserve Board. This is a text-only Community post package, not a video or upload request.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": {
+        "default_article_surface_confirmed": true,
+        "media_required": false,
+        "post_type": "text_only_community_post",
+        "surface": "youtube_community",
+        "video_upload_request": false
+      }
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "47c851b219379850ca2c01245d49ba8d6fcb3fe2480bc95c96206caf541c3cb6",
+      "authorized_claim_ids": [
+        "claim-661031f2768d9629",
+        "claim-403af5e0ec85b722"
+      ],
+      "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b",
+      "character_count": 271,
+      "character_limit_max": 100000,
+      "citation_fingerprints": [
+        "340e6571c584979afa29953d095b8e79550b510843a830152bcbc3241a0e9bfd"
+      ],
+      "citation_urls": [
+        "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+      ],
+      "content_surface": "newsletter_note",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "96db584cb01e9d028815ca3e873cdb49df3729eab35822337000142d483e3c37",
+        "cc0dfc4c9b40560af07f905f480514c40dfed4eb06d1d46725f2e2e746860512"
+      ],
+      "live_eligibility": false,
+      "mode": "manual_export",
+      "operator_review_required": true,
+      "payload_hash": "40ae930b1a51f3efa33cd64924706475ae64a3e22e4e2df85e9db265ca4e5c4b",
+      "payload_shape": "headline_deck_body_source_note",
+      "platform_id": "substack_newsletter",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "apple-sec-10q-2026-000013",
+      "text": "Apple Files Form 10-Q With the SEC\n\nOfficial-record update\n\nApple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission. The SEC identifies the filing's primary document as a 10-Q.\n\nSource: U.S. Securities and Exchange Commission.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "47c851b219379850ca2c01245d49ba8d6fcb3fe2480bc95c96206caf541c3cb6",
+      "authorized_claim_ids": [
+        "claim-661031f2768d9629",
+        "claim-403af5e0ec85b722"
+      ],
+      "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b",
+      "character_count": 357,
+      "character_limit_max": 3000,
+      "citation_fingerprints": [
+        "340e6571c584979afa29953d095b8e79550b510843a830152bcbc3241a0e9bfd"
+      ],
+      "citation_urls": [
+        "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+      ],
+      "content_surface": "professional_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "96db584cb01e9d028815ca3e873cdb49df3729eab35822337000142d483e3c37",
+        "cc0dfc4c9b40560af07f905f480514c40dfed4eb06d1d46725f2e2e746860512"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "5d7f31ea82636f7d4054062a3b1af0a7cadfad3af23d6d4ee92d0065c9794358",
+      "payload_shape": "professional_context_source_close",
+      "platform_id": "linkedin",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "apple-sec-10q-2026-000013",
+      "text": "Official document update: Apple Files Form 10-Q With the SEC\n\nApple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission. The SEC identifies the filing's primary document as a 10-Q.\n\nSource: U.S. Securities and Exchange Commission. This post stays within the exact official-record metadata authorized for reporting.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "47c851b219379850ca2c01245d49ba8d6fcb3fe2480bc95c96206caf541c3cb6",
+      "authorized_claim_ids": [
+        "claim-661031f2768d9629",
+        "claim-403af5e0ec85b722"
+      ],
+      "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b",
+      "character_count": 245,
+      "character_limit_max": 280,
+      "citation_fingerprints": [
+        "340e6571c584979afa29953d095b8e79550b510843a830152bcbc3241a0e9bfd"
+      ],
+      "citation_urls": [
+        "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+      ],
+      "content_surface": "short_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "96db584cb01e9d028815ca3e873cdb49df3729eab35822337000142d483e3c37",
+        "cc0dfc4c9b40560af07f905f480514c40dfed4eb06d1d46725f2e2e746860512"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "48778b8459c19346e556da43d278b61b29bfb62a9872ae91b695db1e386bc26f",
+      "payload_shape": "single_compact_source_post",
+      "platform_id": "x_twitter",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "apple-sec-10q-2026-000013",
+      "text": "Apple Files Form 10-Q With the SEC. Apple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission. The SEC identifies the filing's primary document as a 10-Q. Source: U.S. Securities and Exchange Commission. Not financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "47c851b219379850ca2c01245d49ba8d6fcb3fe2480bc95c96206caf541c3cb6",
+      "authorized_claim_ids": [
+        "claim-661031f2768d9629",
+        "claim-403af5e0ec85b722"
+      ],
+      "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b",
+      "character_count": 338,
+      "character_limit_max": 63206,
+      "citation_fingerprints": [
+        "340e6571c584979afa29953d095b8e79550b510843a830152bcbc3241a0e9bfd"
+      ],
+      "citation_urls": [
+        "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+      ],
+      "content_surface": "page_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "96db584cb01e9d028815ca3e873cdb49df3729eab35822337000142d483e3c37",
+        "cc0dfc4c9b40560af07f905f480514c40dfed4eb06d1d46725f2e2e746860512"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "dbd598c17901c859b7de48693ccfbc5c21153ddbba93c8e401665918638256ec",
+      "payload_shape": "conversational_context_source_post",
+      "platform_id": "facebook_page",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "apple-sec-10q-2026-000013",
+      "text": "Official-record update\n\nApple Files Form 10-Q With the SEC\n\nApple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission. The SEC identifies the filing's primary document as a 10-Q.\n\nSource: U.S. Securities and Exchange Commission. The scope here is limited to the official record identified above.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "47c851b219379850ca2c01245d49ba8d6fcb3fe2480bc95c96206caf541c3cb6",
+      "authorized_claim_ids": [
+        "claim-661031f2768d9629",
+        "claim-403af5e0ec85b722"
+      ],
+      "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b",
+      "character_count": 309,
+      "character_limit_max": 4096,
+      "citation_fingerprints": [
+        "340e6571c584979afa29953d095b8e79550b510843a830152bcbc3241a0e9bfd"
+      ],
+      "citation_urls": [
+        "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+      ],
+      "content_surface": "channel_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "96db584cb01e9d028815ca3e873cdb49df3729eab35822337000142d483e3c37",
+        "cc0dfc4c9b40560af07f905f480514c40dfed4eb06d1d46725f2e2e746860512"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "58009fc19b804bb47b6cd318a253c473113fe2a5a5c5f037dcb9f2b1fb1c60bc",
+      "payload_shape": "bulletin_source_post",
+      "platform_id": "telegram",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "apple-sec-10q-2026-000013",
+      "text": "OFFICIAL RECORD | Apple Files Form 10-Q With the SEC\n\nApple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission. The SEC identifies the filing's primary document as a 10-Q.\n\nSource: U.S. Securities and Exchange Commission\nScope: exact authorized record metadata only\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "47c851b219379850ca2c01245d49ba8d6fcb3fe2480bc95c96206caf541c3cb6",
+      "authorized_claim_ids": [
+        "claim-661031f2768d9629",
+        "claim-403af5e0ec85b722"
+      ],
+      "candidate_id": "cc-candidate-eb45c353d4d0fc323c3b",
+      "character_count": 340,
+      "character_limit_max": 1500,
+      "citation_fingerprints": [
+        "340e6571c584979afa29953d095b8e79550b510843a830152bcbc3241a0e9bfd"
+      ],
+      "citation_urls": [
+        "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+      ],
+      "content_surface": "community_text_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "96db584cb01e9d028815ca3e873cdb49df3729eab35822337000142d483e3c37",
+        "cc0dfc4c9b40560af07f905f480514c40dfed4eb06d1d46725f2e2e746860512"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "924bbf46241aa5b82e92a68e711a39eb3fb28887b7b348b278d151a32943cf93",
+      "payload_shape": "community_update_source_prompt",
+      "platform_id": "youtube_community",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "apple-sec-10q-2026-000013",
+      "text": "Community update: Apple Files Form 10-Q With the SEC\n\nApple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission. The SEC identifies the filing's primary document as a 10-Q.\n\nSource: U.S. Securities and Exchange Commission. This is a text-only Community post package, not a video or upload request.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": {
+        "default_article_surface_confirmed": true,
+        "media_required": false,
+        "post_type": "text_only_community_post",
+        "surface": "youtube_community",
+        "video_upload_request": false
+      }
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "61217db801824019f06892b26390a1be3e232c56be5ad91da42a442be33e29eb",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "character_count": 229,
+      "character_limit_max": 100000,
+      "citation_fingerprints": [
+        "716e5a8f81be94e2b6c670b88f4be1067e3d44ab67a3619756ff7ff1b91c54a1"
+      ],
+      "citation_urls": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      ],
+      "content_surface": "newsletter_note",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "522ddfd1b3b4187f517d7ce9ce9d0ea98a907b3b2bea885268584cfab30956ca",
+        "e3a30c80cfea60969d02596c78681d255fe7a9b7ec3b76c95255c3c1b6607720"
+      ],
+      "live_eligibility": false,
+      "mode": "manual_export",
+      "operator_review_required": true,
+      "payload_hash": "cd5dcc5894c5b61e870124eefa132ece128122db7a55c45fd5c2fb175029e272",
+      "payload_shape": "headline_deck_body_source_note",
+      "platform_id": "substack_newsletter",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "text": "USGS Marks Ridgecrest Earthquake Sequence Event as Reviewed\n\nOfficial-record update\n\nUSGS identifies the event as reviewed and as part of the Ridgecrest Earthquake Sequence.\n\nSource: U.S. Geological Survey.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "61217db801824019f06892b26390a1be3e232c56be5ad91da42a442be33e29eb",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "character_count": 315,
+      "character_limit_max": 3000,
+      "citation_fingerprints": [
+        "716e5a8f81be94e2b6c670b88f4be1067e3d44ab67a3619756ff7ff1b91c54a1"
+      ],
+      "citation_urls": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      ],
+      "content_surface": "professional_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "522ddfd1b3b4187f517d7ce9ce9d0ea98a907b3b2bea885268584cfab30956ca",
+        "e3a30c80cfea60969d02596c78681d255fe7a9b7ec3b76c95255c3c1b6607720"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "9bd3927f7d9dcc3d072550c60eddbdd7e0570fcc05de6c512b2832921983bc1b",
+      "payload_shape": "professional_context_source_close",
+      "platform_id": "linkedin",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "text": "Official document update: USGS Marks Ridgecrest Earthquake Sequence Event as Reviewed\n\nUSGS identifies the event as reviewed and as part of the Ridgecrest Earthquake Sequence.\n\nSource: U.S. Geological Survey. This post stays within the exact official-record metadata authorized for reporting.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "61217db801824019f06892b26390a1be3e232c56be5ad91da42a442be33e29eb",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "character_count": 203,
+      "character_limit_max": 280,
+      "citation_fingerprints": [
+        "716e5a8f81be94e2b6c670b88f4be1067e3d44ab67a3619756ff7ff1b91c54a1"
+      ],
+      "citation_urls": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      ],
+      "content_surface": "short_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "522ddfd1b3b4187f517d7ce9ce9d0ea98a907b3b2bea885268584cfab30956ca",
+        "e3a30c80cfea60969d02596c78681d255fe7a9b7ec3b76c95255c3c1b6607720"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "d87929e29354a08695f16d8a0a0962372175d70da2fb43a5998d711e16b3466c",
+      "payload_shape": "single_compact_source_post",
+      "platform_id": "x_twitter",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "text": "USGS Marks Ridgecrest Earthquake Sequence Event as Reviewed. USGS identifies the event as reviewed and as part of the Ridgecrest Earthquake Sequence. Source: U.S. Geological Survey. Not financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "61217db801824019f06892b26390a1be3e232c56be5ad91da42a442be33e29eb",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "character_count": 296,
+      "character_limit_max": 63206,
+      "citation_fingerprints": [
+        "716e5a8f81be94e2b6c670b88f4be1067e3d44ab67a3619756ff7ff1b91c54a1"
+      ],
+      "citation_urls": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      ],
+      "content_surface": "page_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "522ddfd1b3b4187f517d7ce9ce9d0ea98a907b3b2bea885268584cfab30956ca",
+        "e3a30c80cfea60969d02596c78681d255fe7a9b7ec3b76c95255c3c1b6607720"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "779c7c05c88112829c88dcaf997a10908f9ec384315ea8da176bccb4fc6f1a11",
+      "payload_shape": "conversational_context_source_post",
+      "platform_id": "facebook_page",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "text": "Official-record update\n\nUSGS Marks Ridgecrest Earthquake Sequence Event as Reviewed\n\nUSGS identifies the event as reviewed and as part of the Ridgecrest Earthquake Sequence.\n\nSource: U.S. Geological Survey. The scope here is limited to the official record identified above.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "61217db801824019f06892b26390a1be3e232c56be5ad91da42a442be33e29eb",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "character_count": 267,
+      "character_limit_max": 4096,
+      "citation_fingerprints": [
+        "716e5a8f81be94e2b6c670b88f4be1067e3d44ab67a3619756ff7ff1b91c54a1"
+      ],
+      "citation_urls": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      ],
+      "content_surface": "channel_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "522ddfd1b3b4187f517d7ce9ce9d0ea98a907b3b2bea885268584cfab30956ca",
+        "e3a30c80cfea60969d02596c78681d255fe7a9b7ec3b76c95255c3c1b6607720"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "753e05ce85ae38da0c213b4427a47e432a48503971a4a18e96fb86f2c6096ab7",
+      "payload_shape": "bulletin_source_post",
+      "platform_id": "telegram",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "text": "OFFICIAL RECORD | USGS Marks Ridgecrest Earthquake Sequence Event as Reviewed\n\nUSGS identifies the event as reviewed and as part of the Ridgecrest Earthquake Sequence.\n\nSource: U.S. Geological Survey\nScope: exact authorized record metadata only\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": null
+    },
+    {
+      "approval_required": true,
+      "authority_story_logical_hash": "61217db801824019f06892b26390a1be3e232c56be5ad91da42a442be33e29eb",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "character_count": 298,
+      "character_limit_max": 1500,
+      "citation_fingerprints": [
+        "716e5a8f81be94e2b6c670b88f4be1067e3d44ab67a3619756ff7ff1b91c54a1"
+      ],
+      "citation_urls": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      ],
+      "content_surface": "community_text_post",
+      "dispatch_ready": false,
+      "limitation_fingerprints": [
+        "522ddfd1b3b4187f517d7ce9ce9d0ea98a907b3b2bea885268584cfab30956ca",
+        "e3a30c80cfea60969d02596c78681d255fe7a9b7ec3b76c95255c3c1b6607720"
+      ],
+      "live_eligibility": false,
+      "mode": "dry_run",
+      "operator_review_required": true,
+      "payload_hash": "fed5d7a06000cd852799a4c4e1104840ae004ecee4e1cffed73bd49fe175d949",
+      "payload_shape": "community_update_source_prompt",
+      "platform_id": "youtube_community",
+      "policy": {
+        "approval_required": true,
+        "dispatch_ready": false,
+        "live_eligibility": false,
+        "public_ready": false,
+        "valid_for_dispatch": false
+      },
+      "public_ready": false,
+      "schema_version": "contentops.platform_native_operator_variant.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "text": "Community update: USGS Marks Ridgecrest Earthquake Sequence Event as Reviewed\n\nUSGS identifies the event as reviewed and as part of the Ridgecrest Earthquake Sequence.\n\nSource: U.S. Geological Survey. This is a text-only Community post package, not a video or upload request.\n\nNot financial advice.",
+      "valid_for_dispatch": false,
+      "youtube_contract": {
+        "default_article_surface_confirmed": true,
+        "media_required": false,
+        "post_type": "text_only_community_post",
+        "surface": "youtube_community",
+        "video_upload_request": false
+      }
+    }
+  ]
+}

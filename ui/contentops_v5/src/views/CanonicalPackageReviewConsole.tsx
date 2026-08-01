@@ -119,7 +119,9 @@ function PlatformReadinessCard({
             {readiness.effectivePlatformVisualMode} · {readiness.contentSurface} · {readiness.variantMode}
           </p>
         </div>
-        <ReadinessStatus status={readiness.editorialReadiness} />
+        <StatusChip status={readiness.operatorReadyForDecision ? 'verified' : 'blocked'}>
+          {readiness.operatorReadyForDecision ? 'EDITORIALLY READY' : 'EDITORIAL HOLD'}
+        </StatusChip>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
         {categories.map((category) => {
@@ -150,6 +152,7 @@ function PlatformReadinessCard({
         ) : <div className="text-[11px] text-fg-muted">No unresolved capability blockers.</div>}
       </div>
       <div className="mt-4 grid gap-2 border-t border-line pt-3 text-[10px]">
+        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Operator decision</span><span className="font-mono text-status-review">PENDING</span></div>
         <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Publication authority</span><span className="font-mono text-status-blocked">{readiness.publicationAuthorityBlocker}</span></div>
         <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Editorial readiness</span><ReadinessStatus status={readiness.editorialReadiness} /></div>
         <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Dispatch readiness</span><ReadinessStatus status={readiness.dispatchReadiness} /></div>
@@ -267,18 +270,19 @@ export function CanonicalPackageReviewConsole() {
               {canonicalReviewSummary.recommendation}
             </div>
             <p className="mt-2 text-[11px] leading-relaxed text-fg-muted">
-              All three packages remain HOLD. This recommendation is evidence display
-              only and cannot execute a ledger decision.
+              All three canonical long-form packages remain HOLD. {canonicalReviewSummary.operatorReadyVariantCount} exact
+              text-only variants are editorially ready for Jim&apos;s decision; this surface cannot execute it.
             </p>
           </div>
         </div>
       </header>
 
-      <section aria-label="Package review summary" className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+      <section aria-label="Package review summary" className="grid grid-cols-2 gap-3 lg:grid-cols-6">
         {[
           ['Packages', String(canonicalReviewSummary.packageCount), '3 exact story bindings'],
           ['Role outcomes', String(canonicalReviewSummary.roleCount), '8 deterministic roles each'],
           ['Platform payloads', String(canonicalReviewSummary.variantCount), '6 variants per package'],
+          ['Operator-ready text', String(canonicalReviewSummary.operatorReadyVariantCount), 'Decision pending; no publication'],
           ['Unresolved blockers', String(canonicalReviewSummary.blockerCount), 'No authority upgraded'],
           ['Surface mode', 'READ ONLY', 'No decision or dispatch action'],
         ].map(([label, value, hint], index) => (
@@ -559,7 +563,13 @@ export function CanonicalPackageReviewConsole() {
                         {variant.surface} · {variant.mode}
                       </p>
                     </div>
-                    <StatusChip status="blocked">NOT AUTHORIZED</StatusChip>
+                    <div className="flex flex-wrap justify-end gap-2">
+                      <StatusChip status={variant.readiness.operatorReadyForDecision ? 'verified' : 'blocked'}>
+                        {variant.readiness.operatorReadyForDecision ? 'EDITORIALLY READY' : 'EDITORIAL HOLD'}
+                      </StatusChip>
+                      <StatusChip status="review">DECISION PENDING</StatusChip>
+                      <StatusChip status="blocked">PUBLICATION NOT AUTHORIZED</StatusChip>
+                    </div>
                   </div>
 
                   <div
@@ -633,6 +643,9 @@ export function CanonicalPackageReviewConsole() {
                   >
                     Inspect exact binding
                   </button>
+                  <div className="mt-3 font-mono text-[9px] font-bold uppercase tracking-wider text-status-blocked">
+                    Dispatch not authorized
+                  </div>
                 </article>
               );
             })}

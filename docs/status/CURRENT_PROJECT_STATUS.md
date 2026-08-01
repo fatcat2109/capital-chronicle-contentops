@@ -4,9 +4,19 @@
 
 ## Current Classification
 
-`PASS_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1`.
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1`.
+
+## Story-Scoped Permission And First Text-Only Operator-Ready Package V1
+
+The canonical V2 compatibility bridge now permits narrative synthesis from an exact nonnumeric governed claim set without manufacturing numeric authority. Each FOMC, Apple SEC, and USGS claim derives its public-claim permission from the pinned upstream story/claim allowlist and required consumer fields. Missing, false, or widened authority fails closed with the exact field in the claim blocker. All five current claims pass; numeric reporting, interpretation, market reaction, forecasts, advice, trading, source-family authority, publication, dispatch, and public write remain false.
+
+The same canonical V3 and eight-role path rebuilds all three outcomes. FOMC and Apple remain sensitive and held on required snapshot/ingest freshness plus long-form visuals. USGS is nonmarket, has no freshness blocker, and remains canonically `HOLD` only because the long-form article requires visuals. The capability overlay emits five exact USGS text-only packages as `EDITORIALLY_READY_FOR_OPERATOR_DECISION`, all `PENDING_OPERATOR_DECISION`, with publication, dispatch, and public-write authority false. Substack retains its visual HOLD.
+
+The V5 console visibly separates editorial readiness, operator decision pending, publication not authorized, and dispatch not authorized. Focused Python validation passed 66 tests, the full V5 suite passed 204 tests, the production build passed, and fresh local Edge QA passed at desktop/mobile dimensions without horizontal overflow or runtime/resource errors. The monolithic repository suite was not run and no CI PASS is claimed. Evidence is at `docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/`.
+
+No approval was captured and no credential, provider, publication, dispatch, scheduler, or public-write action occurred.
 
 ## Executable Snapshot Requirement Separation V1
 
@@ -263,6 +273,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1`
+`INDEPENDENT_CHATGPT_AUDIT_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1`
 
-Independently verify the executable five-case freshness truth table, absent-field compatibility, sensitivity-specific downgrade behavior, resolver-to-runtime generic-fabric flow, current FOMC/Apple SEC/USGS backend-UI parity, compact receipt hashes, status consistency, and no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.
+Independently verify exact per-claim upstream authority derivation and fail-closed missing-field behavior, nonnumeric narrative permission without numeric authority, canonical V3/editorial rebuilds, FOMC/Apple freshness holds, USGS nonmarket behavior, five text-only operator-ready packages, long-form Substack visual holds, exact hash bindings, V5 state separation, evidence hashes, and all no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.

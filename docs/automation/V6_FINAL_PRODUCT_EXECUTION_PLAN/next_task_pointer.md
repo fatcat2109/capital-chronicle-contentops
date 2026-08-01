@@ -2,16 +2,16 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1`
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1`
 
-Classification: `PASS_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1_AWAITING_CHATGPT_AUDIT`.
+Classification: `PASS_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1_AWAITING_CHATGPT_AUDIT`.
 
-Evidence: `live_contentops/freshness_market_state_v2.py`, resolver-to-runtime generic-fabric tests, the committed five-case truth table, focused Python/V5/build validation, and `docs/automation/CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1/final_manifest.json`.
+Evidence: the canonical V2/V3 permission bridge, exact upstream story/claim adjudications, rebuilt three-story V3/editorial/package artifacts, per-platform readiness and operator-ready text-only receipts, focused Python/V5/build/browser validation, and `docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/final_manifest.json`.
 
-The canonical freshness evaluator now treats market sensitivity and snapshot requirements independently at runtime. Snapshot/ingest blockers use the explicit requirement, absent fields preserve historical sensitivity behavior, and sensitivity remains available for downgrade restrictions. Existing FOMC and Apple SEC true/true plus USGS false/false behavior and all canonical HOLD/no-authority states remain unchanged.
+All five exact upstream nonnumeric claims derive public-claim permission without numeric, interpretive, market-reaction, forecast, advice, trading, source-family, publication, dispatch, or public-write authority. FOMC and Apple preserve required snapshot/ingest blockers. USGS preserves nonmarket behavior; its canonical long-form state stays HOLD while five exact text-only packages are editorially ready for Jim's decision. Every operator decision remains pending and all live authority remains false.
 
 ## Required Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1`
+`INDEPENDENT_CHATGPT_AUDIT_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1`
 
-Independently verify the executable five-case freshness truth table, absent-field compatibility, sensitivity-specific downgrade behavior, resolver-to-runtime generic-fabric flow, current FOMC/Apple SEC/USGS backend-UI parity, receipt hashes, status consistency, and no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.
+Independently verify per-claim exact authority derivation and missing-field failure, nonnumeric narrative permission without numeric authority, canonical V3/editorial rebuilds, FOMC/Apple freshness holds, USGS nonmarket behavior, the five text-only operator-ready packages, Substack visual holds, exact hash binding, V5 state separation, browser evidence, status consistency, and no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.

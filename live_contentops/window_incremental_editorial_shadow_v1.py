@@ -32,6 +32,10 @@ from live_contentops.governed_upstream_bridge_v1 import (
     GovernedArtifactBlocked,
     GovernedUpstreamBridgeV1,
 )
+from live_contentops.source_capability_registry_v2 import (
+    load_source_capability_registry,
+    resolve_story_capabilities,
+)
 from live_contentops.universal_evidence_receipt_verifier_v1 import (
     EvidenceReceiptVerifierV1,
     VerifiedEvidenceIndexV1,
@@ -433,15 +437,25 @@ def build_candidate_bound_evidence_packet(
 ) -> dict[str, Any]:
     """Build a V2 packet from one assigned candidate's exact evidence lineage."""
 
+    candidate_claims = list(candidate.get("claims") or [])
     numeric_claims = []
     citation_map: dict[str, list[str]] = {}
-    for claim in candidate.get("claims") or []:
+    permission_blockers: list[str] = []
+    for claim in candidate_claims:
         claim_id = str(claim["claim_id"])
         citation_map[claim_id] = sorted({
             str(value["url"])
             for value in claim.get("citations") or []
             if value.get("url")
         })
+        if claim.get("permission_state") != "PUBLIC_CLAIM_ALLOWED":
+            permission_blockers.append(
+                f"claim_public_permission_not_granted:{claim_id}"
+            )
+        permission_blockers.extend(
+            f"{claim_id}:{value}"
+            for value in claim.get("permission_blockers") or []
+        )
         numeric = claim.get("numeric")
         if not isinstance(numeric, Mapping):
             continue
@@ -459,8 +473,21 @@ def build_candidate_bound_evidence_packet(
             ),
             "llm_numeric_authority": False,
         })
-    allow = (
+    if candidate.get("reporting_allowed") is not True:
+        permission_blockers.append("candidate_reporting_not_allowed")
+    if not candidate_claims:
+        permission_blockers.append("candidate_has_no_governed_claims")
+    narrative_allow = (
         candidate.get("reporting_allowed") is True
+        and bool(candidate_claims)
+        and not permission_blockers
+        and all(
+            claim.get("permission_state") == "PUBLIC_CLAIM_ALLOWED"
+            for claim in candidate_claims
+        )
+    )
+    numeric_allow = (
+        narrative_allow
         and bool(numeric_claims)
         and all(row["public_claim_allowed"] for row in numeric_claims)
     )
@@ -497,12 +524,12 @@ def build_candidate_bound_evidence_packet(
             ],
         },
         "public_claim_permissions": {
-            "numeric_claims_allowed": allow,
-            "narrative_synthesis_allowed": allow,
+            "numeric_claims_allowed": numeric_allow,
+            "narrative_synthesis_allowed": narrative_allow,
             "llm_numeric_authority": False,
-            "decision": "ALLOW" if allow else "BLOCK",
+            "decision": "ALLOW" if narrative_allow else "BLOCK",
         },
-        "blockers": [] if allow else ["candidate_public_claim_permission_blocked"],
+        "blockers": list(dict.fromkeys(permission_blockers)),
         "bridge_safety": {
             "source_repo_modified": False,
             "network_call_made": False,
@@ -763,12 +790,33 @@ def build_canonical_editorial_shadow_handoff(
         "quantitative_blockers": [],
         "publication_authority": False,
     }
+    source_family_ids = [
+        str(value) for value in candidate.get("source_family_ids") or []
+        if value
+    ]
+    if len(source_family_ids) != 1:
+        raise ValueError("canonical_editorial_source_family_not_exactly_one")
+    capability = resolve_story_capabilities(
+        {"source_family_id": source_family_ids[0]},
+        load_source_capability_registry(),
+    )
+    if capability.get("status") != "PASS":
+        raise ValueError(
+            "canonical_editorial_capability_unresolved:"
+            + ",".join(capability.get("blockers") or [])
+        )
+    freshness_requirements = dict(
+        capability.get("freshness_requirements") or {}
+    )
     review_request = {
-        "story_type": "evidence_bound_news_analysis",
-        "article_mode": "analysis",
+        "story_type": capability["story_type"],
+        "article_mode": capability["article_mode"],
         "workflow_mode": "evidence_bound_shadow_draft",
-        "market_sensitive": True,
+        "market_sensitive": capability["market_sensitive"],
+        "market_snapshot_required": capability["market_snapshot_required"],
         "fresh_material_delta": False,
+        "expected_source_cadence": capability.get("freshness_policy"),
+        "capability_freshness_requirements": freshness_requirements,
     }
     article["article_mode"] = review_request["article_mode"]
     article["workflow_mode"] = review_request["workflow_mode"]

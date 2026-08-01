@@ -1,9 +1,9 @@
 // Capital Chronicle ContentOps V5 — canonical package review read model.
 // Static imports only. No network, storage, credentials, or decision execution.
 
-import editorialEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/canonical_editorial_outcomes.json';
-import packageEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/superseding_unsigned_operator_packages.json';
-import variantEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1/platform_native_variants.json';
+import editorialEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/canonical_editorial_outcomes.json';
+import packageEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/superseding_unsigned_operator_packages.json';
+import variantEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/platform_native_variants.json';
 import sourceCapabilityRegistry from '../../../../docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/source_evidence_capability_registry_v2.json';
 import type { SelectableObject, StatusKind } from '../types';
 
@@ -95,6 +95,8 @@ export interface CanonicalPlatformReadiness {
   hashes: CanonicalReadinessHashes;
   marketSensitive: boolean;
   marketSnapshotRequired: boolean;
+  operatorDecisionState: 'PENDING_OPERATOR_DECISION';
+  operatorReadyForDecision: boolean;
   passedGates: string[];
   platform: string;
   publicationAuthority: false;
@@ -383,6 +385,7 @@ function buildReadiness(
   sourceFamily: string,
   canonicalEditorialState: string,
   canonicalPackageState: string,
+  roleOutcomes: EditorialOutcome['role_outcomes'],
   registryInput: CapabilityRegistry,
 ): { story: CanonicalStoryReadiness; platforms: Map<string, CanonicalPlatformReadiness> } {
   const capability = resolveStoryCapability(sourceFamily, article.mode, registryInput);
@@ -393,20 +396,28 @@ function buildReadiness(
   const marketSensitive = Boolean(
     capability.row.market_sensitive ?? capability.row.market_snapshot_required ?? capability.row.market_context_required,
   );
-  const rawFreshnessBlockers = operatorPackage.editorial_binding.freshness_disposition.blockers;
+  const rawFreshnessBlockers: string[] = [
+    ...operatorPackage.editorial_binding.freshness_disposition.blockers,
+  ];
   const nonMarketFreshnessBlockers = rawFreshnessBlockers.filter((blocker) =>
     !isMarketSnapshotBlocker(blocker) && !blocker.includes('permission'),
   );
-  const visualBlockers = operatorPackage.editorial_binding.visual_disposition.blockers;
+  const visualBlockers: string[] = [
+    ...operatorPackage.editorial_binding.visual_disposition.blockers,
+  ];
   const unresolvedBlockers = unique(
     operatorPackage.editorial_binding.unresolved_blockers.filter((blocker) =>
       marketSnapshotRequired || !isMarketSnapshotBlocker(blocker),
     ),
   );
+  const canonicalAdversarialBlockers: string[] = [
+    ...operatorPackage.editorial_binding.final_adversarial_review_disposition.blockers,
+  ];
   const editorialReviewBlockers = unresolvedBlockers.filter((blocker) =>
     !rawFreshnessBlockers.includes(blocker) &&
     !visualBlockers.includes(blocker) &&
     !blocker.includes('visual_editor') &&
+    !canonicalAdversarialBlockers.includes(blocker) &&
     !blocker.includes('permission'),
   );
   const storyGates: CanonicalReadinessGate[] = [
@@ -423,6 +434,13 @@ function buildReadiness(
       detail: 'Existing canonical editorial review remains authoritative',
       blockers: editorialReviewBlockers,
       status: editorialReviewBlockers.length ? 'BLOCK' : 'PASS',
+    },
+    {
+      id: 'adversarial_review',
+      category: 'editorial',
+      detail: 'Canonical adversarial review across all story-level gates',
+      blockers: canonicalAdversarialBlockers,
+      status: canonicalAdversarialBlockers.length ? 'BLOCK' : 'PASS',
     },
     {
       id: 'claim_permissions',
@@ -465,7 +483,8 @@ function buildReadiness(
   const storyPassed = storyGates.filter((gate) => gate.status === 'PASS').map((gate) => gate.id);
   const storyApplicable = storyGates.filter((gate) => gate.status !== 'NOT_APPLICABLE').map((gate) => gate.id);
   const storyEditorialReadiness: ReadinessGateStatus = storyGates.some((gate) =>
-    ['editorial', 'freshness', 'visual'].includes(gate.category) && gate.status === 'BLOCK',
+    (['editorial', 'freshness', 'visual'].includes(gate.category) || gate.id === 'claim_permissions') &&
+    gate.status === 'BLOCK',
   ) ? 'BLOCK' : 'PASS';
   const storyUnresolved = unique([
     ...unresolvedBlockers,
@@ -531,10 +550,32 @@ function buildReadiness(
       registryInput,
     );
     const visualApplicable = expectation.status === 'BLOCK' || expectation.minimum_visual_count > 0;
+    const finalAdversarial =
+      operatorPackage.editorial_binding.final_adversarial_review_disposition;
+    const finalChecks = finalAdversarial.structured_review.checks;
+    const nonVisualPriorRoleBlocked = roleOutcomes.some((role) =>
+      role.role !== 'visual_editor' &&
+      role.role !== 'adversarial_final_reviewer' &&
+      role.status !== 'PASS',
+    );
+    const nonVisualAdversarialChecksPass = Object.entries(finalChecks).every(
+      ([name, passed]) => name === 'prior_roles_clear' || passed === true,
+    );
+    const textOnlyVisualWaiverResolvesAdversarial =
+      !visualApplicable &&
+      !nonVisualPriorRoleBlocked &&
+      nonVisualAdversarialChecksPass &&
+      finalAdversarial.structured_review.blockers.every(
+        (blocker) => blocker === 'prior_roles_clear',
+      );
+    const platformAdversarialBlockers = textOnlyVisualWaiverResolvesAdversarial
+      ? []
+      : canonicalAdversarialBlockers;
     const platformBaseBlockers = unresolvedBlockers.filter((blocker) =>
-      visualApplicable || (
+      (visualApplicable || (
         !visualBlockers.includes(blocker) && !blocker.includes('visual_editor')
-      ),
+      )) &&
+      (!textOnlyVisualWaiverResolvesAdversarial || !canonicalAdversarialBlockers.includes(blocker)),
     );
     const visualGate: CanonicalReadinessGate = {
       id: 'platform_visuals',
@@ -552,7 +593,16 @@ function buildReadiness(
           : 'NOT_APPLICABLE',
     };
     const platformGates: CanonicalReadinessGate[] = storyGates
-      .filter((gate) => gate.id !== 'article_visuals')
+      .filter((gate) => gate.id !== 'article_visuals' && gate.id !== 'adversarial_review')
+      .concat({
+        id: 'adversarial_review',
+        category: 'editorial',
+        detail: textOnlyVisualWaiverResolvesAdversarial
+          ? 'Applicable nonvisual adversarial checks pass; canonical long-form visual HOLD remains unchanged'
+          : 'Canonical adversarial review remains blocked by an applicable gate',
+        blockers: platformAdversarialBlockers,
+        status: platformAdversarialBlockers.length ? 'BLOCK' : 'PASS',
+      })
       .concat(visualGate, {
         id: 'dispatch_authorization',
         category: 'dispatch',
@@ -563,7 +613,8 @@ function buildReadiness(
     const platformPassed = platformGates.filter((gate) => gate.status === 'PASS').map((gate) => gate.id);
     const platformApplicable = platformGates.filter((gate) => gate.status !== 'NOT_APPLICABLE').map((gate) => gate.id);
     const platformEditorial: ReadinessGateStatus = platformGates.some((gate) =>
-      ['editorial', 'freshness', 'visual'].includes(gate.category) && gate.status === 'BLOCK',
+      (['editorial', 'freshness', 'visual'].includes(gate.category) || gate.id === 'claim_permissions') &&
+      gate.status === 'BLOCK',
     ) ? 'BLOCK' : 'PASS';
     const platformUnresolved = unique([
       ...platformBaseBlockers,
@@ -598,6 +649,8 @@ function buildReadiness(
       gates: platformGates,
       marketSensitive,
       marketSnapshotRequired,
+      operatorDecisionState: 'PENDING_OPERATOR_DECISION',
+      operatorReadyForDecision: platformEditorial === 'PASS',
       packageHash: operatorPackage.package_hash,
       platform: variant.platform,
       publicationAuthority: false,
@@ -630,6 +683,8 @@ function buildReadiness(
       },
       marketSensitive,
       marketSnapshotRequired,
+      operatorDecisionState: 'PENDING_OPERATOR_DECISION',
+      operatorReadyForDecision: platformEditorial === 'PASS',
       passedGates: platformPassed,
       platform: variant.platform,
       publicationAuthority: false,
@@ -760,6 +815,7 @@ function joinStory(
     operatorPackage.authority_binding.source_family,
     operatorPackage.editorial_binding.editorial_state,
     operatorPackage.state,
+    outcome.role_outcomes,
     registryInput,
   );
   return {
@@ -831,6 +887,12 @@ export const canonicalReviewSummary = {
     0,
   ),
   packageCount: canonicalReviewStories.length,
+  operatorReadyVariantCount: canonicalReviewStories.reduce(
+    (count, story) => count + story.variants.filter(
+      (variant) => variant.readiness.operatorReadyForDecision,
+    ).length,
+    0,
+  ),
   recommendation: CANONICAL_REVIEW_RECOMMENDATION,
   roleCount: canonicalReviewStories.reduce(
     (count, story) => count + story.roles.length,

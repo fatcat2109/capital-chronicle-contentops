@@ -1,0 +1,173 @@
+{
+  "schema_version": "contentops.text_only_operator_ready_packages.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1",
+  "package_count": 5,
+  "state": "EDITORIALLY_READY_FOR_OPERATOR_DECISION",
+  "operator_decision_state": "PENDING_OPERATOR_DECISION",
+  "packages": [
+    {
+      "schema_version": "contentops.text_only_operator_ready_package.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "platform_id": "facebook_page",
+      "content_surface": "page_post",
+      "effective_platform_visual_mode": "text_only",
+      "text": "Official-record update\n\nUSGS Marks Ridgecrest Earthquake Sequence Event as Reviewed\n\nUSGS identifies the event as reviewed and as part of the Ridgecrest Earthquake Sequence.\n\nSource: U.S. Geological Survey. The scope here is limited to the official record identified above.\n\nNot financial advice.",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "citations": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      ],
+      "limitations": [
+        "No magnitude, damage, impact, affected-entity, market-reaction, interpretation, numeric, publication, dispatch, or trading authority.",
+        "Only the exact reviewed event identity and location wording are authorized."
+      ],
+      "package_hash": "e4eee3ad72177b5f2340c2d4278303a09bdd5e1641f0a83a3be53dd5b87a2742",
+      "article_hash": "d69fd108c336d79c96fe73d36a16833a85f8732e2e40c1f51060679392fb0e06",
+      "v3_packet_hash": "44186bce1486760491a37ba1afde84e4084f6d756c9210a667ab862ecfccd206",
+      "variant_hash": "779c7c05c88112829c88dcaf997a10908f9ec384315ea8da176bccb4fc6f1a11",
+      "readiness_hash": "6bad9b99fe45cb327f880dfec3b7e4ece2c4e1106ffabf891f11757583e4bdbf",
+      "editorial_state": "EDITORIALLY_READY_FOR_OPERATOR_DECISION",
+      "operator_decision_state": "PENDING_OPERATOR_DECISION",
+      "publication_authority": false,
+      "dispatch_authority": false,
+      "public_write_authority": false,
+      "exact_next_gate": "JIM_MUST_DECIDE_EXACT_HASH_BOUND_TEXT_ONLY_PACKAGE_IN_SEPARATE_AUTHORIZED_TASK",
+      "operator_package_receipt_hash": "dec004c05f487b6f544df3a8cd0181a4ac703b2e0c1a868d0468e5108714eac9"
+    },
+    {
+      "schema_version": "contentops.text_only_operator_ready_package.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "platform_id": "linkedin",
+      "content_surface": "professional_post",
+      "effective_platform_visual_mode": "text_only",
+      "text": "Official document update: USGS Marks Ridgecrest Earthquake Sequence Event as Reviewed\n\nUSGS identifies the event as reviewed and as part of the Ridgecrest Earthquake Sequence.\n\nSource: U.S. Geological Survey. This post stays within the exact official-record metadata authorized for reporting.\n\nNot financial advice.",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "citations": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      ],
+      "limitations": [
+        "No magnitude, damage, impact, affected-entity, market-reaction, interpretation, numeric, publication, dispatch, or trading authority.",
+        "Only the exact reviewed event identity and location wording are authorized."
+      ],
+      "package_hash": "e4eee3ad72177b5f2340c2d4278303a09bdd5e1641f0a83a3be53dd5b87a2742",
+      "article_hash": "d69fd108c336d79c96fe73d36a16833a85f8732e2e40c1f51060679392fb0e06",
+      "v3_packet_hash": "44186bce1486760491a37ba1afde84e4084f6d756c9210a667ab862ecfccd206",
+      "variant_hash": "9bd3927f7d9dcc3d072550c60eddbdd7e0570fcc05de6c512b2832921983bc1b",
+      "readiness_hash": "d9d4f631562c636db93e96184500a84a80259c24f4efe1d90c1127da227d4deb",
+      "editorial_state": "EDITORIALLY_READY_FOR_OPERATOR_DECISION",
+      "operator_decision_state": "PENDING_OPERATOR_DECISION",
+      "publication_authority": false,
+      "dispatch_authority": false,
+      "public_write_authority": false,
+      "exact_next_gate": "JIM_MUST_DECIDE_EXACT_HASH_BOUND_TEXT_ONLY_PACKAGE_IN_SEPARATE_AUTHORIZED_TASK",
+      "operator_package_receipt_hash": "b9fe4b05fd9503bc4a1cad781375a6d74879d414a43965d1ef0755d4ca74e147"
+    },
+    {
+      "schema_version": "contentops.text_only_operator_ready_package.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "platform_id": "telegram",
+      "content_surface": "channel_post",
+      "effective_platform_visual_mode": "text_only",
+      "text": "OFFICIAL RECORD | USGS Marks Ridgecrest Earthquake Sequence Event as Reviewed\n\nUSGS identifies the event as reviewed and as part of the Ridgecrest Earthquake Sequence.\n\nSource: U.S. Geological Survey\nScope: exact authorized record metadata only\n\nNot financial advice.",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "citations": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      ],
+      "limitations": [
+        "No magnitude, damage, impact, affected-entity, market-reaction, interpretation, numeric, publication, dispatch, or trading authority.",
+        "Only the exact reviewed event identity and location wording are authorized."
+      ],
+      "package_hash": "e4eee3ad72177b5f2340c2d4278303a09bdd5e1641f0a83a3be53dd5b87a2742",
+      "article_hash": "d69fd108c336d79c96fe73d36a16833a85f8732e2e40c1f51060679392fb0e06",
+      "v3_packet_hash": "44186bce1486760491a37ba1afde84e4084f6d756c9210a667ab862ecfccd206",
+      "variant_hash": "753e05ce85ae38da0c213b4427a47e432a48503971a4a18e96fb86f2c6096ab7",
+      "readiness_hash": "2bd93fb8a1c30efad19e2fb31ae6ab5fef7173fca58d0e981a3a605e10db0027",
+      "editorial_state": "EDITORIALLY_READY_FOR_OPERATOR_DECISION",
+      "operator_decision_state": "PENDING_OPERATOR_DECISION",
+      "publication_authority": false,
+      "dispatch_authority": false,
+      "public_write_authority": false,
+      "exact_next_gate": "JIM_MUST_DECIDE_EXACT_HASH_BOUND_TEXT_ONLY_PACKAGE_IN_SEPARATE_AUTHORIZED_TASK",
+      "operator_package_receipt_hash": "65804676fca35f055894f166d495fbebbf8326833acdc1b1af1e6d0e0e282073"
+    },
+    {
+      "schema_version": "contentops.text_only_operator_ready_package.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "platform_id": "x_twitter",
+      "content_surface": "short_post",
+      "effective_platform_visual_mode": "text_only",
+      "text": "USGS Marks Ridgecrest Earthquake Sequence Event as Reviewed. USGS identifies the event as reviewed and as part of the Ridgecrest Earthquake Sequence. Source: U.S. Geological Survey. Not financial advice.",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "citations": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      ],
+      "limitations": [
+        "No magnitude, damage, impact, affected-entity, market-reaction, interpretation, numeric, publication, dispatch, or trading authority.",
+        "Only the exact reviewed event identity and location wording are authorized."
+      ],
+      "package_hash": "e4eee3ad72177b5f2340c2d4278303a09bdd5e1641f0a83a3be53dd5b87a2742",
+      "article_hash": "d69fd108c336d79c96fe73d36a16833a85f8732e2e40c1f51060679392fb0e06",
+      "v3_packet_hash": "44186bce1486760491a37ba1afde84e4084f6d756c9210a667ab862ecfccd206",
+      "variant_hash": "d87929e29354a08695f16d8a0a0962372175d70da2fb43a5998d711e16b3466c",
+      "readiness_hash": "1babf8c0c905ffef6603c8cc6992b0b7d259ebe41a212fe59c1b1525464d6ca7",
+      "editorial_state": "EDITORIALLY_READY_FOR_OPERATOR_DECISION",
+      "operator_decision_state": "PENDING_OPERATOR_DECISION",
+      "publication_authority": false,
+      "dispatch_authority": false,
+      "public_write_authority": false,
+      "exact_next_gate": "JIM_MUST_DECIDE_EXACT_HASH_BOUND_TEXT_ONLY_PACKAGE_IN_SEPARATE_AUTHORIZED_TASK",
+      "operator_package_receipt_hash": "dfc66dc1b90a4c5735f61fad1a1c9358aabf7c9fed6ccfc1d8774f0aba34819c"
+    },
+    {
+      "schema_version": "contentops.text_only_operator_ready_package.v1",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "candidate_id": "cc-candidate-87bcd4b5d1367603f336",
+      "platform_id": "youtube_community",
+      "content_surface": "community_text_post",
+      "effective_platform_visual_mode": "text_only",
+      "text": "Community update: USGS Marks Ridgecrest Earthquake Sequence Event as Reviewed\n\nUSGS identifies the event as reviewed and as part of the Ridgecrest Earthquake Sequence.\n\nSource: U.S. Geological Survey. This is a text-only Community post package, not a video or upload request.\n\nNot financial advice.",
+      "authorized_claim_ids": [
+        "claim-a436944fa62bc374",
+        "claim-f1f734761cccc69a"
+      ],
+      "citations": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      ],
+      "limitations": [
+        "No magnitude, damage, impact, affected-entity, market-reaction, interpretation, numeric, publication, dispatch, or trading authority.",
+        "Only the exact reviewed event identity and location wording are authorized."
+      ],
+      "package_hash": "e4eee3ad72177b5f2340c2d4278303a09bdd5e1641f0a83a3be53dd5b87a2742",
+      "article_hash": "d69fd108c336d79c96fe73d36a16833a85f8732e2e40c1f51060679392fb0e06",
+      "v3_packet_hash": "44186bce1486760491a37ba1afde84e4084f6d756c9210a667ab862ecfccd206",
+      "variant_hash": "fed5d7a06000cd852799a4c4e1104840ae004ecee4e1cffed73bd49fe175d949",
+      "readiness_hash": "786c7c48a38c3537b2d1961a1f4158c06c409eafcdb029d39c7968ddd0c8e447",
+      "editorial_state": "EDITORIALLY_READY_FOR_OPERATOR_DECISION",
+      "operator_decision_state": "PENDING_OPERATOR_DECISION",
+      "publication_authority": false,
+      "dispatch_authority": false,
+      "public_write_authority": false,
+      "exact_next_gate": "JIM_MUST_DECIDE_EXACT_HASH_BOUND_TEXT_ONLY_PACKAGE_IN_SEPARATE_AUTHORIZED_TASK",
+      "operator_package_receipt_hash": "ff8fbf0b99e3c51c17ad31ee8d39bd10b2abf2b799205490aba9a5bc6837f27e"
+    }
+  ],
+  "publication_authority": false,
+  "dispatch_authority": false,
+  "public_write_authority": false,
+  "logical_hash": "41d4816c67fd2697d280a243b9483bdf6ed15c11d4447daddcac3c861eb4cde0"
+}

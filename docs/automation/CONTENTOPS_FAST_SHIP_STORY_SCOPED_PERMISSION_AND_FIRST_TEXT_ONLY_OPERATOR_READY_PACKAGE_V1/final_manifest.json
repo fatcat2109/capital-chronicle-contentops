@@ -1,0 +1,100 @@
+{
+  "schema_version": "contentops.story_scoped_permission_operator_ready_final_manifest.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1",
+  "starting_remote_head": "41c43419cbaa272f17f8543afa78edc0bdb30a87",
+  "pinned_upstream_authority_commit": "64834919b4f69e977475c203abeafef57791f015",
+  "terminal_classification": "PASS_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1_AWAITING_CHATGPT_AUDIT",
+  "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1",
+  "source_blobs": [
+    {
+      "path": "live_contentops/window_incremental_editorial_shadow_v1.py",
+      "git_blob_sha1": "9558a9ff6ea66ff0e25bbe86a26ff809bfc56ecf",
+      "byte_sha256": "a5d80c1ac6d2f968b628b715b2a2ce37866754476c42dc089d5815b9af729134"
+    },
+    {
+      "path": "live_contentops/capital_chronicle_content_evidence_packet_v3.py",
+      "git_blob_sha1": "2d44c247956350997a86f46ca5d945953b0d1583",
+      "byte_sha256": "e9d4345690ac23739b4344c727d725729df73b9676401458d4549c19123398e0"
+    },
+    {
+      "path": "live_contentops/multi_story_platform_native_operator_packages_v1.py",
+      "git_blob_sha1": "8e5a27134c939a331e4ce0e0067f5f7ba6424d1d",
+      "byte_sha256": "d41edf0c8adc08b4e786856faeef5d3c996114b61fecc4d72d60f9bc78ed1265"
+    },
+    {
+      "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
+      "git_blob_sha1": "ce86895c604133c6728d6528e331404d747bb8e5",
+      "byte_sha256": "e0988a0f39007ea8e7a4b5938b70c34195464dc1203b32d8e1d1ce69a0ed9e18"
+    },
+    {
+      "path": "ui/contentops_v5/scripts/buildStoryScopedOperatorReadyEvidence.ts",
+      "git_blob_sha1": "bc1b7bbc98ccc64566cb37f40b04e6f4d8c7d13a",
+      "byte_sha256": "15512118eea4e771efd132ec92af09abf21613b97c4a8bd201c7788c025bacbb"
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/source_evidence_capability_registry_v2.json",
+      "git_blob_sha1": "f08e89b4c097490b69f3df97eeb2a3ed35eca18c",
+      "byte_sha256": "a28dfbaa57e7047db380a2668bc4d7a1164422ce15fb1d0cf2ac8e21d50e06bf"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/browser_qa.json",
+      "byte_sha256": "3a19a9018d8a214dcc73d31b441c816e9d1699b3ae403b437dda1ead25f86b58"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/browser_qa_desktop_1440x1000.png",
+      "byte_sha256": "6404f34ccb2ab4318bffa21cd4644a7ce80bca0ac02eeb6b4955f419c94f7019"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/browser_qa_mobile_390x844.png",
+      "byte_sha256": "7e9d0788fb101f64ceebc601db0593108ab3d0c294a258c696d293fd990f311b"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/canonical_content_evidence_packets_v3.json",
+      "byte_sha256": "4f45882e3342b749072f23ecdc1248aeaeb68c876bbe0b995ffcca9ee97010a2"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/canonical_editorial_outcomes.json",
+      "byte_sha256": "99638708f0e9504bc0b8624a98d8b99bf5c42f5a565fe7ff1936085c433edf2e"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/claim_permission_adjudication.json",
+      "byte_sha256": "a97b8edd5293fd6bf09d05bb3007fbd8a0bba3c728469bb7b8843a7aae1ee32b"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/per_platform_readiness_records.json",
+      "byte_sha256": "46ba43720a09e84821a731798444906d3fab48fa70875b45242ecf3a11a4ae6a"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/platform_native_variants.json",
+      "byte_sha256": "7d728c4c05a0ebd2a53c50b7bf8884d71aef7c60b3ea7d531fdb5ad7dc392e31"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/superseding_unsigned_operator_packages.json",
+      "byte_sha256": "c2c6afc5f50686c2b864c009f21bf1fedadb08de69410e96c20e55b4750fd11a"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/text_only_operator_ready_packages.json",
+      "byte_sha256": "d61a860038966d79f811472783a38a033276d5f26402be5701dfc21a16842602"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/validation_truth.json",
+      "byte_sha256": "cc769046286f02b8ccc380421c658fac0f068ed437e31ac4f53304989853633f"
+    }
+  ],
+  "claim_count": 5,
+  "readiness_record_count": 18,
+  "operator_ready_text_only_record_count": 5,
+  "operator_decision_state": "PENDING_OPERATOR_DECISION",
+  "publication_authority": false,
+  "dispatch_authority": false,
+  "public_write_authority": false,
+  "network_call_performed": false,
+  "provider_action_performed": false,
+  "public_write_performed": false,
+  "monolithic_repository_suite_run": false,
+  "ci_pass_claimed": false,
+  "result": "PASS",
+  "logical_hash": "47db5559fdbd26c5deaf746bc4ec427d6889810b04023e73bb2e5553fca05d53"
+}

@@ -138,7 +138,30 @@ describe('canonical package evidence adapter', () => {
       status: 'NOT_APPLICABLE',
     });
     expect(usgs.editorialState).toBe('HOLD');
-    expect(usgs.readiness.unresolvedBlockers).toContain('candidate_public_claim_permission_blocked');
+    expect(usgs.readiness.unresolvedBlockers).not.toContain('candidate_public_claim_permission_blocked');
+    expect(usgs.blockers.freshness).toEqual([]);
+  });
+
+  it('exposes exactly five USGS text-only variants ready for an operator decision', () => {
+    const ready = canonicalReviewStories.flatMap((story) =>
+      story.variants
+        .filter((variant) => variant.readiness.operatorReadyForDecision)
+        .map((variant) => ({ story, variant })),
+    );
+    expect(canonicalReviewSummary.operatorReadyVariantCount).toBe(5);
+    expect(ready).toHaveLength(5);
+    for (const { story, variant } of ready) {
+      expect(story.authority.sourceFamily).toBe('usgs_comcat');
+      expect(variant.platform).not.toBe('substack_newsletter');
+      expect(variant.readiness).toMatchObject({
+        editorialReadiness: 'PASS',
+        operatorDecisionState: 'PENDING_OPERATOR_DECISION',
+        publicationAuthority: false,
+        publicationReadiness: 'BLOCK',
+        dispatchAuthority: false,
+        dispatchReadiness: 'BLOCK',
+      });
+    }
   });
 
   it('separates long-form visual requirements from text-only platform policy', () => {

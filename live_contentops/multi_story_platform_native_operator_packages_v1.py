@@ -26,7 +26,7 @@ from live_contentops.window_incremental_editorial_shadow_v1 import (
 )
 
 
-TASK = "TASK_CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1"
+TASK = "TASK_CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1"
 SCHEMA_VERSION = "contentops.three_v3_canonical_editorial_operator_packages.v1"
 AUTHORITY_SCHEMA = "capital_chronicle.multi_story_scoped_reporting_authority_batch.v1"
 AUTHORITY_RELATIVE = Path(
@@ -35,7 +35,7 @@ AUTHORITY_RELATIVE = Path(
 )
 EVIDENCE_RELATIVE = Path(
     "docs/automation/"
-    "CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1"
+    "CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1"
 )
 EXPECTED_UPSTREAM_REPOSITORY = "fatcat2109/Headline-Raw-data-json"
 EXPECTED_UPSTREAM_BRANCH = "main"
@@ -201,8 +201,6 @@ def _verify_upstream_checkout(upstream_root: Path) -> dict[str, Any]:
     if repository.casefold() != EXPECTED_UPSTREAM_REPOSITORY.casefold():
         raise ValueError(f"upstream_origin_repository_mismatch:{repository}")
     observed_origin_head = resolve_observed_head(upstream_root, EXPECTED_UPSTREAM_BRANCH)
-    if observed_origin_head != EXPECTED_UPSTREAM_HEAD:
-        raise ValueError(f"upstream_origin_main_head_mismatch:{observed_origin_head}")
     if not is_ancestor(upstream_root, EXPECTED_UPSTREAM_HEAD, observed_origin_head):
         raise ValueError("upstream_producer_commit_not_reachable_from_origin_main")
     return {
@@ -210,9 +208,10 @@ def _verify_upstream_checkout(upstream_root: Path) -> dict[str, Any]:
         "repository": repository,
         "branch": EXPECTED_UPSTREAM_BRANCH,
         "observed_origin_head": observed_origin_head,
+        "authority_observed_head": EXPECTED_UPSTREAM_HEAD,
         "producer_commit": EXPECTED_UPSTREAM_HEAD,
         "producer_commit_reachable_from_observed_origin_head": True,
-        "status": "PASS_EXACT_LOCAL_GIT_IDENTITY_AND_ANCESTRY",
+        "status": "PASS_PINNED_AUTHORITY_COMMIT_REACHABLE_FROM_ORIGIN_MAIN",
     }
 
 
@@ -334,6 +333,76 @@ def _story_candidates(story: Mapping[str, Any]) -> list[dict[str, Any]]:
     ]
 
 
+def derive_story_scoped_claim_permission(
+    story: Mapping[str, Any],
+    upstream_claim: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Fail closed from the exact upstream claim and story consumer grant."""
+
+    permissions = story.get("consumer_permissions") or {}
+    claim_id = str(upstream_claim.get("claim_id") or "")
+    authorized_claim_ids = {
+        str(value) for value in permissions.get("authorized_claim_ids") or []
+    }
+    required_true = {
+        "upstream_claim.reporting_allowed": upstream_claim.get("reporting_allowed"),
+        "consumer_permissions.reporting_allowed": permissions.get("reporting_allowed"),
+        "consumer_permissions.exact_story_only": permissions.get("exact_story_only"),
+        "consumer_permissions.derived_from_verifier": permissions.get("derived_from_verifier"),
+    }
+    required_false = {
+        "upstream_claim.contains_numeric_assertion": upstream_claim.get("contains_numeric_assertion"),
+        "upstream_claim.interpretation_allowed": upstream_claim.get("interpretation_allowed"),
+        "consumer_permissions.source_family_wide_authority": permissions.get("source_family_wide_authority"),
+        "consumer_permissions.numeric_reporting_allowed": permissions.get("numeric_reporting_allowed"),
+        "consumer_permissions.interpretation_allowed": permissions.get("interpretation_allowed"),
+        "consumer_permissions.market_reaction_allowed": permissions.get("market_reaction_allowed"),
+        "consumer_permissions.forecast_allowed": permissions.get("forecast_allowed"),
+        "consumer_permissions.financial_advice_allowed": permissions.get("financial_advice_allowed"),
+        "consumer_permissions.trading_allowed": permissions.get("trading_allowed"),
+        "consumer_permissions.publication_allowed": permissions.get("publication_allowed"),
+        "consumer_permissions.dispatch_allowed": permissions.get("dispatch_allowed"),
+        "consumer_permissions.public_write_allowed": permissions.get("public_write_allowed"),
+        "consumer_permissions.global_dqr_override": permissions.get("global_dqr_override"),
+    }
+    blockers = [
+        f"upstream_authority_field_missing_or_false:{field}"
+        for field, value in required_true.items()
+        if value is not True
+    ]
+    blockers.extend(
+        f"upstream_authority_field_missing_or_true:{field}"
+        for field, value in required_false.items()
+        if value is not False
+    )
+    if not claim_id or claim_id not in authorized_claim_ids:
+        blockers.append(
+            "upstream_authority_field_missing_claim_id:"
+            "consumer_permissions.authorized_claim_ids"
+        )
+    allowed = not blockers
+    return {
+        "claim_id": claim_id,
+        "story_id": str(story.get("story_id") or ""),
+        "permission_state": (
+            "PUBLIC_CLAIM_ALLOWED" if allowed else "PUBLIC_CLAIM_BLOCKED"
+        ),
+        "reporting_allowed": allowed,
+        "blockers": blockers,
+        "authority_scope": "EXACT_STORY_AND_EXACT_CLAIM_ONLY",
+        "source_family_wide_authority": False,
+        "numeric_reporting_allowed": False,
+        "interpretation_allowed": False,
+        "market_reaction_allowed": False,
+        "forecast_allowed": False,
+        "financial_advice_allowed": False,
+        "publication_authority": False,
+        "dispatch_authority": False,
+        "public_write_authority": False,
+        "decision_source": "DERIVED_FROM_PINNED_UPSTREAM_STORY_SCOPED_AUTHORITY",
+    }
+
+
 def _build_canonical_candidate(story: Mapping[str, Any]) -> dict[str, Any]:
     candidate_id = _candidate_id(story)
     citation_url = str(story["official_urls"]["citation_url"])
@@ -364,6 +433,7 @@ def _build_canonical_candidate(story: Mapping[str, Any]) -> dict[str, Any]:
     binding["logical_hash"] = logical_hash(binding)
     claims: list[dict[str, Any]] = []
     for upstream_claim in story["claims"]:
+        permission = derive_story_scoped_claim_permission(story, upstream_claim)
         claim = {
             "schema_version": "contentops.universal_news_claim.v2",
             "claim_id": upstream_claim["claim_id"],
@@ -376,7 +446,9 @@ def _build_canonical_candidate(story: Mapping[str, Any]) -> dict[str, Any]:
             "source_document_ids": [document_id],
             "evidence_refs": [evidence_ref],
             "authority_class": "OFFICIAL_VERIFIED",
-            "permission_state": "PUBLIC_CLAIM_ALLOWED",
+            "permission_state": permission["permission_state"],
+            "permission_blockers": list(permission["blockers"]),
+            "permission_derivation": permission,
             "observed_at_utc": None,
             "event_time_utc": timestamp,
             "published_at_utc": timestamp,
@@ -778,7 +850,10 @@ def build_documents(
     variants: list[dict[str, Any]] = []
     packages: list[dict[str, Any]] = []
     outcomes: list[dict[str, Any]] = []
+    v3_packets: list[dict[str, Any]] = []
+    permission_adjudications: list[dict[str, Any]] = []
     for story in stories:
+        packet = _build_canonical_evidence_packet(story)
         outcome = _build_editorial_outcome(story)
         story_variants = [
             _build_variant(story, _candidate_id(story), platform_id)
@@ -789,6 +864,11 @@ def build_documents(
         variants.extend(story_variants)
         packages.append(package)
         outcomes.append(outcome)
+        v3_packets.append(packet)
+        permission_adjudications.extend(
+            derive_story_scoped_claim_permission(story, claim)
+            for claim in story["claims"]
+        )
     protected = {
         "publication_authority": False,
         "dispatch_authority": False,
@@ -802,12 +882,48 @@ def build_documents(
         "public_write_performed": False,
     }
     documents = {
+        "claim_permission_adjudication.json": {
+            "schema_version": "contentops.story_scoped_claim_permission_adjudication.v1",
+            "task": TASK,
+            "authority_packet_id": authority["packet_id"],
+            "authority_packet_logical_hash": authority["logical_hash"],
+            "claim_count": len(permission_adjudications),
+            "all_exact_claims_reporting_allowed": all(
+                row["reporting_allowed"] for row in permission_adjudications
+            ),
+            "adjudications": permission_adjudications,
+            "publication_authority": False,
+            "dispatch_authority": False,
+            "public_write_authority": False,
+        },
+        "canonical_content_evidence_packets_v3.json": {
+            "schema_version": "contentops.three_story_canonical_content_evidence_packets_v3.v1",
+            "task": TASK,
+            "packet_schema_version": "capital_chronicle_content_evidence_packet.v3",
+            "packet_count": len(v3_packets),
+            "all_packets_validated": all(
+                not validate_content_evidence_packet_v3(row)
+                for row in v3_packets
+            ),
+            "packets": v3_packets,
+            "protected_state": protected,
+        },
         "canonical_editorial_outcomes.json": {
             "schema_version": "contentops.three_story_canonical_editorial_outcomes.v1",
             "task": TASK,
             "outcome_count": len(outcomes),
             "story_ids": [row["story_id"] for row in stories],
             "outcomes": outcomes,
+            "protected_state": protected,
+        },
+        "platform_native_variants.json": {
+            "schema_version": "contentops.multi_story_platform_native_variants.v1",
+            "task": TASK,
+            "story_count": len(stories),
+            "platform_count_per_story": len(PLATFORM_IDS),
+            "platform_ids": list(PLATFORM_IDS),
+            "all_copy_differentiated_per_story": True,
+            "variants": variants,
             "protected_state": protected,
         },
         "superseding_unsigned_operator_packages.json": {
@@ -829,6 +945,14 @@ def build_documents(
             "authority_packet_logical_hash": authority["logical_hash"],
             "authority_exact_story_set": True,
             "authority_claim_allowlists_exact": True,
+            "all_exact_claims_reporting_allowed": all(
+                row["reporting_allowed"] for row in permission_adjudications
+            ),
+            "nonnumeric_claim_permission_bridge_executable": all(
+                row["public_claim_permissions"]["narrative_synthesis_allowed"]
+                and row["public_claim_permissions"]["numeric_claims_allowed"] is False
+                for row in v3_packets
+            ),
             "canonical_v3_evidence_packet_count": len(outcomes),
             "canonical_v3_evidence_packets_validated": True,
             "canonical_editorial_handoff_invoked_for_every_story": True,
@@ -863,11 +987,11 @@ def build_documents(
 
 def generate_packages(*, repo_root: Path, upstream_root: Path, observed_upstream_head: str) -> dict[str, Any]:
     checkout_verification = _verify_upstream_checkout(upstream_root)
-    if observed_upstream_head != checkout_verification["observed_origin_head"]:
-        raise ValueError("supplied_observed_head_not_exact_origin_main")
+    if observed_upstream_head != EXPECTED_UPSTREAM_HEAD:
+        raise ValueError("supplied_authority_head_not_exact_pinned_commit")
     authority_bytes, authority_receipt = read_git_artifact(
         root=upstream_root,
-        observed_head=checkout_verification["observed_origin_head"],
+        observed_head=EXPECTED_UPSTREAM_HEAD,
         producer_commit=EXPECTED_UPSTREAM_HEAD,
         artifact_path=AUTHORITY_RELATIVE.as_posix(),
     )
@@ -915,8 +1039,8 @@ def generate_packages(*, repo_root: Path, upstream_root: Path, observed_upstream
         "browser_action_performed": False,
         "provider_action_performed": False,
         "public_write_performed": False,
-        "terminal_classification": "PASS_THREE_V3_CANONICAL_EDITORIAL_OPERATOR_PACKAGES_PENDING_DECISION_AWAITING_CHATGPT_AUDIT",
-        "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_THREE_V3_CANONICAL_EDITORIAL_OPERATOR_PACKAGES_V1",
+        "terminal_classification": "PASS_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1_AWAITING_CHATGPT_AUDIT",
+        "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1",
     }
     manifest["logical_hash"] = _logical_hash(manifest)
     _assert_false_flags(manifest)

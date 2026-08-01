@@ -83,6 +83,10 @@ def _approval_blockers(
     candidate: Mapping[str, Any],
 ) -> list[str]:
     blockers: list[str] = []
+    blockers.extend(
+        str(value) for value in claim.get("permission_blockers") or []
+        if value
+    )
     if candidate.get("reporting_allowed") is not True:
         blockers.append("candidate_reporting_not_allowed")
     if claim.get("permission_state") != PUBLIC_PERMISSION:
