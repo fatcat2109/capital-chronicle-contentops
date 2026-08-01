@@ -1,0 +1,49 @@
+{
+  "schema_version": "contentops.decision_time_freshness_validation_truth.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1",
+  "status": "PASS",
+  "checks": {
+    "deterministic_replay_with_fixed_cutoff": true,
+    "explicit_operator_evaluation_cutoff_bound": true,
+    "historical_replay_separate_from_current_readiness": true,
+    "all_eighteen_variants_re_evaluated": true,
+    "no_current_operator_ready_variant": true,
+    "exact_five_prior_text_only_receipts_superseded": true,
+    "fomc_current_freshness_and_snapshot_blocked": true,
+    "apple_current_freshness_and_snapshot_blocked": true,
+    "usgs_stale_nonmarket_blocked_without_snapshot": true,
+    "substack_long_form_visual_hold_preserved": true,
+    "exact_hash_binding_complete": true,
+    "canonical_package_evidence_unchanged": true,
+    "publication_dispatch_public_write_authority_false": true
+  },
+  "blocker_count": 0,
+  "deterministic_replay_hash": "7e731117f82b6e736806fff7026dbc9f3b90b4ca8ae34cdbfe3783cb8773aa08",
+  "observed_validation": {
+    "focused_python_tests": {
+      "status": "PASS",
+      "passed": 75
+    },
+    "full_v5_ui_suite": {
+      "status": "PASS",
+      "test_files": 25,
+      "passed": 206
+    },
+    "production_build": "PASS",
+    "desktop_mobile_edge_qa": "PASS",
+    "json_and_hash_validation": "PASS",
+    "git_diff_check": "PASS",
+    "scoped_no_live_no_write_scan": "PASS"
+  },
+  "no_live_state": {
+    "source_fetch_performed": false,
+    "credentials_read": false,
+    "approval_captured": false,
+    "publication_performed": false,
+    "dispatch_performed": false,
+    "provider_or_browser_platform_action_performed": false,
+    "public_write_performed": false
+  },
+  "monolithic_repository_suite_run": false,
+  "ci_pass_claimed": false
+}

@@ -26,17 +26,51 @@ def evaluate_freshness(
     thresholds: Mapping[str, float] | None = None,
 ) -> dict[str, Any]:
     policy = {"straight_news_hours": 24.0, "analysis_market_hours": 24.0, "ingest_hours": 24.0, **dict(thresholds or {})}
-    as_of = _dt(str(packet.get("as_of_utc") or "")) or datetime.now(timezone.utc)
+    evaluation_basis = str(
+        request.get("readiness_evaluation_basis")
+        or "HISTORICAL_POINT_IN_TIME_REPLAY"
+    )
+    historical_replay_as_of = _dt(str(packet.get("as_of_utc") or ""))
+    operator_evaluation_as_of = _dt(
+        str(request.get("operator_evaluation_as_of_utc") or "")
+    )
+    evaluation_blockers: list[str] = []
+    if evaluation_basis == "CURRENT_OPERATOR_READINESS":
+        as_of = operator_evaluation_as_of
+        if as_of is None:
+            evaluation_blockers.append("operator_evaluation_as_of_utc_required")
+    elif evaluation_basis == "HISTORICAL_POINT_IN_TIME_REPLAY":
+        as_of = historical_replay_as_of
+        if as_of is None:
+            evaluation_blockers.append("historical_replay_as_of_utc_required")
+    else:
+        as_of = None
+        evaluation_blockers.append("readiness_evaluation_basis_invalid")
     events = list(packet.get("events") or [])
     headlines = list(packet.get("headlines") or [])
     docs = list(packet.get("official_source_documents") or [])
     claims = list(packet.get("numeric_claims") or [])
     snapshots = list(packet.get("market_snapshots") or [])
-    event_age = min((_age_hours(as_of, row.get("event_time_utc")) for row in events), default=None, key=lambda x: float("inf") if x is None else x)
-    headline_age = min((_age_hours(as_of, row.get("published_at_utc")) for row in headlines), default=None, key=lambda x: float("inf") if x is None else x)
-    source_age = min((_age_hours(as_of, row.get("published_at_utc") or row.get("release_time_utc")) for row in docs), default=None, key=lambda x: float("inf") if x is None else x)
-    market_age = min((_age_hours(as_of, row.get("observation_time_utc")) for row in claims), default=None, key=lambda x: float("inf") if x is None else x)
-    ingest_age = min((_age_hours(as_of, row.get("generated_at_utc")) for row in snapshots), default=None, key=lambda x: float("inf") if x is None else x)
+    def minimum_age(rows: list[Any], field_names: tuple[str, ...]) -> float | None:
+        if as_of is None:
+            return None
+        return min(
+            (
+                _age_hours(
+                    as_of,
+                    next((row.get(name) for name in field_names if row.get(name)), None),
+                )
+                for row in rows
+            ),
+            default=None,
+            key=lambda value: float("inf") if value is None else value,
+        )
+
+    event_age = minimum_age(events, ("event_time_utc",))
+    headline_age = minimum_age(headlines, ("published_at_utc",))
+    source_age = minimum_age(docs, ("published_at_utc", "release_time_utc"))
+    market_age = minimum_age(claims, ("observation_time_utc",))
+    ingest_age = minimum_age(snapshots, ("generated_at_utc",))
     mode = str(request.get("article_mode") or "analysis")
     market_sensitive = bool(request.get("market_sensitive", False))
     market_snapshot_required = bool(
@@ -44,7 +78,7 @@ def evaluate_freshness(
     )
     fresh_delta = bool(request.get("fresh_material_delta"))
     text = " ".join(str(request.get(key) or "") for key in ("title", "angle", "summary")).casefold()
-    blockers = list(packet.get("blockers") or [])
+    blockers = list(packet.get("blockers") or []) + evaluation_blockers
     decision = "PASS"
     if mode == "straight_news" and not any(age is not None and age <= policy["straight_news_hours"] for age in (event_age, headline_age, source_age)):
         blockers.append("straight_news_requires_material_update_inside_window")
@@ -52,6 +86,14 @@ def evaluate_freshness(
         blockers.append("analysis_requires_fresh_material_delta_or_current_reaction")
     if mode == "explainer" and any(term in text.split() for term in CURRENT_FRAMING_TERMS) and not fresh_delta:
         blockers.append("explainer_current_framing_requires_fresh_evidence")
+    if mode == "retrospective" and not request.get("historical_framing_authorized"):
+        blockers.append("retrospective_framing_requires_explicit_claim_authority")
+    if (
+        mode == "explainer"
+        and request.get("historical_framing_requested")
+        and not request.get("historical_framing_authorized")
+    ):
+        blockers.append("historical_explainer_framing_requires_explicit_claim_authority")
     if market_snapshot_required and (market_age is None or market_age > policy["analysis_market_hours"]):
         blockers.append("market_sensitive_story_snapshot_stale_or_missing")
     if market_snapshot_required and (ingest_age is None or ingest_age > policy["ingest_hours"]):
@@ -60,6 +102,20 @@ def evaluate_freshness(
         decision = "DOWNGRADE_TO_EXPLAINER" if mode in {"straight_news", "analysis"} and not market_sensitive and request.get("allow_mode_downgrade") else "BLOCK"
     return {
         "schema_version": "contentops.freshness_market_state_decision.v2",
+        "readiness_evaluation_basis": evaluation_basis,
+        "historical_replay_as_of_utc": (
+            historical_replay_as_of.isoformat().replace("+00:00", "Z")
+            if historical_replay_as_of
+            else None
+        ),
+        "operator_evaluation_as_of_utc": (
+            operator_evaluation_as_of.isoformat().replace("+00:00", "Z")
+            if operator_evaluation_as_of
+            else None
+        ),
+        "evaluation_as_of_utc": (
+            as_of.isoformat().replace("+00:00", "Z") if as_of else None
+        ),
         "decision": decision,
         "requested_article_mode": mode,
         "effective_article_mode": "explainer" if decision == "DOWNGRADE_TO_EXPLAINER" else mode,

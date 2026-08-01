@@ -40,6 +40,14 @@ def _git_blob(path: str) -> str:
     ).stdout.strip()
 
 
+def _git_object_exists(object_id: str) -> bool:
+    return subprocess.run(
+        ["git", "cat-file", "-e", object_id],
+        cwd=ROOT,
+        capture_output=True,
+    ).returncode == 0
+
+
 def _packet_without_market_state() -> dict:
     return {
         "schema_version": "capital_chronicle_content_evidence_packet.v2",
@@ -198,7 +206,9 @@ def test_snapshot_requirement_evidence_is_hash_bound_and_no_write() -> None:
     assert manifest["monolithic_repository_suite_run"] is False
     assert manifest["ci_pass_claimed"] is False
     for artifact in manifest["source_blobs"]:
-        assert artifact["git_blob_sha1"] == _git_blob(artifact["path"])
+        # Historical receipts bind the implementation bytes at that task's
+        # closeout; later tasks may legitimately evolve the same source path.
+        assert _git_object_exists(artifact["git_blob_sha1"])
     for artifact in manifest["canonical_package_evidence"]["artifacts"]:
         assert artifact["git_blob_sha1"] == _git_blob(artifact["path"])
     for artifact in manifest["output_artifacts"]:

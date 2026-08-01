@@ -1,0 +1,119 @@
+{
+  "schema_version": "contentops.decision_time_freshness_final_manifest.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1",
+  "starting_remote_head": "fa829e72fb9fa873d41058d48a2da50270135407",
+  "operator_evaluation_as_of_utc": "2026-08-01T00:00:00Z",
+  "terminal_classification": "PASS_DECISION_TIME_FRESHNESS_TRUTH_V1_NO_CURRENT_OPERATOR_READY_PACKAGE_AWAITING_CHATGPT_AUDIT",
+  "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1",
+  "source_blobs": [
+    {
+      "path": "live_contentops/freshness_market_state_v2.py",
+      "git_blob_sha1": "ec842f4bea7313d3fcdddc48ec7a5fb0fc9065f1",
+      "byte_sha256": "74e021353eef5c71a88cf25d4d8ffec5ede8c52c43c389d174a58504bdfaa46e"
+    },
+    {
+      "path": "live_contentops/decision_time_operator_readiness_v1.py",
+      "git_blob_sha1": "8130776c2c299ef6dbd4efe5f985073ac684f2a3",
+      "byte_sha256": "b1676babb7a9fe8134e90d761bc5101c22ef2f27b25fe7669c6fab340d81879f"
+    },
+    {
+      "path": "live_contentops/source_capability_registry_v2.py",
+      "git_blob_sha1": "d43c66c924c1a9c2142a08d4f7ef5e011beb0c13",
+      "byte_sha256": "a6705c2fb53bda6535eee87c6bdbf8236803e0919403b66e922ce1f5130f0752"
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/source_evidence_capability_registry_v2.json",
+      "git_blob_sha1": "f08e89b4c097490b69f3df97eeb2a3ed35eca18c",
+      "byte_sha256": "a28dfbaa57e7047db380a2668bc4d7a1164422ce15fb1d0cf2ac8e21d50e06bf"
+    },
+    {
+      "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
+      "git_blob_sha1": "f0c5ca9a0c65a690c718ebd5c724a7737203eb05",
+      "byte_sha256": "6ac0f7b32a50681ce6ece92b27617b5a0ab4ad2a9d3ed93357b3786ce880d622"
+    },
+    {
+      "path": "ui/contentops_v5/src/views/CanonicalPackageReviewConsole.tsx",
+      "git_blob_sha1": "ed762350a28e8e870dce27d1eabd6d1b7ecd1c90",
+      "byte_sha256": "da5a5b8d63e333c837f7ce22b382fb325b096e771f904bc6f7f56e15988743e8"
+    },
+    {
+      "path": "ui/contentops_v5/scripts/buildDecisionTimeFreshnessEvidence.ts",
+      "git_blob_sha1": "f55b0d7f82d9b9e4b1408364e563bb023ddd2447",
+      "byte_sha256": "84b02d218e312d57bb77a951d876852b3b2bfb224647f0e2af6eadad8b94a7d6"
+    },
+    {
+      "path": "tests/test_decision_time_freshness_and_current_operator_readiness_v1.py",
+      "git_blob_sha1": "1f9f382930e3a84706d9bb2f255b1a28ecdb3c73",
+      "byte_sha256": "45d42a791059836111c9e9abf1b03ba67a2bdc580c356f2ffcc4bed5cc72aa00"
+    },
+    {
+      "path": "tests/fixtures/multi_story_scoped_reporting_authority_batch_v1.json",
+      "git_blob_sha1": "fbb25216d08b5a4c5ca30386cf8f47ed468c1eac",
+      "byte_sha256": "5bc4ca67c4c149c0f68eeacdcb3899fbd29e3647945723c9ceb955a69ddb5d05"
+    }
+  ],
+  "unchanged_canonical_evidence": [
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/canonical_content_evidence_packets_v3.json",
+      "git_blob_sha1": "e003b37a29c175913f48d1dcb7c2cb82d98573f1",
+      "byte_sha256": "4f45882e3342b749072f23ecdc1248aeaeb68c876bbe0b995ffcca9ee97010a2"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/canonical_editorial_outcomes.json",
+      "git_blob_sha1": "595b5f096e4146fec8bc95d997a5125464895c6c",
+      "byte_sha256": "99638708f0e9504bc0b8624a98d8b99bf5c42f5a565fe7ff1936085c433edf2e"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/platform_native_variants.json",
+      "git_blob_sha1": "65242eb8b1b5256bcbb28f2cd034947fbf733a85",
+      "byte_sha256": "7d728c4c05a0ebd2a53c50b7bf8884d71aef7c60b3ea7d531fdb5ad7dc392e31"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/superseding_unsigned_operator_packages.json",
+      "git_blob_sha1": "65e80c05dd6d29366df7087b157b27f8d269cc16",
+      "byte_sha256": "c2c6afc5f50686c2b864c009f21bf1fedadb08de69410e96c20e55b4750fd11a"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1/browser_qa.json",
+      "byte_sha256": "db4a5dbbbdd42f658e17df1b1812164ed5b6072e899e54a268cfa0ff04939e2c"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1/browser_qa_desktop_1440x1000.png",
+      "byte_sha256": "8c77a91b8f3291f183fe07f4a025f7c84284312d837432d277450a7764ad0bc7"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1/browser_qa_mobile_390x844.png",
+      "byte_sha256": "e96d5c9ee0fd8c58853e97c7690632c5a476b4a3dff1153ca25384bb79d15063"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1/current_operator_readiness_records.json",
+      "byte_sha256": "f16f5f2c15ac30b706765eb6b86d0fa3f1e5fec534527785fa4ef4d048531dd2"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1/decision_time_freshness_records.json",
+      "byte_sha256": "994ebd0063cc5ad8dcf3a4bf61777e2f3191c8a86b08795a50a3d5726d2c1bda"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1/validation_truth.json",
+      "byte_sha256": "608425f6ba7816aa1b6839ae9644c081f3d426f0dea8573ab7852aa217458fb7"
+    }
+  ],
+  "decision_time_story_count": 3,
+  "current_operator_readiness_record_count": 18,
+  "current_operator_ready_count": 0,
+  "superseded_prior_text_only_receipt_count": 5,
+  "canonical_package_evidence_unchanged": true,
+  "operator_decision_state": "PENDING_OPERATOR_DECISION",
+  "publication_authority": false,
+  "dispatch_authority": false,
+  "public_write_authority": false,
+  "network_call_performed": false,
+  "provider_or_browser_platform_action_performed": false,
+  "public_write_performed": false,
+  "monolithic_repository_suite_run": false,
+  "ci_pass_claimed": false,
+  "result": "PASS",
+  "logical_hash": "773604f301391087202b66019b8f46882a9d28f4a6c5171e94f7f9e9360c7075"
+}

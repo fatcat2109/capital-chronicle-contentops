@@ -4,15 +4,25 @@
 
 ## Current Classification
 
-`PASS_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_DECISION_TIME_FRESHNESS_TRUTH_V1_NO_CURRENT_OPERATOR_READY_PACKAGE_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1`.
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1`.
+
+## Decision-Time Freshness And Current Operator Readiness Truth V1
+
+The canonical freshness evaluator now keeps `HISTORICAL_POINT_IN_TIME_REPLAY` separate from `CURRENT_OPERATOR_READINESS`. Current evaluation requires an explicit `operator_evaluation_as_of_utc`; a missing cutoff fails closed and never falls back to the wall clock or the packet's historical timestamp. Immutable event, publication, known-at, and revision values are preserved while source age is recalculated against the fixed `2026-08-01T00:00:00Z` operator cutoff.
+
+All 18 current variants were re-evaluated. FOMC and Apple remain held on stale analysis material plus their required market-snapshot and ingest gates. USGS remains nonmarket and receives no snapshot blocker, but its 2019 official record is about 61,989 hours old and now fails the applicable analysis-freshness gate. The five previously current-ready USGS text-only receipts are explicitly superseded; no variant is currently operator-ready. All canonical packages remain `HOLD` and `PENDING_OPERATOR_DECISION`, and publication, dispatch, and public-write authority remain false.
+
+The V5 console visibly separates historical replay, current freshness, current source age, current operator readiness, canonical HOLD, pending decision, and absent publication/dispatch authority. Focused Python validation passed 75 tests, the full V5 suite passed 206 tests across 25 files, the production build passed, and fresh local Microsoft Edge QA passed at desktop/mobile dimensions without horizontal overflow or runtime/resource errors. The monolithic repository suite was not run and no CI PASS is claimed. Evidence is at `docs/automation/CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1/`.
+
+No source fetch, credential read, approval, publication, dispatch, provider-platform action, scheduler action, or public write occurred.
 
 ## Story-Scoped Permission And First Text-Only Operator-Ready Package V1
 
 The canonical V2 compatibility bridge now permits narrative synthesis from an exact nonnumeric governed claim set without manufacturing numeric authority. Each FOMC, Apple SEC, and USGS claim derives its public-claim permission from the pinned upstream story/claim allowlist and required consumer fields. Missing, false, or widened authority fails closed with the exact field in the claim blocker. All five current claims pass; numeric reporting, interpretation, market reaction, forecasts, advice, trading, source-family authority, publication, dispatch, and public write remain false.
 
-The same canonical V3 and eight-role path rebuilds all three outcomes. FOMC and Apple remain sensitive and held on required snapshot/ingest freshness plus long-form visuals. USGS is nonmarket, has no freshness blocker, and remains canonically `HOLD` only because the long-form article requires visuals. The capability overlay emits five exact USGS text-only packages as `EDITORIALLY_READY_FOR_OPERATOR_DECISION`, all `PENDING_OPERATOR_DECISION`, with publication, dispatch, and public-write authority false. Substack retains its visual HOLD.
+At that task's historical packet cutoffs, the same canonical V3 and eight-role path rebuilt all three outcomes. FOMC and Apple remained sensitive and held on required snapshot/ingest freshness plus long-form visuals. USGS was nonmarket and its historical replay had no freshness blocker, producing five exact text-only receipts then labelled `EDITORIALLY_READY_FOR_OPERATOR_DECISION`. The current decision-time task above supersedes those five readiness labels; the underlying canonical evidence and no-authority boundaries remain unchanged.
 
 The V5 console visibly separates editorial readiness, operator decision pending, publication not authorized, and dispatch not authorized. Focused Python validation passed 66 tests, the full V5 suite passed 204 tests, the production build passed, and fresh local Edge QA passed at desktop/mobile dimensions without horizontal overflow or runtime/resource errors. The monolithic repository suite was not run and no CI PASS is claimed. Evidence is at `docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/`.
 
@@ -273,6 +283,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1`
+`INDEPENDENT_CHATGPT_AUDIT_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1`
 
-Independently verify exact per-claim upstream authority derivation and fail-closed missing-field behavior, nonnumeric narrative permission without numeric authority, canonical V3/editorial rebuilds, FOMC/Apple freshness holds, USGS nonmarket behavior, five text-only operator-ready packages, long-form Substack visual holds, exact hash bindings, V5 state separation, evidence hashes, and all no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.
+Independently verify the explicit operator evaluation cutoff, historical/current result separation, exact source-age calculations, FOMC/Apple snapshot holds, USGS nonmarket staleness without snapshot blockers, five superseded text-only receipts, long-form Substack visual holds, exact readiness/hash bindings, V5 truth labels, evidence hashes, and all no-execution invariants. Do not fetch sources, approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.

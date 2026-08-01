@@ -120,7 +120,7 @@ function PlatformReadinessCard({
           </p>
         </div>
         <StatusChip status={readiness.operatorReadyForDecision ? 'verified' : 'blocked'}>
-          {readiness.operatorReadyForDecision ? 'EDITORIALLY READY' : 'EDITORIAL HOLD'}
+          {readiness.currentOperatorReady ? 'CURRENT OPERATOR READY' : 'CURRENT OPERATOR HOLD'}
         </StatusChip>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -152,6 +152,10 @@ function PlatformReadinessCard({
         ) : <div className="text-[11px] text-fg-muted">No unresolved capability blockers.</div>}
       </div>
       <div className="mt-4 grid gap-2 border-t border-line pt-3 text-[10px]">
+        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Historical replay</span><span className="font-mono text-status-review">{readiness.historicalReplayDecision} · {readiness.historicalReplayAsOfUtc}</span></div>
+        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Current freshness</span><span className="font-mono text-status-blocked">{readiness.currentFreshnessDecision} · {readiness.operatorEvaluationAsOfUtc}</span></div>
+        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Current source age</span><span className="font-mono text-fg-muted">{readiness.calculatedSourceAgeHours === null ? 'UNAVAILABLE' : `${readiness.calculatedSourceAgeHours.toLocaleString()} hours`}</span></div>
+        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Current operator readiness</span><span className="font-mono text-status-blocked">{readiness.currentOperatorReady ? 'READY' : 'HOLD'}</span></div>
         <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Operator decision</span><span className="font-mono text-status-review">PENDING</span></div>
         <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Publication authority</span><span className="font-mono text-status-blocked">{readiness.publicationAuthorityBlocker}</span></div>
         <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Editorial readiness</span><ReadinessStatus status={readiness.editorialReadiness} /></div>
@@ -478,12 +482,13 @@ export function CanonicalPackageReviewConsole() {
           <div className="mb-3 flex items-center justify-between gap-3">
             <div>
               <h2 className="text-base font-semibold text-fg">Blocker disposition</h2>
-              <p className="mt-0.5 text-[11px] text-fg-muted">Freshness, visual, and adversarial gates remain authoritative.</p>
+              <p className="mt-0.5 text-[11px] text-fg-muted">Historical packet replay and current decision-time freshness are separate authoritative results.</p>
             </div>
             <StatusChip status="blocked">{story.blockers.unresolved.length} UNRESOLVED</StatusChip>
           </div>
           <div className="grid gap-3 lg:grid-cols-3">
-            <BlockerGroup label="Freshness" blockers={story.blockers.freshness} />
+            <BlockerGroup label="Historical replay freshness" blockers={story.blockers.freshness} />
+            <BlockerGroup label="Current freshness" blockers={story.readiness.gates.find((gate) => gate.id === 'freshness')?.blockers.concat(story.readiness.gates.find((gate) => gate.id === 'market_snapshot')?.blockers ?? []) ?? []} />
             <BlockerGroup label="Visual" blockers={story.blockers.visual} />
             <BlockerGroup label="Adversarial" blockers={story.blockers.adversarial} />
           </div>
@@ -497,7 +502,7 @@ export function CanonicalPackageReviewConsole() {
           <div className="mb-4 grid gap-2 md:grid-cols-3" aria-label="Canonical state, derived applicability, and authority separation">
             <div className="rounded-lg border border-line bg-bg/40 p-3">
               <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-fg-subtle">Canonical package/editorial state</div>
-              <div className="mt-2 flex flex-wrap gap-2"><StatusChip status="review">{story.state}</StatusChip><StatusChip status="blocked">{story.editorialState}</StatusChip></div>
+              <div className="mt-2 flex flex-wrap gap-2"><StatusChip status="review">{story.state}</StatusChip><StatusChip status="blocked">CANONICAL {story.editorialState}</StatusChip></div>
             </div>
             <div className="rounded-lg border border-accent/30 bg-accent/5 p-3">
               <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-accent">Derived capability applicability</div>
@@ -517,6 +522,10 @@ export function CanonicalPackageReviewConsole() {
                 <IdentityRow label="Market sensitive" value={story.readiness.marketSensitive ? 'YES' : 'NO'} />
                 <IdentityRow label="Snapshot required" value={story.readiness.marketSnapshotRequired ? 'YES' : 'NO'} />
                 <IdentityRow label="Freshness policy" value={story.readiness.freshnessPolicy} />
+                <IdentityRow label="Historical replay" value={`${story.readiness.historicalReplayDecision} @ ${story.readiness.historicalReplayAsOfUtc}`} mono />
+                <IdentityRow label="Current freshness" value={`${story.readiness.currentFreshnessDecision} @ ${story.readiness.operatorEvaluationAsOfUtc}`} mono />
+                <IdentityRow label="Current source age" value={story.readiness.calculatedSourceAgeHours === null ? 'UNAVAILABLE' : `${story.readiness.calculatedSourceAgeHours.toLocaleString()} hours`} />
+                <IdentityRow label="Current operator readiness" value={story.readiness.currentOperatorReady ? 'READY' : 'HOLD'} />
                 <IdentityRow label="Visual policy" value={story.readiness.visualPolicy} />
                 <IdentityRow label="Editorial readiness" value={story.readiness.editorialReadiness} />
               </dl>
@@ -565,7 +574,7 @@ export function CanonicalPackageReviewConsole() {
                     </div>
                     <div className="flex flex-wrap justify-end gap-2">
                       <StatusChip status={variant.readiness.operatorReadyForDecision ? 'verified' : 'blocked'}>
-                        {variant.readiness.operatorReadyForDecision ? 'EDITORIALLY READY' : 'EDITORIAL HOLD'}
+                        {variant.readiness.currentOperatorReady ? 'CURRENT OPERATOR READY' : 'CURRENT OPERATOR HOLD'}
                       </StatusChip>
                       <StatusChip status="review">DECISION PENDING</StatusChip>
                       <StatusChip status="blocked">PUBLICATION NOT AUTHORIZED</StatusChip>

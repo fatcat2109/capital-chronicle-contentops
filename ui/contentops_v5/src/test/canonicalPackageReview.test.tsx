@@ -9,6 +9,7 @@ import {
   canonicalReviewStories,
   canonicalReviewSummary,
   canonicalVariantEvidenceRecords,
+  decisionTimeFreshnessRecords,
   joinCanonicalVariantEvidence,
   resolvePlatformVisualExpectation,
   sha256Canonical,
@@ -142,26 +143,43 @@ describe('canonical package evidence adapter', () => {
     expect(usgs.blockers.freshness).toEqual([]);
   });
 
-  it('exposes exactly five USGS text-only variants ready for an operator decision', () => {
+  it('holds all 18 variants at current decision time and supersedes the five historical USGS receipts', () => {
     const ready = canonicalReviewStories.flatMap((story) =>
       story.variants
         .filter((variant) => variant.readiness.operatorReadyForDecision)
         .map((variant) => ({ story, variant })),
     );
-    expect(canonicalReviewSummary.operatorReadyVariantCount).toBe(5);
-    expect(ready).toHaveLength(5);
-    for (const { story, variant } of ready) {
-      expect(story.authority.sourceFamily).toBe('usgs_comcat');
-      expect(variant.platform).not.toBe('substack_newsletter');
+    expect(canonicalReviewSummary.operatorReadyVariantCount).toBe(0);
+    expect(ready).toHaveLength(0);
+    for (const story of canonicalReviewStories) {
+      for (const variant of story.variants) {
       expect(variant.readiness).toMatchObject({
-        editorialReadiness: 'PASS',
+        currentFreshnessDecision: 'BLOCK',
+        currentOperatorReady: false,
+        editorialReadiness: 'BLOCK',
         operatorDecisionState: 'PENDING_OPERATOR_DECISION',
         publicationAuthority: false,
         publicationReadiness: 'BLOCK',
         dispatchAuthority: false,
         dispatchReadiness: 'BLOCK',
       });
+      }
     }
+  });
+
+  it('keeps historical replay separate from current source age and readiness', () => {
+    const usgs = canonicalReviewStories.find((story) => story.authority.sourceFamily === 'usgs_comcat')!;
+    expect(usgs.readiness.historicalReplayDecision).toBe('PASS');
+    expect(usgs.readiness.historicalReplayAsOfUtc).toBe('2019-07-06T03:19:53.040000Z');
+    expect(usgs.readiness.operatorEvaluationAsOfUtc).toBe('2026-08-01T00:00:00Z');
+    expect(usgs.readiness.calculatedSourceAgeHours).toBeGreaterThan(60000);
+    expect(usgs.readiness.currentFreshnessDecision).toBe('BLOCK');
+    expect(usgs.readiness.unresolvedBlockers).toContain(
+      'analysis_requires_fresh_material_delta_or_current_reaction',
+    );
+    expect(usgs.readiness.unresolvedBlockers).not.toContain(
+      'market_sensitive_story_snapshot_stale_or_missing',
+    );
   });
 
   it('separates long-form visual requirements from text-only platform policy', () => {
@@ -281,6 +299,27 @@ describe('canonical package evidence adapter', () => {
     expect(sensitivityUsgs.readiness.readinessHash).not.toBe(baselineUsgs.readiness.readinessHash);
     expect(visualUsgs.variants.find((item) => item.platform === 'youtube_community')!.readiness.hashes.readinessHash)
       .not.toBe(baselineUsgs.variants.find((item) => item.platform === 'youtube_community')!.readiness.hashes.readinessHash);
+  });
+
+  it('changes integrated readiness hashes when the explicit operator evaluation cutoff changes', () => {
+    const baseline = buildCanonicalReviewStories();
+    const changedRecords = structuredClone(decisionTimeFreshnessRecords);
+    for (const record of changedRecords) {
+      record.current_operator_readiness.operator_evaluation_as_of_utc = '2026-08-02T00:00:00Z';
+      record.hashes.current_freshness_hash = sha256Canonical({
+        prior: record.hashes.current_freshness_hash,
+        operator_evaluation_as_of_utc: '2026-08-02T00:00:00Z',
+      });
+    }
+    const changed = buildCanonicalReviewStories(undefined, changedRecords);
+    for (const story of baseline) {
+      const changedStory = changed.find((item) => item.storyId === story.storyId)!;
+      expect(changedStory.readiness.readinessHash).not.toBe(story.readiness.readinessHash);
+      for (const variant of story.variants) {
+        expect(changedStory.variants.find((item) => item.platform === variant.platform)!.readiness.hashes.readinessHash)
+          .not.toBe(variant.readiness.hashes.readinessHash);
+      }
+    }
   });
 });
 

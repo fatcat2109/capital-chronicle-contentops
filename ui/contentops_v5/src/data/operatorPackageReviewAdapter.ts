@@ -4,6 +4,7 @@
 import editorialEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/canonical_editorial_outcomes.json';
 import packageEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/superseding_unsigned_operator_packages.json';
 import variantEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/platform_native_variants.json';
+import decisionTimeFreshnessEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1/decision_time_freshness_records.json';
 import sourceCapabilityRegistry from '../../../../docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/source_evidence_capability_registry_v2.json';
 import type { SelectableObject, StatusKind } from '../types';
 
@@ -91,6 +92,12 @@ export interface CanonicalPlatformReadiness {
   editorialReadiness: ReadinessGateStatus;
   effectivePlatformVisualMode: string;
   freshnessPolicy: string;
+  historicalReplayAsOfUtc: string;
+  historicalReplayDecision: string;
+  currentFreshnessDecision: string;
+  operatorEvaluationAsOfUtc: string;
+  calculatedSourceAgeHours: number | null;
+  currentOperatorReady: boolean;
   gates: CanonicalReadinessGate[];
   hashes: CanonicalReadinessHashes;
   marketSensitive: boolean;
@@ -118,6 +125,12 @@ export interface CanonicalStoryReadiness {
   dispatchReadiness: ReadinessGateStatus;
   editorialReadiness: ReadinessGateStatus;
   freshnessPolicy: string;
+  historicalReplayAsOfUtc: string;
+  historicalReplayDecision: string;
+  currentFreshnessDecision: string;
+  operatorEvaluationAsOfUtc: string;
+  calculatedSourceAgeHours: number | null;
+  currentOperatorReady: boolean;
   gates: CanonicalReadinessGate[];
   marketSensitive: boolean;
   marketSnapshotRequired: boolean;
@@ -171,6 +184,33 @@ export interface CanonicalReviewStory {
 
 type EditorialOutcome = (typeof editorialEvidence.outcomes)[number];
 type OperatorPackage = (typeof packageEvidence.packages)[number];
+
+export interface DecisionTimeFreshnessRecord {
+  article_mode: string;
+  current_operator_readiness: {
+    blockers: string[];
+    decision: string;
+    operator_evaluation_as_of_utc: string;
+    primary_source_age_hours: number | null;
+  };
+  hashes: {
+    article_hash: string;
+    current_freshness_hash: string;
+    package_hash: string;
+    v3_packet_hash: string;
+  };
+  historical_point_in_time_replay: {
+    blockers: string[];
+    decision: string;
+    historical_replay_as_of_utc: string;
+  };
+  market_sensitive: boolean;
+  market_snapshot_required: boolean;
+  story_id: string;
+}
+
+export const decisionTimeFreshnessRecords =
+  decisionTimeFreshnessEvidence.records as DecisionTimeFreshnessRecord[];
 
 export interface CapabilityRow {
   article_mode?: string;
@@ -386,6 +426,7 @@ function buildReadiness(
   canonicalEditorialState: string,
   canonicalPackageState: string,
   roleOutcomes: EditorialOutcome['role_outcomes'],
+  decisionTimeFreshness: DecisionTimeFreshnessRecord,
   registryInput: CapabilityRegistry,
 ): { story: CanonicalStoryReadiness; platforms: Map<string, CanonicalPlatformReadiness> } {
   const capability = resolveStoryCapability(sourceFamily, article.mode, registryInput);
@@ -396,8 +437,17 @@ function buildReadiness(
   const marketSensitive = Boolean(
     capability.row.market_sensitive ?? capability.row.market_snapshot_required ?? capability.row.market_context_required,
   );
+  if (
+    decisionTimeFreshness.article_mode !== article.mode ||
+    decisionTimeFreshness.market_snapshot_required !== marketSnapshotRequired ||
+    decisionTimeFreshness.hashes.package_hash !== operatorPackage.package_hash ||
+    decisionTimeFreshness.hashes.article_hash !== article.hash ||
+    decisionTimeFreshness.hashes.v3_packet_hash !== operatorPackage.editorial_binding.v3_packet_logical_hash
+  ) {
+    throw new Error(`Decision-time freshness binding mismatch: ${operatorPackage.story_id}`);
+  }
   const rawFreshnessBlockers: string[] = [
-    ...operatorPackage.editorial_binding.freshness_disposition.blockers,
+    ...decisionTimeFreshness.current_operator_readiness.blockers,
   ];
   const nonMarketFreshnessBlockers = rawFreshnessBlockers.filter((blocker) =>
     !isMarketSnapshotBlocker(blocker) && !blocker.includes('permission'),
@@ -507,6 +557,12 @@ function buildReadiness(
     dispatchAuthority: false,
     editorialReadiness: storyEditorialReadiness,
     gates: storyGates,
+    historicalReplayAsOfUtc: decisionTimeFreshness.historical_point_in_time_replay.historical_replay_as_of_utc,
+    historicalReplayDecision: decisionTimeFreshness.historical_point_in_time_replay.decision,
+    currentFreshnessDecision: decisionTimeFreshness.current_operator_readiness.decision,
+    operatorEvaluationAsOfUtc: decisionTimeFreshness.current_operator_readiness.operator_evaluation_as_of_utc,
+    calculatedSourceAgeHours: decisionTimeFreshness.current_operator_readiness.primary_source_age_hours,
+    currentFreshnessHash: decisionTimeFreshness.hashes.current_freshness_hash,
     marketSensitive,
     marketSnapshotRequired,
     packageHash: operatorPackage.package_hash,
@@ -527,6 +583,12 @@ function buildReadiness(
     dispatchReadiness: 'BLOCK',
     editorialReadiness: storyEditorialReadiness,
     freshnessPolicy: String(capability.row.freshness_policy ?? 'registry'),
+    historicalReplayAsOfUtc: decisionTimeFreshness.historical_point_in_time_replay.historical_replay_as_of_utc,
+    historicalReplayDecision: decisionTimeFreshness.historical_point_in_time_replay.decision,
+    currentFreshnessDecision: decisionTimeFreshness.current_operator_readiness.decision,
+    operatorEvaluationAsOfUtc: decisionTimeFreshness.current_operator_readiness.operator_evaluation_as_of_utc,
+    calculatedSourceAgeHours: decisionTimeFreshness.current_operator_readiness.primary_source_age_hours,
+    currentOperatorReady: storyEditorialReadiness === 'PASS',
     gates: storyGates,
     marketSensitive,
     marketSnapshotRequired,
@@ -647,6 +709,12 @@ function buildReadiness(
       editorialReadiness: platformEditorial,
       effectivePlatformVisualMode: expectation.effective_visual_mode,
       gates: platformGates,
+      historicalReplayAsOfUtc: decisionTimeFreshness.historical_point_in_time_replay.historical_replay_as_of_utc,
+      historicalReplayDecision: decisionTimeFreshness.historical_point_in_time_replay.decision,
+      currentFreshnessDecision: decisionTimeFreshness.current_operator_readiness.decision,
+      operatorEvaluationAsOfUtc: decisionTimeFreshness.current_operator_readiness.operator_evaluation_as_of_utc,
+      calculatedSourceAgeHours: decisionTimeFreshness.current_operator_readiness.primary_source_age_hours,
+      currentFreshnessHash: decisionTimeFreshness.hashes.current_freshness_hash,
       marketSensitive,
       marketSnapshotRequired,
       operatorDecisionState: 'PENDING_OPERATOR_DECISION',
@@ -672,6 +740,12 @@ function buildReadiness(
       editorialReadiness: platformEditorial,
       effectivePlatformVisualMode: expectation.effective_visual_mode,
       freshnessPolicy: String(capability.row.freshness_policy ?? 'registry'),
+      historicalReplayAsOfUtc: decisionTimeFreshness.historical_point_in_time_replay.historical_replay_as_of_utc,
+      historicalReplayDecision: decisionTimeFreshness.historical_point_in_time_replay.decision,
+      currentFreshnessDecision: decisionTimeFreshness.current_operator_readiness.decision,
+      operatorEvaluationAsOfUtc: decisionTimeFreshness.current_operator_readiness.operator_evaluation_as_of_utc,
+      calculatedSourceAgeHours: decisionTimeFreshness.current_operator_readiness.primary_source_age_hours,
+      currentOperatorReady: platformEditorial === 'PASS',
       gates: platformGates,
       hashes: {
         articleHash: article.hash,
@@ -778,6 +852,7 @@ function buildClaims(outcome: EditorialOutcome): CanonicalReviewClaim[] {
 function joinStory(
   operatorPackage: OperatorPackage,
   outcome: EditorialOutcome,
+  decisionRecords: readonly DecisionTimeFreshnessRecord[],
   registryInput: CapabilityRegistry,
 ): CanonicalReviewStory {
   if (operatorPackage.story_id !== outcome.story_id) {
@@ -791,6 +866,12 @@ function joinStory(
   }
 
   const receipt = operatorPackage.authority_binding.exact_git_receipt;
+  const freshnessMatches = decisionRecords.filter(
+    (record) => record.story_id === operatorPackage.story_id,
+  );
+  if (freshnessMatches.length !== 1) {
+    throw new Error(`Decision-time freshness missing or duplicate: ${operatorPackage.story_id}`);
+  }
   const article = {
       body: outcome.canonical_article.rendered_body,
       hash: outcome.canonical_article_hash,
@@ -816,6 +897,7 @@ function joinStory(
     operatorPackage.editorial_binding.editorial_state,
     operatorPackage.state,
     outcome.role_outcomes,
+    freshnessMatches[0],
     registryInput,
   );
   return {
@@ -867,6 +949,7 @@ function joinStory(
 
 export function buildCanonicalReviewStories(
   registryInput: CapabilityRegistry = capabilityRegistry,
+  decisionRecords: readonly DecisionTimeFreshnessRecord[] = decisionTimeFreshnessRecords,
 ): CanonicalReviewStory[] {
   return packageEvidence.packages.map((operatorPackage) => {
     const outcome = editorialEvidence.outcomes.find(
@@ -875,7 +958,7 @@ export function buildCanonicalReviewStories(
     if (!outcome) {
       throw new Error(`Missing canonical editorial outcome: ${operatorPackage.story_id}`);
     }
-    return joinStory(operatorPackage, outcome, registryInput);
+    return joinStory(operatorPackage, outcome, decisionRecords, registryInput);
   });
 }
 

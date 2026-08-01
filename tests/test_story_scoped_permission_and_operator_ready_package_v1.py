@@ -12,10 +12,7 @@ from live_contentops.window_incremental_editorial_shadow_v1 import (
 
 
 UPSTREAM_AUTHORITY = Path(
-    "A:/Capital Chronicle/Headline Raw data local json/"
-    "capital-chronicle-ingestion-multi-story-authority-v1/"
-    "docs/research/publication_evidence/current/"
-    "CapitalChronicleMultiStoryScopedReportingAuthorityBatchV1.json"
+    "tests/fixtures/multi_story_scoped_reporting_authority_batch_v1.json"
 )
 EVIDENCE_DIR = Path(
     "docs/automation/"

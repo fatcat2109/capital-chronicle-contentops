@@ -8,7 +8,7 @@ Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicl
 
 Authority date: 2026-07-14
 
-Current architecture classification: `PASS_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1_AWAITING_CHATGPT_AUDIT`.
+Current architecture classification: `PASS_DECISION_TIME_FRESHNESS_TRUTH_V1_NO_CURRENT_OPERATOR_READY_PACKAGE_AWAITING_CHATGPT_AUDIT`.
 
 Current accepted public release: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
 
@@ -84,7 +84,7 @@ Final-closure evidence: `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/co
 
 Bounded repairs restored historical LinkedIn content, corrected Facebook copy, and deleted the two authorized malformed Threads posts. A valid Threads reply had to be recreated after duplicate-text UI ambiguity, leaving an operator-visible order caveat. The oil editorial repair passes locally but is unpublished.
 
-Current generic live evidence remains: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`. Current no-write editorial/operator evidence is `docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/final_manifest.json`; current executable snapshot-policy evidence is `docs/automation/CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1/final_manifest.json`.
+Current generic live evidence remains: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`. Current no-write editorial/operator readiness evidence is `docs/automation/CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1/final_manifest.json`; current executable snapshot-policy evidence is `docs/automation/CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1/final_manifest.json`.
 
 Database packet `cc-publication-73ff151c3d3094741b6c` grants story-scoped `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED` while preserving global `dqr=BLOCKED`. The canonical runner published `Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%`, then produced eight native derivatives with strict readback. Bounded updates repaired the Substack caption fragment, tightened the RC, and corrected the final auction-confirmation logic without derivative or video writes. Strict readback preserved all three ordered visuals, captions, sources, and numeric claims. Machine QA and the final release verifier pass.
 
@@ -92,11 +92,13 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1` — `PASS_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1_AWAITING_CHATGPT_AUDIT`.
+Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1` — `PASS_DECISION_TIME_FRESHNESS_TRUTH_V1_NO_CURRENT_OPERATOR_READY_PACKAGE_AWAITING_CHATGPT_AUDIT`.
+
+The exact FOMC, Apple SEC, and USGS claim-permission bridge remains accepted, but its historical packet replay no longer implies current operator readiness. The canonical freshness evaluator requires an explicit decision-time cutoff for `CURRENT_OPERATOR_READINESS` and keeps that result distinct from `HISTORICAL_POINT_IN_TIME_REPLAY`. At the fixed 2026-08-01 cutoff, FOMC and Apple remain stale and snapshot/ingest blocked; USGS remains nonmarket but its 2019 source is stale under the unchanged analysis mode. All 18 variants remain current HOLD, including the five text-only receipts now superseded by truthful current-readiness records. Publication, dispatch, public-write, and approval authority remain false.
 
 The exact pinned FOMC, Apple SEC, and USGS story-scoped authority now drives per-claim V3 permission rather than depending on a numeric projection. All five current nonnumeric claims pass exact allowlist and boundary checks; missing or widened authority fails closed with the field named. Numeric, interpretive, market-reaction, forecast, advice, trading, source-family, publication, dispatch, and public-write authority remains false.
 
-The canonical capability path preserves FOMC/Apple snapshot and ingest holds, removes those blockers from nonmarket USGS, and keeps long-form visual HOLDs. Five exact USGS text-only packages are editorially ready for operator decision, remain `PENDING_OPERATOR_DECISION`, and carry no publication or dispatch authority. The V5 matrix separates these states visibly. Focused Python tests, all 204 V5 tests, production build, deterministic/hash validation, and fresh desktop/mobile Edge QA passed; the monolithic suite was not run and no CI PASS is claimed.
+The prior capability path preserved FOMC/Apple snapshot and ingest holds, removed those blockers from nonmarket USGS, and kept long-form visual HOLDs. Its five historical-cutoff USGS text-only readiness receipts remain immutable prior evidence but are superseded for current operator use by the decision-time records above. No publication or dispatch authority was ever granted.
 
 The canonical V5 `canonical_package_review` surface fail-closed joins platform-native evidence by story ID, candidate ID, platform ID, exact authorized claim set, and superseding-package payload hash. Across the exact FOMC, Apple SEC, and USGS packages, all 18 Substack, LinkedIn, X, Facebook, Telegram, and YouTube Community cards expose complete rendered copy, platform surface/mode, character count and limit, citations, limitations, claims, payload hash, and `NOT AUTHORIZED` dispatch state. It remains forced to `dark-evidence`, responsive, inspector-integrated, and without approval capture, ledger execution, publication, dispatch, provider/browser platform action, credential, network intake, scheduler, or public-write capability.
 
@@ -122,4 +124,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is retained as `ACCEPT_TRUSTED
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is retained as `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair derives authority, permission, and roles from registered extractors, copies qualification into receipt-backed bindings, derives candidate authority across every bound extracted record, and requires exact-set or registered feature aggregation. It adds no scenario, calibration, product, publication, or policy behavior.
 
-Next action: `INDEPENDENT_CHATGPT_AUDIT_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1`.
+Next action: `INDEPENDENT_CHATGPT_AUDIT_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1`.

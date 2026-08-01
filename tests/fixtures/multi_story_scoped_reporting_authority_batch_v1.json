@@ -1,0 +1,351 @@
+{
+  "authorized_story_count": 3,
+  "generated_at_utc": "legacy_retrieval_timestamp_not_evidenced",
+  "logical_hash": "f825fcfe8016b6a020d855180267f393d6df0b2f6b6e98edbb351c6b549a3840",
+  "packet_id": "cc-multi-story-authority-3ff3f14f9a231ce791a9",
+  "protected_state": {
+    "canonical_dataset_mutation_count": 0,
+    "dispatch_authority": false,
+    "global_dqr_override": false,
+    "global_dqr_status": "BLOCKED",
+    "public_write_authority": false,
+    "publication_authority": false,
+    "source_family_promoted": false,
+    "trading_authority": false
+  },
+  "schema_version": "capital_chronicle.multi_story_scoped_reporting_authority_batch.v1",
+  "source_family_count": 3,
+  "stories": [
+    {
+      "claims": [
+        {
+          "claim_id": "claim-95f6638ac5460d82",
+          "claim_type": "official_document_release",
+          "contains_numeric_assertion": false,
+          "interpretation_allowed": false,
+          "reporting_allowed": true,
+          "source_field": "native_item.description",
+          "text": "Minutes of the Federal Open Market Committee, April 28-29, 2026"
+        }
+      ],
+      "consumer_permissions": {
+        "authorized_claim_ids": [
+          "claim-95f6638ac5460d82"
+        ],
+        "consumer_class": "contentops_publication",
+        "decision": "PASS_STORY_SCOPED_REPORTING",
+        "derived_from_verifier": true,
+        "dispatch_allowed": false,
+        "exact_story_only": true,
+        "financial_advice_allowed": false,
+        "forecast_allowed": false,
+        "global_dqr_override": false,
+        "interpretation_allowed": false,
+        "market_reaction_allowed": false,
+        "numeric_reporting_allowed": false,
+        "public_write_allowed": false,
+        "publication_allowed": false,
+        "reporting_allowed": true,
+        "source_family_wide_authority": false,
+        "trading_allowed": false
+      },
+      "dqr_decision": {
+        "global_dqr_override": false,
+        "global_dqr_status": "BLOCKED",
+        "reporting_allowed": true,
+        "story_reporting_decision": "PASS_STORY_SCOPED_REPORTING"
+      },
+      "limitations": [
+        "Release metadata only.",
+        "No rate-path, policy interpretation, market-reaction, forecast, numeric, publication, dispatch, or trading authority."
+      ],
+      "logical_hash": "a8aa016cae684f0f755ec9bcc064e81e70a801d69e7345659bd719ca6ac53f00",
+      "official_urls": {
+        "canonical_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm",
+        "citation_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm"
+      },
+      "provider": "Federal Reserve Board",
+      "provider_record_id": "fomc-rss-monetary20260520a",
+      "record_type": "official_press_release_rss_item",
+      "source_family": "federal_reserve_fomc",
+      "source_family_promoted": false,
+      "source_native_identity": {
+        "category": "Monetary Policy",
+        "description": "Minutes of the Federal Open Market Committee, April 28-29, 2026",
+        "deterministic_item_sha256": "7463b43ee589686b46ea14cf7c13a8d31bdec57601e6a94f90397be2dbf8d441",
+        "guid": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm",
+        "link": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260520a.htm",
+        "pubDate": "Wed, 20 May 2026 18:00:00 GMT",
+        "title": "Minutes of the Federal Open Market Committee, April 28-29, 2026"
+      },
+      "source_receipt": {
+        "byte_length": 9636,
+        "ref": "data/raw/fed_fomc_official_text_spine_controlled_live_capture_v1/fed_rss_press_monetary.raw",
+        "sha256": "3fe9851055e5bd6c89c667e08533709da7669bdf24196d1ae5a604ade450cf24"
+      },
+      "stable_record_id": "3746a70c32245f93312e0198b53b6af5df1583077780d058aecd89adc0ec65b3",
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "target_id": "FED_FOMC_OFFICIAL_RSS_MONETARY_POLICY",
+      "timestamps": {
+        "event_at": "2026-04-29",
+        "known_at": "2026-07-09T18:12:22.866521Z",
+        "provider_updated_at": "2026-05-20T18:00:00Z",
+        "published_at": "2026-05-20T18:00:00Z"
+      },
+      "version_id": "1eec98f094ca3981b7550cdae87cc409e6352e7347f38d689d273aa0bd180d8e"
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "claim-661031f2768d9629",
+          "claim_type": "official_filing_identity",
+          "contains_numeric_assertion": false,
+          "interpretation_allowed": false,
+          "reporting_allowed": true,
+          "source_field": "native_record.form",
+          "text": "Apple Inc. filed a Form 10-Q with the U.S. Securities and Exchange Commission."
+        },
+        {
+          "claim_id": "claim-403af5e0ec85b722",
+          "claim_type": "official_filing_document",
+          "contains_numeric_assertion": false,
+          "interpretation_allowed": false,
+          "reporting_allowed": true,
+          "source_field": "native_record.primaryDocDescription",
+          "text": "The filing's primary document is identified by the SEC as a 10-Q."
+        }
+      ],
+      "consumer_permissions": {
+        "authorized_claim_ids": [
+          "claim-661031f2768d9629",
+          "claim-403af5e0ec85b722"
+        ],
+        "consumer_class": "contentops_publication",
+        "decision": "PASS_STORY_SCOPED_REPORTING",
+        "derived_from_verifier": true,
+        "dispatch_allowed": false,
+        "exact_story_only": true,
+        "financial_advice_allowed": false,
+        "forecast_allowed": false,
+        "global_dqr_override": false,
+        "interpretation_allowed": false,
+        "market_reaction_allowed": false,
+        "numeric_reporting_allowed": false,
+        "public_write_allowed": false,
+        "publication_allowed": false,
+        "reporting_allowed": true,
+        "source_family_wide_authority": false,
+        "trading_allowed": false
+      },
+      "dqr_decision": {
+        "global_dqr_override": false,
+        "global_dqr_status": "BLOCKED",
+        "reporting_allowed": true,
+        "story_reporting_decision": "PASS_STORY_SCOPED_REPORTING"
+      },
+      "limitations": [
+        "SEC filing metadata only; filing-body facts are not authorized.",
+        "No earnings, revenue, guidance, company impact, market-reaction, interpretation, numeric, publication, dispatch, or trading authority."
+      ],
+      "logical_hash": "47c851b219379850ca2c01245d49ba8d6fcb3fe2480bc95c96206caf541c3cb6",
+      "official_urls": {
+        "canonical_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm",
+        "citation_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm"
+      },
+      "provider": "U.S. Securities and Exchange Commission",
+      "provider_record_id": "0000320193-26-000013",
+      "record_type": "official_filing_metadata",
+      "source_family": "sec_edgar",
+      "source_family_promoted": false,
+      "source_native_identity": {
+        "acceptanceDateTime": "2026-05-01T10:01:00.000Z",
+        "accessionNumber": "0000320193-26-000013",
+        "act": "34",
+        "cik": "0000320193",
+        "deterministic_record_sha256": "79815e4c6aa0bbfbf1bb129f6503e97954a0c5e1c53c4bb98dadb65d34c65799",
+        "fileNumber": "001-36743",
+        "filingDate": "2026-05-01",
+        "filmNumber": "26928636",
+        "form": "10-Q",
+        "isInlineXBRL": 1,
+        "isXBRL": 1,
+        "issuer": "Apple Inc.",
+        "items": "",
+        "primaryDocDescription": "10-Q",
+        "primaryDocument": "aapl-20260328.htm",
+        "reportDate": "2026-03-28",
+        "size": 5809851
+      },
+      "source_receipt": {
+        "byte_length": 164394,
+        "raw_manifest_id": "059aa6d291e98e26a945f2805f93abe790c6fe087d4c6450aaf73d80f2c437db",
+        "ref": "data/local_dbh2_history_v1/raw/DBH2_SEC_AAPL_SUBMISSIONS/root_ea2aa552e984a29e.json",
+        "retrieved_at_utc": "legacy_retrieval_timestamp_not_evidenced",
+        "sha256": "ea2aa552e984a29e920cf80e0827cf32b632563935f029b6ec9de7f4fa3c026d"
+      },
+      "stable_record_id": "ad5615196289523a51df906b071169680e8d953a4e3e91ba9cc297218eb252e5",
+      "story_id": "apple-sec-10q-2026-000013",
+      "target_id": "DBH2_SEC_AAPL_SUBMISSIONS",
+      "timestamps": {
+        "event_at": "2026-03-28",
+        "known_at": "legacy_retrieval_timestamp_not_evidenced",
+        "provider_updated_at": "2026-05-01T10:01:00.000Z",
+        "published_at": "2026-05-01"
+      },
+      "version_id": "56b2231c18e09e5d20057c58215225967eee06da4b522903895be223769cbbbf"
+    },
+    {
+      "claims": [
+        {
+          "claim_id": "claim-a436944fa62bc374",
+          "claim_type": "official_event_review_status",
+          "contains_numeric_assertion": false,
+          "interpretation_allowed": false,
+          "reporting_allowed": true,
+          "source_field": "native_event.properties.status",
+          "text": "USGS identifies the event as reviewed."
+        },
+        {
+          "claim_id": "claim-f1f734761cccc69a",
+          "claim_type": "official_event_location_identity",
+          "contains_numeric_assertion": false,
+          "interpretation_allowed": false,
+          "reporting_allowed": true,
+          "source_field": "native_event.properties.place",
+          "text": "USGS identifies the event as part of the Ridgecrest Earthquake Sequence."
+        }
+      ],
+      "consumer_permissions": {
+        "authorized_claim_ids": [
+          "claim-a436944fa62bc374",
+          "claim-f1f734761cccc69a"
+        ],
+        "consumer_class": "contentops_publication",
+        "decision": "PASS_STORY_SCOPED_REPORTING",
+        "derived_from_verifier": true,
+        "dispatch_allowed": false,
+        "exact_story_only": true,
+        "financial_advice_allowed": false,
+        "forecast_allowed": false,
+        "global_dqr_override": false,
+        "interpretation_allowed": false,
+        "market_reaction_allowed": false,
+        "numeric_reporting_allowed": false,
+        "public_write_allowed": false,
+        "publication_allowed": false,
+        "reporting_allowed": true,
+        "source_family_wide_authority": false,
+        "trading_allowed": false
+      },
+      "dqr_decision": {
+        "global_dqr_override": false,
+        "global_dqr_status": "BLOCKED",
+        "reporting_allowed": true,
+        "story_reporting_decision": "PASS_STORY_SCOPED_REPORTING"
+      },
+      "limitations": [
+        "Only the exact reviewed event identity and location wording are authorized.",
+        "No magnitude, damage, impact, affected-entity, market-reaction, interpretation, numeric, publication, dispatch, or trading authority."
+      ],
+      "logical_hash": "61217db801824019f06892b26390a1be3e232c56be5ad91da42a442be33e29eb",
+      "official_urls": {
+        "canonical_url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511",
+        "citation_url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci38457511"
+      },
+      "provider": "U.S. Geological Survey",
+      "provider_record_id": "ci38457511",
+      "record_type": "official_reviewed_physical_event",
+      "source_family": "usgs_comcat",
+      "source_family_promoted": false,
+      "source_native_identity": {
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=ci38457511&format=geojson",
+        "deterministic_feature_sha256": "14809bca9c25edf640cdb65578af1477db0371e0f4748b476de18ed4e7bbd5df",
+        "event_id": "ci38457511",
+        "normalized_content_sha256": "f5191333402a05bee59758024777eb224dbfa73ede8d936c08e6606cecba3147",
+        "place": "Ridgecrest Earthquake Sequence",
+        "status": "reviewed",
+        "title": "M 7.1 - Ridgecrest Earthquake Sequence",
+        "type": "earthquake"
+      },
+      "source_receipt": {
+        "byte_length": 115370,
+        "parquet_byte_length": 1689957,
+        "parquet_ref": "data/local_dbh2_history_v1/parquet_integrity_repair_v1/DBH2_USGS_SIGNIFICANT_GLOBAL/records_5d8cbb16caade9b3.parquet",
+        "parquet_sha256": "f947ed80002d7bd6043c3a82c5ef9d6d4b70e24b3434a541f7431ea1f02cf028",
+        "raw_manifest_id": "b1b63bebd593b2942a012a7d4d6a51deb09f1605003e2448820232a67517dda9",
+        "ref": "data/local_dbh2_history_v1/raw/DBH2_USGS_SIGNIFICANT_GLOBAL/year_2019_65889b93519363f9.json",
+        "retrieved_at_utc": "legacy_retrieval_timestamp_not_evidenced",
+        "sha256": "65889b93519363f99187e3c26205340c4746da39e3613399726ab93cbdcb7587"
+      },
+      "stable_record_id": "ffea0aa1b50f7d7d90ce3876810673d7c2a85ec3f46599423719a2fdf7704d79",
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "target_id": "DBH2_USGS_SIGNIFICANT_GLOBAL",
+      "timestamps": {
+        "event_at": "2019-07-06T03:19:53.040000Z",
+        "known_at": "legacy_retrieval_timestamp_not_evidenced",
+        "provider_updated_at": "2026-07-04T03:30:04.295000Z",
+        "published_at": "2019-07-06T03:19:53.040000+00:00"
+      },
+      "version_id": "481842f33acb2885800f15c13b12a089ba82cfe3a7889d9092b08c033dc95fa9"
+    }
+  ],
+  "story_count": 3,
+  "task_id": "TASK_CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1",
+  "terminal_status": "PASS_MULTI_STORY_SCOPED_REPORTING_AUTHORITY_BATCH_V1",
+  "upstream_authority": {
+    "dbh2_acceptance_ref": "docs/research/database_foundation/public_free_event_text_entity_history_v1/DBH2_EXACT_OFFLINE_ACCEPTANCE_RESULT_V1.json",
+    "dbh2_acceptance_status": "PASS",
+    "dbh2_verifier_ref": "docs/research/database_foundation/public_free_event_text_entity_history_v1/DBH2_INDEPENDENT_VERIFIER_V1.json",
+    "dbh2_verifier_status": "PASS",
+    "raw_manifest_ref": "docs/research/database_foundation/public_free_event_text_entity_history_v1/DBH2_RAW_MANIFEST_INDEX_V1.json",
+    "storage_manifest_ref": "docs/research/database_foundation/public_free_event_text_entity_history_v1/DBH2_STORAGE_MANIFEST_V1.json"
+  },
+  "verifier": {
+    "blockers": [],
+    "checks": {
+      "apple-sec-10q-2026-000013::dqr_exact_nonoverride": true,
+      "apple-sec-10q-2026-000013::exact_claim_allowlist": true,
+      "apple-sec-10q-2026-000013::exact_native_identity": true,
+      "apple-sec-10q-2026-000013::exact_official_urls": true,
+      "apple-sec-10q-2026-000013::exact_record_and_version_identity": true,
+      "apple-sec-10q-2026-000013::exact_source_receipt": true,
+      "apple-sec-10q-2026-000013::exact_timestamps": true,
+      "apple-sec-10q-2026-000013::no_family_promotion": true,
+      "apple-sec-10q-2026-000013::no_market_or_unsupported_prose": true,
+      "apple-sec-10q-2026-000013::no_numeric_or_interpretive_claim": true,
+      "apple-sec-10q-2026-000013::permission_exact": true,
+      "apple-sec-10q-2026-000013::story_logical_hash_exact": true,
+      "exact_story_set": true,
+      "fomc-minutes-2026-04-28-29::dqr_exact_nonoverride": true,
+      "fomc-minutes-2026-04-28-29::exact_claim_allowlist": true,
+      "fomc-minutes-2026-04-28-29::exact_native_identity": true,
+      "fomc-minutes-2026-04-28-29::exact_official_urls": true,
+      "fomc-minutes-2026-04-28-29::exact_record_and_version_identity": true,
+      "fomc-minutes-2026-04-28-29::exact_source_receipt": true,
+      "fomc-minutes-2026-04-28-29::exact_timestamps": true,
+      "fomc-minutes-2026-04-28-29::no_family_promotion": true,
+      "fomc-minutes-2026-04-28-29::no_market_or_unsupported_prose": true,
+      "fomc-minutes-2026-04-28-29::no_numeric_or_interpretive_claim": true,
+      "fomc-minutes-2026-04-28-29::permission_exact": true,
+      "fomc-minutes-2026-04-28-29::story_logical_hash_exact": true,
+      "protected_no_live_no_write": true,
+      "task_and_schema_exact": true,
+      "three_authorized_stories": true,
+      "three_distinct_source_families": true,
+      "upstream_acceptance_bound": true,
+      "usgs-reviewed-ridgecrest-ci38457511::dqr_exact_nonoverride": true,
+      "usgs-reviewed-ridgecrest-ci38457511::exact_claim_allowlist": true,
+      "usgs-reviewed-ridgecrest-ci38457511::exact_native_identity": true,
+      "usgs-reviewed-ridgecrest-ci38457511::exact_official_urls": true,
+      "usgs-reviewed-ridgecrest-ci38457511::exact_record_and_version_identity": true,
+      "usgs-reviewed-ridgecrest-ci38457511::exact_source_receipt": true,
+      "usgs-reviewed-ridgecrest-ci38457511::exact_timestamps": true,
+      "usgs-reviewed-ridgecrest-ci38457511::no_family_promotion": true,
+      "usgs-reviewed-ridgecrest-ci38457511::no_market_or_unsupported_prose": true,
+      "usgs-reviewed-ridgecrest-ci38457511::no_numeric_or_interpretive_claim": true,
+      "usgs-reviewed-ridgecrest-ci38457511::permission_exact": true,
+      "usgs-reviewed-ridgecrest-ci38457511::story_logical_hash_exact": true
+    },
+    "status": "PASS"
+  }
+}
