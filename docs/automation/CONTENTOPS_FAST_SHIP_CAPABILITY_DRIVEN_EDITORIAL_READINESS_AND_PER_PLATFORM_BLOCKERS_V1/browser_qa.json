@@ -1,0 +1,58 @@
+{
+  "schema_version": "contentops.capability_driven_editorial_readiness.browser_qa.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1",
+  "route": "/canonical_package_review",
+  "app_url": "http://127.0.0.1:4174/",
+  "mode": "READ_ONLY_EVIDENCE_REVIEW",
+  "theme": "dark-evidence",
+  "capture_method": "local_headless_microsoft_edge",
+  "story_tab_count": 3,
+  "platform_cards_per_story": 6,
+  "desktop": {
+    "viewport": "1440x1000",
+    "selected_story": "fomc-minutes-2026-04-28-29",
+    "screenshot": "desktop_readiness_matrix.png",
+    "screenshot_bytes": 220578,
+    "screenshot_sha256": "2765d7246dda94e6b003c1fada52e9223ccaa53705e8f0118d6124aa7bd78a8f",
+    "document_scroll_width": 1440,
+    "document_client_width": 1440,
+    "checks": [
+      "capability-derived story profile is visible",
+      "six per-platform readiness records are rendered",
+      "editorial, freshness, visual, authority, and dispatch categories are visible",
+      "publication-authority blocker is visible",
+      "editorial, dispatch, and publication readiness are separate",
+      "exact package, article, V3, and variant hashes are rendered",
+      "no document horizontal overflow"
+    ],
+    "result": "PASS"
+  },
+  "mobile": {
+    "viewport": "390x844",
+    "selected_story": "usgs-reviewed-ridgecrest-ci38457511",
+    "screenshot": "mobile_readiness_matrix.png",
+    "screenshot_bytes": 48903,
+    "screenshot_sha256": "42bce78beaf2bf6dec80f261b22e915d14c8d5ff89afa00e7c1133cbc2884ca0",
+    "document_scroll_width": 390,
+    "document_client_width": 390,
+    "checks": [
+      "physical-event capability profile shows market sensitive NO",
+      "physical-event capability profile shows snapshot required NO",
+      "six platform readiness records remain in the document",
+      "readiness-only and dispatch boundary labels remain present",
+      "no document horizontal overflow"
+    ],
+    "result": "PASS"
+  },
+  "runtime_health": {
+    "console_errors": false,
+    "uncaught_runtime_errors": false,
+    "failed_resources": false,
+    "document_horizontal_overflow": false,
+    "external_action_performed": false,
+    "credentials_accessed": false,
+    "external_network_endpoint_accessed": false,
+    "publication_or_dispatch_performed": false
+  },
+  "result": "PASS"
+}

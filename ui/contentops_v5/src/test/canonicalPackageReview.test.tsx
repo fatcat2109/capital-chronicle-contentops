@@ -4,6 +4,7 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import App from '../App';
 import {
+  buildCanonicalReviewStories,
   canonicalReviewStories,
   canonicalReviewSummary,
   canonicalVariantEvidenceRecords,
@@ -93,6 +94,84 @@ describe('canonical package evidence adapter', () => {
         ...records.slice(1),
       ]),
     ).toThrow(/claim allowlist mismatch/i);
+  });
+
+  it('derives article mode and market sensitivity from source capabilities', () => {
+    const fomc = canonicalReviewStories.find((story) => story.authority.sourceFamily === 'federal_reserve_fomc')!;
+    const apple = canonicalReviewStories.find((story) => story.authority.sourceFamily === 'sec_edgar')!;
+    const usgs = canonicalReviewStories.find((story) => story.authority.sourceFamily === 'usgs_comcat')!;
+
+    expect(fomc.readiness).toMatchObject({
+      articleMode: 'analysis',
+      marketSensitive: true,
+      marketSnapshotRequired: true,
+      storyType: 'policy_decision',
+    });
+    expect(apple.readiness).toMatchObject({
+      articleMode: 'analysis',
+      marketSensitive: true,
+      marketSnapshotRequired: true,
+      storyType: 'company_sector_event',
+    });
+    expect(usgs.readiness).toMatchObject({
+      articleMode: 'analysis',
+      marketSensitive: false,
+      marketSnapshotRequired: false,
+      storyType: 'physical_event',
+    });
+  });
+
+  it('does not inherit market-snapshot blockers for the USGS physical event', () => {
+    const usgs = canonicalReviewStories.find((story) => story.authority.sourceFamily === 'usgs_comcat')!;
+    expect(usgs.readiness.unresolvedBlockers).not.toEqual(
+      expect.arrayContaining([
+        'market_sensitive_story_snapshot_stale_or_missing',
+        'market_sensitive_story_ingest_stale_or_missing',
+      ]),
+    );
+    expect(usgs.readiness.gates.find((gate) => gate.id === 'market_snapshot')).toMatchObject({
+      blockers: [],
+      status: 'NOT_APPLICABLE',
+    });
+    expect(usgs.editorialState).toBe('HOLD');
+    expect(usgs.readiness.unresolvedBlockers).toContain('candidate_public_claim_permission_blocked');
+  });
+
+  it('separates long-form visual requirements from text-only platform policy', () => {
+    for (const story of canonicalReviewStories) {
+      const substack = story.variants.find((variant) => variant.platform === 'substack_newsletter')!;
+      const community = story.variants.find((variant) => variant.platform === 'youtube_community')!;
+      expect(substack.readiness.visualPolicy).toBe('long_form_article');
+      expect(substack.readiness.unresolvedBlockers).toContain('fewer_than_three_useful_visuals');
+      expect(community.readiness.visualPolicy).toBe('text_only_surface');
+      expect(community.readiness.unresolvedBlockers).not.toContain('fewer_than_three_useful_visuals');
+      expect(community.readiness.gates.find((gate) => gate.id === 'platform_visuals')).toMatchObject({
+        blockers: [],
+        status: 'NOT_APPLICABLE',
+      });
+    }
+  });
+
+  it('binds every platform readiness record to exact package, article, V3, and variant hashes', () => {
+    for (const story of canonicalReviewStories) {
+      for (const variant of story.variants) {
+        expect(variant.readiness.hashes).toEqual({
+          articleHash: story.article.hash,
+          packageHash: story.packageHash,
+          v3PacketHash: story.v3PacketLogicalHash,
+          variantHash: variant.payloadHash,
+        });
+        expect(variant.readiness.publicationAuthorityBlocker).toBe('publication_authority_not_granted');
+        expect(variant.readiness.dispatchReadiness).toBe('BLOCK');
+        expect(variant.readiness.publicationReadiness).toBe('BLOCK');
+      }
+    }
+  });
+
+  it('replays capability-derived readiness deterministically', () => {
+    const first = buildCanonicalReviewStories();
+    const second = buildCanonicalReviewStories();
+    expect(JSON.stringify(second)).toBe(JSON.stringify(first));
   });
 });
 
@@ -184,6 +263,22 @@ describe('canonical package review console', () => {
         expect(
           screen.getByText(`Limit ${variant.characterLimit.toLocaleString()}`),
         ).toBeInTheDocument();
+      }
+    }
+  });
+
+  it('renders per-platform blocker matrices for every story', () => {
+    render(<App />);
+    fireEvent.click(document.getElementById('nav-canonical_package_review')!);
+
+    for (const story of canonicalReviewStories) {
+      fireEvent.click(document.getElementById(`canonical-story-tab-${story.storyId}`)!);
+      expect(screen.getByText('Capability-driven readiness matrix')).toBeInTheDocument();
+      expect(screen.getByText(story.readiness.storyType)).toBeInTheDocument();
+      for (const variant of story.variants) {
+        const card = screen.getByTestId(`platform-readiness-${variant.platform}`);
+        expect(within(card).getAllByText(variant.readiness.publicationAuthorityBlocker).length).toBeGreaterThan(0);
+        expect(within(card).getByText(variant.readiness.hashes.variantHash)).toBeInTheDocument();
       }
     }
   });

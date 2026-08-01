@@ -67,16 +67,25 @@ def validate_chart_methodology(asset: Mapping[str, Any]) -> list[str]:
 
 
 def evaluate_visual_composition(
-    assets: Sequence[Mapping[str, Any]], *, editorial_exception: str | None = None, story_type: str | None = None
+    assets: Sequence[Mapping[str, Any]], *, editorial_exception: str | None = None, story_type: str | None = None,
+    requirements: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
+    visual_requirements = {
+        "minimum_visual_count": 3,
+        "requires_lead_visual": True,
+        "requires_visual_diversity": True,
+        "requires_contextual_nonprice_visual": story_type in {"geopolitical_event", "supply_chain_event"},
+        **dict(requirements or {}),
+    }
     blockers: list[str] = []
-    if len(assets) < 3 and not editorial_exception:
+    minimum_visual_count = int(visual_requirements["minimum_visual_count"])
+    if len(assets) < minimum_visual_count and not editorial_exception:
         blockers.append("fewer_than_three_useful_visuals")
     dimensions = {str(row.get("evidence_dimension") or "") for row in assets if row.get("evidence_dimension")}
     modalities = {str(row.get("modality") or "") for row in assets if row.get("modality")}
-    if len(dimensions) < 2 and len(modalities) < 2:
+    if visual_requirements["requires_visual_diversity"] and len(dimensions) < 2 and len(modalities) < 2:
         blockers.append("insufficient_visual_evidence_diversity")
-    if story_type in {"geopolitical_event", "supply_chain_event"} and not modalities.intersection({"official_photo", "map", "infrastructure_context", "contextual_image"}):
+    if visual_requirements["requires_contextual_nonprice_visual"] and not modalities.intersection({"official_photo", "map", "infrastructure_context", "contextual_image"}):
         blockers.append("physical_or_geopolitical_story_requires_contextual_nonprice_visual")
     if story_type == "data_release" and assets and modalities <= {"chart", "time_series"} and len(dimensions) < 3:
         blockers.append("all_chart_data_release_requires_three_distinct_evidence_dimensions")
@@ -90,9 +99,9 @@ def evaluate_visual_composition(
         if count > 2:
             blockers.append(f"underlying_series_overused:{series_id}:{count}")
     lead = next((row for row in assets if row.get("role") == "lead_contextual"), None)
-    if not lead:
+    if visual_requirements["requires_lead_visual"] and not lead:
         blockers.append("lead_visual_missing")
-    elif not lead.get("supports_headline"):
+    elif visual_requirements["requires_lead_visual"] and not lead.get("supports_headline"):
         blockers.append("lead_visual_does_not_support_headline")
     hashes = [str(row.get("perceptual_hash") or row.get("sha256") or "") for row in assets]
     if len([value for value in hashes if value]) != len(set(value for value in hashes if value)):
@@ -106,6 +115,7 @@ def evaluate_visual_composition(
         "underlying_series_counts": series_counts,
         "editorial_exception": editorial_exception,
         "story_type": story_type,
+        "requirements": visual_requirements,
         "blockers": list(dict.fromkeys(blockers)),
         "decision_hash": hashlib.sha256(json.dumps(blockers, sort_keys=True).encode()).hexdigest(),
     }

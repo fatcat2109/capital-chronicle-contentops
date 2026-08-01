@@ -204,6 +204,58 @@ def test_six_generalized_story_families_resolve_without_topic_hardcoding(story_t
     assert decision["visual_roles"]
 
 
+@pytest.mark.parametrize(
+    ("source_family_id", "story_type", "market_snapshot_required"),
+    [
+        ("federal_reserve_fomc", "policy_decision", True),
+        ("sec_edgar", "company_sector_event", True),
+        ("usgs_comcat", "physical_event", False),
+    ],
+)
+def test_source_family_capabilities_derive_mode_and_market_sensitivity(
+    source_family_id, story_type, market_snapshot_required
+):
+    decision = resolve_story_capabilities(
+        {"source_family_id": source_family_id},
+        load_source_capability_registry(),
+    )
+    assert decision["status"] == "PASS"
+    assert decision["story_type"] == story_type
+    assert decision["article_mode"] == "analysis"
+    assert decision["market_snapshot_required"] is market_snapshot_required
+    assert decision["freshness_requirements"]["requires_market_snapshot"] is market_snapshot_required
+
+
+def test_usgs_physical_event_does_not_require_market_snapshot():
+    capability = resolve_story_capabilities(
+        {"source_family_id": "usgs_comcat", "article_mode": "analysis"},
+        load_source_capability_registry(),
+    )
+    request = {
+        "article_mode": capability["article_mode"],
+        "market_sensitive": capability["market_snapshot_required"],
+        "fresh_material_delta": True,
+    }
+    packet = _fresh_packet()
+    packet["numeric_claims"] = []
+    packet["market_snapshots"] = []
+    decision = evaluate_freshness(packet, request)
+    assert "market_sensitive_story_snapshot_stale_or_missing" not in decision["blockers"]
+    assert "market_sensitive_story_ingest_stale_or_missing" not in decision["blockers"]
+
+
+def test_long_form_and_text_only_visual_policies_are_distinct():
+    registry = load_source_capability_registry()
+    long_form = registry["platform_visual_expectations"]["substack_newsletter"]
+    text_only = registry["platform_visual_expectations"]["youtube_community"]
+    assert "fewer_than_three_useful_visuals" in evaluate_visual_composition(
+        [], requirements=long_form
+    )["blockers"]
+    text_decision = evaluate_visual_composition([], requirements=text_only)
+    assert text_decision["status"] == "PASS"
+    assert text_decision["blockers"] == []
+
+
 def test_google_visual_provider_is_current_discovery_only_contract():
     request = GoogleImageSearchGroundingProvider().build_request("official port infrastructure photo")
     assert request["tools"][0]["search_types"] == ["web_search", "image_search"]

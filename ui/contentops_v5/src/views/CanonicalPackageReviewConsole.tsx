@@ -9,6 +9,8 @@ import {
   selectCanonicalReviewRole,
   selectCanonicalReviewStory,
   selectCanonicalReviewVariant,
+  type CanonicalPlatformReadiness,
+  type ReadinessGateStatus,
   type CanonicalReviewStory,
 } from '../data/operatorPackageReviewAdapter';
 import { EvidenceChip, Panel, StatusChip } from '../ui/primitives';
@@ -88,6 +90,80 @@ function BlockerGroup({
         ))}
       </ul>
     </div>
+  );
+}
+
+function readinessChipStatus(status: ReadinessGateStatus): 'verified' | 'review' | 'blocked' {
+  return status === 'PASS' ? 'verified' : status === 'NOT_APPLICABLE' ? 'review' : 'blocked';
+}
+
+function ReadinessStatus({ status }: { status: ReadinessGateStatus }) {
+  return <StatusChip status={readinessChipStatus(status)}>{status.replace('_', ' ')}</StatusChip>;
+}
+
+function PlatformReadinessCard({
+  readiness,
+}: {
+  readiness: CanonicalPlatformReadiness;
+}) {
+  const categories = ['editorial', 'freshness', 'visual', 'authority', 'dispatch'] as const;
+  return (
+    <article
+      data-testid={`platform-readiness-${readiness.platform}`}
+      className="min-w-0 rounded-xl border border-line bg-surface-2 p-4"
+    >
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h3 className="text-sm font-semibold text-fg">{PLATFORM_LABELS[readiness.platform] ?? readiness.platform}</h3>
+          <p className="mt-1 break-words font-mono text-[10px] uppercase tracking-wider text-accent">
+            {readiness.visualPolicy} · {readiness.articleMode}
+          </p>
+        </div>
+        <ReadinessStatus status={readiness.editorialReadiness} />
+      </div>
+      <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
+        {categories.map((category) => {
+          const gates = readiness.gates.filter((item) => item.category === category && item.id !== 'article_mode');
+          const status: ReadinessGateStatus = gates.some((gate) => gate.status === 'BLOCK')
+            ? 'BLOCK'
+            : gates.some((gate) => gate.status === 'PASS')
+              ? 'PASS'
+              : 'NOT_APPLICABLE';
+          return (
+            <div key={category} className="rounded-lg border border-line bg-bg/40 p-2.5">
+              <div className="font-mono text-[9px] uppercase tracking-wider text-fg-subtle">{category}</div>
+              <div className="mt-1"><ReadinessStatus status={status} /></div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-4 space-y-2">
+        <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-fg-subtle">
+          Unresolved blockers ({readiness.unresolvedBlockers.length})
+        </div>
+        {readiness.unresolvedBlockers.length ? (
+          <ul className="space-y-1">
+            {readiness.unresolvedBlockers.map((blocker) => (
+              <li key={blocker} className="break-words font-mono text-[10px] leading-relaxed text-status-blocked">{blocker}</li>
+            ))}
+          </ul>
+        ) : <div className="text-[11px] text-fg-muted">No unresolved capability blockers.</div>}
+      </div>
+      <div className="mt-4 grid gap-2 border-t border-line pt-3 text-[10px]">
+        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Publication authority</span><span className="font-mono text-status-blocked">{readiness.publicationAuthorityBlocker}</span></div>
+        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Editorial readiness</span><ReadinessStatus status={readiness.editorialReadiness} /></div>
+        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Dispatch readiness</span><ReadinessStatus status={readiness.dispatchReadiness} /></div>
+        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Publication readiness</span><ReadinessStatus status={readiness.publicationReadiness} /></div>
+      </div>
+      <dl className="mt-4 space-y-1 border-t border-line pt-3">
+        {Object.entries(readiness.hashes).map(([label, value]) => (
+          <div key={label} className="grid gap-1 sm:grid-cols-[7rem_1fr]">
+            <dt className="font-mono text-[9px] uppercase tracking-wider text-fg-subtle">{label.replace('Hash', ' hash')}</dt>
+            <dd className="break-all font-mono text-[10px] text-fg-muted">{value}</dd>
+          </div>
+        ))}
+      </dl>
+    </article>
   );
 }
 
@@ -408,6 +484,33 @@ export function CanonicalPackageReviewConsole() {
             <BlockerGroup label="Adversarial" blockers={story.blockers.adversarial} />
           </div>
         </div>
+
+        <Panel
+          title="Capability-driven readiness matrix"
+          subtitle="Story and platform gates are derived from the committed source capability registry and remain separate from dispatch/publication authority"
+          actions={<StatusChip status="review">READINESS ONLY</StatusChip>}
+        >
+          <div className="grid gap-3 xl:grid-cols-[minmax(0,0.8fr)_minmax(0,2fr)]">
+            <div className="rounded-xl border border-line bg-surface-2 p-4">
+              <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-accent">Story capability profile</div>
+              <dl className="mt-3 space-y-2">
+                <IdentityRow label="Story type" value={story.readiness.storyType} mono />
+                <IdentityRow label="Article mode" value={story.readiness.articleMode} />
+                <IdentityRow label="Market sensitive" value={story.readiness.marketSensitive ? 'YES' : 'NO'} />
+                <IdentityRow label="Snapshot required" value={story.readiness.marketSnapshotRequired ? 'YES' : 'NO'} />
+                <IdentityRow label="Freshness policy" value={story.readiness.freshnessPolicy} />
+                <IdentityRow label="Visual policy" value={story.readiness.visualPolicy} />
+                <IdentityRow label="Editorial readiness" value={story.readiness.editorialReadiness} />
+              </dl>
+              <div className="mt-4 rounded-lg border border-status-blocked/25 bg-status-blocked/5 p-3 text-[10px] leading-relaxed text-fg-muted">
+                Publication authority blocker: <span className="font-mono text-status-blocked">{story.readiness.publicationAuthorityBlocker}</span>
+              </div>
+            </div>
+            <div className="grid min-w-0 gap-3 sm:grid-cols-2">
+              {story.variants.map((variant) => <PlatformReadinessCard key={variant.platform} readiness={variant.readiness} />)}
+            </div>
+          </div>
+        </Panel>
 
         <Panel
           title="Six platform copy variants"

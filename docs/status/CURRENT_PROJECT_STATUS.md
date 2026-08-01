@@ -4,9 +4,19 @@
 
 ## Current Classification
 
-`PASS_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1`.
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1`.
+
+## Capability-Driven Editorial Readiness And Per-Platform Blockers V1
+
+The canonical V5 package review now derives article mode, market sensitivity, market-snapshot requirements, freshness policy, article visual policy, and platform visual expectations from the committed source capability registry. FOMC and Apple SEC remain market-sensitive; USGS resolves to the physical-event capability with market sensitivity and market snapshots not applicable. Long-form Substack retains the article visual gate while text-only social/community surfaces do not inherit the three-visual requirement.
+
+Each of the three stories and all 18 platform variants now carries capability-derived applicable and passed gates, unresolved blockers, publication-authority blocker, editorial readiness separate from dispatch/publication readiness, and exact article/package/V3/variant hashes. Existing authoritative permission, editorial, freshness, visual, publication, and dispatch blockers remain fail-closed; all packages remain `HOLD`, `PENDING_OPERATOR_DECISION`, and `REQUEST_REVISION`.
+
+The canonical console includes a responsive per-platform blocker matrix grouped into editorial, freshness, visual, authority, and dispatch categories. Focused capability, USGS regression, visual-policy, hash-binding, deterministic-replay, V5 UI, and production-build checks passed. Fresh local Microsoft Edge QA passed at 1440x1000 and 390x844 with no console/runtime/resource errors or horizontal overflow. Evidence is committed at `docs/automation/CONTENTOPS_FAST_SHIP_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1/`.
+
+No publication, dispatch, approval, credential, provider/browser action, network intake, scheduler action, or public write occurred. The monolithic repository suite was not run and no CI PASS is claimed.
 
 ## V5 Full Variant Review And Committed UI Evidence
 
@@ -253,6 +263,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1`
+`INDEPENDENT_CHATGPT_AUDIT_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1`
 
-Independently verify all 18 exact variant-to-package joins, complete rendered copy, platform modes, character limits, citations, limitations, authorized claims, payload hashes, dispatch-not-authorized boundaries, negative fail-closed fixtures, committed browser evidence, responsive behavior, status consistency, and no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.
+Independently verify capability-derived story modes and sensitivity, USGS non-market behavior, long-form versus text-only visual policy, all per-platform gates and exact hashes, deterministic replay, committed browser evidence, responsive behavior, status consistency, and no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.

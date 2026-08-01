@@ -30,7 +30,9 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Latest completed task: `TASK_CONTENTOPS_FAST_SHIP_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1` — `PASS_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1_AWAITING_CHATGPT_AUDIT`.
+Latest completed task: `TASK_CONTENTOPS_FAST_SHIP_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1` — `PASS_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1_AWAITING_CHATGPT_AUDIT`.
+
+The canonical review now derives source/story and platform capability gates for the existing FOMC, Apple SEC, and USGS packages. It preserves market blockers only where required, keeps USGS non-market, separates long-form and text-only visual policy, and exposes exact per-platform package/article/V3/variant hash bindings with editorial versus dispatch/publication readiness. Focused tests, replay, build, and fresh desktop/mobile Edge QA passed; all packages remain truthful HOLD and no write path was exercised.
 
 The canonical V5 package review console fail-closed joins the committed platform-native evidence to the exact FOMC, Apple SEC, and USGS packages by story, candidate, platform, authorized claim set, and payload hash. All 18 Substack, LinkedIn, X, Facebook, Telegram, and YouTube Community cards expose complete copy, mode, character count/limit, citations, limitations, claims, payload hash, and dispatch-not-authorized state. Focused positive/negative tests and the production build passed; durable fresh Edge QA passed at desktop/mobile sizes with no runtime/resource errors or horizontal overflow. The surface remains read-only; packages remain `PENDING_OPERATOR_DECISION`, truthful `HOLD`, and recommended `REQUEST_REVISION`; no approval, publication, dispatch, credential, provider-platform, network, scheduler, or public write occurred.
 
@@ -52,4 +54,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is `ACCEPT_TRUSTED_VERIFIER_RE
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair closes extracted authority, permission, semantic-role, candidate consistency, and multi-evidence aggregation gaps without modifying fixtures, calibration, policy, publication authority, or the accepted release.
 
-Next route: `INDEPENDENT_CHATGPT_AUDIT_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1`.
+Next route: `INDEPENDENT_CHATGPT_AUDIT_CAPABILITY_DRIVEN_EDITORIAL_READINESS_AND_PER_PLATFORM_BLOCKERS_V1`.

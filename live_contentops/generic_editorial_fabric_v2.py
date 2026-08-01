@@ -141,19 +141,25 @@ def run_generic_prepare_only(
     )
     packet["validation_blockers"] = validate_evidence_packet(packet)
     capabilities = resolve_story_capabilities(story_request, load_source_capability_registry())
-    freshness = evaluate_freshness(packet, story_request)
+    capability_request = dict(story_request)
+    if capabilities.get("status") == "PASS":
+        capability_request["article_mode"] = capabilities["article_mode"]
+        capability_request["market_sensitive"] = capabilities["market_snapshot_required"]
+        capability_request["market_snapshot_required"] = capabilities["market_snapshot_required"]
+    freshness = evaluate_freshness(packet, capability_request)
     visual_assets = list(story_request.get("visual_assets") or [])
     visual = evaluate_visual_composition(
         visual_assets,
         editorial_exception=story_request.get("visual_editorial_exception"),
-        story_type=str(story_request.get("story_type") or ""),
+        story_type=str(capabilities.get("story_type") or story_request.get("story_type") or ""),
+        requirements=capabilities.get("visual_requirements") or None,
     )
     article = dict(story_request.get("article_candidate") or {})
     revision_contract = build_editorial_revision_contract(
         article=article, packet=packet, revision_input=story_request.get("editorial_revision_v2")
     )
     editorial = run_editorial_review(
-        request=story_request,
+        request=capability_request,
         packet=packet,
         article=article,
         freshness_decision=freshness,
