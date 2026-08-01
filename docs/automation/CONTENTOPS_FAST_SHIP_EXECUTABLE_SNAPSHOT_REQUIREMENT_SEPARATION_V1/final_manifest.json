@@ -1,0 +1,73 @@
+{
+  "schema_version": "contentops.executable_snapshot_requirement_final_manifest.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1",
+  "starting_remote_head": "bec002937d9de37f31092acb67fc0965d085e85c",
+  "terminal_classification": "PASS_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1_AWAITING_CHATGPT_AUDIT",
+  "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1",
+  "source_blobs": [
+    {
+      "path": "live_contentops/freshness_market_state_v2.py",
+      "git_blob_sha1": "29191adddc6b2a15573741d17f9fbba10816f3cf"
+    },
+    {
+      "path": "live_contentops/generic_editorial_fabric_v2.py",
+      "git_blob_sha1": "d12ccbe38b42743da7045594191f47e09ef123e8"
+    },
+    {
+      "path": "live_contentops/source_capability_registry_v2.py",
+      "git_blob_sha1": "d43c66c924c1a9c2142a08d4f7ef5e011beb0c13"
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/source_evidence_capability_registry_v2.json",
+      "git_blob_sha1": "f08e89b4c097490b69f3df97eeb2a3ed35eca18c"
+    },
+    {
+      "path": "tests/test_executable_snapshot_requirement_separation_v1.py",
+      "git_blob_sha1": "cd2a783fafaf3ca93af3dc6c4b41d760d9bbce9a"
+    },
+    {
+      "path": "scripts/build_executable_snapshot_requirement_evidence_v1.py",
+      "git_blob_sha1": "484d61c09c36c5077a76ec6fd73cce0a75b23900"
+    }
+  ],
+  "canonical_package_evidence": {
+    "unchanged": true,
+    "artifacts": [
+      {
+        "path": "docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/superseding_unsigned_operator_packages.json",
+        "git_blob_sha1": "47fc5eda9500ad06ee0122c4d5ecacf001066260"
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/canonical_editorial_outcomes.json",
+        "git_blob_sha1": "c781c1c424342c0691f24e0c0029beaf31033233"
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1/platform_native_variants.json",
+        "git_blob_sha1": "411c6f2ef89d67919cf47f76962362a60a703ed1"
+      }
+    ]
+  },
+  "output_artifacts": [
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1/snapshot_requirement_truth_table.json",
+      "byte_sha256": "9aea6bc0eead355aef0464be36a10f9453a3c5b412ef67e301596ea54a73629d"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1/validation_truth.json",
+      "byte_sha256": "27241885e9f6359b12e7f6a53ad90aa2a2b84b1627a6dc6b1aa8058ed5899fe3"
+    }
+  ],
+  "no_write_state": {
+    "canonical_package_evidence_unchanged": true,
+    "approval_execution_performed": false,
+    "publication_authority": false,
+    "dispatch_authority": false,
+    "network_call_performed": false,
+    "provider_call_performed": false,
+    "public_write_performed": false
+  },
+  "monolithic_repository_suite_run": false,
+  "ci_pass_claimed": false,
+  "result": "PASS",
+  "logical_hash": "e3cf52e85dd565186d2dea5a9623a96dfa8d375808cf6ef0706a6b662df66f8d"
+}

@@ -4,17 +4,17 @@
 
 ## Current Classification
 
-`PASS_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1`.
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1`.
 
-## Capability Policy Genericity And Readiness Receipt Repair V1
+## Executable Snapshot Requirement Separation V1
 
-The capability resolver no longer supplies an implicit universal `analysis` mode. Explicit registry modes remain deterministic, valid caller-provided modes are preserved where the registry does not define policy, missing modes fail closed, and caller/registry mismatches remain blockers. Existing FOMC, Apple SEC, and USGS behavior is preserved. Market sensitivity and market-snapshot requirements remain independently representable.
+The canonical freshness evaluator now consumes `market_sensitive` and `market_snapshot_required` independently. Missing or stale snapshot and ingest blockers are gated by the explicit snapshot requirement. When that field is absent, it defaults to `market_sensitive`, preserving historical caller behavior. Sensitivity remains separately executable for downgrade restrictions and future sensitivity-specific policy.
 
-Platform visual policy is now an exact match over platform ID, content surface, and variant mode. The current text-only variants retain zero-visual requirements, while unsupported image, mixed-media, video, and future modes fail closed rather than inheriting the waiver. Visual and readiness hashes bind effective article mode, sensitivity, snapshot policy, visual mode, applicable requirements, blockers, and exact article/package/V3/variant evidence.
+The freshness decision now returns the effective snapshot requirement explicitly. The executable truth table covers all four sensitivity/requirement combinations plus the absent-field compatibility case, and a generic-fabric integration test proves resolver values reach the written runtime freshness decision. Existing FOMC and Apple SEC behavior remains sensitive with snapshots required; USGS remains non-sensitive without snapshot requirements.
 
-The canonical console remains read-only and visibly separates canonical package/editorial state, derived capability applicability, and publication/dispatch authority. Focused policy and receipt tests, deterministic replay, all 203 V5 tests, production build, and fresh local Microsoft Edge QA at 1440x1000 and 390x844 passed. The compact committed receipt is at `docs/automation/CONTENTOPS_FAST_SHIP_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1/`.
+The affected 70-test Python shard, deterministic evidence replay, all 203 unchanged V5 tests, and production build passed. No visible UI output changed, so fresh browser QA was not required. Compact evidence is committed at `docs/automation/CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1/`.
 
 No publication, dispatch, approval, credential, provider/browser action, network intake, scheduler action, or public write occurred. The monolithic repository suite was not run and no CI PASS is claimed.
 
@@ -263,6 +263,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_CAPABILITY_POLICY_GENERICITY_AND_READINESS_RECEIPT_REPAIR_V1`
+`INDEPENDENT_CHATGPT_AUDIT_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1`
 
-Independently verify explicit versus caller-preserved article modes, unresolved/mismatched fail-closed behavior, independent sensitivity/snapshot policy, exact platform/surface/variant visual matching, hash mutation, deterministic receipt replay, responsive state separation, status consistency, and no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.
+Independently verify the executable five-case freshness truth table, absent-field compatibility, sensitivity-specific downgrade behavior, resolver-to-runtime generic-fabric flow, current FOMC/Apple SEC/USGS backend-UI parity, compact receipt hashes, status consistency, and no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.

@@ -301,7 +301,8 @@ def test_usgs_physical_event_does_not_require_market_snapshot():
     )
     request = {
         "article_mode": capability["article_mode"],
-        "market_sensitive": capability["market_snapshot_required"],
+        "market_sensitive": capability["market_sensitive"],
+        "market_snapshot_required": capability["market_snapshot_required"],
         "fresh_material_delta": True,
     }
     packet = _fresh_packet()

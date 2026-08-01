@@ -1,0 +1,92 @@
+{
+  "schema_version": "contentops.snapshot_requirement_truth_table.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1",
+  "starting_commit": "bec002937d9de37f31092acb67fc0965d085e85c",
+  "backward_compatibility": "market_snapshot_required defaults to market_sensitive only when absent",
+  "snapshot_blocker_contract": [
+    "market_sensitive_story_snapshot_stale_or_missing",
+    "market_sensitive_story_ingest_stale_or_missing"
+  ],
+  "case_count": 5,
+  "cases": [
+    {
+      "case_id": "sensitive_snapshot_required",
+      "request": {
+        "market_sensitive": true,
+        "market_snapshot_required": true
+      },
+      "effective_market_snapshot_required": true,
+      "expected_snapshot_blockers": [
+        "market_sensitive_story_snapshot_stale_or_missing",
+        "market_sensitive_story_ingest_stale_or_missing"
+      ],
+      "applied_snapshot_blockers": [
+        "market_sensitive_story_snapshot_stale_or_missing",
+        "market_sensitive_story_ingest_stale_or_missing"
+      ],
+      "decision": "BLOCK",
+      "pass": true
+    },
+    {
+      "case_id": "sensitive_snapshot_not_required",
+      "request": {
+        "market_sensitive": true,
+        "market_snapshot_required": false
+      },
+      "effective_market_snapshot_required": false,
+      "expected_snapshot_blockers": [],
+      "applied_snapshot_blockers": [],
+      "decision": "PASS",
+      "pass": true
+    },
+    {
+      "case_id": "nonsensitive_snapshot_required",
+      "request": {
+        "market_sensitive": false,
+        "market_snapshot_required": true
+      },
+      "effective_market_snapshot_required": true,
+      "expected_snapshot_blockers": [
+        "market_sensitive_story_snapshot_stale_or_missing",
+        "market_sensitive_story_ingest_stale_or_missing"
+      ],
+      "applied_snapshot_blockers": [
+        "market_sensitive_story_snapshot_stale_or_missing",
+        "market_sensitive_story_ingest_stale_or_missing"
+      ],
+      "decision": "BLOCK",
+      "pass": true
+    },
+    {
+      "case_id": "nonsensitive_snapshot_not_required",
+      "request": {
+        "market_sensitive": false,
+        "market_snapshot_required": false
+      },
+      "effective_market_snapshot_required": false,
+      "expected_snapshot_blockers": [],
+      "applied_snapshot_blockers": [],
+      "decision": "PASS",
+      "pass": true
+    },
+    {
+      "case_id": "snapshot_absent_legacy_sensitive_default",
+      "request": {
+        "market_sensitive": true,
+        "market_snapshot_required": "ABSENT"
+      },
+      "effective_market_snapshot_required": true,
+      "expected_snapshot_blockers": [
+        "market_sensitive_story_snapshot_stale_or_missing",
+        "market_sensitive_story_ingest_stale_or_missing"
+      ],
+      "applied_snapshot_blockers": [
+        "market_sensitive_story_snapshot_stale_or_missing",
+        "market_sensitive_story_ingest_stale_or_missing"
+      ],
+      "decision": "BLOCK",
+      "pass": true
+    }
+  ],
+  "logical_hash": "44e6a18543e2c1e1fa1aa908591b3be226d65e58e01da8aa4122c0e061d62f8e"
+}

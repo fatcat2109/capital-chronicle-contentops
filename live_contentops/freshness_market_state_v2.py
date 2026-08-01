@@ -39,6 +39,9 @@ def evaluate_freshness(
     ingest_age = min((_age_hours(as_of, row.get("generated_at_utc")) for row in snapshots), default=None, key=lambda x: float("inf") if x is None else x)
     mode = str(request.get("article_mode") or "analysis")
     market_sensitive = bool(request.get("market_sensitive", False))
+    market_snapshot_required = bool(
+        request.get("market_snapshot_required", market_sensitive)
+    )
     fresh_delta = bool(request.get("fresh_material_delta"))
     text = " ".join(str(request.get(key) or "") for key in ("title", "angle", "summary")).casefold()
     blockers = list(packet.get("blockers") or [])
@@ -49,9 +52,9 @@ def evaluate_freshness(
         blockers.append("analysis_requires_fresh_material_delta_or_current_reaction")
     if mode == "explainer" and any(term in text.split() for term in CURRENT_FRAMING_TERMS) and not fresh_delta:
         blockers.append("explainer_current_framing_requires_fresh_evidence")
-    if market_sensitive and (market_age is None or market_age > policy["analysis_market_hours"]):
+    if market_snapshot_required and (market_age is None or market_age > policy["analysis_market_hours"]):
         blockers.append("market_sensitive_story_snapshot_stale_or_missing")
-    if market_sensitive and (ingest_age is None or ingest_age > policy["ingest_hours"]):
+    if market_snapshot_required and (ingest_age is None or ingest_age > policy["ingest_hours"]):
         blockers.append("market_sensitive_story_ingest_stale_or_missing")
     if blockers:
         decision = "DOWNGRADE_TO_EXPLAINER" if mode in {"straight_news", "analysis"} and not market_sensitive and request.get("allow_mode_downgrade") else "BLOCK"
@@ -61,6 +64,7 @@ def evaluate_freshness(
         "requested_article_mode": mode,
         "effective_article_mode": "explainer" if decision == "DOWNGRADE_TO_EXPLAINER" else mode,
         "market_sensitive": market_sensitive,
+        "market_snapshot_required": market_snapshot_required,
         "event_age_hours": event_age,
         "headline_age_hours": headline_age,
         "primary_source_age_hours": source_age,

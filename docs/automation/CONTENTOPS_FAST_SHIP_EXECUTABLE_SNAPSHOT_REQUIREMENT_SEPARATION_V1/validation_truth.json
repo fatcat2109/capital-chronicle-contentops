@@ -1,0 +1,66 @@
+{
+  "schema_version": "contentops.executable_snapshot_requirement_validation_truth.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1",
+  "starting_commit": "bec002937d9de37f31092acb67fc0965d085e85c",
+  "checks": {
+    "truth_table_all_pass": true,
+    "truth_table_deterministic_replay": true,
+    "sensitive_without_snapshot_is_executable": true,
+    "nonsensitive_with_snapshot_is_executable": true,
+    "absent_field_preserves_historical_behavior": true,
+    "current_three_package_runtime_parity": true,
+    "publication_authority_unchanged_false": true,
+    "dispatch_authority_unchanged_false": true,
+    "public_write_performed_false": true
+  },
+  "test_truth": {
+    "focused_test_file": "tests/test_executable_snapshot_requirement_separation_v1.py",
+    "truth_table_cases": 5,
+    "generic_fabric_integration_case": "test_generic_fabric_flows_resolver_snapshot_policy_into_runtime",
+    "backend_ui_parity_case": "test_backend_and_committed_v5_readiness_parity_for_current_three_packages",
+    "current_package_runtime": [
+      {
+        "package": "FOMC",
+        "source_family_id": "federal_reserve_fomc",
+        "market_sensitive": true,
+        "market_snapshot_required": true,
+        "applied_snapshot_blockers": [
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing"
+        ],
+        "pass": true
+      },
+      {
+        "package": "Apple SEC",
+        "source_family_id": "sec_edgar",
+        "market_sensitive": true,
+        "market_snapshot_required": true,
+        "applied_snapshot_blockers": [
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing"
+        ],
+        "pass": true
+      },
+      {
+        "package": "USGS",
+        "source_family_id": "usgs_comcat",
+        "market_sensitive": false,
+        "market_snapshot_required": false,
+        "applied_snapshot_blockers": [],
+        "pass": true
+      }
+    ]
+  },
+  "blocker_count": 0,
+  "result": "PASS",
+  "no_write_state": {
+    "canonical_package_evidence_unchanged": true,
+    "approval_execution_performed": false,
+    "publication_authority": false,
+    "dispatch_authority": false,
+    "network_call_performed": false,
+    "provider_call_performed": false,
+    "public_write_performed": false
+  },
+  "logical_hash": "eaae1c7de7e087377674f8a2f4080a0d699be2a7e84b2be973d59f26548abb89"
+}
