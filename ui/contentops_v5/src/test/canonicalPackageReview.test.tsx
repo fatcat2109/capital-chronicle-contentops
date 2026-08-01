@@ -10,6 +10,7 @@ import {
   canonicalReviewSummary,
   canonicalVariantEvidenceRecords,
   decisionTimeFreshnessRecords,
+  temporalAuthorityRecords,
   joinCanonicalVariantEvidence,
   resolvePlatformVisualExpectation,
   sha256Canonical,
@@ -167,10 +168,15 @@ describe('canonical package evidence adapter', () => {
     }
   });
 
-  it('keeps historical replay separate from current source age and readiness', () => {
+  it('separates source-time replay, point-in-time authority, and current readiness', () => {
     const usgs = canonicalReviewStories.find((story) => story.authority.sourceFamily === 'usgs_comcat')!;
-    expect(usgs.readiness.historicalReplayDecision).toBe('PASS');
-    expect(usgs.readiness.historicalReplayAsOfUtc).toBe('2019-07-06T03:19:53.040000Z');
+    expect(usgs.readiness.sourceTimeReplayDecision).toBe('PASS');
+    expect(usgs.readiness.sourceTimeReplayAsOfUtc).toBe('2019-07-06T03:19:53.040000+00:00');
+    expect(usgs.readiness.pointInTimeAuthorityStatus).toBe('BLOCK');
+    expect(usgs.readiness.pointInTimeAuthorityBlockers).toContain('FUTURE_REVISION_LEAKAGE_BLOCK');
+    expect(usgs.readiness.pointInTimeAuthorityUnprovenReasons).toContain(
+      'known_at_or_retrieved_at_unavailable_or_unevidenced',
+    );
     expect(usgs.readiness.operatorEvaluationAsOfUtc).toBe('2026-08-01T00:00:00Z');
     expect(usgs.readiness.calculatedSourceAgeHours).toBeGreaterThan(60000);
     expect(usgs.readiness.currentFreshnessDecision).toBe('BLOCK');
@@ -208,6 +214,7 @@ describe('canonical package evidence adapter', () => {
         });
         expect(variant.readiness.hashes.visualPolicyHash).toMatch(/^[a-f0-9]{64}$/);
         expect(variant.readiness.hashes.readinessHash).toMatch(/^[a-f0-9]{64}$/);
+        expect(variant.readiness.hashes.temporalAuthorityHash).toBe(story.readiness.temporalAuthorityHash);
         expect(variant.readiness.readinessOverlay).toBe('DERIVED_READINESS_OVERLAY');
         expect(variant.readiness.canonicalPackageEvidenceUnchanged).toBe(true);
         expect(variant.readiness.publicationAuthority).toBe(false);
@@ -321,6 +328,30 @@ describe('canonical package evidence adapter', () => {
       }
     }
   });
+
+  it('binds integrated readiness hashes to exact temporal-authority evidence', () => {
+    const baseline = buildCanonicalReviewStories();
+    const changedTemporal = structuredClone(temporalAuthorityRecords);
+    for (const record of changedTemporal) {
+      record.hashes.temporal_authority_hash = sha256Canonical({
+        prior: record.hashes.temporal_authority_hash,
+        known_at_or_retrieved_at_utc: 'mutated-for-hash-test',
+      });
+    }
+    const changed = buildCanonicalReviewStories(
+      undefined,
+      decisionTimeFreshnessRecords,
+      changedTemporal,
+    );
+    for (const story of baseline) {
+      const changedStory = changed.find((item) => item.storyId === story.storyId)!;
+      expect(changedStory.readiness.readinessHash).not.toBe(story.readiness.readinessHash);
+      for (const variant of story.variants) {
+        expect(changedStory.variants.find((item) => item.platform === variant.platform)!.readiness.hashes.readinessHash)
+          .not.toBe(variant.readiness.hashes.readinessHash);
+      }
+    }
+  });
 });
 
 describe('canonical package review console', () => {
@@ -399,6 +430,8 @@ describe('canonical package review console', () => {
     expect(screen.getByText('Derived capability applicability')).toBeInTheDocument();
     expect(screen.getByText('Publication / dispatch authority')).toBeInTheDocument();
     expect(screen.getByText('FALSE / FALSE')).toBeInTheDocument();
+    expect(screen.getAllByText('Point-in-time authority').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Source-time replay').length).toBeGreaterThan(0);
 
     for (const story of canonicalReviewStories) {
       fireEvent.click(

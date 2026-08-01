@@ -64,8 +64,8 @@ const records = first.flatMap((story) => story.variants.map((variant) => {
     source_timestamps: freshness.source_timestamps,
     historical_point_in_time_replay: {
       result_kind: 'HISTORICAL_POINT_IN_TIME_REPLAY',
-      as_of_utc: story.readiness.historicalReplayAsOfUtc,
-      decision: story.readiness.historicalReplayDecision,
+      as_of_utc: story.readiness.sourceTimeReplayAsOfUtc,
+      decision: story.readiness.sourceTimeReplayDecision,
       blockers: freshness.historical_point_in_time_replay.blockers,
     },
     current_operator_readiness: {

@@ -8,7 +8,7 @@ Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicl
 
 Authority date: 2026-07-14
 
-Current architecture classification: `PASS_DECISION_TIME_FRESHNESS_TRUTH_V1_NO_CURRENT_OPERATOR_READY_PACKAGE_AWAITING_CHATGPT_AUDIT`.
+Current architecture classification: `PASS_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1_AWAITING_CHATGPT_AUDIT`.
 
 Current accepted public release: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
 
@@ -84,7 +84,7 @@ Final-closure evidence: `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/co
 
 Bounded repairs restored historical LinkedIn content, corrected Facebook copy, and deleted the two authorized malformed Threads posts. A valid Threads reply had to be recreated after duplicate-text UI ambiguity, leaving an operator-visible order caveat. The oil editorial repair passes locally but is unpublished.
 
-Current generic live evidence remains: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`. Current no-write editorial/operator readiness evidence is `docs/automation/CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1/final_manifest.json`; current executable snapshot-policy evidence is `docs/automation/CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1/final_manifest.json`.
+Current generic live evidence remains: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`. Current no-write temporal-authority/editorial/operator-readiness evidence is `docs/automation/CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1/final_manifest.json`; current executable snapshot-policy evidence is `docs/automation/CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1/final_manifest.json`.
 
 Database packet `cc-publication-73ff151c3d3094741b6c` grants story-scoped `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED` while preserving global `dqr=BLOCKED`. The canonical runner published `Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%`, then produced eight native derivatives with strict readback. Bounded updates repaired the Substack caption fragment, tightened the RC, and corrected the final auction-confirmation logic without derivative or video writes. Strict readback preserved all three ordered visuals, captions, sources, and numeric claims. Machine QA and the final release verifier pass.
 
@@ -92,7 +92,9 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1` — `PASS_DECISION_TIME_FRESHNESS_TRUTH_V1_NO_CURRENT_OPERATOR_READY_PACKAGE_AWAITING_CHATGPT_AUDIT`.
+Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1` — `PASS_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1_AWAITING_CHATGPT_AUDIT`.
+
+Historical source-time freshness, exact-version point-in-time authority, and current operator readiness are now explicit independent results. A zero source age can pass only `HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY`; it cannot grant point-in-time authority. FOMC blocks because known-at is after cutoff, Apple remains unproven because known-at and exact cutoff time are unevidenced, and USGS blocks on unevidenced known-at plus future-revision leakage. Future source timestamps now fail closed instead of becoming age zero. The accepted current truth remains 18 HOLD variants, zero current-ready variants, and five exact superseded USGS receipts with unchanged canonical hashes and no publication, dispatch, approval, or public-write authority.
 
 The exact FOMC, Apple SEC, and USGS claim-permission bridge remains accepted, but its historical packet replay no longer implies current operator readiness. The canonical freshness evaluator requires an explicit decision-time cutoff for `CURRENT_OPERATOR_READINESS` and keeps that result distinct from `HISTORICAL_POINT_IN_TIME_REPLAY`. At the fixed 2026-08-01 cutoff, FOMC and Apple remain stale and snapshot/ingest blocked; USGS remains nonmarket but its 2019 source is stale under the unchanged analysis mode. All 18 variants remain current HOLD, including the five text-only receipts now superseded by truthful current-readiness records. Publication, dispatch, public-write, and approval authority remain false.
 

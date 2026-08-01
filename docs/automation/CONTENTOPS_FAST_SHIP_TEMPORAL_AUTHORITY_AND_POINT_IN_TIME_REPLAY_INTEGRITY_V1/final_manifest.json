@@ -1,0 +1,121 @@
+{
+  "schema_version": "contentops.temporal_authority_final_manifest.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1",
+  "starting_remote_head": "1548196ebffd2bc7ce82a4ae290211b9c53a45df",
+  "operator_evaluation_as_of_utc": "2026-08-01T00:00:00Z",
+  "terminal_classification": "PASS_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1_AWAITING_CHATGPT_AUDIT",
+  "exact_next_action": "INDEPENDENT_CHATGPT_AUDIT_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1",
+  "source_blobs": [
+    {
+      "path": "live_contentops/freshness_market_state_v2.py",
+      "git_blob_sha1": "38728044e341360581cd3c9b68606a3f608c3ac1",
+      "byte_sha256": "6b632d1228fc5d510942825ff3d7600eeb3f79a234555d8e7b2df93770c11370"
+    },
+    {
+      "path": "live_contentops/decision_time_operator_readiness_v1.py",
+      "git_blob_sha1": "1e8b421a0da07318cbe8ddd7743d81fd977d72ea",
+      "byte_sha256": "3d0c975619aee632cbe401a205e4c7bb88cab94bbb2f3beac88825d8f81a9e24"
+    },
+    {
+      "path": "live_contentops/temporal_authority_v1.py",
+      "git_blob_sha1": "2dfb70d42b8c9aa4bf9a523b07a2f1684c1ab159",
+      "byte_sha256": "a058fdd02af6c44c48b13e447cfc082d46805d92ce684c1738796adc2738fe40"
+    },
+    {
+      "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
+      "git_blob_sha1": "c621afae83cfedae7cf14e9946e24ffbb7617b2b",
+      "byte_sha256": "f9434c7d730d66b2a6c8ae87b76c6d79fab906bd1ff302b452322b7340f8e0fc"
+    },
+    {
+      "path": "ui/contentops_v5/src/views/CanonicalPackageReviewConsole.tsx",
+      "git_blob_sha1": "6b9cc0c4d1625696d5733cde3b0af8bc19148d2c",
+      "byte_sha256": "b11a6f498f56490a3d3956b7cce6bccbe888c36451c2d54d7b1c58c10c3bd870"
+    },
+    {
+      "path": "ui/contentops_v5/scripts/buildTemporalAuthorityEvidence.ts",
+      "git_blob_sha1": "9facf288742ef0a48e1c77d76506cd03954857db",
+      "byte_sha256": "026edd1172484e6b6bfd0e362cbbb76fe16eee72791ccb0f2ce4c091b2c2a212"
+    },
+    {
+      "path": "tests/test_decision_time_freshness_and_current_operator_readiness_v1.py",
+      "git_blob_sha1": "94ed6ca09aade1a5b8edcb59f6eff4a9173fafba",
+      "byte_sha256": "e09c9ab9a77f8db2ca47557d0148ae9eca8eddd05594c3e10226feb156843c5d"
+    },
+    {
+      "path": "tests/test_temporal_authority_and_point_in_time_replay_integrity_v1.py",
+      "git_blob_sha1": "08abc744d5a09b226258b10728c8ac3da7a92e7b",
+      "byte_sha256": "3c4d8e9fc6d2ac168b41933e71343b032ff5f50b7f3034caada5a015b3a4f6d2"
+    }
+  ],
+  "unchanged_canonical_evidence": [
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/canonical_content_evidence_packets_v3.json",
+      "git_blob_sha1": "e003b37a29c175913f48d1dcb7c2cb82d98573f1",
+      "byte_sha256": "4f45882e3342b749072f23ecdc1248aeaeb68c876bbe0b995ffcca9ee97010a2"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/canonical_editorial_outcomes.json",
+      "git_blob_sha1": "595b5f096e4146fec8bc95d997a5125464895c6c",
+      "byte_sha256": "99638708f0e9504bc0b8624a98d8b99bf5c42f5a565fe7ff1936085c433edf2e"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/platform_native_variants.json",
+      "git_blob_sha1": "65242eb8b1b5256bcbb28f2cd034947fbf733a85",
+      "byte_sha256": "7d728c4c05a0ebd2a53c50b7bf8884d71aef7c60b3ea7d531fdb5ad7dc392e31"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/superseding_unsigned_operator_packages.json",
+      "git_blob_sha1": "65e80c05dd6d29366df7087b157b27f8d269cc16",
+      "byte_sha256": "c2c6afc5f50686c2b864c009f21bf1fedadb08de69410e96c20e55b4750fd11a"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1/browser_qa.json",
+      "byte_sha256": "70a4fd317fce3334bbb74b1de22761a6018dab7508e09dbd37d2483a33569c0b"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1/browser_qa_desktop_1440x1000.png",
+      "byte_sha256": "9d9f8e01010eac5d738cad41acd25e75e9b00f8c6392058414132716a54f25eb"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1/browser_qa_mobile_390x844.png",
+      "byte_sha256": "2176ce2fb2e3842f721e5022d20c55eed40c10573901dee8c6ffe875473fab59"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1/current_readiness_parity.json",
+      "byte_sha256": "4ddef654ac8df591e30f5709420cf3b3e21f79138aa60540f7f8e85e4d6e320b"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1/historical_replay_integrity_matrix.json",
+      "byte_sha256": "2da9ed1998576808a220297ce96bd6e85c3d1e4f873b7b157c337377c16eae45"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1/temporal_authority_records.json",
+      "byte_sha256": "714a90795c36c073055ffdafba0d81a0de62e0d4b1eb139a1beebc9955fd3d71"
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1/validation_truth.json",
+      "byte_sha256": "4d5df3a0160ead4f1e1535a1c4eedf0cbba2b9f8011494586086b45b8438208a"
+    }
+  ],
+  "temporal_story_count": 3,
+  "historical_point_in_time_authority_pass_count": 0,
+  "current_operator_readiness_record_count": 18,
+  "current_operator_ready_count": 0,
+  "superseded_prior_text_only_receipt_count": 5,
+  "canonical_package_article_v3_variant_evidence_unchanged": true,
+  "publication_authority": false,
+  "dispatch_authority": false,
+  "approval_authority": false,
+  "public_write_authority": false,
+  "source_fetch_performed": false,
+  "credentials_read": false,
+  "network_call_performed": false,
+  "provider_or_browser_platform_action_performed": false,
+  "public_write_performed": false,
+  "monolithic_repository_suite_run": false,
+  "ci_pass_claimed": false,
+  "result": "PASS",
+  "logical_hash": "8fe4a3999884a242c080be6ce689298954e8bd063173b718d4dc844dd75d57c5"
+}

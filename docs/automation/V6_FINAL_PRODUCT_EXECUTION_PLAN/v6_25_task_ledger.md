@@ -9,7 +9,7 @@
 | 5 | Capital Chronicle evidence bridge | DONE_V2_READ_ONLY |
 | 6 | Claim IDs, timestamps, citations, permissions | DONE_V3_EXACT_STORY_SCOPED_NONNUMERIC_AND_NUMERIC_PERMISSION_BRIDGE |
 | 7 | Source capability registry | DONE_V2 |
-| 8 | Generic freshness/market-state gate | DONE_V2_HISTORICAL_REPLAY_SEPARATE_FROM_EXPLICIT_DECISION_TIME_CURRENT_READINESS |
+| 8 | Generic freshness/market-state gate | DONE_V2_SOURCE_TIME_REPLAY_POINT_IN_TIME_AUTHORITY_AND_CURRENT_READINESS_SEPARATE |
 | 9 | Provider-neutral visual research | DONE_V2 |
 | 10 | Google image-search grounding request contract | DONE_V2_DISCOVERY_ONLY |
 | 11 | Visual rights/provenance gate | DONE_V2 |
@@ -24,13 +24,15 @@
 | 20 | Nine text/image destinations and YouTube Community default | DONE_MACHINE_QA_AND_OPERATOR_ACCEPTED |
 | 21 | Real ingestion rehearsal | DONE_FAIL_CLOSED |
 | 22 | Six generalized story fixtures | DONE_LOCAL_ONLY |
-| 23 | V5 evidence dashboard | DONE_CANONICAL_THREE_STORY_HISTORICAL_REPLAY_AND_CURRENT_READINESS_TRUTH_READ_ONLY |
+| 23 | V5 evidence dashboard | DONE_CANONICAL_THREE_STORY_TEMPORAL_AUTHORITY_AND_CURRENT_READINESS_TRUTH_READ_ONLY |
 | 24 | Database-authorized generic live canary/re-audit | DONE_MACHINE_QA_PASS_OPERATOR_ACCEPTED |
 | 25 | v1.0 tag | DONE_ANNOTATED_OPERATOR_ACCEPTED_RELEASE |
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Latest completed task: `TASK_CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1` — `PASS_DECISION_TIME_FRESHNESS_TRUTH_V1_NO_CURRENT_OPERATOR_READY_PACKAGE_AWAITING_CHATGPT_AUDIT`.
+Latest completed task: `TASK_CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1` — `PASS_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1_AWAITING_CHATGPT_AUDIT`.
+
+Historical source-time freshness no longer carries point-in-time authority semantics. The exact-version temporal evaluator blocks FOMC on known-at after cutoff, leaves Apple unproven on unevidenced known-at/precision, and blocks USGS on unevidenced known-at plus future revision leakage. Future source times fail closed instead of becoming age zero. All 18 current variants remain HOLD, zero are current-ready, the same five USGS receipts remain superseded, and canonical evidence plus all no-authority boundaries remain unchanged.
 
 Current operator freshness is now evaluated against an explicit fixed decision-time cutoff rather than a packet's own historical timestamp. FOMC and Apple remain stale with snapshot/ingest blockers; USGS remains free of market-snapshot blockers but is stale as a 2019 source under the unchanged analysis mode. All 18 platform variants are current HOLD, the five earlier text-only ready receipts are superseded, and publication/dispatch/public-write authority remains false. Focused tests, the full V5 suite, build, deterministic/hash validation, and fresh desktop/mobile Edge QA pass; no monolithic-suite or CI claim is made.
 
@@ -56,4 +58,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is `ACCEPT_TRUSTED_VERIFIER_RE
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair closes extracted authority, permission, semantic-role, candidate consistency, and multi-evidence aggregation gaps without modifying fixtures, calibration, policy, publication authority, or the accepted release.
 
-Next route: `INDEPENDENT_CHATGPT_AUDIT_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1`.
+Next route: `INDEPENDENT_CHATGPT_AUDIT_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1`.

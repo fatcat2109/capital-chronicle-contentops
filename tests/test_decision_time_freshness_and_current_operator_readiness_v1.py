@@ -61,7 +61,7 @@ def test_historical_replay_and_current_operator_cutoff_produce_distinct_age_trut
     packet = _simple_packet()
     historical = evaluate_freshness(
         packet,
-        _request(readiness_evaluation_basis="HISTORICAL_POINT_IN_TIME_REPLAY"),
+        _request(readiness_evaluation_basis="HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY"),
     )
     current = evaluate_freshness(
         packet,
@@ -77,7 +77,7 @@ def test_historical_replay_and_current_operator_cutoff_produce_distinct_age_trut
     assert current["blockers"] == [
         "analysis_requires_fresh_material_delta_or_current_reaction"
     ]
-    assert historical["readiness_evaluation_basis"] == "HISTORICAL_POINT_IN_TIME_REPLAY"
+    assert historical["readiness_evaluation_basis"] == "HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY"
     assert current["readiness_evaluation_basis"] == "CURRENT_OPERATOR_READINESS"
 
 

@@ -5,6 +5,7 @@ import editorialEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_
 import packageEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/superseding_unsigned_operator_packages.json';
 import variantEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_STORY_SCOPED_PERMISSION_AND_FIRST_TEXT_ONLY_OPERATOR_READY_PACKAGE_V1/platform_native_variants.json';
 import decisionTimeFreshnessEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1/decision_time_freshness_records.json';
+import temporalAuthorityEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1/temporal_authority_records.json';
 import sourceCapabilityRegistry from '../../../../docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/source_evidence_capability_registry_v2.json';
 import type { SelectableObject, StatusKind } from '../types';
 
@@ -77,6 +78,7 @@ export interface CanonicalReadinessHashes {
   articleHash: string;
   packageHash: string;
   readinessHash: string;
+  temporalAuthorityHash: string;
   v3PacketHash: string;
   variantHash: string;
   visualPolicyHash: string;
@@ -92,8 +94,12 @@ export interface CanonicalPlatformReadiness {
   editorialReadiness: ReadinessGateStatus;
   effectivePlatformVisualMode: string;
   freshnessPolicy: string;
-  historicalReplayAsOfUtc: string;
-  historicalReplayDecision: string;
+  sourceTimeReplayAsOfUtc: string;
+  sourceTimeReplayDecision: string;
+  pointInTimeAuthorityStatus: 'PASS' | 'BLOCK' | 'UNPROVEN';
+  pointInTimeAuthorityDecision: 'PASS' | 'BLOCK';
+  pointInTimeAuthorityBlockers: string[];
+  pointInTimeAuthorityUnprovenReasons: string[];
   currentFreshnessDecision: string;
   operatorEvaluationAsOfUtc: string;
   calculatedSourceAgeHours: number | null;
@@ -125,8 +131,13 @@ export interface CanonicalStoryReadiness {
   dispatchReadiness: ReadinessGateStatus;
   editorialReadiness: ReadinessGateStatus;
   freshnessPolicy: string;
-  historicalReplayAsOfUtc: string;
-  historicalReplayDecision: string;
+  sourceTimeReplayAsOfUtc: string;
+  sourceTimeReplayDecision: string;
+  pointInTimeAuthorityStatus: 'PASS' | 'BLOCK' | 'UNPROVEN';
+  pointInTimeAuthorityDecision: 'PASS' | 'BLOCK';
+  pointInTimeAuthorityBlockers: string[];
+  pointInTimeAuthorityUnprovenReasons: string[];
+  temporalAuthorityHash: string;
   currentFreshnessDecision: string;
   operatorEvaluationAsOfUtc: string;
   calculatedSourceAgeHours: number | null;
@@ -211,6 +222,31 @@ export interface DecisionTimeFreshnessRecord {
 
 export const decisionTimeFreshnessRecords =
   decisionTimeFreshnessEvidence.records as DecisionTimeFreshnessRecord[];
+
+export interface TemporalAuthorityRecord {
+  story_id: string;
+  historical_replay_cutoff_utc: string;
+  historical_source_time_freshness_replay: {
+    decision: string;
+    result_kind: 'HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY';
+  };
+  point_in_time_authority: {
+    blockers: string[];
+    decision: 'PASS' | 'BLOCK';
+    result_kind: 'POINT_IN_TIME_AUTHORITY_STATUS';
+    status: 'PASS' | 'BLOCK' | 'UNPROVEN';
+    unproven_reasons: string[];
+  };
+  hashes: {
+    article_hash: string;
+    package_hash: string;
+    temporal_authority_hash: string;
+    v3_packet_hash: string;
+  };
+}
+
+export const temporalAuthorityRecords =
+  temporalAuthorityEvidence.records as TemporalAuthorityRecord[];
 
 export interface CapabilityRow {
   article_mode?: string;
@@ -427,6 +463,7 @@ function buildReadiness(
   canonicalPackageState: string,
   roleOutcomes: EditorialOutcome['role_outcomes'],
   decisionTimeFreshness: DecisionTimeFreshnessRecord,
+  temporalAuthority: TemporalAuthorityRecord,
   registryInput: CapabilityRegistry,
 ): { story: CanonicalStoryReadiness; platforms: Map<string, CanonicalPlatformReadiness> } {
   const capability = resolveStoryCapability(sourceFamily, article.mode, registryInput);
@@ -445,6 +482,13 @@ function buildReadiness(
     decisionTimeFreshness.hashes.v3_packet_hash !== operatorPackage.editorial_binding.v3_packet_logical_hash
   ) {
     throw new Error(`Decision-time freshness binding mismatch: ${operatorPackage.story_id}`);
+  }
+  if (
+    temporalAuthority.hashes.package_hash !== operatorPackage.package_hash ||
+    temporalAuthority.hashes.article_hash !== article.hash ||
+    temporalAuthority.hashes.v3_packet_hash !== operatorPackage.editorial_binding.v3_packet_logical_hash
+  ) {
+    throw new Error(`Temporal authority binding mismatch: ${operatorPackage.story_id}`);
   }
   const rawFreshnessBlockers: string[] = [
     ...decisionTimeFreshness.current_operator_readiness.blockers,
@@ -498,6 +542,16 @@ function buildReadiness(
       detail: 'Exact approved claim permission remains authoritative',
       blockers: unresolvedBlockers.filter((blocker) => blocker.includes('permission')),
       status: unresolvedBlockers.some((blocker) => blocker.includes('permission')) ? 'BLOCK' : 'PASS',
+    },
+    {
+      id: 'point_in_time_authority',
+      category: 'authority',
+      detail: 'Exact evidence version availability at the historical replay cutoff',
+      blockers: [
+        ...temporalAuthority.point_in_time_authority.blockers,
+        ...temporalAuthority.point_in_time_authority.unproven_reasons,
+      ],
+      status: temporalAuthority.point_in_time_authority.decision,
     },
     {
       id: 'freshness',
@@ -557,8 +611,13 @@ function buildReadiness(
     dispatchAuthority: false,
     editorialReadiness: storyEditorialReadiness,
     gates: storyGates,
-    historicalReplayAsOfUtc: decisionTimeFreshness.historical_point_in_time_replay.historical_replay_as_of_utc,
-    historicalReplayDecision: decisionTimeFreshness.historical_point_in_time_replay.decision,
+    sourceTimeReplayAsOfUtc: temporalAuthority.historical_replay_cutoff_utc,
+    sourceTimeReplayDecision: temporalAuthority.historical_source_time_freshness_replay.decision,
+    pointInTimeAuthorityStatus: temporalAuthority.point_in_time_authority.status,
+    pointInTimeAuthorityDecision: temporalAuthority.point_in_time_authority.decision,
+    pointInTimeAuthorityBlockers: temporalAuthority.point_in_time_authority.blockers,
+    pointInTimeAuthorityUnprovenReasons: temporalAuthority.point_in_time_authority.unproven_reasons,
+    temporalAuthorityHash: temporalAuthority.hashes.temporal_authority_hash,
     currentFreshnessDecision: decisionTimeFreshness.current_operator_readiness.decision,
     operatorEvaluationAsOfUtc: decisionTimeFreshness.current_operator_readiness.operator_evaluation_as_of_utc,
     calculatedSourceAgeHours: decisionTimeFreshness.current_operator_readiness.primary_source_age_hours,
@@ -583,8 +642,13 @@ function buildReadiness(
     dispatchReadiness: 'BLOCK',
     editorialReadiness: storyEditorialReadiness,
     freshnessPolicy: String(capability.row.freshness_policy ?? 'registry'),
-    historicalReplayAsOfUtc: decisionTimeFreshness.historical_point_in_time_replay.historical_replay_as_of_utc,
-    historicalReplayDecision: decisionTimeFreshness.historical_point_in_time_replay.decision,
+    sourceTimeReplayAsOfUtc: temporalAuthority.historical_replay_cutoff_utc,
+    sourceTimeReplayDecision: temporalAuthority.historical_source_time_freshness_replay.decision,
+    pointInTimeAuthorityStatus: temporalAuthority.point_in_time_authority.status,
+    pointInTimeAuthorityDecision: temporalAuthority.point_in_time_authority.decision,
+    pointInTimeAuthorityBlockers: temporalAuthority.point_in_time_authority.blockers,
+    pointInTimeAuthorityUnprovenReasons: temporalAuthority.point_in_time_authority.unproven_reasons,
+    temporalAuthorityHash: temporalAuthority.hashes.temporal_authority_hash,
     currentFreshnessDecision: decisionTimeFreshness.current_operator_readiness.decision,
     operatorEvaluationAsOfUtc: decisionTimeFreshness.current_operator_readiness.operator_evaluation_as_of_utc,
     calculatedSourceAgeHours: decisionTimeFreshness.current_operator_readiness.primary_source_age_hours,
@@ -709,8 +773,13 @@ function buildReadiness(
       editorialReadiness: platformEditorial,
       effectivePlatformVisualMode: expectation.effective_visual_mode,
       gates: platformGates,
-      historicalReplayAsOfUtc: decisionTimeFreshness.historical_point_in_time_replay.historical_replay_as_of_utc,
-      historicalReplayDecision: decisionTimeFreshness.historical_point_in_time_replay.decision,
+      sourceTimeReplayAsOfUtc: temporalAuthority.historical_replay_cutoff_utc,
+      sourceTimeReplayDecision: temporalAuthority.historical_source_time_freshness_replay.decision,
+      pointInTimeAuthorityStatus: temporalAuthority.point_in_time_authority.status,
+      pointInTimeAuthorityDecision: temporalAuthority.point_in_time_authority.decision,
+      pointInTimeAuthorityBlockers: temporalAuthority.point_in_time_authority.blockers,
+      pointInTimeAuthorityUnprovenReasons: temporalAuthority.point_in_time_authority.unproven_reasons,
+      temporalAuthorityHash: temporalAuthority.hashes.temporal_authority_hash,
       currentFreshnessDecision: decisionTimeFreshness.current_operator_readiness.decision,
       operatorEvaluationAsOfUtc: decisionTimeFreshness.current_operator_readiness.operator_evaluation_as_of_utc,
       calculatedSourceAgeHours: decisionTimeFreshness.current_operator_readiness.primary_source_age_hours,
@@ -740,8 +809,12 @@ function buildReadiness(
       editorialReadiness: platformEditorial,
       effectivePlatformVisualMode: expectation.effective_visual_mode,
       freshnessPolicy: String(capability.row.freshness_policy ?? 'registry'),
-      historicalReplayAsOfUtc: decisionTimeFreshness.historical_point_in_time_replay.historical_replay_as_of_utc,
-      historicalReplayDecision: decisionTimeFreshness.historical_point_in_time_replay.decision,
+      sourceTimeReplayAsOfUtc: temporalAuthority.historical_replay_cutoff_utc,
+      sourceTimeReplayDecision: temporalAuthority.historical_source_time_freshness_replay.decision,
+      pointInTimeAuthorityStatus: temporalAuthority.point_in_time_authority.status,
+      pointInTimeAuthorityDecision: temporalAuthority.point_in_time_authority.decision,
+      pointInTimeAuthorityBlockers: temporalAuthority.point_in_time_authority.blockers,
+      pointInTimeAuthorityUnprovenReasons: temporalAuthority.point_in_time_authority.unproven_reasons,
       currentFreshnessDecision: decisionTimeFreshness.current_operator_readiness.decision,
       operatorEvaluationAsOfUtc: decisionTimeFreshness.current_operator_readiness.operator_evaluation_as_of_utc,
       calculatedSourceAgeHours: decisionTimeFreshness.current_operator_readiness.primary_source_age_hours,
@@ -751,6 +824,7 @@ function buildReadiness(
         articleHash: article.hash,
         packageHash: operatorPackage.package_hash,
         readinessHash,
+        temporalAuthorityHash: temporalAuthority.hashes.temporal_authority_hash,
         v3PacketHash: operatorPackage.editorial_binding.v3_packet_logical_hash,
         variantHash: variant.payloadHash,
         visualPolicyHash,
@@ -853,6 +927,7 @@ function joinStory(
   operatorPackage: OperatorPackage,
   outcome: EditorialOutcome,
   decisionRecords: readonly DecisionTimeFreshnessRecord[],
+  temporalRecords: readonly TemporalAuthorityRecord[],
   registryInput: CapabilityRegistry,
 ): CanonicalReviewStory {
   if (operatorPackage.story_id !== outcome.story_id) {
@@ -871,6 +946,12 @@ function joinStory(
   );
   if (freshnessMatches.length !== 1) {
     throw new Error(`Decision-time freshness missing or duplicate: ${operatorPackage.story_id}`);
+  }
+  const temporalMatches = temporalRecords.filter(
+    (record) => record.story_id === operatorPackage.story_id,
+  );
+  if (temporalMatches.length !== 1) {
+    throw new Error(`Temporal authority missing or duplicate: ${operatorPackage.story_id}`);
   }
   const article = {
       body: outcome.canonical_article.rendered_body,
@@ -898,6 +979,7 @@ function joinStory(
     operatorPackage.state,
     outcome.role_outcomes,
     freshnessMatches[0],
+    temporalMatches[0],
     registryInput,
   );
   return {
@@ -950,6 +1032,7 @@ function joinStory(
 export function buildCanonicalReviewStories(
   registryInput: CapabilityRegistry = capabilityRegistry,
   decisionRecords: readonly DecisionTimeFreshnessRecord[] = decisionTimeFreshnessRecords,
+  temporalRecords: readonly TemporalAuthorityRecord[] = temporalAuthorityRecords,
 ): CanonicalReviewStory[] {
   return packageEvidence.packages.map((operatorPackage) => {
     const outcome = editorialEvidence.outcomes.find(
@@ -958,7 +1041,7 @@ export function buildCanonicalReviewStories(
     if (!outcome) {
       throw new Error(`Missing canonical editorial outcome: ${operatorPackage.story_id}`);
     }
-    return joinStory(operatorPackage, outcome, decisionRecords, registryInput);
+    return joinStory(operatorPackage, outcome, decisionRecords, temporalRecords, registryInput);
   });
 }
 

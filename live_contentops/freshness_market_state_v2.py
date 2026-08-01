@@ -14,9 +14,15 @@ def _dt(value: str | None) -> datetime | None:
     return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
 
 
-def _age_hours(as_of: datetime, value: str | None) -> float | None:
+def _age_hours(as_of: datetime, value: str | None) -> tuple[float | None, bool]:
+    """Return an age without silently turning future evidence into age zero."""
     timestamp = _dt(value)
-    return None if timestamp is None else round(max(0.0, (as_of - timestamp).total_seconds() / 3600), 3)
+    if timestamp is None:
+        return None, False
+    delta_hours = (as_of - timestamp).total_seconds() / 3600
+    if delta_hours < 0:
+        return None, True
+    return round(delta_hours, 3), False
 
 
 def evaluate_freshness(
@@ -28,7 +34,7 @@ def evaluate_freshness(
     policy = {"straight_news_hours": 24.0, "analysis_market_hours": 24.0, "ingest_hours": 24.0, **dict(thresholds or {})}
     evaluation_basis = str(
         request.get("readiness_evaluation_basis")
-        or "HISTORICAL_POINT_IN_TIME_REPLAY"
+        or "HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY"
     )
     historical_replay_as_of = _dt(str(packet.get("as_of_utc") or ""))
     operator_evaluation_as_of = _dt(
@@ -39,7 +45,10 @@ def evaluate_freshness(
         as_of = operator_evaluation_as_of
         if as_of is None:
             evaluation_blockers.append("operator_evaluation_as_of_utc_required")
-    elif evaluation_basis == "HISTORICAL_POINT_IN_TIME_REPLAY":
+    elif evaluation_basis in {
+        "HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY",
+        "HISTORICAL_POINT_IN_TIME_REPLAY",  # accepted legacy caller spelling
+    }:
         as_of = historical_replay_as_of
         if as_of is None:
             evaluation_blockers.append("historical_replay_as_of_utc_required")
@@ -51,26 +60,50 @@ def evaluate_freshness(
     docs = list(packet.get("official_source_documents") or [])
     claims = list(packet.get("numeric_claims") or [])
     snapshots = list(packet.get("market_snapshots") or [])
-    def minimum_age(rows: list[Any], field_names: tuple[str, ...]) -> float | None:
+    def minimum_age(
+        rows: list[Any],
+        field_names: tuple[str, ...],
+        future_blocker: str,
+    ) -> float | None:
         if as_of is None:
             return None
-        return min(
-            (
-                _age_hours(
-                    as_of,
-                    next((row.get(name) for name in field_names if row.get(name)), None),
-                )
-                for row in rows
-            ),
-            default=None,
-            key=lambda value: float("inf") if value is None else value,
-        )
+        ages: list[float] = []
+        future_seen = False
+        for row in rows:
+            value = next(
+                (row.get(name) for name in field_names if row.get(name)), None
+            )
+            age, is_future = _age_hours(as_of, value)
+            future_seen = future_seen or is_future
+            if age is not None:
+                ages.append(age)
+        if future_seen:
+            evaluation_blockers.append(future_blocker)
+        return min(ages, default=None)
 
-    event_age = minimum_age(events, ("event_time_utc",))
-    headline_age = minimum_age(headlines, ("published_at_utc",))
-    source_age = minimum_age(docs, ("published_at_utc", "release_time_utc"))
-    market_age = minimum_age(claims, ("observation_time_utc",))
-    ingest_age = minimum_age(snapshots, ("generated_at_utc",))
+    event_age = minimum_age(
+        events, ("event_time_utc",), "event_timestamp_after_evaluation_cutoff"
+    )
+    headline_age = minimum_age(
+        headlines,
+        ("published_at_utc",),
+        "headline_timestamp_after_evaluation_cutoff",
+    )
+    source_age = minimum_age(
+        docs,
+        ("published_at_utc", "release_time_utc"),
+        "primary_source_timestamp_after_evaluation_cutoff",
+    )
+    market_age = minimum_age(
+        claims,
+        ("observation_time_utc",),
+        "market_observation_timestamp_after_evaluation_cutoff",
+    )
+    ingest_age = minimum_age(
+        snapshots,
+        ("generated_at_utc",),
+        "database_ingest_timestamp_after_evaluation_cutoff",
+    )
     mode = str(request.get("article_mode") or "analysis")
     market_sensitive = bool(request.get("market_sensitive", False))
     market_snapshot_required = bool(

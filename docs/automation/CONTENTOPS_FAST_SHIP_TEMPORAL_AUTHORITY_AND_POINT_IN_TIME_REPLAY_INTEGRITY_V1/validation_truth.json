@@ -1,0 +1,54 @@
+{
+  "schema_version": "contentops.temporal_authority_validation_truth.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1",
+  "status": "PASS",
+  "checks": {
+    "deterministic_replay": true,
+    "three_result_kinds_separate": true,
+    "all_source_documents_and_used_claims_evaluated": true,
+    "source_time_pass_does_not_imply_authority": true,
+    "fomc_known_at_after_cutoff_blocked": true,
+    "apple_known_at_unevidenced_unproven": true,
+    "usgs_future_revision_leakage_blocked": true,
+    "no_historical_point_in_time_authority_pass": true,
+    "all_eighteen_variants_current_hold": true,
+    "exact_five_usgs_receipts_superseded": true,
+    "fomc_apple_current_snapshot_holds_preserved": true,
+    "usgs_nonmarket_stale_hold_preserved": true,
+    "canonical_package_article_v3_variant_hashes_unchanged": true,
+    "temporal_authority_hash_bound_to_all_ui_records": true,
+    "logical_hashes_valid": true,
+    "browser_qa_and_screenshot_hashes_pass": true,
+    "publication_dispatch_approval_public_write_false": true
+  },
+  "blocker_count": 0,
+  "deterministic_replay_hash": "e6315a1366fa2fce659b0ff041843f94c40d51a46fa75f7fe9ccf0a1038f01a2",
+  "observed_validation": {
+    "focused_python_tests": {
+      "status": "PASS",
+      "passed": 85
+    },
+    "full_v5_ui_suite": {
+      "status": "PASS",
+      "test_files": 25,
+      "passed": 207
+    },
+    "production_build": "PASS",
+    "desktop_mobile_edge_qa": "PASS",
+    "json_logical_artifact_screenshot_hash_validation": "PASS",
+    "git_diff_check": "PASS",
+    "scoped_no_live_no_write_scan": "PASS"
+  },
+  "no_live_state": {
+    "source_fetch_performed": false,
+    "credentials_read": false,
+    "approval_captured": false,
+    "publication_performed": false,
+    "dispatch_performed": false,
+    "provider_or_browser_platform_action_performed": false,
+    "public_write_performed": false
+  },
+  "monolithic_repository_suite_run": false,
+  "ci_pass_claimed": false,
+  "logical_hash": "b8eab4fefbcb29050663418f951cf3f4cef65c9921acf112d547290a550ed7e3"
+}

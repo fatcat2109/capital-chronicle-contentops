@@ -101,7 +101,7 @@ def build_decision_time_freshness_records(
             packet,
             {
                 **request,
-                "readiness_evaluation_basis": "HISTORICAL_POINT_IN_TIME_REPLAY",
+                "readiness_evaluation_basis": "HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY",
             },
         )
         current = evaluate_freshness(
@@ -115,7 +115,7 @@ def build_decision_time_freshness_records(
         if current["operator_evaluation_as_of_utc"] is None:
             raise ValueError("operator_evaluation_as_of_utc_unresolved")
         core = {
-            "schema_version": "contentops.decision_time_freshness_record.v1",
+            "schema_version": "contentops.decision_time_freshness_record.v2",
             "record_id": f"decision-time-freshness:{story_id}",
             "story_id": story_id,
             "source_family": source_family,
@@ -129,7 +129,7 @@ def build_decision_time_freshness_records(
                 "known_at_utc": str(source_documents[0].get("known_at_utc") or "") or None,
                 "revision_at_utc": _first_timestamp(claims, "revision_at_utc"),
             },
-            "historical_point_in_time_replay": historical,
+            "historical_source_time_freshness_replay": historical,
             "current_operator_readiness": current,
             "hashes": {
                 "package_hash": package["package_hash"],
@@ -145,11 +145,11 @@ def build_decision_time_freshness_records(
         }
         records.append({**core, "record_hash": _logical_hash(core)})
     document_core = {
-        "schema_version": "contentops.decision_time_freshness_records.v1",
+        "schema_version": "contentops.decision_time_freshness_records.v2",
         "task": TASK,
         "starting_remote_head": STARTING_REMOTE_HEAD,
         "operator_evaluation_as_of_utc": operator_evaluation_as_of_utc,
-        "historical_result_kind": "HISTORICAL_POINT_IN_TIME_REPLAY",
+        "historical_result_kind": "HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY",
         "current_result_kind": "CURRENT_OPERATOR_READINESS",
         "record_count": len(records),
         "records": records,

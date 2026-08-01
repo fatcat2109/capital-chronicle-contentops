@@ -4,9 +4,19 @@
 
 ## Current Classification
 
-`PASS_DECISION_TIME_FRESHNESS_TRUTH_V1_NO_CURRENT_OPERATOR_READY_PACKAGE_AWAITING_CHATGPT_AUDIT`
+`PASS_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1`.
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1`.
+
+## Temporal Authority And Point-In-Time Replay Integrity V1
+
+Historical source-time freshness, point-in-time authority, and current operator readiness are now three explicit results. Publication age zero may pass `HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY`, but it does not prove that the exact evidence version was known by that cutoff. The deterministic temporal evaluator inspects every source document and article-used claim without inventing timestamps: FOMC blocks because known-at follows the replay cutoff, Apple remains `UNPROVEN/BLOCK` because known-at and its exact cutoff time are unevidenced, and USGS blocks on unevidenced known-at plus `FUTURE_REVISION_LEAKAGE_BLOCK` against the 2019 cutoff. No current story has point-in-time authority PASS.
+
+The freshness evaluator now rejects future timestamps explicitly instead of clamping their age to zero. The accepted decision-time result remains unchanged: all 18 variants are current HOLD, zero are current-ready, and the exact five USGS text-only receipt hashes remain superseded. FOMC and Apple retain their current snapshot/ingest blockers; USGS remains nonmarket and stale. Canonical package, article, V3, and variant hashes are unchanged, and publication, dispatch, approval, and public-write authority remain false.
+
+The V5 console separately shows source-time replay, point-in-time authority, current cutoff/source age, current operator HOLD, canonical HOLD, and absent publication/dispatch authority. Focused Python validation passed 85 tests, the full V5 suite passed 207 tests across 25 files, the production build passed, and fresh local Microsoft Edge QA passed at desktop/mobile dimensions without horizontal overflow or runtime/resource errors. The monolithic repository suite was not run and no CI PASS is claimed. Evidence is at `docs/automation/CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1/`.
+
+No source fetch, credential read, approval, publication, dispatch, provider-platform action, scheduler action, or public write occurred.
 
 ## Decision-Time Freshness And Current Operator Readiness Truth V1
 

@@ -1,0 +1,57 @@
+{
+  "schema_version": "contentops.historical_replay_integrity_matrix.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1",
+  "separation_contract": {
+    "HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY": "source publication age only",
+    "POINT_IN_TIME_AUTHORITY_STATUS": "exact-version availability and known-at proof",
+    "CURRENT_OPERATOR_READINESS": "decision-time freshness plus all applicable gates"
+  },
+  "row_count": 3,
+  "rows": [
+    {
+      "story_id": "fomc-minutes-2026-04-28-29",
+      "historical_source_time_freshness_replay_decision": "BLOCK",
+      "point_in_time_authority_status": "BLOCK",
+      "point_in_time_authority_decision": "BLOCK",
+      "authority_blockers": [
+        "known_at_or_retrieved_at_after_historical_replay_cutoff"
+      ],
+      "authority_unproven_reasons": [],
+      "current_operator_ready": false,
+      "temporal_authority_hash": "63626c3273eb7cb79aa36aae33a4e09c378d5ac638a8f5a28a3464d9138eb27a"
+    },
+    {
+      "story_id": "apple-sec-10q-2026-000013",
+      "historical_source_time_freshness_replay_decision": "BLOCK",
+      "point_in_time_authority_status": "UNPROVEN",
+      "point_in_time_authority_decision": "BLOCK",
+      "authority_blockers": [],
+      "authority_unproven_reasons": [
+        "historical_replay_cutoff_exact_time_unproven",
+        "published_or_release_time_ordering_unproven_at_available_precision",
+        "known_at_or_retrieved_at_unavailable_or_unevidenced",
+        "event_time_ordering_unproven_at_available_precision",
+        "revision_ordering_unproven_at_available_precision"
+      ],
+      "current_operator_ready": false,
+      "temporal_authority_hash": "9ee1fe1a2c32be9aa962137f69c69178719dac792d3df8832d55001b68f79fb3"
+    },
+    {
+      "story_id": "usgs-reviewed-ridgecrest-ci38457511",
+      "historical_source_time_freshness_replay_decision": "PASS",
+      "point_in_time_authority_status": "BLOCK",
+      "point_in_time_authority_decision": "BLOCK",
+      "authority_blockers": [
+        "FUTURE_REVISION_LEAKAGE_BLOCK"
+      ],
+      "authority_unproven_reasons": [
+        "known_at_or_retrieved_at_unavailable_or_unevidenced"
+      ],
+      "current_operator_ready": false,
+      "temporal_authority_hash": "47c6e665e8fa2056f327478a9445e48e54f8085351939b2006edcfa6b969c3cc"
+    }
+  ],
+  "historical_authority_pass_count": 0,
+  "source_time_pass_does_not_grant_authority": true,
+  "logical_hash": "7fd4555bcbdf7e1cb77f49ebfdcb7faaa7c11340f178dc3875569557c93878e0"
+}

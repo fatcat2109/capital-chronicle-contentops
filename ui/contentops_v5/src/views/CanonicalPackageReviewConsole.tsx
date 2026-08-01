@@ -152,7 +152,8 @@ function PlatformReadinessCard({
         ) : <div className="text-[11px] text-fg-muted">No unresolved capability blockers.</div>}
       </div>
       <div className="mt-4 grid gap-2 border-t border-line pt-3 text-[10px]">
-        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Historical replay</span><span className="font-mono text-status-review">{readiness.historicalReplayDecision} · {readiness.historicalReplayAsOfUtc}</span></div>
+        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Source-time freshness replay</span><span className="font-mono text-status-review">{readiness.sourceTimeReplayDecision} · {readiness.sourceTimeReplayAsOfUtc}</span></div>
+        <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Point-in-time authority</span><span className="font-mono text-status-blocked">{readiness.pointInTimeAuthorityStatus} · {readiness.pointInTimeAuthorityDecision}</span></div>
         <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Current freshness</span><span className="font-mono text-status-blocked">{readiness.currentFreshnessDecision} · {readiness.operatorEvaluationAsOfUtc}</span></div>
         <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Current source age</span><span className="font-mono text-fg-muted">{readiness.calculatedSourceAgeHours === null ? 'UNAVAILABLE' : `${readiness.calculatedSourceAgeHours.toLocaleString()} hours`}</span></div>
         <div className="flex flex-wrap justify-between gap-2"><span className="text-fg-subtle">Current operator readiness</span><span className="font-mono text-status-blocked">{readiness.currentOperatorReady ? 'READY' : 'HOLD'}</span></div>
@@ -484,10 +485,11 @@ export function CanonicalPackageReviewConsole() {
               <h2 className="text-base font-semibold text-fg">Blocker disposition</h2>
               <p className="mt-0.5 text-[11px] text-fg-muted">Historical packet replay and current decision-time freshness are separate authoritative results.</p>
             </div>
-            <StatusChip status="blocked">{story.blockers.unresolved.length} UNRESOLVED</StatusChip>
+            <StatusChip status="blocked">{story.readiness.unresolvedBlockers.length} UNRESOLVED</StatusChip>
           </div>
           <div className="grid gap-3 lg:grid-cols-3">
-            <BlockerGroup label="Historical replay freshness" blockers={story.blockers.freshness} />
+            <BlockerGroup label="Canonical historical freshness" blockers={story.blockers.freshness} />
+            <BlockerGroup label="Point-in-time authority" blockers={[...story.readiness.pointInTimeAuthorityBlockers, ...story.readiness.pointInTimeAuthorityUnprovenReasons]} />
             <BlockerGroup label="Current freshness" blockers={story.readiness.gates.find((gate) => gate.id === 'freshness')?.blockers.concat(story.readiness.gates.find((gate) => gate.id === 'market_snapshot')?.blockers ?? []) ?? []} />
             <BlockerGroup label="Visual" blockers={story.blockers.visual} />
             <BlockerGroup label="Adversarial" blockers={story.blockers.adversarial} />
@@ -522,7 +524,9 @@ export function CanonicalPackageReviewConsole() {
                 <IdentityRow label="Market sensitive" value={story.readiness.marketSensitive ? 'YES' : 'NO'} />
                 <IdentityRow label="Snapshot required" value={story.readiness.marketSnapshotRequired ? 'YES' : 'NO'} />
                 <IdentityRow label="Freshness policy" value={story.readiness.freshnessPolicy} />
-                <IdentityRow label="Historical replay" value={`${story.readiness.historicalReplayDecision} @ ${story.readiness.historicalReplayAsOfUtc}`} mono />
+                <IdentityRow label="Source-time replay" value={`${story.readiness.sourceTimeReplayDecision} @ ${story.readiness.sourceTimeReplayAsOfUtc}`} mono />
+                <IdentityRow label="Point-in-time authority" value={`${story.readiness.pointInTimeAuthorityStatus} / ${story.readiness.pointInTimeAuthorityDecision}`} mono />
+                <IdentityRow label="Temporal authority hash" value={story.readiness.temporalAuthorityHash} mono />
                 <IdentityRow label="Current freshness" value={`${story.readiness.currentFreshnessDecision} @ ${story.readiness.operatorEvaluationAsOfUtc}`} mono />
                 <IdentityRow label="Current source age" value={story.readiness.calculatedSourceAgeHours === null ? 'UNAVAILABLE' : `${story.readiness.calculatedSourceAgeHours.toLocaleString()} hours`} />
                 <IdentityRow label="Current operator readiness" value={story.readiness.currentOperatorReady ? 'READY' : 'HOLD'} />
