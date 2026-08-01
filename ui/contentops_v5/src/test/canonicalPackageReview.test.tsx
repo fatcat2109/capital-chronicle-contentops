@@ -6,6 +6,9 @@ import App from '../App';
 import {
   canonicalReviewStories,
   canonicalReviewSummary,
+  canonicalVariantEvidenceRecords,
+  joinCanonicalVariantEvidence,
+  type CanonicalVariantJoinInput,
 } from '../data/operatorPackageReviewAdapter';
 
 describe('canonical package evidence adapter', () => {
@@ -40,7 +43,56 @@ describe('canonical package evidence adapter', () => {
         'fatcat2109/Headline-Raw-data-json',
       );
       expect(story.authority.byteLength).toBe(16646);
+      for (const variant of story.variants) {
+        expect(variant.text).toHaveLength(variant.characterCount);
+        expect(variant.characterCount).toBeLessThanOrEqual(variant.characterLimit);
+        expect(variant.dispatchAuthorized).toBe(false);
+        expect(variant.citations.length).toBeGreaterThan(0);
+        expect(variant.limitations).toEqual(story.limitations);
+        expect(variant.authorizedClaimIds).toEqual(
+          expect.arrayContaining(story.claims.map((claim) => claim.id)),
+        );
+      }
     }
+  });
+
+  it('rejects missing, duplicate, mismatched hash, and mismatched claim evidence', () => {
+    const story = canonicalReviewStories[0];
+    const input: CanonicalVariantJoinInput = {
+      authorizedClaimIds: story.claims.map((claim) => claim.id),
+      candidateId: story.candidateId,
+      limitations: story.limitations,
+      storyId: story.storyId,
+      variantPayloadHashes: Object.fromEntries(
+        story.variants.map((variant) => [variant.platform, variant.payloadHash]),
+      ),
+    };
+    const records = canonicalVariantEvidenceRecords.filter(
+      (record) => record.story_id === story.storyId,
+    );
+
+    expect(() => joinCanonicalVariantEvidence(input, records.slice(1))).toThrow(
+      /count mismatch/i,
+    );
+    expect(() =>
+      joinCanonicalVariantEvidence(input, [
+        records[0],
+        records[0],
+        ...records.slice(2),
+      ]),
+    ).toThrow(/missing or duplicate/i);
+    expect(() =>
+      joinCanonicalVariantEvidence(input, [
+        { ...records[0], payload_hash: '0'.repeat(64) },
+        ...records.slice(1),
+      ]),
+    ).toThrow(/payload hash mismatch/i);
+    expect(() =>
+      joinCanonicalVariantEvidence(input, [
+        { ...records[0], authorized_claim_ids: ['claim-not-authorized'] },
+        ...records.slice(1),
+      ]),
+    ).toThrow(/claim allowlist mismatch/i);
   });
 });
 
@@ -99,7 +151,7 @@ describe('canonical package review console', () => {
     const variant = story.variants[0];
     fireEvent.click(
       document.getElementById(
-        `canonical-variant-${story.storyId}-${variant.platform}`,
+        `inspect-canonical-variant-${story.storyId}-${variant.platform}`,
       )!,
     );
     const rail = document.getElementById('inspector-rail')!;
@@ -112,4 +164,61 @@ describe('canonical package review console', () => {
       );
     }
   });
+
+  it('renders the complete copy and character limits for all 18 variants', () => {
+    render(<App />);
+    fireEvent.click(document.getElementById('nav-canonical_package_review')!);
+
+    for (const story of canonicalReviewStories) {
+      fireEvent.click(
+        document.getElementById(`canonical-story-tab-${story.storyId}`)!,
+      );
+      for (const variant of story.variants) {
+        const copy = screen.getByTestId(
+          `variant-copy-${story.storyId}-${variant.platform}`,
+        );
+        expect(copy.textContent).toBe(variant.text);
+        expect(
+          screen.getByText(`${variant.characterCount.toLocaleString()} characters`),
+        ).toBeInTheDocument();
+        expect(
+          screen.getByText(`Limit ${variant.characterLimit.toLocaleString()}`),
+        ).toBeInTheDocument();
+      }
+    }
+  });
+
+  it.each([390, 1440])(
+    'keeps story and exact-binding navigation operable at %ipx',
+    (viewportWidth) => {
+      Object.defineProperty(window, 'innerWidth', {
+        configurable: true,
+        value: viewportWidth,
+      });
+      window.dispatchEvent(new Event('resize'));
+      render(<App />);
+      fireEvent.click(document.getElementById('nav-canonical_package_review')!);
+
+      const story = canonicalReviewStories[2];
+      fireEvent.click(
+        document.getElementById(`canonical-story-tab-${story.storyId}`)!,
+      );
+      const variant = story.variants[5];
+      fireEvent.click(
+        document.getElementById(
+          `inspect-canonical-variant-${story.storyId}-${variant.platform}`,
+        )!,
+      );
+
+      const renderedCopy = screen.getByTestId(
+        `variant-copy-${story.storyId}-${variant.platform}`,
+      );
+      expect(renderedCopy.textContent).toBe(variant.text);
+      expect(
+        within(document.getElementById('inspector-rail')!).getByText(
+          variant.payloadHash,
+        ),
+      ).toBeInTheDocument();
+    },
+  );
 });

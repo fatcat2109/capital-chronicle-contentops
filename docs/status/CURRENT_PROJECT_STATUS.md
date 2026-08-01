@@ -4,17 +4,17 @@
 
 ## Current Classification
 
-`PASS_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_READ_ONLY_AWAITING_INDEPENDENT_AUDIT`
+`PASS_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_V1`.
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1`.
 
-## V5 Canonical Package Review Console
+## V5 Full Variant Review And Committed UI Evidence
 
-The canonical V5 UI now exposes the exact FOMC, Apple SEC, and USGS unsigned operator packages through a read-only `canonical_package_review` surface. It binds the committed authority receipt, V3 packet identity, canonical article, exact used claims/citations/limitations, all eight role outcomes, freshness/visual/adversarial blockers, and six platform payload hashes per story. The surface forces `dark-evidence`, supports inspector selection for stories, role outcomes, and variants, and is responsive at desktop and mobile sizes.
+The canonical V5 `canonical_package_review` surface now fail-closed joins the committed platform-native evidence to each superseding FOMC, Apple SEC, and USGS package by story ID, candidate ID, platform ID, exact authorized claim set, and recorded payload hash. Jim can review complete rendered copy for Substack, LinkedIn, X, Facebook, Telegram, and YouTube Community, including surface/mode, character count and limit, citations, limitations, authorized claims, payload hash, and the explicit dispatch-not-authorized boundary.
 
-The console displays `PENDING_OPERATOR_DECISION` and recommends `REQUEST_REVISION` for each truthful `HOLD` package. It has no approval-ledger execution, publication, dispatch, provider, browser, credential, network, scheduler, or public-write capability. The three package authority boundaries remain unchanged and global DQR remains `BLOCKED`.
+All 18 variant bindings pass focused positive and negative validation. Missing, duplicate, cross-story, cross-candidate, platform-mismatched, claim-mismatched, and payload-mismatched evidence fails closed. The console remains forced to `dark-evidence`, inspector-integrated, and responsive; the three packages remain truthful `HOLD`, `PENDING_OPERATOR_DECISION`, with recommended decision `REQUEST_REVISION`.
 
-Evidence remains: `docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/final_manifest.json`. UI implementation is in `ui/contentops_v5/`, with focused rendering/evidence/safety tests and desktop/mobile browser QA recorded for this task.
+Durable UI evidence is committed at `docs/automation/CONTENTOPS_FAST_SHIP_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1/`. Fresh local Microsoft Edge QA passed at 1440x1000 and 390x844 with no console/runtime/resource errors and no document or workspace horizontal overflow. The surface has no approval capture, ledger execution, publication, dispatch, provider/browser platform action, credential access, network intake, scheduler action, or public-write capability. Underlying package authority and global DQR remain unchanged.
 
 ## Bound Three-Story Canonical Editorial Operator Packages V1
 
@@ -253,6 +253,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`INDEPENDENT_OPERATOR_AUDIT_OF_BATCH_EVIDENCE_AND_PREVIEWS`
+`INDEPENDENT_CHATGPT_AUDIT_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1`
 
-Independently audit the 12-candidate exact set, four candidate source families and separately counted platform capability family, four-domain and five-outcome coverage, story-scoped authorization boundary, substantive copy provenance, five platform compiler outputs, v6 citation-fingerprint hash boundary, manifest artifact hashes and logical hash, explicit unsupported YouTube result, deterministic replay, and all no-live/no-write invariants. Do not publish, dispatch, read credentials, mutate upstream, or reinterpret context-only candidates as reportable.
+Independently verify all 18 exact variant-to-package joins, complete rendered copy, platform modes, character limits, citations, limitations, authorized claims, payload hashes, dispatch-not-authorized boundaries, negative fail-closed fixtures, committed browser evidence, responsive behavior, status consistency, and no-execution invariants. Do not approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.

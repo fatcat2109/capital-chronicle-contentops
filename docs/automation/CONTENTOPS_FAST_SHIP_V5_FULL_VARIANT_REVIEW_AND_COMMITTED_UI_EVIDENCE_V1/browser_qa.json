@@ -1,0 +1,94 @@
+{
+  "schema_version": "contentops.v5_full_variant_review.browser_qa.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1",
+  "route": "/canonical_package_review",
+  "app_url": "http://127.0.0.1:4173/",
+  "mode": "READ_ONLY_EVIDENCE_REVIEW",
+  "theme": "dark-evidence",
+  "capture_method": "local_microsoft_edge_devtools_protocol",
+  "tested_story_ids": [
+    "fomc-minutes-2026-04-28-29",
+    "apple-sec-10q-2026-000013",
+    "usgs-reviewed-ridgecrest-ci38457511"
+  ],
+  "variant_contract": {
+    "story_count": 3,
+    "variants_per_story": 6,
+    "total_variants": 18,
+    "checks_passed_for_every_variant": [
+      "complete rendered copy is non-empty",
+      "platform surface and mode metadata is present",
+      "character count and limit are present",
+      "citations are present",
+      "limitations are present",
+      "authorized claim IDs are present",
+      "payload SHA-256 is present",
+      "NOT AUTHORIZED dispatch boundary is present",
+      "exact binding inspector control is present"
+    ],
+    "result": "PASS"
+  },
+  "desktop": {
+    "viewport": "1440x1000",
+    "selected_story_for_capture": "apple-sec-10q-2026-000013",
+    "screenshot": "desktop_variant_review.png",
+    "screenshot_dimensions": "1440x1000",
+    "screenshot_bytes": 274325,
+    "screenshot_sha256": "ff07ee3c3c03a6d8b7b3691901631ed82f9eec4ca576fec5980056d5b6e50521",
+    "document_scroll_width": 1440,
+    "document_client_width": 1440,
+    "workspace_scroll_width": 854,
+    "workspace_client_width": 854,
+    "checks": [
+      "three story tabs",
+      "REQUEST_REVISION recommendation",
+      "authority receipt and V3 packet identity",
+      "canonical article and exact claims",
+      "citations and limitations",
+      "all eight role outcomes",
+      "freshness, visual, and adversarial blockers",
+      "six complete platform-native variants",
+      "variant character counts and limits",
+      "variant payload hashes",
+      "dispatch-not-authorized metadata",
+      "Apple story, role, and variant inspector updates",
+      "no approval, publish, dispatch, credential, or public-write controls",
+      "no document or workspace horizontal overflow"
+    ],
+    "result": "PASS"
+  },
+  "mobile": {
+    "viewport": "390x844",
+    "selected_story_checked": "usgs-reviewed-ridgecrest-ci38457511",
+    "screenshot": "mobile_variant_review.png",
+    "screenshot_dimensions": "390x844",
+    "screenshot_bytes": 58072,
+    "screenshot_sha256": "e78fb2df925beffd66b05039a46245fc2b66acc95ba29d50f64c19b4210f77e4",
+    "document_scroll_width": 390,
+    "document_client_width": 390,
+    "workspace_scroll_width": 390,
+    "workspace_client_width": 390,
+    "checks": [
+      "story navigation remains operable",
+      "complete copy remains readable",
+      "six variant cards remain vertically accessible",
+      "character counts, limits, citations, limitations, hashes, and dispatch boundary remain visible",
+      "inspect-exact-binding opens the inspector",
+      "no document or workspace horizontal overflow"
+    ],
+    "result": "PASS"
+  },
+  "runtime_health": {
+    "console_errors": false,
+    "uncaught_runtime_errors": false,
+    "failed_resources": false,
+    "document_horizontal_overflow": false,
+    "workspace_horizontal_overflow": false,
+    "external_action_performed": false,
+    "credentials_accessed": false,
+    "network_endpoint_accessed": false,
+    "publication_or_dispatch_performed": false
+  },
+  "browser_service_note": "The browser-subagent service was quota-blocked. Fresh current-source QA and captures were therefore produced with the installed local Microsoft Edge via DevTools Protocol against the local Vite server; no dependency install or external endpoint was used.",
+  "result": "PASS"
+}

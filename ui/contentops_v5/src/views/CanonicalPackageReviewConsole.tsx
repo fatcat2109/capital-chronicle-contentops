@@ -231,7 +231,7 @@ export function CanonicalPackageReviewConsole() {
         aria-labelledby={`canonical-story-tab-${story.storyId}`}
         className="space-y-6"
       >
-        <div className="grid gap-4 xl:grid-cols-[1.35fr_1fr]">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-4 xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
           <Panel
             title="Story + source identity"
             subtitle="Exact authority receipt and canonical V3 binding"
@@ -295,7 +295,7 @@ export function CanonicalPackageReviewConsole() {
           </div>
         </div>
 
-        <div className="grid gap-4 xl:grid-cols-[1.2fr_1fr]">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-4 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
           <Panel
             title="Canonical article"
             subtitle={`${story.article.mode} · exact final render`}
@@ -410,34 +410,115 @@ export function CanonicalPackageReviewConsole() {
         </div>
 
         <Panel
-          title="Six platform variants"
-          subtitle="Exact platform payload hashes inherited by this package"
+          title="Six platform copy variants"
+          subtitle="Complete native copy joined to the superseding package by exact identity, claims, and payload hash"
           actions={<StatusChip status="blocked">DISPATCH NOT AUTHORIZED</StatusChip>}
           bodyClassName="p-0"
         >
-          <div className="grid md:grid-cols-2 xl:grid-cols-3">
-            {story.variants.map((variant, index) => (
-              <button
-                key={variant.platform}
-                id={`canonical-variant-${story.storyId}-${variant.platform}`}
-                type="button"
-                onClick={() => select(selectCanonicalReviewVariant(story, variant))}
-                className="group border-b border-r border-line p-4 text-left transition-colors hover:bg-surface-2"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-fg-subtle">Payload {String(index + 1).padStart(2, '0')}</div>
-                    <h3 className="mt-1.5 text-sm font-semibold text-fg group-hover:text-accent">
-                      {PLATFORM_LABELS[variant.platform] ?? variant.platform}
-                    </h3>
+          <div
+            id={`canonical-variant-grid-${story.storyId}`}
+            className="grid items-stretch xl:grid-cols-2"
+            aria-label={`Platform copy variants for ${story.article.title}`}
+          >
+            {story.variants.map((variant, index) => {
+              const utilization = Math.round(
+                (variant.characterCount / variant.characterLimit) * 100,
+              );
+              return (
+                <article
+                  key={variant.platform}
+                  id={`canonical-variant-${story.storyId}-${variant.platform}`}
+                  className="flex min-w-0 flex-col border-b border-r border-line p-4 sm:p-5"
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-fg-subtle">
+                        Surface {String(index + 1).padStart(2, '0')}
+                      </div>
+                      <h3 className="mt-1.5 text-base font-semibold text-fg">
+                        {PLATFORM_LABELS[variant.platform] ?? variant.platform}
+                      </h3>
+                      <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-accent">
+                        {variant.surface} · {variant.mode}
+                      </p>
+                    </div>
+                    <StatusChip status="blocked">NOT AUTHORIZED</StatusChip>
                   </div>
-                  <StatusChip status="review">REVIEW</StatusChip>
-                </div>
-                <div className="mt-4 rounded-md border border-line bg-bg/40 p-2.5">
-                  <HashValue>{variant.payloadHash}</HashValue>
-                </div>
-              </button>
-            ))}
+
+                  <div
+                    data-testid={`variant-copy-${story.storyId}-${variant.platform}`}
+                    className="mt-4 min-h-[10rem] whitespace-pre-wrap break-words rounded-xl border border-line bg-bg/40 p-4 text-[13px] leading-6 text-fg"
+                  >
+                    {variant.text}
+                  </div>
+
+                  <div className="mt-4">
+                    <div className="flex items-center justify-between gap-3 font-mono text-[10px] text-fg-muted">
+                      <span>{variant.characterCount.toLocaleString()} characters</span>
+                      <span>Limit {variant.characterLimit.toLocaleString()}</span>
+                    </div>
+                    <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface-3">
+                      <div
+                        className="h-full rounded-full bg-accent"
+                        style={{ width: `${Math.max(1, utilization)}%` }}
+                        aria-label={`${utilization}% of character limit used`}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-lg border border-line bg-surface-2 p-3">
+                      <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-fg-subtle">
+                        Citations
+                      </div>
+                      {variant.citations.map((citation) => (
+                        <div key={citation} className="mt-2 break-all text-[10px] leading-relaxed text-fg-muted">
+                          {citation}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="rounded-lg border border-status-review/25 bg-status-review/5 p-3">
+                      <div className="font-mono text-[9px] font-bold uppercase tracking-wider text-status-review">
+                        Limitations
+                      </div>
+                      <ul className="mt-2 space-y-1.5">
+                        {variant.limitations.map((limitation) => (
+                          <li key={limitation} className="text-[10px] leading-relaxed text-fg-muted">
+                            • {limitation}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 space-y-2 border-t border-line pt-3">
+                    <div>
+                      <div className="mb-1 font-mono text-[9px] uppercase tracking-wider text-fg-subtle">
+                        Authorized claims
+                      </div>
+                      {variant.authorizedClaimIds.map((claimId) => (
+                        <div key={claimId}><HashValue>{claimId}</HashValue></div>
+                      ))}
+                    </div>
+                    <div>
+                      <div className="mb-1 font-mono text-[9px] uppercase tracking-wider text-fg-subtle">
+                        Payload SHA-256
+                      </div>
+                      <HashValue>{variant.payloadHash}</HashValue>
+                    </div>
+                  </div>
+
+                  <button
+                    id={`inspect-canonical-variant-${story.storyId}-${variant.platform}`}
+                    type="button"
+                    onClick={() => select(selectCanonicalReviewVariant(story, variant))}
+                    className="mt-4 self-start rounded-md border border-line-strong bg-surface-2 px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-wider text-fg-muted transition-colors hover:border-accent/50 hover:text-accent"
+                  >
+                    Inspect exact binding
+                  </button>
+                </article>
+              );
+            })}
           </div>
         </Panel>
       </section>

@@ -85,7 +85,7 @@ export function Panel({
 }) {
   return (
     <section
-      className={`overflow-hidden rounded-xl border border-line bg-surface-1 shadow-card ${className}`}
+      className={`min-w-0 overflow-hidden rounded-xl border border-line bg-surface-1 shadow-card ${className}`}
     >
       {(title || actions) && (
         <header className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">

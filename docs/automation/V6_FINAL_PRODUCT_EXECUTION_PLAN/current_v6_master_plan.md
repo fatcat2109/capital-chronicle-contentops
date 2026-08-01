@@ -8,7 +8,7 @@ Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicl
 
 Authority date: 2026-07-14
 
-Current architecture classification: `PASS_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_READ_ONLY_AWAITING_INDEPENDENT_AUDIT`.
+Current architecture classification: `PASS_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1_AWAITING_CHATGPT_AUDIT`.
 
 Current accepted public release: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
 
@@ -84,7 +84,7 @@ Final-closure evidence: `docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/co
 
 Bounded repairs restored historical LinkedIn content, corrected Facebook copy, and deleted the two authorized malformed Threads posts. A valid Threads reply had to be recreated after duplicate-text UI ambiguity, leaving an operator-visible order caveat. The oil editorial repair passes locally but is unpublished.
 
-Current generic live evidence remains: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`. Current no-write editorial/operator evidence is `docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/final_manifest.json`.
+Current generic live evidence remains: `docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/`. Current no-write editorial/operator evidence is `docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/final_manifest.json`; current durable full-variant UI evidence is `docs/automation/CONTENTOPS_FAST_SHIP_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1/browser_qa.json`.
 
 Database packet `cc-publication-73ff151c3d3094741b6c` grants story-scoped `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED` while preserving global `dqr=BLOCKED`. The canonical runner published `Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%`, then produced eight native derivatives with strict readback. Bounded updates repaired the Substack caption fragment, tightened the RC, and corrected the final auction-confirmation logic without derivative or video writes. Strict readback preserved all three ordered visuals, captions, sources, and numeric claims. Machine QA and the final release verifier pass.
 
@@ -92,11 +92,11 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_V1` — `PASS_V5_CANONICAL_PACKAGE_REVIEW_CONSOLE_READ_ONLY_AWAITING_INDEPENDENT_AUDIT`.
+Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1` — `PASS_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1_AWAITING_CHATGPT_AUDIT`.
 
-The canonical V5 `canonical_package_review` surface exposes the exact three unsigned FOMC, Apple SEC, and USGS packages with forced `dark-evidence` styling, story tabs, authority receipts, V3 packet bindings, canonical article copy, exact claims/citations/limitations, eight role outcomes, blocker dispositions, and six platform payload hashes per story. It is read-only and inspector-integrated; no approval-ledger, publication, dispatch, browser, provider, credential, network, scheduler, or public-write capability is mounted. Browser QA passed at desktop and mobile sizes with no console errors. The packages remain `PENDING_OPERATOR_DECISION`, truthful `HOLD`, and recommended `REQUEST_REVISION`.
+The canonical V5 `canonical_package_review` surface fail-closed joins platform-native evidence by story ID, candidate ID, platform ID, exact authorized claim set, and superseding-package payload hash. Across the exact FOMC, Apple SEC, and USGS packages, all 18 Substack, LinkedIn, X, Facebook, Telegram, and YouTube Community cards expose complete rendered copy, platform surface/mode, character count and limit, citations, limitations, claims, payload hash, and `NOT AUTHORIZED` dispatch state. It remains forced to `dark-evidence`, responsive, inspector-integrated, and without approval capture, ledger execution, publication, dispatch, provider/browser platform action, credential, network intake, scheduler, or public-write capability.
 
-The prior three-story binding task remains accepted evidence and global DQR remains `BLOCKED`. Evidence is at `docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/final_manifest.json`.
+Fresh current-source Microsoft Edge QA passed at 1440x1000 and 390x844 with no console/runtime/resource errors and no document or workspace overflow. The packages remain truthful `HOLD`, `PENDING_OPERATOR_DECISION`, and recommended `REQUEST_REVISION`. The prior three-story binding task remains accepted evidence; no package authority, editorial outcome, dispatch boundary, or global-DQR state changed.
 
 The predecessor canonical three-story package task and nonnumeric authority-consumption task remain accepted historical evidence. Neither widens authority nor overrides freshness, market, visual, publication, or global-DQR boundaries.
 
@@ -118,4 +118,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is retained as `ACCEPT_TRUSTED
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is retained as `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair derives authority, permission, and roles from registered extractors, copies qualification into receipt-backed bindings, derives candidate authority across every bound extracted record, and requires exact-set or registered feature aggregation. It adds no scenario, calibration, product, publication, or policy behavior.
 
-Next action: `INDEPENDENT_CHATGPT_AUDIT_THREE_V3_CANONICAL_EDITORIAL_OPERATOR_PACKAGES_V1`.
+Next action: `INDEPENDENT_CHATGPT_AUDIT_V5_FULL_VARIANT_REVIEW_AND_COMMITTED_UI_EVIDENCE_V1`.

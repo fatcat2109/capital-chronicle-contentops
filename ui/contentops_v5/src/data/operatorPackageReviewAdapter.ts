@@ -3,6 +3,7 @@
 
 import editorialEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/canonical_editorial_outcomes.json';
 import packageEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_BIND_THREE_V3_PACKETS_TO_CANONICAL_EDITORIAL_AND_OPERATOR_PACKAGES_V1/superseding_unsigned_operator_packages.json';
+import variantEvidence from '../../../../docs/automation/CONTENTOPS_FAST_SHIP_MULTI_STORY_PLATFORM_NATIVE_OPERATOR_PACKAGES_V1/platform_native_variants.json';
 import type { SelectableObject, StatusKind } from '../types';
 
 export const CANONICAL_REVIEW_RECOMMENDATION = 'REQUEST_REVISION' as const;
@@ -24,9 +25,36 @@ export interface CanonicalReviewRole {
   status: string;
 }
 
+export interface CanonicalVariantEvidenceRecord {
+  authorized_claim_ids: string[];
+  candidate_id: string;
+  character_count: number;
+  character_limit_max: number;
+  citation_urls: string[];
+  content_surface: string;
+  dispatch_ready: boolean;
+  limitation_fingerprints: string[];
+  mode: string;
+  payload_hash: string;
+  platform_id: string;
+  story_id: string;
+  text: string;
+  valid_for_dispatch: boolean;
+}
+
 export interface CanonicalReviewVariant {
+  authorizedClaimIds: string[];
+  characterCount: number;
+  characterLimit: number;
+  citations: string[];
+  dispatchAuthorized: false;
+  limitationFingerprints: string[];
+  limitations: string[];
+  mode: string;
   payloadHash: string;
   platform: string;
+  surface: string;
+  text: string;
 }
 
 export interface CanonicalReviewStory {
@@ -66,6 +94,79 @@ export interface CanonicalReviewStory {
 
 type EditorialOutcome = (typeof editorialEvidence.outcomes)[number];
 type OperatorPackage = (typeof packageEvidence.packages)[number];
+
+export interface CanonicalVariantJoinInput {
+  authorizedClaimIds: string[];
+  candidateId: string;
+  limitations: string[];
+  storyId: string;
+  variantPayloadHashes: Record<string, string>;
+}
+
+export const canonicalVariantEvidenceRecords =
+  variantEvidence.variants as CanonicalVariantEvidenceRecord[];
+
+function exactStringSet(left: readonly string[], right: readonly string[]): boolean {
+  return (
+    left.length === right.length &&
+    [...left].sort().every((value, index) => value === [...right].sort()[index])
+  );
+}
+
+export function joinCanonicalVariantEvidence(
+  input: CanonicalVariantJoinInput,
+  records: readonly CanonicalVariantEvidenceRecord[],
+): CanonicalReviewVariant[] {
+  const expectedPlatforms = Object.keys(input.variantPayloadHashes);
+  const storyRecords = records.filter((record) => record.story_id === input.storyId);
+  if (storyRecords.length !== expectedPlatforms.length) {
+    throw new Error(`Canonical variant count mismatch: ${input.storyId}`);
+  }
+
+  return expectedPlatforms.map((platform) => {
+    const matches = storyRecords.filter(
+      (record) =>
+        record.candidate_id === input.candidateId &&
+        record.platform_id === platform,
+    );
+    if (matches.length !== 1) {
+      throw new Error(
+        `Canonical variant missing or duplicate: ${input.storyId}:${platform}`,
+      );
+    }
+    const record = matches[0];
+    if (record.payload_hash !== input.variantPayloadHashes[platform]) {
+      throw new Error(`Canonical variant payload hash mismatch: ${input.storyId}:${platform}`);
+    }
+    if (!exactStringSet(record.authorized_claim_ids, input.authorizedClaimIds)) {
+      throw new Error(`Canonical variant claim allowlist mismatch: ${input.storyId}:${platform}`);
+    }
+    if (record.character_count !== record.text.length) {
+      throw new Error(`Canonical variant character count mismatch: ${input.storyId}:${platform}`);
+    }
+    if (record.character_count > record.character_limit_max) {
+      throw new Error(`Canonical variant character limit exceeded: ${input.storyId}:${platform}`);
+    }
+    if (record.dispatch_ready || record.valid_for_dispatch) {
+      throw new Error(`Canonical variant dispatch boundary mismatch: ${input.storyId}:${platform}`);
+    }
+
+    return {
+      authorizedClaimIds: [...record.authorized_claim_ids],
+      characterCount: record.character_count,
+      characterLimit: record.character_limit_max,
+      citations: [...record.citation_urls],
+      dispatchAuthorized: false,
+      limitationFingerprints: [...record.limitation_fingerprints],
+      limitations: [...input.limitations],
+      mode: record.mode,
+      payloadHash: record.payload_hash,
+      platform: record.platform_id,
+      surface: record.content_surface,
+      text: record.text,
+    };
+  });
+}
 
 function claimSentences(outcome: EditorialOutcome): string[] {
   return outcome.canonical_article.rendered_body
@@ -146,8 +247,15 @@ function joinStory(
     })),
     state: operatorPackage.state,
     storyId: operatorPackage.story_id,
-    variants: Object.entries(operatorPackage.variant_payload_hashes).map(
-      ([platform, payloadHash]) => ({ platform, payloadHash }),
+    variants: joinCanonicalVariantEvidence(
+      {
+        authorizedClaimIds: [...operatorPackage.authority_binding.authorized_claim_ids],
+        candidateId: operatorPackage.candidate_id,
+        limitations: [...operatorPackage.editorial_binding.limitations],
+        storyId: operatorPackage.story_id,
+        variantPayloadHashes: operatorPackage.variant_payload_hashes,
+      },
+      canonicalVariantEvidenceRecords,
     ),
     v3PacketId: operatorPackage.editorial_binding.v3_packet_id,
     v3PacketLogicalHash: operatorPackage.editorial_binding.v3_packet_logical_hash,
@@ -232,6 +340,13 @@ export function selectCanonicalReviewVariant(
     fields: [
       { label: 'Story', value: story.storyId, mono: true },
       { label: 'Platform', value: variant.platform },
+      { label: 'Surface', value: variant.surface },
+      { label: 'Mode', value: variant.mode },
+      {
+        label: 'Characters',
+        value: `${variant.characterCount} / ${variant.characterLimit}`,
+      },
+      { label: 'Claims', value: variant.authorizedClaimIds.join(', '), mono: true },
       { label: 'Dispatch', value: 'NOT_AUTHORIZED', status: 'blocked' },
       { label: 'Payload hash', value: variant.payloadHash, mono: true },
       { label: 'Package hash', value: story.packageHash, mono: true },
