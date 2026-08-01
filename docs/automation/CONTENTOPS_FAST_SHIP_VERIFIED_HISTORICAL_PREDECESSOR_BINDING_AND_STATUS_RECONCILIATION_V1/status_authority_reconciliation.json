@@ -1,0 +1,53 @@
+{
+  "schema_version": "contentops.status_authority_reconciliation.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1",
+  "starting_head": "5453b8fa29c5be3cc165efe86fea9e3ee27e7c8b",
+  "status_file_count": 5,
+  "rows": [
+    {
+      "path": "docs/status/CURRENT_PROJECT_STATUS.md",
+      "completed_task_present": true,
+      "classification_present": true,
+      "next_action_present": true,
+      "stale_pointer_present": false
+    },
+    {
+      "path": "docs/status/current_project_status.json",
+      "completed_task_present": true,
+      "classification_present": true,
+      "next_action_present": true,
+      "stale_pointer_present": false
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+      "completed_task_present": true,
+      "classification_present": true,
+      "next_action_present": true,
+      "stale_pointer_present": false
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+      "completed_task_present": true,
+      "classification_present": true,
+      "next_action_present": true,
+      "stale_pointer_present": false
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+      "completed_task_present": true,
+      "classification_present": true,
+      "next_action_present": true,
+      "stale_pointer_present": false
+    }
+  ],
+  "all_status_files_consistent": true,
+  "json_sha_roles": {
+    "last_verified_remote_sha": "5453b8fa29c5be3cc165efe86fea9e3ee27e7c8b",
+    "last_verified_remote_sha_role": "task_starting_authority_and_latest_verified_remote_master_before_final_task_commit",
+    "task_starting_sha": "5453b8fa29c5be3cc165efe86fea9e3ee27e7c8b",
+    "latest_verified_precommit_sha": "5453b8fa29c5be3cc165efe86fea9e3ee27e7c8b",
+    "final_sha_reported_after_commit": null
+  },
+  "self_referential_completing_sha_fabricated": false,
+  "logical_hash": "2608a94e654db56336234fda1a766368c53fd1df147409bfdf9ed136a2f93bde"
+}

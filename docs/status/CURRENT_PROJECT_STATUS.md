@@ -4,9 +4,17 @@
 
 ## Current Classification
 
-`PASS_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1_AWAITING_CHATGPT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1`.
+Completed task: `TASK_CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1`.
+
+## Verified Historical Predecessor Binding And Status Reconciliation V1
+
+Historical predecessor authority now requires a structured logical-hash binding to exact bytes read from a reachable immutable Git artifact. Repository origin, artifact-version producer commit, path, blob SHA-1, byte SHA-256, byte length, story and claim/document identity, known-at time, represented version/revision, and historical cutoff all verify independently. Bare hashes, SHA-shaped assertions, duplicate bindings, unverified bytes, mismatched identities, future-known evidence, and future revisions fail closed and cannot suppress `FUTURE_REVISION_LEAKAGE_BLOCK`.
+
+The positive deterministic fixture proves both `SOURCE_DOCUMENT` and `USED_CLAIM` predecessor bindings through the existing repo-native exact Git reader. No predecessor was manufactured for the current stories: FOMC remains `BLOCK`, Apple remains `UNPROVEN/BLOCK`, and USGS remains `BLOCK` with future-revision leakage. Current product truth remains 18 HOLD variants, zero current-ready variants, and five exact superseded USGS receipts, with canonical hashes and all no-live authority fields unchanged.
+
+The current status, JSON authority, master plan, ledger, and next-task pointer now identify this repair and its independent audit consistently. The SHA recorded for this closeout is the explicit task-starting/precommit authority `5453b8fa29c5be3cc165efe86fea9e3ee27e7c8b`; no self-referential completing commit was fabricated. Evidence is at `docs/automation/CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1/`.
 
 ## Temporal Authority And Point-In-Time Replay Integrity V1
 
@@ -293,6 +301,6 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 ## Next Action
 
-`INDEPENDENT_CHATGPT_AUDIT_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1`
+`INDEPENDENT_CHATGPT_AUDIT_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1`
 
-Independently verify the explicit operator evaluation cutoff, historical/current result separation, exact source-age calculations, FOMC/Apple snapshot holds, USGS nonmarket staleness without snapshot blockers, five superseded text-only receipts, long-form Substack visual holds, exact readiness/hash bindings, V5 truth labels, evidence hashes, and all no-execution invariants. Do not fetch sources, approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.
+Independently verify exact committed-byte predecessor receipts, immutable reachability, story and source-document/claim identity, cutoff-valid known/revision times, negative fail-closed cases, unchanged three-story temporal outcomes, 18-HOLD/five-supersession parity, status-pointer consistency, and all no-execution invariants. Do not fetch sources, approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.

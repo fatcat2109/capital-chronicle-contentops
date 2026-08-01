@@ -1,0 +1,144 @@
+{
+  "schema_version": "contentops.verified_predecessor_final_manifest.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1",
+  "classification": "PASS_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1_AWAITING_CHATGPT_AUDIT",
+  "next_action": "INDEPENDENT_CHATGPT_AUDIT_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1",
+  "starting_head": "5453b8fa29c5be3cc165efe86fea9e3ee27e7c8b",
+  "starting_head_role": "required_remote_authority_and_latest_verified_precommit_sha",
+  "completing_commit_sha": null,
+  "completing_commit_sha_role": "reported_after_commit_not_self_referential",
+  "source_test_status_blobs": [
+    {
+      "path": "live_contentops/governed_upstream_bridge_v1.py",
+      "starting_git_blob_sha1": "e67864593fe4a6ce217898132a425516fe183eab",
+      "precommit_git_blob_sha1": "cc479fbe645c0bc4adac3ece88d574d36f8bffd3",
+      "byte_sha256": "cfc87de85e0d68557fa00fb83c60dc5948a5c1ab9135addbc93589cc6c4f93c6",
+      "byte_length": 17237
+    },
+    {
+      "path": "live_contentops/universal_evidence_receipt_verifier_v1.py",
+      "starting_git_blob_sha1": "127d29618bf550275447ab36e6910895f46735d0",
+      "precommit_git_blob_sha1": "2ad87191cfb6a4fd1295842f0793773ba3dce24c",
+      "byte_sha256": "ceb04fe643ceb8c53a663effdfadbc9392a430c4ac972b0ec87bf60714762536",
+      "byte_length": 44796
+    },
+    {
+      "path": "live_contentops/temporal_authority_v1.py",
+      "starting_git_blob_sha1": "2dfb70d42b8c9aa4bf9a523b07a2f1684c1ab159",
+      "precommit_git_blob_sha1": "adb9dc5be3bfd8b1afe33e3a327c82a4a96f2759",
+      "byte_sha256": "03c3fabda387557a64507b3f0653af2436e353b5e90f4e6ea89a6d1fc5a74dde",
+      "byte_length": 37479
+    },
+    {
+      "path": "live_contentops/verified_historical_predecessor_evidence_v1.py",
+      "starting_git_blob_sha1": null,
+      "precommit_git_blob_sha1": "d44761c15ee102fffa4b27dc17ba573ace6abdad",
+      "byte_sha256": "360f4c57e775558f244864df95fa320b7a77346d3af3dc45e8db7c04a3fe54f6",
+      "byte_length": 17872
+    },
+    {
+      "path": "tests/test_temporal_authority_and_point_in_time_replay_integrity_v1.py",
+      "starting_git_blob_sha1": "08abc744d5a09b226258b10728c8ac3da7a92e7b",
+      "precommit_git_blob_sha1": "bdc92fb2f8276922fcfd74663f83aad4ed96dc1e",
+      "byte_sha256": "58b6f079b99d3b7854ec31e3adba0acbb8c90ba28eba80f7b26cf40e0df33ef1",
+      "byte_length": 10413
+    },
+    {
+      "path": "tests/test_verified_historical_predecessor_binding_v1.py",
+      "starting_git_blob_sha1": null,
+      "precommit_git_blob_sha1": "27bb5702701b9b3a62ce41dfe5ee35c1960807e9",
+      "byte_sha256": "3092d01010dd05b582412192a6e24784e117647d0771e986058157a7a010c326",
+      "byte_length": 10710
+    },
+    {
+      "path": "docs/status/CURRENT_PROJECT_STATUS.md",
+      "starting_git_blob_sha1": "07005b7c5651fb73b416c7e5e6ff09e90c64f658",
+      "precommit_git_blob_sha1": "c2bdfb9d1998689386b13944a389b5459f9f8c2e",
+      "byte_sha256": "434a96b606fec70a83d49434206e208dfcee3bbad9be1c6b360f3364dd89b62c",
+      "byte_length": 54230
+    },
+    {
+      "path": "docs/status/current_project_status.json",
+      "starting_git_blob_sha1": "b8b5933cdd7da2f5d1f685ea1455c5290d9bdb47",
+      "precommit_git_blob_sha1": "3f9028f51655f67b164e580f299ea6c4d377a7c4",
+      "byte_sha256": "26fe7b6cb379fec276491432d4e8e5d239367e95140437ea3a41eeb34fe0c544",
+      "byte_length": 78165
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+      "starting_git_blob_sha1": "47d17080d22f0f77ab40022edf6c1ebe6762c479",
+      "precommit_git_blob_sha1": "ab79a8d6560e9b83ba3a56e8f81aeff0c730a6fe",
+      "byte_sha256": "2cde3d29be3f2af1088639373fcffa3c1b8f839b055af969ea432ef83ca355fc",
+      "byte_length": 19683
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+      "starting_git_blob_sha1": "ab235bae37d7796105e5ab9050dd8ed29ccccde7",
+      "precommit_git_blob_sha1": "1ff3871fb14662e4829a41442b43440d2a60181a",
+      "byte_sha256": "69aa8a88efcb6205f03dbabeb2dbfad1a3a9a23fa7fe61e8ee86f58ced970e2f",
+      "byte_length": 9234
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+      "starting_git_blob_sha1": "6873a5187bafad7427417d6d7796d5676c8b88ac",
+      "precommit_git_blob_sha1": "c0a7ec142914760ed310c3114843ef2220ba7caa",
+      "byte_sha256": "507d97e8ec396fb43a30cc2c53ed1b69c08da8a8a258192a1bb2b90b44160eed",
+      "byte_length": 1647
+    }
+  ],
+  "generated_artifacts": [
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1/predecessor_binding_truth_table.json",
+      "starting_git_blob_sha1": null,
+      "precommit_git_blob_sha1": "632a23bdd56075fb086cd997156e00f34de9b75c",
+      "byte_sha256": "fb082107b267f9a7cf06c6903705009e32a39d2aba3dad40835445aa05a8c4ed",
+      "byte_length": 6997
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1/current_temporal_parity.json",
+      "starting_git_blob_sha1": null,
+      "precommit_git_blob_sha1": "84dfc2cf5e9e8853cca354d4a81416b82b26aa80",
+      "byte_sha256": "736c24d365fe1d04eb51755aa192c2c090a8f3984495fea4d5c9821913d61940",
+      "byte_length": 2038
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1/status_authority_reconciliation.json",
+      "starting_git_blob_sha1": null,
+      "precommit_git_blob_sha1": "ed3c8cdf5b36b33e05dcb66f2902cdd5bff908cf",
+      "byte_sha256": "d38d628b846de62c66913ab53e45b2c73faf84db75e1c0000a18b5936173077c",
+      "byte_length": 2118
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1/validation_truth.json",
+      "starting_git_blob_sha1": null,
+      "precommit_git_blob_sha1": "6f7b7a2524b9f9dc6082a7c975da94b6cf616c9c",
+      "byte_sha256": "d22ffa6b4266add68685b269c4c827f87f2c8d7a2e5397a7009517878f8d22d3",
+      "byte_length": 1483
+    }
+  ],
+  "preserved_truth": {
+    "fomc_point_in_time_authority_status": "BLOCK",
+    "apple_point_in_time_authority_status": "UNPROVEN",
+    "apple_point_in_time_authority_decision": "BLOCK",
+    "usgs_point_in_time_authority_status": "BLOCK",
+    "usgs_future_revision_leakage_block": true,
+    "point_in_time_authority_pass_count": 0,
+    "platform_variant_count": 18,
+    "current_operator_ready_count": 0,
+    "superseded_prior_text_only_receipt_count": 5,
+    "canonical_package_article_v3_variant_hashes_unchanged": true
+  },
+  "publication_authority": false,
+  "dispatch_authority": false,
+  "approval_authority": false,
+  "public_write_authority": false,
+  "source_fetch_performed": false,
+  "credential_read_performed": false,
+  "provider_platform_action_performed": false,
+  "browser_platform_action_performed": false,
+  "scheduler_action_performed": false,
+  "publication_count": 0,
+  "dispatch_count": 0,
+  "public_write_count": 0,
+  "logical_hash": "83b0c49c68483f46c4d8eaab646f69ece737a775002107175f0588b5b8920ee6"
+}

@@ -30,7 +30,9 @@
 
 Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
 
-Latest completed task: `TASK_CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1` — `PASS_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1_AWAITING_CHATGPT_AUDIT`.
+Latest completed task: `TASK_CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1` — `PASS_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1_AWAITING_CHATGPT_AUDIT`.
+
+The predecessor shortcut is removed. A predecessor can affect temporal authority only after the existing exact Git artifact reader verifies repository origin, immutable artifact-version commit ancestry, path, blob and byte receipts, followed by exact story and claim/document identity plus cutoff-valid known/revision timestamps and a logical binding hash. The deterministic committed fixture passes for both evidence kinds; bare/random hashes and every receipt, identity, timestamp, duplicate, reachability, or byte mismatch fail closed. No predecessor was added to FOMC, Apple, or USGS, so their accepted BLOCK/UNPROVEN/BLOCK outcomes and the 18-HOLD, zero-ready, five-supersession parity remain unchanged.
 
 Historical source-time freshness no longer carries point-in-time authority semantics. The exact-version temporal evaluator blocks FOMC on known-at after cutoff, leaves Apple unproven on unevidenced known-at/precision, and blocks USGS on unevidenced known-at plus future revision leakage. Future source times fail closed instead of becoming age zero. All 18 current variants remain HOLD, zero are current-ready, the same five USGS receipts remain superseded, and canonical evidence plus all no-authority boundaries remain unchanged.
 
@@ -58,4 +60,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is `ACCEPT_TRUSTED_VERIFIER_RE
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair closes extracted authority, permission, semantic-role, candidate consistency, and multi-evidence aggregation gaps without modifying fixtures, calibration, policy, publication authority, or the accepted release.
 
-Next route: `INDEPENDENT_CHATGPT_AUDIT_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1`.
+Next route: `INDEPENDENT_CHATGPT_AUDIT_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1`.

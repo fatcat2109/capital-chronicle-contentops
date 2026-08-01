@@ -1,0 +1,216 @@
+{
+  "schema_version": "contentops.predecessor_binding_truth_table.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1",
+  "starting_head": "5453b8fa29c5be3cc165efe86fea9e3ee27e7c8b",
+  "case_count": 20,
+  "positive_case_count": 2,
+  "negative_case_count": 18,
+  "pass_count": 20,
+  "all_cases_pass": true,
+  "rows": [
+    {
+      "case": "positive_exact_committed_used_claim",
+      "expected_verified": true,
+      "observed_verified": true,
+      "failure_reasons": [],
+      "verification_hash": "3a7be80c877ea08c80e73272e75b512e21cfbeba71bac669549cf6b84bb99545",
+      "PASS": true
+    },
+    {
+      "case": "positive_exact_committed_source_document",
+      "expected_verified": true,
+      "observed_verified": true,
+      "failure_reasons": [],
+      "verification_hash": "bd2340899dc6204a26999facc5c3987b08e5d14cb2992a29a7d6a4e311431be6",
+      "PASS": true
+    },
+    {
+      "case": "bare_hash",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_binding_missing_fields:artifact_path,byte_length,byte_sha256,claim_id,evidence_kind,git_blob_sha1,historical_cutoff_utc,known_at_or_retrieved_at_utc,logical_hash,producer_commit,repository,represented_revision_at_utc,represented_version_id,schema_version,source_document_id,story_id"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "random_64_hex_hash",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_binding_missing_fields:artifact_path,byte_length,byte_sha256,claim_id,evidence_kind,git_blob_sha1,historical_cutoff_utc,known_at_or_retrieved_at_utc,logical_hash,producer_commit,repository,represented_revision_at_utc,represented_version_id,schema_version,source_document_id,story_id"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "wrong_repository",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_repository_mismatch"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "wrong_artifact_path",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_committed_artifact_unverified:governed_git_artifact_missing:tests/fixtures/wrong.json"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "wrong_producer_commit",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_producer_commit_not_artifact_version_commit"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "unreachable_commit",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_committed_artifact_unverified:producer_commit_not_reachable_from_observed_head"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "wrong_git_blob",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_git_receipt_git_blob_sha1_mismatch"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "wrong_byte_hash",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_git_receipt_byte_sha256_mismatch"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "wrong_byte_length",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_git_receipt_byte_length_mismatch"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "wrong_story_id",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_story_id_mismatch"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "wrong_evidence_kind",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_evidence_kind_mismatch"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "wrong_claim_id",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_claim_id_mismatch"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "known_at_after_cutoff",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_known_at_artifact_mismatch",
+        "historical_predecessor_known_at_after_cutoff"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "revision_after_cutoff",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_revision_artifact_mismatch",
+        "historical_predecessor_revision_after_cutoff"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "wrong_source_document_id",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_source_document_id_mismatch"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "malformed_logical_binding_hash",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_binding_logical_hash_mismatch"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "duplicate_binding",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_binding_duplicate"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    },
+    {
+      "case": "unverified_bytes",
+      "expected_verified": false,
+      "observed_verified": false,
+      "failure_reasons": [
+        "historical_predecessor_committed_artifact_unverified:governed_git_artifact_missing:tests/fixtures/never-committed-predecessor.json"
+      ],
+      "verification_hash": null,
+      "PASS": true
+    }
+  ],
+  "bare_hash_grants_authority": false,
+  "publication_authority": false,
+  "dispatch_authority": false,
+  "approval_authority": false,
+  "public_write_authority": false,
+  "logical_hash": "119351bd860d860013279b0893cce8a223cf784f2aa532bbf92ea7649440e537"
+}

@@ -8,7 +8,17 @@ from hashlib import sha256
 import json
 from pathlib import Path
 import re
+import subprocess
 from typing import Any, Mapping, Sequence
+
+from live_contentops.governed_upstream_bridge_v1 import (
+    GovernedArtifactBlocked,
+    read_git_artifact,
+)
+from live_contentops.universal_evidence_receipt_verifier_v1 import (
+    EvidenceReceiptVerificationError,
+    verify_repository_origin,
+)
 
 
 TASK = "TASK_CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1"
@@ -33,6 +43,29 @@ UNEVIDENCED_MARKERS = {
     "not_evidenced",
     "unknown",
     "unavailable",
+}
+HISTORICAL_PREDECESSOR_SCHEMA = (
+    "contentops.verified_historical_predecessor_binding.v1"
+)
+PRIMARY_REPOSITORY = "fatcat2109/capital-chronicle-contentops"
+PRIMARY_BRANCH = "master"
+PREDECESSOR_REQUIRED_FIELDS = {
+    "schema_version",
+    "repository",
+    "artifact_path",
+    "producer_commit",
+    "git_blob_sha1",
+    "byte_sha256",
+    "byte_length",
+    "story_id",
+    "evidence_kind",
+    "source_document_id",
+    "claim_id",
+    "known_at_or_retrieved_at_utc",
+    "represented_version_id",
+    "represented_revision_at_utc",
+    "historical_cutoff_utc",
+    "logical_hash",
 }
 
 
@@ -121,6 +154,255 @@ def compare_temporal(left: TemporalValue, right: TemporalValue) -> str:
     return "EQUAL"
 
 
+def _normalize_predecessor_bindings(
+    value: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None,
+) -> tuple[list[Mapping[str, Any]], list[str]]:
+    if value is None:
+        return [], []
+    if isinstance(value, Mapping):
+        return [value], []
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
+        return [], ["historical_predecessor_binding_malformed"]
+    bindings = list(value)
+    if not bindings or not all(isinstance(row, Mapping) for row in bindings):
+        return [], ["historical_predecessor_binding_malformed"]
+    logical_hashes = [str(row.get("logical_hash") or "") for row in bindings]
+    if len(logical_hashes) != len(set(logical_hashes)):
+        return bindings, ["historical_predecessor_binding_duplicate"]
+    if len(bindings) != 1:
+        return bindings, ["historical_predecessor_binding_not_exactly_one"]
+    return bindings, []
+
+
+def _predecessor_evidence_value(value: Any) -> Any:
+    if value is None:
+        return {}
+    if isinstance(value, Mapping):
+        return dict(value)
+    if (
+        isinstance(value, Sequence)
+        and not isinstance(value, (str, bytes))
+        and all(isinstance(row, Mapping) for row in value)
+    ):
+        return [dict(row) for row in value]
+    return {"malformed_binding_type": type(value).__name__}
+
+
+def _artifact_story(
+    artifact: Mapping[str, Any], story_id: str
+) -> tuple[Mapping[str, Any] | None, str | None]:
+    stories = artifact.get("stories")
+    if not isinstance(stories, list):
+        return None, "historical_predecessor_artifact_story_collection_missing"
+    matches = [
+        row for row in stories
+        if isinstance(row, Mapping) and str(row.get("story_id") or "") == story_id
+    ]
+    if len(matches) != 1:
+        return None, "historical_predecessor_story_identity_not_exactly_one"
+    return matches[0], None
+
+
+def verify_historical_predecessor_binding(
+    *,
+    bindings: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None,
+    repo_root: Path | None,
+    observed_head: str | None,
+    expected_story_id: str,
+    expected_evidence_kind: str,
+    expected_evidence_id: str,
+    expected_historical_cutoff_utc: Any,
+) -> dict[str, Any]:
+    """Verify a temporal predecessor from exact reachable committed bytes."""
+    normalized, failures = _normalize_predecessor_bindings(bindings)
+    if not normalized:
+        return {
+            "verified": False,
+            "failure_reasons": failures or ["historical_predecessor_binding_absent"],
+        }
+    if failures:
+        return {"verified": False, "failure_reasons": failures}
+    binding = dict(normalized[0])
+    missing = sorted(PREDECESSOR_REQUIRED_FIELDS - set(binding))
+    if missing:
+        return {
+            "verified": False,
+            "failure_reasons": [
+                "historical_predecessor_binding_missing_fields:" + ",".join(missing)
+            ],
+        }
+    failures = []
+    if set(binding) != PREDECESSOR_REQUIRED_FIELDS:
+        failures.append("historical_predecessor_binding_unrecognized_fields")
+    binding_core = {
+        key: value for key, value in binding.items() if key != "logical_hash"
+    }
+    if binding.get("logical_hash") != logical_hash(binding_core):
+        failures.append("historical_predecessor_binding_logical_hash_mismatch")
+    if binding.get("schema_version") != HISTORICAL_PREDECESSOR_SCHEMA:
+        failures.append("historical_predecessor_binding_schema_mismatch")
+    if binding.get("repository") != PRIMARY_REPOSITORY:
+        failures.append("historical_predecessor_repository_mismatch")
+    artifact_path = str(binding.get("artifact_path") or "")
+    path_parts = Path(artifact_path).parts
+    if (
+        not artifact_path
+        or Path(artifact_path).is_absolute()
+        or ".." in path_parts
+        or "\\" in artifact_path
+    ):
+        failures.append("historical_predecessor_artifact_path_malformed")
+    producer_commit = str(binding.get("producer_commit") or "")
+    if not re.fullmatch(r"[a-f0-9]{40}", producer_commit):
+        failures.append("historical_predecessor_producer_commit_malformed")
+    if not re.fullmatch(r"[a-f0-9]{40}", str(binding.get("git_blob_sha1") or "")):
+        failures.append("historical_predecessor_git_blob_malformed")
+    if not re.fullmatch(r"[a-f0-9]{64}", str(binding.get("byte_sha256") or "")):
+        failures.append("historical_predecessor_byte_sha256_malformed")
+    if not isinstance(binding.get("byte_length"), int) or binding["byte_length"] < 0:
+        failures.append("historical_predecessor_byte_length_malformed")
+    if binding.get("story_id") != expected_story_id:
+        failures.append("historical_predecessor_story_id_mismatch")
+    if binding.get("evidence_kind") != expected_evidence_kind:
+        failures.append("historical_predecessor_evidence_kind_mismatch")
+    if expected_evidence_kind == "SOURCE_DOCUMENT":
+        if binding.get("source_document_id") != expected_evidence_id:
+            failures.append("historical_predecessor_source_document_id_mismatch")
+        if binding.get("claim_id") is not None:
+            failures.append("historical_predecessor_claim_id_must_be_null")
+    elif expected_evidence_kind == "USED_CLAIM":
+        if binding.get("claim_id") != expected_evidence_id:
+            failures.append("historical_predecessor_claim_id_mismatch")
+        if binding.get("source_document_id") is not None:
+            failures.append("historical_predecessor_source_document_id_must_be_null")
+    else:
+        failures.append("historical_predecessor_evidence_kind_unsupported")
+    expected_cutoff = parse_temporal_value(expected_historical_cutoff_utc)
+    binding_cutoff = parse_temporal_value(binding.get("historical_cutoff_utc"))
+    if (
+        expected_cutoff.state != "EVIDENCED"
+        or expected_cutoff.precision != "INSTANT"
+        or binding_cutoff.state != "EVIDENCED"
+        or binding_cutoff.precision != "INSTANT"
+        or compare_temporal(binding_cutoff, expected_cutoff) != "EQUAL"
+    ):
+        failures.append("historical_predecessor_cutoff_mismatch_or_unproven")
+    if repo_root is None or not observed_head:
+        failures.append("historical_predecessor_verification_context_missing")
+    if failures:
+        return {"verified": False, "failure_reasons": list(dict.fromkeys(failures))}
+    assert repo_root is not None and observed_head is not None
+    try:
+        verify_repository_origin(repo_root.resolve(), PRIMARY_REPOSITORY)
+        content, receipt = read_git_artifact(
+            root=repo_root.resolve(),
+            observed_head=observed_head,
+            artifact_path=artifact_path,
+            producer_commit=producer_commit,
+            repository=PRIMARY_REPOSITORY,
+            branch=PRIMARY_BRANCH,
+        )
+    except (GovernedArtifactBlocked, EvidenceReceiptVerificationError, OSError) as error:
+        return {
+            "verified": False,
+            "failure_reasons": [
+                "historical_predecessor_committed_artifact_unverified:"
+                + str(error)
+            ],
+        }
+    receipt_fields = receipt.as_dict()
+    try:
+        artifact_version_commit = subprocess.check_output(
+            [
+                "git",
+                "-C",
+                str(repo_root.resolve()),
+                "log",
+                "-1",
+                "--format=%H",
+                observed_head,
+                "--",
+                artifact_path,
+            ],
+            stderr=subprocess.DEVNULL,
+            text=True,
+        ).strip()
+    except subprocess.CalledProcessError:
+        artifact_version_commit = ""
+    if producer_commit != artifact_version_commit:
+        failures.append("historical_predecessor_producer_commit_not_artifact_version_commit")
+    for field in (
+        "repository",
+        "artifact_path",
+        "producer_commit",
+        "git_blob_sha1",
+        "byte_sha256",
+        "byte_length",
+    ):
+        if binding.get(field) != receipt_fields.get(field):
+            failures.append(f"historical_predecessor_git_receipt_{field}_mismatch")
+    try:
+        artifact = json.loads(content)
+    except json.JSONDecodeError:
+        failures.append("historical_predecessor_committed_json_malformed")
+        artifact = {}
+    if not isinstance(artifact, Mapping):
+        failures.append("historical_predecessor_committed_json_root_invalid")
+        artifact = {}
+    story, story_failure = _artifact_story(artifact, expected_story_id)
+    if story_failure:
+        failures.append(story_failure)
+    if story is not None:
+        timestamps = story.get("timestamps") or {}
+        artifact_known_at = timestamps.get("known_at")
+        artifact_revision_at = timestamps.get("provider_updated_at")
+        if binding.get("known_at_or_retrieved_at_utc") != artifact_known_at:
+            failures.append("historical_predecessor_known_at_artifact_mismatch")
+        if binding.get("represented_version_id") != story.get("version_id"):
+            failures.append("historical_predecessor_version_id_artifact_mismatch")
+        if binding.get("represented_revision_at_utc") != artifact_revision_at:
+            failures.append("historical_predecessor_revision_artifact_mismatch")
+        if expected_evidence_kind == "SOURCE_DOCUMENT":
+            artifact_document_id = "document:" + str(story.get("provider_record_id") or "")
+            if binding.get("source_document_id") != artifact_document_id:
+                failures.append("historical_predecessor_source_document_artifact_mismatch")
+        elif expected_evidence_kind == "USED_CLAIM":
+            claims = story.get("claims") or []
+            claim_matches = [
+                row for row in claims
+                if isinstance(row, Mapping)
+                and row.get("claim_id") == binding.get("claim_id")
+            ]
+            if len(claim_matches) != 1:
+                failures.append("historical_predecessor_claim_artifact_not_exactly_one")
+    known_value = parse_temporal_value(binding.get("known_at_or_retrieved_at_utc"))
+    revision_value = parse_temporal_value(binding.get("represented_revision_at_utc"))
+    for label, value in (("known_at", known_value), ("revision", revision_value)):
+        comparison = compare_temporal(value, binding_cutoff)
+        if value.state != "EVIDENCED" or value.precision != "INSTANT":
+            failures.append(f"historical_predecessor_{label}_unproven")
+        elif comparison == "AFTER":
+            failures.append(f"historical_predecessor_{label}_after_cutoff")
+        elif comparison == "INDETERMINATE_SAME_DATE":
+            failures.append(f"historical_predecessor_{label}_ordering_unproven")
+    if failures:
+        return {"verified": False, "failure_reasons": list(dict.fromkeys(failures))}
+    verification_core = {
+        "verified": True,
+        "verification_method": "REPO_NATIVE_GIT_EXACT_BYTES_V1",
+        "receipt": receipt_fields,
+        "story_id": expected_story_id,
+        "evidence_kind": expected_evidence_kind,
+        "evidence_id": expected_evidence_id,
+        "known_at_or_retrieved_at_utc": binding["known_at_or_retrieved_at_utc"],
+        "represented_version_id": binding["represented_version_id"],
+        "represented_revision_at_utc": binding["represented_revision_at_utc"],
+        "historical_cutoff_utc": binding["historical_cutoff_utc"],
+        "binding_logical_hash": binding["logical_hash"],
+    }
+    return {**verification_core, "verification_hash": logical_hash(verification_core)}
+
+
 def evaluate_temporal_authority_item(
     *,
     evidence_kind: str,
@@ -131,7 +413,12 @@ def evaluate_temporal_authority_item(
     revision_at_utc: Any,
     historical_replay_cutoff_utc: Any,
     operator_evaluation_cutoff_utc: Any,
-    bound_historical_predecessor: Mapping[str, Any] | None = None,
+    bound_historical_predecessor: (
+        Mapping[str, Any] | Sequence[Mapping[str, Any]] | None
+    ) = None,
+    historical_predecessor_repo_root: Path | None = None,
+    historical_predecessor_observed_head: str | None = None,
+    story_id: str | None = None,
 ) -> dict[str, Any]:
     """Evaluate whether this exact evidence version existed at the replay cutoff."""
     cutoff = parse_temporal_value(historical_replay_cutoff_utc)
@@ -178,14 +465,21 @@ def evaluate_temporal_authority_item(
 
     revision_value = values["revision_at"]
     revision_comparison = compare_temporal(revision_value, cutoff)
-    predecessor_hash = str(
-        (bound_historical_predecessor or {}).get("artifact_hash") or ""
-    )
-    predecessor_bound = bool(
-        re.fullmatch(r"[a-f0-9]{64}", predecessor_hash)
-    )
-    if bound_historical_predecessor and not predecessor_bound:
-        unproven.append("historical_predecessor_binding_invalid")
+    predecessor_verification: dict[str, Any] | None = None
+    predecessor_bound = False
+    if bound_historical_predecessor is not None:
+        predecessor_verification = verify_historical_predecessor_binding(
+            bindings=bound_historical_predecessor,
+            repo_root=historical_predecessor_repo_root,
+            observed_head=historical_predecessor_observed_head,
+            expected_story_id=str(story_id or ""),
+            expected_evidence_kind=evidence_kind,
+            expected_evidence_id=evidence_id,
+            expected_historical_cutoff_utc=historical_replay_cutoff_utc,
+        )
+        predecessor_bound = predecessor_verification["verified"] is True
+        if not predecessor_bound:
+            unproven.extend(predecessor_verification["failure_reasons"])
     if revision_value.state == "INVALID":
         unproven.append("revision_at_invalid")
     elif revision_comparison == "AFTER" and not predecessor_bound:
@@ -223,7 +517,9 @@ def evaluate_temporal_authority_item(
             "revision_at": revision_comparison,
         },
         "operator_cutoff_comparisons": operator_comparisons,
-        "bound_historical_predecessor": dict(bound_historical_predecessor or {}),
+        "bound_historical_predecessor": _predecessor_evidence_value(
+            bound_historical_predecessor
+        ),
         "point_in_time_authority_status": authority_status,
         "point_in_time_authority_decision": (
             "PASS" if authority_status == "PASS" else "BLOCK"
@@ -232,6 +528,8 @@ def evaluate_temporal_authority_item(
         "unproven_reasons": unproven,
         "timestamp_invention_or_coercion_performed": False,
     }
+    if predecessor_verification is not None:
+        core["historical_predecessor_verification"] = predecessor_verification
     return {**core, "temporal_authority_hash": logical_hash(core)}
 
 
@@ -261,6 +559,8 @@ def build_temporal_authority_records(
     packages: Sequence[Mapping[str, Any]],
     decision_time_records: Sequence[Mapping[str, Any]],
     operator_evaluation_as_of_utc: str,
+    historical_predecessor_repo_root: Path | None = None,
+    historical_predecessor_observed_head: str | None = None,
 ) -> dict[str, Any]:
     decision_by_story = {str(row["story_id"]): row for row in decision_time_records}
     records: list[dict[str, Any]] = []
@@ -293,6 +593,9 @@ def build_temporal_authority_records(
                     revision_at_utc=document.get("revision_at_utc"),
                     historical_replay_cutoff_utc=historical_cutoff,
                     operator_evaluation_cutoff_utc=operator_evaluation_as_of_utc,
+                    historical_predecessor_repo_root=historical_predecessor_repo_root,
+                    historical_predecessor_observed_head=historical_predecessor_observed_head,
+                    story_id=story_id,
                 )
             )
         for claim in used_claims:
@@ -313,6 +616,9 @@ def build_temporal_authority_records(
                     bound_historical_predecessor=claim.get(
                         "bound_historical_predecessor"
                     ),
+                    historical_predecessor_repo_root=historical_predecessor_repo_root,
+                    historical_predecessor_observed_head=historical_predecessor_observed_head,
+                    story_id=story_id,
                 )
             )
         statuses = [row["point_in_time_authority_status"] for row in items]
@@ -491,12 +797,19 @@ def generate_temporal_authority_evidence(
     packages = _read_json(source_dir / "superseding_unsigned_operator_packages.json")
     decision_time = _read_json(decision_dir / "decision_time_freshness_records.json")
     current_readiness = _read_json(decision_dir / "current_operator_readiness_records.json")
+    observed_head = subprocess.check_output(
+        ["git", "-C", str(repo_root), "rev-parse", "HEAD"],
+        stderr=subprocess.DEVNULL,
+        text=True,
+    ).strip()
     temporal = build_temporal_authority_records(
         packets=packets["packets"],
         outcomes=outcomes["outcomes"],
         packages=packages["packages"],
         decision_time_records=decision_time["records"],
         operator_evaluation_as_of_utc=operator_evaluation_as_of_utc,
+        historical_predecessor_repo_root=repo_root,
+        historical_predecessor_observed_head=observed_head,
     )
     matrix = build_historical_replay_integrity_matrix(temporal)
     parity = build_current_readiness_parity(current_readiness, temporal)

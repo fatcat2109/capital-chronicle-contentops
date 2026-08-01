@@ -1,0 +1,51 @@
+{
+  "schema_version": "contentops.current_temporal_parity.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1",
+  "starting_head": "5453b8fa29c5be3cc165efe86fea9e3ee27e7c8b",
+  "current_temporal_records_byte_identical": true,
+  "current_readiness_parity_byte_identical": true,
+  "temporal_records_logical_hash": "858037837be2042ef8d29cdaa6212fd730fb842e58cde15223a13e3910206447",
+  "current_readiness_parity_logical_hash": "93d56fa40411d48185a90b18289da68474261a4764fa0e77ec53fc7b5d9f4616",
+  "story_outcomes": {
+    "fomc-minutes-2026-04-28-29": {
+      "status": "BLOCK",
+      "decision": "BLOCK",
+      "blockers": [
+        "known_at_or_retrieved_at_after_historical_replay_cutoff"
+      ],
+      "unproven_reasons": []
+    },
+    "apple-sec-10q-2026-000013": {
+      "status": "UNPROVEN",
+      "decision": "BLOCK",
+      "blockers": [],
+      "unproven_reasons": [
+        "historical_replay_cutoff_exact_time_unproven",
+        "published_or_release_time_ordering_unproven_at_available_precision",
+        "known_at_or_retrieved_at_unavailable_or_unevidenced",
+        "event_time_ordering_unproven_at_available_precision",
+        "revision_ordering_unproven_at_available_precision"
+      ]
+    },
+    "usgs-reviewed-ridgecrest-ci38457511": {
+      "status": "BLOCK",
+      "decision": "BLOCK",
+      "blockers": [
+        "FUTURE_REVISION_LEAKAGE_BLOCK"
+      ],
+      "unproven_reasons": [
+        "known_at_or_retrieved_at_unavailable_or_unevidenced"
+      ]
+    }
+  },
+  "point_in_time_authority_pass_count": 0,
+  "platform_variant_count": 18,
+  "current_operator_ready_count": 0,
+  "superseded_prior_text_only_receipt_count": 5,
+  "canonical_package_article_v3_variant_evidence_unchanged": true,
+  "publication_authority": false,
+  "dispatch_authority": false,
+  "approval_authority": false,
+  "public_write_authority": false,
+  "logical_hash": "7e1ddb25c5eda5623e37afc542b60e938dcbe4094e83adc19df08f89b514cbab"
+}

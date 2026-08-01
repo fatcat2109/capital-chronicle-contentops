@@ -91,7 +91,12 @@ def test_revision_before_equal_after_cutoff_and_predecessor_binding_truth_table(
         revision_at_utc="2026-01-02T00:00:01Z",
         bound_historical_predecessor={"artifact_hash": "a" * 64},
     )
-    assert bound["point_in_time_authority_status"] == "PASS"
+    assert bound["point_in_time_authority_status"] == "BLOCK"
+    assert "FUTURE_REVISION_LEAKAGE_BLOCK" in bound["blockers"]
+    assert any(
+        reason.startswith("historical_predecessor_binding_missing_fields:")
+        for reason in bound["unproven_reasons"]
+    )
 
 
 def test_future_source_timestamp_is_rejected_by_temporal_authority_and_freshness():

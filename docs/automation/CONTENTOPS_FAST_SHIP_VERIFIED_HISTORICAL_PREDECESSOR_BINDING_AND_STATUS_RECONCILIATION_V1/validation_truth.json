@@ -1,0 +1,32 @@
+{
+  "schema_version": "contentops.verified_predecessor_validation_truth.v1",
+  "task": "TASK_CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1",
+  "starting_head": "5453b8fa29c5be3cc165efe86fea9e3ee27e7c8b",
+  "focused_temporal_and_predecessor_tests": "30 passed",
+  "affected_compatibility_tests": "83 passed, 1 deselected",
+  "python_compilation": "PASS",
+  "deterministic_replay": "PASS_BYTE_IDENTICAL",
+  "json_parse_and_logical_hash_validation": "PASS",
+  "git_diff_check": "PASS",
+  "scoped_no_live_no_write_scan": "PASS",
+  "v5_suite_run": false,
+  "production_build_run": false,
+  "browser_qa_run": false,
+  "ui_adapter_or_imported_ui_evidence_changed": false,
+  "monolithic_suite_run": false,
+  "full_suite_pass_claimed": false,
+  "ci_pass_claimed": false,
+  "non_gating_diagnostic": {
+    "result": "116 passed, 25 failed",
+    "reason": "24 trusted-foundation tests resolve a stale separately checked-out local master before authoritative origin/master; one unrelated legacy nonnumeric canonical-shadow case blocks on unsupported_story_type",
+    "task_scoped_regression_indicated": false
+  },
+  "source_fetch_performed": false,
+  "credential_read_performed": false,
+  "provider_platform_action_performed": false,
+  "publication_count": 0,
+  "dispatch_count": 0,
+  "approval_count": 0,
+  "public_write_count": 0,
+  "logical_hash": "5b1d89658ce6296eaa9e6bc7e4cb906ae3802858ae18567e94ca370c83a5f00a"
+}

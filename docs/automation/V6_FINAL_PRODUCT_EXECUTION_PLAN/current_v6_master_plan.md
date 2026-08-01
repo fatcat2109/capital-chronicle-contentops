@@ -8,7 +8,7 @@ Canonical supervised publishing uses Microsoft Edge profile `A:\Capital Chronicl
 
 Authority date: 2026-07-14
 
-Current architecture classification: `PASS_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1_AWAITING_CHATGPT_AUDIT`.
+Current architecture classification: `PASS_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1_AWAITING_CHATGPT_AUDIT`.
 
 Current accepted public release: `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`.
 
@@ -92,7 +92,9 @@ ContentOps v1.0 remains operator-accepted and unchanged. `TASK_CONTENTOPS_REAL_C
 
 `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2` supersedes Task 4 only as the reusable foundation. Task 4 remains accepted historical Treasury-specific shadow evidence. V2 separates versioned generic contracts and immutable byte verification, a topic-neutral adaptive core, and historical/domain adapters; external configuration is explicitly `UNCALIBRATED_FOUNDATION`. Its 15-domain synthetic matrix executes the generic algorithms, and its genericity guard prohibits topic branches, fixed scenario counts, embedded scenario weights, and unavailable-to-zero coercion. No V2 artifact grants publication authority.
 
-Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1` — `PASS_TEMPORAL_AUTHORITY_AND_POINT_IN_TIME_REPLAY_INTEGRITY_V1_AWAITING_CHATGPT_AUDIT`.
+Current completed architecture task: `TASK_CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1` — `PASS_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1_AWAITING_CHATGPT_AUDIT`.
+
+Historical predecessor bindings now verify exact committed bytes through the existing governed Git receipt reader. Repository origin, artifact-version commit ancestry, path, blob SHA-1, byte SHA-256, byte length, story and exact claim/document identity, known-at, represented version/revision, cutoff, and logical hash must all match. No SHA-shaped caller assertion can suppress future-revision leakage. FOMC remains BLOCK, Apple remains UNPROVEN/BLOCK, USGS remains BLOCK with leakage, and point-in-time PASS count remains zero. Current 18-HOLD, zero-ready, five-supersession and no-authority truth is unchanged.
 
 Historical source-time freshness, exact-version point-in-time authority, and current operator readiness are now explicit independent results. A zero source age can pass only `HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY`; it cannot grant point-in-time authority. FOMC blocks because known-at is after cutoff, Apple remains unproven because known-at and exact cutoff time are unevidenced, and USGS blocks on unevidenced known-at plus future-revision leakage. Future source timestamps now fail closed instead of becoming age zero. The accepted current truth remains 18 HOLD variants, zero current-ready variants, and five exact superseded USGS receipts with unchanged canonical hashes and no publication, dispatch, approval, or public-write authority.
 
@@ -126,4 +128,4 @@ Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is retained as `ACCEPT_TRUSTED
 
 Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is retained as `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair derives authority, permission, and roles from registered extractors, copies qualification into receipt-backed bindings, derives candidate authority across every bound extracted record, and requires exact-set or registered feature aggregation. It adds no scenario, calibration, product, publication, or policy behavior.
 
-Next action: `INDEPENDENT_CHATGPT_AUDIT_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1`.
+Next action: `INDEPENDENT_CHATGPT_AUDIT_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1`.

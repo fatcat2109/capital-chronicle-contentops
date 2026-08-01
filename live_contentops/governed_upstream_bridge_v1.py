@@ -102,6 +102,8 @@ def read_git_artifact(
     observed_head: str,
     artifact_path: str,
     producer_commit: str | None = None,
+    repository: str = EXPECTED_REPOSITORY,
+    branch: str = EXPECTED_BRANCH,
 ) -> tuple[bytes, GitArtifactReceipt]:
     producer_commit = producer_commit or observed_head
     if not is_ancestor(root, producer_commit, observed_head):
@@ -112,8 +114,8 @@ def read_git_artifact(
     except subprocess.CalledProcessError as error:
         raise GovernedArtifactBlocked(f"governed_git_artifact_missing:{artifact_path}") from error
     receipt = GitArtifactReceipt(
-        repository=EXPECTED_REPOSITORY,
-        branch=EXPECTED_BRANCH,
+        repository=repository,
+        branch=branch,
         observed_head=observed_head,
         producer_commit=producer_commit,
         artifact_path=artifact_path,
@@ -130,12 +132,16 @@ def read_git_json(
     observed_head: str,
     artifact_path: str,
     producer_commit: str | None = None,
+    repository: str = EXPECTED_REPOSITORY,
+    branch: str = EXPECTED_BRANCH,
 ) -> tuple[dict[str, Any], GitArtifactReceipt]:
     content, receipt = read_git_artifact(
         root=root,
         observed_head=observed_head,
         artifact_path=artifact_path,
         producer_commit=producer_commit,
+        repository=repository,
+        branch=branch,
     )
     try:
         parsed = json.loads(content)

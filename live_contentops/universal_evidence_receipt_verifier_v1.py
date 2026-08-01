@@ -82,7 +82,8 @@ def _parse_utc(value: str) -> datetime:
     return parsed.astimezone(timezone.utc)
 
 
-def _verify_origin(root: Path, expected_repository: str) -> None:
+def verify_repository_origin(root: Path, expected_repository: str) -> None:
+    """Verify that ``root`` is the exact repository named by authority."""
     try:
         origin = _git(root, "config", "--get", "remote.origin.url").decode().strip()
     except subprocess.CalledProcessError as error:
@@ -94,6 +95,9 @@ def _verify_origin(root: Path, expected_repository: str) -> None:
         raise EvidenceReceiptVerificationError(
             "verified_repository_origin_mismatch"
         )
+
+
+_verify_origin = verify_repository_origin
 
 
 class VerifiedEvidenceIndexV1(dict[str, Mapping[str, Any]]):
