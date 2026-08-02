@@ -1,0 +1,320 @@
+{
+  "schema_version": "contentops.full_automation_gap_register.v1",
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "audited_head": "a1645740b8ad3a590be314ecbc900f9ad0f4b252",
+  "open_gap_count": 20,
+  "priority_policy": {
+    "P0": "blocks safe continuous operation or can create false/unsafe live state",
+    "P1": "blocks generalized final-product acceptance",
+    "P2": "important optimization or Tier-2 expansion after core maturity"
+  },
+  "gaps": [
+    {
+      "gap_id": "GAP-P0-001",
+      "priority": "P0",
+      "title": "Multiple live-capable entrypoints with different authority semantics",
+      "evidence": [
+        "live_contentops/eight_platform_substack_first_pipeline_v1.py",
+        "live_contentops/live_production_pipeline_runner_v6.py",
+        "live_contentops/server.py",
+        "live_contentops/scheduler_v6.py",
+        "live_contentops/cli.py"
+      ],
+      "risk": "A runner, scheduler, HTTP route or CLI path can bypass canonical approval, idempotency, readback or retry semantics.",
+      "required_resolution": "One canonical production orchestrator; all alternate live paths delegate or fail closed.",
+      "required_wave": "Wave 01",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P0-002",
+      "priority": "P0",
+      "title": "No durable unified operational state",
+      "evidence": [
+        "shared JSON and JSONL coordination",
+        "server in-memory TASKS registry",
+        "latest_dispatch_audit.json",
+        "scheduler JSON registry"
+      ],
+      "risk": "Lost or duplicate work, stale current truth, weak restart recovery and concurrent writer races.",
+      "required_resolution": "SQLite WAL operational store, append-only transitions, leases, transactions and evidence export.",
+      "required_wave": "Wave 02",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P0-003",
+      "priority": "P0",
+      "title": "Approval models are fragmented and some paths use boolean approval",
+      "evidence": [
+        "scheduler_v6 approved boolean",
+        "local approval templates",
+        "canonical runner approval marker",
+        "public dispatch freeze guard"
+      ],
+      "risk": "Changed or stale payloads can be confused with an approved exact artifact.",
+      "required_resolution": "One immutable approval envelope with exact artifact/destination/policy hashes and expiry.",
+      "required_wave": "Wave 03",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P0-004",
+      "priority": "P0",
+      "title": "No single transactional live outbox",
+      "evidence": [
+        "dispatch_outbox.py is local-only",
+        "outbox_entry_contract_v6.py is blocked template",
+        "canonical runner owns a separate platform ledger"
+      ],
+      "risk": "Dispatch attempt ownership, idempotency, retry, readback and reconciliation are not unified.",
+      "required_resolution": "Transactional one-operation-per-entry outbox consumed only by canonical dispatcher.",
+      "required_wave": "Wave 03",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P0-005",
+      "priority": "P0",
+      "title": "Current scheduler is not production-safe",
+      "evidence": [
+        "generic retry for all failures",
+        "unsupported live actions can return mock SUCCESS",
+        "recurring entry becomes permanently dispatched after first tick",
+        "registry errors silently become empty queue",
+        "no cross-process lease",
+        "payload may contain credential-like fields"
+      ],
+      "risk": "False success, lost recurrence, duplicate or unsafe dispatch, invisible queue corruption.",
+      "required_resolution": "Quarantine current live scheduler and replace with durable restart-safe supervisor/window/outbox scheduling.",
+      "required_wave": "Wave 04",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P0-006",
+      "priority": "P0",
+      "title": "Unauthenticated in-memory local HTTP live launcher",
+      "evidence": [
+        "server.py CORS wildcard",
+        "POST /api/run-pipeline",
+        "noncanonical live runner command",
+        "in-memory task state"
+      ],
+      "risk": "Local browser/process can launch live behavior outside durable approval and lose task truth on restart.",
+      "required_resolution": "Make server read-only health/status or remove it from production; UI writes decisions/work records only.",
+      "required_wave": "Wave 01",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P0-007",
+      "priority": "P0",
+      "title": "Unknown-write protection is not universal",
+      "evidence": [
+        "canonical runner has unknown-write classes",
+        "scheduler uses generic failure/retry logic",
+        "historical Threads duplicate-text ambiguity"
+      ],
+      "risk": "Blind retry can create duplicate public objects or corrupt reply chains.",
+      "required_resolution": "Common adapter attempt/reconciliation contract and durable unknown-write state across all entrypoints.",
+      "required_wave": "Wave 05",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P0-008",
+      "priority": "P0",
+      "title": "Model default conflicts with operator intent and is embedded in article code",
+      "evidence": [
+        "implicit 9router default vx/gemini-3.5-flash",
+        "separate vx/gemini-3.1-pro-preview fallback",
+        "operator intends Gemini 3.1 Pro current default"
+      ],
+      "risk": "Silent model downgrade, inconsistent quality and hard-to-audit provider behavior.",
+      "required_resolution": "Verify exact current model ID, create model registry/shared gateway, make Gemini 3.1 Pro-class default for intended roles and record effective model.",
+      "required_wave": "Wave 06",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P1-001",
+      "priority": "P1",
+      "title": "Continuous live candidate intake is unproven",
+      "evidence": [
+        "cross-domain operation is deterministic local shadow",
+        "daily scheduler and sidecars are preparation surfaces",
+        "no accepted always-on supervisor"
+      ],
+      "risk": "Content production still depends on manual launch or historical fixtures.",
+      "required_resolution": "Durable cursors, window ticks, material-delta wakeups, no-op outcomes and governed assignment integration.",
+      "required_wave": "Wave 07",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P1-002",
+      "priority": "P1",
+      "title": "Editorial/visual generalization lacks accepted live cohort",
+      "evidence": [
+        "one accepted Treasury story",
+        "July 11 RC required multiple editorial and visual repairs",
+        "three current review stories are held"
+      ],
+      "risk": "Architecture may remain overfit to a small set of fixtures or one accepted topic.",
+      "required_resolution": "Ten-plus shadow packages and diverse live cohorts across five story types.",
+      "required_wave": "Waves 08 and 13-14",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P1-003",
+      "priority": "P1",
+      "title": "Tier-1 adapter conformance and recovery are not standardized",
+      "evidence": [
+        "platform-specific historical defects",
+        "different readback/recovery semantics",
+        "browser/API/webhook transports vary"
+      ],
+      "risk": "A new platform failure requires ad hoc repair and can produce inconsistent evidence.",
+      "required_resolution": "Common adapter interface with platform-specific conformance fixtures, circuit breaker and exact repair/resume operations.",
+      "required_wave": "Wave 05",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P1-004",
+      "priority": "P1",
+      "title": "Operational UI is not backed by one durable production truth",
+      "evidence": [
+        "strong V5 read-only package review",
+        "multiple generated evidence surfaces",
+        "no canonical durable state service"
+      ],
+      "risk": "Operator can see stale or partial status and cannot manage incidents/reconciliation from one truth model.",
+      "required_resolution": "Integrate V5 with durable work/approval/outbox/incident/model state; no direct adapter call.",
+      "required_wave": "Wave 09",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P1-005",
+      "priority": "P1",
+      "title": "Observability lacks correlation, incidents and SLO evaluation",
+      "evidence": [
+        "basic JSONL telemetry",
+        "no durable heartbeat or incident lifecycle",
+        "no unknown-write aging or error budget"
+      ],
+      "risk": "The factory can degrade or stall without a trustworthy operational diagnosis.",
+      "required_resolution": "Correlated metrics, incident/reconciliation center, circuit breakers and SLO reports.",
+      "required_wave": "Wave 10",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P1-006",
+      "priority": "P1",
+      "title": "Performance learning is manual/historical replay only",
+      "evidence": [
+        "performance_learning_v1 no network/API/browser collection",
+        "manual operator-attested metrics",
+        "insufficient cohort"
+      ],
+      "risk": "The system cannot measure which content improves audience growth or reduce revision burden.",
+      "required_resolution": "Exact content identity, scoped metrics adapters/operator assist, cohort rules and governed policy proposals.",
+      "required_wave": "Wave 11",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P1-007",
+      "priority": "P1",
+      "title": "Community feedback loop uses mock/manual snapshots",
+      "evidence": [
+        "community_feedback_intake_v6 seeds mock snapshots",
+        "no live platform read",
+        "review-only backlog outputs"
+      ],
+      "risk": "Discord/community flywheel in the North Star is not operational.",
+      "required_resolution": "Scoped readers or operator exports, privacy/redaction, exact story binding and reviewable next-idea proposals.",
+      "required_wave": "Wave 11",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P1-008",
+      "priority": "P1",
+      "title": "No accepted seven-day soak or restart/concurrency drills",
+      "evidence": [
+        "no service heartbeat history",
+        "no continuous supervisor evidence",
+        "no multi-restart in-flight reconstruction proof"
+      ],
+      "risk": "One-shot tests cannot establish continuous factory reliability.",
+      "required_resolution": "Seven-day shadow soak with forced restart, duplicate tick, provider failure, platform degradation and kill-switch drills.",
+      "required_wave": "Wave 12",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P1-009",
+      "priority": "P1",
+      "title": "No diverse repeated supervised live cohort",
+      "evidence": [
+        "one accepted Treasury release",
+        "earlier broad RC required repair",
+        "no ten-story five-type accepted cohort"
+      ],
+      "risk": "Generalization and rolling reliability remain unproven.",
+      "required_resolution": "Three-story stage 1 and ten-story/five-type stage 2 supervised cohorts.",
+      "required_wave": "Waves 13-14",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P1-010",
+      "priority": "P1",
+      "title": "Current authority entrypoints contain stale next-task conflicts",
+      "evidence": [
+        "CURRENT_CONTEXT next task differs",
+        "AI_BUILDER_BOOTSTRAP next task differs",
+        "status/next_task_pointer identify the latest historical audit"
+      ],
+      "risk": "Builders can start the wrong chain and revive superseded plans.",
+      "required_resolution": "Reconcile AGENTS, CURRENT_CONTEXT, bootstrap, current master plan, maturity ledger and next-task pointer in local closeout.",
+      "required_wave": "Wave 00",
+      "final_acceptance_blocking": true
+    },
+    {
+      "gap_id": "GAP-P2-001",
+      "priority": "P2",
+      "title": "Monetization and conversion attribution are not first-class operational signals",
+      "evidence": [
+        "content metrics are largely unavailable/manual",
+        "no accepted subscriber/community/revenue attribution loop"
+      ],
+      "risk": "The factory may optimize posting volume instead of qualified audience and monetizable value.",
+      "required_resolution": "Campaign/CTA registry, conversion events, series/audience tags and governed attribution after identity/metrics foundation.",
+      "required_wave": "Wave 11 plus post-acceptance optimization",
+      "final_acceptance_blocking": false
+    },
+    {
+      "gap_id": "GAP-P2-002",
+      "priority": "P2",
+      "title": "TikTok and YouTube video/Shorts are incomplete separate modes",
+      "evidence": [
+        "TikTok blocked by authentication/app review",
+        "YouTube Community proven but video/Shorts not invoked"
+      ],
+      "risk": "Media expansion remains unavailable but does not prevent Tier-1 text/image maturity.",
+      "required_resolution": "Separate video script/asset/render/upload/readback system after Tier-1 acceptance.",
+      "required_wave": "Wave 15",
+      "final_acceptance_blocking": false
+    }
+  ],
+  "operator_priority_order": [
+    "GAP-P0-001",
+    "GAP-P0-002",
+    "GAP-P0-003",
+    "GAP-P0-004",
+    "GAP-P0-005",
+    "GAP-P0-006",
+    "GAP-P0-007",
+    "GAP-P0-008",
+    "GAP-P1-001",
+    "GAP-P1-003",
+    "GAP-P1-002",
+    "GAP-P1-005",
+    "GAP-P1-004",
+    "GAP-P1-006",
+    "GAP-P1-007",
+    "GAP-P1-008",
+    "GAP-P1-009",
+    "GAP-P2-001",
+    "GAP-P2-002"
+  ]
+}
