@@ -89,7 +89,7 @@ one canonical production entrypoint
 
 `TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
-The next task must be executed locally by Antigravity in an isolated worktree. It must pull this audit branch, verify every file and reference, populate final hashes/HEAD, run repository-native validation, reconcile current authority entrypoints, commit and push. It must not implement runtime code, merge to `master`, read credentials, invoke providers/platforms, run the scheduler, or perform public writes.
+Wave 01 becomes executable only after Jim accepts and merges this docs branch. It is local/no-live runtime implementation to establish one canonical production entrypoint and quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths. Focused tests are required. It grants no credential, provider, browser/CDP, platform, scheduler/retry execution, approval/outbox execution, dispatch, publication, or public-write authority.
 
 ## No current live authority
 

@@ -141,7 +141,7 @@ Credential checks are limited to names, presence booleans, nonsecret scope/accou
 
 `TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
-This is a local docs/evidence closeout task. It must pull the audit branch into an isolated worktree, verify paths/JSON/hashes/diff, reconcile current authority files, commit and push. It must not implement runtime changes, merge to `master`, read credentials, call providers/platforms, run scheduler/retry, or perform public writes.
+This is local/no-live runtime implementation. Establish one canonical production entrypoint and quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths. Focused tests are required. Do not read credentials, invoke providers, use browser/CDP or platform APIs, execute the scheduler or outbox, dispatch, publish, or perform public writes.
 
 ## 11. Task protocol
 

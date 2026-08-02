@@ -87,7 +87,7 @@ one canonical live state machine
 
 `TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
-The next task is docs/evidence-only local closeout on the audit branch. It must not implement runtime behavior, merge to `master`, read credential values, call providers/platforms, run scheduler/retry, or perform public writes.
+Wave 01 is local/no-live runtime implementation: establish one canonical production entrypoint and quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths. Focused tests are required. Do not read credentials, invoke providers, use browser/CDP or platform APIs, execute the scheduler or outbox, dispatch, publish, or perform public writes.
 
 ## Archive policy
 

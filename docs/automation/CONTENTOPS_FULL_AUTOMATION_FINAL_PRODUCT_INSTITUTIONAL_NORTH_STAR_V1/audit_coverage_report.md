@@ -79,25 +79,30 @@ All tracked historical/archive/media paths are represented by exact Git blob SHA
 
 ## Validation results
 
-- Changed/new JSON parsed: 5 files, PASS.
+- Changed/new JSON parsed during the original closeout: 5 files, PASS.
 - Markdown-relative links checked: 13; missing/out-of-repository targets: 0.
 - Inline repository paths checked: 115; unresolved targets: 0.
 - Protected v1.0 tag object: `a021df7fd0264d9f160bdd605509da925f0bf131`; peeled commit: `6983bfb3ef300414b744f3f8f97ca81ff699348b`; PASS.
 - Protected accepted-release evidence changes from required base: 0; PASS.
 - Branch descends from required base: PASS.
 - Scoped secret/local-machine artifact scan: filename-only, no values read; actual secret-bearing/local artifact filenames: 0. Credential-policy code, schemas, tests, and explicitly fake/invalid safety fixtures are expected and were not treated as secret artifacts by filename alone.
-- Duplicate current classification/next-task scan: PASS after reconciliation.
-- `git diff --check`: PASS after final manifest generation and before commit.
+- Independent ChatGPT authority audit: correctly found that several Wave 01 current-task descriptions still carried completed Wave 00 closeout language and that the top-level project-status fields still identified the historical predecessor audit. The earlier authority-consistency PASS was therefore premature.
+- Corrective authority validation: PASS after replacing Wave 00 language in every Wave 01 current-task section, reconciling top-level Markdown/JSON status fields, and retaining the predecessor audit only as explicitly historical nested evidence.
+- Current task label and execution description: PASS; Wave 01 is consistently local/no-live runtime implementation with focused tests.
+- Distinct current next-task identities across the eight builder-facing authority files: 1; `TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`.
+- `git diff --check`: PASS after final correction manifest generation and before commit.
 - Runtime tests/full suite/UI build: not run; no runtime, full-suite, or build PASS claimed.
 - GitHub Actions CI: no workflow/status PASS claimed; remote check status must be reported after push.
 
 ## Authority reconciliation
 
-The latest historical implementation task and independent-audit pointer remain preserved in the chronological project-status history. They are no longer the current post-v1 execution pointer. Current authority files now classify this closeout as `PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW` and point to exactly:
+The latest historical implementation task and independent-audit pointer remain preserved in the chronological project-status history. They are explicitly historical and are not the current post-v1 execution authority. The completed current Wave 00 task is `TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1`, classified `PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`.
+
+All builder-facing current next-task sections point to one distinct task:
 
 `TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
-That next implementation task remains local/no-write. Jim's acceptance and merge of this docs branch are required before it becomes executable authority.
+Wave 01 becomes executable only after Jim accepts and merges this docs branch. It remains local/no-live runtime implementation and grants no live execution authority.
 
 ## No-execution truth
 

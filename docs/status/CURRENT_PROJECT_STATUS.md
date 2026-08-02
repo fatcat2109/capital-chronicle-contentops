@@ -2,13 +2,13 @@
 
 `ui/contentops_v5/` is the canonical product UI. Deleted or archived UI surfaces are not current product surfaces. GitHub remote commits and fetched repo files remain runtime authority above this status doc. Canonical supervised publishing uses Microsoft Edge profile `A:\\Capital Chronicle\\operator-browser-profiles\\contentops-social-main`. Substack is canonical; YouTube Community is the default YouTube text/image surface. Video and Shorts remain separate non-default modes.
 
-## Current Classification
+## Current Post-v1 Classification
 
-`PASS_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1`.
+Completed task: `TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1`.
 
-## Verified Historical Predecessor Binding And Status Reconciliation V1
+## Historical: Verified Historical Predecessor Binding And Status Reconciliation V1
 
 Historical predecessor authority now requires a structured logical-hash binding to exact bytes read from a reachable immutable Git artifact. Repository origin, artifact-version producer commit, path, blob SHA-1, byte SHA-256, byte length, story and claim/document identity, known-at time, represented version/revision, and historical cutoff all verify independently. Bare hashes, SHA-shaped assertions, duplicate bindings, unverified bytes, mismatched identities, future-known evidence, and future revisions fail closed and cannot suppress `FUTURE_REVISION_LEAKAGE_BLOCK`.
 
@@ -315,4 +315,4 @@ The institutional full-automation plan was verified locally against exact Git by
 
 `TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
-After Jim accepts and merges the docs closeout, execute Wave 01 locally/no-write: establish one canonical production entrypoint and quarantine or delegate legacy live-capable paths. Do not read credentials, invoke providers/platforms, run scheduler/outbox actions, dispatch, publish, or perform public writes.
+After Jim accepts and merges this docs branch, Wave 01 becomes executable as local/no-live runtime implementation: establish one canonical production entrypoint and quarantine or delegate legacy live-capable paths. Focused tests are required. Do not read credentials, invoke providers/platforms, run scheduler/outbox actions, dispatch, publish, or perform public writes.

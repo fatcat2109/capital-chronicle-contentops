@@ -99,35 +99,25 @@ A model may draft and critique. It cannot create authority, permission, approval
 
 Execution mode:
 
-`DOCS_AND_EVIDENCE_ONLY_LOCAL_WORKTREE_CLOSEOUT`
+`LOCAL_NO_LIVE_RUNTIME_IMPLEMENTATION`
 
 Required result:
 
-- pull audit branch into isolated local worktree;
-- verify branch base/diff and all packet paths;
-- parse JSON and validate links/hashes;
-- populate final manifest with actual branch HEAD and file hashes;
-- reconcile current status/master-plan/ledger/pointer files;
-- run `git diff --check` and scoped secret/path scans;
-- commit and push non-force;
-- return exact evidence for Jim review.
+- establish one canonical production entrypoint;
+- quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths;
+- preserve one explicit authority boundary across every delegated path;
+- run focused tests for touched runtime and routing surfaces;
+- keep the implementation local/no-write.
 
 Forbidden in this task:
 
-- runtime/source feature implementation;
-- merge to `master`;
 - credential/env value read;
 - provider call;
-- browser/platform action;
-- scheduler/retry/outbox execution;
-- approval, publication, dispatch or public write;
+- browser/CDP or platform action;
+- scheduler/retry execution;
+- approval or outbox execution;
+- dispatch, publication, or public write;
 - upstream mutation;
-- Project Sources refresh.
+- modification or retagging of accepted `v1.0` artifacts.
 
-## 8. After local closeout
-
-The first implementation program is Wave 01 from the hardening plan:
-
-`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
-
-Wave 01 must remain local/no-write. Do not jump directly to live cohort work.
+Wave 01 becomes executable only after Jim accepts and merges the completed docs/evidence closeout branch.

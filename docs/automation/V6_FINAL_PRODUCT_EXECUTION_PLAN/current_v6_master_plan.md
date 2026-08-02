@@ -373,4 +373,4 @@ Do not use this label earlier.
 
 `TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
-This task is local docs/evidence closeout only. No runtime implementation, merge, credentials, provider/platform action, scheduler/retry, approval, publication, dispatch or public write.
+Wave 01 becomes executable only after Jim accepts and merges the completed docs branch. It is local/no-live runtime implementation to establish one canonical production entrypoint and quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths. Focused tests are required. No credential, provider, browser/CDP, platform, scheduler/retry execution, approval/outbox execution, dispatch, publication, or public write is authorized.
