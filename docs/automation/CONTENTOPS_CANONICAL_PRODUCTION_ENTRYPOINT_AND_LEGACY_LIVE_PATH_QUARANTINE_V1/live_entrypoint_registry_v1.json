@@ -3,34 +3,37 @@
   "entrypoints": [
     {
       "canonical": true,
-      "credential_provider_browser_reachability": "Reachable only after explicit canonical invocation",
+      "credential_provider_browser_reachability": "Private provider/browser implementation reachable only after exact canonical operation validation",
       "current_action": "CANONICAL",
       "entrypoint_id": "contentops.production_orchestrator.v1",
-      "failure_behavior": "Canonical runner fail-closed behavior",
-      "function_or_route": "ContentOpsProductionOrchestrator.run",
+      "failure_behavior": "Unknown operations fail before private implementation import; accepted operations dispatch exactly once",
+      "function_or_route": "ContentOpsProductionOrchestrator.execute / run",
       "invocation_surface": "Python API",
       "live_capability": "Canonical Substack-first publication and configured derivative writes",
       "module_or_path": "live_contentops.production_orchestrator_v1",
       "proving_tests": [
         "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_exactly_one_registry_row_is_canonical",
-        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_orchestrator_is_lazy_and_bound"
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_orchestrator_is_lazy_and_bound",
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_orchestrator_rejects_unknown_operation_before_import"
       ],
-      "required_guard": "Accepted canonical runner approval/freeze/publication guards"
+      "required_guard": "Exact operation allowlist plus accepted approval/freeze/publication guards"
     },
     {
       "canonical": false,
-      "credential_provider_browser_reachability": "Canonical module retains accepted provider/browser reachability",
+      "credential_provider_browser_reachability": "Import-safe facade has no provider/browser/adapter reachability before delegation",
       "current_action": "DELEGATE",
       "entrypoint_id": "contentops.canonical_module_cli.v1",
-      "failure_behavior": "No independent implementation; function is the orchestrator binding target",
-      "function_or_route": "main / run_eight_platform_substack_first_pipeline",
-      "invocation_surface": "Module CLI and historical Python API",
-      "live_capability": "Same canonical pipeline for historical replay compatibility",
+      "failure_behavior": "Compatibility surface delegates to orchestrator, then one private dispatcher and one private implementation",
+      "function_or_route": "public compatibility APIs / main / script CLI",
+      "invocation_surface": "Module CLI, script CLI, and historical Python API",
+      "live_capability": "Canonical compatibility access for all accepted operation families",
       "module_or_path": "live_contentops.eight_platform_substack_first_pipeline_v1",
       "proving_tests": [
-        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_orchestrator_is_lazy_and_bound"
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once",
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_every_live_capable_canonical_cli_family_delegates_once",
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_private_dispatcher_exact_map_has_no_public_wrapper_targets"
       ],
-      "required_guard": "ContentOpsProductionOrchestrator is the authoritative public interface"
+      "required_guard": "Every live-capable route must call ContentOpsProductionOrchestrator.execute exactly once"
     },
     {
       "canonical": false,

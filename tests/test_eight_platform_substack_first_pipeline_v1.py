@@ -2,8 +2,8 @@ import json
 import inspect
 from pathlib import Path
 
-import live_contentops.eight_platform_substack_first_pipeline_v1 as pipeline
-from live_contentops.eight_platform_substack_first_pipeline_v1 import (
+import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
+from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import (
     EXPECTED_DESTINATIONS,
     _classification,
     _dispatch_once,
@@ -124,7 +124,7 @@ def test_final_treasury_auction_repair_is_exact_and_freezes_derivatives(tmp_path
     )
     monkeypatch.setattr(pipeline, "_persist_final_platform_matrix", lambda *_args, **_kwargs: {})
 
-    result = pipeline.repair_final_treasury_auction_logic(output_dir=tmp_path, cdp_port=9223)
+    result = pipeline._repair_final_treasury_auction_logic(output_dir=tmp_path, cdp_port=9223)
 
     repair = result["final_auction_logic_repair"]
     assert repair["status"] == "SUCCESS"
@@ -151,7 +151,7 @@ def test_final_treasury_auction_repair_blocks_identity_mismatch_without_browser(
         lambda **kwargs: (_ for _ in ()).throw(AssertionError("browser must not run")),
     )
 
-    result = pipeline.repair_final_treasury_auction_logic(output_dir=tmp_path, cdp_port=9223)
+    result = pipeline._repair_final_treasury_auction_logic(output_dir=tmp_path, cdp_port=9223)
 
     assert result["final_auction_logic_repair"]["status"] == "BLOCKED_FINAL_AUCTION_LOGIC_REPAIR_IDENTITY_MISMATCH"
 
@@ -169,7 +169,7 @@ def test_final_treasury_auction_repair_never_retries_unknown_write(tmp_path: Pat
         lambda **kwargs: (_ for _ in ()).throw(AssertionError("unknown write must reconcile, not retry")),
     )
 
-    result = pipeline.repair_final_treasury_auction_logic(output_dir=tmp_path, cdp_port=9223)
+    result = pipeline._repair_final_treasury_auction_logic(output_dir=tmp_path, cdp_port=9223)
 
     repair = result["final_auction_logic_repair"]
     assert repair["status"] == "BLOCKED_FINAL_AUCTION_LOGIC_REPAIR_RECONCILIATION_REQUIRED"
@@ -333,7 +333,7 @@ def test_prepare_only_release_candidate_never_calls_publishers(tmp_path: Path, m
         lambda **kwargs: {"classification": "READY_FOR_SUPERVISED_SUBSTACK_BROWSER_ASSIST", "context_path": str(context_path)},
     )
     monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", lambda **kwargs: (_ for _ in ()).throw(AssertionError("no write")))
-    packet = pipeline.prepare_text_image_release_candidate(run_id="rc-no-write", output_dir=tmp_path)
+    packet = pipeline._prepare_text_image_release_candidate(run_id="rc-no-write", output_dir=tmp_path)
     assert packet["classification"] == "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
     assert packet["public_write_performed"] is False
     assert packet["publishing_adapter_called"] is False
@@ -493,7 +493,7 @@ def test_operator_audit_gate_requires_all_nine_strict_public_surfaces(tmp_path: 
         return {"status": "SUCCESS", "public_url": kwargs["public_url"], "public_screenshot_path": str(target), "browser_write_performed": False}
 
     monkeypatch.setattr(pipeline, "capture_public_destination_screenshot_via_edge", capture)
-    packet = pipeline.build_operator_manual_audit_packet(output_dir=tmp_path)
+    packet = pipeline._build_operator_manual_audit_packet(output_dir=tmp_path)
     assert packet["classification"] == "AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC"
     assert packet["machine_qa"]["status"] == "PASS"
     assert packet["screenshots"]["telegram"][0]["status"] == "NOT_APPLICABLE_PUBLIC_DNS_UNAVAILABLE_PROVIDER_READBACK_VERIFIED"
@@ -513,8 +513,8 @@ def test_classification_requires_every_expanded_destination_for_pass():
 
 
 def test_default_youtube_path_cannot_call_video_or_short_adapter():
-    runner_source = inspect.getsource(pipeline.run_eight_platform_substack_first_pipeline)
-    resume_source = inspect.getsource(pipeline.resume_eight_platform_derivatives)
+    runner_source = inspect.getsource(pipeline._run_eight_platform_substack_first_pipeline)
+    resume_source = inspect.getsource(pipeline._resume_eight_platform_derivatives)
 
     assert "publish_youtube_short_via_edge" not in runner_source + resume_source
     assert "build_source_chart_short_video" not in runner_source + resume_source
@@ -644,7 +644,7 @@ def test_existing_run_evidence_prevents_duplicate_substack_publication(tmp_path:
     monkeypatch.setattr(pipeline, "browser_doctor", lambda: (_ for _ in ()).throw(AssertionError("browser must not be opened")))
     monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", lambda **kwargs: (_ for _ in ()).throw(AssertionError("canonical publisher must not run")))
 
-    result = pipeline.run_eight_platform_substack_first_pipeline(
+    result = pipeline._run_eight_platform_substack_first_pipeline(
         run_id="existing-live-run",
         output_dir=tmp_path,
     )
@@ -683,7 +683,7 @@ def test_linkedin_pair_reconciliation_edits_exact_latest_without_third_post(tmp_
         },
     )
     monkeypatch.setattr(pipeline, "publish_linkedin_post_via_edge", lambda **kwargs: (_ for _ in ()).throw(AssertionError("third root forbidden")))
-    packet = pipeline.reconcile_linkedin_activity_pair(
+    packet = pipeline._reconcile_linkedin_activity_pair(
         output_dir=tmp_path,
         cdp_port=9223,
         accepted_url="https://www.linkedin.com/feed/update/urn:li:activity:111/",
@@ -797,7 +797,7 @@ def test_derivative_only_resume_preserves_successful_destinations(tmp_path: Path
     monkeypatch.setattr(pipeline, "publish_linkedin_post_via_edge", lambda **kwargs: (_ for _ in ()).throw(AssertionError("must edit existing post, not create")))
     monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", lambda **kwargs: (_ for _ in ()).throw(AssertionError("canonical publisher must not run")))
 
-    resumed = pipeline.resume_eight_platform_derivatives(
+    resumed = pipeline._resume_eight_platform_derivatives(
         output_dir=tmp_path,
         cdp_port=9223,
         platforms=["linkedin"],
@@ -875,7 +875,7 @@ def test_youtube_correction_records_wrong_short_and_uses_community_adapter_only(
     )
     monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", lambda **kwargs: (_ for _ in ()).throw(AssertionError("canonical publisher must not run")))
 
-    resumed = pipeline.resume_eight_platform_derivatives(
+    resumed = pipeline._resume_eight_platform_derivatives(
         output_dir=tmp_path,
         cdp_port=9223,
         platforms=["youtube"],

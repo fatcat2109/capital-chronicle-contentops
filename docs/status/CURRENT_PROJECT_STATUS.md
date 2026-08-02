@@ -4,9 +4,9 @@
 
 ## Current Post-v1 Classification
 
-`PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`
+`PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTANCE_AND_MASTER_MERGE_V1`.
+Completed task: `TASK_CONTENTOPS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_V1`.
 
 ## Historical: Verified Historical Predecessor Binding And Status Reconciliation V1
 
@@ -315,9 +315,11 @@ The accepted 22-commit institutional plan branch at `df9a95fbc2addb18be1ecbec2fb
 
 `PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`
 
-The executable registry contains exactly one canonical production-orchestrator row, one historical compatibility delegate, and thirteen quarantined noncanonical live-capable surfaces. `ContentOpsProductionOrchestrator` lazy-loads and invokes the accepted `live_contentops.eight_platform_substack_first_pipeline_v1` implementation; it does not create a second pipeline. The legacy V6 runner, unauthenticated HTTP launch, scheduler live mode, CLI fast-ship/direct adapter families, legacy automation loops, and direct browser-profile execution now fail closed before their documented dangerous boundary. The V5 command center reports the HTTP quarantine instead of polling a launch route.
+The independent audit blocked merge of original Wave 01 commit `7300517ca3861c2962df06d443ad0c0916396f9f` because the canonical module's public API and CLI could bypass the claimed production-orchestrator boundary. The correction task is classified `PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`; it awaits independent re-audit and does not claim merge acceptance.
 
-Focused and relevant broader local validation passed 91 tests. The canonical V5 production build passed. The monolithic repository suite and browser QA were not run, and no CI PASS is claimed. No environment or credential value, provider, browser/CDP, platform API, scheduler/outbox execution, dispatch, publication, or public write occurred. The annotated `v1.0` tag object, release commit, accepted evidence, and ingestion repository remain unchanged. Evidence is at `docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/`.
+The executable registry still contains exactly one canonical production-orchestrator row, one compatibility delegate, and thirteen quarantined noncanonical live-capable surfaces. Executable control now flows public compatibility API or canonical module/script CLI → `ContentOpsProductionOrchestrator.execute(operation, **kwargs)` → private `_dispatch_canonical_operation` → exactly one private implementation body. The orchestrator validates the exact operation before importing the private implementation; the public façade does not import provider/browser/adapter implementation code. The accepted HTTP, V6 runner, scheduler, direct platform CLI, legacy automation, browser-profile, and V5 UI quarantines remain unchanged.
+
+Local validation passed 34 focused enforcement tests, 65 canonical compatibility tests, and the unchanged 104-test 13-file Wave 01 regression matrix, for 169 unique tests across the compatibility and regression matrices. The canonical V5 production build passed with 117 modules. The monolithic repository suite and browser QA were not run, and no CI PASS is claimed. No environment or credential value, source/network fetch, provider, browser/CDP, platform adapter/API, scheduler/retry, approval/outbox, dispatch, publication, edit, comment, reply, reaction, DM, or public write occurred. The annotated `v1.0` tag object, release commit, accepted evidence, and ingestion repository remain unchanged. Corrected evidence is at `docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/`.
 
 ## Next Action
 

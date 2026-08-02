@@ -17,6 +17,7 @@ from live_contentops.live_entrypoint_registry_v1 import LiveEntrypointQuarantine
 from live_contentops.production_orchestrator_v1 import (
     CANONICAL_FUNCTION,
     CANONICAL_MODULE,
+    CANONICAL_OPERATIONS,
     ContentOpsProductionOrchestrator,
 )
 
@@ -83,21 +84,108 @@ def test_registry_export_is_stable_and_json_serializable(tmp_path):
 
 def test_orchestrator_is_lazy_and_bound(monkeypatch):
     sys.modules.pop(CANONICAL_MODULE, None)
-    calls: list[dict[str, object]] = []
+    calls: list[tuple[str, dict[str, object]]] = []
 
-    def fake_runner(**kwargs: object) -> dict[str, object]:
-        calls.append(kwargs)
-        return {"status": "BOUND", **kwargs}
+    def fake_dispatcher(operation: str, **kwargs: object) -> dict[str, object]:
+        calls.append((operation, kwargs))
+        return {"status": "BOUND", "operation": operation, **kwargs}
 
     def fake_import(name: str):
         assert name == CANONICAL_MODULE
-        return SimpleNamespace(**{CANONICAL_FUNCTION: fake_runner})
+        return SimpleNamespace(**{CANONICAL_FUNCTION: fake_dispatcher})
 
     monkeypatch.setattr("live_contentops.production_orchestrator_v1.import_module", fake_import)
     orchestrator = ContentOpsProductionOrchestrator()
     assert CANONICAL_MODULE not in sys.modules
-    assert orchestrator.run(run_id="local-proof") == {"status": "BOUND", "run_id": "local-proof"}
-    assert calls == [{"run_id": "local-proof"}]
+    assert orchestrator.run(run_id="local-proof") == {
+        "status": "BOUND",
+        "operation": "run_eight_platform_substack_first_pipeline",
+        "run_id": "local-proof",
+    }
+    assert calls == [("run_eight_platform_substack_first_pipeline", {"run_id": "local-proof"})]
+
+
+def test_orchestrator_rejects_unknown_operation_before_import(monkeypatch):
+    monkeypatch.setattr(
+        "live_contentops.production_orchestrator_v1.import_module",
+        lambda *_: pytest.fail("private implementation import reached"),
+    )
+    with pytest.raises(ValueError, match="unknown_canonical_contentops_operation"):
+        ContentOpsProductionOrchestrator().execute("caller_supplied_bypass", enabled=True)
+
+
+def test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once(monkeypatch, tmp_path):
+    sys.modules.pop(CANONICAL_MODULE, None)
+    public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
+    assert CANONICAL_MODULE not in sys.modules
+    calls: list[tuple[str, dict[str, object]]] = []
+
+    class FakeOrchestrator:
+        def execute(self, operation: str, **kwargs: object) -> dict[str, object]:
+            calls.append((operation, kwargs))
+            return {"operation": operation, **kwargs}
+
+    monkeypatch.setattr(public_module, "ContentOpsProductionOrchestrator", FakeOrchestrator)
+    invocations = {
+        "prepare_text_image_release_candidate": lambda: public_module.prepare_text_image_release_candidate(run_id="r", output_dir=tmp_path),
+        "prepare_generic_text_image_release_candidate": lambda: public_module.prepare_generic_text_image_release_candidate(run_id="r", output_dir=tmp_path),
+        "build_operator_manual_audit_packet": lambda: public_module.build_operator_manual_audit_packet(output_dir=tmp_path),
+        "run_eight_platform_substack_first_pipeline": lambda: public_module.run_eight_platform_substack_first_pipeline(run_id="r", output_dir=tmp_path, operator_approved_full_live_run=False),
+        "reconcile_public_substack_for_derivative_resume": lambda: public_module.reconcile_public_substack_for_derivative_resume(output_dir=tmp_path),
+        "resume_eight_platform_derivatives": lambda: public_module.resume_eight_platform_derivatives(output_dir=tmp_path),
+        "reconcile_existing_derivative_readbacks": lambda: public_module.reconcile_existing_derivative_readbacks(output_dir=tmp_path),
+        "repair_exact_substack_caption_fragment": lambda: public_module.repair_exact_substack_caption_fragment(output_dir=tmp_path, cdp_port=9223),
+        "repair_exact_treasury_release_candidate_editorial": lambda: public_module.repair_exact_treasury_release_candidate_editorial(output_dir=tmp_path, cdp_port=9223),
+        "repair_final_treasury_auction_logic": lambda: public_module.repair_final_treasury_auction_logic(output_dir=tmp_path, cdp_port=9223),
+        "reconcile_linkedin_activity_pair": lambda: public_module.reconcile_linkedin_activity_pair(output_dir=tmp_path, cdp_port=9223, accepted_url="a", accepted_id="1", latest_url="b", latest_id="2"),
+    }
+    for expected_operation, invoke in invocations.items():
+        calls.clear()
+        result = invoke()
+        assert result["operation"] == expected_operation
+        assert [operation for operation, _ in calls] == [expected_operation]
+        assert CANONICAL_MODULE not in sys.modules
+    assert set(invocations) == set(CANONICAL_OPERATIONS) - {"module_cli"}
+
+
+@pytest.mark.parametrize(
+    "argv",
+    [
+        ["--run-id", "r", "--output-dir", "out", "--operator-approved-full-live-run"],
+        ["--run-id", "r", "--output-dir", "out", "--resume-derivatives"],
+        ["--run-id", "r", "--output-dir", "out", "--reconcile-readbacks"],
+        ["--run-id", "r", "--output-dir", "out", "--reconcile-linkedin-pair"],
+        ["--run-id", "r", "--output-dir", "out", "--repair-substack-caption-fragment"],
+        ["--run-id", "r", "--output-dir", "out", "--repair-treasury-rc-editorial"],
+        ["--run-id", "r", "--output-dir", "out", "--repair-final-treasury-auction-logic"],
+        ["--run-id", "r", "--output-dir", "out", "--prepare-only"],
+        ["--run-id", "r", "--output-dir", "out", "--prepare-generic-live-release"],
+        ["--run-id", "r", "--output-dir", "out", "--build-operator-audit-packet"],
+    ],
+)
+def test_every_live_capable_canonical_cli_family_delegates_once(monkeypatch, argv):
+    public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
+    calls: list[tuple[str, dict[str, object]]] = []
+
+    class FakeOrchestrator:
+        def execute(self, operation: str, **kwargs: object) -> int:
+            calls.append((operation, kwargs))
+            return 0
+
+    monkeypatch.setattr(public_module, "ContentOpsProductionOrchestrator", FakeOrchestrator)
+    assert public_module.main(argv) == 0
+    assert calls == [("module_cli", {"argv": argv})]
+
+
+def test_private_dispatcher_exact_map_has_no_public_wrapper_targets():
+    implementation = importlib.import_module(CANONICAL_MODULE)
+    operation_map = implementation._CANONICAL_OPERATIONS
+    assert set(operation_map) == set(CANONICAL_OPERATIONS)
+    assert all(callable(target) for target in operation_map.values())
+    assert all(target.__module__ == CANONICAL_MODULE for target in operation_map.values())
+    assert all(target.__name__.startswith("_") for target in operation_map.values())
+    with pytest.raises(ValueError, match="unknown_canonical_contentops_operation"):
+        implementation._dispatch_canonical_operation("not_registered")
 
 
 def test_legacy_live_flags_fail_before_pipeline_body(monkeypatch):

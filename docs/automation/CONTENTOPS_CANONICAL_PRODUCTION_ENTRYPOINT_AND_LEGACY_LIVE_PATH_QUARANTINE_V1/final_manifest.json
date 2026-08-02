@@ -3,14 +3,26 @@
   "repository": "fatcat2109/capital-chronicle-contentops",
   "branch": "agent/contentops-wave01-canonical-entrypoint-v1",
   "task": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1",
+  "correction_task": "TASK_CONTENTOPS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_V1",
   "classification": "PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT",
-  "task_start_head": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff",
-  "precommit_head": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff",
+  "correction_classification": "PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+  "independent_audit_state": "PRIOR_AUDIT_BLOCKED_MERGE_CORRECTION_AWAITING_REAUDIT",
+  "original_wave01_start_head": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff",
+  "correction_start_head": "7300517ca3861c2962df06d443ad0c0916396f9f",
+  "required_master_base": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff",
+  "precommit_head": "7300517ca3861c2962df06d443ad0c0916396f9f",
   "completing_commit_sha": null,
-  "completing_commit_sha_policy": "intentionally null because a commit cannot truthfully embed its own SHA; report the final SHA after commit and remote parity verification",
-  "authorized_commit_message": "feat(contentops): quarantine legacy live entrypoints",
-  "canonical_interface": "live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator",
-  "canonical_binding_target": "live_contentops.eight_platform_substack_first_pipeline_v1.run_eight_platform_substack_first_pipeline",
+  "completing_commit_sha_policy": "intentionally null because a commit cannot truthfully embed its own SHA; report final SHA after push and remote parity verification",
+  "authorized_commit_message": "fix(contentops): enforce single canonical orchestrator entrypoint",
+  "canonical_public_authority": "live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator",
+  "public_compatibility_facade": "live_contentops.eight_platform_substack_first_pipeline_v1",
+  "private_dispatcher": "live_contentops._eight_platform_substack_first_pipeline_impl_v1._dispatch_canonical_operation",
+  "executable_delegation_direction": [
+    "public compatibility API or canonical module/script CLI",
+    "ContentOpsProductionOrchestrator.execute(operation, **kwargs)",
+    "live_contentops._eight_platform_substack_first_pipeline_impl_v1._dispatch_canonical_operation",
+    "exactly one private implementation body"
+  ],
   "registry": {
     "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/live_entrypoint_registry_v1.json",
     "entrypoint_count": 15,
@@ -23,28 +35,153 @@
     "duplicate_entrypoint_ids": [],
     "validation": "PASS"
   },
+  "canonical_operation_coverage": {
+    "operation_count": 12,
+    "live_cli_family_count": 10,
+    "operations": [
+      {
+        "operation": "prepare_text_image_release_candidate",
+        "public_api": "prepare_text_image_release_candidate",
+        "private_target": "_prepare_text_image_release_candidate",
+        "cli_families": [
+          "--prepare-only"
+        ]
+      },
+      {
+        "operation": "prepare_generic_text_image_release_candidate",
+        "public_api": "prepare_generic_text_image_release_candidate",
+        "private_target": "_prepare_generic_text_image_release_candidate",
+        "cli_families": [
+          "--prepare-generic-live-release"
+        ]
+      },
+      {
+        "operation": "build_operator_manual_audit_packet",
+        "public_api": "build_operator_manual_audit_packet",
+        "private_target": "_build_operator_manual_audit_packet",
+        "cli_families": [
+          "--build-operator-audit-packet"
+        ]
+      },
+      {
+        "operation": "run_eight_platform_substack_first_pipeline",
+        "public_api": "run_eight_platform_substack_first_pipeline",
+        "private_target": "_run_eight_platform_substack_first_pipeline",
+        "cli_families": [
+          "--operator-approved-full-live-run"
+        ]
+      },
+      {
+        "operation": "reconcile_public_substack_for_derivative_resume",
+        "public_api": "reconcile_public_substack_for_derivative_resume",
+        "private_target": "_reconcile_public_substack_for_derivative_resume",
+        "cli_families": [
+          "--resume-derivatives (pre-resume reconciliation)"
+        ]
+      },
+      {
+        "operation": "resume_eight_platform_derivatives",
+        "public_api": "resume_eight_platform_derivatives",
+        "private_target": "_resume_eight_platform_derivatives",
+        "cli_families": [
+          "--resume-derivatives"
+        ]
+      },
+      {
+        "operation": "reconcile_existing_derivative_readbacks",
+        "public_api": "reconcile_existing_derivative_readbacks",
+        "private_target": "_reconcile_existing_derivative_readbacks",
+        "cli_families": [
+          "--reconcile-readbacks"
+        ]
+      },
+      {
+        "operation": "repair_exact_substack_caption_fragment",
+        "public_api": "repair_exact_substack_caption_fragment",
+        "private_target": "_repair_exact_substack_caption_fragment",
+        "cli_families": [
+          "--repair-substack-caption-fragment"
+        ]
+      },
+      {
+        "operation": "repair_exact_treasury_release_candidate_editorial",
+        "public_api": "repair_exact_treasury_release_candidate_editorial",
+        "private_target": "_repair_exact_treasury_release_candidate_editorial",
+        "cli_families": [
+          "--repair-treasury-rc-editorial"
+        ]
+      },
+      {
+        "operation": "repair_final_treasury_auction_logic",
+        "public_api": "repair_final_treasury_auction_logic",
+        "private_target": "_repair_final_treasury_auction_logic",
+        "cli_families": [
+          "--repair-final-treasury-auction-logic"
+        ]
+      },
+      {
+        "operation": "reconcile_linkedin_activity_pair",
+        "public_api": "reconcile_linkedin_activity_pair",
+        "private_target": "_reconcile_linkedin_activity_pair",
+        "cli_families": [
+          "--reconcile-linkedin-pair"
+        ]
+      },
+      {
+        "operation": "module_cli",
+        "public_api": "main",
+        "private_target": "_implementation_main",
+        "cli_families": [
+          "--operator-approved-full-live-run",
+          "--resume-derivatives",
+          "--reconcile-readbacks",
+          "--reconcile-linkedin-pair",
+          "--repair-substack-caption-fragment",
+          "--repair-treasury-rc-editorial",
+          "--repair-final-treasury-auction-logic",
+          "--prepare-only",
+          "--prepare-generic-live-release",
+          "--build-operator-audit-packet"
+        ]
+      }
+    ],
+    "proving_tests": [
+      "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once",
+      "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_every_live_capable_canonical_cli_family_delegates_once",
+      "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_private_dispatcher_exact_map_has_no_public_wrapper_targets"
+    ],
+    "exact_set_validation": "PASS"
+  },
   "validation": {
-    "focused_pytest": {
+    "focused_enforcement_pytest": {
       "result": "PASS",
-      "test_count": 21,
-      "duration_seconds": 1.11
+      "test_count": 34,
+      "duration_seconds": 0.6
     },
-    "relevant_broader_pytest": {
+    "canonical_compatibility_pytest": {
       "result": "PASS",
-      "test_count": 91,
-      "duration_seconds": 22.0,
+      "test_count": 65,
+      "duration_seconds": 1.05,
+      "suite_file_count": 2
+    },
+    "wave01_regression_matrix_pytest": {
+      "result": "PASS",
+      "test_count": 104,
+      "duration_seconds": 5.08,
       "suite_file_count": 13
     },
+    "unique_tests_across_compatibility_and_regression_matrices": 169,
     "canonical_v5_build": {
       "result": "PASS",
       "module_count": 117,
-      "duration_seconds": 8.44
+      "duration_seconds": 2.67
     },
     "monolithic_repository_suite": "NOT_RUN_NO_FULL_SUITE_PASS_CLAIMED",
     "browser_qa": "NOT_RUN",
     "precommit_ci": "NO_CI_PASS_CLAIMED",
     "changed_json_parse": "PASS",
     "changed_markdown_and_repo_paths": "PASS",
+    "ast_and_call_graph": "PASS",
     "git_diff_check": "PASS"
   },
   "protected_baseline": {
@@ -52,7 +189,8 @@
     "v1_0_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
     "tag_unchanged": true,
     "accepted_live_public_evidence_unchanged": true,
-    "canonical_runner_unchanged": true,
+    "canonical_runner_changed_for_enforcement_correction": true,
+    "canonical_implementation_behavior_preserved_by_compatibility_tests": true,
     "historical_replay_packets_preserved": true,
     "ingestion_repository_mutated": false
   },
@@ -69,12 +207,11 @@
   },
   "changed_file_inventory": {
     "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/changed_file_inventory.json",
-    "changed_path_count": 40,
+    "changed_path_count": 19,
     "area_counts": {
-      "canonical_ui": 1,
-      "docs_and_evidence": 20,
-      "runtime": 12,
-      "tests": 7
+      "docs_and_evidence": 12,
+      "runtime": 4,
+      "tests": 3
     }
   },
   "evidence_files": [

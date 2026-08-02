@@ -5,7 +5,7 @@ from copy import deepcopy
 from pathlib import Path
 
 import pytest
-import live_contentops.eight_platform_substack_first_pipeline_v1 as pipeline
+import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
 
 from live_contentops.cc_evidence_bridge_v2 import build_evidence_packet_from_cc_root, validate_evidence_packet
 from live_contentops.distribution_identity_registry_v2 import load_identity_registry, validate_fresh_run_action, verify_distribution_identity
@@ -412,7 +412,7 @@ def test_canonical_runner_generic_mode_cannot_enter_browser_or_publish_paths(tmp
     monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", lambda **_: (_ for _ in ()).throw(AssertionError("no substack write")))
     monkeypatch.setattr(pipeline, "publish_x_post_via_edge", lambda **_: (_ for _ in ()).throw(AssertionError("no x write")))
     monkeypatch.setattr(pipeline, "browser_doctor", lambda: (_ for _ in ()).throw(AssertionError("no browser doctor")))
-    code = pipeline.main([
+    code = pipeline._implementation_main([
         "--run-id", "generic-test", "--output-dir", str(tmp_path), "--prepare-generic-fabric",
         "--capital-chronicle-root", str(cc_root), "--generic-story-request", str(REAL_REQUEST),
         "--generic-as-of-utc", "2026-07-11T02:00:00Z",
@@ -429,7 +429,7 @@ def test_canonical_runner_database_preflight_passes_story_scoped_publication_pac
         pytest.skip("local ingestion repo unavailable")
     monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", lambda **_: (_ for _ in ()).throw(AssertionError("no substack write")))
     monkeypatch.setattr(pipeline, "browser_doctor", lambda: (_ for _ in ()).throw(AssertionError("no browser doctor")))
-    code = pipeline.main([
+    code = pipeline._implementation_main([
         "--run-id", "governed-preflight", "--output-dir", str(tmp_path),
         "--prepare-generic-fabric", "--capital-chronicle-root", str(cc_root),
         "--generic-as-of-utc", "2026-07-14T12:00:00Z",
@@ -441,7 +441,7 @@ def test_canonical_runner_database_preflight_passes_story_scoped_publication_pac
 
 
 def test_legacy_topic_prepare_is_not_canonical_without_explicit_opt_in(tmp_path):
-    code = pipeline.main(["--run-id", "legacy-block", "--output-dir", str(tmp_path), "--prepare-only"])
+    code = pipeline._implementation_main(["--run-id", "legacy-block", "--output-dir", str(tmp_path), "--prepare-only"])
     assert code == 2
     assert not (tmp_path / "run_context_v1.json").exists()
 
