@@ -4,7 +4,7 @@
 
 ## Current Post-v1 Classification
 
-`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
 
 Completed task: `TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1`.
 
@@ -305,14 +305,14 @@ The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and 
 
 This remains the latest chronological historical implementation/audit pointer for the predecessor-binding program. Its exact evidence and no-execution invariants remain preserved; it is not the current post-v1 operational-maturity route.
 
-## Post-v1 full-automation plan local closeout
+## Post-v1 institutional full-automation plan acceptance
 
-`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
 
-The institutional full-automation plan was verified locally against exact Git bytes at branch start `133bd1d88933a03a1a9fead1574eede4575271b6` over required master base `a1645740b8ad3a590be314ecbc900f9ad0f4b252`. All tracked paths were inventoried; current authority was reconciled; the bounded accepted v1.0 release remains unchanged; and no continuous generalized factory PASS is claimed. Authority packet: `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/`.
+The accepted 22-commit institutional plan branch at `df9a95fbc2addb18be1ecbec2fb0455febbc23b4` was merged into `master` by explicit non-fast-forward merge `1d9079fb7f2cf96f27356236c5adfb071eb77b4a` over required pre-merge master `a1645740b8ad3a590be314ecbc900f9ad0f4b252`. The prior local closeout remains historical evidence. The bounded accepted v1.0 release remains unchanged, and no continuous generalized factory PASS is claimed. Authority packet: `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/`.
 
 ## Next Action
 
 `TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
-After Jim accepts and merges this docs branch, Wave 01 becomes executable as local/no-live runtime implementation: establish one canonical production entrypoint and quarantine or delegate legacy live-capable paths. Focused tests are required. Do not read credentials, invoke providers/platforms, run scheduler/outbox actions, dispatch, publish, or perform public writes.
+Wave 00 is accepted and merged. Wave 01 is the exact next task and has not started. It is local/no-live runtime implementation: establish one canonical production entrypoint and quarantine or delegate legacy live-capable paths. Focused tests are required. Do not read credentials, invoke providers/platforms, run scheduler/outbox actions, dispatch, publish, or perform public writes.

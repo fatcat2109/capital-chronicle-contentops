@@ -10,7 +10,7 @@ That release is bounded proof. It is not evidence that a continuously operating,
 
 Current post-v1 classification:
 
-`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
 
 Current audit conclusion:
 
@@ -159,7 +159,7 @@ After implementation:
 2. Disclose tests not run and absence of CI status.
 3. Update current status, master plan, maturity ledger and next-task pointer once.
 4. Verify protected release/tag and upstream state.
-5. Commit and push non-force to the task branch.
+5. Commit and push non-force to the authorized target branch.
 6. Report exact changed files, start/final HEAD, validation, public/provider actions and next task.
 7. Worker PASS remains awaiting independent GitHub/ChatGPT audit.
 

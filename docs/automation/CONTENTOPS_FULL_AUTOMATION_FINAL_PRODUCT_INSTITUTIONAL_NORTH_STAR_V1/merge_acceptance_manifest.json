@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_kind": "contentops_full_automation_institutional_plan_merge_acceptance",
+  "repo_full_name": "fatcat2109/capital-chronicle-contentops",
+  "target_branch": "master",
+  "classification": "PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED",
+  "completed_task": "TASK_CONTENTOPS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTANCE_AND_MASTER_MERGE_V1",
+  "required_pre_merge_master_sha": "a1645740b8ad3a590be314ecbc900f9ad0f4b252",
+  "accepted_source_branch": "agent/contentops-full-automation-final-product-audit-v1",
+  "accepted_source_sha": "df9a95fbc2addb18be1ecbec2fb0455febbc23b4",
+  "source_topology": {
+    "behind_required_master": 0,
+    "ahead_required_master": 22,
+    "merge_base_sha": "a1645740b8ad3a590be314ecbc900f9ad0f4b252"
+  },
+  "merge": {
+    "commit_sha": "1d9079fb7f2cf96f27356236c5adfb071eb77b4a",
+    "message": "merge(contentops): accept institutional full automation plan",
+    "parents": [
+      "a1645740b8ad3a590be314ecbc900f9ad0f4b252",
+      "df9a95fbc2addb18be1ecbec2fb0455febbc23b4"
+    ],
+    "source_is_ancestor": true,
+    "strategy": "explicit_non_fast_forward_merge"
+  },
+  "authority_reconciliation": {
+    "commit_message": "docs(contentops): accept institutional full automation plan",
+    "completing_commit_sha": null,
+    "completing_commit_sha_policy": "null_to_avoid_self_referential_commit_bytes; exact final master SHA is reported after commit and push",
+    "changed_path_count": 10,
+    "changed_paths": [
+      "AGENTS.md",
+      "docs/AI_BUILDER_BOOTSTRAP.md",
+      "docs/CURRENT_CONTEXT.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/merge_acceptance_manifest.json",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md",
+      "docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md",
+      "docs/status/CURRENT_PROJECT_STATUS.md",
+      "docs/status/current_project_status.json"
+    ]
+  },
+  "source_and_merge_diff": {
+    "changed_path_count": 24,
+    "changed_paths": [
+      "AGENTS.md",
+      "docs/AI_BUILDER_BOOTSTRAP.md",
+      "docs/CURRENT_CONTEXT.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/BUILDER_GUARDRAILS_AND_REPO_AUTHORITY.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_HARDENING_EXECUTION_PLAN.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FULL_AUTOMATION_INSTITUTIONAL_NORTH_STAR.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/LIVE_RUN_RECONSTRUCTION_AND_RELIABILITY_AUDIT.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/MODEL_PROVIDER_AND_EVALUATION_STRATEGY.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/OPERATIONAL_SLO_AND_ACCEPTANCE_STANDARD.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/README.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/audit_coverage_report.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/capability_maturity_matrix.json",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/final_manifest.json",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/gap_register.json",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/live_run_inventory.json",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/tracked_file_inventory.json",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+      "docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md",
+      "docs/status/CURRENT_PROJECT_STATUS.md",
+      "docs/status/current_project_status.json"
+    ],
+    "docs_and_evidence_only": true,
+    "runtime_source_files_changed": false,
+    "tests_changed": false,
+    "schemas_changed": false,
+    "ui_files_changed": false
+  },
+  "protected_baseline": {
+    "annotated_tag": "v1.0",
+    "tag_object_sha": "a021df7fd0264d9f160bdd605509da925f0bf131",
+    "release_commit_sha": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+    "accepted_release_evidence_unchanged": true,
+    "accepted_public_output_evidence_unchanged": true,
+    "continuous_generalized_factory_pass_claimed": false
+  },
+  "validation": {
+    "fresh_origin_fetch_performed": true,
+    "exact_remote_refs_verified": true,
+    "target_worktree_clean_before_merge": true,
+    "source_worktree_clean_before_merge": true,
+    "source_topology_verified": true,
+    "source_docs_evidence_scope_verified": true,
+    "merge_parent_and_ancestry_verified": true,
+    "merge_diff_check_passed": true,
+    "merge_protected_baseline_verified": true,
+    "authority_json_parse_passed": true,
+    "authority_markdown_and_path_validation_passed": true,
+    "authority_consistency_passed": true,
+    "authority_diff_check_passed": true,
+    "final_remote_parity_verified": false,
+    "final_worktree_clean": false,
+    "ci_result": "NO_CI_PASS_CLAIMED_PENDING_POST_PUSH_CHECK"
+  },
+  "execution_boundary": {
+    "docs_and_evidence_only": true,
+    "runtime_implementation_performed": false,
+    "live_action_performed": false,
+    "credential_or_env_value_read": false,
+    "provider_call_performed": false,
+    "browser_or_platform_action_performed": false,
+    "scheduler_or_retry_action_performed": false,
+    "approval_or_outbox_action_performed": false,
+    "dispatch_count": 0,
+    "publication_count": 0,
+    "public_write_count": 0,
+    "runtime_tests_run": false,
+    "ui_build_run": false,
+    "browser_qa_run": false
+  },
+  "wave_state": {
+    "wave_00": "COMPLETE_ACCEPTED_AND_MERGED",
+    "wave_01": "NEXT_NOT_STARTED",
+    "next_task": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1"
+  }
+}

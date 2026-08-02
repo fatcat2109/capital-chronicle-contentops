@@ -8,7 +8,7 @@ Historical accepted release:
 
 Post-v1 current classification:
 
-`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
 
 Audit conclusion:
 
@@ -328,8 +328,8 @@ Post-v1 waves:
 
 | Wave | Scope | Status |
 |---:|---|---|
-| 00 | Local docs/evidence closeout and authority reconciliation | NEXT |
-| 01 | Canonical entrypoint and legacy live-path quarantine | NOT_STARTED |
+| 00 | Local docs/evidence closeout and authority reconciliation | COMPLETE_ACCEPTED_AND_MERGED |
+| 01 | Canonical entrypoint and legacy live-path quarantine | NEXT_NOT_STARTED |
 | 02 | Durable operational store/state machine | NOT_STARTED |
 | 03 | Exact approval envelope/transactional outbox | NOT_STARTED |
 | 04 | Restart-safe supervisor/windows/scheduler | NOT_STARTED |
@@ -373,4 +373,4 @@ Do not use this label earlier.
 
 `TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
-Wave 01 becomes executable only after Jim accepts and merges the completed docs branch. It is local/no-live runtime implementation to establish one canonical production entrypoint and quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths. Focused tests are required. No credential, provider, browser/CDP, platform, scheduler/retry execution, approval/outbox execution, dispatch, publication, or public write is authorized.
+Wave 00 is accepted and merged. Wave 01 is the exact next task and has not started. It is local/no-live runtime implementation to establish one canonical production entrypoint and quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths. Focused tests are required. No credential, provider, browser/CDP, platform, scheduler/retry execution, approval/outbox execution, dispatch, publication, or public write is authorized.

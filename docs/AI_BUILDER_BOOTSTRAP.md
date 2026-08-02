@@ -18,7 +18,7 @@ Do not rerun, modify, delete, recreate, move or retag accepted release outputs/e
 
 Current classification:
 
-`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
 
 Current audit conclusion:
 
@@ -120,4 +120,4 @@ Forbidden in this task:
 - upstream mutation;
 - modification or retagging of accepted `v1.0` artifacts.
 
-Wave 01 becomes executable only after Jim accepts and merges the completed docs/evidence closeout branch.
+Wave 00 is accepted and merged. Wave 01 is now the exact next task, but it has not started; execute it only under its local/no-live runtime boundary.

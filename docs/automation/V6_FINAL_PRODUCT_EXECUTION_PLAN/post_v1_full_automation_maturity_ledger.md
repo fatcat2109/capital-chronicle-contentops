@@ -6,7 +6,7 @@ It does not invalidate the historical V6 25-task completion ledger. The prior le
 
 Current classification:
 
-`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
 
 Audit base:
 
@@ -14,8 +14,8 @@ Audit base:
 
 | Wave | Capability | Current status | Acceptance boundary |
 |---:|---|---|---|
-| 00 | Local plan closeout and authority reconciliation | NEXT | Pull audit branch locally, validate packet, reconcile entrypoints, commit/push; no runtime or live action. |
-| 01 | Canonical production entrypoint and legacy live-path quarantine | NOT_STARTED | One live orchestrator; alternate runner/server/scheduler/CLI paths delegate or fail closed. |
+| 00 | Local plan closeout and authority reconciliation | COMPLETE_ACCEPTED_AND_MERGED | Exact branch bytes, docs/evidence scope and protected baseline verified; explicit non-fast-forward merge plus one authority commit; no runtime or live action. |
+| 01 | Canonical production entrypoint and legacy live-path quarantine | NEXT_NOT_STARTED | One live orchestrator; alternate runner/server/scheduler/CLI paths delegate or fail closed. |
 | 02 | Durable operational store and canonical state machine | NOT_STARTED | SQLite WAL, append-only transitions, leases, transactions, restart reconstruction. |
 | 03 | Exact approval envelope and transactional outbox | NOT_STARTED | Hash-bound expiry-aware approval; atomic outbox; no boolean authority. |
 | 04 | Restart-safe supervisor, continuous windows and scheduler | NOT_STARTED | Durable recurring windows, no-op outcomes, heartbeat, catch-up and restart safety. |

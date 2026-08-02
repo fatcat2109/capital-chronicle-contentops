@@ -10,7 +10,7 @@ Accepted release classification:
 
 Current post-v1 plan classification:
 
-`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
 
 Audit branch:
 
@@ -32,7 +32,7 @@ The completed Wave 00 local-closeout instruction is preserved by branch history 
 
 ## Required starting authority
 
-- Jim accepts and merges the docs/evidence closeout classified `PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`.
+- Wave 00 is accepted and merged by `TASK_CONTENTOPS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTANCE_AND_MASTER_MERGE_V1`; Wave 01 has not started.
 - Read `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/` before implementation.
 - Preserve `v1.0` and the accepted release evidence unchanged.
 - Do not add another runner, scheduler, state store, outbox, approval engine, provider gateway, or dashboard.
