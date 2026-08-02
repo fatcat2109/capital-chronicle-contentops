@@ -95,29 +95,31 @@ A model may draft and critique. It cannot create authority, permission, approval
 
 ## 7. Current next task
 
-`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
 Execution mode:
 
-`LOCAL_NO_LIVE_RUNTIME_IMPLEMENTATION`
+`LOCAL_SCHEMA_AND_PERSISTENCE_IMPLEMENTATION_NO_LIVE_ACTION`
 
 Required result:
 
-- establish one canonical production entrypoint;
-- quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths;
-- preserve one explicit authority boundary across every delegated path;
-- run focused tests for touched runtime and routing surfaces;
-- keep the implementation local/no-write.
+- implement one SQLite WAL operational store with explicit versioned migrations;
+- persist append-only transitions with exact reason, actor, and artifact-hash bindings;
+- implement compare-and-set transitions, writer/work-item leases, heartbeats, restart reconstruction, and deterministic replay;
+- keep transaction semantics explicit and provide redacted evidence export;
+- add crash/restart, stale-lease, migration-failure, and concurrent-claim tests.
 
 Forbidden in this task:
 
+- mutable SQLite database commits;
+- raw secret or browser-session persistence;
+- hidden transaction semantics or silent malformed-state discard;
 - credential/env value read;
 - provider call;
 - browser/CDP or platform action;
-- scheduler/retry execution;
-- approval or outbox execution;
-- dispatch, publication, or public write;
+- scheduler or outbox execution;
+- dispatch, publication, network, or public write;
 - upstream mutation;
 - modification or retagging of accepted `v1.0` artifacts.
 
-Wave 00 is accepted and merged. Wave 01 is now the exact next task, but it has not started; execute it only under its local/no-live runtime boundary.
+Wave 01 is classified `PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`. Wave 02 is now the exact next task, but it has not started; execute it only under its schema/local-persistence and no-live boundary.

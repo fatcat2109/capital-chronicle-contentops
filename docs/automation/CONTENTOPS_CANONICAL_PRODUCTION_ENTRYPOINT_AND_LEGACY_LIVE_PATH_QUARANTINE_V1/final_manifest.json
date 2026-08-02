@@ -1,0 +1,102 @@
+{
+  "schema_version": "contentops.wave01_final_manifest.v1",
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "branch": "agent/contentops-wave01-canonical-entrypoint-v1",
+  "task": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1",
+  "classification": "PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT",
+  "task_start_head": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff",
+  "precommit_head": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff",
+  "completing_commit_sha": null,
+  "completing_commit_sha_policy": "intentionally null because a commit cannot truthfully embed its own SHA; report the final SHA after commit and remote parity verification",
+  "authorized_commit_message": "feat(contentops): quarantine legacy live entrypoints",
+  "canonical_interface": "live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator",
+  "canonical_binding_target": "live_contentops.eight_platform_substack_first_pipeline_v1.run_eight_platform_substack_first_pipeline",
+  "registry": {
+    "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/live_entrypoint_registry_v1.json",
+    "entrypoint_count": 15,
+    "canonical_true_count": 1,
+    "action_counts": {
+      "CANONICAL": 1,
+      "DELEGATE": 1,
+      "QUARANTINED": 13
+    },
+    "duplicate_entrypoint_ids": [],
+    "validation": "PASS"
+  },
+  "validation": {
+    "focused_pytest": {
+      "result": "PASS",
+      "test_count": 21,
+      "duration_seconds": 1.11
+    },
+    "relevant_broader_pytest": {
+      "result": "PASS",
+      "test_count": 91,
+      "duration_seconds": 22.0,
+      "suite_file_count": 13
+    },
+    "canonical_v5_build": {
+      "result": "PASS",
+      "module_count": 117,
+      "duration_seconds": 8.44
+    },
+    "monolithic_repository_suite": "NOT_RUN_NO_FULL_SUITE_PASS_CLAIMED",
+    "browser_qa": "NOT_RUN",
+    "precommit_ci": "NO_CI_PASS_CLAIMED",
+    "changed_json_parse": "PASS",
+    "changed_markdown_and_repo_paths": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "protected_baseline": {
+    "v1_0_tag_object": "a021df7fd0264d9f160bdd605509da925f0bf131",
+    "v1_0_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+    "tag_unchanged": true,
+    "accepted_live_public_evidence_unchanged": true,
+    "canonical_runner_unchanged": true,
+    "historical_replay_packets_preserved": true,
+    "ingestion_repository_mutated": false
+  },
+  "no_execution_truth": {
+    "credential_or_environment_values_read_or_logged": false,
+    "source_or_network_fetch_performed": false,
+    "provider_9router_or_gemini_called": false,
+    "browser_or_cdp_used": false,
+    "platform_adapter_or_api_called": false,
+    "scheduler_or_retry_executed": false,
+    "approval_or_outbox_executed": false,
+    "dispatch_publication_edit_comment_reply_reaction_dm_or_public_write_performed": false,
+    "public_write_count": 0
+  },
+  "changed_file_inventory": {
+    "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/changed_file_inventory.json",
+    "changed_path_count": 40,
+    "area_counts": {
+      "canonical_ui": 1,
+      "docs_and_evidence": 20,
+      "runtime": 12,
+      "tests": 7
+    }
+  },
+  "evidence_files": [
+    "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/README.md",
+    "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/before_after_route_matrix.md",
+    "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/canonical_delegated_quarantined_inventory_v1.json",
+    "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/changed_file_inventory.json",
+    "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/final_manifest.json",
+    "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/live_entrypoint_registry_v1.json",
+    "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/protected_baseline_and_no_execution_verification.md",
+    "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/validation_results.md"
+  ],
+  "next_task": "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1",
+  "next_task_state": "NEXT_NOT_STARTED",
+  "wave02_live_authority_granted": false,
+  "post_push_fields": {
+    "final_head": null,
+    "remote_head": null,
+    "local_remote_parity": null,
+    "clean_worktree": null,
+    "github_status_context_count": null,
+    "github_check_run_count": null,
+    "ci_result": "PENDING_POST_PUSH_TRUTH_CHECK"
+  }
+}

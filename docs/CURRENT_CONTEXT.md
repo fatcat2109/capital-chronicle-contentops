@@ -85,9 +85,9 @@ one canonical live state machine
 
 ## Current next task
 
-`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 01 is local/no-live runtime implementation: establish one canonical production entrypoint and quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths. Focused tests are required. Do not read credentials, invoke providers, use browser/CDP or platform APIs, execute the scheduler or outbox, dispatch, publish, or perform public writes.
+Wave 01 is classified `PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`. Wave 02 is next and has not started. It is schema/local-persistence work only: create the SQLite WAL operational spine, explicit versioned migrations, append-only transition history, compare-and-set state changes, leases, restart reconstruction, and redacted evidence export. No credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public write is authorized.
 
 ## Archive policy
 

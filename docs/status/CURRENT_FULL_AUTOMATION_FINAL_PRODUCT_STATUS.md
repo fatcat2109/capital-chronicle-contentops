@@ -87,9 +87,9 @@ one canonical production entrypoint
 
 ## Current next task
 
-`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 00 is accepted and merged. Wave 01 is the exact next task and has not started. It is local/no-live runtime implementation to establish one canonical production entrypoint and quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths. Focused tests are required. It grants no credential, provider, browser/CDP, platform, scheduler/retry execution, approval/outbox execution, dispatch, publication, or public-write authority.
+Wave 01 is classified `PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`: exactly one registry row is canonical, the accepted pipeline remains the orchestrator binding target, and alternate runner/server/scheduler/CLI/browser-profile routes delegate or fail closed. Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary for SQLite WAL, migrations, append-only transitions, compare-and-set state, leases, restart reconstruction, and redacted evidence export. It grants no credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public-write authority.
 
 ## No current live authority
 

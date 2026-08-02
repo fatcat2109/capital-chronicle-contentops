@@ -92,6 +92,6 @@ Wave 00 local plan closeout
 
 ## Current next task
 
-`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-No runtime implementation or live authority is granted by this supersession map.
+Wave 01 is complete awaiting independent audit. Wave 02 is schema/local-persistence work only. No live authority is granted by this supersession map.

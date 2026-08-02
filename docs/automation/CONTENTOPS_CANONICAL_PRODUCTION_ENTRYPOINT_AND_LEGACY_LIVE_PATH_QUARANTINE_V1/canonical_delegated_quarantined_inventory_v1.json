@@ -1,0 +1,246 @@
+{
+  "schema_version": "contentops.wave01_entrypoint_action_inventory.v1",
+  "task": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1",
+  "classification": "PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT",
+  "registry_source": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/live_entrypoint_registry_v1.json",
+  "inventory_scope": "every known grouped function, module CLI, script CLI, HTTP route, scheduler route, CLI family, UI route, and direct browser-profile route capable of reaching provider, browser, credential, adapter, dispatch, publication, edit, comment, reply, or public-write behavior",
+  "summary": {
+    "entrypoint_count": 15,
+    "canonical_true_count": 1,
+    "action_counts": {
+      "CANONICAL": 1,
+      "DELEGATE": 1,
+      "QUARANTINED": 13
+    },
+    "duplicate_entrypoint_ids": [],
+    "registry_validation": "PASS"
+  },
+  "entrypoints": [
+    {
+      "canonical": true,
+      "credential_provider_browser_reachability": "Reachable only after explicit canonical invocation",
+      "current_action": "CANONICAL",
+      "entrypoint_id": "contentops.production_orchestrator.v1",
+      "failure_behavior": "Canonical runner fail-closed behavior",
+      "function_or_route": "ContentOpsProductionOrchestrator.run",
+      "invocation_surface": "Python API",
+      "live_capability": "Canonical Substack-first publication and configured derivative writes",
+      "module_or_path": "live_contentops.production_orchestrator_v1",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_exactly_one_registry_row_is_canonical",
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_orchestrator_is_lazy_and_bound"
+      ],
+      "required_guard": "Accepted canonical runner approval/freeze/publication guards"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "Canonical module retains accepted provider/browser reachability",
+      "current_action": "DELEGATE",
+      "entrypoint_id": "contentops.canonical_module_cli.v1",
+      "failure_behavior": "No independent implementation; function is the orchestrator binding target",
+      "function_or_route": "main / run_eight_platform_substack_first_pipeline",
+      "invocation_surface": "Module CLI and historical Python API",
+      "live_capability": "Same canonical pipeline for historical replay compatibility",
+      "module_or_path": "live_contentops.eight_platform_substack_first_pipeline_v1",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_orchestrator_is_lazy_and_bound"
+      ],
+      "required_guard": "ContentOpsProductionOrchestrator is the authoritative public interface"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "Historical module imports live adapters",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.legacy_v6_runner.v1",
+      "failure_behavior": "BLOCKED_LEGACY_LIVE_PATH_USE_CANONICAL_PRODUCTION_ORCHESTRATOR",
+      "function_or_route": "run_live_production_pipeline / module CLI",
+      "invocation_surface": "Legacy Python API and module CLI",
+      "live_capability": "Historical direct platform dispatch",
+      "module_or_path": "live_contentops.live_production_pipeline_runner_v6",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_legacy_live_flags_fail_before_pipeline_body"
+      ],
+      "required_guard": "Reject live_run, dispatch_live, and dispatch_rehearsal before preparation or env access"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "None after quarantine",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.local_http_run_pipeline.v1",
+      "failure_behavior": "BLOCKED_HTTP_LIVE_LAUNCH_QUARANTINED",
+      "function_or_route": "POST /api/run-pipeline",
+      "invocation_surface": "Unauthenticated local HTTP / UI launch",
+      "live_capability": "Former subprocess launch of legacy live runner",
+      "module_or_path": "live_contentops.server",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_server_post_is_machine_readable_and_cannot_launch"
+      ],
+      "required_guard": "Always deny POST"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "None; UI receives explicit blocked response",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.v6_command_center_launch.v1",
+      "failure_behavior": "BLOCKED_HTTP_LIVE_LAUNCH_QUARANTINED",
+      "function_or_route": "launchFullPipeline -> POST /api/run-pipeline",
+      "invocation_surface": "Operator UI",
+      "live_capability": "Former unauthenticated local HTTP launch",
+      "module_or_path": "ui/contentops_v5/src/views/V6CommandCenter.tsx",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_ui_route_is_registered_and_server_route_is_quarantined"
+      ],
+      "required_guard": "Render server quarantine status without polling"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "Adapter imports are reachable only in dry-run mode",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.scheduler_dispatch_function.v1",
+      "failure_behavior": "BLOCKED_SCHEDULER_LIVE_UNTIL_DURABLE_OUTBOX_AUTHORITY",
+      "function_or_route": "dispatch_platform_action",
+      "invocation_surface": "Python API",
+      "live_capability": "Direct adapter post/comment/edit execution",
+      "module_or_path": "live_contentops.scheduler_v6",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_scheduler_live_dispatch_fails_before_import"
+      ],
+      "required_guard": "Reject dry_run=False before adapter imports"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "None in live mode after quarantine",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.scheduler_tick.v1",
+      "failure_behavior": "BLOCKED_SCHEDULER_LIVE_UNTIL_DURABLE_OUTBOX_AUTHORITY",
+      "function_or_route": "OutboxScheduler.reconcile_outbox_timing",
+      "invocation_surface": "Python scheduler API",
+      "live_capability": "Due-entry dispatch and output mutation",
+      "module_or_path": "live_contentops.scheduler_v6",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_scheduler_live_tick_fails_before_load_or_save"
+      ],
+      "required_guard": "Reject dry_run=False before registry read/write or adapter dispatch"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "None after command-boundary quarantine",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.cli_scheduler_fast_ship.v1",
+      "failure_behavior": "BLOCKED_SCHEDULER_LIVE_UNTIL_DURABLE_OUTBOX_AUTHORITY",
+      "function_or_route": "scheduler tick --fast-ship",
+      "invocation_surface": "CLI",
+      "live_capability": "Former scheduler non-dry-run dispatch",
+      "module_or_path": "live_contentops.cli",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_cli_fast_ship_scheduler_fails_before_scheduler_import"
+      ],
+      "required_guard": "Reject --fast-ship before scheduler construction"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "Adapter imports remain test/rehearsal compatibility only",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.cli_direct_platform_adapters.v1",
+      "failure_behavior": "BLOCKED_LEGACY_LIVE_PATH_USE_CANONICAL_PRODUCTION_ORCHESTRATOR",
+      "function_or_route": "x / substack / telegram / discord / facebook / instagram / threads commands",
+      "invocation_surface": "CLI command families",
+      "live_capability": "Direct platform adapter execution including live pilot commands",
+      "module_or_path": "live_contentops.cli",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_registry_covers_direct_cli_adapter_families"
+      ],
+      "required_guard": "No command grants production authority; live-capable flags and pilots fail closed"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "Legacy module formerly imported the Discord adapter and read webhook environment values at import/run reachability",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.legacy_fast_one_cycle.v0",
+      "failure_behavior": "BLOCKED_LEGACY_AUTOMATION_USE_CANONICAL_PRODUCTION_ORCHESTRATOR",
+      "function_or_route": "run_fast_one_cycle / scripts/run_fast_one_cycle_automation_v0.py",
+      "invocation_surface": "Legacy Python API and script CLI",
+      "live_capability": "Discord webhook dispatch plus preview/output mutation",
+      "module_or_path": "live_contentops.fast_one_cycle_automation_v0",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_legacy_automation_callables_fail_before_io_env_or_adapter_import"
+      ],
+      "required_guard": "Reject at the callable boundary before packet/output/env/adapter access"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "Legacy module can lazily import Telegram live adapter",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.legacy_full_pipeline_debug_live.v0",
+      "failure_behavior": "BLOCKED_LEGACY_AUTOMATION_USE_CANONICAL_PRODUCTION_ORCHESTRATOR",
+      "function_or_route": "run_full_pipeline_north_star_debug_and_live_run / scripts/run_full_pipeline_north_star_debug_and_live_run_v0.py",
+      "invocation_surface": "Legacy Python API and script CLI",
+      "live_capability": "Telegram photo repair and evidence/output mutation",
+      "module_or_path": "live_contentops.full_pipeline_north_star_debug_and_live_run_v0",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_legacy_automation_callables_fail_before_io_env_or_adapter_import"
+      ],
+      "required_guard": "Reject at the callable boundary before repo/output/adapter access"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "Legacy module can lazily import Telegram live adapter",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.legacy_operator_daily_live.v0",
+      "failure_behavior": "BLOCKED_LEGACY_AUTOMATION_USE_CANONICAL_PRODUCTION_ORCHESTRATOR",
+      "function_or_route": "run_operator_approved_supervised_live_daily_run",
+      "invocation_surface": "Legacy Python API",
+      "live_capability": "Telegram post and evidence/output mutation",
+      "module_or_path": "live_contentops.operator_approved_supervised_live_daily_run_v0",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_legacy_automation_callables_fail_before_io_env_or_adapter_import"
+      ],
+      "required_guard": "Reject at the callable boundary before repo/output/adapter access"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "Legacy module imports Telegram adapter and can load dotenv",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.legacy_terra_ultra_live.v1",
+      "failure_behavior": "BLOCKED_LEGACY_AUTOMATION_USE_CANONICAL_PRODUCTION_ORCHESTRATOR",
+      "function_or_route": "run_terra_ultra_north_star_full_automation / main / scripts/run_terra_ultra_north_star_full_automation_v1.py",
+      "invocation_surface": "Legacy Python API, module CLI, and script CLI",
+      "live_capability": "Telegram photo dispatch plus source/article/media/evidence mutation",
+      "module_or_path": "live_contentops.terra_ultra_north_star_full_automation_v1",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_legacy_automation_callables_fail_before_io_env_or_adapter_import"
+      ],
+      "required_guard": "Reject at the callable boundary before dotenv/output/provider/adapter access"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "Legacy module imports Telegram adapters and loads dotenv",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.legacy_substack_first_loop.v1",
+      "failure_behavior": "BLOCKED_LEGACY_AUTOMATION_USE_CANONICAL_PRODUCTION_ORCHESTRATOR",
+      "function_or_route": "prepare_substack_first_pipeline / complete_substack_first_pipeline / main / scripts/run_substack_first_north_star_pipeline_loop_v1.py",
+      "invocation_surface": "Legacy Python API, module CLI, and script CLI",
+      "live_capability": "Provider-backed preparation, Substack browser request mutation, and Telegram derivative dispatch",
+      "module_or_path": "live_contentops.substack_first_north_star_pipeline_loop_v1",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_legacy_substack_loop_entrypoints_fail_before_io_env_or_adapter_import"
+      ],
+      "required_guard": "Reject prepare/complete/main before dotenv/output/provider/browser/adapter access"
+    },
+    {
+      "canonical": false,
+      "credential_provider_browser_reachability": "Canonical Edge profile and browser process are directly reachable",
+      "current_action": "QUARANTINED",
+      "entrypoint_id": "contentops.direct_browser_profile_execution.v1",
+      "failure_behavior": "BLOCKED_DIRECT_BROWSER_PROFILE_EXECUTION_USE_CANONICAL_PRODUCTION_ORCHESTRATOR",
+      "function_or_route": "open_or_attach_canonical_edge / main",
+      "invocation_surface": "Python API and module CLI",
+      "live_capability": "Direct browser-process launch or CDP attachment",
+      "module_or_path": "live_contentops.publishing_profile_registry_v1",
+      "proving_tests": [
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_direct_browser_profile_execution_fails_before_process_or_network_access"
+      ],
+      "required_guard": "Reject before process discovery, CDP probing, or browser launch"
+    }
+  ]
+}

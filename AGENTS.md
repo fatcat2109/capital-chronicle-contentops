@@ -139,9 +139,9 @@ Credential checks are limited to names, presence booleans, nonsecret scope/accou
 
 ## 10. Current next task
 
-`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-This is local/no-live runtime implementation. Establish one canonical production entrypoint and quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths. Focused tests are required. Do not read credentials, invoke providers, use browser/CDP or platform APIs, execute the scheduler or outbox, dispatch, publish, or perform public writes.
+Wave 01 is classified `PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`. Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary: implement the SQLite WAL operational spine, versioned migrations, append-only transitions, compare-and-set state changes, leases, restart reconstruction, and redacted evidence export. Do not read credentials, invoke providers, use browser/CDP or platform APIs, execute scheduler/outbox work, dispatch, publish, or perform network/public writes.
 
 ## 11. Task protocol
 

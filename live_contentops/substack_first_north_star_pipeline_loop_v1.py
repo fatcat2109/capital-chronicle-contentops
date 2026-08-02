@@ -18,8 +18,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
-from .ai_provider_gate_v6 import inspect_provider_credentials
-from .current_oil_release_source_v1 import fetch_current_eia_oil_release_packet
+from .live_entrypoint_registry_v1 import LEGACY_AUTOMATION_QUARANTINED, quarantine
 from .media_content_audit_v6 import build_current_macro_visual_pack
 from .media_manifest_authority_v1 import image_metadata_from_file
 from .public_dispatch_freeze_guard_v6 import (
@@ -30,12 +29,6 @@ from .public_dispatch_freeze_guard_v6 import (
     load_public_dispatch_hashes,
     make_public_dispatch_approval_marker,
 )
-from .substack_browser_adapter_v6 import (
-    build_supervised_substack_browser_readback,
-    prepare_supervised_substack_browser_request,
-    validate_supervised_substack_browser_readback,
-)
-from .telegram_live_adapter_v6 import execute_telegram_caption_edit, execute_telegram_photo
 from .tier1_editorial_quality_v1 import (
     audit_tier1_article,
     build_grounded_oil_release_candidate,
@@ -922,6 +915,11 @@ def prepare_substack_first_pipeline(
     fresh_publication_run: bool = False,
     llm_editorial_reviewer: Callable[[str, str], str | Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    quarantine(
+        "contentops.legacy_substack_first_loop.v1",
+        LEGACY_AUTOMATION_QUARANTINED,
+        "Substack-first north-star loop is legacy; use ContentOpsProductionOrchestrator.",
+    )
     _load_dotenv_safely()
     output_dir.mkdir(parents=True, exist_ok=True)
     context = load_current_headline_inputs(output_dir=output_dir)
@@ -1063,9 +1061,14 @@ def complete_substack_first_pipeline(
     operator_approved_full_live_run: bool,
     max_send_attempts_per_platform: int = 1,
     ledger_path: Path = PUBLIC_DISPATCH_LEDGER,
-    telegram_photo_executor: Callable[..., dict[str, Any]] = execute_telegram_photo,
-    telegram_caption_editor: Callable[..., dict[str, Any]] = execute_telegram_caption_edit,
+    telegram_photo_executor: Callable[..., dict[str, Any]] | None = None,
+    telegram_caption_editor: Callable[..., dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    quarantine(
+        "contentops.legacy_substack_first_loop.v1",
+        LEGACY_AUTOMATION_QUARANTINED,
+        "Substack-first completion loop is legacy; use ContentOpsProductionOrchestrator.",
+    )
     _load_dotenv_safely()
     context = _read_json(context_path)
     output_dir = context_path.parent
@@ -1241,6 +1244,11 @@ def complete_substack_first_pipeline(
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    quarantine(
+        "contentops.legacy_substack_first_loop.v1",
+        LEGACY_AUTOMATION_QUARANTINED,
+        "Substack-first loop CLI is legacy; use ContentOpsProductionOrchestrator.",
+    )
     parser = argparse.ArgumentParser(description=TASK_LABEL)
     action = parser.add_mutually_exclusive_group(required=True)
     action.add_argument("--prepare", action="store_true")

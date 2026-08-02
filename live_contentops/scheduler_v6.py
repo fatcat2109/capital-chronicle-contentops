@@ -13,6 +13,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
+from .live_entrypoint_registry_v1 import SCHEDULER_LIVE_QUARANTINED, quarantine
 from .live_telemetry_v6 import classify_and_record_dispatch
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_SCHEDULER_AND_CRON_RECONCILIATION_V0"
@@ -126,7 +127,13 @@ def dispatch_platform_action(
     payload: dict[str, Any],
     dry_run: bool
 ) -> dict[str, Any]:
-    """Helper to dispatch actions to platform adapters, or fallback to mock dispatch."""
+    """Dispatch a deterministic dry-run action; live scheduling is quarantined."""
+    if not dry_run:
+        quarantine(
+            "contentops.scheduler_dispatch_function.v1",
+            SCHEDULER_LIVE_QUARANTINED,
+            "Scheduler live dispatch is blocked until Wave 04 durable scheduling/outbox authority exists.",
+        )
     if platform_id == "substack":
         from .substack_browser_adapter_v6 import execute_substack_post, execute_substack_comment, execute_substack_edit
         if action == "post":
@@ -280,11 +287,11 @@ def dispatch_platform_action(
         elif action == "edit":
             return execute_threads_edit()
     
-    # Fallback / Dry run mock dispatch for other platforms
+    # Unsupported deterministic dry-run fixture; never a live success.
     return {
-        "status": "SUCCESS" if not dry_run else "DRY_RUN_PASS",
-        "id": f"{platform_id}_mock_id_{hashlib.md5(str(payload).encode('utf-8')).hexdigest()[:8]}",
-        "response": {"mocked": True}
+        "status": "DRY_RUN_UNSUPPORTED_PLATFORM",
+        "id": None,
+        "response": {"mocked": True, "live_success": False},
     }
 
 
@@ -376,7 +383,17 @@ class OutboxScheduler:
         current_time: datetime.datetime | None = None,
         dry_run: bool = True
     ) -> dict[str, Any]:
-        """Runs a tick check of the scheduler to dispatch any due entries."""
+        """Run one deterministic dry-run scheduler tick.
+
+        Live mode is rejected before registry reads, adapter imports, dispatch,
+        telemetry, history updates, or filesystem mutation.
+        """
+        if not dry_run:
+            quarantine(
+                "contentops.scheduler_tick.v1",
+                SCHEDULER_LIVE_QUARANTINED,
+                "Scheduler live ticks are blocked until Wave 04 durable scheduling/outbox authority exists.",
+            )
         if current_time is None:
             current_time = datetime.datetime.now(datetime.timezone.utc)
             

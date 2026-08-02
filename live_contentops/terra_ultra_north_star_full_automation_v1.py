@@ -16,6 +16,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
+from .live_entrypoint_registry_v1 import LEGACY_AUTOMATION_QUARANTINED, quarantine
 from .media_content_audit_v6 import build_current_macro_visual_pack
 from .public_dispatch_freeze_guard_v6 import (
     append_public_dispatch_ledger,
@@ -25,7 +26,6 @@ from .public_dispatch_freeze_guard_v6 import (
     load_public_dispatch_hashes,
     make_public_dispatch_approval_marker,
 )
-from .telegram_live_adapter_v6 import execute_telegram_photo
 
 TASK_LABEL = "TASK_CONTENTOPS_TERRA_ULTRA_COMPLETE_NORTH_STAR_FULL_AUTOMATION_V1"
 PASS_CLASSIFICATION = "PASS_NORTH_STAR_FULL_CONTENTOPS_AUTOMATION_V1"
@@ -755,9 +755,14 @@ def run_terra_ultra_north_star_full_automation(
     article_md_path: Path = ARTICLE_MD_PATH,
     article_html_path: Path = ARTICLE_HTML_PATH,
     ledger_path: Path = PUBLIC_DISPATCH_LEDGER,
-    telegram_photo_executor: Callable[..., dict[str, Any]] = execute_telegram_photo,
+    telegram_photo_executor: Callable[..., dict[str, Any]] | None = None,
     visual_builder: Callable[..., list[dict[str, Any]]] = build_current_macro_visual_pack,
 ) -> dict[str, Any]:
+    quarantine(
+        "contentops.legacy_terra_ultra_live.v1",
+        LEGACY_AUTOMATION_QUARANTINED,
+        "Terra Ultra automation is legacy; use ContentOpsProductionOrchestrator.",
+    )
     run_id = run_id or f"terra_ultra_north_star_{_stable_hash({'task': TASK_LABEL, 'ts': _utc_now()}, 12)}"
     dotenv_loaded = _load_dotenv_if_available() if operator_approved_full_live_run else False
     resolved_media_dir = media_dir or output_dir / "media_assets"
@@ -985,6 +990,11 @@ This packet records a fresh non-oil north-star automation run. ContentOps built 
 
 
 def main(argv: list[str] | None = None) -> int:
+    quarantine(
+        "contentops.legacy_terra_ultra_live.v1",
+        LEGACY_AUTOMATION_QUARANTINED,
+        "Terra Ultra CLI is legacy; use ContentOpsProductionOrchestrator.",
+    )
     parser = argparse.ArgumentParser(description="Run Terra Ultra north-star ContentOps automation.")
     parser.add_argument("--operator-approved-full-live-run", action="store_true")
     parser.add_argument("--max-send-attempts-per-platform", type=int, default=1)

@@ -14,6 +14,10 @@ import subprocess
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
+from live_contentops.live_entrypoint_registry_v1 import (
+    LEGACY_AUTOMATION_QUARANTINED,
+    quarantine,
+)
 from live_contentops.public_dispatch_freeze_guard_v6 import (
     append_public_dispatch_ledger,
     build_public_dispatch_payload_hash,
@@ -243,6 +247,11 @@ def run_operator_approved_supervised_live_daily_run(
     current_head: str | None = None,
     started_at: str | None = None,
 ) -> dict[str, Any]:
+    quarantine(
+        "contentops.legacy_operator_daily_live.v0",
+        LEGACY_AUTOMATION_QUARANTINED,
+        "Operator-approved daily live automation is legacy; use ContentOpsProductionOrchestrator.",
+    )
     root = Path(repo_root)
     out_dir = Path(output_dir)
     started = started_at or _utc_now()

@@ -17,6 +17,11 @@ import urllib.request
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
+from .live_entrypoint_registry_v1 import (
+    BROWSER_PROFILE_EXECUTION_QUARANTINED,
+    quarantine,
+)
+
 
 REGISTRY_VERSION = "contentops.publishing_profile_registry.v1"
 CANONICAL_PROFILE_ID = "contentops-social-main"
@@ -278,7 +283,12 @@ def open_or_attach_canonical_edge(
     env: Mapping[str, str] | None = None,
     wait_seconds: float = 12.0,
 ) -> dict[str, Any]:
-    """Attach to canonical Edge when present, otherwise launch it on a safe port."""
+    """Reject direct browser execution outside the canonical production orchestrator."""
+    quarantine(
+        "contentops.direct_browser_profile_execution.v1",
+        BROWSER_PROFILE_EXECUTION_QUARANTINED,
+        "Direct canonical-profile launch/attach is quarantined; use ContentOpsProductionOrchestrator.",
+    )
     doctor = browser_doctor(env=env)
     port = doctor.get("recommended_cdp_port")
     if not doctor["profile_root_exists"]:
@@ -323,7 +333,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     open_parser = sub.add_parser("open")
     open_parser.add_argument("--url", action="append", default=["https://substack.com/"])
     args = parser.parse_args(argv)
-    result = browser_doctor() if args.command == "doctor" else open_or_attach_canonical_edge(urls=args.url)
+    if args.command == "open":
+        quarantine(
+            "contentops.direct_browser_profile_execution.v1",
+            BROWSER_PROFILE_EXECUTION_QUARANTINED,
+            "Direct canonical-profile CLI execution is quarantined; use ContentOpsProductionOrchestrator.",
+        )
+    result = browser_doctor()
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0 if str(result.get("status", "")).startswith(("READY", "ATTACHED", "LAUNCHED")) else 2
 
