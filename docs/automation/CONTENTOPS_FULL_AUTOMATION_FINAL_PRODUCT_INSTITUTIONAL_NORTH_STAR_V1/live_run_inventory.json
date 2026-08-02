@@ -1,0 +1,229 @@
+{
+  "schema_version": "contentops.full_automation_live_run_inventory.v1",
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "audited_branch": "master",
+  "audited_head": "a1645740b8ad3a590be314ecbc900f9ad0f4b252",
+  "audit_classification": "PARTIAL_PASS_BOUNDED_NINE_SURFACE_RELEASE_PROVEN_CONTINUOUS_GENERALIZED_FACTORY_NOT_YET_PROVEN",
+  "run_count": 8,
+  "classification_policy": {
+    "task_name_is_not_execution_evidence": true,
+    "process_exit_code_is_not_publication_evidence": true,
+    "provider_ack_is_not_strict_readback": true,
+    "transport_pass_is_not_operator_product_acceptance": true,
+    "later_repair_does_not_rewrite_initial_run_result": true
+  },
+  "runs": [
+    {
+      "sequence": 1,
+      "run_id": "terra_ultra_north_star_full_automation_v1",
+      "date": "2026-07-10",
+      "evidence_root": "docs/automation/TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1/",
+      "terminal_audit_classification": "PARTIAL_LIVE_TELEGRAM_ONLY",
+      "public_write_count_confirmed": 1,
+      "strict_readback_count_confirmed": 1,
+      "operator_product_acceptance": false,
+      "platforms": {
+        "telegram": "STRICT_READBACK_CONFIRMED",
+        "substack": "PREWRITE_OR_EXECUTION_BLOCKED",
+        "x": "PREWRITE_OR_EXECUTION_BLOCKED"
+      },
+      "key_findings": [
+        "telegram_message_61_confirmed",
+        "substack_not_completed",
+        "x_not_completed",
+        "full_automation_task_label_overstated_actual_completion"
+      ],
+      "continuous_factory_evidence": false
+    },
+    {
+      "sequence": 2,
+      "run_id": "substack_first_north_star_live_20260710",
+      "date": "2026-07-10",
+      "evidence_root": "docs/automation/SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1/substack_first_north_star_live_20260710/",
+      "terminal_audit_classification": "PARTIAL_SUBSTACK_DRAFT_ONLY_MEDIA_AND_PUBLICATION_BLOCKED",
+      "public_write_count_confirmed": 0,
+      "strict_readback_count_confirmed": 0,
+      "operator_product_acceptance": false,
+      "platforms": {
+        "substack": "DRAFT_SAVED_NOT_ACCEPTED_PUBLIC_ARTICLE",
+        "telegram": "NOT_ATTEMPTED",
+        "x": "NOT_ATTEMPTED"
+      },
+      "key_findings": [
+        "substack_draft_identity_created",
+        "zero_verified_editor_images",
+        "browser_extension_or_file_access_blocked_media_flow",
+        "draft_save_not_equivalent_to_publication"
+      ],
+      "continuous_factory_evidence": false
+    },
+    {
+      "sequence": 3,
+      "run_id": "eight_platform_live_20260710",
+      "date": "2026-07-10",
+      "evidence_root": "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710/",
+      "terminal_audit_classification": "BLOCKED_MULTI_PLATFORM_ATTEMPT_RECOVERY_REQUIRED",
+      "public_write_count_confirmed": 0,
+      "strict_readback_count_confirmed": 0,
+      "operator_product_acceptance": false,
+      "platforms": {},
+      "key_findings": [
+        "canonical_browser_profile_checks_advanced",
+        "intended_destination_set_not_completed",
+        "recovery_run_required"
+      ],
+      "continuous_factory_evidence": false
+    },
+    {
+      "sequence": 4,
+      "run_id": "eight_platform_live_20260710_recovery1",
+      "date": "2026-07-10",
+      "evidence_root": "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/",
+      "terminal_audit_classification": "PARTIAL_LIVE_SUBSTACK_TELEGRAM_X_BLOCKED",
+      "public_write_count_confirmed": 2,
+      "strict_readback_count_confirmed": 2,
+      "operator_product_acceptance": false,
+      "platforms": {
+        "substack": "STRICT_READBACK_CONFIRMED",
+        "telegram": "REPAIRED_KNOWN_OBJECT_AND_READBACK_CONFIRMED",
+        "x": "BLOCKED"
+      },
+      "key_findings": [
+        "substack_public_article_completed",
+        "telegram_canonical_link_repaired",
+        "x_remained_blocked",
+        "thread_fragmentation_and_visual_chain_gaps_remained",
+        "tiktok_and_video_modes_incomplete"
+      ],
+      "continuous_factory_evidence": false
+    },
+    {
+      "sequence": 5,
+      "run_id": "contentops_v1_0_rc_20260711_1",
+      "date": "2026-07-11",
+      "evidence_root": "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/",
+      "terminal_audit_classification": "TRANSPORT_PASS_PRODUCT_QUALITY_BLOCKED_FOR_TARGETED_REPAIR",
+      "public_write_count_confirmed": 9,
+      "strict_readback_count_confirmed": 9,
+      "operator_product_acceptance": false,
+      "platforms": {
+        "substack": "TRANSPORT_AND_READBACK_PASS_PRODUCT_REPAIR_REQUIRED",
+        "telegram": "TRANSPORT_AND_READBACK_PASS",
+        "discord": "TRANSPORT_AND_READBACK_PASS",
+        "x": "TRANSPORT_AND_READBACK_PASS",
+        "linkedin": "TRANSPORT_PASS_HISTORICAL_ACTIVITY_INTEGRITY_DEFECT",
+        "facebook_page": "TRANSPORT_PASS_COPY_DEFECT",
+        "instagram_business": "TRANSPORT_AND_READBACK_PASS",
+        "threads": "TRANSPORT_PASS_MALFORMED_CONTINUATIONS",
+        "youtube_community": "TRANSPORT_AND_READBACK_PASS",
+        "tiktok_native": "NOT_COMPLETED"
+      },
+      "key_findings": [
+        "stale_story_relative_to_freshness_policy",
+        "headline_overstatement_prewar_vs_preconflict",
+        "internal_process_language_in_public_article",
+        "average_absolute_move_mislabeled_realized_volatility",
+        "partial_2026_period_not_labeled_ytd_or_partial",
+        "three_visuals_from_one_series_failed_meaningful_diversity",
+        "fresh_linkedin_story_reused_or_edited_historical_activity",
+        "facebook_copy_defect",
+        "threads_standalone_continuation_defects"
+      ],
+      "continuous_factory_evidence": false
+    },
+    {
+      "sequence": 6,
+      "run_id": "contentops_final_closure_20260711_1",
+      "date": "2026-07-11",
+      "evidence_root": "docs/automation/FINAL_AUTOMATION_PIPELINE_CLOSURE_V1/contentops_final_closure_20260711_1/",
+      "terminal_audit_classification": "TARGETED_PUBLIC_REPAIR_PARTIAL_CLOSURE_GENERIC_CANARY_WITHHELD",
+      "public_write_count_confirmed": null,
+      "strict_readback_count_confirmed": null,
+      "operator_product_acceptance": false,
+      "platforms": {
+        "facebook_page": "REPAIRED_KNOWN_OBJECT",
+        "linkedin": "REPAIRED_OR_RECONCILED_HISTORICAL_OBJECT",
+        "threads": "TARGETED_DELETE_RECREATE_WITH_ORDER_CAVEAT",
+        "fresh_generic_canary": "PREWRITE_BLOCKED_ZERO_WRITE"
+      },
+      "key_findings": [
+        "facebook_copy_repaired",
+        "historical_linkedin_integrity_reconciled",
+        "malformed_threads_posts_deleted",
+        "duplicate_text_identity_ambiguity_caused_recovery_caveat",
+        "generic_canary_withheld_without_publication_authority",
+        "oil_editorial_repair_not_promoted_to_new_accepted_public_release"
+      ],
+      "continuous_factory_evidence": false
+    },
+    {
+      "sequence": 7,
+      "run_id": "contentops_database_backed_live_run_20260714_1",
+      "date": "2026-07-14",
+      "evidence_root": "docs/automation/DATABASE_BACKED_FULL_AUTOMATION_LIVE_RUN_V1/contentops_database_backed_live_run_20260714_1/",
+      "terminal_audit_classification": "PASS_FAIL_CLOSED_NO_ELIGIBLE_STORY_ZERO_WRITE",
+      "public_write_count_confirmed": 0,
+      "strict_readback_count_confirmed": 0,
+      "operator_product_acceptance": false,
+      "platforms": {},
+      "key_findings": [
+        "database_artifacts_readable",
+        "no_story_selected",
+        "dqr_reporting_permission_source_url_freshness_and_claim_authority_blockers_preserved",
+        "no_browser_or_platform_adapter_invoked",
+        "no_filler_story_manufactured"
+      ],
+      "continuous_factory_evidence": false
+    },
+    {
+      "sequence": 8,
+      "run_id": "contentops_database_publication_live_20260714_1",
+      "date": "2026-07-14",
+      "evidence_root": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1/",
+      "terminal_audit_classification": "OPERATOR_ACCEPTED_BOUNDED_NINE_SURFACE_TEXT_IMAGE_RELEASE",
+      "public_write_count_confirmed": 9,
+      "strict_readback_count_confirmed": 9,
+      "operator_product_acceptance": true,
+      "frozen_release": true,
+      "release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+      "release_tag": "v1.0",
+      "canonical_url": "https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider",
+      "platforms": {
+        "substack": "OPERATOR_ACCEPTED_STRICT_READBACK",
+        "telegram": "OPERATOR_ACCEPTED_PROVIDER_READBACK_DNS_SCREENSHOT_CAVEAT",
+        "discord": "OPERATOR_ACCEPTED_STRICT_READBACK",
+        "x": "OPERATOR_ACCEPTED_ROOT_TWO_REPLIES_THREE_VISUALS",
+        "linkedin": "OPERATOR_ACCEPTED_FRESH_ACTIVITY_STRICT_READBACK",
+        "facebook_page": "OPERATOR_ACCEPTED_STRICT_READBACK",
+        "instagram_business": "OPERATOR_ACCEPTED_FEED_MEDIA_CAPTION_READBACK",
+        "threads": "OPERATOR_ACCEPTED_ROOT_TWO_REPLIES_THREE_VISUALS",
+        "youtube_community": "OPERATOR_ACCEPTED_COMMUNITY_TEXT_IMAGE_READBACK",
+        "tiktok_native": "OUTSIDE_AUTHORIZED_RUN_BLOCKED_AUTHENTICATION",
+        "youtube_long_form": "NOT_INVOKED_SEPARATE_MODE",
+        "youtube_shorts": "NOT_INVOKED_SEPARATE_MODE"
+      },
+      "key_findings": [
+        "exact_story_scoped_contentops_publication_authority",
+        "global_dqr_remained_independently_blocked",
+        "canonical_substack_plus_eight_derivatives",
+        "strict_public_or_provider_identity_readback",
+        "bounded_substack_caption_and_auction_wording_repairs",
+        "derivative_identities_preserved_during_repair",
+        "machine_verification_and_operator_acceptance_passed",
+        "single_story_bounded_proof_not_continuous_generalized_factory"
+      ],
+      "continuous_factory_evidence": false
+    }
+  ],
+  "aggregate_truth": {
+    "accepted_frozen_release_count": 1,
+    "accepted_frozen_story_count": 1,
+    "tier1_text_image_surfaces_proven_in_one_release": 9,
+    "continuous_multiday_supervisor_proven": false,
+    "restart_safe_durable_state_proven": false,
+    "repeated_generalized_live_cohort_proven": false,
+    "automated_performance_feedback_loop_proven": false,
+    "tiktok_video_pipeline_proven": false,
+    "youtube_video_pipeline_proven": false
+  }
+}
