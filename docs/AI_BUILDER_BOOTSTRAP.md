@@ -1,46 +1,123 @@
-# AI Builder Bootstrap
+# Capital Chronicle ContentOps — AI Builder Bootstrap
 
-Start at root `AGENTS.md`. Repo evidence beats chat memory and archived plans.
+Start at root `AGENTS.md`. Repository evidence beats chat memory, Project Sources, worker narratives and archived plans.
 
-## Current State
+## 1. Historical accepted release
 
-`TASK_CONTENTOPS_DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1` completed the first database-authorized generic live canary. The main database granted exact story-scoped `contentops_publication` permission while global DQR remained blocked; ContentOps consumed that packet without a legacy oil/Fed fallback.
+ContentOps v1.0 remains operator accepted and immutable.
 
-Run `contentops_database_publication_live_20260714_1` passed Substack plus eight configured derivatives, machine audit, the final release verifier, and operator acceptance. Annotated tag `v1.0` marks immutable release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+Run `contentops_database_publication_live_20260714_1` consumed exact story-scoped `contentops_publication` authority for one Treasury story while global DQR remained independently blocked. It published canonical Substack plus eight Tier-1 text/image derivatives, passed strict public/provider readback, bounded repair, machine verification and operator acceptance.
 
-## Read Order
+Annotated tag `v1.0` marks release commit:
+
+`6983bfb3ef300414b744f3f8f97ca81ff699348b`
+
+Do not rerun, modify, delete, recreate, move or retag accepted release outputs/evidence.
+
+## 2. Current post-v1 state
+
+Current classification:
+
+`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
+
+Current audit conclusion:
+
+`PARTIAL_PASS_BOUNDED_NINE_SURFACE_RELEASE_PROVEN_CONTINUOUS_GENERALIZED_FACTORY_NOT_YET_PROVEN`
+
+The repository has not yet proven:
+
+- one durable unified production state machine;
+- restart-safe continuous supervisor/scheduler;
+- exact approval envelope and transactional live outbox shared by all paths;
+- repeated generalized live operation across diverse fresh stories;
+- rolling SLOs and incident recovery;
+- automated performance/community learning;
+- Tier-2 TikTok/video production.
+
+## 3. Mandatory read order
 
 1. `AGENTS.md`
-2. `docs/status/CURRENT_PROJECT_STATUS.md`
-3. `docs/status/current_project_status.json`
-4. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
-5. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/generic_evidence_freshness_visual_editorial_fabric_v2.md`
-6. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json`
-7. `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/operator_manual_audit_findings_v2.json`
-8. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+2. `docs/CURRENT_CONTEXT.md`
+3. `docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md`
+4. `docs/status/CURRENT_PROJECT_STATUS.md`
+5. `docs/status/current_project_status.json`
+6. `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/README.md`
+7. `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FULL_AUTOMATION_INSTITUTIONAL_NORTH_STAR.md`
+8. `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/LIVE_RUN_RECONSTRUCTION_AND_RELIABILITY_AUDIT.md`
+9. `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_HARDENING_EXECUTION_PLAN.md`
+10. `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/OPERATIONAL_SLO_AND_ACCEPTANCE_STANDARD.md`
+11. `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/MODEL_PROVIDER_AND_EVALUATION_STRATEGY.md`
+12. `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/BUILDER_GUARDRAILS_AND_REPO_AUTHORITY.md`
+13. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
+14. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md`
+15. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+16. Exact task-specific implementation, tests and evidence.
 
-## Canonical Surfaces
+## 4. Canonical surfaces
 
 - Product UI: `ui/contentops_v5/`
-- Browser publishing profile: Microsoft Edge at `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`
-- Runner: `live_contentops.eight_platform_substack_first_pipeline_v1`
-- Generic prepare-only mode: `--prepare-generic-fabric`
-- Generic live release preparation: `--prepare-generic-live-release`
-- Evidence bridge: `live_contentops.cc_evidence_bridge_v2`
+- Backend: `live_contentops/`
+- Production migration anchor: `live_contentops.eight_platform_substack_first_pipeline_v1`
+- Generic evidence bridge: `live_contentops.cc_evidence_bridge_v2`
 - Freshness: `live_contentops.freshness_market_state_v2`
 - Visual fabric: `live_contentops.editorial_visual_research_v2`
 - Editorial roles: `live_contentops.editorial_review_orchestrator_v2`
-- Identity/persona authority: `distribution_identity_persona_registry_v2.json`
-- Strategy/status: existing V6 plan and `docs/status/`
+- Identity/persona registry: `distribution_identity_persona_registry_v2.json`
+- Canonical browser profile: Microsoft Edge at `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`
+- Strategy/status: `docs/status/`, `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/`, and the post-v1 institutional packet.
 
-Substack is the canonical article surface. YouTube Community is the default YouTube text/image derivative; YouTube video and Shorts remain separate explicit non-default modes.
+Substack is canonical long-form authority. YouTube Community is the default YouTube text/image surface. TikTok, YouTube long-form and YouTube Shorts are separate Tier-2 modes.
 
-Numeric truth must come from approved evidence claim IDs. DQR blocks cannot be overridden by SourceHealth, InputStateManifest, or LLM output. Google visual grounding is candidate discovery only and grants neither provenance nor reuse permission.
+## 5. Current architecture decision
 
-## Final Closure State
+Do not create another runner, scheduler, outbox, approval engine, provider gateway, status stack or dashboard.
 
-The upstream publication packet at database commit `49525e0f17c2eb448ac3343f63559f5021fea47c` grants only the exact Treasury story. ContentOps calibrated the headline, produced two quantitative charts plus an official Treasury data excerpt, passed deterministic and bounded LLM editorial review, and published through the canonical runner.
+The hardening program must establish exactly one:
 
-Canonical article: `https://capitalchronicle.substack.com/p/treasury-yield-curve-edges-wider`. All eight configured derivatives have stable IDs and strict readback in the run evidence. A bounded Substack update removed one duplicate caption fragment without touching derivatives. The machine audit and operator acceptance pass; do not rerun or edit these outputs, and do not move, delete, recreate, or retag `v1.0`.
+- production orchestrator;
+- durable SQLite WAL operational store and state machine;
+- exact expiry-aware approval envelope;
+- transactional outbox;
+- restart-safe supervisor/scheduler;
+- Tier-1 adapter/reconciliation interface;
+- provider/model registry and gateway;
+- operational V5 control plane.
 
-The current reusable learning authority includes `TASK_CONTENTOPS_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1` over the accepted frozen foundation. Three versioned, no-write adapters bind exact historical Treasury yield-curve Atom/OData XML, CFTC legacy futures-only CSV, and Federal Reserve H.4.1 ZIP/XML/XSD bytes. External evidence remains context-only feature support; H.4.1 numeric values remain quarantined; all decisions remain no-publication. Frozen contracts, historical evidence, `UNCALIBRATED_FOUNDATION`, DQR/permission policy, upstream state, and `v1.0` remain unchanged. Read the batch final manifest and freeze manifest before extending adapters. The next action is `INDEPENDENT_CHATGPT_AUDIT_PRODUCTION_ADAPTER_BATCH_TREASURY_YIELD_CFTC_COT_AND_FED_H41_V1`.
+Existing alternate paths including `live_production_pipeline_runner_v6.py`, `server.py`, `scheduler_v6.py`, scheduler live CLI flags and older template outboxes are not independent production authority. Delegate or quarantine them in the appropriate wave.
+
+## 6. Evidence and model boundary
+
+Numeric/source truth comes from approved Capital Chronicle evidence claim IDs. DQR cannot be overridden by SourceHealth, InputStateManifest, LLM output or operator convenience. External search and image grounding are discovery/context only and grant neither claim authority nor reuse rights.
+
+Current economic model intent is 9router with a Gemini 3.1 Pro-class model. The exact provider model ID must be verified and recorded in a versioned registry. Current embedded implicit Flash/default behavior is not the final architecture.
+
+A model may draft and critique. It cannot create authority, permission, approval, publication eligibility or dispatch authority.
+
+## 7. Current next task
+
+`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+
+Execution mode:
+
+`LOCAL_NO_LIVE_RUNTIME_IMPLEMENTATION`
+
+Required result:
+
+- establish one canonical production entrypoint;
+- quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths;
+- preserve one explicit authority boundary across every delegated path;
+- run focused tests for touched runtime and routing surfaces;
+- keep the implementation local/no-write.
+
+Forbidden in this task:
+
+- credential/env value read;
+- provider call;
+- browser/CDP or platform action;
+- scheduler/retry execution;
+- approval or outbox execution;
+- dispatch, publication, or public write;
+- upstream mutation;
+- modification or retagging of accepted `v1.0` artifacts.
+
+Wave 01 becomes executable only after Jim accepts and merges the completed docs/evidence closeout branch.

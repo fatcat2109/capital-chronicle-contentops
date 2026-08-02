@@ -1,14 +1,14 @@
 # Current Project Status
 
-`ui/contentops_v5/` is the canonical product UI. `ui/institutional_operator_cockpit_v4/` is fallback/reference only. GitHub remote commits and fetched repo files remain runtime authority above this status doc. Canonical supervised publishing uses Microsoft Edge profile `A:\\Capital Chronicle\\operator-browser-profiles\\contentops-social-main`. Substack is canonical; YouTube Community is the default YouTube text/image surface. Video and Shorts remain separate non-default modes.
+`ui/contentops_v5/` is the canonical product UI. Deleted or archived UI surfaces are not current product surfaces. GitHub remote commits and fetched repo files remain runtime authority above this status doc. Canonical supervised publishing uses Microsoft Edge profile `A:\\Capital Chronicle\\operator-browser-profiles\\contentops-social-main`. Substack is canonical; YouTube Community is the default YouTube text/image surface. Video and Shorts remain separate non-default modes.
 
-## Current Classification
+## Current Post-v1 Classification
 
-`PASS_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1_AWAITING_CHATGPT_AUDIT`
+`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
 
-Completed task: `TASK_CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1`.
+Completed task: `TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1`.
 
-## Verified Historical Predecessor Binding And Status Reconciliation V1
+## Historical: Verified Historical Predecessor Binding And Status Reconciliation V1
 
 Historical predecessor authority now requires a structured logical-hash binding to exact bytes read from a reachable immutable Git artifact. Repository origin, artifact-version producer commit, path, blob SHA-1, byte SHA-256, byte length, story and claim/document identity, known-at time, represented version/revision, and historical cutoff all verify independently. Bare hashes, SHA-shaped assertions, duplicate bindings, unverified bytes, mismatched identities, future-known evidence, and future revisions fail closed and cannot suppress `FUTURE_REVISION_LEAKAGE_BLOCK`.
 
@@ -299,8 +299,20 @@ The committed extractor registry binds implementations, repository/path/schema o
 
 The real no-write canary runs BLS CPI, U.S. Treasury auction announcements, and New York Fed reference rates through the same generic core. BLS freshness and Treasury policy significance truthfully abstain; stale NY Fed freshness is explicit zero. The internal source-access contract is not counted as an editorial topic. All three dispositions are `NO_PUBLICATION_INSUFFICIENT_AUTHORITY`. The upstream `main` authority was fetched read-only at `48ec657bb66758b444b12ef7467ab2687d200c6a`. V1/V2 compatibility, prior evidence trees, `UNCALIBRATED_FOUNDATION`, `v1.0`, DQR, permissions, scheduler/editorial policy, and no-publication remain unchanged.
 
-## Next Action
+## Latest historical task truth
 
 `INDEPENDENT_CHATGPT_AUDIT_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1`
 
-Independently verify exact committed-byte predecessor receipts, immutable reachability, story and source-document/claim identity, cutoff-valid known/revision times, negative fail-closed cases, unchanged three-story temporal outcomes, 18-HOLD/five-supersession parity, status-pointer consistency, and all no-execution invariants. Do not fetch sources, approve, publish, dispatch, read credentials, access provider platforms, mutate upstream, run scheduler actions, or perform public writes.
+This remains the latest chronological historical implementation/audit pointer for the predecessor-binding program. Its exact evidence and no-execution invariants remain preserved; it is not the current post-v1 operational-maturity route.
+
+## Post-v1 full-automation plan local closeout
+
+`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
+
+The institutional full-automation plan was verified locally against exact Git bytes at branch start `133bd1d88933a03a1a9fead1574eede4575271b6` over required master base `a1645740b8ad3a590be314ecbc900f9ad0f4b252`. All tracked paths were inventoried; current authority was reconciled; the bounded accepted v1.0 release remains unchanged; and no continuous generalized factory PASS is claimed. Authority packet: `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/`.
+
+## Next Action
+
+`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+
+After Jim accepts and merges this docs branch, Wave 01 becomes executable as local/no-live runtime implementation: establish one canonical production entrypoint and quarantine or delegate legacy live-capable paths. Focused tests are required. Do not read credentials, invoke providers/platforms, run scheduler/outbox actions, dispatch, publish, or perform public writes.

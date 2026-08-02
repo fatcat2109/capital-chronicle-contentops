@@ -1,0 +1,241 @@
+{
+  "schema_version": "contentops.full_automation_capability_maturity_matrix.v1",
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "audited_head": "a1645740b8ad3a590be314ecbc900f9ad0f4b252",
+  "scale": {
+    "1": "concept_or_fixture_only",
+    "2": "local_component_or_partial_integration",
+    "3": "integrated_shadow_or_bounded_partial_live",
+    "4": "bounded_accepted_live_proof",
+    "5": "continuous_generalized_operationally_accepted"
+  },
+  "overall_current_maturity": 3,
+  "overall_target_maturity": 5,
+  "domains": [
+    {
+      "domain_id": "authority_and_evidence_boundary",
+      "current_maturity": 4,
+      "target_maturity": 5,
+      "current_truth": "Strong exact Git receipts, claim permissions, DQR independence, point-in-time checks and fail-closed behavior exist. Story availability and current authority remain variable.",
+      "primary_gap": "Make the same exact authority model native to the durable continuous state machine.",
+      "required_wave": "Wave 07"
+    },
+    {
+      "domain_id": "candidate_intake",
+      "current_maturity": 2,
+      "target_maturity": 5,
+      "current_truth": "Governed candidate readers, sidecars and deterministic shadow replays exist; continuous live intake is not proven.",
+      "primary_gap": "Durable cursors, event windows, material-delta wakeups and always-on supervisor integration.",
+      "required_wave": "Wave 07"
+    },
+    {
+      "domain_id": "assignment_ranking_preemption",
+      "current_maturity": 3,
+      "target_maturity": 5,
+      "current_truth": "Inspectable hard gates and five-window ranking exist in local/shadow form.",
+      "primary_gap": "Persist assignment decisions in the canonical state machine and prove repeated point-in-time operation.",
+      "required_wave": "Wave 07"
+    },
+    {
+      "domain_id": "canonical_editorial_production",
+      "current_maturity": 4,
+      "target_maturity": 5,
+      "current_truth": "One accepted Treasury article and extensive editorial contracts exist; July 11 RC exposed material quality defects.",
+      "primary_gap": "Generalized multi-story cohort, exact model routing, final-render quality and reduced repair burden.",
+      "required_wave": "Wave 08"
+    },
+    {
+      "domain_id": "visual_media_production",
+      "current_maturity": 3,
+      "target_maturity": 5,
+      "current_truth": "Rights, provenance, method and diversity contracts exist; repeated accepted visual diversity is not proven.",
+      "primary_gap": "Capability-driven visual orchestration, exact rights evidence and diverse live cohort.",
+      "required_wave": "Wave 08"
+    },
+    {
+      "domain_id": "model_provider_routing",
+      "current_maturity": 2,
+      "target_maturity": 5,
+      "current_truth": "9router calls, retries and deterministic recovery exist, but model IDs are embedded and current default conflicts with operator intent.",
+      "primary_gap": "Versioned model registry, Gemini 3.1 Pro exact default verification, shared gateway and evaluation/promotion framework.",
+      "required_wave": "Wave 06"
+    },
+    {
+      "domain_id": "operator_review_package",
+      "current_maturity": 4,
+      "target_maturity": 5,
+      "current_truth": "V5 exposes exact claims, variants, hashes and blockers for bounded packages.",
+      "primary_gap": "Bind UI review to durable current state, diff and exact approval envelope.",
+      "required_wave": "Wave 09"
+    },
+    {
+      "domain_id": "approval_integrity",
+      "current_maturity": 3,
+      "target_maturity": 5,
+      "current_truth": "Canonical hash markers and several local approval contracts exist, but multiple approval semantics remain.",
+      "primary_gap": "One immutable approval envelope with expiry and artifact mutation invalidation.",
+      "required_wave": "Wave 03"
+    },
+    {
+      "domain_id": "durable_outbox",
+      "current_maturity": 2,
+      "target_maturity": 5,
+      "current_truth": "Duplicate guard and local outbox concepts exist; no single transactional live outbox owns all dispatch.",
+      "primary_gap": "Atomic claim, operation-level idempotency, attempts, readback and durable reconciliation.",
+      "required_wave": "Wave 03"
+    },
+    {
+      "domain_id": "production_orchestrator",
+      "current_maturity": 3,
+      "target_maturity": 5,
+      "current_truth": "Canonical runner is strong and accepted once, but competing live runner/server/scheduler paths exist.",
+      "primary_gap": "One production interface and hard quarantine/delegation for all alternate live entrypoints.",
+      "required_wave": "Wave 01"
+    },
+    {
+      "domain_id": "durable_operational_state",
+      "current_maturity": 1,
+      "target_maturity": 5,
+      "current_truth": "JSON files, JSONL logs, shared latest packets and in-memory server task maps remain important coordination surfaces.",
+      "primary_gap": "SQLite WAL state model, append-only events, leases, transactions, restart reconstruction and evidence export.",
+      "required_wave": "Wave 02"
+    },
+    {
+      "domain_id": "scheduler_and_supervisor",
+      "current_maturity": 1,
+      "target_maturity": 5,
+      "current_truth": "Current scheduler has boolean approval, generic retry, live mock-success fallback and one-shot recurrence behavior; no accepted continuous supervisor exists.",
+      "primary_gap": "Restart-safe supervisor, durable ticks, recurring windows, catch-up, leases and health endpoint.",
+      "required_wave": "Wave 04"
+    },
+    {
+      "domain_id": "idempotency_unknown_write_reconciliation",
+      "current_maturity": 3,
+      "target_maturity": 5,
+      "current_truth": "Canonical runner recognizes unknown writes and blocks blind retry; the behavior is not shared by every entrypoint/platform path.",
+      "primary_gap": "Common adapter contract and durable operation-level reconciliation across Tier-1 platforms.",
+      "required_wave": "Wave 05"
+    },
+    {
+      "domain_id": "tier1_platform_delivery",
+      "current_maturity": 4,
+      "target_maturity": 5,
+      "current_truth": "Substack plus eight text/image derivatives passed one accepted story-scoped live release.",
+      "primary_gap": "Repeated diverse cohort, degraded-platform recovery and rolling SLO evidence.",
+      "required_wave": "Waves 13-14"
+    },
+    {
+      "domain_id": "strict_readback",
+      "current_maturity": 4,
+      "target_maturity": 5,
+      "current_truth": "Strong public/provider readback exists in v1.0, with a Telegram DNS evidence-class caveat.",
+      "primary_gap": "Unified evidence-class contract, durable object identities and repeated cohort proof.",
+      "required_wave": "Wave 05"
+    },
+    {
+      "domain_id": "observability_incident_slo",
+      "current_maturity": 2,
+      "target_maturity": 5,
+      "current_truth": "Basic JSONL platform telemetry exists without durable work-item correlation, heartbeat, incidents, breakers or SLO evaluation.",
+      "primary_gap": "Correlated operational metrics, incidents, reconciliation age, circuit breakers and honest SLO reports.",
+      "required_wave": "Wave 10"
+    },
+    {
+      "domain_id": "operator_ui_control_plane",
+      "current_maturity": 3,
+      "target_maturity": 5,
+      "current_truth": "V5 has strong read-only evidence review but is not the single durable production control plane.",
+      "primary_gap": "Bind UI to durable store, approval envelope, outbox, incidents, model diagnostics and current supervisor state.",
+      "required_wave": "Wave 09"
+    },
+    {
+      "domain_id": "performance_metrics_learning",
+      "current_maturity": 1,
+      "target_maturity": 5,
+      "current_truth": "Performance learning is deterministic historical/manual replay; no accepted live metrics collection or calibrated policy loop.",
+      "primary_gap": "Exact post identity, scoped metrics adapters/operator assist, cohort rules and operator-approved learning promotion.",
+      "required_wave": "Wave 11"
+    },
+    {
+      "domain_id": "community_feedback_loop",
+      "current_maturity": 1,
+      "target_maturity": 5,
+      "current_truth": "Current feedback intake uses mock/manual snapshots and review-only outputs.",
+      "primary_gap": "Scoped readers or operator exports, privacy/redaction, exact story bindings and governed next-idea proposals.",
+      "required_wave": "Wave 11"
+    },
+    {
+      "domain_id": "resilience_and_soak_evidence",
+      "current_maturity": 1,
+      "target_maturity": 5,
+      "current_truth": "No accepted seven-day continuous soak, restart/concurrency drill or repeated live cohort exists.",
+      "primary_gap": "Seven-day shadow soak followed by staged supervised live cohorts.",
+      "required_wave": "Waves 12-14"
+    },
+    {
+      "domain_id": "tier2_video_tiktok",
+      "current_maturity": 1,
+      "target_maturity": 4,
+      "current_truth": "TikTok is blocked/incomplete; YouTube long-form and Shorts are nondefault modes and were not invoked by v1.0.",
+      "primary_gap": "Separate video production, rights, render, upload, readback and cohort after Tier-1 acceptance.",
+      "required_wave": "Wave 15"
+    }
+  ],
+  "tier1_platforms": [
+    {
+      "platform_id": "substack",
+      "current_maturity": 4,
+      "proof": "accepted canonical article, three visuals, strict readback and bounded in-place repair",
+      "remaining_gap": "repeated diverse cohort, restart recovery and selector/session health"
+    },
+    {
+      "platform_id": "telegram",
+      "current_maturity": 4,
+      "proof": "accepted message/photo and provider readback",
+      "remaining_gap": "unified provider-readback classification and repeated cohort"
+    },
+    {
+      "platform_id": "discord",
+      "current_maturity": 4,
+      "proof": "accepted community derivative and persona/channel binding",
+      "remaining_gap": "continuous webhook reliability and feedback intake"
+    },
+    {
+      "platform_id": "x",
+      "current_maturity": 4,
+      "proof": "accepted root plus two replies and visual distribution",
+      "remaining_gap": "durable chain resume, permalink reconciliation and session health"
+    },
+    {
+      "platform_id": "linkedin",
+      "current_maturity": 4,
+      "proof": "accepted fresh activity and strict readback",
+      "remaining_gap": "fresh-create versus exact-edit identity enforcement"
+    },
+    {
+      "platform_id": "facebook_page",
+      "current_maturity": 4,
+      "proof": "accepted public object and exact copy repair",
+      "remaining_gap": "final rendered-copy and exact-media conformance across cohort"
+    },
+    {
+      "platform_id": "instagram_business",
+      "current_maturity": 4,
+      "proof": "accepted feed media and caption readback",
+      "remaining_gap": "media/crop/alt/CTA conformance and repeated cohort"
+    },
+    {
+      "platform_id": "threads",
+      "current_maturity": 4,
+      "proof": "accepted root plus two replies and visuals",
+      "remaining_gap": "duplicate-text reconciliation, exact chain order and targeted delete safety"
+    },
+    {
+      "platform_id": "youtube_community",
+      "current_maturity": 4,
+      "proof": "accepted Community text/image post",
+      "remaining_gap": "surface enforcement and repeated cohort"
+    }
+  ],
+  "completion_gate": "PASS_CONTENTOPS_TIER1_CONTINUOUS_GENERALIZED_FULL_AUTOMATION_OPERATOR_ACCEPTED"
+}

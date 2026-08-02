@@ -1,34 +1,97 @@
-# V6 Supersession Map
+# ContentOps V6/Post-v1 Supersession Map
 
-Current authority is the V6 master plan, machine status JSON, generic fabric contract, platform/identity registries, RC operator audit, and current code/tests.
+## Current authority
 
-| Superseded claim | Current authority |
-| --- | --- |
-| Nine-surface machine PASS alone means v1.0 acceptance | Machine proof required later operator acceptance and final repair verification; those gates passed and immutable annotated tag `v1.0` now marks the accepted release. |
-| `fed_funds / oil / unsupported` is the canonical story model | Capability-driven story types and evidence requirements are canonical; topic builders are legacy adapters. |
-| Duplicate guard proves news freshness | Duplicate and freshness gates are separate. |
-| Direct FRED/EIA fetchers are future numeric authority | `CapitalChronicleContentEvidencePacketV2` is the canonical consumer boundary. |
-| Three charts from one series meet visual requirements | Require visual/evidence diversity and normally no more than two assets per underlying series. |
-| Average absolute daily move is realized volatility | Realized volatility requires a declared standard-deviation method and annualization. |
-| Incomplete 2026 data is a full annual comparison | Partial periods require YTD/through-date labeling. |
-| Search result ranking grants image provenance or rights | Google grounding is discovery-only; source page, owner, rights, context, and dimensions require independent verification. |
-| Every destination identity must display Capital Chronicle | Approved personas and founder-led surfaces are registry entries; wrong identities still block. |
-| A fresh LinkedIn story may reuse an editable historical activity | Fresh runs require a fresh story activity unless reconciling the exact same story. |
-| Empty Threads parent IDs may degrade to root posts | Reply dispatch fails closed without a parent. |
-| LLM review can certify or override deterministic blockers | Writer cannot self-certify; final reviewer has no publication authority; deterministic blockers win. |
+Current post-v1 operational authority:
 
-Earlier Chrome, Telegram-host, local-export, arbitrary DOM-image, hard-truncation, video-as-YouTube-default, and click-equals-success models remain superseded as documented by prior commits.
+`docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/`
 
-The former global-DQR closure blocker is superseded by story-scoped publication authority. Global DQR remains blocked, but the exact Treasury packet grants `contentops_publication`, `reporting_allowed=true`, and `PASS_PUBLICATION_AUTHORIZED`; the resulting generic live canary passed nine-surface machine QA, final bounded repair, operator acceptance, and immutable `v1.0` tagging.
+Current master index:
 
-The Task 4 Treasury-specific learning prototype is superseded only as the reusable foundation by `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`. Historical Task 4 evidence remains accepted and immutable; new learning features must follow the genericity standard, external uncalibrated configuration, exact-byte artifact verification, and cross-domain execution evidence.
+`docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
 
-Commit `073766b912643ea34c545b29e669c3ff2a62c17c` is `PARTIAL_PASS_GENERIC_CORE_AND_BINDING_SUPERSEDED_BY_ENFORCEMENT_HARDENING`. `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_ENFORCEMENT_HARDENING` is now the reusable generic backend authority. It does not replace the accepted `v1.0` release baseline, and Task 4 remains `ACCEPTED_TREASURY_SPECIFIC_SHADOW_PROTOTYPE_SUPERSEDED_AS_FOUNDATION_BY_V2`.
+Current operational ledger:
 
-Commit `11124edc623d480736966fa54b44bb6289a935fd` is `ACCEPT_GENERIC_FOUNDATION_V2_ENFORCEMENT_WITH_AUTHORITY_INTEGRITY_GAPS`. `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_AUTHORITY_AND_EVIDENCE_INTEGRITY_REPAIR` supersedes it only for canonical authority gates, derived evidence counts, governed evidence qualification/lineage, and duplicate-versus-governed-delta semantics. The enforcement architecture, Task 3/Task 4 history, accepted `v1.0` release, and uncalibrated/no-publication boundaries remain preserved.
+`docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md`
 
-Commit `6f2755a471c41ccc5a6c06e8babcae2534dd065d` is `ACCEPT_GENERIC_AUTHORITY_GATE_COUNT_AND_DUPLICATE_REPAIR`. `TASK_CONTENTOPS_GENERIC_FOUNDATION_V2_GOVERNED_EVIDENCE_PROVENANCE_AND_ROLE_BINDING` supersedes it only for governed evidence provenance, relationship-specific roles, feature evidence scope, and complete-versus-qualifying lineage. Prior repair evidence, Task 3/Task 4 history, the accepted `v1.0` release, architecture, uncalibrated configuration, and no-publication boundaries remain preserved.
+The accepted v1.0 release remains immutable historical authority. This supersession map changes interpretation and future execution priority; it does not rewrite history.
 
-Commit `96a53eee8beefed9ecf669f930a6436fe4641468` is `ACCEPT_GOVERNED_EVIDENCE_ROLE_AND_LINEAGE_MODEL_WITHOUT_TRUST_ANCHOR`. `TASK_CONTENTOPS_TRUSTED_EVIDENCE_VERIFIER_REGISTRY_AND_REAL_MULTI_TOPIC_CANARY_V1` supersedes it only for trusted verifier authority, exact producer receipts, evidence point-in-time, feature ref resolution, and real multi-topic proof. The generic architecture, prior evidence trees, Task 3/Task 4 history, accepted `v1.0` release, uncalibrated config, DQR/permission boundaries, and no-publication behavior remain preserved.
+## Strategic supersessions
 
-Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is `ACCEPT_TRUSTED_VERIFIER_REGISTRY_EXACT_GIT_RECEIPTS_AND_COLLECTION_SCOPE_RESOLUTION`. `TASK_CONTENTOPS_SCHEMA_AWARE_EVIDENCE_EXTRACTION_AND_PORTABLE_REAL_CANARY_V1` supersedes only its semantic-authority and portability gaps: evidence refs and feature values now come from registered byte extraction, artifact-native timestamps govern point-in-time use, and pinned ancestor commits survive branch advancement. The verifier registry, transport proof, collection resolution, generic architecture, protected evidence, accepted `v1.0`, uncalibrated config, and no-publication boundaries remain preserved.
+| Prior interpretation or claim | Current authority |
+|---|---|
+| Original V6 25-task ledger marked DONE means the full continuous factory is complete | The 25-task ledger records feature and bounded-release completion. Continuous operational maturity is governed by the post-v1 institutional packet and maturity ledger. |
+| One nine-surface accepted release proves generalized continuous operation | The Treasury v1.0 release proves one bounded story-scoped nine-surface text/image release. Repeated generalized operation requires shadow soak and staged live cohorts. |
+| A runner/task name containing `full automation` proves destination completion | Run classification requires exact public writes, public/provider IDs, strict readback, repair history and operator acceptance. |
+| Machine transport PASS equals final product acceptance | Operator audit, source calibration, quantitative/visual integrity and final public readback are separate gates. |
+| `scheduler_v6.py` is production-ready because cron tests pass | Current scheduler is not production-safe: boolean approval, generic retries, one-shot recurrence behavior, mutable JSON state, no durable lease and live mock-success fallback. It must be quarantined/rebuilt. |
+| `server.py` is the production control plane | The in-memory CORS-wildcard POST launcher is noncanonical. It must become read-only health/status or be removed from production. |
+| Multiple runners/outboxes/approval modules can coexist as independent live paths | The final product permits exactly one canonical production orchestrator, state machine, approval envelope, outbox, supervisor, provider gateway and UI truth model. |
+| A boolean `approved=true` is adequate publication authority | Approval must bind exact evidence/article/visual/variant/destination/policy hashes, operator identity and freshness expiry. |
+| Provider/API acknowledgement is strict readback | Public/provider object identity, expected text/media/account/chain and evidence binding are independently required. Weaker evidence classes must be explicit. |
+| Generic retry is sufficient for platform failures | Unknown writes never retry blindly. Retry/reconciliation is error- and platform-specific and persists durable attempt state. |
+| Shared JSON/JSONL/latest packet files can be the production queue | Mutable operational coordination moves to one SQLite WAL durable state model with transactions, leases, heartbeats and append-only transitions. Git stores code/contracts/frozen evidence, not in-flight queue state. |
+| V5 review cards constitute the final operational control plane | V5 remains canonical UI but must read durable supervisor/work/approval/outbox/readback/incident state and must not call adapters directly. |
+| Current model string/fallback is an implementation detail | Model/provider choice is registry-driven and evaluated. The current economic default is 9router with an exact verified Gemini 3.1 Pro-class model ID; implicit Flash defaults are not final authority. |
+| A stronger future model can replace deterministic gates | Model upgrades affect semantic labor only. Evidence, DQR, permission, approval, outbox and dispatch authority remain deterministic. |
+| Continuous local shadow replay equals continuous live headline intake | Shadow replay proves deterministic logic only. Continuous intake requires durable cursors/windows/supervisor and accepted soak evidence. |
+| Manual/historical performance replay completes the learning loop | Metrics/community observations and policy proposals must bind exact public objects and operate under a learning firewall. |
+| YouTube Community success proves YouTube video/Shorts | Community text/image is Tier 1. TikTok, YouTube long-form and Shorts are separate Tier-2 production modes. |
+| Every platform must be added before final product acceptance | Tier-1 text/image reliability and continuous operation take priority. Tier-2 video expands only after Tier-1 acceptance. |
+| More historical integrity micro-tasks are always the next priority | Historical evidence remains protected, but new historical-only work requires a current production defect, acceptance gap or failing regression. Operational integration is now the priority. |
+
+## Preserved V6 principles
+
+The following prior V6 principles remain current:
+
+- Substack is canonical long-form authority.
+- Discord is the community/feedback layer.
+- Telegram is the remote operator/channel lane.
+- Automation is default; Jim remains final public-write authority.
+- Manual is fallback/recovery, not the north star.
+- Browser/CDP is supervised and must not read profile secrets.
+- DQR and exact claim permissions remain authoritative.
+- Duplicate and freshness are separate.
+- Search/image grounding is discovery-only.
+- Visual diversity and quantitative-method integrity are required.
+- LinkedIn fresh stories require fresh activity identity.
+- Threads replies require exact parent identity.
+- LLM review cannot override deterministic blockers.
+
+## Historical accepted release
+
+`TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1` remains accepted.
+
+Protected:
+
+- tag `v1.0`;
+- release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`;
+- accepted Treasury public objects and evidence.
+
+The prior 25-task plan, V6 root master plan, generic foundation tasks, adapter waves and historical-integrity tasks remain valid evidence for their exact scopes.
+
+## Current execution priority
+
+```text
+Wave 00 local plan closeout
+→ canonical live-path quarantine
+→ durable state machine
+→ exact approval envelope/transactional outbox
+→ restart-safe supervisor/windows
+→ Tier-1 adapter unknown-write/recovery conformance
+→ 9router Gemini 3.1 Pro registry/evaluation
+→ continuous governed intake
+→ canonical editorial/visual/platform packages
+→ V5 operational control plane and SLO/incidents
+→ performance/community learning
+→ seven-day shadow soak
+→ three-story live cohort
+→ ten-story/five-type final Tier-1 cohort
+→ Tier-2 video/TikTok later
+```
+
+## Current next task
+
+`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+
+No runtime implementation or live authority is granted by this supersession map.

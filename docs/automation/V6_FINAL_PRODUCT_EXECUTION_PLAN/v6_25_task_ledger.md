@@ -1,63 +1,105 @@
-# ContentOps V6 25-Task Product Ledger
+# ContentOps V6 25-Task Historical Capability Ledger
 
-| # | Capability | Status |
-| --- | --- | --- |
-| 1 | Canonical V5 command surface | DONE |
-| 2 | Headline/event intake | DONE_V2_VERIFIED_RECEIPT_WINDOW_INCREMENTAL_LOCAL_SHADOW |
-| 3 | Semantic clustering/ranking | DONE_V2_TRUE_CURSOR_UPDATE_CHAIN_FIVE_WINDOW_SHADOW_UNCALIBRATED |
-| 4 | Duplicate/hotspot policy | DONE_SEPARATE_FROM_FRESHNESS |
-| 5 | Capital Chronicle evidence bridge | DONE_V2_READ_ONLY |
-| 6 | Claim IDs, timestamps, citations, permissions | DONE_V3_EXACT_STORY_SCOPED_NONNUMERIC_AND_NUMERIC_PERMISSION_BRIDGE |
-| 7 | Source capability registry | DONE_V2 |
-| 8 | Generic freshness/market-state gate | DONE_V2_SOURCE_TIME_REPLAY_POINT_IN_TIME_AUTHORITY_AND_CURRENT_READINESS_SEPARATE |
-| 9 | Provider-neutral visual research | DONE_V2 |
-| 10 | Google image-search grounding request contract | DONE_V2_DISCOVERY_ONLY |
-| 11 | Visual rights/provenance gate | DONE_V2 |
-| 12 | Visual diversity/composition gate | DONE_V2 |
-| 13 | Quantitative chart-method gate | DONE_V2 |
-| 14 | Eight-role editorial orchestration | DONE_V3_CAPABILITY_SCOPED_PLATFORM_READINESS_CANONICAL_HOLD |
-| 15 | Source-calibrated copy/final-render gate | DONE_V2 |
-| 16 | Distribution identity/persona registry | DONE_V2 |
-| 17 | LinkedIn exact-activity idempotency and fresh-run integrity | DONE_GENERIC_CANARY_FRESH_ACTIVITY_STRICT_READBACK |
-| 18 | Non-empty Threads reply parent | DONE_GENERIC_CANARY_ORDERED_TWO_REPLY_CHAIN |
-| 19 | Substack canonical publication/re-entry guard | DONE_GENERIC_CANARY_AND_BOUNDED_UPDATE |
-| 20 | Nine text/image destinations and YouTube Community default | DONE_MACHINE_QA_AND_OPERATOR_ACCEPTED |
-| 21 | Real ingestion rehearsal | DONE_FAIL_CLOSED |
-| 22 | Six generalized story fixtures | DONE_LOCAL_ONLY |
-| 23 | V5 evidence dashboard | DONE_CANONICAL_THREE_STORY_TEMPORAL_AUTHORITY_AND_CURRENT_READINESS_TRUTH_READ_ONLY |
-| 24 | Database-authorized generic live canary/re-audit | DONE_MACHINE_QA_PASS_OPERATOR_ACCEPTED |
-| 25 | v1.0 tag | DONE_ANNOTATED_OPERATOR_ACCEPTED_RELEASE |
+## Authority note
 
-Latest accepted release task: `TASK_CONTENTOPS_V1_0_FINAL_AUCTION_LOGIC_REPAIR_ACCEPTANCE_AND_TAG_V1`.
+This ledger records completion of the original V6 feature plan and bounded v1.0 release. It does **not** establish that a continuously operating, generalized, restart-safe full-automation factory is complete.
 
-Latest completed task: `TASK_CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1` — `PASS_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1_AWAITING_CHATGPT_AUDIT`.
+Current operational-maturity authority:
 
-The predecessor shortcut is removed. A predecessor can affect temporal authority only after the existing exact Git artifact reader verifies repository origin, immutable artifact-version commit ancestry, path, blob and byte receipts, followed by exact story and claim/document identity plus cutoff-valid known/revision timestamps and a logical binding hash. The deterministic committed fixture passes for both evidence kinds; bare/random hashes and every receipt, identity, timestamp, duplicate, reachability, or byte mismatch fail closed. No predecessor was added to FOMC, Apple, or USGS, so their accepted BLOCK/UNPROVEN/BLOCK outcomes and the 18-HOLD, zero-ready, five-supersession parity remain unchanged.
+- `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md`
 
-Historical source-time freshness no longer carries point-in-time authority semantics. The exact-version temporal evaluator blocks FOMC on known-at after cutoff, leaves Apple unproven on unevidenced known-at/precision, and blocks USGS on unevidenced known-at plus future revision leakage. Future source times fail closed instead of becoming age zero. All 18 current variants remain HOLD, zero are current-ready, the same five USGS receipts remain superseded, and canonical evidence plus all no-authority boundaries remain unchanged.
+Historical accepted release:
 
-Current operator freshness is now evaluated against an explicit fixed decision-time cutoff rather than a packet's own historical timestamp. FOMC and Apple remain stale with snapshot/ingest blockers; USGS remains free of market-snapshot blockers but is stale as a 2019 source under the unchanged analysis mode. All 18 platform variants are current HOLD, the five earlier text-only ready receipts are superseded, and publication/dispatch/public-write authority remains false. Focused tests, the full V5 suite, build, deterministic/hash validation, and fresh desktop/mobile Edge QA pass; no monolithic-suite or CI claim is made.
+`PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`
 
-The prior task's exact pinned authority derived public-claim permission for all five nonnumeric FOMC, Apple SEC, and USGS claims without granting numeric or broader authority. Its five historical-cutoff USGS text-only readiness receipts are preserved as immutable evidence but superseded for current operator use by the decision-time records above. Publication, dispatch, and public-write authority remain false.
+Post-v1 classification:
 
-The canonical V5 package review console fail-closed joins the committed platform-native evidence to the exact FOMC, Apple SEC, and USGS packages by story, candidate, platform, authorized claim set, and payload hash. All 18 Substack, LinkedIn, X, Facebook, Telegram, and YouTube Community cards expose complete copy, mode, character count/limit, citations, limitations, claims, payload hash, and dispatch-not-authorized state. Focused positive/negative tests and the production build passed; durable fresh Edge QA passed at desktop/mobile sizes with no runtime/resource errors or horizontal overflow. The surface remains read-only; packages remain `PENDING_OPERATOR_DECISION`, truthful `HOLD`, and recommended `REQUEST_REVISION`; no approval, publication, dispatch, credential, provider-platform, network, scheduler, or public write occurred.
+`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
 
-All 13 accepted adapters now expose truthful versioned capability bindings, all 16 enabled extractor records carry exact immutable runtime/evidence proofs, and the four-family composite canary preserves distinct numeric-period, scheduled-policy, unscheduled-physical, and qualitative context semantics through the frozen generic core. The stale Task 0073 archive lookup is repaired against the unchanged historical Git blob. Evidence is at `docs/automation/CONTENTOPS_ADAPTER_CAPABILITY_CONFORMANCE_COMPOSITE_CANARY_AND_FULL_SUITE_BLOCKER_REPAIR_V1/`.
+## Historical 25-task completion
 
-Wave 2 is accepted with minor timestamp and contract-coverage gaps. Superseding v2 records close those gaps, and Wave 3 adds three bounded official families: Treasury TIC HTML, USGS earthquake GeoJSON, and FHFA HPI HTML. Historical pins are proven ancestors of the separately observed branch head; complete registry coverage, context-only feature support, deterministic frozen-harness conformance, and no-publication are preserved. Evidence is at `docs/automation/CONTENTOPS_PRODUCTION_ADAPTER_WAVE_3_OFFICIAL_ARTIFACTS_AND_WAVE_2_CONTRACT_COVERAGE_REPAIR_V1/`.
+| # | Capability | Historical status | Operational maturity caveat |
+|---:|---|---|---|
+| 1 | Canonical V5 command surface | DONE | Read-only evidence/review is strong; durable operational control-plane integration remains. |
+| 2 | Headline/event intake | DONE_LOCAL_SHADOW | Continuous live governed intake is unproven. |
+| 3 | Semantic clustering/ranking | DONE_LOCAL_SHADOW_UNCALIBRATED | Durable window/assignment integration remains. |
+| 4 | Duplicate/hotspot policy | DONE | Duplicate is separate from freshness; recurring operational proof remains. |
+| 5 | Capital Chronicle evidence bridge | DONE_READ_ONLY | Story availability/current authority remain upstream-dependent. |
+| 6 | Claim IDs, timestamps, citations, permissions | DONE_V3 | Must be integrated with durable state and live cohort. |
+| 7 | Source capability registry | DONE_V2 | Registry/runtime conformance remains an ongoing requirement. |
+| 8 | Freshness/market-state gate | DONE_V2 | Current decision-time and point-in-time truth are separate; live repeated proof remains. |
+| 9 | Provider-neutral visual research | DONE_V2 | Repeated rights/diversity proof remains. |
+| 10 | Google image grounding request contract | DONE_DISCOVERY_ONLY | Search never grants provenance or reuse permission. |
+| 11 | Visual rights/provenance gate | DONE_V2 | Must be enforced across live cohort. |
+| 12 | Visual diversity/composition gate | DONE_V2 | July 11 RC proved feature presence alone did not prevent one-series visual concentration. |
+| 13 | Quantitative chart-method gate | DONE_V2 | July 11 RC exposed metric-label and partial-period defects; cohort proof remains. |
+| 14 | Eight-role editorial orchestration | DONE_V3_LOCAL/BOUNDED | Generalized operator-accepted cohort remains. |
+| 15 | Source-calibrated copy/final-render gate | DONE_V2 | July 11 RC required repair; current SLO/repair-rate proof remains. |
+| 16 | Distribution identity/persona registry | DONE_V2 | Continuous account/surface health remains. |
+| 17 | LinkedIn exact-activity integrity | DONE_BOUNDED_LIVE | Historical reuse defect repaired; repeated conformance remains. |
+| 18 | Threads reply parent integrity | DONE_BOUNDED_LIVE | Duplicate-text/order recovery remains a reliability case. |
+| 19 | Substack canonical publication/re-entry guard | DONE_BOUNDED_LIVE | Durable draft/public identity and restart recovery remain. |
+| 20 | Nine Tier-1 text/image destinations | DONE_ONE_ACCEPTED_STORY | Repeated generalized cohort and rolling reliability remain. |
+| 21 | Real ingestion rehearsal | DONE_FAIL_CLOSED | Always-on supervisor and live intake remain. |
+| 22 | Generalized story fixtures | DONE_LOCAL_ONLY | Fixture diversity is not live generalization proof. |
+| 23 | V5 evidence dashboard | DONE_READ_ONLY | Durable work/approval/outbox/incident integration remains. |
+| 24 | Database-authorized generic live canary | DONE_ONE_ACCEPTED_STORY | One bounded Treasury release; not continuous factory acceptance. |
+| 25 | v1.0 tag | DONE_IMMUTABLE | Historical release baseline; do not move/recreate/retag. |
 
-Completed architecture authority: `TASK_CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2`. Task 4 remains `ACCEPTED_TREASURY_SPECIFIC_SHADOW_PROTOTYPE_SUPERSEDED_AS_FOUNDATION_BY_V2`. V2 evidence is at `docs/automation/CONTENTOPS_GENERIC_CONTENT_INTELLIGENCE_AND_ADAPTIVE_LEARNING_FOUNDATION_V2/`.
+## Historical completion truth
 
-The starting V2 commit `073766b912643ea34c545b29e669c3ff2a62c17c` is `PARTIAL_PASS_GENERIC_CORE_AND_BINDING_SUPERSEDED_BY_ENFORCEMENT_HARDENING`. The accepted release and Task 4 historical disposition remain separate and unchanged.
+The accepted July 14 Treasury release remains the strongest live proof:
 
-The enforcement commit `11124edc623d480736966fa54b44bb6289a935fd` is `ACCEPT_GENERIC_FOUNDATION_V2_ENFORCEMENT_WITH_AUTHORITY_INTEGRITY_GAPS`. The superseding integrity repair closes canonical gate, evidence-count, governed-evidence, and duplicate/delta trust boundaries without changing domain fixtures, calibration, V1 compatibility, or publication authority.
+- exact story-scoped publication authority;
+- global DQR remained independently blocked;
+- canonical Substack plus eight Tier-1 derivatives;
+- strict readback;
+- bounded repair;
+- operator acceptance;
+- annotated `v1.0` tag at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
 
-Commit `6f2755a471c41ccc5a6c06e8babcae2534dd065d` is `ACCEPT_GENERIC_AUTHORITY_GATE_COUNT_AND_DUPLICATE_REPAIR`. The superseding provenance-and-role repair binds governed evidence to verified hashes and semantic roles, constrains feature evidence scopes, and preserves full lineage without changing product features or publication authority.
+Earlier runs remain important evidence of actual failure modes:
 
-Commit `96a53eee8beefed9ecf669f930a6436fe4641468` is `ACCEPT_GOVERNED_EVIDENCE_ROLE_AND_LINEAGE_MODEL_WITHOUT_TRUST_ANCHOR`. The superseding trusted-evidence repair anchors verifier authority in committed config and exact Git receipts, enforces point-in-time and collection resolution, and proves the generic core over three real committed topic families with zero public writes.
+- Telegram-only partial completion;
+- Substack draft/media/browser failures;
+- X blocking and thread fragmentation;
+- July 11 transport PASS with product-quality defects;
+- LinkedIn historical identity reuse;
+- Facebook copy defect;
+- Threads malformed/ambiguous continuation repair;
+- correct fail-closed no-story database preflight.
 
-Commit `2dae15f5d0cc294a247572a50bdfef8da6fc2684` is `ACCEPT_TRUSTED_VERIFIER_REGISTRY_EXACT_GIT_RECEIPTS_AND_COLLECTION_SCOPE_RESOLUTION`. The superseding schema-aware repair makes semantic evidence byte-extracted, validates internal/external artifact shape and timestamps, preserves historical ancestor replay, and runs three actual editorial source families with derived values or explicit abstention.
+Full reconstruction:
 
-Commit `165920c90e62d1cee0b5ea8dc8ec2ec9a149e2d4` is `ACCEPT_SCHEMA_AWARE_BYTE_EXTRACTION_PORTABLE_REPLAY_AND_REAL_CANARY_WITH_SEMANTIC_AUTHORITY_GAP`. The superseding binding repair closes extracted authority, permission, semantic-role, candidate consistency, and multi-evidence aggregation gaps without modifying fixtures, calibration, policy, publication authority, or the accepted release.
+`docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/LIVE_RUN_RECONSTRUCTION_AND_RELIABILITY_AUDIT.md`
 
-Next route: `INDEPENDENT_CHATGPT_AUDIT_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1`.
+## Post-v1 maturity work
+
+The remaining work is not another extension of the original 25 feature rows. It is an operational integration program:
+
+1. canonical live-path quarantine;
+2. durable local state/state machine;
+3. exact approval envelope and transactional outbox;
+4. restart-safe supervisor and recurring windows;
+5. Tier-1 adapter/unknown-write/recovery conformance;
+6. 9router Gemini 3.1 Pro registry and evaluation;
+7. continuous governed intake;
+8. canonical editorial/visual package orchestration;
+9. operational V5 control plane;
+10. observability/SLO/incidents;
+11. performance/community learning;
+12. seven-day shadow soak;
+13. three-story live cohort;
+14. ten-story/five-type final Tier-1 cohort;
+15. separate Tier-2 video/TikTok after Tier-1 acceptance.
+
+Track these in:
+
+`post_v1_full_automation_maturity_ledger.md`
+
+## Current next route
+
+`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+
+No runtime implementation or live action is authorized by this ledger update.
