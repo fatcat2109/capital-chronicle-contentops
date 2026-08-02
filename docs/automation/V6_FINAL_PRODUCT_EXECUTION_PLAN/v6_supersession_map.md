@@ -92,6 +92,6 @@ Wave 00 local plan closeout
 
 ## Current next task
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
 No runtime implementation or live authority is granted by this supersession map.

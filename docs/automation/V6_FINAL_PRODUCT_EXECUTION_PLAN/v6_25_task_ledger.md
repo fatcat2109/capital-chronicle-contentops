@@ -15,7 +15,7 @@ Historical accepted release:
 
 Post-v1 classification:
 
-`PLAN_CANDIDATE_AWAITING_LOCAL_CLOSEOUT_AND_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
 
 ## Historical 25-task completion
 
@@ -100,6 +100,6 @@ Track these in:
 
 ## Current next route
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
 No runtime implementation or live action is authorized by this ledger update.

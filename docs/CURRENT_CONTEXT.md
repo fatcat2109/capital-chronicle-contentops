@@ -11,7 +11,7 @@ Historical accepted release:
 
 Post-v1 operational maturity:
 
-`PLAN_CANDIDATE_AWAITING_LOCAL_CLOSEOUT_AND_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
 
 Audit conclusion:
 
@@ -85,7 +85,7 @@ one canonical live state machine
 
 ## Current next task
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
 The next task is docs/evidence-only local closeout on the audit branch. It must not implement runtime behavior, merge to `master`, read credential values, call providers/platforms, run scheduler/retry, or perform public writes.
 

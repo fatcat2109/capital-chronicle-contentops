@@ -1,23 +1,27 @@
 {
-  "schema_version": "contentops.full_automation_institutional_audit_manifest.v1",
-  "task": "TASK_CONTENTOPS_REPO_WIDE_LIVE_RUN_RECONSTRUCTION_AND_FULL_AUTOMATION_FINAL_PRODUCT_HARDENING_V1",
-  "classification": "PLAN_CANDIDATE_AWAITING_LOCAL_CLOSEOUT_AND_OPERATOR_MERGE_REVIEW",
+  "schema_version": "contentops.full_automation_institutional_audit_manifest.v2",
+  "task": "TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1",
+  "classification": "PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW",
   "audit_conclusion": "PARTIAL_PASS_BOUNDED_NINE_SURFACE_RELEASE_PROVEN_CONTINUOUS_GENERALIZED_FACTORY_NOT_YET_PROVEN",
   "repository": "fatcat2109/capital-chronicle-contentops",
   "audited_branch": "master",
   "audited_head": "a1645740b8ad3a590be314ecbc900f9ad0f4b252",
   "working_branch": "agent/contentops-full-automation-final-product-audit-v1",
-  "working_branch_head_before_manifest_commit": "7e1c2475442214f1297aebb8d18b9462b6760901",
+  "branch_start_head": "133bd1d88933a03a1a9fead1574eede4575271b6",
+  "precommit_head": "133bd1d88933a03a1a9fead1574eede4575271b6",
+  "precommit_head_role": "branch HEAD before local closeout commit; inventory_source_head and all committed-base verification bind this exact tree",
   "completing_commit_sha": null,
-  "completing_commit_sha_role": "reported_after_commit_and_local_closeout_not_self_referential",
-  "execution_environment": "GitHub connector branch workspace; no local private-repo worktree was available in this session",
-  "local_closeout_required": true,
-  "next_task": "TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1",
-  "next_implementation_task_after_operator_acceptance": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1",
+  "completing_commit_sha_role": "reported after commit and push; deliberately not self-referential",
+  "manifest_self_hash_policy": "final_manifest.json cannot embed its own final blob/content hash; its exact bytes are identified by the completing commit tree reported after push",
+  "execution_environment": "isolated local Git worktree; docs and evidence only",
+  "local_closeout_required": false,
+  "next_task": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1",
+  "next_task_authority": "awaits Jim acceptance and merge of this docs branch",
   "historical_accepted_release": {
     "classification": "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED",
     "release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
     "tag": "v1.0",
+    "annotated_tag_object": "a021df7fd0264d9f160bdd605509da925f0bf131",
     "canonical_surface": "substack",
     "tier1_text_image_surface_count": 9,
     "protected_and_unchanged": true
@@ -32,20 +36,43 @@
     "universal_unknown_write_reconciliation_required": true,
     "current_economic_model_provider": "9router",
     "current_economic_model_class": "Gemini 3.1 Pro",
-    "exact_model_id_requires_local_verification": true,
+    "exact_model_id_requires_local_verification_in_wave_06": true,
     "repeated_shadow_and_live_cohorts_required_before_full_automation_acceptance": true
   },
   "audit_coverage": {
-    "current_authority_files_deep_read": true,
-    "canonical_runner_and_live_capable_entrypoints_deep_read": true,
-    "scheduler_supervisor_approval_outbox_paths_deep_read": true,
-    "model_provider_editorial_paths_deep_read": true,
-    "performance_and_community_paths_deep_read": true,
-    "known_live_run_families_reconstructed": 8,
-    "tier1_platforms_audited": 9,
-    "historical_binary_duplicate_policy": "hash_manifest_and_unique_evidence_review_not_semantic_claim_of_every_duplicate_binary",
-    "exhaustive_git_ls_files_inventory_completed": false,
-    "exhaustive_git_ls_files_inventory_required_in_next_task": true
+    "tracked_path_count": 6778,
+    "total_raw_byte_length": 200669638,
+    "functional_class_counts": {
+      "approval_outbox": 59,
+      "binary_media_screenshot": 648,
+      "current_authority": 22,
+      "current_evidence": 156,
+      "generated_packet": 1266,
+      "historical_evidence_archive": 2038,
+      "live_adapter": 102,
+      "model_provider": 19,
+      "other": 915,
+      "runtime": 428,
+      "scheduler_supervisor": 6,
+      "schema": 249,
+      "test": 753,
+      "ui": 117
+    },
+    "audit_depth_counts": {
+      "exact_byte_hash_review": 2686,
+      "semantic_deep_review": 1212,
+      "semantic_targeted_review": 556,
+      "structural_path_and_hash_review": 2324
+    },
+    "content_class_counts": {
+      "binary": 648,
+      "text_utf8": 6130
+    },
+    "inventory_source_head": "133bd1d88933a03a1a9fead1574eede4575271b6",
+    "inventory_complete": true,
+    "inventory_file": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/tracked_file_inventory.json",
+    "coverage_report": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/audit_coverage_report.md",
+    "historical_binary_duplicate_policy": "exact hash manifest plus representative unique-evidence review; no semantic claim for every duplicate binary"
   },
   "live_run_truth": {
     "accepted_frozen_release_count": 1,
@@ -71,29 +98,31 @@
     "current_embedded_9router_model_default_conflicts_with_operator_intent",
     "no_accepted_seven_day_soak_or_diverse_live_cohort"
   ],
-  "created_files": [
-    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/README.md",
+  "changed_files": [
+    "AGENTS.md",
+    "docs/AI_BUILDER_BOOTSTRAP.md",
+    "docs/CURRENT_CONTEXT.md",
+    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/BUILDER_GUARDRAILS_AND_REPO_AUTHORITY.md",
+    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_HARDENING_EXECUTION_PLAN.md",
     "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FULL_AUTOMATION_INSTITUTIONAL_NORTH_STAR.md",
     "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/LIVE_RUN_RECONSTRUCTION_AND_RELIABILITY_AUDIT.md",
-    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_HARDENING_EXECUTION_PLAN.md",
-    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/OPERATIONAL_SLO_AND_ACCEPTANCE_STANDARD.md",
     "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/MODEL_PROVIDER_AND_EVALUATION_STRATEGY.md",
-    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/BUILDER_GUARDRAILS_AND_REPO_AUTHORITY.md",
-    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/live_run_inventory.json",
+    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/OPERATIONAL_SLO_AND_ACCEPTANCE_STANDARD.md",
+    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/README.md",
+    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/audit_coverage_report.md",
     "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/capability_maturity_matrix.json",
-    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/gap_register.json",
     "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/final_manifest.json",
-    "docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md"
-  ],
-  "updated_files": [
-    "AGENTS.md",
-    "docs/CURRENT_CONTEXT.md",
-    "docs/AI_BUILDER_BOOTSTRAP.md",
+    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/gap_register.json",
+    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/live_run_inventory.json",
+    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/tracked_file_inventory.json",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md"
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+    "docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json"
   ],
   "runtime_source_files_changed": false,
   "ui_source_files_changed": false,
@@ -101,47 +130,216 @@
   "schemas_changed": false,
   "upstream_repository_changed": false,
   "release_or_tag_changed": false,
-  "validation_performed_in_this_session": {
-    "github_repository_and_branch_verified": true,
+  "file_integrity": {
+    "scope": "all institutional packet files except self-referential final_manifest.json, plus all current authority files",
+    "algorithm": "Git blob SHA-1 over Git blob header+bytes via git hash-object; SHA-256 and byte length over exact working-tree bytes",
+    "files": [
+      {
+        "path": "AGENTS.md",
+        "git_blob_sha1": "dca30399bad3f9bb06491e180b2f8f1e46a879dc",
+        "raw_byte_sha256": "1391241f1dd79619a6c44d7fe8e3d7b508e31e7d0b537a529ce498738ed05ea8",
+        "byte_length": 7855
+      },
+      {
+        "path": "docs/AI_BUILDER_BOOTSTRAP.md",
+        "git_blob_sha1": "174dd41ffbb7dbfa635f49dd4e13c11c9e327f66",
+        "raw_byte_sha256": "5dfbf3691323b6094f237c7cae43f6b907ea14e88da13157e0a9bc082ea0f30c",
+        "byte_length": 6446
+      },
+      {
+        "path": "docs/CURRENT_CONTEXT.md",
+        "git_blob_sha1": "c03c4d41e43ee562ff286d146bafbc34c9e911cf",
+        "raw_byte_sha256": "af31a49a6ff1a05dd53723db4e754ec5c067f748e61999d3dce3be09eddb2510",
+        "byte_length": 4740
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/BUILDER_GUARDRAILS_AND_REPO_AUTHORITY.md",
+        "git_blob_sha1": "0a3f2ed70d08db984e34e2934882d3b98804f8e6",
+        "raw_byte_sha256": "b009fe7230534aa6e642ea3c31d897dfbb08506a49d3a31b4739edc29c324739",
+        "byte_length": 13503
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_HARDENING_EXECUTION_PLAN.md",
+        "git_blob_sha1": "9dc85d6bcc2211f5f1d2cd604cfbdf7754f89daa",
+        "raw_byte_sha256": "f295279da30348e67802a8d07dbed9ddc0a539f950038e7cd6526ecb18b17fe4",
+        "byte_length": 26991
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FULL_AUTOMATION_INSTITUTIONAL_NORTH_STAR.md",
+        "git_blob_sha1": "93befc132bb95226c9caaa87f030359c0f47a76e",
+        "raw_byte_sha256": "33ec51a3da9bdc34e9bc0e2ff9a4713367ab837b510da4194a85f3558d32b709",
+        "byte_length": 34509
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/LIVE_RUN_RECONSTRUCTION_AND_RELIABILITY_AUDIT.md",
+        "git_blob_sha1": "07634a2adc07eecd9be39a72faf8416c34eed29b",
+        "raw_byte_sha256": "f9da3cb0995e74a28fc51f7ea13b2da2b184353da77cc0bb4dfde9f723b9d8a5",
+        "byte_length": 23334
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/MODEL_PROVIDER_AND_EVALUATION_STRATEGY.md",
+        "git_blob_sha1": "b255074704ad11a080b720ff621fae0bfadc3603",
+        "raw_byte_sha256": "00708f67f199d314ce001e9ee68b9925eede465138170ffa1bb3e75a55e068eb",
+        "byte_length": 13992
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/OPERATIONAL_SLO_AND_ACCEPTANCE_STANDARD.md",
+        "git_blob_sha1": "181e85e7083316cf82ed0876a6cfc3fb789d6b1d",
+        "raw_byte_sha256": "554523a4f4809fd4909a49e1f1e18d00ad5c455847ef7cbe65e3e89e3b8ec63f",
+        "byte_length": 17434
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/README.md",
+        "git_blob_sha1": "b7800b7fd9934a3ee6e14d108078755d998512bf",
+        "raw_byte_sha256": "fa4991951ffb4e977a4c0a20ac1db5d1bfaf92e589031fb95a17bbc8f2cfd7dd",
+        "byte_length": 5320
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/audit_coverage_report.md",
+        "git_blob_sha1": "c21ee60028e4965cdc0f95be342008f6010dfa9f",
+        "raw_byte_sha256": "3f5bd4ec6410a3141c742e647f4332b1e99b19b070a6ccc0f6555cf1bf77aa51",
+        "byte_length": 6502
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/capability_maturity_matrix.json",
+        "git_blob_sha1": "d7dc219940bfa6236ef31c04485164d78821f3c7",
+        "raw_byte_sha256": "2751e2f65acf2c9e9bb70f46c66eeca8d17c18ebc12e32946c291ed1281f7417",
+        "byte_length": 11509
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/gap_register.json",
+        "git_blob_sha1": "c9ccadcbb589715967ca00ccb4e514f7bab72fdc",
+        "raw_byte_sha256": "400786e27a4f2e51f2b70400894fb5f049ae27847a0ed5cca4c874685df2fb85",
+        "byte_length": 14046
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/live_run_inventory.json",
+        "git_blob_sha1": "86399be86cbdb13e0e8a864bbc595be527162de0",
+        "raw_byte_sha256": "c8b1eaa3857d69f28bd236c9f5fd82768073874b93dac5e938de83a70914949a",
+        "byte_length": 10463
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/tracked_file_inventory.json",
+        "git_blob_sha1": "562b36aef6e5ed162d946189b5c7206cc642a465",
+        "raw_byte_sha256": "93436f84b2af9f1ce0735c31d22a6de5c1a2b4cd4bf4a1d45256fa50503f6298",
+        "byte_length": 3188857
+      },
+      {
+        "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+        "git_blob_sha1": "abfbb5fcbf43854f8f60c427ec2dd838dd0479fd",
+        "raw_byte_sha256": "f74ee4490fffcd50e496c7000496720c9618f2ab5cb4dcc24dcdb380f879feb8",
+        "byte_length": 14465
+      },
+      {
+        "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+        "git_blob_sha1": "6868f4813a30bdef6dc201fef3332d8d8365e200",
+        "raw_byte_sha256": "ae27cb2ce616c3bba71e573bc49162ebb9fd2361195801d19677d58cf12ac1bd",
+        "byte_length": 1587
+      },
+      {
+        "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md",
+        "git_blob_sha1": "d225a0b681361f7a82fe509f9fac661e7aa5fa59",
+        "raw_byte_sha256": "055cea3576145a0e64ff520a04eddfe7ad77ca718a14ff05761c0756023f59da",
+        "byte_length": 4796
+      },
+      {
+        "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+        "git_blob_sha1": "7d370eb8780a6d8086cbd93baffdb358f53c2c0f",
+        "raw_byte_sha256": "a7147abf0fcdd331daa1723c5f191799046653f16025d59552be1e5f344b7c5f",
+        "byte_length": 5731
+      },
+      {
+        "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+        "git_blob_sha1": "2b4461b1c64d2e6a2b35326904292d423a4acb69",
+        "raw_byte_sha256": "2ef21eea4fda6c31e46e56c3467ef9b014a2ba64e660b5418016eb2ce4011ed1",
+        "byte_length": 6824
+      },
+      {
+        "path": "docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md",
+        "git_blob_sha1": "d311586d8ef9422c2af556accd3e2e828542fef2",
+        "raw_byte_sha256": "f0740a09ce9f9d7e9aa9b93b92b0cd1b418c95f1e9069387d10f38c032369585",
+        "byte_length": 3575
+      },
+      {
+        "path": "docs/status/CURRENT_PROJECT_STATUS.md",
+        "git_blob_sha1": "9fa327ccb9348e3d47da47b07ba13794265c12cc",
+        "raw_byte_sha256": "59df57b7d9c6305fc29b3e87183a47c4fa4d6218c6f12dc088565ad8937eb3a3",
+        "byte_length": 54778
+      },
+      {
+        "path": "docs/status/current_project_status.json",
+        "git_blob_sha1": "144034ef35960696637819d058cf9103e455a323",
+        "raw_byte_sha256": "f7f6362de8de8341d7ec694d75a0239f34ad1f9df9cd913dea130234337abe4c",
+        "byte_length": 79793
+      }
+    ]
+  },
+  "validation": {
+    "repository_and_branch_verified": true,
     "base_commit_verified": true,
-    "current_commit_history_and_status_files_inspected": true,
-    "known_live_run_evidence_paths_fetched_and_reconstructed": true,
-    "live_capable_runtime_paths_fetched_and_audited": true,
-    "github_actions_ci_status_present": false,
-    "local_git_diff_check": false,
-    "local_json_parse_all_changed_files": false,
-    "local_markdown_path_validation": false,
-    "local_secret_scan": false,
-    "local_full_tracked_file_inventory": false,
-    "reason_local_checks_not_run": "private repository was available through the GitHub connector but not as a local executable worktree in this session"
+    "branch_descends_from_base": true,
+    "full_tracked_file_inventory": "PASS",
+    "json_parse": {
+      "status": "PASS",
+      "files": [
+        "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/capability_maturity_matrix.json",
+        "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/gap_register.json",
+        "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/live_run_inventory.json",
+        "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/tracked_file_inventory.json",
+        "docs/status/current_project_status.json"
+      ]
+    },
+    "markdown_links": {
+      "status": "PASS",
+      "checked": 13,
+      "errors": []
+    },
+    "repository_paths": {
+      "status": "PASS",
+      "checked": 115,
+      "errors": []
+    },
+    "authority_consistency": {
+      "expected_classification": "PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW",
+      "old_plan_candidate_occurrences_in_current_authority": 0,
+      "exact_next_task_occurrences_in_current_authority": 14,
+      "latest_historical_task_truth_preserved": true,
+      "pass": true
+    },
+    "protected_v1_tag_release_and_evidence": {
+      "status": "PASS",
+      "tag_object": "a021df7fd0264d9f160bdd605509da925f0bf131",
+      "peeled_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+      "protected_evidence_path_changes_from_base": []
+    },
+    "scoped_secret_and_local_artifact_scan": {
+      "status": "PASS",
+      "method": "tracked filename-only scan; no secret values or matching file contents read",
+      "suspicious_paths": []
+    },
+    "git_diff_check": "PASS_RECORDED_AFTER_THIS_MANIFEST_GENERATION",
+    "runtime_tests": "NOT_RUN_NOT_REQUIRED_DOCS_AND_EVIDENCE_ONLY",
+    "full_suite": "NOT_RUN_NO_PASS_CLAIMED",
+    "ui_build": "NOT_RUN_NO_PASS_CLAIMED",
+    "github_actions_ci": "NO_PASS_CLAIMED_REMOTE_STATUS_REPORTED_AFTER_PUSH"
   },
   "no_execution_truth": {
     "raw_environment_value_read": false,
     "credential_value_read": false,
     "webhook_url_read": false,
     "cookie_or_browser_storage_read": false,
+    "source_fetch_performed": false,
     "provider_call_performed": false,
     "browser_cdp_action_performed": false,
     "platform_action_performed": false,
     "scheduler_action_performed": false,
     "approval_execution_performed": false,
+    "outbox_execution_performed": false,
+    "metrics_or_community_reader_performed": false,
     "dispatch_execution_performed": false,
     "public_write_performed": false,
     "public_write_count": 0
   },
-  "local_closeout_must_add": [
-    "tracked_file_inventory.json",
-    "audit_coverage_report.md",
-    "exact_git_blob_sha1_byte_sha256_and_byte_length_for_current_packet_and_authority_files",
-    "json_parse_results",
-    "markdown_and_repository_path_validation_results",
-    "git_diff_check_result",
-    "secret_and_local_machine_artifact_scan_result",
-    "protected_v1_tag_release_and_evidence_verification",
-    "current_project_status_md_and_json_reconciliation",
-    "exact_start_precommit_and_final_branch_heads",
-    "clean_worktree_and_remote_parity_evidence"
-  ],
   "ci_pass_claimed": false,
   "runtime_pass_claimed": false,
   "full_automation_pass_claimed": false

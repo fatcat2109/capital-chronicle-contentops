@@ -18,7 +18,7 @@ Do not rerun, modify, delete, recreate, move or retag accepted release outputs/e
 
 Current classification:
 
-`PLAN_CANDIDATE_AWAITING_LOCAL_CLOSEOUT_AND_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
 
 Current audit conclusion:
 
@@ -95,7 +95,7 @@ A model may draft and critique. It cannot create authority, permission, approval
 
 ## 7. Current next task
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
 Execution mode:
 

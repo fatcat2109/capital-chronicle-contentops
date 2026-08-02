@@ -10,7 +10,7 @@ That release is bounded proof. It is not evidence that a continuously operating,
 
 Current post-v1 classification:
 
-`PLAN_CANDIDATE_AWAITING_LOCAL_CLOSEOUT_AND_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
 
 Current audit conclusion:
 
@@ -139,7 +139,7 @@ Credential checks are limited to names, presence booleans, nonsecret scope/accou
 
 ## 10. Current next task
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
 This is a local docs/evidence closeout task. It must pull the audit branch into an isolated worktree, verify paths/JSON/hashes/diff, reconcile current authority files, commit and push. It must not implement runtime changes, merge to `master`, read credentials, call providers/platforms, run scheduler/retry, or perform public writes.
 

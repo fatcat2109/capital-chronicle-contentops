@@ -6,7 +6,7 @@ It does not invalidate the historical V6 25-task completion ledger. The prior le
 
 Current classification:
 
-`PLAN_CANDIDATE_AWAITING_LOCAL_CLOSEOUT_AND_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
 
 Audit base:
 

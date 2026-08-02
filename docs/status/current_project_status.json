@@ -203,9 +203,9 @@
     }
   },
   "active_live_repair_blockers": [],
-  "next_task": "INDEPENDENT_CHATGPT_AUDIT_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1",
-  "current_next_recommended_task": "INDEPENDENT_CHATGPT_AUDIT_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1",
-  "next_recommended_task": "INDEPENDENT_CHATGPT_AUDIT_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1",
+  "next_task": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1",
+  "current_next_recommended_task": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1",
+  "next_recommended_task": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1",
   "next_task_requires_separate_live_authorization": false,
   "legacy_reference_surfaces": [
     "ui/institutional_operator_cockpit_v4/"
@@ -1375,6 +1375,30 @@
     "production_build_run": false,
     "browser_qa_run": false,
     "ui_or_imported_ui_schema_changed": false,
+    "full_suite_pass_claimed": false,
+    "ci_pass_claimed": false
+  },
+  "post_v1_full_automation_plan_local_closeout_v1": {
+    "evidence_path": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1",
+    "terminal_manifest": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/final_manifest.json",
+    "tracked_file_inventory": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/tracked_file_inventory.json",
+    "audit_coverage_report": "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/audit_coverage_report.md",
+    "classification": "PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW",
+    "audit_conclusion": "PARTIAL_PASS_BOUNDED_NINE_SURFACE_RELEASE_PROVEN_CONTINUOUS_GENERALIZED_FACTORY_NOT_YET_PROVEN",
+    "task_starting_sha": "133bd1d88933a03a1a9fead1574eede4575271b6",
+    "required_master_base": "a1645740b8ad3a590be314ecbc900f9ad0f4b252",
+    "next_action": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1",
+    "latest_historical_task_truth_preserved": true,
+    "historical_accepted_v1_0_preserved": true,
+    "runtime_source_files_changed": false,
+    "ui_source_files_changed": false,
+    "tests_changed": false,
+    "schemas_changed": false,
+    "credential_read_performed": false,
+    "provider_platform_action_performed": false,
+    "publication_count": 0,
+    "dispatch_count": 0,
+    "public_write_count": 0,
     "full_suite_pass_claimed": false,
     "ci_pass_claimed": false
   }

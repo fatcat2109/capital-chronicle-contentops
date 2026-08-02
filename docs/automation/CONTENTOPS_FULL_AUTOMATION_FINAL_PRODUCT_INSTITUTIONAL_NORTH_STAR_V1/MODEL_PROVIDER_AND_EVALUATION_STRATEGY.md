@@ -51,9 +51,9 @@ Every model output is a candidate artifact. Deterministic validators and indepen
 
 ## 2. Provider/model registry
 
-Create one versioned registry, for example:
+Planned Wave 06 deliverable (not present at this audit HEAD):
 
-`docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/model_provider_registry_v1.json`
+`model_provider_registry_v1.json` under the current `V6_FINAL_PRODUCT_EXECUTION_PLAN` authority directory.
 
 Each row must include:
 

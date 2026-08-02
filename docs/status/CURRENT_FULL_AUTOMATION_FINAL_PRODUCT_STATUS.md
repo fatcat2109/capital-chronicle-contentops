@@ -4,7 +4,7 @@ Status authority scope: post-v1 operational maturity program.
 
 Current classification:
 
-`PLAN_CANDIDATE_AWAITING_LOCAL_CLOSEOUT_AND_OPERATOR_MERGE_REVIEW`
+`PASS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AWAITING_OPERATOR_MERGE_REVIEW`
 
 Audit base:
 
@@ -87,7 +87,7 @@ one canonical production entrypoint
 
 ## Current next task
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1`
+`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
 
 The next task must be executed locally by Antigravity in an isolated worktree. It must pull this audit branch, verify every file and reference, populate final hashes/HEAD, run repository-native validation, reconcile current authority entrypoints, commit and push. It must not implement runtime code, merge to `master`, read credentials, invoke providers/platforms, run the scheduler, or perform public writes.
 
