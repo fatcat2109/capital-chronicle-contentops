@@ -12,17 +12,13 @@ Current accepted Wave 01 classification:
 
 `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
 
-Historical correction classification:
-
-`PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
-
 Current Wave 02 worker classification:
 
-`PASS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1_AWAITING_INDEPENDENT_AUDIT`
+`PASS_WAVE02_DURABLE_STATE_TRANSACTION_FENCING_AND_AUTHORITY_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
-Completed Wave 02 task:
+Completed Wave 02 correction task:
 
-`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
+`TASK_CONTENTOPS_WAVE02_DURABLE_STATE_TRANSACTION_FENCING_AND_AUTHORITY_CORRECTION_V1`
 
 Working branch:
 
@@ -32,7 +28,13 @@ Starting master HEAD:
 
 `c87e338f25922f4d03454ba199139353ca7198ff`
 
-Wave 02 has implemented the single authoritative SQLite WAL operational store (`ContentOpsDurableStore`), versioned migrations, append-only transition log, compare-and-set state machine across 29 canonical states, transactional leases with monotonic fencing tokens, restart safety, deterministic event replay, corruption detection, and redacted evidence export.
+Pre-merge target master HEAD: `a0c9d0a67e39c614d5a80cd758f219dcac9b11ff`
+
+Required starting branch HEAD:
+
+`e24a4492e9d72f55c704168d637b7628e49140cd`
+
+Wave 02 has implemented the single authoritative SQLite WAL operational store (`ContentOpsDurableStore`), atomic versioned migrations (v1 -> v2), append-only transition log with triggers, Compare-And-Set state machine across 29 canonical states, transactional claims and leases with monotonic fencing tokens enforced on every mutation, fail-closed Wave 02 authority guards, immutable artifact registration, event hash chains with per-item sequence, restart safety, deterministic event replay, corruption detection, and redacted evidence export.
 
 ## Required next action
 
@@ -44,7 +46,7 @@ This is Wave 03 from the accepted institutional hardening plan. It remains `NEXT
 
 ## Required starting authority
 
-- Wave 02 status is `COMPLETE_AWAITING_INDEPENDENT_AUDIT` under classification `PASS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1_AWAITING_INDEPENDENT_AUDIT`.
+- Wave 02 status is `COMPLETE_AWAITING_INDEPENDENT_AUDIT` under classification `PASS_WAVE02_DURABLE_STATE_TRANSACTION_FENCING_AND_AUTHORITY_CORRECTION_AWAITING_INDEPENDENT_AUDIT`.
 - Wave 03 is `NEXT_NOT_STARTED` and remains gated until independent audit of Wave 02 evidence.
 - Preserve `v1.0`, accepted release evidence, the canonical orchestrator boundary, and historical replay packets unchanged.
 - Do not add a second runner, scheduler, state store, outbox, approval engine, provider gateway, or dashboard.

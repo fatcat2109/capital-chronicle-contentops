@@ -87,7 +87,7 @@ one canonical live state machine
 
 `TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
 
-Wave 02 classification: `PASS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1_AWAITING_INDEPENDENT_AUDIT`. Wave 02 status: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`. Wave 03 status: `NEXT_NOT_STARTED`. Wave 03 is next and has not started. No credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public write is authorized.
+Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status: `COMPLETE_ACCEPTED_AND_MERGED`. Completed Wave 02 task: `TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`. Wave 02 classification: `PASS_WAVE02_DURABLE_STATE_TRANSACTION_FENCING_AND_AUTHORITY_CORRECTION_AWAITING_INDEPENDENT_AUDIT`. Wave 02 status: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`. Wave 03 status: `NEXT_NOT_STARTED`. Wave 03 is next and has not started. No credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public write is authorized.
 
 ## Archive policy
 

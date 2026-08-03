@@ -1,49 +1,56 @@
 {
-  "schema_version": "contentops.existing_state_surface_inventory.v1",
-  "task": "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1",
-  "inventory_date_utc": "2026-08-03T23:25:00Z",
+  "schema_version": "contentops.state_surface_inventory.v1",
+  "audit_timestamp_utc": "2026-08-04T00:00:00Z",
   "surfaces": [
     {
-      "surface_id": "sqlite_storage",
-      "kind": "database",
+      "path": "live_contentops/server.py",
+      "surface_name": "API Server In-Memory TASKS Map",
+      "owner": "live_contentops.server",
+      "authority_class": "TRANSITIONAL_IN_MEMORY",
+      "mutability": "MUTABLE_TRANSIENT",
+      "current_writer": "live_contentops.server.start_background_task",
+      "disposition": "QUARANTINED_SUPERSEDED",
+      "superseding_entity": "work_items"
+    },
+    {
+      "path": "live_contentops/scheduler_v6.py",
+      "surface_name": "Scheduler Mutable JSON Registry",
+      "owner": "live_contentops.scheduler_v6",
+      "authority_class": "TRANSITIONAL_JSON",
+      "mutability": "MUTABLE_FILE",
+      "current_writer": "live_contentops.scheduler_v6",
+      "disposition": "QUARANTINED_SUPERSEDED",
+      "superseding_entity": "leases and operational_windows"
+    },
+    {
+      "path": "live_contentops/approval_envelope_v1.py",
+      "surface_name": "Approval Envelope Contract Module",
+      "owner": "live_contentops.approval_envelope_v1",
+      "authority_class": "CONTRACT_SPECIFICATION",
+      "mutability": "IMMUTABLE_CODE",
+      "current_writer": "none",
+      "disposition": "FUTURE_WAVE_03_CONTRACT",
+      "superseding_entity": "approval_envelopes"
+    },
+    {
+      "path": "live_contentops/transactional_outbox_v1.py",
+      "surface_name": "Transactional Outbox Contract Module",
+      "owner": "live_contentops.transactional_outbox_v1",
+      "authority_class": "CONTRACT_SPECIFICATION",
+      "mutability": "IMMUTABLE_CODE",
+      "current_writer": "none",
+      "disposition": "FUTURE_WAVE_03_CONTRACT",
+      "superseding_entity": "outbox_messages"
+    },
+    {
       "path": "live_contentops/durable_operational_store_v1.py",
-      "status": "CANONICAL_PRODUCTION_AUTHORITY",
-      "description": "Single authoritative SQLite WAL operational store with versioned schema migrations, compare-and-set state machine, append-only event log, and leases."
-    },
-    {
-      "surface_id": "duckdb_upstream_bridge",
-      "kind": "read_only_bridge",
-      "path": "live_contentops/governed_upstream_bridge_v1.py",
-      "status": "IMMUTABLE_READ_ONLY_UPSTREAM_BRIDGE",
-      "description": "Read-only DuckDB bridge for upstream Capital Chronicle headline/evidence artifacts."
-    },
-    {
-      "surface_id": "project_status_json",
-      "kind": "json_metadata",
-      "path": "docs/status/current_project_status.json",
-      "status": "ROOT_PROJECT_STATUS_AUTHORITY",
-      "description": "Root JSON product status ledger and baseline release parameters."
-    },
-    {
-      "surface_id": "legacy_server_state",
-      "kind": "in_memory_map",
-      "path": "docs/archive/_repo_cleanup_2026-07-03-pass3/live_contentops/server.py",
-      "status": "QUARANTINED",
-      "description": "Legacy server in-memory state map."
-    },
-    {
-      "surface_id": "legacy_scheduler_v6",
-      "kind": "script",
-      "path": "docs/archive/_repo_cleanup_2026-07-03-pass3/live_contentops/scheduler_v6.py",
-      "status": "QUARANTINED",
-      "description": "Legacy scheduler script."
-    },
-    {
-      "surface_id": "production_orchestrator",
-      "kind": "orchestrator_interface",
-      "path": "live_contentops/production_orchestrator_v1.py",
-      "status": "CANONICAL_ORCHESTRATOR_BOUNDARY",
-      "description": "Single authoritative public orchestrator interface with dependency-injected store seam."
+      "surface_name": "Single Authoritative SQLite WAL Operational Store",
+      "owner": "live_contentops.durable_operational_store_v1",
+      "authority_class": "CANONICAL_PRIMARY_PERSISTENCE",
+      "mutability": "MUTABLE_DATABASE_WAL",
+      "current_writer": "live_contentops.durable_operational_store_v1.ContentOpsDurableStore",
+      "disposition": "CANONICAL_PRODUCTION_PERSISTENCE",
+      "superseding_entity": "ContentOpsDurableStore"
     }
   ]
 }

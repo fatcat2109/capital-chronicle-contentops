@@ -5,8 +5,9 @@ private implementation module—and therefore its provider/browser adapters—is
 """
 from __future__ import annotations
 
+from dataclasses import dataclass, field
 from importlib import import_module
-from typing import Any, Callable, Mapping
+from typing import Any, Callable, Dict, List, Mapping, Optional
 
 TASK_LABEL = "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1"
 SCHEMA_VERSION = "contentops.production_orchestrator.v1"
@@ -28,6 +29,23 @@ CANONICAL_OPERATIONS = frozenset(
         "module_cli",
     }
 )
+
+
+@dataclass
+class ContentOpsDurableContext:
+    """Exact durable operation context required when persistent store is active."""
+
+    story_id: str
+    work_item_id: str
+    correlation_id: str
+    actor_ref: str
+    lease_key: str
+    fencing_token: int
+    input_artifact_ids: List[str] = field(default_factory=list)
+    output_artifact_ids: List[str] = field(default_factory=list)
+    policy_version: str = "contentops.policy.v1"
+    model_version: str = "NOT_APPLICABLE"
+    target_surface: str = "eight_platform_all"
 
 
 class ContentOpsProductionOrchestrator:
@@ -57,32 +75,50 @@ class ContentOpsProductionOrchestrator:
             raise ValueError(f"unknown_canonical_contentops_operation:{operation}")
 
         active_store = kwargs.pop("store", self.store)
-        story_id = kwargs.get("story_id", "treasury_release_candidate_20260714")
-        target_surface = kwargs.get("target_surface", "eight_platform_all")
-        # Remove store-only metadata kwargs if operation is prepare_text_image_release_candidate
-        if operation == "prepare_text_image_release_candidate":
-            kwargs.pop("story_id", None)
-            kwargs.pop("target_surface", None)
+        raw_context = kwargs.pop("durable_context", None)
 
         if active_store is not None:
-            title = f"Operation {operation} on {story_id}"
-            item = active_store.create_work_item(story_id=story_id, title=title, target_surface=target_surface)
-            item_id = item["work_item_id"]
-            state_ver = item["state_version"]
-            dummy_hash = "a" * 64
+            if raw_context is None:
+                raise ValueError("durable_context_required_when_store_active")
+
+            if isinstance(raw_context, dict):
+                ctx = ContentOpsDurableContext(**raw_context)
+            elif isinstance(raw_context, ContentOpsDurableContext):
+                ctx = raw_context
+            else:
+                raise ValueError("invalid_durable_context_type")
+
+            if not ctx.story_id or not ctx.work_item_id or not ctx.correlation_id or not ctx.actor_ref or not ctx.lease_key:
+                raise ValueError("incomplete_durable_context_fields")
+
+            # Fetch work item from store or create it if not present
+            try:
+                item = active_store.get_work_item(ctx.work_item_id)
+            except Exception:
+                item = active_store.create_work_item(
+                    story_id=ctx.story_id,
+                    title=f"Operation {operation} on {ctx.story_id}",
+                    target_surface=ctx.target_surface,
+                    work_item_id=ctx.work_item_id,
+                )
+
             if item["current_state"] == "DISCOVERED":
-                item = active_store.transition_state(
-                    work_item_id=item_id,
+                active_store.transition_state(
+                    work_item_id=ctx.work_item_id,
                     expected_from_state="DISCOVERED",
                     to_state="EVIDENCE_PENDING",
-                    expected_state_version=state_ver,
+                    expected_state_version=item["state_version"],
                     actor_class="ContentOpsProductionOrchestrator",
-                    actor_ref="orchestrator_v1",
+                    actor_ref=ctx.actor_ref,
                     reason_code="ORCHESTRATOR_DISPATCH_PREPARATION",
                     explanation=f"Execution of operation {operation}",
-                    artifact_hash_set=[dummy_hash],
-                    correlation_id=f"corr_{operation}",
-                    authority_granted=False,
+                    lease_key=ctx.lease_key,
+                    fencing_token=ctx.fencing_token,
+                    input_artifact_ids=ctx.input_artifact_ids,
+                    output_artifact_ids=ctx.output_artifact_ids,
+                    correlation_id=ctx.correlation_id,
+                    policy_version=ctx.policy_version,
+                    model_version=ctx.model_version,
                 )
 
         return self._resolve_dispatcher()(operation, **kwargs)
