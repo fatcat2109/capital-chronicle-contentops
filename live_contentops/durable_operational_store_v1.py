@@ -1,16 +1,17 @@
 """Single Authoritative ContentOps SQLite WAL Operational Store & Canonical State Machine v1.
 
-Wave 02 Execution Mode: LOCAL_SCHEMA_AND_PERSISTENCE_CORRECTION_NO_LIVE_ACTION
+Wave 02 Execution Mode: LOCAL_DURABLE_STATE_FINAL_CORRECTION_NO_LIVE_ACTION
 
 Key Features:
 1. SQLite WAL mode (PRAGMA journal_mode=WAL;), foreign keys (PRAGMA foreign_keys=ON;), busy timeout.
-2. Explicit transactions (BEGIN IMMEDIATE) with atomic versioned migrations and WAL-aware online backups.
-3. Monotonic lease fencing tokens required on every work-item state mutation.
-4. Immutable registered artifact references with SHA-256 and byte length validation.
-5. Cryptographically verifiable event hash chains with per-item sequencing.
-6. Fail-closed Wave 02 authority guard rejecting protected authority-bearing state transitions.
-7. Deterministic event replay and corruption detection.
-8. PRAGMA-verified deterministic export with adversarial redaction.
+2. Explicit transactions (BEGIN IMMEDIATE) with atomic versioned migrations (v1 -> v2 -> v3) and checksum validation.
+3. Cryptographically bound genesis events (WORK_ITEM_CREATED) for work item initialization.
+4. Schema-versioned canonical event payload JSON and SHA-256 envelope hashing across all semantic fields.
+5. Genuinely immutable registered artifact references with byte/receipt verification and DB-level UPDATE/DELETE triggers.
+6. Monotonic lease fencing tokens required on every work-item state mutation.
+7. Fail-closed Wave 02 authority guard rejecting protected authority-bearing state transitions.
+8. Deterministic event replay and state corruption detection.
+9. PRAGMA-verified deterministic export with adversarial redaction.
 """
 
 from __future__ import annotations
@@ -26,7 +27,7 @@ import tempfile
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple, Union
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 BUSY_TIMEOUT_MS = 5000
 
 # Canonical 29 States
@@ -77,7 +78,7 @@ WAVE02_PROTECTED_STATES = frozenset({
 
 # Valid State Transition Graph
 STATE_TRANSITION_GRAPH: Dict[str, set[str]] = {
-    "DISCOVERED": {"EVIDENCE_PENDING"},
+    "DISCOVERED": {"EVIDENCE_PENDING", "DISCOVERED"},
     "EVIDENCE_PENDING": {"EVIDENCE_READY", "EVIDENCE_BLOCKED"},
     "EVIDENCE_READY": {"ASSIGNMENT_CANDIDATE"},
     "EVIDENCE_BLOCKED": {"DEFERRED", "REJECTED"},
@@ -457,9 +458,84 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_transition_events_work_item_seq
 ON transition_events(work_item_id, event_seq);
 """
 
+MIGRATION_V3_SQL = """
+-- Drop old triggers
+DROP TRIGGER IF EXISTS trg_transition_events_no_update;
+DROP TRIGGER IF EXISTS trg_transition_events_no_delete;
+
+-- Create temporary backup table for existing transition_events
+CREATE TABLE transition_events_backup AS SELECT * FROM transition_events;
+DROP TABLE transition_events;
+
+-- Rebuild transition_events table cleanly without legacy authority_granted boolean
+CREATE TABLE transition_events (
+    event_id TEXT PRIMARY KEY,
+    transition_key TEXT NOT NULL UNIQUE,
+    work_item_id TEXT NOT NULL,
+    event_seq INTEGER NOT NULL,
+    from_state TEXT NOT NULL,
+    to_state TEXT NOT NULL,
+    state_version INTEGER NOT NULL,
+    actor_class TEXT NOT NULL,
+    actor_ref TEXT NOT NULL,
+    reason_code TEXT NOT NULL,
+    explanation TEXT NOT NULL,
+    explanation_hash TEXT NOT NULL,
+    correlation_id TEXT NOT NULL,
+    policy_version TEXT NOT NULL DEFAULT 'contentops.policy.v1',
+    model_version TEXT NOT NULL DEFAULT 'NOT_APPLICABLE',
+    authority_type TEXT NOT NULL DEFAULT 'NONE',
+    authority_ref TEXT,
+    authority_effect TEXT NOT NULL DEFAULT 'NO_AUTHORITY_GRANTED',
+    lease_id TEXT,
+    lease_key TEXT,
+    fencing_token INTEGER NOT NULL DEFAULT 0,
+    input_artifact_ids TEXT NOT NULL DEFAULT '[]',
+    output_artifact_ids TEXT NOT NULL DEFAULT '[]',
+    artifact_snapshot_json TEXT NOT NULL DEFAULT '[]',
+    previous_event_hash TEXT NOT NULL,
+    event_payload_json TEXT NOT NULL,
+    event_hash TEXT NOT NULL,
+    timestamp_utc TEXT NOT NULL,
+    FOREIGN KEY(work_item_id) REFERENCES work_items(work_item_id)
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_transition_events_work_item_seq
+ON transition_events(work_item_id, event_seq);
+
+-- Re-attach transition_events append-only triggers
+CREATE TRIGGER trg_transition_events_no_update
+BEFORE UPDATE ON transition_events
+BEGIN
+    SELECT RAISE(ABORT, 'transition_events are append-only: UPDATE forbidden');
+END;
+
+CREATE TRIGGER trg_transition_events_no_delete
+BEFORE DELETE ON transition_events
+BEGIN
+    SELECT RAISE(ABORT, 'transition_events are append-only: DELETE forbidden');
+END;
+
+-- Attach artifact_references immutability triggers
+CREATE TRIGGER IF NOT EXISTS trg_artifact_references_no_update
+BEFORE UPDATE ON artifact_references
+BEGIN
+    SELECT RAISE(ABORT, 'artifact_references are immutable: UPDATE forbidden');
+END;
+
+CREATE TRIGGER IF NOT EXISTS trg_artifact_references_no_delete
+BEFORE DELETE ON artifact_references
+BEGIN
+    SELECT RAISE(ABORT, 'artifact_references are immutable: DELETE forbidden');
+END;
+
+DROP TABLE transition_events_backup;
+"""
+
 MIGRATIONS: List[Tuple[int, str, str]] = [
     (1, "Initial Wave 02 Durable Operational Store Schema", MIGRATION_V1_SQL),
     (2, "Wave 02 Fencing, Artifact Integrity, and Structured Event Chain Upgrade", MIGRATION_V2_SQL),
+    (3, "Wave 02 Schema v3: Cryptographic Event Payload Envelope and Immutable Artifact Triggers", MIGRATION_V3_SQL),
 ]
 
 
@@ -523,6 +599,32 @@ class ContentOpsDurableStore:
         finally:
             conn.close()
 
+    def verify_applied_migrations(self) -> bool:
+        """Verify checksum immutability and registry matching across all applied migrations."""
+        conn = self.get_connection()
+        try:
+            tbl_check = conn.execute(
+                "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='schema_migrations';"
+            ).fetchone()[0]
+            if not tbl_check:
+                return True
+
+            applied = conn.execute("SELECT * FROM schema_migrations ORDER BY version ASC;").fetchall()
+            sorted_migrations = {m[0]: m for m in MIGRATIONS}
+
+            for row in applied:
+                ver = row["version"]
+                if ver not in sorted_migrations:
+                    raise MigrationError(f"Applied migration version {ver} not found in embedded registry")
+                expected_sql = sorted_migrations[ver][2]
+                expected_checksum = compute_sha256(expected_sql)
+                if row["checksum"] != expected_checksum:
+                    raise MigrationError(f"Checksum drift for migration v{ver}: expected {expected_checksum}, recorded {row['checksum']}")
+
+            return True
+        finally:
+            conn.close()
+
     def create_wal_safe_backup(self) -> pathlib.Path:
         """Create a WAL-safe online backup using SQLite's backup API."""
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S_%f")
@@ -557,12 +659,12 @@ class ContentOpsDurableStore:
 
     def run_migrations(self) -> int:
         """Run pending versioned migrations in contiguous order with atomic transaction boundaries."""
+        self.verify_applied_migrations()
         current_version = self.get_current_schema_version()
         applied_count = 0
 
         sorted_migrations = sorted(MIGRATIONS, key=lambda m: m[0])
 
-        # Validate migration continuity
         for idx, (ver, desc, sql) in enumerate(sorted_migrations):
             expected_ver = idx + 1
             if ver != expected_ver:
@@ -608,6 +710,7 @@ class ContentOpsDurableStore:
                     except Exception:
                         pass
 
+        self.verify_applied_migrations()
         self.verify_schema_integrity()
         return applied_count
 
@@ -619,30 +722,34 @@ class ContentOpsDurableStore:
         artifact_id: str,
         artifact_type: str,
         storage_class: str,
-        byte_length: int,
-        sha256_hash: str,
         schema_version: str,
         producer_ref: str,
+        content_bytes: Optional[bytes] = None,
+        verified_receipt: Optional[Dict[str, Any]] = None,
         story_id: Optional[str] = None,
         work_item_id: Optional[str] = None,
         sensitivity_class: str = "PUBLIC",
     ) -> Dict[str, Any]:
-        """Register an immutable artifact reference with exact byte length and SHA-256 verification."""
+        """Register an immutable artifact reference deriving length and SHA-256 from exact bytes or verified receipt."""
         if not artifact_id or not artifact_type or not storage_class or not schema_version or not producer_ref:
-            raise ArtifactValidationError("Missing required artifact registration field")
+            raise ArtifactValidationError("Missing required artifact registration parameter")
 
-        if byte_length <= 0:
-            raise ArtifactValidationError(f"Invalid byte_length {byte_length}: must be > 0")
-
-        if not is_valid_sha256(sha256_hash):
-            raise ArtifactValidationError(f"Invalid SHA-256 hash format: {sha256_hash}")
+        if content_bytes is not None:
+            byte_length = len(content_bytes)
+            sha256_hash = compute_sha256(content_bytes)
+        elif verified_receipt is not None:
+            byte_length = verified_receipt.get("byte_length", 0)
+            sha256_hash = verified_receipt.get("sha256_hash", "")
+            if byte_length <= 0 or not is_valid_sha256(sha256_hash):
+                raise ArtifactValidationError("verified_receipt must contain valid byte_length > 0 and 64-char SHA-256")
+        else:
+            raise ArtifactValidationError("register_artifact requires either content_bytes or verified_receipt")
 
         now_iso = utc_now_iso()
         conn = self.get_connection()
         try:
             conn.execute("BEGIN IMMEDIATE;")
 
-            # Check if artifact_id already exists
             existing = conn.execute("SELECT * FROM artifact_references WHERE artifact_id = ?;", (artifact_id,)).fetchone()
             if existing:
                 if existing["sha256_hash"] != sha256_hash or existing["byte_length"] != byte_length:
@@ -686,7 +793,10 @@ class ContentOpsDurableStore:
                 "sensitivity_class": sensitivity_class,
             }
         except Exception:
-            conn.execute("ROLLBACK;")
+            try:
+                conn.execute("ROLLBACK;")
+            except Exception:
+                pass
             raise
         finally:
             conn.close()
@@ -702,22 +812,35 @@ class ContentOpsDurableStore:
         finally:
             conn.close()
 
-    # --- Work Item Management ---
+    # --- Work Item Management with Genesis Events ---
 
     def create_work_item(
         self,
+        *,
         story_id: str,
         title: str,
         target_surface: str,
         work_item_id: Optional[str] = None,
+        actor_ref: str = "producer_ref",
+        correlation_id: Optional[str] = None,
+        input_artifact_ids: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
-        """Create a new work item in DISCOVERED state."""
+        """Create a new work item in DISCOVERED state with an atomic WORK_ITEM_CREATED genesis event."""
         now_iso = utc_now_iso()
         item_id = work_item_id or f"wi_{compute_sha256(story_id + title + now_iso)[:16]}"
+        corr_id = correlation_id or f"corr_init_{item_id}"
+        input_arts = input_artifact_ids or []
 
         conn = self.get_connection()
         try:
             conn.execute("BEGIN IMMEDIATE;")
+
+            # Check if item exists
+            existing = conn.execute("SELECT * FROM work_items WHERE work_item_id = ?;", (item_id,)).fetchone()
+            if existing:
+                conn.execute("COMMIT;")
+                return dict(existing)
+
             conn.execute(
                 """
                 INSERT INTO work_items (
@@ -726,6 +849,70 @@ class ContentOpsDurableStore:
                 """,
                 (item_id, story_id, title, target_surface, now_iso, now_iso),
             )
+
+            # Build Genesis Event (seq 1, WORK_ITEM_CREATED)
+            genesis_payload_dict = {
+                "event_schema_version": "contentops.event_payload.v1",
+                "event_seq": 1,
+                "work_item_id": item_id,
+                "story_id": story_id,
+                "title": title,
+                "target_surface": target_surface,
+                "state_version": 1,
+                "from_state": "DISCOVERED",
+                "to_state": "DISCOVERED",
+                "previous_event_hash": GENESIS_PREVIOUS_HASH,
+                "actor_class": "ContentOpsDurableStore",
+                "actor_ref": actor_ref,
+                "reason_code": "WORK_ITEM_INITIALIZATION",
+                "explanation_hash": compute_sha256(f"Genesis event for work item {item_id} story {story_id}"),
+                "correlation_id": corr_id,
+                "policy_version": "contentops.policy.v1",
+                "model_version": "NOT_APPLICABLE",
+                "authority_type": "NONE",
+                "authority_ref": None,
+                "authority_effect": "NO_AUTHORITY_GRANTED",
+                "lease_id": None,
+                "lease_key": None,
+                "fencing_token": 0,
+                "input_artifact_ids": sorted(input_arts),
+                "output_artifact_ids": [],
+                "artifact_snapshots": [],
+                "timestamp_utc": now_iso,
+            }
+            event_payload_json = json.dumps(genesis_payload_dict, sort_keys=True)
+            event_hash = compute_sha256(event_payload_json)
+            event_id = f"evt_{compute_sha256(event_hash)[:16]}"
+            transition_key = f"tr_{item_id}_v1_genesis"
+
+            conn.execute(
+                """
+                INSERT INTO transition_events (
+                    event_id, transition_key, work_item_id, event_seq, from_state, to_state, state_version,
+                    actor_class, actor_ref, reason_code, explanation, explanation_hash, correlation_id,
+                    policy_version, model_version, authority_type, authority_ref, authority_effect,
+                    lease_id, lease_key, fencing_token, input_artifact_ids, output_artifact_ids,
+                    artifact_snapshot_json, previous_event_hash, event_payload_json, event_hash, timestamp_utc
+                ) VALUES (?, ?, ?, 1, 'DISCOVERED', 'DISCOVERED', 1, 'ContentOpsDurableStore', ?, 'WORK_ITEM_INITIALIZATION',
+                          ?, ?, ?, 'contentops.policy.v1', 'NOT_APPLICABLE', 'NONE', NULL, 'NO_AUTHORITY_GRANTED',
+                          NULL, NULL, 0, ?, '[]', '[]', ?, ?, ?, ?);
+                """,
+                (
+                    event_id,
+                    transition_key,
+                    item_id,
+                    actor_ref,
+                    f"Genesis event for work item {item_id} story {story_id}",
+                    compute_sha256(f"Genesis event for work item {item_id} story {story_id}"),
+                    corr_id,
+                    json.dumps(input_arts),
+                    GENESIS_PREVIOUS_HASH,
+                    event_payload_json,
+                    event_hash,
+                    now_iso,
+                ),
+            )
+
             conn.execute("COMMIT;")
 
             return {
@@ -737,9 +924,14 @@ class ContentOpsDurableStore:
                 "target_surface": target_surface,
                 "created_at": now_iso,
                 "updated_at": now_iso,
+                "genesis_event_id": event_id,
+                "genesis_event_hash": event_hash,
             }
         except Exception:
-            conn.execute("ROLLBACK;")
+            try:
+                conn.execute("ROLLBACK;")
+            except Exception:
+                pass
             raise
         finally:
             conn.close()
@@ -939,6 +1131,17 @@ class ContentOpsDurableStore:
             if not item:
                 raise WorkItemNotFoundError(f"Work item {work_item_id} not found")
 
+            # Verify no duplicate active assignment for another claim
+            active_asgn = conn.execute(
+                "SELECT * FROM assignments WHERE work_item_id = ? AND status = 'ACTIVE';", (work_item_id,)
+            ).fetchone()
+            if active_asgn and active_asgn["assignee_ref"] != owner_ref:
+                existing_lease = conn.execute(
+                    "SELECT * FROM leases WHERE work_item_id = ? AND status = 'ACTIVE';", (work_item_id,)
+                ).fetchone()
+                if existing_lease and existing_lease["expires_at"] > now_iso:
+                    raise LeaseConflictError(f"Work item {work_item_id} actively assigned to {active_asgn['assignee_ref']}")
+
             existing = conn.execute("SELECT * FROM leases WHERE lease_key = ?;", (lease_key,)).fetchone()
             if existing:
                 if existing["status"] == "ACTIVE" and existing["expires_at"] > now_iso and existing["owner_ref"] != owner_ref:
@@ -1026,7 +1229,45 @@ class ContentOpsDurableStore:
         finally:
             conn.close()
 
-    # --- Compare-And-Set State Machine with Fencing Token Verification ---
+    def query_fresh_heartbeats(self, ttl_seconds: int = 60) -> List[Dict[str, Any]]:
+        """Fetch all worker heartbeats updated within ttl_seconds."""
+        now_dt = datetime.now(timezone.utc)
+        cutoff_iso = datetime.fromtimestamp(now_dt.timestamp() - ttl_seconds, timezone.utc).isoformat()
+        conn = self.get_connection()
+        try:
+            rows = conn.execute("SELECT * FROM heartbeats WHERE last_seen_at >= ? AND status = 'ALIVE';", (cutoff_iso,)).fetchall()
+            return [dict(r) for r in rows]
+        finally:
+            conn.close()
+
+    def dispose_stale_heartbeats(self, ttl_seconds: int = 60) -> List[str]:
+        """Mark heartbeats past ttl_seconds as DEAD."""
+        now_dt = datetime.now(timezone.utc)
+        cutoff_iso = datetime.fromtimestamp(now_dt.timestamp() - ttl_seconds, timezone.utc).isoformat()
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE;")
+            stale_rows = conn.execute(
+                "SELECT worker_id FROM heartbeats WHERE last_seen_at < ? AND status = 'ALIVE';", (cutoff_iso,)
+            ).fetchall()
+            stale_ids = [r["worker_id"] for r in stale_rows]
+            if stale_ids:
+                conn.execute(
+                    f"UPDATE heartbeats SET status = 'DEAD' WHERE worker_id IN ({','.join('?' for _ in stale_ids)});",
+                    stale_ids,
+                )
+            conn.execute("COMMIT;")
+            return stale_ids
+        except Exception:
+            try:
+                conn.execute("ROLLBACK;")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    # --- Compare-And-Set State Machine with Cryptographic Event Payload Envelope ---
 
     def transition_state(
         self,
@@ -1047,29 +1288,25 @@ class ContentOpsDurableStore:
         policy_version: str = "contentops.policy.v1",
         model_version: str = "NOT_APPLICABLE",
     ) -> Dict[str, Any]:
-        """Perform a Compare-And-Set (CAS) state transition enforcing lease fencing tokens and artifact integrity."""
-        # 1. State validity check
+        """Perform Compare-And-Set state transition enforcing fencing tokens and canonical event payload envelope hashing."""
         if expected_from_state not in CANONICAL_STATES:
             raise InvalidStateTransitionError(f"Unknown from_state: {expected_from_state}")
         if to_state not in CANONICAL_STATES:
             raise InvalidStateTransitionError(f"Unknown to_state: {to_state}")
 
-        # 2. Transition Graph validation
         allowed_targets = STATE_TRANSITION_GRAPH.get(expected_from_state, set())
         if to_state not in allowed_targets:
             raise InvalidStateTransitionError(
                 f"Illegal state transition from {expected_from_state} to {to_state}. Allowed: {sorted(allowed_targets)}"
             )
 
-        # 3. Wave 02 Authority Fail-Closed Guard
         if to_state in WAVE02_PROTECTED_STATES:
             raise Wave02AuthorityViolationError(
                 f"Wave 02 fail-closed guard: transition to protected authority state '{to_state}' is forbidden without registered approval envelope validator"
             )
 
-        # 4. Mandatory parameters check
         if not actor_class or not actor_ref or not reason_code or not explanation or not correlation_id or not lease_key:
-            raise TransitionValidationError("Missing required transition parameter (actor_class, actor_ref, reason_code, explanation, correlation_id, lease_key)")
+            raise TransitionValidationError("Missing required transition parameter")
 
         now_iso = utc_now_iso()
 
@@ -1077,7 +1314,6 @@ class ContentOpsDurableStore:
         try:
             conn.execute("BEGIN IMMEDIATE;")
 
-            # 5. Fetch work item and check CAS
             item = conn.execute("SELECT * FROM work_items WHERE work_item_id = ?;", (work_item_id,)).fetchone()
             if not item:
                 raise WorkItemNotFoundError(f"Work item {work_item_id} not found")
@@ -1088,7 +1324,6 @@ class ContentOpsDurableStore:
                     f"actual ({item['current_state']}, v{item['state_version']})"
                 )
 
-            # 6. Verify Lease & Fencing Token inside transaction
             lease = conn.execute("SELECT * FROM leases WHERE lease_key = ?;", (lease_key,)).fetchone()
             if not lease:
                 raise StaleFencingTokenError(f"Lease {lease_key} does not exist")
@@ -1110,16 +1345,23 @@ class ContentOpsDurableStore:
             if lease["work_item_id"] and lease["work_item_id"] != work_item_id:
                 raise StaleFencingTokenError(f"Lease work_item_id mismatch: expected {work_item_id}, got {lease['work_item_id']}")
 
-            # 7. Validate registered input and output artifacts
+            # Fetch and snapshot registered artifacts
             all_artifact_ids = input_artifact_ids + output_artifact_ids
-            artifact_hashes = []
+            artifact_snapshots = []
             for art_id in all_artifact_ids:
-                art_row = conn.execute("SELECT sha256_hash FROM artifact_references WHERE artifact_id = ?;", (art_id,)).fetchone()
+                art_row = conn.execute("SELECT * FROM artifact_references WHERE artifact_id = ?;", (art_id,)).fetchone()
                 if not art_row:
                     raise ArtifactNotFoundError(f"Referenced artifact {art_id} is not registered")
-                artifact_hashes.append(art_row["sha256_hash"])
+                artifact_snapshots.append({
+                    "artifact_id": art_row["artifact_id"],
+                    "artifact_type": art_row["artifact_type"],
+                    "storage_class": art_row["storage_class"],
+                    "byte_length": art_row["byte_length"],
+                    "sha256_hash": art_row["sha256_hash"],
+                    "schema_version": art_row["schema_version"],
+                    "producer_ref": art_row["producer_ref"],
+                })
 
-            # 8. Compute per-work-item sequence and event hash chain
             seq_row = conn.execute(
                 "SELECT MAX(event_seq) AS max_seq FROM transition_events WHERE work_item_id = ?;", (work_item_id,)
             ).fetchone()
@@ -1137,24 +1379,51 @@ class ContentOpsDurableStore:
                     raise DurableStateCorruptionError(f"Missing preceding event seq {event_seq - 1} for work item {work_item_id}")
                 previous_event_hash = prev_row["event_hash"]
 
-            # Canonical Event Payload Hashing
-            payload_str = (
-                f"{work_item_id}:{event_seq}:{previous_event_hash}:{expected_from_state}:{to_state}:"
-                f"{new_state_version}:{actor_class}:{actor_ref}:{reason_code}:{json.dumps(sorted(all_artifact_ids))}:{now_iso}"
-            )
-            event_hash = compute_sha256(payload_str)
-            event_id = f"evt_{compute_sha256(event_hash)[:16]}"
-            transition_key = f"tr_{work_item_id}_v{new_state_version}_{compute_sha256(payload_str)[:8]}"
+            explanation_hash = compute_sha256(explanation)
 
-            # 9. Insert transition event & update work item
+            # Build canonical event payload JSON
+            event_payload_dict = {
+                "event_schema_version": "contentops.event_payload.v1",
+                "event_seq": event_seq,
+                "work_item_id": work_item_id,
+                "story_id": item["story_id"],
+                "state_version": new_state_version,
+                "from_state": expected_from_state,
+                "to_state": to_state,
+                "previous_event_hash": previous_event_hash,
+                "actor_class": actor_class,
+                "actor_ref": actor_ref,
+                "reason_code": reason_code,
+                "explanation_hash": explanation_hash,
+                "correlation_id": correlation_id,
+                "policy_version": policy_version,
+                "model_version": model_version,
+                "authority_type": "NONE",
+                "authority_ref": None,
+                "authority_effect": "NO_AUTHORITY_GRANTED",
+                "lease_id": lease["lease_id"],
+                "lease_key": lease_key,
+                "fencing_token": fencing_token,
+                "input_artifact_ids": sorted(input_artifact_ids),
+                "output_artifact_ids": sorted(output_artifact_ids),
+                "artifact_snapshots": artifact_snapshots,
+                "timestamp_utc": now_iso,
+            }
+            event_payload_json = json.dumps(event_payload_dict, sort_keys=True)
+            event_hash = compute_sha256(event_payload_json)
+            event_id = f"evt_{compute_sha256(event_hash)[:16]}"
+            transition_key = f"tr_{work_item_id}_v{new_state_version}_{compute_sha256(event_payload_json)[:8]}"
+
             conn.execute(
                 """
                 INSERT INTO transition_events (
                     event_id, transition_key, work_item_id, event_seq, from_state, to_state, state_version,
-                    actor_class, actor_ref, reason_code, explanation, artifact_hash_set, correlation_id,
-                    timestamp_utc, authority_granted, policy_version, model_version, authority_type, authority_ref,
-                    authority_effect, input_artifact_ids, output_artifact_ids, previous_event_hash, event_hash
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, 'NONE', NULL, 'NO_AUTHORITY_GRANTED', ?, ?, ?, ?);
+                    actor_class, actor_ref, reason_code, explanation, explanation_hash, correlation_id,
+                    policy_version, model_version, authority_type, authority_ref, authority_effect,
+                    lease_id, lease_key, fencing_token, input_artifact_ids, output_artifact_ids,
+                    artifact_snapshot_json, previous_event_hash, event_payload_json, event_hash, timestamp_utc
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'NONE', NULL, 'NO_AUTHORITY_GRANTED',
+                          ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 """,
                 (
                     event_id,
@@ -1168,15 +1437,20 @@ class ContentOpsDurableStore:
                     actor_ref,
                     reason_code,
                     explanation,
-                    json.dumps(artifact_hashes),
+                    explanation_hash,
                     correlation_id,
-                    now_iso,
                     policy_version,
                     model_version,
+                    lease["lease_id"],
+                    lease_key,
+                    fencing_token,
                     json.dumps(input_artifact_ids),
                     json.dumps(output_artifact_ids),
+                    json.dumps(artifact_snapshots),
                     previous_event_hash,
+                    event_payload_json,
                     event_hash,
+                    now_iso,
                 ),
             )
 
@@ -1209,7 +1483,7 @@ class ContentOpsDurableStore:
     # --- Deterministic Event Replay & Corruption Detection ---
 
     def replay_work_item_events(self, work_item_id: str) -> Dict[str, Any]:
-        """Replay work item transition events verifying cryptographic hash chain, sequence, and materialized view."""
+        """Replay work item events starting from WORK_ITEM_CREATED genesis event, verifying payload envelope hashes and projections."""
         conn = self.get_connection()
         try:
             item = conn.execute("SELECT * FROM work_items WHERE work_item_id = ?;", (work_item_id,)).fetchone()
@@ -1219,6 +1493,13 @@ class ContentOpsDurableStore:
             events = conn.execute(
                 "SELECT * FROM transition_events WHERE work_item_id = ? ORDER BY event_seq ASC;", (work_item_id,)
             ).fetchall()
+
+            if not events:
+                raise DurableStateCorruptionError(f"Work item {work_item_id} has no transition events")
+
+            genesis_evt = events[0]
+            if genesis_evt["event_seq"] != 1 or genesis_evt["reason_code"] != "WORK_ITEM_INITIALIZATION":
+                raise DurableStateCorruptionError(f"Work item {work_item_id} missing valid genesis event")
 
             current_state = "DISCOVERED"
             expected_seq = 1
@@ -1230,7 +1511,7 @@ class ContentOpsDurableStore:
                         f"Event sequence gap in {work_item_id}: expected seq {expected_seq}, got {evt['event_seq']}"
                     )
 
-                if evt["from_state"] != current_state:
+                if evt["event_seq"] > 1 and evt["from_state"] != current_state:
                     raise DurableStateCorruptionError(
                         f"State mismatch in replay for {work_item_id} at seq {expected_seq}: expected from_state {current_state}, got {evt['from_state']}"
                     )
@@ -1241,33 +1522,29 @@ class ContentOpsDurableStore:
                         f"expected {previous_hash}, got {evt['previous_event_hash']}"
                     )
 
-                # Re-verify registered artifacts
-                input_ids = json.loads(evt["input_artifact_ids"])
-                output_ids = json.loads(evt["output_artifact_ids"])
-                all_ids = input_ids + output_ids
-                for art_id in all_ids:
-                    art_row = conn.execute("SELECT sha256_hash FROM artifact_references WHERE artifact_id = ?;", (art_id,)).fetchone()
-                    if not art_row:
-                        raise DurableStateCorruptionError(f"Replay artifact {art_id} missing from artifact_references")
-
-                # Recalculate event hash
-                payload_str = (
-                    f"{work_item_id}:{evt['event_seq']}:{evt['previous_event_hash']}:{evt['from_state']}:{evt['to_state']}:"
-                    f"{evt['state_version']}:{evt['actor_class']}:{evt['actor_ref']}:{evt['reason_code']}:{json.dumps(sorted(all_ids))}:{evt['timestamp_utc']}"
-                )
-                computed_hash = compute_sha256(payload_str)
+                # Reconstruct and verify payload envelope JSON and hash
+                payload_dict = json.loads(evt["event_payload_json"])
+                reconstructed_json = json.dumps(payload_dict, sort_keys=True)
+                computed_hash = compute_sha256(reconstructed_json)
                 if computed_hash != evt["event_hash"]:
                     raise DurableStateCorruptionError(
-                        f"Event hash chain corruption in {work_item_id} at seq {expected_seq}: "
+                        f"Event payload hash mismatch in {work_item_id} at seq {expected_seq}: "
                         f"computed {computed_hash}, stored {evt['event_hash']}"
                     )
+
+                # Verify snapshot artifact hashes match registered database records
+                for snap in payload_dict.get("artifact_snapshots", []):
+                    art_row = conn.execute("SELECT * FROM artifact_references WHERE artifact_id = ?;", (snap["artifact_id"],)).fetchone()
+                    if not art_row or art_row["sha256_hash"] != snap["sha256_hash"] or art_row["byte_length"] != snap["byte_length"]:
+                        raise DurableStateCorruptionError(
+                            f"Replay artifact snapshot corruption for {snap['artifact_id']} in work item {work_item_id}"
+                        )
 
                 current_state = evt["to_state"]
                 previous_hash = evt["event_hash"]
                 expected_seq += 1
 
-            # Verify materialized view equality
-            expected_final_version = expected_seq
+            expected_final_version = expected_seq - 1
             if item["current_state"] != current_state or item["state_version"] != expected_final_version:
                 raise DurableStateCorruptionError(
                     f"Materialized projection mismatch for {work_item_id}: "
@@ -1286,8 +1563,9 @@ class ContentOpsDurableStore:
             conn.close()
 
     def reconstruct_in_flight_state(self) -> Dict[str, Any]:
-        """Verify state integrity across all work items and clean up expired leases."""
+        """Verify state integrity across all work items and clean up expired leases/heartbeats."""
         recovered_leases = self.recover_stale_leases()
+        dead_heartbeats = self.dispose_stale_heartbeats()
         conn = self.get_connection()
         try:
             items = conn.execute("SELECT work_item_id FROM work_items;").fetchall()
@@ -1299,6 +1577,7 @@ class ContentOpsDurableStore:
             return {
                 "restart_reconstruction_status": "PASS",
                 "recovered_leases_count": len(recovered_leases),
+                "dead_heartbeats_count": len(dead_heartbeats),
                 "verified_work_items_count": verified_count,
             }
         finally:
@@ -1316,18 +1595,6 @@ class ContentOpsDurableStore:
             raw_events = [dict(r) for r in conn.execute("SELECT * FROM transition_events ORDER BY work_item_id ASC, event_seq ASC;").fetchall()]
             raw_leases = [dict(r) for r in conn.execute("SELECT * FROM leases ORDER BY lease_id ASC;").fetchall()]
             raw_artifacts = [dict(r) for r in conn.execute("SELECT * FROM artifact_references ORDER BY artifact_id ASC;").fetchall()]
-
-            # Adversarial Redaction Filter Function
-            def redact_value(val: Any) -> Any:
-                if val is None:
-                    return None
-                val_str = str(val)
-                # Redact credentials, secrets, bearer tokens, passwords, cookies, file paths
-                if re.search(r"(?:secret|password|bearer|cookie|token|key|private)", val_str, re.IGNORECASE):
-                    return "[REDACTED_SENSITIVE_KEY]"
-                if re.search(r"(?:[a-zA-Z]:[\\/]|/(?:home|Users|tmp|var)/)", val_str):
-                    return "[REDACTED_FILE_PATH]"
-                return val
 
             redacted_items = []
             for item in raw_items:
@@ -1355,6 +1622,7 @@ class ContentOpsDurableStore:
                     "actor_ref": "[REDACTED_ACTOR_REF]",
                     "reason_code": evt["reason_code"],
                     "explanation": "[REDACTED_EXPLANATION]",
+                    "explanation_hash": evt["explanation_hash"],
                     "correlation_id": evt["correlation_id"],
                     "previous_event_hash": evt["previous_event_hash"],
                     "event_hash": evt["event_hash"],

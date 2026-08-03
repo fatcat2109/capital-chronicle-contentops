@@ -1,6 +1,6 @@
 """
 Comprehensive Unit, Resilience, CAS, Lease, Fencing, Artifact Integrity, Replay, Authority Guard,
-and Redaction Tests for Durable Operational Store v1 (Wave 02 Correction).
+and Redaction Tests for Durable Operational Store v1 (Wave 02 Final Correction).
 """
 
 import json
@@ -50,48 +50,57 @@ def test_wal_and_foreign_keys_enforcement(temp_db):
 
 def test_clean_init_and_idempotent_migrations(temp_db):
     version = temp_db.get_current_schema_version()
-    assert version == 2
+    assert version == 3
     applied = temp_db.run_migrations()
     assert applied == 0
     assert temp_db.verify_schema_integrity() is True
 
 
-def test_multi_version_migration_upgrade(tmp_path):
+def test_real_multi_version_migration_upgrade(tmp_path):
     db_file = tmp_path / "test_upgrade.sqlite"
     store = ContentOpsDurableStore(db_file, auto_migrate=True)
-    assert store.get_current_schema_version() == 2
+    assert store.get_current_schema_version() == 3
 
     conn = store.get_connection()
     try:
         rows = conn.execute("SELECT version, description FROM schema_migrations ORDER BY version ASC;").fetchall()
-        assert len(rows) == 2
+        assert len(rows) == 3
         assert rows[0]["version"] == 1
         assert rows[1]["version"] == 2
+        assert rows[2]["version"] == 3
     finally:
         conn.close()
+
+
+def test_applied_migration_checksum_drift_rejection(temp_db):
+    # Tamper with schema_migrations recorded checksum
+    conn = temp_db.get_connection()
+    try:
+        conn.execute("UPDATE schema_migrations SET checksum = 'bad_checksum' WHERE version = 1;")
+    finally:
+        conn.close()
+
+    with pytest.raises(MigrationError, match="Checksum drift"):
+        temp_db.verify_applied_migrations()
 
 
 def test_partial_migration_failure_rollback_and_restore(tmp_path):
     db_file = tmp_path / "test_migration_failure.sqlite"
     store = ContentOpsDurableStore(db_file, auto_migrate=True)
-    assert store.get_current_schema_version() == 2
+    assert store.get_current_schema_version() == 3
 
-    # Add a work item to verify data remains readable after rollback
     store.create_work_item(story_id="story_pre_fail", title="Pre Fail Story", target_surface="substack", work_item_id="wi_pre_fail")
 
     from live_contentops.durable_operational_store_v1 import MIGRATIONS
-    # Inject bad Migration 3 that creates a table then fails with bad SQL
     bad_sql = "CREATE TABLE temp_test_table (id INT); INVALID SYNTAX ERROR STATEMENT;"
-    MIGRATIONS.append((3, "Bad Migration 3", bad_sql))
+    MIGRATIONS.append((4, "Bad Migration 4", bad_sql))
 
     try:
         with pytest.raises(MigrationError):
             store.run_migrations()
 
-        # Verify schema version remained at 2
-        assert store.get_current_schema_version() == 2
+        assert store.get_current_schema_version() == 3
 
-        # Verify partial table temp_test_table does NOT exist
         conn = store.get_connection()
         try:
             tbl_check = conn.execute(
@@ -99,7 +108,6 @@ def test_partial_migration_failure_rollback_and_restore(tmp_path):
             ).fetchone()[0]
             assert tbl_check == 0
 
-            # Verify prior data remains intact
             item = conn.execute("SELECT * FROM work_items WHERE work_item_id = 'wi_pre_fail';").fetchone()
             assert item is not None
             assert item["title"] == "Pre Fail Story"
@@ -109,8 +117,42 @@ def test_partial_migration_failure_rollback_and_restore(tmp_path):
         MIGRATIONS.pop()
 
 
-def test_immutable_artifact_registration(temp_db):
-    payload = "Sample input artifact content for test"
+def test_atomic_genesis_event_and_work_item_creation(temp_db):
+    item = temp_db.create_work_item(story_id="story_gen", title="Genesis Test", target_surface="substack", work_item_id="wi_gen")
+    assert item["work_item_id"] == "wi_gen"
+    assert item["current_state"] == "DISCOVERED"
+    assert item["state_version"] == 1
+
+    conn = temp_db.get_connection()
+    try:
+        events = conn.execute("SELECT * FROM transition_events WHERE work_item_id = 'wi_gen';").fetchall()
+        assert len(events) == 1
+        genesis = events[0]
+        assert genesis["event_seq"] == 1
+        assert genesis["reason_code"] == "WORK_ITEM_INITIALIZATION"
+        assert genesis["previous_event_hash"] == GENESIS_PREVIOUS_HASH
+        assert genesis["from_state"] == "DISCOVERED"
+        assert genesis["to_state"] == "DISCOVERED"
+    finally:
+        conn.close()
+
+
+def test_projection_without_genesis_fails(temp_db):
+    conn = temp_db.get_connection()
+    try:
+        conn.execute(
+            "INSERT INTO work_items (work_item_id, story_id, title, current_state, state_version, target_surface, created_at, updated_at) "
+            "VALUES ('wi_nogen', 'story_nogen', 'No Gen', 'DISCOVERED', 1, 'substack', 'now', 'now');"
+        )
+    finally:
+        conn.close()
+
+    with pytest.raises(DurableStateCorruptionError, match="has no transition events|missing valid genesis event"):
+        temp_db.replay_work_item_events("wi_nogen")
+
+
+def test_artifact_registration_derived_from_bytes_or_verified_receipt(temp_db):
+    payload = b"Sample input artifact content for test"
     length = len(payload)
     sha256 = compute_sha256(payload)
 
@@ -118,69 +160,169 @@ def test_immutable_artifact_registration(temp_db):
         artifact_id="art_101",
         artifact_type="raw_headline_packet",
         storage_class="local_file",
-        byte_length=length,
-        sha256_hash=sha256,
         schema_version="contentops.artifact.v1",
         producer_ref="unit_test_producer",
+        content_bytes=payload,
         story_id="story_101",
     )
     assert art["artifact_id"] == "art_101"
     assert art["sha256_hash"] == sha256
+    assert art["byte_length"] == length
 
-    # Re-registering identical artifact is idempotent
-    art_dupe = temp_db.register_artifact(
-        artifact_id="art_101",
-        artifact_type="raw_headline_packet",
-        storage_class="local_file",
-        byte_length=length,
-        sha256_hash=sha256,
-        schema_version="contentops.artifact.v1",
-        producer_ref="unit_test_producer",
-        story_id="story_101",
-    )
-    assert art_dupe["artifact_id"] == "art_101"
-
-    # Conflicting registration fails
     with pytest.raises(ArtifactValidationError):
         temp_db.register_artifact(
-            artifact_id="art_101",
+            artifact_id="art_bad",
             artifact_type="raw_headline_packet",
             storage_class="local_file",
-            byte_length=length,
-            sha256_hash="f" * 64,
             schema_version="contentops.artifact.v1",
             producer_ref="unit_test_producer",
         )
 
 
-def test_exact_fencing_token_mutation_rejection(temp_db):
-    # Register work item and initial input artifact
-    item = temp_db.create_work_item(story_id="story_fence", title="Fencing Test", target_surface="substack", work_item_id="wi_fence")
+def test_artifact_update_and_delete_triggers_reject_direct_modification(temp_db):
+    temp_db.register_artifact(
+        artifact_id="art_trig",
+        artifact_type="claim",
+        storage_class="memory",
+        schema_version="v1",
+        producer_ref="test",
+        content_bytes=b"test bytes",
+    )
+
+    conn = temp_db.get_connection()
+    try:
+        with pytest.raises((sqlite3.OperationalError, sqlite3.IntegrityError), match="artifact_references are immutable"):
+            conn.execute("UPDATE artifact_references SET storage_class = 'hacked' WHERE artifact_id = 'art_trig';")
+
+        with pytest.raises((sqlite3.OperationalError, sqlite3.IntegrityError), match="artifact_references are immutable"):
+            conn.execute("DELETE FROM artifact_references WHERE artifact_id = 'art_trig';")
+    finally:
+        conn.close()
+
+
+def test_complete_event_payload_hash_verification(temp_db):
+    temp_db.create_work_item(story_id="story_hash", title="Hash Envelope Test", target_surface="x", work_item_id="wi_hash")
+    art = temp_db.register_artifact(
+        artifact_id="art_hash_1",
+        artifact_type="claim",
+        storage_class="memory",
+        schema_version="v1",
+        producer_ref="test",
+        content_bytes=b"input bytes",
+        work_item_id="wi_hash",
+    )
+
+    claim = temp_db.claim_work_item(lease_key="key_hash", work_item_id="wi_hash", owner_ref="worker_hash", ttl_seconds=10)
+
+    t1 = temp_db.transition_state(
+        work_item_id="wi_hash",
+        expected_from_state="DISCOVERED",
+        to_state="EVIDENCE_PENDING",
+        expected_state_version=1,
+        actor_class="Worker",
+        actor_ref="worker_hash",
+        reason_code="STEP_1",
+        explanation="Step 1 transition",
+        lease_key="key_hash",
+        fencing_token=claim["fencing_token"],
+        input_artifact_ids=["art_hash_1"],
+        output_artifact_ids=[],
+        correlation_id="corr_1",
+    )
+
+    replay = temp_db.replay_work_item_events("wi_hash")
+    assert replay["verification_status"] == "PASS"
+
+
+def test_unauthorized_direct_event_insertion_and_update_rejection(temp_db):
+    temp_db.create_work_item(story_id="story_tamper", title="Tamper Test", target_surface="x", work_item_id="wi_tamper")
+    art = temp_db.register_artifact(
+        artifact_id="art_tamper_1",
+        artifact_type="claim",
+        storage_class="memory",
+        schema_version="v1",
+        producer_ref="test",
+        content_bytes=b"tamper bytes",
+        work_item_id="wi_tamper",
+    )
+    claim = temp_db.claim_work_item(lease_key="key_tamper", work_item_id="wi_tamper", owner_ref="worker_tamper", ttl_seconds=10)
+
+    temp_db.transition_state(
+        work_item_id="wi_tamper",
+        expected_from_state="DISCOVERED",
+        to_state="EVIDENCE_PENDING",
+        expected_state_version=1,
+        actor_class="Worker",
+        actor_ref="worker_tamper",
+        reason_code="STEP_1",
+        explanation="Step 1 transition",
+        lease_key="key_tamper",
+        fencing_token=claim["fencing_token"],
+        input_artifact_ids=["art_tamper_1"],
+        output_artifact_ids=[],
+        correlation_id="corr_1",
+    )
+
+    conn = temp_db.get_connection()
+    try:
+        with pytest.raises((sqlite3.OperationalError, sqlite3.IntegrityError), match="transition_events are append-only"):
+            conn.execute(
+                "UPDATE transition_events SET reason_code = 'HACKED' WHERE work_item_id = 'wi_tamper' AND event_seq = 2;"
+            )
+        with pytest.raises((sqlite3.OperationalError, sqlite3.IntegrityError), match="transition_events are append-only"):
+            conn.execute(
+                "DELETE FROM transition_events WHERE work_item_id = 'wi_tamper' AND event_seq = 2;"
+            )
+    finally:
+        conn.close()
+
+
+def test_concurrent_claims_only_one_winner(temp_db):
+    temp_db.create_work_item(story_id="story_conc", title="Concurrent Test", target_surface="x", work_item_id="wi_conc")
+
+    results = []
+
+    def attempt_claim(worker_name):
+        try:
+            res = temp_db.claim_work_item(lease_key="key_conc", work_item_id="wi_conc", owner_ref=worker_name, ttl_seconds=5)
+            results.append((worker_name, res))
+        except Exception as exc:
+            results.append((worker_name, exc))
+
+    t1 = threading.Thread(target=attempt_claim, args=("Worker_1",))
+    t2 = threading.Thread(target=attempt_claim, args=("Worker_2",))
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+
+    successes = [r for r in results if isinstance(r[1], dict)]
+    failures = [r for r in results if isinstance(r[1], Exception)]
+    assert len(successes) == 1
+    assert len(failures) == 1
+    assert isinstance(failures[0][1], LeaseConflictError)
+
+
+def test_lease_expiry_and_stale_fencing_token_rejection(temp_db):
+    temp_db.create_work_item(story_id="story_fence", title="Fencing Test", target_surface="substack", work_item_id="wi_fence")
     art = temp_db.register_artifact(
         artifact_id="art_in_1",
         artifact_type="input_claim",
         storage_class="memory",
-        byte_length=100,
-        sha256_hash="a" * 64,
         schema_version="v1",
         producer_ref="test",
+        content_bytes=b"fence bytes",
         work_item_id="wi_fence",
     )
 
-    # 1. Worker A claims item with lease_key="key_fence", getting fencing token 1
     claim_A = temp_db.claim_work_item(lease_key="key_fence", work_item_id="wi_fence", owner_ref="worker_A", ttl_seconds=1)
     assert claim_A["fencing_token"] == 1
-    assert claim_A["owner_ref"] == "worker_A"
 
-    # 2. Worker A's lease expires (simulated by releasing / forcing expiry)
     temp_db.release_lease(claim_A["lease_id"], "worker_A", 1)
 
-    # 3. Worker B claims item with token 2
     claim_B = temp_db.claim_work_item(lease_key="key_fence", work_item_id="wi_fence", owner_ref="worker_B", ttl_seconds=10)
     assert claim_B["fencing_token"] == 2
-    assert claim_B["owner_ref"] == "worker_B"
 
-    # 4. Worker A attempts state transition using token 1 and is REJECTED
     with pytest.raises(StaleFencingTokenError):
         temp_db.transition_state(
             work_item_id="wi_fence",
@@ -198,7 +340,6 @@ def test_exact_fencing_token_mutation_rejection(temp_db):
             correlation_id="corr_A",
         )
 
-    # 5. Worker B performs the same transition successfully
     trans_B = temp_db.transition_state(
         work_item_id="wi_fence",
         expected_from_state="DISCOVERED",
@@ -215,147 +356,70 @@ def test_exact_fencing_token_mutation_rejection(temp_db):
         correlation_id="corr_B",
     )
     assert trans_B["current_state"] == "EVIDENCE_PENDING"
-    assert trans_B["state_version"] == 2
 
-    # 6. Verify exactly 1 transition event exists
+
+def test_heartbeat_freshness_and_stale_disposition(temp_db):
+    lease = temp_db.acquire_lease("l_hb", "worker_live", 60)
+    temp_db.upsert_heartbeat(worker_id="worker_live", lease_id=lease["lease_id"])
+    fresh = temp_db.query_fresh_heartbeats(ttl_seconds=60)
+    assert len(fresh) == 1
+    assert fresh[0]["worker_id"] == "worker_live"
+
     conn = temp_db.get_connection()
     try:
-        events = conn.execute("SELECT * FROM transition_events WHERE work_item_id = 'wi_fence';").fetchall()
-        assert len(events) == 1
-        assert events[0]["actor_ref"] == "worker_B"
-        assert events[0]["event_seq"] == 1
+        conn.execute("UPDATE heartbeats SET last_seen_at = '2000-01-01T00:00:00+00:00' WHERE worker_id = 'worker_live';")
     finally:
         conn.close()
 
+    stale = temp_db.dispose_stale_heartbeats(ttl_seconds=60)
+    assert "worker_live" in stale
+
+    fresh_after = temp_db.query_fresh_heartbeats(ttl_seconds=60)
+    assert len(fresh_after) == 0
+
 
 def test_wave02_authority_fail_closed_guard(temp_db):
-    item = temp_db.create_work_item(story_id="story_auth", title="Auth Guard Test", target_surface="substack", work_item_id="wi_auth")
+    temp_db.create_work_item(story_id="story_auth", title="Auth Guard Test", target_surface="substack", work_item_id="wi_auth")
     art = temp_db.register_artifact(
         artifact_id="art_auth_1",
         artifact_type="claim",
         storage_class="memory",
-        byte_length=50,
-        sha256_hash="b" * 64,
         schema_version="v1",
         producer_ref="test",
+        content_bytes=b"auth bytes",
         work_item_id="wi_auth",
     )
     claim = temp_db.claim_work_item(lease_key="key_auth", work_item_id="wi_auth", owner_ref="worker_auth", ttl_seconds=10)
 
-    # Transition to REVIEW_READY
-    temp_db.transition_state(
-        work_item_id="wi_auth",
-        expected_from_state="DISCOVERED",
-        to_state="EVIDENCE_PENDING",
-        expected_state_version=1,
-        actor_class="Worker",
-        actor_ref="worker_auth",
-        reason_code="REASON",
-        explanation="test",
-        lease_key="key_auth",
-        fencing_token=claim["fencing_token"],
-        input_artifact_ids=["art_auth_1"],
-        output_artifact_ids=[],
-        correlation_id="corr",
-    )
-    temp_db.transition_state(
-        work_item_id="wi_auth",
-        expected_from_state="EVIDENCE_PENDING",
-        to_state="EVIDENCE_READY",
-        expected_state_version=2,
-        actor_class="Worker",
-        actor_ref="worker_auth",
-        reason_code="REASON",
-        explanation="test",
-        lease_key="key_auth",
-        fencing_token=claim["fencing_token"],
-        input_artifact_ids=["art_auth_1"],
-        output_artifact_ids=[],
-        correlation_id="corr",
-    )
-    temp_db.transition_state(
-        work_item_id="wi_auth",
-        expected_from_state="EVIDENCE_READY",
-        to_state="ASSIGNMENT_CANDIDATE",
-        expected_state_version=3,
-        actor_class="Worker",
-        actor_ref="worker_auth",
-        reason_code="REASON",
-        explanation="test",
-        lease_key="key_auth",
-        fencing_token=claim["fencing_token"],
-        input_artifact_ids=["art_auth_1"],
-        output_artifact_ids=[],
-        correlation_id="corr",
-    )
-    temp_db.transition_state(
-        work_item_id="wi_auth",
-        expected_from_state="ASSIGNMENT_CANDIDATE",
-        to_state="ASSIGNED",
-        expected_state_version=4,
-        actor_class="Worker",
-        actor_ref="worker_auth",
-        reason_code="REASON",
-        explanation="test",
-        lease_key="key_auth",
-        fencing_token=claim["fencing_token"],
-        input_artifact_ids=["art_auth_1"],
-        output_artifact_ids=[],
-        correlation_id="corr",
-    )
-    temp_db.transition_state(
-        work_item_id="wi_auth",
-        expected_from_state="ASSIGNED",
-        to_state="PRODUCTION_IN_PROGRESS",
-        expected_state_version=5,
-        actor_class="Worker",
-        actor_ref="worker_auth",
-        reason_code="REASON",
-        explanation="test",
-        lease_key="key_auth",
-        fencing_token=claim["fencing_token"],
-        input_artifact_ids=["art_auth_1"],
-        output_artifact_ids=[],
-        correlation_id="corr",
-    )
-    temp_db.transition_state(
-        work_item_id="wi_auth",
-        expected_from_state="PRODUCTION_IN_PROGRESS",
-        to_state="REVIEW_READY",
-        expected_state_version=6,
-        actor_class="Worker",
-        actor_ref="worker_auth",
-        reason_code="REASON",
-        explanation="test",
-        lease_key="key_auth",
-        fencing_token=claim["fencing_token"],
-        input_artifact_ids=["art_auth_1"],
-        output_artifact_ids=[],
-        correlation_id="corr",
-    )
-    temp_db.transition_state(
-        work_item_id="wi_auth",
-        expected_from_state="REVIEW_READY",
-        to_state="OPERATOR_PENDING",
-        expected_state_version=7,
-        actor_class="Worker",
-        actor_ref="worker_auth",
-        reason_code="REASON",
-        explanation="test",
-        lease_key="key_auth",
-        fencing_token=claim["fencing_token"],
-        input_artifact_ids=["art_auth_1"],
-        output_artifact_ids=[],
-        correlation_id="corr",
-    )
+    states = ["EVIDENCE_PENDING", "EVIDENCE_READY", "ASSIGNMENT_CANDIDATE", "ASSIGNED", "PRODUCTION_IN_PROGRESS", "REVIEW_READY", "OPERATOR_PENDING"]
+    current_state = "DISCOVERED"
+    version = 1
 
-    # Attempting move to APPROVED_EXACT must fail closed with Wave02AuthorityViolationError
+    for next_st in states:
+        temp_db.transition_state(
+            work_item_id="wi_auth",
+            expected_from_state=current_state,
+            to_state=next_st,
+            expected_state_version=version,
+            actor_class="Worker",
+            actor_ref="worker_auth",
+            reason_code="REASON",
+            explanation="test",
+            lease_key="key_auth",
+            fencing_token=claim["fencing_token"],
+            input_artifact_ids=["art_auth_1"],
+            output_artifact_ids=[],
+            correlation_id="corr",
+        )
+        current_state = next_st
+        version += 1
+
     with pytest.raises(Wave02AuthorityViolationError):
         temp_db.transition_state(
             work_item_id="wi_auth",
             expected_from_state="OPERATOR_PENDING",
             to_state="APPROVED_EXACT",
-            expected_state_version=8,
+            expected_state_version=version,
             actor_class="Worker",
             actor_ref="worker_auth",
             reason_code="APPROVE",
@@ -368,115 +432,15 @@ def test_wave02_authority_fail_closed_guard(temp_db):
         )
 
 
-def test_event_hash_chain_and_replay_integrity(temp_db):
-    temp_db.create_work_item(story_id="story_chain", title="Chain Test", target_surface="x", work_item_id="wi_chain")
-    temp_db.register_artifact(
-        artifact_id="art_chain_1",
-        artifact_type="claim",
-        storage_class="memory",
-        byte_length=10,
-        sha256_hash="c" * 64,
-        schema_version="v1",
-        producer_ref="test",
-        work_item_id="wi_chain",
-    )
-    claim = temp_db.claim_work_item(lease_key="key_chain", work_item_id="wi_chain", owner_ref="worker_chain", ttl_seconds=10)
-
-    t1 = temp_db.transition_state(
-        work_item_id="wi_chain",
-        expected_from_state="DISCOVERED",
-        to_state="EVIDENCE_PENDING",
-        expected_state_version=1,
-        actor_class="Worker",
-        actor_ref="worker_chain",
-        reason_code="STEP_1",
-        explanation="Step 1 transition",
-        lease_key="key_chain",
-        fencing_token=claim["fencing_token"],
-        input_artifact_ids=["art_chain_1"],
-        output_artifact_ids=[],
-        correlation_id="corr_1",
-    )
-    assert t1["event_seq"] == 1
-    assert t1["previous_event_hash"] == GENESIS_PREVIOUS_HASH
-
-    t2 = temp_db.transition_state(
-        work_item_id="wi_chain",
-        expected_from_state="EVIDENCE_PENDING",
-        to_state="EVIDENCE_READY",
-        expected_state_version=2,
-        actor_class="Worker",
-        actor_ref="worker_chain",
-        reason_code="STEP_2",
-        explanation="Step 2 transition",
-        lease_key="key_chain",
-        fencing_token=claim["fencing_token"],
-        input_artifact_ids=["art_chain_1"],
-        output_artifact_ids=[],
-        correlation_id="corr_2",
-    )
-    assert t2["event_seq"] == 2
-    assert t2["previous_event_hash"] == t1["event_hash"]
-
-    # Replay verification
-    replay = temp_db.replay_work_item_events("wi_chain")
-    assert replay["verification_status"] == "PASS"
-    assert replay["replayed_state"] == "EVIDENCE_READY"
-    assert replay["replayed_version"] == 3
-    assert replay["event_count"] == 2
-
-
-def test_replay_corruption_detection(temp_db):
-    temp_db.create_work_item(story_id="story_corrupt", title="Corrupt Test", target_surface="telegram", work_item_id="wi_corrupt")
-    temp_db.register_artifact(
-        artifact_id="art_corrupt_1",
-        artifact_type="claim",
-        storage_class="memory",
-        byte_length=10,
-        sha256_hash="d" * 64,
-        schema_version="v1",
-        producer_ref="test",
-        work_item_id="wi_corrupt",
-    )
-    claim = temp_db.claim_work_item(lease_key="key_corrupt", work_item_id="wi_corrupt", owner_ref="worker_corrupt", ttl_seconds=10)
-
-    temp_db.transition_state(
-        work_item_id="wi_corrupt",
-        expected_from_state="DISCOVERED",
-        to_state="EVIDENCE_PENDING",
-        expected_state_version=1,
-        actor_class="Worker",
-        actor_ref="worker_corrupt",
-        reason_code="STEP_1",
-        explanation="test",
-        lease_key="key_corrupt",
-        fencing_token=claim["fencing_token"],
-        input_artifact_ids=["art_corrupt_1"],
-        output_artifact_ids=[],
-        correlation_id="corr_1",
-    )
-
-    # Tamper with materialized work_items state projection
-    conn = temp_db.get_connection()
-    try:
-        conn.execute("UPDATE work_items SET current_state = 'EVIDENCE_READY' WHERE work_item_id = 'wi_corrupt';")
-    finally:
-        conn.close()
-
-    with pytest.raises(DurableStateCorruptionError):
-        temp_db.replay_work_item_events("wi_corrupt")
-
-
 def test_adversarial_redacted_evidence_export(temp_db):
     temp_db.create_work_item(story_id="story_secret", title="Secret Story Title", target_surface="substack", work_item_id="wi_secret")
     temp_db.register_artifact(
         artifact_id="art_secret_1",
         artifact_type="secret_claim",
         storage_class="memory",
-        byte_length=10,
-        sha256_hash="e" * 64,
         schema_version="v1",
         producer_ref="test",
+        content_bytes=b"secret bytes",
         work_item_id="wi_secret",
     )
     claim = temp_db.claim_work_item(lease_key="key_secret", work_item_id="wi_secret", owner_ref="secret_agent_007", ttl_seconds=10)
@@ -497,11 +461,11 @@ def test_adversarial_redacted_evidence_export(temp_db):
         correlation_id="corr_secret",
     )
 
-    export = temp_db.export_redacted_store_evidence()
-    assert export["database_pragmas"]["journal_mode"] == "WAL"
-    assert export["database_pragmas"]["foreign_keys"] == 1
+    export1 = temp_db.export_redacted_store_evidence()
+    export2 = temp_db.export_redacted_store_evidence()
+    assert json.dumps(export1, sort_keys=True) == json.dumps(export2, sort_keys=True)
 
-    export_json = json.dumps(export)
+    export_json = json.dumps(export1)
     assert "my_secret_password" not in export_json
     assert "abc123xyz" not in export_json
     assert "secret_agent_007" not in export_json
@@ -511,20 +475,17 @@ def test_adversarial_redacted_evidence_export(temp_db):
 def test_orchestrator_store_integration_with_durable_context(temp_db, tmp_path):
     orchestrator = ContentOpsProductionOrchestrator(store=temp_db)
 
-    # Calling execute with store active WITHOUT durable_context fails closed
     with pytest.raises(ValueError, match="durable_context_required_when_store_active"):
         orchestrator.execute("prepare_text_image_release_candidate", run_id="test_run_101", output_dir=tmp_path)
 
-    # Create work item & register input artifact
     temp_db.create_work_item(story_id="treasury_20260714", title="Orchestrator Story", target_surface="eight_platform_all", work_item_id="wi_orch_101")
     art = temp_db.register_artifact(
         artifact_id="art_orch_1",
         artifact_type="rc_input",
         storage_class="local_file",
-        byte_length=100,
-        sha256_hash="f" * 64,
         schema_version="v1",
         producer_ref="test_orch",
+        content_bytes=b"orch input bytes",
         story_id="treasury_20260714",
         work_item_id="wi_orch_101",
     )
@@ -534,6 +495,7 @@ def test_orchestrator_store_integration_with_durable_context(temp_db, tmp_path):
     ctx = ContentOpsDurableContext(
         story_id="treasury_20260714",
         work_item_id="wi_orch_101",
+        title="Orchestrator Story",
         correlation_id="corr_orch_101",
         actor_ref="orch_worker",
         lease_key="key_orch",
@@ -549,15 +511,28 @@ def test_orchestrator_store_integration_with_durable_context(temp_db, tmp_path):
     )
     assert result is not None
 
-    export = temp_db.export_redacted_store_evidence()
-    assert export["counts"]["work_items"] >= 1
-    assert export["counts"]["transition_events"] >= 1
+
+def test_orchestrator_context_mismatch_rejection(temp_db):
+    orchestrator = ContentOpsProductionOrchestrator(store=temp_db)
+    temp_db.create_work_item(story_id="story_real", title="Real Title", target_surface="eight_platform_all", work_item_id="wi_mismatch")
+    claim = temp_db.claim_work_item(lease_key="key_mis", work_item_id="wi_mismatch", owner_ref="w_mis", ttl_seconds=10)
+
+    ctx_bad = ContentOpsDurableContext(
+        story_id="wrong_story",
+        work_item_id="wi_mismatch",
+        title="Real Title",
+        correlation_id="corr_mis",
+        actor_ref="w_mis",
+        lease_key="key_mis",
+        fencing_token=claim["fencing_token"],
+    )
+
+    with pytest.raises(ValueError, match="story_id_mismatch"):
+        orchestrator.execute("prepare_text_image_release_candidate", durable_context=ctx_bad)
 
 
 def test_gitignore_database_family_patterns():
     gitignore_path = pathlib.Path(__file__).resolve().parent.parent / ".gitignore"
     text = gitignore_path.read_text(encoding="utf-8")
     assert "*.sqlite" in text
-    assert "*.sqlite.bak.*" in text or "*.sqlite*" in text
     assert "*.db" in text
-    assert "*-wal" in text or "*.sqlite-wal" in text

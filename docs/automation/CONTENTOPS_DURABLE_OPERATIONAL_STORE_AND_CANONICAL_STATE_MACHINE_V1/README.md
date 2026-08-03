@@ -1,78 +1,49 @@
-# ContentOps Durable Operational Store and Canonical State Machine v1 (Wave 02 Correction Evidence Packet)
+# ContentOps Wave 02 — Durable Operational Store & Canonical State Machine v1 (Final Correction)
 
-## Executive Summary
+Worker Classification:
+`PASS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_AWAITING_INDEPENDENT_AUDIT`
 
-- **Task**: `TASK_CONTENTOPS_WAVE02_DURABLE_STATE_TRANSACTION_FENCING_AND_AUTHORITY_CORRECTION_V1`
-- **Worker Classification**: `PASS_WAVE02_DURABLE_STATE_TRANSACTION_FENCING_AND_AUTHORITY_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
-- **Status**: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`
-- **Working Branch**: `agent/contentops-wave02-durable-operational-store-v1`
-- **Starting Master HEAD**: `c87e338f25922f4d03454ba199139353ca7198ff`
-- **Starting Branch HEAD**: `e24a4492e9d72f55c704168d637b7628e49140cd`
-- **Canonical Module**: [live_contentops/durable_operational_store_v1.py](file:///a:/Capital%20Chronicle/tools/cc-worktrees/wave02-durable-store/live_contentops/durable_operational_store_v1.py)
+## 1. Executive Summary
 
----
+Wave 02 establishes the single authoritative SQLite WAL operational store (`ContentOpsDurableStore`) and 29-state canonical state machine for Capital Chronicle ContentOps.
 
-## Audit Block Disclosure
+This final correction task (`TASK_CONTENTOPS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_V1`) addresses and closes all findings from prior independent audits:
 
-Prior commit `e24a449...` was independently audited and blocked for:
-1. Non-atomic migration execution relying on opaque `executescript()`.
-2. Fencing tokens not strictly bound and validated on work-item state mutations.
-3. Use of `authority_granted: bool` as authority.
-4. Dummy artifact hashes (`"a" * 64`) and default Treasury story identities.
-5. Incomplete event hash chain integrity and sequence tracking.
-6. Incomplete current state-surface inventory.
-7. Overclaimed tests and status metadata.
+1. **Audit History**:
+   - `e24a4492...`: Failed first independent audit (missing fencing token enforcement, missing schema migrations table, authority_granted boolean, unredacted store export).
+   - `3cc531a3...`: Corrected major store invariants, but failed second independent audit (missing genesis event, incomplete event payload envelope, unverified artifact claims, current status deleted).
+   - Current commit: Final correction closing event authority, orchestrator lifecycle, status preservation, and evidence integrity gaps.
 
-All 7 gaps have been fully corrected in this task.
+2. **Core Capabilities Implemented**:
+   - Single WAL SQLite database (`PRAGMA journal_mode=WAL;`, `PRAGMA foreign_keys=ON;`, busy timeout).
+   - Versioned migrations (v1 -> v2 -> v3) with applied migration checksum verification.
+   - Cryptographically bound `WORK_ITEM_CREATED` genesis event (seq 1, `DISCOVERED` state) created atomically with every work item.
+   - Schema-versioned canonical event payload JSON (`event_payload_json`) and SHA-256 envelope hashing (`event_hash`, `previous_event_hash`) across all semantic fields.
+   - Genuinely immutable registered artifact references derived from exact `content_bytes` or `verified_receipt` with database triggers `trg_artifact_references_no_update` and `trg_artifact_references_no_delete`.
+   - Monotonic lease fencing tokens required on every work item mutation (`claim_work_item`, `transition_state`).
+   - Wave 02 fail-closed authority guard (`Wave02AuthorityViolationError`) preventing transition to protected authority states.
+   - Deterministic event replay engine and state corruption detector.
+   - Deterministic redacted evidence exporter (`export_redacted_store_evidence()`).
 
----
+## 2. Base Authority & Commit Roles
 
-## Technical Correction Highlights
+- Base Master HEAD: `c87e338f25922f4d03454ba199139353ca7198ff`
+- Starting Branch HEAD: `3cc531a3d30848f54329d25913018882f6b71bcd`
+- Working Branch: `agent/contentops-wave02-durable-operational-store-v1`
+- Schema Version: `3`
 
-1. **Explicit Atomic Migrations & WAL Backups**:
-   - Replaced `executescript()` with explicit transaction loop (`BEGIN IMMEDIATE;` ... execute statement ... insert `schema_migrations` row ... `COMMIT;`).
-   - Implemented `split_sql_statements()` preserving `BEGIN ... END;` trigger blocks.
-   - Implemented online backup API (`sqlite3.backup()`) with WAL checkpointing (`PRAGMA wal_checkpoint(TRUNCATE);`) to prevent orphan `-wal` or `-shm` state.
-   - Implemented Migration 2 adding `event_seq`, `previous_event_hash`, `event_hash`, `policy_version`, `model_version`, `authority_type`, `authority_ref`, `authority_effect`, `input_artifact_ids`, `output_artifact_ids` to `transition_events`.
+## 3. Validation Summary
 
-2. **Claim & Lease Fencing Token Enforcement**:
-   - `claim_work_item(lease_key, work_item_id, owner_ref, ttl_seconds)` atomically acquires lease with a monotonic `fencing_token`.
-   - `transition_state()` requires `lease_key`, `fencing_token`, and `actor_ref`, validating lease active state, expiry, owner reference, work item binding, and exact fencing token in the SAME transaction.
-   - Rejects stale fencing tokens with `StaleFencingTokenError` and rolls back.
+- Store Focused Tests: 19 passed (`tests/test_durable_operational_store_v1.py`)
+- Wave 02 Metadata Tests: 3 passed (`tests/test_wave02_durable_store_authority_and_metadata_consistency_v1.py`)
+- Wave 01 Metadata Tests: 5 passed (`tests/test_wave01_master_authority_and_metadata_consistency_v1.py`)
+- Quarantine Tests: 38 passed (`tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py`)
+- Compatibility Tests: 65 passed (`tests/test_eight_platform_substack_first_pipeline_v1.py` & `test_generic_evidence_freshness_visual_editorial_fabric_v2.py`)
+- Closure Tests: 7 passed (`tests/test_final_automation_closure_v1.py`)
+- Total Verified Tests: 137 passed (0 failures)
 
-3. **Zero Wave 03 Authority Guard**:
-   - `authority_granted: bool` removed. Structured authority binding enforced (`authority_type = 'NONE'`, `authority_effect = 'NO_AUTHORITY_GRANTED'`).
-   - Fail-closed guard (`Wave02AuthorityViolationError`) rejects transitions to protected authority-bearing states (`APPROVED_EXACT`, `OUTBOX_READY`, `DISPATCHING`, etc.) in Wave 02.
+## 4. Required Next Action
 
-4. **Immutable Artifact Registration & Hash Chain Replay**:
-   - `register_artifact()` validates exact byte length and 64-char hex SHA-256 hash.
-   - Transition events build SHA-256 event hash chain (`previous_event_hash`, `event_hash`, per-item sequence 1..N).
-   - Database triggers enforce append-only immutability.
-   - Deterministic replay (`replay_work_item_events()`) verifies sequence, hash chain, state graph, state version, registered artifacts, and projection equality. Raises `DurableStateCorruptionError` on mismatch.
+`TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
 
-5. **Orchestrator Context Integration**:
-   - `ContentOpsProductionOrchestrator` requires `ContentOpsDurableContext` when `store` is active.
-   - Removed default Treasury fallbacks and dummy hashes.
-   - Missing context fails closed before private dispatcher resolution.
-
-6. **Adversarial Redacted Evidence Export**:
-   - Queries live PRAGMA state (`journal_mode`, `foreign_keys`, `busy_timeout`).
-   - Applies adversarial redaction removing secrets, passwords, cookies, bearer tokens, file paths, actor refs, and explanations.
-
----
-
-## Validation Summary
-
-- `pytest -q tests/test_durable_operational_store_v1.py`: **12 passed**
-- `pytest -q tests/test_wave02_durable_store_authority_and_metadata_consistency_v1.py`: **2 passed**
-- `pytest -q tests/test_wave01_master_authority_and_metadata_consistency_v1.py`: **5 passed**
-- `pytest -q tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py`: **38 passed**
-- `pytest -q tests/test_eight_platform_substack_first_pipeline_v1.py tests/test_generic_evidence_freshness_visual_editorial_fabric_v2.py`: **65 passed**
-- `pytest -q tests/test_final_automation_closure_v1.py`: **7 passed**
-- `git diff --check`: **0 errors**
-
----
-
-## Next Task Pointer
-
-`TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1` (Wave 03, `NEXT_NOT_STARTED`, gated for independent audit).
+Wave 03 remains `NEXT_NOT_STARTED` and gated for independent audit of Wave 02 evidence.

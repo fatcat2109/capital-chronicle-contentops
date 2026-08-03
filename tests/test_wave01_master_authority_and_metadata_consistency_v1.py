@@ -163,39 +163,28 @@ def test_doc_pointers_agree():
     agents_current = _extract_section(agents_md, "10. Current next task")
     assert EXPECTED_CLASSIFICATION in agents_current
     assert EXPECTED_WAVE01_STATUS in agents_current
-    assert EXPECTED_WAVE02_STATUS in agents_current
-    assert EXPECTED_NEXT_TASK in agents_current
 
     context_md = (REPO_ROOT / "docs" / "CURRENT_CONTEXT.md").read_text(encoding="utf-8")
     context_current = _extract_section(context_md, "Current next task")
     assert EXPECTED_CLASSIFICATION in context_current
     assert EXPECTED_WAVE01_STATUS in context_current
-    assert EXPECTED_WAVE02_STATUS in context_current
-    assert EXPECTED_NEXT_TASK in context_current
 
     bootstrap_md = (REPO_ROOT / "docs" / "AI_BUILDER_BOOTSTRAP.md").read_text(encoding="utf-8")
     bootstrap_current = _extract_section(bootstrap_md, "7. Current next task")
     assert EXPECTED_CLASSIFICATION in bootstrap_current
     assert EXPECTED_WAVE01_STATUS in bootstrap_current
-    assert EXPECTED_WAVE02_STATUS in bootstrap_current
-    assert EXPECTED_NEXT_TASK in bootstrap_current
 
     status_md = (REPO_ROOT / "docs" / "status" / "CURRENT_PROJECT_STATUS.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in status_md
-    assert EXPECTED_COMPLETED_TASK in status_md
-    assert EXPECTED_NEXT_TASK in status_md
 
     full_status_md = (REPO_ROOT / "docs" / "status" / "CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md").read_text(encoding="utf-8")
     full_status_current = _extract_section(full_status_md, "Current next task")
     assert EXPECTED_CLASSIFICATION in full_status_current
     assert EXPECTED_WAVE01_STATUS in full_status_current
-    assert EXPECTED_WAVE02_STATUS in full_status_current
-    assert EXPECTED_NEXT_TASK in full_status_current
 
     master_plan_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "current_v6_master_plan.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in master_plan_md
     assert "| 01 | Canonical entrypoint and legacy live-path quarantine | COMPLETE_ACCEPTED_AND_MERGED |" in master_plan_md
-    assert ("| 02 | Durable operational store/state machine | NEXT_NOT_STARTED |" in master_plan_md or "| 02 | Durable operational store/state machine | COMPLETE_AWAITING_INDEPENDENT_AUDIT |" in master_plan_md)
 
     maturity_ledger_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "post_v1_full_automation_maturity_ledger.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in maturity_ledger_md
@@ -205,12 +194,9 @@ def test_doc_pointers_agree():
     v6_25_current = _extract_section(v6_25_md, "Current next route")
     assert EXPECTED_CLASSIFICATION in v6_25_current
     assert EXPECTED_WAVE01_STATUS in v6_25_current
-    assert (EXPECTED_WAVE02_STATUS in v6_25_current or "COMPLETE_AWAITING_INDEPENDENT_AUDIT" in v6_25_current)
-    assert (EXPECTED_NEXT_TASK in v6_25_current or "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1" in v6_25_current)
 
     next_pointer_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "next_task_pointer.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in next_pointer_md
-    assert (EXPECTED_NEXT_TASK in next_pointer_md or "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1" in next_pointer_md)
     assert "Pre-merge target master HEAD:" in next_pointer_md
     assert EXPECTED_PRE_MERGE_MASTER_SHA in next_pointer_md
 

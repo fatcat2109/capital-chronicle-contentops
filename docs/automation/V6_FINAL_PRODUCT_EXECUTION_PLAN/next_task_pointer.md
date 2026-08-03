@@ -14,11 +14,11 @@ Current accepted Wave 01 classification:
 
 Current Wave 02 worker classification:
 
-`PASS_WAVE02_DURABLE_STATE_TRANSACTION_FENCING_AND_AUTHORITY_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+`PASS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_AWAITING_INDEPENDENT_AUDIT`
 
-Completed Wave 02 correction task:
+Completed Wave 02 task:
 
-`TASK_CONTENTOPS_WAVE02_DURABLE_STATE_TRANSACTION_FENCING_AND_AUTHORITY_CORRECTION_V1`
+`TASK_CONTENTOPS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_V1`
 
 Working branch:
 
@@ -32,9 +32,9 @@ Pre-merge target master HEAD: `a0c9d0a67e39c614d5a80cd758f219dcac9b11ff`
 
 Required starting branch HEAD:
 
-`e24a4492e9d72f55c704168d637b7628e49140cd`
+`3cc531a3d30848f54329d25913018882f6b71bcd`
 
-Wave 02 has implemented the single authoritative SQLite WAL operational store (`ContentOpsDurableStore`), atomic versioned migrations (v1 -> v2), append-only transition log with triggers, Compare-And-Set state machine across 29 canonical states, transactional claims and leases with monotonic fencing tokens enforced on every mutation, fail-closed Wave 02 authority guards, immutable artifact registration, event hash chains with per-item sequence, restart safety, deterministic event replay, corruption detection, and redacted evidence export.
+Wave 02 has implemented the single authoritative SQLite WAL operational store (`ContentOpsDurableStore`), atomic versioned migrations (v1 -> v2 -> v3), append-only transition log with triggers, Compare-And-Set state machine across 29 canonical states, WORK_ITEM_CREATED genesis events, canonical schema-versioned event payload JSON and SHA-256 envelope hashing, genuinely immutable artifact registration with byte/receipt verification and DB UPDATE/DELETE triggers, transactional claims and leases with monotonic fencing tokens enforced on every mutation, fail-closed Wave 02 authority guards, restart safety, deterministic event replay, corruption detection, and redacted evidence export.
 
 ## Required next action
 

@@ -1,12 +1,10 @@
 {
   "schema_version": "contentops.durable_store_schema_manifest.v1",
-  "task": "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1",
-  "store_module": "live_contentops.durable_operational_store_v1",
-  "sqlite_pragmas": {
-    "journal_mode": "WAL",
-    "foreign_keys": "ON",
-    "busy_timeout_ms": 5000
-  },
+  "durable_store_module": "live_contentops/durable_operational_store_v1.py",
+  "current_schema_version": 3,
+  "journal_mode": "WAL",
+  "foreign_keys": "ON",
+  "busy_timeout_ms": 5000,
   "tables": [
     "schema_migrations",
     "operational_windows",
@@ -31,25 +29,27 @@
     "feedback_records",
     "learning_reviews"
   ],
-  "triggers": [
-    {
-      "name": "trg_transition_events_no_update",
-      "target_table": "transition_events",
-      "event": "BEFORE UPDATE",
-      "action": "RAISE(ABORT, 'transition_events are append-only: UPDATE forbidden')"
-    },
-    {
-      "name": "trg_transition_events_no_delete",
-      "target_table": "transition_events",
-      "event": "BEFORE DELETE",
-      "action": "RAISE(ABORT, 'transition_events are append-only: DELETE forbidden')"
-    }
-  ],
   "migrations": [
     {
       "version": 1,
       "description": "Initial Wave 02 Durable Operational Store Schema",
-      "checksum": "17387431e33c70eb352ff23fa156fb15ee761a25db8d39c9f7a77e68fa70757d"
+      "checksum": "c4794273297aef44a10e82cffaeebfb239cbeec41f4967fe971c2cebb7c5d415"
+    },
+    {
+      "version": 2,
+      "description": "Wave 02 Fencing, Artifact Integrity, and Structured Event Chain Upgrade",
+      "checksum": "e229e0eb9bb1bc9fefd57e84afc79d164d1264c8d55eec1d808e0bdce20bdfe1"
+    },
+    {
+      "version": 3,
+      "description": "Wave 02 Schema v3: Cryptographic Event Payload Envelope and Immutable Artifact Triggers",
+      "checksum": "ce9a8ca6d9bf3c9aefaa8b39beae7ddaeeb6a0fb49f1db7eb982ed30bfcbabec"
     }
+  ],
+  "triggers": [
+    "trg_transition_events_no_update",
+    "trg_transition_events_no_delete",
+    "trg_artifact_references_no_update",
+    "trg_artifact_references_no_delete"
   ]
 }

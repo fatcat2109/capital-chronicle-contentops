@@ -41,6 +41,7 @@ class ContentOpsDurableContext:
     actor_ref: str
     lease_key: str
     fencing_token: int
+    title: Optional[str] = None
     input_artifact_ids: List[str] = field(default_factory=list)
     output_artifact_ids: List[str] = field(default_factory=list)
     policy_version: str = "contentops.policy.v1"
@@ -91,16 +92,30 @@ class ContentOpsProductionOrchestrator:
             if not ctx.story_id or not ctx.work_item_id or not ctx.correlation_id or not ctx.actor_ref or not ctx.lease_key:
                 raise ValueError("incomplete_durable_context_fields")
 
-            # Fetch work item from store or create it if not present
+            # Import WorkItemNotFoundError explicitly
+            from live_contentops.durable_operational_store_v1 import WorkItemNotFoundError, compute_sha256
+
+            # Catch ONLY WorkItemNotFoundError when fetching item
             try:
                 item = active_store.get_work_item(ctx.work_item_id)
-            except Exception:
+            except WorkItemNotFoundError:
+                if not ctx.title:
+                    raise ValueError("title_required_to_create_work_item")
                 item = active_store.create_work_item(
                     story_id=ctx.story_id,
-                    title=f"Operation {operation} on {ctx.story_id}",
+                    title=ctx.title,
                     target_surface=ctx.target_surface,
                     work_item_id=ctx.work_item_id,
+                    actor_ref=ctx.actor_ref,
+                    correlation_id=ctx.correlation_id,
+                    input_artifact_ids=ctx.input_artifact_ids,
                 )
+
+            # Validate context matching
+            if item["story_id"] != ctx.story_id:
+                raise ValueError(f"story_id_mismatch: expected {item['story_id']}, got {ctx.story_id}")
+            if item["target_surface"] != ctx.target_surface:
+                raise ValueError(f"target_surface_mismatch: expected {item['target_surface']}, got {ctx.target_surface}")
 
             if item["current_state"] == "DISCOVERED":
                 active_store.transition_state(
@@ -115,11 +130,67 @@ class ContentOpsProductionOrchestrator:
                     lease_key=ctx.lease_key,
                     fencing_token=ctx.fencing_token,
                     input_artifact_ids=ctx.input_artifact_ids,
-                    output_artifact_ids=ctx.output_artifact_ids,
+                    output_artifact_ids=[],
                     correlation_id=ctx.correlation_id,
                     policy_version=ctx.policy_version,
                     model_version=ctx.model_version,
                 )
+                item = active_store.get_work_item(ctx.work_item_id)
+
+            try:
+                result = self._resolve_dispatcher()(operation, **kwargs)
+            except Exception as exc:
+                if active_store is not None and item["current_state"] == "EVIDENCE_PENDING":
+                    active_store.transition_state(
+                        work_item_id=ctx.work_item_id,
+                        expected_from_state="EVIDENCE_PENDING",
+                        to_state="EVIDENCE_BLOCKED",
+                        expected_state_version=item["state_version"],
+                        actor_class="ContentOpsProductionOrchestrator",
+                        actor_ref=ctx.actor_ref,
+                        reason_code="ORCHESTRATOR_OPERATION_FAILED",
+                        explanation=f"Operation {operation} failed: {exc}",
+                        lease_key=ctx.lease_key,
+                        fencing_token=ctx.fencing_token,
+                        input_artifact_ids=ctx.input_artifact_ids,
+                        output_artifact_ids=[],
+                        correlation_id=ctx.correlation_id,
+                    )
+                raise
+
+            registered_output_ids = []
+            if isinstance(result, dict) and "output_bytes" in result:
+                out_bytes = result["output_bytes"]
+                art_id = f"art_out_{compute_sha256(out_bytes)[:16]}"
+                active_store.register_artifact(
+                    artifact_id=art_id,
+                    artifact_type=result.get("artifact_type", "OPERATION_RESULT"),
+                    storage_class="MEMORY",
+                    schema_version="1.0.0",
+                    producer_ref=ctx.actor_ref,
+                    content_bytes=out_bytes,
+                    story_id=ctx.story_id,
+                    work_item_id=ctx.work_item_id,
+                )
+                registered_output_ids.append(art_id)
+
+            if item["current_state"] == "EVIDENCE_PENDING":
+                active_store.transition_state(
+                    work_item_id=ctx.work_item_id,
+                    expected_from_state="EVIDENCE_PENDING",
+                    to_state="EVIDENCE_READY",
+                    expected_state_version=item["state_version"],
+                    actor_class="ContentOpsProductionOrchestrator",
+                    actor_ref=ctx.actor_ref,
+                    reason_code="ORCHESTRATOR_PREPARATION_COMPLETE",
+                    explanation=f"Operation {operation} completed successfully",
+                    lease_key=ctx.lease_key,
+                    fencing_token=ctx.fencing_token,
+                    input_artifact_ids=ctx.input_artifact_ids,
+                    output_artifact_ids=registered_output_ids,
+                    correlation_id=ctx.correlation_id,
+                )
+            return result
 
         return self._resolve_dispatcher()(operation, **kwargs)
 

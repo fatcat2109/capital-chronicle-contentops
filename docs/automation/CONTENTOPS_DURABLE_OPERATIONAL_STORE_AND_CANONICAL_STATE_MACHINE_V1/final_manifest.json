@@ -1,70 +1,54 @@
 {
   "schema_version": "contentops.wave02_final_manifest.v1",
-  "repository": "fatcat2109/capital-chronicle-contentops",
-  "starting_master_head": "c87e338f25922f4d03454ba199139353ca7198ff",
-  "working_branch": "agent/contentops-wave02-durable-operational-store-v1",
-  "task": "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1",
-  "classification": "PASS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1_AWAITING_INDEPENDENT_AUDIT",
-  "execution_mode": "LOCAL_SCHEMA_AND_PERSISTENCE_IMPLEMENTATION_NO_LIVE_ACTION",
-  "store_module": "live_contentops.durable_operational_store_v1",
-  "orchestrator_module": "live_contentops.production_orchestrator_v1",
-  "schema_version_num": 1,
+  "task": "TASK_CONTENTOPS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_V1",
+  "worker_classification": "PASS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_AWAITING_INDEPENDENT_AUDIT",
+  "wave_01_status": "COMPLETE_ACCEPTED_AND_MERGED",
+  "wave_02_status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
+  "wave_03_status": "NEXT_NOT_STARTED",
+  "next_task_pointer": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
+  "commit_topology": {
+    "base_master_head": "c87e338f25922f4d03454ba199139353ca7198ff",
+    "starting_branch_head": "3cc531a3d30848f54329d25913018882f6b71bcd",
+    "audit_history": [
+      {
+        "attempt": 1,
+        "commit": "e24a4492e9d72f55c704168d637b7628e49140cd",
+        "result": "FAILED_INDEPENDENT_AUDIT",
+        "reason": "Missing fencing token enforcement, missing schema migrations table, authority_granted boolean, unredacted store export"
+      },
+      {
+        "attempt": 2,
+        "commit": "3cc531a3d30848f54329d25913018882f6b71bcd",
+        "result": "FAILED_INDEPENDENT_AUDIT",
+        "reason": "Missing genesis event, incomplete event payload envelope, unverified artifact claims, current status deleted"
+      },
+      {
+        "attempt": 3,
+        "commit_role": "final_correction_commit",
+        "task": "TASK_CONTENTOPS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_V1",
+        "status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT"
+      }
+    ],
+    "completing_commit_sha": null
+  },
+  "schema_version_number": 3,
   "tables_count": 22,
-  "canonical_states_count": 29,
-  "validation": {
-    "store_resilience_pytest": {
-      "command": "python -m pytest -q tests/test_durable_operational_store_v1.py",
-      "result": "PASS",
-      "test_count": 18,
-      "duration_seconds": 13.15
-    },
-    "focused_enforcement_pytest": {
-      "command": "python -m pytest -q tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py",
-      "result": "PASS",
-      "test_count": 38,
-      "duration_seconds": 3.03
-    },
-    "canonical_compatibility_pytest": {
-      "command": "python -m pytest -q tests/test_eight_platform_substack_first_pipeline_v1.py tests/test_generic_evidence_freshness_visual_editorial_fabric_v2.py",
-      "result": "PASS",
-      "test_count": 65,
-      "duration_seconds": 3.57
-    },
-    "final_automation_closure_pytest": {
-      "command": "python -m pytest -q tests/test_final_automation_closure_v1.py",
-      "result": "PASS",
-      "test_count": 7,
-      "duration_seconds": 1.48
-    },
-    "wave01_metadata_consistency_pytest": {
-      "command": "python -m pytest -q tests/test_wave01_master_authority_and_metadata_consistency_v1.py",
-      "result": "PASS",
-      "test_count": 5,
-      "duration_seconds": 1.88
-    },
-    "python_ast_compile_check": "PASS",
-    "json_parse_check": "PASS",
-    "git_diff_check": "PASS",
-    "secret_and_database_scan": "PASS"
+  "triggers_count": 4,
+  "validation_summary": {
+    "store_focused_tests": 19,
+    "wave02_metadata_tests": 3,
+    "wave01_metadata_tests": 5,
+    "quarantine_tests": 38,
+    "compatibility_tests": 65,
+    "closure_tests": 7,
+    "total_verified_tests": 137
   },
-  "no_execution_truth": {
-    "credential_or_environment_values_read": false,
-    "source_data_fetch_performed": false,
-    "provider_9router_or_gemini_called": false,
-    "browser_or_cdp_used": false,
-    "platform_adapter_or_api_called": false,
-    "scheduler_or_retry_executed": false,
-    "approval_or_outbox_executed": false,
-    "dispatch_publication_edit_comment_reply_reaction_dm_or_public_write_performed": false,
-    "public_write_count": 0
-  },
-  "protected_baseline": {
-    "v1_0_tag_object": "a021df7fd0264d9f160bdd605509da925f0bf131",
-    "v1_0_release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
-    "tag_unchanged": true,
-    "ingestion_repository_mutated": false
-  },
-  "next_task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
-  "next_task_state": "NEXT_NOT_STARTED",
-  "wave03_live_authority_granted": false
+  "no_live_execution_truth": {
+    "provider_calls": 0,
+    "browser_cdp_sessions": 0,
+    "outbox_dispatches": 0,
+    "platform_writes": 0,
+    "network_fetches": 0,
+    "public_writes": 0
+  }
 }

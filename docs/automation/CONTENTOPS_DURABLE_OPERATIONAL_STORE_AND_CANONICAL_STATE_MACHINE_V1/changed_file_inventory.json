@@ -1,41 +1,36 @@
 {
   "schema_version": "contentops.wave02_changed_file_inventory.v1",
-  "task": "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1",
-  "starting_master_head": "c87e338f25922f4d03454ba199139353ca7198ff",
-  "working_branch": "agent/contentops-wave02-durable-operational-store-v1",
-  "created_files": [
-    "live_contentops/durable_operational_store_v1.py",
-    "tests/test_durable_operational_store_v1.py",
+  "task": "TASK_CONTENTOPS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_V1",
+  "base_master_head": "c87e338f25922f4d03454ba199139353ca7198ff",
+  "starting_branch_head": "3cc531a3d30848f54329d25913018882f6b71bcd",
+  "touched_paths": [
+    ".gitignore",
+    "AGENTS.md",
+    "docs/AI_BUILDER_BOOTSTRAP.md",
+    "docs/CURRENT_CONTEXT.md",
     "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/README.md",
     "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/architecture_and_authority_boundary.md",
+    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/changed_file_inventory.json",
     "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/existing_state_surface_inventory.json",
+    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/final_manifest.json",
     "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/migration_and_supersession_map.md",
+    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/redacted_store_evidence_export.json",
+    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/restart_replay_and_corruption_contract.md",
+    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/retention_and_backup_policy.md",
     "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/schema_manifest.json",
     "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/state_transition_matrix.json",
     "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/transaction_lease_and_fencing_contract.md",
-    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/restart_replay_and_corruption_contract.md",
-    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/retention_and_backup_policy.md",
-    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/redacted_store_evidence_export.json",
     "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/validation_results.md",
-    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/changed_file_inventory.json",
-    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/final_manifest.json"
-  ],
-  "modified_files": [
-    ".gitignore",
-    "live_contentops/production_orchestrator_v1.py",
-    "AGENTS.md",
-    "docs/CURRENT_CONTEXT.md",
-    "docs/AI_BUILDER_BOOTSTRAP.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
     "docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md"
-  ],
-  "protected_paths_untouched": [
-    "ui/contentops_v5/",
-    "schemas/"
+    "live_contentops/durable_operational_store_v1.py",
+    "live_contentops/production_orchestrator_v1.py",
+    "tests/test_durable_operational_store_v1.py",
+    "tests/test_wave01_master_authority_and_metadata_consistency_v1.py",
+    "tests/test_wave02_durable_store_authority_and_metadata_consistency_v1.py"
   ]
 }

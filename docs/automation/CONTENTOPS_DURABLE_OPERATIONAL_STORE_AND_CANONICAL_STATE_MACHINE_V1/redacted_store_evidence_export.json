@@ -1,60 +1,89 @@
 {
   "schema_version": "contentops.durable_store_export.v1",
-  "database_path": "export.sqlite",
-  "wal_mode_enabled": true,
-  "foreign_keys_enabled": true,
-  "schema_migrations": [
+  "database_pragmas": {
+    "journal_mode": "WAL",
+    "foreign_keys": 1,
+    "busy_timeout_ms": 5000
+  },
+  "current_schema_version": 3,
+  "redaction_guarantee": "PASS_NO_SECRETS_CREDENTIALS_OR_PRIVATE_MATERIAL",
+  "counts": {
+    "migrations": 3,
+    "work_items": 1,
+    "transition_events": 2,
+    "leases": 1,
+    "artifacts": 1
+  },
+  "migrations": [
     {
       "version": 1,
-      "checksum": "f5134796b2551a6058e5df80ae0dfc362ce8fee45e7d6b24f1aecf7a0baa36a3",
-      "applied_at": "2026-08-03T16:27:15.337883+00:00",
+      "checksum": "727ae6e4904a2577c385f390ee798942bfb88bdcb4a0ea5642de8e631a617a6d",
+      "applied_at": "2026-08-03T17:49:59.854199+00:00",
       "description": "Initial Wave 02 Durable Operational Store Schema"
+    },
+    {
+      "version": 2,
+      "checksum": "036bcd8b7cd82208a4bd48653cb83ce25229bc67dbcaa6301ff9f8e6e1530488",
+      "applied_at": "2026-08-03T17:49:59.884542+00:00",
+      "description": "Wave 02 Fencing, Artifact Integrity, and Structured Event Chain Upgrade"
+    },
+    {
+      "version": 3,
+      "checksum": "e61387fd0f7998ef747302feb0928481998986ba056c9b5155d1e24e10d65b99",
+      "applied_at": "2026-08-03T17:49:59.909632+00:00",
+      "description": "Wave 02 Schema v3: Cryptographic Event Payload Envelope and Immutable Artifact Triggers"
     }
   ],
-  "counts": {
-    "operational_windows": 0,
-    "scheduler_ticks": 0,
-    "work_items": 1,
-    "transition_events": 1,
-    "leases": 0
-  },
   "work_items": [
     {
-      "work_item_id": "item_6a08d3f3e631cca3",
-      "story_id": "story_treasury_20260714",
-      "target_surface": "eight_platform_all",
+      "work_item_id": "wi_sample",
+      "story_id": "77e4151178b99030",
+      "title": "[REDACTED_TITLE]",
       "current_state": "EVIDENCE_PENDING",
       "state_version": 2,
-      "lock_version": 1,
-      "created_at": "2026-08-03T16:27:15.361884+00:00",
-      "updated_at": "2026-08-03T16:27:15.385571+00:00"
+      "target_surface": "eight_platform_all",
+      "created_at": "2026-08-03T17:49:59.925803+00:00",
+      "updated_at": "2026-08-03T17:49:59.954802+00:00"
     }
   ],
   "transition_events": [
     {
-      "event_id": "evt_8b90110e715c9154",
-      "transition_key": "tr_item_6a08d3f3e631cca3_v2_11e1305e",
-      "work_item_id": "item_6a08d3f3e631cca3",
+      "event_id": "evt_453b9bd4e0f67537",
+      "work_item_id": "wi_sample",
+      "event_seq": 1,
+      "from_state": "DISCOVERED",
+      "to_state": "DISCOVERED",
+      "state_version": 1,
+      "actor_class": "ContentOpsDurableStore",
+      "actor_ref": "[REDACTED_ACTOR_REF]",
+      "reason_code": "WORK_ITEM_INITIALIZATION",
+      "explanation": "[REDACTED_EXPLANATION]",
+      "explanation_hash": "9969a24619d9707cfcd6a949fc223decdc7cc47cd155b648a53ad9c9c2ab3052",
+      "correlation_id": "corr_init_wi_sample",
+      "previous_event_hash": "GENESIS_0000000000000000000000000000000000000000000000000000000000000000",
+      "event_hash": "b05dc3f6b76b0d55e239761d42ba1cbf1342a6ff3701c0cda7eeab174ca4015b",
+      "authority_type": "NONE",
+      "authority_effect": "NO_AUTHORITY_GRANTED",
+      "timestamp_utc": "2026-08-03T17:49:59.925803+00:00"
+    },
+    {
+      "event_id": "evt_ab2705a788868c1d",
+      "work_item_id": "wi_sample",
+      "event_seq": 2,
       "from_state": "DISCOVERED",
       "to_state": "EVIDENCE_PENDING",
       "state_version": 2,
-      "actor_class": "ContentOpsProductionOrchestrator",
-      "reason_code": "EVIDENCE_INGEST",
-      "artifact_hash_set": "[\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"]",
-      "correlation_id": "corr_export_001",
-      "timestamp_utc": "2026-08-03T16:27:15.385571+00:00",
-      "authority_granted": 0
+      "actor_class": "SampleActor",
+      "actor_ref": "[REDACTED_ACTOR_REF]",
+      "reason_code": "SAMPLE_REASON",
+      "explanation": "[REDACTED_EXPLANATION]",
+      "explanation_hash": "f711e9c7a77ca6fc5263a720b46a1bfafd7849d90ddc6e2649c2862683f397de",
+      "correlation_id": "corr_sample",
+      "previous_event_hash": "b05dc3f6b76b0d55e239761d42ba1cbf1342a6ff3701c0cda7eeab174ca4015b",
+      "event_hash": "b5a5f4484c7783855da3962c6411c3171dfab125943aa1753cbc29e2ba2e31af",
+      "authority_type": "NONE",
+      "authority_effect": "NO_AUTHORITY_GRANTED",
+      "timestamp_utc": "2026-08-03T17:49:59.954802+00:00"
     }
-  ],
-  "leases": [],
-  "replay_verifications": [
-    {
-      "work_item_id": "item_6a08d3f3e631cca3",
-      "replayed_state": "EVIDENCE_PENDING",
-      "replayed_version": 2,
-      "event_count": 1,
-      "verification": "PASS"
-    }
-  ],
-  "redaction_guarantee": "PASS_NO_SECRETS_CREDENTIALS_OR_PRIVATE_MATERIAL"
+  ]
 }
