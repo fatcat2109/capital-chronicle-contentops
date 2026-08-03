@@ -10,7 +10,7 @@ That release is bounded proof. It is not evidence that a continuously operating,
 
 Current post-v1 classification:
 
-`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
+`PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
 
 Current audit conclusion:
 

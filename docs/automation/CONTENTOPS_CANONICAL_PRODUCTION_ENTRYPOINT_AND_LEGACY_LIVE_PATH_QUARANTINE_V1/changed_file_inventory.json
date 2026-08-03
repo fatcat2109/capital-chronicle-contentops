@@ -1,121 +1,154 @@
 {
-  "schema_version": "contentops.wave01_changed_file_inventory.v1",
+  "schema_version": "contentops.wave01_phase_aware_changed_file_inventory.v1",
   "repository": "fatcat2109/capital-chronicle-contentops",
-  "branch": "agent/contentops-wave01-canonical-entrypoint-v1",
-  "correction_task": "TASK_CONTENTOPS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_V1",
-  "correction_start_head": "7300517ca3861c2962df06d443ad0c0916396f9f",
-  "required_master_base": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff",
-  "precommit_head": "7300517ca3861c2962df06d443ad0c0916396f9f",
-  "inventory_basis": "git status --porcelain=v1 -uall after correction evidence paths were established; regenerated after all authority edits",
+  "branch": "master",
+  "reconciliation_task": "TASK_CONTENTOPS_WAVE01_FINAL_MASTER_EVIDENCE_AND_AUTHORITY_RECONCILIATION_V1",
+  "reconciliation_start_head": "5c90e6d243b705f74cac40547083565f4899197b",
   "summary": {
-    "changed_path_count": 19,
-    "git_status_counts": {
-      " M": 18,
-      "??": 1
-    },
-    "area_counts": {
-      "docs_and_evidence": 12,
-      "runtime": 4,
-      "tests": 3
-    },
+    "source_implementation_delta_path_count": 44,
+    "merged_wave01_tree_path_count": 44,
+    "post_merge_acceptance_delta_path_count": 11,
+    "reconciliation_staged_path_count": 15,
     "ingestion_repository_path_count": 0,
-    "protected_release_or_accepted_live_evidence_path_count": 0
+    "protected_release_or_accepted_live_evidence_path_count": 0,
+    "runtime_or_ui_or_schema_path_count": 0
   },
-  "files": [
-    {
-      "status": " M",
-      "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/README.md",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": " M",
-      "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/before_after_route_matrix.md",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": " M",
-      "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/canonical_delegated_quarantined_inventory_v1.json",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": " M",
-      "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/changed_file_inventory.json",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": " M",
-      "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/final_manifest.json",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": " M",
-      "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/live_entrypoint_registry_v1.json",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": " M",
-      "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/protected_baseline_and_no_execution_verification.md",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": " M",
-      "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/validation_results.md",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": " M",
-      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": " M",
-      "path": "docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": " M",
-      "path": "docs/status/CURRENT_PROJECT_STATUS.md",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": " M",
-      "path": "docs/status/current_project_status.json",
-      "area": "docs_and_evidence"
-    },
-    {
-      "status": "??",
-      "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
-      "area": "runtime"
-    },
-    {
-      "status": " M",
-      "path": "live_contentops/eight_platform_substack_first_pipeline_v1.py",
-      "area": "runtime"
-    },
-    {
-      "status": " M",
-      "path": "live_contentops/live_entrypoint_registry_v1.py",
-      "area": "runtime"
-    },
-    {
-      "status": " M",
-      "path": "live_contentops/production_orchestrator_v1.py",
-      "area": "runtime"
-    },
-    {
-      "status": " M",
-      "path": "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py",
-      "area": "tests"
-    },
-    {
-      "status": " M",
-      "path": "tests/test_eight_platform_substack_first_pipeline_v1.py",
-      "area": "tests"
-    },
-    {
-      "status": " M",
-      "path": "tests/test_generic_evidence_freshness_visual_editorial_fabric_v2.py",
-      "area": "tests"
-    }
-  ]
+  "source_implementation_delta": {
+    "range": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff...7d7d55039a68b4dbaec631ac75af6b7e418f7500",
+    "path_count": 44,
+    "files": [
+      "AGENTS.md",
+      "docs/AI_BUILDER_BOOTSTRAP.md",
+      "docs/CURRENT_CONTEXT.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/README.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/before_after_route_matrix.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/canonical_delegated_quarantined_inventory_v1.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/changed_file_inventory.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/final_manifest.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/live_entrypoint_registry_v1.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/protected_baseline_and_no_execution_verification.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/validation_results.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/merge_acceptance_manifest.json",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+      "docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md",
+      "docs/status/CURRENT_PROJECT_STATUS.md",
+      "docs/status/current_project_status.json",
+      "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+      "live_contentops/cli.py",
+      "live_contentops/eight_platform_substack_first_pipeline_v1.py",
+      "live_contentops/fast_one_cycle_automation_v0.py",
+      "live_contentops/full_pipeline_north_star_debug_and_live_run_v0.py",
+      "live_contentops/live_entrypoint_registry_v1.py",
+      "live_contentops/live_production_pipeline_runner_v6.py",
+      "live_contentops/operator_approved_supervised_live_daily_run_v0.py",
+      "live_contentops/production_orchestrator_v1.py",
+      "live_contentops/publishing_profile_registry_v1.py",
+      "live_contentops/scheduler_v6.py",
+      "live_contentops/server.py",
+      "live_contentops/substack_first_north_star_pipeline_loop_v1.py",
+      "live_contentops/terra_ultra_north_star_full_automation_v1.py",
+      "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py",
+      "tests/test_eight_platform_substack_first_pipeline_v1.py",
+      "tests/test_fast_one_cycle_automation_v0.py",
+      "tests/test_full_pipeline_north_star_debug_and_live_run_v0.py",
+      "tests/test_generic_evidence_freshness_visual_editorial_fabric_v2.py",
+      "tests/test_live_production_pipeline_runner.py",
+      "tests/test_operator_approved_supervised_live_daily_run_v0.py",
+      "tests/test_substack_first_north_star_pipeline_loop_v1.py",
+      "tests/test_terra_ultra_north_star_full_automation_v1.py",
+      "ui/contentops_v5/src/views/V6CommandCenter.tsx"
+    ]
+  },
+  "merged_wave01_tree": {
+    "range": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff...d5c53655435e8340b3b79ddc3779e1f833eeb311",
+    "path_count": 44,
+    "files": [
+      "AGENTS.md",
+      "docs/AI_BUILDER_BOOTSTRAP.md",
+      "docs/CURRENT_CONTEXT.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/README.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/before_after_route_matrix.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/canonical_delegated_quarantined_inventory_v1.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/changed_file_inventory.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/final_manifest.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/live_entrypoint_registry_v1.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/protected_baseline_and_no_execution_verification.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/validation_results.md",
+      "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/merge_acceptance_manifest.json",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+      "docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md",
+      "docs/status/CURRENT_PROJECT_STATUS.md",
+      "docs/status/current_project_status.json",
+      "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+      "live_contentops/cli.py",
+      "live_contentops/eight_platform_substack_first_pipeline_v1.py",
+      "live_contentops/fast_one_cycle_automation_v0.py",
+      "live_contentops/full_pipeline_north_star_debug_and_live_run_v0.py",
+      "live_contentops/live_entrypoint_registry_v1.py",
+      "live_contentops/live_production_pipeline_runner_v6.py",
+      "live_contentops/operator_approved_supervised_live_daily_run_v0.py",
+      "live_contentops/production_orchestrator_v1.py",
+      "live_contentops/publishing_profile_registry_v1.py",
+      "live_contentops/scheduler_v6.py",
+      "live_contentops/server.py",
+      "live_contentops/substack_first_north_star_pipeline_loop_v1.py",
+      "live_contentops/terra_ultra_north_star_full_automation_v1.py",
+      "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py",
+      "tests/test_eight_platform_substack_first_pipeline_v1.py",
+      "tests/test_fast_one_cycle_automation_v0.py",
+      "tests/test_full_pipeline_north_star_debug_and_live_run_v0.py",
+      "tests/test_generic_evidence_freshness_visual_editorial_fabric_v2.py",
+      "tests/test_live_production_pipeline_runner.py",
+      "tests/test_operator_approved_supervised_live_daily_run_v0.py",
+      "tests/test_substack_first_north_star_pipeline_loop_v1.py",
+      "tests/test_terra_ultra_north_star_full_automation_v1.py",
+      "ui/contentops_v5/src/views/V6CommandCenter.tsx"
+    ]
+  },
+  "post_merge_acceptance_delta": {
+    "range": "d5c53655435e8340b3b79ddc3779e1f833eeb311...5c90e6d243b705f74cac40547083565f4899197b",
+    "path_count": 11,
+    "files": [
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/README.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/before_after_route_matrix.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/canonical_delegated_quarantined_inventory_v1.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/final_manifest.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/validation_results.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+      "docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md",
+      "docs/status/CURRENT_PROJECT_STATUS.md",
+      "docs/status/current_project_status.json",
+      "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py",
+      "tests/test_final_automation_closure_v1.py"
+    ]
+  },
+  "reconciliation_staged_paths": {
+    "basis_head": "5c90e6d243b705f74cac40547083565f4899197b",
+    "path_count": 15,
+    "files": [
+      "AGENTS.md",
+      "docs/AI_BUILDER_BOOTSTRAP.md",
+      "docs/CURRENT_CONTEXT.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/README.md",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/changed_file_inventory.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/final_manifest.json",
+      "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/validation_results.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+      "docs/status/CURRENT_PROJECT_STATUS.md",
+      "docs/status/current_project_status.json",
+      "tests/test_wave01_master_authority_and_metadata_consistency_v1.py"
+    ]
+  }
 }

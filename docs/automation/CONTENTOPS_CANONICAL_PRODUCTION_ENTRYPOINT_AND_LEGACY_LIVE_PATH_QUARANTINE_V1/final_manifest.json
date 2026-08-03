@@ -1,19 +1,26 @@
 {
   "schema_version": "contentops.wave01_final_manifest.v1",
   "repository": "fatcat2109/capital-chronicle-contentops",
-  "branch": "agent/contentops-wave01-canonical-entrypoint-v1",
-  "task": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1",
-  "correction_task": "TASK_CONTENTOPS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_V1",
-  "classification": "PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT",
-  "correction_classification": "PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
-  "independent_audit_state": "PRIOR_AUDIT_BLOCKED_MERGE_CORRECTION_AWAITING_REAUDIT",
-  "original_wave01_start_head": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff",
-  "correction_start_head": "7300517ca3861c2962df06d443ad0c0916396f9f",
-  "required_master_base": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff",
-  "precommit_head": "7300517ca3861c2962df06d443ad0c0916396f9f",
-  "completing_commit_sha": null,
-  "completing_commit_sha_policy": "intentionally null because a commit cannot truthfully embed its own SHA; report final SHA after push and remote parity verification",
-  "authorized_commit_message": "fix(contentops): enforce single canonical orchestrator entrypoint",
+  "branch": "master",
+  "accepted_task": "TASK_CONTENTOPS_WAVE01_ACCEPTANCE_MASTER_MERGE_AND_CLI_COVERAGE_RECONCILIATION_V1",
+  "accepted_classification": "PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED",
+  "historical_implementation_task": "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1",
+  "historical_implementation_classification": "PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT",
+  "historical_correction_task": "TASK_CONTENTOPS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_V1",
+  "historical_correction_classification": "PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+  "independent_audit_state": "AUDIT_PASSED_ACCEPTED_AND_MERGED",
+  "commit_topology": {
+    "pre_merge_master": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff",
+    "source_commits": [
+      "7300517ca3861c2962df06d443ad0c0916396f9f",
+      "7d7d55039a68b4dbaec631ac75af6b7e418f7500"
+    ],
+    "merge_commit": "d5c53655435e8340b3b79ddc3779e1f833eeb311",
+    "accepted_master_commit_observed_before_reconciliation": "5c90e6d243b705f74cac40547083565f4899197b",
+    "reconciliation_start_head": "5c90e6d243b705f74cac40547083565f4899197b",
+    "completing_commit_sha": null,
+    "completing_commit_sha_policy": "intentionally null because a commit cannot truthfully embed its own SHA; report final SHA after push and remote parity verification"
+  },
   "canonical_public_authority": "live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator",
   "public_compatibility_facade": "live_contentops.eight_platform_substack_first_pipeline_v1",
   "private_dispatcher": "live_contentops._eight_platform_substack_first_pipeline_impl_v1._dispatch_canonical_operation",
@@ -159,26 +166,32 @@
   "validation": {
     "focused_enforcement_pytest": {
       "result": "PASS",
-      "test_count": 34,
-      "duration_seconds": 0.6
+      "test_count": 38,
+      "duration_seconds": 1.49
     },
     "canonical_compatibility_pytest": {
       "result": "PASS",
       "test_count": 65,
-      "duration_seconds": 1.05,
+      "duration_seconds": 3.57,
       "suite_file_count": 2
     },
     "wave01_regression_matrix_pytest": {
       "result": "PASS",
-      "test_count": 104,
-      "duration_seconds": 5.08,
+      "test_count": 108,
+      "duration_seconds": 13.77,
       "suite_file_count": 13
     },
-    "unique_tests_across_compatibility_and_regression_matrices": 169,
-    "canonical_v5_build": {
+    "unique_tests_across_compatibility_and_regression_matrices": 173,
+    "final_automation_closure_pytest": {
       "result": "PASS",
-      "module_count": 117,
-      "duration_seconds": 2.67
+      "test_count": 7,
+      "duration_seconds": 1.20
+    },
+    "canonical_v5_build": {
+      "status": "HISTORICAL_ACCEPTANCE_EVIDENCE_PRESERVED",
+      "rerun_in_this_reconciliation": "NOT_RERUN_NO_DEPENDENCY_INSTALL_AUTHORIZED",
+      "historical_result": "PASS",
+      "module_count": 117
     },
     "monolithic_repository_suite": "NOT_RUN_NO_FULL_SUITE_PASS_CLAIMED",
     "browser_qa": "NOT_RUN",
@@ -199,8 +212,11 @@
     "ingestion_repository_mutated": false
   },
   "no_execution_truth": {
+    "authorized_git_fetch_and_push_performed": true,
+    "acceptance_phase_npm_install_performed": true,
+    "package_registry_network_access_disclosed": true,
     "credential_or_environment_values_read_or_logged": false,
-    "source_or_network_fetch_performed": false,
+    "source_data_fetch_performed": false,
     "provider_9router_or_gemini_called": false,
     "browser_or_cdp_used": false,
     "platform_adapter_or_api_called": false,
@@ -210,13 +226,7 @@
     "public_write_count": 0
   },
   "changed_file_inventory": {
-    "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/changed_file_inventory.json",
-    "changed_path_count": 19,
-    "area_counts": {
-      "docs_and_evidence": 12,
-      "runtime": 4,
-      "tests": 3
-    }
+    "path": "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/changed_file_inventory.json"
   },
   "evidence_files": [
     "docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/README.md",
@@ -232,12 +242,8 @@
   "next_task_state": "NEXT_NOT_STARTED",
   "wave02_live_authority_granted": false,
   "post_push_fields": {
-    "final_head": null,
-    "remote_head": null,
-    "local_remote_parity": null,
-    "clean_worktree": null,
-    "github_status_context_count": null,
-    "github_check_run_count": null,
-    "ci_result": "PENDING_POST_PUSH_TRUTH_CHECK"
+    "github_status_context_count": 0,
+    "github_check_run_count": 0,
+    "ci_result": "NO_CI_PASS_CLAIMED"
   }
 }

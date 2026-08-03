@@ -94,4 +94,4 @@ Wave 00 local plan closeout
 
 `TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 01 is complete awaiting independent audit. Wave 02 is schema/local-persistence work only. No live authority is granted by this supersession map.
+Wave 01 is complete accepted and merged into master. Wave 02 is the exact next task (NEXT_NOT_STARTED) and is schema/local-persistence work only. No live authority is granted by this supersession map.

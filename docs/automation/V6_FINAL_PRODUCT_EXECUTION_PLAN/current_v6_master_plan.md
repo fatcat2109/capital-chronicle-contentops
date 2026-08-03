@@ -8,7 +8,7 @@ Historical accepted release:
 
 Post-v1 current classification:
 
-`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
+`PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
 
 Audit conclusion:
 
@@ -329,8 +329,8 @@ Post-v1 waves:
 | Wave | Scope | Status |
 |---:|---|---|
 | 00 | Local docs/evidence closeout and authority reconciliation | COMPLETE_ACCEPTED_AND_MERGED |
-| 01 | Canonical entrypoint and legacy live-path quarantine | NEXT_NOT_STARTED |
-| 02 | Durable operational store/state machine | NOT_STARTED |
+| 01 | Canonical entrypoint and legacy live-path quarantine | COMPLETE_ACCEPTED_AND_MERGED |
+| 02 | Durable operational store/state machine | NEXT_NOT_STARTED |
 | 03 | Exact approval envelope/transactional outbox | NOT_STARTED |
 | 04 | Restart-safe supervisor/windows/scheduler | NOT_STARTED |
 | 05 | Tier-1 adapter/unknown-write/recovery conformance | NOT_STARTED |
@@ -373,4 +373,4 @@ Do not use this label earlier.
 
 `TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 01 is classified `PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`. Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary for the SQLite WAL operational spine, versioned migrations, append-only events, compare-and-set transitions, leases, restart reconstruction, deterministic replay, and redacted evidence export. No credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public write is authorized.
+Wave 01 is classified `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 02 is the exact next task and has status `NEXT_NOT_STARTED`. It is a schema/local-persistence boundary for the SQLite WAL operational spine, versioned migrations, append-only events, compare-and-set transitions, leases, restart reconstruction, deterministic replay, and redacted evidence export. No credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public write is authorized.

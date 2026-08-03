@@ -28,13 +28,21 @@ Working branch:
 
 `master`
 
-Target HEAD:
+Pre-merge target master HEAD:
 
 `a0c9d0a67e39c614d5a80cd758f219dcac9b11ff`
 
 Accepted source HEAD:
 
 `7d7d55039a68b4dbaec631ac75af6b7e418f7500`
+
+Merge commit:
+
+`d5c53655435e8340b3b79ddc3779e1f833eeb311`
+
+Accepted master HEAD before reconciliation:
+
+`5c90e6d243b705f74cac40547083565f4899197b`
 
 The independent audit accepted the executable Wave 01 boundary for merge. The post-merge acceptance commit reconciled minor test/evidence coverage to exhaustively cover all 12 mutation-capable CLI argument families.
 
@@ -48,8 +56,8 @@ This is Wave 02 from the accepted institutional hardening plan. It remains `NEXT
 
 ## Required starting authority
 
-- Wave 01 has worker classification `PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`; the correction has classification `PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`. Both remain subject to independent GitHub/ChatGPT audit.
-- Wave 02 is `NEXT_NOT_STARTED`; do not mark it started from this pointer alone.
+- Wave 01 status is `COMPLETE_ACCEPTED_AND_MERGED` under classification `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`.
+- Wave 02 is `NEXT_NOT_STARTED` and remains gated until independent audit of this final evidence reconciliation.
 - Read Wave 02 in `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_HARDENING_EXECUTION_PLAN.md` before implementation.
 - Preserve `v1.0`, accepted release evidence, the canonical orchestrator boundary, and historical replay packets unchanged.
 - Do not add a second runner, scheduler, state store, outbox, approval engine, provider gateway, or dashboard.

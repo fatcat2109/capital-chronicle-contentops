@@ -18,7 +18,7 @@ Do not rerun, modify, delete, recreate, move or retag accepted release outputs/e
 
 Current classification:
 
-`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
+`PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
 
 Current audit conclusion:
 
