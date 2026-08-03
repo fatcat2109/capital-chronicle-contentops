@@ -1,37 +1,25 @@
 # Transaction Lease and Fencing Contract — Wave 02 Durable Operational Store
 
-## 1. Concurrency and Lease Model
+Worker Classification:
+`PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
-`ContentOpsDurableStore` implements distributed work-item and operational leases in the `leases` table.
+## 1. Transaction and Clock Model
 
-Table columns:
-- `lease_id`: Primary key string (`lease_<hash>`)
-- `lease_key`: Unique string identifier (e.g. `scheduler_master` or `lease_wi_123`)
-- `work_item_id`: Optional foreign key to `work_items`
-- `owner_ref`: Identity string of worker acquiring the lease
-- `fencing_token`: Monotonically increasing 64-bit integer
-- `acquired_at`: ISO UTC timestamp
-- `renewed_at`: ISO UTC timestamp
-- `expires_at`: ISO UTC timestamp
-- `status`: State string (`ACTIVE`, `EXPIRED`, `RELEASED`)
+All competing lease, claim, assignment, heartbeat, release, recovery, and state-transition mutations use explicit transactions and the injected UTC clock. Focused tests use a fake clock; no wall-clock sleep determines acceptance.
 
-## 2. Monotonic Fencing Token Protocol
+## 2. Monotonic Fencing and Assignment Rules
 
-1. **Acquisition (`acquire_lease`):**
-   - Atomically checks existing lease for `lease_key`.
-   - If an `ACTIVE` lease exists and `expires_at > now_utc`, fails with `LeaseConflictError`.
-   - Increments `fencing_token` to `existing.fencing_token + 1` (or `1` for new leases).
-   - Reuses or inserts lease record with `status = 'ACTIVE'`.
-2. **Renewal (`renew_lease`):**
-   - Validates that caller's `fencing_token` equals current DB `fencing_token`.
-   - If caller presents a lower `fencing_token`, raises `StaleFencingTokenError`.
-   - Updates `renewed_at` and `expires_at`.
-3. **Release (`release_lease`):**
-   - Validates caller's `fencing_token` and updates `status = 'RELEASED'`.
-4. **Stale Lease Recovery (`recover_stale_leases`):**
-   - Transitions any lease with `status = 'ACTIVE'` and `expires_at < now_utc` to `'EXPIRED'`.
+1. `acquire_lease` rejects an unexpired ACTIVE owner, then increments the persisted fencing token for each new ownership epoch.
+2. `claim_work_item` validates lease owner, key, expiry, and fencing token before creating an ACTIVE assignment.
+3. A partial unique index enforces exactly zero or one ACTIVE assignment for each work item at the database boundary.
+4. `renew_lease`, heartbeat recording, and `transition_state` require the current owner/fencing epoch; stale or expired workers fail closed.
+5. `release_lease`, expiry recovery, and reclaim atomically release/expire prior assignments and dispose related heartbeats before a successor claims.
+6. Fencing tokens never decrease; an earlier worker cannot mutate after a later epoch is issued.
 
-## 3. Compare-And-Set (CAS) State Transitions
+## 3. Compare-and-Set State Transitions
 
-Every state transition on `work_items` verifies `(current_state == expected_from_state AND state_version == expected_state_version)`.
-If a concurrent worker mutates the work item first, the CAS check fails, rolling back the transaction and raising `CASStateConflictError`. Exactly one worker succeeds.
+Every work-item transition verifies expected current state, expected state version, current lease owner, and current fencing token in one transaction. The canonical event append and projection update commit together. A concurrent or stale caller receives the relevant CAS, lease, or fencing error; exactly one valid worker succeeds.
+
+## 4. Recovery Proof
+
+Acceptance tests prove fake-clock acquisition/renewal/expiry, release/reclaim, heartbeat disposition, assignment status changes, monotonically increasing fencing, exact ACTIVE assignment count, and successful event replay after recovery.

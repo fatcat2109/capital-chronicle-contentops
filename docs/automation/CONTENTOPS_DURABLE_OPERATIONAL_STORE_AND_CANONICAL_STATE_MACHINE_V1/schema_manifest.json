@@ -1,5 +1,6 @@
 {
   "schema_version": "contentops.durable_store_schema_manifest.v1",
+  "worker_classification": "PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
   "durable_store_module": "live_contentops/durable_operational_store_v1.py",
   "current_schema_version": 3,
   "journal_mode": "WAL",
@@ -33,20 +34,30 @@
     {
       "version": 1,
       "description": "Initial Wave 02 Durable Operational Store Schema",
-      "checksum": "c4794273297aef44a10e82cffaeebfb239cbeec41f4967fe971c2cebb7c5d415"
+      "sql_sha256": "184298f54e1b6bc4a359d3026d3a249bf85cd46beee1fbcda53d04db5a326cb9",
+      "transform_version": "sql_only.v1",
+      "transform_source_hash": "b3cfaa7eebae8ca5e61157fe319f2afd18afc62409948974a432e2b4e77ac299",
+      "semantic_checksum": "b2b33da379e42c5897e419620da81b7692e64ea91269bc72976b4a1b768cb32e"
     },
     {
       "version": 2,
-      "description": "Wave 02 Fencing, Artifact Integrity, and Structured Event Chain Upgrade",
-      "checksum": "e229e0eb9bb1bc9fefd57e84afc79d164d1264c8d55eec1d808e0bdce20bdfe1"
+      "description": "Deterministic legacy sequence assignment",
+      "sql_sha256": "d4a35a066a106a705c09fbe1f3df1e8f66b95413936398e4158b55ef4ff3d849",
+      "transform_version": "legacy_sequence.v2",
+      "transform_source_hash": "a4c78f85f28855d5784687ab69ef9ae75f061fc13697bcfd67b2f0a5a86ee475",
+      "semantic_checksum": "de754d123416e9ef172f0ff3607c898f167971a0566c34dbae4dfa18d6a5a589"
     },
     {
       "version": 3,
-      "description": "Wave 02 Schema v3: Cryptographic Event Payload Envelope and Immutable Artifact Triggers",
-      "checksum": "ce9a8ca6d9bf3c9aefaa8b39beae7ddaeeb6a0fb49f1db7eb982ed30bfcbabec"
+      "description": "Canonical event envelopes, receipt scope, and append guards",
+      "sql_sha256": "553ed20ea3c9d961047362df09e2c538c3269388caf27089da963366b44813cf",
+      "transform_version": "legacy_envelope.v3",
+      "transform_source_hash": "d102d8a3f85a3daab7ff155ae902d782b883e97279de63f89285721394cb3b02",
+      "semantic_checksum": "fff8a2f889cc174e8e27ee878212940c889f91eedd8e33f4a9877fdde7940697"
     }
   ],
   "triggers": [
+    "trg_transition_events_append_authorized",
     "trg_transition_events_no_update",
     "trg_transition_events_no_delete",
     "trg_artifact_references_no_update",

@@ -14,11 +14,11 @@ Current accepted Wave 01 classification:
 
 Current Wave 02 worker classification:
 
-`PASS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+`PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
 Completed Wave 02 task:
 
-`TASK_CONTENTOPS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_V1`
+`TASK_CONTENTOPS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_V1`
 
 Working branch:
 
@@ -32,7 +32,7 @@ Pre-merge target master HEAD: `a0c9d0a67e39c614d5a80cd758f219dcac9b11ff`
 
 Required starting branch HEAD:
 
-`33225d5e8d79ad229ad93d203e8d2e5018bb2738`
+`615a96fb20aa97fd76bb3343e9150daec40d9031`
 
 Wave 02 has implemented the single authoritative SQLite WAL operational store (`ContentOpsDurableStore`), atomic versioned migrations (v1 -> v2 -> v3) with 0 row loss, append-only transition log with triggers, Compare-And-Set state machine across 29 canonical states, WORK_ITEM_CREATED genesis events, canonical schema-versioned event payload JSON and SHA-256 envelope hashing with column-by-column verification, genuinely immutable artifact registration with byte/receipt verification and DB UPDATE/DELETE triggers, transactional claims and leases with monotonic fencing tokens enforced on every mutation, fail-closed Wave 02 authority guards, restart safety, deterministic event replay, corruption detection, and redacted evidence export.
 
@@ -46,7 +46,7 @@ This is Wave 03 from the accepted institutional hardening plan. It remains `NEXT
 
 ## Required starting authority
 
-- Wave 02 status is `COMPLETE_AWAITING_INDEPENDENT_AUDIT` under classification `PASS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`.
+- Wave 02 status is `COMPLETE_AWAITING_INDEPENDENT_AUDIT` under classification `PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT`.
 - Wave 03 is `NEXT_NOT_STARTED` and remains gated until independent audit of Wave 02 evidence.
 - Preserve `v1.0`, accepted release evidence, the canonical orchestrator boundary, and historical replay packets unchanged.
 - Do not add a second runner, scheduler, state store, outbox, approval engine, provider gateway, or dashboard.

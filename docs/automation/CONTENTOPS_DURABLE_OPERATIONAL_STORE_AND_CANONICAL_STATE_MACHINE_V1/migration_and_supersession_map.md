@@ -1,19 +1,29 @@
 # Migration and Supersession Map — Wave 02 Durable Operational Store
 
-## 1. Schema Migration Framework
+Worker Classification:
+`PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
-The migration engine inside `ContentOpsDurableStore` implements:
-- **Version Tracking:** Table `schema_migrations` records `(version, checksum, applied_at, description)`.
-- **Checksum Verification:** Every migration SQL script is hashed with SHA-256 and checked against recorded checksums during initialization.
-- **Backup & Fail-Closed Rollback:** Before applying any migration version, a database snapshot `.sqlite.bak.<timestamp>` is created. If an error occurs, the transaction is rolled back, the backup is restored, and a `MigrationError` is raised.
-- **Preflight Check:** Runs `PRAGMA integrity_check;` before and after migrations to verify SQLite B-tree structural health.
+## 1. Semantic Migration Registry
 
-## 2. Supersession & Integration Map
+`schema_migrations` records each version’s combined semantic checksum, application timestamp, and description. Each immutable `Migration` object also defines SQL text, `transform_version`, canonical transform source/hash, and the semantic checksum over all migration semantics.
 
-| Legacy / Surface | Location | Disposition under Wave 02 |
-|---|---|---|
-| In-memory server state | `live_contentops/server.py` | Quarantined; superseded by `ContentOpsDurableStore` |
-| Legacy scheduler script | `live_contentops/scheduler_v6.py` | Quarantined; superseded by durable leases and `operational_windows` table |
-| JSON state coordination | `docs/status/current_project_status.json` | Retained as root product status document; not used for runtime work-item state transitions |
-| Upstream DuckDB bridge | `live_contentops/governed_upstream_bridge_v1.py` | Retained as read-only upstream evidence bridge for Capital Chronicle inputs |
-| Canonical orchestrator | `live_contentops/production_orchestrator_v1.py` | Integrated via dependency-injected `store` parameter |
+The runner:
+
+1. Rejects missing/unknown versions, schema-ahead state, checksum or transform drift, partial application, and populated histories with ambiguous ordering.
+2. Creates and integrity-checks a WAL-safe backup before each pending version.
+3. Applies SQL and the registered transform in one explicit transaction.
+4. Proves pre/post row counts and a canonical legacy transition-record hash; populated v1 histories receive deterministic per-work-item sequence and canonical v3 event chains without fabricated story or authority values.
+5. Rolls back and restores the verified backup on failure.
+
+Exact SQL SHA-256, transform versions/source hashes, and semantic checksums are in `schema_manifest.json`. Fresh-store and genuinely populated v1→v2→v3 tests exercise the production runner; no hand-written shortcut migration is used for acceptance.
+
+## 2. Supersession and Integration Map
+
+| Legacy / Surface | Disposition under Wave 02 |
+|---|---|
+| In-memory server tasks | Read-only quarantined; runtime work-item projection is superseded by `work_items` and `transition_events`. |
+| Scheduler JSON and ticks | Transitional; superseded by `operational_windows`, `scheduler_ticks`, leases, and durable work items. |
+| Outbox/approval/review JSON or memory surfaces | Retained only as quarantined compatibility surfaces; exact durable entities are recorded in `existing_state_surface_inventory.json`. |
+| Status JSON/Markdown | Retained as product/branch authority documentation, never runtime work-item transition authority. |
+| Upstream DuckDB bridge | Retained as read-only upstream evidence, not operational mutation authority. |
+| Canonical production orchestrator | Integrated through the dependency-injected durable store and explicit operation-contract registry. |

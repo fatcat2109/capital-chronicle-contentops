@@ -29,8 +29,12 @@ from live_contentops.durable_operational_store_v1 import (
     GENESIS_PREVIOUS_HASH,
 )
 from live_contentops.production_orchestrator_v1 import (
-    ContentOpsProductionOrchestrator,
+    CANONICAL_OPERATIONS,
+    OPERATION_CONTRACTS,
+    RESTART_SAFE,
     ContentOpsDurableContext,
+    ContentOpsProductionOrchestrator,
+    OperationLifecycleError,
 )
 
 
@@ -91,9 +95,9 @@ def test_partial_migration_failure_rollback_and_restore(tmp_path):
 
     store.create_work_item(story_id="story_pre_fail", title="Pre Fail Story", target_surface="substack", work_item_id="wi_pre_fail")
 
-    from live_contentops.durable_operational_store_v1 import MIGRATIONS
+    from live_contentops.durable_operational_store_v1 import MIGRATIONS, Migration
     bad_sql = "CREATE TABLE temp_test_table (id INT); INVALID SYNTAX ERROR STATEMENT;"
-    MIGRATIONS.append((4, "Bad Migration 4", bad_sql))
+    MIGRATIONS.append(Migration(4, "Bad Migration 4", bad_sql, "test_failure.v1"))
 
     try:
         with pytest.raises(MigrationError):
@@ -209,6 +213,7 @@ def test_complete_event_payload_hash_verification(temp_db):
         schema_version="v1",
         producer_ref="test",
         content_bytes=b"input bytes",
+        story_id="story_hash",
         work_item_id="wi_hash",
     )
 
@@ -243,6 +248,7 @@ def test_unauthorized_direct_event_insertion_and_update_rejection(temp_db):
         schema_version="v1",
         producer_ref="test",
         content_bytes=b"tamper bytes",
+        story_id="story_tamper",
         work_item_id="wi_tamper",
     )
     claim = temp_db.claim_work_item(lease_key="key_tamper", work_item_id="wi_tamper", owner_ref="worker_tamper", ttl_seconds=10)
@@ -312,6 +318,7 @@ def test_lease_expiry_and_stale_fencing_token_rejection(temp_db):
         schema_version="v1",
         producer_ref="test",
         content_bytes=b"fence bytes",
+        story_id="story_fence",
         work_item_id="wi_fence",
     )
 
@@ -387,6 +394,7 @@ def test_wave02_authority_fail_closed_guard(temp_db):
         schema_version="v1",
         producer_ref="test",
         content_bytes=b"auth bytes",
+        story_id="story_auth",
         work_item_id="wi_auth",
     )
     claim = temp_db.claim_work_item(lease_key="key_auth", work_item_id="wi_auth", owner_ref="worker_auth", ttl_seconds=10)
@@ -441,6 +449,7 @@ def test_adversarial_redacted_evidence_export(temp_db):
         schema_version="v1",
         producer_ref="test",
         content_bytes=b"secret bytes",
+        story_id="story_secret",
         work_item_id="wi_secret",
     )
     claim = temp_db.claim_work_item(lease_key="key_secret", work_item_id="wi_secret", owner_ref="secret_agent_007", ttl_seconds=10)
@@ -503,13 +512,107 @@ def test_orchestrator_store_integration_with_durable_context(temp_db, tmp_path):
         input_artifact_ids=["art_orch_1"],
     )
 
+    orchestrator._dispatcher = lambda operation, **kwargs: {
+        "outputs": [
+            {"name": "release.json", "output_form": "STRUCTURED_JSON", "value": {"operation": operation, "run_id": kwargs["run_id"]}},
+            {"name": "release.txt", "output_form": "UTF8_TEXT", "value": "local durable release"},
+        ]
+    }
     result = orchestrator.execute(
         "prepare_text_image_release_candidate",
         run_id="test_run_101",
         output_dir=tmp_path,
         durable_context=ctx,
     )
-    assert result is not None
+    assert len(result["outputs"]) == 2
+    assert temp_db.get_work_item("wi_orch_101")["current_state"] == "EVIDENCE_READY"
+    replay = temp_db.replay_work_item_events("wi_orch_101")
+    assert replay["verification_status"] == "PASS"
+    with temp_db.get_connection() as conn:
+        output_ids = json.loads(conn.execute(
+            "SELECT output_artifact_ids FROM transition_events WHERE work_item_id=? ORDER BY event_seq DESC LIMIT 1",
+            ("wi_orch_101",),
+        ).fetchone()[0])
+    assert len(output_ids) == 3
+    assert any(temp_db.get_artifact(artifact_id)["artifact_type"] == "OPERATION_OUTPUT_MANIFEST" for artifact_id in output_ids)
+
+
+def _orchestrator_context_and_claim(store, *, suffix):
+    work_item_id = f"wi_orch_{suffix}"
+    story_id = f"story_orch_{suffix}"
+    actor = f"worker_{suffix}"
+    lease_key = f"lease_key_{suffix}"
+    store.create_work_item(story_id=story_id, title=f"Story {suffix}", target_surface="eight_platform_all", work_item_id=work_item_id)
+    claim = store.claim_work_item(lease_key=lease_key, work_item_id=work_item_id, owner_ref=actor, ttl_seconds=30)
+    return ContentOpsDurableContext(
+        story_id=story_id, work_item_id=work_item_id, title=f"Story {suffix}", correlation_id=f"corr_{suffix}",
+        actor_ref=actor, lease_key=lease_key, fencing_token=claim["fencing_token"],
+    )
+
+
+def test_orchestrator_contract_registry_covers_every_operation():
+    assert set(OPERATION_CONTRACTS) == set(CANONICAL_OPERATIONS)
+    assert OPERATION_CONTRACTS["prepare_text_image_release_candidate"].restart_mode == RESTART_SAFE
+    assert OPERATION_CONTRACTS["module_cli"].durable_supported is False
+
+
+def test_orchestrator_missing_output_blocks_truthfully(temp_db):
+    ctx = _orchestrator_context_and_claim(temp_db, suffix="missing_output")
+    orchestrator = ContentOpsProductionOrchestrator(store=temp_db)
+    orchestrator._dispatcher = lambda operation, **kwargs: None
+    with pytest.raises(OperationLifecycleError, match="operation_output_required"):
+        orchestrator.execute("prepare_text_image_release_candidate", durable_context=ctx)
+    assert temp_db.get_work_item(ctx.work_item_id)["current_state"] == "EVIDENCE_BLOCKED"
+    assert temp_db.replay_work_item_events(ctx.work_item_id)["verification_status"] == "PASS"
+    with temp_db.get_connection() as conn:
+        blocked = conn.execute(
+            "SELECT reason_code,explanation FROM transition_events WHERE work_item_id=? ORDER BY event_seq DESC LIMIT 1",
+            (ctx.work_item_id,),
+        ).fetchone()
+    assert blocked["reason_code"] == "ORCHESTRATOR_OUTPUT_CONTRACT_BLOCKED"
+    assert "operation_output_required" in blocked["explanation"]
+
+
+def test_orchestrator_dispatcher_failure_preserves_original_exception(temp_db):
+    ctx = _orchestrator_context_and_claim(temp_db, suffix="dispatcher_failure")
+    orchestrator = ContentOpsProductionOrchestrator(store=temp_db)
+    expected = RuntimeError("local stub failure must remain original")
+
+    def fail(operation, **kwargs):
+        raise expected
+
+    orchestrator._dispatcher = fail
+    with pytest.raises(RuntimeError) as caught:
+        orchestrator.execute("prepare_text_image_release_candidate", durable_context=ctx)
+    assert caught.value is expected
+    assert temp_db.get_work_item(ctx.work_item_id)["current_state"] == "EVIDENCE_BLOCKED"
+
+
+def test_orchestrator_pending_restart_requires_explicit_decision(temp_db):
+    ctx = _orchestrator_context_and_claim(temp_db, suffix="restart")
+    temp_db.transition_state(
+        work_item_id=ctx.work_item_id, expected_from_state="DISCOVERED", to_state="EVIDENCE_PENDING", expected_state_version=1,
+        actor_class="ContentOpsProductionOrchestrator", actor_ref=ctx.actor_ref, reason_code="LOCAL_PENDING_FIXTURE",
+        explanation="Create an explicit restart fixture", lease_key=ctx.lease_key, fencing_token=ctx.fencing_token,
+        input_artifact_ids=[], output_artifact_ids=[], correlation_id=ctx.correlation_id,
+    )
+    orchestrator = ContentOpsProductionOrchestrator(store=temp_db)
+    orchestrator._dispatcher = lambda operation, **kwargs: b"restart-safe-output"
+    with pytest.raises(ValueError, match="explicit_resume_decision_required:RESUME_RESTART_SAFE"):
+        orchestrator.execute("prepare_text_image_release_candidate", durable_context=ctx)
+    assert temp_db.get_work_item(ctx.work_item_id)["current_state"] == "EVIDENCE_PENDING"
+    ctx.attempt_decision = "RESUME_RESTART_SAFE"
+    assert orchestrator.execute("prepare_text_image_release_candidate", durable_context=ctx) == b"restart-safe-output"
+    assert temp_db.get_work_item(ctx.work_item_id)["current_state"] == "EVIDENCE_READY"
+
+
+def test_orchestrator_rejects_nondeterministic_structured_output(temp_db):
+    ctx = _orchestrator_context_and_claim(temp_db, suffix="unsupported")
+    orchestrator = ContentOpsProductionOrchestrator(store=temp_db)
+    orchestrator._dispatcher = lambda operation, **kwargs: {"unsupported": object()}
+    with pytest.raises(OperationLifecycleError, match="operation_output_unsupported_json_type:object"):
+        orchestrator.execute("prepare_text_image_release_candidate", durable_context=ctx)
+    assert temp_db.get_work_item(ctx.work_item_id)["current_state"] == "EVIDENCE_BLOCKED"
 
 
 def test_orchestrator_context_mismatch_rejection(temp_db):
@@ -539,30 +642,32 @@ def test_gitignore_database_family_patterns():
 
 
 def test_lossless_migration_v1_v2_v3_preserves_all_rows(tmp_path):
-    from live_contentops.durable_operational_store_v1 import MIGRATION_V1_SQL, MIGRATION_V2_SQL, compute_sha256
-    from datetime import datetime, timezone
     db_file = tmp_path / "legacy_test.sqlite"
+    store = ContentOpsDurableStore(db_file, auto_migrate=False)
+    assert store.run_migrations(target_version=1) == 1
 
-    conn = sqlite3.connect(str(db_file))
-    conn.executescript(MIGRATION_V1_SQL)
-    conn.execute("INSERT INTO schema_migrations VALUES (1, ?, '2026-08-01T00:00:00Z', 'v1');", (compute_sha256(MIGRATION_V1_SQL),))
+    conn = store.get_connection()
+    try:
+        conn.execute("BEGIN IMMEDIATE")
+        conn.execute("INSERT INTO work_items VALUES ('wi_legacy', 'story_legacy', 'Legacy Title', 'DISCOVERED', 1, 'eight_platform_all', '2026-08-01T00:00:00Z', '2026-08-01T00:00:00Z');")
+        conn.execute(
+            "INSERT INTO transition_events (event_id, transition_key, work_item_id, from_state, to_state, state_version, actor_class, actor_ref, reason_code, explanation, artifact_hash_set, correlation_id, timestamp_utc, authority_granted) "
+            "VALUES ('evt_legacy_1', 'tr_legacy_1', 'wi_legacy', 'DISCOVERED', 'DISCOVERED', 1, 'LegacyActor', 'legacy_ref', 'WORK_ITEM_INITIALIZATION', 'Legacy explanation', '[]', 'corr_leg', '2026-08-01T00:00:00Z', 0);"
+        )
+        conn.execute("COMMIT")
+    finally:
+        conn.close()
 
-    conn.execute("INSERT INTO work_items VALUES ('wi_legacy', 'story_legacy', 'Legacy Title', 'DISCOVERED', 1, 'eight_platform_all', '2026-08-01T00:00:00Z', '2026-08-01T00:00:00Z');")
-    conn.execute(
-        "INSERT INTO transition_events (event_id, transition_key, work_item_id, from_state, to_state, state_version, actor_class, actor_ref, reason_code, explanation, artifact_hash_set, correlation_id, timestamp_utc, authority_granted) "
-        "VALUES ('evt_legacy_1', 'tr_legacy_1', 'wi_legacy', 'DISCOVERED', 'DISCOVERED', 1, 'LegacyActor', 'legacy_ref', 'WORK_ITEM_INITIALIZATION', 'Legacy explanation', '[]', 'corr_leg', '2026-08-01T00:00:00Z', 0);"
-    )
-
-    for stmt in MIGRATION_V2_SQL.split(";"):
-        if stmt.strip():
-            conn.execute(stmt)
-    conn.execute("INSERT INTO schema_migrations VALUES (2, ?, '2026-08-01T00:00:00Z', 'v2');", (compute_sha256(MIGRATION_V2_SQL),))
-    conn.commit()
-    conn.close()
-
-    store = ContentOpsDurableStore(db_file, auto_migrate=True)
+    assert store.run_migrations(target_version=2) == 1
+    assert store.get_current_schema_version() == 2
+    assert store.run_migrations() == 1
     assert store.get_current_schema_version() == 3
     assert store.verify_schema_integrity() is True
+    assert [proof["status"] for proof in store.migration_proofs] == [
+        "PASS_LOSSLESS_MIGRATION",
+        "PASS_LOSSLESS_MIGRATION",
+        "PASS_LOSSLESS_MIGRATION",
+    ]
 
     replayed = store.replay_work_item_events("wi_legacy")
     assert replayed["verification_status"] == "PASS"
@@ -611,16 +716,29 @@ def test_event_column_payload_mismatch_rejection(temp_db):
 
 
 def test_artifact_verified_receipt_contract_validation(temp_db):
+    payload = b"independently resolved immutable receipt payload"
+    digest = compute_sha256(payload)
     receipt = {
         "schema_version": "contentops.artifact_receipt.v1",
         "receipt_id": "rcpt_1001",
         "source_identity": "repo_origin",
         "object_identity": "path/to/blob.bin",
-        "sha256_hash": "a" * 64,
-        "blob_hash": "a" * 64,
-        "byte_length": 1024,
+        "sha256_hash": digest,
+        "blob_hash": digest,
+        "byte_length": len(payload),
         "verifier_ref": "unit_test_verifier",
     }
+
+    def resolve_unit_test_receipt(candidate):
+        return {
+            "content_bytes": payload,
+            "source_identity": candidate["source_identity"],
+            "object_identity": candidate["object_identity"],
+            "object_hash": digest,
+            "immutable": True,
+        }
+
+    temp_db.register_receipt_resolver("unit_test_verifier", resolve_unit_test_receipt)
     art = temp_db.register_artifact(
         artifact_id="art_rcpt_1",
         artifact_type="receipt_type",
@@ -629,8 +747,9 @@ def test_artifact_verified_receipt_contract_validation(temp_db):
         producer_ref="producer_1",
         verified_receipt=receipt,
     )
-    assert art["sha256_hash"] == "a" * 64
-    assert art["byte_length"] == 1024
+    assert art["sha256_hash"] == digest
+    assert art["byte_length"] == len(payload)
+    assert art["receipt_verifier_identity"] == "unit_test_verifier"
 
     invalid_receipt = dict(receipt)
     del invalid_receipt["verifier_ref"]

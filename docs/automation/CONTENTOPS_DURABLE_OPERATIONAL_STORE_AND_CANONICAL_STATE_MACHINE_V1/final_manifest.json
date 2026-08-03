@@ -1,60 +1,73 @@
 {
   "schema_version": "contentops.wave02_final_manifest.v1",
-  "task": "TASK_CONTENTOPS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_V1",
-  "worker_classification": "PASS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
-  "wave_01_status": "COMPLETE_ACCEPTED_AND_MERGED",
-  "wave_02_status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
-  "wave_03_status": "NEXT_NOT_STARTED",
-  "next_task_pointer": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
-  "commit_topology": {
-    "base_master_head": "c87e338f25922f4d03454ba199139353ca7198ff",
-    "starting_branch_head": "33225d5e8d79ad229ad93d203e8d2e5018bb2738",
-    "audit_history": [
-      {
-        "attempt": 1,
-        "commit": "e24a4492e9d72f55c704168d637b7628e49140cd",
-        "result": "FAILED_INDEPENDENT_AUDIT",
-        "reason": "Missing fencing token enforcement, missing schema migrations table, authority_granted boolean, unredacted store export"
-      },
-      {
-        "attempt": 2,
-        "commit": "3cc531a3d30848f54329d25913018882f6b71bcd",
-        "result": "FAILED_INDEPENDENT_AUDIT",
-        "reason": "Missing genesis event, incomplete event payload envelope, unverified artifact claims, current status deleted"
-      },
-      {
-        "attempt": 3,
-        "commit": "33225d5e8d79ad229ad93d203e8d2e5018bb2738",
-        "result": "FAILED_INDEPENDENT_AUDIT",
-        "reason": "Destructive Migration v3 dropped pre-v3 transition_events rows, event columns not verified against payload, incomplete receipt verification"
-      },
-      {
-        "attempt": 4,
-        "commit_role": "final_lossless_correction_commit",
-        "task": "TASK_CONTENTOPS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_V1",
-        "status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT"
-      }
-    ],
-    "completing_commit_sha": null
+  "task": "TASK_CONTENTOPS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_V1",
+  "worker_classification": "PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+  "authority_roles": {
+    "accepted_master_authority": {
+      "head": "c87e338f25922f4d03454ba199139353ca7198ff",
+      "wave_01_status": "COMPLETE_ACCEPTED_AND_MERGED"
+    },
+    "historical_release_authority": {
+      "annotated_tag": "v1.0",
+      "release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+      "classification": "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED"
+    },
+    "candidate_branch_authority": {
+      "branch": "agent/contentops-wave02-durable-operational-store-v1",
+      "starting_head": "615a96fb20aa97fd76bb3343e9150daec40d9031",
+      "task": "TASK_CONTENTOPS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_V1",
+      "classification": "PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+      "wave_02_status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
+      "completing_commit_sha": null,
+      "merged": false
+    },
+    "planned_next_wave_after_candidate_acceptance": {
+      "wave_03_status": "NEXT_NOT_STARTED",
+      "next_task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1"
+    }
   },
-  "schema_version_number": 3,
-  "tables_count": 22,
-  "triggers_count": 4,
+  "schema": {
+    "version": 3,
+    "tables_count": 22,
+    "triggers_count": 5,
+    "semantic_migration_checksums": [
+      "b2b33da379e42c5897e419620da81b7692e64ea91269bc72976b4a1b768cb32e",
+      "de754d123416e9ef172f0ff3607c898f167971a0566c34dbae4dfa18d6a5a589",
+      "fff8a2f889cc174e8e27ee878212940c889f91eedd8e33f4a9877fdde7940697"
+    ]
+  },
+  "evidence_packet": {
+    "file_count": 13,
+    "classification_consistent": true,
+    "state_surface_count": 12,
+    "migration_proof_status": "PASS_LOSSLESS_MIGRATION",
+    "direct_insert_policy": "REJECT_UNLESS_INTERNAL_APPEND_AUTHORIZED"
+  },
   "validation_summary": {
-    "store_focused_tests": 24,
-    "wave02_metadata_tests": 4,
-    "wave01_metadata_tests": 5,
+    "wave02_store_tests": 28,
+    "wave02_authority_evidence_tests": 4,
     "quarantine_tests": 38,
     "compatibility_tests": 65,
     "closure_tests": 7,
-    "total_verified_tests": 143
+    "candidate_pass_total": 142,
+    "wave01_master_byte_suite": {
+      "passed": 4,
+      "failed": 1,
+      "disposition": "DISCLOSED_EXPECTED_BRANCH_ROLE_CONFLICT"
+    },
+    "monolithic_repository_suite": "NOT_RUN",
+    "ci_status_checks": "NOT_RUN_OR_AVAILABLE",
+    "independent_audit": "AWAITING"
   },
   "no_live_execution_truth": {
+    "credential_or_environment_value_reads": 0,
     "provider_calls": 0,
     "browser_cdp_sessions": 0,
-    "outbox_dispatches": 0,
-    "platform_writes": 0,
     "network_fetches": 0,
+    "scheduler_or_outbox_executions": 0,
+    "dispatches": 0,
+    "publication_attempts": 0,
+    "platform_writes": 0,
     "public_writes": 0
   }
 }

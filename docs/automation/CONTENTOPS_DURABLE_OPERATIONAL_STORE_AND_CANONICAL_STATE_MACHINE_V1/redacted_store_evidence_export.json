@@ -17,38 +17,38 @@
   "migrations": [
     {
       "version": 1,
-      "checksum": "727ae6e4904a2577c385f390ee798942bfb88bdcb4a0ea5642de8e631a617a6d",
-      "applied_at": "2026-08-03T17:49:59.854199+00:00",
+      "checksum": "b2b33da379e42c5897e419620da81b7692e64ea91269bc72976b4a1b768cb32e",
+      "applied_at": "2026-08-04T00:00:00+00:00",
       "description": "Initial Wave 02 Durable Operational Store Schema"
     },
     {
       "version": 2,
-      "checksum": "036bcd8b7cd82208a4bd48653cb83ce25229bc67dbcaa6301ff9f8e6e1530488",
-      "applied_at": "2026-08-03T17:49:59.884542+00:00",
-      "description": "Wave 02 Fencing, Artifact Integrity, and Structured Event Chain Upgrade"
+      "checksum": "de754d123416e9ef172f0ff3607c898f167971a0566c34dbae4dfa18d6a5a589",
+      "applied_at": "2026-08-04T00:00:00+00:00",
+      "description": "Deterministic legacy sequence assignment"
     },
     {
       "version": 3,
-      "checksum": "e61387fd0f7998ef747302feb0928481998986ba056c9b5155d1e24e10d65b99",
-      "applied_at": "2026-08-03T17:49:59.909632+00:00",
-      "description": "Wave 02 Schema v3: Cryptographic Event Payload Envelope and Immutable Artifact Triggers"
+      "checksum": "fff8a2f889cc174e8e27ee878212940c889f91eedd8e33f4a9877fdde7940697",
+      "applied_at": "2026-08-04T00:00:00+00:00",
+      "description": "Canonical event envelopes, receipt scope, and append guards"
     }
   ],
   "work_items": [
     {
       "work_item_id": "wi_sample",
-      "story_id": "77e4151178b99030",
+      "story_id": "20a07835034c634f",
       "title": "[REDACTED_TITLE]",
       "current_state": "EVIDENCE_PENDING",
       "state_version": 2,
       "target_surface": "eight_platform_all",
-      "created_at": "2026-08-03T17:49:59.925803+00:00",
-      "updated_at": "2026-08-03T17:49:59.954802+00:00"
+      "created_at": "2026-08-04T00:00:00+00:00",
+      "updated_at": "2026-08-04T00:00:00+00:00"
     }
   ],
   "transition_events": [
     {
-      "event_id": "evt_453b9bd4e0f67537",
+      "event_id": "evt_487698934a80822c",
       "work_item_id": "wi_sample",
       "event_seq": 1,
       "from_state": "DISCOVERED",
@@ -58,16 +58,16 @@
       "actor_ref": "[REDACTED_ACTOR_REF]",
       "reason_code": "WORK_ITEM_INITIALIZATION",
       "explanation": "[REDACTED_EXPLANATION]",
-      "explanation_hash": "9969a24619d9707cfcd6a949fc223decdc7cc47cd155b648a53ad9c9c2ab3052",
+      "explanation_hash": "06c1019692c72565403d27c3edef186e4ae0f5eeaa6956ced2bc15f5643dabed",
       "correlation_id": "corr_init_wi_sample",
       "previous_event_hash": "GENESIS_0000000000000000000000000000000000000000000000000000000000000000",
-      "event_hash": "b05dc3f6b76b0d55e239761d42ba1cbf1342a6ff3701c0cda7eeab174ca4015b",
+      "event_hash": "487698934a80822ca8d9fbdeadf39c2f2297ec1ecf05eb1b0765d3fc44c3a30c",
       "authority_type": "NONE",
       "authority_effect": "NO_AUTHORITY_GRANTED",
-      "timestamp_utc": "2026-08-03T17:49:59.925803+00:00"
+      "timestamp_utc": "2026-08-04T00:00:00+00:00"
     },
     {
-      "event_id": "evt_ab2705a788868c1d",
+      "event_id": "evt_da1ee3d30983df21",
       "work_item_id": "wi_sample",
       "event_seq": 2,
       "from_state": "DISCOVERED",
@@ -77,13 +77,14 @@
       "actor_ref": "[REDACTED_ACTOR_REF]",
       "reason_code": "SAMPLE_REASON",
       "explanation": "[REDACTED_EXPLANATION]",
-      "explanation_hash": "f711e9c7a77ca6fc5263a720b46a1bfafd7849d90ddc6e2649c2862683f397de",
+      "explanation_hash": "f3b1147f9fcb24a3bcfa97f3f3e0763aacd4ec6e4f0f6778bf640be3c1388c29",
       "correlation_id": "corr_sample",
-      "previous_event_hash": "b05dc3f6b76b0d55e239761d42ba1cbf1342a6ff3701c0cda7eeab174ca4015b",
-      "event_hash": "b5a5f4484c7783855da3962c6411c3171dfab125943aa1753cbc29e2ba2e31af",
+      "previous_event_hash": "487698934a80822ca8d9fbdeadf39c2f2297ec1ecf05eb1b0765d3fc44c3a30c",
+      "event_hash": "da1ee3d30983df21a751d2df02ac640bd203d306ff20ff8632e92570f34260b4",
       "authority_type": "NONE",
       "authority_effect": "NO_AUTHORITY_GRANTED",
-      "timestamp_utc": "2026-08-03T17:49:59.954802+00:00"
+      "timestamp_utc": "2026-08-04T00:00:00+00:00"
     }
-  ]
+  ],
+  "worker_classification": "PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT"
 }

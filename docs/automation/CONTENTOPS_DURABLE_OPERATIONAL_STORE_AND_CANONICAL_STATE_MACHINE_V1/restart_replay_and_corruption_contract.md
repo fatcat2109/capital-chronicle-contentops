@@ -1,39 +1,30 @@
 # Restart Replay and Corruption Contract — Wave 02 Durable Operational Store
 
-## 1. Append-Only Transition Event Log
+Worker Classification:
+`PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
-All state transitions produce an immutable record in `transition_events`.
+## 1. Canonical Append-Only Event Log
 
-Table columns:
-- `event_id`: Primary key (`evt_<hash>`)
-- `transition_key`: Unique transition identifier (`tr_<work_item_id>_v<ver>_<hash>`)
-- `work_item_id`: Foreign key to `work_items`
-- `from_state` & `to_state`: Pinned state strings
-- `state_version`: Monotonic 1-based version number
-- `actor_class` & `actor_ref`: Responsible process/agent
-- `reason_code` & `explanation`: Structured decision rationale
-- `artifact_hash_set`: JSON array of SHA-256 artifact hashes
-- `correlation_id`: Traceability identifier
-- `timestamp_utc`: ISO UTC timestamp
-- `authority_granted`: Integer boolean (0 or 1)
+Every work item starts with a dedicated `WORK_ITEM_CREATED` genesis envelope. Every later state mutation appends one schema-versioned canonical envelope containing event kind/sequence, work-item/story identity, from/to state and versions, actor/reason/explanation hash, correlation/policy/model bindings, authority fields, lease/fencing fields, exact ordered input/output artifact IDs, exact artifact snapshots, timestamp, and previous-event hash.
 
-### Append-Only Triggers
-Two SQLite database triggers (`trg_transition_events_no_update` and `trg_transition_events_no_delete`) abort any SQL `UPDATE` or `DELETE` attempt on `transition_events` with `RAISE(ABORT)`.
+Only the internal event append transaction enables the connection-local `contentops_append_authorized()` function. `trg_transition_events_append_authorized` rejects direct INSERT, and no-update/no-delete triggers reject mutation. Authorization resets in `finally` after both success and failure.
 
-## 2. Deterministic Event Replay (`replay_work_item_events`)
+## 2. Deterministic Replay
 
-`replay_work_item_events(work_item_id)` re-simulates state evolution from initial state `DISCOVERED` at `state_version = 1` through every event in `transition_events` ordered by `state_version ASC`.
+`replay_work_item_events(work_item_id)` verifies every accepted event rather than trusting stored payloads:
 
-Verification rules:
-1. Every event's `from_state` must equal the computed state from the preceding event.
-2. Every event's `state_version` must equal `previous_version + 1`.
-3. The final replayed state and state_version must match `work_items.current_state` and `work_items.state_version`.
+1. Accepted envelope schema version and exact genesis kind/bindings.
+2. Contiguous event sequence and state version.
+3. Legal transition graph edge and exact from/to projection.
+4. Recomputed explanation hash, canonical payload, event hash, and previous-event chain.
+5. Exact actor, reason, correlation, policy/model, authority, lease/fencing, timestamp, and work-item/story fields.
+6. Exact input/output artifact ID arrays and independently reconstructed artifact snapshots, including receipt provenance and reuse scope.
+7. Final replayed state/version against the materialized `work_items` projection.
 
-If any mismatch occurs (e.g. manual table mutation, missing event, or corrupted state), `replay_work_item_events()` raises `DurableStateCorruptionError`.
+Any mismatch raises `DurableStateCorruptionError`. Direct inserts fail at SQLite trigger enforcement before replay.
 
-## 3. Restart Safety & Recovery (`reconstruct_in_flight_state`)
+## 3. Restart and Orchestrator Recovery
 
-On system startup or crash recovery, `reconstruct_in_flight_state()`:
-1. Evaluates all active leases and marks expired leases as `EXPIRED`.
-2. Iterates over all work items in `work_items` and runs `replay_work_item_events()` to assert zero state corruption.
-3. Emits a deterministic restart reconstruction report (`restart_reconstruction_status = "PASS"`).
+`reconstruct_in_flight_state()` expires stale leases through the injected clock, atomically expires/releases related assignments and heartbeats, replays every work item, and returns a deterministic PASS report only if all projections verify.
+
+Orchestrator operation contracts classify operations as `RESTART_SAFE` or `RECONCILIATION_REQUIRED`, define exact output requirements/canonicalization, and constrain capabilities. Existing `EVIDENCE_PENDING` work cannot be blindly rerun: an explicit attempt decision is required. Dispatcher/output failures append a truthful `EVIDENCE_BLOCKED` event where legal while preserving the original exception.

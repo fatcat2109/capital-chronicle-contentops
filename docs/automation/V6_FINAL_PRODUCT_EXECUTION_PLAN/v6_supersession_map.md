@@ -94,4 +94,4 @@ Wave 00 local plan closeout
 
 `TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
 
-Wave 01 classification is `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED` and is complete accepted and merged. Wave 02 classification is `PASS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT` and status is `COMPLETE_AWAITING_INDEPENDENT_AUDIT`. Wave 03 is the exact next task (`NEXT_NOT_STARTED`) and is an approval envelope and transactional outbox boundary. No live authority is granted by this supersession map.
+Wave 01 classification is `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED` and is complete accepted and merged. Wave 02 classification is `PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT` and status is `COMPLETE_AWAITING_INDEPENDENT_AUDIT`. Wave 03 is the exact next task (`NEXT_NOT_STARTED`) and is an approval envelope and transactional outbox boundary. No live authority is granted by this supersession map.
