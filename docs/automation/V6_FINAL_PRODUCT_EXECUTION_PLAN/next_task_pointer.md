@@ -16,49 +16,36 @@ Historical correction classification:
 
 `PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
-Historical Wave 01 worker classification:
+Current Wave 02 worker classification:
 
-`PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`
+`PASS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1_AWAITING_INDEPENDENT_AUDIT`
 
-Completed Wave 01 acceptance task:
-
-`TASK_CONTENTOPS_WAVE01_ACCEPTANCE_MASTER_MERGE_AND_CLI_COVERAGE_RECONCILIATION_V1`
-
-Working branch:
-
-`master`
-
-Pre-merge target master HEAD:
-
-`a0c9d0a67e39c614d5a80cd758f219dcac9b11ff`
-
-Accepted source HEAD:
-
-`7d7d55039a68b4dbaec631ac75af6b7e418f7500`
-
-Merge commit:
-
-`d5c53655435e8340b3b79ddc3779e1f833eeb311`
-
-Accepted master HEAD before reconciliation:
-
-`5c90e6d243b705f74cac40547083565f4899197b`
-
-The independent audit accepted the executable Wave 01 boundary for merge. The post-merge acceptance commit reconciled minor test/evidence coverage to exhaustively cover all 12 mutation-capable CLI argument families.
-
-## Required next action
+Completed Wave 02 task:
 
 `TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
+Working branch:
+
+`agent/contentops-wave02-durable-operational-store-v1`
+
+Starting master HEAD:
+
+`c87e338f25922f4d03454ba199139353ca7198ff`
+
+Wave 02 has implemented the single authoritative SQLite WAL operational store (`ContentOpsDurableStore`), versioned migrations, append-only transition log, compare-and-set state machine across 29 canonical states, transactional leases with monotonic fencing tokens, restart safety, deterministic event replay, corruption detection, and redacted evidence export.
+
+## Required next action
+
+`TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
+
 ## Execution boundary
 
-This is Wave 02 from the accepted institutional hardening plan. It remains `NEXT_NOT_STARTED` and is schema/local-persistence work to create the SQLite WAL operational spine, explicit versioned migrations, append-only transitions, compare-and-set state changes, immutable artifact references, leases/heartbeats, restart reconstruction, deterministic replay, and redacted evidence export. It grants no credential, provider, browser, platform, scheduler/outbox execution, dispatch, publication, network, or public-write authority.
+This is Wave 03 from the accepted institutional hardening plan. It remains `NEXT_NOT_STARTED` and is an approval-envelope, transactional outbox, and expiry boundary. It grants no credential, provider, browser, platform, scheduler/outbox execution, dispatch, publication, network, or public-write authority.
 
 ## Required starting authority
 
-- Wave 01 status is `COMPLETE_ACCEPTED_AND_MERGED` under classification `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`.
-- Wave 02 is `NEXT_NOT_STARTED` and remains gated until independent audit of this final evidence reconciliation.
-- Read Wave 02 in `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_HARDENING_EXECUTION_PLAN.md` before implementation.
+- Wave 02 status is `COMPLETE_AWAITING_INDEPENDENT_AUDIT` under classification `PASS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1_AWAITING_INDEPENDENT_AUDIT`.
+- Wave 03 is `NEXT_NOT_STARTED` and remains gated until independent audit of Wave 02 evidence.
 - Preserve `v1.0`, accepted release evidence, the canonical orchestrator boundary, and historical replay packets unchanged.
 - Do not add a second runner, scheduler, state store, outbox, approval engine, provider gateway, or dashboard.
-- Do not commit the mutable SQLite database, persist raw secrets/session material, hide transaction semantics, or silently discard malformed state.
+- Do not commit mutable SQLite databases, persist raw secrets/session material, hide transaction semantics, or silently discard malformed state.

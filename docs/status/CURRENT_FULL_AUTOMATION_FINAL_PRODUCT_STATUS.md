@@ -83,9 +83,9 @@ one canonical production entrypoint
 
 ## Current next task
 
-`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
+`TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
 
-Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status: `COMPLETE_ACCEPTED_AND_MERGED`. Wave 02 status: `NEXT_NOT_STARTED`. Exactly one registry row is canonical, and executable control flows from the public compatibility API or canonical module/script CLI through ContentOpsProductionOrchestrator.execute(...) to one private dispatcher and one private implementation body. Alternate runner/server/scheduler/CLI/browser-profile routes remain delegated or fail closed. Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary for SQLite WAL, migrations, append-only transitions, compare-and-set state, leases, restart reconstruction, and redacted evidence export. It grants no credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public-write authority.
+Wave 02 classification: `PASS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1_AWAITING_INDEPENDENT_AUDIT`. Wave 02 status: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`. Wave 03 status: `NEXT_NOT_STARTED`. Wave 03 is the exact next task and has not started. It grants no credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public-write authority.
 
 ## No current live authority
 

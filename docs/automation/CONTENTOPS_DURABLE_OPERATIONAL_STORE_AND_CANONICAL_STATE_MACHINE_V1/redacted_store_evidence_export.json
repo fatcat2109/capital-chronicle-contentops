@@ -1,0 +1,60 @@
+{
+  "schema_version": "contentops.durable_store_export.v1",
+  "database_path": "export.sqlite",
+  "wal_mode_enabled": true,
+  "foreign_keys_enabled": true,
+  "schema_migrations": [
+    {
+      "version": 1,
+      "checksum": "f5134796b2551a6058e5df80ae0dfc362ce8fee45e7d6b24f1aecf7a0baa36a3",
+      "applied_at": "2026-08-03T16:27:15.337883+00:00",
+      "description": "Initial Wave 02 Durable Operational Store Schema"
+    }
+  ],
+  "counts": {
+    "operational_windows": 0,
+    "scheduler_ticks": 0,
+    "work_items": 1,
+    "transition_events": 1,
+    "leases": 0
+  },
+  "work_items": [
+    {
+      "work_item_id": "item_6a08d3f3e631cca3",
+      "story_id": "story_treasury_20260714",
+      "target_surface": "eight_platform_all",
+      "current_state": "EVIDENCE_PENDING",
+      "state_version": 2,
+      "lock_version": 1,
+      "created_at": "2026-08-03T16:27:15.361884+00:00",
+      "updated_at": "2026-08-03T16:27:15.385571+00:00"
+    }
+  ],
+  "transition_events": [
+    {
+      "event_id": "evt_8b90110e715c9154",
+      "transition_key": "tr_item_6a08d3f3e631cca3_v2_11e1305e",
+      "work_item_id": "item_6a08d3f3e631cca3",
+      "from_state": "DISCOVERED",
+      "to_state": "EVIDENCE_PENDING",
+      "state_version": 2,
+      "actor_class": "ContentOpsProductionOrchestrator",
+      "reason_code": "EVIDENCE_INGEST",
+      "artifact_hash_set": "[\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"]",
+      "correlation_id": "corr_export_001",
+      "timestamp_utc": "2026-08-03T16:27:15.385571+00:00",
+      "authority_granted": 0
+    }
+  ],
+  "leases": [],
+  "replay_verifications": [
+    {
+      "work_item_id": "item_6a08d3f3e631cca3",
+      "replayed_state": "EVIDENCE_PENDING",
+      "replayed_version": 2,
+      "event_count": 1,
+      "verification": "PASS"
+    }
+  ],
+  "redaction_guarantee": "PASS_NO_SECRETS_CREDENTIALS_OR_PRIVATE_MATERIAL"
+}

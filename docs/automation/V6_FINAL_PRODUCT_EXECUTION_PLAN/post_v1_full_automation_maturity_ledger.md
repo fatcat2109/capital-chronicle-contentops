@@ -6,7 +6,7 @@ It does not invalidate the historical V6 25-task completion ledger. The prior le
 
 Current classification:
 
-`PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
+`PASS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1_AWAITING_INDEPENDENT_AUDIT`
 
 Audit base:
 
@@ -16,8 +16,8 @@ Audit base:
 |---:|---|---|---|
 | 00 | Local plan closeout and authority reconciliation | COMPLETE_ACCEPTED_AND_MERGED | Exact branch bytes, docs/evidence scope and protected baseline verified; explicit non-fast-forward merge plus one authority commit; no runtime or live action. |
 | 01 | Canonical production entrypoint and legacy live-path quarantine | COMPLETE_ACCEPTED_AND_MERGED | One canonical orchestrator row; one compatibility delegate; thirteen noncanonical live-capable surfaces fail closed before their dangerous boundaries. |
-| 02 | Durable operational store and canonical state machine | NEXT_NOT_STARTED | SQLite WAL, append-only transitions, leases, transactions, restart reconstruction. |
-| 03 | Exact approval envelope and transactional outbox | NOT_STARTED | Hash-bound expiry-aware approval; atomic outbox; no boolean authority. |
+| 02 | Durable operational store and canonical state machine | COMPLETE_AWAITING_INDEPENDENT_AUDIT | SQLite WAL, append-only transitions, leases, transactions, restart reconstruction. |
+| 03 | Exact approval envelope and transactional outbox | NEXT_NOT_STARTED | Hash-bound expiry-aware approval; atomic outbox; no boolean authority. |
 | 04 | Restart-safe supervisor, continuous windows and scheduler | NOT_STARTED | Durable recurring windows, no-op outcomes, heartbeat, catch-up and restart safety. |
 | 05 | Tier-1 adapter conformance, unknown-write and recovery | NOT_STARTED | Common adapter contract; no blind retry; exact readback/repair/resume. |
 | 06 | Model registry, 9router Gemini 3.1 Pro and evaluation harness | NOT_STARTED | Exact verified model ID, shared gateway, structured outputs, corpus/promotion policy. |

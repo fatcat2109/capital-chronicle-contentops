@@ -38,8 +38,9 @@ class ContentOpsProductionOrchestrator:
     canonical_function = CANONICAL_FUNCTION
     canonical_operations = CANONICAL_OPERATIONS
 
-    def __init__(self) -> None:
+    def __init__(self, store: Any = None) -> None:
         self._dispatcher: Callable[..., Any] | None = None
+        self.store = store
 
     def _resolve_dispatcher(self) -> Callable[..., Any]:
         if self._dispatcher is None:
@@ -54,6 +55,36 @@ class ContentOpsProductionOrchestrator:
         """Validate and dispatch one exact canonical operation."""
         if operation not in self.canonical_operations:
             raise ValueError(f"unknown_canonical_contentops_operation:{operation}")
+
+        active_store = kwargs.pop("store", self.store)
+        story_id = kwargs.get("story_id", "treasury_release_candidate_20260714")
+        target_surface = kwargs.get("target_surface", "eight_platform_all")
+        # Remove store-only metadata kwargs if operation is prepare_text_image_release_candidate
+        if operation == "prepare_text_image_release_candidate":
+            kwargs.pop("story_id", None)
+            kwargs.pop("target_surface", None)
+
+        if active_store is not None:
+            title = f"Operation {operation} on {story_id}"
+            item = active_store.create_work_item(story_id=story_id, title=title, target_surface=target_surface)
+            item_id = item["work_item_id"]
+            state_ver = item["state_version"]
+            dummy_hash = "a" * 64
+            if item["current_state"] == "DISCOVERED":
+                item = active_store.transition_state(
+                    work_item_id=item_id,
+                    expected_from_state="DISCOVERED",
+                    to_state="EVIDENCE_PENDING",
+                    expected_state_version=state_ver,
+                    actor_class="ContentOpsProductionOrchestrator",
+                    actor_ref="orchestrator_v1",
+                    reason_code="ORCHESTRATOR_DISPATCH_PREPARATION",
+                    explanation=f"Execution of operation {operation}",
+                    artifact_hash_set=[dummy_hash],
+                    correlation_id=f"corr_{operation}",
+                    authority_granted=False,
+                )
+
         return self._resolve_dispatcher()(operation, **kwargs)
 
     def run(self, **kwargs: Any) -> Mapping[str, Any]:

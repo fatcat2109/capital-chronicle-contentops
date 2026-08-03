@@ -1,0 +1,55 @@
+{
+  "schema_version": "contentops.durable_store_schema_manifest.v1",
+  "task": "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1",
+  "store_module": "live_contentops.durable_operational_store_v1",
+  "sqlite_pragmas": {
+    "journal_mode": "WAL",
+    "foreign_keys": "ON",
+    "busy_timeout_ms": 5000
+  },
+  "tables": [
+    "schema_migrations",
+    "operational_windows",
+    "scheduler_ticks",
+    "work_items",
+    "story_versions",
+    "assignments",
+    "artifact_references",
+    "transition_events",
+    "model_invocations",
+    "review_records",
+    "operator_decisions",
+    "leases",
+    "heartbeats",
+    "approval_envelopes",
+    "outbox_messages",
+    "platform_dispatches",
+    "readbacks",
+    "reconciliations",
+    "incidents",
+    "metrics",
+    "feedback_records",
+    "learning_reviews"
+  ],
+  "triggers": [
+    {
+      "name": "trg_transition_events_no_update",
+      "target_table": "transition_events",
+      "event": "BEFORE UPDATE",
+      "action": "RAISE(ABORT, 'transition_events are append-only: UPDATE forbidden')"
+    },
+    {
+      "name": "trg_transition_events_no_delete",
+      "target_table": "transition_events",
+      "event": "BEFORE DELETE",
+      "action": "RAISE(ABORT, 'transition_events are append-only: DELETE forbidden')"
+    }
+  ],
+  "migrations": [
+    {
+      "version": 1,
+      "description": "Initial Wave 02 Durable Operational Store Schema",
+      "checksum": "17387431e33c70eb352ff23fa156fb15ee761a25db8d39c9f7a77e68fa70757d"
+    }
+  ]
+}

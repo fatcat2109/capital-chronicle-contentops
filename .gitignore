@@ -50,3 +50,12 @@ scratch/*.jpg
 scratch/*.jpeg
 scratch/*.webp
 scratch/*.html
+
+# SQLite database, WAL, SHM, and backup files — never commit mutable databases
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite.bak
+*.db
+*.db-wal
+*.db-shm

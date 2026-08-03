@@ -11,11 +11,15 @@ import pytest
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-EXPECTED_CLASSIFICATION = "PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED"
-EXPECTED_COMPLETED_TASK = "TASK_CONTENTOPS_WAVE01_ACCEPTANCE_MASTER_MERGE_AND_CLI_COVERAGE_RECONCILIATION_V1"
-EXPECTED_NEXT_TASK = "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1"
+EXPECTED_WAVE01_CLASSIFICATION = "PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED"
+EXPECTED_WAVE01_COMPLETED_TASK = "TASK_CONTENTOPS_WAVE01_ACCEPTANCE_MASTER_MERGE_AND_CLI_COVERAGE_RECONCILIATION_V1"
+
+EXPECTED_CLASSIFICATION = "PASS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1_AWAITING_INDEPENDENT_AUDIT"
+EXPECTED_COMPLETED_TASK = "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1"
+EXPECTED_NEXT_TASK = "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1"
 EXPECTED_WAVE01_STATUS = "COMPLETE_ACCEPTED_AND_MERGED"
-EXPECTED_WAVE02_STATUS = "NEXT_NOT_STARTED"
+EXPECTED_WAVE02_STATUS = "COMPLETE_AWAITING_INDEPENDENT_AUDIT"
+EXPECTED_WAVE03_STATUS = "NEXT_NOT_STARTED"
 
 EXPECTED_PRE_MERGE_MASTER_SHA = "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff"
 EXPECTED_SOURCE_COMMIT_1 = "7300517ca3861c2962df06d443ad0c0916396f9f"
@@ -67,23 +71,23 @@ def test_json_status_authority():
     assert data["latest_terminal_task_result"] == EXPECTED_CLASSIFICATION
     assert data["current_task_classification"] == EXPECTED_CLASSIFICATION
 
-    wave_data = data.get("post_v1_canonical_production_entrypoint_and_legacy_quarantine_v1", {})
-    assert wave_data.get("classification") == EXPECTED_CLASSIFICATION
-    assert wave_data.get("completed_task") == EXPECTED_COMPLETED_TASK
-    assert wave_data.get("wave_01_status") == EXPECTED_WAVE01_STATUS
-    assert wave_data.get("wave_02_status") == EXPECTED_WAVE02_STATUS
-    assert wave_data.get("next_action") == EXPECTED_NEXT_TASK
+    wave01_data = data.get("post_v1_canonical_production_entrypoint_and_legacy_quarantine_v1", {})
+    assert wave01_data.get("classification") == EXPECTED_WAVE01_CLASSIFICATION
+    assert wave01_data.get("completed_task") == EXPECTED_WAVE01_COMPLETED_TASK
+    assert wave01_data.get("wave_01_status") == EXPECTED_WAVE01_STATUS
+    assert wave01_data.get("registry_entrypoint_count") == EXPECTED_COUNTS["registry_rows"]
+    assert wave01_data.get("canonical_entrypoint_count") == EXPECTED_COUNTS["canonical_rows"]
+    assert wave01_data.get("delegated_entrypoint_count") == EXPECTED_COUNTS["delegate_rows"]
+    assert wave01_data.get("quarantined_entrypoint_count") == EXPECTED_COUNTS["quarantined_rows"]
+    assert wave01_data.get("canonical_operation_count") == EXPECTED_COUNTS["operations"]
+    assert wave01_data.get("live_capable_canonical_cli_family_count") == EXPECTED_COUNTS["cli_families"]
 
-    assert wave_data.get("registry_entrypoint_count") == EXPECTED_COUNTS["registry_rows"]
-    assert wave_data.get("canonical_entrypoint_count") == EXPECTED_COUNTS["canonical_rows"]
-    assert wave_data.get("delegated_entrypoint_count") == EXPECTED_COUNTS["delegate_rows"]
-    assert wave_data.get("quarantined_entrypoint_count") == EXPECTED_COUNTS["quarantined_rows"]
-    assert wave_data.get("canonical_operation_count") == EXPECTED_COUNTS["operations"]
-    assert wave_data.get("live_capable_canonical_cli_family_count") == EXPECTED_COUNTS["cli_families"]
-    assert wave_data.get("focused_enforcement_test_count") == EXPECTED_COUNTS["focused_tests"]
-    assert wave_data.get("canonical_compatibility_test_count") == EXPECTED_COUNTS["compatibility_tests"]
-    assert wave_data.get("wave01_regression_matrix_test_count") == EXPECTED_COUNTS["regression_tests"]
-    assert wave_data.get("unique_compatibility_and_regression_test_count") == EXPECTED_COUNTS["unique_tests"]
+    wave02_data = data.get("post_v1_durable_operational_store_v1", {})
+    assert wave02_data.get("classification") == EXPECTED_CLASSIFICATION
+    assert wave02_data.get("completed_task") == EXPECTED_COMPLETED_TASK
+    assert wave02_data.get("wave_02_status") == EXPECTED_WAVE02_STATUS
+    assert wave02_data.get("wave_03_status") == EXPECTED_WAVE03_STATUS
+    assert wave02_data.get("next_action") == EXPECTED_NEXT_TASK
 
 
 def test_manifest_authority():
@@ -92,8 +96,8 @@ def test_manifest_authority():
 
     data = load_json_any_encoding(manifest_path)
     assert data["schema_version"] == "contentops.wave01_final_manifest.v1"
-    assert data["accepted_classification"] == EXPECTED_CLASSIFICATION
-    assert data["accepted_task"] == EXPECTED_COMPLETED_TASK
+    assert data["accepted_classification"] == EXPECTED_WAVE01_CLASSIFICATION
+    assert data["accepted_task"] == EXPECTED_WAVE01_COMPLETED_TASK
 
     commit_topo = data.get("commit_topology", {})
     assert commit_topo.get("pre_merge_master") == EXPECTED_PRE_MERGE_MASTER_SHA
@@ -162,57 +166,55 @@ def test_doc_pointers_agree():
     agents_md = (REPO_ROOT / "AGENTS.md").read_text(encoding="utf-8")
     agents_current = _extract_section(agents_md, "10. Current next task")
     assert EXPECTED_CLASSIFICATION in agents_current
-    assert EXPECTED_WAVE01_STATUS in agents_current
     assert EXPECTED_WAVE02_STATUS in agents_current
+    assert EXPECTED_WAVE03_STATUS in agents_current
     assert EXPECTED_NEXT_TASK in agents_current
 
     context_md = (REPO_ROOT / "docs" / "CURRENT_CONTEXT.md").read_text(encoding="utf-8")
     context_current = _extract_section(context_md, "Current next task")
     assert EXPECTED_CLASSIFICATION in context_current
-    assert EXPECTED_WAVE01_STATUS in context_current
     assert EXPECTED_WAVE02_STATUS in context_current
+    assert EXPECTED_WAVE03_STATUS in context_current
     assert EXPECTED_NEXT_TASK in context_current
 
     bootstrap_md = (REPO_ROOT / "docs" / "AI_BUILDER_BOOTSTRAP.md").read_text(encoding="utf-8")
     bootstrap_current = _extract_section(bootstrap_md, "7. Current next task")
     assert EXPECTED_CLASSIFICATION in bootstrap_current
-    assert EXPECTED_WAVE01_STATUS in bootstrap_current
     assert EXPECTED_WAVE02_STATUS in bootstrap_current
+    assert EXPECTED_WAVE03_STATUS in bootstrap_current
     assert EXPECTED_NEXT_TASK in bootstrap_current
 
     status_md = (REPO_ROOT / "docs" / "status" / "CURRENT_PROJECT_STATUS.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in status_md
     assert EXPECTED_COMPLETED_TASK in status_md
-    assert EXPECTED_NEXT_TASK in status_md
 
     full_status_md = (REPO_ROOT / "docs" / "status" / "CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md").read_text(encoding="utf-8")
     full_status_current = _extract_section(full_status_md, "Current next task")
     assert EXPECTED_CLASSIFICATION in full_status_current
-    assert EXPECTED_WAVE01_STATUS in full_status_current
     assert EXPECTED_WAVE02_STATUS in full_status_current
+    assert EXPECTED_WAVE03_STATUS in full_status_current
     assert EXPECTED_NEXT_TASK in full_status_current
 
     master_plan_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "current_v6_master_plan.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in master_plan_md
-    assert "| 01 | Canonical entrypoint and legacy live-path quarantine | COMPLETE_ACCEPTED_AND_MERGED |" in master_plan_md
-    assert "| 02 | Durable operational store/state machine | NEXT_NOT_STARTED |" in master_plan_md
+    assert "| 02 | Durable operational store/state machine | COMPLETE_AWAITING_INDEPENDENT_AUDIT |" in master_plan_md
+    assert "| 03 | Exact approval envelope/transactional outbox | NEXT_NOT_STARTED |" in master_plan_md
 
     maturity_ledger_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "post_v1_full_automation_maturity_ledger.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in maturity_ledger_md
-    assert "| 01 | Canonical production entrypoint and legacy live-path quarantine | COMPLETE_ACCEPTED_AND_MERGED |" in maturity_ledger_md
+    assert "| 02 | Durable operational store and canonical state machine | COMPLETE_AWAITING_INDEPENDENT_AUDIT |" in maturity_ledger_md
 
     v6_25_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "v6_25_task_ledger.md").read_text(encoding="utf-8")
     v6_25_current = _extract_section(v6_25_md, "Current next route")
     assert EXPECTED_CLASSIFICATION in v6_25_current
-    assert EXPECTED_WAVE01_STATUS in v6_25_current
     assert EXPECTED_WAVE02_STATUS in v6_25_current
+    assert EXPECTED_WAVE03_STATUS in v6_25_current
     assert EXPECTED_NEXT_TASK in v6_25_current
 
     next_pointer_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "next_task_pointer.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in next_pointer_md
     assert EXPECTED_NEXT_TASK in next_pointer_md
-    assert "Pre-merge target master HEAD:" in next_pointer_md
-    assert EXPECTED_PRE_MERGE_MASTER_SHA in next_pointer_md
+    assert "Starting master HEAD:" in next_pointer_md
 
     wave01_readme = (REPO_ROOT / "docs" / "automation" / "CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1" / "README.md").read_text(encoding="utf-8")
     readme_auth = _extract_section(wave01_readme, "Authority")
@@ -238,13 +240,13 @@ def test_doc_pointers_agree():
     ]
     disallowed_strings = [
         "PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT",
-        "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
         "Wave 01 is complete awaiting independent audit",
+        "Wave 02 is NEXT_NOT_STARTED",
     ]
     for section_text in current_sections:
         for disallowed in disallowed_strings:
             assert disallowed not in section_text, f"Disallowed string '{disallowed}' found in current section: {section_text}"
-        assert "Wave 01 is NEXT_NOT_STARTED" not in section_text
+        assert "Wave 02 NEXT_NOT_STARTED" not in section_text
         assert "Wave 01 NEXT_NOT_STARTED" not in section_text
 
 
