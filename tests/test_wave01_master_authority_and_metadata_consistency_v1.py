@@ -120,6 +120,7 @@ def test_manifest_authority():
     assert val.get("wave01_regression_matrix_pytest", {}).get("test_count") == EXPECTED_COUNTS["regression_tests"]
     assert val.get("unique_tests_across_compatibility_and_regression_matrices") == EXPECTED_COUNTS["unique_tests"]
     assert val.get("final_automation_closure_pytest", {}).get("test_count") == EXPECTED_COUNTS["closure_tests"]
+    assert val.get("wave01_master_authority_and_metadata_consistency_pytest", {}).get("test_count") == 5
 
 
 def test_changed_file_inventory_authority():
@@ -141,15 +142,43 @@ def test_changed_file_inventory_authority():
     assert data["reconciliation_staged_paths"]["path_count"] == len(data["reconciliation_staged_paths"]["files"])
 
 
+def _extract_section(content: str, heading_substr: str) -> str:
+    lines = content.splitlines()
+    section_lines = []
+    recording = False
+    for line in lines:
+        if line.startswith("#") and heading_substr.lower() in line.lower():
+            recording = True
+            section_lines.append(line)
+            continue
+        if recording:
+            if line.startswith("#"):
+                break
+            section_lines.append(line)
+    return "\n".join(section_lines)
+
+
 def test_doc_pointers_agree():
     agents_md = (REPO_ROOT / "AGENTS.md").read_text(encoding="utf-8")
-    assert EXPECTED_CLASSIFICATION in agents_md
+    agents_current = _extract_section(agents_md, "10. Current next task")
+    assert EXPECTED_CLASSIFICATION in agents_current
+    assert EXPECTED_WAVE01_STATUS in agents_current
+    assert EXPECTED_WAVE02_STATUS in agents_current
+    assert EXPECTED_NEXT_TASK in agents_current
 
     context_md = (REPO_ROOT / "docs" / "CURRENT_CONTEXT.md").read_text(encoding="utf-8")
-    assert EXPECTED_CLASSIFICATION in context_md
+    context_current = _extract_section(context_md, "Current next task")
+    assert EXPECTED_CLASSIFICATION in context_current
+    assert EXPECTED_WAVE01_STATUS in context_current
+    assert EXPECTED_WAVE02_STATUS in context_current
+    assert EXPECTED_NEXT_TASK in context_current
 
     bootstrap_md = (REPO_ROOT / "docs" / "AI_BUILDER_BOOTSTRAP.md").read_text(encoding="utf-8")
-    assert EXPECTED_CLASSIFICATION in bootstrap_md
+    bootstrap_current = _extract_section(bootstrap_md, "7. Current next task")
+    assert EXPECTED_CLASSIFICATION in bootstrap_current
+    assert EXPECTED_WAVE01_STATUS in bootstrap_current
+    assert EXPECTED_WAVE02_STATUS in bootstrap_current
+    assert EXPECTED_NEXT_TASK in bootstrap_current
 
     status_md = (REPO_ROOT / "docs" / "status" / "CURRENT_PROJECT_STATUS.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in status_md
@@ -157,7 +186,11 @@ def test_doc_pointers_agree():
     assert EXPECTED_NEXT_TASK in status_md
 
     full_status_md = (REPO_ROOT / "docs" / "status" / "CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md").read_text(encoding="utf-8")
-    assert EXPECTED_CLASSIFICATION in full_status_md
+    full_status_current = _extract_section(full_status_md, "Current next task")
+    assert EXPECTED_CLASSIFICATION in full_status_current
+    assert EXPECTED_WAVE01_STATUS in full_status_current
+    assert EXPECTED_WAVE02_STATUS in full_status_current
+    assert EXPECTED_NEXT_TASK in full_status_current
 
     master_plan_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "current_v6_master_plan.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in master_plan_md
@@ -169,11 +202,50 @@ def test_doc_pointers_agree():
     assert "| 01 | Canonical production entrypoint and legacy live-path quarantine | COMPLETE_ACCEPTED_AND_MERGED |" in maturity_ledger_md
 
     v6_25_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "v6_25_task_ledger.md").read_text(encoding="utf-8")
-    assert EXPECTED_CLASSIFICATION in v6_25_md
+    v6_25_current = _extract_section(v6_25_md, "Current next route")
+    assert EXPECTED_CLASSIFICATION in v6_25_current
+    assert EXPECTED_WAVE01_STATUS in v6_25_current
+    assert EXPECTED_WAVE02_STATUS in v6_25_current
+    assert EXPECTED_NEXT_TASK in v6_25_current
 
     next_pointer_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "next_task_pointer.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in next_pointer_md
     assert EXPECTED_NEXT_TASK in next_pointer_md
+    assert "Pre-merge target master HEAD:" in next_pointer_md
+    assert EXPECTED_PRE_MERGE_MASTER_SHA in next_pointer_md
+
+    wave01_readme = (REPO_ROOT / "docs" / "automation" / "CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1" / "README.md").read_text(encoding="utf-8")
+    readme_auth = _extract_section(wave01_readme, "Authority")
+    assert "Pre-merge target master HEAD:" in readme_auth
+    assert EXPECTED_PRE_MERGE_MASTER_SHA in readme_auth
+    assert "Merge commit:" in readme_auth
+    assert EXPECTED_MERGE_COMMIT_SHA in readme_auth
+    assert "Accepted master commit:" in readme_auth
+    assert EXPECTED_ACCEPTANCE_COMMIT_SHA in readme_auth
+    assert "Reconciliation start HEAD:" in readme_auth
+    assert EXPECTED_RECONCILIATION_START_HEAD in readme_auth
+    assert "Completing commit SHA: null" in readme_auth
+    assert "Target HEAD: `" + EXPECTED_PRE_MERGE_MASTER_SHA not in readme_auth
+    assert "Target HEAD: " + EXPECTED_PRE_MERGE_MASTER_SHA not in readme_auth
+
+    # Negative assertions across all current sections
+    current_sections = [
+        agents_current,
+        context_current,
+        bootstrap_current,
+        full_status_current,
+        v6_25_current,
+    ]
+    disallowed_strings = [
+        "PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT",
+        "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
+        "Wave 01 is complete awaiting independent audit",
+    ]
+    for section_text in current_sections:
+        for disallowed in disallowed_strings:
+            assert disallowed not in section_text, f"Disallowed string '{disallowed}' found in current section: {section_text}"
+        assert "Wave 01 is NEXT_NOT_STARTED" not in section_text
+        assert "Wave 01 NEXT_NOT_STARTED" not in section_text
 
 
 def test_all_docs_json_valid():

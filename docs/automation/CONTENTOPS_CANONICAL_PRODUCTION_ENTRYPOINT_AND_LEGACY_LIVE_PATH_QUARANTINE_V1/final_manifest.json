@@ -8,6 +8,8 @@
   "historical_implementation_classification": "PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT",
   "historical_correction_task": "TASK_CONTENTOPS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_V1",
   "historical_correction_classification": "PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+  "reconciliation_task": "TASK_CONTENTOPS_WAVE01_FINAL_MASTER_EVIDENCE_AND_AUTHORITY_RECONCILIATION_V1",
+  "reconciliation_classification": "PASS_WAVE01_FINAL_MASTER_EVIDENCE_AUTHORITY_RECONCILIATION_AWAITING_INDEPENDENT_AUDIT",
   "independent_audit_state": "AUDIT_PASSED_ACCEPTED_AND_MERGED",
   "commit_topology": {
     "pre_merge_master": "a0c9d0a67e39c614d5a80cd758f219dcac9b11ff",
@@ -186,6 +188,25 @@
       "result": "PASS",
       "test_count": 7,
       "duration_seconds": 1.20
+    },
+    "wave01_master_authority_and_metadata_consistency_pytest": {
+      "command": "python -m pytest -q tests/test_wave01_master_authority_and_metadata_consistency_v1.py",
+      "result": "PASS",
+      "test_count": 5,
+      "duration_seconds": 1.72
+    },
+    "timing_clarification": {
+      "policy": "Historical acceptance suite durations and authority reconciliation rerun durations are distinct executions and recorded separately.",
+      "preserved_counts": {
+        "focused_enforcement_tests": 38,
+        "canonical_compatibility_tests": 65,
+        "wave01_regression_matrix_tests": 108,
+        "unique_tests_across_matrices": 173,
+        "final_automation_closure_tests": 7,
+        "registry_entrypoint_count": 15,
+        "canonical_operation_count": 12,
+        "live_cli_family_count": 12
+      }
     },
     "canonical_v5_build": {
       "status": "HISTORICAL_ACCEPTANCE_EVIDENCE_PRESERVED",

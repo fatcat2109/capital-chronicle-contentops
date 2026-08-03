@@ -141,7 +141,7 @@ Credential checks are limited to names, presence booleans, nonsecret scope/accou
 
 `TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 01 is classified `PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`. Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary: implement the SQLite WAL operational spine, versioned migrations, append-only transitions, compare-and-set state changes, leases, restart reconstruction, and redacted evidence export. Do not read credentials, invoke providers, use browser/CDP or platform APIs, execute scheduler/outbox work, dispatch, publish, or perform network/public writes.
+Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status: `COMPLETE_ACCEPTED_AND_MERGED`. Wave 02 status: `NEXT_NOT_STARTED`. Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary: implement the SQLite WAL operational spine, versioned migrations, append-only transitions, compare-and-set state changes, leases, restart reconstruction, and redacted evidence export. Do not read credentials, invoke providers, use browser/CDP or platform APIs, execute scheduler/outbox work, dispatch, publish, or perform network/public writes.
 
 ## 11. Task protocol
 

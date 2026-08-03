@@ -122,4 +122,4 @@ Forbidden in this task:
 - upstream mutation;
 - modification or retagging of accepted `v1.0` artifacts.
 
-Wave 01 is classified `PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`. Wave 02 is now the exact next task, but it has not started; execute it only under its schema/local-persistence and no-live boundary.
+Wave 01 classification is `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status is `COMPLETE_ACCEPTED_AND_MERGED`. Wave 02 status is `NEXT_NOT_STARTED`. Wave 02 is now the exact next task, but it has not started; execute it only under its schema/local-persistence and no-live boundary.

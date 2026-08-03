@@ -87,7 +87,7 @@ one canonical live state machine
 
 `TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 01 is classified `PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`. Wave 02 is next and has not started. It is schema/local-persistence work only: create the SQLite WAL operational spine, explicit versioned migrations, append-only transition history, compare-and-set state changes, leases, restart reconstruction, and redacted evidence export. No credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public write is authorized.
+Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status: `COMPLETE_ACCEPTED_AND_MERGED`. Wave 02 status: `NEXT_NOT_STARTED`. Wave 02 is next and has not started. It is schema/local-persistence work only: create the SQLite WAL operational spine, explicit versioned migrations, append-only transition history, compare-and-set state changes, leases, restart reconstruction, and redacted evidence export. No credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public write is authorized.
 
 ## Archive policy
 

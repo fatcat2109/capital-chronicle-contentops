@@ -65,6 +65,47 @@ python -m pytest -q tests/test_final_automation_closure_v1.py
 
 This suite asserts repo-level final product readiness invariants, ensuring zero legacy/unauthorized entrypoint leaks remain.
 
+## Authority Reconciliation Task
+
+Task: `TASK_CONTENTOPS_WAVE01_FINAL_MASTER_EVIDENCE_AND_AUTHORITY_RECONCILIATION_V1`
+
+Worker terminal classification: `PASS_WAVE01_FINAL_MASTER_EVIDENCE_AUTHORITY_RECONCILIATION_AWAITING_INDEPENDENT_AUDIT`
+
+```text
+python -m pytest -q tests/test_wave01_master_authority_and_metadata_consistency_v1.py
+.....                                                                    [100%]
+5 passed in 1.88s
+```
+
+This strengthened suite asserts metadata consistency across current-authority documents, JSON manifests, and Wave 01 status records, verifying exact current section contents, negative authority assertions, commit topology, and test counts.
+
+## Validation timing clarification
+
+The validation metrics distinguish historical acceptance suite durations from authority reconciliation rerun durations:
+
+- **Historical acceptance suite durations (post-merge acceptance commit `5c90e6d243b705f74cac40547083565f4899197b`):**
+  - Focused enforcement suite: 38 passed in 0.60s
+  - Canonical compatibility suites: 65 passed in 1.05s
+  - Unchanged 13-file Wave 01 regression matrix: 108 passed in 5.08s
+  - Unique tests across compatibility and regression matrices: 173
+  - Final automation closure suite: 7 passed in 0.25s
+
+- **Authority reconciliation rerun durations (this reconciliation task):**
+  - Metadata consistency suite: 5 passed in 1.88s
+  - Focused enforcement rerun: 38 passed in 3.03s
+  - Canonical compatibility rerun: 65 passed in 3.57s
+  - Final automation closure rerun: 7 passed in 1.48s
+
+Preserved count invariants across executions:
+- Focused enforcement tests: 38
+- Compatibility tests: 65
+- Regression matrix tests: 108
+- Unique tests across matrices: 173
+- Final automation closure tests: 7
+- Entrypoint registry rows: 15
+- Canonical operation allowlist: 12
+- CLI argument families: 12
+
 ## Execution and network disclosures
 
 - **Network activity disclosure:** Authorized Git fetch and push operations occurred to sync remote `master` and push accepted commits. Package dependency installation (`npm install`) was executed during post-merge acceptance, so npm package-registry network access cannot be ruled out.

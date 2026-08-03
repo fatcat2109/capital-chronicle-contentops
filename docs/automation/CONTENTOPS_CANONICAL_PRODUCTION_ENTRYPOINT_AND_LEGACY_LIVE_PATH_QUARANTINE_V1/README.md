@@ -30,8 +30,12 @@ The orchestrator validates one of 12 exact operations before importing the priva
 - Repository: `fatcat2109/capital-chronicle-contentops`
 - Target branch: `master`
 - Accepted source branch: `agent/contentops-wave01-canonical-entrypoint-v1`
-- Target HEAD: `a0c9d0a67e39c614d5a80cd758f219dcac9b11ff`
+- Pre-merge target master HEAD: `a0c9d0a67e39c614d5a80cd758f219dcac9b11ff`
 - Source HEAD: `7d7d55039a68b4dbaec631ac75af6b7e418f7500`
+- Merge commit: `d5c53655435e8340b3b79ddc3779e1f833eeb311`
+- Accepted master commit: `5c90e6d243b705f74cac40547083565f4899197b`
+- Reconciliation start HEAD: `5c90e6d243b705f74cac40547083565f4899197b`
+- Completing commit SHA: null
 - Canonical public authority: `live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator`
 - Public compatibility façade: `live_contentops.eight_platform_substack_first_pipeline_v1`
 - Private dispatcher: `live_contentops._eight_platform_substack_first_pipeline_impl_v1._dispatch_canonical_operation`

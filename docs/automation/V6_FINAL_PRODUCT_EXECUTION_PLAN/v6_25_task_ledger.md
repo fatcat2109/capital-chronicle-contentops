@@ -102,4 +102,4 @@ Track these in:
 
 `TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 01 is complete awaiting independent audit. Wave 02 is schema/local-persistence work only. No live action is authorized by this ledger update.
+Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status: `COMPLETE_ACCEPTED_AND_MERGED`. Wave 02 status: `NEXT_NOT_STARTED`. Wave 02 is schema/local-persistence work only. No live action is authorized by this ledger update.
