@@ -85,7 +85,7 @@ one canonical production entrypoint
 
 `TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
 
-Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status: `COMPLETE_ACCEPTED_AND_MERGED`. Completed Wave 02 task: `TASK_CONTENTOPS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_V1`. Wave 02 worker classification: `PASS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_AWAITING_INDEPENDENT_AUDIT`. Wave 02 status: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`. Wave 03 status: `NEXT_NOT_STARTED`. Wave 03 is the exact next task and has not started. It grants no credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public-write authority.
+Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status: `COMPLETE_ACCEPTED_AND_MERGED`. Completed Wave 02 task: `TASK_CONTENTOPS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_V1`. Wave 02 worker classification: `PASS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`. Wave 02 status: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`. Wave 03 status: `NEXT_NOT_STARTED`. Wave 03 is the exact next task and has not started. It grants no credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public-write authority.
 
 ## No current live authority
 

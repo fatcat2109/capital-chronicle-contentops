@@ -536,3 +536,110 @@ def test_gitignore_database_family_patterns():
     text = gitignore_path.read_text(encoding="utf-8")
     assert "*.sqlite" in text
     assert "*.db" in text
+
+
+def test_lossless_migration_v1_v2_v3_preserves_all_rows(tmp_path):
+    from live_contentops.durable_operational_store_v1 import MIGRATION_V1_SQL, MIGRATION_V2_SQL, compute_sha256
+    from datetime import datetime, timezone
+    db_file = tmp_path / "legacy_test.sqlite"
+
+    conn = sqlite3.connect(str(db_file))
+    conn.executescript(MIGRATION_V1_SQL)
+    conn.execute("INSERT INTO schema_migrations VALUES (1, ?, '2026-08-01T00:00:00Z', 'v1');", (compute_sha256(MIGRATION_V1_SQL),))
+
+    conn.execute("INSERT INTO work_items VALUES ('wi_legacy', 'story_legacy', 'Legacy Title', 'DISCOVERED', 1, 'eight_platform_all', '2026-08-01T00:00:00Z', '2026-08-01T00:00:00Z');")
+    conn.execute(
+        "INSERT INTO transition_events (event_id, transition_key, work_item_id, from_state, to_state, state_version, actor_class, actor_ref, reason_code, explanation, artifact_hash_set, correlation_id, timestamp_utc, authority_granted) "
+        "VALUES ('evt_legacy_1', 'tr_legacy_1', 'wi_legacy', 'DISCOVERED', 'DISCOVERED', 1, 'LegacyActor', 'legacy_ref', 'WORK_ITEM_INITIALIZATION', 'Legacy explanation', '[]', 'corr_leg', '2026-08-01T00:00:00Z', 0);"
+    )
+
+    for stmt in MIGRATION_V2_SQL.split(";"):
+        if stmt.strip():
+            conn.execute(stmt)
+    conn.execute("INSERT INTO schema_migrations VALUES (2, ?, '2026-08-01T00:00:00Z', 'v2');", (compute_sha256(MIGRATION_V2_SQL),))
+    conn.commit()
+    conn.close()
+
+    store = ContentOpsDurableStore(db_file, auto_migrate=True)
+    assert store.get_current_schema_version() == 3
+    assert store.verify_schema_integrity() is True
+
+    replayed = store.replay_work_item_events("wi_legacy")
+    assert replayed["verification_status"] == "PASS"
+    assert replayed["event_count"] == 1
+
+
+def test_fake_clock_lease_expiry_and_reclaim(tmp_path):
+    from datetime import datetime, timezone, timedelta
+    curr_time = [datetime(2026, 8, 4, 12, 0, 0, tzinfo=timezone.utc)]
+    def fake_now():
+        return curr_time[0]
+
+    db_file = tmp_path / "fake_clock_test.sqlite"
+    store = ContentOpsDurableStore(db_file, now_fn=fake_now)
+    store.create_work_item(story_id="s1", title="Title 1", target_surface="surf1", work_item_id="wi_clock_1")
+
+    lease1 = store.claim_work_item(lease_key="key_clock", work_item_id="wi_clock_1", owner_ref="worker_1", ttl_seconds=30)
+    assert lease1["status"] == "ACTIVE"
+
+    curr_time[0] += timedelta(seconds=60)
+
+    stale_ids = store.recover_stale_leases()
+    assert lease1["lease_id"] in stale_ids
+
+    lease2 = store.claim_work_item(lease_key="key_clock", work_item_id="wi_clock_1", owner_ref="worker_2", ttl_seconds=30)
+    assert lease2["owner_ref"] == "worker_2"
+    assert lease2["fencing_token"] == lease1["fencing_token"] + 1
+
+
+def test_event_column_payload_mismatch_rejection(temp_db):
+    temp_db.create_work_item(story_id="s_tamper", title="Tamper Title", target_surface="surf", work_item_id="wi_tamper")
+    conn = temp_db.get_connection()
+    conn.execute("DROP TRIGGER trg_transition_events_no_update;")
+    conn.execute("UPDATE transition_events SET state_version = 99 WHERE work_item_id = 'wi_tamper';")
+    conn.execute("""
+    CREATE TRIGGER trg_transition_events_no_update
+    BEFORE UPDATE ON transition_events
+    BEGIN
+        SELECT RAISE(ABORT, 'transition_events are append-only: UPDATE forbidden');
+    END;
+    """)
+    conn.close()
+
+    with pytest.raises(DurableStateCorruptionError, match="column mismatch"):
+        temp_db.replay_work_item_events("wi_tamper")
+
+
+def test_artifact_verified_receipt_contract_validation(temp_db):
+    receipt = {
+        "schema_version": "contentops.artifact_receipt.v1",
+        "receipt_id": "rcpt_1001",
+        "source_identity": "repo_origin",
+        "object_identity": "path/to/blob.bin",
+        "sha256_hash": "a" * 64,
+        "blob_hash": "a" * 64,
+        "byte_length": 1024,
+        "verifier_ref": "unit_test_verifier",
+    }
+    art = temp_db.register_artifact(
+        artifact_id="art_rcpt_1",
+        artifact_type="receipt_type",
+        storage_class="LOCAL",
+        schema_version="v1",
+        producer_ref="producer_1",
+        verified_receipt=receipt,
+    )
+    assert art["sha256_hash"] == "a" * 64
+    assert art["byte_length"] == 1024
+
+    invalid_receipt = dict(receipt)
+    del invalid_receipt["verifier_ref"]
+    with pytest.raises(ArtifactValidationError, match="missing required contract identity"):
+        temp_db.register_artifact(
+            artifact_id="art_rcpt_bad",
+            artifact_type="receipt_type",
+            storage_class="LOCAL",
+            schema_version="v1",
+            producer_ref="producer_1",
+            verified_receipt=invalid_receipt,
+        )

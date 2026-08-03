@@ -1,14 +1,14 @@
 {
   "schema_version": "contentops.wave02_final_manifest.v1",
-  "task": "TASK_CONTENTOPS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_V1",
-  "worker_classification": "PASS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_AWAITING_INDEPENDENT_AUDIT",
+  "task": "TASK_CONTENTOPS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_V1",
+  "worker_classification": "PASS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
   "wave_01_status": "COMPLETE_ACCEPTED_AND_MERGED",
   "wave_02_status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
   "wave_03_status": "NEXT_NOT_STARTED",
   "next_task_pointer": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
   "commit_topology": {
     "base_master_head": "c87e338f25922f4d03454ba199139353ca7198ff",
-    "starting_branch_head": "3cc531a3d30848f54329d25913018882f6b71bcd",
+    "starting_branch_head": "33225d5e8d79ad229ad93d203e8d2e5018bb2738",
     "audit_history": [
       {
         "attempt": 1,
@@ -24,8 +24,14 @@
       },
       {
         "attempt": 3,
-        "commit_role": "final_correction_commit",
-        "task": "TASK_CONTENTOPS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_V1",
+        "commit": "33225d5e8d79ad229ad93d203e8d2e5018bb2738",
+        "result": "FAILED_INDEPENDENT_AUDIT",
+        "reason": "Destructive Migration v3 dropped pre-v3 transition_events rows, event columns not verified against payload, incomplete receipt verification"
+      },
+      {
+        "attempt": 4,
+        "commit_role": "final_lossless_correction_commit",
+        "task": "TASK_CONTENTOPS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_V1",
         "status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT"
       }
     ],
@@ -35,13 +41,13 @@
   "tables_count": 22,
   "triggers_count": 4,
   "validation_summary": {
-    "store_focused_tests": 19,
-    "wave02_metadata_tests": 3,
+    "store_focused_tests": 24,
+    "wave02_metadata_tests": 4,
     "wave01_metadata_tests": 5,
     "quarantine_tests": 38,
     "compatibility_tests": 65,
     "closure_tests": 7,
-    "total_verified_tests": 137
+    "total_verified_tests": 143
   },
   "no_live_execution_truth": {
     "provider_calls": 0,

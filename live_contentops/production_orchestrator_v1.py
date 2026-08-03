@@ -7,6 +7,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from importlib import import_module
+import json
+import pathlib
+import re
 from typing import Any, Callable, Dict, List, Mapping, Optional
 
 TASK_LABEL = "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1"
@@ -111,11 +114,22 @@ class ContentOpsProductionOrchestrator:
                     input_artifact_ids=ctx.input_artifact_ids,
                 )
 
+            # Validate current state allowed for orchestrator execution
+            if item["current_state"] not in ("DISCOVERED", "EVIDENCE_PENDING"):
+                raise ValueError(f"orchestrator_execution_forbidden_from_state:{item['current_state']}")
+
             # Validate context matching
             if item["story_id"] != ctx.story_id:
                 raise ValueError(f"story_id_mismatch: expected {item['story_id']}, got {ctx.story_id}")
             if item["target_surface"] != ctx.target_surface:
                 raise ValueError(f"target_surface_mismatch: expected {item['target_surface']}, got {ctx.target_surface}")
+
+            # Verify input artifacts belong to story
+            for art_id in ctx.input_artifact_ids:
+                art_data = active_store.get_artifact(art_id)
+                if art_data.get("story_id") and art_data["story_id"] != ctx.story_id:
+                    if art_data.get("storage_class") not in ("GLOBAL", "REUSABLE") and art_data.get("sensitivity_class") != "PUBLIC":
+                        raise ValueError(f"input_artifact_story_mismatch: artifact {art_id} belongs to {art_data['story_id']}")
 
             if item["current_state"] == "DISCOVERED":
                 active_store.transition_state(
@@ -141,6 +155,8 @@ class ContentOpsProductionOrchestrator:
                 result = self._resolve_dispatcher()(operation, **kwargs)
             except Exception as exc:
                 if active_store is not None and item["current_state"] == "EVIDENCE_PENDING":
+                    exc_str = f"{type(exc).__name__}: {str(exc)}"
+                    sanitized_msg = re.sub(r"[A-Za-z]:\\[^\s'\"]+", "[REDACTED_PATH]", exc_str)[:150]
                     active_store.transition_state(
                         work_item_id=ctx.work_item_id,
                         expected_from_state="EVIDENCE_PENDING",
@@ -149,7 +165,7 @@ class ContentOpsProductionOrchestrator:
                         actor_class="ContentOpsProductionOrchestrator",
                         actor_ref=ctx.actor_ref,
                         reason_code="ORCHESTRATOR_OPERATION_FAILED",
-                        explanation=f"Operation {operation} failed: {exc}",
+                        explanation=f"Operation {operation} failed: {sanitized_msg}",
                         lease_key=ctx.lease_key,
                         fencing_token=ctx.fencing_token,
                         input_artifact_ids=ctx.input_artifact_ids,
@@ -159,20 +175,38 @@ class ContentOpsProductionOrchestrator:
                 raise
 
             registered_output_ids = []
-            if isinstance(result, dict) and "output_bytes" in result:
-                out_bytes = result["output_bytes"]
-                art_id = f"art_out_{compute_sha256(out_bytes)[:16]}"
-                active_store.register_artifact(
-                    artifact_id=art_id,
-                    artifact_type=result.get("artifact_type", "OPERATION_RESULT"),
-                    storage_class="MEMORY",
-                    schema_version="1.0.0",
-                    producer_ref=ctx.actor_ref,
-                    content_bytes=out_bytes,
-                    story_id=ctx.story_id,
-                    work_item_id=ctx.work_item_id,
-                )
-                registered_output_ids.append(art_id)
+            if result is not None:
+                out_bytes: bytes | None = None
+                art_type = "OPERATION_RESULT"
+
+                if isinstance(result, bytes):
+                    out_bytes = result
+                elif isinstance(result, str):
+                    out_bytes = result.encode("utf-8")
+                elif isinstance(result, pathlib.Path):
+                    if result.exists() and result.is_file():
+                        out_bytes = result.read_bytes()
+                elif isinstance(result, Mapping):
+                    if "output_bytes" in result and isinstance(result["output_bytes"], bytes):
+                        out_bytes = result["output_bytes"]
+                        art_type = str(result.get("artifact_type", "OPERATION_RESULT"))
+                    else:
+                        import json
+                        out_bytes = json.dumps(result, sort_keys=True, default=str).encode("utf-8")
+
+                if out_bytes is not None:
+                    art_id = f"art_out_{compute_sha256(out_bytes)[:16]}"
+                    active_store.register_artifact(
+                        artifact_id=art_id,
+                        artifact_type=art_type,
+                        storage_class="MEMORY",
+                        schema_version="1.0.0",
+                        producer_ref=ctx.actor_ref,
+                        content_bytes=out_bytes,
+                        story_id=ctx.story_id,
+                        work_item_id=ctx.work_item_id,
+                    )
+                    registered_output_ids.append(art_id)
 
             if item["current_state"] == "EVIDENCE_PENDING":
                 active_store.transition_state(

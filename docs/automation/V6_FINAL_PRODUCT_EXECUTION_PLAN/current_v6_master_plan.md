@@ -373,4 +373,4 @@ Do not use this label earlier.
 
 `TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
 
-Wave 02 is classified `PASS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1_AWAITING_INDEPENDENT_AUDIT`. Wave 03 is the exact next task and has status `NEXT_NOT_STARTED`. It is an approval-envelope, transactional outbox, and expiry boundary. No credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public write is authorized.
+Wave 02 is classified `PASS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`. Wave 03 is the exact next task and has status `NEXT_NOT_STARTED`. It is an approval-envelope, transactional outbox, and expiry boundary. No credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public write is authorized.

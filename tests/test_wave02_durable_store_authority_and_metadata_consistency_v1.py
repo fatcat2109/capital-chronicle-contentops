@@ -19,16 +19,20 @@ from live_contentops.durable_operational_store_v1 import (
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-EXPECTED_WORKER_CLASSIFICATION = "PASS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_AWAITING_INDEPENDENT_AUDIT"
-EXPECTED_COMPLETED_TASK = "TASK_CONTENTOPS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_V1"
+EXPECTED_WORKER_CLASSIFICATION = "PASS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT"
+EXPECTED_COMPLETED_TASK = "TASK_CONTENTOPS_WAVE02_LOSSLESS_MIGRATION_EVENT_BINDING_AND_AUTHORITY_FINAL_CORRECTION_V1"
 EXPECTED_NEXT_TASK = "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1"
 EXPECTED_WAVE01_STATUS = "COMPLETE_ACCEPTED_AND_MERGED"
 EXPECTED_WAVE02_STATUS = "COMPLETE_AWAITING_INDEPENDENT_AUDIT"
 EXPECTED_WAVE03_STATUS = "NEXT_NOT_STARTED"
 
 EXPECTED_BASE_MASTER_HEAD = "c87e338f25922f4d03454ba199139353ca7198ff"
-EXPECTED_STARTING_BRANCH_HEAD = "3cc531a3d30848f54329d25913018882f6b71bcd"
-EXPECTED_AUDIT_BLOCK_COMMITS = ["e24a4492e9d72f55c704168d637b7628e49140cd", "3cc531a3d30848f54329d25913018882f6b71bcd"]
+EXPECTED_STARTING_BRANCH_HEAD = "33225d5e8d79ad229ad93d203e8d2e5018bb2738"
+EXPECTED_AUDIT_BLOCK_COMMITS = [
+    "e24a4492e9d72f55c704168d637b7628e49140cd",
+    "3cc531a3d30848f54329d25913018882f6b71bcd",
+    "33225d5e8d79ad229ad93d203e8d2e5018bb2738",
+]
 
 
 def load_json_any_encoding(path: pathlib.Path) -> dict:
@@ -52,6 +56,11 @@ def test_wave02_status_json_authority():
     assert data["wave02_status"] == EXPECTED_WAVE02_STATUS
     assert data["wave03_status"] == EXPECTED_WAVE03_STATUS
     assert data["next_task"] == EXPECTED_NEXT_TASK
+
+    # Negative assertions rejecting stale Wave 02 classifications
+    assert data["wave02_worker_classification"] != "PASS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_AWAITING_INDEPENDENT_AUDIT"
+    assert data["wave02_worker_classification"] != "PASS_WAVE02_DURABLE_STATE_TRANSACTION_FENCING_AND_AUTHORITY_CORRECTION_AWAITING_INDEPENDENT_AUDIT"
+    assert data["wave02_status"] != "NEXT_NOT_STARTED"
 
     assert "post_v1_durable_operational_store_v1" in data
     wave_data = data["post_v1_durable_operational_store_v1"]
@@ -142,3 +151,23 @@ def test_wave02_evidence_packet_files_exist():
     for filename in required_files:
         path = packet_dir / filename
         assert path.is_file(), f"Missing required packet file: {filename}"
+
+
+def test_existing_state_surface_inventory_paths_and_symbols_exist():
+    import importlib
+    packet_dir = REPO_ROOT / "docs" / "automation" / "CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1"
+    inventory_path = packet_dir / "existing_state_surface_inventory.json"
+    data = load_json_any_encoding(inventory_path)
+
+    surfaces = data.get("surfaces", [])
+    assert len(surfaces) >= 7, "Inventory must contain all existing state surfaces"
+
+    for surf in surfaces:
+        file_path = REPO_ROOT / surf["path"]
+        assert file_path.is_file(), f"Inventoried path {surf['path']} does not exist"
+
+        if "owner" in surf and "symbol" in surf:
+            module_name = surf["owner"]
+            symbol_name = surf["symbol"]
+            module = importlib.import_module(module_name)
+            assert hasattr(module, symbol_name), f"Symbol {symbol_name} not found in module {module_name}"
