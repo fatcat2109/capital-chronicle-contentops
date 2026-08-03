@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from live_contentops.operator_approved_supervised_live_daily_run_v0 import (
     CLASSIFICATION_BLOCKED,
     CLASSIFICATION_PARTIAL,
@@ -14,6 +16,13 @@ from live_contentops.operator_approved_supervised_live_daily_run_v0 import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+@pytest.fixture(autouse=True)
+def _exercise_historical_daily_run_mechanics(monkeypatch):
+    import live_contentops.operator_approved_supervised_live_daily_run_v0 as legacy_runner
+
+    monkeypatch.setattr(legacy_runner, "quarantine", lambda *_args, **_kwargs: None)
 
 
 def test_runner_posts_telegram_with_existing_safe_adapter_and_skips_browser_paths(tmp_path):

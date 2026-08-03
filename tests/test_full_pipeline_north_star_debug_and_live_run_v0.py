@@ -24,6 +24,13 @@ from live_contentops.full_pipeline_north_star_debug_and_live_run_v0 import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
+@pytest.fixture(autouse=True)
+def _exercise_historical_full_pipeline_mechanics(monkeypatch):
+    import live_contentops.full_pipeline_north_star_debug_and_live_run_v0 as legacy_runner
+
+    monkeypatch.setattr(legacy_runner, "quarantine", lambda *_args, **_kwargs: None)
+
+
 def _png_bytes(width: int = 1200, height: int = 675) -> bytes:
     return b"\x89PNG\r\n\x1a\n" + b"\x00\x00\x00\rIHDR" + struct.pack(">II", width, height)
 

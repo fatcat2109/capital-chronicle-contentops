@@ -10,7 +10,6 @@ Orchestrates:
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 from typing import Any
 
@@ -19,7 +18,10 @@ from live_contentops.cc_artifact_packet_operator_decision_v1 import (
     load_existing_intake_artifacts,
     write_operator_decision_outputs,
 )
-from live_contentops.discord_live_adapter_v6 import execute_discord_post
+from live_contentops.live_entrypoint_registry_v1 import (
+    LEGACY_AUTOMATION_QUARANTINED,
+    quarantine,
+)
 from live_contentops.public_permissive_supervised_mode_v0 import (
     PUBLIC_MODE_CANDIDATE_COMMENTARY,
 )
@@ -40,6 +42,11 @@ def run_fast_one_cycle(
     output_dir: str | Path = OUTPUT_DIR,
     dispatch_live: bool = False,
 ) -> dict[str, Any]:
+    quarantine(
+        "contentops.legacy_fast_one_cycle.v0",
+        LEGACY_AUTOMATION_QUARANTINED,
+        "Fast one-cycle automation is legacy; use ContentOpsProductionOrchestrator.",
+    )
     packet_path = Path(packet_path)
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)

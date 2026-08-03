@@ -4,15 +4,15 @@ Status authority scope: post-v1 operational maturity program.
 
 Current classification:
 
-`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
+`PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
-Audit base:
+Correction base:
 
-`fatcat2109/capital-chronicle-contentops@a1645740b8ad3a590be314ecbc900f9ad0f4b252`
+`fatcat2109/capital-chronicle-contentops@7300517ca3861c2962df06d443ad0c0916396f9f`
 
-Audit branch:
+Current branch:
 
-`agent/contentops-full-automation-final-product-audit-v1`
+`agent/contentops-wave01-canonical-entrypoint-v1`
 
 ## Historical accepted release
 
@@ -87,9 +87,9 @@ one canonical production entrypoint
 
 ## Current next task
 
-`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 00 is accepted and merged. Wave 01 is the exact next task and has not started. It is local/no-live runtime implementation to establish one canonical production entrypoint and quarantine or delegate alternate live-capable runners, the local server, scheduler, and CLI paths. Focused tests are required. It grants no credential, provider, browser/CDP, platform, scheduler/retry execution, approval/outbox execution, dispatch, publication, or public-write authority.
+Wave 01 retains worker classification `PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`. The independent audit blocked original commit `7300517ca3861c2962df06d443ad0c0916396f9f`; the correction is `PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`. Exactly one registry row is canonical, and executable control now flows from the public compatibility API or canonical module/script CLI through `ContentOpsProductionOrchestrator.execute(...)` to one private dispatcher and one private implementation body. Alternate runner/server/scheduler/CLI/browser-profile routes remain delegated or fail closed. Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary for SQLite WAL, migrations, append-only transitions, compare-and-set state, leases, restart reconstruction, and redacted evidence export. It grants no credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public-write authority.
 
 ## No current live authority
 

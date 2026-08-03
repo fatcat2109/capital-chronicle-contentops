@@ -16,6 +16,10 @@ import subprocess
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
+from live_contentops.live_entrypoint_registry_v1 import (
+    LEGACY_AUTOMATION_QUARANTINED,
+    quarantine,
+)
 from live_contentops.public_dispatch_freeze_guard_v6 import (
     append_public_dispatch_ledger,
     build_public_dispatch_payload_hash,
@@ -646,6 +650,11 @@ def run_full_pipeline_north_star_debug_and_live_run(
     current_head: str | None = None,
     started_at: str | None = None,
 ) -> dict[str, Any]:
+    quarantine(
+        "contentops.legacy_full_pipeline_debug_live.v0",
+        LEGACY_AUTOMATION_QUARANTINED,
+        "Full-pipeline debug/live repair is legacy; use ContentOpsProductionOrchestrator.",
+    )
     root = Path(repo_root)
     out_dir = Path(output_dir)
     started = started_at or _utc_now()

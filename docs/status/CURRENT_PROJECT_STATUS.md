@@ -4,9 +4,9 @@
 
 ## Current Post-v1 Classification
 
-`PASS_FULL_AUTOMATION_INSTITUTIONAL_PLAN_ACCEPTED_AND_MERGED`
+`PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
-Completed task: `TASK_CONTENTOPS_FULL_AUTOMATION_PLAN_LOCAL_CLOSEOUT_AND_AUTHORITY_RECONCILIATION_V1`.
+Completed task: `TASK_CONTENTOPS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_V1`.
 
 ## Historical: Verified Historical Predecessor Binding And Status Reconciliation V1
 
@@ -311,8 +311,18 @@ This remains the latest chronological historical implementation/audit pointer fo
 
 The accepted 22-commit institutional plan branch at `df9a95fbc2addb18be1ecbec2fb0455febbc23b4` was merged into `master` by explicit non-fast-forward merge `1d9079fb7f2cf96f27356236c5adfb071eb77b4a` over required pre-merge master `a1645740b8ad3a590be314ecbc900f9ad0f4b252`. The prior local closeout remains historical evidence. The bounded accepted v1.0 release remains unchanged, and no continuous generalized factory PASS is claimed. Authority packet: `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/`.
 
+## Wave 01 Canonical Production Entrypoint And Legacy Live-Path Quarantine
+
+`PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`
+
+The independent audit blocked merge of original Wave 01 commit `7300517ca3861c2962df06d443ad0c0916396f9f` because the canonical module's public API and CLI could bypass the claimed production-orchestrator boundary. The correction task is classified `PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`; it awaits independent re-audit and does not claim merge acceptance.
+
+The executable registry still contains exactly one canonical production-orchestrator row, one compatibility delegate, and thirteen quarantined noncanonical live-capable surfaces. Executable control now flows public compatibility API or canonical module/script CLI → `ContentOpsProductionOrchestrator.execute(operation, **kwargs)` → private `_dispatch_canonical_operation` → exactly one private implementation body. The orchestrator validates the exact operation before importing the private implementation; the public façade does not import provider/browser/adapter implementation code. The accepted HTTP, V6 runner, scheduler, direct platform CLI, legacy automation, browser-profile, and V5 UI quarantines remain unchanged.
+
+Local validation passed 34 focused enforcement tests, 65 canonical compatibility tests, and the unchanged 104-test 13-file Wave 01 regression matrix, for 169 unique tests across the compatibility and regression matrices. The canonical V5 production build passed with 117 modules. The monolithic repository suite and browser QA were not run, and no CI PASS is claimed. No environment or credential value, source/network fetch, provider, browser/CDP, platform adapter/API, scheduler/retry, approval/outbox, dispatch, publication, edit, comment, reply, reaction, DM, or public write occurred. The annotated `v1.0` tag object, release commit, accepted evidence, and ingestion repository remain unchanged. Corrected evidence is at `docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/`.
+
 ## Next Action
 
-`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 00 is accepted and merged. Wave 01 is the exact next task and has not started. It is local/no-live runtime implementation: establish one canonical production entrypoint and quarantine or delegate legacy live-capable paths. Focused tests are required. Do not read credentials, invoke providers/platforms, run scheduler/outbox actions, dispatch, publish, or perform public writes.
+Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary: implement SQLite WAL, explicit versioned migrations, append-only transitions, compare-and-set state changes, leases, restart reconstruction, deterministic replay, and redacted evidence export. Do not commit the mutable database, hide transaction semantics, store secrets/session material, read credentials, invoke providers/platforms, run scheduler/outbox actions, dispatch, publish, use the network, or perform public writes.

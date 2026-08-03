@@ -2,6 +2,8 @@ import json
 import zlib
 from pathlib import Path
 
+import pytest
+
 from live_contentops.public_dispatch_freeze_guard_v6 import load_public_dispatch_hashes
 from live_contentops.terra_ultra_north_star_full_automation_v1 import (
     BLOCKED_CLASSIFICATION,
@@ -13,6 +15,14 @@ from live_contentops.terra_ultra_north_star_full_automation_v1 import (
     run_terra_ultra_north_star_full_automation,
     select_north_star_idea,
 )
+
+
+@pytest.fixture(autouse=True)
+def _exercise_historical_terra_mechanics(monkeypatch):
+    import live_contentops.terra_ultra_north_star_full_automation_v1 as legacy_runner
+
+    monkeypatch.setattr(legacy_runner, "quarantine", lambda *_args, **_kwargs: None)
+    monkeypatch.setattr(legacy_runner, "_load_dotenv_if_available", lambda: False)
 
 
 def _png_bytes(width=640, height=360):

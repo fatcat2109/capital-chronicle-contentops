@@ -135,8 +135,7 @@ export function V6CommandCenter() {
 
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 3000); // 3s timeout
-      
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
       const safeFetch = (window as any)['fetch'];
       const response = await safeFetch('http://127.0.0.1:5174/api/run-pipeline', {
         method: 'POST',
@@ -144,93 +143,23 @@ export function V6CommandCenter() {
         signal: controller.signal
       });
       clearTimeout(timeoutId);
-      
-      if (response.ok) {
-        const data = await response.json();
-        const taskId = data.task_id;
-        if (taskId) {
-          addPipelineLog('pipeline', 'trigger', `Background task started on host: task_id=${taskId.substring(0, 8)}...`);
-          
-          let processedLineCount = 0;
-          
-          const pollInterval = (window as any)['setInterval'](async () => {
-            try {
-              const statusResponse = await safeFetch(`http://127.0.0.1:5174/api/pipeline-status?task_id=${taskId}`);
-              if (statusResponse.ok) {
-                const statusData = await statusResponse.json();
-                const stdoutLines = (statusData.stdout || '').split('\n');
-                
-                // Only process newly appended lines
-                if (stdoutLines.length > processedLineCount) {
-                  for (let i = processedLineCount; i < stdoutLines.length; i++) {
-                    const line = stdoutLines[i];
-                    if (line.includes('[Info]') || line.includes('[Warning]')) {
-                      const cleanMsg = line.replace(/\[(Info|Warning)\]\s*/g, '');
-                      let platform = 'pipeline';
-                      if (cleanMsg.toLowerCase().includes('substack')) platform = 'substack';
-                      else if (cleanMsg.toLowerCase().includes('linkedin')) platform = 'linkedin';
-                      else if (cleanMsg.toLowerCase().includes('tweet') || cleanMsg.toLowerCase().includes('x ')) platform = 'x';
-                      else if (cleanMsg.toLowerCase().includes('instagram')) platform = 'instagram';
-                      else if (cleanMsg.toLowerCase().includes('facebook')) platform = 'facebook';
-                      else if (cleanMsg.toLowerCase().includes('telegram')) platform = 'telegram';
-                      else if (cleanMsg.toLowerCase().includes('threads')) platform = 'threads';
-                      else if (cleanMsg.toLowerCase().includes('discord')) platform = 'discord';
 
-                      addPipelineLog(platform, 'live_dispatch', cleanMsg, line.includes('[Warning]') ? 'FAILED' : 'SUCCESS');
-                    }
-                  }
-                  processedLineCount = stdoutLines.length;
-                }
-                
-                // Trust the audit-derived pipeline_status, not just process exit.
-                const terminal = statusData.status === 'SUCCESS' || statusData.status === 'FAILED';
-                if (terminal) {
-                  (window as any)['clearInterval'](pollInterval);
-                  const ps = statusData.pipeline_status || 'unknown';
-                  const summary = statusData.dispatch_summary || {};
-                  const blockers = statusData.dispatch_blockers || [];
-                  if (statusData.status === 'SUCCESS' && ps === 'DISPATCH_COMPLETE') {
-                    addPipelineLog(
-                      'pipeline',
-                      'complete',
-                      `DISPATCH_COMPLETE task=${(statusData.run_id || taskId).substring(0, 8)} success=${(summary.successful_platforms || []).join(',') || 'none'}`,
-                      'SUCCESS'
-                    );
-                  } else {
-                    addPipelineLog(
-                      'pipeline',
-                      'error',
-                      `${ps} task=${(statusData.run_id || taskId).substring(0, 8)} ` +
-                        `failed=${(summary.failed_platforms || []).join(',') || 'none'} ` +
-                        `blocked=${(summary.blocked_platforms || []).join(',') || 'none'}`,
-                      'FAILED'
-                    );
-                    if (blockers.length) {
-                      addPipelineLog('pipeline', 'blockers', blockers.join(' | '), 'FAILED');
-                    }
-                    if (statusData.stderr) {
-                      addPipelineLog('pipeline', 'stderr', statusData.stderr.slice(-500), 'FAILED');
-                    }
-                  }
-                  setPipelineRunning(false);
-                }
-              }
-            } catch (pollErr) {
-              (window as any)['clearInterval'](pollInterval);
-              addPipelineLog('pipeline', 'error', 'Lost connection to pipeline backend server.', 'FAILED');
-              setPipelineRunning(false);
-            }
-          }, 2000);
-          
-          return;
-        }
-      }
-      // Server reachable but did not return a task_id: fail loudly, never fake success.
-      addPipelineLog('pipeline', 'error', 'Backend did not return a task_id. Live launch aborted.', 'FAILED');
+      const data = await response.json();
+      const blockedStatus = data.status || 'BLOCKED_HTTP_LIVE_LAUNCH_QUARANTINED';
+      addPipelineLog(
+        'pipeline',
+        'quarantine',
+        `${blockedStatus}: local HTTP/UI launch has no production authority. Use the canonical ContentOpsProductionOrchestrator.`,
+        'FAILED'
+      );
       setPipelineRunning(false);
     } catch (err) {
-      // No fake dry-run simulation in the final launch path. Backend is required.
-      addPipelineLog('pipeline', 'error', 'BACKEND_OFFLINE: pipeline server unreachable at http://127.0.0.1:5174. Start the backend to run a live launch.', 'FAILED');
+      addPipelineLog(
+        'pipeline',
+        'error',
+        'BACKEND_OFFLINE: read-only ContentOps status server is unreachable at http://127.0.0.1:5174.',
+        'FAILED'
+      );
       setPipelineRunning(false);
     }
   };

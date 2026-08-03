@@ -19,6 +19,12 @@ import urllib.parse
 import uuid
 from pathlib import Path
 from typing import Any
+
+from live_contentops.live_entrypoint_registry_v1 import (
+    LIVE_PATH_QUARANTINED,
+    LiveEntrypointQuarantined,
+    quarantine,
+)
 from dotenv import load_dotenv
 
 from live_contentops.ai_research_canonical_article_engine_v6 import (
@@ -1039,6 +1045,19 @@ def run_live_production_pipeline(
     run_id_override: str | None = None,
     public_dispatch_ledger_path: str | Path | None = PUBLIC_DISPATCH_LEDGER_PATH,
 ) -> dict[str, Any]:
+    """Run the historical V6 preparation pipeline.
+
+    Wave 01 removes this module's independent live authority. Any live or
+    rehearsal flag is rejected before environment access, adapter execution,
+    provider calls, or output mutation. Safe deterministic preparation remains
+    for historical replay compatibility.
+    """
+    if live_run or dispatch_live or dispatch_rehearsal:
+        quarantine(
+            "contentops.legacy_v6_runner.v1",
+            LIVE_PATH_QUARANTINED,
+            "The legacy V6 runner is preparation-only; invoke ContentOpsProductionOrchestrator for production authority.",
+        )
     if dispatch_live and dispatch_rehearsal:
         raise ValueError("dispatch_live_and_dispatch_rehearsal_are_mutually_exclusive")
     _load_live_env_if_needed(live_run or dispatch_live)
@@ -1655,6 +1674,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--rehearsal-evidence-output", default=str(DEFAULT_EVIDENCE_PACKET_PATH), help="Evidence packet output path")
     parser.add_argument("--use-latest-headlines", action="store_true", help="Inject latest percolated headlines from Vol-Impact Percolator as context")
     args = parser.parse_args(argv)
+    if args.live_run or args.dispatch_live or args.dispatch_rehearsal:
+        blocked = LiveEntrypointQuarantined(
+            "contentops.legacy_v6_runner.v1",
+            LIVE_PATH_QUARANTINED,
+            "The legacy V6 runner is preparation-only; invoke ContentOpsProductionOrchestrator for production authority.",
+        )
+        print(json.dumps(blocked.as_dict(), sort_keys=True))
+        return 1
 
     headline_rehearsal_context: dict[str, Any] = {}
     topic = args.topic

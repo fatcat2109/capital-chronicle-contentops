@@ -3,8 +3,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from live_contentops.substack_browser_adapter_v6 import (
     build_supervised_substack_browser_readback,
+    prepare_supervised_substack_browser_request,
     validate_supervised_substack_browser_readback,
 )
 from live_contentops.substack_first_north_star_pipeline_loop_v1 import (
@@ -13,6 +16,32 @@ from live_contentops.substack_first_north_star_pipeline_loop_v1 import (
     complete_substack_first_pipeline,
     prepare_substack_first_pipeline,
 )
+
+
+@pytest.fixture(autouse=True)
+def _exercise_historical_substack_loop_mechanics(monkeypatch):
+    import live_contentops.substack_first_north_star_pipeline_loop_v1 as legacy_runner
+
+    monkeypatch.setattr(legacy_runner, "quarantine", lambda *_args, **_kwargs: None)
+    monkeypatch.setattr(legacy_runner, "_load_dotenv_safely", lambda: False)
+    monkeypatch.setattr(
+        legacy_runner,
+        "prepare_supervised_substack_browser_request",
+        prepare_supervised_substack_browser_request,
+        raising=False,
+    )
+    monkeypatch.setattr(
+        legacy_runner,
+        "build_supervised_substack_browser_readback",
+        build_supervised_substack_browser_readback,
+        raising=False,
+    )
+    monkeypatch.setattr(
+        legacy_runner,
+        "validate_supervised_substack_browser_readback",
+        validate_supervised_substack_browser_readback,
+        raising=False,
+    )
 
 
 def _candidate(slot_index: int, rank: int, family: str) -> dict:

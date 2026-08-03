@@ -27,6 +27,12 @@ from live_contentops.public_dispatch_freeze_guard_v6 import (
 
 @pytest.fixture(autouse=True)
 def _clear_contentops_public_dispatch_env(monkeypatch):
+    import live_contentops.live_production_pipeline_runner_v6 as legacy_runner
+
+    # Historical mechanics remain replayable in unit tests; the Wave 01 proof
+    # suite independently requires this production entrypoint to fail closed.
+    monkeypatch.setattr(legacy_runner, "quarantine", lambda *_args, **_kwargs: None)
+    monkeypatch.setattr(legacy_runner, "_load_live_env_if_needed", lambda _enabled: None)
     monkeypatch.delenv("CONTENTOPS_CANONICAL_URL_OVERRIDE", raising=False)
     monkeypatch.delenv("CONTENTOPS_PUBLIC_IMAGE_URL_OVERRIDE", raising=False)
 
@@ -799,15 +805,15 @@ def test_cli_main_returns_nonzero_on_blocked_launch(mock_run):
 
 
 @patch("live_contentops.live_production_pipeline_runner_v6.run_live_production_pipeline")
-def test_cli_main_returns_zero_on_complete_launch(mock_run):
+def test_cli_main_returns_zero_on_complete_preparation(mock_run):
     from live_contentops.live_production_pipeline_runner_v6 import main
     mock_run.return_value = {
         "run_id": "v6_pipeline_abc",
-        "pipeline_status": "DISPATCH_COMPLETE",
-        "dispatch_live": True,
-        "dispatch_summary": {"successful_platforms": ["substack"]},
+        "pipeline_status": "PIPELINE_COMPLETE",
+        "dispatch_live": False,
+        "dispatch_summary": {"successful_platforms": []},
     }
-    assert main(["--live-run", "--dispatch-live"]) == 0
+    assert main([]) == 0
 
 
 def test_apply_canonical_link_replaces_token():

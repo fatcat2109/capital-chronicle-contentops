@@ -3,11 +3,23 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from live_contentops.fast_one_cycle_automation_v0 import run_fast_one_cycle
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_DIR = ROOT / "tests" / "fixtures" / "cc_artifact_packet_v0"
 SAMPLE_PATH = FIXTURE_DIR / "sample_internal_draft_packet_v0.json"
+
+
+@pytest.fixture(autouse=True)
+def _exercise_historical_fast_cycle_mechanics(monkeypatch):
+    from types import SimpleNamespace
+
+    import live_contentops.fast_one_cycle_automation_v0 as legacy_runner
+
+    monkeypatch.setattr(legacy_runner, "quarantine", lambda *_args, **_kwargs: None)
+    monkeypatch.setattr(legacy_runner, "os", SimpleNamespace(environ={}), raising=False)
 
 
 def test_fast_one_cycle_run(tmp_path: Path) -> None:

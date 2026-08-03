@@ -2,6 +2,15 @@
 import sys
 import json
 from pathlib import Path
+from typing import Any
+
+from .live_entrypoint_registry_v1 import (
+    LEGACY_AUTOMATION_QUARANTINED,
+    LiveEntrypointQuarantined,
+    SCHEDULER_LIVE_QUARANTINED,
+    quarantine,
+)
+
 from . import status
 from . import contracts
 from . import contract_validation
@@ -96,16 +105,22 @@ def scheduler_list_command():
     entries = sched.load_entries()
     print(json.dumps({"entries": [asdict(e) for e in entries]}, indent=2, default=str))
 
-def scheduler_tick_command():
+def scheduler_tick_command(argv: list[str] | None = None):
     import argparse
     import datetime
-    from .scheduler_v6 import OutboxScheduler
     parser = argparse.ArgumentParser(description="Execute scheduler tick")
     parser.add_argument("--now", help="ISO format datetime override")
     parser.add_argument("--fast-ship", action="store_true", help="Enable live platform dispatches")
     parser.add_argument("--dry-run", action="store_true", help="Force dry run mode")
-    args = parser.parse_args(sys.argv[2:])
-    
+    args = parser.parse_args(argv if argv is not None else sys.argv[2:])
+
+    if args.fast_ship:
+        quarantine(
+            "contentops.cli_scheduler_fast_ship.v1",
+            SCHEDULER_LIVE_QUARANTINED,
+            "CLI fast-ship scheduler ticks are blocked until Wave 04 durable scheduling/outbox authority exists.",
+        )
+
     current_time = None
     if args.now:
         try:
@@ -113,14 +128,22 @@ def scheduler_tick_command():
         except Exception as e:
             print(json.dumps({"status": "FAILED", "error": f"Invalid datetime format: {e}"}, indent=2))
             return
-            
-    dry_run = True
-    if args.fast_ship and not args.dry_run:
-        dry_run = False
-        
+
+    from .scheduler_v6 import OutboxScheduler
     sched = OutboxScheduler()
-    result = sched.reconcile_outbox_timing(current_time=current_time, dry_run=dry_run)
+    result = sched.reconcile_outbox_timing(current_time=current_time, dry_run=True)
     print(json.dumps(result, indent=2))
+
+
+def scheduler_command(argv: list[str] | None = None):
+    command_args = list(argv or [])
+    if not command_args:
+        print(json.dumps({"status": "FAILED", "error": "scheduler subcommand required"}, indent=2))
+        return
+    action, *remaining = command_args
+    if action == "tick":
+        return scheduler_tick_command(remaining)
+    print(json.dumps({"status": "FAILED", "error": f"unsupported scheduler subcommand: {action}"}, indent=2))
 
 def contracts_summary():
     cs = [
@@ -589,17 +612,11 @@ def telegram_live_pilot_design_summary():
     print(json.dumps(telegram_live_pilot_gate.get_design_summary(), indent=2))
 
 def telegram_live_pilot_execute():
-    import os
-    import json
-    from . import telegram_live_pilot
-    try:
-        # Default test variables, to be overridden by arguments or env later
-        channel = os.getenv("TEST_TELEGRAM_CHANNEL", "-1000000000000")
-        msg = "Capital Chronicle - ContentOps Supervised Live Pilot Test"
-        result = telegram_live_pilot.execute_telegram_pilot(channel, msg)
-        print(json.dumps(result, indent=2))
-    except Exception as e:
-        print(json.dumps({"error": str(e), "status": "BLOCKED"}, indent=2))
+    quarantine(
+        "contentops.cli_direct_platform_adapters.v1",
+        LEGACY_AUTOMATION_QUARANTINED,
+        "Direct Telegram live-pilot execution is quarantined; use ContentOpsProductionOrchestrator.",
+    )
 
 
 
@@ -1057,6 +1074,7 @@ COMMANDS = {
     "status": print_status,
     "telemetry-summary": telemetry_summary,
     "platform-errors-summary": platform_errors_summary,
+    "scheduler": scheduler_command,
     "scheduler-add": scheduler_add_command,
     "scheduler-list": scheduler_list_command,
     "scheduler-tick": scheduler_tick_command,
@@ -1163,7 +1181,14 @@ def main():
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
         if cmd in COMMANDS:
-            COMMANDS[cmd]()
+            try:
+                if cmd in {"scheduler", "scheduler-tick"}:
+                    COMMANDS[cmd](sys.argv[2:])
+                else:
+                    COMMANDS[cmd]()
+            except LiveEntrypointQuarantined as exc:
+                print(json.dumps(exc.as_dict(), sort_keys=True))
+                return 1
             return 0
         else:
             print(f"Unknown command: {cmd}")
