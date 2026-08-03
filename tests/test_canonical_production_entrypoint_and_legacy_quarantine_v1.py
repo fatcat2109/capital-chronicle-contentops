@@ -161,9 +161,12 @@ def test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once(mon
         ["--run-id", "r", "--output-dir", "out", "--prepare-only"],
         ["--run-id", "r", "--output-dir", "out", "--prepare-generic-live-release"],
         ["--run-id", "r", "--output-dir", "out", "--build-operator-audit-packet"],
+        ["--run-id", "r", "--output-dir", "out", "--closure-historical-repair"],
+        ["--run-id", "r", "--output-dir", "out", "--finalize-v1-tag"],
     ],
 )
 def test_every_live_capable_canonical_cli_family_delegates_once(monkeypatch, argv):
+    sys.modules.pop(CANONICAL_MODULE, None)
     public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
     calls: list[tuple[str, dict[str, object]]] = []
 
@@ -175,6 +178,41 @@ def test_every_live_capable_canonical_cli_family_delegates_once(monkeypatch, arg
     monkeypatch.setattr(public_module, "ContentOpsProductionOrchestrator", FakeOrchestrator)
     assert public_module.main(argv) == 0
     assert calls == [("module_cli", {"argv": argv})]
+    assert CANONICAL_MODULE not in sys.modules
+
+
+def test_closure_historical_repair_cli_delegates_once_without_private_import(monkeypatch):
+    sys.modules.pop(CANONICAL_MODULE, None)
+    public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
+    calls: list[tuple[str, dict[str, object]]] = []
+
+    class FakeOrchestrator:
+        def execute(self, operation: str, **kwargs: object) -> int:
+            calls.append((operation, kwargs))
+            return 0
+
+    monkeypatch.setattr(public_module, "ContentOpsProductionOrchestrator", FakeOrchestrator)
+    argv = ["--run-id", "r", "--output-dir", "out", "--closure-historical-repair"]
+    assert public_module.main(argv) == 0
+    assert calls == [("module_cli", {"argv": argv})]
+    assert CANONICAL_MODULE not in sys.modules
+
+
+def test_finalize_v1_tag_cli_delegates_once_without_private_import(monkeypatch):
+    sys.modules.pop(CANONICAL_MODULE, None)
+    public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
+    calls: list[tuple[str, dict[str, object]]] = []
+
+    class FakeOrchestrator:
+        def execute(self, operation: str, **kwargs: object) -> int:
+            calls.append((operation, kwargs))
+            return 0
+
+    monkeypatch.setattr(public_module, "ContentOpsProductionOrchestrator", FakeOrchestrator)
+    argv = ["--run-id", "r", "--output-dir", "out", "--finalize-v1-tag"]
+    assert public_module.main(argv) == 0
+    assert calls == [("module_cli", {"argv": argv})]
+    assert CANONICAL_MODULE not in sys.modules
 
 
 def test_private_dispatcher_exact_map_has_no_public_wrapper_targets():

@@ -40,7 +40,9 @@ def test_release_verifier_accepts_complete_machine_evidence(tmp_path: Path):
     assert result["classification"] == "AWAITING_OPERATOR_FINAL_V1_0_ACCEPTANCE_NO_ENGINEERING_BLOCKERS"
 
 
-def test_release_verifier_accepts_story_scoped_generic_live_evidence(tmp_path: Path):
+def test_release_verifier_accepts_story_scoped_generic_live_evidence(tmp_path: Path, monkeypatch):
+    from types import SimpleNamespace
+    monkeypatch.setattr(closure.subprocess, "run", lambda *args, **kwargs: SimpleNamespace(stdout=""))
     required = ("substack", "telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube")
     generic = tmp_path / "run_evidence_v1.json"
     closure._write(generic, {

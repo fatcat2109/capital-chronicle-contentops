@@ -22,7 +22,7 @@
     },
     "duplicate_entrypoint_ids": [],
     "canonical_operation_count": 12,
-    "live_cli_family_count": 10,
+    "live_cli_family_count": 12,
     "registry_validation": "PASS"
   },
   "canonical_operations": [
@@ -194,12 +194,16 @@
         "--repair-final-treasury-auction-logic",
         "--prepare-only",
         "--prepare-generic-live-release",
-        "--build-operator-audit-packet"
+        "--build-operator-audit-packet",
+        "--closure-historical-repair",
+        "--finalize-v1-tag"
       ],
       "delegation_boundary": "live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator",
       "proving_tests": [
         "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once",
         "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_every_live_capable_canonical_cli_family_delegates_once",
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_closure_historical_repair_cli_delegates_once_without_private_import",
+        "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_finalize_v1_tag_cli_delegates_once_without_private_import",
         "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py::test_private_dispatcher_exact_map_has_no_public_wrapper_targets"
       ]
     }

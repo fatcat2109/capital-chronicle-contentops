@@ -8,35 +8,35 @@ Accepted release classification:
 
 `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`
 
-Current Wave 01 worker classification:
+Current accepted Wave 01 classification:
 
-`PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`
+`PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
 
-Current correction classification:
+Historical correction classification:
 
 `PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
-Completed Wave 01 implementation task:
+Historical Wave 01 worker classification:
 
-`TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1`
+`PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`
 
-Current correction task:
+Completed Wave 01 acceptance task:
 
-`TASK_CONTENTOPS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_V1`
+`TASK_CONTENTOPS_WAVE01_ACCEPTANCE_MASTER_MERGE_AND_CLI_COVERAGE_RECONCILIATION_V1`
 
 Working branch:
 
-`agent/contentops-wave01-canonical-entrypoint-v1`
+`master`
 
-Original Wave 01 task-start authority:
+Target HEAD:
 
 `a0c9d0a67e39c614d5a80cd758f219dcac9b11ff`
 
-Correction starting/precommit authority:
+Accepted source HEAD:
 
-`7300517ca3861c2962df06d443ad0c0916396f9f`
+`7d7d55039a68b4dbaec631ac75af6b7e418f7500`
 
-The prior independent audit blocked merge. The corrected executable direction is public compatibility API or canonical module/script CLI → `ContentOpsProductionOrchestrator.execute(...)` → private dispatcher → exactly one private implementation body. Correction PASS awaits independent re-audit.
+The independent audit accepted the executable Wave 01 boundary for merge. The post-merge acceptance commit reconciled minor test/evidence coverage to exhaustively cover all 12 mutation-capable CLI argument families.
 
 ## Required next action
 

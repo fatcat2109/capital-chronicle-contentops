@@ -4,15 +4,11 @@ Status authority scope: post-v1 operational maturity program.
 
 Current classification:
 
-`PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
-
-Correction base:
-
-`fatcat2109/capital-chronicle-contentops@7300517ca3861c2962df06d443ad0c0916396f9f`
+`PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
 
 Current branch:
 
-`agent/contentops-wave01-canonical-entrypoint-v1`
+`master`
 
 ## Historical accepted release
 
