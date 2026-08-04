@@ -14,6 +14,10 @@ from live_contentops.temporal_authority_v1 import (
 )
 from live_contentops.verified_historical_predecessor_evidence_v1 import (
     OUTPUT_RELATIVE,
+    STALE_NEXT_ACTION,
+    STATUS_PATHS,
+    STATUS_RECONCILIATION_COMMIT,
+    TASK,
     build_current_parity,
     build_status_reconciliation,
     build_truth_table,
@@ -235,8 +239,58 @@ def test_committed_evidence_replays_and_all_logical_and_artifact_hashes_verify()
 
 
 def test_status_authority_has_one_current_pointer_and_no_stale_decision_time_pointer():
+    # This record is a closeout snapshot: it describes status authority as of the commit that
+    # produced it, not as of today. Current status docs have legitimately moved on since.
     reconciliation = build_status_reconciliation(REPO_ROOT)
     assert reconciliation["all_status_files_consistent"] is True
     assert all(not row["stale_pointer_present"] for row in reconciliation["rows"])
     assert reconciliation["json_sha_roles"]["task_starting_sha"] == OBSERVED_HEAD
     assert reconciliation["json_sha_roles"]["final_sha_reported_after_commit"] is None
+
+
+def test_status_reconciliation_is_pinned_to_producer_commit_not_current_worktree():
+    # The pin must stay reachable or the historical record becomes unreplayable.
+    subprocess.check_call(
+        [
+            "git",
+            "-C",
+            str(REPO_ROOT),
+            "merge-base",
+            "--is-ancestor",
+            STATUS_RECONCILIATION_COMMIT,
+            "HEAD",
+        ]
+    )
+
+    built = build_status_reconciliation(REPO_ROOT)
+    pinned_rows = {}
+    worktree_rows = {}
+    for relative in STATUS_PATHS:
+        pinned = subprocess.check_output(
+            ["git", "-C", str(REPO_ROOT), "show", f"{STATUS_RECONCILIATION_COMMIT}:{relative}"]
+        ).decode("utf-8")
+        current = (REPO_ROOT / relative).read_text(encoding="utf-8")
+        pinned_rows[relative] = (TASK in pinned, STALE_NEXT_ACTION in pinned)
+        worktree_rows[relative] = (TASK in current, STALE_NEXT_ACTION in current)
+
+    for row in built["rows"]:
+        expected_task_present, expected_stale = pinned_rows[row["path"]]
+        assert row["completed_task_present"] is expected_task_present
+        assert row["stale_pointer_present"] is expected_stale
+
+    # Guard against a vacuous pass: if the worktree ever agreed with the pin, this test could
+    # not distinguish a pinned read from a worktree read.
+    assert pinned_rows != worktree_rows, (
+        "worktree matches the pinned commit, so this regression test cannot prove pinning"
+    )
+
+
+def test_status_reconciliation_refuses_to_fall_back_when_pin_is_unreachable(monkeypatch):
+    module = __import__(
+        "live_contentops.verified_historical_predecessor_evidence_v1",
+        fromlist=["STATUS_RECONCILIATION_COMMIT"],
+    )
+    monkeypatch.setattr(module, "STATUS_RECONCILIATION_COMMIT", UNREACHABLE_COMMIT)
+    with pytest.raises(RuntimeError, match="unreachable"):
+        build_status_reconciliation(REPO_ROOT)
+

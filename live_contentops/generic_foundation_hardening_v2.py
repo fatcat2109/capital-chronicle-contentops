@@ -654,6 +654,9 @@ def build_current_upstream_reports(
     foundation_bytes: bytes,
     current_head: str,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
+    current_bytes = current_bytes.replace(b"\r\n", b"\n")
+    historical_bytes = historical_bytes.replace(b"\r\n", b"\n")
+    foundation_bytes = foundation_bytes.replace(b"\r\n", b"\n")
     artifact = json.loads(current_bytes)
     candidate_rows = [*artifact.get("eligible_candidates", []), *artifact.get("rejected_candidates", [])]
     binding = contracts.GovernedCandidatePoolBindingV1(

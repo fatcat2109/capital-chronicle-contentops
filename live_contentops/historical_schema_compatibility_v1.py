@@ -85,6 +85,81 @@ DEPENDENCY_MANIFEST: Mapping[str, Any] = {
 DEPENDENCY_MANIFEST_JSON = canonical_json(DEPENDENCY_MANIFEST)
 DEPENDENCY_MANIFEST_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_JSON.encode("utf-8")).hexdigest()
 
+DEPENDENCY_MANIFEST_V2: Mapping[str, Any] = {
+    "schema_version": "contentops.schema_v4_dependency_manifest.v2",
+    "canonical_json": CANONICAL_JSON_CONTRACT,
+    "genesis_previous_hash": GENESIS_PREVIOUS_HASH,
+    "legacy_baseline_kind": "LEGACY_PROJECTION_BASELINE",
+    "legacy_quarantine_scope": LEGACY_QUARANTINE_SCOPE,
+    "historical_lineage_registry": {
+        lineage_id: {
+            "schema_fingerprint": lineage["schema_fingerprint"],
+            "migration_checksums": dict(lineage["migration_checksums"]),
+            "valid_genesis_present": lineage["valid_genesis_present"],
+        }
+        for lineage_id, lineage in HISTORICAL_SCHEMA_LINEAGES.items()
+    },
+    "migration_sql_checksums": CURRENT_MIGRATION_CHECKSUMS,
+    "migration_sql_hashes": {v: hashlib.sha256(sql.encode("utf-8")).hexdigest() for v, sql in CURRENT_MIGRATION_SQL.items()},
+    "migration_transform_versions": {
+        1: "sql_only.v1",
+        2: "legacy_sequence.v2",
+        3: "legacy_envelope.v3",
+        4: "historical_lineage_compatibility.v4",
+    },
+    "migration_transform_source": "live_contentops.historical_schema_compatibility_v1.CURRENT_MIGRATION_SQL",
+    "state_transition_graph": {
+        "DISCOVERED": ["EVIDENCE_PENDING"],
+        "EVIDENCE_PENDING": ["EVIDENCE_BLOCKED", "EVIDENCE_READY"],
+        "EVIDENCE_READY": ["ASSIGNMENT_CANDIDATE"],
+        "EVIDENCE_BLOCKED": ["DEFERRED", "REJECTED"],
+        "ASSIGNMENT_CANDIDATE": ["ASSIGNED", "DEFERRED", "DUPLICATE", "REJECTED"],
+        "ASSIGNED": ["PRODUCTION_IN_PROGRESS"],
+        "PRODUCTION_IN_PROGRESS": ["REVIEW_BLOCKED", "REVIEW_READY"],
+        "REVIEW_BLOCKED": ["HELD", "REJECTED"],
+        "REVIEW_READY": ["OPERATOR_PENDING"],
+        "OPERATOR_PENDING": ["APPROVED_EXACT", "EXPIRED", "HELD", "REJECTED"],
+        "APPROVED_EXACT": ["OUTBOX_READY"],
+        "HELD": ["DEFERRED", "REJECTED"],
+        "EXPIRED": ["CLOSED"],
+        "OUTBOX_READY": ["DISPATCHING"],
+        "DISPATCHING": ["DISPATCH_BLOCKED", "DISPATCH_COMPLETE", "PARTIAL_SUCCESS", "UNKNOWN_WRITE"],
+        "PARTIAL_SUCCESS": ["OPERATOR_RECOVERY_REQUIRED", "RECONCILING"],
+        "UNKNOWN_WRITE": ["OPERATOR_RECOVERY_REQUIRED", "RECONCILING"],
+        "DISPATCH_BLOCKED": ["DEAD_LETTER", "HELD"],
+        "DISPATCH_COMPLETE": ["RECONCILING"],
+        "RECONCILING": ["COMPLETE", "DEAD_LETTER", "OPERATOR_RECOVERY_REQUIRED"],
+        "COMPLETE": ["OBSERVATION_PENDING"],
+        "DEAD_LETTER": ["CLOSED", "OPERATOR_RECOVERY_REQUIRED"],
+        "OPERATOR_RECOVERY_REQUIRED": ["ASSIGNMENT_CANDIDATE", "CLOSED"],
+        "OBSERVATION_PENDING": ["LEARNING_REVIEW_READY"],
+        "LEARNING_REVIEW_READY": ["CLOSED"],
+        "CLOSED": [],
+        "DEFERRED": ["ASSIGNMENT_CANDIDATE"],
+        "DUPLICATE": ["CLOSED"],
+        "REJECTED": ["CLOSED"],
+    },
+    "protected_state_set": [
+        "APPROVED_EXACT", "COMPLETE", "DISPATCHING", "DISPATCH_BLOCKED",
+        "DISPATCH_COMPLETE", "OUTBOX_READY", "PARTIAL_SUCCESS", "RECONCILING", "UNKNOWN_WRITE",
+    ],
+    "accepted_event_schema_set": [
+        "contentops.event_payload.historical_v1",
+        "contentops.event_payload.legacy_projection_baseline.v1",
+        "contentops.event_payload.legacy_v1",
+        "contentops.event_payload.v1",
+    ],
+    "event_envelope_builder": "live_contentops.durable_operational_store_v1.build_event_envelope_v1",
+    "artifact_scopes": ["GLOBAL_REUSABLE", "LEGACY_UNSCOPED_QUARANTINED", "STORY_EXACT", "WORK_ITEM_EXACT"],
+    "append_immutability_guard_sql": [
+        "CREATE TRIGGER IF NOT EXISTS trg_transition_events_append_authorized BEFORE INSERT ON transition_events BEGIN SELECT CASE WHEN contentops_append_authorized() != 1 THEN RAISE(ABORT,'transition_events INSERT requires canonical append authorization') END; END",
+        "CREATE TRIGGER IF NOT EXISTS trg_artifact_references_insert_authorized BEFORE INSERT ON artifact_references BEGIN SELECT CASE WHEN contentops_artifact_insert_authorized() != 1 THEN RAISE(ABORT,'artifact_references INSERT requires canonical registration authorization') END; END",
+    ],
+    "replay_validation_semantics": "canonical_json_hash_chain_replay_v1",
+}
+DEPENDENCY_MANIFEST_V2_JSON = canonical_json(DEPENDENCY_MANIFEST_V2)
+DEPENDENCY_MANIFEST_V2_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_V2_JSON.encode("utf-8")).hexdigest()
+
 
 @dataclass(frozen=True)
 class RecognizedLineage:
@@ -547,8 +622,8 @@ def _verify_upgraded_database(
         or metadata["source_lineage_id"] != recognized.lineage_id
         or metadata["source_schema_fingerprint"] != recognized.schema_fingerprint
         or metadata["compatibility_version"] != CANONICAL_SCHEMA_VERSION
-        or metadata["dependency_manifest_hash"] != DEPENDENCY_MANIFEST_HASH
-        or metadata["dependency_manifest_json"] != DEPENDENCY_MANIFEST_JSON
+        or metadata["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH)
+        or metadata["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON)
     ):
         raise ValueError("historical_schema_v4_lineage_metadata_failed")
 
@@ -654,7 +729,7 @@ def upgrade_historical_database(db_path: pathlib.Path, *, now_iso: Optional[str]
         conn.execute(
             "INSERT INTO schema_lineage_metadata VALUES (1,?,?,?,?,?,?)",
             (recognized.lineage_id, recognized.schema_fingerprint, CANONICAL_SCHEMA_VERSION,
-             DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_HASH, timestamp),
+             DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V2_HASH, timestamp),
         )
         conn.execute(
             "INSERT INTO schema_migrations (version,checksum,applied_at,description) VALUES (?,?,?,?)",
@@ -733,7 +808,7 @@ def upgrade_historical_database(db_path: pathlib.Path, *, now_iso: Optional[str]
         "source_schema_fingerprint": recognized.schema_fingerprint,
         "source_database_hash": source_hash,
         "source_table_hashes": source_table_hashes,
-        "dependency_manifest_hash": DEPENDENCY_MANIFEST_HASH,
+        "dependency_manifest_hash": DEPENDENCY_MANIFEST_V2_HASH,
         "target_schema_version": CANONICAL_SCHEMA_VERSION,
         **verification,
     }

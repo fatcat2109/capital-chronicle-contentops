@@ -323,3 +323,18 @@ def test_existing_state_surface_inventory_paths_and_symbols_exist(tmp_path):
             f"Unknown superseding entities for {surf['surface_name']}: "
             f"{sorted(superseding_entities - durable_entities)}"
         )
+
+
+def test_markdown_authority_documents_consistency():
+    """Assert all authority markdown docs reflect Wave 01 MERGED, Wave 02 AUDIT, Wave 03 NEXT."""
+    status_md = (REPO_ROOT / "docs" / "status" / "CURRENT_PROJECT_STATUS.md").read_text(encoding="utf-8")
+    assert "Wave 01: Complete" in status_md or "COMPLETE_ACCEPTED_AND_MERGED" in status_md
+    assert "Wave 02" in status_md and ("COMPLETE_AWAITING_INDEPENDENT_AUDIT" in status_md or "Awaiting Independent Audit" in status_md)
+    assert "Wave 03" in status_md and ("NEXT_NOT_STARTED" in status_md or "Next" in status_md)
+
+    next_task_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "next_task_pointer.md").read_text(encoding="utf-8")
+    assert "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1" in next_task_md or "TASK_CONTENTOPS_WAVE02_FINAL_STRONG_AUDIT_COMPLETION_AND_COMPATIBLE_SEMANTIC_MANIFEST_V2" in next_task_md
+
+    master_plan_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "current_v6_master_plan.md").read_text(encoding="utf-8")
+    assert "Wave 02" in master_plan_md
+

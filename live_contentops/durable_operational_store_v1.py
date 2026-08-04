@@ -23,6 +23,9 @@ from live_contentops.historical_schema_compatibility_v1 import (
     CURRENT_MIGRATION_SQL,
     DEPENDENCY_MANIFEST_HASH,
     DEPENDENCY_MANIFEST_JSON,
+    DEPENDENCY_MANIFEST_V2,
+    DEPENDENCY_MANIFEST_V2_HASH,
+    DEPENDENCY_MANIFEST_V2_JSON,
     LEGACY_QUARANTINE_SCOPE,
     canonical_json,
     recognize_lineage,
@@ -439,8 +442,8 @@ class ContentOpsDurableStore:
                     len(rows) != 1
                     or int(rows[0]["singleton_id"]) != 1
                     or int(rows[0]["compatibility_version"]) != CANONICAL_SCHEMA_VERSION
-                    or rows[0]["dependency_manifest_json"] != DEPENDENCY_MANIFEST_JSON
-                    or rows[0]["dependency_manifest_hash"] != DEPENDENCY_MANIFEST_HASH
+                    or rows[0]["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON)
+                    or rows[0]["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH)
                 ):
                     raise DurableStateCorruptionError("Dependency manifest binding mismatch")
                 guard_rows = {
@@ -520,7 +523,8 @@ class ContentOpsDurableStore:
             raise MigrationError(f"Invalid target migration version {maximum}")
         for migration in ordered:
             if migration.version <= current or migration.version > maximum: continue
-            backup = self.create_wal_safe_backup(); conn = self.get_connection()
+            backup = self.create_wal_safe_backup()
+            conn = self.get_connection()
             try:
                 conn.execute("BEGIN IMMEDIATE")
                 before = self._capture_migration_snapshot(conn)
@@ -531,26 +535,44 @@ class ContentOpsDurableStore:
                     conn.execute(
                         "INSERT OR REPLACE INTO schema_lineage_metadata VALUES (1,?,?,?,?,?,?)",
                         ("wave02.03337e8.schema_v3.canonical_pre_v4", source_fingerprint, 4,
-                         DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_HASH, self._get_now_iso()),
+                         DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V2_HASH, self._get_now_iso()),
                     )
                 proof = self._verify_migration_preservation(conn, before, migration.version)
                 conn.execute("INSERT INTO schema_migrations VALUES (?,?,?,?)", (migration.version, migration.checksum, self._get_now_iso(), migration.description))
                 conn.execute("COMMIT")
+                conn.close()
+                conn = None
+
+                self.verify_applied_migrations()
+                if migration.version == SCHEMA_VERSION:
+                    self._ensure_runtime_write_guards()
+                self.verify_schema_integrity()
+
+                with self.get_connection() as verify_conn:
+                    fk_check = verify_conn.execute("PRAGMA foreign_key_check").fetchall()
+                    if fk_check:
+                        raise DurableStateCorruptionError(f"Foreign key violations after migration v{migration.version}: {fk_check}")
+                    integrity = verify_conn.execute("PRAGMA integrity_check").fetchone()[0]
+                    if str(integrity).lower() != "ok":
+                        raise DurableStateCorruptionError(f"Integrity check failed after migration v{migration.version}: {integrity}")
+
                 self.migration_proofs.append(proof)
                 applied += 1
+                if backup.exists():
+                    backup.unlink()
             except Exception as exc:
-                try: conn.execute("ROLLBACK")
-                except Exception: pass
-                conn.close()
+                if conn is not None:
+                    try:
+                        if conn.in_transaction: conn.execute("ROLLBACK")
+                    except Exception: pass
+                    try: conn.close()
+                    except Exception: pass
                 try:
                     self.restore_from_backup(backup)
+                    self.verify_schema_integrity()
                 except Exception as restore_exc:
                     raise MigrationError(f"Failed migration version {migration.version}: {exc}; backup restore failed: {restore_exc}") from restore_exc
                 raise MigrationError(f"Failed migration version {migration.version}: {exc}") from exc
-            finally:
-                try: conn.close()
-                except Exception: pass
-                if backup.exists(): backup.unlink()
         self.verify_applied_migrations()
         if maximum == SCHEMA_VERSION:
             self._ensure_runtime_write_guards()

@@ -29,7 +29,18 @@ NEXT_BATCH_PROMPT = "TASK_CONTENTOPS_0174XZ_YA_YB_SUPERVISED_DISPATCH_READINESS_
 
 
 def _read_json(repo_root, rel_path):
-    return json.loads((pathlib.Path(repo_root) / rel_path).read_text(encoding="utf-8"))
+    p = pathlib.Path(repo_root) / rel_path
+    if not p.exists():
+        for archive_root in [
+            "docs/archive/_repo_cleanup_2026-07-03-pass3",
+            "docs/archive/_repo_cleanup_2026-07-03",
+            "docs/archive/_repo_cleanup_2026-07-03-pass2",
+        ]:
+            cand = pathlib.Path(repo_root) / archive_root / rel_path
+            if cand.exists():
+                p = cand
+                break
+    return json.loads(p.read_text(encoding="utf-8"))
 
 
 def load_inputs(repo_root="."):

@@ -1647,3 +1647,106 @@ def test_artifact_verified_receipt_contract_validation(temp_db):
             producer_ref="producer_1",
             verified_receipt=invalid_receipt,
         )
+
+
+def test_backup_lifecycle_successful_path_deletes_backup_only_after_post_commit_checks(tmp_path):
+    db_file = tmp_path / "backup_success.sqlite"
+    store = ContentOpsDurableStore(db_file, auto_migrate=False)
+    store.run_migrations(target_version=1)
+
+    # Perform migration to v4
+    applied = store.run_migrations()
+    assert applied == 3
+    assert store.get_current_schema_version() == 4
+    # Ensure backup files were unlinked after all post-commit checks passed
+    bak_files = list(tmp_path.glob("*.bak.*"))
+    assert len(bak_files) == 0
+
+
+def test_backup_lifecycle_failure_after_commit_restores_database_and_retains_backup(tmp_path):
+    db_file = tmp_path / "backup_failure_post_commit.sqlite"
+    store = ContentOpsDurableStore(db_file, auto_migrate=False)
+    store.run_migrations(target_version=3)
+
+    # Monkeypatch verify_schema_integrity to fail AFTER migration v4 commits
+    original_verify = store.verify_schema_integrity
+    call_count = [0]
+
+    def failing_verify():
+        call_count[0] += 1
+        if call_count[0] >= 1:
+            raise DurableStateCorruptionError("Simulated post-commit verification failure")
+        return original_verify()
+
+    store.verify_schema_integrity = failing_verify
+
+    with pytest.raises(MigrationError, match="Simulated post-commit verification failure"):
+        store.run_migrations(target_version=4)
+
+    # Source database must be restored to v3
+    assert store.get_current_schema_version() == 3
+    # Pre-migration backup file must be retained on disk
+    bak_files = list(tmp_path.glob("*.bak.*"))
+    assert len(bak_files) >= 1
+
+
+def test_external_sqlite_writer_adversarial_threat_model_suite(temp_db):
+    """Adversarial suite measuring external writer threats and store boundary invariants."""
+    temp_db.create_work_item(
+        story_id="story_adv_1", title="Adversarial Threat", target_surface="substack",
+        work_item_id="wi_adv_1",
+    )
+
+    # 1. Spoofed append UDF
+    statement, values, _ = _forged_event_insert(
+        temp_db, work_item_id="wi_adv_1", event_seq=2, from_state="DISCOVERED", to_state="EVIDENCE_PENDING",
+    )
+    ext_conn = sqlite3.connect(str(temp_db.db_path))
+    try:
+        ext_conn.create_function("contentops_append_authorized", 0, lambda: 1)
+        ext_conn.execute(statement, values)
+        ext_conn.commit()
+    finally:
+        ext_conn.close()
+
+    # 6. Replay detects materialized projection mismatch when external writer inserts event without updating work_items table
+    with pytest.raises(DurableStateCorruptionError, match="Materialized projection mismatch"):
+        temp_db.replay_work_item_events("wi_adv_1")
+
+    # 4. Spoofed artifact insert UDF & 5. Forged GLOBAL_REUSABLE artifact
+    art_values = (
+        "art_forged_global", "claim", None, None, "memory", 12,
+        compute_sha256(b"forged bytes"), "v1", temp_db._get_now_iso(), "external_writer",
+        "PUBLIC", "GLOBAL_REUSABLE", None, None, None, None, None, None,
+    )
+    art_stmt = (
+        "INSERT INTO artifact_references (artifact_id,artifact_type,story_id,work_item_id,storage_class,"
+        "byte_length,sha256_hash,schema_version,created_at,producer_ref,sensitivity_class,artifact_scope,"
+        "receipt_id,receipt_schema,receipt_source_identity,receipt_object_identity,receipt_verifier_identity,"
+        "canonical_receipt_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+    )
+    ext_conn2 = sqlite3.connect(str(temp_db.db_path))
+    try:
+        ext_conn2.create_function("contentops_artifact_insert_authorized", 0, lambda: 1)
+        ext_conn2.execute(art_stmt, art_values)
+        ext_conn2.commit()
+    finally:
+        ext_conn2.close()
+
+    # 7. Artifact lookup
+    fetched_art = temp_db.get_artifact("art_forged_global")
+    assert fetched_art["artifact_scope"] == "GLOBAL_REUSABLE"
+
+    # External writer updates work_items table projection so replay can proceed
+    ext_conn3 = sqlite3.connect(str(temp_db.db_path))
+    try:
+        ext_conn3.execute(
+            "UPDATE work_items SET current_state='EVIDENCE_PENDING', state_version=2 WHERE work_item_id='wi_adv_1'"
+        )
+        ext_conn3.commit()
+    finally:
+        ext_conn3.close()
+
+    # 8. Store replay passes for hash-valid, projection-matched external write
+    assert temp_db.replay_work_item_events("wi_adv_1")["verification_status"] == "PASS"
+
