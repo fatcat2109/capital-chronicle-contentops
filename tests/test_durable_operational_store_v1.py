@@ -318,6 +318,139 @@ def test_exact_historical_lineage_upgrade_preserves_rows_and_replays(
         assert replay["event_count"] == expected_counts[projection["work_item_id"]]
 
 
+def test_canonical_json_encoder_is_a_single_shared_object():
+    """The migration writer and the replay verifier must share one encoder object.
+
+    Wave 02 previously defined a second ``canonical_json`` inside the store module
+    with ``ensure_ascii=False`` while the migration path used the compatibility
+    module's ``ensure_ascii=True`` encoder. Both modules imported cleanly, all
+    ASCII-only tests passed, and the divergence only surfaced as an unreplayable
+    database once any non-ASCII byte entered a payload. Identity is asserted here
+    (not merely equal output) so a re-introduced local definition fails immediately
+    instead of failing silently on data the suite happens not to exercise.
+    """
+    assert canonical_json is historical_compatibility.canonical_json
+    assert historical_compatibility._canonical_json is historical_compatibility.canonical_json
+
+
+def test_canonical_json_matches_declared_dependency_manifest_contract():
+    """The encoder's behaviour must match the contract string hashed into every database.
+
+    ``DEPENDENCY_MANIFEST["canonical_json"]`` is embedded in the manifest whose SHA-256
+    is written to ``schema_lineage_metadata``. If the code drifts from the declared
+    string, already-migrated databases assert a guarantee the code no longer honours.
+    """
+    declared = historical_compatibility.DEPENDENCY_MANIFEST["canonical_json"]
+    assert declared == historical_compatibility.CANONICAL_JSON_CONTRACT
+    assert declared == "json.dumps(sort_keys=True,separators=(',',':'),ensure_ascii=True,allow_nan=False)"
+
+    # sort_keys=True: key insertion order cannot perturb the hash.
+    assert canonical_json({"b": 1, "a": 2}) == canonical_json({"a": 2, "b": 1}) == '{"a":2,"b":1}'
+    # separators: no incidental whitespace.
+    assert canonical_json({"a": [1, 2]}) == '{"a":[1,2]}'
+    # ensure_ascii=True: non-ASCII is escaped, never emitted as raw UTF-8.
+    assert canonical_json({"t": "caf\u00e9 \u2014 r\u00e9sum\u00e9"}) == '{"t":"caf\\u00e9 \\u2014 r\\u00e9sum\\u00e9"}'
+    assert canonical_json({"t": "caf\u00e9"}).isascii()
+    # allow_nan=False: non-standard JSON tokens are rejected, not written to the ledger.
+    for invalid in (float("nan"), float("inf"), float("-inf")):
+        with pytest.raises(ValueError):
+            canonical_json({"v": invalid})
+
+
+def test_dependency_manifest_hash_is_pinned_against_silent_lineage_drift():
+    """Pin the manifest hash recorded in every migrated database.
+
+    Any edit to DEPENDENCY_MANIFEST changes this hash and invalidates the lineage
+    metadata of databases already migrated in the field. Changing this constant is
+    therefore a deliberate compatibility-version decision, not an incidental edit.
+    """
+    assert historical_compatibility.DEPENDENCY_MANIFEST_HASH == (
+        "6130da750b36fed3183816218717d008a74234efd12dcc92725ab25c0cc12f33"
+    )
+    assert compute_sha256(historical_compatibility.DEPENDENCY_MANIFEST_JSON) == (
+        historical_compatibility.DEPENDENCY_MANIFEST_HASH
+    )
+
+
+@pytest.mark.parametrize(
+    "originating_commit",
+    (
+        "e24a4492e9d72f55c704168d637b7628e49140cd",
+        "3cc531a3d30848f54329d25913018882f6b71bcd",
+        "33225d5e8d79ad229ad93d203e8d2e5018bb2738",
+        "615a96fb20aa97fd76bb3343e9150daec40d9031",
+        "03337e8f82478cf578866a5a1749d96acd687d3d",
+    ),
+)
+def test_non_ascii_historical_payload_migrates_and_replays(tmp_path, originating_commit):
+    """Non-ASCII legacy content must survive migration and remain replayable.
+
+    Real editorial titles routinely contain em dashes and accented characters, but
+    every pre-existing lineage fixture was pure ASCII, so the write/verify encoder
+    split was invisible to the suite. This exercises the byte path that actually
+    broke: migrate a payload containing non-ASCII, then re-verify the hash chain.
+
+    The suffix is passed to the fixture builder rather than applied by a later
+    ``UPDATE``. Titles are embedded in event payloads and covered by the event
+    hash chain, so patching ``work_items`` alone would produce a database that was
+    already corrupt on arrival -- the migration would then be blamed for a defect
+    the test itself introduced.
+    """
+    title_suffix = " \u2014 caf\u00e9 r\u00e9sum\u00e9 \u00fcber \u20ac5"
+    non_ascii_title = f"Historical Alpha{title_suffix}"
+    db_file = tmp_path / f"historical_nonascii_{originating_commit[:7]}.sqlite"
+    fixture = create_exact_historical_database(
+        db_file,
+        originating_commit=originating_commit,
+        title_suffix=title_suffix,
+    )
+
+    # Guard the guard: if the suffix ever stops reaching the payload bytes, this test
+    # would silently degrade into a duplicate of the plain ASCII migration test.
+    assert not non_ascii_title.isascii()
+    projected_titles = {
+        projection["title"] for projection in fixture["work_item_projections"]
+    }
+    assert non_ascii_title in projected_titles
+
+    store = ContentOpsDurableStore(db_file, auto_migrate=True)
+
+    assert store.get_current_schema_version() == 4
+    # A migration that fails post-commit verification quarantines the database instead
+    # of upgrading it; assert no such artifacts were produced.
+    assert not list(tmp_path.glob(f"{db_file.name}.recovery.*.sqlite"))
+    assert not list(tmp_path.glob(f"{db_file.name}.migration_failure_*.sqlite"))
+
+    connection = store.get_connection()
+    try:
+        assert connection.execute(
+            "SELECT title FROM work_items WHERE work_item_id=?",
+            ("wi_historical_alpha",),
+        ).fetchone()[0] == non_ascii_title
+
+        payload_rows = connection.execute(
+            "SELECT event_payload_json FROM transition_events WHERE work_item_id=?",
+            ("wi_historical_alpha",),
+        ).fetchall()
+        assert payload_rows
+        saw_escaped_non_ascii = False
+        for (payload_json,) in payload_rows:
+            # Stored payload bytes must be the escaped ASCII form the manifest promises.
+            assert payload_json.isascii()
+            assert canonical_json(json.loads(payload_json)) == payload_json
+            if json.loads(payload_json).get("title") == non_ascii_title:
+                saw_escaped_non_ascii = True
+        assert saw_escaped_non_ascii, "no migrated payload carried the non-ASCII title"
+    finally:
+        connection.close()
+
+    for projection in fixture["work_item_projections"]:
+        replay = store.replay_work_item_events(projection["work_item_id"])
+        assert replay["verification_status"] == "PASS"
+        assert replay["replayed_state"] == projection["current_state"]
+        assert replay["replayed_version"] == projection["state_version"]
+
+
 def test_historical_unknown_checksum_set_fails_closed_without_migration(tmp_path):
     db_file = tmp_path / "historical_unknown_checksum.sqlite"
     fixture = create_exact_historical_database(

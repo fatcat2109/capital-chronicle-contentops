@@ -24,6 +24,7 @@ from live_contentops.historical_schema_compatibility_v1 import (
     DEPENDENCY_MANIFEST_HASH,
     DEPENDENCY_MANIFEST_JSON,
     LEGACY_QUARANTINE_SCOPE,
+    canonical_json,
     recognize_lineage,
     schema_fingerprint,
     upgrade_historical_database,
@@ -115,8 +116,10 @@ def compute_sha256(data: Union[str, bytes]) -> str:
 def is_valid_sha256(value: str) -> bool:
     return bool(re.fullmatch(r"[a-fA-F0-9]{64}", value or ""))
 
-def canonical_json(value: Any) -> str:
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+# ``canonical_json`` is deliberately NOT redefined here. It is imported from
+# live_contentops.historical_schema_compatibility_v1 so that the migration writer and
+# the replay verifier share one byte-identical encoder. Re-defining it locally caused a
+# silent event-payload hash mismatch on any non-ASCII content.
 
 def split_sql_statements(sql_script: str) -> List[str]:
     """Split a migration script only at SQLite-complete statement boundaries."""

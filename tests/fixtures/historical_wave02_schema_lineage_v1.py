@@ -66,25 +66,31 @@ def _work_item_values(
     }
 
 
-def _populate_operational_rows(connection: sqlite3.Connection) -> Dict[str, Any]:
+def _populate_operational_rows(
+    connection: sqlite3.Connection,
+    title_suffix: str = "",
+) -> Dict[str, Any]:
     event_columns = set(_columns(connection, "transition_events"))
     artifact_columns = set(_columns(connection, "artifact_references"))
     has_envelope = "event_payload_json" in event_columns
     has_event_kind = "event_kind" in event_columns
     no_genesis = not has_envelope
 
+    alpha_title = f"Historical Alpha{title_suffix}"
+    beta_title = f"Historical Beta{title_suffix}"
+
     projections = (
         _work_item_values(
             "wi_historical_alpha",
             "story_historical_alpha",
-            "Historical Alpha",
+            alpha_title,
             "EVIDENCE_READY" if no_genesis else "EVIDENCE_PENDING",
             3 if no_genesis else 2,
         ),
         _work_item_values(
             "wi_historical_beta",
             "story_historical_beta",
-            "Historical Beta",
+            beta_title,
             "EVIDENCE_PENDING" if no_genesis else "DISCOVERED",
             2 if no_genesis else 1,
         ),
@@ -346,7 +352,7 @@ def _populate_operational_rows(connection: sqlite3.Connection) -> Dict[str, Any]
             transition_payload.update(
                 {
                     "event_kind": "STATE_TRANSITION",
-                    "title": "Historical Alpha",
+                    "title": alpha_title,
                     "target_surface": "substack",
                 }
             )
@@ -410,8 +416,20 @@ def _populate_operational_rows(connection: sqlite3.Connection) -> Dict[str, Any]
     }
 
 
-def create_exact_historical_database(db_path: pathlib.Path, *, originating_commit: str) -> Dict[str, Any]:
-    """Materialize one exact extracted schema, migration history, and operational rows."""
+def create_exact_historical_database(
+    db_path: pathlib.Path,
+    *,
+    originating_commit: str,
+    title_suffix: str = "",
+) -> Dict[str, Any]:
+    """Materialize one exact extracted schema, migration history, and operational rows.
+
+    ``title_suffix`` is appended to the work item titles at construction time so that
+    callers can build lineages containing non-ASCII content. It must be applied here
+    rather than by patching rows afterwards: titles are embedded in event payloads and
+    covered by event hashes, so an after-the-fact ``UPDATE`` of ``work_items`` alone
+    yields a database that was already self-inconsistent before any migration ran.
+    """
     lineages = load_historical_schema_extraction()
     try:
         lineage = lineages[originating_commit]
@@ -443,7 +461,7 @@ def create_exact_historical_database(db_path: pathlib.Path, *, originating_commi
                     str(migration_row["description"]),
                 ),
             )
-        fixture_evidence = _populate_operational_rows(connection)
+        fixture_evidence = _populate_operational_rows(connection, title_suffix=title_suffix)
         connection.commit()
         if connection.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
             raise RuntimeError("exact historical fixture integrity check failed")

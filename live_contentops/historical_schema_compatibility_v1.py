@@ -35,9 +35,37 @@ CURRENT_MIGRATION_SQL: Mapping[int, str] = {
 }
 CURRENT_MIGRATION_CHECKSUMS = {version: hashlib.sha256(sql.encode("utf-8")).hexdigest() for version, sql in CURRENT_MIGRATION_SQL.items()}
 
+#: Declared canonical-JSON contract recorded in the dependency manifest.
+#: This literal is hashed into ``schema_lineage_metadata`` for every migrated database,
+#: so it MUST NOT change without a deliberate compatibility-version bump.
+CANONICAL_JSON_CONTRACT = "json.dumps(sort_keys=True,separators=(',',':'),ensure_ascii=True,allow_nan=False)"
+
+
+def canonical_json(value: Any) -> str:
+    """Return the single authoritative canonical JSON encoding for hashed evidence.
+
+    This is the only canonical encoder in the Wave 02 durable-state surface. Every
+    hash-chained artifact (event payloads, artifact snapshots, schema fingerprints,
+    replay verification, and failure receipts) must serialize through this function
+    so that written bytes and re-verified bytes are identical by construction.
+
+    The keyword arguments are stated explicitly rather than left to interpreter
+    defaults because they are load-bearing integrity guarantees, and they must stay
+    exactly equivalent to :data:`CANONICAL_JSON_CONTRACT`:
+
+    * ``sort_keys=True``   - key order cannot perturb the hash.
+    * ``separators``       - no incidental whitespace.
+    * ``ensure_ascii=True``- non-ASCII text is escaped to a pure-ASCII form, so the
+      encoding never depends on ambient locale or console/filesystem codecs.
+    * ``allow_nan=False``  - ``NaN``/``Infinity`` are rejected instead of emitting
+      non-standard JSON tokens into an append-only, hash-chained ledger.
+    """
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False)
+
+
 DEPENDENCY_MANIFEST: Mapping[str, Any] = {
     "schema_version": "contentops.schema_v4_dependency_manifest.v1",
-    "canonical_json": "json.dumps(sort_keys=True,separators=(',',':'),ensure_ascii=True,allow_nan=False)",
+    "canonical_json": CANONICAL_JSON_CONTRACT,
     "genesis_previous_hash": GENESIS_PREVIOUS_HASH,
     "legacy_baseline_kind": "LEGACY_PROJECTION_BASELINE",
     "legacy_quarantine_scope": LEGACY_QUARANTINE_SCOPE,
@@ -54,7 +82,7 @@ DEPENDENCY_MANIFEST: Mapping[str, Any] = {
     "authority_rule": "WAVE02_FORBIDDEN_AUTHORITY_STATES",
     "event_hash_rule": "sha256(canonical event_payload_json)",
 }
-DEPENDENCY_MANIFEST_JSON = json.dumps(DEPENDENCY_MANIFEST, sort_keys=True, separators=(",", ":"), allow_nan=False)
+DEPENDENCY_MANIFEST_JSON = canonical_json(DEPENDENCY_MANIFEST)
 DEPENDENCY_MANIFEST_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_JSON.encode("utf-8")).hexdigest()
 
 
@@ -71,8 +99,10 @@ def _sha256(value: str | bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
 
-def _canonical_json(value: Any) -> str:
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+#: Backwards-compatible private alias for existing call sites in this module.
+#: Intentionally the same object as :func:`canonical_json` so no second
+#: canonical encoder can ever exist in this surface.
+_canonical_json = canonical_json
 
 
 def _quoted(conn: sqlite3.Connection, value: str) -> str:
