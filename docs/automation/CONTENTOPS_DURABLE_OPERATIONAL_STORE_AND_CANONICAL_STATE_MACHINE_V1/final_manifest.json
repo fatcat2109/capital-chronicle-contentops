@@ -1,7 +1,7 @@
 {
   "schema_version": "contentops.wave02_final_manifest.v1",
-  "task": "TASK_CONTENTOPS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_V1",
-  "worker_classification": "PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+  "task": "TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1",
+  "worker_classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
   "authority_roles": {
     "accepted_master_authority": {
       "head": "c87e338f25922f4d03454ba199139353ca7198ff",
@@ -15,8 +15,8 @@
     "candidate_branch_authority": {
       "branch": "agent/contentops-wave02-durable-operational-store-v1",
       "starting_head": "615a96fb20aa97fd76bb3343e9150daec40d9031",
-      "task": "TASK_CONTENTOPS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_V1",
-      "classification": "PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+      "task": "TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1",
+      "classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
       "wave_02_status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
       "completing_commit_sha": null,
       "merged": false
@@ -27,13 +27,14 @@
     }
   },
   "schema": {
-    "version": 3,
-    "tables_count": 22,
-    "triggers_count": 5,
+    "version": 4,
+    "tables_count": 26,
+    "triggers_count": 6,
     "semantic_migration_checksums": [
-      "b2b33da379e42c5897e419620da81b7692e64ea91269bc72976b4a1b768cb32e",
-      "de754d123416e9ef172f0ff3607c898f167971a0566c34dbae4dfa18d6a5a589",
-      "fff8a2f889cc174e8e27ee878212940c889f91eedd8e33f4a9877fdde7940697"
+      "184298f54e1b6bc4a359d3026d3a249bf85cd46beee1fbcda53d04db5a326cb9",
+      "d4a35a066a106a705c09fbe1f3df1e8f66b95413936398e4158b55ef4ff3d849",
+      "553ed20ea3c9d961047362df09e2c538c3269388caf27089da963366b44813cf",
+      "3c2047f57ad8fa54915844c20196a283dcc21133299eb66e375c88052f1c0583"
     ]
   },
   "evidence_packet": {

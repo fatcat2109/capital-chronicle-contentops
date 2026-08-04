@@ -97,6 +97,16 @@ class OperationLifecycleError(ValueError):
         super().__init__(code)
 
 
+class OperationFailurePersistenceError(RuntimeError):
+    """Original operation failed and its durable blocked-state receipt could not persist."""
+
+    def __init__(self, operation_error: Exception, persistence_error: Exception, restart_disposition: str) -> None:
+        self.operation_error = operation_error
+        self.persistence_error = persistence_error
+        self.restart_disposition = restart_disposition
+        super().__init__("operation_failure_persistence_failed:" + type(persistence_error).__name__)
+
+
 @dataclass(frozen=True)
 class _CanonicalOutput:
     name: str
@@ -260,9 +270,11 @@ class ContentOpsProductionOrchestrator:
         registered: List[Dict[str, Any]] = []
         for output in outputs:
             digest = compute_sha256(output.content_bytes)
-            identity = json.dumps({"operation": operation, "name": output.name, "output_form": output.output_form,
-                                   "artifact_type": output.artifact_type, "schema_version": output.schema_version,
-                                   "sha256_hash": digest}, sort_keys=True, separators=(",", ":"))
+            identity = json.dumps({"story_id": context.story_id, "work_item_id": context.work_item_id,
+                                   "artifact_scope": "WORK_ITEM_EXACT", "operation": operation, "name": output.name,
+                                   "output_form": output.output_form, "artifact_type": output.artifact_type,
+                                   "schema_version": output.schema_version, "sha256_hash": digest},
+                                  sort_keys=True, separators=(",", ":"))
             artifact_id = f"art_out_{compute_sha256(identity)[:24]}"
             active_store.register_artifact(
                 artifact_id=artifact_id, artifact_type=output.artifact_type, storage_class="MEMORY",
@@ -277,7 +289,12 @@ class ContentOpsProductionOrchestrator:
         if len(registered) > 1:
             manifest_bytes = json.dumps({"schema_version": "contentops.operation_output_manifest.v1", "operation": operation,
                                          "outputs": registered}, sort_keys=True, separators=(",", ":")).encode("utf-8")
-            manifest_id = f"art_manifest_{compute_sha256(manifest_bytes)[:24]}"
+            manifest_identity = json.dumps({
+                "story_id": context.story_id, "work_item_id": context.work_item_id,
+                "artifact_scope": "WORK_ITEM_EXACT", "operation": operation,
+                "manifest_sha256_hash": compute_sha256(manifest_bytes),
+            }, sort_keys=True, separators=(",", ":"))
+            manifest_id = f"art_manifest_{compute_sha256(manifest_identity)[:24]}"
             active_store.register_artifact(
                 artifact_id=manifest_id, artifact_type="OPERATION_OUTPUT_MANIFEST", storage_class="MEMORY",
                 schema_version="contentops.operation_output_manifest.v1", producer_ref=context.actor_ref,
@@ -383,8 +400,12 @@ class ContentOpsProductionOrchestrator:
                         output_artifact_ids=registered_output_ids, correlation_id=ctx.correlation_id,
                         policy_version=ctx.policy_version, model_version=ctx.model_version,
                     )
-            except Exception:
-                pass
+            except Exception as persistence_exc:
+                try:
+                    disposition = self._resume_decision(contract)
+                except OperationLifecycleError:
+                    disposition = "RESTART_NOT_SUPPORTED"
+                raise OperationFailurePersistenceError(exc, persistence_exc, disposition) from exc
             raise
 
     def run(self, **kwargs: Any) -> Mapping[str, Any]:

@@ -95,6 +95,31 @@ A model may draft and critique. It cannot create authority, permission, approval
 
 ## 7. Current next task
 
-`TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
+`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 01 classification is `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status is `COMPLETE_ACCEPTED_AND_MERGED`. Completed Wave 02 task is `TASK_CONTENTOPS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_V1`. Wave 02 classification is `PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT`. Wave 02 status is `COMPLETE_AWAITING_INDEPENDENT_AUDIT`. Wave 03 status is `NEXT_NOT_STARTED`. Wave 03 is now the exact next task, but it has not started.
+Execution mode:
+
+`LOCAL_SCHEMA_AND_PERSISTENCE_IMPLEMENTATION_NO_LIVE_ACTION`
+
+Required result:
+
+- implement one SQLite WAL operational store with explicit versioned migrations;
+- persist append-only transitions with exact reason, actor, and artifact-hash bindings;
+- implement compare-and-set transitions, writer/work-item leases, heartbeats, restart reconstruction, and deterministic replay;
+- keep transaction semantics explicit and provide redacted evidence export;
+- add crash/restart, stale-lease, migration-failure, and concurrent-claim tests.
+
+Forbidden in this task:
+
+- mutable SQLite database commits;
+- raw secret or browser-session persistence;
+- hidden transaction semantics or silent malformed-state discard;
+- credential/env value read;
+- provider call;
+- browser/CDP or platform action;
+- scheduler or outbox execution;
+- dispatch, publication, network, or public write;
+- upstream mutation;
+- modification or retagging of accepted `v1.0` artifacts.
+
+Wave 01 classification is `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status is `COMPLETE_ACCEPTED_AND_MERGED`. Wave 02 status is `NEXT_NOT_STARTED`. Wave 02 is now the exact next task, but it has not started; execute it only under its schema/local-persistence and no-live boundary.

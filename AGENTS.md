@@ -139,9 +139,9 @@ Credential checks are limited to names, presence booleans, nonsecret scope/accou
 
 ## 10. Current next task
 
-`TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
+`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status: `COMPLETE_ACCEPTED_AND_MERGED`. Completed Wave 02 task: `TASK_CONTENTOPS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_V1`. Wave 02 worker classification: `PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT`. Wave 02 status: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`. Wave 03 status: `NEXT_NOT_STARTED`. Wave 03 is the exact next task and has not started. It is an approval-envelope, transactional outbox, and expiry boundary. Do not read credentials, invoke providers, use browser/CDP or platform APIs, execute scheduler/outbox work, dispatch, publish, or perform network/public writes.
+Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status: `COMPLETE_ACCEPTED_AND_MERGED`. Wave 02 status: `NEXT_NOT_STARTED`. Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary: implement the SQLite WAL operational spine, versioned migrations, append-only transitions, compare-and-set state changes, leases, restart reconstruction, and redacted evidence export. Do not read credentials, invoke providers, use browser/CDP or platform APIs, execute scheduler/outbox work, dispatch, publish, or perform network/public writes.
 
 ## 11. Task protocol
 

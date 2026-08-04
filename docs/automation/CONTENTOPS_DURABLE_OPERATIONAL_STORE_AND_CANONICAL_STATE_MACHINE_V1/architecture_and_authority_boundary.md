@@ -1,7 +1,7 @@
 # Architecture and Authority Boundary — Wave 02 Durable Operational Store
 
 Worker Classification:
-`PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+`PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
 ## 1. Single Production Persistence Authority
 
@@ -11,8 +11,10 @@ Worker Classification:
 - SQLite WAL, foreign keys, and a 5000 ms busy timeout.
 - Versioned semantic migrations that fail closed on missing, unknown, ahead, drifted, partial, or ambiguous populated histories.
 - Canonical schema-versioned transition envelopes with full-field replay verification and a cryptographic previous-event chain.
-- Connection-local internal append authorization plus INSERT/UPDATE/DELETE database triggers; callers cannot directly append or mutate authority events.
-- Independently resolved immutable artifact receipts with persisted provenance and explicit reuse scope. PUBLIC sensitivity is not reuse authority.
+- Store-owned SQLite connections install a prepare-time authorizer that denies direct INSERT into `transition_events` and `artifact_references` outside narrow canonical append/registration contexts; statement caching is disabled so prepared authorization cannot outlive those contexts.
+- Database triggers provide a second guard for plain external SQLite connections and UPDATE/DELETE immutability. An unrestricted local file owner can register spoofed trigger UDFs, drop triggers, replace bytes, or use a different SQLite runtime, so Wave 02 does **not** claim malicious-local-process resistance.
+- Canonical replay independently fails closed on illegal edges, protected authority states, sequence/version mismatches, payload/hash/chain drift, scoped artifact snapshot corruption, and projection mismatch. This detects tested forged histories but is not a substitute for OS access control or cryptographic signing rooted outside the database.
+- Independently resolved immutable artifact receipts have persisted provenance and explicit reuse scope. PUBLIC sensitivity is not reuse authority.
 - Monotonic lease fencing, deterministic fake-clock timestamps, atomic assignment/heartbeat cleanup, and a database-enforced one-ACTIVE-assignment invariant.
 
 Mutable database families (`*.sqlite`, `*.db`, `*-wal`, `*-shm`, and migration backups) remain ignored and uncommitted.

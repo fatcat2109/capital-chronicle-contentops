@@ -17,14 +17,39 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Dict, Iterator, List, Mapping, Optional, Sequence, Tuple, Union
 
-SCHEMA_VERSION = 3
+from live_contentops.historical_schema_compatibility_v1 import (
+    CANONICAL_SCHEMA_VERSION,
+    CURRENT_MIGRATION_CHECKSUMS,
+    CURRENT_MIGRATION_SQL,
+    DEPENDENCY_MANIFEST_HASH,
+    DEPENDENCY_MANIFEST_JSON,
+    LEGACY_QUARANTINE_SCOPE,
+    recognize_lineage,
+    schema_fingerprint,
+    upgrade_historical_database,
+)
+
+SCHEMA_VERSION = CANONICAL_SCHEMA_VERSION
 BUSY_TIMEOUT_MS = 5000
 EVENT_SCHEMA_VERSION = "contentops.event_payload.v1"
 LEGACY_EVENT_SCHEMA_VERSION = "contentops.event_payload.legacy_v1"
-ACCEPTED_EVENT_SCHEMA_VERSIONS = frozenset({EVENT_SCHEMA_VERSION, LEGACY_EVENT_SCHEMA_VERSION})
+HISTORICAL_EVENT_SCHEMA_VERSION = "contentops.event_payload.historical_v1"
+LEGACY_BASELINE_EVENT_SCHEMA_VERSION = "contentops.event_payload.legacy_projection_baseline.v1"
+ACCEPTED_EVENT_SCHEMA_VERSIONS = frozenset({
+    EVENT_SCHEMA_VERSION,
+    LEGACY_EVENT_SCHEMA_VERSION,
+    HISTORICAL_EVENT_SCHEMA_VERSION,
+    LEGACY_BASELINE_EVENT_SCHEMA_VERSION,
+})
 GENESIS_EVENT_KIND = "WORK_ITEM_CREATED"
 GENESIS_PREVIOUS_HASH = "GENESIS_" + "0" * 64
-ARTIFACT_SCOPES = frozenset({"WORK_ITEM_EXACT", "STORY_EXACT", "GLOBAL_REUSABLE"})
+ARTIFACT_SCOPES = frozenset({"WORK_ITEM_EXACT", "STORY_EXACT", "GLOBAL_REUSABLE", LEGACY_QUARANTINE_SCOPE})
+ACTIVE_ARTIFACT_SCOPES = frozenset({"WORK_ITEM_EXACT", "STORY_EXACT", "GLOBAL_REUSABLE"})
+PROTECTED_INSERT_TABLES = frozenset({"transition_events", "artifact_references"})
+RUNTIME_INSERT_GUARD_SQL = (
+    "CREATE TRIGGER IF NOT EXISTS trg_transition_events_append_authorized BEFORE INSERT ON transition_events BEGIN SELECT CASE WHEN contentops_append_authorized() != 1 THEN RAISE(ABORT,'transition_events INSERT requires canonical append authorization') END; END",
+    "CREATE TRIGGER IF NOT EXISTS trg_artifact_references_insert_authorized BEFORE INSERT ON artifact_references BEGIN SELECT CASE WHEN contentops_artifact_insert_authorized() != 1 THEN RAISE(ABORT,'artifact_references INSERT requires canonical registration authorization') END; END",
+)
 
 CANONICAL_STATES = frozenset({
     "DISCOVERED", "EVIDENCE_PENDING", "EVIDENCE_READY", "EVIDENCE_BLOCKED",
@@ -63,6 +88,9 @@ STATE_TRANSITION_GRAPH: Dict[str, set[str]] = {
     "CLOSED": set(), "DEFERRED": {"ASSIGNMENT_CANDIDATE"}, "DUPLICATE": {"CLOSED"},
     "REJECTED": {"CLOSED"},
 }
+HISTORICAL_MIGRATION_STATE_EDGES = frozenset({
+    ("EVIDENCE_READY", "ASSIGNED"),
+})
 
 class DurableStoreError(Exception): pass
 class MigrationError(DurableStoreError): pass
@@ -302,6 +330,9 @@ class Migration:
 
     @property
     def checksum(self) -> str:
+        frozen = CURRENT_MIGRATION_CHECKSUMS.get(self.version)
+        if frozen is not None:
+            return frozen
         return compute_sha256(canonical_json({"sql": self.sql, "transform_version": self.transform_version, "transform_source_hash": self.transform_source_hash}))
 
     def __iter__(self):
@@ -311,6 +342,7 @@ MIGRATIONS: List[Migration] = [
     Migration(1, "Initial Wave 02 Durable Operational Store Schema", MIGRATION_V1_SQL, "sql_only.v1"),
     Migration(2, "Deterministic legacy sequence assignment", MIGRATION_V2_SQL, "legacy_sequence.v2", _migration_v2_transform),
     Migration(3, "Canonical event envelopes, receipt scope, and append guards", MIGRATION_V3_SQL, "legacy_envelope.v3", _migration_v3_transform),
+    Migration(4, "Wave 02 Schema v4: Historical Lineage Compatibility and Dependency Manifest", CURRENT_MIGRATION_SQL[4], "historical_lineage_compatibility.v4"),
 ]
 
 
@@ -339,7 +371,7 @@ class ContentOpsDurableStore:
                  receipt_resolvers: Optional[Mapping[str, Callable[[Mapping[str, Any]], Any]]] = None) -> None:
         self.db_path = pathlib.Path(db_path).resolve(); self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.busy_timeout_ms = busy_timeout_ms; self._now_fn = now_fn
-        self._append_local = threading.local(); self._receipt_resolvers = dict(receipt_resolvers or {})
+        self._write_local = threading.local(); self._receipt_resolvers = dict(receipt_resolvers or {})
         self.migration_proofs: List[Dict[str, Any]] = []
         if auto_migrate: self.run_migrations()
 
@@ -347,29 +379,89 @@ class ContentOpsDurableStore:
         now = self._now_fn() if self._now_fn else datetime.now(timezone.utc)
         return now.replace(tzinfo=timezone.utc) if now.tzinfo is None else now.astimezone(timezone.utc)
     def _get_now_iso(self) -> str: return self._get_now().isoformat()
-    def _append_authorized(self) -> int: return int(bool(getattr(self._append_local, "enabled", False)))
+    def _append_authorized(self) -> int: return int(bool(getattr(self._write_local, "append_enabled", False)))
+    def _artifact_insert_authorized(self) -> int: return int(bool(getattr(self._write_local, "artifact_insert_enabled", False)))
+    def _connection_authorizer(self, action: int, argument_1: Optional[str], _argument_2: Optional[str],
+                               _database: Optional[str], _trigger: Optional[str]) -> int:
+        if action == sqlite3.SQLITE_INSERT and argument_1 == "transition_events" and not self._append_authorized():
+            return sqlite3.SQLITE_DENY
+        if action == sqlite3.SQLITE_INSERT and argument_1 == "artifact_references" and not self._artifact_insert_authorized():
+            return sqlite3.SQLITE_DENY
+        return sqlite3.SQLITE_OK
     @contextmanager
     def _canonical_append(self) -> Iterator[None]:
-        previous = bool(getattr(self._append_local, "enabled", False)); self._append_local.enabled = True
+        previous = bool(getattr(self._write_local, "append_enabled", False)); self._write_local.append_enabled = True
         try: yield
-        finally: self._append_local.enabled = previous
+        finally: self._write_local.append_enabled = previous
+    @contextmanager
+    def _canonical_artifact_insert(self) -> Iterator[None]:
+        previous = bool(getattr(self._write_local, "artifact_insert_enabled", False)); self._write_local.artifact_insert_enabled = True
+        try: yield
+        finally: self._write_local.artifact_insert_enabled = previous
 
     def get_connection(self) -> sqlite3.Connection:
-        conn = sqlite3.connect(str(self.db_path), timeout=self.busy_timeout_ms / 1000.0, isolation_level=None)
-        conn.row_factory = sqlite3.Row; conn.create_function("contentops_append_authorized", 0, self._append_authorized)
+        conn = sqlite3.connect(
+            str(self.db_path), timeout=self.busy_timeout_ms / 1000.0, isolation_level=None,
+            cached_statements=0,
+        )
+        conn.row_factory = sqlite3.Row
+        conn.create_function("contentops_append_authorized", 0, self._append_authorized)
+        conn.create_function("contentops_artifact_insert_authorized", 0, self._artifact_insert_authorized)
+        conn.set_authorizer(self._connection_authorizer)
         conn.execute("PRAGMA journal_mode=WAL"); conn.execute("PRAGMA foreign_keys=ON"); conn.execute(f"PRAGMA busy_timeout={self.busy_timeout_ms}")
         return conn
+    def _ensure_runtime_write_guards(self) -> None:
+        with self.get_connection() as conn:
+            for statement in RUNTIME_INSERT_GUARD_SQL:
+                conn.execute(statement)
     def query_pragmas(self) -> Dict[str, Any]:
         with self.get_connection() as c: return {"journal_mode": str(c.execute("PRAGMA journal_mode").fetchone()[0]).upper(), "foreign_keys": int(c.execute("PRAGMA foreign_keys").fetchone()[0]), "busy_timeout_ms": int(c.execute("PRAGMA busy_timeout").fetchone()[0])}
     def verify_schema_integrity(self) -> bool:
         with self.get_connection() as c:
             result = c.execute("PRAGMA integrity_check").fetchone()[0]
             if str(result).lower() != "ok": raise DurableStateCorruptionError(str(result))
+            current_row = c.execute(
+                "SELECT MAX(version) FROM schema_migrations"
+            ).fetchone() if c.execute(
+                "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='schema_migrations'"
+            ).fetchone()[0] else None
+            if current_row and int(current_row[0] or 0) >= CANONICAL_SCHEMA_VERSION:
+                metadata_table = c.execute(
+                    "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='schema_lineage_metadata'"
+                ).fetchone()[0]
+                if metadata_table != 1:
+                    raise DurableStateCorruptionError("Schema lineage metadata missing")
+                rows = c.execute("SELECT * FROM schema_lineage_metadata").fetchall()
+                if (
+                    len(rows) != 1
+                    or int(rows[0]["singleton_id"]) != 1
+                    or int(rows[0]["compatibility_version"]) != CANONICAL_SCHEMA_VERSION
+                    or rows[0]["dependency_manifest_json"] != DEPENDENCY_MANIFEST_JSON
+                    or rows[0]["dependency_manifest_hash"] != DEPENDENCY_MANIFEST_HASH
+                ):
+                    raise DurableStateCorruptionError("Dependency manifest binding mismatch")
+                guard_rows = {
+                    row["name"]: str(row["sql"] or "")
+                    for row in c.execute(
+                        "SELECT name,sql FROM sqlite_master WHERE type='trigger' AND name IN (?,?)",
+                        ("trg_transition_events_append_authorized", "trg_artifact_references_insert_authorized"),
+                    ).fetchall()
+                }
+                required_guards = {
+                    "trg_transition_events_append_authorized": "contentops_append_authorized",
+                    "trg_artifact_references_insert_authorized": "contentops_artifact_insert_authorized",
+                }
+                for trigger_name, function_name in required_guards.items():
+                    sql = guard_rows.get(trigger_name, "").lower()
+                    if "before insert" not in sql or function_name not in sql:
+                        raise DurableStateCorruptionError(f"Runtime insert guard missing or invalid: {trigger_name}")
         return True
     def get_current_schema_version(self) -> int:
-        with self.get_connection() as c:
+        c=self.get_connection()
+        try:
             if not c.execute("SELECT count(*) FROM sqlite_master WHERE type='table' AND name='schema_migrations'").fetchone()[0]: return 0
             row = c.execute("SELECT MAX(version) FROM schema_migrations").fetchone()[0]; return int(row or 0)
+        finally: c.close()
     def verify_applied_migrations(self) -> bool:
         with self.get_connection() as c:
             if not c.execute("SELECT count(*) FROM sqlite_master WHERE type='table' AND name='schema_migrations'").fetchone()[0]: return True
@@ -396,7 +488,28 @@ class ContentOpsDurableStore:
         finally:
             destination.close(); source.close()
     def run_migrations(self, target_version: Optional[int] = None) -> int:
-        self.verify_applied_migrations(); current = self.get_current_schema_version(); applied = 0
+        current = self.get_current_schema_version()
+        if current and current < CANONICAL_SCHEMA_VERSION and self.db_path.exists():
+            conn = self.get_connection()
+            try:
+                recorded = tuple((int(row[0]), str(row[1])) for row in conn.execute(
+                    "SELECT version,checksum FROM schema_migrations ORDER BY version"
+                ).fetchall())
+                current_prefix = tuple((version, CURRENT_MIGRATION_CHECKSUMS[version]) for version in range(1, current + 1))
+                if recorded != current_prefix:
+                    recognize_lineage(conn)
+                    if target_version is not None and target_version < CANONICAL_SCHEMA_VERSION:
+                        return 0
+                    conn.close()
+                    proof = upgrade_historical_database(self.db_path, now_iso=self._get_now_iso())
+                    self.migration_proofs.append(proof)
+                    self._ensure_runtime_write_guards()
+                    self.verify_schema_integrity()
+                    return 1
+            finally:
+                try: conn.close()
+                except Exception: pass
+        self.verify_applied_migrations(); applied = 0
         ordered = sorted(MIGRATIONS, key=lambda m: m.version)
         if [m.version for m in ordered] != list(range(1, len(ordered) + 1)): raise MigrationError("Non-contiguous migration registry")
         maximum = ordered[-1].version if target_version is None else target_version
@@ -410,6 +523,13 @@ class ContentOpsDurableStore:
                 before = self._capture_migration_snapshot(conn)
                 for statement in split_sql_statements(migration.sql): conn.execute(statement)
                 if migration.transform: migration.transform(conn)
+                if migration.version == 4:
+                    source_fingerprint = schema_fingerprint(conn)
+                    conn.execute(
+                        "INSERT OR REPLACE INTO schema_lineage_metadata VALUES (1,?,?,?,?,?,?)",
+                        ("wave02.03337e8.schema_v3.canonical_pre_v4", source_fingerprint, 4,
+                         DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_HASH, self._get_now_iso()),
+                    )
                 proof = self._verify_migration_preservation(conn, before, migration.version)
                 conn.execute("INSERT INTO schema_migrations VALUES (?,?,?,?)", (migration.version, migration.checksum, self._get_now_iso(), migration.description))
                 conn.execute("COMMIT")
@@ -428,7 +548,11 @@ class ContentOpsDurableStore:
                 try: conn.close()
                 except Exception: pass
                 if backup.exists(): backup.unlink()
-        self.verify_applied_migrations(); self.verify_schema_integrity(); return applied
+        self.verify_applied_migrations()
+        if maximum == SCHEMA_VERSION:
+            self._ensure_runtime_write_guards()
+        self.verify_schema_integrity()
+        return applied
     def _table_counts(self, conn: sqlite3.Connection) -> Dict[str, int]:
         names = [r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")]
         return {n: conn.execute(f'SELECT count(*) FROM "{n}"').fetchone()[0] for n in names}
@@ -537,8 +661,9 @@ class ContentOpsDurableStore:
                 mismatches = [key for key, value in expected_existing.items() if existing[key] != value]
                 if mismatches: raise ArtifactValidationError(f"Conflicting artifact registration fields: {mismatches}")
                 conn.execute("COMMIT"); return dict(existing)
-            conn.execute("""INSERT INTO artifact_references (artifact_id,artifact_type,story_id,work_item_id,storage_class,byte_length,sha256_hash,schema_version,created_at,producer_ref,sensitivity_class,artifact_scope,receipt_id,receipt_schema,receipt_source_identity,receipt_object_identity,receipt_verifier_identity,canonical_receipt_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-                         (artifact_id, artifact_type, story_id, work_item_id, storage_class, len(exact), digest, schema_version, now, producer_ref, sensitivity_class, scope, *receipt_meta.values()))
+            with self._canonical_artifact_insert():
+                conn.execute("""INSERT INTO artifact_references (artifact_id,artifact_type,story_id,work_item_id,storage_class,byte_length,sha256_hash,schema_version,created_at,producer_ref,sensitivity_class,artifact_scope,receipt_id,receipt_schema,receipt_source_identity,receipt_object_identity,receipt_verifier_identity,canonical_receipt_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                             (artifact_id, artifact_type, story_id, work_item_id, storage_class, len(exact), digest, schema_version, now, producer_ref, sensitivity_class, scope, *receipt_meta.values()))
             conn.execute("COMMIT"); return dict(conn.execute("SELECT * FROM artifact_references WHERE artifact_id=?", (artifact_id,)).fetchone())
         except Exception:
             try: conn.execute("ROLLBACK")
@@ -552,9 +677,11 @@ class ContentOpsDurableStore:
             return dict(row)
     def _validate_artifact_scope(self, art: sqlite3.Row, story_id: str, work_item_id: str) -> None:
         scope = art["artifact_scope"]
+        if scope == LEGACY_QUARANTINE_SCOPE:
+            raise ArtifactValidationError(f"Artifact {art['artifact_id']} is quarantined from active use")
         if scope == "WORK_ITEM_EXACT" and (art["story_id"] != story_id or art["work_item_id"] != work_item_id): raise ArtifactValidationError(f"Artifact {art['artifact_id']} is outside exact work-item scope")
         if scope == "STORY_EXACT" and art["story_id"] != story_id: raise ArtifactValidationError(f"Artifact {art['artifact_id']} is outside exact story scope")
-        if scope not in ARTIFACT_SCOPES: raise ArtifactValidationError(f"Artifact {art['artifact_id']} has invalid scope")
+        if scope not in ACTIVE_ARTIFACT_SCOPES: raise ArtifactValidationError(f"Artifact {art['artifact_id']} has invalid scope")
     def _artifact_snapshots(self, conn: sqlite3.Connection, ids: Sequence[str], story_id: str, work_item_id: str) -> List[Dict[str, Any]]:
         snapshots = []
         for artifact_id in sorted(set(ids)):
@@ -727,14 +854,29 @@ class ContentOpsDurableStore:
     def _verify_event(self, conn:sqlite3.Connection, item:sqlite3.Row, evt:sqlite3.Row, expected_seq:int, current_state:str, previous_hash:str)->str:
         try: payload=json.loads(evt["event_payload_json"])
         except Exception as exc: raise DurableStateCorruptionError("Invalid event payload JSON") from exc
-        if payload.get("event_schema_version") not in ACCEPTED_EVENT_SCHEMA_VERSIONS: raise DurableStateCorruptionError("Unaccepted event schema version")
+        schema_version=payload.get("event_schema_version")
+        if schema_version not in ACCEPTED_EVENT_SCHEMA_VERSIONS: raise DurableStateCorruptionError("Unaccepted event schema version")
         if evt["event_kind"] != payload.get("event_kind"): raise DurableStateCorruptionError("Event kind mismatch")
+        baseline=schema_version==LEGACY_BASELINE_EVENT_SCHEMA_VERSION
         genesis=expected_seq==1
-        if genesis:
+        if genesis and baseline:
+            if evt["event_kind"]!="LEGACY_PROJECTION_BASELINE" or evt["reason_code"]!="LEGACY_PROJECTION_BASELINE" or evt["from_state"]!="DISCOVERED" or evt["to_state"]!="DISCOVERED": raise DurableStateCorruptionError("Invalid legacy projection baseline")
+            baseline_row=conn.execute("SELECT * FROM legacy_projection_baselines WHERE work_item_id=?",(item["work_item_id"],)).fetchone()
+            if not baseline_row or baseline_row["baseline_event_json"]!=evt["event_payload_json"] or baseline_row["baseline_event_hash"]!=evt["event_hash"] or baseline_row["original_projection_hash"]!=payload.get("original_projection_hash"): raise DurableStateCorruptionError("Legacy projection baseline binding mismatch")
+            if payload.get("migration_generated") is not True or payload.get("source_lineage_id")!=baseline_row["lineage_id"]: raise DurableStateCorruptionError("Legacy projection baseline provenance mismatch")
+        elif genesis:
             if evt["event_kind"]!=GENESIS_EVENT_KIND or evt["reason_code"]!="WORK_ITEM_INITIALIZATION" or evt["from_state"]!="DISCOVERED" or evt["to_state"]!="DISCOVERED": raise DurableStateCorruptionError("Missing valid genesis event")
         else:
             if evt["event_kind"]!="STATE_TRANSITION": raise DurableStateCorruptionError("Invalid transition event kind")
-            if evt["from_state"]!=current_state or evt["to_state"] not in STATE_TRANSITION_GRAPH.get(current_state,set()): raise DurableStateCorruptionError("Illegal event state edge")
+            edge=(evt["from_state"],evt["to_state"])
+            valid_runtime_edge=evt["from_state"]==current_state and evt["to_state"] in STATE_TRANSITION_GRAPH.get(current_state,set())
+            valid_historical_edge=(
+                schema_version==HISTORICAL_EVENT_SCHEMA_VERSION
+                and evt["from_state"]==current_state
+                and edge in HISTORICAL_MIGRATION_STATE_EDGES
+                and payload.get("legacy_migration",{}).get("source_record_hash")
+            )
+            if not valid_runtime_edge and not valid_historical_edge: raise DurableStateCorruptionError("Illegal event state edge")
             if evt["to_state"] in WAVE02_PROTECTED_STATES: raise DurableStateCorruptionError("Protected authority state event")
         if evt["previous_event_hash"]!=previous_hash: raise DurableStateCorruptionError("Previous event hash mismatch")
         if compute_sha256(evt["explanation"])!=evt["explanation_hash"]: raise DurableStateCorruptionError("Explanation hash mismatch")
@@ -742,7 +884,8 @@ class ContentOpsDurableStore:
         column_map={"event_kind":evt["event_kind"],"event_seq":evt["event_seq"],"work_item_id":evt["work_item_id"],"story_id":item["story_id"],"title":item["title"],"target_surface":item["target_surface"],"state_version":evt["state_version"],"from_state":evt["from_state"],"to_state":evt["to_state"],"previous_event_hash":evt["previous_event_hash"],"actor_class":evt["actor_class"],"actor_ref":evt["actor_ref"],"reason_code":evt["reason_code"],"explanation_hash":evt["explanation_hash"],"correlation_id":evt["correlation_id"],"policy_version":evt["policy_version"],"model_version":evt["model_version"],"authority_type":evt["authority_type"],"authority_ref":evt["authority_ref"],"authority_effect":evt["authority_effect"],"lease_id":evt["lease_id"],"lease_key":evt["lease_key"],"fencing_token":evt["fencing_token"],"timestamp_utc":evt["timestamp_utc"]}
         for field,value in column_map.items():
             if payload.get(field)!=value: raise DurableStateCorruptionError(f"Event payload column mismatch for field '{field}'")
-        if evt["event_seq"]!=expected_seq or evt["state_version"]!=expected_seq: raise DurableStateCorruptionError("Event sequence/state-version mismatch")
+        if evt["event_seq"]!=expected_seq: raise DurableStateCorruptionError("Event sequence mismatch")
+        if schema_version in {EVENT_SCHEMA_VERSION,LEGACY_EVENT_SCHEMA_VERSION} and evt["state_version"]!=expected_seq: raise DurableStateCorruptionError("Event sequence/state-version mismatch")
         inputs=json.loads(evt["input_artifact_ids"]); outputs=json.loads(evt["output_artifact_ids"]); snapshots=json.loads(evt["artifact_snapshot_json"])
         if inputs!=sorted(set(inputs)) or outputs!=sorted(set(outputs)) or payload.get("input_artifact_ids")!=inputs or payload.get("output_artifact_ids")!=outputs or payload.get("artifact_snapshots")!=snapshots: raise DurableStateCorruptionError("Artifact ID/snapshot envelope mismatch")
         if sorted(s["artifact_id"] for s in snapshots)!=sorted(set(inputs+outputs)): raise DurableStateCorruptionError("Artifact snapshot set mismatch")
@@ -751,15 +894,18 @@ class ContentOpsDurableStore:
             if not row or row["sha256_hash"]!=snap["sha256_hash"] or row["byte_length"]!=snap["byte_length"] or row["canonical_receipt_hash"]!=snap.get("canonical_receipt_hash"): raise DurableStateCorruptionError("Replay artifact snapshot corruption")
         return evt["to_state"]
     def replay_work_item_events(self,work_item_id:str)->Dict[str,Any]:
-        with self.get_connection() as conn:
+        conn=self.get_connection()
+        try:
             item=conn.execute("SELECT * FROM work_items WHERE work_item_id=?",(work_item_id,)).fetchone()
             if not item: raise WorkItemNotFoundError(work_item_id)
             events=conn.execute("SELECT * FROM transition_events WHERE work_item_id=? ORDER BY event_seq",(work_item_id,)).fetchall()
             if not events: raise DurableStateCorruptionError("has no transition events")
             state="DISCOVERED"; previous=GENESIS_PREVIOUS_HASH
             for seq,evt in enumerate(events,1): state=self._verify_event(conn,item,evt,seq,state,previous); previous=evt["event_hash"]
-            if item["current_state"]!=state or item["state_version"]!=len(events): raise DurableStateCorruptionError("Materialized projection mismatch")
-            return {"work_item_id":work_item_id,"replayed_state":state,"replayed_version":len(events),"event_count":len(events),"last_event_hash":previous,"verification_status":"PASS"}
+            expected_projection_version=events[-1]["state_version"]
+            if item["current_state"]!=state or item["state_version"]!=expected_projection_version: raise DurableStateCorruptionError("Materialized projection mismatch")
+            return {"work_item_id":work_item_id,"replayed_state":state,"replayed_version":expected_projection_version,"event_count":len(events),"last_event_hash":previous,"verification_status":"PASS"}
+        finally: conn.close()
     def reconstruct_in_flight_state(self)->Dict[str,Any]:
         recovered=self.recover_stale_leases(); dead=self.dispose_stale_heartbeats()
         with self.get_connection() as c: ids=[r[0] for r in c.execute("SELECT work_item_id FROM work_items")]

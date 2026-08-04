@@ -1,6 +1,6 @@
 {
   "schema_version": "contentops.state_surface_inventory.v1",
-  "worker_classification": "PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+  "worker_classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
   "audit_timestamp_utc": "2026-08-04T00:00:00Z",
   "inventory_status": "COMPLETE_AST_VERIFIED",
   "surface_count": 12,

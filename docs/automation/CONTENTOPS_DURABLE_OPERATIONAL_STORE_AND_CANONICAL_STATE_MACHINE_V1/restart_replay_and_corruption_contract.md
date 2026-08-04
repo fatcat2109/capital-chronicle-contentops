@@ -1,13 +1,15 @@
 # Restart Replay and Corruption Contract — Wave 02 Durable Operational Store
 
 Worker Classification:
-`PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+`PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
 ## 1. Canonical Append-Only Event Log
 
 Every work item starts with a dedicated `WORK_ITEM_CREATED` genesis envelope. Every later state mutation appends one schema-versioned canonical envelope containing event kind/sequence, work-item/story identity, from/to state and versions, actor/reason/explanation hash, correlation/policy/model bindings, authority fields, lease/fencing fields, exact ordered input/output artifact IDs, exact artifact snapshots, timestamp, and previous-event hash.
 
-Only the internal event append transaction enables the connection-local `contentops_append_authorized()` function. `trg_transition_events_append_authorized` rejects direct INSERT, and no-update/no-delete triggers reject mutation. Authorization resets in `finally` after both success and failure.
+Store-owned connections install a prepare-time SQLite authorizer that permits INSERT into `transition_events` or `artifact_references` only inside the narrow canonical append or artifact-registration context. Statement caching is disabled, both contexts reset in `finally`, and database triggers provide a second guard for plain external connections. UPDATE/DELETE triggers keep both tables immutable.
+
+These controls prevent accidental or ordinary application-boundary bypass. They do not resist an unrestricted local file owner, which can supply spoofed trigger UDFs, drop schema guards, replace database bytes, or use another SQLite runtime. Such a process can force a write; canonical replay then independently rejects tested illegal edges, protected authority states, sequence/state-version drift, payload/hash/chain drift, artifact snapshot corruption, and projection mismatch. No malicious-local-process resistance is claimed.
 
 ## 2. Deterministic Replay
 

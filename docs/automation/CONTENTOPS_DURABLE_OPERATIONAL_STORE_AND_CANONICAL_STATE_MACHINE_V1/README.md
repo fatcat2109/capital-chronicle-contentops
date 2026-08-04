@@ -1,13 +1,13 @@
 # ContentOps Wave 02 — Durable Operational Store & Canonical State Machine v1
 
 Worker Classification:
-`PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+`PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
 ## 1. Executive Summary
 
 Wave 02 establishes the single authoritative SQLite WAL operational store (`ContentOpsDurableStore`) and 29-state canonical state machine for Capital Chronicle ContentOps.
 
-This final acceptance correction task (`TASK_CONTENTOPS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_V1`) closes the remaining durable-authority blockers:
+This final acceptance correction task (`TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1`) closes the remaining durable-authority blockers:
 
 - Semantic migration checksums bind SQL SHA-256, transform version, and canonical transform source hash.
 - Populated v1 histories migrate through production v2/v3 logic with deterministic ordering, lossless row/hash proofs, fail-closed ambiguity handling, and usable final projections.

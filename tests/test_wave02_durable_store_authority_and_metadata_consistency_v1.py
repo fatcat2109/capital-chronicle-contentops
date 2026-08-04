@@ -2,7 +2,7 @@
 Test Wave 02 Durable Store Authority and Metadata Consistency v1
 
 Asserts that authority documents and JSON files agree on Wave 02 status,
-commit roles, test counts, next task, schema version 3, and inventory schema across the repo.
+commit roles, test counts, next task, schema version 4, and inventory schema across the repo.
 """
 
 import json
@@ -19,8 +19,8 @@ from live_contentops.durable_operational_store_v1 import (
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-EXPECTED_WORKER_CLASSIFICATION = "PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT"
-EXPECTED_COMPLETED_TASK = "TASK_CONTENTOPS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_V1"
+EXPECTED_WORKER_CLASSIFICATION = "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT"
+EXPECTED_COMPLETED_TASK = "TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1"
 EXPECTED_NEXT_TASK = "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1"
 EXPECTED_WAVE01_STATUS = "COMPLETE_ACCEPTED_AND_MERGED"
 EXPECTED_WAVE02_STATUS = "COMPLETE_AWAITING_INDEPENDENT_AUDIT"
@@ -72,6 +72,7 @@ def test_wave02_status_json_authority():
     # Negative assertions rejecting stale Wave 02 classifications
     assert data["wave02_worker_classification"] != "PASS_WAVE02_FINAL_EVENT_AUTHORITY_STATUS_AND_EVIDENCE_RECONCILIATION_AWAITING_INDEPENDENT_AUDIT"
     assert data["wave02_worker_classification"] != "PASS_WAVE02_DURABLE_STATE_TRANSACTION_FENCING_AND_AUTHORITY_CORRECTION_AWAITING_INDEPENDENT_AUDIT"
+    assert data["wave02_worker_classification"] != "PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT"
     assert data["wave02_status"] != "NEXT_NOT_STARTED"
 
     assert "post_v1_durable_operational_store_v1" in data
@@ -82,7 +83,8 @@ def test_wave02_status_json_authority():
     assert wave_data["wave_02_status"] == EXPECTED_WAVE02_STATUS
     assert wave_data["wave_03_status"] == EXPECTED_WAVE03_STATUS
     assert wave_data["next_action"] == EXPECTED_NEXT_TASK
-    assert wave_data["schema_version"] == 3
+    assert wave_data["schema_version"] == 4
+    assert wave_data["tables_count"] == 26
     assert data["base_master_head"] == EXPECTED_BASE_MASTER_HEAD
     assert data["starting_branch_head"] == EXPECTED_STARTING_BRANCH_HEAD
     roles = data["authority_roles"]
@@ -107,7 +109,7 @@ def test_wave02_schema_and_migration_integrity(tmp_path):
     db_file = tmp_path / "test_meta_schema.sqlite"
     store = ContentOpsDurableStore(db_file, auto_migrate=True)
 
-    assert store.get_current_schema_version() == SCHEMA_VERSION == 3
+    assert store.get_current_schema_version() == SCHEMA_VERSION == 4
     assert store.verify_applied_migrations() is True
     assert store.verify_schema_integrity() is True
 
@@ -137,6 +139,10 @@ def test_wave02_schema_and_migration_integrity(tmp_path):
             "metrics",
             "feedback_records",
             "learning_reviews",
+            "schema_lineage_metadata",
+            "legacy_projection_baselines",
+            "legacy_artifact_evidence",
+            "migration_failure_receipts",
         ]
         for tbl in required_tables:
             assert tbl in tables, f"Missing required table: {tbl}"
@@ -154,6 +160,7 @@ def test_wave02_schema_and_migration_integrity(tmp_path):
         assert "trg_transition_events_append_authorized" in triggers
         assert "trg_transition_events_no_update" in triggers
         assert "trg_transition_events_no_delete" in triggers
+        assert "trg_artifact_references_insert_authorized" in triggers
         assert "trg_artifact_references_no_update" in triggers
         assert "trg_artifact_references_no_delete" in triggers
     finally:
@@ -176,7 +183,17 @@ def test_wave02_evidence_packet_files_exist():
 
     schema_manifest = load_json_any_encoding(packet_dir / "schema_manifest.json")
     assert schema_manifest["current_schema_version"] == SCHEMA_VERSION
-    assert len(schema_manifest["triggers"]) == 5
+    assert schema_manifest["current_schema_version"] == 4
+    assert len(schema_manifest["triggers"]) == 6
+    expected_triggers = [
+        "trg_transition_events_append_authorized",
+        "trg_transition_events_no_update",
+        "trg_transition_events_no_delete",
+        "trg_artifact_references_insert_authorized",
+        "trg_artifact_references_no_update",
+        "trg_artifact_references_no_delete",
+    ]
+    assert schema_manifest["triggers"] == expected_triggers
     assert [item["semantic_checksum"] for item in schema_manifest["migrations"]] == [
         migration.checksum for migration in MIGRATIONS
     ]
@@ -226,7 +243,11 @@ def test_wave02_evidence_packet_files_exist():
         "docs/status/CURRENT_PROJECT_STATUS.md",
         "docs/status/current_project_status.json",
         "live_contentops/durable_operational_store_v1.py",
+        "live_contentops/historical_schema_compatibility_v1.py",
+        "live_contentops/historical_schema_lineage_v1.py",
         "live_contentops/production_orchestrator_v1.py",
+        "tests/fixtures/historical_wave02_schema_lineage_v1.py",
+        "tests/fixtures/historical_wave02_schema_objects_v1.json",
         "tests/test_durable_operational_store_v1.py",
         "tests/test_wave02_durable_store_authority_and_metadata_consistency_v1.py",
     }
@@ -234,6 +255,7 @@ def test_wave02_evidence_packet_files_exist():
         set(expected_touched_paths) | required_candidate_paths
     )
     assert "tests/test_wave01_master_authority_and_metadata_consistency_v1.py" not in changed_inventory["touched_paths"]
+
 
 
 def test_existing_state_surface_inventory_paths_and_symbols_exist(tmp_path):

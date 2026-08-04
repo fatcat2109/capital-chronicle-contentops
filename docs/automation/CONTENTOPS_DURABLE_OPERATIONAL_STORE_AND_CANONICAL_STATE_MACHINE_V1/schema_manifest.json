@@ -1,8 +1,8 @@
 {
   "schema_version": "contentops.durable_store_schema_manifest.v1",
-  "worker_classification": "PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+  "worker_classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
   "durable_store_module": "live_contentops/durable_operational_store_v1.py",
-  "current_schema_version": 3,
+  "current_schema_version": 4,
   "journal_mode": "WAL",
   "foreign_keys": "ON",
   "busy_timeout_ms": 5000,
@@ -28,7 +28,11 @@
     "incidents",
     "metrics",
     "feedback_records",
-    "learning_reviews"
+    "learning_reviews",
+    "schema_lineage_metadata",
+    "legacy_projection_baselines",
+    "legacy_artifact_evidence",
+    "migration_failure_receipts"
   ],
   "migrations": [
     {
@@ -37,7 +41,7 @@
       "sql_sha256": "184298f54e1b6bc4a359d3026d3a249bf85cd46beee1fbcda53d04db5a326cb9",
       "transform_version": "sql_only.v1",
       "transform_source_hash": "b3cfaa7eebae8ca5e61157fe319f2afd18afc62409948974a432e2b4e77ac299",
-      "semantic_checksum": "b2b33da379e42c5897e419620da81b7692e64ea91269bc72976b4a1b768cb32e"
+      "semantic_checksum": "184298f54e1b6bc4a359d3026d3a249bf85cd46beee1fbcda53d04db5a326cb9"
     },
     {
       "version": 2,
@@ -45,7 +49,7 @@
       "sql_sha256": "d4a35a066a106a705c09fbe1f3df1e8f66b95413936398e4158b55ef4ff3d849",
       "transform_version": "legacy_sequence.v2",
       "transform_source_hash": "a4c78f85f28855d5784687ab69ef9ae75f061fc13697bcfd67b2f0a5a86ee475",
-      "semantic_checksum": "de754d123416e9ef172f0ff3607c898f167971a0566c34dbae4dfa18d6a5a589"
+      "semantic_checksum": "d4a35a066a106a705c09fbe1f3df1e8f66b95413936398e4158b55ef4ff3d849"
     },
     {
       "version": 3,
@@ -53,13 +57,22 @@
       "sql_sha256": "553ed20ea3c9d961047362df09e2c538c3269388caf27089da963366b44813cf",
       "transform_version": "legacy_envelope.v3",
       "transform_source_hash": "d102d8a3f85a3daab7ff155ae902d782b883e97279de63f89285721394cb3b02",
-      "semantic_checksum": "fff8a2f889cc174e8e27ee878212940c889f91eedd8e33f4a9877fdde7940697"
+      "semantic_checksum": "553ed20ea3c9d961047362df09e2c538c3269388caf27089da963366b44813cf"
+    },
+    {
+      "version": 4,
+      "description": "Wave 02 Schema v4: Historical Lineage Compatibility and Dependency Manifest",
+      "sql_sha256": "3c2047f57ad8fa54915844c20196a283dcc21133299eb66e375c88052f1c0583",
+      "transform_version": "historical_lineage_compatibility.v4",
+      "transform_source_hash": "b3cfaa7eebae8ca5e61157fe319f2afd18afc62409948974a432e2b4e77ac299",
+      "semantic_checksum": "3c2047f57ad8fa54915844c20196a283dcc21133299eb66e375c88052f1c0583"
     }
   ],
   "triggers": [
     "trg_transition_events_append_authorized",
     "trg_transition_events_no_update",
     "trg_transition_events_no_delete",
+    "trg_artifact_references_insert_authorized",
     "trg_artifact_references_no_update",
     "trg_artifact_references_no_delete"
   ]

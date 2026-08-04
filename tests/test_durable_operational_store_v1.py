@@ -25,6 +25,8 @@ from live_contentops.durable_operational_store_v1 import (
     Wave02AuthorityViolationError,
     ArtifactNotFoundError,
     ArtifactValidationError,
+    build_event_envelope,
+    canonical_json,
     compute_sha256,
     GENESIS_PREVIOUS_HASH,
 )
@@ -34,8 +36,11 @@ from live_contentops.production_orchestrator_v1 import (
     RESTART_SAFE,
     ContentOpsDurableContext,
     ContentOpsProductionOrchestrator,
+    OperationFailurePersistenceError,
     OperationLifecycleError,
 )
+import live_contentops.historical_schema_compatibility_v1 as historical_compatibility
+from tests.fixtures.historical_wave02_schema_lineage_v1 import create_exact_historical_database
 
 
 @pytest.fixture
@@ -54,7 +59,7 @@ def test_wal_and_foreign_keys_enforcement(temp_db):
 
 def test_clean_init_and_idempotent_migrations(temp_db):
     version = temp_db.get_current_schema_version()
-    assert version == 3
+    assert version == 4
     applied = temp_db.run_migrations()
     assert applied == 0
     assert temp_db.verify_schema_integrity() is True
@@ -63,12 +68,12 @@ def test_clean_init_and_idempotent_migrations(temp_db):
 def test_real_multi_version_migration_upgrade(tmp_path):
     db_file = tmp_path / "test_upgrade.sqlite"
     store = ContentOpsDurableStore(db_file, auto_migrate=True)
-    assert store.get_current_schema_version() == 3
+    assert store.get_current_schema_version() == 4
 
     conn = store.get_connection()
     try:
         rows = conn.execute("SELECT version, description FROM schema_migrations ORDER BY version ASC;").fetchall()
-        assert len(rows) == 3
+        assert len(rows) == 4
         assert rows[0]["version"] == 1
         assert rows[1]["version"] == 2
         assert rows[2]["version"] == 3
@@ -91,7 +96,7 @@ def test_applied_migration_checksum_drift_rejection(temp_db):
 def test_partial_migration_failure_rollback_and_restore(tmp_path):
     db_file = tmp_path / "test_migration_failure.sqlite"
     store = ContentOpsDurableStore(db_file, auto_migrate=True)
-    assert store.get_current_schema_version() == 3
+    assert store.get_current_schema_version() == 4
 
     store.create_work_item(story_id="story_pre_fail", title="Pre Fail Story", target_surface="substack", work_item_id="wi_pre_fail")
 
@@ -103,7 +108,7 @@ def test_partial_migration_failure_rollback_and_restore(tmp_path):
         with pytest.raises(MigrationError):
             store.run_migrations()
 
-        assert store.get_current_schema_version() == 3
+        assert store.get_current_schema_version() == 4
 
         conn = store.get_connection()
         try:
@@ -119,6 +124,449 @@ def test_partial_migration_failure_rollback_and_restore(tmp_path):
             conn.close()
     finally:
         MIGRATIONS.pop()
+
+
+def test_historical_post_commit_verification_failure_restores_and_records_redacted_receipt(
+    tmp_path, monkeypatch
+):
+    db_file = tmp_path / "historical_recovery.sqlite"
+    fixture = create_exact_historical_database(
+        db_file,
+        originating_commit="e24a4492e9d72f55c704168d637b7628e49140cd",
+    )
+    original_migrations = fixture["migration_rows"]
+    injected_message = "post-commit verification failure bearer=must-not-persist"
+    original_verify = historical_compatibility._verify_upgraded_database
+
+    def fail_after_full_verification(*args, **kwargs):
+        original_verify(*args, **kwargs)
+        raise RuntimeError(injected_message)
+
+    monkeypatch.setattr(historical_compatibility, "_verify_upgraded_database", fail_after_full_verification)
+
+    with pytest.raises(RuntimeError, match="post-commit verification failure"):
+        ContentOpsDurableStore(db_file, auto_migrate=True)
+
+    recovery_paths = list(tmp_path.glob(f"{db_file.name}.recovery.*.sqlite"))
+    receipt_paths = list(tmp_path.glob(f"{db_file.name}.migration_failure_*.sqlite"))
+    assert len(recovery_paths) == 1
+    assert len(receipt_paths) == 1
+    restored_hash = compute_sha256(db_file.read_bytes())
+    assert compute_sha256(recovery_paths[0].read_bytes()) == restored_hash
+    assert not pathlib.Path(f"{db_file}-wal").exists()
+    assert not pathlib.Path(f"{db_file}-shm").exists()
+
+    restored = sqlite3.connect(str(db_file))
+    restored.row_factory = sqlite3.Row
+    try:
+        assert restored.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
+        restored_migrations = tuple(
+            dict(row)
+            for row in restored.execute(
+                "SELECT version,checksum,applied_at,description FROM schema_migrations ORDER BY version"
+            ).fetchall()
+        )
+        assert restored_migrations == original_migrations
+        assert restored.execute(
+            "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='schema_lineage_metadata'"
+        ).fetchone()[0] == 0
+    finally:
+        restored.close()
+
+    receipt = sqlite3.connect(str(receipt_paths[0]))
+    receipt.row_factory = sqlite3.Row
+    try:
+        assert receipt.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
+        row = dict(receipt.execute("SELECT * FROM migration_failure_receipts").fetchone())
+    finally:
+        receipt.close()
+    assert row["source_lineage_id"] == "wave02.e24a449.schema_v1.no_genesis"
+    assert row["source_database_hash"] == restored_hash
+    assert row["failed_version"] == 4
+    assert row["error_class"] == "RuntimeError"
+    assert row["error_message_hash"] == compute_sha256(injected_message.encode("utf-8"))
+    assert row["restore_integrity_status"] == "PASS_SOURCE_HASH_AND_SQLITE_INTEGRITY"
+    assert injected_message.encode("utf-8") not in receipt_paths[0].read_bytes()
+
+
+@pytest.mark.parametrize(
+    ("originating_commit", "expected_lineage_id", "expected_baselines", "expected_genesis"),
+    (
+        (
+            "e24a4492e9d72f55c704168d637b7628e49140cd",
+            "wave02.e24a449.schema_v1.no_genesis",
+            2,
+            0,
+        ),
+        (
+            "3cc531a3d30848f54329d25913018882f6b71bcd",
+            "wave02.3cc531a.schema_v2.no_genesis",
+            2,
+            0,
+        ),
+        (
+            "33225d5e8d79ad229ad93d203e8d2e5018bb2738",
+            "wave02.33225d5.schema_v3.envelope_genesis",
+            0,
+            2,
+        ),
+        (
+            "615a96fb20aa97fd76bb3343e9150daec40d9031",
+            "wave02.615a96f.schema_v3.preservation_genesis",
+            0,
+            2,
+        ),
+        (
+            "03337e8f82478cf578866a5a1749d96acd687d3d",
+            "wave02.03337e8.schema_v3.canonical_pre_v4",
+            0,
+            2,
+        ),
+    ),
+)
+def test_exact_historical_lineage_upgrade_preserves_rows_and_replays(
+    tmp_path,
+    originating_commit,
+    expected_lineage_id,
+    expected_baselines,
+    expected_genesis,
+):
+    db_file = tmp_path / f"historical_{originating_commit[:7]}.sqlite"
+    fixture = create_exact_historical_database(
+        db_file,
+        originating_commit=originating_commit,
+    )
+
+    store = ContentOpsDurableStore(db_file, auto_migrate=True)
+
+    assert store.get_current_schema_version() == 4
+    assert not list(tmp_path.glob(f"{db_file.name}.recovery.*.sqlite"))
+    assert not list(tmp_path.glob(f"{db_file.name}.migration_failure_*.sqlite"))
+
+    connection = store.get_connection()
+    try:
+        metadata = dict(connection.execute("SELECT * FROM schema_lineage_metadata").fetchone())
+        assert metadata["source_lineage_id"] == expected_lineage_id
+        assert metadata["source_schema_fingerprint"] == fixture["schema_fingerprint"]
+        assert metadata["compatibility_version"] == 4
+
+        migrations = tuple(
+            dict(row)
+            for row in connection.execute(
+                "SELECT version,checksum,applied_at,description FROM schema_migrations ORDER BY version"
+            ).fetchall()
+        )
+        assert migrations[:-1] == fixture["migration_rows"]
+        assert migrations[-1]["version"] == 4
+
+        for expected_projection in fixture["work_item_projections"]:
+            actual = dict(
+                connection.execute(
+                    "SELECT work_item_id,story_id,title,target_surface,current_state,state_version,created_at,updated_at "
+                    "FROM work_items WHERE work_item_id=?",
+                    (expected_projection["work_item_id"],),
+                ).fetchone()
+            )
+            assert actual == expected_projection
+
+        assert connection.execute(
+            "SELECT count(*) FROM legacy_projection_baselines"
+        ).fetchone()[0] == expected_baselines
+        assert connection.execute(
+            "SELECT count(*) FROM transition_events WHERE event_kind='WORK_ITEM_CREATED'"
+        ).fetchone()[0] == expected_genesis
+
+        migrated_source_event_ids = {
+            payload["legacy_migration"]["source_event_id"]
+            for payload in (
+                json.loads(row[0])
+                for row in connection.execute(
+                    "SELECT event_payload_json FROM transition_events "
+                    "WHERE event_kind!='LEGACY_PROJECTION_BASELINE'"
+                ).fetchall()
+            )
+        }
+        assert migrated_source_event_ids == set(fixture["source_event_ids"])
+
+        artifact_evidence = dict(
+            connection.execute(
+                "SELECT source_record_hash,migrated_scope FROM legacy_artifact_evidence WHERE artifact_id=?",
+                (fixture["artifact_id"],),
+            ).fetchone()
+        )
+        assert len(artifact_evidence["source_record_hash"]) == 64
+        assert artifact_evidence["migrated_scope"] in {
+            "WORK_ITEM_EXACT",
+            "LEGACY_UNSCOPED_QUARANTINED",
+        }
+
+        assert connection.execute("SELECT count(*) FROM assignments").fetchone()[0] == 1
+        assert connection.execute("SELECT count(*) FROM leases").fetchone()[0] == 1
+        assert connection.execute("SELECT count(*) FROM heartbeats").fetchone()[0] == 1
+    finally:
+        connection.close()
+
+    expected_counts = {
+        "wi_historical_alpha": 3 if expected_baselines else 2,
+        "wi_historical_beta": 2 if expected_baselines else 1,
+    }
+    for projection in fixture["work_item_projections"]:
+        replay = store.replay_work_item_events(projection["work_item_id"])
+        assert replay["verification_status"] == "PASS"
+        assert replay["replayed_state"] == projection["current_state"]
+        assert replay["replayed_version"] == projection["state_version"]
+        assert replay["event_count"] == expected_counts[projection["work_item_id"]]
+
+
+def test_historical_unknown_checksum_set_fails_closed_without_migration(tmp_path):
+    db_file = tmp_path / "historical_unknown_checksum.sqlite"
+    fixture = create_exact_historical_database(
+        db_file,
+        originating_commit="e24a4492e9d72f55c704168d637b7628e49140cd",
+    )
+    connection = sqlite3.connect(str(db_file))
+    try:
+        connection.execute(
+            "UPDATE schema_migrations SET checksum=? WHERE version=1",
+            ("f" * 64,),
+        )
+        connection.commit()
+    finally:
+        connection.close()
+
+    with pytest.raises(ValueError, match="historical_schema_lineage_unknown_checksum_set"):
+        ContentOpsDurableStore(db_file, auto_migrate=True)
+
+    connection = sqlite3.connect(str(db_file))
+    try:
+        assert connection.execute(
+            "SELECT checksum FROM schema_migrations WHERE version=1"
+        ).fetchone()[0] == "f" * 64
+        assert connection.execute(
+            "SELECT count(*) FROM work_items"
+        ).fetchone()[0] == len(fixture["work_item_projections"])
+        assert connection.execute(
+            "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='schema_lineage_metadata'"
+        ).fetchone()[0] == 0
+    finally:
+        connection.close()
+    assert not list(tmp_path.glob(f"{db_file.name}.recovery.*.sqlite"))
+
+
+def test_historical_checksum_fingerprint_mismatch_fails_closed_without_migration(tmp_path):
+    db_file = tmp_path / "historical_fingerprint_mismatch.sqlite"
+    create_exact_historical_database(
+        db_file,
+        originating_commit="e24a4492e9d72f55c704168d637b7628e49140cd",
+    )
+    connection = sqlite3.connect(str(db_file))
+    try:
+        connection.execute("ALTER TABLE metrics ADD COLUMN adversarial_column TEXT")
+        connection.commit()
+    finally:
+        connection.close()
+
+    with pytest.raises(ValueError, match="historical_schema_lineage_checksum_fingerprint_mismatch"):
+        ContentOpsDurableStore(db_file, auto_migrate=True)
+
+    connection = sqlite3.connect(str(db_file))
+    try:
+        assert "adversarial_column" in {
+            row[1] for row in connection.execute("PRAGMA table_info(metrics)").fetchall()
+        }
+        assert connection.execute(
+            "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='schema_lineage_metadata'"
+        ).fetchone()[0] == 0
+    finally:
+        connection.close()
+    assert not list(tmp_path.glob(f"{db_file.name}.recovery.*.sqlite"))
+
+
+def test_historical_ambiguous_event_order_restores_source_and_retains_receipts(tmp_path):
+    db_file = tmp_path / "historical_ambiguous_order.sqlite"
+    create_exact_historical_database(
+        db_file,
+        originating_commit="e24a4492e9d72f55c704168d637b7628e49140cd",
+    )
+    connection = sqlite3.connect(str(db_file))
+    connection.row_factory = sqlite3.Row
+    try:
+        source = dict(connection.execute(
+            "SELECT * FROM transition_events WHERE event_id='evt_historical_alpha_v3'"
+        ).fetchone())
+        source["event_id"] = "evt_historical_alpha_v3_duplicate"
+        source["transition_key"] = "tr_historical_alpha_v3_duplicate"
+        source["state_version"] = 2
+        columns = tuple(source)
+        connection.execute(
+            f"INSERT INTO transition_events ({','.join(columns)}) VALUES ({','.join('?' for _ in columns)})",
+            tuple(source[column] for column in columns),
+        )
+        connection.commit()
+    finally:
+        connection.close()
+
+    with pytest.raises(ValueError, match="historical_schema_lineage_ambiguous_event_order"):
+        ContentOpsDurableStore(db_file, auto_migrate=True)
+
+    recovery_paths = list(tmp_path.glob(f"{db_file.name}.recovery.*.sqlite"))
+    receipt_paths = list(tmp_path.glob(f"{db_file.name}.migration_failure_*.sqlite"))
+    assert len(recovery_paths) == 1
+    assert len(receipt_paths) == 1
+    restored_hash = compute_sha256(db_file.read_bytes())
+    assert compute_sha256(recovery_paths[0].read_bytes()) == restored_hash
+    connection = sqlite3.connect(str(db_file))
+    try:
+        assert connection.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
+        assert connection.execute(
+            "SELECT count(*) FROM transition_events WHERE state_version=2"
+        ).fetchone()[0] == 3
+        assert connection.execute(
+            "SELECT count(*) FROM transition_events WHERE event_id='evt_historical_alpha_v3_duplicate'"
+        ).fetchone()[0] == 1
+        assert connection.execute(
+            "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='schema_lineage_metadata'"
+        ).fetchone()[0] == 0
+    finally:
+        connection.close()
+
+    receipt = sqlite3.connect(str(receipt_paths[0]))
+    receipt.row_factory = sqlite3.Row
+    try:
+        row = dict(receipt.execute("SELECT * FROM migration_failure_receipts").fetchone())
+    finally:
+        receipt.close()
+    assert row["source_database_hash"] == restored_hash
+    assert row["error_class"] == "ValueError"
+    assert row["error_message_hash"] == compute_sha256(
+        b"historical_schema_lineage_ambiguous_event_order"
+    )
+    assert row["restore_integrity_status"] == "PASS_SOURCE_HASH_AND_SQLITE_INTEGRITY"
+
+
+def test_dependency_manifest_self_consistent_mutation_fails_integrity(temp_db):
+    mutated_manifest = json.dumps(
+        {"schema_version": "contentops.schema_v4_dependency_manifest.adversarial"},
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    mutated_hash = compute_sha256(mutated_manifest)
+    connection = temp_db.get_connection()
+    try:
+        connection.execute(
+            "UPDATE schema_lineage_metadata SET dependency_manifest_json=?,dependency_manifest_hash=? "
+            "WHERE singleton_id=1",
+            (mutated_manifest, mutated_hash),
+        )
+    finally:
+        connection.close()
+
+    with pytest.raises(DurableStateCorruptionError, match="Dependency manifest binding mismatch"):
+        temp_db.verify_schema_integrity()
+
+
+def test_migrated_unscoped_artifact_is_quarantined_from_active_genesis(tmp_path):
+    db_file = tmp_path / "historical_quarantine.sqlite"
+    fixture = create_exact_historical_database(
+        db_file,
+        originating_commit="e24a4492e9d72f55c704168d637b7628e49140cd",
+    )
+    store = ContentOpsDurableStore(db_file, auto_migrate=True)
+    artifact = store.get_artifact(fixture["artifact_id"])
+    assert artifact["artifact_scope"] == "LEGACY_UNSCOPED_QUARANTINED"
+
+    with pytest.raises(ArtifactValidationError, match="quarantined from active use"):
+        store.create_work_item(
+            story_id="story_quarantine_attack",
+            title="Quarantine attack",
+            target_surface="substack",
+            work_item_id="wi_quarantine_attack",
+            input_artifact_ids=[fixture["artifact_id"]],
+        )
+
+    connection = store.get_connection()
+    try:
+        assert connection.execute(
+            "SELECT count(*) FROM work_items WHERE work_item_id='wi_quarantine_attack'"
+        ).fetchone()[0] == 0
+        assert connection.execute(
+            "SELECT count(*) FROM transition_events WHERE work_item_id='wi_quarantine_attack'"
+        ).fetchone()[0] == 0
+    finally:
+        connection.close()
+
+
+def test_work_item_exact_artifact_cannot_cross_work_item_identity(temp_db):
+    temp_db.create_work_item(
+        story_id="story_shared_scope",
+        title="Scope owner",
+        target_surface="substack",
+        work_item_id="wi_scope_owner",
+    )
+    temp_db.register_artifact(
+        artifact_id="art_work_item_exact_owner",
+        artifact_type="evidence",
+        storage_class="LOCAL",
+        schema_version="scope.v1",
+        producer_ref="scope-test",
+        content_bytes=b"work-item exact evidence",
+        story_id="story_shared_scope",
+        work_item_id="wi_scope_owner",
+        artifact_scope="WORK_ITEM_EXACT",
+    )
+
+    with pytest.raises(ArtifactValidationError, match="outside exact work-item scope"):
+        temp_db.create_work_item(
+            story_id="story_shared_scope",
+            title="Cross work-item attack",
+            target_surface="substack",
+            work_item_id="wi_scope_attacker",
+            input_artifact_ids=["art_work_item_exact_owner"],
+        )
+
+    connection = temp_db.get_connection()
+    try:
+        assert connection.execute(
+            "SELECT count(*) FROM work_items WHERE work_item_id='wi_scope_attacker'"
+        ).fetchone()[0] == 0
+        assert connection.execute(
+            "SELECT count(*) FROM transition_events WHERE work_item_id='wi_scope_attacker'"
+        ).fetchone()[0] == 0
+    finally:
+        connection.close()
+
+
+def test_story_exact_artifact_cannot_cross_story_identity(temp_db):
+    temp_db.register_artifact(
+        artifact_id="art_story_exact_owner",
+        artifact_type="evidence",
+        storage_class="LOCAL",
+        schema_version="scope.v1",
+        producer_ref="scope-test",
+        content_bytes=b"story exact evidence",
+        story_id="story_scope_owner",
+        artifact_scope="STORY_EXACT",
+    )
+
+    with pytest.raises(ArtifactValidationError, match="outside exact story scope"):
+        temp_db.create_work_item(
+            story_id="story_scope_attacker",
+            title="Cross story attack",
+            target_surface="substack",
+            work_item_id="wi_story_scope_attacker",
+            input_artifact_ids=["art_story_exact_owner"],
+        )
+
+    connection = temp_db.get_connection()
+    try:
+        assert connection.execute(
+            "SELECT count(*) FROM work_items WHERE work_item_id='wi_story_scope_attacker'"
+        ).fetchone()[0] == 0
+        assert connection.execute(
+            "SELECT count(*) FROM transition_events WHERE work_item_id='wi_story_scope_attacker'"
+        ).fetchone()[0] == 0
+    finally:
+        connection.close()
 
 
 def test_atomic_genesis_event_and_work_item_creation(temp_db):
@@ -237,6 +685,247 @@ def test_complete_event_payload_hash_verification(temp_db):
 
     replay = temp_db.replay_work_item_events("wi_hash")
     assert replay["verification_status"] == "PASS"
+
+
+def _forged_event_insert(
+    store,
+    *,
+    work_item_id,
+    event_seq,
+    from_state,
+    to_state,
+    state_version=None,
+    previous_event_hash=None,
+    reason_code="FORGED_DIRECT_INSERT",
+):
+    item = store.get_work_item(work_item_id)
+    if previous_event_hash is None:
+        connection = store.get_connection()
+        try:
+            previous_event_hash = connection.execute(
+                "SELECT event_hash FROM transition_events WHERE work_item_id=? ORDER BY event_seq DESC LIMIT 1",
+                (work_item_id,),
+            ).fetchone()[0]
+        finally:
+            connection.close()
+    version = event_seq if state_version is None else state_version
+    explanation = f"Forged direct event {event_seq}: {from_state} to {to_state}"
+    envelope = build_event_envelope(
+        event_schema_version="contentops.event_payload.v1",
+        event_kind="STATE_TRANSITION",
+        event_seq=event_seq,
+        work_item_id=work_item_id,
+        story_id=item["story_id"],
+        title=item["title"],
+        target_surface=item["target_surface"],
+        state_version=version,
+        from_state=from_state,
+        to_state=to_state,
+        previous_event_hash=previous_event_hash,
+        actor_class="ExternalSQLiteOwner",
+        actor_ref="direct-write-adversary",
+        reason_code=reason_code,
+        explanation_hash=compute_sha256(explanation),
+        correlation_id=f"corr_direct_{work_item_id}_{event_seq}",
+        policy_version="contentops.policy.v1",
+        model_version="NOT_APPLICABLE",
+        authority_type="NONE",
+        authority_ref=None,
+        authority_effect="NO_AUTHORITY_GRANTED",
+        lease_id=None,
+        lease_key=None,
+        fencing_token=0,
+        input_artifact_ids=[],
+        output_artifact_ids=[],
+        artifact_snapshots=[],
+        timestamp_utc=store._get_now_iso(),
+    )
+    payload = canonical_json(envelope)
+    event_hash = compute_sha256(payload)
+    columns = (
+        "event_id", "transition_key", "work_item_id", "event_kind", "event_seq",
+        "from_state", "to_state", "state_version", "actor_class", "actor_ref",
+        "reason_code", "explanation", "explanation_hash", "correlation_id", "policy_version",
+        "model_version", "authority_type", "authority_ref", "authority_effect", "lease_id",
+        "lease_key", "fencing_token", "input_artifact_ids", "output_artifact_ids",
+        "artifact_snapshot_json", "previous_event_hash", "event_payload_json", "event_hash",
+        "timestamp_utc",
+    )
+    values = (
+        f"evt_direct_{work_item_id}_{event_seq}_{event_hash[:8]}",
+        f"tr_direct_{work_item_id}_{event_seq}_{event_hash[:8]}",
+        work_item_id, "STATE_TRANSITION", event_seq, from_state, to_state, version,
+        "ExternalSQLiteOwner", "direct-write-adversary", reason_code, explanation,
+        compute_sha256(explanation), f"corr_direct_{work_item_id}_{event_seq}",
+        "contentops.policy.v1", "NOT_APPLICABLE", "NONE", None, "NO_AUTHORITY_GRANTED",
+        None, None, 0, "[]", "[]", "[]", previous_event_hash, payload, event_hash,
+        envelope["timestamp_utc"],
+    )
+    statement = (
+        f"INSERT INTO transition_events ({','.join(columns)}) "
+        f"VALUES ({','.join('?' for _ in columns)})"
+    )
+    return statement, values, event_hash
+
+
+def test_direct_insert_application_boundary_rejects_external_and_store_connections(temp_db):
+    temp_db.create_work_item(
+        story_id="story_direct_boundary",
+        title="Direct boundary",
+        target_surface="substack",
+        work_item_id="wi_direct_boundary",
+    )
+    statement, values, _ = _forged_event_insert(
+        temp_db,
+        work_item_id="wi_direct_boundary",
+        event_seq=2,
+        from_state="DISCOVERED",
+        to_state="EVIDENCE_PENDING",
+    )
+
+    external = sqlite3.connect(str(temp_db.db_path))
+    try:
+        with pytest.raises(sqlite3.OperationalError, match="no such function: contentops_append_authorized"):
+            external.execute(statement, values)
+    finally:
+        external.close()
+
+    owned = temp_db.get_connection()
+    try:
+        with pytest.raises(sqlite3.DatabaseError, match="not authorized"):
+            owned.execute(statement, values)
+        owned.create_function("contentops_append_authorized", 0, lambda: 1)
+        with pytest.raises(sqlite3.DatabaseError, match="not authorized"):
+            owned.execute(statement, values)
+    finally:
+        owned.close()
+
+    assert temp_db.replay_work_item_events("wi_direct_boundary") == {
+        "work_item_id": "wi_direct_boundary",
+        "replayed_state": "DISCOVERED",
+        "replayed_version": 1,
+        "event_count": 1,
+        "last_event_hash": temp_db.get_connection().execute(
+            "SELECT event_hash FROM transition_events WHERE work_item_id='wi_direct_boundary'"
+        ).fetchone()[0],
+        "verification_status": "PASS",
+    }
+
+
+def test_direct_artifact_insert_requires_canonical_registration(temp_db):
+    values = (
+        "art_direct_attack", "evidence", None, None, "LOCAL", 6,
+        compute_sha256(b"attack"), "scope.v1", temp_db._get_now_iso(), "adversary",
+        "PUBLIC", "GLOBAL_REUSABLE", None, None, None, None, None, None,
+    )
+    statement = (
+        "INSERT INTO artifact_references "
+        "(artifact_id,artifact_type,story_id,work_item_id,storage_class,byte_length,sha256_hash,"
+        "schema_version,created_at,producer_ref,sensitivity_class,artifact_scope,receipt_id,"
+        "receipt_schema,receipt_source_identity,receipt_object_identity,receipt_verifier_identity,"
+        "canonical_receipt_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+    )
+    external = sqlite3.connect(str(temp_db.db_path))
+    try:
+        with pytest.raises(sqlite3.OperationalError, match="no such function: contentops_artifact_insert_authorized"):
+            external.execute(statement, values)
+    finally:
+        external.close()
+    owned = temp_db.get_connection()
+    try:
+        with pytest.raises(sqlite3.DatabaseError, match="not authorized"):
+            owned.execute(statement, values)
+    finally:
+        owned.close()
+
+
+def test_external_spoofed_udf_illegal_edge_is_detected_by_replay(temp_db):
+    temp_db.create_work_item(
+        story_id="story_spoof_edge", title="Spoof edge", target_surface="substack",
+        work_item_id="wi_spoof_edge",
+    )
+    statement, values, _ = _forged_event_insert(
+        temp_db,
+        work_item_id="wi_spoof_edge",
+        event_seq=2,
+        from_state="DISCOVERED",
+        to_state="REVIEW_READY",
+    )
+    external = sqlite3.connect(str(temp_db.db_path))
+    try:
+        external.create_function("contentops_append_authorized", 0, lambda: 1)
+        external.execute(statement, values)
+        external.commit()
+    finally:
+        external.close()
+    with pytest.raises(DurableStateCorruptionError, match="Illegal event state edge"):
+        temp_db.replay_work_item_events("wi_spoof_edge")
+
+
+def test_external_spoofed_udf_state_version_mismatch_is_detected_by_replay(temp_db):
+    temp_db.create_work_item(
+        story_id="story_spoof_version", title="Spoof version", target_surface="substack",
+        work_item_id="wi_spoof_version",
+    )
+    statement, values, _ = _forged_event_insert(
+        temp_db,
+        work_item_id="wi_spoof_version",
+        event_seq=2,
+        state_version=7,
+        from_state="DISCOVERED",
+        to_state="EVIDENCE_PENDING",
+    )
+    external = sqlite3.connect(str(temp_db.db_path))
+    try:
+        external.create_function("contentops_append_authorized", 0, lambda: 1)
+        external.execute(statement, values)
+        external.commit()
+    finally:
+        external.close()
+    with pytest.raises(DurableStateCorruptionError, match="Event sequence/state-version mismatch"):
+        temp_db.replay_work_item_events("wi_spoof_version")
+
+
+def test_external_spoofed_udf_protected_state_is_detected_by_replay(temp_db):
+    temp_db.create_work_item(
+        story_id="story_spoof_protected", title="Spoof protected", target_surface="substack",
+        work_item_id="wi_spoof_protected",
+    )
+    edges = (
+        ("DISCOVERED", "EVIDENCE_PENDING"),
+        ("EVIDENCE_PENDING", "EVIDENCE_READY"),
+        ("EVIDENCE_READY", "ASSIGNMENT_CANDIDATE"),
+        ("ASSIGNMENT_CANDIDATE", "ASSIGNED"),
+        ("ASSIGNED", "PRODUCTION_IN_PROGRESS"),
+        ("PRODUCTION_IN_PROGRESS", "REVIEW_READY"),
+        ("REVIEW_READY", "OPERATOR_PENDING"),
+        ("OPERATOR_PENDING", "APPROVED_EXACT"),
+    )
+    connection = temp_db.get_connection()
+    try:
+        previous_hash = connection.execute(
+            "SELECT event_hash FROM transition_events WHERE work_item_id='wi_spoof_protected'"
+        ).fetchone()[0]
+    finally:
+        connection.close()
+    external = sqlite3.connect(str(temp_db.db_path))
+    try:
+        external.create_function("contentops_append_authorized", 0, lambda: 1)
+        for event_seq, (from_state, to_state) in enumerate(edges, 2):
+            statement, values, previous_hash = _forged_event_insert(
+                temp_db,
+                work_item_id="wi_spoof_protected",
+                event_seq=event_seq,
+                from_state=from_state,
+                to_state=to_state,
+                previous_event_hash=previous_hash,
+            )
+            external.execute(statement, values)
+        external.commit()
+    finally:
+        external.close()
+    with pytest.raises(DurableStateCorruptionError, match="Protected authority state event"):
+        temp_db.replay_work_item_events("wi_spoof_protected")
 
 
 def test_unauthorized_direct_event_insertion_and_update_rejection(temp_db):
@@ -588,6 +1277,68 @@ def test_orchestrator_dispatcher_failure_preserves_original_exception(temp_db):
     assert temp_db.get_work_item(ctx.work_item_id)["current_state"] == "EVIDENCE_BLOCKED"
 
 
+def test_orchestrator_output_identity_is_exact_work_item_scoped(temp_db):
+    contexts = [
+        _orchestrator_context_and_claim(temp_db, suffix="scoped_output_a"),
+        _orchestrator_context_and_claim(temp_db, suffix="scoped_output_b"),
+    ]
+    identical_result = {
+        "outputs": [
+            {"name": "release.json", "output_form": "STRUCTURED_JSON", "value": {"status": "ready"}},
+            {"name": "release.txt", "output_form": "UTF8_TEXT", "value": "identical bytes"},
+        ]
+    }
+    output_sets = []
+    for context in contexts:
+        orchestrator = ContentOpsProductionOrchestrator(store=temp_db)
+        orchestrator._dispatcher = lambda operation, **kwargs: identical_result
+        assert orchestrator.execute(
+            "prepare_text_image_release_candidate", durable_context=context
+        ) == identical_result
+        with temp_db.get_connection() as connection:
+            output_ids = json.loads(connection.execute(
+                "SELECT output_artifact_ids FROM transition_events WHERE work_item_id=? ORDER BY event_seq DESC LIMIT 1",
+                (context.work_item_id,),
+            ).fetchone()[0])
+        assert len(output_ids) == 3
+        for artifact_id in output_ids:
+            artifact = temp_db.get_artifact(artifact_id)
+            assert artifact["artifact_scope"] == "WORK_ITEM_EXACT"
+            assert artifact["story_id"] == context.story_id
+            assert artifact["work_item_id"] == context.work_item_id
+        output_sets.append(set(output_ids))
+    assert output_sets[0].isdisjoint(output_sets[1])
+    assert all(temp_db.replay_work_item_events(context.work_item_id)["verification_status"] == "PASS" for context in contexts)
+
+
+def test_orchestrator_composite_failure_preserves_operation_and_persistence_errors(temp_db):
+    context = _orchestrator_context_and_claim(temp_db, suffix="composite_failure")
+    orchestrator = ContentOpsProductionOrchestrator(store=temp_db)
+    operation_error = RuntimeError("dispatcher failed before durable receipt")
+    persistence_error = RuntimeError("blocked-state persistence failed")
+
+    def fail_dispatch(operation, **kwargs):
+        raise operation_error
+
+    original_transition = temp_db.transition_state
+
+    def fail_only_blocked_transition(**kwargs):
+        if kwargs.get("to_state") == "EVIDENCE_BLOCKED":
+            raise persistence_error
+        return original_transition(**kwargs)
+
+    orchestrator._dispatcher = fail_dispatch
+    temp_db.transition_state = fail_only_blocked_transition
+    with pytest.raises(OperationFailurePersistenceError) as caught:
+        orchestrator.execute("prepare_text_image_release_candidate", durable_context=context)
+    assert caught.value.operation_error is operation_error
+    assert caught.value.persistence_error is persistence_error
+    assert caught.value.restart_disposition == "RESUME_RESTART_SAFE"
+    assert caught.value.__cause__ is operation_error
+    assert temp_db.get_work_item(context.work_item_id)["current_state"] == "EVIDENCE_PENDING"
+    assert temp_db.replay_work_item_events(context.work_item_id)["verification_status"] == "PASS"
+
+
 def test_orchestrator_pending_restart_requires_explicit_decision(temp_db):
     ctx = _orchestrator_context_and_claim(temp_db, suffix="restart")
     temp_db.transition_state(
@@ -646,7 +1397,7 @@ def test_lossless_migration_v1_v2_v3_preserves_all_rows(tmp_path):
     store = ContentOpsDurableStore(db_file, auto_migrate=False)
     assert store.run_migrations(target_version=1) == 1
 
-    conn = store.get_connection()
+    conn = sqlite3.connect(str(db_file))
     try:
         conn.execute("BEGIN IMMEDIATE")
         conn.execute("INSERT INTO work_items VALUES ('wi_legacy', 'story_legacy', 'Legacy Title', 'DISCOVERED', 1, 'eight_platform_all', '2026-08-01T00:00:00Z', '2026-08-01T00:00:00Z');")
@@ -660,10 +1411,11 @@ def test_lossless_migration_v1_v2_v3_preserves_all_rows(tmp_path):
 
     assert store.run_migrations(target_version=2) == 1
     assert store.get_current_schema_version() == 2
-    assert store.run_migrations() == 1
-    assert store.get_current_schema_version() == 3
+    assert store.run_migrations() == 2
+    assert store.get_current_schema_version() == 4
     assert store.verify_schema_integrity() is True
     assert [proof["status"] for proof in store.migration_proofs] == [
+        "PASS_LOSSLESS_MIGRATION",
         "PASS_LOSSLESS_MIGRATION",
         "PASS_LOSSLESS_MIGRATION",
         "PASS_LOSSLESS_MIGRATION",
