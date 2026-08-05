@@ -20,6 +20,8 @@ Protected Release: `v1.0^{} = 6983bfb3ef300414b744f3f8f97ca81ff699348b`
 
 ## Key Correction & Evidence Findings
 
+- **Role-Aware Evidence Classification**: Implemented two-role model distinguishing historical implementation packet files from closeout audit files (`final_manifest.json`, `validation_results.md`, `changed_file_inventory.json`).
+- **Post-Edit Test Rerun Verification**: Updated `test_wave02_durable_store_authority_and_metadata_consistency_v1.py` and executed tests AFTER final committed evidence bytes were written.
 - **`.gitattributes` LF Enforcement**: Added explicit `.gitattributes` to enforce LF line endings on repo files across platforms.
 - **Removed CRLF-Before-Hash Normalization**: Removed unsafe `.replace(b"\r\n", b"\n")` pre-hash normalization in evidence verifiers to ensure exact-byte verification.
 - **Identity Field Handling**: Ensured malformed identity fields fail closed without string laundering.

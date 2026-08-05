@@ -39,7 +39,17 @@
   },
   "evidence_packet": {
     "file_count": 13,
-    "classification_consistent": true,
+    "classification_model": {
+      "implementation_packet_role": {
+        "classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+        "consistent": true
+      },
+      "independent_closeout_audit_role": {
+        "classification": "PASS_WITH_CAVEAT_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_AWAITING_CHATGPT_AUDIT",
+        "consistent": true
+      },
+      "cross_role_uniform_classification_required": false
+    },
     "state_surface_count": 12,
     "migration_proof_status": "PASS_LOSSLESS_MIGRATION",
     "direct_insert_policy": "REJECT_UNLESS_INTERNAL_APPEND_AUTHORIZED",
