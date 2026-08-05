@@ -8,57 +8,55 @@ Accepted release classification:
 
 `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`
 
-Current accepted Wave 01 classification:
+Accepted master operational classification:
 
 `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
 
-Historical correction classification:
+Current product-direction classification:
 
-`PASS_WAVE01_CANONICAL_ORCHESTRATOR_ENFORCEMENT_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+`CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_RECONCILED_PENDING_OWNER_APPROVAL`
 
-Historical Wave 01 worker classification:
+Current product-direction authority:
 
-`PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT`
+- `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`
+- `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_SCOPE_OVERLAY_V2.md`
+- `docs/automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
 
-Completed Wave 01 acceptance task:
+## Current repo-state truth
 
-`TASK_CONTENTOPS_WAVE01_ACCEPTANCE_MASTER_MERGE_AND_CLI_COVERAGE_RECONCILIATION_V1`
+Remote `master` was verified at planning start as:
 
-Working branch:
+`c87e338f25922f4d03454ba199139353ca7198ff`
 
-`master`
+A Wave 02 durable-store candidate exists outside accepted `master`. It is not accepted master authority until independent audit, reconciliation, commit, push, and remote readback complete.
 
-Pre-merge target master HEAD:
+## Product routing
 
-`a0c9d0a67e39c614d5a80cd758f219dcac9b11ff`
+ContentOps owns news/headline/breaking/business-news intelligence and the content factory. Capital Chronicle main project owns microeconomic, macroeconomic, global-macro, scenario, model-calculation, Bayesian, forecasting, numeric-truth, and analytical-error authority.
 
-Accepted source HEAD:
+The proposed final closeout sequence is:
 
-`7d7d55039a68b4dbaec631ac75af6b7e418f7500`
+1. minimum durable prerequisite;
+2. dual-lane CORE V0 in `SHADOW_ONLY`;
+3. diversified news, SEO, image, and chart closure;
+4. repeated shadow soak and recovery;
+5. exact authorized live cohort;
+6. final acceptance and new release identity.
 
-Merge commit:
-
-`d5c53655435e8340b3b79ddc3779e1f833eeb311`
-
-Accepted master HEAD before reconciliation:
-
-`5c90e6d243b705f74cac40547083565f4899197b`
-
-The independent audit accepted the executable Wave 01 boundary for merge. The post-merge acceptance commit reconciled minor test/evidence coverage to exhaustively cover all 12 mutation-capable CLI argument families.
+This sequence is planning guidance only.
 
 ## Required next action
 
-`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
+`OWNER_APPROVAL_REQUIRED_NO_EXACT_NEXT_TASK_AUTHORIZED`
 
-## Execution boundary
+No builder implementation may start from this pointer. Jim must approve the updated product direction. ChatGPT must then re-verify current GitHub refs, candidate state, current authority files, and protected `v1.0` before issuing one exact Antigravity task.
 
-This is Wave 02 from the accepted institutional hardening plan. It remains `NEXT_NOT_STARTED` and is schema/local-persistence work to create the SQLite WAL operational spine, explicit versioned migrations, append-only transitions, compare-and-set state changes, immutable artifact references, leases/heartbeats, restart reconstruction, deterministic replay, and redacted evidence export. It grants no credential, provider, browser, platform, scheduler/outbox execution, dispatch, publication, network, or public-write authority.
+## Preserved boundaries
 
-## Required starting authority
-
-- Wave 01 status is `COMPLETE_ACCEPTED_AND_MERGED` under classification `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`.
-- Wave 02 is `NEXT_NOT_STARTED` and remains gated until independent audit of this final evidence reconciliation.
-- Read Wave 02 in `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_HARDENING_EXECUTION_PLAN.md` before implementation.
-- Preserve `v1.0`, accepted release evidence, the canonical orchestrator boundary, and historical replay packets unchanged.
-- Do not add a second runner, scheduler, state store, outbox, approval engine, provider gateway, or dashboard.
-- Do not commit the mutable SQLite database, persist raw secrets/session material, hide transaction semantics, or silently discard malformed state.
+- no unauthorized provider, browser/CDP, platform, scheduler, dispatch, publication, or public write;
+- no raw credential or session access;
+- no fabricated numeric or analytical truth;
+- no mutation of the Capital Chronicle main project;
+- no modification or retagging of accepted `v1.0`;
+- no second runner, state store, approval engine, outbox, scheduler, provider gateway, dashboard, or analysis engine.
