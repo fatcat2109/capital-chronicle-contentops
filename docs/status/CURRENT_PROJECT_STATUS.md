@@ -326,3 +326,35 @@ Local validation passed 38 focused enforcement tests, 65 canonical compatibility
 `TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
 Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary: implement SQLite WAL, explicit versioned migrations, append-only transitions, compare-and-set state changes, leases, restart reconstruction, deterministic replay, and redacted evidence export. Do not commit the mutable database, hide transaction semantics, store secrets/session material, read credentials, invoke providers/platforms, run scheduler/outbox actions, dispatch, publish, use the network, or perform public writes.
+
+## Current Post-v1 Classification (Wave 02)
+
+The sections above are retained as accepted historical program authority. This section is
+the current status and supersedes any earlier "current" classification above.
+
+`PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+
+Completed task: `TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1`.
+
+Wave 01 Status: `COMPLETE_ACCEPTED_AND_MERGED`
+Wave 02 Status: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`
+Wave 03 Status: `NEXT_NOT_STARTED`
+
+### Wave 02 summary: durable operational store and canonical state machine v1
+
+Wave 02 implements the SQLite WAL durable store, schema version 4, lineage metadata,
+event envelope v1, hash-chain replay, WAL-safe backups, and external-writer threat
+boundaries. Migrations verify and roll back on failure, and the canonical JSON encoder is
+shared by the migration writer and the replay verifier so writer and verifier hashes cannot
+diverge.
+
+Byte-exact evidence verification depends on JSON files being stored and checked out with LF
+line endings. This is enforced by `.gitattributes` (`*.json text eol=lf`), never by
+normalising bytes inside verification code.
+
+### Next action
+
+`TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
+
+Wave 03 is the exact next task and has not started. It covers exact approval envelopes,
+the transactional outbox, and expiry enforcement.

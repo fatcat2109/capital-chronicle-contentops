@@ -62,3 +62,28 @@ This is Wave 02 from the accepted institutional hardening plan. It remains `NEXT
 - Preserve `v1.0`, accepted release evidence, the canonical orchestrator boundary, and historical replay packets unchanged.
 - Do not add a second runner, scheduler, state store, outbox, approval engine, provider gateway, or dashboard.
 - Do not commit the mutable SQLite database, persist raw secrets/session material, hide transaction semantics, or silently discard malformed state.
+
+## Superseding current pointer (Wave 02)
+
+The historical record above is retained as accepted program lineage. The lines below are
+the current pointer and supersede the "Required next action" section above.
+
+Completed Wave 02 task:
+
+`TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1`
+
+Wave 02 candidate classification:
+
+`PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+
+Wave 01 Status: `COMPLETE_ACCEPTED_AND_MERGED`
+Wave 02 Status: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`
+Wave 03 Status: `NEXT_NOT_STARTED`
+
+### Required next action after Wave 02 acceptance
+
+`TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
+
+Wave 03 covers exact approval envelopes, the transactional outbox, and expiry enforcement.
+It has not started and grants no dispatch, publication, scheduler, credential, provider,
+network, or public-write authority.

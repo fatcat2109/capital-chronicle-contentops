@@ -100,3 +100,18 @@ This audit/plan branch grants no new:
 - public write.
 
 Any future live cohort requires a separate exact task and approval envelope.
+
+## Current wave status (Wave 02)
+
+The sections above are retained as accepted historical program authority. This section is
+the current status.
+
+- Wave 01 Status: `COMPLETE_ACCEPTED_AND_MERGED`
+- Wave 02 Status: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`
+- Wave 03 Status: `NEXT_NOT_STARTED`
+- Current Classification: `PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+- Next Wave 03 Task: `TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
+
+Wave 02 completed the durable local operational store and canonical state machine. It
+grants no approval, publication, dispatch, scheduler, provider/platform, credential, or
+public-write authority; those remain gated behind separate exact tasks.

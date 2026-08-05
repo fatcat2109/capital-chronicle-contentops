@@ -210,9 +210,9 @@
     }
   },
   "active_live_repair_blockers": [],
-  "next_task": "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1",
-  "current_next_recommended_task": "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1",
-  "next_recommended_task": "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1",
+  "next_task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
+  "current_next_recommended_task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
+  "next_recommended_task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
   "next_task_requires_separate_live_authorization": false,
   "legacy_reference_surfaces": [
     "ui/institutional_operator_cockpit_v4/"
@@ -1505,5 +1505,50 @@
     "next_action": "TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1",
     "wave_01_status": "COMPLETE_ACCEPTED_AND_MERGED",
     "wave_02_status": "NEXT_NOT_STARTED"
+  },
+  "authority_roles": {
+    "accepted_master_authority": {
+      "branch": "master",
+      "head": "c87e338f25922f4d03454ba199139353ca7198ff",
+      "classification": "PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED",
+      "status": "COMPLETE_ACCEPTED_AND_MERGED"
+    },
+    "historical_release_authority": {
+      "annotated_tag": "v1.0",
+      "release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+      "classification": "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED"
+    },
+    "candidate_branch_authority": {
+      "branch": "agent/contentops-wave02-durable-operational-store-v1",
+      "starting_head": "615a96fb20aa97fd76bb3343e9150daec40d9031",
+      "task": "TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1",
+      "classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+      "status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
+      "completing_commit_sha": null,
+      "merged": false
+    },
+    "planned_next_wave_after_candidate_acceptance": {
+      "task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
+      "status": "NEXT_NOT_STARTED"
+    }
+  },
+  "working_branch": "agent/contentops-wave02-durable-operational-store-v1",
+  "base_branch": "master",
+  "base_master_head": "c87e338f25922f4d03454ba199139353ca7198ff",
+  "starting_branch_head": "615a96fb20aa97fd76bb3343e9150daec40d9031",
+  "wave01_status": "COMPLETE_ACCEPTED_AND_MERGED",
+  "wave02_worker_classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+  "wave02_status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
+  "wave03_status": "NEXT_NOT_STARTED",
+  "post_v1_durable_operational_store_v1": {
+    "classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+    "completed_task": "TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1",
+    "wave_01_status": "COMPLETE_ACCEPTED_AND_MERGED",
+    "wave_02_status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
+    "wave_03_status": "NEXT_NOT_STARTED",
+    "next_action": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
+    "schema_version": 4,
+    "tables_count": 26,
+    "canonical_store_module": "live_contentops/durable_operational_store_v1.py"
   }
 }

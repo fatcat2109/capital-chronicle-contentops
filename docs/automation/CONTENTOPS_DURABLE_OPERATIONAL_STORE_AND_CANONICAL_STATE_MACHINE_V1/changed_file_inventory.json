@@ -1,0 +1,36 @@
+{
+  "schema_version": "contentops.wave02_changed_file_inventory.v1",
+  "worker_classification": "PASS_WITH_CAVEAT_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_AWAITING_CHATGPT_AUDIT",
+  "task": "TASK_CONTENTOPS_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_OF_DC228AAA_V1",
+  "base_master_head": "c87e338f25922f4d03454ba199139353ca7198ff",
+  "starting_branch_head": "dc228aaa0fa3ad4a478a9252f9b3cff6f8f37703",
+  "inventory_scope": "Selective correction of dc228aaa closeout commit; includes explicit task-authorized paths and excludes test-generated side-effect paths",
+  "staged_authorized_paths": [
+    ".gitattributes",
+    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/changed_file_inventory.json",
+    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/final_manifest.json",
+    "docs/automation/CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1/validation_results.md",
+    "docs/automation/CONTENTOPS_FAST_SHIP_EXECUTABLE_SNAPSHOT_REQUIREMENT_SEPARATION_V1/final_manifest.json",
+    "docs/automation/CONTENTOPS_FAST_SHIP_VERIFIED_HISTORICAL_PREDECESSOR_BINDING_AND_STATUS_RECONCILIATION_V1/final_manifest.json",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/PREEXISTING_LATENT_DEFECTS_CRLF_PINNED_EVIDENCE_V1.md",
+    "live_contentops/adaptive_learning_adapters_v2.py",
+    "live_contentops/generic_foundation_hardening_v2.py",
+    "live_contentops/historical_schema_compatibility_v1.py",
+    "tests/test_content_intelligence_v2.py",
+    "tests/test_current_project_status_guardrail_v6.py",
+    "tests/test_durable_operational_store_v1.py",
+    "tests/test_wave02_durable_store_authority_and_metadata_consistency_v1.py"
+  ],
+  "excluded_test_generated_side_effect_paths": [
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "docs/automation/V6_POST_RELEASE_GOVERNANCE/operator_governance_summary.json",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/CURRENT_STATE_SUMMARY_V6_READINESS.md",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/IMPLEMENTATION_REPORT.md",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/project_sources_upload_bundle_packet.json",
+    "ui/contentops_v5/src/data/platform_variant_packet.json"
+  ]
+}

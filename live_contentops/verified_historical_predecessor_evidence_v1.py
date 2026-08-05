@@ -23,6 +23,16 @@ NEXT_ACTION = "INDEPENDENT_CHATGPT_AUDIT_VERIFIED_HISTORICAL_PREDECESSOR_BINDING
 STARTING_HEAD = "5453b8fa29c5be3cc165efe86fea9e3ee27e7c8b"
 PRODUCER_COMMIT = "1548196ebffd2bc7ce82a4ae290211b9c53a45df"
 UNREACHABLE_COMMIT = "631ea29c5388d52d4353810b6d8b2a50d677bb44"
+# Point-in-time basis for the status-authority reconciliation record. This closeout evidence
+# describes the status files as they stood in the commit that produced it, so it must be read
+# from that commit's tree and never from the mutable worktree: status docs legitimately advance
+# as later tasks land, and re-reading them would retroactively invalidate merged evidence.
+# This commit must remain reachable for the record to stay replayable.
+STATUS_RECONCILIATION_COMMIT = "a1645740b8ad3a590be314ecbc900f9ad0f4b252"
+# Superseded next-action pointer from the preceding task; its absence is what the record proves.
+STALE_NEXT_ACTION = (
+    "INDEPENDENT_CHATGPT_AUDIT_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1"
+)
 ARTIFACT_PATH = "tests/fixtures/multi_story_scoped_reporting_authority_batch_v1.json"
 STORY_ID = "fomc-minutes-2026-04-28-29"
 CLAIM_ID = "claim-95f6638ac5460d82"
@@ -79,6 +89,26 @@ def _git(repo_root: Path, *args: str) -> str:
         stderr=subprocess.DEVNULL,
         text=True,
     ).strip()
+
+
+def _pinned_text(repo_root: Path, rev: str, relative: str) -> str:
+    """Read a path from a fixed commit's tree.
+
+    Deliberately has no worktree fallback: if the pinned commit is unreachable the record
+    cannot be replayed faithfully, and silently substituting current bytes would reintroduce
+    the nondeterminism this pinning exists to remove.
+    """
+    try:
+        content = subprocess.check_output(
+            ["git", "-C", str(repo_root), "show", f"{rev}:{relative}"],
+            stderr=subprocess.DEVNULL,
+        )
+    except subprocess.CalledProcessError as error:
+        raise RuntimeError(
+            f"point-in-time basis {rev} is unreachable for {relative}; "
+            "historical closeout evidence cannot be replayed"
+        ) from error
+    return content.decode("utf-8")
 
 
 def _fixture_binding(repo_root: Path, kind: str = "USED_CLAIM") -> dict[str, Any]:
@@ -257,18 +287,24 @@ def build_current_parity(repo_root: Path) -> dict[str, Any]:
 
 
 def build_status_reconciliation(repo_root: Path) -> dict[str, Any]:
+    """Rebuild the point-in-time status-authority reconciliation record.
+
+    Status files are read from STATUS_RECONCILIATION_COMMIT rather than the worktree, so this
+    record replays byte-identically no matter how far current status authority has advanced.
+    """
     rows = []
-    stale = "INDEPENDENT_CHATGPT_AUDIT_DECISION_TIME_FRESHNESS_AND_CURRENT_OPERATOR_READINESS_TRUTH_V1"
     for relative in STATUS_PATHS:
-        text = (repo_root / relative).read_text(encoding="utf-8")
+        text = _pinned_text(repo_root, STATUS_RECONCILIATION_COMMIT, relative)
         rows.append({
             "path": relative,
             "completed_task_present": TASK in text,
             "classification_present": CLASSIFICATION in text,
             "next_action_present": NEXT_ACTION in text,
-            "stale_pointer_present": stale in text,
+            "stale_pointer_present": STALE_NEXT_ACTION in text,
         })
-    status_json = _read_json(repo_root / "docs/status/current_project_status.json")
+    status_json = json.loads(
+        _pinned_text(repo_root, STATUS_RECONCILIATION_COMMIT, "docs/status/current_project_status.json")
+    )
     core = {
         "schema_version": "contentops.status_authority_reconciliation.v1",
         "task": TASK,

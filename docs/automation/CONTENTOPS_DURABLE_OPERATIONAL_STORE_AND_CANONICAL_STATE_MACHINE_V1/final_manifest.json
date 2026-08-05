@@ -1,0 +1,100 @@
+{
+  "schema_version": "contentops.wave02_final_manifest.v1",
+  "task": "TASK_CONTENTOPS_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_OF_DC228AAA_V1",
+  "worker_classification": "PASS_WITH_CAVEAT_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_AWAITING_CHATGPT_AUDIT",
+  "authority_roles": {
+    "accepted_master_authority": {
+      "head": "c87e338f25922f4d03454ba199139353ca7198ff",
+      "wave_01_status": "COMPLETE_ACCEPTED_AND_MERGED"
+    },
+    "historical_release_authority": {
+      "annotated_tag": "v1.0",
+      "release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+      "classification": "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED"
+    },
+    "candidate_branch_authority": {
+      "branch": "agent/contentops-wave02-durable-operational-store-v1",
+      "starting_head": "dc228aaa0fa3ad4a478a9252f9b3cff6f8f37703",
+      "task": "TASK_CONTENTOPS_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_OF_DC228AAA_V1",
+      "classification": "PASS_WITH_CAVEAT_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_AWAITING_CHATGPT_AUDIT",
+      "wave_02_status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
+      "completing_commit_sha": null,
+      "merged": false
+    },
+    "planned_next_wave_after_candidate_acceptance": {
+      "wave_03_status": "NEXT_NOT_STARTED",
+      "next_task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1"
+    }
+  },
+  "schema": {
+    "version": 4,
+    "tables_count": 26,
+    "triggers_count": 6,
+    "sql_migration_hashes": [
+      "184298f54e1b6bc4a359d3026d3a249bf85cd46beee1fbcda53d04db5a326cb9",
+      "d4a35a066a106a705c09fbe1f3df1e8f66b95413936398e4158b55ef4ff3d849",
+      "553ed20ea3c9d961047362df09e2c538c3269388caf27089da963366b44813cf",
+      "3c2047f57ad8fa54915844c20196a283dcc21133299eb66e375c88052f1c0583"
+    ]
+  },
+  "evidence_packet": {
+    "file_count": 13,
+    "classification_model": {
+      "implementation_packet_role": {
+        "classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+        "consistent": true
+      },
+      "independent_closeout_audit_role": {
+        "classification": "PASS_WITH_CAVEAT_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_AWAITING_CHATGPT_AUDIT",
+        "consistent": true
+      },
+      "cross_role_uniform_classification_required": false
+    },
+    "state_surface_count": 12,
+    "migration_proof_status": "PASS_LOSSLESS_MIGRATION",
+    "direct_insert_policy": "REJECT_UNLESS_INTERNAL_APPEND_AUTHORIZED",
+    "gitattributes_lf_enforcement": true,
+    "crlf_before_hash_normalization_removed": true,
+    "malformed_identity_fields_fail_closed": true,
+    "manifest_version_disposition": "FROZEN_LEGACY_V1_CORRECTED_CURRENT_V2",
+    "restored_authority_documents": true,
+    "snapshot_requirement_lf_repins": 2,
+    "historical_crlf_pinned_caveats": 4
+  },
+  "validation_summary": {
+    "focused_closeout_scope": {
+      "passed": 229,
+      "preexisting_failures": 1,
+      "failing_test": "tests/test_current_project_status_guardrail_v6.py::test_status_markdown_explicit_authority_statements"
+    },
+    "monolithic_repository_suite_comparison": {
+      "baseline_dc228aaa": {
+        "failed": 393,
+        "passed": 6423,
+        "skipped": 73,
+        "errors": 160
+      },
+      "corrected_worktree": {
+        "failed": 390,
+        "passed": 6432,
+        "skipped": 73,
+        "errors": 160
+      },
+      "introduced_failures_found": 2,
+      "introduced_failures_corrected": 2
+    },
+    "ci_status_checks": "NOT_RUN_OR_AVAILABLE",
+    "independent_audit": "AWAITING_CHATGPT_AUDIT"
+  },
+  "no_live_execution_truth": {
+    "credential_or_environment_value_reads": 0,
+    "provider_calls": 0,
+    "browser_cdp_sessions": 0,
+    "network_fetches": 0,
+    "scheduler_or_outbox_executions": 0,
+    "dispatches": 0,
+    "publication_attempts": 0,
+    "platform_writes": 0,
+    "public_writes": 0
+  }
+}
