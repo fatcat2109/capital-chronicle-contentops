@@ -654,17 +654,18 @@ def build_current_upstream_reports(
     foundation_bytes: bytes,
     current_head: str,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    current_bytes = current_bytes.replace(b"\r\n", b"\n")
-    historical_bytes = historical_bytes.replace(b"\r\n", b"\n")
-    foundation_bytes = foundation_bytes.replace(b"\r\n", b"\n")
+    # Byte inputs are hashed verbatim (both git blob SHA-1 and SHA-256 below depend on
+    # exact length and content). Normalising line endings here would produce a git blob
+    # SHA-1 for bytes that were never stored, so it is deliberately absent; .gitattributes
+    # guarantees JSON evidence is LF on disk.
     artifact = json.loads(current_bytes)
     candidate_rows = [*artifact.get("eligible_candidates", []), *artifact.get("rejected_candidates", [])]
     binding = contracts.GovernedCandidatePoolBindingV1(
         repository=adapters.UPSTREAM_REPOSITORY, branch=adapters.UPSTREAM_BRANCH,
         producer_commit=current_head, artifact_path=adapters.UPSTREAM_ARTIFACT_PATH,
         git_blob_sha1=_git_blob_sha1(current_bytes), consumed_byte_sha256=sha256(current_bytes).hexdigest(),
-        schema_version=str(artifact.get("schema_version")), producer_version=str(artifact.get("producer_version")),
-        pool_id=str(artifact.get("pool_id")), logical_hash=str(artifact.get("logical_hash")),
+        schema_version=artifact.get("schema_version"), producer_version=artifact.get("producer_version"),
+        pool_id=artifact.get("pool_id"), logical_hash=artifact.get("logical_hash"),
         cutoff_time_utc=artifact.get("cutoff_time_utc"),
         candidate_hashes={str(row["candidate_id"]): str(row["evidence_hash"]) for row in candidate_rows},
         source_family_coverage=tuple(sorted(str(row["family_id"]) for row in artifact.get("source_coverage", []))),

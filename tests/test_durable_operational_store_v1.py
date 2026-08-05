@@ -372,6 +372,98 @@ def test_dependency_manifest_hash_is_pinned_against_silent_lineage_drift():
     )
 
 
+def test_dependency_manifest_v2_hash_is_pinned_against_silent_lineage_drift():
+    """Pin the V2 manifest hash for the same reason the v1 hash is pinned.
+
+    V2 was previously unpinned, which let a semantic error ship silently: the manifest
+    named ``build_event_envelope_v1``, a function that does not exist. Because nothing
+    asserted the hash or resolved the path, the bad name was written into the lineage
+    metadata of every migrated database without any test failing.
+    """
+    assert historical_compatibility.DEPENDENCY_MANIFEST_V2_HASH == (
+        "39b78e149ad5b703dabdbbccf4892d1ede940052b8614fbd52f0bd3e1c4b11c4"
+    )
+    assert compute_sha256(historical_compatibility.DEPENDENCY_MANIFEST_V2_JSON) == (
+        historical_compatibility.DEPENDENCY_MANIFEST_V2_HASH
+    )
+
+
+def test_current_manifest_dotted_paths_resolve_to_real_attributes():
+    """Every dotted path in the *current* manifest must name a symbol that exists.
+
+    Scoped deliberately to V2 and any future current manifest. V1 is frozen legacy (see
+    ``test_legacy_manifest_v1_stays_frozen_with_known_inherited_defect``) and is excluded
+    on purpose, so this guard must never be widened to include it.
+
+    Guards the class of defect where a manifest advertises a path that cannot be
+    imported: unfalsifiable at runtime, yet durably recorded in database lineage
+    metadata. V2 previously named ``build_event_envelope_v1``, which does not exist.
+    """
+    import importlib
+
+    manifest = historical_compatibility.DEPENDENCY_MANIFEST_V2
+    checked = 0
+    for key, value in manifest.items():
+        if not isinstance(value, str) or not value.startswith("live_contentops."):
+            continue
+        module_path, _, attribute = value.rpartition(".")
+        module = importlib.import_module(module_path)
+        assert hasattr(module, attribute), (
+            f"DEPENDENCY_MANIFEST_V2[{key!r}] names {value!r}, but {attribute!r} "
+            f"does not exist in {module_path}"
+        )
+        checked += 1
+    assert checked, "expected at least one dotted path to verify"
+
+
+def test_legacy_manifest_v1_stays_frozen_with_known_inherited_defect():
+    """V1 is a frozen legacy compatibility artifact: recognized, not corrected.
+
+    Databases already migrated in the field carry V1's hash in their lineage metadata, so
+    its bytes, dotted-path strings, schema-version label, and pinned hash must not change.
+
+    V1 contains an inherited defect: ``state_rules`` names
+    ``durable_operational_store_v1.TRANSITION_GRAPH``, which has never existed (the real
+    symbol is ``STATE_TRANSITION_GRAPH``). This predates the Wave 02 work and is recorded
+    here as a frozen historical defect, explicitly *not* current runtime authority. Nothing
+    resolves this string at runtime; V2 binds the real graph instead. Do not "fix" V1 and
+    do not re-pin its hash -- that would invalidate already-migrated databases.
+    """
+    import live_contentops.durable_operational_store_v1 as durable_store
+
+    assert historical_compatibility.DEPENDENCY_MANIFEST["state_rules"] == (
+        "live_contentops.durable_operational_store_v1.TRANSITION_GRAPH"
+    )
+    assert not hasattr(durable_store, "TRANSITION_GRAPH"), (
+        "V1 names a symbol that must remain absent; if it were added, the frozen legacy "
+        "manifest would start looking authoritative"
+    )
+    assert hasattr(durable_store, "STATE_TRANSITION_GRAPH")
+    assert historical_compatibility.DEPENDENCY_MANIFEST_HASH == (
+        "6130da750b36fed3183816218717d008a74234efd12dcc92725ab25c0cc12f33"
+    )
+
+
+def test_manifest_v2_state_graph_binds_to_real_runtime_graph():
+    """V2's inlined graph must agree with the executable graph, set-wise per state.
+
+    V2 inlines the transition graph rather than referencing V1's non-existent symbol, so
+    the two could silently drift. Comparison is order-insensitive because successor order
+    carries no semantics; only membership does.
+    """
+    import live_contentops.durable_operational_store_v1 as durable_store
+
+    declared = historical_compatibility.DEPENDENCY_MANIFEST_V2["state_transition_graph"]
+    runtime = durable_store.STATE_TRANSITION_GRAPH
+
+    assert set(declared) == set(runtime), "declared and runtime states must match exactly"
+    for state, successors in runtime.items():
+        assert set(declared[state]) == set(successors), (
+            f"state {state!r}: manifest declares {sorted(set(declared[state]))} "
+            f"but runtime allows {sorted(set(successors))}"
+        )
+
+
 @pytest.mark.parametrize(
     "originating_commit",
     (

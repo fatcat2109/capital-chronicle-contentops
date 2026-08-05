@@ -196,6 +196,53 @@ def test_exact_upstream_export_matches_declared_blob_byte_and_logical_identity()
     assert binding.pool_id == adapters.UPSTREAM_POOL_ID
 
 
+def test_verifier_rejects_line_ending_forged_bytes():
+    """Byte-exact verification must detect line-ending mutation.
+
+    Regression guard. The verifier once normalised CRLF to LF *before* hashing, so a
+    CRLF-mutated payload reported the declared SHA-256 and returned PASS with no
+    blockers. Every other test still passed, because none of them fed altered bytes in.
+    The correct fix is to pin worktree bytes via .gitattributes (``*.json text eol=lf``)
+    and hash exactly what was supplied -- never to rewrite input inside the verifier.
+    """
+    good = UPSTREAM_EXPORT.read_bytes()
+    assert b"\r\n" not in good, (
+        "fixture must be LF on disk; check the *.json eol=lf rule in .gitattributes"
+    )
+
+    forged = good.replace(b"\n", b"\r\n")
+    assert forged != good
+
+    binding, result = adapters.verify_upstream_export(forged)
+    assert result.status == "BLOCKED_ARTIFACT_BINDING"
+    assert result.blockers, "forged bytes must produce at least one blocker"
+
+    # The reported hash must describe the bytes actually supplied, not a normalised
+    # rewrite of them, and must not collide with the declared value.
+    true_forged_sha = __import__("hashlib").sha256(forged).hexdigest()
+    assert result.actual_byte_sha256 == true_forged_sha
+    assert result.actual_byte_sha256 != adapters.UPSTREAM_FILE_SHA256
+
+
+def test_binding_does_not_coerce_malformed_identity_fields():
+    """Identity fields must fail closed rather than be laundered into valid-looking strings.
+
+    Regression guard. Wrapping these reads in ``str()`` turned ``12345`` into ``"12345"``
+    and ``None`` into ``"None"``, so malformed evidence could satisfy a string-typed
+    comparison instead of tripping the corresponding ``*_mismatch`` blocker.
+    """
+    payload = json.loads(UPSTREAM_EXPORT.read_bytes())
+    for bad_value in (12345, None, ["x"], {"a": 1}):
+        mutated = dict(payload)
+        mutated["logical_hash"] = bad_value
+        data = json.dumps(mutated, sort_keys=True, separators=(",", ":")).encode()
+        binding = adapters.build_upstream_binding(data)
+        assert binding.logical_hash == bad_value, (
+            f"logical_hash {bad_value!r} was coerced to {binding.logical_hash!r}"
+        )
+        assert binding.logical_hash != str(bad_value) or isinstance(bad_value, str)
+
+
 @pytest.mark.parametrize(
     "change,expected",
     [

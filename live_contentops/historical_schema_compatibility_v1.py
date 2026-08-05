@@ -107,7 +107,7 @@ DEPENDENCY_MANIFEST_V2: Mapping[str, Any] = {
         3: "legacy_envelope.v3",
         4: "historical_lineage_compatibility.v4",
     },
-    "migration_transform_source": "live_contentops.historical_schema_compatibility_v1.CURRENT_MIGRATION_SQL",
+    "migration_sql_source": "live_contentops.historical_schema_compatibility_v1.CURRENT_MIGRATION_SQL",
     "state_transition_graph": {
         "DISCOVERED": ["EVIDENCE_PENDING"],
         "EVIDENCE_PENDING": ["EVIDENCE_BLOCKED", "EVIDENCE_READY"],
@@ -149,7 +149,10 @@ DEPENDENCY_MANIFEST_V2: Mapping[str, Any] = {
         "contentops.event_payload.legacy_v1",
         "contentops.event_payload.v1",
     ],
-    "event_envelope_builder": "live_contentops.durable_operational_store_v1.build_event_envelope_v1",
+    # Dotted paths in this manifest are asserted to resolve by the test suite; they are
+    # written as literals rather than imported because importing the store module here
+    # would invert the dependency direction (the store imports this module).
+    "event_envelope_builder": "live_contentops.durable_operational_store_v1.build_event_envelope",
     "artifact_scopes": ["GLOBAL_REUSABLE", "LEGACY_UNSCOPED_QUARANTINED", "STORY_EXACT", "WORK_ITEM_EXACT"],
     "append_immutability_guard_sql": [
         "CREATE TRIGGER IF NOT EXISTS trg_transition_events_append_authorized BEFORE INSERT ON transition_events BEGIN SELECT CASE WHEN contentops_append_authorized() != 1 THEN RAISE(ABORT,'transition_events INSERT requires canonical append authorization') END; END",

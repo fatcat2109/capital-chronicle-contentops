@@ -215,8 +215,14 @@ def build_local_git_artifact_receipt(
     location = Path(git_repository).resolve()
     prefix = ["git", "--git-dir", str(location)] if location.is_file() or location.suffix == ".git" else ["git", "-C", str(location)]
     try:
+        # Deliberately excludes a bare "HEAD" default: a receipt must prove reachability
+        # from the *named branch* authority, not from whatever the local worktree points
+        # at. Previously "HEAD" was tried ahead of refs/heads/{branch}, which made the
+        # ancestry proof below vacuous for every caller (HEAD is always its own ancestor).
+        # Callers that legitimately mean "my current working commit" must now say so by
+        # passing branch_authority_ref="HEAD" explicitly, which keeps that choice auditable.
         branch_candidates = tuple(dict.fromkeys(filter(None, (
-            branch_authority_ref, "HEAD", f"refs/heads/{branch}", f"refs/remotes/origin/{branch}", f"origin/{branch}", f"{branch}",
+            branch_authority_ref, f"refs/heads/{branch}", f"refs/remotes/origin/{branch}", f"origin/{branch}", f"{branch}",
         ))))
         branch_head = None
         for candidate_ref in branch_candidates:
@@ -307,6 +313,11 @@ def build_synthetic_validation_context(
         source_authority_class="governed_synthetic_validation",
         registry=registry,
         verification_time_utc=decision_cutoff_utc,
+        # This context intentionally binds to the local working commit resolved above,
+        # so it opts into HEAD explicitly. Contract tests run on feature branches whose
+        # HEAD is not yet an ancestor of refs/heads/master; the artifact being bound is
+        # committed config bytes read out of that same commit.
+        branch_authority_ref="HEAD",
     )
     context = EvidenceDecisionContextV1(registry, (receipt,), decision_cutoff_utc)
     _SYNTHETIC_CONTEXT_CACHE[cache_key] = context
@@ -462,7 +473,10 @@ def attach_trusted_context_to_candidate(
 
 
 def build_upstream_binding(consumed_bytes: bytes) -> GovernedCandidatePoolBindingV1:
-    consumed_bytes = consumed_bytes.replace(b"\r\n", b"\n")
+    # ``consumed_bytes`` is hashed verbatim. Never normalise line endings here: this
+    # function's contract is byte-exactness, and rewriting bytes before hashing would
+    # make line-ending forgery undetectable. Worktree byte fidelity is guaranteed by
+    # the ``*.json text eol=lf`` rule in .gitattributes, not by mutating input.
     artifact = json.loads(consumed_bytes)
     candidate_rows = [*artifact.get("eligible_candidates", []), *artifact.get("rejected_candidates", [])]
     candidate_hashes = {
@@ -477,10 +491,13 @@ def build_upstream_binding(consumed_bytes: bytes) -> GovernedCandidatePoolBindin
         "artifact_path": UPSTREAM_ARTIFACT_PATH,
         "git_blob_sha1": UPSTREAM_GIT_BLOB_SHA1,
         "consumed_byte_sha256": sha256(consumed_bytes).hexdigest(),
-        "schema_version": str(artifact.get("schema_version")),
-        "producer_version": str(artifact.get("producer_version")),
-        "pool_id": str(artifact.get("pool_id")),
-        "logical_hash": str(artifact.get("logical_hash")),
+        # Read identity fields as-is. Coercing via str() would launder malformed
+        # evidence into valid-looking strings (12345 -> "12345", None -> "None")
+        # and defeat the downstream mismatch blockers, which must fail closed.
+        "schema_version": artifact.get("schema_version"),
+        "producer_version": artifact.get("producer_version"),
+        "pool_id": artifact.get("pool_id"),
+        "logical_hash": artifact.get("logical_hash"),
         "cutoff_time_utc": artifact.get("cutoff_time_utc"),
         "candidate_hashes": candidate_hashes,
         "source_family_coverage": source_families,
@@ -493,7 +510,8 @@ def build_upstream_binding(consumed_bytes: bytes) -> GovernedCandidatePoolBindin
 
 
 def verify_upstream_export(consumed_bytes: bytes) -> tuple[GovernedCandidatePoolBindingV1, Any]:
-    consumed_bytes = consumed_bytes.replace(b"\r\n", b"\n")
+    # No line-ending normalisation: see build_upstream_binding. Bytes are verified
+    # exactly as supplied so that any mutation surfaces as a hash mismatch.
     binding = build_upstream_binding(consumed_bytes)
     result = verify_governed_artifact(
         consumed_bytes,

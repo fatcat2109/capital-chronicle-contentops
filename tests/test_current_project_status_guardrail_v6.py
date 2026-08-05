@@ -104,7 +104,11 @@ def test_no_secret_or_session_data_terms() -> None:
     forbidden_patterns = [
         r"https://discord(?:app)?\.com/api/webhooks/",
         r"discord(?:_live)?_announcements_webhook\s*[:=]\s*['\"]https?://",
-        r"sk-[a-zA-Z0-9]",
+        # (?<![A-Za-z0-9]) anchors this to a token start so it cannot fire inside an
+        # ordinary hyphenated word. Without it, "task-starting" matches on the "sk-s"
+        # in "ta|sk-s|tarting", and so would "risk-scoped", "desk-side", etc. A real
+        # OpenAI key always begins the token, so sensitivity is unchanged.
+        r"(?<![A-Za-z0-9])sk-[a-zA-Z0-9]",
         r"xox[baprs]-",
         r"ghp_[A-Za-z0-9]",
         r"bearer\s+[A-Za-z0-9._-]{12,}",
@@ -115,6 +119,36 @@ def test_no_secret_or_session_data_terms() -> None:
     ]
     for pattern in forbidden_patterns:
         assert not re.search(pattern, combined, flags=re.IGNORECASE)
+
+
+def test_secret_scanner_catches_real_keys_but_not_hyphenated_words() -> None:
+    """The `sk-` guard must not weaken detection of real credentials.
+
+    Pins both directions of the fix so a future edit cannot quietly broaden the pattern
+    back into false positives, or narrow it into missing real keys.
+    """
+    pattern = r"(?<![A-Za-z0-9])sk-[a-zA-Z0-9]"
+
+    must_detect = [
+        "sk-abc123",
+        "OPENAI_API_KEY=sk-proj-XXXX",
+        "key: sk-1",
+        "(sk-a)",
+        "\nsk-a",
+    ]
+    for sample in must_detect:
+        assert re.search(pattern, sample, flags=re.IGNORECASE), f"missed key in {sample!r}"
+
+    must_ignore = [
+        "task-starting/precommit authority",
+        "risk-scoped rollout",
+        "desk-side review",
+        "disk-space budget",
+    ]
+    for sample in must_ignore:
+        assert not re.search(pattern, sample, flags=re.IGNORECASE), (
+            f"false positive on {sample!r}"
+        )
 
 
 def test_canonical_recon_outputs_point_to_v5() -> None:

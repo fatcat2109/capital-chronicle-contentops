@@ -1,45 +1,46 @@
-# ContentOps Wave 02 — Validation Results
+# ContentOps Wave 02 — Independent Audit & Selective Correction Validation Results
 
-Worker Classification:
-`PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+Task: `TASK_CONTENTOPS_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_OF_DC228AAA_V1`
 
-## Executed Test Suites
+Terminal Classification:
+`PASS_WITH_CAVEAT_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_AWAITING_CHATGPT_AUDIT`
 
-| Suite | Command | Result |
+Starting HEAD: `dc228aaa0fa3ad4a478a9252f9b3cff6f8f37703`
+Accepted Master: `c87e338f25922f4d03454ba199139353ca7198ff`
+Protected Release: `v1.0^{} = 6983bfb3ef300414b744f3f8f97ca81ff699348b`
+
+## Executed Validation & Focused Closeout Results
+
+| Scope | Result | Notes |
 |---|---|---|
-| Wave 02 store/resilience | `python -m pytest -q tests/test_durable_operational_store_v1.py` | **28 collected; covered in 32-pass combined run** |
-| Wave 02 authority/evidence | `python -m pytest -q tests/test_wave02_durable_store_authority_and_metadata_consistency_v1.py` | **4 collected; covered in 32-pass combined run** |
-| Final focused Wave 02 | both Wave 02 files above | **32 passed** |
-| Canonical quarantine | `tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py` | **38 passed** |
-| Pipeline/generic-fabric compatibility | `tests/test_eight_platform_substack_first_pipeline_v1.py tests/test_generic_evidence_freshness_visual_editorial_fabric_v2.py` | **65 passed** |
-| Final automation closure | `tests/test_final_automation_closure_v1.py` | **7 passed** |
-| Combined compatibility/quarantine/closure | the preceding four compatibility files | **110 passed** |
-| Restored Wave 01 master suite | `python -m pytest -q tests/test_wave01_master_authority_and_metadata_consistency_v1.py` | **4 passed, 1 failed** — expected branch-role conflict: exact master bytes require Wave 02 to remain the next not-started task, while this candidate correctly points to Wave 03 after independent acceptance |
+| Focused Wave 02 Closeout Suite | **229 passed, 1 pre-existing failure** | Pre-existing failure: `tests/test_current_project_status_guardrail_v6.py::test_status_markdown_explicit_authority_statements` |
+| Monolithic Baseline (`dc228aaa`) | **393 failed, 6423 passed, 73 skipped, 160 errors** | 7,049 tests measured |
+| Monolithic Corrected Worktree | **390 failed, 6432 passed, 73 skipped, 160 errors** | Net improvement: +9 passed, -3 failed |
+| Introduced Failures | **2 found, 2 corrected** | Identified during independent audit and fixed |
 
-Final candidate PASS total reported by this packet: **142 passed** (`32 + 110`). The Wave 01 historical role-conflict suite is disclosed separately and is not reported as a PASS.
+## Key Correction & Evidence Findings
+
+- **`.gitattributes` LF Enforcement**: Added explicit `.gitattributes` to enforce LF line endings on repo files across platforms.
+- **Removed CRLF-Before-Hash Normalization**: Removed unsafe `.replace(b"\r\n", b"\n")` pre-hash normalization in evidence verifiers to ensure exact-byte verification.
+- **Identity Field Handling**: Ensured malformed identity fields fail closed without string laundering.
+- **Manifest Governance**: Preserved legacy manifest v1 as a frozen compatibility artifact while correcting active manifest v2 dotted-path symbol references.
+- **Restored Authority Documents**: Restored content in `CURRENT_PROJECT_STATUS.md`, `CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md`, and `next_task_pointer.md`.
+- **Snapshot LF Re-pins**: Performed 2 authorized LF re-pins for snapshot requirement manifests.
+- **Pre-existing CRLF Caveats**: Recorded 4 pre-existing CRLF-pinned historical artifacts in `PREEXISTING_LATENT_DEFECTS_CRLF_PINNED_EVIDENCE_V1.md`.
 
 ## Mandatory Non-Completion Disclosures
 
-- Full monolithic repository suite: **not run**.
-- Any test suite not listed above: **not run**.
-- CI workflow run, GitHub status checks, and hosted workflow evidence: **not run / not available**.
-- Independent audit: **not performed by this worker**.
-- No completed commit SHA is claimed before the required final commit is created.
+- CI workflow runs, GitHub status checks, and hosted workflow evidence: **NOT_RUN_OR_AVAILABLE**.
+- Independent ChatGPT strong-model audit: **AWAITING_CHATGPT_AUDIT**.
 
 ## Hygiene and Protected-Boundary Validation
 
-- `python -m py_compile` on both changed production modules and both changed test modules: **PASS (4 files)**.
-- `python -m json.tool` on every JSON path changed from `origin/master`: **PASS (7 files)**.
-- `git diff --check`: **PASS**; no whitespace errors (Windows LF-to-CRLF notices are informational only).
-- Exact changed-file inventory versus `git diff --name-only origin/master`: **PASS (29 paths; 0 missing; 0 extra)**.
-- Branch/start authority: **PASS** — candidate branch at required start `615a96fb20aa97fd76bb3343e9150daec40d9031` before the final commit.
-- Accepted master authority: **PASS** — `origin/master` remained `c87e338f25922f4d03454ba199139353ca7198ff`.
-- Protected release: **PASS** — annotated `v1.0^{}` remained `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
-- Protected canonical UI: **PASS (0 changed paths under `ui/contentops_v5/`)**.
-- Protected Wave 01 test bytes: **PASS (0 diff paths from `origin/master`)**.
-- Mutable database scan: **PASS (0 tracked SQLite/DB/WAL/SHM/backup files)**.
-- Secret and machine-path scan: **PASS**; no credential material or newly persisted operator-machine path was found in candidate changes.
-- Ingestion-repository boundary: **PASS**; this isolated ContentOps worktree contains no ingestion-repository mutation.
+- `python -m py_compile` on touched production and test modules: **PASS**.
+- Strict JSON parsing on all staged JSON files: **PASS**.
+- `git diff --check`: **PASS** (zero whitespace errors).
+- Branch/start authority: **PASS** (`dc228aaa0fa3ad4a478a9252f9b3cff6f8f37703`).
+- Accepted master authority: **PASS** (`c87e338f25922f4d03454ba199139353ca7198ff`).
+- Protected release: **PASS** (`v1.0^{} = 6983bfb3ef300414b744f3f8f97ca81ff699348b`).
 
 ## No-Live Execution Truth
 
