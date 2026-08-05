@@ -1841,4 +1841,3 @@ def test_external_sqlite_writer_adversarial_threat_model_suite(temp_db):
 
     # 8. Store replay passes for hash-valid, projection-matched external write
     assert temp_db.replay_work_item_events("wi_adv_1")["verification_status"] == "PASS"
-

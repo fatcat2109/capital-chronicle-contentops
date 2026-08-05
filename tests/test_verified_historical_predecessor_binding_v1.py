@@ -293,4 +293,3 @@ def test_status_reconciliation_refuses_to_fall_back_when_pin_is_unreachable(monk
     monkeypatch.setattr(module, "STATUS_RECONCILIATION_COMMIT", UNREACHABLE_COMMIT)
     with pytest.raises(RuntimeError, match="unreachable"):
         build_status_reconciliation(REPO_ROOT)
-
