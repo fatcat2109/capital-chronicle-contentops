@@ -92,12 +92,22 @@ Execution mode:
 `SHADOW_ONLY`
 
 Work Package C (dual-lane CORE V0 shadow newsroom) is accepted and merged. Work Package D
-(diversity, SEO, image, and chart closure) is delivered on branch
-`agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and is
-`CORRECTION_AWAITING_INDEPENDENT_AUDIT`. Neither is reopened, re-audited, or
-re-merged. The soak task is routed only once Work Package D passes independent audit.
+(diversity, SEO, image, and chart closure) is accepted and fast-forward merged into `master`
+from branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and is
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT` — independent audit
+`PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD
+`f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit
+`1088bfb82d29d40fba4d3db1e910bf5d292bd522`, merge method `FAST_FORWARD_ONLY`. Neither is
+reopened, re-audited, or re-merged. The soak task is Work Package E and is
+`READY_NOT_STARTED`.
 
-Work Package D already demonstrates, from one local command over a committed governed
+The accepted Work Package D caveats remain truthful and must not be restated as a pass: no
+full-suite PASS is claimed, no CI PASS is claimed, the full-suite failures are a noisy
+pre-existing baseline including two pointer-consistency failures already present at source
+parent `3166bb69`, and Browser QA has committed screenshot evidence, hashes, DOM assertions,
+and zero console/page errors but no independent pixel-perfect visual PASS.
+
+Work Package D demonstrates, from one local command over a committed governed
 evaluation corpus:
 
 - a diversified cohort covering all nine required domain families across both input lanes;

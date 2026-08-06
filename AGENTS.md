@@ -28,9 +28,11 @@ Current next task:
 
 `TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
 
-Routed only after Work Package D — the CORE V0 diversity, SEO, image, and chart closure —
-passes independent audit. Work Package C is accepted and merged; Work Package D is
-`DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`. Do not reopen either.
+Work Package D — the CORE V0 diversity, SEO, image, and chart closure — passed independent
+audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` and is fast-forward merged into `master`.
+Work Package C and Work Package D are both
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Do not reopen either. Work Package E — the
+repeated shadow soak and recovery task above — is `READY_NOT_STARTED`.
 
 Current next-task mode:
 
@@ -175,18 +177,28 @@ Mode:
 `SHADOW_ONLY`
 
 Work Package C (dual-lane CORE V0 shadow newsroom) is accepted and merged into `master`.
-Work Package D (diversity, SEO, image, and chart closure) is delivered on branch
-`agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and is
-`DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`. Neither is reopened. The soak task is
-routed only once Work Package D passes independent audit, and it runs with zero public
+Work Package D (diversity, SEO, image, and chart closure) is accepted and fast-forward merged
+into `master` from branch
+`agent/contentops-core-v0-diversity-seo-image-chart-closure-v1`; its status is
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`, independent audit
+`PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD
+`f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit
+`1088bfb82d29d40fba4d3db1e910bf5d292bd522`, merge method `FAST_FORWARD_ONLY`. Neither is
+reopened. The soak task is Work Package E, `READY_NOT_STARTED`, and it runs with zero public
 writes on the accepted Wave 02 durable store.
+
+The accepted Work Package D caveats remain truthful and are not converted into a pass: no
+full-suite PASS is claimed, no CI PASS is claimed, the full-suite failures are a noisy
+pre-existing baseline including two pointer-consistency failures already present at source
+parent `3166bb69`, and Browser QA has committed screenshot evidence, hashes, DOM assertions,
+and zero console/page errors but no independent pixel-perfect visual PASS.
 
 The final build sequence is:
 
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ diversity, SEO, image, and chart closure   [DELIVERED — AWAITING INDEPENDENT AUDIT]
-→ repeated shadow soak and recovery   [CURRENT — AFTER WORK PACKAGE D AUDIT]
+→ diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
+→ repeated shadow soak and recovery   [CURRENT — READY, NOT STARTED]
 → exact authorized live cohort
 → final acceptance and new release identity
 ```
@@ -220,4 +232,6 @@ After implementation:
 4. verify remote readback and protected `v1.0`;
 5. report exact start/final HEAD, changed files, focused tests/smoke, public/provider/network actions, caveats, utility delta, and exact next blocker.
 
-Worker PASS remains awaiting independent GitHub/ChatGPT audit.
+Work Package D worker PASS has completed independent GitHub/ChatGPT audit as
+`PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`. Later worker PASS claims remain awaiting
+independent GitHub/ChatGPT audit.

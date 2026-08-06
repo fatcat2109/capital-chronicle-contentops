@@ -224,8 +224,8 @@
   "durable_prerequisite_status": "COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE",
   "next_task": "TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1",
   "next_task_mode": "SHADOW_ONLY",
-  "current_next_recommended_task": "TASK_CONTENTOPS_CORE_V0_DIVERSITY_SEO_IMAGE_AND_CHART_CLOSURE_V1",
-  "next_recommended_task": "TASK_CONTENTOPS_CORE_V0_DIVERSITY_SEO_IMAGE_AND_CHART_CLOSURE_V1",
+  "current_next_recommended_task": "TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1",
+  "next_recommended_task": "TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1",
   "next_task_requires_separate_live_authorization": false,
   "dual_lane_core_v0_shadow_newsroom_v1": {
     "status": "COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT",
@@ -290,11 +290,11 @@
     "ci_pass_claimed": false
   },
   "core_v0_diversity_seo_image_chart_closure_v1": {
-    "status": "OWNER_DIRECTED_CORRECTION_AWAITING_FINAL_INDEPENDENT_AUDIT",
+    "status": "COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT",
     "work_package": "D",
-    "work_package_d_status": "OWNER_DIRECTED_CORRECTION_AWAITING_FINAL_INDEPENDENT_AUDIT",
+    "work_package_d_status": "COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT",
     "branch": "agent/contentops-core-v0-diversity-seo-image-chart-closure-v1",
-    "independent_audit": "SECOND_AUDIT_RETURNED_BLOCKED_AFTER_BOUNDED_CORRECTION_FINAL_AUDIT_NOT_YET_PERFORMED",
+    "independent_audit": "PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE",
     "operating_mode": "SHADOW_ONLY",
     "canonical_command": "python -m live_contentops.cli core-v0-shadow-demo --evaluation-corpus --store <sqlite> --output <dir>",
     "second_runner_created": false,
@@ -457,7 +457,18 @@
     "portfolio_daily_boundaries_derived_from_candidate_event_times": false,
     "portfolio_daily_report_logical_hash": "b2982de4bb4b2416832e5af167e48c88e55f68153dd5c0d3b77647b3b42f3755",
     "dispositions_unchanged_by_calibration_correction": true,
-    "sensitivity_overrides_recorded_as_overrides_not_policy_changes": true
+    "sensitivity_overrides_recorded_as_overrides_not_policy_changes": true,
+    "accepted_source_head": "f83bd5c97479ef0001bac141e78d85eacdaa1cc9",
+    "accepted_correction_commit": "1088bfb82d29d40fba4d3db1e910bf5d292bd522",
+    "merge_method": "FAST_FORWARD_ONLY",
+    "pre_merge_master_sha": "6788298a9592bc6b7e632fd21b35b8b3514a564e",
+    "merged_into_master": true,
+    "reopened_or_re_audited": false,
+    "full_suite_failures_are_preexisting_noisy_baseline": true,
+    "pointer_consistency_failures_present_at_source_parent_3166bb69": 2,
+    "browser_qa_evidence_committed": true,
+    "browser_qa_independent_pixel_perfect_visual_pass_claimed": false,
+    "work_package_e_started": false
   },
   "final_build_sequence": [
     "dual_lane_core_v0_shadow_only",
@@ -1821,5 +1832,15 @@
     "tables_count": 26,
     "canonical_store_module": "live_contentops/durable_operational_store_v1.py"
   },
-  "next_task_routing_precondition": "ROUTED_ONLY_AFTER_WORK_PACKAGE_D_PASSES_INDEPENDENT_AUDIT"
+  "next_task_routing_precondition": "SATISFIED_WORK_PACKAGE_D_ACCEPTED_AND_MERGED_WITH_CAVEAT",
+  "work_package_d_status": "COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT",
+  "work_package_d_independent_audit": "PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE",
+  "work_package_d_accepted_source_head": "f83bd5c97479ef0001bac141e78d85eacdaa1cc9",
+  "work_package_d_accepted_correction_commit": "1088bfb82d29d40fba4d3db1e910bf5d292bd522",
+  "work_package_d_merge_method": "FAST_FORWARD_ONLY",
+  "work_package_e_status": "READY_NOT_STARTED",
+  "work_package_e_task": "TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1",
+  "work_package_e_mode": "SHADOW_ONLY",
+  "work_package_e_started": false,
+  "completed_and_merged_prior_recommended_task": "TASK_CONTENTOPS_CORE_V0_DIVERSITY_SEO_IMAGE_AND_CHART_CLOSURE_V1"
 }

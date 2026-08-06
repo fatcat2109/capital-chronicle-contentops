@@ -133,7 +133,9 @@ Mode:
 
 `SHADOW_ONLY`
 
-Work Package C is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package D — diversity, SEO, image, and chart closure — is `CORRECTION_AWAITING_INDEPENDENT_AUDIT` on branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1`; the soak task is routed only after that audit passes. Do not reopen either.
+Work Package C is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package D — diversity, SEO, image, and chart closure — is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`: independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit `1088bfb82d29d40fba4d3db1e910bf5d292bd522`, fast-forward merged into `master` from branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` with merge method `FAST_FORWARD_ONLY`. Do not reopen either. The soak task is Work Package E and is `READY_NOT_STARTED`.
+
+The accepted Work Package D caveats remain truthful: no full-suite PASS is claimed, no CI PASS is claimed, the full-suite failures are a noisy pre-existing baseline including two pointer-consistency failures already present at source parent `3166bb69`, and Browser QA has committed screenshot evidence, hashes, DOM assertions, and zero console/page errors but no independent pixel-perfect visual PASS.
 
 The build sequence after this task is an exact authorized live cohort, then final acceptance and a new release identity.
 

@@ -50,16 +50,26 @@ Mode:
 
 `SHADOW_ONLY`
 
-Routed only after Work Package D passes independent audit. Work Package C is
+Work Package D passed independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` and is
+fast-forward merged into `master`, so this task is now routable. Work Package C is
 `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`; Work Package D is
-`CORRECTION_AWAITING_INDEPENDENT_AUDIT`.
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT` at accepted source HEAD
+`f83bd5c97479ef0001bac141e78d85eacdaa1cc9` with accepted correction commit
+`1088bfb82d29d40fba4d3db1e910bf5d292bd522` and merge method `FAST_FORWARD_ONLY`. Work Package
+E is `READY_NOT_STARTED`.
+
+The accepted Work Package D caveats remain truthful: no full-suite PASS is claimed, no CI PASS
+is claimed, the full-suite failures are a noisy pre-existing baseline including two
+pointer-consistency failures already present at source parent `3166bb69`, and Browser QA has
+committed screenshot evidence, hashes, DOM assertions, and zero console/page errors but no
+independent pixel-perfect visual PASS.
 
 The final build sequence is:
 
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ diversity, SEO, image, and chart closure   [DELIVERED — AWAITING INDEPENDENT AUDIT]
-→ repeated shadow soak and recovery   [CURRENT — AFTER WORK PACKAGE D AUDIT]
+→ diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
+→ repeated shadow soak and recovery   [CURRENT — READY, NOT STARTED]
 → exact authorized live cohort
 → final acceptance and new release identity
 ```

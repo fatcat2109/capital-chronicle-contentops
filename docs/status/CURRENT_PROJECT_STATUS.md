@@ -40,18 +40,38 @@ normalising bytes inside verification code.
 
 `TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
 
-Routed only after Work Package D passes independent audit. Until that audit completes, the
-Work Package D routing status is:
+Work Package D passed independent audit and is fast-forward merged into `master`, so this
+task is now routable as Work Package E. The Work Package D routing status is:
 
-`CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+
+Work Package E status:
+
+`READY_NOT_STARTED`
 
 ### Current next-task mode
 
 `SHADOW_ONLY`
 
-### Delivered, awaiting independent audit: CORE V0 diversity, SEO, image, and chart closure
+### Accepted and merged: CORE V0 diversity, SEO, image, and chart closure
 
-Work Package D Status: `CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+Work Package D Status: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+
+Independent audit: `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`. Work Package D is accepted and
+fast-forward merged into `master` from branch
+`agent/contentops-core-v0-diversity-seo-image-chart-closure-v1`. The accepted source HEAD is
+`f83bd5c97479ef0001bac141e78d85eacdaa1cc9` and the accepted correction commit is
+`1088bfb82d29d40fba4d3db1e910bf5d292bd522`. Merge method: `FAST_FORWARD_ONLY`. The starting
+master was `6788298a9592bc6b7e632fd21b35b8b3514a564e`. Operating mode remains `SHADOW_ONLY`.
+
+The accepted caveats are recorded truthfully and are not converted into a pass:
+
+- no full-suite PASS is claimed (`full_suite_pass_claimed` is `false`);
+- no CI PASS is claimed (`ci_pass_claimed` is `false`);
+- the full-suite failures are a noisy pre-existing baseline, including two
+  pointer-consistency failures already present at source parent `3166bb69`;
+- Browser QA has committed screenshot evidence, hashes, DOM assertions, and zero
+  console/page errors, but independent pixel-perfect visual PASS is not claimed.
 
 Work Package D extends the same `core-v0-shadow-demo` command — it does not add a second
 runner — so one local command processes a diversified governed evaluation cohort:
@@ -95,7 +115,7 @@ action, scheduler/outbox execution, publication, dispatch, or public write occur
 Browser QA screenshots are supplied as auditable files at
 `docs/automation/CORE_V0_WPD_CLOSURE/browser_qa/`.
 
-Work Package D Status: `OWNER_DIRECTED_CORRECTION_AWAITING_FINAL_INDEPENDENT_AUDIT`
+Work Package D correction history:
 
 The first independent audit returned `BLOCKED — ONE BOUNDED CORRECTION REQUIRED` on three
 defects. All three were corrected on the same branch. The second independent audit then
@@ -218,8 +238,8 @@ write occurred.
 
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ diversity, SEO, image, and chart closure   [DELIVERED — AWAITING INDEPENDENT AUDIT]
-→ repeated shadow soak and recovery   [CURRENT — AFTER WORK PACKAGE D AUDIT]
+→ diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
+→ repeated shadow soak and recovery   [CURRENT — READY, NOT STARTED]
 → exact authorized live cohort
 → final acceptance and new release identity
 ```

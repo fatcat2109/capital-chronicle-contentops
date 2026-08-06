@@ -18,8 +18,10 @@ Wave 02 — the durable operational store and canonical state machine — is com
 
 `TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
 
-This is routed only after work package D passes independent audit. Until that audit
-completes, work package D status is `CORRECTION_AWAITING_INDEPENDENT_AUDIT`.
+This is the current routing authority. Work package D passed independent audit
+`PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` and is fast-forward merged into `master`, so
+work package D status is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT` and this task — work
+package E — is `READY_NOT_STARTED`.
 
 Work package C (dual-lane CORE V0 shadow newsroom) is complete, accepted, and fast-forward
 merged into `master` with a truthful caveat. Its status is
@@ -28,9 +30,21 @@ merged into `master` with a truthful caveat. Its status is
 `6dc38ed32d2c55ebe63314d3cddfef3da34bbb4e`, accepted canonical correction commit
 `c8d6837368dee37e73c807e897cc751e37210801`. Do not re-audit, retest, or re-merge it.
 
-Work package D is delivered on branch
-`agent/contentops-core-v0-diversity-seo-image-chart-closure-v1`. It extends the same command
-rather than adding a second runner:
+Work package D is accepted and fast-forward merged into `master` from branch
+`agent/contentops-core-v0-diversity-seo-image-chart-closure-v1`. Its status is
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`, independent audit
+`PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD
+`f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit
+`1088bfb82d29d40fba4d3db1e910bf5d292bd522`, merge method `FAST_FORWARD_ONLY`, starting master
+`6788298a9592bc6b7e632fd21b35b8b3514a564e`. Do not re-audit, retest, or re-merge it.
+
+The accepted work package D caveats remain truthful: no full-suite PASS is claimed, no CI PASS
+is claimed, the full-suite failures are a noisy pre-existing baseline including two
+pointer-consistency failures already present at source parent `3166bb69`, and Browser QA has
+committed screenshot evidence, hashes, DOM assertions, and zero console/page errors but no
+independent pixel-perfect visual PASS.
+
+Work package D extends the same command rather than adding a second runner:
 
 ```text
 python -m live_contentops.cli core-v0-shadow-demo --evaluation-corpus \
@@ -61,15 +75,15 @@ screenshots are supplied as auditable files at
 
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ diversity, SEO, image, and chart closure   [DELIVERED — AWAITING INDEPENDENT AUDIT]
-→ repeated shadow soak and recovery   [CURRENT — AFTER WORK PACKAGE D AUDIT]
+→ diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
+→ repeated shadow soak and recovery   [CURRENT — READY, NOT STARTED]
 → exact authorized live cohort
 → final acceptance and new release identity
 ```
 
 ### Execution boundary
 
-Work package D extends the accepted and merged CORE V0 slice. It runs in `SHADOW_ONLY` and grants no
+Work package E extends the accepted and merged CORE V0 slice. It runs in `SHADOW_ONLY` and grants no
 credential or environment-value read, provider call, browser/CDP action, network intake,
 scheduler/outbox execution, dispatch, publication, or public write. It must not mutate the
 Capital Chronicle main project, fabricate numeric or analytical truth, or modify accepted
