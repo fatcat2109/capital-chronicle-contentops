@@ -95,25 +95,65 @@ action, scheduler/outbox execution, publication, dispatch, or public write occur
 Browser QA screenshots are supplied as auditable files at
 `docs/automation/CORE_V0_WPD_CLOSURE/browser_qa/`.
 
-Work Package D Status: `CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+Work Package D Status: `OWNER_DIRECTED_CORRECTION_AWAITING_FINAL_INDEPENDENT_AUDIT`
 
 The first independent audit returned `BLOCKED — ONE BOUNDED CORRECTION REQUIRED` on three
-defects. All three are now corrected on the same branch; nothing else was redesigned.
+defects. All three were corrected on the same branch. The second independent audit then
+returned `BLOCKED_AFTER_BOUNDED_CORRECTION` on two further defects in product truth and
+selection authority, both of which were confirmed against the source rather than accepted
+on assertion. Those two are now corrected under explicit owner override
+`CORE_V0_SHADOW_SELECTION_CALIBRATION_V1` (owner Jim, authority date 2026-08-06), which
+authorized exactly two changes plus the tests, snapshot, and status wording they require.
+Nothing else was redesigned; Work Package E is not started.
 
-Portfolio concentration is now operational rather than report-only. The cohort path runs
+Selection numbers are no longer anonymous module truth. The second audit found
+`base_editorial_rank()` composing a score from weights `15` and `10` invented inside the
+runner, controlling rank, adjusted score, selection, and deferral while labelled merely
+`UNCALIBRATED_GOVERNED_COUNT_COMPOSITION`. Governed *inputs* do not make a weight governed.
+Those weights, the concentration threshold, the concentration penalty, and the portfolio
+balance floor now live in one versioned owner-authorized policy,
+`CONTENTOPS_CORE_V0_SHADOW_SELECTION_CALIBRATION_V1`
+(`live_contentops/core_v0_shadow_selection_calibration_policy_v1.py`), carrying policy ID,
+schema version, owner, authority date, operating-mode ceiling, exact values, intended
+evaluation scope, limitations, live-use prohibition, and a logical hash sealed against
+drift. Every base score, penalty, adjusted score, and disposition binds that policy ID and
+hash, and each score now names its authority as either
+`ACCEPTED_GOVERNED_CANDIDATE_SCORER` or
+`OWNER_AUTHORIZED_PROVISIONAL_CALIBRATION_POLICY`. The policy is an editorial
+product-selection calibration only: it is explicitly not factual, analytical, market,
+economic, forecasting, or Capital Chronicle numeric authority, it is authorized for
+`SHADOW_ONLY` evaluation, and `authorized_for_live_publication` is `False`. The authorized
+values are the previously tested ones, so the recorded dispositions are unchanged;
+recalibration requires a new policy version under new owner authority.
+
+The daily report no longer states a false span. The second audit found
+`portfolio-daily-2026-07-15` reporting `2026-05-01T00:00:00Z..2026-07-15T22:30:00Z` — about
+75 days — because its boundaries were derived from candidate source-event timestamps rather
+than the declared decision window. The daily report now binds the explicit half-open
+decision interval `2026-07-15T00:00:00Z..2026-07-16T00:00:00Z`, fails closed if the window
+ID, start, and end disagree, and retains event coverage separately as
+`candidate_event_time_min_utc` / `candidate_event_time_max_utc` diagnostics that cannot be
+mistaken for the decision boundary. The report ID, window ID, boundaries, and logical hash
+are mutually consistent, and the V5 operator surface shows the one-day decision interval
+with the wider source-event spread labelled as a diagnostic.
+
+Portfolio concentration is operational rather than report-only. The cohort path runs
 hard gates first, then base editorial rank, then rolling concentration penalties, then an
 explicit portfolio decision — all *before* package production, so a deferred candidate
 consumes no production work. Base score and diversity-adjusted score are both preserved,
 and every applied penalty records its dimension, value, amount, and prior-history basis.
 Base rank comes from the accepted `universal_news_candidate_fabric_v2.score_candidate`
-where a governed candidate exists, and otherwise only from exact committed claim counts.
+where a governed candidate exists, and otherwise from exact committed claim counts weighted
+only by the owner-authorized calibration policy above.
 In the recorded run, rolling concentration reordered three eligible candidates — the
 Treasury record fell from base rank 1 to adjusted rank 2 behind the interagency rule —
 and deferred one as `DEFER_FOR_PORTFOLIO_BALANCE`. Changing the concentration threshold or
 the history changes those dispositions while the eligible set stays at five, proving
-hard-gate outcomes are unaffected by diversity configuration.
+hard-gate outcomes are unaffected by diversity configuration. Per-run sensitivity overrides
+are recorded as overrides against the unchanged policy, so a Work Package E sweep cannot
+silently restate authorized calibration.
 
-Daily and rolling reports are now genuinely different objects, not one report under two
+Daily and rolling reports are genuinely different objects, not one report under two
 labels. `portfolio-daily-2026-07-15` covers only the current decision window (five current
 candidates, no history). `portfolio-rolling-2026-07-15` covers an explicit prior interval
 `2026-04-16T00:00:00Z..2026-07-15T00:00:00Z` built from committed

@@ -210,4 +210,58 @@ describe('CORE V0 Cohort Closure UI', () => {
       }
     }
   });
+
+  it('shows the daily window as the declared decision interval, not event times', () => {
+    openView();
+
+    expect(s.portfolio_daily.window_start_utc).toBe('2026-07-15T00:00:00Z');
+    expect(s.portfolio_daily.window_end_utc).toBe('2026-07-16T00:00:00Z');
+    expect(s.portfolio_daily.window_bound_source).toBe('EXPLICIT_DECLARED_DECISION_WINDOW');
+
+    // The operator sees the real one-day boundary...
+    expect(
+      screen.getByText(
+        new RegExp(
+          `${s.portfolio_daily.window_start_utc}.*${s.portfolio_daily.window_end_utc}`,
+        ),
+      ),
+    ).toBeInTheDocument();
+
+    // ...and the wider source-event spread, explicitly labelled as a diagnostic.
+    expect(s.portfolio_daily.candidate_event_time_min_utc).toBe('2026-05-01T00:00:00Z');
+    expect(
+      screen.getByText(
+        new RegExp(
+          `${s.portfolio_daily.candidate_event_time_min_utc}.*diagnostic`,
+        ),
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it('discloses the owner-authorized selection calibration policy and its limits', () => {
+    openView();
+
+    const policy = s.selection_calibration_policy;
+    expect(policy.policy_id).toBe('CONTENTOPS_CORE_V0_SHADOW_SELECTION_CALIBRATION_V1');
+    expect(policy.authorized_for_live_publication).toBe(false);
+    expect(policy.operating_mode_ceiling).toBe('SHADOW_ONLY');
+
+    expect(screen.getByText(policy.policy_id)).toBeInTheDocument();
+    expect(
+      screen.getByText(/not authorized for live publication/i),
+    ).toBeInTheDocument();
+
+    // Every decision names where its score authority came from.
+    for (const row of s.portfolio_decision.decisions) {
+      expect(row.calibration_policy_id).toBe(policy.policy_id);
+      expect(row.base_score_authority).toBeTruthy();
+    }
+    expect(
+      screen.getAllByText(/score authority OWNER_AUTHORIZED_PROVISIONAL_CALIBRATION_POLICY/)
+        .length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/score authority ACCEPTED_GOVERNED_CANDIDATE_SCORER/).length,
+    ).toBeGreaterThan(0);
+  });
 });

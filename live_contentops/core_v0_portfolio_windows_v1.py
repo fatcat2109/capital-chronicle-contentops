@@ -8,15 +8,20 @@ between the governed hard gates and package production:
 
 ``hard gates -> eligible set -> base rank -> rolling penalties -> portfolio decision``
 
-It owns no editorial judgement and no numeric authority. Base ranking is delegated to the
-accepted ``universal_news_candidate_fabric_v2.score_candidate`` where a governed candidate
-exists, and otherwise derived only from exact governed fields already present on the case
-(authorized claim count, numeric claim count, governed timestamps). Nothing here invents a
-score, a fact, a permission, or a publication history.
+It owns no editorial judgement and no numeric authority of its own. Base ranking is
+delegated to the accepted ``universal_news_candidate_fabric_v2.score_candidate`` where a
+governed candidate exists. Otherwise it composes exact governed fields already present on
+the case (authorized claim count, numeric claim count) using weights that belong to the
+owner-authorized ``CONTENTOPS_CORE_V0_SHADOW_SELECTION_CALIBRATION_V1`` policy — never to
+this module. Nothing here invents a score, a fact, a permission, or a publication history.
+
+Every score, penalty, adjusted score, and disposition binds that policy's ID and logical
+hash, so an operator can prove which exact authorized values produced a decision.
 
 Two distinct windows are produced:
 
-* ``daily`` covers only the current decision window — the candidates being decided now;
+* ``daily`` covers only the current decision window — an explicit half-open decision
+  interval supplied by the caller, never inferred from candidate event timestamps;
 * ``rolling`` covers an explicit prior interval of *accepted* history plus the current
   selected state.
 
@@ -32,6 +37,12 @@ from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from typing import Any, Mapping, Sequence
 
+from live_contentops.core_v0_shadow_selection_calibration_policy_v1 import (
+    CALIBRATION_STATE,
+    policy_binding,
+    policy_value,
+)
+
 SCHEMA_VERSION = "contentops.core_v0_portfolio_windows.v1"
 
 #: Concentration dimensions measured across a portfolio window.
@@ -45,10 +56,14 @@ CONCENTRATION_DIMENSIONS = (
     "visual_type",
 )
 
-#: Default share above which a dimension value counts as concentrated. Configurable per
-#: run: a penalty only reorders *already eligible* candidates and can never open a gate.
-DEFAULT_CONCENTRATION_THRESHOLD = 0.34
-DEFAULT_CONCENTRATION_PENALTY = 12.0
+#: Default share above which a dimension value counts as concentrated, and the default
+#: penalty per concentrated value. Both come from the owner-authorized calibration policy
+#: rather than from this module: a penalty only reorders *already eligible* candidates and
+#: can never open a gate. Still overridable per run for sensitivity evaluation.
+DEFAULT_CONCENTRATION_THRESHOLD = policy_value("rolling_concentration_threshold")
+DEFAULT_CONCENTRATION_PENALTY = policy_value(
+    "concentration_penalty_per_concentrated_value"
+)
 
 #: How far back the rolling window reaches from the decision window start.
 DEFAULT_ROLLING_HISTORY_DAYS = 90
@@ -170,16 +185,47 @@ def _measure(rows: Sequence[Mapping[str, Any]], threshold: float) -> dict[str, A
 def build_daily_portfolio_report(
     *,
     decision_window_id: str,
+    decision_window_start_utc: str,
+    decision_window_end_utc: str,
     candidates: Sequence[Mapping[str, Any]],
     excluded: Sequence[Mapping[str, Any]] = (),
     concentration_threshold: float = DEFAULT_CONCENTRATION_THRESHOLD,
 ) -> dict[str, Any]:
     """Measure concentration across the *current decision window only*.
 
+    The window boundaries are the explicit half-open decision interval
+    ``[decision_window_start_utc, decision_window_end_utc)`` declared by the caller. They
+    are never derived from candidate source-event timestamps: a report labelled as one
+    day's decision window must state that day's real boundaries, not the incidental spread
+    of when its candidates' underlying events happened to occur.
+
+    Source-event coverage is still useful to an operator, so it is retained separately as
+    ``candidate_event_time_min_utc`` / ``candidate_event_time_max_utc`` diagnostics that
+    cannot be mistaken for the decision boundaries.
+
     Membership is exactly the candidates being decided now. Cases excluded by a hard gate
     are recorded with their exclusion reason as candidate-universe diagnostics; they do not
     contribute to the measured concentration.
     """
+    window_start = _parse_utc(decision_window_start_utc)
+    window_end = _parse_utc(decision_window_end_utc)
+    if window_start is None or window_end is None:
+        raise PortfolioWindowError(
+            "daily_report_requires_explicit_decision_window_bounds:"
+            f"{decision_window_start_utc}:{decision_window_end_utc}"
+        )
+    if window_end <= window_start:
+        raise PortfolioWindowError(
+            f"daily_decision_window_end_must_follow_start:{_iso(window_start)}:{_iso(window_end)}"
+        )
+    # The report ID, window ID, and boundaries must agree, so a report cannot be labelled
+    # as one day while measuring another.
+    if window_start.strftime("%Y-%m-%d") != str(decision_window_id):
+        raise PortfolioWindowError(
+            "daily_window_id_does_not_match_window_start:"
+            f"{decision_window_id}:{_iso(window_start)}"
+        )
+
     rows = [classify_case(case) for case in candidates]
     times = [t for t in (case_event_time(case) for case in candidates) if t]
     report = {
@@ -188,8 +234,13 @@ def build_daily_portfolio_report(
         "report_id": f"portfolio-daily-{decision_window_id}",
         "decision_window_id": decision_window_id,
         "basis": "CURRENT_DECISION_WINDOW_CANDIDATES",
-        "window_start_utc": _iso(min(times)) if times else None,
-        "window_end_utc": _iso(max(times)) if times else None,
+        "window_bound_source": "EXPLICIT_DECLARED_DECISION_WINDOW",
+        "window_interval_kind": "HALF_OPEN_START_INCLUSIVE_END_EXCLUSIVE",
+        "window_start_utc": _iso(window_start),
+        "window_end_utc": _iso(window_end),
+        # Source-event coverage is a diagnostic, never the decision boundary.
+        "candidate_event_time_min_utc": _iso(min(times)) if times else None,
+        "candidate_event_time_max_utc": _iso(max(times)) if times else None,
         # A daily report measures now, not history: the history window is explicitly empty
         # rather than silently reusing the decision window.
         "history_window_start_utc": None,
@@ -327,12 +378,18 @@ def build_rolling_portfolio_report(
 
 
 def base_editorial_rank(case: Mapping[str, Any], *, candidate: Mapping[str, Any] | None = None) -> dict[str, Any]:
-    """Derive a base editorial score from governed authority only.
+    """Derive a base editorial score from governed or explicitly authorized authority only.
 
     Where a governed candidate exists, the accepted
-    ``universal_news_candidate_fabric_v2.score_candidate`` is the authority. Otherwise the
-    score is composed from exact committed governed counts already present on the case —
-    never from an invented editorial judgement.
+    ``universal_news_candidate_fabric_v2.score_candidate`` is the authority and no
+    calibration policy is consulted.
+
+    Otherwise the score composes exact committed governed counts already present on the
+    case using weights owned by ``CONTENTOPS_CORE_V0_SHADOW_SELECTION_CALIBRATION_V1``.
+    Using governed inputs does not by itself make a weight governed, so the weights are not
+    this module's to choose: they are read from the owner-authorized policy and the
+    resulting score binds that policy's ID and hash. The score is provisional shadow
+    calibration, not an editorial judgement of newsworthiness.
     """
     if candidate is not None:
         from live_contentops.universal_news_candidate_fabric_v2 import score_candidate
@@ -349,19 +406,31 @@ def base_editorial_rank(case: Mapping[str, Any], *, candidate: Mapping[str, Any]
             "calibration_state": scored["calibration_state"],
             "available_dimension_count": scored["available_dimension_count"],
             "governed_fields_used": ["ranking_inputs"],
+            "score_authority": "ACCEPTED_GOVERNED_CANDIDATE_SCORER",
         }
 
-    # Governed-packet case: compose only from exact committed counts on the packet.
+    # Governed-packet case: exact committed counts, owner-authorized weights.
+    authorized_weight = policy_value("packet_authorized_claim_weight")
+    numeric_weight = policy_value("packet_numeric_claim_weight")
+    cap = policy_value("packet_score_cap")
+
     authorized = int(case.get("authorized_claim_count") or 0)
     numeric = int(case.get("numeric_claim_count") or 0)
-    score = float(min(100, authorized * 15 + numeric * 10))
+    score = float(min(cap, authorized * authorized_weight + numeric * numeric_weight))
     return {
         "case_id": case.get("case_id"),
         "base_score": round(score, 8),
-        "score_source": "governed_packet_authorized_claim_counts",
-        "calibration_state": "UNCALIBRATED_GOVERNED_COUNT_COMPOSITION",
+        "score_source": "owner_authorized_shadow_calibration_v1.governed_packet_claim_counts",
+        "calibration_state": CALIBRATION_STATE,
         "available_dimension_count": 2,
         "governed_fields_used": ["authorized_claim_count", "numeric_claim_count"],
+        "score_authority": "OWNER_AUTHORIZED_PROVISIONAL_CALIBRATION_POLICY",
+        "calibration_inputs_used": {
+            "packet_authorized_claim_weight": authorized_weight,
+            "packet_numeric_claim_weight": numeric_weight,
+            "packet_score_cap": cap,
+        },
+        **policy_binding(),
     }
 
 
@@ -433,10 +502,13 @@ def apply_concentration_penalties(
                 "domain_family": row["case"].get("domain_family"),
                 "base_score": round(base_score, 8),
                 "base_score_source": row.get("score_source"),
+                "base_score_authority": row.get("score_authority"),
+                "base_score_calibration_state": row.get("calibration_state"),
                 "concentration_penalty": round(total_penalty, 8),
                 "adjusted_score": round(base_score - total_penalty, 8),
                 "penalties_applied": applied,
                 "rolling_report_logical_hash": rolling_hash,
+                **policy_binding(),
             }
         )
     return scored
@@ -482,6 +554,7 @@ def decide_portfolio(
             "no_publication_reason": "NO_ELIGIBLE_CANDIDATE_AFTER_HARD_GATES",
             "penalties_applied_before_production": True,
             "diversity_never_forces_filler": True,
+            **policy_binding(),
         }
 
     scored = apply_concentration_penalties(
@@ -560,6 +633,7 @@ def decide_portfolio(
         "penalties_applied_before_production": True,
         "diversity_never_forces_filler": True,
         "hard_gates_remain_authoritative": True,
+        **policy_binding(),
     }
     decision["decision_logical_hash"] = _logical_hash(
         {k: v for k, v in decision.items() if k != "decision_logical_hash"}

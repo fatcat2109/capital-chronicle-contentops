@@ -125,6 +125,11 @@ export function CoreV0CohortClosure() {
               Window {String(s.portfolio_daily.window_start_utc)} →{' '}
               {String(s.portfolio_daily.window_end_utc)}
             </p>
+            <p className="mt-1 text-[11px] text-fg-subtle">
+              declared decision interval · source events{' '}
+              {String(s.portfolio_daily.candidate_event_time_min_utc)} →{' '}
+              {String(s.portfolio_daily.candidate_event_time_max_utc)} (diagnostic)
+            </p>
             <p className="mt-1 text-[11px] text-fg-muted">
               {s.portfolio_daily.included_current_candidate_ids.length} current candidates ·
               no prior history
@@ -186,6 +191,9 @@ export function CoreV0CohortClosure() {
                 {row.adjusted_rank})
                 {row.rank_changed_by_concentration ? ' · REORDERED' : ''}
               </p>
+              <p className="mt-1 font-mono text-[10px] text-fg-subtle">
+                score authority {String(row.base_score_authority)}
+              </p>
               {row.penalties_applied.length ? (
                 <p className="mt-1 text-[11px] text-fg-muted">
                   penalised on{' '}
@@ -203,6 +211,22 @@ export function CoreV0CohortClosure() {
           production work. Hard evidence, permission, freshness, and material-delta gates
           are decided upstream and cannot be opened by diversity logic.
         </p>
+        <div className="mt-3 rounded-lg border border-line bg-surface-2 px-3 py-2">
+          <p className="font-mono text-[11px] text-fg">
+            {String(s.selection_calibration_policy.policy_id)}
+          </p>
+          <p className="mt-1 text-[11px] leading-relaxed text-fg-muted">
+            Owner {String(s.selection_calibration_policy.owner)} ·{' '}
+            {String(s.selection_calibration_policy.authority_date)} ·{' '}
+            {String(s.selection_calibration_policy.operating_mode_ceiling)}. Provisional
+            editorial product-selection calibration: not factual, market, economic, or
+            forecasting authority, and not authorized for live publication.
+          </p>
+          <p className="mt-1 font-mono text-[10px] text-fg-subtle">
+            policy hash{' '}
+            {shortHash(String(s.selection_calibration_policy.policy_logical_hash))}
+          </p>
+        </div>
       </Panel>
 
       <Panel title="Portfolio concentration" subtitle="daily cohort">

@@ -290,11 +290,11 @@
     "ci_pass_claimed": false
   },
   "core_v0_diversity_seo_image_chart_closure_v1": {
-    "status": "CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+    "status": "OWNER_DIRECTED_CORRECTION_AWAITING_FINAL_INDEPENDENT_AUDIT",
     "work_package": "D",
-    "work_package_d_status": "CORRECTION_AWAITING_INDEPENDENT_AUDIT",
+    "work_package_d_status": "OWNER_DIRECTED_CORRECTION_AWAITING_FINAL_INDEPENDENT_AUDIT",
     "branch": "agent/contentops-core-v0-diversity-seo-image-chart-closure-v1",
-    "independent_audit": "NOT_YET_PERFORMED",
+    "independent_audit": "SECOND_AUDIT_RETURNED_BLOCKED_AFTER_BOUNDED_CORRECTION_FINAL_AUDIT_NOT_YET_PERFORMED",
     "operating_mode": "SHADOW_ONLY",
     "canonical_command": "python -m live_contentops.cli core-v0-shadow-demo --evaluation-corpus --store <sqlite> --output <dir>",
     "second_runner_created": false,
@@ -347,10 +347,10 @@
     "deterministic_replay": "PASS_REOPEN_AND_REPLAY",
     "repeated_run_byte_identical": true,
     "v5_snapshot_generated_from_real_run": true,
-    "focused_pytest": "27 passed (correction) / 103 passed (correction + affected)",
+    "focused_pytest": "43 passed (portfolio selection + visual adaptation + owner-override calibration)",
     "affected_pytest": "76 passed",
-    "v5_focused_vitest": "12 passed",
-    "v5_full_vitest": "235 passed",
+    "v5_focused_vitest": "14 passed",
+    "v5_full_vitest": "237 passed",
     "v5_production_build": "PASS",
     "browser_qa": "PASS_DESKTOP_1440x900_AND_MOBILE_390x844_NO_CONSOLE_ERRORS",
     "browser_qa_screenshot_files": "docs/automation/CORE_V0_WPD_CLOSURE/browser_qa/",
@@ -371,7 +371,7 @@
     "full_suite_pass_claimed": false,
     "ci_pass_claimed": false,
     "correction_task": "TASK_CONTENTOPS_CORE_V0_PORTFOLIO_SELECTION_AND_PLATFORM_VISUAL_ADAPTATION_CORRECTION_V1",
-    "correction_audit_disposition_before": "BLOCKED_ONE_BOUNDED_CORRECTION_REQUIRED_DO_NOT_MERGE",
+    "correction_audit_disposition_before": "BLOCKED_AFTER_BOUNDED_CORRECTION_DO_NOT_MERGE",
     "portfolio_module": "live_contentops/core_v0_portfolio_windows_v1.py",
     "visual_adaptation_module": "live_contentops/core_v0_platform_visual_adaptation_v1.py",
     "selection_order": "hard_gates -> eligible_set -> base_rank -> rolling_penalties -> portfolio_decision -> package_production -> canonical_review -> durable_terminal_state",
@@ -379,11 +379,11 @@
     "base_and_adjusted_rank_preserved": true,
     "base_score_sources": [
       "universal_news_candidate_fabric_v2.score_candidate",
-      "governed_packet_authorized_claim_counts"
+      "owner_authorized_shadow_calibration_v1.governed_packet_claim_counts"
     ],
     "decision_window_id": "2026-07-15",
     "portfolio_daily_report_id": "portfolio-daily-2026-07-15",
-    "portfolio_daily_window": "2026-05-01T00:00:00Z..2026-07-15T22:30:00Z",
+    "portfolio_daily_window": "2026-07-15T00:00:00Z..2026-07-16T00:00:00Z",
     "portfolio_daily_members": 5,
     "portfolio_rolling_report_id": "portfolio-rolling-2026-07-15",
     "portfolio_rolling_history_window": "2026-04-16T00:00:00Z..2026-07-15T00:00:00Z",
@@ -413,7 +413,51 @@
     "platform_visual_derivative_strategy": "CONTAIN_WITH_PADDING_NO_CROP",
     "chart_labels_survive_adaptation": true,
     "instagram_fails_closed_without_rights_cleared_derivative": true,
-    "derivatives_byte_identical_across_runs": true
+    "derivatives_byte_identical_across_runs": true,
+    "owner_override": {
+      "override_id": "CORE_V0_SHADOW_SELECTION_CALIBRATION_V1",
+      "owner": "Jim",
+      "authority_date": "2026-08-06",
+      "authorized_scope": [
+        "DAILY_DECISION_WINDOW_BOUNDARY_CORRECTION",
+        "VERSIONED_SHADOW_SELECTION_CALIBRATION_POLICY_REPLACING_ANONYMOUS_CONSTANTS",
+        "FOCUSED_TESTS_GENERATED_SNAPSHOT_AND_MINIMAL_STATUS_WORDING"
+      ],
+      "work_package_e_started": false,
+      "merged_to_master": false
+    },
+    "selection_calibration_policy_module": "live_contentops/core_v0_shadow_selection_calibration_policy_v1.py",
+    "selection_calibration_policy_id": "CONTENTOPS_CORE_V0_SHADOW_SELECTION_CALIBRATION_V1",
+    "selection_calibration_policy_logical_hash": "6a2506014d7edeb2e2ade0cdf97060149685754bad103f0e10332b22be1ccdf0",
+    "selection_calibration_policy_owner": "Jim (product owner)",
+    "selection_calibration_policy_authority_date": "2026-08-06",
+    "selection_calibration_operating_mode_ceiling": "SHADOW_ONLY",
+    "selection_calibration_authorized_values": {
+      "concentration_penalty_per_concentrated_value": 12.0,
+      "packet_authorized_claim_weight": 15.0,
+      "packet_numeric_claim_weight": 10.0,
+      "packet_score_cap": 100.0,
+      "portfolio_balance_floor": 0.0,
+      "rolling_concentration_threshold": 0.34
+    },
+    "selection_calibration_authorized_for_live_publication": false,
+    "selection_calibration_is_factual_or_numeric_authority": false,
+    "anonymous_module_local_selection_constants_remaining": false,
+    "base_score_authorities": [
+      "ACCEPTED_GOVERNED_CANDIDATE_SCORER",
+      "OWNER_AUTHORIZED_PROVISIONAL_CALIBRATION_POLICY"
+    ],
+    "every_score_penalty_and_disposition_binds_policy_id_and_hash": true,
+    "decision_window_start_utc": "2026-07-15T00:00:00Z",
+    "decision_window_end_utc": "2026-07-16T00:00:00Z",
+    "portfolio_daily_window_bound_source": "EXPLICIT_DECLARED_DECISION_WINDOW",
+    "portfolio_daily_window_interval_kind": "HALF_OPEN_START_INCLUSIVE_END_EXCLUSIVE",
+    "portfolio_daily_candidate_event_time_min_utc": "2026-05-01T00:00:00Z",
+    "portfolio_daily_candidate_event_time_max_utc": "2026-07-15T22:30:00Z",
+    "portfolio_daily_boundaries_derived_from_candidate_event_times": false,
+    "portfolio_daily_report_logical_hash": "b2982de4bb4b2416832e5af167e48c88e55f68153dd5c0d3b77647b3b42f3755",
+    "dispositions_unchanged_by_calibration_correction": true,
+    "sensitivity_overrides_recorded_as_overrides_not_policy_changes": true
   },
   "final_build_sequence": [
     "dual_lane_core_v0_shadow_only",

@@ -562,13 +562,26 @@ def run_core_v0_cohort_closure(
         "corpus": cohort["corpus"],
         "decision_window_id": cohort["decision_window_id"],
         "decision_window_start_utc": cohort["decision_window_start_utc"],
+        "decision_window_end_utc": cohort["decision_window_end_utc"],
+        "selection_calibration_policy": cohort["selection_calibration_policy"],
+        "selection_calibration_integrity": cohort["selection_calibration_integrity"],
+        "selection_calibration_effective_values": cohort[
+            "selection_calibration_effective_values"
+        ],
         "outcome_counts": cohort["outcome_counts"],
         "lanes_with_passing_package": cohort["lanes_with_passing_package"],
         "pre_production_eligible_case_ids": cohort["pre_production_eligible_case_ids"],
         "portfolio_daily_window": {
             "report_id": cohort["portfolio_daily"]["report_id"],
+            "window_bound_source": cohort["portfolio_daily"]["window_bound_source"],
             "window_start_utc": cohort["portfolio_daily"]["window_start_utc"],
             "window_end_utc": cohort["portfolio_daily"]["window_end_utc"],
+            "candidate_event_time_min_utc": cohort["portfolio_daily"][
+                "candidate_event_time_min_utc"
+            ],
+            "candidate_event_time_max_utc": cohort["portfolio_daily"][
+                "candidate_event_time_max_utc"
+            ],
             "included_current_candidate_ids": cohort["portfolio_daily"][
                 "included_current_candidate_ids"
             ],

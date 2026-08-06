@@ -45,6 +45,12 @@ from live_contentops.core_v0_portfolio_windows_v1 import (
     build_rolling_portfolio_report,
     decide_portfolio,
 )
+from live_contentops.core_v0_shadow_selection_calibration_policy_v1 import (
+    get_policy,
+    policy_binding,
+    policy_value,
+    verify_policy_integrity,
+)
 from live_contentops.core_v0_evaluation_corpus_v1 import (
     EvaluationCorpusError,
     UNREVIEWED_ASSET,
@@ -85,10 +91,16 @@ V5_SNAPSHOT_FILENAME = "v5_cohort_snapshot.json"
 #: boundary is auditable and never derived from the wall clock.
 DECISION_WINDOW_ID = "2026-07-15"
 DECISION_WINDOW_START_UTC = "2026-07-15T00:00:00Z"
+#: The daily decision window is the explicit half-open interval
+#: ``[DECISION_WINDOW_START_UTC, DECISION_WINDOW_END_UTC)``. Candidate source-event
+#: timestamps never define it.
+DECISION_WINDOW_END_UTC = "2026-07-16T00:00:00Z"
 
 #: Adjusted-score floor below which an eligible candidate defers for portfolio balance.
-#: Configurable per run; it only ever moves an eligible case out, never a blocked one in.
-DEFAULT_PORTFOLIO_BALANCE_FLOOR = 0.0
+#: Owned by the shadow calibration policy, not by this module; still overridable per run
+#: for sensitivity evaluation. It only ever moves an eligible case out, never a blocked
+#: one in.
+DEFAULT_PORTFOLIO_BALANCE_FLOOR = policy_value("portfolio_balance_floor")
 
 #: Dispositions that never produce a package. Each is a truthful terminal outcome.
 _NON_PRODUCING = {
@@ -774,6 +786,14 @@ def build_v5_cohort_snapshot(
                 "portfolio_disposition_reason": portfolio.get("disposition_reason"),
                 "base_score": portfolio.get("base_score"),
                 "base_score_source": portfolio.get("base_score_source"),
+                "base_score_authority": portfolio.get("base_score_authority"),
+                "base_score_calibration_state": portfolio.get(
+                    "base_score_calibration_state"
+                ),
+                "calibration_policy_id": portfolio.get("calibration_policy_id"),
+                "calibration_policy_logical_hash": portfolio.get(
+                    "calibration_policy_logical_hash"
+                ),
                 "base_rank": portfolio.get("base_rank"),
                 "concentration_penalty": portfolio.get("concentration_penalty"),
                 "adjusted_score": portfolio.get("adjusted_score"),
@@ -855,6 +875,12 @@ def build_v5_cohort_snapshot(
         "concentration_penalties": cohort["concentration_penalties"],
         "decision_window_id": cohort["decision_window_id"],
         "decision_window_start_utc": cohort["decision_window_start_utc"],
+        "decision_window_end_utc": cohort["decision_window_end_utc"],
+        "selection_calibration_policy": cohort["selection_calibration_policy"],
+        "selection_calibration_integrity": cohort["selection_calibration_integrity"],
+        "selection_calibration_effective_values": cohort[
+            "selection_calibration_effective_values"
+        ],
         "review_engine": cohort["review_engine"],
         "package_fabric": cohort["package_fabric"],
         "tier1_destination_count": len(ALL_TIER1_PLATFORM_IDS),
@@ -874,6 +900,7 @@ def build_v5_cohort_snapshot(
             "destinations_contacted": [],
         },
         "external_cost": "NONE_NO_PAID_API_OR_MODEL_CALL",
+        **policy_binding(),
         **zero_live_action_flags(),
     }
 
@@ -904,6 +931,9 @@ def run_cohort(
     assets = load_governed_visual_assets(repo_root)
     priors = load_authorized_prior_observations(repo_root)
     history = load_accepted_publication_history(repo_root)
+
+    # Fail closed if the committed calibration values no longer match their sealed hash.
+    calibration_integrity = verify_policy_integrity()
 
     threshold = (
         concentration_threshold
@@ -940,6 +970,8 @@ def run_cohort(
     # --- 2. Two genuinely different windows ----------------------------------------
     portfolio_daily = build_daily_portfolio_report(
         decision_window_id=DECISION_WINDOW_ID,
+        decision_window_start_utc=DECISION_WINDOW_START_UTC,
+        decision_window_end_utc=DECISION_WINDOW_END_UTC,
         candidates=eligible_cases,
         excluded=hard_gate_excluded,
         concentration_threshold=threshold,
@@ -1028,6 +1060,22 @@ def run_cohort(
         "operating_mode": OPERATING_MODE,
         "decision_window_id": DECISION_WINDOW_ID,
         "decision_window_start_utc": DECISION_WINDOW_START_UTC,
+        "decision_window_end_utc": DECISION_WINDOW_END_UTC,
+        "selection_calibration_policy": get_policy(),
+        "selection_calibration_integrity": calibration_integrity,
+        "selection_calibration_effective_values": {
+            "rolling_concentration_threshold": threshold,
+            "concentration_penalty_per_concentrated_value": penalty,
+            "portfolio_balance_floor": floor,
+            "overridden_for_this_run": {
+                "rolling_concentration_threshold": concentration_threshold is not None,
+                "concentration_penalty_per_concentrated_value": (
+                    concentration_penalty is not None
+                ),
+                "portfolio_balance_floor": portfolio_balance_floor is not None,
+            },
+        },
+        **policy_binding(),
         "corpus": {
             "case_count": corpus["case_count"],
             "domain_family_count": corpus["domain_family_count"],
@@ -1056,6 +1104,7 @@ def run_cohort(
                     "case_id",
                     "base_score",
                     "base_score_source",
+                    "base_score_authority",
                     "concentration_penalty",
                     "adjusted_score",
                     "base_rank",

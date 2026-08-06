@@ -40,6 +40,15 @@ from live_contentops.core_v0_portfolio_windows_v1 import (
     build_rolling_portfolio_report,
     decide_portfolio,
 )
+from live_contentops.core_v0_shadow_selection_calibration_policy_v1 import (
+    CALIBRATION_STATE,
+    POLICY_ID,
+    POLICY_LOGICAL_HASH,
+    ShadowCalibrationPolicyError,
+    get_policy,
+    policy_value,
+    verify_policy_integrity,
+)
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.multi_story_platform_native_operator_packages_v1 import (
     ALL_TIER1_PLATFORM_IDS,
@@ -573,3 +582,270 @@ def test_every_live_authority_flag_remains_false(cohort):
     ):
         assert cohort[flag] is False, flag
     assert cohort["external_cost"] == "NONE_NO_PAID_API_OR_MODEL_CALL"
+
+
+# --- Owner override: CORE V0 SHADOW SELECTION CALIBRATION V1 ------------------------
+#
+# Two audit blockers were corrected under explicit owner authority dated 2026-08-06:
+# the daily report's false temporal boundaries, and anonymous module-local selection
+# weights. These tests hold both corrections in place.
+
+
+def test_daily_window_binds_the_declared_decision_interval_not_event_times(cohort):
+    """The audit blocker: a July 15 daily report spanning roughly 75 days of event time."""
+    daily = cohort["portfolio_daily"]
+
+    assert daily["window_start_utc"] == "2026-07-15T00:00:00Z"
+    assert daily["window_end_utc"] == "2026-07-16T00:00:00Z"
+    assert daily["window_bound_source"] == "EXPLICIT_DECLARED_DECISION_WINDOW"
+    assert daily["window_interval_kind"] == "HALF_OPEN_START_INCLUSIVE_END_EXCLUSIVE"
+
+    # The committed regression took the boundaries from candidate event times.
+    assert daily["window_start_utc"] != daily["candidate_event_time_min_utc"]
+    assert daily["window_end_utc"] != daily["candidate_event_time_max_utc"]
+
+
+def test_daily_window_retains_event_coverage_as_named_diagnostics(cohort):
+    daily = cohort["portfolio_daily"]
+
+    assert daily["candidate_event_time_min_utc"]
+    assert daily["candidate_event_time_max_utc"]
+    # The diagnostics stay truthful about the real spread of source events, and that
+    # spread demonstrably reaches outside the one-day decision window.
+    assert daily["candidate_event_time_min_utc"] < daily["candidate_event_time_max_utc"]
+    assert daily["candidate_event_time_min_utc"] < daily["window_start_utc"]
+
+
+def test_daily_report_identity_and_boundaries_are_mutually_consistent(cohort, corpus):
+    daily = cohort["portfolio_daily"]
+
+    assert daily["decision_window_id"] == DECISION_WINDOW_ID
+    assert daily["report_id"] == "portfolio-daily-" + DECISION_WINDOW_ID
+    assert daily["window_start_utc"].startswith(DECISION_WINDOW_ID)
+    assert daily["report_logical_hash"]
+
+    # The hash must cover the corrected boundaries, so changing the end moves it.
+    shifted = build_daily_portfolio_report(
+        decision_window_id=DECISION_WINDOW_ID,
+        decision_window_start_utc=DECISION_WINDOW_START_UTC,
+        decision_window_end_utc="2026-07-17T00:00:00Z",
+        candidates=_eligible(corpus),
+    )
+    assert shifted["report_logical_hash"] != daily["report_logical_hash"]
+    assert shifted["window_end_utc"] == "2026-07-17T00:00:00Z"
+
+
+def test_daily_report_refuses_inconsistent_or_missing_decision_bounds(corpus):
+    candidates = _eligible(corpus)
+
+    # A window ID that disagrees with the declared start cannot be labelled truthfully.
+    with pytest.raises(PortfolioWindowError):
+        build_daily_portfolio_report(
+            decision_window_id="2026-07-15",
+            decision_window_start_utc="2026-07-20T00:00:00Z",
+            decision_window_end_utc="2026-07-21T00:00:00Z",
+            candidates=candidates,
+        )
+
+    # An empty or inverted interval fails closed rather than reporting a false span.
+    with pytest.raises(PortfolioWindowError):
+        build_daily_portfolio_report(
+            decision_window_id="2026-07-15",
+            decision_window_start_utc="2026-07-15T00:00:00Z",
+            decision_window_end_utc="2026-07-15T00:00:00Z",
+            candidates=candidates,
+        )
+
+    with pytest.raises(PortfolioWindowError):
+        build_daily_portfolio_report(
+            decision_window_id="2026-07-15",
+            decision_window_start_utc="",
+            decision_window_end_utc="2026-07-16T00:00:00Z",
+            candidates=candidates,
+        )
+
+
+def test_calibration_policy_declares_its_full_required_identity():
+    policy = get_policy()
+
+    assert policy["policy_id"] == "CONTENTOPS_CORE_V0_SHADOW_SELECTION_CALIBRATION_V1"
+    for field in (
+        "schema_version",
+        "policy_version",
+        "owner",
+        "authority_date",
+        "operating_mode_ceiling",
+        "values",
+        "intended_evaluation_scope",
+        "limitations",
+        "live_use_prohibition",
+        "policy_logical_hash",
+    ):
+        assert policy[field], field
+
+    assert policy["authority_date"] == "2026-08-06"
+    assert policy["operating_mode_ceiling"] == "SHADOW_ONLY"
+    assert policy["authorized_for_live_publication"] is False
+    assert policy["authorized_for_public_write_eligibility"] is False
+    assert verify_policy_integrity()["integrity_verified"] is True
+
+
+def test_calibration_policy_carries_the_exact_authorized_values():
+    values = get_policy()["values"]
+
+    assert values == {
+        "packet_authorized_claim_weight": 15.0,
+        "packet_numeric_claim_weight": 10.0,
+        "packet_score_cap": 100.0,
+        "rolling_concentration_threshold": 0.34,
+        "concentration_penalty_per_concentrated_value": 12.0,
+        "portfolio_balance_floor": 0.0,
+    }
+
+
+def test_calibration_policy_disclaims_factual_and_numeric_authority():
+    limitations = get_policy()["limitations"]
+
+    for disclaimed in (
+        "NOT_FACTUAL_AUTHORITY",
+        "NOT_ANALYTICAL_AUTHORITY",
+        "NOT_MARKET_AUTHORITY",
+        "NOT_ECONOMIC_AUTHORITY",
+        "NOT_FORECASTING_AUTHORITY",
+        "NOT_CAPITAL_CHRONICLE_NUMERIC_AUTHORITY",
+    ):
+        assert disclaimed in limitations, disclaimed
+
+
+def test_policy_object_cannot_be_mutated_by_a_caller():
+    get_policy()["values"]["packet_authorized_claim_weight"] = 999.0
+
+    assert policy_value("packet_authorized_claim_weight") == 15.0
+    assert verify_policy_integrity()["integrity_verified"] is True
+
+
+def test_an_unauthorized_calibration_value_fails_closed():
+    with pytest.raises(ShadowCalibrationPolicyError):
+        policy_value("invented_editorial_priority_weight")
+
+
+def test_packet_base_score_binds_the_policy_and_names_its_authority(corpus):
+    packet_cases = [
+        case for case in _eligible(corpus) if not case.get("newsroom_candidate")
+    ]
+    assert packet_cases, "expected governed-packet cases without the newsroom scorer"
+
+    for case in packet_cases:
+        rank = base_editorial_rank(case)
+        assert rank["score_authority"] == "OWNER_AUTHORIZED_PROVISIONAL_CALIBRATION_POLICY"
+        assert rank["calibration_state"] == CALIBRATION_STATE
+        assert rank["calibration_policy_id"] == POLICY_ID
+        assert rank["calibration_policy_logical_hash"] == POLICY_LOGICAL_HASH
+        assert rank["calibration_policy_authorized_for_live_publication"] is False
+        # The exact weights that produced the score are auditable from the record.
+        assert rank["calibration_inputs_used"]["packet_authorized_claim_weight"] == 15.0
+        assert rank["calibration_inputs_used"]["packet_numeric_claim_weight"] == 10.0
+        # The anonymous "uncalibrated composition" wording no longer appears.
+        assert rank["calibration_state"] != "UNCALIBRATED_GOVERNED_COUNT_COMPOSITION"
+
+
+def test_packet_base_score_still_equals_the_previously_tested_behavior(corpus):
+    """The override authorized these exact values to preserve already-tested behavior."""
+    for case in _eligible(corpus):
+        if case.get("newsroom_candidate"):
+            continue
+        authorized = int(case.get("authorized_claim_count") or 0)
+        numeric = int(case.get("numeric_claim_count") or 0)
+        expected = float(min(100.0, authorized * 15.0 + numeric * 10.0))
+        assert base_editorial_rank(case)["base_score"] == round(expected, 8)
+
+
+def test_accepted_governed_scorer_remains_the_authority_where_it_exists(cohort):
+    """Where accepted governed scoring exists, no calibration weight composes the score."""
+    scored = {
+        row["case_id"]: row for row in cohort["portfolio_decision"]["decisions"]
+    }
+    newsroom = [
+        row
+        for row in scored.values()
+        if row["base_score_source"]
+        == "universal_news_candidate_fabric_v2.score_candidate"
+    ]
+    assert newsroom, "expected at least one case scored by the accepted governed scorer"
+
+    for row in newsroom:
+        assert row["base_score_authority"] == "ACCEPTED_GOVERNED_CANDIDATE_SCORER"
+
+
+def test_every_penalty_and_disposition_binds_the_calibration_policy(cohort):
+    decision = cohort["portfolio_decision"]
+
+    assert decision["calibration_policy_id"] == POLICY_ID
+    assert decision["calibration_policy_logical_hash"] == POLICY_LOGICAL_HASH
+    assert decision["calibration_policy_operating_mode_ceiling"] == "SHADOW_ONLY"
+
+    for row in decision["decisions"]:
+        assert row["calibration_policy_id"] == POLICY_ID
+        assert row["calibration_policy_logical_hash"] == POLICY_LOGICAL_HASH
+        assert row["calibration_policy_authorized_for_live_publication"] is False
+        assert row["adjusted_score"] is not None
+        assert row["disposition"]
+
+
+def test_cohort_run_publishes_the_policy_and_its_effective_values(cohort):
+    assert cohort["selection_calibration_policy"]["policy_id"] == POLICY_ID
+    assert cohort["selection_calibration_integrity"]["integrity_verified"] is True
+
+    effective = cohort["selection_calibration_effective_values"]
+    assert effective["rolling_concentration_threshold"] == 0.34
+    assert effective["concentration_penalty_per_concentrated_value"] == 12.0
+    assert effective["portfolio_balance_floor"] == 0.0
+    # An unmodified run must not claim an override.
+    assert not any(effective["overridden_for_this_run"].values())
+
+
+def test_sensitivity_overrides_are_recorded_as_overrides_not_policy_changes(
+    tmp_path_factory,
+):
+    """Work Package E may sweep these values; it must not silently restate the policy."""
+    run = run_cohort(
+        repo_root=REPO_ROOT,
+        chart_output_dir=tmp_path_factory.mktemp("charts-sweep"),
+        derivative_output_dir=tmp_path_factory.mktemp("derivatives-sweep"),
+        concentration_penalty=30.0,
+        portfolio_balance_floor=5.0,
+    )
+    effective = run["selection_calibration_effective_values"]
+
+    assert effective["concentration_penalty_per_concentrated_value"] == 30.0
+    assert effective["portfolio_balance_floor"] == 5.0
+    assert (
+        effective["overridden_for_this_run"][
+            "concentration_penalty_per_concentrated_value"
+        ]
+        is True
+    )
+    assert effective["overridden_for_this_run"]["portfolio_balance_floor"] is True
+    # The policy itself is unchanged and still authorizes the original values.
+    assert (
+        run["selection_calibration_policy"]["values"][
+            "concentration_penalty_per_concentrated_value"
+        ]
+        == 12.0
+    )
+    assert (
+        run["selection_calibration_policy"]["policy_logical_hash"] == POLICY_LOGICAL_HASH
+    )
+    # A harsher sweep still cannot admit a hard-gate failure.
+    assert not (
+        set(run["portfolio_decision"]["selected_case_ids"])
+        & {row["case_id"] for row in run["hard_gate_excluded"]}
+    )
+
+
+def test_the_calibration_policy_never_grants_live_publication_authority(cohort):
+    assert cohort["calibration_policy_authorized_for_live_publication"] is False
+    assert cohort["selection_calibration_policy"]["live_use_prohibition"]
+    assert cohort["publication_authority"] is False
+    assert cohort["public_write_authority"] is False
+    assert cohort["operating_mode"] == "SHADOW_ONLY"
