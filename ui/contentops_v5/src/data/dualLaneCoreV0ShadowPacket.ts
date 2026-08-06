@@ -349,7 +349,7 @@ export const dualLaneCoreV0ShadowPacket = {
     "target_cutoff_utc": "13:30:00",
     "window_id": "us_open"
   },
-  "work_package_c_status": "CORRECTION_AWAITING_INDEPENDENT_AUDIT"
+  "work_package_c_status": "COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT"
 } as const;
 
 export type DualLaneCoreV0ShadowPacket = typeof dualLaneCoreV0ShadowPacket;

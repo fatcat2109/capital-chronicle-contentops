@@ -44,11 +44,24 @@ normalising bytes inside verification code.
 
 `SHADOW_ONLY`
 
-### Delivered: dual-lane CORE V0 shadow newsroom
+### Accepted and merged: dual-lane CORE V0 shadow newsroom
 
-Work package C is delivered on branch `agent/contentops-dual-lane-core-v0-shadow-newsroom-v1`
-and awaits independent audit and merge. One canonical local command runs both governed input
-lanes in a single pass:
+Work Package C Status: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+
+Independent audit: `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`. Work package C is accepted
+and fast-forward merged into `master` from branch
+`agent/contentops-dual-lane-core-v0-shadow-newsroom-v1`. The accepted implementation commit is
+`6dc38ed32d2c55ebe63314d3cddfef3da34bbb4e` and the accepted canonical correction commit is
+`c8d6837368dee37e73c807e897cc751e37210801`. Operating mode remains `SHADOW_ONLY`.
+
+The caveat is recorded truthfully and is not converted into a pass: both current demo packages
+end at canonical review result `REVIEW_BLOCKED_VISUAL_REQUIREMENT` because the visual policy
+blocks text-only output and no editorial exception was manufactured to force a `PASS`. Browser
+QA is recorded as
+`WORKER_REPORTED_BROWSER_QA_NOT_INDEPENDENTLY_VISUALLY_AUDITED` — the screenshots were not
+supplied to the independent audit as auditable files.
+
+One canonical local command runs both governed input lanes in a single pass:
 
 ```text
 python -m live_contentops.cli core-v0-shadow-demo --store <sqlite> --output <dir>
@@ -64,13 +77,16 @@ reported as `NO_AUTHORIZED_CHART_SERIES` rather than fabricated.
 Both packages carry article, SEO, visual strategy, and dry-run native payloads for the six
 Tier-1 destinations the canonical package fabric supports; `discord`, `instagram_business`,
 and `threads` are reported explicitly as unsupported and deferred to work package D. All
-eight editorial roles run deterministically, durable shadow state replays from a reopened
-SQLite store, and publication, dispatch, and public-write authority are all false.
+eight editorial roles run deterministically through the canonical review engine, durable
+shadow state replays from a reopened SQLite store, and publication, dispatch, and
+public-write authority are all false. No credential read, provider call, network call,
+browser/CDP platform action, scheduler/outbox execution, publication, dispatch, or public
+write occurred.
 
 ### Current build sequence
 
 ```text
-dual-lane CORE V0 in SHADOW_ONLY   [DELIVERED — awaiting independent audit and merge]
+dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [CURRENT]
 → repeated shadow soak and recovery
 → exact authorized live cohort

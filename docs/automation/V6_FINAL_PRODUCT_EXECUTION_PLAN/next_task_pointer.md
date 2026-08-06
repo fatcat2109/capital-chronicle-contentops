@@ -18,9 +18,13 @@ Wave 02 — the durable operational store and canonical state machine — is com
 
 `TASK_CONTENTOPS_CORE_V0_DIVERSITY_SEO_IMAGE_AND_CHART_CLOSURE_V1`
 
-Work package C (dual-lane CORE V0 shadow newsroom) is delivered on branch
-`agent/contentops-dual-lane-core-v0-shadow-newsroom-v1` and awaits independent audit and
-merge. It ships one canonical local command:
+Work package C (dual-lane CORE V0 shadow newsroom) is complete, accepted, and fast-forward
+merged into `master` with a truthful caveat. Its status is
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`, independent audit
+`PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted implementation commit
+`6dc38ed32d2c55ebe63314d3cddfef3da34bbb4e`, accepted canonical correction commit
+`c8d6837368dee37e73c807e897cc751e37210801`. Do not re-audit, retest, or re-merge it. It ships
+one canonical local command:
 
 ```text
 python -m live_contentops.cli core-v0-shadow-demo --store <sqlite> --output <dir>
@@ -28,7 +32,10 @@ python -m live_contentops.cli core-v0-shadow-demo --store <sqlite> --output <dir
 
 Both lanes run in one pass over committed governed artifacts, produce reviewable article,
 SEO, visual, and Tier-1 native package output, record durable shadow state, and replay
-deterministically with zero public writes.
+deterministically with zero public writes. Both current demo packages truthfully end at
+canonical review result `REVIEW_BLOCKED_VISUAL_REQUIREMENT`; that outcome must not be
+converted into a pass. Browser QA is recorded as
+`WORKER_REPORTED_BROWSER_QA_NOT_INDEPENDENTLY_VISUALLY_AUDITED`.
 
 Work package D closes required-domain taxonomy, concentration-aware portfolio reporting,
 search-intent/on-page SEO contracts, image rights and provenance, and deterministic chart
@@ -42,7 +49,7 @@ production. It also closes the three Tier-1 destinations CORE V0 reported as uns
 ### Final build sequence
 
 ```text
-dual-lane CORE V0 in SHADOW_ONLY   [DELIVERED — awaiting independent audit and merge]
+dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [CURRENT]
 → repeated shadow soak and recovery
 → exact authorized live cohort
@@ -51,7 +58,7 @@ dual-lane CORE V0 in SHADOW_ONLY   [DELIVERED — awaiting independent audit and
 
 ### Execution boundary
 
-Work package D extends the delivered CORE V0 slice. It runs in `SHADOW_ONLY` and grants no
+Work package D extends the accepted and merged CORE V0 slice. It runs in `SHADOW_ONLY` and grants no
 credential or environment-value read, provider call, browser/CDP action, network intake,
 scheduler/outbox execution, dispatch, publication, or public write. It must not mutate the
 Capital Chronicle main project, fabricate numeric or analytical truth, or modify accepted
