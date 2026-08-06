@@ -9,6 +9,9 @@ import { IconShield, IconBlock } from '../ui/icons';
 export function DualLaneCoreV0Shadow() {
   const news = p.newsroom_lane;
   const capital = p.capital_chronicle_lane;
+  const newsReview = p.newsroom_review;
+  const capitalReview = p.capital_chronicle_review;
+  const reviewStatus = (result: string) => (result === 'PASS' ? 'verified' : 'blocked');
 
   return (
     <div className="space-y-6">
@@ -42,6 +45,42 @@ export function DualLaneCoreV0Shadow() {
         </div>
       </div>
 
+      <section
+        aria-label="Canonical review verdict"
+        className="rounded-2xl border border-status-blocked/30 bg-status-blocked/5 p-4"
+      >
+        <p className="font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-fg-subtle">
+          Canonical editorial review · {p.work_package_c_status}
+        </p>
+        <div className="mt-3 grid gap-3 md:grid-cols-2">
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <p className="text-[12px] font-semibold text-fg">Newsroom lane</p>
+            <p className="mt-1 font-mono text-[12px] text-status-blocked">
+              {newsReview.outcome}
+            </p>
+            <p className="mt-1 text-[11px] text-fg-muted">
+              Blocked roles: {newsReview.blocked_roles.join(', ') || 'none'}
+            </p>
+          </div>
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <p className="text-[12px] font-semibold text-fg">Capital Chronicle lane</p>
+            <p className="mt-1 font-mono text-[12px] text-status-blocked">
+              {capitalReview.outcome}
+            </p>
+            <p className="mt-1 text-[11px] text-fg-muted">
+              Blocked roles: {capitalReview.blocked_roles.join(', ') || 'none'}
+            </p>
+          </div>
+        </div>
+        <p className="mt-3 text-[11px] leading-relaxed text-fg-muted">
+          Review engine: <span className="font-mono text-fg">{p.review_engine}</span>
+        </p>
+        <p className="mt-1 text-[11px] leading-relaxed text-fg-muted">
+          Visual policy blocks text-only output; no editorial exception was created to
+          force a pass. A truthful blocked package is preferred over a false PASS.
+        </p>
+      </section>
+
       <div className="grid gap-4 md:grid-cols-4">
         <Metric label="Publication" value="false" status="blocked" hint="no authority" />
         <Metric label="Dispatch" value="false" status="blocked" hint="no authority" />
@@ -61,9 +100,9 @@ export function DualLaneCoreV0Shadow() {
           <Metric label="Held" value={String(news.held_count)} status="review" hint="gated candidates" />
           <Metric
             label="Review"
-            value={String(p.newsroom_review.result)}
-            status={p.newsroom_review.result === 'PASS' ? 'verified' : 'blocked'}
-            hint={`${p.newsroom_review.role_count} roles`}
+            value={String(newsReview.result)}
+            status={reviewStatus(newsReview.result)}
+            hint={`${newsReview.role_count} canonical roles`}
           />
         </div>
         <p className="mt-3 text-[12px] leading-relaxed text-fg-muted">
@@ -84,6 +123,13 @@ export function DualLaneCoreV0Shadow() {
             </li>
           ))}
         </ul>
+        <ul className="mt-3 space-y-1">
+          {newsReview.roles.map((row) => (
+            <li key={row.role} className="font-mono text-[11px] text-fg-muted">
+              {row.result === 'PASS' ? 'PASS ' : 'BLOCK'} {row.role}
+            </li>
+          ))}
+        </ul>
       </Panel>
 
       <Panel title="Capital Chronicle lane" subtitle={String(capital.outcome)}>
@@ -98,15 +144,22 @@ export function DualLaneCoreV0Shadow() {
           />
           <Metric
             label="Review"
-            value={String(p.capital_chronicle_review.result)}
-            status={p.capital_chronicle_review.result === 'PASS' ? 'verified' : 'blocked'}
-            hint={`${p.capital_chronicle_review.role_count} roles`}
+            value={String(capitalReview.result)}
+            status={reviewStatus(capitalReview.result)}
+            hint={`${capitalReview.role_count} canonical roles`}
           />
         </div>
         <p className="mt-3 text-[12px] leading-relaxed text-fg-muted">
           Analytical fidelity: <span className="font-mono text-fg">{String(capital.analytical_fidelity_result)}</span>
         </p>
         <p className="mt-1 text-[12px] leading-relaxed text-fg-muted">{p.capital_chronicle_chart_reason}</p>
+        <ul className="mt-3 space-y-1">
+          {capitalReview.roles.map((row) => (
+            <li key={row.role} className="font-mono text-[11px] text-fg-muted">
+              {row.result === 'PASS' ? 'PASS ' : 'BLOCK'} {row.role}
+            </li>
+          ))}
+        </ul>
       </Panel>
 
       <Panel title="Package + platform capability" subtitle="Tier-1 destinations">
@@ -118,6 +171,16 @@ export function DualLaneCoreV0Shadow() {
         <p className="mt-3 font-mono text-[11px] text-fg-muted">
           Deferred: {p.platform_capability.unsupported_destinations.join(', ')}
         </p>
+        <p className="mt-2 text-[11px] text-fg-muted">
+          Package fabric: <span className="font-mono text-fg">{p.package_fabric}</span>
+        </p>
+        <ul className="mt-3 space-y-1">
+          {p.platform_payload_shapes.map((row) => (
+            <li key={row.platform_id} className="font-mono text-[11px] text-fg-muted">
+              {row.platform_id} — {row.payload_shape} · {row.character_count} chars
+            </li>
+          ))}
+        </ul>
       </Panel>
 
       <Panel title="Durable shadow state" subtitle="terminal states and replay">

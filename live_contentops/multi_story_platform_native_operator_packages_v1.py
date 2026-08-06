@@ -590,6 +590,123 @@ def _build_editorial_outcome(story: Mapping[str, Any]) -> dict[str, Any]:
     return outcome
 
 
+def render_platform_native_text(
+    platform_id: str,
+    *,
+    headline: str,
+    summary: str,
+    source_label: str,
+) -> str:
+    """Render one platform-native body from generic copy fields.
+
+    This is the single canonical renderer. Each platform gets a distinct shape and copy
+    treatment per its registered contract — not one shared body with truncation.
+    """
+    if platform_id == "substack_newsletter":
+        return f"{headline}\n\nOfficial-record update\n\n{summary}\n\nSource: {source_label}.\n\nNot financial advice."
+    if platform_id == "linkedin":
+        return f"Official document update: {headline}\n\n{summary}\n\nSource: {source_label}. This post stays within the exact official-record metadata authorized for reporting.\n\nNot financial advice."
+    if platform_id == "x_twitter":
+        return f"{headline}. {summary} Source: {source_label}. Not financial advice."
+    if platform_id == "facebook_page":
+        return f"Official-record update\n\n{headline}\n\n{summary}\n\nSource: {source_label}. The scope here is limited to the official record identified above.\n\nNot financial advice."
+    if platform_id == "telegram":
+        return f"OFFICIAL RECORD | {headline}\n\n{summary}\n\nSource: {source_label}\nScope: exact authorized record metadata only\n\nNot financial advice."
+    if platform_id == "youtube_community":
+        return f"Community update: {headline}\n\n{summary}\n\nSource: {source_label}. This is a text-only Community post package, not a video or upload request.\n\nNot financial advice."
+    raise ValueError(f"unsupported_platform:{platform_id}")
+
+
+def assert_generic_prose_allowed(text: str, *, subject_id: str, allow_magnitude: bool = False) -> None:
+    """Apply the shared prose policy to any story, not just the pinned three."""
+    if text.count("Not financial advice.") != 1:
+        raise ValueError(f"disclaimer_count_invalid:{subject_id}")
+    for pattern in FORBIDDEN_PROSE:
+        if re.search(pattern, text, flags=re.IGNORECASE):
+            raise ValueError(f"unsupported_prose:{subject_id}:{pattern}")
+    if not allow_magnitude and re.search(r"\b7\.1\b", text):
+        raise ValueError(f"numeric_claim_not_authorized:{subject_id}")
+
+
+def build_platform_native_variant(
+    *,
+    platform_id: str,
+    subject_id: str,
+    candidate_id: str,
+    authority_logical_hash: str,
+    authorized_claim_ids: Sequence[str],
+    headline: str,
+    summary: str,
+    source_label: str,
+    citation_urls: Sequence[str],
+    limitations: Sequence[str],
+    allow_magnitude: bool = False,
+) -> dict[str, Any]:
+    """Canonical generic platform-native variant builder.
+
+    Both the pinned three-story replay path and generic callers (dual-lane CORE V0) go
+    through this one implementation. Raw URLs stay out of the hashed inputs; citations
+    and limitations are bound as sha256 fingerprints.
+    """
+    contract = PLATFORM_CONTRACTS[platform_id]
+    text = render_platform_native_text(
+        platform_id, headline=headline, summary=summary, source_label=source_label
+    )
+    assert_generic_prose_allowed(text, subject_id=subject_id, allow_magnitude=allow_magnitude)
+    if len(text) > int(contract["character_limit_max"]):
+        raise ValueError(f"platform_character_limit_exceeded:{subject_id}:{platform_id}")
+    limitation_fingerprints = [
+        sha256(str(value).encode("utf-8")).hexdigest() for value in limitations
+    ]
+    hash_inputs = {
+        "story_id": subject_id,
+        "candidate_id": candidate_id,
+        "authority_story_logical_hash": authority_logical_hash,
+        "authorized_claim_ids": list(authorized_claim_ids),
+        "platform_id": platform_id,
+        "content_surface": contract["content_surface"],
+        "payload_shape": contract["shape"],
+        "mode": contract["mode"],
+        "text": text,
+        "citation_fingerprints": [
+            sha256(str(url).encode("utf-8")).hexdigest() for url in citation_urls
+        ],
+        "limitation_fingerprints": limitation_fingerprints,
+        "policy": {
+            "approval_required": True,
+            "valid_for_dispatch": False,
+            "dispatch_ready": False,
+            "public_ready": False,
+            "live_eligibility": False,
+        },
+    }
+    return {
+        **hash_inputs,
+        "schema_version": "contentops.platform_native_operator_variant.v1",
+        "citation_urls": list(citation_urls),
+        "character_count": len(text),
+        "character_limit_max": contract["character_limit_max"],
+        "operator_review_required": True,
+        "approval_required": True,
+        "valid_for_dispatch": False,
+        "dispatch_ready": False,
+        "public_ready": False,
+        "live_eligibility": False,
+        "youtube_contract": (
+            {
+                "surface": "youtube_community",
+                "post_type": "text_only_community_post",
+                "video_upload_request": False,
+                "media_required": False,
+                "default_article_surface_confirmed": True,
+            }
+            if platform_id == "youtube_community"
+            else None
+        ),
+        "payload_hash": compute_payload_hash(hash_inputs),
+    }
+
+
 def _copy_fields(story: Mapping[str, Any]) -> dict[str, str]:
     story_id = str(story["story_id"])
     if story_id == "fomc-minutes-2026-04-28-29":
@@ -615,20 +732,12 @@ def _copy_fields(story: Mapping[str, Any]) -> dict[str, str]:
 
 def _render_text(platform_id: str, story: Mapping[str, Any]) -> str:
     fields = _copy_fields(story)
-    headline, summary, source = fields["headline"], fields["summary"], fields["source_label"]
-    if platform_id == "substack_newsletter":
-        return f"{headline}\n\nOfficial-record update\n\n{summary}\n\nSource: {source}.\n\nNot financial advice."
-    if platform_id == "linkedin":
-        return f"Official document update: {headline}\n\n{summary}\n\nSource: {source}. This post stays within the exact official-record metadata authorized for reporting.\n\nNot financial advice."
-    if platform_id == "x_twitter":
-        return f"{headline}. {summary} Source: {source}. Not financial advice."
-    if platform_id == "facebook_page":
-        return f"Official-record update\n\n{headline}\n\n{summary}\n\nSource: {source}. The scope here is limited to the official record identified above.\n\nNot financial advice."
-    if platform_id == "telegram":
-        return f"OFFICIAL RECORD | {headline}\n\n{summary}\n\nSource: {source}\nScope: exact authorized record metadata only\n\nNot financial advice."
-    if platform_id == "youtube_community":
-        return f"Community update: {headline}\n\n{summary}\n\nSource: {source}. This is a text-only Community post package, not a video or upload request.\n\nNot financial advice."
-    raise ValueError(f"unsupported_platform:{platform_id}")
+    return render_platform_native_text(
+        platform_id,
+        headline=fields["headline"],
+        summary=fields["summary"],
+        source_label=fields["source_label"],
+    )
 
 
 def _assert_prose_allowed(story: Mapping[str, Any], text: str) -> None:
@@ -645,60 +754,22 @@ def _assert_prose_allowed(story: Mapping[str, Any], text: str) -> None:
 
 
 def _build_variant(story: Mapping[str, Any], candidate_id: str, platform_id: str) -> dict[str, Any]:
-    contract = PLATFORM_CONTRACTS[platform_id]
-    text = _render_text(platform_id, story)
-    _assert_prose_allowed(story, text)
-    if len(text) > int(contract["character_limit_max"]):
-        raise ValueError(f"platform_character_limit_exceeded:{story['story_id']}:{platform_id}")
-    citation = str(story["official_urls"]["citation_url"])
-    limitation_fingerprints = [
-        sha256(str(value).encode("utf-8")).hexdigest() for value in story.get("limitations", [])
-    ]
-    hash_inputs = {
-        "story_id": story["story_id"],
-        "candidate_id": candidate_id,
-        "authority_story_logical_hash": story["logical_hash"],
-        "authorized_claim_ids": list(AUTHORIZED_CLAIMS[str(story["story_id"])]),
-        "platform_id": platform_id,
-        "content_surface": contract["content_surface"],
-        "payload_shape": contract["shape"],
-        "mode": contract["mode"],
-        "text": text,
-        "citation_fingerprints": [sha256(citation.encode("utf-8")).hexdigest()],
-        "limitation_fingerprints": limitation_fingerprints,
-        "policy": {
-            "approval_required": True,
-            "valid_for_dispatch": False,
-            "dispatch_ready": False,
-            "public_ready": False,
-            "live_eligibility": False,
-        },
-    }
-    return {
-        **hash_inputs,
-        "schema_version": "contentops.platform_native_operator_variant.v1",
-        "citation_urls": [citation],
-        "character_count": len(text),
-        "character_limit_max": contract["character_limit_max"],
-        "operator_review_required": True,
-        "approval_required": True,
-        "valid_for_dispatch": False,
-        "dispatch_ready": False,
-        "public_ready": False,
-        "live_eligibility": False,
-        "youtube_contract": (
-            {
-                "surface": "youtube_community",
-                "post_type": "text_only_community_post",
-                "video_upload_request": False,
-                "media_required": False,
-                "default_article_surface_confirmed": True,
-            }
-            if platform_id == "youtube_community"
-            else None
-        ),
-        "payload_hash": compute_payload_hash(hash_inputs),
-    }
+    """Pinned three-story path: delegates to the canonical generic variant builder."""
+    fields = _copy_fields(story)
+    story_id = str(story["story_id"])
+    return build_platform_native_variant(
+        platform_id=platform_id,
+        subject_id=story_id,
+        candidate_id=candidate_id,
+        authority_logical_hash=str(story["logical_hash"]),
+        authorized_claim_ids=list(AUTHORIZED_CLAIMS[story_id]),
+        headline=fields["headline"],
+        summary=fields["summary"],
+        source_label=fields["source_label"],
+        citation_urls=[str(story["official_urls"]["citation_url"])],
+        limitations=list(story.get("limitations") or []),
+        allow_magnitude=False,
+    )
 
 
 def _build_package(

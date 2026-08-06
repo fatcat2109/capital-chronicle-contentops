@@ -21,10 +21,55 @@ describe('Dual-Lane CORE V0 Shadow UI', () => {
   it('shows both lane results in one surface', () => {
     openView();
 
-    expect(screen.getByText('Newsroom lane')).toBeInTheDocument();
-    expect(screen.getByText('Capital Chronicle lane')).toBeInTheDocument();
+    expect(screen.getAllByText('Newsroom lane').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Capital Chronicle lane').length).toBeGreaterThan(0);
     expect(screen.getAllByText(String(p.newsroom_lane.selected_candidate_id)).length).toBeGreaterThan(0);
     expect(screen.getAllByText(String(p.capital_chronicle_lane.analytical_fidelity_result)).length).toBeGreaterThan(0);
+  });
+
+  it('shows the truthful canonical review outcome, not a hardcoded PASS', () => {
+    openView();
+
+    expect(screen.getAllByText(String(p.newsroom_review.outcome)).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(String(p.capital_chronicle_review.outcome)).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(new RegExp(p.review_engine)).length).toBeGreaterThan(0);
+  });
+
+  it('shows a blocked visual state when the visual policy blocks', () => {
+    openView();
+
+    if (p.newsroom_review.visual_decision_status !== 'BLOCK') return;
+    expect(p.newsroom_review.result).toBe('BLOCK');
+    expect(p.newsroom_review.blocked_roles).toContain('visual_editor');
+    expect(screen.getAllByText(/BLOCK visual_editor/).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/BLOCK adversarial_final_reviewer/).length,
+    ).toBeGreaterThan(0);
+  });
+
+  it('shows every canonical role outcome for both lanes', () => {
+    openView();
+
+    expect(p.newsroom_review.role_count).toBe(8);
+    expect(p.capital_chronicle_review.role_count).toBe(8);
+    for (const row of p.newsroom_review.roles) {
+      expect(
+        screen.getAllByText(new RegExp(`${row.result === 'PASS' ? 'PASS' : 'BLOCK'}\\s+${row.role}`)).length,
+      ).toBeGreaterThan(0);
+    }
+  });
+
+  it('shows the canonical package fabric and per-platform shapes', () => {
+    openView();
+
+    expect(screen.getAllByText(new RegExp(p.package_fabric)).length).toBeGreaterThan(0);
+    const shapes = p.platform_payload_shapes.map((row) => row.payload_shape);
+    expect(new Set(shapes).size).toBe(shapes.length);
+    for (const row of p.platform_payload_shapes) {
+      expect(
+        screen.getByText(new RegExp(`${row.platform_id} — ${row.payload_shape}`)),
+      ).toBeInTheDocument();
+    }
   });
 
   it('shows the selection reason and every held candidate blocker', () => {

@@ -11,6 +11,7 @@ from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.dual_lane_core_v0_shadow_newsroom_v1 import (
     NO_AUTHORIZED_CHART_SERIES,
     OPERATING_MODE,
+    REVIEW_BLOCKED_VISUAL,
     SUPPORTED_PLATFORM_IDS,
     TIER1_DESTINATIONS,
     DualLaneShadowError,
@@ -26,10 +27,14 @@ from live_contentops.dual_lane_core_v0_shadow_demo_runner_v1 import (
     DEFAULT_NEWS_INPUT,
     DEFAULT_SCHEDULE_DATE,
     DEFAULT_WINDOW,
+    _newsroom_v3_packet,
     core_v0_shadow_demo_command,
     run_core_v0_shadow_demo,
 )
 from live_contentops.editorial_review_orchestrator_v2 import ROLE_ORDER
+from live_contentops.multi_story_platform_native_operator_packages_v1 import (
+    build_platform_native_variant,
+)
 from live_contentops.universal_news_candidate_fabric_v2 import validate_pool
 from live_contentops.dual_lane_core_v0_shadow_newsroom_v1 import _persist_lane
 
@@ -50,6 +55,13 @@ def pool():
 @pytest.fixture(scope="module")
 def packet():
     return _load(ANALYSIS_INPUT)["packets"][0]
+
+
+def _news_packet():
+    """The canonical V3 packet the newsroom lane reviews, via the same adapter."""
+    pool = _load(NEWS_INPUT)
+    candidate = next(row for row in pool["candidates"] if row["reporting_allowed"])
+    return _newsroom_v3_packet(candidate)[0]
 
 
 @pytest.fixture(scope="module")
@@ -256,6 +268,65 @@ def test_package_contains_required_seo_and_platform_fields(demo):
         assert payload["character_count"] <= payload["character_limit_max"]
 
 
+def test_supported_payloads_use_the_canonical_package_fabric(demo):
+    """CORE V0 must not carry a second platform-package implementation."""
+    _, out = demo
+    for filename in ("newsroom_lane.json", "capital_chronicle_lane.json"):
+        platform = json.loads(
+            (out / "output" / filename).read_text(encoding="utf-8")
+        )["package"]["platform"]
+        assert platform["package_fabric"] == (
+            "multi_story_platform_native_operator_packages_v1.build_platform_native_variant"
+        )
+        for payload in platform["payloads"]:
+            assert payload["schema_version"] == "contentops.platform_native_operator_variant.v1"
+
+
+def test_platform_payloads_are_genuinely_platform_native(demo):
+    """Each supported destination gets its own shape and copy treatment."""
+    _, out = demo
+    for filename in ("newsroom_lane.json", "capital_chronicle_lane.json"):
+        platform = json.loads(
+            (out / "output" / filename).read_text(encoding="utf-8")
+        )["package"]["platform"]
+        texts = [row["text"] for row in platform["payloads"]]
+        shapes = [row["payload_shape"] for row in platform["payloads"]]
+        surfaces = [row["content_surface"] for row in platform["payloads"]]
+        hashes = [row["payload_hash"] for row in platform["payloads"]]
+
+        assert len(set(texts)) == len(texts), "platform copy must not be identical"
+        assert platform["distinct_payload_text_count"] == len(SUPPORTED_PLATFORM_IDS)
+        assert len(set(shapes)) == len(shapes), "payload shapes must differ per contract"
+        assert len(set(surfaces)) == len(surfaces)
+        assert len(set(hashes)) == len(hashes)
+        # Truncation alone would leave a shared prefix; genuine platform copy does not.
+        assert len({text[:40] for text in texts}) > 1
+
+
+def test_canonical_variant_builder_is_shared_with_pinned_story_path():
+    """The pinned three-story replay path and CORE V0 use one implementation."""
+    variant = build_platform_native_variant(
+        platform_id="telegram",
+        subject_id="subject-1",
+        candidate_id="cand-1",
+        authority_logical_hash="a" * 64,
+        authorized_claim_ids=["claim-1"],
+        headline="Official record headline",
+        summary="Official record summary.",
+        source_label="Example Agency",
+        citation_urls=["https://example.test/doc"],
+        limitations=["limitation"],
+    )
+    assert variant["schema_version"] == "contentops.platform_native_operator_variant.v1"
+    assert variant["payload_hash"]
+    assert variant["valid_for_dispatch"] is False
+    assert variant["public_ready"] is False
+    # Raw URLs must never reach the hashed inputs.
+    assert "https://" not in json.dumps(
+        {key: value for key, value in variant.items() if key != "citation_urls"}
+    )
+
+
 def test_unsupported_tier1_destinations_are_reported_not_omitted(demo):
     _, out = demo
     lane = json.loads((out / "output" / "capital_chronicle_lane.json").read_text(encoding="utf-8"))
@@ -271,7 +342,7 @@ def test_unsupported_tier1_destinations_are_reported_not_omitted(demo):
 # --- Review ---------------------------------------------------------------
 
 
-def test_review_runs_all_eight_roles(demo):
+def test_review_runs_all_eight_canonical_roles(demo):
     _, out = demo
     for filename in ("newsroom_lane.json", "capital_chronicle_lane.json"):
         lane = json.loads((out / "output" / filename).read_text(encoding="utf-8"))
@@ -281,9 +352,74 @@ def test_review_runs_all_eight_roles(demo):
         assert review["deterministic_blockers_authoritative"] is True
         assert review["model_review_can_override_deterministic_blockers"] is False
         assert review["evidence_packet_hash"]
+        for row in review["roles"]:
+            assert row["model_assisted"] is False
+            assert row["checks_run"], f"{row['role']} must run substantive checks"
 
 
-def test_unauthorized_claim_use_is_blocked_by_review(pool, packet):
+def test_review_uses_canonical_engine_and_shared_reviewer(demo):
+    """CORE V0 must not carry a second review implementation."""
+    _, out = demo
+    for filename in ("newsroom_lane.json", "capital_chronicle_lane.json"):
+        review = json.loads((out / "output" / filename).read_text(encoding="utf-8"))["review"]
+        assert review["review_engine"] == "editorial_review_orchestrator_v2.run_editorial_review"
+        assert review["structured_reviewer"] == (
+            "window_incremental_editorial_shadow_v1._shadow_structured_role_reviewer"
+        )
+        assert review["governed_claim_contract"] == "V3_GENERIC_CLAIM_GRAPH"
+
+
+def test_visual_block_cannot_become_review_pass(demo):
+    """A BLOCK visual decision must block the visual role and the final review."""
+    _, out = demo
+    for filename in ("newsroom_lane.json", "capital_chronicle_lane.json"):
+        lane = json.loads((out / "output" / filename).read_text(encoding="utf-8"))
+        review = lane["review"]
+        if review["visual_decision_status"] != "BLOCK":
+            continue
+        assert review["result"] == "BLOCK"
+        assert review["outcome"] == REVIEW_BLOCKED_VISUAL
+        assert "visual_editor" in review["blocked_roles"]
+        assert "adversarial_final_reviewer" in review["blocked_roles"]
+        assert review["visual_blockers"]
+
+
+def test_no_text_only_exception_was_manufactured(demo):
+    """The visual policy must be applied as-is, with no invented editorial exception."""
+    _, out = demo
+    for filename in ("newsroom_lane.json", "capital_chronicle_lane.json"):
+        lane = json.loads((out / "output" / filename).read_text(encoding="utf-8"))
+        assert lane["package"]["visual"]["decision"]["editorial_exception"] is None
+
+
+def test_unevidenced_numeric_token_is_blocked_by_canonical_review(demo):
+    """A numeric token with no governed claim behind it must fail canonical review."""
+    _, out = demo
+    lane = json.loads((out / "output" / "newsroom_lane.json").read_text(encoding="utf-8"))
+    package = json.loads(json.dumps(lane["package"]))
+    package["article"]["body"].append(
+        {"heading": "Unevidenced", "text": "The rate moved to 99.9 percent."}
+    )
+    review = review_package(
+        package=package,
+        lane_result=lane,
+        evidence_packet=_news_packet(),
+        request={
+            "story_type": "data_release",
+            "article_mode": "evidence_bound_shadow_draft",
+            "workflow_mode": "evidence_bound_shadow_draft",
+            "market_sensitive": False,
+            "market_snapshot_required": False,
+            "fresh_material_delta": False,
+        },
+        freshness_decision={"decision": "PASS", "blockers": []},
+    )
+    assert review["result"] == "BLOCK"
+    assert any("unevidenced_numeric_token" in check for check in review["failed_checks"])
+
+
+def test_unauthorized_claim_use_is_blocked_by_canonical_review(packet):
+    """A claim outside the governed approved set must fail canonical review."""
     lane = run_capital_chronicle_lane(packet=packet)
     package = build_package(
         package_id="pkg-test-unauthorized",
@@ -291,7 +427,7 @@ def test_unauthorized_claim_use_is_blocked_by_review(pool, packet):
         story_id=lane["packet_id"],
         headline="Headline",
         answer_first_summary="Summary",
-        body_sections=[{"heading": "H", "text": "T"}],
+        body_sections=[{"heading": "H", "text": "Text without numbers."}],
         claim_ids=["claim-not-authorized"],
         citations=[{"source_document_id": "doc:1", "url": "https://example.test/doc"}],
         limitations=["limitation"],
@@ -299,15 +435,26 @@ def test_unauthorized_claim_use_is_blocked_by_review(pool, packet):
         primary_intent="intent",
         secondary_intent="intent2",
         story_type="official_action",
+        source_label="Example Source",
+        authority_logical_hash=str(lane["packet_logical_hash"]),
     )
     review = review_package(
         package=package,
         lane_result=lane,
-        authorized_claim_ids=lane["authorized_claim_ids"],
+        evidence_packet=packet,
+        request={
+            "story_type": "official_action",
+            "article_mode": "evidence_bound_shadow_draft",
+            "workflow_mode": "evidence_bound_shadow_draft",
+            "market_sensitive": False,
+            "market_snapshot_required": False,
+            "fresh_material_delta": False,
+        },
+        freshness_decision={"decision": "PASS", "blockers": []},
     )
     assert review["result"] == "BLOCK"
-    assert review["unauthorized_claims_used"] == ["claim-not-authorized"]
-    assert any("every_used_claim_is_authorized" in check for check in review["failed_checks"])
+    assert review["claims_reviewed"] == ["claim-not-authorized"]
+    assert review["failed_checks"]
 
 
 # --- Zero live authority --------------------------------------------------
@@ -422,7 +569,9 @@ def test_cli_command_runs_end_to_end(tmp_path, capsys):
     summary = json.loads(capsys.readouterr().out)
     assert summary["operating_mode"] == OPERATING_MODE
     assert summary["newsroom_lane"]["outcome"] == "SELECTED"
-    assert summary["capital_chronicle_lane"]["review_result"] == "PASS"
+    # Truthful canonical outcome: the current visual policy blocks text-only output.
+    assert summary["capital_chronicle_lane"]["review_outcome"] == REVIEW_BLOCKED_VISUAL
+    assert summary["review_engine"] == "editorial_review_orchestrator_v2.run_editorial_review"
     assert summary["elapsed_seconds"] >= 0
     for name in ("run_summary.json", "newsroom_lane.json",
                  "capital_chronicle_lane.json", "shadow_readback.json"):

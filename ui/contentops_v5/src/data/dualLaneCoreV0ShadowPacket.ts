@@ -20,14 +20,34 @@ export const dualLaneCoreV0ShadowPacket = {
     "chart_series_status": "NO_AUTHORIZED_CHART_SERIES",
     "outcome": "TRANSFORMED_PRESENTATION_ONLY",
     "package_id": "pkg-capital-chronicle-861c4c2460b195b9",
-    "package_logical_hash": "945d3fa2bf32821c393767adcc117e0d6604085bfb17e6e8546af64fa9c876b8",
+    "package_logical_hash": "aa45fccf103b899f669169b70e9d87a797abd539427835badb6403782f2f71ad",
     "packet_id": "cc-evidence-4f0722ced0269d254a4d",
-    "review_logical_hash": "fdf8b337b4326562cdb456047d0f9b47fd4e03ec18c6101250ccdd90befea5d1",
-    "review_result": "PASS"
+    "review_blocked_roles": [
+      "visual_editor",
+      "adversarial_final_reviewer"
+    ],
+    "review_logical_hash": "300e4ca972b7a91b1044d882a5720b9b97a441cb0c7c385867d0e045b07af8e2",
+    "review_outcome": "REVIEW_BLOCKED_VISUAL_REQUIREMENT",
+    "review_result": "BLOCK",
+    "visual_decision_status": "BLOCK"
   },
   "capital_chronicle_review": {
-    "failed_checks": [],
-    "result": "PASS",
+    "blocked_roles": [
+      "visual_editor",
+      "adversarial_final_reviewer"
+    ],
+    "editorial_disposition": "HOLD",
+    "failed_checks": [
+      "fewer_than_three_useful_visuals",
+      "insufficient_visual_evidence_diversity",
+      "lead_visual_missing",
+      "structured_role_review_failed_or_claimed_authority:visual_editor",
+      "candidate_public_claim_permission_blocked",
+      "structured_adversarial_review_failed_or_claimed_authority"
+    ],
+    "outcome": "REVIEW_BLOCKED_VISUAL_REQUIREMENT",
+    "result": "BLOCK",
+    "review_engine": "editorial_review_orchestrator_v2.run_editorial_review",
     "role_count": 8,
     "roles": [
       {
@@ -47,7 +67,7 @@ export const dualLaneCoreV0ShadowPacket = {
         "role": "quantitative_editor"
       },
       {
-        "result": "PASS",
+        "result": "BLOCK",
         "role": "visual_editor"
       },
       {
@@ -59,16 +79,23 @@ export const dualLaneCoreV0ShadowPacket = {
         "role": "platform_editor"
       },
       {
-        "result": "PASS",
+        "result": "BLOCK",
         "role": "adversarial_final_reviewer"
       }
-    ]
+    ],
+    "structured_reviewer": "window_incremental_editorial_shadow_v1._shadow_structured_role_reviewer",
+    "visual_blockers": [
+      "fewer_than_three_useful_visuals",
+      "insufficient_visual_evidence_diversity",
+      "lead_visual_missing"
+    ],
+    "visual_decision_status": "BLOCK"
   },
   "credential_read_performed": false,
   "dispatch_authority": false,
   "durable_terminal_states": {
-    "wi_core_v0_capital_chronicle": "REVIEW_READY",
-    "wi_core_v0_newsroom": "REVIEW_READY"
+    "wi_core_v0_capital_chronicle": "REVIEW_BLOCKED",
+    "wi_core_v0_newsroom": "REVIEW_BLOCKED"
   },
   "durable_work_item_ids": [
     "wi_core_v0_newsroom",
@@ -137,14 +164,36 @@ export const dualLaneCoreV0ShadowPacket = {
     "held_count": 5,
     "outcome": "SELECTED",
     "package_id": "pkg-newsroom-a35b9faae163a34b",
-    "package_logical_hash": "2dcf496f9110a5fac85460129146a3a780a237e466d096245f136a3e2390f502",
-    "review_logical_hash": "1103fa3329e671afa66d600c49f4319228b51d9e72b898d919298f8d9a1bdd81",
-    "review_result": "PASS",
-    "selected_candidate_id": "cc-candidate-120438cc800db7f941be"
+    "package_logical_hash": "92b00647522fc4ca92add12b04d08ac3252b89dcad22e66321058ec55397a8de",
+    "review_blocked_roles": [
+      "reporter_writer",
+      "visual_editor",
+      "adversarial_final_reviewer"
+    ],
+    "review_logical_hash": "a56497c230ba4636a2e62d0dd2e430e43bd0464b5547f5fa0833029a1a94482d",
+    "review_outcome": "REVIEW_BLOCKED_VISUAL_REQUIREMENT",
+    "review_result": "BLOCK",
+    "selected_candidate_id": "cc-candidate-120438cc800db7f941be",
+    "visual_decision_status": "BLOCK"
   },
   "newsroom_review": {
-    "failed_checks": [],
-    "result": "PASS",
+    "blocked_roles": [
+      "reporter_writer",
+      "visual_editor",
+      "adversarial_final_reviewer"
+    ],
+    "editorial_disposition": "HOLD",
+    "failed_checks": [
+      "structured_role_review_failed_or_claimed_authority:reporter_writer",
+      "fewer_than_three_useful_visuals",
+      "insufficient_visual_evidence_diversity",
+      "lead_visual_missing",
+      "structured_role_review_failed_or_claimed_authority:visual_editor",
+      "structured_adversarial_review_failed_or_claimed_authority"
+    ],
+    "outcome": "REVIEW_BLOCKED_VISUAL_REQUIREMENT",
+    "result": "BLOCK",
+    "review_engine": "editorial_review_orchestrator_v2.run_editorial_review",
     "role_count": 8,
     "roles": [
       {
@@ -156,7 +205,7 @@ export const dualLaneCoreV0ShadowPacket = {
         "role": "evidence_planner"
       },
       {
-        "result": "PASS",
+        "result": "BLOCK",
         "role": "reporter_writer"
       },
       {
@@ -164,7 +213,7 @@ export const dualLaneCoreV0ShadowPacket = {
         "role": "quantitative_editor"
       },
       {
-        "result": "PASS",
+        "result": "BLOCK",
         "role": "visual_editor"
       },
       {
@@ -176,10 +225,17 @@ export const dualLaneCoreV0ShadowPacket = {
         "role": "platform_editor"
       },
       {
-        "result": "PASS",
+        "result": "BLOCK",
         "role": "adversarial_final_reviewer"
       }
-    ]
+    ],
+    "structured_reviewer": "window_incremental_editorial_shadow_v1._shadow_structured_role_reviewer",
+    "visual_blockers": [
+      "fewer_than_three_useful_visuals",
+      "insufficient_visual_evidence_diversity",
+      "lead_visual_missing"
+    ],
+    "visual_decision_status": "BLOCK"
   },
   "newsroom_selection_reason": {
     "authority_state": "OFFICIAL_VERIFIED",
@@ -220,7 +276,9 @@ export const dualLaneCoreV0ShadowPacket = {
     "why_selected": "Only governed candidate whose evidence, permission, freshness, and material-delta gates all cleared for this window."
   },
   "operating_mode": "SHADOW_ONLY",
+  "package_fabric": "multi_story_platform_native_operator_packages_v1.build_platform_native_variant",
   "platform_capability": {
+    "distinct_payload_text_count": 6,
     "supported_count": 6,
     "tier1_destination_count": 9,
     "unsupported_count": 3,
@@ -230,6 +288,44 @@ export const dualLaneCoreV0ShadowPacket = {
       "threads"
     ]
   },
+  "platform_payload_shapes": [
+    {
+      "character_count": 207,
+      "content_surface": "newsletter_note",
+      "payload_shape": "headline_deck_body_source_note",
+      "platform_id": "substack_newsletter"
+    },
+    {
+      "character_count": 293,
+      "content_surface": "professional_post",
+      "payload_shape": "professional_context_source_close",
+      "platform_id": "linkedin"
+    },
+    {
+      "character_count": 181,
+      "content_surface": "short_post",
+      "payload_shape": "single_compact_source_post",
+      "platform_id": "x_twitter"
+    },
+    {
+      "character_count": 274,
+      "content_surface": "page_post",
+      "payload_shape": "conversational_context_source_post",
+      "platform_id": "facebook_page"
+    },
+    {
+      "character_count": 245,
+      "content_surface": "channel_post",
+      "payload_shape": "bulletin_source_post",
+      "platform_id": "telegram"
+    },
+    {
+      "character_count": 276,
+      "content_surface": "community_text_post",
+      "payload_shape": "community_update_source_prompt",
+      "platform_id": "youtube_community"
+    }
+  ],
   "provider_call_performed": false,
   "public_write_authority": false,
   "public_write_performed": false,
@@ -238,6 +334,7 @@ export const dualLaneCoreV0ShadowPacket = {
     "all_replays_valid": true,
     "work_items_replayed": 2
   },
+  "review_engine": "editorial_review_orchestrator_v2.run_editorial_review",
   "schedule_date": "2026-07-14",
   "scheduler_or_outbox_action_performed": false,
   "schema_version": "1.0.0",
@@ -251,7 +348,8 @@ export const dualLaneCoreV0ShadowPacket = {
   "window": {
     "target_cutoff_utc": "13:30:00",
     "window_id": "us_open"
-  }
+  },
+  "work_package_c_status": "CORRECTION_AWAITING_INDEPENDENT_AUDIT"
 } as const;
 
 export type DualLaneCoreV0ShadowPacket = typeof dualLaneCoreV0ShadowPacket;

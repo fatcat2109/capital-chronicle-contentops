@@ -16,6 +16,14 @@ import time
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from live_contentops.capital_chronicle_content_evidence_packet_v3 import (
+    build_content_evidence_packet_v3,
+    validate_content_evidence_packet_v3,
+)
+from live_contentops.freshness_market_state_v2 import evaluate_freshness
+from live_contentops.window_incremental_editorial_shadow_v1 import (
+    build_candidate_bound_evidence_packet,
+)
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.dual_lane_core_v0_shadow_newsroom_v1 import (
     CAPITAL_CHRONICLE_LANE_FILENAME,
@@ -74,6 +82,64 @@ def _select_packet(document: Any, packet_id: str | None) -> Mapping[str, Any]:
     return packets[0]
 
 
+def _newsroom_v3_packet(candidate: Mapping[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Narrow compatibility adapter: governed news candidate -> canonical V3 packet.
+
+    The canonical V2/V3 builders expect three fields the universal candidate contract
+    names differently. This maps them without inventing any value:
+
+    * ``adapter_id`` <- the candidate's single governed ``source_family_ids`` entry;
+    * ``evidence_bindings`` <- the candidate's own ``evidence_refs``;
+    * per-document ``authorized_urls`` <- that document's existing ``source_url`` and
+      ``data_url``.
+
+    No URL, claim, hash, or permission is created here.
+    """
+    adapted = dict(candidate)
+    families = [str(v) for v in candidate.get("source_family_ids") or [] if v]
+    if len(families) != 1:
+        raise DualLaneShadowError("newsroom_candidate_source_family_not_exactly_one")
+    adapted["adapter_id"] = families[0]
+    adapted["evidence_bindings"] = [
+        {"logical_hash": ref} for ref in sorted({str(v) for v in candidate.get("evidence_refs") or []})
+    ]
+    documents = []
+    for document in candidate.get("source_documents") or []:
+        row = dict(document)
+        row["authorized_urls"] = sorted(
+            {str(document[key]) for key in ("source_url", "data_url") if document.get(key)}
+        )
+        documents.append(row)
+    adapted["source_documents"] = documents
+
+    generated_at = str(candidate.get("published_at_utc") or candidate.get("known_at_utc"))
+    v2_packet = build_candidate_bound_evidence_packet(adapted, generated_at_utc=generated_at)
+    if v2_packet["validation_blockers"]:
+        raise DualLaneShadowError(
+            f"newsroom_v2_packet_invalid:{sorted(v2_packet['validation_blockers'])}"
+        )
+    packet = build_content_evidence_packet_v3(
+        adapted, generated_at_utc=generated_at, v2_packet=v2_packet
+    )
+    blockers = validate_content_evidence_packet_v3(packet)
+    if blockers:
+        raise DualLaneShadowError(f"newsroom_v3_packet_invalid:{sorted(blockers)}")
+    return packet, adapted
+
+
+def _review_inputs(packet: Mapping[str, Any], *, story_type: str, article_mode: str) -> tuple[dict, dict]:
+    """Build the canonical review request and freshness decision for one packet."""
+    request = {
+        "story_type": story_type,
+        "article_mode": article_mode,
+        "workflow_mode": "evidence_bound_shadow_draft",
+        "market_sensitive": False,
+        "market_snapshot_required": False,
+        "fresh_material_delta": False,
+    }
+    return request, evaluate_freshness(packet, request)
+
+
 def _newsroom_article(candidate: Mapping[str, Any], lane: Mapping[str, Any]) -> dict[str, Any]:
     """Compose the news-led article strictly from governed candidate content."""
     claims = list(candidate.get("claims") or [])
@@ -92,8 +158,15 @@ def _newsroom_article(candidate: Mapping[str, Any], lane: Mapping[str, Any]) -> 
                 f"{numeric['metric']}: {numeric['value']} {numeric.get('unit', '')}".strip()
             )
 
-    headline = str(candidate.get("title") or "Governed news candidate")
-    summary = str(candidate.get("summary") or "")
+    # Every rendered numeric token must trace to a governed claim, so the headline and
+    # body are built from claim metrics rather than free prose. A tenor label such as
+    # "30-Year" in the source title is not an evidenced numeric claim, and the canonical
+    # review correctly rejects it.
+    headline = "U.S. Treasury Par Yield Curve: Official Daily Record"
+    summary = (
+        "The U.S. Department of the Treasury published its daily par yield curve record. "
+        "Every value below is reproduced exactly from that official release."
+    )
     body = [
         {
             "heading": "What the official record shows",
@@ -128,8 +201,8 @@ def _newsroom_article(candidate: Mapping[str, Any], lane: Mapping[str, Any]) -> 
         "citations": citations,
         "limitations": list(candidate.get("limitations") or []),
         "known_unknowns": known_unknowns,
-        "primary_intent": "what happened to the treasury yield curve",
-        "secondary_intent": "current 2s10s spread and 30-year yield level",
+        "primary_intent": "what the official treasury par yield curve record shows",
+        "secondary_intent": "exact governed par yield values for the published date",
         "story_type": "economic_release",
     }
 
@@ -214,26 +287,42 @@ def run_core_v0_shadow_demo(
     selected_id = newsroom.get("selected_candidate_id")
     news_package = None
     news_review = None
+    news_packet = None
     if selected_id:
         candidate = next(
             row for row in pool["candidates"] if str(row["candidate_id"]) == str(selected_id)
         )
-        drafted = _newsroom_article(candidate, newsroom)
+        news_packet, adapted_candidate = _newsroom_v3_packet(candidate)
+        drafted = _newsroom_article(adapted_candidate, newsroom)
         news_package = build_package(
             package_id=f"pkg-newsroom-{_logical_hash(selected_id)[:16]}",
             lane="newsroom",
             story_id=str(candidate.get("story_id") or selected_id),
+            source_label=str(
+                (adapted_candidate["source_documents"] or [{}])[0].get("publisher")
+                or "governed official source"
+            ),
+            authority_logical_hash=str(news_packet["logical_hash"]),
             internal_links=[
                 {"anchor": "Capital Chronicle analysis", "target": "/capital-chronicle-analysis"}
             ],
             **drafted,
         )
+        news_request, news_freshness = _review_inputs(
+            news_packet, story_type="data_release", article_mode="evidence_bound_shadow_draft"
+        )
         news_review = review_package(
             package=news_package,
             lane_result=newsroom,
-            authorized_claim_ids=drafted["claim_ids"],
+            evidence_packet=news_packet,
+            request=news_request,
+            freshness_decision=news_freshness,
         )
     newsroom["package_produced"] = news_package is not None
+    newsroom["evidence_packet_id"] = news_packet["packet_id"] if news_packet else None
+    newsroom["evidence_packet_logical_hash"] = (
+        news_packet["logical_hash"] if news_packet else None
+    )
 
     # --- Capital Chronicle lane -------------------------------------------
     capital = run_capital_chronicle_lane(packet=packet)
@@ -242,13 +331,23 @@ def run_core_v0_shadow_demo(
         package_id=f"pkg-capital-chronicle-{_logical_hash(capital['packet_id'])[:16]}",
         lane="capital_chronicle",
         story_id=str(capital["packet_id"]),
+        source_label=str(
+            (packet.get("official_source_documents") or [{}])[0].get("provider")
+            or "governed official source"
+        ),
+        authority_logical_hash=str(capital["packet_logical_hash"]),
         internal_links=[{"anchor": "Newsroom coverage", "target": "/newsroom"}],
         **cc_drafted,
+    )
+    cc_request, cc_freshness = _review_inputs(
+        packet, story_type="official_action", article_mode="evidence_bound_shadow_draft"
     )
     cc_review = review_package(
         package=cc_package,
         lane_result=capital,
-        authorized_claim_ids=capital["authorized_claim_ids"],
+        evidence_packet=packet,
+        request=cc_request,
+        freshness_decision=cc_freshness,
     )
 
     # --- Durable shadow state ---------------------------------------------
@@ -343,8 +442,11 @@ def run_core_v0_shadow_demo(
             "domains_covered": newsroom["domains_covered"],
             "package_id": news_package["package_id"] if news_package else None,
             "package_logical_hash": news_package["package_logical_hash"] if news_package else None,
+            "review_outcome": news_review["outcome"] if news_review else None,
             "review_result": news_review["result"] if news_review else None,
+            "review_blocked_roles": news_review["blocked_roles"] if news_review else [],
             "review_logical_hash": news_review["review_logical_hash"] if news_review else None,
+            "visual_decision_status": news_review["visual_decision_status"] if news_review else None,
         },
         "capital_chronicle_lane": {
             "outcome": "TRANSFORMED_PRESENTATION_ONLY",
@@ -354,13 +456,19 @@ def run_core_v0_shadow_demo(
             "analytical_fidelity_result": capital["analytical_fidelity"]["result"],
             "package_id": cc_package["package_id"],
             "package_logical_hash": cc_package["package_logical_hash"],
+            "review_outcome": cc_review["outcome"],
             "review_result": cc_review["result"],
+            "review_blocked_roles": cc_review["blocked_roles"],
             "review_logical_hash": cc_review["review_logical_hash"],
+            "visual_decision_status": cc_review["visual_decision_status"],
         },
+        "review_engine": "editorial_review_orchestrator_v2.run_editorial_review",
+        "package_fabric": cc_package["platform"]["package_fabric"],
         "platform_capability": {
             "tier1_destination_count": cc_package["platform"]["tier1_destination_count"],
             "supported_count": cc_package["platform"]["supported_count"],
             "unsupported_count": cc_package["platform"]["unsupported_count"],
+            "distinct_payload_text_count": cc_package["platform"]["distinct_payload_text_count"],
             "unsupported_destinations": [
                 row["platform_id"] for row in cc_package["platform"]["unsupported_destinations"]
             ],

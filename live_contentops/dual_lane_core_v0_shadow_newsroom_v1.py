@@ -39,11 +39,17 @@ from live_contentops.durable_operational_store_v1 import (
     ContentOpsDurableStore,
     compute_sha256,
 )
-from live_contentops.editorial_review_orchestrator_v2 import ROLE_ORDER
+from live_contentops.editorial_review_orchestrator_v2 import ROLE_ORDER, run_editorial_review
 from live_contentops.editorial_visual_research_v2 import evaluate_visual_composition
 from live_contentops.multi_story_platform_native_operator_packages_v1 import (
     PLATFORM_CONTRACTS,
     PLATFORM_IDS,
+    build_platform_native_variant,
+)
+from live_contentops.window_incremental_editorial_shadow_v1 import (
+    # The accepted shadow module's bytes are pinned by the runtime evidence registry, so
+    # this reuses its exact deterministic reviewer in place rather than adding an alias.
+    _shadow_structured_role_reviewer as deterministic_structured_role_reviewer,
 )
 from live_contentops.payload_preview_hash_v6 import compute_payload_hash
 from live_contentops.universal_news_candidate_fabric_v2 import (
@@ -82,6 +88,11 @@ UNSUPPORTED_TIER1_REASON = "NO_CANONICAL_PACKAGE_FABRIC_CONTRACT"
 NO_AUTHORIZED_CHART_SERIES = "NO_AUTHORIZED_CHART_SERIES"
 ABSTAIN_DECISION = "NO_ASSIGNMENT_ALL_CANDIDATES_HELD"
 NO_PUBLICATION = "NO_PUBLICATION"
+
+#: Truthful canonical review outcomes. A blocked package is preferred over a false PASS.
+REVIEW_PASS = "PASS"
+REVIEW_BLOCKED_VISUAL = "REVIEW_BLOCKED_VISUAL_REQUIREMENT"
+REVIEW_BLOCKED = "REVIEW_BLOCKED"
 
 #: Terminal durable state for every shadow work item. Deliberately *not* any of the
 #: Wave 02 protected authority states — the store rejects those outright.
@@ -470,61 +481,36 @@ def run_capital_chronicle_lane(*, packet: Mapping[str, Any]) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
-def _platform_payloads(*, headline: str, summary: str, citation_urls: Sequence[str],
-                       citation_labels: Sequence[str], limitations: Sequence[str],
-                       claim_ids: Sequence[str], package_id: str) -> dict[str, Any]:
-    """Build dry-run native payloads for supported Tier-1 destinations.
+def _platform_payloads(*, headline: str, summary: str, source_label: str,
+                       citation_urls: Sequence[str], limitations: Sequence[str],
+                       claim_ids: Sequence[str], package_id: str,
+                       authority_logical_hash: str) -> dict[str, Any]:
+    """Build platform-native payloads through the canonical package fabric.
 
-    Raw URLs never enter the hashed payload inputs — the v6 hash boundary forbids them.
-    Payload text cites the governed source document by ID; the exact URLs travel
-    alongside as ``citation_urls`` and as fingerprints inside the hash.
+    Delegates every supported destination to
+    ``multi_story_platform_native_operator_packages_v1.build_platform_native_variant`` so
+    there is exactly one platform-package implementation in the repository. Destinations
+    without a canonical contract get an explicit capability result instead of silent
+    omission.
     """
-    citation_fingerprints = [sha256(str(url).encode("utf-8")).hexdigest() for url in citation_urls]
-    limitation_fingerprints = [sha256(str(item).encode("utf-8")).hexdigest() for item in limitations]
-    source_label = citation_labels[0] if citation_labels else "governed source document"
-
-    payloads: list[dict[str, Any]] = []
-    for platform_id in SUPPORTED_PLATFORM_IDS:
-        contract = PLATFORM_CONTRACTS[platform_id]
-        limit = int(contract["character_limit_max"])
-        body = f"{headline}\n\n{summary}\n\nSource: {source_label} (exact URL in operator package)"
-        if len(body) > limit:
-            body = body[: max(0, limit - 1)].rstrip() + "…"
-        hash_inputs = {
-            "package_id": package_id,
-            "platform_id": platform_id,
-            "content_surface": contract["content_surface"],
-            "payload_shape": contract["shape"],
-            "mode": contract["mode"],
-            "text": body,
-            "authorized_claim_ids": list(claim_ids),
-            "citation_fingerprints": citation_fingerprints,
-            "limitation_fingerprints": limitation_fingerprints,
-            "policy": {
-                "approval_required": True,
-                "valid_for_dispatch": False,
-                "dispatch_ready": False,
-                "public_ready": False,
-                "live_eligibility": False,
-            },
+    payloads = [
+        {
+            **build_platform_native_variant(
+                platform_id=platform_id,
+                subject_id=package_id,
+                candidate_id=package_id,
+                authority_logical_hash=authority_logical_hash,
+                authorized_claim_ids=claim_ids,
+                headline=headline,
+                summary=summary,
+                source_label=source_label,
+                citation_urls=citation_urls,
+                limitations=limitations,
+            ),
+            "capability": "SUPPORTED_DRY_RUN_PAYLOAD",
         }
-        payloads.append(
-            {
-                **hash_inputs,
-                "schema_version": "contentops.dual_lane_core_v0_platform_payload.v1",
-                "capability": "SUPPORTED_DRY_RUN_PAYLOAD",
-                "citation_urls": list(citation_urls),
-                "character_count": len(body),
-                "character_limit_max": limit,
-                "operator_review_required": True,
-                "approval_required": True,
-                "valid_for_dispatch": False,
-                "dispatch_ready": False,
-                "public_ready": False,
-                "live_eligibility": False,
-                "payload_hash": compute_payload_hash(hash_inputs),
-            }
-        )
+        for platform_id in SUPPORTED_PLATFORM_IDS
+    ]
 
     unsupported = [
         {
@@ -542,9 +528,11 @@ def _platform_payloads(*, headline: str, summary: str, citation_urls: Sequence[s
     ]
 
     return {
+        "package_fabric": "multi_story_platform_native_operator_packages_v1.build_platform_native_variant",
         "tier1_destination_count": len(TIER1_DESTINATIONS),
         "supported_count": len(payloads),
         "unsupported_count": len(unsupported),
+        "distinct_payload_text_count": len({row["text"] for row in payloads}),
         "payloads": payloads,
         "unsupported_destinations": unsupported,
     }
@@ -576,9 +564,15 @@ def _seo_block(*, headline: str, summary: str, primary_intent: str, secondary_in
 
 
 def _visual_strategy(*, story_type: str) -> dict[str, Any]:
-    """Delegate visual policy to the accepted evaluator; never invent imagery."""
+    """Delegate visual policy to the accepted evaluator; never invent imagery.
+
+    The raw decision is carried through untouched so the canonical review consumes the
+    same object the policy produced. With no authorized asset the evaluator returns
+    ``BLOCK``, and no text-only exception is manufactured to hide that.
+    """
     decision = evaluate_visual_composition([], story_type=story_type)
     return {
+        "decision": decision,
         "status": decision["status"],
         "asset_count": decision["asset_count"],
         "blockers": list(decision.get("blockers") or []),
@@ -608,16 +602,13 @@ def build_package(
     primary_intent: str,
     secondary_intent: str,
     story_type: str,
+    source_label: str,
+    authority_logical_hash: str,
     internal_links: Sequence[Mapping[str, str]] = (),
 ) -> dict[str, Any]:
     """Assemble one reviewable shadow package: article + SEO + visual + payloads."""
     citation_urls = _dedupe(
         str(row.get("url")) for row in citations if isinstance(row, Mapping) and row.get("url")
-    )
-    citation_labels = _dedupe(
-        str(row.get("source_document_id"))
-        for row in citations
-        if isinstance(row, Mapping) and row.get("source_document_id")
     )
     sections = [str(row.get("heading")) for row in body_sections]
 
@@ -648,11 +639,12 @@ def build_package(
         "platform": _platform_payloads(
             headline=headline,
             summary=answer_first_summary,
+            source_label=source_label,
             citation_urls=citation_urls,
-            citation_labels=citation_labels,
             limitations=limitations,
             claim_ids=claim_ids,
             package_id=package_id,
+            authority_logical_hash=authority_logical_hash,
         ),
         "publication_authority": False,
         "dispatch_authority": False,
@@ -667,113 +659,147 @@ def build_package(
 # ---------------------------------------------------------------------------
 
 
-def review_package(*, package: Mapping[str, Any], lane_result: Mapping[str, Any],
-                   authorized_claim_ids: Sequence[str]) -> dict[str, Any]:
-    """Run the eight canonical newsroom stages deterministically.
+def _canonical_article(package: Mapping[str, Any], packet: Mapping[str, Any]) -> dict[str, Any]:
+    """Project a shadow package into the canonical article contract.
 
-    Deterministic blockers are authoritative. No model output participates, so nothing
-    can override a failed check.
+    The orchestrator's V3 path requires exact claim bindings: every rendered claim must
+    carry its citations, authority class, and permission state copied from the governed
+    packet, so nothing can be silently widened.
     """
-    article = package.get("article") or {}
-    seo = package.get("seo") or {}
-    visual = package.get("visual") or {}
-    platform = package.get("platform") or {}
-
-    used_claims = list(article.get("claim_ids_used") or [])
-    authorized = list(authorized_claim_ids)
-    unauthorized = [claim_id for claim_id in used_claims if claim_id not in authorized]
-
-    checks: dict[str, list[tuple[str, bool]]] = {
-        "assignment_editor": [
-            ("story_bound_to_governed_lane_result", bool(package.get("story_id"))),
-            ("operating_mode_is_shadow_only", package.get("operating_mode") == OPERATING_MODE),
+    article = package["article"]
+    graph = packet.get("governed_claim_graph") or {}
+    claim_map = {str(row["claim_id"]): row for row in graph.get("claims") or []}
+    claim_ids = [str(value) for value in article.get("claim_ids_used") or []]
+    rendered = "\n\n".join(
+        str(row.get("text") or "") for row in article.get("body") or []
+    ) + "\n\nNot financial advice."
+    return {
+        "title": article["headline"],
+        "summary": article["answer_first_summary"],
+        "rendered_body": rendered,
+        "article_mode": "evidence_bound_shadow_draft",
+        "workflow_mode": "evidence_bound_shadow_draft",
+        "claim_ids_used": claim_ids,
+        "title_claim_ids_used": claim_ids[:1],
+        "summary_claim_ids_used": claim_ids[:1],
+        "body_claim_ids_used": claim_ids,
+        "claim_citations": {
+            claim_id: sorted(
+                {
+                    str(row["url"])
+                    for row in (claim_map.get(claim_id, {}).get("citations") or [])
+                    if row.get("url")
+                }
+            )
+            for claim_id in claim_ids
+        },
+        "claim_authority_used": {
+            claim_id: claim_map.get(claim_id, {}).get("authority_class")
+            for claim_id in claim_ids
+        },
+        "claim_permissions_used": {
+            claim_id: claim_map.get(claim_id, {}).get("permission_state")
+            for claim_id in claim_ids
+        },
+        "market_reaction_claim_ids": [
+            claim_id
+            for claim_id in claim_ids
+            if claim_map.get(claim_id, {}).get("claim_type") == "market_reaction"
         ],
-        "evidence_planner": [
-            ("every_used_claim_is_authorized", not unauthorized),
-            ("citations_present", bool(article.get("citations"))),
-            ("claims_present", bool(used_claims)),
-        ],
-        "reporter_writer": [
-            ("headline_present", bool(article.get("headline"))),
-            ("answer_first_summary_present", bool(article.get("answer_first_summary"))),
-            ("body_sections_present", bool(article.get("body"))),
-        ],
-        "quantitative_editor": [
-            ("no_unauthorized_numeric_origination", not unauthorized),
-            (
-                "chart_absence_explicit_when_unauthorized",
-                visual.get("chart_absent_reason") == NO_AUTHORIZED_CHART_SERIES
-                or bool(visual.get("image_provenance")),
-            ),
-        ],
-        "visual_editor": [
-            ("visual_decision_recorded", bool(visual.get("status"))),
-            ("visual_absence_reason_explicit", bool(visual.get("image_absent_reason"))),
-        ],
-        "copy_editor": [
-            ("limitations_recorded", bool(article.get("limitations"))),
-            ("known_unknowns_recorded", bool(article.get("known_unknowns"))),
-        ],
-        "platform_editor": [
-            ("supported_payloads_present", int(platform.get("supported_count") or 0) > 0),
-            (
-                "unsupported_destinations_reported_explicitly",
-                all(row.get("reason") for row in platform.get("unsupported_destinations") or []),
-            ),
-            ("seo_slug_present", bool(seo.get("slug"))),
-            ("seo_meta_description_present", bool(seo.get("meta_description"))),
-        ],
-        "adversarial_final_reviewer": [
-            ("publication_authority_false", package.get("publication_authority") is False),
-            ("dispatch_authority_false", package.get("dispatch_authority") is False),
-            ("public_write_authority_false", package.get("public_write_authority") is False),
-            ("no_unauthorized_claim_used", not unauthorized),
-            (
-                "analytical_fidelity_preserved",
-                lane_result.get("analytical_fidelity", {}).get("recalculation_performed", False) is False,
-            ),
-        ],
+        "numeric_claims_from_llm": False,
+        "cross_asset_assertions": False,
+        "hard_truncation_used": False,
+        "quantitative_blockers": [],
+        "publication_authority": False,
     }
 
-    roles: list[dict[str, Any]] = []
-    all_failed: list[str] = []
-    for role in ROLE_ORDER:
-        role_checks = checks.get(role, [])
-        failed = [name for name, passed in role_checks if not passed]
-        all_failed.extend(f"{role}:{name}" for name in failed)
-        roles.append(
+
+def review_package(
+    *,
+    package: Mapping[str, Any],
+    lane_result: Mapping[str, Any],
+    evidence_packet: Mapping[str, Any],
+    request: Mapping[str, Any],
+    freshness_decision: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Run the canonical eight-role editorial review.
+
+    Delegates to ``editorial_review_orchestrator_v2.run_editorial_review`` with the exact
+    V3 evidence packet, canonical article claim bindings, the existing freshness result,
+    and the existing visual decision. The structured reviewer is the shared deterministic
+    evidence-bound implementation from the accepted shadow module — reused, not
+    re-implemented.
+
+    Deterministic blockers are authoritative: no model output participates, and a
+    ``BLOCK`` visual decision cannot become a passing review.
+    """
+    article = _canonical_article(package, evidence_packet)
+    visual_decision = package["visual"]["decision"]
+
+    review = run_editorial_review(
+        request=request,
+        packet=evidence_packet,
+        article=article,
+        freshness_decision=freshness_decision,
+        visual_decision=visual_decision,
+        structured_reviewer=deterministic_structured_role_reviewer,
+    )
+
+    blocked_roles = [row["role"] for row in review["roles"] if row["status"] == "BLOCK"]
+    visual_blocked = visual_decision.get("status") == "BLOCK"
+    if review["status"] == "PASS":
+        outcome = REVIEW_PASS
+    elif visual_blocked and blocked_roles:
+        outcome = REVIEW_BLOCKED_VISUAL
+    else:
+        outcome = REVIEW_BLOCKED
+
+    result = {
+        "schema_version": SCHEMA_VERSION,
+        "review_engine": "editorial_review_orchestrator_v2.run_editorial_review",
+        "structured_reviewer": (
+            "window_incremental_editorial_shadow_v1._shadow_structured_role_reviewer"
+        ),
+        "outcome": outcome,
+        "result": review["status"],
+        "editorial_disposition": review["editorial_disposition"],
+        "role_order": list(review["role_order"]),
+        "role_count": len(review["roles"]),
+        "roles": [
             {
-                "role": role,
-                "result": "BLOCK" if failed else "PASS",
-                "checks_run": [name for name, _ in role_checks],
-                "failed_checks": failed,
-                "reviewer_kind": "DETERMINISTIC_EVIDENCE_BOUND_ROLE_CHECK",
+                "role": row["role"],
+                "result": row["status"],
+                "failed_checks": list(row.get("blockers") or []),
+                "checks_run": sorted(
+                    (row.get("structured_review") or {}).get("checks") or {}
+                ),
+                "reviewer_kind": (row.get("structured_review") or {}).get("reviewer_kind"),
                 "model_assisted": False,
             }
-        )
-
-    review = {
-        "schema_version": SCHEMA_VERSION,
-        "role_order": list(ROLE_ORDER),
-        "role_count": len(ROLE_ORDER),
-        "roles": roles,
-        "result": "BLOCK" if all_failed else "PASS",
-        "failed_checks": all_failed,
-        "claims_reviewed": used_claims,
-        "unauthorized_claims_used": unauthorized,
-        "evidence_packet_hash": lane_result.get("packet_logical_hash") or lane_result.get("pool_logical_hash"),
+            for row in review["roles"]
+        ],
+        "blocked_roles": blocked_roles,
+        "failed_checks": list(review["blockers"]),
+        "claims_reviewed": list(review["used_claim_ids"]),
+        "approved_claim_ids": list(review["approved_claim_ids"]),
+        "governed_claim_contract": review["governed_claim_contract"],
+        "evidence_packet_hash": review["packet_hash"],
+        "freshness_decision": freshness_decision.get("decision"),
+        "visual_decision_status": visual_decision.get("status"),
+        "visual_blockers": list(visual_decision.get("blockers") or []),
         "analytical_fidelity_result": (
             lane_result.get("analytical_fidelity", {}).get("result")
             or "NOT_APPLICABLE_NEWSROOM_LANE"
         ),
-        "deterministic_blockers_authoritative": True,
+        "writer_self_certification_allowed": review["writer_self_certification_allowed"],
+        "deterministic_blockers_authoritative": review["deterministic_blockers_authoritative"],
         "model_review_can_override_deterministic_blockers": False,
         "publication_authority": False,
         "dispatch_authority": False,
         "public_write_authority": False,
     }
-    review["review_logical_hash"] = _logical_hash(review)
-    return review
+    result["review_logical_hash"] = _logical_hash(result)
+    return result
 
 
 # ---------------------------------------------------------------------------
