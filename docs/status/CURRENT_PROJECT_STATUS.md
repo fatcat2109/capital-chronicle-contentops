@@ -2,7 +2,65 @@
 
 `ui/contentops_v5/` is the canonical product UI. Deleted or archived UI surfaces are not current product surfaces. GitHub remote commits and fetched repo files remain runtime authority above this status doc. Canonical supervised publishing uses Microsoft Edge profile `A:\\Capital Chronicle\\operator-browser-profiles\\contentops-social-main`. Substack is canonical; YouTube Community is the default YouTube text/image surface. Video and Shorts remain separate non-default modes.
 
-## Current Post-v1 Classification
+## Current Post-v1 Classification (Owner-Approved Final Product Direction)
+
+The sections below are retained as accepted historical program authority. This section is
+the current status and supersedes any earlier "current" classification in this document.
+
+Current product-direction classification:
+
+`CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED`
+
+Jim approved the final ContentOps product plan on 2026-08-06. ContentOps owns the newsroom
+and content factory. Capital Chronicle owns analytical and numeric authority — daily
+analysis, micro/macro/global-macro reports, scenarios, model calculations, Bayesian cases,
+probabilities, forecasts, numeric truth, realized-outcome comparison, and analytical error
+attribution. ContentOps faithfully transforms governed Capital Chronicle packets and must
+not originate analytical truth.
+
+Current accepted master operational classification:
+
+`PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
+
+Wave 01 Status: `COMPLETE_ACCEPTED_AND_MERGED`
+Wave 02 Status: `COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE`
+Wave 03 Status: `SUPERSEDED_AS_AUTOMATIC_NEXT_TASK`
+
+Wave 02 — the durable operational store and canonical state machine — is complete, merged
+into `master`, and accepted as the minimum durable prerequisite for the final product. It
+provides the SQLite WAL operational spine, schema version 4, versioned migrations, append-only
+transition events with hash-chain replay, leases and heartbeats, restart reconstruction, and
+redacted evidence export. Do not redesign, re-audit, retest, or re-merge it.
+
+Byte-exact evidence verification depends on JSON files being stored and checked out with LF
+line endings. This is enforced by `.gitattributes` (`*.json text eol=lf`), never by
+normalising bytes inside verification code.
+
+### Current next task
+
+`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+
+### Current next-task mode
+
+`SHADOW_ONLY`
+
+The final build sequence is:
+
+```text
+dual-lane CORE V0 in SHADOW_ONLY
+→ diversity, SEO, image, and chart closure
+→ repeated shadow soak and recovery
+→ exact authorized live cohort
+→ final acceptance and new release identity
+```
+
+The old automatic Wave 03 approval-envelope/transactional-outbox sequence is no longer the
+current next-task authority. It remains valid historical planning and is revisited only when
+the CORE V0 vertical slice or a launch gate directly requires it. The routed task grants no
+credential, provider, browser/CDP, network-intake, scheduler/outbox execution, dispatch,
+publication, or public-write authority.
+
+## Historical Post-v1 Classification
 
 `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
 
@@ -321,24 +379,21 @@ The executable registry contains exactly one canonical production-orchestrator r
 
 Local validation passed 38 focused enforcement tests, 65 canonical compatibility tests, 108 tests in the unchanged 13-file Wave 01 regression matrix (173 unique tests), and 7 tests in the final automation closure suite. The canonical V5 production build passed with 117 modules during acceptance. The monolithic repository suite and browser QA were not run, and no CI PASS is claimed. Authorized Git fetch and push operations occurred, along with package dependency installation during acceptance. No environment or credential value was read, no source-data fetch, provider/LLM call, browser/CDP action, platform adapter/API call, scheduler/outbox execution, dispatch, publication, edit, comment, reply, reaction, DM, or public write occurred. The annotated `v1.0` tag object, release commit, accepted evidence, and ingestion repository remain unchanged. Evidence is at `docs/automation/CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1/`.
 
-## Next Action
+## Historical Next Action (Wave 02 as issued)
 
 `TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary: implement SQLite WAL, explicit versioned migrations, append-only transitions, compare-and-set state changes, leases, restart reconstruction, deterministic replay, and redacted evidence export. Do not commit the mutable database, hide transaction semantics, store secrets/session material, read credentials, invoke providers/platforms, run scheduler/outbox actions, dispatch, publish, use the network, or perform public writes.
+This records the Wave 02 routing at the time it was issued: a schema/local-persistence boundary implementing SQLite WAL, explicit versioned migrations, append-only transitions, compare-and-set state changes, leases, restart reconstruction, deterministic replay, and redacted evidence export, with no credential, provider, platform, scheduler/outbox, dispatch, publication, network, or public-write authority. Wave 02 has since completed and been accepted; the current status section at the top of this document governs.
 
-## Current Post-v1 Classification (Wave 02)
-
-The sections above are retained as accepted historical program authority. This section is
-the current status and supersedes any earlier "current" classification above.
+## Historical Wave 02 Implementation Record
 
 `PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
 Completed task: `TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1`.
 
-Wave 01 Status: `COMPLETE_ACCEPTED_AND_MERGED`
-Wave 02 Status: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`
-Wave 03 Status: `NEXT_NOT_STARTED`
+This records the Wave 02 worker classification as issued. Wave 02 has since been merged into
+`master` and accepted as the minimum durable prerequisite; the current status section at the
+top of this document governs.
 
 ### Wave 02 summary: durable operational store and canonical state machine v1
 
@@ -348,13 +403,8 @@ boundaries. Migrations verify and roll back on failure, and the canonical JSON e
 shared by the migration writer and the replay verifier so writer and verifier hashes cannot
 diverge.
 
-Byte-exact evidence verification depends on JSON files being stored and checked out with LF
-line endings. This is enforced by `.gitattributes` (`*.json text eol=lf`), never by
-normalising bytes inside verification code.
+### Historical horizontal routing
 
-### Next action
-
-`TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
-
-Wave 03 is the exact next task and has not started. It covers exact approval envelopes,
-the transactional outbox, and expiry enforcement.
+The earlier institutional hardening plan routed the next wave to exact approval envelopes,
+the transactional outbox, and expiry enforcement. That routing is superseded by the
+owner-approved final product plan and is not the current next task.

@@ -28,11 +28,12 @@ This historical release proves a bounded nine-surface release. It does not prove
 ```text
 Evidence/claim architecture: advanced
 Canonical editorial and Tier-1 transport: bounded live proof
-Durable operational state: incomplete
-Unified approval/outbox: incomplete
+Durable operational state: complete and accepted as minimum durable prerequisite
+Unified approval/outbox: deferred until the vertical slice requires it
 Restart-safe supervisor/scheduler: incomplete
 Universal unknown-write/recovery contract: partial
 Continuous fresh intake: shadow/unproven
+Repeated diversified newsroom operation: unproven
 Repeated generalized live cohort: unproven
 Performance/community learning: manual or historical replay
 Tier-2 video/TikTok: separate and incomplete
@@ -81,11 +82,11 @@ one canonical production entrypoint
 → staged supervised live cohorts
 ```
 
-## Current next task
+## Historical next task
 
 `TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
 
-Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status: `COMPLETE_ACCEPTED_AND_MERGED`. Wave 02 status: `NEXT_NOT_STARTED`. Exactly one registry row is canonical, and executable control flows from the public compatibility API or canonical module/script CLI through ContentOpsProductionOrchestrator.execute(...) to one private dispatcher and one private implementation body. Alternate runner/server/scheduler/CLI/browser-profile routes remain delegated or fail closed. Wave 02 is the exact next task and has not started. It is a schema/local-persistence boundary for SQLite WAL, migrations, append-only transitions, compare-and-set state, leases, restart reconstruction, and redacted evidence export. It grants no credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public-write authority.
+This records the Wave 02 routing at the time it was issued. Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Exactly one registry row is canonical, and executable control flows from the public compatibility API or canonical module/script CLI through ContentOpsProductionOrchestrator.execute(...) to one private dispatcher and one private implementation body. Alternate runner/server/scheduler/CLI/browser-profile routes remain delegated or fail closed. Wave 02 has since completed and been accepted; see the current wave status below.
 
 ## No current live authority
 
@@ -101,17 +102,31 @@ This audit/plan branch grants no new:
 
 Any future live cohort requires a separate exact task and approval envelope.
 
-## Current wave status (Wave 02)
+## Current wave status
 
 The sections above are retained as accepted historical program authority. This section is
 the current status.
 
 - Wave 01 Status: `COMPLETE_ACCEPTED_AND_MERGED`
-- Wave 02 Status: `COMPLETE_AWAITING_INDEPENDENT_AUDIT`
-- Wave 03 Status: `NEXT_NOT_STARTED`
-- Current Classification: `PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT`
-- Next Wave 03 Task: `TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1`
+- Wave 02 Status: `COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE`
+- Current product-direction classification: `CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED`
+- Current next task: `TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+- Current next-task mode: `SHADOW_ONLY`
 
-Wave 02 completed the durable local operational store and canonical state machine. It
-grants no approval, publication, dispatch, scheduler, provider/platform, credential, or
-public-write authority; those remain gated behind separate exact tasks.
+Jim approved the final ContentOps product plan on 2026-08-06. Wave 02 completed the durable
+local operational store and canonical state machine and is accepted as the minimum durable
+prerequisite for the final product. Do not redesign, re-audit, retest, or re-merge it.
+
+The current build sequence is:
+
+```text
+dual-lane CORE V0 in SHADOW_ONLY
+→ diversity, SEO, image, and chart closure
+→ repeated shadow soak and recovery
+→ exact authorized live cohort
+→ final acceptance and new release identity
+```
+
+The older automatic Wave 03 approval-envelope/transactional-outbox sequence is no longer the
+current next-task authority. Approval, publication, dispatch, scheduler, provider/platform,
+credential, and public-write authority all remain gated behind separate exact tasks.

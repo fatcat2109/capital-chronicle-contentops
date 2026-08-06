@@ -33,12 +33,16 @@ EXPECTED_CLOSEOUT_TASK = (
     "TASK_CONTENTOPS_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_OF_DC228AAA_V1"
 )
 
-EXPECTED_NEXT_TASK = "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1"
+EXPECTED_NEXT_TASK = "TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1"
+EXPECTED_NEXT_TASK_MODE = "SHADOW_ONLY"
+SUPERSEDED_NEXT_TASK = "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1"
+EXPECTED_PRODUCT_DIRECTION = "CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED"
 EXPECTED_WAVE01_STATUS = "COMPLETE_ACCEPTED_AND_MERGED"
-EXPECTED_WAVE02_STATUS = "COMPLETE_AWAITING_INDEPENDENT_AUDIT"
-EXPECTED_WAVE03_STATUS = "NEXT_NOT_STARTED"
+EXPECTED_WAVE02_STATUS = "COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE"
+EXPECTED_WAVE03_STATUS = "SUPERSEDED_AS_AUTOMATIC_NEXT_TASK"
 
-EXPECTED_BASE_MASTER_HEAD = "c87e338f25922f4d03454ba199139353ca7198ff"
+EXPECTED_BASE_MASTER_HEAD = "6b6f8718532a4c3f077b09e14f3ca9a4083d4734"
+HISTORICAL_PACKET_MASTER_HEAD = "c87e338f25922f4d03454ba199139353ca7198ff"
 EXPECTED_RELEASE_COMMIT = "6983bfb3ef300414b744f3f8f97ca81ff699348b"
 
 EXPECTED_IMPLEMENTATION_STARTING_HEAD = "615a96fb20aa97fd76bb3343e9150daec40d9031"
@@ -85,6 +89,18 @@ def test_wave02_status_json_authority():
     assert data["wave02_status"] == EXPECTED_WAVE02_STATUS
     assert data["wave03_status"] == EXPECTED_WAVE03_STATUS
     assert data["next_task"] == EXPECTED_NEXT_TASK
+    assert data["next_task_mode"] == EXPECTED_NEXT_TASK_MODE
+
+    # Owner-approved final product direction is current authority.
+    assert data["product_direction_classification"] == EXPECTED_PRODUCT_DIRECTION
+    assert data["product_direction_owner_approved"] is True
+    assert data["durable_prerequisite_status"] == EXPECTED_WAVE02_STATUS
+
+    # The old Wave 03 approval/outbox routing is no longer the current next task.
+    assert data["next_task"] != SUPERSEDED_NEXT_TASK
+    assert data["next_recommended_task"] != SUPERSEDED_NEXT_TASK
+    assert data["current_next_recommended_task"] != SUPERSEDED_NEXT_TASK
+    assert data["superseded_automatic_next_task"] == SUPERSEDED_NEXT_TASK
 
     # Negative assertions rejecting stale Wave 02 classifications
     assert (
@@ -100,6 +116,7 @@ def test_wave02_status_json_authority():
         != "PASS_WAVE02_MIGRATION_REPLAY_ASSIGNMENT_AND_EVIDENCE_FINAL_ACCEPTANCE_CORRECTION_AWAITING_INDEPENDENT_AUDIT"
     )
     assert data["wave02_status"] != "NEXT_NOT_STARTED"
+    assert data["wave02_status"] != "COMPLETE_AWAITING_INDEPENDENT_AUDIT"
 
     assert "post_v1_durable_operational_store_v1" in data
     wave_data = data["post_v1_durable_operational_store_v1"]
@@ -109,26 +126,27 @@ def test_wave02_status_json_authority():
     assert wave_data["wave_02_status"] == EXPECTED_WAVE02_STATUS
     assert wave_data["wave_03_status"] == EXPECTED_WAVE03_STATUS
     assert wave_data["next_action"] == EXPECTED_NEXT_TASK
+    assert wave_data["next_action_mode"] == EXPECTED_NEXT_TASK_MODE
     assert wave_data["schema_version"] == 4
     assert wave_data["tables_count"] == 26
     assert data["base_master_head"] == EXPECTED_BASE_MASTER_HEAD
-    assert data["starting_branch_head"] == EXPECTED_IMPLEMENTATION_STARTING_HEAD
     roles = data["authority_roles"]
     assert set(roles) == {
         "accepted_master_authority",
         "historical_release_authority",
-        "candidate_branch_authority",
-        "planned_next_wave_after_candidate_acceptance",
+        "product_direction_authority",
+        "durable_prerequisite_authority",
+        "current_next_task_authority",
     }
     assert roles["accepted_master_authority"]["head"] == EXPECTED_BASE_MASTER_HEAD
     assert roles["historical_release_authority"]["release_commit"] == EXPECTED_RELEASE_COMMIT
-    assert roles["candidate_branch_authority"]["starting_head"] == EXPECTED_IMPLEMENTATION_STARTING_HEAD
-    assert roles["candidate_branch_authority"]["task"] == EXPECTED_IMPLEMENTATION_TASK
-    assert roles["candidate_branch_authority"]["classification"] == EXPECTED_IMPLEMENTATION_WORKER_CLASSIFICATION
-    assert roles["candidate_branch_authority"]["completing_commit_sha"] is None
-    assert roles["candidate_branch_authority"]["merged"] is False
-    assert roles["planned_next_wave_after_candidate_acceptance"]["task"] == EXPECTED_NEXT_TASK
-    assert roles["planned_next_wave_after_candidate_acceptance"]["status"] == EXPECTED_WAVE03_STATUS
+    assert roles["product_direction_authority"]["classification"] == EXPECTED_PRODUCT_DIRECTION
+    assert roles["product_direction_authority"]["owner_approved"] is True
+    assert roles["durable_prerequisite_authority"]["task"] == EXPECTED_IMPLEMENTATION_TASK
+    assert roles["durable_prerequisite_authority"]["status"] == EXPECTED_WAVE02_STATUS
+    assert roles["durable_prerequisite_authority"]["merged"] is True
+    assert roles["current_next_task_authority"]["task"] == EXPECTED_NEXT_TASK
+    assert roles["current_next_task_authority"]["mode"] == EXPECTED_NEXT_TASK_MODE
 
 
 def test_wave02_schema_and_migration_integrity(tmp_path):
@@ -257,7 +275,7 @@ def test_wave02_evidence_packet_files_exist():
         "candidate_branch_authority",
         "planned_next_wave_after_candidate_acceptance",
     }
-    assert roles["accepted_master_authority"]["head"] == EXPECTED_BASE_MASTER_HEAD
+    assert roles["accepted_master_authority"]["head"] == HISTORICAL_PACKET_MASTER_HEAD
     assert roles["historical_release_authority"]["annotated_tag"] == "v1.0"
     assert roles["historical_release_authority"]["release_commit"] == EXPECTED_RELEASE_COMMIT
     assert roles["candidate_branch_authority"]["starting_head"] == EXPECTED_CLOSEOUT_STARTING_HEAD
@@ -265,8 +283,10 @@ def test_wave02_evidence_packet_files_exist():
     assert roles["candidate_branch_authority"]["classification"] == EXPECTED_CLOSEOUT_WORKER_CLASSIFICATION
     assert roles["candidate_branch_authority"]["completing_commit_sha"] is None
     assert roles["candidate_branch_authority"]["merged"] is False
-    assert roles["planned_next_wave_after_candidate_acceptance"]["next_task"] == EXPECTED_NEXT_TASK
-    assert roles["planned_next_wave_after_candidate_acceptance"]["wave_03_status"] == EXPECTED_WAVE03_STATUS
+    # The historical evidence packet legitimately retains the historical Wave 03 routing
+    # it was written under. Current routing lives in the status files, not here.
+    assert roles["planned_next_wave_after_candidate_acceptance"]["next_task"] == SUPERSEDED_NEXT_TASK
+    assert roles["planned_next_wave_after_candidate_acceptance"]["wave_03_status"] == "NEXT_NOT_STARTED"
 
     # Check role-aware classification model
     class_model = final_manifest["evidence_packet"]["classification_model"]
@@ -394,23 +414,26 @@ def test_existing_state_surface_inventory_paths_and_symbols_exist(tmp_path):
 
 
 def test_markdown_authority_documents_consistency():
-    """Assert all authority markdown docs reflect Wave 01 MERGED, Wave 02 AUDIT, Wave 03 NEXT."""
+    """Assert authority markdown reflects owner-approved routing to CORE V0 in SHADOW_ONLY."""
     status_md = (REPO_ROOT / "docs" / "status" / "CURRENT_PROJECT_STATUS.md").read_text(encoding="utf-8")
-    assert "Wave 01: Complete" in status_md or "COMPLETE_ACCEPTED_AND_MERGED" in status_md
-    assert "Wave 02" in status_md and (
-        "COMPLETE_AWAITING_INDEPENDENT_AUDIT" in status_md or "Awaiting Independent Audit" in status_md
-    )
-    assert "Wave 03" in status_md and ("NEXT_NOT_STARTED" in status_md or "Next" in status_md)
+    assert "Wave 01: Complete" in status_md or EXPECTED_WAVE01_STATUS in status_md
+    assert "Wave 02" in status_md and EXPECTED_WAVE02_STATUS in status_md
+    assert EXPECTED_PRODUCT_DIRECTION in status_md
+    assert EXPECTED_NEXT_TASK in status_md
+    assert EXPECTED_NEXT_TASK_MODE in status_md
 
     next_task_md = (
         REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "next_task_pointer.md"
     ).read_text(encoding="utf-8")
-    assert (
-        "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1" in next_task_md
-        or "TASK_CONTENTOPS_WAVE02_FINAL_STRONG_AUDIT_COMPLETION_AND_COMPATIBLE_SEMANTIC_MANIFEST_V2" in next_task_md
-    )
+    assert EXPECTED_NEXT_TASK in next_task_md
+    assert EXPECTED_NEXT_TASK_MODE in next_task_md
+    assert EXPECTED_WAVE02_STATUS in next_task_md
+    # The superseded Wave 03 task must not remain as current routing in the pointer.
+    assert SUPERSEDED_NEXT_TASK not in next_task_md
 
     master_plan_md = (
         REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "current_v6_master_plan.md"
     ).read_text(encoding="utf-8")
     assert "Wave 02" in master_plan_md
+    assert EXPECTED_NEXT_TASK in master_plan_md
+    assert EXPECTED_NEXT_TASK_MODE in master_plan_md

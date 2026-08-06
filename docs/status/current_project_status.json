@@ -210,10 +210,32 @@
     }
   },
   "active_live_repair_blockers": [],
-  "next_task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
-  "current_next_recommended_task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
-  "next_recommended_task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
+  "product_direction_classification": "CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED",
+  "product_direction_owner_approved": true,
+  "product_direction_owner_approval_date": "2026-08-06",
+  "product_direction_authority": [
+    "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
+    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_SCOPE_OVERLAY_V2.md",
+    "docs/automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md"
+  ],
+  "contentops_owns": "newsroom_and_content_factory",
+  "capital_chronicle_owns": "analytical_and_numeric_authority",
+  "durable_prerequisite_status": "COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE",
+  "next_task": "TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1",
+  "next_task_mode": "SHADOW_ONLY",
+  "current_next_recommended_task": "TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1",
+  "next_recommended_task": "TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1",
   "next_task_requires_separate_live_authorization": false,
+  "final_build_sequence": [
+    "dual_lane_core_v0_shadow_only",
+    "diversity_seo_image_and_chart_closure",
+    "repeated_shadow_soak_and_recovery",
+    "exact_authorized_live_cohort",
+    "final_acceptance_and_new_release_identity"
+  ],
+  "superseded_automatic_next_task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
+  "superseded_automatic_next_task_role": "historical_horizontal_wave_routing_not_current_authority",
   "legacy_reference_surfaces": [
     "ui/institutional_operator_cockpit_v4/"
   ],
@@ -222,10 +244,15 @@
   ],
   "mandatory_read_before_task": [
     "AGENTS.md",
+    "docs/CURRENT_CONTEXT.md",
     "docs/AI_BUILDER_BOOTSTRAP.md",
+    "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md"
+    "docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_SCOPE_OVERLAY_V2.md",
+    "docs/automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md"
   ],
   "mandatory_update_after_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -1509,44 +1536,54 @@
   "authority_roles": {
     "accepted_master_authority": {
       "branch": "master",
-      "head": "c87e338f25922f4d03454ba199139353ca7198ff",
+      "head": "6b6f8718532a4c3f077b09e14f3ca9a4083d4734",
       "classification": "PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED",
       "status": "COMPLETE_ACCEPTED_AND_MERGED"
     },
     "historical_release_authority": {
       "annotated_tag": "v1.0",
+      "tag_object_sha": "a021df7fd0264d9f160bdd605509da925f0bf131",
       "release_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
       "classification": "PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED"
     },
-    "candidate_branch_authority": {
-      "branch": "agent/contentops-wave02-durable-operational-store-v1",
-      "starting_head": "615a96fb20aa97fd76bb3343e9150daec40d9031",
-      "task": "TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1",
-      "classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
-      "status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
-      "completing_commit_sha": null,
-      "merged": false
+    "product_direction_authority": {
+      "classification": "CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED",
+      "owner_approved": true,
+      "owner_approval_date": "2026-08-06",
+      "plan_branch": "agent/contentops-final-product-scope-closeout-v1",
+      "plan_branch_head": "7bacc52b0bdc76d571c5270d912bc5d2bfbe2c7e",
+      "plan_authoring_base": "c87e338f25922f4d03454ba199139353ca7198ff"
     },
-    "planned_next_wave_after_candidate_acceptance": {
-      "task": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
+    "durable_prerequisite_authority": {
+      "wave": "02",
+      "task": "TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1",
+      "status": "COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE",
+      "canonical_store_module": "live_contentops/durable_operational_store_v1.py",
+      "schema_version": 4,
+      "merged": true
+    },
+    "current_next_task_authority": {
+      "task": "TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1",
+      "mode": "SHADOW_ONLY",
       "status": "NEXT_NOT_STARTED"
     }
   },
-  "working_branch": "agent/contentops-wave02-durable-operational-store-v1",
+  "working_branch": "master",
   "base_branch": "master",
-  "base_master_head": "c87e338f25922f4d03454ba199139353ca7198ff",
-  "starting_branch_head": "615a96fb20aa97fd76bb3343e9150daec40d9031",
+  "base_master_head": "6b6f8718532a4c3f077b09e14f3ca9a4083d4734",
   "wave01_status": "COMPLETE_ACCEPTED_AND_MERGED",
   "wave02_worker_classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
-  "wave02_status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
-  "wave03_status": "NEXT_NOT_STARTED",
+  "wave02_status": "COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE",
+  "wave03_status": "SUPERSEDED_AS_AUTOMATIC_NEXT_TASK",
   "post_v1_durable_operational_store_v1": {
     "classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
     "completed_task": "TASK_CONTENTOPS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_V1",
     "wave_01_status": "COMPLETE_ACCEPTED_AND_MERGED",
-    "wave_02_status": "COMPLETE_AWAITING_INDEPENDENT_AUDIT",
-    "wave_03_status": "NEXT_NOT_STARTED",
-    "next_action": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
+    "wave_02_status": "COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE",
+    "wave_03_status": "SUPERSEDED_AS_AUTOMATIC_NEXT_TASK",
+    "next_action": "TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1",
+    "next_action_mode": "SHADOW_ONLY",
+    "superseded_next_action": "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1",
     "schema_version": 4,
     "tables_count": 26,
     "canonical_store_module": "live_contentops/durable_operational_store_v1.py"

@@ -1,7 +1,7 @@
 # Current Context — Capital Chronicle ContentOps
 
 > [!IMPORTANT]
-> Start here. GitHub remote evidence is authority. Historical plans, archived task packets, Project Sources and chat memory are not current execution authority when they conflict with this context or newer committed evidence.
+> GitHub remote evidence is repo-state authority. Jim's latest explicit product instruction is product-direction authority. Older plans remain historical references when they conflict with the current product direction.
 
 ## Current classification
 
@@ -9,85 +9,133 @@ Historical accepted release:
 
 `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`
 
-Post-v1 operational maturity:
+Accepted master operational classification:
 
 `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
 
-Audit conclusion:
+Current product-direction classification:
 
-`PARTIAL_PASS_BOUNDED_NINE_SURFACE_RELEASE_PROVEN_CONTINUOUS_GENERALIZED_FACTORY_NOT_YET_PROVEN`
+`CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED`
+
+Current durable prerequisite status:
+
+`COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE`
+
+Current next task:
+
+`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+
+Current next-task mode:
+
+`SHADOW_ONLY`
 
 ## Current authority read order
 
 1. [Root builder contract](../AGENTS.md)
 2. [AI builder bootstrap](AI_BUILDER_BOOTSTRAP.md)
-3. [Post-v1 full-automation status](status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md)
-4. [Current project status](status/CURRENT_PROJECT_STATUS.md)
-5. [Current status JSON](status/current_project_status.json)
-6. [Institutional full-automation packet](automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/README.md)
-7. [Institutional North Star](automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FULL_AUTOMATION_INSTITUTIONAL_NORTH_STAR.md)
-8. [Hardening execution plan](automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_HARDENING_EXECUTION_PLAN.md)
-9. [Operational SLO standard](automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/OPERATIONAL_SLO_AND_ACCEPTANCE_STANDARD.md)
-10. [Builder anti-drift contract](automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/BUILDER_GUARDRAILS_AND_REPO_AUTHORITY.md)
-11. [Current V6 master plan](automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md)
-12. [Post-v1 maturity ledger](automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md)
-13. [Next task pointer](automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md)
+3. [Current product direction overlay](status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md)
+4. [Post-v1 full-automation status](status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md)
+5. [Current project status](status/CURRENT_PROJECT_STATUS.md)
+6. [Current status JSON](status/current_project_status.json)
+7. [Final product scope overlay V2](automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_SCOPE_OVERLAY_V2.md)
+8. [Final product closeout and launch master plan](automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md)
+9. [Current V6 master plan](automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md)
+10. [Next task pointer](automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md)
+11. Exact task-specific implementation, tests, and evidence.
 
-The root V6 master plan and original 25-task plan remain historical product-design and bounded-release references. They do not by themselves prove continuous operational maturity.
+Older institutional and V6 documents remain historical, architectural, and evidence references.
 
 ## Protected historical release
 
 The July 14 Treasury release remains immutable:
 
 - exact story-scoped publication authority;
-- global DQR remained independently blocked;
-- canonical Substack article plus eight Tier-1 text/image derivatives;
-- strict public/provider readback;
+- global DQR independently blocked;
+- canonical Substack plus eight Tier-1 text/image derivatives;
+- strict readback and bounded repair;
 - operator acceptance;
-- annotated tag `v1.0` at commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+- annotated tag `v1.0` at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
 
-Do not rerun, edit, delete, recreate, move or retag its accepted public objects or evidence.
+Do not rerun, edit, delete, recreate, move, or retag accepted objects or evidence.
+
+## Product boundary
+
+Capital Chronicle main project owns daily analysis, microeconomic/macro/global-macro reports, scenarios, model calculations, Bayesian cases, forecasts, numeric truth, and analytical outcome/error attribution.
+
+ContentOps owns news/headline/breaking/business-news intake, clustering, update chains, editorial selection, content diversity, writing, SEO, images, deterministic charts from authorized inputs, platform-native packaging, publication control, readback, reconciliation, incidents, and content-performance learning. It faithfully transforms governed Capital Chronicle analysis packets and must not create analytical authority.
+
+## Final product priority
+
+Prioritize the smallest complete two-lane product loop:
+
+```text
+NEWSROOM LANE
+fresh diversified news universe
+→ cluster and rank
+→ select or abstain
+→ article, SEO, image/chart, and native packages
+
+CAPITAL CHRONICLE LANE
+governed analysis packet
+→ validate and transform faithfully
+→ report/article, SEO, image/chart, and native packages
+
+SHARED CLOSEOUT
+review
+→ shadow proof
+→ repeated soak
+→ exact authorized live cohort
+→ strict readback and learning
+```
+
+Do not resume a broad horizontal infrastructure sequence unless an item directly blocks this loop.
+
+## Content diversity requirement
+
+The final product must prove multiple eligible domains, including U.S. equities/Big Tech, sectors, economic releases, politics/policy, rates/credit, FX/commodities/energy, geopolitics/trade/supply chains, regulation/law, global corporate events, and Capital Chronicle analysis products.
+
+Diversity is enforced through concentration-aware ranking. It must not force filler or weaken evidence gates.
+
+## Operating modes
+
+- `AUTONOMOUS_DEFAULT`;
+- `SUPERVISED_OPERATOR_GATE`;
+- `SHADOW_ONLY`;
+- `KILL_SWITCH`.
 
 ## Current code roots
 
-- `live_contentops/` — backend and automation logic
-- `tests/` — Python verification
-- `ui/contentops_v5/` — canonical product UI
-- `schemas/` — versioned contracts
-- `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/` — post-v1 institutional authority packet
+- `live_contentops/` — backend and automation logic;
+- `tests/` — verification;
+- `ui/contentops_v5/` — canonical product UI;
+- `schemas/` — versioned contracts;
+- current overlays and final-product master plan — current product direction.
 
 Canonical production migration anchor:
 
 `live_contentops.eight_platform_substack_first_pipeline_v1`
 
-Alternate live runner/server/scheduler/CLI paths are not independent production authority and must be delegated or quarantined by the hardening program.
+Canonical durable operational store:
 
-## Current operator decision
+`live_contentops/durable_operational_store_v1.py`
 
-Do not prioritize another social platform or Tier-2 video mode now.
+## Current Wave 02 truth
 
-Prioritize:
+Wave 02 is complete, merged into `master`, and accepted as the minimum durable prerequisite for the final product. It provides the SQLite WAL operational spine, schema version 4, versioned migrations, append-only transition events with hash-chain replay, leases and heartbeats, restart reconstruction, and redacted evidence export.
 
-```text
-one canonical live state machine
-→ durable local operational store
-→ exact approval envelope and transactional outbox
-→ restart-safe supervisor/continuous windows
-→ Tier-1 adapter and unknown-write conformance
-→ explicit 9router/Gemini 3.1 Pro model registry/evaluation
-→ continuous governed intake
-→ canonical editorial/visual packages
-→ operational UI, SLOs and incidents
-→ governed metrics/community learning
-→ shadow soak
-→ staged supervised live cohorts
-```
+Do not inspect, redesign, retest, re-merge, or reopen Wave 02 implementation unless a directly changed authority test exposes an actual current contradiction.
 
 ## Current next task
 
-`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
+`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
 
-Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Wave 01 status: `COMPLETE_ACCEPTED_AND_MERGED`. Wave 02 status: `NEXT_NOT_STARTED`. Wave 02 is next and has not started. It is schema/local-persistence work only: create the SQLite WAL operational spine, explicit versioned migrations, append-only transition history, compare-and-set state changes, leases, restart reconstruction, and redacted evidence export. No credential, provider, browser/CDP, platform, scheduler/outbox execution, dispatch, publication, network, or public write is authorized.
+Mode:
+
+`SHADOW_ONLY`
+
+The build sequence after this task is diversity/SEO/image/chart closure, then repeated shadow soak and recovery, then an exact authorized live cohort, then final acceptance and a new release identity.
+
+The older automatic Wave 03 approval-envelope/transactional-outbox sequence is no longer the current next-task authority.
 
 ## Archive policy
 
@@ -95,7 +143,9 @@ Archives are rollback/reference only. Read them only when current authority link
 
 ## Safety rules
 
-- Do not read or print raw `.env` values.
-- Do not read cookies, authorization headers, browser storage, tokens or session secrets.
-- Do not dispatch, schedule, retry, approve, comment, DM, react, scrape or publish without a separate exact task authorizing the operation.
-- A task name or worker PASS is not publication authority.
+- do not expose secrets or session material;
+- do not invoke providers, browser/CDP, scheduler, adapters, or public writes without exact task authority;
+- do not fabricate numeric or analytical truth;
+- do not mutate Capital Chronicle main-project data or code from ContentOps;
+- do not move or retag `v1.0`;
+- do not confuse transport, editorial readiness, operator decision, publication authority, and public readback.

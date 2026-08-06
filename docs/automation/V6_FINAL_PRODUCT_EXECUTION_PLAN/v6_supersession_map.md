@@ -2,9 +2,11 @@
 
 ## Current authority
 
-Current post-v1 operational authority:
+Current product-direction authority:
 
-`docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/`
+- `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`
+- `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_SCOPE_OVERLAY_V2.md`
+- `docs/automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md`
 
 Current master index:
 
@@ -14,13 +16,20 @@ Current operational ledger:
 
 `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/post_v1_full_automation_maturity_ledger.md`
 
+Prior post-v1 institutional authority remains a design and evidence reference:
+
+`docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/`
+
 The accepted v1.0 release remains immutable historical authority. This supersession map changes interpretation and future execution priority; it does not rewrite history.
 
 ## Strategic supersessions
 
 | Prior interpretation or claim | Current authority |
 |---|---|
-| Original V6 25-task ledger marked DONE means the full continuous factory is complete | The 25-task ledger records feature and bounded-release completion. Continuous operational maturity is governed by the post-v1 institutional packet and maturity ledger. |
+| ContentOps owns economic analysis, scenarios, models, Bayesian cases, forecasts, and numeric truth | Capital Chronicle owns analytical and numeric authority. ContentOps owns the newsroom and content factory, and faithfully transforms governed Capital Chronicle packets without originating analytical truth. |
+| The horizontal Wave 03–15 hardening roadmap is the automatic next-task sequence | The owner-approved final product plan governs. The next task is dual-lane CORE V0 in `SHADOW_ONLY`, followed by diversity/SEO/image/chart closure, repeated shadow soak, an exact authorized live cohort, and final acceptance. |
+| Every public write requires universal mandatory operator approval | Four explicit operating modes govern: `AUTONOMOUS_DEFAULT`, `SUPERVISED_OPERATOR_GATE`, `SHADOW_ONLY`, and `KILL_SWITCH`. Historical supervised release evidence remains valid historical evidence. |
+| Original V6 25-task ledger marked DONE means the full continuous factory is complete | The 25-task ledger records feature and bounded-release completion. Continuous operational maturity is governed by the current product plan and maturity ledger. |
 | One nine-surface accepted release proves generalized continuous operation | The Treasury v1.0 release proves one bounded story-scoped nine-surface text/image release. Repeated generalized operation requires shadow soak and staged live cohorts. |
 | A runner/task name containing `full automation` proves destination completion | Run classification requires exact public writes, public/provider IDs, strict readback, repair history and operator acceptance. |
 | Machine transport PASS equals final product acceptance | Operator audit, source calibration, quantitative/visual integrity and final public readback are separate gates. |
@@ -73,25 +82,21 @@ The prior 25-task plan, V6 root master plan, generic foundation tasks, adapter w
 ## Current execution priority
 
 ```text
-Wave 00 local plan closeout
-→ canonical live-path quarantine
-→ durable state machine
-→ exact approval envelope/transactional outbox
-→ restart-safe supervisor/windows
-→ Tier-1 adapter unknown-write/recovery conformance
-→ 9router Gemini 3.1 Pro registry/evaluation
-→ continuous governed intake
-→ canonical editorial/visual/platform packages
-→ V5 operational control plane and SLO/incidents
-→ performance/community learning
-→ seven-day shadow soak
-→ three-story live cohort
-→ ten-story/five-type final Tier-1 cohort
-→ Tier-2 video/TikTok later
+dual-lane CORE V0 in SHADOW_ONLY
+→ diversity, SEO, image, and chart closure
+→ repeated shadow soak and recovery
+→ exact authorized live cohort
+→ final acceptance and new release identity
 ```
+
+Wave 00 local plan closeout, Wave 01 canonical live-path quarantine, and Wave 02 durable state machine are complete and merged. The remaining historical horizontal waves are design references and are revisited only where an item directly blocks this sequence or a launch gate.
 
 ## Current next task
 
-`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
+`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
 
-Wave 01 is complete accepted and merged into master. Wave 02 is the exact next task (NEXT_NOT_STARTED) and is schema/local-persistence work only. No live authority is granted by this supersession map.
+Mode:
+
+`SHADOW_ONLY`
+
+Wave 02 is complete and accepted as the minimum durable prerequisite. No live authority is granted by this supersession map.
