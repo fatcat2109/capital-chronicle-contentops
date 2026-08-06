@@ -1,0 +1,77 @@
+{
+  "browser": "playwright chromium (local)",
+  "capture_tool": "scripts/core_v0_cohort_browser_qa.py (unmodified) plus an inline scroll-into-view pass for the two corrected panels",
+  "captured_against_commit": "1088bfb82d29d40fba4d3db1e910bf5d292bd522",
+  "console_errors": {
+    "desktop": 0,
+    "mobile": 0
+  },
+  "credential_read_performed": false,
+  "dispatch_authority": false,
+  "dom_assertions_both_viewports": {
+    "calibration_policy_id_present": true,
+    "corrected_daily_window_end_2026_07_16_present": true,
+    "declared_decision_interval_diagnostic_label_present": true,
+    "heading_visible": true,
+    "shadow_only_banner_visible": true
+  },
+  "files": {
+    "core_v0_cohort_closure_desktop_1440x900.png": {
+      "bytes": 244769,
+      "pixel_height": 900,
+      "pixel_width": 1440,
+      "sha256": "eb0b1e581132c46544f272e037ab8e51b83b674a6c9cbec383c0299343af4cf8"
+    },
+    "core_v0_cohort_closure_desktop_1440x900_calibration_policy.png": {
+      "bytes": 247053,
+      "pixel_height": 900,
+      "pixel_width": 1440,
+      "sha256": "ce88dffd6d8f30aae0798b5966a349f2df3bd0536bd2fbf644b3af5863307e06"
+    },
+    "core_v0_cohort_closure_desktop_1440x900_daily_window.png": {
+      "bytes": 235044,
+      "pixel_height": 900,
+      "pixel_width": 1440,
+      "sha256": "3fef9795b1e43388a7af390c0152d14f2c5e2c02191ba06d076d4205430e752f"
+    },
+    "core_v0_cohort_closure_mobile_390x844.png": {
+      "bytes": 59070,
+      "pixel_height": 844,
+      "pixel_width": 390,
+      "sha256": "b2e09327847174a2f07a266b11e4240171acc6ef9fc2f343c5906d95fef8c087"
+    },
+    "core_v0_cohort_closure_mobile_390x844_calibration_policy.png": {
+      "bytes": 72328,
+      "pixel_height": 844,
+      "pixel_width": 390,
+      "sha256": "57051b12694e4c5f354692193915f0d335c0706ae44a18974238df4c8f430667"
+    },
+    "core_v0_cohort_closure_mobile_390x844_daily_window.png": {
+      "bytes": 72359,
+      "pixel_height": 844,
+      "pixel_width": 390,
+      "sha256": "be5c8fa150f44f95cd09bfac6dc5c1090781d12c23fa7b43213266cb68ff5da3"
+    }
+  },
+  "independently_visually_audited": false,
+  "operating_mode": "SHADOW_ONLY",
+  "outbound_network_request_made": false,
+  "owner_override": "CORE_V0_SHADOW_SELECTION_CALIBRATION_V1",
+  "public_write_authority": false,
+  "public_write_performed": false,
+  "publication_authority": false,
+  "runtime_or_page_errors": {
+    "desktop": 0,
+    "mobile": 0
+  },
+  "schema_version": "contentops.core_v0_wpd_browser_qa.v1",
+  "served_from": "ui/contentops_v5/dist built from the exact commit",
+  "server_binding": "127.0.0.1 loopback only",
+  "source_edits_made_for_capture": false,
+  "task": "TASK_CONTENTOPS_CORE_V0_PORTFOLIO_SELECTION_AND_PLATFORM_VISUAL_ADAPTATION_CORRECTION_V1",
+  "viewport_capture_note": "The V5 shell scrolls an inner container, so document scrollHeight equals viewport innerHeight and full_page capture yields viewport-sized images. The two corrected panels sit below the initial fold, so supplementary _daily_window and _calibration_policy captures scroll each panel into view. The mobile top-of-view file is therefore byte-identical to the previous capture by construction, not because the surface failed to update.",
+  "viewports": {
+    "desktop": "1440x900",
+    "mobile": "390x844"
+  }
+}
