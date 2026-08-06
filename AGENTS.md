@@ -26,17 +26,21 @@ Wave 02 — the durable operational store and canonical state machine — is com
 
 Current next task:
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-Work Package D — the CORE V0 diversity, SEO, image, and chart closure — passed independent
-audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` and is fast-forward merged into `master`.
-Work Package C and Work Package D are both
-`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Do not reopen either. Work Package E — the
-repeated shadow soak and recovery task above — is `READY_NOT_STARTED`.
+Work Packages C and D are `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package E — the
+repeated shadow soak and recovery — is delivered on branch
+`agent/contentops-core-v0-repeated-shadow-soak-and-recovery-v1` and is
+`DELIVERED_AWAITING_INDEPENDENT_AUDIT` with launch-readiness disposition
+`READY_WITH_EXPLICIT_CAVEATS`. Do not reopen C, D, or E.
 
 Current next-task mode:
 
-`SHADOW_ONLY`
+`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
+
+The live cohort is `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`. No shadow task grants
+credential, provider, browser/CDP, scheduler, dispatch, publication, or public-write
+authority; the live cohort requires an exact owner-authorized live scope before it starts.
 
 ## 2. Mandatory read order
 
@@ -170,11 +174,11 @@ Charts must be deterministic and reproducible from authorized Capital Chronicle 
 
 ## 11. Current next task
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
 Mode:
 
-`SHADOW_ONLY`
+`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
 
 Work Package C (dual-lane CORE V0 shadow newsroom) is accepted and merged into `master`.
 Work Package D (diversity, SEO, image, and chart closure) is accepted and fast-forward merged
@@ -184,8 +188,17 @@ into `master` from branch
 `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD
 `f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit
 `1088bfb82d29d40fba4d3db1e910bf5d292bd522`, merge method `FAST_FORWARD_ONLY`. Neither is
-reopened. The soak task is Work Package E, `READY_NOT_STARTED`, and it runs with zero public
-writes on the accepted Wave 02 durable store.
+reopened. Work Package E — the repeated shadow soak and recovery — is delivered and is
+`DELIVERED_AWAITING_INDEPENDENT_AUDIT`.
+
+Work Package E proved, from one local command over the accepted pipeline and the accepted
+Wave 02 durable store, ten logical newsroom days and thirty completed window decisions,
+sixteen complete packages across both lanes, one hundred durable work items with zero lost
+and zero double-claimed, sixteen of sixteen recovery and injected-failure drills passed,
+one hundred forty-four hash-bound release intents with both `AUTONOMOUS_POLICY` and
+`OPERATOR_DECISION` actors, forty-eight unknown-write simulations with zero blind retries,
+and a launch-readiness disposition of `READY_WITH_EXPLICIT_CAVEATS`. Zero public writes and
+zero outbox executions occurred.
 
 The accepted Work Package D caveats remain truthful and are not converted into a pass: no
 full-suite PASS is claimed, no CI PASS is claimed, the full-suite failures are a noisy
@@ -198,8 +211,8 @@ The final build sequence is:
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ repeated shadow soak and recovery   [CURRENT — READY, NOT STARTED]
-→ exact authorized live cohort
+→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```
 

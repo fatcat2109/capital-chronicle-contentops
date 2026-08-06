@@ -11,6 +11,8 @@ from .live_entrypoint_registry_v1 import (
     quarantine,
 )
 from .dual_lane_core_v0_shadow_demo_runner_v1 import core_v0_shadow_demo_command
+from .core_v0_shadow_soak_runner_v1 import core_v0_shadow_soak_command
+from .core_v0_acceptance_harness_v1 import core_v0_acceptance_command
 
 from . import status
 from . import contracts
@@ -1173,6 +1175,8 @@ COMMANDS = {
     "x-oauth-live-read-only-identity-proof-gate": x_oauth_live_read_only_identity_proof_gate_summary,
     "telegram-readonly-channel-binding-permission-proof": telegram_readonly_channel_binding_permission_proof_summary,
     "core-v0-shadow-demo": core_v0_shadow_demo_command,
+    "core-v0-shadow-soak": core_v0_shadow_soak_command,
+    "core-v0-acceptance": core_v0_acceptance_command,
 
 
 }
@@ -1184,7 +1188,11 @@ def main():
         cmd = sys.argv[1]
         if cmd in COMMANDS:
             try:
-                if cmd == "core-v0-shadow-demo":
+                if cmd in {
+                    "core-v0-shadow-demo",
+                    "core-v0-shadow-soak",
+                    "core-v0-acceptance",
+                }:
                     return COMMANDS[cmd](sys.argv[2:]) or 0
                 if cmd in {"scheduler", "scheduler-tick"}:
                     COMMANDS[cmd](sys.argv[2:])

@@ -28,6 +28,7 @@ import { V6CommandCenter } from './views/V6CommandCenter';
 import { CanonicalPackageReviewConsole } from './views/CanonicalPackageReviewConsole';
 import { DualLaneCoreV0Shadow } from './views/DualLaneCoreV0Shadow';
 import { CoreV0CohortClosure } from './views/CoreV0CohortClosure';
+import { CoreV0ShadowSoak } from './views/CoreV0ShadowSoak';
 
 export default function App() {
   const [view, setView] = useState<ViewId>('command_center');
@@ -298,6 +299,8 @@ function ActiveView() {
       return <DualLaneCoreV0Shadow />;
     case 'core_v0_cohort_closure':
       return <CoreV0CohortClosure />;
+    case 'core_v0_shadow_soak':
+      return <CoreV0ShadowSoak />;
     default:
       return null;
   }

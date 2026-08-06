@@ -14,13 +14,14 @@ Current accepted master classification:
 
 Current next task:
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-Routed only after work package D passes independent audit.
+Requires an exact owner-authorized live scope. Work package E (repeated shadow soak and
+recovery) is delivered and awaiting independent audit.
 
 Current next-task mode:
 
-`SHADOW_ONLY`
+`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
 
 Audit base:
 
@@ -42,7 +43,7 @@ Rows 03 through 15 below record the earlier horizontal hardening roadmap. Jim's 
 | 09 | V5 operational control plane over durable state | SUPERSEDED_AS_AUTOMATIC_NEXT_TASK | Current supervisor/work/approval/outbox/incident truth in canonical UI. |
 | 10 | Observability, SLO, incident and reconciliation center | SUPERSEDED_AS_AUTOMATIC_NEXT_TASK | Correlated metrics, breakers, incidents, honest SLO calculations. |
 | 11 | Performance/community observation and governed learning | SUPERSEDED_AS_AUTOMATIC_NEXT_TASK | Exact post metrics/feedback, unavailable-not-zero, review-only policy proposals. |
-| 12 | Seven-day continuous shadow soak and resilience drills | SUPERSEDED_AS_AUTOMATIC_NEXT_TASK | No lost/duplicate work across windows, restart, concurrency and failure drills. |
+| 12 | Seven-day continuous shadow soak and resilience drills | PARTIAL_LOCAL_SHADOW_PROOF_DELIVERED_BY_WORK_PACKAGE_E | Work package E proved no lost or duplicate work across 30 window decisions, restart at three points, concurrent-claim refusal, and 16/16 injected-failure drills — as an accelerated logical soak. Calendar-time continuous availability remains unproven and belongs to the live cohort. |
 | 13 | Supervised live cohort stage 1 — three stories | NOT_STARTED_LIVE_AUTH_REQUIRED | Three fresh diverse exact-authorized releases across applicable Tier-1 destinations. |
 | 14 | Supervised live cohort stage 2 — ten stories/five types | NOT_STARTED_LIVE_AUTH_REQUIRED | Repeated generalized operation and final Tier-1 acceptance. |
 | 15 | Tier-2 TikTok/YouTube video production mode | DEFERRED_UNTIL_TIER1_ACCEPTED | Separate video script/render/upload/readback cohort; not a Tier-1 blocker. |
@@ -54,9 +55,9 @@ Rows 03 through 15 below record the earlier horizontal hardening roadmap. Jim's 
 | A | Product-authority and current-state reconciliation | COMPLETE_OWNER_APPROVED |
 | B | Minimum durable execution prerequisite | COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE |
 | C | Dual-lane CORE V0 shadow newsroom | COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT — `SHADOW_ONLY`; canonical review `REVIEW_BLOCKED_VISUAL_REQUIREMENT`; audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` |
-| D | Diversity, SEO, image, and chart closure | CORRECTION_AWAITING_INDEPENDENT_AUDIT — `SHADOW_ONLY`; both lanes reach canonical `PASS`; 9/9 domain families and 9/9 Tier-1 destinations with explicit outcomes |
-| E | Repeated shadow soak and recovery | CURRENT_EXACT_NEXT_TASK_AFTER_WORK_PACKAGE_D_AUDIT |
-| F | Exact authorized live cohort | NOT_STARTED_LIVE_AUTH_REQUIRED |
+| D | Diversity, SEO, image, and chart closure | COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT — `SHADOW_ONLY`; audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`; both lanes reach canonical `PASS`; 9/9 domain families and 9/9 Tier-1 destinations with explicit outcomes |
+| E | Repeated shadow soak and recovery | DELIVERED_AWAITING_INDEPENDENT_AUDIT — `SHADOW_ONLY`; 10 logical days, 30/30 window decisions, 16 complete packages, 16/16 recovery drills, launch readiness `READY_WITH_EXPLICIT_CAVEATS`; accelerated logical soak, calendar uptime not claimed |
+| F | Exact authorized live cohort | CURRENT_READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE |
 | G | Final acceptance and new release identity | NOT_STARTED |
 
 ## Historical release baseline
@@ -77,7 +78,7 @@ Protected release:
 - one fail-closed database-backed no-story run exists;
 - earlier multi-platform runs required recovery and product-quality repairs;
 - the durable operational store and canonical state machine is merged and accepted as the minimum durable prerequisite;
-- continuous live intake, diversified repeated newsroom operation, live learning, and a repeated generalized cohort remain unproven;
+- diversified repeated newsroom operation is proven locally in `SHADOW_ONLY` by work package E as an accelerated logical soak; continuous live intake, live learning, calendar-time availability, and a repeated generalized live cohort remain unproven;
 - the current scheduler/server/alternate runner must not be treated as production-safe.
 
 ## Completion labels

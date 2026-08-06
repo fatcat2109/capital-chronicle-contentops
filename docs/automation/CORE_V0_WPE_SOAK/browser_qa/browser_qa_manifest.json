@@ -1,0 +1,155 @@
+{
+ "browser": "playwright chromium (local)",
+ "console_errors": {
+  "desktop": 0,
+  "mobile": 0
+ },
+ "credential_read_performed": false,
+ "dispatch_authority": false,
+ "dom_assertions_both_viewports": {
+  "accelerated_logical_soak_disclosure_present": true,
+  "autonomous_policy_actor_present": true,
+  "calendar_uptime_unmeasurable_present": true,
+  "heading_visible": true,
+  "kill_switch_state_present": true,
+  "launch_readiness_disposition_present": true,
+  "operator_decision_actor_present": true,
+  "shadow_only_banner_visible": true,
+  "zero_external_cost_present": true
+ },
+ "files": {
+  "core_v0_shadow_soak_desktop_1440x900.png": {
+   "bytes": 258190,
+   "sha256": "e9f73f5e955153c6823e02a7246d10e644675f024a7a165d54bc2157eb2c6280"
+  },
+  "core_v0_shadow_soak_desktop_1440x900_durable_runtime.png": {
+   "bytes": 231733,
+   "sha256": "7a073ad95397457f6b4dd4f3c236018b503a50d6342a23bc0830cfd8c324d112"
+  },
+  "core_v0_shadow_soak_desktop_1440x900_launch_edge.png": {
+   "bytes": 227635,
+   "sha256": "967b93c28a7a4a6d910922db8a43bb3cc7c10588ded89871d8e7e7d87505d9ef"
+  },
+  "core_v0_shadow_soak_desktop_1440x900_launch_readiness.png": {
+   "bytes": 243785,
+   "sha256": "5ea59eff7476d2a077f5fb6e27b312042bfe7933c045c6fa719e9dbb7609719c"
+  },
+  "core_v0_shadow_soak_desktop_1440x900_logical_days.png": {
+   "bytes": 243785,
+   "sha256": "5ea59eff7476d2a077f5fb6e27b312042bfe7933c045c6fa719e9dbb7609719c"
+  },
+  "core_v0_shadow_soak_desktop_1440x900_reconciliation.png": {
+   "bytes": 227635,
+   "sha256": "967b93c28a7a4a6d910922db8a43bb3cc7c10588ded89871d8e7e7d87505d9ef"
+  },
+  "core_v0_shadow_soak_desktop_1440x900_recovery_drills.png": {
+   "bytes": 250524,
+   "sha256": "aefb44fa3c4704e2488aaf8b2d2a6c3e1d6bf0dcc914ea996278ec9ce6be6581"
+  },
+  "core_v0_shadow_soak_desktop_1440x900_slo_measurements.png": {
+   "bytes": 217523,
+   "sha256": "1631a7ca3806ac1f18941a7da0511ba307bbca679348c4dc780fbdcc89592733"
+  },
+  "core_v0_shadow_soak_mobile_390x844.png": {
+   "bytes": 68315,
+   "sha256": "abd9f2bc8e6c9ef5e6e753db8083ab697940f65ec29bc7152a4fc4317b51f69a"
+  },
+  "core_v0_shadow_soak_mobile_390x844_durable_runtime.png": {
+   "bytes": 37131,
+   "sha256": "bb96c4360217a7c0f4cdb5a5c0f028f685b50d05120d2e769df5c0d84f414575"
+  },
+  "core_v0_shadow_soak_mobile_390x844_launch_edge.png": {
+   "bytes": 50613,
+   "sha256": "7de24bdf98399ad1021cdfd221eacc80d61186ffe43ff317859c3ad2ed6fe968"
+  },
+  "core_v0_shadow_soak_mobile_390x844_launch_readiness.png": {
+   "bytes": 60449,
+   "sha256": "b1addfc45e1c60f7f26e23e5c9d8a4512d5dc8588b0764148af810bd10f352a6"
+  },
+  "core_v0_shadow_soak_mobile_390x844_logical_days.png": {
+   "bytes": 68315,
+   "sha256": "abd9f2bc8e6c9ef5e6e753db8083ab697940f65ec29bc7152a4fc4317b51f69a"
+  },
+  "core_v0_shadow_soak_mobile_390x844_reconciliation.png": {
+   "bytes": 50613,
+   "sha256": "7de24bdf98399ad1021cdfd221eacc80d61186ffe43ff317859c3ad2ed6fe968"
+  },
+  "core_v0_shadow_soak_mobile_390x844_recovery_drills.png": {
+   "bytes": 60233,
+   "sha256": "d173fa09c0e955551e7055c91dbbb5cb7ddbf80b4491d9aec9b613f9fc76a79f"
+  },
+  "core_v0_shadow_soak_mobile_390x844_slo_measurements.png": {
+   "bytes": 52010,
+   "sha256": "320231b3e49d551a805a9f121b52a7453564715382aa16dc850ae20aef62ed05"
+  }
+ },
+ "independent_pixel_perfect_visual_pass_claimed": false,
+ "loopback_port": 59599,
+ "outbound_network_request_made": false,
+ "page_errors_total": 0,
+ "provider_call_performed": false,
+ "public_write_authority": false,
+ "publication_authority": false,
+ "route": "/#core_v0_shadow_soak",
+ "served_from": "A:\\Capital Chronicle\\tools\\_wp_e_soak\\ui\\contentops_v5\\dist",
+ "viewports": {
+  "desktop": {
+   "console_error_count": 0,
+   "console_errors": [],
+   "dom_assertions": {
+    "accelerated_logical_soak_disclosure_present": true,
+    "autonomous_policy_actor_present": true,
+    "calendar_uptime_unmeasurable_present": true,
+    "heading_visible": true,
+    "kill_switch_state_present": true,
+    "launch_readiness_disposition_present": true,
+    "operator_decision_actor_present": true,
+    "shadow_only_banner_visible": true,
+    "zero_external_cost_present": true
+   },
+   "height": 900,
+   "page_error_count": 0,
+   "page_errors": [],
+   "screenshots": [
+    "core_v0_shadow_soak_desktop_1440x900.png",
+    "core_v0_shadow_soak_desktop_1440x900_launch_readiness.png",
+    "core_v0_shadow_soak_desktop_1440x900_logical_days.png",
+    "core_v0_shadow_soak_desktop_1440x900_recovery_drills.png",
+    "core_v0_shadow_soak_desktop_1440x900_reconciliation.png",
+    "core_v0_shadow_soak_desktop_1440x900_launch_edge.png",
+    "core_v0_shadow_soak_desktop_1440x900_slo_measurements.png",
+    "core_v0_shadow_soak_desktop_1440x900_durable_runtime.png"
+   ],
+   "width": 1440
+  },
+  "mobile": {
+   "console_error_count": 0,
+   "console_errors": [],
+   "dom_assertions": {
+    "accelerated_logical_soak_disclosure_present": true,
+    "autonomous_policy_actor_present": true,
+    "calendar_uptime_unmeasurable_present": true,
+    "heading_visible": true,
+    "kill_switch_state_present": true,
+    "launch_readiness_disposition_present": true,
+    "operator_decision_actor_present": true,
+    "shadow_only_banner_visible": true,
+    "zero_external_cost_present": true
+   },
+   "height": 844,
+   "page_error_count": 0,
+   "page_errors": [],
+   "screenshots": [
+    "core_v0_shadow_soak_mobile_390x844.png",
+    "core_v0_shadow_soak_mobile_390x844_launch_readiness.png",
+    "core_v0_shadow_soak_mobile_390x844_logical_days.png",
+    "core_v0_shadow_soak_mobile_390x844_recovery_drills.png",
+    "core_v0_shadow_soak_mobile_390x844_reconciliation.png",
+    "core_v0_shadow_soak_mobile_390x844_launch_edge.png",
+    "core_v0_shadow_soak_mobile_390x844_slo_measurements.png",
+    "core_v0_shadow_soak_mobile_390x844_durable_runtime.png"
+   ],
+   "width": 390
+  }
+ }
+}

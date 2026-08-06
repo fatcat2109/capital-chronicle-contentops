@@ -30,10 +30,10 @@ Evidence/claim architecture: advanced
 Canonical editorial and Tier-1 transport: bounded live proof
 Durable operational state: complete and accepted as minimum durable prerequisite
 Unified approval/outbox: deferred until the vertical slice requires it
-Restart-safe supervisor/scheduler: incomplete
-Universal unknown-write/recovery contract: partial
+Restart-safe supervisor/scheduler: local shadow restart/recovery proven; calendar-time supervisor incomplete
+Universal unknown-write/recovery contract: local deterministic contract proven in shadow; live readback unproven
 Continuous fresh intake: shadow/unproven
-Repeated diversified newsroom operation: unproven
+Repeated diversified newsroom operation: proven locally as an accelerated logical shadow soak; calendar-time and live operation unproven
 Repeated generalized live cohort: unproven
 Performance/community learning: manual or historical replay
 Tier-2 video/TikTok: separate and incomplete

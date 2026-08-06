@@ -85,11 +85,11 @@ Wave 02 is complete, merged into `master`, and accepted as the minimum durable p
 
 ## 10. Current next task
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
 Execution mode:
 
-`SHADOW_ONLY`
+`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
 
 Work Package C (dual-lane CORE V0 shadow newsroom) is accepted and merged. Work Package D
 (diversity, SEO, image, and chart closure) is accepted and fast-forward merged into `master`
@@ -98,8 +98,10 @@ from branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and 
 `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD
 `f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit
 `1088bfb82d29d40fba4d3db1e910bf5d292bd522`, merge method `FAST_FORWARD_ONLY`. Neither is
-reopened, re-audited, or re-merged. The soak task is Work Package E and is
-`READY_NOT_STARTED`.
+reopened, re-audited, or re-merged. Work Package E — the repeated shadow soak and
+recovery — is delivered and is `DELIVERED_AWAITING_INDEPENDENT_AUDIT`, launch-readiness
+`READY_WITH_EXPLICIT_CAVEATS`. The exact authorized live cohort is next and requires an
+exact owner-authorized live scope.
 
 The accepted Work Package D caveats remain truthful and must not be restated as a pass: no
 full-suite PASS is claimed, no CI PASS is claimed, the full-suite failures are a noisy

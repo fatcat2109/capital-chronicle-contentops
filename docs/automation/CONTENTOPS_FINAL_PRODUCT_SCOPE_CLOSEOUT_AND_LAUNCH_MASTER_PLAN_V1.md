@@ -629,6 +629,15 @@ Exit: the same pipeline handles a diversified evaluation cohort with no domain-s
 
 ### Work package E — Repeated shadow soak and recovery
 
+Status: `DELIVERED_AWAITING_INDEPENDENT_AUDIT`. Launch-readiness disposition
+`READY_WITH_EXPLICIT_CAVEATS`. Delivered by
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1` as an accelerated logical
+soak — ten logical newsroom days, 30/30 window decisions, 16 complete packages, 100 durable
+work items with zero lost or double-claimed, 16/16 recovery drills, and 144 hash-bound
+release intents with zero executed operations. Calendar-time availability and live
+reliability are explicitly not claimed and remain with work package F. Evidence:
+`docs/automation/CORE_V0_WPE_SOAK/`.
+
 Purpose: prove routine operation before public launch.
 
 Run the full product over a bounded evaluation period with no public writes. The soak must include:
@@ -748,23 +757,23 @@ Completion is a product proof, not a document count, schema count, or platform c
 
 ## 18. Current routing after this document
 
-Jim approved this product direction on 2026-08-06. Work package A is complete and Work package B is accepted as the minimum durable prerequisite.
+Jim approved this product direction on 2026-08-06. Work package A is complete and Work package B is accepted as the minimum durable prerequisite. Work packages C and D are `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work package E is `DELIVERED_AWAITING_INDEPENDENT_AUDIT` with launch-readiness disposition `READY_WITH_EXPLICIT_CAVEATS`.
 
 The exact next builder task is:
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
 Mode:
 
-`SHADOW_ONLY`
+`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
 
 The remaining build sequence is:
 
 ```text
-dual-lane CORE V0 in SHADOW_ONLY
-→ diversity, SEO, image, and chart closure
-→ repeated shadow soak and recovery
-→ exact authorized live cohort
+dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
+→ diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
+→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```
 

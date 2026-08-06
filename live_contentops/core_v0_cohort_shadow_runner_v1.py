@@ -597,6 +597,8 @@ def process_case(
 def persist_cohort(
     store: "ContentOpsDurableStore",
     cohort: Mapping[str, Any],
+    *,
+    work_item_namespace: str | None = None,
 ) -> dict[str, Any]:
     """Persist every cohort case as durable work items, artifacts, and transitions.
 
@@ -620,8 +622,12 @@ def persist_cohort(
     records: list[dict[str, Any]] = []
     for case in cohort["cases"]:
         case_id = str(case["case_id"])
-        work_item_id = f"wi_{case_id.replace('-', '_')}"[:120]
-        story_id = case_id
+        # A repeated soak runs the same corpus on many logical days against one store,
+        # so the work item identity must carry the day. Without a namespace the second
+        # day would collide with the first day's durable item.
+        scoped_id = f"{work_item_namespace}_{case_id}" if work_item_namespace else case_id
+        work_item_id = f"wi_{scoped_id.replace('-', '_')}"[:120]
+        story_id = scoped_id
         actor_ref = f"core_v0_cohort_{case['lane']}"
         lease_key = f"lease_{work_item_id}"
         correlation_id = f"corr_{work_item_id}"
@@ -913,6 +919,11 @@ def run_cohort(
     concentration_penalty: float | None = None,
     portfolio_balance_floor: float | None = None,
     derivative_output_dir: Path | None = None,
+    decision_window_id: str | None = None,
+    decision_window_start_utc: str | None = None,
+    decision_window_end_utc: str | None = None,
+    accepted_publication_history: Sequence[Mapping[str, Any]] | None = None,
+    max_selected: int | None = None,
 ) -> dict[str, Any]:
     """Process the whole diversified cohort once and assemble the reviewable report.
 
@@ -930,7 +941,17 @@ def run_cohort(
     coverage = corpus_domain_coverage(corpus)
     assets = load_governed_visual_assets(repo_root)
     priors = load_authorized_prior_observations(repo_root)
-    history = load_accepted_publication_history(repo_root)
+    # A repeated soak supplies its own per-day window and its own accumulated accepted
+    # history. Defaults preserve the accepted Work Package D single-window behaviour
+    # exactly, so this parameterisation is invisible to existing callers.
+    window_id = decision_window_id or DECISION_WINDOW_ID
+    window_start = decision_window_start_utc or DECISION_WINDOW_START_UTC
+    window_end = decision_window_end_utc or DECISION_WINDOW_END_UTC
+    history = (
+        [dict(row) for row in accepted_publication_history]
+        if accepted_publication_history is not None
+        else load_accepted_publication_history(repo_root)
+    )
 
     # Fail closed if the committed calibration values no longer match their sealed hash.
     calibration_integrity = verify_policy_integrity()
@@ -969,18 +990,18 @@ def run_cohort(
 
     # --- 2. Two genuinely different windows ----------------------------------------
     portfolio_daily = build_daily_portfolio_report(
-        decision_window_id=DECISION_WINDOW_ID,
-        decision_window_start_utc=DECISION_WINDOW_START_UTC,
-        decision_window_end_utc=DECISION_WINDOW_END_UTC,
+        decision_window_id=window_id,
+        decision_window_start_utc=window_start,
+        decision_window_end_utc=window_end,
         candidates=eligible_cases,
         excluded=hard_gate_excluded,
         concentration_threshold=threshold,
     )
     portfolio_rolling = build_rolling_portfolio_report(
-        decision_window_id=DECISION_WINDOW_ID,
+        decision_window_id=window_id,
         prior_selected=history,
         excluded=hard_gate_excluded,
-        decision_window_start_utc=DECISION_WINDOW_START_UTC,
+        decision_window_start_utc=window_start,
         concentration_threshold=threshold,
     )
 
@@ -1008,11 +1029,12 @@ def run_cohort(
 
     # --- 4. Rolling penalties, then the portfolio decision, before any production ---
     portfolio_decision = decide_portfolio(
-        decision_window_id=DECISION_WINDOW_ID,
+        decision_window_id=window_id,
         eligible=ranked,
         rolling_report=portfolio_rolling,
         penalty=penalty,
         defer_below_adjusted_score=floor,
+        max_selected=max_selected,
     )
     decision_by_case = {
         str(row["case_id"]): row for row in portfolio_decision["decisions"]
@@ -1041,11 +1063,11 @@ def run_cohort(
     # The rolling window's current-state projection: accepted history plus what this
     # window actually selected.
     portfolio_rolling_with_current = build_rolling_portfolio_report(
-        decision_window_id=DECISION_WINDOW_ID,
+        decision_window_id=window_id,
         prior_selected=history,
         current_selected=selected_cases,
         excluded=hard_gate_excluded,
-        decision_window_start_utc=DECISION_WINDOW_START_UTC,
+        decision_window_start_utc=window_start,
         concentration_threshold=threshold,
     )
 
@@ -1058,9 +1080,9 @@ def run_cohort(
         "schema_version": SCHEMA_VERSION,
         "task": TASK_LABEL,
         "operating_mode": OPERATING_MODE,
-        "decision_window_id": DECISION_WINDOW_ID,
-        "decision_window_start_utc": DECISION_WINDOW_START_UTC,
-        "decision_window_end_utc": DECISION_WINDOW_END_UTC,
+        "decision_window_id": window_id,
+        "decision_window_start_utc": window_start,
+        "decision_window_end_utc": window_end,
         "selection_calibration_policy": get_policy(),
         "selection_calibration_integrity": calibration_integrity,
         "selection_calibration_effective_values": {

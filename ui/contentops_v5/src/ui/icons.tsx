@@ -214,4 +214,5 @@ export const VIEW_ICONS: Record<string, (p: IconProps) => JSX.Element> = {
   send: IconSend,
   shield: IconShield,
   lock: IconLock,
+  clock: IconClock,
 };

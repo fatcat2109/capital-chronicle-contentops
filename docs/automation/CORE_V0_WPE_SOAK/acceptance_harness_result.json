@@ -1,0 +1,192 @@
+{
+  "acceptance_status": "PASS",
+  "ci_pass_claimed": false,
+  "evidence_dir": "C:\\Users\\bullw\\AppData\\Local\\Temp\\final\\out",
+  "failed_gates": [],
+  "full_suite_pass_claimed": false,
+  "gate_count": 11,
+  "gates": [
+    {
+      "detail": {
+        "missing": [],
+        "present": [
+          "soak_launch_edge.json",
+          "soak_logical_days.json",
+          "soak_recovery_drills.json",
+          "soak_report.md",
+          "soak_run_summary.json",
+          "soak_slo_report.json",
+          "v5_soak_snapshot.json"
+        ]
+      },
+      "gate": "accepted_evidence_packet_completeness",
+      "reason": "every required evidence file is present",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "canonical_command": "python -m live_contentops.cli core-v0-shadow-soak --store <sqlite> --output <dir> --logical-days 10",
+        "reuses_accepted_pipeline": {
+          "cohort_runner": "core_v0_cohort_shadow_runner_v1.run_cohort",
+          "durable_store": "durable_operational_store_v1.ContentOpsDurableStore",
+          "package_fabric": "multi_story_platform_native_operator_packages_v1.build_platform_native_variant",
+          "review_engine": "editorial_review_orchestrator_v2.run_editorial_review"
+        },
+        "second_production_runner_created": false
+      },
+      "gate": "one_canonical_execution_path",
+      "reason": "the run reuses the accepted cohort runner, review engine, package fabric, and durable store; no second production runner exists",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "counts": {
+          "artifacts": 222,
+          "leases": 105,
+          "migrations": 4,
+          "transition_events": 654,
+          "work_items": 106
+        },
+        "integrity_verified": true,
+        "migrations_verified": true,
+        "redaction_guarantee": "PASS_NO_SECRETS_CREDENTIALS_OR_PRIVATE_MATERIAL",
+        "restart_reconstruction_status": "PASS",
+        "schema_version": 4,
+        "verified_from": "independent_store_reopen",
+        "verified_work_items_count": 106
+      },
+      "gate": "durable_replay",
+      "reason": "the store reopened independently, passed integrity and migration checks, and every work item replayed from its hash chain",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "authorized_for_live_publication": false,
+        "policy_integrity_status": "VERIFIED",
+        "recorded_policy_logical_hash": "6a2506014d7edeb2e2ade0cdf97060149685754bad103f0e10332b22be1ccdf0",
+        "sealed_policy_logical_hash": "6a2506014d7edeb2e2ade0cdf97060149685754bad103f0e10332b22be1ccdf0"
+      },
+      "gate": "authority_and_policy_bindings",
+      "reason": "the recorded calibration policy hash matches the sealed policy and is not authorized for live publication",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "blocked_cases_reaching_review_ready": 0,
+        "lineage_denominator": 16,
+        "lineage_numerator": 16,
+        "lineage_verdict": "PASS"
+      },
+      "gate": "package_lineage",
+      "reason": "every complete package carries article, SEO, and explicit per-destination outcomes, and no blocked case reached review-ready",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "files_scanned": 7,
+        "files_with_secret_shaped_material": [],
+        "live_authority_flags_set_true": []
+      },
+      "gate": "no_secret_posture",
+      "reason": "no secret-shaped material and no live-authority flag set true in any artifact",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "bindings_complete": true,
+        "boolean_approval_accepted_as_authority": false,
+        "expiry_enforced": true,
+        "invalidated_by_bound_byte_change": true,
+        "payload_rebuilt_after_authorization": false,
+        "release_intent_count": 144,
+        "required_bindings": [
+          "package_hash",
+          "evidence_hash",
+          "visual_hash",
+          "variant_hash",
+          "policy_hash",
+          "platform_id",
+          "account_binding_id",
+          "freshness_hash"
+        ]
+      },
+      "gate": "release_authorization_integrity",
+      "reason": "release authorization binds all eight required hashes, refuses boolean authority, never rebuilds a payload after authorization, and is invalidated both by a bound-byte change and by expiry",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "distinct_idempotency_keys": 144,
+        "duplicate_suppressed_operations": 0,
+        "simulated_operation_count": 144
+      },
+      "gate": "idempotency",
+      "reason": "all 144 operations carry distinct idempotency keys",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "auto_retried": 0,
+        "duplicate_simulated_objects_created": 0,
+        "resolution_states": [
+          "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "RECONCILED_CONFIRMED",
+          "RECONCILIATION_PENDING_OPERATOR_RECOVERY"
+        ],
+        "unknown_write_simulations": 48
+      },
+      "gate": "unknown_write_and_reconciliation",
+      "reason": "every unknown write is classified deterministically, all three reconciliation outcomes are exercised, and no blind retry or duplicate object occurred",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "human_approval_universally_mandatory": false,
+        "kill_switch_status": "kill_switch_engaged",
+        "operating_mode": "SHADOW_ONLY",
+        "operating_modes_supported": [
+          "AUTONOMOUS_DEFAULT",
+          "SUPERVISED_OPERATOR_GATE",
+          "SHADOW_ONLY",
+          "KILL_SWITCH"
+        ],
+        "operations_processed_under_kill_switch": 0,
+        "queue_preserved_not_deleted": true
+      },
+      "gate": "mode_and_kill_switch_behaviour",
+      "reason": "all four operating modes are declared, human approval is not universally mandatory, and an engaged kill switch blocks the queue without deleting it",
+      "status": "PASS"
+    },
+    {
+      "detail": {
+        "generated_from_real_run": true,
+        "logical_days": 10,
+        "problems": [],
+        "recovery_drills": 16,
+        "slo_measurements": 20
+      },
+      "gate": "v5_snapshot_consistency",
+      "reason": "the operator snapshot was generated from the real run and agrees with the run summary, SLO report, and drill report",
+      "status": "PASS"
+    }
+  ],
+  "not_applicable_gates": [],
+  "passed_count": 11,
+  "required_gates": [
+    "one_canonical_execution_path",
+    "durable_replay",
+    "authority_and_policy_bindings",
+    "package_lineage",
+    "no_secret_posture",
+    "release_authorization_integrity",
+    "idempotency",
+    "unknown_write_and_reconciliation",
+    "mode_and_kill_switch_behaviour",
+    "v5_snapshot_consistency",
+    "accepted_evidence_packet_completeness"
+  ],
+  "runs_noisy_historical_full_suite_as_launch_oracle": false,
+  "schema_version": "contentops.core_v0_acceptance_harness.v1",
+  "store_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\final\\store.sqlite",
+  "task": "TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1"
+}

@@ -38,20 +38,89 @@ normalising bytes inside verification code.
 
 ### Current next task
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-Work Package D passed independent audit and is fast-forward merged into `master`, so this
-task is now routable as Work Package E. The Work Package D routing status is:
+Work Package D is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package E — the repeated
+shadow soak and recovery — is delivered on branch
+`agent/contentops-core-v0-repeated-shadow-soak-and-recovery-v1`:
 
-`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+`DELIVERED_AWAITING_INDEPENDENT_AUDIT`
 
-Work Package E status:
+Work Package F status:
 
-`READY_NOT_STARTED`
+`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
 
 ### Current next-task mode
 
-`SHADOW_ONLY`
+`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
+
+### Delivered, awaiting independent audit: CORE V0 repeated shadow soak and recovery
+
+Work Package E Status: `DELIVERED_AWAITING_INDEPENDENT_AUDIT`
+
+Launch-readiness disposition: `READY_WITH_EXPLICIT_CAVEATS`
+
+One canonical command drives an accelerated repeated multi-day soak over the accepted
+Work Package C/D pipeline and the accepted Wave 02 durable store — it does not add a
+second production runner, state store, scheduler, approval system, or outbox:
+
+```text
+python -m live_contentops.cli core-v0-shadow-soak \
+  --store <sqlite> --output <dir> --logical-days 10
+```
+
+Ten logical newsroom days ran thirty of thirty governed intake-window decisions to
+completion, including truthful governed no-op windows. Each day is a genuinely different
+decision rather than one run repeated: accepted publication history accumulates across
+days, so rolling concentration reorders and defers different candidates as the soak
+proceeds, and every logical day carries a distinct logical hash. Sixteen complete packages
+were produced across both lanes — six newsroom and ten Capital Chronicle — with ten
+explicit `NO_PUBLICATION` abstentions and ten duplicate/low-delta suppressions. All nine
+governed domain families received an explicit outcome on every day.
+
+Durable state reuses the accepted Wave 02 store: one hundred work items persisted across
+days with zero lost and zero double-claimed, and the store reopened and replayed its full
+hash chain after restart. Sixteen of sixteen required recovery and injected-failure drills
+passed, covering restart at three distinct points, duplicate scheduler tick, two concurrent
+workers on one durable item, source unavailable, rights-cleared visual unavailable, chart
+QA failure, stale/low-delta update, material update-chain continuation, unknown readback,
+reconciliation present, reconciliation absent, kill switch engaged during release-queue
+processing, corrupted exported evidence with the store intact, and one calibration
+sensitivity sweep.
+
+The launch-edge dry model composes the accepted approval-payload-hash,
+revocation/expiration, idempotency, and kill-switch contracts rather than building a
+parallel approval engine or outbox. One hundred forty-four release intents each bind eight
+exact hashes — package, evidence, visual, variant, policy, platform, account binding, and
+freshness — and one hundred forty-four simulated operations each carry a distinct
+idempotency key. Both `AUTONOMOUS_POLICY` and `OPERATOR_DECISION` authorization actors are
+exercised, and human approval is deliberately *not* universally mandatory. Authorization is
+invalidated by any bound-byte change and by expiry, and no payload is rebuilt after
+authorization. Forty-eight unknown-write simulations resolved across all three
+reconciliation outcomes with zero blind retries and zero duplicate simulated objects.
+Zero operations were executed, the outbox was never run, and no platform action occurred.
+
+A canonical acceptance harness gives Work Package G a single deterministic oracle over
+accepted evidence rather than the noisy historical repository suite:
+
+```text
+python -m live_contentops.cli core-v0-acceptance --evidence <dir> --store <sqlite>
+```
+
+The Work Package E caveats are recorded truthfully and are not converted into a pass:
+
+- this is an accelerated logical soak over a deterministic clock, **not** seven calendar
+  days of proven availability; calendar uptime and live reliability are explicitly
+  `UNMEASURABLE` here and belong to the live cohort;
+- no full-suite PASS is claimed;
+- no CI PASS is claimed;
+- runtime measurements are genuine wall-clock values and are the only nondeterministic
+  outputs; every logical hash is byte-stable across repeated runs;
+- two of eight required domains produced a complete package, so domain concentration is
+  reported as `INSUFFICIENT_EVIDENCE` rather than by lowering a review gate to reach a
+  count. All nine governed domain families did receive an explicit decision;
+- Browser QA has committed screenshots, hashes, DOM assertions, and zero console/page
+  errors, but independent pixel-perfect visual PASS is not claimed.
 
 ### Accepted and merged: CORE V0 diversity, SEO, image, and chart closure
 
@@ -239,8 +308,8 @@ write occurred.
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ repeated shadow soak and recovery   [CURRENT — READY, NOT STARTED]
-→ exact authorized live cohort
+→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```
 

@@ -127,11 +127,16 @@ Do not inspect, redesign, retest, re-merge, or reopen Wave 02 implementation unl
 
 ## Current next task
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
 Mode:
 
-`SHADOW_ONLY`
+`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
+
+Work Package E — the repeated shadow soak and recovery — is delivered and is
+`DELIVERED_AWAITING_INDEPENDENT_AUDIT`, launch-readiness `READY_WITH_EXPLICIT_CAVEATS`. The
+live cohort is `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE` and must not start without an exact
+owner-authorized live scope.
 
 Work Package C is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package D — diversity, SEO, image, and chart closure — is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`: independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit `1088bfb82d29d40fba4d3db1e910bf5d292bd522`, fast-forward merged into `master` from branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` with merge method `FAST_FORWARD_ONLY`. Do not reopen either. The soak task is Work Package E and is `READY_NOT_STARTED`.
 

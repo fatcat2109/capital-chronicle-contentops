@@ -70,6 +70,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { id: 'canonical_package_review', label: 'Package Review', icon: 'fingerprint' },
       { id: 'dual_lane_core_v0_shadow', label: 'Dual-Lane CORE V0', icon: 'shield' },
       { id: 'core_v0_cohort_closure', label: 'CORE V0 Cohort', icon: 'layers' },
+      { id: 'core_v0_shadow_soak', label: 'CORE V0 Soak', icon: 'clock' },
       { id: 'v6_command_center', label: 'V6 Command Center', icon: 'dashboard' },
     ],
   },

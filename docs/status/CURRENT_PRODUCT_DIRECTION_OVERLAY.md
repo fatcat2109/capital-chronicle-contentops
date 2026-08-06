@@ -44,11 +44,11 @@ Do not resume the older horizontal hardening sequence unless an item directly bl
 
 ## Current next task
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
 Mode:
 
-`SHADOW_ONLY`
+`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
 
 Work Package D passed independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` and is
 fast-forward merged into `master`, so this task is now routable. Work Package C is
@@ -56,7 +56,9 @@ fast-forward merged into `master`, so this task is now routable. Work Package C 
 `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT` at accepted source HEAD
 `f83bd5c97479ef0001bac141e78d85eacdaa1cc9` with accepted correction commit
 `1088bfb82d29d40fba4d3db1e910bf5d292bd522` and merge method `FAST_FORWARD_ONLY`. Work Package
-E is `READY_NOT_STARTED`.
+E is `DELIVERED_AWAITING_INDEPENDENT_AUDIT` with launch-readiness disposition
+`READY_WITH_EXPLICIT_CAVEATS`; the exact authorized live cohort is
+`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`.
 
 The accepted Work Package D caveats remain truthful: no full-suite PASS is claimed, no CI PASS
 is claimed, the full-suite failures are a noisy pre-existing baseline including two
@@ -69,8 +71,8 @@ The final build sequence is:
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ repeated shadow soak and recovery   [CURRENT — READY, NOT STARTED]
-→ exact authorized live cohort
+→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```
 

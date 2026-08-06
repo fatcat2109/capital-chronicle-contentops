@@ -25,7 +25,8 @@ export type ViewId =
   | 'v6_command_center'
   | 'canonical_package_review'
   | 'dual_lane_core_v0_shadow'
-  | 'core_v0_cohort_closure';
+  | 'core_v0_cohort_closure'
+  | 'core_v0_shadow_soak';
 
 export interface SystemMode {
   code: string;

@@ -30,18 +30,23 @@ Current durable prerequisite status:
 
 Current next task:
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
 Current next-task mode:
 
-`SHADOW_ONLY`
+`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
 
 Current work package routing:
 
 - Work Package C — dual-lane CORE V0 shadow newsroom: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
-- Work Package D — diversity, SEO, image, and chart closure: `CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+- Work Package D — diversity, SEO, image, and chart closure: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+- Work Package E — repeated shadow soak and recovery: `DELIVERED_AWAITING_INDEPENDENT_AUDIT`, launch readiness `READY_WITH_EXPLICIT_CAVEATS`
+- Work Package F — exact authorized live cohort: `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
 
-The soak task is routed only after Work Package D passes independent audit.
+Work Package D passed independent audit and is merged. Work Package E is delivered as an
+accelerated logical soak and is awaiting independent audit; calendar uptime and live
+reliability are not claimed by it. The live cohort must not start without an exact
+owner-authorized live scope.
 
 ## 1. Current authority
 
@@ -217,10 +222,10 @@ Completed:
 Remaining sequence:
 
 ```text
-dual-lane CORE V0 in SHADOW_ONLY
-→ diversity, SEO, image, and chart closure
-→ repeated shadow soak and recovery
-→ exact authorized live cohort
+dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
+→ diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
+→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```
 

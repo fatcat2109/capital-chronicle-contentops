@@ -16,12 +16,15 @@ Wave 02 — the durable operational store and canonical state machine — is com
 
 ### Required next action
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-This is the current routing authority. Work package D passed independent audit
-`PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` and is fast-forward merged into `master`, so
-work package D status is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT` and this task — work
-package E — is `READY_NOT_STARTED`.
+This is the current routing authority, and it requires an exact owner-authorized live scope
+before it starts. Work package D is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work package
+E — the repeated shadow soak and recovery — is delivered on branch
+`agent/contentops-core-v0-repeated-shadow-soak-and-recovery-v1` and is
+`DELIVERED_AWAITING_INDEPENDENT_AUDIT` with launch-readiness disposition
+`READY_WITH_EXPLICIT_CAVEATS`. Evidence:
+`docs/automation/CORE_V0_WPE_SOAK/`.
 
 Work package C (dual-lane CORE V0 shadow newsroom) is complete, accepted, and fast-forward
 merged into `master` with a truthful caveat. Its status is
@@ -69,15 +72,15 @@ screenshots are supplied as auditable files at
 
 ### Mode
 
-`SHADOW_ONLY`
+`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
 
 ### Final build sequence
 
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ repeated shadow soak and recovery   [CURRENT — READY, NOT STARTED]
-→ exact authorized live cohort
+→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```
 

@@ -11,6 +11,7 @@ import { operatorRunbookIndexPacket } from './data/operatorRunbookIndexPacket';
 import { finalProductReadinessPacket } from './data/finalProductReadinessPacket';
 import { dualLaneCoreV0ShadowPacket } from './data/dualLaneCoreV0ShadowPacket';
 import { coreV0CohortSnapshot } from './data/coreV0CohortSnapshot';
+import { coreV0SoakSnapshot } from './data/coreV0SoakSnapshot';
 import {
   canonicalReviewStories,
   selectCanonicalReviewStory,
@@ -494,6 +495,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectDualLaneCoreV0ShadowPacket();
     case 'core_v0_cohort_closure':
       return selectCoreV0CohortSnapshot();
+    case 'core_v0_shadow_soak':
+      return selectCoreV0SoakSnapshot();
   }
 }
 
@@ -663,6 +666,63 @@ export function selectCoreV0CohortSnapshot(): SelectableObject {
       { label: 'Public write authority', value: String(s.public_write_authority), status: 'blocked' },
       { label: 'Network call performed', value: String(s.network_call_performed), status: 'verified' },
       { label: 'External cost', value: s.external_cost, mono: true },
+    ],
+  };
+}
+
+export function selectCoreV0SoakSnapshot(): SelectableObject {
+  const s = coreV0SoakSnapshot;
+  const counts = s.slo.cohort_counts;
+  const drillsPassed = s.recovery_drills.filter((d) => d.result === 'PASS').length;
+  return {
+    kind: 'core_v0_soak_snapshot',
+    id: s.task,
+    title: `CORE V0 Soak · ${s.operating_mode}`,
+    fields: [
+      { label: 'Operating mode', value: s.operating_mode, status: 'review' },
+      { label: 'Soak class', value: s.soak_class, mono: true },
+      { label: 'Logical days', value: String(counts.logical_days), status: 'verified' },
+      {
+        label: 'Window decisions',
+        value: `${counts.intake_windows_completed}/${counts.intake_windows_total}`,
+        status: 'verified',
+      },
+      { label: 'Complete packages', value: String(counts.complete_packages), status: 'verified' },
+      { label: 'Domains decided', value: String(counts.domains_decided_count) },
+      { label: 'No publication', value: String(counts.no_publication_decisions), status: 'review' },
+      {
+        label: 'Recovery drills',
+        value: `${drillsPassed}/${s.recovery_drills.length}`,
+        status: drillsPassed === s.recovery_drills.length ? 'verified' : 'blocked',
+      },
+      {
+        label: 'Restart reconstruction',
+        value: s.durable.restart_reconstruction_status,
+        status: 'verified',
+      },
+      { label: 'Durable work items', value: String(s.durable.work_item_count) },
+      { label: 'Release intents', value: String(s.launch_edge.release_intent_count) },
+      { label: 'Operations executed', value: String(s.launch_edge.operations_executed), status: 'verified' },
+      {
+        label: 'Unknown writes auto-retried',
+        value: String(s.reconciliation.auto_retried),
+        status: 'verified',
+      },
+      { label: 'Kill switch', value: s.kill_switch_state, status: 'blocked' },
+      {
+        label: 'Launch readiness',
+        value: s.launch_readiness_disposition,
+        status: 'review',
+        mono: true,
+      },
+      { label: 'Publication authority', value: String(s.publication_authority), status: 'blocked' },
+      { label: 'Dispatch authority', value: String(s.dispatch_authority), status: 'blocked' },
+      {
+        label: 'Public write authority',
+        value: String(s.public_write_authority),
+        status: 'blocked',
+      },
+      { label: 'External cost', value: s.runtime.external_cost, mono: true },
     ],
   };
 }
