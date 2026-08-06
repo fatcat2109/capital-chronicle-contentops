@@ -23,7 +23,8 @@ export type ViewId =
   | 'operator_runbook_index'
   | 'final_product_readiness'
   | 'v6_command_center'
-  | 'canonical_package_review';
+  | 'canonical_package_review'
+  | 'dual_lane_core_v0_shadow';
 
 export interface SystemMode {
   code: string;

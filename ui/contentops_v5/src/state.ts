@@ -68,6 +68,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { id: 'operator_runbook_index', label: 'Operator Runbook', icon: 'lock' },
       { id: 'final_product_readiness', label: 'Final Readiness', icon: 'shield' },
       { id: 'canonical_package_review', label: 'Package Review', icon: 'fingerprint' },
+      { id: 'dual_lane_core_v0_shadow', label: 'Dual-Lane CORE V0', icon: 'shield' },
       { id: 'v6_command_center', label: 'V6 Command Center', icon: 'dashboard' },
     ],
   },

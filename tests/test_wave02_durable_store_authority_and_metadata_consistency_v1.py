@@ -33,8 +33,9 @@ EXPECTED_CLOSEOUT_TASK = (
     "TASK_CONTENTOPS_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_OF_DC228AAA_V1"
 )
 
-EXPECTED_NEXT_TASK = "TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1"
+EXPECTED_NEXT_TASK = "TASK_CONTENTOPS_CORE_V0_DIVERSITY_SEO_IMAGE_AND_CHART_CLOSURE_V1"
 EXPECTED_NEXT_TASK_MODE = "SHADOW_ONLY"
+DELIVERED_CORE_V0_TASK = "TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1"
 SUPERSEDED_NEXT_TASK = "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1"
 EXPECTED_PRODUCT_DIRECTION = "CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED"
 EXPECTED_WAVE01_STATUS = "COMPLETE_ACCEPTED_AND_MERGED"
@@ -428,6 +429,8 @@ def test_markdown_authority_documents_consistency():
     assert EXPECTED_NEXT_TASK in next_task_md
     assert EXPECTED_NEXT_TASK_MODE in next_task_md
     assert EXPECTED_WAVE02_STATUS in next_task_md
+    # CORE V0 is delivered and recorded, not the current next task.
+    assert DELIVERED_CORE_V0_TASK not in next_task_md.split("### Required next action")[1].split("###")[0]
     # The superseded Wave 03 task must not remain as current routing in the pointer.
     assert SUPERSEDED_NEXT_TASK not in next_task_md
 
@@ -435,5 +438,4 @@ def test_markdown_authority_documents_consistency():
         REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "current_v6_master_plan.md"
     ).read_text(encoding="utf-8")
     assert "Wave 02" in master_plan_md
-    assert EXPECTED_NEXT_TASK in master_plan_md
     assert EXPECTED_NEXT_TASK_MODE in master_plan_md

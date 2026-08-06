@@ -16,7 +16,24 @@ Wave 02 — the durable operational store and canonical state machine — is com
 
 ### Required next action
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_CORE_V0_DIVERSITY_SEO_IMAGE_AND_CHART_CLOSURE_V1`
+
+Work package C (dual-lane CORE V0 shadow newsroom) is delivered on branch
+`agent/contentops-dual-lane-core-v0-shadow-newsroom-v1` and awaits independent audit and
+merge. It ships one canonical local command:
+
+```text
+python -m live_contentops.cli core-v0-shadow-demo --store <sqlite> --output <dir>
+```
+
+Both lanes run in one pass over committed governed artifacts, produce reviewable article,
+SEO, visual, and Tier-1 native package output, record durable shadow state, and replay
+deterministically with zero public writes.
+
+Work package D closes required-domain taxonomy, concentration-aware portfolio reporting,
+search-intent/on-page SEO contracts, image rights and provenance, and deterministic chart
+production. It also closes the three Tier-1 destinations CORE V0 reported as unsupported:
+`discord`, `instagram_business`, and `threads`.
 
 ### Mode
 
@@ -25,8 +42,8 @@ Wave 02 — the durable operational store and canonical state machine — is com
 ### Final build sequence
 
 ```text
-dual-lane CORE V0 in SHADOW_ONLY
-→ diversity, SEO, image, and chart closure
+dual-lane CORE V0 in SHADOW_ONLY   [DELIVERED — awaiting independent audit and merge]
+→ diversity, SEO, image, and chart closure   [CURRENT]
 → repeated shadow soak and recovery
 → exact authorized live cohort
 → final acceptance and new release identity
@@ -34,9 +51,11 @@ dual-lane CORE V0 in SHADOW_ONLY
 
 ### Execution boundary
 
-The task runs the complete dual-lane product cycle with zero public writes over the accepted Wave 02 durable store. It must demonstrate a daily governed headline universe, duplicate and update-chain clustering, diversified ranking, selection of one best story or explicit abstention, intake of one governed Capital Chronicle analysis packet, one news-led and one Capital-Chronicle-led package, article/SEO/image/chart production, Tier-1 native packages, deterministic plus adversarial review, exact evidence and readback simulation, and canonical V5 operator visibility.
-
-It grants no credential or environment-value read, provider call, browser/CDP action, network intake, scheduler/outbox execution, dispatch, publication, or public write. It must not mutate the Capital Chronicle main project, fabricate numeric or analytical truth, or modify accepted `v1.0` artifacts.
+Work package D extends the delivered CORE V0 slice. It runs in `SHADOW_ONLY` and grants no
+credential or environment-value read, provider call, browser/CDP action, network intake,
+scheduler/outbox execution, dispatch, publication, or public write. It must not mutate the
+Capital Chronicle main project, fabricate numeric or analytical truth, or modify accepted
+`v1.0` artifacts.
 
 ### Current product-direction authority
 

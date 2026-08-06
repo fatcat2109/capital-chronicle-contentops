@@ -38,17 +38,40 @@ normalising bytes inside verification code.
 
 ### Current next task
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_CORE_V0_DIVERSITY_SEO_IMAGE_AND_CHART_CLOSURE_V1`
 
 ### Current next-task mode
 
 `SHADOW_ONLY`
 
-The final build sequence is:
+### Delivered: dual-lane CORE V0 shadow newsroom
+
+Work package C is delivered on branch `agent/contentops-dual-lane-core-v0-shadow-newsroom-v1`
+and awaits independent audit and merge. One canonical local command runs both governed input
+lanes in a single pass:
 
 ```text
-dual-lane CORE V0 in SHADOW_ONLY
-→ diversity, SEO, image, and chart closure
+python -m live_contentops.cli core-v0-shadow-demo --store <sqlite> --output <dir>
+```
+
+The newsroom lane loads the committed governed candidate universe, clusters duplicates and
+update chains, ranks deterministically across five business/news domains, and either selects
+one eligible story or returns an explicit `NO_PUBLICATION` abstention. The Capital Chronicle
+lane verifies one committed governed v3 analysis packet and transforms presentation only —
+claims, numerics, and limitations are copied verbatim, and an absent authorized series is
+reported as `NO_AUTHORIZED_CHART_SERIES` rather than fabricated.
+
+Both packages carry article, SEO, visual strategy, and dry-run native payloads for the six
+Tier-1 destinations the canonical package fabric supports; `discord`, `instagram_business`,
+and `threads` are reported explicitly as unsupported and deferred to work package D. All
+eight editorial roles run deterministically, durable shadow state replays from a reopened
+SQLite store, and publication, dispatch, and public-write authority are all false.
+
+### Current build sequence
+
+```text
+dual-lane CORE V0 in SHADOW_ONLY   [DELIVERED — awaiting independent audit and merge]
+→ diversity, SEO, image, and chart closure   [CURRENT]
 → repeated shadow soak and recovery
 → exact authorized live cohort
 → final acceptance and new release identity

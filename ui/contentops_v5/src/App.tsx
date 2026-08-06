@@ -26,6 +26,7 @@ import { OperatorRunbookIndex } from './views/OperatorRunbookIndex';
 import { FinalProductReadinessPanel } from './views/FinalProductReadinessPanel';
 import { V6CommandCenter } from './views/V6CommandCenter';
 import { CanonicalPackageReviewConsole } from './views/CanonicalPackageReviewConsole';
+import { DualLaneCoreV0Shadow } from './views/DualLaneCoreV0Shadow';
 
 export default function App() {
   const [view, setView] = useState<ViewId>('command_center');
@@ -41,7 +42,8 @@ export default function App() {
     view === 'evidence_vault' ||
     view === 'operator_runbook_index' ||
     view === 'final_product_readiness' ||
-    view === 'canonical_package_review';
+    view === 'canonical_package_review' ||
+    view === 'dual_lane_core_v0_shadow';
   const effectiveTheme: ThemeMode = isForensicView ? 'dark-evidence' : theme;
 
   const ctx = useMemo(
@@ -290,6 +292,8 @@ function ActiveView() {
       return <V6CommandCenter />;
     case 'canonical_package_review':
       return <CanonicalPackageReviewConsole />;
+    case 'dual_lane_core_v0_shadow':
+      return <DualLaneCoreV0Shadow />;
     default:
       return null;
   }

@@ -9,6 +9,7 @@ import { operatorReviewQueuePacket } from './data/operatorReviewQueuePacket';
 import { manualPilotTrailReconciliationPacket } from './data/manualPilotTrailReconciliationPacket';
 import { operatorRunbookIndexPacket } from './data/operatorRunbookIndexPacket';
 import { finalProductReadinessPacket } from './data/finalProductReadinessPacket';
+import { dualLaneCoreV0ShadowPacket } from './data/dualLaneCoreV0ShadowPacket';
 import {
   canonicalReviewStories,
   selectCanonicalReviewStory,
@@ -488,6 +489,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectV6CommandCenterPacket();
     case 'canonical_package_review':
       return selectCanonicalReviewStory(canonicalReviewStories[0]);
+    case 'dual_lane_core_v0_shadow':
+      return selectDualLaneCoreV0ShadowPacket();
   }
 }
 
@@ -608,6 +611,28 @@ export function selectFinalProductReadinessPacket(): SelectableObject {
       { label: 'Network performed', value: String(finalProductReadinessPacket.network_call_performed), status: 'verified' },
       { label: 'Operator next action', value: finalProductReadinessPacket.operator_next_action },
       { label: 'Source evidence', value: finalProductReadinessPacket.source_substack_acceptance, mono: true },
+    ],
+  };
+}
+
+export function selectDualLaneCoreV0ShadowPacket(): SelectableObject {
+  const p = dualLaneCoreV0ShadowPacket;
+  return {
+    kind: 'dual_lane_core_v0_shadow_packet',
+    id: p.task_label,
+    title: `Dual-Lane CORE V0 · ${p.operating_mode}`,
+    fields: [
+      { label: 'Operating mode', value: p.operating_mode, status: 'review' },
+      { label: 'Newsroom outcome', value: String(p.newsroom_lane.outcome), status: 'verified' },
+      { label: 'Selected candidate', value: String(p.newsroom_lane.selected_candidate_id ?? 'NONE'), mono: true },
+      { label: 'Held candidates', value: String(p.newsroom_lane.held_count), status: 'review' },
+      { label: 'CC packet', value: String(p.capital_chronicle_lane.packet_id), mono: true },
+      { label: 'Analytical fidelity', value: String(p.capital_chronicle_lane.analytical_fidelity_result), status: 'verified' },
+      { label: 'Chart series', value: String(p.capital_chronicle_lane.chart_series_status), status: 'review' },
+      { label: 'Publication authority', value: String(p.publication_authority), status: 'blocked' },
+      { label: 'Dispatch authority', value: String(p.dispatch_authority), status: 'blocked' },
+      { label: 'Public write authority', value: String(p.public_write_authority), status: 'blocked' },
+      { label: 'Replay valid', value: String(p.replay_verification.all_replays_valid), status: 'verified' },
     ],
   };
 }
