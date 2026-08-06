@@ -44,18 +44,22 @@ Do not resume the older horizontal hardening sequence unless an item directly bl
 
 ## Current next task
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
 
 Mode:
 
 `SHADOW_ONLY`
 
+Routed only after Work Package D passes independent audit. Work Package C is
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`; Work Package D is
+`DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`.
+
 The final build sequence is:
 
 ```text
-dual-lane CORE V0 in SHADOW_ONLY
-→ diversity, SEO, image, and chart closure
-→ repeated shadow soak and recovery
+dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
+→ diversity, SEO, image, and chart closure   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ repeated shadow soak and recovery   [CURRENT — AFTER WORK PACKAGE D AUDIT]
 → exact authorized live cohort
 → final acceptance and new release identity
 ```

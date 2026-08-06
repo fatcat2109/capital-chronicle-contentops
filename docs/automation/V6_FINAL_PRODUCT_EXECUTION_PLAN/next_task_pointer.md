@@ -16,31 +16,42 @@ Wave 02 — the durable operational store and canonical state machine — is com
 
 ### Required next action
 
-`TASK_CONTENTOPS_CORE_V0_DIVERSITY_SEO_IMAGE_AND_CHART_CLOSURE_V1`
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+
+This is routed only after work package D passes independent audit. Until that audit
+completes, work package D status is `DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`.
 
 Work package C (dual-lane CORE V0 shadow newsroom) is complete, accepted, and fast-forward
 merged into `master` with a truthful caveat. Its status is
 `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`, independent audit
 `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted implementation commit
 `6dc38ed32d2c55ebe63314d3cddfef3da34bbb4e`, accepted canonical correction commit
-`c8d6837368dee37e73c807e897cc751e37210801`. Do not re-audit, retest, or re-merge it. It ships
-one canonical local command:
+`c8d6837368dee37e73c807e897cc751e37210801`. Do not re-audit, retest, or re-merge it.
+
+Work package D is delivered on branch
+`agent/contentops-core-v0-diversity-seo-image-chart-closure-v1`. It extends the same command
+rather than adding a second runner:
 
 ```text
-python -m live_contentops.cli core-v0-shadow-demo --store <sqlite> --output <dir>
+python -m live_contentops.cli core-v0-shadow-demo --evaluation-corpus \
+  --store <sqlite> --output <dir>
 ```
 
-Both lanes run in one pass over committed governed artifacts, produce reviewable article,
-SEO, visual, and Tier-1 native package output, record durable shadow state, and replay
-deterministically with zero public writes. Both current demo packages truthfully end at
-canonical review result `REVIEW_BLOCKED_VISUAL_REQUIREMENT`; that outcome must not be
-converted into a pass. Browser QA is recorded as
-`WORKER_REPORTED_BROWSER_QA_NOT_INDEPENDENTLY_VISUALLY_AUDITED`.
+One local command processes a committed governed evaluation corpus of ten cases covering all
+nine required domain families across both input lanes. Both lanes now reach a genuine
+canonical `PASS` with all eight editorial roles green — the visual-requirement block that
+caveated work package C is resolved by a story-type visual-policy resolver plus committed
+rights-cleared assets, not by manufacturing an editorial exception. The other eight cases
+terminate truthfully as review-blocked, permission-blocked, evidence-blocked,
+visual-rights-blocked, duplicate-suppressed, or explicit `NO_PUBLICATION`; no blocked case
+reaches `REVIEW_READY`.
 
-Work package D closes required-domain taxonomy, concentration-aware portfolio reporting,
-search-intent/on-page SEO contracts, image rights and provenance, and deterministic chart
-production. It also closes the three Tier-1 destinations CORE V0 reported as unsupported:
-`discord`, `instagram_business`, and `threads`.
+Work package D also closes the three Tier-1 destinations CORE V0 reported as unsupported —
+`discord`, `instagram_business`, and `threads` — on the same canonical package builder, with
+Instagram failing closed when no rights-cleared visual asset exists. One deterministic chart
+is produced solely from authorized governed values and passes methodology QA. Browser QA
+screenshots are supplied as auditable files at
+`docs/automation/CORE_V0_WPD_CLOSURE/browser_qa/`.
 
 ### Mode
 
@@ -50,8 +61,8 @@ production. It also closes the three Tier-1 destinations CORE V0 reported as uns
 
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ diversity, SEO, image, and chart closure   [CURRENT]
-→ repeated shadow soak and recovery
+→ diversity, SEO, image, and chart closure   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ repeated shadow soak and recovery   [CURRENT — AFTER WORK PACKAGE D AUDIT]
 → exact authorized live cohort
 → final acceptance and new release identity
 ```

@@ -23,7 +23,7 @@ Current durable prerequisite status:
 
 Current next task:
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
 
 Current next-task mode:
 
@@ -127,13 +127,15 @@ Do not inspect, redesign, retest, re-merge, or reopen Wave 02 implementation unl
 
 ## Current next task
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
 
 Mode:
 
 `SHADOW_ONLY`
 
-The build sequence after this task is diversity/SEO/image/chart closure, then repeated shadow soak and recovery, then an exact authorized live cohort, then final acceptance and a new release identity.
+Work Package C is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package D — diversity, SEO, image, and chart closure — is `DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE` on branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1`; the soak task is routed only after that audit passes. Do not reopen either.
+
+The build sequence after this task is an exact authorized live cohort, then final acceptance and a new release identity.
 
 The older automatic Wave 03 approval-envelope/transactional-outbox sequence is no longer the current next-task authority.
 

@@ -10,6 +10,7 @@ import { manualPilotTrailReconciliationPacket } from './data/manualPilotTrailRec
 import { operatorRunbookIndexPacket } from './data/operatorRunbookIndexPacket';
 import { finalProductReadinessPacket } from './data/finalProductReadinessPacket';
 import { dualLaneCoreV0ShadowPacket } from './data/dualLaneCoreV0ShadowPacket';
+import { coreV0CohortSnapshot } from './data/coreV0CohortSnapshot';
 import {
   canonicalReviewStories,
   selectCanonicalReviewStory,
@@ -491,6 +492,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectCanonicalReviewStory(canonicalReviewStories[0]);
     case 'dual_lane_core_v0_shadow':
       return selectDualLaneCoreV0ShadowPacket();
+    case 'core_v0_cohort_closure':
+      return selectCoreV0CohortSnapshot();
   }
 }
 
@@ -633,6 +636,33 @@ export function selectDualLaneCoreV0ShadowPacket(): SelectableObject {
       { label: 'Dispatch authority', value: String(p.dispatch_authority), status: 'blocked' },
       { label: 'Public write authority', value: String(p.public_write_authority), status: 'blocked' },
       { label: 'Replay valid', value: String(p.replay_verification.all_replays_valid), status: 'verified' },
+    ],
+  };
+}
+
+export function selectCoreV0CohortSnapshot(): SelectableObject {
+  const s = coreV0CohortSnapshot;
+  const counts = s.outcome_counts;
+  return {
+    kind: 'core_v0_cohort_snapshot',
+    id: s.task_label,
+    title: `CORE V0 Cohort · ${s.operating_mode}`,
+    fields: [
+      { label: 'Operating mode', value: s.operating_mode, status: 'review' },
+      { label: 'Cohort cases', value: String(s.corpus.case_count) },
+      { label: 'Domain families', value: String(s.corpus.domain_family_count) },
+      { label: 'Review passed', value: String(counts.eligible_review_passed), status: 'verified' },
+      { label: 'Lanes passing', value: s.lanes_with_passing_package.join(', ') },
+      { label: 'Review blocked', value: String(counts.package_review_blocked), status: 'blocked' },
+      { label: 'No publication', value: String(counts.no_publication), status: 'review' },
+      { label: 'Tier-1 destinations', value: String(s.tier1_destination_count) },
+      { label: 'Review engine', value: s.review_engine, mono: true },
+      { label: 'Replay valid', value: String(s.replay_verification.all_replays_valid), status: 'verified' },
+      { label: 'Publication authority', value: String(s.publication_authority), status: 'blocked' },
+      { label: 'Dispatch authority', value: String(s.dispatch_authority), status: 'blocked' },
+      { label: 'Public write authority', value: String(s.public_write_authority), status: 'blocked' },
+      { label: 'Network call performed', value: String(s.network_call_performed), status: 'verified' },
+      { label: 'External cost', value: s.external_cost, mono: true },
     ],
   };
 }

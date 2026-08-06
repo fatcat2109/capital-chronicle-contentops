@@ -595,8 +595,14 @@ def _shadow_structured_role_reviewer(
                 str(value)
                 for value in article.get("body_claim_ids_used") or []
             } == used,
-            "governed_statements_present": all(
+            # The governed claim contract carries substance in ``statement`` *or*
+            # ``structured_payload`` — numeric_observation claims use the latter and
+            # legitimately have no prose statement. Requiring ``statement`` alone
+            # rejected every authorized numeric claim, so both forms are accepted here.
+            "governed_claim_body_present": all(
                 str(claim_map[claim_id].get("statement") or "").strip()
+                or claim_map[claim_id].get("structured_payload")
+                or claim_map[claim_id].get("numeric")
                 for claim_id in used & set(claim_map)
             ),
         },

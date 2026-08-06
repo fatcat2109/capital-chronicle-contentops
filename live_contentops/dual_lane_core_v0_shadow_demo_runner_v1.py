@@ -20,6 +20,11 @@ from live_contentops.capital_chronicle_content_evidence_packet_v3 import (
     build_content_evidence_packet_v3,
     validate_content_evidence_packet_v3,
 )
+from live_contentops.core_v0_closure_capabilities_v1 import ClosureCapabilityError
+from live_contentops.core_v0_evaluation_corpus_v1 import EvaluationCorpusError
+from live_contentops.multi_story_platform_native_operator_packages_v1 import (
+    ALL_TIER1_PLATFORM_IDS,
+)
 from live_contentops.freshness_market_state_v2 import evaluate_freshness
 from live_contentops.window_incremental_editorial_shadow_v1 import (
     build_candidate_bound_evidence_packet,
@@ -502,6 +507,99 @@ def run_core_v0_shadow_demo(
     return run_summary
 
 
+def run_core_v0_cohort_closure(
+    *,
+    repo_root: Path,
+    store_path: Path,
+    output_dir: Path,
+    concentration_threshold: float | None = None,
+) -> dict[str, Any]:
+    """Run the diversified evaluation cohort through the same canonical pipeline.
+
+    This is the Work Package D extension of this one command — not a second runner. It
+    reuses the same durable store, canonical review engine, package fabric, and
+    zero-live-action envelope as the two-lane path above.
+    """
+    from live_contentops.core_v0_cohort_shadow_runner_v1 import (
+        COHORT_CASES_FILENAME,
+        COHORT_SUMMARY_FILENAME,
+        PORTFOLIO_FILENAME,
+        V5_SNAPSHOT_FILENAME,
+        build_v5_cohort_snapshot,
+        persist_cohort,
+        run_cohort,
+        verify_cohort_replay,
+    )
+
+    started = time.monotonic()
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    chart_dir = output_dir / "charts"
+
+    cohort = run_cohort(
+        repo_root=Path(repo_root),
+        chart_output_dir=chart_dir,
+        concentration_threshold=concentration_threshold,
+    )
+    store = ContentOpsDurableStore(Path(store_path), auto_migrate=True)
+    durable = persist_cohort(store, cohort)
+    replay = verify_cohort_replay(store, durable["work_item_ids"])
+
+    summary = {
+        "schema_version": cohort["schema_version"],
+        "task": cohort["task"],
+        "operating_mode": cohort["operating_mode"],
+        "corpus": cohort["corpus"],
+        "outcome_counts": cohort["outcome_counts"],
+        "lanes_with_passing_package": cohort["lanes_with_passing_package"],
+        "portfolio_daily_concentrated_dimensions": cohort["portfolio_daily"][
+            "concentrated_dimensions"
+        ],
+        "concentration_penalties": cohort["concentration_penalties"],
+        "review_engine": cohort["review_engine"],
+        "package_fabric": cohort["package_fabric"],
+        "tier1_destination_count": len(ALL_TIER1_PLATFORM_IDS),
+        "durable_work_item_ids": durable["work_item_ids"],
+        "durable_terminal_states": durable["terminal_states"],
+        "replay_verification": {
+            "all_replays_valid": replay["all_replays_valid"],
+            "work_items_replayed": replay["work_items_replayed"],
+        },
+        "shadow_readback": {
+            "readback_kind": "SHADOW_SIMULATED_NO_PUBLIC_OBJECT",
+            "public_objects_created": 0,
+            "public_urls": [],
+            "destinations_contacted": [],
+        },
+        "elapsed_seconds": round(time.monotonic() - started, 3),
+        "external_cost": "NONE_NO_PAID_API_OR_MODEL_CALL",
+        **zero_live_action_flags(),
+    }
+    snapshot = build_v5_cohort_snapshot(cohort=cohort, durable=durable, replay=replay)
+
+    documents = {
+        COHORT_SUMMARY_FILENAME: summary,
+        COHORT_CASES_FILENAME: {
+            "schema_version": cohort["schema_version"],
+            "cases": cohort["cases"],
+            **zero_live_action_flags(),
+        },
+        PORTFOLIO_FILENAME: {
+            "schema_version": cohort["schema_version"],
+            "daily": cohort["portfolio_daily"],
+            "rolling": cohort["portfolio_rolling"],
+            "penalties": cohort["concentration_penalties"],
+            **zero_live_action_flags(),
+        },
+        V5_SNAPSHOT_FILENAME: snapshot,
+    }
+    for document in documents.values():
+        assert_zero_live_action(document)
+    for filename, document in documents.items():
+        (output_dir / filename).write_bytes(_canonical_json(document))
+    return summary
+
+
 def core_v0_shadow_demo_command(argv: Sequence[str] | None = None) -> int:
     """CLI entrypoint: ``python -m live_contentops.cli core-v0-shadow-demo``."""
     parser = argparse.ArgumentParser(
@@ -518,19 +616,43 @@ def core_v0_shadow_demo_command(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--window-id", default=DEFAULT_WINDOW["window_id"])
     parser.add_argument("--window-cutoff-utc", default=DEFAULT_WINDOW["target_cutoff_utc"])
     parser.add_argument("--analysis-packet-id", default=None)
+    parser.add_argument(
+        "--evaluation-corpus",
+        nargs="?",
+        const="committed",
+        default=None,
+        help=(
+            "Run the diversified governed evaluation cohort (Work Package D closure) "
+            "instead of the two pinned lanes. Use the committed corpus by default."
+        ),
+    )
+    parser.add_argument(
+        "--concentration-threshold",
+        type=float,
+        default=None,
+        help="Configurable portfolio concentration threshold (default 0.34).",
+    )
     args = parser.parse_args(list(argv) if argv is not None else sys.argv[2:])
 
     try:
-        summary = run_core_v0_shadow_demo(
-            news_input=Path(args.news_input),
-            analysis_input=Path(args.analysis_input),
-            store_path=Path(args.store),
-            output_dir=Path(args.output),
-            schedule_date=args.schedule_date,
-            window={"window_id": args.window_id, "target_cutoff_utc": args.window_cutoff_utc},
-            analysis_packet_id=args.analysis_packet_id,
-        )
-    except DualLaneShadowError as exc:
+        if args.evaluation_corpus:
+            summary = run_core_v0_cohort_closure(
+                repo_root=REPO_ROOT,
+                store_path=Path(args.store),
+                output_dir=Path(args.output),
+                concentration_threshold=args.concentration_threshold,
+            )
+        else:
+            summary = run_core_v0_shadow_demo(
+                news_input=Path(args.news_input),
+                analysis_input=Path(args.analysis_input),
+                store_path=Path(args.store),
+                output_dir=Path(args.output),
+                schedule_date=args.schedule_date,
+                window={"window_id": args.window_id, "target_cutoff_utc": args.window_cutoff_utc},
+                analysis_packet_id=args.analysis_packet_id,
+            )
+    except (DualLaneShadowError, EvaluationCorpusError, ClosureCapabilityError) as exc:
         print(json.dumps({"status": "BLOCKED", "error": str(exc)}, sort_keys=True, indent=2))
         return 1
 

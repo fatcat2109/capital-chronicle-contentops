@@ -30,11 +30,18 @@ Current durable prerequisite status:
 
 Current next task:
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
 
 Current next-task mode:
 
 `SHADOW_ONLY`
+
+Current work package routing:
+
+- Work Package C — dual-lane CORE V0 shadow newsroom: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+- Work Package D — diversity, SEO, image, and chart closure: `DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`
+
+The soak task is routed only after Work Package D passes independent audit.
 
 ## 1. Current authority
 
@@ -244,11 +251,13 @@ Do not create a second production runner, state store, approval engine, outbox, 
 
 Jim approved this product direction on 2026-08-06. The exact builder task authorized by current authority is:
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
 
 Mode:
 
 `SHADOW_ONLY`
+
+Work Package C is accepted and merged. Work Package D — the CORE V0 diversity, SEO, image, and chart closure — is delivered on branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and is `DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`; the soak task is routed only after that audit passes. Do not reopen either work package.
 
 Wave 02 is complete and accepted as the minimum durable prerequisite; do not reopen it. The older automatic next action `TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1` is no longer the current next-task authority.
 

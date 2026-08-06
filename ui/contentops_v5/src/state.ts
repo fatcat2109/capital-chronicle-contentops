@@ -69,6 +69,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { id: 'final_product_readiness', label: 'Final Readiness', icon: 'shield' },
       { id: 'canonical_package_review', label: 'Package Review', icon: 'fingerprint' },
       { id: 'dual_lane_core_v0_shadow', label: 'Dual-Lane CORE V0', icon: 'shield' },
+      { id: 'core_v0_cohort_closure', label: 'CORE V0 Cohort', icon: 'layers' },
       { id: 'v6_command_center', label: 'V6 Command Center', icon: 'dashboard' },
     ],
   },

@@ -50,6 +50,8 @@ EXPECTED_STORY_IDS = (
     "apple-sec-10q-2026-000013",
     "usgs-reviewed-ridgecrest-ci38457511",
 )
+#: The six destinations the pinned three-story replay path validates against. This
+#: tuple stays frozen so the pinned package hashes and ordering cannot drift.
 PLATFORM_IDS = (
     "substack_newsletter",
     "linkedin",
@@ -57,6 +59,46 @@ PLATFORM_IDS = (
     "facebook_page",
     "telegram",
     "youtube_community",
+)
+#: Tier-1 destinations added by Work Package D. They use the same builder, renderer,
+#: prose policy, and hashing as the original six — only the contract rows are new.
+#: ``instagram_business`` is visual-required and fails closed without a valid asset.
+EXTENDED_PLATFORM_IDS = (
+    "discord",
+    "instagram_business",
+    "threads",
+)
+#: Every Tier-1 text/image destination the final product must serve.
+ALL_TIER1_PLATFORM_IDS = PLATFORM_IDS + EXTENDED_PLATFORM_IDS
+#: Destinations that cannot be built without a rights-cleared visual asset.
+VISUAL_REQUIRED_PLATFORM_IDS = ("instagram_business",)
+
+
+class VisualAssetRequiredError(ValueError):
+    """A visual-required destination was built without a rights-cleared asset.
+
+    Raised instead of degrading to a text-only payload or synthesizing an image, so the
+    caller must report the destination as explicitly blocked.
+    """
+
+
+#: The exact hashed input key set for a platform variant payload hash. The builder and
+#: the package verifier both derive from this one tuple so they cannot drift apart.
+PAYLOAD_HASH_INPUT_KEYS = (
+    "story_id",
+    "candidate_id",
+    "authority_story_logical_hash",
+    "authorized_claim_ids",
+    "platform_id",
+    "content_surface",
+    "payload_shape",
+    "mode",
+    "text",
+    "citation_fingerprints",
+    "limitation_fingerprints",
+    "visual_asset_ids",
+    "visual_asset_hashes",
+    "policy",
 )
 AUTHORIZED_CLAIMS = {
     story_id: tuple(claim_id for claim_id in claim_ids)
@@ -108,6 +150,25 @@ PLATFORM_CONTRACTS: dict[str, dict[str, Any]] = {
         "character_limit_max": 1500,
         "mode": "dry_run",
         "shape": "community_update_source_prompt",
+    },
+    "discord": {
+        "content_surface": "guild_channel_message",
+        "character_limit_max": 2000,
+        "mode": "dry_run",
+        "shape": "community_briefing_source_thread",
+    },
+    "instagram_business": {
+        "content_surface": "visual_feed_caption",
+        "character_limit_max": 2200,
+        "mode": "dry_run",
+        "shape": "caption_led_visual_first_source_note",
+        "visual_asset_required": True,
+    },
+    "threads": {
+        "content_surface": "conversational_thread_post",
+        "character_limit_max": 500,
+        "mode": "dry_run",
+        "shape": "conversational_opener_source_reply",
     },
 }
 FORBIDDEN_PROSE = (
@@ -614,6 +675,12 @@ def render_platform_native_text(
         return f"OFFICIAL RECORD | {headline}\n\n{summary}\n\nSource: {source_label}\nScope: exact authorized record metadata only\n\nNot financial advice."
     if platform_id == "youtube_community":
         return f"Community update: {headline}\n\n{summary}\n\nSource: {source_label}. This is a text-only Community post package, not a video or upload request.\n\nNot financial advice."
+    if platform_id == "discord":
+        return f"**{headline}**\n\n{summary}\n\n> Source: {source_label}\n> Scope: exact authorized record metadata only\n\nNot financial advice."
+    if platform_id == "instagram_business":
+        return f"{headline}\n\n{summary}\n\nVisual: rights-cleared asset bound to this package.\nSource: {source_label}\n\nNot financial advice."
+    if platform_id == "threads":
+        return f"{headline} — {summary} (Source: {source_label}.) Not financial advice."
     raise ValueError(f"unsupported_platform:{platform_id}")
 
 
@@ -641,14 +708,25 @@ def build_platform_native_variant(
     citation_urls: Sequence[str],
     limitations: Sequence[str],
     allow_magnitude: bool = False,
+    visual_asset_ids: Sequence[str] = (),
+    visual_asset_hashes: Sequence[str] = (),
+    target_persona_placeholder: str | None = None,
+    readback_policy: str = "SHADOW_SIMULATED_NO_PUBLIC_OBJECT",
 ) -> dict[str, Any]:
     """Canonical generic platform-native variant builder.
 
     Both the pinned three-story replay path and generic callers (dual-lane CORE V0) go
     through this one implementation. Raw URLs stay out of the hashed inputs; citations
     and limitations are bound as sha256 fingerprints.
+
+    Visual-required destinations (Instagram Business) fail closed when no rights-cleared
+    asset is bound. An image is never fabricated to satisfy a platform contract.
     """
     contract = PLATFORM_CONTRACTS[platform_id]
+    if contract.get("visual_asset_required") and not list(visual_asset_ids):
+        raise VisualAssetRequiredError(
+            f"platform_requires_visual_asset:{subject_id}:{platform_id}"
+        )
     text = render_platform_native_text(
         platform_id, headline=headline, summary=summary, source_label=source_label
     )
@@ -672,6 +750,8 @@ def build_platform_native_variant(
             sha256(str(url).encode("utf-8")).hexdigest() for url in citation_urls
         ],
         "limitation_fingerprints": limitation_fingerprints,
+        "visual_asset_ids": list(visual_asset_ids),
+        "visual_asset_hashes": list(visual_asset_hashes),
         "policy": {
             "approval_required": True,
             "valid_for_dispatch": False,
@@ -680,12 +760,20 @@ def build_platform_native_variant(
             "live_eligibility": False,
         },
     }
+    if tuple(hash_inputs) != PAYLOAD_HASH_INPUT_KEYS:
+        raise ValueError("payload_hash_input_key_set_drifted")
     return {
         **hash_inputs,
         "schema_version": "contentops.platform_native_operator_variant.v1",
         "citation_urls": list(citation_urls),
         "character_count": len(text),
         "character_limit_max": contract["character_limit_max"],
+        "visual_asset_required": bool(contract.get("visual_asset_required", False)),
+        "target_persona_placeholder": (
+            target_persona_placeholder or f"OPERATOR_ACCOUNT_PLACEHOLDER:{platform_id}"
+        ),
+        "readback_policy": readback_policy,
+        "operating_mode": "SHADOW_ONLY",
         "operator_review_required": True,
         "approval_required": True,
         "valid_for_dispatch": False,
@@ -886,15 +974,9 @@ def _validate_package(
     for variant in variants:
         _assert_false_flags(variant)
         _assert_prose_allowed(story, str(variant["text"]))
-        if variant["payload_hash"] != compute_payload_hash({
-            key: variant[key]
-            for key in (
-                "story_id", "candidate_id", "authority_story_logical_hash",
-                "authorized_claim_ids", "platform_id", "content_surface",
-                "payload_shape", "mode", "text", "citation_fingerprints",
-                "limitation_fingerprints", "policy",
-            )
-        }):
+        if variant["payload_hash"] != compute_payload_hash(
+            {key: variant[key] for key in PAYLOAD_HASH_INPUT_KEYS}
+        ):
             raise ValueError(f"variant_hash_invalid:{story['story_id']}:{variant['platform_id']}")
 
 

@@ -14,7 +14,9 @@ Current accepted master classification:
 
 Current next task:
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+
+Routed only after work package D passes independent audit.
 
 Current next-task mode:
 
@@ -52,8 +54,8 @@ Rows 03 through 15 below record the earlier horizontal hardening roadmap. Jim's 
 | A | Product-authority and current-state reconciliation | COMPLETE_OWNER_APPROVED |
 | B | Minimum durable execution prerequisite | COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE |
 | C | Dual-lane CORE V0 shadow newsroom | COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT — `SHADOW_ONLY`; canonical review `REVIEW_BLOCKED_VISUAL_REQUIREMENT`; audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` |
-| D | Diversity, SEO, image, and chart closure | CURRENT_EXACT_NEXT_TASK |
-| E | Repeated shadow soak and recovery | NOT_STARTED |
+| D | Diversity, SEO, image, and chart closure | DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE — `SHADOW_ONLY`; both lanes reach canonical `PASS`; 9/9 domain families and 9/9 Tier-1 destinations with explicit outcomes |
+| E | Repeated shadow soak and recovery | CURRENT_EXACT_NEXT_TASK_AFTER_WORK_PACKAGE_D_AUDIT |
 | F | Exact authorized live cohort | NOT_STARTED_LIVE_AUTH_REQUIRED |
 | G | Final acceptance and new release identity | NOT_STARTED |
 

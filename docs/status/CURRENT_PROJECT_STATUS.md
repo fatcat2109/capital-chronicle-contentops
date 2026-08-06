@@ -38,11 +38,62 @@ normalising bytes inside verification code.
 
 ### Current next task
 
-`TASK_CONTENTOPS_CORE_V0_DIVERSITY_SEO_IMAGE_AND_CHART_CLOSURE_V1`
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+
+Routed only after Work Package D passes independent audit. Until that audit completes, the
+Work Package D routing status is:
+
+`DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`
 
 ### Current next-task mode
 
 `SHADOW_ONLY`
+
+### Delivered, awaiting independent audit: CORE V0 diversity, SEO, image, and chart closure
+
+Work Package D Status: `DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`
+
+Work Package D extends the same `core-v0-shadow-demo` command — it does not add a second
+runner — so one local command processes a diversified governed evaluation cohort:
+
+```text
+python -m live_contentops.cli core-v0-shadow-demo \
+  --evaluation-corpus --store <sqlite> --output <dir>
+```
+
+The committed evaluation corpus is derived from exact existing governed repo artifacts. No
+news fact, claim, numeric value, source, permission, or Capital Chronicle analysis was
+invented. Historical governed material retains its original timestamps and is never presented
+as current news. Ten cases cover all nine required domain families across both input lanes.
+
+Both lanes now reach a genuine canonical `PASS`: the newsroom lane through the governed
+candidate adapter and the Capital Chronicle lane through the committed Treasury packet. All
+eight editorial roles pass for each. The remaining eight cases terminate truthfully — three
+package-review blocked, one permission blocked, one evidence blocked, one visual-rights
+blocked, one duplicate/low-delta suppressed, and one explicit `NO_PUBLICATION`. No blocked
+case reaches `REVIEW_READY`.
+
+The universal "three visuals or block" assumption is replaced by a deterministic story-type
+visual-policy resolver that hands resolved requirements to the existing visual engine; visual
+safety is not weakened and assets whose rights are not cleared are withheld and reported
+rather than laundered into a passing composition. One deterministic chart is produced from
+four exact authorized values plus committed prior observations and passes 23 methodology
+checks; a basis-point spread is excluded from the percent axis and disclosed rather than
+rescaled onto a shared axis.
+
+The canonical package fabric now covers all nine Tier-1 destinations — `discord`,
+`instagram_business`, and `threads` are built on the same builder as the existing six, with a
+single shared hashed-key set so builder and verifier cannot diverge. Instagram fails closed
+when no rights-cleared visual asset exists; no image is fabricated to satisfy a platform.
+
+Durable state reuses the accepted Wave 02 store: ten work items persist, reopen, and replay
+exactly. Repeated runs are byte-identical. The V5 `CORE V0 Cohort` surface is generated from
+the real run output, never hand-authored. Publication, dispatch, and public-write authority
+are all false, and no credential read, provider call, network call, browser/CDP platform
+action, scheduler/outbox execution, publication, dispatch, or public write occurred.
+
+Browser QA screenshots are supplied as auditable files at
+`docs/automation/CORE_V0_WPD_CLOSURE/browser_qa/`.
 
 ### Accepted and merged: dual-lane CORE V0 shadow newsroom
 
@@ -87,8 +138,8 @@ write occurred.
 
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ diversity, SEO, image, and chart closure   [CURRENT]
-→ repeated shadow soak and recovery
+→ diversity, SEO, image, and chart closure   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ repeated shadow soak and recovery   [CURRENT — AFTER WORK PACKAGE D AUDIT]
 → exact authorized live cohort
 → final acceptance and new release identity
 ```

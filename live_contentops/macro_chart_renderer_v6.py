@@ -43,6 +43,11 @@ def render_macro_chart(topic: str, source_csv: str | Path | None, output_dir: st
         return _blocked(topic, "chart_source_csv_not_found")
 
     try:
+        import matplotlib  # type: ignore
+
+        # Deterministic headless rendering: without this the default backend can be an
+        # interactive GUI one, which fails outright where no display/Tk is available.
+        matplotlib.use("Agg")
         import matplotlib.pyplot as plt  # type: ignore
     except Exception:
         return _blocked(topic, "matplotlib_unavailable")

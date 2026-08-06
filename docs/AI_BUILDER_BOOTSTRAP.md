@@ -85,11 +85,33 @@ Wave 02 is complete, merged into `master`, and accepted as the minimum durable p
 
 ## 10. Current next task
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
 
 Execution mode:
 
 `SHADOW_ONLY`
+
+Work Package C (dual-lane CORE V0 shadow newsroom) is accepted and merged. Work Package D
+(diversity, SEO, image, and chart closure) is delivered on branch
+`agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and is
+`DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`. Neither is reopened, re-audited, or
+re-merged. The soak task is routed only once Work Package D passes independent audit.
+
+Work Package D already demonstrates, from one local command over a committed governed
+evaluation corpus:
+
+- a diversified cohort covering all nine required domain families across both input lanes;
+- deterministic domain taxonomy plus daily and rolling portfolio concentration reporting;
+- one passing canonical package per input lane, with truthfully held, blocked,
+  duplicate-suppressed, and explicit `NO_PUBLICATION` outcomes elsewhere;
+- a complete SEO contract with empty measurement hooks and no observed-success claim;
+- a story-type visual-policy resolver with rights/provenance-bound assets only;
+- one deterministic chart built solely from authorized governed values;
+- explicit package outcomes for all nine Tier-1 destinations, Instagram failing closed;
+- durable reopen/replay and byte-identical repeated runs with zero public writes.
+
+The remaining bounded product work is the repeated shadow soak and recovery cycle described
+by the final build sequence.
 
 Required result — one bounded implementation over the accepted durable store that demonstrates:
 

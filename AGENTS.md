@@ -26,7 +26,11 @@ Wave 02 — the durable operational store and canonical state machine — is com
 
 Current next task:
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+
+Routed only after Work Package D — the CORE V0 diversity, SEO, image, and chart closure —
+passes independent audit. Work Package C is accepted and merged; Work Package D is
+`DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`. Do not reopen either.
 
 Current next-task mode:
 
@@ -164,20 +168,25 @@ Charts must be deterministic and reproducible from authorized Capital Chronicle 
 
 ## 11. Current next task
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
 
 Mode:
 
 `SHADOW_ONLY`
 
-This task runs the complete dual-lane product cycle with zero public writes. It builds on the accepted Wave 02 durable store and must demonstrate a governed headline universe, clustering and update chains, diversified ranking, selection or explicit abstention, one governed Capital Chronicle analysis transformation, article/SEO/image/chart production, Tier-1 native packages, deterministic plus adversarial review, exact evidence and readback simulation, and canonical V5 operator visibility.
+Work Package C (dual-lane CORE V0 shadow newsroom) is accepted and merged into `master`.
+Work Package D (diversity, SEO, image, and chart closure) is delivered on branch
+`agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and is
+`DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`. Neither is reopened. The soak task is
+routed only once Work Package D passes independent audit, and it runs with zero public
+writes on the accepted Wave 02 durable store.
 
 The final build sequence is:
 
 ```text
-dual-lane CORE V0 in SHADOW_ONLY
-→ diversity, SEO, image, and chart closure
-→ repeated shadow soak and recovery
+dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
+→ diversity, SEO, image, and chart closure   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ repeated shadow soak and recovery   [CURRENT — AFTER WORK PACKAGE D AUDIT]
 → exact authorized live cohort
 → final acceptance and new release identity
 ```
