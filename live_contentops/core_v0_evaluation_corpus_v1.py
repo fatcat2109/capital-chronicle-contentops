@@ -79,6 +79,39 @@ _PRIOR_OBSERVATION_PACKET = (
 )
 
 
+#: Committed artifacts whose status is ``PASS_PUBLICATION_AUTHORIZED`` — i.e. governed
+#: material that was actually accepted for publication. These are the only admissible
+#: source of *prior published* portfolio history: a blocked, deferred, or merely evaluated
+#: case is never history. Several artifacts re-project the same story, so entries are
+#: de-duplicated on the committed ``publication_assignment.duplicate_key``.
+_PUBLICATION_HISTORY_ARTIFACTS = (
+    "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/"
+    "contentops_database_publication_live_20260714_1/"
+    "capital_chronicle_content_evidence_packet_v2.json",
+    "docs/automation/TIER1_EDITORIAL_REVISION_AND_SEO_QUALITY_V2/"
+    "contentops_tier1_editorial_revision_seo_v2_20260714_1/"
+    "capital_chronicle_content_evidence_packet_v2.json",
+    "docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/governed_fabric_preflight_rehearsal_v1/"
+    "capital_chronicle_content_evidence_packet_v2.json",
+)
+
+#: Taxonomy for the committed published history entries. Derived from the exact committed
+#: publisher, story type, and document identity — not assigned editorially here.
+_HISTORY_TAXONOMY: dict[str, dict[str, Any]] = {
+    "us-treasury-curve-2026-07-13": {
+        "domain_family": "rates_or_credit",
+        "sector": "government_bonds",
+        "entities": ["U.S. Department of the Treasury"],
+        "geography": "US",
+        "source_family": "story_scoped_publication_evidence_v1",
+        "content_mode": "numeric_official_record",
+        "visual_type": "chart_and_document_excerpt",
+        "update_chain": "ust-daily-par-yield-curve",
+        "lane": LANE_CAPITAL_CHRONICLE,
+    },
+}
+
+
 class EvaluationCorpusError(RuntimeError):
     """Fail-closed evaluation corpus error."""
 
@@ -398,6 +431,82 @@ def load_authorized_prior_observations(repo_root: Path | None = None) -> dict[st
     if not priors:
         raise EvaluationCorpusError("no_committed_prior_observations_available")
     return priors
+
+
+def load_accepted_publication_history(repo_root: Path | None = None) -> list[dict[str, Any]]:
+    """Load the committed publication-authorized history for the rolling window.
+
+    Only artifacts whose committed ``status`` is ``PASS_PUBLICATION_AUTHORIZED`` and whose
+    ``public_claim_permissions.decision`` is ``ALLOW`` are admitted, so nothing that was
+    blocked, deferred, or merely evaluated can inflate published concentration.
+
+    Several committed artifacts re-project the same accepted story under different task
+    folders. They are de-duplicated on the committed ``duplicate_key`` so one published
+    story counts once — this is real history, not synthetic volume. Original committed
+    timestamps are preserved exactly; nothing is re-dated to look current.
+    """
+    root = Path(repo_root or REPO_ROOT)
+    by_key: dict[str, dict[str, Any]] = {}
+    for relative in _PUBLICATION_HISTORY_ARTIFACTS:
+        path = root / relative
+        if not path.is_file():
+            raise EvaluationCorpusError(f"publication_history_artifact_missing:{relative}")
+        document = _load(path)
+        if str(document.get("status")) != "PASS_PUBLICATION_AUTHORIZED":
+            continue
+        permissions = document.get("public_claim_permissions") or {}
+        if str(permissions.get("decision")) != "ALLOW":
+            continue
+        assignment = document.get("publication_assignment") or {}
+        duplicate_key = str(assignment.get("duplicate_key") or "")
+        if not duplicate_key:
+            raise EvaluationCorpusError(
+                f"publication_history_missing_duplicate_key:{relative}"
+            )
+        taxonomy = _HISTORY_TAXONOMY.get(duplicate_key)
+        if taxonomy is None:
+            raise EvaluationCorpusError(
+                f"publication_history_taxonomy_unmapped:{duplicate_key}"
+            )
+        documents = document.get("official_source_documents") or []
+        published = sorted(
+            str(row.get("published_at_utc"))
+            for row in documents
+            if row.get("published_at_utc")
+        )
+        entry = {
+            "schema_version": SCHEMA_VERSION,
+            "case_id": f"history-{duplicate_key}",
+            "duplicate_key": duplicate_key,
+            "disposition": "SELECTED",
+            "history_class": "ACCEPTED_PUBLICATION_AUTHORIZED",
+            "packet_id": document.get("packet_id"),
+            "title": assignment.get("title"),
+            "story_type": assignment.get("story_type"),
+            "article_mode": assignment.get("article_mode"),
+            "published_at_utc": published[0] if published else None,
+            "as_of_utc": document.get("as_of_utc"),
+            "material_class": "committed_accepted_publication_history",
+            "presented_as_current_news": False,
+            "source_artifact_paths": [relative],
+            **taxonomy,
+        }
+        existing = by_key.get(duplicate_key)
+        if existing is None:
+            by_key[duplicate_key] = entry
+            continue
+        # Same accepted story re-projected under another task folder: record the extra
+        # provenance path but keep one history entry and its earliest committed date.
+        existing["source_artifact_paths"] = sorted(
+            {*existing["source_artifact_paths"], relative}
+        )
+        if entry["as_of_utc"] and (
+            not existing["as_of_utc"] or str(entry["as_of_utc"]) < str(existing["as_of_utc"])
+        ):
+            existing["as_of_utc"] = entry["as_of_utc"]
+    if not by_key:
+        raise EvaluationCorpusError("no_accepted_publication_history_available")
+    return [by_key[key] for key in sorted(by_key)]
 
 
 def build_evaluation_corpus(repo_root: Path | None = None) -> dict[str, Any]:

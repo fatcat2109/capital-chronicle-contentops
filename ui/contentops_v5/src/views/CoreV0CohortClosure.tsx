@@ -5,15 +5,26 @@ import { IconLayers, IconBlock, IconImage } from '../ui/icons';
 type StatusKind = 'verified' | 'blocked' | 'review';
 
 const PASS_OUTCOME = 'PACKAGE_REVIEW_PASSED';
+const DEFERRED = 'DEFER_FOR_PORTFOLIO_BALANCE';
 
 function outcomeStatus(outcome: string): StatusKind {
   if (outcome === PASS_OUTCOME) return 'verified';
-  if (outcome === 'DUPLICATE_OR_LOW_DELTA' || outcome === 'HISTORICAL_NOT_CURRENT') return 'review';
+  if (
+    outcome === 'DUPLICATE_OR_LOW_DELTA' ||
+    outcome === 'HISTORICAL_NOT_CURRENT' ||
+    outcome === DEFERRED
+  ) {
+    return 'review';
+  }
   return 'blocked';
 }
 
 function pct(share: number): string {
   return `${Math.round(share * 100)}%`;
+}
+
+function shortHash(value: string | null | undefined): string {
+  return value ? `${String(value).slice(0, 12)}…` : '—';
 }
 
 /**
@@ -59,7 +70,7 @@ export function CoreV0CohortClosure() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-5">
         <Metric
           label="Review passed"
           value={String(counts.eligible_review_passed)}
@@ -67,6 +78,12 @@ export function CoreV0CohortClosure() {
           hint={`lanes: ${s.lanes_with_passing_package.join(', ')}`}
         />
         <Metric label="Review blocked" value={String(counts.package_review_blocked)} status="blocked" hint="truthful block" />
+        <Metric
+          label="Deferred for balance"
+          value={String(counts.deferred_for_portfolio_balance)}
+          status="review"
+          hint="no package produced"
+        />
         <Metric
           label="Held / suppressed"
           value={String(counts.permission_blocked + counts.evidence_blocked + counts.visual_rights_blocked + counts.duplicate_or_low_delta)}
@@ -94,6 +111,97 @@ export function CoreV0CohortClosure() {
           </span>{' '}
           · fabricated content:{' '}
           <span className="font-mono text-fg">{s.corpus.fabricated_content ? 'yes' : 'no'}</span>
+        </p>
+      </Panel>
+
+      <Panel title="Portfolio windows" subtitle="daily decision vs rolling accepted history">
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <div className="flex items-center justify-between gap-2">
+              <p className="font-mono text-[11px] text-fg">{s.portfolio_daily.report_id}</p>
+              <StatusChip status="review">daily</StatusChip>
+            </div>
+            <p className="mt-1 text-[11px] text-fg-muted">
+              Window {String(s.portfolio_daily.window_start_utc)} →{' '}
+              {String(s.portfolio_daily.window_end_utc)}
+            </p>
+            <p className="mt-1 text-[11px] text-fg-muted">
+              {s.portfolio_daily.included_current_candidate_ids.length} current candidates ·
+              no prior history
+            </p>
+            <p className="mt-1 font-mono text-[11px] text-fg-subtle">
+              hash {shortHash(s.portfolio_daily.report_logical_hash)}
+            </p>
+          </div>
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <div className="flex items-center justify-between gap-2">
+              <p className="font-mono text-[11px] text-fg">{s.portfolio_rolling.report_id}</p>
+              <StatusChip status="review">rolling</StatusChip>
+            </div>
+            <p className="mt-1 text-[11px] text-fg-muted">
+              History {String(s.portfolio_rolling.history_window_start_utc)} →{' '}
+              {String(s.portfolio_rolling.history_window_end_utc)}
+            </p>
+            <p className="mt-1 text-[11px] text-fg-muted">
+              {s.portfolio_rolling.included_prior_selected_ids.length} accepted prior ·{' '}
+              {s.portfolio_rolling.excluded_ids.length} excluded diagnostics
+            </p>
+            <p className="mt-1 font-mono text-[11px] text-fg-subtle">
+              hash {shortHash(s.portfolio_rolling.report_logical_hash)}
+            </p>
+          </div>
+        </div>
+        <SectionLabel>Accepted publication history</SectionLabel>
+        <ul className="mt-1 space-y-1">
+          {s.accepted_publication_history.map((row) => (
+            <li key={row.case_id} className="font-mono text-[11px] text-fg-muted">
+              {row.case_id} — published {String(row.published_at_utc)} ·{' '}
+              {row.domain_family}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3 text-[11px] leading-relaxed text-fg-muted">
+          Selection binds rolling report hash{' '}
+          <span className="font-mono text-fg">
+            {shortHash(s.rolling_report_logical_hash_used_by_selection)}
+          </span>
+          . Blocked, rejected, and deferred cases appear only as candidate-universe
+          diagnostics — they never count as published concentration.
+        </p>
+      </Panel>
+
+      <Panel title="Portfolio decision" subtitle="base rank vs diversity-adjusted rank">
+        <div className="space-y-2">
+          {s.portfolio_decision.decisions.map((row) => (
+            <div key={row.case_id} className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="font-mono text-[12px] text-fg">{row.case_id}</p>
+                <StatusChip status={row.disposition === 'SELECTED' ? 'verified' : 'review'}>
+                  {row.disposition}
+                </StatusChip>
+              </div>
+              <p className="mt-1 font-mono text-[11px] text-fg-muted">
+                base {row.base_score} (rank {row.base_rank}) − penalty{' '}
+                {row.concentration_penalty} = adjusted {row.adjusted_score} (rank{' '}
+                {row.adjusted_rank})
+                {row.rank_changed_by_concentration ? ' · REORDERED' : ''}
+              </p>
+              {row.penalties_applied.length ? (
+                <p className="mt-1 text-[11px] text-fg-muted">
+                  penalised on{' '}
+                  {row.penalties_applied.map((p) => `${p.dimension}=${p.value}`).join(', ')}
+                </p>
+              ) : null}
+              <p className="mt-1 text-[11px] leading-relaxed text-fg-muted">
+                {row.disposition_reason}
+              </p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-3 text-[11px] leading-relaxed text-fg-muted">
+          Penalties are applied before package production, so a deferred case consumes no
+          production work. Hard evidence, permission, freshness, and material-delta gates
+          are decided upstream and cannot be opened by diversity logic.
         </p>
       </Panel>
 
@@ -149,6 +257,14 @@ export function CoreV0CohortClosure() {
                     : ''}
                 </p>
               ) : null}
+              {c.visual_adaptation_bindings.length ? (
+                <p className="mt-1 text-[11px] text-fg-muted">
+                  Visual adaptations: {c.visual_adaptation_count} derivatives ·{' '}
+                  {c.visual_adaptation_bindings
+                    .map((b) => `${b.platform_id} ${b.target_width}×${b.target_height}`)
+                    .join(', ')}
+                </p>
+              ) : null}
               {c.gate_reason ? (
                 <p className="mt-1 text-[11px] leading-relaxed text-fg-muted">{c.gate_reason}</p>
               ) : null}
@@ -183,6 +299,41 @@ export function CoreV0CohortClosure() {
           Charts plot only values already authorized in a governed packet. No forecast,
           probability, scenario, or analytical calculation was created, and generated
           graphics never depict a real scene as though photographed.
+        </p>
+      </Panel>
+
+      <Panel title="Platform visual adaptation" subtitle="one canonical path, contain-fit only">
+        <div className="space-y-2">
+          {s.cases
+            .filter((c) => c.visual_adaptation_bindings.length)
+            .map((c) => (
+              <div key={c.case_id} className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+                <p className="font-mono text-[12px] text-fg">{c.case_id}</p>
+                <ul className="mt-1 space-y-1">
+                  {c.visual_adaptation_bindings.map((b) => (
+                    <li
+                      key={`${c.case_id}-${b.platform_id}`}
+                      className="font-mono text-[11px] text-fg-muted"
+                    >
+                      {b.platform_id} · {b.target_aspect_ratio} · {b.target_width}×
+                      {b.target_height} · crop {String(b.crop_applied)} · {b.source_asset_id}{' '}
+                      · {shortHash(b.derivative_sha256)}
+                    </li>
+                  ))}
+                </ul>
+                {c.visual_adaptation_blocked.length ? (
+                  <p className="mt-1 text-[11px] text-fg-muted">
+                    fail-closed: {c.visual_adaptation_blocked.join(', ')}
+                  </p>
+                ) : null}
+              </div>
+            ))}
+        </div>
+        <p className="mt-3 text-[11px] leading-relaxed text-fg-muted">
+          Every derivative is contain-fitted onto a padded canvas, never cropped, so chart
+          axes, legends, uncertainty labels, and source notes survive adaptation. Instagram
+          fails closed without a rights-cleared source, and no external provider, image
+          search, network call, or model call is used.
         </p>
       </Panel>
 

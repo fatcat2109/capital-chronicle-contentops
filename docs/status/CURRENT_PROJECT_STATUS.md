@@ -43,7 +43,7 @@ normalising bytes inside verification code.
 Routed only after Work Package D passes independent audit. Until that audit completes, the
 Work Package D routing status is:
 
-`DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`
+`CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
 ### Current next-task mode
 
@@ -51,7 +51,7 @@ Work Package D routing status is:
 
 ### Delivered, awaiting independent audit: CORE V0 diversity, SEO, image, and chart closure
 
-Work Package D Status: `DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`
+Work Package D Status: `CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
 Work Package D extends the same `core-v0-shadow-demo` command — it does not add a second
 runner — so one local command processes a diversified governed evaluation cohort:
@@ -94,6 +94,46 @@ action, scheduler/outbox execution, publication, dispatch, or public write occur
 
 Browser QA screenshots are supplied as auditable files at
 `docs/automation/CORE_V0_WPD_CLOSURE/browser_qa/`.
+
+Work Package D Status: `CORRECTION_AWAITING_INDEPENDENT_AUDIT`
+
+The first independent audit returned `BLOCKED — ONE BOUNDED CORRECTION REQUIRED` on three
+defects. All three are now corrected on the same branch; nothing else was redesigned.
+
+Portfolio concentration is now operational rather than report-only. The cohort path runs
+hard gates first, then base editorial rank, then rolling concentration penalties, then an
+explicit portfolio decision — all *before* package production, so a deferred candidate
+consumes no production work. Base score and diversity-adjusted score are both preserved,
+and every applied penalty records its dimension, value, amount, and prior-history basis.
+Base rank comes from the accepted `universal_news_candidate_fabric_v2.score_candidate`
+where a governed candidate exists, and otherwise only from exact committed claim counts.
+In the recorded run, rolling concentration reordered three eligible candidates — the
+Treasury record fell from base rank 1 to adjusted rank 2 behind the interagency rule —
+and deferred one as `DEFER_FOR_PORTFOLIO_BALANCE`. Changing the concentration threshold or
+the history changes those dispositions while the eligible set stays at five, proving
+hard-gate outcomes are unaffected by diversity configuration.
+
+Daily and rolling reports are now genuinely different objects, not one report under two
+labels. `portfolio-daily-2026-07-15` covers only the current decision window (five current
+candidates, no history). `portfolio-rolling-2026-07-15` covers an explicit prior interval
+`2026-04-16T00:00:00Z..2026-07-15T00:00:00Z` built from committed
+`PASS_PUBLICATION_AUTHORIZED` artifacts, de-duplicated on the committed `duplicate_key` so
+one accepted story counts once. Blocked, rejected, and deferred cases appear only as
+candidate-universe diagnostics with exclusion reasons; they never count as published
+concentration. The two reports have different memberships, boundaries, and hashes, and
+selection binds the exact rolling report hash the penalties came from.
+
+Platform visual adaptation runs on one canonical path across all nine destinations — not
+nine adapters. Eighteen deterministic derivatives were produced from committed
+rights-cleared assets, byte-identical across runs. Every derivative is contain-fitted onto
+a padded canvas rather than cropped, so chart axes, legends, uncertainty labels, and source
+notes survive adaptation intact; official-document excerpts are scaled and padded only and
+are never transformed into event imagery. Each binding records platform, source asset and
+hash, derivative role, aspect ratio, dimensions, fit strategy, safe area, text-density
+limit, filename, MIME type, caption, alt text, rights/provenance reference, preservation
+rules, generator and version, and derivative hash. Instagram still fails closed when no
+rights-cleared compatible visual exists. No external provider, image search, network call,
+or model call is used on any path.
 
 ### Accepted and merged: dual-lane CORE V0 shadow newsroom
 

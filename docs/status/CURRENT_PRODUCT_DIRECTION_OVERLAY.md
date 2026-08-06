@@ -52,7 +52,7 @@ Mode:
 
 Routed only after Work Package D passes independent audit. Work Package C is
 `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`; Work Package D is
-`DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`.
+`CORRECTION_AWAITING_INDEPENDENT_AUDIT`.
 
 The final build sequence is:
 

@@ -39,7 +39,7 @@ Current next-task mode:
 Current work package routing:
 
 - Work Package C — dual-lane CORE V0 shadow newsroom: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
-- Work Package D — diversity, SEO, image, and chart closure: `DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`
+- Work Package D — diversity, SEO, image, and chart closure: `CORRECTION_AWAITING_INDEPENDENT_AUDIT`
 
 The soak task is routed only after Work Package D passes independent audit.
 
@@ -257,7 +257,7 @@ Mode:
 
 `SHADOW_ONLY`
 
-Work Package C is accepted and merged. Work Package D — the CORE V0 diversity, SEO, image, and chart closure — is delivered on branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and is `DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`; the soak task is routed only after that audit passes. Do not reopen either work package.
+Work Package C is accepted and merged. Work Package D — the CORE V0 diversity, SEO, image, and chart closure — is delivered on branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and is `CORRECTION_AWAITING_INDEPENDENT_AUDIT`; the soak task is routed only after that audit passes. Do not reopen either work package.
 
 Wave 02 is complete and accepted as the minimum durable prerequisite; do not reopen it. The older automatic next action `TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1` is no longer the current next-task authority.
 

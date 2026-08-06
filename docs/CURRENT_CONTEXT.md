@@ -133,7 +133,7 @@ Mode:
 
 `SHADOW_ONLY`
 
-Work Package C is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package D — diversity, SEO, image, and chart closure — is `DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE` on branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1`; the soak task is routed only after that audit passes. Do not reopen either.
+Work Package C is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package D — diversity, SEO, image, and chart closure — is `CORRECTION_AWAITING_INDEPENDENT_AUDIT` on branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1`; the soak task is routed only after that audit passes. Do not reopen either.
 
 The build sequence after this task is an exact authorized live cohort, then final acceptance and a new release identity.
 

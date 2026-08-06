@@ -94,7 +94,7 @@ Execution mode:
 Work Package C (dual-lane CORE V0 shadow newsroom) is accepted and merged. Work Package D
 (diversity, SEO, image, and chart closure) is delivered on branch
 `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and is
-`DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`. Neither is reopened, re-audited, or
+`CORRECTION_AWAITING_INDEPENDENT_AUDIT`. Neither is reopened, re-audited, or
 re-merged. The soak task is routed only once Work Package D passes independent audit.
 
 Work Package D already demonstrates, from one local command over a committed governed

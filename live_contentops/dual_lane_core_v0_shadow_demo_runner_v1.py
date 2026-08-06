@@ -22,6 +22,10 @@ from live_contentops.capital_chronicle_content_evidence_packet_v3 import (
 )
 from live_contentops.core_v0_closure_capabilities_v1 import ClosureCapabilityError
 from live_contentops.core_v0_evaluation_corpus_v1 import EvaluationCorpusError
+from live_contentops.core_v0_platform_visual_adaptation_v1 import (
+    PlatformVisualAdaptationError,
+)
+from live_contentops.core_v0_portfolio_windows_v1 import PortfolioWindowError
 from live_contentops.multi_story_platform_native_operator_packages_v1 import (
     ALL_TIER1_PLATFORM_IDS,
 )
@@ -513,6 +517,8 @@ def run_core_v0_cohort_closure(
     store_path: Path,
     output_dir: Path,
     concentration_threshold: float | None = None,
+    concentration_penalty: float | None = None,
+    portfolio_balance_floor: float | None = None,
 ) -> dict[str, Any]:
     """Run the diversified evaluation cohort through the same canonical pipeline.
 
@@ -535,11 +541,15 @@ def run_core_v0_cohort_closure(
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     chart_dir = output_dir / "charts"
+    derivative_dir = output_dir / "platform_visual_derivatives"
 
     cohort = run_cohort(
         repo_root=Path(repo_root),
         chart_output_dir=chart_dir,
         concentration_threshold=concentration_threshold,
+        concentration_penalty=concentration_penalty,
+        portfolio_balance_floor=portfolio_balance_floor,
+        derivative_output_dir=derivative_dir,
     )
     store = ContentOpsDurableStore(Path(store_path), auto_migrate=True)
     durable = persist_cohort(store, cohort)
@@ -550,11 +560,48 @@ def run_core_v0_cohort_closure(
         "task": cohort["task"],
         "operating_mode": cohort["operating_mode"],
         "corpus": cohort["corpus"],
+        "decision_window_id": cohort["decision_window_id"],
+        "decision_window_start_utc": cohort["decision_window_start_utc"],
         "outcome_counts": cohort["outcome_counts"],
         "lanes_with_passing_package": cohort["lanes_with_passing_package"],
+        "pre_production_eligible_case_ids": cohort["pre_production_eligible_case_ids"],
+        "portfolio_daily_window": {
+            "report_id": cohort["portfolio_daily"]["report_id"],
+            "window_start_utc": cohort["portfolio_daily"]["window_start_utc"],
+            "window_end_utc": cohort["portfolio_daily"]["window_end_utc"],
+            "included_current_candidate_ids": cohort["portfolio_daily"][
+                "included_current_candidate_ids"
+            ],
+            "report_logical_hash": cohort["portfolio_daily"]["report_logical_hash"],
+        },
+        "portfolio_rolling_window": {
+            "report_id": cohort["portfolio_rolling"]["report_id"],
+            "history_window_start_utc": cohort["portfolio_rolling"][
+                "history_window_start_utc"
+            ],
+            "history_window_end_utc": cohort["portfolio_rolling"][
+                "history_window_end_utc"
+            ],
+            "included_prior_selected_ids": cohort["portfolio_rolling"][
+                "included_prior_selected_ids"
+            ],
+            "report_logical_hash": cohort["portfolio_rolling"]["report_logical_hash"],
+        },
+        "rolling_report_logical_hash_used_by_selection": cohort[
+            "rolling_report_logical_hash_used_by_selection"
+        ],
+        "portfolio_selected_case_ids": cohort["portfolio_decision"]["selected_case_ids"],
+        "portfolio_deferred_case_ids": cohort["portfolio_decision"]["deferred_case_ids"],
+        "portfolio_reordered_case_ids": cohort["portfolio_decision"][
+            "reordered_case_ids"
+        ],
         "portfolio_daily_concentrated_dimensions": cohort["portfolio_daily"][
             "concentrated_dimensions"
         ],
+        "portfolio_rolling_concentrated_dimensions": cohort["portfolio_rolling"][
+            "concentrated_dimensions"
+        ],
+        "platform_visual_adaptation": cohort["platform_visual_adaptation"],
         "concentration_penalties": cohort["concentration_penalties"],
         "review_engine": cohort["review_engine"],
         "package_fabric": cohort["package_fabric"],
@@ -586,8 +633,13 @@ def run_core_v0_cohort_closure(
         },
         PORTFOLIO_FILENAME: {
             "schema_version": cohort["schema_version"],
+            "decision_window_id": cohort["decision_window_id"],
             "daily": cohort["portfolio_daily"],
             "rolling": cohort["portfolio_rolling"],
+            "rolling_with_current_state": cohort["portfolio_rolling_with_current_state"],
+            "decision": cohort["portfolio_decision"],
+            "accepted_publication_history": cohort["accepted_publication_history"],
+            "hard_gate_excluded": cohort["hard_gate_excluded"],
             "penalties": cohort["concentration_penalties"],
             **zero_live_action_flags(),
         },
@@ -632,6 +684,21 @@ def core_v0_shadow_demo_command(argv: Sequence[str] | None = None) -> int:
         default=None,
         help="Configurable portfolio concentration threshold (default 0.34).",
     )
+    parser.add_argument(
+        "--concentration-penalty",
+        type=float,
+        default=None,
+        help="Score penalty applied per concentrated dimension value (default 12.0).",
+    )
+    parser.add_argument(
+        "--portfolio-balance-floor",
+        type=float,
+        default=None,
+        help=(
+            "Adjusted-score floor below which an eligible candidate defers for portfolio "
+            "balance. Never admits a case that failed a hard gate."
+        ),
+    )
     args = parser.parse_args(list(argv) if argv is not None else sys.argv[2:])
 
     try:
@@ -641,6 +708,8 @@ def core_v0_shadow_demo_command(argv: Sequence[str] | None = None) -> int:
                 store_path=Path(args.store),
                 output_dir=Path(args.output),
                 concentration_threshold=args.concentration_threshold,
+                concentration_penalty=args.concentration_penalty,
+                portfolio_balance_floor=args.portfolio_balance_floor,
             )
         else:
             summary = run_core_v0_shadow_demo(
@@ -652,7 +721,13 @@ def core_v0_shadow_demo_command(argv: Sequence[str] | None = None) -> int:
                 window={"window_id": args.window_id, "target_cutoff_utc": args.window_cutoff_utc},
                 analysis_packet_id=args.analysis_packet_id,
             )
-    except (DualLaneShadowError, EvaluationCorpusError, ClosureCapabilityError) as exc:
+    except (
+        DualLaneShadowError,
+        EvaluationCorpusError,
+        ClosureCapabilityError,
+        PortfolioWindowError,
+        PlatformVisualAdaptationError,
+    ) as exc:
         print(json.dumps({"status": "BLOCKED", "error": str(exc)}, sort_keys=True, indent=2))
         return 1
 

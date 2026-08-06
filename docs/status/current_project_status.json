@@ -290,9 +290,9 @@
     "ci_pass_claimed": false
   },
   "core_v0_diversity_seo_image_chart_closure_v1": {
-    "status": "DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE",
+    "status": "CORRECTION_AWAITING_INDEPENDENT_AUDIT",
     "work_package": "D",
-    "work_package_d_status": "DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE",
+    "work_package_d_status": "CORRECTION_AWAITING_INDEPENDENT_AUDIT",
     "branch": "agent/contentops-core-v0-diversity-seo-image-chart-closure-v1",
     "independent_audit": "NOT_YET_PERFORMED",
     "operating_mode": "SHADOW_ONLY",
@@ -313,12 +313,13 @@
     "presented_as_current_news": false,
     "outcome_counts": {
       "eligible_review_passed": 2,
-      "package_review_blocked": 3,
+      "package_review_blocked": 2,
       "permission_blocked": 1,
       "evidence_blocked": 1,
       "visual_rights_blocked": 1,
       "duplicate_or_low_delta": 1,
-      "no_publication": 1
+      "no_publication": 1,
+      "deferred_for_portfolio_balance": 1
     },
     "lanes_with_passing_package": [
       "capital_chronicle",
@@ -346,16 +347,16 @@
     "deterministic_replay": "PASS_REOPEN_AND_REPLAY",
     "repeated_run_byte_identical": true,
     "v5_snapshot_generated_from_real_run": true,
-    "focused_pytest": "35 passed",
+    "focused_pytest": "27 passed (correction) / 103 passed (correction + affected)",
     "affected_pytest": "76 passed",
     "v5_focused_vitest": "12 passed",
-    "v5_full_vitest": "230 passed",
+    "v5_full_vitest": "235 passed",
     "v5_production_build": "PASS",
     "browser_qa": "PASS_DESKTOP_1440x900_AND_MOBILE_390x844_NO_CONSOLE_ERRORS",
     "browser_qa_screenshot_files": "docs/automation/CORE_V0_WPD_CLOSURE/browser_qa/",
     "browser_qa_independently_audited": false,
     "preexisting_unrelated_failure": "tests/test_verified_evidence_window_incremental_editorial_shadow_v1.py::test_discovery_routes_are_append_only_runtime_exact_records fails identically at clean baseline 6788298a9592bc6b7e632fd21b35b8b3514a564e",
-    "elapsed_seconds_typical": 2.25,
+    "elapsed_seconds_typical": 3.3,
     "external_cost": "NONE_NO_PAID_API_OR_MODEL_CALL",
     "publication_authority": false,
     "dispatch_authority": false,
@@ -368,7 +369,51 @@
     "public_write_performed": false,
     "upstream_write_performed": false,
     "full_suite_pass_claimed": false,
-    "ci_pass_claimed": false
+    "ci_pass_claimed": false,
+    "correction_task": "TASK_CONTENTOPS_CORE_V0_PORTFOLIO_SELECTION_AND_PLATFORM_VISUAL_ADAPTATION_CORRECTION_V1",
+    "correction_audit_disposition_before": "BLOCKED_ONE_BOUNDED_CORRECTION_REQUIRED_DO_NOT_MERGE",
+    "portfolio_module": "live_contentops/core_v0_portfolio_windows_v1.py",
+    "visual_adaptation_module": "live_contentops/core_v0_platform_visual_adaptation_v1.py",
+    "selection_order": "hard_gates -> eligible_set -> base_rank -> rolling_penalties -> portfolio_decision -> package_production -> canonical_review -> durable_terminal_state",
+    "penalties_applied_before_production": true,
+    "base_and_adjusted_rank_preserved": true,
+    "base_score_sources": [
+      "universal_news_candidate_fabric_v2.score_candidate",
+      "governed_packet_authorized_claim_counts"
+    ],
+    "decision_window_id": "2026-07-15",
+    "portfolio_daily_report_id": "portfolio-daily-2026-07-15",
+    "portfolio_daily_window": "2026-05-01T00:00:00Z..2026-07-15T22:30:00Z",
+    "portfolio_daily_members": 5,
+    "portfolio_rolling_report_id": "portfolio-rolling-2026-07-15",
+    "portfolio_rolling_history_window": "2026-04-16T00:00:00Z..2026-07-15T00:00:00Z",
+    "portfolio_rolling_prior_selected": [
+      "history-us-treasury-curve-2026-07-13"
+    ],
+    "daily_and_rolling_hashes_differ": true,
+    "rolling_report_logical_hash_used_by_selection": "084f26cafafe256be53792d5d778e9d2b825c994d61e3feb95015466866c6cb1",
+    "blocked_or_rejected_counted_as_published_history": false,
+    "accepted_history_source": "committed_PASS_PUBLICATION_AUTHORIZED_artifacts",
+    "concentration_reordered_case_ids": [
+      "case-economic-release-ust-newsroom",
+      "case-rates-ust-curve",
+      "case-regulation-joint-rule"
+    ],
+    "portfolio_selected_case_ids": [
+      "case-economic-release-ust-newsroom",
+      "case-rates-ust-curve",
+      "case-regulation-joint-rule",
+      "case-us-equities-apple-10q"
+    ],
+    "portfolio_deferred_case_ids": [
+      "case-politics-fomc-minutes"
+    ],
+    "hard_gate_outcomes_invariant_under_concentration_config": true,
+    "platform_visual_derivatives_produced": 18,
+    "platform_visual_derivative_strategy": "CONTAIN_WITH_PADDING_NO_CROP",
+    "chart_labels_survive_adaptation": true,
+    "instagram_fails_closed_without_rights_cleared_derivative": true,
+    "derivatives_byte_identical_across_runs": true
   },
   "final_build_sequence": [
     "dual_lane_core_v0_shadow_only",

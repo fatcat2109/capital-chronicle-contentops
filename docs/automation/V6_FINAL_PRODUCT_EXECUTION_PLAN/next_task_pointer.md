@@ -19,7 +19,7 @@ Wave 02 — the durable operational store and canonical state machine — is com
 `TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
 
 This is routed only after work package D passes independent audit. Until that audit
-completes, work package D status is `DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE`.
+completes, work package D status is `CORRECTION_AWAITING_INDEPENDENT_AUDIT`.
 
 Work package C (dual-lane CORE V0 shadow newsroom) is complete, accepted, and fast-forward
 merged into `master` with a truthful caveat. Its status is

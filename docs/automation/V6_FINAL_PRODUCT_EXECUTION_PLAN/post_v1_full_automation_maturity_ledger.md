@@ -54,7 +54,7 @@ Rows 03 through 15 below record the earlier horizontal hardening roadmap. Jim's 
 | A | Product-authority and current-state reconciliation | COMPLETE_OWNER_APPROVED |
 | B | Minimum durable execution prerequisite | COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE |
 | C | Dual-lane CORE V0 shadow newsroom | COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT — `SHADOW_ONLY`; canonical review `REVIEW_BLOCKED_VISUAL_REQUIREMENT`; audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` |
-| D | Diversity, SEO, image, and chart closure | DELIVERED_AWAITING_INDEPENDENT_AUDIT_AND_MERGE — `SHADOW_ONLY`; both lanes reach canonical `PASS`; 9/9 domain families and 9/9 Tier-1 destinations with explicit outcomes |
+| D | Diversity, SEO, image, and chart closure | CORRECTION_AWAITING_INDEPENDENT_AUDIT — `SHADOW_ONLY`; both lanes reach canonical `PASS`; 9/9 domain families and 9/9 Tier-1 destinations with explicit outcomes |
 | E | Repeated shadow soak and recovery | CURRENT_EXACT_NEXT_TASK_AFTER_WORK_PACKAGE_D_AUDIT |
 | F | Exact authorized live cohort | NOT_STARTED_LIVE_AUTH_REQUIRED |
 | G | Final acceptance and new release identity | NOT_STARTED |

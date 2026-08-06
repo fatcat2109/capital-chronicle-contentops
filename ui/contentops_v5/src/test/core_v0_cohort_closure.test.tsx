@@ -41,7 +41,7 @@ describe('CORE V0 Cohort Closure UI', () => {
 
     expect(s.cases.length).toBe(s.corpus.case_count);
     for (const c of s.cases) {
-      expect(screen.getByText(c.case_id)).toBeInTheDocument();
+      expect(screen.getAllByText(c.case_id).length).toBeGreaterThan(0);
       expect(screen.getAllByText(c.outcome).length).toBeGreaterThan(0);
       expect(c.terminal_state).toBeTruthy();
     }
@@ -140,5 +140,74 @@ describe('CORE V0 Cohort Closure UI', () => {
     expect(s.scheduler_or_outbox_action_performed).toBe(false);
     expect(s.public_write_performed).toBe(false);
     expect(s.shadow_readback.public_objects_created).toBe(0);
+  });
+
+  it('shows daily and rolling windows as genuinely different reports', () => {
+    openView();
+
+    expect(s.portfolio_daily.report_id).not.toBe(s.portfolio_rolling.report_id);
+    expect(s.portfolio_daily.report_logical_hash).not.toBe(
+      s.portfolio_rolling.report_logical_hash,
+    );
+    expect(screen.getByText(s.portfolio_daily.report_id)).toBeInTheDocument();
+    expect(screen.getByText(s.portfolio_rolling.report_id)).toBeInTheDocument();
+    expect(
+      screen.getByText(new RegExp(String(s.portfolio_rolling.history_window_start_utc))),
+    ).toBeInTheDocument();
+  });
+
+  it('shows the accepted publication history the rolling window is built from', () => {
+    openView();
+
+    expect(s.accepted_publication_history.length).toBeGreaterThan(0);
+    for (const row of s.accepted_publication_history) {
+      expect(screen.getByText(new RegExp(row.case_id))).toBeInTheDocument();
+    }
+  });
+
+  it('shows base versus adjusted rank and a concentration-caused reorder', () => {
+    openView();
+
+    const reordered = s.portfolio_decision.decisions.filter(
+      (d) => d.rank_changed_by_concentration,
+    );
+    expect(reordered.length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/REORDERED/).length).toBeGreaterThan(0);
+    for (const row of reordered) {
+      expect(row.base_rank).not.toBe(row.adjusted_rank);
+      expect(row.adjusted_score).toBeLessThanOrEqual(row.base_score);
+    }
+  });
+
+  it('shows DEFER_FOR_PORTFOLIO_BALANCE with no package produced', () => {
+    openView();
+
+    const deferred = s.cases.filter((c) => c.outcome === 'DEFER_FOR_PORTFOLIO_BALANCE');
+    expect(deferred.length).toBeGreaterThan(0);
+    expect(screen.getAllByText('DEFER_FOR_PORTFOLIO_BALANCE').length).toBeGreaterThan(0);
+    expect(screen.getByText('Deferred for balance')).toBeInTheDocument();
+    for (const c of deferred) {
+      expect(c.terminal_state).toBe('DEFERRED_FOR_PORTFOLIO_BALANCE');
+      expect(c.deferred_by_portfolio_concentration).toBe(true);
+      expect(c.hard_gate_failure).toBe(false);
+    }
+  });
+
+  it('shows platform visual adaptation status, dimensions and hashes', () => {
+    openView();
+
+    const adapted = s.cases.filter((c) => c.visual_adaptation_bindings.length > 0);
+    expect(adapted.length).toBeGreaterThan(0);
+    for (const c of adapted) {
+      for (const b of c.visual_adaptation_bindings) {
+        expect(
+          screen.getAllByText(
+            new RegExp(`${b.platform_id}.*${b.target_width}×${b.target_height}`),
+          ).length,
+        ).toBeGreaterThan(0);
+        expect(b.crop_applied).toBe(false);
+        expect(b.derivative_sha256).toBeTruthy();
+      }
+    }
   });
 });
