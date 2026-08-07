@@ -48,10 +48,25 @@ audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` and is fast-forward merged in
 is an accelerated logical soak, so calendar uptime and live reliability are still not
 claimed by it. The live cohort must not start without an exact owner-authorized live scope.
 
-Final pre-launch LLM model authority `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`
-binds gateway `9router` and exact model `new/claude-fable-5` for every applicable LLM task
-in Work Packages F and G, with `requested_model == resolved_model` required and runtime
-verification recorded as `OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
+Final pre-launch LLM model authority `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`
+(superseding V1, which prohibited all fallback and is retained only as historical lineage)
+binds gateway `9router` and the exact ordered model pool for every applicable LLM task in
+Work Packages F and G: P0 `new/claude-fable-5`, P1 `new/gpt-5.6-sol-xhigh`, P2
+`new/claude-opus-5`, P3 `vx/gemini-3.1-pro-preview(high)`. Ordered fallback is
+owner-authorized for bounded resilience and is not a quality-gate bypass; per attempt,
+`requested_model == provider-observed resolved model` is still required and silent
+provider-side substitution remains forbidden. Every logical invocation carries an immutable
+bounded retry budget — 6 total provider attempts, 3 fallback transitions, 1 same-model
+retry, per-model ceilings (2, 2, 1, 1), 1 structured-output repair against the total, 45 s
+cumulative retry sleep, 300 s wall clock — that no model change or process reconstruction
+resets. Runtime verification is `PROVIDER_VERIFIED`: the latest bounded no-write preflight
+probed all four authorized models at 4/4 `HEALTHY`, 0 unavailable, 0 identity mismatch, 0
+identity unverifiable, disposition `MODEL_IDENTITY_PROVIDER_VERIFIED` (Gemini correction
+commit `a3d42dab03ac4ceb09a4106d46e37d65e08cad77`). For P3 the authorized pool identity
+stays the opaque string `vx/gemini-3.1-pro-preview(high)` while the request is sent as wire
+model `vx/gemini-3.1-pro-preview` plus reasoning effort `high` and the provider reports
+`gemini-3.1-pro-preview` — an authorized request transformation, not substitution. This
+authority grants no public live cohort authority.
 
 ## 1. Current authority
 
@@ -261,13 +276,19 @@ Do not create a second production runner, state store, approval engine, outbox, 
 
 Jim approved this product direction on 2026-08-06. The exact builder task authorized by current authority is:
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-Mode:
+Status:
 
-`SHADOW_ONLY`
+`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
 
-Work Package C is accepted and merged. Work Package D — the CORE V0 diversity, SEO, image, and chart closure — is delivered on branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and is `CORRECTION_AWAITING_INDEPENDENT_AUDIT`; the soak task is routed only after that audit passes. Do not reopen either work package.
+Work Packages C, D, and E are each accepted and merged into `master` as
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Do not reopen, re-audit, retest, or re-merge
+them. Work Package E's accepted caveats remain truthful: it is an accelerated logical soak,
+so calendar uptime and live reliability are not claimed by it.
+
+Work Package F is the current next product task. It must not start without an exact
+owner-authorized live scope defining destinations, accounts, and public-write authority.
 
 Wave 02 is complete and accepted as the minimum durable prerequisite; do not reopen it. The older automatic next action `TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1` is no longer the current next-task authority.
 

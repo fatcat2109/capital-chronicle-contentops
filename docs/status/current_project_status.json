@@ -1993,7 +1993,7 @@
   "final_prelaunch_llm_model_authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
   "final_prelaunch_llm_gateway": "9router",
   "final_prelaunch_llm_exact_model": "new/claude-fable-5",
-  "final_prelaunch_llm_model_runtime_verification": "PROVIDER_VERIFIED_PRIMARY_MODEL_HEALTHY_TWO_OF_FOUR_MODELS_UNAVAILABLE",
+  "final_prelaunch_llm_model_runtime_verification": "PROVIDER_VERIFIED_ALL_FOUR_AUTHORIZED_MODELS_HEALTHY",
   "historical_final_prelaunch_llm_model_authority_v1": {
     "authority_id": "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1",
     "owner": "Jim (product owner)",
@@ -2107,35 +2107,39 @@
     "fault_injection_cases_covered": 14,
     "fault_injection_all_passed": true,
     "preflight_model_identity_disposition": "MODEL_IDENTITY_PROVIDER_VERIFIED",
-    "preflight_healthy_count": 2,
-    "preflight_unavailable_count": 2,
+    "preflight_healthy_count": 4,
+    "preflight_unavailable_count": 0,
     "preflight_primary_model_healthy": true,
     "preflight_per_model": {
       "new/claude-fable-5": {
         "health": "HEALTHY",
         "model_identity_provider_verified": true,
         "provider_observed_effective_model": "claude-fable-5",
-        "latency_seconds": 11.4828,
+        "latency_seconds": 11.0435,
         "usage": {
           "completion_tokens": 4,
-          "prompt_tokens": 2069,
-          "total_tokens": 2073
+          "prompt_tokens": 2574,
+          "total_tokens": 2578
         },
         "failure_class": null
       },
       "new/gpt-5.6-sol-xhigh": {
-        "health": "TEMPORARILY_UNAVAILABLE",
-        "model_identity_provider_verified": false,
-        "provider_observed_effective_model": null,
-        "latency_seconds": 8.0571,
-        "usage": null,
-        "failure_class": "requested_model_temporarily_unavailable"
+        "health": "HEALTHY",
+        "model_identity_provider_verified": true,
+        "provider_observed_effective_model": "gpt-5.6-sol-xhigh",
+        "latency_seconds": 9.8146,
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 2500,
+          "total_tokens": 2505
+        },
+        "failure_class": null
       },
       "new/claude-opus-5": {
         "health": "HEALTHY",
         "model_identity_provider_verified": true,
         "provider_observed_effective_model": "claude-opus-5",
-        "latency_seconds": 13.9518,
+        "latency_seconds": 13.8932,
         "usage": {
           "completion_tokens": 4,
           "prompt_tokens": 2591,
@@ -2144,12 +2148,19 @@
         "failure_class": null
       },
       "vx/gemini-3.1-pro-preview(high)": {
-        "health": "TEMPORARILY_UNAVAILABLE",
-        "model_identity_provider_verified": false,
-        "provider_observed_effective_model": null,
-        "latency_seconds": 8.1968,
-        "usage": null,
-        "failure_class": "invalid_request_or_schema_or_configuration"
+        "health": "HEALTHY",
+        "model_identity_provider_verified": true,
+        "provider_observed_effective_model": "gemini-3.1-pro-preview",
+        "latency_seconds": 11.3307,
+        "usage": {
+          "completion_tokens": 149,
+          "completion_tokens_details": {
+            "reasoning_tokens": 148
+          },
+          "prompt_tokens": 2015,
+          "total_tokens": 2164
+        },
+        "failure_class": null
       }
     },
     "model_runtime_verification": "PROVIDER_VERIFIED_PRIMARY_MODEL_HEALTHY_TWO_OF_FOUR_MODELS_UNAVAILABLE",
@@ -2165,7 +2176,21 @@
     "scheduler_mutated": false,
     "secret_redaction_status": "PASS_NO_SECRET_SHAPED_MATERIAL",
     "full_suite_pass_claimed": false,
-    "ci_pass_claimed": false
+    "ci_pass_claimed": false,
+    "preflight_identity_mismatch_count": 0,
+    "preflight_identity_unverifiable_count": 0,
+    "preflight_authorized_models_probed_count": 4,
+    "preflight_cost_metadata": "NOT_RETURNED_BY_GATEWAY",
+    "gemini_correction_commit": "a3d42dab03ac4ceb09a4106d46e37d65e08cad77",
+    "p3_wire_contract": {
+      "authorized_pool_identity": "vx/gemini-3.1-pro-preview(high)",
+      "wire_model": "vx/gemini-3.1-pro-preview",
+      "wire_reasoning_effort": "high",
+      "provider_observed_identity": "gemini-3.1-pro-preview",
+      "classification": "AUTHORIZED_REQUEST_TRANSFORMATION_NOT_SILENT_SUBSTITUTION"
+    },
+    "runtime_verification": "PROVIDER_VERIFIED",
+    "public_live_cohort_authorized": false
   },
   "final_prelaunch_llm_ordered_model_pool": [
     "new/claude-fable-5",

@@ -32,13 +32,42 @@ only two domains produced complete packages; no independent pixel-perfect visual
 
 Final pre-launch LLM model authority for work packages F and G:
 
-- authority ID: `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`
+- authority ID: `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`
 - gateway: `9router`
-- exact model: `new/claude-fable-5`
-- invariant: `requested_model == resolved_model == "new/claude-fable-5"`, no alias,
-  fallback, substitution, downgrade, or role-specific alternate;
-- fail-closed code on mismatch: `BLOCKED_EXACT_FINAL_LLM_MODEL_UNAVAILABLE_OR_MISMATCHED`;
-- runtime verification: `OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
+- exact ordered model pool (opaque exact strings, priority order):
+  - P0 `new/claude-fable-5`
+  - P1 `new/gpt-5.6-sol-xhigh`
+  - P2 `new/claude-opus-5`
+  - P3 `vx/gemini-3.1-pro-preview(high)`
+- primary preference remains `new/claude-fable-5`;
+- ordered fallback is owner-authorized for bounded resilience, and is not a quality-gate
+  bypass: fallback output passes the same evidence, editorial, permission, and freshness
+  gates as primary output, and never creates publication authority;
+- silent provider-side substitution remains forbidden. Per attempt,
+  `requested_model == provider-observed resolved model` is still required; a mismatch is
+  rejected and the pool is walked only under the deterministic fallback policy;
+- every logical invocation allocates one immutable retry budget before its first provider
+  call: 6 total provider attempts, 3 fallback transitions, 1 same-model retry, per-model
+  attempt ceilings (2, 2, 1, 1), 1 structured-output repair counting against the total,
+  45 s cumulative retry sleep, 300 s wall clock. No model change and no process
+  reconstruction resets a consumed budget; unbounded retry is not permitted;
+- terminal dispositions on exhaustion: `LLM_RETRY_BUDGET_EXHAUSTED`, or
+  `BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED` when every authorized model is exhausted;
+- runtime verification: `PROVIDER_VERIFIED`. Latest bounded no-write preflight probed all
+  four authorized models: 4/4 `HEALTHY`, 0 unavailable, 0 identity mismatch, 0 identity
+  unverifiable, disposition `MODEL_IDENTITY_PROVIDER_VERIFIED`. Evidence:
+  `docs/automation/CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2/model_router_run_summary.json`,
+  Gemini correction commit `a3d42dab03ac4ceb09a4106d46e37d65e08cad77`;
+- P3 wire contract: the authorized pool identity stays the opaque string
+  `vx/gemini-3.1-pro-preview(high)`. The gateway builds its Vertex endpoint by appending the
+  model string to the endpoint path, so the request is sent as wire model
+  `vx/gemini-3.1-pro-preview` plus wire reasoning effort `high`, and the provider reports
+  identity `gemini-3.1-pro-preview`. This is an authorized request transformation, not
+  silent model substitution;
+- this authority supersedes `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`, which
+  prohibited all fallback and is retained only as historical lineage;
+- public live cohort is NOT authorized by this authority. Work package F still requires an
+  exact owner live scope defining destinations, accounts, and public-write authority.
 
 Work package C (dual-lane CORE V0 shadow newsroom) is complete, accepted, and fast-forward
 merged into `master` with a truthful caveat. Its status is

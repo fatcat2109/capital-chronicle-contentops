@@ -110,22 +110,39 @@ the current status.
 - Wave 01 Status: `COMPLETE_ACCEPTED_AND_MERGED`
 - Wave 02 Status: `COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE`
 - Current product-direction classification: `CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED`
-- Current next task: `TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
-- Current next-task mode: `SHADOW_ONLY`
+- Work Package C — dual-lane CORE V0 shadow newsroom: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+- Work Package D — diversity, SEO, image, and chart closure: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+- Work Package E — repeated shadow soak and recovery: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+- Work Package F — exact authorized live cohort: `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+- Current next task: `TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+- Current next-task status: `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+- Current LLM model authority: `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`
+  (supersedes `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`, retained as historical
+  lineage only)
+- Latest bounded no-write provider preflight: 4/4 `HEALTHY`, 0 unavailable, 0 identity
+  mismatch, 0 identity unverifiable, `MODEL_IDENTITY_PROVIDER_VERIFIED`
 
 Jim approved the final ContentOps product plan on 2026-08-06. Wave 02 completed the durable
 local operational store and canonical state machine and is accepted as the minimum durable
 prerequisite for the final product. Do not redesign, re-audit, retest, or re-merge it.
 
+Work Packages C, D, and E are each accepted and merged with truthful caveats; do not reopen,
+re-audit, retest, or re-merge them. Work Package E is an accelerated logical soak, so
+calendar uptime and live reliability are not claimed by it.
+
 The current build sequence is:
 
 ```text
-dual-lane CORE V0 in SHADOW_ONLY
-→ diversity, SEO, image, and chart closure
-→ repeated shadow soak and recovery
-→ exact authorized live cohort
+dual-lane CORE V0 in SHADOW_ONLY          [complete, accepted, merged]
+→ diversity, SEO, image, and chart closure [complete, accepted, merged]
+→ repeated shadow soak and recovery        [complete, accepted, merged]
+→ exact authorized live cohort             [CURRENT — requires exact owner live scope]
 → final acceptance and new release identity
 ```
+
+Work Package F is the current next product task and must not start without an exact
+owner-authorized live scope defining destinations, accounts, and public-write authority.
+Neither the ordered model authority nor this status grants public live cohort authority.
 
 The older automatic Wave 03 approval-envelope/transactional-outbox sequence is no longer the
 current next-task authority. Approval, publication, dispatch, scheduler, provider/platform,

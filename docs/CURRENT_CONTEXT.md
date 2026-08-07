@@ -23,11 +23,16 @@ Current durable prerequisite status:
 
 Current next task:
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-Current next-task mode:
+Current next-task status:
 
-`SHADOW_ONLY`
+`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+
+Work Packages C, D, and E are each `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`; do not
+reopen, re-audit, retest, or re-merge them. Work Package F is the current product route and
+must not start without an exact owner-authorized live scope defining destinations, accounts,
+and public-write authority.
 
 ## Current authority read order
 

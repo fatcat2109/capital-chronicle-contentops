@@ -63,8 +63,12 @@ exact authorized live cohort is `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`.
 Final pre-launch LLM model authority `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`
 (supersedes V1, preserved as historical lineage): gateway `9router`, ordered pool with P0
 `new/claude-fable-5`, owner-authorized bounded fallback, no unbounded retry, no unauthorized
-model. Primary-model identity is provider-verified against the live gateway; two of four
-pool models are currently unavailable gateway-side and the router fails over correctly.
+model. The latest bounded no-write preflight probed all four authorized models at 4/4
+`HEALTHY`, 0 unavailable, 0 identity mismatch, 0 identity unverifiable, disposition
+`MODEL_IDENTITY_PROVIDER_VERIFIED`. For P3 the authorized pool identity stays the opaque
+string `vx/gemini-3.1-pro-preview(high)` while the request is sent as wire model
+`vx/gemini-3.1-pro-preview` plus reasoning effort `high`, and the provider reports
+`gemini-3.1-pro-preview` — an authorized request transformation, not silent substitution.
 
 The accepted Work Package D caveats remain truthful: no full-suite PASS is claimed, no CI PASS
 is claimed, the full-suite failures are a noisy pre-existing baseline including two
