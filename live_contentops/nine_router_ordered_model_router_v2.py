@@ -706,15 +706,24 @@ def _summary_without_output(summary: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _bare_model_id(value: str) -> str:
-    """The model ID without its gateway routing prefix.
+    """The model ID without its gateway routing prefix or reasoning-effort suffix.
 
     9router accepts ``new/claude-fable-5`` and reports the effective model back as
     ``claude-fable-5``. Comparing raw strings would flag every healthy call as a
     substitution, so identity is compared on the bare ID. A genuine swap to a different
     model still differs after normalisation and is still caught.
+
+    The pool also carries an opaque ``(effort)`` suffix on some entries (e.g.
+    ``vx/gemini-3.1-pro-preview(high)``) that selects a request-time reasoning-effort
+    parameter rather than naming a distinct model. The gateway reports the resolved model
+    without that suffix, so it is stripped here for the same reason the prefix is: to avoid
+    flagging a healthy, correctly-routed call as an identity mismatch.
     """
     text = str(value).strip()
-    return text.split("/", 1)[1] if "/" in text else text
+    bare = text.split("/", 1)[1] if "/" in text else text
+    if bare.endswith(")") and "(" in bare:
+        bare = bare[: bare.rindex("(")]
+    return bare
 
 
 def _same_model_identity(requested: str, resolved: str) -> bool:

@@ -39,6 +39,7 @@ from live_contentops.nine_router_provider_adapter_v2 import (
     credential_presence,
     normalize_model_identity,
     resolve_base_url,
+    split_model_and_effort,
 )
 
 P0, P1, P2, P3 = ORDERED_MODEL_POOL
@@ -71,11 +72,26 @@ def test_true_sse_stream_still_accumulates() -> None:
     assert _parse_sse(stream) == "READY"
 
 
+def test_split_model_and_effort_extracts_the_trailing_selector() -> None:
+    """The gateway builds its Vertex endpoint by appending the model string directly, so a
+    trailing "(high)" produces an Invalid Endpoint name (HTTP 400) rather than routing to a
+    high-effort variant. The wire request must carry the bare model plus a separate
+    ``reasoning_effort`` field; the pool entry itself stays one opaque authorized string.
+    """
+    assert split_model_and_effort("vx/gemini-3.1-pro-preview(high)") == (
+        "vx/gemini-3.1-pro-preview",
+        "high",
+    )
+    assert split_model_and_effort("new/claude-fable-5") == ("new/claude-fable-5", None)
+
+
 def test_model_identity_normalisation_strips_the_routing_prefix() -> None:
     # The gateway accepts "new/claude-fable-5" and reports "claude-fable-5".
     assert normalize_model_identity("new/claude-fable-5") == "claude-fable-5"
     assert normalize_model_identity("claude-fable-5") == "claude-fable-5"
-    assert normalize_model_identity("vx/gemini-3.1-pro-preview(high)") == "gemini-3.1-pro-preview(high)"
+    # The trailing "(high)" selects a request-time reasoning-effort parameter, not a
+    # distinct model, so it is stripped along with the gateway prefix.
+    assert normalize_model_identity("vx/gemini-3.1-pro-preview(high)") == "gemini-3.1-pro-preview"
     assert normalize_model_identity(None) is None
     # A genuine substitution still differs after normalisation.
     assert normalize_model_identity("new/claude-opus-5") != normalize_model_identity(
