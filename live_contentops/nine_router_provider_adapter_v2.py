@@ -110,8 +110,29 @@ def _extract_text(payload: Mapping[str, Any]) -> str | None:
 
 
 def _parse_sse(text: str) -> str | None:
-    """Accumulate an SSE delta stream, matching the accepted gateway behaviour."""
+    """Accumulate an SSE delta stream's text content, matching the accepted gateway shape.
+
+    Retained for callers that only need the text. :func:`_parse_sse_full` is the version
+    used by :func:`call_nine_router`, since a true multi-chunk stream (as returned for some
+    models) carries the resolved model and usage on later chunks, not the first.
+    """
+    parsed = _parse_sse_full(text)
+    return parsed["text"] if parsed is not None else None
+
+
+def _parse_sse_full(text: str) -> "dict[str, Any] | None":
+    """Accumulate a full SSE stream: text content plus the last-seen model/usage/id.
+
+    A true multi-chunk stream reports the resolved model on every chunk but usage only on
+    the final chunk (where ``finish_reason`` is set). Scanning every chunk — not just the
+    first — is required to observe usage and to be robust if a future gateway response
+    varies which chunk carries which field.
+    """
     tokens: list[str] = []
+    observed_model: str | None = None
+    observed_usage: Mapping[str, Any] | None = None
+    observed_id: str | None = None
+    saw_any_chunk = False
     for line in text.splitlines():
         line = line.strip()
         if not line.startswith("data:"):
@@ -123,6 +144,14 @@ def _parse_sse(text: str) -> str | None:
             chunk = json.loads(payload_text)
         except json.JSONDecodeError:
             continue
+        saw_any_chunk = True
+        if isinstance(chunk.get("model"), str):
+            observed_model = chunk["model"]
+        if isinstance(chunk.get("id"), str):
+            observed_id = observed_id or chunk["id"]
+        usage = chunk.get("usage")
+        if isinstance(usage, Mapping):
+            observed_usage = usage
         choices = chunk.get("choices") or []
         if not choices:
             continue
@@ -130,7 +159,14 @@ def _parse_sse(text: str) -> str | None:
         content = delta.get("content") or (choices[0].get("message") or {}).get("content")
         if content:
             tokens.append(str(content))
-    return "".join(tokens) if tokens else None
+    if not saw_any_chunk:
+        return None
+    return {
+        "text": "".join(tokens) if tokens else None,
+        "model": observed_model,
+        "usage": observed_usage,
+        "id": observed_id,
+    }
 
 
 def _load_json_body(raw: str) -> Mapping[str, Any] | None:
@@ -149,17 +185,43 @@ def _load_json_body(raw: str) -> Mapping[str, Any] | None:
 
 
 def normalize_model_identity(value: str | None) -> str | None:
-    """Strip the gateway's routing prefix from a reported effective model.
+    """Strip the gateway's routing prefix and any ``(effort)`` suffix from a model ID.
 
     9router accepts ``new/claude-fable-5`` and reports back ``claude-fable-5``. That is a
     naming convention, not a substitution, so comparing the two raw strings would raise a
     false identity mismatch on every healthy call. Normalising both sides keeps the real
     invariant — did we get the model we asked for — while still catching a genuine swap.
+
+    A pool entry may also carry a trailing ``(high)``-style reasoning-effort selector (see
+    :func:`split_model_and_effort`). That selector is not part of the model's identity, so it
+    is stripped here too.
     """
     if value is None:
         return None
     text = str(value).strip()
-    return text.split("/", 1)[1] if "/" in text else text
+    bare = text.split("/", 1)[1] if "/" in text else text
+    if bare.endswith(")") and "(" in bare:
+        bare = bare[: bare.rindex("(")]
+    return bare
+
+
+def split_model_and_effort(model: str) -> "tuple[str, str | None]":
+    """Split an opaque pool entry into the wire model ID and an optional effort selector.
+
+    ``vx/gemini-3.1-pro-preview(high)`` is one opaque authorized string in the router's
+    pool, but the gateway does not accept the ``(high)`` suffix as part of the Vertex model
+    path — it builds the upstream endpoint by appending the model string directly, so a
+    trailing ``(high)`` produces ``Invalid Endpoint name`` (HTTP 400) rather than routing to
+    a high-effort variant. The gateway does accept effort as a separate ``reasoning_effort``
+    request field. This function performs the split at the wire boundary only; the router
+    and evidence trail continue to treat the full string (with suffix) as the one exact
+    authorized pool entry.
+    """
+    text = str(model).strip()
+    if text.endswith(")") and "(" in text:
+        idx = text.rindex("(")
+        return text[:idx], text[idx + 1 : -1] or None
+    return text, None
 
 
 def _observed_model(payload: Mapping[str, Any]) -> str | None:
@@ -201,14 +263,16 @@ def call_nine_router(
 
     url_request = importlib.import_module("urllib.request")
     url_error = importlib.import_module("urllib.error")
-    body = json.dumps(
-        {
-            "model": model,
-            "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": max_tokens,
-            "temperature": temperature,
-        }
-    ).encode("utf-8")
+    wire_model, effort = split_model_and_effort(model)
+    request_payload: dict[str, Any] = {
+        "model": wire_model,
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": max_tokens,
+        "temperature": temperature,
+    }
+    if effort:
+        request_payload["reasoning_effort"] = effort
+    body = json.dumps(request_payload).encode("utf-8")
     request = url_request.Request(
         f"{resolved_base}/chat/completions",
         data=body,
@@ -250,30 +314,40 @@ def call_nine_router(
     # JSON first, then JSON with the trailer stripped, and only then treat it as a stream.
     payload: Mapping[str, Any] = {}
     text: str | None = None
+    sse: "dict[str, Any] | None" = None
     parsed = _load_json_body(raw)
     if parsed is not None:
         payload = parsed
         text = _extract_text(payload)
     elif "data:" in raw:
-        text = _parse_sse(raw)
-    if text is None and not payload:
+        sse = _parse_sse_full(raw)
+        text = sse["text"] if sse is not None else None
+    if text is None and sse is None and not payload:
         return ProviderResult(
             status_code=status, failure_class="structured_output_malformed", text=raw[:2000]
         )
 
+    resolved_model = sse["model"] if sse is not None else _observed_model(payload)
+    invocation_id = (sse or {}).get("id") or (
+        str(payload.get("id")) if payload.get("id") else None
+    )
+    usage = (sse or {}).get("usage") if sse is not None else _extract_usage(payload)
+    if isinstance(usage, Mapping) and not isinstance(usage, dict):
+        usage = dict(usage)
+
     if not text:
         return ProviderResult(
             status_code=status,
-            resolved_model=_observed_model(payload),
+            resolved_model=resolved_model,
             failure_class="structured_output_malformed",
         )
 
     return ProviderResult(
         text=text,
-        resolved_model=_observed_model(payload),
-        provider_invocation_id=str(payload.get("id")) if payload.get("id") else None,
+        resolved_model=resolved_model,
+        provider_invocation_id=invocation_id,
         status_code=status,
-        usage=_extract_usage(payload),
+        usage=usage or _extract_usage(payload),
         cost=_extract_cost(payload),
     )
 
