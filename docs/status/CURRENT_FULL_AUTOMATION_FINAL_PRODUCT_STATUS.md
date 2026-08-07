@@ -1,132 +1,140 @@
 # Current Full-Automation Final Product Status
 
-Status authority scope: post-v1 operational maturity program.
+Authority date: 2026-08-07
 
-Current classification:
+Status authority scope: current post-v1 Tier-1 closeout plus approved post-Tier-1 Tier-2 direction.
 
-`PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
+## Current classification
 
-Current branch:
+Historical accepted release:
 
-`master`
+`PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`
 
-## Historical accepted release
+Current product-direction classification:
 
-The accepted v1.0 Treasury release remains unchanged:
+`CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED`
 
-- operator accepted;
-- canonical Substack plus eight text/image derivatives;
-- exact story-scoped publication authority;
-- global DQR remained independently blocked;
-- strict public/provider readback;
-- annotated immutable tag `v1.0` at release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+Approved future expansion:
 
-This historical release proves a bounded nine-surface release. It does not prove continuous generalized operation.
+`CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_OWNER_DIRECTION_V1`
 
-## Current product maturity
+## Current Tier-1 maturity
 
 ```text
 Evidence/claim architecture: advanced
-Canonical editorial and Tier-1 transport: bounded live proof
+Canonical Tier-1 editorial/transport: bounded live proof plus repeated shadow proof
 Durable operational state: complete and accepted as minimum durable prerequisite
-Unified approval/outbox: deferred until the vertical slice requires it
-Restart-safe supervisor/scheduler: local shadow restart/recovery proven; calendar-time supervisor incomplete
-Universal unknown-write/recovery contract: local deterministic contract proven in shadow; live readback unproven
-Continuous fresh intake: shadow/unproven
-Repeated diversified newsroom operation: proven locally as an accelerated logical shadow soak; calendar-time and live operation unproven
-Repeated generalized live cohort: unproven
-Performance/community learning: manual or historical replay
-Tier-2 video/TikTok: separate and incomplete
+Dual-lane CORE V0: complete/accepted/merged with caveat
+Diversity/SEO/image/chart closure: complete/accepted/merged with caveat
+Repeated shadow soak/recovery: complete/accepted/merged with caveat
+Calendar-time/live generalized cohort: unproven
+Final live provider/platform reliability: unproven
+Final UI based on real live states: not yet rebuilt
+Final full-automation prelaunch acceptance: not yet run
+Tier-2 Pro Video Factory: owner-approved future expansion, implementation not started
 ```
 
-Current full-automation audit classification:
+## Completed work packages
 
-`PARTIAL_PASS_BOUNDED_NINE_SURFACE_RELEASE_PROVEN_CONTINUOUS_GENERALIZED_FACTORY_NOT_YET_PROVEN`
+- Work Package C: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+- Work Package D: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+- Work Package E: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
 
-## Current authority packet
+Work E launch-readiness disposition:
 
-`docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/`
+`READY_WITH_EXPLICIT_CAVEATS`
 
-Mandatory files:
+The accelerated logical soak is not calendar-time uptime and does not claim final live reliability, full-suite PASS, or CI PASS.
 
-1. `README.md`
-2. `FULL_AUTOMATION_INSTITUTIONAL_NORTH_STAR.md`
-3. `LIVE_RUN_RECONSTRUCTION_AND_RELIABILITY_AUDIT.md`
-4. `FINAL_PRODUCT_HARDENING_EXECUTION_PLAN.md`
-5. `OPERATIONAL_SLO_AND_ACCEPTANCE_STANDARD.md`
-6. `MODEL_PROVIDER_AND_EVALUATION_STRATEGY.md`
-7. `BUILDER_GUARDRAILS_AND_REPO_AUTHORITY.md`
-8. `live_run_inventory.json`
-9. `capability_maturity_matrix.json`
-10. `gap_register.json`
-11. `final_manifest.json`
+## Current product task
 
-## Operator decision
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-Do not prioritize another social platform or Tier-2 video capability now.
+Status:
 
-The next program priority is:
+`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+
+Mode boundary:
+
+`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
+
+No public live execution is authorized by this status document.
+
+## Router/model runtime prerequisite
+
+The owner-approved 9router ordered-model V2 runtime lineage is documented on branch:
+
+`agent/contentops-9router-ordered-model-router-retry-budget-v1`
+
+at head:
+
+`ae60da22b9a155d25dc783f10285eecd875b9d0f`
+
+This docs-only master update does not merge that runtime code.
+
+Before provider-backed final-prelaunch Work F/G execution, independently accept/merge that lineage or an explicitly newer owner-authorized equivalent.
+
+## Current Tier-1 build sequence
 
 ```text
-one canonical production entrypoint
-→ durable local operational store
-→ exact approval envelope and transactional outbox
-→ restart-safe supervisor and recurring windows
-→ Tier-1 adapter/reconciliation conformance
-→ explicit 9router/Gemini 3.1 Pro model registry and evaluation
-→ continuous governed intake
-→ canonical editorial/visual package orchestration
-→ operational V5 control plane and SLO/incident system
-→ performance/community learning
-→ seven-day shadow soak
-→ staged supervised live cohorts
+Work F exact authorized live cohort   [CURRENT]
+→ major final Tier-1 UI/UX rebuild using real live states
+→ Work Package G final full-automation prelaunch run
+→ Tier-1 final acceptance + new release identity
+→ freeze accepted Tier-1 baseline
 ```
 
-## Historical next task
+The older broad Wave 03–15 hardening program is historical and is revisited only where a concrete Tier-1 launch gate requires it.
 
-`TASK_CONTENTOPS_DURABLE_OPERATIONAL_STORE_AND_CANONICAL_STATE_MACHINE_V1`
+## Approved post-Tier-1 Tier-2 direction
 
-This records the Wave 02 routing at the time it was issued. Wave 01 classification: `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`. Exactly one registry row is canonical, and executable control flows from the public compatibility API or canonical module/script CLI through ContentOpsProductionOrchestrator.execute(...) to one private dispatcher and one private implementation body. Alternate runner/server/scheduler/CLI/browser-profile routes remain delegated or fail closed. Wave 02 has since completed and been accepted; see the current wave status below.
+After Tier-1 final acceptance/freeze, the approved next product expansion is:
+
+**CONTENTOPS TIER-2 PRO VIDEO FACTORY**
+
+Authority docs:
+
+- `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md`
+- `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md`
+
+Required Tier-2 lanes:
+
+- `SHORT_FORM_NATIVE`
+- `LONG_FORM_EDITORIAL_15_45M`
+
+Long-form 15–45 minutes is core future scope. Short-form is a separately directed native product, not a crop of long-form.
+
+Tier-2 is programmable/deterministic-first. Generative video is optional enrichment.
+
+Tier-2 implementation status:
+
+`NOT_CURRENT_NOT_STARTED`
+
+## Historical video packet
+
+`docs/automation/VIDEO_FOUNDATION_AND_PAUSE_V1/` remains historical discovery/evidence. It is superseded as future implementation authority where it conflicts with the Tier-2 Pro Video Factory direction.
 
 ## No current live authority
 
-This audit/plan branch grants no new:
+This status document grants no:
 
-- approval authority;
-- publication authority;
-- dispatch authority;
-- scheduler authority;
-- provider/platform action;
 - credential access;
+- provider/platform action;
+- browser/CDP action;
+- scheduler/outbox execution;
+- dispatch;
+- upload;
+- publication;
 - public write.
 
-Any future live cohort requires a separate exact task and approval envelope.
+Any live cohort requires exact task authority and exact owner scope.
 
-## Current wave status
+## Exact next action
 
-The sections above are retained as accepted historical program authority. This section is
-the current status.
-
-- Wave 01 Status: `COMPLETE_ACCEPTED_AND_MERGED`
-- Wave 02 Status: `COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE`
-- Current product-direction classification: `CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED`
-- Current next task: `TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
-- Current next-task mode: `SHADOW_ONLY`
-
-Jim approved the final ContentOps product plan on 2026-08-06. Wave 02 completed the durable
-local operational store and canonical state machine and is accepted as the minimum durable
-prerequisite for the final product. Do not redesign, re-audit, retest, or re-merge it.
-
-The current build sequence is:
+Do not start Tier-2.
 
 ```text
-dual-lane CORE V0 in SHADOW_ONLY
-→ diversity, SEO, image, and chart closure
-→ repeated shadow soak and recovery
-→ exact authorized live cohort
-→ final acceptance and new release identity
+accept/merge owner-approved 9router V2 runtime lineage
+→ obtain exact owner live scope
+→ execute TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1
 ```
-
-The older automatic Wave 03 approval-envelope/transactional-outbox sequence is no longer the
-current next-task authority. Approval, publication, dispatch, scheduler, provider/platform,
-credential, and public-write authority all remain gated behind separate exact tasks.

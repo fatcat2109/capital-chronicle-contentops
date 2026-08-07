@@ -1,274 +1,276 @@
 # Capital Chronicle ContentOps — Current V6/Post-v1 Master Plan
 
-Authority date: 2026-08-06
+Authority date: 2026-08-07
 
 Repository: `fatcat2109/capital-chronicle-contentops`
 
-Verified remote master reconciled onto:
-
-`6b6f8718532a4c3f077b09e14f3ca9a4083d4734`
-
-Plan authoring base:
-
-`c87e338f25922f4d03454ba199139353ca7198ff`
+## 0. Current authority summary
 
 Historical accepted release:
 
 `PASS_CONTENTOPS_V1_0_OPERATOR_ACCEPTED`
 
-Current accepted master classification:
-
-`PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
-
 Current product-direction classification:
 
 `CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED`
 
-Current durable prerequisite status:
+Approved post-Tier-1 expansion:
+
+`CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_OWNER_DIRECTION_V1`
+
+Current durable prerequisite:
 
 `COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE`
 
-Current next task:
+Current product task:
 
 `TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-Current next-task mode:
+Status:
 
-`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
+`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
 
-Current work package routing:
+This document replaces stale lower-section routing previously retained inside the V6 plan. Work Packages C, D, and E are complete/accepted/merged with their recorded caveats. Work Package F is current.
 
-- Work Package C — dual-lane CORE V0 shadow newsroom: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
-- Work Package D — diversity, SEO, image, and chart closure: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
-- Work Package E — repeated shadow soak and recovery: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`, audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, launch readiness `READY_WITH_EXPLICIT_CAVEATS`
-- Work Package F — exact authorized live cohort: `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
-
-Work Package D passed independent audit and is merged. Work Package E passed independent
-audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` and is fast-forward merged into `master` at accepted source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`; it
-is an accelerated logical soak, so calendar uptime and live reliability are still not
-claimed by it. The live cohort must not start without an exact owner-authorized live scope.
-
-Final pre-launch LLM model authority `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`
-binds gateway `9router` and exact model `new/claude-fable-5` for every applicable LLM task
-in Work Packages F and G, with `requested_model == resolved_model` required and runtime
-verification recorded as `OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
-
-## 1. Current authority
-
-Read in this order:
+## 1. Authority read order
 
 1. `AGENTS.md`
 2. `docs/CURRENT_CONTEXT.md`
 3. `docs/AI_BUILDER_BOOTSTRAP.md`
 4. `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`
-5. `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_SCOPE_OVERLAY_V2.md`
-6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md`
-7. current committed status, maturity, and exact task-specific files.
+5. `docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md`
+6. `docs/status/CURRENT_PROJECT_STATUS.md`
+7. `docs/status/current_project_status.json`
+8. `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_SCOPE_OVERLAY_V2.md`
+9. `docs/automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md`
+10. this file
+11. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+12. Tier-2 North Star/Master Plan when reasoning about post-Tier-1 video
+13. exact task implementation/tests/evidence.
 
-The institutional packet and older V6 plans remain evidence and design references. Where they conflict with the current product ownership, operating modes, content-diversification requirement, or build sequencing, the current overlays and final closeout plan govern.
+Jim's latest explicit product decision and the current product-direction overlay supersede stale historical routing.
 
-## 2. Protected historical release
+## 2. Product boundary
 
-ContentOps `v1.0` remains immutable historical authority:
-
-- release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b`;
-- one exact story-scoped Treasury release;
-- canonical Substack plus eight Tier-1 text/image derivatives;
-- strict readback and bounded repair;
-- machine verification and operator acceptance.
-
-Do not rerun, edit, delete, recreate, move, or retag accepted outputs or evidence.
-
-The release proves one bounded production cycle. It does not prove a continuously operating, diversified, restart-safe newsroom.
-
-## 3. Correct product boundary
-
-### Capital Chronicle main project owns intelligence
+### Capital Chronicle owns intelligence
 
 Capital Chronicle owns:
 
-- daily economic and market analysis;
-- microeconomic, macroeconomic, and global-macro reports;
+- daily market/economic analysis;
+- micro/macro/global-macro reports;
 - scenarios and probabilistic views;
-- model calculations;
-- Bayesian cases and updates;
-- forecasts and market-regime authority;
+- deterministic model calculations;
+- Bayesian cases/updates;
+- forecasts and regimes;
 - numeric truth;
 - realized-outcome comparison and analytical error attribution.
 
-### ContentOps owns the newsroom and content factory
+### ContentOps owns newsroom/media production
 
 ContentOps owns:
 
-- headlines, breaking news, and business-news intake;
+- headlines, breaking/business-news intake;
 - event clustering, duplicates, corrections, and update chains;
 - evidence/permission/freshness/material-delta gates;
-- editorial ranking, story selection, hold, reject, and no-publication decisions;
-- content diversity and portfolio concentration control;
-- article mode, framing, writing, editing, SEO, images, and charts;
-- native platform packages;
-- publication control, readback, reconciliation, incidents, and content-performance learning;
-- faithful transformation of governed Capital Chronicle analysis packets.
+- editorial ranking, selection, hold/reject/no-publication;
+- diversification and concentration control;
+- writing/editing/SEO;
+- images and deterministic charts from authorized inputs;
+- text/image/video media packaging;
+- publication control;
+- readback/reconciliation/incidents;
+- content-performance learning;
+- faithful transformation of governed Capital Chronicle packets.
 
-ContentOps must not independently originate authoritative economic scenarios, model outputs, Bayesian probabilities, forecasts, market regimes, or numeric truth.
+ContentOps must not originate analytical/numeric authority.
 
-## 4. Final product
+## 3. Operating modes
 
-Capital Chronicle ContentOps is an AI-native autonomous newsroom and content factory with two input lanes.
+- `AUTONOMOUS_DEFAULT`
+- `SUPERVISED_OPERATOR_GATE`
+- `SHADOW_ONLY`
+- `KILL_SWITCH`
 
-### Newsroom lane
+Public writes require exact deterministic authority/gates. No legacy mandatory-human-approval doctrine overrides `AUTONOMOUS_DEFAULT`.
 
-```text
-fresh governed headlines and primary-source events
-→ normalize, cluster, and identify update chains
-→ verify evidence, permission, freshness, and material delta
-→ rank editorial value and portfolio fit
-→ select, hold, reject, or publish nothing
-→ report, edit, optimize, visualize, package, publish, read back, and learn
-```
+## 4. Tier-1 maturity
 
-### Capital Chronicle analysis lane
+Work Package C — dual-lane CORE V0 shadow newsroom:
 
-```text
-governed Capital Chronicle analysis packet
-→ verify exact lineage, claims, permissions, calculations, scenarios, and limitations
-→ choose content mode, audience, framing, and search intent
-→ produce article, report, image/chart, newsletter, and platform-native packages
-→ review analytical fidelity
-→ publish, read back, reconcile, and measure content performance
-```
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
 
-## 5. Content diversification
+Work Package D — diversity, SEO, image, chart closure:
 
-The final product must support a diversified universe, including:
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
 
-- U.S. equities and Big Tech;
-- sector and industry trends;
-- earnings and filings;
-- economic releases;
-- political and policy news;
-- central banks, rates, credit, and liquidity;
-- FX, commodities, energy, and materials;
-- geopolitics, trade, sanctions, and supply chains;
-- regulation, law, and corporate governance;
-- global corporate events;
-- Capital Chronicle daily, microeconomic, macroeconomic, global-macro, scenario, model, and Bayesian analysis products.
+Work Package E — repeated shadow soak and recovery:
 
-Diversification is enforced through ranking and rolling concentration penalties, not mandatory filler quotas. `NO_PUBLICATION` is valid.
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
 
-## 6. SEO, image, and chart requirements
+Work E launch-readiness disposition:
 
-SEO is a production system, not a self-awarded score. Each canonical long-form package must bind search intent, target reader, keyword/query cluster, headline, slug, meta description, structure, citations, internal-link suggestions, visual metadata, canonical URL, and measurement hooks.
+`READY_WITH_EXPLICIT_CAVEATS`
 
-Images must be useful, rights/provenance bound, story appropriate, and platform adapted. Image search is discovery only and never grants reuse rights or factual authority.
+The soak proves repeated logical execution/recovery without public writes. It does not prove calendar-time live reliability, full-suite PASS, CI PASS, or final live provider/platform behavior.
 
-Charts must be deterministic and reproducible from Capital Chronicle packet data or approved official/public data. Every chart records source, metric, unit, timestamps, frequency, sample, transformations, revision/partial-period state, method, and final hash. ContentOps may visualize authorized calculations; it may not create analytical truth.
-
-## 7. Operating modes
-
-- `AUTONOMOUS_DEFAULT`: default; public writes only when exact deterministic gates pass.
-- `SUPERVISED_OPERATOR_GATE`: optional owner toggle before public write.
-- `SHADOW_ONLY`: full product cycle with zero public writes.
-- `KILL_SWITCH`: blocks new public writes while preserving readback, reconciliation, and recovery.
-
-Older universal mandatory-approval language is superseded. Historical supervised evidence remains valid.
-
-## 8. Current maturity
-
-### Proven
-
-- exact evidence and permission handling;
-- one canonical production-orchestrator boundary;
-- durable operational store and canonical state machine (Wave 02, merged and accepted);
-- bounded Substack-first publication and Tier-1 derivatives;
-- visual generation and platform packaging;
-- strict readback and bounded repair;
-- fail-closed ineligible-story behavior;
-- editorial, freshness, and evidence foundations;
-- canonical V5 review UI.
-
-### Candidate or partial
-
-- candidate ranking and decision windows;
-- cross-domain shadow-newsroom artifacts;
-- editorial revision and SEO hygiene;
-- content-performance and learning foundations.
-
-### Not yet proven
-
-- repeated fresh diversified headline intake;
-- reliable duplicate/update-chain clustering in routine operation;
-- breaking-news and business-news desk performance;
-- faithful repeated Capital Chronicle analysis transformations;
-- full SEO/image/chart closure across diverse stories;
-- restart-safe repeated shadow operation;
-- a bounded autonomous live cohort;
-- rolling performance learning and final launch SLOs.
-
-## 9. Build doctrine
-
-Use FAST SHIP + CORE V0.
-
-Prefer one heavy bounded end-to-end capability over horizontal infrastructure. Reuse accepted components. Add or harden durable state, approval, outbox, scheduler, provider, adapter, or UI components only when they directly block the final product loop.
-
-Support docs, tests, and evidence should remain proportionate and directly support user-visible capability.
-
-## 10. Final closeout sequence
-
-The detailed requirements and launch gates are in:
-
-`docs/automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md`
-
-Completed:
-
-1. product-authority reconciliation — `COMPLETE_OWNER_APPROVED`;
-2. minimum durable prerequisite — `COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE`.
-
-Remaining sequence:
+## 5. Current Tier-1 execution sequence
 
 ```text
-dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ repeated shadow soak and recovery   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
-→ final acceptance and new release identity
+dual-lane CORE V0 shadow newsroom   [COMPLETE]
+→ diversity / SEO / image / chart closure   [COMPLETE]
+→ repeated shadow soak and recovery   [COMPLETE]
+→ exact authorized live cohort   [CURRENT]
+→ major final Tier-1 UI/UX rebuild using real live states
+→ Work Package G final full-automation prelaunch run
+→ Tier-1 final acceptance + new release identity
+→ freeze accepted Tier-1 baseline
 ```
 
-This is current build authority. The older horizontal Wave 03–15 hardening roadmap remains valid historical planning and is revisited only where an item directly blocks this sequence or a launch gate.
+The major final Tier-1 UI/UX rebuild is an owner-directed post-F step so the final control room is designed around real live provider, readback, incident, fallback, recovery, and cost states instead of shadow assumptions.
 
-## 11. Canonical product surfaces
+## 6. Current Work F gate
 
-- backend: `live_contentops/`;
-- canonical production migration anchor: `live_contentops.eight_platform_substack_first_pipeline_v1`;
-- canonical durable operational store: `live_contentops/durable_operational_store_v1.py`;
-- canonical UI: `ui/contentops_v5/`;
-- strategy/status: current product-direction overlay, final-product scope overlay, this master plan, and exact committed task evidence.
+Exact task:
 
-Do not create a second production runner, state store, approval engine, outbox, scheduler, provider gateway, dashboard, numeric-analysis path, or macro-analysis engine.
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-## 12. Safety invariants
+Required before execution:
 
-- Never bypass evidence, claim permission, freshness, DQR, or point-in-time authority.
-- Never fabricate numeric truth, analytical output, quote, source, image event, or public readback.
-- Never persist or print raw credentials, tokens, cookies, browser storage, private keys, or session material.
-- Never retry an unknown write blindly.
-- Never mutate approved bytes without a new exact authorization record.
-- Never modify or retag accepted `v1.0` evidence.
-- Never mutate the Capital Chronicle main project from a ContentOps task.
-- Never treat engagement as factual authority.
+1. exact owner-authorized live destinations/accounts/public-write scope;
+2. accepted provider/model runtime authority suitable for final-prelaunch use;
+3. kill switch and fail-closed readback/reconciliation path available.
 
-## 13. Current routing
+This plan does not itself authorize live execution.
 
-Jim approved this product direction on 2026-08-06. The exact builder task authorized by current authority is:
+## 7. Router/model runtime state
 
-`TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1`
+This docs-only master-plan update does not merge the owner-approved 9router ordered-model V2 runtime lineage.
 
-Mode:
+The documented V2 branch/head is:
 
-`SHADOW_ONLY`
+- branch: `agent/contentops-9router-ordered-model-router-retry-budget-v1`
+- head: `ae60da22b9a155d25dc783f10285eecd875b9d0f`
 
-Work Package C is accepted and merged. Work Package D — the CORE V0 diversity, SEO, image, and chart closure — is delivered on branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and is `CORRECTION_AWAITING_INDEPENDENT_AUDIT`; the soak task is routed only after that audit passes. Do not reopen either work package.
+Before provider-backed Work F/G execution, independently accept/merge that lineage or an explicitly newer owner-authorized equivalent.
 
-Wave 02 is complete and accepted as the minimum durable prerequisite; do not reopen it. The older automatic next action `TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1` is no longer the current next-task authority.
+Never use this docs commit as evidence that runtime/model code changed.
 
-This routing grants no credential, provider, browser/CDP, network-intake, scheduler/outbox execution, dispatch, publication, or public-write authority. Any live cohort requires a separate exact authorization.
+## 8. Canonical Tier-1 surfaces
+
+- backend: `live_contentops/`
+- durable operational store: `live_contentops/durable_operational_store_v1.py`
+- production migration anchor: `live_contentops.eight_platform_substack_first_pipeline_v1`
+- canonical UI: `ui/contentops_v5/`
+- current product direction: `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`
+- Tier-1 closeout plan: `docs/automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md`
+
+Do not create a second newsroom, durable store, approval engine, outbox, scheduler, provider gateway, dashboard, or analytical engine.
+
+## 9. Approved post-Tier-1 product expansion
+
+After Tier-1 final acceptance/freeze, ContentOps moves to:
+
+**CONTENTOPS TIER-2 PRO VIDEO FACTORY**
+
+Authority:
+
+`CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_OWNER_DIRECTION_V1`
+
+Detailed docs:
+
+- `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md`
+- `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md`
+
+Required Tier-2 lanes:
+
+- `SHORT_FORM_NATIVE`
+- `LONG_FORM_EDITORIAL_15_45M`
+
+Long-form 15–45 minutes is core product scope. Short-form is independently directed/compiled rather than cropped mechanically from long-form.
+
+Tier-2 uses the same canonical story/evidence/permission/state/publication authority. It does not create a second newsroom.
+
+## 10. Tier-2 architecture summary
+
+```text
+canonical story/evidence
+→ video eligibility
+→ Director
+→ Video Program
+→ Chapter Graph / Scene Graph
+→ deterministic-first Asset Engine
+→ narration/audio
+→ programmable compositor
+→ scene/chapter cache
+→ FFmpeg assembly/finishing
+→ ffprobe deterministic QA
+→ multimodal visual critic
+→ bounded selective revision
+→ 15–45m long-form + native shorts
+→ exact-authorized upload/readback/reconciliation
+→ video-native performance learning
+```
+
+Generative video is optional B-roll enrichment, not foundation.
+
+## 11. Tier-2 future work packages
+
+After Tier-1 freeze only:
+
+1. `TIER2-A` — local long-form + short-form programmable vertical slice;
+2. `TIER2-B` — multimodal QA, bounded auto-revision, diverse corpus;
+3. `TIER2-C` — platform-native private/unlisted/draft readback;
+4. `TIER2-D` — bounded live video cohort;
+5. `TIER2-E` — final Tier-2 acceptance + new release.
+
+Do not route to `TIER2-A` while Tier-1 is unfinished.
+
+## 12. Historical video material
+
+`docs/automation/VIDEO_FOUNDATION_AND_PAUSE_V1/` remains historical discovery/evidence.
+
+It is superseded as future implementation authority wherever it conflicts with the Tier-2 Pro Video Factory North Star/Master Plan.
+
+## 13. Build doctrine
+
+Use FAST SHIP + heavy bounded vertical slices.
+
+- deliver user-visible capability;
+- reuse accepted infrastructure;
+- keep docs/tests/evidence proportionate;
+- no infrastructure ceremony without a direct blocker;
+- no filler production;
+- no broad platform hardening program before a concrete product need.
+
+## 14. Safety invariants
+
+- never bypass evidence/permission/freshness/point-in-time authority;
+- never fabricate numeric truth, quotes, sources, event imagery, or readback;
+- never expose secrets/session material;
+- never retry an unknown write/upload blindly;
+- never mutate Capital Chronicle main-project authority;
+- never modify/retag protected `v1.0`;
+- never treat engagement as factual authority;
+- generated media must never masquerade as real documentary evidence.
+
+## 15. Exact current routing
+
+Current product task:
+
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+
+Current status:
+
+`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+
+Tier-2 is approved future direction but is **NOT CURRENT**.
+
+Exact next operational sequence:
+
+```text
+accept/merge owner-approved 9router V2 runtime lineage
+→ obtain exact owner live scope
+→ execute Work F
+```
+
+Then continue the Tier-1 sequence in Section 5.
