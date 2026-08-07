@@ -25,16 +25,17 @@ Current durable prerequisite:
 
 Current product task:
 
-`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
 
 Current task status:
 
-`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
 
 Work Packages C, D, and E are each `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`; do not
-reopen, re-audit, retest, or re-merge them. Work Package F is the current product route and
-must not start without an exact owner-authorized live scope defining destinations, accounts,
-and public-write authority.
+reopen, re-audit, retest, or re-merge them. Work Package F has exact owner live scope and its
+accepted autonomous no-publication result is promoted to `master` at `025164d73`. The
+current external blocker is a Capital Chronicle publication-authorized packet whose event,
+source, and market evidence is within the canonical 24-hour freshness window.
 
 ## Current authority read order
 
@@ -89,14 +90,16 @@ Accepted Work E evidence includes an accelerated logical soak with 30/30 window 
 The current user-visible product gap is real authorized live operation, followed by a final UI/control-room rebuild and final full-automation acceptance.
 
 ```text
-Work F exact authorized live cohort
+Work F autonomous canonical cycle   [EXECUTED]
+→ fresh-packet probe   [BLOCKED: UPSTREAM OBSERVATION >24H]
+→ rerun canonical cycle when fresh governed evidence exists
 → major final Tier-1 UI/UX rebuild using real live states
 → Work G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity
 → freeze Tier-1 baseline
 ```
 
-Work F must not execute without exact owner-authorized live scope.
+Exact owner live scope is already recorded and requires no renewal.
 
 ## Current router/model runtime authority
 
@@ -163,8 +166,8 @@ Tier-2 planning is now durable. Do not start Tier-2 implementation.
 Continue Tier-1:
 
 ```text
-obtain exact Work F live scope
-→ execute TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1
+Capital Chronicle publication-evidence producer emits event/source/market evidence within 24h
+→ rerun TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1
 ```
 
 ## Safety

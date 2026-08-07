@@ -22,18 +22,19 @@ Current durable prerequisite:
 
 `COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE`
 
-Latest Work F task:
+Latest operational task:
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
+`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
 
 Status:
 
-`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
+`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
 
-This document replaces stale lower-section routing previously retained inside the V6 plan.
 Work Packages C, D, and E are complete/accepted/merged with their recorded caveats. Work F
-executed once and correctly stopped before dispatch; refreshing governed publication evidence
-is the current blocker.
+executed once and correctly stopped before dispatch. Its result is promoted to `master`.
+The current committed producer was probed and found only a 34.674-hour-old official market
+observation against the 24-hour gate, so fresh governed publication evidence remains the
+external blocker.
 
 ## 1. Authority read order
 
@@ -123,7 +124,8 @@ dual-lane CORE V0 shadow newsroom   [COMPLETE]
 → diversity / SEO / image / chart closure   [COMPLETE]
 → repeated shadow soak and recovery   [COMPLETE]
 → owner-authorized canonical cycle: autonomous no-publication with caveat   [EXECUTED]
-→ refresh governed publication evidence and rerun the same canonical cycle   [CURRENT BLOCKER]
+→ fresh-packet producer probe outside 24h window   [BLOCKED EXTERNAL]
+→ rerun the same canonical cycle when fresh governed evidence exists
 → major final Tier-1 UI/UX rebuild using real live states
 → Work Package G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity
@@ -145,9 +147,11 @@ three visuals, and nine platform packages from a three-input/three-cluster upstr
 Freshness and semantic-review gates then made a correct no-publication decision before any
 adapter write.
 
-Current blocker: obtain a fresh, publication-authorized Capital Chronicle packet that passes
-freshness and substantive semantic review, then rerun the same canonical cycle. Do not
-request another owner authorization or weaken product gates.
+Current blocker: the Capital Chronicle publication-evidence producer must observe and
+authorize event/source/market evidence within 24 hours. The latest bounded probe produced
+packet `cc-publication-8404fad760faec52b37e`, but its observation age was 34.674 hours.
+Then rerun the same canonical cycle without requesting another owner authorization or
+weakening product gates.
 
 Exact next product action:
 
@@ -277,20 +281,20 @@ Use FAST SHIP + heavy bounded vertical slices.
 
 ## 15. Exact current routing
 
-Latest Work F task:
+Latest operational task:
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
+`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
 
 Current status:
 
-`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
+`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
 
 Tier-2 is approved future direction but is **NOT CURRENT**.
 
 Exact next operational sequence:
 
 ```text
-refresh governed Capital Chronicle publication evidence
+Capital Chronicle producer emits event/source/market evidence within 24h
 → rerun Work F through the same canonical entrypoint
 ```
 

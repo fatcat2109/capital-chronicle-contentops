@@ -47,24 +47,24 @@ Work E launch-readiness disposition:
 
 The accelerated logical soak is not calendar-time uptime and does not claim final live reliability, full-suite PASS, or CI PASS.
 
-## Latest Work F task
+## Latest operational task
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
+`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
 
 Status:
 
-`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
+`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
 
 Mode boundary:
 
 `AUTONOMOUS_DEFAULT`
 
-The exact owner task authorized dynamically validated canonical `READY_*` destinations and
-superseded artificial tiny-cohort ceremony. The run reached canonical browser/account
-preflight, 9Router review, article/media creation, and nine platform packages. It performed
-zero dispatches because the only formerly eligible story had stale governed evidence and the
-semantic reviewer required revision. This is a legitimate autonomous no-publication result,
-not a missing-authorization result.
+The accepted Work F result is promoted to remote `master` at `025164d73`. A new invocation
+of the committed Capital Chronicle Treasury publication-evidence producer emitted an exact
+publication-authorized packet, but the latest official market observation was 34.674 hours
+old against the canonical 24-hour threshold. The task therefore stopped before the
+canonical rerun, 9Router, or platform adapters. This is an external upstream-freshness
+blocker, not a missing-authorization or ContentOps infrastructure blocker.
 
 ## Current router/model runtime authority
 
@@ -81,7 +81,8 @@ when the pool/budget is exhausted. Fallback never bypasses product or publicatio
 
 ```text
 Work F canonical cycle: autonomous no-publication with caveat   [EXECUTED]
-→ refresh governed Capital Chronicle publication evidence and rerun canonical cycle
+→ fresh-packet probe: official observation outside 24h window   [BLOCKED EXTERNAL]
+→ rerun canonical cycle when a genuinely fresh governed packet exists
 → major final Tier-1 UI/UX rebuild using real live states
 → Work Package G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity
@@ -118,26 +119,19 @@ Tier-2 implementation status:
 
 `docs/automation/VIDEO_FOUNDATION_AND_PAUSE_V1/` remains historical discovery/evidence. It is superseded as future implementation authority where it conflicts with the Tier-2 Pro Video Factory direction.
 
-## No current live authority
+## Current live-authority boundary
 
-This status document grants no:
-
-- credential access;
-- provider/platform action;
-- browser/CDP action;
-- scheduler/outbox execution;
-- dispatch;
-- upload;
-- publication;
-- public write.
-
-Any live cohort requires exact task authority and exact owner scope.
+Jim's exact Work F tasks authorize the same dynamically verified canonical Capital Chronicle
+`READY_*` destinations in `AUTONOMOUS_DEFAULT`. This status record does not widen that
+scope. Public actions remain blocked until a fresh governed packet passes every deterministic
+gate; unrelated accounts/actions, secret reads, blind retries, and destructive mutations
+remain unauthorized. No renewed cohort approval is required.
 
 ## Exact next action
 
 Do not start Tier-2.
 
 ```text
-refresh governed Capital Chronicle publication evidence
+Capital Chronicle publication-evidence producer emits event/source/market evidence within 24h
 → rerun TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1 through the same canonical entrypoint
 ```

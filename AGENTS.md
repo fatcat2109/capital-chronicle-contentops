@@ -143,16 +143,21 @@ Work E launch-readiness:
 
 The accelerated logical soak is not calendar-time live reliability and does not claim full-suite or CI PASS.
 
-## 8. Latest Work F task
+## 8. Latest operational task
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
+`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
 
 Status:
 
-`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
+`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
 
-Owner live scope is recorded and dynamically limited to verified canonical `READY_*`
-destinations. The current blocker is fresh governed publication evidence, not authorization.
+The accepted Work F result was fast-forwarded to `master` at
+`025164d73f87320cbff9a14a8f5914d7d128f9ea`. The current Capital Chronicle producer was
+run without modifying its repository and emitted a publication-authorized packet, but its
+latest official market observation was 34.674 hours old against the canonical 24-hour
+threshold. The ContentOps rerun therefore stopped before 9Router or any public adapter.
+Owner live scope remains recorded and dynamically limited to verified canonical `READY_*`
+destinations; no new authorization is required.
 
 ## 9. Current router/model runtime authority
 
@@ -196,7 +201,8 @@ transformation is authorized and is not model substitution.
 
 ```text
 Work F canonical cycle: autonomous no-publication with caveat   [EXECUTED]
-→ refresh governed Capital Chronicle publication evidence and rerun canonical cycle
+→ fresh-packet probe: official source remained outside 24h window   [BLOCKED EXTERNAL]
+→ wait for a genuinely fresh Capital Chronicle packet and rerun canonical cycle
 → major final Tier-1 UI/UX rebuild using real live states
 → Work Package G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity
@@ -313,7 +319,7 @@ Do not stop for unrelated dirty files, absent CI, stale historical docs, mechani
 Do not start Tier-2.
 
 ```text
-refresh governed Capital Chronicle publication evidence
+Capital Chronicle publication-evidence producer emits event/source/market evidence within 24h
 → rerun TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1 through the same canonical entrypoint
 ```
 

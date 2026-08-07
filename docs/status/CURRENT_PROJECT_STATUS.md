@@ -73,6 +73,28 @@ Exact next product action:
 
 `REFRESH_GOVERNED_CAPITAL_CHRONICLE_PUBLICATION_EVIDENCE_AND_RERUN_CANONICAL_CYCLE`
 
+### Latest promotion and fresh-packet discovery
+
+`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
+
+Result:
+
+`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
+
+The accepted Work F commit `025164d73f87320cbff9a14a8f5914d7d128f9ea` was
+fast-forwarded to remote `master` and read back exactly. Current upstream
+`fatcat2109/Headline-Raw-data-json@ff1f637ccbe2b6b2b404a253d5eda3f04727b4a1`
+retains the July committed packet. The existing committed Capital Chronicle producer was
+run with output isolated to a temporary directory and produced publication-authorized packet
+`cc-publication-8404fad760faec52b37e`. Its latest official observation was nevertheless
+34.674 hours old against the 24-hour ContentOps threshold, so deterministic freshness
+returned `BLOCK` with `market_sensitive_story_snapshot_stale_or_missing`.
+
+No canonical rerun, 9Router call, adapter invocation, public write, unknown write, or
+readback occurred. The canonical Edge profile remained `READY_TO_ATTACH` on CDP 9223. The
+exact next blocker is an upstream Capital Chronicle packet with event, source, and market
+evidence within 24 hours; owner authorization is already satisfied.
+
 ### Current 9router runtime authority
 
 `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` is integrated from the accepted lineage

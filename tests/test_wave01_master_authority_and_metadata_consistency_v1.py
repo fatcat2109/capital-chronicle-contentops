@@ -23,9 +23,9 @@ EXPECTED_SOURCE_COMMIT_2 = "7d7d55039a68b4dbaec631ac75af6b7e418f7500"
 EXPECTED_MERGE_COMMIT_SHA = "d5c53655435e8340b3b79ddc3779e1f833eeb311"
 EXPECTED_ACCEPTANCE_COMMIT_SHA = "5c90e6d243b705f74cac40547083565f4899197b"
 EXPECTED_RECONCILIATION_START_HEAD = "5c90e6d243b705f74cac40547083565f4899197b"
-EXPECTED_CURRENT_TASK = "TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1"
-EXPECTED_CURRENT_RESULT = "PASS_WITH_CAVEAT_AUTONOMOUS_NO_PUBLICATION"
-EXPECTED_CURRENT_CLASSIFICATION = "EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT"
+EXPECTED_CURRENT_TASK = "TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1"
+EXPECTED_CURRENT_RESULT = "BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE"
+EXPECTED_CURRENT_CLASSIFICATION = "BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE"
 EXPECTED_CURRENT_NEXT_ACTION = (
     "REFRESH_GOVERNED_CAPITAL_CHRONICLE_PUBLICATION_EVIDENCE_AND_RERUN_CANONICAL_CYCLE"
 )
@@ -72,6 +72,19 @@ def test_json_status_authority():
     assert data["latest_completed_task"] == EXPECTED_CURRENT_TASK
     assert data["latest_terminal_task_result"] == EXPECTED_CURRENT_RESULT
     assert data["current_task_classification"] == EXPECTED_CURRENT_CLASSIFICATION
+
+    current = data["promote_autonomous_run_and_rerun_on_fresh_governed_packet_v1"]
+    assert current["task"] == EXPECTED_CURRENT_TASK
+    assert current["result"] == EXPECTED_CURRENT_RESULT
+    assert current["promoted_master"] == "025164d73f87320cbff9a14a8f5914d7d128f9ea"
+    assert current["fresh_probe_status"] == "PASS_PUBLICATION_AUTHORIZED"
+    assert current["latest_market_observation_age_hours"] == 34.674
+    assert current["freshness_threshold_hours"] == 24.0
+    assert current["freshness_decision"] == "BLOCK"
+    assert current["canonical_rerun_performed"] is False
+    assert current["nine_router_calls"] == 0
+    assert current["live_publication_attempts"] == 0
+    assert current["unknown_writes"] == 0
 
     wave_data = data.get("post_v1_canonical_production_entrypoint_and_legacy_quarantine_v1", {})
     assert wave_data.get("classification") == EXPECTED_CLASSIFICATION

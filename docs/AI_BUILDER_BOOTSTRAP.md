@@ -54,20 +54,20 @@ Work Packages C, D, and E are:
 
 `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
 
-Latest Work F execution:
+Latest operational task:
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
+`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
 
 Status:
 
-`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
+`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
 
-Jim's exact owner scope is recorded. Do not request another tiny cohort or another approval
-packet. Destination scope is the dynamically validated canonical `READY_*` set. The
-2026-08-07 run processed the governed three-input/three-cluster pool, generated one draft
-article and nine platform packages through 9Router, and stopped before dispatch because the
-market evidence was stale and the semantic review required revision. The exact next blocker
-is fresh governed Capital Chronicle publication evidence, not authorization ceremony.
+The accepted autonomous Work F result is now on `master` at `025164d73`. The existing
+Capital Chronicle producer was exercised read-only against its official source and emitted
+publication-authorized packet `cc-publication-8404fad760faec52b37e`, but the latest market
+observation was 34.674 hours old against the canonical 24-hour threshold. No canonical
+rerun, 9Router call, or public adapter was started. Jim's exact owner scope remains recorded;
+do not request another cohort or approval packet.
 
 The Work E soak proved repeated logical operation/recovery without public writes; it did not prove calendar-time live reliability.
 
@@ -75,6 +75,8 @@ The Work E soak proved repeated logical operation/recovery without public writes
 
 ```text
 Work F owner-authorized canonical cycle: autonomous no-publication with caveat
+→ fresh-packet probe blocked on upstream observation age >24h
+→ rerun canonical cycle when Capital Chronicle emits a genuinely fresh packet
 → major final Tier-1 UI/UX rebuild from real live states
 → Work G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity
@@ -165,7 +167,7 @@ Do not start Tier-2.
 Current path:
 
 ```text
-refresh governed Capital Chronicle publication evidence
+Capital Chronicle publication-evidence producer emits event/source/market evidence within 24h
 → rerun TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1 through the same canonical entrypoint
 ```
 

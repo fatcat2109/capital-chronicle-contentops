@@ -24,13 +24,15 @@ Work Packages C, D, and E are complete, accepted, and merged with their recorded
 
 Current product task:
 
-`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
 
 Current status:
 
-`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
 
-Work F still requires exact owner-authorized live destinations/accounts/public-write scope before any live execution.
+Work F exact owner scope is already recorded. The accepted autonomous no-publication result
+is promoted to `master`; the current external blocker is upstream evidence older than the
+canonical 24-hour freshness window.
 
 The final Tier-1 sequence is now explicitly:
 
@@ -38,7 +40,9 @@ The final Tier-1 sequence is now explicitly:
 dual-lane CORE V0 shadow newsroom   [COMPLETE]
 → diversity / SEO / image / chart closure   [COMPLETE]
 → repeated shadow soak and recovery   [COMPLETE]
-→ exact authorized live cohort   [CURRENT]
+→ owner-authorized autonomous canonical cycle   [EXECUTED]
+→ fresh-packet probe   [BLOCKED: UPSTREAM OBSERVATION >24H]
+→ rerun canonical cycle when fresh governed evidence exists
 → major final Tier-1 UI/UX rebuild using real live states
 → Work Package G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity
@@ -140,15 +144,17 @@ Do not start Tier-2.
 Current product execution remains Tier-1:
 
 ```text
-obtain exact owner live scope
-→ TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1
+Capital Chronicle publication-evidence producer emits event/source/market evidence within 24h
+→ TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1
 ```
 
-The order of the first two prerequisites may be handled operationally, but Work F must not execute without both the required runtime authority and the exact live scope.
+The owner live scope and runtime authority are already satisfied. Do not create another
+approval or cohort task while waiting for genuinely fresh upstream evidence.
 
 ## 8. Safety boundary
 
-This product-direction update grants no credential read, provider call, browser/CDP action, scheduler/outbox execution, upload, dispatch, publication, or public write.
+Live actions remain bounded to the exact owner-authorized canonical `READY_*` destinations
+and only after deterministic gates pass.
 
 Preserve:
 

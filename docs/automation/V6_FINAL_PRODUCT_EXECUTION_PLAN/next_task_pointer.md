@@ -22,17 +22,18 @@ Work Packages C, D, and E are:
 
 ### Latest product action
 
-`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
+`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
 
 Status:
 
-`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
+`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
 
-Owner live scope is resolved dynamically from canonical `READY_*` destinations; an arbitrary
-tiny post-count cohort is not current authority. The 2026-08-07 cycle generated one draft and
-nine platform packages, but freshness and semantic-review gates stopped dispatch. The next
-product blocker is a fresh publication-authorized Capital Chronicle packet, after which the
-same canonical cycle should be rerun. Tier-2 is not current.
+The accepted autonomous Work F result is now on `master` at `025164d73`. The current
+Capital Chronicle producer emitted publication-authorized packet
+`cc-publication-8404fad760faec52b37e`, but its latest market observation was 34.674 hours
+old against the 24-hour threshold. The canonical rerun correctly did not start. Owner live
+scope remains resolved dynamically from canonical `READY_*` destinations; another approval
+or tiny cohort is not current authority. Tier-2 is not current.
 
 Exact next product action:
 
@@ -79,8 +80,9 @@ Operating mode: `AUTONOMOUS_DEFAULT`
 - current operator-reported model availability may be degraded; the router continues through
   whichever authorized pool members remain healthy and blocks only when the bounded pool is
   exhausted or a non-fallback-eligible gate fails;
-- public live cohort is NOT authorized by this authority. Work package F still requires an
-  exact owner live scope defining destinations, accounts, and public-write authority.
+- router authority alone does not grant public-write scope. Jim's recorded Work F task
+  separately grants live scope to dynamically verified canonical `READY_*` destinations;
+  no renewed cohort authorization is required.
 
 ## Work F recorded boundary
 
@@ -97,7 +99,8 @@ owner scope.
 
 ```text
 Work F canonical cycle: autonomous no-publication with caveat   [EXECUTED]
-→ refresh governed Capital Chronicle publication evidence and rerun canonical cycle
+→ fresh-packet probe: official observation outside 24h window   [BLOCKED EXTERNAL]
+→ rerun canonical cycle when a genuinely fresh packet exists
 → major final Tier-1 UI/UX rebuild using real live states
 → Work Package G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity
