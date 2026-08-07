@@ -60,9 +60,11 @@ E is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT` — independent audit `PASS_WITH
 `FAST_FORWARD_ONLY` — with launch-readiness disposition `READY_WITH_EXPLICIT_CAVEATS`; the
 exact authorized live cohort is `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`.
 
-Final pre-launch LLM model authority `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`:
-gateway `9router`, exact model `new/claude-fable-5`, required across Work Packages F and G;
-runtime verification `OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
+Final pre-launch LLM model authority `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`
+(supersedes V1, preserved as historical lineage): gateway `9router`, ordered pool with P0
+`new/claude-fable-5`, owner-authorized bounded fallback, no unbounded retry, no unauthorized
+model. Primary-model identity is provider-verified against the live gateway; two of four
+pool models are currently unavailable gateway-side and the router fails over correctly.
 
 The accepted Work Package D caveats remain truthful: no full-suite PASS is claimed, no CI PASS
 is claimed, the full-suite failures are a noisy pre-existing baseline including two

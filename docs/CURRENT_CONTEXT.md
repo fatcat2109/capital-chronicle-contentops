@@ -143,11 +143,15 @@ calendar uptime, no full-suite PASS is claimed, no CI PASS is claimed, no real p
 model execution has occurred yet, only two domains produced complete packages, and no
 independent pixel-perfect visual PASS is claimed.
 
-Final pre-launch LLM model authority `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`:
-gateway `9router`, exact model `new/claude-fable-5`, required for every applicable LLM task
-in Work Packages F and G, with `requested_model == resolved_model` enforced and
-`OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED` as the current runtime-verification
-status. See `AGENTS.md` for the full binding and fail-closed contract.
+Final pre-launch LLM model authority `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`
+(superseding V1, which is preserved as historical lineage): gateway `9router`, ordered pool
+`new/claude-fable-5` → `new/gpt-5.6-sol-xhigh` → `new/claude-opus-5` →
+`vx/gemini-3.1-pro-preview(high)`. P0 remains `new/claude-fable-5`. Ordered fallback is
+owner-authorized and is for bounded resilience, not quality-gate bypass; silent
+provider-side substitution remains forbidden. Every logical call carries a bounded retry
+budget (6 attempts, 3 fallbacks, 45 s sleep, 300 s wall clock) that no model change or
+restart resets. Primary-model identity is provider-verified against the live gateway. See
+`AGENTS.md` for the full binding and fail-closed contract.
 
 Work Package C is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package D — diversity, SEO, image, and chart closure — is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`: independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit `1088bfb82d29d40fba4d3db1e910bf5d292bd522`, fast-forward merged into `master` from branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` with merge method `FAST_FORWARD_ONLY`. Do not reopen either. The soak task is Work Package E and is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`.
 

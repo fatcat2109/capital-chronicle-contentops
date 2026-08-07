@@ -109,11 +109,15 @@ calendar uptime, no full-suite PASS is claimed, no CI PASS is claimed, no real p
 model execution has occurred yet, only two domains produced complete packages, and no
 independent pixel-perfect visual PASS is claimed.
 
-Final pre-launch LLM model authority `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`
-binds gateway `9router` and exact model `new/claude-fable-5` for every applicable LLM task
-in Work Packages F and G. `requested_model == resolved_model` is required; any mismatch must
-fail closed with `BLOCKED_EXACT_FINAL_LLM_MODEL_UNAVAILABLE_OR_MISMATCHED`. Runtime
-verification status is `OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
+Final pre-launch LLM model authority `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`
+(superseding V1) binds gateway `9router` and the ordered pool `new/claude-fable-5` (P0) →
+`new/gpt-5.6-sol-xhigh` → `new/claude-opus-5` → `vx/gemini-3.1-pro-preview(high)` for every
+applicable LLM task in Work Packages F and G. Ordered fallback is owner-authorized;
+`requested_model == resolved_model` is still required per attempt and silent substitution is
+rejected. Every logical call has a bounded retry budget and there is no unbounded retry. All
+launch-relevant LLM call sites route through one canonical router,
+`live_contentops/nine_router_ordered_model_router_v2.py`; deterministic stages stay
+deterministic.
 
 The accepted Work Package D caveats remain truthful and must not be restated as a pass: no
 full-suite PASS is claimed, no CI PASS is claimed, the full-suite failures are a noisy

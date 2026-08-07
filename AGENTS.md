@@ -229,6 +229,44 @@ The older automatic Wave 03 approval-envelope/transactional-outbox sequence is n
 
 Authority ID:
 
+`CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`
+
+Gateway: `9router`. Exact ordered model pool, in preference order:
+
+```text
+P0  new/claude-fable-5
+P1  new/gpt-5.6-sol-xhigh
+P2  new/claude-opus-5
+P3  vx/gemini-3.1-pro-preview(high)
+```
+
+P0 remains `new/claude-fable-5`. The fallback order above is owner-authorized. Fallback is
+for **bounded resilience, not quality-gate bypass**: a fallback model's output passes the
+same evidence, editorial, permission, and freshness gates as the primary's, and a fallback
+success creates no publication authority.
+
+Every logical LLM invocation allocates one immutable retry budget before its first provider
+call: at most 6 total provider attempts, 3 fallback transitions, 1 same-model retry, 1
+structured-output repair (which itself consumes an attempt), 45 s cumulative retry sleep,
+and a 300 s wall-clock budget. The budget is never reset by a model change or by a process
+restart. There is no unbounded retry and no unauthorized model.
+
+Silent provider-side substitution remains forbidden. If the gateway resolves a model other
+than the exact requested one, the output is rejected regardless of quality. If the gateway
+does not expose effective-model identity, that is recorded as
+`MODEL_IDENTITY_NOT_PROVIDER_VERIFIABLE` rather than upgraded to a pass.
+
+This authority supersedes `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`, which
+prohibited all fallback. V1 is preserved as historical lineage.
+
+Work Package F — the exact authorized live cohort — remains the current product route. A
+public live cohort has **not** been authorized by the router task; publication still
+requires an explicit live scope defining destinations, accounts, and public-write authority.
+
+### Historical lineage: authority V1
+
+Authority ID:
+
 `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`
 
 Gateway: `9router`. Exact required model ID: `new/claude-fable-5`.

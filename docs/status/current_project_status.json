@@ -1990,7 +1990,11 @@
   "work_package_e_independent_audit": "PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE",
   "work_package_e_accepted_source_head": "3770ff1c2fe77129c634af3263cbc4e31085b900",
   "work_package_e_merge_method": "FAST_FORWARD_ONLY",
-  "final_prelaunch_llm_model_authority": {
+  "final_prelaunch_llm_model_authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+  "final_prelaunch_llm_gateway": "9router",
+  "final_prelaunch_llm_exact_model": "new/claude-fable-5",
+  "final_prelaunch_llm_model_runtime_verification": "PROVIDER_VERIFIED_PRIMARY_MODEL_HEALTHY_TWO_OF_FOUR_MODELS_UNAVAILABLE",
+  "historical_final_prelaunch_llm_model_authority_v1": {
     "authority_id": "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1",
     "owner": "Jim (product owner)",
     "gateway": "9router",
@@ -2034,10 +2038,140 @@
     "grants_approval_authority": false,
     "grants_dispatch_authority": false,
     "grants_publication_authority": false,
-    "raw_secret_material_recorded": false
+    "raw_secret_material_recorded": false,
+    "status": "SUPERSEDED_BY_CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "superseded_by": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "superseded_rule": "V1 prohibited all fallback and substitution. Ordered fallback performed by the canonical router is now owner-authorized. Silent provider-side substitution remains forbidden under both authorities.",
+    "preserved_as": "historical_lineage"
   },
-  "final_prelaunch_llm_model_authority_id": "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1",
-  "final_prelaunch_llm_gateway": "9router",
-  "final_prelaunch_llm_exact_model": "new/claude-fable-5",
-  "final_prelaunch_llm_model_runtime_verification": "OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED"
+  "nine_router_ordered_model_authority_v2": {
+    "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+    "authority_version": "v2",
+    "authority_logical_hash": "61da7e56cff768ed4e8475ec0c10b8883d60f7ae5194bfc17ed149fe204b0b3a",
+    "supersedes": "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1",
+    "owner": "Jim (product owner)",
+    "gateway": "9router",
+    "ordered_model_pool": [
+      "new/claude-fable-5",
+      "new/gpt-5.6-sol-xhigh",
+      "new/claude-opus-5",
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "primary_model": "new/claude-fable-5",
+    "p0_remains_claude_fable_5": true,
+    "fallback_order_is_owner_authorized": true,
+    "fallback_is_for_bounded_resilience_not_quality_gate_bypass": true,
+    "silent_provider_side_substitution_permitted": false,
+    "every_logical_call_has_a_bounded_retry_budget": true,
+    "unbounded_retry_permitted": false,
+    "unauthorized_model_accepted": false,
+    "retry_budget_policy": {
+      "budget_resets_on_model_change": false,
+      "budget_resets_on_reconstruction": false,
+      "default_wall_clock_budget_seconds": 300.0,
+      "max_cumulative_retry_sleep_seconds": 45.0,
+      "max_fallback_transitions": 3,
+      "max_same_model_retries": 1,
+      "max_structured_output_repair_attempts": 1,
+      "max_total_provider_attempts": 6,
+      "per_model_max_attempts": {
+        "new/claude-fable-5": 2,
+        "new/claude-opus-5": 1,
+        "new/gpt-5.6-sol-xhigh": 2,
+        "vx/gemini-3.1-pro-preview(high)": 1
+      },
+      "structured_repair_counts_against_total_attempts": true
+    },
+    "canonical_router_module": "live_contentops/nine_router_ordered_model_router_v2.py",
+    "canonical_seam_module": "live_contentops/nine_router_llm_seam_v2.py",
+    "provider_adapter_module": "live_contentops/nine_router_provider_adapter_v2.py",
+    "preflight_module": "live_contentops/nine_router_preflight_v2.py",
+    "evidence_path": "docs/automation/CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2/",
+    "separate_routers_per_task": 0,
+    "per_module_retry_implementations": 0,
+    "distinct_model_lists": 1,
+    "integrated_call_sites": [
+      "ai_research_canonical_article_engine_v6.call_live_provider (canonical 9router seam)",
+      "platform_native_variant_generator_live_v6.generate_live_platform_variants",
+      "tier1_editorial_quality_v1.review_tier1_article_with_llm",
+      "substack_first_north_star_pipeline_loop_v1.rank_ideas_with_llm",
+      "structured output repair (bounded, in-router)"
+    ],
+    "deterministic_stages_left_deterministic": [
+      "core_v0_closure_capabilities_v1.build_seo_contract",
+      "core_v0_platform_visual_adaptation_v1",
+      "multi_story_platform_native_operator_packages_v1",
+      "editorial_review_orchestrator_v2.run_editorial_review",
+      "ai_research_canonical_article_engine_v6 deterministic article repair"
+    ],
+    "fault_injection_cases_covered": 14,
+    "fault_injection_all_passed": true,
+    "preflight_model_identity_disposition": "MODEL_IDENTITY_PROVIDER_VERIFIED",
+    "preflight_healthy_count": 2,
+    "preflight_unavailable_count": 2,
+    "preflight_primary_model_healthy": true,
+    "preflight_per_model": {
+      "new/claude-fable-5": {
+        "health": "HEALTHY",
+        "model_identity_provider_verified": true,
+        "provider_observed_effective_model": "claude-fable-5",
+        "latency_seconds": 11.4828,
+        "usage": {
+          "completion_tokens": 4,
+          "prompt_tokens": 2069,
+          "total_tokens": 2073
+        },
+        "failure_class": null
+      },
+      "new/gpt-5.6-sol-xhigh": {
+        "health": "TEMPORARILY_UNAVAILABLE",
+        "model_identity_provider_verified": false,
+        "provider_observed_effective_model": null,
+        "latency_seconds": 8.0571,
+        "usage": null,
+        "failure_class": "requested_model_temporarily_unavailable"
+      },
+      "new/claude-opus-5": {
+        "health": "HEALTHY",
+        "model_identity_provider_verified": true,
+        "provider_observed_effective_model": "claude-opus-5",
+        "latency_seconds": 13.9518,
+        "usage": {
+          "completion_tokens": 4,
+          "prompt_tokens": 2591,
+          "total_tokens": 2595
+        },
+        "failure_class": null
+      },
+      "vx/gemini-3.1-pro-preview(high)": {
+        "health": "TEMPORARILY_UNAVAILABLE",
+        "model_identity_provider_verified": false,
+        "provider_observed_effective_model": null,
+        "latency_seconds": 8.1968,
+        "usage": null,
+        "failure_class": "invalid_request_or_schema_or_configuration"
+      }
+    },
+    "model_runtime_verification": "PROVIDER_VERIFIED_PRIMARY_MODEL_HEALTHY_TWO_OF_FOUR_MODELS_UNAVAILABLE",
+    "unavailable_models_note": "new/gpt-5.6-sol-xhigh returns a model-scoped permission_denied/invalid_model and vx/gemini-3.1-pro-preview(high) returns a gateway-side Vertex endpoint configuration error. Both are gateway/account provisioning conditions, not router defects; the router failed over correctly to a healthy authorized model.",
+    "real_failover_proven_against_live_gateway": true,
+    "capital_chronicle_authority_mutated": false,
+    "grants_publication_authority": false,
+    "public_live_cohort_authorized_by_this_task": false,
+    "work_package_f_remains_current_product_route": true,
+    "work_package_f_started": false,
+    "public_write_performed": false,
+    "dispatch_performed": false,
+    "scheduler_mutated": false,
+    "secret_redaction_status": "PASS_NO_SECRET_SHAPED_MATERIAL",
+    "full_suite_pass_claimed": false,
+    "ci_pass_claimed": false
+  },
+  "final_prelaunch_llm_ordered_model_pool": [
+    "new/claude-fable-5",
+    "new/gpt-5.6-sol-xhigh",
+    "new/claude-opus-5",
+    "vx/gemini-3.1-pro-preview(high)"
+  ],
+  "final_prelaunch_llm_fallback_owner_authorized": true
 }
