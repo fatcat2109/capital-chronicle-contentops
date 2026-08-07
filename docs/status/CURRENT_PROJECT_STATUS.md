@@ -40,11 +40,11 @@ normalising bytes inside verification code.
 
 `TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-Work Package D is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package E — the repeated
-shadow soak and recovery — is delivered on branch
+Work Package D is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package E — the repeated shadow soak and recovery — is
+accepted and fast-forward merged into `master` from branch
 `agent/contentops-core-v0-repeated-shadow-soak-and-recovery-v1`:
 
-`DELIVERED_AWAITING_INDEPENDENT_AUDIT`
+`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
 
 Work Package F status:
 
@@ -54,9 +54,12 @@ Work Package F status:
 
 `REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
 
-### Delivered, awaiting independent audit: CORE V0 repeated shadow soak and recovery
+### Accepted and merged: CORE V0 repeated shadow soak and recovery
 
-Work Package E Status: `DELIVERED_AWAITING_INDEPENDENT_AUDIT`
+Work Package E Status: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+
+Independent audit: `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`. Accepted source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`, merge method
+`FAST_FORWARD_ONLY`, starting master `4ad194cbbd4a1843b2e90cdc94bd4f9fe2015182`.
 
 Launch-readiness disposition: `READY_WITH_EXPLICIT_CAVEATS`
 
@@ -308,7 +311,7 @@ write occurred.
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ repeated shadow soak and recovery   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```

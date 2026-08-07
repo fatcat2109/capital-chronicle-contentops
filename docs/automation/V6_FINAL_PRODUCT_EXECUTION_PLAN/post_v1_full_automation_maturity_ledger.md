@@ -17,7 +17,11 @@ Current next task:
 `TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
 Requires an exact owner-authorized live scope. Work package E (repeated shadow soak and
-recovery) is delivered and awaiting independent audit.
+recovery) is accepted and merged: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`, audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`.
+
+Final pre-launch LLM model authority: `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`,
+gateway `9router`, exact model `new/claude-fable-5`, runtime verification
+`OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
 
 Current next-task mode:
 
@@ -56,7 +60,7 @@ Rows 03 through 15 below record the earlier horizontal hardening roadmap. Jim's 
 | B | Minimum durable execution prerequisite | COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE |
 | C | Dual-lane CORE V0 shadow newsroom | COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT — `SHADOW_ONLY`; canonical review `REVIEW_BLOCKED_VISUAL_REQUIREMENT`; audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` |
 | D | Diversity, SEO, image, and chart closure | COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT — `SHADOW_ONLY`; audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`; both lanes reach canonical `PASS`; 9/9 domain families and 9/9 Tier-1 destinations with explicit outcomes |
-| E | Repeated shadow soak and recovery | DELIVERED_AWAITING_INDEPENDENT_AUDIT — `SHADOW_ONLY`; 10 logical days, 30/30 window decisions, 16 complete packages, 16/16 recovery drills, launch readiness `READY_WITH_EXPLICIT_CAVEATS`; accelerated logical soak, calendar uptime not claimed |
+| E | Repeated shadow soak and recovery | COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT — `SHADOW_ONLY`; audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`; 10 logical days, 30/30 window decisions, 16 complete packages, 16/16 recovery drills, launch readiness `READY_WITH_EXPLICIT_CAVEATS`; accelerated logical soak, calendar uptime not claimed |
 | F | Exact authorized live cohort | CURRENT_READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE |
 | G | Final acceptance and new release identity | NOT_STARTED |
 

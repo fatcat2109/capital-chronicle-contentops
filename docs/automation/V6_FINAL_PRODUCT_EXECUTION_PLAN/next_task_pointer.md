@@ -19,12 +19,26 @@ Wave 02 — the durable operational store and canonical state machine — is com
 `TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
 This is the current routing authority, and it requires an exact owner-authorized live scope
-before it starts. Work package D is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work package
-E — the repeated shadow soak and recovery — is delivered on branch
-`agent/contentops-core-v0-repeated-shadow-soak-and-recovery-v1` and is
-`DELIVERED_AWAITING_INDEPENDENT_AUDIT` with launch-readiness disposition
-`READY_WITH_EXPLICIT_CAVEATS`. Evidence:
+before it starts. Work package D is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work package E — the repeated shadow soak
+and recovery — is accepted and fast-forward merged into `master` from branch
+`agent/contentops-core-v0-repeated-shadow-soak-and-recovery-v1` and is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`:
+independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`, merge method
+`FAST_FORWARD_ONLY`, launch-readiness disposition `READY_WITH_EXPLICIT_CAVEATS`. Evidence:
 `docs/automation/CORE_V0_WPE_SOAK/`.
+
+Accepted work package E caveats, preserved verbatim: the accelerated logical soak is not
+calendar uptime; no full-suite PASS; no CI PASS; no real provider or model execution yet;
+only two domains produced complete packages; no independent pixel-perfect visual PASS.
+
+Final pre-launch LLM model authority for work packages F and G:
+
+- authority ID: `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`
+- gateway: `9router`
+- exact model: `new/claude-fable-5`
+- invariant: `requested_model == resolved_model == "new/claude-fable-5"`, no alias,
+  fallback, substitution, downgrade, or role-specific alternate;
+- fail-closed code on mismatch: `BLOCKED_EXACT_FINAL_LLM_MODEL_UNAVAILABLE_OR_MISMATCHED`;
+- runtime verification: `OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
 
 Work package C (dual-lane CORE V0 shadow newsroom) is complete, accepted, and fast-forward
 merged into `master` with a truthful caveat. Its status is
@@ -79,7 +93,7 @@ screenshots are supplied as auditable files at
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ repeated shadow soak and recovery   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```

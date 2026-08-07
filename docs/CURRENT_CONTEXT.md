@@ -133,12 +133,23 @@ Mode:
 
 `REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
 
-Work Package E — the repeated shadow soak and recovery — is delivered and is
-`DELIVERED_AWAITING_INDEPENDENT_AUDIT`, launch-readiness `READY_WITH_EXPLICIT_CAVEATS`. The
-live cohort is `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE` and must not start without an exact
-owner-authorized live scope.
+Work Package E — the repeated shadow soak and recovery — is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`: independent audit
+`PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`, merge method `FAST_FORWARD_ONLY`, launch-readiness
+`READY_WITH_EXPLICIT_CAVEATS`. The live cohort is `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+and must not start without an exact owner-authorized live scope.
 
-Work Package C is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package D — diversity, SEO, image, and chart closure — is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`: independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit `1088bfb82d29d40fba4d3db1e910bf5d292bd522`, fast-forward merged into `master` from branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` with merge method `FAST_FORWARD_ONLY`. Do not reopen either. The soak task is Work Package E and is `READY_NOT_STARTED`.
+The accepted Work Package E caveats remain truthful: the accelerated logical soak is not
+calendar uptime, no full-suite PASS is claimed, no CI PASS is claimed, no real provider or
+model execution has occurred yet, only two domains produced complete packages, and no
+independent pixel-perfect visual PASS is claimed.
+
+Final pre-launch LLM model authority `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`:
+gateway `9router`, exact model `new/claude-fable-5`, required for every applicable LLM task
+in Work Packages F and G, with `requested_model == resolved_model` enforced and
+`OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED` as the current runtime-verification
+status. See `AGENTS.md` for the full binding and fail-closed contract.
+
+Work Package C is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package D — diversity, SEO, image, and chart closure — is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`: independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit `1088bfb82d29d40fba4d3db1e910bf5d292bd522`, fast-forward merged into `master` from branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` with merge method `FAST_FORWARD_ONLY`. Do not reopen either. The soak task is Work Package E and is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`.
 
 The accepted Work Package D caveats remain truthful: no full-suite PASS is claimed, no CI PASS is claimed, the full-suite failures are a noisy pre-existing baseline including two pointer-consistency failures already present at source parent `3166bb69`, and Browser QA has committed screenshot evidence, hashes, DOM assertions, and zero console/page errors but no independent pixel-perfect visual PASS.
 

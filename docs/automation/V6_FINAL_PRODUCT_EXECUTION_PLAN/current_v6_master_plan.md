@@ -40,13 +40,18 @@ Current work package routing:
 
 - Work Package C — dual-lane CORE V0 shadow newsroom: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
 - Work Package D — diversity, SEO, image, and chart closure: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
-- Work Package E — repeated shadow soak and recovery: `DELIVERED_AWAITING_INDEPENDENT_AUDIT`, launch readiness `READY_WITH_EXPLICIT_CAVEATS`
+- Work Package E — repeated shadow soak and recovery: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`, audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, launch readiness `READY_WITH_EXPLICIT_CAVEATS`
 - Work Package F — exact authorized live cohort: `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
 
-Work Package D passed independent audit and is merged. Work Package E is delivered as an
-accelerated logical soak and is awaiting independent audit; calendar uptime and live
-reliability are not claimed by it. The live cohort must not start without an exact
-owner-authorized live scope.
+Work Package D passed independent audit and is merged. Work Package E passed independent
+audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` and is fast-forward merged into `master` at accepted source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`; it
+is an accelerated logical soak, so calendar uptime and live reliability are still not
+claimed by it. The live cohort must not start without an exact owner-authorized live scope.
+
+Final pre-launch LLM model authority `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`
+binds gateway `9router` and exact model `new/claude-fable-5` for every applicable LLM task
+in Work Packages F and G, with `requested_model == resolved_model` required and runtime
+verification recorded as `OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
 
 ## 1. Current authority
 
@@ -224,7 +229,7 @@ Remaining sequence:
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ repeated shadow soak and recovery   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```

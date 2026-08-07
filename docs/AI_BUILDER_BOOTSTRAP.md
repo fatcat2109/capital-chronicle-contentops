@@ -99,9 +99,21 @@ from branch `agent/contentops-core-v0-diversity-seo-image-chart-closure-v1` and 
 `f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit
 `1088bfb82d29d40fba4d3db1e910bf5d292bd522`, merge method `FAST_FORWARD_ONLY`. Neither is
 reopened, re-audited, or re-merged. Work Package E — the repeated shadow soak and
-recovery — is delivered and is `DELIVERED_AWAITING_INDEPENDENT_AUDIT`, launch-readiness
+recovery — is accepted and fast-forward merged into `master` and is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`:
+independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`, launch-readiness
 `READY_WITH_EXPLICIT_CAVEATS`. The exact authorized live cohort is next and requires an
 exact owner-authorized live scope.
+
+The accepted Work Package E caveats remain truthful: the accelerated logical soak is not
+calendar uptime, no full-suite PASS is claimed, no CI PASS is claimed, no real provider or
+model execution has occurred yet, only two domains produced complete packages, and no
+independent pixel-perfect visual PASS is claimed.
+
+Final pre-launch LLM model authority `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`
+binds gateway `9router` and exact model `new/claude-fable-5` for every applicable LLM task
+in Work Packages F and G. `requested_model == resolved_model` is required; any mismatch must
+fail closed with `BLOCKED_EXACT_FINAL_LLM_MODEL_UNAVAILABLE_OR_MISMATCHED`. Runtime
+verification status is `OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
 
 The accepted Work Package D caveats remain truthful and must not be restated as a pass: no
 full-suite PASS is claimed, no CI PASS is claimed, the full-suite failures are a noisy

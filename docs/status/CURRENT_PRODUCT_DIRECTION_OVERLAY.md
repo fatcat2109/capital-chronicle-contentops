@@ -56,9 +56,13 @@ fast-forward merged into `master`, so this task is now routable. Work Package C 
 `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT` at accepted source HEAD
 `f83bd5c97479ef0001bac141e78d85eacdaa1cc9` with accepted correction commit
 `1088bfb82d29d40fba4d3db1e910bf5d292bd522` and merge method `FAST_FORWARD_ONLY`. Work Package
-E is `DELIVERED_AWAITING_INDEPENDENT_AUDIT` with launch-readiness disposition
-`READY_WITH_EXPLICIT_CAVEATS`; the exact authorized live cohort is
-`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`.
+E is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT` — independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`, merge method
+`FAST_FORWARD_ONLY` — with launch-readiness disposition `READY_WITH_EXPLICIT_CAVEATS`; the
+exact authorized live cohort is `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`.
+
+Final pre-launch LLM model authority `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`:
+gateway `9router`, exact model `new/claude-fable-5`, required across Work Packages F and G;
+runtime verification `OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
 
 The accepted Work Package D caveats remain truthful: no full-suite PASS is claimed, no CI PASS
 is claimed, the full-suite failures are a noisy pre-existing baseline including two
@@ -71,7 +75,7 @@ The final build sequence is:
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ repeated shadow soak and recovery   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```

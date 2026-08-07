@@ -28,11 +28,11 @@ Current next task:
 
 `TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-Work Packages C and D are `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package E — the
-repeated shadow soak and recovery — is delivered on branch
-`agent/contentops-core-v0-repeated-shadow-soak-and-recovery-v1` and is
-`DELIVERED_AWAITING_INDEPENDENT_AUDIT` with launch-readiness disposition
-`READY_WITH_EXPLICIT_CAVEATS`. Do not reopen C, D, or E.
+Work Packages C, D, and E are `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package E — the repeated shadow soak and
+recovery — passed independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE` and is fast-forward merged into `master` from
+branch `agent/contentops-core-v0-repeated-shadow-soak-and-recovery-v1` at accepted source
+HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`, launch-readiness disposition `READY_WITH_EXPLICIT_CAVEATS`. Do not reopen C,
+D, or E.
 
 Current next-task mode:
 
@@ -188,8 +188,9 @@ into `master` from branch
 `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD
 `f83bd5c97479ef0001bac141e78d85eacdaa1cc9`, accepted correction commit
 `1088bfb82d29d40fba4d3db1e910bf5d292bd522`, merge method `FAST_FORWARD_ONLY`. Neither is
-reopened. Work Package E — the repeated shadow soak and recovery — is delivered and is
-`DELIVERED_AWAITING_INDEPENDENT_AUDIT`.
+reopened. Work Package E — the repeated shadow soak and recovery — is accepted and
+fast-forward merged into `master` and is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`: independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted
+source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`, merge method `FAST_FORWARD_ONLY`, starting master `4ad194cbbd4a1843b2e90cdc94bd4f9fe2015182`.
 
 Work Package E proved, from one local command over the accepted pipeline and the accepted
 Wave 02 durable store, ten logical newsroom days and thirty completed window decisions,
@@ -206,17 +207,64 @@ pre-existing baseline including two pointer-consistency failures already present
 parent `3166bb69`, and Browser QA has committed screenshot evidence, hashes, DOM assertions,
 and zero console/page errors but no independent pixel-perfect visual PASS.
 
+The accepted Work Package E caveats remain truthful and are likewise not converted into a
+pass: the soak is an accelerated logical soak and is **not** calendar uptime; no full-suite
+PASS is claimed; no CI PASS is claimed; no real provider or model execution has occurred
+yet; only two domains produced complete packages; and no independent pixel-perfect visual
+PASS is claimed.
+
 The final build sequence is:
 
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ repeated shadow soak and recovery   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```
 
 The older automatic Wave 03 approval-envelope/transactional-outbox sequence is no longer the current next-task authority. It remains valid historical planning and is revisited only when the CORE V0 slice or a launch gate directly requires it.
+
+## Final pre-launch LLM model authority
+
+Authority ID:
+
+`CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`
+
+Gateway: `9router`. Exact required model ID: `new/claude-fable-5`.
+
+Jim's final pre-launch directive: this exact model must be used for every applicable LLM
+task in Work Package F (launch-representative exact authorized live cohort) and Work
+Package G (final full-automation pre-launch run).
+
+Required invariant:
+
+```text
+requested_model == resolved_model == "new/claude-fable-5"
+```
+
+No silent alias, fallback, substitution, downgrade, or role-specific alternate model is
+acceptable. If the exact effective model cannot be verified, F/G execution must fail closed
+with `BLOCKED_EXACT_FINAL_LLM_MODEL_UNAVAILABLE_OR_MISMATCHED`.
+
+Every future LLM invocation must bind: story/work-item ID, role/task ID, gateway, requested
+model, resolved/effective model, invocation ID where returned, prompt/version hash, governed
+input hash, output hash, attempt, latency, token/cost metadata where returned, and the
+validation/recovery result.
+
+Model runtime verification status:
+
+`OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`
+
+This is an owner directive recorded as authority. No provider call, credential read, or
+model invocation was performed to record it, so the effective model is **not** claimed to
+have been verified against the live gateway. The first F/G execution must verify
+`requested_model == resolved_model` at runtime and fail closed if it cannot.
+
+Never expose or commit raw API keys, auth headers, endpoint secrets, cookies, session data,
+or environment values. This model authority grants no factual, numeric, analytical,
+permission, approval, dispatch, or publication authority.
+
 
 This task grants no credential, provider, browser/CDP, network-intake, scheduler/outbox execution, dispatch, publication, or public-write authority.
 

@@ -629,7 +629,8 @@ Exit: the same pipeline handles a diversified evaluation cohort with no domain-s
 
 ### Work package E — Repeated shadow soak and recovery
 
-Status: `DELIVERED_AWAITING_INDEPENDENT_AUDIT`. Launch-readiness disposition
+Status: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Independent audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`; accepted source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`; merge
+method `FAST_FORWARD_ONLY`. Launch-readiness disposition
 `READY_WITH_EXPLICIT_CAVEATS`. Delivered by
 `TASK_CONTENTOPS_CORE_V0_REPEATED_SHADOW_SOAK_AND_RECOVERY_V1` as an accelerated logical
 soak — ten logical newsroom days, 30/30 window decisions, 16 complete packages, 100 durable
@@ -757,7 +758,7 @@ Completion is a product proof, not a document count, schema count, or platform c
 
 ## 18. Current routing after this document
 
-Jim approved this product direction on 2026-08-06. Work package A is complete and Work package B is accepted as the minimum durable prerequisite. Work packages C and D are `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work package E is `DELIVERED_AWAITING_INDEPENDENT_AUDIT` with launch-readiness disposition `READY_WITH_EXPLICIT_CAVEATS`.
+Jim approved this product direction on 2026-08-06. Work package A is complete and Work package B is accepted as the minimum durable prerequisite. Work packages C and D are `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work package E is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT` (audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`) with launch-readiness disposition `READY_WITH_EXPLICIT_CAVEATS`. Final pre-launch LLM model authority `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1` binds gateway `9router` and exact model `new/claude-fable-5` for work packages F and G; runtime verification is `OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
 
 The exact next builder task is:
 
@@ -772,7 +773,7 @@ The remaining build sequence is:
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
-→ repeated shadow soak and recovery   [DELIVERED — AWAITING INDEPENDENT AUDIT]
+→ repeated shadow soak and recovery   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
 → final acceptance and new release identity
 ```
