@@ -60,19 +60,16 @@ Mode boundary:
 
 No public live execution is authorized by this status document.
 
-## Router/model runtime prerequisite
+## Current router/model runtime authority
 
-The owner-approved 9router ordered-model V2 runtime lineage is documented on branch:
+`CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` is integrated from accepted source lineage
+through `ae60da22b9a155d25dc783f10285eecd875b9d0f`; V1 is historical only.
 
-`agent/contentops-9router-ordered-model-router-retry-budget-v1`
-
-at head:
-
-`ae60da22b9a155d25dc783f10285eecd875b9d0f`
-
-This docs-only master update does not merge that runtime code.
-
-Before provider-backed final-prelaunch Work F/G execution, independently accept/merge that lineage or an explicitly newer owner-authorized equivalent.
+Latest committed bounded no-write preflight: 4/4 `HEALTHY`, 0 unavailable, 0 identity
+mismatch, 0 identity unverifiable, `MODEL_IDENTITY_PROVIDER_VERIFIED`. Current operator-
+reported availability may be degraded. Runtime continues through whichever authorized
+ordered-pool models remain healthy, within one non-resetting retry budget, and blocks closed
+when the pool/budget is exhausted. Fallback never bypasses product or publication gates.
 
 ## Current Tier-1 build sequence
 
@@ -134,7 +131,6 @@ Any live cohort requires exact task authority and exact owner scope.
 Do not start Tier-2.
 
 ```text
-accept/merge owner-approved 9router V2 runtime lineage
-→ obtain exact owner live scope
+obtain exact owner live scope
 → execute TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1
 ```

@@ -108,10 +108,14 @@ Wave 02 is complete and accepted as the minimum durable prerequisite:
 
 The exact next task is:
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-Mode:
+Status:
 
-`SHADOW_ONLY`
+`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+
+Work Packages C, D, and E are each `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package
+F must not start without an exact owner-authorized live scope defining destinations,
+accounts, and public-write authority.
 
 The old automatic Wave 03 approval-envelope/transactional-outbox sequence is no longer the next-task authority. Approval, outbox, and scheduler work is added only when the CORE V0 vertical slice or a launch gate directly requires it.

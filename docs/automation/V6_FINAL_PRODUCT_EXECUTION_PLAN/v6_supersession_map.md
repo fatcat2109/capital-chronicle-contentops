@@ -93,10 +93,12 @@ Wave 00 local plan closeout, Wave 01 canonical live-path quarantine, and Wave 02
 
 ## Current next task
 
-`TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1`
+`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
 
-Mode:
+Status:
 
-`SHADOW_ONLY`
+`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+
+Work Packages C, D, and E are each `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`.
 
 Wave 02 is complete and accepted as the minimum durable prerequisite. No live authority is granted by this supersession map.

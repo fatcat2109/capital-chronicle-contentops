@@ -31,6 +31,11 @@ Current task status:
 
 `READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
 
+Work Packages C, D, and E are each `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`; do not
+reopen, re-audit, retest, or re-merge them. Work Package F is the current product route and
+must not start without an exact owner-authorized live scope defining destinations, accounts,
+and public-write authority.
+
 ## Current authority read order
 
 1. [Root builder contract](../AGENTS.md)

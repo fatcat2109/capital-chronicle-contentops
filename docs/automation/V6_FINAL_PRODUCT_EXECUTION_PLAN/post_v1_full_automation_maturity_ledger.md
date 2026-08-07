@@ -19,9 +19,13 @@ Current next task:
 Requires an exact owner-authorized live scope. Work package E (repeated shadow soak and
 recovery) is accepted and merged: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`, audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`.
 
-Final pre-launch LLM model authority: `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`,
-gateway `9router`, exact model `new/claude-fable-5`, runtime verification
-`OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
+Final pre-launch LLM model authority: `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`
+(supersedes `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`, retained as historical
+lineage only), gateway `9router`, ordered pool P0 `new/claude-fable-5`, P1
+`new/gpt-5.6-sol-xhigh`, P2 `new/claude-opus-5`, P3 `vx/gemini-3.1-pro-preview(high)`,
+owner-authorized bounded fallback under a per-invocation retry budget, runtime verification
+`PROVIDER_VERIFIED` with the latest preflight at 4/4 `HEALTHY` and
+`MODEL_IDENTITY_PROVIDER_VERIFIED`.
 
 Current next-task mode:
 

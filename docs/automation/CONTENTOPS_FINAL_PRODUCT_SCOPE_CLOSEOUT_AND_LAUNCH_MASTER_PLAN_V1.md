@@ -583,7 +583,7 @@ Exit: satisfied.
 
 ### Work package C — Dual-lane CORE V0 shadow newsroom
 
-Status: `CURRENT_EXACT_NEXT_TASK`
+Status: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
 
 Exact task:
 
@@ -758,7 +758,7 @@ Completion is a product proof, not a document count, schema count, or platform c
 
 ## 18. Current routing after this document
 
-Jim approved this product direction on 2026-08-06. Work package A is complete and Work package B is accepted as the minimum durable prerequisite. Work packages C and D are `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work package E is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT` (audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`) with launch-readiness disposition `READY_WITH_EXPLICIT_CAVEATS`. Final pre-launch LLM model authority `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1` binds gateway `9router` and exact model `new/claude-fable-5` for work packages F and G; runtime verification is `OWNER_DIRECTIVE_RECORDED_NOT_YET_PROVIDER_VERIFIED`.
+Jim approved this product direction on 2026-08-06. Work package A is complete and Work package B is accepted as the minimum durable prerequisite. Work packages C and D are `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work package E is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT` (audit `PASS_WITH_CAVEAT_ACCEPTED_FOR_MASTER_MERGE`, accepted source HEAD `3770ff1c2fe77129c634af3263cbc4e31085b900`) with launch-readiness disposition `READY_WITH_EXPLICIT_CAVEATS`. Final pre-launch LLM model authority `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` (superseding `CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1`, retained as historical lineage only) binds gateway `9router` and the ordered pool P0 `new/claude-fable-5`, P1 `new/gpt-5.6-sol-xhigh`, P2 `new/claude-opus-5`, P3 `vx/gemini-3.1-pro-preview(high)` for work packages F and G; ordered fallback is owner-authorized for bounded resilience under a per-invocation retry budget and is not a quality-gate bypass, and runtime verification is `PROVIDER_VERIFIED` with the latest bounded no-write preflight at 4/4 `HEALTHY` and `MODEL_IDENTITY_PROVIDER_VERIFIED`.
 
 The exact next builder task is:
 

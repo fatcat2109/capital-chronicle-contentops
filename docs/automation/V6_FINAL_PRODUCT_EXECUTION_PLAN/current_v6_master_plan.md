@@ -142,18 +142,29 @@ Required before execution:
 
 This plan does not itself authorize live execution.
 
-## 7. Router/model runtime state
+## 7. Current router/model runtime authority
 
-This docs-only master-plan update does not merge the owner-approved 9router ordered-model V2 runtime lineage.
+`CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` is integrated from the accepted lineage
+through `ae60da22b9a155d25dc783f10285eecd875b9d0f`. It supersedes V1, which is retained only
+as historical lineage.
 
-The documented V2 branch/head is:
+The exact ordered pool is P0 `new/claude-fable-5`, P1 `new/gpt-5.6-sol-xhigh`, P2
+`new/claude-opus-5`, and P3 `vx/gemini-3.1-pro-preview(high)`. Runtime continues through
+whichever authorized models remain healthy when part of the pool is unavailable.
 
-- branch: `agent/contentops-9router-ordered-model-router-retry-budget-v1`
-- head: `ae60da22b9a155d25dc783f10285eecd875b9d0f`
+Every logical invocation shares one immutable budget: 6 total attempts, 3 fallback
+transitions, 1 same-model retry, per-model ceilings (2, 2, 1, 1), 1 structured repair, 45
+seconds cumulative retry sleep, and 300 seconds wall clock. Fallback or reconstruction never
+resets it. Fallback never bypasses gates, and silent provider substitution is rejected.
 
-Before provider-backed Work F/G execution, independently accept/merge that lineage or an explicitly newer owner-authorized equivalent.
+Latest committed bounded no-write evidence records 4/4 `HEALTHY`, 0 unavailable, 0 identity
+mismatch, 0 identity unverifiable, and `MODEL_IDENTITY_PROVIDER_VERIFIED`. Current operator-
+reported availability may be degraded without invalidating that historical evidence or
+requiring all models to recover before bounded execution.
 
-Never use this docs commit as evidence that runtime/model code changed.
+For P3, the authorized identity remains `vx/gemini-3.1-pro-preview(high)` while the wire
+request uses model `vx/gemini-3.1-pro-preview` plus reasoning effort `high`; the provider-
+observed identity is `gemini-3.1-pro-preview`. This is an authorized request transformation.
 
 ## 8. Canonical Tier-1 surfaces
 
@@ -268,8 +279,7 @@ Tier-2 is approved future direction but is **NOT CURRENT**.
 Exact next operational sequence:
 
 ```text
-accept/merge owner-approved 9router V2 runtime lineage
-→ obtain exact owner live scope
+obtain exact owner live scope
 → execute Work F
 ```
 
