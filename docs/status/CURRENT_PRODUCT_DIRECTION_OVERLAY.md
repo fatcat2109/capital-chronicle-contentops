@@ -47,23 +47,21 @@ dual-lane CORE V0 shadow newsroom   [COMPLETE]
 
 Do not revive the older horizontal Wave 03–15 sequence unless an item directly blocks this path or a launch gate.
 
-## 3. Router/model runtime prerequisite before Work F execution
+## 3. Current router/model runtime authority
 
-Remote `master` at the time this docs-only direction was written remains based on `5a813dc2e87c9fc5f236b04b1994b442c1b35274` and therefore does **not** yet contain the owner-approved 9router ordered-model V2 runtime lineage.
+The accepted 9router V2 implementation/correction/authority lineage through
+`ae60da22b9a155d25dc783f10285eecd875b9d0f` is integrated here.
 
-That V2 implementation/correction/authority lineage exists on branch:
+Current authority is `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`: ordered pool P0
+`new/claude-fable-5`, P1 `new/gpt-5.6-sol-xhigh`, P2 `new/claude-opus-5`, and P3
+`vx/gemini-3.1-pro-preview(high)`. V1 is historical only.
 
-`agent/contentops-9router-ordered-model-router-retry-budget-v1`
-
-with documented head:
-
-`ae60da22b9a155d25dc783f10285eecd875b9d0f`
-
-and committed no-write provider evidence showing the authorized four-model pool healthy at the latest verified preflight.
-
-This docs-only update does not merge runtime code. Before Work F actually executes provider-backed final-prelaunch LLM work, the V2 lineage must be independently accepted and merged, or an explicitly newer owner-authorized equivalent must supersede it.
-
-Do not misstate this documentation update as runtime/model merge evidence.
+Latest committed no-write preflight evidence records 4/4 healthy, zero unavailable, zero
+identity mismatch, zero identity unverifiable, and `MODEL_IDENTITY_PROVIDER_VERIFIED`.
+Current operator-reported availability may be degraded. Runtime is authorized to continue
+through whichever models in the ordered pool remain healthy; it does not require all four to
+be healthy. The bounded retry budget, exact per-attempt identity verification, no-silent-
+substitution rule, and all evidence/permission/freshness/publication gates remain unchanged.
 
 ## 4. Approved post-Tier-1 expansion — Tier-2 Pro Video Factory
 
@@ -142,8 +140,7 @@ Do not start Tier-2.
 Current product execution remains Tier-1:
 
 ```text
-accept/merge the owner-approved 9router V2 runtime lineage
-→ obtain exact owner live scope
+obtain exact owner live scope
 → TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1
 ```
 

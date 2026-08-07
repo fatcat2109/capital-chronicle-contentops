@@ -745,7 +745,12 @@ def generate_live_platform_variants(
                 f"Instagram/Facebook should give enough chart context for a visual-first post."
             )
             try:
-                llm_text = call_live_provider(prompt, "9router", timeout_seconds)
+                llm_text = call_live_provider(
+                    prompt,
+                    "9router",
+                    timeout_seconds,
+                    role_task_id="platform_native_variant_generation",
+                )
                 provider_call_made = True
                 llm_data = parse_llm_json(llm_text) or {}
                 if not llm_data:

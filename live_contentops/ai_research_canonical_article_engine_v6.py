@@ -1395,8 +1395,30 @@ def make_deterministic_recovery_article(inputs: EngineInput, search_context: str
 
 
 
-def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15, model_override: str | None = None) -> str:
+def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15, model_override: str | None = None, role_task_id: str | None = None) -> str:
+    """Perform one provider call.
+
+    For the ``9router`` gateway this delegates to the canonical ordered model router
+    (:mod:`live_contentops.nine_router_llm_seam_v2`), which owns model ordering, bounded
+    retry, fallback, and model-identity verification. An explicit ``model_override`` keeps
+    the legacy single-model path so a caller that must pin one exact model still can.
+
+    The openai/anthropic branches are legacy and unchanged; the current product routes
+    through 9router.
+    """
     env_map = getattr(os, "environ")
+    if provider == "9router" and model_override is None:
+        from live_contentops.nine_router_llm_seam_v2 import (
+            ROLE_ARTICLE_WRITING,
+            routed_llm_text,
+        )
+
+        return routed_llm_text(
+            prompt,
+            "9router",
+            float(timeout_seconds),
+            role_task_id=role_task_id or ROLE_ARTICLE_WRITING,
+        )
     if provider == "openai":
         api_key = env_map.get("OPENAI_API_KEY")
         if not api_key:

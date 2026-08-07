@@ -93,13 +93,19 @@ Work F exact authorized live cohort
 
 Work F must not execute without exact owner-authorized live scope.
 
-## Router/model runtime note
+## Current router/model runtime authority
 
-This documentation update is written directly against `master` while the owner-approved 9router ordered-model V2 runtime lineage remains on its separate branch at documented head `ae60da22b9a155d25dc783f10285eecd875b9d0f`.
+`CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` is current and its accepted lineage through
+`ae60da22b9a155d25dc783f10285eecd875b9d0f` is integrated here. V1 remains historical only.
 
-This docs-only update does not merge that runtime lineage.
+The authorized order is `new/claude-fable-5` → `new/gpt-5.6-sol-xhigh` →
+`new/claude-opus-5` → `vx/gemini-3.1-pro-preview(high)`. The router may continue with any
+healthy authorized model when other pool members are unavailable, subject to the single
+bounded retry budget. Silent substitution and gate bypass remain forbidden.
 
-Before provider-backed final-prelaunch Work F/G execution, independently accept/merge the V2 lineage or a newer explicitly authorized equivalent. Do not claim that this docs commit itself changes runtime/model behavior.
+Latest committed no-write provider evidence records 4/4 healthy and provider-verified model
+identity. Current operator-reported availability may be degraded; that does not rewrite the
+historical evidence and does not require every model to be healthy before bounded execution.
 
 ## Operating modes
 
@@ -152,8 +158,7 @@ Tier-2 planning is now durable. Do not start Tier-2 implementation.
 Continue Tier-1:
 
 ```text
-independently accept/merge the owner-approved 9router V2 runtime lineage
-→ obtain exact Work F live scope
+obtain exact Work F live scope
 → execute TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1
 ```
 

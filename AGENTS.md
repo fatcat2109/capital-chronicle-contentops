@@ -140,18 +140,43 @@ Status:
 
 Work F must not execute without exact owner-authorized live destinations/accounts/public-write scope.
 
-## 9. Router/model runtime prerequisite
+## 9. Current router/model runtime authority
 
-The owner-approved 9router ordered-model V2 runtime lineage is documented on:
+Current authority ID:
 
-- branch: `agent/contentops-9router-ordered-model-router-retry-budget-v1`
-- head: `ae60da22b9a155d25dc783f10285eecd875b9d0f`
+`CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`
 
-This docs-only master update does not merge that runtime lineage.
+Gateway: `9router`. Exact ordered pool:
 
-Before provider-backed Work F/G execution, independently accept/merge the V2 lineage or an explicitly newer owner-authorized equivalent.
+```text
+P0  new/claude-fable-5
+P1  new/gpt-5.6-sol-xhigh
+P2  new/claude-opus-5
+P3  vx/gemini-3.1-pro-preview(high)
+```
 
-Never claim a docs-only commit proves runtime/model behavior.
+The V2 runtime/model lineage is integrated from accepted source head
+`ae60da22b9a155d25dc783f10285eecd875b9d0f`. V1 remains historical only.
+
+Fallback is owner-authorized for bounded resilience when a model is unavailable or another
+eligible transient provider/infrastructure failure occurs. Current operator direction is to
+continue through the ordered pool using whichever authorized models remain healthy; a
+partially unavailable pool is degraded capacity, not by itself a stop condition. If no
+authorized model succeeds within budget, the logical invocation blocks closed.
+
+Every logical invocation has one immutable budget: at most 6 total provider attempts, 3
+fallback transitions, 1 same-model retry, 1 structured-output repair (which consumes an
+attempt), 45 seconds cumulative retry sleep, and 300 seconds wall clock. The budget never
+resets on fallback or restart/reconstruction.
+
+Fallback never bypasses evidence, factual, numeric-authority, permission, freshness,
+publication, or policy gates and creates no publication authority. Silent provider
+substitution remains forbidden; requested and effective identity must match for each attempt.
+
+For Gemini P3, the authorized pool identity is
+`vx/gemini-3.1-pro-preview(high)`, the wire model is
+`vx/gemini-3.1-pro-preview`, and wire reasoning effort is `high`. This request
+transformation is authorized and is not model substitution.
 
 ## 10. Current Tier-1 build sequence
 

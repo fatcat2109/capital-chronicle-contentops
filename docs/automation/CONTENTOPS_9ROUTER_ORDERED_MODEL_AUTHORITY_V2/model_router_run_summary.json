@@ -1,0 +1,542 @@
+{
+  "attempts_by_model": {
+    "new/claude-fable-5": 2,
+    "new/gpt-5.6-sol-xhigh": 1
+  },
+  "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+  "authority_logical_hash": "61da7e56cff768ed4e8475ec0c10b8883d60f7ae5194bfc17ed149fe204b0b3a",
+  "authority_version": "v2",
+  "capital_chronicle_authority_mutated": false,
+  "dispatch_performed": false,
+  "end_to_end_package": {
+    "note": "Real calls exercise connectivity, exact-model acceptance, observable identity, response shape, and usage metadata. Retry/budget/exhaustion semantics are proven by deterministic fault injection so no paid failures are manufactured against real provider infrastructure.",
+    "real_failover_proof": {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "rejected",
+          "failure_class": "requested_model_temporarily_unavailable",
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": null,
+          "latency_seconds": 8.0601,
+          "logical_invocation_id": "real_failover_proof",
+          "model_identity_provider_verified": false,
+          "model_priority_index": 0,
+          "prompt_logical_hash": "77b5754d6103b4e5c9bd1f4351b6a1e0553fbd09487e53b58fe0d383a4015490",
+          "prompt_template": "nine_router_preflight",
+          "prompt_version": "v2",
+          "provider_invocation_id": null,
+          "provider_status_class": "4xx_client_403",
+          "remaining_attempt_budget": 2,
+          "requested_model": "new/gpt-5.6-sol-xhigh",
+          "resolved_model": null,
+          "retry_after_seconds": 50.0,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "new/gpt-5.6-sol-xhigh": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "real_failover_proof",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 3,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 3,
+            "per_model_max_attempts": [
+              2,
+              2,
+              1,
+              1
+            ],
+            "remaining_attempt_budget": 2,
+            "wall_clock_budget_seconds": 300.0
+          },
+          "role_task_id": "nine_router_failover_proof",
+          "structured_validation_result": "NOT_EVALUATED",
+          "usage": null,
+          "work_item_id": null
+        },
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 2,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": "new/gpt-5.6-sol-xhigh",
+          "fallback_reason": "requested_model_temporarily_unavailable",
+          "gateway": "9router",
+          "governed_input_hash": null,
+          "latency_seconds": 11.1243,
+          "logical_invocation_id": "real_failover_proof",
+          "model_identity_provider_verified": true,
+          "model_priority_index": 1,
+          "output_hash": "c2e3ac47f4a325469c1a2d5f117e463ec943c721986d5d9f09ac4540b7d80526",
+          "prompt_logical_hash": "77b5754d6103b4e5c9bd1f4351b6a1e0553fbd09487e53b58fe0d383a4015490",
+          "prompt_template": "nine_router_preflight",
+          "prompt_version": "v2",
+          "provider_invocation_id": "chatcmpl-msg_5faacb39-f372-423e-b4d9-dae059f4e70b",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "new/claude-fable-5",
+          "resolved_model": "claude-fable-5",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "new/claude-fable-5": 1,
+              "new/gpt-5.6-sol-xhigh": 1
+            },
+            "consumed_attempts": 2,
+            "consumed_fallback_transitions": 1,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "real_failover_proof",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 3,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 3,
+            "per_model_max_attempts": [
+              2,
+              2,
+              1,
+              1
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 300.0
+          },
+          "role_task_id": "nine_router_failover_proof",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 4,
+            "prompt_tokens": 2069,
+            "total_tokens": 2073
+          },
+          "work_item_id": null
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "new/claude-fable-5": 1,
+          "new/gpt-5.6-sol-xhigh": 1
+        },
+        "consumed_attempts": 2,
+        "consumed_fallback_transitions": 1,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "real_failover_proof",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 3,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 3,
+        "per_model_max_attempts": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "remaining_attempt_budget": 1,
+        "wall_clock_budget_seconds": 300.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "real_failover_proof",
+      "model_identity_note": "MODEL_IDENTITY_NOT_PROVIDER_VERIFIABLE",
+      "model_identity_provider_verifiable": false,
+      "models_attempted_in_order": [
+        "new/gpt-5.6-sol-xhigh",
+        "new/claude-fable-5"
+      ],
+      "output": "READY",
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 300.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 3,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": {
+          "new/claude-fable-5": 2,
+          "new/claude-opus-5": 1,
+          "new/gpt-5.6-sol-xhigh": 2,
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "nine_router_failover_proof",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "new/claude-fable-5",
+      "terminal_disposition": "ACCEPTED",
+      "total_attempts": 2,
+      "total_cost": null,
+      "total_elapsed_seconds": 19.185,
+      "total_fallback_transitions": 1,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 4.0,
+        "prompt_tokens": 2069.0,
+        "total_tokens": 2073.0
+      },
+      "work_item_id": null
+    },
+    "real_primary_model_proof": {
+      "attempts": [
+        {
+          "attempt_number_for_model": 1,
+          "attempt_number_global": 1,
+          "cost": null,
+          "disposition": "accepted",
+          "failure_class": null,
+          "fallback_from": null,
+          "fallback_reason": null,
+          "gateway": "9router",
+          "governed_input_hash": null,
+          "latency_seconds": 10.7059,
+          "logical_invocation_id": "real_primary_proof",
+          "model_identity_provider_verified": true,
+          "model_priority_index": 0,
+          "output_hash": "c2e3ac47f4a325469c1a2d5f117e463ec943c721986d5d9f09ac4540b7d80526",
+          "prompt_logical_hash": "77b5754d6103b4e5c9bd1f4351b6a1e0553fbd09487e53b58fe0d383a4015490",
+          "prompt_template": "nine_router_preflight",
+          "prompt_version": "v2",
+          "provider_invocation_id": "chatcmpl-msg_3b7181a5-258e-4096-b7e2-e8c9eb83afd8",
+          "provider_status_class": "2xx_success",
+          "remaining_attempt_budget": 1,
+          "requested_model": "new/claude-fable-5",
+          "resolved_model": "claude-fable-5",
+          "retry_after_seconds": null,
+          "retry_budget_snapshot": {
+            "attempts_by_model": {
+              "new/claude-fable-5": 1
+            },
+            "consumed_attempts": 1,
+            "consumed_fallback_transitions": 0,
+            "consumed_repair_attempts": 0,
+            "consumed_sleep_seconds": 0.0,
+            "logical_invocation_id": "real_primary_proof",
+            "max_cumulative_retry_sleep_seconds": 45.0,
+            "max_fallback_transitions": 3,
+            "max_same_model_retries": 1,
+            "max_structured_output_repair_attempts": 1,
+            "max_total_provider_attempts": 2,
+            "per_model_max_attempts": [
+              2,
+              2,
+              1,
+              1
+            ],
+            "remaining_attempt_budget": 1,
+            "wall_clock_budget_seconds": 300.0
+          },
+          "role_task_id": "nine_router_preflight_probe",
+          "structured_validation_result": "PASS",
+          "usage": {
+            "completion_tokens": 4,
+            "prompt_tokens": 2069,
+            "total_tokens": 2073
+          },
+          "work_item_id": null
+        }
+      ],
+      "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+      "budget_exhausted": false,
+      "budget_exhausted_reason": null,
+      "fallback_grants_publication_authority": false,
+      "fallback_output_uses_same_downstream_gates": true,
+      "final_retry_budget_snapshot": {
+        "attempts_by_model": {
+          "new/claude-fable-5": 1
+        },
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "logical_invocation_id": "real_primary_proof",
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 3,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 2,
+        "per_model_max_attempts": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "remaining_attempt_budget": 1,
+        "wall_clock_budget_seconds": 300.0
+      },
+      "gateway": "9router",
+      "logical_invocation_id": "real_primary_proof",
+      "model_identity_note": null,
+      "model_identity_provider_verifiable": true,
+      "models_attempted_in_order": [
+        "new/claude-fable-5"
+      ],
+      "output": "READY",
+      "retry_budget_policy": {
+        "budget_resets_on_model_change": false,
+        "budget_resets_on_reconstruction": false,
+        "default_wall_clock_budget_seconds": 300.0,
+        "max_cumulative_retry_sleep_seconds": 45.0,
+        "max_fallback_transitions": 3,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_total_provider_attempts": 6,
+        "per_model_max_attempts": {
+          "new/claude-fable-5": 2,
+          "new/claude-opus-5": 1,
+          "new/gpt-5.6-sol-xhigh": 2,
+          "vx/gemini-3.1-pro-preview(high)": 1
+        },
+        "structured_repair_counts_against_total_attempts": true
+      },
+      "role_task_id": "nine_router_preflight_probe",
+      "schema_version": "contentops.nine_router_ordered_model_router.v2",
+      "selected_model": "new/claude-fable-5",
+      "terminal_disposition": "ACCEPTED",
+      "total_attempts": 1,
+      "total_cost": null,
+      "total_elapsed_seconds": 10.7062,
+      "total_fallback_transitions": 0,
+      "total_retry_sleep_seconds": 0.0,
+      "total_structured_repair_attempts": 0,
+      "total_usage": {
+        "completion_tokens": 4.0,
+        "prompt_tokens": 2069.0,
+        "total_tokens": 2073.0
+      },
+      "work_item_id": null
+    }
+  },
+  "exhausted_budget_count": 0,
+  "fallback_bypasses_quality_gates": false,
+  "fallback_count": 1,
+  "fallback_reasons": {
+    "requested_model_temporarily_unavailable": 1
+  },
+  "fault_injection": {
+    "all_passed": true,
+    "cases_covered": {
+      "A_p0_first_try": "test_case_a_p0_succeeds_first_try",
+      "B_p0_timeout_retry": "test_case_b_p0_timeout_then_p0_retry_succeeds",
+      "C_quota_skip_to_p1": "test_case_c_p0_quota_skips_futile_retry_and_p1_succeeds",
+      "D_p0_p1_fail_p2_succeeds": "test_case_d_p0_timeouts_then_p1_503s_then_p2_succeeds",
+      "E_p0_p1_unavailable": "test_case_e_p0_and_p1_unavailable_p2_succeeds",
+      "F_pool_exhausted": "test_case_f_entire_pool_unavailable_blocks_closed",
+      "G_no_seventh_attempt": "test_case_g_six_attempt_budget_permits_no_seventh_provider_call",
+      "H_sleep_budget": "test_case_h_retry_sleep_budget_stops_without_further_sleep_or_call",
+      "I_structured_repair": "test_case_i_malformed_then_one_repair_attempt_succeeds",
+      "J_repair_fails_fallback": "test_case_j_repair_fails_then_eligible_fallback",
+      "K_no_rotation_on_gate_failure": "test_case_k_evidence_failure_never_rotates_models",
+      "L_401_403_fail_closed": "test_case_l_401_and_403_fail_closed_without_a_model_carousel",
+      "M_silent_substitution_rejected": "test_case_m_silent_substitution_to_another_model_is_rejected",
+      "N_reconstruction_keeps_budget": "test_case_n_reconstruction_does_not_reset_the_consumed_budget"
+    },
+    "exit_code": 0,
+    "runner": "pytest",
+    "suites": [
+      "tests/test_nine_router_ordered_model_router_v2.py",
+      "tests/test_nine_router_provider_adapter_and_preflight_v2.py"
+    ],
+    "summary_line": "73 passed in 0.86s"
+  },
+  "gateway": "9router",
+  "observed_cost": null,
+  "observed_latency_seconds": {
+    "count": 3,
+    "max": 11.1243,
+    "mean": 9.9634,
+    "min": 8.0601
+  },
+  "observed_token_usage": {
+    "completion_tokens": 8.0,
+    "prompt_tokens": 4138.0,
+    "total_tokens": 4146.0
+  },
+  "operating_mode": "SHADOW_ONLY_PROVIDER_PREFLIGHT",
+  "ordered_model_pool": [
+    "new/claude-fable-5",
+    "new/gpt-5.6-sol-xhigh",
+    "new/claude-opus-5",
+    "vx/gemini-3.1-pro-preview(high)"
+  ],
+  "platform_action_performed": false,
+  "preflight": {
+    "authorized_models_probed": [
+      "new/claude-fable-5",
+      "new/gpt-5.6-sol-xhigh",
+      "new/claude-opus-5",
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "credential_presence": {
+      "NINE_ROUTER_API_KEY": "present_redacted",
+      "NINE_ROUTER_BASE_URL": "present_redacted"
+    },
+    "dispatch_performed": false,
+    "gateway": "9router",
+    "healthy_count": 2,
+    "identity_mismatch_count": 0,
+    "identity_unverifiable_count": 0,
+    "model_identity_disposition": "MODEL_IDENTITY_PROVIDER_VERIFIED",
+    "per_model": [
+      {
+        "cost": null,
+        "failure_class": null,
+        "gateway": "9router",
+        "health": "HEALTHY",
+        "latency_seconds": 11.4828,
+        "model_identity_provider_verifiable": true,
+        "model_identity_provider_verified": true,
+        "model_priority_index": 0,
+        "platform_action_performed": false,
+        "provider_call_performed": true,
+        "provider_invocation_id": "chatcmpl-msg_2be85326-cc03-4778-8070-baf1c62d3a2e",
+        "provider_observed_effective_model": "claude-fable-5",
+        "provider_observed_effective_model_normalized": "claude-fable-5",
+        "provider_status_class": "2xx",
+        "public_write_performed": false,
+        "requested_model": "new/claude-fable-5",
+        "requested_model_normalized": "claude-fable-5",
+        "response_char_count": 5,
+        "response_matched_expected_token": true,
+        "success": true,
+        "usage": {
+          "completion_tokens": 4,
+          "prompt_tokens": 2069,
+          "total_tokens": 2073
+        }
+      },
+      {
+        "cost": null,
+        "failure_class": "requested_model_temporarily_unavailable",
+        "gateway": "9router",
+        "health": "TEMPORARILY_UNAVAILABLE",
+        "latency_seconds": 8.0571,
+        "model_identity_provider_verifiable": false,
+        "model_identity_provider_verified": false,
+        "model_priority_index": 1,
+        "platform_action_performed": false,
+        "provider_call_performed": true,
+        "provider_invocation_id": null,
+        "provider_observed_effective_model": null,
+        "provider_observed_effective_model_normalized": null,
+        "provider_status_class": "4xx",
+        "public_write_performed": false,
+        "requested_model": "new/gpt-5.6-sol-xhigh",
+        "requested_model_normalized": "gpt-5.6-sol-xhigh",
+        "response_char_count": 0,
+        "response_matched_expected_token": false,
+        "success": false,
+        "usage": null
+      },
+      {
+        "cost": null,
+        "failure_class": null,
+        "gateway": "9router",
+        "health": "HEALTHY",
+        "latency_seconds": 13.9518,
+        "model_identity_provider_verifiable": true,
+        "model_identity_provider_verified": true,
+        "model_priority_index": 2,
+        "platform_action_performed": false,
+        "provider_call_performed": true,
+        "provider_invocation_id": "chatcmpl-msg_e56d2571-de71-45a5-abd7-affe98394d77",
+        "provider_observed_effective_model": "claude-opus-5",
+        "provider_observed_effective_model_normalized": "claude-opus-5",
+        "provider_status_class": "2xx",
+        "public_write_performed": false,
+        "requested_model": "new/claude-opus-5",
+        "requested_model_normalized": "claude-opus-5",
+        "response_char_count": 5,
+        "response_matched_expected_token": true,
+        "success": true,
+        "usage": {
+          "completion_tokens": 4,
+          "prompt_tokens": 2591,
+          "total_tokens": 2595
+        }
+      },
+      {
+        "cost": null,
+        "failure_class": "invalid_request_or_schema_or_configuration",
+        "gateway": "9router",
+        "health": "TEMPORARILY_UNAVAILABLE",
+        "latency_seconds": 8.1968,
+        "model_identity_provider_verifiable": false,
+        "model_identity_provider_verified": false,
+        "model_priority_index": 3,
+        "platform_action_performed": false,
+        "provider_call_performed": true,
+        "provider_invocation_id": null,
+        "provider_observed_effective_model": null,
+        "provider_observed_effective_model_normalized": null,
+        "provider_status_class": "4xx",
+        "public_write_performed": false,
+        "requested_model": "vx/gemini-3.1-pro-preview(high)",
+        "requested_model_normalized": "gemini-3.1-pro-preview(high)",
+        "response_char_count": 0,
+        "response_matched_expected_token": false,
+        "success": false,
+        "usage": null
+      }
+    ],
+    "platform_action_performed": false,
+    "primary_model": "new/claude-fable-5",
+    "primary_model_healthy": true,
+    "public_write_performed": false,
+    "scheduler_mutated": false,
+    "schema_version": "contentops.nine_router_model_router_run_summary.v2",
+    "total_probe_latency_seconds": 41.6885,
+    "unavailable_count": 2
+  },
+  "primary_model": "new/claude-fable-5",
+  "public_live_cohort_authorized_by_this_task": false,
+  "public_write_performed": false,
+  "retries_by_error_class": {
+    "requested_model_temporarily_unavailable": 1
+  },
+  "retry_budget_policy": {
+    "budget_resets_on_model_change": false,
+    "budget_resets_on_reconstruction": false,
+    "default_wall_clock_budget_seconds": 300.0,
+    "max_cumulative_retry_sleep_seconds": 45.0,
+    "max_fallback_transitions": 3,
+    "max_same_model_retries": 1,
+    "max_structured_output_repair_attempts": 1,
+    "max_total_provider_attempts": 6,
+    "per_model_max_attempts": {
+      "new/claude-fable-5": 2,
+      "new/claude-opus-5": 1,
+      "new/gpt-5.6-sol-xhigh": 2,
+      "vx/gemini-3.1-pro-preview(high)": 1
+    },
+    "structured_repair_counts_against_total_attempts": true
+  },
+  "scheduler_mutated": false,
+  "schema_version": "contentops.nine_router_model_router_run_summary.v2",
+  "secret_redaction_status": "PASS_NO_SECRET_SHAPED_MATERIAL",
+  "successful_calls_by_model": {
+    "new/claude-fable-5": 2
+  },
+  "supersedes_authority_id": "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1",
+  "task": "TASK_CONTENTOPS_9ROUTER_ORDERED_MODEL_ROUTER_RETRY_BUDGET_AND_LIVE_PREFLIGHT_V1",
+  "total_model_attempts": 3,
+  "unauthorized_model_accepted": false,
+  "unbounded_retry_possible": false,
+  "work_package_f_started": false
+}

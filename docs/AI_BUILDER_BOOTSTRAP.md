@@ -76,21 +76,19 @@ Work F exact authorized live cohort
 
 Do not start Tier-2 before this completes unless Jim explicitly reprioritizes again.
 
-## 6. Router/model prerequisite
+## 6. Current router/model authority
 
-The owner-approved 9router ordered-model V2 runtime lineage is documented on branch:
+`CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` is integrated from accepted lineage head
+`ae60da22b9a155d25dc783f10285eecd875b9d0f`. It supersedes single-model V1, which remains
+historical only.
 
-`agent/contentops-9router-ordered-model-router-retry-budget-v1`
+The ordered pool is `new/claude-fable-5` → `new/gpt-5.6-sol-xhigh` →
+`new/claude-opus-5` → `vx/gemini-3.1-pro-preview(high)`. All launch-relevant 9router LLM
+call sites route through `live_contentops/nine_router_ordered_model_router_v2.py`.
 
-at head:
-
-`ae60da22b9a155d25dc783f10285eecd875b9d0f`
-
-This docs-only master update does not merge that runtime code.
-
-Before provider-backed final-prelaunch Work F/G execution, independently accept/merge that lineage or an explicitly newer owner-authorized equivalent.
-
-Never claim docs-only authority as runtime evidence.
+The router continues through authorized healthy models when part of the pool is unavailable.
+Fallback is bounded, preserves one logical retry budget across model transitions and restart,
+rejects silent substitution, and never bypasses downstream evidence or publication gates.
 
 ## 7. Operating modes
 

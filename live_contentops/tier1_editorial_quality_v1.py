@@ -349,6 +349,12 @@ def _choose_llm_provider(requested: str) -> str:
 
 
 def _default_llm_editorial_reviewer(prompt: str, provider: str) -> str:
+    if provider == "9router":
+        # Route the canonical gateway through the ordered model router so this stage
+        # gets the same bounded retry and fallback policy as every other call site.
+        from .nine_router_llm_seam_v2 import ROLE_EDITORIAL_REVIEW, routed_llm_text
+
+        return routed_llm_text(prompt, provider, float(60), role_task_id=ROLE_EDITORIAL_REVIEW)
     from .ai_research_canonical_article_engine_v6 import call_live_provider
 
     return call_live_provider(prompt, provider=provider, timeout_seconds=60)
