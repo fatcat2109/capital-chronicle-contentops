@@ -298,8 +298,7 @@ Do not stop for unrelated dirty files, absent CI, stale historical docs, mechani
 Do not start Tier-2.
 
 ```text
-accept/merge owner-approved 9router V2 runtime lineage
-→ obtain exact owner live scope
+obtain exact owner live scope
 → TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1
 ```
 

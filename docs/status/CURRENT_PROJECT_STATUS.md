@@ -54,6 +54,19 @@ Work Package F status:
 
 `REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
 
+### Current 9router runtime authority
+
+`CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` is integrated from the accepted lineage
+through `ae60da22b9a155d25dc783f10285eecd875b9d0f`; single-model V1 is historical only.
+
+The authorized ordered pool remains `new/claude-fable-5`, `new/gpt-5.6-sol-xhigh`,
+`new/claude-opus-5`, and `vx/gemini-3.1-pro-preview(high)`. Latest committed bounded
+no-write preflight evidence records 4/4 `HEALTHY` and provider-verified identity. Current
+operator-reported availability may be degraded; execution may continue through whichever
+authorized pool members remain healthy, within the one non-resetting retry budget. Fallback
+never bypasses evidence, factual, numeric-authority, permission, freshness, policy, or
+publication gates.
+
 ### Accepted and merged: CORE V0 repeated shadow soak and recovery
 
 Work Package E Status: `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`

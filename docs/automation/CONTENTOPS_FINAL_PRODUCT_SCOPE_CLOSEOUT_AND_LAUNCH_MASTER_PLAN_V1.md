@@ -768,15 +768,21 @@ Mode:
 
 `REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
 
-The remaining build sequence is:
+The remaining Tier-1 build sequence is:
 
 ```text
 dual-lane CORE V0 in SHADOW_ONLY   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → diversity, SEO, image, and chart closure   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → repeated shadow soak and recovery   [COMPLETE — ACCEPTED AND MERGED WITH CAVEAT]
 → exact authorized live cohort   [CURRENT — REQUIRES EXACT OWNER LIVE SCOPE]
-→ final acceptance and new release identity
+→ major final Tier-1 UI/UX rebuild using real live states
+→ Work Package G final full-automation prelaunch run
+→ Tier-1 final acceptance + new release identity
+→ freeze accepted Tier-1 baseline
 ```
+
+After the accepted Tier-1 baseline is frozen, the owner-approved future direction is the
+Tier-2 Pro Video Factory. Tier-2 implementation is not current.
 
 The old automatic Wave 03 approval-envelope/transactional-outbox sequence is no longer the next-task authority. It remains valid historical planning and may be revisited only when the CORE V0 vertical slice or a launch gate directly requires it.
 

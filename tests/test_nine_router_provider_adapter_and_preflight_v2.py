@@ -208,6 +208,23 @@ def test_run_preflight_summarises_all_four_models() -> None:
     assert result["scheduler_mutated"] is False
 
 
+def test_run_preflight_allows_degraded_pool_when_authorized_models_remain_healthy() -> None:
+    unavailable_models = {P1, P3}
+
+    def mixed_health(prompt, model, timeout):
+        if model in unavailable_models:
+            return ProviderResult(failure_class="requested_model_temporarily_unavailable")
+        return ProviderResult(text="READY", resolved_model=model, status_code=200)
+
+    result = run_preflight(provider_call=mixed_health)
+
+    assert result["healthy_count"] == 2
+    assert result["unavailable_count"] == 2
+    assert result["primary_model_healthy"] is True
+    assert result["model_identity_disposition"] == "MODEL_IDENTITY_PROVIDER_VERIFIED"
+    assert result["public_write_performed"] is False
+
+
 def test_preflight_prompt_is_tiny_and_deterministic() -> None:
     assert len(PREFLIGHT_PROMPT) < 200
     assert "READY" in PREFLIGHT_PROMPT

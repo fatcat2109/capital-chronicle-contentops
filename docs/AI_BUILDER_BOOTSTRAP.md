@@ -158,8 +158,7 @@ Do not start Tier-2.
 Current path:
 
 ```text
-accept/merge owner-approved 9router V2 runtime lineage
-→ obtain exact owner live scope
+obtain exact owner live scope
 → TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1
 ```
 

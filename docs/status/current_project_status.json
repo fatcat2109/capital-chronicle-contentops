@@ -1992,7 +1992,7 @@
   "work_package_e_merge_method": "FAST_FORWARD_ONLY",
   "final_prelaunch_llm_model_authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
   "final_prelaunch_llm_gateway": "9router",
-  "final_prelaunch_llm_exact_model": "new/claude-fable-5",
+  "final_prelaunch_llm_primary_model": "new/claude-fable-5",
   "final_prelaunch_llm_model_runtime_verification": "PROVIDER_VERIFIED_ALL_FOUR_AUTHORIZED_MODELS_HEALTHY",
   "historical_final_prelaunch_llm_model_authority_v1": {
     "authority_id": "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1",
@@ -2163,8 +2163,10 @@
         "failure_class": null
       }
     },
-    "model_runtime_verification": "PROVIDER_VERIFIED_PRIMARY_MODEL_HEALTHY_TWO_OF_FOUR_MODELS_UNAVAILABLE",
-    "unavailable_models_note": "new/gpt-5.6-sol-xhigh returns a model-scoped permission_denied/invalid_model and vx/gemini-3.1-pro-preview(high) returns a gateway-side Vertex endpoint configuration error. Both are gateway/account provisioning conditions, not router defects; the router failed over correctly to a healthy authorized model.",
+    "model_runtime_verification": "PROVIDER_VERIFIED_ALL_FOUR_AUTHORIZED_MODELS_HEALTHY_AT_LATEST_COMMITTED_PREFLIGHT",
+    "availability_evidence_note": "Latest committed bounded no-write preflight records 4/4 HEALTHY. Current operator-reported availability may be degraded; this does not rewrite the historical evidence.",
+    "runtime_all_models_required_healthy": false,
+    "runtime_degraded_pool_policy": "CONTINUE_THROUGH_ORDERED_AUTHORIZED_HEALTHY_MODELS_WITHIN_SINGLE_NON_RESETTING_BUDGET",
     "real_failover_proven_against_live_gateway": true,
     "capital_chronicle_authority_mutated": false,
     "grants_publication_authority": false,
