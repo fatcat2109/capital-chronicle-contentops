@@ -1,0 +1,30 @@
+{
+  "asset_count": 3,
+  "blockers": [],
+  "decision_hash": "75022ce9e2b81b06be5e7786e0dfc32adda1b4c5ae9fae3351dab489d0a8682c",
+  "editorial_exception": null,
+  "evidence_dimensions": [
+    "curve_slope",
+    "official_source_record",
+    "yield_curve_shape"
+  ],
+  "modalities": [
+    "chart",
+    "document_excerpt"
+  ],
+  "policy_context": {},
+  "requirements": {
+    "minimum_visual_count": 3,
+    "requires_contextual_nonprice_visual": false,
+    "requires_lead_visual": true,
+    "requires_visual_diversity": true
+  },
+  "schema_version": "contentops.visual_composition_decision.v2",
+  "status": "PASS",
+  "story_type": "market_move",
+  "underlying_series_counts": {
+    "TREASURY_2S10S": 1,
+    "TREASURY_CURVE_SNAPSHOT": 1,
+    "TREASURY_OFFICIAL_DOCUMENT": 1
+  }
+}

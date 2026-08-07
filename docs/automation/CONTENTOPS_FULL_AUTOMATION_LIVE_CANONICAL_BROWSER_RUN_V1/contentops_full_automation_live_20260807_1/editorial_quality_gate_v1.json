@@ -1,0 +1,373 @@
+{
+  "blockers": [
+    "market_sensitive_story_snapshot_stale_or_missing",
+    "market_sensitive_story_ingest_stale_or_missing",
+    "structured_adversarial_review_failed_or_claimed_authority",
+    "structured_adversarial_review_not_substantive"
+  ],
+  "classification": "NEEDS_REVISION",
+  "deterministic": {
+    "caveat_count": 1,
+    "classification": "PASS",
+    "duplicated_sentence_count": 0,
+    "editorial_blockers": [],
+    "editorial_checks": {
+      "concise_nut_graf": true,
+      "confirmation_condition": true,
+      "context_present": true,
+      "falsification_condition": true,
+      "high_information_density": true,
+      "lede_market_consequence": true,
+      "lede_what_changed": true,
+      "lede_why_now": true,
+      "mechanism_present": true,
+      "mode_declared": true,
+      "mode_rubric": true,
+      "named_next_catalysts": true,
+      "no_fabricated_quotes": true,
+      "no_financial_advice": true,
+      "no_process_language": true,
+      "original_value_claim_support": true,
+      "single_caveat": true
+    },
+    "editorial_score": 100,
+    "filler_hits": [],
+    "headline_desk": {
+      "publication_authority": false,
+      "rejected_variant_count": 3,
+      "schema_version": "contentops.tier1_editorial_quality.v2",
+      "variants": [
+        {
+          "channel": "reader",
+          "checks": {
+            "length": true,
+            "no_clickbait": true,
+            "no_mismatch": true,
+            "present": true,
+            "search_intent": true,
+            "specificity": true
+          },
+          "rejection_reasons": [],
+          "score": 100,
+          "text": "Treasury Yield Curve Edges Wider as 30-Year Reaches 5.10%"
+        },
+        {
+          "channel": "seo",
+          "checks": {
+            "length": true,
+            "no_clickbait": true,
+            "no_mismatch": true,
+            "present": true,
+            "search_intent": true,
+            "specificity": true
+          },
+          "rejection_reasons": [],
+          "score": 100,
+          "text": "Treasury Yield Curve Edges Wider as 30-Year Hits 5.10%"
+        },
+        {
+          "channel": "social",
+          "checks": {
+            "length": false,
+            "no_clickbait": true,
+            "no_mismatch": true,
+            "present": false,
+            "search_intent": true,
+            "specificity": false
+          },
+          "rejection_reasons": [
+            "present",
+            "length",
+            "specificity"
+          ],
+          "score": 50,
+          "text": ""
+        },
+        {
+          "channel": "push",
+          "checks": {
+            "length": false,
+            "no_clickbait": true,
+            "no_mismatch": true,
+            "present": false,
+            "search_intent": true,
+            "specificity": false
+          },
+          "rejection_reasons": [
+            "present",
+            "length",
+            "specificity"
+          ],
+          "score": 50,
+          "text": ""
+        },
+        {
+          "channel": "youtube_community",
+          "checks": {
+            "length": false,
+            "no_clickbait": true,
+            "no_mismatch": true,
+            "present": false,
+            "search_intent": true,
+            "specificity": false
+          },
+          "rejection_reasons": [
+            "present",
+            "length",
+            "specificity"
+          ],
+          "score": 50,
+          "text": ""
+        }
+      ]
+    },
+    "paragraph_redundancy_findings": [],
+    "process_language_hits": [],
+    "rendered_body_sha256": "cacc7738352d2524de9f657d95eb235d04d6d2a64a9d3eee845047e05a936837",
+    "schema_version": "contentops.tier1_editorial_quality.v2",
+    "seo_blockers": [],
+    "seo_checks": {
+      "canonical_url_metadata": true,
+      "chart_metadata": true,
+      "clean_rendered_body": true,
+      "heading_hierarchy": true,
+      "meta_description": true,
+      "primary_topic_in_opening": true,
+      "reader_headline": true,
+      "semantic_keyword_coverage": true,
+      "seo_title": true,
+      "slug": true,
+      "social_og_lead_media": true,
+      "source_reference_links": true,
+      "title_dek_not_duplicated": true,
+      "visual_markers_complete": true
+    },
+    "seo_hygiene_is_observed_search_performance": false,
+    "seo_hygiene_score": 100,
+    "seo_score": 100,
+    "source_urls": [
+      "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=dailytreasuryyieldcurve",
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=dailytreasuryyieldcurve&fieldtdrdatevalue=2026"
+    ],
+    "visual_asset_ids": [
+      "treasury_curve_snapshot",
+      "treasury_source_excerpt",
+      "treasury_2s10s_history"
+    ],
+    "word_count": 1147
+  },
+  "freshness": {
+    "blockers": [
+      "market_sensitive_story_snapshot_stale_or_missing",
+      "market_sensitive_story_ingest_stale_or_missing"
+    ],
+    "decision": "BLOCK",
+    "duplicate_policy_is_separate": true,
+    "effective_article_mode": "analysis",
+    "evaluation_as_of_utc": "2026-08-07T10:04:27.804468Z",
+    "event_age_hours": 610.074,
+    "expected_source_cadence": "official_business_day",
+    "fresh_material_delta": true,
+    "headline_age_hours": 610.074,
+    "historical_replay_as_of_utc": "2026-08-07T10:04:27.804468Z",
+    "latest_database_ingest_age_hours": 587.616,
+    "latest_market_observation_age_hours": 610.074,
+    "market_sensitive": true,
+    "market_session_state": "latest_official_business_day",
+    "market_snapshot_required": true,
+    "operator_evaluation_as_of_utc": null,
+    "primary_source_age_hours": 610.074,
+    "readiness_evaluation_basis": "HISTORICAL_SOURCE_TIME_FRESHNESS_REPLAY",
+    "requested_article_mode": "analysis",
+    "schema_version": "contentops.freshness_market_state_decision.v2",
+    "thresholds": {
+      "analysis_market_hours": 24.0,
+      "ingest_hours": 24.0,
+      "straight_news_hours": 24.0
+    }
+  },
+  "llm_semantic_review": {
+    "checks": {
+      "clear_news_peg": true,
+      "concise_nut_graf": true,
+      "high_information_density": false,
+      "material_market_consequence": true,
+      "mode_consistent": true,
+      "no_fabricated_quotes": true,
+      "no_financial_advice": true,
+      "no_unsupported_certainty": true,
+      "reader_facing_prose": false,
+      "relevant_context": true,
+      "source_backed_mechanism": false,
+      "specific_confirmation_condition": true,
+      "specific_falsification_condition": true,
+      "why_now": true
+    },
+    "decision": "NEEDS_REVISION",
+    "failed_checks": [
+      "source_backed_mechanism",
+      "reader_facing_prose",
+      "high_information_density"
+    ],
+    "issues": [
+      {
+        "code": "UNSOURCED_MECHANISM",
+        "evidence": "The cited Treasury sources support the yield observations and methodology, but not the claims about financing pass-through, valuation effects, term premium or auction-demand mechanisms."
+      },
+      {
+        "code": "INTERNAL_PROCESS_LANGUAGE",
+        "evidence": "Reader-facing text refers to a \"governed official close,\" \"packet timestamp,\" \"evidence packet\" and \"public claim permission.\""
+      },
+      {
+        "code": "REPETITIVE_ANALYSIS",
+        "evidence": "The confirmation and challenge conditions are stated twice in near-duplicate consecutive passages, reducing information density."
+      }
+    ],
+    "missing_or_invalid_checks": [],
+    "mode": "analysis",
+    "prompt_sha256": "856cbcf805fff12172654e1d6421c0640a25c85bbbc90c7650ac1e79ef0c626f",
+    "provider": "9router",
+    "publication_authority": false,
+    "review_sha256": "9b1493cc4f1fb7a0702c43d27d8b0ca93f309952bbf03f352899a25523bf7fe7",
+    "status": "SUCCESS",
+    "summary": "The market peg, significance, context and testable conditions are clear, but the analysis needs external support for its transmission mechanisms, removal of internal pipeline language and tighter editing to eliminate repetition."
+  },
+  "multi_role_review": {
+    "approved_claim_ids": [
+      "UST:10Y:2026-07-13",
+      "UST:2S10S:2026-07-13",
+      "UST:2Y:2026-07-13",
+      "UST:30Y:2026-07-13"
+    ],
+    "blockers": [
+      "market_sensitive_story_snapshot_stale_or_missing",
+      "market_sensitive_story_ingest_stale_or_missing",
+      "structured_adversarial_review_failed_or_claimed_authority",
+      "structured_adversarial_review_not_substantive"
+    ],
+    "deterministic_blockers_authoritative": true,
+    "editorial_disposition": "HOLD",
+    "final_render_reviewed": true,
+    "governed_claim_contract": "V2_NUMERIC_COMPATIBILITY",
+    "numeric_claim_ids_used": [
+      "UST:10Y:2026-07-13",
+      "UST:2S10S:2026-07-13",
+      "UST:2Y:2026-07-13",
+      "UST:30Y:2026-07-13"
+    ],
+    "packet_hash": "40fbb4a18fdc41f5ce18c3e39c88d4439f4f0a90e8b638f122368bc75fe0152c",
+    "publication_authority": false,
+    "revision_contract_status": "NOT_REQUESTED",
+    "role_order": [
+      "assignment_editor",
+      "evidence_planner",
+      "reporter_writer",
+      "quantitative_editor",
+      "visual_editor",
+      "copy_editor",
+      "platform_editor",
+      "adversarial_final_reviewer"
+    ],
+    "roles": [
+      {
+        "blockers": [],
+        "output_hash": "0adb805502d7eb802f9623729c761a05a8e878a99e8ecfa395e3c6b471d9388c",
+        "role": "assignment_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "7937cd7520809b5e6c0e4613fe2d4961c70a68c52864551b3411bb0544720297",
+        "role": "evidence_planner",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "88857e5adafc4c88ae09fcbfa9f54569baa95b5972349855d740f71123a5de0d",
+        "role": "reporter_writer",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "10a4fb2ff05b94c2527af4617b8bd7547cc91d8d06b4cb28a81f0cad19999e15",
+        "role": "quantitative_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "9bd04b3263e9128d662d3c4fdaceb84ff56450babec605a63fa224a32ad69d76",
+        "role": "visual_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "6b105f2ef26b1cf6ad3b327502454b14e1ba1d40033e6c82147ecd3691362e79",
+        "role": "copy_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [],
+        "output_hash": "785e1bf22cca2a4b606e24f409956f2496a0a99465e03538391bc67bcde08328",
+        "role": "platform_editor",
+        "status": "PASS"
+      },
+      {
+        "blockers": [
+          "market_sensitive_story_snapshot_stale_or_missing",
+          "market_sensitive_story_ingest_stale_or_missing",
+          "structured_adversarial_review_failed_or_claimed_authority",
+          "structured_adversarial_review_not_substantive"
+        ],
+        "output_hash": "04f2a66665143cf75650565bf704a373982268a254ea0b1daa47df001fa241ff",
+        "role": "adversarial_final_reviewer",
+        "status": "BLOCK",
+        "structured_review": {
+          "decision": "BLOCK",
+          "provider": "9router",
+          "publication_authority": false,
+          "review_sha256": "9b1493cc4f1fb7a0702c43d27d8b0ca93f309952bbf03f352899a25523bf7fe7"
+        }
+      }
+    ],
+    "schema_version": "contentops.editorial_review_orchestrator.v2",
+    "status": "BLOCK",
+    "used_claim_ids": [
+      "UST:10Y:2026-07-13",
+      "UST:2S10S:2026-07-13",
+      "UST:2Y:2026-07-13",
+      "UST:30Y:2026-07-13"
+    ],
+    "writer_self_certification_allowed": false
+  },
+  "visual": {
+    "asset_count": 3,
+    "blockers": [],
+    "decision_hash": "75022ce9e2b81b06be5e7786e0dfc32adda1b4c5ae9fae3351dab489d0a8682c",
+    "editorial_exception": null,
+    "evidence_dimensions": [
+      "curve_slope",
+      "official_source_record",
+      "yield_curve_shape"
+    ],
+    "modalities": [
+      "chart",
+      "document_excerpt"
+    ],
+    "policy_context": {},
+    "requirements": {
+      "minimum_visual_count": 3,
+      "requires_contextual_nonprice_visual": false,
+      "requires_lead_visual": true,
+      "requires_visual_diversity": true
+    },
+    "schema_version": "contentops.visual_composition_decision.v2",
+    "status": "PASS",
+    "story_type": "market_move",
+    "underlying_series_counts": {
+      "TREASURY_2S10S": 1,
+      "TREASURY_CURVE_SNAPSHOT": 1,
+      "TREASURY_OFFICIAL_DOCUMENT": 1
+    }
+  }
+}

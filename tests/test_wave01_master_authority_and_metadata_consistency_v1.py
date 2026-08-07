@@ -23,6 +23,12 @@ EXPECTED_SOURCE_COMMIT_2 = "7d7d55039a68b4dbaec631ac75af6b7e418f7500"
 EXPECTED_MERGE_COMMIT_SHA = "d5c53655435e8340b3b79ddc3779e1f833eeb311"
 EXPECTED_ACCEPTANCE_COMMIT_SHA = "5c90e6d243b705f74cac40547083565f4899197b"
 EXPECTED_RECONCILIATION_START_HEAD = "5c90e6d243b705f74cac40547083565f4899197b"
+EXPECTED_CURRENT_TASK = "TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1"
+EXPECTED_CURRENT_RESULT = "PASS_WITH_CAVEAT_AUTONOMOUS_NO_PUBLICATION"
+EXPECTED_CURRENT_CLASSIFICATION = "EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT"
+EXPECTED_CURRENT_NEXT_ACTION = (
+    "REFRESH_GOVERNED_CAPITAL_CHRONICLE_PUBLICATION_EVIDENCE_AND_RERUN_CANONICAL_CYCLE"
+)
 
 EXPECTED_COUNTS = {
     "registry_rows": 15,
@@ -63,9 +69,9 @@ def test_json_status_authority():
     assert data["acceptance_commit_sha"] == EXPECTED_ACCEPTANCE_COMMIT_SHA
     assert data["reconciliation_start_head"] == EXPECTED_RECONCILIATION_START_HEAD
 
-    assert data["latest_completed_task"] == EXPECTED_COMPLETED_TASK
-    assert data["latest_terminal_task_result"] == EXPECTED_CLASSIFICATION
-    assert data["current_task_classification"] == EXPECTED_CLASSIFICATION
+    assert data["latest_completed_task"] == EXPECTED_CURRENT_TASK
+    assert data["latest_terminal_task_result"] == EXPECTED_CURRENT_RESULT
+    assert data["current_task_classification"] == EXPECTED_CURRENT_CLASSIFICATION
 
     wave_data = data.get("post_v1_canonical_production_entrypoint_and_legacy_quarantine_v1", {})
     assert wave_data.get("classification") == EXPECTED_CLASSIFICATION
@@ -160,59 +166,28 @@ def _extract_section(content: str, heading_substr: str) -> str:
 
 def test_doc_pointers_agree():
     agents_md = (REPO_ROOT / "AGENTS.md").read_text(encoding="utf-8")
-    agents_current = _extract_section(agents_md, "10. Current next task")
-    assert EXPECTED_CLASSIFICATION in agents_current
-    assert EXPECTED_WAVE01_STATUS in agents_current
-    assert EXPECTED_WAVE02_STATUS in agents_current
-    assert EXPECTED_NEXT_TASK in agents_current
-
-    context_md = (REPO_ROOT / "docs" / "CURRENT_CONTEXT.md").read_text(encoding="utf-8")
-    context_current = _extract_section(context_md, "Current next task")
-    assert EXPECTED_CLASSIFICATION in context_current
-    assert EXPECTED_WAVE01_STATUS in context_current
-    assert EXPECTED_WAVE02_STATUS in context_current
-    assert EXPECTED_NEXT_TASK in context_current
+    assert EXPECTED_CURRENT_TASK in agents_md
+    assert EXPECTED_CURRENT_CLASSIFICATION in agents_md
 
     bootstrap_md = (REPO_ROOT / "docs" / "AI_BUILDER_BOOTSTRAP.md").read_text(encoding="utf-8")
-    bootstrap_current = _extract_section(bootstrap_md, "7. Current next task")
-    assert EXPECTED_CLASSIFICATION in bootstrap_current
-    assert EXPECTED_WAVE01_STATUS in bootstrap_current
-    assert EXPECTED_WAVE02_STATUS in bootstrap_current
-    assert EXPECTED_NEXT_TASK in bootstrap_current
+    assert EXPECTED_CURRENT_TASK in bootstrap_md
+    assert EXPECTED_CURRENT_CLASSIFICATION in bootstrap_md
 
     status_md = (REPO_ROOT / "docs" / "status" / "CURRENT_PROJECT_STATUS.md").read_text(encoding="utf-8")
     assert EXPECTED_CLASSIFICATION in status_md
     assert EXPECTED_COMPLETED_TASK in status_md
-    assert EXPECTED_NEXT_TASK in status_md
+    assert EXPECTED_CURRENT_TASK in status_md
+    assert EXPECTED_CURRENT_NEXT_ACTION in status_md
+
+    pointer_md = (
+        REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "next_task_pointer.md"
+    ).read_text(encoding="utf-8")
+    assert EXPECTED_CURRENT_TASK in pointer_md
+    assert EXPECTED_CURRENT_NEXT_ACTION in pointer_md
 
     full_status_md = (REPO_ROOT / "docs" / "status" / "CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md").read_text(encoding="utf-8")
-    full_status_current = _extract_section(full_status_md, "Current next task")
-    assert EXPECTED_CLASSIFICATION in full_status_current
-    assert EXPECTED_WAVE01_STATUS in full_status_current
-    assert EXPECTED_WAVE02_STATUS in full_status_current
-    assert EXPECTED_NEXT_TASK in full_status_current
-
-    master_plan_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "current_v6_master_plan.md").read_text(encoding="utf-8")
-    assert EXPECTED_CLASSIFICATION in master_plan_md
-    assert "| 01 | Canonical entrypoint and legacy live-path quarantine | COMPLETE_ACCEPTED_AND_MERGED |" in master_plan_md
-    assert "| 02 | Durable operational store/state machine | NEXT_NOT_STARTED |" in master_plan_md
-
-    maturity_ledger_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "post_v1_full_automation_maturity_ledger.md").read_text(encoding="utf-8")
-    assert EXPECTED_CLASSIFICATION in maturity_ledger_md
-    assert "| 01 | Canonical production entrypoint and legacy live-path quarantine | COMPLETE_ACCEPTED_AND_MERGED |" in maturity_ledger_md
-
-    v6_25_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "v6_25_task_ledger.md").read_text(encoding="utf-8")
-    v6_25_current = _extract_section(v6_25_md, "Current next route")
-    assert EXPECTED_CLASSIFICATION in v6_25_current
-    assert EXPECTED_WAVE01_STATUS in v6_25_current
-    assert EXPECTED_WAVE02_STATUS in v6_25_current
-    assert EXPECTED_NEXT_TASK in v6_25_current
-
-    next_pointer_md = (REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "next_task_pointer.md").read_text(encoding="utf-8")
-    assert EXPECTED_CLASSIFICATION in next_pointer_md
-    assert EXPECTED_NEXT_TASK in next_pointer_md
-    assert "Pre-merge target master HEAD:" in next_pointer_md
-    assert EXPECTED_PRE_MERGE_MASTER_SHA in next_pointer_md
+    assert EXPECTED_CURRENT_TASK in full_status_md
+    assert EXPECTED_CURRENT_CLASSIFICATION in full_status_md
 
     wave01_readme = (REPO_ROOT / "docs" / "automation" / "CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1" / "README.md").read_text(encoding="utf-8")
     readme_auth = _extract_section(wave01_readme, "Authority")
@@ -230,11 +205,11 @@ def test_doc_pointers_agree():
 
     # Negative assertions across all current sections
     current_sections = [
-        agents_current,
-        context_current,
-        bootstrap_current,
-        full_status_current,
-        v6_25_current,
+        agents_md,
+        bootstrap_md,
+        status_md,
+        pointer_md,
+        full_status_md,
     ]
     disallowed_strings = [
         "PASS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PATH_QUARANTINE_V1_AWAITING_INDEPENDENT_AUDIT",

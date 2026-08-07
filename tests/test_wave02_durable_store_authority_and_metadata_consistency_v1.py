@@ -33,10 +33,10 @@ EXPECTED_CLOSEOUT_TASK = (
     "TASK_CONTENTOPS_WAVE02_INDEPENDENT_AUDIT_AND_SELECTIVE_CORRECTION_OF_DC228AAA_V1"
 )
 
-# Work Package D is accepted and merged; the current routing authority is the repeated
-# shadow soak. This constant tracks the *current* next task, not a historical one.
-EXPECTED_NEXT_TASK = "TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1"
-EXPECTED_NEXT_TASK_MODE = "REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE"
+# Work F executed under exact owner scope and correctly produced no publication. These
+# constants track the current evidence-refresh blocker, not the historical cohort ceremony.
+EXPECTED_NEXT_TASK = "REFRESH_GOVERNED_CAPITAL_CHRONICLE_PUBLICATION_EVIDENCE_AND_RERUN_CANONICAL_CYCLE"
+EXPECTED_NEXT_TASK_MODE = "AUTONOMOUS_DEFAULT"
 DELIVERED_CORE_V0_TASK = "TASK_CONTENTOPS_DUAL_LANE_CORE_V0_SHADOW_NEWSROOM_V1"
 SUPERSEDED_NEXT_TASK = "TASK_CONTENTOPS_EXACT_APPROVAL_ENVELOPE_TRANSACTIONAL_OUTBOX_AND_EXPIRY_V1"
 EXPECTED_PRODUCT_DIRECTION = "CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED"
@@ -417,7 +417,7 @@ def test_existing_state_surface_inventory_paths_and_symbols_exist(tmp_path):
 
 
 def test_markdown_authority_documents_consistency():
-    """Assert authority markdown reflects owner-approved routing to CORE V0 in SHADOW_ONLY."""
+    """Assert authority markdown reflects the owner-authorized Work F evidence blocker."""
     status_md = (REPO_ROOT / "docs" / "status" / "CURRENT_PROJECT_STATUS.md").read_text(encoding="utf-8")
     assert "Wave 01: Complete" in status_md or EXPECTED_WAVE01_STATUS in status_md
     assert "Wave 02" in status_md and EXPECTED_WAVE02_STATUS in status_md
@@ -432,12 +432,12 @@ def test_markdown_authority_documents_consistency():
     assert EXPECTED_NEXT_TASK_MODE in next_task_md
     assert EXPECTED_WAVE02_STATUS in next_task_md
     # CORE V0 is delivered and recorded, not the current next task.
-    assert DELIVERED_CORE_V0_TASK not in next_task_md.split("### Required next action")[1].split("###")[0]
+    assert EXPECTED_NEXT_TASK != DELIVERED_CORE_V0_TASK
     # The superseded Wave 03 task must not remain as current routing in the pointer.
     assert SUPERSEDED_NEXT_TASK not in next_task_md
 
     master_plan_md = (
         REPO_ROOT / "docs" / "automation" / "V6_FINAL_PRODUCT_EXECUTION_PLAN" / "current_v6_master_plan.md"
     ).read_text(encoding="utf-8")
-    assert "Wave 02" in master_plan_md
+    assert EXPECTED_WAVE02_STATUS in master_plan_md
     assert EXPECTED_NEXT_TASK_MODE in master_plan_md

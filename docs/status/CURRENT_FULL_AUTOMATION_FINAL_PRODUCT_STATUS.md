@@ -27,8 +27,9 @@ Durable operational state: complete and accepted as minimum durable prerequisite
 Dual-lane CORE V0: complete/accepted/merged with caveat
 Diversity/SEO/image/chart closure: complete/accepted/merged with caveat
 Repeated shadow soak/recovery: complete/accepted/merged with caveat
-Calendar-time/live generalized cohort: unproven
-Final live provider/platform reliability: unproven
+Owner-authorized canonical cycle: executed; autonomous no-publication before dispatch
+Calendar-time/live generalized publication reliability: still unproven because no write cleared gates
+Final live provider/platform write reliability: still unproven for this Work F run
 Final UI based on real live states: not yet rebuilt
 Final full-automation prelaunch acceptance: not yet run
 Tier-2 Pro Video Factory: owner-approved future expansion, implementation not started
@@ -46,19 +47,24 @@ Work E launch-readiness disposition:
 
 The accelerated logical soak is not calendar-time uptime and does not claim final live reliability, full-suite PASS, or CI PASS.
 
-## Current product task
+## Latest Work F task
 
-`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
 
 Status:
 
-`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
 
 Mode boundary:
 
-`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
+`AUTONOMOUS_DEFAULT`
 
-No public live execution is authorized by this status document.
+The exact owner task authorized dynamically validated canonical `READY_*` destinations and
+superseded artificial tiny-cohort ceremony. The run reached canonical browser/account
+preflight, 9Router review, article/media creation, and nine platform packages. It performed
+zero dispatches because the only formerly eligible story had stale governed evidence and the
+semantic reviewer required revision. This is a legitimate autonomous no-publication result,
+not a missing-authorization result.
 
 ## Current router/model runtime authority
 
@@ -74,7 +80,8 @@ when the pool/budget is exhausted. Fallback never bypasses product or publicatio
 ## Current Tier-1 build sequence
 
 ```text
-Work F exact authorized live cohort   [CURRENT]
+Work F canonical cycle: autonomous no-publication with caveat   [EXECUTED]
+→ refresh governed Capital Chronicle publication evidence and rerun canonical cycle
 → major final Tier-1 UI/UX rebuild using real live states
 → Work Package G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity
@@ -131,6 +138,6 @@ Any live cohort requires exact task authority and exact owner scope.
 Do not start Tier-2.
 
 ```text
-obtain exact owner live scope
-→ execute TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1
+refresh governed Capital Chronicle publication evidence
+→ rerun TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1 through the same canonical entrypoint
 ```

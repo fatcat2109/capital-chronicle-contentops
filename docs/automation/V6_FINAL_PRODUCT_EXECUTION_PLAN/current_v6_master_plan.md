@@ -22,15 +22,18 @@ Current durable prerequisite:
 
 `COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE`
 
-Current product task:
+Latest Work F task:
 
-`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
 
 Status:
 
-`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
 
-This document replaces stale lower-section routing previously retained inside the V6 plan. Work Packages C, D, and E are complete/accepted/merged with their recorded caveats. Work Package F is current.
+This document replaces stale lower-section routing previously retained inside the V6 plan.
+Work Packages C, D, and E are complete/accepted/merged with their recorded caveats. Work F
+executed once and correctly stopped before dispatch; refreshing governed publication evidence
+is the current blocker.
 
 ## 1. Authority read order
 
@@ -119,7 +122,8 @@ The soak proves repeated logical execution/recovery without public writes. It do
 dual-lane CORE V0 shadow newsroom   [COMPLETE]
 → diversity / SEO / image / chart closure   [COMPLETE]
 → repeated shadow soak and recovery   [COMPLETE]
-→ exact authorized live cohort   [CURRENT]
+→ owner-authorized canonical cycle: autonomous no-publication with caveat   [EXECUTED]
+→ refresh governed publication evidence and rerun the same canonical cycle   [CURRENT BLOCKER]
 → major final Tier-1 UI/UX rebuild using real live states
 → Work Package G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity
@@ -128,19 +132,26 @@ dual-lane CORE V0 shadow newsroom   [COMPLETE]
 
 The major final Tier-1 UI/UX rebuild is an owner-directed post-F step so the final control room is designed around real live provider, readback, incident, fallback, recovery, and cost states instead of shadow assumptions.
 
-## 6. Current Work F gate
+## 6. Work F execution result and current blocker
 
-Exact task:
+Exact executed task:
 
-`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
 
-Required before execution:
+Jim supplied exact live authority dynamically bounded to verified canonical `READY_*`
+destinations, superseding artificial tiny-cohort ceremony. The run used
+`AUTONOMOUS_DEFAULT`, canonical Edge/CDP, and 9Router V2; it generated one governed draft,
+three visuals, and nine platform packages from a three-input/three-cluster upstream pool.
+Freshness and semantic-review gates then made a correct no-publication decision before any
+adapter write.
 
-1. exact owner-authorized live destinations/accounts/public-write scope;
-2. accepted provider/model runtime authority suitable for final-prelaunch use;
-3. kill switch and fail-closed readback/reconciliation path available.
+Current blocker: obtain a fresh, publication-authorized Capital Chronicle packet that passes
+freshness and substantive semantic review, then rerun the same canonical cycle. Do not
+request another owner authorization or weaken product gates.
 
-This plan does not itself authorize live execution.
+Exact next product action:
+
+`REFRESH_GOVERNED_CAPITAL_CHRONICLE_PUBLICATION_EVIDENCE_AND_RERUN_CANONICAL_CYCLE`
 
 ## 7. Current router/model runtime authority
 
@@ -266,21 +277,21 @@ Use FAST SHIP + heavy bounded vertical slices.
 
 ## 15. Exact current routing
 
-Current product task:
+Latest Work F task:
 
-`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
 
 Current status:
 
-`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
 
 Tier-2 is approved future direction but is **NOT CURRENT**.
 
 Exact next operational sequence:
 
 ```text
-obtain exact owner live scope
-→ execute Work F
+refresh governed Capital Chronicle publication evidence
+→ rerun Work F through the same canonical entrypoint
 ```
 
 Then continue the Tier-1 sequence in Section 5.

@@ -20,15 +20,25 @@ Work Packages C, D, and E are:
 
 `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
 
-### Required current product action
+### Latest product action
 
-`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
 
 Status:
 
-`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
 
-Work F is current. Tier-2 is not current.
+Owner live scope is resolved dynamically from canonical `READY_*` destinations; an arbitrary
+tiny post-count cohort is not current authority. The 2026-08-07 cycle generated one draft and
+nine platform packages, but freshness and semantic-review gates stopped dispatch. The next
+product blocker is a fresh publication-authorized Capital Chronicle packet, after which the
+same canonical cycle should be rerun. Tier-2 is not current.
+
+Exact next product action:
+
+`REFRESH_GOVERNED_CAPITAL_CHRONICLE_PUBLICATION_EVIDENCE_AND_RERUN_CANONICAL_CYCLE`
+
+Operating mode: `AUTONOMOUS_DEFAULT`
 
 ## Current router/model authority
 
@@ -72,19 +82,22 @@ Work F is current. Tier-2 is not current.
 - public live cohort is NOT authorized by this authority. Work package F still requires an
   exact owner live scope defining destinations, accounts, and public-write authority.
 
-## Work F prerequisites
+## Work F recorded boundary
 
-Before Work F actually executes provider-backed/public-live behavior:
+Jim's exact 2026-08-07 task supplied destination/account/public-write authority. Do not ask
+for another cohort authorization. The scope is all and only dynamically validated canonical
+`READY_AUTHENTICATED` and `READY_NON_BROWSER_BINDING` destinations. Kill switch, fail-closed
+unknown-write handling, strict readback, and reconciliation remain mandatory.
 
-1. obtain exact owner-authorized destinations/accounts/public-write scope;
-2. preserve kill-switch, fail-closed unknown-write handling, strict readback, and reconciliation.
-
-This pointer grants no live authority itself.
+The recorded run performed no public write because the governed story failed freshness and
+semantic-review gates. Its exact next blocker is fresh governed publication evidence, not
+owner scope.
 
 ## Current Tier-1 sequence
 
 ```text
-Work F exact authorized live cohort
+Work F canonical cycle: autonomous no-publication with caveat   [EXECUTED]
+→ refresh governed Capital Chronicle publication evidence and rerun canonical cycle
 → major final Tier-1 UI/UX rebuild using real live states
 → Work Package G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity

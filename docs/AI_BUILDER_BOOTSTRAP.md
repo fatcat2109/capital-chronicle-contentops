@@ -54,20 +54,27 @@ Work Packages C, D, and E are:
 
 `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
 
-Current product task:
+Latest Work F execution:
 
-`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
 
 Status:
 
-`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
+
+Jim's exact owner scope is recorded. Do not request another tiny cohort or another approval
+packet. Destination scope is the dynamically validated canonical `READY_*` set. The
+2026-08-07 run processed the governed three-input/three-cluster pool, generated one draft
+article and nine platform packages through 9Router, and stopped before dispatch because the
+market evidence was stale and the semantic review required revision. The exact next blocker
+is fresh governed Capital Chronicle publication evidence, not authorization ceremony.
 
 The Work E soak proved repeated logical operation/recovery without public writes; it did not prove calendar-time live reliability.
 
 ## 5. Current Tier-1 build sequence
 
 ```text
-Work F exact authorized live cohort
+Work F owner-authorized canonical cycle: autonomous no-publication with caveat
 → major final Tier-1 UI/UX rebuild from real live states
 → Work G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity
@@ -158,8 +165,8 @@ Do not start Tier-2.
 Current path:
 
 ```text
-obtain exact owner live scope
-→ TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1
+refresh governed Capital Chronicle publication evidence
+→ rerun TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1 through the same canonical entrypoint
 ```
 
 ## 12. Safety

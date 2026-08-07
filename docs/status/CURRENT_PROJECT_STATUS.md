@@ -36,9 +36,9 @@ Byte-exact evidence verification depends on JSON files being stored and checked 
 line endings. This is enforced by `.gitattributes` (`*.json text eol=lf`), never by
 normalising bytes inside verification code.
 
-### Current next task
+### Latest Work F execution
 
-`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
 
 Work Package D is `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`. Work Package E — the repeated shadow soak and recovery — is
 accepted and fast-forward merged into `master` from branch
@@ -48,11 +48,30 @@ accepted and fast-forward merged into `master` from branch
 
 Work Package F status:
 
-`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
 
 ### Current next-task mode
 
-`REQUIRES_EXACT_OWNER_AUTHORIZED_LIVE_SCOPE`
+`AUTONOMOUS_DEFAULT`
+
+Jim's 2026-08-07 task supplied exact public-write authority for every dynamically verified
+canonical `READY_*` destination and superseded artificial tiny-cohort ceremony. The canonical
+Edge profile was `READY_TO_ATTACH` on CDP 9223. The governed upstream pool contained three
+inputs and three clusters: one formerly eligible Treasury candidate and two rejected
+candidates. The live production preparation generated one 1,147-word draft, three governed
+visuals, and nine platform packages through 9Router, then correctly made one autonomous
+no-publication decision. Freshness measured the market/headline evidence at about 610 hours
+old and the latest ingest at about 588 hours old; semantic review returned `NEEDS_REVISION`.
+No publishing adapter was called, no live write was attempted, and no unknown write existed.
+
+Exact owner scope is no longer the current blocker. The next product blocker is a fresh,
+publication-authorized Capital Chronicle packet that passes freshness and substantive
+semantic review. Re-run the same canonical entrypoint when that packet exists; do not create
+another authorization ceremony or weaken the gates.
+
+Exact next product action:
+
+`REFRESH_GOVERNED_CAPITAL_CHRONICLE_PUBLICATION_EVIDENCE_AND_RERUN_CANONICAL_CYCLE`
 
 ### Current 9router runtime authority
 

@@ -1,0 +1,12 @@
+{
+  "headlines": [
+    {
+      "headline_id": "ust-curve-headline-2026-07-13",
+      "public_claim_allowed": true,
+      "published_at_utc": "2026-07-13T00:00:00Z",
+      "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+      "title": "U.S. Treasury Curve Steepens as 30-Year Yield Reaches 5.10%"
+    }
+  ],
+  "packet_id": "cc-evidence-bde0048ee1ebe31f"
+}

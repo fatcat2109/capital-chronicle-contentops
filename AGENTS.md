@@ -99,6 +99,19 @@ Tier-2 authority docs:
 
 Historical supervised evidence remains valid. Mandatory human approval is not the universal product default.
 
+Owner direction recorded on 2026-08-07 removes any artificial one-, two-, or three-post
+cohort cap. Live scope is resolved dynamically from the canonical registry, non-secret
+binding capability, and verified account identity. Only `READY_AUTHENTICATED` and
+`READY_NON_BROWSER_BINDING` destinations may receive writes. A fully autonomous
+no-publication result remains correct when evidence, freshness, editorial, permission, or
+portfolio gates block every candidate; do not weaken those gates to manufacture a post.
+
+The first owner-authorized Work F execution reached article/media/platform-package creation
+but correctly stopped before dispatch because the governed market packet was stale and the
+9Router adversarial review returned `NEEDS_REVISION`. Exact owner live scope is therefore no
+longer the blocker. The next product blocker is a fresh governed Capital Chronicle
+publication packet that passes the same canonical gates.
+
 ## 6. Canonical Tier-1 surfaces
 
 - backend: `live_contentops/`
@@ -130,15 +143,16 @@ Work E launch-readiness:
 
 The accelerated logical soak is not calendar-time live reliability and does not claim full-suite or CI PASS.
 
-## 8. Current product task
+## 8. Latest Work F task
 
-`TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1`
+`TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
 
 Status:
 
-`READY_REQUIRES_EXACT_OWNER_LIVE_SCOPE`
+`EXECUTED_AUTONOMOUS_NO_PUBLICATION_WITH_CAVEAT`
 
-Work F must not execute without exact owner-authorized live destinations/accounts/public-write scope.
+Owner live scope is recorded and dynamically limited to verified canonical `READY_*`
+destinations. The current blocker is fresh governed publication evidence, not authorization.
 
 ## 9. Current router/model runtime authority
 
@@ -181,7 +195,8 @@ transformation is authorized and is not model substitution.
 ## 10. Current Tier-1 build sequence
 
 ```text
-Work F exact authorized live cohort   [CURRENT]
+Work F canonical cycle: autonomous no-publication with caveat   [EXECUTED]
+→ refresh governed Capital Chronicle publication evidence and rerun canonical cycle
 → major final Tier-1 UI/UX rebuild using real live states
 → Work Package G final full-automation prelaunch run
 → Tier-1 final acceptance + new release identity
@@ -298,8 +313,8 @@ Do not stop for unrelated dirty files, absent CI, stale historical docs, mechani
 Do not start Tier-2.
 
 ```text
-obtain exact owner live scope
-→ TASK_CONTENTOPS_EXACT_AUTHORIZED_LIVE_COHORT_V1
+refresh governed Capital Chronicle publication evidence
+→ rerun TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1 through the same canonical entrypoint
 ```
 
 After Work F, continue Section 10 through Tier-1 final acceptance/freeze. Only then begin Tier-2.
