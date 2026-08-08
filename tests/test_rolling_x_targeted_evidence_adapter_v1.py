@@ -3,11 +3,15 @@ from __future__ import annotations
 from copy import deepcopy
 
 from live_contentops.newsroom_assignment_scheduler_v1 import _logical_hash
+from live_contentops.official_primary_evidence_loader_v1 import (
+    BoundedOfficialPrimaryEvidenceLoader,
+)
 from live_contentops.rolling_x_targeted_evidence_adapter_v1 import (
     RollingXTargetedEvidenceAdapter,
 )
 from live_contentops.source_capability_registry_v2 import (
     load_source_capability_registry,
+    resolve_story_capabilities,
 )
 
 AS_OF = "2026-08-08T12:00:00Z"
@@ -18,30 +22,38 @@ def _request(
     cluster_id="cluster-1",
     headline_ids=None,
     story_type="market_move",
+    article_mode=None,
     required=None,
     families=None,
 ):
     registry = load_source_capability_registry()
     row = registry["story_types"][story_type]
+    capability = resolve_story_capabilities(
+        {
+            "story_type": story_type,
+            **({"article_mode": article_mode} if article_mode else {}),
+        },
+        registry,
+    )
     request = {
         "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
         "cluster_id": cluster_id,
         "rank": 1,
         "headline_ids": headline_ids or ["headline-1"],
         "story_type": story_type,
-        "article_mode": row.get("article_mode") or "straight_news",
+        "article_mode": capability.get("article_mode") or "straight_news",
         "needed_evidence": ["official record"],
         "required_evidence_capabilities": list(
-            required or row["required_evidence_capabilities"]
+            required or capability["required_evidence_capabilities"]
         ),
         "source_adapter_families": list(
-            families or row["source_adapter_families"]
+            families or capability["source_adapter_families"]
         ),
-        "freshness_policy": row["freshness_policy"],
-        "market_sensitive": bool(row.get("market_context_required")),
-        "market_snapshot_required": bool(row.get("market_context_required")),
+        "freshness_policy": capability["freshness_policy"],
+        "market_sensitive": bool(capability.get("market_sensitive")),
+        "market_snapshot_required": bool(capability.get("market_snapshot_required")),
         "capital_chronicle_numeric_or_analytical_authority_required": bool(
-            row.get("market_context_required")
+            capability.get("capital_chronicle_authority_required")
         ),
         "x_content_is_discovery_and_ranking_only": True,
     }
@@ -261,6 +273,14 @@ def test_official_evidence_cannot_substitute_for_market_authority():
     assert "capital_chronicle_evidence_root_not_bound" in receipt["blockers"]
 
 
+def test_default_adapter_binds_bounded_official_primary_loader():
+    adapter = RollingXTargetedEvidenceAdapter(evaluation_as_of_utc=AS_OF)
+
+    assert isinstance(
+        adapter._official_evidence_loader, BoundedOfficialPrimaryEvidenceLoader
+    )
+
+
 def test_stale_official_primary_evidence_fails_closed():
     registry = deepcopy(load_source_capability_registry())
     registry["story_types"]["regulatory_fiscal_event"] = {
@@ -294,3 +314,60 @@ def test_stale_official_primary_evidence_fails_closed():
 
     assert receipt["status"] == "BLOCKED"
     assert "official_evidence_document_0_stale_or_future" in receipt["blockers"]
+
+
+def test_straight_news_company_and_data_official_packets_need_no_cc_authority():
+    for story_type in ("company_sector_event", "data_release"):
+        request = _request(story_type=story_type, article_mode="straight_news")
+        packet = _packet(request)
+        packet["status"] = "PASS"
+        packet["provided_evidence_capabilities"] = list(
+            request["required_evidence_capabilities"]
+        )
+        adapter = RollingXTargetedEvidenceAdapter(
+            official_evidence_loader=lambda _request, value=packet: value,
+            evaluation_as_of_utc=AS_OF,
+        )
+
+        receipt = adapter(request)
+
+        assert receipt["status"] == "PASS"
+        assert receipt["capital_chronicle_authority_verified"] is False
+        assert request["capital_chronicle_numeric_or_analytical_authority_required"] is False
+
+
+def test_company_analysis_cannot_pass_on_official_facts_alone():
+    request = _request(story_type="company_sector_event", article_mode="analysis")
+    packet = _packet(request)
+    packet["status"] = "PASS"
+    adapter = RollingXTargetedEvidenceAdapter(
+        official_evidence_loader=lambda _request: packet,
+        evaluation_as_of_utc=AS_OF,
+    )
+
+    receipt = adapter(request)
+
+    assert receipt["status"] == "BLOCKED"
+    assert request["capital_chronicle_numeric_or_analytical_authority_required"] is True
+    assert "capital_chronicle_evidence_root_not_bound" in receipt["blockers"]
+
+
+def test_llm_labeled_document_cannot_satisfy_official_primary_evidence():
+    request = _request(
+        story_type="regulatory_fiscal_event", article_mode="straight_news"
+    )
+    packet = _packet(request)
+    packet["status"] = "PASS"
+    packet["provided_evidence_capabilities"] = list(
+        request["required_evidence_capabilities"]
+    )
+    packet["official_source_documents"][0]["source_authority_class"] = (
+        "llm_generated_text"
+    )
+    receipt = RollingXTargetedEvidenceAdapter(
+        official_evidence_loader=lambda _request: packet,
+        evaluation_as_of_utc=AS_OF,
+    )(request)
+
+    assert receipt["status"] == "BLOCKED"
+    assert any("official_primary_source_authority" in row for row in receipt["blockers"])

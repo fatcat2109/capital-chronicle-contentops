@@ -2755,6 +2755,124 @@ def _default_rolling_x_evidence_acquirer(
     )
 
 
+def _rolling_x_ranked_clusters_with_context(
+    *, assignment: Mapping[str, Any], intake: Mapping[str, Any]
+) -> list[dict[str, Any]]:
+    """Attach deterministic discovery context without changing frozen assignment bytes."""
+    leaf_by_id = {
+        str(row.get("leaf_cluster_id") or ""): row
+        for row in (assignment.get("leaf_clusters") or [])
+        if isinstance(row, Mapping) and row.get("leaf_cluster_id")
+    }
+    headline_by_id = {
+        str(row.get("headline_id") or ""): row
+        for row in (intake.get("headlines") or [])
+        if isinstance(row, Mapping) and row.get("headline_id")
+    }
+    enriched: list[dict[str, Any]] = []
+    for raw in assignment.get("ranked_clusters") or []:
+        if not isinstance(raw, Mapping):
+            raise ValueError("rolling_x_ranked_cluster_not_object")
+        cluster = dict(raw)
+        leaves = [
+            leaf_by_id[leaf_id]
+            for leaf_id in [str(value) for value in (cluster.get("leaf_cluster_ids") or [])]
+            if leaf_id in leaf_by_id
+        ]
+        summaries: list[str] = []
+        entities_topics: list[str] = []
+        for leaf in leaves:
+            summary = str(leaf.get("event_topic_summary") or "").strip()
+            if summary and summary not in summaries:
+                summaries.append(summary)
+            for value in [*(leaf.get("entities") or []), *(leaf.get("topics") or [])]:
+                text = str(value).strip()
+                if text and text not in entities_topics:
+                    entities_topics.append(text)
+        official_urls: list[str] = []
+        official_url_bindings: list[dict[str, str]] = []
+        for headline_id in cluster.get("headline_ids") or []:
+            external = (headline_by_id.get(str(headline_id)) or {}).get("external_content") or {}
+            for value in [
+                *(external.get("official_source_urls") or []),
+                external.get("url_or_source_ref"),
+                *re.findall(r"https://[^\s)]+", str(external.get("headline_text") or "")),
+            ]:
+                url = str(value or "").rstrip(".,;:!?")
+                if url and "x.com/" not in url and "t.co/" not in url and url not in official_urls:
+                    official_urls.append(url)
+                    official_url_bindings.append({
+                        "url": url,
+                        "headline_id": str(headline_id),
+                    })
+        cluster["leaf_summaries"] = summaries
+        cluster["entities_topics"] = entities_topics
+        cluster["official_source_urls"] = official_urls
+        cluster["official_source_url_bindings"] = official_url_bindings
+        enriched.append(cluster)
+    return enriched
+
+
+def _validate_injected_rolling_x_story_types(
+    mapping: Mapping[str, str], *, clusters: Sequence[Mapping[str, Any]]
+) -> dict[str, Any]:
+    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
+
+    cluster_ids = [str(row.get("cluster_id") or "") for row in clusters]
+    configured = {str(key): str(value) for key, value in mapping.items()}
+    if set(configured) != set(cluster_ids) or len(cluster_ids) != len(set(cluster_ids)):
+        raise ValueError("rolling_x_story_type_mapping_coverage_invalid")
+    allowed = set((load_source_capability_registry().get("story_types") or {}))
+    if any(value not in allowed for value in configured.values()):
+        raise ValueError("rolling_x_story_type_unknown")
+    return {
+        "stories": [
+            {
+                "cluster_id": cluster_id,
+                "story_type": configured[cluster_id],
+                "reason": "Focused compatibility injection.",
+            }
+            for cluster_id in cluster_ids
+        ],
+        "story_type_by_cluster": configured,
+        "router_summary": None,
+        "semantic_routing_grants_authority": False,
+        "compatibility_injection_used": True,
+    }
+
+
+def _validated_rolling_x_story_routing(
+    result: Mapping[str, Any], *, clusters: Sequence[Mapping[str, Any]]
+) -> dict[str, Any]:
+    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
+
+    cluster_ids = [str(row.get("cluster_id") or "") for row in clusters]
+    allowed = set((load_source_capability_registry().get("story_types") or {}))
+    rows = result.get("stories")
+    mapping = result.get("story_type_by_cluster")
+    if (
+        not isinstance(rows, list)
+        or not isinstance(mapping, Mapping)
+        or result.get("semantic_routing_grants_authority") is not False
+    ):
+        raise ValueError("rolling_x_story_type_routing_result_invalid")
+    seen: set[str] = set()
+    normalized_mapping = {str(key): str(value) for key, value in mapping.items()}
+    for row in rows:
+        if not isinstance(row, Mapping):
+            raise ValueError("rolling_x_story_type_routing_result_invalid")
+        cluster_id = str(row.get("cluster_id") or "")
+        story_type = str(row.get("story_type") or "")
+        if cluster_id not in cluster_ids or cluster_id in seen:
+            raise ValueError("rolling_x_story_type_routing_id_invalid")
+        if story_type not in allowed or normalized_mapping.get(cluster_id) != story_type:
+            raise ValueError("rolling_x_story_type_routing_value_invalid")
+        seen.add(cluster_id)
+    if seen != set(cluster_ids) or set(normalized_mapping) != set(cluster_ids):
+        raise ValueError("rolling_x_story_type_routing_coverage_invalid")
+    return {**dict(result), "story_type_by_cluster": normalized_mapping}
+
+
 def _run_rolling_x_newsroom_cycle(
     *,
     run_id: str,
@@ -2771,6 +2889,9 @@ def _run_rolling_x_newsroom_cycle(
     capital_chronicle_root: str | Path | None = None,
     evidence_acquirer: Any = None,
     story_type_by_cluster: Mapping[str, str] | None = None,
+    story_type_classifier: Any = None,
+    story_type_provider_call: Any = None,
+    story_type_timeout_seconds: float = 300.0,
     article_builder: Any = None,
     editorial_reviewer: Any = None,
     article_reviser: Any = None,
@@ -2779,6 +2900,7 @@ def _run_rolling_x_newsroom_cycle(
     """Run the rolling-X route through the one canonical production boundary."""
     from live_contentops.newsroom_assignment_scheduler_v1 import (
         assign_rolling_x_headlines_with_nine_router,
+        classify_rolling_x_story_types_with_nine_router,
         load_rolling_x_headline_sidecars,
         select_first_viable_rolling_x_cluster,
     )
@@ -2808,7 +2930,53 @@ def _run_rolling_x_newsroom_cycle(
         global_checkpoint=global_checkpoint,
     )
     _write_json(output_dir / "rolling_x_assignment_v1.json", assignment)
-    if assignment.get("status") not in {"SUCCESS", "NO_PUBLICATION"}:
+    story_routing: Mapping[str, Any] | None = None
+    ranked_assignment = assignment
+    if (
+        assignment.get("status") == "SUCCESS"
+        and assignment.get("decision") == "SELECT_STORY"
+        and assignment.get("ranked_clusters")
+    ):
+        enriched_clusters = _rolling_x_ranked_clusters_with_context(
+            assignment=assignment, intake=intake
+        )
+        ranked_assignment = {**assignment, "ranked_clusters": enriched_clusters}
+        try:
+            if story_type_by_cluster is not None:
+                raw_story_routing = _validate_injected_rolling_x_story_types(
+                    story_type_by_cluster, clusters=enriched_clusters
+                )
+            else:
+                classifier = (
+                    story_type_classifier
+                    if callable(story_type_classifier)
+                    else classify_rolling_x_story_types_with_nine_router
+                )
+                raw_story_routing = classifier(
+                    clusters=enriched_clusters,
+                    provider_call=story_type_provider_call,
+                    timeout_seconds=story_type_timeout_seconds,
+                )
+            story_routing = _validated_rolling_x_story_routing(
+                raw_story_routing, clusters=enriched_clusters
+            )
+            story_type_by_cluster = dict(story_routing["story_type_by_cluster"])
+        except (RuntimeError, TypeError, ValueError):
+            story_routing = {
+                "status": "BLOCKED",
+                "reason_code": "STORY_TYPE_CLASSIFICATION_BLOCKED",
+                "story_type_by_cluster": {},
+                "semantic_routing_grants_authority": False,
+            }
+        _write_json(output_dir / "rolling_x_story_routing_v1.json", story_routing)
+    if story_routing is not None and story_routing.get("status") == "BLOCKED":
+        viability = {
+            "status": "BLOCKED",
+            "decision": None,
+            "reason_code": "STORY_TYPE_CLASSIFICATION_BLOCKED",
+            "rank_attempts": [],
+        }
+    elif assignment.get("status") not in {"SUCCESS", "NO_PUBLICATION"}:
         viability = {
             "status": "BLOCKED",
             "decision": None,
@@ -2819,11 +2987,12 @@ def _run_rolling_x_newsroom_cycle(
         }
     else:
         viability = select_first_viable_rolling_x_cluster(
-            assignment=assignment,
+            assignment=ranked_assignment,
             acquire_evidence=(
                 evidence_acquirer
                 or _default_rolling_x_evidence_acquirer(
                     capital_chronicle_root=capital_chronicle_root,
+                    evaluation_as_of_utc=cutoff_utc,
                 )
             ),
             story_type_by_cluster=story_type_by_cluster,
@@ -2838,6 +3007,7 @@ def _run_rolling_x_newsroom_cycle(
         "operating_mode": "AUTONOMOUS_DEFAULT",
         "intake": intake,
         "assignment": assignment,
+        "story_routing": story_routing,
         "ranked_viability": viability,
         "public_write_performed": False,
         "publishing_adapter_called": False,

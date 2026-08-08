@@ -271,6 +271,45 @@ def test_market_sensitivity_and_snapshot_requirement_are_independent():
     assert decision["market_snapshot_required"] is False
 
 
+def test_launch_story_profiles_resolve_by_story_type_and_article_mode():
+    registry = load_source_capability_registry()
+    regulatory = resolve_story_capabilities(
+        {"story_type": "regulatory_fiscal_event", "article_mode": "straight_news"},
+        registry,
+    )
+    company_news = resolve_story_capabilities(
+        {"story_type": "company_sector_event", "article_mode": "straight_news"},
+        registry,
+    )
+    company_analysis = resolve_story_capabilities(
+        {"story_type": "company_sector_event", "article_mode": "analysis"},
+        registry,
+    )
+    data_news = resolve_story_capabilities(
+        {"story_type": "data_release", "article_mode": "straight_news"},
+        registry,
+    )
+    data_analysis = resolve_story_capabilities(
+        {"story_type": "data_release", "article_mode": "analysis"}, registry
+    )
+
+    assert regulatory["required_evidence_capabilities"] == [
+        "official_document", "implementation_timeline", "affected_entities"
+    ]
+    assert regulatory["capital_chronicle_authority_required"] is False
+    assert company_news["source_adapter_families"] == [
+        "company_primary", "sec_regulatory"
+    ]
+    assert company_news["market_sensitive"] is True
+    assert company_news["market_snapshot_required"] is False
+    assert company_news["capital_chronicle_authority_required"] is False
+    assert company_analysis["capital_chronicle_authority_required"] is True
+    assert "governed_analytical_context" in company_analysis["required_evidence_capabilities"]
+    assert data_news["capital_chronicle_authority_required"] is False
+    assert data_news["source_adapter_families"] == ["official_macro"]
+    assert data_analysis["capital_chronicle_authority_required"] is True
+
+
 @pytest.mark.parametrize(
     ("source_family_id", "story_type", "market_snapshot_required"),
     [

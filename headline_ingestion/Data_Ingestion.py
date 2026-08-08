@@ -247,6 +247,7 @@ def _tweet_sidecar_metadata(tweet):
         "created_at_raw": None,
         "is_retweet": False,
         "is_quote_like": False,
+        "linked_urls": [],
     }
     if isinstance(tweet, dict):
         metadata.update({key: tweet.get(key, metadata[key]) for key in metadata})
@@ -334,6 +335,13 @@ def recursive_tweet_extractor(obj):
                     author_handle = found_handle
                 legacy = obj['legacy']
                 text = _normalize_headline_text(legacy.get('full_text', ''))
+                linked_urls = []
+                for row in (legacy.get('entities') or {}).get('urls') or []:
+                    if not isinstance(row, dict):
+                        continue
+                    url = str(row.get('unwound_url') or row.get('expanded_url') or '').strip()
+                    if url and url not in linked_urls:
+                        linked_urls.append(url)
                 if author_handle == "unknown":
                     match = re.search(r"^RT @(\w+):", text)
                     if match: author_handle = match.group(1)
@@ -348,6 +356,7 @@ def recursive_tweet_extractor(obj):
                         "created_at_raw": legacy.get('created_at'),
                         "is_retweet": text.startswith("RT @"),
                         "is_quote_like": "https://t.co/" in text,
+                        "linked_urls": linked_urls,
                     })
             except Exception: pass
         for key, value in obj.items(): tweets.extend(recursive_tweet_extractor(value))

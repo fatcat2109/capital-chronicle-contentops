@@ -362,6 +362,11 @@ def load_rolling_x_headline_sidecars(
                     "url_or_source_ref": _first_external_text(row, ("tweet_url", "source_url_or_ref", "url")),
                     "tags": _rolling_x_tags(row, ("tags", "topic_tags", "candidate_catalyst_tags")),
                     "follow_up_data_need_candidates": _rolling_x_tags(row, ("follow_up_data_need_candidates",)),
+                    "official_source_urls": [
+                        str(value).strip()
+                        for value in (row.get("linked_urls") or [])
+                        if str(value).strip()
+                    ],
                 },
                 "authority_constraints": {
                     "discovery_and_ranking_only": True,
@@ -502,6 +507,7 @@ def _rolling_x_assignment_records(rolling_input: Mapping[str, Any]) -> list[dict
                 "follow_up_data_need_candidates": list(
                     external.get("follow_up_data_need_candidates") or []
                 ),
+                "official_source_urls": list(external.get("official_source_urls") or []),
             },
             "authority_constraints": {
                 "discovery_and_ranking_only": True,
@@ -1866,7 +1872,7 @@ def select_first_viable_rolling_x_cluster(
             capability_registry=registry,
         )
         story_capability_row = (registry.get("story_types") or {}).get(story_type) or {}
-        requested_mode = str(story_capability_row.get("article_mode") or "") or {
+        routed_mode = {
             "breaking": "straight_news",
             "news_analysis": "analysis",
             "explainer": "explainer",
@@ -1874,6 +1880,11 @@ def select_first_viable_rolling_x_cluster(
             "research_note": "deep_analysis",
             "scenario_outlook": "scenario_outlook",
         }.get(str(cluster.get("article_mode") or ""), "")
+        requested_mode = (
+            routed_mode
+            if story_capability_row.get("article_mode_profiles")
+            else str(story_capability_row.get("article_mode") or "") or routed_mode
+        )
         capability = resolve_story_capabilities(
             {"story_type": story_type, "article_mode": requested_mode},
             registry,
@@ -1895,8 +1906,19 @@ def select_first_viable_rolling_x_cluster(
             "market_sensitive": bool(cluster.get("market_sensitive")),
             "market_snapshot_required": bool(capability.get("market_snapshot_required")),
             "capital_chronicle_numeric_or_analytical_authority_required": bool(
-                capability.get("market_context_required")
+                capability.get("capital_chronicle_authority_required")
             ),
+            "story_context": {
+                "why_now": cluster.get("why_now"),
+                "selection_case": cluster.get("selection_case"),
+                "seo_intent": cluster.get("seo_intent"),
+                "leaf_summaries": list(cluster.get("leaf_summaries") or []),
+                "entities_topics": list(cluster.get("entities_topics") or []),
+                "official_source_urls": list(cluster.get("official_source_urls") or []),
+                "official_source_url_bindings": list(
+                    cluster.get("official_source_url_bindings") or []
+                ),
+            },
             "x_content_is_discovery_and_ranking_only": True,
         }
         request["request_logical_hash"] = _logical_hash(request)

@@ -72,6 +72,7 @@ def _document_receipts(
     request: Mapping[str, Any],
     *,
     freshness_state: str,
+    official_primary_required: bool = False,
 ) -> tuple[list[dict[str, Any]], list[str]]:
     documents: list[dict[str, Any]] = []
     blockers: list[str] = []
@@ -110,6 +111,10 @@ def _document_receipts(
             missing.append("source_identity")
         if not authority_class:
             missing.append("source_authority_class")
+        elif official_primary_required and (
+            authority_class != "official_public_primary_source"
+        ):
+            missing.append("official_primary_source_authority")
         if not known_at:
             missing.append("known_at_utc")
         if not content_hash:
@@ -210,6 +215,14 @@ class RollingXTargetedEvidenceAdapter:
         self._root = Path(capital_chronicle_root) if capital_chronicle_root else None
         self._evaluation_as_of_utc = evaluation_as_of_utc or _utc_now()
         self._packet_loader = packet_loader
+        if official_evidence_loader is None:
+            from live_contentops.official_primary_evidence_loader_v1 import (
+                BoundedOfficialPrimaryEvidenceLoader,
+            )
+
+            official_evidence_loader = BoundedOfficialPrimaryEvidenceLoader(
+                evaluation_as_of_utc=self._evaluation_as_of_utc
+            )
         self._official_evidence_loader = official_evidence_loader
         self._registry = dict(
             capability_registry or load_source_capability_registry()
@@ -285,10 +298,6 @@ class RollingXTargetedEvidenceAdapter:
         families = set(capability.get("source_adapter_families") or [])
         cc_families = {"capital_chronicle_market_state", "capital_chronicle_database"}
         if not families.intersection(cc_families):
-            if self._official_evidence_loader is None:
-                return _blocked_receipt(
-                    request, ["official_source_evidence_loader_unavailable"]
-                )
             try:
                 official = self._official_evidence_loader(request)
             except (FileNotFoundError, RuntimeError, ValueError, OSError) as exc:
@@ -300,7 +309,10 @@ class RollingXTargetedEvidenceAdapter:
             packet = dict(official)
             blockers.extend(_exact_binding_blockers(packet, request))
             documents, document_blockers = _document_receipts(
-                packet, request, freshness_state="FRESH_CURRENT_OPERATOR_READINESS"
+                packet,
+                request,
+                freshness_state="FRESH_CURRENT_OPERATOR_READINESS",
+                official_primary_required=True,
             )
             blockers.extend(document_blockers)
             freshness_requirements = capability.get("freshness_requirements") or {}

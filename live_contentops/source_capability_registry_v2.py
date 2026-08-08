@@ -58,38 +58,72 @@ def resolve_story_capabilities(request: Mapping[str, Any], registry: Mapping[str
             "source_family_id": source_family_id,
             "blockers": ["unsupported_story_type"],
         }
-    configured_mode = str(row.get("article_mode") or "")
     requested_mode = str(request.get("article_mode") or "")
     mode_blockers: list[str] = []
     if requested_mode and requested_mode not in VALID_ARTICLE_MODES:
         mode_blockers.append("caller_article_mode_invalid")
+    base_configured_mode = str(row.get("article_mode") or "")
+    mode_profiles = row.get("article_mode_profiles") or {}
+    if not isinstance(mode_profiles, Mapping):
+        mode_blockers.append("registry_article_mode_profiles_invalid")
+        mode_profiles = {}
+    resolved_row = dict(row)
+    mode_profile_used = False
+    if requested_mode and mode_profiles:
+        profile = mode_profiles.get(requested_mode)
+        if not isinstance(profile, Mapping) and requested_mode != base_configured_mode:
+            mode_blockers.append("article_mode_unsupported_for_story_type")
+        elif isinstance(profile, Mapping):
+            resolved_row.update(profile)
+            resolved_row["article_mode"] = requested_mode
+            mode_profile_used = True
+    configured_mode = str(resolved_row.get("article_mode") or "")
     if configured_mode and configured_mode not in VALID_ARTICLE_MODES:
         mode_blockers.append("registry_article_mode_invalid")
-    if configured_mode and requested_mode and requested_mode != configured_mode:
+    if (
+        configured_mode
+        and requested_mode
+        and requested_mode != configured_mode
+        and not mode_profile_used
+    ):
         mode_blockers.append("article_mode_mismatch_with_capability")
     effective_mode = configured_mode or requested_mode
     if not effective_mode:
         mode_blockers.append("article_mode_unresolved")
+    market_context_required = bool(resolved_row.get("market_context_required"))
+    capital_chronicle_authority_required = bool(
+        resolved_row.get(
+            "capital_chronicle_authority_required", market_context_required
+        )
+    )
     return {
         "status": "PASS" if not mode_blockers else "BLOCK",
         "story_type": story_type,
         "source_family_id": source_family_id,
-        "required_evidence_capabilities": list(row.get("required_evidence_capabilities") or []),
-        "market_context_required": bool(row.get("market_context_required")),
+        "required_evidence_capabilities": list(resolved_row.get("required_evidence_capabilities") or []),
+        "market_context_required": market_context_required,
+        "capital_chronicle_authority_required": capital_chronicle_authority_required,
         "market_sensitive": bool(
-            row.get("market_sensitive", row.get("market_snapshot_required", row.get("market_context_required")))
+            resolved_row.get(
+                "market_sensitive",
+                resolved_row.get("market_snapshot_required", market_context_required),
+            )
         ),
         "market_snapshot_required": bool(
-            row.get("market_snapshot_required", row.get("market_context_required"))
+            resolved_row.get("market_snapshot_required", market_context_required)
         ),
         "article_mode": effective_mode,
-        "article_mode_source": "registry" if configured_mode else ("caller" if requested_mode else "unresolved"),
-        "freshness_policy": row.get("freshness_policy"),
-        "freshness_requirements": dict(row.get("freshness_requirements") or {}),
-        "visual_roles": list(row.get("visual_roles") or []),
-        "visual_policy": row.get("visual_policy", "long_form_article"),
-        "visual_requirements": dict(row.get("visual_requirements") or {}),
-        "source_adapter_families": list(row.get("source_adapter_families") or []),
+        "article_mode_source": (
+            "story_type_article_mode_profile"
+            if mode_profile_used
+            else "registry" if configured_mode else "caller" if requested_mode else "unresolved"
+        ),
+        "freshness_policy": resolved_row.get("freshness_policy"),
+        "freshness_requirements": dict(resolved_row.get("freshness_requirements") or {}),
+        "visual_roles": list(resolved_row.get("visual_roles") or []),
+        "visual_policy": resolved_row.get("visual_policy", "long_form_article"),
+        "visual_requirements": dict(resolved_row.get("visual_requirements") or {}),
+        "source_adapter_families": list(resolved_row.get("source_adapter_families") or []),
         "blockers": mode_blockers,
     }
 

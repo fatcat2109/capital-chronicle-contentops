@@ -31,6 +31,24 @@ def _semantic(decision):
     }
 
 
+def _story_routing(clusters, story_type="regulatory_fiscal_event", **_kwargs):
+    return {
+        "stories": [
+            {
+                "cluster_id": row["cluster_id"],
+                "story_type": story_type,
+                "reason": "Exact focused test routing.",
+            }
+            for row in clusters
+        ],
+        "story_type_by_cluster": {
+            row["cluster_id"]: story_type for row in clusters
+        },
+        "router_summary": {"terminal_disposition": "accepted"},
+        "semantic_routing_grants_authority": False,
+    }
+
+
 def test_bounded_editorial_cycle_immediate_pass(monkeypatch):
     monkeypatch.setattr(
         "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
@@ -115,6 +133,7 @@ def test_canonical_cycle_stops_before_generation_when_ranked_evidence_blocks(mon
         run_id="proof",
         output_dir=tmp_path,
         cutoff_utc="2026-08-08T00:00:00Z",
+        story_type_classifier=_story_routing,
         publication_enabled=False,
     )
     assert result["classification"] == "NO_PUBLICATION"
@@ -536,6 +555,7 @@ def test_default_cycle_uses_real_targeted_evidence_adapter(monkeypatch, tmp_path
         output_dir=tmp_path,
         cutoff_utc="2026-08-08T00:00:00Z",
         capital_chronicle_root=Path("read-only-cc-root"),
+        story_type_classifier=_story_routing,
         publication_enabled=False,
     )
 
@@ -543,6 +563,117 @@ def test_default_cycle_uses_real_targeted_evidence_adapter(monkeypatch, tmp_path
     assert seen[0][1]["capital_chronicle_root"] == Path("read-only-cc-root")
     assert result["classification"] == "NO_PUBLICATION"
     assert result["ranked_viability"]["rank_attempts"][0]["blockers"]
+
+
+def test_canonical_cycle_classifies_accepted_shortlist_once_without_external_mapping(
+    monkeypatch, tmp_path: Path
+):
+    intake = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "counts": {"accepted": 2},
+        "headlines": [],
+    }
+    clusters = [
+        {"cluster_id": "c1", "rank": 1, "headline_ids": ["h1"], "article_mode": "breaking"},
+        {"cluster_id": "c2", "rank": 2, "headline_ids": ["h2"], "article_mode": "breaking"},
+    ]
+    assignment = {
+        "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+        "status": "SUCCESS",
+        "decision": "SELECT_STORY",
+        "ranked_clusters": clusters,
+    }
+    classifier_calls = []
+    viability_calls = []
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        lambda **kwargs: assignment,
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.select_first_viable_rolling_x_cluster",
+        lambda **kwargs: viability_calls.append(kwargs) or {
+            "status": "NO_PUBLICATION",
+            "reason_code": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+        },
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="automatic-story-routing",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-08T00:00:00Z",
+        rolling_input=intake,
+        story_type_classifier=lambda **kwargs: classifier_calls.append(kwargs)
+        or _story_routing(kwargs["clusters"]),
+        evidence_acquirer=lambda request: (_ for _ in ()).throw(
+            AssertionError("patched viability owns this focused seam")
+        ),
+        publication_enabled=False,
+    )
+
+    assert result["classification"] == "NO_PUBLICATION"
+    assert len(classifier_calls) == 1
+    assert [row["cluster_id"] for row in classifier_calls[0]["clusters"]] == ["c1", "c2"]
+    assert viability_calls[0]["story_type_by_cluster"] == {
+        "c1": "regulatory_fiscal_event",
+        "c2": "regulatory_fiscal_event",
+    }
+    assert result["story_routing"]["semantic_routing_grants_authority"] is False
+    assert (tmp_path / "rolling_x_story_routing_v1.json").is_file()
+
+
+def test_canonical_cycle_fails_closed_on_unknown_or_duplicate_classifier_ids(
+    monkeypatch, tmp_path: Path
+):
+    assignment = {
+        "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+        "status": "SUCCESS",
+        "decision": "SELECT_STORY",
+        "ranked_clusters": [
+            {"cluster_id": "c1", "rank": 1, "headline_ids": ["h1"], "article_mode": "breaking"},
+            {"cluster_id": "c2", "rank": 2, "headline_ids": ["h2"], "article_mode": "breaking"},
+        ],
+    }
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        lambda **kwargs: assignment,
+    )
+    for label, stories, mapping in (
+        (
+            "unknown",
+            [
+                {"cluster_id": "c1", "story_type": "regulatory_fiscal_event"},
+                {"cluster_id": "unknown", "story_type": "regulatory_fiscal_event"},
+            ],
+            {"c1": "regulatory_fiscal_event", "unknown": "regulatory_fiscal_event"},
+        ),
+        (
+            "duplicate",
+            [
+                {"cluster_id": "c1", "story_type": "regulatory_fiscal_event"},
+                {"cluster_id": "c1", "story_type": "regulatory_fiscal_event"},
+            ],
+            {"c1": "regulatory_fiscal_event", "c2": "regulatory_fiscal_event"},
+        ),
+    ):
+        output = tmp_path / label
+        result = implementation._run_rolling_x_newsroom_cycle(
+            run_id=f"classifier-{label}",
+            output_dir=output,
+            cutoff_utc="2026-08-08T00:00:00Z",
+            rolling_input={"schema_version": "capital_chronicle.rolling_x_headline_input.v1", "headlines": []},
+            story_type_classifier=lambda **_kwargs: {
+                "stories": stories,
+                "story_type_by_cluster": mapping,
+                "semantic_routing_grants_authority": False,
+            },
+            evidence_acquirer=lambda request: (_ for _ in ()).throw(
+                AssertionError("invalid classifier output must stop before evidence")
+            ),
+            publication_enabled=False,
+        )
+        assert result["classification"] == "BLOCKED"
+        assert result["exact_next_blocker"] == "STORY_TYPE_CLASSIFICATION_BLOCKED"
+        assert result["ranked_viability"]["rank_attempts"] == []
 
 
 def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
