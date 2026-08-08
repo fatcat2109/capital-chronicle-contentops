@@ -4,6 +4,7 @@ from pathlib import Path
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     _logical_hash,
     _rolling_x_canonical_hash_material,
+    _validate_rolling_x_leaf_output,
     assign_rolling_x_headlines_with_nine_router,
 )
 from live_contentops.nine_router_ordered_model_router_v2 import (
@@ -247,40 +248,116 @@ def test_leaf_parser_accepts_one_json_fence():
     assert result["status"] == "SUCCESS"
 
 
-def test_unknown_leaf_id_blocks_assignment_infrastructure_instead_of_editorial_no_publication():
-    rolling_input = _small_input()
+def _leaf_output(ids):
+    return json.dumps({"clusters": [{
+        "member_headline_ids": ids,
+        "event_topic_summary": "Bounded membership test.",
+        "canonical_representative_headline_id": ids[0],
+        "entities": [],
+        "topics": [],
+        "duplicate_update_chain": {
+            "relationship": "distinct",
+            "ordered_headline_ids": ids,
+        },
+        "candidate_relevance_signals": {
+            "audience_relevance": 1,
+            "evidence_prospects": 1,
+            "seo_potential": 1,
+            "qualified_engagement_potential": 1,
+            "saturation_risk": 99,
+        },
+    }]})
 
-    def injected_id_provider(prompt, model, timeout):
-        if "leaf_input:\n" in prompt:
-            return ProviderResult(
-                text=json.dumps({"clusters": [{
-                    "member_headline_ids": ["injected-id"],
-                    "event_topic_summary": "Invalid injected identity.",
-                    "canonical_representative_headline_id": "injected-id",
-                    "entities": [],
-                    "topics": [],
-                    "duplicate_update_chain": {
-                        "relationship": "distinct",
-                        "ordered_headline_ids": ["injected-id"],
-                    },
-                    "candidate_relevance_signals": {
-                        "audience_relevance": 1,
-                        "evidence_prospects": 1,
-                        "seo_potential": 1,
-                        "qualified_engagement_potential": 1,
-                        "saturation_risk": 99,
-                    },
-                }]}),
-                resolved_model="gemini-3.5-flash",
-            )
-        raise AssertionError("global editor must not run after invalid leaf coverage")
+
+def test_unknown_duplicate_and_omitted_leaf_ids_are_structured_output_failures():
+    for ids in (["h1", "unknown"], ["h1", "h1"], ["h1"]):
+        valid, failure, output = _validate_rolling_x_leaf_output(
+            _leaf_output(ids),
+            partition_id="partition-1",
+            expected_input_ids=["h1", "h2"],
+        )
+        assert valid is False
+        assert failure == "structured_output_schema_invalid"
+        assert output is None
+
+
+def test_unknown_leaf_id_gets_bounded_fallback_repair_and_repaired_output_is_exact():
+    rolling_input = _small_input()
+    calls = []
+    leaf_outputs = 0
+
+    def repaired_provider(prompt, model, timeout):
+        nonlocal leaf_outputs
+        calls.append((prompt, model))
+        if "global_editor_input:\n" in prompt:
+            return HierarchicalProvider()(prompt, model, timeout)
+        if model == NEWSROOM_LEAF_SCAN_MODEL:
+            return ProviderResult(failure_class="requested_model_temporarily_unavailable")
+        expected_ids = list(rolling_input["unique_headline_ids"])
+        leaf_outputs += 1
+        output_ids = ["injected-id"] if leaf_outputs == 1 else expected_ids
+        return ProviderResult(
+            text=_leaf_output(output_ids),
+            resolved_model=model.split("/", 1)[-1].split("(", 1)[0],
+        )
 
     result = assign_rolling_x_headlines_with_nine_router(
         rolling_input=rolling_input,
-        provider_call=injected_id_provider,
+        provider_call=repaired_provider,
+    )
+
+    assert result["status"] == "SUCCESS"
+    leaf_call = result["router_calls"][0]
+    assert leaf_call["total_structured_repair_attempts"] == 1
+    assert leaf_call["total_attempts"] == 3
+    assert [row["failure_class"] for row in leaf_call["attempts"]] == [
+        "requested_model_temporarily_unavailable",
+        "structured_output_schema_invalid",
+        None,
+    ]
+    assigned = [
+        item
+        for cluster in result["leaf_clusters"]
+        for item in cluster["member_headline_ids"]
+    ]
+    assert sorted(assigned) == sorted(rolling_input["unique_headline_ids"])
+
+
+def test_repeated_invalid_leaf_output_is_bounded_and_blocks():
+    rolling_input = _small_input()
+    calls = []
+
+    def always_invalid(prompt, model, timeout):
+        calls.append((prompt, model))
+        return ProviderResult(
+            text=_leaf_output(["injected-id"]),
+            resolved_model=model.split("/", 1)[-1].split("(", 1)[0],
+        )
+
+    result = assign_rolling_x_headlines_with_nine_router(
+        rolling_input=rolling_input,
+        provider_call=always_invalid,
     )
 
     assert result["status"] == "BLOCKED"
-    assert result["decision"] is None
-    assert result["reason_code"] == "ROLLING_X_LEAF_ASSIGNMENT_BLOCKED"
-    assert result["ranked_clusters"] == []
+    leaf_call = result["router_calls"][0]
+    assert leaf_call["total_structured_repair_attempts"] == 1
+    assert leaf_call["total_attempts"] <= 6
+    assert leaf_call["total_fallback_transitions"] <= 4
+
+
+def test_genuinely_invalid_governed_input_remains_terminal_before_provider_call():
+    rolling_input = _small_input()
+    rolling_input["headlines"][0]["headline_id"] = "mutated-governed-id"
+    calls = []
+
+    try:
+        assign_rolling_x_headlines_with_nine_router(
+            rolling_input=rolling_input,
+            provider_call=lambda *args: calls.append(args),
+        )
+    except ValueError as exc:
+        assert str(exc) == "rolling_x_input_identity_binding_invalid"
+    else:
+        raise AssertionError("invalid governed input must fail closed")
+    assert calls == []

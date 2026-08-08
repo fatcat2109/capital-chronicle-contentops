@@ -730,15 +730,9 @@ def _validate_rolling_x_leaf_output(
         normalized["leaf_result_logical_hash"] = _logical_hash(normalized)
         return True, None, normalized
     except (TypeError, ValueError):
-        if isinstance(parsed.get("clusters"), list):
-            returned_ids = {
-                str(item)
-                for row in parsed["clusters"]
-                if isinstance(row, Mapping) and isinstance(row.get("member_headline_ids"), list)
-                for item in row["member_headline_ids"]
-            }
-            if returned_ids - expected_ids:
-                return False, "malformed_business_input", None
+        # The governed partition has already passed its identity/hash validation. Unknown,
+        # duplicate, omitted, or otherwise invalid membership here is model-generated output,
+        # so keep it fail-closed while allowing the router's bounded structured repair/fallback.
         return False, "structured_output_schema_invalid", None
 
 
