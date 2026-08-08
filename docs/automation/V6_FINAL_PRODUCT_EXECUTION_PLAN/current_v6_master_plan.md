@@ -36,6 +36,13 @@ The current committed producer was probed and found only a 34.674-hour-old offic
 observation against the 24-hour gate, so fresh governed publication evidence remains the
 external blocker.
 
+Rolling-X high-volume assignment is now hierarchical. A recorded 1,024-headline replay used
+16 deterministic size-bounded partitions, achieved exact one-time coverage, produced 632
+Flash-first semantic leaf clusters, and passed a separate quality-first global edit with a
+12-item shortlist. Current sidecars contained no fresh rolling-24h headlines, so no new
+governed cycle was started. `NO_FRESH_CURRENT_HEADLINES` is an operational caveat rather
+than a capability blocker.
+
 ## 1. Authority read order
 
 1. `AGENTS.md`
@@ -167,10 +174,13 @@ The exact ordered pool is P0 `new/claude-fable-5`, P1 `new/gpt-5.6-sol-xhigh`, P
 `new/claude-opus-5`, and P3 `vx/gemini-3.1-pro-preview(high)`. Runtime continues through
 whichever authorized models remain healthy when part of the pool is unavailable.
 
-Every logical invocation shares one immutable budget: 6 total attempts, 3 fallback
+The default logical invocation shares one immutable budget: 6 total attempts, 3 fallback
 transitions, 1 same-model retry, per-model ceilings (2, 2, 1, 1), 1 structured repair, 45
-seconds cumulative retry sleep, and 300 seconds wall clock. Fallback or reconstruction never
-resets it. Fallback never bypasses gates, and silent provider substitution is rejected.
+seconds cumulative retry sleep, and 300 seconds wall clock. The compact rolling-X global
+editor walks the same quality-first four-model order once per model under a finite
+1,200-second wall budget so unavailable early models cannot prevent compatible fallback.
+Fallback or reconstruction never resets a budget. Fallback never bypasses gates, and silent
+provider substitution is rejected.
 
 Latest committed bounded no-write evidence records 4/4 `HEALTHY`, 0 unavailable, 0 identity
 mismatch, 0 identity unverifiable, and `MODEL_IDENTITY_PROVIDER_VERIFIED`. Current operator-
@@ -180,6 +190,15 @@ requiring all models to recover before bounded execution.
 For P3, the authorized identity remains `vx/gemini-3.1-pro-preview(high)` while the wire
 request uses model `vx/gemini-3.1-pro-preview` plus reasoning effort `high`; the provider-
 observed identity is `gemini-3.1-pro-preview`. This is an authorized request transformation.
+
+Role-specific routing does not change that quality-first pool. The single canonical router
+prefers `vx/gemini-3.5-flash(high)` only for `rolling_x_newsroom_leaf_scan`; one bounded
+no-write probe verified provider-observed identity `gemini-3.5-flash`. Compact leaf summaries
+plus deterministic attention metadata flow to the unchanged quality-first global editor.
+Trend and engagement affect editorial priority, never factual truth. Generic Capital
+Chronicle packets are conditional targeted-evidence inputs, not discovery prerequisites.
+Three hundred seconds is not an end-to-end newsroom quality SLA; provider invocations remain
+finite and bounded.
 
 ## 8. Canonical Tier-1 surfaces
 
@@ -291,11 +310,12 @@ Current status:
 
 Tier-2 is approved future direction but is **NOT CURRENT**.
 
-Exact next operational sequence:
+Exact next rolling-X operational sequence:
 
 ```text
-Capital Chronicle producer emits event/source/market evidence within 24h
-→ rerun Work F through the same canonical entrypoint
+fresh rolling-24h X headlines become available
+→ run one governed AUTONOMOUS_DEFAULT cycle through hierarchical assignment
 ```
 
-Then continue the Tier-1 sequence in Section 5.
+The separate Capital Chronicle producer route remains valid when fresh governed packet
+evidence exists. Then continue the Tier-1 sequence in Section 5.

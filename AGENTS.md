@@ -124,6 +124,18 @@ visual, platform adapter, public write, or unknown write occurred. Evidence is u
 only; targeted evidence is acquired only after accepted ranking, and a generic Capital
 Chronicle packet is not a discovery prerequisite.
 
+The hierarchical-assignment correction supersedes that assignment architecture, not the
+frozen historical result. Every rolling-24h unique headline now enters exactly one
+deterministic size-bounded leaf partition. The leaf-scan role prefers exact model
+`vx/gemini-3.5-flash(high)` for semantic labor, while the compact global editor uses the
+unchanged quality-first pool. Attention and engagement affect priority only, never factual
+truth. The 1,024-headline replay produced 16 accepted leaf partitions, 632 leaf clusters,
+and a valid 12-item shortlist with zero dropped, duplicated, or unknown IDs. Current
+sidecars had no fresh rolling-24h headlines, so no new governed current cycle was started;
+`NO_FRESH_CURRENT_HEADLINES` is an operational caveat. Generic Capital Chronicle packets
+remain conditional evidence inputs, not discovery prerequisites. Three hundred seconds is
+not an end-to-end newsroom quality SLA; each provider invocation remains finite and bounded.
+
 ## 6. Canonical Tier-1 surfaces
 
 - backend: `live_contentops/`
@@ -195,10 +207,13 @@ continue through the ordered pool using whichever authorized models remain healt
 partially unavailable pool is degraded capacity, not by itself a stop condition. If no
 authorized model succeeds within budget, the logical invocation blocks closed.
 
-Every logical invocation has one immutable budget: at most 6 total provider attempts, 3
-fallback transitions, 1 same-model retry, 1 structured-output repair (which consumes an
-attempt), 45 seconds cumulative retry sleep, and 300 seconds wall clock. The budget never
-resets on fallback or restart/reconstruction.
+The default logical invocation has one immutable budget: at most 6 total provider attempts,
+3 fallback transitions, 1 same-model retry, 1 structured-output repair (which consumes an
+attempt), 45 seconds cumulative retry sleep, and 300 seconds wall clock. The compact
+rolling-X global-editor role uses the same unchanged four-model quality order with one
+attempt per model and a finite 1,200-second wall budget so degraded capacity cannot consume
+the entire invocation before compatible fallback. Budgets never reset on fallback or
+restart/reconstruction.
 
 Fallback never bypasses evidence, factual, numeric-authority, permission, freshness,
 publication, or policy gates and creates no publication authority. Silent provider
@@ -208,6 +223,12 @@ For Gemini P3, the authorized pool identity is
 `vx/gemini-3.1-pro-preview(high)`, the wire model is
 `vx/gemini-3.1-pro-preview`, and wire reasoning effort is `high`. This request
 transformation is authorized and is not model substitution.
+
+The quality-first pool remains unchanged globally. Only
+`rolling_x_newsroom_leaf_scan` prefers `vx/gemini-3.5-flash(high)` before compatible
+authorized fallback models. One bounded no-write probe verified provider-observed identity
+`gemini-3.5-flash`. Flash is semantic labor only and grants no factual, analytical,
+evidence, or publication authority.
 
 ## 10. Current Tier-1 build sequence
 
@@ -331,8 +352,10 @@ Do not stop for unrelated dirty files, absent CI, stale historical docs, mechani
 Do not start Tier-2.
 
 ```text
-Capital Chronicle publication-evidence producer emits event/source/market evidence within 24h
-→ rerun TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1 through the same canonical entrypoint
+fresh rolling-24h X headlines become available
+→ run one governed AUTONOMOUS_DEFAULT cycle through hierarchical assignment
 ```
 
-After Work F, continue Section 10 through Tier-1 final acceptance/freeze. Only then begin Tier-2.
+The separate Capital Chronicle packet rerun remains valid when its governed evidence is
+fresh and is not a newsroom-discovery prerequisite. After Work F, continue Section 10
+through Tier-1 final acceptance/freeze. Only then begin Tier-2.

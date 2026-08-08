@@ -101,6 +101,14 @@ Work F autonomous canonical cycle   [EXECUTED]
 
 Exact owner live scope is already recorded and requires no renewal.
 
+Rolling-X high-volume assignment is now hierarchical. The recorded 1,024-headline replay
+used 16 deterministic leaf partitions with exact one-time coverage, produced 632 validated
+Flash-first semantic clusters, and passed a separate quality-first global edit with a valid
+12-item shortlist and selection. Attention is priority metadata, never factual truth. The
+current sidecar probe found zero fresh rolling-24h headlines, so no new governed cycle was
+run and `NO_FRESH_CURRENT_HEADLINES` is the exact operational caveat. Evidence is under
+`docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/hierarchical_assignment_correction_v1/`.
+
 ## Current router/model runtime authority
 
 `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` is current and its accepted lineage through
@@ -110,6 +118,13 @@ The authorized order is `new/claude-fable-5` → `new/gpt-5.6-sol-xhigh` →
 `new/claude-opus-5` → `vx/gemini-3.1-pro-preview(high)`. The router may continue with any
 healthy authorized model when other pool members are unavailable, subject to the single
 bounded retry budget. Silent substitution and gate bypass remain forbidden.
+
+The quality-first pool remains unchanged for global editorial ranking, writing, review, and
+revision. Only `rolling_x_newsroom_leaf_scan` prefers
+`vx/gemini-3.5-flash(high)` before compatible authorized fallbacks. One bounded no-write
+probe verified provider-observed identity `gemini-3.5-flash`. Flash performs semantic labor
+only and creates no evidence, analytical, factual, or publication authority. Three hundred
+seconds is not an end-to-end newsroom quality SLA; each invocation remains finite.
 
 Latest committed no-write provider evidence records 4/4 healthy and provider-verified model
 identity. Current operator-reported availability may be degraded; that does not rewrite the
@@ -166,9 +181,12 @@ Tier-2 planning is now durable. Do not start Tier-2 implementation.
 Continue Tier-1:
 
 ```text
-Capital Chronicle publication-evidence producer emits event/source/market evidence within 24h
-→ rerun TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1
+fresh rolling-24h X headlines become available
+→ run one governed AUTONOMOUS_DEFAULT cycle through corrected hierarchical assignment
 ```
+
+The separate Capital Chronicle-packet rerun remains available when its evidence is fresh;
+generic packets are conditional evidence inputs, not discovery prerequisites.
 
 ## Safety
 

@@ -29,6 +29,7 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     GATEWAY,
     IDENTITY_NOT_VERIFIABLE,
     ORDERED_MODEL_POOL,
+    NEWSROOM_LEAF_SCAN_MODEL_POOL,
     PRIMARY_MODEL,
     ProviderResult,
     RetryBudget,
@@ -108,9 +109,13 @@ def preflight_model(
 
     return {
         "requested_model": model,
-        "model_priority_index": list(ORDERED_MODEL_POOL).index(model)
-        if model in ORDERED_MODEL_POOL
-        else None,
+        "model_priority_index": (
+            list(ORDERED_MODEL_POOL).index(model)
+            if model in ORDERED_MODEL_POOL
+            else list(NEWSROOM_LEAF_SCAN_MODEL_POOL).index(model)
+            if model in NEWSROOM_LEAF_SCAN_MODEL_POOL
+            else None
+        ),
         "gateway": GATEWAY,
         "health": health,
         "provider_call_performed": True,

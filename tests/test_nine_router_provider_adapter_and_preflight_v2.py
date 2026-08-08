@@ -308,7 +308,11 @@ def test_seam_declares_one_router_one_pool_and_no_per_module_retries() -> None:
     assert manifest["per_module_retry_implementations"] == 0
     assert manifest["distinct_model_lists"] == 1
     assert manifest["ordered_model_pool"] == list(ORDERED_MODEL_POOL)
-    assert len(manifest["integrated_call_sites"]) == 7
+    assert len(manifest["integrated_call_sites"]) == 8
+    assert manifest["global_quality_first_pool_unchanged"] is True
+    assert manifest["role_specific_model_pools"]["rolling_x_newsroom_leaf_scan"][0] == (
+        "vx/gemini-3.5-flash(high)"
+    )
 
 
 def test_seam_preserves_deterministic_stages() -> None:

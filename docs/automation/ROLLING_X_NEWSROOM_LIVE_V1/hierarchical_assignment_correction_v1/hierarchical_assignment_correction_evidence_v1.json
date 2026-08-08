@@ -1,0 +1,174 @@
+{
+  "schema_version": "capital_chronicle.rolling_x_hierarchical_assignment_correction_evidence.v1",
+  "task": "TASK_CONTENTOPS_ROLLING_X_HIERARCHICAL_ASSIGNMENT_CORRECTION_V1",
+  "result": "PASS_CAPABILITY_COMPLETE_NO_FRESH_CURRENT_HEADLINES_CAVEAT",
+  "branch": "worktree-contentops-rolling-24h-x-headlines-autonomous-newsroom-live-v1",
+  "git_authority": {
+    "required_starting_master_sha": "a1b2c11924ca63ca30923b97b1ca46e494d82a42",
+    "actual_starting_master_sha": "a1b2c11924ca63ca30923b97b1ca46e494d82a42",
+    "starting_task_sha": "730e38fbcf00a1a8e983d4025956bbe7989e9dda",
+    "final_task_sha": "SELF_COMMIT_CONTAINING_THIS_EVIDENCE",
+    "final_task_sha_resolution": "Use git rev-parse HEAD after the single correction commit; exact SHA is reported in the final response and remote readback.",
+    "master_merged_into_task": false
+  },
+  "capability": {
+    "hierarchical_assignment": true,
+    "deterministic_coverage_preserving_partitions": true,
+    "leaf_max_headlines": 64,
+    "leaf_max_serialized_bytes": 96000,
+    "llm_call_per_headline": false,
+    "arbitrary_first_n_truncation": false,
+    "leaf_scan_role": "rolling_x_newsroom_leaf_scan",
+    "leaf_scan_preferred_model": "vx/gemini-3.5-flash(high)",
+    "global_editor_quality_first_pool_unchanged": true,
+    "global_editor_receives_all_compact_leaf_summaries": true,
+    "global_editor_receives_raw_headline_universe": false,
+    "cross_partition_duplicate_update_merge_supported": true,
+    "selected_membership_expanded_deterministically": true,
+    "attention_is_factual_truth": false,
+    "x_grants_evidence_or_publication_authority": false,
+    "assignment_infrastructure_failure_semantics": "BLOCKED",
+    "editorial_no_publication_requires_successful_assignment": true,
+    "end_to_end_300_seconds_is_quality_sla": false
+  },
+  "flash_identity_preflight": {
+    "requested_model": "vx/gemini-3.5-flash(high)",
+    "provider_observed_effective_model": "gemini-3.5-flash",
+    "health": "HEALTHY",
+    "model_identity_provider_verified": true,
+    "provider_call_performed": true,
+    "latency_seconds": 4.457,
+    "usage": {
+      "prompt_tokens": 2015,
+      "completion_tokens": 81,
+      "reasoning_tokens": 80,
+      "total_tokens": 2096
+    },
+    "cost": null,
+    "public_write_performed": false,
+    "platform_action_performed": false
+  },
+  "high_volume_replay": {
+    "source_path": "docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/real_cycle/rolling_x_intake_v1.json",
+    "assignment_evidence_path": "docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/hierarchical_assignment_correction_v1/high_volume_replay_assignment_v1.json",
+    "global_retry_evidence_path": "docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/hierarchical_assignment_correction_v1/global_editor_retry_v1.json",
+    "status": "SUCCESS",
+    "decision": "SELECT_STORY",
+    "input_headline_count": 1024,
+    "leaf_partition_count": 16,
+    "leaf_cluster_count": 632,
+    "coverage": {
+      "assigned_once": 1024,
+      "dropped": 0,
+      "duplicated": 0,
+      "unknown": 0,
+      "complete_exact_partition": true
+    },
+    "leaf_router_calls": 16,
+    "leaf_selected_model": "vx/gemini-3.5-flash(high)",
+    "leaf_identity_provider_verified_for_every_accepted_call": true,
+    "global_router_calls": 1,
+    "global_attempted_models": [
+      "new/claude-fable-5",
+      "new/gpt-5.6-sol-xhigh",
+      "new/claude-opus-5",
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "global_selected_model": "vx/gemini-3.1-pro-preview(high)",
+    "global_selected_model_provider_observed_identity": "gemini-3.1-pro-preview",
+    "global_input_serialized_bytes": 397004,
+    "shortlist_count": 12,
+    "selected_cluster_id": "rolling-x-global-cluster-da891aaf993eb0905ffb",
+    "selected_cluster_rank": 1,
+    "selected_cluster_leaf_cluster_count": 5,
+    "selected_cluster_headline_member_count": 64,
+    "selected_story_mode": "reporting",
+    "selected_article_mode": "breaking",
+    "selected_market_sensitive": true,
+    "selected_why_now": "Massive escalation in the Middle East with direct US strikes on Iran, Iranian retaliation, and the collapse of the ceasefire, driving immediate spikes in global oil prices.",
+    "selected_needed_evidence": [
+      "Official Pentagon/CENTCOM damage assessments",
+      "Confirmation of Iranian retaliatory strikes in Bahrain and Kuwait",
+      "OPEC+ emergency response statements"
+    ],
+    "targeted_evidence_acquired_in_replay": false,
+    "replay_is_current_cycle": false
+  },
+  "accepted_replay_telemetry": {
+    "logical_router_calls": 17,
+    "provider_attempts": 20,
+    "fallback_transitions": 3,
+    "prompt_tokens": 446930,
+    "completion_tokens": 742489,
+    "total_tokens": 1189419,
+    "router_elapsed_seconds_sum": 3146.3151,
+    "cumulative_replay_runtime_seconds": 3685.9053,
+    "gateway_cost_metadata": "NOT_RETURNED",
+    "cost_claim": null
+  },
+  "total_task_provider_telemetry_including_preflight_and_contract_tuning": {
+    "provider_attempts_observed": 29,
+    "tokens_observed": 1392861,
+    "provider_elapsed_seconds_observed_sum": 4441.9329,
+    "gateway_cost_metadata": "NOT_RETURNED",
+    "cost_claim": null
+  },
+  "current_cycle": {
+    "freshness_probe_cutoff_utc": "2026-08-08T05:51:18Z",
+    "window_start_utc": "2026-08-07T05:51:18Z",
+    "window_hours": 24.0,
+    "source_files": 1,
+    "source_rows": 1024,
+    "fresh_accepted_headlines": 0,
+    "stale_rejected_headlines": 1024,
+    "outcome": "NO_FRESH_CURRENT_HEADLINES",
+    "new_governed_cycle_executed": false,
+    "cutoff_rewound": false,
+    "historical_cycle_cutoff_mutated": false
+  },
+  "downstream_and_publication": {
+    "targeted_evidence_path_changed": false,
+    "ascending_rank_evidence_fallback_changed": false,
+    "article_review_revision_platform_path_changed": false,
+    "canonical_orchestrator_reused": true,
+    "canonical_orchestrator_operation": "run_rolling_x_newsroom_cycle",
+    "public_write_performed": false,
+    "publishing_adapter_called": false,
+    "unknown_write_detected": false,
+    "strict_readback_performed": false,
+    "reconciliation_required": false,
+    "publication_state": "NOT_RUN_NO_FRESH_CURRENT_CYCLE"
+  },
+  "focused_validation": {
+    "pytest": {
+      "result": "PASS",
+      "passed": 153,
+      "command": "python -m pytest tests/test_newsroom_assignment_scheduler_v1.py tests/test_rolling_x_hierarchical_assignment_v1.py tests/test_rolling_x_evidence_viability_v1.py tests/test_rolling_x_newsroom_cycle_v1.py tests/test_nine_router_ordered_model_router_v2.py tests/test_nine_router_provider_adapter_and_preflight_v2.py tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py -q"
+    },
+    "python_compile": "PASS",
+    "status_json_parse": "PASS",
+    "git_diff_check": "PASS",
+    "full_historical_suite_run": false,
+    "ci_pass_claimed": false
+  },
+  "protected_v1_0": {
+    "verification": "PASS_UNCHANGED_ANNOTATED_TAG",
+    "tag_name": "v1.0",
+    "tag_object_sha": "a021df7fd0264d9f160bdd605509da925f0bf131",
+    "release_commit_sha": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+    "mutated": false,
+    "retagged": false
+  },
+  "authority_reconciliation": {
+    "updated": [
+      "AGENTS.md",
+      "docs/CURRENT_CONTEXT.md",
+      "docs/status/CURRENT_PROJECT_STATUS.md",
+      "docs/status/current_project_status.json",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+      "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md"
+    ],
+    "new_governance_document_created": false
+  },
+  "exact_remaining_blocker": "NO_FRESH_CURRENT_HEADLINES"
+}

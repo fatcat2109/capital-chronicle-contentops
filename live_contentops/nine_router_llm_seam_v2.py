@@ -23,6 +23,8 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     ORDERED_MODEL_POOL,
     ProviderResult,
     RetryBudget,
+    model_pool_for_role,
+    retry_budget_for_role,
     route_llm_invocation,
 )
 
@@ -35,6 +37,7 @@ ROLE_PLATFORM_VARIANTS = "platform_native_variant_generation"
 ROLE_EDITORIAL_REVIEW = "tier1_editorial_review"
 ROLE_IDEA_RANKING = "substack_idea_ranking"
 ROLE_NEWSROOM_ASSIGNMENT = "rolling_x_newsroom_assignment"
+ROLE_NEWSROOM_LEAF_SCAN = "rolling_x_newsroom_leaf_scan"
 ROLE_EDITORIAL_REVISION = "rolling_x_editorial_revision"
 ROLE_STRUCTURED_REPAIR = "structured_output_repair"
 
@@ -44,6 +47,7 @@ INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_EDITORIAL_REVIEW,
     ROLE_IDEA_RANKING,
     ROLE_NEWSROOM_ASSIGNMENT,
+    ROLE_NEWSROOM_LEAF_SCAN,
     ROLE_EDITORIAL_REVISION,
     ROLE_STRUCTURED_REPAIR,
 )
@@ -112,6 +116,7 @@ def routed_llm_invocation(
     repair_prompt_builder: Callable[[str, str], str] | None = None,
 ) -> dict[str, Any]:
     """Run one logical invocation through the canonical router and record its evidence."""
+    role_pool = model_pool_for_role(role_task_id)
     summary = route_llm_invocation(
         logical_invocation_id=logical_invocation_id,
         role_task_id=role_task_id,
@@ -123,9 +128,12 @@ def routed_llm_invocation(
         prompt_template=prompt_template,
         prompt_version=prompt_version,
         timeout_seconds=timeout_seconds,
-        budget=budget or RetryBudget(logical_invocation_id=logical_invocation_id),
+        budget=budget or retry_budget_for_role(
+            role_task_id=role_task_id,
+            logical_invocation_id=logical_invocation_id,
+        ),
         repair_prompt_builder=repair_prompt_builder,
-        model_pool=ORDERED_MODEL_POOL,
+        model_pool=role_pool,
     )
     _INVOCATION_LOG.append(summary)
     return summary
@@ -179,6 +187,10 @@ def integration_manifest() -> dict[str, Any]:
         "canonical_seam": "live_contentops.nine_router_llm_seam_v2.routed_llm_text",
         "provider_adapter": "live_contentops.nine_router_provider_adapter_v2.call_nine_router",
         "ordered_model_pool": list(ORDERED_MODEL_POOL),
+        "role_specific_model_pools": {
+            role: list(model_pool_for_role(role)) for role in INTEGRATED_ROLES
+        },
+        "global_quality_first_pool_unchanged": True,
         "integrated_roles": list(INTEGRATED_ROLES),
         "integrated_call_sites": {
             ROLE_ARTICLE_WRITING: "ai_research_canonical_article_engine_v6.run_article_engine",
@@ -188,7 +200,10 @@ def integration_manifest() -> dict[str, Any]:
             ROLE_EDITORIAL_REVIEW: "tier1_editorial_quality_v1.review_tier1_article_with_llm",
             ROLE_IDEA_RANKING: "substack_first_north_star_pipeline_loop_v1.rank_ideas_with_llm",
             ROLE_NEWSROOM_ASSIGNMENT: (
-                "newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router"
+                "newsroom_assignment_scheduler_v1 compact global editorial ranking"
+            ),
+            ROLE_NEWSROOM_LEAF_SCAN: (
+                "newsroom_assignment_scheduler_v1 partitioned semantic leaf scan"
             ),
             ROLE_EDITORIAL_REVISION: (
                 "_eight_platform_substack_first_pipeline_impl_v1 rolling-X bounded revision"

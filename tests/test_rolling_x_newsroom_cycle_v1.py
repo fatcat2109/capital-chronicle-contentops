@@ -123,6 +123,74 @@ def test_canonical_cycle_stops_before_generation_when_ranked_evidence_blocks(mon
     assert result["exact_next_blocker"] == "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
 
 
+def test_assignment_infrastructure_failure_is_blocked_not_editorial_no_publication(
+    monkeypatch, tmp_path: Path
+):
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: {
+            "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+            "counts": {"accepted": 1},
+        },
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        lambda **kwargs: {
+            "status": "BLOCKED",
+            "decision": None,
+            "reason_code": "ROLLING_X_LEAF_ASSIGNMENT_BLOCKED",
+        },
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="assignment-blocked",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-08T00:00:00Z",
+        publication_enabled=False,
+    )
+
+    assert result["classification"] == "BLOCKED"
+    assert result["ranked_viability"]["decision"] is None
+    assert result["exact_next_blocker"] == "ROLLING_X_LEAF_ASSIGNMENT_BLOCKED"
+    assert result["publishing_adapter_called"] is False
+    assert result["public_write_performed"] is False
+
+
+def test_resume_existing_logical_cycle_preserves_frozen_cutoff_and_input_binding(
+    monkeypatch, tmp_path: Path
+):
+    evidence_path = tmp_path / "rolling_x_newsroom_cycle_evidence_v1.json"
+    evidence_path.write_text(
+        json.dumps({
+            "classification": "NO_PUBLICATION",
+            "run_id": "same-logical-cycle",
+            "intake": {
+                "cutoff_time_utc": "2026-08-08T00:00:00Z",
+                "canonical_input_hash": "frozen-input-hash",
+            },
+            "public_write_performed": False,
+        }),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: (_ for _ in ()).throw(
+            AssertionError("resume must not reload or rebind sidecars")
+        ),
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="same-logical-cycle",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-09T00:00:00Z",
+        publication_enabled=False,
+    )
+
+    assert result["intake"]["cutoff_time_utc"] == "2026-08-08T00:00:00Z"
+    assert result["intake"]["canonical_input_hash"] == "frozen-input-hash"
+    assert result["reentry_guard"] == "existing_cycle_evidence_detected_no_automatic_retry"
+
+
 def test_invalid_semantic_decision_fails_closed_and_exhausts(monkeypatch):
     monkeypatch.setattr(
         "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",

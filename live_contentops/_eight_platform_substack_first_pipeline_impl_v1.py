@@ -2801,9 +2801,11 @@ def _run_rolling_x_newsroom_cycle(
     _write_json(output_dir / "rolling_x_assignment_v1.json", assignment)
     if assignment.get("status") not in {"SUCCESS", "NO_PUBLICATION"}:
         viability = {
-            "status": "NO_PUBLICATION",
-            "decision": "NO_PUBLICATION",
-            "reason_code": "ASSIGNMENT_NOT_ACCEPTED",
+            "status": "BLOCKED",
+            "decision": None,
+            "reason_code": str(
+                assignment.get("reason_code") or "ASSIGNMENT_PROCESS_BLOCKED"
+            ),
             "rank_attempts": [],
         }
     else:
@@ -2837,7 +2839,9 @@ def _run_rolling_x_newsroom_cycle(
         },
     }
     if viability.get("status") != "SUCCESS":
-        evidence["classification"] = "NO_PUBLICATION"
+        evidence["classification"] = (
+            "BLOCKED" if viability.get("status") == "BLOCKED" else "NO_PUBLICATION"
+        )
         evidence["exact_next_blocker"] = viability.get("reason_code")
         _write_json(evidence_path, evidence)
         return evidence

@@ -22,22 +22,22 @@ Work Packages C, D, and E are:
 
 ### Latest product action
 
-`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
+`TASK_CONTENTOPS_ROLLING_X_HIERARCHICAL_ASSIGNMENT_CORRECTION_V1`
 
 Status:
 
-`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
+`COMPLETE_WITH_NO_FRESH_CURRENT_HEADLINES_CAVEAT`
 
-The accepted autonomous Work F result is now on `master` at `025164d73`. The current
-Capital Chronicle producer emitted publication-authorized packet
-`cc-publication-8404fad760faec52b37e`, but its latest market observation was 34.674 hours
-old against the 24-hour threshold. The canonical rerun correctly did not start. Owner live
-scope remains resolved dynamically from canonical `READY_*` destinations; another approval
-or tiny cohort is not current authority. Tier-2 is not current.
+The high-volume assignment defect is corrected. The recorded 1,024-headline replay used 16
+deterministic leaf partitions, covered every ID exactly once, produced 632 validated semantic
+leaf clusters through `vx/gemini-3.5-flash(high)`, and passed a separate quality-first global
+edit with a 12-item shortlist and selection. The global editor received all compact leaf
+summaries and no raw headline universe. Current sidecars contained 0 fresh rolling-24h
+headlines, so no new governed current cycle was run and no clock rewind was attempted.
 
-Exact next product action:
+Exact next rolling-X product action:
 
-`REFRESH_GOVERNED_CAPITAL_CHRONICLE_PUBLICATION_EVIDENCE_AND_RERUN_CANONICAL_CYCLE`
+`RUN_ONE_GOVERNED_ROLLING_X_CYCLE_WHEN_FRESH_CURRENT_HEADLINES_EXIST`
 
 Operating mode: `AUTONOMOUS_DEFAULT`
 
@@ -51,17 +51,23 @@ Operating mode: `AUTONOMOUS_DEFAULT`
   - P2 `new/claude-opus-5`
   - P3 `vx/gemini-3.1-pro-preview(high)`
 - primary preference remains `new/claude-fable-5`;
+- the global quality-first pool remains unchanged. Only
+  `rolling_x_newsroom_leaf_scan` prefers exact `vx/gemini-3.5-flash(high)` before
+  compatible authorized fallbacks; one bounded no-write probe verified provider-observed
+  identity `gemini-3.5-flash`, and the role grants no factual, analytical, evidence, or
+  publication authority;
 - ordered fallback is owner-authorized for bounded resilience, and is not a quality-gate
   bypass: fallback output passes the same evidence, editorial, permission, and freshness
   gates as primary output, and never creates publication authority;
 - silent provider-side substitution remains forbidden. Per attempt,
   `requested_model == provider-observed resolved model` is still required; a mismatch is
   rejected and the pool is walked only under the deterministic fallback policy;
-- every logical invocation allocates one immutable retry budget before its first provider
-  call: 6 total provider attempts, 3 fallback transitions, 1 same-model retry, per-model
-  attempt ceilings (2, 2, 1, 1), 1 structured-output repair counting against the total,
-  45 s cumulative retry sleep, 300 s wall clock. No model change and no process
-  reconstruction resets a consumed budget; unbounded retry is not permitted;
+- the default logical invocation allocates one immutable retry budget before its first
+  provider call: 6 total attempts, 3 fallback transitions, 1 same-model retry, per-model
+  ceilings (2, 2, 1, 1), 1 structured repair, 45 s cumulative retry sleep, and 300 s wall
+  clock. The compact rolling-X global editor walks the unchanged quality pool once per model
+  under a finite 1,200 s wall budget. No model change or reconstruction resets consumption;
+  unbounded retry is not permitted;
 - terminal dispositions on exhaustion: `LLM_RETRY_BUDGET_EXHAUSTED`, or
   `BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED` when every authorized model is exhausted;
 - runtime verification: `PROVIDER_VERIFIED`. Latest bounded no-write preflight probed all
@@ -102,14 +108,24 @@ or unknown write occurred. X is discovery/ranking input only, and targeted evide
 accepted ranking. Evidence:
 `docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/real_cycle/rolling_x_newsroom_cycle_evidence_v1.json`.
 
+That frozen outcome remains historical evidence. Future execution uses hierarchical
+assignment under
+`docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/hierarchical_assignment_correction_v1/`:
+Flash-first leaf semantic labor, compact all-cluster summaries, deterministic attention
+signals, and a separate unchanged quality-first global editor. Attention never becomes
+factual truth, generic Capital Chronicle packets are conditional evidence inputs rather
+than discovery prerequisites, and 300 seconds is not an end-to-end newsroom quality SLA.
+
 ## Rolling-X newsroom vertical slice
 
 `rolling 24-hour X discovery → assignment/ranking → targeted evidence → first viable ranked
 story → article/SEO/visuals → bounded semantic revision/review → platform packages →
 AUTONOMOUS_DEFAULT gates → strict readback/reconciliation`
 
-This route is complete as an implemented, governed no-publication vertical slice for the
-current sidecars. A generic Capital Chronicle packet is not a prerequisite for discovery.
+This route is implemented with corrected hierarchical assignment. Current sidecars have no
+fresh rolling-24h headlines, so the exact next operational blocker is
+`NO_FRESH_CURRENT_HEADLINES`. A generic Capital Chronicle packet is not a prerequisite for
+discovery.
 
 ## Current Tier-1 sequence
 

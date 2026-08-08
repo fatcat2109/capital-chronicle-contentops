@@ -59,12 +59,32 @@ ORDERED_MODEL_POOL: tuple[str, ...] = (
     "vx/gemini-3.1-pro-preview(high)",
 )
 PRIMARY_MODEL = ORDERED_MODEL_POOL[0]
-AUTHORIZED_MODELS = frozenset(ORDERED_MODEL_POOL)
+
+#: Role-specific semantic labour is allowed to prefer the exact high-throughput Flash
+#: model without changing the quality-first pool above.  Keeping this registry beside the
+#: canonical pool means the provider adapter and router still share one authority surface.
+NEWSROOM_LEAF_SCAN_ROLE = "rolling_x_newsroom_leaf_scan"
+NEWSROOM_GLOBAL_EDITOR_ROLE = "rolling_x_newsroom_assignment"
+NEWSROOM_LEAF_SCAN_MODEL = "vx/gemini-3.5-flash(high)"
+NEWSROOM_LEAF_SCAN_MODEL_POOL: tuple[str, ...] = (
+    NEWSROOM_LEAF_SCAN_MODEL,
+    *ORDERED_MODEL_POOL,
+)
+ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
+    NEWSROOM_LEAF_SCAN_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
+}
+AUTHORIZED_MODELS = frozenset(
+    model
+    for pool in (ORDERED_MODEL_POOL, *ROLE_MODEL_POOLS.values())
+    for model in pool
+)
 
 #: Per-model attempt ceilings, indexed by priority. P0/P1 get one retry each; P2/P3 get a
 #: single attempt, because by the time the router reaches them the invocation has already
 #: spent most of its global budget and a further same-model retry buys little.
 PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 1, 1)
+NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (1, 2, 1, 1, 1)
+NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (1, 1, 1, 1)
 
 MAX_TOTAL_PROVIDER_ATTEMPTS = 6
 MAX_FALLBACK_TRANSITIONS = 3
@@ -72,6 +92,8 @@ MAX_SAME_MODEL_RETRIES = 1
 MAX_STRUCTURED_OUTPUT_REPAIR_ATTEMPTS = 1
 MAX_CUMULATIVE_RETRY_SLEEP_SECONDS = 45.0
 DEFAULT_WALL_CLOCK_BUDGET_SECONDS = 300.0
+NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS = 4
+NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS = 1200.0
 
 # --- terminal dispositions -------------------------------------------------------------
 ACCEPTED = "ACCEPTED"
@@ -162,6 +184,22 @@ def authority_packet() -> dict[str, Any]:
         "gateway": GATEWAY,
         "ordered_model_pool": list(ORDERED_MODEL_POOL),
         "primary_model": PRIMARY_MODEL,
+        "global_quality_first_pool_unchanged": True,
+        "role_specific_model_pools": {
+            role: list(pool) for role, pool in ROLE_MODEL_POOLS.items()
+        },
+        "newsroom_leaf_scan_model": NEWSROOM_LEAF_SCAN_MODEL,
+        "newsroom_leaf_scan_is_semantic_labor_only": True,
+        "newsroom_global_editor_uses_quality_first_pool": True,
+        "newsroom_global_editor_retry_policy": {
+            "max_total_provider_attempts": 4,
+            "max_fallback_transitions": 3,
+            "per_model_max_attempts": list(
+                NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS
+            ),
+            "wall_clock_budget_seconds": NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS,
+            "bounded": True,
+        },
         "fallback_is_owner_authorized": True,
         "fallback_is_for_bounded_resilience_not_quality_gate_bypass": True,
         "silent_provider_side_substitution_permitted": False,
@@ -196,6 +234,30 @@ def retry_budget_policy() -> dict[str, Any]:
         "budget_resets_on_model_change": False,
         "budget_resets_on_reconstruction": False,
     }
+
+
+def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
+    """Return the one canonical model ordering for a semantic role."""
+    return ROLE_MODEL_POOLS.get(str(role_task_id), ORDERED_MODEL_POOL)
+
+
+def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "RetryBudget":
+    """Allocate one immutable bounded budget appropriate to the canonical role pool."""
+    if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE:
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_fallback_transitions=NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS,
+            per_model_max_attempts=NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS,
+        )
+    if str(role_task_id) == NEWSROOM_GLOBAL_EDITOR_ROLE:
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=len(ORDERED_MODEL_POOL),
+            max_fallback_transitions=len(ORDERED_MODEL_POOL) - 1,
+            wall_clock_budget_seconds=NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS,
+            per_model_max_attempts=NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS,
+        )
+    return RetryBudget(logical_invocation_id=logical_invocation_id)
 
 
 # ---------------------------------------------------------------------------
@@ -690,7 +752,29 @@ def route_llm_invocation(
         "budget_exhausted_reason": budget_exhausted_reason,
         "model_identity_provider_verifiable": identity_verifiable,
         "model_identity_note": identity_note,
-        "retry_budget_policy": retry_budget_policy(),
+        "retry_budget_policy": {
+            "max_total_provider_attempts": budget.max_total_provider_attempts,
+            "max_fallback_transitions": budget.max_fallback_transitions,
+            "max_same_model_retries": budget.max_same_model_retries,
+            "per_model_max_attempts": {
+                model: (
+                    budget.per_model_max_attempts[index]
+                    if index < len(budget.per_model_max_attempts)
+                    else 1
+                )
+                for index, model in enumerate(model_pool)
+            },
+            "max_structured_output_repair_attempts": (
+                budget.max_structured_output_repair_attempts
+            ),
+            "structured_repair_counts_against_total_attempts": True,
+            "max_cumulative_retry_sleep_seconds": (
+                budget.max_cumulative_retry_sleep_seconds
+            ),
+            "default_wall_clock_budget_seconds": budget.wall_clock_budget_seconds,
+            "budget_resets_on_model_change": False,
+            "budget_resets_on_reconstruction": False,
+        },
         "final_retry_budget_snapshot": budget.snapshot(),
         "attempts": attempts,
         "output": accepted_output if disposition == ACCEPTED else None,

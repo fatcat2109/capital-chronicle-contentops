@@ -149,7 +149,9 @@ def test_exact_ordered_pool_is_the_four_authorized_models() -> None:
         "vx/gemini-3.1-pro-preview(high)",
     )
     assert PRIMARY_MODEL == "new/claude-fable-5"
-    assert len(AUTHORIZED_MODELS) == 4
+    assert len(ORDERED_MODEL_POOL) == 4
+    assert len(AUTHORIZED_MODELS) == 5
+    assert "vx/gemini-3.5-flash(high)" in AUTHORIZED_MODELS
 
 
 def test_declared_retry_budget_defaults() -> None:

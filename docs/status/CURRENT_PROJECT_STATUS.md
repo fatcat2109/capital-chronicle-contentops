@@ -80,12 +80,45 @@ no gate was weakened to manufacture a post.
 The broader Capital Chronicle packet rerun remains a separate upstream action and is not a
 prerequisite for rolling-X discovery.
 
+### Rolling-X hierarchical assignment correction
+
+`TASK_CONTENTOPS_ROLLING_X_HIERARCHICAL_ASSIGNMENT_CORRECTION_V1`
+
+Result:
+
+`COMPLETE_WITH_NO_FRESH_CURRENT_HEADLINES_CAVEAT`
+
+Future rolling-X assignment is hierarchical rather than one giant complete-partition model
+response. The recorded 1,024-headline replay used 16 deterministic partitions bounded to 64
+headlines and 96,000 serialized bytes, achieved 1,024/1,024 exact one-time coverage with
+zero dropped, duplicated, or unknown IDs, and produced 632 validated leaf clusters. Every
+leaf used exact provider-verified `vx/gemini-3.5-flash(high)` semantic labor. The final
+editor received all compact leaf summaries and no raw headline universe, then the unchanged
+quality-first pool returned a valid 12-item shortlist and selected
+`rolling-x-global-cluster-da891aaf993eb0905ffb` through provider-verified
+`vx/gemini-3.1-pro-preview(high)` after bounded degraded-capacity fallback.
+
+The replay recorded 17 accepted logical router calls, 20 provider attempts, 3 fallback
+transitions, 1,189,419 total tokens, no gateway cost metadata, 3,685.9053 seconds cumulative
+semantic runtime across the initial replay and corrected compact global retry, and no
+evidence acquisition, article generation, adapter call, public write, unknown write, or
+readback. Three hundred seconds is not an end-to-end newsroom quality SLA. Attention and
+engagement signals affect editorial priority only and never factual truth. X remains
+discovery/ranking input; targeted evidence remains downstream. Generic Capital Chronicle
+packets are conditional evidence inputs rather than discovery prerequisites.
+
+The current sidecar probe froze cutoff `2026-08-08T05:51:18Z` and found 0 fresh headlines;
+all 1,024 rows were outside the rolling-24h window. No new governed current cycle was run,
+no cutoff was rewound, and `NO_FRESH_CURRENT_HEADLINES` is the exact operational caveat.
+Evidence:
+`docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/hierarchical_assignment_correction_v1/`.
+
 Exact next product action:
 
-`REFRESH_GOVERNED_CAPITAL_CHRONICLE_PUBLICATION_EVIDENCE_AND_RERUN_CANONICAL_CYCLE`
+`RUN_ONE_GOVERNED_ROLLING_X_CYCLE_WHEN_FRESH_CURRENT_HEADLINES_EXIST`
 
-The rolling-X task-specific route is complete with governed no-publication; the next
-implementation task must not wait on a generic packet before newsroom discovery.
+The rolling-X capability correction is complete; execution now waits only for genuinely
+fresh current headlines and must not wait on a generic packet before newsroom discovery.
 
 ### Latest promotion and fresh-packet discovery
 
