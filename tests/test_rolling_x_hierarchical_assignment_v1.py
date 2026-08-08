@@ -110,19 +110,21 @@ class HierarchicalProvider:
         return ProviderResult(
             text=json.dumps(output),
             resolved_model=model.split("/", 1)[-1].split("(", 1)[0],
+            provider_invocation_id="test-global-provider-invocation",
+            status_code=200,
             usage={"prompt_tokens": 200, "completion_tokens": 80, "total_tokens": 280},
             cost={"total_cost": 0.003},
         )
 
 
-def _small_input() -> dict:
+def _small_input(count: int = 4) -> dict:
     recorded = json.loads(RECORDED_INTAKE.read_text(encoding="utf-8"))
     packet = {
         **{key: value for key, value in recorded.items() if key != "headlines"},
-        "headlines": [dict(row) for row in recorded["headlines"][:4]],
+        "headlines": [dict(row) for row in recorded["headlines"][:count]],
     }
     packet["unique_headline_ids"] = [row["headline_id"] for row in packet["headlines"]]
-    packet["counts"] = {**packet["counts"], "accepted": 4}
+    packet["counts"] = {**packet["counts"], "accepted": count}
     packet["canonical_input_hash"] = _logical_hash(_rolling_x_canonical_hash_material(packet))
     return packet
 
@@ -536,6 +538,132 @@ def test_exact_leaf_checkpoint_resume_reuses_completed_leaf_and_calls_only_pendi
     leaf_calls = [call for call in resumed_provider.calls if "leaf_input:\n" in call["prompt"]]
     assert len(leaf_calls) == 1
     assert partition_id not in leaf_calls[0]["prompt"]
+
+
+def test_exact_leaf_and_global_checkpoint_resume_makes_zero_provider_calls():
+    rolling_input = _small_input(44)
+    first_provider = HierarchicalProvider()
+    first = assign_rolling_x_headlines_with_nine_router(
+        rolling_input=rolling_input,
+        provider_call=first_provider,
+        leaf_max_headlines=4,
+    )
+    assert len(first["leaf_partitions"]) == 11
+
+    leaf_checkpoints = {}
+    for partition, summary in zip(
+        first["leaf_partitions"], first["router_calls"][:-1]
+    ):
+        partition_id = partition["partition_id"]
+        leaf_checkpoints[partition_id] = {
+            "canonical_input_hash": rolling_input["canonical_input_hash"],
+            "partition_id": partition_id,
+            "partition_index": partition["partition_index"],
+            "headline_ids": partition["headline_ids"],
+            "router_summary": summary,
+            "output": {
+                "partition_id": partition_id,
+                "clusters": [
+                    row
+                    for row in first["leaf_clusters"]
+                    if row["partition_id"] == partition_id
+                ],
+            },
+        }
+
+    global_summary = first["router_calls"][-1]
+    accepted_attempt = [
+        row
+        for row in global_summary["attempts"]
+        if row["disposition"] == "accepted"
+    ][0]
+    global_checkpoint = {
+        "canonical_input_hash": rolling_input["canonical_input_hash"],
+        "cutoff_time_utc": rolling_input["cutoff_time_utc"],
+        "global_input_logical_hash": _logical_hash(
+            first["compact_global_editor_input"]
+        ),
+        "ordered_leaf_cluster_ids": [
+            row["id"]
+            for row in first["compact_global_editor_input"][
+                "leaf_cluster_summaries"
+            ]
+        ],
+        "global_invocation_id": global_summary["logical_invocation_id"],
+        "work_item_id": global_summary["work_item_id"],
+        "role_task_id": global_summary["role_task_id"],
+        "prompt_template": accepted_attempt["prompt_template"],
+        "prompt_version": accepted_attempt["prompt_version"],
+        "governed_input_hash": accepted_attempt["governed_input_hash"],
+        "terminal_disposition": global_summary["terminal_disposition"],
+        "selected_model": global_summary["selected_model"],
+        "accepted_provider_identity": {
+            "gateway": accepted_attempt["gateway"],
+            "requested_model": accepted_attempt["requested_model"],
+            "resolved_model": accepted_attempt["resolved_model"],
+            "provider_invocation_id": accepted_attempt[
+                "provider_invocation_id"
+            ],
+            "model_identity_provider_verified": accepted_attempt[
+                "model_identity_provider_verified"
+            ],
+        },
+        "router_summary": global_summary,
+        "output": first["router_summary"] | {
+            "decision": first["decision"],
+            "selection_rationale": first["selection_rationale"],
+            "selected_cluster_id": first["selected_cluster_id"],
+            "selected_headline_ids": first["selected_headline_ids"],
+            "ranked_clusters": first["ranked_clusters"],
+            "shortlist_count": len(first["ranked_clusters"]),
+            "evaluated_leaf_cluster_count": len(first["leaf_clusters"]),
+            "global_editor_used_compact_leaf_summaries_only": True,
+            "attention_used_as_factual_truth": False,
+            "router_output_grants_publication_authority": False,
+        },
+    }
+    global_checkpoint["output"] = {
+        key: value
+        for key, value in global_checkpoint["output"].items()
+        if key in {
+            "decision",
+            "selection_rationale",
+            "selected_cluster_id",
+            "selected_headline_ids",
+            "ranked_clusters",
+            "shortlist_count",
+            "evaluated_leaf_cluster_count",
+            "global_editor_used_compact_leaf_summaries_only",
+            "attention_used_as_factual_truth",
+            "router_output_grants_publication_authority",
+        }
+    }
+    global_checkpoint["output"]["global_result_logical_hash"] = _logical_hash(
+        global_checkpoint["output"]
+    )
+    global_checkpoint["global_result_logical_hash"] = global_checkpoint[
+        "output"
+    ]["global_result_logical_hash"]
+
+    calls = []
+    resumed = assign_rolling_x_headlines_with_nine_router(
+        rolling_input=rolling_input,
+        provider_call=lambda *args: calls.append(args),
+        leaf_max_headlines=4,
+        leaf_checkpoints=leaf_checkpoints,
+        global_checkpoint=global_checkpoint,
+    )
+
+    assert calls == []
+    assert resumed["checkpoint_resume"]["called_partition_ids"] == []
+    assert len(resumed["checkpoint_resume"]["reused_partition_ids"]) == 11
+    assert resumed["checkpoint_resume"]["global_checkpoint_reused"] is True
+    assert resumed["checkpoint_resume"][
+        "global_editor_called_after_complete_leaf_coverage"
+    ] is False
+    assert resumed["decision"] == first["decision"]
+    assert resumed["ranked_clusters"] == first["ranked_clusters"]
+    assert resumed["selected_cluster_id"] == first["selected_cluster_id"]
 
 
 def test_genuinely_invalid_governed_input_remains_terminal_before_provider_call():

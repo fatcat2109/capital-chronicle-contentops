@@ -1175,6 +1175,167 @@ def _validated_rolling_x_leaf_checkpoint(
     return dict(normalized), {key: value for key, value in summary.items() if key != "output"}
 
 
+def _validated_rolling_x_global_checkpoint(
+    *,
+    checkpoint: Mapping[str, Any],
+    canonical_input_hash: str,
+    global_input: Mapping[str, Any],
+    ordered_leaf_cluster_ids: Sequence[str],
+    cutoff_time_utc: str,
+    invocation_id: str,
+    work_item_id: str,
+    leaf_clusters_by_id: Mapping[str, Mapping[str, Any]],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Bind one accepted global checkpoint to the exact compact input and router call."""
+    governed_input_hash = _logical_hash(global_input)
+    if (
+        checkpoint.get("canonical_input_hash") != canonical_input_hash
+        or checkpoint.get("cutoff_time_utc") != cutoff_time_utc
+        or global_input.get("cutoff_time_utc") != cutoff_time_utc
+        or checkpoint.get("global_input_logical_hash") != governed_input_hash
+        or list(checkpoint.get("ordered_leaf_cluster_ids") or [])
+        != list(ordered_leaf_cluster_ids)
+        or checkpoint.get("global_invocation_id") != invocation_id
+        or checkpoint.get("work_item_id") != work_item_id
+        or checkpoint.get("role_task_id") != "rolling_x_newsroom_assignment"
+        or checkpoint.get("prompt_template")
+        != "rolling_x_newsroom_compact_global_editor"
+        or checkpoint.get("prompt_version") != ROLLING_X_GLOBAL_PROMPT_VERSION
+        or checkpoint.get("governed_input_hash") != governed_input_hash
+        or checkpoint.get("terminal_disposition") != "ACCEPTED"
+    ):
+        raise ValueError("rolling_x_global_checkpoint_input_binding_invalid")
+
+    summary = checkpoint.get("router_summary")
+    output = checkpoint.get("output")
+    if not isinstance(summary, Mapping) or not isinstance(output, Mapping):
+        raise ValueError("rolling_x_global_checkpoint_payload_invalid")
+    if (
+        summary.get("terminal_disposition") != "ACCEPTED"
+        or summary.get("logical_invocation_id") != invocation_id
+        or summary.get("work_item_id") != work_item_id
+        or summary.get("role_task_id") != "rolling_x_newsroom_assignment"
+        or summary.get("selected_model") != checkpoint.get("selected_model")
+        or summary.get("model_identity_provider_verifiable") is not True
+    ):
+        raise ValueError("rolling_x_global_checkpoint_router_binding_invalid")
+
+    attempts = summary.get("attempts")
+    if not isinstance(attempts, list) or not attempts or any(
+        not isinstance(row, Mapping)
+        or row.get("logical_invocation_id") != invocation_id
+        or row.get("work_item_id") != work_item_id
+        or row.get("role_task_id") != "rolling_x_newsroom_assignment"
+        or row.get("prompt_template")
+        != "rolling_x_newsroom_compact_global_editor"
+        or row.get("prompt_version") != ROLLING_X_GLOBAL_PROMPT_VERSION
+        or row.get("governed_input_hash") != governed_input_hash
+        for row in attempts
+    ):
+        raise ValueError("rolling_x_global_checkpoint_attempt_binding_invalid")
+    accepted_attempts = [
+        row for row in attempts if row.get("disposition") == "accepted"
+    ]
+    if len(accepted_attempts) != 1:
+        raise ValueError("rolling_x_global_checkpoint_accepted_attempt_invalid")
+    accepted_attempt = accepted_attempts[0]
+    if (
+        accepted_attempt is not attempts[-1]
+        or accepted_attempt.get("requested_model") != summary.get("selected_model")
+        or not str(accepted_attempt.get("resolved_model") or "")
+        or not str(accepted_attempt.get("provider_invocation_id") or "")
+        or accepted_attempt.get("provider_status_class") != "2xx_success"
+        or accepted_attempt.get("model_identity_provider_verified") is not True
+        or accepted_attempt.get("structured_validation_result") != "PASS"
+    ):
+        raise ValueError("rolling_x_global_checkpoint_provider_identity_invalid")
+    identity = checkpoint.get("accepted_provider_identity")
+    expected_identity = {
+        "gateway": accepted_attempt.get("gateway"),
+        "requested_model": accepted_attempt.get("requested_model"),
+        "resolved_model": accepted_attempt.get("resolved_model"),
+        "provider_invocation_id": accepted_attempt.get("provider_invocation_id"),
+        "model_identity_provider_verified": accepted_attempt.get(
+            "model_identity_provider_verified"
+        ),
+    }
+    if identity != expected_identity:
+        raise ValueError("rolling_x_global_checkpoint_provider_identity_invalid")
+
+    ranked_clusters = output.get("ranked_clusters")
+    if not isinstance(ranked_clusters, list):
+        raise ValueError("rolling_x_global_checkpoint_output_invalid")
+    raw_shortlist: list[dict[str, Any]] = []
+    for row in ranked_clusters:
+        if not isinstance(row, Mapping):
+            raise ValueError("rolling_x_global_checkpoint_output_invalid")
+        leaf_ids = [str(value) for value in (row.get("leaf_cluster_ids") or [])]
+        canonical_headline_id = str(
+            (row.get("update_chain") or {}).get("canonical_headline_id") or ""
+        )
+        canonical_leaf_ids = [
+            leaf_id
+            for leaf_id in leaf_ids
+            if leaf_id in leaf_clusters_by_id
+            and str(
+                leaf_clusters_by_id[leaf_id].get(
+                    "canonical_representative_headline_id"
+                )
+                or ""
+            )
+            == canonical_headline_id
+        ]
+        if len(canonical_leaf_ids) != 1:
+            raise ValueError("rolling_x_global_checkpoint_output_invalid")
+        raw_shortlist.append({
+            "rank": row.get("rank"),
+            "leaf_cluster_ids": leaf_ids,
+            "cross_partition_relationship": (row.get("update_chain") or {}).get(
+                "relationship"
+            ),
+            "canonical_leaf_cluster_id": canonical_leaf_ids[0],
+            "story_mode": row.get("story_mode"),
+            "article_mode": row.get("article_mode"),
+            "market_sensitive": row.get("market_sensitive"),
+            "why_now": row.get("why_now"),
+            "selection_case": row.get("selection_case"),
+            "seo_intent": row.get("seo_intent"),
+            "visual_strategy": row.get("visual_strategy"),
+            "needed_evidence": row.get("needed_evidence"),
+        })
+    raw_output = {
+        "decision": output.get("decision"),
+        "selection_rationale": output.get("selection_rationale"),
+        "selected_shortlist_rank": (
+            None if output.get("decision") == "NO_PUBLICATION" else 1
+        ),
+        "ranked_shortlist": raw_shortlist,
+    }
+    valid, _, normalized, _ = _validate_rolling_x_global_output(
+        json.dumps(raw_output, sort_keys=True),
+        leaf_clusters_by_id=leaf_clusters_by_id,
+    )
+    if (
+        not valid
+        or not isinstance(normalized, Mapping)
+        or not hmac.compare_digest(_logical_hash(normalized), _logical_hash(output))
+    ):
+        raise ValueError("rolling_x_global_checkpoint_output_invalid")
+    result_hash = str(output.get("global_result_logical_hash") or "")
+    output_without_hash = {
+        key: value
+        for key, value in output.items()
+        if key != "global_result_logical_hash"
+    }
+    if (
+        not result_hash
+        or checkpoint.get("global_result_logical_hash") != result_hash
+        or not hmac.compare_digest(result_hash, _logical_hash(output_without_hash))
+    ):
+        raise ValueError("rolling_x_global_checkpoint_output_hash_mismatch")
+    return dict(normalized), {key: value for key, value in summary.items() if key != "output"}
+
+
 def assign_rolling_x_headlines_with_nine_router(
     *,
     rolling_input: Mapping[str, Any],
@@ -1183,6 +1344,7 @@ def assign_rolling_x_headlines_with_nine_router(
     leaf_max_serialized_bytes: int = ROLLING_X_LEAF_MAX_SERIALIZED_BYTES,
     leaf_max_headlines: int = ROLLING_X_LEAF_MAX_HEADLINES,
     leaf_checkpoints: Mapping[str, Mapping[str, Any]] | None = None,
+    global_checkpoint: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Hierarchically assign every rolling-X headline through one canonical router."""
     if rolling_input.get("schema_version") != ROLLING_X_INPUT_SCHEMA_VERSION:
@@ -1347,26 +1509,43 @@ def assign_rolling_x_headlines_with_nine_router(
         "leaf_cluster_summaries": compact_summaries,
     }
     global_prompt = _build_rolling_x_global_prompt(global_input)
+    ordered_leaf_cluster_ids = [row["id"] for row in compact_summaries]
     global_invocation_id = "inv_rolling_x_global_" + _logical_hash({
         "canonical_input_hash": canonical_input_hash,
-        "leaf_cluster_ids": [row["id"] for row in compact_summaries],
+        "leaf_cluster_ids": ordered_leaf_cluster_ids,
     })[:20]
+    global_work_item_id = f"rolling-x-global-{canonical_input_hash[:20]}"
     leaf_by_id = {str(row["leaf_cluster_id"]): row for row in leaf_clusters}
-    global_summary = routed_llm_invocation(
-        prompt=global_prompt,
-        role_task_id=ROLE_NEWSROOM_ASSIGNMENT,
-        logical_invocation_id=global_invocation_id,
-        work_item_id=f"rolling-x-global-{canonical_input_hash[:20]}",
-        timeout_seconds=timeout_seconds,
-        validator=lambda text: _validate_rolling_x_global_output(
-            text, leaf_clusters_by_id=leaf_by_id
-        ),
-        provider_call=provider_call,
-        governed_input=global_input,
-        prompt_template="rolling_x_newsroom_compact_global_editor",
-        prompt_version=ROLLING_X_GLOBAL_PROMPT_VERSION,
-        repair_prompt_builder=_rolling_x_global_repair_prompt,
-    )
+    if global_checkpoint is not None:
+        global_output, checkpoint_summary = _validated_rolling_x_global_checkpoint(
+            checkpoint=global_checkpoint,
+            canonical_input_hash=canonical_input_hash,
+            global_input=global_input,
+            ordered_leaf_cluster_ids=ordered_leaf_cluster_ids,
+            cutoff_time_utc=str(rolling_input.get("cutoff_time_utc") or ""),
+            invocation_id=global_invocation_id,
+            work_item_id=global_work_item_id,
+            leaf_clusters_by_id=leaf_by_id,
+        )
+        global_summary = {**checkpoint_summary, "output": global_output}
+        global_editor_called = False
+    else:
+        global_summary = routed_llm_invocation(
+            prompt=global_prompt,
+            role_task_id=ROLE_NEWSROOM_ASSIGNMENT,
+            logical_invocation_id=global_invocation_id,
+            work_item_id=global_work_item_id,
+            timeout_seconds=timeout_seconds,
+            validator=lambda text: _validate_rolling_x_global_output(
+                text, leaf_clusters_by_id=leaf_by_id
+            ),
+            provider_call=provider_call,
+            governed_input=global_input,
+            prompt_template="rolling_x_newsroom_compact_global_editor",
+            prompt_version=ROLLING_X_GLOBAL_PROMPT_VERSION,
+            repair_prompt_builder=_rolling_x_global_repair_prompt,
+        )
+        global_editor_called = True
     router_calls.append({key: value for key, value in global_summary.items() if key != "output"})
     accepted = global_summary.get("terminal_disposition") == ACCEPTED
     assignment = global_summary.get("output") if accepted else None
@@ -1412,7 +1591,8 @@ def assign_rolling_x_headlines_with_nine_router(
         "checkpoint_resume": {
             "reused_partition_ids": reused_partition_ids,
             "called_partition_ids": called_partition_ids,
-            "global_editor_called_after_complete_leaf_coverage": True,
+            "global_editor_called_after_complete_leaf_coverage": global_editor_called,
+            "global_checkpoint_reused": not global_editor_called,
         },
         "architecture": {
             "hierarchical_assignment": True,
