@@ -120,34 +120,33 @@ Exact next product action:
 The rolling-X capability correction is complete; execution now waits only for genuinely
 fresh current headlines and must not wait on a generic packet before newsroom discovery.
 
-### Hierarchical assignment promotion and current-X cycle attempt
+### X CDP restore and current-X cycle attempt
 
-`TASK_CONTENTOPS_PROMOTE_HIERARCHICAL_ASSIGNMENT_AND_RUN_CURRENT_X_CYCLE_V1`
+`TASK_CONTENTOPS_RESTORE_X_CDP_AND_RUN_CURRENT_GOVERNED_CYCLE_V1`
 
 Result:
 
-`BLOCKED_CURRENT_X_INGESTION_BINDING_UNAVAILABLE`
+`BLOCKED_OPERATOR_X_REAUTH_REQUIRED`
 
-The accepted hierarchical assignment commit `c4ad5299022a5f8f745179729df33e98a67a23e8`
-was fast-forwarded from its accepted branch to remote `master` and read back at the exact
-same SHA. The branch was two commits ahead of starting master
-`a1b2c11924ca63ca30923b97b1ca46e494d82a42` with no divergence. Protected annotated tag
-`v1.0` remains unchanged.
-
-Current upstream `fatcat2109/Headline-Raw-data-json` main was independently fetched at
-`217059a87291c32b5f8aeb7278349928476806c8` into a clean task-owned clone. The required
-existing X ingestion binding on local CDP port 9222 was unavailable: the HTTP endpoint did
-not respond and no OS listener existed. Per the explicit safety contract, no login or
-replacement authenticated session was attempted, the continuous ingestion process was not
-started, and no current cutoff was frozen. Therefore the current fresh-headline count is
-unknown rather than zero, and no canonical current cycle, provider call, article, adapter,
-public write, unknown write, or readback occurred.
+The exact dedicated Chrome binding from upstream `Launch_Dashboard.bat` was restored on local
+CDP port 9222 without executing the unrelated launcher steps, creating another profile, or
+reading cookies, browser storage, credentials, tokens, or other session material. The CDP
+listener and HTTP endpoint became available. Running the unchanged upstream `Data_Ingestion.py`
+for a bounded 180.9 seconds visibly reached the configured X List's login/onboarding redirect,
+not the authenticated List route. It captured zero raw payloads and zero sidecars. Per the
+mandatory safety contract, no credentials or login automation were attempted, no current
+cutoff was frozen, and no canonical cycle, provider call, article, package, public write,
+unknown write, or readback occurred. The dedicated browser remains available for operator
+recovery.
 
 Exact next product action:
 
-`RESTORE_ALREADY_AUTHENTICATED_X_CDP_BINDING_ON_LOCAL_PORT_9222_THEN_RUN_ONE_NEW_GOVERNED_CURRENT_X_CYCLE`
+`OPERATOR_REAUTHENTICATE_DEDICATED_CAPITAL_CHRONICLE_X_PROFILE_THEN_RUN_ONE_NEW_GOVERNED_CURRENT_X_CYCLE`
 
 Evidence:
+`docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/current_cycle_promotion_v1/current_x_reauthentication_blocker_evidence_v1.json`
+
+Historical blocker evidence remains unchanged at:
 `docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/current_cycle_promotion_v1/current_x_cycle_promotion_evidence_v1.json`.
 
 ### Latest promotion and fresh-packet discovery

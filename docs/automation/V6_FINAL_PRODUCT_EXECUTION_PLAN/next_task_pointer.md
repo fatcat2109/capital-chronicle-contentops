@@ -22,23 +22,24 @@ Work Packages C, D, and E are:
 
 ### Latest product action
 
-`TASK_CONTENTOPS_PROMOTE_HIERARCHICAL_ASSIGNMENT_AND_RUN_CURRENT_X_CYCLE_V1`
+`TASK_CONTENTOPS_RESTORE_X_CDP_AND_RUN_CURRENT_GOVERNED_CYCLE_V1`
 
 Status:
 
-`BLOCKED_CURRENT_X_INGESTION_BINDING_UNAVAILABLE`
+`BLOCKED_OPERATOR_X_REAUTH_REQUIRED`
 
-The accepted hierarchical assignment commit was fast-forwarded to remote `master` at exact
-SHA `c4ad5299022a5f8f745179729df33e98a67a23e8`. Current upstream headline `main` was verified
-at `217059a87291c32b5f8aeb7278349928476806c8` in a clean task-owned clone. The existing X
-ingestion route could not start because local CDP port 9222 had neither an HTTP response nor
-an OS listener. No login or substitute authenticated session was attempted. No current
-window was frozen, so fresh-headline count is unknown rather than zero, and no canonical
-cycle or public action occurred.
+The exact dedicated Chrome binding from upstream `Launch_Dashboard.bat` was restored on local
+CDP port 9222 without executing the rest of that launcher, creating another profile, or
+reading session material. The endpoint and listener became healthy, but existing
+`Data_Ingestion.py` visibly reached the X login/onboarding redirect instead of the configured
+Capital Chronicle List. A bounded 180.9-second run captured zero raw payloads and zero
+sidecars. Per the mandatory safety stop, no credentials or login automation were attempted,
+no current cutoff was frozen, and no canonical cycle or public action occurred. The browser
+was left available for safe operator recovery.
 
 Exact next rolling-X product action:
 
-`RESTORE_ALREADY_AUTHENTICATED_X_CDP_BINDING_ON_LOCAL_PORT_9222_THEN_RUN_ONE_NEW_GOVERNED_CURRENT_X_CYCLE`
+`OPERATOR_REAUTHENTICATE_DEDICATED_CAPITAL_CHRONICLE_X_PROFILE_THEN_RUN_ONE_NEW_GOVERNED_CURRENT_X_CYCLE`
 
 Operating mode: `AUTONOMOUS_DEFAULT`
 
