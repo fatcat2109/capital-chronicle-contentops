@@ -21,9 +21,13 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     IDENTITY_NOT_VERIFIABLE,
     IDENTITY_REJECTED,
     MAX_TOTAL_PROVIDER_ATTEMPTS,
+    NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS,
     NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS,
     NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS,
+    NEWSROOM_LEAF_SCAN_MODEL,
+    NEWSROOM_LEAF_SCAN_MODEL_POOL,
     NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS,
+    NEWSROOM_LEAF_SCAN_ROLE,
     NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS,
     NON_RETRYABLE_CLASSES,
     ORDERED_MODEL_POOL,
@@ -192,9 +196,11 @@ def test_role_specific_wall_clock_budgets_are_finite_and_do_not_change_attempt_b
     assert generic.wall_clock_budget_seconds == 300.0
     assert leaf.max_total_provider_attempts == MAX_TOTAL_PROVIDER_ATTEMPTS
     assert leaf.max_fallback_transitions == NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS
-    assert leaf.per_model_max_attempts == NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS
+    assert leaf.per_model_max_attempts == NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS == (2, 1, 1, 1, 1)
     assert editor.max_total_provider_attempts == len(ORDERED_MODEL_POOL)
     assert editor.max_fallback_transitions == len(ORDERED_MODEL_POOL) - 1
+    assert editor.per_model_max_attempts == NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS == (1, 1, 1, 1)
+    assert generic.per_model_max_attempts == (2, 2, 1, 1)
 
 
 def test_router_refuses_an_unauthorized_model_in_the_pool() -> None:
@@ -416,6 +422,65 @@ def test_case_i_failed_attempt_is_never_discarded_from_evidence() -> None:
     assert len(result["attempts"]) == 2
     assert result["attempts"][0]["output_hash"], "failed raw response must still be hashed"
     assert result["attempts"][0]["disposition"] == "rejected"
+
+
+def _run_leaf(provider):
+    from live_contentops.nine_router_ordered_model_router_v2 import retry_budget_for_role
+
+    return run(
+        provider,
+        iid="inv_leaf_policy",
+        role=NEWSROOM_LEAF_SCAN_ROLE,
+        model_pool=NEWSROOM_LEAF_SCAN_MODEL_POOL,
+        budget=retry_budget_for_role(
+            role_task_id=NEWSROOM_LEAF_SCAN_ROLE,
+            logical_invocation_id="inv_leaf_policy",
+        ),
+        validator=_json_validator,
+    )
+
+
+def test_leaf_flash_structured_failure_gets_one_same_model_repair_without_fallback() -> None:
+    provider = scripted({
+        NEWSROOM_LEAF_SCAN_MODEL: [
+            good(NEWSROOM_LEAF_SCAN_MODEL, text="broken"),
+            good(NEWSROOM_LEAF_SCAN_MODEL, text='{"ok": 1}'),
+        ],
+    })
+
+    result = _run_leaf(provider)
+
+    assert result["terminal_disposition"] == ACCEPTED
+    assert result["selected_model"] == NEWSROOM_LEAF_SCAN_MODEL
+    assert result["total_attempts"] == 2
+    assert result["total_structured_repair_attempts"] == 1
+    assert result["total_fallback_transitions"] == 0
+    assert provider.calls == [
+        (NEWSROOM_LEAF_SCAN_MODEL, 0),
+        (NEWSROOM_LEAF_SCAN_MODEL, 1),
+    ]
+
+
+def test_leaf_fable_has_one_attempt_and_all_failures_remain_globally_bounded() -> None:
+    flash = NEWSROOM_LEAF_SCAN_MODEL
+    fable, gpt, opus, gemini_pro = ORDERED_MODEL_POOL
+    provider = scripted({
+        flash: [good(flash, text="broken"), good(flash, text="still broken")],
+        fable: [fail("http_503_unavailable"), good(fable)],
+        gpt: [fail("http_502_bad_gateway")],
+        opus: [fail("requested_model_temporarily_unavailable")],
+        gemini_pro: [good(gemini_pro, text="also broken")],
+    })
+
+    result = _run_leaf(provider)
+
+    assert provider.calls.count((fable, 0)) == 1
+    assert all(index == 0 for model, index in provider.calls if model == fable)
+    assert result["total_attempts"] == 6
+    assert result["total_attempts"] <= MAX_TOTAL_PROVIDER_ATTEMPTS
+    assert result["total_fallback_transitions"] == 4
+    assert result["total_fallback_transitions"] <= NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS
+    assert result["terminal_disposition"] == RETRY_BUDGET_EXHAUSTED
 
 
 def test_case_j_repair_fails_then_eligible_fallback() -> None:

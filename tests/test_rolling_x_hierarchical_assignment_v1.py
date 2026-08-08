@@ -281,7 +281,7 @@ def test_unknown_duplicate_and_omitted_leaf_ids_are_structured_output_failures()
         assert output is None
 
 
-def test_unknown_leaf_id_gets_bounded_fallback_repair_and_repaired_output_is_exact():
+def test_unknown_leaf_id_gets_bounded_flash_repair_and_repaired_output_is_exact():
     rolling_input = _small_input()
     calls = []
     leaf_outputs = 0
@@ -291,8 +291,6 @@ def test_unknown_leaf_id_gets_bounded_fallback_repair_and_repaired_output_is_exa
         calls.append((prompt, model))
         if "global_editor_input:\n" in prompt:
             return HierarchicalProvider()(prompt, model, timeout)
-        if model == NEWSROOM_LEAF_SCAN_MODEL:
-            return ProviderResult(failure_class="requested_model_temporarily_unavailable")
         expected_ids = list(rolling_input["unique_headline_ids"])
         leaf_outputs += 1
         output_ids = ["injected-id"] if leaf_outputs == 1 else expected_ids
@@ -309,9 +307,13 @@ def test_unknown_leaf_id_gets_bounded_fallback_repair_and_repaired_output_is_exa
     assert result["status"] == "SUCCESS"
     leaf_call = result["router_calls"][0]
     assert leaf_call["total_structured_repair_attempts"] == 1
-    assert leaf_call["total_attempts"] == 3
+    assert leaf_call["total_attempts"] == 2
+    assert leaf_call["total_fallback_transitions"] == 0
+    assert [row["requested_model"] for row in leaf_call["attempts"]] == [
+        NEWSROOM_LEAF_SCAN_MODEL,
+        NEWSROOM_LEAF_SCAN_MODEL,
+    ]
     assert [row["failure_class"] for row in leaf_call["attempts"]] == [
-        "requested_model_temporarily_unavailable",
         "structured_output_schema_invalid",
         None,
     ]

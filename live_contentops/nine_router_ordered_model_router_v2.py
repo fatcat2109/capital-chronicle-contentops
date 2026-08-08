@@ -83,7 +83,7 @@ AUTHORIZED_MODELS = frozenset(
 #: single attempt, because by the time the router reaches them the invocation has already
 #: spent most of its global budget and a further same-model retry buys little.
 PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 1, 1)
-NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (1, 2, 1, 1, 1)
+NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 1, 1, 1, 1)
 NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (1, 1, 1, 1)
 
 MAX_TOTAL_PROVIDER_ATTEMPTS = 6
