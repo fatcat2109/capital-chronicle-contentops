@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     ROLLING_X_ASSIGNMENT_SCHEMA_VERSION,
+    _validate_rolling_x_story_type_output,
     select_first_viable_rolling_x_cluster,
 )
 
@@ -78,6 +79,85 @@ def test_non_market_factual_story_does_not_require_market_or_numeric_evidence():
     assert seen[0]["required_evidence_capabilities"] == [
         "official_document", "implementation_timeline", "affected_entities"
     ]
+
+
+def test_explicit_story_type_beats_legacy_market_sensitive_default():
+    seen = []
+
+    result = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(_cluster("policy", 1, market_sensitive=True)),
+        acquire_evidence=lambda request: seen.append(request) or _receipt(request),
+        story_type_by_cluster={"policy": "regulatory_fiscal_event"},
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert seen[0]["story_type"] == "regulatory_fiscal_event"
+    assert seen[0]["market_sensitive"] is True
+    assert seen[0]["capital_chronicle_numeric_or_analytical_authority_required"] is False
+
+
+def test_registry_market_context_requires_capital_chronicle_authority():
+    seen = []
+
+    result = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(_cluster("market", 1, market_sensitive=False)),
+        acquire_evidence=lambda request: seen.append(request) or _receipt(
+            request, authority=True
+        ),
+        story_type_by_cluster={"market": "market_move"},
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert seen[0]["capital_chronicle_numeric_or_analytical_authority_required"] is True
+
+
+def test_unknown_explicit_story_type_fails_closed():
+    try:
+        select_first_viable_rolling_x_cluster(
+            assignment=_assignment(_cluster("one", 1)),
+            acquire_evidence=lambda request: _receipt(request),
+            story_type_by_cluster={"one": "invented_story_type"},
+        )
+    except ValueError as exc:
+        assert str(exc) == "rolling_x_story_type_unknown"
+    else:
+        raise AssertionError("unknown story type must fail closed")
+
+
+def test_story_type_classifier_requires_exact_cluster_coverage():
+    import json
+
+    allowed = {"market_move", "physical_event"}
+    valid, failure, output = _validate_rolling_x_story_type_output(
+        json.dumps({"stories": [
+            {"cluster_id": "one", "story_type": "market_move", "reason": "Market event."},
+            {"cluster_id": "two", "story_type": "physical_event", "reason": "Physical event."},
+        ]}),
+        cluster_ids=["one", "two"],
+        allowed_story_types=allowed,
+    )
+    assert valid is True
+    assert failure is None
+    assert [row["cluster_id"] for row in output["stories"]] == ["one", "two"]
+
+    for rows in (
+        [
+            {"cluster_id": "one", "story_type": "market_move", "reason": "One."},
+            {"cluster_id": "one", "story_type": "physical_event", "reason": "Duplicate."},
+        ],
+        [
+            {"cluster_id": "one", "story_type": "market_move", "reason": "One."},
+            {"cluster_id": "unknown", "story_type": "physical_event", "reason": "Unknown."},
+        ],
+    ):
+        valid, failure, output = _validate_rolling_x_story_type_output(
+            json.dumps({"stories": rows}),
+            cluster_ids=["one", "two"],
+            allowed_story_types=allowed,
+        )
+        assert valid is False
+        assert failure == "structured_output_schema_invalid"
+        assert output is None
 
 
 def test_all_ranked_clusters_blocked_returns_governed_no_publication():

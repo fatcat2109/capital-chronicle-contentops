@@ -174,6 +174,27 @@ def _market_capabilities(packet: Mapping[str, Any]) -> tuple[set[str], list[str]
     return supplied, blockers
 
 
+def _official_freshness_blockers(
+    documents: list[Mapping[str, Any]], *, evaluation_as_of_utc: str, max_age_hours: float
+) -> list[str]:
+    try:
+        cutoff = datetime.fromisoformat(evaluation_as_of_utc.replace("Z", "+00:00"))
+    except ValueError:
+        return ["official_evidence_evaluation_time_invalid"]
+    blockers = []
+    for index, row in enumerate(documents):
+        value = row.get("published_at_utc") or row.get("event_time_utc")
+        try:
+            observed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        except ValueError:
+            blockers.append(f"official_evidence_document_{index}_published_time_invalid")
+            continue
+        age_hours = (cutoff - observed).total_seconds() / 3600.0
+        if age_hours < 0 or age_hours > max_age_hours:
+            blockers.append(f"official_evidence_document_{index}_stale_or_future")
+    return blockers
+
+
 class RollingXTargetedEvidenceAdapter:
     """Translate exact governed packets into the existing rolling-X receipt contract."""
 
@@ -183,11 +204,13 @@ class RollingXTargetedEvidenceAdapter:
         capital_chronicle_root: str | Path | None = None,
         evaluation_as_of_utc: str | None = None,
         packet_loader: Callable[[Mapping[str, Any]], Mapping[str, Any]] | None = None,
+        official_evidence_loader: Callable[[Mapping[str, Any]], Mapping[str, Any]] | None = None,
         capability_registry: Mapping[str, Any] | None = None,
     ) -> None:
         self._root = Path(capital_chronicle_root) if capital_chronicle_root else None
         self._evaluation_as_of_utc = evaluation_as_of_utc or _utc_now()
         self._packet_loader = packet_loader
+        self._official_evidence_loader = official_evidence_loader
         self._registry = dict(
             capability_registry or load_source_capability_registry()
         )
@@ -258,6 +281,55 @@ class RollingXTargetedEvidenceAdapter:
             blockers.append("evidence_request_source_adapter_registry_mismatch")
         if blockers:
             return _blocked_receipt(request, blockers)
+
+        families = set(capability.get("source_adapter_families") or [])
+        cc_families = {"capital_chronicle_market_state", "capital_chronicle_database"}
+        if not families.intersection(cc_families):
+            if self._official_evidence_loader is None:
+                return _blocked_receipt(
+                    request, ["official_source_evidence_loader_unavailable"]
+                )
+            try:
+                official = self._official_evidence_loader(request)
+            except (FileNotFoundError, RuntimeError, ValueError, OSError) as exc:
+                return _blocked_receipt(
+                    request, ["official_source_evidence_unavailable:" + type(exc).__name__]
+                )
+            if not isinstance(official, Mapping):
+                return _blocked_receipt(request, ["official_source_evidence_not_object"])
+            packet = dict(official)
+            blockers.extend(_exact_binding_blockers(packet, request))
+            documents, document_blockers = _document_receipts(
+                packet, request, freshness_state="FRESH_CURRENT_OPERATOR_READINESS"
+            )
+            blockers.extend(document_blockers)
+            freshness_requirements = capability.get("freshness_requirements") or {}
+            blockers.extend(_official_freshness_blockers(
+                documents,
+                evaluation_as_of_utc=self._evaluation_as_of_utc,
+                max_age_hours=float(freshness_requirements.get("max_age_hours") or 24.0),
+            ))
+            supplied = set(str(value) for value in packet.get("provided_evidence_capabilities") or [])
+            for missing in sorted(set(required) - supplied):
+                blockers.append(f"required_evidence_capability_missing:{missing}")
+            if packet.get("status") != "PASS":
+                blockers.extend(str(value) for value in packet.get("blockers") or [])
+            if blockers:
+                return _blocked_receipt(
+                    request, blockers, documents=documents,
+                    supplied=sorted(supplied.intersection(required)),
+                )
+            return {
+                "status": "PASS",
+                "cluster_id": request.get("cluster_id"),
+                "headline_ids": list(request.get("headline_ids") or []),
+                "provided_evidence_capabilities": sorted(supplied.intersection(required)),
+                "evidence_documents": documents,
+                "capital_chronicle_authority_verified": False,
+                "numeric_evidence_required": False,
+                "blockers": [],
+                "publication_authority": False,
+            }
 
         packet = self._load_packet(request)
         if packet is None:

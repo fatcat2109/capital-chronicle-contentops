@@ -1619,10 +1619,182 @@ ROLLING_X_EVIDENCE_VIABILITY_SCHEMA_VERSION = (
 
 
 def _default_rolling_x_story_type(cluster: Mapping[str, Any]) -> str:
-    """Resolve the narrowest registered default without treating X as evidence."""
+    """Resolve the legacy default for callers that have no semantic routing result."""
     if cluster.get("market_sensitive") is True:
         return "market_move"
     return "regulatory_fiscal_event"
+
+
+def resolve_rolling_x_story_type(
+    cluster: Mapping[str, Any],
+    *,
+    story_type_by_cluster: Mapping[str, str] | None = None,
+    capability_registry: Mapping[str, Any] | None = None,
+) -> str:
+    """Resolve an exact registered story type, failing closed on bad routing input."""
+    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
+
+    registry = dict(capability_registry or load_source_capability_registry())
+    story_types = registry.get("story_types") or {}
+    cluster_id = str(cluster.get("cluster_id") or "")
+    story_type = str((story_type_by_cluster or {}).get(cluster_id) or "")
+    if not story_type:
+        story_type = _default_rolling_x_story_type(cluster)
+    if story_type not in story_types:
+        raise ValueError("rolling_x_story_type_unknown")
+    return story_type
+
+
+def _validate_rolling_x_story_type_output(
+    raw_text: str,
+    *,
+    cluster_ids: Sequence[str],
+    allowed_story_types: set[str],
+) -> tuple[bool, str | None, dict[str, Any] | None]:
+    try:
+        parsed = _parse_single_json_object(raw_text)
+        rows = parsed.get("stories")
+        if not isinstance(rows, list) or len(rows) != len(cluster_ids):
+            raise ValueError("story_type_row_count_invalid")
+        expected = set(cluster_ids)
+        seen: set[str] = set()
+        normalized = []
+        for row in rows:
+            if not isinstance(row, Mapping):
+                raise ValueError("story_type_row_invalid")
+            cluster_id = str(row.get("cluster_id") or "")
+            story_type = str(row.get("story_type") or "")
+            reason = str(row.get("reason") or "").strip()
+            if cluster_id not in expected:
+                raise ValueError("story_type_unknown_cluster_id")
+            if cluster_id in seen:
+                raise ValueError("story_type_duplicate_cluster_id")
+            if story_type not in allowed_story_types:
+                raise ValueError("story_type_unknown_registry_key")
+            if not reason or len(reason) > 300:
+                raise ValueError("story_type_reason_invalid")
+            seen.add(cluster_id)
+            normalized.append({
+                "cluster_id": cluster_id,
+                "story_type": story_type,
+                "reason": reason,
+            })
+        if seen != expected:
+            raise ValueError("story_type_cluster_coverage_invalid")
+        by_id = {row["cluster_id"]: row for row in normalized}
+        return True, None, {"stories": [by_id[value] for value in cluster_ids]}
+    except (TypeError, ValueError):
+        return False, "structured_output_schema_invalid", None
+
+
+def classify_rolling_x_story_types_with_nine_router(
+    *,
+    clusters: Sequence[Mapping[str, Any]],
+    capability_registry: Mapping[str, Any] | None = None,
+    provider_call: Any = None,
+    timeout_seconds: float = 300.0,
+) -> dict[str, Any]:
+    """Classify one accepted ranked set in one bounded Gemini-only routed invocation."""
+    from live_contentops.nine_router_ordered_model_router_v2 import (
+        ACCEPTED,
+        RetryBudget,
+        route_llm_invocation,
+    )
+    from live_contentops.nine_router_llm_seam_v2 import _default_provider_call
+
+    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
+
+    registry = dict(capability_registry or load_source_capability_registry())
+    story_types = registry.get("story_types") or {}
+    cluster_ids = [str(row.get("cluster_id") or "") for row in clusters]
+    if (
+        not cluster_ids
+        or len(cluster_ids) != len(set(cluster_ids))
+        or any(not value for value in cluster_ids)
+    ):
+        raise ValueError("rolling_x_story_type_classifier_input_invalid")
+    classifier_input = {
+        "stories": [
+            {
+                "cluster_id": str(row["cluster_id"]),
+                "story_mode": row.get("story_mode"),
+                "article_mode": row.get("article_mode"),
+                "market_sensitive": bool(row.get("market_sensitive")),
+                "why_now": row.get("why_now"),
+                "selection_case": row.get("selection_case"),
+                "needed_evidence": list(row.get("needed_evidence") or []),
+                "leaf_summaries": list(row.get("leaf_summaries") or []),
+                "entities_topics": list(row.get("entities_topics") or []),
+            }
+            for row in clusters
+        ],
+        "allowed_story_types": {
+            key: {
+                "required_evidence_capabilities": list(
+                    value.get("required_evidence_capabilities") or []
+                ),
+                "source_adapter_families": list(
+                    value.get("source_adapter_families") or []
+                ),
+                "market_context_required": bool(value.get("market_context_required")),
+            }
+            for key, value in story_types.items()
+            if isinstance(value, Mapping)
+        },
+    }
+    prompt = (
+        "You perform semantic editorial story-type routing only. This grants no factual, "
+        "numeric, evidence, or publication authority. Return one JSON object only with key "
+        "stories. Include every supplied cluster_id exactly once and no other ID. For each "
+        "row return cluster_id, one exact allowed story_type key, and a short reason.\n"
+        "classifier_input:\n"
+        + json.dumps(classifier_input, sort_keys=True, separators=(",", ":"))
+    )
+    invocation_id = "inv_rolling_x_story_type_" + _logical_hash(classifier_input)[:20]
+    model = "vx/gemini-3.1-pro-preview(high)"
+    summary = route_llm_invocation(
+        logical_invocation_id=invocation_id,
+        role_task_id="rolling_x_story_type_classifier",
+        work_item_id="rolling-x-story-type-" + _logical_hash(cluster_ids)[:20],
+        prompt=prompt,
+        provider_call=provider_call or _default_provider_call,
+        validator=lambda text: _validate_rolling_x_story_type_output(
+            text,
+            cluster_ids=cluster_ids,
+            allowed_story_types=set(story_types),
+        ),
+        governed_input=classifier_input,
+        prompt_template="rolling_x_story_type_classifier",
+        prompt_version="v1",
+        timeout_seconds=timeout_seconds,
+        budget=RetryBudget(
+            logical_invocation_id=invocation_id,
+            max_total_provider_attempts=2,
+            max_fallback_transitions=0,
+            max_same_model_retries=0,
+            max_structured_output_repair_attempts=1,
+            per_model_max_attempts=(2,),
+            wall_clock_budget_seconds=timeout_seconds,
+        ),
+        repair_prompt_builder=lambda original, invalid, _diagnostic: (
+            original
+            + "\nThe previous response failed the exact schema. Return corrected JSON only. "
+            + "invalid_response_sha256="
+            + hashlib.sha256(invalid.encode("utf-8")).hexdigest()
+        ),
+        model_pool=(model,),
+    )
+    if summary.get("terminal_disposition") != ACCEPTED:
+        raise RuntimeError("rolling_x_story_type_classifier_blocked")
+    output = dict(summary["output"])
+    output["story_type_by_cluster"] = {
+        row["cluster_id"]: row["story_type"] for row in output["stories"]
+    }
+    output["router_summary"] = {
+        key: value for key, value in summary.items() if key != "output"
+    }
+    output["semantic_routing_grants_authority"] = False
+    return output
 
 
 def select_first_viable_rolling_x_cluster(
@@ -1688,7 +1860,11 @@ def select_first_viable_rolling_x_cluster(
         ):
             raise ValueError("rolling_x_ranked_cluster_binding_invalid")
         seen_cluster_ids.add(cluster_id)
-        story_type = configured_types.get(cluster_id) or _default_rolling_x_story_type(cluster)
+        story_type = resolve_rolling_x_story_type(
+            cluster,
+            story_type_by_cluster=configured_types,
+            capability_registry=registry,
+        )
         story_capability_row = (registry.get("story_types") or {}).get(story_type) or {}
         requested_mode = str(story_capability_row.get("article_mode") or "") or {
             "breaking": "straight_news",
@@ -1719,7 +1895,7 @@ def select_first_viable_rolling_x_cluster(
             "market_sensitive": bool(cluster.get("market_sensitive")),
             "market_snapshot_required": bool(capability.get("market_snapshot_required")),
             "capital_chronicle_numeric_or_analytical_authority_required": bool(
-                capability.get("market_context_required") or cluster.get("market_sensitive")
+                capability.get("market_context_required")
             ),
             "x_content_is_discovery_and_ranking_only": True,
         }

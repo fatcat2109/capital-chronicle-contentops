@@ -229,9 +229,13 @@ def test_valid_official_primary_packet_can_satisfy_nonnumeric_capability():
         {key: value for key, value in request.items() if key != "request_logical_hash"}
     )
     packet = _packet(request)
+    packet["status"] = "PASS"
     packet["provided_evidence_capabilities"] = ["official_document"]
     adapter = RollingXTargetedEvidenceAdapter(
-        packet_loader=lambda _request: packet,
+        packet_loader=lambda _request: (_ for _ in ()).throw(
+            AssertionError("official-only story must not load Capital Chronicle packet")
+        ),
+        official_evidence_loader=lambda _request: packet,
         evaluation_as_of_utc=AS_OF,
         capability_registry=registry,
     )
@@ -241,3 +245,53 @@ def test_valid_official_primary_packet_can_satisfy_nonnumeric_capability():
     assert receipt["status"] == "PASS"
     assert receipt["provided_evidence_capabilities"] == ["official_document"]
     assert receipt["capital_chronicle_authority_verified"] is False
+
+
+def test_official_evidence_cannot_substitute_for_market_authority():
+    request = _request()
+    packet = _packet(request)
+    packet["status"] = "PASS"
+    adapter = RollingXTargetedEvidenceAdapter(
+        official_evidence_loader=lambda _request: packet,
+        evaluation_as_of_utc=AS_OF,
+    )
+
+    receipt = adapter(request)
+
+    assert receipt["status"] == "BLOCKED"
+    assert "capital_chronicle_evidence_root_not_bound" in receipt["blockers"]
+
+
+def test_stale_official_primary_evidence_fails_closed():
+    registry = deepcopy(load_source_capability_registry())
+    registry["story_types"]["regulatory_fiscal_event"] = {
+        "required_evidence_capabilities": ["official_document"],
+        "market_context_required": False,
+        "article_mode": "straight_news",
+        "freshness_policy": "event_24h",
+        "freshness_requirements": {"max_age_hours": 24},
+        "source_adapter_families": ["official_regulatory_fiscal"],
+    }
+    request = _request(
+        story_type="regulatory_fiscal_event",
+        required=["official_document"],
+        families=["official_regulatory_fiscal"],
+    )
+    request["capital_chronicle_numeric_or_analytical_authority_required"] = False
+    request["request_logical_hash"] = _logical_hash(
+        {key: value for key, value in request.items() if key != "request_logical_hash"}
+    )
+    packet = _packet(request)
+    packet["status"] = "PASS"
+    packet["provided_evidence_capabilities"] = ["official_document"]
+    packet["official_source_documents"][0]["published_at_utc"] = "2026-08-01T00:00:00Z"
+    adapter = RollingXTargetedEvidenceAdapter(
+        official_evidence_loader=lambda _request: packet,
+        evaluation_as_of_utc=AS_OF,
+        capability_registry=registry,
+    )
+
+    receipt = adapter(request)
+
+    assert receipt["status"] == "BLOCKED"
+    assert "official_evidence_document_0_stale_or_future" in receipt["blockers"]
