@@ -163,6 +163,25 @@ Tier-2 implementation is **not current** and begins only after Tier-1 final acce
 
 `docs/automation/VIDEO_FOUNDATION_AND_PAUSE_V1/` is historical discovery/evidence. Its future implementation routing is superseded wherever it conflicts with the Tier-2 Pro Video Factory owner direction.
 
+## Persistent browser role authority
+
+These are two intentionally separate persistent operator profiles. Their role and binding are
+safe repository authority; browser authentication/session state remains outside Git.
+
+- **Chrome `CapitalChronicleBot` on CDP `9222` — ingestion only.** Use only for the upstream
+  X List route and `ListLatestTweetsTimeline` headline/raw-sidecar discovery. Never use it for
+  ContentOps media publication, platform management, or readback.
+- **Microsoft Edge `contentops-social-main` on CDP `9223` — publishing/media management only.**
+  Use only through the canonical publishing-profile registry for Substack, X publication,
+  LinkedIn, Facebook, Instagram, Threads, YouTube, and other approved media-platform
+  management/readback. Never use it for headline ingestion.
+
+Never create, clone, migrate, clean, delete, or substitute either persistent profile. Never
+inspect or export cookies, browser storage, tokens, credentials, or session databases. The
+authenticated browser state is operator-owned external state and must never be committed.
+The profile role declaration does not grant live-write permission; canonical destination
+readiness, strict readback, and reconciliation remain mandatory.
+
 ## Canonical roots
 
 - backend: `live_contentops/`

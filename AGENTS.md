@@ -147,7 +147,32 @@ not an end-to-end newsroom quality SLA; each provider invocation remains finite 
 
 Do not create a second newsroom, runner authority, state store, approval engine, outbox, scheduler, provider gateway, dashboard, or analysis engine.
 
-## 7. Current Tier-1 state
+### Persistent browser role authority
+
+These are two intentionally separate persistent operator profiles. Their role and binding are
+part of the safe repository authority; browser authentication/session state remains outside Git.
+
+- **Chrome `CapitalChronicleBot` on CDP `9222` — ingestion only.** Use only for the upstream
+  X List route and `ListLatestTweetsTimeline` headline/raw-sidecar discovery. Never use it for
+  ContentOps media publication, platform management, or readback.
+- **Microsoft Edge `contentops-social-main` on CDP `9223` — publishing/media management only.**
+  Use only through the canonical publishing-profile registry for Substack, X publication,
+  LinkedIn, Facebook, Instagram, Threads, YouTube, and other approved media-platform
+  management/readback. Never use it for headline ingestion.
+
+Never create, clone, migrate, clean, delete, or substitute either persistent profile. Never
+inspect or export cookies, browser storage, tokens, credentials, or session databases. The
+authenticated browser state is operator-owned external state and must never be committed.
+
+## 7. Canonical live-write authority
+
+The canonical publishing-profile registry remains the only live-write authority. A browser
+family/profile role declaration does not grant publication permission; exact destination
+readiness must still be dynamically verified as `READY_AUTHENTICATED` or
+`READY_NON_BROWSER_BINDING`, with strict readback and reconciliation. Unknown writes follow
+`STOP RETRY → READ BACK → RECONCILE`.
+
+## 8. Current Tier-1 state
 
 Work Package C:
 
@@ -167,7 +192,7 @@ Work E launch-readiness:
 
 The accelerated logical soak is not calendar-time live reliability and does not claim full-suite or CI PASS.
 
-## 8. Latest operational task
+## 9. Latest operational task
 
 `TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
 
@@ -183,7 +208,7 @@ threshold. The ContentOps rerun therefore stopped before 9Router or any public a
 Owner live scope remains recorded and dynamically limited to verified canonical `READY_*`
 destinations; no new authorization is required.
 
-## 9. Current router/model runtime authority
+## 10. Current router/model runtime authority
 
 Current authority ID:
 
@@ -230,7 +255,7 @@ authorized fallback models. One bounded no-write probe verified provider-observe
 `gemini-3.5-flash`. Flash is semantic labor only and grants no factual, analytical,
 evidence, or publication authority.
 
-## 10. Current Tier-1 build sequence
+## 11. Current Tier-1 build sequence
 
 ```text
 Work F canonical cycle: autonomous no-publication with caveat   [EXECUTED]
@@ -244,7 +269,7 @@ Work F canonical cycle: autonomous no-publication with caveat   [EXECUTED]
 
 The final UI rebuild occurs after Work F so it is designed around real live states: provider/model fallback, platform processing, readback, unknown writes, reconciliation, incidents, cost, and recovery.
 
-## 11. Approved post-Tier-1 Tier-2 direction
+## 12. Approved post-Tier-1 Tier-2 direction
 
 After Tier-1 final acceptance/freeze, the approved next product expansion is:
 
@@ -282,7 +307,7 @@ Generative video is optional enrichment, not foundation.
 
 Tier-2 implementation is **NOT CURRENT**.
 
-## 12. Historical video material
+## 13. Historical video material
 
 `docs/automation/VIDEO_FOUNDATION_AND_PAUSE_V1/` remains historical discovery/evidence.
 
@@ -290,7 +315,7 @@ Its future implementation routing is superseded wherever it conflicts with the T
 
 Reuse compatible FFmpeg/media-manifest/platform research. Do not automatically revive indefinite pause policy, avatar-first architecture, stale platform assumptions, or a parallel newsroom/state/publication authority.
 
-## 13. Build doctrine
+## 14. Build doctrine
 
 Use FAST SHIP + heavy bounded end-to-end vertical slices.
 
@@ -310,7 +335,7 @@ Support docs/tests/evidence should remain proportionate and directly support pro
 
 Do not reopen accepted work without a real invalidation trigger.
 
-## 14. Fast-ship blocker policy
+## 15. Fast-ship blocker policy
 
 Stop only for true hard blockers:
 
@@ -325,7 +350,7 @@ Stop only for true hard blockers:
 
 Do not stop for unrelated dirty files, absent CI, stale historical docs, mechanical formatting issues, or pre-existing unrelated test noise.
 
-## 15. Safety invariants
+## 16. Safety invariants
 
 - never bypass evidence/permission/freshness/point-in-time authority;
 - never fabricate numbers, analysis, quotes, sources, event imagery, or readback;
@@ -337,7 +362,7 @@ Do not stop for unrelated dirty files, absent CI, stale historical docs, mechani
 - never treat engagement as factual authority;
 - generated media must not masquerade as documentary evidence.
 
-## 16. Commit / evidence discipline
+## 17. Commit / evidence discipline
 
 - stage explicit paths only;
 - never use `git add .` or `git add -A` for mixed worktrees;
@@ -347,7 +372,7 @@ Do not stop for unrelated dirty files, absent CI, stale historical docs, mechani
 - do not claim CI PASS when no CI ran;
 - use focused tests plus one relevant end-to-end smoke where implementation changes justify it.
 
-## 17. Exact next action
+## 18. Exact next action
 
 Do not start Tier-2.
 
