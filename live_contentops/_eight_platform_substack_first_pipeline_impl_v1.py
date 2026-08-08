@@ -2739,21 +2739,20 @@ def _default_rolling_x_article_reviser(
     return dict(summary["output"])
 
 
-def _default_rolling_x_evidence_acquirer(request: Mapping[str, Any]) -> dict[str, Any]:
-    """Fail closed until an existing authority adapter supplies the exact story evidence."""
-    return {
-        "status": "BLOCKED",
-        "cluster_id": request.get("cluster_id"),
-        "headline_ids": list(request.get("headline_ids") or []),
-        "provided_evidence_capabilities": [],
-        "evidence_documents": [],
-        "capital_chronicle_authority_verified": False,
-        "numeric_evidence_required": bool(
-            request.get("capital_chronicle_numeric_or_analytical_authority_required")
-        ),
-        "blockers": ["targeted_story_evidence_adapter_unavailable"],
-        "publication_authority": False,
-    }
+def _default_rolling_x_evidence_acquirer(
+    *,
+    capital_chronicle_root: str | Path | None,
+    evaluation_as_of_utc: str | None = None,
+) -> Any:
+    """Build the capability-driven governed adapter used by the production path."""
+    from live_contentops.rolling_x_targeted_evidence_adapter_v1 import (
+        RollingXTargetedEvidenceAdapter,
+    )
+
+    return RollingXTargetedEvidenceAdapter(
+        capital_chronicle_root=capital_chronicle_root,
+        evaluation_as_of_utc=evaluation_as_of_utc,
+    )
 
 
 def _run_rolling_x_newsroom_cycle(
@@ -2766,6 +2765,10 @@ def _run_rolling_x_newsroom_cycle(
     cdp_port: int = 9223,
     assignment_timeout_seconds: float = 120.0,
     assignment_provider_call: Any = None,
+    rolling_input: Mapping[str, Any] | None = None,
+    leaf_checkpoints: Mapping[str, Mapping[str, Any]] | None = None,
+    global_checkpoint: Mapping[str, Any] | None = None,
+    capital_chronicle_root: str | Path | None = None,
     evidence_acquirer: Any = None,
     story_type_by_cluster: Mapping[str, str] | None = None,
     article_builder: Any = None,
@@ -2787,16 +2790,22 @@ def _run_rolling_x_newsroom_cycle(
         evidence["reentry_guard"] = "existing_cycle_evidence_detected_no_automatic_retry"
         return evidence
 
-    intake = load_rolling_x_headline_sidecars(
-        cutoff_utc=cutoff_utc,
-        sidecar_glob=sidecar_glob,
-        window_hours=window_hours,
+    intake = (
+        dict(rolling_input)
+        if rolling_input is not None
+        else load_rolling_x_headline_sidecars(
+            cutoff_utc=cutoff_utc,
+            sidecar_glob=sidecar_glob,
+            window_hours=window_hours,
+        )
     )
     _write_json(output_dir / "rolling_x_intake_v1.json", intake)
     assignment = assign_rolling_x_headlines_with_nine_router(
         rolling_input=intake,
         timeout_seconds=assignment_timeout_seconds,
         provider_call=assignment_provider_call,
+        leaf_checkpoints=leaf_checkpoints,
+        global_checkpoint=global_checkpoint,
     )
     _write_json(output_dir / "rolling_x_assignment_v1.json", assignment)
     if assignment.get("status") not in {"SUCCESS", "NO_PUBLICATION"}:
@@ -2811,7 +2820,12 @@ def _run_rolling_x_newsroom_cycle(
     else:
         viability = select_first_viable_rolling_x_cluster(
             assignment=assignment,
-            acquire_evidence=evidence_acquirer or _default_rolling_x_evidence_acquirer,
+            acquire_evidence=(
+                evidence_acquirer
+                or _default_rolling_x_evidence_acquirer(
+                    capital_chronicle_root=capital_chronicle_root,
+                )
+            ),
             story_type_by_cluster=story_type_by_cluster,
         )
     _write_json(output_dir / "rolling_x_ranked_viability_v1.json", viability)

@@ -1709,8 +1709,13 @@ def select_first_viable_rolling_x_cluster(
             "rank": expected_rank,
             "headline_ids": headline_ids,
             "story_type": story_type,
+            "article_mode": capability.get("article_mode"),
             "needed_evidence": list(cluster.get("needed_evidence") or []),
             "required_evidence_capabilities": required,
+            "source_adapter_families": list(
+                capability.get("source_adapter_families") or []
+            ),
+            "freshness_policy": capability.get("freshness_policy"),
             "market_sensitive": bool(cluster.get("market_sensitive")),
             "market_snapshot_required": bool(capability.get("market_snapshot_required")),
             "capital_chronicle_numeric_or_analytical_authority_required": bool(

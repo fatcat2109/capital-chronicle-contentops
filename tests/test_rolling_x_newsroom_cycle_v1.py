@@ -477,3 +477,123 @@ def test_unknown_write_from_canonical_backend_stops_retry_and_requires_reconcili
     assert result["unknown_write_detected"] is True
     assert result["automatic_retry_blocked"] is True
     assert result["exact_next_blocker"] == "STOP_RETRY_READ_BACK_RECONCILE"
+
+
+def test_default_cycle_uses_real_targeted_evidence_adapter(monkeypatch, tmp_path: Path):
+    intake = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "counts": {"accepted": 1},
+    }
+    assignment = {
+        "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+        "status": "SUCCESS",
+        "decision": "SELECT_STORY",
+        "ranked_clusters": [
+            {
+                "cluster_id": "c1",
+                "rank": 1,
+                "headline_ids": ["h1"],
+                "market_sensitive": True,
+                "article_mode": "breaking",
+            }
+        ],
+    }
+    seen = []
+
+    class FakeAdapter:
+        def __init__(self, **kwargs):
+            seen.append(("init", kwargs))
+
+        def __call__(self, request):
+            seen.append(("call", request))
+            return {
+                "status": "BLOCKED",
+                "cluster_id": request["cluster_id"],
+                "headline_ids": request["headline_ids"],
+                "provided_evidence_capabilities": [],
+                "evidence_documents": [],
+                "capital_chronicle_authority_verified": False,
+                "numeric_evidence_required": True,
+                "blockers": ["exact_governed_story_evidence_missing"],
+                "publication_authority": False,
+            }
+
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: intake,
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        lambda **kwargs: assignment,
+    )
+    monkeypatch.setattr(
+        "live_contentops.rolling_x_targeted_evidence_adapter_v1.RollingXTargetedEvidenceAdapter",
+        FakeAdapter,
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="default-adapter",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-08T00:00:00Z",
+        capital_chronicle_root=Path("read-only-cc-root"),
+        publication_enabled=False,
+    )
+
+    assert [kind for kind, _ in seen] == ["init", "call"]
+    assert seen[0][1]["capital_chronicle_root"] == Path("read-only-cc-root")
+    assert result["classification"] == "NO_PUBLICATION"
+    assert result["ranked_viability"]["rank_attempts"][0]["blockers"]
+
+
+def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
+    monkeypatch, tmp_path: Path
+):
+    intake = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "canonical_input_hash": "frozen-input-hash",
+        "cutoff_time_utc": "2026-08-08T09:18:54Z",
+        "counts": {"accepted": 1},
+    }
+    leaf_checkpoints = {"leaf-1": {"checkpoint": "exact"}}
+    global_checkpoint = {"checkpoint": "exact-global"}
+    calls = []
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: (_ for _ in ()).throw(
+            AssertionError("frozen resume must not reload X sidecars")
+        ),
+    )
+
+    def assign(**kwargs):
+        calls.append(kwargs)
+        return {
+            "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+            "status": "SUCCESS",
+            "decision": "NO_PUBLICATION",
+            "ranked_clusters": [],
+        }
+
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        assign,
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="frozen-resume",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-08T09:18:54Z",
+        rolling_input=intake,
+        leaf_checkpoints=leaf_checkpoints,
+        global_checkpoint=global_checkpoint,
+        assignment_provider_call=lambda *_args: (_ for _ in ()).throw(
+            AssertionError("assignment provider call forbidden")
+        ),
+        publication_enabled=False,
+    )
+
+    assert len(calls) == 1
+    assert calls[0]["rolling_input"] == intake
+    assert calls[0]["leaf_checkpoints"] is leaf_checkpoints
+    assert calls[0]["global_checkpoint"] is global_checkpoint
+    assert result["intake"]["canonical_input_hash"] == "frozen-input-hash"
+    assert result["classification"] == "NO_PUBLICATION"

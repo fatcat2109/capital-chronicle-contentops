@@ -155,6 +155,12 @@ def _build_evidence_packet_from_publication_packet(
             "end_utc": as_of,
         },
         "publication_assignment": dict(source.get("assignment") or {}),
+        "rolling_x_story_binding": dict(
+            source.get("rolling_x_story_binding") or {}
+        ),
+        "provided_evidence_capabilities": list(
+            source.get("provided_evidence_capabilities") or []
+        ),
         "events": list(source.get("events") or []),
         "headlines": list(source.get("headlines") or []),
         "official_source_documents": source_documents,
