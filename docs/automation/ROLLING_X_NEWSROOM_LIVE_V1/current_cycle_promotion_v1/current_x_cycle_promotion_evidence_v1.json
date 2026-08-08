@@ -1,0 +1,108 @@
+{
+  "schema_version": "contentops_current_x_cycle_promotion_evidence_v1",
+  "task": "TASK_CONTENTOPS_PROMOTE_HIERARCHICAL_ASSIGNMENT_AND_RUN_CURRENT_X_CYCLE_V1",
+  "result": "BLOCKED_CURRENT_X_INGESTION_BINDING_UNAVAILABLE",
+  "operating_mode": "AUTONOMOUS_DEFAULT",
+  "promotion": {
+    "pre_promotion_remote_master_sha": "a1b2c11924ca63ca30923b97b1ca46e494d82a42",
+    "accepted_branch": "worktree-contentops-rolling-24h-x-headlines-autonomous-newsroom-live-v1",
+    "accepted_branch_sha": "c4ad5299022a5f8f745179729df33e98a67a23e8",
+    "ancestry_ahead_behind": "0_2",
+    "method": "FAST_FORWARD_ONLY",
+    "post_promotion_remote_master_sha": "c4ad5299022a5f8f745179729df33e98a67a23e8",
+    "remote_parity": "PASS_EXACT_SHA"
+  },
+  "task_branch": "codex/contentops-promote-hierarchical-current-x-cycle-v1",
+  "final_task_sha": "SELF_COMMIT_CONTAINING_THIS_EVIDENCE",
+  "upstream": {
+    "repository": "fatcat2109/Headline-Raw-data-json",
+    "verified_main_sha": "217059a87291c32b5f8aeb7278349928476806c8",
+    "task_owned_clean_clone": true,
+    "operator_owned_checkout_modified": false,
+    "upstream_modified_committed_or_pushed": false,
+    "data_ingestion_sha256": "7dfa9c3d10558a941515b7815291edbaa70c077beb479ad46dd08f6ddedc405c"
+  },
+  "bounded_x_ingestion": {
+    "existing_ingestion_entrypoint": "Data_Ingestion.py",
+    "existing_route": "X_LIST_CDP_LIST_LATEST_TWEETS_TIMELINE",
+    "target_cdp_port": 9222,
+    "binding_probe_at_utc": "2026-08-08T07:54:56Z",
+    "http_binding_available": false,
+    "os_listener_available": false,
+    "authenticated_x_state_inspected": false,
+    "launcher_started": false,
+    "capture_window_seconds": 0,
+    "raw_payloads_captured": 0,
+    "headline_sidecars_written": 0,
+    "result": "BLOCKED_CURRENT_X_INGESTION_BINDING_UNAVAILABLE",
+    "login_automation_attempted": false,
+    "secret_or_session_material_read": false
+  },
+  "current_window": {
+    "cutoff_utc": null,
+    "window_start_utc": null,
+    "window_hours": 24,
+    "fresh_headline_count": null,
+    "zero_fresh_headlines_claimed": false,
+    "cutoff_rewound": false,
+    "reason_not_frozen": "CAPTURE_DID_NOT_START_BECAUSE_REQUIRED_CDP_BINDING_WAS_UNAVAILABLE"
+  },
+  "canonical_cycle": {
+    "orchestrator": "live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator",
+    "operation": "run_rolling_x_newsroom_cycle",
+    "exactly_one_current_cycle_executed": false,
+    "corrected_rerun_executed": false,
+    "partition_count": null,
+    "leaf_cluster_count": null,
+    "shortlist_count": null,
+    "selected_story": null,
+    "why_now": null,
+    "targeted_evidence_outcome": "NOT_REACHED",
+    "rank_fallback_outcome": "NOT_REACHED",
+    "article_outcome": "NOT_REACHED",
+    "semantic_review_outcome": "NOT_REACHED",
+    "revision_outcome": "NOT_REACHED",
+    "platform_package_count": 0
+  },
+  "provider_telemetry": {
+    "logical_calls": 0,
+    "provider_attempts": 0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "total_tokens": 0,
+    "provider_runtime_seconds": 0,
+    "cost_metadata": "NOT_APPLICABLE_NO_PROVIDER_CALL"
+  },
+  "destination_and_publication": {
+    "destination_readiness_revalidated": false,
+    "reason_not_revalidated": "CANONICAL_CYCLE_NOT_STARTED",
+    "public_attempt_count": 0,
+    "public_object_ids": [],
+    "strict_readback_outcome": "NOT_APPLICABLE_NO_PUBLIC_ATTEMPT",
+    "reconciliation_outcome": "NOT_APPLICABLE_NO_PUBLIC_ATTEMPT",
+    "unknown_write_count": 0,
+    "unauthorized_write_count": 0
+  },
+  "validation": {
+    "focused_pytest": "59 passed",
+    "focused_pytest_command": "python -m pytest tests/test_rolling_x_hierarchical_assignment_v1.py tests/test_rolling_x_newsroom_cycle_v1.py tests/test_rolling_x_evidence_viability_v1.py tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py -q",
+    "contentops_python_compile": "PASS",
+    "upstream_data_ingestion_compile": "PASS",
+    "current_cycle_smoke": "BLOCKED_BEFORE_START_REQUIRED_CDP_9222_BINDING_UNAVAILABLE",
+    "ci_status": "NOT_RUN_NOT_REQUIRED"
+  },
+  "protected_release": {
+    "tag": "v1.0",
+    "tag_type": "tag",
+    "tag_object_sha": "a021df7fd0264d9f160bdd605509da925f0bf131",
+    "release_commit_sha": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+    "mutation_detected": false
+  },
+  "caveats": [
+    "Promotion completed before the ingestion stop condition was encountered.",
+    "No current cutoff was frozen because the existing ingestion path could not attach.",
+    "A null fresh-headline count means not observed, not zero current headlines.",
+    "No provider, evidence, article, platform, or publication path was entered."
+  ],
+  "exact_next_blocker": "RESTORE_ALREADY_AUTHENTICATED_X_CDP_BINDING_ON_LOCAL_PORT_9222_THEN_RUN_ONE_NEW_GOVERNED_CURRENT_X_CYCLE"
+}

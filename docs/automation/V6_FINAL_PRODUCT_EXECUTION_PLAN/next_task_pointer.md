@@ -1,6 +1,6 @@
 # ContentOps V6/Post-v1 Next Task Pointer
 
-Authority date: 2026-08-07
+Authority date: 2026-08-08
 
 ## Current pointer
 
@@ -22,22 +22,23 @@ Work Packages C, D, and E are:
 
 ### Latest product action
 
-`TASK_CONTENTOPS_ROLLING_X_HIERARCHICAL_ASSIGNMENT_CORRECTION_V1`
+`TASK_CONTENTOPS_PROMOTE_HIERARCHICAL_ASSIGNMENT_AND_RUN_CURRENT_X_CYCLE_V1`
 
 Status:
 
-`COMPLETE_WITH_NO_FRESH_CURRENT_HEADLINES_CAVEAT`
+`BLOCKED_CURRENT_X_INGESTION_BINDING_UNAVAILABLE`
 
-The high-volume assignment defect is corrected. The recorded 1,024-headline replay used 16
-deterministic leaf partitions, covered every ID exactly once, produced 632 validated semantic
-leaf clusters through `vx/gemini-3.5-flash(high)`, and passed a separate quality-first global
-edit with a 12-item shortlist and selection. The global editor received all compact leaf
-summaries and no raw headline universe. Current sidecars contained 0 fresh rolling-24h
-headlines, so no new governed current cycle was run and no clock rewind was attempted.
+The accepted hierarchical assignment commit was fast-forwarded to remote `master` at exact
+SHA `c4ad5299022a5f8f745179729df33e98a67a23e8`. Current upstream headline `main` was verified
+at `217059a87291c32b5f8aeb7278349928476806c8` in a clean task-owned clone. The existing X
+ingestion route could not start because local CDP port 9222 had neither an HTTP response nor
+an OS listener. No login or substitute authenticated session was attempted. No current
+window was frozen, so fresh-headline count is unknown rather than zero, and no canonical
+cycle or public action occurred.
 
 Exact next rolling-X product action:
 
-`RUN_ONE_GOVERNED_ROLLING_X_CYCLE_WHEN_FRESH_CURRENT_HEADLINES_EXIST`
+`RESTORE_ALREADY_AUTHENTICATED_X_CDP_BINDING_ON_LOCAL_PORT_9222_THEN_RUN_ONE_NEW_GOVERNED_CURRENT_X_CYCLE`
 
 Operating mode: `AUTONOMOUS_DEFAULT`
 
