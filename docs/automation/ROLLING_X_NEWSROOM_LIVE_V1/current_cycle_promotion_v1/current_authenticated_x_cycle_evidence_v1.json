@@ -1,0 +1,81 @@
+{
+  "schema_version": "contentops_current_authenticated_x_cycle_evidence_v1",
+  "task": "TASK_CONTENTOPS_DURABLE_BROWSER_PROFILE_ROLES_AND_CURRENT_X_CYCLE_V1",
+  "result": "BLOCKED_ROLLING_X_LEAF_ASSIGNMENT",
+  "operating_mode": "AUTONOMOUS_DEFAULT",
+  "browser_roles": {
+    "ingestion": "CapitalChronicleBot Chrome :9222 = INGESTION ONLY",
+    "publishing": "contentops-social-main Edge :9223 = PUBLISHING/MEDIA MANAGEMENT ONLY",
+    "session_material_inspected_or_persisted": false
+  },
+  "upstream_ingestion": {
+    "entrypoint": "Data_Ingestion.py",
+    "code_changed_from_verified_task_checkout": false,
+    "cdp_port": 9222,
+    "authenticated_list_route_reached": true,
+    "capture_started_utc": "2026-08-08T09:06:11Z",
+    "capture_duration_seconds": 47,
+    "stop_reason": "ENOUGH_SIDECARS_CAPTURED",
+    "raw_payload_count": 6,
+    "sidecar_file_count": 7,
+    "sidecar_row_count": 673
+  },
+  "current_window": {
+    "cutoff_utc": "2026-08-08T09:18:54Z",
+    "window_start_utc": "2026-08-07T09:18:54Z",
+    "window_hours": 24,
+    "source_rows": 673,
+    "accepted_source_event_time_rows": 650,
+    "rejected_source_event_time_rows": 23,
+    "duplicate_rows": 0,
+    "rejection_counts": {
+      "source_timestamp_before_window": 23
+    },
+    "canonical_input_hash": "eacc7cdbfd7e38f7376ac58442d126b688b5e189927d6f11a2db38e83721a604",
+    "complete_input_coverage": true
+  },
+  "canonical_cycle": {
+    "orchestrator": "live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator",
+    "operation": "run_rolling_x_newsroom_cycle",
+    "run_id": "rolling-x-current-20260808T091854Z",
+    "exactly_one_current_cycle_executed": true,
+    "publication_cdp_port_if_reached": 9223,
+    "status": "BLOCKED",
+    "reason_code": "ROLLING_X_LEAF_ASSIGNMENT_BLOCKED",
+    "blocked_partition_id": "rolling-x-leaf-77821530a158f71e509d",
+    "planned_headline_count": 650,
+    "completed_or_attempted_partition_count_before_stop": 4,
+    "headlines_covered_before_stop": 256,
+    "accepted_leaf_cluster_count_before_stop": 138,
+    "shortlist_count": 0,
+    "selected_story": null,
+    "targeted_evidence_outcome": "NOT_REACHED",
+    "article_outcome": "NOT_REACHED",
+    "platform_package_count": 0,
+    "provider_telemetry": {
+      "logical_calls": 4,
+      "provider_attempts": 4,
+      "fallback_transitions": 0,
+      "prompt_tokens": 81059,
+      "completion_tokens": 170883,
+      "total_tokens": 251942,
+      "provider_runtime_seconds": 679.1914,
+      "cost_metadata": null,
+      "blocked_attempt_failure_class": "malformed_business_input",
+      "blocked_attempt_terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
+    }
+  },
+  "destination_and_publication": {
+    "destination_readiness_revalidated": false,
+    "reason_not_revalidated": "ASSIGNMENT_BLOCKED_BEFORE_PUBLICATION_READINESS",
+    "publishing_adapter_called": false,
+    "public_attempt_count": 0,
+    "public_object_ids": [],
+    "strict_readback_outcome": "NOT_APPLICABLE_NO_PUBLIC_ATTEMPT",
+    "reconciliation_outcome": "NOT_APPLICABLE_NO_PUBLIC_ATTEMPT",
+    "unknown_write_count": 0,
+    "unauthorized_write_count": 0
+  },
+  "canonical_evidence_path": "docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/current_cycle_promotion_v1/rolling-x-current-20260808T091854Z/rolling_x_newsroom_cycle_evidence_v1.json",
+  "exact_next_blocker": "REPAIR_OR_RETRY_ONLY_UNDER_NEW_EXPLICIT_TASK_AFTER_ROLLING_X_LEAF_MALFORMED_BUSINESS_INPUT_REVIEW"
+}

@@ -22,24 +22,23 @@ Work Packages C, D, and E are:
 
 ### Latest product action
 
-`TASK_CONTENTOPS_RESTORE_X_CDP_AND_RUN_CURRENT_GOVERNED_CYCLE_V1`
+`TASK_CONTENTOPS_DURABLE_BROWSER_PROFILE_ROLES_AND_CURRENT_X_CYCLE_V1`
 
 Status:
 
-`BLOCKED_OPERATOR_X_REAUTH_REQUIRED`
+`BLOCKED_ROLLING_X_LEAF_ASSIGNMENT`
 
-The exact dedicated Chrome binding from upstream `Launch_Dashboard.bat` was restored on local
-CDP port 9222 without executing the rest of that launcher, creating another profile, or
-reading session material. The endpoint and listener became healthy, but existing
-`Data_Ingestion.py` visibly reached the X login/onboarding redirect instead of the configured
-Capital Chronicle List. A bounded 180.9-second run captured zero raw payloads and zero
-sidecars. Per the mandatory safety stop, no credentials or login automation were attempted,
-no current cutoff was frozen, and no canonical cycle or public action occurred. The browser
-was left available for safe operator recovery.
+The manually reauthenticated existing Chrome `CapitalChronicleBot` profile on CDP 9222 loaded
+the configured X List directly. Unchanged upstream ingestion captured 673 rows in 47 seconds.
+The one canonical cycle froze cutoff `2026-08-08T09:18:54Z`, accepted 650 source-event-time
+rows in `[T-24h, T]`, and began hierarchical assignment. Three leaf calls were accepted; the
+fourth returned a non-retryable `malformed_business_input`, so execution blocked closed as
+`ROLLING_X_LEAF_ASSIGNMENT_BLOCKED` before shortlist, evidence, article, readiness, adapter,
+or publication. No public or unknown write occurred.
 
 Exact next rolling-X product action:
 
-`OPERATOR_REAUTHENTICATE_DEDICATED_CAPITAL_CHRONICLE_X_PROFILE_THEN_RUN_ONE_NEW_GOVERNED_CURRENT_X_CYCLE`
+`REVIEW_ROLLING_X_LEAF_MALFORMED_BUSINESS_INPUT_BEFORE_ANY_NEW_CYCLE`
 
 Operating mode: `AUTONOMOUS_DEFAULT`
 

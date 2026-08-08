@@ -149,6 +149,32 @@ Evidence:
 Historical blocker evidence remains unchanged at:
 `docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/current_cycle_promotion_v1/current_x_cycle_promotion_evidence_v1.json`.
 
+### Authenticated current-X governed cycle
+
+`TASK_CONTENTOPS_DURABLE_BROWSER_PROFILE_ROLES_AND_CURRENT_X_CYCLE_V1`
+
+Result:
+
+`BLOCKED_ROLLING_X_LEAF_ASSIGNMENT`
+
+The existing manually reauthenticated Chrome `CapitalChronicleBot` profile on CDP 9222 was
+reused for ingestion only. Unchanged upstream ingestion reached the configured X List and
+captured 673 sidecar rows in 47 seconds. The exactly-one canonical cycle froze cutoff
+`2026-08-08T09:18:54Z`, accepted 650 source-event-time rows inside the inclusive rolling
+24-hour window, rejected 23 stale rows, and found no duplicates. Hierarchical assignment
+accepted three leaves, then blocked closed on the fourth leaf's non-retryable
+`malformed_business_input` as `ROLLING_X_LEAF_ASSIGNMENT_BLOCKED`. No global shortlist,
+targeted evidence, article, package, destination readiness, adapter, public write, unknown
+write, readback, or reconciliation was reached. Edge `contentops-social-main` on CDP 9223
+remains publishing/media-management only; Chrome 9222 was not used for publication.
+
+Evidence:
+`docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/current_cycle_promotion_v1/current_authenticated_x_cycle_evidence_v1.json`
+
+Exact next product action:
+
+`REVIEW_ROLLING_X_LEAF_MALFORMED_BUSINESS_INPUT_BEFORE_ANY_NEW_CYCLE`
+
 ### Latest promotion and fresh-packet discovery
 
 `TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
