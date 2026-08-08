@@ -4,6 +4,7 @@ from pathlib import Path
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     _logical_hash,
     _rolling_x_canonical_hash_material,
+    _validate_rolling_x_global_output,
     _validate_rolling_x_leaf_output,
     assign_rolling_x_headlines_with_nine_router,
 )
@@ -172,6 +173,65 @@ def test_recorded_1024_headline_replay_has_exact_multi_partition_coverage_and_co
     assert len(result["ranked_clusters"][0]["leaf_cluster_ids"]) == 2
     assert result["telemetry"]["logical_router_calls"] == len(result["leaf_partitions"]) + 1
     assert result["telemetry"]["token_usage"]["total_tokens"] > 0
+
+
+def _global_leaf_clusters() -> dict:
+    return {
+        "leaf-1": {
+            "member_headline_ids": ["h1"],
+            "canonical_representative_headline_id": "h1",
+        },
+        "leaf-2": {
+            "member_headline_ids": ["h2"],
+            "canonical_representative_headline_id": "h2",
+        },
+    }
+
+
+def _global_output(*, leaf_ids=None) -> str:
+    ids = list(leaf_ids or ["leaf-1", "leaf-2"])
+    return json.dumps({
+        "decision": "SELECT_STORY",
+        "selection_rationale": "Bounded validator test.",
+        "selected_shortlist_rank": 1,
+        "ranked_shortlist": [{
+            "rank": 1,
+            "leaf_cluster_ids": ids,
+            "cross_partition_relationship": "material_update",
+            "canonical_leaf_cluster_id": ids[-1],
+            "story_mode": "reporting",
+            "article_mode": "news_analysis",
+            "market_sensitive": False,
+            "why_now": "A timely material update.",
+            "selection_case": "Strong reader utility.",
+            "seo_intent": "Explain the event and implications.",
+            "visual_strategy": "Use a rights-cleared explanatory visual.",
+            "needed_evidence": ["Verify with authoritative sources."],
+        }],
+    })
+
+
+def test_unknown_global_leaf_id_is_rejected_as_structured_output_failure() -> None:
+    valid, failure, output = _validate_rolling_x_global_output(
+        _global_output(leaf_ids=["leaf-1", "invented-leaf"]),
+        leaf_clusters_by_id=_global_leaf_clusters(),
+    )
+
+    assert valid is False
+    assert failure == "structured_output_schema_invalid"
+    assert output is None
+
+
+def test_valid_global_output_remains_accepted_with_exact_leaf_ids() -> None:
+    valid, failure, output = _validate_rolling_x_global_output(
+        _global_output(),
+        leaf_clusters_by_id=_global_leaf_clusters(),
+    )
+
+    assert valid is True
+    assert failure is None
+    assert output["ranked_clusters"][0]["leaf_cluster_ids"] == ["leaf-1", "leaf-2"]
+    assert output["ranked_clusters"][0]["headline_ids"] == ["h1", "h2"]
 
 
 def test_leaf_scan_injection_is_data_and_cannot_change_authority_or_trigger_tools():

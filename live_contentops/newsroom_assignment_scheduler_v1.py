@@ -999,14 +999,9 @@ def _validate_rolling_x_global_output(
         result["global_result_logical_hash"] = _logical_hash(result)
         return True, None, result
     except (TypeError, ValueError):
-        returned_leaf_ids = {
-            str(item)
-            for row in (parsed.get("ranked_shortlist") or [])
-            if isinstance(row, Mapping) and isinstance(row.get("leaf_cluster_ids"), list)
-            for item in row["leaf_cluster_ids"]
-        }
-        if returned_leaf_ids - known_leaf_ids:
-            return False, "malformed_business_input", None
+        # Canonical leaf clusters are validated before this editor call. Unknown,
+        # repeated, or otherwise invalid leaf IDs here are model-output contract
+        # failures and remain fail-closed under bounded structured repair.
         return False, "structured_output_schema_invalid", None
 
 

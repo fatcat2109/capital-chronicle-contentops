@@ -84,7 +84,7 @@ AUTHORIZED_MODELS = frozenset(
 #: spent most of its global budget and a further same-model retry buys little.
 PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 1, 1)
 NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 1, 1, 1, 1)
-NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (1, 1, 1, 1)
+NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (1, 1, 1, 2)
 
 MAX_TOTAL_PROVIDER_ATTEMPTS = 6
 MAX_FALLBACK_TRANSITIONS = 3
@@ -193,8 +193,10 @@ def authority_packet() -> dict[str, Any]:
         "newsroom_leaf_scan_is_semantic_labor_only": True,
         "newsroom_global_editor_uses_quality_first_pool": True,
         "newsroom_global_editor_retry_policy": {
-            "max_total_provider_attempts": 4,
+            "max_total_provider_attempts": 5,
             "max_fallback_transitions": 3,
+            "max_same_model_retries": 0,
+            "max_structured_output_repair_attempts": 1,
             "per_model_max_attempts": list(
                 NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS
             ),
@@ -254,8 +256,9 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
     if str(role_task_id) == NEWSROOM_GLOBAL_EDITOR_ROLE:
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=len(ORDERED_MODEL_POOL),
-            max_fallback_transitions=len(ORDERED_MODEL_POOL) - 1,
+            max_total_provider_attempts=5,
+            max_fallback_transitions=3,
+            max_same_model_retries=0,
             wall_clock_budget_seconds=NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS,
             per_model_max_attempts=NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS,
         )

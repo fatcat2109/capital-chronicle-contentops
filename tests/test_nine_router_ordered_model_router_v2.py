@@ -22,6 +22,7 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     IDENTITY_REJECTED,
     MAX_TOTAL_PROVIDER_ATTEMPTS,
     NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS,
+    NEWSROOM_GLOBAL_EDITOR_ROLE,
     NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS,
     NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS,
     NEWSROOM_LEAF_SCAN_MODEL,
@@ -197,10 +198,28 @@ def test_role_specific_wall_clock_budgets_are_finite_and_do_not_change_attempt_b
     assert leaf.max_total_provider_attempts == MAX_TOTAL_PROVIDER_ATTEMPTS
     assert leaf.max_fallback_transitions == NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS
     assert leaf.per_model_max_attempts == NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS == (2, 1, 1, 1, 1)
-    assert editor.max_total_provider_attempts == len(ORDERED_MODEL_POOL)
-    assert editor.max_fallback_transitions == len(ORDERED_MODEL_POOL) - 1
-    assert editor.per_model_max_attempts == NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS == (1, 1, 1, 1)
+    assert editor.max_total_provider_attempts == 5
+    assert editor.max_fallback_transitions == 3
+    assert editor.max_same_model_retries == 0
+    assert editor.max_structured_output_repair_attempts == 1
+    assert editor.per_model_max_attempts == NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS == (1, 1, 1, 2)
+    assert generic.max_total_provider_attempts == MAX_TOTAL_PROVIDER_ATTEMPTS
+    assert generic.max_same_model_retries == 1
     assert generic.per_model_max_attempts == (2, 2, 1, 1)
+
+
+def test_global_editor_authority_packet_declares_exact_bounded_repair_policy() -> None:
+    policy = authority_packet()["newsroom_global_editor_retry_policy"]
+
+    assert policy == {
+        "max_total_provider_attempts": 5,
+        "max_fallback_transitions": 3,
+        "max_same_model_retries": 0,
+        "max_structured_output_repair_attempts": 1,
+        "per_model_max_attempts": [1, 1, 1, 2],
+        "wall_clock_budget_seconds": 1200.0,
+        "bounded": True,
+    }
 
 
 def test_router_refuses_an_unauthorized_model_in_the_pool() -> None:
@@ -438,6 +457,67 @@ def _run_leaf(provider):
         ),
         validator=_json_validator,
     )
+
+
+def _run_global_editor(provider):
+    from live_contentops.nine_router_ordered_model_router_v2 import retry_budget_for_role
+
+    return run(
+        provider,
+        iid="inv_global_policy",
+        role=NEWSROOM_GLOBAL_EDITOR_ROLE,
+        model_pool=ORDERED_MODEL_POOL,
+        budget=retry_budget_for_role(
+            role_task_id=NEWSROOM_GLOBAL_EDITOR_ROLE,
+            logical_invocation_id="inv_global_policy",
+        ),
+        validator=_json_validator,
+    )
+
+
+def test_global_editor_infrastructure_failures_do_not_get_same_model_retries() -> None:
+    provider = scripted({model: [fail("http_503_unavailable")] for model in ORDERED_MODEL_POOL})
+
+    result = _run_global_editor(provider)
+
+    assert [model for model, _ in provider.calls] == list(ORDERED_MODEL_POOL)
+    assert all(index == 0 for _, index in provider.calls)
+    assert result["total_attempts"] == 4
+    assert result["total_structured_repair_attempts"] == 0
+    assert result["total_fallback_transitions"] == 3
+
+
+def test_global_editor_final_model_gets_exactly_one_structured_repair() -> None:
+    provider = scripted({
+        P0: [fail("http_503_unavailable")],
+        P1: [fail("http_502_bad_gateway")],
+        P2: [fail("requested_model_temporarily_unavailable")],
+        P3: [good(P3, text="broken"), good(P3, text='{"ok": 1}')],
+    })
+
+    result = _run_global_editor(provider)
+
+    assert result["terminal_disposition"] == ACCEPTED
+    assert result["selected_model"] == P3
+    assert result["total_attempts"] == 5
+    assert result["total_structured_repair_attempts"] == 1
+    assert result["total_fallback_transitions"] == 3
+    assert provider.calls == [(P0, 0), (P1, 0), (P2, 0), (P3, 0), (P3, 1)]
+
+
+def test_global_editor_structured_repair_cannot_loop_past_fifth_attempt() -> None:
+    provider = scripted({
+        model: [good(model, text="broken")]
+        for model in ORDERED_MODEL_POOL
+    })
+
+    result = _run_global_editor(provider)
+
+    assert result["terminal_disposition"] in (RETRY_BUDGET_EXHAUSTED, POOL_EXHAUSTED)
+    assert result["total_attempts"] == 5
+    assert result["total_structured_repair_attempts"] == 1
+    assert len(provider.calls) == 5
+    assert provider.calls[-2:] == [(P3, 0), (P3, 1)]
 
 
 def test_leaf_flash_structured_failure_gets_one_same_model_repair_without_fallback() -> None:
