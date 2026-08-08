@@ -34,6 +34,8 @@ ROLE_ARTICLE_WRITING = "article_writing"
 ROLE_PLATFORM_VARIANTS = "platform_native_variant_generation"
 ROLE_EDITORIAL_REVIEW = "tier1_editorial_review"
 ROLE_IDEA_RANKING = "substack_idea_ranking"
+ROLE_NEWSROOM_ASSIGNMENT = "rolling_x_newsroom_assignment"
+ROLE_EDITORIAL_REVISION = "rolling_x_editorial_revision"
 ROLE_STRUCTURED_REPAIR = "structured_output_repair"
 
 INTEGRATED_ROLES: tuple[str, ...] = (
@@ -41,6 +43,8 @@ INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_PLATFORM_VARIANTS,
     ROLE_EDITORIAL_REVIEW,
     ROLE_IDEA_RANKING,
+    ROLE_NEWSROOM_ASSIGNMENT,
+    ROLE_EDITORIAL_REVISION,
     ROLE_STRUCTURED_REPAIR,
 )
 
@@ -105,6 +109,7 @@ def routed_llm_invocation(
     prompt_template: str = "unspecified",
     prompt_version: str = "v1",
     budget: RetryBudget | None = None,
+    repair_prompt_builder: Callable[[str, str], str] | None = None,
 ) -> dict[str, Any]:
     """Run one logical invocation through the canonical router and record its evidence."""
     summary = route_llm_invocation(
@@ -119,6 +124,7 @@ def routed_llm_invocation(
         prompt_version=prompt_version,
         timeout_seconds=timeout_seconds,
         budget=budget or RetryBudget(logical_invocation_id=logical_invocation_id),
+        repair_prompt_builder=repair_prompt_builder,
         model_pool=ORDERED_MODEL_POOL,
     )
     _INVOCATION_LOG.append(summary)
@@ -181,6 +187,12 @@ def integration_manifest() -> dict[str, Any]:
             ),
             ROLE_EDITORIAL_REVIEW: "tier1_editorial_quality_v1.review_tier1_article_with_llm",
             ROLE_IDEA_RANKING: "substack_first_north_star_pipeline_loop_v1.rank_ideas_with_llm",
+            ROLE_NEWSROOM_ASSIGNMENT: (
+                "newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router"
+            ),
+            ROLE_EDITORIAL_REVISION: (
+                "_eight_platform_substack_first_pipeline_impl_v1 rolling-X bounded revision"
+            ),
             ROLE_STRUCTURED_REPAIR: (
                 "nine_router_ordered_model_router_v2 bounded same-model repair (in-router)"
             ),

@@ -77,6 +77,42 @@ def run_eight_platform_substack_first_pipeline(
     )
 
 
+def run_rolling_x_newsroom_cycle(
+    *,
+    run_id: str,
+    output_dir: Path,
+    cutoff_utc: str,
+    sidecar_glob: str = "headline_ingestion/data/intake/headline_sidecars/*.jsonl",
+    window_hours: float = 24.0,
+    cdp_port: int = 9223,
+    assignment_timeout_seconds: float = 120.0,
+    assignment_provider_call: Any = None,
+    evidence_acquirer: Any = None,
+    story_type_by_cluster: Any = None,
+    article_builder: Any = None,
+    editorial_reviewer: Any = None,
+    article_reviser: Any = None,
+    publication_enabled: bool = True,
+) -> dict[str, Any]:
+    return _execute(
+        "run_rolling_x_newsroom_cycle",
+        run_id=run_id,
+        output_dir=output_dir,
+        cutoff_utc=cutoff_utc,
+        sidecar_glob=sidecar_glob,
+        window_hours=window_hours,
+        cdp_port=cdp_port,
+        assignment_timeout_seconds=assignment_timeout_seconds,
+        assignment_provider_call=assignment_provider_call,
+        evidence_acquirer=evidence_acquirer,
+        story_type_by_cluster=story_type_by_cluster,
+        article_builder=article_builder,
+        editorial_reviewer=editorial_reviewer,
+        article_reviser=article_reviser,
+        publication_enabled=publication_enabled,
+    )
+
+
 def reconcile_public_substack_for_derivative_resume(
     *, output_dir: Path, cdp_port: int = 9223
 ) -> dict[str, Any]:

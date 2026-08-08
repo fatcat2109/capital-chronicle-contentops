@@ -108,9 +108,21 @@ portfolio gates block every candidate; do not weaken those gates to manufacture 
 
 The first owner-authorized Work F execution reached article/media/platform-package creation
 but correctly stopped before dispatch because the governed market packet was stale and the
-9Router adversarial review returned `NEEDS_REVISION`. Exact owner live scope is therefore no
-longer the blocker. The next product blocker is a fresh governed Capital Chronicle
-publication packet that passes the same canonical gates.
+9Router adversarial review returned `NEEDS_REVISION`. That result is preserved as historical
+Work F evidence and is not a prerequisite for newsroom discovery.
+
+The current rolling-X newsroom vertical slice is governed by:
+
+`rolling 24-hour X discovery → assignment/ranking → targeted story-dependent evidence → first
+viable ranked story → article/SEO/visuals → semantic review → bounded revision/re-review →
+platform packages → AUTONOMOUS_DEFAULT gates → strict readback/reconciliation`.
+
+The exactly-one governed real cycle for this task completed as `NO_PUBLICATION` with
+`ASSIGNMENT_NOT_ACCEPTED` after accepting 1,024 source-event-time-valid headlines. No article,
+visual, platform adapter, public write, or unknown write occurred. Evidence is under
+`docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/real_cycle/`. X remains discovery/ranking input
+only; targeted evidence is acquired only after accepted ranking, and a generic Capital
+Chronicle packet is not a discovery prerequisite.
 
 ## 6. Canonical Tier-1 surfaces
 

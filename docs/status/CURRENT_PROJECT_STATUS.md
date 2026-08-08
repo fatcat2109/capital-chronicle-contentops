@@ -64,14 +64,28 @@ no-publication decision. Freshness measured the market/headline evidence at abou
 old and the latest ingest at about 588 hours old; semantic review returned `NEEDS_REVISION`.
 No publishing adapter was called, no live write was attempted, and no unknown write existed.
 
-Exact owner scope is no longer the current blocker. The next product blocker is a fresh,
-publication-authorized Capital Chronicle packet that passes freshness and substantive
-semantic review. Re-run the same canonical entrypoint when that packet exists; do not create
-another authorization ceremony or weaken the gates.
+Exact owner scope is no longer the current blocker. The rolling-X newsroom path is now
+available without a generic Capital Chronicle packet: rolling 24-hour X discovery feeds
+assignment/ranking, then targeted story-dependent evidence is acquired only for the selected
+ranked story. X remains discovery/ranking input only, and Capital Chronicle remains authority
+for analytical, numeric, model, forecast, and probability claims.
+
+The exactly-one governed real cycle for this task completed as `NO_PUBLICATION` with
+`ASSIGNMENT_NOT_ACCEPTED` after 1,024 source-event-time-valid headlines were accepted. It
+performed no article generation, visual generation, platform adapter call, public write, or
+unknown write. Evidence is at
+`docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/real_cycle/`. This is a valid governed result;
+no gate was weakened to manufacture a post.
+
+The broader Capital Chronicle packet rerun remains a separate upstream action and is not a
+prerequisite for rolling-X discovery.
 
 Exact next product action:
 
 `REFRESH_GOVERNED_CAPITAL_CHRONICLE_PUBLICATION_EVIDENCE_AND_RERUN_CANONICAL_CYCLE`
+
+The rolling-X task-specific route is complete with governed no-publication; the next
+implementation task must not wait on a generic packet before newsroom discovery.
 
 ### Latest promotion and fresh-packet discovery
 

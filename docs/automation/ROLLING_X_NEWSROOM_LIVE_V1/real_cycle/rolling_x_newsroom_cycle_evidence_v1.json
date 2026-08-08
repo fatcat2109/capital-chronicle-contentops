@@ -1,0 +1,59 @@
+{
+  "schema_version": "capital_chronicle.rolling_x_newsroom_cycle_evidence.v1",
+  "task": "TASK_CONTENTOPS_ROLLING_24H_X_HEADLINES_TO_AUTONOMOUS_NEWSROOM_LIVE_V1",
+  "run_id": "rolling-x-real-cycle-2026-07-08-v1",
+  "operating_mode": "AUTONOMOUS_DEFAULT",
+  "decision": "NO_PUBLICATION",
+  "status": "NO_PUBLICATION",
+  "classification": "NO_PUBLICATION",
+  "reason_code": "ASSIGNMENT_NOT_ACCEPTED",
+  "exact_next_blocker": "ASSIGNMENT_NOT_ACCEPTED",
+  "cutoff_utc": "2026-07-08T13:21:16Z",
+  "window_hours": 24.0,
+  "window_interval": "INCLUSIVE_T_MINUS_24H_TO_T",
+  "intake": {
+    "accepted_source_event_time_headlines": 1024,
+    "source_event_time_authority": true,
+    "filename_or_mtime_used_for_freshness": false,
+    "x_authority": "DISCOVERY_AND_RANKING_ONLY"
+  },
+  "assignment": {
+    "complete_exact_partition": false,
+    "assigned_input_count": 0,
+    "assignment_accepted": false,
+    "router_evidence_path": "rolling_x_assignment_v1.json"
+  },
+  "evidence": {
+    "acquired_after_ranking": false,
+    "rank_attempts": [],
+    "targeted_story_dependent": true,
+    "generic_capital_chronicle_packet_required": false
+  },
+  "downstream": {
+    "article_generated": false,
+    "visuals_generated": false,
+    "platform_packages_generated": false,
+    "publishing_adapter_called": false,
+    "strict_readback_performed": false
+  },
+  "reconciliation": {
+    "public_write_performed": false,
+    "unknown_write_detected": false,
+    "automatic_retry_blocked": false,
+    "exact_next_action": "NONE_NO_WRITE_OCCURRED"
+  },
+  "security": {
+    "raw_secrets_persisted": false,
+    "raw_cookies_or_session_storage_persisted": false,
+    "raw_auth_headers_persisted": false,
+    "external_text_treated_as_untrusted_data": true,
+    "v1_0_mutated": false,
+    "separate_primary_workspace_touched": false
+  },
+  "artifacts": {
+    "intake": "rolling_x_intake_v1.json",
+    "assignment": "rolling_x_assignment_v1.json",
+    "ranked_viability": "rolling_x_ranked_viability_v1.json",
+    "cycle_evidence": "rolling_x_newsroom_cycle_evidence_v1.json"
+  }
+}

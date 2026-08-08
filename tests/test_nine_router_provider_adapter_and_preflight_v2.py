@@ -308,7 +308,7 @@ def test_seam_declares_one_router_one_pool_and_no_per_module_retries() -> None:
     assert manifest["per_module_retry_implementations"] == 0
     assert manifest["distinct_model_lists"] == 1
     assert manifest["ordered_model_pool"] == list(ORDERED_MODEL_POOL)
-    assert len(manifest["integrated_call_sites"]) == 5
+    assert len(manifest["integrated_call_sites"]) == 7
 
 
 def test_seam_preserves_deterministic_stages() -> None:

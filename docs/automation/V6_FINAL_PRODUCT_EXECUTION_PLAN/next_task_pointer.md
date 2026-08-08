@@ -95,6 +95,22 @@ The recorded run performed no public write because the governed story failed fre
 semantic-review gates. Its exact next blocker is fresh governed publication evidence, not
 owner scope.
 
+The separate rolling-X newsroom path does not wait for that generic packet. Its exactly-one
+real cycle accepted 1,024 source-event-time-valid X headlines and terminated truthfully as
+`NO_PUBLICATION` with `ASSIGNMENT_NOT_ACCEPTED`; no article, platform adapter, public write,
+or unknown write occurred. X is discovery/ranking input only, and targeted evidence follows
+accepted ranking. Evidence:
+`docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/real_cycle/rolling_x_newsroom_cycle_evidence_v1.json`.
+
+## Rolling-X newsroom vertical slice
+
+`rolling 24-hour X discovery → assignment/ranking → targeted evidence → first viable ranked
+story → article/SEO/visuals → bounded semantic revision/review → platform packages →
+AUTONOMOUS_DEFAULT gates → strict readback/reconciliation`
+
+This route is complete as an implemented, governed no-publication vertical slice for the
+current sidecars. A generic Capital Chronicle packet is not a prerequisite for discovery.
+
 ## Current Tier-1 sequence
 
 ```text
