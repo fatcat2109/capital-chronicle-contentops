@@ -1036,6 +1036,59 @@ def _aggregate_rolling_x_router_telemetry(
     }
 
 
+def _validated_rolling_x_leaf_checkpoint(
+    *,
+    checkpoint: Mapping[str, Any],
+    partition: Mapping[str, Any],
+    leaf_input: Mapping[str, Any],
+    invocation_id: str,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Bind one accepted leaf checkpoint to the exact frozen partition and router call."""
+    partition_id = str(partition["partition_id"])
+    if (
+        checkpoint.get("canonical_input_hash") != leaf_input["canonical_input_hash"]
+        or checkpoint.get("partition_id") != partition_id
+        or checkpoint.get("partition_index") != partition["partition_index"]
+        or list(checkpoint.get("headline_ids") or []) != list(partition["headline_ids"])
+    ):
+        raise ValueError("rolling_x_leaf_checkpoint_partition_binding_invalid")
+    summary = checkpoint.get("router_summary")
+    output = checkpoint.get("output")
+    if not isinstance(summary, Mapping) or not isinstance(output, Mapping):
+        raise ValueError("rolling_x_leaf_checkpoint_payload_invalid")
+    if (
+        summary.get("terminal_disposition") != "ACCEPTED"
+        or summary.get("logical_invocation_id") != invocation_id
+        or summary.get("work_item_id") != partition_id
+        or summary.get("role_task_id") != "rolling_x_newsroom_leaf_scan"
+    ):
+        raise ValueError("rolling_x_leaf_checkpoint_router_binding_invalid")
+    attempts = summary.get("attempts")
+    governed_hash = _logical_hash(leaf_input)
+    if not isinstance(attempts, list) or not attempts or any(
+        not isinstance(row, Mapping)
+        or row.get("logical_invocation_id") != invocation_id
+        or row.get("work_item_id") != partition_id
+        or row.get("role_task_id") != "rolling_x_newsroom_leaf_scan"
+        or row.get("prompt_template") != "rolling_x_newsroom_leaf_scan"
+        or row.get("prompt_version") != ROLLING_X_LEAF_PROMPT_VERSION
+        or row.get("governed_input_hash") != governed_hash
+        for row in attempts
+    ):
+        raise ValueError("rolling_x_leaf_checkpoint_attempt_binding_invalid")
+    valid, _, normalized = _validate_rolling_x_leaf_output(
+        json.dumps({"clusters": output.get("clusters")}, sort_keys=True),
+        partition_id=partition_id,
+        expected_input_ids=partition["headline_ids"],
+    )
+    if not valid or not isinstance(normalized, Mapping):
+        raise ValueError("rolling_x_leaf_checkpoint_output_invalid")
+    supplied_result_hash = output.get("leaf_result_logical_hash")
+    if supplied_result_hash and supplied_result_hash != normalized["leaf_result_logical_hash"]:
+        raise ValueError("rolling_x_leaf_checkpoint_output_hash_mismatch")
+    return dict(normalized), {key: value for key, value in summary.items() if key != "output"}
+
+
 def assign_rolling_x_headlines_with_nine_router(
     *,
     rolling_input: Mapping[str, Any],
@@ -1043,6 +1096,7 @@ def assign_rolling_x_headlines_with_nine_router(
     provider_call: Any = None,
     leaf_max_serialized_bytes: int = ROLLING_X_LEAF_MAX_SERIALIZED_BYTES,
     leaf_max_headlines: int = ROLLING_X_LEAF_MAX_HEADLINES,
+    leaf_checkpoints: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Hierarchically assign every rolling-X headline through one canonical router."""
     if rolling_input.get("schema_version") != ROLLING_X_INPUT_SCHEMA_VERSION:
@@ -1097,6 +1151,12 @@ def assign_rolling_x_headlines_with_nine_router(
     router_calls: list[dict[str, Any]] = []
     leaf_clusters: list[dict[str, Any]] = []
     partition_evidence: list[dict[str, Any]] = []
+    checkpoints = dict(leaf_checkpoints or {})
+    known_partition_ids = {str(row["partition_id"]) for row in partitions}
+    if set(checkpoints) - known_partition_ids:
+        raise ValueError("rolling_x_leaf_checkpoint_unknown_partition")
+    reused_partition_ids: list[str] = []
+    called_partition_ids: list[str] = []
     for partition in partitions:
         leaf_input = {
             "schema_version": ROLLING_X_INPUT_SCHEMA_VERSION,
@@ -1114,23 +1174,35 @@ def assign_rolling_x_headlines_with_nine_router(
             "canonical_input_hash": canonical_input_hash,
             "partition_id": partition["partition_id"],
         })[:20]
-        summary = routed_llm_invocation(
-            prompt=prompt,
-            role_task_id=ROLE_NEWSROOM_LEAF_SCAN,
-            logical_invocation_id=invocation_id,
-            work_item_id=partition["partition_id"],
-            timeout_seconds=timeout_seconds,
-            validator=lambda text, p=partition: _validate_rolling_x_leaf_output(
-                text,
-                partition_id=p["partition_id"],
-                expected_input_ids=p["headline_ids"],
-            ),
-            provider_call=provider_call,
-            governed_input=leaf_input,
-            prompt_template="rolling_x_newsroom_leaf_scan",
-            prompt_version=ROLLING_X_LEAF_PROMPT_VERSION,
-            repair_prompt_builder=_rolling_x_leaf_repair_prompt,
-        )
+        partition_id = str(partition["partition_id"])
+        if partition_id in checkpoints:
+            output, summary = _validated_rolling_x_leaf_checkpoint(
+                checkpoint=checkpoints[partition_id],
+                partition=partition,
+                leaf_input=leaf_input,
+                invocation_id=invocation_id,
+            )
+            summary = {**summary, "output": output}
+            reused_partition_ids.append(partition_id)
+        else:
+            summary = routed_llm_invocation(
+                prompt=prompt,
+                role_task_id=ROLE_NEWSROOM_LEAF_SCAN,
+                logical_invocation_id=invocation_id,
+                work_item_id=partition_id,
+                timeout_seconds=timeout_seconds,
+                validator=lambda text, p=partition: _validate_rolling_x_leaf_output(
+                    text,
+                    partition_id=p["partition_id"],
+                    expected_input_ids=p["headline_ids"],
+                ),
+                provider_call=provider_call,
+                governed_input=leaf_input,
+                prompt_template="rolling_x_newsroom_leaf_scan",
+                prompt_version=ROLLING_X_LEAF_PROMPT_VERSION,
+                repair_prompt_builder=_rolling_x_leaf_repair_prompt,
+            )
+            called_partition_ids.append(partition_id)
         router_calls.append({key: value for key, value in summary.items() if key != "output"})
         partition_evidence.append({
             key: value for key, value in partition.items() if key != "headlines"
@@ -1251,6 +1323,11 @@ def assign_rolling_x_headlines_with_nine_router(
         },
         "router_calls": router_calls,
         "telemetry": _aggregate_rolling_x_router_telemetry(router_calls),
+        "checkpoint_resume": {
+            "reused_partition_ids": reused_partition_ids,
+            "called_partition_ids": called_partition_ids,
+            "global_editor_called_after_complete_leaf_coverage": True,
+        },
         "architecture": {
             "hierarchical_assignment": True,
             "llm_call_per_headline": False,

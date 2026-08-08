@@ -346,6 +346,47 @@ def test_repeated_invalid_leaf_output_is_bounded_and_blocks():
     assert leaf_call["total_fallback_transitions"] <= 4
 
 
+def test_exact_leaf_checkpoint_resume_reuses_completed_leaf_and_calls_only_pending():
+    rolling_input = _small_input()
+    first_provider = HierarchicalProvider()
+    first = assign_rolling_x_headlines_with_nine_router(
+        rolling_input=rolling_input,
+        provider_call=first_provider,
+        leaf_max_headlines=2,
+    )
+    partition = first["leaf_partitions"][0]
+    partition_id = partition["partition_id"]
+    checkpoint = {
+        "canonical_input_hash": rolling_input["canonical_input_hash"],
+        "partition_id": partition_id,
+        "partition_index": partition["partition_index"],
+        "headline_ids": partition["headline_ids"],
+        "router_summary": first["router_calls"][0],
+        "output": {
+            "partition_id": partition_id,
+            "clusters": [
+                row for row in first["leaf_clusters"] if row["partition_id"] == partition_id
+            ],
+        },
+    }
+    resumed_provider = HierarchicalProvider()
+    resumed = assign_rolling_x_headlines_with_nine_router(
+        rolling_input=rolling_input,
+        provider_call=resumed_provider,
+        leaf_max_headlines=2,
+        leaf_checkpoints={partition_id: checkpoint},
+    )
+
+    assert resumed["status"] == "SUCCESS"
+    assert resumed["checkpoint_resume"]["reused_partition_ids"] == [partition_id]
+    assert resumed["checkpoint_resume"]["called_partition_ids"] == [
+        first["leaf_partitions"][1]["partition_id"]
+    ]
+    leaf_calls = [call for call in resumed_provider.calls if "leaf_input:\n" in call["prompt"]]
+    assert len(leaf_calls) == 1
+    assert partition_id not in leaf_calls[0]["prompt"]
+
+
 def test_genuinely_invalid_governed_input_remains_terminal_before_provider_call():
     rolling_input = _small_input()
     rolling_input["headlines"][0]["headline_id"] = "mutated-governed-id"
