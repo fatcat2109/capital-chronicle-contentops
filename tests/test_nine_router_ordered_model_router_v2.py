@@ -443,6 +443,32 @@ def test_case_i_failed_attempt_is_never_discarded_from_evidence() -> None:
     assert result["attempts"][0]["disposition"] == "rejected"
 
 
+def test_safe_structured_validation_diagnostic_is_recorded_and_given_to_one_repair() -> None:
+    prompts = []
+
+    def provider(prompt: str, model: str, timeout: float) -> ProviderResult:
+        prompts.append(prompt)
+        return good(model, text="invalid") if len(prompts) == 1 else good(model)
+
+    def validator(text: str):
+        if text == "invalid":
+            return False, "structured_output_schema_invalid", None, "global_rank_invalid"
+        return True, None, {"ok": True}, None
+
+    def repair(prompt: str, invalid_output: str, diagnostic_code: str | None) -> str:
+        assert diagnostic_code == "global_rank_invalid"
+        return prompt + "\nprevious_validation_failure_code=" + str(diagnostic_code)
+
+    result = run(provider, validator=validator, repair_prompt_builder=repair)
+
+    assert result["terminal_disposition"] == ACCEPTED
+    assert result["total_attempts"] == 2
+    assert result["total_structured_repair_attempts"] == 1
+    assert result["attempts"][0]["structured_validation_diagnostic_code"] == "global_rank_invalid"
+    assert '"invalid"' not in json.dumps(result["attempts"])
+    assert "previous_validation_failure_code=global_rank_invalid" in prompts[1]
+
+
 def _run_leaf(provider):
     from live_contentops.nine_router_ordered_model_router_v2 import retry_budget_for_role
 

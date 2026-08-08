@@ -113,7 +113,7 @@ def routed_llm_invocation(
     prompt_template: str = "unspecified",
     prompt_version: str = "v1",
     budget: RetryBudget | None = None,
-    repair_prompt_builder: Callable[[str, str], str] | None = None,
+    repair_prompt_builder: Callable[[str, str, str | None], str] | None = None,
 ) -> dict[str, Any]:
     """Run one logical invocation through the canonical router and record its evidence."""
     role_pool = model_pool_for_role(role_task_id)

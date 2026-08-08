@@ -499,8 +499,12 @@ class ProviderResult:
 #: A provider callable takes (prompt, model, timeout_seconds) and returns a ProviderResult.
 ProviderCallable = Callable[[str, str, float], ProviderResult]
 
-#: A validator takes the response text and returns (ok, failure_class_or_None, parsed).
-ValidatorCallable = Callable[[str], "tuple[bool, str | None, Any]"]
+#: A validator takes response text and returns either the legacy three-item result or a
+#: four-item result whose final value is a safe static validation diagnostic code.
+ValidatorCallable = Callable[
+    [str],
+    "tuple[bool, str | None, Any] | tuple[bool, str | None, Any, str | None]",
+]
 
 
 def _default_validator(text: str) -> "tuple[bool, str | None, Any]":
@@ -525,7 +529,7 @@ def route_llm_invocation(
     validator: ValidatorCallable | None = None,
     budget: RetryBudget | None = None,
     timeout_seconds: float = 60.0,
-    repair_prompt_builder: Callable[[str, str], str] | None = None,
+    repair_prompt_builder: Callable[[str, str, str | None], str] | None = None,
     sleeper: Callable[[float], None] = time.sleep,
     clock: Callable[[], float] = time.monotonic,
     model_pool: Sequence[str] = ORDERED_MODEL_POOL,
@@ -654,9 +658,20 @@ def route_llm_invocation(
 
             # --- structured validation -------------------------------------------------
             parsed: Any = None
+            validation_diagnostic_code: str | None = None
             if failure_class is None:
-                ok, validation_failure, parsed = validate(result.text or "")
+                validation_result = validate(result.text or "")
+                if len(validation_result) == 3:
+                    ok, validation_failure, parsed = validation_result
+                elif len(validation_result) == 4:
+                    ok, validation_failure, parsed, validation_diagnostic_code = validation_result
+                else:
+                    raise ModelRouterError("validator_result_shape_invalid")
                 record["structured_validation_result"] = "PASS" if ok else "FAIL"
+                if validation_diagnostic_code is not None:
+                    record["structured_validation_diagnostic_code"] = str(
+                        validation_diagnostic_code
+                    )
                 if not ok:
                     failure_class = validation_failure or "structured_output_malformed"
             else:
@@ -698,7 +713,11 @@ def route_llm_invocation(
                     repair_used_for_model = True
                     budget.record_repair_attempt()
                     if repair_prompt_builder is not None:
-                        prompt = repair_prompt_builder(prompt, result.text or "")
+                        prompt = repair_prompt_builder(
+                            prompt,
+                            result.text or "",
+                            validation_diagnostic_code,
+                        )
                         prompt_hash = _hash(prompt)
                     continue
                 break  # repair spent or unavailable -> fallback-eligible

@@ -3,7 +3,9 @@ from pathlib import Path
 
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     _logical_hash,
+    _build_rolling_x_global_prompt,
     _rolling_x_canonical_hash_material,
+    _rolling_x_global_repair_prompt,
     _validate_rolling_x_global_output,
     _validate_rolling_x_leaf_output,
     assign_rolling_x_headlines_with_nine_router,
@@ -211,27 +213,114 @@ def _global_output(*, leaf_ids=None) -> str:
     })
 
 
-def test_unknown_global_leaf_id_is_rejected_as_structured_output_failure() -> None:
-    valid, failure, output = _validate_rolling_x_global_output(
-        _global_output(leaf_ids=["leaf-1", "invented-leaf"]),
+def _validate_global(payload: str):
+    return _validate_rolling_x_global_output(
+        payload,
         leaf_clusters_by_id=_global_leaf_clusters(),
+    )
+
+
+def _mutate_global(mutator) -> str:
+    payload = json.loads(_global_output())
+    mutator(payload)
+    return json.dumps(payload)
+
+
+def test_unknown_global_leaf_id_is_rejected_with_exact_diagnostic() -> None:
+    valid, failure, output, diagnostic = _validate_global(
+        _global_output(leaf_ids=["leaf-1", "invented-leaf"])
     )
 
     assert valid is False
     assert failure == "structured_output_schema_invalid"
     assert output is None
+    assert diagnostic == "global_unknown_leaf_cluster_id"
 
 
-def test_valid_global_output_remains_accepted_with_exact_leaf_ids() -> None:
-    valid, failure, output = _validate_rolling_x_global_output(
-        _global_output(),
-        leaf_clusters_by_id=_global_leaf_clusters(),
+def test_representative_global_contract_failures_return_exact_safe_diagnostics() -> None:
+    cases = (
+        (
+            lambda payload: payload["ranked_shortlist"][0].update(
+                leaf_cluster_ids=["leaf-1", "leaf-1"]
+            ),
+            "global_leaf_id_duplicate_within_cluster",
+        ),
+        (
+            lambda payload: payload["ranked_shortlist"].append({
+                **payload["ranked_shortlist"][0],
+                "rank": 3,
+                "leaf_cluster_ids": ["leaf-2"],
+                "canonical_leaf_cluster_id": "leaf-2",
+            }),
+            "global_leaf_cluster_referenced_more_than_once",
+        ),
+        (
+            lambda payload: payload["ranked_shortlist"][0].update(rank=2),
+            "global_ranks_not_contiguous",
+        ),
+        (
+            lambda payload: payload["ranked_shortlist"][0].update(needed_evidence=[]),
+            "global_needed_evidence_invalid",
+        ),
+        (
+            lambda payload: payload["ranked_shortlist"][0].update(story_mode="invalid"),
+            "global_story_mode_invalid",
+        ),
     )
+
+    for mutate, expected in cases:
+        valid, failure, output, diagnostic = _validate_global(_mutate_global(mutate))
+        assert valid is False
+        assert failure == "structured_output_schema_invalid"
+        assert output is None
+        assert diagnostic == expected
+
+
+def test_valid_select_story_and_no_publication_outputs_remain_accepted() -> None:
+    valid, failure, output, diagnostic = _validate_global(_global_output())
 
     assert valid is True
     assert failure is None
+    assert diagnostic is None
     assert output["ranked_clusters"][0]["leaf_cluster_ids"] == ["leaf-1", "leaf-2"]
     assert output["ranked_clusters"][0]["headline_ids"] == ["h1", "h2"]
+
+    no_publication = json.dumps({
+        "decision": "NO_PUBLICATION",
+        "selection_rationale": "No viable evidence path remains.",
+        "selected_shortlist_rank": None,
+        "ranked_shortlist": [],
+    })
+    valid, failure, output, diagnostic = _validate_global(no_publication)
+    assert valid is True
+    assert failure is None
+    assert diagnostic is None
+    assert output["decision"] == "NO_PUBLICATION"
+
+
+def test_global_repair_prompt_names_only_safe_exact_diagnostic() -> None:
+    repair = _rolling_x_global_repair_prompt(
+        "original prompt",
+        '{"unsafe":"raw body"}',
+        "global_unknown_leaf_cluster_id",
+    )
+
+    assert "previous_validation_failure_code=global_unknown_leaf_cluster_id" in repair
+    assert "Replace every unknown leaf_cluster_id" in repair
+    assert '{"unsafe":"raw body"}' not in repair
+    assert "invalid_response_sha256=" in repair
+
+
+def test_global_prompt_contract_matches_select_and_no_publication_validator_rules() -> None:
+    prompt = _build_rolling_x_global_prompt({"leaf_cluster_summaries": []})
+
+    assert "SELECT_STORY contract:" in prompt
+    assert "selected_shortlist_rank MUST be integer 1" in prompt
+    assert "may appear only once across the entire shortlist" in prompt
+    assert "needed_evidence MUST be a non-empty list" in prompt
+    assert "NO_PUBLICATION contract:" in prompt
+    assert "selected_shortlist_rank MUST be null" in prompt
+    assert "ranked_shortlist MUST be []" in prompt
 
 
 def test_leaf_scan_injection_is_data_and_cannot_change_authority_or_trigger_tools():
