@@ -213,7 +213,6 @@ def test_valid_official_primary_packet_can_satisfy_nonnumeric_capability():
     registry["story_types"]["regulatory_fiscal_event"] = {
         "required_evidence_capabilities": ["official_document"],
         "market_context_required": False,
-        "article_mode": "straight_news",
         "freshness_policy": "event_24h",
         "source_adapter_families": ["official_regulatory_fiscal"],
     }

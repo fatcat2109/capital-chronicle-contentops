@@ -263,7 +263,7 @@ class RollingXTargetedEvidenceAdapter:
         capability = resolve_story_capabilities(
             {
                 "story_type": story_type,
-                "article_mode": str(configured.get("article_mode") or ""),
+                "article_mode": str(request.get("article_mode") or ""),
             },
             self._registry,
         )
