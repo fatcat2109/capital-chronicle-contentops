@@ -93,6 +93,7 @@ MAX_STRUCTURED_OUTPUT_REPAIR_ATTEMPTS = 1
 MAX_CUMULATIVE_RETRY_SLEEP_SECONDS = 45.0
 DEFAULT_WALL_CLOCK_BUDGET_SECONDS = 300.0
 NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS = 4
+NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS = 1200.0
 NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS = 1200.0
 
 # --- terminal dispositions -------------------------------------------------------------
@@ -247,6 +248,7 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
             max_fallback_transitions=NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS,
+            wall_clock_budget_seconds=NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS,
             per_model_max_attempts=NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS,
         )
     if str(role_task_id) == NEWSROOM_GLOBAL_EDITOR_ROLE:

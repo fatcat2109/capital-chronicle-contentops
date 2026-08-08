@@ -21,6 +21,10 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     IDENTITY_NOT_VERIFIABLE,
     IDENTITY_REJECTED,
     MAX_TOTAL_PROVIDER_ATTEMPTS,
+    NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS,
+    NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS,
+    NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS,
+    NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS,
     NON_RETRYABLE_CLASSES,
     ORDERED_MODEL_POOL,
     POOL_EXHAUSTED,
@@ -166,6 +170,31 @@ def test_declared_retry_budget_defaults() -> None:
     assert policy["per_model_max_attempts"] == {P0: 2, P1: 2, P2: 1, P3: 1}
     assert policy["budget_resets_on_model_change"] is False
     assert policy["budget_resets_on_reconstruction"] is False
+
+
+def test_role_specific_wall_clock_budgets_are_finite_and_do_not_change_attempt_bounds() -> None:
+    from live_contentops.nine_router_ordered_model_router_v2 import retry_budget_for_role
+
+    leaf = retry_budget_for_role(
+        role_task_id="rolling_x_newsroom_leaf_scan",
+        logical_invocation_id="leaf-budget-test",
+    )
+    editor = retry_budget_for_role(
+        role_task_id="rolling_x_newsroom_assignment",
+        logical_invocation_id="editor-budget-test",
+    )
+    generic = retry_budget_for_role(
+        role_task_id="article_writing",
+        logical_invocation_id="generic-budget-test",
+    )
+    assert leaf.wall_clock_budget_seconds == NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS == 1200.0
+    assert editor.wall_clock_budget_seconds == NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS == 1200.0
+    assert generic.wall_clock_budget_seconds == 300.0
+    assert leaf.max_total_provider_attempts == MAX_TOTAL_PROVIDER_ATTEMPTS
+    assert leaf.max_fallback_transitions == NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS
+    assert leaf.per_model_max_attempts == NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS
+    assert editor.max_total_provider_attempts == len(ORDERED_MODEL_POOL)
+    assert editor.max_fallback_transitions == len(ORDERED_MODEL_POOL) - 1
 
 
 def test_router_refuses_an_unauthorized_model_in_the_pool() -> None:
