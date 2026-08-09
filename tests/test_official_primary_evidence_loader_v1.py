@@ -246,3 +246,196 @@ def test_source_url_without_exact_headline_binding_does_not_trigger_network():
     assert packet["status"] == "BLOCKED"
     assert "exact_official_source_url_unavailable" in packet["blockers"]
     assert calls == []
+
+
+def test_bound_url_is_preferred_without_locator_call():
+    url = "https://api.federalregister.gov/v1/documents/2026-12345.json"
+    body = json.dumps({"publication_date": "2026-08-08"}).encode()
+    locator_calls = []
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        source_locator=lambda request: locator_calls.append(request),
+        http_get=lambda *_args: _response(url, body),
+    )(_request(
+        family="official_regulatory_fiscal",
+        required=["official_document"],
+        url=url,
+    ))
+
+    assert packet["status"] == "PASS"
+    assert locator_calls == []
+    assert packet["provenance"]["locator_request_count"] == 0
+    assert packet["provenance"]["official_evidence_get_count"] == 1
+
+
+def test_missing_bound_url_locates_then_gets_exact_official_document_with_bindings():
+    url = "https://api.federalregister.gov/v1/documents/2026-12345.json"
+    body = json.dumps({
+        "publication_date": "2026-08-08",
+        "effective_on": "2026-08-09",
+        "agencies": [{"name": "Official Agency"}],
+    }).encode()
+    calls = []
+    times = iter([
+        datetime(2026, 8, 8, 12, 1, tzinfo=timezone.utc),
+        datetime(2026, 8, 8, 12, 2, tzinfo=timezone.utc),
+    ])
+    request = _request(
+        family="official_regulatory_fiscal",
+        required=["official_document", "implementation_timeline", "affected_entities"],
+        url=url,
+    )
+    request["story_context"]["official_source_urls"] = []
+    request["story_context"]["official_source_url_bindings"] = []
+    request["story_context"]["entities_topics"] = ["Official Agency", "Final Rule"]
+
+    def get(requested, *_args):
+        calls.append(requested)
+        if "documents.json" in requested:
+            return _response(requested, json.dumps({"results": [{
+                "json_url": url,
+                "publication_date": "2026-08-08",
+                "title": "Official Agency Final Rule",
+                "agencies": [{"name": "Official Agency"}],
+            }]}).encode())
+        return _response(url, body)
+
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        clock=lambda: next(times),
+        http_get=get,
+    )(request)
+
+    assert packet["status"] == "PASS"
+    assert len(calls) == 2
+    assert packet["provenance"]["request_count"] == 2
+    assert packet["provenance"]["locator_request_count"] == 1
+    assert packet["provenance"]["official_evidence_get_count"] == 1
+    locator = packet["provenance"]["locator"]
+    assert locator["retrieved_at_utc"] == "2026-08-08T12:01:00Z"
+    assert locator["evaluation_as_of_utc"] == AS_OF
+    assert locator["candidate_official_url"] == url
+    assert locator["discovery_only"] is True
+    assert locator["evidence_capabilities"] == []
+    assert packet["provenance"]["retrieved_at_utc"] == "2026-08-08T12:02:00Z"
+    assert packet["official_source_documents"][0]["source_headline_id"] == "headline-1"
+    assert packet["rolling_x_story_binding"] == {
+        "cluster_id": "cluster-1",
+        "headline_ids": ["headline-1"],
+        "request_logical_hash": "a" * 64,
+    }
+
+
+def test_locator_candidate_is_discovery_only_and_nonofficial_candidate_is_rejected():
+    request = _request(
+        family="official_macro",
+        required=["official_release"],
+        url="https://www.bls.gov/news.release/empsit.nr0.htm",
+    )
+    request["story_context"]["official_source_url_bindings"] = []
+    calls = []
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        source_locator=lambda _request: {
+            "status": "PASS",
+            "candidate_official_url": "https://example.com/fabricated",
+            "evidence_capabilities": ["official_release"],
+        },
+        http_get=lambda *_args: calls.append(_args),
+    )(request)
+
+    assert packet["status"] == "BLOCKED"
+    assert packet["provided_evidence_capabilities"] == []
+    assert "official_source_url_family_binding_invalid" in packet["blockers"]
+    assert calls == []
+
+
+def test_locator_candidate_still_requires_successful_evidence_get():
+    url = "https://www.bls.gov/news.release/empsit.nr0.htm"
+    request = _request(family="official_macro", required=["official_release"], url=url)
+    request["story_context"]["official_source_url_bindings"] = []
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        source_locator=lambda _request: {
+            "status": "PASS",
+            "candidate_official_url": url,
+            "discovery_only": True,
+            "evidence_capabilities": [],
+        },
+        http_get=lambda *_args: _response(url, b"not evidence", "text/plain"),
+    )(request)
+
+    assert packet["status"] == "BLOCKED"
+    assert packet["provided_evidence_capabilities"] == []
+    assert "official_source_published_timestamp_unavailable" in packet["blockers"]
+
+
+def test_document_published_after_evaluation_cutoff_fails_closed():
+    url = "https://api.federalregister.gov/v1/documents/2026-12345.json"
+    body = json.dumps({"publication_date": "2026-08-09"}).encode()
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        http_get=lambda *_args: _response(url, body),
+    )(_request(
+        family="official_regulatory_fiscal",
+        required=["official_document"],
+        url=url,
+    ))
+
+    assert packet["status"] == "BLOCKED"
+    assert "official_source_published_after_evaluation_cutoff" in packet["blockers"]
+
+
+def test_no_locator_candidate_returns_normal_evidence_block_without_get():
+    request = _request(
+        family="official_macro",
+        required=["official_release"],
+        url="https://www.bls.gov/news.release/empsit.nr0.htm",
+    )
+    request["story_context"]["official_source_url_bindings"] = []
+    get_calls = []
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        source_locator=lambda _request: {
+            "status": "BLOCKED",
+            "blockers": ["official_source_locator_candidate_unavailable"],
+        },
+        http_get=lambda *_args: get_calls.append(_args),
+    )(request)
+
+    assert packet["status"] == "BLOCKED"
+    assert "official_source_locator_candidate_unavailable" in packet["blockers"]
+    assert "exact_official_source_url_unavailable" in packet["blockers"]
+    assert get_calls == []
+
+
+def test_cycle_request_budget_is_shared_across_rank_fallback_calls():
+    requests = []
+    loader = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=1,
+        source_locator=lambda request: requests.append(request) or {
+            "status": "BLOCKED",
+            "blockers": ["official_source_locator_candidate_unavailable"],
+        },
+    )
+    first = _request(
+        family="official_macro",
+        required=["official_release"],
+        url="https://www.bls.gov/news.release/empsit.nr0.htm",
+    )
+    second = _request(
+        family="official_macro",
+        required=["official_release"],
+        url="https://www.bls.gov/news.release/cpi.nr0.htm",
+    )
+    first["story_context"]["official_source_url_bindings"] = []
+    second["story_context"]["official_source_url_bindings"] = []
+
+    first_packet = loader(first)
+    second_packet = loader(second)
+
+    assert len(requests) == 1
+    assert first_packet["provenance"]["request_count"] == 1
+    assert "official_source_request_budget_exhausted" in second_packet["blockers"]
+    assert second_packet["provenance"]["request_count"] == 1

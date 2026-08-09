@@ -281,6 +281,26 @@ def test_default_adapter_binds_bounded_official_primary_loader():
     )
 
 
+def test_official_acquisition_provenance_survives_into_receipt():
+    request = _request(story_type="regulatory_fiscal_event", article_mode="straight_news")
+    packet = _packet(request)
+    packet["status"] = "BLOCKED"
+    packet["blockers"] = ["official_source_locator_candidate_unavailable"]
+    packet["provenance"] = {
+        "locator_request_count": 1,
+        "official_evidence_get_count": 1,
+        "request_count": 2,
+        "request_limit": 6,
+    }
+    receipt = RollingXTargetedEvidenceAdapter(
+        official_evidence_loader=lambda _request: packet,
+        evaluation_as_of_utc=AS_OF,
+    )(request)
+
+    assert receipt["status"] == "BLOCKED"
+    assert receipt["evidence_acquisition_provenance"] == packet["provenance"]
+
+
 def test_stale_official_primary_evidence_fails_closed():
     registry = deepcopy(load_source_capability_registry())
     registry["story_types"]["regulatory_fiscal_event"] = {

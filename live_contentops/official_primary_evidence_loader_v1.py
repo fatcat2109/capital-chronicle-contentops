@@ -121,6 +121,7 @@ def _html_timestamp(text: str) -> str | None:
     patterns = (
         r'<meta[^>]+(?:property|name)=["\'](?:article:published_time|date|dc\.date)["\'][^>]+content=["\']([^"\']+)',
         r'<time[^>]+datetime=["\']([^"\']+)',
+        r'(?:release date|last modified date)\s*:?</[^>]+>\s*([A-Z][a-z]+\s+\d{1,2},\s+\d{4})',
     )
     for pattern in patterns:
         match = re.search(pattern, text, re.IGNORECASE)
@@ -206,15 +207,22 @@ def _verified_capabilities(
             "data", "results", "series", "seriesid", "value", "observations",
             "period", "periodname", "unit", "linedescription", "releasedate",
         }
-        if keys.intersection(macro_keys) or re.search(r"\b(data release|news release|economic release)\b", lowered):
+        official_release = bool(
+            keys.intersection(macro_keys)
+            or re.search(r"\b(data release|news release|economic release|employment situation)\b", lowered)
+        )
+        if official_release:
             capabilities.add("official_release")
-        if keys.intersection({"value", "data", "observations", "series"}) and re.search(
+        if (keys.intersection({"value", "data", "observations", "series"}) or official_release) and re.search(
             r"(?:^|[^a-z])[-+]?\d+(?:\.\d+)?(?:[^a-z]|$)", text
         ):
             capabilities.add("authorized_release_values")
-        if keys.intersection({"releasedate", "release_date", "date", "period", "year"}):
+        if keys.intersection({"releasedate", "release_date", "date", "period", "year"}) or _html_timestamp(text):
             capabilities.add("release_timestamps")
-        if keys.intersection({"seriesid", "periodname", "unit", "linedescription", "metric", "definitions"}):
+        if keys.intersection({"seriesid", "periodname", "unit", "linedescription", "metric", "definitions"}) or (
+            official_release
+            and re.search(r"\b(definitions?|technical note|seasonally adjusted|establishment survey|household survey)\b", lowered)
+        ):
             capabilities.add("release_definitions")
     return capabilities, parsed, text
 
@@ -226,11 +234,12 @@ class BoundedOfficialPrimaryEvidenceLoader:
         self,
         *,
         evaluation_as_of_utc: str,
-        max_requests: int = 3,
+        max_requests: int = 6,
         timeout_seconds: float = 12.0,
         max_response_bytes: int = 2_000_000,
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
         clock: Callable[[], datetime] | None = None,
+        source_locator: Callable[[Mapping[str, Any]], Mapping[str, Any]] | None = None,
     ) -> None:
         evaluation_as_of = datetime.fromisoformat(
             evaluation_as_of_utc.replace("Z", "+00:00")
@@ -243,6 +252,16 @@ class BoundedOfficialPrimaryEvidenceLoader:
         self._max_response_bytes = max_response_bytes
         self._http_get = http_get or _default_http_get
         self._clock = clock or (lambda: datetime.now(timezone.utc))
+        if source_locator is None:
+            from live_contentops.official_primary_source_locator_v1 import (
+                BoundedOfficialPrimarySourceLocator,
+            )
+
+            source_locator = BoundedOfficialPrimarySourceLocator(
+                http_get=self._http_get,
+                clock=self._clock,
+            )
+        self._source_locator = source_locator
         self._request_count = 0
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
@@ -251,6 +270,10 @@ class BoundedOfficialPrimaryEvidenceLoader:
             if str(value) in SUPPORTED_FAMILIES
         ]
         context = request.get("story_context") or {}
+        binding_rows = [
+            row for row in (context.get("official_source_url_bindings") or [])
+            if isinstance(row, Mapping)
+        ]
         headline_ids = {str(value) for value in (request.get("headline_ids") or [])}
         bindings = [
             {"url": str(row.get("url") or ""), "headline_id": str(row.get("headline_id") or "")}
@@ -263,11 +286,40 @@ class BoundedOfficialPrimaryEvidenceLoader:
         blockers: list[str] = []
         document: dict[str, Any] | None = None
         retrieved_at_utc: str | None = None
+        locator: dict[str, Any] | None = None
+        locator_request_count = 0
+        official_evidence_get_count = 0
         supplied: set[str] = set()
         if not requested_families:
             blockers.append("official_source_family_not_launch_supported")
         if not urls:
-            blockers.append("exact_official_source_url_unavailable")
+            if not binding_rows and requested_families:
+                if self._request_count >= self._max_requests:
+                    blockers.append("official_source_request_budget_exhausted")
+                else:
+                    self._request_count += 1
+                    locator_request_count = 1
+                    located = self._source_locator({
+                        **dict(request),
+                        "evaluation_as_of_utc": self._evaluation_as_of_utc,
+                    })
+                    locator = dict(located) if isinstance(located, Mapping) else None
+                    candidate_url = (
+                        str((locator or {}).get("candidate_official_url") or "")
+                        if (locator or {}).get("status") == "PASS"
+                        else ""
+                    )
+                    if candidate_url:
+                        headline_id = str((request.get("headline_ids") or [""])[0])
+                        bindings = [{"url": candidate_url, "headline_id": headline_id}]
+                        urls = [candidate_url]
+                    else:
+                        blockers.extend(
+                            str(value) for value in ((locator or {}).get("blockers") or [])
+                        )
+                        blockers.append("exact_official_source_url_unavailable")
+            else:
+                blockers.append("exact_official_source_url_unavailable")
         candidates = []
         for url in urls:
             matching = [
@@ -292,6 +344,7 @@ class BoundedOfficialPrimaryEvidenceLoader:
                 if self._request_count >= self._max_requests:
                     raise RuntimeError("official_source_request_budget_exhausted")
                 self._request_count += 1
+                official_evidence_get_count = 1
                 response = dict(
                     self._http_get(
                         requested_url, self._timeout_seconds, self._max_response_bytes
@@ -325,6 +378,10 @@ class BoundedOfficialPrimaryEvidenceLoader:
                 )
                 if not published_at:
                     raise ValueError("official_source_published_timestamp_unavailable")
+                if datetime.fromisoformat(published_at.replace("Z", "+00:00")) > datetime.fromisoformat(
+                    self._evaluation_as_of_utc.replace("Z", "+00:00")
+                ):
+                    raise ValueError("official_source_published_after_evaluation_cutoff")
                 supplied.update(verified)
                 document = {
                     "document_id": "official-primary-" + sha256(body).hexdigest()[:20],
@@ -366,6 +423,9 @@ class BoundedOfficialPrimaryEvidenceLoader:
             "provenance": {
                 "retrieved_at_utc": retrieved_at_utc,
                 "evaluation_as_of_utc": self._evaluation_as_of_utc,
+                "locator": locator,
+                "locator_request_count": locator_request_count,
+                "official_evidence_get_count": official_evidence_get_count,
                 "request_count": self._request_count,
                 "request_limit": self._max_requests,
                 "timeout_seconds": self._timeout_seconds,

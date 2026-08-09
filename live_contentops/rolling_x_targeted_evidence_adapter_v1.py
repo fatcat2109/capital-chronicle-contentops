@@ -29,6 +29,7 @@ def _blocked_receipt(
     *,
     documents: list[dict[str, Any]] | None = None,
     supplied: list[str] | None = None,
+    evidence_acquisition_provenance: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     return {
         "status": "BLOCKED",
@@ -44,6 +45,7 @@ def _blocked_receipt(
         ),
         "blockers": sorted(set(blockers)),
         "publication_authority": False,
+        "evidence_acquisition_provenance": dict(evidence_acquisition_provenance or {}),
     }
 
 
@@ -330,6 +332,7 @@ class RollingXTargetedEvidenceAdapter:
                 return _blocked_receipt(
                     request, blockers, documents=documents,
                     supplied=sorted(supplied.intersection(required)),
+                    evidence_acquisition_provenance=packet.get("provenance") or {},
                 )
             return {
                 "status": "PASS",
@@ -341,6 +344,7 @@ class RollingXTargetedEvidenceAdapter:
                 "numeric_evidence_required": False,
                 "blockers": [],
                 "publication_authority": False,
+                "evidence_acquisition_provenance": dict(packet.get("provenance") or {}),
             }
 
         packet = self._load_packet(request)
