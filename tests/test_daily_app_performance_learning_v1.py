@@ -425,9 +425,11 @@ def test_learning_cannot_mutate_kill_switch(tmp_path):
     )
     report = ks.tick(now=AFTER_ALL_WINDOWS)
     assert report["kill_switch_active"] is True
+    # Kill switch blocks new public dispatch...
     assert report["windows_dispatched"] == 0
-    # Performance observation explicitly skipped under kill switch (no collection).
-    assert report["performance_observation_state"] == "SKIPPED_KILL_SWITCH"
+    assert report["public_write_performed"] is False
+    # ...but read-only performance observation still runs under KILL_SWITCH.
+    assert report["performance_observation_state"] == "RUN"
 
 
 # ---------------------------------------------------------------------------

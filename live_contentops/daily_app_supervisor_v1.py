@@ -1055,11 +1055,28 @@ class ContentOpsDailyAppSupervisor:
         except Exception:  # noqa: BLE001 - recovery is best-effort housekeeping
             report["windows_skipped"].append("stale_lease_recovery_unavailable")
 
+        # FDA-D/FDA-E: due READ-ONLY performance observations + bounded learning run under EVERY
+        # operating mode, including KILL_SWITCH. Metrics collection performs zero LLM calls and
+        # zero public writes. KILL_SWITCH blocks NEW public dispatch, not read-only observation,
+        # readback, reconciliation, or safe recovery.
+        if self._enable_performance_observation:
+            perf_summary = self._run_performance_observations(now)
+            report["performance_observations"] = {
+                "scheduled": perf_summary["scheduled"],
+                "collected": perf_summary["collected"],
+            }
+            report["performance_observation_state"] = "RUN"
+            if perf_summary.get("learning") is not None:
+                report["learning_evaluation_state"] = "RUN"
+                report["learning_decision"] = {
+                    "decision": perf_summary["learning"].get("decision"),
+                    "policy_version": perf_summary["learning"].get("policy_version"),
+                    "reason": perf_summary["learning"].get("reason"),
+                }
+
         if report["kill_switch_active"]:
-            # Kill switch blocks new dispatch; safe readback/reconciliation/recovery stay allowed.
-            # Performance observation (read-only) is skipped while the kill switch is active.
-            if self._enable_performance_observation:
-                report["performance_observation_state"] = "SKIPPED_KILL_SWITCH"
+            # Kill switch blocks NEW public dispatch (no publisher call, no weakened gates).
+            # Readback, reconciliation, performance observation, and safe recovery all continue.
             report["next_wake_utc"] = _iso_utc(self._next_wake(now))
             return report
 
@@ -1086,21 +1103,6 @@ class ContentOpsDailyAppSupervisor:
                     window["window_id"] + ":" + str(outcome.get("reason"))
                 )
         report["windows_dispatched"] = dispatched
-        # FDA-D/FDA-E: bounded read-only performance observation + bounded learning (zero LLM).
-        if self._enable_performance_observation:
-            perf_summary = self._run_performance_observations(now)
-            report["performance_observations"] = {
-                "scheduled": perf_summary["scheduled"],
-                "collected": perf_summary["collected"],
-            }
-            report["performance_observation_state"] = "RUN"
-            if perf_summary.get("learning") is not None:
-                report["learning_evaluation_state"] = "RUN"
-                report["learning_decision"] = {
-                    "decision": perf_summary["learning"].get("decision"),
-                    "policy_version": perf_summary["learning"].get("policy_version"),
-                    "reason": perf_summary["learning"].get("reason"),
-                }
         report["next_wake_utc"] = _iso_utc(self._next_wake(now))
         return report
 
