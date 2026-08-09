@@ -1,9 +1,9 @@
 # Current Context — Capital Chronicle ContentOps
 
 > [!IMPORTANT]
-> GitHub remote evidence is repo-state authority. Jim's latest explicit product instruction is product-direction authority. Older plans are historical/reference material when they conflict with current direction.
+> GitHub remote evidence is repo-state authority. Jim's latest explicit product instruction is product-direction authority. Older plans/status are historical/reference material when they conflict with the current Final Daily App direction.
 
-Authority date: 2026-08-07
+Authority date: 2026-08-09
 
 ## Current classifications
 
@@ -13,207 +13,179 @@ Historical accepted release:
 
 Current product-direction classification:
 
-`CONTENTOPS_NEWSROOM_AND_CONTENT_FACTORY_SCOPE_OWNER_APPROVED`
+`CONTENTOPS_FINAL_DAILY_APP_V1_OWNER_DIRECTION`
 
-Approved post-Tier-1 expansion:
+Current North Star:
+
+`docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_NORTH_STAR.md`
+
+Current execution master plan:
+
+`docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_MASTER_PLAN.md`
+
+Future expansion retained but deferred until V1 freeze:
 
 `CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_OWNER_DIRECTION_V1`
 
-Current durable prerequisite:
-
-`COMPLETE_ACCEPTED_AND_MERGED_AS_MINIMUM_DURABLE_PREREQUISITE`
-
-Current product task:
-
-`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
-
-Current task status:
-
-`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
-
-Work Packages C, D, and E are each `COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`; do not
-reopen, re-audit, retest, or re-merge them. Work Package F has exact owner live scope and its
-accepted autonomous no-publication result is promoted to `master` at `025164d73`. The
-current external blocker is a Capital Chronicle publication-authorized packet whose event,
-source, and market evidence is within the canonical 24-hour freshness window.
-
 ## Current authority read order
 
-1. [Root builder contract](../AGENTS.md)
-2. [AI builder bootstrap](AI_BUILDER_BOOTSTRAP.md)
-3. [Current product direction overlay](status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md)
-4. [Post-v1 full-automation status](status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md)
-5. [Current project status](status/CURRENT_PROJECT_STATUS.md)
-6. [Current status JSON](status/current_project_status.json)
-7. [Final product scope overlay V2](automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_SCOPE_OVERLAY_V2.md)
-8. [Final product closeout and launch master plan](automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md)
-9. [Current V6 master plan](automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md)
-10. [Next task pointer](automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md)
-11. [Tier-2 Pro Video Factory North Star](automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md) when reasoning about post-Tier-1 video scope
-12. [Tier-2 Pro Video Factory Master Plan](automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md) when reasoning about post-Tier-1 video execution
-13. Exact task implementation, tests, schemas, and evidence.
+1. `AGENTS.md`
+2. this file
+3. `docs/AI_BUILDER_BOOTSTRAP.md`
+4. `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`
+5. `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_NORTH_STAR.md`
+6. `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_MASTER_PLAN.md`
+7. `docs/status/CURRENT_FULL_AUTOMATION_FINAL_PRODUCT_STATUS.md` — historical/current repo evidence only where not superseded
+8. `docs/status/CURRENT_PROJECT_STATUS.md` — historical/current repo evidence only where not superseded
+9. `docs/status/current_project_status.json` — machine/history evidence; known stale routing fields do not override current overlay
+10. `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/FINAL_PRODUCT_SCOPE_OVERLAY_V2.md`
+11. `docs/automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md`
+12. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
+13. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+14. exact task implementation/tests/evidence.
 
-The current product-direction overlay and Jim's latest explicit direction supersede stale lower-level routing text.
+Tier-2 plans are future reference only until V1 freeze unless Jim explicitly changes direction again.
 
 ## Protected historical release
 
-ContentOps `v1.0` remains immutable at release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b` with annotated tag `v1.0`.
+`v1.0` remains immutable at release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b` with the existing annotated tag.
 
-Do not rerun, edit, delete, recreate, move, or retag accepted `v1.0` outputs/evidence.
+Do not mutate, recreate, move, or retag it.
+
+## Final V1 product definition
+
+Jim now wants one Daily App that stays running 24/7 and autonomously owns routine ContentOps operation:
+
+```text
+always-on low-cost supervision
+→ configured/learned editorial windows + material-event triggers
+→ current newsroom decision
+→ evidence
+→ grounded article / SEO / source-backed media
+→ review / bounded revision
+→ platform-native packages
+→ publish to exact READY configured destinations
+→ strict readback / reconciliation / post management
+→ real performance/search/subscriber observation where available
+→ bounded timing / SEO / content / packaging learning
+→ next window
+```
+
+The old Daily Live probation was a precursor vertical slice, not the final product.
+
+No-publication remains valid. Do not create filler.
 
 ## Product boundary
 
-Capital Chronicle main project owns analysis and numeric authority: daily analysis, micro/macro/global-macro reports, scenarios, model calculations, Bayesian cases, forecasts, regimes, numeric truth, realized outcomes, and analytical error attribution.
+Capital Chronicle owns analytical/numeric truth: market/economic analysis, micro/macro/global-macro reports, model calculations, scenarios/probabilities, Bayesian outputs, forecasts/regimes, numeric truth, realized outcomes, and analytical error attribution.
 
-ContentOps owns the newsroom and content factory: governed news/headline intake, clustering/update chains, evidence and permission gates, ranking/diversification, writing, SEO, images, deterministic charts from authorized inputs, media packaging, publication control, readback/reconciliation, incidents, and content-performance learning.
+ContentOps owns newsroom/distribution/learning: intake, clustering/update chains, evidence/permission/freshness gates, ranking/selection/abstention, factual reporting, faithful Capital Chronicle transformation, writing/editing/SEO/source-backed visuals, packages, publication/readback/reconciliation/incidents, performance observations, and bounded packaging/selection/timing/SEO learning.
 
-Tier-2 video remains downstream of the same ContentOps story/evidence authority. It must not create a second newsroom or analytical engine.
+Engagement may never weaken or modify evidence, permissions, Capital Chronicle analysis, or numeric truth.
 
-## Tier-1 state
+## Current verified technical baseline
 
-Work Package C — dual-lane CORE V0 shadow newsroom:
+Remote `master` before this authority rebase was:
 
-`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+`7a04932a67df1af4c3dd10e9cc435dff140e23c8`
 
-Work Package D — diversity/SEO/image/chart closure:
+That commit added the canonical rolling-X grounded article/media builder and policy-decision evidence closure.
 
-`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+The latest fresh canary still ended legitimate:
 
-Work Package E — repeated shadow soak and recovery:
+`NO_PUBLICATION / ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`
 
-`COMPLETE_ACCEPTED_AND_MERGED_WITH_CAVEAT`
+The controlled zero-write slice proved the default builder can produce article + three media assets + semantic review + package/readiness under controlled accepted evidence.
 
-Accepted Work E evidence includes an accelerated logical soak with 30/30 window decisions, 16 complete packages, restart/recovery drills, durable work-item evidence, simulated unknown-write reconciliation, and zero public writes. Calendar uptime/live reliability and a full CI/full-suite pass were not proved by the soak.
+## Known immediate defects
 
-## Current Tier-1 route
+Before final V1 acceptance, fix:
 
-The current user-visible product gap is real authorized live operation, followed by a final UI/control-room rebuild and final full-automation acceptance.
+1. `entities_topics` from editorial framing/X context must not be presented as facts copied from accepted evidence;
+2. source-backed deterministic renders must not blanket-claim underlying source content as `capital_chronicle_owned` merely because Capital Chronicle owns the render/layout;
+3. current Federal Reserve `official_policy` locator route returned 404 and needs a bounded correct first-party path;
+4. fresh real evidence-viable production through the new default article/media builder remains unproven.
 
-```text
-Work F autonomous canonical cycle   [EXECUTED]
-→ fresh-packet probe   [BLOCKED: UPSTREAM OBSERVATION >24H]
-→ rerun canonical cycle when fresh governed evidence exists
-→ major final Tier-1 UI/UX rebuild using real live states
-→ Work G final full-automation prelaunch run
-→ Tier-1 final acceptance + new release identity
-→ freeze Tier-1 baseline
-```
+These are direct product blockers, not reasons to reopen broad hardening.
 
-Exact owner live scope is already recorded and requires no renewal.
+## Always-on architecture rule
 
-Rolling-X high-volume assignment is now hierarchical. The recorded 1,024-headline replay
-used 16 deterministic leaf partitions with exact one-time coverage, produced 632 validated
-Flash-first semantic clusters, and passed a separate quality-first global edit with a valid
-12-item shortlist and selection. Attention is priority metadata, never factual truth. The
-current sidecar probe found zero fresh rolling-24h headlines, so no new governed cycle was
-run and `NO_FRESH_CURRENT_HEADLINES` is the exact operational caveat. Evidence is under
-`docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/hierarchical_assignment_correction_v1/`.
+An always-on supervisor/controller is authorized only as coordination around the existing canonical production boundary and durable store.
 
-## Current router/model runtime authority
+Preserve:
 
-`CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` is current and its accepted lineage through
-`ae60da22b9a155d25dc783f10285eecd875b9d0f` is integrated here. V1 remains historical only.
+- `live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator`;
+- `live_contentops._eight_platform_substack_first_pipeline_impl_v1`;
+- `live_contentops.eight_platform_substack_first_pipeline_v1`;
+- `live_contentops/durable_operational_store_v1.py`;
+- `ui/contentops_v5/`.
 
-The authorized order is `new/claude-fable-5` → `new/gpt-5.6-sol-xhigh` →
-`new/claude-opus-5` → `vx/gemini-3.1-pro-preview(high)`. The router may continue with any
-healthy authorized model when other pool members are unavailable, subject to the single
-bounded retry budget. Silent substitution and gate bypass remain forbidden.
+Do not create another newsroom, production pipeline, durable state store, scheduler authority, approval engine, publisher, provider gateway, dashboard, or analytical authority.
 
-The quality-first pool remains unchanged for global editorial ranking, writing, review, and
-revision. Only `rolling_x_newsroom_leaf_scan` prefers
-`vx/gemini-3.5-flash(high)` before compatible authorized fallbacks. One bounded no-write
-probe verified provider-observed identity `gemini-3.5-flash`. Flash performs semantic labor
-only and creates no evidence, analytical, factual, or publication authority. Three hundred
-seconds is not an end-to-end newsroom quality SLA; each invocation remains finite.
+Always-on means cheap idle supervision, not continuous LLM calls.
 
-Latest committed no-write provider evidence records 4/4 healthy and provider-verified model
-identity. Current operator-reported availability may be degraded; that does not rewrite the
-historical evidence and does not require every model to be healthy before bounded execution.
+## Current first task
+
+`TASK_CONTENTOPS_FINAL_DAILY_APP_ALWAYS_ON_RUNTIME_VERTICAL_SLICE_V1`
+
+Deliver:
+
+- publishability provenance/rights correction;
+- bounded Federal Reserve official-policy locator correction;
+- persistent Daily App supervisor;
+- deterministic bootstrap editorial-window policy;
+- due-window idempotency/restart safety through the existing durable store;
+- material-event wakeup seam reusing existing discovery metadata;
+- one bounded supervisor e2e demo showing exactly-once canonical cycle execution and next-wake computation.
+
+Expected next task after clean success:
+
+`TASK_CONTENTOPS_FINAL_DAILY_APP_REAL_PERFORMANCE_OBSERVATION_AND_LEARNING_LOOP_V1`
 
 ## Operating modes
 
-- `AUTONOMOUS_DEFAULT` — product default; public writes only under exact deterministic authority/gates.
-- `SUPERVISED_OPERATOR_GATE` — optional owner toggle before public write.
-- `SHADOW_ONLY` — full cycle with zero public writes.
-- `KILL_SWITCH` — blocks new public writes while preserving readback/reconciliation/recovery.
+- `AUTONOMOUS_DEFAULT`
+- `SUPERVISED_OPERATOR_GATE`
+- `SHADOW_ONLY`
+- `KILL_SWITCH`
 
-## Approved post-Tier-1 Tier-2 direction
+Public writes only under exact deterministic READY gates.
 
-Tier-2 product:
+## Persistent browser roles
 
-**CONTENTOPS TIER-2 PRO VIDEO FACTORY**
+- Chrome `CapitalChronicleBot`, CDP 9222: ingestion only.
+- Edge `contentops-social-main`, CDP 9223: publication/media management/readback and explicitly supported read-only performance observation only.
 
-Authority docs:
+Never inspect/export cookies, storage, tokens, credentials, or session databases.
 
-- `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md`
-- `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md`
+Unknown writes:
 
-Required future video lanes:
+`STOP RETRY → READ BACK → RECONCILE`
 
-- `SHORT_FORM_NATIVE`
-- `LONG_FORM_EDITORIAL_15_45M`
+## Current router/model authority
 
-Long-form 15–45 minute professional video is core Tier-2 scope. Short-form is separately directed and compiled; it is not a crop of long-form. A 2–5 minute video may later exist only as an optional derivative.
+Keep `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` and current bounded role-specific routing.
 
-Tier-2 architecture is programmable and deterministic-first. Generative video is optional B-roll enrichment, not the foundation.
+Do not redesign model authority due to transient provider degradation.
 
-Tier-2 implementation is **not current** and begins only after Tier-1 final acceptance/freeze unless Jim explicitly reprioritizes again.
+The always-on supervisor must not continuously probe LLMs while idle.
 
-## Historical video plan
+## V2
 
-`docs/automation/VIDEO_FOUNDATION_AND_PAUSE_V1/` is historical discovery/evidence. Its future implementation routing is superseded wherever it conflicts with the Tier-2 Pro Video Factory owner direction.
+Do not start V2 now.
 
-## Persistent browser role authority
+The previous early-parallel V2 unlock after one publishable package is superseded.
 
-These are two intentionally separate persistent operator profiles. Their role and binding are
-safe repository authority; browser authentication/session state remains outside Git.
-
-- **Chrome `CapitalChronicleBot` on CDP `9222` — ingestion only.** Use only for the upstream
-  X List route and `ListLatestTweetsTimeline` headline/raw-sidecar discovery. Never use it for
-  ContentOps media publication, platform management, or readback.
-- **Microsoft Edge `contentops-social-main` on CDP `9223` — publishing/media management only.**
-  Use only through the canonical publishing-profile registry for Substack, X publication,
-  LinkedIn, Facebook, Instagram, Threads, YouTube, and other approved media-platform
-  management/readback. Never use it for headline ingestion.
-
-Never create, clone, migrate, clean, delete, or substitute either persistent profile. Never
-inspect or export cookies, browser storage, tokens, credentials, or session databases. The
-authenticated browser state is operator-owned external state and must never be committed.
-The profile role declaration does not grant live-write permission; canonical destination
-readiness, strict readback, and reconciliation remain mandatory.
-
-## Canonical roots
-
-- backend: `live_contentops/`
-- tests: `tests/`
-- UI: `ui/contentops_v5/`
-- schemas: `schemas/`
-- canonical durable operational store: `live_contentops/durable_operational_store_v1.py`
-- canonical production migration anchor: `live_contentops.eight_platform_substack_first_pipeline_v1`
-
-Do not create parallel state stores, newsrooms, approval engines, outboxes, schedulers, dashboards, provider gateways, or analytical authorities.
-
-## Exact next action
-
-Tier-2 planning is now durable. Do not start Tier-2 implementation.
-
-Continue Tier-1:
-
-```text
-fresh rolling-24h X headlines become available
-→ run one governed AUTONOMOUS_DEFAULT cycle through corrected hierarchical assignment
-```
-
-The separate Capital Chronicle-packet rerun remains available when its evidence is fresh;
-generic packets are conditional evidence inputs, not discovery prerequisites.
+V2 Pro Video Factory begins after Final Daily App V1 acceptance/freeze unless Jim explicitly reprioritizes again.
 
 ## Safety
 
-- no raw secrets/session material;
-- no unauthorized provider/browser/platform/scheduler/public action;
+- no raw secret/session material;
+- no unauthorized provider/browser/platform/public action;
 - no fabricated numeric or analytical truth;
+- no model/X/social factual authority;
 - no synthetic documentary deception;
-- no Capital Chronicle main-project mutation;
-- no `v1.0` mutation or retag;
-- no unknown-write/upload blind retry;
-- no engagement metric may alter evidence/analysis authority.
+- no Capital Chronicle authority mutation;
+- no protected-release mutation;
+- no blind retry of unknown writes;
+- no engagement-driven weakening of evidence/safety.
