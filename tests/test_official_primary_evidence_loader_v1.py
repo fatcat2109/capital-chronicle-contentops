@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 
 from live_contentops.official_primary_evidence_loader_v1 import (
     BoundedOfficialPrimaryEvidenceLoader,
@@ -68,6 +69,68 @@ def test_regulatory_primary_source_supplies_document_timeline_and_entities():
     assert document["published_at_utc"] == "2026-08-08T00:00:00Z"
     assert document["retrieval_method"] == "READ_ONLY_HTTP_GET"
     assert document["source_headline_id"] == "headline-1"
+    assert packet["provenance"]["evaluation_as_of_utc"] == AS_OF
+    assert packet["provenance"]["retrieved_at_utc"] is not None
+
+
+def test_retrieval_provenance_uses_actual_clock_not_evaluation_cutoff_or_request_payload():
+    url = "https://api.federalregister.gov/v1/documents/2026-12345.json"
+    body = json.dumps({
+        "title": "Final rule",
+        "publication_date": "2026-08-07T18:30:00Z",
+    }).encode()
+    retrieved_at = datetime(2026, 8, 8, 12, 0, 1, 123456, tzinfo=timezone.utc)
+    request = _request(
+        family="official_regulatory_fiscal",
+        required=["official_document"],
+        url=url,
+    )
+    request["retrieved_at_utc"] = "1999-01-01T00:00:00Z"
+    request["provenance"] = {"retrieved_at_utc": "1999-01-01T00:00:00Z"}
+
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        clock=lambda: retrieved_at,
+        http_get=lambda *_args: _response(url, body),
+    )(request)
+
+    assert packet["status"] == "PASS"
+    assert packet["provenance"]["retrieved_at_utc"] == "2026-08-08T12:00:01.123456Z"
+    assert packet["provenance"]["retrieved_at_utc"] != AS_OF
+    assert packet["provenance"]["evaluation_as_of_utc"] == AS_OF
+    document = packet["official_source_documents"][0]
+    assert document["published_at_utc"] == "2026-08-07T18:30:00Z"
+
+
+def test_naive_retrieval_clock_fails_closed():
+    url = "https://api.federalregister.gov/v1/documents/2026-12345.json"
+    body = json.dumps({"publication_date": "2026-08-08"}).encode()
+
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        clock=lambda: datetime(2026, 8, 8, 12, 0, 1),
+        http_get=lambda *_args: _response(url, body),
+    )(_request(
+        family="official_regulatory_fiscal",
+        required=["official_document"],
+        url=url,
+    ))
+
+    assert packet["status"] == "BLOCKED"
+    assert "official_source_retrieval_time_timezone_required" in packet["blockers"]
+    assert packet["provenance"]["retrieved_at_utc"] is None
+    assert packet["provenance"]["evaluation_as_of_utc"] == AS_OF
+
+
+def test_naive_evaluation_cutoff_is_rejected():
+    try:
+        BoundedOfficialPrimaryEvidenceLoader(
+            evaluation_as_of_utc="2026-08-08T12:00:00"
+        )
+    except ValueError as exc:
+        assert str(exc) == "official_source_evaluation_time_timezone_required"
+    else:
+        raise AssertionError("timezone-naive evaluation cutoff was accepted")
 
 
 def test_sec_company_primary_source_supplies_exact_filing_facts():

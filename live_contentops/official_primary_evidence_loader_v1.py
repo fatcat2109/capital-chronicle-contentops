@@ -230,12 +230,19 @@ class BoundedOfficialPrimaryEvidenceLoader:
         timeout_seconds: float = 12.0,
         max_response_bytes: int = 2_000_000,
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
+        clock: Callable[[], datetime] | None = None,
     ) -> None:
-        self._evaluation_as_of_utc = evaluation_as_of_utc
+        evaluation_as_of = datetime.fromisoformat(
+            evaluation_as_of_utc.replace("Z", "+00:00")
+        )
+        if evaluation_as_of.utcoffset() is None:
+            raise ValueError("official_source_evaluation_time_timezone_required")
+        self._evaluation_as_of_utc = _iso_utc(evaluation_as_of)
         self._max_requests = max_requests
         self._timeout_seconds = timeout_seconds
         self._max_response_bytes = max_response_bytes
         self._http_get = http_get or _default_http_get
+        self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._request_count = 0
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
@@ -255,6 +262,7 @@ class BoundedOfficialPrimaryEvidenceLoader:
         urls = [row["url"] for row in bindings]
         blockers: list[str] = []
         document: dict[str, Any] | None = None
+        retrieved_at_utc: str | None = None
         supplied: set[str] = set()
         if not requested_families:
             blockers.append("official_source_family_not_launch_supported")
@@ -304,6 +312,10 @@ class BoundedOfficialPrimaryEvidenceLoader:
                 body = response.get("body")
                 if not isinstance(body, bytes) or not body or len(body) > self._max_response_bytes:
                     raise ValueError("official_source_body_invalid")
+                retrieved_at = self._clock()
+                if not isinstance(retrieved_at, datetime) or retrieved_at.utcoffset() is None:
+                    raise ValueError("official_source_retrieval_time_timezone_required")
+                retrieved_at_utc = _iso_utc(retrieved_at)
                 verified, parsed, text = _verified_capabilities(
                     family=family, url=final_url, content_type=content_type, body=body
                 )
@@ -352,7 +364,8 @@ class BoundedOfficialPrimaryEvidenceLoader:
             "provided_evidence_capabilities": sorted(supplied.intersection(required)),
             "official_source_documents": [document] if document else [],
             "provenance": {
-                "retrieved_at_utc": self._evaluation_as_of_utc,
+                "retrieved_at_utc": retrieved_at_utc,
+                "evaluation_as_of_utc": self._evaluation_as_of_utc,
                 "request_count": self._request_count,
                 "request_limit": self._max_requests,
                 "timeout_seconds": self._timeout_seconds,
