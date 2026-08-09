@@ -943,3 +943,151 @@ class ContentOpsDurableStore:
         red_items=[{"work_item_id":i["work_item_id"],"story_id":compute_sha256(i["story_id"])[:16],"title":"[REDACTED_TITLE]","current_state":i["current_state"],"state_version":i["state_version"],"target_surface":i["target_surface"],"created_at":i["created_at"],"updated_at":i["updated_at"]} for i in items]
         red_events=[{"event_id":e["event_id"],"work_item_id":e["work_item_id"],"event_seq":e["event_seq"],"from_state":e["from_state"],"to_state":e["to_state"],"state_version":e["state_version"],"actor_class":e["actor_class"],"actor_ref":"[REDACTED_ACTOR_REF]","reason_code":e["reason_code"],"explanation":"[REDACTED_EXPLANATION]","explanation_hash":e["explanation_hash"],"correlation_id":e["correlation_id"],"previous_event_hash":e["previous_event_hash"],"event_hash":e["event_hash"],"authority_type":e["authority_type"],"authority_effect":e["authority_effect"],"timestamp_utc":e["timestamp_utc"]} for e in events]
         return {"schema_version":"contentops.durable_store_export.v1","database_pragmas":self.query_pragmas(),"current_schema_version":self.get_current_schema_version(),"redaction_guarantee":"PASS_NO_SECRETS_CREDENTIALS_OR_PRIVATE_MATERIAL","counts":{"migrations":len(migrations),"work_items":len(items),"transition_events":len(events),"leases":leases,"artifacts":artifacts},"migrations":migrations,"work_items":red_items,"transition_events":red_events}
+
+    # ------------------------------------------------------------------
+    # Canonical publication lifecycle persistence.
+    #
+    # These methods reuse the EXISTING canonical operational-store tables
+    # (outbox_messages, platform_dispatches, readbacks, reconciliations,
+    # incidents). They do not create a new store, table, or schema, and they
+    # never call a network publisher. Writes are idempotent on the exact
+    # durable identity (restart/redispatch never creates duplicate rows),
+    # which is the restart-safe foundation for the autonomous dispatch chain
+    # outbox -> dispatch -> readback -> reconciliation.
+    # ------------------------------------------------------------------
+
+    def _idempotent_insert(self, table: str, primary_key: str, key_value: str,
+                           columns: Sequence[str], values: Sequence[Any]) -> Dict[str, Any]:
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            existing = conn.execute(
+                f"SELECT * FROM {table} WHERE {primary_key}=?", (key_value,)
+            ).fetchone()
+            if existing:
+                conn.execute("COMMIT")
+                return dict(existing)
+            placeholders = ",".join("?" for _ in columns)
+            conn.execute(
+                f"INSERT INTO {table} ({','.join(columns)}) VALUES ({placeholders})", tuple(values)
+            )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                f"SELECT * FROM {table} WHERE {primary_key}=?", (key_value,)
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    def register_outbox_message(self, *, message_id: str, work_item_id: str,
+                                destination: str, payload: str,
+                                status: str = "PENDING") -> Dict[str, Any]:
+        return self._idempotent_insert(
+            "outbox_messages", "message_id", message_id,
+            ("message_id", "work_item_id", "destination", "payload", "status", "created_at"),
+            (message_id, work_item_id, destination, payload, status, self._get_now_iso()),
+        )
+
+    def register_platform_dispatch(self, *, dispatch_id: str, message_id: str,
+                                   platform: str, status: str = "PENDING") -> Dict[str, Any]:
+        return self._idempotent_insert(
+            "platform_dispatches", "dispatch_id", dispatch_id,
+            ("dispatch_id", "message_id", "platform", "status", "dispatched_at"),
+            (dispatch_id, message_id, platform, status, self._get_now_iso()),
+        )
+
+    def register_readback(self, *, readback_id: str, dispatch_id: str,
+                          readback_data: str) -> Dict[str, Any]:
+        return self._idempotent_insert(
+            "readbacks", "readback_id", readback_id,
+            ("readback_id", "dispatch_id", "readback_data", "read_at"),
+            (readback_id, dispatch_id, readback_data, self._get_now_iso()),
+        )
+
+    def register_reconciliation(self, *, reconciliation_id: str, work_item_id: str,
+                                status: str = "PENDING") -> Dict[str, Any]:
+        return self._idempotent_insert(
+            "reconciliations", "reconciliation_id", reconciliation_id,
+            ("reconciliation_id", "work_item_id", "status", "reconciled_at"),
+            (reconciliation_id, work_item_id, status, self._get_now_iso()),
+        )
+
+    def register_incident(self, *, incident_id: str, work_item_id: Optional[str],
+                          severity: str, description: str) -> Dict[str, Any]:
+        return self._idempotent_insert(
+            "incidents", "incident_id", incident_id,
+            ("incident_id", "work_item_id", "severity", "description", "created_at"),
+            (incident_id, work_item_id, severity, description, self._get_now_iso()),
+        )
+
+    def set_dispatch_status(self, dispatch_id: str, status: str) -> Dict[str, Any]:
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute(
+                "SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)
+            ).fetchone()
+            if row is None:
+                raise WorkItemNotFoundError(f"dispatch {dispatch_id} not found")
+            conn.execute(
+                "UPDATE platform_dispatches SET status=? WHERE dispatch_id=?",
+                (status, dispatch_id),
+            )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                "SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    def set_reconciliation_status(self, reconciliation_id: str, status: str) -> Dict[str, Any]:
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute(
+                "SELECT * FROM reconciliations WHERE reconciliation_id=?", (reconciliation_id,)
+            ).fetchone()
+            if row is None:
+                raise WorkItemNotFoundError(f"reconciliation {reconciliation_id} not found")
+            conn.execute(
+                "UPDATE reconciliations SET status=? WHERE reconciliation_id=?",
+                (status, reconciliation_id),
+            )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                "SELECT * FROM reconciliations WHERE reconciliation_id=?", (reconciliation_id,)
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    def get_dispatches_for_work_item(self, work_item_id: str) -> List[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            return [dict(r) for r in conn.execute(
+                "SELECT d.* FROM platform_dispatches d"
+                " JOIN outbox_messages m ON m.message_id = d.message_id"
+                " WHERE m.work_item_id=? ORDER BY d.dispatch_id", (work_item_id,)
+            ).fetchall()]
+
+    def get_reconciliations_for_work_item(self, work_item_id: str) -> List[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            return [dict(r) for r in conn.execute(
+                "SELECT * FROM reconciliations WHERE work_item_id=? ORDER BY reconciliation_id",
+                (work_item_id,)
+            ).fetchall()]

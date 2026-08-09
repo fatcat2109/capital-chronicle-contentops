@@ -17,6 +17,7 @@ from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     _authority_blockers,
     _evidence_bound_entities,
     _underlying_source_rights,
+    _document_host,
     UNDERLYING_RIGHTS_PUBLIC_DOMAIN,
     UNDERLYING_RIGHTS_UNRESOLVED,
     OWN_RENDER_RIGHTS_STATE,
@@ -649,9 +650,10 @@ def test_render_ownership_is_separate_from_underlying_source_rights(tmp_path):
         # domain, never claimed as capital_chronicle_owned.
         assert asset["underlying_source_rights_status"] == UNDERLYING_RIGHTS_PUBLIC_DOMAIN
         assert asset["underlying_source_rights_status"] != OWN_RENDER_RIGHTS_STATE
-        assert asset["source_reuse_basis"] == (
-            "official_public_primary_source_public_domain"
-        )
+        # The basis is now an explicit government-authorship classification, never a blanket
+        # claim derived solely from the official_public_primary_source authority class.
+        assert asset["source_reuse_basis"].startswith("us_government_authorship_public_domain")
+        assert asset["source_reuse_basis"] != "official_public_primary_source_public_domain"
 
 
 def test_underlying_source_rights_helper_does_not_overclaim():
@@ -695,3 +697,124 @@ def test_official_excerpt_is_not_overclaimed_as_cc_owned(tmp_path):
     assert excerpt is not None
     assert excerpt["underlying_source_rights_status"] == UNDERLYING_RIGHTS_PUBLIC_DOMAIN
     assert excerpt["underlying_source_rights_status"] != OWN_RENDER_RIGHTS_STATE
+
+
+# --- Rights provenance: evidence authority != reuse/public-domain rights --------
+
+
+def _evidence_document(
+    *,
+    family,
+    authority="official_public_primary_source",
+    publisher="www.federalregister.gov",
+    source_url="https://www.federalregister.gov/documents/x",
+):
+    doc = _official_document()
+    doc["source_adapter_family"] = family
+    doc["source_authority_class"] = authority
+    doc["publisher"] = publisher
+    doc["source_identity"] = publisher
+    doc["source_url"] = source_url
+    doc["requested_source_url"] = source_url
+    return doc
+
+
+def test_government_authored_source_has_supported_public_domain_basis():
+    doc = _evidence_document(family="official_regulatory_fiscal")
+    rights, basis = _underlying_source_rights(doc)
+    assert rights == UNDERLYING_RIGHTS_PUBLIC_DOMAIN
+    # Basis is government authorship at a governed publisher, NOT the authority class alone.
+    assert basis.startswith("us_government_authorship_public_domain")
+    assert "official_public_primary_source_public_domain" != basis
+
+
+def test_sec_company_filing_evidence_authority_does_not_imply_public_domain():
+    doc = _evidence_document(
+        family="company_primary",
+        authority="official_public_primary_source",
+        publisher="www.sec.gov",
+        source_url="https://www.sec.gov/Archives/edgar/data/0000000000/filings/10k.htm",
+    )
+    # The document remains authoritative primary evidence...
+    assert doc["source_authority_class"] == "official_public_primary_source"
+    rights, basis = _underlying_source_rights(doc)
+    # ...but the company-authored underlying content must NOT become public domain.
+    assert rights == UNDERLYING_RIGHTS_UNRESOLVED
+    assert basis == "official_evidence_company_authored_no_public_domain"
+
+
+def test_sec_regulatory_family_does_not_imply_public_domain():
+    doc = _evidence_document(
+        family="sec_regulatory",
+        publisher="data.sec.gov",
+        source_url="https://data.sec.gov/api/xbrl/companyfacts/CIK0000.json",
+    )
+    rights, basis = _underlying_source_rights(doc)
+    assert rights == UNDERLYING_RIGHTS_UNRESOLVED
+    assert basis == "official_evidence_company_authored_no_public_domain"
+
+
+def test_company_investor_relations_release_not_public_domain():
+    doc = _evidence_document(
+        family="company_primary",
+        publisher="ir.example-corp.com",
+        source_url="https://ir.example-corp.com/newsroom/press-release.html",
+    )
+    rights, basis = _underlying_source_rights(doc)
+    assert rights == UNDERLYING_RIGHTS_UNRESOLVED
+
+
+def test_unknown_third_party_official_hosted_document_unresolved():
+    doc = _evidence_document(
+        family="official_macro",
+        publisher="data.example-intl.org",
+        source_url="https://data.example-intl.org/release.json",
+    )
+    rights, basis = _underlying_source_rights(doc)
+    assert rights == UNDERLYING_RIGHTS_UNRESOLVED
+    assert basis == "government_family_publisher_not_governed_public_domain"
+
+
+def test_explicit_governed_public_domain_override_is_respected():
+    doc = _evidence_document(family="official_macro", publisher="unlisted.example.gov")
+    doc["underlying_reuse_classification"] = "governed_government_public_domain"
+    rights, basis = _underlying_source_rights(doc)
+    assert rights == UNDERLYING_RIGHTS_PUBLIC_DOMAIN
+    assert basis == "explicit_governed_government_public_domain"
+
+
+def _sec_viability():
+    doc = _evidence_document(
+        family="company_primary",
+        publisher="www.sec.gov",
+        source_url="https://www.sec.gov/Archives/edgar/data/0000000000/filings/10k.htm",
+    )
+    return _viability(story_type="company_sector_event", evidence=_evidence([doc]))
+
+
+def test_sec_company_unresolved_rights_render_metadata_only_not_excerpt(tmp_path):
+    context = extract_governed_story_context(_sec_viability())
+    assets = build_source_backed_media_assets(context, output_dir=tmp_path)
+    modalities = {row["modality"] for row in assets}
+    # No underlying excerpt is reproduced when reuse rights are unresolved.
+    assert "document_excerpt" not in modalities
+    # Metadata-only source-backed reference remains allowed.
+    assert "source_metadata" in modalities
+    for row in assets:
+        assert row["underlying_source_rights_status"] == UNDERLYING_RIGHTS_UNRESOLVED
+        assert OWN_RENDER_RIGHTS_STATE not in {row["underlying_source_rights_status"]}
+        assert row["render_rights_status"] == OWN_RENDER_RIGHTS_STATE
+
+
+def test_render_rights_distinct_from_underlying_rights_for_sec(tmp_path):
+    context = extract_governed_story_context(_sec_viability())
+    assets = build_source_backed_media_assets(context, output_dir=tmp_path)
+    assert len(assets) == 3 and len({row["asset_id"] for row in assets}) == 3
+    for row in assets:
+        assert row["render_rights_status"] != row["underlying_source_rights_status"]
+
+
+def test_document_host_normalized():
+    assert _document_host({"publisher": "www.SEC.gov"}) == "sec.gov"
+    assert _document_host({"source_identity": "federalregister.gov"}) == "federalregister.gov"
+    assert _document_host({"source_url": "https://www.treasury.gov/resource-center"}) == "treasury.gov"

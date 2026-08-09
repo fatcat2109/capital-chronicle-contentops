@@ -24,6 +24,7 @@ import json
 import re
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
+from urllib.parse import urlsplit
 
 SCHEMA_VERSION = "contentops.rolling_x_grounded_article_media_builder.v1"
 
@@ -35,13 +36,44 @@ ALLOWED_PROVENANCE_STATES = frozenset(
 #: Rights states we can assert for media we deterministically render ourselves.
 OWN_RENDER_RIGHTS_STATE = "capital_chronicle_owned"
 
-#: The only authority class whose underlying content we treat as reusable public-domain source
-#: material. Renders around any other source must not claim ownership of that source content.
+#: The evidence-authority class for official primary sources. Evidence authority is a factual
+#: gate only; it NEVER implies copyright/reuse status. Underlying reuse rights must be derived
+#: from an explicit, authorship-specific governed classification (see ``_underlying_source_rights``).
 OFFICIAL_PUBLIC_DOMAIN_AUTHORITY_CLASS = "official_public_primary_source"
 
 #: Underlying-source rights states (distinct from render ownership).
 UNDERLYING_RIGHTS_PUBLIC_DOMAIN = "public_domain"
 UNDERLYING_RIGHTS_UNRESOLVED = "unresolved"
+
+#: Source adapter families whose underlying content is company/third-party authored but hosted
+#: by an official authority (e.g., SEC / EDGAR filings). These are authoritative primary
+#: evidence, but the underlying content is NOT public domain and must not be excerpted.
+COMPANY_AUTHORED_OFFICIAL_FAMILIES = frozenset({"company_primary", "sec_regulatory"})
+
+#: Source adapter families whose underlying content is government-authored.
+GOVERNMENT_AUTHORED_FAMILIES = frozenset(
+    {"official_regulatory_fiscal", "official_policy", "official_macro"}
+)
+
+#: Explicit allowlist of US-government publishers with a justified public-domain basis
+#: (17 U.S.C. § 105: works of the US federal government). Normalized hostnames (no ``www.``).
+#: Underlying content is treated as public domain ONLY when the publisher is in this governed
+#: set; anything else fails closed to unresolved reuse rights.
+GOVERNMENT_PUBLIC_DOMAIN_PUBLISHERS = frozenset(
+    {
+        "federalregister.gov",
+        "govinfo.gov",
+        "congress.gov",
+        "treasury.gov",
+        "whitehouse.gov",
+        "federalreserve.gov",
+        "bls.gov",
+        "bea.gov",
+        "census.gov",
+        "newyorkfed.org",
+        "eia.gov",
+    }
+)
 
 #: Article modes that require governed Capital Chronicle analytical authority.
 ANALYTICAL_ARTICLE_MODES = frozenset(
@@ -262,21 +294,54 @@ def _render_text_card(
     image.save(path, format="PNG")
 
 
+def _document_host(document: Mapping[str, Any]) -> str:
+    """Normalized (lowercased, ``www.``-stripped) publisher host for a source document."""
+    host = str(document.get("publisher") or document.get("source_identity") or "").strip().casefold()
+    if not host:
+        host = str(urlsplit(str(document.get("source_url") or "")).hostname or "").casefold()
+    return host[4:] if host.startswith("www.") else host
+
+
 def _underlying_source_rights(document: Mapping[str, Any]) -> tuple[str, str]:
     """Return (underlying_source_rights_status, source_reuse_basis) for a source document.
 
     Capital Chronicle may own the rendered card/layout bytes, but that never means it owns the
     underlying official source text/data/excerpt. Underlying rights are recorded separately and
-    conservatively. Only an official public primary source is treated as reusable public-domain
-    material; anything else stays unresolved and must not be excerpted.
+    conservatively. Evidence authority (``source_authority_class``) NEVER implies reuse rights:
+    an SEC-hosted company filing can be authoritative primary evidence while the company-authored
+    content itself is NOT public domain. Public-domain reuse requires an explicit, authorship-
+    specific governed basis; everything else fails closed to ``unresolved`` and must not be excerpted.
     """
-    if (
-        str(document.get("source_authority_class") or "")
-        == OFFICIAL_PUBLIC_DOMAIN_AUTHORITY_CLASS
-    ):
+    explicit = str(document.get("underlying_reuse_classification") or "").strip()
+    if explicit == "governed_government_public_domain":
         return (
             UNDERLYING_RIGHTS_PUBLIC_DOMAIN,
-            "official_public_primary_source_public_domain",
+            "explicit_governed_government_public_domain",
+        )
+
+    authority = str(document.get("source_authority_class") or "")
+    if authority != OFFICIAL_PUBLIC_DOMAIN_AUTHORITY_CLASS:
+        return UNDERLYING_RIGHTS_UNRESOLVED, "no_established_reuse_basis"
+
+    family = str(document.get("source_adapter_family") or "")
+    if family in COMPANY_AUTHORED_OFFICIAL_FAMILIES:
+        # Company/third-party content hosted by an official authority (e.g., SEC/EDGAR):
+        # authoritative evidence, but the underlying content is company-authored and never
+        # automatically public domain.
+        return (
+            UNDERLYING_RIGHTS_UNRESOLVED,
+            "official_evidence_company_authored_no_public_domain",
+        )
+    if family in GOVERNMENT_AUTHORED_FAMILIES:
+        host = _document_host(document)
+        if host in GOVERNMENT_PUBLIC_DOMAIN_PUBLISHERS:
+            return (
+                UNDERLYING_RIGHTS_PUBLIC_DOMAIN,
+                f"us_government_authorship_public_domain:{host}",
+            )
+        return (
+            UNDERLYING_RIGHTS_UNRESOLVED,
+            "government_family_publisher_not_governed_public_domain",
         )
     return UNDERLYING_RIGHTS_UNRESOLVED, "no_established_reuse_basis"
 
