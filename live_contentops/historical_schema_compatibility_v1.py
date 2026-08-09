@@ -24,7 +24,7 @@ from live_contentops.historical_schema_lineage_v1 import (
     ORIGINAL_NO_GENESIS_LINEAGE_ID,
 )
 
-CANONICAL_SCHEMA_VERSION = 5
+CANONICAL_SCHEMA_VERSION = 6
 #: Migration versions 1-4 are frozen historical evidence; their SQL bytes and checksums must
 #: never change. Schema evolution beyond v4 appends NEW migrations only (migration v5 below).
 GENESIS_PREVIOUS_HASH = "GENESIS_" + ("0" * 64)
@@ -220,6 +220,107 @@ DEPENDENCY_MANIFEST_V3: Mapping[str, Any] = {
 }
 DEPENDENCY_MANIFEST_V3_JSON = canonical_json(DEPENDENCY_MANIFEST_V3)
 DEPENDENCY_MANIFEST_V3_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_V3_JSON.encode("utf-8")).hexdigest()
+
+# ---------------------------------------------------------------------------
+# Schema migration v6 — durable performance observations + learning policy versions.
+#
+# Migration v6 is appended WITHOUT touching the frozen v1-v5 migration SQL/checksums.
+# It adds the exact durable surface for the Final Daily App closed-loop:
+#   * performance_observations  — append-only, idempotent-by-identity platform-native
+#     performance observations linked to the exact canonical dispatch/public-object lineage.
+#   * learning_policy_versions  — immutable, append-only history of accepted learning-policy
+#     versions (parent-retained; rollback creates a NEW version, never a rewrite).
+# UNAVAILABLE metrics are never stored as zeros; availability state is explicit.
+# ---------------------------------------------------------------------------
+MIGRATION_V6_SQL = (
+    "\nCREATE TABLE IF NOT EXISTS performance_observations (\n"
+    "    observation_id TEXT PRIMARY KEY,\n"
+    "    schema_version TEXT NOT NULL,\n"
+    "    dispatch_id TEXT NOT NULL,\n"
+    "    work_item_id TEXT NOT NULL,\n"
+    "    platform TEXT NOT NULL,\n"
+    "    public_object_id TEXT NOT NULL,\n"
+    "    public_object_url_hash TEXT,\n"
+    "    observation_window TEXT NOT NULL,\n"
+    "    scheduled_for_utc TEXT NOT NULL,\n"
+    "    collected_at_utc TEXT,\n"
+    "    collector_capability_version TEXT NOT NULL,\n"
+    "    collection_status TEXT NOT NULL,\n"
+    "    metrics_native_json TEXT NOT NULL,\n"
+    "    metric_availability_json TEXT NOT NULL,\n"
+    "    source_identity TEXT NOT NULL,\n"
+    "    observation_hash TEXT NOT NULL,\n"
+    "    learning_eligible INTEGER NOT NULL DEFAULT 0,\n"
+    "    FOREIGN KEY(dispatch_id) REFERENCES platform_dispatches(dispatch_id)\n"
+    ");\n"
+    "CREATE INDEX IF NOT EXISTS idx_perf_obs_dispatch_window\n"
+    "ON performance_observations(dispatch_id, observation_window);\n"
+    "CREATE INDEX IF NOT EXISTS idx_perf_obs_due\n"
+    "ON performance_observations(collection_status, scheduled_for_utc);\n"
+    "\nCREATE TABLE IF NOT EXISTS learning_policy_versions (\n"
+    "    policy_version TEXT PRIMARY KEY,\n"
+    "    parent_policy_version TEXT,\n"
+    "    created_at_utc TEXT NOT NULL,\n"
+    "    status TEXT NOT NULL,\n"
+    "    decision TEXT NOT NULL,\n"
+    "    sample_count INTEGER NOT NULL DEFAULT 0,\n"
+    "    confidence REAL NOT NULL DEFAULT 0,\n"
+    "    formula_version TEXT NOT NULL,\n"
+    "    observation_ids_json TEXT NOT NULL,\n"
+    "    evaluation_window TEXT NOT NULL,\n"
+    "    accepted_changes_json TEXT NOT NULL,\n"
+    "    bounded_delta_json TEXT NOT NULL,\n"
+    "    rollback_reference TEXT,\n"
+    "    decision_reason TEXT NOT NULL,\n"
+    "    policy_payload_json TEXT NOT NULL,\n"
+    "    policy_hash TEXT NOT NULL\n"
+    ");\n"
+    "CREATE INDEX IF NOT EXISTS idx_learning_policy_status_created\n"
+    "ON learning_policy_versions(status, created_at_utc);\n"
+)
+MIGRATION_V6_CHECKSUM = hashlib.sha256(MIGRATION_V6_SQL.encode("utf-8")).hexdigest()
+
+DEPENDENCY_MANIFEST_V4: Mapping[str, Any] = {
+    "schema_version": "contentops.schema_v6_dependency_manifest.v1",
+    "canonical_json": CANONICAL_JSON_CONTRACT,
+    "genesis_previous_hash": GENESIS_PREVIOUS_HASH,
+    "legacy_baseline_kind": "LEGACY_PROJECTION_BASELINE",
+    "legacy_quarantine_scope": LEGACY_QUARANTINE_SCOPE,
+    "historical_lineage_registry": {
+        lineage_id: {
+            "schema_fingerprint": lineage["schema_fingerprint"],
+            "migration_checksums": dict(lineage["migration_checksums"]),
+            "valid_genesis_present": lineage["valid_genesis_present"],
+        }
+        for lineage_id, lineage in HISTORICAL_SCHEMA_LINEAGES.items()
+    },
+    "migration_sql_checksums": {**CURRENT_MIGRATION_CHECKSUMS, 5: MIGRATION_V5_CHECKSUM, 6: MIGRATION_V6_CHECKSUM},
+    "migration_sql_hashes": {
+        **{v: hashlib.sha256(sql.encode("utf-8")).hexdigest() for v, sql in CURRENT_MIGRATION_SQL.items()},
+        5: MIGRATION_V5_CHECKSUM,
+        6: MIGRATION_V6_CHECKSUM,
+    },
+    "migration_transform_versions": {
+        1: "sql_only.v1",
+        2: "legacy_sequence.v2",
+        3: "legacy_envelope.v3",
+        4: "historical_lineage_compatibility.v4",
+        5: "sql_only.v5",
+        6: "sql_only.v6",
+    },
+    "migration_sql_source": "live_contentops.historical_schema_compatibility_v1.CURRENT_MIGRATION_SQL / MIGRATION_V5_SQL / MIGRATION_V6_SQL",
+    "public_object_identity_columns": {
+        "table": "platform_dispatches",
+        "columns": ["public_object_id", "public_object_url", "public_object_url_hash"],
+        "invariant": "write_once_exact_external_identity_no_last_write_wins",
+    },
+    "performance_learning_tables": ["performance_observations", "learning_policy_versions"],
+    "state_rules": "live_contentops.durable_operational_store_v1.TRANSITION_GRAPH",
+    "authority_rule": "WAVE02_FORBIDDEN_AUTHORITY_STATES",
+    "event_hash_rule": "sha256(canonical event_payload_json)",
+}
+DEPENDENCY_MANIFEST_V4_JSON = canonical_json(DEPENDENCY_MANIFEST_V4)
+DEPENDENCY_MANIFEST_V4_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_V4_JSON.encode("utf-8")).hexdigest()
 
 
 @dataclass(frozen=True)

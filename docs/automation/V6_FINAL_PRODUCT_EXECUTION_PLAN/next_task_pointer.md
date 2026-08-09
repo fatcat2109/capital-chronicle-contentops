@@ -20,118 +20,72 @@ Current execution master plan:
 
 ## Current exact task
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_ALWAYS_ON_RUNTIME_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_FINAL_DAILY_APP_FINAL_V5_UI_AND_REAL_STATE_OPERATING_CONSOLE_V1`
 
 Mode:
 
 `AUTONOMOUS_DEFAULT`
 
+## Completed immediately prior
+
+FDA-D + FDA-E (`TASK_CONTENTOPS_FINAL_DAILY_APP_REAL_PERFORMANCE_OBSERVATION_AND_CLOSED_LOOP_LEARNING_V1`)
+is complete: bounded read-only performance observation, deterministic qualified-engagement
+evaluation, small-sample-guarded bounded learning decisions, immutable parent-retained policy
+versions with rollback, canonical schema v6 (performance_observations + learning_policy_versions),
+and supervisor cheap-tick consumption of the active timing policy. No real confirmed public
+object currently exists, so the real canary reports `NO_REAL_CONFIRMED_PUBLIC_OBJECT_AVAILABLE`;
+no publication was manufactured for training data.
+
 ## User problem
 
-ContentOps can execute individual canonical newsroom cycles, but Jim cannot yet start one application and leave it running 24/7 while the system autonomously owns scheduled/material newsroom decisions, publication lifecycle, later metrics, and later learning.
-
-The latest canonical article/media implementation also has three known blockers that must not be carried into an always-on runtime:
-
-1. editorial framing/X-derived `entities_topics` can be rendered as though they were accepted evidence facts;
-2. source-backed deterministic renders blanket-declare `capital_chronicle_owned`, which may overclaim rights in underlying official source/excerpt content;
-3. the Federal Reserve `official_policy` locator route used in the latest fresh canary returned HTTP 404.
+The Final Daily App has the always-on supervisor, canonical newsroom, durable publication
+lifecycle, exact public-object identity, strict readback/reconciliation, restart-safe recovery,
+and now real performance observation + bounded closed-loop learning. The remaining gap before V1
+acceptance is the Final V5 Daily App UI / real operating-state console driven by real live states.
 
 ## Capability to deliver now
 
-One heavy bounded product task must deliver:
-
 ```text
-correct article/media factual + rights provenance
-+ bounded working Federal Reserve official-policy discovery
-+ persistent Daily App supervisor
-+ deterministic bootstrap EditorialWindowPolicy
-+ exact due-window identity/idempotency
-+ restart-safe execution through existing durable store
-+ material-event wakeup seam using existing discovery metadata
-+ canonical newsroom cycle invoked exactly once when due
-+ terminal state persisted
-+ next wake computed
+Final V5 Daily App UI backed by real durable state
+→ Today / Queue / Published / Performance / Learning / Platforms / Incidents / controls
+→ real operating-state console (provider/model fallback, readback, reconciliation, unknown
+  writes, incidents, cost, recovery, learning policy history)
 ```
 
-The supervisor coordinates only. Actual newsroom/publication work remains under:
-
-`live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator`
-
-and the existing canonical backend/public facade.
-
-Do not create a second production pipeline, state store, scheduler authority, publisher, provider gateway, or analytics engine.
-
-## Demo path
-
-```text
-start Daily App supervisor
-→ load durable state + bootstrap EditorialWindowPolicy
-→ detect one due window
-→ call one canonical newsroom cycle
-→ reach valid terminal result (publish or legitimate abstention)
-→ persist window/cycle state
-→ duplicate tick or restart does not duplicate cycle
-→ compute next wake
-→ idle without continuous provider calls
-```
-
-A legitimate `NO_PUBLICATION` is acceptable for this runtime proof.
+Do not create a second newsroom, state store, scheduler, publisher, or analytics engine.
 
 ## Explicitly deferred from this task
 
-Do not implement the entire remaining V1 program at once.
-
-After this vertical slice, the next planned heavy task is real performance observation + bounded learning.
-
-This task does not require:
-
-- final multi-platform metrics collectors;
-- final adaptive schedule optimization;
-- Search Console integration;
-- final V5 UI rebuild;
-- 5–10 day live soak;
-- V2 video.
+- genuine calendar-time live soak;
+- at least one real publish + real performance lineage;
+- kill-switch/restart acceptance;
+- Final Daily App V1 freeze / v1.1.0;
+- V2 Pro Video Factory.
 
 ## Safety and authority
 
 Capital Chronicle remains the only analytical/numeric authority.
-
-ContentOps must not originate market snapshots, prior closes, valuation, forecasts, scenarios, probabilities, Bayesian outputs, regimes, or analytical economic/market truth.
-
+ContentOps must not originate market snapshots, prior closes, valuation, forecasts, scenarios,
+probabilities, Bayesian outputs, regimes, or analytical economic/market truth.
 X/social content remains discovery/editorial input only.
-
-Public writes remain limited to exact dynamically verified canonical:
-
-- `READY_AUTHENTICATED`
-- `READY_NON_BROWSER_BINDING`
-
-Unknown write:
-
-`STOP RETRY → READ BACK → RECONCILE`
-
-Browser roles remain:
-
-- Chrome `CapitalChronicleBot`, CDP 9222: ingestion only;
-- Edge `contentops-social-main`, CDP 9223: publication/media management/readback and only explicitly supported read-only performance observation.
-
+Public writes remain limited to exact dynamically verified canonical `READY_AUTHENTICATED` /
+`READY_NON_BROWSER_BINDING` destinations. Unknown write: STOP RETRY → READ BACK → RECONCILE.
+Browser roles remain: Chrome `CapitalChronicleBot` (CDP 9222) ingestion only; Edge
+`contentops-social-main` (CDP 9223) publication/readback/media management only.
 Never inspect/export credential/session material.
+Learning can never weaken evidence, source/numeric authority, publication gates, kill switch,
+operating mode, or secret handling.
 
 ## Stop rule
 
 At the first NEW substantive product/runtime/safety blocker, stop immediately and report only:
-
-- exact problem;
-- last successful stage;
-- network/provider actions;
-- public/unknown-write state;
-- what is needed to continue.
-
-Do not create closure ceremony or repeated speculative correction loops.
+exact problem; last successful stage; network/provider actions; public/unknown-write state; what
+is needed to continue. Do not create closure ceremony or repeated speculative correction loops.
 
 ## Expected next task after clean success
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_REAL_PERFORMANCE_OBSERVATION_AND_LEARNING_LOOP_V1`
+`TASK_CONTENTOPS_FINAL_DAILY_APP_GENUINE_CALENDAR_TIME_LIVE_SOAK_V1`
 
-unless the supervisor run exposes a new substantive blocker.
+unless the UI console run exposes a new substantive blocker.
 
 V2 Pro Video Factory is deferred until Final Daily App V1 acceptance/freeze unless Jim explicitly reprioritizes.

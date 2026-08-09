@@ -28,9 +28,12 @@ from live_contentops.historical_schema_compatibility_v1 import (
     DEPENDENCY_MANIFEST_V2_JSON,
     DEPENDENCY_MANIFEST_V3_HASH,
     DEPENDENCY_MANIFEST_V3_JSON,
+    DEPENDENCY_MANIFEST_V4_HASH,
+    DEPENDENCY_MANIFEST_V4_JSON,
     LEGACY_QUARANTINE_SCOPE,
     MIGRATION_V5_CHECKSUM,
     MIGRATION_V5_SQL,
+    MIGRATION_V6_SQL,
     canonical_json,
     recognize_lineage,
     schema_fingerprint,
@@ -118,6 +121,18 @@ class DispatchIdentityConflictError(DurableStoreError):
     External public-object identity is write-once durable truth. The same dispatch with the same
     identity is idempotent; a conflicting identity fails closed and is never silently overwritten.
     """
+
+
+class PerformanceObservationConflictError(DurableStoreError):
+    """A repeated observation identity carried different content.
+
+    Re-collecting the SAME exact observation identity is idempotent, but a conflicting content
+    hash for the same identity must never silently overwrite historical numbers.
+    """
+
+
+class LearningPolicyConflictError(DurableStoreError):
+    """A learning-policy version is immutable; a conflicting re-registration fails closed."""
 
 
 def utc_now_iso() -> str:
@@ -360,6 +375,7 @@ MIGRATIONS: List[Migration] = [
     Migration(3, "Canonical event envelopes, receipt scope, and append guards", MIGRATION_V3_SQL, "legacy_envelope.v3", _migration_v3_transform),
     Migration(4, "Wave 02 Schema v4: Historical Lineage Compatibility and Dependency Manifest", CURRENT_MIGRATION_SQL[4], "historical_lineage_compatibility.v4"),
     Migration(5, "Schema v5: platform_dispatches public-object identity persistence", MIGRATION_V5_SQL, "sql_only.v5"),
+    Migration(6, "Schema v6: performance_observations and learning_policy_versions", MIGRATION_V6_SQL, "sql_only.v6"),
 ]
 
 
@@ -453,8 +469,8 @@ class ContentOpsDurableStore:
                     len(rows) != 1
                     or int(rows[0]["singleton_id"]) != 1
                     or int(rows[0]["compatibility_version"]) != CANONICAL_SCHEMA_VERSION
-                    or rows[0]["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V3_JSON)
-                    or rows[0]["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH, DEPENDENCY_MANIFEST_V3_HASH)
+                    or rows[0]["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V3_JSON, DEPENDENCY_MANIFEST_V4_JSON)
+                    or rows[0]["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH, DEPENDENCY_MANIFEST_V3_HASH, DEPENDENCY_MANIFEST_V4_HASH)
                 ):
                     raise DurableStateCorruptionError("Dependency manifest binding mismatch")
                 guard_rows = {
@@ -512,7 +528,8 @@ class ContentOpsDurableStore:
                 recorded = tuple((int(row[0]), str(row[1])) for row in conn.execute(
                     "SELECT version,checksum FROM schema_migrations ORDER BY version"
                 ).fetchall())
-                current_prefix = tuple((version, CURRENT_MIGRATION_CHECKSUMS[version]) for version in range(1, current + 1))
+                expected_checksums = {m.version: m.checksum for m in MIGRATIONS}
+                current_prefix = tuple((version, expected_checksums[version]) for version in range(1, current + 1))
                 if recorded != current_prefix:
                     recognize_lineage(conn)
                     if target_version is not None and target_version < CANONICAL_SCHEMA_VERSION:
@@ -557,6 +574,16 @@ class ContentOpsDurableStore:
                     if updated != 1:
                         raise MigrationError(
                             "Migration v5 requires an existing canonical schema_lineage_metadata row"
+                        )
+                if migration.version == 6:
+                    updated = conn.execute(
+                        "UPDATE schema_lineage_metadata SET compatibility_version=?, dependency_manifest_json=?,"
+                        " dependency_manifest_hash=?, upgraded_at=? WHERE singleton_id=1",
+                        (6, DEPENDENCY_MANIFEST_V4_JSON, DEPENDENCY_MANIFEST_V4_HASH, self._get_now_iso()),
+                    ).rowcount
+                    if updated != 1:
+                        raise MigrationError(
+                            "Migration v6 requires an existing canonical schema_lineage_metadata row"
                         )
                 proof = self._verify_migration_preservation(conn, before, migration.version)
                 conn.execute("INSERT INTO schema_migrations VALUES (?,?,?,?)", (migration.version, migration.checksum, self._get_now_iso(), migration.description))
@@ -1022,6 +1049,13 @@ class ContentOpsDurableStore:
             ).fetchone()
             return dict(row) if row else None
 
+    def list_platform_dispatches(self) -> List[Dict[str, Any]]:
+        """List all canonical dispatch rows (read-only; used for observation eligibility)."""
+        with self.get_connection() as conn:
+            return [dict(r) for r in conn.execute(
+                "SELECT * FROM platform_dispatches ORDER BY dispatched_at, dispatch_id"
+            ).fetchall()]
+
     def register_platform_dispatch(
         self,
         *,
@@ -1210,3 +1244,213 @@ class ContentOpsDurableStore:
                 "SELECT * FROM reconciliations WHERE work_item_id=? ORDER BY reconciliation_id",
                 (work_item_id,)
             ).fetchall()]
+
+    # ------------------------------------------------------------------
+    # Performance observations + learning policy versions (schema v6).
+    #
+    # Observations are append-only and idempotent by exact observation identity.
+    # Learning-policy versions are immutable, parent-retained history; rollback adds
+    # a NEW version rather than rewriting existing rows.
+    # ------------------------------------------------------------------
+
+    def register_performance_observation(self, *, observation: Mapping[str, Any]) -> Dict[str, Any]:
+        """Persist one performance observation (idempotent by observation_id).
+
+        Re-registering the SAME exact observation identity (same ``observation_hash``) is an
+        idempotent PASS. A conflicting content hash for the same identity raises
+        ``PerformanceObservationConflictError`` and never silently overwrites history.
+        """
+        observation_id = str(observation["observation_id"])
+        observation_hash = str(observation["observation_hash"])
+        columns = (
+            "observation_id", "schema_version", "dispatch_id", "work_item_id", "platform",
+            "public_object_id", "public_object_url_hash", "observation_window", "scheduled_for_utc",
+            "collected_at_utc", "collector_capability_version", "collection_status",
+            "metrics_native_json", "metric_availability_json", "source_identity",
+            "observation_hash", "learning_eligible",
+        )
+        values = tuple(observation.get(col) for col in columns)
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            existing = conn.execute(
+                "SELECT * FROM performance_observations WHERE observation_id=?", (observation_id,)
+            ).fetchone()
+            if existing:
+                if existing["observation_hash"] != observation_hash:
+                    raise PerformanceObservationConflictError(
+                        f"performance_observation_conflict:{observation_id}"
+                    )
+                conn.execute("COMMIT")
+                return dict(conn.execute(
+                    "SELECT * FROM performance_observations WHERE observation_id=?", (observation_id,)
+                ).fetchone())
+            placeholders = ",".join("?" for _ in columns)
+            conn.execute(
+                f"INSERT INTO performance_observations ({','.join(columns)}) VALUES ({placeholders})",
+                values,
+            )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                "SELECT * FROM performance_observations WHERE observation_id=?", (observation_id,)
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    def mark_performance_observation_collected(
+        self, *, observation_id: str, collection_status: str, collected_at_utc: str,
+        metrics_native_json: str, metric_availability_json: str,
+    ) -> Dict[str, Any]:
+        """Record the collection outcome for a scheduled observation (read-only collection)."""
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute(
+                "SELECT * FROM performance_observations WHERE observation_id=?", (observation_id,)
+            ).fetchone()
+            if row is None:
+                raise WorkItemNotFoundError(f"performance_observation {observation_id} not found")
+            conn.execute(
+                "UPDATE performance_observations SET collection_status=?, collected_at_utc=?,"
+                " metrics_native_json=?, metric_availability_json=? WHERE observation_id=?",
+                (collection_status, collected_at_utc, metrics_native_json,
+                 metric_availability_json, observation_id),
+            )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                "SELECT * FROM performance_observations WHERE observation_id=?", (observation_id,)
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    def get_performance_observation(self, observation_id: str) -> Optional[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM performance_observations WHERE observation_id=?", (observation_id,)
+            ).fetchone()
+            return dict(row) if row else None
+
+    def list_performance_observations(
+        self, *, dispatch_id: Optional[str] = None,
+        collection_status: Optional[str] = None,
+    ) -> List[Dict[str, Any]]:
+        query = "SELECT * FROM performance_observations"
+        clauses: List[str] = []
+        params: List[Any] = []
+        if dispatch_id is not None:
+            clauses.append("dispatch_id=?")
+            params.append(dispatch_id)
+        if collection_status is not None:
+            clauses.append("collection_status=?")
+            params.append(collection_status)
+        if clauses:
+            query += " WHERE " + " AND ".join(clauses)
+        query += " ORDER BY scheduled_for_utc, observation_id"
+        with self.get_connection() as conn:
+            return [dict(r) for r in conn.execute(query, params).fetchall()]
+
+    def register_learning_policy(self, *, policy: Mapping[str, Any]) -> Dict[str, Any]:
+        """Persist one immutable learning-policy version (idempotent by policy_version).
+
+        Re-registering the same policy_version with an identical ``policy_hash`` is idempotent.
+        A conflicting hash for the same version raises ``LearningPolicyConflictError``.
+        """
+        policy_version = str(policy["policy_version"])
+        policy_hash = str(policy["policy_hash"])
+        columns = (
+            "policy_version", "parent_policy_version", "created_at_utc", "status", "decision",
+            "sample_count", "confidence", "formula_version", "observation_ids_json",
+            "evaluation_window", "accepted_changes_json", "bounded_delta_json",
+            "rollback_reference", "decision_reason", "policy_payload_json", "policy_hash",
+        )
+        values = tuple(policy.get(col) for col in columns)
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            existing = conn.execute(
+                "SELECT * FROM learning_policy_versions WHERE policy_version=?", (policy_version,)
+            ).fetchone()
+            if existing:
+                if existing["policy_hash"] != policy_hash:
+                    raise LearningPolicyConflictError(f"learning_policy_conflict:{policy_version}")
+                conn.execute("COMMIT")
+                return dict(conn.execute(
+                    "SELECT * FROM learning_policy_versions WHERE policy_version=?", (policy_version,)
+                ).fetchone())
+            placeholders = ",".join("?" for _ in columns)
+            conn.execute(
+                f"INSERT INTO learning_policy_versions ({','.join(columns)}) VALUES ({placeholders})",
+                values,
+            )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                "SELECT * FROM learning_policy_versions WHERE policy_version=?", (policy_version,)
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    def set_learning_policy_status(self, *, policy_version: str, status: str) -> Dict[str, Any]:
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute(
+                "SELECT * FROM learning_policy_versions WHERE policy_version=?", (policy_version,)
+            ).fetchone()
+            if row is None:
+                raise WorkItemNotFoundError(f"learning_policy {policy_version} not found")
+            conn.execute(
+                "UPDATE learning_policy_versions SET status=? WHERE policy_version=?",
+                (status, policy_version),
+            )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                "SELECT * FROM learning_policy_versions WHERE policy_version=?", (policy_version,)
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    def get_learning_policy(self, policy_version: str) -> Optional[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM learning_policy_versions WHERE policy_version=?", (policy_version,)
+            ).fetchone()
+            return dict(row) if row else None
+
+    def list_learning_policies(self) -> List[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            return [dict(r) for r in conn.execute(
+                "SELECT * FROM learning_policy_versions ORDER BY created_at_utc, policy_version"
+            ).fetchall()]
+
+    def get_active_learning_policy(self) -> Optional[Dict[str, Any]]:
+        """Return the most recently created ACTIVE learning-policy version, if any."""
+        with self.get_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM learning_policy_versions WHERE status='ACTIVE'"
+                " ORDER BY created_at_utc DESC, policy_version DESC LIMIT 1"
+            ).fetchone()
+            return dict(row) if row else None

@@ -288,6 +288,9 @@ class ContentOpsDailyAppSupervisor:
         enable_publication_lifecycle: bool = False,
         publication_publisher: Optional[Callable[..., Mapping[str, Any]]] = None,
         publication_readback_provider: Optional[Callable[..., Mapping[str, Any]]] = None,
+        enable_performance_observation: bool = False,
+        performance_collector: Optional[Callable[..., Mapping[str, Any]]] = None,
+        performance_learning_enabled: bool = False,
     ) -> None:
         if operating_mode not in OPERATING_MODES:
             raise ValueError(f"daily_app_operating_mode_invalid:{operating_mode}")
@@ -306,6 +309,11 @@ class ContentOpsDailyAppSupervisor:
         self._enable_publication_lifecycle = bool(enable_publication_lifecycle)
         self._publication_publisher = publication_publisher
         self._publication_readback_provider = publication_readback_provider
+        # FDA-D/FDA-E: bounded read-only performance observation + deterministic learning driven
+        # from the cheap tick. ZERO LLM calls for metrics collection. No second scheduler/store.
+        self._enable_performance_observation = bool(enable_performance_observation)
+        self._performance_collector = performance_collector
+        self._performance_learning_enabled = bool(performance_learning_enabled)
         if newsroom_cycle is None:
             from live_contentops.eight_platform_substack_first_pipeline_v1 import (
                 run_rolling_x_newsroom_cycle as canonical_cycle,
@@ -888,6 +896,106 @@ class ContentOpsDailyAppSupervisor:
                 summary["per_dispatch"][dispatch_id] = RECONCILE_PENDING_OPERATOR
         return summary
 
+    # -- FDA-D/FDA-E performance observation + bounded learning -----------------
+
+    def _reconciliation_status_for_dispatch(self, dispatch: Mapping[str, Any]) -> Optional[str]:
+        message = self._store.get_outbox_message(str(dispatch["message_id"]))
+        if not message:
+            return None
+        try:
+            package_identity = str(json.loads(message["payload"]).get("package_identity") or "")
+        except Exception:  # noqa: BLE001 - unreadable payload stays fail-closed
+            package_identity = ""
+        ids = self._lifecycle_identity(
+            str(message["work_item_id"]), str(dispatch["platform"]), package_identity
+        )
+        reconciliation_id = ids["reconciliation_id"]
+        for row in self._store.get_reconciliations_for_work_item(str(message["work_item_id"])):
+            if row["reconciliation_id"] == reconciliation_id:
+                return row["status"]
+        return None
+
+    def _next_observation_wake(self, now: datetime) -> Optional[datetime]:
+        if not self._enable_performance_observation:
+            return None
+        next_scheduled: Optional[datetime] = None
+        for obs in self._store.list_performance_observations(collection_status="SCHEDULED"):
+            try:
+                scheduled = _parse_utc(str(obs["scheduled_for_utc"]))
+            except Exception:  # noqa: BLE001
+                continue
+            if scheduled > now and (next_scheduled is None or scheduled < next_scheduled):
+                next_scheduled = scheduled
+        return next_scheduled
+
+    def _run_performance_observations(self, now: datetime) -> Dict[str, Any]:
+        """Cheap, bounded, READ-ONLY performance-observation step (ZERO LLM calls).
+
+        1. Schedules future observation windows for every learning-eligible confirmed dispatch.
+        2. Collects due observations through the injected read-only collector.
+        3. Optionally evaluates a bounded, deterministic learning decision.
+        Never writes to platforms; never schedules a second store or daemon.
+        """
+        from live_contentops import daily_app_performance_v1 as perf
+
+        summary: Dict[str, Any] = {"scheduled": 0, "collected": 0, "learning": None}
+        if not self._enable_performance_observation:
+            return summary
+        # Ensure the CONFIGURED_DEFAULT bootstrap policy exists (idempotent).
+        perf.ensure_bootstrap_policy(self._store, now=now)
+
+        # 1. Schedule observation windows for eligible confirmed dispatches.
+        for dispatch in self._store.list_platform_dispatches():
+            if dispatch["status"] != perf.DISPATCH_CONFIRMED or not dispatch.get("public_object_id"):
+                continue
+            existing = self._store.list_performance_observations(dispatch_id=dispatch["dispatch_id"])
+            if existing:
+                continue  # already scheduled for this dispatch (idempotent)
+            reconciliation_status = self._reconciliation_status_for_dispatch(dispatch)
+            readback_count = 1 if reconciliation_status == perf.RECONCILE_CONFIRMED else 0
+            eligibility = perf.assess_learning_eligibility(
+                dispatch_status=dispatch["status"],
+                public_object_id=dispatch.get("public_object_id"),
+                reconciliation_status=reconciliation_status,
+                readback_count=readback_count,
+            )
+            try:
+                dispatched_at = _parse_utc(str(dispatch["dispatched_at"]))
+            except Exception:  # noqa: BLE001
+                continue
+            outbox_message = self._store.get_outbox_message(str(dispatch["message_id"]))
+            work_item_id = str((outbox_message or {}).get("work_item_id") or "")
+            rows = perf.build_scheduled_observations(
+                dispatch=dispatch,
+                work_item_id=work_item_id,
+                dispatched_at=dispatched_at,
+                learning_eligible=bool(eligibility["learning_eligible"]),
+            )
+            for observation in rows:
+                self._store.register_performance_observation(observation=observation)
+                summary["scheduled"] += 1
+
+        # 2. Collect due observations (read-only; zero LLM).
+        for obs in self._store.list_performance_observations(collection_status="SCHEDULED"):
+            try:
+                scheduled = _parse_utc(str(obs["scheduled_for_utc"]))
+            except Exception:  # noqa: BLE001
+                continue
+            if scheduled > now:
+                continue
+            perf.collect_observation(
+                self._store, observation_id=obs["observation_id"],
+                collector=self._performance_collector, now=now,
+            )
+            summary["collected"] += 1
+
+        # 3. Bounded deterministic learning decision (no LLM).
+        if self._performance_learning_enabled:
+            summary["learning"] = perf.evaluate_learning_decision(
+                self._store, evaluation_window=f"supervisor_tick:{_iso_utc(now)}", now=now
+            )
+        return summary
+
     def _maybe_drive_publication_lifecycle(
         self, window_id: str, result: Mapping[str, Any]
     ) -> Optional[Dict[str, Any]]:
@@ -949,6 +1057,9 @@ class ContentOpsDailyAppSupervisor:
 
         if report["kill_switch_active"]:
             # Kill switch blocks new dispatch; safe readback/reconciliation/recovery stay allowed.
+            # Performance observation (read-only) is skipped while the kill switch is active.
+            if self._enable_performance_observation:
+                report["performance_observation_state"] = "SKIPPED_KILL_SWITCH"
             report["next_wake_utc"] = _iso_utc(self._next_wake(now))
             return report
 
@@ -975,6 +1086,21 @@ class ContentOpsDailyAppSupervisor:
                     window["window_id"] + ":" + str(outcome.get("reason"))
                 )
         report["windows_dispatched"] = dispatched
+        # FDA-D/FDA-E: bounded read-only performance observation + bounded learning (zero LLM).
+        if self._enable_performance_observation:
+            perf_summary = self._run_performance_observations(now)
+            report["performance_observations"] = {
+                "scheduled": perf_summary["scheduled"],
+                "collected": perf_summary["collected"],
+            }
+            report["performance_observation_state"] = "RUN"
+            if perf_summary.get("learning") is not None:
+                report["learning_evaluation_state"] = "RUN"
+                report["learning_decision"] = {
+                    "decision": perf_summary["learning"].get("decision"),
+                    "policy_version": perf_summary["learning"].get("policy_version"),
+                    "reason": perf_summary["learning"].get("reason"),
+                }
         report["next_wake_utc"] = _iso_utc(self._next_wake(now))
         return report
 
@@ -1008,6 +1134,20 @@ class ContentOpsDailyAppSupervisor:
         end = base + timedelta(hours=core.end_hour_utc)
         return start, end
 
+    def _timing_policy_offset_minutes(self) -> int:
+        """Bounded timing offset (minutes) from the latest ACTIVE learning policy.
+
+        Fails closed to 0 (configured bootstrap offset) when no valid accepted policy exists or
+        the payload is malformed, so learned timing can never silently corrupt bootstrap config.
+        """
+        try:
+            from live_contentops.daily_app_performance_v1 import (
+                active_policy_timing_offset_minutes,
+            )
+            return active_policy_timing_offset_minutes(self._store, fallback=0)
+        except Exception:  # noqa: BLE001 - missing/broken policy must not alter bootstrap timing
+            return 0
+
     def _due_windows(
         self, now: datetime, materiality_metadata: Optional[Mapping[str, Any]]
     ) -> list[dict[str, Any]]:
@@ -1017,10 +1157,15 @@ class ContentOpsDailyAppSupervisor:
         # not stay due long after it ends. minimum_cycle_spacing_hours remains an anti-spam
         # control between cycles, not the due-window horizon.
         grace = timedelta(hours=1.0)
+        # Bounded learned timing offset consumed from the latest ACTIVE learning policy. A value
+        # of 0 (bootstrap / no valid policy) leaves configured windows unchanged.
+        timing_offset = timedelta(minutes=self._timing_policy_offset_minutes())
         for day_offset in (0, -1):
             day = now + timedelta(days=day_offset)
             for core in self._policy.core_windows:
                 start, end = self._window_for_day(core, day)
+                start = start + timing_offset
+                end = end + timing_offset
                 if not (start <= now <= end + grace):
                     continue
                 if not self._within_production_epoch(start):
@@ -1295,14 +1440,21 @@ class ContentOpsDailyAppSupervisor:
     # -- wake computation -----------------------------------------------------
 
     def _next_wake(self, now: datetime) -> datetime:
-        """Deterministic next wake given the policy and the current clock."""
+        """Deterministic next wake combining the edited editorial window (with bounded learned
+        timing offset) and the next due read-only performance observation."""
         candidates: list[datetime] = []
+        timing_offset = timedelta(minutes=self._timing_policy_offset_minutes())
         for day_offset in range(0, 3):
             day = now + timedelta(days=day_offset)
             for core in self._policy.core_windows:
                 start, _end = self._window_for_day(core, day)
+                start = start + timing_offset
                 if start > now:
                     candidates.append(start)
+        # Combine editorial wake with the next due performance observation (read-only; zero LLM).
+        observation_wake = self._next_observation_wake(now)
+        if observation_wake is not None:
+            candidates.append(observation_wake)
         # Also wake a little before the next window to be responsive, and cap the sleep.
         if candidates:
             return min(candidates)
