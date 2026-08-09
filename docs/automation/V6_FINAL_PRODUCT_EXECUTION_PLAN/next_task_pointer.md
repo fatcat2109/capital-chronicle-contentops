@@ -20,49 +20,86 @@ Current execution master plan:
 
 ## Current exact task
 
-`TASK_CONTENTOPS_V1_FIRST_PUBLISHABLE_PACKAGE_AND_V2_UNLOCK_GATE_V1`
+`TASK_CONTENTOPS_V1_CANONICAL_GROUNDED_ARTICLE_MEDIA_BUILDER_AND_PUBLISHABILITY_CANARY_V1`
 
 Mode:
 
 `AUTONOMOUS_DEFAULT`
 
-## Why this is next
+## Owner decision
 
-Daily Live has repeatedly proven autonomous intake, hierarchical assignment, compact global ranking, story classification, fail-closed evidence gating, checkpoint recovery, and safe `NO_PUBLICATION` outcomes. It has not yet proven the remaining user-visible boundary:
+The publishability gate is not reduced.
 
-```text
-fresh ranked story
-→ evidence viable
-→ grounded article
-→ review
-→ visuals/native package
-→ destination readiness
-```
+The latest canonical audit proved a missing core subsystem rather than a small wiring defect:
 
-Recent production also shows a repeated mismatch between editorial ranking and the evidence plane: recurring story types can rank highly while their current V1 evidence contracts/source paths make publication impossible before article generation.
+- `run_rolling_x_newsroom_cycle(...)` exposes `article_builder=None` by default;
+- the production orchestrator does not bind a default article builder;
+- after an evidence PASS, the canonical cycle deterministically stops with `STORY_ARTICLE_VISUAL_BUILDER_UNAVAILABLE` when no callable builder is supplied;
+- existing article/media builders are story-family-specific and are not a reusable rolling-X builder.
 
-Do not continue passive same-state soak merely to increase a counter. Do not start broad hardening.
+Therefore the owner explicitly authorizes building **one canonical grounded article + media builder** for rolling-X Daily Live. This builder is the Tier-1 article/media pipeline, not a second newsroom or second publication system.
+
+Do not redefine success to stop before article/review/package generation merely to unlock V2.
 
 ## Required capability
 
-Make the smallest safe correction justified by real production blockers, then run one fresh canonical canary.
+Deliver the missing canonical transformation:
 
-Priority requirements:
+```text
+accepted ranked cluster
++ exact story type / article mode
++ validated evidence receipt
++ Capital Chronicle authority where required
+→ grounded article + SEO metadata
+→ source-backed deterministic media assets
+→ existing semantic reviewer / bounded reviser
+→ existing native-package builder
+→ existing destination readiness / publication boundary
+```
 
-1. `policy_decision + straight_news` must be satisfiable from exact first-party policy evidence without Capital Chronicle market analysis;
-2. `policy_decision + analysis` must retain exact Capital Chronicle analytical/market authority requirements;
-3. deterministic evidence-reachability metadata should inform global editorial ranking without granting factual/evidence/publication authority;
-4. add only the smallest current first-party source support justified by recent production;
-5. confirm canonical downstream article/review/visual/package adapters are actually bound before the live canary;
-6. preserve strict fail-closed behavior for unsupported geopolitical/supply-chain claims rather than weakening source truth.
+The builder must consume only governed evidence/authority already accepted by the canonical cycle. X/social content remains discovery/priority input and cannot become factual evidence.
 
-Do not build generic web research or licensed-news breadth.
+The builder must never originate Capital Chronicle analytical/numeric authority.
+
+## Builder doctrine
+
+Prefer one reusable contract-driven builder over story-specific prose functions.
+
+The builder should use:
+
+- story type + article mode;
+- exact evidence capabilities and source documents;
+- evidence/source hashes and timestamps;
+- authorized numeric claims only when supplied by governed evidence/Capital Chronicle authority;
+- existing 9Router role/provider authority for bounded article generation where useful;
+- deterministic source-backed visual primitives for claims that can be represented without invented data.
+
+Media may include claim-bound document excerpts, timelines, source cards, entity/decision fact cards, maps only when exact governed geography exists, and deterministic charts only when exact governed numeric series exists.
+
+Do not manufacture a chart or image merely to satisfy a visual count. If the release contract requires three assets, produce three distinct source-backed assets only when their underlying evidence supports them; otherwise fail closed.
+
+Do not create:
+
+- a second article pipeline;
+- a second reviewer;
+- a second package builder;
+- a second publisher;
+- generic web research;
+- licensed-news breadth;
+- independent ContentOps market/macro analysis.
+
+## Publishability closure after builder exists
+
+After focused controlled proof of the builder, continue the existing publishability task rather than opening another architecture program:
+
+1. close only evidence-contract/source-path gaps directly justified by recent production, including `policy_decision + straight_news` if still required;
+2. keep analytical modes bound to Capital Chronicle authority;
+3. allow deterministic evidence-reachability metadata to inform ranking without granting factual/evidence/publication authority;
+4. run one fresh canonical publishability canary.
 
 ## V2 unlock gate
 
-The owner has explicitly reprioritized the older Tier-2 sequencing.
-
-V2-A no longer needs to wait for the full 5–10 day probation or `v1.1.0` once a fresh canonical run proves:
+V2-A is unlocked when one fresh canonical run proves:
 
 ```text
 fresh current universe
@@ -71,33 +108,28 @@ fresh current universe
 → evidence PASS
 → grounded article
 → semantic review PASS
-→ visuals/native package
+→ source-backed visuals/native package
 → destination readiness evaluated
 ```
 
-A public write/readback is preferred when exact `READY_*` gates pass. A fully publishable package reaching the live gate is sufficient if destination readiness is the only remaining external blocker.
+A successful public write/readback is preferred when exact `READY_*` gates pass, but a fully publishable package reaching the live gate is sufficient when destination readiness is the only remaining external blocker.
 
-After this gate passes:
+After this gate:
 
 ```text
-V1 Daily Live probation continues on real daily cadence
+V1 genuine Daily Live probation continues
 ║
 ╠→ social destinations continue in parallel
 ╚→ V2-A Pro Video Factory may begin in parallel
 ```
 
-V2 must reuse the canonical story/evidence/permission/Capital-Chronicle-authority/state lineage and may not create a second newsroom or analytical authority.
-
 ## Safety and authority
 
-ContentOps must not originate market snapshots, valuation, forecasts, scenarios, probabilities, regimes, or analytical numeric truth.
+Capital Chronicle remains the only analytical/numeric authority.
 
-X/social text remains discovery/priority input only.
+ContentOps must not originate market snapshots, prior closes, valuation, forecasts, scenarios, probabilities, Bayesian outputs, regimes, or analytical economic/market truth.
 
-Public writes remain limited to exact dynamically verified canonical:
-
-- `READY_AUTHENTICATED`
-- `READY_NON_BROWSER_BINDING`
+Public writes remain limited to dynamically verified canonical `READY_AUTHENTICATED` / `READY_NON_BROWSER_BINDING` destinations.
 
 Unknown write:
 
@@ -114,4 +146,4 @@ Never inspect/export credential/session material.
 
 At the first NEW substantive problem, stop immediately and report only the exact problem, last successful stage, network/provider actions, public/unknown-write state, and what is needed to continue.
 
-Do not create closure ceremony, audit-of-audit loops, broad full-suite runs, or repeated correction loops.
+Do not create closure ceremony, audit-of-audit loops, broad full-suite runs, or repeated speculative correction loops.
