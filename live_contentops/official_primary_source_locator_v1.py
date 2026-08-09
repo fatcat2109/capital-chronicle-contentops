@@ -1,7 +1,7 @@
 """Bounded deterministic lookup of candidate URLs on first-party official endpoints."""
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from hashlib import sha256
 import json
 import re
@@ -22,9 +22,16 @@ LOCATOR_ENDPOINTS = {
     "official_macro": "https://www.bls.gov/bls/newsrels.htm",
     "company_primary": "https://www.sec.gov/files/company_tickers.json",
     "sec_regulatory": "https://www.sec.gov/files/company_tickers.json",
-    "official_policy": "https://www.federalreserve.gov/newsevents/pressreleases/monetary.htm",
+    # Stable first-party Federal Reserve FOMC calendar/listing page. This replaces the earlier
+    # press-release index path that returned HTTP 404. The calendar links out to individual
+    # FOMC statement / implementation-note documents on the same official host.
+    "official_policy": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
 }
 LOCATOR_FAMILIES = frozenset(LOCATOR_ENDPOINTS)
+
+BASE_ORIGIN_BY_FAMILY = {
+    "official_policy": "https://www.federalreserve.gov/",
+}
 
 
 def _logical_hash(value: Any) -> str:
@@ -171,21 +178,72 @@ def _candidate_for_sec(body: bytes, request: Mapping[str, Any]) -> tuple[str, st
 def _candidate_for_federal_reserve(
     body: bytes, request: Mapping[str, Any]
 ) -> tuple[str, str | None] | None:
-    """Deterministically locate the newest FOMC/monetary-policy press-release statement.
+    """Deterministically locate a relevant first-party FOMC/Federal Reserve policy document.
 
-    Discovery only: parses the official monetary-policy press-release index for the most recent
-    first-party statement URL. No search engine, no snippet evidence, no authority granted.
+    Discovery only: parses the official Federal Reserve FOMC calendar/listing page for links to
+    individual monetary-policy documents (FOMC statements and implementation notes) on the same
+    official host. Selects the most recent candidate whose embedded date does not exceed the
+    evaluation cutoff, preferring candidates whose link/label matches the story terms. No search
+    engine, no snippet evidence, no authority granted, no URL invented.
     """
     text = body.decode("utf-8", errors="replace")
+    base_origin = BASE_ORIGIN_BY_FAMILY["official_policy"]
+    # First-party FOMC monetary-policy document link shapes on federalreserve.gov.
     pattern = re.compile(
-        r'href=["\']([^"\']*newsevents/pressreleases/monetary\d+[a-z]\d*\.htm)["\']',
+        r'href=["\']([^"\']*(?:newsevents/pressreleases/monetary|monetarypolicy/fomc)[\w.-]*\.htm)["\']',
         re.IGNORECASE,
     )
-    candidates = pattern.findall(text)
-    if not candidates:
+    terms = set(_terms(request))
+    # Calendar page itself is not a usable statement candidate.
+    raw_links = [
+        href
+        for href in pattern.findall(text)
+        if "fomccalendars" not in href.casefold()
+    ]
+    if not raw_links:
         return None
-    candidate = urljoin("https://www.federalreserve.gov/", candidates[0])
-    return candidate, None
+    cutoff_text = str(request.get("evaluation_as_of_utc") or "")
+    try:
+        cutoff_date = datetime.fromisoformat(cutoff_text.replace("Z", "+00:00")).date()
+    except ValueError:
+        cutoff_date = None
+    dated: list[tuple[date | None, int, str]] = []
+    for href in raw_links:
+        candidate = urljoin(base_origin, href)
+        match = re.search(r"monetary[\w.-]*?(20\d{6})[\w.-]*\.htm", candidate, re.IGNORECASE) or re.search(
+            r"monetary[\w.-]*?(20\d{2})[\w.-]*\.htm", candidate, re.IGNORECASE
+        )
+        candidate_date: date | None = None
+        if match:
+            token = match.group(1)
+            if len(token) >= 8:
+                try:
+                    candidate_date = datetime.strptime(token[:8], "%Y%m%d").date()
+                except ValueError:
+                    candidate_date = None
+            elif len(token) == 4:
+                try:
+                    candidate_date = datetime(int(token), 1, 1).date()
+                except ValueError:
+                    candidate_date = None
+        if cutoff_date is not None and candidate_date is not None and candidate_date > cutoff_date:
+            continue
+        score = sum(term in candidate.casefold() for term in terms)
+        dated.append((candidate_date, score, candidate))
+    if not dated:
+        return None
+    # Most recent date first (None sorts last), then higher term score, then URL for stability.
+    dated.sort(
+        key=lambda row: (
+            row[0] is None,
+            -(row[0].toordinal() if row[0] else 0),
+            -row[1],
+            row[2],
+        )
+    )
+    candidate_date, _score, candidate = dated[0]
+    published_at = candidate_date.isoformat() if candidate_date else None
+    return candidate, (_parse_timestamp(published_at) if published_at else None)
 
 
 class BoundedOfficialPrimarySourceLocator:

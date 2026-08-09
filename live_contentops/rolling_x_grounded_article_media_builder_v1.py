@@ -35,6 +35,14 @@ ALLOWED_PROVENANCE_STATES = frozenset(
 #: Rights states we can assert for media we deterministically render ourselves.
 OWN_RENDER_RIGHTS_STATE = "capital_chronicle_owned"
 
+#: The only authority class whose underlying content we treat as reusable public-domain source
+#: material. Renders around any other source must not claim ownership of that source content.
+OFFICIAL_PUBLIC_DOMAIN_AUTHORITY_CLASS = "official_public_primary_source"
+
+#: Underlying-source rights states (distinct from render ownership).
+UNDERLYING_RIGHTS_PUBLIC_DOMAIN = "public_domain"
+UNDERLYING_RIGHTS_UNRESOLVED = "unresolved"
+
 #: Article modes that require governed Capital Chronicle analytical authority.
 ANALYTICAL_ARTICLE_MODES = frozenset(
     {"analysis", "deep_analysis", "scenario_outlook", "market_move"}
@@ -254,6 +262,25 @@ def _render_text_card(
     image.save(path, format="PNG")
 
 
+def _underlying_source_rights(document: Mapping[str, Any]) -> tuple[str, str]:
+    """Return (underlying_source_rights_status, source_reuse_basis) for a source document.
+
+    Capital Chronicle may own the rendered card/layout bytes, but that never means it owns the
+    underlying official source text/data/excerpt. Underlying rights are recorded separately and
+    conservatively. Only an official public primary source is treated as reusable public-domain
+    material; anything else stays unresolved and must not be excerpted.
+    """
+    if (
+        str(document.get("source_authority_class") or "")
+        == OFFICIAL_PUBLIC_DOMAIN_AUTHORITY_CLASS
+    ):
+        return (
+            UNDERLYING_RIGHTS_PUBLIC_DOMAIN,
+            "official_public_primary_source_public_domain",
+        )
+    return UNDERLYING_RIGHTS_UNRESOLVED, "no_established_reuse_basis"
+
+
 def _base_asset_record(
     *,
     asset_id: str,
@@ -269,6 +296,8 @@ def _base_asset_record(
     publication_date: str,
     article_section: str,
     relevance_rationale: str,
+    underlying_source_rights_status: str,
+    source_reuse_basis: str,
     supports_headline: bool = False,
 ) -> dict[str, Any]:
     from PIL import Image
@@ -288,7 +317,12 @@ def _base_asset_record(
         "publisher": source_label,
         "source": source_label,
         "publication_date": publication_date,
+        # Render/layout/image bytes are owned by Capital Chronicle; the underlying source
+        # content rights are recorded separately and never claimed as CC-owned.
         "rights_status": OWN_RENDER_RIGHTS_STATE,
+        "render_rights_status": OWN_RENDER_RIGHTS_STATE,
+        "underlying_source_rights_status": underlying_source_rights_status,
+        "source_reuse_basis": source_reuse_basis,
         "provenance_status": "SOURCE_BACKED",
         "chart_title": _bounded_text(caption, maximum=110),
         "caption": caption,
@@ -319,6 +353,22 @@ def _primary_document(context: Mapping[str, Any]) -> Mapping[str, Any]:
     return documents[0]
 
 
+def _evidence_bound_entities(document: Mapping[str, Any]) -> list[str]:
+    """Return entity names bound to accepted evidence only.
+
+    Editorial framing / X-derived ``entities_topics`` are deliberately NOT used here: an entity
+    may only appear as an accepted-evidence fact when the evidence document itself carries it.
+    If no evidence-bound entity field exists, this returns an empty list and the caller omits
+    the entity field rather than relabeling discovery metadata as an evidence fact.
+    """
+    entities: list[str] = []
+    for key in ("bound_entities", "affected_entities", "entities"):
+        value = document.get(key)
+        if isinstance(value, (list, tuple)):
+            entities.extend(str(item) for item in value if str(item).strip())
+    return list(dict.fromkeys(entities))
+
+
 def build_source_backed_media_assets(
     context: Mapping[str, Any],
     *,
@@ -340,25 +390,30 @@ def build_source_backed_media_assets(
     document_title = str(primary.get("title") or "Official primary source document")
     content_text = str(primary.get("canonical_content_text") or "")
     story_type = str(context.get("story_type") or "story")
-    framing = context.get("framing") if isinstance(context.get("framing"), Mapping) else {}
-    entities = list(framing.get("entities_topics") or [])
+    underlying_rights, reuse_basis = _underlying_source_rights(primary)
+    # Excerpt rendering is only permitted where the underlying source has an established
+    # reusable public-domain basis. Otherwise we render metadata-only cards.
+    excerpt_permitted = underlying_rights == UNDERLYING_RIGHTS_PUBLIC_DOMAIN
 
     media_root = Path(output_dir) / "media_assets"
     assets: list[dict[str, Any]] = []
 
-    # 1. SOURCE_DOCUMENT_CARD — official publisher, title, date, bounded excerpt, source URL.
+    # 1. SOURCE_DOCUMENT_CARD — official publisher, title, date, bounded excerpt (only where
+    #    reuse is permitted), source URL. Metadata-only fields otherwise.
     lead_path = media_root / "source_document_card.png"
-    excerpt = _bounded_text(content_text, maximum=180) or "Accepted official primary source."
+    excerpt = _bounded_text(content_text, maximum=180) if excerpt_permitted else ""
+    doc_body_lines = [
+        ("Publisher", publisher),
+        ("Published", published or "date as recorded"),
+    ]
+    if excerpt:
+        doc_body_lines.append(("Record", excerpt))
     _render_text_card(
         path=lead_path,
         header="Official Source Document",
         title_lines=[document_title],
-        body_lines=[
-            ("Publisher", publisher),
-            ("Published", published or "date as recorded"),
-            ("Record", excerpt),
-        ],
-        footer_lines=[f"Source: {source_url or 'official primary source'}", "Capital Chronicle source-backed render. No third-party imagery."],
+        body_lines=doc_body_lines,
+        footer_lines=[f"Source: {source_url or 'official primary source'}", "Capital Chronicle source-backed render. Underlying source rights recorded separately."],
     )
     assets.append(
         _base_asset_record(
@@ -375,11 +430,15 @@ def build_source_backed_media_assets(
             publication_date=published,
             article_section="source_record",
             relevance_rationale="Establishes the exact official record the grounded article reports.",
+            underlying_source_rights_status=underlying_rights,
+            source_reuse_basis=reuse_basis,
             supports_headline=True,
         )
     )
 
-    # 2. DECISION_FACT_CARD — exact evidence-backed factual fields, no model numbers.
+    # 2. DECISION_FACT_CARD — exact evidence-backed factual fields only. Editorial framing
+    #    (entities_topics / why_now / selection_case / SEO intent / leaf summaries) is NEVER
+    #    presented as an accepted-evidence fact here.
     fact_path = media_root / "decision_fact_card.png"
     fact_lines = [
         ("Story type", story_type),
@@ -387,14 +446,15 @@ def build_source_backed_media_assets(
         ("Authority", str(primary.get("source_authority_class") or "official_public_primary_source")),
         ("Known at", str(primary.get("known_at_utc") or "")),
     ]
-    if entities:
-        fact_lines.append(("Entities", ", ".join(str(value) for value in entities[:4])))
+    evidence_entities = _evidence_bound_entities(primary)
+    if evidence_entities:
+        fact_lines.append(("Entities", ", ".join(evidence_entities[:4])))
     _render_text_card(
         path=fact_path,
         header="Key Facts From Accepted Evidence",
         title_lines=["Exact fields recorded in the primary source"],
         body_lines=fact_lines,
-        footer_lines=[f"Source: {source_url or 'official primary source'}", "Every field is copied from accepted evidence; no model-generated facts."],
+        footer_lines=[f"Source: {source_url or 'official primary source'}", "Fields are copied from accepted evidence only; editorial framing is excluded."],
     )
     assets.append(
         _base_asset_record(
@@ -411,12 +471,14 @@ def build_source_backed_media_assets(
             publication_date=published,
             article_section="key_facts",
             relevance_rationale="States the exact governed facts the article relies on.",
+            underlying_source_rights_status=underlying_rights,
+            source_reuse_basis=reuse_basis,
             supports_headline=False,
         )
     )
 
-    # 3. Third asset — prefer an evidence-backed timeline or entity card; else a bounded
-    #    document excerpt render.  Distinct dimension from the fact card.
+    # 3. Third asset — prefer an evidence-backed timeline or a metadata source card; render a
+    #    bounded excerpt only where reuse rights permit. Distinct dimension from the fact card.
     assets.append(
         _build_third_asset(
             context=context,
@@ -426,7 +488,9 @@ def build_source_backed_media_assets(
             source_url=source_url,
             published=published,
             content_text=content_text,
-            entities=entities,
+            underlying_rights=underlying_rights,
+            reuse_basis=reuse_basis,
+            excerpt_permitted=excerpt_permitted,
         )
     )
 
@@ -436,6 +500,12 @@ def build_source_backed_media_assets(
         raise GroundedArticleBuilderError("fewer_than_required_source_backed_assets")
     if len(distinct_dimensions) < 2:
         raise GroundedArticleBuilderError("media_assets_not_genuinely_distinct")
+    if any(
+        str(row.get("underlying_source_rights_status")) == UNDERLYING_RIGHTS_UNRESOLVED
+        and str(row.get("modality")) == "document_excerpt"
+        for row in assets
+    ):
+        raise GroundedArticleBuilderError("excerpt_rendered_without_established_reuse_basis")
     return assets
 
 
@@ -448,7 +518,9 @@ def _build_third_asset(
     source_url: str,
     published: str,
     content_text: str,
-    entities: Sequence[str],
+    underlying_rights: str,
+    reuse_basis: str,
+    excerpt_permitted: bool,
 ) -> dict[str, Any]:
     story_type = str(context.get("story_type") or "")
     timeline_fields = [
@@ -481,32 +553,70 @@ def _build_third_asset(
             publication_date=published,
             article_section="timeline",
             relevance_rationale="Places the decision on its exact governed timestamps.",
+            underlying_source_rights_status=underlying_rights,
+            source_reuse_basis=reuse_basis,
             supports_headline=False,
         )
-    excerpt_path = media_root / "document_excerpt_card.png"
-    excerpt = _bounded_text(content_text, maximum=260) or "Bounded excerpt unavailable; source-backed placeholder."
+    if excerpt_permitted:
+        excerpt_path = media_root / "document_excerpt_card.png"
+        excerpt = _bounded_text(content_text, maximum=260) or "Bounded excerpt unavailable."
+        _render_text_card(
+            path=excerpt_path,
+            header="Official Document Excerpt",
+            title_lines=["Bounded excerpt from the accepted source"],
+            body_lines=[("Excerpt", excerpt)],
+            footer_lines=[f"Source: {source_url or 'official primary source'}", "Excerpt rendered under an established public-domain reuse basis."],
+            accent="#113d2f",
+        )
+        return _base_asset_record(
+            asset_id="document_excerpt_card",
+            path=excerpt_path,
+            role="supporting_document_context",
+            media_role="document_excerpt_card",
+            modality="document_excerpt",
+            evidence_dimension="document_excerpt",
+            caption="Bounded excerpt rendered from the accepted official document.",
+            alt_text="Excerpt card quoting a bounded passage from the official source.",
+            source_label=publisher,
+            source_page_url=source_url,
+            publication_date=published,
+            article_section="document_excerpt",
+            relevance_rationale="Shows the reader the underlying official language.",
+            underlying_source_rights_status=underlying_rights,
+            source_reuse_basis=reuse_basis,
+            supports_headline=False,
+        )
+    # No established excerpt reuse basis: render a metadata-only source card instead and do not
+    # reproduce underlying source text whose reuse rights are unresolved.
+    meta_path = media_root / "source_metadata_card.png"
     _render_text_card(
-        path=excerpt_path,
-        header="Official Document Excerpt",
-        title_lines=["Bounded excerpt from the accepted source"],
-        body_lines=[("Excerpt", excerpt)],
-        footer_lines=[f"Source: {source_url or 'official primary source'}", "Capital Chronicle excerpt render with exact attribution."],
+        path=meta_path,
+        header="Source Record Reference",
+        title_lines=["Metadata-only reference to the accepted source"],
+        body_lines=[
+            ("Publisher", publisher),
+            ("Published", published or "date as recorded"),
+            ("Access", source_url or "official primary source"),
+        ],
+        footer_lines=[f"Source: {source_url or 'official primary source'}", "Metadata-only render; underlying source text is not reproduced."],
         accent="#113d2f",
     )
     return _base_asset_record(
-        asset_id="document_excerpt_card",
-        path=excerpt_path,
+        asset_id="source_metadata_card",
+        path=meta_path,
         role="supporting_document_context",
-        media_role="document_excerpt_card",
-        modality="document_excerpt",
-        evidence_dimension="document_excerpt",
-        caption="Bounded excerpt rendered from the accepted official document.",
-        alt_text="Excerpt card quoting a bounded passage from the official source.",
+        media_role="source_metadata_card",
+        modality="source_metadata",
+        evidence_dimension="source_reference",
+        caption="Metadata-only reference card pointing to the accepted source record.",
+        alt_text="Reference card listing publisher, date and source location.",
         source_label=publisher,
         source_page_url=source_url,
         publication_date=published,
-        article_section="document_excerpt",
-        relevance_rationale="Shows the reader the underlying official language.",
+        article_section="source_reference",
+        relevance_rationale="Points the reader to the underlying source without reproducing it.",
+        underlying_source_rights_status=underlying_rights,
+        source_reuse_basis=reuse_basis,
         supports_headline=False,
     )
 

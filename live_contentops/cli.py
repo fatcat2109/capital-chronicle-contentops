@@ -1034,6 +1034,55 @@ def telegram_readonly_channel_binding_permission_proof_summary():
     ), indent=2))
 
 
+def daily_app_command(argv: list[str] | None = None):
+    import argparse
+    import datetime as _datetime
+    from .daily_app_supervisor_v1 import (
+        ContentOpsDailyAppSupervisor,
+        OPERATING_MODES,
+    )
+
+    parser = argparse.ArgumentParser(description="ContentOps Final Daily App supervisor")
+    parser.add_argument("--store-path", required=True, help="Durable operational store sqlite path")
+    parser.add_argument("--output-root", required=True, help="Output/state root for window artifacts")
+    parser.add_argument("--mode", default="AUTONOMOUS_DEFAULT", choices=sorted(OPERATING_MODES))
+    parser.add_argument("--once", action="store_true", help="Run a single supervisor tick and exit")
+    parser.add_argument("--run-forever", action="store_true", help="Run the supervisor loop continuously")
+    parser.add_argument("--poll-seconds", type=float, default=60.0)
+    parser.add_argument("--max-ticks", type=int, default=None)
+    parser.add_argument("--now", help="ISO datetime override for the supervisor clock (controlled/test)")
+    args = parser.parse_args(argv if argv is not None else sys.argv[2:])
+
+    if args.once and args.run_forever:
+        print(json.dumps({"status": "FAILED", "error": "--once and --run-forever are mutually exclusive"}, indent=2))
+        return
+
+    clock = None
+    if args.now:
+        try:
+            fixed = _datetime.datetime.fromisoformat(args.now.replace("Z", "+00:00"))
+        except Exception as e:
+            print(json.dumps({"status": "FAILED", "error": f"Invalid --now datetime: {e}"}, indent=2))
+            return
+        clock = lambda: fixed  # noqa: E731 - controlled clock override
+
+    supervisor = ContentOpsDailyAppSupervisor(
+        store_path=args.store_path,
+        output_root=args.output_root,
+        operating_mode=args.mode,
+        clock=clock,
+    )
+    if args.once:
+        report = supervisor.tick()
+        print(json.dumps({"status": "SUCCESS", "tick_report": report}, indent=2, default=str))
+        return
+    if args.run_forever:
+        ticks = supervisor.run_forever(poll_seconds=args.poll_seconds, max_ticks=args.max_ticks)
+        print(json.dumps({"status": "SUCCESS", "ticks": ticks}, indent=2))
+        return
+    print(json.dumps({"status": "FAILED", "error": "specify --once or --run-forever"}, indent=2))
+
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -1177,6 +1226,7 @@ COMMANDS = {
     "core-v0-shadow-demo": core_v0_shadow_demo_command,
     "core-v0-shadow-soak": core_v0_shadow_soak_command,
     "core-v0-acceptance": core_v0_acceptance_command,
+    "daily-app": daily_app_command,
 
 
 }
@@ -1192,6 +1242,7 @@ def main():
                     "core-v0-shadow-demo",
                     "core-v0-shadow-soak",
                     "core-v0-acceptance",
+                    "daily-app",
                 }:
                     return COMMANDS[cmd](sys.argv[2:]) or 0
                 if cmd in {"scheduler", "scheduler-tick"}:

@@ -77,3 +77,95 @@ def test_unsupported_family_never_calls_network():
     assert result["status"] == "BLOCKED"
     assert result["blockers"] == ["official_source_locator_family_unsupported"]
     assert calls == []
+
+
+# --- Federal Reserve official_policy discovery (Phase 4) -------------------------
+
+
+_FED_CALENDAR_HTML = b"""
+<html><body>
+<a href="/monetarypolicy/fomccalendars.htm">FOMC Calendars</a>
+<a href="/newsevents/pressreleases/monetary20260429a.htm">FOMC Statement - April 29, 2026</a>
+<a href="/newsevents/pressreleases/monetary20260617a.htm">FOMC Statement - June 17, 2026</a>
+<a href="/monetarypolicy/fomcprojtabl20260617.htm">Projections - June 2026</a>
+</body></html>
+"""
+
+
+def _policy_request(cutoff="2026-08-08T12:00:00Z"):
+    return {
+        "cluster_id": "cluster-policy",
+        "headline_ids": ["headline-policy"],
+        "story_type": "policy_decision",
+        "article_mode": "straight_news",
+        "source_adapter_families": ["official_policy"],
+        "evaluation_as_of_utc": cutoff,
+        "story_context": {
+            "entities_topics": ["Federal Reserve", "policy decision"],
+            "why_now": "FOMC held the target range",
+            "headline_text": "UNTRUSTED X TEXT",
+        },
+    }
+
+
+def test_policy_locator_uses_fed_calendar_route_and_returns_statement_candidate():
+    seen_urls = []
+
+    def http_get(url, *_args):
+        seen_urls.append(url)
+        return _response(url, _FED_CALENDAR_HTML)
+
+    clock = datetime(2026, 8, 8, 12, 1, tzinfo=timezone.utc)
+    locator = BoundedOfficialPrimarySourceLocator(
+        clock=lambda: clock, http_get=http_get
+    )
+    result = locator(_policy_request())
+
+    # The discovery request goes to the official Federal Reserve calendar page only.
+    assert seen_urls == ["https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"]
+    assert result["status"] == "PASS", result.get("blockers")
+    assert result["candidate_official_url"] == (
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"
+    )
+    # Most recent candidate <= cutoff is the June statement (not April, not the calendar page).
+    assert "monetary20260429a.htm" not in result["candidate_official_url"]
+    assert "fomccalendars" not in result["candidate_official_url"]
+
+
+def test_policy_locator_never_selects_a_statement_after_the_cutoff():
+    html = b"""
+    <html><body>
+    <a href="/newsevents/pressreleases/monetary20260905a.htm">FOMC Statement - September 05, 2026</a>
+    <a href="/newsevents/pressreleases/monetary20260617a.htm">FOMC Statement - June 17, 2026</a>
+    </body></html>
+    """
+    locator = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: _response(url, html)
+    )
+    result = locator(_policy_request(cutoff="2026-08-01T00:00:00Z"))
+    assert result["status"] == "PASS"
+    assert result["candidate_official_url"] == (
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"
+    )
+    assert "monetary20260905a.htm" not in result["candidate_official_url"]
+
+
+def test_policy_locator_returns_no_candidate_when_no_fomc_links():
+    locator = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: _response(url, b"<html>no policy links</html>")
+    )
+    result = locator(_policy_request())
+    assert result["status"] == "BLOCKED"
+    assert "official_source_locator_candidate_unavailable" in result["blockers"]
+
+
+def test_policy_locator_output_grants_no_evidence_authority():
+    locator = BoundedOfficialPrimarySourceLocator(
+        http_get=lambda url, *_args: _response(url, _FED_CALENDAR_HTML)
+    )
+    result = locator(_policy_request())
+    assert result["status"] == "PASS"
+    assert result["discovery_only"] is True
+    assert result["factual_authority"] is False
+    assert result["evidence_capabilities"] == []
+    assert result["publication_authority"] is False

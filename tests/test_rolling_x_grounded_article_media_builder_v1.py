@@ -15,6 +15,11 @@ from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     validate_generated_article,
     _untraceable_numeric_claims,
     _authority_blockers,
+    _evidence_bound_entities,
+    _underlying_source_rights,
+    UNDERLYING_RIGHTS_PUBLIC_DOMAIN,
+    UNDERLYING_RIGHTS_UNRESOLVED,
+    OWN_RENDER_RIGHTS_STATE,
 )
 
 
@@ -598,3 +603,95 @@ def test_builder_fail_closed_surfaces_as_no_publication_not_crash(monkeypatch, t
         "article_untraceable_numeric_claim"
     ]
     assert result["public_write_performed"] is False
+
+
+# --- Phase 2: media factual provenance (framing/X cannot become evidence facts) ---
+
+
+def test_framing_only_entities_cannot_become_evidence_bound_entities():
+    # The evidence document carries NO entity fields. Editorial framing/X-derived
+    # entities_topics must not be relabeled as accepted-evidence entities.
+    doc = _official_document()
+    assert "bound_entities" not in doc and "affected_entities" not in doc and "entities" not in doc
+    assert _evidence_bound_entities(doc) == []
+
+
+def test_evidence_bound_entities_are_used_when_the_evidence_itself_carries_them():
+    doc = _official_document()
+    doc["bound_entities"] = ["Treasury", "Office of Financial Research"]
+    assert _evidence_bound_entities(doc) == ["Treasury", "Office of Financial Research"]
+
+
+def test_fact_card_builds_without_framing_entities(tmp_path):
+    viability = _viability(story_type="regulatory_fiscal_event", article_mode="straight_news")
+    # Inject X/framing-derived entities_topics; the fact card must not consume them as facts.
+    viability["selected_cluster"]["entities_topics"] = ["XOnlyEntity", "DiscoveryTopic"]
+    context = extract_governed_story_context(viability)
+    assets = build_source_backed_media_assets(context, output_dir=tmp_path)
+    fact_card = next(row for row in assets if row["asset_id"] == "decision_fact_card")
+    # The fact card remains a fact card and is source-backed; framing entities are not evidence.
+    assert fact_card["modality"] == "fact_card"
+    assert fact_card["provenance_status"] == "SOURCE_BACKED"
+    assert _evidence_bound_entities(context["evidence_documents"][0]) == []
+
+
+# --- Phase 3: media rights provenance (render ownership vs underlying rights) ---
+
+
+def test_render_ownership_is_separate_from_underlying_source_rights(tmp_path):
+    viability = _viability(story_type="regulatory_fiscal_event", article_mode="straight_news")
+    context = extract_governed_story_context(viability)
+    assets = build_source_backed_media_assets(context, output_dir=tmp_path)
+    for asset in assets:
+        # Capital Chronicle owns the rendered bytes only...
+        assert asset["render_rights_status"] == OWN_RENDER_RIGHTS_STATE
+        # ...and the underlying official source content is recorded separately as public
+        # domain, never claimed as capital_chronicle_owned.
+        assert asset["underlying_source_rights_status"] == UNDERLYING_RIGHTS_PUBLIC_DOMAIN
+        assert asset["underlying_source_rights_status"] != OWN_RENDER_RIGHTS_STATE
+        assert asset["source_reuse_basis"] == (
+            "official_public_primary_source_public_domain"
+        )
+
+
+def test_underlying_source_rights_helper_does_not_overclaim():
+    official = _official_document()
+    rights, basis = _underlying_source_rights(official)
+    assert rights == UNDERLYING_RIGHTS_PUBLIC_DOMAIN
+
+    nonofficial = _official_document()
+    nonofficial["source_authority_class"] = "untrusted_web_source"
+    rights, basis = _underlying_source_rights(nonofficial)
+    assert rights == UNDERLYING_RIGHTS_UNRESOLVED
+    assert basis == "no_established_reuse_basis"
+
+
+def test_unresolved_underlying_rights_render_metadata_only_not_excerpt(tmp_path):
+    viability = _viability(story_type="company_sector_event", article_mode="straight_news")
+    # Downgrade the source authority so excerpt reuse has no established basis.
+    viability["selected_evidence"]["evidence_documents"][0]["source_authority_class"] = (
+        "untrusted_web_source"
+    )
+    context = extract_governed_story_context(viability)
+    assets = build_source_backed_media_assets(context, output_dir=tmp_path)
+    modalities = {row["modality"] for row in assets}
+    # No excerpt is rendered when underlying reuse rights are unresolved.
+    assert "document_excerpt" not in modalities
+    assert "source_metadata" in modalities
+    metadata_card = next(row for row in assets if row["modality"] == "source_metadata")
+    assert metadata_card["underlying_source_rights_status"] == UNDERLYING_RIGHTS_UNRESOLVED
+    # Still three distinct assets (metadata-only diversity, no overclaimed excerpt).
+    assert len(assets) == 3
+    assert len({row["asset_id"] for row in assets}) == 3
+
+
+def test_official_excerpt_is_not_overclaimed_as_cc_owned(tmp_path):
+    viability = _viability(story_type="data_release", article_mode="straight_news")
+    context = extract_governed_story_context(viability)
+    assets = build_source_backed_media_assets(context, output_dir=tmp_path)
+    excerpt = next(
+        (row for row in assets if row["modality"] == "document_excerpt"), None
+    )
+    assert excerpt is not None
+    assert excerpt["underlying_source_rights_status"] == UNDERLYING_RIGHTS_PUBLIC_DOMAIN
+    assert excerpt["underlying_source_rights_status"] != OWN_RENDER_RIGHTS_STATE
