@@ -1077,6 +1077,13 @@ class ContentOpsDurableStore:
         finally:
             conn.close()
 
+    def get_outbox_message(self, message_id: str) -> Optional[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM outbox_messages WHERE message_id=?", (message_id,)
+            ).fetchone()
+            return dict(row) if row else None
+
     def get_dispatches_for_work_item(self, work_item_id: str) -> List[Dict[str, Any]]:
         with self.get_connection() as conn:
             return [dict(r) for r in conn.execute(

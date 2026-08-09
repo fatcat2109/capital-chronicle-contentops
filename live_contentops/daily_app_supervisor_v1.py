@@ -86,6 +86,41 @@ PRODUCTION_EPOCH_METRIC_ID = "metric_contentops_production_epoch_start_utc"
 PRODUCTION_EPOCH_METRIC_NAME = "contentops_production_epoch_start_utc"
 
 
+class ProductionEpochConflictError(RuntimeError):
+    """A configured production epoch conflicts with the write-once persisted epoch.
+
+    The persisted production epoch is write-once runtime authority for the historical-replay
+    boundary. It may be initialized exactly once and re-read idempotently, but it must NEVER be
+    overwritten by a conflicting configured value (CLI restart flags, drift, etc.). This failure
+    is raised closed instead of silently rewriting the boundary.
+    """
+
+    def __init__(self, *, persisted: Optional[datetime], configured: Optional[datetime]) -> None:
+        self.persisted = persisted
+        self.configured = configured
+        super().__init__(
+            "production_epoch_conflict: persisted={} configured={} (persisted epoch is immutable)"
+            .format(
+                _iso_utc(persisted) if persisted else None,
+                _iso_utc(configured) if configured else None,
+            )
+        )
+
+
+#: Canonical publication-lifecycle statuses (write-once durable truth).
+STATUS_DISPATCH_CONFIRMED = "DISPATCH_CONFIRMED"
+STATUS_UNKNOWN_WRITE = "UNKNOWN_WRITE"
+STATUS_CONTROLLED_NO_WRITE = "CONTROLLED_NO_PUBLIC_WRITE"
+
+RECONCILE_CONFIRMED = "RECONCILED_CONFIRMED"
+RECONCILE_CONTROLLED_NO_WRITE = "RECONCILED_CONTROLLED_NO_WRITE"
+RECONCILE_PENDING_READBACK = "RECONCILIATION_PENDING_READBACK"
+RECONCILE_PENDING_OPERATOR = "RECONCILIATION_PENDING_OPERATOR_RECOVERY"
+RECONCILE_ABSENT_SAFE = "RECONCILED_ABSENT_SAFE_TO_RETRY"
+
+READBACK_UNAVAILABLE = "READBACK_UNAVAILABLE"
+
+
 def _logical_hash(value: Any) -> str:
     return sha256(
         json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
@@ -314,19 +349,28 @@ class ContentOpsDailyAppSupervisor:
     def _resolve_production_epoch(
         self, configured: Optional[str]
     ) -> Optional[datetime]:
-        """Resolve the production epoch start, persisting it for restart safety.
+        """Resolve the production epoch start with WRITE-ONCE semantics.
 
-        A configured epoch is authoritative and persisted on first sight. On restart without a
-        configured value the persisted store epoch (if any) is used. When neither exists the
-        epoch is undefined and no window is filtered (back-compat with pre-epoch stores).
+        A. persisted epoch ABSENT + configured provided  -> initialize exactly once.
+        B. persisted epoch PRESENT + no configured value -> load the exact persisted epoch.
+        C. persisted epoch PRESENT + configured EQUAL    -> idempotent PASS; no rewrite.
+        D. persisted epoch PRESENT + configured DIFFERS  -> raise
+           ``ProductionEpochConflictError``; NEVER overwrite.
+
+        The persisted production epoch is write-once runtime authority for the historical-replay
+        boundary. It is never made mutable through CLI restart flags or configuration drift.
         """
         persisted = self._load_production_epoch()
-        if configured:
-            epoch = _parse_utc(configured)
-            if persisted != epoch:
-                self._record_production_epoch(epoch)
+        if not configured:
+            return persisted
+        epoch = _parse_utc(configured)
+        if persisted is None:
+            self._record_production_epoch(epoch)
             return epoch
-        return persisted
+        if persisted == epoch:
+            # Idempotent re-supply of the exact persisted epoch; nothing is rewritten.
+            return persisted
+        raise ProductionEpochConflictError(persisted=persisted, configured=epoch)
 
     def _load_production_epoch(self) -> Optional[datetime]:
         try:
@@ -342,10 +386,16 @@ class ContentOpsDailyAppSupervisor:
         return datetime.fromtimestamp(float(row["metric_value"]), tz=timezone.utc)
 
     def _record_production_epoch(self, epoch: datetime) -> None:
+        """Persist the production epoch exactly once (write-once; never a replace)."""
+        existing = self._load_production_epoch()
+        if existing is not None:
+            if existing == epoch:
+                return
+            raise ProductionEpochConflictError(persisted=existing, configured=epoch)
         conn = self._store.get_connection()
         try:
             conn.execute(
-                "INSERT OR REPLACE INTO metrics (metric_id, metric_name, metric_value, recorded_at)"
+                "INSERT INTO metrics (metric_id, metric_name, metric_value, recorded_at)"
                 " VALUES (?, ?, ?, ?)",
                 (
                     PRODUCTION_EPOCH_METRIC_ID,
@@ -371,6 +421,66 @@ class ContentOpsDailyAppSupervisor:
     # restart or duplicate execution never creates duplicate durable rows. New dispatch is
     # blocked under KILL_SWITCH; safe readback/reconciliation/recovery remain allowed. An
     # UNKNOWN_WRITE stops retry and requires read-back + reconcile before any further action.
+    #
+    # HARD GATES (write-once external truth):
+    # * A missing/failed readback provider is NOT a successful readback; it fails closed and can
+    #   never synthesise ``verified: true`` or RECONCILED_CONFIRMED.
+    # * Only an explicit positive readback whose dispatch/destination/public-object identities
+    #   EXACTLY match the dispatched object reconciles to RECONCILED_CONFIRMED.
+    # * Controlled no-write fixtures are recorded as CONTROLLED_NO_PUBLIC_WRITE and are never
+    #   classified as a real public publication.
+
+    def _lifecycle_identity(
+        self, window_id: str, destination: str, package_identity: str
+    ) -> Dict[str, str]:
+        """Deterministic durable identities for one destination's canonical lifecycle chain."""
+        basis = json.dumps(
+            {
+                "window_id": window_id,
+                "destination": destination,
+                "package_identity": package_identity,
+            },
+            sort_keys=True,
+        )
+        h = _logical_hash(basis)
+        return {
+            "basis": basis,
+            "message_id": "outbox_" + h[:32],
+            "dispatch_id": "dispatch_" + h[:32],
+            "reconciliation_id": "reconciliation_" + h[:32],
+        }
+
+    def _verify_readback_confirmation(
+        self,
+        *,
+        readback_result: Any,
+        dispatch_id: str,
+        destination: str,
+        public_object_id: Optional[str],
+    ) -> tuple[bool, str]:
+        """Strict canonical readback verification (fail-closed).
+
+        Returns ``(confirmed, reason)``. Only an explicit positive confirmation whose dispatch,
+        destination, and public-object identities exactly match the dispatched object confirms.
+        Every missing/empty/exception/ambiguous/mismatch case fails closed.
+        """
+        if readback_result is None:
+            return False, "readback_unavailable_or_error"
+        if not isinstance(readback_result, Mapping):
+            return False, "readback_not_mapping"
+        if not readback_result:
+            return False, "readback_empty"
+        if readback_result.get("verified") is not True:
+            return False, "readback_verified_not_true"
+        if str(readback_result.get("dispatch_id") or "") != dispatch_id:
+            return False, "readback_dispatch_identity_mismatch"
+        if str(readback_result.get("destination") or "") != destination:
+            return False, "readback_destination_mismatch"
+        expected_obj = str(public_object_id or "")
+        observed_obj = str(readback_result.get("public_object_id") or "")
+        if expected_obj and observed_obj != expected_obj:
+            return False, "readback_public_object_identity_mismatch"
+        return True, "readback_confirmed"
 
     def drive_canonical_publication_lifecycle(
         self,
@@ -384,8 +494,10 @@ class ContentOpsDailyAppSupervisor:
         """Persist the canonical dispatch lifecycle for every exact READY destination.
 
         ``publisher`` is the canonical dispatch boundary. Under controlled runs it is
-        fixture-bound and performs ZERO public writes. When ``None`` a deterministic no-write
-        confirmed publisher is used so the durable chain is exercised without any network call.
+        fixture-bound and performs ZERO public writes. When ``publisher`` is ``None`` no dispatch
+        is attempted and the destination is recorded as CONTROLLED_NO_PUBLIC_WRITE. When
+        ``readback_provider`` is ``None`` a confirmed external write is never synthesised as
+        reconciled; it fails closed to RECONCILIATION_PENDING_READBACK.
         """
         publisher = publisher or self._publication_publisher
         readback_provider = readback_provider or self._publication_readback_provider
@@ -410,14 +522,11 @@ class ContentOpsDailyAppSupervisor:
             return outcome
         for destination in sorted(set(str(d) for d in ready_destinations)):
             destination = str(destination)
-            basis = json.dumps(
-                {"window_id": window_id, "destination": destination, "package_identity": package_identity},
-                sort_keys=True,
-            )
-            message_id = "outbox_" + _logical_hash(basis)[:32]
-            dispatch_id = "dispatch_" + _logical_hash(basis)[:32]
-            readback_id = "readback_" + _logical_hash(basis)[:32]
-            reconciliation_id = "reconciliation_" + _logical_hash(basis)[:32]
+            ids = self._lifecycle_identity(window_id, destination, package_identity)
+            basis = ids["basis"]
+            message_id = ids["message_id"]
+            dispatch_id = ids["dispatch_id"]
+            reconciliation_id = ids["reconciliation_id"]
             # Durable outbox identity (idempotent: same identity never duplicates on restart).
             self._store.register_outbox_message(
                 message_id=message_id,
@@ -427,15 +536,20 @@ class ContentOpsDailyAppSupervisor:
                 status="READY",
             )
             outcome["outbox_messages"] += 1
-            dispatch_status = "DISPATCH_CONFIRMED_NO_WRITE"
+
+            # -- Dispatch classification ---------------------------------------
+            # Preserve the exact public-object identity the publisher reports; a controlled
+            # no-write fixture is recorded distinctly and never as a real public publication.
+            public_object_id: Optional[str] = None
+            dispatch_status = STATUS_CONTROLLED_NO_WRITE
             if callable(publisher):
                 try:
                     published = dict(publisher(destination, package_identity))
-                    dispatch_status = str(
-                        published.get("status") or "DISPATCH_CONFIRMED_NO_WRITE"
-                    )
+                    raw_status = str(published.get("status") or "")
+                    public_object_id = str(published.get("public_object_id") or "") or None
                 except Exception as exc:  # noqa: BLE001 - classify, never blind-retry
-                    dispatch_status = "UNKNOWN_WRITE"
+                    raw_status = STATUS_UNKNOWN_WRITE
+                    public_object_id = None
                     self._store.register_incident(
                         incident_id="incident_" + _logical_hash(basis + str(exc))[:32],
                         work_item_id=window_id,
@@ -444,6 +558,19 @@ class ContentOpsDailyAppSupervisor:
                             f"Dispatch boundary error for {destination}: {type(exc).__name__}"
                         ),
                     )
+                if raw_status == STATUS_DISPATCH_CONFIRMED:
+                    # A confirmed external write without a public-object identity cannot be
+                    # verified/read-back; fail closed to unknown-write.
+                    dispatch_status = (
+                        STATUS_DISPATCH_CONFIRMED if public_object_id else STATUS_UNKNOWN_WRITE
+                    )
+                elif raw_status in ("DISPATCH_CONFIRMED_NO_WRITE", STATUS_CONTROLLED_NO_WRITE):
+                    dispatch_status = STATUS_CONTROLLED_NO_WRITE
+                    public_object_id = None
+                else:
+                    # Unknown/ambiguous/error outcome -> STOP RETRY -> READ BACK -> RECONCILE.
+                    dispatch_status = STATUS_UNKNOWN_WRITE
+
             self._store.register_platform_dispatch(
                 dispatch_id=dispatch_id,
                 message_id=message_id,
@@ -456,71 +583,242 @@ class ContentOpsDailyAppSupervisor:
                 "message_id": message_id,
                 "dispatch_id": dispatch_id,
                 "status": dispatch_status,
+                "public_object_id": public_object_id,
                 "readback_id": None,
                 "reconciliation_id": reconciliation_id,
             }
-            if dispatch_status == "UNKNOWN_WRITE":
+
+            if dispatch_status == STATUS_UNKNOWN_WRITE:
                 # STOP RETRY -> READ BACK -> RECONCILE. No blind retry is permitted.
                 outcome["unknown_write_detected"] = True
                 self._store.register_reconciliation(
                     reconciliation_id=reconciliation_id,
                     work_item_id=window_id,
-                    status="RECONCILIATION_PENDING_OPERATOR_RECOVERY",
+                    status=RECONCILE_PENDING_OPERATOR,
                 )
                 outcome["reconciliations"] += 1
-                row["reconciliation_status"] = "RECONCILIATION_PENDING_OPERATOR_RECOVERY"
+                row["reconciliation_status"] = RECONCILE_PENDING_OPERATOR
                 outcome["per_destination"][destination] = row
                 continue
-            if dispatch_status in ("DISPATCH_CONFIRMED_NO_WRITE", "DISPATCH_CONFIRMED"):
-                outcome["confirmed_writes"] += 1
-                outcome["public_write_performed"] = outcome["public_write_performed"] or (
-                    dispatch_status == "DISPATCH_CONFIRMED"
+
+            if dispatch_status == STATUS_CONTROLLED_NO_WRITE:
+                # Controlled / no public write: no external object exists. Record a distinct
+                # controlled terminal state; never a real-publication confirmation (no
+                # confirmed_writes, no public_write_performed).
+                readback_data = json.dumps(
+                    {
+                        "dispatch_id": dispatch_id,
+                        "destination": destination,
+                        "readback_status": STATUS_CONTROLLED_NO_WRITE,
+                        "verified": False,
+                        "public_write_performed": False,
+                    },
+                    sort_keys=True,
                 )
-            # Strict readback (fixture-bound; read-only) then reconciliation to terminal.
-            readback_data = json.dumps(
-                {"dispatch_id": dispatch_id, "destination": destination, "verified": True},
-                sort_keys=True,
-            )
-            if callable(readback_provider):
-                try:
-                    rb = dict(readback_provider(dispatch_id, destination))
-                    readback_data = json.dumps(rb, sort_keys=True)
-                except Exception:  # noqa: BLE001 - readback failure must not corrupt chain
-                    readback_data = json.dumps(
-                        {"dispatch_id": dispatch_id, "destination": destination, "verified": False},
-                        sort_keys=True,
-                    )
-            self._store.register_readback(
-                readback_id=readback_id,
+                readback_id = "readback_" + _logical_hash(readback_data)[:32]
+                self._store.register_readback(
+                    readback_id=readback_id, dispatch_id=dispatch_id, readback_data=readback_data
+                )
+                outcome["readbacks"] += 1
+                row["readback_id"] = readback_id
+                self._store.register_reconciliation(
+                    reconciliation_id=reconciliation_id,
+                    work_item_id=window_id,
+                    status=RECONCILE_CONTROLLED_NO_WRITE,
+                )
+                outcome["reconciliations"] += 1
+                row["reconciliation_status"] = RECONCILE_CONTROLLED_NO_WRITE
+                outcome["per_destination"][destination] = row
+                continue
+
+            # -- Real external write confirmed by publisher --------------------
+            outcome["confirmed_writes"] += 1
+            outcome["public_write_performed"] = True
+
+            if not callable(readback_provider):
+                # Missing readback provider is NOT a successful readback; fail closed. No
+                # verified:true, no RECONCILED_CONFIRMED.
+                readback_data = json.dumps(
+                    {
+                        "dispatch_id": dispatch_id,
+                        "destination": destination,
+                        "readback_status": READBACK_UNAVAILABLE,
+                        "verified": False,
+                    },
+                    sort_keys=True,
+                )
+                readback_id = "readback_" + _logical_hash(readback_data)[:32]
+                self._store.register_readback(
+                    readback_id=readback_id, dispatch_id=dispatch_id, readback_data=readback_data
+                )
+                outcome["readbacks"] += 1
+                row["readback_id"] = readback_id
+                self._store.register_reconciliation(
+                    reconciliation_id=reconciliation_id,
+                    work_item_id=window_id,
+                    status=RECONCILE_PENDING_READBACK,
+                )
+                outcome["reconciliations"] += 1
+                row["reconciliation_status"] = RECONCILE_PENDING_READBACK
+                outcome["per_destination"][destination] = row
+                continue
+
+            try:
+                rb = dict(readback_provider(dispatch_id, destination, public_object_id))
+            except Exception as exc:  # noqa: BLE001 - provider failure must fail closed
+                rb = {"_readback_error": type(exc).__name__}
+            confirmed, reason = self._verify_readback_confirmation(
+                readback_result=rb,
                 dispatch_id=dispatch_id,
-                readback_data=readback_data,
+                destination=destination,
+                public_object_id=public_object_id,
+            )
+            readback_data = json.dumps(
+                {
+                    "observed": rb if isinstance(rb, Mapping) else {},
+                    "dispatch_id": dispatch_id,
+                    "destination": destination,
+                    "verified": bool(confirmed),
+                    "verification_reason": reason,
+                },
+                sort_keys=True,
+                default=str,
+            )
+            readback_id = "readback_" + _logical_hash(readback_data)[:32]
+            self._store.register_readback(
+                readback_id=readback_id, dispatch_id=dispatch_id, readback_data=readback_data
             )
             outcome["readbacks"] += 1
             row["readback_id"] = readback_id
+            recon = RECONCILE_CONFIRMED if confirmed else RECONCILE_PENDING_READBACK
             self._store.register_reconciliation(
                 reconciliation_id=reconciliation_id,
                 work_item_id=window_id,
-                status="RECONCILED_CONFIRMED",
+                status=recon,
             )
             outcome["reconciliations"] += 1
-            row["reconciliation_status"] = "RECONCILED_CONFIRMED"
+            row["reconciliation_status"] = recon
             outcome["per_destination"][destination] = row
         return outcome
 
-    def perform_safe_readback_and_reconciliation(self, window_id: str) -> Dict[str, Any]:
-        """Safe (read/reconcile only) recovery allowed even under KILL_SWITCH.
+    def perform_safe_readback_and_reconciliation(
+        self, window_id: str, *, readback_provider: Optional[Callable[..., Mapping[str, Any]]] = None
+    ) -> Dict[str, Any]:
+        """READBACK/RECONCILIATION ONLY recovery, safe even under KILL_SWITCH.
 
-        Reconciles any UNKNOWN_WRITE dispatch for the window through read-back; never creates a
-        new dispatch, so it is safe under the kill switch.
+        For each UNKNOWN_WRITE dispatch this method NEVER redispatches. It resolves the exact
+        destination/message/dispatch/public identity, calls the canonical configured readback
+        provider (if available), persists the readback observation, and reconciles:
+
+        * readback proves a public object exists with a matching identity -> RECONCILED_CONFIRMED;
+        * readback proves no write occurred -> RECONCILED_ABSENT_SAFE_TO_RETRY (no automatic retry);
+        * ambiguous/unavailable/error -> remains RECONCILIATION_PENDING_OPERATOR_RECOVERY.
+
+        The publisher is never invoked here.
         """
-        summary = {"window_id": window_id, "recovered_unknown_writes": 0, "dispatches": 0}
+        provider = readback_provider or self._publication_readback_provider
+        summary: Dict[str, Any] = {
+            "window_id": window_id,
+            "dispatches": 0,
+            "unknown_writes": 0,
+            "publisher_calls": 0,  # this method NEVER invokes the publisher
+            "readback_calls": 0,
+            "reconciled": 0,
+            "still_pending": 0,
+            "per_dispatch": {},
+        }
         dispatches = self._store.get_dispatches_for_work_item(window_id)
         summary["dispatches"] = len(dispatches)
+        # Current reconciliation states keyed by deterministic reconciliation identity.
+        recons_by_id = {
+            r["reconciliation_id"]: r["status"]
+            for r in self._store.get_reconciliations_for_work_item(window_id)
+        }
         for dispatch in dispatches:
-            if dispatch["status"] != "UNKNOWN_WRITE":
+            if dispatch["status"] != STATUS_UNKNOWN_WRITE:
                 continue
-            # Read back first, then reconcile; no retry.
-            summary["recovered_unknown_writes"] += 1
+            summary["unknown_writes"] += 1
+            dispatch_id = str(dispatch["dispatch_id"])
+            destination = str(dispatch["platform"])
+            # Resolve exact package identity from the durable outbox payload.
+            package_identity = ""
+            message = self._store.get_outbox_message(str(dispatch["message_id"]))
+            if message:
+                try:
+                    package_identity = str(json.loads(message["payload"]).get("package_identity") or "")
+                except Exception:  # noqa: BLE001 - unreadable payload stays fail-closed
+                    package_identity = ""
+            ids = self._lifecycle_identity(window_id, destination, package_identity)
+            reconciliation_id = ids["reconciliation_id"]
+            # Already-recovered dispatches are idempotent; do not re-invoke the provider.
+            if recons_by_id.get(reconciliation_id) in (RECONCILE_CONFIRMED, RECONCILE_ABSENT_SAFE):
+                summary["per_dispatch"][dispatch_id] = recons_by_id[reconciliation_id]
+                continue
+            if not callable(provider):
+                # No readback provider -> cannot read back; remain fail-closed pending operator.
+                readback_data = json.dumps(
+                    {
+                        "dispatch_id": dispatch_id,
+                        "destination": destination,
+                        "readback_status": READBACK_UNAVAILABLE,
+                        "verified": False,
+                    },
+                    sort_keys=True,
+                )
+                self._store.register_readback(
+                    readback_id="readback_" + _logical_hash(readback_data)[:32],
+                    dispatch_id=dispatch_id,
+                    readback_data=readback_data,
+                )
+                summary["still_pending"] += 1
+                summary["per_dispatch"][dispatch_id] = RECONCILE_PENDING_OPERATOR
+                continue
+            summary["readback_calls"] += 1
+            try:
+                rb = dict(provider(dispatch_id, destination, None))
+            except Exception as exc:  # noqa: BLE001 - provider error fails closed, no retry
+                rb = {"_readback_error": type(exc).__name__}
+            readback_data = json.dumps(
+                {
+                    "observed": rb if isinstance(rb, Mapping) else {},
+                    "dispatch_id": dispatch_id,
+                    "destination": destination,
+                    "recovery": True,
+                },
+                sort_keys=True,
+                default=str,
+            )
+            self._store.register_readback(
+                readback_id="readback_" + _logical_hash(readback_data)[:32],
+                dispatch_id=dispatch_id,
+                readback_data=readback_data,
+            )
+            if (
+                not isinstance(rb, Mapping)
+                or not rb
+                or rb.get("verified") is not True
+                or str(rb.get("dispatch_id") or "") != dispatch_id
+                or str(rb.get("destination") or "") != destination
+            ):
+                # Ambiguous/malformed/mismatched/unverified observation stays pending operator.
+                summary["still_pending"] += 1
+                summary["per_dispatch"][dispatch_id] = RECONCILE_PENDING_OPERATOR
+                continue
+            observed_object = str(rb.get("public_object_id") or "")
+            write_occurred = rb.get("write_occurred")
+            if observed_object:
+                # Readback proved a concrete public object exists -> confirmed.
+                self._store.set_reconciliation_status(reconciliation_id, RECONCILE_CONFIRMED)
+                summary["reconciled"] += 1
+                summary["per_dispatch"][dispatch_id] = RECONCILE_CONFIRMED
+            elif write_occurred is False:
+                # Readback proved no write occurred -> absent-safe; no automatic retry here.
+                self._store.set_reconciliation_status(reconciliation_id, RECONCILE_ABSENT_SAFE)
+                summary["reconciled"] += 1
+                summary["per_dispatch"][dispatch_id] = RECONCILE_ABSENT_SAFE
+            else:
+                summary["still_pending"] += 1
+                summary["per_dispatch"][dispatch_id] = RECONCILE_PENDING_OPERATOR
         return summary
 
     def _maybe_drive_publication_lifecycle(
