@@ -23,6 +23,7 @@ OFFICIAL_HOSTS_BY_FAMILY = {
     }),
     "company_primary": frozenset({"data.sec.gov", "www.sec.gov"}),
     "sec_regulatory": frozenset({"data.sec.gov", "www.sec.gov"}),
+    "official_policy": frozenset({"www.federalreserve.gov"}),
     "official_macro": frozenset({
         "api.bls.gov",
         "www.bls.gov",
@@ -224,6 +225,23 @@ def _verified_capabilities(
             and re.search(r"\b(definitions?|technical note|seasonally adjusted|establishment survey|household survey)\b", lowered)
         ):
             capabilities.add("release_definitions")
+    elif family == "official_policy":
+        policy_published = (
+            (_first_json_timestamp(parsed) if parsed is not None else None)
+            or _html_timestamp(text)
+        )
+        if re.search(
+            r"\b(statement|press release|implementation note|minutes|policy decision|target range)\b",
+            lowered,
+        ):
+            capabilities.add("official_statement")
+        if re.search(
+            r"\b(federal reserve|board of governors|federal open market committee|fomc)\b",
+            lowered,
+        ):
+            capabilities.add("issuing_authority")
+        if policy_published:
+            capabilities.add("decision_timeline")
     return capabilities, parsed, text
 
 

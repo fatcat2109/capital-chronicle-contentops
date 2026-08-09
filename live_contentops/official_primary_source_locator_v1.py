@@ -22,6 +22,7 @@ LOCATOR_ENDPOINTS = {
     "official_macro": "https://www.bls.gov/bls/newsrels.htm",
     "company_primary": "https://www.sec.gov/files/company_tickers.json",
     "sec_regulatory": "https://www.sec.gov/files/company_tickers.json",
+    "official_policy": "https://www.federalreserve.gov/newsevents/pressreleases/monetary.htm",
 }
 LOCATOR_FAMILIES = frozenset(LOCATOR_ENDPOINTS)
 
@@ -167,6 +168,26 @@ def _candidate_for_sec(body: bytes, request: Mapping[str, Any]) -> tuple[str, st
     return sorted(matches, key=lambda row: (-row[0], row[1]))[0][1], None
 
 
+def _candidate_for_federal_reserve(
+    body: bytes, request: Mapping[str, Any]
+) -> tuple[str, str | None] | None:
+    """Deterministically locate the newest FOMC/monetary-policy press-release statement.
+
+    Discovery only: parses the official monetary-policy press-release index for the most recent
+    first-party statement URL. No search engine, no snippet evidence, no authority granted.
+    """
+    text = body.decode("utf-8", errors="replace")
+    pattern = re.compile(
+        r'href=["\']([^"\']*newsevents/pressreleases/monetary\d+[a-z]\d*\.htm)["\']',
+        re.IGNORECASE,
+    )
+    candidates = pattern.findall(text)
+    if not candidates:
+        return None
+    candidate = urljoin("https://www.federalreserve.gov/", candidates[0])
+    return candidate, None
+
+
 class BoundedOfficialPrimarySourceLocator:
     """Perform at most one deterministic first-party lookup for a request."""
 
@@ -219,6 +240,8 @@ class BoundedOfficialPrimarySourceLocator:
                 candidate = _candidate_for_federal_register(body, request)
             elif family == "official_macro":
                 candidate = _candidate_for_bls(body, request)
+            elif family == "official_policy":
+                candidate = _candidate_for_federal_reserve(body, request)
             else:
                 candidate = _candidate_for_sec(body, request)
             if not candidate:

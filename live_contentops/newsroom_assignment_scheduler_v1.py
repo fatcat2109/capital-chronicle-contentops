@@ -828,6 +828,56 @@ def _attention_metadata_for_leaf_cluster(
     }
 
 
+def _leaf_evidence_reachability(
+    cluster: Mapping[str, Any],
+    records_by_id: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Deterministic pre-global-editor evidence-reachability metadata (editorial only).
+
+    Derived solely from already-known product state: official source URLs bound to member
+    headlines and the first-party source families those hosts belong to. No provider call and
+    no network request is made. Grants NO factual, numeric, evidence, permission, or
+    publication authority. The global editor may still rank stories whose current V1 evidence
+    path is difficult or absent; reachability is a feasibility/priority signal only.
+    """
+    from urllib.parse import urlsplit
+
+    from live_contentops.official_primary_evidence_loader_v1 import (
+        OFFICIAL_HOSTS_BY_FAMILY,
+    )
+    from live_contentops.official_primary_source_locator_v1 import LOCATOR_FAMILIES
+
+    official_urls: set[str] = set()
+    for headline_id in cluster.get("member_headline_ids") or []:
+        record = records_by_id.get(str(headline_id)) or {}
+        external = record.get("external_content") or {}
+        for value in external.get("official_source_urls") or []:
+            url = str(value or "").strip()
+            if url:
+                official_urls.add(url)
+    matched_families: set[str] = set()
+    for url in official_urls:
+        host = (urlsplit(url).hostname or "").casefold()
+        for family, hosts in OFFICIAL_HOSTS_BY_FAMILY.items():
+            if host in hosts:
+                matched_families.add(family)
+    direct_primary_binding = bool(matched_families)
+    bounded_locator_available = bool(matched_families & set(LOCATOR_FAMILIES))
+    if direct_primary_binding:
+        current_v1_path = "SUPPORTED_NOW"
+    elif official_urls:
+        current_v1_path = "CONDITIONAL"
+    else:
+        current_v1_path = "NO_CURRENT_PATH"
+    return {
+        "direct_primary_binding": direct_primary_binding,
+        "supported_source_families": sorted(matched_families),
+        "bounded_locator_available": bounded_locator_available,
+        "current_v1_path": current_v1_path,
+        "grants_factual_or_evidence_or_publication_authority": False,
+    }
+
+
 def _build_compact_leaf_summaries(
     *,
     leaf_clusters: Sequence[Mapping[str, Any]],
@@ -879,6 +929,7 @@ def _build_compact_leaf_summaries(
                     for row in attention["domain_entity_concentration_context"][:3]
                 ],
             },
+            "evidence_reachability": _leaf_evidence_reachability(cluster, records_by_id),
         })
     return summaries
 

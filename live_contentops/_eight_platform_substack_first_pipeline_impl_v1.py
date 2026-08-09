@@ -3030,6 +3030,16 @@ def _run_rolling_x_newsroom_cycle(
         _write_json(evidence_path, evidence)
         return evidence
 
+    if article_builder is None:
+        from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+            build_rolling_x_grounded_article_and_media,
+        )
+
+        article_builder = (
+            lambda viability: build_rolling_x_grounded_article_and_media(  # noqa: E731
+                viability, output_dir=output_dir
+            )
+        )
     if not callable(article_builder):
         evidence["classification"] = "NO_PUBLICATION"
         evidence["exact_next_blocker"] = "STORY_ARTICLE_VISUAL_BUILDER_UNAVAILABLE"
@@ -3042,7 +3052,20 @@ def _run_rolling_x_newsroom_cycle(
         evidence["exact_next_blocker"] = "STORY_EDITORIAL_ADAPTERS_UNAVAILABLE"
         _write_json(evidence_path, evidence)
         return evidence
-    built = article_builder(dict(viability))
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+        GroundedArticleBuilderError,
+    )
+
+    try:
+        built = article_builder(dict(viability))
+    except GroundedArticleBuilderError as exc:
+        evidence["classification"] = "NO_PUBLICATION"
+        evidence["exact_next_blocker"] = "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
+        evidence["grounded_article_builder_blockers"] = sorted(set(str(exc).split(";")))
+        evidence["article"] = None
+        evidence["media"] = None
+        _write_json(evidence_path, evidence)
+        return evidence
     if not isinstance(built, Mapping):
         raise ValueError("rolling_x_article_builder_not_object")
     article = dict(built.get("article") or {})
