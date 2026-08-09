@@ -1051,6 +1051,7 @@ def daily_app_command(argv: list[str] | None = None):
     parser.add_argument("--poll-seconds", type=float, default=60.0)
     parser.add_argument("--max-ticks", type=int, default=None)
     parser.add_argument("--now", help="ISO datetime override for the supervisor clock (controlled/test)")
+    parser.add_argument("--sidecar-glob", default=None, help="Optional rolling-X headline sidecar glob")
     args = parser.parse_args(argv if argv is not None else sys.argv[2:])
 
     if args.once and args.run_forever:
@@ -1071,6 +1072,7 @@ def daily_app_command(argv: list[str] | None = None):
         output_root=args.output_root,
         operating_mode=args.mode,
         clock=clock,
+        sidecar_glob=args.sidecar_glob,
     )
     if args.once:
         report = supervisor.tick()

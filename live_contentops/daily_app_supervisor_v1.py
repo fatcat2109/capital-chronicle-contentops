@@ -240,6 +240,7 @@ class ContentOpsDailyAppSupervisor:
         policy: Optional[EditorialWindowPolicy] = None,
         owner_ref: Optional[str] = None,
         lease_ttl_seconds: int = 300,
+        sidecar_glob: Optional[str] = None,
     ) -> None:
         if operating_mode not in OPERATING_MODES:
             raise ValueError(f"daily_app_operating_mode_invalid:{operating_mode}")
@@ -259,6 +260,7 @@ class ContentOpsDailyAppSupervisor:
         self._owner_ref = owner_ref or f"daily-app-supervisor-{os.getpid()}-{_logical_hash(str(store_path))[:8]}"
         self._output_root = Path(output_root)
         self._lease_ttl_seconds = int(lease_ttl_seconds)
+        self._sidecar_glob = sidecar_glob
 
     # -- public API -----------------------------------------------------------
 
@@ -536,14 +538,15 @@ class ContentOpsDailyAppSupervisor:
             publication_enabled = self._operating_mode == "AUTONOMOUS_DEFAULT"
             cutoff = window["end"]
             output_dir = self._output_root / window_id
-            result = dict(
-                self._newsroom_cycle(
-                    run_id=window_id,
-                    output_dir=output_dir,
-                    cutoff_utc=_iso_utc(cutoff),
-                    publication_enabled=publication_enabled,
-                )
-            )
+            cycle_kwargs: dict[str, Any] = {
+                "run_id": window_id,
+                "output_dir": output_dir,
+                "cutoff_utc": _iso_utc(cutoff),
+                "publication_enabled": publication_enabled,
+            }
+            if self._sidecar_glob:
+                cycle_kwargs["sidecar_glob"] = self._sidecar_glob
+            result = dict(self._newsroom_cycle(**cycle_kwargs))
             classification = str(result.get("classification") or "")
             viable = classification not in {"NO_PUBLICATION", "BLOCKED", ""}
             if viable:
