@@ -1,10 +1,10 @@
 # Capital Chronicle ContentOps — Current Product Direction Overlay
 
-Authority date: 2026-08-08
+Authority date: 2026-08-09
 
 Current product-direction classification:
 
-`CONTENTOPS_DAILY_LIVE_V1_OWNER_DIRECTION`
+`CONTENTOPS_DAILY_LIVE_V1_PUBLISHABILITY_GATE_AND_PARALLEL_V2_OWNER_DIRECTION`
 
 Current North Star:
 
@@ -14,180 +14,210 @@ Current execution master plan:
 
 `docs/automation/CONTENTOPS_DAILY_LIVE_V1_ACCELERATED_LAUNCH_MASTER_PLAN.md`
 
-Future post-v1 direction:
+Future video direction:
 
 `CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_OWNER_DIRECTION_V1`
 
-GitHub remote refs/commits/diffs/exact fetched bytes remain repo-state authority. Jim's latest explicit instruction remains product-direction authority. This overlay supersedes conflicting sequencing/scope text in older status, plan, ledger, and next-task documents while preserving verified historical evidence and safety invariants.
+GitHub remote refs/commits/diffs/exact fetched bytes remain repo-state authority. Jim's latest explicit instruction remains product-direction authority. This overlay supersedes conflicting sequencing/scope text in older status, plan, ledger, Tier-2 gating text, and next-task documents while preserving verified historical evidence and safety invariants.
 
 ## 1. Current owner decision
 
-Move ContentOps into useful real daily operation as quickly as safely possible.
+FAST SHIP remains the doctrine.
 
-The active Tier-1 route is now:
+Daily Live has now proven repeated autonomous intake, hierarchical assignment, global ranking, story classification, exact evidence gating, fail-closed abstention, checkpoint recovery, and zero unauthorized/unknown writes. It has not yet proven the most important remaining product boundary in the current production path:
 
 ```text
-close remaining canonical story/evidence wiring
-→ run one fresh governed Daily Live canary
-→ operate 5–10 Daily Live probation days
-→ build/attach Capital Chronicle social surfaces in parallel
-→ minimal final V5 operator-UI rebuild from real live states
-→ Daily Live acceptance + new immutable release identity
-→ begin ContentOps V2 Pro Video Factory
+fresh ranked story
+→ evidence viable
+→ article
+→ review
+→ visuals/packages
+→ destination readiness
 ```
 
-Do not delay Daily Live for broad horizontal hardening, every social destination, perfect UI, five mandatory daily publication windows, licensed-news breadth, provider-pool perfection, or video.
+Therefore do not spend more cycles on broad hardening or passive repeated `NO_PUBLICATION` merely to increase a probation counter.
+
+The active route is now:
+
+```text
+ONE bounded V1 publishability-closure task
+→ ONE fresh canonical publishability canary
+→ first evidence-viable grounded article/review/package proof
+→ freeze V1 architecture by default
+→ continue genuine Daily Live probation on its daily cadence
+  ║
+  ╠→ build/attach Capital Chronicle social surfaces in parallel
+  ╚→ BEGIN V2-A Pro Video Factory in parallel
+→ minimal final V5 UI from real operating states
+→ Daily Live acceptance
+→ technical release v1.1.0
+```
+
+The V2-A unlock does **not** require waiting for the full 5–10 day probation or the `v1.1.0` release once the publishability gate above has passed. This is an explicit owner reprioritization and supersedes older Tier-2 text that required Tier-1 final acceptance first.
+
+V2 still may not invent a second newsroom, evidence authority, analytical authority, or publication authority.
 
 ## 2. Product boundary
 
 Capital Chronicle main owns analytical and numeric authority:
 
-- daily economic/market analysis;
+- economic/market analysis;
 - micro/macro/global-macro reports;
-- deterministic calculations and models;
+- deterministic model calculations;
 - scenarios and probabilistic views;
 - Bayesian cases/updates;
 - forecasts and regimes;
 - numeric truth and realized-outcome attribution.
 
-ContentOps owns the newsroom, distribution, and audience-learning system:
+ContentOps owns:
 
 - headline/current-event discovery;
-- clustering and update chains;
+- clustering/update chains;
 - evidence/permission/freshness gates;
 - ranking/select/hold/no-publication;
 - factual reporting from authoritative evidence;
 - writing/editing/SEO/visuals from authorized inputs;
 - platform-native packages;
-- publication, strict readback, reconciliation, incidents;
+- publication/readback/reconciliation/incidents;
 - qualified-audience acquisition and bounded performance learning;
-- faithful transformation of governed Capital Chronicle analysis packets.
+- faithful transformation of governed Capital Chronicle packets.
 
-ContentOps must not create independent analytical or numeric authority.
+ContentOps must never create independent analytical or numeric authority.
 
-## 3. Current evidence doctrine
+## 3. V1 publishability finding
 
-Evidence requirements are resolved by:
+Recent production cycles repeatedly reached ranked stories but stopped before article creation because all ranks were evidence-blocked.
+
+The current source-capability registry already supports useful straight-news profiles for:
+
+- `data_release`;
+- `company_sector_event`;
+- `regulatory_fiscal_event`.
+
+However recurring production story types such as `policy_decision`, `geopolitical_event`, and `supply_chain_event` still use coarse legacy evidence contracts that can force Capital Chronicle market authority even when a factual attributed report would be sufficient.
+
+Do not blindly weaken these contracts.
+
+The next task must use real recent production blockers to make the **smallest safe publishability improvement**. Priority is:
+
+1. make `policy_decision + straight_news` factual reporting independently satisfiable from exact first-party policy evidence;
+2. preserve `policy_decision + analysis` Capital Chronicle authority requirements;
+3. expose deterministic evidence reachability to editorial ranking so the global editor knows whether a leaf has a concrete current V1 primary-source path;
+4. add only source-family support directly justified by current production evidence;
+5. confirm the downstream article/review/visual/package defaults are actually bound in the canonical caller before declaring the gate closed.
+
+Geopolitical/supply-chain expansion is permitted only where the task can prove a bounded first-party evidence contract that supports the exact factual claims without converting one party's statement into independent truth. Do not build generic web research or licensed-news breadth.
+
+## 4. Evidence doctrine
+
+Evidence requirements remain:
 
 ```text
 story type + article mode → exact evidence profile
 ```
 
-Factual reporting and analytical interpretation must not be collapsed into one evidence burden.
+A model-generated `market_sensitive` flag is editorial metadata only.
 
-Examples:
+Factual reporting may use exact authorized primary-source evidence. Analytical, scenario, forecast, valuation, macro, probabilistic, regime, and market-impact claims remain Capital Chronicle authority.
 
-- `company_sector_event + straight_news` may report authoritative filing/release facts without requiring a Capital Chronicle market model;
-- `company_sector_event + analysis` requires the relevant Capital Chronicle analytical/market authority;
-- `data_release + straight_news` may report exact authorized official release values/timestamps/definitions;
-- `data_release + analysis` requires appropriate Capital Chronicle analytical authority;
-- `regulatory_fiscal_event + straight_news` uses official document/timeline/affected-entity evidence.
+X/social text is discovery and editorial-priority input only, never factual/numeric truth.
 
-A model-generated `market_sensitive` flag is editorial metadata and does not independently create analytical/numeric authority requirements.
+Evidence reachability is also editorial metadata only. It may guide ranking toward stories that can actually be proved by the current V1 source plane, but it grants no factual, numeric, analytical, permission, or publication authority.
 
-X/social text is discovery and priority input only, never factual or numeric truth.
+## 5. Publishability unlock gate
 
-## 4. Immediate launch source priorities
+The V1 architecture is considered sufficiently proven to unlock parallel V2-A when one **fresh canonical production canary** reaches at least:
 
-Prioritize only the source families that directly unlock Daily Live:
+```text
+fresh current universe
+→ accepted ranking
+→ exact story type/article mode
+→ evidence PASS
+→ grounded article built
+→ semantic review PASS after at most bounded revision
+→ visuals/native package built
+→ deterministic destination readiness evaluated
+```
 
-1. `official_regulatory_fiscal`
-2. `company_primary` / `sec_regulatory`
-3. `official_macro`
-4. existing governed Capital Chronicle market/analysis authority when genuinely required
+A public write/readback is preferred when exact `READY_*` gates pass, but an otherwise fully publishable package reaching the live gate is sufficient to unlock V2-A if destination readiness is the only remaining external blocker.
 
-Add other sources only when a real ranked story is blocked and the bounded adapter directly improves product utility.
+Do not force publication, weaken evidence, downgrade an analysis story, or manufacture a story merely to pass this gate.
 
-## 5. Daily Live cadence
+If the fresh canary legitimately has no evidence-viable story after the bounded correction, remain on Daily Live and wait for a genuine next window rather than opening broad infrastructure work.
 
-Initial cadence:
+## 6. After the publishability gate
 
-- one scheduled core editorial decision per operating day;
-- one optional material-event/breaking trigger;
-- no mandatory publication quota;
-- `NO_PUBLICATION` remains a valid successful newsroom outcome.
+Once the gate passes:
 
-After the first fresh canary, default to operating the product for approximately 5–10 operating days instead of immediately opening another architecture task.
+### Lane A — V1 Daily Live
 
-Measure cost, runtime, evidence blockers, operator time, publication/abstention, readback/reconciliation, defects, and early qualified-engagement/subscriber/canonical-click observations.
+Continue the real daily cadence:
 
-## 6. Social surfaces
+- one core editorial decision per operating day;
+- optional genuinely material event trigger;
+- no publication quota;
+- `NO_PUBLICATION` remains valid;
+- accumulate 5–10 genuine operating days for release evidence;
+- build social destinations in parallel;
+- minimal final V5 UI from observed production states;
+- accept/freeze Daily Live as technical release `v1.1.0` when evidence is sufficient.
 
-Capital Chronicle social destinations are a parallel distribution workstream and must not block the canonical long-form/newsletter product.
+### Lane B — V2-A Pro Video Factory
 
-At runtime publish only to exact dynamically verified canonical:
+May begin immediately in parallel from the accepted canonical story/evidence/package contract.
+
+Start only with the smallest local vertical slice:
+
+```text
+canonical governed story/evidence package
+→ video eligibility
+→ VideoProgram
+→ ChapterGraph / SceneGraph
+→ deterministic-first assets
+→ narration
+→ local proxy render
+→ QA
+→ one long-form + one short-form package
+```
+
+No public video upload is implied by the V2-A unlock.
+
+## 7. Social surfaces
+
+Capital Chronicle social destinations remain a parallel distribution workstream and do not block canonical Daily Live.
+
+Publish only to dynamically verified canonical:
 
 - `READY_AUTHENTICATED`
 - `READY_NON_BROWSER_BINDING`
 
-destinations. Skip blocked/unavailable destinations.
-
 Do not create separate schedulers, content generators, state stores, approval engines, or publication authorities per platform.
 
-## 7. Release identity
+## 8. Protected release and browser authority
 
 The historical annotated tag `v1.0` and release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b` remain immutable.
 
-The continuous Daily Live product therefore requires a new technical release identity.
+Persistent browser roles remain:
 
-Preferred target:
+- Chrome `CapitalChronicleBot`, CDP `9222`: X/headline ingestion only;
+- Edge `contentops-social-main`, CDP `9223`: publication/readback only.
 
-`v1.1.0`
+Never inspect/export cookies, browser storage, credentials, tokens, or session databases.
 
-Product-facing name:
+Unknown public-write state remains:
 
-`Capital Chronicle ContentOps v1 — Daily Live`
-
-## 8. V2 video
-
-Video is the immediate post-Daily-Live expansion and does not block Tier-1 launch.
-
-The existing Tier-2 Pro Video Factory North Star/master plan remains the intended `v2.0.0` direction after the Daily Live baseline is accepted and frozen.
-
-Required lanes remain:
-
-- `SHORT_FORM_NATIVE`
-- `LONG_FORM_EDITORIAL_15_45M`
-
-V2 reuses the same canonical story/evidence/permission/Capital-Chronicle-authority/state/publication lineage and must not create a second newsroom or analytical authority.
+`STOP RETRY → READ BACK → RECONCILE`
 
 ## 9. Current router/runtime authority
 
-Current model authority remains:
+Keep `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` and the existing bounded fallback policy.
 
-`CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2`
+Do not redesign the provider pool, retry budgets, global editor, or leaf architecture merely because individual providers are transiently degraded.
 
-Do not rewrite the durable model pool as part of the Daily Live routing task. Current runtime availability may be degraded; bounded canonical fallback/no-publication remains valid.
+## 10. Exact current task
 
-## 10. Persistent browser roles
-
-Preserve the two separate persistent operator profiles:
-
-- Chrome `CapitalChronicleBot` on CDP `9222`: X/headline ingestion only;
-- Microsoft Edge `contentops-social-main` on CDP `9223`: publishing/media management/readback only.
-
-Never create/clone/clean/delete/substitute these profiles or inspect/export cookies, browser storage, tokens, credentials, or session databases.
-
-## 11. Protected safety
-
-Preserve:
-
-- one canonical production path;
-- exact evidence/permission/freshness gates;
-- Capital Chronicle analytical/numeric authority;
-- no fabricated claims/numbers/quotes/sources;
-- no secret/session leakage;
-- no Capital Chronicle main-project mutation;
-- immutable historical `v1.0`;
-- exact `READY_*` public-write authority;
-- `STOP RETRY → READ BACK → RECONCILE` for unknown writes.
-
-## 12. Exact current task
-
-`TASK_CONTENTOPS_DAILY_LIVE_CANONICAL_STORY_EVIDENCE_AND_FIRST_FRESH_CANARY_V1`
+`TASK_CONTENTOPS_V1_FIRST_PUBLISHABLE_PACKAGE_AND_V2_UNLOCK_GATE_V1`
 
 Goal:
 
-Wire automatic story classification and bounded official-primary evidence acquisition into the one canonical rolling-X cycle; make evidence contracts story-type + article-mode aware; validate focused invariants; commit/push; then run one fresh current governed canary through article/package/publication/readback if and only if exact deterministic gates pass.
-
-After a correct canary, the default next action is Daily Live probation, not another broad architecture task.
+Use the recent production blocker distribution to make the smallest safe V1 evidence/reachability/downstream-wiring correction, then run one fresh canonical canary and prove the first evidence-grounded publishable article/package path. If the publishability gate passes, V1 architecture freezes by default and V2-A becomes authorized to start in parallel with continuing Daily Live probation.
