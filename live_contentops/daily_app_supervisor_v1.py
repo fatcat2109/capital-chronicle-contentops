@@ -22,6 +22,7 @@ from __future__ import annotations
 import json
 import os
 import time
+from uuid import uuid4
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timedelta, timezone
 from hashlib import sha256
@@ -38,8 +39,9 @@ OPERATING_MODES = frozenset(
 )
 
 #: Work-item states that indicate an editorial window has already been executed (or recovered)
-#: and must not be re-executed. Only DISCOVERED is a fresh state; EVIDENCE_PENDING is handled
-#: separately as a stale in-progress claim that is recovered without re-invocation.
+#: and must not be re-executed. Only DISCOVERED is fresh. EVIDENCE_PENDING is handled
+#: separately: an active original lease is left alone, while a released/expired claim is
+#: recovered without re-invocation.
 WINDOW_EXECUTED_STATES = frozenset(
     {
         "EVIDENCE_READY",
@@ -257,7 +259,10 @@ class ContentOpsDailyAppSupervisor:
         self._newsroom_cycle = newsroom_cycle
         self._policy = policy or build_bootstrap_editorial_window_policy()
         self._operating_mode = operating_mode
-        self._owner_ref = owner_ref or f"daily-app-supervisor-{os.getpid()}-{_logical_hash(str(store_path))[:8]}"
+        self._owner_ref = owner_ref or (
+            f"daily-app-supervisor-{os.getpid()}-"
+            f"{_logical_hash(str(store_path))[:8]}-{uuid4().hex[:8]}"
+        )
         self._output_root = Path(output_root)
         self._lease_ttl_seconds = int(lease_ttl_seconds)
         self._sidecar_glob = sidecar_glob
@@ -456,21 +461,31 @@ class ContentOpsDailyAppSupervisor:
             correlation_id=f"corr_{window_id}",
         )
 
-    def _recover_stale_pending(self, window_id: str) -> None:
+    def _recover_stale_pending(self, window_id: str) -> str:
         """Recover a stale EVIDENCE_PENDING claim to a terminal state without re-invoking.
 
         A restart that finds a claimed-but-incomplete window must not create a second
-        independent cycle. We recover it to a terminal no-publication state; the next
-        scheduled window will run on schedule.
+        independent cycle. Recovery must claim the ORIGINAL window lease key so an active
+        owner remains protected by the durable store's fencing rules. Only a released or
+        expired original lease may be taken over and terminalized without re-execution.
         """
-        lease = self._store.acquire_lease(
-            lease_key=window_id + ":recovery",
-            owner_ref=self._owner_ref,
-            ttl_seconds=self._lease_ttl_seconds,
-            work_item_id=window_id,
-        )
+        from live_contentops.durable_operational_store_v1 import LeaseConflictError
+
+        try:
+            lease = self._store.claim_work_item(
+                lease_key=window_id,
+                work_item_id=window_id,
+                owner_ref=self._owner_ref,
+                ttl_seconds=self._lease_ttl_seconds,
+            )
+        except LeaseConflictError:
+            return "active_owner"
         fencing = int(lease["fencing_token"])
         try:
+            # Close the observation-to-claim race: the original owner may have completed
+            # between our EVIDENCE_PENDING read and this successful takeover.
+            if self._window_state(window_id) != "EVIDENCE_PENDING":
+                return "state_changed"
             self._transition(
                 window_id=window_id,
                 to_state="EVIDENCE_BLOCKED",
@@ -487,6 +502,7 @@ class ContentOpsDailyAppSupervisor:
                 reason_code="STALE_WINDOW_CLAIM_RECOVERED_NO_PUBLICATION",
                 explanation=f"Stale window {window_id} recovered without re-execution",
             )
+            return "recovered"
         finally:
             try:
                 self._store.release_lease(lease["lease_id"], self._owner_ref, fencing)
@@ -511,8 +527,12 @@ class ContentOpsDailyAppSupervisor:
         if state in WINDOW_EXECUTED_STATES:
             return {"executed": False, "reason": "already_executed_terminal_state"}
         if state == "EVIDENCE_PENDING":
-            self._recover_stale_pending(window_id)
-            return {"executed": False, "reason": "recovered_stale_pending_no_rerun"}
+            recovery = self._recover_stale_pending(window_id)
+            if recovery == "recovered":
+                return {"executed": False, "reason": "recovered_stale_pending_no_rerun"}
+            if recovery == "active_owner":
+                return {"executed": False, "reason": "active_window_owned_elsewhere"}
+            return {"executed": False, "reason": "window_state_changed_during_recovery"}
         # state is DISCOVERED: claim and execute exactly once.
         try:
             claim = self._store.claim_work_item(

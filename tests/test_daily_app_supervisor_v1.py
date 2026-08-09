@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import threading
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -36,7 +37,15 @@ def _controlled_cycle(calls: list, classification: str = "NO_PUBLICATION"):
 _USE_DEFAULT_CYCLE = object()
 
 
-def _supervisor(tmp_path: Path, *, mode="AUTONOMOUS_DEFAULT", clock=None, cycle=_USE_DEFAULT_CYCLE, policy=None):
+def _supervisor(
+    tmp_path: Path,
+    *,
+    mode="AUTONOMOUS_DEFAULT",
+    clock=None,
+    cycle=_USE_DEFAULT_CYCLE,
+    policy=None,
+    owner_ref=None,
+):
     calls = []
     newsroom_cycle = None if cycle is _USE_DEFAULT_CYCLE else cycle
     supervisor = ContentOpsDailyAppSupervisor(
@@ -46,6 +55,7 @@ def _supervisor(tmp_path: Path, *, mode="AUTONOMOUS_DEFAULT", clock=None, cycle=
         clock=clock,
         newsroom_cycle=newsroom_cycle,
         policy=policy,
+        owner_ref=owner_ref,
     )
     if newsroom_cycle is None:
         # Replace the default canonical facade with a controlled recorder for isolation.
@@ -185,6 +195,75 @@ def test_competing_supervisors_preserve_single_logical_owner(tmp_path):
     assert report_b["windows_dispatched"] == 0
     assert len(calls_a) == 1
     assert len(calls_b) == 0
+
+
+def test_competing_supervisor_cannot_recover_an_active_pending_window(tmp_path):
+    clock_dt = datetime(2026, 8, 9, 14, 0, tzinfo=timezone.utc)
+    cycle_started = threading.Event()
+    allow_cycle_to_finish = threading.Event()
+    calls_a = []
+    errors = []
+
+    def blocking_cycle(*, run_id, output_dir, cutoff_utc, publication_enabled):
+        calls_a.append(run_id)
+        cycle_started.set()
+        assert allow_cycle_to_finish.wait(timeout=10)
+        return {
+            "classification": "NO_PUBLICATION",
+            "public_write_performed": False,
+            "unknown_write_detected": False,
+        }
+
+    supervisor_a, _ = _supervisor(
+        tmp_path,
+        clock=_fixed_clock(clock_dt),
+        cycle=blocking_cycle,
+        owner_ref="daily-app-supervisor-a",
+    )
+    supervisor_b, calls_b = _supervisor(
+        tmp_path,
+        clock=_fixed_clock(clock_dt),
+        owner_ref="daily-app-supervisor-b",
+    )
+
+    def run_a():
+        try:
+            supervisor_a.tick(now=clock_dt)
+        except Exception as exc:  # pragma: no cover - assertion reports the exact failure
+            errors.append(exc)
+
+    worker = threading.Thread(target=run_a)
+    worker.start()
+    assert cycle_started.wait(timeout=10)
+
+    window_id = editorial_window_id(
+        policy_version=supervisor_a.policy.policy_version,
+        window_start_utc=datetime(2026, 8, 9, 13, tzinfo=timezone.utc),
+        window_end_utc=datetime(2026, 8, 9, 15, tzinfo=timezone.utc),
+        session="core_daily",
+        trigger_kind=TRIGGER_SCHEDULED,
+    )
+    assert supervisor_b._window_state(window_id) == "EVIDENCE_PENDING"
+
+    competing = supervisor_b.tick(now=clock_dt)
+    assert competing["windows_dispatched"] == 0
+    assert competing["newsroom_cycle_invocations"] == 0
+    assert any("active_window_owned_elsewhere" in row for row in competing["windows_skipped"])
+    assert supervisor_b._window_state(window_id) == "EVIDENCE_PENDING"
+    assert calls_b == []
+
+    allow_cycle_to_finish.set()
+    worker.join(timeout=10)
+    assert not worker.is_alive()
+    assert errors == []
+    assert calls_a == [window_id]
+    assert supervisor_a._window_state(window_id) == "REJECTED"
+
+
+def test_default_supervisor_owner_identity_is_unique_per_instance(tmp_path):
+    supervisor_a, _ = _supervisor(tmp_path)
+    supervisor_b, _ = _supervisor(tmp_path)
+    assert supervisor_a._owner_ref != supervisor_b._owner_ref
 
 
 def test_stale_pending_claim_recovered_without_rerun(tmp_path):
