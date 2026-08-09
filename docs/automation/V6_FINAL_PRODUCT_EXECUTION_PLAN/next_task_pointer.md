@@ -1,10 +1,14 @@
 # ContentOps — Current Next Task Pointer
 
-Authority date: 2026-08-08
+Authority date: 2026-08-09
 
 Current product-direction classification:
 
-`CONTENTOPS_DAILY_LIVE_V1_OWNER_DIRECTION`
+`CONTENTOPS_DAILY_LIVE_V1_PUBLISHABILITY_GATE_AND_PARALLEL_V2_OWNER_DIRECTION`
+
+Current authority overlay:
+
+`docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`
 
 Current North Star:
 
@@ -16,7 +20,7 @@ Current execution master plan:
 
 ## Current exact task
 
-`TASK_CONTENTOPS_DAILY_LIVE_CANONICAL_STORY_EVIDENCE_AND_FIRST_FRESH_CANARY_V1`
+`TASK_CONTENTOPS_V1_FIRST_PUBLISHABLE_PACKAGE_AND_V2_UNLOCK_GATE_V1`
 
 Mode:
 
@@ -24,70 +28,76 @@ Mode:
 
 ## Why this is next
 
-The rolling-X newsroom has already advanced through current-X ingestion, hierarchical semantic assignment, global ranking, checkpoint resume, semantic story-type classification, and capability-driven targeted evidence.
+Daily Live has repeatedly proven autonomous intake, hierarchical assignment, compact global ranking, story classification, fail-closed evidence gating, checkpoint recovery, and safe `NO_PUBLICATION` outcomes. It has not yet proven the remaining user-visible boundary:
 
-The latest frozen six-rank cycle correctly returned governed `NO_PUBLICATION`, but it exposed the remaining canonical launch gap:
+```text
+fresh ranked story
+→ evidence viable
+→ grounded article
+→ review
+→ visuals/native package
+→ destination readiness
+```
 
-1. normal canonical `_run_rolling_x_newsroom_cycle()` still depends on externally supplied `story_type_by_cluster` rather than automatically invoking semantic story routing;
-2. its default targeted evidence adapter does not automatically bind bounded official-primary evidence acquisition;
-3. evidence contracts still need explicit `story_type + article_mode` resolution so factual reporting is not unnecessarily blocked by analytical requirements that belong only to analysis modes.
+Recent production also shows a repeated mismatch between editorial ranking and the evidence plane: recurring story types can rank highly while their current V1 evidence contracts/source paths make publication impossible before article generation.
 
-Do not reroute backward into leaf/global assignment repair. Do not require a generic Capital Chronicle packet as a discovery prerequisite.
+Do not continue passive same-state soak merely to increase a counter. Do not start broad hardening.
 
 ## Required capability
 
-The task must deliver the normal canonical flow:
+Make the smallest safe correction justified by real production blockers, then run one fresh canonical canary.
+
+Priority requirements:
+
+1. `policy_decision + straight_news` must be satisfiable from exact first-party policy evidence without Capital Chronicle market analysis;
+2. `policy_decision + analysis` must retain exact Capital Chronicle analytical/market authority requirements;
+3. deterministic evidence-reachability metadata should inform global editorial ranking without granting factual/evidence/publication authority;
+4. add only the smallest current first-party source support justified by recent production;
+5. confirm canonical downstream article/review/visual/package adapters are actually bound before the live canary;
+6. preserve strict fail-closed behavior for unsupported geopolitical/supply-chain claims rather than weakening source truth.
+
+Do not build generic web research or licensed-news breadth.
+
+## V2 unlock gate
+
+The owner has explicitly reprioritized the older Tier-2 sequencing.
+
+V2-A no longer needs to wait for the full 5–10 day probation or `v1.1.0` once a fresh canonical run proves:
 
 ```text
-fresh rolling-X universe
-→ hierarchical assignment
-→ automatic exact story-type routing
-→ article-mode selection
-→ mode-aware evidence profile
-→ bounded capability/source-family acquisition
-→ first evidence-viable ranked story OR explicit abstention
-→ article / SEO / visuals
-→ semantic review / bounded revision
-→ native packages
-→ exact READY_* publication gates
-→ strict readback/reconciliation
+fresh current universe
+→ accepted ranking
+→ exact story/article mode
+→ evidence PASS
+→ grounded article
+→ semantic review PASS
+→ visuals/native package
+→ destination readiness evaluated
 ```
 
-## Launch evidence policy
+A public write/readback is preferred when exact `READY_*` gates pass. A fully publishable package reaching the live gate is sufficient if destination readiness is the only remaining external blocker.
 
-Evidence burden is resolved by:
+After this gate passes:
 
-`story type + article mode → exact evidence profile`
+```text
+V1 Daily Live probation continues on real daily cadence
+║
+╠→ social destinations continue in parallel
+╚→ V2-A Pro Video Factory may begin in parallel
+```
 
-Minimum launch cases:
+V2 must reuse the canonical story/evidence/permission/Capital-Chronicle-authority/state lineage and may not create a second newsroom or analytical authority.
 
-- `regulatory_fiscal_event + straight_news` → authoritative official document/timeline/affected-entity evidence; no Capital Chronicle market analysis solely because the story is market-sensitive;
-- `company_sector_event + straight_news` → authoritative company/SEC facts; no Capital Chronicle analytical model unless analytical claims are made;
-- `company_sector_event + analysis` → relevant Capital Chronicle analytical/market authority required;
-- `data_release + straight_news` → exact official release values/timestamps/definitions;
-- `data_release + analysis` → appropriate Capital Chronicle analytical/market authority required.
+## Safety and authority
 
-ContentOps must not originate analytical/numeric truth.
+ContentOps must not originate market snapshots, valuation, forecasts, scenarios, probabilities, regimes, or analytical numeric truth.
 
-## Initial source-family priority
+X/social text remains discovery/priority input only.
 
-Implement/reuse only what directly closes Daily Live:
-
-1. `official_regulatory_fiscal`
-2. `company_primary` / `sec_regulatory`
-3. `official_macro`
-4. existing governed Capital Chronicle authority where genuinely required
-
-Do not build licensed-news breadth or every source family before launch.
-
-## Live authority
-
-Owner live authority remains limited to dynamically verified canonical:
+Public writes remain limited to exact dynamically verified canonical:
 
 - `READY_AUTHENTICATED`
 - `READY_NON_BROWSER_BINDING`
-
-destinations under all existing deterministic gates.
 
 Unknown write:
 
@@ -95,40 +105,13 @@ Unknown write:
 
 Persistent browser roles remain:
 
-- Chrome `CapitalChronicleBot` CDP `9222`: ingestion only;
-- Edge `contentops-social-main` CDP `9223`: publication/readback only.
+- Chrome `CapitalChronicleBot`, CDP `9222`: ingestion only;
+- Edge `contentops-social-main`, CDP `9223`: publication/readback only.
 
-Never inspect/export session or credential material.
+Never inspect/export credential/session material.
 
 ## Fast-ship stop rule
 
-At the first NEW substantive problem, stop immediately.
+At the first NEW substantive problem, stop immediately and report only the exact problem, last successful stage, network/provider actions, public/unknown-write state, and what is needed to continue.
 
-Do not create blocker-closeout docs, status ceremony, broad test runs, or repeated correction loops merely to close the task.
-
-A correctly blocked ranked story is not an implementation defect; continue cheaply to the next rank. A final governed `NO_PUBLICATION` is valid.
-
-## After this task
-
-If the canary reaches a correct terminal state with no substantive architecture/runtime blocker, the default next action is:
-
-`CONTENTOPS_DAILY_LIVE_PROBATION_5_TO_10_OPERATING_DAYS`
-
-Initial cadence:
-
-- one scheduled core editorial decision/day;
-- one optional material-event trigger;
-- no mandatory publication quota.
-
-Capital Chronicle social destination attachment proceeds in parallel and does not block Daily Live.
-
-After probation:
-
-```text
-minimal final V5 operator UI using real production states
-→ Daily Live acceptance
-→ new technical release target v1.1.0
-→ ContentOps v2.0.0 Pro Video Factory
-```
-
-Protected historical `v1.0` remains immutable.
+Do not create closure ceremony, audit-of-audit loops, broad full-suite runs, or repeated correction loops.
