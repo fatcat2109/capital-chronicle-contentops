@@ -239,7 +239,7 @@ class ContentOpsDailyAppSupervisor:
         newsroom_cycle: Optional[Callable[..., Mapping[str, Any]]] = None,
         policy: Optional[EditorialWindowPolicy] = None,
         owner_ref: Optional[str] = None,
-        lease_ttl_seconds: int = 300,
+        lease_ttl_seconds: int = 3600,
         sidecar_glob: Optional[str] = None,
     ) -> None:
         if operating_mode not in OPERATING_MODES:
@@ -549,6 +549,30 @@ class ContentOpsDailyAppSupervisor:
             result = dict(self._newsroom_cycle(**cycle_kwargs))
             classification = str(result.get("classification") or "")
             viable = classification not in {"NO_PUBLICATION", "BLOCKED", ""}
+            # The canonical newsroom cycle may run much longer than the initial lease TTL.
+            # Re-acquire a fresh active lease before recording the terminal transition so the
+            # fencing token remains valid. If another owner legitimately took over while we were
+            # executing, we must not record a competing terminal state.
+            try:
+                renewed = self._store.acquire_lease(
+                    lease_key=lease_key,
+                    owner_ref=self._owner_ref,
+                    ttl_seconds=self._lease_ttl_seconds,
+                    work_item_id=window_id,
+                )
+            except LeaseConflictError:
+                return {
+                    "executed": True,
+                    "classification": classification,
+                    "viable": viable,
+                    "public_write_performed": bool(result.get("public_write_performed")),
+                    "unknown_write_detected": bool(result.get("unknown_write_detected")),
+                    "terminal_state": self._window_state(window_id),
+                    "reason": "lease_taken_over_during_execution",
+                }
+            lease_id = str(renewed["lease_id"])
+            fencing = int(renewed["fencing_token"])
+            lease_key = str(renewed["lease_key"])
             if viable:
                 self._transition(
                     window_id=window_id,
