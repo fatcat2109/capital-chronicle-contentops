@@ -156,7 +156,7 @@ def test_wave02_schema_and_migration_integrity(tmp_path):
     db_file = tmp_path / "test_meta_schema.sqlite"
     store = ContentOpsDurableStore(db_file, auto_migrate=True)
 
-    assert store.get_current_schema_version() == SCHEMA_VERSION == 4
+    assert store.get_current_schema_version() == SCHEMA_VERSION == 5
     assert store.verify_applied_migrations() is True
     assert store.verify_schema_integrity() is True
 
@@ -193,6 +193,12 @@ def test_wave02_schema_and_migration_integrity(tmp_path):
         ]
         for tbl in required_tables:
             assert tbl in tables, f"Missing required table: {tbl}"
+
+        # Migration v5: platform_dispatches persists the exact external public-object identity.
+        dispatch_columns = [r[1] for r in conn.execute("PRAGMA table_info(platform_dispatches);").fetchall()]
+        assert "public_object_id" in dispatch_columns
+        assert "public_object_url" in dispatch_columns
+        assert "public_object_url_hash" in dispatch_columns
 
         # Verify transition_events columns (no authority_granted)
         columns = [r[1] for r in conn.execute("PRAGMA table_info(transition_events);").fetchall()]
@@ -248,7 +254,7 @@ def test_wave02_evidence_packet_files_exist():
 
     # 3. Schema manifest checks
     schema_manifest = load_json_any_encoding(packet_dir / "schema_manifest.json")
-    assert schema_manifest["current_schema_version"] == SCHEMA_VERSION == 4
+    assert schema_manifest["current_schema_version"] == SCHEMA_VERSION == 5
     assert len(schema_manifest["triggers"]) == 6
     expected_triggers = [
         "trg_transition_events_append_authorized",

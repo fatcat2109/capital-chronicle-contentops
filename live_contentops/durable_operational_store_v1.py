@@ -26,7 +26,11 @@ from live_contentops.historical_schema_compatibility_v1 import (
     DEPENDENCY_MANIFEST_V2,
     DEPENDENCY_MANIFEST_V2_HASH,
     DEPENDENCY_MANIFEST_V2_JSON,
+    DEPENDENCY_MANIFEST_V3_HASH,
+    DEPENDENCY_MANIFEST_V3_JSON,
     LEGACY_QUARANTINE_SCOPE,
+    MIGRATION_V5_CHECKSUM,
+    MIGRATION_V5_SQL,
     canonical_json,
     recognize_lineage,
     schema_fingerprint,
@@ -108,6 +112,12 @@ class DurableStateCorruptionError(DurableStoreError): pass
 class Wave02AuthorityViolationError(DurableStoreError): pass
 class ArtifactNotFoundError(DurableStoreError): pass
 class ArtifactValidationError(DurableStoreError): pass
+class DispatchIdentityConflictError(DurableStoreError):
+    """A re-registration attempted to replace an already-persisted exact public-object identity.
+
+    External public-object identity is write-once durable truth. The same dispatch with the same
+    identity is idempotent; a conflicting identity fails closed and is never silently overwritten.
+    """
 
 
 def utc_now_iso() -> str:
@@ -349,6 +359,7 @@ MIGRATIONS: List[Migration] = [
     Migration(2, "Deterministic legacy sequence assignment", MIGRATION_V2_SQL, "legacy_sequence.v2", _migration_v2_transform),
     Migration(3, "Canonical event envelopes, receipt scope, and append guards", MIGRATION_V3_SQL, "legacy_envelope.v3", _migration_v3_transform),
     Migration(4, "Wave 02 Schema v4: Historical Lineage Compatibility and Dependency Manifest", CURRENT_MIGRATION_SQL[4], "historical_lineage_compatibility.v4"),
+    Migration(5, "Schema v5: platform_dispatches public-object identity persistence", MIGRATION_V5_SQL, "sql_only.v5"),
 ]
 
 
@@ -442,8 +453,8 @@ class ContentOpsDurableStore:
                     len(rows) != 1
                     or int(rows[0]["singleton_id"]) != 1
                     or int(rows[0]["compatibility_version"]) != CANONICAL_SCHEMA_VERSION
-                    or rows[0]["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON)
-                    or rows[0]["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH)
+                    or rows[0]["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V3_JSON)
+                    or rows[0]["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH, DEPENDENCY_MANIFEST_V3_HASH)
                 ):
                     raise DurableStateCorruptionError("Dependency manifest binding mismatch")
                 guard_rows = {
@@ -537,6 +548,16 @@ class ContentOpsDurableStore:
                         ("wave02.03337e8.schema_v3.canonical_pre_v4", source_fingerprint, 4,
                          DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V2_HASH, self._get_now_iso()),
                     )
+                if migration.version == 5:
+                    updated = conn.execute(
+                        "UPDATE schema_lineage_metadata SET compatibility_version=?, dependency_manifest_json=?,"
+                        " dependency_manifest_hash=?, upgraded_at=? WHERE singleton_id=1",
+                        (5, DEPENDENCY_MANIFEST_V3_JSON, DEPENDENCY_MANIFEST_V3_HASH, self._get_now_iso()),
+                    ).rowcount
+                    if updated != 1:
+                        raise MigrationError(
+                            "Migration v5 requires an existing canonical schema_lineage_metadata row"
+                        )
                 proof = self._verify_migration_preservation(conn, before, migration.version)
                 conn.execute("INSERT INTO schema_migrations VALUES (?,?,?,?)", (migration.version, migration.checksum, self._get_now_iso(), migration.description))
                 conn.execute("COMMIT")
@@ -993,13 +1014,104 @@ class ContentOpsDurableStore:
             (message_id, work_item_id, destination, payload, status, self._get_now_iso()),
         )
 
-    def register_platform_dispatch(self, *, dispatch_id: str, message_id: str,
-                                   platform: str, status: str = "PENDING") -> Dict[str, Any]:
-        return self._idempotent_insert(
-            "platform_dispatches", "dispatch_id", dispatch_id,
-            ("dispatch_id", "message_id", "platform", "status", "dispatched_at"),
-            (dispatch_id, message_id, platform, status, self._get_now_iso()),
+    def get_platform_dispatch(self, dispatch_id: str) -> Optional[Dict[str, Any]]:
+        """Read one canonical dispatch row including its persisted external public-object identity."""
+        with self.get_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)
+            ).fetchone()
+            return dict(row) if row else None
+
+    def register_platform_dispatch(
+        self,
+        *,
+        dispatch_id: str,
+        message_id: str,
+        platform: str,
+        status: str = "PENDING",
+        public_object_id: Optional[str] = None,
+        public_object_url: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """Register a canonical dispatch with the exact external public-object identity.
+
+        The publisher-supplied public-object identity is WRITE-ONCE durable truth:
+          * same dispatch + same identity   -> idempotent PASS (returns the existing row);
+          * same dispatch + different identity -> ``DispatchIdentityConflictError`` (never rewritten).
+        Missing URL does not invalidate a valid exact public_object_id; the URL hash is
+        deterministic over the exact URL when a URL is present.
+        """
+        public_object_id = str(public_object_id) if public_object_id else None
+        public_object_url = str(public_object_url) if public_object_url else None
+        public_object_url_hash = (
+            compute_sha256(public_object_url) if public_object_url else None
         )
+        columns = (
+            "dispatch_id", "message_id", "platform", "status", "dispatched_at",
+            "public_object_id", "public_object_url", "public_object_url_hash",
+        )
+        values = (
+            dispatch_id, message_id, platform, status, self._get_now_iso(),
+            public_object_id, public_object_url, public_object_url_hash,
+        )
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            existing = conn.execute(
+                "SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)
+            ).fetchone()
+            if existing:
+                # Write-once identity: a conflicting different identity fails closed; identical
+                # identity is idempotent; supplying an identity where none is persisted is a
+                # safe one-time completion; a registration without identity never erases one.
+                stored_id = existing["public_object_id"]
+                stored_url = existing["public_object_url"]
+                if public_object_id is not None and stored_id is not None and public_object_id != stored_id:
+                    raise DispatchIdentityConflictError(
+                        f"platform_dispatch_identity_conflict:{dispatch_id}:public_object_id"
+                    )
+                if public_object_url is not None and stored_url is not None and public_object_url != stored_url:
+                    raise DispatchIdentityConflictError(
+                        f"platform_dispatch_identity_conflict:{dispatch_id}:public_object_url"
+                    )
+                if public_object_id is not None and public_object_id == stored_id and (
+                    public_object_url is not None and stored_url is not None and public_object_url != stored_url
+                ):
+                    raise DispatchIdentityConflictError(
+                        f"platform_dispatch_identity_conflict:{dispatch_id}:public_object_url_for_same_object"
+                    )
+                completed = (
+                    (public_object_id is not None and stored_id is None)
+                    or (public_object_url is not None and stored_url is None)
+                )
+                if completed:
+                    conn.execute(
+                        "UPDATE platform_dispatches SET public_object_id=COALESCE(public_object_id, ?),"
+                        " public_object_url=COALESCE(public_object_url, ?),"
+                        " public_object_url_hash=COALESCE(public_object_url_hash, ?)"
+                        " WHERE dispatch_id=?",
+                        (public_object_id, public_object_url, public_object_url_hash, dispatch_id),
+                    )
+                conn.execute("COMMIT")
+                return dict(conn.execute(
+                    "SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)
+                ).fetchone())
+            placeholders = ",".join("?" for _ in columns)
+            conn.execute(
+                f"INSERT INTO platform_dispatches ({','.join(columns)}) VALUES ({placeholders})",
+                values,
+            )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                "SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
 
     def register_readback(self, *, readback_id: str, dispatch_id: str,
                           readback_data: str) -> Dict[str, Any]:

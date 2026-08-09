@@ -541,15 +541,18 @@ class ContentOpsDailyAppSupervisor:
             # Preserve the exact public-object identity the publisher reports; a controlled
             # no-write fixture is recorded distinctly and never as a real public publication.
             public_object_id: Optional[str] = None
+            public_object_url: Optional[str] = None
             dispatch_status = STATUS_CONTROLLED_NO_WRITE
             if callable(publisher):
                 try:
                     published = dict(publisher(destination, package_identity))
                     raw_status = str(published.get("status") or "")
                     public_object_id = str(published.get("public_object_id") or "") or None
+                    public_object_url = str(published.get("public_object_url") or "") or None
                 except Exception as exc:  # noqa: BLE001 - classify, never blind-retry
                     raw_status = STATUS_UNKNOWN_WRITE
                     public_object_id = None
+                    public_object_url = None
                     self._store.register_incident(
                         incident_id="incident_" + _logical_hash(basis + str(exc))[:32],
                         work_item_id=window_id,
@@ -567,15 +570,20 @@ class ContentOpsDailyAppSupervisor:
                 elif raw_status in ("DISPATCH_CONFIRMED_NO_WRITE", STATUS_CONTROLLED_NO_WRITE):
                     dispatch_status = STATUS_CONTROLLED_NO_WRITE
                     public_object_id = None
+                    public_object_url = None
                 else:
                     # Unknown/ambiguous/error outcome -> STOP RETRY -> READ BACK -> RECONCILE.
                     dispatch_status = STATUS_UNKNOWN_WRITE
 
+            # Persist the exact external public-object identity into canonical durable state as
+            # part of dispatch registration (write-once; conflict fails closed).
             self._store.register_platform_dispatch(
                 dispatch_id=dispatch_id,
                 message_id=message_id,
                 platform=destination,
                 status=dispatch_status,
+                public_object_id=public_object_id,
+                public_object_url=public_object_url,
             )
             outcome["dispatches"] += 1
             row: Dict[str, Any] = {
@@ -584,6 +592,7 @@ class ContentOpsDailyAppSupervisor:
                 "dispatch_id": dispatch_id,
                 "status": dispatch_status,
                 "public_object_id": public_object_id,
+                "public_object_url": public_object_url,
                 "readback_id": None,
                 "reconciliation_id": reconciliation_id,
             }
@@ -664,15 +673,23 @@ class ContentOpsDailyAppSupervisor:
                 continue
 
             try:
-                rb = dict(readback_provider(dispatch_id, destination, public_object_id))
-            except Exception as exc:  # noqa: BLE001 - provider failure must fail closed
+                # PHASE 7: the readback must be resolved against the identity loaded FROM the
+                # durable dispatch state, never against an unpersisted local variable.
+                stored_dispatch = self._store.get_platform_dispatch(dispatch_id) or {}
+                durable_object_id = str(stored_dispatch.get("public_object_id") or "") or None
+                try:
+                    rb = dict(readback_provider(dispatch_id, destination, durable_object_id))
+                except Exception as exc:  # noqa: BLE001 - provider failure must fail closed
+                    rb = {"_readback_error": type(exc).__name__}
+                confirmed, reason = self._verify_readback_confirmation(
+                    readback_result=rb,
+                    dispatch_id=dispatch_id,
+                    destination=destination,
+                    public_object_id=durable_object_id,
+                )
+            except Exception as exc:  # noqa: BLE001 - durable lookup failure fails closed
                 rb = {"_readback_error": type(exc).__name__}
-            confirmed, reason = self._verify_readback_confirmation(
-                readback_result=rb,
-                dispatch_id=dispatch_id,
-                destination=destination,
-                public_object_id=public_object_id,
-            )
+                confirmed, reason = False, "durable_identity_unavailable"
             readback_data = json.dumps(
                 {
                     "observed": rb if isinstance(rb, Mapping) else {},
@@ -706,13 +723,19 @@ class ContentOpsDailyAppSupervisor:
     ) -> Dict[str, Any]:
         """READBACK/RECONCILIATION ONLY recovery, safe even under KILL_SWITCH.
 
-        For each UNKNOWN_WRITE dispatch this method NEVER redispatches. It resolves the exact
-        destination/message/dispatch/public identity, calls the canonical configured readback
-        provider (if available), persists the readback observation, and reconciles:
+        Covers BOTH durable recovery cases after a restart:
+          A. UNKNOWN_WRITE  -> STOP RETRY -> READ BACK -> RECONCILE;
+          B. DISPATCH_CONFIRMED with RECONCILIATION_PENDING_READBACK -> read back the exact
+             persisted public-object identity and reconcile.
+
+        For each case this method NEVER redispatches (zero publisher calls). It resolves the
+        exact destination/message/dispatch/public identity FROM DURABLE STATE, calls the
+        canonical configured readback provider (if available) with that durable identity,
+        persists the readback observation, and reconciles:
 
         * readback proves a public object exists with a matching identity -> RECONCILED_CONFIRMED;
         * readback proves no write occurred -> RECONCILED_ABSENT_SAFE_TO_RETRY (no automatic retry);
-        * ambiguous/unavailable/error -> remains RECONCILIATION_PENDING_OPERATOR_RECOVERY.
+        * ambiguous/unavailable/error/missing durable identity -> remains fail-closed pending.
 
         The publisher is never invoked here.
         """
@@ -721,6 +744,7 @@ class ContentOpsDailyAppSupervisor:
             "window_id": window_id,
             "dispatches": 0,
             "unknown_writes": 0,
+            "pending_readbacks": 0,
             "publisher_calls": 0,  # this method NEVER invokes the publisher
             "readback_calls": 0,
             "reconciled": 0,
@@ -735,11 +759,16 @@ class ContentOpsDailyAppSupervisor:
             for r in self._store.get_reconciliations_for_work_item(window_id)
         }
         for dispatch in dispatches:
-            if dispatch["status"] != STATUS_UNKNOWN_WRITE:
+            status = str(dispatch["status"])
+            if status not in (STATUS_UNKNOWN_WRITE, STATUS_DISPATCH_CONFIRMED):
                 continue
-            summary["unknown_writes"] += 1
+            if status == STATUS_UNKNOWN_WRITE:
+                summary["unknown_writes"] += 1
+            else:
+                summary["pending_readbacks"] += 1
             dispatch_id = str(dispatch["dispatch_id"])
             destination = str(dispatch["platform"])
+            durable_object_id = str(dispatch.get("public_object_id") or "") or None
             # Resolve exact package identity from the durable outbox payload.
             package_identity = ""
             message = self._store.get_outbox_message(str(dispatch["message_id"]))
@@ -750,18 +779,35 @@ class ContentOpsDailyAppSupervisor:
                     package_identity = ""
             ids = self._lifecycle_identity(window_id, destination, package_identity)
             reconciliation_id = ids["reconciliation_id"]
+            current = recons_by_id.get(reconciliation_id)
             # Already-recovered dispatches are idempotent; do not re-invoke the provider.
-            if recons_by_id.get(reconciliation_id) in (RECONCILE_CONFIRMED, RECONCILE_ABSENT_SAFE):
-                summary["per_dispatch"][dispatch_id] = recons_by_id[reconciliation_id]
+            if current in (RECONCILE_CONFIRMED, RECONCILE_ABSENT_SAFE, RECONCILE_CONTROLLED_NO_WRITE):
+                summary["per_dispatch"][dispatch_id] = current
+                continue
+            # Only recover dispatches in the expected pending states.
+            if status == STATUS_DISPATCH_CONFIRMED and current != RECONCILE_PENDING_READBACK:
+                continue
+            if status == STATUS_UNKNOWN_WRITE and current != RECONCILE_PENDING_OPERATOR:
+                continue
+            pending_state = (
+                RECONCILE_PENDING_READBACK if status == STATUS_DISPATCH_CONFIRMED
+                else RECONCILE_PENDING_OPERATOR
+            )
+            # A confirmed dispatch with no persisted external identity cannot be read back
+            # without guessing; fail closed. Identity alone never upgrades UNKNOWN_WRITE.
+            if status == STATUS_DISPATCH_CONFIRMED and not durable_object_id:
+                summary["still_pending"] += 1
+                summary["per_dispatch"][dispatch_id] = pending_state
                 continue
             if not callable(provider):
-                # No readback provider -> cannot read back; remain fail-closed pending operator.
+                # No readback provider -> cannot read back; remain fail-closed pending.
                 readback_data = json.dumps(
                     {
                         "dispatch_id": dispatch_id,
                         "destination": destination,
                         "readback_status": READBACK_UNAVAILABLE,
                         "verified": False,
+                        "recovery": True,
                     },
                     sort_keys=True,
                 )
@@ -771,11 +817,11 @@ class ContentOpsDailyAppSupervisor:
                     readback_data=readback_data,
                 )
                 summary["still_pending"] += 1
-                summary["per_dispatch"][dispatch_id] = RECONCILE_PENDING_OPERATOR
+                summary["per_dispatch"][dispatch_id] = pending_state
                 continue
             summary["readback_calls"] += 1
             try:
-                rb = dict(provider(dispatch_id, destination, None))
+                rb = dict(provider(dispatch_id, destination, durable_object_id))
             except Exception as exc:  # noqa: BLE001 - provider error fails closed, no retry
                 rb = {"_readback_error": type(exc).__name__}
             readback_data = json.dumps(
@@ -793,6 +839,22 @@ class ContentOpsDailyAppSupervisor:
                 dispatch_id=dispatch_id,
                 readback_data=readback_data,
             )
+            if status == STATUS_DISPATCH_CONFIRMED:
+                confirmed, _reason = self._verify_readback_confirmation(
+                    readback_result=rb,
+                    dispatch_id=dispatch_id,
+                    destination=destination,
+                    public_object_id=durable_object_id,
+                )
+                if confirmed:
+                    self._store.set_reconciliation_status(reconciliation_id, RECONCILE_CONFIRMED)
+                    summary["reconciled"] += 1
+                    summary["per_dispatch"][dispatch_id] = RECONCILE_CONFIRMED
+                else:
+                    summary["still_pending"] += 1
+                    summary["per_dispatch"][dispatch_id] = RECONCILE_PENDING_READBACK
+                continue
+            # UNKNOWN_WRITE: readback must still establish truth; identity alone never confirms.
             if (
                 not isinstance(rb, Mapping)
                 or not rb
@@ -806,8 +868,13 @@ class ContentOpsDailyAppSupervisor:
                 continue
             observed_object = str(rb.get("public_object_id") or "")
             write_occurred = rb.get("write_occurred")
-            if observed_object:
-                # Readback proved a concrete public object exists -> confirmed.
+            if durable_object_id is not None and observed_object and observed_object == durable_object_id:
+                # Readback matched the exact preserved identity -> confirmed.
+                self._store.set_reconciliation_status(reconciliation_id, RECONCILE_CONFIRMED)
+                summary["reconciled"] += 1
+                summary["per_dispatch"][dispatch_id] = RECONCILE_CONFIRMED
+            elif durable_object_id is None and observed_object:
+                # No preserved identity but readback proved a concrete public object exists.
                 self._store.set_reconciliation_status(reconciliation_id, RECONCILE_CONFIRMED)
                 summary["reconciled"] += 1
                 summary["per_dispatch"][dispatch_id] = RECONCILE_CONFIRMED

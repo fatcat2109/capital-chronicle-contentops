@@ -24,7 +24,9 @@ from live_contentops.historical_schema_lineage_v1 import (
     ORIGINAL_NO_GENESIS_LINEAGE_ID,
 )
 
-CANONICAL_SCHEMA_VERSION = 4
+CANONICAL_SCHEMA_VERSION = 5
+#: Migration versions 1-4 are frozen historical evidence; their SQL bytes and checksums must
+#: never change. Schema evolution beyond v4 appends NEW migrations only (migration v5 below).
 GENESIS_PREVIOUS_HASH = "GENESIS_" + ("0" * 64)
 LEGACY_QUARANTINE_SCOPE = "LEGACY_UNSCOPED_QUARANTINED"
 CURRENT_MIGRATION_SQL: Mapping[int, str] = {
@@ -162,6 +164,62 @@ DEPENDENCY_MANIFEST_V2: Mapping[str, Any] = {
 }
 DEPENDENCY_MANIFEST_V2_JSON = canonical_json(DEPENDENCY_MANIFEST_V2)
 DEPENDENCY_MANIFEST_V2_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_V2_JSON.encode("utf-8")).hexdigest()
+
+# ---------------------------------------------------------------------------
+# Schema migration v5 — public-object identity persistence.
+#
+# Migration v5 is appended WITHOUT touching the frozen v1-v4 migration SQL/checksums.
+# It extends ``platform_dispatches`` with the exact external public-object identity
+# returned by the publisher, so a restart can answer "which exact external post did
+# this dispatch create?" from durable state alone and resume readback/reconciliation
+# without republishing. Migration 1-4 checksums are intentionally excluded from this
+# constant so the historical dependency manifests above remain byte-frozen evidence.
+# ---------------------------------------------------------------------------
+MIGRATION_V5_SQL = (
+    "\nALTER TABLE platform_dispatches ADD COLUMN public_object_id TEXT;\n"
+    "ALTER TABLE platform_dispatches ADD COLUMN public_object_url TEXT;\n"
+    "ALTER TABLE platform_dispatches ADD COLUMN public_object_url_hash TEXT;\n"
+)
+MIGRATION_V5_CHECKSUM = hashlib.sha256(MIGRATION_V5_SQL.encode("utf-8")).hexdigest()
+
+DEPENDENCY_MANIFEST_V3: Mapping[str, Any] = {
+    "schema_version": "contentops.schema_v5_dependency_manifest.v1",
+    "canonical_json": CANONICAL_JSON_CONTRACT,
+    "genesis_previous_hash": GENESIS_PREVIOUS_HASH,
+    "legacy_baseline_kind": "LEGACY_PROJECTION_BASELINE",
+    "legacy_quarantine_scope": LEGACY_QUARANTINE_SCOPE,
+    "historical_lineage_registry": {
+        lineage_id: {
+            "schema_fingerprint": lineage["schema_fingerprint"],
+            "migration_checksums": dict(lineage["migration_checksums"]),
+            "valid_genesis_present": lineage["valid_genesis_present"],
+        }
+        for lineage_id, lineage in HISTORICAL_SCHEMA_LINEAGES.items()
+    },
+    "migration_sql_checksums": {**CURRENT_MIGRATION_CHECKSUMS, 5: MIGRATION_V5_CHECKSUM},
+    "migration_sql_hashes": {
+        **{v: hashlib.sha256(sql.encode("utf-8")).hexdigest() for v, sql in CURRENT_MIGRATION_SQL.items()},
+        5: MIGRATION_V5_CHECKSUM,
+    },
+    "migration_transform_versions": {
+        1: "sql_only.v1",
+        2: "legacy_sequence.v2",
+        3: "legacy_envelope.v3",
+        4: "historical_lineage_compatibility.v4",
+        5: "sql_only.v5",
+    },
+    "migration_sql_source": "live_contentops.historical_schema_compatibility_v1.CURRENT_MIGRATION_SQL / MIGRATION_V5_SQL",
+    "public_object_identity_columns": {
+        "table": "platform_dispatches",
+        "columns": ["public_object_id", "public_object_url", "public_object_url_hash"],
+        "invariant": "write_once_exact_external_identity_no_last_write_wins",
+    },
+    "state_rules": "live_contentops.durable_operational_store_v1.TRANSITION_GRAPH",
+    "authority_rule": "WAVE02_FORBIDDEN_AUTHORITY_STATES",
+    "event_hash_rule": "sha256(canonical event_payload_json)",
+}
+DEPENDENCY_MANIFEST_V3_JSON = canonical_json(DEPENDENCY_MANIFEST_V3)
+DEPENDENCY_MANIFEST_V3_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_V3_JSON.encode("utf-8")).hexdigest()
 
 
 @dataclass(frozen=True)
@@ -555,7 +613,8 @@ def _record_migration_failure_receipt(
     receipt_material = {
         "source_lineage_id": source_lineage_id,
         "source_database_hash": source_database_hash,
-        "failed_version": CANONICAL_SCHEMA_VERSION,
+        # Frozen historical migration target: the historical upgrader migrates exactly to v4.
+        "failed_version": 4,
         "error_class": type(error).__name__,
         "error_message_hash": error_message_hash,
         "backup_path_hash": backup_path_hash,
@@ -582,7 +641,7 @@ def _record_migration_failure_receipt(
         receipt.execute(
             "INSERT OR REPLACE INTO migration_failure_receipts VALUES (?,?,?,?,?,?,?,?,?)",
             (
-                receipt_id, source_lineage_id, source_database_hash, CANONICAL_SCHEMA_VERSION,
+                receipt_id, source_lineage_id, source_database_hash, 4,
                 type(error).__name__, error_message_hash, backup_path_hash,
                 restore_integrity_status, recorded_at,
             ),
@@ -616,7 +675,7 @@ def _verify_upgraded_database(
         raise ValueError("historical_schema_v4_source_migration_history_changed")
     if len(migration_rows) != len(source_migrations) + 1:
         raise ValueError("historical_schema_v4_migration_history_length_failed")
-    if migration_rows[-1]["version"] != CANONICAL_SCHEMA_VERSION or migration_rows[-1]["checksum"] != CURRENT_MIGRATION_CHECKSUMS[4]:
+    if migration_rows[-1]["version"] != 4 or migration_rows[-1]["checksum"] != CURRENT_MIGRATION_CHECKSUMS[4]:
         raise ValueError("historical_schema_v4_post_commit_checksum_failed")
 
     metadata = conn.execute("SELECT * FROM schema_lineage_metadata WHERE singleton_id=1").fetchone()
@@ -624,7 +683,7 @@ def _verify_upgraded_database(
         metadata is None
         or metadata["source_lineage_id"] != recognized.lineage_id
         or metadata["source_schema_fingerprint"] != recognized.schema_fingerprint
-        or metadata["compatibility_version"] != CANONICAL_SCHEMA_VERSION
+        or metadata["compatibility_version"] != 4
         or metadata["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH)
         or metadata["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON)
     ):
@@ -731,7 +790,7 @@ def upgrade_historical_database(db_path: pathlib.Path, *, now_iso: Optional[str]
         _convert_events(conn, lineage)
         conn.execute(
             "INSERT INTO schema_lineage_metadata VALUES (1,?,?,?,?,?,?)",
-            (recognized.lineage_id, recognized.schema_fingerprint, CANONICAL_SCHEMA_VERSION,
+            (recognized.lineage_id, recognized.schema_fingerprint, 4,
              DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V2_HASH, timestamp),
         )
         conn.execute(
@@ -812,6 +871,6 @@ def upgrade_historical_database(db_path: pathlib.Path, *, now_iso: Optional[str]
         "source_database_hash": source_hash,
         "source_table_hashes": source_table_hashes,
         "dependency_manifest_hash": DEPENDENCY_MANIFEST_V2_HASH,
-        "target_schema_version": CANONICAL_SCHEMA_VERSION,
+        "target_schema_version": 4,
         **verification,
     }

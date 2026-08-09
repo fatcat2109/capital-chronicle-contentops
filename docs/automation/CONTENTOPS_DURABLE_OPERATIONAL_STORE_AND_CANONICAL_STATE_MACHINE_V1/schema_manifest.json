@@ -2,7 +2,7 @@
   "schema_version": "contentops.durable_store_schema_manifest.v1",
   "worker_classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
   "durable_store_module": "live_contentops/durable_operational_store_v1.py",
-  "current_schema_version": 4,
+  "current_schema_version": 5,
   "journal_mode": "WAL",
   "foreign_keys": "ON",
   "busy_timeout_ms": 5000,
@@ -66,6 +66,14 @@
       "transform_version": "historical_lineage_compatibility.v4",
       "transform_source_hash": "b3cfaa7eebae8ca5e61157fe319f2afd18afc62409948974a432e2b4e77ac299",
       "semantic_checksum": "3c2047f57ad8fa54915844c20196a283dcc21133299eb66e375c88052f1c0583"
+    },
+    {
+      "version": 5,
+      "description": "Schema v5: platform_dispatches public-object identity persistence",
+      "sql_sha256": "30adae6575d90d480f4f47a636dc9e1092d077cc05107f1323d35c87884ffe80",
+      "transform_version": "sql_only.v5",
+      "transform_source_hash": "b3cfaa7eebae8ca5e61157fe319f2afd18afc62409948974a432e2b4e77ac299",
+      "semantic_checksum": "a19d9f86ccdc84c30998d1460a47e812e06939869f60e4ddba9b28b3bd275ef9"
     }
   ],
   "triggers": [
