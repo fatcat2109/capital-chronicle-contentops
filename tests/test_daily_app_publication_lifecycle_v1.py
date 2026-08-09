@@ -463,10 +463,13 @@ def test_kill_switch_allows_unknown_write_recovery_never_publisher(tmp_path):
     )
     report = ks.tick(now=INSIDE_WINDOW)
     assert report["windows_dispatched"] == 0  # kill switch made zero new dispatches
+    assert report["recovery_readback_calls"] == 1
+    assert report["recovery_reconciled"] == 1
 
+    # Routine recovery was automatic on tick; a later manual call is terminal-idempotent.
     summary = ks.perform_safe_readback_and_reconciliation(wid)
     assert summary["publisher_calls"] == 0
-    assert summary["readback_calls"] == 1
+    assert summary["readback_calls"] == 0
     assert _recon_statuses(ks._store, wid) == [RECONCILE_CONFIRMED]
     assert len(pub_calls) == 1  # never redispatched
 

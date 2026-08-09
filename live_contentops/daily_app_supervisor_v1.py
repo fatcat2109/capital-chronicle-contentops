@@ -120,6 +120,10 @@ RECONCILE_ABSENT_SAFE = "RECONCILED_ABSENT_SAFE_TO_RETRY"
 
 READBACK_UNAVAILABLE = "READBACK_UNAVAILABLE"
 
+#: Safe lifecycle recovery is cheap but may still call a platform readback provider. Persisted
+#: readback timestamps provide a restart-safe minimum cadence without another scheduler/table.
+READBACK_RECONCILIATION_COOLDOWN_SECONDS = 60
+
 
 def _logical_hash(value: Any) -> str:
     return sha256(
@@ -727,7 +731,11 @@ class ContentOpsDailyAppSupervisor:
         return outcome
 
     def perform_safe_readback_and_reconciliation(
-        self, window_id: str, *, readback_provider: Optional[Callable[..., Mapping[str, Any]]] = None
+        self,
+        window_id: str,
+        *,
+        readback_provider: Optional[Callable[..., Mapping[str, Any]]] = None,
+        attempted_at: Optional[datetime] = None,
     ) -> Dict[str, Any]:
         """READBACK/RECONCILIATION ONLY recovery, safe even under KILL_SWITCH.
 
@@ -748,6 +756,7 @@ class ContentOpsDailyAppSupervisor:
         The publisher is never invoked here.
         """
         provider = readback_provider or self._publication_readback_provider
+        attempted_at_utc = _iso_utc(attempted_at or self._clock())
         summary: Dict[str, Any] = {
             "window_id": window_id,
             "dispatches": 0,
@@ -804,6 +813,22 @@ class ContentOpsDailyAppSupervisor:
             # A confirmed dispatch with no persisted external identity cannot be read back
             # without guessing; fail closed. Identity alone never upgrades UNKNOWN_WRITE.
             if status == STATUS_DISPATCH_CONFIRMED and not durable_object_id:
+                readback_data = json.dumps(
+                    {
+                        "dispatch_id": dispatch_id,
+                        "destination": destination,
+                        "readback_status": "DURABLE_PUBLIC_OBJECT_ID_UNAVAILABLE",
+                        "verified": False,
+                        "recovery": True,
+                        "attempted_at_utc": attempted_at_utc,
+                    },
+                    sort_keys=True,
+                )
+                self._store.register_readback(
+                    readback_id="readback_" + _logical_hash(readback_data)[:32],
+                    dispatch_id=dispatch_id,
+                    readback_data=readback_data,
+                )
                 summary["still_pending"] += 1
                 summary["per_dispatch"][dispatch_id] = pending_state
                 continue
@@ -816,6 +841,7 @@ class ContentOpsDailyAppSupervisor:
                         "readback_status": READBACK_UNAVAILABLE,
                         "verified": False,
                         "recovery": True,
+                        "attempted_at_utc": attempted_at_utc,
                     },
                     sort_keys=True,
                 )
@@ -838,6 +864,7 @@ class ContentOpsDailyAppSupervisor:
                     "dispatch_id": dispatch_id,
                     "destination": destination,
                     "recovery": True,
+                    "attempted_at_utc": attempted_at_utc,
                 },
                 sort_keys=True,
                 default=str,
@@ -876,11 +903,18 @@ class ContentOpsDailyAppSupervisor:
                 continue
             observed_object = str(rb.get("public_object_id") or "")
             write_occurred = rb.get("write_occurred")
-            if durable_object_id is not None and observed_object and observed_object == durable_object_id:
-                # Readback matched the exact preserved identity -> confirmed.
-                self._store.set_reconciliation_status(reconciliation_id, RECONCILE_CONFIRMED)
-                summary["reconciled"] += 1
-                summary["per_dispatch"][dispatch_id] = RECONCILE_CONFIRMED
+            if durable_object_id is not None and observed_object:
+                if observed_object == durable_object_id:
+                    # Readback matched the exact preserved identity -> confirmed.
+                    self._store.set_reconciliation_status(
+                        reconciliation_id, RECONCILE_CONFIRMED
+                    )
+                    summary["reconciled"] += 1
+                    summary["per_dispatch"][dispatch_id] = RECONCILE_CONFIRMED
+                else:
+                    # A contradictory object identity can never be converted to absent-safe.
+                    summary["still_pending"] += 1
+                    summary["per_dispatch"][dispatch_id] = RECONCILE_PENDING_OPERATOR
             elif durable_object_id is None and observed_object:
                 # No preserved identity but readback proved a concrete public object exists.
                 self._store.set_reconciliation_status(reconciliation_id, RECONCILE_CONFIRMED)
@@ -894,6 +928,155 @@ class ContentOpsDailyAppSupervisor:
             else:
                 summary["still_pending"] += 1
                 summary["per_dispatch"][dispatch_id] = RECONCILE_PENDING_OPERATOR
+        return summary
+
+    def _pending_readback_reconciliation_candidates(self) -> list[Dict[str, str]]:
+        """Discover exact pending lifecycle recovery from the bound durable store only."""
+        candidates: list[Dict[str, str]] = []
+        for dispatch in self._store.list_platform_dispatches():
+            status = str(dispatch.get("status") or "")
+            if status not in (STATUS_UNKNOWN_WRITE, STATUS_DISPATCH_CONFIRMED):
+                continue
+            message = self._store.get_outbox_message(str(dispatch.get("message_id") or ""))
+            if not message:
+                continue
+            window_id = str(message.get("work_item_id") or "")
+            if not window_id:
+                continue
+            try:
+                package_identity = str(
+                    json.loads(str(message.get("payload") or "{}")).get("package_identity") or ""
+                )
+            except Exception:  # noqa: BLE001 - unreadable identity remains fail-closed
+                package_identity = ""
+            reconciliation_id = self._lifecycle_identity(
+                window_id, str(dispatch.get("platform") or ""), package_identity
+            )["reconciliation_id"]
+            reconciliation_status = next(
+                (
+                    str(row.get("status") or "")
+                    for row in self._store.get_reconciliations_for_work_item(window_id)
+                    if str(row.get("reconciliation_id") or "") == reconciliation_id
+                ),
+                "",
+            )
+            expected = (
+                RECONCILE_PENDING_OPERATOR
+                if status == STATUS_UNKNOWN_WRITE
+                else RECONCILE_PENDING_READBACK
+            )
+            if reconciliation_status != expected:
+                continue
+            candidates.append(
+                {
+                    "window_id": window_id,
+                    "dispatch_id": str(dispatch.get("dispatch_id") or ""),
+                    "dispatch_status": status,
+                    "reconciliation_status": reconciliation_status,
+                }
+            )
+        return sorted(candidates, key=lambda row: (row["window_id"], row["dispatch_id"]))
+
+    def _latest_recovery_attempt_at(self, dispatch_id: str) -> Optional[datetime]:
+        """Return the latest durable readback/attempt time for cooldown calculation."""
+        latest: Optional[datetime] = None
+        with self._store.get_connection() as conn:
+            rows = conn.execute(
+                "SELECT readback_data, read_at FROM readbacks WHERE dispatch_id=?"
+                " ORDER BY read_at, readback_id",
+                (dispatch_id,),
+            ).fetchall()
+        for row in rows:
+            values = [row["read_at"]]
+            try:
+                payload = json.loads(str(row["readback_data"] or "{}"))
+                values.append(payload.get("attempted_at_utc"))
+            except Exception:  # noqa: BLE001 - malformed historical row is not timing authority
+                pass
+            for value in values:
+                if not value:
+                    continue
+                try:
+                    parsed = _parse_utc(str(value))
+                except Exception:  # noqa: BLE001
+                    continue
+                if latest is None or parsed > latest:
+                    latest = parsed
+        return latest
+
+    def _recovery_window_eligible_at(
+        self, candidates: Sequence[Mapping[str, str]], now: datetime
+    ) -> datetime:
+        """One deduplicated window becomes eligible after its latest pending readback attempt."""
+        attempts = [
+            attempted
+            for candidate in candidates
+            if (attempted := self._latest_recovery_attempt_at(candidate["dispatch_id"]))
+            is not None
+        ]
+        if not attempts:
+            return now
+        return max(attempts) + timedelta(seconds=READBACK_RECONCILIATION_COOLDOWN_SECONDS)
+
+    def _next_recovery_wake(self, now: datetime) -> Optional[datetime]:
+        candidates = self._pending_readback_reconciliation_candidates()
+        if not candidates:
+            return None
+        by_window: Dict[str, list[Dict[str, str]]] = {}
+        for candidate in candidates:
+            by_window.setdefault(candidate["window_id"], []).append(candidate)
+        return min(
+            self._recovery_window_eligible_at(window_candidates, now)
+            for window_candidates in by_window.values()
+        )
+
+    def _run_readback_reconciliation_housekeeping(self, now: datetime) -> Dict[str, Any]:
+        """Run bounded durable READBACK/RECONCILIATION ONLY recovery for this tick."""
+        candidates = self._pending_readback_reconciliation_candidates()
+        summary: Dict[str, Any] = {
+            "state": "NO_PENDING_RECOVERY",
+            "candidate_dispatches": len(candidates),
+            "candidate_windows": 0,
+            "readback_calls": 0,
+            "publisher_calls": 0,
+            "reconciled": 0,
+            "still_pending": 0,
+            "cooldown_deferred": 0,
+            "next_eligible_at_utc": None,
+        }
+        if not candidates:
+            return summary
+        by_window: Dict[str, list[Dict[str, str]]] = {}
+        for candidate in candidates:
+            by_window.setdefault(candidate["window_id"], []).append(candidate)
+        summary["candidate_windows"] = len(by_window)
+        attempted = 0
+        for window_id in sorted(by_window):
+            window_candidates = by_window[window_id]
+            eligible_at = self._recovery_window_eligible_at(window_candidates, now)
+            if eligible_at > now:
+                summary["cooldown_deferred"] += len(window_candidates)
+                continue
+            attempted += 1
+            recovered = self.perform_safe_readback_and_reconciliation(
+                window_id, attempted_at=now
+            )
+            summary["readback_calls"] += int(recovered.get("readback_calls") or 0)
+            summary["publisher_calls"] += int(recovered.get("publisher_calls") or 0)
+            summary["reconciled"] += int(recovered.get("reconciled") or 0)
+            summary["still_pending"] += int(recovered.get("still_pending") or 0)
+        pending_after = self._pending_readback_reconciliation_candidates()
+        summary["still_pending"] = len(pending_after)
+        if pending_after:
+            next_wake = self._next_recovery_wake(now)
+            summary["next_eligible_at_utc"] = _iso_utc(next_wake) if next_wake else None
+        if attempted:
+            summary["state"] = (
+                "RUN_STILL_PENDING" if pending_after else "RUN_RECONCILED"
+            )
+        else:
+            summary["state"] = "COOLDOWN_NOT_DUE"
+            summary["still_pending"] = len(pending_after)
         return summary
 
     # -- FDA-D/FDA-E performance observation + bounded learning -----------------
@@ -1046,6 +1229,15 @@ class ContentOpsDailyAppSupervisor:
             "provider_calls": 0,
             "public_write_performed": False,
             "unknown_write_detected": False,
+            "readback_reconciliation_state": "NO_PENDING_RECOVERY",
+            "recovery_candidates": 0,
+            "recovery_candidate_windows": 0,
+            "recovery_readback_calls": 0,
+            "recovery_publisher_calls": 0,
+            "recovery_reconciled": 0,
+            "recovery_still_pending": 0,
+            "recovery_cooldown_deferred": 0,
+            "next_recovery_wake_utc": None,
             "performance_observation_state": NOT_IMPLEMENTED_NOT_DUE,
             "learning_evaluation_state": NOT_IMPLEMENTED_NOT_DUE,
         }
@@ -1054,6 +1246,28 @@ class ContentOpsDailyAppSupervisor:
             self._store.recover_stale_leases()
         except Exception:  # noqa: BLE001 - recovery is best-effort housekeeping
             report["windows_skipped"].append("stale_lease_recovery_unavailable")
+
+        # Existing durable public-object state is lifecycle housekeeping, not publication
+        # authority. Run it before performance eligibility so a newly reconciled exact object can
+        # receive its observation schedule on this same tick under every operating mode.
+        try:
+            recovery = self._run_readback_reconciliation_housekeeping(now)
+            report.update(
+                {
+                    "readback_reconciliation_state": recovery["state"],
+                    "recovery_candidates": recovery["candidate_dispatches"],
+                    "recovery_candidate_windows": recovery["candidate_windows"],
+                    "recovery_readback_calls": recovery["readback_calls"],
+                    "recovery_publisher_calls": recovery["publisher_calls"],
+                    "recovery_reconciled": recovery["reconciled"],
+                    "recovery_still_pending": recovery["still_pending"],
+                    "recovery_cooldown_deferred": recovery["cooldown_deferred"],
+                    "next_recovery_wake_utc": recovery["next_eligible_at_utc"],
+                }
+            )
+        except Exception:  # noqa: BLE001 - remain alive and fail closed on durable recovery error
+            report["readback_reconciliation_state"] = "RECOVERY_UNAVAILABLE"
+            report["windows_skipped"].append("readback_reconciliation_recovery_unavailable")
 
         # FDA-D/FDA-E: due READ-ONLY performance observations + bounded learning run under EVERY
         # operating mode, including KILL_SWITCH. Metrics collection performs zero LLM calls and
@@ -1457,6 +1671,9 @@ class ContentOpsDailyAppSupervisor:
         observation_wake = self._next_observation_wake(now)
         if observation_wake is not None:
             candidates.append(observation_wake)
+        recovery_wake = self._next_recovery_wake(now)
+        if recovery_wake is not None:
+            candidates.append(recovery_wake)
         # Also wake a little before the next window to be responsive, and cap the sleep.
         if candidates:
             return min(candidates)
