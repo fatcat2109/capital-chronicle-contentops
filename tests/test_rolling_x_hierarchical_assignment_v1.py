@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from live_contentops.newsroom_assignment_scheduler_v1 import (
+    ROLLING_X_GLOBAL_PROMPT_VERSION,
     _logical_hash,
     _build_rolling_x_global_prompt,
     _rolling_x_canonical_hash_material,
@@ -308,7 +309,7 @@ def test_global_repair_prompt_names_only_safe_exact_diagnostic() -> None:
     )
 
     assert "previous_validation_failure_code=global_unknown_leaf_cluster_id" in repair
-    assert "Replace every unknown leaf_cluster_id" in repair
+    assert "Replace only the invalid leaf_cluster_id values" in repair
     assert '{"unsafe":"raw body"}' not in repair
     assert "invalid_response_sha256=" in repair
 
@@ -681,3 +682,251 @@ def test_genuinely_invalid_governed_input_remains_terminal_before_provider_call(
     else:
         raise AssertionError("invalid governed input must fail closed")
     assert calls == []
+
+
+def test_global_prompt_contains_no_fake_leaf_id_placeholders():
+    prompt = _build_rolling_x_global_prompt({
+        "leaf_cluster_summaries": [{"id": "leaf-1"}, {"id": "leaf-2"}],
+    })
+
+    assert "exact-existing-id" not in prompt
+    assert "exact-member-id" not in prompt
+    assert "<COPY_EXACT_VALUE_FROM_allowed_leaf_cluster_ids>" in prompt
+
+
+def test_global_prompt_allowlist_equals_exact_leaf_ids_once_in_order():
+    ordered_ids = [
+        "rolling-x-leaf-cluster-037480777377be29fcb9",
+        "rolling-x-leaf-cluster-23d2fdf8fc52da04de76",
+        "rolling-x-leaf-cluster-27665f67343629f704bb",
+    ]
+    prompt = _build_rolling_x_global_prompt({
+        "leaf_cluster_summaries": [{"id": value} for value in ordered_ids],
+    })
+
+    line = [
+        row for row in prompt.splitlines()
+        if row.startswith("allowed_leaf_cluster_ids: ")
+    ]
+    assert len(line) == 1
+    allowlist = json.loads(line[0].split("allowed_leaf_cluster_ids: ", 1)[1])
+    assert allowlist == ordered_ids
+    assert len(allowlist) == len(set(allowlist))
+    assert "byte-for-byte" in prompt
+
+
+def test_unknown_id_repair_prompt_embeds_exact_allowlist_without_fuzzy_substitution():
+    allowed = ["leaf-1", "leaf-2"]
+    repair = _rolling_x_global_repair_prompt(
+        "original prompt",
+        '{"ranked_shortlist":[{"leaf_cluster_ids":["ghost-leaf"]}]}',
+        "global_unknown_leaf_cluster_id",
+        allowed_leaf_cluster_ids=allowed,
+    )
+
+    assert "allowed_leaf_cluster_ids: [\"leaf-1\", \"leaf-2\"]" in repair
+    assert "Copy only those exact values" in repair
+    assert "ghost-leaf" not in repair
+    assert '{"ranked_shortlist"' not in repair
+    assert "do not invent or approximate an ID" in repair
+    assert "preserve every valid ranking and editorial field" in repair
+
+    unrepaired = _rolling_x_global_repair_prompt(
+        "original prompt", "bad", "global_rank_invalid"
+    )
+    assert "allowed_leaf_cluster_ids: [" not in unrepaired
+
+
+def test_unknown_canonical_leaf_cluster_id_remains_rejected():
+    payload = json.loads(_global_output())
+    payload["ranked_shortlist"][0]["canonical_leaf_cluster_id"] = "ghost-leaf"
+    valid, failure, output, diagnostic = _validate_global(json.dumps(payload))
+
+    assert valid is False
+    assert failure == "structured_output_schema_invalid"
+    assert output is None
+    assert diagnostic == "global_canonical_leaf_not_in_cluster"
+
+
+def test_corrected_response_using_only_allowed_ids_passes_existing_validator():
+    for leaf_ids in (["leaf-1"], ["leaf-1", "leaf-2"]):
+        valid, failure, output, diagnostic = _validate_global(_global_output(leaf_ids=leaf_ids))
+        assert valid is True
+        assert failure is None
+        assert diagnostic is None
+        assert output["ranked_clusters"][0]["leaf_cluster_ids"] == leaf_ids
+
+
+def _build_checkpoint_bundle(rolling_input, provider, *, global_prompt_version=None):
+    first = assign_rolling_x_headlines_with_nine_router(
+        rolling_input=rolling_input,
+        provider_call=provider,
+    )
+    partition = first["leaf_partitions"][0]
+    leaf_checkpoint = {
+        "canonical_input_hash": rolling_input["canonical_input_hash"],
+        "partition_id": partition["partition_id"],
+        "partition_index": partition["partition_index"],
+        "headline_ids": partition["headline_ids"],
+        "router_summary": first["router_calls"][0],
+        "output": {
+            "partition_id": partition["partition_id"],
+            "clusters": [
+                row for row in first["leaf_clusters"]
+                if row["partition_id"] == partition["partition_id"]
+            ],
+        },
+    }
+    global_summary = first["router_calls"][-1]
+    accepted_attempt = [
+        row for row in global_summary["attempts"] if row["disposition"] == "accepted"
+    ][0]
+    global_checkpoint = {
+        "canonical_input_hash": rolling_input["canonical_input_hash"],
+        "cutoff_time_utc": rolling_input["cutoff_time_utc"],
+        "global_input_logical_hash": _logical_hash(
+            first["compact_global_editor_input"]
+        ),
+        "ordered_leaf_cluster_ids": [
+            row["id"]
+            for row in first["compact_global_editor_input"]["leaf_cluster_summaries"]
+        ],
+        "global_invocation_id": global_summary["logical_invocation_id"],
+        "work_item_id": global_summary["work_item_id"],
+        "role_task_id": global_summary["role_task_id"],
+        "prompt_template": accepted_attempt["prompt_template"],
+        "prompt_version": global_prompt_version or accepted_attempt["prompt_version"],
+        "governed_input_hash": accepted_attempt["governed_input_hash"],
+        "terminal_disposition": global_summary["terminal_disposition"],
+        "selected_model": global_summary["selected_model"],
+        "accepted_provider_identity": {
+            "gateway": accepted_attempt["gateway"],
+            "requested_model": accepted_attempt["requested_model"],
+            "resolved_model": accepted_attempt["resolved_model"],
+            "provider_invocation_id": accepted_attempt["provider_invocation_id"],
+            "model_identity_provider_verified": accepted_attempt[
+                "model_identity_provider_verified"
+            ],
+        },
+        "router_summary": global_summary,
+        "output": {
+            "decision": first["decision"],
+            "selection_rationale": first["selection_rationale"],
+            "selected_cluster_id": first["selected_cluster_id"],
+            "selected_headline_ids": first["selected_headline_ids"],
+            "ranked_clusters": first["ranked_clusters"],
+            "shortlist_count": len(first["ranked_clusters"]),
+            "evaluated_leaf_cluster_count": len(first["leaf_clusters"]),
+            "global_editor_used_compact_leaf_summaries_only": True,
+            "attention_used_as_factual_truth": False,
+            "router_output_grants_publication_authority": False,
+        },
+    }
+    global_checkpoint["output"]["global_result_logical_hash"] = _logical_hash(
+        global_checkpoint["output"]
+    )
+    global_checkpoint["global_result_logical_hash"] = global_checkpoint["output"][
+        "global_result_logical_hash"
+    ]
+    return first, {partition["partition_id"]: leaf_checkpoint}, global_checkpoint
+
+
+def test_new_global_calls_use_bumped_prompt_version_lineage():
+    assert ROLLING_X_GLOBAL_PROMPT_VERSION == "v4"
+    first, _, _ = _build_checkpoint_bundle(_small_input(), HierarchicalProvider())
+
+    accepted_attempt = [
+        row
+        for row in first["router_calls"][-1]["attempts"]
+        if row["disposition"] == "accepted"
+    ][0]
+    assert accepted_attempt["prompt_version"] == ROLLING_X_GLOBAL_PROMPT_VERSION
+
+
+def test_checkpoint_binding_fails_closed_on_tampered_leaf_order():
+    _, leaf_checkpoints, global_checkpoint = _build_checkpoint_bundle(
+        _small_input(), HierarchicalProvider()
+    )
+    global_checkpoint["ordered_leaf_cluster_ids"] = ["tampered-leaf-id"]
+    calls = []
+
+    try:
+        assign_rolling_x_headlines_with_nine_router(
+            rolling_input=_small_input(),
+            provider_call=lambda *args: calls.append(args),
+            leaf_checkpoints=leaf_checkpoints,
+            global_checkpoint=global_checkpoint,
+        )
+    except ValueError as exc:
+        assert str(exc) == "rolling_x_global_checkpoint_input_binding_invalid"
+    else:
+        raise AssertionError("tampered checkpoint must fail closed")
+    assert calls == []
+
+
+def test_historical_v3_global_checkpoint_remains_truthfully_compatible():
+    rolling_input = _small_input()
+    first, leaf_checkpoints, global_checkpoint = _build_checkpoint_bundle(
+        rolling_input, HierarchicalProvider()
+    )
+    for row in [global_checkpoint, *global_checkpoint["router_summary"]["attempts"]]:
+        row["prompt_version"] = "v3"
+    calls = []
+
+    resumed = assign_rolling_x_headlines_with_nine_router(
+        rolling_input=rolling_input,
+        provider_call=lambda *args: calls.append(args),
+        leaf_checkpoints=leaf_checkpoints,
+        global_checkpoint=global_checkpoint,
+    )
+
+    assert calls == []
+    assert resumed["decision"] == first["decision"]
+    assert resumed["ranked_clusters"] == first["ranked_clusters"]
+    assert resumed["checkpoint_resume"]["global_checkpoint_reused"] is True
+
+
+def test_mixed_prompt_version_checkpoint_attempts_fail_closed():
+    rolling_input = _small_input()
+    _, leaf_checkpoints, global_checkpoint = _build_checkpoint_bundle(
+        rolling_input, HierarchicalProvider()
+    )
+    global_checkpoint["router_summary"]["attempts"][0]["prompt_version"] = "v3"
+    calls = []
+
+    try:
+        assign_rolling_x_headlines_with_nine_router(
+            rolling_input=rolling_input,
+            provider_call=lambda *args: calls.append(args),
+            leaf_checkpoints=leaf_checkpoints,
+            global_checkpoint=global_checkpoint,
+        )
+    except ValueError as exc:
+        assert str(exc) == "rolling_x_global_checkpoint_attempt_binding_invalid"
+    else:
+        raise AssertionError("mixed prompt-version checkpoint must fail closed")
+    assert calls == []
+
+
+def test_all_leaf_checkpoints_reused_makes_zero_leaf_provider_calls():
+    rolling_input = _small_input()
+    first, leaf_checkpoints, _ = _build_checkpoint_bundle(
+        rolling_input, HierarchicalProvider()
+    )
+    resumed_provider = HierarchicalProvider()
+
+    resumed = assign_rolling_x_headlines_with_nine_router(
+        rolling_input=rolling_input,
+        provider_call=resumed_provider,
+        leaf_checkpoints=leaf_checkpoints,
+        global_checkpoint=None,
+    )
+
+    leaf_calls = [call for call in resumed_provider.calls if "leaf_input:\n" in call["prompt"]]
+    assert leaf_calls == []
+    assert len(resumed_provider.calls) == 1
+    assert resumed["checkpoint_resume"]["reused_partition_ids"] == list(leaf_checkpoints)
+    assert resumed["checkpoint_resume"]["called_partition_ids"] == []
+    assert resumed["checkpoint_resume"][
+        "global_editor_called_after_complete_leaf_coverage"
+    ] is True
