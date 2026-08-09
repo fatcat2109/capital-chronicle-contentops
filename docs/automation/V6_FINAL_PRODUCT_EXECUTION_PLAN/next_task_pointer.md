@@ -4,7 +4,7 @@ Authority date: 2026-08-09
 
 Current product-direction classification:
 
-`CONTENTOPS_DAILY_LIVE_V1_PUBLISHABILITY_GATE_AND_PARALLEL_V2_OWNER_DIRECTION`
+`CONTENTOPS_FINAL_DAILY_APP_V1_OWNER_DIRECTION`
 
 Current authority overlay:
 
@@ -12,116 +12,85 @@ Current authority overlay:
 
 Current North Star:
 
-`docs/automation/CONTENTOPS_DAILY_LIVE_V1_NORTH_STAR.md`
+`docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_NORTH_STAR.md`
 
 Current execution master plan:
 
-`docs/automation/CONTENTOPS_DAILY_LIVE_V1_ACCELERATED_LAUNCH_MASTER_PLAN.md`
+`docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_MASTER_PLAN.md`
 
 ## Current exact task
 
-`TASK_CONTENTOPS_V1_CANONICAL_GROUNDED_ARTICLE_MEDIA_BUILDER_AND_PUBLISHABILITY_CANARY_V1`
+`TASK_CONTENTOPS_FINAL_DAILY_APP_ALWAYS_ON_RUNTIME_VERTICAL_SLICE_V1`
 
 Mode:
 
 `AUTONOMOUS_DEFAULT`
 
-## Owner decision
+## User problem
 
-The publishability gate is not reduced.
+ContentOps can execute individual canonical newsroom cycles, but Jim cannot yet start one application and leave it running 24/7 while the system autonomously owns scheduled/material newsroom decisions, publication lifecycle, later metrics, and later learning.
 
-The latest canonical audit proved a missing core subsystem rather than a small wiring defect:
+The latest canonical article/media implementation also has three known blockers that must not be carried into an always-on runtime:
 
-- `run_rolling_x_newsroom_cycle(...)` exposes `article_builder=None` by default;
-- the production orchestrator does not bind a default article builder;
-- after an evidence PASS, the canonical cycle deterministically stops with `STORY_ARTICLE_VISUAL_BUILDER_UNAVAILABLE` when no callable builder is supplied;
-- existing article/media builders are story-family-specific and are not a reusable rolling-X builder.
+1. editorial framing/X-derived `entities_topics` can be rendered as though they were accepted evidence facts;
+2. source-backed deterministic renders blanket-declare `capital_chronicle_owned`, which may overclaim rights in underlying official source/excerpt content;
+3. the Federal Reserve `official_policy` locator route used in the latest fresh canary returned HTTP 404.
 
-Therefore the owner explicitly authorizes building **one canonical grounded article + media builder** for rolling-X Daily Live. This builder is the Tier-1 article/media pipeline, not a second newsroom or second publication system.
+## Capability to deliver now
 
-Do not redefine success to stop before article/review/package generation merely to unlock V2.
-
-## Required capability
-
-Deliver the missing canonical transformation:
+One heavy bounded product task must deliver:
 
 ```text
-accepted ranked cluster
-+ exact story type / article mode
-+ validated evidence receipt
-+ Capital Chronicle authority where required
-→ grounded article + SEO metadata
-→ source-backed deterministic media assets
-→ existing semantic reviewer / bounded reviser
-→ existing native-package builder
-→ existing destination readiness / publication boundary
+correct article/media factual + rights provenance
++ bounded working Federal Reserve official-policy discovery
++ persistent Daily App supervisor
++ deterministic bootstrap EditorialWindowPolicy
++ exact due-window identity/idempotency
++ restart-safe execution through existing durable store
++ material-event wakeup seam using existing discovery metadata
++ canonical newsroom cycle invoked exactly once when due
++ terminal state persisted
++ next wake computed
 ```
 
-The builder must consume only governed evidence/authority already accepted by the canonical cycle. X/social content remains discovery/priority input and cannot become factual evidence.
+The supervisor coordinates only. Actual newsroom/publication work remains under:
 
-The builder must never originate Capital Chronicle analytical/numeric authority.
+`live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator`
 
-## Builder doctrine
+and the existing canonical backend/public facade.
 
-Prefer one reusable contract-driven builder over story-specific prose functions.
+Do not create a second production pipeline, state store, scheduler authority, publisher, provider gateway, or analytics engine.
 
-The builder should use:
-
-- story type + article mode;
-- exact evidence capabilities and source documents;
-- evidence/source hashes and timestamps;
-- authorized numeric claims only when supplied by governed evidence/Capital Chronicle authority;
-- existing 9Router role/provider authority for bounded article generation where useful;
-- deterministic source-backed visual primitives for claims that can be represented without invented data.
-
-Media may include claim-bound document excerpts, timelines, source cards, entity/decision fact cards, maps only when exact governed geography exists, and deterministic charts only when exact governed numeric series exists.
-
-Do not manufacture a chart or image merely to satisfy a visual count. If the release contract requires three assets, produce three distinct source-backed assets only when their underlying evidence supports them; otherwise fail closed.
-
-Do not create:
-
-- a second article pipeline;
-- a second reviewer;
-- a second package builder;
-- a second publisher;
-- generic web research;
-- licensed-news breadth;
-- independent ContentOps market/macro analysis.
-
-## Publishability closure after builder exists
-
-After focused controlled proof of the builder, continue the existing publishability task rather than opening another architecture program:
-
-1. close only evidence-contract/source-path gaps directly justified by recent production, including `policy_decision + straight_news` if still required;
-2. keep analytical modes bound to Capital Chronicle authority;
-3. allow deterministic evidence-reachability metadata to inform ranking without granting factual/evidence/publication authority;
-4. run one fresh canonical publishability canary.
-
-## V2 unlock gate
-
-V2-A is unlocked when one fresh canonical run proves:
+## Demo path
 
 ```text
-fresh current universe
-→ accepted ranking
-→ exact story/article mode
-→ evidence PASS
-→ grounded article
-→ semantic review PASS
-→ source-backed visuals/native package
-→ destination readiness evaluated
+start Daily App supervisor
+→ load durable state + bootstrap EditorialWindowPolicy
+→ detect one due window
+→ call one canonical newsroom cycle
+→ reach valid terminal result (publish or legitimate abstention)
+→ persist window/cycle state
+→ duplicate tick or restart does not duplicate cycle
+→ compute next wake
+→ idle without continuous provider calls
 ```
 
-A successful public write/readback is preferred when exact `READY_*` gates pass, but a fully publishable package reaching the live gate is sufficient when destination readiness is the only remaining external blocker.
+A legitimate `NO_PUBLICATION` is acceptable for this runtime proof.
 
-After this gate:
+## Explicitly deferred from this task
 
-```text
-V1 genuine Daily Live probation continues
-║
-╠→ social destinations continue in parallel
-╚→ V2-A Pro Video Factory may begin in parallel
-```
+Do not implement the entire remaining V1 program at once.
+
+After this vertical slice, the next planned heavy task is real performance observation + bounded learning.
+
+This task does not require:
+
+- final multi-platform metrics collectors;
+- final adaptive schedule optimization;
+- Search Console integration;
+- final V5 UI rebuild;
+- 5–10 day live soak;
+- V2 video.
 
 ## Safety and authority
 
@@ -129,21 +98,40 @@ Capital Chronicle remains the only analytical/numeric authority.
 
 ContentOps must not originate market snapshots, prior closes, valuation, forecasts, scenarios, probabilities, Bayesian outputs, regimes, or analytical economic/market truth.
 
-Public writes remain limited to dynamically verified canonical `READY_AUTHENTICATED` / `READY_NON_BROWSER_BINDING` destinations.
+X/social content remains discovery/editorial input only.
+
+Public writes remain limited to exact dynamically verified canonical:
+
+- `READY_AUTHENTICATED`
+- `READY_NON_BROWSER_BINDING`
 
 Unknown write:
 
 `STOP RETRY → READ BACK → RECONCILE`
 
-Persistent browser roles remain:
+Browser roles remain:
 
-- Chrome `CapitalChronicleBot`, CDP `9222`: ingestion only;
-- Edge `contentops-social-main`, CDP `9223`: publication/readback only.
+- Chrome `CapitalChronicleBot`, CDP 9222: ingestion only;
+- Edge `contentops-social-main`, CDP 9223: publication/media management/readback and only explicitly supported read-only performance observation.
 
 Never inspect/export credential/session material.
 
-## Fast-ship stop rule
+## Stop rule
 
-At the first NEW substantive problem, stop immediately and report only the exact problem, last successful stage, network/provider actions, public/unknown-write state, and what is needed to continue.
+At the first NEW substantive product/runtime/safety blocker, stop immediately and report only:
 
-Do not create closure ceremony, audit-of-audit loops, broad full-suite runs, or repeated speculative correction loops.
+- exact problem;
+- last successful stage;
+- network/provider actions;
+- public/unknown-write state;
+- what is needed to continue.
+
+Do not create closure ceremony or repeated speculative correction loops.
+
+## Expected next task after clean success
+
+`TASK_CONTENTOPS_FINAL_DAILY_APP_REAL_PERFORMANCE_OBSERVATION_AND_LEARNING_LOOP_V1`
+
+unless the supervisor run exposes a new substantive blocker.
+
+V2 Pro Video Factory is deferred until Final Daily App V1 acceptance/freeze unless Jim explicitly reprioritizes.
