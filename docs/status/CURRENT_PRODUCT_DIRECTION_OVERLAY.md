@@ -222,6 +222,17 @@ Persistent browser roles remain:
 
 Never inspect/export cookies, storage, tokens, credentials, or session databases.
 
+Canonical ingestion continuity lock (owner decision, permanent): the canonical X ingestion
+binding is the existing operator-owned `CapitalChronicleBot` persistent profile on Chrome CDP
+`9222` (user-data-dir `%LOCALAPPDATA%\Google\Chrome\User Data\CapitalChronicleBot`, canonical
+route `https://x.com/i/lists/1843870469143048642`). ContentOps must always reuse it and must
+never create, clone, reset, migrate, clean, replace, rename, delete, or silently fall back
+from it. There is no alternate path, no fallback profile, no Default/personal Chrome fallback,
+and no Edge fallback for ingestion. Missing/unusable binding fails closed
+(`PROFILE_BINDING_MISSING` / `PORT_OWNER_UNPROVEN`) and never creates a replacement.
+Provider-side session expiration may require operator reauthentication in that same profile
+only; profile continuity is not provider authentication lifetime.
+
 Unknown public writes remain:
 
 `STOP RETRY → READ BACK → RECONCILE`

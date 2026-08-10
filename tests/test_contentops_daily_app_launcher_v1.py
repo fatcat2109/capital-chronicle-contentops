@@ -186,7 +186,9 @@ def test_unknown_write_and_pending_reconciliation_never_touched():
     snapshot["published"]["unknown_write_count"] = 1
     snapshot["published"]["pending_readback_count"] = 2
     browser_state = {
+        "chrome_profile_binding": "LOCKED",
         "chrome_9222_ingestion_only": "UNAVAILABLE",
+        "x_ingestion_session": "UNAVAILABLE",
         "edge_9223_publishing_only": "READY",
         "edge_reauth_surfaces": [],
         "edge_ready_surfaces": ["SUBSTACK_ARTICLE"],
@@ -243,7 +245,9 @@ def test_summary_never_contains_secret_shaped_material():
             decision=LaunchDecision(outcome="ALREADY_RUNNING", reason="already healthy", canonical_supervisor_count=1),
             snapshot=_healthy_snapshot(),
             browser_state={
+                "chrome_profile_binding": "LOCKED",
                 "chrome_9222_ingestion_only": "UNAVAILABLE",
+                "x_ingestion_session": "UNAVAILABLE",
                 "edge_9223_publishing_only": "READY",
                 "edge_reauth_surfaces": [],
                 "edge_ready_surfaces": ["SUBSTACK_ARTICLE"],

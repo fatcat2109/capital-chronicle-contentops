@@ -48,6 +48,19 @@ schema v9, consumed by the existing supervisor through unchanged gates). The qua
 `POST /api/run-pipeline` remains locked. No public write occurred. The FDA-G soak epoch
 restarted from the corrected final V1 source SHA after one controlled safe idle restart.
 
+`TASK_CONTENTOPS_V1_CHROME_PROFILE_CONTINUITY_LOCK_AND_LAUNCHER_CLOSEOUT_V1`
+
+Owner-confirmed closeout after Jim reauthenticated X in the exact CapitalChronicleBot profile:
+the canonical ingestion binding is now a permanent single-source lock
+(`live_contentops.ingestion_bootstrap_v1.CANONICAL_INGESTION_BINDING`) — always reuse, never
+create/clone/reset/migrate/clean/replace/rename/delete, no fallback profile, missing binding
+fails closed (`PROFILE_BINDING_MISSING`), unproven 9222 owner fails closed. Run Now now
+requires a proven READY canonical ingestion session and creates zero durable trigger on
+`INGESTION_REAUTH_REQUIRED`. Bounded cold-reopen proof passed (graceful close of the exact
+browser → one-click reopen → READY, no duplicate, no new profile). This task does not
+guarantee X server-side session lifetime; it guarantees ContentOps preserves and always reuses
+the exact operator-owned persistent browser state.
+
 ## Next owner-approved builder lane
 
 `TIER2-A LOCAL LONG-FORM + SHORT-FORM PROGRAMMABLE VERTICAL SLICE`

@@ -1,0 +1,69 @@
+{
+  "schema_version": "contentops.chrome_profile_continuity_lock_evidence.v1",
+  "task": "TASK_CONTENTOPS_V1_CHROME_PROFILE_CONTINUITY_LOCK_AND_LAUNCHER_CLOSEOUT_V1",
+  "result": "COMPLETE_IMPLEMENTED_AND_VALIDATED",
+  "authority_date": "2026-08-10",
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "branch": "task/v1-chrome-profile-continuity-lock-v1",
+  "start_head": "b6073b1fa33e4b19d5e61a0a292710ac08836989",
+  "completing_commit_sha": null,
+  "completing_commit_sha_policy": "null_to_avoid_self_referential_commit_bytes; exact SHA reported after push",
+  "canonical_profile_path": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\CapitalChronicleBot",
+  "canonical_cdp_port": 9222,
+  "canonical_role": "INGESTION_ONLY",
+  "canonical_route": "https://x.com/i/lists/1843870469143048642",
+  "browser_family": "CHROME",
+  "profile_binding_locked": true,
+  "single_source_module": "live_contentops/ingestion_bootstrap_v1.py::CANONICAL_INGESTION_BINDING",
+  "current_x_auth_state_before": "READY_CANONICAL_LIST_ROUTE_ACTIVE_NO_LOGIN_REDIRECT_OWNER_PROVEN",
+  "session_probe_method": "visible-URL CDP method only; zero cookie/storage/session/token inspection",
+  "cold_reopen_proof": {
+    "ingestion_idle_before": true,
+    "active_capture_running": false,
+    "closed_pid": 26636,
+    "close_method": "graceful WM_CLOSE of exact proven browser only; no taskkill /F; no all-Chrome termination",
+    "cdp_gone_after_close": true,
+    "launcher_rerun_result": "ALREADY_RUNNING_DAILY_APP_WITH_CHROME_REOPENED_BY_LAUNCHER",
+    "exact_user_data_dir_reopened": true,
+    "cdp_9222_returned": true,
+    "x_session_after_reopen": "READY_CANONICAL_LIST_ROUTE_ACTIVE_NO_LOGIN_REDIRECT",
+    "reopened_browser_pid": 41280
+  },
+  "current_x_auth_state_after": "READY_CANONICAL_LIST_ROUTE_ACTIVE_NO_LOGIN_REDIRECT",
+  "launcher_repeat_count": 3,
+  "ingestion_browser_count_after": 1,
+  "exact_profile_reused": true,
+  "new_profile_created": false,
+  "profile_cloned": false,
+  "profile_reset": false,
+  "profile_deleted": false,
+  "profile_migrated": false,
+  "fallback_profile_available": false,
+  "run_now_reauth_fail_fast": "INGESTION_REAUTH_REQUIRED_AND_INGESTION_SESSION_UNVERIFIED_RETURN_ZERO_DURABLE_TRIGGER_ONLY_READY_ACCEPTS",
+  "durable_trigger_created_when_reauth_required": false,
+  "secret_session_exposure": false,
+  "focused_tests": {
+    "profile_continuity_lock": "13 passed (tests/test_contentops_profile_continuity_lock_v1.py)",
+    "ingestion_launcher_trigger_read_model_cluster": "74 passed"
+  },
+  "production_read_only_proof": "one-click launcher reruns after Jim's login: Chrome Profile Binding LOCKED; Chrome 9222 Ingestion READY; X Ingestion Session READY; Daily App ALREADY_RUNNING; exactly one ingestion browser",
+  "production_restart": {
+    "required": true,
+    "reason": "run-now ingestion fail-fast lives in the Daily App server process",
+    "safe_idle_preflight": "UNKNOWN_WRITE=0, pending reconciliation=0, no dispatch in progress, next wake in the future",
+    "store_preserved": true,
+    "production_epoch_preserved": true
+  },
+  "fda_g_status": "SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE",
+  "fda_g_previous_epochs_preserved": [
+    "fda-g-20260810T081219Z-93d097edf6f0",
+    "fda-g-20260810T111759Z-6626ae80dc5c"
+  ],
+  "protected_v1_0_mutated": false,
+  "v2_public_video_write_authority_granted": false,
+  "hard_blockers": [],
+  "caveats": [
+    "This task does not and cannot guarantee X server-side session lifetime; it guarantees profile continuity only",
+    "no full-suite run and no CI PASS claimed"
+  ]
+}

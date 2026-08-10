@@ -164,6 +164,28 @@ Never create, clone, migrate, clean, delete, or substitute either persistent pro
 inspect or export cookies, browser storage, tokens, credentials, or session databases. The
 authenticated browser state is operator-owned external state and must never be committed.
 
+#### Canonical ingestion continuity lock (permanent)
+
+The canonical X ingestion binding is the existing operator-owned `CapitalChronicleBot`
+persistent profile on Chrome CDP `9222`:
+
+```text
+browser_family   = CHROME
+profile_id       = CapitalChronicleBot
+cdp_port         = 9222
+role             = INGESTION_ONLY
+user_data_dir    = %LOCALAPPDATA%\Google\Chrome\User Data\CapitalChronicleBot
+canonical_route  = https://x.com/i/lists/1843870469143048642
+```
+
+ContentOps must always reuse it and must never create, clone, reset, migrate, clean, replace,
+rename, delete, or silently fall back from it. There is no alternate path, no fallback
+profile, no Default/personal Chrome fallback, and no Edge fallback for ingestion. If the
+binding is missing or cannot be proven (`PROFILE_BINDING_MISSING` / `PORT_OWNER_UNPROVEN`),
+fail closed and never create a replacement. Provider-side session expiration is not a profile
+problem: it may require operator reauthentication in that same profile only. Profile
+continuity != provider authentication lifetime.
+
 ## 7. Canonical live-write authority
 
 The canonical publishing-profile registry remains the only live-write authority. A browser

@@ -39,6 +39,23 @@ LOGIN_REDIRECT_MARKERS = (
     "/login?",
 )
 
+#: Permanent single-source canonical X ingestion binding (owner-locked 2026-08-10).
+#: ContentOps must ALWAYS reuse this exact operator-owned persistent profile and must NEVER
+#: create, clone, migrate, reset, clean, replace, rename, delete, or silently fall back from
+#: it. Missing/unusable binding fails closed. There is no alternate path, no fallback profile,
+#: no Default/personal Chrome fallback, and no Edge fallback for ingestion. Provider-side
+#: session expiration may require operator reauthentication in this same profile only.
+CANONICAL_INGESTION_BINDING = {
+    "browser_family": "CHROME",
+    "profile_id": "CapitalChronicleBot",
+    "cdp_port": 9222,
+    "role": "INGESTION_ONLY",
+    "user_data_dir": "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\CapitalChronicleBot",
+    "canonical_route": "https://x.com/i/lists/1843870469143048642",
+    "profile_binding_locked": True,
+    "fallback_profile_available": False,
+}
+
 STATE_READY = "READY"
 STATE_REAUTH_REQUIRED = "REAUTH_REQUIRED"
 STATE_AUTH_UNVERIFIED = "READY_AUTH_UNVERIFIED"
@@ -49,6 +66,8 @@ STATE_LAUNCHED = "LAUNCHED"
 STATE_ALREADY_READY = "ALREADY_READY"
 STATE_LAUNCH_FAILED = "LAUNCH_FAILED"
 STATE_BINARY_NOT_FOUND = "BINARY_NOT_FOUND"
+STATE_PROFILE_BINDING_MISSING = "PROFILE_BINDING_MISSING"
+BINDING_LOCKED = "LOCKED"
 
 
 class IngestionBootstrapError(RuntimeError):
@@ -180,7 +199,9 @@ def _launch_canonical_ingestion_browser(
         return {"state": STATE_BINARY_NOT_FOUND, "detail": "GOOGLE_CHROME_BINARY_NOT_FOUND", "pid": None}
     profile_dir = canonical_ingestion_user_data_dir(env)
     if not profile_dir.exists():
-        return {"state": STATE_LAUNCH_FAILED, "detail": "EXISTING_DEDICATED_PROFILE_MISSING", "pid": None}
+        # Fail closed. The exact operator-owned profile must already exist; ContentOps never
+        # creates, clones, or replaces it.
+        return {"state": STATE_PROFILE_BINDING_MISSING, "detail": "EXISTING_DEDICATED_PROFILE_MISSING_NEVER_CREATED", "pid": None}
     command = [str(binary), f"--remote-debugging-port={int(cdp_port)}", f"--user-data-dir={profile_dir}"]
     process = subprocess.Popen(
         command,
@@ -199,7 +220,20 @@ def ensure_ingestion_runtime(
     wait_seconds: float = 18.0,
     cdp_port: int = INGESTION_CDP_PORT,
 ) -> dict[str, Any]:
-    """Idempotent bootstrap: reuse a canonical CDP 9222 owner, else start the exact profile once."""
+    """Idempotent bootstrap: reuse a canonical CDP 9222 owner, else start the exact profile once.
+
+    Profile continuity lock: the binding directory must already exist. If it is missing this
+    returns PROFILE_BINDING_MISSING and never creates any directory or replacement profile.
+    """
+    profile_dir = canonical_ingestion_user_data_dir(env)
+    if not profile_dir.exists():
+        return {
+            "state": STATE_PROFILE_BINDING_MISSING,
+            "status": STATE_PROFILE_BINDING_MISSING,
+            "detail": "EXISTING_DEDICATED_PROFILE_MISSING_NEVER_CREATED",
+            "launched": False,
+            "pid": None,
+        }
     current = ingestion_process_state(env=env, cdp_port=cdp_port)
     if current["state"] == STATE_READY:
         return {**current, "status": STATE_ALREADY_READY, "launched": False}
@@ -281,3 +315,48 @@ def one_click_ingestion_bootstrap(
     runtime["auth_state"] = session["auth_state"]
     runtime["auth_detail"] = session.get("detail")
     return runtime
+
+
+def canonical_ingestion_readiness(
+    *,
+    env: Optional[Mapping[str, str]] = None,
+    session_timeout_seconds: float = 25.0,
+) -> dict[str, Any]:
+    """Single-source readiness for the locked canonical ingestion binding.
+
+    Returns:
+      chrome_profile_binding: LOCKED (always the exact operator-owned binding; never replaced)
+        or PROFILE_BINDING_MISSING (fail closed; nothing is ever created).
+      chrome_9222_ingestion: READY | REAUTH_REQUIRED | READY_AUTH_UNVERIFIED | UNAVAILABLE |
+        RUNNING_WITHOUT_CDP | PORT_OWNER_UNPROVEN | PROFILE_BINDING_MISSING | LAUNCH_FAILED.
+      x_ingestion_session: the canonical-route visible-URL auth classification.
+    """
+    profile_dir = canonical_ingestion_user_data_dir(env)
+    binding_state = BINDING_LOCKED if profile_dir.exists() else STATE_PROFILE_BINDING_MISSING
+    result: dict[str, Any] = {
+        "canonical_ingestion_binding": dict(CANONICAL_INGESTION_BINDING),
+        "chrome_profile_binding": binding_state,
+        "fallback_profile_available": False,
+        "profile_created_or_replaced": False,
+    }
+    runtime = ensure_ingestion_runtime(env=env)
+    status = runtime.get("status") or runtime.get("state")
+    if status not in {STATE_ALREADY_READY, STATE_LAUNCHED}:
+        result["chrome_9222_ingestion"] = status or STATE_UNAVAILABLE
+        result["x_ingestion_session"] = runtime.get("detail") or status or STATE_UNAVAILABLE
+        result["detail"] = runtime.get("detail")
+        return result
+    session = probe_ingestion_session(timeout_seconds=session_timeout_seconds)
+    auth_state = session["auth_state"]
+    if auth_state == STATE_READY:
+        result["chrome_9222_ingestion"] = STATE_READY
+    elif auth_state == STATE_REAUTH_REQUIRED:
+        result["chrome_9222_ingestion"] = STATE_REAUTH_REQUIRED
+    elif auth_state == STATE_AUTH_UNVERIFIED:
+        result["chrome_9222_ingestion"] = STATE_AUTH_UNVERIFIED
+    else:
+        result["chrome_9222_ingestion"] = STATE_UNAVAILABLE
+    result["x_ingestion_session"] = auth_state
+    result["session_detail"] = session.get("detail")
+    result["launched"] = bool(runtime.get("launched"))
+    return result

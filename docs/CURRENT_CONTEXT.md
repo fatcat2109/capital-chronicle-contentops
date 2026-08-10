@@ -185,6 +185,15 @@ Public writes only under exact deterministic READY gates.
 
 Never inspect/export cookies, storage, tokens, credentials, or session databases.
 
+Canonical ingestion continuity lock (owner decision, permanent): the canonical X ingestion
+binding is the existing operator-owned `CapitalChronicleBot` persistent profile on Chrome CDP
+9222 (user-data-dir `%LOCALAPPDATA%\Google\Chrome\User Data\CapitalChronicleBot`). ContentOps
+always reuses it and never creates/clones/resets/migrates/cleans/replaces/renames/deletes it;
+there is no fallback profile (no Default/personal Chrome, no Edge). Missing/unusable binding
+fails closed. Provider-side session expiration may require operator reauthentication in that
+same profile only; profile continuity != provider authentication lifetime. Run Now accepts a
+new operator trigger only when the canonical ingestion session is proven READY.
+
 Unknown writes:
 
 `STOP RETRY → READ BACK → RECONCILE`

@@ -768,9 +768,10 @@ def request_operator_cycle(
     from uuid import uuid4
 
     from live_contentops.ingestion_bootstrap_v1 import (
-        STATE_ALREADY_READY,
-        STATE_LAUNCHED,
-        ensure_ingestion_runtime,
+        STATE_AUTH_UNVERIFIED,
+        STATE_READY,
+        STATE_REAUTH_REQUIRED,
+        canonical_ingestion_readiness,
     )
 
     store = ContentOpsDurableStore(Path(store_path), auto_migrate=False)
@@ -808,16 +809,38 @@ def request_operator_cycle(
             "publication_claimed": False,
             "note": "A canonical editorial cycle is executing; no parallel cycle is started.",
         }
-    ingestion = ensure_ingestion_runtime(wait_seconds=15.0)
-    if ingestion.get("status") not in {STATE_ALREADY_READY, STATE_LAUNCHED}:
+    readiness = canonical_ingestion_readiness(session_timeout_seconds=20.0)
+    chrome_state = str(readiness.get("chrome_9222_ingestion") or "")
+    if chrome_state == STATE_REAUTH_REQUIRED:
         return {
-            "status": "INGESTION_UNAVAILABLE",
+            "status": "INGESTION_REAUTH_REQUIRED",
             "governed_cycle_requested": False,
             "operating_mode": mode,
             "publication_claimed": False,
-            "ingestion_state": ingestion.get("state"),
-            "detail": ingestion.get("detail"),
-            "note": "Canonical Chrome 9222 ingestion could not be proven; no cycle was requested.",
+            "chrome_profile_binding": readiness.get("chrome_profile_binding"),
+            "detail": readiness.get("session_detail") or "LOGIN_REDIRECT_OBSERVED",
+            "note": (
+                "The exact CapitalChronicleBot profile is open but the X session requires "
+                "operator reauthentication. No durable trigger was created. Profile continuity "
+                "is locked; reauthenticate in that same profile only."
+            ),
+        }
+    if chrome_state != STATE_READY:
+        if chrome_state == STATE_AUTH_UNVERIFIED:
+            status_name = "INGESTION_SESSION_UNVERIFIED"
+        elif chrome_state == "PROFILE_BINDING_MISSING":
+            status_name = "INGESTION_PROFILE_BINDING_MISSING"
+        else:
+            status_name = "INGESTION_UNAVAILABLE"
+        return {
+            "status": status_name,
+            "governed_cycle_requested": False,
+            "operating_mode": mode,
+            "publication_claimed": False,
+            "chrome_profile_binding": readiness.get("chrome_profile_binding"),
+            "ingestion_state": chrome_state,
+            "detail": readiness.get("detail") or readiness.get("session_detail"),
+            "note": "Canonical Chrome 9222 ingestion could not be proven READY; no cycle was requested.",
         }
     trigger_id = "operator-trigger-" + uuid4().hex[:24]
     try:

@@ -31,8 +31,9 @@ def test_ingestion_command_line_identity_requires_exact_profile():
     assert bootstrap._is_ingestion_command_line("", profile) is False
 
 
-def test_ensure_reuses_existing_canonical_ingestion_runtime(monkeypatch):
+def test_ensure_reuses_existing_canonical_ingestion_runtime(tmp_path, monkeypatch):
     launches = []
+    monkeypatch.setattr(bootstrap, "canonical_ingestion_user_data_dir", lambda env=None: tmp_path)
     monkeypatch.setattr(
         bootstrap, "ingestion_process_state",
         lambda **kwargs: {"state": bootstrap.STATE_READY, "detail": "CANONICAL", "pid": 123},
@@ -44,7 +45,7 @@ def test_ensure_reuses_existing_canonical_ingestion_runtime(monkeypatch):
     assert launches == []
 
 
-def test_ensure_launches_exact_profile_once_when_absent(monkeypatch):
+def test_ensure_launches_exact_profile_once_when_absent(tmp_path, monkeypatch):
     state = {"current": bootstrap.STATE_UNAVAILABLE}
 
     def fake_state(**kwargs):
@@ -57,6 +58,7 @@ def test_ensure_launches_exact_profile_once_when_absent(monkeypatch):
         state["current"] = bootstrap.STATE_READY
         return {"state": bootstrap.STATE_LAUNCHED, "detail": "EXISTING_DEDICATED_INGESTION_PROFILE_STARTED", "pid": 999}
 
+    monkeypatch.setattr(bootstrap, "canonical_ingestion_user_data_dir", lambda env=None: tmp_path)
     monkeypatch.setattr(bootstrap, "ingestion_process_state", fake_state)
     monkeypatch.setattr(bootstrap, "_launch_canonical_ingestion_browser", fake_launch)
     first = bootstrap.ensure_ingestion_runtime(env=FAKE_ENV, wait_seconds=1.0)
@@ -68,8 +70,9 @@ def test_ensure_launches_exact_profile_once_when_absent(monkeypatch):
     assert len(launches) == 1
 
 
-def test_ensure_fails_closed_on_unknown_port_owner(monkeypatch):
+def test_ensure_fails_closed_on_unknown_port_owner(tmp_path, monkeypatch):
     launches = []
+    monkeypatch.setattr(bootstrap, "canonical_ingestion_user_data_dir", lambda env=None: tmp_path)
     monkeypatch.setattr(
         bootstrap, "ingestion_process_state",
         lambda **kwargs: {"state": bootstrap.STATE_PORT_OWNER_UNPROVEN, "detail": "x", "pid": 7},
@@ -81,8 +84,9 @@ def test_ensure_fails_closed_on_unknown_port_owner(monkeypatch):
     assert launches == []
 
 
-def test_ensure_never_creates_duplicate_when_profile_running_without_cdp(monkeypatch):
+def test_ensure_never_creates_duplicate_when_profile_running_without_cdp(tmp_path, monkeypatch):
     launches = []
+    monkeypatch.setattr(bootstrap, "canonical_ingestion_user_data_dir", lambda env=None: tmp_path)
     monkeypatch.setattr(
         bootstrap, "ingestion_process_state",
         lambda **kwargs: {"state": bootstrap.STATE_RUNNING_WITHOUT_CDP, "detail": "x", "pid": 55},

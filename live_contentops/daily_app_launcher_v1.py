@@ -23,16 +23,19 @@ from pathlib import Path
 from typing import Any, Mapping, Optional
 
 from live_contentops.ingestion_bootstrap_v1 import (
+    BINDING_LOCKED,
     INGESTION_CDP_PORT,
     PUBLISHING_CDP_PORT,
     STATE_ALREADY_READY,
     STATE_AUTH_UNVERIFIED,
     STATE_LAUNCHED,
     STATE_PORT_OWNER_UNPROVEN,
+    STATE_PROFILE_BINDING_MISSING,
     STATE_READY,
     STATE_REAUTH_REQUIRED,
     STATE_RUNNING_WITHOUT_CDP,
     STATE_UNAVAILABLE,
+    canonical_ingestion_readiness,
     one_click_ingestion_bootstrap,
     probe_cdp,
 )
@@ -389,11 +392,18 @@ def summarize_browser_state(
         ingestion_state = STATE_READY if chrome.get("cdp_alive") else STATE_UNAVAILABLE
         ingestion_detail = "CDP_PROBE_ONLY"
         auth_state = None
+        binding_state = "NOT_CHECKED"
+    elif "chrome_9222_ingestion" in ingestion_runtime:
+        ingestion_state = str(ingestion_runtime.get("chrome_9222_ingestion") or STATE_UNAVAILABLE)
+        ingestion_detail = str(ingestion_runtime.get("session_detail") or ingestion_runtime.get("detail") or ingestion_state)
+        auth_state = ingestion_runtime.get("x_ingestion_session")
+        binding_state = str(ingestion_runtime.get("chrome_profile_binding") or BINDING_LOCKED)
     else:
         status = str(ingestion_runtime.get("status") or ingestion_runtime.get("state") or "")
         ingestion_state = status
         ingestion_detail = str(ingestion_runtime.get("detail") or ingestion_runtime.get("state") or "")
         auth_state = ingestion_runtime.get("auth_state")
+        binding_state = BINDING_LOCKED if status != STATE_PROFILE_BINDING_MISSING else STATE_PROFILE_BINDING_MISSING
     if ingestion_state in {STATE_ALREADY_READY, STATE_LAUNCHED}:
         if auth_state == STATE_REAUTH_REQUIRED:
             chrome_state = "REAUTH_REQUIRED"
@@ -401,10 +411,18 @@ def summarize_browser_state(
             chrome_state = "READY"
         else:
             chrome_state = "READY_AUTH_UNVERIFIED"
+    elif ingestion_state == STATE_READY:
+        chrome_state = "READY"
+    elif ingestion_state == STATE_REAUTH_REQUIRED:
+        chrome_state = "REAUTH_REQUIRED"
+    elif ingestion_state == STATE_AUTH_UNVERIFIED:
+        chrome_state = "READY_AUTH_UNVERIFIED"
     elif ingestion_state == STATE_PORT_OWNER_UNPROVEN:
         chrome_state = "BLOCKED_PORT_OWNER_UNPROVEN"
     elif ingestion_state == STATE_RUNNING_WITHOUT_CDP:
         chrome_state = "RUNNING_WITHOUT_CDP"
+    elif ingestion_state == STATE_PROFILE_BINDING_MISSING:
+        chrome_state = "PROFILE_BINDING_MISSING"
     else:
         chrome_state = "UNAVAILABLE"
     edge = probe_cdp(PUBLISHING_CDP_PORT)
@@ -428,8 +446,10 @@ def summarize_browser_state(
     else:
         edge_state = "UNAVAILABLE"
     return {
+        "chrome_profile_binding": binding_state,
         "chrome_9222_ingestion_only": chrome_state,
         "chrome_9222_detail": ingestion_detail,
+        "x_ingestion_session": auth_state if auth_state is not None else chrome_state,
         "edge_9223_publishing_only": edge_state,
         "edge_reauth_surfaces": reauth_surfaces,
         "edge_ready_surfaces": ready_surfaces,
@@ -533,7 +553,9 @@ def render_summary(
         f"Store: schema {authority.get('store_schema_version', schema_version if schema_version is not None else 'unknown')} / integrity NOT_PROBED_BY_LAUNCHER",
         f"Store Path: {store_path} ({'REUSED' if store_exists else 'ABSENT'})",
         f"Next Wake: {runtime.get('next_wake_utc', 'UNAVAILABLE')}",
+        f"Chrome Profile Binding: {browser_state['chrome_profile_binding']}",
         f"Chrome 9222 Ingestion: {browser_state['chrome_9222_ingestion_only']}",
+        f"X Ingestion Session: {browser_state['x_ingestion_session']}",
         f"Edge 9223 Publishing: {browser_state['edge_9223_publishing_only']}",
         f"V5 UI: {ui_state['status']}" + (f" ({ui_state['url']})" if ui_state.get("url") else ""),
         f"Unknown Write: {unknown_write_count}",
@@ -546,7 +568,8 @@ def render_summary(
         inventory_report,
         "",
         "Browser roles: Chrome 9222 = ingestion only; Edge 9223 = publishing/readback only.",
-        "Chrome 9222 REAUTH_REQUIRED means the exact profile is open and waits for operator sign-in; login is never automated.",
+        "Chrome Profile Binding LOCKED: ContentOps always reuses the exact CapitalChronicleBot profile and never creates/clones/resets/replaces/deletes it; missing binding fails closed.",
+        "Chrome 9222 REAUTH_REQUIRED means the exact profile is open and waits for operator sign-in; login is never automated; provider session expiry != profile continuity.",
         "Host downtime is external availability loss, not database failure; durable state was never reset.",
     ]
     if decision.outcome.startswith("BLOCKED"):
@@ -649,7 +672,7 @@ def run_launcher(argv: list[str] | None = None) -> int:
     if args.no_ingestion_bootstrap:
         ingestion_runtime: Optional[dict[str, Any]] = None
     else:
-        ingestion_runtime = one_click_ingestion_bootstrap()
+        ingestion_runtime: Optional[dict[str, Any]] = canonical_ingestion_readiness()
     browser_state = summarize_browser_state(snapshot, ingestion_runtime=ingestion_runtime)
     ui_state = ensure_ui(enabled=not args.no_ui, log_root=log_root, snapshot_available=snapshot is not None)
     if ui_state["status"] in {"READY", "ALREADY_READY"} and ui_state["url"] and not args.no_open_browser:
