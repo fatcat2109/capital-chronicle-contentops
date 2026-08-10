@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import App from '../App';
 import type { DailyAppSnapshot } from '../dailyAppTypes';
-import { DailyAppConsole } from '../views/DailyAppConsole';
+import { DailyAppConsole, formatUtcDateTime } from '../views/DailyAppConsole';
 
 function snapshot(overrides: Partial<DailyAppSnapshot> = {}): DailyAppSnapshot {
   const base: DailyAppSnapshot = {
@@ -32,7 +32,7 @@ function respond(data: DailyAppSnapshot) {
   vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => data }));
 }
 
-afterEach(() => { vi.unstubAllGlobals(); });
+afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
 
 describe('Final Daily App production console', () => {
   it('renders final navigation and sparse real-state Today without a fake cycle', async () => {
@@ -83,6 +83,34 @@ describe('Final Daily App production console', () => {
     expect(screen.queryByText('Active learned policy')).not.toBeInTheDocument();
   });
 
+  it('renders every UTC-semantic queue timestamp explicitly in UTC', async () => {
+    const canonicalTime = '2026-08-10T13:00:00Z';
+    const data = snapshot({
+      queue: { ...snapshot().queue, items: [{
+        queue_id: 'window-utc', title: 'core_daily', state: 'CONFIGURED_DEFAULT',
+        created_at_utc: canonicalTime, due_at_utc: canonicalTime,
+        observation_for_utc: canonicalTime, missing_at_utc: null,
+      }] },
+    });
+    respond(data); render(<DailyAppConsole />);
+    await screen.findByText('No governed cycle recorded');
+    fireEvent.click(screen.getByRole('button', { name: /^queue$/i }));
+    expect(screen.getAllByText('Aug 10, 2026, 13:00 UTC')).toHaveLength(3);
+    expect(screen.getByText('Missing At Utc').nextElementSibling).toHaveTextContent('Unavailable');
+    expect(screen.getByText('Configured Default')).toBeInTheDocument();
+  });
+
+  it('keeps canonical UTC display invariant across materially different host timezones', () => {
+    const canonicalTime = '2026-08-10T13:00:00Z';
+    vi.stubEnv('TZ', 'America/New_York');
+    const newYork = formatUtcDateTime(canonicalTime);
+    vi.stubEnv('TZ', 'Asia/Bangkok');
+    const Bangkok = formatUtcDateTime(canonicalTime);
+    expect(newYork).toBe('Aug 10, 2026, 13:00 UTC');
+    expect(Bangkok).toBe(newYork);
+    expect(formatUtcDateTime(null)).toBe('Unavailable');
+  });
+
   it('preserves exact safe destination identity while showing readiness evidence', async () => {
     const data = snapshot({
       platforms: { destinations: [{
@@ -94,6 +122,8 @@ describe('Final Daily App production console', () => {
     respond(data); render(<DailyAppConsole />);
     await screen.findByText('No governed cycle recorded');
     fireEvent.click(screen.getByRole('button', { name: /^platforms$/i }));
+    expect(screen.getByText(/canonical readiness, verified safe identity/i)).toBeInTheDocument();
+    expect(screen.queryByText(/readiness remains unavailable/i)).not.toBeInTheDocument();
     expect(screen.getByText('@CapitalChronicle')).toBeInTheDocument();
     expect(screen.getByText('Yes')).toBeInTheDocument();
     expect(screen.getByText('Edge Cdp')).toBeInTheDocument();

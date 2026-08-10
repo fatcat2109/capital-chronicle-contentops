@@ -59,10 +59,15 @@ function words(value: unknown): string {
   return String(value).replace(/_/g, ' ').toLowerCase().replace(/(^|\s)\S/g, (c: string) => c.toUpperCase());
 }
 
-function dateTime(value: unknown): string {
+const UTC_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+export function formatUtcDateTime(value: unknown): string {
   if (!value) return 'Unavailable';
   const date = new Date(String(value));
-  return Number.isNaN(date.valueOf()) ? String(value) : date.toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+  if (Number.isNaN(date.valueOf())) return 'Invalid timestamp';
+  const hour = String(date.getUTCHours()).padStart(2, '0');
+  const minute = String(date.getUTCMinutes()).padStart(2, '0');
+  return `${UTC_MONTHS[date.getUTCMonth()]} ${date.getUTCDate()}, ${date.getUTCFullYear()}, ${hour}:${minute} UTC`;
 }
 
 function statusTone(value: unknown): 'good' | 'warn' | 'bad' | 'neutral' {
@@ -94,7 +99,7 @@ function displayValue(key: string, value: unknown): string {
   if (value === null || value === undefined || value === '') return 'Unavailable';
   if (typeof value === 'object') return JSON.stringify(value);
   if (typeof value === 'boolean') return value ? 'Yes' : 'No';
-  if (/(?:_at_utc|_for_utc|^due_at_utc$)/.test(key)) return dateTime(value);
+  if (/_utc$/.test(key)) return formatUtcDateTime(value);
   const text = String(value);
   return /^[A-Z][A-Z0-9_]*$/.test(text) ? words(text) : text;
 }
@@ -111,8 +116,8 @@ function Today({ data }: { data: DailyAppSnapshot }) {
   return <div className="daily-view">
     <div className="daily-first-fold">
       <Panel title="Operating mode" eyebrow="Control posture"><Status value={data.runtime.operating_mode} /><p>{data.controls.semantics[data.runtime.operating_mode]}</p><Status value={data.runtime.kill_switch_active ? 'KILL_SWITCH_ACTIVE' : 'KILL_SWITCH_DISENGAGED'} /></Panel>
-      <Panel title="Controller health" eyebrow="Runtime"><Status value={data.runtime.controller_health} /><p>Last heartbeat: {dateTime(data.runtime.latest_heartbeat_at_utc)}</p></Panel>
-      <Panel title="Next safe action" eyebrow="Operator"><p className="daily-callout">{nextAction}</p><p>Next wake: {dateTime(data.runtime.next_wake_utc)}</p><Status value={data.runtime.next_editorial_window?.provenance ?? 'WINDOW_PROVENANCE_UNAVAILABLE'} /></Panel>
+      <Panel title="Controller health" eyebrow="Runtime"><Status value={data.runtime.controller_health} /><p>Last heartbeat: {formatUtcDateTime(data.runtime.latest_heartbeat_at_utc)}</p></Panel>
+      <Panel title="Next safe action" eyebrow="Operator"><p className="daily-callout">{nextAction}</p><p>Next wake: {formatUtcDateTime(data.runtime.next_wake_utc)}</p><Status value={data.runtime.next_editorial_window?.provenance ?? 'WINDOW_PROVENANCE_UNAVAILABLE'} /></Panel>
       <Panel title="Active incidents" eyebrow="Safety"><strong className="daily-big-number">{data.incidents.active_count}</strong><Status value={data.incidents.active_count ? 'ATTENTION_REQUIRED' : 'NO_ACTIVE_INCIDENTS'} /></Panel>
     </div>
     <Panel title="Current cycle" eyebrow="Today">
@@ -162,7 +167,7 @@ function Learning({ data }: { data: DailyAppSnapshot }) {
 }
 
 function Platforms({ data }: { data: DailyAppSnapshot }) {
-  return <div className="daily-view"><ViewTitle title="Platforms" detail="Readiness remains unavailable until verified by the canonical publishing authority." />
+  return <div className="daily-view"><ViewTitle title="Platforms" detail="Canonical readiness, verified safe identity, readback, and metrics availability by destination." />
     <div className="daily-platform-grid">{data.platforms.destinations.map(item => <article className="daily-platform" key={String(item.platform_id)}><div><strong>{String(item.display_name)}</strong><small>{words(item.binding_class)}</small></div><Status value={item.readiness} /><DefinitionRows object={{ safe_identity: item.safe_identity, identity_match: item.identity_match, transport_type: item.transport_type, probed_at_utc: item.probed_at_utc, last_dispatch_state: item.last_dispatch_state, last_successful_readback_at_utc: item.last_successful_readback_at_utc, metrics_capability: item.metrics_capability, next_metric_availability: item.next_metric_availability, pending_incident: item.pending_incident }} /></article>)}</div>
   </div>;
 }

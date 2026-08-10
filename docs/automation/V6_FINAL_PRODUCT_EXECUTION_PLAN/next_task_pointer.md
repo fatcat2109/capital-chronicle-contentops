@@ -6,16 +6,17 @@ Current product direction: `CONTENTOPS_FINAL_DAILY_APP_V1_OWNER_DIRECTION`
 
 ## Current exact task
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_FINAL_V5_UI_TRUTH_CORRECTION_AND_BROWSER_QA_CLOSURE_V1`
+`TASK_CONTENTOPS_FINAL_DAILY_APP_FINAL_V5_UI_VISUAL_ACCEPTANCE_CLOSURE_V2`
 
 Mode: `SHADOW_ONLY` for browser QA unless the exact task explicitly authorizes otherwise.
 
 Result: `QA_CAPTURE_COMPLETE_AWAITING_CHATGPT_VISUAL_REVIEW`
 
-The Final V5 implementation and complete browser capture matrix are complete. The canonical
-schema-v8 store remained byte-exact and no public, provider, browser-publication, or mode-control
-write occurred. The exact immutable commit SHA is recorded by remote readback and the final task
-packet; it cannot be embedded in the content-addressed commit that contains this pointer.
+The Final V5 implementation and complete browser capture matrix are complete. Canonical UTC
+timestamps are rendered deterministically with explicit UTC semantics. The canonical schema-v8
+store remained byte-exact and no public, provider, browser-publication, or mode-control write
+occurred. The exact immutable commit SHA is recorded by remote readback and the final task packet;
+it cannot be embedded in the content-addressed commit that contains this pointer.
 
 ## Completed immediately prior
 
