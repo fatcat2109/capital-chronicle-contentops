@@ -1,0 +1,99 @@
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import App from '../App';
+import type { DailyAppSnapshot } from '../dailyAppTypes';
+import { DailyAppConsole } from '../views/DailyAppConsole';
+
+function snapshot(overrides: Partial<DailyAppSnapshot> = {}): DailyAppSnapshot {
+  const base: DailyAppSnapshot = {
+    schema_version: 'contentops.daily_app_ui_snapshot.v1', generated_at_utc: '2026-08-10T12:00:00Z',
+    freshness: { state: 'STALE', source_last_updated_at_utc: '2026-08-10T11:00:00Z', source_age_seconds: 3600, fresh_threshold_seconds: 300, provenance: 'canonical durable store timestamps' },
+    runtime: { app_identity: 'Capital Chronicle ContentOps V1 — Daily App', operating_mode: 'AUTONOMOUS_DEFAULT', mode_state_version: 1, mode_updated_at_utc: '2026-08-10T12:00:00Z', mode_control_source: 'TEST', kill_switch_active: false, controller_health: 'HEALTHY', latest_heartbeat_at_utc: '2026-08-10T12:00:00Z', production_epoch_start_utc: null, last_tick_state: 'NO_TICK_RECORDED', last_tick_at_utc: null, next_wake_utc: null, next_editorial_window: null, headline_freshness: 'HEADLINE_FRESHNESS_METADATA_UNAVAILABLE', provider_invocation_count: 0, prompt_tokens: 0, completion_tokens: 0, cost_metadata: 'COST_METADATA_UNAVAILABLE' },
+    today: { current_cycle: null, pending_lifecycle_recovery_count: 1, immediate_incident_count: 1 },
+    queue: { items: [], upcoming_editorial_windows: [], material_event_wake_state: 'MATERIAL_EVENT_METADATA_UNAVAILABLE', active_or_held_work_count: 0, pending_readback_count: 1, due_performance_observation_count: 0 },
+    published: { objects: [
+      { dispatch_id: 'd-real', platform: 'substack', lifecycle_classification: 'REAL_PUBLICATION_CONFIRMED', public_object_id: 'object-1' },
+      { dispatch_id: 'd-controlled', platform: 'telegram', lifecycle_classification: 'CONTROLLED_NO_PUBLIC_WRITE', public_object_id: null },
+      { dispatch_id: 'd-unknown', platform: 'x', lifecycle_classification: 'UNKNOWN_WRITE', public_object_id: null },
+      { dispatch_id: 'd-pending', platform: 'linkedin', lifecycle_classification: 'CONFIRMED_DISPATCH_PENDING_READBACK', public_object_id: 'object-2' },
+    ], real_publication_count: 1, controlled_no_public_write_count: 1, unknown_write_count: 1, pending_readback_count: 1, empty_reason: null },
+    performance: { observations: [{ observation_id: 'obs-1', platform: 'substack', collection_status: 'SCHEDULED', metric_availability: { shares: 'UNAVAILABLE' }, native_metrics: {} }], real_observation_count: 1, empty_reason: null, empty_detail: null },
+    learning: { active_policy: null, policy_history: [], empty_reason: 'NO_LEARNING_UPDATE_YET', configured_default: { policy_version: 'bootstrap', provenance: 'CONFIGURED_DEFAULT', sample_count: 0, confidence: 'BOOTSTRAP_NOT_LEARNED' } },
+    platforms: { destinations: [{ platform_id: 'substack', display_name: 'Substack', binding_class: 'BROWSER_AUTHENTICATED', readiness: 'READINESS_UNAVAILABLE_NOT_PERSISTED', write_eligible: false, last_dispatch_state: 'REAL_PUBLICATION_CONFIRMED', metrics_capability: 'OBSERVATION_RECORDED', pending_incident: false }] },
+    incidents: { items: [{ incident_id: 'incident-1', severity: 'CRITICAL', what_happened: 'UNKNOWN_WRITE', safe_now: 'Automatic retry is stopped.', automatic_action: 'Read back.', operator_action: 'Do not retry blindly.', work_item_id: 'w1' }], active_count: 1, empty_reason: null },
+    controls: { current_mode: 'AUTONOMOUS_DEFAULT', state_version: 1, updated_at_utc: '2026-08-10T12:00:00Z', control_source: 'TEST', allowed_modes: ['AUTONOMOUS_DEFAULT', 'SUPERVISED_OPERATOR_GATE', 'SHADOW_ONLY', 'KILL_SWITCH'], write_endpoint: '/api/daily-app/control/mode', semantics: { AUTONOMOUS_DEFAULT: 'Routine automation; gates remain.', SUPERVISED_OPERATOR_GATE: 'Pause before writes.', SHADOW_ONLY: 'Zero public writes.', KILL_SWITCH: 'Block new public writes.' }, unsafe_controls_available: false },
+    authority: { fixture_fallback: false, snapshot_mutates_lifecycle: false },
+    audit: { work_item_count: 0, transition_event_count: 0, artifact_reference_count: 0, review_record_count: 0, recent_events: [], state_counts: {}, provenance: 'canonical' },
+  };
+  return { ...base, ...overrides };
+}
+
+function respond(data: DailyAppSnapshot) {
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => data }));
+}
+
+afterEach(() => { vi.unstubAllGlobals(); });
+
+describe('Final Daily App production console', () => {
+  it('renders final navigation and sparse real-state Today without a fake cycle', async () => {
+    respond(snapshot()); render(<DailyAppConsole />);
+    expect(await screen.findByText('No governed cycle recorded')).toBeInTheDocument();
+    for (const label of ['Today', 'Queue', 'Published', 'Performance', 'Learning', 'Platforms', 'Incidents', 'Controls', 'Evidence / Audit']) {
+      expect(screen.getByRole('button', { name: new RegExp(label, 'i') })).toBeInTheDocument();
+    }
+    expect(screen.queryByText(/fake current success/i)).not.toBeInTheDocument();
+  });
+
+  it('keeps real, controlled, unknown, and pending publication states distinct', async () => {
+    respond(snapshot()); render(<DailyAppConsole />);
+    await screen.findByText('No governed cycle recorded');
+    fireEvent.click(screen.getByRole('button', { name: /^published$/i }));
+    expect(screen.getAllByText('Real Publication Confirmed').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Controlled No Public Write').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Unknown Write').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Confirmed Dispatch Pending Readback').length).toBeGreaterThan(0);
+  });
+
+  it('renders unavailable native metrics and configured bootstrap as unavailable/not learned', async () => {
+    respond(snapshot()); render(<DailyAppConsole />);
+    await screen.findByText('No governed cycle recorded');
+    fireEvent.click(screen.getByRole('button', { name: /^performance$/i }));
+    expect(screen.getByText(/"shares":"UNAVAILABLE"/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /^learning$/i }));
+    expect(screen.getByText('Configured default')).toBeInTheDocument();
+    expect(screen.getByText('Bootstrap Not Learned')).toBeInTheDocument();
+  });
+
+  it('never falls back to fixtures when the API is offline', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('loopback offline')));
+    render(<DailyAppConsole />);
+    expect(await screen.findByText('Operating state unavailable')).toBeInTheDocument();
+    expect(screen.getByText(/no fixture or fallback data is shown/i)).toBeInTheDocument();
+    expect(screen.queryByText('No governed cycle recorded')).not.toBeInTheDocument();
+  });
+
+  it('shows kill switch prominently and posts an exact CAS-only control payload', async () => {
+    const killed = snapshot({
+      runtime: { ...snapshot().runtime, operating_mode: 'KILL_SWITCH', kill_switch_active: true },
+      controls: { ...snapshot().controls, current_mode: 'KILL_SWITCH', state_version: 4 },
+    });
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce({ ok: true, status: 200, json: async () => killed })
+      .mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ status: 'OPERATING_MODE_UPDATED' }) })
+      .mockResolvedValue({ ok: true, status: 200, json: async () => ({ ...killed, runtime: { ...killed.runtime, operating_mode: 'SHADOW_ONLY', kill_switch_active: false }, controls: { ...killed.controls, current_mode: 'SHADOW_ONLY', state_version: 5 } }) });
+    vi.stubGlobal('fetch', fetchMock); render(<DailyAppConsole />);
+    await screen.findByText('No governed cycle recorded');
+    fireEvent.click(screen.getByRole('button', { name: /^controls$/i }));
+    await screen.findByText(/kill switch is active/i);
+    fireEvent.click(screen.getByRole('button', { name: /shadow only/i }));
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(3));
+    const [, init] = fetchMock.mock.calls[1];
+    expect(JSON.parse(String(init.body))).toEqual({ operating_mode: 'SHADOW_ONLY', expected_state_version: 4 });
+    expect(String(fetchMock.mock.calls[1][0])).toContain('/api/daily-app/control/mode');
+  });
+
+  it('keeps the historical fixture app persistently labeled as non-authoritative', () => {
+    render(<App />);
+    expect(screen.getByText(/controlled fixture · not runtime authority/i)).toBeInTheDocument();
+  });
+});

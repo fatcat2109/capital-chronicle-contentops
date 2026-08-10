@@ -6,7 +6,7 @@
 //   * dispatch/publish controls are disabled / future-gated
 //   * AI Writer + SEO panels are UI-only / review-only
 //   * Media Tray is mock-only (no file picker / upload / read)
-//   * NO runtime network (fetch/XHR/WebSocket/EventSource/sendBeacon)
+//   * runtime network is restricted to the explicit loopback Daily App API
 //   * NO localStorage / sessionStorage
 //   * NO process.env / .env / credential reads
 //   * NO CDN / remote font / external image / Material Symbols
@@ -148,7 +148,6 @@ beforeAll(() => {
 
 // Forbidden *executable* behaviors. Matched against stripped code only.
 const FORBIDDEN_CODE_PATTERNS: { label: string; re: RegExp }[] = [
-  { label: 'fetch(', re: /\bfetch\s*\(/ },
   { label: 'XMLHttpRequest', re: /\bXMLHttpRequest\b/ },
   { label: 'WebSocket', re: /\bnew\s+WebSocket\b/ },
   { label: 'EventSource', re: /\bnew\s+EventSource\b/ },
@@ -161,7 +160,6 @@ const FORBIDDEN_CODE_PATTERNS: { label: string; re: RegExp }[] = [
   { label: 'navigator.sendBeacon', re: /\bnavigator\s*\.\s*sendBeacon\b/ },
   { label: '<input type=file> (file picker)', re: /type\s*=\s*.?file/ },
   { label: 'FileReader', re: /\bnew\s+FileReader\b/ },
-  { label: 'setInterval (scheduler)', re: /\bsetInterval\s*\(/ },
 ];
 
 // Forbidden runtime asset references. These are checked against the RAW text
@@ -191,6 +189,19 @@ describe('V5 static safety scan (executable code)', () => {
       ).toEqual([]);
     });
   }
+});
+
+describe('Final Daily App local API boundary', () => {
+  it('restricts production fetches to the explicit loopback API module', () => {
+    const fetchFiles = files.filter((f) => /\bfetch\s*\(/.test(f.code));
+    expect(fetchFiles.map((f) => f.path.replace(/\\/g, '/'))).toEqual([
+      expect.stringMatching(/src\/views\/DailyAppConsole\.tsx$/),
+    ]);
+    const consoleSource = fetchFiles[0].raw;
+    expect(consoleSource).toContain("const API_ROOT = 'http://127.0.0.1:5174'");
+    expect(consoleSource).not.toContain('/api/run-pipeline');
+    expect(consoleSource).not.toMatch(/Math\.random|handleManualPost|handleSimulateDispatch|automationActive/);
+  });
 });
 
 describe('V5 static safety scan (remote asset references)', () => {

@@ -6,10 +6,10 @@ import '@fontsource/inter/800.css';
 import '@fontsource/jetbrains-mono/500.css';
 import '@fontsource/jetbrains-mono/700.css';
 import './index.css';
-import App from './App';
+import { DailyAppConsole } from './views/DailyAppConsole';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <DailyAppConsole />
   </React.StrictMode>,
 );

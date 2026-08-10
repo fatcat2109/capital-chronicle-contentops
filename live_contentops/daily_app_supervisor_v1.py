@@ -280,7 +280,7 @@ class ContentOpsDailyAppSupervisor:
         *,
         store_path: str | Path,
         output_root: str | Path,
-        operating_mode: str = "AUTONOMOUS_DEFAULT",
+        operating_mode: Optional[str] = None,
         clock: Optional[Callable[[], datetime]] = None,
         store: Any = None,
         newsroom_cycle: Optional[Callable[..., Mapping[str, Any]]] = None,
@@ -296,13 +296,33 @@ class ContentOpsDailyAppSupervisor:
         performance_collector: Optional[Callable[..., Mapping[str, Any]]] = None,
         performance_learning_enabled: bool = False,
     ) -> None:
-        if operating_mode not in OPERATING_MODES:
+        requested_mode = operating_mode or "AUTONOMOUS_DEFAULT"
+        if requested_mode not in OPERATING_MODES:
             raise ValueError(f"daily_app_operating_mode_invalid:{operating_mode}")
         from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._store_path = Path(store_path)
         self._store = store or ContentOpsDurableStore(self._store_path)
+        self._configured_operating_mode = requested_mode
+        self._operating_mode = requested_mode
+        self._mode_drift_detected = False
+        if hasattr(self._store, "get_operating_control"):
+            control = self._store.get_operating_control()
+            # An explicit first-start configuration may replace only the migration bootstrap
+            # default. Once any real control source owns the row, durable state wins on restart.
+            if (
+                operating_mode is not None
+                and control.get("control_source") == "SCHEMA_V7_INITIAL_PRODUCT_DEFAULT"
+                and str(control.get("operating_mode")) != requested_mode
+            ):
+                control = self._store.update_operating_control(
+                    expected_state_version=int(control["state_version"]),
+                    operating_mode=requested_mode,
+                    control_source="SUPERVISOR_STARTUP_CONFIG",
+                )
+            self._operating_mode = str(control["operating_mode"])
+            self._mode_drift_detected = self._operating_mode != requested_mode
         self._production_epoch_start_utc = self._resolve_production_epoch(
             production_epoch_start_utc
         )
@@ -326,7 +346,6 @@ class ContentOpsDailyAppSupervisor:
             newsroom_cycle = canonical_cycle
         self._newsroom_cycle = newsroom_cycle
         self._policy = policy or build_bootstrap_editorial_window_policy()
-        self._operating_mode = operating_mode
         self._owner_ref = owner_ref or (
             f"daily-app-supervisor-{os.getpid()}-"
             f"{_logical_hash(str(store_path))[:8]}-{uuid4().hex[:8]}"
@@ -343,6 +362,23 @@ class ContentOpsDailyAppSupervisor:
 
     @property
     def operating_mode(self) -> str:
+        return self._operating_mode
+
+    def _refresh_operating_mode(self) -> str:
+        """Reload durable mode so UI/restart changes cannot be silently ignored."""
+        if not hasattr(self._store, "get_operating_control"):
+            return self._operating_mode
+        try:
+            control = self._store.get_operating_control()
+            self._operating_mode = str(control["operating_mode"])
+            self._mode_drift_detected = (
+                self._operating_mode != self._configured_operating_mode
+            )
+        except Exception:
+            # Missing/corrupt control state fails closed for every new public write while
+            # leaving reconciliation/readback recovery available.
+            self._operating_mode = "KILL_SWITCH"
+            self._mode_drift_detected = True
         return self._operating_mode
 
     @property
@@ -527,7 +563,7 @@ class ContentOpsDailyAppSupervisor:
             "public_write_performed": False,
             "per_destination": {},
         }
-        if self._operating_mode == "KILL_SWITCH":
+        if self._refresh_operating_mode() == "KILL_SWITCH":
             # Kill switch blocks NEW dispatch; the durable chain itself stays intact so existing
             # readback/reconciliation/recovery can proceed.
             outcome["kill_switch_blocked"] = True
@@ -555,7 +591,9 @@ class ContentOpsDailyAppSupervisor:
             public_object_id: Optional[str] = None
             public_object_url: Optional[str] = None
             dispatch_status = STATUS_CONTROLLED_NO_WRITE
-            if callable(publisher):
+            current_mode = self._refresh_operating_mode()
+            publisher_allowed = current_mode == "AUTONOMOUS_DEFAULT"
+            if callable(publisher) and publisher_allowed:
                 try:
                     published = dict(publisher(destination, package_identity))
                     raw_status = str(published.get("status") or "")
@@ -1188,6 +1226,7 @@ class ContentOpsDailyAppSupervisor:
         """
         if not self._enable_publication_lifecycle:
             return None
+        self._refresh_operating_mode()
         plan = result.get("publication_lifecycle_plan") if isinstance(result, Mapping) else None
         if not isinstance(plan, Mapping):
             return None
@@ -1216,9 +1255,12 @@ class ContentOpsDailyAppSupervisor:
     ) -> dict[str, Any]:
         """One cheap supervisor tick. No LLM/provider work unless a window is executed."""
         now = now or self._clock()
+        self._refresh_operating_mode()
         report: dict[str, Any] = {
             "schema_version": SCHEMA_VERSION,
             "operating_mode": self._operating_mode,
+            "configured_operating_mode": self._configured_operating_mode,
+            "mode_drift_detected": self._mode_drift_detected,
             "kill_switch_active": self._operating_mode == "KILL_SWITCH",
             "policy_version": self._policy.policy_version,
             "tick_at_utc": _iso_utc(now),
@@ -1567,7 +1609,7 @@ class ContentOpsDailyAppSupervisor:
                 reason_code="EDITORIAL_WINDOW_DUE",
                 explanation=f"Executing editorial window {window_id}",
             )
-            publication_enabled = self._operating_mode == "AUTONOMOUS_DEFAULT"
+            publication_enabled = self._refresh_operating_mode() == "AUTONOMOUS_DEFAULT"
             cutoff = window["end"]
             output_dir = self._output_root / window_id
             cycle_kwargs: dict[str, Any] = {

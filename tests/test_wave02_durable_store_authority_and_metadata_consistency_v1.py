@@ -156,7 +156,7 @@ def test_wave02_schema_and_migration_integrity(tmp_path):
     db_file = tmp_path / "test_meta_schema.sqlite"
     store = ContentOpsDurableStore(db_file, auto_migrate=True)
 
-    assert store.get_current_schema_version() == SCHEMA_VERSION == 6
+    assert store.get_current_schema_version() == SCHEMA_VERSION == 7
     assert store.verify_applied_migrations() is True
     assert store.verify_schema_integrity() is True
 
@@ -192,6 +192,7 @@ def test_wave02_schema_and_migration_integrity(tmp_path):
             "migration_failure_receipts",
             "performance_observations",
             "learning_policy_versions",
+            "operating_controls",
         ]
         for tbl in required_tables:
             assert tbl in tables, f"Missing required table: {tbl}"
@@ -256,7 +257,7 @@ def test_wave02_evidence_packet_files_exist():
 
     # 3. Schema manifest checks
     schema_manifest = load_json_any_encoding(packet_dir / "schema_manifest.json")
-    assert schema_manifest["current_schema_version"] == SCHEMA_VERSION == 6
+    assert schema_manifest["current_schema_version"] == SCHEMA_VERSION == 7
     assert len(schema_manifest["triggers"]) == 6
     expected_triggers = [
         "trg_transition_events_append_authorized",

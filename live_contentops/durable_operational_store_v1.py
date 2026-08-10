@@ -30,10 +30,13 @@ from live_contentops.historical_schema_compatibility_v1 import (
     DEPENDENCY_MANIFEST_V3_JSON,
     DEPENDENCY_MANIFEST_V4_HASH,
     DEPENDENCY_MANIFEST_V4_JSON,
+    DEPENDENCY_MANIFEST_V5_HASH,
+    DEPENDENCY_MANIFEST_V5_JSON,
     LEGACY_QUARANTINE_SCOPE,
     MIGRATION_V5_CHECKSUM,
     MIGRATION_V5_SQL,
     MIGRATION_V6_SQL,
+    MIGRATION_V7_SQL,
     canonical_json,
     recognize_lineage,
     schema_fingerprint,
@@ -133,6 +136,10 @@ class PerformanceObservationConflictError(DurableStoreError):
 
 class LearningPolicyConflictError(DurableStoreError):
     """A learning-policy version is immutable; a conflicting re-registration fails closed."""
+
+
+class OperatingModeConflictError(DurableStoreError):
+    """The expected durable mode-control version did not match current state."""
 
 
 def utc_now_iso() -> str:
@@ -376,6 +383,7 @@ MIGRATIONS: List[Migration] = [
     Migration(4, "Wave 02 Schema v4: Historical Lineage Compatibility and Dependency Manifest", CURRENT_MIGRATION_SQL[4], "historical_lineage_compatibility.v4"),
     Migration(5, "Schema v5: platform_dispatches public-object identity persistence", MIGRATION_V5_SQL, "sql_only.v5"),
     Migration(6, "Schema v6: performance_observations and learning_policy_versions", MIGRATION_V6_SQL, "sql_only.v6"),
+    Migration(7, "Schema v7: canonical operating-mode control", MIGRATION_V7_SQL, "sql_only.v7"),
 ]
 
 
@@ -443,6 +451,17 @@ class ContentOpsDurableStore:
         conn.set_authorizer(self._connection_authorizer)
         conn.execute("PRAGMA journal_mode=WAL"); conn.execute("PRAGMA foreign_keys=ON"); conn.execute(f"PRAGMA busy_timeout={self.busy_timeout_ms}")
         return conn
+    def get_read_only_connection(self) -> sqlite3.Connection:
+        """Open the configured canonical store in SQLite read-only/query-only mode."""
+        conn = sqlite3.connect(
+            f"file:{self.db_path.as_posix()}?mode=ro", uri=True,
+            timeout=self.busy_timeout_ms / 1000.0, isolation_level=None, cached_statements=0,
+        )
+        conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA query_only=ON")
+        conn.execute("PRAGMA foreign_keys=ON")
+        conn.execute(f"PRAGMA busy_timeout={self.busy_timeout_ms}")
+        return conn
     def _ensure_runtime_write_guards(self) -> None:
         with self.get_connection() as conn:
             for statement in RUNTIME_INSERT_GUARD_SQL:
@@ -469,8 +488,8 @@ class ContentOpsDurableStore:
                     len(rows) != 1
                     or int(rows[0]["singleton_id"]) != 1
                     or int(rows[0]["compatibility_version"]) != CANONICAL_SCHEMA_VERSION
-                    or rows[0]["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V3_JSON, DEPENDENCY_MANIFEST_V4_JSON)
-                    or rows[0]["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH, DEPENDENCY_MANIFEST_V3_HASH, DEPENDENCY_MANIFEST_V4_HASH)
+                    or rows[0]["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V3_JSON, DEPENDENCY_MANIFEST_V4_JSON, DEPENDENCY_MANIFEST_V5_JSON)
+                    or rows[0]["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH, DEPENDENCY_MANIFEST_V3_HASH, DEPENDENCY_MANIFEST_V4_HASH, DEPENDENCY_MANIFEST_V5_HASH)
                 ):
                     raise DurableStateCorruptionError("Dependency manifest binding mismatch")
                 guard_rows = {
@@ -584,6 +603,16 @@ class ContentOpsDurableStore:
                     if updated != 1:
                         raise MigrationError(
                             "Migration v6 requires an existing canonical schema_lineage_metadata row"
+                        )
+                if migration.version == 7:
+                    updated = conn.execute(
+                        "UPDATE schema_lineage_metadata SET compatibility_version=?, dependency_manifest_json=?,"
+                        " dependency_manifest_hash=?, upgraded_at=? WHERE singleton_id=1",
+                        (7, DEPENDENCY_MANIFEST_V5_JSON, DEPENDENCY_MANIFEST_V5_HASH, self._get_now_iso()),
+                    ).rowcount
+                    if updated != 1:
+                        raise MigrationError(
+                            "Migration v7 requires an existing canonical schema_lineage_metadata row"
                         )
                 proof = self._verify_migration_preservation(conn, before, migration.version)
                 conn.execute("INSERT INTO schema_migrations VALUES (?,?,?,?)", (migration.version, migration.checksum, self._get_now_iso(), migration.description))
@@ -1454,3 +1483,59 @@ class ContentOpsDurableStore:
                 " ORDER BY created_at_utc DESC, policy_version DESC LIMIT 1"
             ).fetchone()
             return dict(row) if row else None
+
+    # ------------------------------------------------------------------
+    # Canonical operating-mode control (schema v7).
+    # ------------------------------------------------------------------
+
+    def get_operating_control(self) -> Dict[str, Any]:
+        with self.get_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM operating_controls WHERE singleton_id=1"
+            ).fetchone()
+            if row is None:
+                raise DurableStateCorruptionError("canonical operating control missing")
+            return dict(row)
+
+    def update_operating_control(
+        self, *, expected_state_version: int, operating_mode: str,
+        control_source: str,
+    ) -> Dict[str, Any]:
+        """CAS-update operating policy only; never launch a cycle or publisher."""
+        allowed = {
+            "AUTONOMOUS_DEFAULT", "SUPERVISED_OPERATOR_GATE", "SHADOW_ONLY", "KILL_SWITCH"
+        }
+        if operating_mode not in allowed:
+            raise ValueError(f"daily_app_operating_mode_invalid:{operating_mode}")
+        if not re.fullmatch(r"[A-Z0-9_.:-]{1,64}", str(control_source or "")):
+            raise ValueError("daily_app_control_source_invalid")
+        expected = int(expected_state_version)
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            updated = conn.execute(
+                "UPDATE operating_controls SET operating_mode=?, state_version=state_version+1,"
+                " updated_at_utc=?, control_source=?"
+                " WHERE singleton_id=1 AND state_version=?",
+                (operating_mode, self._get_now_iso(), control_source, expected),
+            ).rowcount
+            if updated != 1:
+                actual = conn.execute(
+                    "SELECT state_version FROM operating_controls WHERE singleton_id=1"
+                ).fetchone()
+                raise OperatingModeConflictError(
+                    f"operating_mode_cas_conflict:expected={expected}:actual="
+                    f"{actual['state_version'] if actual else 'missing'}"
+                )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                "SELECT * FROM operating_controls WHERE singleton_id=1"
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()

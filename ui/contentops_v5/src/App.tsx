@@ -71,6 +71,9 @@ export default function App() {
         data-theme={effectiveTheme}
         className="flex h-screen w-full overflow-hidden bg-bg text-fg"
       >
+        <div className="fixed inset-x-0 top-0 z-[100] bg-status-review px-3 py-1 text-center font-mono text-[10px] font-bold text-black">
+          CONTROLLED FIXTURE · NOT RUNTIME AUTHORITY · NOT THE PRODUCTION ENTRYPOINT
+        </div>
         <LeftNav isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <div className="flex min-w-0 flex-1 flex-col">
           <SafetyBar effectiveTheme={effectiveTheme} onMenuClick={() => setSidebarOpen(true)} />

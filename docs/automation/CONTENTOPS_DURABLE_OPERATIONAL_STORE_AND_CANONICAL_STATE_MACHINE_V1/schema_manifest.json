@@ -2,7 +2,7 @@
   "schema_version": "contentops.durable_store_schema_manifest.v1",
   "worker_classification": "PASS_WAVE02_HISTORICAL_SCHEMA_LINEAGE_AND_LEGACY_REPLAY_FINAL_CORRECTION_AWAITING_INDEPENDENT_AUDIT",
   "durable_store_module": "live_contentops/durable_operational_store_v1.py",
-  "current_schema_version": 6,
+  "current_schema_version": 7,
   "journal_mode": "WAL",
   "foreign_keys": "ON",
   "busy_timeout_ms": 5000,
@@ -34,7 +34,8 @@
     "legacy_artifact_evidence",
     "migration_failure_receipts",
     "performance_observations",
-    "learning_policy_versions"
+    "learning_policy_versions",
+    "operating_controls"
   ],
   "migrations": [
     {
@@ -84,6 +85,14 @@
       "transform_version": "sql_only.v6",
       "transform_source_hash": "b3cfaa7eebae8ca5e61157fe319f2afd18afc62409948974a432e2b4e77ac299",
       "semantic_checksum": "3ddb4abe4dd495df10c5f3cf953073bd4c8815107805f9062ca99f38cd7266a4"
+    },
+    {
+      "version": 7,
+      "description": "Schema v7: canonical operating-mode control",
+      "sql_sha256": "b80254c9c170d9e870a03bd80f2c2f78f1e3b1c6b926a6a8c9bb86f15d658508",
+      "transform_version": "sql_only.v7",
+      "transform_source_hash": "b3cfaa7eebae8ca5e61157fe319f2afd18afc62409948974a432e2b4e77ac299",
+      "semantic_checksum": "e4adf1286c0c4df37b3e4212439e1d24ffbfbc1164a6a91b4808999440658725"
     }
   ],
   "triggers": [

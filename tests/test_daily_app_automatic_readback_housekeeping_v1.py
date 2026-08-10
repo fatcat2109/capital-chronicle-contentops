@@ -460,4 +460,4 @@ def test_no_schema_migration_is_added(tmp_path):
     before = supervisor._store.get_current_schema_version()
     supervisor.tick(now=T0)
     after = supervisor._store.get_current_schema_version()
-    assert before == after == 6
+    assert before == after == 7

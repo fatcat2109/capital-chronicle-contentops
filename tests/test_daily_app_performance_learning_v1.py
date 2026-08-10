@@ -448,7 +448,7 @@ def test_v5_to_v6_migration_lossless(tmp_path):
     c.execute("INSERT INTO metrics VALUES ('metric_contentops_production_epoch_start_utc','contentops_production_epoch_start_utc',1786262820.663942,'x')")
     c.close()
     store = ContentOpsDurableStore(p, auto_migrate=True)
-    assert store.get_current_schema_version() == SCHEMA_VERSION == 6
+    assert store.get_current_schema_version() == SCHEMA_VERSION == 7
     cc = store.get_connection()
     assert cc.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
     assert cc.execute("SELECT metric_value FROM metrics WHERE metric_name='contentops_production_epoch_start_utc'").fetchone()[0] == 1786262820.663942

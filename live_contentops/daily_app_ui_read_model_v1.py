@@ -1,0 +1,626 @@
+"""Versioned, nonsecret Final Daily App UI projection over the canonical store.
+
+This module is read-model code only.  It opens the existing ContentOps durable store in
+SQLite query-only mode and never calls a newsroom, publisher, provider, platform, browser,
+or credential seam.  Missing state remains explicit rather than being converted to zero or
+fixture success.
+"""
+from __future__ import annotations
+
+import json
+import re
+from collections import Counter, defaultdict
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+from typing import Any, Iterable, Mapping, Optional
+
+from live_contentops.daily_app_supervisor_v1 import (
+    OPERATING_MODES,
+    RECONCILE_CONFIRMED,
+    RECONCILE_CONTROLLED_NO_WRITE,
+    RECONCILE_PENDING_OPERATOR,
+    RECONCILE_PENDING_READBACK,
+    STATUS_CONTROLLED_NO_WRITE,
+    STATUS_DISPATCH_CONFIRMED,
+    STATUS_UNKNOWN_WRITE,
+    build_bootstrap_editorial_window_policy,
+)
+from live_contentops.durable_operational_store_v1 import (
+    ContentOpsDurableStore,
+    OperatingModeConflictError,
+)
+from live_contentops.publishing_profile_registry_v1 import (
+    CANONICAL_BROWSER_FAMILY,
+    CANONICAL_PROFILE_ID,
+    REGISTRY_VERSION as PUBLISHING_REGISTRY_VERSION,
+)
+
+SNAPSHOT_SCHEMA_VERSION = "contentops.daily_app_ui_snapshot.v1"
+REQUIRED_STORE_SCHEMA_VERSION = 7
+FRESH_SECONDS = 300
+HEARTBEAT_TTL_SECONDS = 120
+
+TIER1_DESTINATIONS = (
+    ("substack", "Substack", "BROWSER_AUTHENTICATED"),
+    ("telegram", "Telegram", "NON_BROWSER_BINDING"),
+    ("discord", "Discord", "NON_BROWSER_BINDING"),
+    ("x", "X", "BROWSER_AUTHENTICATED"),
+    ("linkedin", "LinkedIn", "BROWSER_AUTHENTICATED"),
+    ("facebook_page", "Facebook Page", "NON_BROWSER_BINDING"),
+    ("instagram_business", "Instagram Business", "NON_BROWSER_BINDING"),
+    ("threads", "Threads", "NON_BROWSER_BINDING"),
+    ("youtube", "YouTube Community", "BROWSER_AUTHENTICATED"),
+)
+
+_SECRET_KEY = re.compile(
+    r"(^|_)(token|secret|password|authorization|cookie|private_key|webhook)(_|$)",
+    re.IGNORECASE,
+)
+
+
+class DailyAppReadModelError(RuntimeError):
+    """The canonical store could not be projected safely."""
+
+
+def _utc_now() -> datetime:
+    return datetime.now(timezone.utc)
+
+
+def _iso(value: datetime) -> str:
+    return value.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def _parse_time(value: Any) -> Optional[datetime]:
+    if value in (None, ""):
+        return None
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return parsed.astimezone(timezone.utc)
+    except (TypeError, ValueError):
+        return None
+
+
+def _json(value: Any, fallback: Any) -> Any:
+    try:
+        parsed = json.loads(str(value))
+        return parsed
+    except (TypeError, ValueError, json.JSONDecodeError):
+        return fallback
+
+
+def _rows(conn: Any, sql: str, params: Iterable[Any] = ()) -> list[dict[str, Any]]:
+    return [dict(row) for row in conn.execute(sql, tuple(params)).fetchall()]
+
+
+def _latest_time(rows: Iterable[Mapping[str, Any]], fields: Iterable[str]) -> Optional[datetime]:
+    values = [
+        parsed
+        for row in rows
+        for field in fields
+        if (parsed := _parse_time(row.get(field))) is not None
+    ]
+    return max(values) if values else None
+
+
+def _next_windows(now: datetime, active_policy: Optional[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    policy = build_bootstrap_editorial_window_policy()
+    offset = 0
+    if active_policy:
+        payload = _json(active_policy.get("policy_payload_json"), {})
+        try:
+            offset = int(payload.get("timing_offset_minutes") or 0)
+        except (TypeError, ValueError):
+            offset = 0
+    windows: list[dict[str, Any]] = []
+    for day_offset in range(0, 8):
+        day = (now + timedelta(days=day_offset)).date()
+        for window in policy.core_windows:
+            start = datetime(
+                day.year, day.month, day.day, int(window.start_hour_utc),
+                tzinfo=timezone.utc,
+            ) + timedelta(minutes=offset)
+            end = datetime(
+                day.year, day.month, day.day, int(window.end_hour_utc),
+                tzinfo=timezone.utc,
+            ) + timedelta(minutes=offset)
+            if end <= start:
+                end += timedelta(days=1)
+            if end > now:
+                windows.append({
+                    "window_start_utc": _iso(start),
+                    "window_end_utc": _iso(end),
+                    "editorial_session": window.session,
+                    "policy_version": (
+                        str(active_policy["policy_version"]) if active_policy else policy.policy_version
+                    ),
+                    "provenance": "LEARNED_ACTIVE_POLICY" if active_policy else "CONFIGURED_DEFAULT",
+                })
+    return sorted(windows, key=lambda item: item["window_start_utc"])[:4]
+
+
+def _dispatch_classification(dispatch: Mapping[str, Any]) -> str:
+    status = str(dispatch.get("dispatch_status") or dispatch.get("status") or "")
+    object_id = str(dispatch.get("public_object_id") or "")
+    reconciliation = str(dispatch.get("reconciliation_status") or "")
+    if status == STATUS_UNKNOWN_WRITE or "UNKNOWN_WRITE" in status:
+        return "UNKNOWN_WRITE"
+    if status in {STATUS_CONTROLLED_NO_WRITE, "DISPATCH_CONFIRMED_NO_WRITE"} or "NO_WRITE" in status:
+        return "CONTROLLED_NO_PUBLIC_WRITE"
+    if status == STATUS_DISPATCH_CONFIRMED and object_id and reconciliation == RECONCILE_CONFIRMED:
+        return "REAL_PUBLICATION_CONFIRMED"
+    if status == STATUS_DISPATCH_CONFIRMED and object_id:
+        return "CONFIRMED_DISPATCH_PENDING_READBACK"
+    return "NOT_A_CONFIRMED_PUBLICATION"
+
+
+def _assert_nonsecret(value: Any, path: str = "snapshot") -> None:
+    if isinstance(value, Mapping):
+        for key, child in value.items():
+            if _SECRET_KEY.search(str(key)):
+                raise DailyAppReadModelError(f"secret-shaped key blocked:{path}.{key}")
+            _assert_nonsecret(child, f"{path}.{key}")
+    elif isinstance(value, (list, tuple)):
+        for index, child in enumerate(value):
+            _assert_nonsecret(child, f"{path}[{index}]")
+
+
+def build_daily_app_snapshot(
+    store_path: str | Path,
+    *,
+    now: Optional[datetime] = None,
+) -> dict[str, Any]:
+    """Project one truthful UI snapshot from the configured canonical durable store."""
+    generated = (now or _utc_now()).astimezone(timezone.utc)
+    path = Path(store_path).resolve()
+    if not path.is_file():
+        raise DailyAppReadModelError("configured durable store does not exist")
+    store = ContentOpsDurableStore(path, auto_migrate=False)
+    try:
+        with store.get_read_only_connection() as conn:
+            if str(conn.execute("PRAGMA integrity_check").fetchone()[0]).lower() != "ok":
+                raise DailyAppReadModelError("durable store integrity check failed")
+            schema = int(conn.execute("SELECT MAX(version) FROM schema_migrations").fetchone()[0] or 0)
+            if schema != REQUIRED_STORE_SCHEMA_VERSION:
+                raise DailyAppReadModelError(
+                    f"durable store schema mismatch:expected={REQUIRED_STORE_SCHEMA_VERSION}:actual={schema}"
+                )
+            controls = dict(conn.execute(
+                "SELECT * FROM operating_controls WHERE singleton_id=1"
+            ).fetchone() or {})
+            if not controls or controls.get("operating_mode") not in OPERATING_MODES:
+                raise DailyAppReadModelError("canonical operating control missing or invalid")
+
+            work_items = _rows(conn, "SELECT * FROM work_items ORDER BY updated_at DESC, work_item_id")
+            transitions = _rows(conn, "SELECT event_id,work_item_id,event_kind,event_seq,from_state,to_state,reason_code,policy_version,model_version,timestamp_utc,event_hash FROM transition_events ORDER BY timestamp_utc DESC,event_id DESC")
+            heartbeats = _rows(conn, "SELECT heartbeat_id,worker_id,last_seen_at,status FROM heartbeats ORDER BY last_seen_at DESC")
+            invocations = _rows(conn, "SELECT invocation_id,work_item_id,model_id,prompt_tokens,completion_tokens,invoked_at FROM model_invocations ORDER BY invoked_at DESC")
+            outbox = {row["message_id"]: row for row in _rows(conn, "SELECT message_id,work_item_id,destination,status,created_at FROM outbox_messages")}
+            dispatch_rows = _rows(conn, "SELECT * FROM platform_dispatches ORDER BY dispatched_at DESC,dispatch_id DESC")
+            readbacks = _rows(conn, "SELECT readback_id,dispatch_id,readback_data,read_at FROM readbacks ORDER BY read_at DESC")
+            reconciliations = _rows(conn, "SELECT * FROM reconciliations ORDER BY reconciled_at DESC")
+            incident_rows = _rows(conn, "SELECT * FROM incidents ORDER BY created_at DESC")
+            observations = _rows(conn, "SELECT * FROM performance_observations ORDER BY scheduled_for_utc DESC,observation_id")
+            policies = _rows(conn, "SELECT * FROM learning_policy_versions ORDER BY created_at_utc DESC,policy_version DESC")
+            metrics = _rows(conn, "SELECT metric_id,metric_name,metric_value,recorded_at FROM metrics")
+            review_count = int(conn.execute("SELECT COUNT(*) FROM review_records").fetchone()[0])
+            artifact_count = int(conn.execute("SELECT COUNT(*) FROM artifact_references").fetchone()[0])
+            event_count = len(transitions)
+    except DailyAppReadModelError:
+        raise
+    except Exception as exc:
+        raise DailyAppReadModelError(f"durable store projection failed:{type(exc).__name__}") from exc
+
+    recon_by_suffix = {
+        str(row["reconciliation_id"]).removeprefix("reconciliation_"): row
+        for row in reconciliations
+    }
+    readbacks_by_dispatch: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in readbacks:
+        parsed = _json(row.get("readback_data"), {})
+        readbacks_by_dispatch[str(row["dispatch_id"])].append({
+            "readback_id": row["readback_id"],
+            "read_at_utc": row["read_at"],
+            "verified": parsed.get("verified") if isinstance(parsed, Mapping) else None,
+            "status": (
+                parsed.get("readback_status") if isinstance(parsed, Mapping) else "UNAVAILABLE"
+            ) or "STATUS_NOT_RECORDED",
+        })
+
+    publications: list[dict[str, Any]] = []
+    for dispatch in dispatch_rows:
+        message = outbox.get(dispatch["message_id"], {})
+        suffix = str(dispatch["dispatch_id"]).removeprefix("dispatch_")
+        reconciliation = recon_by_suffix.get(suffix, {})
+        row = {
+            "work_item_id": message.get("work_item_id"),
+            "story_id": next((w["story_id"] for w in work_items if w["work_item_id"] == message.get("work_item_id")), None),
+            "platform": dispatch["platform"],
+            "destination": message.get("destination") or dispatch["platform"],
+            "dispatch_id": dispatch["dispatch_id"],
+            "public_object_id": dispatch.get("public_object_id"),
+            "public_object_url_hash": dispatch.get("public_object_url_hash"),
+            "dispatch_status": dispatch.get("status"),
+            "readback_status": (
+                readbacks_by_dispatch[str(dispatch["dispatch_id"])][0]["status"]
+                if readbacks_by_dispatch[str(dispatch["dispatch_id"])] else "NO_READBACK_RECORDED"
+            ),
+            "readback_count": len(readbacks_by_dispatch[str(dispatch["dispatch_id"])]),
+            "reconciliation_status": reconciliation.get("status") or "NO_RECONCILIATION_RECORDED",
+            "dispatched_at_utc": dispatch.get("dispatched_at"),
+            "observation_schedule": [
+                obs["scheduled_for_utc"] for obs in observations
+                if obs["dispatch_id"] == dispatch["dispatch_id"]
+            ],
+            "learning_eligible": any(
+                bool(obs.get("learning_eligible")) for obs in observations
+                if obs["dispatch_id"] == dispatch["dispatch_id"]
+            ),
+        }
+        row["lifecycle_classification"] = _dispatch_classification(row)
+        publications.append(row)
+
+    observation_models: list[dict[str, Any]] = []
+    for row in observations:
+        native = _json(row.get("metrics_native_json"), {})
+        availability = _json(row.get("metric_availability_json"), {})
+        observation_models.append({
+            "observation_id": row["observation_id"],
+            "platform": row["platform"],
+            "dispatch_id": row["dispatch_id"],
+            "public_object_id": row["public_object_id"],
+            "observation_window": row["observation_window"],
+            "scheduled_for_utc": row["scheduled_for_utc"],
+            "collected_at_utc": row["collected_at_utc"],
+            "collection_status": row["collection_status"],
+            "native_metrics": native if isinstance(native, Mapping) else {},
+            "metric_availability": availability if isinstance(availability, Mapping) else {},
+            "learning_eligible": bool(row["learning_eligible"]),
+            "collector_capability_version": row["collector_capability_version"],
+            "source_identity": row["source_identity"],
+            "limitations": [
+                str(key) for key, state in (availability.items() if isinstance(availability, Mapping) else [])
+                if str(state).upper() not in {"AVAILABLE", "SUPPORTED"}
+            ],
+        })
+
+    policy_models: list[dict[str, Any]] = []
+    for row in policies:
+        payload = _json(row.get("policy_payload_json"), {})
+        policy_models.append({
+            "policy_version": row["policy_version"],
+            "parent_policy_version": row["parent_policy_version"],
+            "status": row["status"],
+            "decision": row["decision"],
+            "provenance": "CONFIGURED_DEFAULT" if not row["parent_policy_version"] else "LEARNED",
+            "sample_count": row["sample_count"],
+            "confidence": row["confidence"],
+            "formula_version": row["formula_version"],
+            "timing_offset_minutes": payload.get("timing_offset_minutes") if isinstance(payload, Mapping) else None,
+            "recommendations": _json(row.get("accepted_changes_json"), {}),
+            "bounded_delta": _json(row.get("bounded_delta_json"), {}),
+            "rollback_reference": row["rollback_reference"],
+            "decision_reason": row["decision_reason"],
+            "observation_ids": _json(row.get("observation_ids_json"), []),
+            "created_at_utc": row["created_at_utc"],
+            "evaluation_window": row["evaluation_window"],
+        })
+    active_policy = next((row for row in policies if row["status"] == "ACTIVE"), None)
+    future_windows = _next_windows(generated, active_policy)
+
+    latest_heartbeat = heartbeats[0] if heartbeats else None
+    heartbeat_time = _parse_time(latest_heartbeat.get("last_seen_at") if latest_heartbeat else None)
+    heartbeat_age = (generated - heartbeat_time).total_seconds() if heartbeat_time else None
+    controller_health = (
+        "HEALTHY" if heartbeat_age is not None and heartbeat_age <= HEARTBEAT_TTL_SECONDS
+        and latest_heartbeat.get("status") == "ALIVE" else "OFFLINE"
+    )
+    all_state_rows = [*work_items, *dispatch_rows, *readbacks, *reconciliations, *observations, *policies]
+    source_updated = _latest_time(
+        all_state_rows,
+        ("updated_at", "created_at", "dispatched_at", "read_at", "reconciled_at", "collected_at_utc", "created_at_utc"),
+    )
+    source_age = (generated - source_updated).total_seconds() if source_updated else None
+    freshness_state = (
+        "LIVE_CURRENT" if source_age is not None and source_age <= FRESH_SECONDS
+        else "STALE" if source_age is not None else "UNAVAILABLE"
+    )
+
+    real_publications = [p for p in publications if p["lifecycle_classification"] == "REAL_PUBLICATION_CONFIRMED"]
+    controlled = [p for p in publications if p["lifecycle_classification"] == "CONTROLLED_NO_PUBLIC_WRITE"]
+    unknown = [p for p in publications if p["lifecycle_classification"] == "UNKNOWN_WRITE"]
+    pending_recovery = [p for p in publications if p["reconciliation_status"] in {RECONCILE_PENDING_READBACK, RECONCILE_PENDING_OPERATOR}]
+    latest_cycle = work_items[0] if work_items else None
+    current_publications = [
+        row for row in publications
+        if latest_cycle and row["work_item_id"] == latest_cycle["work_item_id"]
+    ]
+    if any(row["lifecycle_classification"] == "UNKNOWN_WRITE" for row in current_publications):
+        cycle_outcome = "UNKNOWN_WRITE"
+    elif any(row["lifecycle_classification"] == "REAL_PUBLICATION_CONFIRMED" for row in current_publications):
+        cycle_outcome = "PUBLISHED"
+    elif any(row["lifecycle_classification"] == "CONTROLLED_NO_PUBLIC_WRITE" for row in current_publications):
+        cycle_outcome = "CONTROLLED_NO_PUBLIC_WRITE"
+    elif latest_cycle and latest_cycle["current_state"] in {"REJECTED", "EVIDENCE_BLOCKED"}:
+        cycle_outcome = "NO_PUBLICATION"
+    elif latest_cycle:
+        cycle_outcome = str(latest_cycle["current_state"])
+    else:
+        cycle_outcome = "NO_CYCLE_RECORDED"
+
+    incidents: list[dict[str, Any]] = [{
+        "incident_id": row["incident_id"],
+        "severity": row["severity"],
+        "what_happened": row["description"],
+        "safe_now": "New public writes remain governed by canonical gates.",
+        "automatic_action": "The supervisor continues bounded readback and recovery when available.",
+        "operator_action": "Inspect the linked lifecycle and follow the exact recovery state.",
+        "work_item_id": row["work_item_id"],
+        "created_at_utc": row["created_at"],
+        "source": "durable.incidents",
+    } for row in incident_rows]
+    for row in unknown:
+        incidents.append({
+            "incident_id": f"derived:{row['dispatch_id']}:unknown-write",
+            "severity": "CRITICAL",
+            "what_happened": "UNKNOWN_WRITE",
+            "safe_now": "Automatic retry is stopped.",
+            "automatic_action": "Read back and reconcile the exact dispatch identity.",
+            "operator_action": "Recover only from the Incidents lifecycle; do not retry blindly.",
+            "work_item_id": row["work_item_id"],
+            "created_at_utc": row["dispatched_at_utc"],
+            "source": "derived.platform_dispatches",
+        })
+    for row in pending_recovery:
+        incidents.append({
+            "incident_id": f"derived:{row['dispatch_id']}:pending-reconciliation",
+            "severity": "HIGH",
+            "what_happened": row["reconciliation_status"],
+            "safe_now": "No retry is authorized while lifecycle truth is pending.",
+            "automatic_action": "The supervisor will retry bounded readback after cooldown.",
+            "operator_action": "Intervene only if the state becomes pending operator recovery.",
+            "work_item_id": row["work_item_id"],
+            "created_at_utc": row["dispatched_at_utc"],
+            "source": "derived.reconciliations",
+        })
+    if controller_health == "OFFLINE":
+        incidents.append({
+            "incident_id": "derived:controller-offline",
+            "severity": "HIGH",
+            "what_happened": "No current supervisor heartbeat is available.",
+            "safe_now": "The console remains read-only; durable lifecycle state is preserved.",
+            "automatic_action": "No autonomous recovery can be claimed while the controller is offline.",
+            "operator_action": "Verify the Daily App supervisor process and configured store binding.",
+            "work_item_id": None,
+            "created_at_utc": latest_heartbeat.get("last_seen_at") if latest_heartbeat else None,
+            "source": "derived.heartbeats",
+        })
+
+    dispatch_by_platform: dict[str, dict[str, Any]] = {}
+    for row in publications:
+        # ``publications`` is newest-first; retain the first durable dispatch per platform.
+        dispatch_by_platform.setdefault(str(row["platform"]), row)
+    observation_platforms = {str(row["platform"]) for row in observation_models}
+    platform_models = []
+    for platform_id, display_name, binding_class in TIER1_DESTINATIONS:
+        aliases = {platform_id}
+        if platform_id == "youtube": aliases.add("youtube_community")
+        last = next((dispatch_by_platform[a] for a in aliases if a in dispatch_by_platform), None)
+        platform_models.append({
+            "platform_id": platform_id,
+            "display_name": display_name,
+            "readiness": "READINESS_UNAVAILABLE_NOT_PERSISTED",
+            "write_eligible": False,
+            "binding_class": binding_class,
+            "safe_identity": CANONICAL_PROFILE_ID if binding_class == "BROWSER_AUTHENTICATED" else "NONSECRET_BINDING_IDENTITY_UNAVAILABLE",
+            "last_dispatch_state": last["lifecycle_classification"] if last else "NO_DISPATCH_RECORDED",
+            "last_successful_readback_at_utc": (
+                max((rb["read_at_utc"] for rb in readbacks_by_dispatch[str(last["dispatch_id"])]), default=None)
+                if last else None
+            ),
+            "pending_incident": bool(last and last["lifecycle_classification"] == "UNKNOWN_WRITE"),
+            "metrics_capability": "OBSERVATION_RECORDED" if aliases & observation_platforms else "COLLECTOR_CAPABILITY_UNAVAILABLE",
+            "next_metric_availability": "UNAVAILABLE",
+            "readiness_authority": "live_contentops._eight_platform_substack_first_pipeline_impl_v1._rolling_x_destination_readiness",
+        })
+
+    scheduled_observations = [o for o in observation_models if o["collection_status"] == "SCHEDULED"]
+    queue_items = [
+        {
+            "queue_id": f"window:{window['window_start_utc']}",
+            "kind": "EDITORIAL_WINDOW",
+            "urgency": "UPCOMING",
+            "title": window["editorial_session"],
+            "due_at_utc": window["window_start_utc"],
+            "state": window["provenance"],
+            "detail": f"Policy {window['policy_version']}",
+        }
+        for window in future_windows
+    ]
+    queue_items.extend({
+        "queue_id": f"observation:{row['observation_id']}",
+        "kind": "PERFORMANCE_OBSERVATION",
+            "urgency": "DUE" if (
+                _parse_time(row["scheduled_for_utc"]) is not None
+                and _parse_time(row["scheduled_for_utc"]) <= generated
+            ) else "UPCOMING",
+        "title": f"{row['platform']} · {row['observation_window']}",
+        "due_at_utc": row["scheduled_for_utc"],
+        "state": row["collection_status"],
+        "detail": row["collector_capability_version"],
+    } for row in scheduled_observations)
+    queue_items.extend({
+        "queue_id": f"recovery:{row['dispatch_id']}",
+        "kind": "LIFECYCLE_RECOVERY",
+        "urgency": "IMMEDIATE",
+        "title": f"{row['platform']} readback / reconciliation",
+        "due_at_utc": row["dispatched_at_utc"],
+        "state": row["reconciliation_status"],
+        "detail": "STOP RETRY → READ BACK → RECONCILE",
+    } for row in pending_recovery)
+
+    epoch = next((row for row in metrics if row["metric_id"] == "metric_contentops_production_epoch_start_utc"), None)
+    production_epoch = (
+        _iso(datetime.fromtimestamp(float(epoch["metric_value"]), tz=timezone.utc)) if epoch else None
+    )
+    latest_transition = transitions[0] if transitions else None
+    prompt_tokens = sum(int(row.get("prompt_tokens") or 0) for row in invocations)
+    completion_tokens = sum(int(row.get("completion_tokens") or 0) for row in invocations)
+
+    snapshot = {
+        "schema_version": SNAPSHOT_SCHEMA_VERSION,
+        "generated_at_utc": _iso(generated),
+        "freshness": {
+            "state": freshness_state,
+            "source_last_updated_at_utc": _iso(source_updated) if source_updated else None,
+            "source_age_seconds": round(source_age, 3) if source_age is not None else None,
+            "fresh_threshold_seconds": FRESH_SECONDS,
+            "provenance": "canonical durable store timestamps",
+        },
+        "runtime": {
+            "app_identity": "Capital Chronicle ContentOps V1 — Daily App",
+            "operating_mode": controls["operating_mode"],
+            "mode_state_version": controls["state_version"],
+            "mode_updated_at_utc": controls["updated_at_utc"],
+            "mode_control_source": controls["control_source"],
+            "kill_switch_active": controls["operating_mode"] == "KILL_SWITCH",
+            "controller_health": controller_health,
+            "latest_heartbeat_at_utc": latest_heartbeat.get("last_seen_at") if latest_heartbeat else None,
+            "production_epoch_start_utc": production_epoch,
+            "last_tick_state": latest_transition.get("to_state") if latest_transition else "NO_TICK_RECORDED",
+            "last_tick_at_utc": latest_transition.get("timestamp_utc") if latest_transition else None,
+            "next_wake_utc": future_windows[0]["window_start_utc"] if future_windows else None,
+            "next_editorial_window": future_windows[0] if future_windows else None,
+            "headline_freshness": "HEADLINE_FRESHNESS_METADATA_UNAVAILABLE",
+            "provider_invocation_count": len(invocations),
+            "prompt_tokens": prompt_tokens,
+            "completion_tokens": completion_tokens,
+            "cost_metadata": "COST_METADATA_UNAVAILABLE",
+        },
+        "today": {
+            "current_cycle": ({
+                "work_item_id": latest_cycle["work_item_id"],
+                "state": latest_cycle["current_state"],
+                "state_version": latest_cycle["state_version"],
+                "updated_at_utc": latest_cycle["updated_at"],
+                "outcome": cycle_outcome,
+                "selected_story": None,
+                "selected_story_state": "SELECTED_STORY_METADATA_UNAVAILABLE",
+                "evidence_status": latest_cycle["current_state"],
+                "article_stage": "ARTICLE_STAGE_METADATA_UNAVAILABLE",
+                "review_stage": "REVIEW_STAGE_METADATA_UNAVAILABLE",
+                "package_stage": "PACKAGE_STAGE_METADATA_UNAVAILABLE",
+                "publication_state": cycle_outcome,
+            } if latest_cycle else None),
+            "pending_lifecycle_recovery_count": len(pending_recovery),
+            "immediate_incident_count": len(incidents),
+        },
+        "queue": {
+            "items": sorted(queue_items, key=lambda item: ({"IMMEDIATE": 0, "DUE": 1, "UPCOMING": 2}.get(item["urgency"], 3), item.get("due_at_utc") or "")),
+            "upcoming_editorial_windows": future_windows,
+            "material_event_wake_state": "MATERIAL_EVENT_METADATA_UNAVAILABLE",
+            "active_or_held_work_count": sum(1 for row in work_items if row["current_state"] not in {"CLOSED", "REJECTED", "COMPLETE"}),
+            "pending_readback_count": len(pending_recovery),
+            "due_performance_observation_count": sum(
+                1 for row in scheduled_observations
+                if _parse_time(row["scheduled_for_utc"]) is not None
+                and _parse_time(row["scheduled_for_utc"]) <= generated
+            ),
+        },
+        "published": {
+            "objects": publications,
+            "real_publication_count": len(real_publications),
+            "controlled_no_public_write_count": len(controlled),
+            "unknown_write_count": len(unknown),
+            "pending_readback_count": len(pending_recovery),
+            "empty_reason": "NO_REAL_PUBLICATIONS_YET" if not real_publications else None,
+        },
+        "performance": {
+            "observations": observation_models,
+            "real_observation_count": len(observation_models),
+            "empty_reason": "NO_REAL_PERFORMANCE_OBSERVATIONS_YET" if not observation_models else None,
+            "empty_detail": "No real confirmed public object is eligible for observation." if not observation_models and not real_publications else None,
+        },
+        "learning": {
+            "active_policy": policy_models[0] if policy_models and policy_models[0]["status"] == "ACTIVE" else next((p for p in policy_models if p["status"] == "ACTIVE"), None),
+            "policy_history": policy_models,
+            "empty_reason": "NO_LEARNING_UPDATE_YET" if not policy_models else None,
+            "configured_default": ({
+                "policy_version": build_bootstrap_editorial_window_policy().policy_version,
+                "provenance": "CONFIGURED_DEFAULT",
+                "sample_count": 0,
+                "confidence": "BOOTSTRAP_NOT_LEARNED",
+                "decision": "HOLD_NO_POLICY_CHANGE",
+            } if not policy_models else None),
+        },
+        "platforms": {"destinations": platform_models},
+        "incidents": {
+            "items": incidents,
+            "active_count": len(incidents),
+            "empty_reason": "NO_ACTIVE_INCIDENTS" if not incidents else None,
+        },
+        "controls": {
+            "current_mode": controls["operating_mode"],
+            "state_version": controls["state_version"],
+            "updated_at_utc": controls["updated_at_utc"],
+            "control_source": controls["control_source"],
+            "allowed_modes": sorted(OPERATING_MODES),
+            "write_endpoint": "/api/daily-app/control/mode",
+            "semantics": {
+                "AUTONOMOUS_DEFAULT": "Routine automation; every public write still requires every canonical gate.",
+                "SUPERVISED_OPERATOR_GATE": "Pause before new public writes; recovery continues.",
+                "SHADOW_ONLY": "Run the workflow with zero public writes.",
+                "KILL_SWITCH": "Block new public writes; preserve readback, reconciliation, metrics, and recovery.",
+            },
+            "unsafe_controls_available": False,
+        },
+        "authority": {
+            "store_schema_version": schema,
+            "store_binding": "EXPLICIT_CONFIGURED_CANONICAL_STORE",
+            "snapshot_mutates_lifecycle": False,
+            "fixture_fallback": False,
+            "publishing_registry_version": PUBLISHING_REGISTRY_VERSION,
+            "canonical_publishing_profile_id": CANONICAL_PROFILE_ID,
+            "canonical_publishing_browser_family": CANONICAL_BROWSER_FAMILY,
+            "readiness_eligible_statuses": ["READY_AUTHENTICATED", "READY_NON_BROWSER_BINDING"],
+            "readiness_probe_performed": False,
+            "browser_or_cdp_action_performed": False,
+            "provider_or_platform_action_performed": False,
+        },
+        "audit": {
+            "work_item_count": len(work_items),
+            "transition_event_count": event_count,
+            "artifact_reference_count": artifact_count,
+            "review_record_count": review_count,
+            "recent_events": transitions[:25],
+            "state_counts": dict(Counter(str(row["current_state"]) for row in work_items)),
+            "provenance": "ContentOpsDurableStore read-only projection",
+        },
+    }
+    _assert_nonsecret(snapshot)
+    return snapshot
+
+
+def update_daily_app_mode(
+    store_path: str | Path,
+    *,
+    expected_state_version: int,
+    operating_mode: str,
+) -> dict[str, Any]:
+    """Perform the sole FDA-F write class: one canonical CAS mode update."""
+    store = ContentOpsDurableStore(Path(store_path), auto_migrate=False)
+    if store.get_current_schema_version() != REQUIRED_STORE_SCHEMA_VERSION:
+        raise DailyAppReadModelError("mode control requires canonical schema v7")
+    try:
+        return store.update_operating_control(
+            expected_state_version=expected_state_version,
+            operating_mode=operating_mode,
+            control_source="LOCAL_DAILY_APP_UI",
+        )
+    except (OperatingModeConflictError, ValueError):
+        raise
+    except Exception as exc:
+        raise DailyAppReadModelError(
+            f"canonical operating control update failed:{type(exc).__name__}"
+        ) from exc

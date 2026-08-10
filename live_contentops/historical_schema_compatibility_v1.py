@@ -24,7 +24,7 @@ from live_contentops.historical_schema_lineage_v1 import (
     ORIGINAL_NO_GENESIS_LINEAGE_ID,
 )
 
-CANONICAL_SCHEMA_VERSION = 6
+CANONICAL_SCHEMA_VERSION = 7
 #: Migration versions 1-4 are frozen historical evidence; their SQL bytes and checksums must
 #: never change. Schema evolution beyond v4 appends NEW migrations only (migration v5 below).
 GENESIS_PREVIOUS_HASH = "GENESIS_" + ("0" * 64)
@@ -321,6 +321,52 @@ DEPENDENCY_MANIFEST_V4: Mapping[str, Any] = {
 }
 DEPENDENCY_MANIFEST_V4_JSON = canonical_json(DEPENDENCY_MANIFEST_V4)
 DEPENDENCY_MANIFEST_V4_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_V4_JSON.encode("utf-8")).hexdigest()
+
+# Schema migration v7 — one restart-safe operating-mode control. Migrations v1-v6
+# remain byte/checksum frozen; changing this row never launches work or a publisher.
+MIGRATION_V7_SQL = (
+    "\nCREATE TABLE IF NOT EXISTS operating_controls (\n"
+    "    singleton_id INTEGER PRIMARY KEY CHECK(singleton_id = 1),\n"
+    "    operating_mode TEXT NOT NULL CHECK(operating_mode IN "
+    "('AUTONOMOUS_DEFAULT','SUPERVISED_OPERATOR_GATE','SHADOW_ONLY','KILL_SWITCH')),\n"
+    "    state_version INTEGER NOT NULL CHECK(state_version >= 1),\n"
+    "    updated_at_utc TEXT NOT NULL,\n"
+    "    control_source TEXT NOT NULL\n"
+    ");\n"
+    "INSERT INTO operating_controls "
+    "(singleton_id, operating_mode, state_version, updated_at_utc, control_source) "
+    "VALUES (1, 'AUTONOMOUS_DEFAULT', 1, "
+    "strftime('%Y-%m-%dT%H:%M:%fZ','now'), 'SCHEMA_V7_INITIAL_PRODUCT_DEFAULT');\n"
+)
+MIGRATION_V7_CHECKSUM = hashlib.sha256(MIGRATION_V7_SQL.encode("utf-8")).hexdigest()
+
+DEPENDENCY_MANIFEST_V5: Mapping[str, Any] = {
+    **DEPENDENCY_MANIFEST_V4,
+    "schema_version": "contentops.schema_v7_dependency_manifest.v1",
+    "migration_sql_checksums": {
+        **DEPENDENCY_MANIFEST_V4["migration_sql_checksums"], 7: MIGRATION_V7_CHECKSUM,
+    },
+    "migration_sql_hashes": {
+        **DEPENDENCY_MANIFEST_V4["migration_sql_hashes"], 7: MIGRATION_V7_CHECKSUM,
+    },
+    "migration_transform_versions": {
+        **DEPENDENCY_MANIFEST_V4["migration_transform_versions"], 7: "sql_only.v7",
+    },
+    "migration_sql_source": (
+        "live_contentops.historical_schema_compatibility_v1.CURRENT_MIGRATION_SQL / "
+        "MIGRATION_V5_SQL / MIGRATION_V6_SQL / MIGRATION_V7_SQL"
+    ),
+    "operating_control": {
+        "table": "operating_controls",
+        "singleton_id": 1,
+        "allowed_modes": [
+            "AUTONOMOUS_DEFAULT", "SUPERVISED_OPERATOR_GATE", "SHADOW_ONLY", "KILL_SWITCH",
+        ],
+        "invariant": "cas_only_policy_change_zero_publication_side_effects",
+    },
+}
+DEPENDENCY_MANIFEST_V5_JSON = canonical_json(DEPENDENCY_MANIFEST_V5)
+DEPENDENCY_MANIFEST_V5_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_V5_JSON.encode("utf-8")).hexdigest()
 
 
 @dataclass(frozen=True)
