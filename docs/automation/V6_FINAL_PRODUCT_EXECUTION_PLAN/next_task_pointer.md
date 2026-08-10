@@ -6,17 +6,18 @@ Current product direction: `CONTENTOPS_FINAL_DAILY_APP_V1_OWNER_DIRECTION`
 
 ## Current exact task
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_FINAL_V5_UI_VISUAL_ACCEPTANCE_CLOSURE_V2`
+`TASK_CONTENTOPS_FINAL_DAILY_APP_GENUINE_CALENDAR_TIME_LIVE_SOAK_V1`
 
-Mode: `SHADOW_ONLY` for browser QA unless the exact task explicitly authorizes otherwise.
+Mode: `AUTONOMOUS_DEFAULT`; public writes remain limited to exact current owner-pinned Tier-1
+destinations that independently verify canonical READY state and pass every deterministic gate.
 
-Result: `QA_CAPTURE_COMPLETE_AWAITING_CHATGPT_VISUAL_REVIEW`
+Result: `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`
 
-The Final V5 implementation and complete browser capture matrix are complete. Canonical UTC
-timestamps are rendered deterministically with explicit UTC semantics. The canonical schema-v8
-store remained byte-exact and no public, provider, browser-publication, or mode-control write
-occurred. The exact immutable commit SHA is recorded by remote readback and the final task packet;
-it cannot be embedded in the content-addressed commit that contains this pointer.
+FDA-F final visual acceptance is `PASS`, accepted by ChatGPT/Jim for UI/source commit
+`7919c03975febdc99a6b33429068d37307eb7569`. The canonical Final Daily App genuine calendar-time
+soak is active. This is launch-session success only, not FDA-G final acceptance. Do not create
+`v1.1.0` or start Tier-2 until the genuine 5–10 operating-day release evidence is complete and
+independently audited.
 
 ## Completed immediately prior
 
@@ -31,13 +32,5 @@ public write occurred.
 
 ## Next capability
 
-Obtain independent ChatGPT/Jim visual acceptance of the final screenshots. Capture completion is
-not final visual acceptance, and this pointer does not advance the product to live soak.
-
-## After clean success
-
-If and only if the independent screenshot review accepts the Final V5 UI:
-
-`TASK_CONTENTOPS_FINAL_DAILY_APP_GENUINE_CALENDAR_TIME_LIVE_SOAK_V1`
-
-Tier-2 Pro Video Factory remains deferred until Final Daily App V1 acceptance/freeze.
+Leave the canonical Daily App running and collect genuine FDA-G calendar-time evidence. Tier-2
+Pro Video Factory remains deferred until Final Daily App V1 acceptance/freeze.
