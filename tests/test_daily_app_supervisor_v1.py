@@ -175,6 +175,30 @@ def test_idle_tick_makes_zero_provider_calls(tmp_path):
     assert report["learning_evaluation_state"] == "NOT_IMPLEMENTED_NOT_DUE"
 
 
+def test_tick_refreshes_one_stable_durable_supervisor_heartbeat_across_restart(tmp_path):
+    clock_dt = datetime(2026, 8, 9, 2, 0, tzinfo=timezone.utc)
+    supervisor, _ = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
+
+    first = supervisor.tick(now=clock_dt)
+    restarted, _ = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
+    second = restarted.tick(now=clock_dt)
+
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    with store.get_read_only_connection() as conn:
+        rows = [dict(row) for row in conn.execute(
+            "SELECT worker_id,last_seen_at,status FROM heartbeats ORDER BY worker_id"
+        ).fetchall()]
+
+    assert first["heartbeat_worker_id"] == second["heartbeat_worker_id"]
+    assert first["heartbeat_at_utc"]
+    assert second["heartbeat_at_utc"]
+    assert rows == [{
+        "worker_id": second["heartbeat_worker_id"],
+        "last_seen_at": second["heartbeat_at_utc"],
+        "status": "ALIVE",
+    }]
+
+
 def test_kill_switch_blocks_dispatch_but_allows_safe_recovery(tmp_path):
     clock_dt = datetime(2026, 8, 9, 14, 0, tzinfo=timezone.utc)
     supervisor, calls = _supervisor(tmp_path, mode="KILL_SWITCH", clock=_fixed_clock(clock_dt))

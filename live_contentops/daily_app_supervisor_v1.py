@@ -352,6 +352,13 @@ class ContentOpsDailyAppSupervisor:
             f"daily-app-supervisor-{os.getpid()}-"
             f"{_logical_hash(str(store_path))[:8]}-{uuid4().hex[:8]}"
         )
+        # One stable durable controller identity per canonical store.  A process restart
+        # refreshes the same heartbeat row instead of manufacturing a second controller in
+        # the read model, while the process-scoped owner_ref continues to fence active work.
+        self._heartbeat_worker_id = (
+            "contentops-daily-app-supervisor-"
+            + _logical_hash(str(self._store_path.resolve()))[:16]
+        )
         self._output_root = Path(output_root)
         self._lease_ttl_seconds = int(lease_ttl_seconds)
         self._sidecar_glob = sidecar_glob
@@ -1260,6 +1267,7 @@ class ContentOpsDailyAppSupervisor:
         """One cheap supervisor tick. No LLM/provider work unless a window is executed."""
         now = now or self._clock()
         self._refresh_operating_mode()
+        heartbeat = self._store.upsert_heartbeat(self._heartbeat_worker_id)
         report: dict[str, Any] = {
             "schema_version": SCHEMA_VERSION,
             "operating_mode": self._operating_mode,
@@ -1268,6 +1276,8 @@ class ContentOpsDailyAppSupervisor:
             "kill_switch_active": self._operating_mode == "KILL_SWITCH",
             "policy_version": self._policy.policy_version,
             "tick_at_utc": _iso_utc(now),
+            "heartbeat_worker_id": self._heartbeat_worker_id,
+            "heartbeat_at_utc": heartbeat["last_seen_at"],
             "windows_due": 0,
             "windows_dispatched": 0,
             "windows_skipped": [],
