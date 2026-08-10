@@ -194,6 +194,29 @@ The accelerated logical soak is not calendar-time live reliability and does not 
 
 ## 9. Latest operational task
 
+`TASK_CONTENTOPS_V1_TRUE_ONE_CLICK_INGESTION_BOOTSTRAP_AND_RUN_NOW_CONTROL_V1`
+
+Status:
+
+`COMPLETE_IMPLEMENTED_AND_VALIDATED`
+
+V1 runtime/product correction completing the one-click desktop operating contract:
+
+1. `Start_ContentOps_Daily_App.cmd` now safely bootstraps the EXISTING dedicated Chrome
+   `CapitalChronicleBot` ingestion profile on CDP 9222 when absent (exact historical
+   `Launch_Dashboard.bat` binding, no new/cloned profile, no login automation, REAUTH_REQUIRED
+   reported truthfully when the X session needs operator sign-in), reuses it when alive, and
+   fails closed on an unproven 9222 owner.
+2. One canonical `Run editorial cycle now` operator control (V5 Today +
+   `POST /api/daily-app/control/run-now`) records a durable, restart-safe, append-only
+   `OPERATOR_REQUESTED` trigger (schema v9, one pending trigger at a time). The persistent
+   supervisor consumes it through the exact canonical cycle boundary; only the wait for the
+   scheduled window is bypassed — every evidence/review/readiness/publication gate is
+   unchanged. KILL_SWITCH is never cleared; no public write is claimed by the control.
+   The quarantined `POST /api/run-pipeline` stays locked (423). No public write occurred.
+
+Prior completed task:
+
 `TASK_CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1`
 
 Status:
@@ -395,7 +418,9 @@ FDA-G genuine calendar-time soak remains active:
 
 Owner priority override (2026-08-10): after the completed one-click morning launcher task
 (`TASK_CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1`, entry file
-`Start_ContentOps_Daily_App.cmd`), Tier-2 implementation proceeds concurrently with the
+`Start_ContentOps_Daily_App.cmd`) and its follow-up V1 correction
+(`TASK_CONTENTOPS_V1_TRUE_ONE_CLICK_INGESTION_BOOTSTRAP_AND_RUN_NOW_CONTROL_V1`, Chrome 9222
+bootstrap + governed Run Now control), Tier-2 implementation proceeds concurrently with the
 continuing FDA-G evidence lane:
 
 `TIER2-A LOCAL LONG-FORM + SHORT-FORM PROGRAMMABLE VERTICAL SLICE`

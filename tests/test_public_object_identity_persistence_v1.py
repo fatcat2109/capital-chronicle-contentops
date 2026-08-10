@@ -47,8 +47,8 @@ FROZEN_V1_V4_CHECKSUMS = {
 def test_migrations_1_to_4_bytes_and_checksums_unchanged():
     assert set(hist.CURRENT_MIGRATION_SQL.keys()) == {1, 2, 3, 4}
     assert dict(hist.CURRENT_MIGRATION_CHECKSUMS) == FROZEN_V1_V4_CHECKSUMS
-    # The canonical schema is now v8 while v1-v4 SQL is untouched.
-    assert hist.CANONICAL_SCHEMA_VERSION == SCHEMA_VERSION == 8
+    # The canonical schema is now v9 while v1-v4 SQL is untouched.
+    assert hist.CANONICAL_SCHEMA_VERSION == SCHEMA_VERSION == 9
     # Frozen historical dependency manifests must NOT reference migrations v5/v6.
     assert set(hist.DEPENDENCY_MANIFEST["migration_sql_checksums"].keys()) == {1, 2, 3, 4}
     assert set(hist.DEPENDENCY_MANIFEST_V2["migration_sql_checksums"].keys()) == {1, 2, 3, 4}
@@ -97,7 +97,7 @@ def test_v4_to_v5_migration_lossless_epoch_and_null_identity(tmp_path):
 
     # Migrate 4 -> current canonical schema.
     store.run_migrations()
-    assert store.get_current_schema_version() == 8
+    assert store.get_current_schema_version() == 9
     assert store.verify_schema_integrity() is True
 
     conn = store.get_connection()

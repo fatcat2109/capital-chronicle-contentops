@@ -34,12 +34,15 @@ from live_contentops.historical_schema_compatibility_v1 import (
     DEPENDENCY_MANIFEST_V5_JSON,
     DEPENDENCY_MANIFEST_V6_HASH,
     DEPENDENCY_MANIFEST_V6_JSON,
+    DEPENDENCY_MANIFEST_V7_HASH,
+    DEPENDENCY_MANIFEST_V7_JSON,
     LEGACY_QUARANTINE_SCOPE,
     MIGRATION_V5_CHECKSUM,
     MIGRATION_V5_SQL,
     MIGRATION_V6_SQL,
     MIGRATION_V7_SQL,
     MIGRATION_V8_SQL,
+    MIGRATION_V9_SQL,
     canonical_json,
     recognize_lineage,
     schema_fingerprint,
@@ -148,6 +151,15 @@ class LearningPolicyConflictError(DurableStoreError):
 
 class OperatingModeConflictError(DurableStoreError):
     """The expected durable mode-control version did not match current state."""
+
+
+class OperatorTriggerAlreadyPendingError(DurableStoreError):
+    """At most one PENDING operator-requested cycle trigger may exist at a time.
+
+    The partial unique index enforces this durably; repeated HTTP retries/double clicks are
+    idempotent and never create duplicate editorial executions. The existing pending trigger
+    identity is returned instead of a second row.
+    """
 
 
 def utc_now_iso() -> str:
@@ -393,6 +405,7 @@ MIGRATIONS: List[Migration] = [
     Migration(6, "Schema v6: performance_observations and learning_policy_versions", MIGRATION_V6_SQL, "sql_only.v6"),
     Migration(7, "Schema v7: canonical operating-mode control", MIGRATION_V7_SQL, "sql_only.v7"),
     Migration(8, "Schema v8: current destination readiness", MIGRATION_V8_SQL, "sql_only.v8"),
+    Migration(9, "Schema v9: append-only operator-requested cycle triggers", MIGRATION_V9_SQL, "sql_only.v9"),
 ]
 
 
@@ -497,8 +510,8 @@ class ContentOpsDurableStore:
                     len(rows) != 1
                     or int(rows[0]["singleton_id"]) != 1
                     or int(rows[0]["compatibility_version"]) != CANONICAL_SCHEMA_VERSION
-                    or rows[0]["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V3_JSON, DEPENDENCY_MANIFEST_V4_JSON, DEPENDENCY_MANIFEST_V5_JSON, DEPENDENCY_MANIFEST_V6_JSON)
-                    or rows[0]["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH, DEPENDENCY_MANIFEST_V3_HASH, DEPENDENCY_MANIFEST_V4_HASH, DEPENDENCY_MANIFEST_V5_HASH, DEPENDENCY_MANIFEST_V6_HASH)
+                    or rows[0]["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V3_JSON, DEPENDENCY_MANIFEST_V4_JSON, DEPENDENCY_MANIFEST_V5_JSON, DEPENDENCY_MANIFEST_V6_JSON, DEPENDENCY_MANIFEST_V7_JSON)
+                    or rows[0]["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH, DEPENDENCY_MANIFEST_V3_HASH, DEPENDENCY_MANIFEST_V4_HASH, DEPENDENCY_MANIFEST_V5_HASH, DEPENDENCY_MANIFEST_V6_HASH, DEPENDENCY_MANIFEST_V7_HASH)
                 ):
                     raise DurableStateCorruptionError("Dependency manifest binding mismatch")
                 guard_rows = {
@@ -632,6 +645,16 @@ class ContentOpsDurableStore:
                     if updated != 1:
                         raise MigrationError(
                             "Migration v8 requires an existing canonical schema_lineage_metadata row"
+                        )
+                if migration.version == 9:
+                    updated = conn.execute(
+                        "UPDATE schema_lineage_metadata SET compatibility_version=?, dependency_manifest_json=?,"
+                        " dependency_manifest_hash=?, upgraded_at=? WHERE singleton_id=1",
+                        (9, DEPENDENCY_MANIFEST_V7_JSON, DEPENDENCY_MANIFEST_V7_HASH, self._get_now_iso()),
+                    ).rowcount
+                    if updated != 1:
+                        raise MigrationError(
+                            "Migration v9 requires an existing canonical schema_lineage_metadata row"
                         )
                 proof = self._verify_migration_preservation(conn, before, migration.version)
                 conn.execute("INSERT INTO schema_migrations VALUES (?,?,?,?)", (migration.version, migration.checksum, self._get_now_iso(), migration.description))
@@ -1705,3 +1728,132 @@ class ContentOpsDurableStore:
             raise
         finally:
             conn.close()
+
+    # ------------------------------------------------------------------
+    # Operator-requested cycle triggers (schema v9, append-only).
+    # ------------------------------------------------------------------
+
+    def record_operator_cycle_trigger(
+        self,
+        *,
+        trigger_id: str,
+        trigger_kind: str = "OPERATOR_REQUESTED",
+        requested_mode: str,
+        control_state_version: int,
+        requested_at_utc: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """Persist exactly one durable operator trigger request (idempotent single PENDING)."""
+        if trigger_kind != "OPERATOR_REQUESTED":
+            raise ValueError(f"operator_trigger_kind_invalid:{trigger_kind}")
+        if requested_mode not in {
+            "AUTONOMOUS_DEFAULT", "SUPERVISED_OPERATOR_GATE", "SHADOW_ONLY", "KILL_SWITCH",
+        }:
+            raise ValueError(f"operator_trigger_mode_invalid:{requested_mode}")
+        if not re.fullmatch(r"[a-z0-9_.:-]{8,128}", str(trigger_id or "")):
+            raise ValueError("operator_trigger_id_invalid")
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            try:
+                conn.execute(
+                    "INSERT INTO operator_cycle_triggers VALUES (?,?,?,?,?,?,?,?,?)",
+                    (
+                        str(trigger_id),
+                        trigger_kind,
+                        requested_at_utc or self._get_now_iso(),
+                        requested_mode,
+                        int(control_state_version),
+                        "PENDING",
+                        None,
+                        None,
+                        None,
+                    ),
+                )
+            except Exception as exc:
+                existing = conn.execute(
+                    "SELECT * FROM operator_cycle_triggers WHERE state='PENDING' LIMIT 1"
+                ).fetchone()
+                if existing is not None:
+                    conn.execute("ROLLBACK")
+                    raise OperatorTriggerAlreadyPendingError(
+                        f"operator_trigger_already_pending:{existing['trigger_id']}"
+                    ) from exc
+                raise
+            conn.execute("COMMIT")
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+        pending = self.fetch_pending_operator_trigger()
+        if pending is None:
+            raise DurableStateCorruptionError("operator trigger insert lost")
+        return pending
+
+    def fetch_pending_operator_trigger(self) -> Optional[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM operator_cycle_triggers WHERE state='PENDING'"
+                " ORDER BY requested_at_utc ASC, trigger_id ASC LIMIT 1"
+            ).fetchone()
+            return dict(row) if row else None
+
+    def latest_operator_cycle_trigger(self) -> Optional[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM operator_cycle_triggers"
+                " ORDER BY requested_at_utc DESC, trigger_id DESC LIMIT 1"
+            ).fetchone()
+            return dict(row) if row else None
+
+    def consume_operator_cycle_trigger(
+        self,
+        trigger_id: str,
+        *,
+        window_id: Optional[str],
+        detail: str,
+        consumed_at_utc: Optional[str] = None,
+    ) -> bool:
+        """CAS-transition one PENDING trigger to CONSUMED exactly once (restart-safe)."""
+        if not re.fullmatch(r"[A-Za-z0-9_.:@-]{1,192}", str(detail or "")):
+            raise ValueError("operator_trigger_consumption_detail_invalid")
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            updated = conn.execute(
+                "UPDATE operator_cycle_triggers SET state='CONSUMED', consumed_at_utc=?,"
+                " consumed_window_id=?, consumption_detail=?"
+                " WHERE trigger_id=? AND state='PENDING'",
+                (
+                    consumed_at_utc or self._get_now_iso(),
+                    window_id,
+                    detail,
+                    str(trigger_id),
+                ),
+            ).rowcount
+            conn.execute("COMMIT")
+            return updated == 1
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    def active_editorial_cycle_window_ids(self) -> List[str]:
+        """Work items in EVIDENCE_PENDING with a live ACTIVE lease (one canonical cycle running)."""
+        with self.get_connection() as conn:
+            now = self._get_now_iso()
+            rows = conn.execute(
+                "SELECT DISTINCT w.work_item_id FROM work_items w"
+                " JOIN leases l ON l.work_item_id = w.work_item_id"
+                " WHERE w.current_state='EVIDENCE_PENDING' AND l.status='ACTIVE'"
+                " AND l.expires_at > ? ORDER BY w.work_item_id",
+                (now,),
+            ).fetchall()
+            return [str(row["work_item_id"]) for row in rows]

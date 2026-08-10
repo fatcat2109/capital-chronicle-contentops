@@ -29,7 +29,7 @@ Future expansion retained but deferred until V1 freeze:
 
 Current completed runtime task:
 
-`TASK_CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1`
+`TASK_CONTENTOPS_V1_TRUE_ONE_CLICK_INGESTION_BOOTSTRAP_AND_RUN_NOW_CONTROL_V1`
 
 Current continuous product lane:
 
@@ -51,7 +51,14 @@ On 2026-08-10 Jim's owner priority override added the one-click V1 desktop opera
 `Start_ContentOps_Daily_App.cmd` double-click safely starts or resumes the SAME durable
 production Daily App state after planned host sleep/shutdown. Idempotent launch, no duplicate
 supervisor/cycle/public object, no store reset, fail-closed port ownership, KILL_SWITCH and
-UNKNOWN_WRITE preservation. Evidence is under
+UNKNOWN_WRITE preservation. Its follow-up correction made the launcher a TRUE one-click flow
+(safe bootstrap of the exact existing Chrome `CapitalChronicleBot` CDP 9222 ingestion profile,
+no login automation, truthful REAUTH_REQUIRED) and added the canonical governed
+`Run editorial cycle now` control (V5 Today + `POST /api/daily-app/control/run-now` →
+durable, restart-safe, append-only `OPERATOR_REQUESTED` trigger consumed by the existing
+supervisor through the unchanged canonical gates; schema v9). Evidence is under
+`docs/automation/CONTENTOPS_V1_TRUE_ONE_CLICK_INGESTION_BOOTSTRAP_AND_RUN_NOW_CONTROL_V1/`.
+Earlier launcher evidence is under
 `docs/automation/CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1/`.
 
 ## Current authority read order

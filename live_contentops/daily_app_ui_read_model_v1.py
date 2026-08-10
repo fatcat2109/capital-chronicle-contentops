@@ -28,6 +28,7 @@ from live_contentops.daily_app_supervisor_v1 import (
 from live_contentops.durable_operational_store_v1 import (
     ContentOpsDurableStore,
     OperatingModeConflictError,
+    OperatorTriggerAlreadyPendingError,
 )
 from live_contentops.publishing_profile_registry_v1 import (
     CANONICAL_BROWSER_FAMILY,
@@ -41,9 +42,26 @@ from live_contentops.destination_transport_registry_v1 import (
 )
 
 SNAPSHOT_SCHEMA_VERSION = "contentops.daily_app_ui_snapshot.v1"
-REQUIRED_STORE_SCHEMA_VERSION = 8
+REQUIRED_STORE_SCHEMA_VERSION = 9
 FRESH_SECONDS = 300
 HEARTBEAT_TTL_SECONDS = 120
+
+RUN_NOW_ENDPOINT = "/api/daily-app/control/run-now"
+RUN_NOW_MODE_CONSEQUENCES = {
+    "AUTONOMOUS_DEFAULT": (
+        "Runs one governed editorial cycle now. A publishable package may be published "
+        "automatically if every canonical gate passes."
+    ),
+    "SUPERVISED_OPERATOR_GATE": (
+        "Runs one governed editorial cycle now; publication stays held under the existing "
+        "supervised gate."
+    ),
+    "SHADOW_ONLY": "Runs one governed editorial cycle now with zero public writes.",
+    "KILL_SWITCH": (
+        "New manual cycles are not accepted while the kill switch is active. New public writes "
+        "remain blocked; the kill switch is never cleared by this control."
+    ),
+}
 
 TIER1_DESTINATIONS = (
     ("substack", "Substack", "BROWSER_AUTHENTICATED"),
@@ -243,6 +261,7 @@ def build_daily_app_snapshot(
             policies = _rows(conn, "SELECT * FROM learning_policy_versions ORDER BY created_at_utc DESC,policy_version DESC")
             metrics = _rows(conn, "SELECT metric_id,metric_name,metric_value,recorded_at FROM metrics")
             readiness_rows = _rows(conn, "SELECT * FROM destination_readiness ORDER BY platform,surface")
+            operator_trigger_rows = _rows(conn, "SELECT * FROM operator_cycle_triggers ORDER BY requested_at_utc DESC, trigger_id DESC")
             review_count = int(conn.execute("SELECT COUNT(*) FROM review_records").fetchone()[0])
             artifact_count = int(conn.execute("SELECT COUNT(*) FROM artifact_references").fetchone()[0])
             event_count = len(transitions)
@@ -250,6 +269,14 @@ def build_daily_app_snapshot(
         raise
     except Exception as exc:
         raise DailyAppReadModelError(f"durable store projection failed:{type(exc).__name__}") from exc
+
+    latest_operator_trigger = (
+        _sanitize_operator_trigger(operator_trigger_rows[0]) if operator_trigger_rows else None
+    )
+    try:
+        active_cycle_windows = list(store.active_editorial_cycle_window_ids())
+    except Exception:  # noqa: BLE001 - an unreadable lease view stays explicit, never invented
+        active_cycle_windows = []
 
     recon_by_suffix = {
         str(row["reconciliation_id"]).removeprefix("reconciliation_"): row
@@ -570,6 +597,8 @@ def build_daily_app_snapshot(
             "controller_health": controller_health,
             "latest_heartbeat_at_utc": latest_heartbeat.get("last_seen_at") if latest_heartbeat else None,
             "production_epoch_start_utc": production_epoch,
+            "operator_cycle_trigger": latest_operator_trigger,
+            "active_editorial_cycle_window_id": active_cycle_windows[0] if active_cycle_windows else None,
             "last_tick_state": latest_transition.get("to_state") if latest_transition else "NO_TICK_RECORDED",
             "last_tick_at_utc": latest_transition.get("timestamp_utc") if latest_transition else None,
             "next_wake_utc": future_windows[0]["window_start_utc"] if future_windows else None,
@@ -649,6 +678,9 @@ def build_daily_app_snapshot(
             "control_source": controls["control_source"],
             "allowed_modes": sorted(OPERATING_MODES),
             "write_endpoint": "/api/daily-app/control/mode",
+            "run_now_endpoint": RUN_NOW_ENDPOINT,
+            "run_now_allowed": controls["operating_mode"] != "KILL_SWITCH",
+            "run_now_mode_consequence": RUN_NOW_MODE_CONSEQUENCES[controls["operating_mode"]],
             "semantics": {
                 "AUTONOMOUS_DEFAULT": "Routine automation; every public write still requires every canonical gate.",
                 "SUPERVISED_OPERATOR_GATE": "Pause before new public writes; recovery continues.",
@@ -690,10 +722,10 @@ def update_daily_app_mode(
     expected_state_version: int,
     operating_mode: str,
 ) -> dict[str, Any]:
-    """Perform the sole FDA-F write class: one canonical CAS mode update."""
+    """Perform the FDA-F write class: one canonical CAS mode update."""
     store = ContentOpsDurableStore(Path(store_path), auto_migrate=False)
     if store.get_current_schema_version() != REQUIRED_STORE_SCHEMA_VERSION:
-        raise DailyAppReadModelError("mode control requires canonical schema v7+")
+        raise DailyAppReadModelError("mode control requires canonical schema v9")
     try:
         return store.update_operating_control(
             expected_state_version=expected_state_version,
@@ -706,3 +738,113 @@ def update_daily_app_mode(
         raise DailyAppReadModelError(
             f"canonical operating control update failed:{type(exc).__name__}"
         ) from exc
+
+
+def _sanitize_operator_trigger(row: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "trigger_id": row.get("trigger_id"),
+        "trigger_kind": row.get("trigger_kind"),
+        "requested_at_utc": row.get("requested_at_utc"),
+        "requested_mode": row.get("requested_mode"),
+        "state": row.get("state"),
+        "consumed_at_utc": row.get("consumed_at_utc"),
+        "consumed_window_id": row.get("consumed_window_id"),
+        "consumption_detail": row.get("consumption_detail"),
+        "grants_publication_authority": False,
+    }
+
+
+def request_operator_cycle(
+    store_path: str | Path,
+    *,
+    expected_state_version: int,
+) -> dict[str, Any]:
+    """Record one durable OPERATOR_REQUESTED cycle trigger through the canonical store.
+
+    This control never executes the newsroom pipeline, never claims publication, and never
+    changes operating mode. The persistent supervisor consumes the durable trigger on its normal
+    cheap loop and runs it through the exact same canonical gates as a scheduled window.
+    """
+    from uuid import uuid4
+
+    from live_contentops.ingestion_bootstrap_v1 import (
+        STATE_ALREADY_READY,
+        STATE_LAUNCHED,
+        ensure_ingestion_runtime,
+    )
+
+    store = ContentOpsDurableStore(Path(store_path), auto_migrate=False)
+    if store.get_current_schema_version() != REQUIRED_STORE_SCHEMA_VERSION:
+        raise DailyAppReadModelError("run-now control requires canonical schema v9")
+    control = store.get_operating_control()
+    if int(control["state_version"]) != int(expected_state_version):
+        raise OperatingModeConflictError(
+            f"run_now_control_state_conflict:expected={int(expected_state_version)}"
+            f":actual={int(control['state_version'])}"
+        )
+    mode = str(control["operating_mode"])
+    if mode == "KILL_SWITCH":
+        return {
+            "status": "KILL_SWITCH_ACTIVE_PUBLIC_WRITES_BLOCKED",
+            "governed_cycle_requested": False,
+            "operating_mode": mode,
+            "publication_claimed": False,
+            "note": RUN_NOW_MODE_CONSEQUENCES["KILL_SWITCH"],
+        }
+    pending = store.fetch_pending_operator_trigger()
+    if pending is not None:
+        return {
+            "status": "OPERATOR_TRIGGER_ALREADY_PENDING",
+            "governed_cycle_requested": True,
+            "operating_mode": mode,
+            "publication_claimed": False,
+            "trigger": _sanitize_operator_trigger(pending),
+        }
+    if store.active_editorial_cycle_window_ids():
+        return {
+            "status": "CYCLE_ALREADY_ACTIVE",
+            "governed_cycle_requested": False,
+            "operating_mode": mode,
+            "publication_claimed": False,
+            "note": "A canonical editorial cycle is executing; no parallel cycle is started.",
+        }
+    ingestion = ensure_ingestion_runtime(wait_seconds=15.0)
+    if ingestion.get("status") not in {STATE_ALREADY_READY, STATE_LAUNCHED}:
+        return {
+            "status": "INGESTION_UNAVAILABLE",
+            "governed_cycle_requested": False,
+            "operating_mode": mode,
+            "publication_claimed": False,
+            "ingestion_state": ingestion.get("state"),
+            "detail": ingestion.get("detail"),
+            "note": "Canonical Chrome 9222 ingestion could not be proven; no cycle was requested.",
+        }
+    trigger_id = "operator-trigger-" + uuid4().hex[:24]
+    try:
+        record = store.record_operator_cycle_trigger(
+            trigger_id=trigger_id,
+            trigger_kind="OPERATOR_REQUESTED",
+            requested_mode=mode,
+            control_state_version=int(control["state_version"]),
+        )
+    except OperatorTriggerAlreadyPendingError:
+        existing = store.fetch_pending_operator_trigger()
+        return {
+            "status": "OPERATOR_TRIGGER_ALREADY_PENDING",
+            "governed_cycle_requested": True,
+            "operating_mode": mode,
+            "publication_claimed": False,
+            "trigger": _sanitize_operator_trigger(existing) if existing else None,
+        }
+    return {
+        "status": "OPERATOR_TRIGGER_ACCEPTED",
+        "governed_cycle_requested": True,
+        "operating_mode": mode,
+        "publication_claimed": False,
+        "note": (
+            "One governed editorial cycle was requested. It bypasses only the wait for the "
+            "scheduled window; every evidence/review/readiness/publication gate remains "
+            "unchanged. This response does not claim any publication."
+        ),
+        "trigger": _sanitize_operator_trigger(record),
+    }

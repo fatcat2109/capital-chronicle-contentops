@@ -108,7 +108,54 @@ function DefinitionRows({ object }: { object: Record<string, unknown> }) {
   return <dl className="daily-definitions">{Object.entries(object).map(([key, value]) => <div key={key}><dt>{words(key)}</dt><dd>{displayValue(key, value)}</dd></div>)}</dl>;
 }
 
-function Today({ data }: { data: DailyAppSnapshot }) {
+function RunEditorialNow({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Promise<void> }) {
+  const [phase, setPhase] = useState<'idle' | 'submitting'>('idle');
+  const [message, setMessage] = useState<string | null>(null);
+  const trigger = data.runtime.operator_cycle_trigger;
+  const pending = Boolean(trigger && trigger.state === 'PENDING');
+  const activeCycle = Boolean(data.runtime.active_editorial_cycle_window_id);
+  const allowed = Boolean(data.controls.run_now_allowed);
+  const disabled = phase === 'submitting' || pending || activeCycle || !allowed;
+  const label = phase === 'submitting'
+    ? 'Requesting…'
+    : activeCycle ? 'Cycle already active'
+    : pending ? 'Operator trigger pending'
+    : allowed ? 'Run editorial cycle now'
+    : 'Run now unavailable';
+  const request = async () => {
+    if (disabled) return;
+    setPhase('submitting');
+    setMessage(null);
+    try {
+      const response = await fetch(`${API_ROOT}${data.controls.run_now_endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ trigger: 'OPERATOR_REQUESTED', expected_state_version: data.controls.state_version }),
+      });
+      const result = await response.json() as { status?: string; error?: string };
+      if (result.status === 'OPERATOR_TRIGGER_ACCEPTED') {
+        setMessage('Operator trigger accepted. One governed cycle is queued; every gate remains unchanged and no publication is claimed.');
+        await refresh();
+        return;
+      }
+      setMessage(words(result.status ?? result.error ?? 'RUN_NOW_REQUEST_NOT_ACCEPTED'));
+      await refresh();
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'Run now request failed');
+    } finally {
+      setPhase('idle');
+    }
+  };
+  return <Panel title="Run editorial cycle now" eyebrow="Operator trigger">
+    <p className="daily-callout">{data.controls.run_now_mode_consequence ?? 'Mode consequence unavailable'}</p>
+    <button type="button" className="daily-run-now-button" disabled={disabled} onClick={() => void request()}>{label}</button>
+    {message && <p role="status" className="daily-control-message">{message}</p>}
+    {pending && trigger && <p>Durable operator trigger {String(trigger.trigger_id)} is pending supervisor consumption.</p>}
+    <p>Governed request only: it bypasses the wait for the scheduled window and nothing else. Evidence, review, freshness, permission, readiness, and publication gates stay unchanged, and publication is never guaranteed.</p>
+  </Panel>;
+}
+
+function Today({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Promise<void> }) {
   const cycle = data.today.current_cycle;
   const nextAction = data.incidents.active_count > 0
     ? 'Review the active incident lifecycle before any intervention.'
@@ -117,6 +164,7 @@ function Today({ data }: { data: DailyAppSnapshot }) {
     <div className="daily-first-fold">
       <Panel title="Operating mode" eyebrow="Control posture"><Status value={data.runtime.operating_mode} /><p>{data.controls.semantics[data.runtime.operating_mode]}</p><Status value={data.runtime.kill_switch_active ? 'KILL_SWITCH_ACTIVE' : 'KILL_SWITCH_DISENGAGED'} /></Panel>
       <Panel title="Controller health" eyebrow="Runtime"><Status value={data.runtime.controller_health} /><p>Last heartbeat: {formatUtcDateTime(data.runtime.latest_heartbeat_at_utc)}</p></Panel>
+      <RunEditorialNow data={data} refresh={refresh} />
       <Panel title="Next safe action" eyebrow="Operator"><p className="daily-callout">{nextAction}</p><p>Next wake: {formatUtcDateTime(data.runtime.next_wake_utc)}</p><Status value={data.runtime.next_editorial_window?.provenance ?? 'WINDOW_PROVENANCE_UNAVAILABLE'} /></Panel>
       <Panel title="Active incidents" eyebrow="Safety"><strong className="daily-big-number">{data.incidents.active_count}</strong><Status value={data.incidents.active_count ? 'ATTENTION_REQUIRED' : 'NO_ACTIVE_INCIDENTS'} /></Panel>
     </div>
@@ -195,7 +243,7 @@ function Controls({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Pr
     } catch (error) { setMessage(error instanceof Error ? error.message : 'Control update failed'); }
     finally { setPending(null); }
   };
-  return <div className="daily-view"><ViewTitle title="Controls" detail="A mode change is the only write in this console. It never launches a run or bypasses a gate." />
+  return <div className="daily-view"><ViewTitle title="Controls" detail="The console writes are a CAS mode change and a durable run-now trigger. Neither launches a pipeline directly, changes a gate, nor clears the kill switch." />
     {data.runtime.kill_switch_active && <div className="daily-kill-banner"><ShieldAlert />Kill switch is active. New public writes are blocked.</div>}
     <Panel title="Operating mode" eyebrow={`State version ${data.controls.state_version}`}><div className="daily-control-list">{data.controls.allowed_modes.map(mode => <button type="button" key={mode} className={mode === data.controls.current_mode ? 'is-active' : mode === 'KILL_SWITCH' ? 'is-kill' : ''} disabled={pending !== null || mode === data.controls.current_mode} onClick={() => void changeMode(mode)}><span><strong>{words(mode)}</strong><small>{data.controls.semantics[mode]}</small></span>{mode === data.controls.current_mode ? <Status value="CURRENT" /> : <ChevronRight />}</button>)}</div>{message && <p role="status" className="daily-control-message">{message}</p>}</Panel>
   </div>;
@@ -241,7 +289,7 @@ export function DailyAppConsole() {
         {state.kind === 'loading' && <div className="daily-loading"><Gauge /><span>Reading canonical operating state…</span></div>}
         {!snapshot && state.kind === 'offline' && <Empty title="Operating state unavailable" detail="Start the loopback API with an explicit canonical store binding. This surface has no fixture fallback." />}
         {snapshot && <>
-          {view === 'today' && <Today data={snapshot} />}
+          {view === 'today' && <Today data={snapshot} refresh={refresh} />}
           {view === 'queue' && <Queue data={snapshot} />}
           {view === 'published' && <Published data={snapshot} />}
           {view === 'performance' && <Performance data={snapshot} />}

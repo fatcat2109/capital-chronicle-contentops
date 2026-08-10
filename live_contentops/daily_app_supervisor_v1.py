@@ -33,6 +33,10 @@ SCHEMA_VERSION = "contentops.daily_app_supervisor.v1"
 
 TRIGGER_SCHEDULED = "SCHEDULED"
 TRIGGER_MATERIAL_EVENT = "MATERIAL_EVENT"
+#: Operator "run editorial cycle now" requests. The trigger bypasses ONLY the need to wait for
+#: the scheduled clock window; every downstream evidence/review/package/publication gate is
+#: unchanged. It never forces a story, a publication, or weakened gates.
+TRIGGER_OPERATOR_REQUESTED = "OPERATOR_REQUESTED"
 
 OPERATING_MODES = frozenset(
     {"AUTONOMOUS_DEFAULT", "SUPERVISED_OPERATOR_GATE", "SHADOW_ONLY", "KILL_SWITCH"}
@@ -1259,6 +1263,77 @@ class ContentOpsDailyAppSupervisor:
             ),
         )
 
+    def _consume_pending_operator_trigger(self, now: datetime) -> Optional[dict[str, Any]]:
+        """Consume at most one durable OPERATOR_REQUESTED trigger through the SAME canonical
+        cycle boundary as scheduled windows. Restart-safe: the trigger row stays PENDING until
+        consumption, so a pending request survives restart exactly once. An already-executing
+        canonical cycle (active EVIDENCE_PENDING lease) defers consumption; no parallel cycle.
+        """
+        fetch = getattr(self._store, "fetch_pending_operator_trigger", None)
+        if fetch is None:
+            return None
+        trigger = fetch()
+        if not trigger:
+            return None
+        trigger_id = str(trigger["trigger_id"])
+        active_windows = []
+        try:
+            active_windows = list(self._store.active_editorial_cycle_window_ids())
+        except Exception:  # noqa: BLE001 - fail closed on durable-state read error
+            return {"trigger_id": trigger_id, "state": "DEFERRED_STORE_UNAVAILABLE", "executed": False}
+        if active_windows:
+            return {
+                "trigger_id": trigger_id,
+                "state": "DEFERRED_CYCLE_ALREADY_ACTIVE",
+                "executed": False,
+                "active_window_id": active_windows[0],
+            }
+        start = _parse_utc(trigger["requested_at_utc"])
+        window = {
+            "window_id": f"operator-requested-{trigger_id}",
+            "trigger": TRIGGER_OPERATOR_REQUESTED,
+            "start": start,
+            "end": start + timedelta(hours=1),
+            "session": "operator_requested",
+        }
+        outcome = self._execute_window(window, now)
+        reason = str(outcome.get("reason") or "")
+        if outcome.get("executed"):
+            self._store.consume_operator_cycle_trigger(
+                trigger_id,
+                window_id=window["window_id"],
+                detail=f"EXECUTED:{str(outcome.get('classification') or 'NO_CLASSIFICATION')}",
+            )
+            return {
+                "trigger_id": trigger_id,
+                "state": "CONSUMED",
+                "executed": True,
+                "classification": outcome.get("classification"),
+                "viable": bool(outcome.get("viable")),
+                "public_write_performed": bool(outcome.get("public_write_performed")),
+                "unknown_write_detected": bool(outcome.get("unknown_write_detected")),
+                "terminal_state": outcome.get("terminal_state"),
+                "window_id": window["window_id"],
+            }
+        if reason in {"active_window_owned_elsewhere", "lease_conflict_another_owner"}:
+            return {
+                "trigger_id": trigger_id,
+                "state": "DEFERRED_ACTIVE_WINDOW_OWNED_ELSEWHERE",
+                "executed": False,
+            }
+        self._store.consume_operator_cycle_trigger(
+            trigger_id,
+            window_id=window["window_id"],
+            detail=f"NOT_EXECUTED:{reason or 'terminal_state_present'}",
+        )
+        return {
+            "trigger_id": trigger_id,
+            "state": "CONSUMED",
+            "executed": False,
+            "reason": reason or "terminal_state_present",
+            "window_id": window["window_id"],
+        }
+
     def tick(
         self,
         now: Optional[datetime] = None,
@@ -1362,12 +1437,27 @@ class ContentOpsDailyAppSupervisor:
         if report["kill_switch_active"]:
             # Kill switch blocks NEW public dispatch (no publisher call, no weakened gates).
             # Readback, reconciliation, performance observation, and safe recovery all continue.
+            # Existing product policy also defers operator-requested cycles while KILL_SWITCH is
+            # active; the durable PENDING trigger is preserved untouched for later consumption.
             report["next_wake_utc"] = _iso_utc(self._next_wake(now))
             return report
 
+        operator_report = self._consume_pending_operator_trigger(now)
+        dispatched = 0
+        if operator_report is not None:
+            report["operator_trigger"] = operator_report
+            if operator_report.get("executed"):
+                dispatched += 1
+                report["newsroom_cycle_invocations"] += 1
+                report["public_write_performed"] = report["public_write_performed"] or bool(
+                    operator_report.get("public_write_performed")
+                )
+                report["unknown_write_detected"] = report["unknown_write_detected"] or bool(
+                    operator_report.get("unknown_write_detected")
+                )
+
         due_windows = self._due_windows(now, materiality_metadata)
         report["windows_due"] = len(due_windows)
-        dispatched = 0
         for window in due_windows:
             # Execute at most one due editorial window per tick.
             if dispatched >= 1:

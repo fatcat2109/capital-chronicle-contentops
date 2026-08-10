@@ -39,6 +39,8 @@ export interface DailyAppSnapshot {
     last_tick_at_utc: string | null;
     next_wake_utc: string | null;
     next_editorial_window: Record<string, unknown> | null;
+    operator_cycle_trigger: Record<string, unknown> | null;
+    active_editorial_cycle_window_id: string | null;
     headline_freshness: string;
     provider_invocation_count: number;
     prompt_tokens: number;
@@ -91,6 +93,9 @@ export interface DailyAppSnapshot {
     control_source: string;
     allowed_modes: OperatingMode[];
     write_endpoint: string;
+    run_now_endpoint: string;
+    run_now_allowed: boolean;
+    run_now_mode_consequence: string;
     semantics: Record<OperatingMode, string>;
     unsafe_controls_available: boolean;
   };

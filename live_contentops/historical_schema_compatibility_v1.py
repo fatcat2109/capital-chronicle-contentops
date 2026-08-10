@@ -24,7 +24,7 @@ from live_contentops.historical_schema_lineage_v1 import (
     ORIGINAL_NO_GENESIS_LINEAGE_ID,
 )
 
-CANONICAL_SCHEMA_VERSION = 8
+CANONICAL_SCHEMA_VERSION = 9
 #: Migration versions 1-4 are frozen historical evidence; their SQL bytes and checksums must
 #: never change. Schema evolution beyond v4 appends NEW migrations only (migration v5 below).
 GENESIS_PREVIOUS_HASH = "GENESIS_" + ("0" * 64)
@@ -419,6 +419,58 @@ DEPENDENCY_MANIFEST_V6: Mapping[str, Any] = {
 }
 DEPENDENCY_MANIFEST_V6_JSON = canonical_json(DEPENDENCY_MANIFEST_V6)
 DEPENDENCY_MANIFEST_V6_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_V6_JSON.encode("utf-8")).hexdigest()
+
+# Schema migration v9 — append-only operator-requested cycle triggers.
+#
+# Migrations v1-v8 remain byte/checksum frozen. This table records one durable, restart-safe
+# identity per operator "run editorial cycle now" request. Rows are never deleted; the partial
+# unique index enforces at most one PENDING operator trigger at a time so repeated HTTP
+# retries/double clicks never create duplicate editorial executions. It stores NO secrets.
+MIGRATION_V9_SQL = (
+    "\nCREATE TABLE IF NOT EXISTS operator_cycle_triggers (\n"
+    "    trigger_id TEXT PRIMARY KEY,\n"
+    "    trigger_kind TEXT NOT NULL CHECK(trigger_kind IN ('OPERATOR_REQUESTED')),\n"
+    "    requested_at_utc TEXT NOT NULL,\n"
+    "    requested_mode TEXT NOT NULL,\n"
+    "    control_state_version INTEGER NOT NULL,\n"
+    "    state TEXT NOT NULL CHECK(state IN ('PENDING','CONSUMED','REJECTED')),\n"
+    "    consumed_at_utc TEXT,\n"
+    "    consumed_window_id TEXT,\n"
+    "    consumption_detail TEXT\n"
+    ");\n"
+    "CREATE UNIQUE INDEX IF NOT EXISTS operator_cycle_triggers_one_pending\n"
+    "ON operator_cycle_triggers(state) WHERE state='PENDING';\n"
+    "CREATE INDEX IF NOT EXISTS idx_operator_cycle_triggers_requested\n"
+    "ON operator_cycle_triggers(requested_at_utc DESC, trigger_id DESC);\n"
+)
+MIGRATION_V9_CHECKSUM = hashlib.sha256(MIGRATION_V9_SQL.encode("utf-8")).hexdigest()
+
+DEPENDENCY_MANIFEST_V7: Mapping[str, Any] = {
+    **DEPENDENCY_MANIFEST_V6,
+    "schema_version": "contentops.schema_v9_dependency_manifest.v1",
+    "migration_sql_checksums": {
+        **DEPENDENCY_MANIFEST_V6["migration_sql_checksums"], 9: MIGRATION_V9_CHECKSUM,
+    },
+    "migration_sql_hashes": {
+        **DEPENDENCY_MANIFEST_V6["migration_sql_hashes"], 9: MIGRATION_V9_CHECKSUM,
+    },
+    "migration_transform_versions": {
+        **DEPENDENCY_MANIFEST_V6["migration_transform_versions"], 9: "sql_only.v9",
+    },
+    "migration_sql_source": (
+        "live_contentops.historical_schema_compatibility_v1.CURRENT_MIGRATION_SQL / "
+        "MIGRATION_V5_SQL / MIGRATION_V6_SQL / MIGRATION_V7_SQL / MIGRATION_V8_SQL / MIGRATION_V9_SQL"
+    ),
+    "operator_cycle_triggers": {
+        "table": "operator_cycle_triggers",
+        "authority": "one_pending_operator_requested_cycle_at_a_time",
+        "trigger_kinds": ["OPERATOR_REQUESTED"],
+        "grants_publication_authority": False,
+        "secret_values_allowed": False,
+    },
+}
+DEPENDENCY_MANIFEST_V7_JSON = canonical_json(DEPENDENCY_MANIFEST_V7)
+DEPENDENCY_MANIFEST_V7_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_V7_JSON.encode("utf-8")).hexdigest()
 
 
 @dataclass(frozen=True)

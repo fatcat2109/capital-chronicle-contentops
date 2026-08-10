@@ -22,6 +22,21 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Mapping, Optional
 
+from live_contentops.ingestion_bootstrap_v1 import (
+    INGESTION_CDP_PORT,
+    PUBLISHING_CDP_PORT,
+    STATE_ALREADY_READY,
+    STATE_AUTH_UNVERIFIED,
+    STATE_LAUNCHED,
+    STATE_PORT_OWNER_UNPROVEN,
+    STATE_READY,
+    STATE_REAUTH_REQUIRED,
+    STATE_RUNNING_WITHOUT_CDP,
+    STATE_UNAVAILABLE,
+    one_click_ingestion_bootstrap,
+    probe_cdp,
+)
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 RUNTIME_ROOT_DEFAULT = Path(r"A:\Capital Chronicle\Runtime\ContentOps")
@@ -34,8 +49,6 @@ HEALTH_ROUTE = "/api/health"
 SNAPSHOT_ROUTE = "/api/daily-app/snapshot"
 LOOPBACK_API_SCHEMA = "contentops.daily_app_loopback_api.v1"
 SNAPSHOT_SCHEMA = "contentops.daily_app_ui_snapshot.v1"
-INGESTION_CDP_PORT = 9222
-PUBLISHING_CDP_PORT = 9223
 UI_PREVIEW_PORT = 4173
 UI_DEV_PORT = 5173
 UI_DIR = REPO_ROOT / "ui" / "contentops_v5"
@@ -146,16 +159,6 @@ def probe_snapshot(api_base: str, *, timeout: float = 20.0) -> Optional[dict[str
     if not isinstance(payload, Mapping) or payload.get("schema_version") != SNAPSHOT_SCHEMA:
         return None
     return dict(payload)
-
-
-def probe_cdp(port: int, *, timeout: float = 3.0) -> dict[str, Any]:
-    payload = _http_get_json(f"http://127.0.0.1:{port}/json/version", timeout=timeout)
-    if not isinstance(payload, Mapping):
-        return {"cdp_alive": False, "browser_family": None}
-    return {
-        "cdp_alive": True,
-        "browser_family": str(payload.get("Browser") or ""),
-    }
 
 
 def _powershell_json(script: str, *, timeout: float = 25.0) -> Optional[dict[str, Any]]:
@@ -376,8 +379,34 @@ def render_credential_inventory(rows: list[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
-def summarize_browser_state(snapshot: Optional[dict[str, Any]]) -> dict[str, Any]:
-    chrome = probe_cdp(INGESTION_CDP_PORT)
+def summarize_browser_state(
+    snapshot: Optional[dict[str, Any]],
+    *,
+    ingestion_runtime: Optional[dict[str, Any]] = None,
+) -> dict[str, Any]:
+    if ingestion_runtime is None:
+        chrome = probe_cdp(INGESTION_CDP_PORT)
+        ingestion_state = STATE_READY if chrome.get("cdp_alive") else STATE_UNAVAILABLE
+        ingestion_detail = "CDP_PROBE_ONLY"
+        auth_state = None
+    else:
+        status = str(ingestion_runtime.get("status") or ingestion_runtime.get("state") or "")
+        ingestion_state = status
+        ingestion_detail = str(ingestion_runtime.get("detail") or ingestion_runtime.get("state") or "")
+        auth_state = ingestion_runtime.get("auth_state")
+    if ingestion_state in {STATE_ALREADY_READY, STATE_LAUNCHED}:
+        if auth_state == STATE_REAUTH_REQUIRED:
+            chrome_state = "REAUTH_REQUIRED"
+        elif auth_state == STATE_READY:
+            chrome_state = "READY"
+        else:
+            chrome_state = "READY_AUTH_UNVERIFIED"
+    elif ingestion_state == STATE_PORT_OWNER_UNPROVEN:
+        chrome_state = "BLOCKED_PORT_OWNER_UNPROVEN"
+    elif ingestion_state == STATE_RUNNING_WITHOUT_CDP:
+        chrome_state = "RUNNING_WITHOUT_CDP"
+    else:
+        chrome_state = "UNAVAILABLE"
     edge = probe_cdp(PUBLISHING_CDP_PORT)
     destinations = ((snapshot or {}).get("platforms") or {}).get("destinations") or []
     reauth_surfaces = sorted({
@@ -390,16 +419,17 @@ def summarize_browser_state(snapshot: Optional[dict[str, Any]]) -> dict[str, Any
         for row in destinations
         if str(row.get("readiness") or "") in {"READY_AUTHENTICATED", "READY_NON_BROWSER_BINDING"}
     })
-    if edge["cdp_alive"] and not reauth_surfaces and ready_surfaces:
+    if edge.get("cdp_alive") and not reauth_surfaces and ready_surfaces:
         edge_state = "READY"
-    elif edge["cdp_alive"] and reauth_surfaces:
+    elif edge.get("cdp_alive") and reauth_surfaces:
         edge_state = "REAUTH_REQUIRED"
-    elif edge["cdp_alive"]:
+    elif edge.get("cdp_alive"):
         edge_state = "READY_NO_DESTINATION_READINESS_RECORDED"
     else:
         edge_state = "UNAVAILABLE"
     return {
-        "chrome_9222_ingestion_only": "READY" if chrome["cdp_alive"] else "UNAVAILABLE",
+        "chrome_9222_ingestion_only": chrome_state,
+        "chrome_9222_detail": ingestion_detail,
         "edge_9223_publishing_only": edge_state,
         "edge_reauth_surfaces": reauth_surfaces,
         "edge_ready_surfaces": ready_surfaces,
@@ -516,6 +546,7 @@ def render_summary(
         inventory_report,
         "",
         "Browser roles: Chrome 9222 = ingestion only; Edge 9223 = publishing/readback only.",
+        "Chrome 9222 REAUTH_REQUIRED means the exact profile is open and waits for operator sign-in; login is never automated.",
         "Host downtime is external availability loss, not database failure; durable state was never reset.",
     ]
     if decision.outcome.startswith("BLOCKED"):
@@ -544,6 +575,7 @@ def run_launcher(argv: list[str] | None = None) -> int:
     parser.add_argument("--log-root", default=str(LAUNCHER_LOG_ROOT_DEFAULT))
     parser.add_argument("--no-ui", action="store_true")
     parser.add_argument("--no-open-browser", action="store_true")
+    parser.add_argument("--no-ingestion-bootstrap", action="store_true", help="Probe Chrome 9222 only; never launch it")
     parser.add_argument("--allow-new-store", action="store_true", help="Isolated shadow/test stores only; never for the production path")
     parser.add_argument("--shadow-smoke", action="store_true", help="Controlled no-write isolated smoke: implies --allow-new-store --no-ui --no-open-browser and passes --skip-edge-bootstrap")
     parser.add_argument("--start-timeout-seconds", type=float, default=90.0)
@@ -553,6 +585,7 @@ def run_launcher(argv: list[str] | None = None) -> int:
         args.allow_new_store = True
         args.no_ui = True
         args.no_open_browser = True
+        args.no_ingestion_bootstrap = True
 
     store_path = Path(args.store_path)
     output_root = Path(args.output_root)
@@ -613,7 +646,11 @@ def run_launcher(argv: list[str] | None = None) -> int:
     if snapshot:
         schema_version = (snapshot.get("authority") or {}).get("store_schema_version")
 
-    browser_state = summarize_browser_state(snapshot)
+    if args.no_ingestion_bootstrap:
+        ingestion_runtime: Optional[dict[str, Any]] = None
+    else:
+        ingestion_runtime = one_click_ingestion_bootstrap()
+    browser_state = summarize_browser_state(snapshot, ingestion_runtime=ingestion_runtime)
     ui_state = ensure_ui(enabled=not args.no_ui, log_root=log_root, snapshot_available=snapshot is not None)
     if ui_state["status"] in {"READY", "ALREADY_READY"} and ui_state["url"] and not args.no_open_browser:
         try:

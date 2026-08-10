@@ -59,7 +59,7 @@ def test_wal_and_foreign_keys_enforcement(temp_db):
 
 def test_clean_init_and_idempotent_migrations(temp_db):
     version = temp_db.get_current_schema_version()
-    assert version == 8
+    assert version == 9
     applied = temp_db.run_migrations()
     assert applied == 0
     assert temp_db.verify_schema_integrity() is True
@@ -68,12 +68,12 @@ def test_clean_init_and_idempotent_migrations(temp_db):
 def test_real_multi_version_migration_upgrade(tmp_path):
     db_file = tmp_path / "test_upgrade.sqlite"
     store = ContentOpsDurableStore(db_file, auto_migrate=True)
-    assert store.get_current_schema_version() == 8
+    assert store.get_current_schema_version() == 9
 
     conn = store.get_connection()
     try:
         rows = conn.execute("SELECT version, description FROM schema_migrations ORDER BY version ASC;").fetchall()
-        assert len(rows) == 8
+        assert len(rows) == 9
         assert rows[0]["version"] == 1
         assert rows[1]["version"] == 2
         assert rows[2]["version"] == 3
@@ -82,6 +82,7 @@ def test_real_multi_version_migration_upgrade(tmp_path):
         assert rows[5]["version"] == 6
         assert rows[6]["version"] == 7
         assert rows[7]["version"] == 8
+        assert rows[8]["version"] == 9
     finally:
         conn.close()
 
@@ -101,7 +102,7 @@ def test_applied_migration_checksum_drift_rejection(temp_db):
 def test_partial_migration_failure_rollback_and_restore(tmp_path):
     db_file = tmp_path / "test_migration_failure.sqlite"
     store = ContentOpsDurableStore(db_file, auto_migrate=True)
-    assert store.get_current_schema_version() == 8
+    assert store.get_current_schema_version() == 9
 
     store.create_work_item(story_id="story_pre_fail", title="Pre Fail Story", target_surface="substack", work_item_id="wi_pre_fail")
 
@@ -1641,10 +1642,11 @@ def test_lossless_migration_v1_v2_v3_preserves_all_rows(tmp_path):
 
     assert store.run_migrations(target_version=2) == 1
     assert store.get_current_schema_version() == 2
-    assert store.run_migrations() == 6
-    assert store.get_current_schema_version() == 8
+    assert store.run_migrations() == 7
+    assert store.get_current_schema_version() == 9
     assert store.verify_schema_integrity() is True
     assert [proof["status"] for proof in store.migration_proofs] == [
+        "PASS_LOSSLESS_MIGRATION",
         "PASS_LOSSLESS_MIGRATION",
         "PASS_LOSSLESS_MIGRATION",
         "PASS_LOSSLESS_MIGRATION",
@@ -1757,8 +1759,8 @@ def test_backup_lifecycle_successful_path_deletes_backup_only_after_post_commit_
 
     # Perform migration to current canonical schema.
     applied = store.run_migrations()
-    assert applied == 7
-    assert store.get_current_schema_version() == 8
+    assert applied == 8
+    assert store.get_current_schema_version() == 9
     # Ensure backup files were unlinked after all post-commit checks passed
     bak_files = list(tmp_path.glob("*.bak.*"))
     assert len(bak_files) == 0

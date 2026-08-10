@@ -1,8 +1,10 @@
 """Loopback-only API for the Final Daily App operating console.
 
 The snapshot endpoint is a query-only projection over one explicitly configured canonical
-store.  The only mutation exposed here is a compare-and-swap operating-mode update.  The
-historical HTTP pipeline launcher remains fail-closed and quarantined.
+store.  The mutations exposed here are exactly two: the compare-and-swap operating-mode
+update, and the durable operator "run editorial cycle now" trigger (which records a durable
+request only; it never executes a pipeline and never claims publication).  The historical
+HTTP pipeline launcher remains fail-closed and quarantined.
 """
 from __future__ import annotations
 
@@ -16,9 +18,13 @@ from urllib.parse import parse_qs, urlparse
 from live_contentops.daily_app_ui_read_model_v1 import (
     DailyAppReadModelError,
     build_daily_app_snapshot,
+    request_operator_cycle,
     update_daily_app_mode,
 )
-from live_contentops.durable_operational_store_v1 import OperatingModeConflictError
+from live_contentops.durable_operational_store_v1 import (
+    OperatingModeConflictError,
+    OperatorTriggerAlreadyPendingError,
+)
 from live_contentops.live_entrypoint_registry_v1 import HTTP_LAUNCH_QUARANTINED
 
 TASKS: dict[str, dict[str, object]] = {}
@@ -131,6 +137,30 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
             raise ValueError("EXPECTED_STATE_VERSION_MUST_BE_POSITIVE")
         return payload
 
+    def _read_run_now_payload(self) -> dict[str, Any]:
+        content_type = self.headers.get("Content-Type", "").split(";", 1)[0].strip().lower()
+        if content_type != "application/json":
+            raise ValueError("CONTENT_TYPE_MUST_BE_APPLICATION_JSON")
+        raw_length = self.headers.get("Content-Length")
+        if raw_length is None or not raw_length.isdigit():
+            raise ValueError("VALID_CONTENT_LENGTH_REQUIRED")
+        length = int(raw_length)
+        if length <= 0 or length > MAX_CONTROL_BODY_BYTES:
+            raise ValueError("CONTROL_BODY_SIZE_INVALID")
+        try:
+            payload = json.loads(self.rfile.read(length))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise ValueError("MALFORMED_JSON") from exc
+        if not isinstance(payload, dict) or set(payload) != {"trigger", "expected_state_version"}:
+            raise ValueError("EXACT_CONTROL_FIELDS_REQUIRED")
+        if payload["trigger"] != "OPERATOR_REQUESTED":
+            raise ValueError("TRIGGER_MUST_BE_OPERATOR_REQUESTED")
+        if isinstance(payload["expected_state_version"], bool) or not isinstance(payload["expected_state_version"], int):
+            raise ValueError("EXPECTED_STATE_VERSION_MUST_BE_INTEGER")
+        if payload["expected_state_version"] < 1:
+            raise ValueError("EXPECTED_STATE_VERSION_MUST_BE_POSITIVE")
+        return payload
+
     def do_POST(self) -> None:
         route = urlparse(self.path).path
         if route == "/api/run-pipeline":
@@ -143,6 +173,36 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
                 "subprocess_created": False,
                 "retryable": False,
             })
+            return
+        if route == "/api/daily-app/control/run-now":
+            if self.headers.get("Origin") not in ALLOWED_ORIGINS:
+                self._send_json(403, {"error": "ORIGIN_NOT_ALLOWED"})
+                return
+            try:
+                payload = self._read_run_now_payload()
+            except ValueError as exc:
+                self._send_json(400, {"error": str(exc)})
+                return
+            try:
+                result = request_operator_cycle(
+                    self._require_store(),
+                    expected_state_version=payload["expected_state_version"],
+                )
+            except OperatingModeConflictError:
+                self._send_json(409, {"error": "CONTROL_STATE_CONFLICT"})
+                return
+            except DailyAppReadModelError as exc:
+                self._send_json(503, {"error": "CONTROL_UNAVAILABLE", "detail": str(exc)})
+                return
+            status = str(result.get("status"))
+            http_code = 200 if status in {
+                "OPERATOR_TRIGGER_ACCEPTED",
+                "OPERATOR_TRIGGER_ALREADY_PENDING",
+            } else 409 if status in {
+                "CYCLE_ALREADY_ACTIVE",
+                "KILL_SWITCH_ACTIVE_PUBLIC_WRITES_BLOCKED",
+            } else 503
+            self._send_json(http_code, result)
             return
         if route != "/api/daily-app/control/mode":
             self._send_json(404, {"error": "Route not found", "route": route})

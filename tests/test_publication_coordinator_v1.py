@@ -284,7 +284,7 @@ def test_real_production_composition_has_no_fixture_or_none_wiring(tmp_path):
         ensure_edge_runtime=False, run_readiness_probes=False,
     )
     smoke = runtime.smoke_snapshot()
-    assert smoke["schema_version"] == 8
+    assert smoke["schema_version"] == 9
     assert smoke["publisher_is_real_coordinator"] is True
     assert smoke["publisher_wiring_not_none"] is True
     assert smoke["readback_wiring_not_none"] is True

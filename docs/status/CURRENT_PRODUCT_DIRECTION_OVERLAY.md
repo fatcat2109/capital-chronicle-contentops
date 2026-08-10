@@ -151,7 +151,16 @@ Restart/recovery/idempotency are product requirements of the launcher:
 
 Canonical one-click entry: `Start_ContentOps_Daily_App.cmd` → `scripts/Start-ContentOpsDailyApp.ps1`
 → `python -m live_contentops.daily_app_launcher_v1` → canonical
-`python -m live_contentops.cli daily-app start ...` delegation.
+`python -m live_contentops.cli daily-app start ...` delegation. The one-click flow also safely
+bootstraps the exact existing Chrome `CapitalChronicleBot` CDP 9222 ingestion profile when
+absent (no profile clone/reset, no login automation; REAUTH_REQUIRED is reported truthfully).
+
+An operator `Run editorial cycle now` control (V5 Today +
+`POST /api/daily-app/control/run-now`) requests one governed editorial evaluation through a
+durable, restart-safe, append-only `OPERATOR_REQUESTED` trigger (schema v9). It bypasses ONLY
+the wait for the scheduled window; every evidence, review, freshness, permission, readiness,
+and publication gate remains unchanged; it never changes operating mode and never clears
+KILL_SWITCH; it never claims publication. The quarantined `POST /api/run-pipeline` stays locked.
 
 ## 5. Always-on runtime doctrine
 

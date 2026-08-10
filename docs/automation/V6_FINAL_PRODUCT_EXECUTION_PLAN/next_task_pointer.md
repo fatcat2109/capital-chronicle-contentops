@@ -37,6 +37,17 @@ never spawns duplicate supervisors, fails closed on ambiguous port ownership, pr
 KILL_SWITCH and UNKNOWN_WRITE state, and performs no public writes. It did NOT declare FDA-G
 accepted and did NOT start Tier-2.
 
+`TASK_CONTENTOPS_V1_TRUE_ONE_CLICK_INGESTION_BOOTSTRAP_AND_RUN_NOW_CONTROL_V1`
+
+V1 runtime/product correction: the one-click launcher now safely bootstraps the exact existing
+Chrome `CapitalChronicleBot` CDP 9222 ingestion profile when absent (reuse when alive,
+fail-closed on unproven owner, REAUTH_REQUIRED reported without login automation), and the V5
+Today surface gained the canonical governed `Run editorial cycle now` control
+(`POST /api/daily-app/control/run-now` → durable append-only `OPERATOR_REQUESTED` trigger,
+schema v9, consumed by the existing supervisor through unchanged gates). The quarantined
+`POST /api/run-pipeline` remains locked. No public write occurred. The FDA-G soak epoch
+restarted from the corrected final V1 source SHA after one controlled safe idle restart.
+
 ## Next owner-approved builder lane
 
 `TIER2-A LOCAL LONG-FORM + SHORT-FORM PROGRAMMABLE VERTICAL SLICE`
