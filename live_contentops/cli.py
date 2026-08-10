@@ -1037,22 +1037,33 @@ def telegram_readonly_channel_binding_permission_proof_summary():
 def daily_app_command(argv: list[str] | None = None):
     import argparse
     import datetime as _datetime
-    from .daily_app_supervisor_v1 import (
-        ContentOpsDailyAppSupervisor,
-        OPERATING_MODES,
-    )
+    from .daily_app_supervisor_v1 import OPERATING_MODES
+    from .production_runtime_v1 import build_final_daily_app_production_runtime
+
+    command_args = list(argv if argv is not None else sys.argv[2:])
+    action = None
+    if command_args and command_args[0] in {"start", "once", "smoke"}:
+        action = command_args.pop(0)
 
     parser = argparse.ArgumentParser(description="ContentOps Final Daily App supervisor")
     parser.add_argument("--store-path", required=True, help="Durable operational store sqlite path")
     parser.add_argument("--output-root", required=True, help="Output/state root for window artifacts")
-    parser.add_argument("--mode", default="AUTONOMOUS_DEFAULT", choices=sorted(OPERATING_MODES))
+    parser.add_argument("--mode", default=None, choices=sorted(OPERATING_MODES))
     parser.add_argument("--once", action="store_true", help="Run a single supervisor tick and exit")
     parser.add_argument("--run-forever", action="store_true", help="Run the supervisor loop continuously")
     parser.add_argument("--poll-seconds", type=float, default=60.0)
     parser.add_argument("--max-ticks", type=int, default=None)
     parser.add_argument("--now", help="ISO datetime override for the supervisor clock (controlled/test)")
     parser.add_argument("--sidecar-glob", default=None, help="Optional rolling-X headline sidecar glob")
-    args = parser.parse_args(argv if argv is not None else sys.argv[2:])
+    parser.add_argument("--api-port", type=int, default=5174)
+    parser.add_argument("--skip-edge-bootstrap", action="store_true", help="Controlled no-write smoke only")
+    parser.add_argument("--readiness-probes", action="store_true", help="Run bounded read-only identity probes")
+    args = parser.parse_args(command_args)
+
+    if action == "once":
+        args.once = True
+    if action == "start":
+        args.run_forever = True
 
     if args.once and args.run_forever:
         print(json.dumps({"status": "FAILED", "error": "--once and --run-forever are mutually exclusive"}, indent=2))
@@ -1067,20 +1078,30 @@ def daily_app_command(argv: list[str] | None = None):
             return
         clock = lambda: fixed  # noqa: E731 - controlled clock override
 
-    supervisor = ContentOpsDailyAppSupervisor(
+    runtime = build_final_daily_app_production_runtime(
         store_path=args.store_path,
         output_root=args.output_root,
         operating_mode=args.mode,
         clock=clock,
         sidecar_glob=args.sidecar_glob,
+        ensure_edge_runtime=not args.skip_edge_bootstrap,
+        run_readiness_probes=args.readiness_probes,
     )
+    supervisor = runtime.supervisor
+    if action == "smoke":
+        print(json.dumps(runtime.smoke_snapshot(), indent=2, default=str))
+        return
     if args.once:
         report = supervisor.tick()
         print(json.dumps({"status": "SUCCESS", "tick_report": report}, indent=2, default=str))
         return
     if args.run_forever:
-        ticks = supervisor.run_forever(poll_seconds=args.poll_seconds, max_ticks=args.max_ticks)
-        print(json.dumps({"status": "SUCCESS", "ticks": ticks}, indent=2))
+        runtime.start_api(port=args.api_port)
+        try:
+            ticks = supervisor.run_forever(poll_seconds=args.poll_seconds, max_ticks=args.max_ticks)
+            print(json.dumps({"status": "SUCCESS", "ticks": ticks}, indent=2))
+        finally:
+            runtime.close()
         return
     print(json.dumps({"status": "FAILED", "error": "specify --once or --run-forever"}, indent=2))
 

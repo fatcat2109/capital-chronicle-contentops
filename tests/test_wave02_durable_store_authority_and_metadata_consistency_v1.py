@@ -156,7 +156,7 @@ def test_wave02_schema_and_migration_integrity(tmp_path):
     db_file = tmp_path / "test_meta_schema.sqlite"
     store = ContentOpsDurableStore(db_file, auto_migrate=True)
 
-    assert store.get_current_schema_version() == SCHEMA_VERSION == 7
+    assert store.get_current_schema_version() == SCHEMA_VERSION == 8
     assert store.verify_applied_migrations() is True
     assert store.verify_schema_integrity() is True
 
@@ -193,6 +193,7 @@ def test_wave02_schema_and_migration_integrity(tmp_path):
             "performance_observations",
             "learning_policy_versions",
             "operating_controls",
+            "destination_readiness",
         ]
         for tbl in required_tables:
             assert tbl in tables, f"Missing required table: {tbl}"
@@ -257,7 +258,8 @@ def test_wave02_evidence_packet_files_exist():
 
     # 3. Schema manifest checks
     schema_manifest = load_json_any_encoding(packet_dir / "schema_manifest.json")
-    assert schema_manifest["current_schema_version"] == SCHEMA_VERSION == 7
+    # Historical Wave-02 evidence remains frozen at its accepted v7-era value.
+    assert schema_manifest["current_schema_version"] == 7
     assert len(schema_manifest["triggers"]) == 6
     expected_triggers = [
         "trg_transition_events_append_authorized",
@@ -269,10 +271,10 @@ def test_wave02_evidence_packet_files_exist():
     ]
     assert schema_manifest["triggers"] == expected_triggers
     assert [item["semantic_checksum"] for item in schema_manifest["migrations"]] == [
-        migration.checksum for migration in MIGRATIONS
+        migration.checksum for migration in MIGRATIONS[:7]
     ]
     assert [item["sql_sha256"] for item in schema_manifest["migrations"]] == [
-        compute_sha256(migration.sql) for migration in MIGRATIONS
+        compute_sha256(migration.sql) for migration in MIGRATIONS[:7]
     ]
 
     # 4. Final manifest checks

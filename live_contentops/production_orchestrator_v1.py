@@ -32,6 +32,7 @@ CANONICAL_OPERATIONS = frozenset(
         "repair_exact_treasury_release_candidate_editorial",
         "repair_final_treasury_auction_logic",
         "reconcile_linkedin_activity_pair",
+        "ensure_canonical_edge_publishing_runtime",
         "module_cli",
     }
 )
@@ -86,6 +87,7 @@ OPERATION_CONTRACTS: Mapping[str, OperationContract] = MappingProxyType(
         "repair_exact_treasury_release_candidate_editorial": _operation_contract(restart_mode=RECONCILIATION_REQUIRED, capability="LIVE_CAPABLE"),
         "repair_final_treasury_auction_logic": _operation_contract(restart_mode=RECONCILIATION_REQUIRED, capability="LIVE_CAPABLE"),
         "reconcile_linkedin_activity_pair": _operation_contract(restart_mode=RESTART_SAFE, capability="RECONCILIATION"),
+        "ensure_canonical_edge_publishing_runtime": _operation_contract(restart_mode=RESTART_SAFE, capability="RUNTIME_BOOTSTRAP"),
         "module_cli": _operation_contract(restart_mode=RESTART_NOT_SUPPORTED, capability="CLI_BOUNDARY", durable_supported=False),
     }
 )

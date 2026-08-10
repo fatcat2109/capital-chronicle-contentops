@@ -2245,48 +2245,86 @@ def _rolling_x_destination_readiness(
     account_preflight: Mapping[str, Any] | None = None,
     capability_presence: Mapping[str, bool] | None = None,
 ) -> dict[str, Any]:
-    """Normalize the canonical destination probes into dynamic write eligibility."""
-    browser = dict(doctor or browser_doctor())
-    accounts = dict(account_preflight or _release_account_preflight(cdp_port))
-    capabilities = dict(capability_presence or _capability_presence())
+    """Normalize bounded exact identity probes into dynamic write eligibility.
+
+    Boolean credential/env presence is retained only as diagnostic input and can never produce
+    READY.  Controlled callers may inject fully verified probe rows for deterministic tests.
+    """
+    from live_contentops.destination_transport_registry_v1 import (
+        DESTINATION_TO_SURFACE,
+        READY_STATES,
+        DestinationReadinessManager,
+    )
+
+    if doctor is None and account_preflight is None and capability_presence is None:
+        matrix = DestinationReadinessManager().probe_all(persist=False)
+        by_surface = dict(matrix["surfaces"])
+        rows = {
+            destination: {
+                "status": by_surface[surface]["readiness_state"],
+                "write_eligible": by_surface[surface]["readiness_state"] in READY_STATES,
+                "destination_identity": by_surface[surface].get("destination_identity"),
+                "identity_verified": bool(by_surface[surface].get("identity_match")),
+                "probe_kind": by_surface[surface].get("probe_kind"),
+            }
+            for destination, surface in DESTINATION_TO_SURFACE.items()
+        }
+        return {
+            "destinations": rows,
+            "all_required_destinations_ready": all(row["write_eligible"] for row in rows.values()),
+            "eligible_statuses": sorted(READY_STATES),
+            "readiness_matrix": matrix,
+        }
+
+    browser = dict(doctor or {})
+    accounts = dict(account_preflight or {})
+    capabilities = dict(capability_presence or {})
     edge_ready = bool(
         browser.get("status") == "READY_TO_ATTACH"
-        and browser.get("recommended_cdp_port") == cdp_port
+        and browser.get("recommended_cdp_port") == 9223
+        and cdp_port == 9223
     )
-    expected_identities = {"x": "@capitalnicle", "linkedin": "linkedin:jimcc"}
+    expected_identities = {
+        "substack": "capitalchronicle.substack.com",
+        "x": "@capitalnicle",
+        "linkedin": "linkedin:jimcc",
+        "youtube": "@capitalchronicleyoutube",
+    }
     rows: dict[str, Any] = {}
     for platform in ("substack", "x", "linkedin", "youtube"):
         observed = dict(accounts.get(platform) or {})
         authenticated = bool(observed.get("authenticated"))
         identity = str(observed.get("destination_identity") or "")
-        identity_ok = not expected_identities.get(platform) or (
+        identity_ok = bool(observed.get("identity_verified")) and (
             identity.casefold() == expected_identities[platform]
         )
         ready = edge_ready and authenticated and identity_ok
+        state = "READY_AUTHENTICATED" if ready else (
+            "REAUTH_REQUIRED" if edge_ready and not authenticated else
+            "IDENTITY_MISMATCH" if edge_ready and authenticated else "TRANSPORT_UNAVAILABLE"
+        )
         rows[platform] = {
-            "status": "READY_AUTHENTICATED" if ready else "BLOCKED",
-            "write_eligible": ready,
-            "authenticated": authenticated,
-            "destination_identity": identity or None,
-            "identity_verified": identity_ok,
+            "status": state, "write_eligible": ready, "authenticated": authenticated,
+            "destination_identity": identity or None, "identity_verified": identity_ok,
             "browser_profile_ready": edge_ready,
         }
     for platform in ("telegram", "discord", "facebook_page", "instagram_business", "threads"):
-        ready = bool(capabilities.get(platform))
+        probe = capabilities.get(platform)
+        verified = bool(isinstance(probe, Mapping) and probe.get("probe_verified") is True)
+        state = str(probe.get("readiness_state") or "SESSION_UNAVAILABLE") if isinstance(probe, Mapping) else "SESSION_UNAVAILABLE"
+        ready = verified and state == "READY_NON_BROWSER_BINDING"
         rows[platform] = {
-            "status": "READY_NON_BROWSER_BINDING" if ready else "BLOCKED",
+            "status": "READY_NON_BROWSER_BINDING" if ready else state,
             "write_eligible": ready,
-            "capability_present": ready,
+            "capability_present": bool(probe),
+            "identity_verified": verified,
         }
     return {
-        "browser_doctor": browser,
-        "account_preflight": accounts,
-        "credential_capability_presence": capabilities,
+        "browser_doctor": browser, "account_preflight": accounts,
+        "credential_capability_presence": {key: bool(value) for key, value in capabilities.items()},
         "destinations": rows,
-        "all_required_destinations_ready": all(
-            row["write_eligible"] for row in rows.values()
-        ),
-        "eligible_statuses": ["READY_AUTHENTICATED", "READY_NON_BROWSER_BINDING"],
+        "all_required_destinations_ready": all(row["write_eligible"] for row in rows.values()),
+        "eligible_statuses": sorted(READY_STATES),
     }
 
 
@@ -2598,10 +2636,12 @@ def _prepare_rolling_x_release_candidate(
             and metrics.get("complete_article_visual_count") == 3
         ):
             blockers.append(f"{platform}_semantic_layout_failed")
-    if not destination_readiness.get("all_required_destinations_ready"):
-        for platform, row in (destination_readiness.get("destinations") or {}).items():
-            if not row.get("write_eligible"):
-                blockers.append(f"destination_not_ready:{platform}")
+    # The canonical Substack article remains the true root dependency.  Derivative
+    # destinations are independently skippable when unavailable; requiring every historical
+    # account to be READY would incorrectly turn one expired session into a global stop.
+    substack_readiness = dict((destination_readiness.get("destinations") or {}).get("substack") or {})
+    if not substack_readiness.get("write_eligible"):
+        blockers.append("destination_not_ready:substack")
     locked_artifacts = _release_lock_artifacts(output_dir)
     for name, row in locked_artifacts.items():
         if not row.get("exists"):
@@ -2651,6 +2691,302 @@ def _prepare_rolling_x_release_candidate(
         "blockers": blockers,
         "public_write_performed": False,
     }
+
+
+def _build_rolling_x_publication_plan(
+    *, run_id: str, output_dir: Path, viability: Mapping[str, Any],
+    preparation: Mapping[str, Any], readiness: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Build a deterministic no-callable publication plan for the durable coordinator."""
+    from live_contentops.destination_transport_registry_v1 import (
+        DESTINATION_TO_SURFACE,
+        READY_STATES,
+        REGISTRY_VERSION,
+        registration_for_destination,
+    )
+
+    lock = dict(preparation.get("release_candidate_lock") or {})
+    context = dict(preparation.get("context") or {})
+    article = dict(context.get("article") or {})
+    payload_hashes = dict(lock.get("payload_sha256") or {})
+    destinations: list[dict[str, Any]] = []
+    for destination, row in sorted((readiness.get("destinations") or {}).items()):
+        state = str((row or {}).get("status") or "")
+        if state not in READY_STATES or destination not in DESTINATION_TO_SURFACE:
+            continue
+        registration = registration_for_destination(destination)
+        payload_hash = (
+            str(lock.get("article_body_sha256") or "")
+            if destination == "substack"
+            else str(payload_hashes.get(destination) or "")
+        )
+        destinations.append({
+            "destination": destination,
+            "platform": registration.platform,
+            "surface": registration.surface,
+            "transport_type": registration.transport_type,
+            "transport_registry_version": REGISTRY_VERSION,
+            "adapter": registration.adapter,
+            "payload_hash": payload_hash,
+            "payload_hash_kind": (
+                "FINAL_ARTICLE_BYTES" if destination == "substack"
+                else "PRE_CANONICAL_URL_TEMPLATE"
+            ),
+            "media_artifact_refs": sorted(
+                str(path) for path in (lock.get("artifacts") or {})
+                if str(path).startswith(("media_", "delivery_media_"))
+            ),
+            "canonical_url_dependency": registration.canonical_url_dependency,
+            "expected_destination_identity": registration.expected_identity,
+            "readiness_state": state,
+        })
+    plan_core = {
+        "schema_version": "contentops.publication_plan.v1",
+        "run_id": run_id,
+        "story_identity": str(viability.get("selected_cluster_id") or ""),
+        "article_identity": str(lock.get("article_body_sha256") or ""),
+        "publication_window": {"window_identity": run_id},
+        "package_identity": str(lock.get("lock_sha256") or ""),
+        "output_dir": str(output_dir.resolve()),
+        "artifact_refs": dict(lock.get("artifacts") or {}),
+        "destinations": destinations,
+        "transport_registry_version": REGISTRY_VERSION,
+        "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+        "substack_first_dependency": True,
+        "adapter_callables_persisted": False,
+        "secrets_persisted": False,
+    }
+    return {**plan_core, "plan_hash": _json_sha256(plan_core)}
+
+
+def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
+    """Resolve immutable artifact references for one coordinator-owned transport call."""
+    output_dir = Path(str(intent.get("output_dir") or ""))
+    if not output_dir.is_dir():
+        raise RuntimeError("durable_intent_output_dir_unavailable")
+    context = _read_json(output_dir / "run_context_v1.json")
+    article = dict(context.get("article") or {})
+    selection = dict(context.get("selection") or {})
+    media = dict(context.get("media") or {})
+    media_assets = [dict(row) for row in (media.get("assets") or []) if isinstance(row, Mapping)]
+    canonical_url = str(intent.get("canonical_url") or "")
+    payloads = build_native_derivative_payloads(
+        article=article,
+        selection=selection,
+        canonical_url=canonical_url or "https://capitalchronicle.substack.com/p/pending-publication",
+        media_asset_ids=[str(row.get("asset_id") or "") for row in media_assets],
+    )
+    local_media = next((
+        str(row.get("path") or row.get("absolute_local_source_path") or "")
+        for row in media_assets
+        if Path(str(row.get("path") or row.get("absolute_local_source_path") or "")).is_file()
+    ), "")
+    delivery_path = output_dir / "delivery_media_manifest_v1.json"
+    delivery = _read_json(delivery_path) if delivery_path.is_file() else {}
+    delivery_assets = [dict(row) for row in (delivery.get("assets") or []) if isinstance(row, Mapping)]
+    primary = next((row for row in delivery_assets if row.get("verified_public_delivery_url")), {})
+    return {
+        "output_dir": output_dir,
+        "article": article,
+        "selection": selection,
+        "media_assets": media_assets,
+        "payloads": payloads,
+        "local_media": str(primary.get("absolute_local_source_path") or local_media),
+        "public_image_url": str(primary.get("verified_public_delivery_url") or ""),
+        "primary_media": primary,
+        "canonical_url": canonical_url,
+    }
+
+
+def _publish_one_destination_from_durable_intent(
+    *, destination: str, intent: Mapping[str, Any],
+    authorization_context: Mapping[str, Any], cdp_port: int = 9223,
+) -> dict[str, Any]:
+    """Thin per-destination router over accepted adapters; coordinator is sole caller."""
+    if str(authorization_context.get("operating_mode") or "") != "AUTONOMOUS_DEFAULT":
+        return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True}
+    if str(authorization_context.get("dispatch_attempt_identity") or "") != str((intent.get("attempt_identity") or "")):
+        return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True}
+    data = _durable_intent_inputs(intent)
+    output_dir = data["output_dir"]
+    article = data["article"]
+    payloads = data["payloads"]
+    canonical_url = data["canonical_url"]
+    image_path = data["local_media"]
+    public_image_url = data["public_image_url"]
+    if destination == "substack":
+        result = publish_substack_article_via_edge(
+            cdp_port=cdp_port,
+            title=str(article.get("title") or ""),
+            subtitle=str(article.get("subtitle") or ""),
+            body_markdown=str(article.get("substack_body_markdown") or ""),
+            image_assets=data["media_assets"],
+            public_screenshot_path=output_dir / "public_substack_readback.png",
+        )
+        readback = result.get("readback") if isinstance(result.get("readback"), Mapping) else {}
+        public_images = list(readback.get("public_image_urls") or result.get("public_image_urls") or [])
+        if str(result.get("status") or "") in SUCCESS_STATUSES and public_images:
+            delivery = build_delivery_media_manifest(
+                media_packet={"assets": data["media_assets"]},
+                public_image_urls=public_images,
+                run_id=str(intent.get("work_item_id") or ""),
+            )
+            _write_json(output_dir / "delivery_media_manifest_v1.json", delivery)
+        return result
+    if not canonical_url:
+        return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
+                "reason_code": "CANONICAL_SUBSTACK_URL_UNAVAILABLE"}
+    text = str((payloads.get(destination) or {}).get("text") or "")
+    if destination == "x":
+        root = publish_x_post_via_edge(cdp_port=cdp_port, text=text, image_path=image_path or None)
+        root_url = str(root.get("public_url") or root.get("url") or "")
+        replies = []
+        if root_url:
+            parent = root_url
+            for index, reply_text in enumerate((payloads.get("x") or {}).get("reply_texts") or [], start=1):
+                reply = publish_x_reply_via_edge(
+                    cdp_port=cdp_port, parent_url=parent, text=str(reply_text), image_path=None,
+                )
+                replies.append({**reply, "order": index, "text": str(reply_text),
+                                "expected_media_local_path": None})
+                parent = str(reply.get("public_url") or reply.get("url") or parent)
+        expected_replies = (payloads.get("x") or {}).get("reply_texts") or []
+        strict = readback_x_thread_via_edge(
+            cdp_port=cdp_port, root_url=root_url, canonical_url=canonical_url,
+            expected_chart_path=image_path, replies=replies,
+            public_screenshot_path=output_dir / "public_x_thread_readback.png",
+        ) if root_url and len(replies) == len(expected_replies) else {"status": "FAILED_X_REPLY_CHAIN_INCOMPLETE"}
+        verified = str(strict.get("status") or "") == "SUCCESS"
+        return {**root, "status": "SUCCESS" if verified else str(strict.get("status") or "FAILED_X_STRICT_READBACK"),
+                "reply_chain": replies, "readback": strict,
+                "provider_readback_verified": verified}
+    if destination == "linkedin":
+        return publish_linkedin_post_via_edge(
+            cdp_port=cdp_port, text=text, image_path=image_path or None,
+            canonical_url=canonical_url,
+            public_screenshot_path=output_dir / "public_linkedin_readback.png",
+        )
+    if destination == "youtube":
+        return publish_youtube_community_post_via_edge(
+            cdp_port=cdp_port, text=text, image_path=image_path,
+            canonical_url=canonical_url,
+            public_screenshot_path=output_dir / "public_youtube_community_readback.png",
+        )
+    if destination == "telegram":
+        return _publish_telegram_photo_verified(
+            run_id=str(intent.get("work_item_id") or ""),
+            topic_hash=_sha256(str(intent.get("package_identity") or "")),
+            text=text, canonical_url=canonical_url, image_path=image_path,
+        )
+    if destination == "discord":
+        return _publish_discord_verified(
+            text=text, canonical_url=canonical_url, image_url=public_image_url,
+            title=str(article.get("title") or ""),
+        )
+    if destination == "facebook_page":
+        return _publish_facebook_photo_verified(
+            text=text, canonical_url=canonical_url, media=data["primary_media"],
+        )
+    if destination == "instagram_business":
+        return _publish_instagram_media_verified(
+            caption=text, canonical_url=canonical_url, media=data["primary_media"],
+        )
+    if destination == "threads":
+        from live_contentops.threads_adapter_v6 import (
+            execute_threads_post, readback_threads_chain, readback_threads_post,
+        )
+        root = execute_threads_post(text=text, image_url=public_image_url or None, dry_run=False)
+        root_id = str(root.get("id") or "")
+        replies = []
+        for index, reply_text in enumerate((payloads.get("threads") or {}).get("reply_texts") or [], start=1):
+            reply = execute_threads_post(
+                text=str(reply_text), reply_to_id=root_id, dry_run=False,
+            )
+            replies.append({**reply, "order": index, "text": str(reply_text),
+                            "expected_media_local_path": None})
+            if str(reply.get("status") or "") not in SUCCESS_STATUSES:
+                break
+        root_readback = readback_threads_post(
+            post_id=root_id, expected_text=str((payloads.get("threads") or {}).get("root_text") or text),
+            canonical_url=canonical_url, expected_media_local_path=image_path or None,
+        ) if root_id else {"status": "FAILED_THREADS_ROOT_ID_MISSING"}
+        expected_replies = (payloads.get("threads") or {}).get("reply_texts") or []
+        chain = readback_threads_chain(
+            root_id=root_id,
+            reply_expectations=[{"id": row.get("id"), "text": row.get("text"),
+                                 "expected_media_local_path": None} for row in replies],
+        ) if root_id and len(replies) == len(expected_replies) else {"status": "FAILED_THREADS_REPLY_CHAIN_INCOMPLETE"}
+        verified = root_readback.get("status") == "SUCCESS" and chain.get("status") == "SUCCESS"
+        return {**root, "status": "SUCCESS" if verified else "FAILED_THREADS_STRICT_THREAD_READBACK",
+                "reply_chain": replies, "readback": {"root": root_readback, "chain": chain},
+                "provider_readback_verified": verified,
+                "public_url": root_readback.get("public_url") or root.get("public_url")}
+    raise ValueError(f"durable_intent_destination_unsupported:{destination}")
+
+
+def _readback_one_destination_from_durable_intent(
+    *, destination: str, public_object_id: str | None,
+    public_object_url: str | None, intent: Mapping[str, Any], cdp_port: int = 9223,
+) -> dict[str, Any]:
+    """Strict read-only router.  Ambiguity stays pending and never triggers a write."""
+    data = _durable_intent_inputs(intent)
+    output_dir = data["output_dir"]
+    article = data["article"]
+    payloads = data["payloads"]
+    canonical_url = data["canonical_url"]
+    image_path = data["local_media"]
+    text = str((payloads.get(destination) or {}).get("text") or "")
+    if destination == "substack" and public_object_url:
+        result = audit_public_substack_article_via_edge(
+            cdp_port=cdp_port, public_url=public_object_url,
+            expected_title=str(article.get("title") or ""),
+            expected_subtitle=str(article.get("subtitle") or ""),
+            expected_body_markdown=str(article.get("substack_body_markdown") or ""),
+            expected_image_assets=data["media_assets"],
+            public_screenshot_path=output_dir / "public_substack_readback.png",
+        )
+    elif destination == "x" and public_object_url:
+        result = readback_x_thread_via_edge(
+            cdp_port=cdp_port, root_url=public_object_url, canonical_url=canonical_url,
+            expected_chart_path=image_path, replies=[],
+            public_screenshot_path=output_dir / "public_x_thread_readback.png",
+        )
+    elif destination == "linkedin":
+        result = readback_linkedin_post_via_edge(
+            cdp_port=cdp_port, expected_text=text, canonical_url=canonical_url,
+            public_screenshot_path=output_dir / "public_linkedin_readback.png",
+        )
+    elif destination == "youtube" and public_object_url:
+        result = readback_youtube_community_post_via_edge(
+            cdp_port=cdp_port, public_url=public_object_url, expected_text=text,
+            canonical_url=canonical_url,
+            public_screenshot_path=output_dir / "public_youtube_community_readback.png",
+        )
+    elif destination == "facebook_page" and public_object_id:
+        from live_contentops.facebook_page_adapter_v6 import readback_facebook_post
+        result = readback_facebook_post(
+            post_id=public_object_id, expected_text=text, canonical_url=canonical_url,
+            expected_media_local_path=image_path,
+        )
+    elif destination == "instagram_business" and public_object_id:
+        from live_contentops.instagram_adapter_v6 import readback_instagram_media
+        result = readback_instagram_media(
+            media_id=public_object_id, expected_caption=text, canonical_url=canonical_url,
+            expected_media_local_path=image_path,
+        )
+    elif destination == "threads" and public_object_id:
+        from live_contentops.threads_adapter_v6 import readback_threads_post
+        result = readback_threads_post(
+            post_id=public_object_id, expected_text=text, canonical_url=canonical_url,
+            expected_media_local_path=image_path or None,
+        )
+    else:
+        return {"status": "READBACK_UNAVAILABLE", "verified": False,
+                "public_object_id": public_object_id}
+    success = str(result.get("status") or "").upper() == "SUCCESS"
+    return {**result, "verified": success, "public_object_id": (
+        result.get("post_id") or result.get("media_id") or result.get("id") or public_object_id
+    )}
 
 
 def _default_rolling_x_editorial_reviewer(article: Mapping[str, Any]) -> dict[str, Any]:
@@ -3119,39 +3455,24 @@ def _run_rolling_x_newsroom_cycle(
         _write_json(evidence_path, evidence)
         return evidence
 
-    evidence["publishing_adapter_called"] = True
-    dispatch = _run_eight_platform_substack_first_pipeline(
+    # Final Daily App path: the newsroom never calls a publishing adapter.  It returns a
+    # deterministic plan which the one durable publication coordinator registers and owns.
+    plan = _build_rolling_x_publication_plan(
         run_id=run_id,
         output_dir=output_dir,
-        cdp_port=cdp_port,
-        operator_approved_full_live_run=True,
+        viability=viability,
+        preparation=preparation,
+        readiness=readiness,
     )
-    results = {
-        name: dict(row)
-        for name, row in (dispatch.get("results") or {}).items()
-        if isinstance(row, Mapping)
-    }
-    statuses = [str(row.get("status") or "") for row in results.values()]
-    evidence["canonical_publication_backend"] = dispatch
-    evidence["classification"] = str(dispatch.get("classification") or "NO_PUBLICATION")
-    evidence["public_write_performed"] = any(
-        status in SUCCESS_STATUSES or status in UNKNOWN_WRITE_STATUSES for status in statuses
-    )
-    evidence["unknown_write_detected"] = any(status in UNKNOWN_WRITE_STATUSES for status in statuses)
-    evidence["strict_readback_performed"] = any(
-        row.get("provider_readback_verified") is not None or row.get("readback")
-        for row in results.values()
-    )
-    evidence["automatic_retry_blocked"] = bool(
-        evidence["unknown_write_detected"]
-        or any(row.get("automatic_retry_blocked") for row in results.values())
-    )
-    if evidence["unknown_write_detected"]:
-        evidence["exact_next_blocker"] = "STOP_RETRY_READ_BACK_RECONCILE"
-    elif evidence["classification"] != "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1":
-        evidence["exact_next_blocker"] = evidence["classification"]
-    else:
-        evidence["exact_next_blocker"] = None
+    evidence["publication_lifecycle_plan"] = plan
+    evidence["classification"] = "PASS_PUBLICATION_PLAN_READY"
+    evidence["publishing_adapter_called"] = False
+    evidence["public_write_performed"] = False
+    evidence["unknown_write_detected"] = False
+    evidence["strict_readback_performed"] = False
+    evidence["automatic_retry_blocked"] = False
+    evidence["daily_app_newsroom_direct_write"] = False
+    evidence["exact_next_blocker"] = None
     _write_json(evidence_path, evidence)
     return evidence
 
@@ -5061,6 +5382,28 @@ def _implementation_main(argv: Sequence[str] | None = None) -> int:
     ) else 1
 
 
+def _ensure_canonical_edge_publishing_runtime(
+    *, urls: Sequence[str] = ("https://substack.com/",), wait_seconds: float = 12.0
+) -> dict[str, Any]:
+    """The only non-quarantined browser launch/attach path for the Final Daily App."""
+    from live_contentops.publishing_profile_registry_v1 import (
+        CANONICAL_CDP_PORTS,
+        CANONICAL_PROFILE_ID,
+        ensure_canonical_edge_publishing_runtime,
+    )
+
+    return ensure_canonical_edge_publishing_runtime(
+        authority_context={
+            "entrypoint_id": "contentops.production_orchestrator.v1",
+            "operation": "ensure_canonical_edge_publishing_runtime",
+            "profile_id": CANONICAL_PROFILE_ID,
+            "cdp_port": CANONICAL_CDP_PORTS[0],
+        },
+        urls=urls,
+        wait_seconds=wait_seconds,
+    )
+
+
 _CANONICAL_OPERATIONS: Mapping[str, Callable[..., Any]] = {
     "prepare_text_image_release_candidate": _prepare_text_image_release_candidate,
     "prepare_generic_text_image_release_candidate": _prepare_generic_text_image_release_candidate,
@@ -5074,6 +5417,7 @@ _CANONICAL_OPERATIONS: Mapping[str, Callable[..., Any]] = {
     "repair_exact_treasury_release_candidate_editorial": _repair_exact_treasury_release_candidate_editorial,
     "repair_final_treasury_auction_logic": _repair_final_treasury_auction_logic,
     "reconcile_linkedin_activity_pair": _reconcile_linkedin_activity_pair,
+    "ensure_canonical_edge_publishing_runtime": _ensure_canonical_edge_publishing_runtime,
     "module_cli": _implementation_main,
 }
 

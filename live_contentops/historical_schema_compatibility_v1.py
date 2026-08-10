@@ -24,7 +24,7 @@ from live_contentops.historical_schema_lineage_v1 import (
     ORIGINAL_NO_GENESIS_LINEAGE_ID,
 )
 
-CANONICAL_SCHEMA_VERSION = 7
+CANONICAL_SCHEMA_VERSION = 8
 #: Migration versions 1-4 are frozen historical evidence; their SQL bytes and checksums must
 #: never change. Schema evolution beyond v4 appends NEW migrations only (migration v5 below).
 GENESIS_PREVIOUS_HASH = "GENESIS_" + ("0" * 64)
@@ -367,6 +367,58 @@ DEPENDENCY_MANIFEST_V5: Mapping[str, Any] = {
 }
 DEPENDENCY_MANIFEST_V5_JSON = canonical_json(DEPENDENCY_MANIFEST_V5)
 DEPENDENCY_MANIFEST_V5_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_V5_JSON.encode("utf-8")).hexdigest()
+
+# Schema migration v8 — current destination/surface readiness.
+#
+# Migrations v1-v7 remain byte/checksum frozen.  This table stores only the latest sanitized
+# read-only probe result used by the Daily App Platforms/Incidents views and publication gate;
+# it is not a credential store and it does not manufacture historical readiness.
+MIGRATION_V8_SQL = (
+    "\nCREATE TABLE IF NOT EXISTS destination_readiness (\n"
+    "    surface TEXT PRIMARY KEY,\n"
+    "    platform TEXT NOT NULL,\n"
+    "    transport_registry_version TEXT NOT NULL,\n"
+    "    transport_type TEXT NOT NULL,\n"
+    "    readiness_state TEXT NOT NULL CHECK(readiness_state IN "
+    "('READY_AUTHENTICATED','READY_NON_BROWSER_BINDING','REAUTH_REQUIRED',"
+    "'AUTH_INVALID','IDENTITY_MISMATCH','PERMISSION_MISSING','SESSION_UNAVAILABLE',"
+    "'TRANSPORT_UNAVAILABLE','TRANSIENT_DEGRADED','CAPABILITY_UNSUPPORTED')),\n"
+    "    destination_identity TEXT,\n"
+    "    identity_match INTEGER NOT NULL CHECK(identity_match IN (0,1)),\n"
+    "    probe_kind TEXT NOT NULL,\n"
+    "    probed_at_utc TEXT NOT NULL,\n"
+    "    sanitized_detail_json TEXT NOT NULL\n"
+    ");\n"
+    "CREATE INDEX IF NOT EXISTS idx_destination_readiness_state\n"
+    "ON destination_readiness(readiness_state, platform);\n"
+)
+MIGRATION_V8_CHECKSUM = hashlib.sha256(MIGRATION_V8_SQL.encode("utf-8")).hexdigest()
+
+DEPENDENCY_MANIFEST_V6: Mapping[str, Any] = {
+    **DEPENDENCY_MANIFEST_V5,
+    "schema_version": "contentops.schema_v8_dependency_manifest.v1",
+    "migration_sql_checksums": {
+        **DEPENDENCY_MANIFEST_V5["migration_sql_checksums"], 8: MIGRATION_V8_CHECKSUM,
+    },
+    "migration_sql_hashes": {
+        **DEPENDENCY_MANIFEST_V5["migration_sql_hashes"], 8: MIGRATION_V8_CHECKSUM,
+    },
+    "migration_transform_versions": {
+        **DEPENDENCY_MANIFEST_V5["migration_transform_versions"], 8: "sql_only.v8",
+    },
+    "migration_sql_source": (
+        "live_contentops.historical_schema_compatibility_v1.CURRENT_MIGRATION_SQL / "
+        "MIGRATION_V5_SQL / MIGRATION_V6_SQL / MIGRATION_V7_SQL / MIGRATION_V8_SQL"
+    ),
+    "destination_readiness": {
+        "table": "destination_readiness",
+        "authority": "latest_bounded_sanitized_read_only_identity_probe",
+        "ready_states": ["READY_AUTHENTICATED", "READY_NON_BROWSER_BINDING"],
+        "secret_values_allowed": False,
+    },
+}
+DEPENDENCY_MANIFEST_V6_JSON = canonical_json(DEPENDENCY_MANIFEST_V6)
+DEPENDENCY_MANIFEST_V6_HASH = hashlib.sha256(DEPENDENCY_MANIFEST_V6_JSON.encode("utf-8")).hexdigest()
 
 
 @dataclass(frozen=True)

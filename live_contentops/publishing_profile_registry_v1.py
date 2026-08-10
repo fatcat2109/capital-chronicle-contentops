@@ -27,7 +27,8 @@ REGISTRY_VERSION = "contentops.publishing_profile_registry.v1"
 CANONICAL_PROFILE_ID = "contentops-social-main"
 CANONICAL_PROFILE_ROOT = Path(r"A:\Capital Chronicle\operator-browser-profiles\contentops-social-main")
 CANONICAL_BROWSER_FAMILY = "microsoft_edge"
-CANONICAL_CDP_PORTS = (9222, 9223)
+CANONICAL_PUBLISHING_CDP_PORT = 9223
+CANONICAL_CDP_PORTS = (CANONICAL_PUBLISHING_CDP_PORT,)
 PROFILE_ENV_KEY = "CONTENTOPS_OPERATOR_BROWSER_PROFILE_ROOT"
 CDP_PORT_ENV_KEY = "CONTENTOPS_OPERATOR_BROWSER_CDP_PORT"
 BROWSER_BINARY_ENV_KEY = "CONTENTOPS_OPERATOR_BROWSER_BINARY"
@@ -91,6 +92,9 @@ def canonical_profile_registry() -> dict[str, Any]:
         "browser_family": CANONICAL_BROWSER_FAMILY,
         "profile_root": str(CANONICAL_PROFILE_ROOT),
         "allowed_cdp_ports": list(CANONICAL_CDP_PORTS),
+        "publishing_cdp_port": CANONICAL_PUBLISHING_CDP_PORT,
+        "ingestion_only_cdp_port": 9222,
+        "ingestion_port_publishing_allowed": False,
         "chrome_publishing_allowed": False,
         "temporary_profile_publishing_allowed": False,
         "builtin_edge_profile_publishing_allowed": False,
@@ -101,9 +105,9 @@ def canonical_profile_registry() -> dict[str, Any]:
 
 def resolve_cdp_port(env: Mapping[str, str] | None = None) -> int:
     source = os.environ if env is None else env
-    raw = str(source.get(CDP_PORT_ENV_KEY, CANONICAL_CDP_PORTS[0])).strip()
+    raw = str(source.get(CDP_PORT_ENV_KEY, CANONICAL_PUBLISHING_CDP_PORT)).strip()
     if not raw.isdigit() or int(raw) not in CANONICAL_CDP_PORTS:
-        raise PublishingProfileError("publishing_cdp_port_must_be_9222_or_9223")
+        raise PublishingProfileError("publishing_cdp_port_must_be_9223")
     return int(raw)
 
 
@@ -149,7 +153,7 @@ def build_edge_command(
     if _normalise_path(profile_root) != _normalise_path(CANONICAL_PROFILE_ROOT):
         raise PublishingProfileError("publishing_profile_root_must_match_canonical_contentops_profile")
     if cdp_port not in CANONICAL_CDP_PORTS:
-        raise PublishingProfileError("publishing_cdp_port_must_be_9222_or_9223")
+        raise PublishingProfileError("publishing_cdp_port_must_be_9223")
     return [
         browser_binary,
         f"--user-data-dir={CANONICAL_PROFILE_ROOT}",
@@ -313,6 +317,79 @@ def open_or_attach_canonical_edge(
         if final["status"] == "READY_TO_ATTACH" and final.get("recommended_cdp_port") == port:
             return {**final, "status": "LAUNCHED_CANONICAL_EDGE", "cdp_port": port, "launched": True}
     return {**final, "status": "BLOCKED_CANONICAL_EDGE_CDP_NOT_READY", "cdp_port": port, "launched": True}
+
+
+def ensure_canonical_edge_publishing_runtime(
+    *,
+    authority_context: Mapping[str, Any],
+    urls: Sequence[str] = ("https://substack.com/",),
+    env: Mapping[str, str] | None = None,
+    wait_seconds: float = 12.0,
+) -> dict[str, Any]:
+    """Launch/attach Edge only for the canonical production-orchestrator operation.
+
+    Direct browser/profile CLIs remain quarantined.  The narrow authority context is nonsecret,
+    exact, and deliberately unavailable as a default so importing this module cannot silently
+    create a second browser-launch authority.
+    """
+    expected = {
+        "entrypoint_id": "contentops.production_orchestrator.v1",
+        "operation": "ensure_canonical_edge_publishing_runtime",
+        "profile_id": CANONICAL_PROFILE_ID,
+        "cdp_port": CANONICAL_PUBLISHING_CDP_PORT,
+    }
+    if dict(authority_context or {}) != expected:
+        raise PublishingProfileError("canonical_production_orchestrator_authority_required")
+    doctor = browser_doctor(env=env)
+    port = doctor.get("recommended_cdp_port")
+    if port not in (None, CANONICAL_PUBLISHING_CDP_PORT):
+        return {**doctor, "status": "BLOCKED_NONCANONICAL_PUBLISHING_PORT", "launched": False}
+    if not doctor["profile_root_exists"]:
+        return {**doctor, "status": "BLOCKED_CANONICAL_PROFILE_ROOT_MISSING", "launched": False}
+    if doctor["status"] == "READY_TO_ATTACH":
+        return {
+            **doctor,
+            "status": "ATTACHED_CANONICAL_EDGE",
+            "cdp_port": CANONICAL_PUBLISHING_CDP_PORT,
+            "launched": False,
+        }
+    if doctor["status"] != "READY_TO_LAUNCH":
+        return {**doctor, "launched": False}
+    binary = find_edge_binary(env)
+    if not binary:
+        return {**doctor, "status": "BLOCKED_MICROSOFT_EDGE_BINARY_NOT_FOUND", "launched": False}
+    try:
+        command = build_edge_command(
+            binary,
+            cdp_port=CANONICAL_PUBLISHING_CDP_PORT,
+            urls=urls,
+        )
+        subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except Exception as exc:
+        return {
+            **doctor,
+            "status": "BLOCKED_CANONICAL_EDGE_LAUNCH_FAILED",
+            "error_class": type(exc).__name__,
+            "launched": False,
+        }
+    deadline = time.monotonic() + max(wait_seconds, 1.0)
+    final = doctor
+    while time.monotonic() < deadline:
+        time.sleep(0.5)
+        final = browser_doctor(env=env)
+        if final["status"] == "READY_TO_ATTACH":
+            return {
+                **final,
+                "status": "LAUNCHED_CANONICAL_EDGE",
+                "cdp_port": CANONICAL_PUBLISHING_CDP_PORT,
+                "launched": True,
+            }
+    return {
+        **final,
+        "status": "BLOCKED_CANONICAL_EDGE_CDP_NOT_READY",
+        "cdp_port": CANONICAL_PUBLISHING_CDP_PORT,
+        "launched": True,
+    }
 
 
 def assert_canonical_edge_cdp(cdp_port: int) -> dict[str, Any]:

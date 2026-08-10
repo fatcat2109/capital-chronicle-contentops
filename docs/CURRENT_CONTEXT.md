@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > GitHub remote evidence is repo-state authority. Jim's latest explicit product instruction is product-direction authority. Older plans/status are historical/reference material when they conflict with the current Final Daily App direction.
 
-Authority date: 2026-08-09
+Authority date: 2026-08-10
 
 ## Current classifications
 
@@ -26,6 +26,22 @@ Current execution master plan:
 Future expansion retained but deferred until V1 freeze:
 
 `CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_OWNER_DIRECTION_V1`
+
+Current completed runtime task:
+
+`TASK_CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1`
+
+Current exact next task:
+
+`TASK_CONTENTOPS_FINAL_DAILY_APP_FINAL_V5_UI_BROWSER_QA_V1`
+
+The Final Daily App now has one durable publication coordinator, one versioned transport
+registry, exact pre-write outbox/attempt state, restart-safe UNKNOWN_WRITE recovery, real
+read-only destination identity probes, Edge 9223 self-bootstrap, and one production launcher.
+All nine Tier-1 destination identities were read-only verified on 2026-08-10. Production schema
+v8 preserves the prior rows and production epoch. No public write occurred in the transport-lock
+task. Provenance is under
+`docs/automation/CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1/`.
 
 ## Current authority read order
 

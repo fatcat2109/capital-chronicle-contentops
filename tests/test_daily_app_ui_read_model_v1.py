@@ -111,7 +111,7 @@ def test_no_publication_and_platform_unavailable_are_truthful(tmp_path):
     assert snapshot["published"]["empty_reason"] == "NO_REAL_PUBLICATIONS_YET"
     assert snapshot["published"]["real_publication_count"] == 0
     assert {row["readiness"] for row in snapshot["platforms"]["destinations"]} == {
-        "READINESS_UNAVAILABLE_NOT_PERSISTED"
+        "READINESS_NOT_PROBED"
     }
     assert not any(row["write_eligible"] for row in snapshot["platforms"]["destinations"])
 

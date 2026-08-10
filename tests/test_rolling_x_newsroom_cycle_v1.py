@@ -254,11 +254,9 @@ def test_dynamic_destination_readiness_uses_only_verified_statuses():
             "threads": True,
         },
     )
-    assert result["all_required_destinations_ready"] is True
-    assert {row["status"] for row in result["destinations"].values()} == {
-        "READY_AUTHENTICATED",
-        "READY_NON_BROWSER_BINDING",
-    }
+    assert result["all_required_destinations_ready"] is False
+    assert result["destinations"]["telegram"]["write_eligible"] is False
+    assert result["destinations"]["discord"]["write_eligible"] is False
 
     blocked = implementation._rolling_x_destination_readiness(
         cdp_port=9223,
@@ -278,7 +276,7 @@ def test_dynamic_destination_readiness_uses_only_verified_statuses():
         },
     )
     assert blocked["all_required_destinations_ready"] is False
-    assert blocked["destinations"]["x"]["status"] == "BLOCKED"
+    assert blocked["destinations"]["x"]["status"] == "IDENTITY_MISMATCH"
 
 
 def _release_inputs(tmp_path: Path):
@@ -375,7 +373,7 @@ def test_rolling_x_release_candidate_builds_and_verifies_canonical_lock(tmp_path
     assert payloads["threads"]["quality_metrics"]["reply_count"] == 2
 
 
-def test_release_candidate_blocks_when_any_destination_is_not_ready(tmp_path: Path):
+def test_release_candidate_isolates_unready_derivative_destination(tmp_path: Path):
     assignment, viability, article, media, editorial, readiness = _release_inputs(tmp_path)
     readiness["all_required_destinations_ready"] = False
     readiness["destinations"]["x"] = {"write_eligible": False, "status": "BLOCKED"}
@@ -390,12 +388,12 @@ def test_release_candidate_blocks_when_any_destination_is_not_ready(tmp_path: Pa
         editorial_cycle=editorial,
         destination_readiness=readiness,
     )
-    assert result["classification"] == "BLOCKED_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
-    assert "destination_not_ready:x" in result["blockers"]
-    assert result["release_candidate_lock_verification"]["status"] == "BLOCKED_RELEASE_CANDIDATE_LOCK"
+    assert result["classification"] == "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
+    assert "destination_not_ready:x" not in result["blockers"]
+    assert result["release_candidate_lock_verification"]["status"] == "PASS_RELEASE_CANDIDATE_LOCK"
 
 
-def test_passed_cycle_delegates_once_to_canonical_backend(monkeypatch, tmp_path: Path):
+def test_passed_cycle_returns_plan_without_direct_backend_write(monkeypatch, tmp_path: Path):
     assignment, viability, article, media, editorial, readiness = _release_inputs(tmp_path)
     calls = []
     monkeypatch.setattr(
@@ -440,14 +438,15 @@ def test_passed_cycle_delegates_once_to_canonical_backend(monkeypatch, tmp_path:
         article_reviser=lambda value, review, round_number: value,
         publication_enabled=True,
     )
-    assert len(calls) == 1
-    assert result["classification"] == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
-    assert result["public_write_performed"] is True
-    assert result["strict_readback_performed"] is True
+    assert len(calls) == 0
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    assert result["public_write_performed"] is False
+    assert result["daily_app_newsroom_direct_write"] is False
+    assert result["publication_lifecycle_plan"]["destinations"]
     assert result["unknown_write_detected"] is False
 
 
-def test_unknown_write_from_canonical_backend_stops_retry_and_requires_reconciliation(
+def test_old_backend_unknown_write_fixture_cannot_bypass_plan_coordinator(
     monkeypatch, tmp_path: Path
 ):
     assignment, viability, article, media, editorial, readiness = _release_inputs(tmp_path)
@@ -493,9 +492,10 @@ def test_unknown_write_from_canonical_backend_stops_retry_and_requires_reconcili
         article_reviser=lambda value, review, round_number: value,
         publication_enabled=True,
     )
-    assert result["unknown_write_detected"] is True
-    assert result["automatic_retry_blocked"] is True
-    assert result["exact_next_blocker"] == "STOP_RETRY_READ_BACK_RECONCILE"
+    assert result["unknown_write_detected"] is False
+    assert result["public_write_performed"] is False
+    assert result["daily_app_newsroom_direct_write"] is False
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
 
 
 def test_default_cycle_uses_real_targeted_evidence_adapter(monkeypatch, tmp_path: Path):

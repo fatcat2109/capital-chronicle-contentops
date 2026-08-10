@@ -1,0 +1,85 @@
+{
+  "schema_version": "contentops.autonomous_publication_runtime_transport_provenance.v1",
+  "authority_date": "2026-08-10",
+  "task": "TASK_CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1",
+  "starting_master_sha": "ae90ab2dd312ae6481ad46df98623d5118b79d44",
+  "transport_registry_version": "contentops.destination_transport_registry.v1",
+  "exactly_one_write_owner": "live_contentops.publication_coordinator_v1.DurablePublicationCoordinator",
+  "newsroom_direct_write": false,
+  "silent_transport_fallback": false,
+  "browser_roles": {
+    "edge_9223": "publication_media_management_readback",
+    "chrome_9222": "ingestion_only"
+  },
+  "transports": {
+    "SUBSTACK_ARTICLE": "EDGE_CDP_9223",
+    "X_THREAD": "EDGE_CDP_9223",
+    "LINKEDIN_POST": "EDGE_CDP_9223",
+    "YOUTUBE_COMMUNITY_POST": "EDGE_CDP_9223",
+    "TELEGRAM_CHANNEL_POST": "BOT_API",
+    "DISCORD_ANNOUNCEMENT": "WEBHOOK_API",
+    "FACEBOOK_PAGE_POST": "META_GRAPH_API",
+    "INSTAGRAM_BUSINESS_POST": "META_GRAPH_API",
+    "THREADS_POST": "THREADS_API",
+    "YOUTUBE_VIDEO_FUTURE": "YOUTUBE_DATA_API_VIDEOS_INSERT",
+    "YOUTUBE_SHORT_FUTURE": "YOUTUBE_DATA_API_VIDEOS_INSERT"
+  },
+  "youtube_official_fact_check": {
+    "community_insert_supported_by_current_public_data_api": false,
+    "activities_insert_obsolete": true,
+    "future_video_upload_method": "videos.insert",
+    "sources": [
+      "https://developers.google.com/youtube/v3/docs/activities",
+      "https://developers.google.com/youtube/v3/docs/videos"
+    ]
+  },
+  "historical_live_commits_inspected": [
+    "eb48f275",
+    "c5448c26",
+    "1c7461b2",
+    "408a8b7b",
+    "d4c5c6e2",
+    "d94dda90",
+    "f59d0ac1"
+  ],
+  "historical_live_evidence": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1",
+  "current_read_only_preflight": {
+    "edge_self_bootstrap": "LAUNCHED_CANONICAL_EDGE_9223",
+    "ready_authenticated": [
+      "SUBSTACK_ARTICLE",
+      "X_THREAD",
+      "LINKEDIN_POST",
+      "YOUTUBE_COMMUNITY_POST"
+    ],
+    "ready_non_browser_binding": [
+      "TELEGRAM_CHANNEL_POST",
+      "DISCORD_ANNOUNCEMENT",
+      "FACEBOOK_PAGE_POST",
+      "INSTAGRAM_BUSINESS_POST",
+      "THREADS_POST"
+    ],
+    "reauth_required": [],
+    "identity_mismatches": [],
+    "public_write_performed": false,
+    "secret_values_exposed": false
+  },
+  "production_store": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "schema_before": 7,
+    "schema_after": 8,
+    "production_epoch_metric_value_before": 1786282020.663942,
+    "production_epoch_metric_value_after": 1786282020.663942,
+    "preexisting_rows_preserved": true,
+    "readiness_history_fabricated": false,
+    "backup_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.pre_v8_20260810T0328Z.sqlite3",
+    "backup_sha256_matches_pre_migration_source": true
+  },
+  "no_write_assertions": {
+    "real_public_write": false,
+    "unknown_public_write": false,
+    "provider_write_action": false,
+    "browser_public_write_action": false
+  },
+  "protected_v1_0_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "next_stage": "TASK_CONTENTOPS_FINAL_DAILY_APP_FINAL_V5_UI_BROWSER_QA_V1"
+}

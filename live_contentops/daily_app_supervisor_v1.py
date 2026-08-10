@@ -292,6 +292,7 @@ class ContentOpsDailyAppSupervisor:
         enable_publication_lifecycle: bool = False,
         publication_publisher: Optional[Callable[..., Mapping[str, Any]]] = None,
         publication_readback_provider: Optional[Callable[..., Mapping[str, Any]]] = None,
+        publication_coordinator: Any = None,
         enable_performance_observation: bool = False,
         performance_collector: Optional[Callable[..., Mapping[str, Any]]] = None,
         performance_learning_enabled: bool = False,
@@ -333,6 +334,7 @@ class ContentOpsDailyAppSupervisor:
         self._enable_publication_lifecycle = bool(enable_publication_lifecycle)
         self._publication_publisher = publication_publisher
         self._publication_readback_provider = publication_readback_provider
+        self._publication_coordinator = publication_coordinator
         # FDA-D/FDA-E: bounded read-only performance observation + deterministic learning driven
         # from the cheap tick. ZERO LLM calls for metrics collection. No second scheduler/store.
         self._enable_performance_observation = bool(enable_performance_observation)
@@ -1230,6 +1232,8 @@ class ContentOpsDailyAppSupervisor:
         plan = result.get("publication_lifecycle_plan") if isinstance(result, Mapping) else None
         if not isinstance(plan, Mapping):
             return None
+        if self._publication_coordinator is not None:
+            return dict(self._publication_coordinator.publish_plan(window_id, plan))
         ready = [str(d) for d in (plan.get("ready_destinations") or []) if str(d).strip()]
         package_identity = str(plan.get("package_identity") or "")
         if not ready or not package_identity:
@@ -1293,7 +1297,22 @@ class ContentOpsDailyAppSupervisor:
         # authority. Run it before performance eligibility so a newly reconciled exact object can
         # receive its observation schedule on this same tick under every operating mode.
         try:
-            recovery = self._run_readback_reconciliation_housekeeping(now)
+            if self._publication_coordinator is not None:
+                coordinator_recovery = dict(self._publication_coordinator.recover_pending())
+                recovery = {
+                    "state": "COORDINATOR_RECOVERY_RUN",
+                    "candidate_dispatches": int(coordinator_recovery.get("marked_unknown", 0))
+                    + int(coordinator_recovery.get("readbacks", 0)),
+                    "candidate_windows": 0,
+                    "readback_calls": int(coordinator_recovery.get("readbacks", 0)),
+                    "publisher_calls": int(coordinator_recovery.get("publish_calls", 0)),
+                    "reconciled": 0,
+                    "still_pending": int(coordinator_recovery.get("marked_unknown", 0)),
+                    "cooldown_deferred": 0,
+                    "next_eligible_at_utc": None,
+                }
+            else:
+                recovery = self._run_readback_reconciliation_housekeeping(now)
             report.update(
                 {
                     "readback_reconciliation_state": recovery["state"],
@@ -1367,8 +1386,29 @@ class ContentOpsDailyAppSupervisor:
     ) -> int:
         """Long-running loop used by the product entrypoint. Cheap when idle."""
         ticks = 0
+        transient_failures = 0
         while True:
-            report = self.tick()
+            try:
+                report = self.tick()
+                transient_failures = 0
+            except Exception as exc:  # bounded unattended resilience; writes fail closed per tick
+                transient_failures += 1
+                incident_basis = f"daily_app_tick:{type(exc).__name__}:{transient_failures}"
+                try:
+                    self._store.register_incident(
+                        incident_id="incident_" + _logical_hash(incident_basis)[:32],
+                        work_item_id=None,
+                        severity="TRANSIENT_DEGRADED",
+                        description=f"Daily App tick failed safely: {type(exc).__name__}",
+                    )
+                except Exception:
+                    # If even safe incident persistence fails, a durable-store fault is fatal.
+                    raise
+                report = {
+                    "next_wake_utc": _iso_utc(
+                        self._clock() + timedelta(seconds=min(300.0, max(1.0, poll_seconds) * (2 ** min(transient_failures, 5))))
+                    )
+                }
             ticks += 1
             if max_ticks is not None and ticks >= max_ticks:
                 return ticks

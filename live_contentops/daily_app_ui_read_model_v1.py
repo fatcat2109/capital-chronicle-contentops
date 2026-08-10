@@ -34,9 +34,14 @@ from live_contentops.publishing_profile_registry_v1 import (
     CANONICAL_PROFILE_ID,
     REGISTRY_VERSION as PUBLISHING_REGISTRY_VERSION,
 )
+from live_contentops.destination_transport_registry_v1 import (
+    DESTINATION_TO_SURFACE,
+    READY_STATES,
+    REGISTRY_VERSION as TRANSPORT_REGISTRY_VERSION,
+)
 
 SNAPSHOT_SCHEMA_VERSION = "contentops.daily_app_ui_snapshot.v1"
-REQUIRED_STORE_SCHEMA_VERSION = 7
+REQUIRED_STORE_SCHEMA_VERSION = 8
 FRESH_SECONDS = 300
 HEARTBEAT_TTL_SECONDS = 120
 
@@ -204,6 +209,7 @@ def build_daily_app_snapshot(
             observations = _rows(conn, "SELECT * FROM performance_observations ORDER BY scheduled_for_utc DESC,observation_id")
             policies = _rows(conn, "SELECT * FROM learning_policy_versions ORDER BY created_at_utc DESC,policy_version DESC")
             metrics = _rows(conn, "SELECT metric_id,metric_name,metric_value,recorded_at FROM metrics")
+            readiness_rows = _rows(conn, "SELECT * FROM destination_readiness ORDER BY platform,surface")
             review_count = int(conn.execute("SELECT COUNT(*) FROM review_records").fetchone()[0])
             artifact_count = int(conn.execute("SELECT COUNT(*) FROM artifact_references").fetchone()[0])
             event_count = len(transitions)
@@ -316,10 +322,10 @@ def build_daily_app_snapshot(
         "HEALTHY" if heartbeat_age is not None and heartbeat_age <= HEARTBEAT_TTL_SECONDS
         and latest_heartbeat.get("status") == "ALIVE" else "OFFLINE"
     )
-    all_state_rows = [*work_items, *dispatch_rows, *readbacks, *reconciliations, *observations, *policies]
+    all_state_rows = [*work_items, *dispatch_rows, *readbacks, *reconciliations, *observations, *policies, *readiness_rows]
     source_updated = _latest_time(
         all_state_rows,
-        ("updated_at", "created_at", "dispatched_at", "read_at", "reconciled_at", "collected_at_utc", "created_at_utc"),
+        ("updated_at", "created_at", "dispatched_at", "read_at", "reconciled_at", "collected_at_utc", "created_at_utc", "probed_at_utc"),
     )
     source_age = (generated - source_updated).total_seconds() if source_updated else None
     freshness_state = (
@@ -360,6 +366,31 @@ def build_daily_app_snapshot(
         "created_at_utc": row["created_at"],
         "source": "durable.incidents",
     } for row in incident_rows]
+    readiness_operator_action = {
+        "REAUTH_REQUIRED": "Sign in again in the canonical destination session.",
+        "AUTH_INVALID": "Renew or correct the configured destination authorization.",
+        "IDENTITY_MISMATCH": "Restore the exact configured Capital Chronicle destination identity.",
+        "PERMISSION_MISSING": "Grant the required provider-side destination permission.",
+        "TRANSPORT_UNAVAILABLE": "Restore the locked destination transport; do not substitute a fallback.",
+        "SESSION_UNAVAILABLE": "Configure or restore the exact destination binding.",
+        "TRANSIENT_DEGRADED": "Allow bounded automatic health checks; inspect the provider if degradation persists.",
+        "CAPABILITY_UNSUPPORTED": "Do not publish to this surface from the Tier-1 runtime.",
+    }
+    for row in readiness_rows:
+        state = str(row["readiness_state"])
+        if state in READY_STATES:
+            continue
+        incidents.append({
+            "incident_id": f"derived:readiness:{row['surface']}",
+            "severity": "HIGH" if state in {"REAUTH_REQUIRED", "AUTH_INVALID", "IDENTITY_MISMATCH", "PERMISSION_MISSING"} else "MEDIUM",
+            "what_happened": state,
+            "safe_now": "This destination is excluded from new writes; other exact READY destinations remain independent.",
+            "automatic_action": "The Daily App continues bounded read-only health checks and safe recovery.",
+            "operator_action": readiness_operator_action.get(state, "Inspect the exact destination readiness state."),
+            "work_item_id": None,
+            "created_at_utc": row["probed_at_utc"],
+            "source": "derived.destination_readiness",
+        })
     for row in unknown:
         incidents.append({
             "incident_id": f"derived:{row['dispatch_id']}:unknown-write",
@@ -402,18 +433,28 @@ def build_daily_app_snapshot(
         # ``publications`` is newest-first; retain the first durable dispatch per platform.
         dispatch_by_platform.setdefault(str(row["platform"]), row)
     observation_platforms = {str(row["platform"]) for row in observation_models}
+    readiness_by_surface = {str(row["surface"]): row for row in readiness_rows}
     platform_models = []
     for platform_id, display_name, binding_class in TIER1_DESTINATIONS:
         aliases = {platform_id}
         if platform_id == "youtube": aliases.add("youtube_community")
         last = next((dispatch_by_platform[a] for a in aliases if a in dispatch_by_platform), None)
+        readiness = readiness_by_surface.get(DESTINATION_TO_SURFACE.get(platform_id, ""), {})
+        readiness_state = str(readiness.get("readiness_state") or "READINESS_NOT_PROBED")
         platform_models.append({
             "platform_id": platform_id,
             "display_name": display_name,
-            "readiness": "READINESS_UNAVAILABLE_NOT_PERSISTED",
-            "write_eligible": False,
+            "readiness": readiness_state,
+            "write_eligible": readiness_state in READY_STATES,
             "binding_class": binding_class,
-            "safe_identity": CANONICAL_PROFILE_ID if binding_class == "BROWSER_AUTHENTICATED" else "NONSECRET_BINDING_IDENTITY_UNAVAILABLE",
+            "safe_identity": readiness.get("destination_identity") or (
+                CANONICAL_PROFILE_ID if binding_class == "BROWSER_AUTHENTICATED"
+                else "NONSECRET_BINDING_IDENTITY_UNAVAILABLE"
+            ),
+            "identity_match": bool(readiness.get("identity_match")) if readiness else None,
+            "probe_kind": readiness.get("probe_kind"),
+            "probed_at_utc": readiness.get("probed_at_utc"),
+            "transport_type": readiness.get("transport_type"),
             "last_dispatch_state": last["lifecycle_classification"] if last else "NO_DISPATCH_RECORDED",
             "last_successful_readback_at_utc": (
                 max((rb["read_at_utc"] for rb in readbacks_by_dispatch[str(last["dispatch_id"])]), default=None)
@@ -422,7 +463,7 @@ def build_daily_app_snapshot(
             "pending_incident": bool(last and last["lifecycle_classification"] == "UNKNOWN_WRITE"),
             "metrics_capability": "OBSERVATION_RECORDED" if aliases & observation_platforms else "COLLECTOR_CAPABILITY_UNAVAILABLE",
             "next_metric_availability": "UNAVAILABLE",
-            "readiness_authority": "live_contentops._eight_platform_substack_first_pipeline_impl_v1._rolling_x_destination_readiness",
+            "readiness_authority": TRANSPORT_REGISTRY_VERSION,
         })
 
     scheduled_observations = [o for o in observation_models if o["collection_status"] == "SCHEDULED"]
@@ -584,7 +625,7 @@ def build_daily_app_snapshot(
             "canonical_publishing_profile_id": CANONICAL_PROFILE_ID,
             "canonical_publishing_browser_family": CANONICAL_BROWSER_FAMILY,
             "readiness_eligible_statuses": ["READY_AUTHENTICATED", "READY_NON_BROWSER_BINDING"],
-            "readiness_probe_performed": False,
+            "readiness_probe_performed": bool(readiness_rows),
             "browser_or_cdp_action_performed": False,
             "provider_or_platform_action_performed": False,
         },
@@ -611,7 +652,7 @@ def update_daily_app_mode(
     """Perform the sole FDA-F write class: one canonical CAS mode update."""
     store = ContentOpsDurableStore(Path(store_path), auto_migrate=False)
     if store.get_current_schema_version() != REQUIRED_STORE_SCHEMA_VERSION:
-        raise DailyAppReadModelError("mode control requires canonical schema v7")
+        raise DailyAppReadModelError("mode control requires canonical schema v7+")
     try:
         return store.update_operating_control(
             expected_state_version=expected_state_version,

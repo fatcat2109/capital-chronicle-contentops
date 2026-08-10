@@ -1,0 +1,124 @@
+"""Final Daily App production composition and one-process launcher."""
+from __future__ import annotations
+
+import threading
+from dataclasses import dataclass
+from http.server import HTTPServer
+from pathlib import Path
+from typing import Any, Optional
+
+from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
+from live_contentops.destination_transport_registry_v1 import (
+    DestinationReadinessManager,
+    REGISTRY_VERSION,
+    validate_registry,
+    registration_for_destination,
+)
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.production_orchestrator_v1 import ContentOpsProductionOrchestrator
+from live_contentops.publication_coordinator_v1 import (
+    DurablePublicationCoordinator,
+    HistoricalAdapterTransportRuntime,
+)
+from live_contentops.server import make_handler
+
+
+@dataclass
+class FinalDailyAppProductionRuntime:
+    store: ContentOpsDurableStore
+    orchestrator: ContentOpsProductionOrchestrator
+    readiness_manager: DestinationReadinessManager
+    transport_runtime: HistoricalAdapterTransportRuntime
+    publication_coordinator: DurablePublicationCoordinator
+    supervisor: ContentOpsDailyAppSupervisor
+    api_server: Optional[HTTPServer] = None
+    api_thread: Optional[threading.Thread] = None
+
+    def start_api(self, *, port: int = 5174) -> None:
+        if self.api_server is not None:
+            return
+        self.api_server = HTTPServer(("127.0.0.1", int(port)), make_handler(self.store.db_path))
+        self.api_thread = threading.Thread(
+            target=self.api_server.serve_forever,
+            name="contentops-daily-app-loopback-api",
+            daemon=True,
+        )
+        self.api_thread.start()
+
+    def close(self) -> None:
+        if self.api_server is not None:
+            self.api_server.shutdown()
+            self.api_server.server_close()
+            self.api_server = None
+
+    def smoke_snapshot(self) -> dict[str, Any]:
+        control = self.store.get_operating_control()
+        return {
+            "status": "PRODUCTION_COMPOSITION_READY_NO_WRITE",
+            "schema_version": self.store.get_current_schema_version(),
+            "transport_registry_version": REGISTRY_VERSION,
+            "operating_mode": control["operating_mode"],
+            "publisher_is_real_coordinator": self.supervisor._publication_coordinator is self.publication_coordinator,
+            "publisher_wiring_not_none": self.supervisor._publication_publisher is not None,
+            "readback_wiring_not_none": self.supervisor._publication_readback_provider is not None,
+            "performance_wiring_not_none": self.supervisor._performance_collector is not None,
+            "learning_enabled": self.supervisor._performance_learning_enabled,
+            "next_wake_utc": self.supervisor._next_wake(self.supervisor._clock()).isoformat().replace("+00:00", "Z"),
+            "public_write_performed": False,
+        }
+
+
+def build_final_daily_app_production_runtime(
+    *,
+    store_path: str | Path,
+    output_root: str | Path,
+    operating_mode: Optional[str] = None,
+    sidecar_glob: Optional[str] = None,
+    clock: Any = None,
+    ensure_edge_runtime: bool = True,
+    run_readiness_probes: bool = False,
+) -> FinalDailyAppProductionRuntime:
+    validate_registry()
+    store = ContentOpsDurableStore(store_path)
+    orchestrator = ContentOpsProductionOrchestrator()
+    if ensure_edge_runtime:
+        orchestrator.execute("ensure_canonical_edge_publishing_runtime")
+    readiness = DestinationReadinessManager(
+        store=store,
+        edge_runtime_ensurer=lambda: orchestrator.execute(
+            "ensure_canonical_edge_publishing_runtime"
+        ),
+    )
+    if run_readiness_probes:
+        readiness.probe_all(persist=True)
+    transport = HistoricalAdapterTransportRuntime()
+    readiness_by_destination = lambda destination: (  # noqa: E731
+        next((
+            row for row in store.list_destination_readiness()
+            if row["surface"] == registration_for_destination(destination).surface
+        ), {})
+    )
+    coordinator = DurablePublicationCoordinator(
+        store=store, transport_runtime=transport, readiness_provider=readiness_by_destination,
+        readiness_manager=readiness,
+    )
+    supervisor = ContentOpsDailyAppSupervisor(
+        store_path=store_path,
+        output_root=output_root,
+        operating_mode=operating_mode,
+        clock=clock,
+        store=store,
+        sidecar_glob=sidecar_glob,
+        enable_publication_lifecycle=True,
+        publication_publisher=coordinator.publish_plan,
+        publication_readback_provider=coordinator.readback,
+        publication_coordinator=coordinator,
+        enable_performance_observation=True,
+        performance_collector=coordinator.collect_metrics,
+        performance_learning_enabled=True,
+    )
+    return FinalDailyAppProductionRuntime(
+        store=store, orchestrator=orchestrator, readiness_manager=readiness,
+        transport_runtime=transport, publication_coordinator=coordinator,
+        supervisor=supervisor,
+    )

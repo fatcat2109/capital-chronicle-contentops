@@ -32,11 +32,14 @@ from live_contentops.historical_schema_compatibility_v1 import (
     DEPENDENCY_MANIFEST_V4_JSON,
     DEPENDENCY_MANIFEST_V5_HASH,
     DEPENDENCY_MANIFEST_V5_JSON,
+    DEPENDENCY_MANIFEST_V6_HASH,
+    DEPENDENCY_MANIFEST_V6_JSON,
     LEGACY_QUARANTINE_SCOPE,
     MIGRATION_V5_CHECKSUM,
     MIGRATION_V5_SQL,
     MIGRATION_V6_SQL,
     MIGRATION_V7_SQL,
+    MIGRATION_V8_SQL,
     canonical_json,
     recognize_lineage,
     schema_fingerprint,
@@ -59,6 +62,11 @@ GENESIS_EVENT_KIND = "WORK_ITEM_CREATED"
 GENESIS_PREVIOUS_HASH = "GENESIS_" + "0" * 64
 ARTIFACT_SCOPES = frozenset({"WORK_ITEM_EXACT", "STORY_EXACT", "GLOBAL_REUSABLE", LEGACY_QUARANTINE_SCOPE})
 ACTIVE_ARTIFACT_SCOPES = frozenset({"WORK_ITEM_EXACT", "STORY_EXACT", "GLOBAL_REUSABLE"})
+DESTINATION_READINESS_STATES = frozenset({
+    "READY_AUTHENTICATED", "READY_NON_BROWSER_BINDING", "REAUTH_REQUIRED",
+    "AUTH_INVALID", "IDENTITY_MISMATCH", "PERMISSION_MISSING", "SESSION_UNAVAILABLE",
+    "TRANSPORT_UNAVAILABLE", "TRANSIENT_DEGRADED", "CAPABILITY_UNSUPPORTED",
+})
 PROTECTED_INSERT_TABLES = frozenset({"transition_events", "artifact_references"})
 RUNTIME_INSERT_GUARD_SQL = (
     "CREATE TRIGGER IF NOT EXISTS trg_transition_events_append_authorized BEFORE INSERT ON transition_events BEGIN SELECT CASE WHEN contentops_append_authorized() != 1 THEN RAISE(ABORT,'transition_events INSERT requires canonical append authorization') END; END",
@@ -384,6 +392,7 @@ MIGRATIONS: List[Migration] = [
     Migration(5, "Schema v5: platform_dispatches public-object identity persistence", MIGRATION_V5_SQL, "sql_only.v5"),
     Migration(6, "Schema v6: performance_observations and learning_policy_versions", MIGRATION_V6_SQL, "sql_only.v6"),
     Migration(7, "Schema v7: canonical operating-mode control", MIGRATION_V7_SQL, "sql_only.v7"),
+    Migration(8, "Schema v8: current destination readiness", MIGRATION_V8_SQL, "sql_only.v8"),
 ]
 
 
@@ -488,8 +497,8 @@ class ContentOpsDurableStore:
                     len(rows) != 1
                     or int(rows[0]["singleton_id"]) != 1
                     or int(rows[0]["compatibility_version"]) != CANONICAL_SCHEMA_VERSION
-                    or rows[0]["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V3_JSON, DEPENDENCY_MANIFEST_V4_JSON, DEPENDENCY_MANIFEST_V5_JSON)
-                    or rows[0]["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH, DEPENDENCY_MANIFEST_V3_HASH, DEPENDENCY_MANIFEST_V4_HASH, DEPENDENCY_MANIFEST_V5_HASH)
+                    or rows[0]["dependency_manifest_json"] not in (DEPENDENCY_MANIFEST_JSON, DEPENDENCY_MANIFEST_V2_JSON, DEPENDENCY_MANIFEST_V3_JSON, DEPENDENCY_MANIFEST_V4_JSON, DEPENDENCY_MANIFEST_V5_JSON, DEPENDENCY_MANIFEST_V6_JSON)
+                    or rows[0]["dependency_manifest_hash"] not in (DEPENDENCY_MANIFEST_HASH, DEPENDENCY_MANIFEST_V2_HASH, DEPENDENCY_MANIFEST_V3_HASH, DEPENDENCY_MANIFEST_V4_HASH, DEPENDENCY_MANIFEST_V5_HASH, DEPENDENCY_MANIFEST_V6_HASH)
                 ):
                     raise DurableStateCorruptionError("Dependency manifest binding mismatch")
                 guard_rows = {
@@ -613,6 +622,16 @@ class ContentOpsDurableStore:
                     if updated != 1:
                         raise MigrationError(
                             "Migration v7 requires an existing canonical schema_lineage_metadata row"
+                        )
+                if migration.version == 8:
+                    updated = conn.execute(
+                        "UPDATE schema_lineage_metadata SET compatibility_version=?, dependency_manifest_json=?,"
+                        " dependency_manifest_hash=?, upgraded_at=? WHERE singleton_id=1",
+                        (8, DEPENDENCY_MANIFEST_V6_JSON, DEPENDENCY_MANIFEST_V6_HASH, self._get_now_iso()),
+                    ).rowcount
+                    if updated != 1:
+                        raise MigrationError(
+                            "Migration v8 requires an existing canonical schema_lineage_metadata row"
                         )
                 proof = self._verify_migration_preservation(conn, before, migration.version)
                 conn.execute("INSERT INTO schema_migrations VALUES (?,?,?,?)", (migration.version, migration.checksum, self._get_now_iso(), migration.description))
@@ -1070,6 +1089,86 @@ class ContentOpsDurableStore:
             (message_id, work_item_id, destination, payload, status, self._get_now_iso()),
         )
 
+    def set_outbox_status(self, message_id: str, status: str) -> Dict[str, Any]:
+        """Update only lifecycle status; exact outbox payload bytes remain immutable."""
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute(
+                "SELECT * FROM outbox_messages WHERE message_id=?", (message_id,)
+            ).fetchone()
+            if row is None:
+                raise WorkItemNotFoundError(f"outbox message {message_id} not found")
+            conn.execute(
+                "UPDATE outbox_messages SET status=? WHERE message_id=?", (status, message_id)
+            )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                "SELECT * FROM outbox_messages WHERE message_id=?", (message_id,)
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    def finalize_outbox_payload_before_dispatch(
+        self, *, message_id: str, payload: str, status: str = "READY"
+    ) -> Dict[str, Any]:
+        """Finalize dependency-bound bytes only while no dispatch marker exists.
+
+        This is used for Substack-first derivative packages: the canonical URL is unknowable
+        when the master plan is registered, but exact final payload bytes must be durable before
+        the adapter boundary.  Once any dispatch row exists the payload is immutable.
+        """
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute(
+                "SELECT * FROM outbox_messages WHERE message_id=?", (message_id,)
+            ).fetchone()
+            if row is None:
+                raise WorkItemNotFoundError(f"outbox message {message_id} not found")
+            marker = conn.execute(
+                "SELECT dispatch_id FROM platform_dispatches WHERE message_id=?", (message_id,)
+            ).fetchone()
+            if marker is not None:
+                raise DispatchIdentityConflictError(
+                    f"outbox_payload_immutable_after_dispatch_marker:{message_id}"
+                )
+            conn.execute(
+                "UPDATE outbox_messages SET payload=?, status=? WHERE message_id=?",
+                (payload, status, message_id),
+            )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                "SELECT * FROM outbox_messages WHERE message_id=?", (message_id,)
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    def list_outbox_messages(self, *, status: Optional[str] = None) -> List[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            if status is None:
+                rows = conn.execute(
+                    "SELECT * FROM outbox_messages ORDER BY created_at, message_id"
+                ).fetchall()
+            else:
+                rows = conn.execute(
+                    "SELECT * FROM outbox_messages WHERE status=? ORDER BY created_at, message_id",
+                    (status,),
+                ).fetchall()
+            return [dict(row) for row in rows]
+
     def get_platform_dispatch(self, dispatch_id: str) -> Optional[Dict[str, Any]]:
         """Read one canonical dispatch row including its persisted external public-object identity."""
         with self.get_connection() as conn:
@@ -1272,6 +1371,73 @@ class ContentOpsDurableStore:
             return [dict(r) for r in conn.execute(
                 "SELECT * FROM reconciliations WHERE work_item_id=? ORDER BY reconciliation_id",
                 (work_item_id,)
+            ).fetchall()]
+
+    # ------------------------------------------------------------------
+    # Current sanitized destination readiness (schema v8).
+    # ------------------------------------------------------------------
+
+    def upsert_destination_readiness(self, *, row: Mapping[str, Any]) -> Dict[str, Any]:
+        required = {
+            "surface", "platform", "transport_registry_version", "transport_type",
+            "readiness_state", "identity_match", "probe_kind", "probed_at_utc",
+        }
+        missing = sorted(required - set(row))
+        if missing:
+            raise ValueError(f"destination_readiness_missing_fields:{','.join(missing)}")
+        state = str(row["readiness_state"])
+        if state not in DESTINATION_READINESS_STATES:
+            raise ValueError(f"destination_readiness_state_invalid:{state}")
+        detail = row.get("sanitized_detail") or {}
+        if not isinstance(detail, Mapping):
+            raise ValueError("destination_readiness_detail_must_be_mapping")
+        # Reject common secret-bearing field names before persistence. Probe implementations
+        # additionally whitelist their emitted details; this is the durable backstop.
+        forbidden = re.compile(
+            r"(^|_)(token|secret|cookie|authorization|webhook_url|session|password)(_|$)",
+            re.IGNORECASE,
+        )
+        if any(forbidden.search(str(key)) for key in detail):
+            raise ValueError("destination_readiness_detail_contains_forbidden_field")
+        values = (
+            str(row["surface"]), str(row["platform"]),
+            str(row["transport_registry_version"]), str(row["transport_type"]), state,
+            str(row.get("destination_identity") or "") or None,
+            int(bool(row["identity_match"])), str(row["probe_kind"]),
+            str(row["probed_at_utc"]), canonical_json(dict(detail)),
+        )
+        conn = self.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            conn.execute(
+                "INSERT INTO destination_readiness "
+                "(surface,platform,transport_registry_version,transport_type,readiness_state,"
+                "destination_identity,identity_match,probe_kind,probed_at_utc,sanitized_detail_json) "
+                "VALUES (?,?,?,?,?,?,?,?,?,?) ON CONFLICT(surface) DO UPDATE SET "
+                "platform=excluded.platform,transport_registry_version=excluded.transport_registry_version,"
+                "transport_type=excluded.transport_type,readiness_state=excluded.readiness_state,"
+                "destination_identity=excluded.destination_identity,identity_match=excluded.identity_match,"
+                "probe_kind=excluded.probe_kind,probed_at_utc=excluded.probed_at_utc,"
+                "sanitized_detail_json=excluded.sanitized_detail_json",
+                values,
+            )
+            conn.execute("COMMIT")
+            return dict(conn.execute(
+                "SELECT * FROM destination_readiness WHERE surface=?", (values[0],)
+            ).fetchone())
+        except Exception:
+            try:
+                conn.execute("ROLLBACK")
+            except Exception:
+                pass
+            raise
+        finally:
+            conn.close()
+
+    def list_destination_readiness(self) -> List[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            return [dict(row) for row in conn.execute(
+                "SELECT * FROM destination_readiness ORDER BY platform, surface"
             ).fetchall()]
 
     # ------------------------------------------------------------------

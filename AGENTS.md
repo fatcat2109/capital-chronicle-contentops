@@ -194,19 +194,19 @@ The accelerated logical soak is not calendar-time live reliability and does not 
 
 ## 9. Latest operational task
 
-`TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
+`TASK_CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1`
 
 Status:
 
-`BLOCKED_FRESH_CAPITAL_CHRONICLE_PUBLICATION_PACKET_UNAVAILABLE`
+`COMPLETE_IMPLEMENTED_AND_VALIDATED`
 
-The accepted Work F result was fast-forwarded to `master` at
-`025164d73f87320cbff9a14a8f5914d7d128f9ea`. The current Capital Chronicle producer was
-run without modifying its repository and emitted a publication-authorized packet, but its
-latest official market observation was 34.674 hours old against the canonical 24-hour
-threshold. The ContentOps rerun therefore stopped before 9Router or any public adapter.
-Owner live scope remains recorded and dynamically limited to verified canonical `READY_*`
-destinations; no new authorization is required.
+The Final Daily App has one durable public-write owner, a versioned surface/transport registry,
+durable pre-write outbox and attempt markers, restart-safe UNKNOWN_WRITE handling, strict
+readback/reconciliation, real read-only readiness probes, Edge 9223 self-bootstrap, and one
+production start command. Chrome 9222 remains ingestion-only. The production store is schema
+v8 after lossless migration with its prior rows and production epoch preserved. No public write
+occurred in this task. Exact evidence is under
+`docs/automation/CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1/`.
 
 ## 10. Current router/model runtime authority
 
@@ -376,11 +376,6 @@ Do not stop for unrelated dirty files, absent CI, stale historical docs, mechani
 
 Do not start Tier-2.
 
-```text
-fresh rolling-24h X headlines become available
-→ run one governed AUTONOMOUS_DEFAULT cycle through hierarchical assignment
-```
+`TASK_CONTENTOPS_FINAL_DAILY_APP_FINAL_V5_UI_BROWSER_QA_V1`
 
-The separate Capital Chronicle packet rerun remains valid when its governed evidence is
-fresh and is not a newsroom-discovery prerequisite. After Work F, continue Section 10
-through Tier-1 final acceptance/freeze. Only then begin Tier-2.
+Do not start Tier-2 before Final Daily App V1 acceptance/freeze.
