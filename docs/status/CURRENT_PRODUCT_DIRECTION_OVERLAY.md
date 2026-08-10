@@ -245,6 +245,44 @@ Do not redesign the provider pool because of transient availability.
 
 The always-on supervisor must avoid continuous provider probes while idle.
 
+## 10A. Continuous intelligence architecture (owner decision, 2026-08-10 realignment)
+
+Jim's 2026-08-10 realignment supersedes the older "wait for an editorial window, then discover
+whether fresh headlines exist" cadence/intake assumptions:
+
+1. headline ingestion is continuous/cheap while the Daily App host is available (zero LLM
+   calls; a housekeeping lane inside the canonical supervisor; no second scheduler);
+2. editorial windows do not own headline ingestion; Run Now does not own ingestion;
+3. every editorial decision (scheduled, material-event, or Run Now) reconstructs the complete
+   rolling 24-hour unique headline universe — not only the latest capture delta;
+4. previously published canonical article content is part of editorial novelty/update-chain
+   context (published corpus derived from existing durable publication truth; no second store);
+5. ContentOps uses the current Capital Chronicle data estate through a direct READ-ONLY
+   catalog/query boundary (`capital_chronicle_data_catalog_v1`), preserving CC authority
+   semantics: CC remains analytical/numeric authority where exact article contracts require it;
+   database rows are never promoted to public truth merely because they exist (DQR, freshness,
+   exact/proxy, permission, lineage, and limitations all preserved);
+6. the initial desired publication target band is 5–8 high-quality articles per active day,
+   served by ~8 configured core decision opportunities/day plus material-event wakeups; exact
+   times are versioned configuration, never claimed universal truth;
+7. follow-up publication requires material delta; story clusters are explicitly classified
+   BREAKING_NEW_STORY / MATERIAL_FOLLOW_UP / DEEPEN_EXISTING_STORY / LOW_DELTA_REPEAT / HOLD;
+8. breaking material news may wake the newsroom outside normal windows via the existing
+   material-event seam (no second breaking-news engine);
+9. 5–8 is a target band, NOT permission to fabricate filler or weaken factual/numeric
+   authority; NO_PUBLICATION remains technically valid when nothing useful/grounded exists,
+   but data starvation and tiny decision counts must not be the routine reason for low output;
+10. Run Now uses the SAME canonical newsroom authority as scheduled/material-event cycles:
+    "make an editorial decision now using the continuously maintained current intelligence
+    universe" — no second newsroom, no special bypass pipeline, no weakened evidence/review
+    authority. The bounded x-list capture survives only as an emergency freshness-sync fallback
+    when continuous intake is stale.
+
+One canonical headline store: `headline_ingestion/data/intake/headline_sidecars/`, one file per
+day, fixed `step1_headline_sidecar_<YYYY>_<MM>_<DD>.jsonl` naming, append-only, deduplicated by
+stable post/tweet identity, restart-safe. No timestamp-per-capture files, no parallel ALL_DATA
+truth, no new legacy-format files; historical files remain read-only history.
+
 ## 11. Exact current routing
 
 FDA-G genuine calendar-time live soak:

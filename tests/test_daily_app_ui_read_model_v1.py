@@ -282,7 +282,7 @@ def test_genuine_learned_child_controls_window_provenance_and_nested_offset(tmp_
     assert active["provenance"] == "LEARNED"
     assert active["timing_offset_minutes"] == 15
     assert snapshot["runtime"]["next_editorial_window"]["provenance"] == "LEARNED_ACTIVE_POLICY"
-    assert snapshot["runtime"]["next_editorial_window"]["window_start_utc"] == "2026-08-10T13:15:00Z"
+    assert snapshot["runtime"]["next_editorial_window"]["window_start_utc"] == "2026-08-10T12:15:00Z"
 
 
 def test_kill_switch_cas_restart_and_zero_calls(tmp_path):

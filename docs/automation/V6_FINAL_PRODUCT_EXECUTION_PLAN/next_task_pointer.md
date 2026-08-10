@@ -61,6 +61,26 @@ browser → one-click reopen → READY, no duplicate, no new profile). This task
 guarantee X server-side session lifetime; it guarantees ContentOps preserves and always reuses
 the exact operator-owned persistent browser state.
 
+`TASK_CONTENTOPS_V1_CONTINUOUS_INTELLIGENCE_INTAKE_CC_DATABASE_AND_EDITORIAL_PORTFOLIO_REALIGN_V1`
+
+Owner mid-task realignment supersedes the narrow run-now-only capture + special run-now gate
+relaxation approach (the `operator_run_now_override_v1` bypass was retired and reverted; the
+Run Now gate-bypass semantics are FALSE by design). The Daily App is now organized around a
+continuous cheap intelligence layer: continuous zero-LLM X headline intake lane inside the
+canonical supervisor (`continuous_headline_ingest_v1`) writing ONLY the canonical per-day
+sidecar store (`headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_<date>.jsonl`,
+append-only, deduplicated by stable post/tweet identity, restart-safe); every editorial decision
+reconstructs the complete rolling 24h unique headline universe; read-only Capital Chronicle data
+estate catalog + story-scoped context adapter (`capital_chronicle_data_catalog_v1`, zero upstream
+mutation); published corpus read model from existing durable publication truth
+(`published_corpus_read_model_v1`, no second publication store); explicit novelty/update-chain
+classification + portfolio policy (`editorial_portfolio_v1`: BREAKING_NEW_STORY /
+MATERIAL_FOLLOW_UP / DEEPEN_EXISTING_STORY / LOW_DELTA_REPEAT / HOLD; 5–8 article/day target
+band; eight core decision opportunities/day; bootstrap.v2 window policy); V5 Today exposes the
+canonical intelligence truth fields. Run Now uses the SAME canonical newsroom authority as
+scheduled/material-event cycles. Tier2-A preserved untouched; FDA-G prior epochs preserved as
+pre-realignment historical evidence; a new FDA-G source epoch starts after deployment.
+
 ## Next owner-approved builder lane
 
 `TIER2-A LOCAL LONG-FORM + SHORT-FORM PROGRAMMABLE VERTICAL SLICE`

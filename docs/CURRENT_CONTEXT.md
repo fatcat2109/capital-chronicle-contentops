@@ -29,6 +29,10 @@ Future expansion retained but deferred until V1 freeze:
 
 Current completed runtime task:
 
+`TASK_CONTENTOPS_V1_CONTINUOUS_INTELLIGENCE_INTAKE_CC_DATABASE_AND_EDITORIAL_PORTFOLIO_REALIGN_V1`
+
+Prior completed task (superseded architecture recorded in next_task_pointer):
+
 `TASK_CONTENTOPS_V1_TRUE_ONE_CLICK_INGESTION_BOOTSTRAP_AND_RUN_NOW_CONTROL_V1`
 
 Current continuous product lane:

@@ -22,7 +22,7 @@ from live_contentops.durable_operational_store_v1 import (
 )
 from live_contentops.server import make_handler
 
-FIXED_NOW = datetime(2026, 8, 10, 10, 0, 0, tzinfo=timezone.utc)
+FIXED_NOW = datetime(2026, 8, 10, 4, 30, 0, tzinfo=timezone.utc)
 
 
 def _fixed_clock():
@@ -235,7 +235,9 @@ def test_autonomous_default_operator_cycle_keeps_canonical_gate_flag_only(tmp_pa
     )
     supervisor.tick(FIXED_NOW)
     assert calls[0]["publication_enabled"] is True
-    assert set(calls[0]) <= {"run_id", "output_dir", "cutoff_utc", "publication_enabled", "sidecar_glob"}
+    allowed = {"run_id", "output_dir", "cutoff_utc", "publication_enabled", "sidecar_glob", "capital_chronicle_root"}
+    assert set(calls[0]) <= allowed
+    assert "operator_run_now_override" not in calls[0]
 
 
 def test_kill_switch_defers_operator_trigger_and_never_clears_mode(tmp_path):

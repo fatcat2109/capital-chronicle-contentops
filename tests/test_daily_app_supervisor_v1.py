@@ -23,8 +23,8 @@ def _fixed_clock(dt: datetime):
 
 
 def _controlled_cycle(calls: list, classification: str = "NO_PUBLICATION"):
-    def cycle(*, run_id, output_dir, cutoff_utc, publication_enabled):
-        calls.append({"run_id": run_id, "cutoff_utc": cutoff_utc})
+    def cycle(**kwargs):
+        calls.append({"run_id": kwargs.get("run_id"), "cutoff_utc": kwargs.get("cutoff_utc")})
         return {
             "classification": classification,
             "public_write_performed": False,
@@ -68,17 +68,17 @@ def _supervisor(
 
 def test_bootstrap_policy_is_deterministic_configured_defaults_not_learned():
     policy = build_bootstrap_editorial_window_policy(effective_at_utc="2026-08-09T00:00:00Z")
-    assert policy.policy_version == "bootstrap.v1"
+    assert policy.policy_version == "bootstrap.v2"
     assert policy.confidence_state == "bootstrap_configured_defaults_not_learned"
     assert "learned" not in policy.confidence_state or "not_learned" in policy.confidence_state
     assert policy.provenance.startswith("deterministic_configured_bootstrap")
-    assert len(policy.core_windows) >= 1
+    assert len(policy.core_windows) == 8
     assert policy.material_event_override_enabled is True
 
 
 def test_editorial_window_id_is_deterministic_and_trigger_kind_aware():
-    start = datetime(2026, 8, 9, 13, tzinfo=timezone.utc)
-    end = datetime(2026, 8, 9, 15, tzinfo=timezone.utc)
+    start = datetime(2026, 8, 9, 12, tzinfo=timezone.utc)
+    end = datetime(2026, 8, 9, 14, tzinfo=timezone.utc)
     a = editorial_window_id(
         policy_version="bootstrap.v1", window_start_utc=start, window_end_utc=end,
         session="core_daily", trigger_kind=TRIGGER_SCHEDULED,
@@ -101,7 +101,7 @@ def test_next_wake_is_deterministic_for_fixed_clock_and_policy():
     supervisor, _ = _supervisor(Path(_tempdir()), clock=_fixed_clock(clock_dt))
     wake1 = supervisor._next_wake(clock_dt)
     wake2 = supervisor._next_wake(clock_dt)
-    assert wake1 == wake2 == datetime(2026, 8, 9, 13, tzinfo=timezone.utc)
+    assert wake1 == wake2 == datetime(2026, 8, 9, 12, tzinfo=timezone.utc)
 
 
 def _tempdir():
@@ -122,8 +122,8 @@ def test_due_window_invokes_canonical_cycle_exactly_once_and_persists_terminal(t
     # Terminal state persisted.
     wid = editorial_window_id(
         policy_version=supervisor.policy.policy_version,
-        window_start_utc=datetime(2026, 8, 9, 13, tzinfo=timezone.utc),
-        window_end_utc=datetime(2026, 8, 9, 15, tzinfo=timezone.utc),
+        window_start_utc=datetime(2026, 8, 9, 12, tzinfo=timezone.utc),
+        window_end_utc=datetime(2026, 8, 9, 14, tzinfo=timezone.utc),
         session="core_daily", trigger_kind=TRIGGER_SCHEDULED,
     )
     assert supervisor._window_state(wid) in WINDOW_EXECUTED_STATES
@@ -152,7 +152,7 @@ def test_restart_does_not_rerun_completed_window(tmp_path):
 
 
 def test_not_due_window_makes_zero_newsroom_calls(tmp_path):
-    clock_dt = datetime(2026, 8, 9, 2, 0, tzinfo=timezone.utc)  # outside any window
+    clock_dt = datetime(2026, 8, 9, 4, 30, tzinfo=timezone.utc)  # outside any window
     cycle_calls = []
 
     def cycle_should_not_run(**kwargs):
@@ -166,7 +166,7 @@ def test_not_due_window_makes_zero_newsroom_calls(tmp_path):
 
 
 def test_idle_tick_makes_zero_provider_calls(tmp_path):
-    clock_dt = datetime(2026, 8, 9, 2, 0, tzinfo=timezone.utc)
+    clock_dt = datetime(2026, 8, 9, 4, 30, tzinfo=timezone.utc)
     supervisor, calls = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
     report = supervisor.tick(now=clock_dt)
     assert report["provider_calls"] == 0
@@ -176,7 +176,7 @@ def test_idle_tick_makes_zero_provider_calls(tmp_path):
 
 
 def test_tick_refreshes_one_stable_durable_supervisor_heartbeat_across_restart(tmp_path):
-    clock_dt = datetime(2026, 8, 9, 2, 0, tzinfo=timezone.utc)
+    clock_dt = datetime(2026, 8, 9, 4, 30, tzinfo=timezone.utc)
     supervisor, _ = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
 
     first = supervisor.tick(now=clock_dt)
@@ -228,8 +228,8 @@ def test_competing_supervisor_cannot_recover_an_active_pending_window(tmp_path):
     calls_a = []
     errors = []
 
-    def blocking_cycle(*, run_id, output_dir, cutoff_utc, publication_enabled):
-        calls_a.append(run_id)
+    def blocking_cycle(**kwargs):
+        calls_a.append(kwargs.get("run_id"))
         cycle_started.set()
         assert allow_cycle_to_finish.wait(timeout=10)
         return {
@@ -262,8 +262,8 @@ def test_competing_supervisor_cannot_recover_an_active_pending_window(tmp_path):
 
     window_id = editorial_window_id(
         policy_version=supervisor_a.policy.policy_version,
-        window_start_utc=datetime(2026, 8, 9, 13, tzinfo=timezone.utc),
-        window_end_utc=datetime(2026, 8, 9, 15, tzinfo=timezone.utc),
+        window_start_utc=datetime(2026, 8, 9, 12, tzinfo=timezone.utc),
+        window_end_utc=datetime(2026, 8, 9, 14, tzinfo=timezone.utc),
         session="core_daily",
         trigger_kind=TRIGGER_SCHEDULED,
     )
@@ -295,8 +295,8 @@ def test_stale_pending_claim_recovered_without_rerun(tmp_path):
     supervisor, calls = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
     wid = editorial_window_id(
         policy_version=supervisor.policy.policy_version,
-        window_start_utc=datetime(2026, 8, 9, 13, tzinfo=timezone.utc),
-        window_end_utc=datetime(2026, 8, 9, 15, tzinfo=timezone.utc),
+        window_start_utc=datetime(2026, 8, 9, 12, tzinfo=timezone.utc),
+        window_end_utc=datetime(2026, 8, 9, 14, tzinfo=timezone.utc),
         session="core_daily", trigger_kind=TRIGGER_SCHEDULED,
     )
     # Simulate a claim-before-completion crash: create work item, transition to EVIDENCE_PENDING
@@ -341,7 +341,7 @@ def test_material_event_trigger_gets_stable_unique_identity(tmp_path):
 
 
 def test_material_event_window_invokes_cycle_once(tmp_path):
-    clock_dt = datetime(2026, 8, 9, 2, 0, tzinfo=timezone.utc)  # outside scheduled windows
+    clock_dt = datetime(2026, 8, 9, 4, 30, tzinfo=timezone.utc)  # outside scheduled windows
     supervisor, calls = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
     metadata = {
         "material_event_due": True,

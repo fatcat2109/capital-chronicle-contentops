@@ -577,6 +577,63 @@ def build_daily_app_snapshot(
     prompt_tokens = sum(int(row.get("prompt_tokens") or 0) for row in invocations)
     completion_tokens = sum(int(row.get("completion_tokens") or 0) for row in invocations)
 
+    headline_ingestion_state = {"lane_state": "UNAVAILABLE", "last_ingest_utc": None, "rows_last_iteration": 0}
+    rolling_24h_unique_headlines: Optional[int] = None
+    try:
+        from live_contentops.continuous_headline_ingest_v1 import (
+            ingestion_lane_state,
+            read_ingestion_checkpoint,
+            rolling_24h_unique_headline_count,
+        )
+
+        checkpoint = read_ingestion_checkpoint(store)
+        last_epoch = checkpoint["last_success_epoch"]
+        headline_ingestion_state = {
+            "lane_state": ingestion_lane_state(checkpoint["last_outcome_code"]),
+            "last_ingest_utc": (
+                _iso(datetime.fromtimestamp(float(last_epoch), tz=timezone.utc)) if last_epoch else None
+            ),
+            "rows_last_iteration": checkpoint["rows_last_iteration"],
+        }
+        rolling_24h_unique_headlines = rolling_24h_unique_headline_count(
+            sidecar_glob="headline_ingestion/data/intake/headline_sidecars/*.jsonl", now=generated
+        )
+    except Exception:  # noqa: BLE001 - truth stays explicit when intelligence is unavailable
+        rolling_24h_unique_headlines = None
+
+    capital_chronicle_read_model_state = "UNAVAILABLE"
+    try:
+        from live_contentops.capital_chronicle_data_catalog_v1 import (
+            DEFAULT_CC_ROOT,
+        )
+
+        capital_chronicle_read_model_state = "READY" if DEFAULT_CC_ROOT.is_dir() else "UNAVAILABLE"
+    except Exception:  # noqa: BLE001
+        capital_chronicle_read_model_state = "UNAVAILABLE"
+
+    published_today_count = 0
+    published_corpus_count = 0
+    daily_target_band = [5, 8]
+    try:
+        from live_contentops.editorial_portfolio_v1 import DAILY_TARGET_BAND
+        from live_contentops.published_corpus_read_model_v1 import load_published_corpus
+
+        corpus = load_published_corpus(store)
+        published_corpus_count = corpus["article_count"]
+        daily_target_band = list(DAILY_TARGET_BAND)
+        for article in corpus["articles"]:
+            try:
+                published_dt = datetime.fromisoformat(str(article.published_at_utc).replace("Z", "+00:00"))
+                if published_dt.tzinfo is None:
+                    published_dt = published_dt.replace(tzinfo=timezone.utc)
+            except ValueError:
+                continue
+            published_utc = published_dt.astimezone(timezone.utc)
+            if generated.date() == published_utc.date():
+                published_today_count += 1
+    except Exception:  # noqa: BLE001
+        published_corpus_count = 0
+
     snapshot = {
         "schema_version": SNAPSHOT_SCHEMA_VERSION,
         "generated_at_utc": _iso(generated),
@@ -604,12 +661,18 @@ def build_daily_app_snapshot(
             "next_wake_utc": future_windows[0]["window_start_utc"] if future_windows else None,
             "next_editorial_window": future_windows[0] if future_windows else None,
             "headline_freshness": "HEADLINE_FRESHNESS_METADATA_UNAVAILABLE",
+            "headline_ingestion": headline_ingestion_state,
+            "rolling_24h_unique_headlines": rolling_24h_unique_headlines,
+            "capital_chronicle_read_model": capital_chronicle_read_model_state,
             "provider_invocation_count": len(invocations),
             "prompt_tokens": prompt_tokens,
             "completion_tokens": completion_tokens,
             "cost_metadata": "COST_METADATA_UNAVAILABLE",
         },
         "today": {
+            "published_today_count": published_today_count,
+            "published_corpus_count": published_corpus_count,
+            "daily_target_band": daily_target_band,
             "current_cycle": ({
                 "work_item_id": latest_cycle["work_item_id"],
                 "state": latest_cycle["current_state"],

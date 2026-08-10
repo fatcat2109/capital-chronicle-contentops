@@ -33,10 +33,16 @@ SCHEMA_VERSION = "contentops.daily_app_supervisor.v1"
 
 TRIGGER_SCHEDULED = "SCHEDULED"
 TRIGGER_MATERIAL_EVENT = "MATERIAL_EVENT"
-#: Operator "run editorial cycle now" requests. The trigger bypasses ONLY the need to wait for
-#: the scheduled clock window; every downstream evidence/review/package/publication gate is
-#: unchanged. It never forces a story, a publication, or weakened gates.
+#: Operator "run editorial cycle now" requests. Per owner decision 2026-08-10 (V1 realignment):
+#: Run Now uses the SAME canonical newsroom authority as scheduled/material-event cycles. It
+#: means "make an editorial decision now using the continuously maintained current intelligence
+#: universe" — no second newsroom, no weakened factual/numeric/evidence/review authority.
 TRIGGER_OPERATOR_REQUESTED = "OPERATOR_REQUESTED"
+
+#: Canonical Capital Chronicle main-project root, bound read-only into editorial cycles so the
+#: canonical evidence acquirer and the Capital Chronicle data catalog can refine decisions with
+#: actual Capital Chronicle context. ContentOps never mutates anything under this root.
+CANONICAL_CAPITAL_CHRONICLE_ROOT = Path(r"A:\Capital Chronicle\Main App")
 
 OPERATING_MODES = frozenset(
     {"AUTONOMOUS_DEFAULT", "SUPERVISED_OPERATOR_GATE", "SHADOW_ONLY", "KILL_SWITCH"}
@@ -79,7 +85,7 @@ WINDOW_EXECUTED_STATES = frozenset(
 )
 
 WINDOW_POLICY_ID = "contentops.editorial_window_policy.v1"
-WINDOW_POLICY_VERSION = "bootstrap.v1"
+WINDOW_POLICY_VERSION = "bootstrap.v2"
 
 NOT_IMPLEMENTED_NOT_DUE = "NOT_IMPLEMENTED_NOT_DUE"
 
@@ -176,6 +182,7 @@ class EditorialWindowPolicy:
     confidence_state: str
     sample_state: str
     provenance: str
+    daily_publication_target_band: tuple = (5, 8)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -192,29 +199,48 @@ class EditorialWindowPolicy:
             "confidence_state": self.confidence_state,
             "sample_state": self.sample_state,
             "provenance": self.provenance,
+            "daily_publication_target_band": list(self.daily_publication_target_band),
         }
 
 
 def build_bootstrap_editorial_window_policy(
     *, effective_at_utc: Optional[str] = None
 ) -> EditorialWindowPolicy:
-    """Deterministic bootstrap policy: one core decision window per day (historical cadence)."""
+    """Deterministic bootstrap policy v2 (owner realignment 2026-08-10): eight configured core
+    decision opportunities per active day across major market sessions, plus material-event
+    wakeups outside those windows, operating toward the 5-8 high-quality article target band.
+
+    Exact times are versioned configuration, NOT claimed universal truth. Performance learning
+    may tune them later from observed qualified engagement, never from unmeasured assumptions.
+    The target band is not permission to fabricate filler or weaken factual/numeric authority.
+    """
     return EditorialWindowPolicy(
         policy_id=WINDOW_POLICY_ID,
         policy_version=WINDOW_POLICY_VERSION,
         effective_at_utc=effective_at_utc or _iso_utc(datetime.now(timezone.utc)),
         timezone_session="utc",
-        core_windows=(CoreEditorialWindow(start_hour_utc=13, end_hour_utc=15, session="core_daily"),),
+        core_windows=(
+            CoreEditorialWindow(start_hour_utc=1, end_hour_utc=2, session="core_daily"),
+            CoreEditorialWindow(start_hour_utc=5, end_hour_utc=6, session="core_daily"),
+            CoreEditorialWindow(start_hour_utc=7, end_hour_utc=8, session="core_daily"),
+            CoreEditorialWindow(start_hour_utc=10, end_hour_utc=11, session="core_daily"),
+            CoreEditorialWindow(start_hour_utc=12, end_hour_utc=14, session="core_daily"),
+            CoreEditorialWindow(start_hour_utc=15, end_hour_utc=16, session="core_daily"),
+            CoreEditorialWindow(start_hour_utc=18, end_hour_utc=19, session="core_daily"),
+            CoreEditorialWindow(start_hour_utc=21, end_hour_utc=22, session="core_daily"),
+        ),
         destination_preferred_windows=(),
-        minimum_cycle_spacing_hours=12.0,
+        minimum_cycle_spacing_hours=1.0,
         freshness_max_age_hours=24.0,
         material_event_override_enabled=True,
         materiality_threshold=1,
         confidence_state="bootstrap_configured_defaults_not_learned",
         sample_state="insufficient_samples_no_learning_applied",
         provenance=(
-            "deterministic_configured_bootstrap_default_one_core_decision_per_day"
+            "deterministic_configured_bootstrap_v2_eight_core_decision_opportunities_per_day_"
+            "material_event_wakeups_target_band_5_8_not_learned"
         ),
+        daily_publication_target_band=(5, 8),
     )
 
 
@@ -300,6 +326,7 @@ class ContentOpsDailyAppSupervisor:
         enable_performance_observation: bool = False,
         performance_collector: Optional[Callable[..., Mapping[str, Any]]] = None,
         performance_learning_enabled: bool = False,
+        intake_housekeeping: Optional[Callable[..., Mapping[str, Any]]] = None,
     ) -> None:
         requested_mode = operating_mode or "AUTONOMOUS_DEFAULT"
         if requested_mode not in OPERATING_MODES:
@@ -309,6 +336,7 @@ class ContentOpsDailyAppSupervisor:
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._store_path = Path(store_path)
         self._store = store or ContentOpsDurableStore(self._store_path)
+        self._intake_housekeeping_override = intake_housekeeping
         self._configured_operating_mode = requested_mode
         self._operating_mode = requested_mode
         self._mode_drift_detected = False
@@ -1263,6 +1291,49 @@ class ContentOpsDailyAppSupervisor:
             ),
         )
 
+    def _run_continuous_intake_housekeeping(self, now: datetime) -> dict[str, Any]:
+        """Continuous cheap X headline intake lane (zero LLM calls). Headline ingestion is not
+        owned by editorial windows or Run Now; it stays current while the host is available.
+        Disabled via CONTENTOPS_DAILY_APP_DISABLE_INTAKE_LANE=1 (controlled test isolation)."""
+        if os.environ.get("CONTENTOPS_DAILY_APP_DISABLE_INTAKE_LANE") == "1" and self._intake_housekeeping_override is None:
+            return {"lane_state": "DISABLED_FOR_CONTROLLED_TEST", "detail": "intake_lane_disabled_by_env", "llm_or_provider_calls": 0}
+        if self._intake_housekeeping_override is not None:
+            try:
+                return dict(self._intake_housekeeping_override(self._store, now=now))
+            except Exception as exc:  # noqa: BLE001 - intake lane is best-effort, never fatal
+                return {"lane_state": "DEGRADED", "detail": f"INTAKE_LANE_ERROR:{type(exc).__name__}", "llm_or_provider_calls": 0}
+        try:
+            from live_contentops.continuous_headline_ingest_v1 import (
+                run_ingestion_housekeeping_iteration,
+            )
+
+            return dict(run_ingestion_housekeeping_iteration(self._store, now=now))
+        except Exception as exc:  # noqa: BLE001 - intake lane is best-effort, never fatal
+            return {"lane_state": "DEGRADED", "detail": f"INTAKE_LANE_ERROR:{type(exc).__name__}", "llm_or_provider_calls": 0}
+
+    def _run_operator_trigger_intake_sync(self, now: datetime) -> dict[str, Any]:
+        """Run Now fallback freshness sync: one bounded intake iteration ONLY when the
+        continuous lane is stale. The canonical cycle then consumes the full rolling universe."""
+        try:
+            from live_contentops.continuous_headline_ingest_v1 import (
+                intake_is_stale,
+                run_ingestion_housekeeping_iteration,
+            )
+
+            if not intake_is_stale(self._store, now=now):
+                return {"lane_state": "FRESH", "detail": "intake_fresh_no_sync_needed", "llm_or_provider_calls": 0}
+            return dict(run_ingestion_housekeeping_iteration(self._store, now=now, force=True))
+        except Exception as exc:  # noqa: BLE001 - sync is best-effort, never blocks the decision
+            return {"lane_state": "DEGRADED", "detail": f"INTAKE_SYNC_ERROR:{type(exc).__name__}", "llm_or_provider_calls": 0}
+
+    @staticmethod
+    def _capture_detail_suffix(capture_summary: Optional[Mapping[str, Any]]) -> str:
+        if not capture_summary:
+            return ""
+        state = str(capture_summary.get("lane_state") or capture_summary.get("capture_state") or "UNKNOWN")
+        new_rows = int(capture_summary.get("rows_added") or capture_summary.get("new_headlines") or 0)
+        return f":INTAKE.{state}:new{new_rows}"
+
     def _consume_pending_operator_trigger(self, now: datetime) -> Optional[dict[str, Any]]:
         """Consume at most one durable OPERATOR_REQUESTED trigger through the SAME canonical
         cycle boundary as scheduled windows. Restart-safe: the trigger row stays PENDING until
@@ -1296,13 +1367,15 @@ class ContentOpsDailyAppSupervisor:
             "end": start + timedelta(hours=1),
             "session": "operator_requested",
         }
+        capture_summary = self._run_operator_trigger_intake_sync(now)
         outcome = self._execute_window(window, now)
         reason = str(outcome.get("reason") or "")
+        capture_suffix = self._capture_detail_suffix(capture_summary)
         if outcome.get("executed"):
             self._store.consume_operator_cycle_trigger(
                 trigger_id,
                 window_id=window["window_id"],
-                detail=f"EXECUTED:{str(outcome.get('classification') or 'NO_CLASSIFICATION')}",
+                detail=f"EXECUTED:{str(outcome.get('classification') or 'NO_CLASSIFICATION')}{capture_suffix}",
             )
             return {
                 "trigger_id": trigger_id,
@@ -1314,17 +1387,19 @@ class ContentOpsDailyAppSupervisor:
                 "unknown_write_detected": bool(outcome.get("unknown_write_detected")),
                 "terminal_state": outcome.get("terminal_state"),
                 "window_id": window["window_id"],
+                "ingestion_capture": capture_summary,
             }
         if reason in {"active_window_owned_elsewhere", "lease_conflict_another_owner"}:
             return {
                 "trigger_id": trigger_id,
                 "state": "DEFERRED_ACTIVE_WINDOW_OWNED_ELSEWHERE",
                 "executed": False,
+                "ingestion_capture": capture_summary,
             }
         self._store.consume_operator_cycle_trigger(
             trigger_id,
             window_id=window["window_id"],
-            detail=f"NOT_EXECUTED:{reason or 'terminal_state_present'}",
+            detail=f"NOT_EXECUTED:{reason or 'terminal_state_present'}{capture_suffix}",
         )
         return {
             "trigger_id": trigger_id,
@@ -1332,6 +1407,7 @@ class ContentOpsDailyAppSupervisor:
             "executed": False,
             "reason": reason or "terminal_state_present",
             "window_id": window["window_id"],
+            "ingestion_capture": capture_summary,
         }
 
     def tick(
@@ -1371,7 +1447,13 @@ class ContentOpsDailyAppSupervisor:
             "next_recovery_wake_utc": None,
             "performance_observation_state": NOT_IMPLEMENTED_NOT_DUE,
             "learning_evaluation_state": NOT_IMPLEMENTED_NOT_DUE,
+            "headline_ingestion": None,
         }
+        # Continuous cheap X headline intake lane: housekeeping, zero LLM calls, independent of
+        # editorial windows and Run Now. Runs under every operating mode (ingestion is not a
+        # public write); the locked CapitalChronicleBot binding is reused and never replaced.
+        report["headline_ingestion"] = self._run_continuous_intake_housekeeping(now)
+
         # Cheap durable-state housekeeping (no provider calls).
         try:
             self._store.recover_stale_leases()
@@ -1703,6 +1785,90 @@ class ContentOpsDailyAppSupervisor:
             except Exception:  # noqa: BLE001
                 pass
 
+    def _build_editorial_portfolio_context(self, output_dir: Path) -> dict[str, Any]:
+        """Deterministic pre-cycle intelligence: complete published corpus, today's portfolio
+        state, Capital Chronicle read-model availability, and the versioned portfolio policy.
+        Written next to the cycle evidence so every decision is auditable against it."""
+        context: dict[str, Any] = {"schema_version": "contentops.editorial_portfolio_context.v1"}
+        try:
+            from live_contentops.editorial_portfolio_v1 import (
+                bootstrap_portfolio_policy,
+                portfolio_state_today,
+            )
+            from live_contentops.published_corpus_read_model_v1 import load_published_corpus
+
+            corpus = load_published_corpus(self._store, output_root=self._output_root)
+            context["published_corpus"] = {
+                "article_count": corpus["article_count"],
+                "content_hash_coverage": corpus["content_hash_coverage"],
+                "derived_from_existing_durable_truth": True,
+            }
+            context["portfolio_state"] = portfolio_state_today(corpus["articles"])
+            context["portfolio_policy"] = bootstrap_portfolio_policy()
+        except Exception as exc:  # noqa: BLE001 - portfolio context is best-effort intelligence
+            context["published_corpus"] = {"error": type(exc).__name__}
+        try:
+            from live_contentops.capital_chronicle_data_catalog_v1 import (
+                DEFAULT_CC_ROOT,
+                discover_cc_data_estate,
+            )
+
+            if DEFAULT_CC_ROOT.exists():
+                estate = discover_cc_data_estate(cc_root=DEFAULT_CC_ROOT)
+                context["capital_chronicle_read_model"] = {
+                    "state": "READY" if estate["root_exists"] else "UNAVAILABLE",
+                    "store_count": len(estate["stores"]),
+                    "stores": [
+                        {"store_id": store["store_id"], "table_count": store["table_count"]}
+                        for store in estate["stores"]
+                    ][:12],
+                }
+            else:
+                context["capital_chronicle_read_model"] = {"state": "UNAVAILABLE"}
+        except Exception as exc:  # noqa: BLE001
+            context["capital_chronicle_read_model"] = {"state": "DEGRADED", "error": type(exc).__name__}
+        try:
+            output_dir.mkdir(parents=True, exist_ok=True)
+            (output_dir / "editorial_portfolio_context_v1.json").write_text(
+                json.dumps(context, indent=2, sort_keys=True, default=str) + "\n", encoding="utf-8"
+            )
+        except OSError:
+            pass
+        return context
+
+    def _record_editorial_novelty_decision(
+        self,
+        *,
+        output_dir: Path,
+        cycle_evidence: Mapping[str, Any],
+        portfolio_context: Mapping[str, Any],
+    ) -> Optional[dict[str, Any]]:
+        """Post-cycle explicit breaking/follow-up/deepen/low-delta classification for the
+        selected cluster, measured against the complete published corpus + CC context
+        richness. Deterministic; grants no factual/numeric authority."""
+        selected = (cycle_evidence.get("ranked_viability") or {}).get("selected_cluster")
+        if not isinstance(selected, Mapping):
+            return None
+        try:
+            from live_contentops.editorial_portfolio_v1 import classify_story_novelty
+            from live_contentops.published_corpus_read_model_v1 import load_published_corpus
+
+            corpus = load_published_corpus(self._store, output_root=self._output_root)
+            cc_state = portfolio_context.get("capital_chronicle_read_model") or {}
+            cc_richness = 0.5 if str(cc_state.get("state")) == "READY" else 0.0
+            decision = classify_story_novelty(
+                selected,
+                published_corpus=corpus["articles"],
+                cc_context_richness=cc_richness,
+            )
+            output_dir.mkdir(parents=True, exist_ok=True)
+            (output_dir / "editorial_novelty_decision_v1.json").write_text(
+                json.dumps(decision, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+            )
+            return decision
+        except Exception:  # noqa: BLE001 - novelty intelligence is best-effort
+            return None
+
     def _execute_window(self, window: Mapping[str, Any], now: datetime) -> dict[str, Any]:
         from live_contentops.durable_operational_store_v1 import (
             LeaseConflictError,
@@ -1758,11 +1924,19 @@ class ContentOpsDailyAppSupervisor:
                 "cutoff_utc": _iso_utc(cutoff),
                 "publication_enabled": publication_enabled,
             }
+            if CANONICAL_CAPITAL_CHRONICLE_ROOT.exists():
+                cycle_kwargs["capital_chronicle_root"] = CANONICAL_CAPITAL_CHRONICLE_ROOT
             if self._sidecar_glob:
                 cycle_kwargs["sidecar_glob"] = self._sidecar_glob
+            portfolio_context = self._build_editorial_portfolio_context(output_dir)
             result = dict(self._newsroom_cycle(**cycle_kwargs))
             classification = str(result.get("classification") or "")
             viable = classification not in {"NO_PUBLICATION", "BLOCKED", ""}
+            novelty_decision = self._record_editorial_novelty_decision(
+                output_dir=output_dir,
+                cycle_evidence=result,
+                portfolio_context=portfolio_context,
+            )
             # The canonical newsroom cycle may run much longer than the initial lease TTL.
             # Re-acquire a fresh active lease before recording the terminal transition so the
             # fencing token remains valid. If another owner legitimately took over while we were
@@ -1827,6 +2001,7 @@ class ContentOpsDailyAppSupervisor:
                 "public_write_performed": public_write,
                 "unknown_write_detected": unknown_write,
                 "publication_lifecycle": lifecycle,
+                "editorial_novelty_decision": novelty_decision,
                 "terminal_state": self._window_state(window_id),
             }
         finally:

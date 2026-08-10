@@ -42,6 +42,13 @@ export interface DailyAppSnapshot {
     operator_cycle_trigger: Record<string, unknown> | null;
     active_editorial_cycle_window_id: string | null;
     headline_freshness: string;
+    headline_ingestion: {
+      lane_state: string;
+      last_ingest_utc: string | null;
+      rows_last_iteration: number;
+    };
+    rolling_24h_unique_headlines: number | null;
+    capital_chronicle_read_model: string;
     provider_invocation_count: number;
     prompt_tokens: number;
     completion_tokens: number;
@@ -51,6 +58,9 @@ export interface DailyAppSnapshot {
     current_cycle: null | Record<string, unknown>;
     pending_lifecycle_recovery_count: number;
     immediate_incident_count: number;
+    published_today_count: number;
+    published_corpus_count: number;
+    daily_target_band: number[];
   };
   queue: {
     items: Array<Record<string, unknown>>;

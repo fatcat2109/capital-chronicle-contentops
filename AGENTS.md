@@ -216,6 +216,24 @@ The accelerated logical soak is not calendar-time live reliability and does not 
 
 ## 9. Latest operational task
 
+`TASK_CONTENTOPS_V1_CONTINUOUS_INTELLIGENCE_INTAKE_CC_DATABASE_AND_EDITORIAL_PORTFOLIO_REALIGN_V1`
+
+Status:
+
+`COMPLETE_IMPLEMENTED_AND_VALIDATED`
+
+Owner mid-task realignment: the V1 Daily App is organized around a continuous cheap
+intelligence layer — continuous zero-LLM X headline intake lane inside the canonical
+supervisor (canonical per-day sidecar store only, append-only, deduplicated, restart-safe);
+every editorial decision reconstructs the complete rolling 24h unique headline universe; a
+read-only Capital Chronicle data estate catalog with story-scoped context; a published-corpus
+read model from existing durable publication truth; explicit breaking/follow-up/deepen/
+low-delta novelty classification; bootstrap.v2 window policy with eight daily decision
+opportunities and a 5–8 article/day target band (a target, not filler permission). Run Now
+uses the SAME canonical newsroom authority as scheduled/material-event cycles; the retired
+special run-now gate relaxation grants no bypass. Tier2-A preserved; FDA-G prior epochs
+preserved as pre-realignment historical evidence. Prior completed task:
+
 `TASK_CONTENTOPS_V1_TRUE_ONE_CLICK_INGESTION_BOOTSTRAP_AND_RUN_NOW_CONTROL_V1`
 
 Status:

@@ -171,6 +171,19 @@ function Today({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Promi
     <Panel title="Current cycle" eyebrow="Today">
       {cycle ? <DefinitionRows object={cycle} /> : <Empty title="No governed cycle recorded" detail="The durable store has no current cycle. The console will not invent one." />}
     </Panel>
+    <Panel title="Continuous intelligence" eyebrow="Newsroom input truth">
+      <div className="daily-grid-4">
+        <Metric label="Headline ingestion" value={words(data.runtime.headline_ingestion?.lane_state ?? 'UNAVAILABLE')} status={data.runtime.headline_ingestion?.lane_state} />
+        <Metric label="Last headline ingest" value={formatUtcDateTime(data.runtime.headline_ingestion?.last_ingest_utc)} />
+        <Metric label="Rolling 24h unique headlines" value={data.runtime.rolling_24h_unique_headlines ?? 'Unavailable'} />
+        <Metric label="Capital Chronicle read model" value={words(data.runtime.capital_chronicle_read_model)} status={data.runtime.capital_chronicle_read_model} />
+      </div>
+      <div className="daily-grid-3">
+        <Metric label="Published today" value={data.today.published_today_count} status={data.today.published_today_count ? 'PUBLISHED' : 'NONE_TODAY'} />
+        <Metric label="Daily target" value={`${(data.today.daily_target_band ?? [5, 8])[0]}–${(data.today.daily_target_band ?? [5, 8])[1]}`} />
+        <Metric label="Published corpus" value={data.today.published_corpus_count} />
+      </div>
+    </Panel>
     <div className="daily-grid-3">
       <Metric label="Lifecycle recovery" value={data.today.pending_lifecycle_recovery_count} status={data.today.pending_lifecycle_recovery_count ? 'PENDING' : 'CLEAR'} />
       <Metric label="Real publications" value={data.published.real_publication_count} status={data.published.real_publication_count ? 'CONFIRMED' : 'NONE_RECORDED'} />

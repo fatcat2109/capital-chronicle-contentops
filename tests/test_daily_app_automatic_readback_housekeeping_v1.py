@@ -24,7 +24,7 @@ from live_contentops.daily_app_supervisor_v1 import (
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 
 
-T0 = datetime(2026, 8, 10, 3, 0, tzinfo=timezone.utc)  # outside editorial windows
+T0 = datetime(2026, 8, 10, 4, 30, tzinfo=timezone.utc)  # outside editorial windows (policy v2)
 
 
 def _supervisor(
