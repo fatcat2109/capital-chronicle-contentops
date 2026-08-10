@@ -69,6 +69,26 @@ Proceeds concurrently with the continuing FDA-G evidence lane. Tier-2 must remai
 the live V1 production runtime and receives NO video public-write authority from this
 reprioritization.
 
+## Tier-2-A result recorded 2026-08-10
+
+`TASK_CONTENTOPS_TIER2_A_LOCAL_LONG_FORM_AND_SHORT_FORM_PROGRAMMABLE_VERTICAL_SLICE_V1`
+
+Result: `COMPLETE_LOCAL_PRODUCT_SLICE_AWAITING_CHATGPT_JIM_VISUAL_REVIEW`.
+
+The isolated local command now compiles one governed Treasury package into a renderer-neutral
+VideoProgram with five chapters, ten long-form scenes, a 600.121-second 1920x1080 H.264/AAC
+master, and an independently directed 71.634333-second 1080x1920 H.264/AAC short. Kokoro
+narration, SRT/VTT captions, deterministic assets, ffprobe QA, exact evidence/rights bindings,
+scene/chapter/master caches, one-scene selective-rerender proof, and a 116-file immutable hash
+lock all pass. No provider/platform call or public/private upload occurred. Runtime evidence is
+outside Git at `A:\Capital Chronicle\Runtime\ContentOps\tier2\tier2-a-treasury-curve-final-v2`.
+
+Next Tier-2 product route after Jim/ChatGPT visual review:
+
+`TIER2-B MULTIMODAL QA + BOUNDED REVISION + DIVERSE CORPUS`
+
+FDA-G remains independently active and is not declared accepted by this result.
+
 ## Completed immediately prior
 
 `TASK_CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1`

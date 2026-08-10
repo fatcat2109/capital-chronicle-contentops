@@ -36,6 +36,25 @@ Byte-exact evidence verification depends on JSON files being stored and checked 
 line endings. This is enforced by `.gitattributes` (`*.json text eol=lf`), never by
 normalising bytes inside verification code.
 
+### Tier-2-A local programmable video vertical slice
+
+`TASK_CONTENTOPS_TIER2_A_LOCAL_LONG_FORM_AND_SHORT_FORM_PROGRAMMABLE_VERTICAL_SLICE_V1`
+
+Result: `COMPLETE_LOCAL_PRODUCT_SLICE_AWAITING_CHATGPT_JIM_VISUAL_REVIEW`.
+
+Jim's 2026-08-10 priority override authorized Tier-2-A concurrently with the continuing FDA-G
+calendar-time lane. One read-only governed Treasury package now compiles through a renderer-
+neutral VideoProgram, five chapters, ten long-form scenes, deterministic source-backed assets,
+local Kokoro narration, SRT/VTT captions, Pillow/FFmpeg composition, scene/chapter/master cache,
+ffprobe QA, a 600.121-second 1920x1080 master, and an independently directed 71.634333-second
+1080x1920 short. Claim/rights coverage is 1.0. Selective rerender changed one scene, rebuilt one
+chapter, reassembled the master, and preserved unrelated hashes. The immutable package verifies
+116 files at `A:\Capital Chronicle\Runtime\ContentOps\tier2\tier2-a-treasury-curve-final-v2`.
+No 9Router/provider/platform call, upload, browser/CDP action, public write, V1 runtime/store
+mutation, or protected `v1.0` mutation occurred. Machine QA passes; visual acceptance remains
+with Jim/ChatGPT. Compact evidence is under
+`docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/`.
+
 ### Latest Work F execution
 
 `TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1`
