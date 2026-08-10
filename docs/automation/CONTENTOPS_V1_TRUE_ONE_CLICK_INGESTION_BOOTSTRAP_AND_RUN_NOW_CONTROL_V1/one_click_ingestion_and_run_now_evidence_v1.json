@@ -60,7 +60,21 @@
   "fda_g_previous_evidence_preserved": true,
   "fda_g_previous_epoch_directory": "A:\\Capital Chronicle\\Runtime\\ContentOps\\soak\\final_daily_app_v1\\fda-g-20260810T081219Z-93d097edf6f0",
   "fda_g_epoch_reset_required": true,
-  "fda_g_new_soak_source_sha_role": "completed_branch_head_recorded_in_runtime_soak_start_evidence_after_restart",
+  "fda_g_new_soak_epoch_id": "fda-g-20260810T111759Z-6626ae80dc5c",
+  "fda_g_new_soak_source_sha": "6626ae80dc5c859ae38b3cc4c354700156f13ef9",
+  "fda_g_new_soak_start_utc": "2026-08-10T11:17:59Z",
+  "fda_g_new_soak_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\soak\\final_daily_app_v1\\fda-g-20260810T111759Z-6626ae80dc5c\\soak_start_evidence_v1.json",
+  "production_restart_executed": {
+    "previous_process_id": 51892,
+    "restarted_process_id": 46412,
+    "restart_method": "Start_ContentOps_Daily_App.cmd one-click launcher",
+    "schema_after_restart": 9,
+    "production_epoch_preserved": true,
+    "work_item_count_preserved": true,
+    "dispatch_count_preserved": true,
+    "post_restart_controller_health": "HEALTHY",
+    "run_now_seam_verified_without_trigger": "CONTROL_STATE_CONFLICT_409_AND_ORIGIN_NOT_ALLOWED_403_AND_RUN_PIPELINE_423_QUARANTINED"
+  },
   "fda_g_status": "SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE",
   "historical_api_run_pipeline_quarantined": "423_LOCKED_VERIFIED_BY_FOCUSED_TEST",
   "focused_tests": {
