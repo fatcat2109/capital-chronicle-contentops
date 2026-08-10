@@ -90,8 +90,17 @@ function Metric({ label, value, status }: { label: string; value: unknown; statu
   return <div className="daily-metric"><span>{label}</span><strong>{value === null || value === undefined ? 'Unavailable' : String(value)}</strong>{status !== null && status !== undefined && <Status value={status} />}</div>;
 }
 
+function displayValue(key: string, value: unknown): string {
+  if (value === null || value === undefined || value === '') return 'Unavailable';
+  if (typeof value === 'object') return JSON.stringify(value);
+  if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+  if (/(?:_at_utc|_for_utc|^due_at_utc$)/.test(key)) return dateTime(value);
+  const text = String(value);
+  return /^[A-Z][A-Z0-9_]*$/.test(text) ? words(text) : text;
+}
+
 function DefinitionRows({ object }: { object: Record<string, unknown> }) {
-  return <dl className="daily-definitions">{Object.entries(object).map(([key, value]) => <div key={key}><dt>{words(key)}</dt><dd>{typeof value === 'object' && value !== null ? JSON.stringify(value) : words(value)}</dd></div>)}</dl>;
+  return <dl className="daily-definitions">{Object.entries(object).map(([key, value]) => <div key={key}><dt>{words(key)}</dt><dd>{displayValue(key, value)}</dd></div>)}</dl>;
 }
 
 function Today({ data }: { data: DailyAppSnapshot }) {
@@ -101,9 +110,9 @@ function Today({ data }: { data: DailyAppSnapshot }) {
     : data.queue.items.length > 0 ? 'The next governed queue item is scheduled.' : 'No operator action is currently recorded.';
   return <div className="daily-view">
     <div className="daily-first-fold">
-      <Panel title="Operating mode" eyebrow="Control posture"><Status value={data.runtime.operating_mode} /><p>{data.controls.semantics[data.runtime.operating_mode]}</p></Panel>
+      <Panel title="Operating mode" eyebrow="Control posture"><Status value={data.runtime.operating_mode} /><p>{data.controls.semantics[data.runtime.operating_mode]}</p><Status value={data.runtime.kill_switch_active ? 'KILL_SWITCH_ACTIVE' : 'KILL_SWITCH_DISENGAGED'} /></Panel>
       <Panel title="Controller health" eyebrow="Runtime"><Status value={data.runtime.controller_health} /><p>Last heartbeat: {dateTime(data.runtime.latest_heartbeat_at_utc)}</p></Panel>
-      <Panel title="Next safe action" eyebrow="Operator"><p className="daily-callout">{nextAction}</p><p>Next wake: {dateTime(data.runtime.next_wake_utc)}</p></Panel>
+      <Panel title="Next safe action" eyebrow="Operator"><p className="daily-callout">{nextAction}</p><p>Next wake: {dateTime(data.runtime.next_wake_utc)}</p><Status value={data.runtime.next_editorial_window?.provenance ?? 'WINDOW_PROVENANCE_UNAVAILABLE'} /></Panel>
       <Panel title="Active incidents" eyebrow="Safety"><strong className="daily-big-number">{data.incidents.active_count}</strong><Status value={data.incidents.active_count ? 'ATTENTION_REQUIRED' : 'NO_ACTIVE_INCIDENTS'} /></Panel>
     </div>
     <Panel title="Current cycle" eyebrow="Today">
@@ -113,6 +122,12 @@ function Today({ data }: { data: DailyAppSnapshot }) {
       <Metric label="Lifecycle recovery" value={data.today.pending_lifecycle_recovery_count} status={data.today.pending_lifecycle_recovery_count ? 'PENDING' : 'CLEAR'} />
       <Metric label="Real publications" value={data.published.real_publication_count} status={data.published.real_publication_count ? 'CONFIRMED' : 'NONE_RECORDED'} />
       <Metric label="Headline freshness" value={words(data.runtime.headline_freshness)} status={data.runtime.headline_freshness} />
+    </div>
+    <div className="daily-grid-4">
+      <Metric label="Provider invocations" value={data.runtime.provider_invocation_count} />
+      <Metric label="Prompt tokens" value={data.runtime.prompt_tokens} />
+      <Metric label="Completion tokens" value={data.runtime.completion_tokens} />
+      <Metric label="Cost state" value={words(data.runtime.cost_metadata)} status={data.runtime.cost_metadata} />
     </div>
   </div>;
 }
@@ -126,7 +141,7 @@ function Queue({ data }: { data: DailyAppSnapshot }) {
 
 function Published({ data }: { data: DailyAppSnapshot }) {
   return <div className="daily-view"><ViewTitle title="Published" detail="Confirmed public objects, controlled no-writes, and unresolved write truth stay distinct." />
-    <div className="daily-grid-4"><Metric label="Real confirmed" value={data.published.real_publication_count} status="CONFIRMED" /><Metric label="Controlled no-write" value={data.published.controlled_no_public_write_count} status="CONTROLLED_NO_PUBLIC_WRITE" /><Metric label="Unknown write" value={data.published.unknown_write_count} status={data.published.unknown_write_count ? 'UNKNOWN_WRITE' : 'NONE'} /><Metric label="Pending readback" value={data.published.pending_readback_count} status={data.published.pending_readback_count ? 'PENDING' : 'NONE'} /></div>
+    <div className="daily-grid-4"><Metric label="Real confirmed" value={data.published.real_publication_count} status={data.published.real_publication_count ? 'CONFIRMED' : 'NONE_RECORDED'} /><Metric label="Controlled no-write" value={data.published.controlled_no_public_write_count} status={data.published.controlled_no_public_write_count ? 'CONTROLLED_NO_PUBLIC_WRITE' : 'NONE_RECORDED'} /><Metric label="Unknown write" value={data.published.unknown_write_count} status={data.published.unknown_write_count ? 'UNKNOWN_WRITE' : 'NONE'} /><Metric label="Pending readback" value={data.published.pending_readback_count} status={data.published.pending_readback_count ? 'PENDING' : 'NONE'} /></div>
     <Panel title="Publication lifecycle">{data.published.objects.length ? <CardList items={data.published.objects} titleKey="platform" statusKey="lifecycle_classification" /> : <Empty title={words(data.published.empty_reason)} detail="No durable platform dispatch exists. Nothing is represented as published." />}</Panel>
   </div>;
 }
@@ -139,15 +154,16 @@ function Performance({ data }: { data: DailyAppSnapshot }) {
 
 function Learning({ data }: { data: DailyAppSnapshot }) {
   const policy = data.learning.active_policy ?? data.learning.configured_default;
+  const learned = policy?.provenance === 'LEARNED';
   return <div className="daily-view"><ViewTitle title="Learning" detail="Bounded policy provenance, sample support, and rollback identity." />
-    <Panel title={data.learning.active_policy ? 'Active learned policy' : 'Configured default'}>{policy ? <DefinitionRows object={policy} /> : <Empty title="No learning update yet" detail="No eligible observations have produced a bounded policy decision." />}</Panel>
+    <Panel title={learned ? 'Active learned policy' : 'Configured default'}>{policy ? <DefinitionRows object={policy} /> : <Empty title="No learning update yet" detail="No eligible observations have produced a bounded policy decision." />}</Panel>
     <Panel title="Policy history">{data.learning.policy_history.length ? <CardList items={data.learning.policy_history} titleKey="policy_version" statusKey="status" /> : <Empty title={words(data.learning.empty_reason)} detail="The default is configuration, not learned evidence." />}</Panel>
   </div>;
 }
 
 function Platforms({ data }: { data: DailyAppSnapshot }) {
   return <div className="daily-view"><ViewTitle title="Platforms" detail="Readiness remains unavailable until verified by the canonical publishing authority." />
-    <div className="daily-platform-grid">{data.platforms.destinations.map(item => <article className="daily-platform" key={String(item.platform_id)}><div><strong>{String(item.display_name)}</strong><small>{words(item.binding_class)}</small></div><Status value={item.readiness} /><DefinitionRows object={{ last_dispatch_state: item.last_dispatch_state, metrics_capability: item.metrics_capability, pending_incident: item.pending_incident }} /></article>)}</div>
+    <div className="daily-platform-grid">{data.platforms.destinations.map(item => <article className="daily-platform" key={String(item.platform_id)}><div><strong>{String(item.display_name)}</strong><small>{words(item.binding_class)}</small></div><Status value={item.readiness} /><DefinitionRows object={{ safe_identity: item.safe_identity, identity_match: item.identity_match, transport_type: item.transport_type, probed_at_utc: item.probed_at_utc, last_dispatch_state: item.last_dispatch_state, last_successful_readback_at_utc: item.last_successful_readback_at_utc, metrics_capability: item.metrics_capability, next_metric_availability: item.next_metric_availability, pending_incident: item.pending_incident }} /></article>)}</div>
   </div>;
 }
 
@@ -189,7 +205,10 @@ function Audit({ data }: { data: DailyAppSnapshot }) {
 }
 
 function CardList({ items, titleKey, statusKey }: { items: Array<Record<string, unknown>>; titleKey: string; statusKey: string }) {
-  return <div className="daily-card-list">{items.map((item, index) => <article key={String(item.queue_id ?? item.observation_id ?? item.dispatch_id ?? item.policy_version ?? item.event_id ?? index)}><header><strong>{words(item[titleKey])}</strong><Status value={item[statusKey]} /></header><DefinitionRows object={Object.fromEntries(Object.entries(item).filter(([key]) => ![titleKey, statusKey].includes(key)))} /></article>)}</div>;
+  return <div className="daily-card-list">{items.map((item, index) => {
+    const durableIdentity = item.queue_id ?? item.observation_id ?? item.dispatch_id ?? item.policy_version ?? item.event_id ?? 'row';
+    return <article key={`${String(durableIdentity)}:${index}`}><header><strong>{words(item[titleKey])}</strong><Status value={item[statusKey]} /></header><DefinitionRows object={Object.fromEntries(Object.entries(item).filter(([key]) => ![titleKey, statusKey].includes(key)))} /></article>;
+  })}</div>;
 }
 
 function ViewTitle({ title, detail }: { title: string; detail: string }) {

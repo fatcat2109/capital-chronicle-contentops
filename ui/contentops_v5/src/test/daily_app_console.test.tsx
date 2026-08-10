@@ -64,6 +64,54 @@ describe('Final Daily App production console', () => {
     expect(screen.getByText('Bootstrap Not Learned')).toBeInTheDocument();
   });
 
+  it('keeps an active bootstrap policy configured across Today, Queue, and Learning', async () => {
+    const configured = {
+      policy_version: 'policy.bootstrap.v1', parent_policy_version: null, status: 'ACTIVE',
+      decision: 'BOOTSTRAP', provenance: 'CONFIGURED_DEFAULT', sample_count: 0, confidence: 0,
+    };
+    const data = snapshot({
+      runtime: { ...snapshot().runtime, next_editorial_window: { provenance: 'CONFIGURED_DEFAULT' } },
+      queue: { ...snapshot().queue, items: [{ queue_id: 'window-1', title: 'core_daily', state: 'CONFIGURED_DEFAULT' }] },
+      learning: { active_policy: configured, policy_history: [configured], empty_reason: null, configured_default: null },
+    });
+    respond(data); render(<DailyAppConsole />);
+    expect((await screen.findAllByText('Configured Default')).length).toBeGreaterThan(0);
+    fireEvent.click(screen.getByRole('button', { name: /^queue$/i }));
+    expect(screen.getByText('Configured Default')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /^learning$/i }));
+    expect(screen.getByRole('heading', { name: 'Configured default' })).toBeInTheDocument();
+    expect(screen.queryByText('Active learned policy')).not.toBeInTheDocument();
+  });
+
+  it('preserves exact safe destination identity while showing readiness evidence', async () => {
+    const data = snapshot({
+      platforms: { destinations: [{
+        ...snapshot().platforms.destinations[0], safe_identity: '@CapitalChronicle',
+        identity_match: true, transport_type: 'EDGE_CDP', probed_at_utc: '2026-08-10T12:00:00Z',
+        last_successful_readback_at_utc: null, next_metric_availability: 'UNAVAILABLE',
+      }] },
+    });
+    respond(data); render(<DailyAppConsole />);
+    await screen.findByText('No governed cycle recorded');
+    fireEvent.click(screen.getByRole('button', { name: /^platforms$/i }));
+    expect(screen.getByText('@CapitalChronicle')).toBeInTheDocument();
+    expect(screen.getByText('Yes')).toBeInTheDocument();
+    expect(screen.getByText('Edge Cdp')).toBeInTheDocument();
+  });
+
+  it('renders repeated durable audit event identifiers without duplicate React keys', async () => {
+    const repeatedEvent = { event_id: 'contentops.policy.v1', event_kind: 'POLICY', to_state: 'ACTIVE' };
+    const data = snapshot({
+      audit: { ...snapshot().audit, recent_events: [repeatedEvent, { ...repeatedEvent, to_state: 'SUPERSEDED' }] },
+    });
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    respond(data); render(<DailyAppConsole />);
+    await screen.findByText('No governed cycle recorded');
+    fireEvent.click(screen.getByRole('button', { name: /evidence \/ audit/i }));
+    expect(errorSpy.mock.calls.flat().join(' ')).not.toContain('same key');
+    errorSpy.mockRestore();
+  });
+
   it('never falls back to fixtures when the API is offline', async () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('loopback offline')));
     render(<DailyAppConsole />);

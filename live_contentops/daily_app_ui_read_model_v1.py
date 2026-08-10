@@ -109,15 +109,44 @@ def _latest_time(rows: Iterable[Mapping[str, Any]], fields: Iterable[str]) -> Op
     return max(values) if values else None
 
 
+def _policy_provenance(
+    row: Mapping[str, Any], payload: Mapping[str, Any]
+) -> str:
+    """Classify policy origin from durable lineage, never from ACTIVE status.
+
+    The bootstrap row is an active policy because it schedules real windows, but it is
+    still configured authority rather than measured learning.  A learned policy must carry
+    parent lineage under the current durable contract.  Explicit bootstrap/default markers
+    remain fail-closed even if a malformed row also claims lineage.
+    """
+    decision = str(row.get("decision") or "").upper()
+    payload_provenance = str(payload.get("provenance") or "").upper()
+    policy_version = str(row.get("policy_version") or "").lower()
+    if (
+        decision == "BOOTSTRAP"
+        or payload_provenance == "CONFIGURED_DEFAULT"
+        or ("bootstrap" in policy_version and not row.get("parent_policy_version"))
+    ):
+        return "CONFIGURED_DEFAULT"
+    return "LEARNED" if row.get("parent_policy_version") else "CONFIGURED_DEFAULT"
+
+
+def _policy_timing_offset_minutes(payload: Mapping[str, Any]) -> int:
+    """Read the current nested timing contract with bounded legacy-flat compatibility."""
+    timing = payload.get("timing")
+    raw = timing.get("offset_minutes") if isinstance(timing, Mapping) else None
+    if raw is None:
+        raw = payload.get("timing_offset_minutes")
+    try:
+        return int(raw or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
 def _next_windows(now: datetime, active_policy: Optional[Mapping[str, Any]]) -> list[dict[str, Any]]:
     policy = build_bootstrap_editorial_window_policy()
-    offset = 0
-    if active_policy:
-        payload = _json(active_policy.get("policy_payload_json"), {})
-        try:
-            offset = int(payload.get("timing_offset_minutes") or 0)
-        except (TypeError, ValueError):
-            offset = 0
+    offset = int(active_policy.get("timing_offset_minutes") or 0) if active_policy else 0
+    active_provenance = str(active_policy.get("provenance") or "") if active_policy else ""
     windows: list[dict[str, Any]] = []
     for day_offset in range(0, 8):
         day = (now + timedelta(days=day_offset)).date()
@@ -140,7 +169,11 @@ def _next_windows(now: datetime, active_policy: Optional[Mapping[str, Any]]) -> 
                     "policy_version": (
                         str(active_policy["policy_version"]) if active_policy else policy.policy_version
                     ),
-                    "provenance": "LEARNED_ACTIVE_POLICY" if active_policy else "CONFIGURED_DEFAULT",
+                    "provenance": (
+                        "LEARNED_ACTIVE_POLICY"
+                        if active_provenance == "LEARNED"
+                        else "CONFIGURED_DEFAULT"
+                    ),
                 })
     return sorted(windows, key=lambda item: item["window_start_utc"])[:4]
 
@@ -294,16 +327,17 @@ def build_daily_app_snapshot(
     policy_models: list[dict[str, Any]] = []
     for row in policies:
         payload = _json(row.get("policy_payload_json"), {})
+        payload = payload if isinstance(payload, Mapping) else {}
         policy_models.append({
             "policy_version": row["policy_version"],
             "parent_policy_version": row["parent_policy_version"],
             "status": row["status"],
             "decision": row["decision"],
-            "provenance": "CONFIGURED_DEFAULT" if not row["parent_policy_version"] else "LEARNED",
+            "provenance": _policy_provenance(row, payload),
             "sample_count": row["sample_count"],
             "confidence": row["confidence"],
             "formula_version": row["formula_version"],
-            "timing_offset_minutes": payload.get("timing_offset_minutes") if isinstance(payload, Mapping) else None,
+            "timing_offset_minutes": _policy_timing_offset_minutes(payload),
             "recommendations": _json(row.get("accepted_changes_json"), {}),
             "bounded_delta": _json(row.get("bounded_delta_json"), {}),
             "rollback_reference": row["rollback_reference"],
@@ -312,7 +346,7 @@ def build_daily_app_snapshot(
             "created_at_utc": row["created_at_utc"],
             "evaluation_window": row["evaluation_window"],
         })
-    active_policy = next((row for row in policies if row["status"] == "ACTIVE"), None)
+    active_policy = next((row for row in policy_models if row["status"] == "ACTIVE"), None)
     future_windows = _next_windows(generated, active_policy)
 
     latest_heartbeat = heartbeats[0] if heartbeats else None
@@ -336,7 +370,14 @@ def build_daily_app_snapshot(
     real_publications = [p for p in publications if p["lifecycle_classification"] == "REAL_PUBLICATION_CONFIRMED"]
     controlled = [p for p in publications if p["lifecycle_classification"] == "CONTROLLED_NO_PUBLIC_WRITE"]
     unknown = [p for p in publications if p["lifecycle_classification"] == "UNKNOWN_WRITE"]
-    pending_recovery = [p for p in publications if p["reconciliation_status"] in {RECONCILE_PENDING_READBACK, RECONCILE_PENDING_OPERATOR}]
+    pending_recovery = [
+        p for p in publications
+        if p["lifecycle_classification"] == "CONFIRMED_DISPATCH_PENDING_READBACK"
+        or p["reconciliation_status"] in {
+            RECONCILE_PENDING_READBACK,
+            RECONCILE_PENDING_OPERATOR,
+        }
+    ]
     latest_cycle = work_items[0] if work_items else None
     current_publications = [
         row for row in publications
@@ -584,7 +625,7 @@ def build_daily_app_snapshot(
             "empty_detail": "No real confirmed public object is eligible for observation." if not observation_models and not real_publications else None,
         },
         "learning": {
-            "active_policy": policy_models[0] if policy_models and policy_models[0]["status"] == "ACTIVE" else next((p for p in policy_models if p["status"] == "ACTIVE"), None),
+            "active_policy": active_policy,
             "policy_history": policy_models,
             "empty_reason": "NO_LEARNING_UPDATE_YET" if not policy_models else None,
             "configured_default": ({

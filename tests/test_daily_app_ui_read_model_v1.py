@@ -52,6 +52,42 @@ def _seed_dispatch(store, *, suffix, status, object_id=None, reconciliation=None
     return dispatch_id
 
 
+def _seed_policy(
+    store,
+    *,
+    version,
+    parent=None,
+    status="ACTIVE",
+    decision="BOOTSTRAP",
+    sample_count=0,
+    confidence=0.0,
+    payload=None,
+    created_at="2026-08-10T01:00:00Z",
+):
+    with store.get_connection() as conn:
+        conn.execute(
+            "INSERT INTO learning_policy_versions VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            (
+                version,
+                parent,
+                created_at,
+                status,
+                decision,
+                sample_count,
+                confidence,
+                "formula.v1",
+                "[]",
+                "rolling",
+                "{}",
+                "{}",
+                None,
+                "fixture lineage",
+                json.dumps(payload or {}, sort_keys=True),
+                f"hash-{version}",
+            ),
+        )
+
+
 def _publication(snapshot, dispatch_id):
     return next(row for row in snapshot["published"]["objects"] if row["dispatch_id"] == dispatch_id)
 
@@ -67,13 +103,16 @@ def _lifecycle_counts(store):
 def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     store = _store(tmp_path)
     store.upsert_heartbeat("daily-supervisor")
-    before = list(tmp_path.iterdir())
+    before = {path.name for path in tmp_path.iterdir()}
     snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
-    after = list(tmp_path.iterdir())
+    after = {path.name for path in tmp_path.iterdir()}
     assert snapshot["runtime"]["controller_health"] == "HEALTHY"
     assert snapshot["authority"]["fixture_fallback"] is False
     assert snapshot["authority"]["snapshot_mutates_lifecycle"] is False
-    assert before == after
+    # SQLite may materialize its own WAL companions while another collected test keeps a
+    # connection alive; those files are part of daily.sqlite3, not a second authority store.
+    assert after - before <= {"daily.sqlite3-wal", "daily.sqlite3-shm"}
+    assert {name for name in after if name.endswith(".sqlite3")} == {"daily.sqlite3"}
 
 
 def test_publication_lifecycle_classes_are_exact(tmp_path):
@@ -103,6 +142,17 @@ def test_publication_lifecycle_classes_are_exact(tmp_path):
     assert snapshot["published"]["real_publication_count"] == 1
     assert snapshot["published"]["controlled_no_public_write_count"] == 1
     assert any(item["what_happened"] == "UNKNOWN_WRITE" for item in snapshot["incidents"]["items"])
+
+
+def test_confirmed_dispatch_without_readback_is_counted_for_recovery(tmp_path):
+    store = _store(tmp_path)
+    pending = _seed_dispatch(
+        store, suffix="no-readback", status="DISPATCH_CONFIRMED", object_id="public-pending"
+    )
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    assert _publication(snapshot, pending)["lifecycle_classification"] == "CONFIRMED_DISPATCH_PENDING_READBACK"
+    assert snapshot["published"]["pending_readback_count"] == 1
+    assert any(item["kind"] == "LIFECYCLE_RECOVERY" for item in snapshot["queue"]["items"])
 
 
 def test_no_publication_and_platform_unavailable_are_truthful(tmp_path):
@@ -163,6 +213,76 @@ def test_learning_bootstrap_child_and_rollback_lineage(tmp_path):
     child = next(row for row in snapshot["learning"]["policy_history"] if row["policy_version"] == "child")
     assert bootstrap["provenance"] == "CONFIGURED_DEFAULT"
     assert child["provenance"] == "LEARNED"
+    assert snapshot["learning"]["active_policy"]["provenance"] == "LEARNED"
+    assert snapshot["runtime"]["next_editorial_window"]["provenance"] == "LEARNED_ACTIVE_POLICY"
+
+
+def test_active_bootstrap_policy_remains_configured_default_everywhere(tmp_path):
+    store = _store(tmp_path)
+    _seed_policy(
+        store,
+        version="policy.bootstrap.v1",
+        decision="BOOTSTRAP",
+        sample_count=0,
+        confidence=0.0,
+        payload={
+            "timing": {"offset_minutes": 0},
+            "provenance": "CONFIGURED_DEFAULT",
+        },
+    )
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    active = snapshot["learning"]["active_policy"]
+    assert active["status"] == "ACTIVE"
+    assert active["sample_count"] == 0
+    assert active["confidence"] == 0.0
+    assert active["provenance"] == "CONFIGURED_DEFAULT"
+    assert {row["provenance"] for row in snapshot["queue"]["upcoming_editorial_windows"]} == {
+        "CONFIGURED_DEFAULT"
+    }
+    assert {row["state"] for row in snapshot["queue"]["items"]} == {"CONFIGURED_DEFAULT"}
+    assert snapshot["runtime"]["next_editorial_window"]["provenance"] == "CONFIGURED_DEFAULT"
+
+
+def test_active_status_and_sample_count_cannot_create_learned_lineage(tmp_path):
+    store = _store(tmp_path)
+    _seed_policy(
+        store,
+        version="policy.configured.v2",
+        status="ACTIVE",
+        decision="HOLD_NO_POLICY_CHANGE",
+        sample_count=99,
+        confidence=0.99,
+        payload={"timing": {"offset_minutes": 0}},
+    )
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    assert snapshot["learning"]["active_policy"]["provenance"] == "CONFIGURED_DEFAULT"
+    assert snapshot["runtime"]["next_editorial_window"]["provenance"] == "CONFIGURED_DEFAULT"
+
+
+def test_genuine_learned_child_controls_window_provenance_and_nested_offset(tmp_path):
+    store = _store(tmp_path)
+    _seed_policy(
+        store,
+        version="policy.bootstrap.v1",
+        status="SUPERSEDED",
+        payload={"timing": {"offset_minutes": 0}, "provenance": "CONFIGURED_DEFAULT"},
+    )
+    _seed_policy(
+        store,
+        version="policy.learned.v2",
+        parent="policy.bootstrap.v1",
+        decision="ACCEPT_BOUNDED_UPDATE",
+        sample_count=8,
+        confidence=0.9,
+        payload={"timing": {"offset_minutes": 15}, "provenance": "LEARNED_BOUNDED_UPDATE"},
+        created_at="2026-08-10T02:00:00Z",
+    )
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    active = snapshot["learning"]["active_policy"]
+    assert active["provenance"] == "LEARNED"
+    assert active["timing_offset_minutes"] == 15
+    assert snapshot["runtime"]["next_editorial_window"]["provenance"] == "LEARNED_ACTIVE_POLICY"
+    assert snapshot["runtime"]["next_editorial_window"]["window_start_utc"] == "2026-08-10T13:15:00Z"
 
 
 def test_kill_switch_cas_restart_and_zero_calls(tmp_path):

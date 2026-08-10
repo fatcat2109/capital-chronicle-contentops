@@ -198,6 +198,7 @@ body {
 .daily-topbar > div:first-of-type > span:first-child { font-size: 14px; font-weight: 650; }
 .daily-top-actions button, .daily-menu, .daily-brand button { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--daily-line); border-radius: 7px; color: var(--daily-muted); background: var(--daily-panel); }
 .daily-top-actions button:hover, .daily-menu:hover { color: var(--daily-text); border-color: var(--daily-line-strong); }
+.daily-shell button:focus-visible { outline: 3px solid color-mix(in srgb, var(--daily-accent) 78%, white); outline-offset: 3px; }
 .daily-top-actions svg, .daily-menu svg, .daily-brand button svg { width: 16px; height: 16px; }
 .daily-menu { display: none; }
 .daily-offline, .daily-kill-banner { display: flex; align-items: center; gap: 10px; padding: 11px 28px; border-bottom: 1px solid color-mix(in srgb, var(--daily-bad) 38%, var(--daily-line)); color: #ffd4d7; background: color-mix(in srgb, var(--daily-bad) 10%, var(--daily-bg)); font-size: 12px; }
@@ -266,8 +267,8 @@ body {
   .daily-platform-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 820px) {
-  .daily-nav { position: fixed; transform: translateX(-102%); transition: transform .18s ease; box-shadow: 18px 0 50px #0008; }
-  .daily-nav.is-open { transform: translateX(0); }
+  .daily-nav { position: fixed; visibility: hidden; transform: translateX(-102%); transition: transform .18s ease; box-shadow: 18px 0 50px #0008; }
+  .daily-nav.is-open { visibility: visible; transform: translateX(0); transition-delay: 0s; }
   .daily-brand > button { display: grid; }
   .daily-scrim { position: fixed; inset: 0; z-index: 35; display: block; border: 0; background: #0009; }
   .daily-menu { display: grid; }

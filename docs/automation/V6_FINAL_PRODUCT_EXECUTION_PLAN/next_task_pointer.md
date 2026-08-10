@@ -6,9 +6,16 @@ Current product direction: `CONTENTOPS_FINAL_DAILY_APP_V1_OWNER_DIRECTION`
 
 ## Current exact task
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_FINAL_V5_UI_BROWSER_QA_V1`
+`TASK_CONTENTOPS_FINAL_DAILY_APP_FINAL_V5_UI_TRUTH_CORRECTION_AND_BROWSER_QA_CLOSURE_V1`
 
 Mode: `SHADOW_ONLY` for browser QA unless the exact task explicitly authorizes otherwise.
+
+Result: `QA_CAPTURE_COMPLETE_AWAITING_CHATGPT_VISUAL_REVIEW`
+
+The Final V5 implementation and complete browser capture matrix are complete. The canonical
+schema-v8 store remained byte-exact and no public, provider, browser-publication, or mode-control
+write occurred. The exact immutable commit SHA is recorded by remote readback and the final task
+packet; it cannot be embedded in the content-addressed commit that contains this pointer.
 
 ## Completed immediately prior
 
@@ -23,12 +30,12 @@ public write occurred.
 
 ## Next capability
 
-Perform final V5 UI browser QA against the real schema-v8 snapshot and operating states:
-Platforms readiness, Incidents, UNKNOWN_WRITE/reconciliation, controls, performance/learning,
-responsive layout, accessibility, and one-start product presentation. Do not create a second
-backend, state store, scheduler, publisher, or readiness authority.
+Obtain independent ChatGPT/Jim visual acceptance of the final screenshots. Capture completion is
+not final visual acceptance, and this pointer does not advance the product to live soak.
 
 ## After clean success
+
+If and only if the independent screenshot review accepts the Final V5 UI:
 
 `TASK_CONTENTOPS_FINAL_DAILY_APP_GENUINE_CALENDAR_TIME_LIVE_SOAK_V1`
 
