@@ -1,0 +1,125 @@
+{
+  "schema_version": "contentops.continuous_intelligence_realign_evidence.v1",
+  "task": "TASK_CONTENTOPS_V1_CONTINUOUS_INTELLIGENCE_INTAKE_CC_DATABASE_AND_EDITORIAL_PORTFOLIO_REALIGN_V1",
+  "result": "COMPLETE_IMPLEMENTED_AND_VALIDATED",
+  "authority_date": "2026-08-10",
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "branch": "task/v1-continuous-intelligence-cc-db-portfolio-realign-v1",
+  "owner_realignment_applied": true,
+  "remote_master_at_start": "b682588a029cdb2e271b9570ee67669f47a0dc6a",
+  "local_head_at_realignment": "b682588a029cdb2e271b9570ee67669f47a0dc6a",
+  "uncommitted_work_found": [
+    "live_contentops/x_list_ingest_capture_v1.py (bounded capture primitive)",
+    "canonical daily-sidecar dedupe rows/format",
+    "Capital Chronicle bridge investigation",
+    "capture/continuity focused tests"
+  ],
+  "uncommitted_work_preserved": true,
+  "retired_superseded_approach": "operator_run_now_override_v1 special run-now gate relaxation reverted and deleted; Run Now gate bypass FALSE by design",
+  "final_head": "74160147398e94a1b453300f9b2f196f58e05e9d",
+  "commit": "74160147398e94a1b453300f9b2f196f58e05e9d",
+  "commit_message": "feat: realign daily app around continuous newsroom intelligence",
+  "remote_master_final": "74160147398e94a1b453300f9b2f196f58e05e9d",
+  "remote_parity": "EXACT",
+  "tier2_a_preserved": true,
+  "continuous_ingestion": {
+    "lane_module": "live_contentops/continuous_headline_ingest_v1.py",
+    "integration": "housekeeping lane inside canonical ContentOpsDailyAppSupervisor.tick; zero LLM calls; adaptive 4-minute active interval with x2 idle backoff capped at 30 minutes",
+    "capture_mechanism": "bounded CDP ListLatestTweetsTimeline interception over locked CapitalChronicleBot profile (x_list_ingest_capture_v1)",
+    "llm_calls_during_idle_ingestion": 0,
+    "canonical_headline_folder": "headline_ingestion/data/intake/headline_sidecars/",
+    "canonical_daily_filename": "step1_headline_sidecar_<YYYY>_<MM>_<DD>.jsonl",
+    "daily_headline_file_count_policy": "one file per day; no timestamp-per-capture files; no parallel ALL_DATA truth; legacy files read-only history",
+    "rolling_24h_unique_headlines_at_validation": 709,
+    "rolling_24h_unique_headlines_after_deployment": 973,
+    "dedupe_proof": "three-iteration focused test (append 2, re-add 2+1 new, re-add 1+1 new -> exactly 4 unique rows, one daily file) + shadow universe reconstruction (709 headlines, 15 files, 0 duplicates)",
+    "restart_dedupe_proof": "focused test reopens store; checkpoint durable; duplicate rows not rewritten",
+    "last_ingest_utc_at_deployment": "2026-08-10T23:08:44Z"
+  },
+  "capital_chronicle_data_estate": {
+    "discovered_root": "A:\\Capital Chronicle\\Main App",
+    "database_type": "duckdb local stores under data/local_db (read-only connections only)",
+    "store_count_in_catalog": 12,
+    "example_stores": [
+      "analyzer_ready_point_in_time_outcome_fabric_v1",
+      "event_entity_catalyst_environment_history_v1",
+      "public_free_event_text_entity_history_v1",
+      "remaining_public_free_structured_numeric_release_history_v1"
+    ],
+    "latest_observed_timestamps": {
+      "public_free_event_text_entity_history_v1.dbh2_events": "2026-07-11T10:26:42Z",
+      "public_free_event_text_entity_history_v1.dbh2_records": "2026-07-11T10:26:42Z"
+    },
+    "authority_dqr_freshness_semantics": "preserved via governed surfaces (publication evidence packet / newsroom candidate pool / DQR fields); catalog records compact schema/profile metadata only; no raw dump",
+    "governed_surfaces": {
+      "publication_evidence_packet_exists": true,
+      "newsroom_candidate_pool_exists": false
+    }
+  },
+  "cc_read_only_connection": "duckdb connect(read_only=True); catalog module refuses non-SELECT/CTE SQL by policy",
+  "cc_upstream_mutation": false,
+  "story_scoped_cc_query_proof": "focused test builds a fixture CC estate, runs discover + story-scoped query: Federal Reserve match found, richness > 0, zero upstream mutation; production catalog READY with 12 stores",
+  "published_corpus": {
+    "module": "live_contentops/published_corpus_read_model_v1.py",
+    "canonical_published_article_count": 0,
+    "full_content_available": false,
+    "content_hash_coverage": 0,
+    "related_prior_article_lookup": "entity-overlap index over corpus (empty corpus honestly reported)",
+    "derived_from_existing_durable_truth": true,
+    "second_publication_store_created": false
+  },
+  "editorial_portfolio_policy": {
+    "module": "live_contentops/editorial_portfolio_v1.py",
+    "daily_target_band": [5, 8],
+    "core_decision_opportunities": 8,
+    "material_event_wakeups": true,
+    "min_spacing_policy": "minimum_cycle_spacing_hours 1.0 (bootstrap.v2)",
+    "concentration_policy": "same-entity daily soft cap 2 + deterministic concentration penalty proven by focused test",
+    "window_policy_version": "bootstrap.v2",
+    "window_times_claimed_optimal": false,
+    "production_next_wake_after_deployment": "2026-08-11T01:00:00Z"
+  },
+  "breaking_new_story_test": "PASS (no corpus overlap -> BREAKING_NEW_STORY, mode BREAKING_BRIEF)",
+  "material_follow_up_test": "PASS (same update chain + delta signals -> MATERIAL_FOLLOW_UP, mode FOLLOW_UP_UPDATE)",
+  "low_delta_repeat_test": "PASS (same chain, zero delta -> LOW_DELTA_REPEAT)",
+  "deepen_existing_story_test": "PASS (older related coverage + CC richness 0.8 -> DEEPEN_EXISTING_STORY)",
+  "run_now_canonical_path": "Run Now consumes the durable OPERATOR_REQUESTED trigger through the SAME canonical cycle boundary; bounded fallback intake sync only when continuous lane is stale",
+  "special_run_now_gate_bypass": false,
+  "shadow_e2e_result": "isolated SHADOW_ONLY tick: forced-free window executed full canonical cycle over reconstructed 709-headline rolling universe; assignment SELECT_STORY; viability ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED -> NO_PUBLICATION (canonical gates intact; no bypass); intake lane checkpoints durable across ticks",
+  "public_write_during_validation": false,
+  "v5_status_fields": [
+    "runtime.headline_ingestion.lane_state",
+    "runtime.headline_ingestion.last_ingest_utc",
+    "runtime.rolling_24h_unique_headlines",
+    "runtime.capital_chronicle_read_model",
+    "today.published_today_count",
+    "today.daily_target_band",
+    "today.published_corpus_count"
+  ],
+  "production_store_preserved": true,
+  "unknown_write": 0,
+  "pending_reconciliation": 0,
+  "fda_g_previous_evidence_preserved": true,
+  "fda_g_new_source_sha": "74160147398e94a1b453300f9b2f196f58e05e9d",
+  "fda_g_new_epoch_start": "2026-08-10T23:08:44Z",
+  "fda_g_new_epoch_directory": "A:\\Capital Chronicle\\Runtime\\ContentOps\\soak\\final_daily_app_v1\\fda-g-20260810T230844Z-74160147398e",
+  "focused_tests": {
+    "continuous_intelligence_realign_suite": "18 passed (tests/test_contentops_continuous_intelligence_realign_v1.py)",
+    "supervisor_suite": "18 passed",
+    "operator_trigger_and_read_model": "34 passed",
+    "housekeeping_kill_switch_performance_lifecycle_publication_ui_cluster": "111 passed",
+    "profile_lock_launcher_capture_suites": "58 passed",
+    "v5_vitest": "267 passed"
+  },
+  "smoke_tests": "shadow tick intake lane proof (not_due checkpoint semantics, RUNNING state, zero LLM calls) + full shadow canonical cycle E2E + production one-click restart on corrected source",
+  "secret_session_exposure": false,
+  "protected_v1_0_status": "immutable (tag a021df7f... / release 6983bfb3...)",
+  "hard_blockers": [],
+  "caveats": [
+    "production publication remains legitimately NO_PUBLICATION when canonical evidence gates block (e.g., stale governed CC packet / official-source freshness); the realignment removes DATA STARVATION as the routine blocker but never lowers truth",
+    "headline sidecar daily files are local runtime data and remain untracked in Git; historical files stay read-only",
+    "CC catalog probes up to 12 duckdb stores read-only at each portfolio-context build; costs a few seconds per cycle",
+    "no full-suite run and no CI PASS claimed"
+  ],
+  "exact_next_product_blocker": "fresh governed Capital Chronicle publication material and/or official-primary evidence satisfying story-type requirements so the continuously-current rolling universe converts into publishable packages; then FDA-G genuine 5-8 day calendar-time evidence"
+}
