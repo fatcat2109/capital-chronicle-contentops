@@ -52,9 +52,17 @@
     "reason": "run-now ingestion fail-fast lives in the Daily App server process",
     "safe_idle_preflight": "UNKNOWN_WRITE=0, pending reconciliation=0, no dispatch in progress, next wake in the future",
     "store_preserved": true,
-    "production_epoch_preserved": true
+    "production_epoch_preserved": true,
+    "previous_process_id": 46412,
+    "restarted_process_id": 23872,
+    "post_restart_controller_health": "HEALTHY",
+    "note": "one transient heartbeat staleness observed pre-restart (slow readback housekeeping tick); self-recovered while process remained alive and API healthy"
   },
   "fda_g_status": "SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE",
+  "fda_g_source_sha": "5ffda21e99df1ca9bae433194fe3e980c9f530a8",
+  "fda_g_new_soak_epoch_id": "fda-g-20260810T115603Z-5ffda21e99df",
+  "fda_g_new_soak_start_utc": "2026-08-10T11:56:03Z",
+  "fda_g_new_soak_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\soak\\final_daily_app_v1\\fda-g-20260810T115603Z-5ffda21e99df\\soak_start_evidence_v1.json",
   "fda_g_previous_epochs_preserved": [
     "fda-g-20260810T081219Z-93d097edf6f0",
     "fda-g-20260810T111759Z-6626ae80dc5c"
