@@ -2,11 +2,49 @@
   "schema_version": "contentops.autonomous_publication_runtime_transport_provenance.v1",
   "authority_date": "2026-08-10",
   "task": "TASK_CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1",
+  "identity_hardening_task": "TASK_CONTENTOPS_FINAL_DAILY_APP_CANONICAL_DESTINATION_IDENTITY_PINNING_AND_READINESS_HARDENING_V1",
   "starting_master_sha": "ae90ab2dd312ae6481ad46df98623d5118b79d44",
   "transport_registry_version": "contentops.destination_transport_registry.v1",
+  "identity_authority_version": "contentops.destination_identity_authority.v1",
   "exactly_one_write_owner": "live_contentops.publication_coordinator_v1.DurablePublicationCoordinator",
   "newsroom_direct_write": false,
   "silent_transport_fallback": false,
+  "destination_identity_authority": {
+    "owner_pinned": true,
+    "environment_binding_is_identity_authority": false,
+    "wrong_valid_account_state": "IDENTITY_MISMATCH",
+    "pins": {
+      "SUBSTACK_ARTICLE": {
+        "expected_domain": "capitalchronicle.substack.com"
+      },
+      "X_THREAD": {
+        "expected_public_handle": "@Capitalnicle"
+      },
+      "LINKEDIN_POST": {
+        "expected_public_handle": "linkedin:jimcc"
+      },
+      "YOUTUBE_COMMUNITY_POST": {
+        "expected_public_handle": "@CapitalChronicleYouTube"
+      },
+      "TELEGRAM_CHANNEL_POST": {
+        "expected_public_handle": "@CapitalChronicle"
+      },
+      "DISCORD_ANNOUNCEMENT": {
+        "expected_stable_id": "1519311669216673802"
+      },
+      "FACEBOOK_PAGE_POST": {
+        "expected_stable_id": "106091951705748",
+        "expected_identity": "Capital Chronicle"
+      },
+      "INSTAGRAM_BUSINESS_POST": {
+        "expected_public_handle": "official.capitalchronicle"
+      },
+      "THREADS_POST": {
+        "expected_public_handle": "official.capitalchronicle"
+      }
+    },
+    "accepted_identity_evidence": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1"
+  },
   "browser_roles": {
     "edge_9223": "publication_media_management_readback",
     "chrome_9222": "ingestion_only"
@@ -44,7 +82,9 @@
   ],
   "historical_live_evidence": "docs/automation/DATABASE_PUBLICATION_AUTHORITY_AND_CONTENTOPS_FULL_LIVE_CLOSURE_V1/contentops_database_publication_live_20260714_1",
   "current_read_only_preflight": {
-    "edge_self_bootstrap": "LAUNCHED_CANONICAL_EDGE_9223",
+    "edge_self_bootstrap": "ATTACHED_CANONICAL_EDGE_9223",
+    "identity_authority_version": "contentops.destination_identity_authority.v1",
+    "identity_match_count": 9,
     "ready_authenticated": [
       "SUBSTACK_ARTICLE",
       "X_THREAD",
@@ -60,6 +100,7 @@
     ],
     "reauth_required": [],
     "identity_mismatches": [],
+    "production_readiness_rows_updated": 9,
     "public_write_performed": false,
     "secret_values_exposed": false
   },

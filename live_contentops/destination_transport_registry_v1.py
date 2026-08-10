@@ -17,6 +17,7 @@ from typing import Any, Mapping, Optional, Sequence
 
 
 REGISTRY_VERSION = "contentops.destination_transport_registry.v1"
+IDENTITY_AUTHORITY_VERSION = "contentops.destination_identity_authority.v1"
 PUBLISHING_CDP_PORT = 9223
 INGESTION_ONLY_CDP_PORT = 9222
 
@@ -47,6 +48,10 @@ class SurfaceTransport:
     publishing_port: Optional[int] = None
     tier1_write_enabled: bool = True
     canonical_url_dependency: Optional[str] = None
+    expected_identity_kind: str = "PUBLIC_IDENTITY"
+    expected_stable_id: Optional[str] = None
+    expected_public_handle: Optional[str] = None
+    expected_domain: Optional[str] = None
 
 
 _SURFACES = (
@@ -54,53 +59,68 @@ _SURFACES = (
         "SUBSTACK_ARTICLE", "substack", "EDGE_CDP",
         "edge_cdp_publishing_adapter_v1.publish_substack_article_via_edge",
         "substack", "capitalchronicle.substack.com", PUBLISHING_CDP_PORT,
+        expected_identity_kind="DOMAIN",
+        expected_domain="capitalchronicle.substack.com",
     ),
     SurfaceTransport(
         "X_POST", "x", "EDGE_CDP", "edge_cdp_publishing_adapter_v1.publish_x_post_via_edge",
         "x", "@Capitalnicle", PUBLISHING_CDP_PORT, canonical_url_dependency="SUBSTACK_ARTICLE",
+        expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@Capitalnicle",
     ),
     SurfaceTransport(
         "X_THREAD", "x", "EDGE_CDP", "edge_cdp_publishing_adapter_v1.publish_x_post_via_edge+publish_x_reply_via_edge",
         "x", "@Capitalnicle", PUBLISHING_CDP_PORT, canonical_url_dependency="SUBSTACK_ARTICLE",
+        expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@Capitalnicle",
     ),
     SurfaceTransport(
         "LINKEDIN_POST", "linkedin", "EDGE_CDP", "edge_cdp_publishing_adapter_v1.publish_linkedin_post_via_edge",
         "linkedin", "linkedin:jimcc", PUBLISHING_CDP_PORT, canonical_url_dependency="SUBSTACK_ARTICLE",
+        expected_identity_kind="PUBLIC_IDENTITY", expected_public_handle="linkedin:jimcc",
     ),
     SurfaceTransport(
         "YOUTUBE_COMMUNITY_POST", "youtube", "EDGE_CDP",
         "edge_cdp_publishing_adapter_v1.publish_youtube_community_post_via_edge",
         "youtube", "@CapitalChronicleYouTube", PUBLISHING_CDP_PORT,
         canonical_url_dependency="SUBSTACK_ARTICLE",
+        expected_identity_kind="PUBLIC_HANDLE",
+        expected_public_handle="@CapitalChronicleYouTube",
     ),
     SurfaceTransport(
         "TELEGRAM_CHANNEL_POST", "telegram", "BOT_API", "telegram_live_adapter_v6.execute_telegram_photo",
         "telegram", "@CapitalChronicle", canonical_url_dependency="SUBSTACK_ARTICLE",
+        expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@CapitalChronicle",
     ),
     SurfaceTransport(
         "DISCORD_ANNOUNCEMENT", "discord", "WEBHOOK_API", "discord_live_adapter_v6.execute_discord_post",
-        "discord", "configured_discord_announcement", canonical_url_dependency="SUBSTACK_ARTICLE",
+        "discord", "discord_channel:1519311669216673802", canonical_url_dependency="SUBSTACK_ARTICLE",
+        expected_identity_kind="STABLE_ID", expected_stable_id="1519311669216673802",
     ),
     SurfaceTransport(
         "FACEBOOK_PAGE_POST", "facebook_page", "META_GRAPH_API", "facebook_page_adapter_v6.execute_facebook_photo",
-        "facebook_page", "configured_facebook_page", canonical_url_dependency="SUBSTACK_ARTICLE",
+        "facebook_page", "Capital Chronicle", canonical_url_dependency="SUBSTACK_ARTICLE",
+        expected_identity_kind="STABLE_ID",
+        expected_stable_id="106091951705748",
     ),
     SurfaceTransport(
         "INSTAGRAM_BUSINESS_POST", "instagram_business", "META_GRAPH_API", "instagram_adapter_v6.execute_instagram_post",
         "instagram_business", "official.capitalchronicle", canonical_url_dependency="SUBSTACK_ARTICLE",
+        expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="official.capitalchronicle",
     ),
     SurfaceTransport(
         "THREADS_POST", "threads", "THREADS_API", "threads_adapter_v6.execute_threads_post",
         "threads", "official.capitalchronicle", canonical_url_dependency="SUBSTACK_ARTICLE",
+        expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="official.capitalchronicle",
     ),
     # Future video surfaces stay explicit and cannot be mistaken for the Tier-1 Community post.
     SurfaceTransport(
         "YOUTUBE_VIDEO", "youtube", "YOUTUBE_DATA_API", "future:youtube.videos.insert",
         "youtube_video", "@CapitalChronicleYouTube", tier1_write_enabled=False,
+        expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@CapitalChronicleYouTube",
     ),
     SurfaceTransport(
         "YOUTUBE_SHORT", "youtube", "YOUTUBE_DATA_API", "future:youtube.videos.insert",
         "youtube_short", "@CapitalChronicleYouTube", tier1_write_enabled=False,
+        expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@CapitalChronicleYouTube",
     ),
 )
 
@@ -128,12 +148,14 @@ def canonical_transport_registry() -> dict[str, Any]:
     return {
         "schema_version": REGISTRY_VERSION,
         "registry_version": REGISTRY_VERSION,
+        "identity_authority_version": IDENTITY_AUTHORITY_VERSION,
         "surfaces": rows,
         "tier1_surfaces": list(TIER1_SURFACES),
         "publishing_cdp_port": PUBLISHING_CDP_PORT,
         "ingestion_only_cdp_port": INGESTION_ONLY_CDP_PORT,
         "chrome_publishing_allowed": False,
         "silent_transport_fallback_allowed": False,
+        "runtime_binding_is_identity_authority": False,
         "youtube_community_is_video_surface": False,
     }
 
@@ -152,6 +174,8 @@ def validate_registry() -> None:
         raise RuntimeError("tier1_surface_transport_missing")
     for surface in TIER1_SURFACES:
         row = SURFACE_REGISTRY[surface]
+        if not any((row.expected_stable_id, row.expected_public_handle, row.expected_domain)):
+            raise RuntimeError(f"owner_identity_pin_missing:{surface}")
         if row.transport_type == "EDGE_CDP" and row.publishing_port != PUBLISHING_CDP_PORT:
             raise RuntimeError(f"edge_surface_not_locked_to_9223:{surface}")
     if SURFACE_REGISTRY["YOUTUBE_COMMUNITY_POST"].transport_type != "EDGE_CDP":
@@ -189,6 +213,52 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
+def _normalized_identity(value: Any) -> str:
+    return " ".join(str(value or "").strip().split()).casefold()
+
+
+def _normalized_handle(value: Any) -> str:
+    return _normalized_identity(value).lstrip("@")
+
+
+def _normalized_domain(value: Any) -> str:
+    raw = str(value or "").strip()
+    if "://" in raw:
+        raw = urllib.parse.urlparse(raw).netloc
+    return raw.rstrip(".").casefold()
+
+
+def _identity_pin_match(
+    registration: SurfaceTransport,
+    *,
+    observed_stable_id: Any = None,
+    observed_public_handle: Any = None,
+    observed_domain: Any = None,
+) -> tuple[bool, dict[str, bool]]:
+    """Match provider/browser observations only against repository-owned identity pins."""
+    checks: dict[str, bool] = {}
+    if registration.expected_stable_id is not None:
+        checks["stable_id_match"] = (
+            bool(str(observed_stable_id or ""))
+            and str(observed_stable_id) == registration.expected_stable_id
+        )
+    if registration.expected_public_handle is not None:
+        checks["public_handle_match"] = (
+            bool(str(observed_public_handle or ""))
+            and _normalized_handle(observed_public_handle)
+            == _normalized_handle(registration.expected_public_handle)
+        )
+    if registration.expected_domain is not None:
+        checks["domain_match"] = (
+            bool(str(observed_domain or ""))
+            and _normalized_domain(observed_domain)
+            == _normalized_domain(registration.expected_domain)
+        )
+    # Registry validation guarantees at least one independent owner pin. Missing or
+    # mismatched observations therefore fail closed; request/env bindings are not inputs.
+    return bool(checks) and all(checks.values()), checks
+
+
 def _base_row(registration: SurfaceTransport, *, state: str, identity: Optional[str],
               identity_match: bool, probe_kind: str, detail: Mapping[str, Any]) -> dict[str, Any]:
     if state not in READINESS_STATES:
@@ -197,6 +267,7 @@ def _base_row(registration: SurfaceTransport, *, state: str, identity: Optional[
         "surface": registration.surface,
         "platform": registration.platform,
         "transport_registry_version": REGISTRY_VERSION,
+        "identity_authority_version": IDENTITY_AUTHORITY_VERSION,
         "transport_type": registration.transport_type,
         "readiness_state": state,
         "destination_identity": identity,
@@ -261,21 +332,38 @@ class DestinationReadinessManager:
             if registration.surface == "YOUTUBE_COMMUNITY_POST":
                 community = probe_youtube_community_surface_via_edge(
                     cdp_port=PUBLISHING_CDP_PORT,
-                    expected_handle=registration.expected_identity,
+                    expected_handle=str(registration.expected_public_handle),
                 )
                 authenticated = bool(observed.get("authenticated"))
-                identity_match = bool(community.get("channel_identity_verified"))
-                identity = registration.expected_identity if identity_match else None
+                active_channel_id = str(observed.get("destination_stable_id") or "")
+                canonical_channel_id = str(community.get("canonical_channel_id") or "")
+                handle_match = bool(community.get("channel_identity_verified"))
+                stable_route_match = bool(
+                    active_channel_id
+                    and canonical_channel_id
+                    and active_channel_id == canonical_channel_id
+                )
+                identity_match = handle_match and stable_route_match
+                identity = str(observed.get("destination_identity") or "") or None
+                if identity_match:
+                    identity = registration.expected_public_handle
+                pin_checks = {
+                    "public_handle_match": handle_match,
+                    "authenticated_channel_matches_pinned_handle_route": stable_route_match,
+                }
             else:
                 authenticated = bool(observed.get("authenticated"))
                 identity = str(observed.get("destination_identity") or "") or None
                 if registration.surface == "SUBSTACK_ARTICLE":
-                    # The exact configured publication route is the account/destination binding;
-                    # authentication alone never substitutes an arbitrary Substack domain.
-                    identity_match = authenticated and str(observed.get("page_domain") or "").endswith("substack.com")
-                    identity = registration.expected_identity if identity_match else identity
+                    observed_domain = str(observed.get("page_domain") or "")
+                    identity_match, pin_checks = _identity_pin_match(
+                        registration, observed_domain=observed_domain,
+                    )
+                    identity = observed_domain or identity
                 else:
-                    identity_match = bool(identity) and identity.casefold() == registration.expected_identity.casefold()
+                    identity_match, pin_checks = _identity_pin_match(
+                        registration, observed_public_handle=identity,
+                    )
             if not authenticated:
                 state = "REAUTH_REQUIRED"
             elif not identity_match:
@@ -290,6 +378,7 @@ class DestinationReadinessManager:
                     "edge_recovery_status": recovery_status,
                     "authenticated": authenticated,
                     "login_control_detected": bool(observed.get("login_control_detected")),
+                    "owner_pin_match": pin_checks,
                 },
             )
         except Exception as exc:
@@ -313,15 +402,23 @@ class DestinationReadinessManager:
             )
             bot_ok = bot.get("ok") is True
             chat_result = chat.get("result") if isinstance(chat.get("result"), Mapping) else {}
-            observed = "@" + str(chat_result.get("username") or "") if chat_result.get("username") else str(chat_result.get("id") or "")
-            expected = registration.expected_identity
-            identity_match = bot_ok and bool(observed) and (
-                observed.casefold() == expected.casefold() or observed == chat_id
+            observed_handle = (
+                "@" + str(chat_result.get("username") or "")
+                if chat_result.get("username") else None
             )
+            observed_id = str(chat_result.get("id") or "") or None
+            pin_match, pin_checks = _identity_pin_match(
+                registration,
+                observed_stable_id=observed_id,
+                observed_public_handle=observed_handle,
+            )
+            identity_match = bot_ok and bool(chat_result) and pin_match
             state = READY_NON_BROWSER_BINDING if identity_match else "IDENTITY_MISMATCH"
-            return _base_row(registration, state=state, identity=observed or None,
+            return _base_row(registration, state=state, identity=observed_handle or observed_id,
                              identity_match=identity_match, probe_kind="TELEGRAM_BOT_API_IDENTITY",
-                             detail={"bot_identity_verified": bot_ok, "chat_access_verified": bool(chat_result)})
+                             detail={"bot_identity_verified": bot_ok,
+                                     "chat_access_verified": bool(chat_result),
+                                     "owner_pin_match": pin_checks})
         except _ProbeHTTPError as exc:
             return _base_row(registration, state=_error_state(exc), identity=None,
                              identity_match=False, probe_kind="TELEGRAM_BOT_API_IDENTITY",
@@ -334,7 +431,6 @@ class DestinationReadinessManager:
             or self.env.get("DISCORD_WEBHOOK_URL")
             or ""
         )
-        expected_channel = str(self.env.get("DISCORD_CHANNEL_ID") or "")
         if not webhook:
             return _base_row(registration, state="SESSION_UNAVAILABLE", identity=None,
                              identity_match=False, probe_kind="DISCORD_WEBHOOK_IDENTITY",
@@ -342,12 +438,16 @@ class DestinationReadinessManager:
         try:
             data = _json_get(webhook)
             channel_id = str(data.get("channel_id") or "")
-            identity_match = bool(channel_id) and (not expected_channel or channel_id == expected_channel)
+            identity_match, pin_checks = _identity_pin_match(
+                registration, observed_stable_id=channel_id,
+            )
             state = READY_NON_BROWSER_BINDING if identity_match else "IDENTITY_MISMATCH"
             return _base_row(registration, state=state,
                              identity=f"discord_channel:{channel_id}" if channel_id else None,
                              identity_match=identity_match, probe_kind="DISCORD_WEBHOOK_IDENTITY",
-                             detail={"webhook_identity_verified": bool(data.get("id")), "channel_identity_verified": identity_match})
+                             detail={"webhook_identity_verified": bool(data.get("id")),
+                                     "channel_identity_verified": identity_match,
+                                     "owner_pin_match": pin_checks})
         except _ProbeHTTPError as exc:
             return _base_row(registration, state=_error_state(exc), identity=None,
                              identity_match=False, probe_kind="DISCORD_WEBHOOK_IDENTITY",
@@ -380,12 +480,18 @@ class DestinationReadinessManager:
         try:
             data = _json_get(url)
             observed_id = str(data.get("id") or "")
-            identity_match = observed_id == object_id
             display = str(data.get("username") or data.get("name") or observed_id)
+            identity_match, pin_checks = _identity_pin_match(
+                registration,
+                observed_stable_id=observed_id,
+                observed_public_handle=display,
+            )
             state = READY_NON_BROWSER_BINDING if identity_match else "IDENTITY_MISMATCH"
             return _base_row(registration, state=state, identity=display or None,
                              identity_match=identity_match, probe_kind="OFFICIAL_API_IDENTITY",
-                             detail={"object_id_verified": identity_match, "identity_field_present": bool(display)})
+                             detail={"object_id_matches_owner_pin": pin_checks.get("stable_id_match"),
+                                     "identity_field_present": bool(display),
+                                     "owner_pin_match": pin_checks})
         except _ProbeHTTPError as exc:
             return _base_row(registration, state=_error_state(exc), identity=None,
                              identity_match=False, probe_kind="OFFICIAL_API_IDENTITY",
@@ -414,6 +520,7 @@ class DestinationReadinessManager:
         return {
             "schema_version": "contentops.destination_readiness_matrix.v1",
             "transport_registry_version": REGISTRY_VERSION,
+            "identity_authority_version": IDENTITY_AUTHORITY_VERSION,
             "surfaces": rows,
             "ready_surfaces": sorted(
                 surface for surface, row in rows.items() if row["readiness_state"] in READY_STATES

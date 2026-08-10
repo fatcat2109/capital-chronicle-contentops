@@ -622,6 +622,7 @@ def probe_authenticated_platform_session(cdp_port: int, platform: str) -> dict[s
             login_detected = True
         authenticated_selector = _first_visible(page, authenticated_selectors)[1]
         identity = None
+        destination_stable_id = None
         if platform == "x":
             profile_link, _selector = _first_visible(page, ("[data-testid='AppTabBar_Profile_Link']",))
             try:
@@ -639,6 +640,20 @@ def probe_authenticated_platform_session(cdp_port: int, platform: str) -> dict[s
                     identity = "linkedin:" + match.group(1)
             except Exception:
                 pass
+        elif platform == "youtube":
+            candidates = [page.url]
+            try:
+                candidates.extend(
+                    str(link.get_attribute("href") or "")
+                    for link in page.locator("a[href*='/channel/']").all()[:12]
+                )
+            except Exception:
+                pass
+            for candidate in candidates:
+                match = re.search(r"/channel/(UC[A-Za-z0-9_-]+)", candidate)
+                if match:
+                    destination_stable_id = match.group(1)
+                    break
         authenticated = bool(authenticated_selector and not login_detected)
         if platform == "tiktok":
             authenticated = bool("tiktokstudio/upload" in page.url and authenticated_selector and not login_detected)
@@ -649,6 +664,7 @@ def probe_authenticated_platform_session(cdp_port: int, platform: str) -> dict[s
             "login_control_detected": login_detected,
             "authenticated_ui_selector": authenticated_selector,
             "destination_identity": identity,
+            "destination_stable_id": destination_stable_id,
             "page_domain": urllib.parse.urlparse(page.url).netloc,
             "cookies_read": False,
             "storage_read": False,
@@ -3109,9 +3125,23 @@ def probe_youtube_community_surface_via_edge(
             target.parent.mkdir(parents=True, exist_ok=True)
             page.screenshot(path=str(target), full_page=False)
             screenshot = str(target)
+        canonical_channel_id = None
+        for selector, attribute in (
+            ("link[rel='canonical']", "href"),
+            ("meta[property='og:url']", "content"),
+        ):
+            try:
+                value = str(page.locator(selector).first.get_attribute(attribute) or "")
+                match = re.search(r"/channel/(UC[A-Za-z0-9_-]+)", value)
+                if match:
+                    canonical_channel_id = match.group(1)
+                    break
+            except Exception:
+                continue
         return {
             "status": "SUCCESS",
             "channel_identity_verified": _youtube_channel_identity_verified(page, expected_handle),
+            "canonical_channel_id": canonical_channel_id,
             "diagnostics": _youtube_community_surface_diagnostics(page),
             "public_screenshot_path": screenshot,
             "browser_write_performed": False,
