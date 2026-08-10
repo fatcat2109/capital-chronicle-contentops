@@ -194,6 +194,21 @@ The accelerated logical soak is not calendar-time live reliability and does not 
 
 ## 9. Latest operational task
 
+`TASK_CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1`
+
+Status:
+
+`COMPLETE_IMPLEMENTED_AND_VALIDATED`
+
+One-click morning launch/resume for the canonical Daily App: `Start_ContentOps_Daily_App.cmd`
+delegates through `scripts/Start-ContentOpsDailyApp.ps1` and
+`live_contentops.daily_app_launcher_v1` to the existing canonical
+`python -m live_contentops.cli daily-app start ...` command. It is idempotent (no duplicate
+supervisor/cycle/public object), reuses the exact production store without reset, fails closed
+on ambiguous port ownership, preserves KILL_SWITCH and UNKNOWN_WRITE state, performs only
+loopback GET probes and detached local process starts, and emits names-and-presence-only
+credential preflight. No public write occurred. Prior completed runtime task:
+
 `TASK_CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1`
 
 Status:
@@ -374,8 +389,18 @@ Do not stop for unrelated dirty files, absent CI, stale historical docs, mechani
 
 ## 18. Exact next action
 
-Do not start Tier-2.
+FDA-G genuine calendar-time soak remains active:
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_FINAL_V5_UI_BROWSER_QA_V1`
+`TASK_CONTENTOPS_FINAL_DAILY_APP_GENUINE_CALENDAR_TIME_LIVE_SOAK_V1` — `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`
 
-Do not start Tier-2 before Final Daily App V1 acceptance/freeze.
+Owner priority override (2026-08-10): after the completed one-click morning launcher task
+(`TASK_CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1`, entry file
+`Start_ContentOps_Daily_App.cmd`), Tier-2 implementation proceeds concurrently with the
+continuing FDA-G evidence lane:
+
+`TIER2-A LOCAL LONG-FORM + SHORT-FORM PROGRAMMABLE VERTICAL SLICE`
+
+Tier-2 remains isolated from the live V1 production runtime and has NO video public-write
+authority under that reprioritization. This override supersedes the older "do not start Tier-2
+before Final Daily App V1 acceptance/freeze" routing text where they conflict. FDA-G has not
+been declared accepted.

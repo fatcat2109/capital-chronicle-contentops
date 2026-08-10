@@ -29,11 +29,15 @@ Future expansion retained but deferred until V1 freeze:
 
 Current completed runtime task:
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1`
+`TASK_CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1`
 
-Current exact next task:
+Current continuous product lane:
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_FINAL_V5_UI_BROWSER_QA_V1`
+`TASK_CONTENTOPS_FINAL_DAILY_APP_GENUINE_CALENDAR_TIME_LIVE_SOAK_V1` — `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`
+
+Next owner-approved builder lane (concurrent with FDA-G, per owner priority override 2026-08-10):
+
+`TIER2-A LOCAL LONG-FORM + SHORT-FORM PROGRAMMABLE VERTICAL SLICE`
 
 The Final Daily App now has one durable publication coordinator, one versioned transport
 registry, exact pre-write outbox/attempt state, restart-safe UNKNOWN_WRITE recovery, real
@@ -42,6 +46,13 @@ All nine Tier-1 destination identities were read-only verified on 2026-08-10. Pr
 v8 preserves the prior rows and production epoch. No public write occurred in the transport-lock
 task. Provenance is under
 `docs/automation/CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1/`.
+
+On 2026-08-10 Jim's owner priority override added the one-click V1 desktop operating contract:
+`Start_ContentOps_Daily_App.cmd` double-click safely starts or resumes the SAME durable
+production Daily App state after planned host sleep/shutdown. Idempotent launch, no duplicate
+supervisor/cycle/public object, no store reset, fail-closed port ownership, KILL_SWITCH and
+UNKNOWN_WRITE preservation. Evidence is under
+`docs/automation/CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1/`.
 
 ## Current authority read order
 
@@ -70,7 +81,7 @@ Do not mutate, recreate, move, or retag it.
 
 ## Final V1 product definition
 
-Jim now wants one Daily App that stays running 24/7 and autonomously owns routine ContentOps operation:
+Jim wants one Daily App that owns routine ContentOps operation autonomously:
 
 ```text
 always-on low-cost supervision
@@ -142,21 +153,14 @@ Always-on means cheap idle supervision, not continuous LLM calls.
 
 ## Current first task
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_ALWAYS_ON_RUNTIME_VERTICAL_SLICE_V1`
+FDA-G genuine calendar-time soak is active. After the completed one-click launcher task, Jim's
+2026-08-10 owner priority override routes the next builder lane to:
 
-Deliver:
+`TIER2-A LOCAL LONG-FORM + SHORT-FORM PROGRAMMABLE VERTICAL SLICE`
 
-- publishability provenance/rights correction;
-- bounded Federal Reserve official-policy locator correction;
-- persistent Daily App supervisor;
-- deterministic bootstrap editorial-window policy;
-- due-window idempotency/restart safety through the existing durable store;
-- material-event wakeup seam reusing existing discovery metadata;
-- one bounded supervisor e2e demo showing exactly-once canonical cycle execution and next-wake computation.
-
-Expected next task after clean success:
-
-`TASK_CONTENTOPS_FINAL_DAILY_APP_REAL_PERFORMANCE_OBSERVATION_AND_LEARNING_LOOP_V1`
+Tier-2 proceeds concurrently with the continuing FDA-G evidence lane, remains isolated from the
+live V1 production runtime, and has NO video public-write authority under that
+reprioritization. FDA-G remains active and is not declared accepted by the launcher task.
 
 ## Operating modes
 
@@ -188,11 +192,12 @@ The always-on supervisor must not continuously probe LLMs while idle.
 
 ## V2
 
-Do not start V2 now.
-
-The previous early-parallel V2 unlock after one publishable package is superseded.
-
-V2 Pro Video Factory begins after Final Daily App V1 acceptance/freeze unless Jim explicitly reprioritizes again.
+Jim explicitly reprioritized on 2026-08-10. V2/Tier-2 implementation proceeds concurrently
+with the continuing FDA-G genuine calendar-time evidence lane. The older "wait until V1
+acceptance/freeze before any V2 work" routing is superseded where it conflicts with this owner
+decision. Hard constraints preserved: V2 stays isolated from the live V1 production runtime,
+receives NO video public-write authority from this reprioritization, and the protected `v1.0`
+release remains immutable. FDA-G remains active and is not declared accepted here.
 
 ## Safety
 

@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Product Direction Overlay
 
-Authority date: 2026-08-09
+Authority date: 2026-08-10
 
 Current product-direction classification:
 
@@ -93,19 +93,19 @@ Current known product defects that must be corrected rather than ignored:
 ## 4. Current execution route
 
 ```text
-FDA-A publishability provenance / rights / official-policy-source correction
+FDA-A publishability provenance / rights / official-policy-source correction   [COMPLETE]
 +
-FDA-B always-on Daily App runtime vertical slice
+FDA-B always-on Daily App runtime vertical slice                               [COMPLETE]
         ↓
-FDA-C autonomous multi-platform publication + post lifecycle
+FDA-C autonomous multi-platform publication + post lifecycle                   [COMPLETE]
         ↓
-FDA-D real performance observation
+FDA-D real performance observation                                             [COMPLETE]
         ↓
-FDA-E bounded closed-loop timing / SEO / editorial / packaging learning
+FDA-E bounded closed-loop timing / SEO / editorial / packaging learning        [COMPLETE]
         ↓
-FDA-F final V5 Daily App UI from real states
+FDA-F final V5 Daily App UI from real states                                   [PASS accepted]
         ↓
-FDA-G genuine calendar-time live soak
+FDA-G genuine calendar-time live soak                                          [SOAK ACTIVE]
         ↓
 ContentOps V1 Daily App acceptance + v1.1.0
         ↓
@@ -116,7 +116,42 @@ V2 Pro Video Factory
 
 Do not reopen broad horizontal hardening.
 
-Do not start V2 merely because one publishability canary passes. V2 is now deferred until Final Daily App V1 acceptance/freeze unless Jim explicitly reprioritizes again.
+Owner decision recorded on 2026-08-10 reprioritizes Tier-2 implementation to proceed
+concurrently with the continuing FDA-G genuine calendar-time evidence lane. This supersedes
+the earlier "defer all V2 work until after V1 freeze" sequencing text above where it
+conflicts. V2 must remain isolated from the live V1 production runtime and this
+reprioritization grants V2 NO video public-write authority. FDA-G remains active and this
+reprioritization does not declare FDA-G accepted.
+
+## 4A. V1 desktop operating contract (owner decision, 2026-08-10)
+
+Manual one-click morning resume is an accepted V1 desktop operating pattern. Jim does not
+want V1 operation to depend on keeping the Windows host awake 24/7.
+
+```text
+host available
+→ one-click launch/resume (Start_ContentOps_Daily_App.cmd)
+→ reconstruct the SAME durable production state
+→ continue autonomous operation
+→ planned host sleep/shutdown is recorded truthfully
+→ next morning resume safely
+→ never reset or manufacture state merely because the host was offline
+```
+
+Restart/recovery/idempotency are product requirements of the launcher:
+
+- exactly one canonical supervisor;
+- no duplicate editorial cycles or public objects;
+- the canonical production store is reused, never recreated or reset;
+- the canonical Edge 9223 bootstrap and KILL_SWITCH state are preserved;
+- pending UNKNOWN_WRITE/reconciliation state is left for canonical recovery logic;
+- missed editorial windows are handled by canonical supervisor/freshness logic, never
+  blindly replayed by the launcher;
+- ambiguous port ownership fails closed.
+
+Canonical one-click entry: `Start_ContentOps_Daily_App.cmd` → `scripts/Start-ContentOpsDailyApp.ps1`
+→ `python -m live_contentops.daily_app_launcher_v1` → canonical
+`python -m live_contentops.cli daily-app start ...` delegation.
 
 ## 5. Always-on runtime doctrine
 
@@ -190,16 +225,27 @@ Do not redesign the provider pool because of transient availability.
 
 The always-on supervisor must avoid continuous provider probes while idle.
 
-## 11. Exact current task
+## 11. Exact current routing
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_ALWAYS_ON_RUNTIME_VERTICAL_SLICE_V1`
+FDA-G genuine calendar-time live soak:
 
-Goal:
+`TASK_CONTENTOPS_FINAL_DAILY_APP_GENUINE_CALENDAR_TIME_LIVE_SOAK_V1`
 
-Correct the known article/media provenance + rights defect and bounded Federal Reserve official-policy locator defect, then deliver one restart-safe always-on Daily App supervisor that uses the existing canonical orchestrator/durable store, loads a deterministic bootstrap editorial-window policy, executes a due canonical cycle exactly once, persists its terminal state, survives duplicate tick/restart without duplicate cycle, and computes the next wake without continuous expensive model work.
+Status: `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`. This is launch-session
+success only, not FDA-G final acceptance. Do not create `v1.1.0` until the genuine 5–10
+operating-day release evidence is complete and independently audited.
 
-After a clean successful vertical slice, the expected next product task is:
+Completed operator-infrastructure task (owner priority override, 2026-08-10):
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_REAL_PERFORMANCE_OBSERVATION_AND_LEARNING_LOOP_V1`
+`TASK_CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1`
 
-unless the supervisor run exposes a new substantive product blocker.
+Delivered `Start_ContentOps_Daily_App.cmd` one-click launch/resume with the idempotent
+start contract in section 4A. It did NOT declare FDA-G accepted and did NOT start Tier-2
+implementation.
+
+Next owner-approved builder lane (proceeds concurrently with the continuing FDA-G lane):
+
+`TIER2-A LOCAL LONG-FORM + SHORT-FORM PROGRAMMABLE VERTICAL SLICE`
+
+Tier-2 implementation stays isolated from the live V1 production runtime and has NO video
+public-write authority under this reprioritization.
