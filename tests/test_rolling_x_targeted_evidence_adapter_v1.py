@@ -261,6 +261,75 @@ def test_valid_official_primary_packet_can_satisfy_nonnumeric_capability():
     assert receipt["capital_chronicle_authority_verified"] is False
 
 
+def test_supply_chain_request_routes_exact_eia_url_to_official_macro_loader():
+    request = _request(story_type="supply_chain_event", article_mode="straight_news")
+    request["story_context"] = {
+        "leaf_summaries": ["EIA released its Short-Term Energy Outlook."],
+        "official_source_url_bindings": [
+            {
+                "headline_id": "headline-1",
+                "url": "https://www.eia.gov/outlooks/steo/",
+            }
+        ],
+    }
+    request["request_logical_hash"] = _logical_hash(
+        {key: value for key, value in request.items() if key != "request_logical_hash"}
+    )
+    official_calls = []
+
+    def official_loader(effective_request):
+        official_calls.append(effective_request)
+        assert effective_request["source_adapter_families"] == ["official_macro"]
+        assert effective_request["required_evidence_capabilities"] == []
+        return {
+            "status": "PASS",
+            "provided_evidence_capabilities": ["official_or_owner_source"],
+            "official_source_documents": [
+                {
+                    "document_id": "eia-steo",
+                    "title": "EIA released its Short-Term Energy Outlook.",
+                    "publisher": "U.S. Energy Information Administration",
+                    "source_authority_class": "official_public_primary_source",
+                    "source_url": "https://www.eia.gov/outlooks/steo/",
+                    "published_at_utc": "2026-08-08T11:00:00Z",
+                    "canonical_content_text": (
+                        "EIA released its Short-Term Energy Outlook."
+                    ),
+                    "canonical_content_sha256": "c" * 64,
+                    "public_claim_allowed": True,
+                }
+            ],
+            "provenance": {"retrieved_at_utc": "2026-08-08T11:05:00Z"},
+        }
+
+    def secondary_loader(_effective_request):
+        return {
+            "status": "BLOCKED",
+            "rolling_x_story_binding": {
+                "cluster_id": request["cluster_id"],
+                "headline_ids": request["headline_ids"],
+                "request_logical_hash": request["request_logical_hash"],
+            },
+            "evidence_documents": [],
+            "provided_evidence_capabilities": [],
+            "blockers": ["public_source_unavailable"],
+        }
+
+    receipt = RollingXTargetedEvidenceAdapter(
+        official_evidence_loader=official_loader,
+        public_secondary_loader=secondary_loader,
+        evaluation_as_of_utc=AS_OF,
+    )(request)
+
+    assert len(official_calls) == 1
+    assert receipt["status"] == "PASS"
+    assert receipt["claim_evidence_contract"]["status"] == "PASS"
+    assert receipt["claim_evidence_contract"]["supported_claim_count"] == 1
+    assert receipt["evidence_documents"][0]["source_authority_class"] == (
+        "official_public_primary_source"
+    )
+
+
 def test_official_evidence_cannot_substitute_for_market_authority():
     request = _request()
     packet = _packet(request)

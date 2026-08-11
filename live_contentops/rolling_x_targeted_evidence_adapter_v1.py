@@ -4,6 +4,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping
+from urllib.parse import urlsplit
 
 from live_contentops.cc_evidence_bridge_v2 import (
     build_evidence_packet_from_cc_root,
@@ -22,6 +23,36 @@ MARKET_CAPABILITIES = frozenset({"current_market_snapshot", "prior_close"})
 
 def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def _exact_bound_official_families(
+    request: Mapping[str, Any],
+    official_hosts_by_family: Mapping[str, Any],
+) -> set[str]:
+    """Authorize optional official acquisition only from exact headline-bound allowlisted hosts."""
+    context = request.get("story_context")
+    context = context if isinstance(context, Mapping) else {}
+    headline_ids = {str(value) for value in (request.get("headline_ids") or [])}
+    hosts: set[str] = set()
+    for row in context.get("official_source_url_bindings") or []:
+        if not isinstance(row, Mapping):
+            continue
+        if str(row.get("headline_id") or "") not in headline_ids:
+            continue
+        try:
+            parsed = urlsplit(str(row.get("url") or ""))
+        except ValueError:
+            continue
+        if parsed.scheme != "https" or parsed.username or parsed.password:
+            continue
+        host = str(parsed.hostname or "").casefold()
+        if host:
+            hosts.add(host)
+    return {
+        str(family)
+        for family, allowed_hosts in official_hosts_by_family.items()
+        if hosts.intersection({str(host).casefold() for host in allowed_hosts})
+    }
 
 
 def _blocked_receipt(
@@ -311,12 +342,21 @@ class RollingXTargetedEvidenceAdapter:
         families = set(capability.get("source_adapter_families") or [])
         cc_families = {"capital_chronicle_market_state", "capital_chronicle_database"}
         if not families.intersection(cc_families):
-            from live_contentops.official_primary_evidence_loader_v1 import SUPPORTED_FAMILIES
+            from live_contentops.official_primary_evidence_loader_v1 import (
+                OFFICIAL_HOSTS_BY_FAMILY,
+                SUPPORTED_FAMILIES,
+            )
 
             documents: list[dict[str, Any]] = []
             supplied: set[str] = set()
             diagnostics: dict[str, Any] = {}
-            official_families = sorted(families.intersection(SUPPORTED_FAMILIES))
+            registry_official_families = families.intersection(SUPPORTED_FAMILIES)
+            exact_bound_official_families = _exact_bound_official_families(
+                request, OFFICIAL_HOSTS_BY_FAMILY
+            )
+            official_families = sorted(
+                registry_official_families.union(exact_bound_official_families)
+            )
             if official_families:
                 official_request = {
                     **dict(request),
@@ -336,6 +376,10 @@ class RollingXTargetedEvidenceAdapter:
                     "status": official.get("status"),
                     "blockers": list(official.get("blockers") or []),
                     "provenance": dict(official.get("provenance") or {}),
+                    "registry_authorized_families": sorted(registry_official_families),
+                    "exact_bound_host_authorized_families": sorted(
+                        exact_bound_official_families
+                    ),
                 }
                 if official.get("official_source_documents"):
                     # Rebind the transport packet to the exact effective-mode request.
