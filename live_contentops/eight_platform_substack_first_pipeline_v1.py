@@ -6,7 +6,7 @@ No provider, browser, platform adapter, or private implementation is imported un
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
 from live_contentops.production_orchestrator_v1 import ContentOpsProductionOrchestrator
 
@@ -100,6 +100,10 @@ def run_rolling_x_newsroom_cycle(
     editorial_reviewer: Any = None,
     article_reviser: Any = None,
     publication_enabled: bool = True,
+    operating_mode: str = "AUTONOMOUS_DEFAULT",
+    published_corpus: Sequence[Any] | None = None,
+    cc_catalog: Mapping[str, Any] | None = None,
+    destination_readiness_override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     return _execute(
         "run_rolling_x_newsroom_cycle",
@@ -124,6 +128,10 @@ def run_rolling_x_newsroom_cycle(
         editorial_reviewer=editorial_reviewer,
         article_reviser=article_reviser,
         publication_enabled=publication_enabled,
+        operating_mode=operating_mode,
+        published_corpus=published_corpus,
+        cc_catalog=cc_catalog,
+        destination_readiness_override=destination_readiness_override,
     )
 
 

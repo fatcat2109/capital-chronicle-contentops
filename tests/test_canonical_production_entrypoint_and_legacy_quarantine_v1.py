@@ -149,6 +149,39 @@ def test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once(mon
     assert set(invocations) == set(CANONICAL_OPERATIONS) - {"module_cli"}
 
 
+def test_public_rolling_x_facade_forwards_preselection_intelligence(monkeypatch, tmp_path):
+    public_module = importlib.import_module("live_contentops.eight_platform_substack_first_pipeline_v1")
+    calls: list[tuple[str, dict[str, object]]] = []
+
+    class FakeOrchestrator:
+        def execute(self, operation: str, **kwargs: object) -> dict[str, object]:
+            calls.append((operation, kwargs))
+            return {"operation": operation, **kwargs}
+
+    monkeypatch.setattr(public_module, "ContentOpsProductionOrchestrator", FakeOrchestrator)
+    corpus = [{"article_identity": "article-1"}]
+    catalog = {"catalog_fingerprint": "catalog-1"}
+    readiness = {"SUBSTACK_ARTICLE": {"readiness_state": "READY_AUTHENTICATED"}}
+
+    result = public_module.run_rolling_x_newsroom_cycle(
+        run_id="operator-cycle-1",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-11T02:00:00Z",
+        publication_enabled=True,
+        operating_mode="AUTONOMOUS_DEFAULT",
+        published_corpus=corpus,
+        cc_catalog=catalog,
+        destination_readiness_override=readiness,
+    )
+
+    assert len(calls) == 1
+    assert calls[0][0] == "run_rolling_x_newsroom_cycle"
+    assert result["operating_mode"] == "AUTONOMOUS_DEFAULT"
+    assert result["published_corpus"] is corpus
+    assert result["cc_catalog"] is catalog
+    assert result["destination_readiness_override"] is readiness
+
+
 @pytest.mark.parametrize(
     "argv",
     [
