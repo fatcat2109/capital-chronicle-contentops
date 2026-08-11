@@ -18,18 +18,20 @@ Cadence policy (versioned configuration, not universal truth):
 """
 from __future__ import annotations
 
+import hashlib
+import json
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Mapping, Optional
 
-LANE_SCHEMA_VERSION = "contentops.continuous_headline_ingest.v1"
+LANE_SCHEMA_VERSION = "contentops.continuous_headline_ingest.v2"
 
 ACTIVE_INTERVAL_SECONDS = 240.0
 IDLE_BACKOFF_MULTIPLIER = 2.0
-MAX_INTERVAL_SECONDS = 1800.0
+MAX_INTERVAL_SECONDS = 300.0
 CAPTURE_MAX_SECONDS = 60.0
 CAPTURE_MAX_EMPTY_SCROLLS = 1
-STALE_SYNC_THRESHOLD_SECONDS = 900.0
+STALE_SYNC_THRESHOLD_SECONDS = 300.0
 
 METRIC_LAST_SUCCESS_EPOCH = "metric_headline_ingest_last_success_epoch"
 METRIC_LAST_OUTCOME_CODE = "metric_headline_ingest_last_outcome_code"
@@ -164,6 +166,16 @@ def run_ingestion_housekeeping_iteration(
         "rows_added": 0,
         "detail": None,
         "llm_or_provider_calls": 0,
+        "cadence_policy": {
+            "active_interval_seconds": ACTIVE_INTERVAL_SECONDS,
+            "idle_max_interval_seconds": MAX_INTERVAL_SECONDS,
+            "freshness_lag_target_seconds": 300.0,
+        },
+        "material_event_due": False,
+        "new_material_event_count": 0,
+        "new_material_event_identity": None,
+        "new_headline_ids": [],
+        "new_headline_source_refs": [],
     }
 
     def _finish(
@@ -265,6 +277,13 @@ def run_ingestion_housekeeping_iteration(
     capture_state = str(capture.get("capture_state") or "CAPTURE_FAILED")
     rows_added = int(capture.get("new_headlines") or 0)
     result["rows_added"] = rows_added
+    result["new_headline_ids"] = sorted({
+        str(value) for value in (capture.get("new_headline_ids") or []) if str(value)
+    })
+    result["new_headline_source_refs"] = [
+        dict(value) for value in (capture.get("new_headline_source_refs") or [])
+        if isinstance(value, Mapping)
+    ]
     if capture_state == "REAUTH_REQUIRED":
         result["detail"] = "LOGIN_REDIRECT_OBSERVED"
         return _finish(OUTCOME_REAUTH_REQUIRED, rows=rows_added, consecutive_empty=checkpoint["consecutive_empty"] + 1)
@@ -272,6 +291,57 @@ def run_ingestion_housekeeping_iteration(
         result["detail"] = f"CAPTURE_FAILED:{capture_state}"
         return _finish(OUTCOME_CAPTURE_FAILED, rows=rows_added, consecutive_empty=checkpoint["consecutive_empty"] + 1)
     if rows_added > 0:
+        valid_source_refs: list[dict[str, Any]] = []
+        for ref in result["new_headline_source_refs"]:
+            try:
+                source_time = datetime.fromisoformat(
+                    str(ref.get("headline_timestamp") or "").replace("Z", "+00:00")
+                )
+                if source_time.tzinfo is None:
+                    source_time = source_time.replace(tzinfo=timezone.utc)
+                source_time = source_time.astimezone(timezone.utc)
+            except (TypeError, ValueError):
+                continue
+            if moment - timedelta(hours=24) <= source_time <= moment:
+                valid_source_refs.append(ref)
+        valid_ids = sorted({
+            str(ref.get("headline_id") or "") for ref in valid_source_refs
+            if str(ref.get("headline_id") or "")
+        })
+        if not result["new_headline_source_refs"]:
+            # Compatibility capture fixtures may expose already-governed IDs without source
+            # refs. Real capture always carries timestamp-bound refs.
+            valid_ids = list(result["new_headline_ids"])
+        identity_material = {
+            "headline_ids": valid_ids,
+            "source_refs": valid_source_refs,
+            "capture_identity": capture.get("new_headline_identity"),
+        }
+        # Real capture always supplies ID-bound rows. The fallback remains bounded and is used
+        # only by compatible injected capture fixtures.
+        if (
+            not identity_material["headline_ids"]
+            and not identity_material["source_refs"]
+            and not result["new_headline_source_refs"]
+        ):
+            identity_material["compatibility_capture"] = {
+                "iteration_at_utc": result["iteration_at_utc"],
+                "rows_added": rows_added,
+            }
+        event_identity = "headline-delta-" + hashlib.sha256(
+            json.dumps(
+                identity_material, sort_keys=True, separators=(",", ":"), default=str
+            ).encode("utf-8")
+        ).hexdigest()[:32]
+        if valid_ids:
+            result.update({
+                "material_event_due": True,
+                "new_material_event_count": len(valid_ids),
+                "new_material_event_identity": event_identity,
+                "material_event_grants_evidence_or_publication_authority": False,
+            })
+        else:
+            result["material_event_detail"] = "NO_SOURCE_EVENT_TIME_VALID_NEW_HEADLINES"
         result["detail"] = f"CAPTURED_NEW:{rows_added}"
         return _finish(OUTCOME_CAPTURED_NEW, last_success=_epoch(moment), rows=rows_added, consecutive_empty=0)
     result["detail"] = "CAPTURED_NO_NEW_HEADLINES"

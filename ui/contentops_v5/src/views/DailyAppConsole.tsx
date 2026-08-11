@@ -183,6 +183,12 @@ function Today({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Promi
         <Metric label="Daily target" value={`${(data.today.daily_target_band ?? [5, 8])[0]}–${(data.today.daily_target_band ?? [5, 8])[1]}`} />
         <Metric label="Published corpus" value={data.today.published_corpus_count} />
       </div>
+      <div className="daily-grid-4">
+        <Metric label="Latest classification" value={words(data.today.latest_editorial_classification ?? 'UNAVAILABLE')} status={data.today.latest_editorial_classification} />
+        <Metric label="Article / update mode" value={words(data.today.latest_article_update_mode ?? 'UNAVAILABLE')} />
+        <Metric label="CC matched stores" value={data.today.latest_cc_matched_store_count ?? 'Unavailable'} />
+        <Metric label="Material-event wake" value={words(data.queue.material_event_wake_state)} status={data.queue.material_event_wake_state} />
+      </div>
     </Panel>
     <div className="daily-grid-3">
       <Metric label="Lifecycle recovery" value={data.today.pending_lifecycle_recovery_count} status={data.today.pending_lifecycle_recovery_count ? 'PENDING' : 'CLEAR'} />

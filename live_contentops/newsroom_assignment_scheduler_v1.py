@@ -1960,10 +1960,11 @@ def select_first_viable_rolling_x_cluster(
             "research_note": "deep_analysis",
             "scenario_outlook": "scenario_outlook",
         }.get(str(cluster.get("article_mode") or ""), "")
+        preselection_mode = str(cluster.get("capability_article_mode") or "")
         requested_mode = (
-            routed_mode
+            preselection_mode or routed_mode
             if story_capability_row.get("article_mode_profiles")
-            else str(story_capability_row.get("article_mode") or "") or routed_mode
+            else str(story_capability_row.get("article_mode") or "") or preselection_mode or routed_mode
         )
         capability = resolve_story_capabilities(
             {"story_type": story_type, "article_mode": requested_mode},
@@ -1977,6 +1978,9 @@ def select_first_viable_rolling_x_cluster(
             "headline_ids": headline_ids,
             "story_type": story_type,
             "article_mode": capability.get("article_mode"),
+            "resolved_article_mode": cluster.get("resolved_article_mode"),
+            "editorial_classification": cluster.get("editorial_classification"),
+            "update_chain_identity": cluster.get("update_chain_identity"),
             "needed_evidence": list(cluster.get("needed_evidence") or []),
             "required_evidence_capabilities": required,
             "source_adapter_families": list(
@@ -1998,6 +2002,16 @@ def select_first_viable_rolling_x_cluster(
                 "official_source_url_bindings": list(
                     cluster.get("official_source_url_bindings") or []
                 ),
+                "capital_chronicle_context": dict(
+                    cluster.get("capital_chronicle_context") or {}
+                ),
+                "material_follow_up_context": dict(
+                    cluster.get("material_follow_up_context") or {}
+                ),
+                "portfolio_concentration_penalty": cluster.get(
+                    "portfolio_concentration_penalty"
+                ),
+                "preselection_score": cluster.get("preselection_score"),
             },
             "x_content_is_discovery_and_ranking_only": True,
         }

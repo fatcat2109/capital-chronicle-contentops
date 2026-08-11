@@ -2744,6 +2744,13 @@ def _build_rolling_x_publication_plan(
         "schema_version": "contentops.publication_plan.v1",
         "run_id": run_id,
         "story_identity": str(viability.get("selected_cluster_id") or ""),
+        "update_chain_identity": str(
+            (viability.get("selected_cluster") or {}).get("update_chain_identity")
+            or viability.get("selected_cluster_id")
+            or ""
+        ),
+        "resolved_article_mode": str(article.get("resolved_article_mode") or ""),
+        "editorial_classification": str(article.get("editorial_classification") or ""),
         "article_identity": str(lock.get("article_body_sha256") or ""),
         "publication_window": {"window_identity": run_id},
         "package_identity": str(lock.get("lock_sha256") or ""),
@@ -3232,6 +3239,10 @@ def _run_rolling_x_newsroom_cycle(
     editorial_reviewer: Any = None,
     article_reviser: Any = None,
     publication_enabled: bool = True,
+    operating_mode: str = "AUTONOMOUS_DEFAULT",
+    published_corpus: Sequence[Any] | None = None,
+    cc_catalog: Mapping[str, Any] | None = None,
+    destination_readiness_override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Run the rolling-X route through the one canonical production boundary."""
     from live_contentops.newsroom_assignment_scheduler_v1 import (
@@ -3267,6 +3278,7 @@ def _run_rolling_x_newsroom_cycle(
     )
     _write_json(output_dir / "rolling_x_assignment_v1.json", assignment)
     story_routing: Mapping[str, Any] | None = None
+    preselection: Mapping[str, Any] | None = None
     ranked_assignment = assignment
     if (
         assignment.get("status") == "SUCCESS"
@@ -3276,9 +3288,72 @@ def _run_rolling_x_newsroom_cycle(
         enriched_clusters = _rolling_x_ranked_clusters_with_context(
             assignment=assignment, intake=intake
         )
-        ranked_assignment = {**assignment, "ranked_clusters": enriched_clusters}
+        from live_contentops.capital_chronicle_data_catalog_v1 import (
+            discover_cc_data_estate,
+        )
+        from live_contentops.preselection_intelligence_v1 import (
+            apply_preselection_intelligence,
+        )
+
+        effective_catalog = dict(
+            cc_catalog
+            or (
+                discover_cc_data_estate(cc_root=capital_chronicle_root)
+                if capital_chronicle_root is not None
+                else {
+                    "stores": [],
+                    "store_count_discovered": 0,
+                    "discovery_complete": False,
+                    "root_exists": False,
+                }
+            )
+        )
+        preselection = apply_preselection_intelligence(
+            enriched_clusters,
+            published_corpus=list(published_corpus or []),
+            cc_catalog=effective_catalog,
+            now=datetime.fromisoformat(str(cutoff_utc).replace("Z", "+00:00")),
+        )
+        _write_json(output_dir / "preselection_intelligence_v1.json", preselection)
+        preselected_clusters = list(preselection.get("ranked_clusters") or [])
+        ranked_assignment = {
+            **assignment,
+            "decision": "SELECT_STORY" if preselected_clusters else "NO_PUBLICATION",
+            "reason_code": None if preselected_clusters else "PRESELECTION_ALL_CANDIDATES_HELD",
+            "ranked_clusters": preselected_clusters,
+            "selected_cluster_id": (
+                preselected_clusters[0].get("cluster_id") if preselected_clusters else None
+            ),
+            "selected_headline_ids": (
+                list(preselected_clusters[0].get("headline_ids") or [])
+                if preselected_clusters else []
+            ),
+            "preselection_logical_hash": preselection.get("preselection_logical_hash"),
+        }
+        enriched_clusters = preselected_clusters
+        if not enriched_clusters:
+            story_routing = {
+                "status": "NO_PUBLICATION",
+                "reason_code": "PRESELECTION_ALL_CANDIDATES_HELD",
+                "story_type_by_cluster": {},
+                "semantic_routing_grants_authority": False,
+            }
+            _write_json(output_dir / "rolling_x_story_routing_v1.json", story_routing)
+        else:
+            injected_story_types = (
+                {
+                    str(row.get("cluster_id")): str(story_type_by_cluster[str(row.get("cluster_id"))])
+                    for row in enriched_clusters
+                    if str(row.get("cluster_id")) in story_type_by_cluster
+                }
+                if story_type_by_cluster is not None
+                else None
+            )
+            story_type_by_cluster = injected_story_types
         try:
-            if story_type_by_cluster is not None:
+            if not enriched_clusters:
+                raw_story_routing = story_routing
+            elif story_type_by_cluster is not None:
                 raw_story_routing = _validate_injected_rolling_x_story_types(
                     story_type_by_cluster, clusters=enriched_clusters
                 )
@@ -3293,10 +3368,11 @@ def _run_rolling_x_newsroom_cycle(
                     provider_call=story_type_provider_call,
                     timeout_seconds=story_type_timeout_seconds,
                 )
-            story_routing = _validated_rolling_x_story_routing(
-                raw_story_routing, clusters=enriched_clusters
-            )
-            story_type_by_cluster = dict(story_routing["story_type_by_cluster"])
+            if enriched_clusters:
+                story_routing = _validated_rolling_x_story_routing(
+                    raw_story_routing, clusters=enriched_clusters
+                )
+                story_type_by_cluster = dict(story_routing["story_type_by_cluster"])
         except (RuntimeError, TypeError, ValueError):
             story_routing = {
                 "status": "BLOCKED",
@@ -3333,6 +3409,18 @@ def _run_rolling_x_newsroom_cycle(
             ),
             story_type_by_cluster=story_type_by_cluster,
         )
+        if (
+            preselection is not None
+            and not (preselection.get("ranked_clusters") or [])
+            and viability.get("status") == "NO_PUBLICATION"
+        ):
+            viability = {
+                **viability,
+                "reason_code": "PRESELECTION_ALL_CANDIDATES_HELD",
+                "preselection_logical_hash": preselection.get(
+                    "preselection_logical_hash"
+                ),
+            }
     _write_json(output_dir / "rolling_x_ranked_viability_v1.json", viability)
 
     evidence: dict[str, Any] = {
@@ -3340,9 +3428,10 @@ def _run_rolling_x_newsroom_cycle(
         "task_label": "TASK_CONTENTOPS_ROLLING_24H_X_HEADLINES_TO_AUTONOMOUS_NEWSROOM_LIVE_V1",
         "run_id": run_id,
         "created_at": _utc_now(),
-        "operating_mode": "AUTONOMOUS_DEFAULT",
+        "operating_mode": operating_mode,
         "intake": intake,
         "assignment": assignment,
+        "preselection_intelligence": preselection,
         "story_routing": story_routing,
         "ranked_viability": viability,
         "public_write_performed": False,
@@ -3421,13 +3510,18 @@ def _run_rolling_x_newsroom_cycle(
         evidence["exact_next_blocker"] = editorial.get("reason_code")
         _write_json(evidence_path, evidence)
         return evidence
-    if not publication_enabled:
-        evidence["classification"] = "NO_PUBLICATION"
-        evidence["exact_next_blocker"] = "PUBLICATION_DISABLED_FOR_GOVERNED_CYCLE"
-        _write_json(evidence_path, evidence)
-        return evidence
-
-    readiness = _rolling_x_destination_readiness(cdp_port=cdp_port)
+    readiness = (
+        dict(destination_readiness_override)
+        if destination_readiness_override is not None
+        else _rolling_x_destination_readiness(cdp_port=cdp_port)
+        if publication_enabled
+        else {
+            "schema_version": "contentops.destination_readiness.shadow.v1",
+            "destinations": {},
+            "fixture_bound": False,
+            "public_write_authority": False,
+        }
+    )
     evidence["destination_readiness"] = readiness
     final_article = dict(editorial.get("article") or {})
     preparation = _prepare_rolling_x_release_candidate(
@@ -3442,6 +3536,15 @@ def _run_rolling_x_newsroom_cycle(
         destination_readiness=readiness,
     )
     evidence["release_candidate_preparation"] = preparation
+    evidence["platform_package_generated"] = bool(preparation.get("payloads"))
+    if not publication_enabled:
+        evidence["classification"] = "NO_PUBLICATION"
+        evidence["exact_next_blocker"] = "PUBLICATION_DISABLED_FOR_GOVERNED_CYCLE"
+        evidence["shadow_package_ready"] = bool(preparation.get("payloads"))
+        evidence["publishing_adapter_called"] = False
+        evidence["public_write_performed"] = False
+        _write_json(evidence_path, evidence)
+        return evidence
     if (
         preparation.get("classification")
         != "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"

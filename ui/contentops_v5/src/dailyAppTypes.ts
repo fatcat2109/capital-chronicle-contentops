@@ -61,11 +61,15 @@ export interface DailyAppSnapshot {
     published_today_count: number;
     published_corpus_count: number;
     daily_target_band: number[];
+    latest_editorial_classification?: string;
+    latest_article_update_mode?: string;
+    latest_cc_matched_store_count?: number | null;
   };
   queue: {
     items: Array<Record<string, unknown>>;
     upcoming_editorial_windows: Array<Record<string, unknown>>;
     material_event_wake_state: string;
+    pending_material_event_count?: number;
     active_or_held_work_count: number;
     pending_readback_count: number;
     due_performance_observation_count: number;

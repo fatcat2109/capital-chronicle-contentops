@@ -302,6 +302,17 @@ def material_event_due(
     }
 
 
+def material_event_window_id(
+    *, policy_version: str, trigger_identity: str
+) -> str:
+    """Stable durable work identity for one material headline delta."""
+    return "editorial-window-" + _logical_hash({
+        "policy_version": policy_version,
+        "trigger_kind": TRIGGER_MATERIAL_EVENT,
+        "trigger_identity": trigger_identity,
+    })[:32]
+
+
 class ContentOpsDailyAppSupervisor:
     """One persistent coordinator that owns due-window execution and recovery."""
 
@@ -1453,6 +1464,14 @@ class ContentOpsDailyAppSupervisor:
         # editorial windows and Run Now. Runs under every operating mode (ingestion is not a
         # public write); the locked CapitalChronicleBot binding is reused and never replaced.
         report["headline_ingestion"] = self._run_continuous_intake_housekeeping(now)
+        effective_materiality = (
+            materiality_metadata
+            if isinstance(materiality_metadata, Mapping)
+            else report["headline_ingestion"]
+        )
+        signal = material_event_due(effective_materiality, self._policy, now)
+        if signal is not None:
+            report["material_event_wake"] = self._stage_material_event(signal, now)
 
         # Cheap durable-state housekeeping (no provider calls).
         try:
@@ -1538,7 +1557,7 @@ class ContentOpsDailyAppSupervisor:
                     operator_report.get("unknown_write_detected")
                 )
 
-        due_windows = self._due_windows(now, materiality_metadata)
+        due_windows = self._due_windows(now, effective_materiality)
         report["windows_due"] = len(due_windows)
         for window in due_windows:
             # Execute at most one due editorial window per tick.
@@ -1628,6 +1647,60 @@ class ContentOpsDailyAppSupervisor:
         except Exception:  # noqa: BLE001 - missing/broken policy must not alter bootstrap timing
             return 0
 
+    def _stage_material_event(
+        self, signal: Mapping[str, Any], now: datetime
+    ) -> dict[str, Any]:
+        """Persist a restart-safe material wake as a canonical DISCOVERED work item."""
+        window_id = material_event_window_id(
+            policy_version=self._policy.policy_version,
+            trigger_identity=str(signal["trigger_identity"]),
+        )
+        item = self._store.create_work_item(
+            story_id=window_id,
+            title=f"Daily App material event {window_id}",
+            target_surface="daily_app_material_event_window",
+            work_item_id=window_id,
+            actor_ref="ContentOpsContinuousHeadlineIntake",
+            correlation_id=f"corr_{window_id}",
+        )
+        return {
+            "state": str(item.get("current_state") or "DISCOVERED"),
+            "window_id": window_id,
+            "trigger_identity": signal.get("trigger_identity"),
+            "new_material_event_count": signal.get("new_material_event_count"),
+            "staged_at_utc": _iso_utc(now),
+            "durable_idempotency": True,
+            "grants_evidence_or_publication_authority": False,
+        }
+
+    def _pending_material_event_windows(self, now: datetime) -> list[dict[str, Any]]:
+        """Reconstruct durable unconsumed material wakes after restart or KILL_SWITCH."""
+        try:
+            with self._store.get_read_only_connection() as conn:
+                rows = conn.execute(
+                    "SELECT work_item_id,created_at FROM work_items"
+                    " WHERE target_surface='daily_app_material_event_window'"
+                    " AND current_state='DISCOVERED' ORDER BY created_at,work_item_id"
+                ).fetchall()
+        except Exception:  # noqa: BLE001 - unavailable queue fails closed for this tick
+            return []
+        windows: list[dict[str, Any]] = []
+        for row in rows:
+            try:
+                start = _parse_utc(str(row["created_at"]))
+            except ValueError:
+                start = now
+            windows.append({
+                "window_id": str(row["work_item_id"]),
+                "trigger": TRIGGER_MATERIAL_EVENT,
+                "start": start,
+                "end": now,
+                "session": str(row["work_item_id"]),
+                "target_surface": "daily_app_material_event_window",
+                "durable_pending_material_event": True,
+            })
+        return windows
+
     def _due_windows(
         self, now: datetime, materiality_metadata: Optional[Mapping[str, Any]]
     ) -> list[dict[str, Any]]:
@@ -1666,17 +1739,15 @@ class ContentOpsDailyAppSupervisor:
                         "session": core.session,
                     }
                 )
-        # Material-event wakeup (deterministic seam; same anti-spam spacing).
+        # Material-event wakeup. It is staged durably before this method, so the pending work
+        # survives restart/KILL_SWITCH and the identity cannot drift with wall-clock time.
         signal = material_event_due(materiality_metadata, self._policy, now)
         if signal is not None:
             start = now
-            end = now + timedelta(hours=1)
-            window_id = editorial_window_id(
+            end = now
+            window_id = material_event_window_id(
                 policy_version=self._policy.policy_version,
-                window_start_utc=start,
-                window_end_utc=end,
-                session=signal["trigger_identity"],
-                trigger_kind=TRIGGER_MATERIAL_EVENT,
+                trigger_identity=signal["trigger_identity"],
             )
             windows.append(
                 {
@@ -1686,8 +1757,10 @@ class ContentOpsDailyAppSupervisor:
                     "end": end,
                     "session": signal["trigger_identity"],
                     "trigger_identity": signal["trigger_identity"],
+                    "target_surface": "daily_app_material_event_window",
                 }
             )
+        windows.extend(self._pending_material_event_windows(now))
         # De-duplicate and drop windows already executed.
         unique: list[dict[str, Any]] = []
         seen: set[str] = set()
@@ -1785,22 +1858,57 @@ class ContentOpsDailyAppSupervisor:
             except Exception:  # noqa: BLE001
                 pass
 
-    def _build_editorial_portfolio_context(self, output_dir: Path) -> dict[str, Any]:
+    def _load_editorial_intelligence_runtime(self) -> dict[str, Any]:
+        """Load the complete corpus and complete CC metadata catalog for preselection."""
+        runtime: dict[str, Any] = {
+            "published_corpus": {
+                "articles": [], "article_count": 0, "content_hash_coverage": 0,
+                "derived_from_existing_durable_truth": True,
+            },
+            "cc_catalog": {
+                "stores": [], "store_count_discovered": 0, "discovery_complete": False,
+                "root_exists": False,
+            },
+        }
+        try:
+            from live_contentops.published_corpus_read_model_v1 import load_published_corpus
+
+            runtime["published_corpus"] = load_published_corpus(
+                self._store, output_root=self._output_root
+            )
+        except Exception as exc:  # noqa: BLE001
+            runtime["published_corpus_error"] = type(exc).__name__
+        try:
+            from live_contentops.capital_chronicle_data_catalog_v1 import (
+                DEFAULT_CC_ROOT,
+                discover_cc_data_estate,
+            )
+
+            runtime["cc_catalog"] = discover_cc_data_estate(cc_root=DEFAULT_CC_ROOT)
+        except Exception as exc:  # noqa: BLE001
+            runtime["cc_catalog_error"] = type(exc).__name__
+        return runtime
+
+    def _build_editorial_portfolio_context(
+        self, output_dir: Path, runtime: Optional[Mapping[str, Any]] = None
+    ) -> dict[str, Any]:
         """Deterministic pre-cycle intelligence: complete published corpus, today's portfolio
         state, Capital Chronicle read-model availability, and the versioned portfolio policy.
         Written next to the cycle evidence so every decision is auditable against it."""
         context: dict[str, Any] = {"schema_version": "contentops.editorial_portfolio_context.v1"}
+        intelligence = dict(runtime or self._load_editorial_intelligence_runtime())
         try:
             from live_contentops.editorial_portfolio_v1 import (
                 bootstrap_portfolio_policy,
                 portfolio_state_today,
             )
-            from live_contentops.published_corpus_read_model_v1 import load_published_corpus
 
-            corpus = load_published_corpus(self._store, output_root=self._output_root)
+            corpus = dict(intelligence["published_corpus"])
             context["published_corpus"] = {
                 "article_count": corpus["article_count"],
                 "content_hash_coverage": corpus["content_hash_coverage"],
+                "full_text_article_count": corpus.get("full_text_article_count", 0),
+                "content_unavailable_count": corpus.get("content_unavailable_count", 0),
                 "derived_from_existing_durable_truth": True,
             }
             context["portfolio_state"] = portfolio_state_today(corpus["articles"])
@@ -1808,23 +1916,16 @@ class ContentOpsDailyAppSupervisor:
         except Exception as exc:  # noqa: BLE001 - portfolio context is best-effort intelligence
             context["published_corpus"] = {"error": type(exc).__name__}
         try:
-            from live_contentops.capital_chronicle_data_catalog_v1 import (
-                DEFAULT_CC_ROOT,
-                discover_cc_data_estate,
-            )
-
-            if DEFAULT_CC_ROOT.exists():
-                estate = discover_cc_data_estate(cc_root=DEFAULT_CC_ROOT)
-                context["capital_chronicle_read_model"] = {
-                    "state": "READY" if estate["root_exists"] else "UNAVAILABLE",
-                    "store_count": len(estate["stores"]),
-                    "stores": [
-                        {"store_id": store["store_id"], "table_count": store["table_count"]}
-                        for store in estate["stores"]
-                    ][:12],
-                }
-            else:
-                context["capital_chronicle_read_model"] = {"state": "UNAVAILABLE"}
+            estate = dict(intelligence["cc_catalog"])
+            context["capital_chronicle_read_model"] = {
+                "state": "READY" if estate.get("root_exists") else "UNAVAILABLE",
+                "store_count": int(estate.get("store_count_discovered") or 0),
+                "store_count_total": int(estate.get("store_count_total") or 0),
+                "stores_omitted": int(estate.get("stores_omitted") or 0),
+                "discovery_complete": estate.get("discovery_complete") is True,
+                "catalog_fingerprint": estate.get("catalog_fingerprint"),
+                "cache_state": (estate.get("cache") or {}).get("state"),
+            }
         except Exception as exc:  # noqa: BLE001
             context["capital_chronicle_read_model"] = {"state": "DEGRADED", "error": type(exc).__name__}
         try:
@@ -1843,24 +1944,15 @@ class ContentOpsDailyAppSupervisor:
         cycle_evidence: Mapping[str, Any],
         portfolio_context: Mapping[str, Any],
     ) -> Optional[dict[str, Any]]:
-        """Post-cycle explicit breaking/follow-up/deepen/low-delta classification for the
-        selected cluster, measured against the complete published corpus + CC context
-        richness. Deterministic; grants no factual/numeric authority."""
+        """Project the already-completed preselection decision for operator compatibility."""
         selected = (cycle_evidence.get("ranked_viability") or {}).get("selected_cluster")
         if not isinstance(selected, Mapping):
             return None
         try:
-            from live_contentops.editorial_portfolio_v1 import classify_story_novelty
-            from live_contentops.published_corpus_read_model_v1 import load_published_corpus
-
-            corpus = load_published_corpus(self._store, output_root=self._output_root)
-            cc_state = portfolio_context.get("capital_chronicle_read_model") or {}
-            cc_richness = 0.5 if str(cc_state.get("state")) == "READY" else 0.0
-            decision = classify_story_novelty(
-                selected,
-                published_corpus=corpus["articles"],
-                cc_context_richness=cc_richness,
-            )
+            decision = dict(selected.get("preselection_novelty") or {})
+            if not decision:
+                return None
+            decision["classification_occurs_before_article_generation"] = True
             output_dir.mkdir(parents=True, exist_ok=True)
             (output_dir / "editorial_novelty_decision_v1.json").write_text(
                 json.dumps(decision, indent=2, sort_keys=True) + "\n", encoding="utf-8"
@@ -1877,12 +1969,21 @@ class ContentOpsDailyAppSupervisor:
         window_id = window["window_id"]
         # Idempotent creation: the same window_id always maps to the same work item. A restart
         # or duplicate tick therefore never creates a second independent cycle/work item.
-        self._store.create_work_item(
-            story_id=window_id,
-            title=f"Daily App editorial window {window_id}",
-            target_surface="daily_app_editorial_window",
-            work_item_id=window_id,
-        )
+        if self._window_state(window_id) is None:
+            target_surface = str(
+                window.get("target_surface") or "daily_app_editorial_window"
+            )
+            title = (
+                f"Daily App material event {window_id}"
+                if target_surface == "daily_app_material_event_window"
+                else f"Daily App editorial window {window_id}"
+            )
+            self._store.create_work_item(
+                story_id=window_id,
+                title=title,
+                target_surface=target_surface,
+                work_item_id=window_id,
+            )
         state = self._window_state(window_id)
         if state in WINDOW_EXECUTED_STATES:
             return {"executed": False, "reason": "already_executed_terminal_state"}
@@ -1928,7 +2029,17 @@ class ContentOpsDailyAppSupervisor:
                 cycle_kwargs["capital_chronicle_root"] = CANONICAL_CAPITAL_CHRONICLE_ROOT
             if self._sidecar_glob:
                 cycle_kwargs["sidecar_glob"] = self._sidecar_glob
-            portfolio_context = self._build_editorial_portfolio_context(output_dir)
+            intelligence = self._load_editorial_intelligence_runtime()
+            portfolio_context = self._build_editorial_portfolio_context(
+                output_dir, intelligence
+            )
+            cycle_kwargs.update({
+                "operating_mode": self._operating_mode,
+                "published_corpus": list(
+                    (intelligence.get("published_corpus") or {}).get("articles") or []
+                ),
+                "cc_catalog": dict(intelligence.get("cc_catalog") or {}),
+            })
             result = dict(self._newsroom_cycle(**cycle_kwargs))
             classification = str(result.get("classification") or "")
             viable = classification not in {"NO_PUBLICATION", "BLOCKED", ""}

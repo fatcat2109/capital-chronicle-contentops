@@ -146,6 +146,11 @@ def extract_governed_story_context(viability: Mapping[str, Any]) -> dict[str, An
         if isinstance(attempt.get("capability_resolution"), Mapping)
         else {}
     )
+    story_context = (
+        request.get("story_context")
+        if isinstance(request.get("story_context"), Mapping)
+        else {}
+    )
     return {
         "cluster_id": str(viability.get("selected_cluster_id") or ""),
         "selected_rank": viability.get("selected_rank"),
@@ -153,6 +158,17 @@ def extract_governed_story_context(viability: Mapping[str, Any]) -> dict[str, An
         "story_type": str(request.get("story_type") or ""),
         "article_mode": str(
             request.get("article_mode") or capability.get("article_mode") or ""
+        ),
+        "resolved_article_mode": str(request.get("resolved_article_mode") or ""),
+        "editorial_classification": str(request.get("editorial_classification") or ""),
+        "update_chain_identity": str(
+            request.get("update_chain_identity") or viability.get("selected_cluster_id") or ""
+        ),
+        "capital_chronicle_context": dict(
+            story_context.get("capital_chronicle_context") or {}
+        ),
+        "material_follow_up_context": dict(
+            story_context.get("material_follow_up_context") or {}
         ),
         "capital_chronicle_authority_required": bool(
             request.get("capital_chronicle_numeric_or_analytical_authority_required")
@@ -174,6 +190,9 @@ def extract_governed_story_context(viability: Mapping[str, Any]) -> dict[str, An
             "leaf_summaries": list(selected_cluster.get("leaf_summaries") or []),
             "entities_topics": list(selected_cluster.get("entities_topics") or []),
             "story_mode": str(selected_cluster.get("story_mode") or ""),
+            "editorial_classification": str(
+                selected_cluster.get("editorial_classification") or ""
+            ),
         },
         "evidence_documents": documents,
     }
@@ -716,6 +735,9 @@ def build_article_generation_prompt(
         "schema_version": SCHEMA_VERSION,
         "story_type": context.get("story_type"),
         "article_mode": context.get("article_mode"),
+        "resolved_article_mode": context.get("resolved_article_mode"),
+        "editorial_classification": context.get("editorial_classification"),
+        "update_chain_identity": context.get("update_chain_identity"),
         "cluster_id": context.get("cluster_id"),
         "headline_ids": context.get("headline_ids"),
         "framing_editorial_context_only": {
@@ -724,6 +746,8 @@ def build_article_generation_prompt(
             "seo_intent": framing.get("seo_intent"),
             "entities_topics": framing.get("entities_topics"),
             "leaf_summaries": framing.get("leaf_summaries"),
+            "material_follow_up_context": context.get("material_follow_up_context"),
+            "capital_chronicle_context": context.get("capital_chronicle_context"),
         },
         "evidence_documents": [
             {
@@ -1031,6 +1055,9 @@ def build_rolling_x_grounded_article_and_media(
         "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication",
         "editorial_mode": article_mode,
         "article_mode": article_mode,
+        "resolved_article_mode": str(context.get("resolved_article_mode") or ""),
+        "editorial_classification": str(context.get("editorial_classification") or ""),
+        "update_chain_identity": str(context.get("update_chain_identity") or context["cluster_id"]),
         "market_mechanism": str(generated.get("market_mechanism") or "").strip(),
         "policy_context": str(generated.get("policy_context") or "").strip(),
         "cross_asset_implications": str(generated.get("cross_asset_implications") or "").strip(),
@@ -1078,6 +1105,9 @@ def build_rolling_x_grounded_article_and_media(
             "headline_ids": context["headline_ids"],
             "story_type": context.get("story_type"),
             "article_mode": context.get("article_mode"),
+            "resolved_article_mode": context.get("resolved_article_mode"),
+            "editorial_classification": context.get("editorial_classification"),
+            "update_chain_identity": context.get("update_chain_identity"),
             "provided_evidence_capabilities": context["provided_evidence_capabilities"],
         },
         "publication_authority": False,

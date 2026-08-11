@@ -113,6 +113,14 @@ def _json(value: Any, fallback: Any) -> Any:
         return fallback
 
 
+def _read_json_file(path: Path) -> dict[str, Any]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        return {}
+    return dict(value) if isinstance(value, Mapping) else {}
+
+
 def _rows(conn: Any, sql: str, params: Iterable[Any] = ()) -> list[dict[str, Any]]:
     return [dict(row) for row in conn.execute(sql, tuple(params)).fetchall()]
 
@@ -634,6 +642,47 @@ def build_daily_app_snapshot(
     except Exception:  # noqa: BLE001
         published_corpus_count = 0
 
+    latest_editorial_classification = "UNAVAILABLE"
+    latest_article_update_mode = "UNAVAILABLE"
+    latest_cc_matched_store_count: Optional[int] = None
+    if latest_cycle:
+        cycle_output = path.parent / "daily_app_outputs" / str(latest_cycle["work_item_id"])
+        cycle_evidence = _read_json_file(
+            cycle_output / "rolling_x_newsroom_cycle_evidence_v1.json"
+        )
+        selected = (cycle_evidence.get("ranked_viability") or {}).get("selected_cluster")
+        if not isinstance(selected, Mapping):
+            preselection = _read_json_file(cycle_output / "preselection_intelligence_v1.json")
+            candidates = [
+                row for row in [
+                    *(preselection.get("ranked_clusters") or []),
+                    *(preselection.get("held_clusters") or []),
+                ] if isinstance(row, Mapping)
+            ]
+            selected = candidates[0] if candidates else {}
+        latest_editorial_classification = str(
+            selected.get("editorial_classification") or "UNAVAILABLE"
+        )
+        latest_article_update_mode = str(
+            selected.get("resolved_article_mode") or "UNAVAILABLE"
+        )
+        cc_context = selected.get("capital_chronicle_context")
+        if isinstance(cc_context, Mapping):
+            latest_cc_matched_store_count = int(
+                cc_context.get("matched_store_count") or 0
+            )
+
+    pending_material_events = [
+        row for row in work_items
+        if row.get("target_surface") == "daily_app_material_event_window"
+        and row.get("current_state") == "DISCOVERED"
+    ]
+    material_event_wake_state = (
+        "PENDING_DURABLE_MATERIAL_EVENT"
+        if pending_material_events
+        else "READY_NO_PENDING_MATERIAL_EVENT"
+    )
+
     snapshot = {
         "schema_version": SNAPSHOT_SCHEMA_VERSION,
         "generated_at_utc": _iso(generated),
@@ -673,6 +722,9 @@ def build_daily_app_snapshot(
             "published_today_count": published_today_count,
             "published_corpus_count": published_corpus_count,
             "daily_target_band": daily_target_band,
+            "latest_editorial_classification": latest_editorial_classification,
+            "latest_article_update_mode": latest_article_update_mode,
+            "latest_cc_matched_store_count": latest_cc_matched_store_count,
             "current_cycle": ({
                 "work_item_id": latest_cycle["work_item_id"],
                 "state": latest_cycle["current_state"],
@@ -693,7 +745,8 @@ def build_daily_app_snapshot(
         "queue": {
             "items": sorted(queue_items, key=lambda item: ({"IMMEDIATE": 0, "DUE": 1, "UPCOMING": 2}.get(item["urgency"], 3), item.get("due_at_utc") or "")),
             "upcoming_editorial_windows": future_windows,
-            "material_event_wake_state": "MATERIAL_EVENT_METADATA_UNAVAILABLE",
+            "material_event_wake_state": material_event_wake_state,
+            "pending_material_event_count": len(pending_material_events),
             "active_or_held_work_count": sum(1 for row in work_items if row["current_state"] not in {"CLOSED", "REJECTED", "COMPLETE"}),
             "pending_readback_count": len(pending_recovery),
             "due_performance_observation_count": sum(

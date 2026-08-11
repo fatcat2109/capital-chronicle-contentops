@@ -45,6 +45,13 @@ class PublishedArticleRef:
     entities: tuple
     update_chain_identity: Optional[str]
     article_mode: Optional[str]
+    article_identity: Optional[str] = None
+    canonical_url: Optional[str] = None
+    full_text: Optional[str] = None
+    content_status: str = "CONTENT_UNAVAILABLE"
+    body_source: Optional[str] = None
+    source_work_item_id: Optional[str] = None
+    derivative_public_objects: tuple = ()
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -57,6 +64,13 @@ class PublishedArticleRef:
             "entities": list(self.entities),
             "update_chain_identity": self.update_chain_identity,
             "article_mode": self.article_mode,
+            "article_identity": self.article_identity,
+            "canonical_url": self.canonical_url,
+            "full_text": self.full_text,
+            "content_status": self.content_status,
+            "body_source": self.body_source,
+            "source_work_item_id": self.source_work_item_id,
+            "derivative_public_objects": [dict(value) for value in self.derivative_public_objects],
         }
 
 
@@ -81,18 +95,44 @@ def entity_overlap_score(cluster_entities: Sequence[str], article_entities: Sequ
     return len(left & right) / float(len(left | right))
 
 
-def material_delta_signals(cluster: Mapping[str, Any], article: PublishedArticleRef) -> int:
-    """Count explicit new-information signals the cluster carries versus the prior article."""
-    signals = 0
+def material_delta_evaluation(
+    cluster: Mapping[str, Any], article: PublishedArticleRef
+) -> dict[str, Any]:
+    """Explain the deterministic update delta without treating X as factual evidence."""
     summary_blob = " ".join(str(value) for value in (cluster.get("leaf_summaries") or []))
     lowered = summary_blob.lower()
-    for marker in ("updated", "revises", "corrects", "new data", "confirmed", "announced", "released", "according to new", "follow"):
-        if marker in lowered:
-            signals += 1
-    new_urls = {str(value) for value in (cluster.get("official_source_urls") or [])}
-    if article.update_chain_identity and new_urls:
-        signals += 1
-    return signals
+    markers = (
+        "updated", "revises", "corrects", "new data", "confirmed", "announced",
+        "released", "according to new", "follow", "effective", "filed", "approved",
+    )
+    marker_hits = sorted({marker for marker in markers if marker in lowered})
+    official_urls = sorted({
+        str(value) for value in (cluster.get("official_source_urls") or []) if str(value).strip()
+    })
+    reason_codes: list[str] = []
+    if marker_hits:
+        reason_codes.append("NEW_INFORMATION_LANGUAGE_PRESENT")
+    if official_urls:
+        reason_codes.append("NEW_OFFICIAL_SOURCE_CANDIDATE_PRESENT")
+    chain_identity = str(cluster.get("update_chain_identity") or cluster.get("cluster_id") or "")
+    if chain_identity and article.update_chain_identity == chain_identity:
+        reason_codes.append("CANONICAL_UPDATE_CHAIN_MATCH")
+    signal_count = len(marker_hits) + int(bool(official_urls))
+    return {
+        "signal_count": signal_count,
+        "reason_codes": reason_codes,
+        "marker_hits": marker_hits,
+        "new_official_source_candidate_count": len(official_urls),
+        "delta_summary": (
+            "; ".join(reason_codes) if reason_codes else "No explicit material delta signal detected."
+        ),
+        "x_content_grants_factual_authority": False,
+    }
+
+
+def material_delta_signals(cluster: Mapping[str, Any], article: PublishedArticleRef) -> int:
+    """Backward-compatible integer projection of the auditable delta evaluation."""
+    return int(material_delta_evaluation(cluster, article)["signal_count"])
 
 
 def classify_story_novelty(
@@ -131,8 +171,16 @@ def classify_story_novelty(
             recent_match = matched_age_hours <= recent_coverage_window_hours
         except ValueError:
             matched_age_hours = None
-    delta_signals = material_delta_signals(cluster, best_match) if best_match else 0
-    chain_identity = str(cluster.get("update_chain_identity") or "")
+    delta = material_delta_evaluation(cluster, best_match) if best_match else {
+        "signal_count": 0,
+        "reason_codes": [],
+        "marker_hits": [],
+        "new_official_source_candidate_count": 0,
+        "delta_summary": "No prior article matched.",
+        "x_content_grants_factual_authority": False,
+    }
+    delta_signals = int(delta["signal_count"])
+    chain_identity = str(cluster.get("update_chain_identity") or cluster.get("cluster_id") or "")
 
     if best_match and chain_identity and best_match.update_chain_identity == chain_identity:
         if delta_signals >= 1:
@@ -154,8 +202,8 @@ def classify_story_novelty(
         DECISION_BREAKING_NEW_STORY: ARTICLE_MODE_BREAKING_BRIEF,
         DECISION_MATERIAL_FOLLOW_UP: ARTICLE_MODE_FOLLOW_UP_UPDATE,
         DECISION_DEEPEN_EXISTING_STORY: ARTICLE_MODE_CAPITAL_CHRONICLE_DEEP_DIVE,
-        DECISION_LOW_DELTA_REPEAT: ARTICLE_MODE_STANDARD_NEWS_ANALYSIS,
-        DECISION_HOLD: ARTICLE_MODE_EVERGREEN_CONTEXT,
+        DECISION_LOW_DELTA_REPEAT: "HOLD",
+        DECISION_HOLD: "HOLD",
     }[decision]
     return {
         "schema_version": "contentops.editorial_story_novelty.v1",
@@ -166,8 +214,49 @@ def classify_story_novelty(
         "entity_overlap": round(best_overlap, 4),
         "matched_article_age_hours": round(matched_age_hours, 3) if matched_age_hours is not None else None,
         "material_delta_signals": delta_signals,
+        "material_delta_evaluation": delta,
         "update_chain_match": bool(best_match and chain_identity and best_match.update_chain_identity == chain_identity),
         "cc_context_richness": round(float(cc_context_richness), 4),
+        "grants_factual_or_numeric_authority": False,
+    }
+
+
+def build_material_follow_up_context(
+    cluster: Mapping[str, Any],
+    decision: Mapping[str, Any],
+    published_corpus: Sequence[PublishedArticleRef],
+) -> Optional[dict[str, Any]]:
+    """Build the compact previous-vs-new context carried to evidence and writing."""
+    prior_identity = str(decision.get("best_prior_article") or "")
+    prior = next(
+        (article for article in published_corpus if article.story_identity == prior_identity),
+        None,
+    )
+    if prior is None:
+        return None
+    return {
+        "schema_version": "contentops.material_follow_up_context.v1",
+        "previous_story_identity": prior.story_identity,
+        "previous_article_identity": prior.article_identity,
+        "previous_title": prior.title,
+        "previous_body_sha256": prior.content_hash,
+        "previous_published_at_utc": prior.published_at_utc,
+        "previous_content_status": prior.content_status,
+        "previous_full_text": prior.full_text,
+        "previous_canonical_url": prior.canonical_url,
+        "current_update_chain_identity": str(
+            cluster.get("update_chain_identity") or cluster.get("cluster_id") or ""
+        ),
+        "new_headline_ids": [str(value) for value in (cluster.get("headline_ids") or [])],
+        "new_official_source_candidates": [
+            str(value) for value in (cluster.get("official_source_urls") or [])
+        ],
+        "material_delta_reason_codes": list(
+            (decision.get("material_delta_evaluation") or {}).get("reason_codes") or []
+        ),
+        "material_delta_summary": str(
+            (decision.get("material_delta_evaluation") or {}).get("delta_summary") or ""
+        ),
         "grants_factual_or_numeric_authority": False,
     }
 

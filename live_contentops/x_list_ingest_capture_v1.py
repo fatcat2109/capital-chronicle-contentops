@@ -130,7 +130,12 @@ def _existing_dedup_keys(module: Any) -> set:
     return keys
 
 
-def append_deduped_sidecar_rows(module: Any, tweets: list, raw_payload_metadata: Mapping[str, Any] | None = None) -> int:
+def append_deduped_sidecar_rows(
+    module: Any,
+    tweets: list,
+    raw_payload_metadata: Mapping[str, Any] | None = None,
+    appended_row_summaries: list[dict[str, Any]] | None = None,
+) -> int:
     """Append ONLY new headlines to the canonical single-folder per-day sidecar files.
 
     Headline-file consistency invariant (owner decision 2026-08-10): one folder
@@ -180,6 +185,13 @@ def append_deduped_sidecar_rows(module: Any, tweets: list, raw_payload_metadata:
             for row in rows:
                 handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n")
                 written += 1
+                if appended_row_summaries is not None:
+                    appended_row_summaries.append({
+                        "headline_id": str(row.get("headline_id") or ""),
+                        "dedup_key": str(row.get("dedup_key") or ""),
+                        "headline_timestamp": str(row.get("headline_timestamp") or ""),
+                        "source_platform": str(row.get("source_platform") or ""),
+                    })
     return written
 
 
@@ -243,7 +255,7 @@ def run_bounded_x_list_capture(
     }
     module = load_data_ingestion_module()
     result["sidecar_rows_before"] = count_sidecar_rows(module)
-    state = {"responses": 0}
+    state = {"responses": 0, "appended_rows": []}
 
     def _on_response(response) -> None:
         try:
@@ -253,7 +265,9 @@ def run_bounded_x_list_capture(
                 raw_metadata = module.archive_raw_payload(payload, response.url)
                 tweets = module.recursive_tweet_extractor(payload)
                 if tweets:
-                    append_deduped_sidecar_rows(module, tweets, raw_metadata)
+                    append_deduped_sidecar_rows(
+                        module, tweets, raw_metadata, state["appended_rows"]
+                    )
         except Exception:  # noqa: BLE001 - capture is best-effort; never crash the supervisor
             pass
 
@@ -315,6 +329,24 @@ def run_bounded_x_list_capture(
 
     result["sidecar_rows_after"] = count_sidecar_rows(module)
     result["new_headlines"] = max(0, result["sidecar_rows_after"] - result["sidecar_rows_before"])
+    result["new_headline_ids"] = sorted({
+        str(row.get("headline_id") or "")
+        for row in state["appended_rows"]
+        if str(row.get("headline_id") or "")
+    })
+    result["new_headline_source_refs"] = sorted(
+        (
+            {
+                "headline_id": str(row.get("headline_id") or ""),
+                "dedup_key": str(row.get("dedup_key") or ""),
+                "headline_timestamp": str(row.get("headline_timestamp") or ""),
+                "source_platform": str(row.get("source_platform") or ""),
+            }
+            for row in state["appended_rows"]
+            if str(row.get("headline_id") or "")
+        ),
+        key=lambda row: row["headline_id"],
+    )
     result["duration_seconds"] = round(time.monotonic() - started, 2)
     if result["capture_state"] == CAPTURE_STATE_FAILED:
         if result["timeline_responses_observed"] > 0:

@@ -1,13 +1,8 @@
-"""Published-corpus read model derived from existing durable publication truth.
+"""Canonical article corpus projected from the existing publication lifecycle.
 
-Owner decision 2026-08-10 (V1 realignment): every editorial decision must know what ContentOps
-already published. This read model derives the canonical published corpus from the EXISTING
-durable store publication lifecycle (platform_dispatches/outbox/work_items) and cycle output
-artifacts - it never creates a second publication truth store.
-
-Long-term token discipline: local decisions may hash/index/summarize the full corpus
-deterministically and only send the most relevant prior article(s) to a model; the LOCAL
-decision system always considers the complete corpus so coverage is never forgotten.
+Only a Substack canonical dispatch in ``DISPATCH_CONFIRMED`` with its exact coordinator
+reconciliation in ``RECONCILED_CONFIRMED`` enters this corpus. Platform fan-out remains
+derivative metadata on that one article; it never inflates article counts.
 """
 from __future__ import annotations
 
@@ -18,38 +13,87 @@ from typing import Any, Mapping, Optional
 
 from live_contentops.editorial_portfolio_v1 import PublishedArticleRef
 
-CORPUS_SCHEMA_VERSION = "contentops.published_corpus_read_model.v1"
-REAL_PUBLICATION = "REAL_PUBLICATION_CONFIRMED"
+CORPUS_SCHEMA_VERSION = "contentops.published_corpus_read_model.v2"
+DISPATCH_CONFIRMED = "DISPATCH_CONFIRMED"
+RECONCILED_CONFIRMED = "RECONCILED_CONFIRMED"
+CONTENT_AVAILABLE = "CONTENT_AVAILABLE"
+CONTENT_UNAVAILABLE = "CONTENT_UNAVAILABLE"
 
 
 def _sha256_text(value: str) -> str:
-    return hashlib.sha256(str(value or "").encode("utf-8")).hexdigest()
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
-def _entities_from_window_dir(window_dir: Path) -> tuple:
-    evidence_path = window_dir / "rolling_x_newsroom_cycle_evidence_v1.json"
-    if not evidence_path.is_file():
-        return tuple()
+def _read_json(path: Path) -> dict[str, Any]:
     try:
-        evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
-    except (ValueError, OSError):
-        return tuple()
-    selected = (evidence.get("ranked_viability") or {}).get("selected_cluster") or {}
-    return tuple(str(value) for value in (selected.get("entities_topics") or []))[:12]
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        return {}
+    return dict(value) if isinstance(value, Mapping) else {}
 
 
-def _article_title_from_window_dir(window_dir: Path) -> Optional[str]:
-    evidence_path = window_dir / "rolling_x_newsroom_cycle_evidence_v1.json"
-    if not evidence_path.is_file():
-        return None
+def _intent(value: Any) -> dict[str, Any]:
     try:
-        evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
-    except (ValueError, OSError):
-        return None
-    article = (evidence.get("article") or {})
-    if isinstance(article, Mapping):
-        return str(article.get("title") or "") or None
-    return None
+        parsed = json.loads(str(value or ""))
+    except (TypeError, ValueError, json.JSONDecodeError):
+        return {}
+    return dict(parsed) if isinstance(parsed, Mapping) else {}
+
+
+def _reconciliation_id_for_dispatch(dispatch_id: str) -> str:
+    suffix = str(dispatch_id).removeprefix("dispatch_")
+    return "reconciliation_" + suffix
+
+
+def _artifact_article(output_dir: Optional[Path]) -> dict[str, Any]:
+    """Recover the canonical body/artifact identity; never manufacture content or a hash."""
+    if output_dir is None or not output_dir.is_dir():
+        return {
+            "content_status": CONTENT_UNAVAILABLE,
+            "content_hash": None,
+            "full_text": None,
+            "body_source": None,
+            "article": {},
+            "selection": {},
+        }
+    manifest_path = output_dir / "article_manifest_v1.json"
+    context_path = output_dir / "run_context_v1.json"
+    selection_path = output_dir / "idea_selection_v1.json"
+    article = _read_json(manifest_path)
+    context = _read_json(context_path)
+    if not article and isinstance(context.get("article"), Mapping):
+        article = dict(context["article"])
+    selection = _read_json(selection_path)
+    if not selection and isinstance(context.get("selection"), Mapping):
+        selection = dict(context["selection"])
+    body = article.get("substack_body_markdown")
+    body_source: Optional[str] = None
+    if isinstance(body, str) and body:
+        body_source = str(manifest_path if manifest_path.is_file() else context_path)
+    else:
+        markdown_path = output_dir / "canonical_article.md"
+        try:
+            body = markdown_path.read_text(encoding="utf-8")
+            body_source = str(markdown_path)
+        except OSError:
+            body = None
+    if not isinstance(body, str) or not body:
+        return {
+            "content_status": CONTENT_UNAVAILABLE,
+            "content_hash": None,
+            "full_text": None,
+            "body_source": None,
+            "article": article,
+            "selection": selection,
+        }
+    return {
+        "content_status": CONTENT_AVAILABLE,
+        "content_hash": _sha256_text(body),
+        "full_text": body,
+        "body_source": body_source,
+        "article": article,
+        "selection": selection,
+    }
 
 
 def load_published_corpus(
@@ -57,55 +101,146 @@ def load_published_corpus(
     *,
     output_root: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Load every confirmed canonical published article identity from durable truth."""
-    output_dir_root = Path(output_root) if output_root else None
-    records: list[PublishedArticleRef] = []
-    with store.get_connection() as conn:
-        dispatch_rows = conn.execute(
-            "SELECT d.dispatch_id, d.platform, d.public_object_id, d.public_object_url_hash,"
-            " d.dispatched_at, m.work_item_id, m.message_id"
+    """Load one record per lifecycle-confirmed canonical article.
+
+    ``output_root`` is a compatibility fallback only. The preferred artifact location is the
+    exact ``output_dir`` persisted in each canonical pre-write intent.
+    """
+    fallback_root = Path(output_root) if output_root else None
+    with store.get_read_only_connection() as conn:
+        rows = conn.execute(
+            "SELECT d.*,m.work_item_id,m.destination,m.payload,m.created_at AS intent_created_at,"
+            " w.story_id AS work_story_id,w.title AS work_title"
             " FROM platform_dispatches d"
-            " LEFT JOIN outbox_messages m ON m.message_id = d.message_id"
-            " ORDER BY d.dispatched_at"
+            " JOIN outbox_messages m ON m.message_id=d.message_id"
+            " JOIN work_items w ON w.work_item_id=m.work_item_id"
+            " WHERE d.status=? ORDER BY d.dispatched_at,d.dispatch_id",
+            (DISPATCH_CONFIRMED,),
         ).fetchall()
-        lifecycle_rows = {
-            str(row["dispatch_id"]): str(row["status"] or "")
-            for row in conn.execute("SELECT dispatch_id, status FROM platform_dispatches").fetchall()
+        reconciliations = {
+            str(row["reconciliation_id"]): dict(row)
+            for row in conn.execute("SELECT * FROM reconciliations").fetchall()
         }
-        work_titles = {
-            str(row["work_item_id"]): str(row["title"] or "")
-            for row in conn.execute("SELECT work_item_id, title FROM work_items").fetchall()
-        }
-    for row in dispatch_rows:
-        status = lifecycle_rows.get(str(row["dispatch_id"]), "")
-        if status != REAL_PUBLICATION:
-            continue
-        work_item_id = str(row["work_item_id"] or "")
-        window_dir = (output_dir_root / work_item_id) if (output_dir_root and work_item_id) else None
-        entities = _entities_from_window_dir(window_dir) if window_dir else tuple()
-        title = (_article_title_from_window_dir(window_dir) if window_dir else None) or work_titles.get(work_item_id) or str(row["dispatch_id"])
-        body_source = None
-        if window_dir is not None and window_dir.is_dir():
-            body_source = _sha256_text(title + json.dumps(sorted(entities)))
-        records.append(
-            PublishedArticleRef(
-                story_identity=work_item_id or str(row["dispatch_id"]),
-                title=title,
-                published_at_utc=str(row["dispatched_at"] or ""),
-                public_object_id=(str(row["public_object_id"]) if row["public_object_id"] else None),
-                canonical_url_hash=(str(row["public_object_url_hash"]) if row["public_object_url_hash"] else None),
-                content_hash=body_source,
-                entities=entities,
-                update_chain_identity=None,
-                article_mode=None,
-            )
+
+    confirmed: list[dict[str, Any]] = []
+    rejected_dispatch_count = 0
+    for row in rows:
+        reconciliation = reconciliations.get(
+            _reconciliation_id_for_dispatch(str(row["dispatch_id"]))
         )
+        if not reconciliation or str(reconciliation.get("status") or "") != RECONCILED_CONFIRMED:
+            rejected_dispatch_count += 1
+            continue
+        parsed_intent = _intent(row["payload"])
+        confirmed.append({**dict(row), "intent": parsed_intent})
+
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for row in confirmed:
+        intent = row["intent"]
+        article_identity = str(intent.get("article_identity") or "")
+        group_key = article_identity or str(row["work_item_id"])
+        groups.setdefault(group_key, []).append(row)
+
+    records: list[PublishedArticleRef] = []
+    lifecycle_confirmed_derivative_count = 0
+    canonical_groups_without_substack = 0
+    for group_key, group in sorted(groups.items()):
+        substack = next(
+            (
+                row for row in group
+                if str(row.get("destination") or row.get("platform") or "").lower() == "substack"
+            ),
+            None,
+        )
+        if substack is None or not str(substack.get("public_object_id") or ""):
+            canonical_groups_without_substack += 1
+            continue
+        intent = dict(substack["intent"])
+        output_value = str(intent.get("output_dir") or "")
+        output_dir = Path(output_value) if output_value else None
+        if (output_dir is None or not output_dir.is_dir()) and fallback_root is not None:
+            candidate = fallback_root / str(substack["work_item_id"])
+            output_dir = candidate if candidate.is_dir() else output_dir
+        recovered = _artifact_article(output_dir)
+        article = recovered["article"]
+        selection = recovered["selection"]
+        story_identity = str(
+            intent.get("story_identity")
+            or selection.get("cluster_id")
+            or substack.get("work_story_id")
+            or substack["work_item_id"]
+        )
+        # ``cluster_id`` is the existing canonical story/update-chain identity on this route.
+        # The read model propagates it; it does not mint a parallel update ID.
+        update_chain_identity = str(
+            selection.get("update_chain_identity")
+            or article.get("update_chain_identity")
+            or intent.get("update_chain_identity")
+            or selection.get("cluster_id")
+            or article.get("cluster_id")
+            or story_identity
+        ) or None
+        entities = tuple(
+            str(value) for value in (
+                selection.get("entities_topics")
+                or article.get("entities_topics")
+                or []
+            ) if str(value).strip()
+        )[:24]
+        derivatives = tuple({
+            "destination": str(row.get("destination") or row.get("platform") or ""),
+            "dispatch_id": str(row.get("dispatch_id") or ""),
+            "public_object_id": str(row.get("public_object_id") or "") or None,
+            "public_object_url": str(row.get("public_object_url") or "") or None,
+            "public_object_url_hash": str(row.get("public_object_url_hash") or "") or None,
+            "dispatch_status": DISPATCH_CONFIRMED,
+            "reconciliation_status": RECONCILED_CONFIRMED,
+        } for row in sorted(group, key=lambda value: str(value.get("destination") or "")))
+        lifecycle_confirmed_derivative_count += len(derivatives)
+        records.append(PublishedArticleRef(
+            story_identity=story_identity,
+            title=str(article.get("title") or substack.get("work_title") or story_identity),
+            published_at_utc=str(substack.get("dispatched_at") or ""),
+            public_object_id=str(substack.get("public_object_id") or "") or None,
+            canonical_url_hash=str(substack.get("public_object_url_hash") or "") or None,
+            content_hash=recovered["content_hash"],
+            entities=entities,
+            update_chain_identity=update_chain_identity,
+            article_mode=str(
+                article.get("resolved_article_mode")
+                or selection.get("resolved_article_mode")
+                or intent.get("resolved_article_mode")
+                or article.get("article_mode")
+                or ""
+            ) or None,
+            article_identity=str(intent.get("article_identity") or group_key) or None,
+            canonical_url=str(substack.get("public_object_url") or "") or None,
+            full_text=recovered["full_text"],
+            content_status=recovered["content_status"],
+            body_source=recovered["body_source"],
+            source_work_item_id=str(substack["work_item_id"]),
+            derivative_public_objects=derivatives,
+        ))
+
+    records.sort(key=lambda value: (value.published_at_utc, value.story_identity))
     return {
         "schema_version": CORPUS_SCHEMA_VERSION,
         "articles": records,
         "article_count": len(records),
         "content_hash_coverage": sum(1 for record in records if record.content_hash),
-        "full_text_held_locally": False,
+        "full_text_article_count": sum(
+            1 for record in records if record.content_status == CONTENT_AVAILABLE
+        ),
+        "content_unavailable_count": sum(
+            1 for record in records if record.content_status == CONTENT_UNAVAILABLE
+        ),
+        "lifecycle_confirmed_derivative_count": lifecycle_confirmed_derivative_count,
+        "rejected_unreconciled_dispatch_count": rejected_dispatch_count,
+        "canonical_groups_without_substack_count": canonical_groups_without_substack,
+        "dedupe_key": "article_identity_else_work_item_id",
+        "canonical_publication_contract": (
+            "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED"
+        ),
         "derived_from_existing_durable_truth": True,
         "second_publication_store_created": False,
     }

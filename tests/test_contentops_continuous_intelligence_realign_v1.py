@@ -102,8 +102,9 @@ def test_checkpoint_roundtrip_and_adaptive_backoff(tmp_path):
     assert checkpoint["last_success_epoch"] == FIXED_NOW.timestamp()
     assert checkpoint["rows_last_iteration"] == 12
     assert intake.next_due_interval_seconds(0) == intake.ACTIVE_INTERVAL_SECONDS
-    assert intake.next_due_interval_seconds(1) == intake.ACTIVE_INTERVAL_SECONDS * 2
+    assert intake.next_due_interval_seconds(1) <= 300
     assert intake.next_due_interval_seconds(10) <= intake.MAX_INTERVAL_SECONDS
+    assert intake.MAX_INTERVAL_SECONDS <= 300
     assert intake.ingestion_lane_state(intake.OUTCOME_REAUTH_REQUIRED) == "REAUTH_REQUIRED"
     assert intake.ingestion_lane_state(intake.OUTCOME_PORT_OWNER_UNPROVEN) == "UNAVAILABLE"
     assert intake.ingestion_lane_state(intake.OUTCOME_CAPTURED_NEW) == "RUNNING"
@@ -285,8 +286,9 @@ def test_cc_catalog_is_read_only_and_compact(tmp_path):
     assert stores[0]["opened_read_only"] is True
     tables = stores[0]["tables"]
     assert tables[0]["table"] == "entity_version"
-    assert tables[0]["row_count"] == 2
-    assert tables[0]["latest_observation"] is not None
+    assert tables[0]["content_rows_scanned_during_discovery"] == 0
+    assert catalog["discovery_complete"] is True
+    assert catalog["stores_omitted"] == 0
 
     context = query_story_scoped_cc_context(catalog, ["Federal Reserve", "Unknown Entity Xyz"])
     assert context["mutated_upstream"] is False
@@ -321,14 +323,20 @@ def test_published_corpus_with_confirmed_publication(tmp_path):
         )
         conn.execute(
             "INSERT INTO platform_dispatches (dispatch_id,message_id,platform,status,dispatched_at,public_object_id)"
-            " VALUES ('disp1','msg1','substack','REAL_PUBLICATION_CONFIRMED','2026-08-10T09:05:00Z','object-123')"
+            " VALUES ('disp1','msg1','substack','DISPATCH_CONFIRMED','2026-08-10T09:05:00Z','object-123')"
+        )
+        conn.execute(
+            "INSERT INTO reconciliations (reconciliation_id,work_item_id,status,reconciled_at)"
+            " VALUES ('reconciliation_disp1','wi-article','RECONCILED_CONFIRMED','2026-08-10T09:06:00Z')"
         )
     corpus = load_published_corpus(store, output_root=tmp_path / "outputs")
     assert corpus["article_count"] == 1
     article = corpus["articles"][0]
-    assert article.story_identity == "wi-article"
+    assert article.story_identity == "story-1"
     assert article.public_object_id == "object-123"
     assert article.published_at_utc == "2026-08-10T09:05:00Z"
+    assert article.content_status == "CONTENT_UNAVAILABLE"
+    assert article.content_hash is None
     state = portfolio_state_today(corpus["articles"], now=datetime(2026, 8, 10, 12, 0, tzinfo=timezone.utc))
     assert state["published_today_count"] == 1
     assert state["daily_target_band"] == [5, 8]

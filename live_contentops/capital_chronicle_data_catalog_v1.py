@@ -1,37 +1,46 @@
-"""Read-only Capital Chronicle data catalog / read model for ContentOps editorial intelligence.
+"""Complete, compact, read-only catalog of the Capital Chronicle local data estate.
 
-Owner decision 2026-08-10 (V1 realignment): ContentOps uses the actual current Capital
-Chronicle data estate through a direct READ-ONLY catalog/query boundary. Capital Chronicle
-remains analytical/numeric authority where exact article contracts require it; this module is an
-adapter into existing authority, NOT a new analytical engine, and it NEVER mutates upstream.
-
-Two distinct editorial uses:
-
-A. EDITORIAL INTELLIGENCE - context richness, related datasets/analysis, novelty, ranking;
-B. FACTUAL/ANALYTICAL AUTHORITY - only via the existing governed Capital Chronicle authority
-   surfaces (cc_evidence_bridge_v2 packet contracts), never by promoting arbitrary DB rows.
+Discovery records every DuckDB store/table schema without scanning table contents. Story
+queries then inspect only schema-relevant tables and return bounded match pointers. Arbitrary
+database rows remain editorial context, never factual or numeric publication authority.
 """
 from __future__ import annotations
 
+import copy
+import hashlib
+import json
 import re
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping, Optional, Sequence
+from typing import Any, Mapping, Sequence
 
-CATALOG_SCHEMA_VERSION = "contentops.capital_chronicle_data_catalog.v1"
+CATALOG_SCHEMA_VERSION = "contentops.capital_chronicle_data_catalog.v2"
 DEFAULT_CC_ROOT = Path(r"A:\Capital Chronicle\Main App")
 LOCAL_DB_SUBPATH = Path("data") / "local_db"
 PUBLICATION_EVIDENCE_SUBPATH = Path("docs/research/publication_evidence/current/CapitalChroniclePublicationEvidencePacketV1.json")
 NEWSROOM_POOL_SUBPATH = Path("docs/research/newsroom_candidate_pool_v1/CapitalChronicleNewsroomCandidatePoolV1.json")
-MAX_STORES = 12
-MAX_TABLES_PER_STORE = 60
-MAX_PROBED_TABLES = 10
-STORY_QUERY_ENTITY_LIMIT = 4
+STORY_QUERY_ENTITY_LIMIT = 6
 STORY_QUERY_ROWS_PER_ENTITY = 5
+MAX_DEEP_QUERY_TABLES = 8
 READ_ONLY_SQL_GUARD = re.compile(r"^\s*(select|with)\b", re.IGNORECASE)
+TEXT_TYPE_MARKERS = ("CHAR", "TEXT", "STRING", "VARCHAR", "JSON")
+SEARCH_SCHEMA_MARKERS = (
+    "entity", "event", "document", "record", "news", "story", "instrument", "security",
+    "asset", "issuer", "econom", "macro", "market", "series", "release", "source",
+    "analysis", "symbol", "ticker", "title", "headline", "summary", "name", "description",
+)
+
+_CATALOG_CACHE: dict[str, tuple[str, dict[str, Any]]] = {}
 
 
 class CapitalChronicleCatalogError(RuntimeError):
     pass
+
+
+def _canonical_hash(value: Any) -> str:
+    return hashlib.sha256(
+        json.dumps(value, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
+    ).hexdigest()
 
 
 def _open_readonly(store_path: Path):
@@ -40,47 +49,73 @@ def _open_readonly(store_path: Path):
     return duckdb.connect(str(store_path), read_only=True)
 
 
+def _quote_identifier(value: str) -> str:
+    return '"' + str(value).replace('"', '""') + '"'
+
+
 def _looks_like_timestamp_column(column: str) -> bool:
     lowered = str(column).lower()
     return any(marker in lowered for marker in ("date", "time", "as_of", "known_at", "recorded", "_at"))
 
 
+def _estate_file_fingerprint(paths: Sequence[Path]) -> str:
+    return _canonical_hash([
+        {"path": str(path.resolve()), "size": path.stat().st_size, "mtime_ns": path.stat().st_mtime_ns}
+        for path in paths
+    ])
+
+
 def discover_cc_data_estate(
     *,
     cc_root: str | Path = DEFAULT_CC_ROOT,
-    max_stores: int = MAX_STORES,
+    max_stores: int | None = None,
+    use_cache: bool = True,
 ) -> dict[str, Any]:
-    """Compact read-only discovery of the current Capital Chronicle data estate. No raw dumps."""
-    root = Path(cc_root)
+    """Discover every current DuckDB store/table through metadata-only read-only queries.
+
+    ``max_stores`` remains accepted for callers compiled against v1 but is deliberately ignored:
+    completeness is now a correctness invariant, not an optional scan limit.
+    """
+    root = Path(cc_root).resolve()
+    local_db_dir = root / LOCAL_DB_SUBPATH
+    store_paths = sorted(local_db_dir.glob("*.duckdb")) if local_db_dir.is_dir() else []
+    file_fingerprint = _estate_file_fingerprint(store_paths) if store_paths else _canonical_hash([])
+    cache_key = str(root).casefold()
+    cached = _CATALOG_CACHE.get(cache_key)
+    if use_cache and cached and cached[0] == file_fingerprint:
+        result = copy.deepcopy(cached[1])
+        result["cache"] = {"state": "HIT", "file_fingerprint": file_fingerprint}
+        return result
+
+    publication_packet = root / PUBLICATION_EVIDENCE_SUBPATH
+    newsroom_pool = root / NEWSROOM_POOL_SUBPATH
     catalog: dict[str, Any] = {
         "schema_version": CATALOG_SCHEMA_VERSION,
         "cc_root": str(root),
         "root_exists": root.is_dir(),
         "stores": [],
-        "governed_surfaces": {},
+        "store_count_total": len(store_paths),
+        "store_count_discovered": 0,
+        "stores_omitted": 0,
+        "discovery_complete": True,
+        "legacy_max_stores_parameter_ignored": max_stores is not None,
+        "governed_surfaces": {
+            "publication_evidence_packet": {
+                "path": str(publication_packet),
+                "exists": publication_packet.is_file(),
+                "role": "governed_publication_authority_surface",
+            },
+            "newsroom_candidate_pool": {
+                "path": str(newsroom_pool),
+                "exists": newsroom_pool.is_file(),
+                "role": "governed_newsroom_pool_surface",
+            },
+        },
         "mutated_upstream": False,
         "connection_mode": "duckdb_read_only",
+        "discovery_scope": "ALL_DUCKDB_STORES_AND_ALL_TABLE_SCHEMAS_METADATA_ONLY",
+        "cache": {"state": "MISS", "file_fingerprint": file_fingerprint},
     }
-    if not root.is_dir():
-        return catalog
-    publication_packet = root / PUBLICATION_EVIDENCE_SUBPATH
-    newsroom_pool = root / NEWSROOM_POOL_SUBPATH
-    catalog["governed_surfaces"] = {
-        "publication_evidence_packet": {
-            "path": str(publication_packet),
-            "exists": publication_packet.is_file(),
-            "role": "governed_publication_authority_surface",
-        },
-        "newsroom_candidate_pool": {
-            "path": str(newsroom_pool),
-            "exists": newsroom_pool.is_file(),
-            "role": "governed_newsroom_pool_surface",
-        },
-    }
-    local_db_dir = root / LOCAL_DB_SUBPATH
-    if not local_db_dir.is_dir():
-        return catalog
-    store_paths = sorted(local_db_dir.glob("*.duckdb"))[:max_stores]
     for store_path in store_paths:
         store_entry: dict[str, Any] = {
             "store_id": store_path.stem,
@@ -89,6 +124,7 @@ def discover_cc_data_estate(
             "opened_read_only": False,
             "table_count": 0,
             "tables": [],
+            "store_size_bytes": store_path.stat().st_size,
         }
         try:
             connection = _open_readonly(store_path)
@@ -98,61 +134,119 @@ def discover_cc_data_estate(
             continue
         try:
             store_entry["opened_read_only"] = True
-            table_names = [
-                str(row[0])
-                for row in connection.execute(
-                    "SELECT table_name FROM information_schema.tables ORDER BY table_name"
-                ).fetchall()
-            ][:MAX_TABLES_PER_STORE]
-            store_entry["table_count"] = len(table_names)
-            for table_name in table_names[:MAX_PROBED_TABLES]:
-                table_entry: dict[str, Any] = {"table": table_name}
-                try:
-                    columns = [
-                        str(row[0])
-                        for row in connection.execute(
-                            "SELECT column_name FROM information_schema.columns WHERE table_name=?",
-                            [table_name],
-                        ).fetchall()
-                    ]
-                    table_entry["column_count"] = len(columns)
-                    table_entry["row_count"] = int(
-                        connection.execute(f'SELECT COUNT(*) FROM "{table_name}"').fetchone()[0]
-                    )
-                    timestamp_columns = [column for column in columns if _looks_like_timestamp_column(column)]
-                    table_entry["timestamp_columns"] = timestamp_columns[:4]
-                    if timestamp_columns:
-                        try:
-                            latest = connection.execute(
-                                f'SELECT MAX("{timestamp_columns[0]}") FROM "{table_name}"'
-                            ).fetchone()[0]
-                            table_entry["latest_observation"] = str(latest) if latest is not None else None
-                        except Exception:  # noqa: BLE001
-                            table_entry["latest_observation"] = None
-                    table_entry["semantic_fields"] = [
-                        column
-                        for column in columns
-                        if any(
-                            marker in column.lower()
-                            for marker in ("entity", "instrument", "topic", "dqr", "authority", "lineage", "source", "status", "quality")
-                        )
-                    ][:8]
-                except Exception as exc:  # noqa: BLE001
-                    table_entry["probe_error"] = type(exc).__name__
-                store_entry["tables"].append(table_entry)
+            rows = connection.execute(
+                "SELECT table_name,column_name,data_type,ordinal_position "
+                "FROM information_schema.columns WHERE table_schema NOT IN "
+                "('information_schema','pg_catalog') ORDER BY table_name,ordinal_position"
+            ).fetchall()
+            by_table: dict[str, list[tuple[str, str]]] = {}
+            for table_name, column_name, data_type, _ in rows:
+                by_table.setdefault(str(table_name), []).append(
+                    (str(column_name), str(data_type))
+                )
+            store_entry["table_count"] = len(by_table)
+            for table_name, columns in sorted(by_table.items()):
+                column_names = [name for name, _ in columns]
+                textual = [
+                    name for name, data_type in columns
+                    if any(marker in data_type.upper() for marker in TEXT_TYPE_MARKERS)
+                ]
+                preferred_textual = sorted(
+                    textual,
+                    key=lambda name: (
+                        0 if name.lower() in {
+                            "canonical_name", "display_name", "name", "title", "headline",
+                            "summary", "description", "entity", "entity_name", "symbol",
+                            "ticker", "series_name", "document_title",
+                        } else 1,
+                        len(name),
+                        name,
+                    ),
+                )
+                semantic = [
+                    name for name in column_names
+                    if any(marker in name.lower() for marker in SEARCH_SCHEMA_MARKERS)
+                ]
+                searchable = bool(preferred_textual and (
+                    any(marker in table_name.lower() for marker in SEARCH_SCHEMA_MARKERS)
+                    or semantic
+                ))
+                table_core = {
+                    "table": table_name,
+                    "column_count": len(columns),
+                    "columns": [
+                        {"name": name, "data_type": data_type} for name, data_type in columns
+                    ],
+                    "text_search_columns": preferred_textual[:12],
+                    "timestamp_columns": [
+                        name for name in column_names if _looks_like_timestamp_column(name)
+                    ][:8],
+                    "semantic_fields": semantic[:16],
+                    "story_search_candidate": searchable,
+                    "content_rows_scanned_during_discovery": 0,
+                }
+                store_entry["tables"].append({
+                    **table_core,
+                    "schema_fingerprint": _canonical_hash(table_core),
+                })
+            store_entry["schema_fingerprint"] = _canonical_hash([
+                row["schema_fingerprint"] for row in store_entry["tables"]
+            ])
         finally:
             connection.close()
         catalog["stores"].append(store_entry)
+    catalog["store_count_discovered"] = len(catalog["stores"])
+    catalog["catalog_fingerprint"] = _canonical_hash({
+        "file_fingerprint": file_fingerprint,
+        "stores": [
+            {"store_id": row["store_id"], "schema_fingerprint": row.get("schema_fingerprint")}
+            for row in catalog["stores"]
+        ],
+        "governed_surfaces": catalog["governed_surfaces"],
+    })
+    _CATALOG_CACHE[cache_key] = (file_fingerprint, copy.deepcopy(catalog))
     return catalog
 
 
-def _candidate_search_tables(store_entry: Mapping[str, Any]) -> list[str]:
-    tables = []
-    for table in store_entry.get("tables") or []:
-        name = str(table.get("table") or "")
-        if any(marker in name for marker in ("entity", "event", "document", "record")):
-            tables.append(name)
-    return tables[:3]
+def _candidate_search_tables(store_entry: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+    """Return every schema-relevant table; no first-N truncation is permitted."""
+    return [
+        table for table in (store_entry.get("tables") or [])
+        if isinstance(table, Mapping) and table.get("story_search_candidate") is True
+    ]
+
+
+def _deep_query_score(
+    store_entry: Mapping[str, Any], table: Mapping[str, Any], entities: Sequence[str]
+) -> float:
+    """Schema-only relevance score used to select the bounded deep-query set."""
+    table_name = str(table.get("table") or "").lower()
+    fields = [str(value).lower() for value in (table.get("semantic_fields") or [])]
+    text_fields = [str(value).lower() for value in (table.get("text_search_columns") or [])]
+    score = 0.0
+    score += 6.0 * int("entity" in table_name)
+    score += 4.0 * int(any(marker in table_name for marker in ("event", "document", "record")))
+    score += 5.0 * int(any(value in {
+        "canonical_name", "display_name", "entity_name", "title", "headline", "symbol", "ticker"
+    } for value in text_fields))
+    score += min(4.0, len(fields) * 0.4)
+    entity_tokens = {
+        token for entity in entities for token in re.findall(r"[a-z0-9]{3,}", entity.lower())
+    }
+    score += 8.0 * int(any(token in table_name for token in entity_tokens))
+    size_bytes = max(1, int(store_entry.get("store_size_bytes") or 1))
+    score -= min(5.0, max(0.0, (len(str(size_bytes)) - 7) * 0.75))
+    return round(score, 4)
+
+
+def _parse_time(value: Any) -> datetime | None:
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return parsed.astimezone(timezone.utc)
+    except (TypeError, ValueError):
+        return None
 
 
 def query_story_scoped_cc_context(
@@ -161,81 +255,164 @@ def query_story_scoped_cc_context(
     *,
     max_rows_per_entity: int = STORY_QUERY_ROWS_PER_ENTITY,
 ) -> dict[str, Any]:
-    """Bounded story-scoped read: which Capital Chronicle surfaces hold relevant context.
-
-    Returns compact identity/freshness pointers only - never full table dumps. Read-only."""
-    import duckdb
-
+    """Selectively query actual matching rows and return compact auditable pointers."""
     normalized_entities: list[str] = []
     for entity in entities:
-        text = str(entity or "").strip()
-        if text and text not in normalized_entities:
+        text = " ".join(str(entity or "").split())
+        if text and text.casefold() not in {item.casefold() for item in normalized_entities}:
             normalized_entities.append(text)
     normalized_entities = normalized_entities[:STORY_QUERY_ENTITY_LIMIT]
+    row_limit = max(1, min(int(max_rows_per_entity), 20))
     matches: list[dict[str, Any]] = []
-    richness_total = 0.0
+    scored_candidates: list[tuple[float, str, str]] = []
     for store_entry in catalog.get("stores") or []:
         if not store_entry.get("opened_read_only"):
             continue
-        search_tables = _candidate_search_tables(store_entry)
-        if not search_tables:
+        for table in _candidate_search_tables(store_entry):
+            scored_candidates.append((
+                _deep_query_score(store_entry, table, normalized_entities),
+                str(store_entry.get("store_id") or ""),
+                str(table.get("table") or ""),
+            ))
+    scored_candidates.sort(key=lambda value: (-value[0], value[1], value[2]))
+    selected_candidates = {
+        (store_id, table_name)
+        for _, store_id, table_name in scored_candidates[:MAX_DEEP_QUERY_TABLES]
+    }
+    tables_considered = len(scored_candidates)
+    tables_queried = 0
+    for store_entry in catalog.get("stores") or []:
+        if not store_entry.get("opened_read_only"):
+            continue
+        candidates = [
+            table for table in _candidate_search_tables(store_entry)
+            if (str(store_entry.get("store_id") or ""), str(table.get("table") or ""))
+            in selected_candidates
+        ]
+        if not candidates or not normalized_entities:
             continue
         try:
-            connection = duckdb.connect(str(store_entry["path"]), read_only=True)
+            connection = _open_readonly(Path(str(store_entry["path"])))
         except Exception:  # noqa: BLE001
             continue
         try:
-            for table_name in search_tables:
-                try:
-                    columns = [
-                        str(row[0])
-                        for row in connection.execute(
-                            "SELECT column_name FROM information_schema.columns WHERE table_name=?",
-                            [table_name],
-                        ).fetchall()
-                    ]
-                except Exception:  # noqa: BLE001
+            for table in candidates:
+                text_columns = [str(value) for value in (table.get("text_search_columns") or [])]
+                if not text_columns:
                     continue
-                text_column = next(
-                    (column for column in columns if column.lower() in {"display_name", "name", "canonical_name", "title", "text", "headline", "summary"}),
-                    None,
+                timestamp_columns = [
+                    str(value) for value in (table.get("timestamp_columns") or [])
+                ]
+                selected_columns = text_columns[:8] + timestamp_columns[:2]
+                select_sql = ",".join(_quote_identifier(value) for value in selected_columns)
+                predicate = " OR ".join(
+                    f"LOWER(CAST({_quote_identifier(value)} AS VARCHAR)) LIKE LOWER(?)"
+                    for value in text_columns[:8]
                 )
-                if text_column is None:
-                    continue
+                table_name = str(table.get("table") or "")
+                sql = (
+                    f"SELECT {select_sql} FROM {_quote_identifier(table_name)} "
+                    f"WHERE {predicate} LIMIT {row_limit + 1}"
+                )
+                if not READ_ONLY_SQL_GUARD.match(sql):
+                    raise CapitalChronicleCatalogError("read_only_sql_guard")
+                tables_queried += 1
                 for entity in normalized_entities:
-                    safe_entity = entity.replace("'", "''")
-                    sql = (
-                        f'SELECT COUNT(*) FROM "{table_name}" '
-                        f"WHERE LOWER(CAST(\"{text_column}\" AS VARCHAR)) LIKE LOWER(?) LIMIT 1"
-                    )
-                    if not READ_ONLY_SQL_GUARD.match(sql):
-                        raise CapitalChronicleCatalogError("read_only_sql_guard")
                     try:
-                        count = int(connection.execute(sql, [f"%{safe_entity}%"]).fetchone()[0])
+                        rows = connection.execute(
+                            sql, [f"%{entity}%"] * min(len(text_columns), 8)
+                        ).fetchall()
                     except Exception:  # noqa: BLE001
                         continue
-                    if count <= 0:
+                    if not rows:
                         continue
-                    richness_total += min(float(count), 50.0)
+                    bounded_rows = rows[:row_limit]
+                    latest = None
+                    row_refs: list[str] = []
+                    for row in bounded_rows:
+                        row_values = [None if value is None else str(value) for value in row]
+                        row_refs.append(_canonical_hash({
+                            "store": store_entry.get("store_id"),
+                            "table": table_name,
+                            "values": row_values,
+                        })[:24])
+                        for value in row_values[len(text_columns[:8]):]:
+                            parsed = _parse_time(value)
+                            latest = parsed if parsed and (latest is None or parsed > latest) else latest
+                    semantic_fields = [
+                        str(value).lower() for value in (table.get("semantic_fields") or [])
+                    ]
                     matches.append({
                         "store_id": store_entry.get("store_id"),
                         "table": table_name,
                         "matched_entity": entity,
-                        "relevant_row_count": count,
+                        "relevant_row_count_bounded": len(bounded_rows),
+                        "more_rows_possible": len(rows) > row_limit,
+                        "latest_matched_observation_utc": (
+                            latest.isoformat().replace("+00:00", "Z") if latest else None
+                        ),
+                        "row_reference_hashes": row_refs,
+                        "schema_fingerprint": table.get("schema_fingerprint"),
+                        "quality_or_lineage_fields_present": sorted({
+                            field for field in semantic_fields
+                            if any(marker in field for marker in (
+                                "dqr", "quality", "lineage", "authority", "source", "known_at"
+                            ))
+                        }),
                         "bounded": True,
                     })
         finally:
             connection.close()
-    matches = matches[:20]
-    richness = 0.0
-    if matches:
-        richness = min(1.0, richness_total / 200.0)
+
+    matched_entities = {str(row["matched_entity"]).casefold() for row in matches}
+    matched_stores = {str(row["store_id"]) for row in matches}
+    matched_rows = sum(int(row["relevant_row_count_bounded"]) for row in matches)
+    coverage = (
+        len(matched_entities) / float(len(normalized_entities)) if normalized_entities else 0.0
+    )
+    row_density = min(1.0, matched_rows / float(max(1, len(normalized_entities) * row_limit)))
+    store_diversity = min(1.0, len(matched_stores) / 3.0)
+    quality_lineage = (
+        sum(bool(row["quality_or_lineage_fields_present"]) for row in matches) / float(len(matches))
+        if matches else 0.0
+    )
+    freshness = (
+        sum(bool(row["latest_matched_observation_utc"]) for row in matches) / float(len(matches))
+        if matches else 0.0
+    )
+    richness = min(
+        1.0,
+        (0.35 * coverage)
+        + (0.20 * row_density)
+        + (0.15 * store_diversity)
+        + (0.15 * quality_lineage)
+        + (0.15 * freshness),
+    ) if matches else 0.0
     return {
-        "schema_version": "contentops.story_scoped_cc_context.v1",
+        "schema_version": "contentops.story_scoped_cc_context.v2",
         "queried_entities": normalized_entities,
         "matches": matches,
         "cc_context_richness": round(richness, 4),
-        "matched_store_ids": sorted({str(row["store_id"]) for row in matches}),
+        "richness_components": {
+            "entity_coverage": round(coverage, 4),
+            "bounded_row_density": round(row_density, 4),
+            "matched_store_diversity": round(store_diversity, 4),
+            "quality_lineage_surface_coverage": round(quality_lineage, 4),
+            "matched_freshness_metadata_coverage": round(freshness, 4),
+        },
+        "matched_store_ids": sorted(matched_stores),
+        "matched_store_count": len(matched_stores),
+        "matched_table_count": len({(row["store_id"], row["table"]) for row in matches}),
+        "candidate_table_count": tables_considered,
+        "deep_query_table_limit": MAX_DEEP_QUERY_TABLES,
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_selected_tables": [
+            {"score": score, "store_id": store_id, "table": table_name}
+            for score, store_id, table_name in scored_candidates[:MAX_DEEP_QUERY_TABLES]
+        ],
+        "queried_table_count": tables_queried,
+        "catalog_fingerprint": catalog.get("catalog_fingerprint"),
+        "all_discovered_stores_considered": True,
         "grants_factual_or_numeric_authority": False,
         "mutated_upstream": False,
     }
