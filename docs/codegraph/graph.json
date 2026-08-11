@@ -18,9 +18,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12192,
+    "edges": 12194,
     "entrypoints": 12,
-    "nodes": 6513,
+    "nodes": 6514,
     "nodes_by_kind": {
       "authority_doc": 13,
       "cli_command": 13,
@@ -30,7 +30,7 @@
       "instructions": 8,
       "manifest": 9,
       "python_class": 528,
-      "python_function": 3608,
+      "python_function": 3609,
       "python_method": 215,
       "python_module": 685,
       "schema": 158,
@@ -31802,6 +31802,12 @@
       "from": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_exact_bound_official_families"
+    },
+    {
+      "from": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_market_capabilities"
     },
     {
@@ -59702,6 +59708,12 @@
       "from": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter.__call__",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_exact_bound_official_families"
+    },
+    {
+      "from": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter.__call__",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_market_capabilities"
     },
     {
@@ -73287,7 +73299,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-11T20:40:59Z",
+  "generation_timestamp_utc": "2026-08-11T21:00:12Z",
   "generator_version": "2.1.0",
   "included_roots": [
     "live_contentops/",
@@ -76386,7 +76398,7 @@
     {
       "id": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "kind": "python_module",
-      "size_bytes": 27199
+      "size_bytes": 28967
     },
     {
       "id": "live_contentops/scd_canonical_draft_lifecycle.py",
@@ -102334,70 +102346,77 @@
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter",
       "kind": "python_class",
-      "line": 206,
+      "line": 237,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "RollingXTargetedEvidenceAdapter"
     },
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter.__call__",
       "kind": "python_method",
-      "line": 282,
+      "line": 313,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "RollingXTargetedEvidenceAdapter.__call__"
     },
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter.__init__",
       "kind": "python_method",
-      "line": 209,
+      "line": 240,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "RollingXTargetedEvidenceAdapter.__init__"
     },
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::RollingXTargetedEvidenceAdapter._load_packet",
       "kind": "python_method",
-      "line": 246,
+      "line": 277,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "RollingXTargetedEvidenceAdapter._load_packet"
     },
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_blocked_receipt",
       "kind": "python_function",
-      "line": 27,
+      "line": 58,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "_blocked_receipt"
     },
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_document_receipts",
       "kind": "python_function",
-      "line": 73,
+      "line": 104,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "_document_receipts"
     },
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_exact_binding_blockers",
       "kind": "python_function",
-      "line": 53,
+      "line": 84,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "_exact_binding_blockers"
     },
     {
+      "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_exact_bound_official_families",
+      "kind": "python_function",
+      "line": 28,
+      "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
+      "symbol": "_exact_bound_official_families"
+    },
+    {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_market_capabilities",
       "kind": "python_function",
-      "line": 153,
+      "line": 184,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "_market_capabilities"
     },
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_official_freshness_blockers",
       "kind": "python_function",
-      "line": 185,
+      "line": 216,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "_official_freshness_blockers"
     },
     {
       "id": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_utc_now",
       "kind": "python_function",
-      "line": 23,
+      "line": 24,
       "path": "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
       "symbol": "_utc_now"
     },
@@ -109468,7 +109487,7 @@
     {
       "id": "tests/test_evidence_gate_calibration_v1.py",
       "kind": "test",
-      "size_bytes": 28787
+      "size_bytes": 28782
     },
     {
       "id": "tests/test_exact_env_key_membership_check_gate_v6.py",
@@ -111103,7 +111122,7 @@
     {
       "id": "tests/test_rolling_x_targeted_evidence_adapter_v1.py",
       "kind": "test",
-      "size_bytes": 15645
+      "size_bytes": 18517
     },
     {
       "id": "tests/test_rolling_x_v1_publishability_closure_v1.py",
@@ -115548,6 +115567,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "a3c4238daffd125236642b77af96bb8303f3298b",
-  "source_tree_digest": "af21077f17cb62fc593a5903fcfab44b2276ceb92e11a00ab8b03c20f69b144b"
+  "source_head": "d6c10f7bc6b5d5626cc85d41a4ebd4da8a7005ec",
+  "source_tree_digest": "77b5d0dc6b4e5afab9d98aa1439e00ea999d6f1b558f2a7474c0460a212a5854"
 }
