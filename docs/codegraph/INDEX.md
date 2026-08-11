@@ -1,8 +1,8 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `40f7ac1037b2330e5afd3666baa037e8fbcf86f6`
-Source tree digest: `bb3e5001f5bd2655656d47c8c36e0350808249bf7383cd800fedb58e36b8ee4b`
-Graph schema: `contentops.codex_context_graph.v2`; generator: `2.0.0`
+Source HEAD: `15ff5577d3330345377e2a5a76e22c2a6788e654`
+Source tree digest: `5619583d7cf7c98296f382eefcbca0f28c171869291168c1bc2fc337108049e2`
+Graph schema: `contentops.codex_context_graph.v2`; generator: `2.1.0`
 
 This generated map is descriptive, not product authority.
 
@@ -12,8 +12,8 @@ Read only these before the exact task files:
 
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md` (this page)
-3. `docs/codegraph/V1_CONTEXT.md`
-4. nearest scoped `AGENTS.md`
+3. nearest scoped `AGENTS.md`
+4. `docs/codegraph/V1_CONTEXT.md` when V1 product/state context matters
 5. exact implementation and focused tests
 
 Open current direction/next-task authority only when product direction matters: `docs/CURRENT_CONTEXT.md`, `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`, and `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`.
@@ -116,15 +116,15 @@ Open current direction/next-task authority only when product direction matters: 
 
 Use the focused test beside each hot-path section. Backend tests are under `tests/`; V5 tests are under `ui/contentops_v5/src/test/`. Generator coverage is `tests/test_codex_context_index.py`.
 
-## Current blocker
+## Current V1 closeout
 
-The V1 evidence-calibration continuation has locally fixed the Decision 5 post-evidence `rolling_x_article_revision_made_no_change` contract defect. Exact offline replay now reaches article, deterministic review PASS, and shadow package with zero public write. Both permitted live LLM-capable cycles ended safe `NO_PUBLICATION`; a subsequent exact rank-10 read-only replay passes evidence and claim gates after the RSS selection correction, but it is not live proof.
+The V1 evidence-calibration continuation has locally fixed the Decision 5 post-evidence `rolling_x_article_revision_made_no_change` contract defect. Exact offline replay now reaches article, deterministic review PASS, and shadow package with zero public write. Both earlier live LLM-capable cycles ended safe `NO_PUBLICATION`; a subsequent exact rank-10 read-only replay passes evidence and claim gates after the RSS selection correction, but it is not live proof.
 
-Active V1 task: `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; the app remains stopped and the operator fuse active. A new owner decision is required before another controlled live proof or master integration.
+Active V1 task: `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; Jim's 2026-08-12 operator override supersedes the earlier two-cycle cap and authorizes at most eight governed closeout decisions through the canonical coordinator. The app remains stopped and the operator fuse active until Git reconciliation plus focused offline validation complete; real publication and published-memory/5–8-day proof remain the acceptance gates.
 
 ## Tier2 separation
 
-Tier2/video is isolated from the V1 runtime and has no public-write authority. Read `docs/codegraph/V2_CONTEXT.md` and `video/AGENTS.md` only for an authorized V2 task. The accepted direct-image boundary and evidence are routed there; rejected Tier2-B and `8b043a5` remain reference only.
+Tier2/video is isolated from the V1 runtime and has no public-write authority. Read `docs/codegraph/V2_CONTEXT.md` and `video/AGENTS.md` only for an authorized V2 task. The retention-native authority set and accepted direct-image boundary are routed there; rejected Tier2-B, `8b043a5`, and creative branch `d231b54e` remain reference only.
 
 ## Generated graph files
 
@@ -142,4 +142,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`6504` nodes and `12180` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`6512` nodes and `12189` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
