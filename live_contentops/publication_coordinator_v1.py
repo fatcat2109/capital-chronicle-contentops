@@ -311,6 +311,13 @@ class DurablePublicationCoordinator:
             self.store.set_outbox_status(str(dispatch["message_id"]), DISPATCH_CONFIRMED)
         elif normalized.get("write_absent") is True:
             status = RECONCILED_ABSENT_SAFE_TO_RETRY
+            # The exact readback proved that the intended public write did not occur.  Clear
+            # UNKNOWN_WRITE durably while preserving the stable draft/object id for audit.  This
+            # is classification only: recovery never retries the adapter automatically.
+            self.store.set_dispatch_status(dispatch_id, RECONCILED_ABSENT_SAFE_TO_RETRY)
+            self.store.set_outbox_status(
+                str(dispatch["message_id"]), RECONCILED_ABSENT_SAFE_TO_RETRY
+            )
         else:
             status = RECONCILIATION_PENDING
         self.store.register_reconciliation(

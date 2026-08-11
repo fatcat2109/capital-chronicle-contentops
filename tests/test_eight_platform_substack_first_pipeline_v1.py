@@ -512,6 +512,58 @@ def test_classification_requires_every_expanded_destination_for_pass():
     assert _classification(results) == "FAILED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
 
 
+def test_substack_draft_id_readback_uses_exact_read_only_resolver(
+    monkeypatch, tmp_path
+):
+    expected_title = "Deutsche becomes European clearing bank for RMB"
+    seen = {}
+    monkeypatch.setattr(
+        pipeline,
+        "_durable_intent_inputs",
+        lambda _intent: {
+            "output_dir": tmp_path,
+            "article": {
+                "title": expected_title,
+                "subtitle": "A source-backed banking update.",
+                "substack_body_markdown": "The FT reported the banking update.",
+            },
+            "payloads": {"substack": {"text": ""}},
+            "canonical_url": "",
+            "local_media": "",
+            "media_assets": [],
+        },
+    )
+
+    def reconcile(**kwargs):
+        seen.update(kwargs)
+        return {
+            "status": "SUBSTACK_DRAFT_CONFIRMED_NOT_PUBLIC",
+            "verified": False,
+            "write_absent": True,
+            "public_object_id": kwargs["draft_id"],
+            "browser_write_performed": False,
+        }
+
+    monkeypatch.setattr(
+        pipeline, "reconcile_substack_publication_by_draft_id_via_edge", reconcile
+    )
+
+    result = pipeline._readback_one_destination_from_durable_intent(
+        destination="substack",
+        public_object_id="210796285",
+        public_object_url=None,
+        intent={"output_dir": str(tmp_path)},
+    )
+
+    assert seen["draft_id"] == "210796285"
+    assert seen["expected_title"] == expected_title
+    assert seen["expected_image_assets"] == []
+    assert result["status"] == "SUBSTACK_DRAFT_CONFIRMED_NOT_PUBLIC"
+    assert result["verified"] is False
+    assert result["write_absent"] is True
+    assert result["public_object_id"] == "210796285"
+
+
 def test_default_youtube_path_cannot_call_video_or_short_adapter():
     runner_source = inspect.getsource(pipeline._run_eight_platform_substack_first_pipeline)
     resume_source = inspect.getsource(pipeline._resume_eight_platform_derivatives)

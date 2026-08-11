@@ -122,7 +122,15 @@ def _quotes_supported(claim: str, document: Mapping[str, Any]) -> bool:
 
 
 def _without_numeric_scope(claim: str) -> str:
-    narrowed = _NUMBER_RE.sub("", claim)
+    # Remove ordinal suffixes together with the numeric token.  Leaving ``st`` behind from
+    # ``1st`` produced malformed live prose (for example, "becomes st European ...").
+    narrowed = re.sub(
+        r"(?<![A-Za-z])[-+]?(?:\$|€|£)?\d[\d,]*(?:\.\d+)?(?:st|nd|rd|th)(?![A-Za-z])",
+        "",
+        claim,
+        flags=re.IGNORECASE,
+    )
+    narrowed = _NUMBER_RE.sub("", narrowed)
     narrowed = re.sub(
         r"\b(?:basis points?|bps|billion|million|trillion|percent|percentage|per cent|shares?|dollars?|euros?|pounds?)\b",
         "",

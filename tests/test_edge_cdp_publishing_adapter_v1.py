@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import contextmanager
 import inspect
 from pathlib import Path
 
@@ -83,6 +84,132 @@ WTI current market signal. [Source]({source_url})
         )
         assert failed["content_readback_verified"] is False
         assert failed["editorial_process_language_absent"] is False
+
+
+def test_public_substack_content_checks_allow_a_source_backed_article_without_visuals() -> None:
+    source_url = "https://www.ft.com/content/example-banking-update"
+    body = (
+        "Deutsche became a European clearing bank for renminbi transactions, "
+        "according to the Financial Times.\n\n"
+        f"Read the original report. [Source]({source_url})"
+    )
+    visible = (
+        "Deutsche becomes European clearing bank for RMB\n"
+        "A source-backed banking update.\n"
+        "Deutsche became a European clearing bank for renminbi transactions, "
+        "according to the Financial Times.\n"
+        "Read the original report. Source"
+    )
+
+    checks = _public_substack_content_checks(
+        visible_text=visible,
+        hrefs=[source_url],
+        meta_description="A source-backed update on European RMB clearing.",
+        expected_title="Deutsche becomes European clearing bank for RMB",
+        expected_subtitle="A source-backed banking update.",
+        expected_body_markdown=body,
+        expected_image_assets=[],
+    )
+
+    assert checks["caption_count_expected"] == 0
+    assert checks["captions_visible"] is True
+    assert checks["content_readback_verified"] is True
+
+
+def test_substack_draft_reconciliation_waits_for_exact_hydrated_binding(monkeypatch) -> None:
+    expected_title = "Deutsche becomes European clearing bank for RMB"
+    expected_subtitle = "A source-backed banking update."
+    expected_body = (
+        "## What happened\n\n"
+        "Financial Times reported that Deutsche became a European clearing bank "
+        "for renminbi transactions."
+    )
+    state = {"mode": "", "poll": 0, "navigations": []}
+
+    class FakeLink:
+        def get_attribute(self, name):
+            assert name == "href"
+            return "/publish/post/210796285?back=%2Fpublish%2Fposts%2Fdrafts"
+
+        def inner_text(self, timeout=None):
+            return expected_title
+
+    class FakeLinks:
+        def all(self):
+            return [FakeLink()] if state["mode"] == "drafts" else []
+
+    class FakePage:
+        def goto(self, url, **_kwargs):
+            state["navigations"].append(url)
+            state["mode"] = (
+                "published"
+                if url.endswith("/published")
+                else "drafts"
+                if url.endswith("/drafts")
+                else "editor"
+            )
+
+        def locator(self, selector):
+            assert selector == "a[href]"
+            return FakeLinks()
+
+    class FakeTitle:
+        def input_value(self, timeout=None):
+            state["poll"] += 1
+            return "" if state["poll"] == 1 else expected_title
+
+    class FakeSubtitle:
+        def input_value(self, timeout=None):
+            return "" if state["poll"] == 1 else expected_subtitle
+
+    class FakeEditor:
+        def inner_text(self, timeout=None):
+            return "" if state["poll"] == 1 else expected_body
+
+    page = FakePage()
+
+    @contextmanager
+    def fake_edge_page(_cdp_port):
+        yield page
+
+    def fake_first_visible(_page, selectors):
+        if state["mode"] != "editor":
+            return None, None
+        first = selectors[0]
+        if first == "#post-title":
+            return FakeTitle(), first
+        if first.startswith("textarea"):
+            return FakeSubtitle(), first
+        return FakeEditor(), first
+
+    monkeypatch.setattr(adapter, "canonical_edge_page", fake_edge_page)
+    monkeypatch.setattr(adapter, "_first_visible", fake_first_visible)
+    monkeypatch.setattr(adapter.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(
+        adapter, "_editor_image_count", lambda _page: 0 if state["poll"] == 1 else 3
+    )
+
+    result = adapter.reconcile_substack_publication_by_draft_id_via_edge(
+        cdp_port=9223,
+        draft_id="210796285",
+        expected_title=expected_title,
+        expected_subtitle=expected_subtitle,
+        expected_body_markdown=expected_body,
+        expected_image_assets=[
+            {"asset_id": "source"},
+            {"asset_id": "facts"},
+            {"asset_id": "metadata"},
+        ],
+    )
+
+    assert result["status"] == "SUBSTACK_DRAFT_CONFIRMED_NOT_PUBLIC"
+    assert result["draft_binding_verified"] is True
+    assert result["write_absent"] is True
+    assert result["browser_write_performed"] is False
+    assert state["poll"] == 2
+    assert any(url.endswith("/published") for url in state["navigations"])
+    assert any(url.endswith("/drafts") for url in state["navigations"])
+    assert any("/publish/post/210796285?" in url for url in state["navigations"])
 
 
 class _FakeInput:

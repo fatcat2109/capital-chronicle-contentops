@@ -17,6 +17,7 @@ from live_contentops.publication_coordinator_v1 import (
     ATTEMPT_STARTED,
     DISPATCH_CONFIRMED,
     RECONCILIATION_PENDING,
+    RECONCILED_ABSENT_SAFE_TO_RETRY,
     RECONCILED_CONFIRMED,
     UNKNOWN_WRITE,
     DurablePublicationCoordinator,
@@ -353,6 +354,54 @@ def test_case_f_ambiguous_write_remains_pending_without_retry(tmp_path):
     assert result["per_destination"]["telegram"]["reconciliation_status"] == RECONCILIATION_PENDING
     coordinator.recover_pending()
     assert transport.publish_calls == ["telegram"]
+
+
+def test_exact_draft_readback_clears_unknown_without_retry(tmp_path):
+    class DraftAbsentTransport(FixtureTransport):
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            self.readback_calls.append(destination)
+            assert destination == "substack"
+            assert public_object_id == "210796285"
+            assert public_object_url is None
+            return {
+                "status": "SUBSTACK_DRAFT_CONFIRMED_NOT_PUBLIC",
+                "verified": False,
+                "write_absent": True,
+                "public_object_id": public_object_id,
+            }
+
+    store, transport, coordinator = _coordinator(
+        tmp_path, runtime=DraftAbsentTransport()
+    )
+    registered = coordinator.register_plan("work-1", _plan("substack"))["registered"][0]
+    store.register_platform_dispatch(
+        dispatch_id=registered["dispatch_id"],
+        message_id=registered["message_id"],
+        platform="substack",
+        status=UNKNOWN_WRITE,
+        public_object_id="210796285",
+    )
+    store.set_outbox_status(registered["message_id"], UNKNOWN_WRITE)
+
+    first = coordinator.recover_pending()
+    second = coordinator.recover_pending()
+
+    assert first["readbacks"] == 1
+    assert first["publish_calls"] == 0
+    assert second["readbacks"] == 0
+    assert transport.publish_calls == []
+    assert transport.readback_calls == ["substack"]
+    assert store.get_platform_dispatch(registered["dispatch_id"])["status"] == (
+        RECONCILED_ABSENT_SAFE_TO_RETRY
+    )
+    assert next(
+        row
+        for row in store.list_outbox_messages()
+        if row["message_id"] == registered["message_id"]
+    )["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+    assert store.get_reconciliations_for_work_item("work-1")[0]["status"] == (
+        RECONCILED_ABSENT_SAFE_TO_RETRY
+    )
 
 
 def test_case_g_expired_destination_isolated(tmp_path):

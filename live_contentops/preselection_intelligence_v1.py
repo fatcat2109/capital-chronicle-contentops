@@ -33,7 +33,10 @@ from live_contentops.editorial_portfolio_v1 import (
 
 SCHEMA_VERSION = "contentops.preselection_intelligence.v1"
 ASSIGNMENT_COMPACTION_SCHEMA_VERSION = "contentops.rolling_x_assignment_compaction.v1"
-DEFAULT_MAX_ASSIGNMENT_HEADLINES = 128
+# Live telemetry proved that 128 headlines can consume nearly the entire 250k hard cycle cap
+# before the quality-first writer/reviewer run.  Sixty-four preserves a broad ranked universe
+# while leaving circuit-breaker headroom for the final editorial stages.
+DEFAULT_MAX_ASSIGNMENT_HEADLINES = 64
 
 _DECISION_BONUS = {
     DECISION_BREAKING_NEW_STORY: 12.0,

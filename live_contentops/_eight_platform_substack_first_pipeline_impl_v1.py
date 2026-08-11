@@ -30,6 +30,7 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     publish_youtube_community_post_via_edge,
     probe_authenticated_platform_session,
     readback_linkedin_post_via_edge,
+    reconcile_substack_publication_by_draft_id_via_edge,
     readback_linkedin_activity_via_edge,
     readback_youtube_community_post_via_edge,
     readback_x_thread_via_edge,
@@ -2967,6 +2968,16 @@ def _readback_one_destination_from_durable_intent(
     if destination == "substack" and public_object_url:
         result = audit_public_substack_article_via_edge(
             cdp_port=cdp_port, public_url=public_object_url,
+            expected_title=str(article.get("title") or ""),
+            expected_subtitle=str(article.get("subtitle") or ""),
+            expected_body_markdown=str(article.get("substack_body_markdown") or ""),
+            expected_image_assets=data["media_assets"],
+            public_screenshot_path=output_dir / "public_substack_readback.png",
+        )
+    elif destination == "substack" and public_object_id:
+        result = reconcile_substack_publication_by_draft_id_via_edge(
+            cdp_port=cdp_port,
+            draft_id=public_object_id,
             expected_title=str(article.get("title") or ""),
             expected_subtitle=str(article.get("subtitle") or ""),
             expected_body_markdown=str(article.get("substack_body_markdown") or ""),

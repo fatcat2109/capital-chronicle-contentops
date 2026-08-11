@@ -214,6 +214,32 @@ def test_secondary_source_title_can_support_nonnumeric_core_after_numeric_scope_
     )
 
 
+def test_numeric_scope_removal_drops_the_entire_ordinal_token():
+    title = "Deutsche becomes 1st European clearing bank for RMB"
+    request = _request(
+        story_type="company_sector_event",
+        summaries=[title],
+    )
+    secondary = _document(
+        authority="reputable_secondary_source",
+        text=title,
+        publisher="Financial Times",
+    )
+
+    contract = build_claim_evidence_contract(request, [secondary])
+
+    assert contract["status"] == "PASS"
+    assert contract["fabricated_claim_count"] == 0
+    assert contract["supported_claim_count"] == 1
+    supported = contract["supported_claims"][0]
+    assert supported["claim_text"] == (
+        "Deutsche becomes European clearing bank for RMB"
+    )
+    assert "1st" not in supported["claim_text"]
+    assert " becomes st " not in f" {supported['claim_text'].casefold()} "
+    assert supported["numeric_claim"] is False
+
+
 def test_c_policy_story_has_no_company_filing_requirement():
     capability = resolve_story_capabilities(
         {"story_type": "policy_decision", "article_mode": "straight_news"},
@@ -526,6 +552,36 @@ def test_large_rolling_universe_is_compacted_before_semantic_assignment():
     assert evidence["llm_or_provider_calls"] == 0
     assert evidence["factual_or_numeric_authority_granted"] is False
     assert evidence["publication_authority_granted"] is False
+
+
+def test_assignment_compaction_default_preserves_writer_reviewer_headroom():
+    headlines = [
+        {
+            "headline_id": f"headline-{index:03d}",
+            "source_timestamp_utc": f"2026-08-11T{index % 24:02d}:00:00Z",
+            "source_locator": {"path": "sidecar.jsonl", "line": index + 1},
+            "external_content": {"headline_text": f"Headline {index}"},
+        }
+        for index in range(180)
+    ]
+    source = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "cutoff_time_utc": "2026-08-11T23:59:00Z",
+        "window_start_utc": "2026-08-10T23:59:00Z",
+        "window_hours": 24.0,
+        "headlines": headlines,
+        "unique_headline_ids": [row["headline_id"] for row in headlines],
+        "counts": {"accepted": len(headlines)},
+        "canonical_input_hash": "full-input-hash",
+    }
+
+    compacted, evidence = compact_rolling_x_assignment_universe(source)
+
+    assert len(compacted["headlines"]) == 64
+    assert len(compacted["unique_headline_ids"]) == 64
+    assert evidence["max_assignment_headlines"] == 64
+    assert evidence["assignment_headline_count"] == 64
+    assert evidence["held_before_semantic_assignment_count"] == 116
 
 
 def test_semantic_story_type_failure_has_conservative_zero_authority_fallback():

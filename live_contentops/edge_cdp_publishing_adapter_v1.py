@@ -14,7 +14,7 @@ import urllib.parse
 import urllib.request
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Iterator, Mapping, Sequence
+from typing import Any, Callable, Iterator, Mapping, Sequence
 
 from live_contentops.publishing_profile_registry_v1 import (
     CANONICAL_PROFILE_ID,
@@ -734,7 +734,10 @@ def _public_substack_content_checks(
         for asset in expected_image_assets or []
         if str(asset.get("caption") or "").strip()
     ]
-    captions_visible = bool(captions) and all(caption in normalized_visible for caption in captions)
+    # Visuals are optional for a valid canonical article.  When assets are present their
+    # captions remain exact readback bindings; an empty asset set is not itself a content
+    # failure.
+    captions_visible = all(caption in normalized_visible for caption in captions)
     source_links_visible = bool(source_urls) and all(
         source_url in hrefs or _normalise_editor_text(source_url) in normalized_visible_with_urls
         for source_url in source_urls
@@ -824,7 +827,14 @@ def _audit_public_substack_article(
             continue
     image_rows = list({row["src"]: row for row in image_rows}.values())
     tops = sorted(row["top"] for row in image_rows)
-    visual_spread = len(tops) >= 3 and all((right - left) >= 240 for left, right in zip(tops, tops[1:]))
+    expected_image_count = len(expected_image_assets or [])
+    visual_spread = bool(
+        len(tops) >= expected_image_count
+        and (
+            expected_image_count < 2
+            or all((right - left) >= 240 for left, right in zip(tops, tops[1:]))
+        )
+    )
     visible_text = ""
     for selector in ("article", "[class*='post-content']", "body"):
         try:
@@ -1024,10 +1034,12 @@ def audit_public_substack_article_via_edge(
             expected_body_markdown=expected_body_markdown,
             expected_image_assets=expected_image_assets,
         )
+    expected_image_count = len(expected_image_assets)
     verified = bool(
         readback.get("content_readback_verified")
-        and int(readback.get("public_image_count") or 0) >= 3
-        and int(readback.get("public_image_alt_or_caption_count") or 0) >= 3
+        and int(readback.get("public_image_count") or 0) >= expected_image_count
+        and int(readback.get("public_image_alt_or_caption_count") or 0)
+        >= expected_image_count
         and readback.get("visual_spread_through_public_body")
     )
     return {
@@ -1037,6 +1049,274 @@ def audit_public_substack_article_via_edge(
         "readback": readback,
         "browser_write_performed": False,
     }
+
+
+def _substack_listing_matches(
+    page: Any,
+    *,
+    expected_title: str,
+    href_predicate: Callable[[str], bool],
+) -> list[dict[str, str]]:
+    """Return sanitized exact-title listing matches without exposing browser material."""
+    filter_input, _ = _first_visible(
+        page,
+        (
+            "input[placeholder*='Filter']",
+            "input[placeholder*='Search']",
+            "input[type='search']",
+        ),
+    )
+    if filter_input is not None:
+        try:
+            filter_input.fill(expected_title)
+            time.sleep(2)
+        except Exception:
+            pass
+    expected = _normalise_editor_text(expected_title)
+    matches: list[dict[str, str]] = []
+    for link in page.locator("a[href]").all():
+        try:
+            href = str(link.get_attribute("href") or "").strip()
+            text = str(link.inner_text(timeout=1200) or "").strip()
+        except Exception:
+            continue
+        lines = [
+            _normalise_editor_text(line)
+            for line in text.splitlines()
+            if _normalise_editor_text(line)
+        ]
+        if expected not in lines:
+            continue
+        if href_predicate(href):
+            matches.append({"href": href, "title": expected_title})
+    return matches
+
+
+def reconcile_substack_publication_by_draft_id_via_edge(
+    *,
+    cdp_port: int,
+    draft_id: str,
+    expected_title: str,
+    expected_subtitle: str,
+    expected_body_markdown: str,
+    expected_image_assets: Sequence[Mapping[str, Any]],
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Resolve an ambiguous Substack attempt by exact public-or-draft identity, read-only.
+
+    A unique public title is audited through the existing strict public readback.  Otherwise an
+    exact draft id/title/body/media binding proves that the intended *public* write is absent and
+    is safe to classify without retrying the adapter.  Private editor URLs and session material
+    are never returned or persisted.
+    """
+    draft_id = str(draft_id or "").strip()
+    expected_title = str(expected_title or "").strip()
+    if not draft_id.isdigit() or not expected_title:
+        return {
+            "status": "BLOCKED_SUBSTACK_DRAFT_READBACK_IDENTITY_INVALID",
+            "platform": "substack",
+            "verified": False,
+            "write_absent": False,
+            "public_object_id": draft_id or None,
+            "browser_write_performed": False,
+        }
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(
+            "https://capitalchronicle.substack.com/publish/posts/published",
+            wait_until="domcontentloaded",
+            timeout=45000,
+        )
+        time.sleep(3)
+        published_matches = _substack_listing_matches(
+            page,
+            expected_title=expected_title,
+            href_predicate=lambda _href: True,
+        )
+        if len(published_matches) > 1:
+            return {
+                "status": "AMBIGUOUS_SUBSTACK_PUBLIC_TITLE_MATCH",
+                "platform": "substack",
+                "verified": False,
+                "write_absent": False,
+                "public_object_id": draft_id,
+                "browser_write_performed": False,
+            }
+        if len(published_matches) == 1:
+            public_url = _absolute_substack_url(published_matches[0]["href"])
+            if not _is_public_substack_url(public_url):
+                return {
+                    "status": "AMBIGUOUS_SUBSTACK_PUBLISHED_LISTING_MATCH",
+                    "platform": "substack",
+                    "verified": False,
+                    "write_absent": False,
+                    "public_object_id": draft_id,
+                    "browser_write_performed": False,
+                }
+            readback = _audit_public_substack_article(
+                page,
+                str(public_url),
+                public_screenshot_path,
+                expected_title=expected_title,
+                expected_subtitle=expected_subtitle,
+                expected_body_markdown=expected_body_markdown,
+                expected_image_assets=expected_image_assets,
+            )
+            expected_image_count = len(expected_image_assets)
+            verified = bool(
+                readback.get("content_readback_verified")
+                and int(readback.get("public_image_count") or 0) >= expected_image_count
+                and int(readback.get("public_image_alt_or_caption_count") or 0)
+                >= expected_image_count
+                and readback.get("visual_spread_through_public_body")
+            )
+            return {
+                "status": "SUCCESS" if verified else "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK",
+                "platform": "substack",
+                "verified": verified,
+                "write_absent": False,
+                "public_object_id": draft_id,
+                "public_url": public_url,
+                "readback": readback,
+                "browser_write_performed": False,
+            }
+
+        page.goto(
+            "https://capitalchronicle.substack.com/publish/posts/drafts",
+            wait_until="domcontentloaded",
+            timeout=45000,
+        )
+        time.sleep(3)
+        draft_matches = _substack_listing_matches(
+            page,
+            expected_title=expected_title,
+            href_predicate=lambda href: bool(
+                re.search(rf"/publish/post/{re.escape(draft_id)}(?:\?|$)", href)
+            ),
+        )
+        if len(draft_matches) != 1:
+            return {
+                "status": "READBACK_UNAVAILABLE",
+                "platform": "substack",
+                "verified": False,
+                "write_absent": False,
+                "public_object_id": draft_id,
+                "browser_write_performed": False,
+            }
+
+        # Read the exact draft without modifying it.  The same bindings are rechecked again by
+        # the accepted resume adapter should an operator later choose a safe retry.
+        page.goto(
+            f"https://capitalchronicle.substack.com/publish/post/{draft_id}"
+            "?back=%2Fpublish%2Fposts%2Fdrafts",
+            wait_until="domcontentloaded",
+            timeout=45000,
+        )
+        expected_subtitle = str(expected_subtitle or "").strip()
+        expected_body_anchor = ""
+        for kind, value in _split_substack_body(expected_body_markdown):
+            if kind != "text":
+                continue
+            text_only = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", value)
+            for paragraph in re.split(r"\n\s*\n", text_only):
+                normalized = _normalise_editor_text(paragraph)
+                words = normalized.split()
+                if len(words) >= 8:
+                    expected_body_anchor = " ".join(words[: min(12, len(words))])
+                    break
+            if expected_body_anchor:
+                break
+
+        # Substack mounts visible editor controls before the draft itself is hydrated.  Poll
+        # bounded exact bindings instead of interpreting the transient blank controls as a
+        # mismatch.  This loop remains strictly read-only.
+        title_input = None
+        subtitle_input = None
+        editor = None
+        actual_title = ""
+        actual_subtitle = ""
+        editor_text = ""
+        editor_image_count = 0
+        deadline = time.monotonic() + 15.0
+        while True:
+            title_input, _ = _first_visible(
+                page, ("#post-title", "input[name='title']", "input[placeholder*='Title']")
+            )
+            subtitle_input, _ = _first_visible(
+                page,
+                (
+                    "textarea[placeholder*='subtitle']",
+                    "textarea[placeholder*='Subtitle']",
+                    "#post-subtitle",
+                ),
+            )
+            editor, _ = _first_visible(
+                page, ("div.ProseMirror", ".ProseMirror", "div[contenteditable='true']")
+            )
+            if title_input is not None and editor is not None:
+                actual_title = str(title_input.input_value(timeout=3000) or "").strip()
+                actual_subtitle = (
+                    str(subtitle_input.input_value(timeout=3000) or "").strip()
+                    if subtitle_input is not None
+                    else ""
+                )
+                editor_text = _normalise_editor_text(
+                    editor.inner_text(timeout=5000) or ""
+                )
+                editor_image_count = _editor_image_count(page)
+                hydrated_binding = bool(
+                    actual_title == expected_title
+                    and (not expected_subtitle or actual_subtitle == expected_subtitle)
+                    and expected_body_anchor
+                    and expected_body_anchor in editor_text
+                    and editor_image_count >= len(expected_image_assets)
+                )
+                if hydrated_binding:
+                    break
+            if time.monotonic() >= deadline:
+                break
+            time.sleep(0.5)
+        if title_input is None or editor is None:
+            return {
+                "status": "READBACK_UNAVAILABLE",
+                "platform": "substack",
+                "verified": False,
+                "write_absent": False,
+                "public_object_id": draft_id,
+                "browser_write_performed": False,
+            }
+        subtitle_binding_verified = bool(
+            not expected_subtitle or actual_subtitle == expected_subtitle
+        )
+        body_anchor_verified = bool(
+            expected_body_anchor and expected_body_anchor in editor_text
+        )
+        media_count_verified = editor_image_count >= len(expected_image_assets)
+        exact_draft_bound = bool(
+            actual_title == expected_title
+            and subtitle_binding_verified
+            and body_anchor_verified
+            and media_count_verified
+        )
+        return {
+            "status": (
+                "SUBSTACK_DRAFT_CONFIRMED_NOT_PUBLIC"
+                if exact_draft_bound
+                else "SUBSTACK_DRAFT_BINDING_MISMATCH"
+            ),
+            "platform": "substack",
+            "verified": False,
+            "write_absent": exact_draft_bound,
+            "public_object_id": draft_id,
+            "publication_state": "draft" if exact_draft_bound else None,
+            "draft_binding_verified": exact_draft_bound,
+            "title_binding_verified": actual_title == expected_title,
+            "subtitle_binding_verified": subtitle_binding_verified,
+            "body_anchor_verified": body_anchor_verified,
+            "media_count_verified": media_count_verified,
+            "observed_editor_image_count": editor_image_count,
+            "expected_image_count": len(expected_image_assets),
+            "browser_write_performed": False,
+        }
 
 
 def capture_public_destination_screenshot_via_edge(
@@ -1093,7 +1373,7 @@ def publish_substack_article_via_edge(
     """Publish one canonical article with source-backed images embedded in order."""
     assets = {str(item.get("asset_id") or ""): dict(item) for item in image_assets}
     expected_ids = _VISUAL_MARKER_RE.findall(body_markdown)
-    if len(expected_ids) < 3 or len(set(expected_ids)) < 3 or list(assets) != expected_ids:
+    if len(expected_ids) != len(set(expected_ids)) or list(assets) != expected_ids:
         return {"status": "BLOCKED_INVALID_SUBSTACK_MEDIA_MANIFEST", "platform": "substack"}
     for asset_id in expected_ids:
         if not Path(str(assets[asset_id].get("local_path") or assets[asset_id].get("path") or "")).exists():
@@ -1209,7 +1489,7 @@ def publish_substack_article_via_edge(
             _append_editor_text(page, editor, "\n\n")
 
         editor_image_count = _editor_image_count(page)
-        if editor_image_count < 3:
+        if editor_image_count < len(expected_ids):
             return {"status": "FAILED_SUBSTACK_EDITOR_IMAGE_COUNT", "platform": "substack", "draft_id": _substack_draft_id(page.url), "editor_body_image_count": editor_image_count, "upload_rows": upload_rows}
         editor_text = _normalise_editor_text(editor.inner_text(timeout=5000) or "")
         missing_captions = [
@@ -1281,9 +1561,16 @@ def publish_substack_article_via_edge(
             expected_body_markdown=body_markdown,
             expected_image_assets=image_assets,
         )
-        if readback["public_image_count"] < 3 or not readback["visual_spread_through_public_body"]:
+        expected_image_count = len(expected_ids)
+        if (
+            readback["public_image_count"] < expected_image_count
+            or not readback["visual_spread_through_public_body"]
+        ):
             return {"status": "FAILED_SUBSTACK_PUBLIC_VISUAL_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows, "public_url": public_url, "readback": readback}
-        if readback["public_image_alt_or_caption_count"] < 3 or not readback["content_readback_verified"]:
+        if (
+            readback["public_image_alt_or_caption_count"] < expected_image_count
+            or not readback["content_readback_verified"]
+        ):
             return {"status": "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows, "public_url": public_url, "readback": readback}
         return {
             "status": "SUCCESS",
