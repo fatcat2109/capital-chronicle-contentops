@@ -124,6 +124,31 @@ Next Tier-2 product route after Jim/ChatGPT visual review:
 
 FDA-G remains independently active and is not declared accepted by this result.
 
+## Tier-2-B result recorded 2026-08-10
+
+`TASK_CONTENTOPS_TIER2_B_REMOTION_MULTIMODAL_QA_PROVIDER_BAKEOFF_BOUNDED_REVISION_AND_DIVERSE_CORPUS_V1`
+
+Result: `COMPLETE_TIER2_B_PRODUCT_SLICE_AWAITING_CHATGPT_JIM_VISUAL_AUDIO_REVIEW`.
+
+Remotion is promoted to the primary Tier-2 prototype compositor over the renderer-neutral
+VideoProgram, with professional motion primitives, a bounded 9Router Video Director, an
+independent multimodal visual critic (structured defects), bounded revision (<=2 rounds, whitelist
+never touches facts), selective scene/chapter rerender, deterministic computed QA, and an immutable
+hash-locked package. One governed Treasury package rendered a 1013.62-second (16:53) 16:9 long-form
+(20 chapters, no filler, grounded in the packet's 65-day curve series) plus an independently
+directed 72.92-second native 9:16 short. Provider bakeoff is provisional (NOT canonical-locked):
+image generation unavailable via the 9router gateway for all three owner candidates; Kokoro is the
+narration baseline with Chatterbox viable-but-slow and ElevenLabs entitlement unavailable (API key
+ID configured, not an `sk_` key); Mixkit music blocked (403, manual import) and ACE-Step deferred.
+No public/private upload occurred. Runtime evidence is outside Git at
+`A:\Capital Chronicle\Runtime\ContentOps\tier2\tier2b-v1`.
+
+Next blocker (human acceptance required before Tier-2-C):
+
+`CHATGPT_JIM_TIER2_B_VISUAL_AUDIO_PROVIDER_BAKEOFF_AUDIT`
+
+FDA-G remains independently active and is not declared accepted by this result.
+
 ## Completed immediately prior
 
 `TASK_CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1`

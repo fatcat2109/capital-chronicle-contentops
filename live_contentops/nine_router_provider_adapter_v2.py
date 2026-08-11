@@ -394,3 +394,108 @@ def _retry_after_from_headers(headers: Any) -> float | None:
         return float(str(value).strip())
     except (TypeError, ValueError):
         return None
+
+
+#: ---------------------------------------------------------------------------
+#: Tier2-B multimodal extension (bounded visual-critic input).
+#: Reuses the same gateway host allowlist, credential check, and response
+#: parsing. Adds NO second gateway, retry engine, or model pool.
+#: ---------------------------------------------------------------------------
+
+MULTIMODAL_MAX_IMAGES = 6
+MULTIMODAL_MAX_IMAGE_BYTES = 4 * 1024 * 1024
+
+
+def call_nine_router_multimodal(
+    text: str,
+    images_b64: list[str],
+    model: str,
+    timeout_seconds: float = 120.0,
+    *,
+    max_tokens: int = 4000,
+    temperature: float = 0.2,
+    base_url: str | None = None,
+) -> ProviderResult:
+    """One bounded multimodal chat completion over the canonical 9router gateway.
+
+    ``images_b64`` are PNG/JPEG bytes already base64-encoded by the caller and
+    bounded in count/size. They are sent as inline data URIs only (never remote
+    URLs). Failures are classified; configuration problems raise.
+    """
+    if model not in AUTHORIZED_MODELS:
+        raise NineRouterAdapterError(f"unauthorized_model:{model}")
+    if len(images_b64) > MULTIMODAL_MAX_IMAGES:
+        raise NineRouterAdapterError("multimodal_image_count_exceeds_limit")
+    env = getattr(os, "environ")
+    api_key = env.get(ENV_API_KEY)
+    if not api_key:
+        raise NineRouterAdapterError(f"{ENV_API_KEY}_missing")
+    resolved_base = resolve_base_url(base_url)
+
+    content: list[dict[str, Any]] = [{"type": "text", "text": text}]
+    for blob in images_b64:
+        if len(blob) > MULTIMODAL_MAX_IMAGE_BYTES * 4 // 3 + 64:
+            raise NineRouterAdapterError("multimodal_image_bytes_exceed_limit")
+        content.append({"type": "image_url", "image_url": {"url": f"data:image/png;base64,{blob}"}})
+
+    url_request = importlib.import_module("urllib.request")
+    url_error = importlib.import_module("urllib.error")
+    wire_model, effort = split_model_and_effort(model)
+    request_payload: dict[str, Any] = {
+        "model": wire_model,
+        "messages": [{"role": "user", "content": content}],
+        "max_tokens": max_tokens,
+        "temperature": temperature,
+    }
+    if effort:
+        request_payload["reasoning_effort"] = effort
+    body = json.dumps(request_payload).encode("utf-8")
+    request = url_request.Request(
+        f"{resolved_base}/chat/completions",
+        data=body,
+        headers={"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"},
+        method="POST",
+    )
+    try:
+        with url_request.urlopen(request, timeout=timeout_seconds) as response:
+            raw = response.read().decode("utf-8")
+            status = int(getattr(response, "status", 200) or 200)
+    except url_error.HTTPError as exc:
+        retry_after = _retry_after_from_headers(getattr(exc, "headers", None))
+        code = int(getattr(exc, "code", 0) or 0)
+        detail = ""
+        try:
+            detail = exc.read().decode("utf-8", errors="replace")[:2000]
+        except Exception:
+            detail = ""
+        return ProviderResult(status_code=code, retry_after_seconds=retry_after, failure_class=_classify_http_error(code, detail))
+    except url_error.URLError as exc:
+        return ProviderResult(failure_class=classify_failure(getattr(exc, "reason", exc)))
+    except (TimeoutError, OSError) as exc:
+        return ProviderResult(failure_class=classify_failure(exc))
+
+    payload: Mapping[str, Any] = {}
+    out_text: str | None = None
+    sse: "dict[str, Any] | None" = None
+    parsed = _load_json_body(raw)
+    if parsed is not None:
+        payload = parsed
+        out_text = _extract_text(payload)
+    elif "data:" in raw:
+        sse = _parse_sse_full(raw)
+        out_text = sse["text"] if sse is not None else None
+    if out_text is None and sse is None and not payload:
+        return ProviderResult(status_code=status, failure_class="structured_output_malformed", text=raw[:2000])
+    resolved_model = sse["model"] if sse is not None else _observed_model(payload)
+    invocation_id = (sse or {}).get("id") or (str(payload.get("id")) if payload.get("id") else None)
+    usage = (sse or {}).get("usage") if sse is not None else _extract_usage(payload)
+    if not out_text:
+        return ProviderResult(status_code=status, resolved_model=resolved_model, failure_class="structured_output_malformed")
+    return ProviderResult(
+        text=out_text,
+        resolved_model=resolved_model,
+        provider_invocation_id=invocation_id,
+        status_code=status,
+        usage=usage or _extract_usage(payload),
+        cost=_extract_cost(payload),
+    )

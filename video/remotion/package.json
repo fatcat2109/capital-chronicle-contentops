@@ -1,0 +1,28 @@
+{
+  "name": "contentops-tier2-remotion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ContentOps Tier-2 Remotion compositor (renderer target only; VideoProgram remains the renderer-neutral authority).",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render:job": "node scripts/render-job.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.507",
+    "@remotion/cli": "4.0.507",
+    "@remotion/player": "4.0.507",
+    "@remotion/renderer": "4.0.507",
+    "@remotion/transitions": "4.0.507",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "remotion": "4.0.507"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.10",
+    "@types/react-dom": "19.2.3",
+    "typescript": "5.6.3",
+    "vitest": "2.1.8"
+  }
+}

@@ -63,3 +63,10 @@ scratch/*.html
 *.db.bak
 *.db.bak.*
 *.restore
+
+# Tier-2 Remotion runtime staging media (regenerated at render time; kept outside Git)
+video/remotion/public/assets/
+video/remotion/public/narration/
+video/remotion/.remotion/
+video/remotion/out/
+video/remotion/node_modules/
