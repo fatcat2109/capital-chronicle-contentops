@@ -12,7 +12,9 @@ code/tests/evidence, and current authority documents control when they conflict 
 one-click launcher
 → durable supervisor
 → continuous zero-LLM X intake
+→ durable material-event priority metadata (queue only; no LLM wake)
 → complete rolling 24h unique headline universe
+→ configured editorial window or explicit operator Run Now
 → hierarchical assignment and compact shortlist
 → published-memory + Capital Chronicle + portfolio preselection
 → story type and article/update mode
@@ -42,6 +44,17 @@ weaken evidence or create filler.
   opportunities, zero articles, zero visuals/packages/dispatches/public objects/readbacks, and
   no unknown write. Committed canonical published-corpus count: `0`.
 - Exact immediate blocker: `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`.
+
+Continuation update on the current task branch:
+
+- calibrated minimum/optional evidence and claim-level support crossed evidence with Decision 5;
+- exact offline replay reproduced `ValueError: rolling_x_article_revision_made_no_change`;
+- the source-desk-label/SEO metadata mismatch is fixed at the deterministic brief seam;
+- the replay now reaches article, deterministic review PASS, and shadow package with zero write;
+- one-click STOP/explicit RESUME, a persistent pre-network LLM operator fuse, scheduled-only LLM
+  execution, and hard 5-call/8-attempt/80k-cycle/400k-day cost ceilings are locally validated;
+- the exact next gate is one controlled production proof. The Daily App remains stopped and the
+  operator fuse remains active until that gate is intentionally entered.
 
 These are committed evidence facts, not a claim about live state after the evidence capture.
 Source: `docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/`.
@@ -73,7 +86,8 @@ Start_ContentOps_Daily_App.cmd
       │    → continuous_headline_ingest_v1.run_ingestion_housekeeping_iteration
       │    → headline_ingestion.Data_Ingestion.append_headline_sidecars
       ├─ recovery/readback/performance housekeeping
-      └─ _execute_window (scheduled, material-event, or OPERATOR_REQUESTED)
+      ├─ material event → durable priority work item only (zero LLM)
+      └─ _execute_window (scheduled or OPERATOR_REQUESTED only)
            → eight_platform_substack_first_pipeline_v1.run_rolling_x_newsroom_cycle
            → ContentOpsProductionOrchestrator.execute
            → _eight_platform_substack_first_pipeline_impl_v1._run_rolling_x_newsroom_cycle
@@ -108,6 +122,7 @@ implementation is mapped to explain control flow, not to authorize a new direct 
 | Stage | Module and important symbol | Inputs | Outputs / next stage | Focused tests |
 |---|---|---|---|---|
 | One-click resume | `Start_ContentOps_Daily_App.cmd`; `daily_app_launcher_v1.main` | existing production store/output paths, port ownership | idempotent `daily-app start`; supervisor | `test_contentops_daily_app_launcher_v1.py`, `test_contentops_ingestion_bootstrap_v1.py` |
+| Emergency stop/resume | `STOP_ALL_CONTENTOPS_BACKGROUND.cmd`; `RESUME_CONTENTOPS_LLM.cmd`; `llm_operator_control_v1.py` | canonical Runtime control marker and proven process ownership | pause before termination; explicit resume never starts app | `test_contentops_emergency_stop_v1.py` |
 | Supervisor | `daily_app_supervisor_v1.ContentOpsDailyAppSupervisor` | durable controls/windows/triggers, clock, canonical cycle | exactly-one claimed window; housekeeping and newsroom execution | `test_daily_app_supervisor_v1.py`, `test_daily_app_operator_trigger_v1.py` |
 | Continuous intake | `continuous_headline_ingest_v1.run_ingestion_housekeeping_iteration` | canonical Chrome 9222 capture outcome/checkpoint | deduplicated daily sidecar rows and material-event trigger | `test_contentops_continuous_intelligence_realign_v1.py`, `test_preselection_published_memory_breaking_wake_closeout_v1.py` |
 | Rolling 24h load | `newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars` | daily sidecar glob, cutoff, 24h window | unique source-event-time-valid headline universe | `test_rolling_x_newsroom_cycle_v1.py` |
@@ -117,6 +132,7 @@ implementation is mapped to explain control flow, not to authorize a new direct 
 | Capital Chronicle context | `capital_chronicle_data_catalog_v1.discover_cc_data_estate`; `query_story_scoped_cc_context` | read-only Main App root and story terms | metadata catalog and bounded story-scoped matches; no upstream mutation | `test_contentops_continuous_intelligence_realign_v1.py` |
 | Portfolio | `editorial_portfolio_v1.classify_story_novelty`; `portfolio_state_today` | cluster delta, related articles, today's corpus | breaking/follow-up/deepen/repeat/hold and concentration state | `test_contentops_continuous_intelligence_realign_v1.py` |
 | Story routing | `classify_rolling_x_story_types_with_nine_router` | preselected enriched clusters | exact story type per cluster; no factual authority | `test_rolling_x_newsroom_cycle_v1.py` |
+| LLM cost control | `nine_router_llm_seam_v2`; `llm_cost_governor_v1` | one cycle scope, logical calls, attempts, usage | terminal pause/quota/budget status; no paid quota fallback | `test_llm_cost_governor_v1.py`, `test_nine_router_ordered_model_router_v2.py` |
 | Evidence | `rolling_x_targeted_evidence_adapter_v1.RollingXTargetedEvidenceAdapter.__call__` | selected cluster, story type, required capability profile, cutoff | governed receipts/documents or explicit blockers | `test_rolling_x_targeted_evidence_adapter_v1.py`, `test_rolling_x_evidence_viability_v1.py` |
 | Article/media | `rolling_x_grounded_article_media_builder_v1.build_rolling_x_grounded_article_and_media` | successful viability/evidence packet | grounded article plus deterministic/source-backed assets | `test_rolling_x_grounded_article_media_builder_v1.py` |
 | Review/revision | `_run_bounded_rolling_x_editorial_cycle` | article/assets and semantic reviewer/reviser | PASS or no-publication after at most two revisions | `test_rolling_x_newsroom_cycle_v1.py` |
@@ -154,6 +170,7 @@ Nonsecret identities only:
 
 - production DB: `A:\Capital Chronicle\Runtime\ContentOps\contentops_daily_app_v1.sqlite3`
 - runtime output root: `A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs`
+- persistent cost controls: `A:\Capital Chronicle\Runtime\ContentOps\control\`
 - Capital Chronicle Main App read-only root: `A:\Capital Chronicle\Main App`
 - canonical headline sidecar root:
   `headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_<YYYY>_<MM>_<DD>.jsonl`

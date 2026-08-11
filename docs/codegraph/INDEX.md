@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `accae879588c771514c9d325305a0acede824bad`
-Source tree digest: `89105f66aa6625ae2d7f3cb6c3de3ffd6fb456f0096837800933807ab9edf58e`
+Source HEAD: `2436de6aae98aed13e777de7951cd7724f1572c6`
+Source tree digest: `b43d5813129d47755889b4722ba6dea0d45d5076cdf78d719122a5c77b347972`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.0.0`
 
 This generated map is descriptive, not product authority.
@@ -22,21 +22,33 @@ Open current direction/next-task authority only when product direction matters: 
 
 | Kind | Path | Command or symbol |
 |---|---|---|
+| `explicit_llm_resume` | `RESUME_CONTENTOPS_LLM.cmd` | `RESUME_CONTENTOPS_LLM.cmd` |
+| `one_click_emergency_stop` | `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` | `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` |
 | `one_click_launcher` | `Start_ContentOps_Daily_App.cmd` | `Start_ContentOps_Daily_App.cmd` |
 | `canonical_cli` | `live_contentops/cli.py` | `python -m live_contentops.cli` |
 | `daily_app_launcher` | `live_contentops/daily_app_launcher_v1.py` | `python -m live_contentops.daily_app_launcher_v1` |
 | `daily_app_supervisor` | `live_contentops/daily_app_supervisor_v1.py` | `ContentOpsDailyAppSupervisor` |
 | `production_orchestrator` | `live_contentops/production_orchestrator_v1.py` | `ContentOpsProductionOrchestrator` |
 | `tier2_local_factory` | `live_contentops/tier2_video_factory_v1.py` | `python -m live_contentops.cli tier2-video-local` |
+| `operator_script` | `scripts/Resume-ContentOpsLLM.ps1` | `scripts/Resume-ContentOpsLLM.ps1` |
 | `operator_script` | `scripts/Start-ContentOpsDailyApp.ps1` | `scripts/Start-ContentOpsDailyApp.ps1` |
+| `operator_script` | `scripts/Stop-ContentOpsBackground.ps1` | `scripts/Stop-ContentOpsBackground.ps1` |
 | `canonical_ui` | `ui/contentops_v5/src/main.tsx` | `npm run dev/build/test in ui/contentops_v5` |
 
 ## V1 live runtime
 
 - `Start_ContentOps_Daily_App.cmd`
+- `STOP_ALL_CONTENTOPS_BACKGROUND.cmd`
+- `RESUME_CONTENTOPS_LLM.cmd`
+- `scripts/Stop-ContentOpsBackground.ps1`
+- `scripts/Resume-ContentOpsLLM.ps1`
 - `live_contentops/daily_app_launcher_v1.py`
 - `live_contentops/daily_app_supervisor_v1.py`
+- `live_contentops/llm_operator_control_v1.py`
+- `live_contentops/llm_cost_governor_v1.py`
 - `live_contentops/durable_operational_store_v1.py`
+- `tests/test_contentops_emergency_stop_v1.py`
+- `tests/test_llm_cost_governor_v1.py`
 - `tests/test_contentops_daily_app_launcher_v1.py`
 - `tests/test_daily_app_supervisor_v1.py`
 
@@ -106,9 +118,9 @@ Use the focused test beside each hot-path section. Backend tests are under `test
 
 ## Current blocker
 
-Committed production-day evidence reports `NO_PUBLICATION_GOVERNED_EVIDENCE_BLOCK` with exact blocker `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`: evidence acquisition and capability fit stopped all 12 ranked clusters before article generation. See `docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md`.
+The V1 evidence-calibration continuation has locally fixed the Decision 5 post-evidence `rolling_x_article_revision_made_no_change` contract defect. Exact offline replay now reaches article, deterministic review PASS, and shadow package with zero public write. The exact next gate is one controlled production proof under the operator fuse and hard cost governor.
 
-Next main V1 task: `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`. Do not implement it as part of context/index maintenance.
+Active V1 task: `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; final acceptance still requires controlled live proof and exact remote readback.
 
 ## Tier2 separation
 
@@ -130,4 +142,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`6446` nodes and `12063` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`6503` nodes and `12176` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.

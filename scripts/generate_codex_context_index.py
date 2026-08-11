@@ -104,9 +104,17 @@ EXCLUDED_ROOTS = (
 HOT_PATHS: dict[str, tuple[str, ...]] = {
     "V1 live runtime": (
         "Start_ContentOps_Daily_App.cmd",
+        "STOP_ALL_CONTENTOPS_BACKGROUND.cmd",
+        "RESUME_CONTENTOPS_LLM.cmd",
+        "scripts/Stop-ContentOpsBackground.ps1",
+        "scripts/Resume-ContentOpsLLM.ps1",
         "live_contentops/daily_app_launcher_v1.py",
         "live_contentops/daily_app_supervisor_v1.py",
+        "live_contentops/llm_operator_control_v1.py",
+        "live_contentops/llm_cost_governor_v1.py",
         "live_contentops/durable_operational_store_v1.py",
+        "tests/test_contentops_emergency_stop_v1.py",
+        "tests/test_llm_cost_governor_v1.py",
         "tests/test_contentops_daily_app_launcher_v1.py",
         "tests/test_daily_app_supervisor_v1.py",
     ),
@@ -726,6 +734,14 @@ def entrypoint_rows(paths: list[Path]) -> list[dict[str, str]]:
             "Start_ContentOps_Daily_App.cmd",
             "one_click_launcher",
         ),
+        "STOP_ALL_CONTENTOPS_BACKGROUND.cmd": (
+            "STOP_ALL_CONTENTOPS_BACKGROUND.cmd",
+            "one_click_emergency_stop",
+        ),
+        "RESUME_CONTENTOPS_LLM.cmd": (
+            "RESUME_CONTENTOPS_LLM.cmd",
+            "explicit_llm_resume",
+        ),
     }
     for path in paths:
         source = rel(path)
@@ -758,6 +774,11 @@ def node_kind(path: str) -> str:
 
 CURATED_RELATIONSHIPS: tuple[tuple[str, str, str], ...] = (
     ("Start_ContentOps_Daily_App.cmd", "scripts/Start-ContentOpsDailyApp.ps1", "entrypoint_to_implementation"),
+    ("STOP_ALL_CONTENTOPS_BACKGROUND.cmd", "scripts/Stop-ContentOpsBackground.ps1", "entrypoint_to_implementation"),
+    ("RESUME_CONTENTOPS_LLM.cmd", "scripts/Resume-ContentOpsLLM.ps1", "entrypoint_to_implementation"),
+    ("scripts/Stop-ContentOpsBackground.ps1", "live_contentops/llm_operator_control_v1.py", "activates_operator_fuse_before_stop"),
+    ("live_contentops/nine_router_llm_seam_v2.py", "live_contentops/llm_operator_control_v1.py", "enforces_operator_fuse"),
+    ("live_contentops/nine_router_llm_seam_v2.py", "live_contentops/llm_cost_governor_v1.py", "enforces_cycle_and_daily_cost_budget"),
     ("scripts/Start-ContentOpsDailyApp.ps1", "live_contentops/daily_app_launcher_v1.py", "entrypoint_to_implementation"),
     ("live_contentops/daily_app_launcher_v1.py", "live_contentops/cli.py", "entrypoint_to_implementation"),
     ("live_contentops/cli.py", "live_contentops/daily_app_supervisor_v1.py", "entrypoint_to_implementation"),
@@ -1104,14 +1125,15 @@ def index_markdown(graph: dict[str, Any]) -> str:
             "",
             "## Current blocker",
             "",
-            "Committed production-day evidence reports `NO_PUBLICATION_GOVERNED_EVIDENCE_BLOCK` "
-            "with exact blocker `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`: evidence acquisition and "
-            "capability fit stopped all 12 ranked clusters before article generation. See "
-            "`docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md`.",
+            "The V1 evidence-calibration continuation has locally fixed the Decision 5 "
+            "post-evidence `rolling_x_article_revision_made_no_change` contract defect. Exact "
+            "offline replay now reaches article, deterministic review PASS, and shadow package "
+            "with zero public write. The exact next gate is one controlled production proof "
+            "under the operator fuse and hard cost governor.",
             "",
-            "Next main V1 task: "
-            "`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`. "
-            "Do not implement it as part of context/index maintenance.",
+            "Active V1 task: "
+            "`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; "
+            "final acceptance still requires controlled live proof and exact remote readback.",
             "",
             "## Tier2 separation",
             "",

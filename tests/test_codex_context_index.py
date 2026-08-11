@@ -105,7 +105,8 @@ def test_generated_index_routes_v1_hot_paths_and_separates_v2(graph):
         "Regeneration and check",
     ):
         assert f"## {heading}" in generated
-    assert "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED" in generated
+    assert "rolling_x_article_revision_made_no_change" in generated
+    assert "controlled production proof" in generated
     assert "TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1" in generated
 
 

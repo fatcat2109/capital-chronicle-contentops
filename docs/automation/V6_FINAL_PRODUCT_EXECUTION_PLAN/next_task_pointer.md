@@ -108,6 +108,28 @@ preserved schema 9 and the production epoch and starts a corrected FDA-G source 
 restart-boundary stale-lease event is recorded as an explicit soak caveat; FDA-G remains
 `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE` and no final PASS is claimed.
 
+## Owner V1 cost-safety and scheduled-only override — 2026-08-11
+
+The active V1 evidence-calibration continuation now preserves continuous 4–5 minute zero-LLM X
+intake while limiting expensive newsroom execution to configured editorial windows or explicit
+operator Run Now. Material-event detection persists priority/update-chain metadata only and does
+not wake the LLM outside a window. Initial hard limits are 5 logical calls, 8 provider attempts,
+80,000 aggregate tokens per cycle, and 400,000 aggregate tokens per active day; quota exhaustion
+is terminal for cost purposes and cannot walk an uncontrolled paid fallback pool.
+
+Operator cost safety is permanent and explicit:
+
+- `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` activates the persistent LLM pause before stopping proven
+  ContentOps background processes;
+- `RESUME_CONTENTOPS_LLM.cmd` explicitly clears only that pause and never starts the app;
+- `Start_ContentOps_Daily_App.cmd` remains the sole normal startup control and never silently
+  clears the pause.
+
+Decision 5 exact offline replay reproduced and fixed
+`ValueError: rolling_x_article_revision_made_no_change`; it now reaches article, deterministic
+review PASS, and shadow package with zero public write. Controlled live proof remains the exact
+next V1 gate; FDA-G is not accepted by this local result.
+
 ## Current Tier-2 route
 
 `TASK_CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1` is accepted
