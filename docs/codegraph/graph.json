@@ -14,9 +14,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12038,
+    "edges": 12063,
     "entrypoints": 8,
-    "nodes": 6432,
+    "nodes": 6446,
     "nodes_by_kind": {
       "authority_doc": 9,
       "cli_command": 13,
@@ -25,12 +25,12 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 5,
-      "python_class": 521,
-      "python_function": 3565,
+      "python_class": 525,
+      "python_function": 3571,
       "python_method": 207,
-      "python_module": 679,
-      "schema": 153,
-      "test": 688,
+      "python_module": 681,
+      "schema": 154,
+      "test": 689,
       "typescript_export": 447,
       "typescript_or_javascript_module": 89
     }
@@ -10223,6 +10223,66 @@
       "inference": "test_exact_import",
       "kind": "covered_by",
       "to": "tests/test_destination_identity_pinning_v1.py"
+    },
+    {
+      "from": "live_contentops/direct_image_api_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/direct_image_api_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::DirectImageConfigError"
+    },
+    {
+      "from": "live_contentops/direct_image_api_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::ImageGenerationResult"
+    },
+    {
+      "from": "live_contentops/direct_image_api_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::TransportWorkerLoss"
+    },
+    {
+      "from": "live_contentops/direct_image_api_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::credential_presence"
+    },
+    {
+      "from": "live_contentops/direct_image_api_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::generate_image"
+    },
+    {
+      "from": "live_contentops/direct_image_api_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::resolve_base_url"
+    },
+    {
+      "from": "live_contentops/direct_image_api_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::result_json"
+    },
+    {
+      "from": "live_contentops/direct_image_api_v1.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_direct_image_api_v1.py"
+    },
+    {
+      "from": "live_contentops/direct_image_api_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_direct_image_api_v1.py"
     },
     {
       "from": "live_contentops/discord_feedback_summary_v6.py",
@@ -45019,6 +45079,30 @@
       "to": "python_symbol:live_contentops/destination_transport_registry_v1.py::_normalized_identity"
     },
     {
+      "from": "python_symbol:live_contentops/direct_image_api_v1.py::generate_image",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::DirectImageConfigError"
+    },
+    {
+      "from": "python_symbol:live_contentops/direct_image_api_v1.py::generate_image",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::ImageGenerationResult"
+    },
+    {
+      "from": "python_symbol:live_contentops/direct_image_api_v1.py::generate_image",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::resolve_base_url"
+    },
+    {
+      "from": "python_symbol:live_contentops/direct_image_api_v1.py::resolve_base_url",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::DirectImageConfigError"
+    },
+    {
       "from": "python_symbol:live_contentops/dispatch_audit_dry_run_contract.py::build_contract_packet",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -62623,6 +62707,24 @@
       "to": "python_symbol:scripts/intake_cc_artifact_packet_v0.py::build_parser"
     },
     {
+      "from": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::run",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::credential_presence"
+    },
+    {
+      "from": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::run",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/direct_image_api_v1.py::resolve_base_url"
+    },
+    {
       "from": "python_symbol:scripts/run_fast_one_cycle_automation_v0.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -63041,6 +63143,36 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/intake_cc_artifact_packet_v0.py::main"
+    },
+    {
+      "from": "scripts/run_direct_image_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::Cell"
+    },
+    {
+      "from": "scripts/run_direct_image_bakeoff_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::main"
+    },
+    {
+      "from": "scripts/run_direct_image_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::main"
+    },
+    {
+      "from": "scripts/run_direct_image_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::run"
+    },
+    {
+      "from": "scripts/run_direct_image_bakeoff_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.tier2_direct_image_attempt_journal.v1"
     },
     {
       "from": "scripts/run_eight_platform_substack_first_pipeline_v1.py",
@@ -64067,6 +64199,24 @@
       "inference": "test_exact_import",
       "kind": "tests",
       "to": "live_contentops/publishing_profile_registry_v1.py"
+    },
+    {
+      "from": "tests/test_direct_image_api_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/direct_image_api_v1.py"
+    },
+    {
+      "from": "tests/test_direct_image_api_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/direct_image_api_v1.py"
+    },
+    {
+      "from": "tests/test_direct_image_api_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/direct_image_api_v1.py"
     },
     {
       "from": "tests/test_discord_feedback_summary_v6.py",
@@ -72339,7 +72489,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-11T10:06:50Z",
+  "generation_timestamp_utc": "2026-08-11T10:57:11Z",
   "generator_version": "2.0.0",
   "included_roots": [
     "live_contentops/",
@@ -72372,7 +72522,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 5141
+      "size_bytes": 6293
     },
     {
       "id": "Start_ContentOps_Daily_App.cmd",
@@ -72487,17 +72637,17 @@
     {
       "id": "docs/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 1528
+      "size_bytes": 1539
     },
     {
       "id": "docs/AI_BUILDER_BOOTSTRAP.md",
       "kind": "authority_doc",
-      "size_bytes": 7151
+      "size_bytes": 7161
     },
     {
       "id": "docs/CURRENT_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 12778
+      "size_bytes": 12801
     },
     {
       "id": "docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md",
@@ -72512,17 +72662,17 @@
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
       "kind": "authority_doc",
-      "size_bytes": 9345
+      "size_bytes": 10521
     },
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 16904
+      "size_bytes": 17220
     },
     {
       "id": "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
       "kind": "authority_doc",
-      "size_bytes": 16425
+      "size_bytes": 16439
     },
     {
       "id": "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -72707,7 +72857,7 @@
     {
       "id": "headline_ingestion/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 1279
+      "size_bytes": 1302
     },
     {
       "id": "headline_ingestion/Data_Ingestion.py",
@@ -72753,7 +72903,7 @@
     {
       "id": "live_contentops/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 3691
+      "size_bytes": 4307
     },
     {
       "id": "live_contentops/__init__.py",
@@ -73629,6 +73779,11 @@
       "id": "live_contentops/destination_transport_registry_v1.py",
       "kind": "python_module",
       "size_bytes": 26488
+    },
+    {
+      "id": "live_contentops/direct_image_api_v1.py",
+      "kind": "python_module",
+      "size_bytes": 21896
     },
     {
       "id": "live_contentops/discord_feedback_summary_v6.py",
@@ -84219,6 +84374,55 @@
       "line": 170,
       "path": "live_contentops/destination_transport_registry_v1.py",
       "symbol": "validate_registry"
+    },
+    {
+      "id": "python_symbol:live_contentops/direct_image_api_v1.py::DirectImageConfigError",
+      "kind": "python_class",
+      "line": 69,
+      "path": "live_contentops/direct_image_api_v1.py",
+      "symbol": "DirectImageConfigError"
+    },
+    {
+      "id": "python_symbol:live_contentops/direct_image_api_v1.py::ImageGenerationResult",
+      "kind": "python_class",
+      "line": 41,
+      "path": "live_contentops/direct_image_api_v1.py",
+      "symbol": "ImageGenerationResult"
+    },
+    {
+      "id": "python_symbol:live_contentops/direct_image_api_v1.py::TransportWorkerLoss",
+      "kind": "python_class",
+      "line": 73,
+      "path": "live_contentops/direct_image_api_v1.py",
+      "symbol": "TransportWorkerLoss"
+    },
+    {
+      "id": "python_symbol:live_contentops/direct_image_api_v1.py::credential_presence",
+      "kind": "python_function",
+      "line": 77,
+      "path": "live_contentops/direct_image_api_v1.py",
+      "symbol": "credential_presence"
+    },
+    {
+      "id": "python_symbol:live_contentops/direct_image_api_v1.py::generate_image",
+      "kind": "python_function",
+      "line": 327,
+      "path": "live_contentops/direct_image_api_v1.py",
+      "symbol": "generate_image"
+    },
+    {
+      "id": "python_symbol:live_contentops/direct_image_api_v1.py::resolve_base_url",
+      "kind": "python_function",
+      "line": 83,
+      "path": "live_contentops/direct_image_api_v1.py",
+      "symbol": "resolve_base_url"
+    },
+    {
+      "id": "python_symbol:live_contentops/direct_image_api_v1.py::result_json",
+      "kind": "python_function",
+      "line": 613,
+      "path": "live_contentops/direct_image_api_v1.py",
+      "symbol": "result_json"
     },
     {
       "id": "python_symbol:live_contentops/discord_live_adapter_v6.py::execute_discord_comment",
@@ -105832,14 +106036,14 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::build_outputs",
       "kind": "python_function",
-      "line": 1139,
+      "line": 1150,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "build_outputs"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::check_outputs",
       "kind": "python_function",
-      "line": 1163,
+      "line": 1174,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "check_outputs"
     },
@@ -105888,7 +106092,7 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::index_markdown",
       "kind": "python_function",
-      "line": 1049,
+      "line": 1059,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "index_markdown"
     },
@@ -105902,7 +106106,7 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::main",
       "kind": "python_function",
-      "line": 1258,
+      "line": 1269,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "main"
     },
@@ -105923,7 +106127,7 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::normalized_for_check",
       "kind": "python_function",
-      "line": 1149,
+      "line": 1160,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "normalized_for_check"
     },
@@ -106021,21 +106225,21 @@
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_context_contract",
       "kind": "python_function",
-      "line": 1213,
+      "line": 1224,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_context_contract"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::validate_graph",
       "kind": "python_function",
-      "line": 1191,
+      "line": 1202,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "validate_graph"
     },
     {
       "id": "python_symbol:scripts/generate_codex_context_index.py::write_outputs",
       "kind": "python_function",
-      "line": 1235,
+      "line": 1246,
       "path": "scripts/generate_codex_context_index.py",
       "symbol": "write_outputs"
     },
@@ -106059,6 +106263,27 @@
       "line": 37,
       "path": "scripts/intake_cc_artifact_packet_v0.py",
       "symbol": "main"
+    },
+    {
+      "id": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::Cell",
+      "kind": "python_class",
+      "line": 69,
+      "path": "scripts/run_direct_image_bakeoff_v1.py",
+      "symbol": "Cell"
+    },
+    {
+      "id": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::main",
+      "kind": "python_function",
+      "line": 503,
+      "path": "scripts/run_direct_image_bakeoff_v1.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:scripts/run_direct_image_bakeoff_v1.py::run",
+      "kind": "python_function",
+      "line": 398,
+      "path": "scripts/run_direct_image_bakeoff_v1.py",
+      "symbol": "run"
     },
     {
       "id": "python_symbol:scripts/run_fast_one_cycle_automation_v0.py::main",
@@ -106652,6 +106877,11 @@
       "schema_id": "contentops.tier2.video_program.v1"
     },
     {
+      "id": "schema:contentops.tier2_direct_image_attempt_journal.v1",
+      "kind": "schema",
+      "schema_id": "contentops.tier2_direct_image_attempt_journal.v1"
+    },
+    {
       "id": "schema:contentops.trusted_evidence_verifier_registry.v1",
       "kind": "schema",
       "schema_id": "contentops.trusted_evidence_verifier_registry.v1"
@@ -106849,7 +107079,7 @@
     {
       "id": "scripts/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 968
+      "size_bytes": 983
     },
     {
       "id": "scripts/Start-ContentOpsDailyApp.ps1",
@@ -106924,7 +107154,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 51388
+      "size_bytes": 53275
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -106945,6 +107175,11 @@
       "id": "scripts/intake_cc_artifact_packet_v0.py",
       "kind": "python_module",
       "size_bytes": 2231
+    },
+    {
+      "id": "scripts/run_direct_image_bakeoff_v1.py",
+      "kind": "python_module",
+      "size_bytes": 21161
     },
     {
       "id": "scripts/run_eight_platform_substack_first_pipeline_v1.py",
@@ -106979,7 +107214,7 @@
     {
       "id": "tests/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 1391
+      "size_bytes": 1416
     },
     {
       "id": "tests/conftest.py",
@@ -107474,7 +107709,7 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 7629
+      "size_bytes": 8277
     },
     {
       "id": "tests/test_community_feedback_capture_contract_v6.py",
@@ -107810,6 +108045,11 @@
       "id": "tests/test_destination_identity_pinning_v1.py",
       "kind": "test",
       "size_bytes": 8278
+    },
+    {
+      "id": "tests/test_direct_image_api_v1.py",
+      "kind": "test",
+      "size_bytes": 15156
     },
     {
       "id": "tests/test_discord_feedback_summary_v6.py",
@@ -113403,7 +113643,7 @@
     {
       "id": "ui/contentops_v5/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 1687
+      "size_bytes": 1697
     },
     {
       "id": "ui/contentops_v5/package.json",
@@ -114079,6 +114319,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "ef4a34a10cd1f9b7f83710aaf6a39bc44f76c8e3",
-  "source_tree_digest": "feb00705334818d8a197141f01ef294ab1a737d44d8bffc69b6e0e7a7aa0bbfe"
+  "source_head": "accae879588c771514c9d325305a0acede824bad",
+  "source_tree_digest": "89105f66aa6625ae2d7f3cb6c3de3ffd6fb456f0096837800933807ab9edf58e"
 }

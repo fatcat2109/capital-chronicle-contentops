@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `ef4a34a10cd1f9b7f83710aaf6a39bc44f76c8e3`
-Source tree digest: `feb00705334818d8a197141f01ef294ab1a737d44d8bffc69b6e0e7a7aa0bbfe`
+Source HEAD: `accae879588c771514c9d325305a0acede824bad`
+Source tree digest: `89105f66aa6625ae2d7f3cb6c3de3ffd6fb456f0096837800933807ab9edf58e`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.0.0`
 
 This generated map is descriptive, not product authority.
@@ -112,7 +112,7 @@ Next main V1 task: `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLIC
 
 ## Tier2 separation
 
-Tier2/video is isolated from the V1 runtime and has no public-write authority. Read `docs/codegraph/V2_CONTEXT.md` and `video/AGENTS.md` only for an authorized V2 task. Rejected branches are reference only.
+Tier2/video is isolated from the V1 runtime and has no public-write authority. Read `docs/codegraph/V2_CONTEXT.md` and `video/AGENTS.md` only for an authorized V2 task. The accepted direct-image boundary and evidence are routed there; rejected Tier2-B and `8b043a5` remain reference only.
 
 ## Generated graph files
 
@@ -130,4 +130,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`6432` nodes and `12038` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`6446` nodes and `12063` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
