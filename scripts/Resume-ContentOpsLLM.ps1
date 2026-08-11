@@ -19,4 +19,3 @@ Write-Output 'LLM EXECUTION: ENABLED BY EXPLICIT OPERATOR ACTION'
 Write-Output 'DAILY APP: NOT STARTED'
 Write-Output 'Use Start_ContentOps_Daily_App.cmd separately when startup is intended.'
 exit 0
-

@@ -267,4 +267,3 @@ def budget_snapshot(
             "hard_max_daily_tokens": HARD_MAX_TOKENS_PER_ACTIVE_DAY,
         },
     }
-

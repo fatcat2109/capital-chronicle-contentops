@@ -72,4 +72,3 @@ def resume_llm_operator_execution(control_root: str | Path | None = None) -> boo
         return True
     except FileNotFoundError:
         return False
-

@@ -9,4 +9,3 @@ set RESUME_EXIT=%ERRORLEVEL%
 echo.
 if "%1"=="" pause
 exit /b %RESUME_EXIT%
-

@@ -10,4 +10,3 @@ set STOP_EXIT=%ERRORLEVEL%
 echo.
 if "%1"=="" pause
 exit /b %STOP_EXIT%
-

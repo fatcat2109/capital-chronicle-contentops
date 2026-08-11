@@ -160,4 +160,3 @@ Write-Output 'AMBIGUOUS PROCESSES: NOT KILLED'
 
 if (-not $success) { exit 2 }
 exit 0
-

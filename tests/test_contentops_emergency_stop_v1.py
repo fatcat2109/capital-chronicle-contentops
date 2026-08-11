@@ -81,4 +81,3 @@ def test_one_click_stop_activates_pause_before_inventory_and_preserves_browsers(
     assert "Stop-ContentOpsBackground.ps1" in stop_cmd
     assert "Remove-Item -LiteralPath $pauseMarker" in resume
     assert "Start-Process" not in resume
-
