@@ -44,7 +44,18 @@ DEFAULT_BASE_URL = "http://localhost:20128/v1"
 #: hosts cover a managed deployment. Anything else fails closed rather than sending
 #: credentialed model traffic to an unvetted endpoint.
 ALLOWED_GATEWAY_HOSTS: frozenset[str] = frozenset(
-    {"localhost", "127.0.0.1", "::1", "9router.local", "api.9router.ai", "9router"}
+    {
+        "localhost",
+        "127.0.0.1",
+        "::1",
+        "9router.local",
+        "api.9router.ai",
+        "9router",
+        # Owner-confirmed 9Router image transport (2026-08-11). The chat gateway
+        # remains localhost; this host is used only when explicitly selected by
+        # the specialist image boundary.
+        "ai.api-cheap.site",
+    }
 )
 
 

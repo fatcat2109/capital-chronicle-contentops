@@ -1,0 +1,35 @@
+{
+  "schema_version": "contentops.tier2_image_gateway_protocol_evidence.v1",
+  "task": "TASK_CONTENTOPS_TIER2_IMAGE_GENERATION_9ROUTER_GATEWAY_CONTRACT_CORRECTION_AND_REAL_BAKEOFF_V1",
+  "status": "COMPLETE_CONTRACT_CORRECTED_REAL_BAKEOFF_BLOCKED_PROVIDER_AUTHORIZATION_MISSING",
+  "previous_contract": {
+    "base_host": "localhost:20128",
+    "path": "/v1/images/generations",
+    "content_type": "application/json",
+    "model_shape": "new/<alias>",
+    "http_status": 400,
+    "provider_class": "openai-compatible-chat",
+    "sanitized_error_class": "MODEL_CAPABILITY_NOT_IMAGE_FOR_SELECTED_CHAT_PROVIDER",
+    "conclusion": "PREVIOUS_9ROUTER_IMAGE_CALL_CONTRACT_FAILED"
+  },
+  "corrected_contract": {
+    "base_host": "ai.api-cheap.site",
+    "path": "/v1/images/generations",
+    "content_type": "application/json",
+    "request_fields": ["model", "prompt", "size", "n", "response_format"],
+    "model_shape": "bare wire model ID",
+    "credential_name": "NINE_ROUTER_API_KEY",
+    "credential_state": "PRESENT",
+    "fallback_order": ["new/gpt-5.5", "new/wan2.7-image-pro", "new/qwen-image-2.0"]
+  },
+  "real_smoke": [
+    {"requested_alias": "new/gpt-5.5", "wire_model": "gpt-5.5", "http_status": 403, "provider_code": "permission_denied", "retryable": false, "classification": "PROVIDER_AUTHORIZATION_MISSING"},
+    {"requested_alias": "new/wan2.7-image-pro", "wire_model": "wan2.7-image-pro", "http_status": 403, "provider_code": "permission_denied", "retryable": false, "classification": "PROVIDER_AUTHORIZATION_MISSING"},
+    {"requested_alias": "new/qwen-image-2.0", "wire_model": "qwen-image-2.0", "http_status": 403, "provider_code": "permission_denied", "retryable": false, "classification": "PROVIDER_AUTHORIZATION_MISSING"}
+  ],
+  "successful_generations": 0,
+  "bakeoff_started": false,
+  "secrets_emitted": false,
+  "browser_or_cdp_used": false,
+  "uploads_or_platform_writes": false
+}
