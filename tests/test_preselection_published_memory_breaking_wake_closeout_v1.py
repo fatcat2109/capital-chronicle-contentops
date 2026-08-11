@@ -17,6 +17,7 @@ from live_contentops.daily_app_supervisor_v1 import (
 )
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.editorial_portfolio_v1 import PublishedArticleRef
+from live_contentops.preselection_canary_v1 import _bounded_canary_candidates
 from live_contentops.preselection_intelligence_v1 import apply_preselection_intelligence
 from live_contentops.published_corpus_read_model_v1 import load_published_corpus
 
@@ -233,6 +234,28 @@ def test_four_candidate_preselection_classifies_filters_and_changes_order(monkey
     assert result["occurs_before_targeted_evidence"] is True
     assert result["occurs_before_article_generation"] is True
     assert result["llm_or_provider_calls"] == 0
+
+
+def test_read_only_canary_builds_bounded_distinct_real_candidate_projection():
+    rows = [{
+        "headline_id": f"headline-{index}",
+        "source_timestamp_utc": f"2026-08-11T02:0{index}:00Z",
+        "external_content": {
+            "headline_text": text,
+            "official_source_urls": [],
+        },
+    } for index, text in enumerate([
+        "Treasury announces a new auction calendar update",
+        "OPEC announces an unexpected production decision",
+        "Federal Reserve publishes updated policy minutes",
+        "Commerce Department releases a revised trade notice",
+        "Congress schedules a new regulatory hearing",
+    ])]
+    candidates = _bounded_canary_candidates(rows, limit=4)
+    assert len(candidates) == 4
+    assert len({row["cluster_id"] for row in candidates}) == 4
+    assert candidates[0]["headline_ids"] == ["headline-4"]
+    assert all(row["canary_candidate_only"] is True for row in candidates)
 
 
 def test_intake_delta_builds_stable_zero_llm_material_event(tmp_path):

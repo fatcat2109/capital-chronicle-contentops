@@ -645,6 +645,11 @@ def build_daily_app_snapshot(
     latest_editorial_classification = "UNAVAILABLE"
     latest_article_update_mode = "UNAVAILABLE"
     latest_cc_matched_store_count: Optional[int] = None
+    latest_prior_related_article_title: Optional[str] = None
+    latest_prior_related_article_identity: Optional[str] = None
+    latest_material_delta_status = "UNAVAILABLE"
+    latest_decision_reason = "NO_GOVERNED_CYCLE_RECORDED"
+    latest_stage_stopped = "NOT_STARTED"
     if latest_cycle:
         cycle_output = path.parent / "daily_app_outputs" / str(latest_cycle["work_item_id"])
         cycle_evidence = _read_json_file(
@@ -671,6 +676,50 @@ def build_daily_app_snapshot(
             latest_cc_matched_store_count = int(
                 cc_context.get("matched_store_count") or 0
             )
+        novelty = selected.get("preselection_novelty")
+        novelty = novelty if isinstance(novelty, Mapping) else {}
+        latest_prior_related_article_title = (
+            str(novelty.get("best_prior_title")) if novelty.get("best_prior_title") else None
+        )
+        latest_prior_related_article_identity = (
+            str(novelty.get("best_prior_article"))
+            if novelty.get("best_prior_article") else None
+        )
+        delta = novelty.get("material_delta_evaluation")
+        if isinstance(delta, Mapping):
+            latest_material_delta_status = str(
+                delta.get("delta_summary") or "NO_EXPLICIT_MATERIAL_DELTA"
+            )
+        cycle_classification = str(cycle_evidence.get("classification") or "")
+        if latest_editorial_classification == "UNAVAILABLE" and (
+            cycle_classification == "NO_PUBLICATION"
+            or latest_cycle.get("current_state") in {"REJECTED", "EVIDENCE_BLOCKED"}
+        ):
+            latest_editorial_classification = "NO_PUBLICATION"
+        latest_decision_reason = str(
+            cycle_evidence.get("exact_next_blocker")
+            or (
+                latest_transition.get("reason_code")
+                if latest_transition
+                and latest_transition.get("work_item_id") == latest_cycle.get("work_item_id")
+                else latest_cycle.get("current_state")
+            )
+            or "UNAVAILABLE"
+        )
+        if (cycle_output / "native_payloads_rehearsal_v1.json").is_file():
+            latest_stage_stopped = "PLATFORM_PACKAGE"
+        elif cycle_evidence.get("editorial_cycle"):
+            latest_stage_stopped = "SEMANTIC_REVIEW"
+        elif cycle_evidence.get("article"):
+            latest_stage_stopped = "ARTICLE_GENERATION"
+        elif cycle_evidence.get("ranked_viability"):
+            latest_stage_stopped = "TARGETED_EVIDENCE"
+        elif (cycle_output / "rolling_x_assignment_v1.json").is_file():
+            latest_stage_stopped = "ASSIGNMENT"
+        elif (cycle_output / "rolling_x_intake_v1.json").is_file():
+            latest_stage_stopped = "INTAKE"
+        elif latest_cycle.get("current_state") == "EVIDENCE_PENDING":
+            latest_stage_stopped = "CANONICAL_CYCLE_IN_PROGRESS"
 
     pending_material_events = [
         row for row in work_items
@@ -725,6 +774,11 @@ def build_daily_app_snapshot(
             "latest_editorial_classification": latest_editorial_classification,
             "latest_article_update_mode": latest_article_update_mode,
             "latest_cc_matched_store_count": latest_cc_matched_store_count,
+            "latest_prior_related_article_title": latest_prior_related_article_title,
+            "latest_prior_related_article_identity": latest_prior_related_article_identity,
+            "latest_material_delta_status": latest_material_delta_status,
+            "latest_decision_reason": latest_decision_reason,
+            "latest_stage_stopped": latest_stage_stopped,
             "current_cycle": ({
                 "work_item_id": latest_cycle["work_item_id"],
                 "state": latest_cycle["current_state"],

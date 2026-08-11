@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > GitHub remote evidence is repo-state authority. Jim's latest explicit product instruction is product-direction authority. Older plans/status are historical/reference material when they conflict with the current Final Daily App direction.
 
-Authority date: 2026-08-10
+Authority date: 2026-08-11
 
 ## Current classifications
 
@@ -27,7 +27,11 @@ Future expansion retained but deferred until V1 freeze:
 
 `CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_OWNER_DIRECTION_V1`
 
-Current completed runtime task:
+Current completed runtime correction:
+
+`TASK_CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1`
+
+Prior completed runtime task:
 
 `TASK_CONTENTOPS_V1_CONTINUOUS_INTELLIGENCE_INTAKE_CC_DATABASE_AND_EDITORIAL_PORTFOLIO_REALIGN_V1`
 
@@ -64,6 +68,19 @@ supervisor through the unchanged canonical gates; schema v9). Evidence is under
 `docs/automation/CONTENTOPS_V1_TRUE_ONE_CLICK_INGESTION_BOOTSTRAP_AND_RUN_NOW_CONTROL_V1/`.
 Earlier launcher evidence is under
 `docs/automation/CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1/`.
+
+The 2026-08-11 closeout correction makes published-memory novelty, actual story-scoped
+Capital Chronicle matches, portfolio concentration, and article/update mode part of the
+canonical compact-shortlist decision before targeted evidence and writing. Canonical article
+memory now requires exact `DISPATCH_CONFIRMED` plus `RECONCILED_CONFIRMED`, deduplicates the
+nine surface objects to one article, and hashes actual recovered body text or reports
+`CONTENT_UNAVAILABLE`. Material intake wakes are stable, source-event-time-valid, durable,
+zero-LLM, and exactly once; active intake is 240 seconds with a 300-second maximum idle delay.
+SHADOW_ONLY reaches article/review/package preparation with zero writes. The 5–8 daily band is
+a portfolio target, never filler permission. One controlled restart started a new FDA-G source
+epoch with an explicitly recorded restart-boundary stale-lease caveat; FDA-G remains active and
+is not accepted. Evidence is under
+`docs/automation/CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1/`.
 
 ## Current authority read order
 

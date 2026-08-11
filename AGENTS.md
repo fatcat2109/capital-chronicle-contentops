@@ -2,7 +2,7 @@
 
 This is the first file every AI IDE/CLI builder must read before touching the repository.
 
-Authority date: 2026-08-07
+Authority date: 2026-08-11
 
 ## 1. Authority model
 
@@ -215,6 +215,25 @@ Work E launch-readiness:
 The accelerated logical soak is not calendar-time live reliability and does not claim full-suite or CI PASS.
 
 ## 9. Latest operational task
+
+`TASK_CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1`
+
+Status:
+
+`COMPLETE_IMPLEMENTED_AND_VALIDATED_WITH_FDA_G_RESTART_BOUNDARY_CAVEAT`
+
+The independent correction wires canonical published-memory lifecycle/body/update-chain truth,
+actual story-scoped read-only Capital Chronicle matches, portfolio concentration, novelty, and
+resolved article/update mode into the compact shortlist before targeted evidence and writing.
+Low-delta repeats stop early. Stable source-event-time-valid intake deltas produce durable
+zero-LLM exactly-once material events; active intake is 240 seconds and normal idle delay is
+bounded to 300 seconds. SHADOW_ONLY reaches article/review/package preparation with zero writes.
+The 5–8 daily band remains a target, never a filler quota. One controlled restart preserved
+schema 9 and the production epoch and starts a new FDA-G source epoch with an explicit
+restart-boundary stale-lease caveat; FDA-G remains active and is not accepted. Evidence:
+`docs/automation/CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1/`.
+
+Prior completed task:
 
 `TASK_CONTENTOPS_V1_CONTINUOUS_INTELLIGENCE_INTAKE_CC_DATABASE_AND_EDITORIAL_PORTFOLIO_REALIGN_V1`
 

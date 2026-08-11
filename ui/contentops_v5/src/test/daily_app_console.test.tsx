@@ -41,6 +41,9 @@ describe('Final Daily App production console', () => {
     for (const label of ['Today', 'Queue', 'Published', 'Performance', 'Learning', 'Platforms', 'Incidents', 'Controls', 'Evidence / Audit']) {
       expect(screen.getByRole('button', { name: new RegExp(label, 'i') })).toBeInTheDocument();
     }
+    for (const label of ['Prior related article', 'Material delta', 'Decision reason', 'Stage stopped']) {
+      expect(screen.getByText(label)).toBeInTheDocument();
+    }
     expect(screen.queryByText(/fake current success/i)).not.toBeInTheDocument();
   });
 

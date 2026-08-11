@@ -1,0 +1,334 @@
+{
+  "schema_version": "contentops.preselection_intelligence_closeout_evidence.v1",
+  "task": "TASK_CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1",
+  "result": "COMPLETE_IMPLEMENTED_AND_VALIDATED_WITH_FDA_G_RESTART_BOUNDARY_CAVEAT",
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "branch": "task/v1-preselection-intelligence-published-memory-breaking-wake-closeout-v1",
+  "required_base_head": "c30b3789facf76ff612f6fae196e9c8e15d45c5e",
+  "actual_start_head": "c30b3789facf76ff612f6fae196e9c8e15d45c5e",
+  "fda_g_runtime_source_head": "20da999f38727e58ae2a0bcc43feddb79d899484",
+  "fda_g_runtime_source_commit_message": "feat: close preselection intelligence audit gaps",
+  "final_source_head": "RECORDED_BY_FINAL_REMOTE_READBACK_AFTER_THIS_CLOSEOUT_COMMIT",
+  "final_head": "RECORDED_BY_FINAL_REMOTE_READBACK_AFTER_THIS_EVIDENCE_COMMIT",
+  "remote_master_final": "RECORDED_BY_FINAL_REMOTE_READBACK_AFTER_THIS_EVIDENCE_COMMIT",
+  "remote_parity": "REQUIRED_BEFORE_FINAL_HANDOFF",
+  "independent_audit_gaps_closed": [
+    "production lifecycle and exact reconciliation define published memory",
+    "canonical body bytes and true SHA-256 are retained or CONTENT_UNAVAILABLE is explicit",
+    "existing update-chain identity survives publication and follow-up classification",
+    "novelty, CC context, portfolio concentration, and mode resolve before evidence/writing",
+    "low-delta repeats stop before the expensive path",
+    "all CC stores/schemas are discovered without first-N omission and deep query is bounded",
+    "source-event-time-valid intake deltas drive durable zero-LLM exactly-once wakes",
+    "normal intake cadence is bounded to approximately five minutes",
+    "Run Now uses the same preselection path with fresh/no-sync and stale/one-sync behavior",
+    "SHADOW_ONLY reaches article/review/package with zero writes",
+    "real current read-only canary exposes bounded shortlist decisions",
+    "V5 Today exposes the corrected operator truth"
+  ],
+  "published_corpus": {
+    "lifecycle_truth_source": "platform_dispatches.DISPATCH_CONFIRMED plus exact coordinator reconciliations.RECONCILED_CONFIRMED; canonical destination Substack",
+    "controlled_canonical_article_count": 1,
+    "controlled_platform_dispatch_count": 9,
+    "article_dedup_proof": "nine lifecycle-confirmed surface objects grouped by article_identity produced one PublishedArticleRef",
+    "full_body_available_count": 1,
+    "content_hash_coverage": 1,
+    "exact_body_sha256_verified": true,
+    "content_unavailable_count_in_missing-body_case": 1,
+    "title_or_entities_pseudo_hash_used": false,
+    "update_chain_coverage": 1,
+    "article_mode_coverage": 1,
+    "production_canonical_article_count_at_canary": 0,
+    "production_published_today_canonical_articles": 0
+  },
+  "production_lifecycle_test": {
+    "dispatch_confirmed_required": true,
+    "reconciled_confirmed_required": true,
+    "real_publication_confirmed_display_string_excluded": true,
+    "unknown_write_excluded": true,
+    "pending_readback_excluded": true,
+    "multi_platform_one_article_proof": "PASS_9_TO_1",
+    "canonical_update_chain_identity": "rolling-x-global-cluster-existing",
+    "resolved_article_mode": "FOLLOW_UP_UPDATE"
+  },
+  "preselection_intelligence": {
+    "exact_integration_seam": "canonical rolling-X compact global shortlist after assignment enrichment and before story-type routing, targeted evidence, article builder, semantic review, or packaging",
+    "artifact": "preselection_intelligence_v1.json",
+    "occurs_before_article_generation": true,
+    "occurs_before_evidence_acquisition": true,
+    "low_delta_filtered_before_writer": true,
+    "llm_or_provider_calls": 0,
+    "controlled_original_order": [
+      "breaking",
+      "low",
+      "follow",
+      "deepen"
+    ],
+    "controlled_eligible_reranked_order": [
+      "deepen",
+      "breaking",
+      "follow"
+    ],
+    "ranking_order_changed": true,
+    "ranking_change_reason": "deepen received actual mocked CC richness 0.95 and score 117.2; low was held; material follow-up retained a reduced but visible concentration penalty"
+  },
+  "capital_chronicle": {
+    "root": "A:\\Capital Chronicle\\Main App",
+    "read_only": true,
+    "discovered_store_count": 14,
+    "discovered_table_schema_count": 266,
+    "stores_omitted": 0,
+    "semantic_domains_matched_in_real_canary": [
+      "public_free_event_text_entity_history_integrity_repair_v1",
+      "public_free_event_text_entity_history_v1",
+      "unified_historical_lakehouse_hb10_v1"
+    ],
+    "catalog_refresh_strategy": "all DuckDB file metadata fingerprint plus process cache; cache invalidates on estate file fingerprint change",
+    "story_scoped_query_count_in_real_canary": 5,
+    "deep_query_table_limit_per_story": 8,
+    "deep_query_selection": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+    "actual_match_based_richness": true,
+    "real_global_context_richness": 0.7865,
+    "real_global_matched_store_count": 3,
+    "real_global_matched_table_count": 8,
+    "catalog_fingerprint": "30cf01bd7cb331e58efcf04643efef00f37781793da41eabca18eac756414b37",
+    "generic_ready_richness_removed": true,
+    "upstream_mutation": false,
+    "grants_factual_or_numeric_authority": false
+  },
+  "portfolio": {
+    "published_today_canonical_articles_in_controlled_case": 2,
+    "target_band": [
+      5,
+      8
+    ],
+    "target_is_quota_or_filler_authority": false,
+    "entity_concentration_proof": "same-day covered entity created 0.25 soft penalty",
+    "material_follow_up_effective_penalty": 0.0625,
+    "material_follow_up_can_overcome_soft_penalty": true,
+    "ranking_order_changed_by_portfolio_and_context_proof": true
+  },
+  "novelty": {
+    "breaking_new_proof": "breaking -> BREAKING_NEW_STORY -> BREAKING_BRIEF",
+    "material_follow_up_proof": "follow -> MATERIAL_FOLLOW_UP -> FOLLOW_UP_UPDATE",
+    "deepen_existing_proof": "deepen -> DEEPEN_EXISTING_STORY -> CAPITAL_CHRONICLE_DEEP_DIVE",
+    "low_delta_repeat_proof": "low -> LOW_DELTA_REPEAT -> HOLD before evidence/writer",
+    "prior_article_body_used": "Full prior body for cpi-follow",
+    "update_chain_match_used": "chain-follow",
+    "resolved_article_mode_before_writer": true,
+    "material_follow_up_context_fields_present": [
+      "previous_story_identity",
+      "previous_title",
+      "previous_body_sha256",
+      "previous_published_at_utc",
+      "previous_update_chain_identity",
+      "previous_full_text",
+      "new_headline_ids",
+      "new_official_source_candidates",
+      "material_delta_reason_codes",
+      "material_delta_summary"
+    ]
+  },
+  "continuous_ingestion": {
+    "active_cadence_seconds": 240,
+    "maximum_normal_idle_capture_interval_seconds": 300,
+    "zero_llm_idle": true,
+    "latest_source_event_at_real_canary": "2026-08-11T02:00:39Z",
+    "last_ingest_checkpoint_observed_during_validation": "2026-08-11T01:22:35.972944Z",
+    "dedupe": "stable tweet/post identity plus append-only checkpointed daily sidecars",
+    "canonical_daily_store": "headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_<date>.jsonl",
+    "restart_safe": true
+  },
+  "material_event": {
+    "deterministic_delta_signal": "sorted source-event-time-valid new headline IDs and timestamps",
+    "trigger_identity": "stable hash independent of supervisor wall-clock tick",
+    "duplicate_trigger_prevention": "durable deterministic work-item/window identity and canonical terminal-state check",
+    "out_of_window_wake_proof": true,
+    "kill_switch_restart_reconstruction_proof": true,
+    "canonical_newsroom_path": "ContentOpsDailyAppSupervisor._execute_window -> canonical rolling-X facade",
+    "public_write_during_test": false,
+    "llm_or_provider_calls": 0
+  },
+  "run_now": {
+    "same_preselection_path": true,
+    "fresh_intake_no_capture": true,
+    "stale_intake_one_bounded_forced_sync": true,
+    "special_gate_bypass": false,
+    "public_write_authority_added": false
+  },
+  "shadow_e2e": {
+    "runtime_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\preselection_closeout_shadow_v1\\test_full_canonical_shadow_rea0",
+    "controlled_fixture_nonpublic_evidence": true,
+    "rolling_headline_count": 0,
+    "prior_article_context_count": 0,
+    "cc_story_context": "controlled empty catalog; no numeric or factual authority granted",
+    "candidate_order_before": [
+      "shadow-cluster"
+    ],
+    "candidate_order_after": [
+      "shadow-cluster"
+    ],
+    "selected_decision": "BREAKING_NEW_STORY",
+    "article_mode": "BREAKING_BRIEF",
+    "evidence_result": "PASS_CONTROLLED_FIXTURE",
+    "article_created": true,
+    "review_result": "PASS",
+    "package_result": "SHADOW_PACKAGE_READY",
+    "canonical_substack_article_prepared": true,
+    "derivative_payload_count": 8,
+    "publishing_adapter_called": false,
+    "public_write": false,
+    "unknown_write": false,
+    "artifact_sha256": {
+      "article_manifest_v1.json": "f542891e24c8c364b9f95f3d05b865b4d9f1b3c83e38189a62602782aef80fe7",
+      "editorial_quality_gate_v1.json": "955824fcba45b6cfcc4e7fc7a842388a9c846971da6019a0f60438b3de077740",
+      "native_payloads_rehearsal_v1.json": "3d537b843d90c6c41577264f39c93c84cce482e26f68ce2cd9ae1be84c455410",
+      "preselection_intelligence_v1.json": "1a35bf5cbe05c17069e1579a6556d4437be94f23eb3bb6e5dbabbd3589bca19a",
+      "release_candidate_lock_v1.json": "1b327503c8b86acf34e225f006052b901f661279b0a4106d0118cee7452c9fee",
+      "rolling_x_newsroom_cycle_evidence_v1.json": "2d054fad1c77487826a3754e51026be675365352d6502dbd97d10ea16540b2b0"
+    }
+  },
+  "real_read_only_canary": {
+    "schema_version": "contentops.preselection_read_only_canary.v2",
+    "evaluated_at_utc": "2026-08-11T02:03:45.785959Z",
+    "rolling_24h_unique_headlines": 989,
+    "source_rows": 3815,
+    "stale_or_invalid_rejected_rows": 2826,
+    "duplicate_rows": 0,
+    "current_published_canonical_articles": 0,
+    "published_today": 0,
+    "cc_state": "READY_14_OF_14_STORES_266_TABLE_SCHEMAS_ZERO_OMISSIONS",
+    "bounded_candidate_count": 4,
+    "candidate_source": "newest distinct real rolling-24h rows; canary-only, zero-model, does not replace governed hierarchical assignment",
+    "novelty_decisions": [
+      "BREAKING_NEW_STORY",
+      "BREAKING_NEW_STORY",
+      "BREAKING_NEW_STORY",
+      "BREAKING_NEW_STORY"
+    ],
+    "candidate_cc_context_richness": [
+      0.8279,
+      0.7797,
+      0.8342,
+      0.7018
+    ],
+    "candidate_portfolio_penalties": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "selected_or_hold": "SELECTED read-only-canary-cc-x-headline-1029b3475f97d9a8003bc422 as BREAKING_NEW_STORY / BREAKING_BRIEF",
+    "no_publication_reason": "READ_ONLY_CANARY_DOES_NOT_START_A_CANONICAL_CYCLE_OR_GRANT_PUBLICATION_AUTHORITY",
+    "llm_or_provider_calls": 0,
+    "read_only": true,
+    "public_write": false,
+    "upstream_mutation": false
+  },
+  "v5": {
+    "fields": [
+      "headline_ingestion",
+      "last_ingest",
+      "rolling_24h",
+      "CC_state",
+      "published_today",
+      "target_band",
+      "last_editorial_decision",
+      "article_mode",
+      "prior_related_article",
+      "material_delta",
+      "decision_reason",
+      "stage_stopped",
+      "material_event_wake"
+    ],
+    "no_publication_reason_visible_without_raw_transition_digging": true,
+    "invented_values": false
+  },
+  "production_store": {
+    "same_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "schema_before": 9,
+    "schema_after": 9,
+    "integrity_before": "ok",
+    "integrity_after": "ok",
+    "production_epoch_metric_before": 1786282020.663942,
+    "production_epoch_metric_after": 1786282020.663942,
+    "epoch_preserved": true,
+    "pre_restart_safety_canary_at_utc": "2026-08-11T00:55:40.850760Z",
+    "pre_restart_unknown_write": 0,
+    "pre_restart_pending_reconciliation": 0,
+    "pre_restart_attempt_started": 0,
+    "pre_restart_active_editorial_dispatch": 0,
+    "restart_count": 1,
+    "old_pid": 45032,
+    "new_pid": 53700,
+    "new_process_started_local": "2026-08-11T08:01:16.2367029+07:00",
+    "controller_health_after": "HEALTHY",
+    "restart_boundary_recovery": {
+      "work_item_id": "editorial-window-2b5ef4df4f41cae20b31eb7142595cde",
+      "created_at_utc": "2026-08-11T01:00:00.042769+00:00",
+      "old_owner_pid": 45032,
+      "state_observed_after_restart": "EVIDENCE_PENDING",
+      "lease_expires_at_utc": "2026-08-11T02:00:00.055297+00:00",
+      "artifacts_before_recovery": [
+        "editorial_portfolio_context_v1.json",
+        "rolling_x_intake_v1.json"
+      ],
+      "artifact_sha256": {
+        "editorial_portfolio_context_v1.json": "47d95e604a15430e4227fd454a5dea2c2df3961ce9ef1f98f4f31a91a4a5edea",
+        "rolling_x_intake_v1.json": "3c022c0637df3053a4ef00956bb43f371f92a6deab1cf0ee8afa33ae14d106a6"
+      },
+      "assignment_created": false,
+      "targeted_evidence_started": false,
+      "article_created": false,
+      "package_created": false,
+      "dispatch_attempted": false,
+      "unknown_write": false,
+      "manual_mutation_or_retry": false,
+      "second_restart": false,
+      "terminal_recovery_state": "REJECTED_NO_PUBLICATION",
+      "terminal_recovery_at_utc": "2026-08-11T02:01:28.662039+00:00",
+      "terminal_recovery_owner_ref": "daily-app-supervisor-53700-57a44c4b-dab3888d",
+      "terminal_recovery_fencing_token": 2,
+      "terminal_recovery_reason_codes": [
+        "STALE_WINDOW_CLAIM_RECOVERED",
+        "STALE_WINDOW_CLAIM_RECOVERED_NO_PUBLICATION"
+      ],
+      "work_item_count_after": 5,
+      "transition_event_count_after": 19,
+      "artifact_count_after": 2,
+      "artifact_bytes_or_hash_changed_during_recovery": false
+    }
+  },
+  "fda_g": {
+    "previous_epochs_preserved": true,
+    "new_source_sha": "20da999f38727e58ae2a0bcc43feddb79d899484",
+    "new_epoch_start_local": "2026-08-11T08:01:16.2367029+07:00",
+    "final_acceptance_not_claimed": true,
+    "status": "SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE"
+  },
+  "tier2_a_preserved": true,
+  "focused_tests": {
+    "initial_touched_backend_matrix": "124 passed before final read-only canary projection tightening",
+    "final_task_suite": "8 passed",
+    "continuous_intelligence_suite": "19 passed",
+    "daily_app_ui_read_model_suite": "13 passed",
+    "aggregate_collection_after_final_changes": "127 tests collected; execution recorded per focused suite because Windows pytest temp cleanup emits a non-test PermissionError at interpreter exit",
+    "pytest_cleanup_caveat": "pre-existing Windows pytest-current PermissionError after all test assertions complete; test process exit remains successful in completed focused runs"
+  },
+  "shadow_smoke": "PASS_ARTICLE_REVIEW_PACKAGE_ZERO_WRITE",
+  "ui_tests": "14 passed",
+  "build_result": "PASS_VITE_1581_MODULES_AND_PYTHON_COMPILEALL",
+  "ci_status": "NOT_RUN_NOT_CLAIMED",
+  "secret_session_exposure": false,
+  "cc_upstream_mutation": false,
+  "public_write_during_validation": false,
+  "protected_v1_0_status": "IMMUTABLE_UNCHANGED_6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "hard_blockers": [],
+  "caveats": [
+    "production corpus is currently empty, so real current canary novelty is truthfully all BREAKING_NEW_STORY and portfolio penalties are zero",
+    "restart-boundary scheduled window required one hour of natural lease expiry before canonical no-rerun recovery",
+    "FDA-G genuine calendar-time acceptance remains outstanding",
+    "CI was not run"
+  ],
+  "exact_next_product_blocker": "CONTINUE_FDA_G_GENUINE_CALENDAR_TIME_EVIDENCE_ON_CORRECTED_V1_SOURCE_EPOCH_AND_INDEPENDENTLY_AUDIT_BEFORE_ACCEPTANCE"
+}

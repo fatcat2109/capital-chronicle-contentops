@@ -64,6 +64,11 @@ export interface DailyAppSnapshot {
     latest_editorial_classification?: string;
     latest_article_update_mode?: string;
     latest_cc_matched_store_count?: number | null;
+    latest_prior_related_article_title?: string | null;
+    latest_prior_related_article_identity?: string | null;
+    latest_material_delta_status?: string;
+    latest_decision_reason?: string;
+    latest_stage_stopped?: string;
   };
   queue: {
     items: Array<Record<string, unknown>>;

@@ -1,6 +1,6 @@
 # ContentOps — Current Next Task Pointer
 
-Authority date: 2026-08-10
+Authority date: 2026-08-11
 
 Current product direction: `CONTENTOPS_FINAL_DAILY_APP_V1_OWNER_DIRECTION`
 
@@ -80,6 +80,21 @@ band; eight core decision opportunities/day; bootstrap.v2 window policy); V5 Tod
 canonical intelligence truth fields. Run Now uses the SAME canonical newsroom authority as
 scheduled/material-event cycles. Tier2-A preserved untouched; FDA-G prior epochs preserved as
 pre-realignment historical evidence; a new FDA-G source epoch starts after deployment.
+
+`TASK_CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1`
+
+The independent audit gaps in that foundation are closed. Published-memory novelty, actual
+story-scoped Capital Chronicle matches, portfolio concentration, and the resolved article or
+update mode now run over the compact shortlist before targeted evidence/writing. Canonical
+article memory requires exact `DISPATCH_CONFIRMED` plus `RECONCILED_CONFIRMED`, deduplicates
+surface derivatives, and uses exact recovered body text or `CONTENT_UNAVAILABLE`. New
+source-event-time-valid intake deltas create stable durable zero-LLM exactly-once material
+events; active polling is 240 seconds and idle delay never exceeds 300 seconds. SHADOW_ONLY
+reaches article/review/package preparation with zero writes. The 5–8 articles/day band remains
+a portfolio target, not a quota or filler permission. The single controlled production restart
+preserved schema 9 and the production epoch and starts a corrected FDA-G source epoch. Its
+restart-boundary stale-lease event is recorded as an explicit soak caveat; FDA-G remains
+`SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE` and no final PASS is claimed.
 
 ## Next owner-approved builder lane
 

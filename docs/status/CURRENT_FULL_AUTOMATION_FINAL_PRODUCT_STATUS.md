@@ -1,6 +1,6 @@
 # Current Full-Automation Final Product Status
 
-Authority date: 2026-08-07
+Authority date: 2026-08-11
 
 Status authority scope: current post-v1 Tier-1 closeout plus approved post-Tier-1 Tier-2 direction.
 
@@ -48,6 +48,28 @@ Work E launch-readiness disposition:
 The accelerated logical soak is not calendar-time uptime and does not claim final live reliability, full-suite PASS, or CI PASS.
 
 ## Latest operational task
+
+`TASK_CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1`
+
+Status:
+
+`COMPLETE_IMPLEMENTED_AND_VALIDATED_WITH_FDA_G_RESTART_BOUNDARY_CAVEAT`
+
+The canonical Daily App now performs published-memory novelty, full read-only Capital Chronicle
+estate discovery plus story-scoped context, portfolio concentration, and explicit
+BREAKING_BRIEF / FOLLOW_UP_UPDATE / CAPITAL_CHRONICLE_DEEP_DIVE / HOLD resolution over the
+compact shortlist before targeted evidence or writing. Published memory accepts only exact
+`DISPATCH_CONFIRMED` plus `RECONCILED_CONFIRMED` canonical articles, deduplicates derivatives,
+and uses recovered canonical body bytes or explicit `CONTENT_UNAVAILABLE`. Stable zero-LLM
+material events are durable and exactly once. SHADOW_ONLY reaches article/review/package
+preparation with zero writes. One controlled restart preserved the schema-9 production store
+and production epoch; its restart-boundary stale lease is an FDA-G source-epoch caveat, not a
+final soak PASS. Evidence is under
+`docs/automation/CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1/`.
+
+The older fresh-packet task below remains historical operational evidence.
+
+### Historical fresh-packet task
 
 `TASK_CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1`
 
@@ -129,9 +151,11 @@ remain unauthorized. No renewed cohort approval is required.
 
 ## Exact next action
 
-Do not start Tier-2.
-
 ```text
-Capital Chronicle publication-evidence producer emits event/source/market evidence within 24h
-→ rerun TASK_CONTENTOPS_FULL_AUTOMATION_LIVE_CANONICAL_BROWSER_RUN_V1 through the same canonical entrypoint
+Continue FDA-G genuine calendar-time evidence on the corrected V1 source epoch
+→ preserve no-publication as valid and the 5–8/day band as a non-filler target
+→ independently audit the genuine calendar-time evidence before any FDA-G acceptance/release
 ```
+
+Tier-2-A may proceed only under the recorded 2026-08-10 owner concurrency override and remains
+isolated from V1 production with no video public-write authority.

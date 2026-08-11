@@ -475,3 +475,28 @@ def test_run_now_consumes_through_same_canonical_cycle_with_fallback_sync_only(t
     assert "operator_run_now_override" not in calls[0]
     assert report["public_write_performed"] is False
     assert report["headline_ingestion"] is not None
+
+
+def test_run_now_stale_intake_performs_exactly_one_bounded_forced_sync(
+    monkeypatch, tmp_path
+):
+    from tests.test_daily_app_operator_trigger_v1 import _supervisor as supervisor_factory
+
+    supervisor, _calls = supervisor_factory(tmp_path, mode="SHADOW_ONLY")
+    sync_calls = []
+    monkeypatch.setattr(intake, "intake_is_stale", lambda _store, now: True)
+
+    def bounded_sync(_store, *, now, force=False):
+        sync_calls.append({"now": now, "force": force})
+        return {
+            "lane_state": "CAPTURED",
+            "detail": "one_bounded_stale_sync",
+            "llm_or_provider_calls": 0,
+        }
+
+    monkeypatch.setattr(intake, "run_ingestion_housekeeping_iteration", bounded_sync)
+    result = supervisor._run_operator_trigger_intake_sync(FIXED_NOW)
+
+    assert sync_calls == [{"now": FIXED_NOW, "force": True}]
+    assert result["detail"] == "one_bounded_stale_sync"
+    assert result["llm_or_provider_calls"] == 0

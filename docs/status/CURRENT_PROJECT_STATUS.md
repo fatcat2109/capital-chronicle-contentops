@@ -18,6 +18,26 @@ probabilities, forecasts, numeric truth, realized-outcome comparison, and analyt
 attribution. ContentOps faithfully transforms governed Capital Chronicle packets and must
 not originate analytical truth.
 
+### Current V1 preselection-intelligence correction
+
+`TASK_CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1`
+
+Result: `COMPLETE_IMPLEMENTED_AND_VALIDATED_WITH_FDA_G_RESTART_BOUNDARY_CAVEAT`.
+
+Published-memory novelty, actual read-only story-scoped Capital Chronicle matches, portfolio
+concentration, and explicit article/update mode now run over the compact shortlist before
+targeted evidence and writing. Canonical published memory requires exact
+`DISPATCH_CONFIRMED` plus `RECONCILED_CONFIRMED`, deduplicates one article from its derivative
+surface objects, and hashes recovered canonical body text or reports `CONTENT_UNAVAILABLE`.
+Stable source-event-time-valid intake deltas create durable zero-LLM exactly-once material
+events; active intake is 240 seconds and maximum idle delay is 300 seconds. SHADOW_ONLY now
+proves article, review, and platform-package preparation with zero writes. The 5–8 article/day
+band is a portfolio target and never filler authority. The controlled production restart
+preserved schema 9 and the production epoch and starts a corrected FDA-G source epoch; FDA-G
+remains active, with its restart-boundary stale-lease event recorded as a caveat rather than
+silently retried. Evidence is under
+`docs/automation/CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1/`.
+
 Current accepted master operational classification:
 
 `PASS_WAVE01_CANONICAL_ORCHESTRATOR_BOUNDARY_ACCEPTED_AND_MERGED`
