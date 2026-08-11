@@ -13,6 +13,8 @@ Tier2-A Python slice. Root safety and authority rules still apply.
 - canonical model seam: `nine_router_llm_seam_v2.py`, ordered policy in
   `nine_router_ordered_model_router_v2.py`, transport in `nine_router_provider_adapter_v2.py`
 - Tier2-A local factory: `tier2_video_factory_v1.py`
+- accepted dedicated Tier-2 direct-image diagnostic: `direct_image_api_v1.py`, with the bounded
+  local runner in `scripts/run_direct_image_bakeoff_v1.py`
 
 Use `docs/codegraph/INDEX.md` to find callers and mapped tests before opening broad modules.
 
@@ -26,8 +28,13 @@ Use `docs/codegraph/INDEX.md` to find callers and mapped tests before opening br
   reconciliation behavior are protected.
 - Tier-2 remains isolated/local and must not touch the live V1 production store or gain upload,
   browser, platform, or public-write behavior.
-- Do not import the rejected direct `ai.api-cheap.site` image transport. The next V2 task must
-  prove the canonical local 9Router image registry and route end to end.
+- The accepted direct-image boundary calls
+  `https://ai.api-cheap.site/v1/images/generations` with `AI_API_CHEAP_API_KEY` only and remains
+  separate from the generic 9Router adapter. `gpt-5.5` is the provisional generated-
+  illustration default; its output is never factual or documentary authority.
+- Do not import the rejected `8b043a5` implementation or add `ai.api-cheap.site` to the generic
+  9Router adapter. The confirmed HTTP 400 results for `wan2.7-image-pro` and
+  `qwen-image-2.0` remain unresolved but do not block the fresh V2 creative-system rebuild.
 - `VideoProgram` is renderer-neutral authority; FFmpeg/Remotion/Pillow are compiler targets.
 
 ## Validation routing

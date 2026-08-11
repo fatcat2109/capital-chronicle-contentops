@@ -39,12 +39,21 @@ def test_scoped_agents_cover_backend_video_ui_and_docs():
     )
 
 
-def test_generated_index_has_required_v2_blocker_and_route():
+def test_generated_index_has_accepted_direct_image_authority_and_fresh_v2_route():
     context = Path(index.V2_CONTEXT_PATH).read_text(encoding="utf-8")
-    assert "LOCAL_9ROUTER_IMAGE_REGISTRY_AND_ROUTE_NOT_YET_PROVEN_END_TO_END" in context
-    assert "TIER2_LOCAL_9ROUTER_IMAGE_ROUTE_CORRECTION_AND_REAL_BAKEOFF" in context
-    assert "ai.api-cheap.site" in context
-    assert "do not import" in context
+    normalized = " ".join(context.split())
+    assert "TASK_CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1" in normalized
+    assert "PASS_WITH_CAVEAT" in normalized
+    assert "https://ai.api-cheap.site/v1/images/generations" in normalized
+    assert "AI_API_CHEAP_API_KEY" in normalized
+    assert "gpt-5.5" in normalized
+    assert "provisional V2 generated-illustration default" in normalized
+    assert "confirmed HTTP 400" in normalized
+    assert "fresh V2 creative-system rebuild" in normalized
+    assert "zero public-write authority" in normalized
+    assert "LOCAL_9ROUTER_IMAGE_REGISTRY_AND_ROUTE_NOT_YET_PROVEN_END_TO_END" not in normalized
+    assert "8b043a5" in normalized
+    assert "do not import" in normalized
 
 
 def test_source_scope_excludes_history_and_generated_outputs():

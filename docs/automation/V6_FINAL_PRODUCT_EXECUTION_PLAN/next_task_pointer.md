@@ -96,13 +96,29 @@ preserved schema 9 and the production epoch and starts a corrected FDA-G source 
 restart-boundary stale-lease event is recorded as an explicit soak caveat; FDA-G remains
 `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE` and no final PASS is claimed.
 
-## Next owner-approved builder lane
+## Current Tier-2 route
 
-`TIER2-A LOCAL LONG-FORM + SHORT-FORM PROGRAMMABLE VERTICAL SLICE`
+`TASK_CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1` is accepted
+`PASS_WITH_CAVEAT` at `a859d5ff82707842f59163e4ec5150b22fbe6b0e`. The dedicated direct
+`https://ai.api-cheap.site/v1/images/generations` route using `AI_API_CHEAP_API_KEY` is proven
+end to end for `gpt-5.5`, now the provisional V2 generated-illustration default pending future
+product evidence. Generated images are illustrative assets only, never factual/documentary
+authority. `wan2.7-image-pro` and `qwen-image-2.0` returned confirmed HTTP 400 responses on the
+tested contract; they remain unresolved and do not block V2.
 
-Proceeds concurrently with the continuing FDA-G evidence lane. Tier-2 must remain isolated from
-the live V1 production runtime and receives NO video public-write authority from this
-reprioritization.
+The prior `LOCAL_9ROUTER_IMAGE_REGISTRY_AND_ROUTE_NOT_YET_PROVEN_END_TO_END` blocker is removed.
+Do not import the rejected `8b043a5` implementation or add `ai.api-cheap.site` to the generic
+9Router adapter.
+
+Next owner-approved builder lane:
+
+`FRESH V2 CREATIVE-SYSTEM REBUILD`
+
+Rebuild to a higher product standard: stronger story/video suitability, less numeric narration,
+premium typography, richer scene-specific motion and chart transitions, generated illustrative
+assets, rights-aware real-person/entity imagery, improved voice/music, and stronger multimodal
+QA. Tier-2 remains isolated from the live V1 production runtime and has ZERO video public-write
+authority. FDA-G continues independently and is not accepted by this result.
 
 ## Tier-2-A result recorded 2026-08-10
 
@@ -118,9 +134,8 @@ scene/chapter/master caches, one-scene selective-rerender proof, and a 116-file 
 lock all pass. No provider/platform call or public/private upload occurred. Runtime evidence is
 outside Git at `A:\Capital Chronicle\Runtime\ContentOps\tier2\tier2-a-treasury-curve-final-v2`.
 
-Next Tier-2 product route after Jim/ChatGPT visual review:
-
-`TIER2-B MULTIMODAL QA + BOUNDED REVISION + DIVERSE CORPUS`
+The historical Tier2-B route was rejected for visual product quality and is reference only.
+The current route is the fresh V2 creative-system rebuild recorded above.
 
 FDA-G remains independently active and is not declared accepted by this result.
 

@@ -52,16 +52,24 @@ Reconcile conflicts. Never let an older plan override a newer owner decision.
   direction. It has no public-write authority.
 - Tier2-B branch `task/tier2-b-remotion-multimodal-bakeoff-v1` is rejected/FAIL for visual
   product quality. Its engineering is reference only; do not merge or continue it.
-- Branch `task/tier2-image-generation-9router-contract-correction-v1` at `8b043a5` is rejected.
-  It incorrectly hardcodes/direct-calls `ai.api-cheap.site`; do not import its host allowlist or
-  direct transport.
-- Exact V2 image blocker:
-  `LOCAL_9ROUTER_IMAGE_REGISTRY_AND_ROUTE_NOT_YET_PROVEN_END_TO_END`.
-- Next main V2 action:
-  `TIER2_LOCAL_9ROUTER_IMAGE_ROUTE_CORRECTION_AND_REAL_BAKEOFF`.
-- Fresh V2 creative requirements: better story selection, less numeric narration, premium
-  typography, materially richer motion, and later a rights-aware real-person/entity asset
-  resolver. Do not generate fake documentary images of real people.
+- `TASK_CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1` is accepted
+  `PASS_WITH_CAVEAT` at `a859d5ff82707842f59163e4ec5150b22fbe6b0e`. The dedicated direct
+  `https://ai.api-cheap.site/v1/images/generations` boundary, using only
+  `AI_API_CHEAP_API_KEY`, is proven end to end for `gpt-5.5`.
+- `gpt-5.5` is the provisional V2 generated-illustration default pending future product
+  evidence. Generated illustration is never factual or documentary authority.
+- `wan2.7-image-pro` and `qwen-image-2.0` returned confirmed HTTP 400 responses on the tested
+  contract and remain unresolved; they do not block V2.
+- Branch `task/tier2-image-generation-9router-contract-correction-v1` at `8b043a5` remains
+  rejected. Do not import its implementation or add `ai.api-cheap.site` to the generic 9Router
+  adapter; the accepted direct-image boundary is dedicated and does not change 9Router text
+  authority.
+- The prior `LOCAL_9ROUTER_IMAGE_REGISTRY_AND_ROUTE_NOT_YET_PROVEN_END_TO_END` blocker is
+  removed. The next V2 action is a fresh creative-system rebuild with stronger story/video
+  suitability, less numeric narration, premium typography, richer scene-specific motion and
+  chart transitions, generated illustrative assets, rights-aware real-person/entity imagery,
+  improved voice/music, and stronger multimodal QA. Do not generate fake documentary images
+  of real people. V2 still has zero public-write authority.
 
 ## Product boundary
 

@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `cdb790d78e093421f0c9b09d430fd234ce3f247d`
-Source tree digest: `af083a51c40caa363cc064c4a7c70e9e3e47385a272cb87cb6af6ade84f103f9`
+Source HEAD: `a859d5ff82707842f59163e4ec5150b22fbe6b0e`
+Source tree digest: `17752edfdbb26ca89cab7417442c92e96be4e6555025773b135f5015fe9b2fd6`
 
 This is a generated descriptive map. Check freshness with:
 
@@ -37,6 +37,7 @@ Start with the nearest scoped instructions, then use the context map and graph:
 - Current direction: `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`
 - Current context: `docs/CURRENT_CONTEXT.md`
 - Next task pointer: `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+- Accepted direct-image evidence: `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/README.md`
 - Tier-2 authority: `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md` and `...MASTER_PLAN_V1.md`
 
 ## Scope

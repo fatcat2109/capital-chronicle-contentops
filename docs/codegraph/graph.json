@@ -8507,7 +8507,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 6219
+      "size_bytes": 7004
     },
     {
       "id": "Start_ContentOps_Daily_App.cmd",
@@ -8542,7 +8542,7 @@
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
       "kind": "authority_doc",
-      "size_bytes": 8588
+      "size_bytes": 9688
     },
     {
       "id": "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
@@ -8567,7 +8567,7 @@
     {
       "id": "live_contentops/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 2171
+      "size_bytes": 2726
     },
     {
       "id": "live_contentops/__init__.py",
@@ -11922,7 +11922,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 22844
+      "size_bytes": 23946
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -12472,7 +12472,7 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 2171
+      "size_bytes": 2682
     },
     {
       "id": "tests/test_community_feedback_capture_contract_v6.py",
@@ -15981,6 +15981,6 @@
     "docs/authority files",
     "AGENTS hierarchy"
   ],
-  "source_head": "cdb790d78e093421f0c9b09d430fd234ce3f247d",
-  "source_tree_digest": "af083a51c40caa363cc064c4a7c70e9e3e47385a272cb87cb6af6ade84f103f9"
+  "source_head": "a859d5ff82707842f59163e4ec5150b22fbe6b0e",
+  "source_tree_digest": "17752edfdbb26ca89cab7417442c92e96be4e6555025773b135f5015fe9b2fd6"
 }
