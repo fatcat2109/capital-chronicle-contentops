@@ -73187,7 +73187,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-11T15:20:49Z",
+  "generation_timestamp_utc": "2026-08-11T15:39:37Z",
   "generator_version": "2.0.0",
   "included_roots": [
     "live_contentops/",
@@ -73225,12 +73225,12 @@
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
       "kind": "manifest",
-      "size_bytes": 333
+      "size_bytes": 332
     },
     {
       "id": "STOP_ALL_CONTENTOPS_BACKGROUND.cmd",
       "kind": "manifest",
-      "size_bytes": 416
+      "size_bytes": 415
     },
     {
       "id": "Start_ContentOps_Daily_App.cmd",
@@ -75136,7 +75136,7 @@
     {
       "id": "live_contentops/llm_cost_governor_v1.py",
       "kind": "python_module",
-      "size_bytes": 10547
+      "size_bytes": 10546
     },
     {
       "id": "live_contentops/llm_feedback_summarizer_dry_run_v6.py",
@@ -75151,7 +75151,7 @@
     {
       "id": "live_contentops/llm_operator_control_v1.py",
       "kind": "python_module",
-      "size_bytes": 2729
+      "size_bytes": 2728
     },
     {
       "id": "live_contentops/llm_summary_safety_validator_v6.py",
@@ -108126,7 +108126,7 @@
     {
       "id": "scripts/Resume-ContentOpsLLM.ps1",
       "kind": "manifest",
-      "size_bytes": 696
+      "size_bytes": 695
     },
     {
       "id": "scripts/Start-ContentOpsDailyApp.ps1",
@@ -108136,7 +108136,7 @@
     {
       "id": "scripts/Stop-ContentOpsBackground.ps1",
       "kind": "manifest",
-      "size_bytes": 7208
+      "size_bytes": 7207
     },
     {
       "id": "scripts/build_daily_article_brief_generation_v0.py",
@@ -108866,7 +108866,7 @@
     {
       "id": "tests/test_contentops_emergency_stop_v1.py",
       "kind": "test",
-      "size_bytes": 3447
+      "size_bytes": 3446
     },
     {
       "id": "tests/test_contentops_ingestion_bootstrap_v1.py",
@@ -115386,6 +115386,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "2436de6aae98aed13e777de7951cd7724f1572c6",
-  "source_tree_digest": "b43d5813129d47755889b4722ba6dea0d45d5076cdf78d719122a5c77b347972"
+  "source_head": "df779086185caa68590cfbac92ca1e6e9b55c6e8",
+  "source_tree_digest": "847316e4233f3ed021afe036a897592b54f4a421c78f8dba4772263e0413af09"
 }
