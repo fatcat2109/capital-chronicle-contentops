@@ -725,17 +725,17 @@ def _build_third_asset(
 
 ARTICLE_OUTPUT_CONTRACT = {
     "title": "non-empty string",
-    "subtitle": "non-empty string",
-    "seo_title": "35-70 chars, contains the primary keyword",
-    "meta_description": "110-165 chars",
-    "market_mechanism": "non-empty factual mechanism grounded in evidence",
-    "policy_context": "non-empty factual context grounded in evidence",
-    "cross_asset_implications": "non-empty; only what evidence supports",
+    "subtitle": "optional reader-facing dek; empty string when unsupported or unnecessary",
+    "seo_title": "optional SEO title; empty string is permitted",
+    "meta_description": "optional SEO description; empty string is permitted",
+    "market_mechanism": "optional; include only a mechanism directly grounded in evidence",
+    "policy_context": "optional; include only context directly grounded in evidence",
+    "cross_asset_implications": "optional; include only implications directly grounded in evidence",
     "substack_body_markdown": "markdown body with sections, source links and three [[VISUAL:...]] markers",
-    "social_lede": "one sentence",
-    "social_mechanism_summary": "one sentence",
-    "social_policy_summary": "one sentence",
-    "social_cross_asset_summary": "one sentence",
+    "social_lede": "optional derivative copy; empty string is permitted",
+    "social_mechanism_summary": "optional derivative copy; empty string is permitted",
+    "social_policy_summary": "optional derivative copy; empty string is permitted",
+    "social_cross_asset_summary": "optional derivative copy; empty string is permitted",
 }
 
 
@@ -789,6 +789,7 @@ def build_article_generation_prompt(
         "omitted_unsupported_claims": [
             {
                 "claim_id": row.get("claim_id"),
+                "claim_text": row.get("claim_text"),
                 "reason": row.get("reason"),
             }
             for row in (
@@ -885,16 +886,9 @@ def validate_generated_article(
     if not isinstance(article, Mapping):
         return ["generated_article_not_object"]
 
-    required_text_fields = (
-        "title",
-        "subtitle",
-        "seo_title",
-        "meta_description",
-        "market_mechanism",
-        "policy_context",
-        "cross_asset_implications",
-        "substack_body_markdown",
-    )
+    # Only the canonical reader-facing identity and body are universally required.  SEO,
+    # analysis depth, dek, and derivative copy narrow to what the accepted evidence supports.
+    required_text_fields = ("title", "substack_body_markdown")
     for field in required_text_fields:
         if not str(article.get(field) or "").strip():
             blockers.append(f"generated_article_field_missing:{field}")
@@ -921,10 +915,14 @@ def validate_generated_article(
         (context.get("claim_evidence_contract") or {}).get("omitted_unsupported_claims")
         or []
     )
+    normalized_body = " ".join(body.casefold().split())
     for row in omitted:
         if not isinstance(row, Mapping):
             continue
         omitted_text = str(row.get("claim_text") or "")
+        normalized_omitted = " ".join(omitted_text.casefold().split())
+        if len(normalized_omitted) >= 16 and normalized_omitted in normalized_body:
+            blockers.append("article_reintroduced_omitted_claim")
         for number in _quantitative_numeric_claims(omitted_text):
             if number and number.casefold() in body.casefold():
                 blockers.append("article_reintroduced_omitted_numeric_claim")
@@ -1191,24 +1189,22 @@ def build_rolling_x_grounded_article_and_media(
     generator = article_generator or _default_article_generator
     article_router_failure: dict[str, Any] | None = None
     effective_mode = str(context.get("effective_article_mode") or "")
-    if effective_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}:
-        # Concise modes are a deterministic transformation of an already accepted claim ledger.
-        # Avoiding a model call here cuts cost and eliminates opportunities to expand beyond it.
-        generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
-    else:
-        try:
-            generated = dict(generator(prompt))
-        except Exception as exc:
-            from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+    try:
+        # Final prose always starts with the authorized quality-first article-writing role.
+        # The deterministic concise renderer is recovery for a genuine routed outage, not a
+        # cost shortcut around editorial quality authority.
+        generated = dict(generator(prompt))
+    except Exception as exc:
+        from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
 
-            if not isinstance(exc, RoutedInvocationError) or effective_mode not in {
-                "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"
-            }:
-                raise
-            article_router_failure = {
-                key: value for key, value in exc.summary.items() if key != "output"
-            }
-            generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
+        if not isinstance(exc, RoutedInvocationError) or effective_mode not in {
+            "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"
+        }:
+            raise
+        article_router_failure = {
+            key: value for key, value in exc.summary.items() if key != "output"
+        }
+        generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
 
     evidence_document_ids = sorted(
         {

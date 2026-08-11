@@ -2334,16 +2334,16 @@ def _run_bounded_rolling_x_editorial_cycle(
     media_assets: Sequence[Mapping[str, Any]],
     editorial_reviewer: Callable[[Mapping[str, Any]], Mapping[str, Any]],
     article_reviser: Callable[[Mapping[str, Any], Mapping[str, Any], int], Mapping[str, Any]],
-    max_revision_rounds: int = 2,
+    max_revision_rounds: int = 1,
 ) -> dict[str, Any]:
-    """Review, revise, and re-review without allowing more than two revisions."""
+    """Run one semantic review and at most one bounded revision/re-review."""
     from live_contentops.tier1_editorial_quality_v1 import (
         audit_tier1_article,
         combine_editorial_gates,
     )
 
-    if max_revision_rounds != 2:
-        raise ValueError("rolling_x_revision_round_limit_must_be_two")
+    if max_revision_rounds != 1:
+        raise ValueError("rolling_x_revision_round_limit_must_be_one")
     candidate = dict(article)
     history: list[dict[str, Any]] = []
     for review_index in range(max_revision_rounds + 1):
@@ -2440,17 +2440,8 @@ def _validate_rolling_x_release_inputs(
     viability: Mapping[str, Any],
 ) -> list[str]:
     blockers: list[str] = []
-    for field in (
-        "title",
-        "subtitle",
-        "seo_title",
-        "slug",
-        "meta_description",
-        "substack_body_markdown",
-        "market_mechanism",
-        "policy_context",
-        "cross_asset_implications",
-    ):
+    # Canonical publication requires a useful article, not optional SEO/analysis ceremony.
+    for field in ("title", "substack_body_markdown"):
         if not str(article.get(field) or "").strip():
             blockers.append(f"article_field_missing:{field}")
     selected_headline_ids = set(str(value) for value in viability.get("selected_headline_ids") or [])
@@ -2470,11 +2461,9 @@ def _validate_rolling_x_release_inputs(
     article_evidence_ids = set(str(value) for value in article.get("evidence_document_ids") or [])
     if evidence_ids and article_evidence_ids != evidence_ids:
         blockers.append("article_evidence_document_binding_mismatch")
-    if len(media_assets) != 3:
-        blockers.append("three_source_backed_media_assets_required")
     media_ids = [str(row.get("asset_id") or "") for row in media_assets]
     if len(media_ids) != len(set(media_ids)) or any(not value for value in media_ids):
-        blockers.append("three_unique_media_asset_ids_required")
+        blockers.append("media_asset_ids_must_be_unique_and_nonempty")
     for asset in media_assets:
         asset_id = str(asset.get("asset_id") or "missing")
         path = Path(str(asset.get("path") or asset.get("local_path") or ""))
@@ -2562,7 +2551,7 @@ def _prepare_rolling_x_release_candidate(
     editorial_gate = {
         "classification": "PASS" if editorial_cycle.get("status") == "PASS" else "NEEDS_REVISION",
         "bounded_revision_cycle": dict(editorial_cycle),
-        "revision_round_limit": 2,
+        "revision_round_limit": 1,
         "publication_authority": False,
     }
     for name, value in (
@@ -2615,6 +2604,7 @@ def _prepare_rolling_x_release_candidate(
 
     media_ids = [str(row.get("asset_id") or "") for row in media_assets]
     payloads: dict[str, Any] = {}
+    distribution_warnings: list[str] = []
     if not blockers:
         try:
             payloads = build_native_derivative_payloads(
@@ -2624,7 +2614,9 @@ def _prepare_rolling_x_release_candidate(
                 media_asset_ids=media_ids,
             )
         except Exception as exc:
-            blockers.append(f"native_platform_package_invalid:{type(exc).__name__}")
+            distribution_warnings.append(
+                f"native_platform_package_invalid:{type(exc).__name__}"
+            )
     _write_json(output_dir / "native_payloads_rehearsal_v1.json", payloads)
     for platform in ("x", "threads"):
         metrics = dict((payloads.get(platform) or {}).get("quality_metrics") or {})
@@ -2635,7 +2627,11 @@ def _prepare_rolling_x_release_candidate(
             and metrics.get("visual_distribution_pass")
             and metrics.get("complete_article_visual_count") == 3
         ):
-            blockers.append(f"{platform}_semantic_layout_failed")
+            distribution_warnings.append(f"{platform}_semantic_layout_failed")
+    distribution_warnings = list(dict.fromkeys(distribution_warnings))
+    context["distribution_warnings"] = distribution_warnings
+    context["derivative_package_ready"] = bool(payloads)
+    _write_json(output_dir / "run_context_v1.json", context)
     # The canonical Substack article remains the true root dependency.  Derivative
     # destinations are independently skippable when unavailable; requiring every historical
     # account to be READY would incorrectly turn one expired session into a global stop.
@@ -2680,6 +2676,7 @@ def _prepare_rolling_x_release_candidate(
         "public_write_performed": False,
         "publishing_adapter_called": False,
         "blockers": blockers,
+        "distribution_warnings": distribution_warnings,
     }
     _write_json(output_dir / "no_write_rehearsal_v1.json", rehearsal)
     return {
@@ -2689,6 +2686,7 @@ def _prepare_rolling_x_release_candidate(
         "release_candidate_lock": lock,
         "release_candidate_lock_verification": _verify_release_candidate_lock(output_dir),
         "blockers": blockers,
+        "distribution_warnings": distribution_warnings,
         "public_write_performed": False,
     }
 
@@ -2710,11 +2708,33 @@ def _build_rolling_x_publication_plan(
     article = dict(context.get("article") or {})
     payload_hashes = dict(lock.get("payload_sha256") or {})
     destinations: list[dict[str, Any]] = []
-    for destination, row in sorted((readiness.get("destinations") or {}).items()):
-        state = str((row or {}).get("status") or "")
-        if state not in READY_STATES or destination not in DESTINATION_TO_SURFACE:
-            continue
+    skipped_derivatives: list[dict[str, Any]] = []
+    readiness_rows = dict(readiness.get("destinations") or {})
+    for destination in sorted(DESTINATION_TO_SURFACE):
+        row = dict(readiness_rows.get(destination) or {})
+        state = str(row.get("status") or row.get("readiness_state") or "READINESS_MISSING")
         registration = registration_for_destination(destination)
+        derivative_payload_ready = bool(payload_hashes.get(destination))
+        if destination != "substack" and (
+            state not in READY_STATES or not derivative_payload_ready
+        ):
+            skipped_derivatives.append(
+                {
+                    "destination": destination,
+                    "surface": registration.surface,
+                    "readiness_state": state,
+                    "disposition": (
+                        "SKIPPED_NOT_READY"
+                        if state not in READY_STATES
+                        else "SKIPPED_PACKAGE_UNAVAILABLE"
+                    ),
+                    "attempted": False,
+                    "canonical_truth_affected": False,
+                }
+            )
+            continue
+        if state not in READY_STATES:
+            continue
         payload_hash = (
             str(lock.get("article_body_sha256") or "")
             if destination == "substack"
@@ -2757,6 +2777,7 @@ def _build_rolling_x_publication_plan(
         "output_dir": str(output_dir.resolve()),
         "artifact_refs": dict(lock.get("artifacts") or {}),
         "destinations": destinations,
+        "skipped_derivative_destinations": skipped_derivatives,
         "transport_registry_version": REGISTRY_VERSION,
         "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
         "substack_first_dependency": True,
@@ -3528,7 +3549,7 @@ def _run_rolling_x_newsroom_cycle(
             "external_text_treated_as_untrusted_data": True,
             "raw_secrets_persisted": False,
             "capital_chronicle_authority_mutated": False,
-            "revision_round_limit": 2,
+            "revision_round_limit": 1,
         },
     }
     if viability.get("status") != "SUCCESS":

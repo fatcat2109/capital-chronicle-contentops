@@ -327,8 +327,8 @@ def prepare_supervised_substack_browser_request(
     """Create the exact, safe local packet used by a supervised Substack editor.
 
     This is intentionally separate from the legacy cloned-profile executor. It
-    binds one editor action to one article body and three ContentOps-owned media
-    paths, without reading or persisting any browser-session material.
+    binds one editor action to one article body and any truthfully available ContentOps-owned
+    media paths, without reading or persisting any browser-session material.
     """
     mode = str(publication_mode or "").lower()
     if mode not in {"draft", "publish"}:
@@ -337,8 +337,8 @@ def prepare_supervised_substack_browser_request(
     if not article_path.exists():
         raise ValueError(f"article_markdown_missing:{article_path}")
     marker_ids = VISUAL_MARKER_RE.findall(body_markdown or "")
-    if len(marker_ids) < 3 or len(set(marker_ids)) < 3:
-        raise ValueError("substack_body_requires_three_distinct_visual_markers")
+    if len(marker_ids) != len(set(marker_ids)):
+        raise ValueError("substack_body_visual_markers_must_be_unique")
 
     asset_rows: list[dict[str, Any]] = []
     asset_ids: list[str] = []
@@ -385,7 +385,7 @@ def prepare_supervised_substack_browser_request(
             "publication_state": mode,
             "matching_title": title,
             "matching_body_markdown_sha256": _sha256_text(body_markdown),
-            "minimum_editor_body_image_count": 3,
+            "minimum_editor_body_image_count": len(asset_rows),
             "in_body_visual_asset_ids": marker_ids,
             "url_kind": "public_url" if mode == "publish" else "externally_usable_preview_or_draft_url",
         },
@@ -502,8 +502,12 @@ def validate_supervised_substack_browser_readback(
     actual_ids = [str(item) for item in readback.get("in_body_visual_asset_ids") or []]
     if actual_ids != expected_ids:
         blockers.append("substack_readback_visual_order_mismatch")
-    if int(readback.get("editor_body_image_count") or 0) < 3:
-        blockers.append("substack_readback_body_image_count_below_3")
+    minimum_image_count = int(
+        (request.get("required_readback") or {}).get("minimum_editor_body_image_count")
+        or 0
+    )
+    if int(readback.get("editor_body_image_count") or 0) < minimum_image_count:
+        blockers.append("substack_readback_body_image_count_below_required")
 
     state = str(readback.get("publication_state") or "").lower()
     expected_mode = str(request.get("publication_mode") or "").lower()

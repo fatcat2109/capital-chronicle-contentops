@@ -30,6 +30,23 @@ _NUMBER_RE = re.compile(
     re.IGNORECASE,
 )
 _QUOTE_RE = re.compile(r"[\"“]([^\"”]{8,})[\"”]")
+_SENSITIVE_CLAIM_RE = re.compile(
+    r"\b(?:alleg(?:e|ed|es|edly|ation|ations)|accus(?:e|ed|es|ation|ations)|"
+    r"disput(?:e|ed|es)|unconfirm(?:ed|able)|uncertain(?:ty)?|deny|denied|denies|"
+    r"conflict|attack(?:ed|s)?|strike|struck|fires?|fired|kill(?:ed|s|ing)?|"
+    r"casualt(?:y|ies)|war|blockade|fraud|misconduct|probe|investigat(?:e|ed|ion)|"
+    r"lawsuit|sanction(?:ed|s)?|breach(?:ed)?|secretly|conceal(?:ed|s)?)\b",
+    re.IGNORECASE,
+)
+_EXPLICIT_SENSITIVITY_KEYS = (
+    "sensitive_claim",
+    "claim_sensitive",
+    "unusually_consequential",
+    "disputed",
+    "uncertain",
+    "conflict_related",
+    "allegation",
+)
 
 
 def _logical_hash(value: Any) -> str:
@@ -116,6 +133,30 @@ def _without_numeric_scope(claim: str) -> str:
     return " ".join(narrowed.split()).strip(" ,;:-")
 
 
+def _claim_requires_corroboration(request: Mapping[str, Any], claim: str) -> bool:
+    """Classify sensitivity at claim scope, keeping geopolitical reporting conservative."""
+    context = request.get("story_context")
+    context = context if isinstance(context, Mapping) else {}
+    if str(request.get("story_type") or "") == "geopolitical_event":
+        return True
+    for source in (request, context):
+        if any(source.get(key) is True for key in _EXPLICIT_SENSITIVITY_KEYS):
+            return True
+        risk = " ".join(
+            str(value)
+            for key in ("risk_flags", "claim_risk", "sensitivity", "dispute_status")
+            for value in (
+                source.get(key)
+                if isinstance(source.get(key), (list, tuple, set))
+                else [source.get(key)]
+            )
+            if value is not None
+        )
+        if _SENSITIVE_CLAIM_RE.search(risk):
+            return True
+    return bool(_SENSITIVE_CLAIM_RE.search(str(claim or "")))
+
+
 def build_claim_evidence_contract(
     request: Mapping[str, Any],
     documents: Sequence[Mapping[str, Any]],
@@ -125,12 +166,8 @@ def build_claim_evidence_contract(
     candidates = _claim_candidates(request)
     supported: list[dict[str, Any]] = []
     omitted: list[dict[str, Any]] = []
-    story_type = str(request.get("story_type") or "")
-    sensitive_secondary = story_type in {
-        "geopolitical_event", "physical_event", "policy_decision", "regulatory_fiscal_event"
-    }
-
     for index, claim in enumerate(candidates):
+        sensitive_secondary = _claim_requires_corroboration(request, claim)
         claim_id = "claim-" + sha256(claim.encode("utf-8")).hexdigest()[:16]
         scored = [
             (document, _support_score(claim, document))
@@ -283,15 +320,14 @@ def build_claim_evidence_contract(
             if str(row.get("publisher") or row.get("source_identity") or "").strip()
         }
         fallback_docs = primary_docs
-        if not fallback_docs and (
-            not sensitive_secondary or len(secondary_publishers) >= 2
-        ):
+        if not fallback_docs:
             fallback_docs = secondary_docs
         for document in fallback_docs:
             raw_title = " ".join(str(document.get("title") or "").split())
             numeric_scope_omitted = bool(_NUMBER_RE.search(raw_title))
             title = _without_numeric_scope(raw_title) if numeric_scope_omitted else raw_title
             authority = str(document.get("source_authority_class") or "")
+            title_sensitive = _claim_requires_corroboration(request, title)
             if len(title) < 8 or _NUMBER_RE.search(title) or _QUOTE_RE.search(title):
                 continue
             if authority not in PRIMARY_AUTHORITY_CLASSES | SECONDARY_AUTHORITY_CLASSES:
@@ -305,7 +341,7 @@ def build_claim_evidence_contract(
                 if max(overlap_counts, default=0) < 2:
                     continue
             corroborating = [document]
-            if authority in SECONDARY_AUTHORITY_CLASSES and sensitive_secondary:
+            if authority in SECONDARY_AUTHORITY_CLASSES and title_sensitive:
                 corroborating = [
                     row
                     for row in secondary_docs

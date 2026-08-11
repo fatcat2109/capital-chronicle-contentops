@@ -77,6 +77,11 @@ def _insert_lifecycle_article(
                 "resolved_article_mode": "FOLLOW_UP_UPDATE",
                 "output_dir": str(output_dir),
             }
+            public_url = (
+                "https://capitalchronicle.substack.com/p/canonical-lifecycle-article"
+                if destination == "substack"
+                else f"https://example.invalid/{destination}/{index}"
+            )
             conn.execute(
                 "INSERT INTO outbox_messages VALUES (?,?,?,?,?,?)",
                 (
@@ -92,7 +97,7 @@ def _insert_lifecycle_article(
                 (
                     f"dispatch_{suffix}", f"outbox_{suffix}", destination,
                     "DISPATCH_CONFIRMED", f"2026-08-11T02:{index:02d}:30Z",
-                    f"object-{index}", f"https://example.invalid/{destination}/{index}",
+                    f"object-{index}", public_url,
                     hashlib.sha256(f"url-{index}".encode()).hexdigest(),
                 ),
             )
@@ -121,6 +126,21 @@ def test_corpus_uses_real_lifecycle_dedupes_fanout_and_recovers_exact_body(tmp_p
     assert article.update_chain_identity == "rolling-x-global-cluster-existing"
     assert article.article_mode == "FOLLOW_UP_UPDATE"
     assert len(article.derivative_public_objects) == 9
+
+
+def test_corpus_rejects_reconciled_substack_without_valid_canonical_url(tmp_path):
+    store = _store(tmp_path)
+    _insert_lifecycle_article(store, tmp_path / "outputs" / "work-article-1")
+    with store.get_connection() as conn:
+        conn.execute(
+            "UPDATE platform_dispatches SET public_object_url=? WHERE platform='substack'",
+            ("https://example.invalid/not-the-canonical-article",),
+        )
+
+    corpus = load_published_corpus(store)
+
+    assert corpus["article_count"] == 0
+    assert corpus["canonical_groups_without_substack_count"] == 1
 
 
 def test_corpus_rejects_ui_display_string_and_marks_missing_content_unavailable(tmp_path):
@@ -171,6 +191,101 @@ def _published(
         full_text=f"Full prior body for {identity}",
         content_status="CONTENT_AVAILABLE",
     )
+
+
+def test_supervisor_records_published_memory_before_after_and_canonical_observation(tmp_path):
+    supervisor = ContentOpsDailyAppSupervisor(
+        store_path=tmp_path / "memory-proof.sqlite3",
+        output_root=tmp_path / "outputs",
+        newsroom_cycle=lambda **_kwargs: {"classification": "NO_PUBLICATION"},
+    )
+    article = replace(
+        _published(
+            "new-story", ("Agency",), "2026-08-11T03:00:00Z", "chain-new"
+        ),
+        canonical_url="https://capitalchronicle.substack.com/p/new-story",
+        source_work_item_id="window-proof-1",
+    )
+    proof = supervisor._record_published_memory_cycle_proof(
+        output_dir=tmp_path / "outputs" / "window-proof-1",
+        window={"window_id": "window-proof-1", "trigger_kind": "SCHEDULED"},
+        before_runtime={
+            "published_corpus": {
+                "articles": [], "article_count": 0, "content_hash_coverage": 0,
+            }
+        },
+        after_corpus={"articles": [article], "article_count": 1},
+        cycle_evidence={
+            "classification": "PASS_PUBLICATION_PLAN_READY",
+            "article": {"resolved_article_mode": "BREAKING_BRIEF"},
+            "ranked_viability": {
+                "selected_cluster": {
+                    "cluster_id": "new-story",
+                    "update_chain_identity": "chain-new",
+                    "resolved_article_mode": "BREAKING_BRIEF",
+                    "portfolio_concentration_penalty": 0.0,
+                }
+            },
+        },
+        portfolio_context={"portfolio_state": {"published_today_count": 0}},
+        novelty_decision={
+            "decision": "BREAKING_NEW_STORY",
+            "best_prior_article": None,
+            "update_chain_match": False,
+            "material_delta_signals": 0,
+        },
+        lifecycle={
+            "canonical_article_status": "REAL_PUBLISHED",
+            "canonical_publication_status": (
+                "CANONICAL_PUBLISHED_DISTRIBUTION_PARTIAL"
+            ),
+            "canonical_url": article.canonical_url,
+            "unknown_write_detected": False,
+        },
+    )
+
+    assert proof["corpus_before_count"] == 0
+    assert proof["corpus_after_count"] == 1
+    assert proof["corpus_count_delta"] == 1
+    assert proof["canonical_article_observed_after_lifecycle"]["story_identity"] == (
+        "new-story"
+    )
+    assert proof["canonical_article_observed_after_lifecycle"]["content_hash"]
+    assert proof["publication_lifecycle"]["canonical_article_status"] == "REAL_PUBLISHED"
+    assert proof["proof_sha256"]
+    persisted = json.loads(
+        (tmp_path / "outputs" / "window-proof-1" / "published_memory_cycle_proof_v1.json")
+        .read_text(encoding="utf-8")
+    )
+    assert persisted["proof_sha256"] == proof["proof_sha256"]
+
+
+def test_supervisor_memory_proof_records_unchanged_no_publication_cycle(tmp_path):
+    supervisor = ContentOpsDailyAppSupervisor(
+        store_path=tmp_path / "memory-no-publication.sqlite3",
+        output_root=tmp_path / "outputs",
+        newsroom_cycle=lambda **_kwargs: {"classification": "NO_PUBLICATION"},
+    )
+    prior = _published(
+        "prior-story", ("Agency",), "2026-08-11T02:00:00Z", "chain-prior"
+    )
+    corpus = {"articles": [prior], "article_count": 1, "content_hash_coverage": 1}
+
+    proof = supervisor._record_published_memory_cycle_proof(
+        output_dir=tmp_path / "outputs" / "window-proof-2",
+        window={"window_id": "window-proof-2", "trigger_kind": "OPERATOR_REQUESTED"},
+        before_runtime={"published_corpus": corpus},
+        after_corpus=corpus,
+        cycle_evidence={"classification": "NO_PUBLICATION"},
+        portfolio_context={"portfolio_state": {"published_today_count": 1}},
+        novelty_decision=None,
+        lifecycle=None,
+    )
+
+    assert proof["corpus_before_count"] == proof["corpus_after_count"] == 1
+    assert proof["corpus_count_delta"] == 0
+    assert proof["no_publication_cycle"] is True
+    assert proof["canonical_article_observed_after_lifecycle"] is None
 
 
 def test_four_candidate_preselection_classifies_filters_and_changes_order(monkeypatch):

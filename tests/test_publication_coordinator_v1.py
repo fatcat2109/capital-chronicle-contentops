@@ -35,10 +35,17 @@ class FixtureTransport:
         self.publish_calls.append(destination)
         if self.raise_after_write:
             raise TimeoutError("response lost after provider acceptance")
+        public_url = (
+            "https://capitalchronicle.substack.com/p/fixture-article-1"
+            if destination == "substack"
+            else None
+            if destination == "discord"
+            else f"https://example.test/{destination}/1"
+        )
         return {
             "status": "SUCCESS",
             "id": f"{destination}-object-1",
-            "public_url": None if destination == "discord" else f"https://example.test/{destination}/1",
+            "public_url": public_url,
         }
 
     def readback(self, *, destination, public_object_id, public_object_url, intent):
@@ -46,7 +53,12 @@ class FixtureTransport:
         if self.ambiguous:
             return {"status": "AMBIGUOUS", "verified": False}
         observed = public_object_id or f"{destination}-object-1"
-        return {"status": "SUCCESS", "verified": True, "public_object_id": observed}
+        return {
+            "status": "SUCCESS",
+            "verified": True,
+            "public_object_id": observed,
+            "public_object_url": public_object_url,
+        }
 
     def collect_metrics(self, *args, **kwargs):
         return {"status": "FIXTURE_READ_ONLY", "observations": []}
@@ -136,6 +148,159 @@ def test_case_a_api_success_and_case_b_cdp_success(tmp_path):
     assert result["per_destination"]["substack"]["reconciliation_status"] == RECONCILED_CONFIRMED
     assert sorted(transport.publish_calls) == ["substack", "telegram"]
     assert all(row["status"] == DISPATCH_CONFIRMED for row in store.list_platform_dispatches())
+    assert result["canonical_article_real_published"] is True
+    assert result["canonical_article_status"] == "REAL_PUBLISHED"
+    assert result["distribution_status"] == "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE"
+
+
+def test_substack_confirmed_with_unready_derivative_is_real_partial_publication(tmp_path):
+    _store, transport, coordinator = _coordinator(tmp_path)
+    plan = _plan("substack")
+    plan["skipped_derivative_destinations"] = [
+        {
+            "destination": "linkedin",
+            "surface": registration_for_destination("linkedin").surface,
+            "readiness_state": "REAUTH_REQUIRED",
+            "disposition": "SKIPPED_NOT_READY",
+            "attempted": False,
+            "canonical_truth_affected": False,
+        }
+    ]
+
+    result = coordinator.execute_plan("work-1", plan)
+
+    assert result["canonical_article_real_published"] is True
+    assert result["canonical_url"] == (
+        "https://capitalchronicle.substack.com/p/fixture-article-1"
+    )
+    assert result["distribution_status"] == "CANONICAL_PUBLISHED_DISTRIBUTION_PARTIAL"
+    assert result["per_destination"]["linkedin"]["status"] == "SKIPPED_NOT_READY"
+    assert result["derivative_skipped_count"] == 1
+    assert transport.publish_calls == ["substack"]
+
+
+def test_substack_without_valid_canonical_url_is_not_real_and_derivatives_wait(tmp_path):
+    class InvalidCanonicalTransport(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            result = super().publish(
+                destination=destination,
+                intent=intent,
+                authorization_context=authorization_context,
+            )
+            if destination == "substack":
+                result["public_url"] = "https://example.test/not-canonical"
+            return result
+
+    runtime = InvalidCanonicalTransport()
+    _store, transport, coordinator = _coordinator(tmp_path, runtime=runtime)
+    plan = _plan("substack", "telegram")
+    for row in plan["destinations"]:
+        row.pop("canonical_url", None)
+
+    result = coordinator.execute_plan("work-1", plan)
+
+    assert result["canonical_article_real_published"] is False
+    assert result["canonical_url"] is None
+    assert result["canonical_publication_status"] == "CANONICAL_NOT_CONFIRMED"
+    assert result["per_destination"]["substack"]["reconciliation_status"] == (
+        RECONCILIATION_PENDING
+    )
+    assert result["per_destination"]["telegram"]["status"] == "WAITING_CANONICAL_URL"
+    assert transport.publish_calls == ["substack"]
+
+
+def test_strict_readback_can_recover_valid_substack_url_and_idempotent_status(tmp_path):
+    class ReadbackRecoversCanonicalTransport(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            result = super().publish(
+                destination=destination,
+                intent=intent,
+                authorization_context=authorization_context,
+            )
+            if destination == "substack":
+                result["public_url"] = None
+            return result
+
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            result = super().readback(
+                destination=destination,
+                public_object_id=public_object_id,
+                public_object_url=public_object_url,
+                intent=intent,
+            )
+            if destination == "substack":
+                result["public_object_url"] = (
+                    "https://capitalchronicle.substack.com/p/recovered-article-1"
+                )
+            return result
+
+    runtime = ReadbackRecoversCanonicalTransport()
+    store, transport, coordinator = _coordinator(tmp_path, runtime=runtime)
+    plan = _plan("substack", "telegram")
+    for row in plan["destinations"]:
+        row.pop("canonical_url", None)
+
+    first = coordinator.execute_plan("work-1", plan)
+    second = coordinator.execute_plan("work-1", plan)
+
+    assert first["canonical_article_real_published"] is True
+    assert first["canonical_url"] == (
+        "https://capitalchronicle.substack.com/p/recovered-article-1"
+    )
+    assert second["canonical_article_real_published"] is True
+    assert second["canonical_url"] == first["canonical_url"]
+    assert transport.publish_calls == ["substack", "telegram"]
+    substack = next(
+        row for row in store.list_platform_dispatches() if row["platform"] == "substack"
+    )
+    assert substack["public_object_url"] == first["canonical_url"]
+
+
+@pytest.mark.parametrize("derivative_mode", ["definite_failure", "unknown_write"])
+def test_derivative_failure_never_erases_reconciled_substack_truth(
+    tmp_path, derivative_mode
+):
+    class DerivativeFailureTransport(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            if destination != "linkedin":
+                return super().publish(
+                    destination=destination,
+                    intent=intent,
+                    authorization_context=authorization_context,
+                )
+            self.publish_calls.append(destination)
+            if derivative_mode == "unknown_write":
+                raise TimeoutError("ambiguous derivative response")
+            return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True}
+
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            if destination == "linkedin" and derivative_mode == "unknown_write":
+                self.readback_calls.append(destination)
+                return {"status": "AMBIGUOUS", "verified": False}
+            return super().readback(
+                destination=destination,
+                public_object_id=public_object_id,
+                public_object_url=public_object_url,
+                intent=intent,
+            )
+
+    runtime = DerivativeFailureTransport()
+    _store, _transport, coordinator = _coordinator(tmp_path, runtime=runtime)
+    plan = _plan("substack", "linkedin")
+    for row in plan["destinations"]:
+        row.pop("canonical_url", None)
+
+    result = coordinator.execute_plan("work-1", plan)
+
+    assert result["canonical_article_real_published"] is True
+    assert result["canonical_article_status"] == "REAL_PUBLISHED"
+    assert result["distribution_status"] == "CANONICAL_PUBLISHED_DISTRIBUTION_PARTIAL"
+    if derivative_mode == "unknown_write":
+        assert result["unknown_write_detected"] is True
+        assert result["derivative_unknown_count"] == 1
+    else:
+        assert result["unknown_write_detected"] is False
+        assert result["derivative_failed_count"] == 1
 
 
 def test_case_c_crash_before_adapter_safe_resume_once(tmp_path):
@@ -160,7 +325,12 @@ def test_case_d_attempt_marker_restart_never_republishes(tmp_path):
     assert recovery["marked_unknown"] == 1
     assert recovery["publish_calls"] == 0
     assert transport.publish_calls == []
-    assert store.get_platform_dispatch(registered["dispatch_id"])["status"] == UNKNOWN_WRITE
+    assert store.get_platform_dispatch(registered["dispatch_id"])["status"] == (
+        DISPATCH_CONFIRMED
+    )
+    assert store.get_reconciliations_for_work_item("work-1")[0]["status"] == (
+        RECONCILED_CONFIRMED
+    )
 
 
 def test_case_e_provider_accepted_response_lost_reconciles_without_duplicate(tmp_path):
@@ -168,8 +338,9 @@ def test_case_e_provider_accepted_response_lost_reconciles_without_duplicate(tmp
     store, transport, coordinator = _coordinator(tmp_path, runtime=runtime)
     result = coordinator.execute_plan("work-1", _plan("telegram"))
     row = result["per_destination"]["telegram"]
-    assert row["status"] == UNKNOWN_WRITE
+    assert row["status"] == DISPATCH_CONFIRMED
     assert row["reconciliation_status"] == RECONCILED_CONFIRMED
+    assert result["unknown_write_detected"] is False
     coordinator.execute_plan("work-1", _plan("telegram"))
     assert transport.publish_calls == ["telegram"]
     assert store.list_platform_dispatches()[0]["public_object_id"] == "telegram-object-1"

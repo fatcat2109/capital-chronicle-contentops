@@ -99,19 +99,19 @@ def test_generated_index_routes_v1_hot_paths_and_separates_v2(graph):
         "V5",
         "Router / models",
         "Tests",
-        "Current blocker",
+        "Current V1 closeout",
         "Tier2 separation",
         "Generated graph files",
         "Regeneration and check",
     ):
         assert f"## {heading}" in generated
     assert "rolling_x_article_revision_made_no_change" in generated
-    assert "Both permitted live LLM-capable cycles ended safe" in generated
-    assert "new owner decision" in generated
+    assert "Both earlier live LLM-capable cycles ended safe" in generated
+    assert "at most eight governed closeout decisions" in generated
     assert "TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1" in generated
 
 
-def test_generated_v2_context_routes_accepted_direct_image_and_fresh_rebuild(graph):
+def test_generated_v2_context_routes_direct_image_and_retention_native_authority(graph):
     context = index.context_markdown(graph)
     normalized = " ".join(context.split())
     assert "TASK_CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1" in normalized
@@ -121,7 +121,9 @@ def test_generated_v2_context_routes_accepted_direct_image_and_fresh_rebuild(gra
     assert "gpt-5.5" in normalized
     assert "provisional V2 generated-illustration default" in normalized
     assert "confirmed HTTP 400" in normalized
-    assert "FRESH V2 CREATIVE-SYSTEM REBUILD" in normalized
+    assert "TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1" in normalized
+    assert "retention-native V2 North Star" in normalized
+    assert "d231b54e" in normalized
     assert "zero public-write authority" in normalized
     assert "LOCAL_9ROUTER_IMAGE_REGISTRY_AND_ROUTE_NOT_YET_PROVEN_END_TO_END" not in normalized
     assert "8b043a5" in normalized

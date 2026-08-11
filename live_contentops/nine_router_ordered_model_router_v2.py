@@ -61,9 +61,10 @@ ORDERED_MODEL_POOL: tuple[str, ...] = (
 )
 PRIMARY_MODEL = ORDERED_MODEL_POOL[0]
 
-#: Role-specific semantic labour is allowed to prefer the exact high-throughput Flash
-#: model without changing the quality-first pool above.  Keeping this registry beside the
-#: canonical pool means the provider adapter and router still share one authority surface.
+#: Cheap leaf semantic labour may prefer the exact high-throughput Flash model without
+#: changing the quality-first pool above. Final editorial and article-writing roles retain
+#: the canonical quality ordering. Keeping this registry beside the canonical pool means the
+#: provider adapter and router still share one authority surface.
 NEWSROOM_LEAF_SCAN_ROLE = "rolling_x_newsroom_leaf_scan"
 NEWSROOM_GLOBAL_EDITOR_ROLE = "rolling_x_newsroom_assignment"
 ARTICLE_WRITING_ROLE = "article_writing"
@@ -72,16 +73,11 @@ NEWSROOM_LEAF_SCAN_MODEL_POOL: tuple[str, ...] = (
     NEWSROOM_LEAF_SCAN_MODEL,
     *ORDERED_MODEL_POOL,
 )
-ARTICLE_WRITING_MODEL_POOL: tuple[str, ...] = (
-    NEWSROOM_LEAF_SCAN_MODEL,
-    *ORDERED_MODEL_POOL,
-)
+ARTICLE_WRITING_MODEL_POOL: tuple[str, ...] = ORDERED_MODEL_POOL
 ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     NEWSROOM_LEAF_SCAN_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
-    # A grounded brief is a bounded transformation of accepted claims, not an open-ended
-    # research task. Prefer the already-authorized high-throughput model, then retain the exact
-    # quality-first pool as fallback. This materially lowers time/tokens without bypassing any
-    # evidence, deterministic, semantic-review, or publication gate.
+    # Article prose is final editorial work, so it uses the exact quality-first order. Flash
+    # remains authorized only for the cheap semantic leaf role above.
     ARTICLE_WRITING_ROLE: ARTICLE_WRITING_MODEL_POOL,
 }
 AUTHORIZED_MODELS = frozenset(
@@ -125,6 +121,7 @@ RETRYABLE_CLASSES: frozenset[str] = frozenset(
         "dns_or_upstream_connection_failure",
         "http_408_request_timeout",
         "http_429_rate_limited",
+        "quota_exhausted",
         "http_500_internal",
         "http_502_bad_gateway",
         "http_503_unavailable",
@@ -151,7 +148,6 @@ NON_RETRYABLE_CLASSES: frozenset[str] = frozenset(
         "http_401_unauthorized",
         "http_403_forbidden",
         "invalid_request_or_schema_or_configuration",
-        "quota_exhausted",
         *COST_TERMINAL_FAILURE_CLASSES,
     }
 )
@@ -204,7 +200,7 @@ def authority_packet() -> dict[str, Any]:
         "newsroom_leaf_scan_model": NEWSROOM_LEAF_SCAN_MODEL,
         "newsroom_leaf_scan_is_semantic_labor_only": True,
         "newsroom_global_editor_uses_quality_first_pool": True,
-        "article_writing_prefers_high_throughput_grounded_transformation": True,
+        "article_writing_uses_quality_first_pool": True,
         "newsroom_global_editor_retry_policy": {
             "max_total_provider_attempts": 5,
             "max_fallback_transitions": 3,

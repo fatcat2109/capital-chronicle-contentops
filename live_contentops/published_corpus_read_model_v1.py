@@ -10,6 +10,7 @@ import hashlib
 import json
 from pathlib import Path
 from typing import Any, Mapping, Optional
+from urllib.parse import urlsplit
 
 from live_contentops.editorial_portfolio_v1 import PublishedArticleRef
 
@@ -43,6 +44,23 @@ def _intent(value: Any) -> dict[str, Any]:
 def _reconciliation_id_for_dispatch(dispatch_id: str) -> str:
     suffix = str(dispatch_id).removeprefix("dispatch_")
     return "reconciliation_" + suffix
+
+
+def _valid_canonical_substack_url(value: Any) -> bool:
+    try:
+        parsed = urlsplit(str(value or "").strip())
+    except ValueError:
+        return False
+    path = parsed.path.rstrip("/")
+    return bool(
+        parsed.scheme == "https"
+        and (parsed.hostname or "").casefold() == "capitalchronicle.substack.com"
+        and path.startswith("/p/")
+        and len(path.removeprefix("/p/")) > 0
+        and path != "/p/pending-publication"
+        and not parsed.username
+        and not parsed.password
+    )
 
 
 def _artifact_article(output_dir: Optional[Path]) -> dict[str, Any]:
@@ -152,7 +170,11 @@ def load_published_corpus(
             ),
             None,
         )
-        if substack is None or not str(substack.get("public_object_id") or ""):
+        if (
+            substack is None
+            or not str(substack.get("public_object_id") or "")
+            or not _valid_canonical_substack_url(substack.get("public_object_url"))
+        ):
             canonical_groups_without_substack += 1
             continue
         intent = dict(substack["intent"])
@@ -239,7 +261,7 @@ def load_published_corpus(
         "canonical_groups_without_substack_count": canonical_groups_without_substack,
         "dedupe_key": "article_identity_else_work_item_id",
         "canonical_publication_contract": (
-            "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED"
+            "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED_AND_VALID_CANONICAL_URL"
         ),
         "derived_from_existing_durable_truth": True,
         "second_publication_store_created": False,

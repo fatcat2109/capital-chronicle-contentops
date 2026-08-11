@@ -14,6 +14,8 @@ import pytest
 
 from live_contentops.nine_router_ordered_model_router_v2 import (
     ACCEPTED,
+    ARTICLE_WRITING_MODEL_POOL,
+    ARTICLE_WRITING_ROLE,
     AUTHORITY_ID,
     AUTHORIZED_MODELS,
     GATEWAY,
@@ -46,6 +48,7 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     is_fallback_eligible,
     is_retryable,
     is_terminal,
+    model_pool_for_role,
     retry_budget_policy,
     route_llm_invocation,
 )
@@ -161,6 +164,9 @@ def test_exact_ordered_pool_is_the_four_authorized_models() -> None:
     assert len(ORDERED_MODEL_POOL) == 4
     assert len(AUTHORIZED_MODELS) == 5
     assert "vx/gemini-3.5-flash(high)" in AUTHORIZED_MODELS
+    assert ARTICLE_WRITING_MODEL_POOL is ORDERED_MODEL_POOL
+    assert model_pool_for_role(ARTICLE_WRITING_ROLE) is ORDERED_MODEL_POOL
+    assert authority_packet()["article_writing_uses_quality_first_pool"] is True
 
 
 def test_declared_retry_budget_defaults() -> None:
@@ -240,7 +246,13 @@ def test_budget_cannot_be_widened_beyond_declared_policy() -> None:
 
 @pytest.mark.parametrize(
     "klass",
-    ["connection_timeout", "read_timeout", "http_429_rate_limited", "http_503_unavailable"],
+    [
+        "connection_timeout",
+        "read_timeout",
+        "http_429_rate_limited",
+        "http_503_unavailable",
+        "quota_exhausted",
+    ],
 )
 def test_infrastructure_classes_are_retryable(klass) -> None:
     assert is_retryable(klass)
@@ -297,15 +309,17 @@ def test_case_b_p0_timeout_then_p0_retry_succeeds() -> None:
     assert result["models_attempted_in_order"] == [P0]
 
 
-def test_case_c_quota_is_cost_terminal_and_never_walks_paid_fallback() -> None:
+def test_case_c_p0_quota_skips_futile_retry_and_p1_succeeds() -> None:
     provider = scripted({P0: [fail("quota_exhausted")], P1: [good(P1)]})
     result = run(provider)
-    assert result["terminal_disposition"] == "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
-    assert result["selected_model"] is None
-    assert result["total_attempts"] == 1
-    assert [m for m, _ in provider.calls] == [P0]
-    assert result["total_fallback_transitions"] == 0
+    assert result["terminal_disposition"] == ACCEPTED
+    assert result["selected_model"] == P1
+    assert result["total_attempts"] == 2
+    assert [m for m, _ in provider.calls] == [P0, P1]
+    assert result["total_fallback_transitions"] == 1
     assert result["attempts"][0]["failure_class"] == "quota_exhausted"
+    assert result["attempts"][1]["fallback_from"] == P0
+    assert result["attempts"][1]["fallback_reason"] == "quota_exhausted"
 
 
 def test_case_d_p0_timeouts_then_p1_503s_then_p2_succeeds() -> None:
@@ -710,7 +724,10 @@ def test_wall_clock_budget_stops_the_invocation() -> None:
 def test_fallback_transition_ceiling_is_enforced() -> None:
     provider = scripted({m: [fail("quota_exhausted")] for m in ORDERED_MODEL_POOL})
     result = run(provider)
-    assert result["total_fallback_transitions"] <= 3
+    assert result["terminal_disposition"] == POOL_EXHAUSTED
+    assert result["models_attempted_in_order"] == list(ORDERED_MODEL_POOL)
+    assert result["total_attempts"] == 4
+    assert result["total_fallback_transitions"] == 3
 
 
 # ---------------------------------------------------------------------------

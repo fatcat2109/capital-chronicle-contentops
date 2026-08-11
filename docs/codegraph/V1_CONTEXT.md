@@ -20,7 +20,7 @@ one-click launcher
 → story type and article/update mode
 → targeted governed evidence acquisition
 → grounded article + source-backed media
-→ semantic review and at most two bounded revisions
+→ one semantic review and at most one bounded revision/re-review
 → destination-native packages and publication plan
 → DurablePublicationCoordinator
 → versioned destination transport
@@ -43,7 +43,7 @@ weaken evidence or create filler.
 - Latest real production-day result: `NO_PUBLICATION_GOVERNED_EVIDENCE_BLOCK`; three decision
   opportunities, zero articles, zero visuals/packages/dispatches/public objects/readbacks, and
   no unknown write. Committed canonical published-corpus count: `0`.
-- Exact immediate blocker: `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`.
+- Exact blocker in that prior production-day evidence: `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`.
 
 Continuation update on the current task branch:
 
@@ -52,9 +52,13 @@ Continuation update on the current task branch:
 - the source-desk-label/SEO metadata mismatch is fixed at the deterministic brief seam;
 - the replay now reaches article, deterministic review PASS, and shadow package with zero write;
 - one-click STOP/explicit RESUME, a persistent pre-network LLM operator fuse, scheduled-only LLM
-  execution, and hard 5-call/8-attempt/80k-cycle/400k-day cost ceilings are locally validated;
-- the exact next gate is one controlled production proof. The Daily App remains stopped and the
-  operator fuse remains active until that gate is intentionally entered.
+  execution, and the owner-authorized 6-call/12-attempt/250k-cycle/2m-day circuit breakers are
+  locally validated;
+- Jim's 2026-08-12 operator override authorizes at most eight governed closeout decisions. The
+  exact next gates are first real canonical publication/reconciliation followed by repeated
+  published-memory operation and a genuine 5–8 article production-day proof. The Daily App
+  remains stopped and the operator fuse active until Git reconciliation and offline validation
+  finish.
 
 These are committed evidence facts, not a claim about live state after the evidence capture.
 Source: `docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/`.
@@ -67,13 +71,16 @@ scheduled-only expensive execution, durable cost governor, and exact Decision 5 
 present. Both owner-bounded live LLM-capable cycles ended safe `NO_PUBLICATION`, with zero public
 write, zero UNKNOWN_WRITE, and zero pending reconciliation.
 
-The second cycle exposed an RSS acquisition ordering defect: the loader capped reputable
+The second earlier cycle exposed an RSS acquisition ordering defect: the loader capped reputable
 publishers before relevance/freshness selection, leaving one current source after the downstream
 freshness gate. The task branch now validates publisher/host identity and ranks relevant,
 point-in-time-eligible listings before the cap. The saved exact rank-10 request passes read-only
 targeted-evidence and claim replay with two independent sources, but this is not the required live
-publication proof. The app remains stopped and the operator fuse remains active. Do not run a
-third cycle or integrate master without a new owner decision. Durable status:
+publication proof. Jim's continuation authorization supersedes the earlier two-cycle limit and
+permits bounded self-debugging plus the next genuine decisions through the canonical path. The app
+remains stopped and the operator fuse remains active until focused validation is clean. Integrate
+to master only after the first real canonical article meets the explicit acceptance gate. Durable
+prior status:
 `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1_STATUS.md`.
 
 ## Decision and data flow
@@ -134,10 +141,10 @@ implementation is mapped to explain control flow, not to authorize a new direct 
 | Capital Chronicle context | `capital_chronicle_data_catalog_v1.discover_cc_data_estate`; `query_story_scoped_cc_context` | read-only Main App root and story terms | metadata catalog and bounded story-scoped matches; no upstream mutation | `test_contentops_continuous_intelligence_realign_v1.py` |
 | Portfolio | `editorial_portfolio_v1.classify_story_novelty`; `portfolio_state_today` | cluster delta, related articles, today's corpus | breaking/follow-up/deepen/repeat/hold and concentration state | `test_contentops_continuous_intelligence_realign_v1.py` |
 | Story routing | `classify_rolling_x_story_types_with_nine_router` | preselected enriched clusters | exact story type per cluster; no factual authority | `test_rolling_x_newsroom_cycle_v1.py` |
-| LLM cost control | `nine_router_llm_seam_v2`; `llm_cost_governor_v1` | one cycle scope, logical calls, attempts, usage | terminal pause/quota/budget status; no paid quota fallback | `test_llm_cost_governor_v1.py`, `test_nine_router_ordered_model_router_v2.py` |
+| LLM cost control | `nine_router_llm_seam_v2`; `llm_cost_governor_v1` | one cycle scope, logical calls, attempts, usage | absolute operator pause; bounded quota/rate/model fallback inside the authorized pool; hard usage circuit breakers | `test_llm_cost_governor_v1.py`, `test_nine_router_ordered_model_router_v2.py` |
 | Evidence | `rolling_x_targeted_evidence_adapter_v1.RollingXTargetedEvidenceAdapter.__call__` | selected cluster, story type, required capability profile, cutoff | governed receipts/documents or explicit blockers | `test_rolling_x_targeted_evidence_adapter_v1.py`, `test_rolling_x_evidence_viability_v1.py` |
 | Article/media | `rolling_x_grounded_article_media_builder_v1.build_rolling_x_grounded_article_and_media` | successful viability/evidence packet | grounded article plus deterministic/source-backed assets | `test_rolling_x_grounded_article_media_builder_v1.py` |
-| Review/revision | `_run_bounded_rolling_x_editorial_cycle` | article/assets and semantic reviewer/reviser | PASS or no-publication after at most two revisions | `test_rolling_x_newsroom_cycle_v1.py` |
+| Review/revision | `_run_bounded_rolling_x_editorial_cycle` | article/assets and semantic reviewer/reviser | one review, then PASS or no-publication after at most one revision/re-review | `test_rolling_x_newsroom_cycle_v1.py` |
 | Packages/plan | `_prepare_rolling_x_release_candidate`; `_build_rolling_x_publication_plan` | reviewed article/media and destination readiness | locked payloads and deterministic lifecycle plan | `test_rolling_x_newsroom_cycle_v1.py`, `test_rolling_x_v1_publishability_closure_v1.py` |
 | Publication owner | `publication_coordinator_v1.DurablePublicationCoordinator.publish_plan` | work item and publication plan | durable pre-write intent, dispatch/readback/reconciliation outcomes | `test_publication_coordinator_v1.py`, `test_daily_app_publication_lifecycle_v1.py` |
 | Transport/readiness | `destination_transport_registry_v1.registration_for_destination`; `DestinationReadinessManager` | exact destination/surface and sanitized probes | one versioned transport identity and current readiness | `test_destination_identity_pinning_v1.py`, `test_publication_coordinator_v1.py` |
@@ -227,7 +234,7 @@ Simulation performed from only root `AGENTS.md`:
 | evidence acquisition | `live_contentops/AGENTS.md` → `rolling_x_targeted_evidence_adapter_v1.py` | `test_rolling_x_targeted_evidence_adapter_v1.py` |
 | canonical publication | `live_contentops/AGENTS.md` → `publication_coordinator_v1.py` | `test_publication_coordinator_v1.py` |
 | V5 Today | `ui/contentops_v5/AGENTS.md` → `src/views/DailyAppConsole.tsx` | `src/test/daily_app_console.test.tsx` |
-| current blocker | `INDEX.md` → production-day evidence `README.md` | `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED` |
+| current closeout | `INDEX.md` → current task/status and operator continuation | real Substack publication/reconciliation, published-memory reuse, and genuine 5–8 production-day proof |
 
 Unique files opened for all eight requested destinations, including root/index/context, three
 scoped instruction files (`live_contentops`, V5, and tests), six implementation/UI files, five

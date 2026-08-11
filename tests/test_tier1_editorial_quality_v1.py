@@ -7,7 +7,9 @@ from live_contentops.tier1_editorial_quality_v1 import (
     combine_editorial_gates,
     rendered_body,
     review_tier1_article_with_llm,
+    validate_llm_editorial_review,
     evaluate_headline_desk,
+    LLM_REVIEW_CHECKS,
 )
 
 
@@ -29,6 +31,12 @@ def _passing_llm_review(_prompt: str, _provider: str) -> dict:
             "material_market_consequence": True,
             "concise_nut_graf": True,
             "mode_consistent": True,
+            "material_claims_supported": True,
+            "no_factual_contradiction": True,
+            "no_fabricated_numbers": True,
+            "material_evidence_matches": True,
+            "no_misleading_framing": True,
+            "severe_coherence_ok": True,
             "source_backed_mechanism": True,
             "relevant_context": True,
             "specific_confirmation_condition": True,
@@ -55,6 +63,51 @@ def test_process_language_and_missing_why_now_fail_tier1_gate() -> None:
 
 def test_rendered_body_removes_visual_markers() -> None:
     assert "[[VISUAL:" not in rendered_body("Opening\n\n[[VISUAL:primary]]\n\nClose")
+
+
+def test_optional_seo_context_and_visual_findings_are_advisory() -> None:
+    article = {
+        "title": "Agency Confirms A New Public Notice",
+        "editorial_mode": "straight_news",
+        "substack_body_markdown": (
+            "The agency confirmed a new public notice today. What matters is that the "
+            "published notice is now the governing public record."
+        ),
+    }
+
+    audit = audit_tier1_article(article, media_assets=[])
+
+    assert audit["classification"] == "PASS"
+    assert audit["seo_score"] < 85
+    assert audit["seo_blockers"]
+    assert audit["seo_findings_are_advisory"] is True
+    assert audit["hard_editorial_blockers"] == []
+
+
+def test_semantic_review_advisory_only_revision_is_normalized_to_pass() -> None:
+    checks = {name: True for name in LLM_REVIEW_CHECKS}
+    checks["specific_confirmation_condition"] = False
+    normalized = validate_llm_editorial_review(
+        {
+            "decision": "NEEDS_REVISION",
+            "mode": "straight_news",
+            "checks": checks,
+            "issues": [
+                {
+                    "code": "optional_confirmation_detail",
+                    "evidence": "Useful brief has no sophisticated confirmation framing.",
+                }
+            ],
+            "summary": "Only an advisory context improvement remains.",
+        }
+    )
+
+    assert normalized["decision"] == "PASS"
+    assert normalized["material_failed_checks"] == []
+    assert normalized["advisory_failed_checks"] == [
+        "specific_confirmation_condition"
+    ]
+    assert normalized["advisory_only_revision_normalized_to_pass"] is True
 
 
 def test_revised_fixture_passes_editorial_and_seo_gates() -> None:

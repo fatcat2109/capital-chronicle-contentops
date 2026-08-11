@@ -478,6 +478,40 @@ def test_evidence_substitution_attacks_fail_closed(tmp_path):
     assert "article_must_deny_x_factual_authority" in blockers
 
 
+def test_generated_article_cannot_reintroduce_exact_omitted_nonnumeric_claim():
+    context = extract_governed_story_context(_viability())
+    omitted_text = "The agency secretly expanded the rule beyond the published scope."
+    context["claim_evidence_contract"] = {
+        "status": "PASS",
+        "supported_claims": [
+            {
+                "claim_id": "supported-1",
+                "claim_text": "Treasury published a final stress testing rule.",
+                "evidence_document_ids": ["official-primary-abc123"],
+            }
+        ],
+        "omitted_unsupported_claims": [
+            {"claim_id": "omitted-1", "claim_text": omitted_text, "reason": "unsupported"}
+        ],
+    }
+    blockers = validate_generated_article(
+        {
+            "title": "Treasury Publishes Final Stress Testing Rule",
+            "substack_body_markdown": (
+                _passing_body(FR_URL, _regulatory_asset_ids()) + "\n\n" + omitted_text
+            ),
+            "evidence_document_ids": ["official-primary-abc123"],
+            "cluster_id": "c1",
+            "headline_ids": ["h1"],
+            "x_content_grants_factual_authority": False,
+        },
+        context=context,
+        visual_asset_ids=_regulatory_asset_ids(),
+    )
+
+    assert "article_reintroduced_omitted_claim" in blockers
+
+
 # --- controlled end-to-end smoke through the canonical cycle (default builder) ----
 
 
@@ -570,6 +604,33 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
     assert result["unknown_write_detected"] is False
 
 
+def test_concise_mode_uses_quality_writer_before_deterministic_outage_fallback(tmp_path):
+    viability = _viability(story_type="regulatory_fiscal_event", article_mode="straight_news")
+    viability["rank_attempts"][0]["request"].update(
+        {
+            "requested_article_mode": "BREAKING_BRIEF",
+            "resolved_article_mode": "BREAKING_BRIEF",
+            "effective_article_mode": "BREAKING_BRIEF",
+        }
+    )
+    calls = []
+    fixture_generator = _make_generator(FR_URL, _regulatory_asset_ids())
+
+    def quality_writer(prompt):
+        calls.append(prompt)
+        return fixture_generator(prompt)
+
+    result = build_rolling_x_grounded_article_and_media(
+        viability,
+        output_dir=tmp_path,
+        article_generator=quality_writer,
+    )
+
+    assert len(calls) == 1
+    assert result["article"]["article_generation_method"] == "ROUTED_LLM_GROUNDED_ARTICLE"
+    assert result["article"]["article_generation_router_failure"] is None
+
+
 def test_decision5_desk_label_replay_reaches_article_review_and_shadow_package(
     monkeypatch, tmp_path
 ):
@@ -659,6 +720,17 @@ def test_decision5_desk_label_replay_reaches_article_review_and_shadow_package(
         "live_contentops.newsroom_assignment_scheduler_v1.select_first_viable_rolling_x_cluster",
         lambda **kwargs: viability,
     )
+    from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+
+    def unavailable_quality_writer(_prompt):
+        raise RoutedInvocationError(
+            {
+                "terminal_disposition": "PROVIDER_EXHAUSTED",
+                "failure_class": "requested_model_temporarily_unavailable",
+            }
+        )
+
+    monkeypatch.setattr(builder, "_default_article_generator", unavailable_quality_writer)
 
     result = implementation._run_rolling_x_newsroom_cycle(
         run_id="decision-5-offline-replay",
@@ -667,7 +739,7 @@ def test_decision5_desk_label_replay_reaches_article_review_and_shadow_package(
         story_type_by_cluster={"c1": "geopolitical_event"},
         editorial_reviewer=implementation._default_rolling_x_editorial_reviewer,
         article_reviser=lambda *_args: (_ for _ in ()).throw(
-            AssertionError("Decision 5 deterministic brief must pass without an LLM revision")
+            AssertionError("Decision 5 outage fallback must pass without an LLM revision")
         ),
         publication_enabled=False,
     )

@@ -86,7 +86,7 @@ def test_bounded_editorial_cycle_revises_once_then_passes(monkeypatch):
     assert len(result["review_history"]) == 2
 
 
-def test_bounded_editorial_cycle_exhausts_after_two_revisions(monkeypatch):
+def test_bounded_editorial_cycle_exhausts_after_one_revision(monkeypatch):
     monkeypatch.setattr(
         "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
         lambda article, media_assets=(): {"classification": "PASS"},
@@ -102,8 +102,8 @@ def test_bounded_editorial_cycle_exhausts_after_two_revisions(monkeypatch):
     )
     assert result["status"] == "NO_PUBLICATION"
     assert result["reason_code"] == "EDITORIAL_REVISION_ROUNDS_EXHAUSTED"
-    assert result["revision_rounds_completed"] == 2
-    assert len(result["review_history"]) == 3
+    assert result["revision_rounds_completed"] == 1
+    assert len(result["review_history"]) == 2
 
 
 def test_canonical_cycle_stops_before_generation_when_ranked_evidence_blocks(monkeypatch, tmp_path: Path):
@@ -225,7 +225,7 @@ def test_invalid_semantic_decision_fails_closed_and_exhausts(monkeypatch):
         },
     )
     assert result["status"] == "NO_PUBLICATION"
-    assert result["revision_rounds_completed"] == 2
+    assert result["revision_rounds_completed"] == 1
     assert all(
         row["llm_semantic_review"]["decision"] == "NEEDS_REVISION"
         for row in result["review_history"]
@@ -391,6 +391,54 @@ def test_release_candidate_isolates_unready_derivative_destination(tmp_path: Pat
     assert result["classification"] == "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
     assert "destination_not_ready:x" not in result["blockers"]
     assert result["release_candidate_lock_verification"]["status"] == "PASS_RELEASE_CANDIDATE_LOCK"
+    plan = implementation._build_rolling_x_publication_plan(
+        run_id="rolling-blocked",
+        output_dir=tmp_path,
+        viability=viability,
+        preparation=result,
+        readiness=readiness,
+    )
+    assert "x" not in {row["destination"] for row in plan["destinations"]}
+    skipped_x = next(
+        row for row in plan["skipped_derivative_destinations"]
+        if row["destination"] == "x"
+    )
+    assert skipped_x["disposition"] == "SKIPPED_NOT_READY"
+    assert skipped_x["canonical_truth_affected"] is False
+
+
+def test_optional_seo_analysis_and_visual_absence_does_not_block_substack(tmp_path: Path):
+    assignment, viability, article, _media, editorial, readiness = _release_inputs(tmp_path)
+    for field in (
+        "subtitle",
+        "seo_title",
+        "meta_description",
+        "market_mechanism",
+        "policy_context",
+        "cross_asset_implications",
+    ):
+        article[field] = ""
+    article["substack_body_markdown"] = (
+        "The official agency confirmed the public event in its published record."
+    )
+    result = implementation._prepare_rolling_x_release_candidate(
+        run_id="rolling-minimum-useful-article",
+        output_dir=tmp_path,
+        intake={"schema_version": "capital_chronicle.rolling_x_headline_input.v1"},
+        assignment=assignment,
+        viability=viability,
+        article=article,
+        media={"assets": []},
+        editorial_cycle=editorial,
+        destination_readiness=readiness,
+    )
+
+    assert result["classification"] == "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
+    assert result["blockers"] == []
+    assert result["context"]["media"]["media_asset_count"] == 0
+    assert all(
+        not blocker.startswith("article_field_missing:") for blocker in result["blockers"]
+    )
 
 
 def test_passed_cycle_returns_plan_without_direct_backend_write(monkeypatch, tmp_path: Path):

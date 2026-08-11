@@ -12,6 +12,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Optional
+from urllib.parse import urlsplit
 
 from live_contentops.destination_transport_registry_v1 import (
     READY_STATES,
@@ -35,6 +36,23 @@ def _canonical_json(value: Any) -> str:
 
 def _hash(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def _valid_substack_canonical_url(value: Any) -> bool:
+    try:
+        parsed = urlsplit(str(value or "").strip())
+    except ValueError:
+        return False
+    path = parsed.path.rstrip("/")
+    return bool(
+        parsed.scheme == "https"
+        and (parsed.hostname or "").casefold() == "capitalchronicle.substack.com"
+        and path.startswith("/p/")
+        and len(path.removeprefix("/p/")) > 0
+        and path != "/p/pending-publication"
+        and not parsed.username
+        and not parsed.password
+    )
 
 
 def normalize_dispatch_result(
@@ -97,6 +115,9 @@ def normalize_readback_result(
         "public_object_id", "post_id", "message_id", "media_id", "id", "activity_id",
         "root_post_id",
     ) if raw.get(k) not in (None, "")), None)
+    observed_url = next((str(raw.get(k)) for k in (
+        "public_object_url", "public_url", "post_url", "permalink", "url", "root_url",
+    ) if raw.get(k) not in (None, "")), None)
     absent = raw.get("write_absent") is True or str(raw.get("status") or "").upper() in {
         "NOT_FOUND", "ABSENT", "RECONCILED_ABSENT_SAFE_TO_RETRY",
     }
@@ -115,6 +136,7 @@ def normalize_readback_result(
         "verified": bool(verified_flag and matching),
         "write_absent": bool(absent),
         "observed_public_object_id": observed_id,
+        "observed_public_object_url": observed_url,
         "identity_match": matching,
         "source_status": str(raw.get("status") or raw.get("classification") or "") or None,
     }
@@ -251,8 +273,20 @@ class DurablePublicationCoordinator:
         except Exception as exc:
             normalized = {
                 "verified": False, "write_absent": False, "identity_match": False,
-                "observed_public_object_id": None, "error_class": type(exc).__name__,
+                "observed_public_object_id": None, "observed_public_object_url": None,
+                "error_class": type(exc).__name__,
             }
+        observed_url = str(
+            normalized.get("observed_public_object_url")
+            or dispatch.get("public_object_url")
+            or ""
+        ) or None
+        if destination == "substack":
+            normalized["canonical_url_valid"] = _valid_substack_canonical_url(observed_url)
+            if normalized.get("verified") is True and not normalized["canonical_url_valid"]:
+                normalized["verified"] = False
+                normalized["identity_match"] = False
+                normalized["error_class"] = "substack_canonical_url_missing_or_invalid"
         readback_data = _canonical_json({
             "dispatch_id": dispatch_id, "destination": destination, "readback": normalized,
         })
@@ -263,15 +297,18 @@ class DurablePublicationCoordinator:
         )
         if normalized.get("verified") is True:
             status = RECONCILED_CONFIRMED
-            if not object_id and normalized.get("observed_public_object_id"):
+            recovered_id = str(normalized.get("observed_public_object_id") or "") or object_id
+            if recovered_id:
                 self.store.register_platform_dispatch(
                     dispatch_id=dispatch_id,
                     message_id=str(dispatch["message_id"]),
                     platform=destination,
-                    status=str(dispatch["status"]),
-                    public_object_id=str(normalized["observed_public_object_id"]),
-                    public_object_url=str(dispatch.get("public_object_url") or "") or None,
+                    status=DISPATCH_CONFIRMED,
+                    public_object_id=recovered_id,
+                    public_object_url=observed_url,
                 )
+            self.store.set_dispatch_status(dispatch_id, DISPATCH_CONFIRMED)
+            self.store.set_outbox_status(str(dispatch["message_id"]), DISPATCH_CONFIRMED)
         elif normalized.get("write_absent") is True:
             status = RECONCILED_ABSENT_SAFE_TO_RETRY
         else:
@@ -290,7 +327,26 @@ class DurablePublicationCoordinator:
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
         if existing:
-            return {"destination": destination, "status": str(existing["status"]), "publish_called": False}
+            reconciliation_status = None
+            getter = getattr(self.store, "get_reconciliations_for_work_item", None)
+            if callable(getter):
+                reconciliation_status = next(
+                    (
+                        str(row.get("status") or "")
+                        for row in getter(str(intent["work_item_id"]))
+                        if str(row.get("reconciliation_id") or "")
+                        == ids["reconciliation_id"]
+                    ),
+                    None,
+                )
+            return {
+                "destination": destination,
+                "status": str(existing["status"]),
+                "publish_called": False,
+                "public_object_id": existing.get("public_object_id"),
+                "public_object_url": existing.get("public_object_url"),
+                "reconciliation_status": reconciliation_status,
+            }
         dependency = item.get("canonical_url_dependency")
         if dependency and not (canonical_url or intent.get("canonical_url")):
             return {"destination": destination, "status": "WAITING_CANONICAL_URL", "publish_called": False}
@@ -354,27 +410,97 @@ class DurablePublicationCoordinator:
         reconciliation = self._reconcile(dispatch, intent) if result["status"] in {
             DISPATCH_CONFIRMED, UNKNOWN_WRITE,
         } else RECONCILED_ABSENT_SAFE_TO_RETRY
+        persisted = self.store.get_platform_dispatch(ids["dispatch_id"]) or dispatch
         return {
-            "destination": destination, "status": result["status"], "publish_called": True,
-            "public_object_id": result.get("public_object_id"),
-            "public_object_url": result.get("public_object_url"),
+            "destination": destination, "status": str(persisted.get("status") or result["status"]),
+            "publish_called": True,
+            "public_object_id": persisted.get("public_object_id") or result.get("public_object_id"),
+            "public_object_url": persisted.get("public_object_url") or result.get("public_object_url"),
             "reconciliation_status": reconciliation,
         }
 
     def execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         registration = self.register_plan(work_item_id, plan)
-        outcomes: dict[str, Any] = {}
+        outcomes: dict[str, Any] = {
+            str(row.get("destination") or ""): {
+                **dict(row),
+                "status": str(row.get("disposition") or "SKIPPED_NOT_READY"),
+                "publish_called": False,
+                "reconciliation_status": None,
+            }
+            for row in (plan.get("skipped_derivative_destinations") or [])
+            if isinstance(row, Mapping) and str(row.get("destination") or "")
+        }
         canonical_url: Optional[str] = None
         messages = [m for m in self.store.list_outbox_messages() if m["work_item_id"] == work_item_id]
         messages.sort(key=lambda m: (0 if m["destination"] == "substack" else 1, m["destination"]))
         for message in messages:
             outcome = self._dispatch_message(message, canonical_url=canonical_url)
             outcomes[str(message["destination"])] = outcome
-            if message["destination"] == "substack" and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED:
-                canonical_url = str(outcome.get("public_object_url") or "") or None
+            if (
+                message["destination"] == "substack"
+                and outcome.get("status") == DISPATCH_CONFIRMED
+                and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
+                and _valid_substack_canonical_url(outcome.get("public_object_url"))
+            ):
+                canonical_url = str(outcome["public_object_url"])
+        canonical = dict(outcomes.get("substack") or {})
+        canonical_real = bool(
+            canonical.get("status") == DISPATCH_CONFIRMED
+            and canonical.get("reconciliation_status") == RECONCILED_CONFIRMED
+            and _valid_substack_canonical_url(canonical.get("public_object_url"))
+        )
+        derivatives = {
+            destination: outcome
+            for destination, outcome in outcomes.items()
+            if destination != "substack"
+        }
+        derivative_confirmed = sum(
+            outcome.get("status") == DISPATCH_CONFIRMED
+            and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
+            for outcome in derivatives.values()
+        )
+        derivative_attempted = sum(
+            outcome.get("publish_called") is True for outcome in derivatives.values()
+        )
+        derivative_unknown = sum(
+            outcome.get("status") == UNKNOWN_WRITE for outcome in derivatives.values()
+        )
+        derivative_skipped = sum(
+            outcome.get("publish_called") is not True
+            and not (
+                outcome.get("status") == DISPATCH_CONFIRMED
+                and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
+            )
+            for outcome in derivatives.values()
+        )
+        derivative_failed = sum(
+            outcome.get("publish_called") is True
+            and outcome.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE}
+            for outcome in derivatives.values()
+        )
+        if canonical_real:
+            distribution_status = (
+                "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE"
+                if derivatives
+                and derivative_confirmed == len(derivatives)
+                else "CANONICAL_PUBLISHED_DISTRIBUTION_PARTIAL"
+            )
+        else:
+            distribution_status = "CANONICAL_NOT_CONFIRMED"
         return {
             **registration,
             "per_destination": outcomes,
+            "canonical_article_status": "REAL_PUBLISHED" if canonical_real else "NOT_CONFIRMED",
+            "canonical_article_real_published": canonical_real,
+            "canonical_url": canonical_url if canonical_real else None,
+            "canonical_publication_status": distribution_status,
+            "distribution_status": distribution_status,
+            "derivative_attempted_count": derivative_attempted,
+            "derivative_confirmed_count": derivative_confirmed,
+            "derivative_skipped_count": derivative_skipped,
+            "derivative_failed_count": derivative_failed,
+            "derivative_unknown_count": derivative_unknown,
             "public_write_performed": any(
                 o.get("status") == DISPATCH_CONFIRMED and o.get("publish_called") is True
                 for o in outcomes.values()

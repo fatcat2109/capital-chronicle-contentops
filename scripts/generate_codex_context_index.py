@@ -27,7 +27,7 @@ INDEX_PATH = OUTPUT_DIR / "INDEX.md"
 V2_CONTEXT_PATH = OUTPUT_DIR / "V2_CONTEXT.md"
 V1_CONTEXT_PATH = OUTPUT_DIR / "V1_CONTEXT.md"
 SCHEMA_VERSION = "contentops.codex_context_graph.v2"
-GENERATOR_VERSION = "2.0.0"
+GENERATOR_VERSION = "2.1.0"
 
 CODE_SUFFIXES = {
     ".py",
@@ -51,8 +51,12 @@ AUTHORITY_DOCS = {
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
-    "docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md",
-    "docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md",
+    "docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md",
+    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1.md",
+    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md",
+    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V1.md",
+    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md",
+    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_SUPERSESSION_MAP_V1.md",
     "docs/codegraph/V1_CONTEXT.md",
     "docs/codegraph/V2_CONTEXT.md",
 }
@@ -247,7 +251,7 @@ def git_head() -> str:
         for _ in range(100):
             changed = subprocess.check_output(
                 [
-                    "git", "diff-tree", "--root", "--no-commit-id", "--name-only",
+                    "git", "diff-tree", "--root", "-m", "--no-commit-id", "--name-only",
                     "-r", current,
                 ],
                 cwd=ROOT,
@@ -1042,17 +1046,21 @@ files are not imported into master: `Root.tsx` composes `SceneRenderer`, `SceneR
 dispatches to `primitives.tsx` inside `scaffold.tsx`, and the renderer-neutral Python factory
 targets `render-job.mjs`.
 
-## Current V2 image authority and route
+## Current V2 retention-native authority and route
 
 - `gpt-5.5` is the provisional V2 generated-illustration default pending future product
   evidence; generated illustration is never factual or documentary authority.
 - `wan2.7-image-pro` and `qwen-image-2.0` returned confirmed HTTP 400 responses on the tested
   contract and remain unresolved without blocking V2.
-- The prior local 9Router image blocker is removed. The next action is a
-  `FRESH V2 CREATIVE-SYSTEM REBUILD` with stronger story/video suitability, less numeric
-  narration, premium typography, richer motion and chart transitions, generated illustrative
-  assets, rights-aware real-person/entity imagery, improved voice/music, and stronger
-  multimodal QA.
+- The retention-native V2 North Star, master plan, task graph, current pointer, supersession map,
+  and direction overlay are the canonical V2 product authority. The next task is
+  `TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1`, starting from
+  fresh current master.
+- The rejected creative branch `task/tier2-v2-creative-system-rebuild-v1` at `d231b54e` is
+  reference only: do not merge or continue its slideshow-heavy creative product.
+- The target is beat-driven, narration-linked motion with real audio/music, rights-aware asset
+  density, platform-native short/mid-form direction, deterministic retention/media QA, and
+  bounded multimodal critique. Virality is never guaranteed.
 - V2 is isolated from V1 and has zero public-write authority.
 
 ## Subsystem map
@@ -1063,6 +1071,7 @@ targets `render-job.mjs`.
 | 9Router | `live_contentops/nine_router_ordered_model_router_v2.py`, `nine_router_llm_seam_v2.py`, `nine_router_provider_adapter_v2.py` | `tests/test_nine_router_*`, `docs/automation/CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2/` |
 | Tier2-A | `live_contentops/tier2_video_factory_v1.py` | `tests/test_tier2_video_factory_v1.py`, `docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/` |
 | Direct image | `live_contentops/direct_image_api_v1.py`, `scripts/run_direct_image_bakeoff_v1.py` | `tests/test_direct_image_api_v1.py`, `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/` |
+| V2 retention-native authority | `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`, `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md` | North Star, master plan, task graph, supersession map |
 | UI | `ui/contentops_v5/src/main.tsx`, `ui/contentops_v5/src/views/DailyAppConsole.tsx`, `ui/contentops_v5/src/dailyAppTypes.ts` | `ui/contentops_v5/src/test/`, `ui/contentops_v5/AGENTS.md` |
 | Tooling | `scripts/generate_codex_context_index.py` | `tests/test_codex_context_index.py` |
 
@@ -1094,8 +1103,8 @@ def index_markdown(graph: dict[str, Any]) -> str:
         "",
         "1. `AGENTS.md`",
         "2. `docs/codegraph/INDEX.md` (this page)",
-        "3. `docs/codegraph/V1_CONTEXT.md`",
-        "4. nearest scoped `AGENTS.md`",
+        "3. nearest scoped `AGENTS.md`",
+        "4. `docs/codegraph/V1_CONTEXT.md` when V1 product/state context matters",
         "5. exact implementation and focused tests",
         "",
         "Open current direction/next-task authority only when product direction matters: "
@@ -1123,26 +1132,30 @@ def index_markdown(graph: dict[str, Any]) -> str:
             "V5 tests are under `ui/contentops_v5/src/test/`. Generator coverage is "
             "`tests/test_codex_context_index.py`.",
             "",
-            "## Current blocker",
+            "## Current V1 closeout",
             "",
             "The V1 evidence-calibration continuation has locally fixed the Decision 5 "
             "post-evidence `rolling_x_article_revision_made_no_change` contract defect. Exact "
             "offline replay now reaches article, deterministic review PASS, and shadow package "
-            "with zero public write. Both permitted live LLM-capable cycles ended safe "
+            "with zero public write. Both earlier live LLM-capable cycles ended safe "
             "`NO_PUBLICATION`; a subsequent exact rank-10 read-only replay passes evidence and "
             "claim gates after the RSS selection correction, but it is not live proof.",
             "",
             "Active V1 task: "
             "`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; "
-            "the app remains stopped and the operator fuse active. A new owner decision is "
-            "required before another controlled live proof or master integration.",
+            "Jim's 2026-08-12 operator override supersedes the earlier two-cycle cap and "
+            "authorizes at most eight governed closeout decisions through the canonical "
+            "coordinator. The app remains stopped and the operator fuse active until Git "
+            "reconciliation plus focused offline validation complete; real publication and "
+            "published-memory/5–8-day proof remain the acceptance gates.",
             "",
             "## Tier2 separation",
             "",
             "Tier2/video is isolated from the V1 runtime and has no public-write authority. Read "
             "`docs/codegraph/V2_CONTEXT.md` and `video/AGENTS.md` only for an authorized V2 task. "
-            "The accepted direct-image boundary and evidence are routed there; rejected Tier2-B "
-            "and `8b043a5` remain reference only.",
+            "The retention-native authority set and accepted direct-image boundary are routed "
+            "there; rejected Tier2-B, `8b043a5`, and creative branch `d231b54e` remain reference "
+            "only.",
             "",
             "## Generated graph files",
             "",

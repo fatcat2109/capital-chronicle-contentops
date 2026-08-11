@@ -1955,6 +1955,184 @@ class ContentOpsDailyAppSupervisor:
         except Exception:  # noqa: BLE001 - novelty intelligence is best-effort
             return None
 
+    @staticmethod
+    def _published_memory_projection(value: Any) -> dict[str, Any]:
+        if isinstance(value, Mapping):
+            row = dict(value)
+        else:
+            serializer = getattr(value, "to_dict", None)
+            row = dict(serializer()) if callable(serializer) else {
+                key: getattr(value, key, None)
+                for key in (
+                    "story_identity", "title", "published_at_utc", "public_object_id",
+                    "canonical_url", "canonical_url_hash", "content_hash",
+                    "update_chain_identity", "article_mode", "article_identity",
+                    "content_status", "source_work_item_id",
+                )
+            }
+        return {
+            key: row.get(key)
+            for key in (
+                "story_identity", "title", "published_at_utc", "public_object_id",
+                "canonical_url", "canonical_url_hash", "content_hash",
+                "update_chain_identity", "article_mode", "article_identity",
+                "content_status", "source_work_item_id",
+            )
+        }
+
+    def _record_published_memory_cycle_proof(
+        self,
+        *,
+        output_dir: Path,
+        window: Mapping[str, Any],
+        before_runtime: Mapping[str, Any],
+        after_corpus: Mapping[str, Any],
+        cycle_evidence: Mapping[str, Any],
+        portfolio_context: Mapping[str, Any],
+        novelty_decision: Optional[Mapping[str, Any]],
+        lifecycle: Optional[Mapping[str, Any]],
+    ) -> dict[str, Any]:
+        """Persist the deterministic before/after proof for canonical published memory."""
+        before_corpus = dict(before_runtime.get("published_corpus") or {})
+        before_articles = [
+            self._published_memory_projection(row)
+            for row in (before_corpus.get("articles") or [])
+        ]
+        after_articles = [
+            self._published_memory_projection(row)
+            for row in (after_corpus.get("articles") or [])
+        ]
+        before_count = int(before_corpus.get("article_count") or len(before_articles))
+        after_count = int(after_corpus.get("article_count") or len(after_articles))
+        before_identities = [
+            str(row.get("article_identity") or row.get("story_identity") or "")
+            for row in before_articles
+            if str(row.get("article_identity") or row.get("story_identity") or "")
+        ]
+        after_identities = [
+            str(row.get("article_identity") or row.get("story_identity") or "")
+            for row in after_articles
+            if str(row.get("article_identity") or row.get("story_identity") or "")
+        ]
+        selected = dict(
+            ((cycle_evidence.get("ranked_viability") or {}).get("selected_cluster") or {})
+        )
+        novelty = dict(novelty_decision or selected.get("preselection_novelty") or {})
+        prior_identity = str(novelty.get("best_prior_article") or "")
+        prior_article = next(
+            (
+                row for row in before_articles
+                if str(row.get("story_identity") or "") == prior_identity
+            ),
+            None,
+        )
+        window_id = str(window.get("window_id") or "")
+        newly_observed = [
+            row for row in after_articles
+            if str(row.get("article_identity") or row.get("story_identity") or "")
+            not in set(before_identities)
+        ]
+        canonical_observed = next(
+            (
+                row for row in after_articles
+                if str(row.get("source_work_item_id") or "") == window_id
+            ),
+            newly_observed[0] if newly_observed else None,
+        )
+        try:
+            from live_contentops.editorial_portfolio_v1 import portfolio_state_today
+
+            after_portfolio = portfolio_state_today(after_corpus.get("articles") or [])
+        except Exception as exc:  # noqa: BLE001
+            after_portfolio = {"error": type(exc).__name__}
+        article = dict(cycle_evidence.get("article") or {})
+        proof_core = {
+            "schema_version": "contentops.published_memory_cycle_proof.v1",
+            "window_id": window_id,
+            "trigger_kind": str(
+                window.get("trigger_kind")
+                or window.get("trigger")
+                or window.get("target_surface")
+                or ""
+            ),
+            "corpus_before_count": before_count,
+            "corpus_after_count": after_count,
+            "corpus_count_delta": after_count - before_count,
+            "corpus_reload_error": after_corpus.get("published_corpus_error"),
+            "before_article_identities": before_identities,
+            "after_article_identities": after_identities,
+            "before_story_identities": [row.get("story_identity") for row in before_articles],
+            "after_story_identities": [row.get("story_identity") for row in after_articles],
+            "before_update_chain_identities": [
+                row.get("update_chain_identity") for row in before_articles
+            ],
+            "after_update_chain_identities": [
+                row.get("update_chain_identity") for row in after_articles
+            ],
+            "selected_candidate": {
+                "cluster_id": selected.get("cluster_id")
+                or (cycle_evidence.get("ranked_viability") or {}).get("selected_cluster_id"),
+                "update_chain_identity": selected.get("update_chain_identity"),
+                "editorial_classification": selected.get("editorial_classification"),
+                "resolved_article_mode": selected.get("resolved_article_mode")
+                or article.get("resolved_article_mode"),
+            },
+            "prior_related_article_lookup": {
+                "best_prior_article": novelty.get("best_prior_article"),
+                "best_prior_title": novelty.get("best_prior_title"),
+                "prior_article": prior_article,
+            },
+            "novelty_update_chain": {
+                "decision": novelty.get("decision"),
+                "update_chain_match": novelty.get("update_chain_match"),
+                "material_delta_signals": novelty.get("material_delta_signals"),
+                "material_delta_evaluation": novelty.get("material_delta_evaluation"),
+            },
+            "portfolio_concentration": {
+                "candidate_penalty": selected.get("portfolio_concentration_penalty"),
+                "candidate_effective_penalty": selected.get(
+                    "portfolio_concentration_penalty_effective"
+                ),
+                "before": portfolio_context.get("portfolio_state"),
+                "after": after_portfolio,
+            },
+            "canonical_article_observed_after_lifecycle": canonical_observed,
+            "publication_lifecycle": {
+                "canonical_article_status": (lifecycle or {}).get("canonical_article_status"),
+                "canonical_publication_status": (lifecycle or {}).get(
+                    "canonical_publication_status"
+                ),
+                "canonical_url": (lifecycle or {}).get("canonical_url"),
+                "distribution_status": (lifecycle or {}).get("distribution_status"),
+                "unknown_write_detected": bool(
+                    (lifecycle or {}).get("unknown_write_detected")
+                ),
+            },
+            "cycle_classification": str(cycle_evidence.get("classification") or ""),
+            "no_publication_cycle": str(cycle_evidence.get("classification") or "")
+            in {"NO_PUBLICATION", "BLOCKED", ""},
+            "publication_authority_granted": False,
+            "factual_or_numeric_authority_granted": False,
+        }
+        proof = {
+            **proof_core,
+            "proof_sha256": sha256(
+                json.dumps(
+                    proof_core, ensure_ascii=True, separators=(",", ":"),
+                    sort_keys=True, default=str,
+                ).encode("utf-8")
+            ).hexdigest(),
+        }
+        try:
+            output_dir.mkdir(parents=True, exist_ok=True)
+            (output_dir / "published_memory_cycle_proof_v1.json").write_text(
+                json.dumps(proof, indent=2, sort_keys=True, default=str) + "\n",
+                encoding="utf-8",
+            )
+        except OSError:
+            pass
+        return proof
+
     def _execute_window(self, window: Mapping[str, Any], now: datetime) -> dict[str, Any]:
         from live_contentops.durable_operational_store_v1 import (
             LeaseConflictError,
@@ -2102,6 +2280,25 @@ class ContentOpsDailyAppSupervisor:
             if lifecycle:
                 public_write = public_write or bool(lifecycle.get("public_write_performed"))
                 unknown_write = unknown_write or bool(lifecycle.get("unknown_write_detected"))
+            try:
+                from live_contentops.published_corpus_read_model_v1 import load_published_corpus
+
+                after_corpus = load_published_corpus(
+                    self._store, output_root=self._output_root
+                )
+            except Exception as exc:  # noqa: BLE001
+                after_corpus = dict(intelligence.get("published_corpus") or {})
+                after_corpus["published_corpus_error"] = type(exc).__name__
+            memory_proof = self._record_published_memory_cycle_proof(
+                output_dir=output_dir,
+                window=window,
+                before_runtime=intelligence,
+                after_corpus=after_corpus,
+                cycle_evidence=result,
+                portfolio_context=portfolio_context,
+                novelty_decision=novelty_decision,
+                lifecycle=lifecycle,
+            )
             return {
                 "executed": True,
                 "classification": classification,
@@ -2109,6 +2306,7 @@ class ContentOpsDailyAppSupervisor:
                 "public_write_performed": public_write,
                 "unknown_write_detected": unknown_write,
                 "publication_lifecycle": lifecycle,
+                "published_memory_cycle_proof": memory_proof,
                 "editorial_novelty_decision": novelty_decision,
                 "terminal_state": self._window_state(window_id),
             }

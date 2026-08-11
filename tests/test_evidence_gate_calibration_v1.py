@@ -115,6 +115,50 @@ def test_a_breaking_brief_uses_minimum_claim_sufficiency_not_institutional_compl
     assert "market_snapshot" not in request["required_evidence_capabilities"]
 
 
+def test_routine_regulatory_claim_accepts_one_attributed_reputable_secondary():
+    claim = "The agency published a revised compliance notice for regulated firms today."
+    request = _request(story_type="regulatory_fiscal_event", summaries=[claim])
+    contract = build_claim_evidence_contract(
+        request,
+        [_document(authority="reputable_secondary_source", text=claim, publisher="Reuters")],
+    )
+
+    assert contract["status"] == "PASS"
+    assert contract["supported_claims"][0]["support_status"] == (
+        "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY"
+    )
+    assert contract["supported_claims"][0]["attribution_required"] is True
+
+
+def test_sensitive_company_allegation_requires_primary_or_two_independent_secondaries():
+    claim = "Example Company allegedly concealed a product safety defect from customers."
+    request = _request(story_type="company_sector_event", summaries=[claim])
+    reuters = _document(
+        authority="reputable_secondary_source", text=claim, publisher="Reuters"
+    )
+    ap = _document(
+        authority="reputable_secondary_source", text=claim, publisher="Associated Press"
+    )
+
+    one_secondary = build_claim_evidence_contract(request, [reuters])
+    two_secondaries = build_claim_evidence_contract(request, [reuters, ap])
+    primary = build_claim_evidence_contract(
+        request,
+        [_document(authority="first_party_public_source", text=claim, publisher="Regulator")],
+    )
+
+    assert one_secondary["status"] == "BLOCKED"
+    assert one_secondary["omitted_unsupported_claims"][0]["reason"] == (
+        "secondary_corroboration_insufficient"
+    )
+    assert two_secondaries["status"] == "PASS"
+    assert two_secondaries["supported_claims"][0]["support_status"] == (
+        "SUPPORTED_CORROBORATED_SECONDARY"
+    )
+    assert primary["status"] == "PASS"
+    assert primary["supported_claims"][0]["support_status"] == "SUPPORTED_PRIMARY"
+
+
 def test_b_precise_company_number_is_omitted_without_primary_numeric_authority():
     request = _request(
         story_type="company_sector_event",

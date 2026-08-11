@@ -8,6 +8,8 @@ from live_contentops.llm_cost_governor_v1 import (
     CYCLE_LOGICAL_BUDGET_EXHAUSTED,
     HARD_MAX_LOGICAL_CALLS_PER_CYCLE,
     HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE,
+    HARD_MAX_TOKENS_PER_ACTIVE_DAY,
+    HARD_MAX_TOKENS_PER_CYCLE,
     LLMCostBudgetExceededError,
     budget_snapshot,
     llm_cycle_budget_scope,
@@ -29,6 +31,13 @@ def _invoke(invocation_id, provider):
         logical_invocation_id=invocation_id,
         provider_call=provider,
     )
+
+
+def test_authorized_hard_ceiling_values_are_exact():
+    assert HARD_MAX_LOGICAL_CALLS_PER_CYCLE == 6
+    assert HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE == 12
+    assert HARD_MAX_TOKENS_PER_CYCLE == 250_000
+    assert HARD_MAX_TOKENS_PER_ACTIVE_DAY == 2_000_000
 
 
 def test_cycle_logical_call_budget_is_shared_and_cannot_reset(tmp_path):
@@ -67,7 +76,8 @@ def test_provider_attempt_budget_spans_retries_model_changes_and_next_call(tmp_p
 
     with llm_cycle_budget_scope("cycle-attempts", control_root=tmp_path, now=NOW):
         _invoke("logical-a", unavailable)
-        result = _invoke("logical-b", unavailable)
+        _invoke("logical-b", unavailable)
+        result = _invoke("logical-c", unavailable)
 
     assert provider_calls == HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE
     assert result["terminal_disposition"] == "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
@@ -85,7 +95,7 @@ def test_cycle_token_ceiling_stops_next_network_attempt(tmp_path):
         nonlocal provider_calls
         provider_calls += 1
         return ProviderResult(
-            text="accepted", resolved_model=model, usage={"total_tokens": 79_000}
+            text="accepted", resolved_model=model, usage={"total_tokens": 249_000}
         )
 
     with llm_cycle_budget_scope("cycle-tokens", control_root=tmp_path, now=NOW):
@@ -103,10 +113,10 @@ def test_daily_token_budget_persists_across_independent_cycle_scopes(tmp_path):
         nonlocal provider_calls
         provider_calls += 1
         return ProviderResult(
-            text="accepted", resolved_model=model, usage={"total_tokens": 79_000}
+            text="accepted", resolved_model=model, usage={"total_tokens": 249_000}
         )
 
-    for index in range(5):
+    for index in range(8):
         with llm_cycle_budget_scope(
             f"daily-cycle-{index}", control_root=tmp_path, now=NOW
         ):
@@ -117,8 +127,8 @@ def test_daily_token_budget_persists_across_independent_cycle_scopes(tmp_path):
     with llm_cycle_budget_scope("daily-cycle-blocked", control_root=tmp_path, now=NOW):
         blocked = _invoke("daily-logical-blocked", large_usage)
 
-    assert provider_calls == 5
+    assert provider_calls == 8
     assert blocked["attempts"][0]["failure_class"] == "llm_daily_token_budget_exhausted"
-    assert budget_snapshot("daily-cycle-4", control_root=tmp_path)["day"][
+    assert budget_snapshot("daily-cycle-7", control_root=tmp_path)["day"][
         "accounted_tokens"
-    ] == 395_000
+    ] == 1_992_000

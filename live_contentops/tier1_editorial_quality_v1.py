@@ -41,22 +41,31 @@ ADVICE_PATTERNS = (
 SENTENCE_RE = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9])")
 URL_RE = re.compile(r"https?://[^\s)]+")
 VISUAL_RE = re.compile(r"\[\[VISUAL:([^\]]+)\]\]")
-LLM_REVIEW_CHECKS = (
+LLM_MATERIAL_REVIEW_CHECKS = (
     "clear_news_peg",
-    "why_now",
-    "material_market_consequence",
-    "concise_nut_graf",
     "mode_consistent",
-    "source_backed_mechanism",
-    "relevant_context",
-    "specific_confirmation_condition",
-    "specific_falsification_condition",
+    "material_claims_supported",
+    "no_factual_contradiction",
+    "no_fabricated_numbers",
+    "material_evidence_matches",
+    "no_misleading_framing",
+    "severe_coherence_ok",
     "reader_facing_prose",
     "no_unsupported_certainty",
     "no_fabricated_quotes",
     "no_financial_advice",
+)
+LLM_ADVISORY_REVIEW_CHECKS = (
+    "why_now",
+    "material_market_consequence",
+    "concise_nut_graf",
+    "source_backed_mechanism",
+    "relevant_context",
+    "specific_confirmation_condition",
+    "specific_falsification_condition",
     "high_information_density",
 )
+LLM_REVIEW_CHECKS = LLM_MATERIAL_REVIEW_CHECKS + LLM_ADVISORY_REVIEW_CHECKS
 
 
 def _normalise(value: str) -> str:
@@ -227,10 +236,19 @@ def audit_tier1_article(
     seo_score = round(100 * sum(seo_checks.values()) / len(seo_checks))
     headline_desk = evaluate_headline_desk(article)
     blockers = [name for name, passed in editorial_checks.items() if not passed]
+    hard_check_names = (
+        "mode_declared",
+        "mode_rubric",
+        "original_value_claim_support",
+        "no_process_language",
+        "no_fabricated_quotes",
+        "no_financial_advice",
+    )
+    hard_blockers = [name for name in hard_check_names if not editorial_checks[name]]
     seo_blockers = [name for name, passed in seo_checks.items() if not passed]
     return {
         "schema_version": SCHEMA_VERSION,
-        "classification": "PASS" if editorial_score >= 85 and seo_score >= 85 and not process_hits else "NEEDS_REVISION",
+        "classification": "PASS" if not hard_blockers else "NEEDS_REVISION",
         "editorial_score": editorial_score,
         "seo_score": seo_score,
         "seo_hygiene_score": seo_score,
@@ -245,7 +263,12 @@ def audit_tier1_article(
         "editorial_checks": editorial_checks,
         "seo_checks": seo_checks,
         "editorial_blockers": blockers,
+        "hard_editorial_blockers": hard_blockers,
+        "advisory_editorial_findings": [
+            name for name in blockers if name not in hard_check_names
+        ],
         "seo_blockers": seo_blockers,
+        "seo_findings_are_advisory": True,
         "source_urls": source_urls,
         "visual_asset_ids": visual_ids,
         "rendered_body_sha256": _sha256(rendered),
@@ -275,12 +298,13 @@ def build_llm_editorial_review_prompt(article: Mapping[str, Any]) -> str:
             "Review only the supplied article. Do not add facts, infer market reactions, rewrite the story, or authorize publication.",
             "Every factual claim must be within supported_claims. Treat omitted_unsupported_claims as forbidden material. Concise BREAKING_BRIEF and FOLLOW_UP_UPDATE modes do not require market analysis, forecasts, or institutional-field completeness.",
             "Mark a check false when support is ambiguous. Internal editorial/process/prompt/pipeline language is reader-facing failure.",
-            "Generic watch lists do not satisfy confirmation or falsification checks; named observable catalysts or market conditions are required.",
+            "Mark material_claims_supported, no_factual_contradiction, no_fabricated_numbers, material_evidence_matches, no_misleading_framing, and severe_coherence_ok conservatively.",
+            "SEO, keyword placement, optional context, market depth, confirmation/falsification framing, and sophisticated visuals are advisory and must not alone force revision.",
             "Return JSON only, with exactly this top-level shape:",
             '{"decision":"PASS|NEEDS_REVISION","mode":"straight_news|analysis|explainer","checks":{'
             + checks
             + '},"issues":[{"code":"short_machine_code","evidence":"brief article evidence"}],"summary":"brief standards rationale"}',
-            "Every listed check must appear as a JSON boolean. PASS requires every check to be true.",
+            "Every listed check must appear as a JSON boolean. NEEDS_REVISION is reserved for a false material blocking check; advisory false checks may remain editorial telemetry.",
             "ARTICLE:",
             json.dumps(review_input, ensure_ascii=True, sort_keys=True),
         ]
@@ -310,6 +334,12 @@ def validate_llm_editorial_review(review: Mapping[str, Any]) -> dict[str, Any]:
     checks = {name: source_checks.get(name) if isinstance(source_checks.get(name), bool) else None for name in LLM_REVIEW_CHECKS}
     missing_or_invalid = [name for name, value in checks.items() if value is None]
     failed = [name for name, value in checks.items() if value is False]
+    material_failed = [
+        name for name in LLM_MATERIAL_REVIEW_CHECKS if checks.get(name) is False
+    ]
+    advisory_failed = [
+        name for name in LLM_ADVISORY_REVIEW_CHECKS if checks.get(name) is False
+    ]
     issues = review.get("issues") if isinstance(review.get("issues"), list) else []
     valid = (
         decision in {"PASS", "NEEDS_REVISION"}
@@ -318,13 +348,26 @@ def validate_llm_editorial_review(review: Mapping[str, Any]) -> dict[str, Any]:
         and isinstance(review.get("summary"), str)
         and bool(str(review.get("summary") or "").strip())
     )
-    effective_decision = "PASS" if valid and decision == "PASS" and not failed else "NEEDS_REVISION"
+    advisory_only_revision = bool(
+        decision == "NEEDS_REVISION" and advisory_failed and not material_failed
+    )
+    effective_decision = (
+        "PASS"
+        if valid
+        and not material_failed
+        and (decision == "PASS" or advisory_only_revision)
+        else "NEEDS_REVISION"
+    )
     normalized = {
         "status": "SUCCESS" if valid else "INVALID_LLM_REVIEW",
         "decision": effective_decision,
+        "provider_decision": decision,
         "mode": mode,
         "checks": checks,
         "failed_checks": failed,
+        "material_failed_checks": material_failed,
+        "advisory_failed_checks": advisory_failed,
+        "advisory_only_revision_normalized_to_pass": advisory_only_revision,
         "missing_or_invalid_checks": missing_or_invalid,
         "issues": issues,
         "summary": str(review.get("summary") or "").strip(),
@@ -458,7 +501,7 @@ def combine_editorial_gates(deterministic: Mapping[str, Any], llm_review: Mappin
     llm_pass = llm_review.get("status") == "SUCCESS" and llm_review.get("decision") == "PASS"
     blockers = []
     if not deterministic_pass:
-        blockers.append("deterministic_tier1_or_seo_gate_failed")
+        blockers.append("deterministic_hard_editorial_gate_failed")
     if not llm_pass:
         blockers.append("llm_semantic_editorial_gate_failed_or_unavailable")
     return {

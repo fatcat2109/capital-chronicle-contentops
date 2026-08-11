@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from live_contentops import llm_operator_control_v1 as control
+from live_contentops.llm_cost_governor_v1 import llm_cycle_budget_scope
 from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_ARTICLE_WRITING,
     routed_llm_invocation,
@@ -56,6 +57,37 @@ def test_paused_canonical_seam_performs_zero_provider_calls(tmp_path, monkeypatc
         )
 
     assert provider_calls == 0
+
+
+def test_pause_activated_during_fallback_allows_no_second_outbound_call(
+    tmp_path, monkeypatch
+):
+    monkeypatch.setattr(control, "RUNTIME_CONTROL_ROOT", tmp_path)
+    provider_calls = 0
+
+    def network_spy(prompt: str, model: str, timeout: float) -> ProviderResult:
+        nonlocal provider_calls
+        provider_calls += 1
+        control.activate_llm_operator_pause()
+        return ProviderResult(
+            failure_class="quota_exhausted",
+            resolved_model=None,
+            usage={"total_tokens": 1},
+        )
+
+    with llm_cycle_budget_scope(
+        "pause-during-fallback", control_root=tmp_path
+    ):
+        result = routed_llm_invocation(
+            prompt="bounded fallback pause test",
+            role_task_id=ROLE_ARTICLE_WRITING,
+            logical_invocation_id="pause_during_fallback",
+            provider_call=network_spy,
+        )
+
+    assert provider_calls == 1
+    assert result["terminal_disposition"] == "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
+    assert result["attempts"][-1]["failure_class"] == "unclassified_failure"
 
 
 def test_direct_adapter_honors_pause_before_credentials_or_network(tmp_path, monkeypatch):
