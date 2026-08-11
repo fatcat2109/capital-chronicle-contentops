@@ -149,26 +149,39 @@ def _safe_url(url: str, allowed_hosts: set[str]) -> tuple[str, str]:
 
 
 def _default_http_get(url: str, timeout_seconds: float, max_bytes: int) -> dict[str, Any]:
-    class _RejectRedirects(urllib.request.HTTPRedirectHandler):
+    requested_host = str(urlsplit(url).hostname or "").casefold()
+
+    class _SameAuthorityRedirects(urllib.request.HTTPRedirectHandler):
         def redirect_request(self, req, fp, code, msg, headers, newurl):
-            raise ValueError("official_source_redirect_forbidden")
+            parsed = urlsplit(newurl)
+            if (
+                parsed.scheme != "https"
+                or str(parsed.hostname or "").casefold() != requested_host
+                or parsed.username is not None
+                or parsed.password is not None
+                or parsed.port not in {None, 443}
+            ):
+                raise ValueError("official_source_cross_authority_redirect_forbidden")
+            return super().redirect_request(req, fp, code, msg, headers, newurl)
 
     request = urllib.request.Request(
         url,
         method="GET",
         headers={"Accept": "application/json, text/html, application/xml, text/plain, application/pdf", "User-Agent": USER_AGENT},
     )
-    with urllib.request.build_opener(_RejectRedirects).open(
+    with urllib.request.build_opener(_SameAuthorityRedirects).open(
         request, timeout=timeout_seconds
     ) as response:
         body = response.read(max_bytes + 1)
-        if len(body) > max_bytes:
-            raise ValueError("official_source_response_too_large")
+        truncated = len(body) > max_bytes
+        if truncated:
+            body = body[:max_bytes]
         return {
             "status": int(response.status),
             "final_url": str(response.geturl()),
             "headers": {str(key).casefold(): str(value) for key, value in response.headers.items()},
             "body": body,
+            "content_truncated": truncated,
         }
 
 
@@ -252,7 +265,7 @@ class BoundedOfficialPrimaryEvidenceLoader:
         self,
         *,
         evaluation_as_of_utc: str,
-        max_requests: int = 6,
+        max_requests: int = 24,
         timeout_seconds: float = 12.0,
         max_response_bytes: int = 2_000_000,
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
@@ -293,14 +306,22 @@ class BoundedOfficialPrimaryEvidenceLoader:
             if isinstance(row, Mapping)
         ]
         headline_ids = {str(value) for value in (request.get("headline_ids") or [])}
+        requested_hosts = {
+            host
+            for family in requested_families
+            for host in OFFICIAL_HOSTS_BY_FAMILY[family]
+        }
         bindings = [
             {"url": str(row.get("url") or ""), "headline_id": str(row.get("headline_id") or "")}
             for row in (context.get("official_source_url_bindings") or [])
             if isinstance(row, Mapping)
             and row.get("url")
             and str(row.get("headline_id") or "") in headline_ids
+            and str(urlsplit(str(row.get("url") or "")).hostname or "").casefold()
+            in requested_hosts
         ]
         urls = [row["url"] for row in bindings]
+        public_binding_rows_present = bool(context.get("public_source_url_bindings"))
         blockers: list[str] = []
         document: dict[str, Any] | None = None
         retrieved_at_utc: str | None = None
@@ -311,7 +332,7 @@ class BoundedOfficialPrimaryEvidenceLoader:
         if not requested_families:
             blockers.append("official_source_family_not_launch_supported")
         if not urls:
-            if not binding_rows and requested_families:
+            if requested_families and (not binding_rows or public_binding_rows_present):
                 if self._request_count >= self._max_requests:
                     blockers.append("official_source_request_budget_exhausted")
                 else:
@@ -338,6 +359,8 @@ class BoundedOfficialPrimaryEvidenceLoader:
                         blockers.append("exact_official_source_url_unavailable")
             else:
                 blockers.append("exact_official_source_url_unavailable")
+                if binding_rows and not public_binding_rows_present:
+                    blockers.append("official_source_url_family_binding_invalid")
         candidates = []
         for url in urls:
             matching = [
@@ -387,12 +410,15 @@ class BoundedOfficialPrimaryEvidenceLoader:
                 if not isinstance(retrieved_at, datetime) or retrieved_at.utcoffset() is None:
                     raise ValueError("official_source_retrieval_time_timezone_required")
                 retrieved_at_utc = _iso_utc(retrieved_at)
+                content_truncated = bool(response.get("content_truncated"))
                 verified, parsed, text = _verified_capabilities(
                     family=family, url=final_url, content_type=content_type, body=body
                 )
                 published_at = (
                     (_first_json_timestamp(parsed) if parsed is not None else None)
                     or _html_timestamp(text)
+                    or _parse_timestamp(headers.get("last-modified"))
+                    or _parse_timestamp((locator or {}).get("source_published_at_utc"))
                 )
                 if not published_at:
                     raise ValueError("official_source_published_timestamp_unavailable")
@@ -420,7 +446,13 @@ class BoundedOfficialPrimaryEvidenceLoader:
                     "byte_length": len(body),
                     "canonical_content_text": text[:100_000] if text else None,
                     "public_claim_allowed": True,
-                    "retrieval_method": "READ_ONLY_HTTP_GET",
+                    "retrieval_method": (
+                        "READ_ONLY_HTTP_GET_BOUNDED_PREFIX"
+                        if content_truncated
+                        else "READ_ONLY_HTTP_GET"
+                    ),
+                    "content_truncated": content_truncated,
+                    "bounded_section_byte_length": len(body),
                 }
             except (OSError, RuntimeError, TypeError, ValueError) as exc:
                 blockers.append(str(exc) or type(exc).__name__)
@@ -436,7 +468,9 @@ class BoundedOfficialPrimaryEvidenceLoader:
                 "headline_ids": list(request.get("headline_ids") or []),
                 "request_logical_hash": request.get("request_logical_hash"),
             },
-            "provided_evidence_capabilities": sorted(supplied.intersection(required)),
+            # Report every capability actually verified from acquired bytes.  The caller decides
+            # which are required for the effective article mode and which merely enrich claims.
+            "provided_evidence_capabilities": sorted(supplied),
             "official_source_documents": [document] if document else [],
             "provenance": {
                 "retrieved_at_utc": retrieved_at_utc,
@@ -448,6 +482,7 @@ class BoundedOfficialPrimaryEvidenceLoader:
                 "request_limit": self._max_requests,
                 "timeout_seconds": self._timeout_seconds,
                 "read_only_http_get_only": True,
+                "bounded_truncation_allowed": True,
             },
             "blockers": sorted(set(blockers)),
             "publication_authority": False,

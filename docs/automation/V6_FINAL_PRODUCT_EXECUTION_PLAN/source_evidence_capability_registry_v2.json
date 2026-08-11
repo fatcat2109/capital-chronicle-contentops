@@ -1,15 +1,172 @@
 {
   "schema_version": "contentops.source_evidence_capability_registry.v2",
+  "evidence_doctrine": "STORY_ARTICLE_MODE_AND_CLAIM_SPECIFIC",
   "story_types": {
-    "data_release": {"required_evidence_capabilities": ["official_release", "claim_timestamps", "historical_comparison"], "market_context_required": true, "article_mode": "data_release", "freshness_policy": "release_cadence", "visual_roles": ["lead_contextual", "primary_quantitative_chart", "historical_comparison"], "source_adapter_families": ["official_macro", "capital_chronicle_market_state"], "article_mode_profiles": {"straight_news": {"required_evidence_capabilities": ["official_release", "authorized_release_values", "release_timestamps", "release_definitions"], "market_context_required": false, "capital_chronicle_authority_required": false, "market_snapshot_required": false, "freshness_requirements": {"max_age_hours": 24, "requires_market_snapshot": false}, "source_adapter_families": ["official_macro"]}, "analysis": {"required_evidence_capabilities": ["official_release", "authorized_release_values", "release_timestamps", "release_definitions", "governed_analytical_context"], "market_context_required": true, "capital_chronicle_authority_required": true, "market_snapshot_required": true, "freshness_requirements": {"max_age_hours": 24, "requires_market_snapshot": true}, "source_adapter_families": ["official_macro", "capital_chronicle_market_state", "capital_chronicle_database"]}}},
-    "policy_decision": {"required_evidence_capabilities": ["official_statement", "decision_timeline", "market_snapshot"], "market_context_required": true, "market_sensitive": true, "market_snapshot_required": true, "article_mode": "analysis", "freshness_policy": "event_24h", "freshness_requirements": {"max_age_hours": 24, "requires_material_delta": true, "requires_market_snapshot": true}, "visual_roles": ["lead_contextual", "mechanism_diagram", "cross_asset_chart"], "visual_policy": "long_form_article", "visual_requirements": {"minimum_visual_count": 3, "requires_lead_visual": true, "requires_visual_diversity": true, "requires_contextual_nonprice_visual": false}, "source_family_ids": ["federal_reserve_fomc"], "source_adapter_families": ["official_policy", "capital_chronicle_market_state"], "article_mode_profiles": {"straight_news": {"required_evidence_capabilities": ["official_statement", "decision_timeline", "issuing_authority"], "market_context_required": false, "capital_chronicle_authority_required": false, "market_snapshot_required": false, "freshness_requirements": {"max_age_hours": 24, "requires_market_snapshot": false}, "source_adapter_families": ["official_policy"]}, "analysis": {"required_evidence_capabilities": ["official_statement", "decision_timeline", "market_snapshot", "governed_analytical_context"], "market_context_required": true, "capital_chronicle_authority_required": true, "market_snapshot_required": true, "freshness_requirements": {"max_age_hours": 24, "requires_material_delta": true, "requires_market_snapshot": true}, "source_adapter_families": ["official_policy", "capital_chronicle_market_state", "capital_chronicle_database"]}}},
-    "geopolitical_event": {"required_evidence_capabilities": ["primary_source_documents", "event_timeline", "geography", "market_snapshot"], "market_context_required": true, "freshness_policy": "event_24h", "visual_roles": ["lead_contextual", "map_geography", "cross_asset_chart"], "source_adapter_families": ["official_government", "licensed_news", "capital_chronicle_market_state"]},
-    "market_move": {"required_evidence_capabilities": ["current_market_snapshot", "prior_close", "catalyst_evidence"], "market_context_required": true, "article_mode": "market_move", "freshness_policy": "market_session", "visual_roles": ["lead_contextual", "primary_quantitative_chart", "cross_asset_chart"], "source_adapter_families": ["capital_chronicle_market_state", "official_catalyst"]},
-    "supply_chain_event": {"required_evidence_capabilities": ["official_or_owner_source", "infrastructure_context", "event_timeline", "market_snapshot"], "market_context_required": true, "freshness_policy": "event_24h", "visual_roles": ["lead_contextual", "map_geography", "mechanism_diagram"], "source_adapter_families": ["official_transport_energy", "licensed_news", "capital_chronicle_market_state"]},
-    "regulatory_fiscal_event": {"required_evidence_capabilities": ["official_document", "implementation_timeline", "affected_entities"], "market_context_required": false, "article_mode": "straight_news", "freshness_policy": "document_cadence", "freshness_requirements": {"max_age_hours": 24, "requires_market_snapshot": false}, "visual_roles": ["lead_contextual", "document_excerpt", "mechanism_diagram"], "source_adapter_families": ["official_regulatory_fiscal"], "article_mode_profiles": {"straight_news": {"required_evidence_capabilities": ["official_document", "implementation_timeline", "affected_entities"], "market_context_required": false, "capital_chronicle_authority_required": false, "market_snapshot_required": false, "source_adapter_families": ["official_regulatory_fiscal"]}}},
-    "structural_analysis": {"required_evidence_capabilities": ["multiple_authoritative_dimensions", "longitudinal_data", "limitations"], "market_context_required": false, "article_mode": "deep_analysis", "freshness_policy": "analysis_delta", "visual_roles": ["lead_contextual", "primary_quantitative_chart", "mechanism_diagram"], "source_adapter_families": ["official_multi_source", "capital_chronicle_database"]},
-    "company_sector_event": {"required_evidence_capabilities": ["company_filing_or_release", "sector_context", "market_snapshot"], "market_context_required": true, "market_sensitive": true, "market_snapshot_required": true, "article_mode": "analysis", "freshness_policy": "event_24h", "freshness_requirements": {"max_age_hours": 24, "requires_material_delta": true, "requires_market_snapshot": true}, "visual_roles": ["lead_contextual", "primary_quantitative_chart", "document_excerpt"], "visual_policy": "long_form_article", "visual_requirements": {"minimum_visual_count": 3, "requires_lead_visual": true, "requires_visual_diversity": true, "requires_contextual_nonprice_visual": false}, "source_family_ids": ["sec_edgar"], "source_adapter_families": ["company_primary", "sec_regulatory", "capital_chronicle_market_state"], "article_mode_profiles": {"straight_news": {"required_evidence_capabilities": ["company_filing_or_release", "filing_or_release_timeline", "affected_entities"], "market_context_required": false, "capital_chronicle_authority_required": false, "market_snapshot_required": false, "freshness_requirements": {"max_age_hours": 24, "requires_market_snapshot": false}, "source_adapter_families": ["company_primary", "sec_regulatory"]}, "analysis": {"required_evidence_capabilities": ["company_filing_or_release", "sector_context", "market_snapshot", "governed_analytical_context"], "market_context_required": true, "capital_chronicle_authority_required": true, "market_snapshot_required": true, "freshness_requirements": {"max_age_hours": 24, "requires_material_delta": true, "requires_market_snapshot": true}, "source_adapter_families": ["company_primary", "sec_regulatory", "capital_chronicle_market_state", "capital_chronicle_database"]}}},
-    "physical_event": {"required_evidence_capabilities": ["official_event_record", "event_timeline", "geography", "limitations"], "market_context_required": false, "market_sensitive": false, "market_snapshot_required": false, "article_mode": "analysis", "freshness_policy": "event_24h", "freshness_requirements": {"max_age_hours": 24, "requires_material_delta": true, "requires_market_snapshot": false}, "visual_roles": ["lead_contextual", "map_geography", "official_photo"], "visual_policy": "long_form_article", "visual_requirements": {"minimum_visual_count": 3, "requires_lead_visual": true, "requires_visual_diversity": true, "requires_contextual_nonprice_visual": true}, "source_family_ids": ["usgs_comcat"], "source_adapter_families": ["official_physical_event"]}
+    "data_release": {
+      "required_evidence_capabilities": ["official_release"],
+      "optional_evidence_capabilities": ["authorized_release_values", "release_timestamps", "release_definitions", "historical_comparison", "market_snapshot"],
+      "market_context_required": false,
+      "article_mode": "data_release",
+      "freshness_policy": "release_cadence",
+      "visual_roles": ["lead_contextual", "primary_quantitative_chart", "historical_comparison"],
+      "source_adapter_families": ["official_macro"],
+      "article_mode_profiles": {
+        "straight_news": {
+          "required_evidence_capabilities": ["official_release"],
+          "optional_evidence_capabilities": ["authorized_release_values", "release_timestamps", "release_definitions"],
+          "market_context_required": false,
+          "capital_chronicle_authority_required": false,
+          "market_snapshot_required": false,
+          "freshness_requirements": {"max_age_hours": 36, "requires_market_snapshot": false},
+          "source_adapter_families": ["official_macro"]
+        },
+        "analysis": {
+          "required_evidence_capabilities": ["official_release", "governed_analytical_context"],
+          "optional_evidence_capabilities": ["authorized_release_values", "release_timestamps", "release_definitions", "market_snapshot"],
+          "market_context_required": true,
+          "capital_chronicle_authority_required": true,
+          "market_snapshot_required": false,
+          "freshness_requirements": {"max_age_hours": 36, "requires_market_snapshot": false},
+          "source_adapter_families": ["official_macro", "capital_chronicle_database"]
+        }
+      }
+    },
+    "policy_decision": {
+      "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"],
+      "optional_evidence_capabilities": ["official_statement", "decision_timeline", "issuing_authority", "market_snapshot", "governed_analytical_context"],
+      "market_context_required": false,
+      "market_sensitive": true,
+      "market_snapshot_required": false,
+      "article_mode": "straight_news",
+      "freshness_policy": "event_24h",
+      "freshness_requirements": {"max_age_hours": 36, "requires_market_snapshot": false},
+      "visual_roles": ["lead_contextual", "document_excerpt", "source_reference"],
+      "source_family_ids": ["federal_reserve_fomc"],
+      "source_adapter_families": ["official_policy", "public_secondary"],
+      "article_mode_profiles": {
+        "straight_news": {
+          "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"],
+          "optional_evidence_capabilities": ["official_statement", "decision_timeline", "issuing_authority"],
+          "market_context_required": false,
+          "capital_chronicle_authority_required": false,
+          "market_snapshot_required": false,
+          "source_adapter_families": ["official_policy", "public_secondary"]
+        },
+        "analysis": {
+          "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"],
+          "optional_evidence_capabilities": ["official_statement", "decision_timeline", "issuing_authority", "governed_analytical_context"],
+          "market_context_required": false,
+          "capital_chronicle_authority_required": false,
+          "market_snapshot_required": false,
+          "source_adapter_families": ["official_policy", "public_secondary"]
+        },
+        "deep_analysis": {
+          "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts", "governed_analytical_context"],
+          "optional_evidence_capabilities": ["official_statement", "decision_timeline", "market_snapshot"],
+          "market_context_required": true,
+          "capital_chronicle_authority_required": true,
+          "market_snapshot_required": false,
+          "source_adapter_families": ["official_policy", "public_secondary", "capital_chronicle_database"]
+        }
+      }
+    },
+    "geopolitical_event": {
+      "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"],
+      "optional_evidence_capabilities": ["primary_source_documents", "event_timeline", "geography", "market_snapshot"],
+      "market_context_required": false,
+      "article_mode": "straight_news",
+      "freshness_policy": "event_24h",
+      "freshness_requirements": {"max_age_hours": 36, "requires_market_snapshot": false},
+      "visual_roles": ["lead_contextual", "source_reference", "document_excerpt"],
+      "source_adapter_families": ["public_secondary"],
+      "article_mode_profiles": {
+        "straight_news": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["primary_source_documents", "event_timeline", "geography"], "source_adapter_families": ["public_secondary"]},
+        "analysis": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["primary_source_documents", "event_timeline", "geography", "governed_analytical_context"], "source_adapter_families": ["public_secondary"]},
+        "deep_analysis": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts", "governed_analytical_context"], "optional_evidence_capabilities": ["primary_source_documents", "event_timeline", "geography", "market_snapshot"], "market_context_required": true, "capital_chronicle_authority_required": true, "source_adapter_families": ["public_secondary", "capital_chronicle_database"]}
+      }
+    },
+    "market_move": {
+      "required_evidence_capabilities": ["current_market_snapshot", "prior_close", "catalyst_evidence"],
+      "optional_evidence_capabilities": [],
+      "market_context_required": true,
+      "article_mode": "market_move",
+      "freshness_policy": "market_session",
+      "visual_roles": ["lead_contextual", "primary_quantitative_chart", "cross_asset_chart"],
+      "source_adapter_families": ["capital_chronicle_market_state", "official_catalyst"]
+    },
+    "supply_chain_event": {
+      "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"],
+      "optional_evidence_capabilities": ["official_or_owner_source", "infrastructure_context", "event_timeline", "market_snapshot"],
+      "market_context_required": false,
+      "article_mode": "straight_news",
+      "freshness_policy": "event_24h",
+      "visual_roles": ["lead_contextual", "source_reference", "mechanism_diagram"],
+      "source_adapter_families": ["public_secondary"]
+    },
+    "regulatory_fiscal_event": {
+      "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"],
+      "optional_evidence_capabilities": ["official_document", "implementation_timeline", "affected_entities"],
+      "market_context_required": false,
+      "article_mode": "straight_news",
+      "freshness_policy": "document_cadence",
+      "freshness_requirements": {"max_age_hours": 36, "requires_market_snapshot": false},
+      "visual_roles": ["lead_contextual", "document_excerpt", "source_reference"],
+      "source_adapter_families": ["official_regulatory_fiscal", "public_secondary"],
+      "article_mode_profiles": {
+        "straight_news": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["official_document", "implementation_timeline", "affected_entities"], "source_adapter_families": ["official_regulatory_fiscal", "public_secondary"]},
+        "analysis": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["official_document", "implementation_timeline", "affected_entities", "governed_analytical_context"], "source_adapter_families": ["official_regulatory_fiscal", "public_secondary"]}
+      }
+    },
+    "structural_analysis": {
+      "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts", "governed_analytical_context"],
+      "optional_evidence_capabilities": ["multiple_authoritative_dimensions", "longitudinal_data", "limitations"],
+      "market_context_required": true,
+      "capital_chronicle_authority_required": true,
+      "article_mode": "deep_analysis",
+      "freshness_policy": "analysis_delta",
+      "visual_roles": ["lead_contextual", "primary_quantitative_chart", "mechanism_diagram"],
+      "source_adapter_families": ["public_secondary", "capital_chronicle_database"],
+      "article_mode_profiles": {
+        "straight_news": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["limitations"], "market_context_required": false, "capital_chronicle_authority_required": false, "source_adapter_families": ["public_secondary"]},
+        "analysis": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["limitations", "governed_analytical_context"], "market_context_required": false, "capital_chronicle_authority_required": false, "source_adapter_families": ["public_secondary"]},
+        "deep_analysis": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts", "governed_analytical_context"], "optional_evidence_capabilities": ["multiple_authoritative_dimensions", "longitudinal_data", "limitations"], "market_context_required": true, "capital_chronicle_authority_required": true, "source_adapter_families": ["public_secondary", "capital_chronicle_database"]}
+      }
+    },
+    "company_sector_event": {
+      "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"],
+      "optional_evidence_capabilities": ["company_filing_or_release", "filing_or_release_timeline", "affected_entities", "sector_context", "market_snapshot"],
+      "market_context_required": false,
+      "market_sensitive": true,
+      "market_snapshot_required": false,
+      "article_mode": "straight_news",
+      "freshness_policy": "event_24h",
+      "freshness_requirements": {"max_age_hours": 36, "requires_market_snapshot": false},
+      "visual_roles": ["lead_contextual", "document_excerpt", "source_reference"],
+      "source_family_ids": ["sec_edgar"],
+      "source_adapter_families": ["company_primary", "sec_regulatory", "public_secondary"],
+      "article_mode_profiles": {
+        "straight_news": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["company_filing_or_release", "filing_or_release_timeline", "affected_entities"], "market_context_required": false, "capital_chronicle_authority_required": false, "source_adapter_families": ["company_primary", "sec_regulatory", "public_secondary"]},
+        "analysis": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["company_filing_or_release", "sector_context", "governed_analytical_context"], "market_context_required": false, "capital_chronicle_authority_required": false, "source_adapter_families": ["company_primary", "sec_regulatory", "public_secondary"]},
+        "deep_analysis": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts", "governed_analytical_context"], "optional_evidence_capabilities": ["company_filing_or_release", "sector_context", "market_snapshot"], "market_context_required": true, "capital_chronicle_authority_required": true, "source_adapter_families": ["company_primary", "sec_regulatory", "public_secondary", "capital_chronicle_database"]}
+      }
+    },
+    "physical_event": {
+      "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"],
+      "optional_evidence_capabilities": ["official_event_record", "event_timeline", "geography", "limitations"],
+      "market_context_required": false,
+      "market_sensitive": false,
+      "market_snapshot_required": false,
+      "article_mode": "straight_news",
+      "freshness_policy": "event_24h",
+      "freshness_requirements": {"max_age_hours": 36, "requires_market_snapshot": false},
+      "visual_roles": ["lead_contextual", "source_reference", "document_excerpt"],
+      "source_family_ids": ["usgs_comcat"],
+      "source_adapter_families": ["public_secondary"],
+      "article_mode_profiles": {
+        "straight_news": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["official_event_record", "event_timeline", "geography", "limitations"], "source_adapter_families": ["public_secondary"]},
+        "analysis": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["official_event_record", "event_timeline", "geography", "limitations"], "source_adapter_families": ["public_secondary"]}
+      }
+    }
   },
   "platform_visual_expectations": {
     "substack_newsletter": {"rules": [{"content_surface": "newsletter_note", "variant_mode": "manual_export", "effective_visual_mode": "long_form", "policy": "long_form_article", "minimum_visual_count": 3, "requires_lead_visual": true, "requires_visual_diversity": true}]},

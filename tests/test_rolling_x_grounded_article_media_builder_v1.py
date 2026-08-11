@@ -237,8 +237,12 @@ def test_extract_rejects_non_selected_viability():
         extract_governed_story_context(viability)
 
 
-def test_authority_blockers_analytical_without_capital_chronicle():
-    context = {"article_mode": "analysis", "capital_chronicle_authority_verified": False}
+def test_authority_blockers_when_exact_contract_requires_capital_chronicle():
+    context = {
+        "article_mode": "analysis",
+        "capital_chronicle_authority_required": True,
+        "capital_chronicle_authority_verified": False,
+    }
     assert _authority_blockers(context) == [
         "analytical_mode_requires_capital_chronicle_authority"
     ]
@@ -250,7 +254,11 @@ def test_authority_ok_straight_news_without_capital_chronicle():
 
 
 def test_authority_ok_analytical_with_capital_chronicle_verified():
-    context = {"article_mode": "deep_analysis", "capital_chronicle_authority_verified": True}
+    context = {
+        "article_mode": "deep_analysis",
+        "capital_chronicle_authority_required": True,
+        "capital_chronicle_authority_verified": True,
+    }
     assert _authority_blockers(context) == []
 
 
@@ -347,7 +355,9 @@ def test_controlled_build_produces_grounded_article_and_media(tmp_path, story_ty
 
 
 def test_analytical_mode_blocks_without_capital_chronicle_authority(tmp_path):
-    viability = _viability(story_type="data_release", article_mode="analysis")
+    viability = _viability(
+        story_type="data_release", article_mode="analysis", cc_required=True
+    )
     with pytest.raises(GroundedArticleBuilderError, match="capital_chronicle"):
         build_rolling_x_grounded_article_and_media(
             viability,

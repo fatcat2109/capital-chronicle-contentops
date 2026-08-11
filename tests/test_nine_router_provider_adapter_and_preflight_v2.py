@@ -361,4 +361,6 @@ def test_seam_raises_when_the_router_terminates_without_acceptance() -> None:
     with pytest.raises(RoutedInvocationError, match="LLM_TERMINAL_NON_RETRYABLE_FAILURE"):
         routed_llm_text("prompt", "9router", 5.0, provider_call=blocked)
     log = drain_invocation_log()
-    assert log[0]["models_attempted_in_order"] == [P0], "a gate failure must not rotate models"
+    from live_contentops.nine_router_ordered_model_router_v2 import model_pool_for_role
+
+    assert log[0]["models_attempted_in_order"] == [model_pool_for_role("article_writing")[0]], "a gate failure must not rotate models"

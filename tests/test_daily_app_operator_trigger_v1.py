@@ -235,7 +235,10 @@ def test_autonomous_default_operator_cycle_keeps_canonical_gate_flag_only(tmp_pa
     )
     supervisor.tick(FIXED_NOW)
     assert calls[0]["publication_enabled"] is True
-    allowed = {"run_id", "output_dir", "cutoff_utc", "publication_enabled", "sidecar_glob", "capital_chronicle_root"}
+    allowed = {
+        "run_id", "output_dir", "cutoff_utc", "publication_enabled", "sidecar_glob",
+        "capital_chronicle_root", "published_corpus", "cc_catalog", "operating_mode",
+    }
     assert set(calls[0]) <= allowed
     assert "operator_run_now_override" not in calls[0]
 

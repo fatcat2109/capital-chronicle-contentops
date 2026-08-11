@@ -35,6 +35,17 @@ def _receipt(request, *, status="PASS", capabilities=None, authority=False):
         "evidence_documents": [{"source_url": "https://official.example/record"}],
         "capital_chronicle_authority_verified": authority,
         "numeric_evidence_required": False,
+        "claim_evidence_contract": {
+            "status": "PASS",
+            "supported_claim_count": 1,
+            "fabricated_claim_count": 0,
+            "supported_claims": [{
+                "claim_id": "fixture-claim",
+                "claim_text": "The official record confirms the controlled event.",
+                "support_status": "SUPPORTED_PRIMARY",
+            }],
+            "omitted_unsupported_claims": [],
+        },
     }
 
 
@@ -96,7 +107,7 @@ def test_non_market_factual_story_does_not_require_market_or_numeric_evidence():
     assert seen[0]["market_snapshot_required"] is False
     assert seen[0]["capital_chronicle_numeric_or_analytical_authority_required"] is False
     assert seen[0]["required_evidence_capabilities"] == [
-        "official_document", "implementation_timeline", "affected_entities"
+        "credible_event_confirmation", "basic_attributed_facts"
     ]
 
 

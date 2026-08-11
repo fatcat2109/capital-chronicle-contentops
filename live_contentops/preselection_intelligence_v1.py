@@ -9,6 +9,7 @@ import hashlib
 import json
 from datetime import datetime, timezone
 from typing import Any, Mapping, Sequence
+from urllib.parse import urlsplit
 
 from live_contentops.capital_chronicle_data_catalog_v1 import (
     query_story_scoped_cc_context,
@@ -40,7 +41,48 @@ _CAPABILITY_MODE = {
     "BREAKING_BRIEF": "straight_news",
     "FOLLOW_UP_UPDATE": "straight_news",
     "CAPITAL_CHRONICLE_DEEP_DIVE": "deep_analysis",
+    "STANDARD_NEWS_ANALYSIS": "analysis",
+    "EVERGREEN_EXPLAINER": "explainer",
 }
+
+_KNOWN_OFFICIAL_SUFFIXES = (
+    ".gov", ".gov.au", ".gov.uk", ".europa.eu", ".int",
+)
+
+
+def _evidence_reachability(cluster: Mapping[str, Any], cc_context: Mapping[str, Any]) -> dict[str, Any]:
+    """Cheap feasibility signal only; it never grants factual authority."""
+    from live_contentops.public_secondary_evidence_loader_v1 import REPUTABLE_SECONDARY_HOSTS
+
+    urls = [
+        str(value)
+        for value in (
+            cluster.get("public_source_urls")
+            or cluster.get("official_source_urls")
+            or []
+        )
+        if str(value).startswith("https://")
+    ]
+    hosts = {str(urlsplit(value).hostname or "").casefold() for value in urls}
+    official = any(host.endswith(_KNOWN_OFFICIAL_SUFFIXES) for host in hosts)
+    reputable_secondary = any(host in REPUTABLE_SECONDARY_HOSTS for host in hosts)
+    cc_relevant = float(cc_context.get("cc_context_richness") or 0.0) >= 0.35
+    score = min(
+        1.0,
+        (0.55 if official else 0.0)
+        + (0.4 if reputable_secondary else 0.0)
+        + (0.2 if cc_relevant else 0.0)
+        + (0.1 if urls else 0.0),
+    )
+    return {
+        "score": round(score, 4),
+        "known_official_path": official,
+        "reputable_public_secondary_path": reputable_secondary,
+        "capital_chronicle_relevant_context": cc_relevant,
+        "public_source_candidate_count": len(urls),
+        "mode_downgrade_viable": True,
+        "factual_authority_granted": False,
+    }
 
 
 def _logical_hash(value: Any) -> str:
@@ -88,11 +130,13 @@ def apply_preselection_intelligence(
             concentration * 0.25 if decision == DECISION_MATERIAL_FOLLOW_UP else concentration
         )
         base_score = 100.0 - (max(1, original_rank) - 1) * 8.0
+        reachability = _evidence_reachability(cluster, cc_context)
         score = (
             base_score
             + _DECISION_BONUS[decision]
             + 36.0 * float(cc_context.get("cc_context_richness") or 0.0)
             - 24.0 * effective_concentration
+            + 28.0 * float(reachability["score"])
         )
         resolved_mode = str(novelty.get("recommended_article_mode") or "HOLD")
         follow_up_context = build_material_follow_up_context(
@@ -107,6 +151,7 @@ def apply_preselection_intelligence(
             "portfolio_concentration_penalty": concentration,
             "portfolio_concentration_penalty_effective": round(effective_concentration, 4),
             "preselection_score": round(score, 4),
+            "evidence_reachability": reachability,
             "preselection_novelty": novelty,
             "material_follow_up_context": follow_up_context,
             "preselection_occurs_before_targeted_evidence": True,

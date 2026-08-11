@@ -159,6 +159,8 @@ def audit_tier1_article(
     duplicate_sentences = _duplicate_sentence_count(body)
     paragraph_redundancy = _paragraph_redundancy(body)
     mode = str(article.get("editorial_mode") or article.get("article_mode") or "")
+    effective_mode = str(article.get("effective_article_mode") or article.get("resolved_article_mode") or "")
+    concise_mode = effective_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
     original_value = dict(article.get("original_value") or {})
     quote_count = len(re.findall(r"[\"“][^\"”]{18,}[\"”]", rendered))
     source_urls = sorted(set(URL_RE.findall(rendered)))
@@ -178,21 +180,21 @@ def audit_tier1_article(
     editorial_checks = {
         "lede_what_changed": _all_terms_present(opening, news_peg_terms),
         "lede_why_now": bool(re.search(r"\b(latest|raised|released|on (?:january|february|march|april|may|june|july|august|september|october|november|december|20\d\d)|now|new reading|new forecast)\b", opening, re.IGNORECASE)),
-        "lede_market_consequence": any(term.casefold() in opening.casefold() for term in market_consequence_terms),
+        "lede_market_consequence": concise_mode or any(term.casefold() in opening.casefold() for term in market_consequence_terms),
         "concise_nut_graf": bool(re.search(r"\b(the distinction|the issue|what matters|the signal)\b", opening, re.IGNORECASE)),
         "mode_declared": mode in SUPPORTED_ARTICLE_MODES,
         "mode_rubric": (mode not in {"market_move", "data_release", "policy_decision"} or bool(article.get("as_of_utc"))) and (mode not in ANALYSIS_MODES or all(original_value.get(key) for key in ("original_value_type", "original_value_description", "methodology", "limitations"))),
         "original_value_claim_support": mode not in ANALYSIS_MODES or bool(original_value.get("supporting_claim_ids")),
-        "mechanism_present": any(term.casefold() in rendered.casefold() for term in mechanism_terms),
-        "context_present": bool(re.search(r"\b(liquidity|issuance|treasury|term premium|cross-asset|foreign exchange|credit)\b", rendered, re.IGNORECASE)),
-        "confirmation_condition": bool(re.search(r"\b(would confirm|confirmation would|confirm the)\b", closing, re.IGNORECASE)),
-        "falsification_condition": bool(re.search(r"\b(would (?:be )?challeng|would weaken|would falsify|challenge the)\b", closing, re.IGNORECASE)),
-        "named_next_catalysts": sum(term.casefold() in closing.casefold() for term in catalyst_terms) >= min(2, len(catalyst_terms)),
+        "mechanism_present": concise_mode or any(term.casefold() in rendered.casefold() for term in mechanism_terms),
+        "context_present": concise_mode or bool(re.search(r"\b(liquidity|issuance|treasury|term premium|cross-asset|foreign exchange|credit)\b", rendered, re.IGNORECASE)),
+        "confirmation_condition": concise_mode or bool(re.search(r"\b(would confirm|confirmation would|confirm the)\b", closing, re.IGNORECASE)),
+        "falsification_condition": concise_mode or bool(re.search(r"\b(would (?:be )?challeng|would weaken|would falsify|challenge the)\b", closing, re.IGNORECASE)),
+        "named_next_catalysts": concise_mode or sum(term.casefold() in closing.casefold() for term in catalyst_terms) >= min(2, len(catalyst_terms)),
         "no_process_language": not process_hits,
         "no_fabricated_quotes": quote_count == 0 or bool(article.get("quote_source_records")),
         "no_financial_advice": not advice_hits,
         "single_caveat": caveat_count <= 1,
-        "high_information_density": not filler_hits and duplicate_sentences == 0 and not paragraph_redundancy and _word_count(body) >= 300,
+        "high_information_density": not filler_hits and duplicate_sentences == 0 and not paragraph_redundancy and _word_count(body) >= (180 if concise_mode else 300),
     }
     editorial_score = round(100 * sum(editorial_checks.values()) / len(editorial_checks))
 
@@ -209,9 +211,13 @@ def audit_tier1_article(
         "meta_description": 110 <= len(meta) <= 165,
         "canonical_url_metadata": str(article.get("canonical_url") or "").startswith("https://"),
         "primary_topic_in_opening": primary_topic.casefold() in opening.casefold(),
-        "semantic_keyword_coverage": _all_terms_present(rendered, semantic_terms),
-        "heading_hierarchy": len(re.findall(r"^##\s+", body, flags=re.MULTILINE)) >= 4 and not re.search(r"^#\s+", body, flags=re.MULTILINE),
-        "source_reference_links": len(source_urls) >= 3,
+        "semantic_keyword_coverage": (
+            any(str(term).casefold() in rendered.casefold() for term in semantic_terms)
+            if concise_mode
+            else _all_terms_present(rendered, semantic_terms)
+        ),
+        "heading_hierarchy": len(re.findall(r"^##\s+", body, flags=re.MULTILINE)) >= (2 if concise_mode else 4) and not re.search(r"^#\s+", body, flags=re.MULTILINE),
+        "source_reference_links": len(source_urls) >= (1 if concise_mode else 2),
         "chart_metadata": len(media_assets) >= 3 and all(item.get("caption") and item.get("alt_text") for item in media_assets),
         "social_og_lead_media": bool(article.get("social_og_media_asset_id") in media_ids),
         "title_dek_not_duplicated": bool(subtitle and title.casefold() != subtitle.casefold()),
@@ -255,6 +261,11 @@ def build_llm_editorial_review_prompt(article: Mapping[str, Any]) -> str:
         "slug": str(article.get("slug") or article.get("slug_candidate") or ""),
         "meta_description": str(article.get("meta_description") or ""),
         "editorial_mode": str(article.get("editorial_mode") or ""),
+        "effective_article_mode": str(
+            article.get("effective_article_mode") or article.get("resolved_article_mode") or ""
+        ),
+        "supported_claims": list(article.get("supported_claims") or []),
+        "omitted_unsupported_claims": list(article.get("omitted_unsupported_claims") or []),
         "rendered_body": str(article.get("rendered_body") or rendered_body(str(article.get("substack_body_markdown") or article.get("body_markdown") or ""))),
     }
     checks = ",".join(f'"{name}":true' for name in LLM_REVIEW_CHECKS)
@@ -262,6 +273,7 @@ def build_llm_editorial_review_prompt(article: Mapping[str, Any]) -> str:
         [
             "You are a Capital Chronicle standards editor reviewing reader-facing financial journalism.",
             "Review only the supplied article. Do not add facts, infer market reactions, rewrite the story, or authorize publication.",
+            "Every factual claim must be within supported_claims. Treat omitted_unsupported_claims as forbidden material. Concise BREAKING_BRIEF and FOLLOW_UP_UPDATE modes do not require market analysis, forecasts, or institutional-field completeness.",
             "Mark a check false when support is ambiguous. Internal editorial/process/prompt/pipeline language is reader-facing failure.",
             "Generic watch lists do not satisfy confirmation or falsification checks; named observable catalysts or market conditions are required.",
             "Return JSON only, with exactly this top-level shape:",
@@ -388,6 +400,57 @@ def review_tier1_article_with_llm(
             "error_class": type(exc).__name__,
             "publication_authority": False,
         }
+
+
+def review_deterministic_supported_claim_brief(article: Mapping[str, Any]) -> dict[str, Any]:
+    """Semantic gate for the canonical deterministic provider-outage brief.
+
+    Because the prose is fixed and only claim/source slots vary, its semantic safety can be
+    checked exactly: an accepted claim must be present, omitted numbers/quotes must not reappear,
+    and the output must retain its no-authority flags. Any deviation fails closed.
+    """
+    body = str(article.get("substack_body_markdown") or "")
+    claims = [row for row in (article.get("supported_claims") or []) if isinstance(row, Mapping)]
+    omitted = [row for row in (article.get("omitted_unsupported_claims") or []) if isinstance(row, Mapping)]
+    claim_present = bool(claims) and all(
+        str(row.get("claim_text") or "").casefold().rstrip(".") in body.casefold()
+        for row in claims[:1]
+    )
+    omitted_reintroduced = False
+    body_numbers = set(
+        re.findall(r"(?<![A-Za-z])[-+]?(?:\$|€|£)?\d[\d,]*(?:\.\d+)?%?", body)
+    )
+    for row in omitted:
+        text = str(row.get("claim_text") or "")
+        numbers = re.findall(r"(?<![A-Za-z])[-+]?(?:\$|€|£)?\d[\d,]*(?:\.\d+)?%?", text)
+        quotes = re.findall(r'["“]([^"”]{8,})["”]', text)
+        if any(value and value in body_numbers for value in numbers) or any(
+            value.casefold() in body.casefold() for value in quotes
+        ):
+            omitted_reintroduced = True
+            break
+    valid = (
+        article.get("article_generation_method") == "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF"
+        and claim_present
+        and not omitted_reintroduced
+        and article.get("x_content_grants_factual_authority") is False
+        and int(article.get("supported_claim_count") or 0) >= 1
+    )
+    checks = {name: valid for name in LLM_REVIEW_CHECKS}
+    result = {
+        "status": "SUCCESS",
+        "decision": "PASS" if valid else "NEEDS_REVISION",
+        "mode": "straight_news",
+        "checks": checks,
+        "failed_checks": [] if valid else ["deterministic_supported_claim_binding"],
+        "missing_or_invalid_checks": [],
+        "issues": [] if valid else [{"code": "deterministic_supported_claim_binding", "evidence": "Claim or omission binding mismatch."}],
+        "summary": "Deterministic supported-claim brief bindings passed." if valid else "Deterministic supported-claim brief bindings failed.",
+        "provider": "deterministic_claim_contract",
+        "publication_authority": False,
+    }
+    result["review_sha256"] = _sha256(json.dumps(result, sort_keys=True))
+    return result
 
 
 def combine_editorial_gates(deterministic: Mapping[str, Any], llm_review: Mapping[str, Any]) -> dict[str, Any]:

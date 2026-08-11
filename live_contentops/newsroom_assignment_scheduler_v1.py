@@ -1919,7 +1919,9 @@ def select_first_viable_rolling_x_cluster(
         raise ValueError("rolling_x_evidence_acquirer_required")
 
     from live_contentops.source_capability_registry_v2 import (
+        capability_mode_for_product_mode,
         load_source_capability_registry,
+        product_mode_downgrade_path,
         resolve_story_capabilities,
     )
 
@@ -1961,28 +1963,62 @@ def select_first_viable_rolling_x_cluster(
             "scenario_outlook": "scenario_outlook",
         }.get(str(cluster.get("article_mode") or ""), "")
         preselection_mode = str(cluster.get("capability_article_mode") or "")
-        requested_mode = (
-            preselection_mode or routed_mode
-            if story_capability_row.get("article_mode_profiles")
-            else str(story_capability_row.get("article_mode") or "") or preselection_mode or routed_mode
+        requested_product_mode = str(
+            cluster.get("resolved_article_mode")
+            or {
+                "straight_news": "BREAKING_BRIEF",
+                "analysis": "STANDARD_NEWS_ANALYSIS",
+                "deep_analysis": "CAPITAL_CHRONICLE_DEEP_DIVE",
+                "explainer": "EVERGREEN_EXPLAINER",
+            }.get(preselection_mode or routed_mode, "BREAKING_BRIEF")
         )
-        capability = resolve_story_capabilities(
-            {"story_type": story_type, "article_mode": requested_mode},
-            registry,
-        )
-        required = list(capability.get("required_evidence_capabilities") or [])
-        request = {
+        mode_attempts: list[dict[str, Any]] = []
+        request: dict[str, Any] = {}
+        receipt: dict[str, Any] = {}
+        capability: dict[str, Any] = {}
+        blockers: list[str] = []
+        for effective_product_mode in product_mode_downgrade_path(requested_product_mode):
+            requested_mode = (
+                capability_mode_for_product_mode(effective_product_mode)
+                or preselection_mode
+                or routed_mode
+                if story_capability_row.get("article_mode_profiles")
+                else str(story_capability_row.get("article_mode") or "")
+                or capability_mode_for_product_mode(effective_product_mode)
+                or preselection_mode
+                or routed_mode
+            )
+            capability = resolve_story_capabilities(
+                {
+                    "story_type": story_type,
+                    "article_mode": requested_mode,
+                    "product_article_mode": effective_product_mode,
+                },
+                registry,
+            )
+            required = list(capability.get("required_evidence_capabilities") or [])
+            request = {
             "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",
             "cluster_id": cluster_id,
             "rank": expected_rank,
             "headline_ids": headline_ids,
             "story_type": story_type,
             "article_mode": capability.get("article_mode"),
-            "resolved_article_mode": cluster.get("resolved_article_mode"),
+            "requested_article_mode": requested_product_mode,
+            "effective_article_mode": effective_product_mode,
+            "resolved_article_mode": effective_product_mode,
+            "mode_downgrade_reason": (
+                None
+                if effective_product_mode == requested_product_mode
+                else "EVIDENCE_DEPTH_UNAVAILABLE_SCOPE_REDUCED"
+            ),
             "editorial_classification": cluster.get("editorial_classification"),
             "update_chain_identity": cluster.get("update_chain_identity"),
             "needed_evidence": list(cluster.get("needed_evidence") or []),
             "required_evidence_capabilities": required,
+            "optional_evidence_capabilities": list(
+                capability.get("optional_evidence_capabilities") or []
+            ),
             "source_adapter_families": list(
                 capability.get("source_adapter_families") or []
             ),
@@ -2002,6 +2038,17 @@ def select_first_viable_rolling_x_cluster(
                 "official_source_url_bindings": list(
                     cluster.get("official_source_url_bindings") or []
                 ),
+                "public_source_urls": list(
+                    cluster.get("public_source_urls")
+                    or cluster.get("official_source_urls")
+                    or []
+                ),
+                "public_source_url_bindings": list(
+                    cluster.get("public_source_url_bindings")
+                    or cluster.get("official_source_url_bindings")
+                    or []
+                ),
+                "evidence_reachability": dict(cluster.get("evidence_reachability") or {}),
                 "capital_chronicle_context": dict(
                     cluster.get("capital_chronicle_context") or {}
                 ),
@@ -2014,42 +2061,67 @@ def select_first_viable_rolling_x_cluster(
                 "preselection_score": cluster.get("preselection_score"),
             },
             "x_content_is_discovery_and_ranking_only": True,
-        }
-        request["request_logical_hash"] = _logical_hash(request)
-        blockers = list(capability.get("blockers") or [])
-        raw_receipt: Any = None
-        if capability.get("status") == "PASS":
-            raw_receipt = acquire_evidence(dict(request))
-            if not isinstance(raw_receipt, Mapping):
-                blockers.append("evidence_receipt_not_object")
-                receipt: dict[str, Any] = {}
+            }
+            request["request_logical_hash"] = _logical_hash(request)
+            blockers = list(capability.get("blockers") or [])
+            if effective_product_mode == "FOLLOW_UP_UPDATE":
+                follow_up = request["story_context"].get("material_follow_up_context") or {}
+                if not follow_up.get("previous_article_identity"):
+                    blockers.append("follow_up_previous_article_identity_missing")
+                if not follow_up.get("material_delta_reason_codes"):
+                    blockers.append("follow_up_material_delta_evidence_missing")
+            raw_receipt: Any = None
+            if capability.get("status") == "PASS" and not blockers:
+                raw_receipt = acquire_evidence(dict(request))
+                if not isinstance(raw_receipt, Mapping):
+                    blockers.append("evidence_receipt_not_object")
+                    receipt = {}
+                else:
+                    receipt = dict(raw_receipt)
+                    if str(receipt.get("cluster_id") or "") != cluster_id:
+                        blockers.append("evidence_cluster_id_mismatch")
+                    returned_ids = [str(value) for value in (receipt.get("headline_ids") or [])]
+                    if returned_ids != headline_ids:
+                        blockers.append("evidence_headline_id_binding_mismatch")
+                    supplied = set(str(value) for value in (receipt.get("provided_evidence_capabilities") or []))
+                    for missing in sorted(set(required) - supplied):
+                        blockers.append(f"required_evidence_capability_missing:{missing}")
+                    documents = receipt.get("evidence_documents")
+                    if not isinstance(documents, list) or not documents:
+                        blockers.append("evidence_documents_missing")
+                    claims = receipt.get("claim_evidence_contract") or {}
+                    if claims.get("status") != "PASS" or int(claims.get("supported_claim_count") or 0) < 1:
+                        blockers.append("supported_claims_missing")
+                    if int(claims.get("fabricated_claim_count") or 0) != 0:
+                        blockers.append("fabricated_claim_count_nonzero")
+                    if receipt.get("status") != "PASS":
+                        blockers.extend(str(value) for value in (receipt.get("blockers") or []))
+                        if not receipt.get("blockers"):
+                            blockers.append("evidence_receipt_not_pass")
+                    if request["capital_chronicle_numeric_or_analytical_authority_required"] and (
+                        receipt.get("capital_chronicle_authority_verified") is not True
+                    ):
+                        blockers.append("capital_chronicle_authority_required")
+                    if not request["capital_chronicle_numeric_or_analytical_authority_required"] and (
+                        receipt.get("numeric_evidence_required") is True
+                    ):
+                        blockers.append("irrelevant_numeric_evidence_requirement_asserted")
             else:
-                receipt = dict(raw_receipt)
-                if str(receipt.get("cluster_id") or "") != cluster_id:
-                    blockers.append("evidence_cluster_id_mismatch")
-                returned_ids = [str(value) for value in (receipt.get("headline_ids") or [])]
-                if returned_ids != headline_ids:
-                    blockers.append("evidence_headline_id_binding_mismatch")
-                supplied = set(str(value) for value in (receipt.get("provided_evidence_capabilities") or []))
-                for missing in sorted(set(required) - supplied):
-                    blockers.append(f"required_evidence_capability_missing:{missing}")
-                documents = receipt.get("evidence_documents")
-                if not isinstance(documents, list) or not documents:
-                    blockers.append("evidence_documents_missing")
-                if receipt.get("status") != "PASS":
-                    blockers.extend(str(value) for value in (receipt.get("blockers") or []))
-                    if not receipt.get("blockers"):
-                        blockers.append("evidence_receipt_not_pass")
-                if request["capital_chronicle_numeric_or_analytical_authority_required"] and (
-                    receipt.get("capital_chronicle_authority_verified") is not True
-                ):
-                    blockers.append("capital_chronicle_authority_required")
-                if not request["capital_chronicle_numeric_or_analytical_authority_required"] and (
-                    receipt.get("numeric_evidence_required") is True
-                ):
-                    blockers.append("irrelevant_numeric_evidence_requirement_asserted")
-        else:
-            receipt = {}
+                receipt = {}
+            blockers = sorted(set(blockers))
+            mode_attempts.append(
+                {
+                    "requested_mode": requested_product_mode,
+                    "effective_mode": effective_product_mode,
+                    "capability_mode": requested_mode,
+                    "status": "VIABLE" if not blockers else "BLOCKED",
+                    "downgrade_reason": request.get("mode_downgrade_reason"),
+                    "blockers": blockers,
+                    "request_logical_hash": request.get("request_logical_hash"),
+                }
+            )
+            if not blockers:
+                break
 
         attempt = {
             "rank": expected_rank,
@@ -2057,6 +2129,10 @@ def select_first_viable_rolling_x_cluster(
             "headline_ids": headline_ids,
             "request": request,
             "capability_resolution": capability,
+            "mode_attempts": mode_attempts,
+            "requested_article_mode": requested_product_mode,
+            "effective_article_mode": request.get("effective_article_mode"),
+            "mode_downgrade_reason": request.get("mode_downgrade_reason"),
             "evidence_receipt": receipt,
             "evidence_receipt_sha256": _logical_hash(receipt) if receipt else None,
             "status": "VIABLE" if not blockers else "BLOCKED",

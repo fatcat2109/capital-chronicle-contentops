@@ -2997,8 +2997,13 @@ def _readback_one_destination_from_durable_intent(
 
 
 def _default_rolling_x_editorial_reviewer(article: Mapping[str, Any]) -> dict[str, Any]:
-    from live_contentops.tier1_editorial_quality_v1 import review_tier1_article_with_llm
+    from live_contentops.tier1_editorial_quality_v1 import (
+        review_deterministic_supported_claim_brief,
+        review_tier1_article_with_llm,
+    )
 
+    if article.get("article_generation_method") == "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF":
+        return review_deterministic_supported_claim_brief(article)
     return review_tier1_article_with_llm(article, llm_provider="9router")
 
 
@@ -3132,8 +3137,8 @@ def _rolling_x_ranked_clusters_with_context(
                 text = str(value).strip()
                 if text and text not in entities_topics:
                     entities_topics.append(text)
-        official_urls: list[str] = []
-        official_url_bindings: list[dict[str, str]] = []
+        public_urls: list[str] = []
+        public_url_bindings: list[dict[str, str]] = []
         for headline_id in cluster.get("headline_ids") or []:
             external = (headline_by_id.get(str(headline_id)) or {}).get("external_content") or {}
             for value in [
@@ -3142,16 +3147,21 @@ def _rolling_x_ranked_clusters_with_context(
                 *re.findall(r"https://[^\s)]+", str(external.get("headline_text") or "")),
             ]:
                 url = str(value or "").rstrip(".,;:!?")
-                if url and "x.com/" not in url and "t.co/" not in url and url not in official_urls:
-                    official_urls.append(url)
-                    official_url_bindings.append({
+                if url and "x.com/" not in url and "t.co/" not in url and url not in public_urls:
+                    public_urls.append(url)
+                    public_url_bindings.append({
                         "url": url,
                         "headline_id": str(headline_id),
                     })
         cluster["leaf_summaries"] = summaries
         cluster["entities_topics"] = entities_topics
-        cluster["official_source_urls"] = official_urls
-        cluster["official_source_url_bindings"] = official_url_bindings
+        # These are public source candidates discovered with the headline.  Their presence does
+        # not make them official and grants no factual authority; the evidence adapters classify
+        # and verify them later.  Keep the legacy aliases for artifact compatibility.
+        cluster["public_source_urls"] = public_urls
+        cluster["public_source_url_bindings"] = public_url_bindings
+        cluster["official_source_urls"] = public_urls
+        cluster["official_source_url_bindings"] = public_url_bindings
         enriched.append(cluster)
     return enriched
 

@@ -254,7 +254,10 @@ def test_valid_official_primary_packet_can_satisfy_nonnumeric_capability():
     receipt = adapter(request)
 
     assert receipt["status"] == "PASS"
-    assert receipt["provided_evidence_capabilities"] == ["official_document"]
+    assert set(receipt["provided_evidence_capabilities"]) == {
+        "official_document", "credible_event_confirmation", "basic_attributed_facts"
+    }
+    assert receipt["claim_evidence_contract"]["status"] == "PASS"
     assert receipt["capital_chronicle_authority_verified"] is False
 
 
@@ -297,8 +300,10 @@ def test_official_acquisition_provenance_survives_into_receipt():
         evaluation_as_of_utc=AS_OF,
     )(request)
 
-    assert receipt["status"] == "BLOCKED"
-    assert receipt["evidence_acquisition_provenance"] == packet["provenance"]
+    # A transport-level locator diagnostic no longer kills a claim when verified document bytes
+    # are already present. The diagnostic remains visible in composite provenance.
+    assert receipt["status"] == "PASS"
+    assert receipt["evidence_acquisition_provenance"]["official"]["provenance"] == packet["provenance"]
 
 
 def test_stale_official_primary_evidence_fails_closed():
@@ -356,7 +361,7 @@ def test_straight_news_company_and_data_official_packets_need_no_cc_authority():
         assert request["capital_chronicle_numeric_or_analytical_authority_required"] is False
 
 
-def test_company_analysis_cannot_pass_on_official_facts_alone():
+def test_company_standard_analysis_can_narrow_to_official_facts_without_cc_claims():
     request = _request(story_type="company_sector_event", article_mode="analysis")
     packet = _packet(request)
     packet["status"] = "PASS"
@@ -367,9 +372,9 @@ def test_company_analysis_cannot_pass_on_official_facts_alone():
 
     receipt = adapter(request)
 
-    assert receipt["status"] == "BLOCKED"
-    assert request["capital_chronicle_numeric_or_analytical_authority_required"] is True
-    assert "capital_chronicle_evidence_root_not_bound" in receipt["blockers"]
+    assert receipt["status"] == "PASS"
+    assert request["capital_chronicle_numeric_or_analytical_authority_required"] is False
+    assert receipt["capital_chronicle_authority_verified"] is False
 
 
 def test_llm_labeled_document_cannot_satisfy_official_primary_evidence():

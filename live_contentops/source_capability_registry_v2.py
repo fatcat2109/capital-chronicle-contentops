@@ -21,6 +21,33 @@ VALID_ARTICLE_MODES = frozenset(
         "straight_news",
     }
 )
+PRODUCT_MODE_TO_CAPABILITY_MODE = {
+    "BREAKING_BRIEF": "straight_news",
+    "FOLLOW_UP_UPDATE": "straight_news",
+    "STANDARD_NEWS_ANALYSIS": "analysis",
+    "CAPITAL_CHRONICLE_DEEP_DIVE": "deep_analysis",
+    "EVERGREEN_EXPLAINER": "explainer",
+}
+PRODUCT_MODE_DOWNGRADE_PATHS = {
+    "CAPITAL_CHRONICLE_DEEP_DIVE": (
+        "CAPITAL_CHRONICLE_DEEP_DIVE",
+        "STANDARD_NEWS_ANALYSIS",
+        "BREAKING_BRIEF",
+    ),
+    "STANDARD_NEWS_ANALYSIS": ("STANDARD_NEWS_ANALYSIS", "BREAKING_BRIEF"),
+    "FOLLOW_UP_UPDATE": ("FOLLOW_UP_UPDATE",),
+    "BREAKING_BRIEF": ("BREAKING_BRIEF",),
+    "EVERGREEN_EXPLAINER": ("EVERGREEN_EXPLAINER", "BREAKING_BRIEF"),
+}
+
+
+def capability_mode_for_product_mode(product_mode: str) -> str:
+    return PRODUCT_MODE_TO_CAPABILITY_MODE.get(str(product_mode or ""), "")
+
+
+def product_mode_downgrade_path(product_mode: str) -> tuple[str, ...]:
+    value = str(product_mode or "BREAKING_BRIEF")
+    return PRODUCT_MODE_DOWNGRADE_PATHS.get(value, (value,))
 
 
 def load_source_capability_registry(path: str | Path = DEFAULT_PATH) -> dict[str, Any]:
@@ -58,7 +85,10 @@ def resolve_story_capabilities(request: Mapping[str, Any], registry: Mapping[str
             "source_family_id": source_family_id,
             "blockers": ["unsupported_story_type"],
         }
+    requested_product_mode = str(request.get("product_article_mode") or "")
     requested_mode = str(request.get("article_mode") or "")
+    if requested_product_mode and not requested_mode:
+        requested_mode = capability_mode_for_product_mode(requested_product_mode)
     mode_blockers: list[str] = []
     if requested_mode and requested_mode not in VALID_ARTICLE_MODES:
         mode_blockers.append("caller_article_mode_invalid")
@@ -101,6 +131,7 @@ def resolve_story_capabilities(request: Mapping[str, Any], registry: Mapping[str
         "story_type": story_type,
         "source_family_id": source_family_id,
         "required_evidence_capabilities": list(resolved_row.get("required_evidence_capabilities") or []),
+        "optional_evidence_capabilities": list(resolved_row.get("optional_evidence_capabilities") or []),
         "market_context_required": market_context_required,
         "capital_chronicle_authority_required": capital_chronicle_authority_required,
         "market_sensitive": bool(
@@ -113,6 +144,7 @@ def resolve_story_capabilities(request: Mapping[str, Any], registry: Mapping[str
             resolved_row.get("market_snapshot_required", market_context_required)
         ),
         "article_mode": effective_mode,
+        "product_article_mode": requested_product_mode or None,
         "article_mode_source": (
             "story_type_article_mode_profile"
             if mode_profile_used

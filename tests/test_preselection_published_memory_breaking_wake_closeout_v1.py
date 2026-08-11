@@ -485,16 +485,20 @@ def test_full_canonical_shadow_reaches_article_review_and_platform_package(monke
             "status": "PASS",
             "cluster_id": request["cluster_id"],
             "headline_ids": request["headline_ids"],
-            "provided_evidence_capabilities": [
-                "official_document", "implementation_timeline", "affected_entities",
-            ],
+            "provided_evidence_capabilities": list(request["required_evidence_capabilities"]),
             "evidence_documents": [{
                 "evidence_id": "fixture-doc",
                 "source_url": "https://official.invalid/fixture-doc",
                 "canonical_content_text": "Controlled fixture evidence only.",
             }],
-            "capital_chronicle_authority_verified": False,
-            "publication_authority": False,
+                "capital_chronicle_authority_verified": False,
+                "claim_evidence_contract": {
+                    "status": "PASS", "supported_claim_count": 1,
+                    "fabricated_claim_count": 0,
+                    "supported_claims": [{"claim_id": "fixture-claim", "claim_text": "Controlled fixture evidence only.", "support_status": "SUPPORTED_PRIMARY"}],
+                    "omitted_unsupported_claims": [],
+                },
+                "publication_authority": False,
         },
         article_builder=lambda _viability: {"article": article, "media": media},
         editorial_reviewer=lambda _article: {
