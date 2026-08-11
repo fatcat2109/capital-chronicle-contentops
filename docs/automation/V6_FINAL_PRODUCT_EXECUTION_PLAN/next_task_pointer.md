@@ -19,17 +19,22 @@ soak is active. This is launch-session success only, not FDA-G final acceptance.
 `v1.1.0` until the genuine 5–10 operating-day release evidence is complete and independently
 audited.
 
-## Next main V1 builder lane after context closeout
+## Current main V1 builder lane status
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-The first real 5–8 production-day attempt ended correctly at
-`ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`: all 12 ranked clusters stopped at targeted evidence and
-zero public write occurred. The next V1 task should calibrate/remove over-broad non-safety
-requirements so evidence profiles are truly story/article-mode-specific, improve first-party
-evidence acquisition, then rerun governed production toward the 5–8/day target. It must preserve
-all hard truth, permission, freshness, rights, readiness, KILL_SWITCH, UNKNOWN_WRITE, and
-publication gates. This routing note does not implement that task and does not accept FDA-G.
+Result: `NOT_ACCEPTED_HARD_LIVE_CYCLE_LIMIT_REACHED`. The task branch preserves and completes the
+evidence calibration architecture, fixes the Decision 5 post-evidence ValueError, adds one-click
+STOP/explicit resume plus a canonical pre-network LLM fuse, enforces scheduled-only LLM execution
+and hard cost budgets, and includes a final offline correction for RSS corroboration ordering.
+
+The only permitted Gemini preflight was used. Both permitted real LLM-capable production cycles
+ended safe `NO_PUBLICATION`, with zero public write and no unresolved write state. The final saved
+rank-10 request now passes exact read-only evidence/claim replay with two independent sources, but
+no live publication proof exists after that correction. Do not run a third cycle or integrate the
+task branch to master without a new explicit owner decision. Keep the Daily App stopped and the
+operator LLM fuse active. Full bounded status:
+`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1_STATUS.md`.
 
 ## Owner priority override recorded 2026-08-10
 

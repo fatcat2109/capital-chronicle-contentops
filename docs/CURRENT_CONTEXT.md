@@ -35,9 +35,15 @@ Current context-system closeout:
 
 `TASK_CONTENTOPS_V1_AGENTS_AND_CODEGRAPH_CONTEXT_SYSTEM_CLOSEOUT_V1`
 
-Next main V1 builder task after context closeout:
+Current main V1 builder task status:
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
+
+Result: `NOT_ACCEPTED_HARD_LIVE_CYCLE_LIMIT_REACHED`. The implementation, STOP/resume controls,
+LLM fuse, scheduled-only execution, cost governor, Decision 5 replay fix, and final offline RSS
+corroboration correction are on the task branch. Both permitted live LLM-capable cycles ended
+safe `NO_PUBLICATION`; no third cycle is authorized. The app remains stopped and the operator
+fuse remains active. Master integration requires a new owner-authorized controlled live proof.
 
 Prior completed runtime task:
 
@@ -189,14 +195,16 @@ Always-on means cheap idle supervision, not continuous LLM calls.
 
 ## Current next tasks
 
-FDA-G genuine calendar-time soak remains active. After the bounded context-system closeout, the
-next main V1 builder lane is:
+FDA-G genuine calendar-time soak remains active. The current main V1 builder lane is:
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-Its routing goal is story/article-mode-specific calibration of over-broad non-safety evidence
-requirements and better first-party acquisition, followed by another governed real-production
-attempt. Hard truth/safety gates remain unchanged. Do not implement it during context closeout.
+Its bounded implementation is on the task branch, but acceptance is blocked. Two permitted live
+cycles ended safe `NO_PUBLICATION`; the exact cycle-two RSS selection defect is corrected and its
+saved rank-10 request now passes read-only evidence and claim replay, but that is not a live
+publication proof. Do not run a third LLM-capable cycle or merge to master without a new explicit
+owner decision. Hard truth/safety gates remain unchanged. Current evidence is recorded in
+`docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1_STATUS.md`.
 
 Tier-2 work remains a separate concurrent lane, isolated from the live V1 production runtime and
 without video public-write authority. FDA-G is not accepted by either lane.

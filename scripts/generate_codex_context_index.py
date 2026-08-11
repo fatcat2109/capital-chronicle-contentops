@@ -1128,12 +1128,14 @@ def index_markdown(graph: dict[str, Any]) -> str:
             "The V1 evidence-calibration continuation has locally fixed the Decision 5 "
             "post-evidence `rolling_x_article_revision_made_no_change` contract defect. Exact "
             "offline replay now reaches article, deterministic review PASS, and shadow package "
-            "with zero public write. The exact next gate is one controlled production proof "
-            "under the operator fuse and hard cost governor.",
+            "with zero public write. Both permitted live LLM-capable cycles ended safe "
+            "`NO_PUBLICATION`; a subsequent exact rank-10 read-only replay passes evidence and "
+            "claim gates after the RSS selection correction, but it is not live proof.",
             "",
             "Active V1 task: "
             "`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; "
-            "final acceptance still requires controlled live proof and exact remote readback.",
+            "the app remains stopped and the operator fuse active. A new owner decision is "
+            "required before another controlled live proof or master integration.",
             "",
             "## Tier2 separation",
             "",

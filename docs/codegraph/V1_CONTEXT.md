@@ -61,18 +61,20 @@ Source: `docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/
 
 ## Current known blocker
 
-The scheduled production decision completed intake, assignment, story routing, and preselection.
-All 12 ranked clusters then stopped at targeted evidence: capability resolution ran, but no
-candidate acquired the complete story/article-mode-specific official evidence document set. The
-evidence packet records missing affected-entity, filing/release, timeline, geography, and other
-governed capabilities plus official-source location/response issues.
+`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1` is implemented on
+its task branch but is not accepted. The one-click STOP/resume controls, canonical LLM pause fuse,
+scheduled-only expensive execution, durable cost governor, and exact Decision 5 replay fix are
+present. Both owner-bounded live LLM-capable cycles ended safe `NO_PUBLICATION`, with zero public
+write, zero UNKNOWN_WRITE, and zero pending reconciliation.
 
-This is an evidence capability/acquisition blocker, not a public-write safety failure. The next
-main V1 task is
-`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`: calibrate
-over-broad non-safety requirements by story/article mode and improve first-party acquisition,
-while preserving hard truth, permission, freshness, rights, readiness, and write-safety gates.
-That work is intentionally outside this context task.
+The second cycle exposed an RSS acquisition ordering defect: the loader capped reputable
+publishers before relevance/freshness selection, leaving one current source after the downstream
+freshness gate. The task branch now validates publisher/host identity and ranks relevant,
+point-in-time-eligible listings before the cap. The saved exact rank-10 request passes read-only
+targeted-evidence and claim replay with two independent sources, but this is not the required live
+publication proof. The app remains stopped and the operator fuse remains active. Do not run a
+third cycle or integrate master without a new owner decision. Durable status:
+`docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1_STATUS.md`.
 
 ## Decision and data flow
 
