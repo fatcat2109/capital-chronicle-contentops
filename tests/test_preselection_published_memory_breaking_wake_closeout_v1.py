@@ -322,7 +322,7 @@ def _empty_runtime():
     }
 
 
-def test_material_event_is_durable_and_exactly_once_across_kill_switch(tmp_path):
+def test_material_event_priority_is_durable_but_never_wakes_llm_across_kill_switch(tmp_path):
     store = _store(tmp_path)
     control = store.get_operating_control()
     store.update_operating_control(
@@ -383,11 +383,11 @@ def test_material_event_is_durable_and_exactly_once_across_kill_switch(tmp_path)
     repeated = second.tick(
         now=NOW + timedelta(minutes=2), materiality_metadata=event
     )
-    assert resumed["newsroom_cycle_invocations"] == 1
+    assert resumed["newsroom_cycle_invocations"] == 0
     assert repeated["newsroom_cycle_invocations"] == 0
-    assert len(calls) == 1
-    assert calls[0]["operating_mode"] == "AUTONOMOUS_DEFAULT"
-    assert calls[0]["publication_enabled"] is True
+    assert len(calls) == 0
+    queued = store.get_work_item(report["material_event_wake"]["window_id"])
+    assert queued["current_state"] == "DISCOVERED"
 
 
 def _shadow_article_and_media(tmp_path: Path):

@@ -29,20 +29,32 @@ def test_policy_straight_news_does_not_require_capital_chronicle_authority():
     assert capability["capital_chronicle_authority_required"] is False
     assert capability["market_snapshot_required"] is False
     assert capability["market_context_required"] is False
-    assert "official_statement" in capability["required_evidence_capabilities"]
-    assert "decision_timeline" in capability["required_evidence_capabilities"]
-    assert "issuing_authority" in capability["required_evidence_capabilities"]
-    assert capability["source_adapter_families"] == ["official_policy"]
+    assert capability["required_evidence_capabilities"] == [
+        "credible_event_confirmation",
+        "basic_attributed_facts",
+    ]
+    assert set(capability["optional_evidence_capabilities"]) == {
+        "official_statement",
+        "decision_timeline",
+        "issuing_authority",
+    }
+    assert capability["source_adapter_families"] == ["official_policy", "public_secondary"]
 
 
-def test_policy_analysis_still_requires_capital_chronicle_authority():
+def test_policy_analysis_request_does_not_create_independent_analytical_authority():
     registry = load_source_capability_registry()
     capability = resolve_story_capabilities(
         {"story_type": "policy_decision", "article_mode": "analysis"}, registry
     )
-    assert capability["capital_chronicle_authority_required"] is True
-    assert capability["market_snapshot_required"] is True
-    assert "governed_analytical_context" in capability["required_evidence_capabilities"]
+    # The calibrated acquisition profile can still produce a truthful brief when governed
+    # analytical context is absent; a later mode gate must downgrade rather than fabricate it.
+    assert capability["capital_chronicle_authority_required"] is False
+    assert capability["market_snapshot_required"] is False
+    assert "governed_analytical_context" in capability["optional_evidence_capabilities"]
+    assert capability["required_evidence_capabilities"] == [
+        "credible_event_confirmation",
+        "basic_attributed_facts",
+    ]
 
 
 def test_market_sensitive_metadata_alone_never_adds_capital_chronicle_authority():

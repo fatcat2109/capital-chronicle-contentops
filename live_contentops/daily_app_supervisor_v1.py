@@ -1739,28 +1739,9 @@ class ContentOpsDailyAppSupervisor:
                         "session": core.session,
                     }
                 )
-        # Material-event wakeup. It is staged durably before this method, so the pending work
-        # survives restart/KILL_SWITCH and the identity cannot drift with wall-clock time.
-        signal = material_event_due(materiality_metadata, self._policy, now)
-        if signal is not None:
-            start = now
-            end = now
-            window_id = material_event_window_id(
-                policy_version=self._policy.policy_version,
-                trigger_identity=signal["trigger_identity"],
-            )
-            windows.append(
-                {
-                    "window_id": window_id,
-                    "trigger": TRIGGER_MATERIAL_EVENT,
-                    "start": start,
-                    "end": end,
-                    "session": signal["trigger_identity"],
-                    "trigger_identity": signal["trigger_identity"],
-                    "target_surface": "daily_app_material_event_window",
-                }
-            )
-        windows.extend(self._pending_material_event_windows(now))
+        # Material events are durable zero-LLM priority metadata only. They are intentionally
+        # not due windows: the next scheduled editorial window inspects rolling intake, while an
+        # explicit operator Run Now remains the only immediate exception.
         # De-duplicate and drop windows already executed.
         unique: list[dict[str, Any]] = []
         seen: set[str] = set()
@@ -2040,7 +2021,10 @@ class ContentOpsDailyAppSupervisor:
                 ),
                 "cc_catalog": dict(intelligence.get("cc_catalog") or {}),
             })
-            result = dict(self._newsroom_cycle(**cycle_kwargs))
+            from live_contentops.llm_cost_governor_v1 import llm_cycle_budget_scope
+
+            with llm_cycle_budget_scope(window_id, now=now):
+                result = dict(self._newsroom_cycle(**cycle_kwargs))
             classification = str(result.get("classification") or "")
             viable = classification not in {"NO_PUBLICATION", "BLOCKED", ""}
             novelty_decision = self._record_editorial_novelty_decision(

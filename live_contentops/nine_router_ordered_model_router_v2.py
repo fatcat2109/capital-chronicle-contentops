@@ -42,6 +42,7 @@ from live_contentops.credential_redaction_policy import (
     redact_text,
     sanitize_for_output,
 )
+from live_contentops.llm_cost_governor_v1 import COST_TERMINAL_FAILURE_CLASSES
 
 SCHEMA_VERSION = "contentops.nine_router_ordered_model_router.v2"
 
@@ -124,7 +125,6 @@ RETRYABLE_CLASSES: frozenset[str] = frozenset(
         "dns_or_upstream_connection_failure",
         "http_408_request_timeout",
         "http_429_rate_limited",
-        "quota_exhausted",
         "http_500_internal",
         "http_502_bad_gateway",
         "http_503_unavailable",
@@ -151,6 +151,8 @@ NON_RETRYABLE_CLASSES: frozenset[str] = frozenset(
         "http_401_unauthorized",
         "http_403_forbidden",
         "invalid_request_or_schema_or_configuration",
+        "quota_exhausted",
+        *COST_TERMINAL_FAILURE_CLASSES,
     }
 )
 

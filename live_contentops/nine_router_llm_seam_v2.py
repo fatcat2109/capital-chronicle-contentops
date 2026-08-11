@@ -18,6 +18,15 @@ from __future__ import annotations
 
 from typing import Any, Callable, Mapping
 
+from live_contentops.llm_operator_control_v1 import (
+    assert_llm_operator_execution_enabled,
+)
+from live_contentops.llm_cost_governor_v1 import (
+    LLMCostBudgetExceededError,
+    reconcile_provider_attempt,
+    reserve_logical_invocation,
+    reserve_provider_attempt,
+)
 from live_contentops.nine_router_ordered_model_router_v2 import (
     ACCEPTED,
     ORDERED_MODEL_POOL,
@@ -116,13 +125,35 @@ def routed_llm_invocation(
     repair_prompt_builder: Callable[[str, str, str | None], str] | None = None,
 ) -> dict[str, Any]:
     """Run one logical invocation through the canonical router and record its evidence."""
+    # Check once before routing and again immediately before every provider attempt. The second
+    # check closes the race where the operator activates STOP during a retry/fallback sequence.
+    assert_llm_operator_execution_enabled()
+    reserve_logical_invocation(logical_invocation_id)
+    raw_provider_call = provider_call or _default_provider_call
+
+    def guarded_provider_call(provider_prompt: str, model: str, timeout: float) -> ProviderResult:
+        assert_llm_operator_execution_enabled()
+        try:
+            reservation = reserve_provider_attempt(
+                provider_prompt, logical_invocation_id=logical_invocation_id
+            )
+        except LLMCostBudgetExceededError as exc:
+            return ProviderResult(error=exc, failure_class=exc.failure_class)
+        try:
+            result = raw_provider_call(provider_prompt, model, timeout)
+        except BaseException:
+            # No trusted usage is available, so the conservative reservation remains charged.
+            raise
+        reconcile_provider_attempt(reservation, result.usage)
+        return result
+
     role_pool = model_pool_for_role(role_task_id)
     summary = route_llm_invocation(
         logical_invocation_id=logical_invocation_id,
         role_task_id=role_task_id,
         work_item_id=work_item_id,
         prompt=prompt,
-        provider_call=provider_call or _default_provider_call,
+        provider_call=guarded_provider_call,
         validator=validator,
         governed_input=governed_input,
         prompt_template=prompt_template,

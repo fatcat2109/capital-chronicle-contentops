@@ -297,18 +297,15 @@ def test_case_b_p0_timeout_then_p0_retry_succeeds() -> None:
     assert result["models_attempted_in_order"] == [P0]
 
 
-def test_case_c_p0_quota_skips_futile_retry_and_p1_succeeds() -> None:
+def test_case_c_quota_is_cost_terminal_and_never_walks_paid_fallback() -> None:
     provider = scripted({P0: [fail("quota_exhausted")], P1: [good(P1)]})
     result = run(provider)
-    assert result["terminal_disposition"] == ACCEPTED
-    assert result["selected_model"] == P1
-    # A quota-exhausted model must not burn its same-model retry.
-    assert result["total_attempts"] == 2
-    assert [m for m, _ in provider.calls] == [P0, P1]
-    assert result["total_fallback_transitions"] == 1
+    assert result["terminal_disposition"] == "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
+    assert result["selected_model"] is None
+    assert result["total_attempts"] == 1
+    assert [m for m, _ in provider.calls] == [P0]
+    assert result["total_fallback_transitions"] == 0
     assert result["attempts"][0]["failure_class"] == "quota_exhausted"
-    assert result["attempts"][1]["fallback_from"] == P0
-    assert result["attempts"][1]["fallback_reason"] == "quota_exhausted"
 
 
 def test_case_d_p0_timeouts_then_p1_503s_then_p2_succeeds() -> None:

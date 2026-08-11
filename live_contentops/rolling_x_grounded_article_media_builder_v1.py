@@ -992,6 +992,26 @@ def _article_audit_metadata(context: Mapping[str, Any]) -> dict[str, Any]:
         for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", title)
         if token.casefold() not in _AUDIT_STOPWORDS
     ]
+    # Provider/RSS desk labels such as ``Exclusive |`` are source metadata, not the story's
+    # search term. Prefer a title token that is also present in an accepted supported claim so
+    # deterministic briefs cannot inherit a keyword that their governed claim/title omits.
+    supported_claim_text = " ".join(
+        str(row.get("claim_text") or "")
+        for row in (
+            (context.get("claim_evidence_contract") or {}).get("supported_claims") or []
+        )
+        if isinstance(row, Mapping)
+    )
+    supported_tokens = {
+        token.casefold()
+        for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", supported_claim_text)
+        if token.casefold() not in _AUDIT_STOPWORDS
+    }
+    claim_bound_tokens = [
+        token for token in tokens if token.casefold() in supported_tokens
+    ]
+    if claim_bound_tokens:
+        tokens = claim_bound_tokens
     keyword = (tokens[0].casefold() if tokens else "official")
     semantic_terms = list(dict.fromkeys(entities[:3])) or [keyword, publisher]
 

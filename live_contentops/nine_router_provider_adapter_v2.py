@@ -252,6 +252,13 @@ def call_nine_router(
     :class:`ProviderResult` so the router owns the decision. Only configuration problems
     (missing credential, disallowed host, unauthorized model) raise.
     """
+    # Direct adapter callers (notably the bounded preflight) must obey the same persistent
+    # operator fuse as routed newsroom calls, before credentials or network I/O are touched.
+    from live_contentops.llm_operator_control_v1 import (
+        assert_llm_operator_execution_enabled,
+    )
+
+    assert_llm_operator_execution_enabled()
     if model not in AUTHORIZED_MODELS:
         raise NineRouterAdapterError(f"unauthorized_model:{model}")
 

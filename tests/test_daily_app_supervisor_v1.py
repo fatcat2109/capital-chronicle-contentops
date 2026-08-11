@@ -340,7 +340,7 @@ def test_material_event_trigger_gets_stable_unique_identity(tmp_path):
     assert material_event_due({"material_event_due": True, "new_material_event_count": 0}, policy, now) is None
 
 
-def test_material_event_window_invokes_cycle_once(tmp_path):
+def test_material_event_outside_scheduled_window_queues_without_llm_cycle(tmp_path):
     clock_dt = datetime(2026, 8, 9, 4, 30, tzinfo=timezone.utc)  # outside scheduled windows
     supervisor, calls = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
     metadata = {
@@ -349,12 +349,18 @@ def test_material_event_window_invokes_cycle_once(tmp_path):
         "new_material_event_identity": "breaking-material-event",
     }
     report = supervisor.tick(now=clock_dt, materiality_metadata=metadata)
-    assert report["windows_dispatched"] == 1
-    assert len(calls) == 1
-    # Second identical tick does not re-trigger the same material event.
+    assert report["windows_dispatched"] == 0
+    assert report["newsroom_cycle_invocations"] == 0
+    assert len(calls) == 0
+    assert report["material_event_wake"]["state"] == "DISCOVERED"
+    assert report["material_event_wake"]["grants_evidence_or_publication_authority"] is False
+    # Second identical tick remains the same durable queued priority signal and still does not
+    # wake the expensive newsroom.
     report2 = supervisor.tick(now=clock_dt, materiality_metadata=metadata)
     assert report2["windows_dispatched"] == 0
-    assert len(calls) == 1
+    assert report2["newsroom_cycle_invocations"] == 0
+    assert report2["material_event_wake"]["window_id"] == report["material_event_wake"]["window_id"]
+    assert len(calls) == 0
 
 
 def test_supervisor_uses_existing_durable_store_not_new_persistence(tmp_path):

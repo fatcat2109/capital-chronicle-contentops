@@ -570,6 +570,120 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
     assert result["unknown_write_detected"] is False
 
 
+def test_decision5_desk_label_replay_reaches_article_review_and_shadow_package(
+    monkeypatch, tmp_path
+):
+    """Sanitized exact Decision 5 contract: desk label must not poison brief SEO metadata."""
+    source_url = "https://news.google.com/rss/articles/decision-5-public-source"
+    document = _official_document(
+        document_id="public-secondary-decision-5",
+        source_url=source_url,
+        family="reputable_public_secondary",
+        content=(
+            "Public reporting says the U.S. fired on a ship that was breaking its blockade "
+            "of Iran. No unsupported number or quotation is included."
+        ),
+    )
+    document.update(
+        {
+            "title": "Exclusive | U.S. Fires on Ship Breaking Its Blockade of Iran",
+            "publisher": "Public Source A",
+            "source_identity": "public-source-a.example",
+            "source_authority_class": "reputable_independent_public_secondary",
+            "underlying_reuse_classification": "metadata_only_no_excerpt",
+        }
+    )
+    evidence = _evidence([document])
+    evidence["provided_evidence_capabilities"] = ["public_secondary_corroboration"]
+    evidence["claim_evidence_contract"] = {
+        "status": "PASS",
+        "claim_contract_sha256": "c" * 64,
+        "supported_claim_count": 1,
+        "omitted_claim_count": 0,
+        "supported_claims": [
+            {
+                "claim_id": "claim-decision-5",
+                "claim_text": "U.S. Fires on Ship Breaking Its Blockade of Iran - WSJ",
+                "evidence_document_ids": ["public-secondary-decision-5"],
+            }
+        ],
+        "omitted_unsupported_claims": [],
+    }
+    viability = _viability(
+        story_type="geopolitical_event", article_mode="straight_news", evidence=evidence
+    )
+    viability["selected_cluster"].update(
+        {
+            "article_mode": "breaking",
+            "resolved_article_mode": "BREAKING_BRIEF",
+            "requested_article_mode": "BREAKING_BRIEF",
+            "effective_article_mode": "BREAKING_BRIEF",
+        }
+    )
+    request = viability["rank_attempts"][0]["request"]
+    request.update(
+        {
+            "article_mode": "straight_news",
+            "requested_article_mode": "BREAKING_BRIEF",
+            "resolved_article_mode": "BREAKING_BRIEF",
+            "effective_article_mode": "BREAKING_BRIEF",
+            "required_evidence_capabilities": ["public_secondary_corroboration"],
+        }
+    )
+    viability["rank_attempts"][0]["capability_resolution"].update(
+        {
+            "article_mode": "straight_news",
+            "required_evidence_capabilities": ["public_secondary_corroboration"],
+        }
+    )
+    intake = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "counts": {"accepted": 1},
+    }
+    assignment = {
+        "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+        "status": "SUCCESS",
+        "decision": "SELECT_STORY",
+        "assignment_logical_hash": "decision-5-assignment",
+        "ranked_clusters": [viability["selected_cluster"]],
+    }
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: intake,
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        lambda **kwargs: assignment,
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.select_first_viable_rolling_x_cluster",
+        lambda **kwargs: viability,
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="decision-5-offline-replay",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-11T12:57:00Z",
+        story_type_by_cluster={"c1": "geopolitical_event"},
+        editorial_reviewer=implementation._default_rolling_x_editorial_reviewer,
+        article_reviser=lambda *_args: (_ for _ in ()).throw(
+            AssertionError("Decision 5 deterministic brief must pass without an LLM revision")
+        ),
+        publication_enabled=False,
+    )
+
+    assert result["article"]["article_generation_method"] == (
+        "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF"
+    )
+    assert result["article"]["seo_primary_keyword"] == "fires"
+    assert result["editorial_cycle"]["status"] == "PASS"
+    assert result["editorial_cycle"]["revision_rounds_completed"] == 0
+    assert result["platform_package_generated"] is True
+    assert result["shadow_package_ready"] is True
+    assert result["public_write_performed"] is False
+    assert result["unknown_write_detected"] is False
+
+
 def test_builder_fail_closed_surfaces_as_no_publication_not_crash(monkeypatch, tmp_path):
     viability = _viability(story_type="regulatory_fiscal_event", article_mode="straight_news")
     intake = {
