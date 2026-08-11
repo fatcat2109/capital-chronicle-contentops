@@ -29,18 +29,19 @@ REPUTABLE_SECONDARY_HOSTS = frozenset(
         "abcnews.go.com", "aljazeera.com", "apnews.com", "axios.com", "bbc.com",
         "bbc.co.uk", "bloomberg.com", "cbsnews.com", "cnbc.com", "cnn.com", "ft.com",
         "marketwatch.com", "nbcnews.com", "npr.org", "politico.com", "reuters.com",
-        "theguardian.com", "thehill.com", "wsj.com", "www.abcnews.go.com",
+        "theguardian.com", "thehill.com", "jpost.com", "wsj.com", "www.abcnews.go.com",
         "www.aljazeera.com", "www.apnews.com", "www.axios.com", "www.bbc.com",
         "www.bloomberg.com", "www.cbsnews.com", "www.cnbc.com", "www.cnn.com", "www.ft.com",
         "www.marketwatch.com", "www.nbcnews.com", "www.npr.org", "www.politico.com",
-        "www.reuters.com", "www.theguardian.com", "www.thehill.com", "www.wsj.com",
+        "www.reuters.com", "www.theguardian.com", "www.thehill.com", "www.jpost.com", "www.wsj.com",
     }
 )
 REPUTABLE_SECONDARY_NAMES = frozenset(
     {
         "abc news", "al jazeera", "associated press", "the associated press", "ap", "axios", "bbc", "bloomberg",
         "cbs news", "cnbc", "cnn", "financial times", "marketwatch", "nbc news", "npr",
-        "politico", "reuters", "the guardian", "the hill", "the wall street journal", "wsj",
+        "politico", "reuters", "the guardian", "the hill", "the jerusalem post",
+        "jerusalem post", "the wall street journal", "wsj",
     }
 )
 NEWS_RSS_ENDPOINT = "https://news.google.com/rss/search"
@@ -122,6 +123,15 @@ def _rss_query_terms(summary: str) -> list[str]:
         for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{1,}", cleaned)
         if token.casefold() not in _RSS_QUERY_STOPWORDS
     ][:12]
+
+
+def _rss_relevance_score(query_terms: list[str], title: str) -> float:
+    """Score a listing against the event-bearing query before applying the result cap."""
+    query = {token.casefold() for token in query_terms}
+    if not query:
+        return 0.0
+    title_terms = {token.casefold() for token in _rss_query_terms(title)}
+    return len(query.intersection(title_terms)) / len(query)
 
 
 class BoundedPublicSecondaryEvidenceLoader:
@@ -225,46 +235,66 @@ class BoundedPublicSecondaryEvidenceLoader:
             root = ET.fromstring(body)
         except ET.ParseError:
             return []
-        documents: list[dict[str, Any]] = []
-        seen_publishers: set[str] = set()
+        cutoff = datetime.fromisoformat(
+            self._evaluation_as_of_utc.replace("Z", "+00:00")
+        )
+        candidates: dict[str, tuple[float, datetime, dict[str, Any]]] = {}
         for item in root.findall(".//item"):
             source = item.find("source")
             publisher = " ".join(str(source.text or "").split()) if source is not None else ""
             if publisher.casefold() not in REPUTABLE_SECONDARY_NAMES:
                 continue
-            identity = publisher.casefold()
-            if identity in seen_publishers:
+            try:
+                source_host = _public_host(
+                    str(source.get("url") or ""), resolve_dns=False
+                )
+            except ValueError:
                 continue
+            if source_host not in REPUTABLE_SECONDARY_HOSTS:
+                continue
+            identity = source_host.removeprefix("www.")
             title = " ".join(str(item.findtext("title") or "").rsplit(" - ", 1)[0].split())
             link = str(item.findtext("link") or "")
             published = _parse_timestamp(item.findtext("pubDate"))
             if not title or not link or not published:
                 continue
-            seen_publishers.add(identity)
+            observed = datetime.fromisoformat(published.replace("Z", "+00:00"))
+            relevance = _rss_relevance_score(terms, title)
+            if observed > cutoff or relevance < 0.34:
+                continue
             item_bytes = ET.tostring(item, encoding="utf-8")
-            documents.append(
-                {
-                    "document_id": "public-news-listing-" + sha256(item_bytes).hexdigest()[:20],
-                    "title": title,
-                    "publisher": publisher,
-                    "source_identity": publisher,
-                    "source_authority_class": "reputable_secondary_source",
-                    "source_url": link,
-                    "published_at_utc": published,
-                    "event_time_utc": published,
-                    "raw_sha256": sha256(item_bytes).hexdigest(),
-                    "canonical_content_sha256": sha256(title.encode("utf-8")).hexdigest(),
-                    "canonical_content_text": title,
-                    "content_type": "application/rss+xml",
-                    "byte_length": len(item_bytes),
-                    "public_claim_allowed": True,
-                    "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
-                    "secondary_listing_only": True,
-                }
-            )
-            if len(documents) >= 3:
-                break
-        return documents
+            document = {
+                "document_id": "public-news-listing-" + sha256(item_bytes).hexdigest()[:20],
+                "title": title,
+                "publisher": publisher,
+                "source_identity": identity,
+                "source_authority_class": "reputable_secondary_source",
+                "source_url": link,
+                "published_at_utc": published,
+                "event_time_utc": published,
+                "raw_sha256": sha256(item_bytes).hexdigest(),
+                "canonical_content_sha256": sha256(title.encode("utf-8")).hexdigest(),
+                "canonical_content_text": title,
+                "content_type": "application/rss+xml",
+                "byte_length": len(item_bytes),
+                "public_claim_allowed": True,
+                "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+                "secondary_listing_only": True,
+            }
+            existing = candidates.get(identity)
+            candidate = (relevance, observed, document)
+            if existing is None or (observed, relevance) > (existing[1], existing[0]):
+                candidates[identity] = candidate
+        ranked = sorted(
+            candidates.values(),
+            key=lambda row: (
+                -row[1].timestamp(),
+                -row[0],
+                str(row[2].get("publisher") or "").casefold(),
+                str(row[2].get("title") or "").casefold(),
+            ),
+        )
+        return [row[2] for row in ranked[:3]]
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         context = request.get("story_context") or {}

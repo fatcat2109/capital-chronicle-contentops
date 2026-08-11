@@ -312,8 +312,8 @@ def test_g_two_independent_reputable_rss_sources_can_corroborate_nonnumeric_brea
 
 def test_decision5_rss_query_removes_desk_metadata_and_recovers_corroboration():
     rss = b"""<?xml version='1.0'?><rss><channel>
-    <item><title>Exclusive | U.S. Fires on Ship Breaking Its Blockade of Iran - WSJ</title><link>https://news.google.com/wsj</link><pubDate>Tue, 11 Aug 2026 12:22:00 GMT</pubDate><source url='https://wsj.com'>WSJ</source></item>
-    <item><title>US fired on ship that tried to break blockade of Iranian ports, WSJ reports - Reuters</title><link>https://news.google.com/reuters</link><pubDate>Tue, 11 Aug 2026 12:43:00 GMT</pubDate><source url='https://reuters.com'>Reuters</source></item>
+    <item><title>Exclusive | U.S. Fires on Ship Breaking Its Blockade of Iran - WSJ</title><link>https://news.google.com/wsj</link><pubDate>Tue, 11 Aug 2026 11:22:00 GMT</pubDate><source url='https://wsj.com'>WSJ</source></item>
+    <item><title>US fired on ship that tried to break blockade of Iranian ports, WSJ reports - Reuters</title><link>https://news.google.com/reuters</link><pubDate>Tue, 11 Aug 2026 11:43:00 GMT</pubDate><source url='https://reuters.com'>Reuters</source></item>
     </channel></rss>"""
     requested_urls = []
 
@@ -343,6 +343,68 @@ def test_decision5_rss_query_removes_desk_metadata_and_recovers_corroboration():
     assert {row["publisher"] for row in packet["evidence_documents"]} == {"WSJ", "Reuters"}
     assert contract["status"] == "PASS"
     assert contract["supported_claim_count"] == 1
+
+
+def test_decision5_rss_ranks_relevant_fresh_corroboration_before_result_cap():
+    rss = b"""<?xml version='1.0'?><rss><channel>
+    <item><title>Exclusive | U.S. Fires on Ship Breaking Its Blockade of Iran - WSJ</title><link>https://news.google.com/wsj</link><pubDate>Tue, 11 Aug 2026 11:22:00 GMT</pubDate><source url='https://wsj.com'>WSJ</source></item>
+    <item><title>Tracking the shadow fleet: How Iran evaded the US naval blockade in Hormuz - Al Jazeera</title><link>https://news.google.com/aljazeera</link><pubDate>Thu, 30 Apr 2026 07:00:00 GMT</pubDate><source url='https://aljazeera.com'>Al Jazeera</source></item>
+    <item><title>Iran says it seized ships as US blockade continues - NPR</title><link>https://news.google.com/npr</link><pubDate>Wed, 22 Apr 2026 07:00:00 GMT</pubDate><source url='https://npr.org'>NPR</source></item>
+    <item><title>US fired on ship that tried to break blockade of Iranian ports, WSJ reports - Reuters</title><link>https://news.google.com/reuters</link><pubDate>Tue, 11 Aug 2026 11:43:00 GMT</pubDate><source url='https://reuters.com'>Reuters</source></item>
+    <item><title>US fires on ship after the evaluation cutoff - Associated Press</title><link>https://news.google.com/future</link><pubDate>Tue, 11 Aug 2026 13:00:00 GMT</pubDate><source url='https://apnews.com'>Associated Press</source></item>
+    </channel></rss>"""
+    loader = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        clock=lambda: datetime(2026, 8, 11, 12, 0, tzinfo=timezone.utc),
+        http_get=lambda url, *_args: {
+            "status": 200,
+            "final_url": url,
+            "headers": {"content-type": "application/rss+xml"},
+            "body": rss,
+        },
+    )
+    request = _request(
+        story_type="geopolitical_event",
+        summaries=["Exclusive | U.S. Fires on Ship Breaking Its Blockade of Iran - WSJ"],
+    )
+
+    packet = loader(request)
+    documents = packet["evidence_documents"]
+    contract = build_claim_evidence_contract(request, documents)
+
+    assert {row["publisher"] for row in documents[:2]} == {"WSJ", "Reuters"}
+    assert all(row["publisher"] != "Associated Press" for row in documents)
+    assert contract["status"] == "PASS"
+
+
+def test_decision5_rss_accepts_recognized_jerusalem_post_corroboration():
+    rss = b"""<?xml version='1.0'?><rss><channel>
+    <item><title>Exclusive | U.S. Fires on Ship Breaking Its Blockade of Iran - WSJ</title><link>https://news.google.com/wsj</link><pubDate>Tue, 11 Aug 2026 11:22:00 GMT</pubDate><source url='https://wsj.com'>WSJ</source></item>
+    <item><title>US forces fired at ship breaking blockade of Iranian ports - The Jerusalem Post</title><link>https://news.google.com/jpost</link><pubDate>Tue, 11 Aug 2026 11:29:00 GMT</pubDate><source url='https://jpost.com'>The Jerusalem Post</source></item>
+    </channel></rss>"""
+    loader = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        clock=lambda: datetime(2026, 8, 11, 12, 0, tzinfo=timezone.utc),
+        http_get=lambda url, *_args: {
+            "status": 200,
+            "final_url": url,
+            "headers": {"content-type": "application/rss+xml"},
+            "body": rss,
+        },
+    )
+    request = _request(
+        story_type="geopolitical_event",
+        summaries=["Exclusive | U.S. Fires on Ship Breaking Its Blockade of Iran - WSJ"],
+    )
+
+    packet = loader(request)
+    contract = build_claim_evidence_contract(request, packet["evidence_documents"])
+
+    assert {row["publisher"] for row in packet["evidence_documents"]} == {
+        "WSJ",
+        "The Jerusalem Post",
+    }
+    assert contract["status"] == "PASS"
 
 
 def test_only_x_discovery_with_no_corroborating_document_fails_closed():
