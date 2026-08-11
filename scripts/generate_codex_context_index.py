@@ -221,8 +221,9 @@ def source_files() -> list[Path]:
 def git_commit_timestamp() -> str:
     """Return a deterministic generation timestamp derived from the source commit."""
     try:
+        source_head = git_head()
         raw = subprocess.check_output(
-            ["git", "show", "-s", "--format=%cI", "HEAD"], cwd=ROOT, text=True
+            ["git", "show", "-s", "--format=%cI", source_head], cwd=ROOT, text=True
         ).strip()
         return datetime.fromisoformat(raw).astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
     except (OSError, subprocess.CalledProcessError, ValueError):
@@ -230,10 +231,26 @@ def git_commit_timestamp() -> str:
 
 
 def git_head() -> str:
+    """Newest commit that changed an indexed source, not a generated-only commit."""
     try:
-        return subprocess.check_output(
+        current = subprocess.check_output(
             ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
         ).strip()
+        for _ in range(100):
+            changed = subprocess.check_output(
+                [
+                    "git", "diff-tree", "--root", "--no-commit-id", "--name-only",
+                    "-r", current,
+                ],
+                cwd=ROOT,
+                text=True,
+            ).splitlines()
+            if any(name not in GENERATED_PATHS and included(ROOT / name) for name in changed):
+                return current
+            current = subprocess.check_output(
+                ["git", "rev-parse", f"{current}^"], cwd=ROOT, text=True
+            ).strip()
+        return current
     except (OSError, subprocess.CalledProcessError):
         return "UNKNOWN"
 
@@ -1136,8 +1153,8 @@ def normalized_for_check(path: str, value: str) -> str:
         parsed["generation_timestamp_utc"] = "<TIMESTAMP>"
         return json.dumps(parsed, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     return re.sub(
-        r"(source HEAD|Source HEAD): `?[0-9a-f]+`?",
-        r"\1: `<HEAD>`",
+        r"((?:source HEAD|Source HEAD)\s*:?\s*)`?[0-9a-f]+`?",
+        r"\1`<HEAD>`",
         value,
         flags=re.IGNORECASE,
     )

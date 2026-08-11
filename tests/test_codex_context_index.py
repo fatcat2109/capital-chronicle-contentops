@@ -22,6 +22,14 @@ def test_generated_outputs_are_deterministic_without_clock_or_randomness(graph):
     assert graph["generation_timestamp_utc"]
 
 
+def test_check_normalization_ignores_source_hash_in_index_and_context_forms():
+    first = "Source HEAD: `" + "a" * 40 + "`\nGenerated from source HEAD `" + "a" * 40 + "`."
+    second = "Source HEAD: `" + "b" * 40 + "`\nGenerated from source HEAD `" + "b" * 40 + "`."
+    assert index.normalized_for_check("docs/codegraph/V2_CONTEXT.md", first) == index.normalized_for_check(
+        "docs/codegraph/V2_CONTEXT.md", second
+    )
+
+
 def test_graph_edges_entrypoints_and_inference_resolve_to_nodes(graph):
     assert index.validate_graph(graph) == []
     node_ids = {node["id"] for node in graph["nodes"]}
