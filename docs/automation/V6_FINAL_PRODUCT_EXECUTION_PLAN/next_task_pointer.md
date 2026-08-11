@@ -1,164 +1,153 @@
 # ContentOps — Current Next Task Pointer
 
-Authority date: 2026-08-11
+Authority date: 2026-08-12
+Status: `CURRENT_DUAL_LANE_EXECUTION_POINTER`
 
-Current product direction: `CONTENTOPS_FINAL_DAILY_APP_V1_OWNER_DIRECTION`
+This file is a compact routing pointer. Detailed V1 history remains in task evidence/current status; detailed V2 execution authority is in the V2 retention-native plan set.
 
-## Current continuous lane
+## V1 continuous lane
 
 `TASK_CONTENTOPS_FINAL_DAILY_APP_GENUINE_CALENDAR_TIME_LIVE_SOAK_V1`
 
-Mode: `AUTONOMOUS_DEFAULT`; public writes remain limited to exact current owner-pinned Tier-1
-destinations that independently verify canonical READY state and pass every deterministic gate.
+Result:
 
-Result: `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`
+`SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`
 
-FDA-F final visual acceptance is `PASS`, accepted by ChatGPT/Jim for UI/source commit
-`7919c03975febdc99a6b33429068d37307eb7569`. The canonical Final Daily App genuine calendar-time
-soak is active. This is launch-session success only, not FDA-G final acceptance. Do not create
-`v1.1.0` until the genuine 5–10 operating-day release evidence is complete and independently
-audited.
+FDA-G is not accepted. `v1.1.0` is not authorized.
 
-## Next main V1 builder lane after context closeout
+## V1 next builder lane
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-The first real 5–8 production-day attempt ended correctly at
-`ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`: all 12 ranked clusters stopped at targeted evidence and
-zero public write occurred. The next V1 task should calibrate/remove over-broad non-safety
-requirements so evidence profiles are truly story/article-mode-specific, improve first-party
-evidence acquisition, then rerun governed production toward the 5–8/day target. It must preserve
-all hard truth, permission, freshness, rights, readiness, KILL_SWITCH, UNKNOWN_WRITE, and
-publication gates. This routing note does not implement that task and does not accept FDA-G.
+The first real 5–8 article production-day attempt ended correctly at:
 
-## Owner priority override recorded 2026-08-10
+`ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`
 
-Jim reprioritized implementation to proceed concurrently with the continuing FDA-G evidence
-lane. Manual one-click morning resume (`Start_ContentOps_Daily_App.cmd`) is now an accepted V1
-desktop operating pattern; planned host downtime is external availability loss, not database
-failure, and must never justify resetting or recreating durable production state.
+All twelve ranked stories stopped at evidence; zero public article/video write occurred. The next V1 task should calibrate over-broad non-safety evidence requirements by story/article mode and improve first-party evidence acquisition while preserving every hard truth, permission, freshness, rights, readiness, KILL_SWITCH, UNKNOWN_WRITE, publication, and readback gate.
 
-Completed under that override:
+The 5–8 articles/day band is a portfolio target, never filler permission.
 
-`TASK_CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1`
+## Owner concurrent-lane decision
 
-Delivered the idempotent one-click launch/resume bootstrap (`Start_ContentOps_Daily_App.cmd` →
-`scripts/Start-ContentOpsDailyApp.ps1` → `live_contentops.daily_app_launcher_v1` → canonical
-`python -m live_contentops.cli daily-app start ...`). It reuses the exact production store,
-never spawns duplicate supervisors, fails closed on ambiguous port ownership, preserves
-KILL_SWITCH and UNKNOWN_WRITE state, and performs no public writes. It did NOT declare FDA-G
-accepted and did NOT start Tier-2.
+Jim explicitly authorizes V2 implementation to proceed concurrently with the continuing V1 FDA-G/evidence-calibration lane.
 
-`TASK_CONTENTOPS_V1_TRUE_ONE_CLICK_INGESTION_BOOTSTRAP_AND_RUN_NOW_CONTROL_V1`
+V2 must remain isolated from live V1 runtime/store/browser/publication authority. Neither lane may reset or reinterpret the other's accepted durable state.
 
-V1 runtime/product correction: the one-click launcher now safely bootstraps the exact existing
-Chrome `CapitalChronicleBot` CDP 9222 ingestion profile when absent (reuse when alive,
-fail-closed on unproven owner, REAUTH_REQUIRED reported without login automation), and the V5
-Today surface gained the canonical governed `Run editorial cycle now` control
-(`POST /api/daily-app/control/run-now` → durable append-only `OPERATOR_REQUESTED` trigger,
-schema v9, consumed by the existing supervisor through unchanged gates). The quarantined
-`POST /api/run-pipeline` remains locked. No public write occurred. The FDA-G soak epoch
-restarted from the corrected final V1 source SHA after one controlled safe idle restart.
+Older plans requiring V2 to wait for Tier-1 freeze are superseded where they conflict with this owner decision.
 
-`TASK_CONTENTOPS_V1_CHROME_PROFILE_CONTINUITY_LOCK_AND_LAUNCHER_CLOSEOUT_V1`
+## V2 current product direction
 
-Owner-confirmed closeout after Jim reauthenticated X in the exact CapitalChronicleBot profile:
-the canonical ingestion binding is now a permanent single-source lock
-(`live_contentops.ingestion_bootstrap_v1.CANONICAL_INGESTION_BINDING`) — always reuse, never
-create/clone/reset/migrate/clean/replace/rename/delete, no fallback profile, missing binding
-fails closed (`PROFILE_BINDING_MISSING`), unproven 9222 owner fails closed. Run Now now
-requires a proven READY canonical ingestion session and creates zero durable trigger on
-`INGESTION_REAUTH_REQUIRED`. Bounded cold-reopen proof passed (graceful close of the exact
-browser → one-click reopen → READY, no duplicate, no new profile). This task does not
-guarantee X server-side session lifetime; it guarantees ContentOps preserves and always reuses
-the exact operator-owned persistent browser state.
+Current canonical V2 authority:
 
-`TASK_CONTENTOPS_V1_CONTINUOUS_INTELLIGENCE_INTAKE_CC_DATABASE_AND_EDITORIAL_PORTFOLIO_REALIGN_V1`
+- `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V1.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_SUPERSESSION_MAP_V1.md`
 
-Owner mid-task realignment supersedes the narrow run-now-only capture + special run-now gate
-relaxation approach (the `operator_run_now_override_v1` bypass was retired and reverted; the
-Run Now gate-bypass semantics are FALSE by design). The Daily App is now organized around a
-continuous cheap intelligence layer: continuous zero-LLM X headline intake lane inside the
-canonical supervisor (`continuous_headline_ingest_v1`) writing ONLY the canonical per-day
-sidecar store (`headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_<date>.jsonl`,
-append-only, deduplicated by stable post/tweet identity, restart-safe); every editorial decision
-reconstructs the complete rolling 24h unique headline universe; read-only Capital Chronicle data
-estate catalog + story-scoped context adapter (`capital_chronicle_data_catalog_v1`, zero upstream
-mutation); published corpus read model from existing durable publication truth
-(`published_corpus_read_model_v1`, no second publication store); explicit novelty/update-chain
-classification + portfolio policy (`editorial_portfolio_v1`: BREAKING_NEW_STORY /
-MATERIAL_FOLLOW_UP / DEEPEN_EXISTING_STORY / LOW_DELTA_REPEAT / HOLD; 5–8 article/day target
-band; eight core decision opportunities/day; bootstrap.v2 window policy); V5 Today exposes the
-canonical intelligence truth fields. Run Now uses the SAME canonical newsroom authority as
-scheduled/material-event cycles. Tier2-A preserved untouched; FDA-G prior epochs preserved as
-pre-realignment historical evidence; a new FDA-G source epoch starts after deployment.
+V2 objective:
 
-`TASK_CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1`
+Build an autonomous evidence-governed YouTube + YouTube Shorts + TikTok media growth factory that optimizes repeatable qualified audience growth and breakout potential without sacrificing factual/rights discipline. No viral/trending outcome is guaranteed.
 
-The independent audit gaps in that foundation are closed. Published-memory novelty, actual
-story-scoped Capital Chronicle matches, portfolio concentration, and the resolved article or
-update mode now run over the compact shortlist before targeted evidence/writing. Canonical
-article memory requires exact `DISPATCH_CONFIRMED` plus `RECONCILED_CONFIRMED`, deduplicates
-surface derivatives, and uses exact recovered body text or `CONTENT_UNAVAILABLE`. New
-source-event-time-valid intake deltas create stable durable zero-LLM exactly-once material
-events; active polling is 240 seconds and idle delay never exceeds 300 seconds. SHADOW_ONLY
-reaches article/review/package preparation with zero writes. The 5–8 articles/day band remains
-a portfolio target, not a quota or filler permission. The single controlled production restart
-preserved schema 9 and the production epoch and starts a corrected FDA-G source epoch. Its
-restart-boundary stale-lease event is recorded as an explicit soak caveat; FDA-G remains
-`SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE` and no final PASS is claimed.
+Canonical creative flow:
 
-## Current Tier-2 route
+```text
+story universe
+→ VideoOpportunity
+→ Engagement Director
+→ Editorial Video Director
+→ EngagementBrief
+→ VideoProgram
+→ NarrativeBeatGraph
+→ EditDecision/MotionBeatGraph
+→ AssetPlan + AudioPlan
+→ platform-native render
+→ retention/media QA
+→ multimodal critic
+→ ≤2 structural revisions
+→ package
+→ exact-authorized upload
+→ readback/reconciliation
+→ retention attribution
+→ bounded learning
+```
 
-`TASK_CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1` is accepted
-`PASS_WITH_CAVEAT` at `a859d5ff82707842f59163e4ec5150b22fbe6b0e`. The dedicated direct
-`https://ai.api-cheap.site/v1/images/generations` route using `AI_API_CHEAP_API_KEY` is proven
-end to end for `gpt-5.5`, now the provisional V2 generated-illustration default pending future
-product evidence. Generated images are illustrative assets only, never factual/documentary
-authority. `wan2.7-image-pro` and `qwen-image-2.0` returned confirmed HTTP 400 responses on the
-tested contract; they remain unresolved and do not block V2.
+The primary visual must continue telling the story with captions hidden. Long static holds, one-card-per-scene grammar, narration-only product acceptance, and Treasury-curve creative benchmarking are explicitly superseded.
 
-The prior `LOCAL_9ROUTER_IMAGE_REGISTRY_AND_ROUTE_NOT_YET_PROVEN_END_TO_END` blocker is removed.
-Do not import the rejected `8b043a5` implementation or add `ai.api-cheap.site` to the generic
-9Router adapter.
+## V2 accepted foundations
 
-Next owner-approved V2 builder lane:
+Accepted direct image route:
 
-`FRESH V2 CREATIVE-SYSTEM REBUILD`
+- `https://ai.api-cheap.site/v1/images/generations` via dedicated direct boundary;
+- credential `AI_API_CHEAP_API_KEY` only;
+- `gpt-5.5` proven/provisional generated-illustration default;
+- generated imagery is never factual/documentary authority;
+- `wan2.7-image-pro` and `qwen-image-2.0` remain unresolved/non-blocking;
+- do not add the direct host to generic 9Router adapter.
 
-Rebuild to a higher product standard: stronger story/video suitability, less numeric narration,
-premium typography, richer scene-specific motion and chart transitions, generated illustrative
-assets, rights-aware real-person/entity imagery, improved voice/music, and stronger multimodal
-QA. Tier-2 remains isolated from the live V1 production runtime and has ZERO video public-write
-authority. FDA-G and the current V1 evidence-calibration lane continue independently and are not
-accepted or superseded by this result.
+Tier2-A remains engineering reference, not creative baseline.
 
-## Tier-2-A result recorded 2026-08-10
+## Rejected creative work
 
-`TASK_CONTENTOPS_TIER2_A_LOCAL_LONG_FORM_AND_SHORT_FORM_PROGRAMMABLE_VERTICAL_SLICE_V1`
+`task/tier2-v2-creative-system-rebuild-v1`
 
-Result: `COMPLETE_LOCAL_PRODUCT_SLICE_AWAITING_CHATGPT_JIM_VISUAL_REVIEW`.
+HEAD:
 
-The isolated local command now compiles one governed Treasury package into a renderer-neutral
-VideoProgram with five chapters, ten long-form scenes, a 600.121-second 1920x1080 H.264/AAC
-master, and an independently directed 71.634333-second 1080x1920 H.264/AAC short. Kokoro
-narration, SRT/VTT captions, deterministic assets, ffprobe QA, exact evidence/rights bindings,
-scene/chapter/master caches, one-scene selective-rerender proof, and a 116-file immutable hash
-lock all pass. No provider/platform call or public/private upload occurred. Runtime evidence is
-outside Git at `A:\Capital Chronicle\Runtime\ContentOps\tier2\tier2-a-treasury-curve-final-v2`.
+`d231b54e026570442d9fd9269b61e55c3de31d21`
 
-The historical Tier2-B route was rejected for visual product quality and is reference only.
-The current V2 route is the fresh creative-system rebuild recorded above.
+Classification:
 
-FDA-G remains independently active and is not declared accepted by this result.
+`REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
 
-## Completed immediately prior
+Do not merge or continue its creative product. It may be inspected only for bounded reusable engineering compatible with the current V2 plan.
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_AUTONOMOUS_PUBLICATION_RUNTIME_AND_TRANSPORT_LOCK_V1`
+Historical Tier2-B is likewise rejected visual-product reference only.
 
-Delivered one durable public-write owner, one versioned destination/surface transport registry,
-durable pre-write outbox and `DISPATCH_ATTEMPT_STARTED`, no-blind-retry UNKNOWN_WRITE recovery,
-strict readback/reconciliation, exact read-only readiness probes, canonical Edge 9223
-self-bootstrap, schema-v8 readiness persistence, and one production start command. The
-SHADOW_ONLY one-start proof and current nine-surface read-only identity preflight passed. No
-public write occurred.
+## V2 next task
+
+`TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1`
+
+Required result:
+
+`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
+
+The task starts from fresh current `origin/master`, not a rejected creative branch.
+
+It must prove:
+
+- a strong non-Treasury governed story or explicit valid abstention;
+- explicit EngagementBrief/NarrativeBeat/EditDecision/Asset/Audio contracts;
+- a 45–75s native short and 3–6m mid-form when story depth supports them;
+- actual music/audio, not narration-only self-acceptance;
+- ≥4 useful asset classes when story supports them;
+- purposeful beat-linked motion throughout narration;
+- deterministic static-run/retention diagnostics;
+- Jim/ChatGPT actual visual/audio acceptance.
+
+## V2 public-write authority
+
+`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
+
+No YouTube/TikTok upload is authorized by this pointer. Controlled private transport begins only at V2-06; the first public cohort is V2-08 and requires exact Jim authorization.
+
+## CodeGraph
+
+This authority update was written directly through GitHub. The next Codex implementation task must regenerate/check CodeGraph before committing:
+
+```text
+python scripts/generate_codex_context_index.py
+python scripts/generate_codex_context_index.py --check
+```
+
+Require `CODEGRAPH_CURRENT`.
+
+## Protected baseline
+
+Protected `v1.0` remains immutable at release commit:
+
+`6983bfb3ef300414b744f3f8f97ca81ff699348b`
+
+Unknown writes always follow:
+
+`STOP RETRY → READ BACK → RECONCILE`
