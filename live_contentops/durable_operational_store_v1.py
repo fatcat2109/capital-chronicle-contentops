@@ -1857,3 +1857,26 @@ class ContentOpsDurableStore:
                 (now,),
             ).fetchall()
             return [str(row["work_item_id"]) for row in rows]
+
+    def stale_editorial_cycle_window_ids(self) -> List[str]:
+        """Pending canonical cycles whose original owner no longer has a live lease.
+
+        A host stop can occur after the work item enters ``EVIDENCE_PENDING`` but before the
+        newsroom returns.  Scheduled windows are not necessarily evaluated again after their
+        wall-clock interval ends, so startup housekeeping must be able to find and terminalize
+        those abandoned claims without re-running them.
+        """
+        with self.get_connection() as conn:
+            now = self._get_now_iso()
+            rows = conn.execute(
+                "SELECT w.work_item_id FROM work_items w"
+                " WHERE w.current_state='EVIDENCE_PENDING'"
+                " AND w.target_surface IN"
+                " ('daily_app_editorial_window','daily_app_material_event_window')"
+                " AND NOT EXISTS ("
+                "   SELECT 1 FROM leases l WHERE l.work_item_id=w.work_item_id"
+                "   AND l.status='ACTIVE' AND l.expires_at > ?"
+                " ) ORDER BY w.work_item_id",
+                (now,),
+            ).fetchall()
+            return [str(row["work_item_id"]) for row in rows]

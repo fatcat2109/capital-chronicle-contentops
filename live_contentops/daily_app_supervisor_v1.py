@@ -1443,6 +1443,8 @@ class ContentOpsDailyAppSupervisor:
             "windows_due": 0,
             "windows_dispatched": 0,
             "windows_skipped": [],
+            "stale_pending_recovered": 0,
+            "stale_pending_recovery_deferred": 0,
             "newsroom_cycle_invocations": 0,
             "provider_calls": 0,
             "public_write_performed": False,
@@ -1478,6 +1480,15 @@ class ContentOpsDailyAppSupervisor:
             self._store.recover_stale_leases()
         except Exception:  # noqa: BLE001 - recovery is best-effort housekeeping
             report["windows_skipped"].append("stale_lease_recovery_unavailable")
+        try:
+            for stale_window_id in self._store.stale_editorial_cycle_window_ids():
+                recovery = self._recover_stale_pending(stale_window_id)
+                if recovery == "recovered":
+                    report["stale_pending_recovered"] += 1
+                elif recovery == "active_owner":
+                    report["stale_pending_recovery_deferred"] += 1
+        except Exception:  # noqa: BLE001 - remain alive and fail closed on recovery error
+            report["windows_skipped"].append("stale_pending_window_recovery_unavailable")
 
         # Existing durable public-object state is lifecycle housekeeping, not publication
         # authority. Run it before performance eligibility so a newly reconciled exact object can

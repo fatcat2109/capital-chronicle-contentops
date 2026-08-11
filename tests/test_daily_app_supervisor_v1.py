@@ -291,12 +291,13 @@ def test_default_supervisor_owner_identity_is_unique_per_instance(tmp_path):
 
 
 def test_stale_pending_claim_recovered_without_rerun(tmp_path):
-    clock_dt = datetime(2026, 8, 9, 14, 0, tzinfo=timezone.utc)
+    # Recovery must not depend on the abandoned scheduled window becoming due again.
+    clock_dt = datetime(2026, 8, 9, 4, 30, tzinfo=timezone.utc)
     supervisor, calls = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
     wid = editorial_window_id(
         policy_version=supervisor.policy.policy_version,
-        window_start_utc=datetime(2026, 8, 9, 12, tzinfo=timezone.utc),
-        window_end_utc=datetime(2026, 8, 9, 14, tzinfo=timezone.utc),
+        window_start_utc=datetime(2026, 8, 8, 12, tzinfo=timezone.utc),
+        window_end_utc=datetime(2026, 8, 8, 14, tzinfo=timezone.utc),
         session="core_daily", trigger_kind=TRIGGER_SCHEDULED,
     )
     # Simulate a claim-before-completion crash: create work item, transition to EVIDENCE_PENDING
@@ -317,6 +318,7 @@ def test_stale_pending_claim_recovered_without_rerun(tmp_path):
     assert supervisor._window_state(wid) == "EVIDENCE_PENDING"
     # New supervisor tick recovers the stale pending window without re-invoking the cycle.
     report = supervisor.tick(now=clock_dt)
+    assert report["stale_pending_recovered"] == 1
     assert report["newsroom_cycle_invocations"] == 0
     assert len(calls) == 0
     assert supervisor._window_state(wid) == "REJECTED"
