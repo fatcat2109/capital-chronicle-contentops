@@ -541,10 +541,9 @@ def normalized_for_check(path: str, value: str) -> str:
         parsed["source_head"] = "<HEAD>"
         return json.dumps(parsed, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     return re.sub(
-        r"(source HEAD|Source HEAD): `?[0-9a-f]+`?",
-        r"\1: `<HEAD>`",
+        r"(?i)(source HEAD\s*:?[ \t]*`)[0-9a-f]+(`)",
+        r"\1<HEAD>\2",
         value,
-        flags=re.IGNORECASE,
     )
 
 
