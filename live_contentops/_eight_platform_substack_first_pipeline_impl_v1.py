@@ -3257,6 +3257,8 @@ def _run_rolling_x_newsroom_cycle(
     """Run the rolling-X route through the one canonical production boundary."""
     from live_contentops.newsroom_assignment_scheduler_v1 import (
         assign_rolling_x_headlines_with_nine_router,
+        build_deterministic_rolling_x_assignment_fallback,
+        classify_rolling_x_story_types_deterministically,
         classify_rolling_x_story_types_with_nine_router,
         load_rolling_x_headline_sidecars,
         select_first_viable_rolling_x_cluster,
@@ -3279,13 +3281,64 @@ def _run_rolling_x_newsroom_cycle(
         )
     )
     _write_json(output_dir / "rolling_x_intake_v1.json", intake)
+    from live_contentops.preselection_intelligence_v1 import (
+        compact_rolling_x_assignment_universe,
+    )
+
+    if isinstance(intake.get("headlines"), list):
+        assignment_input, assignment_compaction = compact_rolling_x_assignment_universe(intake)
+    else:
+        # Narrow injected tests may replace the canonical loader with a minimal count-only
+        # fixture and replace assignment as well. Production intake always materializes the
+        # headline list; keep the test seam observable without manufacturing headline rows.
+        assignment_input = intake
+        assignment_compaction = {
+            "schema_version": "contentops.rolling_x_assignment_compaction.v1",
+            "compaction_applied": False,
+            "reason": "INJECTED_INTAKE_HEADLINES_NOT_MATERIALIZED",
+            "full_rolling_headline_count": int(
+                (intake.get("counts") or {}).get("accepted") or 0
+            ),
+            "assignment_headline_count": int(
+                (intake.get("counts") or {}).get("accepted") or 0
+            ),
+            "held_before_semantic_assignment_count": 0,
+            "llm_or_provider_calls": 0,
+            "factual_or_numeric_authority_granted": False,
+            "publication_authority_granted": False,
+        }
+    _write_json(
+        output_dir / "rolling_x_assignment_compaction_v1.json",
+        assignment_compaction,
+    )
     assignment = assign_rolling_x_headlines_with_nine_router(
-        rolling_input=intake,
+        rolling_input=assignment_input,
         timeout_seconds=assignment_timeout_seconds,
         provider_call=assignment_provider_call,
         leaf_checkpoints=leaf_checkpoints,
         global_checkpoint=global_checkpoint,
     )
+    if (
+        assignment.get("status") == "BLOCKED"
+        and assignment.get("reason_code") in {
+            "ROLLING_X_LEAF_ASSIGNMENT_BLOCKED",
+            "ROLLING_X_GLOBAL_EDITOR_BLOCKED",
+        }
+        and assignment_provider_call is None
+        and isinstance(assignment_input.get("headlines"), list)
+        and bool(assignment_input.get("headlines"))
+    ):
+        semantic_failure = {
+            "reason_code": assignment.get("reason_code"),
+            "blocked_partition_id": assignment.get("blocked_partition_id"),
+            "telemetry": assignment.get("telemetry"),
+            "assignment_logical_hash": assignment.get("assignment_logical_hash"),
+        }
+        assignment = build_deterministic_rolling_x_assignment_fallback(
+            rolling_input=assignment_input
+        )
+        assignment["semantic_assignment_failure"] = semantic_failure
+    assignment["pre_assignment_compaction"] = assignment_compaction
     _write_json(output_dir / "rolling_x_assignment_v1.json", assignment)
     story_routing: Mapping[str, Any] | None = None
     preselection: Mapping[str, Any] | None = None
@@ -3383,13 +3436,34 @@ def _run_rolling_x_newsroom_cycle(
                     raw_story_routing, clusters=enriched_clusters
                 )
                 story_type_by_cluster = dict(story_routing["story_type_by_cluster"])
-        except (RuntimeError, TypeError, ValueError):
-            story_routing = {
-                "status": "BLOCKED",
-                "reason_code": "STORY_TYPE_CLASSIFICATION_BLOCKED",
-                "story_type_by_cluster": {},
-                "semantic_routing_grants_authority": False,
-            }
+        except (RuntimeError, TypeError, ValueError) as exc:
+            # An injected/custom classifier returning invalid identities must still fail closed.
+            # Only availability/schema failure from the canonical semantic classifier may use
+            # the bounded conservative product fallback.
+            if callable(story_type_classifier):
+                story_routing = {
+                    "status": "BLOCKED",
+                    "reason_code": "STORY_TYPE_CLASSIFICATION_BLOCKED",
+                    "story_type_by_cluster": {},
+                    "semantic_routing_grants_authority": False,
+                }
+            else:
+                try:
+                    fallback = classify_rolling_x_story_types_deterministically(
+                        clusters=enriched_clusters
+                    )
+                    story_routing = _validated_rolling_x_story_routing(
+                        fallback, clusters=enriched_clusters
+                    )
+                    story_routing["semantic_router_failure_class"] = type(exc).__name__
+                    story_type_by_cluster = dict(story_routing["story_type_by_cluster"])
+                except (TypeError, ValueError):
+                    story_routing = {
+                        "status": "BLOCKED",
+                        "reason_code": "STORY_TYPE_CLASSIFICATION_BLOCKED",
+                        "story_type_by_cluster": {},
+                        "semantic_routing_grants_authority": False,
+                    }
         _write_json(output_dir / "rolling_x_story_routing_v1.json", story_routing)
     if story_routing is not None and story_routing.get("status") == "BLOCKED":
         viability = {

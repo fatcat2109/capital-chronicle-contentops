@@ -6,6 +6,8 @@ import json
 from live_contentops.claim_evidence_contract_v1 import build_claim_evidence_contract
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     ROLLING_X_ASSIGNMENT_SCHEMA_VERSION,
+    build_deterministic_rolling_x_assignment_fallback,
+    classify_rolling_x_story_types_deterministically,
     select_first_viable_rolling_x_cluster,
 )
 from live_contentops.official_primary_evidence_loader_v1 import (
@@ -13,6 +15,9 @@ from live_contentops.official_primary_evidence_loader_v1 import (
 )
 from live_contentops.public_secondary_evidence_loader_v1 import (
     BoundedPublicSecondaryEvidenceLoader,
+)
+from live_contentops.preselection_intelligence_v1 import (
+    compact_rolling_x_assignment_universe,
 )
 from live_contentops.rolling_x_targeted_evidence_adapter_v1 import (
     RollingXTargetedEvidenceAdapter,
@@ -128,6 +133,40 @@ def test_b_precise_company_number_is_omitted_without_primary_numeric_authority()
         for row in contract["omitted_unsupported_claims"]
     )
     assert all(not row.get("numeric_claim") for row in contract["supported_claims"])
+
+
+def test_secondary_source_title_can_support_nonnumeric_core_after_numeric_scope_is_removed():
+    request = _request(
+        story_type="company_sector_event",
+        summaries=[
+            "Nvidia and Wall Street firms are reportedly assembling a record $500 billion AI financing partnership."
+        ],
+    )
+    secondary = _document(
+        authority="reputable_secondary_source",
+        text="Nvidia links with Wall Street firms for $500bn AI financing deal",
+        publisher="The Guardian",
+    )
+
+    contract = build_claim_evidence_contract(request, [secondary])
+
+    assert contract["status"] == "PASS"
+    assert contract["fabricated_claim_count"] == 0
+    assert contract["supported_claim_count"] == 1
+    supported = contract["supported_claims"][0]
+    assert "500" not in supported["claim_text"]
+    assert "Nvidia" in supported["claim_text"]
+    assert "financing" in supported["claim_text"]
+    assert supported["numeric_claim"] is False
+    assert supported["attribution_required"] is True
+    assert supported["scope_reduction"] in {
+        "PRECISE_NUMERIC_CLAIM_OMITTED",
+        "SOURCE_TITLE_NUMERIC_SCOPE_OMITTED",
+    }
+    assert any(
+        row["reason"] == "numeric_primary_authority_unavailable"
+        for row in contract["omitted_unsupported_claims"]
+    )
 
 
 def test_c_policy_story_has_no_company_filing_requirement():
@@ -304,3 +343,125 @@ def test_unsupported_quote_is_omitted_not_invented():
     contract = build_claim_evidence_contract(request, [document])
     assert contract["fabricated_claim_count"] == 0
     assert any(row["reason"] in {"quote_exact_support_unavailable", "candidate_claim_not_found_in_evidence"} for row in contract["omitted_unsupported_claims"])
+
+
+def test_large_rolling_universe_is_compacted_before_semantic_assignment():
+    headlines = []
+    for index in range(180):
+        headline_id = f"headline-{index:03d}"
+        headlines.append({
+            "headline_id": headline_id,
+            "source_timestamp_utc": f"2026-08-11T{index % 24:02d}:00:00Z",
+            "source_locator": {"path": "sidecar.jsonl", "line": index + 1},
+            "external_content": {
+                "headline_text": f"Headline {index}",
+                "official_source_urls": (
+                    ["https://example.gov/release"] if index == 0 else []
+                ),
+                "follow_up_data_need_candidates": [],
+            },
+        })
+    source = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "cutoff_time_utc": "2026-08-11T23:59:00Z",
+        "window_start_utc": "2026-08-10T23:59:00Z",
+        "window_hours": 24.0,
+        "headlines": headlines,
+        "unique_headline_ids": [row["headline_id"] for row in headlines],
+        "counts": {"accepted": len(headlines)},
+        "canonical_input_hash": "full-input-hash",
+    }
+
+    compacted, evidence = compact_rolling_x_assignment_universe(
+        source, max_headlines=128
+    )
+
+    assert len(compacted["headlines"]) == 128
+    assert compacted["headlines"][0]["headline_id"] == "headline-000"
+    assert len(compacted["unique_headline_ids"]) == 128
+    assert evidence["full_rolling_headline_count"] == 180
+    assert evidence["held_before_semantic_assignment_count"] == 52
+    assert evidence["llm_or_provider_calls"] == 0
+    assert evidence["factual_or_numeric_authority_granted"] is False
+    assert evidence["publication_authority_granted"] is False
+
+
+def test_semantic_story_type_failure_has_conservative_zero_authority_fallback():
+    result = classify_rolling_x_story_types_deterministically(
+        clusters=[
+            {
+                "cluster_id": "company",
+                "leaf_summaries": [
+                    "Nvidia links with Wall Street firms for a major AI financing deal."
+                ],
+            },
+            {
+                "cluster_id": "ambiguous",
+                "leaf_summaries": ["A consequential current event is developing."],
+            },
+        ]
+    )
+
+    assert result["story_type_by_cluster"] == {
+        "company": "company_sector_event",
+        "ambiguous": "regulatory_fiscal_event",
+    }
+    assert result["routing_method"] == "DETERMINISTIC_CONSERVATIVE_FALLBACK"
+    assert result["llm_or_provider_calls"] == 0
+    assert result["factual_or_numeric_authority_granted"] is False
+    assert result["publication_authority_granted"] is False
+
+
+def test_semantic_assignment_failure_has_evidence_reachable_zero_authority_fallback():
+    headlines = [
+        {
+            "headline_id": "without-source",
+            "source_timestamp_utc": "2026-08-11T12:00:00Z",
+            "external_content": {
+                "headline_text": "A fresh but uncorroborated discovery item",
+                "official_source_urls": [],
+            },
+        },
+        {
+            "headline_id": "with-source",
+            "source_timestamp_utc": "2026-08-11T11:00:00Z",
+            "external_content": {
+                "headline_text": "Nvidia links with Wall Street firms for an AI financing deal",
+                "official_source_urls": ["https://example.com/report"],
+            },
+        },
+    ]
+    assignment = build_deterministic_rolling_x_assignment_fallback(
+        rolling_input={
+            "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+            "canonical_input_hash": "a" * 64,
+            "headlines": headlines,
+        }
+    )
+
+    assert assignment["status"] == "SUCCESS"
+    assert assignment["assignment_method"] == "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK"
+    assert assignment["selected_headline_ids"] == ["with-source"]
+    assert assignment["telemetry"]["provider_attempts"] == 0
+    assert assignment["factual_or_numeric_authority_granted"] is False
+    assert assignment["router_output_grants_publication_authority"] is False
+
+
+def test_abbreviated_country_subject_is_not_dropped_from_claim_candidate():
+    request = _request(
+        story_type="geopolitical_event",
+        summaries=["U.S. military fires on a ship breaking its blockade of Iran."],
+    )
+    documents = [
+        _document(
+            authority="reputable_secondary_source",
+            text="U.S. military fires on ship breaking blockade of Iran.",
+            publisher=publisher,
+        )
+        for publisher in ("Reuters", "Associated Press")
+    ]
+
+    contract = build_claim_evidence_contract(request, documents)
+
+    assert contract["status"] == "PASS"
+    assert contract["supported_claims"][0]["claim_text"].startswith("U.S. military")

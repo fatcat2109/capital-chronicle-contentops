@@ -1,7 +1,11 @@
 """Deterministic preselection intelligence inside the canonical rolling-X newsroom.
 
-This seam runs only over the compact global-editor shortlist. It enriches/reranks/holds before
-targeted evidence, writing, review, or packaging and performs zero model/provider calls.
+This seam performs two cheap, authority-free operations before expensive story work:
+
+* it compacts a very large rolling intake to a fresh, evidence-reachable assignment universe;
+* it enriches/reranks/holds the compact global-editor shortlist before targeted evidence.
+
+Both operations perform zero model/provider calls and grant no factual authority.
 """
 from __future__ import annotations
 
@@ -28,6 +32,8 @@ from live_contentops.editorial_portfolio_v1 import (
 )
 
 SCHEMA_VERSION = "contentops.preselection_intelligence.v1"
+ASSIGNMENT_COMPACTION_SCHEMA_VERSION = "contentops.rolling_x_assignment_compaction.v1"
+DEFAULT_MAX_ASSIGNMENT_HEADLINES = 128
 
 _DECISION_BONUS = {
     DECISION_BREAKING_NEW_STORY: 12.0,
@@ -89,6 +95,119 @@ def _logical_hash(value: Any) -> str:
     return hashlib.sha256(
         json.dumps(value, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
     ).hexdigest()
+
+
+def _source_timestamp(row: Mapping[str, Any]) -> datetime:
+    raw = str(row.get("source_timestamp_utc") or "")
+    try:
+        parsed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError:
+        return datetime(1970, 1, 1, tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _raw_assignment_reachability(row: Mapping[str, Any]) -> tuple[int, int]:
+    """Return cheap locator signals only; never claim that a source supports a fact."""
+    external = row.get("external_content")
+    if not isinstance(external, Mapping):
+        return 0, 0
+    urls = [
+        str(value)
+        for value in (external.get("official_source_urls") or [])
+        if str(value).startswith("https://")
+    ]
+    follow_up_locators = [
+        str(value)
+        for value in (external.get("follow_up_data_need_candidates") or [])
+        if str(value).strip()
+    ]
+    return int(bool(urls)), int(bool(follow_up_locators))
+
+
+def compact_rolling_x_assignment_universe(
+    rolling_input: Mapping[str, Any],
+    *,
+    max_headlines: int = DEFAULT_MAX_ASSIGNMENT_HEADLINES,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Bound semantic assignment cost while preserving the full intake as durable evidence.
+
+    Selection is deterministic: known public locator signals rank first, then freshness and the
+    stable headline identity. Held headlines remain in the original intake artifact and are
+    represented here by counts and an identity hash. They may re-enter a later rolling window;
+    this seam does not declare them false, duplicate, or permanently rejected.
+    """
+    if max_headlines < 1:
+        raise ValueError("rolling_x_assignment_compaction_limit_invalid")
+    headlines = rolling_input.get("headlines")
+    if not isinstance(headlines, list) or not all(isinstance(row, Mapping) for row in headlines):
+        raise ValueError("rolling_x_assignment_compaction_headlines_invalid")
+    unique_ids = [str(value) for value in (rolling_input.get("unique_headline_ids") or [])]
+    row_ids = [str(row.get("headline_id") or "") for row in headlines]
+    if any(not value for value in row_ids) or len(row_ids) != len(set(row_ids)):
+        raise ValueError("rolling_x_assignment_compaction_identity_invalid")
+    if set(row_ids) != set(unique_ids):
+        raise ValueError("rolling_x_assignment_compaction_coverage_invalid")
+
+    ranked = sorted(
+        (dict(row) for row in headlines),
+        key=lambda row: (
+            -_raw_assignment_reachability(row)[0],
+            -_raw_assignment_reachability(row)[1],
+            -_source_timestamp(row).timestamp(),
+            str(row.get("headline_id") or ""),
+        ),
+    )
+    selected = ranked[:max_headlines]
+    selected_ids = [str(row["headline_id"]) for row in selected]
+    held_ids = [str(row["headline_id"]) for row in ranked[max_headlines:]]
+    counts = dict(rolling_input.get("counts") or {})
+    counts["accepted_in_full_rolling_intake"] = len(headlines)
+    counts["accepted"] = len(selected)
+
+    compacted = {
+        **dict(rolling_input),
+        "headlines": selected,
+        "unique_headline_ids": selected_ids,
+        "counts": counts,
+        "complete_input_coverage": True,
+        "assignment_compaction_applied": len(held_ids) > 0,
+        "full_rolling_input_canonical_hash": rolling_input.get("canonical_input_hash"),
+    }
+    canonical_material = {
+        "schema_version": compacted.get("schema_version"),
+        "cutoff_time_utc": compacted.get("cutoff_time_utc"),
+        "window_start_utc": compacted.get("window_start_utc"),
+        "window_hours": compacted.get("window_hours"),
+        "unique_headline_ids": compacted.get("unique_headline_ids"),
+        "headlines": [
+            {key: value for key, value in row.items() if key != "source_locator"}
+            for row in selected
+        ],
+    }
+    compacted["canonical_input_hash"] = _logical_hash(canonical_material)
+    evidence = {
+        "schema_version": ASSIGNMENT_COMPACTION_SCHEMA_VERSION,
+        "full_rolling_headline_count": len(headlines),
+        "assignment_headline_count": len(selected),
+        "held_before_semantic_assignment_count": len(held_ids),
+        "max_assignment_headlines": int(max_headlines),
+        "full_rolling_input_canonical_hash": rolling_input.get("canonical_input_hash"),
+        "assignment_input_canonical_hash": compacted["canonical_input_hash"],
+        "selected_headline_ids_hash": _logical_hash(selected_ids),
+        "held_headline_ids_hash": _logical_hash(held_ids),
+        "selection_order": [
+            "known_public_locator_signal",
+            "follow_up_locator_signal",
+            "source_timestamp_descending",
+            "headline_id",
+        ],
+        "full_intake_artifact_preserved": True,
+        "llm_or_provider_calls": 0,
+        "factual_or_numeric_authority_granted": False,
+        "publication_authority_granted": False,
+    }
+    evidence["compaction_logical_hash"] = _logical_hash(evidence)
+    return compacted, evidence
 
 
 def apply_preselection_intelligence(

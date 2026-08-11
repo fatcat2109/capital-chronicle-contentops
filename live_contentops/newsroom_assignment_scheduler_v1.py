@@ -16,6 +16,7 @@ import unicodedata
 from datetime import datetime, time, timedelta, timezone
 from pathlib import Path
 from typing import Any, Mapping, Sequence
+from urllib.parse import urlsplit
 
 from live_contentops.daily_x_cdp_headline_capture_packet_v0 import parse_timestamp
 
@@ -1699,6 +1700,144 @@ def assign_rolling_x_headlines_with_nine_router(
     return packet
 
 
+def build_deterministic_rolling_x_assignment_fallback(
+    *,
+    rolling_input: Mapping[str, Any],
+    max_ranked_clusters: int = 12,
+) -> dict[str, Any]:
+    """Create a small evidence-reachable shortlist when semantic assignment is unavailable.
+
+    The canonical loader has already deduplicated and bounded the input. This fallback does no
+    semantic truth work: each selected headline remains its own discovery-only cluster, and all
+    factual claims still require the normal evidence/claim/review/publication gates.
+    """
+    if max_ranked_clusters < 1:
+        raise ValueError("rolling_x_deterministic_assignment_limit_invalid")
+    if rolling_input.get("schema_version") != ROLLING_X_INPUT_SCHEMA_VERSION:
+        raise ValueError("rolling_x_deterministic_assignment_input_invalid")
+    headlines = rolling_input.get("headlines")
+    if not isinstance(headlines, list) or not headlines:
+        raise ValueError("rolling_x_deterministic_assignment_headlines_missing")
+
+    def public_urls(row: Mapping[str, Any]) -> list[str]:
+        external = row.get("external_content")
+        if not isinstance(external, Mapping):
+            return []
+        return [
+            str(value)
+            for value in (external.get("official_source_urls") or [])
+            if str(value).startswith("https://")
+            and "x.com/" not in str(value)
+            and "t.co/" not in str(value)
+        ]
+
+    def evidence_path_priority(row: Mapping[str, Any]) -> int:
+        from live_contentops.public_secondary_evidence_loader_v1 import (
+            REPUTABLE_SECONDARY_HOSTS,
+        )
+
+        urls = public_urls(row)
+        hosts = {str(urlsplit(url).hostname or "").casefold() for url in urls}
+        governed = any(
+            host in REPUTABLE_SECONDARY_HOSTS
+            or host.endswith((".gov", ".gov.uk", ".gov.au", ".europa.eu", ".int"))
+            for host in hosts
+        )
+        return 2 if governed else 1 if urls else 0
+
+    ranked_rows = sorted(
+        (dict(row) for row in headlines if isinstance(row, Mapping)),
+        key=lambda row: (
+            -evidence_path_priority(row),
+            -_normalize_cutoff_utc(str(row.get("source_timestamp_utc") or "1970-01-01T00:00:00Z")).timestamp(),
+            str(row.get("headline_id") or ""),
+        ),
+    )
+    selected = ranked_rows[:max_ranked_clusters]
+    leaf_clusters: list[dict[str, Any]] = []
+    ranked_clusters: list[dict[str, Any]] = []
+    for rank, row in enumerate(selected, start=1):
+        headline_id = str(row.get("headline_id") or "")
+        if not headline_id:
+            raise ValueError("rolling_x_deterministic_assignment_headline_id_missing")
+        external = row.get("external_content") or {}
+        text = " ".join(str(external.get("headline_text") or "").split())
+        text = " ".join(re.sub(r"https?://\S+", "", text).split())
+        if len(text) > 240:
+            text = text[:237].rsplit(" ", 1)[0] + "..."
+        leaf_id = "rolling-x-deterministic-leaf-" + _logical_hash(headline_id)[:20]
+        cluster_id = "rolling-x-deterministic-cluster-" + _logical_hash(headline_id)[:20]
+        leaf_clusters.append({
+            "leaf_cluster_id": leaf_id,
+            "partition_id": "DETERMINISTIC_ASSIGNMENT_FALLBACK",
+            "member_headline_ids": [headline_id],
+            "event_topic_summary": text,
+            "canonical_representative_headline_id": headline_id,
+            "entities": [],
+            "topics": [],
+            "duplicate_update_chain": {
+                "relationship": "distinct",
+                "ordered_headline_ids": [headline_id],
+            },
+            "candidate_relevance_signals": {
+                "audience_relevance": 0,
+                "evidence_prospects": 100 if public_urls(row) else 0,
+                "seo_potential": 0,
+                "qualified_engagement_potential": 0,
+                "saturation_risk": 0,
+            },
+        })
+        ranked_clusters.append({
+            "cluster_id": cluster_id,
+            "rank": rank,
+            "headline_ids": [headline_id],
+            "leaf_cluster_ids": [leaf_id],
+            "story_mode": "reporting",
+            "article_mode": "breaking",
+            "market_sensitive": False,
+            "why_now": text,
+            "selection_case": "Fresh discovery item with a bounded public evidence path.",
+            "needed_evidence": ["Corroborate the limited factual claim from public evidence."],
+            "seo_intent": "",
+            "visual_strategy": "Deterministic source-backed title card.",
+            "update_chain": {
+                "relationship": "distinct",
+                "ordered_headline_ids": [headline_id],
+                "canonical_headline_id": headline_id,
+            },
+        })
+    packet = {
+        "schema_version": ROLLING_X_ASSIGNMENT_SCHEMA_VERSION,
+        "status": "SUCCESS",
+        "decision": "SELECT_STORY",
+        "reason_code": None,
+        "input_binding": {
+            "canonical_input_hash": rolling_input.get("canonical_input_hash"),
+            "input_count": len(headlines),
+            "selected_count": len(selected),
+            "held_count": max(0, len(headlines) - len(selected)),
+        },
+        "leaf_clusters": leaf_clusters,
+        "ranked_clusters": ranked_clusters,
+        "selected_cluster_id": ranked_clusters[0]["cluster_id"],
+        "selected_headline_ids": list(ranked_clusters[0]["headline_ids"]),
+        "router_calls": [],
+        "telemetry": {
+            "logical_router_calls": 0,
+            "provider_attempts": 0,
+            "fallback_transitions": 0,
+            "token_usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
+        },
+        "assignment_method": "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK",
+        "semantic_assignment_failure_recovered": True,
+        "x_content_grants_evidence_authority": False,
+        "factual_or_numeric_authority_granted": False,
+        "router_output_grants_publication_authority": False,
+    }
+    packet["assignment_logical_hash"] = _logical_hash(packet)
+    return packet
+
+
 ROLLING_X_EVIDENCE_VIABILITY_SCHEMA_VERSION = (
     "capital_chronicle.rolling_x_ranked_evidence_viability.v1"
 )
@@ -1881,6 +2020,82 @@ def classify_rolling_x_story_types_with_nine_router(
     }
     output["semantic_routing_grants_authority"] = False
     return output
+
+
+def classify_rolling_x_story_types_deterministically(
+    *,
+    clusters: Sequence[Mapping[str, Any]],
+    capability_registry: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Conservative zero-model fallback when semantic story routing is unavailable.
+
+    This only chooses an evidence profile. It cannot support a claim, weaken that profile,
+    grant numeric/factual authority, or grant publication authority. Ambiguous stories use the
+    corroboration-sensitive regulatory/fiscal profile rather than a permissive default.
+    """
+    from live_contentops.source_capability_registry_v2 import load_source_capability_registry
+
+    registry = dict(capability_registry or load_source_capability_registry())
+    allowed = set(registry.get("story_types") or {})
+    rows: list[dict[str, Any]] = []
+    mapping: dict[str, str] = {}
+
+    rules = (
+        ("data_release", ("cpi", "gdp", "payroll", "inflation data", "jobs report", "data release")),
+        ("policy_decision", ("central bank", "federal reserve", "fed decision", "rate decision", "policy decision")),
+        ("geopolitical_event", ("sanction", "war", "military", "diplomatic", "geopolit", "trade tensions", "economic pressure", "export restriction", "iran", "blockade")),
+        ("supply_chain_event", ("shipping", "cargo", "supply chain", "trade route", "logistics", "chokepoint", "port ")),
+        ("company_sector_event", ("company", "corporate", "earnings", "revenue", "profit", "merger", "acquisition", "partnership", "financing deal", "wall street firms")),
+        ("structural_analysis", ("long-term", "structural", "debt-servicing", "debt servicing", "five years", "fiscal trajectory")),
+        ("physical_event", ("earthquake", "wildfire", "flood", "hurricane", "explosion")),
+    )
+    market_terms = (
+        "price action", "prices", "rally", "selloff", "breakout", "per ounce",
+        "intraday", "market move", "stocks", "bonds", "gold", "oil markets",
+    )
+    for cluster in clusters:
+        cluster_id = str(cluster.get("cluster_id") or "")
+        if not cluster_id or cluster_id in mapping:
+            raise ValueError("rolling_x_deterministic_story_type_input_invalid")
+        text = " ".join(
+            str(value or "")
+            for value in (
+                *(cluster.get("leaf_summaries") or []),
+                *(cluster.get("entities_topics") or []),
+                cluster.get("why_now"),
+                cluster.get("selection_case"),
+            )
+        ).casefold()
+        if cluster.get("market_sensitive") is True or any(term in text for term in market_terms):
+            story_type = "market_move"
+            matched_basis = "MARKET_SENSITIVE_OR_PRICE_ACTION"
+        else:
+            story_type = "regulatory_fiscal_event"
+            matched_basis = "CONSERVATIVE_AMBIGUOUS_DEFAULT"
+            for candidate, terms in rules:
+                if any(term in text for term in terms):
+                    story_type = candidate
+                    matched_basis = "KEYWORD_PROFILE_MATCH"
+                    break
+        if story_type not in allowed:
+            raise ValueError("rolling_x_deterministic_story_type_unknown")
+        mapping[cluster_id] = story_type
+        rows.append({
+            "cluster_id": cluster_id,
+            "story_type": story_type,
+            "reason": matched_basis,
+        })
+    return {
+        "stories": rows,
+        "story_type_by_cluster": mapping,
+        "router_summary": None,
+        "routing_method": "DETERMINISTIC_CONSERVATIVE_FALLBACK",
+        "semantic_router_failure_recovered": True,
+        "llm_or_provider_calls": 0,
+        "factual_or_numeric_authority_granted": False,
+        "semantic_routing_grants_authority": False,
+        "publication_authority_granted": False,
+    }
 
 
 def select_first_viable_rolling_x_cluster(

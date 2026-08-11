@@ -22,10 +22,13 @@ _STOPWORDS = frozenset(
         "about", "after", "again", "against", "along", "also", "amid", "among", "and",
         "are", "been", "being", "between", "could", "from", "have", "into", "more", "over",
         "report", "reported", "reports", "says", "than", "that", "the", "their", "there",
-        "these", "they", "this", "through", "under", "while", "will", "with", "would",
+        "for", "these", "they", "this", "through", "under", "while", "will", "with", "would",
     }
 )
-_NUMBER_RE = re.compile(r"(?<![A-Za-z])[-+]?(?:\$|€|£)?\d[\d,]*(?:\.\d+)?%?")
+_NUMBER_RE = re.compile(
+    r"(?<![A-Za-z])[-+]?(?:\$|€|£)?\d[\d,]*(?:\.\d+)?(?:%|bn|mn|[kmbt])?",
+    re.IGNORECASE,
+)
 _QUOTE_RE = re.compile(r"[\"“]([^\"”]{8,})[\"”]")
 
 
@@ -52,7 +55,12 @@ def _claim_candidates(request: Mapping[str, Any]) -> list[str]:
     candidates: list[str] = []
     for value in values:
         text = " ".join(str(value or "").split())
-        for sentence in re.split(r"(?<=[.!?])\s+|\s+\|\s+", text):
+        protected = (
+            text.replace("U.S.", "U<PERIOD>S<PERIOD>")
+            .replace("U.K.", "U<PERIOD>K<PERIOD>")
+        )
+        for sentence in re.split(r"(?<=[.!?])\s+|\s+\|\s+", protected):
+            sentence = sentence.replace("<PERIOD>", ".")
             sentence = sentence.strip(" -")
             if len(sentence) >= 24 and sentence not in candidates:
                 candidates.append(sentence[:600])
@@ -280,14 +288,22 @@ def build_claim_evidence_contract(
         ):
             fallback_docs = secondary_docs
         for document in fallback_docs:
-            title = " ".join(str(document.get("title") or "").split())
+            raw_title = " ".join(str(document.get("title") or "").split())
+            numeric_scope_omitted = bool(_NUMBER_RE.search(raw_title))
+            title = _without_numeric_scope(raw_title) if numeric_scope_omitted else raw_title
             authority = str(document.get("source_authority_class") or "")
             if len(title) < 8 or _NUMBER_RE.search(title) or _QUOTE_RE.search(title):
                 continue
             if authority not in PRIMARY_AUTHORITY_CLASSES | SECONDARY_AUTHORITY_CLASSES:
                 continue
-            if candidates and max(_support_score(candidate, document) for candidate in candidates) < 0.25:
-                continue
+            if candidates:
+                document_tokens = _tokens(_document_text(document))
+                overlap_counts = [
+                    len(_tokens(candidate).intersection(document_tokens))
+                    for candidate in candidates
+                ]
+                if max(overlap_counts, default=0) < 2:
+                    continue
             corroborating = [document]
             if authority in SECONDARY_AUTHORITY_CLASSES and sensitive_secondary:
                 corroborating = [
@@ -318,6 +334,11 @@ def build_claim_evidence_contract(
                         }
                     ),
                     "authority_classes": [authority],
+                    **(
+                        {"scope_reduction": "SOURCE_TITLE_NUMERIC_SCOPE_OMITTED"}
+                        if numeric_scope_omitted
+                        else {}
+                    ),
                 }
             )
             break
