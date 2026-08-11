@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `a5e0261c451c7f3b3bea08d0b588e82d5cc373ed`
-Source tree digest: `8907faa6fee8cff0a83d6749fd348c4f365939ddd4f930a2a2e83121ee159e21`
+Source HEAD: `40f7ac1037b2330e5afd3666baa037e8fbcf86f6`
+Source tree digest: `bb3e5001f5bd2655656d47c8c36e0350808249bf7383cd800fedb58e36b8ee4b`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.0.0`
 
 This generated map is descriptive, not product authority.
@@ -118,9 +118,9 @@ Use the focused test beside each hot-path section. Backend tests are under `test
 
 ## Current blocker
 
-The V1 evidence-calibration continuation has locally fixed the Decision 5 post-evidence `rolling_x_article_revision_made_no_change` contract defect. Exact offline replay now reaches article, deterministic review PASS, and shadow package with zero public write. The exact next gate is one controlled production proof under the operator fuse and hard cost governor.
+The V1 evidence-calibration continuation has locally fixed the Decision 5 post-evidence `rolling_x_article_revision_made_no_change` contract defect. Exact offline replay now reaches article, deterministic review PASS, and shadow package with zero public write. Both permitted live LLM-capable cycles ended safe `NO_PUBLICATION`; a subsequent exact rank-10 read-only replay passes evidence and claim gates after the RSS selection correction, but it is not live proof.
 
-Active V1 task: `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; final acceptance still requires controlled live proof and exact remote readback.
+Active V1 task: `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; the app remains stopped and the operator fuse active. A new owner decision is required before another controlled live proof or master integration.
 
 ## Tier2 separation
 
