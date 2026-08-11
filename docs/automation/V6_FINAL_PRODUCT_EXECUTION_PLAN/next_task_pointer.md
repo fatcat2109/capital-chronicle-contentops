@@ -122,14 +122,20 @@ The prior `LOCAL_9ROUTER_IMAGE_REGISTRY_AND_ROUTE_NOT_YET_PROVEN_END_TO_END` blo
 Do not import the rejected `8b043a5` implementation or add `ai.api-cheap.site` to the generic
 9Router adapter.
 
-Next owner-approved V2 builder lane:
+The fresh V2 creative-system rebuild is complete as a shorter governed proof because no available
+story honestly supported a >=15-minute documentary. It produced a 200.478-second 1920x1080
+editorial proof and a native 44.05-second 1080x1920 short, with the premium Remotion grammar,
+Kokoro narration, generated-illustration provenance, computed QA, full claim bindings, actual
+transitions, selective rerender, and a 32-file immutable package. No public/private upload or V1
+runtime/store write occurred. Final quality acceptance is intentionally not self-claimed.
 
-`FRESH V2 CREATIVE-SYSTEM REBUILD`
+Exact next V2 task:
 
-Rebuild to a higher product standard: stronger story/video suitability, less numeric narration,
-premium typography, richer scene-specific motion and chart transitions, generated illustrative
-assets, rights-aware real-person/entity imagery, improved voice/music, and stronger multimodal
-QA. Tier-2 remains isolated from the live V1 production runtime and has ZERO video public-write
+`CHATGPT_JIM_TIER2_V2_CREATIVE_SYSTEM_VISUAL_AUDIO_AUDIT`
+
+Review evidence is under
+`A:\Capital Chronicle\Runtime\ContentOps\tier2\tier2-v2-creative-rebuild-v1-final-r2\package`.
+Tier-2 remains isolated from the live V1 production runtime and has ZERO video public-write
 authority. FDA-G and the current V1 evidence-calibration lane continue independently and are not
 accepted or superseded by this result.
 

@@ -310,9 +310,11 @@ Delivered `Start_ContentOps_Daily_App.cmd` one-click launch/resume with the idem
 start contract in section 4A. It did NOT declare FDA-G accepted and did NOT start Tier-2
 implementation.
 
-Next owner-approved builder lane (proceeds concurrently with the continuing FDA-G lane):
+Current V2 review lane (proceeds concurrently with the continuing FDA-G lane):
 
-`TIER2-A LOCAL LONG-FORM + SHORT-FORM PROGRAMMABLE VERTICAL SLICE`
+`CHATGPT_JIM_TIER2_V2_CREATIVE_SYSTEM_VISUAL_AUDIO_AUDIT`
 
-Tier-2 implementation stays isolated from the live V1 production runtime and has NO video
-public-write authority under this reprioritization.
+The fresh creative-system rebuild produced an honest shorter governed proof plus a native short;
+the >=15-minute output was withheld because the available Treasury packet did not support it
+without filler. Final visual/audio acceptance remains Jim/ChatGPT's. Tier-2 stays isolated from
+the live V1 production runtime and has NO video public-write authority.

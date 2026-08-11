@@ -201,6 +201,12 @@ attempt. Hard truth/safety gates remain unchanged. Do not implement it during co
 Tier-2 work remains a separate concurrent lane, isolated from the live V1 production runtime and
 without video public-write authority. FDA-G is not accepted by either lane.
 
+The current V2 handoff is `CHATGPT_JIM_TIER2_V2_CREATIVE_SYSTEM_VISUAL_AUDIO_AUDIT`. The fresh
+creative-system rebuild produced a 200.478-second governed 16:9 proof and a native 44.05-second
+9:16 short. It intentionally withheld a >=15-minute master because the strongest available
+governed Treasury story did not support that runtime without filler. Machine QA and immutable
+package verification pass; final visual/audio acceptance is not self-claimed.
+
 ## Operating modes
 
 - `AUTONOMOUS_DEFAULT`
