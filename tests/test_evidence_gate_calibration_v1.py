@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 import json
+from urllib.parse import parse_qs, urlsplit
 
 from live_contentops.claim_evidence_contract_v1 import build_claim_evidence_contract
 from live_contentops.newsroom_assignment_scheduler_v1 import (
@@ -307,6 +308,41 @@ def test_g_two_independent_reputable_rss_sources_can_corroborate_nonnumeric_brea
         row["support_status"] in {"SUPPORTED_CORROBORATED_SECONDARY", "SUPPORTED_SOURCE_TITLE"}
         for row in contract["supported_claims"]
     )
+
+
+def test_decision5_rss_query_removes_desk_metadata_and_recovers_corroboration():
+    rss = b"""<?xml version='1.0'?><rss><channel>
+    <item><title>Exclusive | U.S. Fires on Ship Breaking Its Blockade of Iran - WSJ</title><link>https://news.google.com/wsj</link><pubDate>Tue, 11 Aug 2026 12:22:00 GMT</pubDate><source url='https://wsj.com'>WSJ</source></item>
+    <item><title>US fired on ship that tried to break blockade of Iranian ports, WSJ reports - Reuters</title><link>https://news.google.com/reuters</link><pubDate>Tue, 11 Aug 2026 12:43:00 GMT</pubDate><source url='https://reuters.com'>Reuters</source></item>
+    </channel></rss>"""
+    requested_urls = []
+
+    def http_get(url, *_args):
+        requested_urls.append(url)
+        return {
+            "status": 200,
+            "final_url": url,
+            "headers": {"content-type": "application/rss+xml"},
+            "body": rss,
+        }
+
+    loader = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        clock=lambda: datetime(2026, 8, 11, 12, 0, tzinfo=timezone.utc),
+        http_get=http_get,
+    )
+    request = _request(
+        story_type="geopolitical_event",
+        summaries=["Exclusive | U.S. Fires on Ship Breaking Its Blockade of Iran - WSJ"],
+    )
+    packet = loader(request)
+    query = parse_qs(urlsplit(requested_urls[-1]).query)["q"][0]
+    contract = build_claim_evidence_contract(request, packet["evidence_documents"])
+
+    assert query == "US Fires Ship Breaking Blockade Iran"
+    assert {row["publisher"] for row in packet["evidence_documents"]} == {"WSJ", "Reuters"}
+    assert contract["status"] == "PASS"
+    assert contract["supported_claim_count"] == 1
 
 
 def test_only_x_discovery_with_no_corroborating_document_fails_closed():

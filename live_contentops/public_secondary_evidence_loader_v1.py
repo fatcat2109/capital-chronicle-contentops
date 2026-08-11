@@ -46,6 +46,16 @@ REPUTABLE_SECONDARY_NAMES = frozenset(
 NEWS_RSS_ENDPOINT = "https://news.google.com/rss/search"
 _TAG_RE = re.compile(r"<[^>]+>")
 _SCRIPT_RE = re.compile(r"<(?:script|style|noscript)[^>]*>.*?</(?:script|style|noscript)>", re.I | re.S)
+_RSS_QUERY_STOPWORDS = frozenset(
+    {"a", "an", "and", "as", "at", "by", "for", "from", "in", "into", "its", "of", "on", "or", "the", "to", "with"}
+)
+_RSS_DESK_LABEL_RE = re.compile(
+    r"^(?:breaking|exclusive|analysis|opinion|live|update)\s*[|:\-]\s*", re.I
+)
+_RSS_TRAILING_PUBLISHER_RE = re.compile(
+    r"\s+-\s+(?:AP|Associated Press|BBC|Bloomberg|CNBC|CNN|Financial Times|FT|Reuters|The Guardian|WSJ)\s*$",
+    re.I,
+)
 
 
 def _public_host(url: str, *, resolve_dns: bool = True) -> str:
@@ -98,6 +108,20 @@ def _public_text(body: bytes, content_type: str) -> str:
 def _publisher_from_host(host: str) -> str:
     core = host.removeprefix("www.").split(".")[0]
     return core.replace("-", " ").title()
+
+
+def _rss_query_terms(summary: str) -> list[str]:
+    """Remove feed/desk metadata while retaining the event-bearing headline terms."""
+    cleaned = " ".join(unescape(summary).split())
+    cleaned = _RSS_DESK_LABEL_RE.sub("", cleaned)
+    cleaned = _RSS_TRAILING_PUBLISHER_RE.sub("", cleaned)
+    cleaned = re.sub(r"\bU\.S\.", "US", cleaned, flags=re.I)
+    cleaned = re.sub(r"\bU\.K\.", "UK", cleaned, flags=re.I)
+    return [
+        token
+        for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{1,}", cleaned)
+        if token.casefold() not in _RSS_QUERY_STOPWORDS
+    ][:12]
 
 
 class BoundedPublicSecondaryEvidenceLoader:
@@ -187,7 +211,7 @@ class BoundedPublicSecondaryEvidenceLoader:
             for value in ((request.get("story_context") or {}).get("leaf_summaries") or [])
             if str(value).strip()
         ]
-        terms = re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", summaries[0] if summaries else "")[:12]
+        terms = _rss_query_terms(summaries[0] if summaries else "")
         if not terms:
             return []
         url = NEWS_RSS_ENDPOINT + "?" + urlencode(

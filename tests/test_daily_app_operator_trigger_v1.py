@@ -235,6 +235,7 @@ def test_autonomous_default_operator_cycle_keeps_canonical_gate_flag_only(tmp_pa
     )
     supervisor.tick(FIXED_NOW)
     assert calls[0]["publication_enabled"] is True
+    assert calls[0]["cutoff_utc"] == "2026-08-10T04:30:00Z"
     allowed = {
         "run_id", "output_dir", "cutoff_utc", "publication_enabled", "sidecar_glob",
         "capital_chronicle_root", "published_corpus", "cc_catalog", "operating_mode",

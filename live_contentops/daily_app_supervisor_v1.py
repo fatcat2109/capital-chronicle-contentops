@@ -1375,7 +1375,9 @@ class ContentOpsDailyAppSupervisor:
             "window_id": f"operator-requested-{trigger_id}",
             "trigger": TRIGGER_OPERATOR_REQUESTED,
             "start": start,
-            "end": start + timedelta(hours=1),
+            # Run Now is evaluated at the actual execution point, never at a synthetic
+            # requested-at-plus-one-hour future cutoff.
+            "end": now,
             "session": "operator_requested",
         }
         capture_summary = self._run_operator_trigger_intake_sync(now)
