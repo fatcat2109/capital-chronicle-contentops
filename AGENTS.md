@@ -2,133 +2,98 @@
 
 Authority date: 2026-08-11
 
-This is the universal contract for Codex sessions in this repository. More specific
-`AGENTS.md` files apply inside their directories and should contain local details rather than
-repeat this file.
+This is the compact repository-wide contract. A nearer `AGENTS.md` adds local routing without
+overriding these boundaries.
 
 ## Fresh-session path
 
-Read only this compact path before locating task code:
+Read only:
 
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
-3. the nearest scoped `AGENTS.md` for the files you will touch
-4. current product direction and next-task pointer only when product direction matters:
-   - `docs/CURRENT_CONTEXT.md`
-   - `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`
-   - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
-5. exact implementation, tests, and evidence for the task
+3. `docs/codegraph/V1_CONTEXT.md`
+4. the nearest scoped `AGENTS.md`
+5. exact task implementation, focused tests, and task evidence
 
-Read older master plans/status/evidence only when resolving a conflict, auditing history, or
-the current authority files route you there. Generated context describes repository state; it
-never replaces Jim's latest instruction or current authority documents.
+Read `docs/CURRENT_CONTEXT.md`, the current product-direction overlay, and the next-task pointer
+only when product direction matters. Read older plans/status/evidence only to resolve a concrete
+conflict or audit history. Generated context is descriptive, never authority.
 
 ## Authority
 
-Repository-state authority, highest first:
+Repository state, highest first: fetched GitHub refs/commits/diffs/exact bytes; committed code,
+tests, schemas, and evidence; current authority/status; redacted runtime readback; historical
+logs. Fetch before branch-sensitive work and reconcile conflicts.
 
-1. fetched GitHub refs, commits, diffs, and exact bytes;
-2. committed code, tests, schemas, and evidence;
-3. current overlays/status/master plans;
-4. durable redacted operational state and strict provider/platform readback;
-5. logs and historical material.
+Product direction, highest first: Jim's latest explicit instruction; current direction overlay
+and next-task pointer; older plans. Never let stale routing override a newer owner decision.
 
-Product-direction authority, highest first:
+## Current product
 
-1. Jim's latest explicit instruction;
-2. current committed direction overlay and next-task pointer;
-3. older plans and archives.
+V1 is the canonical Final Daily App: one-click morning resume, continuous cheap zero-LLM X
+intake, a rolling 24-hour newsroom, hierarchical assignment, published-memory/Capital Chronicle
+read-only preselection intelligence, story/article-mode routing, targeted evidence, grounded
+article/media, semantic review/revision, platform packages, canonical publication/readback, and
+V5 projection. The 5–8 articles/day band is a portfolio target, never filler permission.
 
-Reconcile conflicts. Never let an older plan override a newer owner decision.
+FDA-G calendar-time soak remains `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`; it is not
+accepted. The latest committed real production day correctly produced zero articles with
+`ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`. The next main V1 task is
+`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; do not implement
+it during context/index work.
 
-## Current product truth
+Tier2 is isolated and has no public-write authority. Rejected Tier2-B and rejected direct-image
+branches are reference only; never import direct/noncanonical provider transport from them.
 
-- V1 is the canonical Final Daily App. FDA-G calendar-time soak continues independently and
-  is not accepted yet.
-- Canonical V1 backend/state/UI surfaces are `live_contentops/`,
-  `live_contentops/durable_operational_store_v1.py`, the production orchestrator/pipeline, and
-  `ui/contentops_v5/`.
-- Tier2-A on master is an accepted local engineering slice awaiting/subject to visual product
-  direction. It has no public-write authority.
-- Tier2-B branch `task/tier2-b-remotion-multimodal-bakeoff-v1` is rejected/FAIL for visual
-  product quality. Its engineering is reference only; do not merge or continue it.
-- Branch `task/tier2-image-generation-9router-contract-correction-v1` at `8b043a5` is rejected.
-  It incorrectly hardcodes/direct-calls `ai.api-cheap.site`; do not import its host allowlist or
-  direct transport.
-- Exact V2 image blocker:
-  `LOCAL_9ROUTER_IMAGE_REGISTRY_AND_ROUTE_NOT_YET_PROVEN_END_TO_END`.
-- Next main V2 action:
-  `TIER2_LOCAL_9ROUTER_IMAGE_ROUTE_CORRECTION_AND_REAL_BAKEOFF`.
-- Fresh V2 creative requirements: better story selection, less numeric narration, premium
-  typography, materially richer motion, and later a rights-aware real-person/entity asset
-  resolver. Do not generate fake documentary images of real people.
+## Canonical boundaries
 
-## Product boundary
+- production boundary: `production_orchestrator_v1.ContentOpsProductionOrchestrator`
+- rolling-X facade/implementation: `eight_platform_substack_first_pipeline_v1.py` and
+  `_eight_platform_substack_first_pipeline_impl_v1.py`
+- controller: `daily_app_supervisor_v1.ContentOpsDailyAppSupervisor`
+- durable authority: `durable_operational_store_v1.py`
+- public-write owner: `publication_coordinator_v1.DurablePublicationCoordinator`
+- destination map/readiness: `destination_transport_registry_v1.py`
+- UI/read model: `ui/contentops_v5/` and `daily_app_ui_read_model_v1.py`
+- model seam: `nine_router_llm_seam_v2.py`, ordered policy, then provider adapter
 
-Capital Chronicle main owns analytical/numeric authority: calculations, models, scenarios,
-probabilities, forecasts, regimes, market/economic analysis, numeric truth, and realized-error
-attribution.
+Capital Chronicle main owns analytical/numeric truth; ContentOps reads it through the canonical
+read-only catalog/story-context seam. ContentOps owns governed newsroom, transformation,
+packaging, publication control, readback, reconciliation, and bounded learning.
 
-ContentOps owns governed newsroom/media production: intake, clustering/update chains,
-evidence/permission/freshness gates, selection/abstention, writing/editing/SEO, faithful
-transformation, deterministic/source-backed media, packaging, publication control, readback,
-reconciliation, incidents, and bounded performance learning.
+## Hard invariants
 
-ContentOps must not create independent analytical authority. Engagement never becomes factual
-authority and never weakens evidence, permission, freshness, or safety gates.
-
-## Protected and live boundaries
-
-- `v1.0` is immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b` with annotated tag
-  `v1.0`. Never rerun, mutate, move, or retag its accepted outputs/evidence.
-- Do not create a second newsroom, scheduler authority, state store, approval engine, outbox,
-  provider gateway, publication coordinator, dashboard, or analysis engine.
-- Unknown writes: `STOP RETRY → READ BACK → RECONCILE`.
-- No Tier-2/video public-write authority exists.
-- Chrome `CapitalChronicleBot` on CDP 9222 is ingestion-only. Always reuse the exact
-  operator-owned profile; never clone/reset/migrate/clean/replace it or fall back to another
-  browser/profile.
-- Edge `contentops-social-main` on CDP 9223 is publishing/media-management/readback only under
-  canonical registry and readiness gates.
-- Never inspect/export cookies, browser storage, tokens, credentials, private keys, or sessions.
-
-## Safety
-
-- never expose raw secrets, authorization headers, signed URLs, or session material;
-- never fabricate numbers, analysis, claims, quotes, sources, events, or readback;
-- never bypass evidence, permission, freshness, point-in-time, rights, or publication gates;
-- never retry an ambiguous write/upload blindly;
-- never treat generated media as documentary evidence;
-- never mutate Capital Chronicle main-project authority;
-- never perform provider/browser/platform/public actions without exact task authorization.
+- One newsroom, durable store, scheduler authority, approval/outbox path, public-write owner,
+  provider gateway, and dashboard. Extend canonical seams; do not create parallels.
+- Chrome `CapitalChronicleBot` on CDP 9222 is ingestion-only and always reuses the exact
+  operator-owned profile. Edge `contentops-social-main` on CDP 9223 is publication,
+  media-management, readback, and authorized read-only performance observation only.
+- Never inspect/export secrets, cookies, browser storage, tokens, credentials, or sessions.
+- Unknown write: `STOP RETRY → READ BACK → RECONCILE`. Never weaken evidence, permission,
+  freshness, rights, readiness, KILL_SWITCH, or publication gates.
+- Capital Chronicle is read-only; never fabricate claims, numbers, sources, events, or readback.
+- `v1.0` is immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`; never rerun, mutate,
+  move, or retag its accepted evidence.
 
 ## Working discipline
 
-- Fetch remote refs before branch-sensitive work. Start from fresh `origin/master` when asked.
-- Preserve unrelated dirty/untracked files. Do not use destructive reset/checkout operations.
-- Use `rg`/`rg --files` for search. If a repo-root `.codegraph/` exists, use
-  `codegraph explore "<question or symbols>"` before grep/file-by-file exploration.
-- Use `apply_patch` for hand edits.
-- Prefer bounded vertical changes and focused validation proportional to risk.
-- Stage explicit paths only; never `git add .` or `git add -A` in a mixed worktree.
-- Do not claim full-suite/CI PASS unless it actually ran.
-- Never merge or push to `master` unless explicitly directed.
+Preserve unrelated dirty/untracked work and Tier2 worktrees. Use CodeGraph first when a root
+`.codegraph/` exists; otherwise use `rg`/`rg --files`. Use `apply_patch` for hand edits, focused
+validation proportional to risk, and explicit staging paths only. Never `git add .`, force push,
+or push/merge master without exact authorization. Runtime/provider/browser/public actions require
+exact task authorization.
 
-## Deterministic context index
+## Codegraph
 
-The generated repository map is under `docs/codegraph/`.
-
-Regenerate after meaningful code, entrypoint, test, authority, or scoped-instruction changes:
-
-```text
-python scripts/generate_codex_context_index.py
-```
-
-Check staleness without writing:
+If `.codegraph/` exists, run `codegraph explore "<symbol or question>"` before grep/file-by-file
+inspection. The deterministic repository graph is `docs/codegraph/graph.json`; edge records state
+their inference type. Check or regenerate after meaningful code, entrypoint, test, authority,
+scoped-instruction, or V1-context changes:
 
 ```text
 python scripts/generate_codex_context_index.py --check
+python scripts/generate_codex_context_index.py
 ```
 
-The graph is descriptive, deterministic, and non-authoritative. Its metadata records the
-source HEAD and a scoped source digest.
+Runtime outputs, caches, raw headline data, generated media, vendor/build trees, screenshots, and
+broad historical evidence are intentionally excluded.

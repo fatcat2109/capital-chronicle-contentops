@@ -10,11 +10,17 @@ Do not let generated indexes become product authority. Do not rewrite accepted e
 plans merely to make them agree with newer direction; record supersession in current authority
 surfaces when explicitly tasked.
 
-`docs/codegraph/graph.json` and `docs/codegraph/INDEX.md` are deterministic generated outputs.
-Regenerate them with `python scripts/generate_codex_context_index.py`; do not hand-edit them.
-`docs/codegraph/V2_CONTEXT.md` is the compact curated V2 routing map and is validated alongside
-the generated graph.
+`docs/codegraph/graph.json`, `docs/codegraph/INDEX.md`, and `docs/codegraph/V2_CONTEXT.md` are
+deterministic generated outputs. `docs/codegraph/V1_CONTEXT.md` is the curated current V1 map;
+the generator validates its routed paths and includes it in freshness hashing. Regenerate with
+`python scripts/generate_codex_context_index.py`; do not hand-edit generated outputs.
 
 Exclude archives, runtime outputs, vendor trees, generated media, and broad historical evidence
 noise from the codegraph. Never commit secrets, signed URLs, browser/session material, or raw
 provider responses.
+
+Current production navigation evidence is limited to the continuous-intelligence realignment,
+preselection closeout, first real 5–8 production-day attempt, and current FDA-G routing linked
+from `V1_CONTEXT.md`. Do not rewrite accepted packets; update current routing surfaces only when
+the owner explicitly changes direction. Search the graph for `authority_doc` or
+`authority_anchor_paths`.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate a small deterministic Codex repository graph and V2 entry map.
+"""Generate the deterministic Codex repository graph and hot-path entry maps.
 
 The output is descriptive repository state, not product authority. The generator uses only the
 Python standard library and a small set of syntax/manifest readers; it intentionally excludes
@@ -12,9 +12,11 @@ import argparse
 import ast
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
 
@@ -23,7 +25,9 @@ OUTPUT_DIR = ROOT / "docs" / "codegraph"
 GRAPH_PATH = OUTPUT_DIR / "graph.json"
 INDEX_PATH = OUTPUT_DIR / "INDEX.md"
 V2_CONTEXT_PATH = OUTPUT_DIR / "V2_CONTEXT.md"
-SCHEMA_VERSION = "contentops.codex_context_graph.v1"
+V1_CONTEXT_PATH = OUTPUT_DIR / "V1_CONTEXT.md"
+SCHEMA_VERSION = "contentops.codex_context_graph.v2"
+GENERATOR_VERSION = "2.0.0"
 
 CODE_SUFFIXES = {
     ".py",
@@ -49,6 +53,8 @@ AUTHORITY_DOCS = {
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
     "docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md",
     "docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md",
+    "docs/codegraph/V1_CONTEXT.md",
+    "docs/codegraph/V2_CONTEXT.md",
 }
 GENERATED_PATHS = {
     "docs/codegraph/graph.json",
@@ -71,7 +77,103 @@ EXCLUDED_PARTS = {
 EXCLUDED_PREFIXES = (
     "docs/archive/",
     "docs/automation/VIDEO_FOUNDATION_AND_PAUSE_V1/",
+    "headline_ingestion/data/raw_archive/",
+    "headline_ingestion/data/intake/headline_sidecars/",
 )
+INCLUDED_ROOTS = (
+    "live_contentops/",
+    "headline_ingestion/",
+    "tests/",
+    "ui/contentops_v5/",
+    "scripts/",
+    "video/",
+    "current authority anchors",
+    "AGENTS hierarchy",
+)
+EXCLUDED_ROOTS = (
+    ".git/",
+    ".venv/ and virtualenvs/",
+    "node_modules/",
+    "Runtime outputs/",
+    "headline_ingestion/data/raw_archive/",
+    "headline_ingestion/data/intake/headline_sidecars/",
+    "docs/archive/ and non-anchor historical evidence/",
+    "screenshots, video, caches, and generated build artifacts",
+)
+
+HOT_PATHS: dict[str, tuple[str, ...]] = {
+    "V1 live runtime": (
+        "Start_ContentOps_Daily_App.cmd",
+        "live_contentops/daily_app_launcher_v1.py",
+        "live_contentops/daily_app_supervisor_v1.py",
+        "live_contentops/durable_operational_store_v1.py",
+        "tests/test_contentops_daily_app_launcher_v1.py",
+        "tests/test_daily_app_supervisor_v1.py",
+    ),
+    "Newsroom / intake": (
+        "live_contentops/continuous_headline_ingest_v1.py",
+        "live_contentops/eight_platform_substack_first_pipeline_v1.py",
+        "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+        "live_contentops/newsroom_assignment_scheduler_v1.py",
+        "live_contentops/preselection_intelligence_v1.py",
+        "live_contentops/editorial_portfolio_v1.py",
+        "tests/test_contentops_continuous_intelligence_realign_v1.py",
+        "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py",
+        "tests/test_rolling_x_newsroom_cycle_v1.py",
+    ),
+    "Capital Chronicle integration": (
+        "live_contentops/capital_chronicle_data_catalog_v1.py",
+        "live_contentops/published_corpus_read_model_v1.py",
+        "tests/test_contentops_continuous_intelligence_realign_v1.py",
+        "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py",
+    ),
+    "Evidence": (
+        "live_contentops/rolling_x_targeted_evidence_adapter_v1.py",
+        "live_contentops/official_primary_evidence_loader_v1.py",
+        "live_contentops/official_primary_source_locator_v1.py",
+        "tests/test_rolling_x_targeted_evidence_adapter_v1.py",
+        "tests/test_official_primary_evidence_loader_v1.py",
+        "tests/test_rolling_x_evidence_viability_v1.py",
+    ),
+    "Article / media": (
+        "live_contentops/rolling_x_grounded_article_media_builder_v1.py",
+        "tests/test_rolling_x_grounded_article_media_builder_v1.py",
+    ),
+    "Publication / readback": (
+        "live_contentops/publication_coordinator_v1.py",
+        "live_contentops/destination_transport_registry_v1.py",
+        "live_contentops/production_runtime_v1.py",
+        "tests/test_publication_coordinator_v1.py",
+        "tests/test_destination_identity_pinning_v1.py",
+        "tests/test_daily_app_publication_lifecycle_v1.py",
+        "tests/test_daily_app_automatic_readback_housekeeping_v1.py",
+    ),
+    "V5": (
+        "live_contentops/server.py",
+        "live_contentops/daily_app_ui_read_model_v1.py",
+        "ui/contentops_v5/src/main.tsx",
+        "ui/contentops_v5/src/views/DailyAppConsole.tsx",
+        "ui/contentops_v5/src/test/daily_app_console.test.tsx",
+        "tests/test_daily_app_ui_read_model_v1.py",
+    ),
+    "Router / models": (
+        "live_contentops/nine_router_llm_seam_v2.py",
+        "live_contentops/nine_router_ordered_model_router_v2.py",
+        "live_contentops/nine_router_provider_adapter_v2.py",
+        "tests/test_nine_router_ordered_model_router_v2.py",
+        "tests/test_nine_router_provider_adapter_and_preflight_v2.py",
+    ),
+}
+SYMBOL_DETAIL_PATHS = {
+    path
+    for paths in HOT_PATHS.values()
+    for path in paths
+    if path.endswith(".py") and not path.startswith("tests/")
+} | {
+    "live_contentops/production_orchestrator_v1.py",
+    "live_contentops/newsroom_assignment_scheduler_v1.py",
+    "live_contentops/editorial_portfolio_v1.py",
+}
 
 
 def rel(path: Path) -> str:
@@ -90,7 +192,7 @@ def included(path: Path) -> bool:
         and not path.name == "AGENTS.md"
     ):
         return False
-    if any(part in EXCLUDED_PARTS for part in PurePosixPath(relative).parts):
+    if any(part.lower() in EXCLUDED_PARTS for part in PurePosixPath(relative).parts):
         return False
     return (
         path.suffix.lower() in CODE_SUFFIXES
@@ -101,8 +203,30 @@ def included(path: Path) -> bool:
 
 
 def source_files() -> list[Path]:
-    paths = [path for path in ROOT.rglob("*") if path.is_file() and included(path)]
+    paths: list[Path] = []
+    for current, directories, filenames in os.walk(ROOT):
+        directories[:] = sorted(
+            directory
+            for directory in directories
+            if directory.lower() not in EXCLUDED_PARTS
+        )
+        base = Path(current)
+        for filename in sorted(filenames):
+            path = base / filename
+            if included(path):
+                paths.append(path)
     return sorted(paths, key=rel)
+
+
+def git_commit_timestamp() -> str:
+    """Return a deterministic generation timestamp derived from the source commit."""
+    try:
+        raw = subprocess.check_output(
+            ["git", "show", "-s", "--format=%cI", "HEAD"], cwd=ROOT, text=True
+        ).strip()
+        return datetime.fromisoformat(raw).astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+    except (OSError, subprocess.CalledProcessError, ValueError):
+        return "UNKNOWN"
 
 
 def git_head() -> str:
@@ -185,7 +309,12 @@ def python_import_edges(
             if target_module and module_paths[target_module] != rel(path):
                 edges.add((module_paths[target_module], "imports"))
     return [
-        {"from": rel(path), "to": target, "kind": kind}
+        {
+            "from": rel(path),
+            "to": target,
+            "kind": kind,
+            "inference": "python_ast_import",
+        }
         for target, kind in sorted(edges)
     ]
 
@@ -216,7 +345,292 @@ def ts_import_edges(path: Path, code_paths: set[str]) -> list[dict[str, str]]:
                 edges.add(target)
                 break
     return [
-        {"from": source, "to": target, "kind": "imports"} for target in sorted(edges)
+        {
+            "from": source,
+            "to": target,
+            "kind": "imports",
+            "inference": "typescript_relative_import_regex",
+        }
+        for target in sorted(edges)
+    ]
+
+
+class _PythonDefinitionVisitor(ast.NodeVisitor):
+    def __init__(self, source: str) -> None:
+        self.source = source
+        self.stack: list[str] = []
+        self.definitions: list[dict[str, Any]] = []
+
+    def _visit_definition(self, node: ast.AST, name: str, kind: str) -> None:
+        qualified = ".".join((*self.stack, name))
+        self.definitions.append(
+            {
+                "id": f"python_symbol:{self.source}::{qualified}",
+                "kind": kind,
+                "path": self.source,
+                "symbol": qualified,
+                "line": int(getattr(node, "lineno", 0) or 0),
+            }
+        )
+        self.stack.append(name)
+        self.generic_visit(node)
+        self.stack.pop()
+
+    def visit_ClassDef(self, node: ast.ClassDef) -> None:  # noqa: N802
+        self._visit_definition(node, node.name, "python_class")
+
+    def visit_FunctionDef(self, node: ast.FunctionDef) -> None:  # noqa: N802
+        kind = "python_method" if self.stack else "python_function"
+        self._visit_definition(node, node.name, kind)
+
+    def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:  # noqa: N802
+        kind = "python_method" if self.stack else "python_function"
+        self._visit_definition(node, node.name, kind)
+
+
+def python_tree(path: Path) -> ast.Module | None:
+    try:
+        return ast.parse(read_text(path), filename=str(path))
+    except SyntaxError:
+        return None
+
+
+def python_definitions(path: Path) -> list[dict[str, Any]]:
+    tree = python_tree(path)
+    if tree is None:
+        return []
+    visitor = _PythonDefinitionVisitor(rel(path))
+    visitor.visit(tree)
+    source = rel(path)
+    if is_test_path(source):
+        return []
+    if source in SYMBOL_DETAIL_PATHS:
+        # Top-level definitions and direct class methods are the useful call-path surface;
+        # nested closure internals add bulk without improving fresh-session routing.
+        return [row for row in visitor.definitions if row["symbol"].count(".") <= 1]
+    return [
+        row
+        for row in visitor.definitions
+        if "." not in row["symbol"] and not row["symbol"].startswith("_")
+    ]
+
+
+TS_EXPORT_RE = re.compile(
+    r"^\s*export\s+(?:default\s+)?(?:async\s+)?"
+    r"(?:function|class|const|let|var|interface|type|enum)\s+([A-Za-z_$][\w$]*)",
+    re.MULTILINE,
+)
+
+
+def typescript_export_nodes(path: Path) -> list[dict[str, Any]]:
+    source = rel(path)
+    text = read_text(path)
+    return [
+        {
+            "id": f"typescript_export:{source}::{name}",
+            "kind": "typescript_export",
+            "path": source,
+            "symbol": name,
+            "line": text[: match.start()].count("\n") + 1,
+        }
+        for match in TS_EXPORT_RE.finditer(text)
+        for name in [match.group(1)]
+    ]
+
+
+def _constant_string(node: ast.AST) -> str | None:
+    if isinstance(node, ast.Constant) and isinstance(node.value, str):
+        return node.value
+    return None
+
+
+def python_metadata_nodes(path: Path) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
+    """Derive CLI commands, HTTP routes, schema IDs, and durable tables."""
+    source = rel(path)
+    text_value = read_text(path)
+    tree = python_tree(path)
+    nodes: dict[str, dict[str, Any]] = {}
+    edges: dict[tuple[str, str, str], dict[str, str]] = {}
+    if tree is not None:
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.Assign, ast.AnnAssign)):
+                targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+                value = _constant_string(node.value)
+                if value:
+                    for target in targets:
+                        if isinstance(target, ast.Name) and "SCHEMA" in target.id and "." in value:
+                            node_id = f"schema:{value}"
+                            nodes[node_id] = {"id": node_id, "kind": "schema", "schema_id": value}
+                            edges[(source, node_id, "declares_schema")] = {
+                                "from": source,
+                                "to": node_id,
+                                "kind": "declares_schema",
+                                "inference": "python_ast_schema_constant",
+                            }
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
+                if node.func.attr == "add_parser" and node.args:
+                    command = _constant_string(node.args[0])
+                    if command:
+                        node_id = f"cli:{command}"
+                        nodes[node_id] = {"id": node_id, "kind": "cli_command", "command": command}
+                        edges[(source, node_id, "registers_cli_command")] = {
+                            "from": source,
+                            "to": node_id,
+                            "kind": "registers_cli_command",
+                            "inference": "python_ast_add_parser",
+                        }
+    for match in re.finditer(r"CREATE\s+TABLE(?:\s+IF\s+NOT\s+EXISTS)?\s+([A-Za-z_][\w]*)", text_value, re.I):
+        table = match.group(1)
+        node_id = f"durable_table:{table}"
+        nodes[node_id] = {"id": node_id, "kind": "durable_table", "table": table}
+        edges[(source, node_id, "owns_table_definition")] = {
+            "from": source,
+            "to": node_id,
+            "kind": "owns_table_definition",
+            "inference": "sql_create_table_regex",
+        }
+    return sorted(nodes.values(), key=lambda row: row["id"]), sorted(
+        edges.values(), key=lambda row: (row["from"], row["to"], row["kind"])
+    )
+
+
+def http_endpoint_nodes(path: Path) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
+    if rel(path) != "live_contentops/server.py":
+        return [], []
+    text_value = read_text(path)
+    nodes: list[dict[str, Any]] = []
+    edges: list[dict[str, str]] = []
+    for method, start, end in (("GET", "def do_GET", "def do_POST"), ("POST", "def do_POST", None)):
+        start_at = text_value.find(start)
+        if start_at < 0:
+            continue
+        end_at = text_value.find(end, start_at) if end else len(text_value)
+        body = text_value[start_at : end_at if end_at >= 0 else len(text_value)]
+        handler = f"python_symbol:live_contentops/server.py::PipelineServerHandler.do_{method}"
+        for route in sorted(set(re.findall(r'route\s*(?:==|!=)\s*[\'\"](/api/[^\'\"]+)', body))):
+            node_id = f"http:{method} {route}"
+            nodes.append({"id": node_id, "kind": "http_endpoint", "method": method, "route": route})
+            edges.extend(
+                [
+                    {
+                        "from": "live_contentops/server.py",
+                        "to": node_id,
+                        "kind": "defines_endpoint",
+                        "inference": "server_route_guard_regex",
+                    },
+                    {
+                        "from": node_id,
+                        "to": handler,
+                        "kind": "handled_by",
+                        "inference": "server_method_scope",
+                    },
+                ]
+            )
+    return nodes, edges
+
+
+class _ExactCallVisitor(ast.NodeVisitor):
+    """Emit only calls with an exact local or explicit-import target."""
+
+    def __init__(
+        self,
+        *,
+        source: str,
+        module: str,
+        symbol_ids: set[str],
+        imported_names: dict[str, tuple[str, str]],
+        imported_modules: dict[str, str],
+    ) -> None:
+        self.source = source
+        self.module = module
+        self.symbol_ids = symbol_ids
+        self.imported_names = imported_names
+        self.imported_modules = imported_modules
+        self.stack: list[str] = []
+        self.calls: set[tuple[str, str]] = set()
+
+    def _caller(self) -> str:
+        if not self.stack:
+            return self.source
+        return f"python_symbol:{self.source}::{'.'.join(self.stack)}"
+
+    def _target(self, node: ast.Call) -> str | None:
+        if isinstance(node.func, ast.Name):
+            name = node.func.id
+            if name in self.imported_names:
+                target_module, target_name = self.imported_names[name]
+                target_path = target_module.replace(".", "/") + ".py"
+                candidate = f"python_symbol:{target_path}::{target_name}"
+                return candidate if candidate in self.symbol_ids else None
+            target_path = self.module.replace(".", "/") + ".py"
+            candidate = f"python_symbol:{target_path}::{name}"
+            return candidate if candidate in self.symbol_ids else None
+        if isinstance(node.func, ast.Attribute) and isinstance(node.func.value, ast.Name):
+            owner = node.func.value.id
+            if owner == "self" and self.stack:
+                class_name = self.stack[0]
+                candidate = f"python_symbol:{self.source}::{class_name}.{node.func.attr}"
+                return candidate if candidate in self.symbol_ids else None
+            if owner in self.imported_modules:
+                target_path = self.imported_modules[owner].replace(".", "/") + ".py"
+                candidate = f"python_symbol:{target_path}::{node.func.attr}"
+                return candidate if candidate in self.symbol_ids else None
+        return None
+
+    def visit_Call(self, node: ast.Call) -> None:  # noqa: N802
+        target = self._target(node)
+        if target:
+            self.calls.add((self._caller(), target))
+        self.generic_visit(node)
+
+    def visit_ClassDef(self, node: ast.ClassDef) -> None:  # noqa: N802
+        self.stack.append(node.name)
+        self.generic_visit(node)
+        self.stack.pop()
+
+    def visit_FunctionDef(self, node: ast.FunctionDef) -> None:  # noqa: N802
+        self.stack.append(node.name)
+        self.generic_visit(node)
+        self.stack.pop()
+
+    def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:  # noqa: N802
+        self.stack.append(node.name)
+        self.generic_visit(node)
+        self.stack.pop()
+
+
+def python_call_edges(path: Path, symbol_ids: set[str]) -> list[dict[str, str]]:
+    tree = python_tree(path)
+    module = python_module_name(rel(path))
+    if tree is None or module is None:
+        return []
+    imported_names: dict[str, tuple[str, str]] = {}
+    imported_modules: dict[str, str] = {}
+    for node in tree.body:
+        if isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
+            for alias in node.names:
+                if alias.name != "*":
+                    imported_names[alias.asname or alias.name] = (node.module, alias.name)
+        elif isinstance(node, ast.Import):
+            for alias in node.names:
+                imported_modules[alias.asname or alias.name.split(".")[0]] = alias.name
+    visitor = _ExactCallVisitor(
+        source=rel(path),
+        module=module,
+        symbol_ids=symbol_ids,
+        imported_names=imported_names,
+        imported_modules=imported_modules,
+    )
+    visitor.visit(tree)
+    return [
+        {
+            "from": source,
+            "to": target,
+            "kind": "calls",
+            "inference": "python_ast_exact_name_call",
+        }
+        for source, target in sorted(visitor.calls)
+        if source in symbol_ids or source == rel(path)
     ]
 
 
@@ -246,7 +660,25 @@ def test_relationships(path: Path, node_paths: set[str]) -> list[dict[str, str]]
         f"ui/contentops_v5/src/{stem}.tsx",
     ]
     matches = [candidate for candidate in candidates if candidate in node_paths]
-    return [{"from": source, "to": candidate, "kind": "tests"} for candidate in matches]
+    rows: list[dict[str, str]] = []
+    for candidate in matches:
+        rows.extend(
+            [
+                {
+                    "from": source,
+                    "to": candidate,
+                    "kind": "tests",
+                    "inference": "test_filename_convention",
+                },
+                {
+                    "from": candidate,
+                    "to": source,
+                    "kind": "covered_by",
+                    "inference": "test_filename_convention",
+                },
+            ]
+        )
+    return rows
 
 
 def entrypoint_rows(paths: list[Path]) -> list[dict[str, str]]:
@@ -307,6 +739,30 @@ def node_kind(path: str) -> str:
     return "manifest"
 
 
+CURATED_RELATIONSHIPS: tuple[tuple[str, str, str], ...] = (
+    ("Start_ContentOps_Daily_App.cmd", "scripts/Start-ContentOpsDailyApp.ps1", "entrypoint_to_implementation"),
+    ("scripts/Start-ContentOpsDailyApp.ps1", "live_contentops/daily_app_launcher_v1.py", "entrypoint_to_implementation"),
+    ("live_contentops/daily_app_launcher_v1.py", "live_contentops/cli.py", "entrypoint_to_implementation"),
+    ("live_contentops/cli.py", "live_contentops/daily_app_supervisor_v1.py", "entrypoint_to_implementation"),
+    ("live_contentops/daily_app_supervisor_v1.py", "live_contentops/continuous_headline_ingest_v1.py", "supervises"),
+    ("live_contentops/daily_app_supervisor_v1.py", "live_contentops/eight_platform_substack_first_pipeline_v1.py", "supervises"),
+    ("live_contentops/daily_app_supervisor_v1.py", "live_contentops/publication_coordinator_v1.py", "owns_lifecycle_through"),
+    ("live_contentops/eight_platform_substack_first_pipeline_v1.py", "live_contentops/production_orchestrator_v1.py", "facade_to_orchestrator"),
+    ("live_contentops/production_orchestrator_v1.py", "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py", "orchestrator_to_implementation"),
+    ("live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py", "live_contentops/preselection_intelligence_v1.py", "newsroom_stage"),
+    ("live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py", "live_contentops/rolling_x_targeted_evidence_adapter_v1.py", "newsroom_stage"),
+    ("live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py", "live_contentops/rolling_x_grounded_article_media_builder_v1.py", "newsroom_stage"),
+    ("live_contentops/publication_coordinator_v1.py", "live_contentops/destination_transport_registry_v1.py", "publication_transport_registry"),
+    ("live_contentops/publication_coordinator_v1.py", "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py", "publication_transport_runtime"),
+    ("ui/contentops_v5/src/views/DailyAppConsole.tsx", "http:GET /api/daily-app/snapshot", "ui_calls_endpoint"),
+    ("ui/contentops_v5/src/views/DailyAppConsole.tsx", "http:POST /api/daily-app/control/run-now", "ui_calls_endpoint"),
+    ("ui/contentops_v5/src/views/DailyAppConsole.tsx", "http:POST /api/daily-app/control/mode", "ui_calls_endpoint"),
+    ("http:GET /api/daily-app/snapshot", "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot", "endpoint_to_read_model"),
+    ("http:POST /api/daily-app/control/run-now", "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::request_operator_cycle", "endpoint_to_read_model"),
+    ("http:POST /api/daily-app/control/mode", "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::update_daily_app_mode", "endpoint_to_read_model"),
+)
+
+
 def build_graph() -> dict[str, Any]:
     paths = source_files()
     node_paths = {rel(path) for path in paths}
@@ -315,38 +771,137 @@ def build_graph() -> dict[str, Any]:
         for path in node_paths
         if python_module_name(path)
     }
-    nodes = []
+    nodes: list[dict[str, Any]] = []
     for path in paths:
         source = rel(path)
         nodes.append(
             {"id": source, "kind": node_kind(source), "size_bytes": path.stat().st_size}
         )
+    symbol_nodes: list[dict[str, Any]] = []
+    metadata_edges: list[dict[str, str]] = []
+    for path in paths:
+        source = rel(path)
+        if path.suffix == ".py":
+            definitions = python_definitions(path)
+            symbol_nodes.extend(definitions)
+            metadata_edges.extend(
+                {
+                    "from": source,
+                    "to": row["id"],
+                    "kind": "defines",
+                    "inference": "python_ast_definition",
+                }
+                for row in definitions
+            )
+            derived_nodes, derived_edges = python_metadata_nodes(path)
+            symbol_nodes.extend(derived_nodes)
+            metadata_edges.extend(derived_edges)
+            endpoint_nodes, endpoint_edges = http_endpoint_nodes(path)
+            symbol_nodes.extend(endpoint_nodes)
+            metadata_edges.extend(endpoint_edges)
+        elif path.suffix.lower() in {".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"}:
+            exports = typescript_export_nodes(path)
+            symbol_nodes.extend(exports)
+            metadata_edges.extend(
+                {
+                    "from": source,
+                    "to": row["id"],
+                    "kind": "defines",
+                    "inference": "typescript_export_regex",
+                }
+                for row in exports
+            )
+    unique_symbol_nodes = {row["id"]: row for row in symbol_nodes}
+    nodes.extend(unique_symbol_nodes.values())
+    for source in sorted(path for path in node_paths if path == "AGENTS.md" or path.endswith("/AGENTS.md")):
+        governed = "." if source == "AGENTS.md" else str(PurePosixPath(source).parent)
+        directory_id = f"directory:{governed}"
+        nodes.append({"id": directory_id, "kind": "directory_scope", "path": governed})
+        metadata_edges.append(
+            {
+                "from": source,
+                "to": directory_id,
+                "kind": "governs",
+                "inference": "agents_directory_scope",
+            }
+        )
+    nodes = sorted({row["id"]: row for row in nodes}.values(), key=lambda row: row["id"])
+    all_node_ids = {row["id"] for row in nodes}
     edges: list[dict[str, str]] = []
     for path in paths:
         if path.suffix == ".py":
             edges.extend(python_import_edges(path, module_paths))
+            edges.extend(python_call_edges(path, all_node_ids))
         elif path.suffix.lower() in {".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"}:
             edges.extend(ts_import_edges(path, node_paths))
         edges.extend(test_relationships(path, node_paths))
+    # Exact test imports are stronger coverage evidence than filename similarity alone.
+    for edge in list(edges):
+        if edge["kind"] == "imports" and is_test_path(edge["from"]):
+            edges.extend(
+                [
+                    {
+                        "from": edge["from"],
+                        "to": edge["to"],
+                        "kind": "tests",
+                        "inference": "test_exact_import",
+                    },
+                    {
+                        "from": edge["to"],
+                        "to": edge["from"],
+                        "kind": "covered_by",
+                        "inference": "test_exact_import",
+                    },
+                ]
+            )
+    edges.extend(metadata_edges)
+    for source, target, kind in CURATED_RELATIONSHIPS:
+        if source in all_node_ids and target in all_node_ids:
+            edges.append(
+                {
+                    "from": source,
+                    "to": target,
+                    "kind": kind,
+                    "inference": "curated_canonical_v1_relationship",
+                }
+            )
+    # The canonical store owns every durable table in the embedded migration registry.
+    durable_store = "live_contentops/durable_operational_store_v1.py"
+    for node_id in sorted(node for node in all_node_ids if node.startswith("durable_table:")):
+        edges.append(
+            {
+                "from": durable_store,
+                "to": node_id,
+                "kind": "state_owner",
+                "inference": "curated_canonical_store_plus_embedded_migrations",
+            }
+        )
     edges = sorted(
-        {(edge["from"], edge["to"], edge["kind"]): edge for edge in edges}.values(),
-        key=lambda edge: (edge["from"], edge["to"], edge["kind"]),
+        {
+            (edge["from"], edge["to"], edge["kind"], edge.get("inference", "")): edge
+            for edge in edges
+        }.values(),
+        key=lambda edge: (
+            edge["from"], edge["to"], edge["kind"], edge.get("inference", "")
+        ),
     )
     paths_digest = source_digest(paths)
+    kind_counts: dict[str, int] = {}
+    for node in nodes:
+        kind_counts[node["kind"]] = kind_counts.get(node["kind"], 0) + 1
+    inference_types = sorted({edge.get("inference", "unspecified") for edge in edges})
     return {
         "schema_version": SCHEMA_VERSION,
+        "generator_version": GENERATOR_VERSION,
+        "generation_timestamp_utc": git_commit_timestamp(),
         "source_head": git_head(),
         "source_tree_digest": paths_digest,
+        "authority_anchor_paths": sorted(AUTHORITY_DOCS),
         "generated_outputs": sorted(GENERATED_PATHS),
+        "included_roots": list(INCLUDED_ROOTS),
+        "excluded_roots": list(EXCLUDED_ROOTS),
         "excluded_noise": sorted(EXCLUDED_PARTS | set(EXCLUDED_PREFIXES)),
-        "scope_roots": [
-            "live_contentops/",
-            "tests/",
-            "ui/contentops_v5/",
-            "scripts/",
-            "docs/authority files",
-            "AGENTS hierarchy",
-        ],
+        "inference_types": inference_types,
         "nodes": nodes,
         "edges": edges,
         "entrypoints": entrypoint_rows(paths),
@@ -410,6 +965,7 @@ def build_graph() -> dict[str, Any]:
             "nodes": len(nodes),
             "edges": len(edges),
             "entrypoints": len(entrypoint_rows(paths)),
+            "nodes_by_kind": dict(sorted(kind_counts.items())),
         },
     }
 
@@ -480,22 +1036,23 @@ def index_markdown(graph: dict[str, Any]) -> str:
         "",
         f"Source HEAD: `{graph['source_head']}`",
         f"Source tree digest: `{graph['source_tree_digest']}`",
+        f"Graph schema: `{graph['schema_version']}`; generator: `{graph['generator_version']}`",
         "",
-        "This is a generated descriptive map. Check freshness with:",
+        "This generated map is descriptive, not product authority.",
         "",
-        "```text",
-        "python scripts/generate_codex_context_index.py --check",
-        "```",
+        "## Fresh session",
         "",
-        "Start with the nearest scoped instructions, then use the context map and graph:",
+        "Read only these before the exact task files:",
         "",
-        "- root contract: `AGENTS.md`",
-        "- backend: `live_contentops/AGENTS.md`",
-        "- renderer/future V2: `video/AGENTS.md`",
-        "- canonical UI: `ui/contentops_v5/AGENTS.md`",
-        "- authority/generated docs: `docs/AGENTS.md`",
-        "- V2 map: `docs/codegraph/V2_CONTEXT.md`",
-        "- machine graph: `docs/codegraph/graph.json`",
+        "1. `AGENTS.md`",
+        "2. `docs/codegraph/INDEX.md` (this page)",
+        "3. `docs/codegraph/V1_CONTEXT.md`",
+        "4. nearest scoped `AGENTS.md`",
+        "5. exact implementation and focused tests",
+        "",
+        "Open current direction/next-task authority only when product direction matters: "
+        "`docs/CURRENT_CONTEXT.md`, `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`, and "
+        "`docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`.",
         "",
         "## Entrypoints",
         "",
@@ -506,19 +1063,56 @@ def index_markdown(graph: dict[str, Any]) -> str:
         f"| `{row['kind']}` | `{row['path']}` | `{row['command_or_symbol']}` |"
         for row in entrypoints
     )
+    for heading, paths in HOT_PATHS.items():
+        lines.extend(["", f"## {heading}", ""])
+        lines.extend(f"- `{path}`" for path in paths)
     lines.extend(
         [
             "",
-            "## Authority anchors",
+            "## Tests",
             "",
-            "- Current direction: `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md`",
-            "- Current context: `docs/CURRENT_CONTEXT.md`",
-            "- Next task pointer: `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`",
-            "- Tier-2 authority: `docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_NORTH_STAR_V1.md` and `...MASTER_PLAN_V1.md`",
+            "Use the focused test beside each hot-path section. Backend tests are under `tests/`; "
+            "V5 tests are under `ui/contentops_v5/src/test/`. Generator coverage is "
+            "`tests/test_codex_context_index.py`.",
+            "",
+            "## Current blocker",
+            "",
+            "Committed production-day evidence reports `NO_PUBLICATION_GOVERNED_EVIDENCE_BLOCK` "
+            "with exact blocker `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`: evidence acquisition and "
+            "capability fit stopped all 12 ranked clusters before article generation. See "
+            "`docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md`.",
+            "",
+            "Next main V1 task: "
+            "`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`. "
+            "Do not implement it as part of context/index maintenance.",
+            "",
+            "## Tier2 separation",
+            "",
+            "Tier2/video is isolated from the V1 runtime and has no public-write authority. Read "
+            "`docs/codegraph/V2_CONTEXT.md` and `video/AGENTS.md` only for an authorized V2 task. "
+            "Rejected branches are reference only.",
+            "",
+            "## Generated graph files",
+            "",
+            "- `docs/codegraph/graph.json`: machine nodes, edges, inference labels, metadata, and exclusions",
+            "- `docs/codegraph/INDEX.md`: generated hot-path router",
+            "- `docs/codegraph/V2_CONTEXT.md`: generated compact V2 separation map",
+            "- `docs/codegraph/V1_CONTEXT.md`: curated, validated V1 product/decision/state map",
+            "",
+            "## Regeneration and check",
+            "",
+            "```text",
+            "python scripts/generate_codex_context_index.py",
+            "python scripts/generate_codex_context_index.py --check",
+            "```",
             "",
             "## Scope",
             "",
-            f"`{graph['counts']['nodes']}` nodes and `{graph['counts']['edges']}` edges are generated from Python, TypeScript/JavaScript, manifests, authority files, and the scoped AGENTS hierarchy. Noise exclusions are recorded in `graph.json`.",
+            f"`{graph['counts']['nodes']}` nodes and `{graph['counts']['edges']}` edges cover files, "
+            "Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable "
+            "tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. "
+            "Every inferred edge carries an `inference` label. Included/excluded roots are "
+            "recorded in `graph.json`.",
             "",
         ]
     )
@@ -539,6 +1133,7 @@ def normalized_for_check(path: str, value: str) -> str:
     if path.endswith("graph.json"):
         parsed = json.loads(value)
         parsed["source_head"] = "<HEAD>"
+        parsed["generation_timestamp_utc"] = "<TIMESTAMP>"
         return json.dumps(parsed, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     return re.sub(
         r"(source HEAD|Source HEAD): `?[0-9a-f]+`?",
@@ -567,6 +1162,11 @@ def check_outputs() -> int:
         if mismatched:
             print("STALE:" + ",".join(mismatched))
         return 1
+    graph = json.loads(expected[rel(GRAPH_PATH)])
+    errors = validate_graph(graph) + validate_context_contract(graph)
+    if errors:
+        print("INVALID:" + ",".join(errors))
+        return 1
     print("CODEGRAPH_CURRENT")
     return 0
 
@@ -585,6 +1185,36 @@ def validate_graph(graph: dict[str, Any]) -> list[str]:
     return errors
 
 
+SECRET_SHAPED_RE = re.compile(
+    r"(?i)(?:sk-[A-Za-z0-9_-]{20,}|xox[baprs]-[A-Za-z0-9-]{10,}|"
+    r"ghp_[A-Za-z0-9]{20,}|bearer\s+[A-Za-z0-9._-]{20,}|"
+    r"discord(?:app)?\.com/api/webhooks/\d+/[A-Za-z0-9_-]+|"
+    r"(?:cookie|session|authorization)\s*[:=]\s*[^\s`]{12,})"
+)
+
+
+def validate_context_contract(graph: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    for path in sorted(set(AUTHORITY_DOCS) | {item for paths in HOT_PATHS.values() for item in paths}):
+        if not (ROOT / path).exists():
+            errors.append(f"missing_context_path:{path}")
+    for scoped in ("AGENTS.md", "live_contentops/AGENTS.md", "headline_ingestion/AGENTS.md",
+                   "ui/contentops_v5/AGENTS.md", "tests/AGENTS.md", "docs/AGENTS.md",
+                   "scripts/AGENTS.md", "video/AGENTS.md"):
+        if not (ROOT / scoped).is_file():
+            errors.append(f"missing_scoped_agents:{scoped}")
+    for output_path in (V1_CONTEXT_PATH, INDEX_PATH, GRAPH_PATH, V2_CONTEXT_PATH):
+        if output_path.exists() and SECRET_SHAPED_RE.search(read_text(output_path)):
+            errors.append(f"secret_shaped_content:{rel(output_path)}")
+    if graph.get("schema_version") != SCHEMA_VERSION:
+        errors.append("graph_schema_version_mismatch")
+    if graph.get("generator_version") != GENERATOR_VERSION:
+        errors.append("graph_generator_version_mismatch")
+    if sorted(graph.get("authority_anchor_paths") or []) != sorted(AUTHORITY_DOCS):
+        errors.append("authority_anchor_list_mismatch")
+    return errors
+
+
 def write_outputs() -> None:
     outputs = build_outputs()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -593,7 +1223,7 @@ def write_outputs() -> None:
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content, encoding="utf-8", newline="\n")
     graph = json.loads(outputs[rel(GRAPH_PATH)])
-    errors = validate_graph(graph)
+    errors = validate_graph(graph) + validate_context_contract(graph)
     if errors:
         raise SystemExit("INVALID_GRAPH:" + ",".join(errors))
     print(

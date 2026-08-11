@@ -137,17 +137,15 @@ always-on Daily App runtime vertical slice
 
 The old sequence that unlocked V2 immediately after one publishable-package canary is superseded.
 
-## 11. Exact next task
+## 11. Exact next main V1 task
 
-`TASK_CONTENTOPS_FINAL_DAILY_APP_ALWAYS_ON_RUNTIME_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-The task must deliver a real product capability, not documentation ceremony.
-
-Expected next after clean success:
-
-`TASK_CONTENTOPS_FINAL_DAILY_APP_REAL_PERFORMANCE_OBSERVATION_AND_LEARNING_LOOP_V1`
-
-unless a new substantive blocker is discovered.
+Current committed real-production evidence reports
+`ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`. Calibrate over-broad non-safety requirements by exact
+story/article mode and improve first-party evidence acquisition without weakening hard truth,
+permission, freshness, rights, readiness, or public-write safety gates. Do not implement that
+runtime task as part of context/index maintenance.
 
 ## 12. Fast-ship doctrine
 

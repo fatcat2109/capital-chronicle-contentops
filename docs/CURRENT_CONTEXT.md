@@ -31,6 +31,14 @@ Current completed runtime correction:
 
 `TASK_CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1`
 
+Current context-system closeout:
+
+`TASK_CONTENTOPS_V1_AGENTS_AND_CODEGRAPH_CONTEXT_SYSTEM_CLOSEOUT_V1`
+
+Next main V1 builder task after context closeout:
+
+`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
+
 Prior completed runtime task:
 
 `TASK_CONTENTOPS_V1_CONTINUOUS_INTELLIGENCE_INTAKE_CC_DATABASE_AND_EDITORIAL_PORTFOLIO_REALIGN_V1`
@@ -179,16 +187,19 @@ Do not create another newsroom, production pipeline, durable state store, schedu
 
 Always-on means cheap idle supervision, not continuous LLM calls.
 
-## Current first task
+## Current next tasks
 
-FDA-G genuine calendar-time soak is active. After the completed one-click launcher task, Jim's
-2026-08-10 owner priority override routes the next builder lane to:
+FDA-G genuine calendar-time soak remains active. After the bounded context-system closeout, the
+next main V1 builder lane is:
 
-`TIER2-A LOCAL LONG-FORM + SHORT-FORM PROGRAMMABLE VERTICAL SLICE`
+`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-Tier-2 proceeds concurrently with the continuing FDA-G evidence lane, remains isolated from the
-live V1 production runtime, and has NO video public-write authority under that
-reprioritization. FDA-G remains active and is not declared accepted by the launcher task.
+Its routing goal is story/article-mode-specific calibration of over-broad non-safety evidence
+requirements and better first-party acquisition, followed by another governed real-production
+attempt. Hard truth/safety gates remain unchanged. Do not implement it during context closeout.
+
+Tier-2 work remains a separate concurrent lane, isolated from the live V1 production runtime and
+without video public-write authority. FDA-G is not accepted by either lane.
 
 ## Operating modes
 

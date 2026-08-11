@@ -293,6 +293,15 @@ Status: `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`. This is launch-se
 success only, not FDA-G final acceptance. Do not create `v1.1.0` until the genuine 5–10
 operating-day release evidence is complete and independently audited.
 
+Next main V1 builder task after the bounded context-system closeout:
+
+`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
+
+It addresses the committed `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED` result through exact
+story/article-mode-specific non-safety evidence calibration and improved first-party acquisition.
+Hard truth/safety/publication gates remain unchanged. It is separate from the continuing FDA-G
+soak and the isolated Tier-2 lane.
+
 Completed operator-infrastructure task (owner priority override, 2026-08-10):
 
 `TASK_CONTENTOPS_V1_ONE_CLICK_MORNING_LAUNCH_AND_RESUME_V1`

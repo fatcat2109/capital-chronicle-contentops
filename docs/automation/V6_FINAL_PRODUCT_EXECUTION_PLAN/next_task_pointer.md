@@ -19,6 +19,18 @@ soak is active. This is launch-session success only, not FDA-G final acceptance.
 `v1.1.0` until the genuine 5–10 operating-day release evidence is complete and independently
 audited.
 
+## Next main V1 builder lane after context closeout
+
+`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
+
+The first real 5–8 production-day attempt ended correctly at
+`ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`: all 12 ranked clusters stopped at targeted evidence and
+zero public write occurred. The next V1 task should calibrate/remove over-broad non-safety
+requirements so evidence profiles are truly story/article-mode-specific, improve first-party
+evidence acquisition, then rerun governed production toward the 5–8/day target. It must preserve
+all hard truth, permission, freshness, rights, readiness, KILL_SWITCH, UNKNOWN_WRITE, and
+publication gates. This routing note does not implement that task and does not accept FDA-G.
+
 ## Owner priority override recorded 2026-08-10
 
 Jim reprioritized implementation to proceed concurrently with the continuing FDA-G evidence

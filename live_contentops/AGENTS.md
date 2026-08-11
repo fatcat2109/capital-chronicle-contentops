@@ -10,6 +10,14 @@ Tier2-A Python slice. Root safety and authority rules still apply.
   `eight_platform_substack_first_pipeline_v1.py`
 - durable state: `durable_operational_store_v1.py`
 - Daily App coordination: `daily_app_supervisor_v1.py`, `daily_app_launcher_v1.py`
+- continuous intake: `continuous_headline_ingest_v1.py`; rolling 24h loader and hierarchical
+  assignment: `newsroom_assignment_scheduler_v1.py`
+- preselection: `preselection_intelligence_v1.py`, `published_corpus_read_model_v1.py`,
+  `capital_chronicle_data_catalog_v1.py`, `editorial_portfolio_v1.py`
+- evidence/article: `rolling_x_targeted_evidence_adapter_v1.py`,
+  `rolling_x_grounded_article_media_builder_v1.py`
+- sole public-write owner and transport map: `publication_coordinator_v1.py`,
+  `destination_transport_registry_v1.py`
 - canonical model seam: `nine_router_llm_seam_v2.py`, ordered policy in
   `nine_router_ordered_model_router_v2.py`, transport in `nine_router_provider_adapter_v2.py`
 - Tier2-A local factory: `tier2_video_factory_v1.py`
@@ -30,6 +38,17 @@ Use `docs/codegraph/INDEX.md` to find callers and mapped tests before opening br
   prove the canonical local 9Router image registry and route end to end.
 - `VideoProgram` is renderer-neutral authority; FFmpeg/Remotion/Pillow are compiler targets.
 
+## Common wrong paths
+
+- Do not revive `POST /api/run-pipeline`, old direct pipeline launchers, or supervised-only
+  orchestration assumptions; the server route is quarantined.
+- Do not treat historical `ALL_DATA` files as new intake truth; the canonical store is the
+  append-only daily sidecar root under `headline_ingestion/data/intake/headline_sidecars/`.
+- Do not call private `_eight_platform_*` functions as a new public entrypoint. Use the facade →
+  production orchestrator boundary.
+- Do not add publishing calls to the newsroom cycle. It returns a plan to
+  `DurablePublicationCoordinator`.
+
 ## Validation routing
 
 Backend tests live in `tests/` and usually mirror the implementation filename:
@@ -38,6 +57,11 @@ Backend tests live in `tests/` and usually mirror the implementation filename:
 - router: `test_nine_router_*`
 - Tier2-A: `test_tier2_video_factory_v1.py`
 - CLI registration: `test_cli.py` plus feature-specific CLI tests
+
+For the V1 decision path, start with `tests/test_rolling_x_newsroom_cycle_v1.py`,
+`test_preselection_published_memory_breaking_wake_closeout_v1.py`,
+`test_rolling_x_targeted_evidence_adapter_v1.py`, and `test_publication_coordinator_v1.py`.
+Query `docs/codegraph/graph.json` for `covered_by`, `calls`, `newsroom_stage`, or a symbol ID.
 
 Run the smallest relevant pytest selection. Any shared router/store/CLI edit also requires its
 canonical regression file.
