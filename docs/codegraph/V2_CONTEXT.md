@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `6f8a1788f094c607896b8304161dfea783a20c64`. Source tree digest: `2e827ed629b0937c038d9faea427f183769402c2527efe5e66373e895ebbc35e`.
+Generated from source HEAD `3a49d16063e0874867585eb9b924465adede192a`. Source tree digest: `4938ec36253dd540b1b175e2c065abd25bc2230b3b868a3257d70787f4b4bb31`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This map is descriptive repository state, not product authority. Jim's current direction and
@@ -46,8 +46,8 @@ resolver. No video public-write authority exists.
 
 ## Graph inventory
 
-- Nodes: `1478`
-- Edges: `1684`
+- Nodes: `6432`
+- Edges: `12036`
 - Entrypoints: `8`
 - Python import edges, TypeScript/JavaScript relative import edges, and determinable test-to-
   implementation edges are included.
