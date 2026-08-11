@@ -42,8 +42,21 @@ accepted. The latest committed real production day correctly produced zero artic
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; do not implement
 it during context/index work.
 
-Tier2 is isolated and has no public-write authority. Rejected Tier2-B and rejected direct-image
-branches are reference only; never import direct/noncanonical provider transport from them.
+Tier2 is isolated and has no public-write authority. Rejected Tier2-B remains reference only.
+`TASK_CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1` is accepted
+`PASS_WITH_CAVEAT` at `a859d5ff82707842f59163e4ec5150b22fbe6b0e`: the dedicated direct
+`https://ai.api-cheap.site/v1/images/generations` boundary using only
+`AI_API_CHEAP_API_KEY` is proven end to end for `gpt-5.5`. `gpt-5.5` is the provisional V2
+generated-illustration default pending future product evidence; generated illustration is never
+factual or documentary authority. `wan2.7-image-pro` and `qwen-image-2.0` returned confirmed
+HTTP 400 responses on the tested contract and remain unresolved without blocking V2.
+
+The rejected `task/tier2-image-generation-9router-contract-correction-v1` implementation at
+`8b043a5` remains reference only. Never import it or add `ai.api-cheap.site` to the generic
+9Router adapter. The prior local 9Router image blocker is removed. The next V2 route is a
+`FRESH V2 CREATIVE-SYSTEM REBUILD` with stronger story/video suitability, less numeric
+narration, premium typography, richer motion/chart transitions, generated illustrative assets,
+rights-aware real-person/entity imagery, improved voice/music, and stronger multimodal QA.
 
 ## Canonical boundaries
 

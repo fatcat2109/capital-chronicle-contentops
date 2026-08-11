@@ -1,0 +1,69 @@
+{
+  "invalid_existing_artifacts_marked_no_retry": [],
+  "unfinished_dispatches_marked_no_retry": [],
+  "valid_existing_artifacts": [
+    {
+      "bytes": 2539643,
+      "cell_key": "smoke:gpt-5.5",
+      "content_type": "image/png",
+      "height": 1402,
+      "output_file": "C:\\Users\\bullw\\AppData\\Local\\Temp\\tier2-direct-image-api-real-smoke-bakeoff-v1\\smoke\\gpt-5_5.png",
+      "output_sha256": "90d3ecf656fc5565ccb76eee515ae9e7ba46f57871f228a8d252ae13798130a2",
+      "width": 1122
+    },
+    {
+      "bytes": 2028568,
+      "cell_key": "bakeoff:gpt-5.5:macro_central_bank:landscape",
+      "content_type": "image/png",
+      "height": 941,
+      "output_file": "C:\\Users\\bullw\\AppData\\Local\\Temp\\tier2-direct-image-api-real-smoke-bakeoff-v1\\landscape\\gpt-5_5__macro_central_bank.png",
+      "output_sha256": "195456f914e778eeb652ae27c16509cb0ab521f80fd32baf948967150396d833",
+      "width": 1672
+    },
+    {
+      "bytes": 2159863,
+      "cell_key": "bakeoff:gpt-5.5:macro_central_bank:vertical",
+      "content_type": "image/png",
+      "height": 1672,
+      "output_file": "C:\\Users\\bullw\\AppData\\Local\\Temp\\tier2-direct-image-api-real-smoke-bakeoff-v1\\vertical\\gpt-5_5__macro_central_bank.png",
+      "output_sha256": "b10e2bb4a3c69b8f37189cd4d7bb4ba5af6fc7b9300aaaa165319ab12945aff2",
+      "width": 941
+    },
+    {
+      "bytes": 1767880,
+      "cell_key": "bakeoff:gpt-5.5:corporate_earnings:landscape",
+      "content_type": "image/png",
+      "height": 941,
+      "output_file": "C:\\Users\\bullw\\AppData\\Local\\Temp\\tier2-direct-image-api-real-smoke-bakeoff-v1\\landscape\\gpt-5_5__corporate_earnings.png",
+      "output_sha256": "836d137e12adac062332c8c1a262568bc3e99a2e1f9ac890fc50f4d4eb5a045b",
+      "width": 1672
+    },
+    {
+      "bytes": 1737916,
+      "cell_key": "bakeoff:gpt-5.5:corporate_earnings:vertical",
+      "content_type": "image/png",
+      "height": 1672,
+      "output_file": "C:\\Users\\bullw\\AppData\\Local\\Temp\\tier2-direct-image-api-real-smoke-bakeoff-v1\\vertical\\gpt-5_5__corporate_earnings.png",
+      "output_sha256": "55ddb9e7f788a5ef43d21deffa81df4c2a789c6a10ade6b291f1b72294cac06a",
+      "width": 941
+    },
+    {
+      "bytes": 2095729,
+      "cell_key": "bakeoff:gpt-5.5:geopolitical_trade:landscape",
+      "content_type": "image/png",
+      "height": 941,
+      "output_file": "C:\\Users\\bullw\\AppData\\Local\\Temp\\tier2-direct-image-api-real-smoke-bakeoff-v1\\landscape\\gpt-5_5__geopolitical_trade.png",
+      "output_sha256": "e6f4bb556c5d991eb136fc4040a1e823a09add173ff4186418453391cb38a518",
+      "width": 1672
+    },
+    {
+      "bytes": 2404725,
+      "cell_key": "bakeoff:gpt-5.5:geopolitical_trade:vertical",
+      "content_type": "image/png",
+      "height": 1672,
+      "output_file": "C:\\Users\\bullw\\AppData\\Local\\Temp\\tier2-direct-image-api-real-smoke-bakeoff-v1\\vertical\\gpt-5_5__geopolitical_trade.png",
+      "output_sha256": "5985ded013cd217689f1a8d05f2fbbf8dab43319fd88cf9cd21da985e5c8ea7e",
+      "width": 941
+    }
+  ]
+}

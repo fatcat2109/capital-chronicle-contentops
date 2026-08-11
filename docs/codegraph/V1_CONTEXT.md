@@ -190,8 +190,9 @@ unless a current document or code conflict requires it.
   sidecar store is canonical for current headline intake.
 - Do not create a parallel scheduler, newsroom, outbox, publisher, publication coordinator,
   provider gateway, state store, or dashboard.
-- Rejected Tier2-B and direct-image branches are reference only. Do not merge them or adopt a
-  hardcoded/direct provider route; V2 remains isolated and has no public-write authority.
+- Rejected Tier2-B and the rejected direct-image implementation at `8b043a5` are reference only;
+  do not merge them or add `ai.api-cheap.site` to the generic 9Router adapter. The separately
+  accepted direct-image boundary remains isolated from V1 and grants no public-write authority.
 - Private `_eight_platform_substack_first_pipeline_impl_v1` is implementation behind the public
   facade/orchestrator, not a new caller boundary.
 
