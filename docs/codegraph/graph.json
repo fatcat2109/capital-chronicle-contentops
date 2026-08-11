@@ -1,8 +1,8 @@
 {
   "counts": {
-    "edges": 1684,
+    "edges": 1687,
     "entrypoints": 8,
-    "nodes": 1478
+    "nodes": 1481
   },
   "edges": [
     {
@@ -1172,6 +1172,11 @@
     },
     {
       "from": "live_contentops/destination_transport_registry_v1.py",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/direct_image_api_v1.py",
       "kind": "imports",
       "to": "live_contentops/__init__.py"
     },
@@ -4554,6 +4559,16 @@
       "from": "tests/test_destination_identity_pinning_v1.py",
       "kind": "imports",
       "to": "live_contentops/publishing_profile_registry_v1.py"
+    },
+    {
+      "from": "tests/test_direct_image_api_v1.py",
+      "kind": "imports",
+      "to": "live_contentops/direct_image_api_v1.py"
+    },
+    {
+      "from": "tests/test_direct_image_api_v1.py",
+      "kind": "tests",
+      "to": "live_contentops/direct_image_api_v1.py"
     },
     {
       "from": "tests/test_discord_feedback_summary_v6.py",
@@ -9430,6 +9445,11 @@
       "size_bytes": 26488
     },
     {
+      "id": "live_contentops/direct_image_api_v1.py",
+      "kind": "python_module",
+      "size_bytes": 21281
+    },
+    {
       "id": "live_contentops/discord_feedback_summary_v6.py",
       "kind": "python_module",
       "size_bytes": 7783
@@ -11902,7 +11922,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 22221
+      "size_bytes": 22844
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -11923,6 +11943,11 @@
       "id": "scripts/intake_cc_artifact_packet_v0.py",
       "kind": "python_module",
       "size_bytes": 2231
+    },
+    {
+      "id": "scripts/run_direct_image_bakeoff_v1.py",
+      "kind": "python_module",
+      "size_bytes": 20645
     },
     {
       "id": "scripts/run_eight_platform_substack_first_pipeline_v1.py",
@@ -12783,6 +12808,11 @@
       "id": "tests/test_destination_identity_pinning_v1.py",
       "kind": "test",
       "size_bytes": 8278
+    },
+    {
+      "id": "tests/test_direct_image_api_v1.py",
+      "kind": "test",
+      "size_bytes": 14722
     },
     {
       "id": "tests/test_discord_feedback_summary_v6.py",
@@ -15951,6 +15981,6 @@
     "docs/authority files",
     "AGENTS hierarchy"
   ],
-  "source_head": "5e52e3da178e1366db5f386af3f2d9af30bdc685",
-  "source_tree_digest": "9b8dd8e11cbbfb7ae24427c1edc07607ec04ba33823ae9391d80725eca571329"
+  "source_head": "cdb790d78e093421f0c9b09d430fd234ce3f247d",
+  "source_tree_digest": "af083a51c40caa363cc064c4a7c70e9e3e47385a272cb87cb6af6ade84f103f9"
 }

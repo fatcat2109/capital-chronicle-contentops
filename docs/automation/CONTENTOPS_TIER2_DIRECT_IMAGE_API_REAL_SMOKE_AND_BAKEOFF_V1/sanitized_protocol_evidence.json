@@ -1,0 +1,11 @@
+{
+  "base_url": "https://ai.api-cheap.site/v1",
+  "credential_presence": {
+    "AI_API_CHEAP_API_KEY": "PRESENT"
+  },
+  "dispatch_policy": "ONE_ATTEMPT_NO_AUTOMATIC_RETRY",
+  "path": "/images/generations",
+  "provider": "ai.api-cheap.site",
+  "status": "BAKEOFF_COMPLETE_FOR_SUCCESSFUL_MODELS",
+  "total_generation_calls": 9
+}

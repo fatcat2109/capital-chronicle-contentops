@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `5e52e3da178e1366db5f386af3f2d9af30bdc685`
-Source tree digest: `9b8dd8e11cbbfb7ae24427c1edc07607ec04ba33823ae9391d80725eca571329`
+Source HEAD: `cdb790d78e093421f0c9b09d430fd234ce3f247d`
+Source tree digest: `af083a51c40caa363cc064c4a7c70e9e3e47385a272cb87cb6af6ade84f103f9`
 
 This is a generated descriptive map. Check freshness with:
 
@@ -41,4 +41,4 @@ Start with the nearest scoped instructions, then use the context map and graph:
 
 ## Scope
 
-`1478` nodes and `1684` edges are generated from Python, TypeScript/JavaScript, manifests, authority files, and the scoped AGENTS hierarchy. Noise exclusions are recorded in `graph.json`.
+`1481` nodes and `1687` edges are generated from Python, TypeScript/JavaScript, manifests, authority files, and the scoped AGENTS hierarchy. Noise exclusions are recorded in `graph.json`.
