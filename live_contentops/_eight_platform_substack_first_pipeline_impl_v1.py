@@ -2337,7 +2337,7 @@ def _run_bounded_rolling_x_editorial_cycle(
     article_reviser: Callable[[Mapping[str, Any], Mapping[str, Any], int], Mapping[str, Any]],
     max_revision_rounds: int = 1,
 ) -> dict[str, Any]:
-    """Run one semantic review and at most one bounded revision/re-review."""
+    """Run one semantic review, at most one revision, and only a required re-review."""
     from live_contentops.tier1_editorial_quality_v1 import (
         audit_tier1_article,
         combine_editorial_gates,
@@ -2365,6 +2365,53 @@ def _run_bounded_rolling_x_editorial_cycle(
 
     if max_revision_rounds != 1:
         raise ValueError("rolling_x_revision_round_limit_must_be_one")
+
+    hard_fact_or_safety_checks = {
+        "material_claims_supported",
+        "no_factual_contradiction",
+        "no_fabricated_numbers",
+        "material_evidence_matches",
+        "no_misleading_framing",
+        "no_unsupported_certainty",
+        "no_fabricated_quotes",
+        "no_financial_advice",
+    }
+
+    def semantic_requires_rereview(review: Mapping[str, Any]) -> bool:
+        failed = {
+            str(value)
+            for value in (
+                review.get("material_failed_checks")
+                or review.get("failed_checks")
+                or []
+            )
+        }
+        return bool(failed.intersection(hard_fact_or_safety_checks))
+
+    def revision_changes_fact_or_numeric_scope(
+        before: Mapping[str, Any], after: Mapping[str, Any]
+    ) -> bool:
+        contract_fields = (
+            "supported_claims",
+            "omitted_unsupported_claims",
+            "evidence_document_ids",
+        )
+        if _json_sha256({key: before.get(key) for key in contract_fields}) != _json_sha256(
+            {key: after.get(key) for key in contract_fields}
+        ):
+            return True
+        before_body = str(
+            before.get("substack_body_markdown") or before.get("body_markdown") or ""
+        )
+        after_body = str(
+            after.get("substack_body_markdown") or after.get("body_markdown") or ""
+        )
+        fact_tokens = re.compile(
+            r"(?<![A-Za-z])[-+]?(?:\$|€|£)?\d[\d,]*(?:\.\d+)?(?:%|bn|mn|[kmbt])?"
+            r"|[\"“][^\"”]{8,}[\"”]",
+            re.IGNORECASE,
+        )
+        return fact_tokens.findall(before_body) != fact_tokens.findall(after_body)
     candidate = dict(article)
     history: list[dict[str, Any]] = []
     for review_index in range(max_revision_rounds + 1):
@@ -2450,6 +2497,23 @@ def _run_bounded_rolling_x_editorial_cycle(
             "revised_article_sha256": revised_hash,
             "issues_addressed": list(semantic.get("issues") or []),
         }
+        second_review_required = semantic_requires_rereview(
+            semantic
+        ) or revision_changes_fact_or_numeric_scope(candidate, revised_candidate)
+        review_row["revision"]["second_semantic_review_required"] = second_review_required
+        if not second_review_required:
+            revised_deterministic = audit_tier1_article(
+                revised_candidate, media_assets=media_assets
+            )
+            review_row["revision"]["revised_deterministic_review"] = revised_deterministic
+            if revised_deterministic.get("classification") == "PASS":
+                return {
+                    "status": "PASS",
+                    "article": revised_candidate,
+                    "revision_rounds_completed": review_index + 1,
+                    "review_history": history,
+                    "publication_authority_granted": False,
+                }
         candidate = revised_candidate
     return {
         "status": "NO_PUBLICATION",
@@ -3327,7 +3391,8 @@ def _rolling_x_ranked_clusters_with_context(
         public_urls: list[str] = []
         public_url_bindings: list[dict[str, str]] = []
         for headline_id in cluster.get("headline_ids") or []:
-            external = (headline_by_id.get(str(headline_id)) or {}).get("external_content") or {}
+            headline = headline_by_id.get(str(headline_id)) or {}
+            external = headline.get("external_content") or {}
             for value in [
                 *(external.get("official_source_urls") or []),
                 external.get("url_or_source_ref"),
@@ -3336,10 +3401,22 @@ def _rolling_x_ranked_clusters_with_context(
                 url = str(value or "").rstrip(".,;:!?")
                 if url and "x.com/" not in url and "t.co/" not in url and url not in public_urls:
                     public_urls.append(url)
-                    public_url_bindings.append({
+                    binding = {
                         "url": url,
                         "headline_id": str(headline_id),
-                    })
+                    }
+                    source_timestamp = str(headline.get("source_timestamp_utc") or "")
+                    source_handle = str(external.get("author_handle") or "")
+                    source_platform = str(external.get("source_platform") or "")
+                    if source_timestamp and source_handle and source_platform:
+                        binding.update(
+                            {
+                                "feed_published_at_utc": source_timestamp,
+                                "feed_publisher_handle": source_handle,
+                                "feed_source_platform": source_platform,
+                            }
+                        )
+                    public_url_bindings.append(binding)
         cluster["leaf_summaries"] = summaries
         cluster["entities_topics"] = entities_topics
         # These are public source candidates discovered with the headline.  Their presence does

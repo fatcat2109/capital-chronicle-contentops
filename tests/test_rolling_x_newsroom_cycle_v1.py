@@ -21,12 +21,17 @@ def _article(body="Current official event analysis with reader-facing context.")
     }
 
 
-def _semantic(decision):
+def _semantic(decision, failed_checks=None):
     return {
         "status": "SUCCESS",
         "decision": decision,
         "mode": "analysis",
         "issues": [] if decision == "PASS" else ["clarify why now"],
+        "failed_checks": (
+            []
+            if decision == "PASS"
+            else list(failed_checks or ["material_claims_supported"])
+        ),
         "publication_authority": False,
     }
 
@@ -104,6 +109,36 @@ def test_bounded_editorial_cycle_exhausts_after_one_revision(monkeypatch):
     assert result["reason_code"] == "EDITORIAL_REVISION_ROUNDS_EXHAUSTED"
     assert result["revision_rounds_completed"] == 1
     assert len(result["review_history"]) == 2
+
+
+def test_bounded_editorial_cycle_skips_second_review_after_style_only_revision(monkeypatch):
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
+        lambda article, media_assets=(): {"classification": "PASS"},
+    )
+    reviews = []
+
+    def review(_article):
+        reviews.append(True)
+        return _semantic("NEEDS_REVISION", ["reader_facing_prose"])
+
+    result = implementation._run_bounded_rolling_x_editorial_cycle(
+        article=_article(),
+        media_assets=[],
+        editorial_reviewer=review,
+        article_reviser=lambda article, review, round_number: {
+            **article,
+            "substack_body_markdown": article["substack_body_markdown"]
+            + " Clarified reader-facing language.",
+        },
+    )
+
+    assert result["status"] == "PASS"
+    assert result["revision_rounds_completed"] == 1
+    assert len(reviews) == 1
+    assert result["review_history"][0]["revision"][
+        "second_semantic_review_required"
+    ] is False
 
 
 def test_bounded_editorial_cycle_fails_closed_when_review_router_fails(monkeypatch):

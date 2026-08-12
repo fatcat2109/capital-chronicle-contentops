@@ -295,8 +295,8 @@ def build_llm_editorial_review_prompt(article: Mapping[str, Any]) -> str:
     return "\n".join(
         [
             "You are a Capital Chronicle standards editor reviewing reader-facing financial journalism.",
-            "Review only the supplied article. Do not add facts, infer market reactions, rewrite the story, or authorize publication.",
-            "Every factual claim must be within supported_claims. Treat omitted_unsupported_claims as forbidden material. Concise BREAKING_BRIEF and FOLLOW_UP_UPDATE modes do not require market analysis, forecasts, or institutional-field completeness.",
+            "Review only the supplied article. Do not add facts, rewrite the story, or authorize publication.",
+            "Every factual claim must be within supported_claims. Treat omitted_unsupported_claims as forbidden material. A clearly identified inference may explain implications of supported facts without the source stating that inference verbatim, but it must not add facts, numbers, forecasts, certainty, or independent analytical authority. Concise BREAKING_BRIEF and FOLLOW_UP_UPDATE modes do not require market analysis, forecasts, or institutional-field completeness.",
             "Mark a check false when support is ambiguous. Internal editorial/process/prompt/pipeline language is reader-facing failure.",
             "Mark material_claims_supported, no_factual_contradiction, no_fabricated_numbers, material_evidence_matches, no_misleading_framing, and severe_coherence_ok conservatively.",
             "SEO, keyword placement, optional context, market depth, confirmation/falsification framing, and sophisticated visuals are advisory and must not alone force revision.",

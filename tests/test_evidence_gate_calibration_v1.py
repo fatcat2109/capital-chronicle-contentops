@@ -219,7 +219,7 @@ def test_b_precise_company_number_is_omitted_without_primary_numeric_authority()
     assert all(not row.get("numeric_claim") for row in contract["supported_claims"])
 
 
-def test_secondary_source_title_can_support_nonnumeric_core_after_numeric_scope_is_removed():
+def test_secondary_source_title_can_support_directly_stated_attributed_number():
     request = _request(
         story_type="company_sector_event",
         summaries=[
@@ -238,22 +238,15 @@ def test_secondary_source_title_can_support_nonnumeric_core_after_numeric_scope_
     assert contract["fabricated_claim_count"] == 0
     assert contract["supported_claim_count"] == 1
     supported = contract["supported_claims"][0]
-    assert "500" not in supported["claim_text"]
+    assert "500" in supported["claim_text"]
     assert "Nvidia" in supported["claim_text"]
     assert "financing" in supported["claim_text"]
-    assert supported["numeric_claim"] is False
+    assert supported["numeric_claim"] is True
     assert supported["attribution_required"] is True
-    assert supported["scope_reduction"] in {
-        "PRECISE_NUMERIC_CLAIM_OMITTED",
-        "SOURCE_TITLE_NUMERIC_SCOPE_OMITTED",
-    }
-    assert any(
-        row["reason"] == "numeric_primary_authority_unavailable"
-        for row in contract["omitted_unsupported_claims"]
-    )
+    assert "scope_reduction" not in supported
 
 
-def test_numeric_scope_removal_drops_the_entire_ordinal_token():
+def test_reputable_attributed_source_can_retain_directly_stated_ordinal():
     title = "Deutsche becomes 1st European clearing bank for RMB"
     request = _request(
         story_type="company_sector_event",
@@ -271,12 +264,9 @@ def test_numeric_scope_removal_drops_the_entire_ordinal_token():
     assert contract["fabricated_claim_count"] == 0
     assert contract["supported_claim_count"] == 1
     supported = contract["supported_claims"][0]
-    assert supported["claim_text"] == (
-        "Deutsche becomes European clearing bank for RMB"
-    )
-    assert "1st" not in supported["claim_text"]
-    assert " becomes st " not in f" {supported['claim_text'].casefold()} "
-    assert supported["numeric_claim"] is False
+    assert supported["claim_text"] == title
+    assert supported["numeric_claim"] is True
+    assert supported["attribution_required"] is True
 
 
 def test_c_policy_story_has_no_company_filing_requirement():

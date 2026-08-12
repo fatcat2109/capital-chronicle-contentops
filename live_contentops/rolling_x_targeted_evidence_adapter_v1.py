@@ -23,6 +23,7 @@ EVIDENCE_LOADER_BUDGET_BLOCKERS = frozenset({
     "official_source_request_budget_exhausted",
     "public_source_request_budget_exhausted",
 })
+TRUSTED_PROFESSIONAL_FEED_HANDLES = frozenset({"financialjuice"})
 
 
 def _utc_now() -> str:
@@ -234,7 +235,11 @@ def _official_freshness_blockers(
         return ["official_evidence_evaluation_time_invalid"]
     blockers = []
     for index, row in enumerate(documents):
-        value = row.get("published_at_utc") or row.get("event_time_utc")
+        value = (
+            row.get("professional_feed_published_at_utc")
+            or row.get("published_at_utc")
+            or row.get("event_time_utc")
+        )
         try:
             observed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
         except ValueError:
@@ -244,6 +249,48 @@ def _official_freshness_blockers(
         if age_hours < 0 or age_hours > max_age_hours:
             blockers.append(f"official_evidence_document_{index}_stale_or_future")
     return blockers
+
+
+def _bind_professional_feed_freshness(
+    documents: list[dict[str, Any]], request: Mapping[str, Any]
+) -> None:
+    """Bind an exact reputable feed timestamp to its source URL for freshness only.
+
+    The feed text remains discovery-only and grants no factual or publication authority. The
+    accepted document bytes still supply every emitted claim.
+    """
+    context = request.get("story_context")
+    context = context if isinstance(context, Mapping) else {}
+    bindings = [
+        row
+        for row in (context.get("public_source_url_bindings") or [])
+        if isinstance(row, Mapping)
+        and str(row.get("feed_publisher_handle") or "").casefold()
+        in TRUSTED_PROFESSIONAL_FEED_HANDLES
+        and str(row.get("feed_source_platform") or "")
+        == "x_cdp_list_latest_tweets_timeline"
+        and str(row.get("feed_published_at_utc") or "")
+    ]
+    for document in documents:
+        source_url = str(document.get("source_url") or "").rstrip("/")
+        match = next(
+            (
+                row
+                for row in bindings
+                if str(row.get("url") or "").rstrip("/") == source_url
+            ),
+            None,
+        )
+        if match is None:
+            continue
+        document["professional_feed_published_at_utc"] = str(
+            match["feed_published_at_utc"]
+        )
+        document["freshness_timestamp_source"] = "EXACT_BOUND_PROFESSIONAL_FEED"
+        document["professional_feed_publisher_handle"] = str(
+            match["feed_publisher_handle"]
+        )
+        document["professional_feed_grants_factual_authority"] = False
 
 
 class RollingXTargetedEvidenceAdapter:
@@ -465,6 +512,7 @@ class RollingXTargetedEvidenceAdapter:
                     diagnostics["public_secondary"]["binding_blockers"] = binding_blockers
 
             freshness_requirements = capability.get("freshness_requirements") or {}
+            _bind_professional_feed_freshness(documents, request)
             fresh_documents: list[dict[str, Any]] = []
             freshness_exclusions: list[dict[str, Any]] = []
             for document in documents:

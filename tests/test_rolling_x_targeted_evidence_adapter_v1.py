@@ -409,6 +409,82 @@ def test_stale_official_primary_evidence_fails_closed():
     assert "official_evidence_document_0_stale_or_future" in receipt["blockers"]
 
 
+def test_fresh_professional_article_can_carry_ordinary_data_brief_when_official_page_is_undated():
+    request = _request(story_type="data_release", article_mode="straight_news")
+    request["story_context"] = {
+        "leaf_summaries": ["EIA published its August Short-Term Energy Outlook."],
+        "official_source_url_bindings": [
+            {
+                "headline_id": "headline-1",
+                "url": "https://www.eia.gov/outlooks/steo/",
+                "feed_published_at_utc": "2026-08-08T11:00:00Z",
+                "feed_publisher_handle": "financialjuice",
+                "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+            }
+        ],
+        "public_source_url_bindings": [
+            {
+                "headline_id": "headline-1",
+                "url": "https://www.eia.gov/outlooks/steo/",
+                "feed_published_at_utc": "2026-08-08T11:00:00Z",
+                "feed_publisher_handle": "financialjuice",
+                "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+            }
+        ],
+    }
+    request["request_logical_hash"] = _logical_hash(
+        {key: value for key, value in request.items() if key != "request_logical_hash"}
+    )
+    official = {
+        "status": "PASS",
+        "provided_evidence_capabilities": ["official_release"],
+        "official_source_documents": [
+            {
+                "document_id": "eia-steo",
+                "title": "Short-Term Energy Outlook",
+                "publisher": "U.S. Energy Information Administration",
+                "source_authority_class": "official_public_primary_source",
+                "source_url": "https://www.eia.gov/outlooks/steo/",
+                "published_at_utc": None,
+                "canonical_content_text": "EIA Short-Term Energy Outlook",
+                "canonical_content_sha256": "c" * 64,
+                "public_claim_allowed": True,
+            }
+        ],
+        "provenance": {"retrieved_at_utc": AS_OF},
+    }
+    secondary = {
+        "status": "BLOCKED",
+        "rolling_x_story_binding": {
+            "cluster_id": request["cluster_id"],
+            "headline_ids": request["headline_ids"],
+            "request_logical_hash": request["request_logical_hash"],
+        },
+        "evidence_documents": [],
+        "provided_evidence_capabilities": [],
+        "provenance": {"retrieved_at_utc": AS_OF},
+        "blockers": ["public_source_published_timestamp_unavailable"],
+    }
+
+    receipt = RollingXTargetedEvidenceAdapter(
+        official_evidence_loader=lambda _request: official,
+        public_secondary_loader=lambda _request: secondary,
+        evaluation_as_of_utc=AS_OF,
+    )(request)
+
+    assert receipt["status"] == "PASS"
+    assert [row["document_id"] for row in receipt["evidence_documents"]] == ["eia-steo"]
+    assert receipt["claim_evidence_contract"]["supported_claims"][0][
+        "support_status"
+    ] == "SUPPORTED_PRIMARY"
+    assert receipt["evidence_documents"][0]["freshness_timestamp_source"] == (
+        "EXACT_BOUND_PROFESSIONAL_FEED"
+    )
+    assert receipt["evidence_documents"][0][
+        "professional_feed_grants_factual_authority"
+    ] is False
+
+
 def test_straight_news_company_and_data_official_packets_need_no_cc_authority():
     for story_type in ("company_sector_event", "data_release"):
         request = _request(story_type=story_type, article_mode="straight_news")

@@ -135,7 +135,7 @@ Cost remains telemetry; retain bounded runaway protection but do not fail V1 acc
 
 Evidence governs emitted claims, not institutional dossier completeness.
 
-For ordinary nonnumeric reporting, a directly supporting reputable professional source with clear attribution can be sufficient. Stronger primary/corroborated evidence remains appropriate for disputed, allegation-based, conflict-sensitive, unusually consequential, or uncertain claims.
+For ordinary non-disputed, non-sensitive reporting, one accessible reputable professional source directly supporting the core proposition is sufficient. A trustworthy article/feed timestamp establishes freshness without requiring an intrinsic timestamp on a separate official landing page. Exact numbers directly stated by a primary or attributed reputable professional source may be used. Stronger primary/corroborated evidence remains appropriate for disputed, allegation-based, conflict-sensitive, unusually consequential, accusation, high-harm, or uncertain claims.
 
 If an optional claim or exact number cannot be supported, omit/narrow/generalize it and re-evaluate the remaining article rather than automatically killing the whole story.
 
@@ -143,11 +143,13 @@ A 403/paywall from one source is a failed retrieval path, not automatic story de
 
 Capital Chronicle remains read-only analytical/numeric authority where governed analytical/numeric claims actually require it. Do not force every article into a Deep Dive.
 
+Default to `BREAKING_BRIEF` / `QUICK_ANALYSIS` where appropriate and use minimum evidence → article → one semantic review → at most one revision → publish. Re-review only after a hard factual/safety finding or a revision that materially changes factual/numeric claims. Clearly labeled inference may explain supported facts without becoming independent analytical authority. Style/SEO/depth/optional visual richness are advisory; one valid hero visual plus basic title/slug/meta is sufficient.
+
 ### Publication acceptance for this phase
 
-Partial Tier-1 distribution is NOT enough to close this phase.
+Partial Tier-1 distribution is not transport proof, but confirmed canonical Substack publication still counts toward autonomy/repeatability. A definite derivative failure is repaired independently and does not retroactively turn canonical success into `NO_PUBLICATION`.
 
-At least five genuine canonical proof articles must each be genuinely public and strictly read back/reconciled on ALL NINE canonical Tier-1 text/image surfaces:
+Transport proof requires at least one genuine canonical proof article to be genuinely public and strictly read back/reconciled on ALL NINE canonical Tier-1 text/image surfaces:
 
 1. Substack
 2. Telegram
@@ -159,13 +161,13 @@ At least five genuine canonical proof articles must each be genuinely public and
 8. Threads
 9. YouTube Community
 
-Every counted proof article must independently complete:
+The one transport-proof article must complete:
 
 `fresh story → evidence → quality article → review → packages → Substack public /p/ URL → all eight derivatives → 9/9 strict readback/reconciliation`
 
-No missing/skipped/failed/pending/ambiguous/unverified destination counts. A partial article remains truthful runtime history but contributes zero toward the five-article proof set.
+No missing/skipped/failed/pending/ambiguous/unverified destination counts qualify for transport proof.
 
-V1 must also prove published-memory feedback and repeated autonomous operation. At least one of the five valid 9/9 proof articles must originate from a genuine configured scheduled window. If additional real articles are needed before five clean independent 9/9 proofs exist, continue without manufacturing filler.
+V1 must also prove published-memory feedback and repeated autonomous operation: one configured scheduled-window article confirmed public on canonical Substack with clean reconciliation, and three genuine canonical Substack articles confirmed within one rolling 24-hour period. These proofs may overlap. Continue without manufacturing filler until all three proof classes pass.
 
 The broader product target remains approximately 5–8 useful canonical articles/day without filler.
 
@@ -176,8 +178,8 @@ V2 video public-write authority is separate and unchanged by this V1 handoff.
 1. **Substack transport:** fix canonical draft → actual public `/p/...` publication and strict readback. A saved draft is not publication success.
 2. **Publishability-first selection:** perform cheap evidence-reachability probing over a broader compact candidate set before final story commitment; do not allow 12 inaccessible candidates to consume an entire window when viable stories remain.
 3. **Same-cycle candidate walk:** when a ranked candidate is blocked, advance through the bounded useful candidate pool before declaring `NO_PUBLICATION`.
-4. **Nine-surface live proof:** obtain the first same-canonical-article 9/9 milestone, then continue until five independent articles each reach strict 9/9.
-5. **Published-memory/repeated proof:** later cycles must see prior published articles, suppress low-delta duplicates or allow a material follow-up, and at least one of the five valid 9/9 articles must come from a genuine scheduled window.
+4. **Nine-surface transport proof:** obtain one same-canonical-article strict 9/9 milestone.
+5. **Autonomy/repeatability proof:** obtain one genuine configured scheduled-window article confirmed public on canonical Substack with clean unknown-write/reconciliation state, plus three genuine canonical Substack publications inside one rolling 24-hour period. Proofs may overlap; published-memory must suppress low-delta duplicates or allow a material follow-up, and definite derivative failures remain independent repair work after canonical success.
 6. **Master integration:** accepted V1 source/controls must be integrated to remote master with exact parity while preserving concurrent V2 changes.
 
 ## Hard stops that remain

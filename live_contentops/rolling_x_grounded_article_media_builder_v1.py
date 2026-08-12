@@ -823,10 +823,14 @@ def build_article_generation_prompt(
     minimum_sources = 1 if brief else 2
     minimum_headings = 0 if brief else 2
     mode_scope = (
-        "Write a concise attributed update. Omit mechanics, market effects, history, numbers, "
-        "and quotes unless a supported_claim explicitly establishes them."
+        "Write a concise attributed update. Omit history, numbers, and quotes unless a "
+        "supported_claim explicitly establishes them. A useful implication may be included only "
+        "when clearly labeled as Capital Chronicle inference from the supported facts; never "
+        "present inference as a sourced fact or as independent numeric/forecast authority."
         if brief
-        else "Write only the analytical depth established by supported_claims; unsupported depth is omitted."
+        else "Write factual depth from supported_claims. Clearly labeled inference may explain "
+        "implications of those facts, but must not introduce new facts, numbers, forecasts, or "
+        "independent analytical authority."
     )
     return "\n".join(
         [

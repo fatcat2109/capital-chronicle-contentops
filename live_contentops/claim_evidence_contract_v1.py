@@ -142,7 +142,9 @@ def _numbers_supported(claim: str, document: Mapping[str, Any]) -> bool:
     numbers = [re.sub(r"[^0-9.]", "", value) for value in _NUMBER_RE.findall(claim)]
     if not numbers:
         return True
-    if str(document.get("source_authority_class") or "") not in PRIMARY_AUTHORITY_CLASSES:
+    if str(document.get("source_authority_class") or "") not in (
+        PRIMARY_AUTHORITY_CLASSES | SECONDARY_AUTHORITY_CLASSES
+    ):
         return False
     haystack = re.sub(r"[^0-9.]", "", _document_text(document))
     return all(value and value in haystack for value in numbers)
@@ -240,7 +242,7 @@ def build_claim_evidence_contract(
         cautious_single_secondary = bool(secondary) and len(secondary_publishers) == 1
         accepted = bool(primary) or (
             len(secondary_publishers) >= 2
-            or (cautious_single_secondary and not sensitive_secondary and not numeric and not quoted)
+            or (cautious_single_secondary and not sensitive_secondary and not quoted)
         )
         if accepted:
             bound = primary or secondary
@@ -368,21 +370,14 @@ def build_claim_evidence_contract(
         for document in fallback_docs:
             raw_title = " ".join(str(document.get("title") or "").split())
             authority = str(document.get("source_authority_class") or "")
-            # Exact numbers in an accepted primary-source title are primary evidence, not an
-            # X-derived numerical assertion.  Secondary-title fallbacks remain nonnumeric and
-            # continue through the existing scope-reduction path.
-            numeric_scope_omitted = bool(
-                _NUMBER_RE.search(raw_title)
-                and authority not in PRIMARY_AUTHORITY_CLASSES
-            )
-            title = _without_numeric_scope(raw_title) if numeric_scope_omitted else raw_title
+            # An exact number in the accepted source title is directly stated evidence. It may
+            # be retained from a primary source or an attributed reputable professional source;
+            # discovery/X text itself never supplies the number.
+            numeric_scope_omitted = False
+            title = raw_title
             title_sensitive = _claim_requires_corroboration(request, title)
             if (
                 len(title) < 8
-                or (
-                    _NUMBER_RE.search(title)
-                    and authority not in PRIMARY_AUTHORITY_CLASSES
-                )
                 or _QUOTE_RE.search(title)
             ):
                 continue

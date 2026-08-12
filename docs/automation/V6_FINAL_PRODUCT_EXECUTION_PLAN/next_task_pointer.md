@@ -25,25 +25,28 @@ Fresh-session authority/handoff:
 
 The parent evidence-calibration/publication-unblock task remains unaccepted. The latest production proof completed eight governed decisions with zero confirmed canonical public article. One decision reached evidence → article → review PASS → package → Substack draft ID `210796285`, but strict readback classified it `SUBSTACK_DRAFT_CONFIRMED_NOT_PUBLIC`, `write_absent=true`, `RECONCILED_ABSENT_SAFE_TO_RETRY`. Other decisions repeatedly selected final candidates whose source paths were inaccessible, stale, insufficiently timestamped, or lacked required authority for precise numeric/market claims. `UNKNOWN_WRITE=0`; pending reconciliation is zero.
 
-Jim's current owner override supersedes older artificial live-cycle limits and partial-distribution acceptance for this phase:
+Jim's current fast-newsroom owner override supersedes older artificial live-cycle limits, dossier-completeness requirements, and the five-article 9/9 gate for this phase:
 
 - no artificial maximum number of sequential live runs;
 - no routine owner re-approval or audit ceremony between safe bounded repairs/runs;
 - quality over token minimization, with approximately `2,000,000` tokens/day authorized as a runaway circuit-breaker envelope;
 - GPT-5.6 Sol may be used through the existing canonical 9Router quality priority list;
-- evidence should be practical, claim-level, and publishability-first rather than institutional-completeness driven;
+- ordinary-risk evidence is claim-level and publishability-first: one accessible reputable professional source directly supporting the core proposition is sufficient, with primary corroboration preferred but optional; stronger primary/two-source evidence remains required for allegations, disputed/conflict-sensitive, accusation, unusually consequential, or high-harm claims;
+- a trustworthy article/feed timestamp establishes ordinary-story freshness without requiring an intrinsic timestamp on a separate official landing page; directly stated attributed source numbers are allowed, unsupported numbers are omitted/generalized, and clearly identified inference may explain supported facts without acquiring independent analytical authority;
+- the default path is minimum evidence → article → one semantic review → at most one revision → publish; a second semantic review is only for a hard factual/safety finding or a fact/numeric-changing revision, while style/SEO/depth/optional visual richness are advisory;
 - blocked candidates should advance to other viable candidates inside the same editorial opportunity when practical;
 - first milestone is ONE same canonical article successfully public and strictly read back/reconciled on ALL NINE Tier-1 text/image surfaces: Substack, Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community;
-- partial Tier-1 distribution is not acceptance for this phase proof;
-- final phase proof requires at least five genuine canonical articles, each independently strict 9/9; at least one of those valid 9/9 articles must originate from a genuine scheduled window;
-- published-memory duplicate suppression or clearly material follow-up behavior must also be proven.
+- transport proof requires one genuine same-canonical-article strict 9/9;
+- autonomy proof requires one genuine configured scheduled-window article confirmed public on canonical Substack with zero unresolved unknown write/pending reconciliation;
+- repeatability proof requires three genuine canonical Substack articles confirmed public within one rolling 24-hour period, with published-memory active and no filler/duplicate abuse; proofs may overlap;
+- definite social-derivative failure is repaired/retried/reconciled independently and does not retroactively erase confirmed canonical Substack publication.
 
 Immediate execution order:
 
 1. fix canonical Substack draft → real public `/p/...` publication/readback;
 2. make final selection publishability-first and walk multiple candidates inside one cycle rather than allowing a small evidence-dead shortlist to consume a full window;
-3. prove the first same-canonical-article 9/9 milestone;
-4. continue until five independent strict 9/9 articles, published-memory behavior, and a valid scheduled-window 9/9 article are proven;
+3. prove one same-canonical-article strict 9/9 transport milestone;
+4. continue until the scheduled canonical autonomy proof and three-canonical-articles-in-24-hours repeatability proof are also satisfied with published-memory active;
 5. integrate accepted V1 source/controls to current remote master while preserving concurrent V2 work.
 
 Only true hard blockers should stop the phase: secret/session exposure, wrong-account public-write risk, fabricated core truth that cannot be removed, unresolved UNKNOWN_WRITE/public-object ambiguity, destructive production-store risk, protected `v1.0` mutation, irreconcilable merge conflict, or genuinely required operator credential/reauthentication input.

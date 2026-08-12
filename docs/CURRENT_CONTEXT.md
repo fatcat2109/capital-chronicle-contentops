@@ -21,7 +21,7 @@ Parent task:
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-Current V1 proof objective is at least five genuine canonical articles, each independently public and strictly read back/reconciled on all nine Tier-1 text/image surfaces. At least one valid 9/9 article must originate from a genuine scheduled window; published-memory duplicate suppression or material-follow-up behavior must also be proven. Read the current V1 handoff for live branch/runtime evidence and owner overrides. Do not infer current V1 runtime state from this compact file.
+Current V1 acceptance requires: one genuine canonical article strict 9/9 for transport proof; one genuine configured scheduled-window article confirmed public on canonical Substack with no unresolved unknown write or reconciliation; and three genuine canonical Substack articles confirmed public inside one rolling 24-hour period with published-memory active and no filler/duplicate abuse. These proofs may overlap. A definite social-derivative failure is repaired independently and does not erase a confirmed canonical publication. Read the current V1 handoff for live branch/runtime evidence and owner overrides. Do not infer current V1 runtime state from this compact file.
 
 The broader approximately 5–8 useful articles/day target remains a portfolio goal, never filler permission.
 

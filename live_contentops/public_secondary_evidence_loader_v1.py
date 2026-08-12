@@ -28,10 +28,10 @@ REPUTABLE_SECONDARY_HOSTS = frozenset(
     {
         "abcnews.go.com", "aljazeera.com", "apnews.com", "axios.com", "bbc.com",
         "bbc.co.uk", "bloomberg.com", "cbsnews.com", "cnbc.com", "cnn.com", "ft.com",
-        "marketwatch.com", "nbcnews.com", "npr.org", "politico.com", "reuters.com",
+        "financialjuice.com", "marketwatch.com", "nbcnews.com", "npr.org", "politico.com", "reuters.com",
         "theguardian.com", "thehill.com", "jpost.com", "wsj.com", "www.abcnews.go.com",
         "www.aljazeera.com", "www.apnews.com", "www.axios.com", "www.bbc.com",
-        "www.bloomberg.com", "www.cbsnews.com", "www.cnbc.com", "www.cnn.com", "www.ft.com",
+        "www.bloomberg.com", "www.cbsnews.com", "www.cnbc.com", "www.cnn.com", "www.financialjuice.com", "www.ft.com",
         "www.marketwatch.com", "www.nbcnews.com", "www.npr.org", "www.politico.com",
         "www.reuters.com", "www.theguardian.com", "www.thehill.com", "www.jpost.com", "www.wsj.com",
     }
@@ -39,7 +39,7 @@ REPUTABLE_SECONDARY_HOSTS = frozenset(
 REPUTABLE_SECONDARY_NAMES = frozenset(
     {
         "abc news", "al jazeera", "associated press", "the associated press", "ap", "axios", "bbc", "bloomberg",
-        "cbs news", "cnbc", "cnn", "financial times", "marketwatch", "nbc news", "npr",
+        "cbs news", "cnbc", "cnn", "financial times", "financialjuice", "marketwatch", "nbc news", "npr",
         "politico", "reuters", "the guardian", "the hill", "the jerusalem post",
         "jerusalem post", "the wall street journal", "wsj",
     }

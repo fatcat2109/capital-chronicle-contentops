@@ -77,6 +77,26 @@ Next V1 builder lane:
 
 The latest real production day legitimately ended `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`; zero publication was correct. The 5–8 article/day band remains a target, not filler permission.
 
+Jim's 2026-08-12 fast-newsroom override now governs V1. For ordinary non-disputed,
+non-sensitive reporting, one accessible reputable professional source that directly supports the
+core proposition is sufficient; primary corroboration is preferred, not mandatory. A trustworthy
+article/feed publication timestamp may establish freshness even when a separate official landing
+page has no intrinsic timestamp. Directly stated source numbers may be used with attribution;
+unsupported numbers are omitted or generalized. Clearly labeled inference may explain supported
+facts without becoming independent analytical authority. Allegations, materially disputed or
+conflict-sensitive claims, accusations, and unusually consequential/high-harm claims retain
+stronger primary or independent-corroboration requirements.
+
+The default workflow is minimum evidence → article → one semantic review → at most one revision →
+publish. A second semantic review is required only after a hard factual/safety finding or a revision
+that materially changes factual/numeric claims. Optional style, SEO depth, information density, and
+visual richness are advisory. V1 acceptance is one genuine strict 9/9 transport proof, one genuine
+scheduled-window canonical Substack proof with clean reconciliation, and three genuine canonical
+Substack publications in one rolling 24-hour period with published-memory active and no duplicate
+or filler abuse. These proofs may overlap. Confirmed canonical publication remains valid if a
+definite social derivative later needs independent repair; `UNKNOWN_WRITE` still stops retries until
+readback and reconciliation.
+
 Preserve the current V1 architecture: one canonical supervisor, production orchestrator, durable store, newsroom, publication coordinator/outbox, browser bindings, model gateway, readback/reconciliation, and V5 UI.
 
 ## 4. V2 current route
