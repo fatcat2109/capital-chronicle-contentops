@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import pytest
+
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     ROLLING_X_GLOBAL_PROMPT_VERSION,
     _logical_hash,
@@ -10,6 +12,8 @@ from live_contentops.newsroom_assignment_scheduler_v1 import (
     _validate_rolling_x_global_output,
     _validate_rolling_x_leaf_output,
     assign_rolling_x_headlines_with_nine_router,
+    build_prepared_rolling_x_candidate_state,
+    validate_prepared_rolling_x_candidate_state,
 )
 from live_contentops.nine_router_ordered_model_router_v2 import (
     NEWSROOM_LEAF_SCAN_MODEL,
@@ -128,6 +132,48 @@ def _small_input(count: int = 4) -> dict:
     packet["counts"] = {**packet["counts"], "accepted": count}
     packet["canonical_input_hash"] = _logical_hash(_rolling_x_canonical_hash_material(packet))
     return packet
+
+
+def test_prepared_candidate_state_is_small_zero_model_and_exactly_bound():
+    rolling_input = _small_input(20)
+
+    state = build_prepared_rolling_x_candidate_state(
+        rolling_input=rolling_input,
+        prepared_at_utc="2026-08-08T09:18:54Z",
+    )
+    validated = validate_prepared_rolling_x_candidate_state(
+        state,
+        publication_cutoff_utc="2026-08-08T09:48:54Z",
+    )
+
+    assert validated["status"] == "READY"
+    assert validated["full_rolling_headline_count"] == 20
+    assert 1 <= validated["prepared_candidate_count"] <= 12
+    assert validated["llm_or_provider_calls"] == 0
+    assert validated["full_universe_semantic_assignment_calls"] == 0
+    assert validated["story_type_semantic_calls"] == 0
+    assert validated["assignment"]["telemetry"]["logical_router_calls"] == 0
+    assert set(validated["story_routing"]["story_type_by_cluster"]) == {
+        row["cluster_id"] for row in validated["assignment"]["ranked_clusters"]
+    }
+
+
+def test_prepared_candidate_state_rejects_stale_or_tampered_checkpoint():
+    state = build_prepared_rolling_x_candidate_state(
+        rolling_input=_small_input(4),
+        prepared_at_utc="2026-08-08T09:18:54Z",
+    )
+    with pytest.raises(ValueError, match="rolling_x_prepared_candidate_stale"):
+        validate_prepared_rolling_x_candidate_state(
+            state,
+            publication_cutoff_utc="2026-08-08T12:18:55Z",
+        )
+    tampered = {**state, "prepared_candidate_count": 99}
+    with pytest.raises(ValueError, match="rolling_x_prepared_candidate_hash_mismatch"):
+        validate_prepared_rolling_x_candidate_state(
+            tampered,
+            publication_cutoff_utc="2026-08-08T09:20:00Z",
+        )
 
 
 def test_recorded_1024_headline_replay_has_exact_multi_partition_coverage_and_compact_global_input():

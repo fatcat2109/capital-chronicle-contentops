@@ -50,8 +50,8 @@ OPERATING_MODES = frozenset(
 
 #: Work-item states that indicate an editorial window has already been executed (or recovered)
 #: and must not be re-executed. Only DISCOVERED is fresh. EVIDENCE_PENDING is handled
-#: separately: an active original lease is left alone, while a released/expired claim is
-#: recovered without re-invocation.
+#: separately: an active original lease is left alone, while a released/expired claim resumes
+#: from the durable opportunity/stage checkpoints when they exist.
 WINDOW_EXECUTED_STATES = frozenset(
     {
         "EVIDENCE_READY",
@@ -94,6 +94,7 @@ NOT_IMPLEMENTED_NOT_DUE = "NOT_IMPLEMENTED_NOT_DUE"
 #: scheduled window is only eligible when its start is at/after the production epoch start.
 PRODUCTION_EPOCH_METRIC_ID = "metric_contentops_production_epoch_start_utc"
 PRODUCTION_EPOCH_METRIC_NAME = "contentops_production_epoch_start_utc"
+PREPARED_CANDIDATE_CHECKPOINT_NAME = "rolling_x_prepared_candidate_state_v1.json"
 
 
 class ProductionEpochConflictError(RuntimeError):
@@ -1321,9 +1322,85 @@ class ContentOpsDailyAppSupervisor:
                 run_ingestion_housekeeping_iteration,
             )
 
-            return dict(run_ingestion_housekeeping_iteration(self._store, now=now))
+            result = dict(run_ingestion_housekeeping_iteration(self._store, now=now))
+            result["prepared_candidate_state"] = self._refresh_prepared_candidate_checkpoint(now)
+            return result
         except Exception as exc:  # noqa: BLE001 - intake lane is best-effort, never fatal
             return {"lane_state": "DEGRADED", "detail": f"INTAKE_LANE_ERROR:{type(exc).__name__}", "llm_or_provider_calls": 0}
+
+    @property
+    def _prepared_candidate_checkpoint_path(self) -> Path:
+        return self._output_root / "_continuous_newsroom" / PREPARED_CANDIDATE_CHECKPOINT_NAME
+
+    def _refresh_prepared_candidate_checkpoint(self, now: datetime) -> dict[str, Any]:
+        """Refresh the existing continuous lane's small zero-model publication candidate set."""
+        try:
+            from live_contentops.newsroom_assignment_scheduler_v1 import (
+                DEFAULT_X_SIDECAR_GLOB,
+                build_prepared_rolling_x_candidate_state,
+                load_rolling_x_headline_sidecars,
+            )
+
+            rolling_input = load_rolling_x_headline_sidecars(
+                cutoff_utc=now,
+                sidecar_glob=self._sidecar_glob or DEFAULT_X_SIDECAR_GLOB,
+                window_hours=24.0,
+            )
+            if not (rolling_input.get("headlines") or []):
+                return {
+                    "status": "NO_CURRENT_HEADLINES",
+                    "checkpoint_updated": False,
+                    "llm_or_provider_calls": 0,
+                }
+            state = build_prepared_rolling_x_candidate_state(
+                rolling_input=rolling_input,
+                prepared_at_utc=now,
+            )
+            path = self._prepared_candidate_checkpoint_path
+            path.parent.mkdir(parents=True, exist_ok=True)
+            temporary_path = path.with_suffix(path.suffix + ".tmp")
+            temporary_path.write_text(
+                json.dumps(state, indent=2, sort_keys=True, default=str) + "\n",
+                encoding="utf-8",
+            )
+            temporary_path.replace(path)
+            return {
+                "status": "READY",
+                "checkpoint_updated": True,
+                "prepared_at_utc": state.get("prepared_at_utc"),
+                "full_rolling_headline_count": state.get("full_rolling_headline_count"),
+                "prepared_candidate_count": state.get("prepared_candidate_count"),
+                "prepared_candidate_logical_hash": state.get(
+                    "prepared_candidate_logical_hash"
+                ),
+                "llm_or_provider_calls": 0,
+            }
+        except Exception as exc:  # noqa: BLE001 - preparation is best-effort and zero-write
+            return {
+                "status": "DEGRADED",
+                "checkpoint_updated": False,
+                "detail": f"PREPARED_CANDIDATE_REFRESH_ERROR:{type(exc).__name__}",
+                "llm_or_provider_calls": 0,
+            }
+
+    def _load_prepared_candidate_checkpoint(
+        self, cutoff: datetime
+    ) -> Optional[dict[str, Any]]:
+        path = self._prepared_candidate_checkpoint_path
+        if not path.exists():
+            return None
+        try:
+            from live_contentops.newsroom_assignment_scheduler_v1 import (
+                validate_prepared_rolling_x_candidate_state,
+            )
+
+            value = json.loads(path.read_text(encoding="utf-8"))
+            return validate_prepared_rolling_x_candidate_state(
+                value,
+                publication_cutoff_utc=cutoff,
+            )
+        except Exception:  # noqa: BLE001 - invalid/stale preparation grants no authority
+            return None
 
     def _run_operator_trigger_intake_sync(self, now: datetime) -> dict[str, Any]:
         """Run Now fallback freshness sync: one bounded intake iteration ONLY when the
@@ -1335,8 +1412,11 @@ class ContentOpsDailyAppSupervisor:
             )
 
             if not intake_is_stale(self._store, now=now):
-                return {"lane_state": "FRESH", "detail": "intake_fresh_no_sync_needed", "llm_or_provider_calls": 0}
-            return dict(run_ingestion_housekeeping_iteration(self._store, now=now, force=True))
+                result = {"lane_state": "FRESH", "detail": "intake_fresh_no_sync_needed", "llm_or_provider_calls": 0}
+            else:
+                result = dict(run_ingestion_housekeeping_iteration(self._store, now=now, force=True))
+            result["prepared_candidate_state"] = self._refresh_prepared_candidate_checkpoint(now)
+            return result
         except Exception as exc:  # noqa: BLE001 - sync is best-effort, never blocks the decision
             return {"lane_state": "DEGRADED", "detail": f"INTAKE_SYNC_ERROR:{type(exc).__name__}", "llm_or_provider_calls": 0}
 
@@ -1449,6 +1529,7 @@ class ContentOpsDailyAppSupervisor:
             "windows_dispatched": 0,
             "windows_skipped": [],
             "stale_pending_recovered": 0,
+            "stale_pending_resumed": 0,
             "stale_pending_recovery_deferred": 0,
             "newsroom_cycle_invocations": 0,
             "provider_calls": 0,
@@ -1487,11 +1568,24 @@ class ContentOpsDailyAppSupervisor:
             report["windows_skipped"].append("stale_lease_recovery_unavailable")
         try:
             for stale_window_id in self._store.stale_editorial_cycle_window_ids():
-                recovery = self._recover_stale_pending(stale_window_id)
-                if recovery == "recovered":
-                    report["stale_pending_recovered"] += 1
-                elif recovery == "active_owner":
-                    report["stale_pending_recovery_deferred"] += 1
+                resumable_window = self._load_editorial_opportunity_checkpoint(stale_window_id)
+                if resumable_window is not None:
+                    resumed = self._execute_window(resumable_window, now)
+                    if resumed.get("executed"):
+                        report["stale_pending_resumed"] += 1
+                    elif resumed.get("reason") in {
+                        "active_window_owned_elsewhere",
+                        "lease_conflict_another_owner",
+                    }:
+                        report["stale_pending_recovery_deferred"] += 1
+                else:
+                    # Legacy pending rows predate resumable opportunity checkpoints. They keep
+                    # the previous fail-closed terminal recovery behavior.
+                    recovery = self._recover_stale_pending(stale_window_id)
+                    if recovery == "recovered":
+                        report["stale_pending_recovered"] += 1
+                    elif recovery == "active_owner":
+                        report["stale_pending_recovery_deferred"] += 1
         except Exception:  # noqa: BLE001 - remain alive and fail closed on recovery error
             report["windows_skipped"].append("stale_pending_window_recovery_unavailable")
 
@@ -1779,6 +1873,69 @@ class ContentOpsDailyAppSupervisor:
             return None
 
     # -- window execution -----------------------------------------------------
+
+    def _editorial_opportunity_checkpoint_path(self, window_id: str) -> Path:
+        return self._output_root / window_id / "editorial_opportunity_v1.json"
+
+    def _persist_editorial_opportunity_checkpoint(
+        self, window: Mapping[str, Any]
+    ) -> None:
+        """Persist the claimed opportunity identity before any long network/model activity."""
+        window_id = str(window["window_id"])
+        payload = {
+            "schema_version": "contentops.editorial_opportunity.v1",
+            "window_id": window_id,
+            "trigger": str(window.get("trigger") or ""),
+            "start_utc": _iso_utc(window["start"]),
+            "end_utc": _iso_utc(window["end"]),
+            "session": str(window.get("session") or ""),
+            "target_surface": str(
+                window.get("target_surface") or "daily_app_editorial_window"
+            ),
+            "publication_authority_granted": False,
+        }
+        payload["opportunity_logical_hash"] = _logical_hash(payload)
+        path = self._editorial_opportunity_checkpoint_path(window_id)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if path.exists():
+            existing = json.loads(path.read_text(encoding="utf-8"))
+            if existing != payload:
+                raise ValueError("editorial_opportunity_checkpoint_identity_conflict")
+            return
+        path.write_text(
+            json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+
+    def _load_editorial_opportunity_checkpoint(
+        self, window_id: str
+    ) -> Optional[dict[str, Any]]:
+        path = self._editorial_opportunity_checkpoint_path(window_id)
+        if not path.exists():
+            return None
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            logical_hash = str(payload.get("opportunity_logical_hash") or "")
+            material = {
+                key: value for key, value in payload.items() if key != "opportunity_logical_hash"
+            }
+            if (
+                payload.get("schema_version") != "contentops.editorial_opportunity.v1"
+                or str(payload.get("window_id") or "") != window_id
+                or logical_hash != _logical_hash(material)
+            ):
+                return None
+            return {
+                "window_id": window_id,
+                "trigger": str(payload.get("trigger") or ""),
+                "start": _parse_utc(str(payload.get("start_utc") or "")),
+                "end": _parse_utc(str(payload.get("end_utc") or "")),
+                "session": str(payload.get("session") or ""),
+                "target_surface": str(
+                    payload.get("target_surface") or "daily_app_editorial_window"
+                ),
+            }
+        except Exception:  # noqa: BLE001 - corrupt checkpoint grants no resume authority
+            return None
 
     def _transition(
         self,
@@ -2159,38 +2316,54 @@ class ContentOpsDailyAppSupervisor:
                 target_surface=target_surface,
                 work_item_id=window_id,
             )
+        # This small immutable checkpoint makes a claimed opportunity resumable after a host or
+        # provider interruption. It is written before the lease enters long-running work.
+        self._persist_editorial_opportunity_checkpoint(window)
         state = self._window_state(window_id)
         if state in WINDOW_EXECUTED_STATES:
             return {"executed": False, "reason": "already_executed_terminal_state"}
         if state == "EVIDENCE_PENDING":
-            recovery = self._recover_stale_pending(window_id)
-            if recovery == "recovered":
-                return {"executed": False, "reason": "recovered_stale_pending_no_rerun"}
-            if recovery == "active_owner":
+            try:
+                claim = self._store.claim_work_item(
+                    lease_key=window_id,
+                    work_item_id=window_id,
+                    owner_ref=self._owner_ref,
+                    ttl_seconds=self._lease_ttl_seconds,
+                )
+            except LeaseConflictError:
                 return {"executed": False, "reason": "active_window_owned_elsewhere"}
-            return {"executed": False, "reason": "window_state_changed_during_recovery"}
-        # state is DISCOVERED: claim and execute exactly once.
-        try:
-            claim = self._store.claim_work_item(
-                lease_key=window_id,
-                work_item_id=window_id,
-                owner_ref=self._owner_ref,
-                ttl_seconds=self._lease_ttl_seconds,
-            )
-        except LeaseConflictError:
-            return {"executed": False, "reason": "lease_conflict_another_owner"}
+            if self._window_state(window_id) != "EVIDENCE_PENDING":
+                try:
+                    self._store.release_lease(
+                        claim["lease_id"], self._owner_ref, int(claim["fencing_token"])
+                    )
+                except Exception:  # noqa: BLE001
+                    pass
+                return {"executed": False, "reason": "window_state_changed_during_recovery"}
+        else:
+            # state is DISCOVERED: claim and execute exactly once.
+            try:
+                claim = self._store.claim_work_item(
+                    lease_key=window_id,
+                    work_item_id=window_id,
+                    owner_ref=self._owner_ref,
+                    ttl_seconds=self._lease_ttl_seconds,
+                )
+            except LeaseConflictError:
+                return {"executed": False, "reason": "lease_conflict_another_owner"}
         lease_id = str(claim["lease_id"])
         fencing = int(claim["fencing_token"])
         lease_key = str(claim["lease_key"])
         try:
-            self._transition(
-                window_id=window_id,
-                to_state="EVIDENCE_PENDING",
-                lease_key=lease_key,
-                fencing_token=fencing,
-                reason_code="EDITORIAL_WINDOW_DUE",
-                explanation=f"Executing editorial window {window_id}",
-            )
+            if state == "DISCOVERED":
+                self._transition(
+                    window_id=window_id,
+                    to_state="EVIDENCE_PENDING",
+                    lease_key=lease_key,
+                    fencing_token=fencing,
+                    reason_code="EDITORIAL_WINDOW_DUE",
+                    explanation=f"Executing editorial window {window_id}",
+                )
             publication_enabled = self._refresh_operating_mode() == "AUTONOMOUS_DEFAULT"
             cutoff = window["end"]
             output_dir = self._output_root / window_id
@@ -2200,6 +2373,9 @@ class ContentOpsDailyAppSupervisor:
                 "cutoff_utc": _iso_utc(cutoff),
                 "publication_enabled": publication_enabled,
             }
+            prepared_candidate_state = self._load_prepared_candidate_checkpoint(cutoff)
+            if prepared_candidate_state is not None:
+                cycle_kwargs["prepared_candidate_state"] = prepared_candidate_state
             if CANONICAL_CAPITAL_CHRONICLE_ROOT.exists():
                 cycle_kwargs["capital_chronicle_root"] = CANONICAL_CAPITAL_CHRONICLE_ROOT
             if self._sidecar_glob:

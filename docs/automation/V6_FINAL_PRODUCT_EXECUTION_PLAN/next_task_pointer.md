@@ -17,13 +17,13 @@ FDA-G is not accepted. `v1.1.0` is not authorized.
 
 ## V1 next builder lane
 
-`TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1`
+`TASK_CONTENTOPS_V1_THROUGHPUT_ARCHITECTURE_CORRECTION_AND_MASTER_INTEGRATION_V1`
 
 Fresh-session authority/handoff:
 
 `docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md`
 
-The parent evidence-calibration/publication-unblock task remains unaccepted. One genuine operator-window canonical article is public at `https://capitalchronicle.substack.com/p/us-energy-information-administration`; canonical readback/reconciliation is confirmed. This does not satisfy the remaining scheduled-window autonomy proof. At the last verified clean boundary, `UNKNOWN_WRITE=0` and pending ambiguous reconciliation was zero.
+The parent evidence-calibration/publication-unblock task produced one genuine operator-window canonical article at `https://capitalchronicle.substack.com/p/us-energy-information-administration`; canonical readback/reconciliation is confirmed. Another scheduled-window proof is not an integration gate for the current throughput correction. At the last verified clean boundary, `UNKNOWN_WRITE=0` and pending ambiguous reconciliation was zero.
 
 Jim's current publish-correctly-then-improve owner override supersedes older dossier, review, same-article 9/9, and three-in-24-hours ceremony:
 
@@ -35,14 +35,15 @@ Jim's current publish-correctly-then-improve owner override supersedes older dos
 - a trustworthy article/feed timestamp establishes ordinary-story freshness without requiring an intrinsic timestamp on a separate official landing page; directly stated attributed source numbers are allowed, unsupported numbers are omitted/generalized, and clearly identified inference may explain supported facts without acquiring independent analytical authority;
 - the default path is minimum evidence → write → hard factual/safety checks → canonical publish → minimal identity/content-fingerprint readback → next story; semantic review is not mandatory for ordinary stories, and style/SEO/length/optional visuals are advisory;
 - blocked candidates should advance to other viable candidates inside the same editorial opportunity when practical;
-- autonomy proof requires one genuine configured scheduled-window article confirmed public on canonical Substack with zero unresolved unknown write/pending reconciliation;
+- full-universe semantic assignment is outside the publication opportunity when valid prepared state exists;
+- ordinary reporting uses one quality-writer call and zero mandatory semantic-review calls;
 - canonical confirmation requires exact destination identity, public `/p/...` URL, sufficient article identity/content match, and no unresolved unknown write;
 - derivatives are asynchronous coordinator-owned destination-local work and do not hold the canonical newsroom or retroactively erase confirmed publication.
 
 Immediate execution order:
 
-1. obtain one genuine configured scheduled-window canonical Substack publication with clean reconciliation;
-2. integrate accepted V1 source/controls to fresh remote master while preserving concurrent V2 work;
+1. validate prepared-candidate reuse, one-writer ordinary flow, hard checks, resumability, and canonical/derivative decoupling;
+2. run one relevant zero-write end-to-end smoke and integrate the accepted V1 source/controls to fresh remote master while preserving concurrent V2 work;
 3. continue real throughput soak toward approximately 5–8 useful canonical articles/day while measuring derivative transport, published-memory, SEO, quality, and visuals.
 
 Only true hard blockers should stop the phase: secret/session exposure, wrong-account public-write risk, fabricated core truth that cannot be removed, unresolved UNKNOWN_WRITE/public-object ambiguity, destructive production-store risk, protected `v1.0` mutation, irreconcilable merge conflict, or genuinely required operator credential/reauthentication input.

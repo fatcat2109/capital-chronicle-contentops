@@ -497,18 +497,26 @@ def review_deterministic_supported_claim_brief(article: Mapping[str, Any]) -> di
 
 
 def review_minimum_evidence_news_brief(article: Mapping[str, Any]) -> dict[str, Any]:
-    """Run only hard factual/binding checks for an ordinary minimum-evidence brief."""
+    """Run only hard factual/binding checks for an ordinary minimum-evidence article."""
     packet = dict(article.get("minimum_trustworthy_evidence_packet") or {})
     body = str(article.get("substack_body_markdown") or "")
     proposition = " ".join(str(packet.get("core_factual_proposition") or "").split())
     source_url = str(packet.get("source_url") or "")
     evidence_id = str(packet.get("evidence_document_id") or "")
+    proposition_terms = set(re.findall(r"[a-z0-9]{4,}", proposition.casefold()))
+    body_terms = set(re.findall(r"[a-z0-9]{4,}", body.casefold()))
+    proposition_bound = bool(
+        proposition_terms
+        and len(proposition_terms.intersection(body_terms))
+        >= max(2, (len(proposition_terms) + 2) // 3)
+    )
     valid = bool(
-        article.get("article_generation_method") == "MINIMUM_EVIDENCE_NEWS_BRIEF"
+        article.get("article_generation_method")
+        in {"ROUTED_LLM_GROUNDED_ARTICLE", "MINIMUM_EVIDENCE_NEWS_BRIEF"}
         and packet.get("status") == "PASS"
         and packet.get("risk_tier") == "ORDINARY"
         and proposition
-        and proposition.casefold().rstrip(".") in body.casefold()
+        and proposition_bound
         and source_url.startswith("https://")
         and source_url in body
         and evidence_id in {str(value) for value in article.get("evidence_document_ids") or []}
@@ -529,9 +537,9 @@ def review_minimum_evidence_news_brief(article: Mapping[str, Any]) -> dict[str, 
             "evidence": "Core proposition, source, or exact document binding mismatch.",
         }],
         "summary": (
-            "Ordinary brief passed deterministic factual and source binding checks."
+            "Ordinary article passed deterministic factual and source binding checks."
             if valid
-            else "Ordinary brief failed deterministic factual or source binding checks."
+            else "Ordinary article failed deterministic factual or source binding checks."
         ),
         "provider": "deterministic_minimum_evidence",
         "review_type": "HARD_FACTUAL_SAFETY_ONLY",

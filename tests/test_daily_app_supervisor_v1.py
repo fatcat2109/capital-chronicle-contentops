@@ -324,6 +324,49 @@ def test_stale_pending_claim_recovered_without_rerun(tmp_path):
     assert supervisor._window_state(wid) == "REJECTED"
 
 
+def test_stale_pending_opportunity_resumes_from_durable_checkpoint(tmp_path):
+    clock_dt = datetime(2026, 8, 9, 4, 30, tzinfo=timezone.utc)
+    supervisor, calls = _supervisor(tmp_path, clock=_fixed_clock(clock_dt))
+    window = {
+        "window_id": "scheduled-resumable-opportunity",
+        "trigger": TRIGGER_SCHEDULED,
+        "start": datetime(2026, 8, 9, 3, 0, tzinfo=timezone.utc),
+        "end": datetime(2026, 8, 9, 4, 0, tzinfo=timezone.utc),
+        "session": "core_daily",
+    }
+    wid = window["window_id"]
+    supervisor._store.create_work_item(
+        story_id=wid,
+        title=f"Daily App editorial window {wid}",
+        target_surface="daily_app_editorial_window",
+        work_item_id=wid,
+    )
+    supervisor._persist_editorial_opportunity_checkpoint(window)
+    lease = supervisor._store.acquire_lease(
+        lease_key=wid,
+        owner_ref=supervisor._owner_ref,
+        ttl_seconds=5,
+        work_item_id=wid,
+    )
+    supervisor._transition(
+        window_id=wid,
+        to_state="EVIDENCE_PENDING",
+        lease_key=lease["lease_key"],
+        fencing_token=int(lease["fencing_token"]),
+        reason_code="EDITORIAL_WINDOW_DUE",
+        explanation="claimed before controlled interruption",
+    )
+    supervisor._store.release_lease(
+        lease["lease_id"], supervisor._owner_ref, int(lease["fencing_token"])
+    )
+
+    report = supervisor.tick(now=clock_dt)
+
+    assert report["stale_pending_resumed"] == 1
+    assert [call["run_id"] for call in calls] == [wid]
+    assert supervisor._window_state(wid) == "REJECTED"
+
+
 def test_material_event_trigger_gets_stable_unique_identity(tmp_path):
     now = datetime(2026, 8, 9, 10, 0, tzinfo=timezone.utc)
     policy = build_bootstrap_editorial_window_policy()

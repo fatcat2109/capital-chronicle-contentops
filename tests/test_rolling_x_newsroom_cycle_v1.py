@@ -1069,3 +1069,62 @@ def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
     assert calls[0]["global_checkpoint"] is global_checkpoint
     assert result["intake"]["canonical_input_hash"] == "frozen-input-hash"
     assert result["classification"] == "NO_PUBLICATION"
+
+
+def test_publication_window_reuses_prepared_candidates_without_assignment_llm(
+    monkeypatch, tmp_path: Path
+):
+    from live_contentops.newsroom_assignment_scheduler_v1 import (
+        _logical_hash,
+        _rolling_x_canonical_hash_material,
+        build_prepared_rolling_x_candidate_state,
+    )
+
+    recorded = json.loads(
+        Path(
+            "docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/real_cycle/rolling_x_intake_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    rolling_input = {
+        **{key: value for key, value in recorded.items() if key != "headlines"},
+        "headlines": [dict(row) for row in recorded["headlines"][:8]],
+    }
+    rolling_input["unique_headline_ids"] = [
+        row["headline_id"] for row in rolling_input["headlines"]
+    ]
+    rolling_input["counts"] = {**rolling_input["counts"], "accepted": 8}
+    rolling_input["canonical_input_hash"] = _logical_hash(
+        _rolling_x_canonical_hash_material(rolling_input)
+    )
+    prepared = build_prepared_rolling_x_candidate_state(
+        rolling_input=rolling_input,
+        prepared_at_utc="2026-08-08T09:18:54Z",
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        lambda **_kwargs: (_ for _ in ()).throw(
+            AssertionError("prepared publication window must not run semantic assignment")
+        ),
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="prepared-window",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-08T09:48:54Z",
+        prepared_candidate_state=prepared,
+        evidence_acquirer=lambda _request: {
+            "status": "BLOCKED",
+            "blockers": ["CONTROLLED_NO_EVIDENCE"],
+            "provided_evidence_capabilities": [],
+        },
+        publication_enabled=False,
+        published_corpus=[],
+        cc_catalog={"stores": [], "root_exists": False},
+    )
+
+    telemetry = result["critical_path_telemetry"]
+    assert telemetry["prepared_candidate_state_reused"] is True
+    assert telemetry["full_universe_semantic_assignment_on_critical_path"] is False
+    assert telemetry["assignment_semantic_calls"] == 0
+    assert telemetry["story_type_semantic_calls"] == 0
+    assert result["assignment"]["prepared_candidate_state_reused"] is True

@@ -443,6 +443,9 @@ ROLLING_X_PUBLISHABILITY_POOL_LIMIT = 64
 ROLLING_X_PUBLISHABILITY_POOL_SCHEMA_VERSION = (
     "contentops.rolling_x_publishability_candidate_pool.v1"
 )
+PREPARED_CANDIDATE_SCHEMA_VERSION = "contentops.rolling_x_prepared_candidate_state.v1"
+PREPARED_CANDIDATE_LIMIT = 12
+PREPARED_CANDIDATE_MAX_AGE_SECONDS = 2 * 60 * 60
 ROLLING_X_LEAF_PROMPT_VERSION = "v2"
 ROLLING_X_GLOBAL_PROMPT_VERSION = "v4"
 ACCEPTED_ROLLING_X_GLOBAL_PROMPT_VERSIONS = frozenset({"v3", "v4"})
@@ -1897,6 +1900,145 @@ def build_deterministic_rolling_x_assignment_fallback(
     }
     packet["assignment_logical_hash"] = _logical_hash(packet)
     return packet
+
+
+def build_prepared_rolling_x_candidate_state(
+    *,
+    rolling_input: Mapping[str, Any],
+    prepared_at_utc: datetime | str,
+    max_candidates: int = PREPARED_CANDIDATE_LIMIT,
+) -> dict[str, Any]:
+    """Build the small zero-model candidate checkpoint consumed by an editorial opportunity.
+
+    This is continuous newsroom preparation, not a second assignment authority.  It reduces the
+    already-loaded rolling universe to an evidence-reachable set, binds a conservative story-type
+    profile, and grants no factual, evidence, numeric, or publication authority.
+    """
+    from live_contentops.preselection_intelligence_v1 import (
+        compact_rolling_x_assignment_universe,
+    )
+
+    if max_candidates < 1 or max_candidates > PREPARED_CANDIDATE_LIMIT:
+        raise ValueError("rolling_x_prepared_candidate_limit_invalid")
+    if rolling_input.get("schema_version") != ROLLING_X_INPUT_SCHEMA_VERSION:
+        raise ValueError("rolling_x_prepared_candidate_input_invalid")
+    prepared_at = _normalize_cutoff_utc(prepared_at_utc)
+    compact_input, compaction = compact_rolling_x_assignment_universe(rolling_input)
+    first_pass = build_deterministic_rolling_x_assignment_fallback(
+        rolling_input=compact_input,
+        max_ranked_clusters=max_candidates,
+    )
+    selected_ids = [
+        str(headline_id)
+        for cluster in first_pass.get("ranked_clusters") or []
+        for headline_id in cluster.get("headline_ids") or []
+    ]
+    rows_by_id = {
+        str(row.get("headline_id") or ""): dict(row)
+        for row in compact_input.get("headlines") or []
+        if isinstance(row, Mapping) and row.get("headline_id")
+    }
+    prepared_rows = [rows_by_id[headline_id] for headline_id in selected_ids]
+    if not prepared_rows:
+        raise ValueError("rolling_x_prepared_candidate_rows_missing")
+    prepared_input = {
+        **dict(compact_input),
+        "unique_headline_ids": selected_ids,
+        "headlines": prepared_rows,
+        "counts": {
+            **dict(compact_input.get("counts") or {}),
+            "accepted": len(prepared_rows),
+        },
+        "complete_input_coverage": False,
+        "prepared_candidate_subset": True,
+    }
+    prepared_input["canonical_input_hash"] = _logical_hash(
+        _rolling_x_canonical_hash_material(prepared_input)
+    )
+    assignment = build_deterministic_rolling_x_assignment_fallback(
+        rolling_input=prepared_input,
+        max_ranked_clusters=max_candidates,
+    )
+    story_routing = classify_rolling_x_story_types_deterministically(
+        clusters=list(assignment.get("ranked_clusters") or [])
+    )
+    state = {
+        "schema_version": PREPARED_CANDIDATE_SCHEMA_VERSION,
+        "status": "READY",
+        "prepared_at_utc": _iso_utc(prepared_at),
+        "source_cutoff_utc": str(compact_input.get("cutoff_time_utc") or ""),
+        "full_rolling_headline_count": int(
+            (rolling_input.get("counts") or {}).get("accepted")
+            or len(rolling_input.get("headlines") or [])
+        ),
+        "compact_headline_count": int(
+            (compaction or {}).get("assignment_headline_count")
+            or len(compact_input.get("headlines") or [])
+        ),
+        "prepared_candidate_count": len(prepared_rows),
+        "prepared_input": prepared_input,
+        "assignment": assignment,
+        "story_routing": story_routing,
+        "preparation_method": "DETERMINISTIC_INCREMENTAL_EVIDENCE_REACHABLE",
+        "full_universe_semantic_assignment_calls": 0,
+        "story_type_semantic_calls": 0,
+        "llm_or_provider_calls": 0,
+        "factual_or_numeric_authority_granted": False,
+        "publication_authority_granted": False,
+    }
+    state["prepared_candidate_logical_hash"] = _logical_hash(state)
+    return state
+
+
+def validate_prepared_rolling_x_candidate_state(
+    state: Mapping[str, Any],
+    *,
+    publication_cutoff_utc: datetime | str,
+    max_age_seconds: float = PREPARED_CANDIDATE_MAX_AGE_SECONDS,
+) -> dict[str, Any]:
+    """Validate freshness and exact bindings before a publication window reuses preparation."""
+    if state.get("schema_version") != PREPARED_CANDIDATE_SCHEMA_VERSION:
+        raise ValueError("rolling_x_prepared_candidate_schema_invalid")
+    if state.get("status") != "READY":
+        raise ValueError("rolling_x_prepared_candidate_not_ready")
+    logical_hash = str(state.get("prepared_candidate_logical_hash") or "")
+    material = {key: value for key, value in state.items() if key != "prepared_candidate_logical_hash"}
+    if not logical_hash or not hmac.compare_digest(logical_hash, _logical_hash(material)):
+        raise ValueError("rolling_x_prepared_candidate_hash_mismatch")
+    cutoff = _normalize_cutoff_utc(publication_cutoff_utc)
+    prepared_at = _normalize_cutoff_utc(str(state.get("prepared_at_utc") or ""))
+    age_seconds = (cutoff - prepared_at).total_seconds()
+    if age_seconds < -60 or age_seconds > float(max_age_seconds):
+        raise ValueError("rolling_x_prepared_candidate_stale")
+    prepared_input = state.get("prepared_input")
+    assignment = state.get("assignment")
+    story_routing = state.get("story_routing")
+    if not isinstance(prepared_input, Mapping) or not isinstance(assignment, Mapping):
+        raise ValueError("rolling_x_prepared_candidate_payload_invalid")
+    headlines = prepared_input.get("headlines")
+    if (
+        not isinstance(headlines, list)
+        or not headlines
+        or len(headlines) > PREPARED_CANDIDATE_LIMIT
+        or int(state.get("prepared_candidate_count") or 0) != len(headlines)
+    ):
+        raise ValueError("rolling_x_prepared_candidate_cardinality_invalid")
+    expected_input_hash = _logical_hash(_rolling_x_canonical_hash_material(prepared_input))
+    if str(prepared_input.get("canonical_input_hash") or "") != expected_input_hash:
+        raise ValueError("rolling_x_prepared_candidate_input_hash_invalid")
+    if str((assignment.get("input_binding") or {}).get("canonical_input_hash") or "") != expected_input_hash:
+        raise ValueError("rolling_x_prepared_candidate_assignment_binding_invalid")
+    cluster_ids = [
+        str(row.get("cluster_id") or "")
+        for row in assignment.get("ranked_clusters") or []
+        if isinstance(row, Mapping)
+    ]
+    routed_ids = set(
+        str(value) for value in (story_routing or {}).get("story_type_by_cluster", {})
+    ) if isinstance(story_routing, Mapping) else set()
+    if not cluster_ids or set(cluster_ids) != routed_ids:
+        raise ValueError("rolling_x_prepared_candidate_story_routing_invalid")
+    return dict(state)
 
 
 def build_bounded_rolling_x_publishability_pool(

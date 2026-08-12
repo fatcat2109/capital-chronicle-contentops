@@ -158,9 +158,10 @@ remains. Exact subtitle, captions, image count, and visual spread do not control
 Derivatives are durable asynchronous destination-local work. Their failures never hold the
 canonical newsroom or retroactively turn confirmed canonical truth into `NO_PUBLICATION`.
 
-V1 closeout now requires one genuine configured scheduled-window autonomous canonical Substack
-publication with zero unresolved `UNKNOWN_WRITE` or pending ambiguous reconciliation and intact
-destination/publication safety. Same-article 9/9 and three-articles-in-24-hours are superseded.
+The throughput correction integrates after focused tests and one relevant zero-write end-to-end
+smoke. Another scheduled-window publication, same-article 9/9, and a five-article proof are not
+integration gates. Exact destination/publication safety and zero unresolved `UNKNOWN_WRITE` remain
+hard production requirements.
 
 The broader product target remains approximately 5–8 useful canonical articles/day without filler.
 
@@ -168,9 +169,9 @@ V2 video public-write authority is separate and unchanged by this V1 handoff.
 
 ## Immediate blockers / execution order
 
-1. **Scheduled autonomy proof:** obtain one genuine configured scheduled-window canonical Substack publication with clean unknown-write/reconciliation state.
-2. **Master integration:** integrate accepted V1 source/controls to fresh remote master while preserving concurrent V2 changes.
-3. **Throughput soak:** continue approximately 5–8 useful canonical articles/day without filler while measuring published-memory, derivative reliability, quality, SEO, and visuals.
+1. **Throughput architecture correction:** move full-universe preparation outside the publication opportunity and restore one strong ordinary writer call.
+2. **Master integration:** after focused validation and a zero-write end-to-end smoke, integrate accepted V1 source/controls to fresh remote master while preserving concurrent V2 changes.
+3. **Throughput soak:** measure approximately 5–8 useful canonical articles/day without filler, with derivatives recovering independently.
 
 ## Hard stops that remain
 

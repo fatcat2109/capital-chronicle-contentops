@@ -97,11 +97,10 @@ claims, unusually consequential/high-harm claims, and other genuine hard-risk ca
 A canonical Substack article counts immediately when the exact destination identity is verified, a
 public `/p/...` URL exists, article identity/content sufficiently matches, and no `UNKNOWN_WRITE`
 remains. Derivatives are durable asynchronous destination-local work and never revoke confirmed
-canonical truth. V1 closeout now requires one genuine configured scheduled-window canonical
-Substack publication with clean unknown-write/ambiguous-reconciliation state and intact destination
-identity/publication safety. Same-article 9/9 and three-articles-in-24-hours are superseded closeout
-gates; transport/quality/SEO/visual/published-memory metrics continue during the 5–8 useful
-canonical-articles/day soak.
+canonical truth. The current throughput correction is accepted for integration after focused tests
+and a relevant zero-write end-to-end smoke; another scheduled window, same-article 9/9, and a
+five-article proof are not integration gates. Production then measures transport, quality, SEO,
+visual, published-memory, and real 5–8 useful canonical-articles/day throughput without filler.
 
 Preserve the current V1 architecture: one canonical supervisor, production orchestrator, durable store, newsroom, publication coordinator/outbox, browser bindings, model gateway, readback/reconciliation, and V5 UI.
 

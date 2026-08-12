@@ -528,7 +528,7 @@ def test_generated_article_cannot_reintroduce_exact_omitted_nonnumeric_claim():
     assert "article_reintroduced_omitted_claim" in blockers
 
 
-def test_ordinary_story_uses_compact_packet_and_skips_semantic_llm(
+def test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review(
     tmp_path, monkeypatch
 ):
     document = _official_document()
@@ -551,16 +551,21 @@ def test_ordinary_story_uses_compact_packet_and_skips_semantic_llm(
         },
     })
 
+    writer_calls = []
+    quality_writer = _make_generator(FR_URL, ["official_source_document_card"])
+
+    def counted_quality_writer(prompt):
+        writer_calls.append(prompt)
+        return quality_writer(prompt)
+
     built = build_rolling_x_grounded_article_and_media(
         _viability(evidence=evidence),
         output_dir=tmp_path,
-        article_generator=lambda _prompt: (_ for _ in ()).throw(
-            AssertionError("ordinary brief must not call the article LLM")
-        ),
+        article_generator=counted_quality_writer,
     )
-    assert built["article"]["article_generation_method"] == (
-        "MINIMUM_EVIDENCE_NEWS_BRIEF"
-    )
+    assert len(writer_calls) == 1
+    assert built["article"]["article_generation_method"] == "ROUTED_LLM_GROUNDED_ARTICLE"
+    assert built["critical_path_telemetry"]["article_writer_semantic_calls"] == 1
     assert built["media"]["media_asset_count"] == 1
     payloads = implementation.build_native_derivative_payloads(
         article=built["article"],
@@ -589,7 +594,9 @@ def test_ordinary_story_uses_compact_packet_and_skips_semantic_llm(
 
     monkeypatch.setattr(builder, "build_source_backed_media_assets", visual_failure)
     text_only = build_rolling_x_grounded_article_and_media(
-        _viability(evidence=evidence), output_dir=tmp_path / "text-only"
+        _viability(evidence=evidence),
+        output_dir=tmp_path / "text-only",
+        article_generator=_make_generator(FR_URL, []),
     )
     assert text_only["media"]["media_asset_count"] == 0
     assert text_only["media"]["visual_optional_failure"] == "OSError"

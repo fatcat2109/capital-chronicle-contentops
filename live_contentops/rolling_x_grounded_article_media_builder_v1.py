@@ -1263,24 +1263,25 @@ def build_rolling_x_grounded_article_and_media(
 
     article_router_failure: dict[str, Any] | None = None
     effective_mode = str(context.get("effective_article_mode") or "")
-    if ordinary_story:
-        generated = _minimum_evidence_news_brief(context, visual_asset_ids)
-    else:
-        prompt = build_article_generation_prompt(context, visual_asset_ids)
-        generator = article_generator or _default_article_generator
-        try:
-            generated = dict(generator(prompt))
-        except Exception as exc:
-            from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+    # Minimum evidence narrows what the writer may say; it does not replace professional
+    # writing.  The normal ordinary path therefore makes the same single quality-first writer
+    # invocation as every other publishable article.  Deterministic copy remains an explicitly
+    # degraded provider-outage recovery and is never silently treated as the normal product.
+    prompt = build_article_generation_prompt(context, visual_asset_ids)
+    generator = article_generator or _default_article_generator
+    try:
+        generated = dict(generator(prompt))
+    except Exception as exc:
+        from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
 
-            if not isinstance(exc, RoutedInvocationError) or effective_mode not in {
-                "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"
-            }:
-                raise
-            article_router_failure = {
-                key: value for key, value in exc.summary.items() if key != "output"
-            }
-            generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
+        if not isinstance(exc, RoutedInvocationError) or effective_mode not in {
+            "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"
+        }:
+            raise
+        article_router_failure = {
+            key: value for key, value in exc.summary.items() if key != "output"
+        }
+        generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
 
     evidence_document_ids = sorted(
         {
@@ -1401,6 +1402,12 @@ def build_rolling_x_grounded_article_and_media(
             "editorial_classification": context.get("editorial_classification"),
             "update_chain_identity": context.get("update_chain_identity"),
             "provided_evidence_capabilities": context["provided_evidence_capabilities"],
+        },
+        "critical_path_telemetry": {
+            "article_writer_semantic_calls": 1,
+            "ordinary_story": ordinary_story,
+            "deterministic_outage_recovery_used": article_router_failure is not None,
+            "mandatory_semantic_review_calls": 0 if ordinary_story else 1,
         },
         "publication_authority": False,
     }

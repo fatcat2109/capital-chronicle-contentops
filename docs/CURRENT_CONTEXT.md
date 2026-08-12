@@ -15,13 +15,13 @@ Current fresh-session handoff:
 
 Current continuation task:
 
-`TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1`
+`TASK_CONTENTOPS_V1_THROUGHPUT_ARCHITECTURE_CORRECTION_AND_MASTER_INTEGRATION_V1`
 
 Parent task:
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-Current V1 closeout requires one genuine configured scheduled-window autonomous article confirmed on canonical Substack with exact destination identity, a public `/p/...` URL, sufficient article identity/content match, and zero unresolved `UNKNOWN_WRITE` or ambiguous reconciliation. Same-article 9/9 and three-articles-in-24-hours are superseded gates. Derivatives recover asynchronously per destination and never revoke confirmed canonical truth. Ordinary stories use compact minimum trustworthy evidence plus hard factual/safety checks; enhanced evidence/review remains for genuinely high-risk claims. Read the current V1 handoff for live branch/runtime evidence and owner overrides. Do not infer current V1 runtime state from this compact file.
+The current V1 correction moves full-universe newsroom preparation out of the scheduled-publication critical path. Continuous intake maintains a small durable prepared-candidate checkpoint; an editorial opportunity consumes it, obtains minimum trustworthy evidence, makes one quality-writer call for ordinary reporting, runs deterministic hard factual/safety checks, and returns the canonical publication plan. Ordinary reporting has zero mandatory semantic-review calls; enhanced evidence/review remains for genuinely high-risk claims. Canonical Substack confirmation releases the newsroom immediately while derivatives recover asynchronously per destination and never revoke confirmed canonical truth. Same-article 9/9, five-article acceptance, and another scheduled-window proof are not integration gates. Read the current V1 handoff for branch/runtime evidence and owner overrides. Do not infer live runtime state from this compact file.
 
 The broader approximately 5–8 useful articles/day target remains a portfolio goal, never filler permission.
 

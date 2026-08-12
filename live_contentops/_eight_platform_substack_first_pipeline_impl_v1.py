@@ -411,7 +411,12 @@ def build_native_derivative_payloads(
     """Create distinct, publication-ready platform copy from the canonical article."""
     title = str(article["title"])
     dek = str(article.get("subtitle") or selection.get("dek") or "")
-    if article.get("article_generation_method") == "MINIMUM_EVIDENCE_NEWS_BRIEF":
+    minimum_packet = article.get("minimum_trustworthy_evidence_packet") or {}
+    if (
+        isinstance(minimum_packet, Mapping)
+        and minimum_packet.get("status") == "PASS"
+        and minimum_packet.get("risk_tier") == "ORDINARY"
+    ):
         text = "\n\n".join(value for value in (title, dek, canonical_url) if value)
         media_ids = [str(value) for value in media_asset_ids if str(value)]
         thread_payload = {
@@ -2406,7 +2411,12 @@ def _run_bounded_rolling_x_editorial_cycle(
     if max_revision_rounds != 1:
         raise ValueError("rolling_x_revision_round_limit_must_be_one")
 
-    if article.get("article_generation_method") == "MINIMUM_EVIDENCE_NEWS_BRIEF":
+    minimum_packet = article.get("minimum_trustworthy_evidence_packet") or {}
+    if (
+        isinstance(minimum_packet, Mapping)
+        and minimum_packet.get("status") == "PASS"
+        and minimum_packet.get("risk_tier") == "ORDINARY"
+    ):
         from live_contentops.tier1_editorial_quality_v1 import (
             review_minimum_evidence_news_brief,
         )
@@ -2438,6 +2448,7 @@ def _run_bounded_rolling_x_editorial_cycle(
             "article": candidate,
             "revision_rounds_completed": 0,
             "semantic_review_required": False,
+            "mandatory_semantic_review_calls": 0,
             "review_history": history,
             "publication_authority_granted": False,
         }
@@ -3634,6 +3645,7 @@ def _run_rolling_x_newsroom_cycle(
     assignment_timeout_seconds: float = 120.0,
     assignment_provider_call: Any = None,
     rolling_input: Mapping[str, Any] | None = None,
+    prepared_candidate_state: Mapping[str, Any] | None = None,
     leaf_checkpoints: Mapping[str, Mapping[str, Any]] | None = None,
     global_checkpoint: Mapping[str, Any] | None = None,
     capital_chronicle_root: str | Path | None = None,
@@ -3660,18 +3672,39 @@ def _run_rolling_x_newsroom_cycle(
         classify_rolling_x_story_types_with_nine_router,
         load_rolling_x_headline_sidecars,
         select_first_viable_rolling_x_cluster,
+        validate_prepared_rolling_x_candidate_state,
     )
     from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
 
     output_dir.mkdir(parents=True, exist_ok=True)
+    critical_path_started = time.monotonic()
     evidence_path = output_dir / "rolling_x_newsroom_cycle_evidence_v1.json"
     if evidence_path.exists():
         evidence = _read_json(evidence_path)
         evidence["reentry_guard"] = "existing_cycle_evidence_detected_no_automatic_retry"
         return evidence
 
+    prepared_state_path = output_dir / "rolling_x_prepared_candidate_state_v1.json"
+    if prepared_state_path.exists():
+        prepared_candidate_state = _read_json(prepared_state_path)
+    prepared_state = (
+        validate_prepared_rolling_x_candidate_state(
+            prepared_candidate_state,
+            publication_cutoff_utc=cutoff_utc,
+        )
+        if prepared_candidate_state is not None
+        else None
+    )
+    if prepared_state is not None and not prepared_state_path.exists():
+        _write_json(prepared_state_path, prepared_state)
+    if prepared_state is not None and story_type_by_cluster is None:
+        story_type_by_cluster = dict(
+            (prepared_state.get("story_routing") or {}).get("story_type_by_cluster") or {}
+        )
     intake = (
-        dict(rolling_input)
+        dict(prepared_state["prepared_input"])
+        if prepared_state is not None
+        else dict(rolling_input)
         if rolling_input is not None
         else load_rolling_x_headline_sidecars(
             cutoff_utc=cutoff_utc,
@@ -3684,7 +3717,26 @@ def _run_rolling_x_newsroom_cycle(
         compact_rolling_x_assignment_universe,
     )
 
-    if isinstance(intake.get("headlines"), list):
+    if prepared_state is not None:
+        assignment_input = intake
+        assignment_compaction = {
+            "schema_version": "contentops.rolling_x_assignment_compaction.v1",
+            "compaction_applied": True,
+            "reason": "DURABLE_PREPARED_CANDIDATE_STATE_REUSED",
+            "full_rolling_headline_count": int(
+                prepared_state.get("full_rolling_headline_count") or 0
+            ),
+            "assignment_headline_count": len(intake.get("headlines") or []),
+            "held_before_semantic_assignment_count": max(
+                0,
+                int(prepared_state.get("full_rolling_headline_count") or 0)
+                - len(intake.get("headlines") or []),
+            ),
+            "llm_or_provider_calls": 0,
+            "factual_or_numeric_authority_granted": False,
+            "publication_authority_granted": False,
+        }
+    elif isinstance(intake.get("headlines"), list):
         assignment_input, assignment_compaction = compact_rolling_x_assignment_universe(intake)
     else:
         # Narrow injected tests may replace the canonical loader with a minimal count-only
@@ -3711,12 +3763,22 @@ def _run_rolling_x_newsroom_cycle(
         assignment_compaction,
     )
     try:
-        assignment = assign_rolling_x_headlines_with_nine_router(
-            rolling_input=assignment_input,
-            timeout_seconds=assignment_timeout_seconds,
-            provider_call=assignment_provider_call,
-            leaf_checkpoints=leaf_checkpoints,
-            global_checkpoint=global_checkpoint,
+        assignment = (
+            {
+                **dict(prepared_state["assignment"]),
+                "prepared_candidate_state_reused": True,
+                "prepared_candidate_logical_hash": prepared_state.get(
+                    "prepared_candidate_logical_hash"
+                ),
+            }
+            if prepared_state is not None
+            else assign_rolling_x_headlines_with_nine_router(
+                rolling_input=assignment_input,
+                timeout_seconds=assignment_timeout_seconds,
+                provider_call=assignment_provider_call,
+                leaf_checkpoints=leaf_checkpoints,
+                global_checkpoint=global_checkpoint,
+            )
         )
     except RoutedInvocationError as exc:
         summary = dict(getattr(exc, "summary", {}) or {})
@@ -3781,13 +3843,27 @@ def _run_rolling_x_newsroom_cycle(
         and assignment.get("decision") == "SELECT_STORY"
         and assignment.get("ranked_clusters")
     ):
-        ranked_assignment = build_bounded_rolling_x_publishability_pool(
-            assignment=assignment,
-            rolling_input=assignment_input,
-        )
-        publishability_candidate_pool = dict(
-            ranked_assignment.get("publishability_candidate_pool") or {}
-        )
+        if prepared_state is not None:
+            ranked_assignment = assignment
+            publishability_candidate_pool = {
+                "schema_version": "contentops.rolling_x_publishability_candidate_pool.v1",
+                "status": "PREPARED_CANDIDATE_SET_REUSED",
+                "bounded_pool_limit": len(assignment.get("ranked_clusters") or []),
+                "combined_candidate_count": len(assignment.get("ranked_clusters") or []),
+                "same_cycle_ranked_evidence_walk": True,
+                "full_universe_expansion_performed": False,
+                "llm_or_provider_calls": 0,
+                "factual_or_numeric_authority_granted": False,
+                "publication_authority_granted": False,
+            }
+        else:
+            ranked_assignment = build_bounded_rolling_x_publishability_pool(
+                assignment=assignment,
+                rolling_input=assignment_input,
+            )
+            publishability_candidate_pool = dict(
+                ranked_assignment.get("publishability_candidate_pool") or {}
+            )
         _write_json(
             output_dir / "rolling_x_publishability_candidate_pool_v1.json",
             publishability_candidate_pool,
@@ -3909,7 +3985,34 @@ def _run_rolling_x_newsroom_cycle(
                         "semantic_routing_grants_authority": False,
                     }
         _write_json(output_dir / "rolling_x_story_routing_v1.json", story_routing)
-    if story_routing is not None and story_routing.get("status") == "BLOCKED":
+    viability_path = output_dir / "rolling_x_ranked_viability_v1.json"
+    viability_checkpoint: Mapping[str, Any] | None = None
+    if viability_path.exists():
+        candidate_checkpoint = _read_json(viability_path)
+        checkpoint_hash = str(candidate_checkpoint.get("viability_logical_hash") or "")
+        checkpoint_material = {
+            key: value
+            for key, value in candidate_checkpoint.items()
+            if key != "viability_logical_hash"
+        }
+        ranked_cluster_ids = {
+            str(row.get("cluster_id") or "")
+            for row in ranked_assignment.get("ranked_clusters") or []
+            if isinstance(row, Mapping)
+        }
+        checkpoint_selected = str(candidate_checkpoint.get("selected_cluster_id") or "")
+        if (
+            checkpoint_hash
+            and checkpoint_hash == _json_sha256(checkpoint_material)
+            and candidate_checkpoint.get("status") in {"SUCCESS", "NO_PUBLICATION", "BLOCKED"}
+            and (not checkpoint_selected or checkpoint_selected in ranked_cluster_ids)
+        ):
+            viability_checkpoint = candidate_checkpoint
+        else:
+            raise ValueError("rolling_x_viability_checkpoint_binding_invalid")
+    if viability_checkpoint is not None:
+        viability = {**dict(viability_checkpoint), "durable_checkpoint_reused": True}
+    elif story_routing is not None and story_routing.get("status") == "BLOCKED":
         viability = {
             "status": "BLOCKED",
             "decision": None,
@@ -3949,7 +4052,8 @@ def _run_rolling_x_newsroom_cycle(
                     "preselection_logical_hash"
                 ),
             }
-    _write_json(output_dir / "rolling_x_ranked_viability_v1.json", viability)
+    if viability_checkpoint is None:
+        _write_json(viability_path, viability)
 
     evidence: dict[str, Any] = {
         "schema_version": "contentops.rolling_x_newsroom_cycle.v1",
@@ -3961,6 +4065,23 @@ def _run_rolling_x_newsroom_cycle(
         "assignment": assignment,
         "preselection_intelligence": preselection,
         "story_routing": story_routing,
+        "prepared_candidate_state": (
+            {
+                key: prepared_state.get(key)
+                for key in (
+                    "schema_version",
+                    "status",
+                    "prepared_at_utc",
+                    "full_rolling_headline_count",
+                    "compact_headline_count",
+                    "prepared_candidate_count",
+                    "prepared_candidate_logical_hash",
+                    "preparation_method",
+                )
+            }
+            if prepared_state is not None
+            else None
+        ),
         "publishability_candidate_pool": publishability_candidate_pool,
         "ranked_viability": viability,
         "public_write_performed": False,
@@ -3976,12 +4097,55 @@ def _run_rolling_x_newsroom_cycle(
             "revision_round_limit": 1,
         },
     }
+
+    def _persist_cycle_evidence() -> None:
+        article_telemetry = dict(evidence.get("article_build_telemetry") or {})
+        editorial_telemetry = dict(evidence.get("editorial_cycle") or {})
+        assignment_calls = (
+            0
+            if prepared_state is not None
+            else int((assignment.get("telemetry") or {}).get("logical_router_calls") or 0)
+        )
+        story_calls = 0 if prepared_state is not None else int(
+            bool(
+                story_routing
+                and story_routing.get("router_summary")
+                and not story_routing.get("semantic_router_failure_recovered")
+            )
+        )
+        writer_calls = int(
+            article_telemetry.get("article_writer_semantic_calls_this_resume")
+            if article_telemetry.get("grounded_article_checkpoint_reused")
+            else article_telemetry.get("article_writer_semantic_calls") or 0
+        )
+        review_calls = int(editorial_telemetry.get("mandatory_semantic_review_calls") or 0)
+        evidence["critical_path_telemetry"] = {
+            "schema_version": "contentops.publication_critical_path_telemetry.v1",
+            "elapsed_seconds": round(time.monotonic() - critical_path_started, 3),
+            "prepared_candidate_state_reused": prepared_state is not None,
+            "prepared_candidate_count": int(
+                (prepared_state or {}).get("prepared_candidate_count") or 0
+            ),
+            "full_rolling_headline_count": int(
+                (prepared_state or {}).get("full_rolling_headline_count")
+                or (intake.get("counts") or {}).get("accepted")
+                or 0
+            ),
+            "full_universe_semantic_assignment_on_critical_path": prepared_state is None,
+            "assignment_semantic_calls": assignment_calls,
+            "story_type_semantic_calls": story_calls,
+            "article_writer_semantic_calls": writer_calls,
+            "mandatory_semantic_review_calls": review_calls,
+            "routine_semantic_calls": assignment_calls + story_calls + writer_calls + review_calls,
+            "public_write_performed": bool(evidence.get("public_write_performed")),
+        }
+        _write_json(evidence_path, evidence)
     if viability.get("status") != "SUCCESS":
         evidence["classification"] = (
             "BLOCKED" if viability.get("status") == "BLOCKED" else "NO_PUBLICATION"
         )
         evidence["exact_next_blocker"] = viability.get("reason_code")
-        _write_json(evidence_path, evidence)
+        _persist_cycle_evidence()
         return evidence
 
     if article_builder is None:
@@ -3997,33 +4161,65 @@ def _run_rolling_x_newsroom_cycle(
     if not callable(article_builder):
         evidence["classification"] = "NO_PUBLICATION"
         evidence["exact_next_blocker"] = "STORY_ARTICLE_VISUAL_BUILDER_UNAVAILABLE"
-        _write_json(evidence_path, evidence)
+        _persist_cycle_evidence()
         return evidence
     reviewer = editorial_reviewer or _default_rolling_x_editorial_reviewer
     reviser = article_reviser or _default_rolling_x_article_reviser
     if not callable(reviewer) or not callable(reviser):
         evidence["classification"] = "NO_PUBLICATION"
         evidence["exact_next_blocker"] = "STORY_EDITORIAL_ADAPTERS_UNAVAILABLE"
-        _write_json(evidence_path, evidence)
+        _persist_cycle_evidence()
         return evidence
     from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
         GroundedArticleBuilderError,
+        extract_governed_story_context,
+        validate_generated_article,
     )
 
+    built_checkpoint_path = output_dir / "rolling_x_grounded_article_media_v1.json"
     try:
-        built = article_builder(dict(viability))
+        if built_checkpoint_path.exists():
+            built = _read_json(built_checkpoint_path)
+            checkpoint_article = dict(built.get("article") or {})
+            checkpoint_assets = list((built.get("media") or {}).get("assets") or [])
+            checkpoint_context = extract_governed_story_context(viability)
+            checkpoint_blockers = validate_generated_article(
+                checkpoint_article,
+                context=checkpoint_context,
+                visual_asset_ids=[str(row.get("asset_id") or "") for row in checkpoint_assets],
+            )
+            if built.get("schema_version") != "contentops.rolling_x_grounded_article_media_builder.v1" or checkpoint_blockers:
+                raise GroundedArticleBuilderError(
+                    "grounded_article_checkpoint_binding_invalid:"
+                    + ",".join(checkpoint_blockers)
+                )
+            built = {
+                **built,
+                "critical_path_telemetry": {
+                    **dict(built.get("critical_path_telemetry") or {}),
+                    "grounded_article_checkpoint_reused": True,
+                    "article_writer_semantic_calls_this_resume": 0,
+                },
+            }
+        else:
+            built = article_builder(dict(viability))
+            if isinstance(built, Mapping):
+                _write_json(built_checkpoint_path, built)
     except GroundedArticleBuilderError as exc:
         evidence["classification"] = "NO_PUBLICATION"
         evidence["exact_next_blocker"] = "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED"
         evidence["grounded_article_builder_blockers"] = sorted(set(str(exc).split(";")))
         evidence["article"] = None
         evidence["media"] = None
-        _write_json(evidence_path, evidence)
+        _persist_cycle_evidence()
         return evidence
     if not isinstance(built, Mapping):
         raise ValueError("rolling_x_article_builder_not_object")
     article = dict(built.get("article") or {})
     media = dict(built.get("media") or {})
+    evidence["article_build_telemetry"] = dict(
+        built.get("critical_path_telemetry") or {}
+    )
     media_assets = list(media.get("assets") or [])
     deterministic_outage_fallback = (
         article.get("article_generation_method") == "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF"
@@ -4039,7 +4235,7 @@ def _run_rolling_x_newsroom_cycle(
         evidence["article_generation_publication_eligible"] = False
         evidence["publishing_adapter_called"] = False
         evidence["public_write_performed"] = False
-        _write_json(evidence_path, evidence)
+        _persist_cycle_evidence()
         return evidence
     editorial = _run_bounded_rolling_x_editorial_cycle(
         article=article,
@@ -4053,7 +4249,7 @@ def _run_rolling_x_newsroom_cycle(
     if editorial.get("status") != "PASS":
         evidence["classification"] = "NO_PUBLICATION"
         evidence["exact_next_blocker"] = editorial.get("reason_code")
-        _write_json(evidence_path, evidence)
+        _persist_cycle_evidence()
         return evidence
     readiness = (
         dict(destination_readiness_override)
@@ -4082,14 +4278,6 @@ def _run_rolling_x_newsroom_cycle(
     )
     evidence["release_candidate_preparation"] = preparation
     evidence["platform_package_generated"] = bool(preparation.get("payloads"))
-    if not publication_enabled:
-        evidence["classification"] = "NO_PUBLICATION"
-        evidence["exact_next_blocker"] = "PUBLICATION_DISABLED_FOR_GOVERNED_CYCLE"
-        evidence["shadow_package_ready"] = bool(preparation.get("payloads"))
-        evidence["publishing_adapter_called"] = False
-        evidence["public_write_performed"] = False
-        _write_json(evidence_path, evidence)
-        return evidence
     if (
         preparation.get("classification")
         != "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
@@ -4100,7 +4288,10 @@ def _run_rolling_x_newsroom_cycle(
         evidence["exact_next_blocker"] = (
             (preparation.get("blockers") or ["CANONICAL_RELEASE_CANDIDATE_LOCK_NOT_READY"])[0]
         )
-        _write_json(evidence_path, evidence)
+        if not publication_enabled:
+            evidence["shadow_package_ready"] = bool(preparation.get("payloads"))
+            evidence["shadow_publication_plan_ready"] = False
+        _persist_cycle_evidence()
         return evidence
 
     # Final Daily App path: the newsroom never calls a publishing adapter.  It returns a
@@ -4113,6 +4304,15 @@ def _run_rolling_x_newsroom_cycle(
         readiness=readiness,
     )
     evidence["publication_lifecycle_plan"] = plan
+    if not publication_enabled:
+        evidence["classification"] = "NO_PUBLICATION"
+        evidence["exact_next_blocker"] = "PUBLICATION_DISABLED_FOR_GOVERNED_CYCLE"
+        evidence["shadow_package_ready"] = bool(preparation.get("payloads"))
+        evidence["shadow_publication_plan_ready"] = True
+        evidence["publishing_adapter_called"] = False
+        evidence["public_write_performed"] = False
+        _persist_cycle_evidence()
+        return evidence
     evidence["classification"] = "PASS_PUBLICATION_PLAN_READY"
     evidence["publishing_adapter_called"] = False
     evidence["public_write_performed"] = False
@@ -4121,7 +4321,7 @@ def _run_rolling_x_newsroom_cycle(
     evidence["automatic_retry_blocked"] = False
     evidence["daily_app_newsroom_direct_write"] = False
     evidence["exact_next_blocker"] = None
-    _write_json(evidence_path, evidence)
+    _persist_cycle_evidence()
     return evidence
 
 

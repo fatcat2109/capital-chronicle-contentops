@@ -1,0 +1,20 @@
+{
+  "article_generation_method": "ROUTED_LLM_GROUNDED_ARTICLE",
+  "article_writer_semantic_calls": 1,
+  "assignment_semantic_calls": 0,
+  "controlled_fixture_bound": true,
+  "elapsed_seconds": 0.274,
+  "full_rolling_headline_count": 1024,
+  "full_universe_semantic_assignment_on_critical_path": false,
+  "mandatory_semantic_review_calls": 0,
+  "prepared_candidate_count": 12,
+  "prepared_candidate_state_reused": true,
+  "publication_plan_destination_count": 9,
+  "publication_plan_schema_version": "contentops.publication_plan.v1",
+  "public_write_performed": false,
+  "routine_semantic_calls": 1,
+  "schema_version": "contentops.v1_throughput_architecture_zero_write_smoke.v1",
+  "shadow_publication_plan_ready": true,
+  "story_type_semantic_calls": 0,
+  "test_runtime_seconds": 0.80
+}

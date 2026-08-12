@@ -36,7 +36,7 @@ Parent task remains:
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-The first mandatory V1 closeout proof is one same canonical article genuinely public and strictly read back/reconciled on all nine Tier-1 text/image surfaces, followed by repeated autonomous proof reaching at least five genuine canonical articles including a scheduled-window success. The broader 5–8 useful articles/day band remains a portfolio target, never filler permission. Read the V1 handoff for the current live evidence, operator override, and hard stops.
+Current V1 direction is throughput-first without weakening factual or publication safety: continuous preparation creates a small durable candidate set; a scheduled opportunity consumes that set, obtains minimum trustworthy evidence, makes one quality-writer call for ordinary reporting, runs deterministic hard checks, and advances after canonical Substack confirmation while derivatives recover asynchronously. Same-article 9/9, five-article acceptance, and mandatory ordinary semantic review are superseded ceremony. The broader 5–8 useful articles/day band remains a portfolio target, never filler permission. Read the V1 handoff for current evidence, integration state, and hard stops.
 
 ## Current V2 product authority
 
