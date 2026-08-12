@@ -174,6 +174,44 @@ def test_bounded_editorial_cycle_fails_closed_when_revision_router_fails(monkeyp
     assert "provider_error" not in failure
 
 
+def test_revision_binding_failure_uses_structured_repair_class(monkeypatch):
+    from live_contentops import nine_router_llm_seam_v2 as seam
+
+    article = {
+        **_article(),
+        "cluster_id": "cluster-1",
+        "headline_ids": ["headline-1"],
+        "evidence_document_ids": ["evidence-1"],
+        "x_content_grants_factual_authority": False,
+    }
+    observed = {}
+
+    def routed(**kwargs):
+        invalid = {**article, "cluster_id": "changed-cluster"}
+        validation = kwargs["validator"](json.dumps(invalid))
+        observed["validation"] = validation
+        return {
+            "terminal_disposition": "ACCEPTED",
+            "output": article,
+        }
+
+    monkeypatch.setattr(seam, "routed_llm_invocation", routed)
+
+    revised = implementation._default_rolling_x_article_reviser(
+        article,
+        {"issues": [{"code": "reader_facing_prose"}]},
+        1,
+    )
+
+    assert revised == article
+    assert observed["validation"] == (
+        False,
+        "structured_output_malformed",
+        None,
+        "revision_cluster_id_changed",
+    )
+
+
 def test_canonical_cycle_stops_before_generation_when_ranked_evidence_blocks(monkeypatch, tmp_path: Path):
     intake = {
         "schema_version": "capital_chronicle.rolling_x_headline_input.v1",

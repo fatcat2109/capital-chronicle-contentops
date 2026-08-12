@@ -3204,7 +3204,7 @@ def _default_rolling_x_article_reviser(
         ]
     )
 
-    def validate(raw: str) -> tuple[bool, str | None, Any]:
+    def validate(raw: str) -> tuple[bool, str | None, Any, str | None]:
         try:
             value = str(raw or "").strip()
             if value.startswith("```"):
@@ -3224,9 +3224,13 @@ def _default_rolling_x_article_reviser(
             if parsed.get("publication_authority") not in {None, False}:
                 raise ValueError("revision_publication_authority_escalation")
             parsed["publication_authority"] = False
-            return True, None, parsed
+            return True, None, parsed, None
         except Exception as exc:
-            return False, str(exc), None
+            # Keep schema/binding diagnostics separate from the router failure class.  The
+            # latter must remain a canonical structured-output class so the one bounded repair
+            # attempt is available; arbitrary validation text is intentionally terminal in the
+            # router because it is not an authorized fallback class.
+            return False, "structured_output_malformed", None, str(exc)
 
     summary = routed_llm_invocation(
         prompt=prompt,
