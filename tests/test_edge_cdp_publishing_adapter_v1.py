@@ -81,8 +81,15 @@ class _TransitionButton:
             return None
         return None
 
-    def click(self, timeout=None):
+    def scroll_into_view_if_needed(self, timeout=None):
         del timeout
+
+    def click(self, timeout=None, trial=False):
+        del timeout
+        if trial:
+            if getattr(self.page, "raise_on_trial", None) == self.label:
+                raise TimeoutError("simulated non-actionable control")
+            return
         self.page.clicks.append(self.label)
         if self.page.raise_on_click == self.label:
             raise TimeoutError("simulated ambiguous click response")
@@ -107,11 +114,13 @@ class _TransitionPage:
         confirmation_after_polls: int | None,
         public_after_confirmation: bool = True,
         raise_on_click: str | None = None,
+        raise_on_trial: str | None = None,
     ) -> None:
         self.mode = "editor"
         self.confirmation_after_polls = confirmation_after_polls
         self.public_after_confirmation = public_after_confirmation
         self.raise_on_click = raise_on_click
+        self.raise_on_trial = raise_on_trial
         self.confirmation_polls = 0
         self.public_url = None
         self.clicks: list[str] = []
@@ -283,6 +292,33 @@ def test_substack_publish_transition_click_timeout_is_unknown_write(
     assert result["browser_write_performed"] is True
     assert result["transition_stages"][-1]["error_class"] == "TimeoutError"
     assert page.clicks == ["Continue", "Send to everyone now"]
+    assert page.navigations == []
+
+
+def test_substack_publish_transition_non_actionable_final_control_is_definite_no_write(
+    monkeypatch,
+) -> None:
+    page = _TransitionPage(
+        confirmation_after_polls=None,
+        raise_on_trial="Send to everyone now",
+    )
+    monkeypatch.setattr(adapter, "_extract_substack_public_url", lambda _page: None)
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id="210865567",
+        expected_title="Exact story",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == "BLOCKED_SUBSTACK_PUBLISH_CONTROL_NOT_ACTIONABLE"
+    assert result["definite_no_write"] is True
+    assert result["public_write_attempted"] is False
+    assert result["browser_write_performed"] is False
+    assert result["transition_stages"][-1]["outcome"] == "CONTROL_NOT_ACTIONABLE"
+    assert page.clicks == ["Continue"]
     assert page.navigations == []
 
 

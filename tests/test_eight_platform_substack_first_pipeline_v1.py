@@ -564,6 +564,79 @@ def test_substack_draft_id_readback_uses_exact_read_only_resolver(
     assert result["public_object_id"] == "210796285"
 
 
+def test_substack_transport_attempt_persists_only_sanitized_transition_facts(
+    monkeypatch, tmp_path
+):
+    monkeypatch.setattr(
+        pipeline,
+        "_durable_intent_inputs",
+        lambda _intent: {
+            "output_dir": tmp_path,
+            "article": {
+                "title": "Exact governed title",
+                "subtitle": "Exact governed subtitle",
+                "substack_body_markdown": "Governed body.",
+            },
+            "payloads": {"substack": {"text": "must never be persisted"}},
+            "canonical_url": "",
+            "local_media": "",
+            "public_image_url": "",
+            "media_assets": [],
+        },
+    )
+    monkeypatch.setattr(
+        pipeline,
+        "publish_substack_article_via_edge",
+        lambda **_kwargs: {
+            "status": "UNKNOWN_SUBSTACK_PUBLISH_CONTROL_CLICK_FAILED",
+            "draft_id": "210865567",
+            "public_write_attempted": True,
+            "browser_write_performed": True,
+            "payload": "must never be persisted",
+            "raw_error": "secret-bearing diagnostic must never be persisted",
+            "transition_stages": [
+                {
+                    "stage": "PUBLISH_SETTINGS",
+                    "control_label": "Send to everyone now",
+                    "outcome": "CLICK_FAILED",
+                    "error_class": "TimeoutError",
+                    "raw_error": "must never be persisted",
+                }
+            ],
+        },
+    )
+
+    result = pipeline._publish_one_destination_from_durable_intent(
+        destination="substack",
+        intent={"attempt_identity": "dispatch-1", "output_dir": str(tmp_path)},
+        authorization_context={
+            "operating_mode": "AUTONOMOUS_DEFAULT",
+            "dispatch_attempt_identity": "dispatch-1",
+        },
+    )
+
+    assert result["status"] == "UNKNOWN_SUBSTACK_PUBLISH_CONTROL_CLICK_FAILED"
+    packet = json.loads(
+        (tmp_path / "transport_attempt_substack_v1.json").read_text(encoding="utf-8")
+    )
+    assert packet["draft_id"] == "210865567"
+    assert packet["public_write_attempted"] is True
+    assert packet["browser_write_performed"] is True
+    assert packet["transition_stages"] == [
+        {
+            "control_label": "Send to everyone now",
+            "error_class": "TimeoutError",
+            "outcome": "CLICK_FAILED",
+            "stage": "PUBLISH_SETTINGS",
+        }
+    ]
+    serialized = json.dumps(packet, sort_keys=True)
+    assert "must never be persisted" not in serialized
+    assert packet["payload_persisted"] is False
+    assert packet["browser_session_material_persisted"] is False
+    assert packet["raw_error_text_persisted"] is False
+
+
 def test_default_youtube_path_cannot_call_video_or_short_adapter():
     runner_source = inspect.getsource(pipeline._run_eight_platform_substack_first_pipeline)
     resume_source = inspect.getsource(pipeline._resume_eight_platform_derivatives)

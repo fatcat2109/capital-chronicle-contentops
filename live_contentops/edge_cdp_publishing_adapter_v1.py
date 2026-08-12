@@ -1255,6 +1255,26 @@ def _complete_substack_publish_transition(
             "transition_stages": stages,
         }
     try:
+        publish_button.scroll_into_view_if_needed(timeout=3000)
+        publish_button.click(timeout=3000, trial=True)
+    except Exception as exc:
+        stages.append(
+            {
+                "stage": "PUBLISH_SETTINGS",
+                "control_label": publish_label,
+                "outcome": "CONTROL_NOT_ACTIONABLE",
+                "error_class": type(exc).__name__,
+            }
+        )
+        return {
+            "status": "BLOCKED_SUBSTACK_PUBLISH_CONTROL_NOT_ACTIONABLE",
+            "draft_id": draft_id,
+            "definite_no_write": True,
+            "public_write_attempted": False,
+            "browser_write_performed": False,
+            "transition_stages": stages,
+        }
+    try:
         publish_button.click(timeout=6000)
     except Exception as exc:
         stages.append(

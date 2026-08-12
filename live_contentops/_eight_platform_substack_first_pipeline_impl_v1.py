@@ -2827,6 +2827,68 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def _persist_sanitized_substack_transport_attempt(
+    *, output_dir: Path, result: Mapping[str, Any]
+) -> None:
+    """Persist bounded public-transition facts without payload or browser/session material."""
+    raw = dict(result or {})
+    transition = (
+        dict(raw.get("publish_transition") or {})
+        if isinstance(raw.get("publish_transition"), Mapping)
+        else raw
+    )
+    stages = []
+    for row in transition.get("transition_stages") or raw.get("transition_stages") or []:
+        if not isinstance(row, Mapping):
+            continue
+        stages.append(
+            {
+                key: row.get(key)
+                for key in (
+                    "stage",
+                    "outcome",
+                    "control_label",
+                    "error_class",
+                    "match_count",
+                )
+                if row.get(key) not in (None, "")
+            }
+        )
+    public_url = str(raw.get("public_url") or transition.get("public_url") or "")
+    if not public_url.startswith("https://capitalchronicle.substack.com/p/"):
+        public_url = ""
+    packet = {
+        "schema_version": "contentops.sanitized_transport_attempt.v1",
+        "destination": "substack",
+        "created_at": _utc_now(),
+        "status": str(raw.get("status") or ""),
+        "draft_id": str(raw.get("draft_id") or transition.get("draft_id") or "") or None,
+        "public_url": public_url or None,
+        "public_write_attempted": bool(
+            raw.get("public_write_attempted") or transition.get("public_write_attempted")
+        ),
+        "browser_write_performed": bool(
+            raw.get("browser_write_performed") or transition.get("browser_write_performed")
+        ),
+        "definite_no_write": bool(
+            raw.get("definite_no_write") or transition.get("definite_no_write")
+        ),
+        "publication_write_mode": str(
+            raw.get("publication_write_mode")
+            or transition.get("publication_write_mode")
+            or ""
+        )
+        or None,
+        "provider_readback_verified": raw.get("provider_readback_verified") is True,
+        "strict_readback_verified": raw.get("strict_readback_verified") is True,
+        "transition_stages": stages,
+        "payload_persisted": False,
+        "browser_session_material_persisted": False,
+        "raw_error_text_persisted": False,
+    }
+    _write_json(output_dir / "transport_attempt_substack_v1.json", packet)
+
+
 def _publish_one_destination_from_durable_intent(
     *, destination: str, intent: Mapping[str, Any],
     authorization_context: Mapping[str, Any], cdp_port: int = 9223,
@@ -2852,6 +2914,7 @@ def _publish_one_destination_from_durable_intent(
             image_assets=data["media_assets"],
             public_screenshot_path=output_dir / "public_substack_readback.png",
         )
+        _persist_sanitized_substack_transport_attempt(output_dir=output_dir, result=result)
         readback = result.get("readback") if isinstance(result.get("readback"), Mapping) else {}
         public_images = list(readback.get("public_image_urls") or result.get("public_image_urls") or [])
         if str(result.get("status") or "") in SUCCESS_STATUSES and public_images:
@@ -3650,6 +3713,22 @@ def _run_rolling_x_newsroom_cycle(
     article = dict(built.get("article") or {})
     media = dict(built.get("media") or {})
     media_assets = list(media.get("assets") or [])
+    deterministic_outage_fallback = (
+        article.get("article_generation_method") == "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF"
+        or bool(article.get("article_generation_router_failure"))
+    )
+    if publication_enabled and deterministic_outage_fallback:
+        evidence["article"] = article
+        evidence["media"] = media
+        evidence["classification"] = "NO_PUBLICATION"
+        evidence["exact_next_blocker"] = (
+            "ARTICLE_GENERATION_ROUTER_FAILURE_NO_PUBLICATION_AUTHORITY"
+        )
+        evidence["article_generation_publication_eligible"] = False
+        evidence["publishing_adapter_called"] = False
+        evidence["public_write_performed"] = False
+        _write_json(evidence_path, evidence)
+        return evidence
     editorial = _run_bounded_rolling_x_editorial_cycle(
         article=article,
         media_assets=media_assets,

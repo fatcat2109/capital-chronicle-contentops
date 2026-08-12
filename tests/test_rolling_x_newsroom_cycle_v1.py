@@ -494,6 +494,55 @@ def test_passed_cycle_returns_plan_without_direct_backend_write(monkeypatch, tmp
     assert result["unknown_write_detected"] is False
 
 
+def test_router_outage_fallback_has_no_live_publication_authority(monkeypatch, tmp_path: Path):
+    _assignment, viability, article, media, _editorial, readiness = _release_inputs(tmp_path)
+    article.update(
+        {
+            "article_generation_method": "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF",
+            "article_generation_router_failure": {
+                "terminal_disposition": "PROVIDER_EXHAUSTED"
+            },
+        }
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: {"schema_version": "capital_chronicle.rolling_x_headline_input.v1"},
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        lambda **kwargs: {"status": "SUCCESS", "assignment_logical_hash": "assignment-hash"},
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.select_first_viable_rolling_x_cluster",
+        lambda **kwargs: viability,
+    )
+    monkeypatch.setattr(implementation, "_rolling_x_destination_readiness", lambda **kwargs: readiness)
+    monkeypatch.setattr(
+        implementation,
+        "_run_bounded_rolling_x_editorial_cycle",
+        lambda **kwargs: (_ for _ in ()).throw(
+            AssertionError("outage fallback must stop before editorial/release planning")
+        ),
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="router-outage-no-publication",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-08T00:00:00Z",
+        article_builder=lambda value: {"article": article, "media": media},
+        publication_enabled=True,
+    )
+
+    assert result["classification"] == "NO_PUBLICATION"
+    assert result["exact_next_blocker"] == (
+        "ARTICLE_GENERATION_ROUTER_FAILURE_NO_PUBLICATION_AUTHORITY"
+    )
+    assert result["article_generation_publication_eligible"] is False
+    assert result["publishing_adapter_called"] is False
+    assert result["public_write_performed"] is False
+    assert "publication_lifecycle_plan" not in result
+
+
 def test_old_backend_unknown_write_fixture_cannot_bypass_plan_coordinator(
     monkeypatch, tmp_path: Path
 ):
