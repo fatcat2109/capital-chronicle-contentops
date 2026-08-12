@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12211,
+    "edges": 12214,
     "entrypoints": 12,
-    "nodes": 6523,
+    "nodes": 6524,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 13,
@@ -33,7 +33,7 @@
       "instructions": 8,
       "manifest": 9,
       "python_class": 528,
-      "python_function": 3615,
+      "python_function": 3616,
       "python_method": 214,
       "python_module": 685,
       "schema": 159,
@@ -22218,6 +22218,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_first_json_timestamp"
+    },
+    {
+      "from": "live_contentops/official_primary_evidence_loader_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_html_document_title"
     },
     {
       "from": "live_contentops/official_primary_evidence_loader_v1.py",
@@ -53759,6 +53765,12 @@
       "from": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::BoundedOfficialPrimaryEvidenceLoader.__call__",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_html_document_title"
+    },
+    {
+      "from": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::BoundedOfficialPrimaryEvidenceLoader.__call__",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_html_timestamp"
     },
     {
@@ -53826,6 +53838,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_first_json_timestamp"
+    },
+    {
+      "from": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_verified_capabilities",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_html_document_title"
     },
     {
       "from": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_verified_capabilities",
@@ -73404,7 +73422,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-12T07:35:25Z",
+  "generation_timestamp_utc": "2026-08-12T07:55:36Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -75693,7 +75711,7 @@
     {
       "id": "live_contentops/official_primary_evidence_loader_v1.py",
       "kind": "python_module",
-      "size_bytes": 22276
+      "size_bytes": 23179
     },
     {
       "id": "live_contentops/official_primary_source_locator_v1.py",
@@ -94752,91 +94770,98 @@
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::BoundedOfficialPrimaryEvidenceLoader",
       "kind": "python_class",
-      "line": 268,
+      "line": 290,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "BoundedOfficialPrimaryEvidenceLoader"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::BoundedOfficialPrimaryEvidenceLoader.__call__",
       "kind": "python_method",
-      "line": 305,
+      "line": 327,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "BoundedOfficialPrimaryEvidenceLoader.__call__"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::BoundedOfficialPrimaryEvidenceLoader.__init__",
       "kind": "python_method",
-      "line": 271,
+      "line": 293,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "BoundedOfficialPrimaryEvidenceLoader.__init__"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_default_http_get",
       "kind": "python_function",
-      "line": 158,
+      "line": 171,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_default_http_get"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_default_http_get._SameAuthorityRedirects",
       "kind": "python_class",
-      "line": 161,
+      "line": 174,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_default_http_get._SameAuthorityRedirects"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_first_json_timestamp",
       "kind": "python_function",
-      "line": 106,
+      "line": 107,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_first_json_timestamp"
     },
     {
+      "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_html_document_title",
+      "kind": "python_function",
+      "line": 144,
+      "path": "live_contentops/official_primary_evidence_loader_v1.py",
+      "symbol": "_html_document_title"
+    },
+    {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_html_timestamp",
       "kind": "python_function",
-      "line": 128,
+      "line": 129,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_html_timestamp"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_iso_utc",
       "kind": "python_function",
-      "line": 60,
+      "line": 61,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_iso_utc"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_json_keys",
       "kind": "python_function",
-      "line": 102,
+      "line": 103,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_json_keys"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_parse_timestamp",
       "kind": "python_function",
-      "line": 64,
+      "line": 65,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_parse_timestamp"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_safe_url",
       "kind": "python_function",
-      "line": 143,
+      "line": 156,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_safe_url"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_verified_capabilities",
       "kind": "python_function",
-      "line": 195,
+      "line": 208,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_verified_capabilities"
     },
     {
       "id": "python_symbol:live_contentops/official_primary_evidence_loader_v1.py::_walk_json",
       "kind": "python_function",
-      "line": 92,
+      "line": 93,
       "path": "live_contentops/official_primary_evidence_loader_v1.py",
       "symbol": "_walk_json"
     },
@@ -110432,7 +110457,7 @@
     {
       "id": "tests/test_official_primary_evidence_loader_v1.py",
       "kind": "test",
-      "size_bytes": 17536
+      "size_bytes": 18532
     },
     {
       "id": "tests/test_official_primary_source_locator_v1.py",
@@ -115727,6 +115752,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "3adf3969f257db1862189e6b68920303204ffc6a",
-  "source_tree_digest": "2d24340963f33e3a3e91c0833763449bb8c898ee79baa6b5e994d3787fda40a5"
+  "source_head": "745d57cb4b7f4eef7722a18262726001775a1fab",
+  "source_tree_digest": "3dc60c99e929f3576bb73925e4c2fd041fda06daef63e30596108b96845be439"
 }
