@@ -156,6 +156,9 @@ def test_accepted_fallback_caches_model_scoped_unavailability_for_same_cycle(tmp
         "new/gpt-5.6-sol-xhigh",
         "new/claude-opus-5",
     ]
+    assert second["models_attempted_in_order"] == [
+        "vx/gemini-3.1-pro-preview(high)"
+    ]
     assert second["provider_network_calls_skipped_by_cycle_unavailability_cache"] == 3
     snapshot = budget_snapshot("cycle-model-cache", control_root=tmp_path)
     assert snapshot["cycle"]["provider_attempts"] == 5

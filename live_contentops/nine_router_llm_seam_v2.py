@@ -136,17 +136,19 @@ def routed_llm_invocation(
     reserve_logical_invocation(logical_invocation_id)
     raw_provider_call = provider_call or _default_provider_call
     cached_models = cycle_unavailable_models()
-    cached_model_skips: list[str] = []
     unavailable_models_this_invocation: set[str] = set()
+    original_role_pool = model_pool_for_role(role_task_id)
+    role_pool = tuple(model for model in original_role_pool if model not in cached_models)
+    cached_model_skips = [model for model in original_role_pool if model in cached_models]
+    if not role_pool:
+        # Promotion happens only after an accepted fallback, so this is not expected. If an
+        # invariant changes later, fail open to the authorized pool rather than letting stale
+        # in-process availability evidence block every model without a provider observation.
+        role_pool = original_role_pool
+        cached_model_skips = []
 
     def guarded_provider_call(provider_prompt: str, model: str, timeout: float) -> ProviderResult:
         assert_llm_operator_execution_enabled()
-        if model in cached_models:
-            cached_model_skips.append(model)
-            return ProviderResult(
-                error=RuntimeError("cycle_cached_model_temporarily_unavailable"),
-                failure_class="requested_model_temporarily_unavailable",
-            )
         try:
             reservation = reserve_provider_attempt(
                 provider_prompt, logical_invocation_id=logical_invocation_id
@@ -167,7 +169,6 @@ def routed_llm_invocation(
             unavailable_models_this_invocation.add(model)
         return result
 
-    role_pool = model_pool_for_role(role_task_id)
     summary = route_llm_invocation(
         logical_invocation_id=logical_invocation_id,
         role_task_id=role_task_id,
