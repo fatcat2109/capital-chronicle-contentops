@@ -5,12 +5,14 @@ from datetime import datetime, timezone
 import pytest
 
 from live_contentops.llm_cost_governor_v1 import (
+    BUILD_ACCEPTANCE_DAILY_TOKEN_LIMIT_ENV,
     CYCLE_LOGICAL_BUDGET_EXHAUSTED,
     HARD_MAX_LOGICAL_CALLS_PER_CYCLE,
     HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE,
     HARD_MAX_TOKENS_PER_ACTIVE_DAY,
     HARD_MAX_TOKENS_PER_CYCLE,
     LLMCostBudgetExceededError,
+    MAX_BUILD_ACCEPTANCE_TOKENS_PER_ACTIVE_DAY,
     budget_snapshot,
     llm_cycle_budget_scope,
 )
@@ -38,6 +40,7 @@ def test_authorized_hard_ceiling_values_are_exact():
     assert HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE == 12
     assert HARD_MAX_TOKENS_PER_CYCLE == 250_000
     assert HARD_MAX_TOKENS_PER_ACTIVE_DAY == 2_000_000
+    assert MAX_BUILD_ACCEPTANCE_TOKENS_PER_ACTIVE_DAY == 10_000_000
 
 
 def test_cycle_logical_call_budget_is_shared_and_cannot_reset(tmp_path):
@@ -246,3 +249,56 @@ def test_daily_token_budget_persists_across_independent_cycle_scopes(tmp_path):
     assert budget_snapshot("daily-cycle-7", control_root=tmp_path)["day"][
         "accounted_tokens"
     ] == 1_992_000
+
+
+def test_bounded_build_acceptance_override_continues_without_weakening_cycle_caps(
+    tmp_path, monkeypatch
+):
+    provider_calls = 0
+
+    def large_usage(prompt, model, timeout):
+        nonlocal provider_calls
+        provider_calls += 1
+        return ProviderResult(
+            text="accepted", resolved_model=model, usage={"total_tokens": 249_000}
+        )
+
+    for index in range(8):
+        with llm_cycle_budget_scope(
+            f"build-daily-cycle-{index}", control_root=tmp_path, now=NOW
+        ):
+            assert _invoke(f"build-daily-logical-{index}", large_usage)[
+                "terminal_disposition"
+            ] == "ACCEPTED"
+
+    monkeypatch.setenv(
+        BUILD_ACCEPTANCE_DAILY_TOKEN_LIMIT_ENV,
+        str(MAX_BUILD_ACCEPTANCE_TOKENS_PER_ACTIVE_DAY),
+    )
+    with llm_cycle_budget_scope(
+        "build-daily-cycle-continued", control_root=tmp_path, now=NOW
+    ):
+        continued = _invoke("build-daily-logical-continued", large_usage)
+
+    assert continued["terminal_disposition"] == "ACCEPTED"
+    assert provider_calls == 9
+    snapshot = budget_snapshot("build-daily-cycle-continued", control_root=tmp_path)
+    assert snapshot["limits"]["hard_max_daily_tokens"] == 10_000_000
+    assert snapshot["limits"]["production_default_daily_tokens"] == 2_000_000
+    assert snapshot["limits"]["daily_token_limit_source"] == (
+        "BUILD_ACCEPTANCE_PROCESS_OVERRIDE"
+    )
+    assert snapshot["limits"]["hard_max_cycle_tokens"] == 250_000
+    assert snapshot["limits"]["hard_max_provider_attempts"] == 12
+
+
+@pytest.mark.parametrize("configured", ["not-an-integer", "2000000", "10000001"])
+def test_invalid_build_acceptance_override_fails_closed_to_production_default(
+    tmp_path, monkeypatch, configured
+):
+    monkeypatch.setenv(BUILD_ACCEPTANCE_DAILY_TOKEN_LIMIT_ENV, configured)
+    snapshot = budget_snapshot("no-cycle", control_root=tmp_path)
+    assert snapshot["limits"]["hard_max_daily_tokens"] == 2_000_000
+    assert snapshot["limits"]["daily_token_limit_source"] == (
+        "INVALID_OVERRIDE_PRODUCTION_DEFAULT"
+    )

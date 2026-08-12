@@ -26,7 +26,14 @@ TARGET_LOGICAL_CALLS_PER_CYCLE = 3
 HARD_MAX_LOGICAL_CALLS_PER_CYCLE = 6
 HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE = 12
 HARD_MAX_TOKENS_PER_CYCLE = 250_000
+# Conservative production-launch default.  Pre-launch build/acceptance may opt into the
+# separately bounded override below via an explicit process environment variable; an ordinary
+# launcher/restart that omits it automatically returns to this production-safe ceiling.
 HARD_MAX_TOKENS_PER_ACTIVE_DAY = 2_000_000
+BUILD_ACCEPTANCE_DAILY_TOKEN_LIMIT_ENV = (
+    "CONTENTOPS_BUILD_ACCEPTANCE_DAILY_TOKEN_LIMIT"
+)
+MAX_BUILD_ACCEPTANCE_TOKENS_PER_ACTIVE_DAY = 10_000_000
 CANONICAL_MAX_OUTPUT_TOKEN_RESERVATION = 16_000
 
 CYCLE_LOGICAL_BUDGET_EXHAUSTED = "llm_cycle_logical_call_budget_exhausted"
@@ -83,6 +90,29 @@ def _now() -> datetime:
 
 def _active_day(now: datetime | None = None) -> str:
     return (now or _now()).astimezone().date().isoformat()
+
+
+def active_day_token_limit() -> tuple[int, str]:
+    """Return the bounded active-day limit and its auditable configuration source.
+
+    Invalid, lower, or excessively high overrides fail closed to the conservative production
+    default.  This seam changes token availability only; all cycle/attempt/timeout controls and
+    every downstream publication gate remain independent and unchanged.
+    """
+    raw = str(os.environ.get(BUILD_ACCEPTANCE_DAILY_TOKEN_LIMIT_ENV) or "").strip()
+    if not raw:
+        return HARD_MAX_TOKENS_PER_ACTIVE_DAY, "PRODUCTION_DEFAULT"
+    try:
+        configured = int(raw)
+    except ValueError:
+        return HARD_MAX_TOKENS_PER_ACTIVE_DAY, "INVALID_OVERRIDE_PRODUCTION_DEFAULT"
+    if not (
+        HARD_MAX_TOKENS_PER_ACTIVE_DAY
+        < configured
+        <= MAX_BUILD_ACCEPTANCE_TOKENS_PER_ACTIVE_DAY
+    ):
+        return HARD_MAX_TOKENS_PER_ACTIVE_DAY, "INVALID_OVERRIDE_PRODUCTION_DEFAULT"
+    return configured, "BUILD_ACCEPTANCE_PROCESS_OVERRIDE"
 
 
 def _default_ledger() -> dict[str, Any]:
@@ -213,7 +243,8 @@ def reserve_logical_invocation(logical_invocation_id: str) -> None:
             raise LLMCostBudgetExceededError(CYCLE_LOGICAL_BUDGET_EXHAUSTED)
         if int(cycle.get("accounted_tokens") or 0) >= HARD_MAX_TOKENS_PER_CYCLE:
             raise LLMCostBudgetExceededError(CYCLE_TOKEN_BUDGET_EXHAUSTED)
-        if int(daily.get("accounted_tokens") or 0) >= HARD_MAX_TOKENS_PER_ACTIVE_DAY:
+        daily_limit, _daily_limit_source = active_day_token_limit()
+        if int(daily.get("accounted_tokens") or 0) >= daily_limit:
             raise LLMCostBudgetExceededError(DAILY_TOKEN_BUDGET_EXHAUSTED)
         logical_ids.append(str(logical_invocation_id))
         cycle["logical_invocation_ids"] = logical_ids
@@ -241,7 +272,8 @@ def reserve_provider_attempt(prompt: str, *, logical_invocation_id: str) -> dict
         reservation = prompt_tokens + CANONICAL_MAX_OUTPUT_TOKEN_RESERVATION
         if int(cycle.get("accounted_tokens") or 0) + reservation > HARD_MAX_TOKENS_PER_CYCLE:
             raise LLMCostBudgetExceededError(CYCLE_TOKEN_BUDGET_EXHAUSTED)
-        if int(daily.get("accounted_tokens") or 0) + reservation > HARD_MAX_TOKENS_PER_ACTIVE_DAY:
+        daily_limit, _daily_limit_source = active_day_token_limit()
+        if int(daily.get("accounted_tokens") or 0) + reservation > daily_limit:
             raise LLMCostBudgetExceededError(DAILY_TOKEN_BUDGET_EXHAUSTED)
         cycle["provider_attempts"] = int(cycle.get("provider_attempts") or 0) + 1
         cycle["accounted_tokens"] = int(cycle.get("accounted_tokens") or 0) + reservation
@@ -295,6 +327,7 @@ def budget_snapshot(
         ledger = _read_ledger(path)
     row = dict((ledger.get("cycles") or {}).get(_bounded_cycle_key(cycle_id)) or {})
     day = str(row.get("active_day") or _active_day())
+    daily_limit, daily_limit_source = active_day_token_limit()
     return {
         "cycle": row,
         "day": dict((ledger.get("days") or {}).get(day) or {}),
@@ -303,6 +336,11 @@ def budget_snapshot(
             "hard_max_logical_calls": HARD_MAX_LOGICAL_CALLS_PER_CYCLE,
             "hard_max_provider_attempts": HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE,
             "hard_max_cycle_tokens": HARD_MAX_TOKENS_PER_CYCLE,
-            "hard_max_daily_tokens": HARD_MAX_TOKENS_PER_ACTIVE_DAY,
+            "hard_max_daily_tokens": daily_limit,
+            "production_default_daily_tokens": HARD_MAX_TOKENS_PER_ACTIVE_DAY,
+            "daily_token_limit_source": daily_limit_source,
+            "build_acceptance_override_max_daily_tokens": (
+                MAX_BUILD_ACCEPTANCE_TOKENS_PER_ACTIVE_DAY
+            ),
         },
     }
