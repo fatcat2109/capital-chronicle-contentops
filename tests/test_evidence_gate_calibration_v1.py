@@ -130,6 +130,45 @@ def test_routine_regulatory_claim_accepts_one_attributed_reputable_secondary():
     assert contract["supported_claims"][0]["attribution_required"] is True
 
 
+def test_document_wide_scattered_topic_tokens_do_not_support_composite_claim():
+    claim = (
+        "Preview of the upcoming Consumer Price Index release, suggesting an in-line "
+        "reading could prevent further interest rate hikes."
+    )
+    request = _request(story_type="data_release", summaries=[claim])
+    document = _document(
+        text="Consumer Price Index Summary - 2026 M07 Results",
+        publisher="Bureau of Labor Statistics",
+    )
+    document["canonical_content_text"] = (
+        "<h1>Consumer Price Index Summary</h1>"
+        "<p>The Consumer Price Index measures prices paid by consumers.</p>"
+        "<p>Interest rate series are listed elsewhere in the site navigation.</p>"
+        "<p>The next statistical release date appears on the agency calendar.</p>"
+    )
+
+    contract = build_claim_evidence_contract(request, [document])
+
+    assert all(row["claim_text"] != claim for row in contract["supported_claims"])
+    assert contract["supported_claims"] == [
+        {
+            "claim_id": contract["supported_claims"][0]["claim_id"],
+            "claim_text": "Consumer Price Index Summary - 2026 M07 Results",
+            "support_status": "SUPPORTED_SOURCE_TITLE",
+            "numeric_claim": True,
+            "quoted_claim": False,
+            "attribution_required": False,
+            "evidence_document_ids": ["doc-1-bureau-of-labor-statistics"],
+            "authority_classes": ["official_public_primary_source"],
+        }
+    ]
+    assert any(
+        row["claim_text"] == claim
+        and row["reason"] == "candidate_claim_not_found_in_evidence"
+        for row in contract["omitted_unsupported_claims"]
+    )
+
+
 def test_sensitive_company_allegation_requires_primary_or_two_independent_secondaries():
     claim = "Example Company allegedly concealed a product safety defect from customers."
     request = _request(story_type="company_sector_event", summaries=[claim])

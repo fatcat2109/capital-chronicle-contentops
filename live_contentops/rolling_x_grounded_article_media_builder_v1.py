@@ -731,7 +731,7 @@ ARTICLE_OUTPUT_CONTRACT = {
     "market_mechanism": "optional; include only a mechanism directly grounded in evidence",
     "policy_context": "optional; include only context directly grounded in evidence",
     "cross_asset_implications": "optional; include only implications directly grounded in evidence",
-    "substack_body_markdown": "markdown body with sections, source links and three [[VISUAL:...]] markers",
+    "substack_body_markdown": "natural reader-facing markdown with source links and three [[VISUAL:...]] markers",
     "social_lede": "optional derivative copy; empty string is permitted",
     "social_mechanism_summary": "optional derivative copy; empty string is permitted",
     "social_policy_summary": "optional derivative copy; empty string is permitted",
@@ -821,7 +821,7 @@ def build_article_generation_prompt(
     effective_mode = str(context.get("effective_article_mode") or "BREAKING_BRIEF")
     brief = effective_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
     minimum_sources = 1 if brief else 2
-    minimum_headings = 2 if brief else 4
+    minimum_headings = 0 if brief else 2
     mode_scope = (
         "Write a concise attributed update. Omit mechanics, market effects, history, numbers, "
         "and quotes unless a supported_claim explicitly establishes them."
@@ -837,6 +837,8 @@ def build_article_generation_prompt(
             "Report ONLY the supplied supported_claims and what their bound evidence_documents establish. Attribute every factual claim to a supplied source_url.",
             mode_scope,
             "Do NOT add market snapshots, prior closes, percentage moves, valuations, probabilities, forecasts, scenarios, regimes, or macro conclusions that are not in the evidence.",
+            "Write natural reader-facing copy: use the publisher name rather than a raw URL as link text, use sentence case for common nouns, state the core news once, and remove internal/pipeline/template language.",
+            "Do not add a generic financial-advice or informational-purpose disclaimer. Do not repeat the same claim in adjacent paragraphs merely to fill a template.",
             "Use only the exact supplied cluster_id and headline_ids. Do not invent or alter any ID.",
             "SEO/audit guidance: make the title and seo_title contain the primary keyword '"
             + keyword
@@ -846,15 +848,18 @@ def build_article_generation_prompt(
             + topic
             + ". Weave in these terms naturally: "
             + semantic_terms
-            + ". In a mechanism section use: "
+            + ". If the evidence supports a mechanism section, use: "
             + mechanism_terms
-            + ". In the closing 'What would confirm or challenge this' section name at least two of these observable catalysts: "
+            + ". If the evidence supports a closing watch section, naturally name relevant observable catalysts from: "
             + catalyst_terms
             + f". Include at least {minimum_sources} distinct source link(s) drawn from the evidence source_url values.",
-            f"The body must: open with a clear news peg; include 'What matters'; explain only directly-evidenced mechanics; include at least {minimum_headings} '##' section headings and no '# ' heading; embed exactly these visual markers, each once, in this order: "
+            f"The body must open with a clear news peg, explain only directly-evidenced facts, and embed exactly these visual markers, each once, in this order: "
             + visual_marker_instruction
-            + "; close with a 'What would confirm or challenge this' section naming observable conditions.",
-            "End the body with the exact line: This article is for informational purposes only and is not financial advice.",
+            + (
+                ". A concise breaking brief may use no section headings when headings would make it read like a template."
+                if minimum_headings == 0
+                else f". Use at least {minimum_headings} natural '##' headings and no '# ' heading."
+            ),
             "Return one JSON object only, with exactly these keys and string values:",
             json.dumps(ARTICLE_OUTPUT_CONTRACT, sort_keys=True),
             "GOVERNED_INPUT:",

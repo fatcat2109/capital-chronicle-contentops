@@ -277,6 +277,22 @@ def test_traceable_quantitative_claim_passes():
     assert _untraceable_numeric_claims(body, evidence) == []
 
 
+def test_generation_prompt_matches_reader_facing_semantic_gate():
+    context = extract_governed_story_context(
+        _viability(story_type="data_release", article_mode="straight_news")
+    )
+    prompt = builder.build_article_generation_prompt(
+        context,
+        ["official_source_document_card", "decision_fact_card", "document_excerpt_card"],
+    )
+
+    assert "use the publisher name rather than a raw URL as link text" in prompt
+    assert "state the core news once" in prompt
+    assert "Do not add a generic financial-advice" in prompt
+    assert "End the body with the exact line" not in prompt
+    assert "A concise breaking brief may use no section headings" in prompt
+
+
 # --- media primitives -------------------------------------------------------------
 
 

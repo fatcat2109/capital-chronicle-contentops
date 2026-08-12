@@ -187,6 +187,7 @@ def test_revision_binding_failure_uses_structured_repair_class(monkeypatch):
     observed = {}
 
     def routed(**kwargs):
+        observed["prompt"] = kwargs["prompt"]
         invalid = {**article, "cluster_id": "changed-cluster"}
         validation = kwargs["validator"](json.dumps(invalid))
         observed["validation"] = validation
@@ -210,6 +211,9 @@ def test_revision_binding_failure_uses_structured_repair_class(monkeypatch):
         None,
         "revision_cluster_id_changed",
     )
+    assert "use publisher names rather than raw URLs as link text" in observed["prompt"]
+    assert "remove generic financial-advice/informational-purpose boilerplate" in observed["prompt"]
+    assert "do not repeat the same claim in adjacent paragraphs" in observed["prompt"]
 
 
 def test_canonical_cycle_stops_before_generation_when_ranked_evidence_blocks(monkeypatch, tmp_path: Path):

@@ -7,6 +7,7 @@ that are supported, omitted, or blocked.  X/social text remains candidate materi
 from __future__ import annotations
 
 from hashlib import sha256
+from html import unescape
 import json
 import re
 from typing import Any, Mapping, Sequence
@@ -95,12 +96,46 @@ def _document_text(document: Mapping[str, Any]) -> str:
     )
 
 
+def _document_support_segments(document: Mapping[str, Any]) -> list[str]:
+    """Return reader-level evidence segments instead of one document-wide token bag.
+
+    A long official page can mention the subject in one section and unrelated market terms in
+    another.  Treating the whole page as one bag of words allowed those scattered tokens to
+    appear to support a composite headline claim.  Claim support must be local to a title,
+    excerpt, sentence, or HTML block; topic overlap elsewhere in the document is insufficient.
+    """
+    segments: list[str] = []
+    block_tag = re.compile(
+        r"</?(?:article|aside|blockquote|br|div|footer|h[1-6]|header|li|ol|p|"
+        r"section|table|tbody|td|th|thead|tr|ul)[^>]*>",
+        flags=re.IGNORECASE,
+    )
+    for value in (
+        document.get("title"),
+        document.get("source_excerpt"),
+        document.get("canonical_content_text"),
+    ):
+        text = unescape(str(value or ""))
+        text = block_tag.sub("\n", text)
+        text = re.sub(r"<[^>]+>", " ", text)
+        for raw_segment in re.split(r"\n+|(?<=[.!?])\s+", text):
+            segment = " ".join(raw_segment.split())
+            if segment and segment not in segments:
+                segments.append(segment)
+    return segments
+
+
 def _support_score(claim: str, document: Mapping[str, Any]) -> float:
     claim_tokens = _tokens(claim)
     if not claim_tokens:
         return 0.0
-    document_tokens = _tokens(_document_text(document))
-    return len(claim_tokens.intersection(document_tokens)) / len(claim_tokens)
+    return max(
+        (
+            len(claim_tokens.intersection(_tokens(segment))) / len(claim_tokens)
+            for segment in _document_support_segments(document)
+        ),
+        default=0.0,
+    )
 
 
 def _numbers_supported(claim: str, document: Mapping[str, Any]) -> bool:
@@ -332,11 +367,24 @@ def build_claim_evidence_contract(
             fallback_docs = secondary_docs
         for document in fallback_docs:
             raw_title = " ".join(str(document.get("title") or "").split())
-            numeric_scope_omitted = bool(_NUMBER_RE.search(raw_title))
-            title = _without_numeric_scope(raw_title) if numeric_scope_omitted else raw_title
             authority = str(document.get("source_authority_class") or "")
+            # Exact numbers in an accepted primary-source title are primary evidence, not an
+            # X-derived numerical assertion.  Secondary-title fallbacks remain nonnumeric and
+            # continue through the existing scope-reduction path.
+            numeric_scope_omitted = bool(
+                _NUMBER_RE.search(raw_title)
+                and authority not in PRIMARY_AUTHORITY_CLASSES
+            )
+            title = _without_numeric_scope(raw_title) if numeric_scope_omitted else raw_title
             title_sensitive = _claim_requires_corroboration(request, title)
-            if len(title) < 8 or _NUMBER_RE.search(title) or _QUOTE_RE.search(title):
+            if (
+                len(title) < 8
+                or (
+                    _NUMBER_RE.search(title)
+                    and authority not in PRIMARY_AUTHORITY_CLASSES
+                )
+                or _QUOTE_RE.search(title)
+            ):
                 continue
             if authority not in PRIMARY_AUTHORITY_CLASSES | SECONDARY_AUTHORITY_CLASSES:
                 continue
@@ -367,7 +415,7 @@ def build_claim_evidence_contract(
                     "claim_id": "claim-" + sha256(title.encode("utf-8")).hexdigest()[:16],
                     "claim_text": title,
                     "support_status": "SUPPORTED_SOURCE_TITLE",
-                    "numeric_claim": False,
+                    "numeric_claim": bool(_NUMBER_RE.search(title)),
                     "quoted_claim": False,
                     "attribution_required": authority in SECONDARY_AUTHORITY_CLASSES,
                     "evidence_document_ids": sorted(
