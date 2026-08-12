@@ -4,102 +4,152 @@ Authority date: 2026-08-12
 
 Task: `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-Result: `NOT_ACCEPTED_HARD_LIVE_CYCLE_LIMIT_REACHED`
+Result: `NOT_ACCEPTED_CONTINUE_TO_NINE_SURFACE_LIVE_CLOSEOUT`
 
-This packet records the bounded continuation result. It is not a PASS, does not accept FDA-G,
-and grants no additional publication authority.
+This status supersedes the older artificial live-cycle-limit blocker. Jim has explicitly authorized continued sequential live proof and delegated routine bounded operator decisions for this phase.
 
-## Preserved implementation and controls
+Current continuation task:
 
-- Existing V1 calibration work was preserved on
-  `task/v1-evidence-gate-calibration-real-publication-unblock-v1`.
-- The canonical operator pause fuse is checked before outbound 9Router text requests.
-- `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` activates the fuse before stopping proven ContentOps
-  processes; ambiguous processes and both persistent browser profiles are preserved.
-- `RESUME_CONTENTOPS_LLM.cmd` requires explicit operator action and does not start the app.
-- Continuous intake is zero-LLM. Only scheduled editorial windows and explicit Run Now may enter
-  the expensive editorial path.
-- Cycle limits remain 5 logical calls, 8 provider attempts, 80,000 tokens, and 400,000 tokens per
-  active day. Quota/pause/budget exhaustion does not authorize paid-family fallback walking.
+`TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1`
 
-## Offline blocker replay
+Fresh-session owner handoff on master:
 
-The prior Decision 5 replay is fixed and reaches evidence success, article creation, review PASS,
-and package creation with `PUBLIC_WRITE=false`. The original exception was
-`ValueError: rolling_x_article_revision_made_no_change`; the source desk label entered the SEO
-keyword path and caused a deterministic review failure that the reviser could not change. The
-fix selects a claim-bound keyword.
+`docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md`
 
-Replay evidence:
+## Current branch / implementation
 
-- viability artifact:
-  `A:\Capital Chronicle\Runtime\ContentOps\evidence_gate_calibration_shadow_v1\prior_blocker_replay_v4\rolling_x_newsroom_cycle_evidence_v1.json`
-- SHA-256: `566bc3588c7e794675d6c987864b8c432408d1a0915aa6a118f7aa1980b2f7c17`
-- evidence: `SUCCESS`
-- article: present
-- review: `PASS`
-- revisions: `0`
-- package: created / shadow ready
-- public write: `false`
-- unknown write: `false`
+Active branch:
 
-## Builder provider discipline
+`task/v1-evidence-gate-calibration-real-publication-unblock-v1`
 
-Exactly one minimal Gemini preflight was used. The requested identity was
-`vx/gemini-3.5-flash(high)`; it returned HEALTHY/HTTP 2xx in 4.7967 seconds. Reported usage was
-2,120 tokens. No credential value or secret material was exposed.
+Previously verified branch source head before this status refresh:
 
-Exactly two real LLM-capable production cycles were used:
+`0ae16ea29e5f7a5c9039dbef213dd916508423c4`
 
-1. `operator-requested-operator-trigger-db0531ef52e7446bac30e13a` ended
-   `REJECTED/NO_PUBLICATION`, with 2 logical calls, 1 provider attempt, 76,724 accounted tokens,
-   zero article/package/dispatch, zero public write, zero UNKNOWN_WRITE, and zero pending
-   reconciliation. Cycle evidence SHA-256:
-   `6f8695cbde71e4b9256c9c4d7efdea78ba0cad4d5b063943c5ae5880dcb44cdc`.
-2. `operator-requested-operator-trigger-f16e0e6e018f430cb476e644` ended
-   `REJECTED/NO_PUBLICATION`, with 2 logical calls, 1 provider attempt, 70,901 accounted tokens,
-   zero article/package/dispatch, zero public write, zero UNKNOWN_WRITE, and zero pending
-   reconciliation. Cycle evidence SHA-256:
-   `d362cdb52164c7d1605b3f8fa349aeee462e9d78fcf30cc06272a7f053d9986d`.
+Fetch current branch bytes before acting.
 
-The maximum of two live cycles is exhausted. A third cycle was not run.
+Preserve the implemented work on this branch, including:
 
-## Final offline correction after cycle two
+- minimum-vs-optional claim-level evidence calibration;
+- unsupported claim omission/narrowing;
+- article-mode downgrade;
+- bounded official-source and reputable-secondary acquisition;
+- RSS relevance/freshness ordering repair;
+- deterministic assignment/story-routing/article fallbacks;
+- quality-first canonical 9Router model pool;
+- continuous zero-LLM intake outside editorial windows;
+- one-click `STOP_ALL_CONTENTOPS_BACKGROUND.cmd`;
+- explicit `RESUME_CONTENTOPS_LLM.cmd`;
+- pre-network LLM operator pause fuse;
+- canonical durable publication/readback/reconciliation path.
 
-Cycle two showed that the RSS loader capped results before evaluating relevance, freshness, and
-point-in-time eligibility. The exact story therefore retained only WSJ even though a current
-independent corroborating result existed lower in the feed. Source commit
-`e42c23f1762e60de0c86f8893d761ec25be4dccb` now:
+## Latest production proof
 
-- normalizes the event-bearing query;
-- validates the feed publisher name and origin host against the reputable-secondary allowlist;
-- excludes post-cutoff and low-relevance listings before the result cap;
-- keeps one candidate per origin and ranks current relevant candidates deterministically; and
-- recognizes The Jerusalem Post (`jpost.com`) as a reputable secondary source.
+Eight governed production decisions completed.
 
-An exact read-only replay of cycle-two rank 10 at its original evaluation cutoff returns The
-Jerusalem Post plus WSJ, targeted-evidence adapter `PASS`, claim contract `PASS`, one supported
-claim, and `publication_authority=false`. This is offline/read-only evidence, not the required
-production publication proof.
+Canonical public articles confirmed: `0`.
 
-Focused regression after this correction: 127 passed. Compile and diff checks passed. Pytest
-also emitted the known non-failing Windows temporary-directory cleanup warning after completion.
+One decision crossed the prior evidence/content blockers and reached:
 
-## Current safety state and blocker
+`evidence → article → review PASS → package → Substack draft`
 
-- production app: stopped
-- operator LLM fuse: paused
-- production store: preserved; integrity `ok`; schema `9`
-- Chrome ingestion profile/CDP 9222: preserved
-- Edge publishing profile/CDP 9223: preserved
-- public writes in both live attempts: `0`
-- UNKNOWN_WRITE: `0`
-- pending reconciliation: `0`
-- master integration: not performed
+Exact Substack outcome:
 
-Exact next blocker:
-`OWNER_AUTHORIZATION_REQUIRED_FOR_A_NEW_CONTROLLED_LIVE_PROOF_AFTER_HARD_LIMIT`.
+- draft ID: `210796285`;
+- `SUBSTACK_DRAFT_CONFIRMED_NOT_PUBLIC`;
+- `write_absent=true`;
+- `RECONCILED_ABSENT_SAFE_TO_RETRY`;
+- no canonical public `/p/...` URL;
+- no derivative dispatch because canonical publication was not established.
 
-The task cannot be called complete and the branch cannot be integrated to master without a new
-owner decision permitting another bounded live proof. Until then, keep the app stopped and the
-operator LLM fuse active.
+The remaining decisions repeatedly exhausted their final ranked candidates because the selected source paths were inaccessible/403, stale, insufficiently timestamped, or lacked governed authority for precise numeric/market claims.
+
+Publication safety at the reported closeout:
+
+- confirmed public writes: `0`;
+- `UNKNOWN_WRITE=0`;
+- pending reconciliation: `0`;
+- duplicates: `0`.
+
+The production store remained schema `9` with integrity reported `ok`. Verify current runtime state before live action.
+
+## Current true blockers
+
+1. **Substack public transport:** the canonical adapter can create a draft but has not yet proven draft → real public `/p/...` publication/readback on the current flow.
+2. **Publishability-aware selection:** final story commitment still spends whole editorial opportunities on evidence-dead candidates instead of probing/walking a broader compact candidate pool until a useful evidence-viable story is found.
+3. **Nine-surface proof:** no same canonical article has yet been confirmed public and strictly read back/reconciled on all nine Tier-1 text/image surfaces.
+4. **Repeated-memory proof:** because canonical corpus count remains zero, production published-memory feedback and repeated 5–8/day behavior are not yet proven.
+
+## Jim's current owner override
+
+The following supersedes older limits or ceremony in this task when they conflict:
+
+- no artificial maximum number of sequential live production runs for phase closeout;
+- no routine owner re-approval after each safe bounded repair/run;
+- no audit-of-audit or documentation ceremony between iterations;
+- quality over token minimization;
+- approximately `2,000,000` tokens per active production day authorized as a circuit-breaker envelope;
+- GPT-5.6 Sol is explicitly allowed through the existing canonical ContentOps 9Router quality priority list;
+- evidence should be practical, claim-level and publishability-first rather than institutional-completeness driven;
+- ordinary directly supported nonnumeric reporting may use a reputable professional source with clear attribution; stronger primary/corroborated evidence remains appropriate for disputed, allegation-based, conflict-sensitive, unusually consequential, or uncertain claims;
+- unsupported optional claims/numbers should be omitted/narrowed/generalized rather than automatically killing an otherwise useful story;
+- a blocked candidate should advance to another viable candidate inside the same editorial opportunity when practical;
+- a 403/paywall is a failed retrieval path, not automatic story death; do not bypass access controls;
+- partial Tier-1 distribution is NOT acceptance for this phase proof.
+
+## Mandatory phase proof
+
+At least one SAME canonical article must be genuinely public and strictly read back/reconciled on all nine Tier-1 text/image surfaces:
+
+1. Substack
+2. Telegram
+3. Discord
+4. X
+5. LinkedIn
+6. Facebook Page
+7. Instagram Business
+8. Threads
+9. YouTube Community
+
+Required first milestone:
+
+`fresh story → evidence → quality article → review → native packages → Substack public /p/ URL → eight derivatives → 9/9 strict readback/reconciliation`
+
+After the first 9/9 article, prove published-memory feedback and repeated autonomous operation with at least five genuine canonical articles in the production proof, including at least one successful configured scheduled-window article.
+
+The broader target remains approximately 5–8 useful canonical articles/day without filler.
+
+## Immediate execution order
+
+1. audit/fix the canonical Substack draft → public publication state machine using current browser/UI behavior and historical known-good live publish evidence;
+2. make final selection publishability-first with cheap evidence-reachability probing across a broader compact candidate set;
+3. walk blocked candidates inside the same editorial cycle instead of terminating the window after a small dead shortlist;
+4. prove one same canonical article 9/9;
+5. prove published-memory feedback and at least five genuine canonical articles;
+6. integrate accepted V1 source/controls to current remote master while preserving concurrent V2 changes.
+
+## Hard stops only
+
+Escalate only for:
+
+- secret/credential/browser-session exposure;
+- wrong-account/wrong-destination public-write risk;
+- fabricated core factual/numeric truth that cannot be removed without making the article meaningless;
+- unresolved `UNKNOWN_WRITE` after strict readback/reconciliation;
+- irreconcilable public-object identity ambiguity;
+- destructive production-store risk/corruption;
+- protected `v1.0` mutation;
+- unresolved merge conflict;
+- genuinely required operator credential/reauthentication input that cannot be inferred or safely repaired.
+
+A blocked candidate, 403, missing optional field, failed visual, unavailable individual model, or failed derivative transport is not by itself a terminal task result; repair, narrow, change source/candidate, or retry safely.
+
+## Preserved boundaries
+
+- Chrome `CapitalChronicleBot`, CDP 9222: ingestion only.
+- Edge `contentops-social-main`, CDP 9223: publication/media/readback/permitted observation.
+- Never inspect/export cookies, browser storage, tokens, credentials, or session databases.
+- `DurablePublicationCoordinator` remains the only public-write owner.
+- Unknown writes remain `STOP RETRY → READ BACK → RECONCILE`.
+- V2 video public-write authority remains separate and unchanged.
+- Historical annotated `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
