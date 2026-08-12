@@ -1652,6 +1652,7 @@ def reconcile_substack_publication_by_draft_id_via_edge(
         editor_text = ""
         editor_image_count = 0
         exact_editor_state = ""
+        exact_editor_route_verified = False
         deadline = time.monotonic() + 15.0
         while True:
             title_input, _ = _first_visible(
@@ -1679,14 +1680,17 @@ def reconcile_substack_publication_by_draft_id_via_edge(
                     editor.inner_text(timeout=5000) or ""
                 )
                 editor_image_count = _editor_image_count(page)
-                hydrated_binding = bool(
-                    actual_title == expected_title
+                try:
+                    editor_path = urllib.parse.urlsplit(str(page.url or "")).path.rstrip("/")
+                except (TypeError, ValueError):
+                    editor_path = ""
+                exact_editor_route_verified = editor_path == f"/publish/post/{draft_id}"
+                identity_binding = bool(
+                    exact_editor_route_verified
+                    and actual_title == expected_title
                     and (not expected_subtitle or actual_subtitle == expected_subtitle)
-                    and expected_body_anchor
-                    and expected_body_anchor in editor_text
-                    and editor_image_count >= len(expected_image_assets)
                 )
-                if hydrated_binding:
+                if identity_binding:
                     update_button, _ = _substack_exact_enabled_button(
                         page, labels=("Update",)
                     )
@@ -1724,12 +1728,20 @@ def reconcile_substack_publication_by_draft_id_via_edge(
         )
         media_count_verified = editor_image_count >= len(expected_image_assets)
         exact_draft_bound = bool(
-            actual_title == expected_title
+            exact_editor_route_verified
+            and actual_title == expected_title
             and subtitle_binding_verified
             and body_anchor_verified
             and media_count_verified
         )
+        partial_draft_bound = bool(
+            exact_editor_route_verified
+            and actual_title == expected_title
+            and subtitle_binding_verified
+            and exact_editor_state == "DRAFT"
+        )
         binding_detail = {
+            "exact_editor_route_verified": exact_editor_route_verified,
             "title_binding_verified": actual_title == expected_title,
             "subtitle_binding_verified": subtitle_binding_verified,
             "body_anchor_verified": body_anchor_verified,
@@ -1738,6 +1750,19 @@ def reconcile_substack_publication_by_draft_id_via_edge(
             "expected_image_count": len(expected_image_assets),
             "exact_editor_state": exact_editor_state or None,
         }
+        if partial_draft_bound and not exact_draft_bound:
+            return {
+                "status": "SUBSTACK_PARTIAL_DRAFT_CONFIRMED_NOT_PUBLIC",
+                "platform": "substack",
+                "verified": False,
+                "write_absent": True,
+                "public_object_id": draft_id,
+                "publication_state": "draft",
+                "draft_binding_verified": True,
+                "draft_media_incomplete": True,
+                **binding_detail,
+                "browser_write_performed": False,
+            }
         if not exact_draft_bound:
             return {
                 "status": "SUBSTACK_DRAFT_BINDING_MISMATCH",

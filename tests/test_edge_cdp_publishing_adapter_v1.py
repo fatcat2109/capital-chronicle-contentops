@@ -241,6 +241,74 @@ def test_substack_publish_transition_waits_for_delayed_exact_confirmation_then_r
     ]
 
 
+def test_substack_partial_exact_draft_reconciles_public_write_absent(monkeypatch):
+    from contextlib import contextmanager
+    from live_contentops import edge_cdp_publishing_adapter_v1 as adapter
+
+    title = "U.S. Energy Information Administration Updates Short-Term Energy Outlook"
+    subtitle = "An attributed update from accepted evidence."
+    body = "The U.S. Energy Information Administration updated its Short-Term Energy Outlook with a new official release."
+
+    class Input:
+        def __init__(self, value):
+            self.value = value
+
+        def input_value(self, timeout=None):
+            return self.value
+
+    class Editor:
+        def inner_text(self, timeout=None):
+            return "Only a partial body fragment survived the interrupted editor construction."
+
+    class Page:
+        url = "https://capitalchronicle.substack.com/publish/post/210915784"
+
+        def goto(self, _url, **_kwargs):
+            return None
+
+    page = Page()
+
+    @contextmanager
+    def edge_page(_port):
+        yield page
+
+    def first_visible(_page, selectors):
+        if selectors[0] == "#post-title":
+            return Input(title), selectors[0]
+        if selectors[0].startswith("textarea"):
+            return Input(subtitle), selectors[0]
+        return Editor(), selectors[0]
+
+    monkeypatch.setattr(adapter, "canonical_edge_page", edge_page)
+    monkeypatch.setattr(adapter, "_first_visible", first_visible)
+    monkeypatch.setattr(adapter, "_editor_image_count", lambda _page: 1)
+    monkeypatch.setattr(
+        adapter,
+        "_substack_exact_enabled_button",
+        lambda _page, *, labels, **_kwargs: (
+            (object(), "Continue") if "Continue" in labels else (None, None)
+        ),
+    )
+
+    result = adapter.reconcile_substack_publication_by_draft_id_via_edge(
+        cdp_port=9223,
+        draft_id="210915784",
+        expected_title=title,
+        expected_subtitle=subtitle,
+        expected_body_markdown=body,
+        expected_image_assets=[{"asset_id": "a"}, {"asset_id": "b"}, {"asset_id": "c"}],
+    )
+
+    assert result["status"] == "SUBSTACK_PARTIAL_DRAFT_CONFIRMED_NOT_PUBLIC"
+    assert result["write_absent"] is True
+    assert result["draft_binding_verified"] is True
+    assert result["draft_media_incomplete"] is True
+    assert result["exact_editor_route_verified"] is True
+    assert result["body_anchor_verified"] is False
+    assert result["observed_editor_image_count"] == 1
+    assert result["expected_image_count"] == 3
+
+
 def test_substack_publish_transition_without_public_state_stays_ambiguous(
     monkeypatch,
 ) -> None:
@@ -657,8 +725,11 @@ def test_substack_draft_reconciliation_waits_for_exact_hydrated_binding(monkeypa
             return [FakeLink()] if state["mode"] == "drafts" else []
 
     class FakePage:
+        url = ""
+
         def goto(self, url, **_kwargs):
             state["navigations"].append(url)
+            self.url = url
             state["mode"] = (
                 "published"
                 if url.endswith("/published")
