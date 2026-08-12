@@ -41,6 +41,13 @@ COST_TERMINAL_FAILURE_CLASSES = frozenset(
         DAILY_TOKEN_BUDGET_EXHAUSTED,
     }
 )
+ZERO_TOKEN_PRE_GENERATION_FAILURE_CLASSES = frozenset(
+    {
+        "requested_model_temporarily_unavailable",
+        "quota_exhausted",
+        "http_429_rate_limited",
+    }
+)
 
 _LEDGER_LOCK = threading.RLock()
 _ACTIVE_CYCLE_ID: ContextVar[str | None] = ContextVar("contentops_llm_cycle_id", default=None)
@@ -226,12 +233,21 @@ def reserve_provider_attempt(prompt: str, *, logical_invocation_id: str) -> dict
 
 
 def reconcile_provider_attempt(
-    reservation: Mapping[str, Any], usage: Mapping[str, Any] | None
+    reservation: Mapping[str, Any],
+    usage: Mapping[str, Any] | None,
+    *,
+    failure_class: str | None = None,
 ) -> None:
     total = (usage or {}).get("total_tokens")
-    if not isinstance(total, (int, float)) or total < 0:
-        return  # retain the conservative full reservation when usage is absent/untrusted
-    actual = int(total)
+    if isinstance(total, (int, float)) and total >= 0:
+        actual = int(total)
+    elif str(failure_class or "") in ZERO_TOKEN_PRE_GENERATION_FAILURE_CLASSES:
+        # These exact provider/router outcomes prove rejection before model generation. They
+        # still consume the provider-attempt budget, but retaining a token reservation would
+        # incorrectly starve later quality-authorized fallbacks in the same cycle.
+        actual = 0
+    else:
+        return  # retain the conservative full reservation when usage/outcome is untrusted
     reserved = int(reservation.get("reserved_tokens") or 0)
     delta = actual - reserved
     with _LEDGER_LOCK:

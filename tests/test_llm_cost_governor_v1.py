@@ -88,6 +88,53 @@ def test_provider_attempt_budget_spans_retries_model_changes_and_next_call(tmp_p
     assert snapshot["cycle"]["provider_attempts"] == HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE
 
 
+def test_proven_pre_generation_model_rejections_release_only_token_reservations(tmp_path):
+    provider_calls = 0
+
+    def unavailable(prompt, model, timeout):
+        nonlocal provider_calls
+        provider_calls += 1
+        return ProviderResult(
+            failure_class="requested_model_temporarily_unavailable",
+            resolved_model=None,
+            usage=None,
+        )
+
+    def accepted(prompt, model, timeout):
+        nonlocal provider_calls
+        provider_calls += 1
+        return ProviderResult(
+            text="accepted",
+            resolved_model=model,
+            usage={"total_tokens": 10},
+        )
+
+    with llm_cycle_budget_scope("cycle-pre-generation", control_root=tmp_path, now=NOW):
+        exhausted = _invoke("unavailable-pool", unavailable)
+        after_rejections = budget_snapshot("cycle-pre-generation", control_root=tmp_path)
+        success = _invoke("quality-fallback-still-funded", accepted)
+
+    assert exhausted["terminal_disposition"] == "BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED"
+    assert after_rejections["cycle"]["accounted_tokens"] == 0
+    assert after_rejections["cycle"]["provider_attempts"] == 4
+    assert success["terminal_disposition"] == "ACCEPTED"
+    assert provider_calls == 5
+    final = budget_snapshot("cycle-pre-generation", control_root=tmp_path)
+    assert final["cycle"]["accounted_tokens"] == 10
+    assert final["cycle"]["provider_attempts"] == 5
+
+
+def test_untrusted_transport_failure_without_usage_retains_reservation(tmp_path):
+    def ambiguous_transport(prompt, model, timeout):
+        return ProviderResult(failure_class="read_timeout", resolved_model=None, usage=None)
+
+    with llm_cycle_budget_scope("cycle-ambiguous-usage", control_root=tmp_path, now=NOW):
+        _invoke("ambiguous-transport", ambiguous_transport)
+
+    snapshot = budget_snapshot("cycle-ambiguous-usage", control_root=tmp_path)
+    assert snapshot["cycle"]["accounted_tokens"] > 0
+
+
 def test_cycle_token_ceiling_stops_next_network_attempt(tmp_path):
     provider_calls = 0
 

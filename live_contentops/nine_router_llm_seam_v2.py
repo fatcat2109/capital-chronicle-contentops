@@ -144,7 +144,11 @@ def routed_llm_invocation(
         except BaseException:
             # No trusted usage is available, so the conservative reservation remains charged.
             raise
-        reconcile_provider_attempt(reservation, result.usage)
+        reconcile_provider_attempt(
+            reservation,
+            result.usage,
+            failure_class=result.failure_class,
+        )
         return result
 
     role_pool = model_pool_for_role(role_task_id)
