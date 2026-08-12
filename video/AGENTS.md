@@ -4,16 +4,21 @@ Authority date: 2026-08-12
 
 For V2/video work, read first:
 
-1. `../docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md`
-2. `../docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md`
-3. `../docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1.md`
-4. `../docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md`
-5. `../docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`
-6. `../docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+1. `../docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
+2. `../docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
+3. `../docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
+4. `../docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
+5. `../docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+6. `../docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
+7. `../docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md` only for historical rationale/details already folded into V2 authority
 
-The current next task is:
+Current next task:
 
 `TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+
+Required result:
+
+`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
 
 ## Exact creative-code model
 
@@ -21,53 +26,55 @@ Primary creative-code model through the canonical 9Router seam:
 
 `new/gpt-5.6-sol-xhigh`
 
-It is mandatory as primary for:
+Mandatory primary roles:
 
 - `V2_CREATIVE_EDITOR`
 - `V2_MOTION_CODE_AUTHOR`
 - `V2_CREATIVE_REVISION_AUTHOR`
 
-If fallback is required for availability, record `DEGRADED_CREATIVE_MODEL`. Fallback output may be rendered for diagnosis but cannot self-pass the professional creative gate.
+If fallback is required for availability, record `DEGRADED_CREATIVE_MODEL`. Fallback output may be rendered diagnostically but cannot self-pass the professional creative gate.
 
 ## Creative/renderer contract
 
-Remotion is a deterministic execution/rendering engine. It is not the creative director.
+Remotion is deterministic execution/rendering infrastructure. It is not the creative director.
 
 Canonical hierarchy:
 
 ```text
 governed story/evidence packet
-→ GPT-5.6 Creative Editor
+→ new/gpt-5.6-sol-xhigh Creative Editor
 → screenplay + narration + shot/edit plan
 → renderer-neutral semantic contracts
-→ GPT-5.6 Motion Code Author
-→ sandboxed per-video/per-shot React/TypeScript/SVG/approved media code
-→ deterministic code validation/typecheck
+→ rights-aware AssetPlan + AudioPlan
+→ new/gpt-5.6-sol-xhigh Motion Code Author
+→ sandboxed per-video/per-shot React/TypeScript/SVG/Canvas code
+→ deterministic source validation/typecheck
 → Remotion render
 → deterministic media/retention/repetition/layout QA
 → independent multimodal critic
-→ GPT-5.6 localized creative code revision
+→ new/gpt-5.6-sol-xhigh localized creative code revision
 → selective rerender
 → Jim/ChatGPT actual media acceptance
 ```
 
-Keep semantic truth/rights/asset/narration contracts separate from generated presentation code. The renderer may execute editorial decisions but must not invent factual meaning.
+Semantic truth, rights, assets, narration identity, and package lineage remain separate from generated presentation code.
 
-A scene is a production grouping, not a static slide. Per-shot generated code should be allowed to use different layouts, motion families, timing, cuts, assets, charts, masks, reframes, document treatments, maps, and effects when editorially justified.
+A scene is a production grouping, not a static slide. Per-shot generated code may use different layouts, timing, cuts, motion families, charts, masks, reframes, document treatments, maps, images, or effects when editorially justified.
 
 The main visual must continue telling the story with captions hidden.
 
 ## Creative-code sandbox
 
-Generated code must live under a bounded task/video-owned path and use an explicit import/dependency allowlist.
+Generated source must live under a bounded task/video-owned path and use an explicit import/dependency allowlist.
 
 Allowed as scoped:
 
 - React;
-- compatible approved Remotion APIs/packages;
+- approved compatible Remotion APIs/packages;
 - approved deterministic helpers;
 - local resolved assets;
-- SVG/Canvas/WebGL/Three.js only when task scope and render budget justify them.
+- SVG/Canvas;
+- bounded WebGL/Three.js only when task scope/render budget justifies it.
 
 Forbidden:
 
@@ -80,56 +87,54 @@ Forbidden:
 - platform/publication actions;
 - factual/evidence mutation.
 
-Run deterministic path/import/static/AST checks before executing generated code.
+Run path/import/static/AST checks and TypeScript validation before executing generated code.
 
 ## Official Remotion reference baseline
 
 Primary technical reference:
 
-`remotion-dev/skills` pinned in the current baseline at commit:
+`remotion-dev/skills@b12104ef5f1b1ca2ca5590fcc7c1804fbc85556f`
 
-`b12104ef5f1b1ca2ca5590fcc7c1804fbc85556f`
+Read the official current router/markup guidance plus relevant timing, transitions, video-editing, sequencing, multi-scene, text/DOM measurement, images, audio, SFX, captions, maps, render, and metadata references as needed.
 
-Read at least:
+Community skills in `CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md` are craft references only. Do not import absolute visual recipes wholesale.
 
-- official `remotion-best-practices/SKILL.md`;
-- official `remotion-markup/SKILL.md`;
-- relevant timing/transitions/video-editing/sequencing/measuring-text/images/audio/SFX/captions/maps/render references.
+V2 explicitly rejects universal:
 
-Community skills listed in `CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md` are craft reference only. Do not import their absolute visual rules wholesale.
-
-In particular, V2 does NOT adopt universal “stagger everything”, “Ken Burns every still”, “idle elements breathe”, or “cross-dissolve every scene” rules. Those recipes create repetitive AI-motion signatures if applied globally.
+- stagger everything;
+- Ken Burns every still;
+- idle elements always breathe;
+- cross-dissolve every scene;
+- same transition/easing/duration across most shots.
 
 ## Asset-rich editorial contract
 
-Keep existing image, asset-rights, voice-over, music/SFX, and mastering provider choices unchanged unless a concrete blocker demands otherwise.
+Keep existing image, asset-rights, voice-over, music/SFX, and mastering providers unchanged unless a direct blocker demands otherwise.
 
-For sufficiently rich stories, target a large candidate asset pool before editing and select many purposeful visual states:
+For sufficiently rich stories, initial planning hypotheses are:
 
-- roughly 25–60 viable candidate assets/states where story supply supports it;
-- roughly 12–20 distinct purposeful states for a 45–75s short;
-- roughly 25–45 distinct purposeful states for a 90–150s proof.
+- roughly 25–60 viable candidate assets/states;
+- roughly 12–20 purposeful visual states for a 45–75s short;
+- roughly 25–45 purposeful visual states for a 90–150s proof.
 
-These are planning hypotheses, not quotas.
+These are not quotas.
 
-Use as appropriate:
+Use where relevant:
 
-- rights-cleared real people;
-- institution/location imagery;
-- source documents/releases/filings;
-- charts;
-- maps;
+- real rights-cleared people;
+- institutions/buildings/locations;
+- primary documents/releases/filings;
+- highlighted source excerpts;
+- deterministic charts;
+- maps/routes;
 - timelines;
 - comparisons;
 - diagrams;
-- quote/source treatments;
-- context/history imagery;
+- contextual/history imagery;
 - rights-cleared B-roll/stills;
 - generated conceptual illustrations through the accepted direct `gpt-5.5` boundary.
 
 Generated real-person documentary imagery remains forbidden.
-
-Avoid one hero asset dominating the edit without narrative reason. More assets are useful only when each has a clear editorial purpose.
 
 ## Motion-quality anti-patterns
 
@@ -137,7 +142,7 @@ Fail or flag:
 
 - repeated same-speed text transitions;
 - repeated same easing/trajectory/direction across consecutive beats;
-- slow chart left-to-right crawl as a default;
+- slow whole-chart left-to-right crawl as a default;
 - visual text collisions/overflow;
 - captions as the main apparent motion;
 - repeated one-component/one-layout grammar;
@@ -146,11 +151,11 @@ Fail or flag:
 - universal cross-dissolves;
 - generic AI slideshow/card feel.
 
-Prefer editorially varied rhythm: hard cuts, rapid reveals, intentional holds, document punches, chart focus/annotation, asset cutaways, reframes, maps/timelines, kinetic type, and audio hits only when the story calls for them.
+Prefer authored editorial rhythm: hard cuts, rapid reveals, intentional holds, document punches, focused chart deltas/annotations, asset cutaways, reframes, maps/timelines, kinetic type, diagrams, and audio hits only when narratively justified.
 
 ## Machine QA additions
 
-Alongside existing truth/rights/audio/static-run/package checks, compute or inspect:
+Alongside truth/rights/audio/static-run/package checks, compute/inspect:
 
 - text bounding-box collisions;
 - safe-zone overflow;
@@ -173,19 +178,19 @@ Do not merge or continue:
 - `task/tier2-v2-creative-system-rebuild-v1` / `d231b54e...`;
 - `task/tier2-v2-retention-native-video-factory-vertical-slice-v1` / `b6f50029...`.
 
-The last result is classified `FAIL_CREATIVE_MOTION_ARCHITECTURE`. It may be inspected only for useful evidence/rights/asset/audio/cache/QA engineering, not as creative baseline.
+`b6f50029...` is `FAIL_CREATIVE_MOTION_ARCHITECTURE`. Inspect only useful evidence/rights/asset/audio/cache/QA engineering, not its creative grammar.
 
 ## Truth / rights / platform boundaries
 
 - consume governed story/evidence authority; never fabricate facts/numbers;
 - deterministic/source-backed visuals remain factual authority;
 - generated media is illustrative enrichment only;
-- real people use real rights-cleared photos;
+- real people use real rights-cleared documentary assets;
 - add no independent newsroom/store/scheduler/publication authority;
-- keep provider credentials outside generated renderer source;
-- no browser/CDP/platform/public action unless exact task scope authorizes it;
+- keep credentials outside generated renderer source;
+- no browser/CDP/platform action unless exact task scope authorizes it;
 - V2 currently has zero video public-write authority;
-- generated/vendor output, renders, caches, runtime media stay outside Git except bounded source/evidence explicitly required by task.
+- generated/vendor outputs, renders, caches, runtime media stay outside Git except bounded source/evidence explicitly required by task.
 
 ## QA and acceptance
 
