@@ -1935,6 +1935,29 @@ def build_bounded_rolling_x_publishability_pool(
         "factual_or_numeric_authority_granted": False,
         "publication_authority_granted": False,
     }
+    compact_rows = headlines if isinstance(headlines, list) else []
+    compact_ids_for_early_telemetry = {
+        str(row.get("headline_id") or "")
+        for row in compact_rows
+        if isinstance(row, Mapping) and row.get("headline_id")
+    }
+    early_source_bindings = [
+        {
+            "cluster_id": str(row.get("cluster_id") or ""),
+            "rank": row.get("rank"),
+            "headline_ids": list(row.get("headline_ids") or []),
+            "leaf_cluster_ids": list(row.get("leaf_cluster_ids") or []),
+            "origin": str(row.get("publishability_pool_origin") or ""),
+        }
+        for row in source_clusters
+        if isinstance(row, Mapping)
+    ]
+    early_included_ids = {
+        str(value)
+        for row in early_source_bindings
+        for value in row["headline_ids"]
+        if str(value) in compact_ids_for_early_telemetry
+    }
     if (
         assignment.get("decision") != "SELECT_STORY"
         or not source_clusters
@@ -1946,10 +1969,18 @@ def build_bounded_rolling_x_publishability_pool(
             "status": "UNCHANGED_NO_RESERVE_INPUT",
             "combined_candidate_count": len(source_clusters),
             "reserve_candidate_count": 0,
-            "included_compact_headline_count": 0,
-            "held_after_bounded_pool_count": 0,
-            "compact_universe_exhausted_by_pool": False,
+            "included_compact_headline_count": len(early_included_ids),
+            "held_after_bounded_pool_count": max(
+                0, len(compact_ids_for_early_telemetry) - len(early_included_ids)
+            ),
+            "compact_universe_exhausted_by_pool": bool(
+                compact_ids_for_early_telemetry
+                and early_included_ids == compact_ids_for_early_telemetry
+            ),
+            "candidate_order": [row["cluster_id"] for row in early_source_bindings],
+            "combined_candidate_binding_hash": _logical_hash(early_source_bindings),
         }
+        telemetry["pool_logical_hash"] = _logical_hash(telemetry)
         return {**dict(assignment), "publishability_candidate_pool": telemetry}
     if not all(isinstance(row, Mapping) for row in headlines):
         raise ValueError("rolling_x_publishability_pool_headlines_invalid")
@@ -1971,28 +2002,91 @@ def build_bounded_rolling_x_publishability_pool(
     records_by_id = {
         str(row.get("headline_id") or ""): dict(row) for row in headlines
     }
+    raw_leaf_clusters = assignment.get("leaf_clusters")
+    if not isinstance(raw_leaf_clusters, list) or not raw_leaf_clusters:
+        raise ValueError("rolling_x_publishability_pool_leaf_clusters_invalid")
+    derived_leaf_clusters: list[dict[str, Any]] = []
+    leaf_by_id: dict[str, dict[str, Any]] = {}
+    leaf_headline_ids: set[str] = set()
+    for leaf in raw_leaf_clusters:
+        if not isinstance(leaf, Mapping):
+            raise ValueError("rolling_x_publishability_pool_leaf_binding_invalid")
+        row = dict(leaf)
+        raw_leaf_id = row.get("leaf_cluster_id")
+        raw_member_ids = row.get("member_headline_ids")
+        if (
+            isinstance(raw_leaf_id, bool)
+            or not isinstance(raw_leaf_id, str)
+            or not raw_leaf_id
+            or raw_leaf_id in leaf_by_id
+            or not isinstance(raw_member_ids, list)
+            or not raw_member_ids
+            or any(isinstance(value, bool) or not isinstance(value, str) or not value
+                   for value in raw_member_ids)
+            or len(raw_member_ids) != len(set(raw_member_ids))
+            or any(value not in records_by_id for value in raw_member_ids)
+            or leaf_headline_ids.intersection(raw_member_ids)
+        ):
+            raise ValueError("rolling_x_publishability_pool_leaf_binding_invalid")
+        representative = row.get("canonical_representative_headline_id")
+        if representative not in raw_member_ids:
+            raise ValueError("rolling_x_publishability_pool_leaf_binding_invalid")
+        leaf_by_id[raw_leaf_id] = row
+        leaf_headline_ids.update(raw_member_ids)
+        derived_leaf_clusters.append(row)
+    if leaf_headline_ids != set(compact_headline_ids):
+        raise ValueError("rolling_x_publishability_pool_leaf_headline_union_mismatch")
+
+    if any(
+        not isinstance(row, Mapping)
+        or type(row.get("rank")) is not int
+        for row in source_clusters
+    ):
+        raise ValueError("rolling_x_publishability_pool_source_binding_invalid")
     existing = [dict(row) for row in sorted(
         source_clusters,
-        key=lambda row: (int(row.get("rank") or 0), str(row.get("cluster_id") or "")),
+        key=lambda row: (row["rank"], str(row.get("cluster_id") or "")),
     )]
     if len(existing) > max_ranked_clusters:
         raise ValueError("rolling_x_publishability_pool_source_exceeds_limit")
     seen_cluster_ids: set[str] = set()
     seen_headline_ids: set[str] = set()
     for expected_rank, row in enumerate(existing, start=1):
-        cluster_id = str(row.get("cluster_id") or "")
-        headline_ids = [str(value) for value in (row.get("headline_ids") or [])]
+        raw_cluster_id = row.get("cluster_id")
+        raw_rank = row.get("rank")
+        raw_headline_ids = row.get("headline_ids")
+        raw_leaf_ids = row.get("leaf_cluster_ids")
         if (
-            not cluster_id
-            or cluster_id in seen_cluster_ids
-            or isinstance(row.get("rank"), bool)
-            or row.get("rank") != expected_rank
-            or not headline_ids
-            or len(headline_ids) != len(set(headline_ids))
-            or any(value not in compact_headline_ids for value in headline_ids)
-            or seen_headline_ids.intersection(headline_ids)
+            isinstance(raw_cluster_id, bool)
+            or not isinstance(raw_cluster_id, str)
+            or not raw_cluster_id
+            or raw_cluster_id in seen_cluster_ids
+            or type(raw_rank) is not int
+            or raw_rank != expected_rank
+            or not isinstance(raw_headline_ids, list)
+            or not raw_headline_ids
+            or any(isinstance(value, bool) or not isinstance(value, str) or not value
+                   for value in raw_headline_ids)
+            or len(raw_headline_ids) != len(set(raw_headline_ids))
+            or any(value not in compact_headline_ids for value in raw_headline_ids)
+            or seen_headline_ids.intersection(raw_headline_ids)
+            or not isinstance(raw_leaf_ids, list)
+            or not raw_leaf_ids
+            or any(isinstance(value, bool) or not isinstance(value, str) or not value
+                   for value in raw_leaf_ids)
+            or len(raw_leaf_ids) != len(set(raw_leaf_ids))
+            or any(value not in leaf_by_id for value in raw_leaf_ids)
         ):
             raise ValueError("rolling_x_publishability_pool_source_binding_invalid")
+        headline_ids = list(raw_headline_ids)
+        cluster_id = raw_cluster_id
+        bound_leaf_headlines = {
+            member_id
+            for leaf_id in raw_leaf_ids
+            for member_id in leaf_by_id[leaf_id]["member_headline_ids"]
+        }
+        if set(headline_ids) != bound_leaf_headlines:
+            raise ValueError("rolling_x_publishability_pool_source_leaf_union_mismatch")
         row["publishability_pool_origin"] = "EDITORIAL_SHORTLIST"
         row["publishability_original_order"] = expected_rank
         row["publishability_path_profile"] = _rolling_x_publishability_path_profile(
@@ -2010,11 +2104,6 @@ def build_bounded_rolling_x_publishability_pool(
         for row in (full_fallback.get("leaf_clusters") or [])
         if isinstance(row, Mapping) and row.get("leaf_cluster_id")
     }
-    derived_leaf_clusters = [
-        dict(row)
-        for row in (assignment.get("leaf_clusters") or [])
-        if isinstance(row, Mapping)
-    ]
     known_leaf_ids = {
         str(row.get("leaf_cluster_id") or "") for row in derived_leaf_clusters
     }
@@ -2054,6 +2143,11 @@ def build_bounded_rolling_x_publishability_pool(
                 "seo_intent": "",
                 "visual_strategy": "Deterministic source-backed title card.",
                 "update_chain": dict(leaf.get("duplicate_update_chain") or {}),
+                "leaf_summaries": [summary] if summary else [],
+                "entities_topics": list(dict.fromkeys([
+                    *[str(value) for value in (leaf.get("entities") or []) if str(value)],
+                    *[str(value) for value in (leaf.get("topics") or []) if str(value)],
+                ])),
                 "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
                 "publishability_original_order": len(existing) + leaf_order,
                 "publishability_path_profile": _rolling_x_publishability_path_profile(

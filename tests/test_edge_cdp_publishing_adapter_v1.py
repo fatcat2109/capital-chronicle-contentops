@@ -117,6 +117,7 @@ class _TransitionPage:
         raise_on_trial: str | None = None,
     ) -> None:
         self.mode = "editor"
+        self.url = "https://capitalchronicle.substack.com/publish/post/210796285"
         self.confirmation_after_polls = confirmation_after_polls
         self.public_after_confirmation = public_after_confirmation
         self.raise_on_click = raise_on_click
@@ -186,7 +187,29 @@ def test_substack_publish_transition_requires_exact_draft_id_before_any_click() 
     assert page.clicks == []
 
 
-def test_substack_publish_transition_waits_for_delayed_exact_confirmation(
+def test_substack_publish_transition_requires_exact_editor_draft_identity_before_click() -> None:
+    page = _TransitionPage(confirmation_after_polls=None)
+    page.url = "https://capitalchronicle.substack.com/publish/post/999999999"
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id="210796285",
+        expected_title="Exact story",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == (
+        "BLOCKED_SUBSTACK_EDITOR_DRAFT_ID_MISMATCH_BEFORE_PUBLIC_WRITE"
+    )
+    assert result["definite_no_write"] is True
+    assert result["public_write_attempted"] is False
+    assert result["browser_write_performed"] is False
+    assert page.clicks == []
+
+
+def test_substack_publish_transition_waits_for_delayed_exact_confirmation_then_reconciles(
     monkeypatch,
 ) -> None:
     page = _TransitionPage(confirmation_after_polls=3)
@@ -201,9 +224,10 @@ def test_substack_publish_transition_waits_for_delayed_exact_confirmation(
         poll_interval_seconds=0.01,
     )
 
-    assert result["status"] == "SUCCESS"
-    assert result["public_url"] == "https://capitalchronicle.substack.com/p/exact-story"
-    assert result["public_url_source"] == "CURRENT_PAGE"
+    assert result["status"] == (
+        "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION"
+    )
+    assert "public_url" not in result
     assert page.clicks == [
         "Continue",
         "Send to everyone now",
@@ -213,7 +237,7 @@ def test_substack_publish_transition_waits_for_delayed_exact_confirmation(
         "CLICKED_ONCE",
         "PUBLIC_WRITE_CLICKED_ONCE",
         "PUBLIC_WRITE_CLICKED_ONCE",
-        "OBSERVED_ON_PAGE",
+        "OBSERVED_UNBOUND_TO_EXACT_DRAFT_ID",
     ]
 
 
@@ -302,6 +326,7 @@ def test_substack_publish_transition_non_actionable_final_control_is_definite_no
         confirmation_after_polls=None,
         raise_on_trial="Send to everyone now",
     )
+    page.url = "https://capitalchronicle.substack.com/publish/post/210865567"
     monkeypatch.setattr(adapter, "_extract_substack_public_url", lambda _page: None)
 
     result = adapter._complete_substack_publish_transition(
@@ -617,7 +642,7 @@ def test_substack_draft_reconciliation_waits_for_exact_hydrated_binding(monkeypa
         "Financial Times reported that Deutsche became a European clearing bank "
         "for renminbi transactions."
     )
-    state = {"mode": "", "poll": 0, "navigations": []}
+    state = {"mode": "", "poll": 0, "navigations": [], "listing_calls": 0}
 
     class FakeLink:
         def get_attribute(self, name):
@@ -684,13 +709,11 @@ def test_substack_draft_reconciliation_waits_for_exact_hydrated_binding(monkeypa
             (object(), "Continue") if "Continue" in labels else (None, None)
         ),
     )
-    monkeypatch.setattr(
-        adapter,
-        "_substack_listing_matches",
-        lambda *_args, **_kwargs: (_ for _ in ()).throw(
-            AssertionError("a bound exact draft must win before any title-only listing")
-        ),
-    )
+    def older_identical_public_listing(*_args, **_kwargs):
+        state["listing_calls"] += 1
+        return [{"href": "/p/older-identical-story", "title": expected_title}]
+
+    monkeypatch.setattr(adapter, "_substack_listing_matches", older_identical_public_listing)
     monkeypatch.setattr(adapter.time, "sleep", lambda _seconds: None)
     monkeypatch.setattr(
         adapter, "_editor_image_count", lambda _page: 0 if state["poll"] == 1 else 3
@@ -717,6 +740,8 @@ def test_substack_draft_reconciliation_waits_for_exact_hydrated_binding(monkeypa
     assert not any(url.endswith("/published") for url in state["navigations"])
     assert not any(url.endswith("/drafts") for url in state["navigations"])
     assert any("/publish/post/210796285?" in url for url in state["navigations"])
+    assert state["listing_calls"] == 0
+    assert "public_url" not in result
 
 
 class _FakeInput:

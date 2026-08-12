@@ -1193,6 +1193,22 @@ def _complete_substack_publish_transition(
             "browser_write_performed": False,
             "transition_stages": stages,
         }
+    observed_draft_id = _substack_draft_id(str(getattr(page, "url", "") or ""))
+    if observed_draft_id != draft_id:
+        stages.append(
+            {
+                "stage": "DRAFT_ID_BINDING",
+                "outcome": "EDITOR_ID_MISMATCH",
+            }
+        )
+        return {
+            "status": "BLOCKED_SUBSTACK_EDITOR_DRAFT_ID_MISMATCH_BEFORE_PUBLIC_WRITE",
+            "draft_id": draft_id,
+            "definite_no_write": True,
+            "public_write_attempted": False,
+            "browser_write_performed": False,
+            "transition_stages": stages,
+        }
 
     continue_button, continue_label = _wait_for_substack_exact_button(
         page,
@@ -1306,12 +1322,15 @@ def _complete_substack_publish_transition(
     while True:
         public_url = _extract_substack_public_url(page)
         if _is_public_substack_url(public_url):
-            stages.append({"stage": "PUBLIC_URL", "outcome": "OBSERVED_ON_PAGE"})
+            stages.append(
+                {
+                    "stage": "PUBLIC_URL",
+                    "outcome": "OBSERVED_UNBOUND_TO_EXACT_DRAFT_ID",
+                }
+            )
             return {
-                "status": "SUCCESS",
+                "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
                 "draft_id": draft_id,
-                "public_url": str(public_url),
-                "public_url_source": "CURRENT_PAGE",
                 "public_write_attempted": public_write_attempted,
                 "browser_write_performed": True,
                 "transition_stages": stages,
@@ -1475,6 +1494,23 @@ def _complete_substack_editor_publication_transition(
         return {
             "status": "BLOCKED_SUBSTACK_DRAFT_ID_NOT_BOUND_BEFORE_PUBLIC_WRITE",
             "draft_id": None,
+            "definite_no_write": True,
+            "public_write_attempted": False,
+            "browser_write_performed": False,
+            "publication_write_mode": "update_existing_public_article",
+            "transition_stages": stages,
+        }
+    observed_draft_id = _substack_draft_id(str(getattr(page, "url", "") or ""))
+    if observed_draft_id != normalized_draft_id:
+        stages.append(
+            {
+                "stage": "DRAFT_ID_BINDING",
+                "outcome": "EDITOR_ID_MISMATCH",
+            }
+        )
+        return {
+            "status": "BLOCKED_SUBSTACK_EDITOR_DRAFT_ID_MISMATCH_BEFORE_PUBLIC_WRITE",
+            "draft_id": normalized_draft_id,
             "definite_no_write": True,
             "public_write_attempted": False,
             "browser_write_performed": False,

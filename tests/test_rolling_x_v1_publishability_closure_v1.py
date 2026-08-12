@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+from copy import deepcopy
+
+import pytest
+
 from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
 from live_contentops.source_capability_registry_v2 import (
     load_source_capability_registry,
@@ -18,6 +22,7 @@ from live_contentops.newsroom_assignment_scheduler_v1 import (
     build_bounded_rolling_x_publishability_pool,
 )
 from live_contentops.preselection_intelligence_v1 import (
+    apply_preselection_intelligence,
     _evidence_reachability as _preselection_evidence_reachability,
 )
 from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
@@ -325,10 +330,18 @@ def test_same_cycle_walk_reaches_exact_official_candidate_beyond_old_rank_twelve
     )
 
     evidence_calls = []
+    shared_request_counter = {"count": 0, "limit": 24}
 
     def acquire(request):
         evidence_calls.append(dict(request))
-        if request["headline_ids"] != ["h13"]:
+        exact_official = request["headline_ids"] == ["h13"]
+        # Mirror the real bounded loaders' shared worst-case accounting: an exact bound
+        # official fetch costs one request, while a secondary candidate may consume three
+        # bound URLs plus one RSS discovery request.
+        shared_request_counter["count"] += 1 if exact_official else 4
+        if shared_request_counter["count"] > shared_request_counter["limit"]:
+            raise RuntimeError("public_source_request_budget_exhausted")
+        if not exact_official:
             return {
                 "status": "BLOCKED",
                 "cluster_id": request["cluster_id"],
@@ -424,6 +437,7 @@ def test_same_cycle_walk_reaches_exact_official_candidate_beyond_old_rank_twelve
     # The exact-official unused semantic leaf is promoted before secondary paths, so the
     # shared request budget is not consumed by twelve four-request secondary probes first.
     assert len(evidence_calls) == 1
+    assert shared_request_counter == {"count": 1, "limit": 24}
     assert evidence_calls[0]["headline_ids"] == ["h13"]
     assert result["ranked_viability"]["selected_rank"] == 1
     assert result["ranked_viability"]["selected_headline_ids"] == ["h13"]
@@ -434,6 +448,13 @@ def test_same_cycle_walk_reaches_exact_official_candidate_beyond_old_rank_twelve
         article_calls[0]["selected_cluster"]["publishability_pool_origin"]
         == "UNUSED_SEMANTIC_LEAF_RESERVE"
     )
+    assert article_calls[0]["selected_cluster"]["entities_topics"] == [
+        "entity-13", "controlled-event"
+    ]
+    assert article_calls[0]["selected_cluster"]["update_chain"] == {
+        "relationship": "distinct",
+        "ordered_headline_ids": ["h13"],
+    }
 
 
 def test_preselection_recognizes_exact_official_org_host_without_suffix_guessing():
@@ -449,6 +470,35 @@ def test_preselection_recognizes_exact_official_org_host_without_suffix_guessing
     assert reach["known_official_path"] is True
     assert reach["unregistered_official_suffix_candidate"] is False
     assert reach["factual_authority_granted"] is False
+
+
+def test_preselection_caps_editorial_rank_decay_for_large_publishability_pool(
+    monkeypatch,
+):
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.query_story_scoped_cc_context",
+        lambda _catalog, _entities: {
+            "cc_context_richness": 0.0,
+            "matched_store_ids": [],
+            "matched_store_count": 0,
+            "matches": [],
+            "grants_factual_or_numeric_authority": False,
+        },
+    )
+    result = apply_preselection_intelligence(
+        [
+            {"cluster_id": "first", "rank": 1, "headline_ids": ["h1"]},
+            {"cluster_id": "reserve", "rank": 64, "headline_ids": ["h64"]},
+        ],
+        published_corpus=[],
+        cc_catalog={"stores": []},
+    )
+    scores = {
+        row["cluster_id"]: row["preselection_score"]
+        for row in result["ranked_clusters"]
+    }
+
+    assert scores["first"] - scores["reserve"] == 16.0
 
 
 def test_publishability_pool_preserves_semantic_no_publication_decision():
@@ -478,4 +528,121 @@ def test_publishability_pool_preserves_semantic_no_publication_decision():
     assert result["decision"] == "NO_PUBLICATION"
     assert result["reason_code"] == "EDITORIAL_NO_PUBLICATION"
     assert result["ranked_clusters"] == []
-    assert result["publishability_candidate_pool"]["reserve_candidate_count"] == 0
+    telemetry = result["publishability_candidate_pool"]
+    assert telemetry["reserve_candidate_count"] == 0
+    assert telemetry["combined_candidate_count"] == 0
+    assert telemetry["included_compact_headline_count"] == 0
+    assert telemetry["held_after_bounded_pool_count"] == 1
+    assert telemetry["candidate_order"] == []
+    assert telemetry["combined_candidate_binding_hash"]
+    assert telemetry["pool_logical_hash"]
+
+
+def _valid_pool_fixture():
+    headlines = [
+        {
+            "headline_id": f"h{index}",
+            "source_timestamp_utc": "2026-08-11T23:00:00Z",
+            "external_content": {
+                "headline_text": f"Bound event {index}",
+                "official_source_urls": [],
+            },
+        }
+        for index in range(2)
+    ]
+    rolling_input = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "canonical_input_hash": "bound-input",
+        "headlines": headlines,
+    }
+    leaves = [
+        {
+            "leaf_cluster_id": f"leaf-{index}",
+            "member_headline_ids": [f"h{index}"],
+            "canonical_representative_headline_id": f"h{index}",
+            "event_topic_summary": f"Bound event {index}",
+            "entities": [f"Entity {index}"],
+            "topics": ["bound-event"],
+            "duplicate_update_chain": {
+                "relationship": "distinct",
+                "ordered_headline_ids": [f"h{index}"],
+            },
+        }
+        for index in range(2)
+    ]
+    assignment = {
+        "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+        "status": "SUCCESS",
+        "decision": "SELECT_STORY",
+        "input_binding": {"canonical_input_hash": "bound-input"},
+        "ranked_clusters": [{
+            "cluster_id": "ranked-0",
+            "rank": 1,
+            "headline_ids": ["h0"],
+            "leaf_cluster_ids": ["leaf-0"],
+            "article_mode": "breaking",
+            "needed_evidence": ["Official record."],
+        }],
+        "leaf_clusters": leaves,
+        "assignment_method": "NINE_ROUTER_SEMANTIC_ASSIGNMENT",
+    }
+    return assignment, rolling_input
+
+
+def test_publishability_pool_preserves_unused_semantic_leaf_bindings():
+    assignment, rolling_input = _valid_pool_fixture()
+
+    result = build_bounded_rolling_x_publishability_pool(
+        assignment=assignment, rolling_input=rolling_input
+    )
+
+    reserve = next(
+        row for row in result["ranked_clusters"]
+        if row["publishability_pool_origin"] == "UNUSED_SEMANTIC_LEAF_RESERVE"
+    )
+    assert reserve["headline_ids"] == ["h1"]
+    assert reserve["leaf_cluster_ids"] == ["leaf-1"]
+    assert reserve["entities_topics"] == ["Entity 1", "bound-event"]
+    assert reserve["update_chain"]["ordered_headline_ids"] == ["h1"]
+    assert result["publishability_candidate_pool"]["combined_candidate_binding_hash"]
+
+
+@pytest.mark.parametrize(
+    ("mutate", "reason"),
+    [
+        (
+            lambda assignment, _input: assignment["ranked_clusters"][0].update(
+                {"rank": True}
+            ),
+            "rolling_x_publishability_pool_source_binding_invalid",
+        ),
+        (
+            lambda assignment, _input: assignment["ranked_clusters"][0].update(
+                {"leaf_cluster_ids": ["leaf-1"]}
+            ),
+            "rolling_x_publishability_pool_source_leaf_union_mismatch",
+        ),
+        (
+            lambda assignment, _input: assignment["leaf_clusters"][1].update(
+                {"member_headline_ids": ["h0"]}
+            ),
+            "rolling_x_publishability_pool_leaf_binding_invalid",
+        ),
+        (
+            lambda assignment, rolling_input: rolling_input.update(
+                {"canonical_input_hash": "different-input"}
+            ),
+            "rolling_x_publishability_pool_input_hash_mismatch",
+        ),
+    ],
+)
+def test_publishability_pool_rejects_invalid_assignment_bindings(mutate, reason):
+    assignment, rolling_input = _valid_pool_fixture()
+    assignment = deepcopy(assignment)
+    rolling_input = deepcopy(rolling_input)
+    mutate(assignment, rolling_input)
+
+    with pytest.raises(ValueError, match=f"^{reason}$"):
+        build_bounded_rolling_x_publishability_pool(
+            assignment=assignment, rolling_input=rolling_input
+        )

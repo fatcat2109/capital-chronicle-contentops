@@ -351,6 +351,63 @@ def test_four_candidate_preselection_classifies_filters_and_changes_order(monkey
     assert result["llm_or_provider_calls"] == 0
 
 
+def test_duplicate_corpus_rows_still_hold_repeat_and_allow_material_follow_up(
+    monkeypatch,
+):
+    low_prior = _published(
+        "fed-low", ("Federal Reserve", "rates"),
+        "2026-08-11T01:00:00Z", "chain-low",
+    )
+    follow_prior = _published(
+        "cpi-follow", ("CPI", "inflation"),
+        "2026-08-11T01:10:00Z", "chain-follow",
+    )
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.query_story_scoped_cc_context",
+        lambda _catalog, _entities: {
+            "cc_context_richness": 0.0,
+            "matched_store_ids": [],
+            "matched_store_count": 0,
+            "matches": [],
+            "grants_factual_or_numeric_authority": False,
+        },
+    )
+
+    result = apply_preselection_intelligence(
+        [
+            {
+                "cluster_id": "low",
+                "update_chain_identity": "chain-low",
+                "rank": 1,
+                "headline_ids": ["h-low"],
+                "entities_topics": ["Federal Reserve", "rates"],
+                "leaf_summaries": ["same commentary again"],
+            },
+            {
+                "cluster_id": "follow",
+                "update_chain_identity": "chain-follow",
+                "rank": 2,
+                "headline_ids": ["h-follow"],
+                "entities_topics": ["CPI", "inflation"],
+                "leaf_summaries": ["agency released new data and updated the estimate"],
+                "official_source_urls": ["https://official.invalid/cpi"],
+            },
+        ],
+        published_corpus=[low_prior, low_prior, follow_prior, follow_prior],
+        cc_catalog={"stores": []},
+        now=NOW,
+    )
+
+    assert [row["cluster_id"] for row in result["held_clusters"]] == ["low"]
+    assert [row["cluster_id"] for row in result["ranked_clusters"]] == ["follow"]
+    follow = result["ranked_clusters"][0]
+    assert follow["editorial_classification"] == "MATERIAL_FOLLOW_UP"
+    assert follow["resolved_article_mode"] == "FOLLOW_UP_UPDATE"
+    assert follow["material_follow_up_context"]["previous_story_identity"] == (
+        "cpi-follow"
+    )
+
+
 def test_read_only_canary_builds_bounded_distinct_real_candidate_projection():
     rows = [{
         "headline_id": f"headline-{index}",

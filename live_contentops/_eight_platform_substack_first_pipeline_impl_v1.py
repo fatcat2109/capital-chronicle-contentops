@@ -2342,6 +2342,26 @@ def _run_bounded_rolling_x_editorial_cycle(
         audit_tier1_article,
         combine_editorial_gates,
     )
+    from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+
+    def sanitized_router_failure(exc: RoutedInvocationError) -> dict[str, Any]:
+        summary = dict(getattr(exc, "summary", {}) or {})
+        return {
+            "schema_version": "contentops.sanitized_routed_invocation_failure.v1",
+            "terminal_disposition": str(
+                summary.get("terminal_disposition") or "ROUTED_INVOCATION_FAILED"
+            ),
+            "budget_exhausted_reason": (
+                str(summary["budget_exhausted_reason"])
+                if summary.get("budget_exhausted_reason")
+                else None
+            ),
+            "models_attempted_in_order": [
+                str(model) for model in summary.get("models_attempted_in_order") or []
+            ],
+            "raw_provider_error_persisted": False,
+            "raw_provider_output_persisted": False,
+        }
 
     if max_revision_rounds != 1:
         raise ValueError("rolling_x_revision_round_limit_must_be_one")
@@ -2349,7 +2369,35 @@ def _run_bounded_rolling_x_editorial_cycle(
     history: list[dict[str, Any]] = []
     for review_index in range(max_revision_rounds + 1):
         deterministic = audit_tier1_article(candidate, media_assets=media_assets)
-        semantic = dict(editorial_reviewer(dict(candidate)))
+        try:
+            semantic = dict(editorial_reviewer(dict(candidate)))
+        except RoutedInvocationError as exc:
+            semantic = {
+                "status": "FAILED",
+                "decision": "NEEDS_REVISION",
+                "issues": ["editorial_review_router_failure"],
+                "publication_authority": False,
+                "router_failure": sanitized_router_failure(exc),
+            }
+            combined = combine_editorial_gates(deterministic, semantic)
+            history.append(
+                {
+                    "review_index": review_index,
+                    "revision_rounds_completed": review_index,
+                    "article_sha256": _json_sha256(candidate),
+                    "deterministic_review": deterministic,
+                    "llm_semantic_review": semantic,
+                    "combined_editorial_gate": combined,
+                }
+            )
+            return {
+                "status": "NO_PUBLICATION",
+                "reason_code": "EDITORIAL_REVIEW_ROUTER_FAILURE",
+                "article": candidate,
+                "revision_rounds_completed": review_index,
+                "review_history": history,
+                "publication_authority_granted": False,
+            }
         if semantic.get("decision") not in {"PASS", "NEEDS_REVISION"}:
             semantic["decision"] = "NEEDS_REVISION"
             semantic.setdefault("issues", ["semantic_review_decision_invalid"])
@@ -2374,7 +2422,22 @@ def _run_bounded_rolling_x_editorial_cycle(
             }
         if review_index == max_revision_rounds:
             break
-        revised = article_reviser(dict(candidate), semantic, review_index + 1)
+        try:
+            revised = article_reviser(dict(candidate), semantic, review_index + 1)
+        except RoutedInvocationError as exc:
+            review_row["revision"] = {
+                "round": review_index + 1,
+                "status": "FAILED_ROUTER",
+                "router_failure": sanitized_router_failure(exc),
+            }
+            return {
+                "status": "NO_PUBLICATION",
+                "reason_code": "EDITORIAL_REVISION_ROUTER_FAILURE",
+                "article": candidate,
+                "revision_rounds_completed": review_index,
+                "review_history": history,
+                "publication_authority_granted": False,
+            }
         if not isinstance(revised, Mapping):
             raise ValueError("rolling_x_article_revision_not_object")
         revised_candidate = dict(revised)

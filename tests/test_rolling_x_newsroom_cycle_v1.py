@@ -106,6 +106,74 @@ def test_bounded_editorial_cycle_exhausts_after_one_revision(monkeypatch):
     assert len(result["review_history"]) == 2
 
 
+def test_bounded_editorial_cycle_fails_closed_when_review_router_fails(monkeypatch):
+    from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
+        lambda article, media_assets=(): {"classification": "PASS"},
+    )
+
+    def fail_review(_article):
+        raise RoutedInvocationError(
+            {
+                "terminal_disposition": "PROVIDER_EXHAUSTED",
+                "models_attempted_in_order": ["model-a"],
+                "raw_output": "must-not-persist",
+            }
+        )
+
+    result = implementation._run_bounded_rolling_x_editorial_cycle(
+        article=_article(),
+        media_assets=[],
+        editorial_reviewer=fail_review,
+        article_reviser=lambda article, review, round_number: article,
+    )
+
+    assert result["status"] == "NO_PUBLICATION"
+    assert result["reason_code"] == "EDITORIAL_REVIEW_ROUTER_FAILURE"
+    assert result["publication_authority_granted"] is False
+    failure = result["review_history"][0]["llm_semantic_review"]["router_failure"]
+    assert failure["terminal_disposition"] == "PROVIDER_EXHAUSTED"
+    assert "raw_output" not in failure
+
+
+def test_bounded_editorial_cycle_fails_closed_when_revision_router_fails(monkeypatch):
+    from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
+        lambda article, media_assets=(): {"classification": "PASS"},
+    )
+
+    def fail_revision(_article, _review, _round_number):
+        raise RoutedInvocationError(
+            {
+                "terminal_disposition": "BUDGET_EXHAUSTED",
+                "budget_exhausted_reason": "llm_cycle_provider_attempt_budget_exhausted",
+                "models_attempted_in_order": ["model-a", "model-b"],
+                "provider_error": "must-not-persist",
+            }
+        )
+
+    result = implementation._run_bounded_rolling_x_editorial_cycle(
+        article=_article(),
+        media_assets=[],
+        editorial_reviewer=lambda article: _semantic("NEEDS_REVISION"),
+        article_reviser=fail_revision,
+    )
+
+    assert result["status"] == "NO_PUBLICATION"
+    assert result["reason_code"] == "EDITORIAL_REVISION_ROUTER_FAILURE"
+    assert result["revision_rounds_completed"] == 0
+    assert result["publication_authority_granted"] is False
+    failure = result["review_history"][0]["revision"]["router_failure"]
+    assert failure["budget_exhausted_reason"] == (
+        "llm_cycle_provider_attempt_budget_exhausted"
+    )
+    assert "provider_error" not in failure
+
+
 def test_canonical_cycle_stops_before_generation_when_ranked_evidence_blocks(monkeypatch, tmp_path: Path):
     intake = {
         "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
@@ -541,6 +609,55 @@ def test_router_outage_fallback_has_no_live_publication_authority(monkeypatch, t
     assert result["publishing_adapter_called"] is False
     assert result["public_write_performed"] is False
     assert "publication_lifecycle_plan" not in result
+
+
+def test_revision_router_failure_writes_no_publication_evidence(monkeypatch, tmp_path: Path):
+    from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+
+    _assignment, viability, article, media, _editorial, readiness = _release_inputs(tmp_path)
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: {"schema_version": "capital_chronicle.rolling_x_headline_input.v1"},
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        lambda **kwargs: {"status": "SUCCESS", "assignment_logical_hash": "assignment-hash"},
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.select_first_viable_rolling_x_cluster",
+        lambda **kwargs: viability,
+    )
+    monkeypatch.setattr(implementation, "_rolling_x_destination_readiness", lambda **kwargs: readiness)
+
+    def fail_revision(_article, _review, _round_number):
+        raise RoutedInvocationError(
+            {
+                "terminal_disposition": "BUDGET_EXHAUSTED",
+                "budget_exhausted_reason": "llm_cycle_provider_attempt_budget_exhausted",
+            }
+        )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="revision-router-failure",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-08T00:00:00Z",
+        article_builder=lambda value: {"article": article, "media": media},
+        editorial_reviewer=lambda value: _semantic("NEEDS_REVISION"),
+        article_reviser=fail_revision,
+        publication_enabled=True,
+    )
+
+    assert result["classification"] == "NO_PUBLICATION"
+    assert result["exact_next_blocker"] == "EDITORIAL_REVISION_ROUTER_FAILURE"
+    assert result["editorial_cycle"]["publication_authority_granted"] is False
+    assert "publication_lifecycle_plan" not in result
+    persisted = json.loads(
+        (tmp_path / "rolling_x_newsroom_cycle_evidence_v1.json").read_text(encoding="utf-8")
+    )
+    assert persisted["exact_next_blocker"] == "EDITORIAL_REVISION_ROUTER_FAILURE"
+    assert persisted["editorial_cycle"]["review_history"][0]["revision"]["status"] == (
+        "FAILED_ROUTER"
+    )
 
 
 def test_old_backend_unknown_write_fixture_cannot_bypass_plan_coordinator(
