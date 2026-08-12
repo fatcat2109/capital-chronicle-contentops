@@ -14,9 +14,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12063,
+    "edges": 12145,
     "entrypoints": 8,
-    "nodes": 6446,
+    "nodes": 6494,
     "nodes_by_kind": {
       "authority_doc": 9,
       "cli_command": 13,
@@ -24,15 +24,15 @@
       "durable_table": 34,
       "http_endpoint": 6,
       "instructions": 8,
-      "manifest": 5,
-      "python_class": 525,
-      "python_function": 3571,
+      "manifest": 7,
+      "python_class": 540,
+      "python_function": 3584,
       "python_method": 207,
-      "python_module": 681,
-      "schema": 154,
-      "test": 689,
-      "typescript_export": 447,
-      "typescript_or_javascript_module": 89
+      "python_module": 685,
+      "schema": 155,
+      "test": 692,
+      "typescript_export": 452,
+      "typescript_or_javascript_module": 94
     }
   },
   "edges": [
@@ -5357,6 +5357,18 @@
       "inference": "python_ast_import",
       "kind": "imports",
       "to": "live_contentops/real_artifact_intake.py"
+    },
+    {
+      "from": "live_contentops/cli.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/retention_native_video_critic_v2.py"
+    },
+    {
+      "from": "live_contentops/cli.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/retention_native_video_factory_v2.py"
     },
     {
       "from": "live_contentops/cli.py",
@@ -31049,6 +31061,294 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_research_grounding_packet_v6.py"
+    },
+    {
+      "from": "live_contentops/retention_native_audio_score_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/retention_native_audio_score_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_audio_score_v2.py::render_owned_score"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::AssetPlan"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::AssetSpec"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::AudioPlan"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::DirectorBundle"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::EditDecision"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::EditDecisionGraph"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::EngagementBrief"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::NarrativeBeat"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::NarrativeBeatGraph"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::PlatformVariant"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::PlatformVariantPlan"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::RetentionDiagnostics"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::SelectionStatus"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::StoryMode"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::VideoOpportunity"
+    },
+    {
+      "from": "live_contentops/retention_native_video_contracts_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/content_intelligence_contracts_v2.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/media_manifest_authority_v1.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/nine_router_llm_seam_v2.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/nine_router_ordered_model_router_v2.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/nine_router_provider_adapter_v2.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_critic_v2.py::canonical_critic_repair_prompt"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_critic_v2.py::critic_command"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_critic_v2.py::critic_command"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_critic_v2.py::run_independent_critic"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_critic_v2.py::validate_critic_output"
+    },
+    {
+      "from": "live_contentops/retention_native_video_critic_v2.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.retention_native.independent_multimodal_critic.v2"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/content_intelligence_contracts_v2.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/media_manifest_authority_v1.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/nine_router_ordered_model_router_v2.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/retention_native_audio_score_v2.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/retention_native_video_contracts_v2.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/retention_native_video_critic_v2.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::build_director_bundle"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::generate_narration"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::hydrate_assets"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::load_governed_oil_story"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::retention_native_video_command"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::retention_native_video_command"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::run_retention_native_video_factory"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::verify_hash_manifest"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_retention_native_video_factory_v2.py"
+    },
+    {
+      "from": "live_contentops/retention_native_video_factory_v2.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_retention_native_video_factory_v2.py"
     },
     {
       "from": "live_contentops/review_bundle_manifest.py",
@@ -58627,6 +58927,126 @@
       "to": "python_symbol:live_contentops/remote_operator_inbox_intent_review_contract.py::serialize"
     },
     {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::AssetPlan"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::AssetSpec"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::AudioPlan"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::DirectorBundle"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::EditDecision"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::EditDecisionGraph"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::EngagementBrief"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::NarrativeBeat"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::NarrativeBeatGraph"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::PlatformVariant"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::PlatformVariantPlan"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::SelectionStatus"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::StoryMode"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::VideoOpportunity"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_critic_v2.py::critic_command",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_critic_v2.py::run_independent_critic"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_factory_v2.py::retention_native_video_command",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::run_retention_native_video_factory"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_factory_v2.py::run_retention_native_video_factory",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::build_director_bundle"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_factory_v2.py::run_retention_native_video_factory",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::generate_narration"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_factory_v2.py::run_retention_native_video_factory",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::hydrate_assets"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_video_factory_v2.py::run_retention_native_video_factory",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_video_factory_v2.py::load_governed_oil_story"
+    },
+    {
       "from": "python_symbol:live_contentops/review_bundle_manifest.py::build_summary",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -66385,6 +66805,24 @@
       "to": "live_contentops/research_grounding_packet_v6.py"
     },
     {
+      "from": "tests/test_retention_native_video_factory_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/retention_native_video_factory_v2.py"
+    },
+    {
+      "from": "tests/test_retention_native_video_factory_v2.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/retention_native_video_factory_v2.py"
+    },
+    {
+      "from": "tests/test_retention_native_video_factory_v2.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/retention_native_video_factory_v2.py"
+    },
+    {
       "from": "tests/test_review_bundle_manifest.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -72413,6 +72851,60 @@
       "inference": "agents_directory_scope",
       "kind": "governs",
       "to": "directory:video"
+    },
+    {
+      "from": "video/retention_native_v2/src/beat.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/retention_native_v2/src/beat.tsx::RetentionNativeBeat"
+    },
+    {
+      "from": "video/retention_native_v2/src/beat.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/retention_native_v2/src/types.ts"
+    },
+    {
+      "from": "video/retention_native_v2/src/index.ts",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/retention_native_v2/src/root.tsx"
+    },
+    {
+      "from": "video/retention_native_v2/src/root.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/retention_native_v2/src/root.tsx::RetentionNativeRoot"
+    },
+    {
+      "from": "video/retention_native_v2/src/root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/retention_native_v2/src/beat.tsx"
+    },
+    {
+      "from": "video/retention_native_v2/src/root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/retention_native_v2/src/types.ts"
+    },
+    {
+      "from": "video/retention_native_v2/src/types.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/retention_native_v2/src/types.ts::BeatRenderJob"
+    },
+    {
+      "from": "video/retention_native_v2/src/types.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/retention_native_v2/src/types.ts::CaptionCue"
+    },
+    {
+      "from": "video/retention_native_v2/src/types.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/retention_native_v2/src/types.ts::EditState"
     }
   ],
   "entrypoints": [
@@ -72489,7 +72981,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-11T10:57:11Z",
+  "generation_timestamp_utc": "2026-08-11T17:36:49Z",
   "generator_version": "2.0.0",
   "included_roots": [
     "live_contentops/",
@@ -72522,7 +73014,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 6293
+      "size_bytes": 7668
     },
     {
       "id": "Start_ContentOps_Daily_App.cmd",
@@ -72647,7 +73139,7 @@
     {
       "id": "docs/CURRENT_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 12801
+      "size_bytes": 8886
     },
     {
       "id": "docs/automation/CONTENTOPS_TIER2_PRO_VIDEO_FACTORY_MASTER_PLAN_V1.md",
@@ -72662,17 +73154,17 @@
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
       "kind": "authority_doc",
-      "size_bytes": 10521
+      "size_bytes": 5701
     },
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 17220
+      "size_bytes": 17223
     },
     {
       "id": "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
       "kind": "authority_doc",
-      "size_bytes": 16439
+      "size_bytes": 8513
     },
     {
       "id": "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -72903,7 +73395,7 @@
     {
       "id": "live_contentops/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 4307
+      "size_bytes": 4326
     },
     {
       "id": "live_contentops/__init__.py",
@@ -73408,7 +73900,7 @@
     {
       "id": "live_contentops/cli.py",
       "kind": "python_module",
-      "size_bytes": 52778
+      "size_bytes": 53216
     },
     {
       "id": "live_contentops/cli_safety.py",
@@ -74683,12 +75175,12 @@
     {
       "id": "live_contentops/nine_router_llm_seam_v2.py",
       "kind": "python_module",
-      "size_bytes": 9216
+      "size_bytes": 9441
     },
     {
       "id": "live_contentops/nine_router_ordered_model_router_v2.py",
       "kind": "python_module",
-      "size_bytes": 39982
+      "size_bytes": 41106
     },
     {
       "id": "live_contentops/nine_router_preflight_v2.py",
@@ -74698,7 +75190,7 @@
     {
       "id": "live_contentops/nine_router_provider_adapter_v2.py",
       "kind": "python_module",
-      "size_bytes": 16077
+      "size_bytes": 16397
     },
     {
       "id": "live_contentops/nonnumeric_story_authority_consumer_v1.py",
@@ -75509,6 +76001,26 @@
       "id": "live_contentops/research_grounding_packet_v6.py",
       "kind": "python_module",
       "size_bytes": 3625
+    },
+    {
+      "id": "live_contentops/retention_native_audio_score_v2.py",
+      "kind": "python_module",
+      "size_bytes": 11855
+    },
+    {
+      "id": "live_contentops/retention_native_video_contracts_v2.py",
+      "kind": "python_module",
+      "size_bytes": 18433
+    },
+    {
+      "id": "live_contentops/retention_native_video_critic_v2.py",
+      "kind": "python_module",
+      "size_bytes": 23870
+    },
+    {
+      "id": "live_contentops/retention_native_video_factory_v2.py",
+      "kind": "python_module",
+      "size_bytes": 208557
     },
     {
       "id": "live_contentops/review_bundle_manifest.py",
@@ -80143,658 +80655,658 @@
     {
       "id": "python_symbol:live_contentops/cli.py::alpha_wait_state_summary",
       "kind": "python_function",
-      "line": 609,
+      "line": 611,
       "path": "live_contentops/cli.py",
       "symbol": "alpha_wait_state_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::approval_queue_summary",
       "kind": "python_function",
-      "line": 215,
+      "line": 217,
       "path": "live_contentops/cli.py",
       "symbol": "approval_queue_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::artifact_packet_bridge_summary",
       "kind": "python_function",
-      "line": 605,
+      "line": 607,
       "path": "live_contentops/cli.py",
       "symbol": "artifact_packet_bridge_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::audit_log_summary",
       "kind": "python_function",
-      "line": 237,
+      "line": 239,
       "path": "live_contentops/cli.py",
       "symbol": "audit_log_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::automation_policy_modes_summary",
       "kind": "python_function",
-      "line": 675,
+      "line": 677,
       "path": "live_contentops/cli.py",
       "symbol": "automation_policy_modes_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::build_sample_approval_queue",
       "kind": "python_function",
-      "line": 224,
+      "line": 226,
       "path": "live_contentops/cli.py",
       "symbol": "build_sample_approval_queue"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::bundle_refresh_next_phase_summary",
       "kind": "python_function",
-      "line": 601,
+      "line": 603,
       "path": "live_contentops/cli.py",
       "symbol": "bundle_refresh_next_phase_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::contracts_summary",
       "kind": "python_function",
-      "line": 152,
+      "line": 154,
       "path": "live_contentops/cli.py",
       "symbol": "contracts_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::daily_app_command",
       "kind": "python_function",
-      "line": 1038,
+      "line": 1040,
       "path": "live_contentops/cli.py",
       "symbol": "daily_app_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::editorial_preview_summary",
       "kind": "python_function",
-      "line": 509,
+      "line": 511,
       "path": "live_contentops/cli.py",
       "symbol": "editorial_preview_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::editorial_qa_summary",
       "kind": "python_function",
-      "line": 495,
+      "line": 497,
       "path": "live_contentops/cli.py",
       "symbol": "editorial_qa_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::editorial_selection_summary",
       "kind": "python_function",
-      "line": 521,
+      "line": 523,
       "path": "live_contentops/cli.py",
       "symbol": "editorial_selection_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::evaluate_sample_policy",
       "kind": "python_function",
-      "line": 194,
+      "line": 196,
       "path": "live_contentops/cli.py",
       "symbol": "evaluate_sample_policy"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::grounded_editorial_packet_summary",
       "kind": "python_function",
-      "line": 586,
+      "line": 588,
       "path": "live_contentops/cli.py",
       "symbol": "grounded_editorial_packet_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::grounded_packet_review_queue_summary",
       "kind": "python_function",
-      "line": 589,
+      "line": 591,
       "path": "live_contentops/cli.py",
       "symbol": "grounded_packet_review_queue_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::grounded_research_summary",
       "kind": "python_function",
-      "line": 535,
+      "line": 537,
       "path": "live_contentops/cli.py",
       "symbol": "grounded_research_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::ide_cli_document_bundle_summary",
       "kind": "python_function",
-      "line": 611,
+      "line": 613,
       "path": "live_contentops/cli.py",
       "symbol": "ide_cli_document_bundle_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::instagram_asset_dry_run",
       "kind": "python_function",
-      "line": 397,
+      "line": 399,
       "path": "live_contentops/cli.py",
       "symbol": "instagram_asset_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::instagram_asset_export_status",
       "kind": "python_function",
-      "line": 383,
+      "line": 385,
       "path": "live_contentops/cli.py",
       "symbol": "instagram_asset_export_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::instagram_staging_contract",
       "kind": "python_function",
-      "line": 419,
+      "line": 421,
       "path": "live_contentops/cli.py",
       "symbol": "instagram_staging_contract"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_adapter_status",
       "kind": "python_function",
-      "line": 340,
+      "line": 342,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_adapter_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_dry_run",
       "kind": "python_function",
-      "line": 352,
+      "line": 354,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_scope_verification_checklist",
       "kind": "python_function",
-      "line": 378,
+      "line": 380,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_scope_verification_checklist"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_staging_contract",
       "kind": "python_function",
-      "line": 374,
+      "line": 376,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_staging_contract"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::live_project_sources_bundle",
       "kind": "python_function",
-      "line": 491,
+      "line": 493,
       "path": "live_contentops/cli.py",
       "symbol": "live_project_sources_bundle"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::main",
       "kind": "python_function",
-      "line": 1261,
+      "line": 1265,
       "path": "live_contentops/cli.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::meta_capability_review_checklist",
       "kind": "python_function",
-      "line": 423,
+      "line": 425,
       "path": "live_contentops/cli.py",
       "symbol": "meta_capability_review_checklist"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::next_platform_account_binding_selection_gate_summary",
       "kind": "python_function",
-      "line": 882,
+      "line": 884,
       "path": "live_contentops/cli.py",
       "symbol": "next_platform_account_binding_selection_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::operator_command_summary",
       "kind": "python_function",
-      "line": 1110,
+      "line": 1112,
       "path": "live_contentops/cli.py",
       "symbol": "operator_command_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::operator_decision_history_summary",
       "kind": "python_function",
-      "line": 591,
+      "line": 593,
       "path": "live_contentops/cli.py",
       "symbol": "operator_decision_history_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::operator_live_publishing_review_backlog_gate_summary",
       "kind": "python_function",
-      "line": 922,
+      "line": 924,
       "path": "live_contentops/cli.py",
       "symbol": "operator_live_publishing_review_backlog_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::packet_dashboard_handoff_summary",
       "kind": "python_function",
-      "line": 597,
+      "line": 599,
       "path": "live_contentops/cli.py",
       "symbol": "packet_dashboard_handoff_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::packet_registry_dashboard_summary",
       "kind": "python_function",
-      "line": 595,
+      "line": 597,
       "path": "live_contentops/cli.py",
       "symbol": "packet_registry_dashboard_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::pilot_prerequisites_status",
       "kind": "python_function",
-      "line": 427,
+      "line": 429,
       "path": "live_contentops/cli.py",
       "symbol": "pilot_prerequisites_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::platform_errors_summary",
       "kind": "python_function",
-      "line": 70,
+      "line": 72,
       "path": "live_contentops/cli.py",
       "symbol": "platform_errors_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::platform_requirements_account_binding_policy_gate_summary",
       "kind": "python_function",
-      "line": 930,
+      "line": 932,
       "path": "live_contentops/cli.py",
       "symbol": "platform_requirements_account_binding_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::policy_summary",
       "kind": "python_function",
-      "line": 173,
+      "line": 175,
       "path": "live_contentops/cli.py",
       "symbol": "policy_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::print_status",
       "kind": "python_function",
-      "line": 61,
+      "line": 63,
       "path": "live_contentops/cli.py",
       "symbol": "print_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::project_source_export_summary",
       "kind": "python_function",
-      "line": 599,
+      "line": 601,
       "path": "live_contentops/cli.py",
       "symbol": "project_source_export_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::prompt_injection_summary",
       "kind": "python_function",
-      "line": 563,
+      "line": 565,
       "path": "live_contentops/cli.py",
       "symbol": "prompt_injection_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::provider_dry_run",
       "kind": "python_function",
-      "line": 253,
+      "line": 255,
       "path": "live_contentops/cli.py",
       "symbol": "provider_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::provider_gateway_status",
       "kind": "python_function",
-      "line": 246,
+      "line": 248,
       "path": "live_contentops/cli.py",
       "symbol": "provider_gateway_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::real_artifact_intake_summary",
       "kind": "python_function",
-      "line": 603,
+      "line": 605,
       "path": "live_contentops/cli.py",
       "symbol": "real_artifact_intake_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::real_artifact_pipeline_trace_summary",
       "kind": "python_function",
-      "line": 607,
+      "line": 609,
       "path": "live_contentops/cli.py",
       "symbol": "real_artifact_pipeline_trace_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::review_ledger_registry_summary",
       "kind": "python_function",
-      "line": 593,
+      "line": 595,
       "path": "live_contentops/cli.py",
       "symbol": "review_ledger_registry_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_add_command",
       "kind": "python_function",
-      "line": 77,
+      "line": 79,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_add_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_command",
       "kind": "python_function",
-      "line": 142,
+      "line": 144,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_list_command",
       "kind": "python_function",
-      "line": 105,
+      "line": 107,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_list_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_tick_command",
       "kind": "python_function",
-      "line": 112,
+      "line": 114,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_tick_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::seo_metadata_summary",
       "kind": "python_function",
-      "line": 548,
+      "line": 550,
       "path": "live_contentops/cli.py",
       "symbol": "seo_metadata_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_adapter_status",
       "kind": "python_function",
-      "line": 272,
+      "line": 274,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_adapter_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_credential_readiness_summary",
       "kind": "python_function",
-      "line": 747,
+      "line": 749,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_credential_readiness_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_dry_run",
       "kind": "python_function",
-      "line": 281,
+      "line": 283,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_first_supervised_live_post_gate_summary",
       "kind": "python_function",
-      "line": 807,
+      "line": 809,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_first_supervised_live_post_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_getme_gate_summary",
       "kind": "python_function",
-      "line": 759,
+      "line": 761,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_getme_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_no_go_status",
       "kind": "python_function",
-      "line": 473,
+      "line": 475,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_no_go_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_pilot_design_summary",
       "kind": "python_function",
-      "line": 614,
+      "line": 616,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_pilot_design_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_pilot_execute",
       "kind": "python_function",
-      "line": 618,
+      "line": 620,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_pilot_execute"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_precheck_summary",
       "kind": "python_function",
-      "line": 642,
+      "line": 644,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_precheck_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_one_shot_execution_packet_summary",
       "kind": "python_function",
-      "line": 713,
+      "line": 715,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_one_shot_execution_packet_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_one_shot_go_gate_summary",
       "kind": "python_function",
-      "line": 731,
+      "line": 733,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_one_shot_go_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_post_pilot_ledger_gate_summary",
       "kind": "python_function",
-      "line": 827,
+      "line": 829,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_post_pilot_ledger_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_private_staging_packet_status",
       "kind": "python_function",
-      "line": 445,
+      "line": 447,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_private_staging_packet_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_readonly_channel_binding_permission_proof_summary",
       "kind": "python_function",
-      "line": 1024,
+      "line": 1026,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_readonly_channel_binding_permission_proof_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_live_post_reconciliation_gate_summary",
       "kind": "python_function",
-      "line": 914,
+      "line": 916,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_live_post_reconciliation_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_sandbox_dry_run_prep_summary",
       "kind": "python_function",
-      "line": 659,
+      "line": 661,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_sandbox_dry_run_prep_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_supervised_live_post_gate_summary",
       "kind": "python_function",
-      "line": 898,
+      "line": 900,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_supervised_live_post_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_supervised_post_dry_run_ledger_gate_summary",
       "kind": "python_function",
-      "line": 890,
+      "line": 892,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_supervised_post_dry_run_ledger_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_staging_contract",
       "kind": "python_function",
-      "line": 300,
+      "line": 302,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_staging_contract"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_staging_flow_dry_run",
       "kind": "python_function",
-      "line": 463,
+      "line": 465,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_staging_flow_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_staging_operator_rollback_drill",
       "kind": "python_function",
-      "line": 468,
+      "line": 470,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_staging_operator_rollback_drill"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_supervised_post_dry_run_gate_summary",
       "kind": "python_function",
-      "line": 794,
+      "line": 796,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_supervised_post_dry_run_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_supervised_post_queue_summary",
       "kind": "python_function",
-      "line": 695,
+      "line": 697,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_supervised_post_queue_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_target_binding_gate_summary",
       "kind": "python_function",
-      "line": 777,
+      "line": 779,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_target_binding_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telemetry_summary",
       "kind": "python_function",
-      "line": 65,
+      "line": 67,
       "path": "live_contentops/cli.py",
       "symbol": "telemetry_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_instagram_asset_fixtures",
       "kind": "python_function",
-      "line": 416,
+      "line": 418,
       "path": "live_contentops/cli.py",
       "symbol": "validate_instagram_asset_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_linkedin_dry_run_fixtures",
       "kind": "python_function",
-      "line": 371,
+      "line": 373,
       "path": "live_contentops/cli.py",
       "symbol": "validate_linkedin_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_provider_dry_run_fixtures",
       "kind": "python_function",
-      "line": 267,
+      "line": 269,
       "path": "live_contentops/cli.py",
       "symbol": "validate_provider_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_samples",
       "kind": "python_function",
-      "line": 163,
+      "line": 165,
       "path": "live_contentops/cli.py",
       "symbol": "validate_samples"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_telegram_dry_run_fixtures",
       "kind": "python_function",
-      "line": 297,
+      "line": 299,
       "path": "live_contentops/cli.py",
       "symbol": "validate_telegram_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_x_dry_run_fixtures",
       "kind": "python_function",
-      "line": 332,
+      "line": 334,
       "path": "live_contentops/cli.py",
       "symbol": "validate_x_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_adapter_status",
       "kind": "python_function",
-      "line": 305,
+      "line": 307,
       "path": "live_contentops/cli.py",
       "symbol": "x_adapter_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_dry_run",
       "kind": "python_function",
-      "line": 315,
+      "line": 317,
       "path": "live_contentops/cli.py",
       "symbol": "x_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_callback_pkce_dry_run_design_gate_summary",
       "kind": "python_function",
-      "line": 954,
+      "line": 956,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_callback_pkce_dry_run_design_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_callback_server_policy_gate_summary",
       "kind": "python_function",
-      "line": 978,
+      "line": 980,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_callback_server_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_credential_readiness_policy_gate_summary",
       "kind": "python_function",
-      "line": 986,
+      "line": 988,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_credential_readiness_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_live_read_only_identity_proof_gate_summary",
       "kind": "python_function",
-      "line": 1010,
+      "line": 1012,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_live_read_only_identity_proof_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_local_callback_handler_dry_run_stub_gate_summary",
       "kind": "python_function",
-      "line": 970,
+      "line": 972,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_local_callback_handler_dry_run_stub_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_redacted_credential_presence_check_design_gate_summary",
       "kind": "python_function",
-      "line": 994,
+      "line": 996,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_redacted_credential_presence_check_design_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_redirect_ledger_callback_fixture_contract_gate_summary",
       "kind": "python_function",
-      "line": 962,
+      "line": 964,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_redirect_ledger_callback_fixture_contract_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_supervised_live_readiness_bridge_bundle_gate_summary",
       "kind": "python_function",
-      "line": 1002,
+      "line": 1004,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_supervised_live_readiness_bridge_bundle_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_user_context_design_policy_gate_summary",
       "kind": "python_function",
-      "line": 946,
+      "line": 948,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_user_context_design_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_official_docs_account_binding_requirements_gate_summary",
       "kind": "python_function",
-      "line": 938,
+      "line": 940,
       "path": "live_contentops/cli.py",
       "symbol": "x_official_docs_account_binding_requirements_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_staging_contract",
       "kind": "python_function",
-      "line": 335,
+      "line": 337,
       "path": "live_contentops/cli.py",
       "symbol": "x_staging_contract"
     },
@@ -92904,322 +93416,322 @@
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::RoutedInvocationError",
       "kind": "python_class",
-      "line": 66,
+      "line": 68,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "RoutedInvocationError"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::RoutedInvocationError.__init__",
       "kind": "python_method",
-      "line": 69,
+      "line": 71,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "RoutedInvocationError.__init__"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::_default_provider_call",
       "kind": "python_function",
-      "line": 97,
+      "line": 99,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "_default_provider_call"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::_derive_invocation_id",
       "kind": "python_function",
-      "line": 175,
+      "line": 177,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "_derive_invocation_id"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::drain_invocation_log",
       "kind": "python_function",
-      "line": 86,
+      "line": 88,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "drain_invocation_log"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::integration_manifest",
       "kind": "python_function",
-      "line": 182,
+      "line": 184,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "integration_manifest"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::peek_invocation_log",
       "kind": "python_function",
-      "line": 93,
+      "line": 95,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "peek_invocation_log"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_invocation",
       "kind": "python_function",
-      "line": 103,
+      "line": 105,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "routed_llm_invocation"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_text",
       "kind": "python_function",
-      "line": 142,
+      "line": 144,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "routed_llm_text"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ModelRouterError",
       "kind": "python_class",
-      "line": 164,
+      "line": 172,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "ModelRouterError"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ProviderResult",
       "kind": "python_class",
-      "line": 485,
+      "line": 501,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "ProviderResult"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget",
       "kind": "python_class",
-      "line": 349,
+      "line": 365,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.__post_init__",
       "kind": "python_method",
-      "line": 373,
+      "line": 389,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.__post_init__"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.attempts_for",
       "kind": "python_method",
-      "line": 400,
+      "line": 416,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.attempts_for"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.elapsed_seconds",
       "kind": "python_method",
-      "line": 386,
+      "line": 402,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.elapsed_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.exhausted_reason",
       "kind": "python_method",
-      "line": 411,
+      "line": 427,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.exhausted_reason"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.from_snapshot",
       "kind": "python_method",
-      "line": 451,
+      "line": 467,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.from_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.model_attempts_remaining",
       "kind": "python_method",
-      "line": 403,
+      "line": 419,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.model_attempts_remaining"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_attempt",
       "kind": "python_method",
-      "line": 419,
+      "line": 435,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_attempt"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_fallback_transition",
       "kind": "python_method",
-      "line": 423,
+      "line": 439,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_fallback_transition"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_repair_attempt",
       "kind": "python_method",
-      "line": 426,
+      "line": 442,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_repair_attempt"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.record_sleep",
       "kind": "python_method",
-      "line": 429,
+      "line": 445,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.record_sleep"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_attempts",
       "kind": "python_method",
-      "line": 391,
+      "line": 407,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_attempts"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_sleep_seconds",
       "kind": "python_method",
-      "line": 394,
+      "line": 410,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_sleep_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.remaining_wall_clock_seconds",
       "kind": "python_method",
-      "line": 397,
+      "line": 413,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.remaining_wall_clock_seconds"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.snapshot",
       "kind": "python_method",
-      "line": 432,
+      "line": 448,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.snapshot"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget.start",
       "kind": "python_method",
-      "line": 382,
+      "line": 398,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "RetryBudget.start"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_bare_model_id",
       "kind": "python_function",
-      "line": 816,
+      "line": 841,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_bare_model_id"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_default_validator",
       "kind": "python_function",
-      "line": 510,
+      "line": 526,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_default_validator"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_hash",
       "kind": "python_function",
-      "line": 168,
+      "line": 176,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_hash"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_is_authorized_identity",
       "kind": "python_function",
-      "line": 841,
+      "line": 866,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_is_authorized_identity"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_redact",
       "kind": "python_function",
-      "line": 859,
+      "line": 884,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_redact"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_same_model_identity",
       "kind": "python_function",
-      "line": 837,
+      "line": 862,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_same_model_identity"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_status_class",
       "kind": "python_function",
-      "line": 846,
+      "line": 871,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_status_class"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_sum_cost",
       "kind": "python_function",
-      "line": 883,
+      "line": 908,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_sum_cost"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_sum_usage",
       "kind": "python_function",
-      "line": 869,
+      "line": 894,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_sum_usage"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::_summary_without_output",
       "kind": "python_function",
-      "line": 812,
+      "line": 837,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "_summary_without_output"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::authority_packet",
       "kind": "python_function",
-      "line": 178,
+      "line": 186,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "authority_packet"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::classify_failure",
       "kind": "python_function",
-      "line": 273,
+      "line": 289,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "classify_failure"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_fallback_eligible",
       "kind": "python_function",
-      "line": 331,
+      "line": 347,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_fallback_eligible"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_retryable",
       "kind": "python_function",
-      "line": 323,
+      "line": 339,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_retryable"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::is_terminal",
       "kind": "python_function",
-      "line": 327,
+      "line": 343,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "is_terminal"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::model_pool_for_role",
       "kind": "python_function",
-      "line": 242,
+      "line": 250,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "model_pool_for_role"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_for_role",
       "kind": "python_function",
-      "line": 247,
+      "line": 255,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "retry_budget_for_role"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_policy",
       "kind": "python_function",
-      "line": 223,
+      "line": 231,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "retry_budget_policy"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::route_llm_invocation",
       "kind": "python_function",
-      "line": 519,
+      "line": 535,
       "path": "live_contentops/nine_router_ordered_model_router_v2.py",
       "symbol": "route_llm_invocation"
     },
@@ -93261,7 +93773,7 @@
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error",
       "kind": "python_function",
-      "line": 368,
+      "line": 373,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_classify_http_error"
     },
@@ -93317,7 +93829,7 @@
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_retry_after_from_headers",
       "kind": "python_function",
-      "line": 384,
+      "line": 389,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_retry_after_from_headers"
     },
@@ -100847,6 +101359,202 @@
       "symbol": "construct_research_grounding_packet"
     },
     {
+      "id": "python_symbol:live_contentops/retention_native_audio_score_v2.py::render_owned_score",
+      "kind": "python_function",
+      "line": 36,
+      "path": "live_contentops/retention_native_audio_score_v2.py",
+      "symbol": "render_owned_score"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::AssetPlan",
+      "kind": "python_class",
+      "line": 257,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "AssetPlan"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::AssetSpec",
+      "kind": "python_class",
+      "line": 228,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "AssetSpec"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::AudioPlan",
+      "kind": "python_class",
+      "line": 275,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "AudioPlan"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::DirectorBundle",
+      "kind": "python_class",
+      "line": 373,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "DirectorBundle"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::EditDecision",
+      "kind": "python_class",
+      "line": 172,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "EditDecision"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::EditDecisionGraph",
+      "kind": "python_class",
+      "line": 194,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "EditDecisionGraph"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::EngagementBrief",
+      "kind": "python_class",
+      "line": 67,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "EngagementBrief"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::NarrativeBeat",
+      "kind": "python_class",
+      "line": 97,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "NarrativeBeat"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::NarrativeBeatGraph",
+      "kind": "python_class",
+      "line": 133,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "NarrativeBeatGraph"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::PlatformVariant",
+      "kind": "python_class",
+      "line": 306,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "PlatformVariant"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::PlatformVariantPlan",
+      "kind": "python_class",
+      "line": 334,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "PlatformVariantPlan"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::RetentionDiagnostics",
+      "kind": "python_class",
+      "line": 350,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "RetentionDiagnostics"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::SelectionStatus",
+      "kind": "python_class",
+      "line": 22,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "SelectionStatus"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::StoryMode",
+      "kind": "python_class",
+      "line": 13,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "StoryMode"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::VideoOpportunity",
+      "kind": "python_class",
+      "line": 32,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "VideoOpportunity"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_contracts_v2.py::director_bundle_from_dict",
+      "kind": "python_function",
+      "line": 413,
+      "path": "live_contentops/retention_native_video_contracts_v2.py",
+      "symbol": "director_bundle_from_dict"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_critic_v2.py::canonical_critic_repair_prompt",
+      "kind": "python_function",
+      "line": 58,
+      "path": "live_contentops/retention_native_video_critic_v2.py",
+      "symbol": "canonical_critic_repair_prompt"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_critic_v2.py::critic_command",
+      "kind": "python_function",
+      "line": 442,
+      "path": "live_contentops/retention_native_video_critic_v2.py",
+      "symbol": "critic_command"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_critic_v2.py::run_independent_critic",
+      "kind": "python_function",
+      "line": 240,
+      "path": "live_contentops/retention_native_video_critic_v2.py",
+      "symbol": "run_independent_critic"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_critic_v2.py::validate_critic_output",
+      "kind": "python_function",
+      "line": 133,
+      "path": "live_contentops/retention_native_video_critic_v2.py",
+      "symbol": "validate_critic_output"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_factory_v2.py::build_director_bundle",
+      "kind": "python_function",
+      "line": 341,
+      "path": "live_contentops/retention_native_video_factory_v2.py",
+      "symbol": "build_director_bundle"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_factory_v2.py::generate_narration",
+      "kind": "python_function",
+      "line": 731,
+      "path": "live_contentops/retention_native_video_factory_v2.py",
+      "symbol": "generate_narration"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_factory_v2.py::hydrate_assets",
+      "kind": "python_function",
+      "line": 503,
+      "path": "live_contentops/retention_native_video_factory_v2.py",
+      "symbol": "hydrate_assets"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_factory_v2.py::load_governed_oil_story",
+      "kind": "python_function",
+      "line": 212,
+      "path": "live_contentops/retention_native_video_factory_v2.py",
+      "symbol": "load_governed_oil_story"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_factory_v2.py::retention_native_video_command",
+      "kind": "python_function",
+      "line": 4319,
+      "path": "live_contentops/retention_native_video_factory_v2.py",
+      "symbol": "retention_native_video_command"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_factory_v2.py::run_retention_native_video_factory",
+      "kind": "python_function",
+      "line": 4068,
+      "path": "live_contentops/retention_native_video_factory_v2.py",
+      "symbol": "run_retention_native_video_factory"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_video_factory_v2.py::verify_hash_manifest",
+      "kind": "python_function",
+      "line": 2290,
+      "path": "live_contentops/retention_native_video_factory_v2.py",
+      "symbol": "verify_hash_manifest"
+    },
+    {
       "id": "python_symbol:live_contentops/review_bundle_manifest.py::build_manifest",
       "kind": "python_function",
       "line": 115,
@@ -106807,6 +107515,11 @@
       "schema_id": "contentops.remote_review_challenge"
     },
     {
+      "id": "schema:contentops.retention_native.independent_multimodal_critic.v2",
+      "kind": "schema",
+      "schema_id": "contentops.retention_native.independent_multimodal_critic.v2"
+    },
+    {
       "id": "schema:contentops.rolling_x_grounded_article_media_builder.v1",
       "kind": "schema",
       "schema_id": "contentops.rolling_x_grounded_article_media_builder.v1"
@@ -107154,7 +107867,7 @@
     {
       "id": "scripts/generate_codex_context_index.py",
       "kind": "python_module",
-      "size_bytes": 53275
+      "size_bytes": 53305
     },
     {
       "id": "scripts/generate_cohort_snapshot.py",
@@ -107709,7 +108422,7 @@
     {
       "id": "tests/test_codex_context_index.py",
       "kind": "test",
-      "size_bytes": 8277
+      "size_bytes": 8295
     },
     {
       "id": "tests/test_community_feedback_capture_contract_v6.py",
@@ -108994,12 +109707,12 @@
     {
       "id": "tests/test_nine_router_ordered_model_router_v2.py",
       "kind": "test",
-      "size_bytes": 33246
+      "size_bytes": 33500
     },
     {
       "id": "tests/test_nine_router_provider_adapter_and_preflight_v2.py",
       "kind": "test",
-      "size_bytes": 15026
+      "size_bytes": 15350
     },
     {
       "id": "tests/test_no_secret_output_live_foundation_batch_a.py",
@@ -109830,6 +110543,21 @@
       "id": "tests/test_research_seo.py",
       "kind": "test",
       "size_bytes": 2115
+    },
+    {
+      "id": "tests/test_retention_native_audio_score_integrity_v2.py",
+      "kind": "test",
+      "size_bytes": 3036
+    },
+    {
+      "id": "tests/test_retention_native_video_critic_localization_v2.py",
+      "kind": "test",
+      "size_bytes": 5346
+    },
+    {
+      "id": "tests/test_retention_native_video_factory_v2.py",
+      "kind": "test",
+      "size_bytes": 60835
     },
     {
       "id": "tests/test_review_bundle_manifest.py",
@@ -113641,6 +114369,41 @@
       "symbol": "WriterStudio"
     },
     {
+      "id": "typescript_export:video/retention_native_v2/src/beat.tsx::RetentionNativeBeat",
+      "kind": "typescript_export",
+      "line": 245,
+      "path": "video/retention_native_v2/src/beat.tsx",
+      "symbol": "RetentionNativeBeat"
+    },
+    {
+      "id": "typescript_export:video/retention_native_v2/src/root.tsx::RetentionNativeRoot",
+      "kind": "typescript_export",
+      "line": 16,
+      "path": "video/retention_native_v2/src/root.tsx",
+      "symbol": "RetentionNativeRoot"
+    },
+    {
+      "id": "typescript_export:video/retention_native_v2/src/types.ts::BeatRenderJob",
+      "kind": "typescript_export",
+      "line": 19,
+      "path": "video/retention_native_v2/src/types.ts",
+      "symbol": "BeatRenderJob"
+    },
+    {
+      "id": "typescript_export:video/retention_native_v2/src/types.ts::CaptionCue",
+      "kind": "typescript_export",
+      "line": 1,
+      "path": "video/retention_native_v2/src/types.ts",
+      "symbol": "CaptionCue"
+    },
+    {
+      "id": "typescript_export:video/retention_native_v2/src/types.ts::EditState",
+      "kind": "typescript_export",
+      "line": 6,
+      "path": "video/retention_native_v2/src/types.ts",
+      "symbol": "EditState"
+    },
+    {
       "id": "ui/contentops_v5/AGENTS.md",
       "kind": "instructions",
       "size_bytes": 1697
@@ -114253,7 +115016,42 @@
     {
       "id": "video/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 1155
+      "size_bytes": 4416
+    },
+    {
+      "id": "video/retention_native_v2/package.json",
+      "kind": "manifest",
+      "size_bytes": 618
+    },
+    {
+      "id": "video/retention_native_v2/scripts/render-batch.mjs",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 2983
+    },
+    {
+      "id": "video/retention_native_v2/src/beat.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 25230
+    },
+    {
+      "id": "video/retention_native_v2/src/index.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 119
+    },
+    {
+      "id": "video/retention_native_v2/src/root.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1169
+    },
+    {
+      "id": "video/retention_native_v2/src/types.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1083
+    },
+    {
+      "id": "video/retention_native_v2/tsconfig.json",
+      "kind": "manifest",
+      "size_bytes": 301
     }
   ],
   "protected_boundaries": [
@@ -114319,6 +115117,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "accae879588c771514c9d325305a0acede824bad",
-  "source_tree_digest": "89105f66aa6625ae2d7f3cb6c3de3ffd6fb456f0096837800933807ab9edf58e"
+  "source_head": "44ea428c0e86a2e6e244dbfa8913a89e7870ce7a",
+  "source_tree_digest": "7ab7835be2ec942694aa45e23b589ebed2548f9ea568baf850228adc1ccb5c97"
 }

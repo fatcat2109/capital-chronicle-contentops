@@ -1,0 +1,158 @@
+{
+  "schema_version": "contentops.tier2_v2.retention_native_vertical_slice.acceptance_evidence.v1",
+  "task": "TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1",
+  "result": "COMPLETE_LOCAL_PRODUCT_SLICE_AWAITING_CHATGPT_JIM_VISUAL_AUDIO_AUDIT",
+  "base_commit": "44ea428c0e86a2e6e244dbfa8913a89e7870ce7a",
+  "branch": "task/tier2-v2-retention-native-video-factory-vertical-slice-v1",
+  "story_id": "eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+  "video_id": "cc-v2-eia-hormuz-recovery-2026-v1",
+  "evidence_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\tier2\\tier2-v2-retention-native-vertical-slice-final-v3",
+  "variants": {
+    "short_9x16": {
+      "path": "outputs\\short_9x16.mp4",
+      "sha256": "f2fcd6300915764efdb62400d4a9d2b0681133e6a45be450810e0923cd2fd49b",
+      "duration_seconds": 73.933333,
+      "resolution": "1080x1920",
+      "frame_rate_fps": 30.0,
+      "frame_count": 2218,
+      "hook_seconds": 0.0,
+      "first_payoff_seconds": 11.833333,
+      "longest_static_primary_visual_run_seconds": 3.0,
+      "meaningful_visual_interval_count": 62,
+      "sampled_frames": 148,
+      "expected_sampled_frames": 148,
+      "trailing_partial_interval_seconds": 0.433333,
+      "integrated_lufs": -16.05,
+      "true_peak_dbtp": -1.95
+    },
+    "midform_16x9": {
+      "path": "outputs\\midform_16x9.mp4",
+      "sha256": "7ea103d0ac5b37bc07a1e7568dff6dc8125da68936efe2f94fa638d2f1f598a8",
+      "duration_seconds": 334.566667,
+      "resolution": "1920x1080",
+      "frame_rate_fps": 30.0,
+      "frame_count": 10037,
+      "hook_seconds": 0.0,
+      "first_payoff_seconds": 59.766667,
+      "longest_static_primary_visual_run_seconds": 5.5,
+      "meaningful_visual_interval_count": 236,
+      "sampled_frames": 669,
+      "expected_sampled_frames": 670,
+      "trailing_partial_interval_seconds": 0.566667,
+      "integrated_lufs": -16.02,
+      "true_peak_dbtp": -1.64
+    }
+  },
+  "asset_count": 9,
+  "asset_classes": [
+    "real_location_imagery",
+    "official_source_document",
+    "deterministic_map",
+    "deterministic_timeline",
+    "deterministic_comparison",
+    "deterministic_diagram",
+    "source_backed_data_chart"
+  ],
+  "nasa_asset_sha256": "12d85ddefde2c17a221c41c25202914640cfaeb7683133344a1499acb0929845",
+  "audio": {
+    "voice_provider": "kokoro",
+    "model": "Kokoro-82M",
+    "voice": "af_heart",
+    "license": "Apache-2.0",
+    "music_and_sfx_schema": "contentops.retention_native.score.v2.2",
+    "source_samples": [],
+    "model_calls": 0,
+    "short_sfx_requested": 5,
+    "short_sfx_executed_energy_verified": 5,
+    "midform_sfx_requested": 9,
+    "midform_sfx_executed_energy_verified": 9,
+    "skipped_sfx_cues": 0
+  },
+  "coverage": {
+    "caption_max_lines": 2,
+    "caption_safe_zone": "PASS",
+    "short_music": 0.999995,
+    "midform_music": 1.0,
+    "sfx": 1.0,
+    "claim_evidence": 1.0,
+    "rights": 1.0,
+    "open_loop_payoff": "PASS"
+  },
+  "cache_and_selective_rerender": {
+    "status": "PASS",
+    "short_beat_cache_hits": 18,
+    "midform_beat_cache_hits": 37,
+    "video_assembly_cache_hits": 2,
+    "narration_assembly_cache_hits": 2,
+    "tts_segment_cache_hits": 55,
+    "tts_segments_generated_on_readback": 0,
+    "selective_target": "mid-b19",
+    "selective_rendered_jobs": 1,
+    "selective_current_cache_hits": 1,
+    "unchanged_beat_count": 54,
+    "raw_remotion_receipt_sha256": "778d0911ea8f7da7dfa77d27280161467c23e3ba77bde086f2d32d26ecd6043a"
+  },
+  "critic": {
+    "round1_status": "REVISE",
+    "round1_model": "vx/gemini-3.5-flash(high)",
+    "final_status": "PASS_WITH_NOTES",
+    "final_kind": "codex_independent_multimodal_subagent",
+    "final_minor_issue": {
+      "variant_id": "short_9x16",
+      "scene_id": "short-proof",
+      "beat_ids": [
+        "short-b12"
+      ],
+      "start_seconds": 45.3,
+      "end_seconds": 49.066667
+    },
+    "raw_agent_payload_sha256": "1a9e0ec4b6bb0541cfe2d6d6810f2a2a9cb6beb73a19a57acac5123c38cf6626",
+    "locked_report_sha256": "75df463c4afbc595c48f3824850ef4e081391012bc0c4e790c6f21126936ca97",
+    "execution_receipt_sha256": "2b3e62a2af52e5869ce3675ebc7fcd2b894f08fd208ef230eb461662e5828abc",
+    "structural_revision_count": 2,
+    "chatgpt_jim_final_media_acceptance": "PENDING",
+    "audio_listened_by_independent_critic": false
+  },
+  "provider_ledger": {
+    "factory_provider_calls": 0,
+    "locked_proof_9router_attempts": 19,
+    "9router_reported_cost": null,
+    "factory_cash_cost_usd": 0.0,
+    "external_asset_network_calls_initial_hydration": 1,
+    "external_asset_network_calls_final_v3_run": 0,
+    "pre_receipt_development_probe_attempt_count": "NOT_RECOVERABLE_EXCLUDED"
+  },
+  "renderer_source_fingerprint": "aa2253542d5027bb16a7c07525fbf13b5501182c5702998bb407ae27608689a8",
+  "package_lock": {
+    "status": "LOCKED_AWAITING_CHATGPT_JIM_FINAL_MEDIA_ACCEPTANCE",
+    "verified_file_count": 456,
+    "hash_manifest_sha256": "52e03aa02996a9fc8c3ea569490930d980f5c6ae3bb332f1f7947de76f5f0e6e",
+    "package_lock_sha256": "dd772558bdaa00aac70e0f37fc90312c785c38eff45234124b71a4d33215b6cc",
+    "lock_payload_logical_sha256": "a8fbaa403c05c8a2fb1b0a1ae01ae56260733226ca0e02887fd98810f9fa3aae",
+    "machine_gate_bundle_logical_sha256": "a56bc8e3839ca8b0d50f0a195a4767a69bef62f9e84893f1c059996124f6f0ed",
+    "manifest_verification": "PASS",
+    "immutable_second_run": "PASS_IMMUTABLE_PACKAGE_VERIFIED"
+  },
+  "validation": {
+    "focused_python_tests_passed": 148,
+    "remotion_typescript": "PASS",
+    "npm_audit_vulnerabilities": 0,
+    "real_short_e2e": "PASS",
+    "real_midform_e2e": "PASS",
+    "machine_gate_bundle": "PASS",
+    "rights_fail_closed": "PASS",
+    "audio_qa": "PASS",
+    "independent_integrity_audit_remaining_p1_p2": 0
+  },
+  "safety": {
+    "v1_mutations": 0,
+    "browser_or_cdp_actions": 0,
+    "platform_actions": 0,
+    "uploads": 0,
+    "public_writes": 0,
+    "synthetic_documentary_assets": 0,
+    "generated_real_person_assets": 0,
+    "publication_authority": false
+  },
+  "exact_next": "CHATGPT_JIM_TIER2_V2_RETENTION_NATIVE_VISUAL_AUDIO_AUDIT"
+}

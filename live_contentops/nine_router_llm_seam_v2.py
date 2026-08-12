@@ -40,6 +40,7 @@ ROLE_NEWSROOM_ASSIGNMENT = "rolling_x_newsroom_assignment"
 ROLE_NEWSROOM_LEAF_SCAN = "rolling_x_newsroom_leaf_scan"
 ROLE_EDITORIAL_REVISION = "rolling_x_editorial_revision"
 ROLE_STRUCTURED_REPAIR = "structured_output_repair"
+ROLE_MULTIMODAL_VIDEO_CRITIC = "tier2_multimodal_video_critic"
 
 INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_ARTICLE_WRITING,
@@ -50,6 +51,7 @@ INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_NEWSROOM_LEAF_SCAN,
     ROLE_EDITORIAL_REVISION,
     ROLE_STRUCTURED_REPAIR,
+    ROLE_MULTIMODAL_VIDEO_CRITIC,
 )
 
 #: Stages that are deliberately deterministic. Listed explicitly so a future change that
@@ -210,6 +212,9 @@ def integration_manifest() -> dict[str, Any]:
             ),
             ROLE_STRUCTURED_REPAIR: (
                 "nine_router_ordered_model_router_v2 bounded same-model repair (in-router)"
+            ),
+            ROLE_MULTIMODAL_VIDEO_CRITIC: (
+                "retention_native_video_critic_v2.run_independent_critic"
             ),
         },
         "deterministic_stages_not_model_assisted": list(

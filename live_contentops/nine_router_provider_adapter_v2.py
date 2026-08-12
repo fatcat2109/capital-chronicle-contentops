@@ -238,7 +238,7 @@ def _observed_model(payload: Mapping[str, Any]) -> str | None:
 
 
 def call_nine_router(
-    prompt: str,
+    prompt: Any,
     model: str,
     timeout_seconds: float = 60.0,
     *,
@@ -247,6 +247,11 @@ def call_nine_router(
     base_url: str | None = None,
 ) -> ProviderResult:
     """Perform one bounded 9router chat completion and report what was observed.
+
+    ``prompt`` is normally a string.  A renderer-neutral media critic may supply an
+    OpenAI-compatible content-block list (text plus data-URI images) through a custom
+    canonical-seam provider callable.  The adapter treats either shape as opaque request
+    content and never records or returns embedded image bytes.
 
     Never raises for provider-side failure: every failure is classified and returned as a
     :class:`ProviderResult` so the router owns the decision. Only configuration problems

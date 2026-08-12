@@ -60,18 +60,26 @@ ORDERED_MODEL_POOL: tuple[str, ...] = (
 )
 PRIMARY_MODEL = ORDERED_MODEL_POOL[0]
 
-#: Role-specific semantic labour is allowed to prefer the exact high-throughput Flash
-#: model without changing the quality-first pool above.  Keeping this registry beside the
-#: canonical pool means the provider adapter and router still share one authority surface.
+#: Role-specific semantic labour may use an exact pool without changing the quality-first
+#: newsroom pool above. Keeping this registry beside the canonical pool means the provider
+#: adapter and router still share one authority surface. The independent video critic uses
+#: the exact high-throughput vision model proven by this slice, with Pro as its bounded
+#: alternate.
 NEWSROOM_LEAF_SCAN_ROLE = "rolling_x_newsroom_leaf_scan"
+MULTIMODAL_VIDEO_CRITIC_ROLE = "tier2_multimodal_video_critic"
 NEWSROOM_GLOBAL_EDITOR_ROLE = "rolling_x_newsroom_assignment"
 NEWSROOM_LEAF_SCAN_MODEL = "vx/gemini-3.5-flash(high)"
 NEWSROOM_LEAF_SCAN_MODEL_POOL: tuple[str, ...] = (
     NEWSROOM_LEAF_SCAN_MODEL,
     *ORDERED_MODEL_POOL,
 )
+MULTIMODAL_VIDEO_CRITIC_MODEL_POOL: tuple[str, ...] = (
+    NEWSROOM_LEAF_SCAN_MODEL,
+    "vx/gemini-3.1-pro-preview(high)",
+)
 ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     NEWSROOM_LEAF_SCAN_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
+    MULTIMODAL_VIDEO_CRITIC_ROLE: MULTIMODAL_VIDEO_CRITIC_MODEL_POOL,
 }
 AUTHORIZED_MODELS = frozenset(
     model
@@ -246,6 +254,14 @@ def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
 
 def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "RetryBudget":
     """Allocate one immutable bounded budget appropriate to the canonical role pool."""
+    if str(role_task_id) == MULTIMODAL_VIDEO_CRITIC_ROLE:
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=3,
+            max_fallback_transitions=1,
+            wall_clock_budget_seconds=600.0,
+            per_model_max_attempts=(2, 1),
+        )
     if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE:
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
@@ -558,6 +574,7 @@ def route_llm_invocation(
     disposition = POOL_EXHAUSTED
     selected_model: str | None = None
     accepted_output: Any = None
+    accepted_validated_output_sha256: str | None = None
     budget_exhausted_reason: str | None = None
     identity_verifiable = True
     previous_model: str | None = None
@@ -674,6 +691,10 @@ def route_llm_invocation(
                     )
                 if not ok:
                     failure_class = validation_failure or "structured_output_malformed"
+                else:
+                    record["validated_output_sha256"] = _hash(
+                        parsed if parsed is not None else result.text
+                    )
             else:
                 record["structured_validation_result"] = "NOT_EVALUATED"
 
@@ -688,6 +709,7 @@ def route_llm_invocation(
                 disposition = ACCEPTED
                 selected_model = model
                 accepted_output = parsed if parsed is not None else result.text
+                accepted_validated_output_sha256 = record["validated_output_sha256"]
                 break
 
             # --- terminal: never rotate models to bypass a gate -------------------------
@@ -802,6 +824,9 @@ def route_llm_invocation(
         "final_retry_budget_snapshot": budget.snapshot(),
         "attempts": attempts,
         "output": accepted_output if disposition == ACCEPTED else None,
+        "accepted_validated_output_sha256": (
+            accepted_validated_output_sha256 if disposition == ACCEPTED else None
+        ),
         "fallback_grants_publication_authority": False,
         "fallback_output_uses_same_downstream_gates": True,
     }

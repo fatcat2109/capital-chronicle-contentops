@@ -9,6 +9,7 @@ Cases A–N map one-to-one onto the authorized validation matrix.
 from __future__ import annotations
 
 import json
+from hashlib import sha256
 
 import pytest
 
@@ -433,6 +434,9 @@ def test_case_i_malformed_then_one_repair_attempt_succeeds() -> None:
     assert result["attempts"][0]["structured_validation_result"] == "FAIL"
     assert result["attempts"][1]["structured_validation_result"] == "PASS"
     assert result["output"] == {"ok": 1}
+    expected_validated_hash = sha256(b'{"ok":1}').hexdigest()
+    assert result["accepted_validated_output_sha256"] == expected_validated_hash
+    assert result["attempts"][1]["validated_output_sha256"] == expected_validated_hash
 
 
 def test_case_i_failed_attempt_is_never_discarded_from_evidence() -> None:

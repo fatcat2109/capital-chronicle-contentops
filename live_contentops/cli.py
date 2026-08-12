@@ -14,6 +14,8 @@ from .dual_lane_core_v0_shadow_demo_runner_v1 import core_v0_shadow_demo_command
 from .core_v0_shadow_soak_runner_v1 import core_v0_shadow_soak_command
 from .core_v0_acceptance_harness_v1 import core_v0_acceptance_command
 from .tier2_video_factory_v1 import tier2_video_command
+from .retention_native_video_factory_v2 import retention_native_video_command
+from .retention_native_video_critic_v2 import critic_command as retention_native_video_critic_command
 
 from . import status
 from . import contracts
@@ -1252,6 +1254,8 @@ COMMANDS = {
     "core-v0-acceptance": core_v0_acceptance_command,
     "daily-app": daily_app_command,
     "tier2-video-local": tier2_video_command,
+    "tier2-v2-retention-native-video": retention_native_video_command,
+    "tier2-v2-retention-native-critic": retention_native_video_critic_command,
 
 
 }
@@ -1269,6 +1273,8 @@ def main():
                     "core-v0-acceptance",
                     "daily-app",
                     "tier2-video-local",
+                    "tier2-v2-retention-native-video",
+                    "tier2-v2-retention-native-critic",
                 }:
                     return COMMANDS[cmd](sys.argv[2:]) or 0
                 if cmd in {"scheduler", "scheduler-tick"}:
