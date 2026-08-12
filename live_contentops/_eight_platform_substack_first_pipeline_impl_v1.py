@@ -410,7 +410,46 @@ def build_native_derivative_payloads(
 ) -> dict[str, dict[str, Any]]:
     """Create distinct, publication-ready platform copy from the canonical article."""
     title = str(article["title"])
-    dek = str(article.get("subtitle") or selection["dek"])
+    dek = str(article.get("subtitle") or selection.get("dek") or "")
+    if article.get("article_generation_method") == "MINIMUM_EVIDENCE_NEWS_BRIEF":
+        text = "\n\n".join(value for value in (title, dek, canonical_url) if value)
+        media_ids = [str(value) for value in media_asset_ids if str(value)]
+        thread_payload = {
+            "text": text,
+            "root_text": text,
+            "reply_texts": [],
+            "full_text": text,
+            "platform_limit": 280,
+            "overflow_strategy": "single_root",
+            "hard_truncation_used": False,
+            "posts": [{"text": text, "media_asset_ids": media_ids[:1]}],
+            "quality_metrics": {
+                "reply_count": 0,
+                "sentence_boundary_pass": True,
+                "orphan_fragment_count": 0,
+                "visual_distribution_pass": bool(media_ids),
+                "complete_article_visual_count": len(media_ids),
+            },
+        }
+        return {
+            "telegram": {"format": "channel_brief", "text": text, "media_asset_ids": media_ids[:1]},
+            "x": {"format": "single_root_brief", **thread_payload},
+            "linkedin": {"format": "professional_brief", "text": text},
+            "discord": {"format": "newsroom_brief", "text": text},
+            "facebook_page": {"format": "page_brief", "text": text},
+            "instagram_business": {"format": "brief_caption", "text": text},
+            "threads": {
+                "format": "single_root_brief",
+                **{**thread_payload, "platform_limit": 500},
+            },
+            "tiktok": {"format": "brief_caption", "text": text},
+            "youtube": {
+                "format": "community_brief",
+                "text": text,
+                "platform_limit": 1000,
+                "hard_truncation_used": False,
+            },
+        }
     mechanism = " ".join(str(article.get("market_mechanism") or selection["market_mechanism"]).split())
     policy = " ".join(str(article.get("policy_context") or selection["policy_context"]).split())
     cross_asset = " ".join(str(article.get("cross_asset_implications") or selection["cross_asset_implications"]).split())
@@ -2367,6 +2406,42 @@ def _run_bounded_rolling_x_editorial_cycle(
     if max_revision_rounds != 1:
         raise ValueError("rolling_x_revision_round_limit_must_be_one")
 
+    if article.get("article_generation_method") == "MINIMUM_EVIDENCE_NEWS_BRIEF":
+        from live_contentops.tier1_editorial_quality_v1 import (
+            review_minimum_evidence_news_brief,
+        )
+
+        candidate = dict(article)
+        deterministic = audit_tier1_article(candidate, media_assets=media_assets)
+        hard_review = review_minimum_evidence_news_brief(candidate)
+        combined = combine_editorial_gates(deterministic, hard_review)
+        history = [{
+            "review_index": 0,
+            "revision_rounds_completed": 0,
+            "article_sha256": _json_sha256(candidate),
+            "deterministic_review": deterministic,
+            "hard_factual_safety_review": hard_review,
+            "llm_semantic_review": {
+                "status": "NOT_REQUIRED_ORDINARY_STORY",
+                "decision": "NOT_RUN",
+                "publication_authority": False,
+            },
+            "combined_editorial_gate": combined,
+        }]
+        return {
+            "status": "PASS" if combined.get("classification") == "PASS" else "NO_PUBLICATION",
+            "reason_code": (
+                None
+                if combined.get("classification") == "PASS"
+                else "ORDINARY_HARD_FACTUAL_SAFETY_GATE_FAILED"
+            ),
+            "article": candidate,
+            "revision_rounds_completed": 0,
+            "semantic_review_required": False,
+            "review_history": history,
+            "publication_authority_granted": False,
+        }
+
     hard_fact_or_safety_checks = {
         "material_claims_supported",
         "no_factual_contradiction",
@@ -2835,6 +2910,7 @@ def _build_rolling_x_publication_plan(
     lock = dict(preparation.get("release_candidate_lock") or {})
     context = dict(preparation.get("context") or {})
     article = dict(context.get("article") or {})
+    media_available = bool((context.get("media") or {}).get("assets"))
     payload_hashes = dict(lock.get("payload_sha256") or {})
     destinations: list[dict[str, Any]] = []
     skipped_derivatives: list[dict[str, Any]] = []
@@ -2844,8 +2920,20 @@ def _build_rolling_x_publication_plan(
         state = str(row.get("status") or row.get("readiness_state") or "READINESS_MISSING")
         registration = registration_for_destination(destination)
         derivative_payload_ready = bool(payload_hashes.get(destination))
+        media_required_and_unavailable = bool(
+            destination in {
+                "telegram",
+                "discord",
+                "facebook_page",
+                "instagram_business",
+                "youtube",
+            }
+            and not media_available
+        )
         if destination != "substack" and (
-            state not in READY_STATES or not derivative_payload_ready
+            state not in READY_STATES
+            or not derivative_payload_ready
+            or media_required_and_unavailable
         ):
             skipped_derivatives.append(
                 {
@@ -2855,6 +2943,8 @@ def _build_rolling_x_publication_plan(
                     "disposition": (
                         "SKIPPED_NOT_READY"
                         if state not in READY_STATES
+                        else "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE"
+                        if media_required_and_unavailable
                         else "SKIPPED_PACKAGE_UNAVAILABLE"
                     ),
                     "attempted": False,
@@ -3260,10 +3350,13 @@ def _readback_one_destination_from_durable_intent(
 
 def _default_rolling_x_editorial_reviewer(article: Mapping[str, Any]) -> dict[str, Any]:
     from live_contentops.tier1_editorial_quality_v1 import (
+        review_minimum_evidence_news_brief,
         review_deterministic_supported_claim_brief,
         review_tier1_article_with_llm,
     )
 
+    if article.get("article_generation_method") == "MINIMUM_EVIDENCE_NEWS_BRIEF":
+        return review_minimum_evidence_news_brief(article)
     if article.get("article_generation_method") == "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF":
         return review_deterministic_supported_claim_brief(article)
     return review_tier1_article_with_llm(article, llm_provider="9router")

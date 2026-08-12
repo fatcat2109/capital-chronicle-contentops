@@ -202,6 +202,99 @@ def _claim_requires_corroboration(request: Mapping[str, Any], claim: str) -> boo
     return bool(_SENSITIVE_CLAIM_RE.search(str(claim or "")))
 
 
+def requires_enhanced_evidence_review(request: Mapping[str, Any]) -> bool:
+    """Return whether the story must retain claim-scoped enhanced evidence review.
+
+    Ordinary newsroom reporting does not need a claim-by-claim dossier. Allegations,
+    disputes, conflict reporting, unusually consequential claims, and exact quotations keep
+    the stronger contract because a false or misattributed publication would be materially
+    harmful.
+    """
+    candidates = _claim_candidates(request)
+    return any(
+        _claim_requires_corroboration(request, claim) or bool(_QUOTE_RE.search(claim))
+        for claim in candidates or [""]
+    )
+
+
+def build_minimum_trustworthy_evidence_packet(
+    request: Mapping[str, Any],
+    documents: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Build the compact ordinary-story packet authorized by the newsroom owner.
+
+    The packet binds one directly attributed core proposition to one accessible reputable
+    source. It intentionally has no claim-by-claim support matrix. Enhanced-risk stories are
+    routed to :func:`build_claim_evidence_contract` instead.
+    """
+    if requires_enhanced_evidence_review(request):
+        return {
+            "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+            "status": "ENHANCED_EVIDENCE_REQUIRED",
+            "risk_tier": "ENHANCED",
+            "publication_authority": False,
+        }
+    eligible = [
+        dict(row)
+        for row in documents
+        if isinstance(row, Mapping)
+        and str(row.get("source_authority_class") or "")
+        in PRIMARY_AUTHORITY_CLASSES | SECONDARY_AUTHORITY_CLASSES
+        and str(row.get("source_url") or "").startswith("https://")
+    ]
+    candidates = _claim_candidates(request)
+    ranked: list[tuple[int, int, dict[str, Any]]] = []
+    for index, document in enumerate(eligible):
+        document_tokens = _tokens(_document_text(document))
+        overlap = max(
+            (len(_tokens(candidate).intersection(document_tokens)) for candidate in candidates),
+            default=0,
+        )
+        ranked.append((overlap, -index, document))
+    ranked.sort(key=lambda row: (row[0], row[1]), reverse=True)
+    selected = ranked[0][2] if ranked and (ranked[0][0] >= 2 or not candidates) else None
+    raw_title = " ".join(str((selected or {}).get("title") or "").split())
+    proposition = re.sub(
+        r"^(?:exclusive|breaking|update|analysis)\s*(?:[:|\-]\s*)",
+        "",
+        raw_title,
+        flags=re.IGNORECASE,
+    ).strip()
+    if selected is None or len(proposition) < 8:
+        result = {
+            "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+            "status": "BLOCKED",
+            "risk_tier": "ORDINARY",
+            "blockers": ["ordinary_core_factual_proposition_not_directly_bound"],
+            "publication_authority": False,
+        }
+        result["evidence_packet_sha256"] = _logical_hash(result)
+        return result
+    document_id = str(selected.get("document_id") or selected.get("evidence_id") or "")
+    authority = str(selected.get("source_authority_class") or "")
+    result = {
+        "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+        "status": "PASS",
+        "risk_tier": "ORDINARY",
+        "core_factual_proposition": proposition,
+        "source_title": raw_title,
+        "publisher": str(selected.get("publisher") or selected.get("source_identity") or ""),
+        "source_url": str(selected.get("source_url") or ""),
+        "published_at_utc": str(
+            selected.get("published_at_utc") or selected.get("event_time_utc") or ""
+        ),
+        "evidence_document_id": document_id,
+        "source_authority_class": authority,
+        "attribution_required": authority in SECONDARY_AUTHORITY_CLASSES,
+        "directly_attributed_numbers_permitted": True,
+        "unsupported_optional_claims_must_be_omitted": True,
+        "x_content_grants_factual_authority": False,
+        "publication_authority": False,
+    }
+    result["evidence_packet_sha256"] = _logical_hash(result)
+    return result
+
+
 def build_claim_evidence_contract(
     request: Mapping[str, Any],
     documents: Sequence[Mapping[str, Any]],

@@ -453,6 +453,40 @@ class DurablePublicationCoordinator:
             "reconciliation_status": reconciliation,
         }
 
+    def _finalize_derivative_intent(
+        self, message: Mapping[str, Any], *, canonical_url: str
+    ) -> str:
+        """Persist final canonical-URL-bound derivative bytes without dispatching them."""
+        if str(message.get("destination") or "") == "substack":
+            return "NOT_DERIVATIVE"
+        intent = json.loads(str(message["payload"]))
+        if intent.get("canonical_url") == canonical_url:
+            return "READY"
+        destination = str(message["destination"])
+        try:
+            finalizer = getattr(self.transport_runtime, "finalize_intent", None)
+            if callable(finalizer):
+                intent = dict(
+                    finalizer(
+                        destination=destination,
+                        intent=intent,
+                        canonical_url=canonical_url,
+                    )
+                )
+            else:
+                intent["canonical_url"] = canonical_url
+            self.store.finalize_outbox_payload_before_dispatch(
+                message_id=str(message["message_id"]),
+                payload=_canonical_json(intent),
+                status="READY",
+            )
+            return "READY"
+        except Exception:
+            self.store.set_outbox_status(
+                str(message["message_id"]), "ASYNC_DERIVATIVE_FINALIZATION_FAILED"
+            )
+            return "ASYNC_DERIVATIVE_FINALIZATION_FAILED"
+
     def retry_reconciled_absent_substack(self, dispatch_id: str) -> dict[str, Any]:
         """Explicitly resume one exact Substack draft only after absent reconciliation.
 
@@ -540,16 +574,59 @@ class DurablePublicationCoordinator:
         canonical_url: Optional[str] = None
         messages = [m for m in self.store.list_outbox_messages() if m["work_item_id"] == work_item_id]
         messages.sort(key=lambda m: (0 if m["destination"] == "substack" else 1, m["destination"]))
-        for message in messages:
-            outcome = self._dispatch_message(message, canonical_url=canonical_url)
-            outcomes[str(message["destination"])] = outcome
+        canonical_message = next(
+            (message for message in messages if message["destination"] == "substack"),
+            None,
+        )
+        if canonical_message is not None:
+            outcome = self._dispatch_message(canonical_message, canonical_url=None)
+            outcomes["substack"] = outcome
             if (
-                message["destination"] == "substack"
-                and outcome.get("status") == DISPATCH_CONFIRMED
+                outcome.get("status") == DISPATCH_CONFIRMED
                 and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
                 and _valid_substack_canonical_url(outcome.get("public_object_url"))
             ):
                 canonical_url = str(outcome["public_object_url"])
+        for message in messages:
+            if message["destination"] == "substack":
+                continue
+            if canonical_message is None:
+                intent = json.loads(str(message["payload"]))
+                outcomes[str(message["destination"])] = self._dispatch_message(
+                    message, canonical_url=intent.get("canonical_url")
+                )
+                continue
+            existing = self.store.get_platform_dispatch(
+                self._ids(work_item_id, registration["plan_hash"], str(message["destination"]))[
+                    "dispatch_id"
+                ]
+            )
+            if existing is not None:
+                outcomes[str(message["destination"])] = self._dispatch_message(
+                    message, canonical_url=canonical_url
+                )
+                continue
+            if canonical_url:
+                queued_status = self._finalize_derivative_intent(
+                    message, canonical_url=canonical_url
+                )
+                outcomes[str(message["destination"])] = {
+                    "destination": str(message["destination"]),
+                    "status": (
+                        "ASYNC_DERIVATIVE_QUEUED"
+                        if queued_status == "READY"
+                        else queued_status
+                    ),
+                    "publish_called": False,
+                    "reconciliation_status": None,
+                }
+            else:
+                outcomes[str(message["destination"])] = {
+                    "destination": str(message["destination"]),
+                    "status": "WAITING_CANONICAL_URL",
+                    "publish_called": False,
+                    "reconciliation_status": None,
+                }
         canonical = dict(outcomes.get("substack") or {})
         canonical_real = bool(
             canonical.get("status") == DISPATCH_CONFIRMED
@@ -590,7 +667,7 @@ class DurablePublicationCoordinator:
                 "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE"
                 if derivatives
                 and derivative_confirmed == len(derivatives)
-                else "CANONICAL_PUBLISHED_DISTRIBUTION_PARTIAL"
+                else "CANONICAL_PUBLISHED_DERIVATIVES_ASYNC"
             )
         else:
             distribution_status = "CANONICAL_NOT_CONFIRMED"
@@ -615,7 +692,7 @@ class DurablePublicationCoordinator:
         }
 
     def recover_pending(self) -> dict[str, Any]:
-        """Restart recovery: safe pre-marker resume; post-marker readback only."""
+        """Reconcile ambiguous writes, then advance at most one durable queued write."""
         summary = {"safe_resumes": 0, "marked_unknown": 0, "readbacks": 0, "publish_calls": 0,
                    "readiness_probe_performed": False}
         try:
@@ -626,13 +703,12 @@ class DurablePublicationCoordinator:
             summary["readiness_probe_performed"] = False
         messages = self.store.list_outbox_messages()
         dispatch_by_message = {str(d["message_id"]): d for d in self.store.list_platform_dispatches()}
+        ready_messages: list[Mapping[str, Any]] = []
         for message in messages:
             intent = json.loads(str(message["payload"]))
             dispatch = dispatch_by_message.get(str(message["message_id"]))
             if dispatch is None and str(message["status"]) == "READY":
-                outcome = self._dispatch_message(message, canonical_url=intent.get("canonical_url"))
-                summary["safe_resumes"] += 1
-                summary["publish_calls"] += int(bool(outcome.get("publish_called")))
+                ready_messages.append(message)
                 continue
             if dispatch is None:
                 continue
@@ -669,6 +745,31 @@ class DurablePublicationCoordinator:
             if status in {UNKNOWN_WRITE, DISPATCH_CONFIRMED}:
                 self._reconcile(dispatch, intent)
                 summary["readbacks"] += 1
+        if ready_messages:
+            ready_messages.sort(
+                key=lambda message: (
+                    0 if str(message["destination"]) == "substack" else 1,
+                    str(message["destination"]),
+                )
+            )
+            message = ready_messages[0]
+            intent = json.loads(str(message["payload"]))
+            outcome = self._dispatch_message(
+                message, canonical_url=intent.get("canonical_url")
+            )
+            summary["safe_resumes"] += 1
+            summary["publish_calls"] += int(bool(outcome.get("publish_called")))
+            if (
+                str(message["destination"]) == "substack"
+                and outcome.get("status") == DISPATCH_CONFIRMED
+                and outcome.get("reconciliation_status") == RECONCILED_CONFIRMED
+                and _valid_substack_canonical_url(outcome.get("public_object_url"))
+            ):
+                canonical_url = str(outcome["public_object_url"])
+                for derivative in ready_messages[1:]:
+                    self._finalize_derivative_intent(
+                        derivative, canonical_url=canonical_url
+                    )
         return summary
 
     def publish_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:

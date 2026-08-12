@@ -15,7 +15,7 @@ Safety invariants enforced here (fail closed):
 * factual numeric claims must trace to accepted evidence bytes;
 * article/evidence/cluster/headline IDs must match the accepted state exactly;
 * analytical modes without governed Capital Chronicle authority block;
-* fewer than three genuinely distinct source-backed media assets block.
+* ordinary stories may publish text-only; requested visuals remain source-backed and verified.
 """
 from __future__ import annotations
 
@@ -200,6 +200,10 @@ def extract_governed_story_context(viability: Mapping[str, Any]) -> dict[str, An
         "claim_evidence_contract": dict(
             selected_evidence.get("claim_evidence_contract") or {}
         ),
+        "minimum_trustworthy_evidence_packet": dict(
+            selected_evidence.get("minimum_trustworthy_evidence_packet") or {}
+        ),
+        "evidence_review_tier": str(selected_evidence.get("evidence_review_tier") or ""),
         "framing": {
             "why_now": str(selected_cluster.get("why_now") or ""),
             "selection_case": str(selected_cluster.get("selection_case") or ""),
@@ -473,12 +477,14 @@ def build_source_backed_media_assets(
     output_dir: Path,
     required_asset_count: int = 3,
 ) -> list[dict[str, Any]]:
-    """Construct three genuinely distinct source-backed deterministic media assets.
+    """Construct the requested number of source-backed deterministic media assets.
 
     Every asset is rendered from accepted evidence and carries deterministic lineage to that
     evidence.  If fewer than ``required_asset_count`` truthful, useful assets can be built the
     builder fails closed rather than repeating one fact three cosmetic ways.
     """
+    if required_asset_count <= 0:
+        return []
     primary = _primary_document(context)
     publisher = str(
         primary.get("publisher") or primary.get("source_identity") or "Official source"
@@ -604,7 +610,7 @@ def build_source_backed_media_assets(
         for row in assets
     ):
         raise GroundedArticleBuilderError("excerpt_rendered_without_established_reuse_basis")
-    return assets
+    return assets[:required_asset_count]
 
 
 def _build_third_asset(
@@ -1009,6 +1015,13 @@ def _article_audit_metadata(context: Mapping[str, Any]) -> dict[str, Any]:
         )
         if isinstance(row, Mapping)
     )
+    if not supported_claim_text:
+        supported_claim_text = str(
+            (context.get("minimum_trustworthy_evidence_packet") or {}).get(
+                "core_factual_proposition"
+            )
+            or ""
+        )
     supported_tokens = {
         token.casefold()
         for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", supported_claim_text)
@@ -1165,6 +1178,46 @@ This article is for informational purposes only and is not financial advice."""
     }
 
 
+def _minimum_evidence_news_brief(
+    context: Mapping[str, Any], visual_asset_ids: Sequence[str]
+) -> dict[str, Any]:
+    """Write an ordinary brief directly from its compact trustworthy evidence packet."""
+    packet = dict(context.get("minimum_trustworthy_evidence_packet") or {})
+    if packet.get("status") != "PASS" or packet.get("risk_tier") != "ORDINARY":
+        raise GroundedArticleBuilderError("ordinary_minimum_evidence_packet_missing")
+    proposition = " ".join(str(packet.get("core_factual_proposition") or "").split())
+    publisher = " ".join(str(packet.get("publisher") or "the reporting source").split())
+    source_url = str(packet.get("source_url") or "")
+    if len(proposition) < 8 or not source_url.startswith("https://"):
+        raise GroundedArticleBuilderError("ordinary_minimum_evidence_binding_invalid")
+    title = proposition.rstrip(".")
+    if len(title) > 95:
+        title = title[:95].rsplit(" ", 1)[0].rstrip(" ,;:-")
+    body = (
+        f"[{publisher}]({source_url}) reported: "
+        f"**{proposition.rstrip('.')}**."
+    )
+    if visual_asset_ids:
+        body += "\n\n" + "\n\n".join(
+            f"[[VISUAL:{asset_id}]]" for asset_id in visual_asset_ids
+        )
+    return {
+        "title": title,
+        "subtitle": "",
+        "seo_title": "",
+        "meta_description": "",
+        "market_mechanism": "",
+        "policy_context": "",
+        "cross_asset_implications": "",
+        "social_lede": proposition,
+        "social_mechanism_summary": "",
+        "social_policy_summary": "",
+        "social_cross_asset_summary": "",
+        "substack_body_markdown": body,
+        "article_generation_method": "MINIMUM_EVIDENCE_NEWS_BRIEF",
+    }
+
+
 # ---------------------------------------------------------------------------
 # Top-level canonical builder
 # ---------------------------------------------------------------------------
@@ -1189,31 +1242,45 @@ def build_rolling_x_grounded_article_and_media(
     if authority_blockers:
         raise GroundedArticleBuilderError(";".join(authority_blockers))
 
-    media_assets = build_source_backed_media_assets(
-        context, output_dir=output_dir, required_asset_count=required_asset_count
+    ordinary_story = bool(
+        (context.get("minimum_trustworthy_evidence_packet") or {}).get("status") == "PASS"
+        and (context.get("minimum_trustworthy_evidence_packet") or {}).get("risk_tier")
+        == "ORDINARY"
     )
+    visual_failure: str | None = None
+    try:
+        media_assets = build_source_backed_media_assets(
+            context,
+            output_dir=output_dir,
+            required_asset_count=1 if ordinary_story else required_asset_count,
+        )
+    except Exception as exc:
+        if not ordinary_story:
+            raise
+        media_assets = []
+        visual_failure = type(exc).__name__
     visual_asset_ids = _visual_asset_ids(media_assets)
 
-    prompt = build_article_generation_prompt(context, visual_asset_ids)
-    generator = article_generator or _default_article_generator
     article_router_failure: dict[str, Any] | None = None
     effective_mode = str(context.get("effective_article_mode") or "")
-    try:
-        # Final prose always starts with the authorized quality-first article-writing role.
-        # The deterministic concise renderer is recovery for a genuine routed outage, not a
-        # cost shortcut around editorial quality authority.
-        generated = dict(generator(prompt))
-    except Exception as exc:
-        from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+    if ordinary_story:
+        generated = _minimum_evidence_news_brief(context, visual_asset_ids)
+    else:
+        prompt = build_article_generation_prompt(context, visual_asset_ids)
+        generator = article_generator or _default_article_generator
+        try:
+            generated = dict(generator(prompt))
+        except Exception as exc:
+            from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
 
-        if not isinstance(exc, RoutedInvocationError) or effective_mode not in {
-            "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"
-        }:
-            raise
-        article_router_failure = {
-            key: value for key, value in exc.summary.items() if key != "output"
-        }
-        generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
+            if not isinstance(exc, RoutedInvocationError) or effective_mode not in {
+                "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"
+            }:
+                raise
+            article_router_failure = {
+                key: value for key, value in exc.summary.items() if key != "output"
+            }
+            generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
 
     evidence_document_ids = sorted(
         {
@@ -1292,6 +1359,10 @@ def build_rolling_x_grounded_article_and_media(
             )
             or []
         ),
+        "minimum_trustworthy_evidence_packet": dict(
+            context.get("minimum_trustworthy_evidence_packet") or {}
+        ),
+        "evidence_review_tier": str(context.get("evidence_review_tier") or ""),
         **audit_metadata,
     }
 
@@ -1311,6 +1382,7 @@ def build_rolling_x_grounded_article_and_media(
             "assets": media_assets,
             "ai_generated_image": False,
             "contentops_built_or_source_backed_media": True,
+            "visual_optional_failure": visual_failure,
         },
         "governed_story_context": {
             "cluster_id": context["cluster_id"],
@@ -1323,6 +1395,9 @@ def build_rolling_x_grounded_article_and_media(
             "effective_article_mode": context.get("effective_article_mode"),
             "mode_downgrade_reason": context.get("mode_downgrade_reason"),
             "claim_evidence_contract": context.get("claim_evidence_contract"),
+            "minimum_trustworthy_evidence_packet": context.get(
+                "minimum_trustworthy_evidence_packet"
+            ),
             "editorial_classification": context.get("editorial_classification"),
             "update_chain_identity": context.get("update_chain_identity"),
             "provided_evidence_capabilities": context["provided_evidence_capabilities"],

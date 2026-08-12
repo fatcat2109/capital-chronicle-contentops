@@ -1,6 +1,6 @@
 # ContentOps — Current Next Task Pointer
 
-Authority date: 2026-08-12
+Authority date: 2026-08-13
 Status: `CURRENT_DUAL_LANE_EXECUTION_POINTER`
 
 This file is a compact routing pointer. Detailed V1 history remains in task evidence/current status; detailed V2 execution authority is in the V2 retention-native plan set.
@@ -23,31 +23,27 @@ Fresh-session authority/handoff:
 
 `docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md`
 
-The parent evidence-calibration/publication-unblock task remains unaccepted. The latest production proof completed eight governed decisions with zero confirmed canonical public article. One decision reached evidence → article → review PASS → package → Substack draft ID `210796285`, but strict readback classified it `SUBSTACK_DRAFT_CONFIRMED_NOT_PUBLIC`, `write_absent=true`, `RECONCILED_ABSENT_SAFE_TO_RETRY`. Other decisions repeatedly selected final candidates whose source paths were inaccessible, stale, insufficiently timestamped, or lacked required authority for precise numeric/market claims. `UNKNOWN_WRITE=0`; pending reconciliation is zero.
+The parent evidence-calibration/publication-unblock task remains unaccepted. One genuine operator-window canonical article is public at `https://capitalchronicle.substack.com/p/us-energy-information-administration`; canonical readback/reconciliation is confirmed. This does not satisfy the remaining scheduled-window autonomy proof. At the last verified clean boundary, `UNKNOWN_WRITE=0` and pending ambiguous reconciliation was zero.
 
-Jim's current fast-newsroom owner override supersedes older artificial live-cycle limits, dossier-completeness requirements, and the five-article 9/9 gate for this phase:
+Jim's current publish-correctly-then-improve owner override supersedes older dossier, review, same-article 9/9, and three-in-24-hours ceremony:
 
 - no artificial maximum number of sequential live runs;
 - no routine owner re-approval or audit ceremony between safe bounded repairs/runs;
-- quality over token minimization, with approximately `2,000,000` tokens/day authorized as a runaway circuit-breaker envelope;
+- available 9Router quota may be used during build/acceptance; active-day totals are telemetry while per-call/per-cycle runaway protection remains;
 - GPT-5.6 Sol may be used through the existing canonical 9Router quality priority list;
-- ordinary-risk evidence is claim-level and publishability-first: one accessible reputable professional source directly supporting the core proposition is sufficient, with primary corroboration preferred but optional; stronger primary/two-source evidence remains required for allegations, disputed/conflict-sensitive, accusation, unusually consequential, or high-harm claims;
+- ordinary-risk evidence is a compact trustworthy source-bound packet, not a claim-by-claim dossier; one accessible reputable professional source directly supporting the core proposition is sufficient, with stronger primary/two-source evidence retained for allegations, disputed/conflict-sensitive, accusatory, unusually consequential, or high-harm claims;
 - a trustworthy article/feed timestamp establishes ordinary-story freshness without requiring an intrinsic timestamp on a separate official landing page; directly stated attributed source numbers are allowed, unsupported numbers are omitted/generalized, and clearly identified inference may explain supported facts without acquiring independent analytical authority;
-- the default path is minimum evidence → article → one semantic review → at most one revision → publish; a second semantic review is only for a hard factual/safety finding or a fact/numeric-changing revision, while style/SEO/depth/optional visual richness are advisory;
+- the default path is minimum evidence → write → hard factual/safety checks → canonical publish → minimal identity/content-fingerprint readback → next story; semantic review is not mandatory for ordinary stories, and style/SEO/length/optional visuals are advisory;
 - blocked candidates should advance to other viable candidates inside the same editorial opportunity when practical;
-- first milestone is ONE same canonical article successfully public and strictly read back/reconciled on ALL NINE Tier-1 text/image surfaces: Substack, Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community;
-- transport proof requires one genuine same-canonical-article strict 9/9;
 - autonomy proof requires one genuine configured scheduled-window article confirmed public on canonical Substack with zero unresolved unknown write/pending reconciliation;
-- repeatability proof requires three genuine canonical Substack articles confirmed public within one rolling 24-hour period, with published-memory active and no filler/duplicate abuse; proofs may overlap;
-- definite social-derivative failure is repaired/retried/reconciled independently and does not retroactively erase confirmed canonical Substack publication.
+- canonical confirmation requires exact destination identity, public `/p/...` URL, sufficient article identity/content match, and no unresolved unknown write;
+- derivatives are asynchronous coordinator-owned destination-local work and do not hold the canonical newsroom or retroactively erase confirmed publication.
 
 Immediate execution order:
 
-1. fix canonical Substack draft → real public `/p/...` publication/readback;
-2. make final selection publishability-first and walk multiple candidates inside one cycle rather than allowing a small evidence-dead shortlist to consume a full window;
-3. prove one same-canonical-article strict 9/9 transport milestone;
-4. continue until the scheduled canonical autonomy proof and three-canonical-articles-in-24-hours repeatability proof are also satisfied with published-memory active;
-5. integrate accepted V1 source/controls to current remote master while preserving concurrent V2 work.
+1. obtain one genuine configured scheduled-window canonical Substack publication with clean reconciliation;
+2. integrate accepted V1 source/controls to fresh remote master while preserving concurrent V2 work;
+3. continue real throughput soak toward approximately 5–8 useful canonical articles/day while measuring derivative transport, published-memory, SEO, quality, and visuals.
 
 Only true hard blockers should stop the phase: secret/session exposure, wrong-account public-write risk, fabricated core truth that cannot be removed, unresolved UNKNOWN_WRITE/public-object ambiguity, destructive production-store risk, protected `v1.0` mutation, irreconcilable merge conflict, or genuinely required operator credential/reauthentication input.
 

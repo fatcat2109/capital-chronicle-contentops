@@ -528,6 +528,74 @@ def test_generated_article_cannot_reintroduce_exact_omitted_nonnumeric_claim():
     assert "article_reintroduced_omitted_claim" in blockers
 
 
+def test_ordinary_story_uses_compact_packet_and_skips_semantic_llm(
+    tmp_path, monkeypatch
+):
+    document = _official_document()
+    evidence = _evidence([document])
+    evidence.update({
+        "evidence_review_tier": "ORDINARY_MINIMUM",
+        "minimum_trustworthy_evidence_packet": {
+            "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+            "status": "PASS",
+            "risk_tier": "ORDINARY",
+            "core_factual_proposition": "Treasury Stress Testing Rule",
+            "source_title": "Treasury Stress Testing Rule",
+            "publisher": "Federal Register",
+            "source_url": FR_URL,
+            "published_at_utc": "2026-08-08T09:00:00Z",
+            "evidence_document_id": document["document_id"],
+            "source_authority_class": "official_public_primary_source",
+            "attribution_required": False,
+            "publication_authority": False,
+        },
+    })
+
+    built = build_rolling_x_grounded_article_and_media(
+        _viability(evidence=evidence),
+        output_dir=tmp_path,
+        article_generator=lambda _prompt: (_ for _ in ()).throw(
+            AssertionError("ordinary brief must not call the article LLM")
+        ),
+    )
+    assert built["article"]["article_generation_method"] == (
+        "MINIMUM_EVIDENCE_NEWS_BRIEF"
+    )
+    assert built["media"]["media_asset_count"] == 1
+    payloads = implementation.build_native_derivative_payloads(
+        article=built["article"],
+        selection={"dek": "", "market_mechanism": "", "policy_context": "", "cross_asset_implications": ""},
+        canonical_url="https://capitalchronicle.substack.com/p/ordinary-brief",
+        media_asset_ids=[built["media"]["assets"][0]["asset_id"]],
+    )
+    assert set(payloads) >= {"telegram", "x", "linkedin", "threads", "youtube"}
+    assert payloads["x"]["reply_texts"] == []
+
+    editorial = implementation._run_bounded_rolling_x_editorial_cycle(
+        article=built["article"],
+        media_assets=built["media"]["assets"],
+        editorial_reviewer=lambda _article: (_ for _ in ()).throw(
+            AssertionError("ordinary brief must not call semantic review")
+        ),
+        article_reviser=lambda *_args: (_ for _ in ()).throw(
+            AssertionError("ordinary brief must not call semantic revision")
+        ),
+    )
+    assert editorial["status"] == "PASS"
+    assert editorial["semantic_review_required"] is False
+
+    def visual_failure(*_args, **_kwargs):
+        raise OSError("controlled optional visual failure")
+
+    monkeypatch.setattr(builder, "build_source_backed_media_assets", visual_failure)
+    text_only = build_rolling_x_grounded_article_and_media(
+        _viability(evidence=evidence), output_dir=tmp_path / "text-only"
+    )
+    assert text_only["media"]["media_asset_count"] == 0
+    assert text_only["media"]["visual_optional_failure"] == "OSError"
+    assert "[[VISUAL:" not in text_only["article"]["substack_body_markdown"]
+
+
 # --- controlled end-to-end smoke through the canonical cycle (default builder) ----
 
 

@@ -661,7 +661,7 @@ def test_targeted_substack_editorial_repair_is_exact_and_preserves_three_images(
     assert "Control+A" not in source
 
 
-def test_public_substack_content_checks_require_reader_text_sources_and_captions() -> None:
+def test_public_substack_content_checks_gate_identity_body_and_hard_process_safety() -> None:
     source_url = "https://www.eia.gov/pressroom/releases/press590.php"
     body = f"""## Supply Reset
 
@@ -742,6 +742,21 @@ def test_public_substack_content_checks_allow_a_source_backed_article_without_vi
     assert checks["caption_count_expected"] == 0
     assert checks["captions_visible"] is True
     assert checks["content_readback_verified"] is True
+
+    soft_mismatches = _public_substack_content_checks(
+        visible_text=visible,
+        hrefs=[],
+        meta_description="",
+        expected_title="Deutsche becomes European clearing bank for RMB",
+        expected_subtitle="A different optional subtitle.",
+        expected_body_markdown=body,
+        expected_image_assets=[{"caption": "A different optional caption."}],
+    )
+    assert soft_mismatches["subtitle_visible"] is False
+    assert soft_mismatches["captions_visible"] is False
+    assert soft_mismatches["source_links_visible"] is False
+    assert soft_mismatches["public_meta_description_present"] is False
+    assert soft_mismatches["content_readback_verified"] is True
 
 
 def test_substack_resume_index_preserves_exact_sequential_visual_prefix() -> None:

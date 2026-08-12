@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Product Direction Overlay
 
-Authority date: 2026-08-12
+Authority date: 2026-08-13
 Status: `CURRENT_DUAL_PRODUCT_DIRECTION_OVERLAY`
 
 GitHub remote refs/commits/diffs/exact fetched bytes remain repo-state authority. Jim's latest explicit instruction remains product-direction authority. This overlay supersedes conflicting sequencing/scope text in older plans while preserving verified historical evidence and safety invariants.
@@ -77,7 +77,7 @@ Next V1 builder lane:
 
 The latest real production day legitimately ended `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`; zero publication was correct. The 5–8 article/day band remains a target, not filler permission.
 
-Jim's 2026-08-12 fast-newsroom override now governs V1. For ordinary non-disputed,
+Jim's 2026-08-13 publish-correctly-then-improve override now governs V1. For ordinary non-disputed,
 non-sensitive reporting, one accessible reputable professional source that directly supports the
 core proposition is sufficient; primary corroboration is preferred, not mandatory. A trustworthy
 article/feed publication timestamp may establish freshness even when a separate official landing
@@ -87,15 +87,21 @@ facts without becoming independent analytical authority. Allegations, materially
 conflict-sensitive claims, accusations, and unusually consequential/high-harm claims retain
 stronger primary or independent-corroboration requirements.
 
-The default workflow is minimum evidence → article → one semantic review → at most one revision →
-publish. A second semantic review is required only after a hard factual/safety finding or a revision
-that materially changes factual/numeric claims. Optional style, SEO depth, information density, and
-visual richness are advisory. V1 acceptance is one genuine strict 9/9 transport proof, one genuine
-scheduled-window canonical Substack proof with clean reconciliation, and three genuine canonical
-Substack publications in one rolling 24-hour period with published-memory active and no duplicate
-or filler abuse. These proofs may overlap. Confirmed canonical publication remains valid if a
-definite social derivative later needs independent repair; `UNKNOWN_WRITE` still stops retries until
-readback and reconciliation.
+The ordinary workflow is minimum trustworthy evidence → write → hard factual/safety checks →
+canonical publish → minimal identity/content-fingerprint readback → next story. Ordinary reporting
+does not require a structured claim dossier, official-source corroboration, mandatory semantic
+review/revision, optional SEO/style/length/visual completeness, or a hero image. Enhanced evidence
+and semantic review remain for allegations, materially disputed/conflict-sensitive or accusatory
+claims, unusually consequential/high-harm claims, and other genuine hard-risk cases.
+
+A canonical Substack article counts immediately when the exact destination identity is verified, a
+public `/p/...` URL exists, article identity/content sufficiently matches, and no `UNKNOWN_WRITE`
+remains. Derivatives are durable asynchronous destination-local work and never revoke confirmed
+canonical truth. V1 closeout now requires one genuine configured scheduled-window canonical
+Substack publication with clean unknown-write/ambiguous-reconciliation state and intact destination
+identity/publication safety. Same-article 9/9 and three-articles-in-24-hours are superseded closeout
+gates; transport/quality/SEO/visual/published-memory metrics continue during the 5–8 useful
+canonical-articles/day soak.
 
 Preserve the current V1 architecture: one canonical supervisor, production orchestrator, durable store, newsroom, publication coordinator/outbox, browser bindings, model gateway, readback/reconciliation, and V5 UI.
 

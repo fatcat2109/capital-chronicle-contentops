@@ -496,6 +496,52 @@ def review_deterministic_supported_claim_brief(article: Mapping[str, Any]) -> di
     return result
 
 
+def review_minimum_evidence_news_brief(article: Mapping[str, Any]) -> dict[str, Any]:
+    """Run only hard factual/binding checks for an ordinary minimum-evidence brief."""
+    packet = dict(article.get("minimum_trustworthy_evidence_packet") or {})
+    body = str(article.get("substack_body_markdown") or "")
+    proposition = " ".join(str(packet.get("core_factual_proposition") or "").split())
+    source_url = str(packet.get("source_url") or "")
+    evidence_id = str(packet.get("evidence_document_id") or "")
+    valid = bool(
+        article.get("article_generation_method") == "MINIMUM_EVIDENCE_NEWS_BRIEF"
+        and packet.get("status") == "PASS"
+        and packet.get("risk_tier") == "ORDINARY"
+        and proposition
+        and proposition.casefold().rstrip(".") in body.casefold()
+        and source_url.startswith("https://")
+        and source_url in body
+        and evidence_id in {str(value) for value in article.get("evidence_document_ids") or []}
+        and article.get("x_content_grants_factual_authority") is False
+    )
+    checks = {name: valid for name in LLM_REVIEW_CHECKS}
+    result = {
+        "status": "SUCCESS",
+        "decision": "PASS" if valid else "NEEDS_REVISION",
+        "mode": "straight_news",
+        "checks": checks,
+        "failed_checks": [] if valid else ["ordinary_minimum_evidence_binding"],
+        "material_failed_checks": [] if valid else ["material_claims_supported"],
+        "advisory_failed_checks": [],
+        "missing_or_invalid_checks": [],
+        "issues": [] if valid else [{
+            "code": "ordinary_minimum_evidence_binding",
+            "evidence": "Core proposition, source, or exact document binding mismatch.",
+        }],
+        "summary": (
+            "Ordinary brief passed deterministic factual and source binding checks."
+            if valid
+            else "Ordinary brief failed deterministic factual or source binding checks."
+        ),
+        "provider": "deterministic_minimum_evidence",
+        "review_type": "HARD_FACTUAL_SAFETY_ONLY",
+        "semantic_review_required": False,
+        "publication_authority": False,
+    }
+    result["review_sha256"] = _sha256(json.dumps(result, sort_keys=True))
+    return result
+
+
 def combine_editorial_gates(deterministic: Mapping[str, Any], llm_review: Mapping[str, Any]) -> dict[str, Any]:
     deterministic_pass = deterministic.get("classification") == "PASS"
     llm_pass = llm_review.get("status") == "SUCCESS" and llm_review.get("decision") == "PASS"

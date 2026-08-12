@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V1 — Full Automation Nine-Surface Fresh-Session Handoff
 
-Authority date: 2026-08-12
+Authority date: 2026-08-13
 Status: `CURRENT_V1_OWNER_HANDOFF`
 
 This file exists so a fresh ChatGPT/Antigravity session can resume V1 without the long prior chat history.
@@ -25,9 +25,9 @@ Active V1 branch:
 
 `task/v1-evidence-gate-calibration-real-publication-unblock-v1`
 
-Last verified remote branch HEAD before this handoff:
+Last verified remote branch HEAD before this owner override:
 
-`0ae16ea29e5f7a5c9039dbef213dd916508423c4`
+`74a0076ca0307aacb64daff072f1853aedf706ab`
 
 Treat that SHA only as a clue; fetch the branch again.
 
@@ -60,7 +60,11 @@ Do not broadly reread historical task archives.
 
 The parent V1 task is not accepted.
 
-The latest completed production proof executed eight governed decisions. Zero canonical article was confirmed public.
+One genuine operator-window canonical article is confirmed public:
+
+`https://capitalchronicle.substack.com/p/us-energy-information-administration`
+
+This proves canonical transport but not the remaining configured scheduled-window autonomy gate.
 
 One decision crossed the prior evidence/content blockers and reached:
 
@@ -77,9 +81,9 @@ The Substack result was:
 
 Other decisions repeatedly exhausted their final ranked candidates because available evidence paths were inaccessible, stale, insufficiently timestamped, or lacked proper authority for precise numeric/market claims.
 
-Current durable publication safety at the reported closeout:
+Current durable publication safety at the last verified clean boundary:
 
-- confirmed canonical articles: `0`;
+- confirmed canonical articles: `1`;
 - `UNKNOWN_WRITE=0`;
 - pending reconciliation: `0`;
 - duplicates: `0`.
@@ -93,7 +97,7 @@ Preserve and continue, do not rebuild:
 - continuous zero-LLM X intake;
 - rolling 24h newsroom;
 - published-memory / Capital Chronicle read-only preselection;
-- claim-level minimum-vs-optional evidence calibration;
+- compact ordinary minimum-evidence packets plus enhanced high-risk claim review;
 - unsupported-claim omission/narrowing;
 - article-mode downgrade;
 - bounded official-source retrieval;
@@ -121,9 +125,9 @@ This section supersedes older task text that conflicts with it.
 
 ### Quality / models / cost
 
-Quality is currently more important than token minimization.
-
-Jim authorizes approximately `2,000,000` tokens per active production day as a circuit-breaker envelope if needed for quality.
+Quality is currently more important than token minimization. Active-day usage is telemetry during
+BUILD/ACCEPTANCE; available 9Router quota may be used while per-call/per-cycle runaway protection
+remains.
 
 GPT-5.6 Sol is explicitly allowed through the existing canonical ContentOps 9Router quality priority list. Do not invent a new model order.
 
@@ -143,31 +147,20 @@ A 403/paywall from one source is a failed retrieval path, not automatic story de
 
 Capital Chronicle remains read-only analytical/numeric authority where governed analytical/numeric claims actually require it. Do not force every article into a Deep Dive.
 
-Default to `BREAKING_BRIEF` / `QUICK_ANALYSIS` where appropriate and use minimum evidence → article → one semantic review → at most one revision → publish. Re-review only after a hard factual/safety finding or a revision that materially changes factual/numeric claims. Clearly labeled inference may explain supported facts without becoming independent analytical authority. Style/SEO/depth/optional visual richness are advisory; one valid hero visual plus basic title/slug/meta is sufficient.
+Default to `BREAKING_BRIEF` / `QUICK_ANALYSIS` where appropriate and use minimum trustworthy evidence → write → hard factual/safety checks → canonical publish → minimal identity/content-fingerprint readback → next story. Ordinary reporting requires neither a structured claim dossier nor mandatory semantic review/revision. Clearly labeled inference may explain supported facts without becoming independent analytical authority. Style/SEO/depth/length/optional visual richness are advisory, and a canonical text article may publish without a hero image.
 
 ### Publication acceptance for this phase
 
-Partial Tier-1 distribution is not transport proof, but confirmed canonical Substack publication still counts toward autonomy/repeatability. A definite derivative failure is repaired independently and does not retroactively turn canonical success into `NO_PUBLICATION`.
+Canonical Substack publication counts when the exact destination identity is verified, a public
+`/p/...` URL exists, article identity/content sufficiently matches, and no `UNKNOWN_WRITE`
+remains. Exact subtitle, captions, image count, and visual spread do not control canonical truth.
 
-Transport proof requires at least one genuine canonical proof article to be genuinely public and strictly read back/reconciled on ALL NINE canonical Tier-1 text/image surfaces:
+Derivatives are durable asynchronous destination-local work. Their failures never hold the
+canonical newsroom or retroactively turn confirmed canonical truth into `NO_PUBLICATION`.
 
-1. Substack
-2. Telegram
-3. Discord
-4. X
-5. LinkedIn
-6. Facebook Page
-7. Instagram Business
-8. Threads
-9. YouTube Community
-
-The one transport-proof article must complete:
-
-`fresh story → evidence → quality article → review → packages → Substack public /p/ URL → all eight derivatives → 9/9 strict readback/reconciliation`
-
-No missing/skipped/failed/pending/ambiguous/unverified destination counts qualify for transport proof.
-
-V1 must also prove published-memory feedback and repeated autonomous operation: one configured scheduled-window article confirmed public on canonical Substack with clean reconciliation, and three genuine canonical Substack articles confirmed within one rolling 24-hour period. These proofs may overlap. Continue without manufacturing filler until all three proof classes pass.
+V1 closeout now requires one genuine configured scheduled-window autonomous canonical Substack
+publication with zero unresolved `UNKNOWN_WRITE` or pending ambiguous reconciliation and intact
+destination/publication safety. Same-article 9/9 and three-articles-in-24-hours are superseded.
 
 The broader product target remains approximately 5–8 useful canonical articles/day without filler.
 
@@ -175,12 +168,9 @@ V2 video public-write authority is separate and unchanged by this V1 handoff.
 
 ## Immediate blockers / execution order
 
-1. **Substack transport:** fix canonical draft → actual public `/p/...` publication and strict readback. A saved draft is not publication success.
-2. **Publishability-first selection:** perform cheap evidence-reachability probing over a broader compact candidate set before final story commitment; do not allow 12 inaccessible candidates to consume an entire window when viable stories remain.
-3. **Same-cycle candidate walk:** when a ranked candidate is blocked, advance through the bounded useful candidate pool before declaring `NO_PUBLICATION`.
-4. **Nine-surface transport proof:** obtain one same-canonical-article strict 9/9 milestone.
-5. **Autonomy/repeatability proof:** obtain one genuine configured scheduled-window article confirmed public on canonical Substack with clean unknown-write/reconciliation state, plus three genuine canonical Substack publications inside one rolling 24-hour period. Proofs may overlap; published-memory must suppress low-delta duplicates or allow a material follow-up, and definite derivative failures remain independent repair work after canonical success.
-6. **Master integration:** accepted V1 source/controls must be integrated to remote master with exact parity while preserving concurrent V2 changes.
+1. **Scheduled autonomy proof:** obtain one genuine configured scheduled-window canonical Substack publication with clean unknown-write/reconciliation state.
+2. **Master integration:** integrate accepted V1 source/controls to fresh remote master while preserving concurrent V2 changes.
+3. **Throughput soak:** continue approximately 5–8 useful canonical articles/day without filler while measuring published-memory, derivative reliability, quality, SEO, and visuals.
 
 ## Hard stops that remain
 

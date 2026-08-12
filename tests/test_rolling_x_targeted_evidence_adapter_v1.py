@@ -256,7 +256,8 @@ def test_valid_official_primary_packet_can_satisfy_nonnumeric_capability():
     assert set(receipt["provided_evidence_capabilities"]) == {
         "official_document", "credible_event_confirmation", "basic_attributed_facts"
     }
-    assert receipt["claim_evidence_contract"]["status"] == "PASS"
+    assert receipt["minimum_trustworthy_evidence_packet"]["status"] == "PASS"
+    assert receipt["evidence_review_tier"] == "ORDINARY_MINIMUM"
     assert receipt["capital_chronicle_authority_verified"] is False
 
 
@@ -322,8 +323,10 @@ def test_supply_chain_request_routes_exact_eia_url_to_official_macro_loader():
 
     assert len(official_calls) == 1
     assert receipt["status"] == "PASS"
-    assert receipt["claim_evidence_contract"]["status"] == "PASS"
-    assert receipt["claim_evidence_contract"]["supported_claim_count"] == 1
+    assert receipt["minimum_trustworthy_evidence_packet"]["status"] == "PASS"
+    assert receipt["minimum_trustworthy_evidence_packet"][
+        "core_factual_proposition"
+    ] == "EIA released its Short-Term Energy Outlook."
     assert receipt["evidence_documents"][0]["source_authority_class"] == (
         "official_public_primary_source"
     )
@@ -474,9 +477,9 @@ def test_fresh_professional_article_can_carry_ordinary_data_brief_when_official_
 
     assert receipt["status"] == "PASS"
     assert [row["document_id"] for row in receipt["evidence_documents"]] == ["eia-steo"]
-    assert receipt["claim_evidence_contract"]["supported_claims"][0][
-        "support_status"
-    ] == "SUPPORTED_PRIMARY"
+    assert receipt["minimum_trustworthy_evidence_packet"][
+        "core_factual_proposition"
+    ] == "Short-Term Energy Outlook"
     assert receipt["evidence_documents"][0]["freshness_timestamp_source"] == (
         "EXACT_BOUND_PROFESSIONAL_FEED"
     )

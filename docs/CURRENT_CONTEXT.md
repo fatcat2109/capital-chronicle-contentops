@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > GitHub remote evidence is repo-state authority. Jim's latest explicit product instruction is product-direction authority. Older plans/status are historical/reference material when they conflict with current V1/V2 direction.
 
-Authority date: 2026-08-12
+Authority date: 2026-08-13
 
 ## Current product lanes
 
@@ -21,7 +21,7 @@ Parent task:
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-Current V1 acceptance requires: one genuine canonical article strict 9/9 for transport proof; one genuine configured scheduled-window article confirmed public on canonical Substack with no unresolved unknown write or reconciliation; and three genuine canonical Substack articles confirmed public inside one rolling 24-hour period with published-memory active and no filler/duplicate abuse. These proofs may overlap. A definite social-derivative failure is repaired independently and does not erase a confirmed canonical publication. Read the current V1 handoff for live branch/runtime evidence and owner overrides. Do not infer current V1 runtime state from this compact file.
+Current V1 closeout requires one genuine configured scheduled-window autonomous article confirmed on canonical Substack with exact destination identity, a public `/p/...` URL, sufficient article identity/content match, and zero unresolved `UNKNOWN_WRITE` or ambiguous reconciliation. Same-article 9/9 and three-articles-in-24-hours are superseded gates. Derivatives recover asynchronously per destination and never revoke confirmed canonical truth. Ordinary stories use compact minimum trustworthy evidence plus hard factual/safety checks; enhanced evidence/review remains for genuinely high-risk claims. Read the current V1 handoff for live branch/runtime evidence and owner overrides. Do not infer current V1 runtime state from this compact file.
 
 The broader approximately 5–8 useful articles/day target remains a portfolio goal, never filler permission.
 

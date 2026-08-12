@@ -11,7 +11,11 @@ from live_contentops.cc_evidence_bridge_v2 import (
     validate_evidence_packet,
 )
 from live_contentops.freshness_market_state_v2 import evaluate_freshness
-from live_contentops.claim_evidence_contract_v1 import build_claim_evidence_contract
+from live_contentops.claim_evidence_contract_v1 import (
+    build_claim_evidence_contract,
+    build_minimum_trustworthy_evidence_packet,
+    requires_enhanced_evidence_review,
+)
 from live_contentops.source_capability_registry_v2 import (
     load_source_capability_registry,
     resolve_story_capabilities,
@@ -24,6 +28,17 @@ EVIDENCE_LOADER_BUDGET_BLOCKERS = frozenset({
     "public_source_request_budget_exhausted",
 })
 TRUSTED_PROFESSIONAL_FEED_HANDLES = frozenset({"financialjuice"})
+
+
+def _minimum_or_enhanced_evidence(
+    request: Mapping[str, Any], documents: list[dict[str, Any]]
+) -> tuple[bool, dict[str, Any], dict[str, Any]]:
+    """Apply compact ordinary evidence or the enhanced high-risk claim contract."""
+    if requires_enhanced_evidence_review(request):
+        contract = build_claim_evidence_contract(request, documents)
+        return contract.get("status") == "PASS", {}, contract
+    packet = build_minimum_trustworthy_evidence_packet(request, documents)
+    return packet.get("status") == "PASS", packet, {}
 
 
 def _utc_now() -> str:
@@ -540,11 +555,13 @@ class RollingXTargetedEvidenceAdapter:
                         for row in freshness_exclusions
                         for finding in row["findings"]
                     )
-            claim_contract = build_claim_evidence_contract(request, documents)
-            if claim_contract.get("status") == "PASS":
+            evidence_sufficient, ordinary_packet, claim_contract = (
+                _minimum_or_enhanced_evidence(request, documents)
+            )
+            if evidence_sufficient:
                 supplied.update({"credible_event_confirmation", "basic_attributed_facts"})
             else:
-                blockers.append("supported_claims_missing")
+                blockers.append("minimum_trustworthy_evidence_missing")
             if not documents:
                 blockers.append("evidence_documents_missing")
             for missing in sorted(set(required) - supplied):
@@ -557,7 +574,10 @@ class RollingXTargetedEvidenceAdapter:
                     supplied=sorted(supplied),
                     evidence_acquisition_provenance=diagnostics,
                 )
-                receipt["claim_evidence_contract"] = claim_contract
+                if ordinary_packet:
+                    receipt["minimum_trustworthy_evidence_packet"] = ordinary_packet
+                if claim_contract:
+                    receipt["claim_evidence_contract"] = claim_contract
                 return receipt
             return {
                 "status": "PASS",
@@ -565,7 +585,12 @@ class RollingXTargetedEvidenceAdapter:
                 "headline_ids": list(request.get("headline_ids") or []),
                 "provided_evidence_capabilities": sorted(supplied),
                 "evidence_documents": documents,
-                "claim_evidence_contract": claim_contract,
+                **(
+                    {"minimum_trustworthy_evidence_packet": ordinary_packet}
+                    if ordinary_packet
+                    else {"claim_evidence_contract": claim_contract}
+                ),
+                "evidence_review_tier": "ORDINARY_MINIMUM" if ordinary_packet else "ENHANCED",
                 "unsupported_claims_removed": int(claim_contract.get("omitted_claim_count") or 0),
                 "capital_chronicle_authority_verified": False,
                 "numeric_evidence_required": False,
@@ -620,9 +645,11 @@ class RollingXTargetedEvidenceAdapter:
             packet, request, freshness_state=freshness_state
         )
         blockers.extend(document_blockers)
-        claim_contract = build_claim_evidence_contract(request, documents)
-        if claim_contract.get("status") != "PASS":
-            blockers.append("supported_claims_missing")
+        evidence_sufficient, ordinary_packet, claim_contract = (
+            _minimum_or_enhanced_evidence(request, documents)
+        )
+        if not evidence_sufficient:
+            blockers.append("minimum_trustworthy_evidence_missing")
 
         declared_supplied = set(
             str(value)
@@ -654,7 +681,7 @@ class RollingXTargetedEvidenceAdapter:
             )
             and documents
         )
-        if claim_contract.get("status") == "PASS":
+        if evidence_sufficient:
             supplied.update({"credible_event_confirmation", "basic_attributed_facts"})
 
         for missing in sorted(set(required) - supplied):
@@ -679,7 +706,10 @@ class RollingXTargetedEvidenceAdapter:
                 documents=documents,
                 supplied=sorted(supplied.intersection(required)),
             )
-            receipt["claim_evidence_contract"] = claim_contract
+            if ordinary_packet:
+                receipt["minimum_trustworthy_evidence_packet"] = ordinary_packet
+            if claim_contract:
+                receipt["claim_evidence_contract"] = claim_contract
             return receipt
         return {
             "status": "PASS",
@@ -689,7 +719,12 @@ class RollingXTargetedEvidenceAdapter:
                 supplied.intersection(required)
             ),
             "evidence_documents": documents,
-            "claim_evidence_contract": claim_contract,
+            **(
+                {"minimum_trustworthy_evidence_packet": ordinary_packet}
+                if ordinary_packet
+                else {"claim_evidence_contract": claim_contract}
+            ),
+            "evidence_review_tier": "ORDINARY_MINIMUM" if ordinary_packet else "ENHANCED",
             "unsupported_claims_removed": int(claim_contract.get("omitted_claim_count") or 0),
             "capital_chronicle_authority_verified": authority_verified,
             "numeric_evidence_required": market_required,

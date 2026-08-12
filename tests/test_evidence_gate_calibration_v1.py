@@ -4,7 +4,11 @@ from datetime import datetime, timezone
 import json
 from urllib.parse import parse_qs, urlsplit
 
-from live_contentops.claim_evidence_contract_v1 import build_claim_evidence_contract
+from live_contentops.claim_evidence_contract_v1 import (
+    build_claim_evidence_contract,
+    build_minimum_trustworthy_evidence_packet,
+    requires_enhanced_evidence_review,
+)
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     ROLLING_X_ASSIGNMENT_SCHEMA_VERSION,
     build_deterministic_rolling_x_assignment_fallback,
@@ -130,6 +134,25 @@ def test_routine_regulatory_claim_accepts_one_attributed_reputable_secondary():
     assert contract["supported_claims"][0]["attribution_required"] is True
 
 
+def test_ordinary_story_uses_compact_source_bound_packet_not_claim_dossier():
+    title = "Agency publishes revised compliance notice"
+    request = _request(
+        story_type="regulatory_fiscal_event",
+        summaries=["Agency publishes revised compliance notice for regulated firms."],
+    )
+    packet = build_minimum_trustworthy_evidence_packet(
+        request,
+        [_document(authority="reputable_secondary_source", text=title, publisher="Reuters")],
+    )
+
+    assert requires_enhanced_evidence_review(request) is False
+    assert packet["status"] == "PASS"
+    assert packet["risk_tier"] == "ORDINARY"
+    assert packet["core_factual_proposition"] == title
+    assert packet["attribution_required"] is True
+    assert "supported_claims" not in packet
+
+
 def test_document_wide_scattered_topic_tokens_do_not_support_composite_claim():
     claim = (
         "Preview of the upcoming Consumer Price Index release, suggesting an in-line "
@@ -184,6 +207,11 @@ def test_sensitive_company_allegation_requires_primary_or_two_independent_second
     primary = build_claim_evidence_contract(
         request,
         [_document(authority="first_party_public_source", text=claim, publisher="Regulator")],
+    )
+
+    assert requires_enhanced_evidence_review(request) is True
+    assert build_minimum_trustworthy_evidence_packet(request, [reuters])["status"] == (
+        "ENHANCED_EVIDENCE_REQUIRED"
     )
 
     assert one_secondary["status"] == "BLOCKED"
