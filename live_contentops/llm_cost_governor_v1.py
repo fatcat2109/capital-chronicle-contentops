@@ -55,6 +55,9 @@ _ACTIVE_CONTROL_ROOT: ContextVar[Path | None] = ContextVar(
     "contentops_llm_control_root", default=None
 )
 _ACTIVE_NOW: ContextVar[datetime | None] = ContextVar("contentops_llm_budget_now", default=None)
+_ACTIVE_CYCLE_UNAVAILABLE_MODELS: ContextVar[frozenset[str]] = ContextVar(
+    "contentops_llm_cycle_unavailable_models", default=frozenset()
+)
 
 
 class LLMCostBudgetExceededError(RuntimeError):
@@ -167,12 +170,32 @@ def llm_cycle_budget_scope(
     cycle_token = _ACTIVE_CYCLE_ID.set(_bounded_cycle_key(cycle_id))
     root_token = _ACTIVE_CONTROL_ROOT.set(Path(control_root) if control_root else None)
     now_token = _ACTIVE_NOW.set(now)
+    unavailable_token = _ACTIVE_CYCLE_UNAVAILABLE_MODELS.set(frozenset())
     try:
         yield
     finally:
+        _ACTIVE_CYCLE_UNAVAILABLE_MODELS.reset(unavailable_token)
         _ACTIVE_NOW.reset(now_token)
         _ACTIVE_CONTROL_ROOT.reset(root_token)
         _ACTIVE_CYCLE_ID.reset(cycle_token)
+
+
+def cycle_unavailable_models() -> frozenset[str]:
+    """Return model identities proven unavailable by an accepted fallback in this cycle."""
+    if _ACTIVE_CYCLE_ID.get() is None:
+        return frozenset()
+    return _ACTIVE_CYCLE_UNAVAILABLE_MODELS.get()
+
+
+def record_cycle_unavailable_models(models: Iterator[str] | list[str] | set[str]) -> None:
+    """Cache exact model-scoped unavailability only for the active in-process cycle."""
+    if _ACTIVE_CYCLE_ID.get() is None:
+        return
+    normalized = {str(model).strip() for model in models if str(model).strip()}
+    if normalized:
+        _ACTIVE_CYCLE_UNAVAILABLE_MODELS.set(
+            frozenset(set(_ACTIVE_CYCLE_UNAVAILABLE_MODELS.get()) | normalized)
+        )
 
 
 def reserve_logical_invocation(logical_invocation_id: str) -> None:

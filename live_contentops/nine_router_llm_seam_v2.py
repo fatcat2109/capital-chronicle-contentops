@@ -22,7 +22,9 @@ from live_contentops.llm_operator_control_v1 import (
     assert_llm_operator_execution_enabled,
 )
 from live_contentops.llm_cost_governor_v1 import (
+    cycle_unavailable_models,
     LLMCostBudgetExceededError,
+    record_cycle_unavailable_models,
     reconcile_provider_attempt,
     reserve_logical_invocation,
     reserve_provider_attempt,
@@ -90,6 +92,9 @@ class RoutedInvocationError(RuntimeError):
 #: Every routed invocation's evidence, appended in call order. Callers may drain this to
 #: fold router evidence into their own packets without threading a collector through.
 _INVOCATION_LOG: list[dict[str, Any]] = []
+_CYCLE_CACHEABLE_MODEL_UNAVAILABLE_CLASSES = frozenset(
+    {"requested_model_temporarily_unavailable", "quota_exhausted"}
+)
 
 
 def drain_invocation_log() -> list[dict[str, Any]]:
@@ -130,9 +135,18 @@ def routed_llm_invocation(
     assert_llm_operator_execution_enabled()
     reserve_logical_invocation(logical_invocation_id)
     raw_provider_call = provider_call or _default_provider_call
+    cached_models = cycle_unavailable_models()
+    cached_model_skips: list[str] = []
+    unavailable_models_this_invocation: set[str] = set()
 
     def guarded_provider_call(provider_prompt: str, model: str, timeout: float) -> ProviderResult:
         assert_llm_operator_execution_enabled()
+        if model in cached_models:
+            cached_model_skips.append(model)
+            return ProviderResult(
+                error=RuntimeError("cycle_cached_model_temporarily_unavailable"),
+                failure_class="requested_model_temporarily_unavailable",
+            )
         try:
             reservation = reserve_provider_attempt(
                 provider_prompt, logical_invocation_id=logical_invocation_id
@@ -149,6 +163,8 @@ def routed_llm_invocation(
             result.usage,
             failure_class=result.failure_class,
         )
+        if str(result.failure_class or "") in _CYCLE_CACHEABLE_MODEL_UNAVAILABLE_CLASSES:
+            unavailable_models_this_invocation.add(model)
         return result
 
     role_pool = model_pool_for_role(role_task_id)
@@ -169,6 +185,19 @@ def routed_llm_invocation(
         ),
         repair_prompt_builder=repair_prompt_builder,
         model_pool=role_pool,
+    )
+    promoted_models: list[str] = []
+    if summary.get("terminal_disposition") == ACCEPTED and unavailable_models_this_invocation:
+        promoted_models = [
+            model for model in role_pool if model in unavailable_models_this_invocation
+        ]
+        record_cycle_unavailable_models(promoted_models)
+    summary["cycle_cached_unavailable_models_skipped"] = list(
+        dict.fromkeys(cached_model_skips)
+    )
+    summary["cycle_unavailable_models_promoted_after_accepted_fallback"] = promoted_models
+    summary["provider_network_calls_skipped_by_cycle_unavailability_cache"] = len(
+        cached_model_skips
     )
     _INVOCATION_LOG.append(summary)
     return summary

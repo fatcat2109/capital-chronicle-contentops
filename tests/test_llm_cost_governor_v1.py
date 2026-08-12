@@ -124,6 +124,70 @@ def test_proven_pre_generation_model_rejections_release_only_token_reservations(
     assert final["cycle"]["provider_attempts"] == 5
 
 
+def test_accepted_fallback_caches_model_scoped_unavailability_for_same_cycle(tmp_path):
+    provider_models = []
+
+    def provider(prompt, model, timeout):
+        provider_models.append(model)
+        if model != "vx/gemini-3.1-pro-preview(high)":
+            return ProviderResult(
+                failure_class="requested_model_temporarily_unavailable",
+                usage=None,
+            )
+        return ProviderResult(
+            text="accepted", resolved_model=model, usage={"total_tokens": 10}
+        )
+
+    with llm_cycle_budget_scope("cycle-model-cache", control_root=tmp_path, now=NOW):
+        first = _invoke("global-editor", provider)
+        second = _invoke("article-writer", provider)
+
+    assert first["terminal_disposition"] == "ACCEPTED"
+    assert second["terminal_disposition"] == "ACCEPTED"
+    assert provider_models == [
+        "new/claude-fable-5",
+        "new/gpt-5.6-sol-xhigh",
+        "new/claude-opus-5",
+        "vx/gemini-3.1-pro-preview(high)",
+        "vx/gemini-3.1-pro-preview(high)",
+    ]
+    assert second["cycle_cached_unavailable_models_skipped"] == [
+        "new/claude-fable-5",
+        "new/gpt-5.6-sol-xhigh",
+        "new/claude-opus-5",
+    ]
+    assert second["provider_network_calls_skipped_by_cycle_unavailability_cache"] == 3
+    snapshot = budget_snapshot("cycle-model-cache", control_root=tmp_path)
+    assert snapshot["cycle"]["provider_attempts"] == 5
+
+
+def test_terminal_pool_exhaustion_does_not_poison_later_invocation(tmp_path):
+    provider_calls = 0
+    accept = False
+
+    def provider(prompt, model, timeout):
+        nonlocal provider_calls
+        provider_calls += 1
+        if not accept:
+            return ProviderResult(
+                failure_class="requested_model_temporarily_unavailable",
+                usage=None,
+            )
+        return ProviderResult(
+            text="accepted", resolved_model=model, usage={"total_tokens": 10}
+        )
+
+    with llm_cycle_budget_scope("cycle-no-poison", control_root=tmp_path, now=NOW):
+        exhausted = _invoke("pool-exhausted", provider)
+        accept = True
+        recovered = _invoke("later-recovered", provider)
+
+    assert exhausted["terminal_disposition"] == "BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED"
+    assert recovered["terminal_disposition"] == "ACCEPTED"
+    assert recovered["cycle_cached_unavailable_models_skipped"] == []
+    assert provider_calls == 5
+
+
 def test_untrusted_transport_failure_without_usage_retains_reservation(tmp_path):
     def ambiguous_transport(prompt, model, timeout):
         return ProviderResult(failure_class="read_timeout", resolved_model=None, usage=None)
