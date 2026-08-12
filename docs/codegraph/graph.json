@@ -73452,7 +73452,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-12T08:55:31Z",
+  "generation_timestamp_utc": "2026-08-12T09:21:28Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -75706,7 +75706,7 @@
     {
       "id": "live_contentops/nine_router_llm_seam_v2.py",
       "kind": "python_module",
-      "size_bytes": 12044
+      "size_bytes": 12284
     },
     {
       "id": "live_contentops/nine_router_ordered_model_router_v2.py",
@@ -94254,7 +94254,7 @@
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::_derive_invocation_id",
       "kind": "python_function",
-      "line": 239,
+      "line": 240,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "_derive_invocation_id"
     },
@@ -94268,7 +94268,7 @@
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::integration_manifest",
       "kind": "python_function",
-      "line": 246,
+      "line": 247,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "integration_manifest"
     },
@@ -94289,14 +94289,14 @@
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_invocation.guarded_provider_call",
       "kind": "python_method",
-      "line": 142,
+      "line": 150,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "routed_llm_invocation.guarded_provider_call"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_text",
       "kind": "python_function",
-      "line": 206,
+      "line": 207,
       "path": "live_contentops/nine_router_llm_seam_v2.py",
       "symbol": "routed_llm_text"
     },
@@ -110173,7 +110173,7 @@
     {
       "id": "tests/test_llm_cost_governor_v1.py",
       "kind": "test",
-      "size_bytes": 9149
+      "size_bytes": 9249
     },
     {
       "id": "tests/test_llm_feedback_summarizer_dry_run_v6.py",
@@ -115803,6 +115803,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "21d537cb37e7c2c3f4929781e9c11805f224c0b2",
-  "source_tree_digest": "903bfa57a16fd1228b5aa8e76bc59f8faf4921bbf8e4df8976b76387de9a513b"
+  "source_head": "1277165c96fad458b3321f0441029c167f4b0991",
+  "source_tree_digest": "f7105be5d4a179e0ba011073ad8c67ac0eeb30351e01fcfd1220807d6f053f7f"
 }
