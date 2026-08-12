@@ -646,6 +646,56 @@ def test_router_outage_fallback_has_no_live_publication_authority(monkeypatch, t
     assert result["article_generation_publication_eligible"] is False
     assert result["publishing_adapter_called"] is False
     assert result["public_write_performed"] is False
+
+
+def test_assignment_router_exception_writes_fail_closed_cycle_evidence(
+    monkeypatch, tmp_path: Path
+):
+    from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
+        lambda **kwargs: {
+            "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+            "counts": {"accepted": 1},
+        },
+    )
+
+    def fail_assignment(**_kwargs):
+        raise RoutedInvocationError(
+            {
+                "role_task_id": "rolling_x_newsroom_assignment",
+                "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
+                "models_attempted_in_order": ["model-a"],
+                "raw_output": "must-not-persist",
+            }
+        )
+
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        fail_assignment,
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="assignment-router-failure",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-08T00:00:00Z",
+        publication_enabled=False,
+    )
+
+    assert result["classification"] == "BLOCKED"
+    assert result["exact_next_blocker"] == "ROLLING_X_GLOBAL_EDITOR_BLOCKED"
+    assert result["publishing_adapter_called"] is False
+    assert result["public_write_performed"] is False
+    persisted = json.loads(
+        (tmp_path / "rolling_x_newsroom_cycle_evidence_v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    telemetry = persisted["assignment"]["telemetry"]
+    assert telemetry["terminal_disposition"] == "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
+    assert telemetry["models_attempted_in_order"] == ["model-a"]
+    assert "raw_output" not in telemetry
     assert "publication_lifecycle_plan" not in result
 
 

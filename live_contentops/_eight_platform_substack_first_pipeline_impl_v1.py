@@ -3450,6 +3450,7 @@ def _run_rolling_x_newsroom_cycle(
         load_rolling_x_headline_sidecars,
         select_first_viable_rolling_x_cluster,
     )
+    from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
 
     output_dir.mkdir(parents=True, exist_ok=True)
     evidence_path = output_dir / "rolling_x_newsroom_cycle_evidence_v1.json"
@@ -3498,13 +3499,46 @@ def _run_rolling_x_newsroom_cycle(
         output_dir / "rolling_x_assignment_compaction_v1.json",
         assignment_compaction,
     )
-    assignment = assign_rolling_x_headlines_with_nine_router(
-        rolling_input=assignment_input,
-        timeout_seconds=assignment_timeout_seconds,
-        provider_call=assignment_provider_call,
-        leaf_checkpoints=leaf_checkpoints,
-        global_checkpoint=global_checkpoint,
-    )
+    try:
+        assignment = assign_rolling_x_headlines_with_nine_router(
+            rolling_input=assignment_input,
+            timeout_seconds=assignment_timeout_seconds,
+            provider_call=assignment_provider_call,
+            leaf_checkpoints=leaf_checkpoints,
+            global_checkpoint=global_checkpoint,
+        )
+    except RoutedInvocationError as exc:
+        summary = dict(getattr(exc, "summary", {}) or {})
+        role = str(summary.get("role_task_id") or "")
+        reason_code = (
+            "ROLLING_X_LEAF_ASSIGNMENT_BLOCKED"
+            if role == "rolling_x_newsroom_leaf_scan"
+            else "ROLLING_X_GLOBAL_EDITOR_BLOCKED"
+        )
+        assignment = {
+            "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+            "status": "BLOCKED",
+            "decision": None,
+            "reason_code": reason_code,
+            "publication_authority_granted": False,
+            "telemetry": {
+                "schema_version": "contentops.sanitized_routed_invocation_failure.v1",
+                "terminal_disposition": str(
+                    summary.get("terminal_disposition") or "ROUTED_INVOCATION_FAILED"
+                ),
+                "budget_exhausted_reason": (
+                    str(summary["budget_exhausted_reason"])
+                    if summary.get("budget_exhausted_reason")
+                    else None
+                ),
+                "models_attempted_in_order": [
+                    str(model)
+                    for model in summary.get("models_attempted_in_order") or []
+                ],
+                "raw_provider_error_persisted": False,
+                "raw_provider_output_persisted": False,
+            },
+        }
     if (
         assignment.get("status") == "BLOCKED"
         and assignment.get("reason_code") in {
