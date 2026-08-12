@@ -125,6 +125,10 @@ def test_publication_lifecycle_classes_are_exact(tmp_path):
         store, suffix="pending", status="DISPATCH_CONFIRMED", object_id="public-456",
         reconciliation="RECONCILIATION_PENDING_READBACK",
     )
+    incomplete = _seed_dispatch(
+        store, suffix="incomplete", status="DISPATCH_CONFIRMED", object_id="public-789",
+        reconciliation="RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+    )
     unknown = _seed_dispatch(
         store, suffix="unknown", status="UNKNOWN_WRITE",
         reconciliation="RECONCILIATION_PENDING_OPERATOR_RECOVERY",
@@ -137,10 +141,16 @@ def test_publication_lifecycle_classes_are_exact(tmp_path):
     assert _publication(snapshot, real)["lifecycle_classification"] == "REAL_PUBLICATION_CONFIRMED"
     assert _publication(snapshot, real)["public_object_id"] == "public-123"
     assert _publication(snapshot, pending)["lifecycle_classification"] == "CONFIRMED_DISPATCH_PENDING_READBACK"
+    assert _publication(snapshot, incomplete)["lifecycle_classification"] == (
+        "CONFIRMED_PUBLICATION_CONTENT_INCOMPLETE"
+    )
     assert _publication(snapshot, unknown)["lifecycle_classification"] == "UNKNOWN_WRITE"
     assert _publication(snapshot, controlled)["lifecycle_classification"] == "CONTROLLED_NO_PUBLIC_WRITE"
     assert snapshot["published"]["real_publication_count"] == 1
     assert snapshot["published"]["controlled_no_public_write_count"] == 1
+    # The pending dispatch and UNKNOWN_WRITE require recovery; the terminal incomplete object
+    # does not.
+    assert snapshot["published"]["pending_readback_count"] == 2
     assert any(item["what_happened"] == "UNKNOWN_WRITE" for item in snapshot["incidents"]["items"])
 
 

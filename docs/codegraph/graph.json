@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12236,
+    "edges": 12249,
     "entrypoints": 12,
-    "nodes": 6534,
+    "nodes": 6538,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 13,
@@ -33,8 +33,8 @@
       "instructions": 8,
       "manifest": 9,
       "python_class": 528,
-      "python_function": 3622,
-      "python_method": 218,
+      "python_function": 3624,
+      "python_method": 220,
       "python_module": 685,
       "schema": 159,
       "test": 692,
@@ -10395,6 +10395,12 @@
     },
     {
       "from": "live_contentops/discord_live_adapter_v6.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/discord_live_adapter_v6.py::readback_discord_post"
+    },
+    {
+      "from": "live_contentops/discord_live_adapter_v6.py",
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_discord_live_adapter_v6.py"
@@ -12377,6 +12383,12 @@
       "from": "live_contentops/durable_operational_store_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.list_readbacks_for_dispatch"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.mark_performance_observation_collected"
     },
     {
@@ -12912,6 +12924,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::reconcile_substack_publication_by_draft_id_via_edge"
+    },
+    {
+      "from": "live_contentops/edge_cdp_publishing_adapter_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::reconcile_youtube_community_post_by_text_via_edge"
     },
     {
       "from": "live_contentops/edge_cdp_publishing_adapter_v1.py",
@@ -29963,6 +29981,12 @@
       "from": "live_contentops/publication_coordinator_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.replay_persisted_verified_readback"
+    },
+    {
+      "from": "live_contentops/publication_coordinator_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.retry_reconciled_absent_substack"
     },
     {
@@ -38861,6 +38885,12 @@
       "from": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_readback_one_destination_from_durable_intent",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_write_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_readback_one_destination_from_durable_intent",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::audit_public_substack_article_via_edge"
     },
     {
@@ -38886,6 +38916,18 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::reconcile_substack_publication_by_draft_id_via_edge"
+    },
+    {
+      "from": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_readback_one_destination_from_durable_intent",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::reconcile_youtube_community_post_by_text_via_edge"
+    },
+    {
+      "from": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_readback_one_destination_from_durable_intent",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/media_manifest_authority_v1.py::build_delivery_media_manifest"
     },
     {
       "from": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_existing_derivative_readbacks",
@@ -47018,6 +47060,12 @@
       "to": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_connection"
     },
     {
+      "from": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.list_readbacks_for_dispatch",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_connection"
+    },
+    {
       "from": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.mark_performance_observation_collected",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -47886,6 +47934,18 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::canonical_edge_page"
+    },
+    {
+      "from": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::reconcile_youtube_community_post_by_text_via_edge",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::canonical_edge_page"
+    },
+    {
+      "from": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::reconcile_youtube_community_post_by_text_via_edge",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::readback_youtube_community_post_via_edge"
     },
     {
       "from": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::repair_substack_duplicate_caption_fragment_via_edge",
@@ -58709,6 +58769,12 @@
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._ids"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._reconcile"
     },
     {
@@ -58740,6 +58806,18 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_hash"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.replay_persisted_verified_readback",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._ids"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.replay_persisted_verified_readback",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_valid_substack_canonical_url"
     },
     {
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.retry_reconciled_absent_substack",
@@ -73554,7 +73632,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-12T15:52:36Z",
+  "generation_timestamp_utc": "2026-08-12T16:03:04Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -74023,7 +74101,7 @@
     {
       "id": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "kind": "python_module",
-      "size_bytes": 296258
+      "size_bytes": 297861
     },
     {
       "id": "live_contentops/accepted_review_editorial_workflow_v6.py",
@@ -74783,12 +74861,12 @@
     {
       "id": "live_contentops/daily_app_supervisor_v1.py",
       "kind": "python_module",
-      "size_bytes": 114797
+      "size_bytes": 114894
     },
     {
       "id": "live_contentops/daily_app_ui_read_model_v1.py",
       "kind": "python_module",
-      "size_bytes": 52559
+      "size_bytes": 52815
     },
     {
       "id": "live_contentops/daily_article_brief_generation_v0.py",
@@ -74908,7 +74986,7 @@
     {
       "id": "live_contentops/discord_live_adapter_v6.py",
       "kind": "python_module",
-      "size_bytes": 9759
+      "size_bytes": 12103
     },
     {
       "id": "live_contentops/dispatch_audit_dry_run_contract.py",
@@ -75018,12 +75096,12 @@
     {
       "id": "live_contentops/durable_operational_store_v1.py",
       "kind": "python_module",
-      "size_bytes": 123411
+      "size_bytes": 123845
     },
     {
       "id": "live_contentops/edge_cdp_publishing_adapter_v1.py",
       "kind": "python_module",
-      "size_bytes": 206348
+      "size_bytes": 208070
     },
     {
       "id": "live_contentops/editorial_brief_ai_writer_output_contract.py",
@@ -76503,7 +76581,7 @@
     {
       "id": "live_contentops/publication_coordinator_v1.py",
       "kind": "python_module",
-      "size_bytes": 32996
+      "size_bytes": 37280
     },
     {
       "id": "live_contentops/publish_adapter_credential_secret_policy.py",
@@ -77430,539 +77508,539 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_append_dispatch_ledger",
       "kind": "python_function",
-      "line": 587,
+      "line": 588,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_append_dispatch_ledger"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_apply_exact_editorial_replacements",
       "kind": "python_function",
-      "line": 4991,
+      "line": 5028,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_apply_exact_editorial_replacements"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_balanced_pack",
       "kind": "python_function",
-      "line": 204,
+      "line": 205,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_balanced_pack"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_balanced_pack.solve",
       "kind": "python_method",
-      "line": 221,
+      "line": 222,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_balanced_pack.solve"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_build_operator_manual_audit_packet",
       "kind": "python_function",
-      "line": 1554,
+      "line": 1555,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_build_operator_manual_audit_packet"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_build_rolling_x_publication_plan",
       "kind": "python_function",
-      "line": 2822,
+      "line": 2823,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_build_rolling_x_publication_plan"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_capability_presence",
       "kind": "python_function",
-      "line": 948,
+      "line": 949,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_capability_presence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_capability_presence.present",
       "kind": "python_method",
-      "line": 949,
+      "line": 950,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_capability_presence.present"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_classification",
       "kind": "python_function",
-      "line": 963,
+      "line": 964,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_classification"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_concise_semantic_sentence",
       "kind": "python_function",
-      "line": 279,
+      "line": 280,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_concise_semantic_sentence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_default_rolling_x_article_reviser",
       "kind": "python_function",
-      "line": 3235,
+      "line": 3272,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_default_rolling_x_article_reviser"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_default_rolling_x_article_reviser.validate",
       "kind": "python_method",
-      "line": 3275,
+      "line": 3312,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_default_rolling_x_article_reviser.validate"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_default_rolling_x_editorial_reviewer",
       "kind": "python_function",
-      "line": 3224,
+      "line": 3261,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_default_rolling_x_editorial_reviewer"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_default_rolling_x_evidence_acquirer",
       "kind": "python_function",
-      "line": 3320,
+      "line": 3357,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_default_rolling_x_evidence_acquirer"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_dispatch_canonical_operation",
       "kind": "python_function",
-      "line": 5943,
+      "line": 5980,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_dispatch_canonical_operation"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_dispatch_once",
       "kind": "python_function",
-      "line": 593,
+      "line": 594,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_dispatch_once"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_durable_intent_inputs",
       "kind": "python_function",
-      "line": 2918,
+      "line": 2919,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_durable_intent_inputs"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_ensure_canonical_edge_publishing_runtime",
       "kind": "python_function",
-      "line": 5903,
+      "line": 5940,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_ensure_canonical_edge_publishing_runtime"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_first_complete_sentence",
       "kind": "python_function",
-      "line": 263,
+      "line": 264,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_first_complete_sentence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_implementation_main",
       "kind": "python_function",
-      "line": 5635,
+      "line": 5672,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_implementation_main"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_json_sha256",
       "kind": "python_function",
-      "line": 158,
+      "line": 159,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_json_sha256"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_load_dispatch_ledger",
       "kind": "python_function",
-      "line": 573,
+      "line": 574,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_load_dispatch_ledger"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_persist_final_platform_matrix",
       "kind": "python_function",
-      "line": 996,
+      "line": 997,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_persist_final_platform_matrix"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_persist_sanitized_substack_transport_attempt",
       "kind": "python_function",
-      "line": 2957,
+      "line": 2958,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_persist_sanitized_substack_transport_attempt"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_platform_machine_checks",
       "kind": "python_function",
-      "line": 1492,
+      "line": 1493,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_platform_machine_checks"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_platform_observed_text",
       "kind": "python_function",
-      "line": 1475,
+      "line": 1476,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_platform_observed_text"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_prepare_generic_text_image_release_candidate",
       "kind": "python_function",
-      "line": 1338,
+      "line": 1339,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_prepare_generic_text_image_release_candidate"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_prepare_rolling_x_release_candidate",
       "kind": "python_function",
-      "line": 2613,
+      "line": 2614,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_prepare_rolling_x_release_candidate"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_prepare_text_image_release_candidate",
       "kind": "python_function",
-      "line": 1148,
+      "line": 1149,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_prepare_text_image_release_candidate"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_publish_discord_verified",
       "kind": "python_function",
-      "line": 785,
+      "line": 786,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_publish_discord_verified"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_publish_facebook_photo_verified",
       "kind": "python_function",
-      "line": 831,
+      "line": 832,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_publish_facebook_photo_verified"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_publish_instagram_media_verified",
       "kind": "python_function",
-      "line": 869,
+      "line": 870,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_publish_instagram_media_verified"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_publish_one_destination_from_durable_intent",
       "kind": "python_function",
-      "line": 3019,
+      "line": 3020,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_publish_one_destination_from_durable_intent"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_publish_telegram_photo_verified",
       "kind": "python_function",
-      "line": 692,
+      "line": 693,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_publish_telegram_photo_verified"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_publish_threads_reply_verified",
       "kind": "python_function",
-      "line": 907,
+      "line": 908,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_publish_threads_reply_verified"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_punctuate",
       "kind": "python_function",
-      "line": 176,
+      "line": 177,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_punctuate"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_read_json",
       "kind": "python_function",
-      "line": 130,
+      "line": 131,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_read_json"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_readback_one_destination_from_durable_intent",
       "kind": "python_function",
-      "line": 3149,
+      "line": 3150,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_readback_one_destination_from_durable_intent"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_readme",
       "kind": "python_function",
-      "line": 978,
+      "line": 979,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_readme"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_existing_derivative_readbacks",
       "kind": "python_function",
-      "line": 4765,
+      "line": 4802,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_existing_derivative_readbacks"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_linkedin_activity_pair",
       "kind": "python_function",
-      "line": 5352,
+      "line": 5389,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_linkedin_activity_pair"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_public_substack_for_derivative_resume",
       "kind": "python_function",
-      "line": 3998,
+      "line": 4035,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_public_substack_for_derivative_resume"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_release_account_preflight",
       "kind": "python_function",
-      "line": 1083,
+      "line": 1084,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_release_account_preflight"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_release_lock_artifacts",
       "kind": "python_function",
-      "line": 1099,
+      "line": 1100,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_release_lock_artifacts"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_exact_substack_caption_fragment",
       "kind": "python_function",
-      "line": 4915,
+      "line": 4952,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_exact_substack_caption_fragment"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_exact_treasury_release_candidate_editorial",
       "kind": "python_function",
-      "line": 5002,
+      "line": 5039,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_exact_treasury_release_candidate_editorial"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_final_treasury_auction_logic",
       "kind": "python_function",
-      "line": 5122,
+      "line": 5159,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_final_treasury_auction_logic"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_resume_eight_platform_derivatives",
       "kind": "python_function",
-      "line": 4030,
+      "line": 4067,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_resume_eight_platform_derivatives"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_rolling_x_destination_readiness",
       "kind": "python_function",
-      "line": 2242,
+      "line": 2243,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_rolling_x_destination_readiness"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_rolling_x_ranked_clusters_with_context",
       "kind": "python_function",
-      "line": 3336,
+      "line": 3373,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_rolling_x_ranked_clusters_with_context"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_rolling_x_selection_contract",
       "kind": "python_function",
-      "line": 2528,
+      "line": 2529,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_rolling_x_selection_contract"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_root_and_replies",
       "kind": "python_function",
-      "line": 372,
+      "line": 373,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_root_and_replies"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_bounded_rolling_x_editorial_cycle",
       "kind": "python_function",
-      "line": 2332,
+      "line": 2333,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_bounded_rolling_x_editorial_cycle"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_bounded_rolling_x_editorial_cycle.revision_changes_fact_or_numeric_scope",
       "kind": "python_method",
-      "line": 2391,
+      "line": 2392,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_bounded_rolling_x_editorial_cycle.revision_changes_fact_or_numeric_scope"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_bounded_rolling_x_editorial_cycle.sanitized_router_failure",
       "kind": "python_method",
-      "line": 2347,
+      "line": 2348,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_bounded_rolling_x_editorial_cycle.sanitized_router_failure"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_bounded_rolling_x_editorial_cycle.semantic_requires_rereview",
       "kind": "python_method",
-      "line": 2380,
+      "line": 2381,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_bounded_rolling_x_editorial_cycle.semantic_requires_rereview"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_eight_platform_substack_first_pipeline",
       "kind": "python_function",
-      "line": 1718,
+      "line": 1719,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_eight_platform_substack_first_pipeline"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle",
       "kind": "python_function",
-      "line": 3496,
+      "line": 3533,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_safe_provider_result",
       "kind": "python_function",
-      "line": 511,
+      "line": 512,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_safe_provider_result"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_semantic_thread_layout",
       "kind": "python_function",
-      "line": 332,
+      "line": 333,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_semantic_thread_layout"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_sentence_units",
       "kind": "python_function",
-      "line": 171,
+      "line": 172,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_sentence_units"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_sha256",
       "kind": "python_function",
-      "line": 146,
+      "line": 147,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_sha256"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_sha256_file",
       "kind": "python_function",
-      "line": 150,
+      "line": 151,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_sha256_file"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_sharp_social_lede",
       "kind": "python_function",
-      "line": 269,
+      "line": 270,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_sharp_social_lede"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_split_complete_chunks",
       "kind": "python_function",
-      "line": 248,
+      "line": 249,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_split_complete_chunks"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_split_oversized_sentence",
       "kind": "python_function",
-      "line": 181,
+      "line": 182,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_split_oversized_sentence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_thread_quality",
       "kind": "python_function",
-      "line": 289,
+      "line": 290,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_thread_quality"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_utc_now",
       "kind": "python_function",
-      "line": 126,
+      "line": 127,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_utc_now"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_validate_injected_rolling_x_story_types",
       "kind": "python_function",
-      "line": 3436,
+      "line": 3473,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_validate_injected_rolling_x_story_types"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_validate_rolling_x_release_inputs",
       "kind": "python_function",
-      "line": 2564,
+      "line": 2565,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_validate_rolling_x_release_inputs"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_validated_rolling_x_story_routing",
       "kind": "python_function",
-      "line": 3464,
+      "line": 3501,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_validated_rolling_x_story_routing"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_verify_release_candidate_lock",
       "kind": "python_function",
-      "line": 1111,
+      "line": 1112,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_verify_release_candidate_lock"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_write_json",
       "kind": "python_function",
-      "line": 134,
+      "line": 135,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_write_json"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_write_text",
       "kind": "python_function",
-      "line": 140,
+      "line": 141,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_write_text"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::build_native_derivative_payloads",
       "kind": "python_function",
-      "line": 403,
+      "line": 404,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "build_native_derivative_payloads"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::compile_variant_reliability_evidence",
       "kind": "python_function",
-      "line": 5474,
+      "line": 5511,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "compile_variant_reliability_evidence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::finalize_reliability_hardening_evidence",
       "kind": "python_function",
-      "line": 5512,
+      "line": 5549,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "finalize_reliability_hardening_evidence"
     },
@@ -84430,336 +84508,336 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor",
       "kind": "python_class",
-      "line": 316,
+      "line": 319,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.__init__",
       "kind": "python_method",
-      "line": 319,
+      "line": 322,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.__init__"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._build_editorial_portfolio_context",
       "kind": "python_method",
-      "line": 1886,
+      "line": 1889,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._build_editorial_portfolio_context"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._capture_detail_suffix",
       "kind": "python_method",
-      "line": 1341,
+      "line": 1344,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._capture_detail_suffix"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._consume_pending_operator_trigger",
       "kind": "python_method",
-      "line": 1348,
+      "line": 1351,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._consume_pending_operator_trigger"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._due_windows",
       "kind": "python_method",
-      "line": 1717,
+      "line": 1720,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._due_windows"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._execute_window",
       "kind": "python_method",
-      "line": 2136,
+      "line": 2139,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._execute_window"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._latest_recovery_attempt_at",
       "kind": "python_method",
-      "line": 1070,
+      "line": 1073,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._latest_recovery_attempt_at"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._lifecycle_identity",
       "kind": "python_method",
-      "line": 533,
+      "line": 536,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._lifecycle_identity"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._load_editorial_intelligence_runtime",
       "kind": "python_method",
-      "line": 1855,
+      "line": 1858,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._load_editorial_intelligence_runtime"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._load_production_epoch",
       "kind": "python_method",
-      "line": 475,
+      "line": 478,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._load_production_epoch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._maybe_drive_publication_lifecycle",
       "kind": "python_method",
-      "line": 1272,
+      "line": 1275,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._maybe_drive_publication_lifecycle"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._next_observation_wake",
       "kind": "python_method",
-      "line": 1191,
+      "line": 1194,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._next_observation_wake"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._next_recovery_wake",
       "kind": "python_method",
-      "line": 1111,
+      "line": 1114,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._next_recovery_wake"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._next_wake",
       "kind": "python_method",
-      "line": 2321,
+      "line": 2324,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._next_wake"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_windows",
       "kind": "python_method",
-      "line": 1689,
+      "line": 1692,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._pending_material_event_windows"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_readback_reconciliation_candidates",
       "kind": "python_method",
-      "line": 1023,
+      "line": 1026,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._pending_readback_reconciliation_candidates"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._published_memory_projection",
       "kind": "python_method",
-      "line": 1959,
+      "line": 1962,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._published_memory_projection"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._reconciliation_status_for_dispatch",
       "kind": "python_method",
-      "line": 1174,
+      "line": 1177,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._reconciliation_status_for_dispatch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._record_editorial_novelty_decision",
       "kind": "python_method",
-      "line": 1934,
+      "line": 1937,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._record_editorial_novelty_decision"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._record_production_epoch",
       "kind": "python_method",
-      "line": 488,
+      "line": 491,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._record_production_epoch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._record_published_memory_cycle_proof",
       "kind": "python_method",
-      "line": 1983,
+      "line": 1986,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._record_published_memory_cycle_proof"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._recover_stale_pending",
       "kind": "python_method",
-      "line": 1807,
+      "line": 1810,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._recover_stale_pending"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._recovery_window_eligible_at",
       "kind": "python_method",
-      "line": 1097,
+      "line": 1100,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._recovery_window_eligible_at"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._refresh_operating_mode",
       "kind": "python_method",
-      "line": 419,
+      "line": 422,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._refresh_operating_mode"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._resolve_production_epoch",
       "kind": "python_method",
-      "line": 449,
+      "line": 452,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._resolve_production_epoch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._run_continuous_intake_housekeeping",
       "kind": "python_method",
-      "line": 1305,
+      "line": 1308,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._run_continuous_intake_housekeeping"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._run_operator_trigger_intake_sync",
       "kind": "python_method",
-      "line": 1325,
+      "line": 1328,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._run_operator_trigger_intake_sync"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._run_performance_observations",
       "kind": "python_method",
-      "line": 1204,
+      "line": 1207,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._run_performance_observations"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._run_readback_reconciliation_housekeeping",
       "kind": "python_method",
-      "line": 1123,
+      "line": 1126,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._run_readback_reconciliation_housekeeping"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._stage_material_event",
       "kind": "python_method",
-      "line": 1663,
+      "line": 1666,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._stage_material_event"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._timing_policy_offset_minutes",
       "kind": "python_method",
-      "line": 1649,
+      "line": 1652,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._timing_policy_offset_minutes"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._transition",
       "kind": "python_method",
-      "line": 1780,
+      "line": 1783,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._transition"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._verify_readback_confirmation",
       "kind": "python_method",
-      "line": 553,
+      "line": 556,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._verify_readback_confirmation"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._window_for_day",
       "kind": "python_method",
-      "line": 1641,
+      "line": 1644,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._window_for_day"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._window_state",
       "kind": "python_method",
-      "line": 1769,
+      "line": 1772,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._window_state"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._within_production_epoch",
       "kind": "python_method",
-      "line": 510,
+      "line": 513,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._within_production_epoch"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.drive_canonical_publication_lifecycle",
       "kind": "python_method",
-      "line": 585,
+      "line": 588,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.drive_canonical_publication_lifecycle"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.operating_mode",
       "kind": "python_method",
-      "line": 416,
+      "line": 419,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.operating_mode"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.perform_safe_readback_and_reconciliation",
       "kind": "python_method",
-      "line": 823,
+      "line": 826,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.perform_safe_readback_and_reconciliation"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.policy",
       "kind": "python_method",
-      "line": 412,
+      "line": 415,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.policy"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.production_epoch_start_utc",
       "kind": "python_method",
-      "line": 442,
+      "line": 445,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.production_epoch_start_utc"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.run_forever",
       "kind": "python_method",
-      "line": 1598,
+      "line": 1601,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.run_forever"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.store_path",
       "kind": "python_method",
-      "line": 437,
+      "line": 440,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.store_path"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.tick",
       "kind": "python_method",
-      "line": 1426,
+      "line": 1429,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.tick"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::CoreEditorialWindow",
       "kind": "python_class",
-      "line": 156,
+      "line": 159,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "CoreEditorialWindow"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::EditorialWindowPolicy",
       "kind": "python_class",
-      "line": 165,
+      "line": 168,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "EditorialWindowPolicy"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::EditorialWindowPolicy.to_dict",
       "kind": "python_method",
-      "line": 187,
+      "line": 190,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "EditorialWindowPolicy.to_dict"
     },
@@ -84780,168 +84858,168 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::_iso_utc",
       "kind": "python_function",
-      "line": 144,
+      "line": 147,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "_iso_utc"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::_logical_hash",
       "kind": "python_function",
-      "line": 138,
+      "line": 141,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "_logical_hash"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::_parse_utc",
       "kind": "python_function",
-      "line": 148,
+      "line": 151,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "_parse_utc"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::build_bootstrap_editorial_window_policy",
       "kind": "python_function",
-      "line": 206,
+      "line": 209,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "build_bootstrap_editorial_window_policy"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::editorial_window_id",
       "kind": "python_function",
-      "line": 247,
+      "line": 250,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "editorial_window_id"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::material_event_due",
       "kind": "python_function",
-      "line": 266,
+      "line": 269,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "material_event_due"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::material_event_window_id",
       "kind": "python_function",
-      "line": 305,
+      "line": 308,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "material_event_window_id"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::DailyAppReadModelError",
       "kind": "python_class",
-      "line": 84,
+      "line": 85,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "DailyAppReadModelError"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_assert_nonsecret",
       "kind": "python_function",
-      "line": 222,
+      "line": 229,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_assert_nonsecret"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_dispatch_classification",
       "kind": "python_function",
-      "line": 207,
+      "line": 208,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_dispatch_classification"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_iso",
       "kind": "python_function",
-      "line": 92,
+      "line": 93,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_iso"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_json",
       "kind": "python_function",
-      "line": 108,
+      "line": 109,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_json"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_latest_time",
       "kind": "python_function",
-      "line": 128,
+      "line": 129,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_latest_time"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_next_windows",
       "kind": "python_function",
-      "line": 172,
+      "line": 173,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_next_windows"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_parse_time",
       "kind": "python_function",
-      "line": 96,
+      "line": 97,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_parse_time"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_policy_provenance",
       "kind": "python_function",
-      "line": 138,
+      "line": 139,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_policy_provenance"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_policy_timing_offset_minutes",
       "kind": "python_function",
-      "line": 160,
+      "line": 161,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_policy_timing_offset_minutes"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_read_json_file",
       "kind": "python_function",
-      "line": 116,
+      "line": 117,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_read_json_file"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_rows",
       "kind": "python_function",
-      "line": 124,
+      "line": 125,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_rows"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_sanitize_operator_trigger",
       "kind": "python_function",
-      "line": 913,
+      "line": 920,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_sanitize_operator_trigger"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_utc_now",
       "kind": "python_function",
-      "line": 88,
+      "line": 89,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_utc_now"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot",
       "kind": "python_function",
-      "line": 233,
+      "line": 240,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "build_daily_app_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::request_operator_cycle",
       "kind": "python_function",
-      "line": 927,
+      "line": 934,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "request_operator_cycle"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::update_daily_app_mode",
       "kind": "python_function",
-      "line": 889,
+      "line": 896,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "update_daily_app_mode"
     },
@@ -85606,14 +85684,14 @@
     {
       "id": "python_symbol:live_contentops/discord_live_adapter_v6.py::execute_discord_comment",
       "kind": "python_function",
-      "line": 122,
+      "line": 179,
       "path": "live_contentops/discord_live_adapter_v6.py",
       "symbol": "execute_discord_comment"
     },
     {
       "id": "python_symbol:live_contentops/discord_live_adapter_v6.py::execute_discord_edit",
       "kind": "python_function",
-      "line": 214,
+      "line": 271,
       "path": "live_contentops/discord_live_adapter_v6.py",
       "symbol": "execute_discord_edit"
     },
@@ -85623,6 +85701,13 @@
       "line": 28,
       "path": "live_contentops/discord_live_adapter_v6.py",
       "symbol": "execute_discord_post"
+    },
+    {
+      "id": "python_symbol:live_contentops/discord_live_adapter_v6.py::readback_discord_post",
+      "kind": "python_function",
+      "line": 122,
+      "path": "live_contentops/discord_live_adapter_v6.py",
+      "symbol": "readback_discord_post"
     },
     {
       "id": "python_symbol:live_contentops/dispatch_audit_dry_run_contract.py::audit_hash_material",
@@ -86887,7 +86972,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.active_editorial_cycle_window_ids",
       "kind": "python_method",
-      "line": 1848,
+      "line": 1857,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.active_editorial_cycle_window_ids"
     },
@@ -86901,7 +86986,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.consume_operator_cycle_trigger",
       "kind": "python_method",
-      "line": 1812,
+      "line": 1821,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.consume_operator_cycle_trigger"
     },
@@ -86936,7 +87021,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.fetch_pending_operator_trigger",
       "kind": "python_method",
-      "line": 1796,
+      "line": 1805,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.fetch_pending_operator_trigger"
     },
@@ -86950,7 +87035,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_active_learning_policy",
       "kind": "python_method",
-      "line": 1667,
+      "line": 1676,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.get_active_learning_policy"
     },
@@ -86978,35 +87063,35 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_dispatches_for_work_item",
       "kind": "python_method",
-      "line": 1384,
+      "line": 1393,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.get_dispatches_for_work_item"
     },
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_learning_policy",
       "kind": "python_method",
-      "line": 1654,
+      "line": 1663,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.get_learning_policy"
     },
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_operating_control",
       "kind": "python_method",
-      "line": 1680,
+      "line": 1689,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.get_operating_control"
     },
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_outbox_message",
       "kind": "python_method",
-      "line": 1377,
+      "line": 1386,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.get_outbox_message"
     },
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_performance_observation",
       "kind": "python_method",
-      "line": 1556,
+      "line": 1565,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.get_performance_observation"
     },
@@ -87027,7 +87112,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_reconciliations_for_work_item",
       "kind": "python_method",
-      "line": 1392,
+      "line": 1401,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.get_reconciliations_for_work_item"
     },
@@ -87041,21 +87126,21 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.latest_operator_cycle_trigger",
       "kind": "python_method",
-      "line": 1804,
+      "line": 1813,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.latest_operator_cycle_trigger"
     },
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.list_destination_readiness",
       "kind": "python_method",
-      "line": 1460,
+      "line": 1469,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.list_destination_readiness"
     },
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.list_learning_policies",
       "kind": "python_method",
-      "line": 1661,
+      "line": 1670,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.list_learning_policies"
     },
@@ -87069,7 +87154,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.list_performance_observations",
       "kind": "python_method",
-      "line": 1563,
+      "line": 1572,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.list_performance_observations"
     },
@@ -87081,9 +87166,16 @@
       "symbol": "ContentOpsDurableStore.list_platform_dispatches"
     },
     {
+      "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.list_readbacks_for_dispatch",
+      "kind": "python_method",
+      "line": 1309,
+      "path": "live_contentops/durable_operational_store_v1.py",
+      "symbol": "ContentOpsDurableStore.list_readbacks_for_dispatch"
+    },
+    {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.mark_performance_observation_collected",
       "kind": "python_method",
-      "line": 1524,
+      "line": 1533,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.mark_performance_observation_collected"
     },
@@ -87111,7 +87203,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.record_operator_cycle_trigger",
       "kind": "python_method",
-      "line": 1736,
+      "line": 1745,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.record_operator_cycle_trigger"
     },
@@ -87132,14 +87224,14 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.register_incident",
       "kind": "python_method",
-      "line": 1317,
+      "line": 1326,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.register_incident"
     },
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.register_learning_policy",
       "kind": "python_method",
-      "line": 1582,
+      "line": 1591,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.register_learning_policy"
     },
@@ -87153,7 +87245,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.register_performance_observation",
       "kind": "python_method",
-      "line": 1474,
+      "line": 1483,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.register_performance_observation"
     },
@@ -87181,7 +87273,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.register_reconciliation",
       "kind": "python_method",
-      "line": 1309,
+      "line": 1318,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.register_reconciliation"
     },
@@ -87223,14 +87315,14 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.set_dispatch_status",
       "kind": "python_method",
-      "line": 1325,
+      "line": 1334,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.set_dispatch_status"
     },
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.set_learning_policy_status",
       "kind": "python_method",
-      "line": 1628,
+      "line": 1637,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.set_learning_policy_status"
     },
@@ -87244,14 +87336,14 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.set_reconciliation_status",
       "kind": "python_method",
-      "line": 1351,
+      "line": 1360,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.set_reconciliation_status"
     },
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.stale_editorial_cycle_window_ids",
       "kind": "python_method",
-      "line": 1861,
+      "line": 1870,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.stale_editorial_cycle_window_ids"
     },
@@ -87265,14 +87357,14 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.update_operating_control",
       "kind": "python_method",
-      "line": 1689,
+      "line": 1698,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.update_operating_control"
     },
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.upsert_destination_readiness",
       "kind": "python_method",
-      "line": 1403,
+      "line": 1412,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.upsert_destination_readiness"
     },
@@ -87545,7 +87637,7 @@
     {
       "id": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::probe_youtube_community_surface_via_edge",
       "kind": "python_function",
-      "line": 4092,
+      "line": 4128,
       "path": "live_contentops/edge_cdp_publishing_adapter_v1.py",
       "symbol": "probe_youtube_community_surface_via_edge"
     },
@@ -87587,14 +87679,14 @@
     {
       "id": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::publish_youtube_community_post_via_edge",
       "kind": "python_function",
-      "line": 4131,
+      "line": 4167,
       "path": "live_contentops/edge_cdp_publishing_adapter_v1.py",
       "symbol": "publish_youtube_community_post_via_edge"
     },
     {
       "id": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::publish_youtube_short_via_edge",
       "kind": "python_function",
-      "line": 4397,
+      "line": 4443,
       "path": "live_contentops/edge_cdp_publishing_adapter_v1.py",
       "symbol": "publish_youtube_short_via_edge"
     },
@@ -87653,6 +87745,13 @@
       "line": 1636,
       "path": "live_contentops/edge_cdp_publishing_adapter_v1.py",
       "symbol": "reconcile_substack_publication_by_draft_id_via_edge"
+    },
+    {
+      "id": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::reconcile_youtube_community_post_by_text_via_edge",
+      "kind": "python_function",
+      "line": 3985,
+      "path": "live_contentops/edge_cdp_publishing_adapter_v1.py",
+      "symbol": "reconcile_youtube_community_post_by_text_via_edge"
     },
     {
       "id": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::repair_substack_duplicate_caption_fragment_via_edge",
@@ -101048,182 +101147,189 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator",
       "kind": "python_class",
-      "line": 145,
+      "line": 149,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.__init__",
       "kind": "python_method",
-      "line": 148,
+      "line": 152,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.__init__"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._dispatch_message",
       "kind": "python_method",
-      "line": 330,
+      "line": 341,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._dispatch_message"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._ids",
       "kind": "python_method",
-      "line": 182,
+      "line": 186,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._ids"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._mode",
       "kind": "python_method",
-      "line": 192,
+      "line": 196,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._mode"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._readiness",
       "kind": "python_method",
-      "line": 198,
+      "line": 202,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._readiness"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._reconcile",
       "kind": "python_method",
-      "line": 260,
+      "line": 264,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._reconcile"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._refresh_readiness_if_due",
       "kind": "python_method",
-      "line": 163,
+      "line": 167,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._refresh_readiness_if_due"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.collect_metrics",
       "kind": "python_method",
-      "line": 594,
+      "line": 681,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.collect_metrics"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.execute_plan",
       "kind": "python_method",
-      "line": 464,
+      "line": 528,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.execute_plan"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.publish_plan",
       "kind": "python_method",
-      "line": 587,
+      "line": 674,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.publish_plan"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.readback",
       "kind": "python_method",
-      "line": 590,
+      "line": 677,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.readback"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
       "kind": "python_method",
-      "line": 553,
+      "line": 617,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.recover_pending"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.register_plan",
       "kind": "python_method",
-      "line": 209,
+      "line": 213,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.register_plan"
     },
     {
+      "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.replay_persisted_verified_readback",
+      "kind": "python_method",
+      "line": 475,
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "symbol": "DurablePublicationCoordinator.replay_persisted_verified_readback"
+    },
+    {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.retry_reconciled_absent_substack",
       "kind": "python_method",
-      "line": 445,
+      "line": 456,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.retry_reconciled_absent_substack"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::HistoricalAdapterTransportRuntime",
       "kind": "python_class",
-      "line": 599,
+      "line": 686,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "HistoricalAdapterTransportRuntime"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::HistoricalAdapterTransportRuntime.__init__",
       "kind": "python_method",
-      "line": 602,
+      "line": 689,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "HistoricalAdapterTransportRuntime.__init__"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::HistoricalAdapterTransportRuntime.collect_metrics",
       "kind": "python_method",
-      "line": 659,
+      "line": 746,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "HistoricalAdapterTransportRuntime.collect_metrics"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::HistoricalAdapterTransportRuntime.finalize_intent",
       "kind": "python_method",
-      "line": 625,
+      "line": 712,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "HistoricalAdapterTransportRuntime.finalize_intent"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::HistoricalAdapterTransportRuntime.publish",
       "kind": "python_method",
-      "line": 605,
+      "line": 692,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "HistoricalAdapterTransportRuntime.publish"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::HistoricalAdapterTransportRuntime.readback",
       "kind": "python_method",
-      "line": 641,
+      "line": 728,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "HistoricalAdapterTransportRuntime.readback"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::_canonical_json",
       "kind": "python_function",
-      "line": 33,
+      "line": 36,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "_canonical_json"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::_hash",
       "kind": "python_function",
-      "line": 37,
+      "line": 40,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "_hash"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::_valid_substack_canonical_url",
       "kind": "python_function",
-      "line": 41,
+      "line": 44,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "_valid_substack_canonical_url"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::normalize_dispatch_result",
       "kind": "python_function",
-      "line": 58,
+      "line": 61,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "normalize_dispatch_result"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::normalize_readback_result",
       "kind": "python_function",
-      "line": 110,
+      "line": 113,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "normalize_readback_result"
     },
@@ -109559,7 +109665,7 @@
     {
       "id": "tests/test_daily_app_ui_read_model_v1.py",
       "kind": "test",
-      "size_bytes": 16041
+      "size_bytes": 16543
     },
     {
       "id": "tests/test_daily_article_brief_generation_v0.py",
@@ -109684,7 +109790,7 @@
     {
       "id": "tests/test_discord_live_adapter_v6.py",
       "kind": "test",
-      "size_bytes": 1434
+      "size_bytes": 2717
     },
     {
       "id": "tests/test_dispatch_audit_dry_run_contract.py",
@@ -111329,7 +111435,7 @@
     {
       "id": "tests/test_publication_coordinator_v1.py",
       "kind": "test",
-      "size_bytes": 25527
+      "size_bytes": 28130
     },
     {
       "id": "tests/test_publish_adapter_credential_secret_policy.py",
@@ -115954,6 +116060,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "8f85d8daa21c69d0d92e7be710f82306de57f3aa",
-  "source_tree_digest": "a9f28c51733c39d9c8a3e514f355d48ba12083733b9d106d4dfe0d978712a02f"
+  "source_head": "52cec20afe22cf8ca551df154cde10597cd5ae77",
+  "source_tree_digest": "5a22515e396b83a308506b321b6cafbcdb7222685a62557620cd196743256f9b"
 }

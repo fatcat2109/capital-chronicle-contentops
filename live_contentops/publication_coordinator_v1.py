@@ -28,6 +28,9 @@ DEFINITE_NO_WRITE = "DEFINITE_NO_WRITE"
 RECONCILED_CONFIRMED = "RECONCILED_CONFIRMED"
 RECONCILIATION_PENDING = "RECONCILIATION_PENDING"
 RECONCILED_ABSENT_SAFE_TO_RETRY = "RECONCILED_ABSENT_SAFE_TO_RETRY"
+RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE = (
+    "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"
+)
 
 
 def _canonical_json(value: Any) -> str:
@@ -135,6 +138,7 @@ def normalize_readback_result(
     return {
         "verified": bool(verified_flag and matching),
         "write_absent": bool(absent),
+        "write_exists": bool(raw.get("write_exists") is True and matching),
         "observed_public_object_id": observed_id,
         "observed_public_object_url": observed_url,
         "identity_match": matching,
@@ -318,6 +322,13 @@ class DurablePublicationCoordinator:
             self.store.set_outbox_status(
                 str(dispatch["message_id"]), RECONCILED_ABSENT_SAFE_TO_RETRY
             )
+        elif normalized.get("write_exists") is True:
+            # Exact object identity proves the write occurred even when a stricter content/media
+            # gate failed. Clear UNKNOWN_WRITE and end retry recovery without overstating strict
+            # reconciliation or accepting the destination toward 9/9.
+            status = RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE
+            self.store.set_dispatch_status(dispatch_id, DISPATCH_CONFIRMED)
+            self.store.set_outbox_status(str(dispatch["message_id"]), DISPATCH_CONFIRMED)
         else:
             status = RECONCILIATION_PENDING
         self.store.register_reconciliation(
@@ -461,6 +472,59 @@ class DurablePublicationCoordinator:
             explicit_reconciled_absent_retry=True,
         )
 
+    def replay_persisted_verified_readback(self, dispatch_id: str) -> dict[str, Any]:
+        """Restore monotonic confirmed state from an earlier durable verified readback."""
+        dispatch = self.store.get_platform_dispatch(str(dispatch_id))
+        if not dispatch:
+            return {"status": "REPLAY_BLOCKED_DISPATCH_NOT_FOUND", "provider_calls": 0}
+        object_id = str(dispatch.get("public_object_id") or "")
+        message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
+        if not object_id or not message:
+            return {"status": "REPLAY_BLOCKED_EXACT_IDENTITY_UNAVAILABLE", "provider_calls": 0}
+        intent = json.loads(str(message["payload"]))
+        ids = self._ids(
+            str(intent["work_item_id"]),
+            str(intent["plan_hash"]),
+            str(dispatch["platform"]),
+        )
+        for row in reversed(self.store.list_readbacks_for_dispatch(str(dispatch_id))):
+            try:
+                payload = json.loads(str(row["readback_data"]))
+                readback = dict(payload.get("readback") or {})
+            except (TypeError, ValueError, KeyError):
+                continue
+            if not (
+                readback.get("verified") is True
+                and readback.get("identity_match") is True
+                and str(readback.get("observed_public_object_id") or "") == object_id
+            ):
+                continue
+            observed_url = str(readback.get("observed_public_object_url") or "") or None
+            if str(dispatch["platform"]) == "substack" and not _valid_substack_canonical_url(
+                observed_url
+            ):
+                continue
+            self.store.register_platform_dispatch(
+                dispatch_id=str(dispatch_id),
+                message_id=str(dispatch["message_id"]),
+                platform=str(dispatch["platform"]),
+                status=DISPATCH_CONFIRMED,
+                public_object_id=object_id,
+                public_object_url=observed_url,
+            )
+            self.store.set_dispatch_status(str(dispatch_id), DISPATCH_CONFIRMED)
+            self.store.set_outbox_status(str(dispatch["message_id"]), DISPATCH_CONFIRMED)
+            self.store.register_reconciliation(
+                reconciliation_id=ids["reconciliation_id"],
+                work_item_id=str(intent["work_item_id"]),
+                status=RECONCILED_CONFIRMED,
+            )
+            self.store.set_reconciliation_status(
+                ids["reconciliation_id"], RECONCILED_CONFIRMED
+            )
+            return {"status": RECONCILED_CONFIRMED, "provider_calls": 0}
+        return {"status": "REPLAY_VERIFIED_READBACK_NOT_FOUND", "provider_calls": 0}
+
     def execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         registration = self.register_plan(work_item_id, plan)
         outcomes: dict[str, Any] = {
@@ -573,6 +637,29 @@ class DurablePublicationCoordinator:
             if dispatch is None:
                 continue
             status = str(dispatch["status"])
+            ids = self._ids(
+                str(intent["work_item_id"]),
+                str(intent["plan_hash"]),
+                str(message["destination"]),
+            )
+            reconciliations = self.store.get_reconciliations_for_work_item(
+                str(intent["work_item_id"])
+            )
+            current_reconciliation = next(
+                (
+                    str(row.get("status") or "")
+                    for row in reconciliations
+                    if str(row.get("reconciliation_id") or "")
+                    == ids["reconciliation_id"]
+                ),
+                None,
+            )
+            if current_reconciliation in {
+                RECONCILED_CONFIRMED,
+                RECONCILED_ABSENT_SAFE_TO_RETRY,
+                RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE,
+            }:
+                continue
             if status == ATTEMPT_STARTED:
                 self.store.set_dispatch_status(str(dispatch["dispatch_id"]), UNKNOWN_WRITE)
                 self.store.set_outbox_status(str(message["message_id"]), UNKNOWN_WRITE)

@@ -20,6 +20,7 @@ from live_contentops.publication_coordinator_v1 import (
     RECONCILIATION_PENDING,
     RECONCILED_ABSENT_SAFE_TO_RETRY,
     RECONCILED_CONFIRMED,
+    RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE,
     UNKNOWN_WRITE,
     DurablePublicationCoordinator,
     normalize_dispatch_result,
@@ -153,6 +154,70 @@ def test_case_a_api_success_and_case_b_cdp_success(tmp_path):
     assert result["canonical_article_real_published"] is True
     assert result["canonical_article_status"] == "REAL_PUBLISHED"
     assert result["distribution_status"] == "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE"
+
+    recovery = coordinator.recover_pending()
+    assert recovery["readbacks"] == 0
+    assert all(
+        row["status"] == RECONCILED_CONFIRMED
+        for row in store.get_reconciliations_for_work_item("work-1")
+    )
+
+
+def test_exact_write_exists_clears_unknown_without_claiming_strict_reconciliation(tmp_path):
+    class ExistsButContentPendingTransport(FixtureTransport):
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            return {
+                "status": "FAILED_STRICT_CONTENT_READBACK",
+                "verified": False,
+                "write_exists": True,
+                "public_object_id": public_object_id,
+            }
+
+    store, _transport, coordinator = _coordinator(
+        tmp_path, runtime=ExistsButContentPendingTransport()
+    )
+    registered = coordinator.register_plan("work-1", _plan("threads"))["registered"][0]
+    store.register_platform_dispatch(
+        dispatch_id=registered["dispatch_id"],
+        message_id=registered["message_id"],
+        platform="threads",
+        status=UNKNOWN_WRITE,
+        public_object_id="exact-thread-object",
+    )
+    store.set_outbox_status(registered["message_id"], UNKNOWN_WRITE)
+
+    result = coordinator.recover_pending()
+
+    assert result["readbacks"] == 1
+    assert store.get_platform_dispatch(registered["dispatch_id"])["status"] == (
+        DISPATCH_CONFIRMED
+    )
+    assert store.get_reconciliations_for_work_item("work-1")[0]["status"] == (
+        RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE
+    )
+    assert coordinator.recover_pending()["readbacks"] == 0
+
+
+def test_persisted_verified_readback_replay_restores_confirmed_without_provider_call(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    result = coordinator.execute_plan("work-1", _plan("telegram"))
+    dispatch = store.list_platform_dispatches()[0]
+    reconciliation = store.get_reconciliations_for_work_item("work-1")[0]
+    assert result["per_destination"]["telegram"]["reconciliation_status"] == (
+        RECONCILED_CONFIRMED
+    )
+    store.set_reconciliation_status(
+        reconciliation["reconciliation_id"], RECONCILIATION_PENDING
+    )
+    calls_before = len(transport.readback_calls)
+
+    replay = coordinator.replay_persisted_verified_readback(dispatch["dispatch_id"])
+
+    assert replay == {"status": RECONCILED_CONFIRMED, "provider_calls": 0}
+    assert len(transport.readback_calls) == calls_before
+    assert store.get_reconciliations_for_work_item("work-1")[0]["status"] == (
+        RECONCILED_CONFIRMED
+    )
 
 
 def test_substack_confirmed_with_unready_derivative_is_real_partial_publication(tmp_path):

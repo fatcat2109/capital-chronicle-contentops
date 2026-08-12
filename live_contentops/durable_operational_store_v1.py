@@ -1306,6 +1306,15 @@ class ContentOpsDurableStore:
             (readback_id, dispatch_id, readback_data, self._get_now_iso()),
         )
 
+    def list_readbacks_for_dispatch(self, dispatch_id: str) -> List[Dict[str, Any]]:
+        """List append-only readback observations for one exact dispatch."""
+        with self.get_connection() as conn:
+            rows = conn.execute(
+                "SELECT * FROM readbacks WHERE dispatch_id=? ORDER BY read_at, readback_id",
+                (dispatch_id,),
+            ).fetchall()
+            return [dict(row) for row in rows]
+
     def register_reconciliation(self, *, reconciliation_id: str, work_item_id: str,
                                 status: str = "PENDING") -> Dict[str, Any]:
         return self._idempotent_insert(

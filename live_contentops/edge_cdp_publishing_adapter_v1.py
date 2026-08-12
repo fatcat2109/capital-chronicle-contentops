@@ -3982,6 +3982,42 @@ def readback_youtube_community_post_via_edge(
         }
 
 
+def reconcile_youtube_community_post_by_text_via_edge(
+    *,
+    cdp_port: int,
+    expected_text: str,
+    canonical_url: str,
+    expected_handle: str = _YOUTUBE_COMMUNITY_HANDLE,
+) -> dict[str, Any]:
+    """Read the exact channel feed to resolve a post attempt that returned no permalink."""
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(
+            f"https://www.youtube.com/{expected_handle}/posts",
+            wait_until="domcontentloaded",
+            timeout=45000,
+        )
+        time.sleep(5)
+        identity_verified = _youtube_channel_identity_verified(page, expected_handle)
+        card = _youtube_community_card_for_text(page, expected_text)
+        public_url = _youtube_community_permalink_from_card(card) if card else None
+    if public_url:
+        return readback_youtube_community_post_via_edge(
+            cdp_port=cdp_port,
+            public_url=public_url,
+            expected_text=expected_text,
+            canonical_url=canonical_url,
+            expected_handle=expected_handle,
+        )
+    return {
+        "status": "YOUTUBE_COMMUNITY_POST_CONFIRMED_ABSENT",
+        "platform": "youtube",
+        "verified": False,
+        "write_absent": bool(identity_verified),
+        "channel_identity_verified": identity_verified,
+        "browser_write_performed": False,
+    }
+
+
 def _youtube_community_surface_diagnostics(page: Any) -> dict[str, Any]:
     contenteditables: list[dict[str, Any]] = []
     try:
@@ -4317,10 +4353,20 @@ def publish_youtube_community_post_via_edge(
             }
         deadline = time.monotonic() + 35
         public_url = None
+        feed_refreshed = False
         while time.monotonic() < deadline and not public_url:
             card = _youtube_community_card_for_text(page, text)
             public_url = _youtube_community_permalink_from_card(card) if card else None
             if not public_url:
+                if not feed_refreshed and time.monotonic() + 20 >= deadline:
+                    page.goto(
+                        channel_url,
+                        wait_until="domcontentloaded",
+                        timeout=45000,
+                    )
+                    time.sleep(4)
+                    feed_refreshed = True
+                    continue
                 time.sleep(1)
         if not public_url:
             return {

@@ -33,6 +33,7 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     reconcile_substack_publication_by_draft_id_via_edge,
     readback_linkedin_activity_via_edge,
     readback_youtube_community_post_via_edge,
+    reconcile_youtube_community_post_by_text_via_edge,
     readback_x_thread_via_edge,
     reconcile_existing_linkedin_post_via_edge,
     repair_substack_duplicate_caption_fragment_via_edge,
@@ -3194,6 +3195,12 @@ def _readback_one_destination_from_durable_intent(
             canonical_url=canonical_url,
             public_screenshot_path=output_dir / "public_youtube_community_readback.png",
         )
+    elif destination == "youtube":
+        result = reconcile_youtube_community_post_by_text_via_edge(
+            cdp_port=cdp_port,
+            expected_text=text,
+            canonical_url=canonical_url,
+        )
     elif destination == "facebook_page" and public_object_id:
         from live_contentops.facebook_page_adapter_v6 import readback_facebook_post
         result = readback_facebook_post(
@@ -3206,19 +3213,49 @@ def _readback_one_destination_from_durable_intent(
             media_id=public_object_id, expected_caption=text, canonical_url=canonical_url,
             expected_media_local_path=image_path,
         )
+    elif destination == "discord" and public_object_id:
+        from live_contentops.discord_live_adapter_v6 import readback_discord_post
+        result = readback_discord_post(
+            message_id=public_object_id,
+            expected_text=text,
+            canonical_url=canonical_url,
+        )
     elif destination == "threads" and public_object_id:
         from live_contentops.threads_adapter_v6 import readback_threads_post
         result = readback_threads_post(
             post_id=public_object_id, expected_text=text, canonical_url=canonical_url,
             expected_media_local_path=image_path or None,
         )
+        if (
+            result.get("body_text_visible") is True
+            and result.get("substack_url_visible") is True
+            and result.get("public_url")
+        ):
+            result = {**result, "write_exists": True}
+    elif destination in {"facebook_page", "instagram_business"} and not data["primary_media"]:
+        result = {
+            "status": "PREWRITE_DELIVERY_MEDIA_UNAVAILABLE",
+            "verified": False,
+            "write_absent": True,
+            "public_object_id": public_object_id,
+        }
     else:
         return {"status": "READBACK_UNAVAILABLE", "verified": False,
                 "public_object_id": public_object_id}
     success = str(result.get("status") or "").upper() == "SUCCESS"
-    return {**result, "verified": success, "public_object_id": (
+    normalized = {**result, "verified": success, "public_object_id": (
         result.get("post_id") or result.get("media_id") or result.get("id") or public_object_id
     )}
+    if destination == "substack" and success:
+        public_images = list((result.get("readback") or {}).get("public_image_urls") or [])
+        if public_images:
+            delivery = build_delivery_media_manifest(
+                media_packet={"assets": data["media_assets"]},
+                public_image_urls=public_images,
+                run_id=str(intent.get("work_item_id") or ""),
+            )
+            _write_json(output_dir / "delivery_media_manifest_v1.json", delivery)
+    return normalized
 
 
 def _default_rolling_x_editorial_reviewer(article: Mapping[str, Any]) -> dict[str, Any]:

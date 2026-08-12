@@ -119,6 +119,63 @@ def execute_discord_post(
     return result
 
 
+def readback_discord_post(
+    *,
+    message_id: str,
+    expected_text: str,
+    canonical_url: str,
+    webhook_url: str | None = None,
+) -> dict[str, Any]:
+    """Read one exact webhook message without exposing the webhook credential."""
+    target_webhook = webhook_url or _get_default_webhook_url()
+    if not target_webhook or not str(message_id or "").isdigit():
+        return {"status": "READBACK_UNAVAILABLE", "verified": False}
+    request = urllib.request.Request(
+        f"{target_webhook.rstrip('/')}/messages/{message_id}", method="GET"
+    )
+    request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+    try:
+        with urllib.request.urlopen(request, timeout=20) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as error:
+        return {
+            "status": "NOT_FOUND" if error.code == 404 else "READBACK_UNAVAILABLE",
+            "verified": False,
+            "write_absent": error.code == 404,
+        }
+    except Exception:
+        return {"status": "READBACK_UNAVAILABLE", "verified": False}
+    observed_id = str(payload.get("id") or "")
+    content = str(payload.get("content") or "")
+    embeds = payload.get("embeds") if isinstance(payload.get("embeds"), list) else []
+    channel_id = str(payload.get("channel_id") or "")
+    guild_id = str(payload.get("guild_id") or "")
+    exact_identity = observed_id == str(message_id)
+    text_verified = bool(expected_text and expected_text in content)
+    canonical_verified = canonical_url in content
+    media_verified = any(
+        bool((row.get("image") or {}).get("url"))
+        for row in embeds
+        if isinstance(row, Mapping)
+    )
+    verified = bool(exact_identity and text_verified and canonical_verified and media_verified)
+    public_url = (
+        f"https://discord.com/channels/{guild_id}/{channel_id}/{message_id}"
+        if guild_id and channel_id
+        else None
+    )
+    return {
+        "status": "SUCCESS" if verified else "FAILED_DISCORD_STRICT_READBACK",
+        "verified": verified,
+        "write_exists": exact_identity,
+        "message_id": observed_id or None,
+        "public_url": public_url,
+        "body_text_visible": text_verified,
+        "substack_url_visible": canonical_verified,
+        "meaningful_media_visible": media_verified,
+    }
+
+
 def execute_discord_comment(
     thread_id_or_url: str,
     message: str,

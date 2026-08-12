@@ -20,6 +20,7 @@ from live_contentops.daily_app_supervisor_v1 import (
     RECONCILE_CONTROLLED_NO_WRITE,
     RECONCILE_PENDING_OPERATOR,
     RECONCILE_PENDING_READBACK,
+    RECONCILE_PUBLIC_OBJECT_CONTENT_INCOMPLETE,
     STATUS_CONTROLLED_NO_WRITE,
     STATUS_DISPATCH_CONFIRMED,
     STATUS_UNKNOWN_WRITE,
@@ -214,6 +215,12 @@ def _dispatch_classification(dispatch: Mapping[str, Any]) -> str:
         return "CONTROLLED_NO_PUBLIC_WRITE"
     if status == STATUS_DISPATCH_CONFIRMED and object_id and reconciliation == RECONCILE_CONFIRMED:
         return "REAL_PUBLICATION_CONFIRMED"
+    if (
+        status == STATUS_DISPATCH_CONFIRMED
+        and object_id
+        and reconciliation == RECONCILE_PUBLIC_OBJECT_CONTENT_INCOMPLETE
+    ):
+        return "CONFIRMED_PUBLICATION_CONTENT_INCOMPLETE"
     if status == STATUS_DISPATCH_CONFIRMED and object_id:
         return "CONFIRMED_DISPATCH_PENDING_READBACK"
     return "NOT_A_CONFIRMED_PUBLICATION"
