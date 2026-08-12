@@ -17,19 +17,41 @@ FDA-G is not accepted. `v1.1.0` is not authorized.
 
 ## V1 next builder lane
 
-`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
+`TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1`
 
-The first real 5–8 article production-day attempt ended correctly at:
+Fresh-session authority/handoff:
 
-`ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`
+`docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md`
 
-All twelve ranked stories stopped at evidence; zero public article/video write occurred. The next V1 task should calibrate over-broad non-safety evidence requirements by story/article mode and improve first-party evidence acquisition while preserving every hard truth, permission, freshness, rights, readiness, KILL_SWITCH, UNKNOWN_WRITE, publication, and readback gate.
+The parent evidence-calibration/publication-unblock task remains unaccepted. The latest production proof completed eight governed decisions with zero confirmed canonical public article. One decision reached evidence → article → review PASS → package → Substack draft ID `210796285`, but strict readback classified it `SUBSTACK_DRAFT_CONFIRMED_NOT_PUBLIC`, `write_absent=true`, `RECONCILED_ABSENT_SAFE_TO_RETRY`. Other decisions repeatedly selected final candidates whose source paths were inaccessible, stale, insufficiently timestamped, or lacked required authority for precise numeric/market claims. `UNKNOWN_WRITE=0`; pending reconciliation is zero.
 
-The 5–8 articles/day band is a portfolio target, never filler permission.
+Jim's current owner override supersedes older artificial live-cycle limits and partial-distribution acceptance for this phase:
+
+- no artificial maximum number of sequential live runs;
+- no routine owner re-approval or audit ceremony between safe bounded repairs/runs;
+- quality over token minimization, with approximately `2,000,000` tokens/day authorized as a runaway circuit-breaker envelope;
+- GPT-5.6 Sol may be used through the existing canonical 9Router quality priority list;
+- evidence should be practical, claim-level, and publishability-first rather than institutional-completeness driven;
+- blocked candidates should advance to other viable candidates inside the same editorial opportunity when practical;
+- first mandatory proof is ONE same canonical article successfully public and strictly read back/reconciled on ALL NINE Tier-1 text/image surfaces: Substack, Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community;
+- partial Tier-1 distribution is not acceptance for this phase proof;
+- after the 9/9 proof, published-memory feedback and repeated autonomous operation must reach at least five genuine canonical articles, including at least one scheduled-window success.
+
+Immediate execution order:
+
+1. fix canonical Substack draft → real public `/p/...` publication/readback;
+2. make final selection publishability-first and walk multiple candidates inside one cycle rather than allowing a small evidence-dead shortlist to consume a full window;
+3. prove one same canonical article 9/9;
+4. prove published-memory feedback and at least five genuine canonical articles;
+5. integrate accepted V1 source/controls to current remote master while preserving concurrent V2 work.
+
+Only true hard blockers should stop the phase: secret/session exposure, wrong-account public-write risk, fabricated core truth that cannot be removed, unresolved UNKNOWN_WRITE/public-object ambiguity, destructive production-store risk, protected `v1.0` mutation, irreconcilable merge conflict, or genuinely required operator credential/reauthentication input.
+
+The 5–8 articles/day band remains a product target, never filler permission.
 
 ## Owner concurrent-lane decision
 
-Jim explicitly authorizes V2 implementation to proceed concurrently with the continuing V1 FDA-G/evidence-calibration lane.
+Jim explicitly authorizes V2 implementation to proceed concurrently with the continuing V1 lane.
 
 V2 must remain isolated from live V1 runtime/store/browser/publication authority. Neither lane may reset or reinterpret the other's accepted durable state.
 
@@ -37,7 +59,9 @@ Older plans requiring V2 to wait for Tier-1 freeze are superseded where they con
 
 ## V2 current product direction
 
-Current canonical V2 authority:
+Do not rely on this compact pointer for detailed V2 routing if newer V2 authority exists. Read the current V2 authority set from `docs/CURRENT_CONTEXT.md` and its referenced overlay/execution pointer.
+
+Current canonical V2 authority includes:
 
 - `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md`
 - `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1.md`
@@ -46,101 +70,18 @@ Current canonical V2 authority:
 - `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`
 - `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_SUPERSESSION_MAP_V1.md`
 
-V2 objective:
-
-Build an autonomous evidence-governed YouTube + YouTube Shorts + TikTok media growth factory that optimizes repeatable qualified audience growth and breakout potential without sacrificing factual/rights discipline. No viral/trending outcome is guaranteed.
-
-Canonical creative flow:
-
-```text
-story universe
-→ VideoOpportunity
-→ Engagement Director
-→ Editorial Video Director
-→ EngagementBrief
-→ VideoProgram
-→ NarrativeBeatGraph
-→ EditDecision/MotionBeatGraph
-→ AssetPlan + AudioPlan
-→ platform-native render
-→ retention/media QA
-→ multimodal critic
-→ ≤2 structural revisions
-→ package
-→ exact-authorized upload
-→ readback/reconciliation
-→ retention attribution
-→ bounded learning
-```
-
-The primary visual must continue telling the story with captions hidden. Long static holds, one-card-per-scene grammar, narration-only product acceptance, and Treasury-curve creative benchmarking are explicitly superseded.
-
-## V2 accepted foundations
-
-Accepted direct image route:
-
-- `https://ai.api-cheap.site/v1/images/generations` via dedicated direct boundary;
-- credential `AI_API_CHEAP_API_KEY` only;
-- `gpt-5.5` proven/provisional generated-illustration default;
-- generated imagery is never factual/documentary authority;
-- `wan2.7-image-pro` and `qwen-image-2.0` remain unresolved/non-blocking;
-- do not add the direct host to generic 9Router adapter.
-
-Tier2-A remains engineering reference, not creative baseline.
-
-## Rejected creative work
-
-`task/tier2-v2-creative-system-rebuild-v1`
-
-HEAD:
-
-`d231b54e026570442d9fd9269b61e55c3de31d21`
-
-Classification:
-
-`REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
-
-Do not merge or continue its creative product. It may be inspected only for bounded reusable engineering compatible with the current V2 plan.
-
-Historical Tier2-B is likewise rejected visual-product reference only.
-
-## V2 next task
-
-`TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1`
-
-Required result:
-
-`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
-
-The task starts from fresh current `origin/master`, not a rejected creative branch.
-
-It must prove:
-
-- a strong non-Treasury governed story or explicit valid abstention;
-- explicit EngagementBrief/NarrativeBeat/EditDecision/Asset/Audio contracts;
-- a 45–75s native short and 3–6m mid-form when story depth supports them;
-- actual music/audio, not narration-only self-acceptance;
-- ≥4 useful asset classes when story supports them;
-- purposeful beat-linked motion throughout narration;
-- deterministic static-run/retention diagnostics;
-- Jim/ChatGPT actual visual/audio acceptance.
-
-## V2 public-write authority
-
-`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
-
-No YouTube/TikTok upload is authorized by this pointer. Controlled private transport begins only at V2-06; the first public cohort is V2-08 and requires exact Jim authorization.
+V2 proceeds concurrently but has separate public-write authority.
 
 ## CodeGraph
 
-This authority update was written directly through GitHub. The next Codex implementation task must regenerate/check CodeGraph before committing:
+Direct authority updates may make generated context stale. Before the next implementation commit, regenerate/check when required by the generator contract:
 
 ```text
 python scripts/generate_codex_context_index.py
 python scripts/generate_codex_context_index.py --check
 ```
 
-Require `CODEGRAPH_CURRENT`.
+Require `CODEGRAPH_CURRENT` before committing implementation.
 
 ## Protected baseline
 
