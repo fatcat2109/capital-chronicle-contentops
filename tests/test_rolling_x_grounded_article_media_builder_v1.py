@@ -344,6 +344,7 @@ def test_controlled_build_produces_grounded_article_and_media(tmp_path, story_ty
         viability,
         output_dir=tmp_path,
         article_generator=_make_generator(FR_URL, asset_ids),
+        required_asset_count=3,
     )
     article = result["article"]
     assets = result["media"]["assets"]
@@ -552,7 +553,7 @@ def test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review(
     })
 
     writer_calls = []
-    quality_writer = _make_generator(FR_URL, ["official_source_document_card"])
+    quality_writer = _make_generator(FR_URL, [])
 
     def counted_quality_writer(prompt):
         writer_calls.append(prompt)
@@ -566,14 +567,17 @@ def test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review(
     assert len(writer_calls) == 1
     assert built["article"]["article_generation_method"] == "ROUTED_LLM_GROUNDED_ARTICLE"
     assert built["critical_path_telemetry"]["article_writer_semantic_calls"] == 1
-    assert built["media"]["media_asset_count"] == 1
+    assert built["media"]["media_asset_count"] == 0
     payloads = implementation.build_native_derivative_payloads(
         article=built["article"],
         selection={"dek": "", "market_mechanism": "", "policy_context": "", "cross_asset_implications": ""},
         canonical_url="https://capitalchronicle.substack.com/p/ordinary-brief",
-        media_asset_ids=[built["media"]["assets"][0]["asset_id"]],
+        media_asset_ids=[],
     )
-    assert set(payloads) >= {"telegram", "x", "linkedin", "threads", "youtube"}
+    assert set(payloads) >= {
+        "telegram", "discord", "x", "linkedin", "facebook_page",
+        "instagram_business", "threads", "youtube",
+    }
     assert payloads["x"]["reply_texts"] == []
 
     editorial = implementation._run_bounded_rolling_x_editorial_cycle(
@@ -647,7 +651,7 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
     monkeypatch.setattr(
         builder,
         "_default_article_generator",
-        _make_generator(FR_URL, _regulatory_asset_ids()),
+        _make_generator(FR_URL, []),
     )
     # Deterministic audit passes so the editorial cycle proves semantic review.
     monkeypatch.setattr(
@@ -681,10 +685,10 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
         publication_enabled=True,
     )
 
-    # Default builder produced a grounded article + three source-backed media assets.
+    # Default builder produced a grounded article without forcing generic source cards.
     assert result["article"] is not None
     assert result["article"]["cluster_id"] == "c1"
-    assert len(result["media"]["assets"]) == 3
+    assert len(result["media"]["assets"]) == 0
     # Editorial review ran and passed (semantic reviewer invoked).
     assert result["editorial_cycle"]["status"] == "PASS"
     # Release preparation ran and evaluated destination readiness -> blocked, no public write.
@@ -705,7 +709,7 @@ def test_concise_mode_uses_quality_writer_before_deterministic_outage_fallback(t
         }
     )
     calls = []
-    fixture_generator = _make_generator(FR_URL, _regulatory_asset_ids())
+    fixture_generator = _make_generator(FR_URL, [])
 
     def quality_writer(prompt):
         calls.append(prompt)
@@ -722,7 +726,7 @@ def test_concise_mode_uses_quality_writer_before_deterministic_outage_fallback(t
     assert result["article"]["article_generation_router_failure"] is None
 
 
-def test_decision5_desk_label_replay_reaches_article_review_and_shadow_package(
+def test_decision5_provider_outage_copy_cannot_become_canonical_product(
     monkeypatch, tmp_path
 ):
     """Sanitized exact Decision 5 contract: desk label must not poison brief SEO metadata."""
@@ -829,20 +833,18 @@ def test_decision5_desk_label_replay_reaches_article_review_and_shadow_package(
         cutoff_utc="2026-08-11T12:57:00Z",
         story_type_by_cluster={"c1": "geopolitical_event"},
         editorial_reviewer=implementation._default_rolling_x_editorial_reviewer,
-        article_reviser=lambda *_args: (_ for _ in ()).throw(
-            AssertionError("Decision 5 outage fallback must pass without an LLM revision")
-        ),
+        article_reviser=lambda article, *_args: {
+            **article,
+            "substack_body_markdown": (
+                str(article.get("substack_body_markdown") or "")
+                + "\n\nThe provider-outage copy remains below the reader-value publication floor."
+            ),
+        },
         publication_enabled=False,
     )
 
-    assert result["article"]["article_generation_method"] == (
-        "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF"
-    )
-    assert result["article"]["seo_primary_keyword"] == "fires"
-    assert result["editorial_cycle"]["status"] == "PASS"
-    assert result["editorial_cycle"]["revision_rounds_completed"] == 0
-    assert result["platform_package_generated"] is True
-    assert result["shadow_package_ready"] is True
+    assert result["classification"] == "NO_PUBLICATION"
+    assert result["exact_next_blocker"] == "INSUFFICIENT_READER_VALUE"
     assert result["public_write_performed"] is False
     assert result["unknown_write_detected"] is False
 

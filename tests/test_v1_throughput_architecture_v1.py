@@ -47,9 +47,15 @@ def test_zero_write_prepared_candidate_to_canonical_plan_smoke(monkeypatch, tmp_
             f"[[VISUAL:{asset_id}]]" for asset_id in governed["visual_asset_ids"]
         )
         body = (
-            f"[Professional News Source]({SOURCE_URL}) reported that {claim}. "
-            "The development is useful to readers because it clarifies the current public "
-            "position without extending the report into unsupported claims."
+            f"[Professional News Source]({SOURCE_URL}) reported that {claim}. The report "
+            "establishes the current public position and identifies the development now in "
+            "the record, without extending it into unsupported facts or numbers.\n\n"
+            "The update matters because readers can distinguish the confirmed development "
+            "from speculation surrounding it. The source supports the core proposition, "
+            "while motive, scale, and downstream effects remain outside the evidence.\n\n"
+            "Important uncertainty remains. Additional first-party detail or independent "
+            "reporting would be needed before Capital Chronicle could responsibly add causes, "
+            "forecasts, market consequences, or precise quantitative claims."
         )
         if markers:
             body += "\n\n" + markers

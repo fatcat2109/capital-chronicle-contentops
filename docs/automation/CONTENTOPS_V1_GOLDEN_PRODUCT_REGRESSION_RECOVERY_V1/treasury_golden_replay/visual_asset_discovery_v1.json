@@ -1,0 +1,77 @@
+{
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "attribution": "U.S. Department of the Treasury",
+      "composition_score": 0.88,
+      "content_hash": "sha256:e049e16645b2f2437d19c26b3f97060eafa025454c70c991188e3625b6fbd772",
+      "creator_publisher": "U.S. Department of the Treasury",
+      "discovery_provider": "wikimedia_commons",
+      "documentary_generated_classification": "DOCUMENTARY",
+      "editorial_usefulness_score": 0.82,
+      "height": 1266,
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Treasury",
+      "local_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-golden-product-regression-recovery-v1\\docs\\automation\\CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1\\treasury_golden_replay\\media\\treasury_building_documentary.jpg",
+      "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Treasury_Building_%2832648233951%29.jpg",
+      "perceptual_hash": "fe7f1f1f0880c880",
+      "query": "Treasury Yield Curve Edges Wider Year official building photograph",
+      "ranking_score": 0.914,
+      "reuse_basis": "U.S. Department of the Treasury federal-government work; public domain in the United States",
+      "rights_status": "PUBLIC_DOMAIN",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Treasury_Building_(32648233951).jpg",
+      "story_relevance_score": 0.93,
+      "subject_correctness_score": 0.99,
+      "validation": {
+        "blockers": [],
+        "publication_authority": false,
+        "rights_verified": true,
+        "search_thumbnail_publishable": false,
+        "status": "PASS"
+      },
+      "visual_diversity_score": 0.95,
+      "visual_intent": "PERSON_OR_INSTITUTION_CONTEXT",
+      "width": 1908
+    }
+  ],
+  "eligible_count": 1,
+  "fixed_visual_quota": false,
+  "publication_authority": false,
+  "rights_gate_deterministic": true,
+  "schema_version": "contentops.visual_asset_discovery.v1",
+  "selected_assets": [
+    {
+      "attribution": "U.S. Department of the Treasury",
+      "composition_score": 0.88,
+      "content_hash": "sha256:e049e16645b2f2437d19c26b3f97060eafa025454c70c991188e3625b6fbd772",
+      "creator_publisher": "U.S. Department of the Treasury",
+      "discovery_provider": "wikimedia_commons",
+      "documentary_generated_classification": "DOCUMENTARY",
+      "editorial_usefulness_score": 0.82,
+      "height": 1266,
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Treasury",
+      "local_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-golden-product-regression-recovery-v1\\docs\\automation\\CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1\\treasury_golden_replay\\media\\treasury_building_documentary.jpg",
+      "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Treasury_Building_%2832648233951%29.jpg",
+      "perceptual_hash": "fe7f1f1f0880c880",
+      "query": "Treasury Yield Curve Edges Wider Year official building photograph",
+      "ranking_score": 0.914,
+      "reuse_basis": "U.S. Department of the Treasury federal-government work; public domain in the United States",
+      "rights_status": "PUBLIC_DOMAIN",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Treasury_Building_(32648233951).jpg",
+      "story_relevance_score": 0.93,
+      "subject_correctness_score": 0.99,
+      "validation": {
+        "blockers": [],
+        "publication_authority": false,
+        "rights_verified": true,
+        "search_thumbnail_publishable": false,
+        "status": "PASS"
+      },
+      "visual_diversity_score": 0.95,
+      "visual_intent": "PERSON_OR_INSTITUTION_CONTEXT",
+      "width": 1908
+    }
+  ],
+  "selected_count": 1,
+  "semantic_ranking_grants_rights": false,
+  "status": "PASS"
+}

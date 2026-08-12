@@ -15,13 +15,15 @@ Current fresh-session handoff:
 
 Current continuation task:
 
-`TASK_CONTENTOPS_V1_THROUGHPUT_ARCHITECTURE_CORRECTION_AND_MASTER_INTEGRATION_V1`
+`TASK_CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1`
 
 Parent task:
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-The current V1 correction moves full-universe newsroom preparation out of the scheduled-publication critical path. Continuous intake maintains a small durable prepared-candidate checkpoint; an editorial opportunity consumes it, obtains minimum trustworthy evidence, makes one quality-writer call for ordinary reporting, runs deterministic hard factual/safety checks, and returns the canonical publication plan. Ordinary reporting has zero mandatory semantic-review calls; enhanced evidence/review remains for genuinely high-risk claims. Canonical Substack confirmation releases the newsroom immediately while derivatives recover asynchronously per destination and never revoke confirmed canonical truth. Same-article 9/9, five-article acceptance, and another scheduled-window proof are not integration gates. Read the current V1 handoff for branch/runtime evidence and owner overrides. Do not infer live runtime state from this compact file.
+The accepted throughput architecture remains: prepared-candidate reuse, one quality-writer call and zero mandatory semantic-review calls for ordinary reporting, deterministic hard gates, canonical-first confirmation, and asynchronous destination-local derivatives. Jim's Golden Product correction adds an independent hard reader-facing product-value floor. Transport/readback success, valid evidence, media count, and a nonempty body cannot rescue thin or malformed copy. The immutable `v1.0` Treasury release at `6983bfb3ef300414b744f3f8f97ca81ff699348b` is the capability reference, not code to restore.
+
+Article-mode-aware purposeful visuals replace both exactly-three media ceremony and generic weak source cards. Articles must remain useful without images. A provider-neutral Visual Asset Discovery seam now supports story-specific intent, deterministic rights/provenance resolution, semantic ranking without copyright authority, and real documentary/contextual media alongside governed charts, maps, tables, timelines, source documents, and conceptual illustration. Unknown rights fail closed. New V1 public writes remain disabled pending Jim/ChatGPT visual acceptance of the zero-write Golden Product proof.
 
 The broader approximately 5–8 useful articles/day target remains a portfolio goal, never filler permission.
 

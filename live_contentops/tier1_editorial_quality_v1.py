@@ -9,10 +9,17 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
+from live_contentops.article_rich_text_v1 import (
+    markdown_to_rich_text,
+    reader_markup_findings,
+    rich_text_to_plain_text,
+)
+
 
 SCHEMA_VERSION = "contentops.tier1_editorial_quality.v2"
 SUPPORTED_ARTICLE_MODES = {"straight_news", "data_release", "policy_decision", "market_move", "explainer", "deep_analysis", "scenario_outlook", "analysis"}
 ANALYSIS_MODES = {"deep_analysis", "scenario_outlook"}
+READER_ANALYSIS_MODES = {"analysis", "deep_analysis", "scenario_outlook"}
 HEADLINE_MAX_LENGTHS = {"reader": 95, "seo": 70, "social": 120, "push": 70, "youtube_community": 100}
 PROCESS_LANGUAGE_PATTERNS = (
     r"\bthe editorial task\b",
@@ -78,9 +85,14 @@ def _sha256(value: str) -> str:
 
 def rendered_body(markdown: str) -> str:
     body = VISUAL_RE.sub("", str(markdown or ""))
-    body = re.sub(r"^#{1,6}\s+", "", body, flags=re.MULTILINE)
-    body = re.sub(r"[*_`]", "", body)
-    return re.sub(r"\n{3,}", "\n\n", body).strip()
+    try:
+        return rich_text_to_plain_text(markdown_to_rich_text(body))
+    except ValueError:
+        # Audits still need a stable plain-text projection in order to report the exact hard
+        # markup blocker; never treat this fallback as proof of clean serialization.
+        body = re.sub(r"^#{1,6}\s+", "", body, flags=re.MULTILINE)
+        body = re.sub(r"[*_`]", "", body)
+        return re.sub(r"\n{3,}", "\n\n", body).strip()
 
 
 def _sentences(markdown: str) -> list[str]:
@@ -123,6 +135,125 @@ def _paragraph_redundancy(markdown: str) -> list[dict[str, Any]]:
             if overlap >= 0.72:
                 findings.append({"paragraph_a": index + 1, "paragraph_b": right_index + 1, "token_overlap": round(overlap, 3)})
     return findings
+
+
+def evaluate_reader_value(
+    article: Mapping[str, Any],
+    *,
+    media_assets: Sequence[Mapping[str, Any]] = (),
+) -> dict[str, Any]:
+    """Deterministic, mode-aware publication floor independent of factual/write safety."""
+    body = str(article.get("substack_body_markdown") or article.get("body_markdown") or "")
+    title = _normalise(str(article.get("title") or ""))
+    effective_mode = str(
+        article.get("effective_article_mode")
+        or article.get("resolved_article_mode")
+        or ""
+    )
+    editorial_mode = str(article.get("editorial_mode") or article.get("article_mode") or "")
+    concise = effective_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
+    analytical = editorial_mode in READER_ANALYSIS_MODES
+    if concise:
+        floor = {"minimum_paragraphs": 3, "minimum_words": 90, "minimum_headings": 0}
+        floor_class = "CONCISE_UPDATE"
+    elif analytical:
+        floor = {"minimum_paragraphs": 6, "minimum_words": 350, "minimum_headings": 2}
+        floor_class = "DATA_RICH_OR_ANALYTICAL"
+    else:
+        floor = {"minimum_paragraphs": 4, "minimum_words": 180, "minimum_headings": 1}
+        floor_class = "NORMAL_REPORTING"
+
+    markup_findings = reader_markup_findings(body)
+    blocks: list[Mapping[str, Any]] = []
+    try:
+        blocks = list(markdown_to_rich_text(body).get("blocks") or [])
+    except ValueError:
+        pass
+    media_text = {
+        _normalise(str(value)).casefold()
+        for asset in media_assets
+        for value in (
+            asset.get("caption"), asset.get("alt_text"), asset.get("source_label"),
+            asset.get("source_page_url"),
+        )
+        if _normalise(str(value or ""))
+    }
+    paragraphs: list[str] = []
+    heading_count = 0
+    list_item_count = 0
+    for block in blocks:
+        kind = str(block.get("type") or "")
+        if kind == "heading":
+            heading_count += 1
+            continue
+        groups = block.get("items") or [] if kind == "bullet_list" else [block.get("content") or []]
+        for nodes in groups:
+            text = _normalise("".join(str(node.get("text") or "") for node in nodes))
+            if kind == "bullet_list":
+                list_item_count += 1
+            if not text:
+                continue
+            lowered = text.casefold()
+            looks_like_caption = lowered in media_text or any(
+                len(candidate) >= 30 and (lowered in candidate or candidate in lowered)
+                for candidate in media_text
+            )
+            looks_like_source_metadata = bool(
+                re.match(r"^(?:source|publisher|published|access|evidence|document id)\s*:", text, re.I)
+            )
+            if not looks_like_caption and not looks_like_source_metadata:
+                paragraphs.append(text)
+
+    meaningful_paragraphs = [
+        value for value in paragraphs
+        if len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", value)) >= 12
+        and len(value) >= 55
+    ]
+    prose = " ".join(meaningful_paragraphs)
+    prose_words = len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", prose))
+    duplicate_sentences = _duplicate_sentence_count("\n\n".join(meaningful_paragraphs))
+    redundancy = _paragraph_redundancy("\n\n".join(meaningful_paragraphs))
+    title_only_body = bool(
+        len(meaningful_paragraphs) <= 1
+        and title
+        and _normalise(" ".join(paragraphs)).casefold().strip(" .")
+        == title.casefold().strip(" .")
+    )
+    degraded_copy = str(article.get("article_generation_method") or "") in {
+        "MINIMUM_EVIDENCE_NEWS_BRIEF",
+        "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF",
+    }
+    checks = {
+        "native_rich_text_serializable": not markup_findings and bool(blocks),
+        "multiple_meaningful_reader_paragraphs": len(meaningful_paragraphs) >= floor["minimum_paragraphs"],
+        "mode_appropriate_substance": prose_words >= floor["minimum_words"],
+        "mode_appropriate_structure": heading_count >= floor["minimum_headings"],
+        "title_not_body": not title_only_body,
+        "reader_value_independent_of_media": prose_words >= floor["minimum_words"],
+        "captions_and_source_metadata_not_dominant": len(meaningful_paragraphs) >= floor["minimum_paragraphs"],
+        "no_repetitive_filler": duplicate_sentences == 0 and not redundancy,
+        "professional_writer_output": not degraded_copy,
+    }
+    blockers = [name for name, passed in checks.items() if not passed]
+    return {
+        "schema_version": "contentops.reader_value_release_gate.v1",
+        "classification": "PASS" if not blockers else "INSUFFICIENT_READER_VALUE",
+        "reason_code": None if not blockers else "INSUFFICIENT_READER_VALUE",
+        "floor_class": floor_class,
+        "floor": floor,
+        "checks": checks,
+        "blockers": blockers,
+        "markup_findings": markup_findings,
+        "meaningful_paragraph_count": len(meaningful_paragraphs),
+        "reader_prose_word_count": prose_words,
+        "heading_count": heading_count,
+        "list_item_count": list_item_count,
+        "visual_count": len(media_assets),
+        "visual_quantity_is_fixed_quota": False,
+        "duplicated_sentence_count": duplicate_sentences,
+        "paragraph_redundancy_findings": redundancy,
+        "publication_authority": False,
+    }
 
 
 def evaluate_headline_desk(article: Mapping[str, Any]) -> dict[str, Any]:
@@ -172,7 +303,7 @@ def audit_tier1_article(
     concise_mode = effective_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
     original_value = dict(article.get("original_value") or {})
     quote_count = len(re.findall(r"[\"“][^\"”]{18,}[\"”]", rendered))
-    source_urls = sorted(set(URL_RE.findall(rendered)))
+    source_urls = sorted(set(URL_RE.findall(body)))
     media_ids = [str(item.get("asset_id") or item.get("media_asset_id") or "") for item in media_assets]
     news_peg_terms = list(article.get("news_peg_terms") or ["3.62%", "2026-07-08"])
     market_consequence_terms = list(
@@ -186,6 +317,7 @@ def audit_tier1_article(
     mechanism_terms = list(article.get("mechanism_terms") or ["volume-weighted", "overnight unsecured", "policy corridor", "transmission"])
     catalyst_terms = list(article.get("named_catalyst_terms") or ["FOMC", "CPI", "payrolls", "Treasury auction", "SOFR", "reserve balances", "facility usage"])
 
+    reader_value = evaluate_reader_value(article, media_assets=media_assets)
     editorial_checks = {
         "lede_what_changed": _all_terms_present(opening, news_peg_terms),
         "lede_why_now": bool(re.search(r"\b(latest|raised|released|on (?:january|february|march|april|may|june|july|august|september|october|november|december|20\d\d)|now|new reading|new forecast)\b", opening, re.IGNORECASE)),
@@ -204,6 +336,7 @@ def audit_tier1_article(
         "no_financial_advice": not advice_hits,
         "single_caveat": caveat_count <= 1,
         "high_information_density": not filler_hits and duplicate_sentences == 0 and not paragraph_redundancy and _word_count(body) >= (180 if concise_mode else 300),
+        "reader_value_floor": reader_value["classification"] == "PASS",
     }
     editorial_score = round(100 * sum(editorial_checks.values()) / len(editorial_checks))
 
@@ -243,6 +376,7 @@ def audit_tier1_article(
         "no_process_language",
         "no_fabricated_quotes",
         "no_financial_advice",
+        "reader_value_floor",
     )
     hard_blockers = [name for name in hard_check_names if not editorial_checks[name]]
     seo_blockers = [name for name, passed in seo_checks.items() if not passed]
@@ -271,6 +405,7 @@ def audit_tier1_article(
         "seo_findings_are_advisory": True,
         "source_urls": source_urls,
         "visual_asset_ids": visual_ids,
+        "reader_value_gate": reader_value,
         "rendered_body_sha256": _sha256(rendered),
     }
 

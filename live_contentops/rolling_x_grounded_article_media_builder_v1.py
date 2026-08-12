@@ -26,6 +26,12 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 from urllib.parse import urlsplit
 
+from live_contentops.article_rich_text_v1 import (
+    markdown_to_rich_text,
+    sanitize_source_text,
+)
+from live_contentops.visual_asset_discovery_v1 import build_visual_intent_plan
+
 SCHEMA_VERSION = "contentops.rolling_x_grounded_article_media_builder.v1"
 
 #: Provenance states recognised by the rolling-X release validator.
@@ -277,7 +283,7 @@ def _untraceable_numeric_claims(body: str, evidence_text: str) -> list[str]:
 
 
 def _bounded_text(value: str, *, maximum: int) -> str:
-    text = " ".join(str(value or "").split())
+    text = " ".join(sanitize_source_text(str(value or "")).split())
     if len(text) <= maximum:
         return text
     return text[: max(0, maximum - 1)].rstrip() + "…"
@@ -492,7 +498,7 @@ def build_source_backed_media_assets(
     source_url = str(primary.get("source_url") or "")
     published = str(primary.get("published_at_utc") or primary.get("event_time_utc") or "")
     document_title = str(primary.get("title") or "Official primary source document")
-    content_text = str(primary.get("canonical_content_text") or "")
+    content_text = sanitize_source_text(str(primary.get("canonical_content_text") or ""))
     story_type = str(context.get("story_type") or "story")
     underlying_rights, reuse_basis = _underlying_source_rights(primary)
     # Excerpt rendering is only permitted where the underlying source has an established
@@ -661,9 +667,9 @@ def _build_third_asset(
             source_reuse_basis=reuse_basis,
             supports_headline=False,
         )
-    if excerpt_permitted:
+    if excerpt_permitted and content_text:
         excerpt_path = media_root / "document_excerpt_card.png"
-        excerpt = _bounded_text(content_text, maximum=260) or "Bounded excerpt unavailable."
+        excerpt = _bounded_text(content_text, maximum=260)
         _render_text_card(
             path=excerpt_path,
             header="Official Document Excerpt",
@@ -737,7 +743,7 @@ ARTICLE_OUTPUT_CONTRACT = {
     "market_mechanism": "optional; include only a mechanism directly grounded in evidence",
     "policy_context": "optional; include only context directly grounded in evidence",
     "cross_asset_implications": "optional; include only implications directly grounded in evidence",
-    "substack_body_markdown": "natural reader-facing markdown with source links and three [[VISUAL:...]] markers",
+    "substack_body_markdown": "natural reader-facing markdown with native semantic headings/links and only the supplied [[VISUAL:...]] markers",
     "social_lede": "optional derivative copy; empty string is permitted",
     "social_mechanism_summary": "optional derivative copy; empty string is permitted",
     "social_policy_summary": "optional derivative copy; empty string is permitted",
@@ -784,7 +790,8 @@ def build_article_generation_prompt(
                 "event_time_utc": document.get("event_time_utc"),
                 "source_authority_class": document.get("source_authority_class"),
                 "canonical_content_text": _bounded_text(
-                    str(document.get("canonical_content_text") or ""), maximum=4000
+                    sanitize_source_text(str(document.get("canonical_content_text") or "")),
+                    maximum=4000,
                 ),
             }
             for document in (context.get("evidence_documents") or [])
@@ -1127,8 +1134,9 @@ def _deterministic_supported_claim_brief(
         raise GroundedArticleBuilderError("deterministic_brief_source_link_missing")
     source_sentence = ", ".join(name for name, _source_title, _url in source_links[:3])
     markers = list(visual_asset_ids)
-    while len(markers) < 3:
-        markers.append(f"source-card-{len(markers) + 1}")
+    marker_blocks = [f"\n\n[[VISUAL:{value}]]\n" for value in markers]
+    while len(marker_blocks) < 3:
+        marker_blocks.append("")
     source_lines = "\n".join(
         f"- [{source_title}]({url}) — {name}"
         for name, source_title, url in source_links
@@ -1137,19 +1145,19 @@ def _deterministic_supported_claim_brief(
 
 {publisher} reported the latest development on {published}: {primary_title}. The corroborated core is that {claim.rstrip('.').casefold()}. [Read the public source]({source_links[0][2]}).
 
-[[VISUAL:{markers[0]}]]
+{marker_blocks[0]}
 
 ## What matters
 
 What matters is the confirmed change itself. {source_sentence} carry aligned public reporting on that core point. This brief does not extend the reporting into unsupported numbers, quotations, market effects, motives, or implementation details.
 
-[[VISUAL:{markers[1]}]]
+{marker_blocks[1]}
 
 ## Source trail
 
 {source_lines}
 
-[[VISUAL:{markers[2]}]]
+{marker_blocks[2]}
 
 ## What remains open
 
@@ -1228,7 +1236,7 @@ def build_rolling_x_grounded_article_and_media(
     *,
     output_dir: Path,
     article_generator: Callable[[str], Mapping[str, Any]] | None = None,
-    required_asset_count: int = 3,
+    required_asset_count: int | None = None,
 ) -> dict[str, Any]:
     """Build the grounded article + source-backed media for the accepted evidence-viable story.
 
@@ -1248,21 +1256,26 @@ def build_rolling_x_grounded_article_and_media(
         == "ORDINARY"
     )
     visual_failure: str | None = None
+    effective_mode = str(context.get("effective_article_mode") or "")
+    # Visual quantity follows story mode and governed evidence, never a fixed three-card
+    # ceremony. Generic source/debug cards are not requested merely to decorate ordinary copy.
+    requested_asset_count = (
+        int(required_asset_count)
+        if required_asset_count is not None
+        else 0
+    )
     try:
         media_assets = build_source_backed_media_assets(
             context,
             output_dir=output_dir,
-            required_asset_count=1 if ordinary_story else required_asset_count,
+            required_asset_count=requested_asset_count,
         )
     except Exception as exc:
-        if not ordinary_story:
-            raise
         media_assets = []
         visual_failure = type(exc).__name__
     visual_asset_ids = _visual_asset_ids(media_assets)
 
     article_router_failure: dict[str, Any] | None = None
-    effective_mode = str(context.get("effective_article_mode") or "")
     # Minimum evidence narrows what the writer may say; it does not replace professional
     # writing.  The normal ordinary path therefore makes the same single quality-first writer
     # invocation as every other publishable article.  Deterministic copy remains an explicitly
@@ -1372,6 +1385,16 @@ def build_rolling_x_grounded_article_and_media(
     )
     if blockers:
         raise GroundedArticleBuilderError(";".join(blockers))
+    article["canonical_rich_text"] = markdown_to_rich_text(
+        str(article.get("substack_body_markdown") or "")
+    )
+    visual_intent_plan = build_visual_intent_plan(
+        article,
+        evidence={
+            "governed_data_series": list(context.get("governed_data_series") or []),
+            "governed_table_rows": list(context.get("governed_table_rows") or []),
+        },
+    )
 
     return {
         "schema_version": SCHEMA_VERSION,
@@ -1384,6 +1407,8 @@ def build_rolling_x_grounded_article_and_media(
             "ai_generated_image": False,
             "contentops_built_or_source_backed_media": True,
             "visual_optional_failure": visual_failure,
+            "visual_intent_plan": visual_intent_plan,
+            "external_asset_discovery_status": "NOT_RUN_NO_PROVIDER_REQUIRED_FOR_BUILD",
         },
         "governed_story_context": {
             "cluster_id": context["cluster_id"],

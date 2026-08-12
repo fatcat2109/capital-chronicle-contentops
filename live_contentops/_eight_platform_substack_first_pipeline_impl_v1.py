@@ -2443,7 +2443,12 @@ def _run_bounded_rolling_x_editorial_cycle(
             "reason_code": (
                 None
                 if combined.get("classification") == "PASS"
-                else "ORDINARY_HARD_FACTUAL_SAFETY_GATE_FAILED"
+                else (
+                    "INSUFFICIENT_READER_VALUE"
+                    if (deterministic.get("reader_value_gate") or {}).get("classification")
+                    == "INSUFFICIENT_READER_VALUE"
+                    else "ORDINARY_HARD_FACTUAL_SAFETY_GATE_FAILED"
+                )
             ),
             "article": candidate,
             "revision_rounds_completed": 0,
@@ -2602,9 +2607,20 @@ def _run_bounded_rolling_x_editorial_cycle(
                     "publication_authority_granted": False,
                 }
         candidate = revised_candidate
+    reader_value_failed = any(
+        ((row.get("deterministic_review") or {}).get("reader_value_gate") or {}).get(
+            "classification"
+        )
+        == "INSUFFICIENT_READER_VALUE"
+        for row in history
+    )
     return {
         "status": "NO_PUBLICATION",
-        "reason_code": "EDITORIAL_REVISION_ROUNDS_EXHAUSTED",
+        "reason_code": (
+            "INSUFFICIENT_READER_VALUE"
+            if reader_value_failed
+            else "EDITORIAL_REVISION_ROUNDS_EXHAUSTED"
+        ),
         "article": candidate,
         "revision_rounds_completed": max_revision_rounds,
         "review_history": history,
@@ -2654,6 +2670,8 @@ def _validate_rolling_x_release_inputs(
     media_assets: Sequence[Mapping[str, Any]],
     viability: Mapping[str, Any],
 ) -> list[str]:
+    from live_contentops.tier1_editorial_quality_v1 import evaluate_reader_value
+
     blockers: list[str] = []
     # Canonical publication requires a useful article, not optional SEO/analysis ceremony.
     for field in ("title", "substack_body_markdown"):
@@ -2667,6 +2685,9 @@ def _validate_rolling_x_release_inputs(
         blockers.append("article_selected_cluster_binding_mismatch")
     if article.get("x_content_grants_factual_authority") is not False:
         blockers.append("article_must_deny_x_factual_authority")
+    reader_value = evaluate_reader_value(article, media_assets=media_assets)
+    if reader_value.get("classification") != "PASS":
+        blockers.append("INSUFFICIENT_READER_VALUE")
     evidence_ids = {
         str(row.get("evidence_id") or row.get("document_id") or row.get("source_id") or "")
         for row in ((viability.get("selected_evidence") or {}).get("evidence_documents") or [])
@@ -2710,6 +2731,8 @@ def _prepare_rolling_x_release_candidate(
     destination_readiness: Mapping[str, Any],
 ) -> dict[str, Any]:
     """Write and lock the canonical backend's exact artifacts without a public write."""
+    from live_contentops.article_rich_text_v1 import markdown_to_rich_text
+
     final_article = dict(article)
     media_packet = dict(media)
     media_assets = [dict(row) for row in media_packet.get("assets") or [] if isinstance(row, Mapping)]
@@ -2740,6 +2763,7 @@ def _prepare_rolling_x_release_candidate(
             "word_count": len(re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'-]*\b", rendered)),
             "numeric_claims_from_x": False,
             "publication_authority": False,
+            "canonical_rich_text": markdown_to_rich_text(body),
         }
     )
     support = {
