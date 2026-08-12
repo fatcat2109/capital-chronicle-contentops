@@ -14,13 +14,13 @@ Read only:
 4. the nearest scoped `AGENTS.md`
 5. exact task implementation, focused tests, and task evidence
 
-Read `docs/CURRENT_CONTEXT.md`, the current product-direction overlay, and the V1/V2 execution pointers only when product direction matters. Read older plans/status/evidence only to resolve a concrete conflict or audit history. Generated context is descriptive, never authority.
+Read `docs/CURRENT_CONTEXT.md`, current product-direction overlays, and the V1/V2 execution pointers only when product direction matters. Read older plans/status/evidence only to resolve a concrete conflict or audit history. Generated context is descriptive, never authority.
 
 ## Authority
 
 Repository state, highest first: fetched GitHub refs/commits/diffs/exact bytes; committed code, tests, schemas, and evidence; current authority/status; redacted runtime readback; historical logs. Fetch before branch-sensitive work and reconcile conflicts.
 
-Product direction, highest first: Jim's latest explicit instruction; current direction overlays and execution pointers; older plans. Never let stale routing override a newer owner decision.
+Product direction, highest first: Jim's latest explicit instruction; current direction/owner overlays and execution pointers; older plans. Never let stale routing override a newer owner decision.
 
 ## Current V1 product
 
@@ -30,38 +30,61 @@ FDA-G calendar-time soak remains `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVI
 
 ## Current V2 product authority
 
-V2 is the current owner-approved retention-native video/channel-growth lane and proceeds concurrently with V1 while remaining isolated from the live V1 runtime.
+V2 is the owner-approved retention-native video/channel-growth lane and proceeds concurrently with V1 while remaining isolated from the live V1 runtime.
 
 Read in this order for V2 work:
 
-1. `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md`
-2. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1.md`
-3. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md`
-4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V1.md`
-5. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`
-6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_SUPERSESSION_MAP_V1.md`
-7. `video/AGENTS.md`
-8. exact task code/tests/evidence
+1. `docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md`
+2. `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md`
+3. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1.md`
+4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md`
+5. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V1.md`
+6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`
+7. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+8. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_SUPERSESSION_MAP_V1.md`
+9. `video/AGENTS.md`
+10. exact task code/tests/evidence
 
 The current next V2 task is:
 
-`TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
 
-Required result:
+Required result remains:
 
 `PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
 
 The target is an autonomous evidence-governed growth engine for YouTube hero/mid/long video, YouTube Shorts, and TikTok native short-form. It is not an animated slideshow factory and does not guarantee that any upload will trend or go viral.
 
-The accepted dedicated direct `https://ai.api-cheap.site/v1/images/generations` boundary uses only `AI_API_CHEAP_API_KEY` and is proven for `gpt-5.5`. It is the provisional generated-illustration route. Generated media is never factual or documentary authority. `wan2.7-image-pro` and `qwen-image-2.0` remain unresolved without blocking V2.
+### Exact V2 creative-code model
+
+Primary for `V2_CREATIVE_EDITOR`, `V2_MOTION_CODE_AUTHOR`, and `V2_CREATIVE_REVISION_AUTHOR`:
+
+`new/gpt-5.6-sol-xhigh`
+
+through the canonical 9Router seam.
+
+It authors presentation-layer screenplay, shot/edit strategy, motion timing, and bounded per-shot creative code. Remotion is deterministic renderer/compiler, not creative authority. If availability fallback produces creative output, mark it `DEGRADED_CREATIVE_MODEL`; it cannot self-advance to professional PASS.
+
+### Existing media/provider authority remains
+
+- dedicated direct image boundary uses only `AI_API_CHEAP_API_KEY`;
+- `gpt-5.5` remains provisional generated-illustration default;
+- generated imagery remains illustrative only, never factual/documentary authority;
+- current asset-rights/provenance and voice/audio abstractions remain unchanged unless a concrete blocker requires a later task to change them;
+- real-person documentary imagery must be real and rights-cleared.
+
+### Current Remotion reference baseline
+
+Primary technical skill reference is official `remotion-dev/skills`, pinned in the current V2 baseline at commit `b12104ef5f1b1ca2ca5590fcc7c1804fbc85556f`. Community Remotion skills are craft reference only and never override current official APIs, repo safety, or V2 product authority.
 
 Rejected branches are reference only:
 
 - `task/tier2-b-remotion-multimodal-bakeoff-v1` — rejected visual product;
 - `task/tier2-v2-creative-system-rebuild-v1` at `d231b54e026570442d9fd9269b61e55c3de31d21` — `REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`;
+- `task/tier2-v2-retention-native-video-factory-vertical-slice-v1` at `b6f5002903fba65a668506e4ca38ae61b907ab18` — `FAIL_CREATIVE_MOTION_ARCHITECTURE / REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`;
 - `task/tier2-image-generation-9router-contract-correction-v1` at `8b043a5` — rejected provider-contract implementation.
 
-Do not merge or continue their creative product designs. Reuse selected engineering lessons only after fresh inspection and only when compatible with the canonical V2 plan.
+Do not merge or continue their creative designs. Reuse bounded engineering only after fresh inspection and only when compatible with current authority.
 
 ## Canonical boundaries
 
@@ -91,13 +114,13 @@ Capital Chronicle main owns analytical/numeric truth; ContentOps reads it throug
 
 Preserve unrelated dirty/untracked work and V1/V2 worktrees. Use CodeGraph first when a root `.codegraph/` exists; otherwise use `rg`/`rg --files`. Use `apply_patch` for hand edits, focused validation proportional to risk, and explicit staging paths only. Never `git add .`, force push, or push/merge master without exact authorization. Runtime/provider/browser/public actions require exact task authorization.
 
-Codex is the repository builder. Task prompts should be lean and high-signal; Codex should use the committed authority and codegraph rather than receiving repeated chat history.
+Codex is the repository builder. Task prompts should be lean and high-signal; Codex should use committed authority and CodeGraph rather than repeated chat history.
 
-## Codegraph
+## CodeGraph
 
-If `.codegraph/` exists, run `codegraph explore "<symbol or question>"` before grep/file-by-file inspection. The deterministic repository graph is `docs/codegraph/graph.json`; edge records state their inference type.
+If `.codegraph/` exists, run `codegraph explore "<symbol or question>"` before broad grep/file-by-file inspection. The deterministic repository graph is `docs/codegraph/graph.json`; edge records state inference type.
 
-This direct GitHub authority update changes V2 routing. The next Codex task must regenerate and check CodeGraph before implementation:
+Current V2 routing has changed directly on GitHub. The next Codex task must regenerate and check CodeGraph before implementation commit:
 
 ```text
 python scripts/generate_codex_context_index.py
