@@ -73,6 +73,27 @@ def test_regulatory_primary_source_supplies_document_timeline_and_entities():
     assert packet["provenance"]["retrieved_at_utc"] is not None
 
 
+def test_official_html_release_date_with_public_month_name_is_point_in_time_bound():
+    url = "https://www.eia.gov/outlooks/steo/"
+    body = b"""
+      <html><body><strong>Release Date:</strong> August 11, 2026
+      <p>Official economic data release with current forecast values.</p></body></html>
+    """
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc="2026-08-12T08:00:00Z",
+        http_get=lambda *_args: _response(url, body, "text/html"),
+    )(_request(
+        family="official_macro",
+        required=["official_release", "release_timestamps"],
+        url=url,
+    ))
+
+    assert packet["status"] == "PASS"
+    document = packet["official_source_documents"][0]
+    assert document["published_at_utc"] == "2026-08-11T00:00:00Z"
+    assert document["source_headline_id"] == "headline-1"
+
+
 def test_retrieval_provenance_uses_actual_clock_not_evaluation_cutoff_or_request_payload():
     url = "https://api.federalregister.gov/v1/documents/2026-12345.json"
     body = json.dumps({

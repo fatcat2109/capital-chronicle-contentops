@@ -79,6 +79,13 @@ def _parse_timestamp(value: Any) -> str | None:
                 parsed = parsed.replace(tzinfo=timezone.utc)
             return _iso_utc(parsed)
         except (TypeError, ValueError):
+            for pattern in ("%B %d, %Y", "%b %d, %Y"):
+                try:
+                    return _iso_utc(
+                        datetime.strptime(text, pattern).replace(tzinfo=timezone.utc)
+                    )
+                except ValueError:
+                    continue
             return None
 
 
