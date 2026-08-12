@@ -4,6 +4,7 @@ from __future__ import annotations
 from datetime import date, datetime, timezone
 from email.utils import parsedate_to_datetime
 from hashlib import sha256
+import html
 import json
 import re
 from typing import Any, Callable, Mapping
@@ -140,6 +141,18 @@ def _html_timestamp(text: str) -> str | None:
     return None
 
 
+def _html_document_title(text: str) -> str | None:
+    for tag in ("title", "h1"):
+        match = re.search(rf"<{tag}[^>]*>(.*?)</{tag}>", text, re.IGNORECASE | re.DOTALL)
+        if not match:
+            continue
+        value = html.unescape(re.sub(r"<[^>]+>", " ", match.group(1)))
+        value = " ".join(value.split())
+        if value:
+            return value[:300]
+    return None
+
+
 def _safe_url(url: str, allowed_hosts: set[str]) -> tuple[str, str]:
     parsed = urlsplit(url)
     host = str(parsed.hostname or "").casefold()
@@ -228,9 +241,18 @@ def _verified_capabilities(
             "data", "results", "series", "seriesid", "value", "observations",
             "period", "periodname", "unit", "linedescription", "releasedate",
         }
+        document_title = (_html_document_title(text) or "").casefold()
+        dated_publication = bool(
+            re.search(r"\brelease date\s*:?(?:</[^>]+>)?", lowered)
+            and re.search(
+                r"\b(outlook|report|statement|survey|statistics|data)\b",
+                document_title,
+            )
+        )
         official_release = bool(
             keys.intersection(macro_keys)
             or re.search(r"\b(data release|news release|economic release|employment situation)\b", lowered)
+            or dated_publication
         )
         if official_release:
             capabilities.add("official_release")
@@ -436,7 +458,12 @@ class BoundedOfficialPrimaryEvidenceLoader:
                 supplied.update(verified)
                 document = {
                     "document_id": "official-primary-" + sha256(body).hexdigest()[:20],
-                    "title": headers.get("x-document-title") or final_url.rsplit("/", 1)[-1] or host,
+                    "title": (
+                        headers.get("x-document-title")
+                        or _html_document_title(text)
+                        or final_url.rsplit("/", 1)[-1]
+                        or host
+                    ),
                     "publisher": final_host,
                     "source_authority_class": "official_public_primary_source",
                     "source_adapter_family": family,

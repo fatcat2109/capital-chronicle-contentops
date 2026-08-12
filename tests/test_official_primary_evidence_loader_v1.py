@@ -76,8 +76,10 @@ def test_regulatory_primary_source_supplies_document_timeline_and_entities():
 def test_official_html_release_date_with_public_month_name_is_point_in_time_bound():
     url = "https://www.eia.gov/outlooks/steo/"
     body = b"""
-      <html><body><strong>Release Date:</strong> August 11, 2026
-      <p>Official economic data release with current forecast values.</p></body></html>
+      <html><head><title>Short-Term Energy Outlook - EIA</title></head><body>
+      <h1>Short-Term Energy Outlook</h1>
+      <strong>Release Date:</strong> August 11, 2026
+      <p>Current forecast values.</p></body></html>
     """
     packet = BoundedOfficialPrimaryEvidenceLoader(
         evaluation_as_of_utc="2026-08-12T08:00:00Z",
@@ -92,6 +94,31 @@ def test_official_html_release_date_with_public_month_name_is_point_in_time_boun
     document = packet["official_source_documents"][0]
     assert document["published_at_utc"] == "2026-08-11T00:00:00Z"
     assert document["source_headline_id"] == "headline-1"
+    assert document["title"] == "Short-Term Energy Outlook - EIA"
+    assert set(packet["provided_evidence_capabilities"]) >= {
+        "official_release",
+        "release_timestamps",
+    }
+
+
+def test_generic_dated_official_page_does_not_gain_release_capability():
+    url = "https://www.eia.gov/about/"
+    body = b"""
+      <html><head><title>About EIA</title></head><body>
+      <h1>About EIA</h1><strong>Release Date:</strong> August 11, 2026
+      <p>Contact and organization information.</p></body></html>
+    """
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc="2026-08-12T08:00:00Z",
+        http_get=lambda *_args: _response(url, body, "text/html"),
+    )(_request(
+        family="official_macro",
+        required=["official_release"],
+        url=url,
+    ))
+
+    assert packet["status"] == "BLOCKED"
+    assert "official_release" not in packet["provided_evidence_capabilities"]
 
 
 def test_retrieval_provenance_uses_actual_clock_not_evaluation_cutoff_or_request_payload():
