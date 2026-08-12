@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12219,
+    "edges": 12223,
     "entrypoints": 12,
-    "nodes": 6527,
+    "nodes": 6528,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 13,
@@ -33,7 +33,7 @@
       "instructions": 8,
       "manifest": 9,
       "python_class": 528,
-      "python_function": 3618,
+      "python_function": 3619,
       "python_method": 215,
       "python_module": 685,
       "schema": 159,
@@ -18522,6 +18522,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/llm_cost_governor_v1.py::_write_ledger"
+    },
+    {
+      "from": "live_contentops/llm_cost_governor_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/llm_cost_governor_v1.py::active_day_token_limit"
     },
     {
       "from": "live_contentops/llm_cost_governor_v1.py",
@@ -50987,6 +50993,12 @@
       "from": "python_symbol:live_contentops/llm_cost_governor_v1.py::budget_snapshot",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/llm_cost_governor_v1.py::active_day_token_limit"
+    },
+    {
+      "from": "python_symbol:live_contentops/llm_cost_governor_v1.py::budget_snapshot",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/llm_cost_governor_v1.py::ledger_path"
     },
     {
@@ -51089,6 +51101,12 @@
       "from": "python_symbol:live_contentops/llm_cost_governor_v1.py::reserve_logical_invocation",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/llm_cost_governor_v1.py::active_day_token_limit"
+    },
+    {
+      "from": "python_symbol:live_contentops/llm_cost_governor_v1.py::reserve_logical_invocation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/llm_cost_governor_v1.py::ledger_path"
     },
     {
@@ -51144,6 +51162,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/llm_cost_governor_v1.py::_write_ledger"
+    },
+    {
+      "from": "python_symbol:live_contentops/llm_cost_governor_v1.py::reserve_provider_attempt",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/llm_cost_governor_v1.py::active_day_token_limit"
     },
     {
       "from": "python_symbol:live_contentops/llm_cost_governor_v1.py::reserve_provider_attempt",
@@ -73452,7 +73476,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-12T10:30:41Z",
+  "generation_timestamp_utc": "2026-08-12T11:23:02Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -75436,7 +75460,7 @@
     {
       "id": "live_contentops/llm_cost_governor_v1.py",
       "kind": "python_module",
-      "size_bytes": 12175
+      "size_bytes": 14010
     },
     {
       "id": "live_contentops/llm_feedback_summarizer_dry_run_v6.py",
@@ -91692,154 +91716,161 @@
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::LLMCostBudgetExceededError",
       "kind": "python_class",
-      "line": 63,
+      "line": 70,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "LLMCostBudgetExceededError"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::LLMCostBudgetExceededError.__init__",
       "kind": "python_method",
-      "line": 64,
+      "line": 71,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "LLMCostBudgetExceededError.__init__"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_active_day",
       "kind": "python_function",
-      "line": 84,
+      "line": 91,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_active_day"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_bounded_cycle_key",
       "kind": "python_function",
-      "line": 114,
+      "line": 144,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_bounded_cycle_key"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_control_root",
       "kind": "python_function",
-      "line": 69,
+      "line": 76,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_control_root"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_cycle_id",
       "kind": "python_function",
-      "line": 121,
+      "line": 151,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_cycle_id"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_cycle_row",
       "kind": "python_function",
-      "line": 129,
+      "line": 159,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_cycle_row"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_day_row",
       "kind": "python_function",
-      "line": 146,
+      "line": 176,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_day_row"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_default_ledger",
       "kind": "python_function",
-      "line": 88,
+      "line": 118,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_default_ledger"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_estimated_prompt_tokens",
       "kind": "python_function",
-      "line": 224,
+      "line": 255,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_estimated_prompt_tokens"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_now",
       "kind": "python_function",
-      "line": 77,
+      "line": 84,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_now"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_prune",
       "kind": "python_function",
-      "line": 150,
+      "line": 180,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_prune"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_read_ledger",
       "kind": "python_function",
-      "line": 92,
+      "line": 122,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_read_ledger"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::_write_ledger",
       "kind": "python_function",
-      "line": 107,
+      "line": 137,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "_write_ledger"
     },
     {
+      "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::active_day_token_limit",
+      "kind": "python_function",
+      "line": 95,
+      "path": "live_contentops/llm_cost_governor_v1.py",
+      "symbol": "active_day_token_limit"
+    },
+    {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::budget_snapshot",
       "kind": "python_function",
-      "line": 290,
+      "line": 322,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "budget_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::cycle_unavailable_models",
       "kind": "python_function",
-      "line": 183,
+      "line": 213,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "cycle_unavailable_models"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::ledger_path",
       "kind": "python_function",
-      "line": 73,
+      "line": 80,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "ledger_path"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::llm_cycle_budget_scope",
       "kind": "python_function",
-      "line": 163,
+      "line": 193,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "llm_cycle_budget_scope"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::reconcile_provider_attempt",
       "kind": "python_function",
-      "line": 258,
+      "line": 290,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "reconcile_provider_attempt"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::record_cycle_unavailable_models",
       "kind": "python_function",
-      "line": 190,
+      "line": 220,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "record_cycle_unavailable_models"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::reserve_logical_invocation",
       "kind": "python_function",
-      "line": 201,
+      "line": 231,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "reserve_logical_invocation"
     },
     {
       "id": "python_symbol:live_contentops/llm_cost_governor_v1.py::reserve_provider_attempt",
       "kind": "python_function",
-      "line": 229,
+      "line": 260,
       "path": "live_contentops/llm_cost_governor_v1.py",
       "symbol": "reserve_provider_attempt"
     },
@@ -110173,7 +110204,7 @@
     {
       "id": "tests/test_llm_cost_governor_v1.py",
       "kind": "test",
-      "size_bytes": 9249
+      "size_bytes": 11481
     },
     {
       "id": "tests/test_llm_feedback_summarizer_dry_run_v6.py",
@@ -115803,6 +115834,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "11222eeeeecfaf46be46d2eaf8bac30e8d851c99",
-  "source_tree_digest": "6128bed6273d87a969023749498a2a0d8aff3773fc9d8eccf951c951e442817f"
+  "source_head": "83d07a52c9bdf292e308c09fe397abaf46b2312c",
+  "source_tree_digest": "93003482fb21216daaf54b73d514335701622b48321903af89b0f8a73ad23f4a"
 }
