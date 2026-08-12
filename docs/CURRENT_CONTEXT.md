@@ -7,231 +7,246 @@ Authority date: 2026-08-12
 
 ## Current product lanes
 
-### V1 — Final Daily App
+### V1 — Final Daily App / Nine-Surface Live Closeout
 
-Current product direction:
+Current fresh-session handoff:
 
-`CONTENTOPS_FINAL_DAILY_APP_V1_OWNER_DIRECTION`
+`docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md`
 
-Canonical V1 North Star / plan:
+Current continuation task:
 
-- `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_NORTH_STAR.md`
-- `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_MASTER_PLAN.md`
+`TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1`
 
-Continuous lane:
-
-`TASK_CONTENTOPS_FINAL_DAILY_APP_GENUINE_CALENDAR_TIME_LIVE_SOAK_V1`
-
-Status:
-
-`SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`
-
-Current main V1 builder task status:
+Parent task:
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-Result: `OPERATOR_CONTINUATION_AUTHORIZED_PHASE_CLOSEOUT_IN_PROGRESS`. The task branch contains
-the evidence calibration, Decision 5 replay fix, RSS relevance/freshness correction, STOP/resume
-controls, canonical LLM fuse, and scheduled-only execution. Jim's 2026-08-12 operator override
-supersedes the prior two-cycle ceiling and authorizes at most eight governed editorial decisions
-to prove real canonical publication and a genuine 5–8 article production day. The app remains
-stopped and the fuse paused until master reconciliation, updated circuit breakers, and focused
-validation complete. The 5–8 band remains a portfolio target, never filler permission. Hard
-truth, identity, permission, freshness, rights, UNKNOWN_WRITE, publication, and readback gates
-remain unchanged.
+Current V1 proof objective is one same canonical article genuinely public and strictly read back/reconciled on all nine Tier-1 text/image surfaces, followed by repeated autonomous proof reaching at least five genuine canonical articles including a scheduled-window success. Read the current V1 handoff for live branch/runtime evidence and owner overrides. Do not infer current V1 runtime state from this compact file.
 
-### V2 — Retention-Native Video Factory
+The broader approximately 5–8 useful articles/day target remains a portfolio goal, never filler permission.
 
-Current owner-approved V2 direction:
+### V2 — GPT-5.6 Creative-Code Retention-Native Video Factory
 
-`CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_OWNER_DIRECTION_V1`
-
-V2 proceeds concurrently with V1 while remaining isolated from the live V1 runtime/store and public-write authority.
+V2 proceeds concurrently with V1 while remaining isolated from live V1 runtime/store/browser/publication authority.
 
 Canonical V2 read order:
 
-1. `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md`
-2. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1.md`
-3. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md`
-4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V1.md`
-5. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`
-6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_SUPERSESSION_MAP_V1.md`
-7. `video/AGENTS.md`
-8. exact task implementation/tests/evidence
+1. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
+2. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
+3. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
+4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
+5. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+6. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
+7. `docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md` only for historical rationale/details already folded into the V2 documents
+8. `video/AGENTS.md`
+9. exact current task code/tests/evidence
 
-Current next V2 task:
+The prior V2 `NORTH_STAR_V1`, `MASTER_PLAN_V1`, `TASK_GRAPH_V1`, and `CURRENT_EXECUTION_POINTER_V1` remain history/reference and are superseded where V2 documents conflict.
 
-`TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1`
+## V2 objective
 
-Required result:
-
-`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
-
-## V2 product definition
-
-V2 is an autonomous evidence-governed growth engine for:
+Build an autonomous evidence-governed media growth engine for:
 
 - YouTube hero/mid/long-form;
 - YouTube Shorts;
 - TikTok native short-form.
 
-It is not an animated slideshow factory and does not guarantee viral/trending outcomes.
+The objective is repeatable qualified audience growth and breakout/trending potential. No upload is guaranteed to trend or go viral.
 
-Canonical creative/product flow:
+## Current V2 task
+
+`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+
+Required result:
+
+`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
+
+Do not advance to V2-02 until Jim/ChatGPT accepts actual MP4/audio.
+
+## Exact V2 creative-code authority
+
+Exact primary model through the canonical 9Router seam:
+
+`new/gpt-5.6-sol-xhigh`
+
+Required primary roles:
+
+- `V2_CREATIVE_EDITOR`
+- `V2_MOTION_CODE_AUTHOR`
+- `V2_CREATIVE_REVISION_AUTHOR`
+
+GPT-5.6 directly authors presentation-layer screenplay, narration/pacing, shot/edit strategy, motion timing, transition/chart/text choreography, asset-purpose requests, and bounded per-shot Remotion React/TypeScript/SVG/Canvas implementation.
+
+Remotion is deterministic execution/rendering infrastructure, not creative authority.
+
+If a creative role falls back to a different model, mark the package `DEGRADED_CREATIVE_MODEL`; it cannot self-advance through professional visual/audio acceptance.
+
+## Current V2 architecture
 
 ```text
 canonical story universe
 → VideoOpportunity / portfolio selection
-→ Engagement Director
-→ Editorial Video Director
-→ EngagementBrief
-→ renderer-neutral VideoProgram
-→ NarrativeBeatGraph
-→ EditDecisionGraph / MotionBeatGraph
-→ rights-aware AssetPlan
-→ AudioPlan
-→ platform-native compilers
-→ render
-→ deterministic media + retention QA
-→ multimodal visual/audio/retention critic
-→ maximum two structural revisions
-→ package
-→ exact-authorized upload
-→ processing/readback/reconciliation
+→ compact governed story/evidence packet
+→ new/gpt-5.6-sol-xhigh Creative Editor
+→ screenplay + narration + shot/edit plan
+→ renderer-neutral semantic contracts
+→ rights-aware AssetPlan + AudioPlan
+→ new/gpt-5.6-sol-xhigh Motion Code Author
+→ sandboxed per-video/per-shot creative code
+→ deterministic validation/typecheck
+→ Remotion render
+→ deterministic media + retention + collision + repetition QA
+→ independent multimodal critic
+→ new/gpt-5.6-sol-xhigh localized creative revision
+→ selective rerender
+→ Jim/ChatGPT actual media acceptance
+→ later exact-authorized platform delivery/readback
 → real retention/performance attribution
 → bounded creative/packaging/timing learning
 ```
 
-The primary creative unit is a narration-linked beat, not a static card/scene. With captions hidden, the primary visual must continue to tell the story through purposeful visual evolution.
+The primary creative unit is a narration-linked shot/beat, not a static card/scene. With captions hidden, the primary visual must still tell the story.
 
-## V2 rejected creative references
+## V2 failed creative references
 
-`task/tier2-v2-creative-system-rebuild-v1` at `d231b54e026570442d9fd9269b61e55c3de31d21`:
+### `d231b54e...`
+
+`task/tier2-v2-creative-system-rebuild-v1`
+
+Classification:
 
 `REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
 
-It improved typography/engineering but remained slideshow-heavy, under-moved, weak in hook/payoff architecture, narration-only/no-music, and underused contextual real-world imagery. Do not merge or continue its creative design. Reinspect only bounded engineering primitives compatible with current authority.
+### `b6f50029...`
 
-Historical Tier2-B is also rejected visual-product reference only.
+`task/tier2-v2-retention-native-video-factory-vertical-slice-v1`
 
-## Current accepted V2 foundations
+Classification:
 
-- Tier2-A renderer-neutral/evidence infrastructure is engineering reference, not creative baseline.
-- The dedicated direct `https://ai.api-cheap.site/v1/images/generations` route using only `AI_API_CHEAP_API_KEY` is proven end to end for `gpt-5.5`.
-- `gpt-5.5` is the provisional generated-illustration default; generated media is never factual/documentary authority.
-- `wan2.7-image-pro` and `qwen-image-2.0` remain unresolved and non-blocking.
-- Current 9Router text/model authority remains the canonical semantic-model seam.
-- CodeGraph/context infrastructure exists and should be regenerated after this direct authority update before V2 implementation is committed.
+`FAIL_CREATIVE_MOTION_ARCHITECTURE / REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
+
+Jim's controlling review on `b6f50029...`:
+
+- repeated text-transition motifs;
+- near-identical motion speed/easing;
+- transitions felt too slow;
+- repeated slow left-to-right chart reveals;
+- visual text overlaps/collisions;
+- machine motion/static-run metrics failed to detect perceptual repetition;
+- output still looked template/generated;
+- more purposeful assets are required.
+
+Do not merge or continue its creative grammar. Reuse only compatible evidence/rights/asset/audio/cache/QA engineering after fresh inspection.
+
+## Asset-rich direction
+
+Keep current image, asset, voice, music/SFX, and mastering provider choices unless a direct blocker requires change.
+
+For sufficiently rich stories, initial planning hypotheses are:
+
+- roughly 25–60 viable candidate assets/visual states;
+- roughly 12–20 purposeful visual states for a 45–75s short;
+- roughly 25–45 purposeful visual states for a 90–150s proof.
+
+Use real rights-cleared people/institutions/locations, source documents, deterministic charts, maps, timelines, comparisons, diagrams, contextual/history imagery, B-roll/stills, and generated conceptual illustration when editorially justified. These are not quotas; random weak assets must be rejected.
+
+Accepted generated-image authority remains:
+
+- dedicated direct image boundary using `AI_API_CHEAP_API_KEY` only;
+- `gpt-5.5` provisional generated-illustration default;
+- generated media never factual/documentary authority;
+- real-person documentary imagery must be real and rights-cleared.
+
+Current voice/TTS abstraction, local/Kokoro baseline, and existing music/SFX/mastering infrastructure remain in place until a dedicated task proves a better path.
+
+## Remotion technical baseline
+
+Primary reference:
+
+`docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+
+Pinned official baseline at authority creation:
+
+`remotion-dev/skills@b12104ef5f1b1ca2ca5590fcc7c1804fbc85556f`
+
+Official skills guide APIs/technical craft. Community skills are reference-only and their absolute visual recipes are not product authority.
+
+Do not adopt universal rules such as stagger-everything, Ken-Burns-every-image, idle-elements-always-breathe, or cross-dissolve-every-scene.
+
+## Current V2 proof scope
+
+The replacement V2-01 should prove the architecture before scaling duration:
+
+- one native 45–60 second 9:16 short;
+- one 90–150 second 16:9 editorial proof;
+- exact sanitized GPT-5.6 creative-author receipts;
+- sandboxed per-shot source;
+- rich rights-safe candidate assets and purposeful selected visual states;
+- current narration/music/SFX path;
+- zero accepted text collisions;
+- transition/easing/duration/direction/layout repetition diagnostics;
+- chart-crawl diagnostics;
+- independent strong multimodal critique;
+- at most two localized GPT-5.6 creative revisions;
+- actual Jim/ChatGPT media acceptance.
+
+Do not build another 5.5-minute proof before this architecture passes.
 
 ## Model/cost doctrine
 
-ContentOps remains the product; Codex is the repository builder, not the runtime controller.
+ContentOps remains the product; Codex is the repository builder, not the production controller.
 
-V1 production evidence proves newsroom/routing can exceed one million model tokens before article/video work. V2 therefore amortizes continuous intelligence, clustering, novelty, evidence, and memory across all content outputs rather than asking a frontier agent to rediscover the world for each video.
+Shared continuous intelligence, clustering, novelty, evidence, and memory are amortized across outputs. Exact GPT-5.6 is used at high-value creative authoring/revision points. Deterministic/local rendering, transforms, caching, package verification, and routine QA remain outside the frontier reasoning loop where practical.
 
-Runtime doctrine:
-
-- cheap/shared continuous intelligence;
-- compact governed story packets;
-- cheap capable bounded semantic decisions where quality is sufficient;
-- strong/frontier Director or Critic only where marginal quality value justifies cost;
-- deterministic/local assets, rendering, caching, QA, muxing, package verification, and recovery where practical;
-- provider-neutral architecture and measured portfolio cost.
-
-Do not hardcode temporary provider pricing/subscription economics into product authority.
+Measure calls/tokens/cost where available. Do not hardcode temporary provider pricing/subscription assumptions into product authority.
 
 ## Product boundary
 
-Capital Chronicle owns analytical/numeric truth: market/economic analysis, scenarios/probabilities, forecasts/regimes, calculations, realized outcomes, and analytical error attribution.
+Capital Chronicle owns analytical/numeric truth.
 
-ContentOps owns newsroom/distribution/learning: intake, clustering/update chains, evidence/permission/freshness, ranking/selection/abstention, factual reporting, faithful Capital Chronicle transformation, writing/editing/SEO/media/video, packages, publication/readback/reconciliation/incidents, performance observations, and bounded packaging/selection/timing/creative learning.
+ContentOps owns newsroom/distribution/learning and faithful media transformation.
 
-Engagement and trends may never weaken or modify evidence, permissions, Capital Chronicle analysis, or numeric truth.
+Engagement/trends may never weaken evidence, permissions, Capital Chronicle analysis, or numeric truth.
 
-## Canonical V1 runtime boundaries
+## Canonical runtime boundaries
 
-Preserve:
+Preserve one canonical newsroom/store/scheduler/approval/public-write/provider/UI authority. V2 must extend canonical seams, not create parallels.
 
-- `live_contentops.production_orchestrator_v1.ContentOpsProductionOrchestrator`;
-- `live_contentops._eight_platform_substack_first_pipeline_impl_v1`;
-- `live_contentops.eight_platform_substack_first_pipeline_v1`;
-- `live_contentops/durable_operational_store_v1.py`;
-- `ui/contentops_v5/`;
-- canonical publication coordinator/outbox/readback/reconciliation;
-- existing 9Router gateway/model authority.
+Persistent browser roles remain unchanged:
 
-Do not create another newsroom, production pipeline, durable state store, scheduler authority, approval engine, publisher, provider gateway, dashboard, or analytical authority.
+- Chrome `CapitalChronicleBot`, CDP 9222: ingestion only;
+- Edge `contentops-social-main`, CDP 9223: publication/media/readback/authorized read-only observation only.
 
-## Protected historical release
+Never inspect/export cookies, storage, tokens, credentials, or sessions.
 
-`v1.0` remains immutable at release commit `6983bfb3ef300414b744f3f8f97ca81ff699348b` with the existing annotated tag.
-
-Do not mutate, recreate, move, or retag it.
-
-FDA-G genuine calendar-time soak remains active. The current main V1 builder lane is:
-
-`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
-
-The prior two live cycles ended safe `NO_PUBLICATION`; the exact cycle-two RSS selection defect
-is corrected and its saved rank-10 request passes read-only evidence and claim replay. Jim has
-now delegated bounded phase-closeout operation for at most eight governed decisions. Acceptance
-still requires real Substack publication, strict reconciliation, published-memory feedback, at
-least one scheduled decision, and a genuine 5–8 article portfolio or exact exhaustion evidence.
-Current evidence is recorded in
-`docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1_STATUS.md`.
-
-Tier-2 work remains a separate concurrent lane, isolated from the live V1 production runtime and
-without video public-write authority. FDA-G is not accepted by either lane.
-
-## Operating modes
-
-- `AUTONOMOUS_DEFAULT`
-- `SUPERVISED_OPERATOR_GATE`
-- `SHADOW_ONLY`
-- `KILL_SWITCH`
-
-Video public-write authority remains ZERO until the exact later V2 task and Jim explicitly grant scope.
-
-## Persistent browser roles
-
-- Chrome `CapitalChronicleBot`, CDP 9222: ingestion only; exact persistent profile reuse.
-- Edge `contentops-social-main`, CDP 9223: publication/media management/readback and explicitly supported read-only performance observation only.
-
-Never inspect/export cookies, storage, tokens, credentials, or session databases.
-
-Unknown writes:
+Unknown writes remain:
 
 `STOP RETRY → READ BACK → RECONCILE`
 
-## Immediate next actions
+## Protected historical release
 
-V1:
+`v1.0` remains immutable at:
 
-`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
+`6983bfb3ef300414b744f3f8f97ca81ff699348b`
 
-V2:
+## Current V2 public-write authority
 
-`TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1`
+`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
 
-Before the next V2 implementation commit, regenerate/check CodeGraph because this authority update was written directly through GitHub:
+No YouTube/TikTok public or private upload is authorized by current V2-01.
 
-```text
-python scripts/generate_codex_context_index.py
-python scripts/generate_codex_context_index.py --check
-```
+## Local worktree synchronization
 
-Require `CODEGRAPH_CURRENT`.
+Direct ChatGPT GitHub writes update remote authority, not the user's Windows checkout automatically.
 
-## Safety
+Before the next V2 implementation:
 
-- no raw secret/session material;
-- no unauthorized provider/browser/platform/public action;
-- no fabricated numeric or analytical truth;
-- no model/X/social factual authority;
-- no synthetic documentary deception;
-- no generated real-person documentary imagery;
-- no Capital Chronicle authority mutation;
-- no protected-release mutation;
-- no blind retry of unknown writes;
-- no engagement-driven weakening of evidence/safety;
-- no video public write without exact owner authorization.
+1. inspect local status and preserve unrelated work;
+2. fetch origin;
+3. verify fresh `origin/master` against GitHub;
+4. avoid hard-resetting dirty work;
+5. create a clean dedicated V2 task worktree/branch from fresh master, or safely fast-forward a clean canonical checkout;
+6. regenerate/check CodeGraph;
+7. require `CODEGRAPH_CURRENT` before implementation commit.
+
+A fresh ChatGPT session can re-ground from remote GitHub even before the local worktree is synced. The builder cannot safely start code changes until local base is synchronized.

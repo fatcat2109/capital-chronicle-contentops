@@ -3,31 +3,32 @@
 Authority date: 2026-08-12
 Status: `CURRENT_CANONICAL_V2_TASK_GRAPH`
 
-This is the compact execution map. Detailed scope and acceptance live in `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md`.
+Detailed scope and acceptance live in `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md`. The current V2-01 architecture override lives in `docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md` and controls where the original V2-01 text conflicts.
 
 ## Current position
 
-Base master when this plan was authored:
+Canonical plan baseline was authored from master `831dfb181b23cb7b27d195bbbc1bb7b847a86590` and later updated directly on master. Always fetch current remote master before implementation.
 
-`831dfb181b23cb7b27d195bbbc1bb7b847a86590`
+Rejected creative references:
 
-Rejected creative reference:
+- `task/tier2-v2-creative-system-rebuild-v1` / `d231b54e026570442d9fd9269b61e55c3de31d21` — `REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
+- `task/tier2-v2-retention-native-video-factory-vertical-slice-v1` / `b6f5002903fba65a668506e4ca38ae61b907ab18` — `FAIL_CREATIVE_MOTION_ARCHITECTURE / REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
 
-`task/tier2-v2-creative-system-rebuild-v1` / `d231b54e026570442d9fd9269b61e55c3de31d21`
-
-Classification:
-
-`REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
+The second branch improved story selection, asset/right/audio infrastructure and machine diagnostics but failed Jim's actual media review because motion/edit grammar remained repetitive, slow, template-like, and had text-overlap defects. Do not merge it.
 
 Current next task:
 
-`TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+
+Exact main creative-code model:
+
+`new/gpt-5.6-sol-xhigh` through 9Router.
 
 ## Execution graph
 
 | # | Task | Product capability | Required visible result | Result required to advance | Operator/external dependency | Next |
 |---|---|---|---|---|---|---|
-| V2-01 | `TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1` | EngagementBrief + NarrativeBeatGraph + EditDecisionGraph + AssetPlan + AudioPlan + beat-driven renderer + retention diagnostics | 45–75s native short + 3–6m mid-form with real music/audio, ≥4 asset classes, captions-hidden motion proof | `PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED` | Existing model/image credentials; no new public authority | V2-02 |
+| V2-01 | `TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1` | exact GPT-5.6 creative editor + motion-code author + revision author; sandboxed per-shot Remotion code; asset-rich edit; collision/repetition diagnostics | 45–60s native short + 90–150s 16:9 proof, exact GPT-5.6 authorship receipts, large rights-safe candidate pool, rich selected visual states, current voice/music/SFX, captions-hidden motion proof | `PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED` | Existing 9Router/image/asset/voice credentials only; no public authority | V2-02 |
 | V2-02 | `TASK_CONTENTOPS_TIER2_V2_PREMIUM_AUDIO_AND_ASSET_INTELLIGENCE_V1` | premium voice routing, sonic identity, rights-aware entity/document/location asset intelligence | blind voice bundle, reusable music/SFX library, 3 rights-cleared asset packs, rerendered proof | `PASS_PREMIUM_AUDIO_AND_ASSET_ENGINE_ACCEPTED` | Jim decision only if paid ElevenLabs/music becomes justified | V2-03 |
 | V2-03 | `TASK_CONTENTOPS_TIER2_V2_DIVERSE_STORY_MODE_CORPUS_AND_MOTION_ACCEPTANCE_V1` | repeated creative quality across story modes | ≥3 shorts, ≥2 mid-form, 4 story modes + `VIDEO_NOT_SELECTED`, optional 8–15m hero only if earned | `PASS_REPEATED_PROFESSIONAL_CREATIVE_QUALITY` | governed story supply | V2-04 |
 |  |  |  | **MILESTONE: PROFESSIONAL_CREATIVE_PROOF** |  |  |  |
@@ -46,9 +47,21 @@ Current next task:
 |  |  |  | **MILESTONE: AUTONOMOUS_OPERATING_PROOF** |  |  |  |
 | V2-12 | `TASK_CONTENTOPS_TIER2_V2_FINAL_RELIABILITY_GROWTH_PROOF_AND_RELEASE_V1` | final repeated quality/reliability/growth proof and release | ≥6 accepted hero/mid/long, ≥20 shorts, ≥3 series, ≥3 story modes, retention-driven improvement, reliability proof | `PASS_CONTENTOPS_V2_VIDEO_FACTORY_OWNER_ACCEPTED` | Jim final acceptance/release authorization | FINAL |
 
-## Non-negotiable advancement rules
+## Non-negotiable V2-01 replacement rules
 
-1. V2-01 through V2-03 are media-quality gates. Unit tests cannot substitute for Jim/ChatGPT actual MP4/audio review.
+1. The failed `b6f50029...` implementation does not satisfy V2-01 and does not advance the graph.
+2. `new/gpt-5.6-sol-xhigh` must be the exact primary creative editor, motion-code author, and creative revision author through 9Router.
+3. Remotion is deterministic execution/rendering infrastructure, not the source of creative decisions.
+4. Keep accepted image/asset/voice/audio provider choices unless a concrete blocker requires change.
+5. Use the official Remotion Agent Skill baseline recorded in `CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`; community skills are reference only.
+6. Increase asset candidate/selected-state richness substantially, while preserving editorial purpose and rights.
+7. Add machine diagnostics for text collision and repetitive transition/easing/duration/direction/layout motifs.
+8. A fallback creative model must be labeled `DEGRADED_CREATIVE_MODEL` and cannot self-pass professional quality.
+9. Jim/ChatGPT must inspect actual MP4/audio before V2-01 passes.
+
+## General advancement rules
+
+1. V2-01 through V2-03 are media-quality gates. Unit tests cannot substitute for actual MP4/audio review.
 2. No platform upload work before `PROFESSIONAL_CREATIVE_PROOF` and `CHANNEL_PRODUCT_AND_SHADOW_FACTORY_PROOF` pass.
 3. No public video write before V2-08 receives explicit owner scope.
 4. No learning-policy automation before real public cohort data exists.
@@ -59,29 +72,22 @@ Current next task:
 ## Milestone outputs
 
 ### `PROFESSIONAL_CREATIVE_PROOF`
-
 Repeated owner-accepted retention-native visual/audio quality across multiple story modes.
 
 ### `CHANNEL_PRODUCT_AND_SHADOW_FACTORY_PROOF`
-
 Packaging/series strategy plus disciplined daily video portfolio with no filler.
 
 ### `PRIVATE_PLATFORM_DELIVERY_PROOF`
-
 Controlled YouTube/TikTok object creation, processing, identity, readback, and recovery.
 
 ### `CONTROLLED_PUBLIC_COHORT_PROOF`
-
 Small exact-authorized live cohort with zero unresolved writes/rights/truth incidents.
 
 ### `RETENTION_AND_LEARNING_PROOF`
-
 Real audience behavior maps to beats/packaging and supports bounded useful changes.
 
 ### `AUTONOMOUS_OPERATING_PROOF`
-
 Durable low-burden daily channel loop survives real operations.
 
 ### `FINAL_V2_RELEASE`
-
 Repeated professional quality, reliable operation, measured audience value, bounded learning, safe recovery, sustainable cost, and Jim owner acceptance.
