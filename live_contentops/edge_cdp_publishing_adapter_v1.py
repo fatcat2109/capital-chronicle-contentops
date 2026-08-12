@@ -1119,6 +1119,35 @@ def _substack_listing_matches(
     return list(matches_by_href.values())
 
 
+def _public_substack_url_from_view_post(page: Any) -> str | None:
+    """Resolve the public permalink from Substack's read-only published-detail control."""
+    view_post, _ = _substack_exact_enabled_button(page, labels=("View post",))
+    if view_post is None:
+        return None
+    existing_pages = list(page.context.pages)
+    try:
+        view_post.click(timeout=5000)
+        page.wait_for_timeout(5000)
+    except Exception:
+        return None
+    candidates = [str(page.url or "")]
+    new_pages = [candidate for candidate in page.context.pages if candidate not in existing_pages]
+    candidates.extend(str(candidate.url or "") for candidate in new_pages)
+    public_urls = sorted(
+        {
+            candidate.split("?", 1)[0].split("#", 1)[0]
+            for candidate in candidates
+            if _is_public_substack_url(candidate)
+        }
+    )
+    for candidate in new_pages:
+        try:
+            candidate.close()
+        except Exception:
+            pass
+    return public_urls[0] if len(public_urls) == 1 else None
+
+
 def _substack_exact_enabled_button(
     page: Any,
     *,
@@ -1779,6 +1808,75 @@ def reconcile_substack_publication_by_draft_id_via_edge(
                 **binding_detail,
                 "browser_write_performed": False,
             }
+        if exact_editor_state != "DRAFT":
+            page.goto(
+                "https://capitalchronicle.substack.com/publish/posts/published",
+                wait_until="domcontentloaded",
+                timeout=45000,
+            )
+            time.sleep(3)
+            published_identity_matches = _substack_listing_matches(
+                page,
+                expected_title=expected_title,
+                href_predicate=lambda href: (
+                    urllib.parse.urlparse(_absolute_substack_url(href)).path.rstrip("/")
+                    == f"/publish/posts/detail/{draft_id}"
+                    or _is_public_substack_url(_absolute_substack_url(href))
+                ),
+            )
+            if len(published_identity_matches) == 1:
+                matched_url = _absolute_substack_url(
+                    published_identity_matches[0]["href"]
+                )
+                public_url = (
+                    matched_url
+                    if _is_public_substack_url(matched_url)
+                    else None
+                )
+                if public_url is None:
+                    page.goto(
+                        matched_url,
+                        wait_until="domcontentloaded",
+                        timeout=45000,
+                    )
+                    time.sleep(2)
+                    public_url = _public_substack_url_from_view_post(page)
+                if public_url:
+                    readback = _audit_public_substack_article(
+                        page,
+                        public_url,
+                        public_screenshot_path,
+                        expected_title=expected_title,
+                        expected_subtitle=expected_subtitle,
+                        expected_body_markdown=expected_body_markdown,
+                        expected_image_assets=expected_image_assets,
+                    )
+                    expected_image_count = len(expected_image_assets)
+                    verified = bool(
+                        readback.get("content_readback_verified")
+                        and int(readback.get("public_image_count") or 0)
+                        >= expected_image_count
+                        and int(
+                            readback.get("public_image_alt_or_caption_count") or 0
+                        )
+                        >= expected_image_count
+                        and readback.get("visual_spread_through_public_body")
+                    )
+                    return {
+                        "status": (
+                            "SUCCESS"
+                            if verified
+                            else "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK"
+                        ),
+                        "platform": "substack",
+                        "verified": verified,
+                        "write_absent": False,
+                        "public_object_id": draft_id,
+                        "public_url": public_url,
+                        "readback": readback,
+                        **binding_detail,
+                        "browser_write_performed": False,
+                    }
         if not exact_draft_bound:
             return {
                 "status": "SUBSTACK_DRAFT_BINDING_MISMATCH",

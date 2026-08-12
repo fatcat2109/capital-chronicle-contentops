@@ -309,6 +309,48 @@ def test_substack_partial_exact_draft_reconciles_public_write_absent(monkeypatch
     assert result["expected_image_count"] == 3
 
 
+def test_substack_published_detail_view_post_resolves_one_public_permalink(monkeypatch):
+    from live_contentops import edge_cdp_publishing_adapter_v1 as adapter
+
+    class PublicPage:
+        url = "https://capitalchronicle.substack.com/p/exact-public-article"
+
+        def close(self):
+            return None
+
+    class Context:
+        def __init__(self):
+            self.pages = []
+
+    class Button:
+        def __init__(self, context):
+            self.context = context
+
+        def click(self, timeout=None):
+            self.context.pages.append(PublicPage())
+
+    class DetailPage:
+        url = "https://capitalchronicle.substack.com/publish/posts/detail/210915784"
+
+        def __init__(self):
+            self.context = Context()
+            self.context.pages.append(self)
+
+        def wait_for_timeout(self, _milliseconds):
+            return None
+
+    page = DetailPage()
+    monkeypatch.setattr(
+        adapter,
+        "_substack_exact_enabled_button",
+        lambda _page, *, labels, **_kwargs: (Button(page.context), "View post"),
+    )
+
+    assert adapter._public_substack_url_from_view_post(page) == (
+        "https://capitalchronicle.substack.com/p/exact-public-article"
+    )
+
+
 def test_substack_publish_transition_without_public_state_stays_ambiguous(
     monkeypatch,
 ) -> None:
