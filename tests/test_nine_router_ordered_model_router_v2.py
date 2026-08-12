@@ -9,6 +9,7 @@ Cases A–N map one-to-one onto the authorized validation matrix.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -18,10 +19,12 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     ARTICLE_WRITING_ROLE,
     AUTHORITY_ID,
     AUTHORIZED_MODELS,
+    BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_ENV,
+    BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV,
     GATEWAY,
+    GEMINI_PRO_MODEL,
     IDENTITY_MISMATCH_CLASS,
     IDENTITY_NOT_VERIFIABLE,
-    IDENTITY_REJECTED,
     MAX_TOTAL_PROVIDER_ATTEMPTS,
     NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS,
     NEWSROOM_GLOBAL_EDITOR_ROLE,
@@ -37,23 +40,33 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     POOL_EXHAUSTED,
     PRIMARY_MODEL,
     RETRY_BUDGET_EXHAUSTED,
-    RETRYABLE_CLASSES,
     SUPERSEDES_AUTHORITY_ID,
     TERMINAL_NON_RETRYABLE,
     ModelRouterError,
     ProviderResult,
     RetryBudget,
     authority_packet,
+    build_acceptance_gemini_incident,
     classify_failure,
     is_fallback_eligible,
     is_retryable,
     is_terminal,
     model_pool_for_role,
     retry_budget_policy,
+    retry_budget_for_role,
     route_llm_invocation,
 )
 
 P0, P1, P2, P3 = ORDERED_MODEL_POOL
+
+
+def _enable_gemini_incident(monkeypatch, mode: str = "PRO_AND_FLASH") -> None:
+    now = datetime.now(timezone.utc)
+    monkeypatch.setenv(BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV, mode)
+    monkeypatch.setenv(
+        BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_ENV,
+        (now + timedelta(hours=1)).isoformat().replace("+00:00", "Z"),
+    )
 
 
 class FakeClock:
@@ -167,6 +180,78 @@ def test_exact_ordered_pool_is_the_four_authorized_models() -> None:
     assert ARTICLE_WRITING_MODEL_POOL is ORDERED_MODEL_POOL
     assert model_pool_for_role(ARTICLE_WRITING_ROLE) is ORDERED_MODEL_POOL
     assert authority_packet()["article_writing_uses_quality_first_pool"] is True
+
+
+def test_temporary_gemini_incident_routes_leaf_to_flash_and_quality_to_pro(monkeypatch) -> None:
+    _enable_gemini_incident(monkeypatch)
+
+    assert model_pool_for_role(NEWSROOM_LEAF_SCAN_ROLE) == (NEWSROOM_LEAF_SCAN_MODEL,)
+    assert model_pool_for_role(NEWSROOM_GLOBAL_EDITOR_ROLE) == (GEMINI_PRO_MODEL,)
+    assert model_pool_for_role(ARTICLE_WRITING_ROLE) == (GEMINI_PRO_MODEL,)
+    budget = retry_budget_for_role(
+        role_task_id=ARTICLE_WRITING_ROLE,
+        logical_invocation_id="incident-quality",
+    )
+    assert budget.max_total_provider_attempts == 2
+    assert budget.max_fallback_transitions == 0
+    assert budget.per_model_max_attempts == (2,)
+    packet = authority_packet()
+    assert packet["ordered_model_pool"] == list(ORDERED_MODEL_POOL)
+    assert packet["temporary_build_acceptance_gemini_incident"]["mode"] == "PRO_AND_FLASH"
+    assert packet["production_launch_uses_incident_override_by_default"] is False
+
+    provider = scripted({GEMINI_PRO_MODEL: [good(GEMINI_PRO_MODEL)]})
+    result = route_llm_invocation(
+        logical_invocation_id="incident-direct-quality",
+        role_task_id=ARTICLE_WRITING_ROLE,
+        prompt="bounded incident test",
+        provider_call=provider,
+        model_pool=model_pool_for_role(ARTICLE_WRITING_ROLE),
+        budget=retry_budget_for_role(
+            role_task_id=ARTICLE_WRITING_ROLE,
+            logical_invocation_id="incident-direct-quality",
+        ),
+    )
+    assert result["terminal_disposition"] == ACCEPTED
+    assert [model for model, _ in provider.calls] == [GEMINI_PRO_MODEL]
+
+
+@pytest.mark.parametrize(
+    ("mode", "expected"),
+    (("PRO_ONLY", GEMINI_PRO_MODEL), ("FLASH_ONLY", NEWSROOM_LEAF_SCAN_MODEL)),
+)
+def test_single_verified_gemini_incident_uses_that_exact_model_for_all_roles(
+    monkeypatch, mode: str, expected: str,
+) -> None:
+    _enable_gemini_incident(monkeypatch, mode)
+    assert model_pool_for_role(NEWSROOM_LEAF_SCAN_ROLE) == (expected,)
+    assert model_pool_for_role(ARTICLE_WRITING_ROLE) == (expected,)
+    assert model_pool_for_role("tier1_editorial_review") == (expected,)
+
+
+def test_gemini_incident_invalid_or_expired_configuration_restores_canonical_pool(
+    monkeypatch,
+) -> None:
+    now = datetime.now(timezone.utc)
+    monkeypatch.setenv(BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV, "PRO_AND_FLASH")
+    for expiry in (
+        now - timedelta(seconds=1),
+        now + timedelta(hours=25),
+    ):
+        monkeypatch.setenv(
+            BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_ENV,
+            expiry.isoformat().replace("+00:00", "Z"),
+        )
+        assert build_acceptance_gemini_incident(now_utc=now) is None
+        assert model_pool_for_role(ARTICLE_WRITING_ROLE) is ORDERED_MODEL_POOL
+
+    monkeypatch.setenv(BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV, "ARBITRARY_MODEL")
+    monkeypatch.setenv(
+        BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_ENV,
+        (now + timedelta(hours=1)).isoformat().replace("+00:00", "Z"),
+    )
+    assert build_acceptance_gemini_incident(now_utc=now) is None
+    assert model_pool_for_role(ARTICLE_WRITING_ROLE) is ORDERED_MODEL_POOL
 
 
 def test_declared_retry_budget_defaults() -> None:

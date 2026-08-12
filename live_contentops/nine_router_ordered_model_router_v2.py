@@ -32,8 +32,10 @@ looks. If the gateway does not report identity at all, that is recorded honestly
 from __future__ import annotations
 
 import json
+import os
 import time
 from dataclasses import dataclass, field
+from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from typing import Any, Callable, Mapping, Sequence
 
@@ -69,6 +71,7 @@ NEWSROOM_LEAF_SCAN_ROLE = "rolling_x_newsroom_leaf_scan"
 NEWSROOM_GLOBAL_EDITOR_ROLE = "rolling_x_newsroom_assignment"
 ARTICLE_WRITING_ROLE = "article_writing"
 NEWSROOM_LEAF_SCAN_MODEL = "vx/gemini-3.5-flash(high)"
+GEMINI_PRO_MODEL = ORDERED_MODEL_POOL[-1]
 NEWSROOM_LEAF_SCAN_MODEL_POOL: tuple[str, ...] = (
     NEWSROOM_LEAF_SCAN_MODEL,
     *ORDERED_MODEL_POOL,
@@ -85,6 +88,65 @@ AUTHORIZED_MODELS = frozenset(
     for pool in (ORDERED_MODEL_POOL, *ROLE_MODEL_POOLS.values())
     for model in pool
 )
+
+# Temporary, process-only pre-launch incident seam. The canonical quality order above stays
+# authoritative when these variables are absent, invalid, or expired. A 24-hour maximum keeps
+# a build-time provider incident from silently becoming launch policy.
+BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV = (
+    "CONTENTOPS_BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE"
+)
+BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_ENV = (
+    "CONTENTOPS_BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_AT_UTC"
+)
+BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODES = frozenset(
+    {"PRO_AND_FLASH", "PRO_ONLY", "FLASH_ONLY"}
+)
+MAX_BUILD_ACCEPTANCE_GEMINI_INCIDENT_DURATION = timedelta(hours=24)
+
+
+def build_acceptance_gemini_incident(
+    *, now_utc: datetime | None = None,
+) -> dict[str, Any] | None:
+    """Return a validated, short-lived Gemini incident override or ``None``.
+
+    No arbitrary model identifier is accepted: the mode maps only to the two exact Gemini IDs
+    already present in the canonical authority. Invalid configuration fails closed to normal
+    quality-first routing.
+    """
+    mode = os.environ.get(BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV, "").strip()
+    raw_expiry = os.environ.get(BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_ENV, "").strip()
+    if mode not in BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODES or not raw_expiry:
+        return None
+    try:
+        expiry = datetime.fromisoformat(raw_expiry.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if expiry.tzinfo is None or expiry.utcoffset() != timedelta(0):
+        return None
+    now = now_utc or datetime.now(timezone.utc)
+    if now.tzinfo is None:
+        return None
+    now = now.astimezone(timezone.utc)
+    expiry = expiry.astimezone(timezone.utc)
+    if expiry <= now or expiry - now > MAX_BUILD_ACCEPTANCE_GEMINI_INCIDENT_DURATION:
+        return None
+    return {
+        "mode": mode,
+        "expires_at_utc": expiry.isoformat().replace("+00:00", "Z"),
+        "production_default_unchanged": True,
+    }
+
+
+def _incident_model_pool_for_role(role_task_id: str, mode: str) -> tuple[str, ...]:
+    if mode == "PRO_AND_FLASH":
+        return (
+            (NEWSROOM_LEAF_SCAN_MODEL,)
+            if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE
+            else (GEMINI_PRO_MODEL,)
+        )
+    if mode == "PRO_ONLY":
+        return (GEMINI_PRO_MODEL,)
+    return (NEWSROOM_LEAF_SCAN_MODEL,)
 
 #: Per-model attempt ceilings, indexed by priority. P0/P1 get one retry each; P2/P3 get a
 #: single attempt, because by the time the router reaches them the invocation has already
@@ -185,6 +247,7 @@ def _hash(value: Any) -> str:
 
 def authority_packet() -> dict[str, Any]:
     """The machine-readable statement of what this router is authorized to do."""
+    incident = build_acceptance_gemini_incident()
     packet = {
         "authority_id": AUTHORITY_ID,
         "authority_version": AUTHORITY_VERSION,
@@ -201,6 +264,10 @@ def authority_packet() -> dict[str, Any]:
         "newsroom_leaf_scan_is_semantic_labor_only": True,
         "newsroom_global_editor_uses_quality_first_pool": True,
         "article_writing_uses_quality_first_pool": True,
+        "temporary_build_acceptance_gemini_incident_supported": True,
+        "temporary_build_acceptance_gemini_incident_max_hours": 24,
+        "temporary_build_acceptance_gemini_incident": incident,
+        "production_launch_uses_incident_override_by_default": False,
         "newsroom_global_editor_retry_policy": {
             "max_total_provider_attempts": 5,
             "max_fallback_transitions": 3,
@@ -250,11 +317,28 @@ def retry_budget_policy() -> dict[str, Any]:
 
 def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
     """Return the one canonical model ordering for a semantic role."""
+    incident = build_acceptance_gemini_incident()
+    if incident is not None:
+        return _incident_model_pool_for_role(role_task_id, str(incident["mode"]))
     return ROLE_MODEL_POOLS.get(str(role_task_id), ORDERED_MODEL_POOL)
 
 
 def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "RetryBudget":
     """Allocate one immutable bounded budget appropriate to the canonical role pool."""
+    if build_acceptance_gemini_incident() is not None:
+        wall_clock_budget_seconds = DEFAULT_WALL_CLOCK_BUDGET_SECONDS
+        if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE:
+            wall_clock_budget_seconds = NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS
+        elif str(role_task_id) == NEWSROOM_GLOBAL_EDITOR_ROLE:
+            wall_clock_budget_seconds = NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=2,
+            max_fallback_transitions=0,
+            max_same_model_retries=1,
+            wall_clock_budget_seconds=wall_clock_budget_seconds,
+            per_model_max_attempts=(2,),
+        )
     if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE:
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
