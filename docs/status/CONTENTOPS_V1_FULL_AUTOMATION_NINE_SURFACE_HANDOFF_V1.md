@@ -147,7 +147,7 @@ Capital Chronicle remains read-only analytical/numeric authority where governed 
 
 Partial Tier-1 distribution is NOT enough to close this phase.
 
-At least one SAME canonical article must be genuinely public and strictly read back/reconciled on ALL NINE canonical Tier-1 text/image surfaces:
+At least five genuine canonical proof articles must each be genuinely public and strictly read back/reconciled on ALL NINE canonical Tier-1 text/image surfaces:
 
 1. Substack
 2. Telegram
@@ -159,13 +159,13 @@ At least one SAME canonical article must be genuinely public and strictly read b
 8. Threads
 9. YouTube Community
 
-The first mandatory proof is therefore:
+Every counted proof article must independently complete:
 
 `fresh story → evidence → quality article → review → packages → Substack public /p/ URL → all eight derivatives → 9/9 strict readback/reconciliation`
 
-No missing/skipped/unverified destination counts as 9/9 acceptance for this phase proof.
+No missing/skipped/failed/pending/ambiguous/unverified destination counts. A partial article remains truthful runtime history but contributes zero toward the five-article proof set.
 
-After the first 9/9 article, V1 must prove published-memory feedback and repeated autonomous operation with at least five genuine canonical articles in the production proof, including at least one successful configured scheduled-window article.
+V1 must also prove published-memory feedback and repeated autonomous operation. At least one of the five valid 9/9 proof articles must originate from a genuine configured scheduled window. If additional real articles are needed before five clean independent 9/9 proofs exist, continue without manufacturing filler.
 
 The broader product target remains approximately 5–8 useful canonical articles/day without filler.
 
@@ -176,8 +176,8 @@ V2 video public-write authority is separate and unchanged by this V1 handoff.
 1. **Substack transport:** fix canonical draft → actual public `/p/...` publication and strict readback. A saved draft is not publication success.
 2. **Publishability-first selection:** perform cheap evidence-reachability probing over a broader compact candidate set before final story commitment; do not allow 12 inaccessible candidates to consume an entire window when viable stories remain.
 3. **Same-cycle candidate walk:** when a ranked candidate is blocked, advance through the bounded useful candidate pool before declaring `NO_PUBLICATION`.
-4. **Nine-surface live proof:** one same canonical article must reach 9/9 public objects with strict readback/reconciliation.
-5. **Published-memory/repeated proof:** later cycles must see prior published articles, suppress low-delta duplicates, allow material follow-ups, and reach at least five genuine canonical articles including a scheduled-window success.
+4. **Nine-surface live proof:** obtain the first same-canonical-article 9/9 milestone, then continue until five independent articles each reach strict 9/9.
+5. **Published-memory/repeated proof:** later cycles must see prior published articles, suppress low-delta duplicates or allow a material follow-up, and at least one of the five valid 9/9 articles must come from a genuine scheduled window.
 6. **Master integration:** accepted V1 source/controls must be integrated to remote master with exact parity while preserving concurrent V2 changes.
 
 ## Hard stops that remain

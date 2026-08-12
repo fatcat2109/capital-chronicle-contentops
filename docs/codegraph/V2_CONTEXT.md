@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `d6c10f7bc6b5d5626cc85d41a4ebd4da8a7005ec`. Source tree digest: `77b5d0dc6b4e5afab9d98aa1439e00ea999d6f1b558f2a7474c0460a212a5854`.
+Generated from source HEAD `d5f1ad9d3890dd127cba0c1e053dcbcd0a7f549c`. Source tree digest: `03e4cca3eb3c8e2cbd0ca8d35283efc5e426ef02868dd092f1102865c8578352`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This map is descriptive repository state, not product authority. Jim's current direction and
@@ -30,18 +30,23 @@ files are not imported into master: `Root.tsx` composes `SceneRenderer`, `SceneR
 dispatches to `primitives.tsx` inside `scaffold.tsx`, and the renderer-neutral Python factory
 targets `render-job.mjs`.
 
-## Current V2 retention-native authority and route
+## Current V2 GPT-5.6 creative-code authority and route
 
 - `gpt-5.5` is the provisional V2 generated-illustration default pending future product
   evidence; generated illustration is never factual or documentary authority.
 - `wan2.7-image-pro` and `qwen-image-2.0` returned confirmed HTTP 400 responses on the tested
   contract and remain unresolved without blocking V2.
-- The retention-native V2 North Star, master plan, task graph, current pointer, supersession map,
-  and direction overlay are the canonical V2 product authority. The next task is
-  `TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1`, starting from
-  fresh current master.
+- The V2 `NORTH_STAR_V2`, `MASTER_PLAN_V2`, `TASK_GRAPH_V2`, current V2 execution pointer,
+  Remotion baseline, and fresh-session handoff are the canonical V2 product authority. The
+  older V1 plan set is historical where it conflicts with these documents.
+- The current task is
+  `TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`. Exact
+  primary creative roles use `new/gpt-5.6-sol-xhigh`; Remotion is deterministic execution,
+  not creative authority.
 - The rejected creative branch `task/tier2-v2-creative-system-rebuild-v1` at `d231b54e` is
   reference only: do not merge or continue its slideshow-heavy creative product.
+- The rejected first retention-native attempt at `b6f50029` is also reference only; do not
+  continue its repetitive creative grammar.
 - The target is beat-driven, narration-linked motion with real audio/music, rights-aware asset
   density, platform-native short/mid-form direction, deterministic retention/media QA, and
   bounded multimodal critique. Virality is never guaranteed.
@@ -55,14 +60,14 @@ targets `render-job.mjs`.
 | 9Router | `live_contentops/nine_router_ordered_model_router_v2.py`, `nine_router_llm_seam_v2.py`, `nine_router_provider_adapter_v2.py` | `tests/test_nine_router_*`, `docs/automation/CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2/` |
 | Tier2-A | `live_contentops/tier2_video_factory_v1.py` | `tests/test_tier2_video_factory_v1.py`, `docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/` |
 | Direct image | `live_contentops/direct_image_api_v1.py`, `scripts/run_direct_image_bakeoff_v1.py` | `tests/test_direct_image_api_v1.py`, `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/` |
-| V2 retention-native authority | `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`, `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md` | North Star, master plan, task graph, supersession map |
+| V2 GPT-5.6 creative-code authority | `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`, `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md` | V2 North Star, master plan, task graph, Remotion baseline, owner override |
 | UI | `ui/contentops_v5/src/main.tsx`, `ui/contentops_v5/src/views/DailyAppConsole.tsx`, `ui/contentops_v5/src/dailyAppTypes.ts` | `ui/contentops_v5/src/test/`, `ui/contentops_v5/AGENTS.md` |
 | Tooling | `scripts/generate_codex_context_index.py` | `tests/test_codex_context_index.py` |
 
 ## Graph inventory
 
-- Nodes: `6514`
-- Edges: `12194`
+- Nodes: `6522`
+- Edges: `12207`
 - Entrypoints: `12`
 - Python import edges, TypeScript/JavaScript relative import edges, and determinable test-to-
   implementation edges are included.

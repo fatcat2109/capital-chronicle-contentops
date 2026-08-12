@@ -1,6 +1,6 @@
 # ContentOps V1 Current Context Map
 
-Authority date: 2026-08-11
+Authority date: 2026-08-12
 
 This is a curated, generator-validated description of the implementation on the indexed source
 commit. It is not product authority. Jim's latest instruction, fetched GitHub bytes, committed
@@ -35,15 +35,16 @@ weaken evidence or create filler.
 ## Current production status
 
 - FDA-G: `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`; not accepted, no `v1.1.0`.
-- Reconciled remote master at this context task's start:
-  `5e52e3da178e1366db5f386af3f2d9af30bdc685`. The generated `INDEX.md` and `graph.json`
-  record the exact later source commit whose relevant tree they describe.
-- Latest committed production runtime/source commit in the first real production-day evidence:
-  `6f8a1788f094c607896b8304161dfea783a20c64`.
-- Latest real production-day result: `NO_PUBLICATION_GOVERNED_EVIDENCE_BLOCK`; three decision
-  opportunities, zero articles, zero visuals/packages/dispatches/public objects/readbacks, and
-  no unknown write. Committed canonical published-corpus count: `0`.
-- Exact blocker in that prior production-day evidence: `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`.
+- Current remote master was merged normally into the V1 closeout branch; V1 code/tests and the
+  concurrent V2 GPT-5.6 authority documents are both preserved. The generated `INDEX.md` and
+  `graph.json` record the exact source commit/tree they describe.
+- The parent evidence-calibration task completed eight governed decisions with zero confirmed
+  canonical public article. One decision reached article/review/package and created draft ID
+  `210796285`; exact strict readback proves that draft remains nonpublic and the public write is
+  absent-safe-to-retry. The other decisions exhausted only the supplied 12-row evidence-dead
+  shortlist, not the compact 64-headline universe.
+- Latest durable handoff truth is `UNKNOWN_WRITE=0`, pending reconciliation `0`, and committed
+  canonical published-corpus count `0`.
 
 Continuation update on the current task branch:
 
@@ -54,33 +55,31 @@ Continuation update on the current task branch:
 - one-click STOP/explicit RESUME, a persistent pre-network LLM operator fuse, scheduled-only LLM
   execution, and the owner-authorized 6-call/12-attempt/250k-cycle/2m-day circuit breakers are
   locally validated;
-- Jim's 2026-08-12 operator override authorizes at most eight governed closeout decisions. The
-  exact next gates are first real canonical publication/reconciliation followed by repeated
-  published-memory operation and a genuine 5–8 article production-day proof. The Daily App
-  remains stopped and the operator fuse active until Git reconciliation and offline validation
-  finish.
+- Jim's current operator override removes artificial sequential-run limits. Acceptance requires
+  at least five genuine canonical articles, each independently strict 9/9
+  `RECONCILED_CONFIRMED` on Substack, Telegram, Discord, X, LinkedIn, Facebook Page, Instagram
+  Business, Threads, and YouTube Community. At least one article must originate from a genuine
+  scheduled window, and published-memory duplicate suppression or material-follow-up behavior
+  must be proven. The Daily App remains stopped and the operator fuse active during offline
+  repair and validation.
 
 These are committed evidence facts, not a claim about live state after the evidence capture.
 Source: `docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/`.
 
 ## Current known blocker
 
-`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1` is implemented on
-its task branch but is not accepted. The one-click STOP/resume controls, canonical LLM pause fuse,
-scheduled-only expensive execution, durable cost governor, and exact Decision 5 replay fix are
-present. Both owner-bounded live LLM-capable cycles ended safe `NO_PUBLICATION`, with zero public
-write, zero UNKNOWN_WRITE, and zero pending reconciliation.
+`TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1` continues the unaccepted
+parent evidence-calibration task. The one-click STOP/resume controls, canonical LLM pause fuse,
+scheduled-only expensive execution, durable cost governor, and prior evidence-gate fixes remain
+present. The immediate defects are the Substack draft-to-public transition/readback seam and the
+12-row assignment bottleneck that prevents the existing same-cycle rank walker from reaching
+later compact candidates.
 
-The second earlier cycle exposed an RSS acquisition ordering defect: the loader capped reputable
-publishers before relevance/freshness selection, leaving one current source after the downstream
-freshness gate. The task branch now validates publisher/host identity and ranks relevant,
-point-in-time-eligible listings before the cap. The saved exact rank-10 request passes read-only
-targeted-evidence and claim replay with two independent sources, but this is not the required live
-publication proof. Jim's continuation authorization supersedes the earlier two-cycle limit and
-permits bounded self-debugging plus the next genuine decisions through the canonical path. The app
-remains stopped and the operator fuse remains active until focused validation is clean. Integrate
-to master only after the first real canonical article meets the explicit acceptance gate. Durable
-prior status:
+The current closeout must preserve the existing `DurablePublicationCoordinator`, unknown-write
+stop/readback/reconcile doctrine, exact destination identities, canonical browser roles, and
+source/claim/review gates. It may autonomously repair these reversible defects and continue safe
+bounded cycles without routine approval. Integrate to master only after the complete five-article
+proof and all other explicit acceptance gates pass. Durable parent status:
 `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1_STATUS.md`.
 
 ## Decision and data flow
@@ -196,9 +195,11 @@ production store/Capital Chronicle databases.
   `docs/automation/CONTENTOPS_V1_CONTINUOUS_INTELLIGENCE_INTAKE_CC_DATABASE_AND_EDITORIAL_PORTFOLIO_REALIGN_V1/`
 - preselection/published-memory/breaking-wake closeout:
   `docs/automation/CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1/`
-- first real 5–8 production-day attempt and current evidence blocker:
+- parent production-day evidence and historical blocker:
   `docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/`
-- FDA-G current status and next routing:
+- current nine-surface closeout handoff:
+  `docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md`
+- FDA-G status and current dual-lane routing:
   `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 
 This is the minimum recent history needed for navigation. Do not traverse the full task archive
@@ -234,9 +235,9 @@ Simulation performed from only root `AGENTS.md`:
 | evidence acquisition | `live_contentops/AGENTS.md` → `rolling_x_targeted_evidence_adapter_v1.py` | `test_rolling_x_targeted_evidence_adapter_v1.py` |
 | canonical publication | `live_contentops/AGENTS.md` → `publication_coordinator_v1.py` | `test_publication_coordinator_v1.py` |
 | V5 Today | `ui/contentops_v5/AGENTS.md` → `src/views/DailyAppConsole.tsx` | `src/test/daily_app_console.test.tsx` |
-| current closeout | `INDEX.md` → current task/status and operator continuation | real Substack publication/reconciliation, published-memory reuse, and genuine 5–8 production-day proof |
+| current closeout | `INDEX.md` → nine-surface handoff/current task | five independent strict 9/9 articles, published-memory behavior, and one genuine scheduled-window 9/9 proof |
 
-Unique files opened for all eight requested destinations, including root/index/context, three
+Unique files opened for all nine requested destinations, including root/index/context, three
 scoped instruction files (`live_contentops`, V5, and tests), six implementation/UI files, five
 focused test files, and blocker evidence: 18.
 No broad master plan, historical archive, stale status JSON, or Tier2 implementation was needed.

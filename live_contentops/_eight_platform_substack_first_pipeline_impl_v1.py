@@ -3159,6 +3159,30 @@ def _rolling_x_ranked_clusters_with_context(
             for leaf_id in [str(value) for value in (cluster.get("leaf_cluster_ids") or [])]
             if leaf_id in leaf_by_id
         ]
+        requested_leaf_ids = [
+            str(value) for value in (cluster.get("leaf_cluster_ids") or [])
+        ]
+        materialized_binding = bool(leaf_by_id or headline_by_id)
+        if materialized_binding and (
+            not requested_leaf_ids
+            or len(requested_leaf_ids) != len(set(requested_leaf_ids))
+            or len(leaves) != len(requested_leaf_ids)
+        ):
+            raise ValueError("rolling_x_ranked_cluster_leaf_binding_invalid")
+        bound_member_ids = {
+            str(value)
+            for leaf in leaves
+            for value in (leaf.get("member_headline_ids") or [])
+        }
+        cluster_headline_ids = [
+            str(value) for value in (cluster.get("headline_ids") or [])
+        ]
+        if materialized_binding and (
+            not cluster_headline_ids
+            or len(cluster_headline_ids) != len(set(cluster_headline_ids))
+            or set(cluster_headline_ids) != bound_member_ids
+        ):
+            raise ValueError("rolling_x_ranked_cluster_headline_leaf_union_invalid")
         summaries: list[str] = []
         entities_topics: list[str] = []
         for leaf in leaves:
@@ -3289,6 +3313,7 @@ def _run_rolling_x_newsroom_cycle(
     """Run the rolling-X route through the one canonical production boundary."""
     from live_contentops.newsroom_assignment_scheduler_v1 import (
         assign_rolling_x_headlines_with_nine_router,
+        build_bounded_rolling_x_publishability_pool,
         build_deterministic_rolling_x_assignment_fallback,
         classify_rolling_x_story_types_deterministically,
         classify_rolling_x_story_types_with_nine_router,
@@ -3375,13 +3400,25 @@ def _run_rolling_x_newsroom_cycle(
     story_routing: Mapping[str, Any] | None = None
     preselection: Mapping[str, Any] | None = None
     ranked_assignment = assignment
+    publishability_candidate_pool: Mapping[str, Any] | None = None
     if (
         assignment.get("status") == "SUCCESS"
         and assignment.get("decision") == "SELECT_STORY"
         and assignment.get("ranked_clusters")
     ):
+        ranked_assignment = build_bounded_rolling_x_publishability_pool(
+            assignment=assignment,
+            rolling_input=assignment_input,
+        )
+        publishability_candidate_pool = dict(
+            ranked_assignment.get("publishability_candidate_pool") or {}
+        )
+        _write_json(
+            output_dir / "rolling_x_publishability_candidate_pool_v1.json",
+            publishability_candidate_pool,
+        )
         enriched_clusters = _rolling_x_ranked_clusters_with_context(
-            assignment=assignment, intake=intake
+            assignment=ranked_assignment, intake=intake
         )
         from live_contentops.capital_chronicle_data_catalog_v1 import (
             discover_cc_data_estate,
@@ -3412,7 +3449,7 @@ def _run_rolling_x_newsroom_cycle(
         _write_json(output_dir / "preselection_intelligence_v1.json", preselection)
         preselected_clusters = list(preselection.get("ranked_clusters") or [])
         ranked_assignment = {
-            **assignment,
+            **ranked_assignment,
             "decision": "SELECT_STORY" if preselected_clusters else "NO_PUBLICATION",
             "reason_code": None if preselected_clusters else "PRESELECTION_ALL_CANDIDATES_HELD",
             "ranked_clusters": preselected_clusters,
@@ -3549,6 +3586,7 @@ def _run_rolling_x_newsroom_cycle(
         "assignment": assignment,
         "preselection_intelligence": preselection,
         "story_routing": story_routing,
+        "publishability_candidate_pool": publishability_candidate_pool,
         "ranked_viability": viability,
         "public_write_performed": False,
         "publishing_adapter_called": False,

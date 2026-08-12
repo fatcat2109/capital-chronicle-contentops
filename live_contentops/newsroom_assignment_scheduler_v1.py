@@ -439,6 +439,10 @@ ROLLING_X_ARTICLE_MODES = frozenset({
 ROLLING_X_LEAF_MAX_SERIALIZED_BYTES = 96_000
 ROLLING_X_LEAF_MAX_HEADLINES = 64
 ROLLING_X_GLOBAL_SHORTLIST_LIMIT = 12
+ROLLING_X_PUBLISHABILITY_POOL_LIMIT = 64
+ROLLING_X_PUBLISHABILITY_POOL_SCHEMA_VERSION = (
+    "contentops.rolling_x_publishability_candidate_pool.v1"
+)
 ROLLING_X_LEAF_PROMPT_VERSION = "v2"
 ROLLING_X_GLOBAL_PROMPT_VERSION = "v4"
 ACCEPTED_ROLLING_X_GLOBAL_PROMPT_VERSIONS = frozenset({"v3", "v4"})
@@ -1700,6 +1704,81 @@ def assign_rolling_x_headlines_with_nine_router(
     return packet
 
 
+def _rolling_x_public_evidence_urls(row: Mapping[str, Any]) -> list[str]:
+    """Return already-bound non-social HTTPS evidence candidates, without fetching them."""
+    external = row.get("external_content")
+    if not isinstance(external, Mapping):
+        return []
+    urls: list[str] = []
+    for value in external.get("official_source_urls") or []:
+        url = str(value or "").strip()
+        parsed = urlsplit(url)
+        host = str(parsed.hostname or "").casefold()
+        if (
+            parsed.scheme == "https"
+            and host
+            and parsed.username is None
+            and parsed.password is None
+            and parsed.port in {None, 443}
+            and host not in {"x.com", "www.x.com", "t.co", "www.t.co"}
+            and url not in urls
+        ):
+            urls.append(url)
+    return urls
+
+
+def _rolling_x_publishability_path_profile(
+    headline_ids: Sequence[str],
+    *,
+    records_by_id: Mapping[str, Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Rank bounded evidence paths before acquisition; never grant evidence authority."""
+    from live_contentops.official_primary_evidence_loader_v1 import (
+        OFFICIAL_HOSTS_BY_FAMILY,
+    )
+    from live_contentops.public_secondary_evidence_loader_v1 import (
+        REPUTABLE_SECONDARY_HOSTS,
+    )
+
+    urls: list[str] = []
+    for headline_id in headline_ids:
+        for url in _rolling_x_public_evidence_urls(
+            records_by_id.get(str(headline_id)) or {}
+        ):
+            if url not in urls:
+                urls.append(url)
+    hosts = {str(urlsplit(url).hostname or "").casefold() for url in urls}
+    exact_official_hosts = {
+        host
+        for family_hosts in OFFICIAL_HOSTS_BY_FAMILY.values()
+        for host in family_hosts
+    }
+    if hosts.intersection(exact_official_hosts):
+        priority = 3
+        tier = "EXACT_OFFICIAL_DIRECT"
+        bounded_request_upper_bound = 1
+    elif hosts.intersection(REPUTABLE_SECONDARY_HOSTS):
+        priority = 2
+        tier = "REPUTABLE_PUBLIC_SECONDARY"
+        # The accepted secondary loader tries at most three bound URLs plus one RSS query.
+        bounded_request_upper_bound = 4
+    elif urls:
+        priority = 1
+        tier = "UNCLASSIFIED_PUBLIC_LOCATOR"
+        bounded_request_upper_bound = 1
+    else:
+        priority = 0
+        tier = "NO_BOUND_PUBLIC_LOCATOR"
+        bounded_request_upper_bound = 1
+    return {
+        "priority": priority,
+        "tier": tier,
+        "bound_public_url_count": len(urls),
+        "bounded_request_upper_bound_per_candidate": bounded_request_upper_bound,
+        "grants_factual_or_evidence_or_publication_authority": False,
+    }
+
+
 def build_deterministic_rolling_x_assignment_fallback(
     *,
     rolling_input: Mapping[str, Any],
@@ -1719,31 +1798,13 @@ def build_deterministic_rolling_x_assignment_fallback(
     if not isinstance(headlines, list) or not headlines:
         raise ValueError("rolling_x_deterministic_assignment_headlines_missing")
 
-    def public_urls(row: Mapping[str, Any]) -> list[str]:
-        external = row.get("external_content")
-        if not isinstance(external, Mapping):
-            return []
-        return [
-            str(value)
-            for value in (external.get("official_source_urls") or [])
-            if str(value).startswith("https://")
-            and "x.com/" not in str(value)
-            and "t.co/" not in str(value)
-        ]
-
     def evidence_path_priority(row: Mapping[str, Any]) -> int:
-        from live_contentops.public_secondary_evidence_loader_v1 import (
-            REPUTABLE_SECONDARY_HOSTS,
+        headline_id = str(row.get("headline_id") or "")
+        return int(
+            _rolling_x_publishability_path_profile(
+                [headline_id], records_by_id={headline_id: row}
+            )["priority"]
         )
-
-        urls = public_urls(row)
-        hosts = {str(urlsplit(url).hostname or "").casefold() for url in urls}
-        governed = any(
-            host in REPUTABLE_SECONDARY_HOSTS
-            or host.endswith((".gov", ".gov.uk", ".gov.au", ".europa.eu", ".int"))
-            for host in hosts
-        )
-        return 2 if governed else 1 if urls else 0
 
     ranked_rows = sorted(
         (dict(row) for row in headlines if isinstance(row, Mapping)),
@@ -1781,7 +1842,7 @@ def build_deterministic_rolling_x_assignment_fallback(
             },
             "candidate_relevance_signals": {
                 "audience_relevance": 0,
-                "evidence_prospects": 100 if public_urls(row) else 0,
+                "evidence_prospects": 100 if _rolling_x_public_evidence_urls(row) else 0,
                 "seo_potential": 0,
                 "qualified_engagement_potential": 0,
                 "saturation_risk": 0,
@@ -1838,9 +1899,279 @@ def build_deterministic_rolling_x_assignment_fallback(
     return packet
 
 
+def build_bounded_rolling_x_publishability_pool(
+    *,
+    assignment: Mapping[str, Any],
+    rolling_input: Mapping[str, Any],
+    max_ranked_clusters: int = ROLLING_X_PUBLISHABILITY_POOL_LIMIT,
+) -> dict[str, Any]:
+    """Derive a broader zero-model pool for the existing ranked evidence selector.
+
+    Candidates are ordered by a cheap bounded evidence-path tier before acquisition, while
+    preserving semantic order inside each tier. Reserve candidates first reuse semantic leaf
+    clusters that the global editor did not shortlist; singleton fallback is used only for
+    genuinely deterministic assignment output. This grants no authority and performs no
+    acquisition; ``select_first_viable_rolling_x_cluster`` remains the sole evidence/claim
+    viability walker before expensive article work.
+    """
+    if max_ranked_clusters < 1:
+        raise ValueError("rolling_x_publishability_pool_limit_invalid")
+    if assignment.get("schema_version") != ROLLING_X_ASSIGNMENT_SCHEMA_VERSION:
+        raise ValueError("rolling_x_assignment_schema_invalid")
+
+    source_clusters = assignment.get("ranked_clusters")
+    if not isinstance(source_clusters, list):
+        raise ValueError("rolling_x_ranked_clusters_invalid")
+    headlines = rolling_input.get("headlines")
+    base_telemetry = {
+        "schema_version": ROLLING_X_PUBLISHABILITY_POOL_SCHEMA_VERSION,
+        "bounded_pool_limit": int(max_ranked_clusters),
+        "source_ranked_candidate_count": len(source_clusters),
+        "compact_headline_count": len(headlines) if isinstance(headlines, list) else 0,
+        "same_cycle_ranked_evidence_walk": True,
+        "existing_ranked_evidence_selector_reused": True,
+        "exact_official_host_registry_used": True,
+        "llm_or_provider_calls": 0,
+        "factual_or_numeric_authority_granted": False,
+        "publication_authority_granted": False,
+    }
+    if (
+        assignment.get("decision") != "SELECT_STORY"
+        or not source_clusters
+        or not isinstance(headlines, list)
+        or not headlines
+    ):
+        telemetry = {
+            **base_telemetry,
+            "status": "UNCHANGED_NO_RESERVE_INPUT",
+            "combined_candidate_count": len(source_clusters),
+            "reserve_candidate_count": 0,
+            "included_compact_headline_count": 0,
+            "held_after_bounded_pool_count": 0,
+            "compact_universe_exhausted_by_pool": False,
+        }
+        return {**dict(assignment), "publishability_candidate_pool": telemetry}
+    if not all(isinstance(row, Mapping) for row in headlines):
+        raise ValueError("rolling_x_publishability_pool_headlines_invalid")
+
+    input_hash = str(rolling_input.get("canonical_input_hash") or "")
+    assignment_input_hash = str(
+        (assignment.get("input_binding") or {}).get("canonical_input_hash") or ""
+    )
+    if not input_hash or assignment_input_hash != input_hash:
+        raise ValueError("rolling_x_publishability_pool_input_hash_mismatch")
+
+    compact_headline_ids = [str(row.get("headline_id") or "") for row in headlines]
+    if (
+        any(not value for value in compact_headline_ids)
+        or len(compact_headline_ids) != len(set(compact_headline_ids))
+    ):
+        raise ValueError("rolling_x_publishability_pool_headline_identity_invalid")
+
+    records_by_id = {
+        str(row.get("headline_id") or ""): dict(row) for row in headlines
+    }
+    existing = [dict(row) for row in sorted(
+        source_clusters,
+        key=lambda row: (int(row.get("rank") or 0), str(row.get("cluster_id") or "")),
+    )]
+    if len(existing) > max_ranked_clusters:
+        raise ValueError("rolling_x_publishability_pool_source_exceeds_limit")
+    seen_cluster_ids: set[str] = set()
+    seen_headline_ids: set[str] = set()
+    for expected_rank, row in enumerate(existing, start=1):
+        cluster_id = str(row.get("cluster_id") or "")
+        headline_ids = [str(value) for value in (row.get("headline_ids") or [])]
+        if (
+            not cluster_id
+            or cluster_id in seen_cluster_ids
+            or isinstance(row.get("rank"), bool)
+            or row.get("rank") != expected_rank
+            or not headline_ids
+            or len(headline_ids) != len(set(headline_ids))
+            or any(value not in compact_headline_ids for value in headline_ids)
+            or seen_headline_ids.intersection(headline_ids)
+        ):
+            raise ValueError("rolling_x_publishability_pool_source_binding_invalid")
+        row["publishability_pool_origin"] = "EDITORIAL_SHORTLIST"
+        row["publishability_original_order"] = expected_rank
+        row["publishability_path_profile"] = _rolling_x_publishability_path_profile(
+            headline_ids, records_by_id=records_by_id
+        )
+        seen_cluster_ids.add(cluster_id)
+        seen_headline_ids.update(headline_ids)
+
+    full_fallback = build_deterministic_rolling_x_assignment_fallback(
+        rolling_input=rolling_input,
+        max_ranked_clusters=len(headlines),
+    )
+    fallback_leaf_by_id = {
+        str(row.get("leaf_cluster_id") or ""): dict(row)
+        for row in (full_fallback.get("leaf_clusters") or [])
+        if isinstance(row, Mapping) and row.get("leaf_cluster_id")
+    }
+    derived_leaf_clusters = [
+        dict(row)
+        for row in (assignment.get("leaf_clusters") or [])
+        if isinstance(row, Mapping)
+    ]
+    known_leaf_ids = {
+        str(row.get("leaf_cluster_id") or "") for row in derived_leaf_clusters
+    }
+
+    reserve_rows: list[dict[str, Any]] = []
+    assignment_method = str(assignment.get("assignment_method") or "")
+    if assignment_method != "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK":
+        for leaf_order, leaf in enumerate(derived_leaf_clusters, start=1):
+            leaf_id = str(leaf.get("leaf_cluster_id") or "")
+            member_ids = [str(value) for value in (leaf.get("member_headline_ids") or [])]
+            if (
+                not leaf_id
+                or not member_ids
+                or len(member_ids) != len(set(member_ids))
+                or any(value not in records_by_id for value in member_ids)
+                or seen_headline_ids.intersection(member_ids)
+            ):
+                continue
+            representative = str(
+                leaf.get("canonical_representative_headline_id") or member_ids[0]
+            )
+            if representative not in member_ids:
+                raise ValueError("rolling_x_publishability_pool_leaf_binding_invalid")
+            summary = " ".join(str(leaf.get("event_topic_summary") or "").split())
+            cluster_id = "rolling-x-semantic-reserve-" + _logical_hash(leaf_id)[:20]
+            reserve_rows.append({
+                "cluster_id": cluster_id,
+                "rank": 0,
+                "headline_ids": member_ids,
+                "leaf_cluster_ids": [leaf_id],
+                "story_mode": "reporting",
+                "article_mode": "breaking",
+                "market_sensitive": False,
+                "why_now": summary or "Fresh semantic leaf with a bounded evidence path.",
+                "selection_case": "Unused semantic leaf retained for publishability closure.",
+                "needed_evidence": ["Corroborate the limited factual claim from public evidence."],
+                "seo_intent": "",
+                "visual_strategy": "Deterministic source-backed title card.",
+                "update_chain": dict(leaf.get("duplicate_update_chain") or {}),
+                "publishability_pool_origin": "UNUSED_SEMANTIC_LEAF_RESERVE",
+                "publishability_original_order": len(existing) + leaf_order,
+                "publishability_path_profile": _rolling_x_publishability_path_profile(
+                    member_ids, records_by_id=records_by_id
+                ),
+            })
+
+    for fallback_order, fallback_row in enumerate(
+        full_fallback.get("ranked_clusters") or [], start=1
+    ):
+        if assignment_method != "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK":
+            break
+        if len(existing) >= max_ranked_clusters:
+            break
+        headline_ids = [str(value) for value in (fallback_row.get("headline_ids") or [])]
+        if not headline_ids or seen_headline_ids.intersection(headline_ids):
+            continue
+        row = dict(fallback_row)
+        cluster_id = str(row.get("cluster_id") or "")
+        if not cluster_id or cluster_id in seen_cluster_ids:
+            raise ValueError("rolling_x_publishability_pool_reserve_binding_invalid")
+        row["publishability_pool_origin"] = "DETERMINISTIC_EVIDENCE_REACHABILITY_RESERVE"
+        row["publishability_original_order"] = len(existing) + fallback_order
+        row["publishability_path_profile"] = _rolling_x_publishability_path_profile(
+            headline_ids, records_by_id=records_by_id
+        )
+        reserve_rows.append(row)
+        for leaf_id in [str(value) for value in (row.get("leaf_cluster_ids") or [])]:
+            if leaf_id and leaf_id not in known_leaf_ids and leaf_id in fallback_leaf_by_id:
+                derived_leaf_clusters.append(fallback_leaf_by_id[leaf_id])
+                known_leaf_ids.add(leaf_id)
+
+    for row in reserve_rows:
+        if len(existing) >= max_ranked_clusters:
+            break
+        headline_ids = [str(value) for value in (row.get("headline_ids") or [])]
+        cluster_id = str(row.get("cluster_id") or "")
+        if seen_headline_ids.intersection(headline_ids) or cluster_id in seen_cluster_ids:
+            continue
+        existing.append(row)
+        seen_cluster_ids.add(cluster_id)
+        seen_headline_ids.update(headline_ids)
+
+    origin_priority = {"EDITORIAL_SHORTLIST": 0, "UNUSED_SEMANTIC_LEAF_RESERVE": 1,
+                       "DETERMINISTIC_EVIDENCE_REACHABILITY_RESERVE": 2}
+    existing.sort(key=lambda row: (
+        -int((row.get("publishability_path_profile") or {}).get("priority") or 0),
+        origin_priority.get(str(row.get("publishability_pool_origin") or ""), 9),
+        int(row.get("publishability_original_order") or 0),
+        str(row.get("cluster_id") or ""),
+    ))
+    reserve_count = sum(
+        1 for row in existing
+        if row.get("publishability_pool_origin") != "EDITORIAL_SHORTLIST"
+    )
+
+    for rank, row in enumerate(existing, start=1):
+        row["rank"] = rank
+    held_count = len(set(compact_headline_ids) - seen_headline_ids)
+    telemetry = {
+        **base_telemetry,
+        "status": "EXPANDED" if reserve_count else "UNCHANGED_COMPACT_UNIVERSE_COVERED",
+        "combined_candidate_count": len(existing),
+        "reserve_candidate_count": reserve_count,
+        "included_compact_headline_count": len(seen_headline_ids),
+        "held_after_bounded_pool_count": held_count,
+        "compact_universe_exhausted_by_pool": held_count == 0,
+        "candidate_order": [str(row.get("cluster_id") or "") for row in existing],
+    }
+    telemetry["combined_candidate_binding_hash"] = _logical_hash([
+        {
+            "cluster_id": str(row.get("cluster_id") or ""),
+            "rank": row.get("rank"),
+            "headline_ids": list(row.get("headline_ids") or []),
+            "leaf_cluster_ids": list(row.get("leaf_cluster_ids") or []),
+            "origin": str(row.get("publishability_pool_origin") or ""),
+        }
+        for row in existing
+    ])
+    telemetry["pool_logical_hash"] = _logical_hash(telemetry)
+    return {
+        **dict(assignment),
+        "ranked_clusters": existing,
+        "leaf_clusters": derived_leaf_clusters,
+        "selected_cluster_id": existing[0]["cluster_id"],
+        "selected_headline_ids": list(existing[0].get("headline_ids") or []),
+        "publishability_candidate_pool": telemetry,
+    }
+
+
 ROLLING_X_EVIDENCE_VIABILITY_SCHEMA_VERSION = (
     "capital_chronicle.rolling_x_ranked_evidence_viability.v1"
 )
+ROLLING_X_EVIDENCE_REQUEST_BUDGET_BLOCKERS = frozenset({
+    "official_source_request_budget_exhausted",
+    "public_source_request_budget_exhausted",
+})
+
+
+def _evidence_request_budget_blockers(
+    receipt: Mapping[str, Any], blockers: Sequence[str]
+) -> list[str]:
+    """Extract only stable sanitized acquisition-budget blocker codes."""
+    candidates = {str(value) for value in blockers}
+    candidates.update(str(value) for value in (receipt.get("blockers") or []))
+    provenance = receipt.get("evidence_acquisition_provenance") or {}
+    if isinstance(provenance, Mapping):
+        for lane_name in ("official", "public_secondary"):
+            lane = provenance.get(lane_name) or {}
+            if not isinstance(lane, Mapping):
+                continue
+            candidates.update(str(value) for value in (lane.get("blockers") or []))
+            lane_provenance = lane.get("provenance") or {}
+            if isinstance(lane_provenance, Mapping):
+                candidates.update(
+                    str(value) for value in (lane_provenance.get("diagnostics") or [])
+                )
+    return sorted(candidates.intersection(ROLLING_X_EVIDENCE_REQUEST_BUDGET_BLOCKERS))
 
 
 def _default_rolling_x_story_type(cluster: Mapping[str, Any]) -> str:
@@ -2146,6 +2477,7 @@ def select_first_viable_rolling_x_cluster(
     selected_cluster: Mapping[str, Any] | None = None
     selected_evidence: Mapping[str, Any] | None = None
     seen_cluster_ids: set[str] = set()
+    acquisition_budget_blockers: set[str] = set()
 
     for expected_rank, cluster in enumerate(
         sorted(clusters, key=lambda row: (int(row.get("rank") or 0), str(row.get("cluster_id") or ""))),
@@ -2192,6 +2524,7 @@ def select_first_viable_rolling_x_cluster(
         receipt: dict[str, Any] = {}
         capability: dict[str, Any] = {}
         blockers: list[str] = []
+        cluster_budget_blockers: set[str] = set()
         for effective_product_mode in product_mode_downgrade_path(requested_product_mode):
             requested_mode = (
                 capability_mode_for_product_mode(effective_product_mode)
@@ -2324,6 +2657,16 @@ def select_first_viable_rolling_x_cluster(
             else:
                 receipt = {}
             blockers = sorted(set(blockers))
+            # A PASS receipt may include an exhausted optional lane in provenance after another
+            # authorized lane supplied every required claim.  Budget truth remains diagnostic,
+            # but it must not veto that viable receipt.
+            mode_budget_blockers = (
+                _evidence_request_budget_blockers(receipt, blockers)
+                if blockers
+                else []
+            )
+            cluster_budget_blockers.update(mode_budget_blockers)
+            acquisition_budget_blockers.update(mode_budget_blockers)
             mode_attempts.append(
                 {
                     "requested_mode": requested_product_mode,
@@ -2332,6 +2675,7 @@ def select_first_viable_rolling_x_cluster(
                     "status": "VIABLE" if not blockers else "BLOCKED",
                     "downgrade_reason": request.get("mode_downgrade_reason"),
                     "blockers": blockers,
+                    "evidence_request_budget_blockers": mode_budget_blockers,
                     "request_logical_hash": request.get("request_logical_hash"),
                 }
             )
@@ -2352,6 +2696,7 @@ def select_first_viable_rolling_x_cluster(
             "evidence_receipt_sha256": _logical_hash(receipt) if receipt else None,
             "status": "VIABLE" if not blockers else "BLOCKED",
             "blockers": sorted(set(blockers)),
+            "evidence_request_budget_blockers": sorted(cluster_budget_blockers),
         }
         attempts.append(attempt)
         if not blockers:
@@ -2360,17 +2705,35 @@ def select_first_viable_rolling_x_cluster(
             break
 
     viable = selected_cluster is not None
+    pool_exhausted = (
+        not viable
+        and not acquisition_budget_blockers
+        and len(attempts) == len(clusters)
+    )
+    reason_code = (
+        "FIRST_VIABLE_RANKED_CLUSTER_SELECTED"
+        if viable
+        else "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE"
+        if acquisition_budget_blockers
+        else "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
+    )
     result = {
         "schema_version": ROLLING_X_EVIDENCE_VIABILITY_SCHEMA_VERSION,
         "status": "SUCCESS" if viable else "NO_PUBLICATION",
         "decision": "SELECT_STORY" if viable else "NO_PUBLICATION",
-        "reason_code": "FIRST_VIABLE_RANKED_CLUSTER_SELECTED" if viable else "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED",
+        "reason_code": reason_code,
         "selected_cluster_id": selected_cluster.get("cluster_id") if selected_cluster else None,
         "selected_rank": selected_cluster.get("rank") if selected_cluster else None,
         "selected_headline_ids": list(selected_cluster.get("headline_ids") or []) if selected_cluster else [],
         "selected_cluster": dict(selected_cluster) if selected_cluster else None,
         "selected_evidence": dict(selected_evidence) if selected_evidence else None,
         "rank_attempts": attempts,
+        "ranked_candidate_count": len(clusters),
+        "attempted_candidate_count": len(attempts),
+        "unattempted_candidate_count": max(0, len(clusters) - len(attempts)),
+        "publishability_pool_exhausted": pool_exhausted,
+        "evidence_request_budget_exhausted": bool(acquisition_budget_blockers),
+        "evidence_request_budget_blockers": sorted(acquisition_budget_blockers),
         "evidence_acquired_after_ranking": True,
         "x_content_grants_evidence_authority": False,
         "publication_authority_granted": False,

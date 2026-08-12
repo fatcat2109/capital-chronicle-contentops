@@ -205,3 +205,138 @@ def test_all_ranked_clusters_blocked_returns_governed_no_publication():
     assert result["selected_cluster_id"] is None
     assert len(result["rank_attempts"]) == 2
     assert all(row["status"] == "BLOCKED" for row in result["rank_attempts"])
+    assert result["publishability_pool_exhausted"] is True
+    assert result["evidence_request_budget_exhausted"] is False
+
+
+def test_acquisition_budget_exhaustion_is_not_mislabeled_as_pool_exhaustion():
+    calls = []
+
+    def acquire(request):
+        calls.append(request["rank"])
+        receipt = _receipt(request, status="BLOCKED")
+        receipt["evidence_acquisition_provenance"] = {
+            "public_secondary": {
+                "status": "BLOCKED",
+                "blockers": ["public_source_request_budget_exhausted"],
+                "provenance": {
+                    "request_count": 24,
+                    "request_limit": 24,
+                    "diagnostics": ["public_source_request_budget_exhausted"],
+                },
+            }
+        }
+        return receipt
+
+    result = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(
+            _cluster("one", 1), _cluster("two", 2), _cluster("three", 3)
+        ),
+        acquire_evidence=acquire,
+        story_type_by_cluster={
+            "one": "physical_event",
+            "two": "physical_event",
+            "three": "physical_event",
+        },
+    )
+
+    assert result["status"] == "NO_PUBLICATION"
+    assert result["reason_code"] == (
+        "EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE"
+    )
+    assert result["evidence_request_budget_exhausted"] is True
+    assert result["evidence_request_budget_blockers"] == [
+        "public_source_request_budget_exhausted"
+    ]
+    assert result["publishability_pool_exhausted"] is False
+    assert result["attempted_candidate_count"] == 3
+    assert result["unattempted_candidate_count"] == 0
+    assert calls == [1, 2, 3]
+
+
+def test_one_exhausted_evidence_lane_does_not_block_later_other_lane_candidate():
+    calls = []
+
+    def acquire(request):
+        calls.append(request["rank"])
+        if request["rank"] == 1:
+            receipt = _receipt(request, status="BLOCKED")
+            receipt["evidence_acquisition_provenance"] = {
+                "public_secondary": {
+                    "status": "BLOCKED",
+                    "blockers": ["public_source_request_budget_exhausted"],
+                }
+            }
+            return receipt
+        return _receipt(request)
+
+    result = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(_cluster("secondary", 1), _cluster("official", 2)),
+        acquire_evidence=acquire,
+        story_type_by_cluster={
+            "secondary": "physical_event",
+            "official": "data_release",
+        },
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert result["selected_cluster_id"] == "official"
+    assert result["selected_rank"] == 2
+    assert calls == [1, 2]
+    assert result["evidence_request_budget_exhausted"] is True
+
+
+def test_pass_receipt_is_not_vetoed_by_exhausted_optional_lane_diagnostic():
+    def acquire(request):
+        receipt = _receipt(request)
+        receipt["evidence_acquisition_provenance"] = {
+            "public_secondary": {
+                "status": "BLOCKED",
+                "blockers": ["public_source_request_budget_exhausted"],
+            }
+        }
+        return receipt
+
+    result = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(_cluster("official", 1)),
+        acquire_evidence=acquire,
+        story_type_by_cluster={"official": "data_release"},
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert result["selected_cluster_id"] == "official"
+    assert result["evidence_request_budget_exhausted"] is False
+
+
+def test_budget_blocked_deep_mode_can_downgrade_same_cluster_to_viable_brief():
+    calls = []
+
+    def acquire(request):
+        calls.append(dict(request))
+        if len(calls) == 1:
+            receipt = _receipt(request, status="BLOCKED")
+            receipt["evidence_acquisition_provenance"] = {
+                "public_secondary": {
+                    "status": "BLOCKED",
+                    "blockers": ["public_source_request_budget_exhausted"],
+                }
+            }
+            return receipt
+        return _receipt(request)
+
+    result = select_first_viable_rolling_x_cluster(
+        assignment=_assignment(_cluster("downgrade", 1, article_mode="deep_dive")),
+        acquire_evidence=acquire,
+        story_type_by_cluster={"downgrade": "physical_event"},
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert result["selected_cluster_id"] == "downgrade"
+    assert len(calls) == 2
+    assert calls[0]["effective_article_mode"] == "STANDARD_NEWS_ANALYSIS"
+    assert calls[1]["effective_article_mode"] == "BREAKING_BRIEF"
+    assert any(
+        row["evidence_request_budget_blockers"]
+        == ["public_source_request_budget_exhausted"]
+        for row in result["rank_attempts"][0]["mode_attempts"]
+    )

@@ -33,16 +33,17 @@ Jim's current owner override supersedes older artificial live-cycle limits and p
 - GPT-5.6 Sol may be used through the existing canonical 9Router quality priority list;
 - evidence should be practical, claim-level, and publishability-first rather than institutional-completeness driven;
 - blocked candidates should advance to other viable candidates inside the same editorial opportunity when practical;
-- first mandatory proof is ONE same canonical article successfully public and strictly read back/reconciled on ALL NINE Tier-1 text/image surfaces: Substack, Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community;
+- first milestone is ONE same canonical article successfully public and strictly read back/reconciled on ALL NINE Tier-1 text/image surfaces: Substack, Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community;
 - partial Tier-1 distribution is not acceptance for this phase proof;
-- after the 9/9 proof, published-memory feedback and repeated autonomous operation must reach at least five genuine canonical articles, including at least one scheduled-window success.
+- final phase proof requires at least five genuine canonical articles, each independently strict 9/9; at least one of those valid 9/9 articles must originate from a genuine scheduled window;
+- published-memory duplicate suppression or clearly material follow-up behavior must also be proven.
 
 Immediate execution order:
 
 1. fix canonical Substack draft → real public `/p/...` publication/readback;
 2. make final selection publishability-first and walk multiple candidates inside one cycle rather than allowing a small evidence-dead shortlist to consume a full window;
-3. prove one same canonical article 9/9;
-4. prove published-memory feedback and at least five genuine canonical articles;
+3. prove the first same-canonical-article 9/9 milestone;
+4. continue until five independent strict 9/9 articles, published-memory behavior, and a valid scheduled-window 9/9 article are proven;
 5. integrate accepted V1 source/controls to current remote master while preserving concurrent V2 work.
 
 Only true hard blockers should stop the phase: secret/session exposure, wrong-account public-write risk, fabricated core truth that cannot be removed, unresolved UNKNOWN_WRITE/public-object ambiguity, destructive production-store risk, protected `v1.0` mutation, irreconcilable merge conflict, or genuinely required operator credential/reauthentication input.
@@ -63,12 +64,16 @@ Do not rely on this compact pointer for detailed V2 routing if newer V2 authorit
 
 Current canonical V2 authority includes:
 
-- `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md`
-- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1.md`
-- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md`
-- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V1.md`
-- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`
-- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_SUPERSESSION_MAP_V1.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
+- `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+- `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
+- `docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md`
+
+The older V2 `NORTH_STAR_V1`, `MASTER_PLAN_V1`, `TASK_GRAPH_V1`, and
+`CURRENT_EXECUTION_POINTER_V1` are historical/reference where the V2 documents conflict.
 
 V2 proceeds concurrently but has separate public-write authority.
 

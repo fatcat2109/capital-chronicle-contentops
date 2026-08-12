@@ -21,7 +21,7 @@ Parent task:
 
 `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
 
-Current V1 proof objective is one same canonical article genuinely public and strictly read back/reconciled on all nine Tier-1 text/image surfaces, followed by repeated autonomous proof reaching at least five genuine canonical articles including a scheduled-window success. Read the current V1 handoff for live branch/runtime evidence and owner overrides. Do not infer current V1 runtime state from this compact file.
+Current V1 proof objective is at least five genuine canonical articles, each independently public and strictly read back/reconciled on all nine Tier-1 text/image surfaces. At least one valid 9/9 article must originate from a genuine scheduled window; published-memory duplicate suppression or material-follow-up behavior must also be proven. Read the current V1 handoff for live branch/runtime evidence and owner overrides. Do not infer current V1 runtime state from this compact file.
 
 The broader approximately 5–8 useful articles/day target remains a portfolio goal, never filler permission.
 

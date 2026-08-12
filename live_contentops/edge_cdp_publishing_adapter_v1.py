@@ -44,11 +44,19 @@ _EDITORIAL_PROCESS_TEXT_RE = re.compile(
 def _is_public_substack_url(value: str | None) -> bool:
     if not value:
         return False
-    parsed = urllib.parse.urlparse(value)
+    try:
+        parsed = urllib.parse.urlparse(value)
+        explicit_port = parsed.port
+    except ValueError:
+        return False
     return bool(
-        parsed.scheme == "https"
-        and parsed.netloc.endswith("substack.com")
-        and "/p/" in parsed.path
+        parsed.scheme.casefold() == "https"
+        and (parsed.hostname or "").casefold() == "capitalchronicle.substack.com"
+        and explicit_port is None
+        and parsed.username is None
+        and parsed.password is None
+        and parsed.path.startswith("/p/")
+        and len(parsed.path.removeprefix("/p/").strip("/")) > 0
         and _PRIVATE_SUBSTACK_PATH_MARKER not in parsed.path
     )
 
@@ -324,6 +332,11 @@ def _normalise_editor_text(value: str) -> str:
     # Rich-text input rules can normalize punctuation while preserving the
     # article itself. Compare stable word tokens for an in-place recovery.
     return " ".join(re.findall(r"[\w]+", without_headings.casefold()))
+
+
+def _normalise_exact_listing_title(value: str) -> str:
+    """Collapse layout whitespace while preserving exact title punctuation and case."""
+    return re.sub(r"\s+", " ", str(value or "")).strip()
 
 
 def _split_substack_body(body_markdown: str) -> list[tuple[str, str]]:
@@ -673,6 +686,7 @@ def probe_authenticated_platform_session(cdp_port: int, platform: str) -> dict[s
 
 
 def _extract_substack_public_url(page: Any) -> str | None:
+    """Read only page-bound public identity, never an unrelated visible article link."""
     candidates: list[str] = [page.url]
     for selector, attribute in (("link[rel='canonical']", "href"), ("meta[property='og:url']", "content")):
         try:
@@ -681,13 +695,6 @@ def _extract_substack_public_url(page: Any) -> str | None:
                 candidates.append(value)
         except Exception:
             continue
-    try:
-        for link in page.locator("a[href*='/p/']").all():
-            value = link.get_attribute("href")
-            if value:
-                candidates.append(value)
-    except Exception:
-        pass
     for candidate in candidates:
         absolute = _absolute_substack_url(candidate)
         if _is_public_substack_url(absolute):
@@ -1072,8 +1079,8 @@ def _substack_listing_matches(
             time.sleep(2)
         except Exception:
             pass
-    expected = _normalise_editor_text(expected_title)
-    matches: list[dict[str, str]] = []
+    expected = _normalise_exact_listing_title(expected_title)
+    matches_by_href: dict[str, dict[str, str]] = {}
     for link in page.locator("a[href]").all():
         try:
             href = str(link.get_attribute("href") or "").strip()
@@ -1081,15 +1088,448 @@ def _substack_listing_matches(
         except Exception:
             continue
         lines = [
-            _normalise_editor_text(line)
+            _normalise_exact_listing_title(line)
             for line in text.splitlines()
-            if _normalise_editor_text(line)
+            if _normalise_exact_listing_title(line)
         ]
         if expected not in lines:
             continue
         if href_predicate(href):
-            matches.append({"href": href, "title": expected_title})
-    return matches
+            identity_href = href.split("#", 1)[0].split("?", 1)[0]
+            matches_by_href.setdefault(
+                identity_href,
+                {"href": href, "title": expected_title},
+            )
+    return list(matches_by_href.values())
+
+
+def _substack_exact_enabled_button(
+    page: Any,
+    *,
+    labels: Sequence[str],
+    preferred_test_id: str | None = None,
+) -> tuple[Any | None, str | None]:
+    """Return one visible enabled button whose accessible label is an exact match.
+
+    Substack reuses broad words such as ``Publish`` across editor chrome.  Exact labels and the
+    observed editor ``data-testid`` keep the public transition bounded to its intended control.
+    """
+    expected = {_normalise_editor_text(label): label for label in labels if str(label).strip()}
+    if not expected:
+        return None, None
+    try:
+        candidates = page.locator("button, [role='button']")
+        count = min(int(candidates.count()), 64)
+    except Exception:
+        return None, None
+    passes = (preferred_test_id, None) if preferred_test_id else (None,)
+    for required_test_id in passes:
+        for index in range(count):
+            locator = candidates.nth(index)
+            try:
+                if not locator.is_visible(timeout=600) or locator.is_disabled(timeout=600):
+                    continue
+                if required_test_id and str(
+                    locator.get_attribute("data-testid") or ""
+                ) != required_test_id:
+                    continue
+                visible_label = str(locator.inner_text(timeout=800) or "").strip()
+                if not visible_label:
+                    visible_label = str(locator.get_attribute("aria-label") or "").strip()
+                normalized = _normalise_editor_text(visible_label)
+                if normalized in expected:
+                    return locator, expected[normalized]
+            except Exception:
+                continue
+    return None, None
+
+
+def _wait_for_substack_exact_button(
+    page: Any,
+    *,
+    labels: Sequence[str],
+    timeout_seconds: float,
+    preferred_test_id: str | None = None,
+    poll_interval_seconds: float = 0.25,
+) -> tuple[Any | None, str | None]:
+    deadline = time.monotonic() + max(0.0, float(timeout_seconds))
+    while True:
+        locator, label = _substack_exact_enabled_button(
+            page,
+            labels=labels,
+            preferred_test_id=preferred_test_id,
+        )
+        if locator is not None:
+            return locator, label
+        if time.monotonic() >= deadline:
+            return None, None
+        time.sleep(max(0.05, float(poll_interval_seconds)))
+
+
+def _complete_substack_publish_transition(
+    page: Any,
+    *,
+    draft_id: str | None,
+    expected_title: str,
+    transition_timeout_seconds: float = 30.0,
+    listing_timeout_seconds: float = 15.0,
+    poll_interval_seconds: float = 0.25,
+) -> dict[str, Any]:
+    """Advance one composed draft through bounded create-publication UI states.
+
+    The final publish CTA is the public-write boundary.  Each permitted control is clicked at
+    most once.  A missing/late public URL remains ambiguous and retains the draft identity so the
+    coordinator can perform its normal readback-only reconciliation; this helper never retries.
+    """
+    stages: list[dict[str, Any]] = []
+    draft_id = str(draft_id or "").strip()
+    if not draft_id.isdigit():
+        stages.append({"stage": "DRAFT_ID_BINDING", "outcome": "NOT_BOUND"})
+        return {
+            "status": "BLOCKED_SUBSTACK_DRAFT_ID_NOT_BOUND_BEFORE_PUBLIC_WRITE",
+            "draft_id": None,
+            "definite_no_write": True,
+            "public_write_attempted": False,
+            "browser_write_performed": False,
+            "transition_stages": stages,
+        }
+
+    continue_button, continue_label = _wait_for_substack_exact_button(
+        page,
+        labels=("Continue",),
+        preferred_test_id="publish-button",
+        timeout_seconds=min(8.0, transition_timeout_seconds),
+        poll_interval_seconds=poll_interval_seconds,
+    )
+    if continue_button is None:
+        stages.append({"stage": "EDITOR_CONTINUE", "outcome": "CONTROL_NOT_FOUND"})
+        return {
+            "status": "BLOCKED_SUBSTACK_CONTINUE_CONTROL_NOT_FOUND",
+            "draft_id": draft_id,
+            "definite_no_write": True,
+            "public_write_attempted": False,
+            "browser_write_performed": False,
+            "transition_stages": stages,
+        }
+    try:
+        continue_button.click(timeout=6000)
+    except Exception as exc:
+        stages.append(
+            {
+                "stage": "EDITOR_CONTINUE",
+                "control_label": continue_label,
+                "outcome": "CLICK_FAILED",
+                "error_class": type(exc).__name__,
+            }
+        )
+        return {
+            "status": "BLOCKED_SUBSTACK_CONTINUE_CLICK_FAILED",
+            "draft_id": draft_id,
+            "definite_no_write": True,
+            "public_write_attempted": False,
+            "browser_write_performed": False,
+            "transition_stages": stages,
+        }
+    stages.append(
+        {
+            "stage": "EDITOR_CONTINUE",
+            "control_label": continue_label,
+            "outcome": "CLICKED_ONCE",
+        }
+    )
+
+    publish_button, publish_label = _wait_for_substack_exact_button(
+        page,
+        labels=("Send to everyone now", "Publish now", "Publish post now"),
+        timeout_seconds=transition_timeout_seconds,
+        poll_interval_seconds=poll_interval_seconds,
+    )
+    if publish_button is None:
+        stages.append({"stage": "PUBLISH_SETTINGS", "outcome": "CONTROL_NOT_FOUND"})
+        return {
+            "status": "BLOCKED_SUBSTACK_PUBLISH_CONTROL_NOT_FOUND",
+            "draft_id": draft_id,
+            "definite_no_write": True,
+            "public_write_attempted": False,
+            "browser_write_performed": False,
+            "transition_stages": stages,
+        }
+    try:
+        publish_button.click(timeout=6000)
+    except Exception as exc:
+        stages.append(
+            {
+                "stage": "PUBLISH_SETTINGS",
+                "control_label": publish_label,
+                "outcome": "CLICK_FAILED",
+                "error_class": type(exc).__name__,
+            }
+        )
+        return {
+            "status": "UNKNOWN_SUBSTACK_PUBLISH_CONTROL_CLICK_FAILED",
+            "draft_id": draft_id,
+            "public_write_attempted": True,
+            "browser_write_performed": True,
+            "transition_stages": stages,
+        }
+    stages.append(
+        {
+            "stage": "PUBLISH_SETTINGS",
+            "control_label": publish_label,
+            "outcome": "PUBLIC_WRITE_CLICKED_ONCE",
+        }
+    )
+    public_write_attempted = True
+
+    confirmation_checked = False
+    deadline = time.monotonic() + max(0.0, float(transition_timeout_seconds))
+    while True:
+        public_url = _extract_substack_public_url(page)
+        if _is_public_substack_url(public_url):
+            stages.append({"stage": "PUBLIC_URL", "outcome": "OBSERVED_ON_PAGE"})
+            return {
+                "status": "SUCCESS",
+                "draft_id": draft_id,
+                "public_url": str(public_url),
+                "public_url_source": "CURRENT_PAGE",
+                "public_write_attempted": public_write_attempted,
+                "browser_write_performed": True,
+                "transition_stages": stages,
+            }
+        if not confirmation_checked:
+            confirmation_button, confirmation_label = _substack_exact_enabled_button(
+                page,
+                labels=("Publish without buttons",),
+            )
+            if confirmation_button is not None:
+                confirmation_checked = True
+                try:
+                    confirmation_button.click(timeout=6000)
+                except Exception as exc:
+                    stages.append(
+                        {
+                            "stage": "OPTIONAL_CONFIRMATION",
+                            "control_label": confirmation_label,
+                            "outcome": "CLICK_FAILED",
+                            "error_class": type(exc).__name__,
+                        }
+                    )
+                    return {
+                        "status": "UNKNOWN_SUBSTACK_CONFIRMATION_CLICK_FAILED",
+                        "draft_id": draft_id,
+                        "public_write_attempted": True,
+                        "browser_write_performed": True,
+                        "transition_stages": stages,
+                    }
+                stages.append(
+                    {
+                        "stage": "OPTIONAL_CONFIRMATION",
+                        "control_label": confirmation_label,
+                        "outcome": "PUBLIC_WRITE_CLICKED_ONCE",
+                    }
+                )
+        if time.monotonic() >= deadline:
+            break
+        time.sleep(max(0.05, float(poll_interval_seconds)))
+
+    # The public route is not always exposed on the post-send screen.  A published-listing title
+    # is useful diagnostic evidence, but it cannot bind that row to this exact draft id: an older
+    # article may have identical title/content.  Therefore listing-only recovery always remains
+    # UNKNOWN and leaves the candidate URL unset.  The coordinator will reconcile the exact
+    # draft-id editor state read-only before it can confirm any public object.
+    try:
+        page.goto(
+            "https://capitalchronicle.substack.com/publish/posts/published",
+            wait_until="domcontentloaded",
+            timeout=45000,
+        )
+    except Exception as exc:
+        stages.append(
+            {
+                "stage": "EXACT_PUBLISHED_LISTING",
+                "outcome": "NAVIGATION_FAILED",
+                "error_class": type(exc).__name__,
+            }
+        )
+        return {
+            "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
+            "draft_id": draft_id,
+            "public_write_attempted": True,
+            "browser_write_performed": True,
+            "transition_stages": stages,
+        }
+    listing_deadline = time.monotonic() + max(0.0, float(listing_timeout_seconds))
+    last_match_count = 0
+    while True:
+        matches = _substack_listing_matches(
+            page,
+            expected_title=expected_title,
+            href_predicate=lambda href: _is_public_substack_url(
+                _absolute_substack_url(href)
+            ),
+        )
+        last_match_count = len(matches)
+        if len(matches) > 1:
+            stages.append(
+                {
+                    "stage": "EXACT_PUBLISHED_LISTING",
+                    "outcome": "AMBIGUOUS",
+                    "match_count": len(matches),
+                }
+            )
+            return {
+                "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
+                "draft_id": draft_id,
+                "public_write_attempted": True,
+                "browser_write_performed": True,
+                "published_listing_match_count": len(matches),
+                "transition_stages": stages,
+            }
+        if len(matches) == 1:
+            stages.append(
+                {
+                    "stage": "EXACT_PUBLISHED_LISTING",
+                    "outcome": "UNBOUND_UNIQUE_PUBLIC_MATCH",
+                    "match_count": 1,
+                }
+            )
+            return {
+                "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
+                "draft_id": draft_id,
+                "public_write_attempted": True,
+                "browser_write_performed": True,
+                "published_listing_match_count": 1,
+                "transition_stages": stages,
+            }
+        if time.monotonic() >= listing_deadline:
+            break
+        time.sleep(max(0.05, float(poll_interval_seconds)))
+    stages.append(
+        {
+            "stage": "EXACT_PUBLISHED_LISTING",
+            "outcome": "NO_UNIQUE_PUBLIC_MATCH",
+            "match_count": last_match_count,
+        }
+    )
+    return {
+        "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
+        "draft_id": draft_id,
+        "public_write_attempted": True,
+        "browser_write_performed": True,
+        "published_listing_match_count": last_match_count,
+        "transition_stages": stages,
+    }
+
+
+def _complete_substack_editor_publication_transition(
+    page: Any,
+    *,
+    draft_id: str | None,
+    expected_title: str,
+    transition_timeout_seconds: float = 30.0,
+    listing_timeout_seconds: float = 15.0,
+    poll_interval_seconds: float = 0.25,
+) -> dict[str, Any]:
+    """Choose exact update/create mode once, then execute without cross-mode fallback."""
+    update_button, update_label = _substack_exact_enabled_button(
+        page,
+        labels=("Update",),
+    )
+    if update_button is None:
+        return {
+            **_complete_substack_publish_transition(
+                page,
+                draft_id=draft_id,
+                expected_title=expected_title,
+                transition_timeout_seconds=transition_timeout_seconds,
+                listing_timeout_seconds=listing_timeout_seconds,
+                poll_interval_seconds=poll_interval_seconds,
+            ),
+            "publication_write_mode": "create_new_public_article",
+        }
+
+    normalized_draft_id = str(draft_id or "").strip()
+    stages: list[dict[str, Any]] = []
+    if not normalized_draft_id.isdigit():
+        stages.append({"stage": "DRAFT_ID_BINDING", "outcome": "NOT_BOUND"})
+        return {
+            "status": "BLOCKED_SUBSTACK_DRAFT_ID_NOT_BOUND_BEFORE_PUBLIC_WRITE",
+            "draft_id": None,
+            "definite_no_write": True,
+            "public_write_attempted": False,
+            "browser_write_performed": False,
+            "publication_write_mode": "update_existing_public_article",
+            "transition_stages": stages,
+        }
+
+    try:
+        update_button.click(timeout=6000)
+    except Exception as exc:
+        stages.append(
+            {
+                "stage": "EDITOR_UPDATE",
+                "control_label": update_label,
+                "outcome": "CLICK_FAILED",
+                "error_class": type(exc).__name__,
+            }
+        )
+        return {
+            "status": "UNKNOWN_SUBSTACK_UPDATE_CONTROL_CLICK_FAILED",
+            "draft_id": normalized_draft_id,
+            "public_write_attempted": True,
+            "browser_write_performed": True,
+            "publication_write_mode": "update_existing_public_article",
+            "transition_stages": stages,
+        }
+    stages.append(
+        {
+            "stage": "EDITOR_UPDATE",
+            "control_label": update_label,
+            "outcome": "PUBLIC_WRITE_CLICKED_ONCE",
+        }
+    )
+
+    confirmation_button, confirmation_label = _wait_for_substack_exact_button(
+        page,
+        labels=("Update post", "Update now", "Confirm update"),
+        timeout_seconds=min(4.0, transition_timeout_seconds),
+        poll_interval_seconds=poll_interval_seconds,
+    )
+    if confirmation_button is not None:
+        try:
+            confirmation_button.click(timeout=6000)
+        except Exception as exc:
+            stages.append(
+                {
+                    "stage": "OPTIONAL_UPDATE_CONFIRMATION",
+                    "control_label": confirmation_label,
+                    "outcome": "CLICK_FAILED",
+                    "error_class": type(exc).__name__,
+                }
+            )
+            return {
+                "status": "UNKNOWN_SUBSTACK_UPDATE_CONFIRMATION_CLICK_FAILED",
+                "draft_id": normalized_draft_id,
+                "public_write_attempted": True,
+                "browser_write_performed": True,
+                "publication_write_mode": "update_existing_public_article",
+                "transition_stages": stages,
+            }
+        stages.append(
+            {
+                "stage": "OPTIONAL_UPDATE_CONFIRMATION",
+                "control_label": confirmation_label,
+                "outcome": "PUBLIC_WRITE_CLICKED_ONCE",
+            }
+        )
+    return {
+        "status": "SUCCESS",
+        "draft_id": normalized_draft_id,
+        "public_write_attempted": True,
+        "browser_write_performed": True,
+        "publication_write_mode": "update_existing_public_article",
+        "transition_stages": stages,
+    }
 
 
 def reconcile_substack_publication_by_draft_id_via_edge(
@@ -1121,90 +1561,9 @@ def reconcile_substack_publication_by_draft_id_via_edge(
             "browser_write_performed": False,
         }
     with canonical_edge_page(cdp_port) as page:
-        page.goto(
-            "https://capitalchronicle.substack.com/publish/posts/published",
-            wait_until="domcontentloaded",
-            timeout=45000,
-        )
-        time.sleep(3)
-        published_matches = _substack_listing_matches(
-            page,
-            expected_title=expected_title,
-            href_predicate=lambda _href: True,
-        )
-        if len(published_matches) > 1:
-            return {
-                "status": "AMBIGUOUS_SUBSTACK_PUBLIC_TITLE_MATCH",
-                "platform": "substack",
-                "verified": False,
-                "write_absent": False,
-                "public_object_id": draft_id,
-                "browser_write_performed": False,
-            }
-        if len(published_matches) == 1:
-            public_url = _absolute_substack_url(published_matches[0]["href"])
-            if not _is_public_substack_url(public_url):
-                return {
-                    "status": "AMBIGUOUS_SUBSTACK_PUBLISHED_LISTING_MATCH",
-                    "platform": "substack",
-                    "verified": False,
-                    "write_absent": False,
-                    "public_object_id": draft_id,
-                    "browser_write_performed": False,
-                }
-            readback = _audit_public_substack_article(
-                page,
-                str(public_url),
-                public_screenshot_path,
-                expected_title=expected_title,
-                expected_subtitle=expected_subtitle,
-                expected_body_markdown=expected_body_markdown,
-                expected_image_assets=expected_image_assets,
-            )
-            expected_image_count = len(expected_image_assets)
-            verified = bool(
-                readback.get("content_readback_verified")
-                and int(readback.get("public_image_count") or 0) >= expected_image_count
-                and int(readback.get("public_image_alt_or_caption_count") or 0)
-                >= expected_image_count
-                and readback.get("visual_spread_through_public_body")
-            )
-            return {
-                "status": "SUCCESS" if verified else "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK",
-                "platform": "substack",
-                "verified": verified,
-                "write_absent": False,
-                "public_object_id": draft_id,
-                "public_url": public_url,
-                "readback": readback,
-                "browser_write_performed": False,
-            }
-
-        page.goto(
-            "https://capitalchronicle.substack.com/publish/posts/drafts",
-            wait_until="domcontentloaded",
-            timeout=45000,
-        )
-        time.sleep(3)
-        draft_matches = _substack_listing_matches(
-            page,
-            expected_title=expected_title,
-            href_predicate=lambda href: bool(
-                re.search(rf"/publish/post/{re.escape(draft_id)}(?:\?|$)", href)
-            ),
-        )
-        if len(draft_matches) != 1:
-            return {
-                "status": "READBACK_UNAVAILABLE",
-                "platform": "substack",
-                "verified": False,
-                "write_absent": False,
-                "public_object_id": draft_id,
-                "browser_write_performed": False,
-            }
-
-        # Read the exact draft without modifying it.  The same bindings are rechecked again by
-        # the accepted resume adapter should an operator later choose a safe retry.
+        # Bind the exact post/draft object before consulting any title-only listing.  Otherwise
+        # an older public article with identical title/body could be mistaken for this attempt
+        # while the intended object still exists as a draft.
         page.goto(
             f"https://capitalchronicle.substack.com/publish/post/{draft_id}"
             "?back=%2Fpublish%2Fposts%2Fdrafts",
@@ -1236,6 +1595,7 @@ def reconcile_substack_publication_by_draft_id_via_edge(
         actual_subtitle = ""
         editor_text = ""
         editor_image_count = 0
+        exact_editor_state = ""
         deadline = time.monotonic() + 15.0
         while True:
             title_input, _ = _first_visible(
@@ -1271,7 +1631,23 @@ def reconcile_substack_publication_by_draft_id_via_edge(
                     and editor_image_count >= len(expected_image_assets)
                 )
                 if hydrated_binding:
-                    break
+                    update_button, _ = _substack_exact_enabled_button(
+                        page, labels=("Update",)
+                    )
+                    continue_button, _ = _substack_exact_enabled_button(
+                        page,
+                        labels=("Continue",),
+                        preferred_test_id="publish-button",
+                    )
+                    if update_button is not None and continue_button is None:
+                        exact_editor_state = "PUBLISHED"
+                        break
+                    if continue_button is not None and update_button is None:
+                        exact_editor_state = "DRAFT"
+                        break
+                    if update_button is not None and continue_button is not None:
+                        exact_editor_state = "AMBIGUOUS"
+                        break
             if time.monotonic() >= deadline:
                 break
             time.sleep(0.5)
@@ -1297,24 +1673,118 @@ def reconcile_substack_publication_by_draft_id_via_edge(
             and body_anchor_verified
             and media_count_verified
         )
-        return {
-            "status": (
-                "SUBSTACK_DRAFT_CONFIRMED_NOT_PUBLIC"
-                if exact_draft_bound
-                else "SUBSTACK_DRAFT_BINDING_MISMATCH"
-            ),
-            "platform": "substack",
-            "verified": False,
-            "write_absent": exact_draft_bound,
-            "public_object_id": draft_id,
-            "publication_state": "draft" if exact_draft_bound else None,
-            "draft_binding_verified": exact_draft_bound,
+        binding_detail = {
             "title_binding_verified": actual_title == expected_title,
             "subtitle_binding_verified": subtitle_binding_verified,
             "body_anchor_verified": body_anchor_verified,
             "media_count_verified": media_count_verified,
             "observed_editor_image_count": editor_image_count,
             "expected_image_count": len(expected_image_assets),
+            "exact_editor_state": exact_editor_state or None,
+        }
+        if not exact_draft_bound:
+            return {
+                "status": "SUBSTACK_DRAFT_BINDING_MISMATCH",
+                "platform": "substack",
+                "verified": False,
+                "write_absent": False,
+                "public_object_id": draft_id,
+                "draft_binding_verified": False,
+                **binding_detail,
+                "browser_write_performed": False,
+            }
+        if exact_editor_state == "DRAFT":
+            return {
+                "status": "SUBSTACK_DRAFT_CONFIRMED_NOT_PUBLIC",
+                "platform": "substack",
+                "verified": False,
+                "write_absent": True,
+                "public_object_id": draft_id,
+                "publication_state": "draft",
+                "draft_binding_verified": True,
+                **binding_detail,
+                "browser_write_performed": False,
+            }
+        if exact_editor_state != "PUBLISHED":
+            return {
+                "status": "READBACK_UNAVAILABLE",
+                "platform": "substack",
+                "verified": False,
+                "write_absent": False,
+                "public_object_id": draft_id,
+                "draft_binding_verified": True,
+                **binding_detail,
+                "browser_write_performed": False,
+            }
+
+        # The exact object is proven published by its editor state.  The title listing is now
+        # used only to recover its public URL; strict public content readback remains mandatory.
+        page.goto(
+            "https://capitalchronicle.substack.com/publish/posts/published",
+            wait_until="domcontentloaded",
+            timeout=45000,
+        )
+        time.sleep(3)
+        published_matches = _substack_listing_matches(
+            page,
+            expected_title=expected_title,
+            href_predicate=lambda href: _is_public_substack_url(
+                _absolute_substack_url(href)
+            ),
+        )
+        if len(published_matches) != 1:
+            return {
+                "status": (
+                    "AMBIGUOUS_SUBSTACK_PUBLIC_TITLE_MATCH"
+                    if len(published_matches) > 1
+                    else "READBACK_UNAVAILABLE"
+                ),
+                "platform": "substack",
+                "verified": False,
+                "write_absent": False,
+                "public_object_id": draft_id,
+                "published_listing_match_count": len(published_matches),
+                **binding_detail,
+                "browser_write_performed": False,
+            }
+        public_url = _absolute_substack_url(published_matches[0]["href"])
+        if not _is_public_substack_url(public_url):
+            return {
+                "status": "AMBIGUOUS_SUBSTACK_PUBLISHED_LISTING_MATCH",
+                "platform": "substack",
+                "verified": False,
+                "write_absent": False,
+                "public_object_id": draft_id,
+                **binding_detail,
+                "browser_write_performed": False,
+            }
+        public_url = str(public_url).split("?", 1)[0].split("#", 1)[0]
+        readback = _audit_public_substack_article(
+            page,
+            public_url,
+            public_screenshot_path,
+            expected_title=expected_title,
+            expected_subtitle=expected_subtitle,
+            expected_body_markdown=expected_body_markdown,
+            expected_image_assets=expected_image_assets,
+        )
+        expected_image_count = len(expected_image_assets)
+        verified = bool(
+            readback.get("content_readback_verified")
+            and int(readback.get("public_image_count") or 0) >= expected_image_count
+            and int(readback.get("public_image_alt_or_caption_count") or 0)
+            >= expected_image_count
+            and readback.get("visual_spread_through_public_body")
+        )
+        return {
+            "status": "SUCCESS" if verified else "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK",
+            "platform": "substack",
+            "verified": verified,
+            "write_absent": False,
+            "public_object_id": draft_id,
+            "public_url": public_url,
+            "readback": readback,
+            **binding_detail,
             "browser_write_performed": False,
         }
 
@@ -1508,50 +1978,52 @@ def publish_substack_article_via_edge(
             }
         time.sleep(3)
         draft_id = _substack_draft_id(page.url)
-        continue_selector = _click_first_visible(page, ("button:has-text('Update')", "button:has-text('Continue')", "button:has-text('Publish...')", "button:has-text('Publish')"))
-        if continue_selector:
-            time.sleep(3)
-        update_mode = bool(continue_selector and "Update" in continue_selector)
-        if update_mode:
-            publish_selector = continue_selector
-            time.sleep(3)
-            # Published posts can require a second confirmation after the
-            # editor-level Update action. Keep this bounded to update-only
-            # controls so an existing article can never enter create mode.
-            _click_first_visible(
-                page,
-                (
-                    "button:has-text('Update post')",
-                    "button:has-text('Update now')",
-                    "button:has-text('Confirm update')",
-                ),
-            )
-            time.sleep(7)
-        else:
-            publish_selector = _click_first_visible(page, ("button:has-text('Send to everyone now')", "button:has-text('Publish now')", "button:has-text('Publish post now')"))
-            if not publish_selector:
-                return {"status": "BLOCKED_SUBSTACK_PUBLISH_CONTROL_NOT_FOUND", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows}
-            time.sleep(4)
-            _click_first_visible(page, ("button:has-text('Publish without buttons')", "button:has-text('Confirm')", "button:has-text('Publish now')"))
-            time.sleep(8)
+        publish_transition = _complete_substack_editor_publication_transition(
+            page,
+            draft_id=draft_id,
+            expected_title=title,
+        )
+        update_mode = (
+            publish_transition.get("publication_write_mode")
+            == "update_existing_public_article"
+        )
+        if publish_transition.get("status") != "SUCCESS":
+            return {
+                **publish_transition,
+                "platform": "substack",
+                "draft_id": draft_id,
+                "editor_body_image_count": editor_image_count,
+                "upload_rows": upload_rows,
+            }
+        time.sleep(7)
         public_url = (
             str(existing_public_url)
             if update_mode and _is_public_substack_url(str(existing_public_url or ""))
-            else _extract_substack_public_url(page)
+            else str((publish_transition or {}).get("public_url") or "")
         )
-        if not public_url:
+        if update_mode and not public_url:
             try:
-                page.goto("https://capitalchronicle.substack.com/publish/posts", wait_until="domcontentloaded", timeout=45000)
+                page.goto(
+                    "https://capitalchronicle.substack.com/publish/posts/published",
+                    wait_until="domcontentloaded",
+                    timeout=45000,
+                )
                 time.sleep(3)
-                for link in page.locator("a[href*='/p/']").all():
-                    if title.lower() in (link.inner_text(timeout=1200) or "").lower():
-                        public_url = _absolute_substack_url(link.get_attribute("href"))
-                        if _is_public_substack_url(public_url):
-                            break
+                published_matches = _substack_listing_matches(
+                    page,
+                    expected_title=title,
+                    href_predicate=lambda href: _is_public_substack_url(
+                        _absolute_substack_url(href)
+                    ),
+                )
+                if len(published_matches) == 1:
+                    public_url = _absolute_substack_url(
+                        published_matches[0]["href"]
+                    )
             except Exception:
                 public_url = None
         if not _is_public_substack_url(public_url):
-            return {"status": "FAILED_SUBSTACK_PUBLIC_URL_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows}
+            return {"status": "FAILED_SUBSTACK_PUBLIC_URL_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows, "publish_transition": publish_transition}
         readback = _audit_public_substack_article(
             page,
             public_url,
@@ -1566,12 +2038,12 @@ def publish_substack_article_via_edge(
             readback["public_image_count"] < expected_image_count
             or not readback["visual_spread_through_public_body"]
         ):
-            return {"status": "FAILED_SUBSTACK_PUBLIC_VISUAL_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows, "public_url": public_url, "readback": readback}
+            return {"status": "FAILED_SUBSTACK_PUBLIC_VISUAL_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows, "public_url": public_url, "readback": readback, "publish_transition": publish_transition}
         if (
             readback["public_image_alt_or_caption_count"] < expected_image_count
             or not readback["content_readback_verified"]
         ):
-            return {"status": "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows, "public_url": public_url, "readback": readback}
+            return {"status": "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows, "public_url": public_url, "readback": readback, "publish_transition": publish_transition}
         return {
             "status": "SUCCESS",
             "platform": "substack",
@@ -1583,6 +2055,7 @@ def publish_substack_article_via_edge(
             "in_body_visual_asset_ids": expected_ids,
             "upload_rows": upload_rows,
             "readback": readback,
+            "publish_transition": publish_transition,
         }
 
 

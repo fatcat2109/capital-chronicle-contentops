@@ -18,9 +18,466 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
 
 def test_substack_update_mode_preserves_public_url_and_confirms_update() -> None:
     source = inspect.getsource(adapter.publish_substack_article_via_edge)
+    transition_source = inspect.getsource(
+        adapter._complete_substack_editor_publication_transition
+    )
     assert "existing_public_url" in source
-    assert "button:has-text('Update post')" in source
+    assert "_complete_substack_editor_publication_transition" in source
+    assert 'labels=("Update",)' in transition_source
+    assert 'labels=("Update post", "Update now", "Confirm update")' in transition_source
     assert 'publication_write_mode": "update_existing_public_article"' in source
+
+
+def test_public_substack_url_is_pinned_to_exact_tenant_without_authority_extras() -> None:
+    assert adapter._is_public_substack_url(
+        "https://capitalchronicle.substack.com/p/exact-story"
+    )
+    assert adapter._is_public_substack_url(
+        "https://CAPITALCHRONICLE.SUBSTACK.COM/p/exact-story?utm_source=test"
+    )
+    for invalid in (
+        "http://capitalchronicle.substack.com/p/exact-story",
+        "https://other-publication.substack.com/p/exact-story",
+        "https://capitalchronicle.substack.com.evil.example/p/exact-story",
+        "https://capitalchronicle.substack.com@evil.example/p/exact-story",
+        "https://user@capitalchronicle.substack.com/p/exact-story",
+        "https://capitalchronicle.substack.com:443/p/exact-story",
+        "https://capitalchronicle.substack.com/p/",
+        "https://capitalchronicle.substack.com/publish/post/210796285",
+    ):
+        assert adapter._is_public_substack_url(invalid) is False
+
+
+class _TransitionButton:
+    def __init__(
+        self,
+        page,
+        label: str,
+        *,
+        test_id: str | None = None,
+        disabled: bool = False,
+    ) -> None:
+        self.page = page
+        self.label = label
+        self.test_id = test_id
+        self.disabled = disabled
+
+    def is_visible(self, timeout=None):
+        del timeout
+        return True
+
+    def is_disabled(self, timeout=None):
+        del timeout
+        return self.disabled
+
+    def inner_text(self, timeout=None):
+        del timeout
+        return self.label
+
+    def get_attribute(self, name):
+        if name == "data-testid":
+            return self.test_id
+        if name == "aria-label":
+            return None
+        return None
+
+    def click(self, timeout=None):
+        del timeout
+        self.page.clicks.append(self.label)
+        if self.page.raise_on_click == self.label:
+            raise TimeoutError("simulated ambiguous click response")
+        self.page.handle_click(self.label)
+
+
+class _TransitionButtonList:
+    def __init__(self, rows) -> None:
+        self.rows = rows
+
+    def count(self):
+        return len(self.rows)
+
+    def nth(self, index):
+        return self.rows[index]
+
+
+class _TransitionPage:
+    def __init__(
+        self,
+        *,
+        confirmation_after_polls: int | None,
+        public_after_confirmation: bool = True,
+        raise_on_click: str | None = None,
+    ) -> None:
+        self.mode = "editor"
+        self.confirmation_after_polls = confirmation_after_polls
+        self.public_after_confirmation = public_after_confirmation
+        self.raise_on_click = raise_on_click
+        self.confirmation_polls = 0
+        self.public_url = None
+        self.clicks: list[str] = []
+        self.navigations: list[str] = []
+
+    def _buttons(self):
+        if self.mode == "editor":
+            return [
+                _TransitionButton(self, "Continue editing", test_id="decoy"),
+                _TransitionButton(self, "Continue", test_id="publish-button"),
+            ]
+        if self.mode == "settings":
+            return [
+                _TransitionButton(self, "Publish settings"),
+                _TransitionButton(self, "Send to everyone now"),
+            ]
+        if self.mode == "confirmation":
+            self.confirmation_polls += 1
+            if (
+                self.confirmation_after_polls is not None
+                and self.confirmation_polls >= self.confirmation_after_polls
+            ):
+                return [_TransitionButton(self, "Publish without buttons")]
+        return []
+
+    def locator(self, selector):
+        assert selector == "button, [role='button']"
+        return _TransitionButtonList(self._buttons())
+
+    def handle_click(self, label):
+        if label == "Continue":
+            self.mode = "settings"
+        elif label == "Send to everyone now":
+            self.mode = "confirmation"
+        elif label == "Publish without buttons":
+            self.mode = "public"
+            if self.public_after_confirmation:
+                self.public_url = "https://capitalchronicle.substack.com/p/exact-story"
+
+    def goto(self, url, **_kwargs):
+        self.navigations.append(url)
+        self.mode = "published_listing"
+
+
+def test_substack_publish_transition_requires_exact_draft_id_before_any_click() -> None:
+    page = _TransitionPage(confirmation_after_polls=None)
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id=None,
+        expected_title="Exact story",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == (
+        "BLOCKED_SUBSTACK_DRAFT_ID_NOT_BOUND_BEFORE_PUBLIC_WRITE"
+    )
+    assert result["definite_no_write"] is True
+    assert result["public_write_attempted"] is False
+    assert result["browser_write_performed"] is False
+    assert page.clicks == []
+
+
+def test_substack_publish_transition_waits_for_delayed_exact_confirmation(
+    monkeypatch,
+) -> None:
+    page = _TransitionPage(confirmation_after_polls=3)
+    monkeypatch.setattr(adapter, "_extract_substack_public_url", lambda value: value.public_url)
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id="210796285",
+        expected_title="Exact story",
+        transition_timeout_seconds=0.4,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert result["public_url"] == "https://capitalchronicle.substack.com/p/exact-story"
+    assert result["public_url_source"] == "CURRENT_PAGE"
+    assert page.clicks == [
+        "Continue",
+        "Send to everyone now",
+        "Publish without buttons",
+    ]
+    assert [row["outcome"] for row in result["transition_stages"]] == [
+        "CLICKED_ONCE",
+        "PUBLIC_WRITE_CLICKED_ONCE",
+        "PUBLIC_WRITE_CLICKED_ONCE",
+        "OBSERVED_ON_PAGE",
+    ]
+
+
+def test_substack_publish_transition_without_public_state_stays_ambiguous(
+    monkeypatch,
+) -> None:
+    page = _TransitionPage(confirmation_after_polls=None)
+    monkeypatch.setattr(adapter, "_extract_substack_public_url", lambda _page: None)
+    monkeypatch.setattr(adapter, "_substack_listing_matches", lambda *_args, **_kwargs: [])
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id="210796285",
+        expected_title="Exact story",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == (
+        "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION"
+    )
+    assert result["draft_id"] == "210796285"
+    assert result["public_write_attempted"] is True
+    assert result["browser_write_performed"] is True
+    assert result["published_listing_match_count"] == 0
+    assert page.clicks == ["Continue", "Send to everyone now"]
+    assert page.clicks.count("Send to everyone now") == 1
+
+
+def test_substack_pre_public_control_failure_is_definite_no_write(
+    monkeypatch,
+) -> None:
+    page = _TransitionPage(confirmation_after_polls=None)
+    monkeypatch.setattr(
+        adapter,
+        "_wait_for_substack_exact_button",
+        lambda *_args, **_kwargs: (None, None),
+    )
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id="210796285",
+        expected_title="Exact story",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == "BLOCKED_SUBSTACK_CONTINUE_CONTROL_NOT_FOUND"
+    assert result["definite_no_write"] is True
+    assert result["public_write_attempted"] is False
+    assert page.clicks == []
+
+
+def test_substack_publish_transition_click_timeout_is_unknown_write(
+    monkeypatch,
+) -> None:
+    page = _TransitionPage(
+        confirmation_after_polls=None,
+        raise_on_click="Send to everyone now",
+    )
+    monkeypatch.setattr(adapter, "_extract_substack_public_url", lambda _page: None)
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id="210796285",
+        expected_title="Exact story",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == "UNKNOWN_SUBSTACK_PUBLISH_CONTROL_CLICK_FAILED"
+    assert result["public_write_attempted"] is True
+    assert result["browser_write_performed"] is True
+    assert result["transition_stages"][-1]["error_class"] == "TimeoutError"
+    assert page.clicks == ["Continue", "Send to everyone now"]
+    assert page.navigations == []
+
+
+def test_substack_publish_transition_never_accepts_listing_only_public_match(
+    monkeypatch,
+) -> None:
+    page = _TransitionPage(confirmation_after_polls=None)
+    monkeypatch.setattr(adapter, "_extract_substack_public_url", lambda _page: None)
+    monkeypatch.setattr(
+        adapter,
+        "_substack_listing_matches",
+        lambda *_args, **_kwargs: [
+            {
+                "href": "/p/exact-story",
+                "title": "Exact story",
+            }
+        ],
+    )
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id="210796285",
+        expected_title="Exact story",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == (
+        "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION"
+    )
+    assert "public_url" not in result
+    assert "public_url_source" not in result
+    assert result["published_listing_match_count"] == 1
+    assert result["transition_stages"][-1]["outcome"] == (
+        "UNBOUND_UNIQUE_PUBLIC_MATCH"
+    )
+    assert page.navigations == [
+        "https://capitalchronicle.substack.com/publish/posts/published"
+    ]
+
+
+def test_substack_publish_transition_rejects_multiple_exact_published_matches(
+    monkeypatch,
+) -> None:
+    page = _TransitionPage(confirmation_after_polls=None)
+    monkeypatch.setattr(adapter, "_extract_substack_public_url", lambda _page: None)
+    monkeypatch.setattr(
+        adapter,
+        "_substack_listing_matches",
+        lambda *_args, **_kwargs: [
+            {"href": "/p/exact-story-a", "title": "Exact story"},
+            {"href": "/p/exact-story-b", "title": "Exact story"},
+        ],
+    )
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id="210796285",
+        expected_title="Exact story",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == (
+        "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION"
+    )
+    assert result["published_listing_match_count"] == 2
+    assert "public_url" not in result
+    assert page.clicks == ["Continue", "Send to everyone now"]
+
+
+def test_substack_listing_match_is_exact_and_deduplicates_query_variants(
+    monkeypatch,
+) -> None:
+    class Link:
+        def __init__(self, href, text) -> None:
+            self.href = href
+            self.text = text
+
+        def get_attribute(self, name):
+            assert name == "href"
+            return self.href
+
+        def inner_text(self, timeout=None):
+            del timeout
+            return self.text
+
+    class Links:
+        def all(self):
+            return [
+                Link("/p/exact-story?utm_source=one", "Exact story"),
+                Link("/p/exact-story?utm_source=two", "Exact story"),
+                Link("/p/near-story", "Exact storytelling"),
+            ]
+
+    class Page:
+        def locator(self, selector):
+            assert selector == "a[href]"
+            return Links()
+
+    monkeypatch.setattr(adapter, "_first_visible", lambda *_args, **_kwargs: (None, None))
+    matches = adapter._substack_listing_matches(
+        Page(),
+        expected_title="Exact story",
+        href_predicate=lambda href: adapter._is_public_substack_url(
+            adapter._absolute_substack_url(href)
+        ),
+    )
+
+    assert matches == [
+        {"href": "/p/exact-story?utm_source=one", "title": "Exact story"}
+    ]
+
+
+def test_substack_listing_title_preserves_punctuation_while_collapsing_whitespace(
+    monkeypatch,
+) -> None:
+    class Link:
+        def __init__(self, href, text) -> None:
+            self.href = href
+            self.text = text
+
+        def get_attribute(self, name):
+            assert name == "href"
+            return self.href
+
+        def inner_text(self, timeout=None):
+            del timeout
+            return self.text
+
+    class Links:
+        def all(self):
+            return [
+                Link("/p/exact", "Markets: Oil's   Reset"),
+                Link("/p/colon-changed", "Markets - Oil's Reset"),
+                Link("/p/apostrophe-missing", "Markets: Oils Reset"),
+                Link("/p/case-changed", "Markets: oil's Reset"),
+            ]
+
+    class Page:
+        def locator(self, selector):
+            assert selector == "a[href]"
+            return Links()
+
+    monkeypatch.setattr(adapter, "_first_visible", lambda *_args, **_kwargs: (None, None))
+    matches = adapter._substack_listing_matches(
+        Page(),
+        expected_title="Markets: Oil's Reset",
+        href_predicate=lambda href: adapter._is_public_substack_url(
+            adapter._absolute_substack_url(href)
+        ),
+    )
+
+    assert matches == [{"href": "/p/exact", "title": "Markets: Oil's Reset"}]
+
+
+def test_substack_update_click_timeout_is_unknown_and_never_falls_into_create(
+    monkeypatch,
+) -> None:
+    page = _TransitionPage(
+        confirmation_after_polls=None,
+        raise_on_click="Update",
+    )
+    update_button = _TransitionButton(page, "Update")
+    create_calls: list[dict[str, object]] = []
+
+    monkeypatch.setattr(
+        adapter,
+        "_substack_exact_enabled_button",
+        lambda *_args, **_kwargs: (update_button, "Update"),
+    )
+    monkeypatch.setattr(
+        adapter,
+        "_complete_substack_publish_transition",
+        lambda *_args, **kwargs: create_calls.append(dict(kwargs)) or {"status": "SUCCESS"},
+    )
+
+    result = adapter._complete_substack_editor_publication_transition(
+        page,
+        draft_id="210796285",
+        expected_title="Exact story",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == "UNKNOWN_SUBSTACK_UPDATE_CONTROL_CLICK_FAILED"
+    assert result["publication_write_mode"] == "update_existing_public_article"
+    assert result["public_write_attempted"] is True
+    assert result["browser_write_performed"] is True
+    assert result["transition_stages"][-1]["error_class"] == "TimeoutError"
+    assert page.clicks == ["Update"]
+    assert create_calls == []
 
 
 def test_targeted_substack_editorial_repair_is_exact_and_preserves_three_images() -> None:
@@ -184,6 +641,20 @@ def test_substack_draft_reconciliation_waits_for_exact_hydrated_binding(monkeypa
 
     monkeypatch.setattr(adapter, "canonical_edge_page", fake_edge_page)
     monkeypatch.setattr(adapter, "_first_visible", fake_first_visible)
+    monkeypatch.setattr(
+        adapter,
+        "_substack_exact_enabled_button",
+        lambda _page, *, labels, **_kwargs: (
+            (object(), "Continue") if "Continue" in labels else (None, None)
+        ),
+    )
+    monkeypatch.setattr(
+        adapter,
+        "_substack_listing_matches",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("a bound exact draft must win before any title-only listing")
+        ),
+    )
     monkeypatch.setattr(adapter.time, "sleep", lambda _seconds: None)
     monkeypatch.setattr(
         adapter, "_editor_image_count", lambda _page: 0 if state["poll"] == 1 else 3
@@ -207,8 +678,8 @@ def test_substack_draft_reconciliation_waits_for_exact_hydrated_binding(monkeypa
     assert result["write_absent"] is True
     assert result["browser_write_performed"] is False
     assert state["poll"] == 2
-    assert any(url.endswith("/published") for url in state["navigations"])
-    assert any(url.endswith("/drafts") for url in state["navigations"])
+    assert not any(url.endswith("/published") for url in state["navigations"])
+    assert not any(url.endswith("/drafts") for url in state["navigations"])
     assert any("/publish/post/210796285?" in url for url in state["navigations"])
 
 

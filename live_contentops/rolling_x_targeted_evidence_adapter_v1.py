@@ -19,10 +19,22 @@ from live_contentops.source_capability_registry_v2 import (
 
 PUBLICATION_AUTHORIZED = "PASS_PUBLICATION_AUTHORIZED"
 MARKET_CAPABILITIES = frozenset({"current_market_snapshot", "prior_close"})
+EVIDENCE_LOADER_BUDGET_BLOCKERS = frozenset({
+    "official_source_request_budget_exhausted",
+    "public_source_request_budget_exhausted",
+})
 
 
 def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def _sanitized_evidence_loader_error(prefix: str, exc: Exception) -> str:
+    """Preserve stable budget truth while redacting arbitrary exception text."""
+    exact = str(exc).strip()
+    if exact in EVIDENCE_LOADER_BUDGET_BLOCKERS:
+        return exact
+    return prefix + ":" + type(exc).__name__
 
 
 def _exact_bound_official_families(
@@ -316,7 +328,6 @@ class RollingXTargetedEvidenceAdapter:
                 request, ["x_discovery_only_contract_missing"]
             )
         story_type = str(request.get("story_type") or "")
-        configured = (self._registry.get("story_types") or {}).get(story_type) or {}
         capability = resolve_story_capabilities(
             {
                 "story_type": story_type,
@@ -370,7 +381,9 @@ class RollingXTargetedEvidenceAdapter:
                     official = dict(official_raw) if isinstance(official_raw, Mapping) else {}
                 except (FileNotFoundError, RuntimeError, ValueError, OSError) as exc:
                     official = {"status": "BLOCKED", "blockers": [
-                        "official_source_evidence_unavailable:" + type(exc).__name__
+                        _sanitized_evidence_loader_error(
+                            "official_source_evidence_unavailable", exc
+                        )
                     ]}
                 diagnostics["official"] = {
                     "status": official.get("status"),
@@ -409,7 +422,9 @@ class RollingXTargetedEvidenceAdapter:
                     secondary = dict(secondary_raw) if isinstance(secondary_raw, Mapping) else {}
                 except (FileNotFoundError, RuntimeError, ValueError, OSError) as exc:
                     secondary = {"status": "BLOCKED", "blockers": [
-                        "public_secondary_evidence_unavailable:" + type(exc).__name__
+                        _sanitized_evidence_loader_error(
+                            "public_secondary_evidence_unavailable", exc
+                        )
                     ]}
                 diagnostics["public_secondary"] = {
                     "status": secondary.get("status"),

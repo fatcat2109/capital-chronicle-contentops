@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
 from live_contentops.source_capability_registry_v2 import (
     load_source_capability_registry,
     resolve_story_capabilities,
@@ -14,6 +15,13 @@ from live_contentops.official_primary_source_locator_v1 import (
 )
 from live_contentops.newsroom_assignment_scheduler_v1 import (
     _leaf_evidence_reachability,
+    build_bounded_rolling_x_publishability_pool,
+)
+from live_contentops.preselection_intelligence_v1 import (
+    _evidence_reachability as _preselection_evidence_reachability,
+)
+from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+    GroundedArticleBuilderError,
 )
 
 
@@ -229,3 +237,245 @@ def test_reachability_conditional_when_urls_bound_but_outside_supported_family()
 def test_locator_families_cover_supported_official_paths():
     assert {"official_regulatory_fiscal", "official_macro", "company_primary",
             "sec_regulatory", "official_policy"} <= set(LOCATOR_FAMILIES)
+
+
+def test_same_cycle_walk_reaches_exact_official_candidate_beyond_old_rank_twelve(
+    monkeypatch, tmp_path
+):
+    headlines = []
+    for index in range(14):
+        urls = [f"https://www.bloomberg.com/news/articles/2026-08-11/story-{index}"]
+        source_timestamp = f"2026-08-11T{index:02d}:00:00Z"
+        if index == 12:
+            urls = ["https://example.com/newer-generic-story"]
+            source_timestamp = "2026-08-11T23:30:00Z"
+        elif index == 13:
+            urls = ["https://www.newyorkfed.org/newsevents/news/research/2026/report"]
+            source_timestamp = "2026-08-11T01:00:00Z"
+        headlines.append(
+            {
+                "headline_id": f"h{index}",
+                "source_timestamp_utc": source_timestamp,
+                "source_locator": {"path": "fixture.jsonl", "line": index + 1},
+                "external_content": {
+                    "headline_text": f"Controlled current event candidate {index}",
+                    "official_source_urls": urls,
+                    "follow_up_data_need_candidates": [],
+                },
+            }
+        )
+    intake = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "cutoff_time_utc": "2026-08-12T00:00:00Z",
+        "window_start_utc": "2026-08-11T00:00:00Z",
+        "window_hours": 24.0,
+        "headlines": headlines,
+        "unique_headline_ids": [row["headline_id"] for row in headlines],
+        "counts": {"accepted": len(headlines)},
+        "canonical_input_hash": "frozen-fixture-input",
+    }
+    assignment = {
+        "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+        "status": "SUCCESS",
+        "decision": "SELECT_STORY",
+        "input_binding": {"canonical_input_hash": "frozen-fixture-input"},
+        "ranked_clusters": [
+            {
+                "cluster_id": f"editorial-{index}",
+                "rank": index + 1,
+                "headline_ids": [f"h{index}"],
+                "leaf_cluster_ids": [f"leaf-{index}"],
+                "story_mode": "reporting",
+                "article_mode": "breaking",
+                "market_sensitive": False,
+                "why_now": f"Controlled candidate {index} is current.",
+                "selection_case": "Controlled editorial shortlist fixture.",
+                "seo_intent": "controlled current event",
+                "visual_strategy": "Deterministic title card.",
+                "needed_evidence": ["Directly supporting public evidence."],
+            }
+            for index in range(12)
+        ],
+        "leaf_clusters": [
+            {
+                "leaf_cluster_id": f"leaf-{index}",
+                "partition_id": "fixture",
+                "member_headline_ids": [f"h{index}"],
+                "event_topic_summary": f"Controlled current event candidate {index}",
+                "canonical_representative_headline_id": f"h{index}",
+                "entities": [f"entity-{index}"],
+                "topics": ["controlled-event"],
+                "duplicate_update_chain": {
+                    "relationship": "distinct",
+                    "ordered_headline_ids": [f"h{index}"],
+                },
+            }
+            for index in range(14)
+        ],
+    }
+    def assign_fixture(**kwargs):
+        assignment["input_binding"]["canonical_input_hash"] = kwargs[
+            "rolling_input"
+        ]["canonical_input_hash"]
+        return assignment
+
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        assign_fixture,
+    )
+
+    evidence_calls = []
+
+    def acquire(request):
+        evidence_calls.append(dict(request))
+        if request["headline_ids"] != ["h13"]:
+            return {
+                "status": "BLOCKED",
+                "cluster_id": request["cluster_id"],
+                "headline_ids": list(request["headline_ids"]),
+                "provided_evidence_capabilities": [],
+                "evidence_documents": [],
+                "claim_evidence_contract": {
+                    "status": "BLOCKED",
+                    "supported_claim_count": 0,
+                    "fabricated_claim_count": 0,
+                },
+                "blockers": ["fixture_evidence_dead_candidate"],
+                "capital_chronicle_authority_verified": False,
+                "numeric_evidence_required": False,
+                "publication_authority": False,
+            }
+        return {
+            "status": "PASS",
+            "cluster_id": request["cluster_id"],
+            "headline_ids": list(request["headline_ids"]),
+            "provided_evidence_capabilities": list(
+                request["required_evidence_capabilities"]
+            ),
+            "evidence_documents": [
+                {
+                    "document_id": "official-fixture-document",
+                    "source_url": (
+                        "https://www.newyorkfed.org/newsevents/news/research/2026/report"
+                    ),
+                }
+            ],
+            "claim_evidence_contract": {
+                "status": "PASS",
+                "supported_claim_count": 1,
+                "fabricated_claim_count": 0,
+                "supported_claims": [
+                    {
+                        "claim_id": "fixture-claim",
+                        "claim_text": "The controlled official record confirms the event.",
+                        "support_status": "SUPPORTED_PRIMARY",
+                    }
+                ],
+                "omitted_unsupported_claims": [],
+            },
+            "capital_chronicle_authority_verified": False,
+            "numeric_evidence_required": False,
+            "blockers": [],
+            "publication_authority": False,
+        }
+
+    def classify(*, clusters, **_kwargs):
+        mapping = {
+            str(row["cluster_id"]): "regulatory_fiscal_event" for row in clusters
+        }
+        return {
+            "stories": [
+                {
+                    "cluster_id": cluster_id,
+                    "story_type": story_type,
+                    "reason": "Controlled classification fixture.",
+                }
+                for cluster_id, story_type in mapping.items()
+            ],
+            "story_type_by_cluster": mapping,
+            "semantic_routing_grants_authority": False,
+        }
+
+    article_calls = []
+
+    def stop_after_selection(viability):
+        article_calls.append(dict(viability))
+        raise GroundedArticleBuilderError("fixture_stop_after_publishability_selection")
+
+    result = pipeline._run_rolling_x_newsroom_cycle(
+        run_id="rank-thirteen-publishability-walk",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-12T00:00:00Z",
+        rolling_input=intake,
+        evidence_acquirer=acquire,
+        story_type_classifier=classify,
+        article_builder=stop_after_selection,
+        editorial_reviewer=lambda _article: {},
+        article_reviser=lambda value, _review, _round: value,
+        publication_enabled=False,
+    )
+
+    pool = result["publishability_candidate_pool"]
+    assert pool["source_ranked_candidate_count"] == 12
+    assert pool["combined_candidate_count"] == 14
+    assert pool["reserve_candidate_count"] == 2
+    assert pool["compact_universe_exhausted_by_pool"] is True
+    assert pool["combined_candidate_binding_hash"]
+    # The exact-official unused semantic leaf is promoted before secondary paths, so the
+    # shared request budget is not consumed by twelve four-request secondary probes first.
+    assert len(evidence_calls) == 1
+    assert evidence_calls[0]["headline_ids"] == ["h13"]
+    assert result["ranked_viability"]["selected_rank"] == 1
+    assert result["ranked_viability"]["selected_headline_ids"] == ["h13"]
+    assert len(article_calls) == 1
+    assert article_calls[0]["selected_headline_ids"] == ["h13"]
+    assert article_calls[0]["selected_cluster"]["preselection_original_rank"] == 1
+    assert (
+        article_calls[0]["selected_cluster"]["publishability_pool_origin"]
+        == "UNUSED_SEMANTIC_LEAF_RESERVE"
+    )
+
+
+def test_preselection_recognizes_exact_official_org_host_without_suffix_guessing():
+    reach = _preselection_evidence_reachability(
+        {
+            "public_source_urls": [
+                "https://www.newyorkfed.org/newsevents/news/research/2026/report"
+            ]
+        },
+        {},
+    )
+
+    assert reach["known_official_path"] is True
+    assert reach["unregistered_official_suffix_candidate"] is False
+    assert reach["factual_authority_granted"] is False
+
+
+def test_publishability_pool_preserves_semantic_no_publication_decision():
+    assignment = {
+        "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+        "status": "NO_PUBLICATION",
+        "decision": "NO_PUBLICATION",
+        "reason_code": "EDITORIAL_NO_PUBLICATION",
+        "ranked_clusters": [],
+    }
+    result = build_bounded_rolling_x_publishability_pool(
+        assignment=assignment,
+        rolling_input={
+            "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+            "headlines": [
+                {
+                    "headline_id": "held-by-editor",
+                    "source_timestamp_utc": "2026-08-11T23:00:00Z",
+                    "external_content": {
+                        "headline_text": "The semantic editor intentionally held this item."
+                    },
+                }
+            ],
+        },
+    )
+
+    assert result["decision"] == "NO_PUBLICATION"
+    assert result["reason_code"] == "EDITORIAL_NO_PUBLICATION"
+    assert result["ranked_clusters"] == []
+    assert result["publishability_candidate_pool"]["reserve_candidate_count"] == 0

@@ -15,6 +15,7 @@ from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.production_runtime_v1 import build_final_daily_app_production_runtime
 from live_contentops.publication_coordinator_v1 import (
     ATTEMPT_STARTED,
+    DEFINITE_NO_WRITE,
     DISPATCH_CONFIRMED,
     RECONCILIATION_PENDING,
     RECONCILED_ABSENT_SAFE_TO_RETRY,
@@ -496,6 +497,26 @@ def test_historical_adapter_result_compatibility(destination, shape):
     assert result["public_object_id"]
     if destination == "discord":
         assert result["public_object_url"] is None
+
+
+def test_substack_pre_public_failure_normalizes_as_definite_no_write():
+    registration = registration_for_destination("substack")
+    result = normalize_dispatch_result(
+        {
+            "status": "BLOCKED_SUBSTACK_CONTINUE_CONTROL_NOT_FOUND",
+            "draft_id": "210796285",
+            "definite_no_write": True,
+            "public_write_attempted": False,
+        },
+        destination="substack",
+        surface=registration.surface,
+        transport_type=registration.transport_type,
+    )
+
+    assert result["status"] == DEFINITE_NO_WRITE
+    assert result["public_object_id"] is None
+    assert result["public_object_url"] is None
+    assert result["write_outcome_certainty"] == "DEFINITE_NO_WRITE"
 
 
 def test_real_production_composition_has_no_fixture_or_none_wiring(tmp_path):

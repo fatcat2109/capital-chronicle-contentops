@@ -27,7 +27,7 @@ INDEX_PATH = OUTPUT_DIR / "INDEX.md"
 V2_CONTEXT_PATH = OUTPUT_DIR / "V2_CONTEXT.md"
 V1_CONTEXT_PATH = OUTPUT_DIR / "V1_CONTEXT.md"
 SCHEMA_VERSION = "contentops.codex_context_graph.v2"
-GENERATOR_VERSION = "2.1.0"
+GENERATOR_VERSION = "2.2.0"
 
 CODE_SUFFIXES = {
     ".py",
@@ -51,12 +51,15 @@ AUTHORITY_DOCS = {
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md",
     "docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md",
-    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1.md",
-    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md",
-    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V1.md",
-    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md",
-    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_SUPERSESSION_MAP_V1.md",
+    "docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md",
+    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
+    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
+    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
+    "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
+    "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
+    "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
     "docs/codegraph/V1_CONTEXT.md",
     "docs/codegraph/V2_CONTEXT.md",
 }
@@ -1046,18 +1049,23 @@ files are not imported into master: `Root.tsx` composes `SceneRenderer`, `SceneR
 dispatches to `primitives.tsx` inside `scaffold.tsx`, and the renderer-neutral Python factory
 targets `render-job.mjs`.
 
-## Current V2 retention-native authority and route
+## Current V2 GPT-5.6 creative-code authority and route
 
 - `gpt-5.5` is the provisional V2 generated-illustration default pending future product
   evidence; generated illustration is never factual or documentary authority.
 - `wan2.7-image-pro` and `qwen-image-2.0` returned confirmed HTTP 400 responses on the tested
   contract and remain unresolved without blocking V2.
-- The retention-native V2 North Star, master plan, task graph, current pointer, supersession map,
-  and direction overlay are the canonical V2 product authority. The next task is
-  `TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1`, starting from
-  fresh current master.
+- The V2 `NORTH_STAR_V2`, `MASTER_PLAN_V2`, `TASK_GRAPH_V2`, current V2 execution pointer,
+  Remotion baseline, and fresh-session handoff are the canonical V2 product authority. The
+  older V1 plan set is historical where it conflicts with these documents.
+- The current task is
+  `TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`. Exact
+  primary creative roles use `new/gpt-5.6-sol-xhigh`; Remotion is deterministic execution,
+  not creative authority.
 - The rejected creative branch `task/tier2-v2-creative-system-rebuild-v1` at `d231b54e` is
   reference only: do not merge or continue its slideshow-heavy creative product.
+- The rejected first retention-native attempt at `b6f50029` is also reference only; do not
+  continue its repetitive creative grammar.
 - The target is beat-driven, narration-linked motion with real audio/music, rights-aware asset
   density, platform-native short/mid-form direction, deterministic retention/media QA, and
   bounded multimodal critique. Virality is never guaranteed.
@@ -1071,7 +1079,7 @@ targets `render-job.mjs`.
 | 9Router | `live_contentops/nine_router_ordered_model_router_v2.py`, `nine_router_llm_seam_v2.py`, `nine_router_provider_adapter_v2.py` | `tests/test_nine_router_*`, `docs/automation/CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2/` |
 | Tier2-A | `live_contentops/tier2_video_factory_v1.py` | `tests/test_tier2_video_factory_v1.py`, `docs/automation/CONTENTOPS_TIER2_A_PROGRAMMABLE_VIDEO_VERTICAL_SLICE_V1/` |
 | Direct image | `live_contentops/direct_image_api_v1.py`, `scripts/run_direct_image_bakeoff_v1.py` | `tests/test_direct_image_api_v1.py`, `docs/automation/CONTENTOPS_TIER2_DIRECT_IMAGE_API_REAL_SMOKE_AND_BAKEOFF_V1/` |
-| V2 retention-native authority | `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`, `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md` | North Star, master plan, task graph, supersession map |
+| V2 GPT-5.6 creative-code authority | `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`, `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md` | V2 North Star, master plan, task graph, Remotion baseline, owner override |
 | UI | `ui/contentops_v5/src/main.tsx`, `ui/contentops_v5/src/views/DailyAppConsole.tsx`, `ui/contentops_v5/src/dailyAppTypes.ts` | `ui/contentops_v5/src/test/`, `ui/contentops_v5/AGENTS.md` |
 | Tooling | `scripts/generate_codex_context_index.py` | `tests/test_codex_context_index.py` |
 
@@ -1134,20 +1142,20 @@ def index_markdown(graph: dict[str, Any]) -> str:
             "",
             "## Current V1 closeout",
             "",
-            "The V1 evidence-calibration continuation has locally fixed the Decision 5 "
-            "post-evidence `rolling_x_article_revision_made_no_change` contract defect. Exact "
-            "offline replay now reaches article, deterministic review PASS, and shadow package "
-            "with zero public write. Both earlier live LLM-capable cycles ended safe "
-            "`NO_PUBLICATION`; a subsequent exact rank-10 read-only replay passes evidence and "
-            "claim gates after the RSS selection correction, but it is not live proof.",
+            "The parent evidence-calibration task completed eight governed decisions with zero "
+            "confirmed canonical public article. One decision produced Substack draft "
+            "`210796285`, now exactly reconciled as nonpublic and absent-safe-to-retry; the "
+            "remaining decisions exhausted only a small evidence-dead shortlist. UNKNOWN_WRITE "
+            "and pending reconciliation are both zero in the latest committed handoff.",
             "",
             "Active V1 task: "
-            "`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; "
-            "Jim's 2026-08-12 operator override supersedes the earlier two-cycle cap and "
-            "authorizes at most eight governed closeout decisions through the canonical "
-            "coordinator. The app remains stopped and the operator fuse active until Git "
-            "reconciliation plus focused offline validation complete; real publication and "
-            "published-memory/5–8-day proof remain the acceptance gates.",
+            "`TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1`. The current "
+            "owner override removes artificial sequential-run limits. Acceptance requires at "
+            "least five genuine canonical articles, each independently strict 9/9 "
+            "`RECONCILED_CONFIRMED` on Substack, Telegram, Discord, X, LinkedIn, Facebook Page, "
+            "Instagram Business, Threads, and YouTube Community; at least one must originate "
+            "from a genuine scheduled window. Published-memory feedback and duplicate "
+            "suppression or material-follow-up behavior must also be proven.",
             "",
             "## Tier2 separation",
             "",

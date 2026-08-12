@@ -27,7 +27,6 @@ def _request(
     families=None,
 ):
     registry = load_source_capability_registry()
-    row = registry["story_types"][story_type]
     capability = resolve_story_capabilities(
         {
             "story_type": story_type,
@@ -465,3 +464,31 @@ def test_llm_labeled_document_cannot_satisfy_official_primary_evidence():
 
     assert receipt["status"] == "BLOCKED"
     assert any("official_primary_source_authority" in row for row in receipt["blockers"])
+
+
+def test_public_secondary_budget_exception_preserves_stable_sanitized_code():
+    request = _request(story_type="physical_event", article_mode="straight_news")
+    receipt = RollingXTargetedEvidenceAdapter(
+        public_secondary_loader=lambda _request: (_ for _ in ()).throw(
+            RuntimeError("public_source_request_budget_exhausted")
+        ),
+        evaluation_as_of_utc=AS_OF,
+    )(request)
+
+    secondary = receipt["evidence_acquisition_provenance"]["public_secondary"]
+    assert receipt["status"] == "BLOCKED"
+    assert secondary["blockers"] == ["public_source_request_budget_exhausted"]
+
+
+def test_official_budget_exception_preserves_stable_sanitized_code():
+    request = _request(story_type="data_release", article_mode="straight_news")
+    receipt = RollingXTargetedEvidenceAdapter(
+        official_evidence_loader=lambda _request: (_ for _ in ()).throw(
+            RuntimeError("official_source_request_budget_exhausted")
+        ),
+        evaluation_as_of_utc=AS_OF,
+    )(request)
+
+    official = receipt["evidence_acquisition_provenance"]["official"]
+    assert receipt["status"] == "BLOCKED"
+    assert official["blockers"] == ["official_source_request_budget_exhausted"]

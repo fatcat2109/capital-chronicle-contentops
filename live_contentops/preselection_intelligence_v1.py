@@ -61,6 +61,9 @@ _KNOWN_OFFICIAL_SUFFIXES = (
 
 def _evidence_reachability(cluster: Mapping[str, Any], cc_context: Mapping[str, Any]) -> dict[str, Any]:
     """Cheap feasibility signal only; it never grants factual authority."""
+    from live_contentops.official_primary_evidence_loader_v1 import (
+        OFFICIAL_HOSTS_BY_FAMILY,
+    )
     from live_contentops.public_secondary_evidence_loader_v1 import REPUTABLE_SECONDARY_HOSTS
 
     urls = [
@@ -73,7 +76,13 @@ def _evidence_reachability(cluster: Mapping[str, Any], cc_context: Mapping[str, 
         if str(value).startswith("https://")
     ]
     hosts = {str(urlsplit(value).hostname or "").casefold() for value in urls}
-    official = any(host.endswith(_KNOWN_OFFICIAL_SUFFIXES) for host in hosts)
+    exact_official_hosts = {
+        host
+        for family_hosts in OFFICIAL_HOSTS_BY_FAMILY.values()
+        for host in family_hosts
+    }
+    official = bool(hosts.intersection(exact_official_hosts))
+    official_suffix_candidate = any(host.endswith(_KNOWN_OFFICIAL_SUFFIXES) for host in hosts)
     reputable_secondary = any(host in REPUTABLE_SECONDARY_HOSTS for host in hosts)
     cc_relevant = float(cc_context.get("cc_context_richness") or 0.0) >= 0.35
     score = min(
@@ -86,6 +95,7 @@ def _evidence_reachability(cluster: Mapping[str, Any], cc_context: Mapping[str, 
     return {
         "score": round(score, 4),
         "known_official_path": official,
+        "unregistered_official_suffix_candidate": official_suffix_candidate and not official,
         "reputable_public_secondary_path": reputable_secondary,
         "capital_chronicle_relevant_context": cc_relevant,
         "public_source_candidate_count": len(urls),
@@ -251,7 +261,9 @@ def apply_preselection_intelligence(
         effective_concentration = (
             concentration * 0.25 if decision == DECISION_MATERIAL_FOLLOW_UP else concentration
         )
-        base_score = 100.0 - (max(1, original_rank) - 1) * 8.0
+        # The expanded pool can contain dozens of candidates. Keep editorial rank as a useful
+        # tiebreaker without allowing linear decay to make an exact-official path unreachable.
+        base_score = 100.0 - min(max(1, original_rank) - 1, 8) * 2.0
         reachability = _evidence_reachability(cluster, cc_context)
         score = (
             base_score

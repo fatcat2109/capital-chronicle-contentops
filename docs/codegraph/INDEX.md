@@ -1,8 +1,8 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `d6c10f7bc6b5d5626cc85d41a4ebd4da8a7005ec`
-Source tree digest: `77b5d0dc6b4e5afab9d98aa1439e00ea999d6f1b558f2a7474c0460a212a5854`
-Graph schema: `contentops.codex_context_graph.v2`; generator: `2.1.0`
+Source HEAD: `d5f1ad9d3890dd127cba0c1e053dcbcd0a7f549c`
+Source tree digest: `03e4cca3eb3c8e2cbd0ca8d35283efc5e426ef02868dd092f1102865c8578352`
+Graph schema: `contentops.codex_context_graph.v2`; generator: `2.2.0`
 
 This generated map is descriptive, not product authority.
 
@@ -118,9 +118,9 @@ Use the focused test beside each hot-path section. Backend tests are under `test
 
 ## Current V1 closeout
 
-The V1 evidence-calibration continuation has locally fixed the Decision 5 post-evidence `rolling_x_article_revision_made_no_change` contract defect. Exact offline replay now reaches article, deterministic review PASS, and shadow package with zero public write. Both earlier live LLM-capable cycles ended safe `NO_PUBLICATION`; a subsequent exact rank-10 read-only replay passes evidence and claim gates after the RSS selection correction, but it is not live proof.
+The parent evidence-calibration task completed eight governed decisions with zero confirmed canonical public article. One decision produced Substack draft `210796285`, now exactly reconciled as nonpublic and absent-safe-to-retry; the remaining decisions exhausted only a small evidence-dead shortlist. UNKNOWN_WRITE and pending reconciliation are both zero in the latest committed handoff.
 
-Active V1 task: `TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`; Jim's 2026-08-12 operator override supersedes the earlier two-cycle cap and authorizes at most eight governed closeout decisions through the canonical coordinator. The app remains stopped and the operator fuse active until Git reconciliation plus focused offline validation complete; real publication and published-memory/5–8-day proof remain the acceptance gates.
+Active V1 task: `TASK_CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_LIVE_CLOSEOUT_V1`. The current owner override removes artificial sequential-run limits. Acceptance requires at least five genuine canonical articles, each independently strict 9/9 `RECONCILED_CONFIRMED` on Substack, Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community; at least one must originate from a genuine scheduled window. Published-memory feedback and duplicate suppression or material-follow-up behavior must also be proven.
 
 ## Tier2 separation
 
@@ -142,4 +142,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`6514` nodes and `12194` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`6522` nodes and `12207` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
