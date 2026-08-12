@@ -38,26 +38,50 @@ Current owner-approved V2 direction:
 
 `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_OWNER_DIRECTION_V1`
 
+Current creative-code owner override:
+
+`docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md`
+
 V2 proceeds concurrently with V1 while remaining isolated from the live V1 runtime/store and public-write authority.
 
 Canonical V2 read order:
 
-1. `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md`
-2. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1.md`
-3. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md`
-4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V1.md`
-5. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`
-6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_SUPERSESSION_MAP_V1.md`
-7. `video/AGENTS.md`
-8. exact task implementation/tests/evidence
+1. `docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md`
+2. `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md`
+3. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1.md`
+4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1.md`
+5. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V1.md`
+6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`
+7. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+8. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_SUPERSESSION_MAP_V1.md`
+9. `video/AGENTS.md`
+10. exact task implementation/tests/evidence
 
 Current next V2 task:
 
-`TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
 
 Required result:
 
 `PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
+
+Do not advance to V2-02 until actual media receives Jim/ChatGPT acceptance.
+
+## V2 creative-code authority
+
+Primary creative code model through 9Router:
+
+`new/gpt-5.6-sol-xhigh`
+
+Mandatory primary roles:
+
+- `V2_CREATIVE_EDITOR`
+- `V2_MOTION_CODE_AUTHOR`
+- `V2_CREATIVE_REVISION_AUTHOR`
+
+GPT-5.6 directly authors presentation-layer screenplay, shot/edit plan, motion timing, transition/chart/text choreography, and bounded per-shot Remotion React/TypeScript code. Remotion is deterministic execution/rendering infrastructure, not creative authority.
+
+If a creative-author role falls back for infrastructure reasons, mark the package `DEGRADED_CREATIVE_MODEL`; it cannot self-advance to professional PASS.
 
 ## V2 product definition
 
@@ -69,40 +93,66 @@ V2 is an autonomous evidence-governed growth engine for:
 
 It is not an animated slideshow factory and does not guarantee viral/trending outcomes.
 
-Canonical creative/product flow:
+Canonical product flow:
 
 ```text
 canonical story universe
 → VideoOpportunity / portfolio selection
-→ Engagement Director
-→ Editorial Video Director
-→ EngagementBrief
-→ renderer-neutral VideoProgram
-→ NarrativeBeatGraph
-→ EditDecisionGraph / MotionBeatGraph
-→ rights-aware AssetPlan
-→ AudioPlan
-→ platform-native compilers
-→ render
-→ deterministic media + retention QA
-→ multimodal visual/audio/retention critic
-→ maximum two structural revisions
-→ package
-→ exact-authorized upload
-→ processing/readback/reconciliation
+→ compact governed story/evidence packet
+→ GPT-5.6 Creative Editor
+→ screenplay + narration + shot/edit plan
+→ renderer-neutral semantic contracts
+→ rights-aware AssetPlan + AudioPlan
+→ GPT-5.6 Motion Code Author
+→ sandboxed per-shot creative code
+→ Remotion deterministic render
+→ deterministic media + retention + collision + repetition QA
+→ independent multimodal critic
+→ GPT-5.6 localized creative revision
+→ selective rerender
+→ Jim/ChatGPT media acceptance
+→ later exact-authorized platform delivery/readback
 → real retention/performance attribution
 → bounded creative/packaging/timing learning
 ```
 
-The primary creative unit is a narration-linked beat, not a static card/scene. With captions hidden, the primary visual must continue to tell the story through purposeful visual evolution.
+The primary creative unit is a narration-linked shot/beat, not a static card/scene. With captions hidden, the primary visual must continue to tell the story through purposeful visual evolution.
+
+## Asset-rich direction
+
+Keep current image/asset/voice/audio provider choices; increase visual richness through a much larger rights-safe candidate pool and purposeful selected states.
+
+Initial planning hypotheses for sufficiently rich stories:
+
+- roughly 25–60 viable candidate assets/states;
+- roughly 12–20 distinct purposeful states for a 45–75s short;
+- roughly 25–45 distinct purposeful states for a 90–150s proof.
+
+Use real rights-cleared people/institutions/locations, source documents, charts, maps, timelines, comparisons, diagrams, context/history imagery, B-roll/stills, and generated conceptual illustration where relevant. More assets are not a quota; weak/random assets must be rejected.
+
+## Current Remotion technical baseline
+
+Primary reference:
+
+`docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+
+Pinned official Remotion Agent Skills commit at authority creation:
+
+`remotion-dev/skills@b12104ef5f1b1ca2ca5590fcc7c1804fbc85556f`
+
+Official skills guide APIs/technical craft. Selected community skills are reference-only and their absolute visual recipes are not Capital Chronicle authority.
 
 ## V2 rejected creative references
 
-`task/tier2-v2-creative-system-rebuild-v1` at `d231b54e026570442d9fd9269b61e55c3de31d21`:
+`task/tier2-v2-creative-system-rebuild-v1` / `d231b54e026570442d9fd9269b61e55c3de31d21`:
 
 `REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
 
-It improved typography/engineering but remained slideshow-heavy, under-moved, weak in hook/payoff architecture, narration-only/no-music, and underused contextual real-world imagery. Do not merge or continue its creative design. Reinspect only bounded engineering primitives compatible with current authority.
+`task/tier2-v2-retention-native-video-factory-vertical-slice-v1` / `b6f5002903fba65a668506e4ca38ae61b907ab18`:
+
+`FAIL_CREATIVE_MOTION_ARCHITECTURE / REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
+
+The second result passed machine static-run/audio/rights checks but Jim's actual media review found repeated same-speed text motion, slow/repetitive chart reveals, text overlap, and persistent template feel. Human visual acceptance overrides machine PASS.
 
 Historical Tier2-B is also rejected visual-product reference only.
 
@@ -110,10 +160,12 @@ Historical Tier2-B is also rejected visual-product reference only.
 
 - Tier2-A renderer-neutral/evidence infrastructure is engineering reference, not creative baseline.
 - The dedicated direct `https://ai.api-cheap.site/v1/images/generations` route using only `AI_API_CHEAP_API_KEY` is proven end to end for `gpt-5.5`.
-- `gpt-5.5` is the provisional generated-illustration default; generated media is never factual/documentary authority.
+- `gpt-5.5` remains the provisional generated-illustration default; generated media is never factual/documentary authority.
 - `wan2.7-image-pro` and `qwen-image-2.0` remain unresolved and non-blocking.
-- Current 9Router text/model authority remains the canonical semantic-model seam.
-- CodeGraph/context infrastructure exists and should be regenerated after this direct authority update before V2 implementation is committed.
+- Current asset rights/provenance/hash controls remain authoritative.
+- Current voice-over abstraction and local/Kokoro baseline remain unchanged by the creative-code override.
+- Existing music/SFX/mastering infrastructure is retained unless a later dedicated audio task finds a blocker.
+- Current 9Router gateway remains the canonical semantic/model seam.
 
 ## Model/cost doctrine
 
@@ -125,10 +177,10 @@ Runtime doctrine:
 
 - cheap/shared continuous intelligence;
 - compact governed story packets;
-- cheap capable bounded semantic decisions where quality is sufficient;
-- strong/frontier Director or Critic only where marginal quality value justifies cost;
-- deterministic/local assets, rendering, caching, QA, muxing, package verification, and recovery where practical;
-- provider-neutral architecture and measured portfolio cost.
+- strong GPT-5.6 creative intervention at high-value script/edit/motion-code points;
+- deterministic/local asset transforms, rendering, caching, QA, muxing, package verification, and recovery where practical;
+- independent bounded multimodal criticism;
+- provider-neutral surrounding architecture and measured portfolio cost.
 
 Do not hardcode temporary provider pricing/subscription economics into product authority.
 
@@ -188,9 +240,9 @@ V1:
 
 V2:
 
-`TASK_CONTENTOPS_TIER2_V2_RETENTION_NATIVE_VIDEO_FACTORY_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
 
-Before the next V2 implementation commit, regenerate/check CodeGraph because this authority update was written directly through GitHub:
+Before the next V2 implementation commit, regenerate/check CodeGraph because current authority was written directly through GitHub:
 
 ```text
 python scripts/generate_codex_context_index.py
