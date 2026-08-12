@@ -415,6 +415,55 @@ def test_case_g_expired_destination_isolated(tmp_path):
     assert transport.publish_calls == ["telegram"]
 
 
+def test_explicit_substack_retry_requires_reconciled_absent_exact_draft(tmp_path):
+    class ReconciledDraftTransport(FixtureTransport):
+        def __init__(self):
+            super().__init__()
+            self.recovery_ids = []
+
+        def publish(self, *, destination, intent, authorization_context):
+            self.publish_calls.append(destination)
+            self.recovery_ids.append(intent.get("recovery_public_object_id"))
+            return {
+                "status": "SUCCESS",
+                "draft_id": "210915784",
+                "public_url": "https://capitalchronicle.substack.com/p/recovered-article",
+            }
+
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            self.readback_calls.append(destination)
+            if not self.publish_calls:
+                return {"verified": False, "write_absent": True}
+            return {
+                "verified": True,
+                "public_object_id": public_object_id,
+                "public_object_url": public_object_url,
+            }
+
+    store, transport, coordinator = _coordinator(
+        tmp_path, runtime=ReconciledDraftTransport()
+    )
+    registered = coordinator.register_plan("work-1", _plan("substack"))["registered"][0]
+    store.register_platform_dispatch(
+        dispatch_id=registered["dispatch_id"],
+        message_id=registered["message_id"],
+        platform="substack",
+        status=UNKNOWN_WRITE,
+        public_object_id="210915784",
+    )
+    store.set_outbox_status(registered["message_id"], UNKNOWN_WRITE)
+    assert coordinator.recover_pending()["readbacks"] == 1
+
+    first = coordinator.retry_reconciled_absent_substack(registered["dispatch_id"])
+    second = coordinator.retry_reconciled_absent_substack(registered["dispatch_id"])
+
+    assert first["status"] == DISPATCH_CONFIRMED
+    assert first["reconciliation_status"] == RECONCILED_CONFIRMED
+    assert second["publish_called"] is False
+    assert transport.publish_calls == ["substack"]
+    assert transport.recovery_ids == ["210915784"]
+
+
 def test_cases_h_i_edge_crash_bootstrap_and_reauth_classification(tmp_path, monkeypatch):
     import live_contentops.edge_cdp_publishing_adapter_v1 as adapter
     import live_contentops.publishing_profile_registry_v1 as profiles

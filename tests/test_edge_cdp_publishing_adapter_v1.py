@@ -702,6 +702,25 @@ def test_public_substack_content_checks_allow_a_source_backed_article_without_vi
     assert checks["content_readback_verified"] is True
 
 
+def test_substack_resume_index_preserves_exact_sequential_visual_prefix() -> None:
+    from live_contentops.edge_cdp_publishing_adapter_v1 import (
+        _segment_index_after_visual_prefix,
+        _split_substack_body,
+    )
+
+    segments = _split_substack_body(
+        "Intro\n\n[[VISUAL:first]]\n\n[[VISUAL:second]]\n\n[[VISUAL:third]]"
+    )
+
+    assert _segment_index_after_visual_prefix(segments, 0) == 0
+    assert segments[_segment_index_after_visual_prefix(segments, 1)][0] == "text"
+    assert segments[_segment_index_after_visual_prefix(segments, 1) + 1] == (
+        "visual",
+        "second",
+    )
+    assert _segment_index_after_visual_prefix(segments, 3) == len(segments)
+
+
 def test_substack_draft_reconciliation_waits_for_exact_hydrated_binding(monkeypatch) -> None:
     expected_title = "Deutsche becomes European clearing bank for RMB"
     expected_subtitle = "A source-backed banking update."

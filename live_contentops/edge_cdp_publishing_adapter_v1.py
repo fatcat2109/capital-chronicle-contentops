@@ -352,6 +352,22 @@ def _split_substack_body(body_markdown: str) -> list[tuple[str, str]]:
     return parts or [("text", body_markdown)]
 
 
+def _segment_index_after_visual_prefix(
+    segments: Sequence[tuple[str, str]], completed_visual_count: int
+) -> int:
+    """Return the first segment after an exact sequential visual prefix."""
+    if completed_visual_count <= 0:
+        return 0
+    observed = 0
+    for index, (kind, _value) in enumerate(segments):
+        if kind != "visual":
+            continue
+        observed += 1
+        if observed == completed_visual_count:
+            return index + 1
+    return len(segments)
+
+
 def _substack_upload_pending(page: Any) -> bool:
     return bool(
         _first_visible(
@@ -2002,6 +2018,28 @@ def publish_substack_article_via_edge(
             elif existing_image_count == 0 and expected_intro and expected_intro[:500] in existing_text:
                 resume_segment_index = 1
                 first_text = False
+            elif (
+                0 < existing_image_count < len(expected_ids)
+                and expected_intro
+                and expected_intro[:500] in existing_text
+            ):
+                # The publisher uploads markers strictly in order and stops at the first failed
+                # upload.  Therefore a bound draft containing N meaningful images is the exact
+                # sequential prefix of N requested markers. Preserve those successful uploads,
+                # add any reader-visible captions that the interrupted attempt did not persist,
+                # and continue only after that prefix.
+                resume_segment_index = _segment_index_after_visual_prefix(
+                    segments, existing_image_count
+                )
+                first_text = False
+                for asset_id in expected_ids[:existing_image_count]:
+                    caption = str(assets[asset_id].get("caption") or "").strip()
+                    if caption and _normalise_editor_text(caption) not in existing_text:
+                        _append_editor_tail_after_media(page, editor, caption)
+                        _append_editor_text(page, editor, "\n\n")
+                        existing_text = _normalise_editor_text(
+                            editor.inner_text(timeout=3000) or ""
+                        )
             elif existing_text:
                 return {
                     "status": "BLOCKED_SUBSTACK_RESUME_DRAFT_BODY_UNRECOGNIZED",
@@ -2037,6 +2075,9 @@ def publish_substack_article_via_edge(
                     "editor_body_image_count": _editor_image_count(page),
                     "upload_rows": upload_rows,
                 }
+            caption = str(asset.get("caption") or "").strip()
+            if caption:
+                _append_editor_tail_after_media(page, editor, caption)
             _append_editor_text(page, editor, "\n\n")
 
         editor_image_count = _editor_image_count(page)

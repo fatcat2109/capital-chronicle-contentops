@@ -3040,6 +3040,9 @@ def _publish_one_destination_from_durable_intent(
             body_markdown=str(article.get("substack_body_markdown") or ""),
             image_assets=data["media_assets"],
             public_screenshot_path=output_dir / "public_substack_readback.png",
+            existing_draft_id=(
+                str(intent.get("recovery_public_object_id") or "") or None
+            ),
         )
         _persist_sanitized_substack_transport_attempt(output_dir=output_dir, result=result)
         readback = result.get("readback") if isinstance(result.get("readback"), Mapping) else {}

@@ -327,7 +327,13 @@ class DurablePublicationCoordinator:
         self.store.set_reconciliation_status(ids["reconciliation_id"], status)
         return status
 
-    def _dispatch_message(self, message: Mapping[str, Any], *, canonical_url: Optional[str]) -> dict[str, Any]:
+    def _dispatch_message(
+        self,
+        message: Mapping[str, Any],
+        *,
+        canonical_url: Optional[str],
+        explicit_reconciled_absent_retry: bool = False,
+    ) -> dict[str, Any]:
         intent = json.loads(str(message["payload"]))
         destination = str(message["destination"])
         item = dict(intent["destination_plan"])
@@ -346,14 +352,24 @@ class DurablePublicationCoordinator:
                     ),
                     None,
                 )
-            return {
-                "destination": destination,
-                "status": str(existing["status"]),
-                "publish_called": False,
-                "public_object_id": existing.get("public_object_id"),
-                "public_object_url": existing.get("public_object_url"),
-                "reconciliation_status": reconciliation_status,
-            }
+            recovery_object_id = str(existing.get("public_object_id") or "") or None
+            retry_eligible = bool(
+                explicit_reconciled_absent_retry
+                and destination == "substack"
+                and str(existing.get("status") or "") == RECONCILED_ABSENT_SAFE_TO_RETRY
+                and reconciliation_status == RECONCILED_ABSENT_SAFE_TO_RETRY
+                and recovery_object_id
+            )
+            if not retry_eligible:
+                return {
+                    "destination": destination,
+                    "status": str(existing["status"]),
+                    "publish_called": False,
+                    "public_object_id": existing.get("public_object_id"),
+                    "public_object_url": existing.get("public_object_url"),
+                    "reconciliation_status": reconciliation_status,
+                }
+            intent = {**intent, "recovery_public_object_id": recovery_object_id}
         dependency = item.get("canonical_url_dependency")
         if dependency and not (canonical_url or intent.get("canonical_url")):
             return {"destination": destination, "status": "WAITING_CANONICAL_URL", "publish_called": False}
@@ -425,6 +441,25 @@ class DurablePublicationCoordinator:
             "public_object_url": persisted.get("public_object_url") or result.get("public_object_url"),
             "reconciliation_status": reconciliation,
         }
+
+    def retry_reconciled_absent_substack(self, dispatch_id: str) -> dict[str, Any]:
+        """Explicitly resume one exact Substack draft only after absent reconciliation.
+
+        This is never called by normal plan execution or restart recovery. The existing exact
+        dispatch, outbox payload, reconciliation state, and draft identity must all agree before
+        the coordinator can cross the adapter boundary once.
+        """
+        dispatch = self.store.get_platform_dispatch(str(dispatch_id))
+        if not dispatch:
+            return {"status": "RETRY_BLOCKED_DISPATCH_NOT_FOUND", "publish_called": False}
+        message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
+        if not message or str(message.get("destination") or "") != "substack":
+            return {"status": "RETRY_BLOCKED_NOT_EXACT_SUBSTACK_OUTBOX", "publish_called": False}
+        return self._dispatch_message(
+            message,
+            canonical_url=None,
+            explicit_reconciled_absent_retry=True,
+        )
 
     def execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         registration = self.register_plan(work_item_id, plan)

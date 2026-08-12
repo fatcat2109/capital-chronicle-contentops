@@ -567,6 +567,7 @@ def test_substack_draft_id_readback_uses_exact_read_only_resolver(
 def test_substack_transport_attempt_persists_only_sanitized_transition_facts(
     monkeypatch, tmp_path
 ):
+    publish_call = {}
     monkeypatch.setattr(
         pipeline,
         "_durable_intent_inputs",
@@ -584,10 +585,9 @@ def test_substack_transport_attempt_persists_only_sanitized_transition_facts(
             "media_assets": [],
         },
     )
-    monkeypatch.setattr(
-        pipeline,
-        "publish_substack_article_via_edge",
-        lambda **_kwargs: {
+    def publish_substack(**kwargs):
+        publish_call.update(kwargs)
+        return {
             "status": "UNKNOWN_SUBSTACK_PUBLISH_CONTROL_CLICK_FAILED",
             "draft_id": "210865567",
             "public_write_attempted": True,
@@ -603,12 +603,17 @@ def test_substack_transport_attempt_persists_only_sanitized_transition_facts(
                     "raw_error": "must never be persisted",
                 }
             ],
-        },
-    )
+        }
+
+    monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", publish_substack)
 
     result = pipeline._publish_one_destination_from_durable_intent(
         destination="substack",
-        intent={"attempt_identity": "dispatch-1", "output_dir": str(tmp_path)},
+        intent={
+            "attempt_identity": "dispatch-1",
+            "output_dir": str(tmp_path),
+            "recovery_public_object_id": "210865567",
+        },
         authorization_context={
             "operating_mode": "AUTONOMOUS_DEFAULT",
             "dispatch_attempt_identity": "dispatch-1",
@@ -616,6 +621,7 @@ def test_substack_transport_attempt_persists_only_sanitized_transition_facts(
     )
 
     assert result["status"] == "UNKNOWN_SUBSTACK_PUBLISH_CONTROL_CLICK_FAILED"
+    assert publish_call["existing_draft_id"] == "210865567"
     packet = json.loads(
         (tmp_path / "transport_attempt_substack_v1.json").read_text(encoding="utf-8")
     )
