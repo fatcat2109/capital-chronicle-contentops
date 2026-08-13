@@ -114,3 +114,39 @@ def test_isolated_adapter_requires_exact_lease_and_records_sanitized_attempt(
     blob = json.dumps(audit)
     assert "provider-secret-id" not in blob
     assert audit["provider_attempts"][0]["public_write"] is False
+
+
+def test_minimal_raw_isolated_adapter_uses_same_exact_lease_and_audit(
+    tmp_path: Path, monkeypatch,
+) -> None:
+    lease = _active_test_lease(tmp_path, monkeypatch)
+    observed = {}
+
+    def fake_minimal(*args, **kwargs):
+        observed.update(kwargs)
+        return ProviderResult(
+            text="{}", resolved_model="gpt-5.6-sol-xhigh", status_code=200
+        )
+
+    monkeypatch.setattr(adapter, "_call_nine_router_minimal_raw_impl", fake_minimal)
+    token = isolated._ACTIVE_LEASE.set(lease)
+    try:
+        result = adapter.call_nine_router_v2_isolated_minimal_raw(
+            "prompt",
+            "new/gpt-5.6-sol-xhigh",
+            600,
+            role_task_id="V2_CREATIVE_EDITOR",
+            logical_invocation_id="inv_v2_minimal_test",
+            component=isolated.BRAIN,
+            evidence_dir=tmp_path / "evidence",
+        )
+    finally:
+        isolated._ACTIVE_LEASE.reset(token)
+    assert result.status_code == 200
+    assert observed["isolated_execution_domain_id"] == lease.domain_id
+    audit = json.loads(lease.audit_path.read_text(encoding="utf-8"))
+    assert len(audit["provider_attempts"]) == 1
+    assert audit["provider_attempts"][0]["requested_model"] == (
+        "new/gpt-5.6-sol-xhigh"
+    )
+    assert audit["provider_attempts"][0]["public_write"] is False

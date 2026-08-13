@@ -23,6 +23,8 @@ import importlib
 import json
 import os
 import time
+from hashlib import sha256
+from pathlib import Path
 from typing import Any, Mapping
 from urllib.parse import urlparse
 
@@ -44,6 +46,23 @@ DEFAULT_BASE_URL = "http://localhost:20128/v1"
 #: credentialed model traffic to an unvetted endpoint.
 ALLOWED_GATEWAY_HOSTS: frozenset[str] = frozenset(
     {"localhost", "127.0.0.1", "::1", "9router.local", "api.9router.ai", "9router"}
+)
+
+MINIMAL_RAW_REQUEST_FIELDS: frozenset[str] = frozenset({"model", "messages"})
+OPTIONAL_GENERATION_FIELDS: frozenset[str] = frozenset(
+    {
+        "max_tokens",
+        "temperature",
+        "reasoning_effort",
+        "response_format",
+        "tools",
+        "tool_choice",
+        "top_p",
+        "seed",
+        "stop",
+        "frequency_penalty",
+        "presence_penalty",
+    }
 )
 
 
@@ -351,6 +370,231 @@ def _call_nine_router_impl(
     )
 
 
+def _prompt_bytes(prompt: Any) -> bytes:
+    if isinstance(prompt, str):
+        return prompt.encode("utf-8")
+    return json.dumps(
+        prompt, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+    ).encode("utf-8")
+
+
+def _write_minimal_raw_receipt(path: Path, payload: Mapping[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+    temporary.write_text(
+        json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )
+    os.replace(temporary, path)
+
+
+def _call_nine_router_minimal_raw_impl(
+    prompt: Any,
+    model: str,
+    timeout_seconds: float,
+    *,
+    evidence_dir: Path,
+    isolated_execution_domain_id: str,
+    base_url: str | None = None,
+) -> ProviderResult:
+    """Send exactly ``model`` + ``messages`` and preserve response bytes before parsing.
+
+    This is the controlled V2 XHIGH experiment boundary. It deliberately does not share
+    the configured request builder above, so optional generation fields cannot leak onto
+    this wire request through defaults or a future refactor.
+    """
+    if model not in AUTHORIZED_MODELS:
+        raise NineRouterAdapterError(f"unauthorized_model:{model}")
+    wire_model, effort = split_model_and_effort(model)
+    if effort is not None:
+        raise NineRouterAdapterError("minimal_raw_model_requires_optional_effort_field")
+
+    evidence_dir = Path(evidence_dir).resolve()
+    receipt_path = evidence_dir / "minimal_raw_provider_receipt_v1.json"
+    if receipt_path.exists():
+        raise NineRouterAdapterError("minimal_raw_experiment_receipt_already_exists")
+
+    env = getattr(os, "environ")
+    api_key = env.get(ENV_API_KEY)
+    if not api_key:
+        raise NineRouterAdapterError(f"{ENV_API_KEY}_missing")
+    resolved_base = resolve_base_url(base_url)
+    prompt_bytes = _prompt_bytes(prompt)
+    request_payload: dict[str, Any] = {
+        "model": wire_model,
+        "messages": [{"role": "user", "content": prompt}],
+    }
+    if set(request_payload) != MINIMAL_RAW_REQUEST_FIELDS:
+        raise NineRouterAdapterError("minimal_raw_request_field_set_invalid")
+    leaked = sorted(set(request_payload) & OPTIONAL_GENERATION_FIELDS)
+    if leaked:
+        raise NineRouterAdapterError(
+            f"minimal_raw_optional_generation_fields_present:{','.join(leaked)}"
+        )
+    body = json.dumps(request_payload, ensure_ascii=False).encode("utf-8")
+
+    evidence_dir.mkdir(parents=True, exist_ok=True)
+    request_metadata = {
+        "schema_version": "contentops.nine_router.minimal_raw_request.v1",
+        "isolated_execution_domain_id": isolated_execution_domain_id,
+        "requested_model": model,
+        "wire_model": wire_model,
+        "request_body_field_names": sorted(request_payload),
+        "optional_generation_fields_absent": True,
+        "optional_generation_fields_checked": sorted(OPTIONAL_GENERATION_FIELDS),
+        "messages_count": 1,
+        "message_roles": ["user"],
+        "prompt_sha256": sha256(prompt_bytes).hexdigest(),
+        "prompt_character_size": len(prompt) if isinstance(prompt, str) else None,
+        "prompt_byte_size": len(prompt_bytes),
+        "request_body_sha256": sha256(body).hexdigest(),
+        "request_body_byte_size": len(body),
+        "transport_header_names": ["Authorization", "Content-Type"],
+        "contains_credentials": False,
+        "public_write": False,
+    }
+    _write_minimal_raw_receipt(evidence_dir / "request_metadata_v1.json", request_metadata)
+
+    url_request = importlib.import_module("urllib.request")
+    url_error = importlib.import_module("urllib.error")
+    request = url_request.Request(
+        f"{resolved_base}/chat/completions",
+        data=body,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}",
+        },
+        method="POST",
+    )
+
+    started = time.monotonic()
+    raw_bytes: bytes | None = None
+    status: int | None = None
+    failure_class: str | None = None
+    retry_after: float | None = None
+    try:
+        with url_request.urlopen(request, timeout=timeout_seconds) as response:
+            raw_bytes = response.read()
+            status = int(getattr(response, "status", 200) or 200)
+    except url_error.HTTPError as exc:  # noqa: PERF203 - response evidence is required
+        status = int(getattr(exc, "code", 0) or 0)
+        retry_after = _retry_after_from_headers(getattr(exc, "headers", None))
+        try:
+            raw_bytes = exc.read()
+        except Exception:  # pragma: no cover - body already consumed
+            raw_bytes = b""
+        failure_class = _classify_http_error(
+            status, raw_bytes.decode("utf-8", errors="replace")[:2000]
+        )
+    except url_error.URLError as exc:
+        failure_class = classify_failure(getattr(exc, "reason", exc))
+    except (TimeoutError, OSError) as exc:
+        failure_class = classify_failure(exc)
+    latency_seconds = round(time.monotonic() - started, 4)
+
+    # The untouched provider body is durable before any JSON/SSE parsing or repair occurs.
+    raw_response_path: Path | None = None
+    raw_response_sha256: str | None = None
+    raw_response_byte_size = 0
+    if raw_bytes is not None:
+        raw_response_path = evidence_dir / "provider_response_body.bin"
+        raw_response_path.write_bytes(raw_bytes)
+        raw_response_sha256 = sha256(raw_bytes).hexdigest()
+        raw_response_byte_size = len(raw_bytes)
+
+    if failure_class is not None:
+        receipt = request_metadata | {
+            "schema_version": "contentops.nine_router.minimal_raw_provider_receipt.v1",
+            "effective_model": None,
+            "http_status": status,
+            "failure_class": failure_class,
+            "retry_after_seconds": retry_after,
+            "latency_seconds": latency_seconds,
+            "provider_invocation_id": None,
+            "raw_response_path": str(raw_response_path) if raw_response_path else None,
+            "raw_response_sha256": raw_response_sha256,
+            "raw_response_byte_size": raw_response_byte_size,
+            "raw_model_output_path": None,
+            "raw_model_output_sha256": None,
+            "raw_model_output_byte_size": 0,
+            "usage": None,
+            "cost": None,
+        }
+        _write_minimal_raw_receipt(receipt_path, receipt)
+        return ProviderResult(
+            status_code=status,
+            retry_after_seconds=retry_after,
+            failure_class=failure_class,
+        )
+
+    raw = (raw_bytes or b"").decode("utf-8", errors="replace")
+    payload: Mapping[str, Any] = {}
+    text: str | None = None
+    sse: dict[str, Any] | None = None
+    parsed = _load_json_body(raw)
+    if parsed is not None:
+        payload = parsed
+        text = _extract_text(payload)
+    elif "data:" in raw:
+        sse = _parse_sse_full(raw)
+        text = sse["text"] if sse is not None else None
+
+    resolved_model = sse["model"] if sse is not None else _observed_model(payload)
+    invocation_id = (sse or {}).get("id") or (
+        str(payload.get("id")) if payload.get("id") else None
+    )
+    usage = (sse or {}).get("usage") if sse is not None else _extract_usage(payload)
+    if isinstance(usage, Mapping) and not isinstance(usage, dict):
+        usage = dict(usage)
+    cost = _extract_cost(payload)
+    output_path: Path | None = None
+    output_sha256: str | None = None
+    output_size = 0
+    if text is not None:
+        output_bytes = text.encode("utf-8")
+        output_path = evidence_dir / "raw_model_output.txt"
+        output_path.write_bytes(output_bytes)
+        output_sha256 = sha256(output_bytes).hexdigest()
+        output_size = len(output_bytes)
+
+    parse_failure = None if text else "structured_output_malformed"
+    receipt = request_metadata | {
+        "schema_version": "contentops.nine_router.minimal_raw_provider_receipt.v1",
+        "effective_model": resolved_model,
+        "http_status": status,
+        "failure_class": parse_failure,
+        "retry_after_seconds": None,
+        "latency_seconds": latency_seconds,
+        "provider_invocation_id": invocation_id,
+        "raw_response_path": str(raw_response_path) if raw_response_path else None,
+        "raw_response_sha256": raw_response_sha256,
+        "raw_response_byte_size": raw_response_byte_size,
+        "raw_model_output_path": str(output_path) if output_path else None,
+        "raw_model_output_sha256": output_sha256,
+        "raw_model_output_byte_size": output_size,
+        "usage": usage or _extract_usage(payload),
+        "cost": cost,
+    }
+    _write_minimal_raw_receipt(receipt_path, receipt)
+    if parse_failure:
+        return ProviderResult(
+            status_code=status,
+            resolved_model=resolved_model,
+            provider_invocation_id=invocation_id,
+            failure_class=parse_failure,
+            usage=usage or _extract_usage(payload),
+            cost=cost,
+        )
+    return ProviderResult(
+        text=text,
+        resolved_model=resolved_model,
+        provider_invocation_id=invocation_id,
+        status_code=status,
+        usage=usage or _extract_usage(payload),
+        cost=cost,
+    )
+
+
 def call_nine_router(
     prompt: str,
     model: str,
@@ -409,6 +653,64 @@ def call_nine_router_v2_isolated(
         lease=lease, logical_invocation_id=logical_invocation_id,
         role_task_id=role_task_id, component=component, requested_model=model,
         prompt_sha256=prompt_sha256, result=result,
+    )
+    return result
+
+
+def call_nine_router_v2_isolated_minimal_raw(
+    prompt: Any,
+    model: str,
+    timeout_seconds: float,
+    *,
+    role_task_id: str,
+    logical_invocation_id: str,
+    component: str,
+    evidence_dir: Path,
+    base_url: str | None = None,
+) -> ProviderResult:
+    """Lease-bound V2 call whose request body contains only ``model`` and ``messages``."""
+    from live_contentops.v2_isolated_llm_execution_v1 import (
+        assert_v2_execution_authorized,
+        record_provider_attempt,
+    )
+
+    lease = assert_v2_execution_authorized(
+        role_task_id=role_task_id,
+        logical_invocation_id=logical_invocation_id,
+        component=component,
+        model=model,
+        public_write=False,
+    )
+    prompt_bytes = _prompt_bytes(prompt)
+    prompt_sha256 = sha256(prompt_bytes).hexdigest()
+    try:
+        result = _call_nine_router_minimal_raw_impl(
+            prompt,
+            model,
+            timeout_seconds,
+            evidence_dir=Path(evidence_dir),
+            isolated_execution_domain_id=lease.domain_id,
+            base_url=base_url,
+        )
+    except BaseException as exc:
+        record_provider_attempt(
+            lease=lease,
+            logical_invocation_id=logical_invocation_id,
+            role_task_id=role_task_id,
+            component=component,
+            requested_model=model,
+            prompt_sha256=prompt_sha256,
+            error_class=type(exc).__name__,
+        )
+        raise
+    record_provider_attempt(
+        lease=lease,
+        logical_invocation_id=logical_invocation_id,
+        role_task_id=role_task_id,
+        component=component,
+        requested_model=model,
+        prompt_sha256=prompt_sha256,
+        result=result,
     )
     return result
 

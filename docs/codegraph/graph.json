@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12746,
+    "edges": 12779,
     "entrypoints": 14,
-    "nodes": 6762,
+    "nodes": 6769,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
@@ -33,7 +33,7 @@
       "instructions": 8,
       "manifest": 13,
       "python_class": 546,
-      "python_function": 3745,
+      "python_function": 3752,
       "python_method": 237,
       "python_module": 705,
       "schema": 174,
@@ -22451,6 +22451,12 @@
       "from": "live_contentops/nine_router_provider_adapter_v2.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl"
+    },
+    {
+      "from": "live_contentops/nine_router_provider_adapter_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error"
     },
     {
@@ -22499,7 +22505,19 @@
       "from": "live_contentops/nine_router_provider_adapter_v2.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_prompt_bytes"
+    },
+    {
+      "from": "live_contentops/nine_router_provider_adapter_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_retry_after_from_headers"
+    },
+    {
+      "from": "live_contentops/nine_router_provider_adapter_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_write_minimal_raw_receipt"
     },
     {
       "from": "live_contentops/nine_router_provider_adapter_v2.py",
@@ -22512,6 +22530,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router_v2_isolated"
+    },
+    {
+      "from": "live_contentops/nine_router_provider_adapter_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router_v2_isolated_minimal_raw"
     },
     {
       "from": "live_contentops/nine_router_provider_adapter_v2.py",
@@ -22542,6 +22566,12 @@
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
       "to": "schema:contentops.nine_router_provider_adapter.v2"
+    },
+    {
+      "from": "live_contentops/nine_router_provider_adapter_v2.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_nine_router_provider_adapter_and_preflight_v2.py"
     },
     {
       "from": "live_contentops/nine_router_provider_adapter_v2.py",
@@ -32261,6 +32291,18 @@
       "from": "live_contentops/retention_native_creative_brain_v2.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::deterministic_json_normalization"
+    },
+    {
+      "from": "live_contentops/retention_native_creative_brain_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::parse_director_output_with_telemetry"
+    },
+    {
+      "from": "live_contentops/retention_native_creative_brain_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::validate_director_output"
     },
     {
@@ -32394,6 +32436,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main"
+    },
+    {
+      "from": "live_contentops/retention_native_replacement_runner_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::minimal_raw_director_retry_budget"
     },
     {
       "from": "live_contentops/retention_native_replacement_runner_v2.py",
@@ -55364,6 +55412,96 @@
       "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::split_model_and_effort"
     },
     {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ProviderResult"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::classify_failure"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::NineRouterAdapterError"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_cost"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_text"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_usage"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_load_json_body"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_observed_model"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_parse_sse_full"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_prompt_bytes"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_retry_after_from_headers"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_write_minimal_raw_receipt"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::resolve_base_url"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::split_model_and_effort"
+    },
+    {
       "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -55386,6 +55524,18 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router_v2_isolated_minimal_raw",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router_v2_isolated_minimal_raw",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_prompt_bytes"
     },
     {
       "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::credential_presence",
@@ -61442,10 +61592,28 @@
       "to": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::NineRouterGPT56Brain"
     },
     {
-      "from": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::validate_director_output",
+      "from": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::parse_director_output_with_telemetry",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_concrete_first_v2.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::parse_director_output_with_telemetry",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/retention_native_concrete_first_v2.py::validate_segment_graph"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::parse_director_output_with_telemetry",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::deterministic_json_normalization"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::validate_director_output",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::parse_director_output_with_telemetry"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_motion_pipeline_v2.py::author_motion",
@@ -61560,6 +61728,18 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::NineRouterGPT56Brain"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_director",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::parse_director_output_with_telemetry"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_director",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::minimal_raw_director_retry_budget"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_segments",
@@ -61686,6 +61866,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::active_v2_execution_lease"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::minimal_raw_director_retry_budget",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::prepare",
@@ -69294,6 +69480,18 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/nine_router_ordered_model_router_v2.py"
+    },
+    {
+      "from": "tests/test_nine_router_provider_adapter_and_preflight_v2.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/nine_router_provider_adapter_v2.py"
+    },
+    {
+      "from": "tests/test_nine_router_provider_adapter_and_preflight_v2.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/nine_router_provider_adapter_v2.py"
     },
     {
       "from": "tests/test_nonnumeric_story_authority_consumer_v1.py",
@@ -78923,7 +79121,7 @@
     {
       "id": "live_contentops/nine_router_provider_adapter_v2.py",
       "kind": "python_module",
-      "size_bytes": 18201
+      "size_bytes": 29570
     },
     {
       "id": "live_contentops/nonnumeric_story_authority_consumer_v1.py",
@@ -79758,12 +79956,12 @@
     {
       "id": "live_contentops/retention_native_creative_brain_v2.py",
       "kind": "python_module",
-      "size_bytes": 11558
+      "size_bytes": 15550
     },
     {
       "id": "live_contentops/retention_native_motion_pipeline_v2.py",
       "kind": "python_module",
-      "size_bytes": 25868
+      "size_bytes": 26083
     },
     {
       "id": "live_contentops/retention_native_motion_sandbox_v2.py",
@@ -79773,7 +79971,7 @@
     {
       "id": "live_contentops/retention_native_replacement_runner_v2.py",
       "kind": "python_module",
-      "size_bytes": 49618
+      "size_bytes": 55062
     },
     {
       "id": "live_contentops/retention_native_review_qa_v2.py",
@@ -98274,119 +98472,147 @@
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::NineRouterAdapterError",
       "kind": "python_class",
-      "line": 50,
+      "line": 69,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "NineRouterAdapterError"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
       "kind": "python_function",
-      "line": 239,
+      "line": 258,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_call_nine_router_impl"
     },
     {
+      "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_minimal_raw_impl",
+      "kind": "python_function",
+      "line": 391,
+      "path": "live_contentops/nine_router_provider_adapter_v2.py",
+      "symbol": "_call_nine_router_minimal_raw_impl"
+    },
+    {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error",
       "kind": "python_function",
-      "line": 429,
+      "line": 731,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_classify_http_error"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_cost",
       "kind": "python_function",
-      "line": 85,
+      "line": 104,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_extract_cost"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_text",
       "kind": "python_function",
-      "line": 100,
+      "line": 119,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_extract_text"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_usage",
       "kind": "python_function",
-      "line": 76,
+      "line": 95,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_extract_usage"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_load_json_body",
       "kind": "python_function",
-      "line": 171,
+      "line": 190,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_load_json_body"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_observed_model",
       "kind": "python_function",
-      "line": 226,
+      "line": 245,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_observed_model"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_parse_sse",
       "kind": "python_function",
-      "line": 111,
+      "line": 130,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_parse_sse"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_parse_sse_full",
       "kind": "python_function",
-      "line": 122,
+      "line": 141,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_parse_sse_full"
     },
     {
+      "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_prompt_bytes",
+      "kind": "python_function",
+      "line": 373,
+      "path": "live_contentops/nine_router_provider_adapter_v2.py",
+      "symbol": "_prompt_bytes"
+    },
+    {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_retry_after_from_headers",
       "kind": "python_function",
-      "line": 445,
+      "line": 747,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_retry_after_from_headers"
     },
     {
+      "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_write_minimal_raw_receipt",
+      "kind": "python_function",
+      "line": 381,
+      "path": "live_contentops/nine_router_provider_adapter_v2.py",
+      "symbol": "_write_minimal_raw_receipt"
+    },
+    {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
       "kind": "python_function",
-      "line": 354,
+      "line": 598,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "call_nine_router"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router_v2_isolated",
       "kind": "python_function",
-      "line": 373,
+      "line": 617,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "call_nine_router_v2_isolated"
     },
     {
+      "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router_v2_isolated_minimal_raw",
+      "kind": "python_function",
+      "line": 660,
+      "path": "live_contentops/nine_router_provider_adapter_v2.py",
+      "symbol": "call_nine_router_v2_isolated_minimal_raw"
+    },
+    {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::credential_presence",
       "kind": "python_function",
-      "line": 54,
+      "line": 73,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "credential_presence"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::normalize_model_identity",
       "kind": "python_function",
-      "line": 186,
+      "line": 205,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "normalize_model_identity"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::resolve_base_url",
       "kind": "python_function",
-      "line": 63,
+      "line": 82,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "resolve_base_url"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::split_model_and_effort",
       "kind": "python_function",
-      "line": 207,
+      "line": 226,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "split_model_and_effort"
     },
@@ -106170,56 +106396,70 @@
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::CodexLocalBrain",
       "kind": "python_class",
-      "line": 277,
+      "line": 384,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "CodexLocalBrain"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::CreativeBrain",
       "kind": "python_class",
-      "line": 176,
+      "line": 262,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "CreativeBrain"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::CreativeReceipt",
       "kind": "python_class",
-      "line": 155,
+      "line": 241,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "CreativeReceipt"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::NineRouterGPT56Brain",
       "kind": "python_class",
-      "line": 194,
+      "line": 283,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "NineRouterGPT56Brain"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::active_brain",
       "kind": "python_function",
-      "line": 287,
+      "line": 394,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "active_brain"
     },
     {
+      "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::deterministic_json_normalization",
+      "kind": "python_function",
+      "line": 74,
+      "path": "live_contentops/retention_native_creative_brain_v2.py",
+      "symbol": "deterministic_json_normalization"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::parse_director_output_with_telemetry",
+      "kind": "python_function",
+      "line": 123,
+      "path": "live_contentops/retention_native_creative_brain_v2.py",
+      "symbol": "parse_director_output_with_telemetry"
+    },
+    {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::validate_director_output",
       "kind": "python_function",
-      "line": 57,
+      "line": 149,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "validate_director_output"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::validate_motion_output",
       "kind": "python_function",
-      "line": 129,
+      "line": 215,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "validate_motion_output"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::validate_segment_output",
       "kind": "python_function",
-      "line": 109,
+      "line": 195,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "validate_segment_output"
     },
@@ -106233,28 +106473,28 @@
     {
       "id": "python_symbol:live_contentops/retention_native_motion_pipeline_v2.py::build_audio_and_mux",
       "kind": "python_function",
-      "line": 324,
+      "line": 328,
       "path": "live_contentops/retention_native_motion_pipeline_v2.py",
       "symbol": "build_audio_and_mux"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_motion_pipeline_v2.py::main",
       "kind": "python_function",
-      "line": 470,
+      "line": 474,
       "path": "live_contentops/retention_native_motion_pipeline_v2.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_motion_pipeline_v2.py::probe_media",
       "kind": "python_function",
-      "line": 424,
+      "line": 428,
       "path": "live_contentops/retention_native_motion_pipeline_v2.py",
       "symbol": "probe_media"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_motion_pipeline_v2.py::render_motion",
       "kind": "python_function",
-      "line": 227,
+      "line": 231,
       "path": "live_contentops/retention_native_motion_pipeline_v2.py",
       "symbol": "render_motion"
     },
@@ -106282,77 +106522,84 @@
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_director",
       "kind": "python_function",
-      "line": 380,
+      "line": 394,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "author_director"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_segments",
       "kind": "python_function",
-      "line": 428,
+      "line": 519,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "author_segments"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_storyboards",
       "kind": "python_function",
-      "line": 527,
+      "line": 619,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "build_storyboards"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main",
       "kind": "python_function",
-      "line": 926,
+      "line": 1029,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "main"
     },
     {
+      "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::minimal_raw_director_retry_budget",
+      "kind": "python_function",
+      "line": 381,
+      "path": "live_contentops/retention_native_replacement_runner_v2.py",
+      "symbol": "minimal_raw_director_retry_budget"
+    },
+    {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::prepare",
       "kind": "python_function",
-      "line": 193,
+      "line": 194,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "prepare"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::provider_execution_blocker",
       "kind": "python_function",
-      "line": 875,
+      "line": 978,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "provider_execution_blocker"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::require_accepted_isolated_xhigh_preflight",
       "kind": "python_function",
-      "line": 776,
+      "line": 868,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "require_accepted_isolated_xhigh_preflight"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
       "kind": "python_function",
-      "line": 790,
+      "line": 882,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "run_isolated_proof"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_xhigh_preflight",
       "kind": "python_function",
-      "line": 680,
+      "line": 772,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "run_isolated_xhigh_preflight"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic",
       "kind": "python_function",
-      "line": 607,
+      "line": 699,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "run_premotion_critic"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider",
       "kind": "python_function",
-      "line": 733,
+      "line": 825,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "validate_isolation_before_provider"
     },
@@ -115029,7 +115276,7 @@
     {
       "id": "tests/test_nine_router_provider_adapter_and_preflight_v2.py",
       "kind": "test",
-      "size_bytes": 15360
+      "size_bytes": 17839
     },
     {
       "id": "tests/test_no_secret_output_live_foundation_batch_a.py",
@@ -115879,7 +116126,7 @@
     {
       "id": "tests/test_retention_native_concrete_first_v2.py",
       "kind": "test",
-      "size_bytes": 16382
+      "size_bytes": 17719
     },
     {
       "id": "tests/test_review_bundle_manifest.py",
@@ -116414,7 +116661,7 @@
     {
       "id": "tests/test_v2_isolated_llm_execution_v1.py",
       "kind": "test",
-      "size_bytes": 5023
+      "size_bytes": 6335
     },
     {
       "id": "tests/test_v6_north_star_authority_consistency.py",
@@ -120505,5 +120752,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "a82c493717f666cda73ff068aeb6d6aa7c858081",
-  "source_tree_digest": "9930be8601ab9aaa684a7df37788c8e11487ff2bc62e6c5871add1a20013f311"
+  "source_tree_digest": "9efd6d5b9850a82e63d01ddc6b13901f0af551cf455588adafe768bbde484656"
 }

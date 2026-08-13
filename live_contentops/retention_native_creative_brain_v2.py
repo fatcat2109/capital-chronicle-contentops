@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import base64
+import hashlib
 import mimetypes
 import re
 from dataclasses import dataclass
@@ -14,8 +15,15 @@ from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_V2_CREATIVE_REVISION_AUTHOR,
     ROLE_V2_MOTION_CODE_AUTHOR,
 )
-from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED, ProviderResult
-from live_contentops.nine_router_provider_adapter_v2 import call_nine_router_v2_isolated
+from live_contentops.nine_router_ordered_model_router_v2 import (
+    ACCEPTED,
+    ProviderResult,
+    RetryBudget,
+)
+from live_contentops.nine_router_provider_adapter_v2 import (
+    call_nine_router_v2_isolated,
+    call_nine_router_v2_isolated_minimal_raw,
+)
 from live_contentops.retention_native_concrete_first_v2 import (
     CREATIVE_MODEL,
     CreativeBible,
@@ -29,40 +37,118 @@ SCHEMA_VERSION = "contentops.retention_native.creative_brain.v2"
 ACTIVE_BRAIN = "NineRouterGPT56Brain"
 
 
-def _extract_json(text: str) -> Mapping[str, Any]:
+def _strip_trailing_commas(text: str) -> str:
+    output: list[str] = []
+    in_string = False
+    escaped = False
+    index = 0
+    while index < len(text):
+        character = text[index]
+        if in_string:
+            output.append(character)
+            if escaped:
+                escaped = False
+            elif character == "\\":
+                escaped = True
+            elif character == '"':
+                in_string = False
+            index += 1
+            continue
+        if character == '"':
+            in_string = True
+            output.append(character)
+            index += 1
+            continue
+        if character == ",":
+            lookahead = index + 1
+            while lookahead < len(text) and text[lookahead].isspace():
+                lookahead += 1
+            if lookahead < len(text) and text[lookahead] in "}]":
+                index += 1
+                continue
+        output.append(character)
+        index += 1
+    return "".join(output)
+
+
+def deterministic_json_normalization(text: str) -> tuple[str, tuple[str, ...]]:
+    """Normalize only mechanical JSON wrapping/syntax and report every operation."""
     candidate = str(text).strip()
+    operations: list[str] = []
     if candidate.startswith("```"):
         candidate = candidate.split("\n", 1)[1] if "\n" in candidate else candidate
         candidate = re.sub(r"```\s*$", "", candidate).strip()
+        operations.append("strip_markdown_json_fence")
+    try:
+        json.loads(candidate)
+        return candidate, tuple(operations)
+    except json.JSONDecodeError:
+        pass
+
+    without_trailing = _strip_trailing_commas(candidate)
+    if without_trailing != candidate:
+        candidate = without_trailing
+        operations.append("strip_trailing_commas_outside_strings")
+        try:
+            json.loads(candidate)
+            return candidate, tuple(operations)
+        except json.JSONDecodeError:
+            pass
+
+    decoder = json.JSONDecoder()
+    for match in re.finditer(r"\{", candidate):
+        try:
+            possible, consumed = decoder.raw_decode(candidate[match.start() :])
+        except json.JSONDecodeError:
+            continue
+        if isinstance(possible, Mapping):
+            span = candidate[match.start() : match.start() + consumed]
+            if match.start() != 0 or candidate[match.start() + consumed :].strip():
+                operations.append("extract_json_object_span")
+            return span, tuple(operations)
+    raise json.JSONDecodeError("deterministic_json_normalization_failed", candidate, 0)
+
+
+def _extract_json(text: str) -> Mapping[str, Any]:
+    candidate, _ = deterministic_json_normalization(text)
     try:
         value = json.loads(candidate)
-    except json.JSONDecodeError as original:
-        decoder = json.JSONDecoder()
-        value = None
-        for match in re.finditer(r"\{", candidate):
-            try:
-                possible, _ = decoder.raw_decode(candidate[match.start() :])
-            except json.JSONDecodeError:
-                continue
-            if isinstance(possible, Mapping):
-                value = possible
-                break
-        if value is None:
-            raise original
+    except json.JSONDecodeError:
+        raise
     if not isinstance(value, Mapping):
         raise ValueError("creative_output_json_object_required")
     return value
 
 
+def parse_director_output_with_telemetry(text: str) -> tuple[dict[str, Any], dict[str, Any]]:
+    normalized, operations = deterministic_json_normalization(text)
+    row = json.loads(normalized)
+    if not isinstance(row, Mapping):
+        raise ValueError("creative_output_json_object_required")
+    bible = CreativeBible.from_mapping(dict(row["creative_bible"]))
+    graph = validate_segment_graph(list(row["segment_graph"]))
+    payload = {
+        "creative_bible": bible.freeze()["value"],
+        "segment_graph": [segment.__dict__ for segment in graph],
+    }
+    raw_bytes = str(text).encode("utf-8")
+    normalized_bytes = normalized.encode("utf-8")
+    telemetry = {
+        "route": "DIRECT_PARSE" if not operations else "DETERMINISTIC_REPAIR",
+        "operations": list(operations),
+        "raw_model_output_sha256": hashlib.sha256(raw_bytes).hexdigest(),
+        "raw_model_output_byte_size": len(raw_bytes),
+        "normalized_json_sha256": hashlib.sha256(normalized_bytes).hexdigest(),
+        "normalized_json_byte_size": len(normalized_bytes),
+        "semantic_payload_sha256": logical_hash(payload),
+        "creative_meaning_changed": False,
+    }
+    return payload, telemetry
+
+
 def validate_director_output(text: str) -> tuple[bool, str | None, Any, str | None]:
     try:
-        row = dict(_extract_json(text))
-        bible = CreativeBible.from_mapping(dict(row["creative_bible"]))
-        graph = validate_segment_graph(list(row["segment_graph"]))
-        payload = {
-            "creative_bible": bible.freeze()["value"],
-            "segment_graph": [segment.__dict__ for segment in graph],
-        }
+        payload, _ = parse_director_output_with_telemetry(text)
     except (ValueError, TypeError, KeyError, json.JSONDecodeError) as exc:
         return False, "structured_output_schema_invalid", None, f"director_{type(exc).__name__}"
     return True, None, payload, None
@@ -187,6 +273,9 @@ class CreativeBrain:
         prompt_version: str,
         image_paths: tuple[str, ...] = (),
         max_tokens: int = 12000,
+        wire_mode: str = "configured",
+        evidence_dir: Path | None = None,
+        retry_budget: RetryBudget | None = None,
     ) -> tuple[Mapping[str, Any], CreativeReceipt]:
         raise NotImplementedError
 
@@ -205,6 +294,9 @@ class NineRouterGPT56Brain(CreativeBrain):
         prompt_version: str,
         image_paths: tuple[str, ...] = (),
         max_tokens: int = 12000,
+        wire_mode: str = "configured",
+        evidence_dir: Path | None = None,
+        retry_budget: RetryBudget | None = None,
     ) -> tuple[Mapping[str, Any], CreativeReceipt]:
         if role not in {
             ROLE_V2_CREATIVE_EDITOR,
@@ -212,6 +304,10 @@ class NineRouterGPT56Brain(CreativeBrain):
             ROLE_V2_CREATIVE_REVISION_AUTHOR,
         }:
             raise ValueError(f"creative_role_not_authorized:{role}")
+        if wire_mode not in {"configured", "minimal_raw"}:
+            raise ValueError(f"creative_wire_mode_not_authorized:{wire_mode}")
+        if wire_mode == "minimal_raw" and evidence_dir is None:
+            raise ValueError("minimal_raw_evidence_dir_required")
         prompt = json.dumps(prompt_payload, sort_keys=True, ensure_ascii=False)
 
         def provider(current_prompt: str, model: str, timeout: float) -> ProviderResult:
@@ -224,6 +320,16 @@ class NineRouterGPT56Brain(CreativeBrain):
                     uri = f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode('ascii')}"
                     content.append({"type": "image_url", "image_url": {"url": uri, "detail": "high"}})
                 provider_prompt = content
+            if wire_mode == "minimal_raw":
+                return call_nine_router_v2_isolated_minimal_raw(
+                    provider_prompt,
+                    model,
+                    timeout,
+                    role_task_id=role,
+                    logical_invocation_id=logical_invocation_id,
+                    component=ACTIVE_BRAIN,
+                    evidence_dir=Path(evidence_dir),
+                )
             return call_nine_router_v2_isolated(
                 provider_prompt,
                 model,
@@ -247,6 +353,7 @@ class NineRouterGPT56Brain(CreativeBrain):
             governed_input=prompt_payload,
             prompt_template=prompt_template,
             prompt_version=prompt_version,
+            budget=retry_budget,
         )
         if invocation.get("terminal_disposition") != ACCEPTED:
             raise RuntimeError(

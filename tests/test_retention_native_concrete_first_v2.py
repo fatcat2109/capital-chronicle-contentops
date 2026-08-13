@@ -33,6 +33,7 @@ from live_contentops.retention_native_concrete_first_v2 import (
 )
 from live_contentops.retention_native_creative_brain_v2 import (
     CodexLocalBrain,
+    parse_director_output_with_telemetry,
     validate_director_output,
     validate_motion_output,
     validate_segment_output,
@@ -40,6 +41,9 @@ from live_contentops.retention_native_creative_brain_v2 import (
 from live_contentops.retention_native_motion_sandbox_v2 import (
     validate_generated_motion_files,
     validate_revision_accounting,
+)
+from live_contentops.retention_native_replacement_runner_v2 import (
+    minimal_raw_director_retry_budget,
 )
 from live_contentops.retention_native_storyboard_v2 import (
     contact_sheet,
@@ -162,6 +166,15 @@ def test_creative_roles_start_xhigh_and_fallback_only_within_gpt56() -> None:
         budget = retry_budget_for_role(role_task_id=role, logical_invocation_id="inv")
         assert budget.max_total_provider_attempts == 3
         assert budget.max_same_model_retries == 0
+
+
+def test_minimal_raw_director_experiment_is_exactly_one_xhigh_attempt() -> None:
+    budget = minimal_raw_director_retry_budget("inv_v2_director_test")
+    assert budget.max_total_provider_attempts == 1
+    assert budget.max_fallback_transitions == 0
+    assert budget.max_same_model_retries == 0
+    assert budget.max_structured_output_repair_attempts == 0
+    assert budget.per_model_max_attempts == (1, 0, 0)
 
 
 def test_codex_local_brain_is_inert() -> None:
@@ -338,6 +351,26 @@ def test_director_and_segment_validators_accept_contract_shape() -> None:
         "midform_16x9_beats": [{**beat, "beat_id": "m1", "aspect_ratio": "16:9"}],
     }
     assert validate_segment_output(__import__("json").dumps(segment))[0] is True
+
+
+def test_director_deterministic_repair_records_only_mechanical_operations() -> None:
+    raw = (
+        "Leading transport prose that is not creative content.\n```json\n"
+        + __import__("json").dumps(
+            {"creative_bible": _bible(), "segment_graph": _segments()}, indent=2
+        )[:-2]
+        + ",\n}\n```"
+    )
+    parsed, telemetry = parse_director_output_with_telemetry(raw)
+    assert parsed["creative_bible"]["core_viewer_promise"] == (
+        "Understand what reopened Hormuz flows change."
+    )
+    assert telemetry["route"] == "DETERMINISTIC_REPAIR"
+    assert telemetry["operations"] == [
+        "strip_trailing_commas_outside_strings",
+        "extract_json_object_span",
+    ]
+    assert telemetry["creative_meaning_changed"] is False
 
 
 def test_motion_validator_and_sandbox_block_unsafe_source() -> None:

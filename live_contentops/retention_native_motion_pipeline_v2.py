@@ -127,8 +127,12 @@ def author_motion(*, runtime: Path, repo_root: Path) -> dict[str, Any]:
                 validator=validate_motion_output,
                 logical_invocation_id=f"inv_v2_motion_{safe_variant}_{safe_segment}_{logical_hash(prompt)[:14]}",
                 prompt_template="concrete_first_xhigh_motion_segment",
-                prompt_version="v1",
+                prompt_version="v2_minimal_raw_no_generation_config",
                 image_paths=image_paths,
+                wire_mode="minimal_raw",
+                evidence_dir=(
+                    runtime / "provider_evidence" / "motion" / safe_variant / safe_segment
+                ),
             )
             if str(output.get("batch_id") or "") != f"{variant}:{segment_id}":
                 raise RuntimeError(f"motion_batch_identity_mismatch:{variant}:{segment_id}")

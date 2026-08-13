@@ -48,6 +48,7 @@ from live_contentops.retention_native_concrete_first_v2 import (
 )
 from live_contentops.retention_native_creative_brain_v2 import (
     NineRouterGPT56Brain,
+    parse_director_output_with_telemetry,
     validate_director_output,
     validate_segment_output,
 )
@@ -377,6 +378,19 @@ DIRECTOR_INSTRUCTION = """You are the XHIGH Creative Director and semantic Decom
 Return ONLY JSON with exactly two top-level keys: creative_bible and segment_graph. creative_bible requires: core_viewer_promise, hook, central_question, narrative_arc, tone, pacing_profile, evidence_hierarchy (list), concrete_visual_strategy, documentary_broll_strategy, data_document_strategy, abstraction_policy, audio_intent, short_strategy, midform_strategy, forbidden_motifs_repetition (list). Each segment_graph row requires: segment_id, purpose, narrative_question, dependencies (only earlier segment IDs), allowed_claim_ids, allowed_evidence_ids, viewer_knowledge_entering, viewer_knowledge_leaving, open_loops, payoff_rehook_responsibility, target_timing_envelope with short_9x16 and midform_16x9 each containing min_seconds/max_seconds, asset_needs, continuity_constraints. Across segment envelopes, make a 45-60s short and a 90-150s midform feasible. Every claim/evidence ID must exist in the input. Preserve the forecast/observation distinction."""
 
 
+def minimal_raw_director_retry_budget(logical_invocation_id: str) -> RetryBudget:
+    return RetryBudget(
+        logical_invocation_id=logical_invocation_id,
+        max_total_provider_attempts=1,
+        max_fallback_transitions=0,
+        max_same_model_retries=0,
+        max_structured_output_repair_attempts=0,
+        max_cumulative_retry_sleep_seconds=0,
+        wall_clock_budget_seconds=600,
+        per_model_max_attempts=(1, 0, 0),
+    )
+
+
 def author_director(runtime: Path) -> dict[str, Any]:
     compact = _read_json(runtime / "contracts" / "compact_evidence_v2.json")
     assets = _read_json(runtime / "contracts" / "asset_candidate_universe_v2.json")
@@ -394,17 +408,92 @@ def author_director(runtime: Path) -> dict[str, Any]:
         ],
         "public_write_authority": False,
     }
-    output, receipt = NineRouterGPT56Brain().author(
-        role=ROLE_V2_CREATIVE_EDITOR,
-        prompt_payload=prompt,
-        validator=validate_director_output,
-        logical_invocation_id=f"inv_v2_director_{logical_hash(prompt)[:20]}",
-        prompt_template="concrete_first_xhigh_director",
-        prompt_version="v2_bounded_5000_output_envelope",
-        max_tokens=5000,
-    )
+    logical_invocation_id = f"inv_v2_director_{logical_hash(prompt)[:20]}"
+    evidence_dir = runtime / "provider_evidence" / "minimal_raw_xhigh_director_v1"
+    try:
+        output, receipt = NineRouterGPT56Brain().author(
+            role=ROLE_V2_CREATIVE_EDITOR,
+            prompt_payload=prompt,
+            validator=validate_director_output,
+            logical_invocation_id=logical_invocation_id,
+            prompt_template="concrete_first_xhigh_director",
+            prompt_version="v3_same_prompt_minimal_raw_wire",
+            wire_mode="minimal_raw",
+            evidence_dir=evidence_dir,
+            retry_budget=minimal_raw_director_retry_budget(logical_invocation_id),
+        )
+    except RuntimeError:
+        raw_receipt_path = evidence_dir / "minimal_raw_provider_receipt_v1.json"
+        if raw_receipt_path.is_file():
+            raw_receipt = _read_json(raw_receipt_path)
+            provider_level_failure = (
+                raw_receipt.get("http_status") not in (None, 200)
+                or raw_receipt.get("failure_class")
+                not in (None, "structured_output_malformed", "structured_output_schema_invalid")
+            )
+            status = (
+                "BLOCKED_MINIMAL_RAW_XHIGH_DIRECTOR_PROVIDER_EXECUTION"
+                if provider_level_failure
+                else "BLOCKED_MINIMAL_RAW_XHIGH_DIRECTOR_CREATIVE_OUTPUT"
+            )
+            experiment = {
+                "schema_version": "contentops.retention_native.minimal_raw_director_experiment.v1",
+                "status": status,
+                "logical_invocation_id": logical_invocation_id,
+                "request_body_field_names": raw_receipt.get("request_body_field_names"),
+                "optional_generation_fields_absent": raw_receipt.get(
+                    "optional_generation_fields_absent"
+                ),
+                "prompt_sha256": raw_receipt.get("prompt_sha256"),
+                "prompt_character_size": raw_receipt.get("prompt_character_size"),
+                "prompt_byte_size": raw_receipt.get("prompt_byte_size"),
+                "requested_model": raw_receipt.get("requested_model"),
+                "effective_model": raw_receipt.get("effective_model"),
+                "http_status": raw_receipt.get("http_status"),
+                "failure_class": raw_receipt.get("failure_class"),
+                "latency_seconds": raw_receipt.get("latency_seconds"),
+                "usage": raw_receipt.get("usage"),
+                "raw_response_sha256": raw_receipt.get("raw_response_sha256"),
+                "raw_response_byte_size": raw_receipt.get("raw_response_byte_size"),
+                "raw_model_output_sha256": raw_receipt.get("raw_model_output_sha256"),
+                "raw_model_output_byte_size": raw_receipt.get("raw_model_output_byte_size"),
+                "isolated_execution_domain_id": raw_receipt.get(
+                    "isolated_execution_domain_id"
+                ),
+                "provider_invocation_id": raw_receipt.get("provider_invocation_id"),
+                "public_write": False,
+            }
+            _write_json(runtime / "minimal_raw_xhigh_director_experiment_v1.json", experiment)
+            raise RuntimeError(status) from None
+        raise
     if not receipt.professional_candidate_eligible:
         raise RuntimeError("professional_director_candidate_degraded_creative_model")
+    raw_receipt = _read_json(evidence_dir / "minimal_raw_provider_receipt_v1.json")
+    raw_output_path = Path(str(raw_receipt["raw_model_output_path"]))
+    raw_output = raw_output_path.read_text(encoding="utf-8")
+    raw_derived, response_handling = parse_director_output_with_telemetry(raw_output)
+    if logical_hash(raw_derived) != logical_hash(output):
+        raise RuntimeError("minimal_raw_director_parsed_output_identity_mismatch")
+    response_handling.update(
+        {
+            "requested_model": raw_receipt.get("requested_model"),
+            "effective_model": raw_receipt.get("effective_model"),
+            "http_status": raw_receipt.get("http_status"),
+            "provider_invocation_id": raw_receipt.get("provider_invocation_id"),
+            "request_body_field_names": raw_receipt.get("request_body_field_names"),
+            "optional_generation_fields_absent": raw_receipt.get(
+                "optional_generation_fields_absent"
+            ),
+            "isolated_execution_domain_id": raw_receipt.get(
+                "isolated_execution_domain_id"
+            ),
+            "semantic_preservation": "PASS_MECHANICAL_ONLY",
+        }
+    )
+    _write_json(
+        runtime / "receipts" / "minimal_raw_director_response_handling_v1.json",
+        response_handling,
+    )
     bible = CreativeBible.from_mapping(output["creative_bible"]).freeze()
     graph = validate_segment_graph(output["segment_graph"])
     director = {
@@ -414,6 +503,8 @@ def author_director(runtime: Path) -> dict[str, Any]:
         "segment_graph": [row.__dict__ for row in graph],
         "segment_graph_sha256": logical_hash([row.__dict__ for row in graph]),
         "director_model_receipt": _receipt_summary(receipt),
+        "minimal_raw_provider_receipt_sha256": logical_hash(raw_receipt),
+        "response_handling": response_handling,
         "professional_candidate_eligible": receipt.professional_candidate_eligible,
         "public_write_authority": False,
     }
@@ -473,8 +564,9 @@ def author_segments(runtime: Path) -> dict[str, Any]:
             validator=validate_segment_output,
             logical_invocation_id=f"inv_v2_segment_{segment.segment_id}_{logical_hash(prompt)[:16]}",
             prompt_template="concrete_first_xhigh_segment_author",
-            prompt_version="v2_bounded_7000_output_envelope",
-            max_tokens=7000,
+            prompt_version="v3_minimal_raw_no_generation_config",
+            wire_mode="minimal_raw",
+            evidence_dir=runtime / "provider_evidence" / "segments" / segment.segment_id,
         )
         if not receipt.professional_candidate_eligible:
             raise RuntimeError(
@@ -828,11 +920,22 @@ def run_isolated_proof(
             critic = run_final_critic(runtime=runtime)
     except BaseException as exc:
         audit = _read_json(Path(audit_path)) if audit_path else {}
+        failure_message = str(exc)[:500]
+        failure_status = (
+            "BLOCKED_MINIMAL_RAW_XHIGH_DIRECTOR_PROVIDER_EXECUTION"
+            if "BLOCKED_MINIMAL_RAW_XHIGH_DIRECTOR_PROVIDER_EXECUTION" in failure_message
+            else "BLOCKED_ISOLATED_V2_PROOF_EXECUTION"
+        )
+        director_experiment_path = runtime / "minimal_raw_xhigh_director_experiment_v1.json"
+        director_experiment = (
+            _read_json(director_experiment_path) if director_experiment_path.is_file() else None
+        )
         failure = {
             "schema_version": "contentops.retention_native.isolated_proof_result.v1",
-            "status": "BLOCKED_ISOLATED_V2_PROOF_EXECUTION",
+            "status": failure_status,
             "failure_class": type(exc).__name__,
-            "failure_message": str(exc)[:500],
+            "failure_message": failure_message,
+            "minimal_raw_director_experiment": director_experiment,
             "isolated_execution_domain_id": domain_id,
             "lease_audit_path": audit_path,
             "lease_revoked": audit.get("state") == "REVOKED",

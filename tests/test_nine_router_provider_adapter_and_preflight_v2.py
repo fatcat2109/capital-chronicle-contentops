@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 
 import pytest
+import live_contentops.nine_router_provider_adapter_v2 as adapter
 
 from live_contentops.nine_router_ordered_model_router_v2 import (
     ACCEPTED,
@@ -124,6 +125,73 @@ def test_missing_credential_fails_closed(monkeypatch) -> None:
     monkeypatch.delenv(ENV_API_KEY, raising=False)
     with pytest.raises(NineRouterAdapterError, match=f"{ENV_API_KEY}_missing"):
         call_nine_router("prompt", P0, 5.0)
+
+
+def test_minimal_raw_request_has_only_model_and_messages_and_preserves_response(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setenv(ENV_API_KEY, "dummy-test-key")
+    captured = {}
+    raw_body = (
+        b'{"id":"chatcmpl-minimal","model":"gpt-5.6-sol-xhigh",'
+        b'"choices":[{"message":{"content":"{\\"creative_bible\\":{}}"}}],'
+        b'"usage":{"total_tokens":11}}'
+    )
+
+    class Response:
+        status = 200
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+        def read(self):
+            return raw_body
+
+    def fake_urlopen(request, timeout):
+        captured["payload"] = json.loads(request.data.decode("utf-8"))
+        captured["timeout"] = timeout
+        return Response()
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    evidence_dir = tmp_path / "minimal"
+    result = adapter._call_nine_router_minimal_raw_impl(
+        "same director prompt",
+        "new/gpt-5.6-sol-xhigh",
+        600,
+        evidence_dir=evidence_dir,
+        isolated_execution_domain_id="v2-01-test",
+        base_url="http://localhost:20128/v1",
+    )
+
+    assert set(captured["payload"]) == {"model", "messages"}
+    assert captured["payload"]["model"] == "new/gpt-5.6-sol-xhigh"
+    assert captured["payload"]["messages"] == [
+        {"role": "user", "content": "same director prompt"}
+    ]
+    assert not (set(captured["payload"]) & adapter.OPTIONAL_GENERATION_FIELDS)
+    assert captured["timeout"] == 600
+    assert result.status_code == 200
+    assert result.resolved_model == "gpt-5.6-sol-xhigh"
+    assert (evidence_dir / "provider_response_body.bin").read_bytes() == raw_body
+    receipt = json.loads(
+        (evidence_dir / "minimal_raw_provider_receipt_v1.json").read_text()
+    )
+    assert receipt["request_body_field_names"] == ["messages", "model"]
+    assert receipt["optional_generation_fields_absent"] is True
+    assert receipt["raw_response_byte_size"] == len(raw_body)
+    assert receipt["raw_model_output_sha256"]
+    with pytest.raises(NineRouterAdapterError, match="receipt_already_exists"):
+        adapter._call_nine_router_minimal_raw_impl(
+            "same director prompt",
+            "new/gpt-5.6-sol-xhigh",
+            600,
+            evidence_dir=evidence_dir,
+            isolated_execution_domain_id="v2-01-test",
+            base_url="http://localhost:20128/v1",
+        )
 
 
 def test_credential_presence_reports_presence_only(monkeypatch) -> None:
