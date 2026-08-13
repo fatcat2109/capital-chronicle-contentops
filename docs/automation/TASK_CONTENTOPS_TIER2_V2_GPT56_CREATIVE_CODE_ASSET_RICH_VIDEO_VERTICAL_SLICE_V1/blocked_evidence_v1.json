@@ -33,6 +33,15 @@
     "max_fallback_transitions": 0,
     "exhaustion_disposition": "BLOCKED_EXACT_CREATIVE_MODEL"
   },
+  "preflight_without_terminal_stdout": {
+    "role": "V2_CREATIVE_EDITOR",
+    "provider_attempts_recorded_by_isolated_ledger": 1,
+    "isolated_cost_governor_accounted_tokens": 2535,
+    "isolated_cost_ledger_sha256": "16fb38ebfd56adef9c5ebcdca31c72c34a173c57535bba9d6e1db16064a813a1",
+    "terminal_disposition_available": false,
+    "effective_identity_available": false,
+    "reason": "shell harness timed out before terminal stdout; no result inferred"
+  },
   "availability_preflight": {
     "role": "V2_CREATIVE_EDITOR",
     "terminal_disposition": "ACCEPTED",
@@ -46,7 +55,9 @@
     "provider_invocation_id": "resp_0811babef291ece8016a7d566eb8708191933f0a2a5825eb3b",
     "prompt_logical_hash": "298b903843b8e57ba3b122c3a9a16060e95d76f5648489c56b83e165f6756f74",
     "governed_input_hash": "f7d8f77ddaf3f6f4e214e20b4b15387cf736c55358e0975e23b1ad53694c17c2",
-    "output_hash": "3a7a3db8e2262c3f8927d6fcb19ed78e53b11685e57d6a7e35584eb5715d7811"
+    "output_hash": "3a7a3db8e2262c3f8927d6fcb19ed78e53b11685e57d6a7e35584eb5715d7811",
+    "isolated_cost_governor_accounted_tokens": 2515,
+    "isolated_cost_ledger_sha256": "9ef08458e00eada0fe79a380032838aabce8975a83aa973d183efd06ac48f911"
   },
   "creative_editor_authorship": {
     "role": "V2_CREATIVE_EDITOR",
@@ -71,6 +82,18 @@
     "render_performed": false,
     "critic_called": false,
     "v2_02_started": false
+  },
+  "runtime_call_totals": {
+    "provider_attempts": 6,
+    "isolated_cost_governor_accounted_tokens": 83926,
+    "provider_reported_cost_available": false,
+    "breakdown": {
+      "preflight_without_terminal_stdout": 1,
+      "accepted_identity_preflight": 1,
+      "blocked_creative_editor_authorship": 4,
+      "motion_code_author": 0,
+      "creative_revision_author": 0
+    }
   },
   "validation": {
     "focused_router_and_shared_regressions": "136 passed",
