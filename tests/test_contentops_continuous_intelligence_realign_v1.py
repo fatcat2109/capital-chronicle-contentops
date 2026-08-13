@@ -253,6 +253,43 @@ def test_fake_clock_proves_30m_15m_one_shot_and_60m_cadence(tmp_path):
     assert len(calls) == 4
 
 
+def test_capture_exception_persists_30m_transient_retry_boundary(tmp_path):
+    store = _store(tmp_path)
+    capture_calls = []
+
+    def capture_fails(**kwargs):
+        capture_calls.append(kwargs)
+        raise RuntimeError("sanitized capture failure")
+
+    first = intake.run_ingestion_housekeeping_iteration(
+        store,
+        now=FIXED_NOW,
+        state_fn=lambda: {"state": "READY"},
+        session_fn=lambda: {"session_state": "READY"},
+        capture_fn=capture_fails,
+    )
+
+    assert first["lane_state"] == "DEGRADED"
+    assert first["cadence_state"] == "TRANSIENT_RETRY"
+    assert first["detail"] == "CAPTURE_FAILED:RuntimeError"
+    assert first["next_eligible_capture_utc"] == (
+        FIXED_NOW + timedelta(seconds=1800)
+    ).isoformat().replace("+00:00", "Z")
+    checkpoint = intake.read_ingestion_checkpoint(store)
+    assert checkpoint["last_attempt_epoch"] == FIXED_NOW.timestamp()
+    assert checkpoint["last_outcome_code"] == intake.OUTCOME_CAPTURE_FAILED
+
+    early = intake.run_ingestion_housekeeping_iteration(
+        store,
+        now=FIXED_NOW + timedelta(seconds=1799),
+        state_fn=lambda: pytest.fail("transient retry inspected browser process state early"),
+        session_fn=lambda: pytest.fail("transient retry attached CDP early"),
+        capture_fn=lambda **_kwargs: pytest.fail("transient retry captured X early"),
+    )
+    assert early["detail"] == "not_due"
+    assert len(capture_calls) == 1
+
+
 def test_kill_switch_suppresses_even_forced_x_capture(tmp_path):
     store = _store(tmp_path)
     control = store.get_operating_control()

@@ -75346,7 +75346,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-13T17:01:40Z",
+  "generation_timestamp_utc": "2026-08-13T17:24:27Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -76450,7 +76450,7 @@
     {
       "id": "live_contentops/continuous_headline_ingest_v1.py",
       "kind": "python_module",
-      "size_bytes": 23019
+      "size_bytes": 23500
     },
     {
       "id": "live_contentops/contract_validation.py",
@@ -85037,7 +85037,7 @@
     {
       "id": "python_symbol:live_contentops/continuous_headline_ingest_v1.py::intake_is_stale",
       "kind": "python_function",
-      "line": 502,
+      "line": 513,
       "path": "live_contentops/continuous_headline_ingest_v1.py",
       "symbol": "intake_is_stale"
     },
@@ -85058,7 +85058,7 @@
     {
       "id": "python_symbol:live_contentops/continuous_headline_ingest_v1.py::rolling_24h_unique_headline_count",
       "kind": "python_function",
-      "line": 489,
+      "line": 500,
       "path": "live_contentops/continuous_headline_ingest_v1.py",
       "symbol": "rolling_24h_unique_headline_count"
     },
@@ -112003,7 +112003,7 @@
     {
       "id": "tests/test_contentops_continuous_intelligence_realign_v1.py",
       "kind": "test",
-      "size_bytes": 26514
+      "size_bytes": 27968
     },
     {
       "id": "tests/test_contentops_daily_app_launcher_v1.py",
@@ -118612,6 +118612,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "df971a0a3a13c4be7e6842139101b5c67530aa1d",
-  "source_tree_digest": "88985227aae1be4713133ecc95d6f5f12cf7cfaacbb2694743735d41878ff40c"
+  "source_head": "645e821749b9604aeacb49f704be6b2e4fb4eef6",
+  "source_tree_digest": "f200ce446a8a648e45e6a1667f8305ea6f1d81ddb13ce6a1a9d671faf288bfcb"
 }

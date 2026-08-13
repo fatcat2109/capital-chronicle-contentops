@@ -364,6 +364,7 @@ def run_ingestion_housekeeping_iteration(
             "cadence_state": "SINGLE_FLIGHT_ACTIVE",
         })
         return result
+    capture_error: Exception | None = None
     try:
         if session_fn is not None:
             session_state = dict(session_fn())
@@ -392,8 +393,18 @@ def run_ingestion_housekeeping_iteration(
                     )
         else:
             capture = {}
+    except Exception as exc:  # noqa: BLE001 - a failed attempt must still advance durable cadence
+        capture = {}
+        capture_error = exc
     finally:
         _INGESTION_CAPTURE_LOCK.release()
+    if capture_error is not None:
+        result["capture_attempted"] = True
+        result["detail"] = f"CAPTURE_FAILED:{type(capture_error).__name__}"
+        return _finish(
+            OUTCOME_CAPTURE_FAILED,
+            consecutive_empty=checkpoint["consecutive_empty"] + 1,
+        )
     if session_state.get("session_state") == "REAUTH_REQUIRED":
         result["detail"] = "LOGIN_REDIRECT_OBSERVED"
         return _finish(OUTCOME_REAUTH_REQUIRED, consecutive_empty=checkpoint["consecutive_empty"] + 1)
