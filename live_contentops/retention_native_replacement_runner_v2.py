@@ -695,6 +695,7 @@ def run_isolated_xhigh_preflight(runtime: Path) -> dict[str, Any]:
     invocation = routed_v2_isolated_invocation(
         prompt=prompt, role_task_id=ROLE_V2_CREATIVE_EDITOR,
         logical_invocation_id=logical_invocation_id, component="NineRouterGPT56Brain",
+        provider_call=provider,
         work_item_id=VIDEO_ID, timeout_seconds=180.0, validator=validate,
         governed_input={"task": "isolated_v2_preflight", "public_write": False},
         prompt_template="isolated_v2_xhigh_attribution_preflight", prompt_version="v1",
