@@ -45,9 +45,9 @@ Every new creative invocation starts `new/gpt-5.6-sol-xhigh`. HIGH and then MEDI
 
 ## Current execution state
 
-The 2026-08-13 replacement V2-01 has final isolated `r4` short and midform media with passing deterministic render, audio, retention-contract, rights/provenance, selective-rerender, and safety gates. Both authorized creative-revision rounds are consumed. The canonical independent critic was then invoked, but it failed closed before any provider call because the operator-owned `EMERGENCY_COST_SAFETY_STOP` marker is active. Current state is `PASS_MEDIA_MACHINE_QA_AWAITING_INDEPENDENT_CRITIC_OPERATOR_RESUME`.
+The 2026-08-13 replacement V2-01 has final isolated `r4` short and midform media with passing deterministic render, audio, retention-contract, rights/provenance, selective-rerender, and safety gates. Under Jim/ChatGPT's one-purpose operator authorization, the canonical independent critic reviewed the exact hash-bound R4 media and returned `REVISE`: two localized `MAJOR` short-form defects and one localized `MINOR` midform issue. Current state is `FAIL_CURRENT_PROOF_MATERIAL_CREATIVE_DEFECTS_REVISION_BUDGET_EXHAUSTED`.
 
-Do not clear the operator marker implicitly, invent a critic result, claim professional or owner acceptance, or advance to V2-02. Resume this same V2-01 only after explicit operator authorization, run the canonical independent critic against the hash-bound final media, and then hand the actual MP4/audio to Jim/ChatGPT. Evidence is under `docs/automation/TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1/`.
+Both authorized creative-revision rounds remain consumed, so do not manually alter the proof or invoke revision #3. The operator pause was restored immediately after the complete critic verdict and must not be cleared again under the spent authorization. Do not claim professional or owner acceptance or advance to V2-02. Evidence is under `docs/automation/TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1/`.
 
 ## Current failed reference
 

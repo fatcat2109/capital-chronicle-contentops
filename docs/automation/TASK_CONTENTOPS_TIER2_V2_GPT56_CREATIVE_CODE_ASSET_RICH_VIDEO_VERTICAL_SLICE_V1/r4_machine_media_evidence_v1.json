@@ -2,7 +2,7 @@
   "schema_version": "contentops.v2_gpt56_r4_machine_media_evidence.v1",
   "task_id": "TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1",
   "recorded_at_utc": "2026-08-13T14:52:43.6490507Z",
-  "status": "PASS_MEDIA_MACHINE_QA_AWAITING_INDEPENDENT_CRITIC_OPERATOR_RESUME",
+  "status": "FAIL_CURRENT_PROOF_MATERIAL_CREATIVE_DEFECTS_REVISION_BUDGET_EXHAUSTED",
   "package_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_gpt56_asset_rich_final_r4_20260813",
   "factory_status": "PASS_AWAITING_INDEPENDENT_CRITIC",
   "variants": {
@@ -87,15 +87,35 @@
     "scope_caveat": "Sampled human-readable review only; no exhaustive all-frame DOM bounding-box detector was emitted by the factory and no professional aesthetic acceptance is claimed."
   },
   "independent_critic": {
-    "status": "BLOCKED_OPERATOR_PAUSE_BEFORE_PROVIDER_CALL",
-    "provider_calls": 0,
-    "candidate_report_created": false,
+    "status": "ACCEPTED_VERDICT_REVISE",
+    "role_task_id": "tier2_multimodal_video_critic",
+    "logical_invocation_id": "inv_video_critic_120aa480222408d890ec",
+    "requested_models": [
+      "vx/gemini-3.5-flash(high)"
+    ],
+    "effective_models": [
+      "gemini-3.5-flash"
+    ],
+    "selected_model": "vx/gemini-3.5-flash(high)",
+    "provider_attempts": 1,
+    "fallback_transitions": 0,
+    "structured_output_repairs": 0,
+    "verdict": "REVISE",
+    "blocker_count": 0,
+    "major_count": 2,
+    "minor_count": 1,
+    "report_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_gpt56_asset_rich_final_r4_20260813\\independent_critic_report_v2.json",
+    "report_sha256": "bf737b6fa7efd9732454bfa815702a1e3a8aa66ff6e74d0b3fc1ae0e0d1aa2f3",
+    "receipt_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_gpt56_asset_rich_final_r4_20260813\\receipts\\canonical_critic_router_execution_v2.json",
+    "receipt_sha256": "fb449b3dd9f9e36301bb09291eca6773555b8385e139566b041191f7a2be500f",
     "operator_marker_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\control\\llm_operator_pause.flag",
-    "operator_marker_sha256": "a4909c8d13114194802e85da398b029e08fdae629d77b62eec1577103c8f6d40",
+    "operator_marker_sha256": "fe1829bc68b18112184b93f7d4612f67a134518ce35b43adcfa3c53777faac8d",
     "operator_state": "PAUSED_BY_OPERATOR",
     "operator_reason": "EMERGENCY_COST_SAFETY_STOP",
-    "activated_at_utc": "2026-08-13T14:16:52.5336455Z",
-    "marker_modified": false
+    "activated_at_utc": "2026-08-13T15:04:31.205234Z",
+    "initial_marker_cleared_once_under_explicit_authorization": true,
+    "pause_restored_after_complete_verdict": true,
+    "second_clear_performed": false
   },
   "creative_revision_rounds_consumed": 2,
   "professional_acceptance": false,

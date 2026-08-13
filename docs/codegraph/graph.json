@@ -75612,7 +75612,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-13T14:18:59Z",
+  "generation_timestamp_utc": "2026-08-13T14:56:18Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -75795,7 +75795,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 5331
+      "size_bytes": 5344
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
@@ -119065,6 +119065,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "bc33c6e4f15dff1605149c09fcc301e8087a4351",
-  "source_tree_digest": "3df7eae28d6d356df9bf3dbbf987dc152d155a2f774777e11012ff36c913b400"
+  "source_head": "d9dff560b2ecc0429fdecaa99f95c7d82f358a3d",
+  "source_tree_digest": "fdfbc9de52043887f4504e8c14331d8d9b14b6825868d84a5aedf0ea765fedda"
 }

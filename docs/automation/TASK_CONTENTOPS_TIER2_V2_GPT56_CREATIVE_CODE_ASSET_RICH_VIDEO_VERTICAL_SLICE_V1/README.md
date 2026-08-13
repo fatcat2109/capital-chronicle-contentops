@@ -8,7 +8,33 @@ Task:
 
 Current result:
 
-`PASS_MEDIA_MACHINE_QA_AWAITING_INDEPENDENT_CRITIC_OPERATOR_RESUME`
+`FAIL_CURRENT_PROOF_MATERIAL_CREATIVE_DEFECTS_REVISION_BUDGET_EXHAUSTED`
+
+## Canonical independent-critic closeout
+
+Jim/ChatGPT authorized clearing the active operator pause once for exactly one logical canonical
+critic invocation against the existing hash-bound R4 package. Hash readback matched both finished
+MP4s and both captions-hidden review clips before provider access. The canonical
+`tier2_multimodal_video_critic` route accepted a complete verdict on its first
+`vx/gemini-3.5-flash(high)` attempt, with effective identity `gemini-3.5-flash`, zero fallback
+transitions, and zero structured-output repairs.
+
+The critic returned `REVISE` with two material issues and one minor issue:
+
+- `MAJOR`, short `s08`, `short_9x16-scene-03`, 28.666667–33.233333s: the landscape WTI
+  multi-year chart is letterboxed and its axes, legend, and data lines are illegible in 9:16;
+- `MAJOR`, short `s01`, `short_9x16-scene-01`, 0–3.666667s: the abstract opening shipping-lane
+  shape lacks immediate geographic context and first-second visual authority;
+- `MINOR`, midform `m01`, `midform_16x9-scene-01`, 0–3.533333s: the lower-left EIA source
+  attribution is too small and low-contrast to read comfortably.
+
+Both authorized creative revision rounds were already consumed. No manual edit, revision #3,
+narration rewrite, asset/timing/typography change, or rerender was performed. The one-purpose LLM
+authorization is spent; the canonical operator pause was restored after the complete verdict and
+was not cleared again. This proof is not implementation-ready for owner review and is not
+`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`. V2-02 did not start.
+
+Machine-readable closeout: `r4_canonical_critic_closeout_v1.json`.
 
 ## Final isolated R4 media and current stop boundary
 
@@ -30,12 +56,10 @@ proxies are hash-bound in `r4_machine_media_evidence_v1.json`. Sampled contact s
 strips showed no observed collision, but this observation is not a claim of exhaustive all-frame
 DOM-box collision measurement or professional aesthetic acceptance.
 
-The canonical independent critic was invoked against this package and failed closed before any
-provider call because the operator-owned `EMERGENCY_COST_SAFETY_STOP` marker is active. The marker
-was not cleared or changed. No critic result is inferred or fabricated. Work stops at
-`PASS_MEDIA_MACHINE_QA_AWAITING_INDEPENDENT_CRITIC_OPERATOR_RESUME`; this is not
-`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW` and not
-`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`. Do not advance to V2-02.
+An earlier critic attempt failed closed before provider access while the operator fuse was active.
+The later explicitly authorized one-purpose invocation and its `REVISE` verdict supersede that
+temporary blocker as the current proof state. Machine QA remains valid evidence but cannot override
+the material critic findings. Do not advance to V2-02.
 
 Machine-readable evidence: `r4_machine_media_evidence_v1.json`.
 
