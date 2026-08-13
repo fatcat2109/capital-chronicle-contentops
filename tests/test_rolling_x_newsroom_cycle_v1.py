@@ -454,18 +454,44 @@ def _release_inputs(tmp_path: Path):
     }
     body = "\n\n".join(
         [
-            "Official event record released today explains the latest change and what matters now.",
+            (
+                "Official event records released today establish the latest change, identify the "
+                "responsible agency, and explain why the implementation sequence matters now. The "
+                "record is the controlling source for this update, while later notices may refine "
+                "the schedule or scope."
+            ),
             "[[VISUAL:event_record]]",
-            "## What changed\nThe official event record establishes the current facts and affected entities.",
+            (
+                "## What changed\nThe agency's published record identifies the affected entities, "
+                "the action now in force, and the boundary of the announcement. It distinguishes "
+                "confirmed implementation details from questions that remain open, giving readers "
+                "a clear account without extending beyond the official evidence."
+            ),
             "[[VISUAL:timeline]]",
-            "## Why it matters\nThe timeline clarifies implementation and what would confirm the next phase.",
+            (
+                "## Why it matters\nThe implementation sequence determines when the announced change "
+                "can affect the named institutions and when compliance obligations begin. The "
+                "timeline also separates the current decision from possible later steps that have "
+                "not yet been confirmed by the agency."
+            ),
             "[[VISUAL:geography]]",
-            "## Limits\nA conflicting official update would challenge the current account.",
-            "## What comes next\nThe named agency update and implementation notice are the next catalysts.",
+            (
+                "## Evidence and limits\nThis account relies on the agency record and its stated "
+                "effective sequence. It does not infer market effects, unannounced policy choices, "
+                "or the behavior of entities outside the document's scope. A corrected notice or "
+                "conflicting official update would require the article to be revised."
+            ),
+            (
+                "## What comes next\nReaders should watch the named agency's implementation notice, "
+                "any formal clarification of scope, and the first dated compliance milestone. "
+                "Those records would confirm whether the current sequence remains intact or whether "
+                "the agency has changed the timing."
+            ),
         ]
     )
     article = {
         **_article(body),
+        "editorial_mode": "straight_news",
         "cluster_id": "c1",
         "headline_ids": ["h1"],
         "evidence_document_ids": ["ev-1"],
@@ -552,7 +578,7 @@ def test_release_candidate_isolates_unready_derivative_destination(tmp_path: Pat
     assert skipped_x["canonical_truth_affected"] is False
 
 
-def test_optional_seo_analysis_and_visual_absence_does_not_block_substack(tmp_path: Path):
+def test_optional_seo_and_visual_absence_do_not_rescue_one_sentence_copy(tmp_path: Path):
     assignment, viability, article, _media, editorial, readiness = _release_inputs(tmp_path)
     for field in (
         "subtitle",
@@ -578,8 +604,8 @@ def test_optional_seo_analysis_and_visual_absence_does_not_block_substack(tmp_pa
         destination_readiness=readiness,
     )
 
-    assert result["classification"] == "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
-    assert result["blockers"] == []
+    assert result["classification"] == "BLOCKED_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
+    assert "INSUFFICIENT_READER_VALUE" in result["blockers"]
     assert result["context"]["media"]["media_asset_count"] == 0
     assert all(
         not blocker.startswith("article_field_missing:") for blocker in result["blockers"]

@@ -15,6 +15,8 @@ ContentOps now has two concurrent product lanes:
 
 V1 continues the genuine calendar-time FDA-G soak and the evidence-gate calibration/publication-unblock work. It remains the canonical live newsroom/publication runtime.
 
+Jim's 2026-08-13 Golden Product correction is a hard publication invariant: factual/write safety and reader-facing product value are independent release floors. The protected `v1.0` Treasury release is the immutable capability reference. Reducing ceremony may never reduce substantial professional prose, native headings/links, clean source text, purposeful evidence-supported visuals, or nine-surface package compatibility. Transport PASS is not product-quality PASS.
+
 ### V2 — Retention-Native Video Factory
 
 `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_OWNER_DIRECTION_V1`
@@ -71,9 +73,11 @@ Status:
 
 `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`
 
-Next V1 builder lane:
+Latest completed V1 builder lane:
 
-`TASK_CONTENTOPS_V1_EVIDENCE_GATE_CALIBRATION_AND_REAL_PUBLICATION_UNBLOCK_V1`
+`TASK_CONTENTOPS_V1_GOLDEN_INTEGRATION_AND_REAL_CURRENT_ARTICLE_YIELD_CLOSEOUT_V1`
+
+Status: `PASS`; `JIM_CHATGPT_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE=PASS`. The accepted Golden recovery is integrated with the current prepared-candidate/one-writer architecture. Publication links are now deterministically serialized from stable accepted source identities, while evidence depth is measured independently from factual eligibility and enriched only when necessary. A frozen replay of a genuine current 1,102-headline opportunity produced a useful three-paragraph BLS CPI brief, factual/reader-value PASS, one writer call, zero mandatory semantic-review calls, a purposeful rights-aware media attempt, and nine zero-write packages. No policy-ceremony-only block was observed; public writes and unknown writes remained zero throughout correction/shadow work.
 
 The latest real production day legitimately ended `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`; zero publication was correct. The 5–8 article/day band remains a target, not filler permission.
 
@@ -87,10 +91,13 @@ facts without becoming independent analytical authority. Allegations, materially
 conflict-sensitive claims, accusations, and unusually consequential/high-harm claims retain
 stronger primary or independent-corroboration requirements.
 
-The ordinary workflow is minimum trustworthy evidence → write → hard factual/safety checks →
+The ordinary workflow is minimum trustworthy evidence → one strong writer → hard factual/safety
+and reader-value checks →
 canonical publish → minimal identity/content-fingerprint readback → next story. Ordinary reporting
 does not require a structured claim dossier, official-source corroboration, mandatory semantic
-review/revision, optional SEO/style/length/visual completeness, or a hero image. Enhanced evidence
+review/revision, or a hero image. Reader value and clean native rendering are mandatory; article-
+mode-aware visual selection may legitimately choose zero images and never uses fixed quantity.
+Enhanced evidence
 and semantic review remain for allegations, materially disputed/conflict-sensitive or accusatory
 claims, unusually consequential/high-harm claims, and other genuine hard-risk cases.
 

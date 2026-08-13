@@ -15,6 +15,7 @@ from live_contentops.claim_evidence_contract_v1 import (
     build_claim_evidence_contract,
     build_minimum_trustworthy_evidence_packet,
     requires_enhanced_evidence_review,
+    summarize_evidence_substance,
 )
 from live_contentops.source_capability_registry_v2 import (
     load_source_capability_registry,
@@ -478,20 +479,75 @@ class RollingXTargetedEvidenceAdapter:
                         for value in (official.get("provided_evidence_capabilities") or [])
                     )
 
+            # Do not let a stale official page suppress enrichment. Freshness is applied before
+            # the depth decision, then again after secondary acquisition so every acquired row
+            # still passes the same point-in-time boundary.
+            freshness_requirements = capability.get("freshness_requirements") or {}
+            _bind_professional_feed_freshness(documents, request)
+            pre_enrichment_fresh_documents: list[dict[str, Any]] = []
+            pre_enrichment_freshness_exclusions: list[dict[str, Any]] = []
+            for document in documents:
+                findings = _official_freshness_blockers(
+                    [document],
+                    evaluation_as_of_utc=self._evaluation_as_of_utc,
+                    max_age_hours=float(freshness_requirements.get("max_age_hours") or 36.0),
+                )
+                if findings:
+                    pre_enrichment_freshness_exclusions.append(
+                        {
+                            "document_id": document.get("document_id"),
+                            "findings": findings,
+                            "disposition": "EXCLUDED_BEFORE_DEPTH_ENRICHMENT",
+                        }
+                    )
+                else:
+                    pre_enrichment_fresh_documents.append(document)
+            documents = pre_enrichment_fresh_documents
+
             if "public_secondary" in families:
-                try:
-                    secondary_raw = self._public_secondary_loader(request)
-                    secondary = dict(secondary_raw) if isinstance(secondary_raw, Mapping) else {}
-                except (FileNotFoundError, RuntimeError, ValueError, OSError) as exc:
-                    secondary = {"status": "BLOCKED", "blockers": [
-                        _sanitized_evidence_loader_error(
-                            "public_secondary_evidence_unavailable", exc
-                        )
-                    ]}
+                pre_secondary_depth = summarize_evidence_substance(request, documents)
+                secondary_needed = not bool(
+                    pre_secondary_depth.get("enough_for_useful_article")
+                )
+                if secondary_needed:
+                    secondary_request = {
+                        **dict(request),
+                        "evidence_enrichment_context": {
+                            "requested": bool(documents)
+                            or bool(pre_enrichment_freshness_exclusions),
+                            "reason": "ELIGIBLE_EVIDENCE_TOO_THIN_FOR_USEFUL_ARTICLE"
+                            if documents or pre_enrichment_freshness_exclusions
+                            else "MINIMUM_PUBLIC_EVIDENCE_ACQUISITION",
+                            "existing_evidence_substance": pre_secondary_depth,
+                            "additional_source_is_eligibility_requirement": False,
+                        },
+                    }
+                    try:
+                        secondary_raw = self._public_secondary_loader(secondary_request)
+                        secondary = dict(secondary_raw) if isinstance(secondary_raw, Mapping) else {}
+                    except (FileNotFoundError, RuntimeError, ValueError, OSError) as exc:
+                        secondary = {"status": "BLOCKED", "blockers": [
+                            _sanitized_evidence_loader_error(
+                                "public_secondary_evidence_unavailable", exc
+                            )
+                        ]}
+                else:
+                    secondary = {
+                        "status": "NOT_NEEDED_EVIDENCE_DEPTH_SUFFICIENT",
+                        "blockers": [],
+                        "evidence_documents": [],
+                        "provided_evidence_capabilities": [],
+                        "provenance": {"request_count": 0},
+                    }
                 diagnostics["public_secondary"] = {
                     "status": secondary.get("status"),
                     "blockers": list(secondary.get("blockers") or []),
                     "provenance": dict(secondary.get("provenance") or {}),
+                    "enrichment_requested": bool(
+                        documents or pre_enrichment_freshness_exclusions
+                    )
+                    and secondary_needed,
+                    "pre_acquisition_substance": pre_secondary_depth,
                 }
                 binding_blockers = _exact_binding_blockers(secondary, request)
                 if not binding_blockers:
@@ -526,7 +582,6 @@ class RollingXTargetedEvidenceAdapter:
                 else:
                     diagnostics["public_secondary"]["binding_blockers"] = binding_blockers
 
-            freshness_requirements = capability.get("freshness_requirements") or {}
             _bind_professional_feed_freshness(documents, request)
             fresh_documents: list[dict[str, Any]] = []
             freshness_exclusions: list[dict[str, Any]] = []
@@ -547,17 +602,22 @@ class RollingXTargetedEvidenceAdapter:
                 else:
                     fresh_documents.append(document)
             documents = fresh_documents
-            if freshness_exclusions:
-                diagnostics["freshness_exclusions"] = freshness_exclusions
+            all_freshness_exclusions = (
+                pre_enrichment_freshness_exclusions + freshness_exclusions
+            )
+            if all_freshness_exclusions:
+                diagnostics["freshness_exclusions"] = all_freshness_exclusions
                 if not documents:
                     blockers.extend(
                         finding
-                        for row in freshness_exclusions
+                        for row in all_freshness_exclusions
                         for finding in row["findings"]
                     )
             evidence_sufficient, ordinary_packet, claim_contract = (
                 _minimum_or_enhanced_evidence(request, documents)
             )
+            evidence_substance = summarize_evidence_substance(request, documents)
+            diagnostics["evidence_substance"] = evidence_substance
             if evidence_sufficient:
                 supplied.update({"credible_event_confirmation", "basic_attributed_facts"})
             else:
@@ -578,6 +638,7 @@ class RollingXTargetedEvidenceAdapter:
                     receipt["minimum_trustworthy_evidence_packet"] = ordinary_packet
                 if claim_contract:
                     receipt["claim_evidence_contract"] = claim_contract
+                receipt["evidence_substance"] = evidence_substance
                 return receipt
             return {
                 "status": "PASS",
@@ -591,6 +652,7 @@ class RollingXTargetedEvidenceAdapter:
                     else {"claim_evidence_contract": claim_contract}
                 ),
                 "evidence_review_tier": "ORDINARY_MINIMUM" if ordinary_packet else "ENHANCED",
+                "evidence_substance": evidence_substance,
                 "unsupported_claims_removed": int(claim_contract.get("omitted_claim_count") or 0),
                 "capital_chronicle_authority_verified": False,
                 "numeric_evidence_required": False,

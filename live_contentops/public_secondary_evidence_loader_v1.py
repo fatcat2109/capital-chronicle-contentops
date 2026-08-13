@@ -14,14 +14,16 @@ import re
 import socket
 from typing import Any, Callable, Mapping
 from urllib.parse import urlencode, urlsplit
+import urllib.request
 import xml.etree.ElementTree as ET
 
 from live_contentops.official_primary_evidence_loader_v1 import (
-    _default_http_get,
+    USER_AGENT,
     _html_timestamp,
     _iso_utc,
     _parse_timestamp,
 )
+from live_contentops.claim_evidence_contract_v1 import summarize_evidence_substance
 
 
 REPUTABLE_SECONDARY_HOSTS = frozenset(
@@ -80,6 +82,50 @@ def _public_host(url: str, *, resolve_dns: bool = True) -> str:
             if not ip.is_global:
                 raise ValueError("public_source_nonpublic_address_forbidden")
     return host
+
+
+def _default_public_http_get(url: str, timeout_seconds: float, max_bytes: int) -> dict[str, Any]:
+    """GET a public source while allowing only a discovery-to-reputable redirect."""
+    requested_host = _public_host(url)
+
+    class _BoundedPublicRedirects(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, req, fp, code, msg, headers, newurl):
+            redirected_host = _public_host(newurl)
+            allowed = (
+                redirected_host == "news.google.com"
+                or redirected_host in REPUTABLE_SECONDARY_HOSTS
+            )
+            if requested_host != "news.google.com":
+                allowed = redirected_host in REPUTABLE_SECONDARY_HOSTS
+            if not allowed:
+                raise ValueError("public_source_redirect_authority_invalid")
+            return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+    request = urllib.request.Request(
+        url,
+        method="GET",
+        headers={
+            "Accept": "text/html, application/xhtml+xml, text/plain, application/xml",
+            "User-Agent": USER_AGENT,
+        },
+    )
+    with urllib.request.build_opener(_BoundedPublicRedirects).open(
+        request, timeout=timeout_seconds
+    ) as response:
+        body = response.read(max_bytes + 1)
+        truncated = len(body) > max_bytes
+        if truncated:
+            body = body[:max_bytes]
+        return {
+            "status": int(response.status),
+            "final_url": str(response.geturl()),
+            "headers": {
+                str(key).casefold(): str(value)
+                for key, value in response.headers.items()
+            },
+            "body": body,
+            "content_truncated": truncated,
+        }
 
 
 def _title(text: str) -> str:
@@ -154,7 +200,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         self._max_requests = max_requests
         self._timeout_seconds = timeout_seconds
         self._max_response_bytes = max_response_bytes
-        self._http_get = http_get or _default_http_get
+        self._http_get = http_get or _default_public_http_get
         self._validate_dns = http_get is None
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._request_count = 0
@@ -168,7 +214,8 @@ class BoundedPublicSecondaryEvidenceLoader:
 
     def _direct_document(self, url: str, headline_id: str) -> dict[str, Any] | None:
         host = _public_host(url, resolve_dns=self._validate_dns)
-        if host not in REPUTABLE_SECONDARY_HOSTS:
+        discovery_redirect = host == "news.google.com"
+        if host not in REPUTABLE_SECONDARY_HOSTS and not discovery_redirect:
             return None
         response = self._get(url)
         if int(response.get("status") or 0) != 200:
@@ -201,7 +248,10 @@ class BoundedPublicSecondaryEvidenceLoader:
             "source_identity": final_host,
             "source_authority_class": "reputable_secondary_source",
             "source_url": final_url,
+            "reader_source_url": final_url,
             "requested_source_url": url,
+            "discovery_path_url": url if discovery_redirect else None,
+            "discovery_path_is_reader_authority": False,
             "source_headline_id": headline_id,
             "published_at_utc": published,
             "event_time_utc": published,
@@ -213,9 +263,33 @@ class BoundedPublicSecondaryEvidenceLoader:
             "content_truncated": bool(response.get("content_truncated")),
             "public_claim_allowed": True,
             "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
+            "canonical_resolution_status": (
+                "RESOLVED_FROM_DISCOVERY_REDIRECT"
+                if discovery_redirect
+                else "DIRECT_PUBLISHER_URL"
+            ),
         }
 
-    def _rss_documents(self, request: Mapping[str, Any]) -> list[dict[str, Any]]:
+    def _enough_with_existing(
+        self, request: Mapping[str, Any], documents: list[dict[str, Any]]
+    ) -> bool:
+        own = summarize_evidence_substance(request, documents)
+        enrichment = request.get("evidence_enrichment_context")
+        enrichment = enrichment if isinstance(enrichment, Mapping) else {}
+        existing = enrichment.get("existing_evidence_substance")
+        existing = existing if isinstance(existing, Mapping) else {}
+        target = int(own.get("target_usable_content_words") or 0)
+        combined = int(existing.get("usable_content_words") or 0) + int(
+            own.get("usable_content_words") or 0
+        )
+        return combined >= target
+
+    def _rss_documents(
+        self,
+        request: Mapping[str, Any],
+        *,
+        existing_documents: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
         summaries = [
             " ".join(str(value).split())
             for value in ((request.get("story_context") or {}).get("leaf_summaries") or [])
@@ -294,7 +368,25 @@ class BoundedPublicSecondaryEvidenceLoader:
                 str(row[2].get("title") or "").casefold(),
             ),
         )
-        return [row[2] for row in ranked[:3]]
+        resolved: list[dict[str, Any]] = []
+        for _relevance, _observed, listing in ranked[:3]:
+            try:
+                document = self._direct_document(
+                    str(listing.get("source_url") or ""),
+                    str(listing.get("source_headline_id") or ""),
+                )
+            except (OSError, RuntimeError, TypeError, ValueError):
+                document = None
+            if document is None:
+                listing["reader_source_url"] = None
+                listing["reader_attribution_mode"] = "ATTRIBUTION_ONLY"
+                listing["discovery_path_is_reader_authority"] = False
+                listing["canonical_resolution_status"] = "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY"
+                document = listing
+            resolved.append(document)
+            if self._enough_with_existing(request, existing_documents + resolved):
+                break
+        return resolved
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         context = request.get("story_context") or {}
@@ -318,11 +410,15 @@ class BoundedPublicSecondaryEvidenceLoader:
                 )
                 if document:
                     documents.append(document)
+                    if self._enough_with_existing(request, documents):
+                        break
             except (OSError, RuntimeError, TypeError, ValueError) as exc:
                 diagnostics.append(str(exc) or type(exc).__name__)
-        if len({str(row.get("publisher") or "").casefold() for row in documents}) < 2:
+        if not self._enough_with_existing(request, documents):
             try:
-                documents.extend(self._rss_documents(request))
+                documents.extend(
+                    self._rss_documents(request, existing_documents=documents)
+                )
             except (OSError, RuntimeError, TypeError, ValueError) as exc:
                 diagnostics.append(str(exc) or type(exc).__name__)
         unique: dict[tuple[str, str], dict[str, Any]] = {}
@@ -350,6 +446,18 @@ class BoundedPublicSecondaryEvidenceLoader:
                 "request_limit": self._max_requests,
                 "read_only_public_gets": True,
                 "paywall_or_access_control_bypass": False,
+                "bounded_enrichment_requested": bool(
+                    (request.get("evidence_enrichment_context") or {}).get("requested")
+                ),
+                "acquisition_sequence": [
+                    "EXACT_BOUND_PUBLIC_SOURCE",
+                    "RELEVANT_REPUTABLE_NEWS_LOCATOR",
+                    "RESOLVE_PUBLISHER_ARTICLE_OR_ATTRIBUTE_WITHOUT_LINK",
+                ],
+                "stopped_when_useful_depth_reached": self._enough_with_existing(
+                    request, documents
+                ),
+                "additional_source_is_eligibility_requirement": False,
                 "diagnostics": sorted(set(diagnostics)),
             },
             "blockers": [] if documents else sorted(set(diagnostics or ["public_source_unavailable"])),

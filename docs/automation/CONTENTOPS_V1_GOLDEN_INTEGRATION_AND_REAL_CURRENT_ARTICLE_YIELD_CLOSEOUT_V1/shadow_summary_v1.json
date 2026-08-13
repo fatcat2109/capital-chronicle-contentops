@@ -1,0 +1,53 @@
+{
+  "schema_version": "contentops.v1_golden_integration_yield_closeout_evidence.v1",
+  "authority_date": "2026-08-13",
+  "status": "PASS_ZERO_WRITE_SHADOW",
+  "starting_origin_master_sha": "f36738bb97c019f70c96ab89ec10026aeac32556",
+  "accepted_golden_sha": "78d924aa852f8dd4db9e1d8ea1efedd421a9ee0f",
+  "protected_v1_tag_commit": "6983bfb3ef300414b744f3f8f97ca81ff699348b",
+  "integration": {
+    "method": "FAST_FORWARD",
+    "merge_conflicts": 0
+  },
+  "initial_genuine_opportunities": {
+    "count": 4,
+    "data_not_available": 3,
+    "all_ranked_clusters_evidence_blocked": 1,
+    "public_writes": 0,
+    "unknown_writes": 0
+  },
+  "before_blocker_counts": {
+    "supported_claims_missing_redundant": 21,
+    "evidence_documents_missing": 20,
+    "minimum_trustworthy_evidence_missing": 17,
+    "required_basic_facts_or_event_confirmation_missing": 17,
+    "capital_chronicle_authority_missing": 4,
+    "stale_official_evidence": 4,
+    "policy_ceremony_only": 0
+  },
+  "final_genuine_current_prepared_replay": {
+    "rolling_headline_count": 1102,
+    "selected_story": "US CPI July 2026 Report",
+    "source_publisher": "U.S. Bureau of Labor Statistics",
+    "source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+    "source_binding": "PASS",
+    "usable_evidence_words": 11979,
+    "article_words": 125,
+    "meaningful_paragraphs": 3,
+    "factual_gate": "PASS",
+    "reader_value_gate": "PASS",
+    "writer_calls": 1,
+    "mandatory_semantic_review_calls": 0,
+    "purposeful_media_attempt": "NO_PURPOSEFUL_RIGHTS_CLEARED_ASSET",
+    "media_selected_count": 0,
+    "zero_write_package_count": 9,
+    "publishing_adapter_calls": 0,
+    "public_writes": 0,
+    "unknown_writes": 0,
+    "shadow_environment_blocker": "destination_not_ready:substack"
+  },
+  "policy_ceremony_block_found": false,
+  "policy_reduction_made": false,
+  "runtime_evidence_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v1_yield_closeout_shadow_replay7_20260813",
+  "publication_authority": false
+}

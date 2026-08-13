@@ -101,6 +101,43 @@ def test_official_html_release_date_with_public_month_name_is_point_in_time_boun
     }
 
 
+def test_official_pdf_uses_bounded_injected_text_extraction_for_factual_depth():
+    url = "https://www.bls.gov/news.release/pdf/cpi.pdf"
+    body = b"%PDF-1.7 bounded fixture bytes"
+    extracted = (
+        "Consumer Price Index news release. The all items index increased 0.2 percent in July "
+        "and 2.7 percent over the last 12 months. The index for shelter rose. Data are "
+        "seasonally adjusted; see the technical note and definitions."
+    )
+    response = _response(url, body, "application/pdf")
+    response["headers"]["last-modified"] = "Sat, 08 Aug 2026 11:00:00 GMT"
+    calls = []
+    packet = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        http_get=lambda *_args: response,
+        pdf_text_extractor=lambda value: calls.append(value) or extracted,
+    )(_request(
+        family="official_macro",
+        required=[
+            "official_release",
+            "authorized_release_values",
+            "release_definitions",
+        ],
+        url=url,
+    ))
+
+    assert packet["status"] == "PASS"
+    assert calls == [body]
+    document = packet["official_source_documents"][0]
+    assert document["content_type"] == "application/pdf"
+    assert document["canonical_content_text"] == extracted
+    assert set(packet["provided_evidence_capabilities"]) >= {
+        "official_release",
+        "authorized_release_values",
+        "release_definitions",
+    }
+
+
 def test_generic_dated_official_page_does_not_gain_release_capability():
     url = "https://www.eia.gov/about/"
     body = b"""

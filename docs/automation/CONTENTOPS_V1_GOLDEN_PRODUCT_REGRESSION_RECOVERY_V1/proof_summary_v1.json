@@ -1,0 +1,245 @@
+{
+  "browser_public_transition_performed": false,
+  "classification": "PASS_GOLDEN_PRODUCT_VISUALLY_ACCEPTED",
+  "destination_packages": {
+    "all_nine_surfaces_generatable": true,
+    "canonical_substack_rich_document": true,
+    "derivative_package_names": [
+      "discord",
+      "facebook_page",
+      "instagram_business",
+      "linkedin",
+      "telegram",
+      "threads",
+      "x",
+      "youtube"
+    ],
+    "writes": 0
+  },
+  "exact_remaining_blocker": null,
+  "native_serialization": {
+    "heading_elements": 5,
+    "link_elements": 6,
+    "raw_heading_marker_visible": false,
+    "raw_markdown_link_visible": false
+  },
+  "ordinary_news_regression": {
+    "clean_builder_telemetry": {
+      "article_writer_semantic_calls": 1,
+      "deterministic_outage_recovery_used": false,
+      "mandatory_semantic_review_calls": 0,
+      "ordinary_story": true
+    },
+    "clean_disposition": "PUBLICATION_ELIGIBLE",
+    "clean_reader_value_gate": {
+      "blockers": [],
+      "checks": {
+        "captions_and_source_metadata_not_dominant": true,
+        "mode_appropriate_structure": true,
+        "mode_appropriate_substance": true,
+        "multiple_meaningful_reader_paragraphs": true,
+        "native_rich_text_serializable": true,
+        "no_repetitive_filler": true,
+        "professional_writer_output": true,
+        "reader_value_independent_of_media": true,
+        "title_not_body": true
+      },
+      "classification": "PASS",
+      "duplicated_sentence_count": 0,
+      "floor": {
+        "minimum_headings": 0,
+        "minimum_paragraphs": 3,
+        "minimum_words": 90
+      },
+      "floor_class": "CONCISE_UPDATE",
+      "heading_count": 0,
+      "list_item_count": 0,
+      "markup_findings": [],
+      "meaningful_paragraph_count": 3,
+      "paragraph_redundancy_findings": [],
+      "publication_authority": false,
+      "reader_prose_word_count": 90,
+      "reason_code": null,
+      "schema_version": "contentops.reader_value_release_gate.v1",
+      "visual_count": 0,
+      "visual_quantity_is_fixed_quota": false
+    },
+    "malformed_disposition": "NO_PUBLICATION",
+    "malformed_reader_value_gate": {
+      "blockers": [
+        "multiple_meaningful_reader_paragraphs",
+        "mode_appropriate_substance",
+        "reader_value_independent_of_media",
+        "captions_and_source_metadata_not_dominant"
+      ],
+      "checks": {
+        "captions_and_source_metadata_not_dominant": false,
+        "mode_appropriate_structure": true,
+        "mode_appropriate_substance": false,
+        "multiple_meaningful_reader_paragraphs": false,
+        "native_rich_text_serializable": true,
+        "no_repetitive_filler": true,
+        "professional_writer_output": true,
+        "reader_value_independent_of_media": false,
+        "title_not_body": true
+      },
+      "classification": "INSUFFICIENT_READER_VALUE",
+      "duplicated_sentence_count": 0,
+      "floor": {
+        "minimum_headings": 0,
+        "minimum_paragraphs": 3,
+        "minimum_words": 90
+      },
+      "floor_class": "CONCISE_UPDATE",
+      "heading_count": 0,
+      "list_item_count": 0,
+      "markup_findings": [],
+      "meaningful_paragraph_count": 0,
+      "paragraph_redundancy_findings": [],
+      "publication_authority": false,
+      "reader_prose_word_count": 0,
+      "reason_code": "INSUFFICIENT_READER_VALUE",
+      "schema_version": "contentops.reader_value_release_gate.v1",
+      "visual_count": 3,
+      "visual_quantity_is_fixed_quota": false
+    },
+    "render_html": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-golden-product-regression-recovery-v1\\docs\\automation\\CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1\\ordinary_news_regression\\ordinary_article_pass.html",
+    "render_screenshot": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-golden-product-regression-recovery-v1\\docs\\automation\\CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1\\ordinary_news_regression\\ordinary_article_pass.png"
+  },
+  "provider_write_performed": false,
+  "public_write_performed": false,
+  "schema_version": "contentops.v1_golden_product_zero_write_proof.v1",
+  "source_sanitation": {
+    "clean_text": "Useful official energy release excerpt.",
+    "input_sha256": "b930fe90e31afeca237fbf7a7958c5de11f3198b0f7ac9c5241ba50f91ea384b"
+  },
+  "treasury_golden_replay": {
+    "actual_semantic_review_call_count": 0,
+    "builder_telemetry": {
+      "article_writer_semantic_calls": 1,
+      "deterministic_outage_recovery_used": false,
+      "mandatory_semantic_review_calls": 1,
+      "ordinary_story": false
+    },
+    "documentary_source_page_url": "https://commons.wikimedia.org/wiki/File:Treasury_Building_(32648233951).jpg",
+    "documentary_visual_selected": true,
+    "quantitative_or_table_visual_count": 3,
+    "reader_value_gate": {
+      "blockers": [],
+      "checks": {
+        "captions_and_source_metadata_not_dominant": true,
+        "mode_appropriate_structure": true,
+        "mode_appropriate_substance": true,
+        "multiple_meaningful_reader_paragraphs": true,
+        "native_rich_text_serializable": true,
+        "no_repetitive_filler": true,
+        "professional_writer_output": true,
+        "reader_value_independent_of_media": true,
+        "title_not_body": true
+      },
+      "classification": "PASS",
+      "duplicated_sentence_count": 0,
+      "floor": {
+        "minimum_headings": 2,
+        "minimum_paragraphs": 6,
+        "minimum_words": 350
+      },
+      "floor_class": "DATA_RICH_OR_ANALYTICAL",
+      "heading_count": 5,
+      "list_item_count": 0,
+      "markup_findings": [],
+      "meaningful_paragraph_count": 15,
+      "paragraph_redundancy_findings": [],
+      "publication_authority": false,
+      "reader_prose_word_count": 940,
+      "reason_code": null,
+      "schema_version": "contentops.reader_value_release_gate.v1",
+      "visual_count": 3,
+      "visual_quantity_is_fixed_quota": false
+    },
+    "render_html": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-golden-product-regression-recovery-v1\\docs\\automation\\CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1\\treasury_golden_replay\\treasury_golden_replay.html",
+    "render_screenshot": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-golden-product-regression-recovery-v1\\docs\\automation\\CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1\\treasury_golden_replay\\treasury_golden_replay.png",
+    "repeated_conclusion_removed": true,
+    "visual_count": 4,
+    "writer_call_count": 1,
+    "writer_call_kind": "CONTROLLED_GOLDEN_FIXTURE_THROUGH_CURRENT_BUILDER"
+  },
+  "visual_asset_discovery": {
+    "candidate_count": 1,
+    "candidates": [
+      {
+        "attribution": "U.S. Department of the Treasury",
+        "composition_score": 0.88,
+        "content_hash": "sha256:e049e16645b2f2437d19c26b3f97060eafa025454c70c991188e3625b6fbd772",
+        "creator_publisher": "U.S. Department of the Treasury",
+        "discovery_provider": "wikimedia_commons",
+        "documentary_generated_classification": "DOCUMENTARY",
+        "editorial_usefulness_score": 0.82,
+        "height": 1266,
+        "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Treasury",
+        "local_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-golden-product-regression-recovery-v1\\docs\\automation\\CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1\\treasury_golden_replay\\media\\treasury_building_documentary.jpg",
+        "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Treasury_Building_%2832648233951%29.jpg",
+        "perceptual_hash": "fe7f1f1f0880c880",
+        "query": "Treasury Yield Curve Edges Wider Year official building photograph",
+        "ranking_score": 0.914,
+        "reuse_basis": "U.S. Department of the Treasury federal-government work; public domain in the United States",
+        "rights_status": "PUBLIC_DOMAIN",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Treasury_Building_(32648233951).jpg",
+        "story_relevance_score": 0.93,
+        "subject_correctness_score": 0.99,
+        "validation": {
+          "blockers": [],
+          "publication_authority": false,
+          "rights_verified": true,
+          "search_thumbnail_publishable": false,
+          "status": "PASS"
+        },
+        "visual_diversity_score": 0.95,
+        "visual_intent": "PERSON_OR_INSTITUTION_CONTEXT",
+        "width": 1908
+      }
+    ],
+    "eligible_count": 1,
+    "fixed_visual_quota": false,
+    "provider_failures": [],
+    "publication_authority": false,
+    "rights_gate_deterministic": true,
+    "schema_version": "contentops.visual_asset_discovery.v1",
+    "selected_assets": [
+      {
+        "attribution": "U.S. Department of the Treasury",
+        "composition_score": 0.88,
+        "content_hash": "sha256:e049e16645b2f2437d19c26b3f97060eafa025454c70c991188e3625b6fbd772",
+        "creator_publisher": "U.S. Department of the Treasury",
+        "discovery_provider": "wikimedia_commons",
+        "documentary_generated_classification": "DOCUMENTARY",
+        "editorial_usefulness_score": 0.82,
+        "height": 1266,
+        "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Treasury",
+        "local_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-golden-product-regression-recovery-v1\\docs\\automation\\CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1\\treasury_golden_replay\\media\\treasury_building_documentary.jpg",
+        "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Treasury_Building_%2832648233951%29.jpg",
+        "perceptual_hash": "fe7f1f1f0880c880",
+        "query": "Treasury Yield Curve Edges Wider Year official building photograph",
+        "ranking_score": 0.914,
+        "reuse_basis": "U.S. Department of the Treasury federal-government work; public domain in the United States",
+        "rights_status": "PUBLIC_DOMAIN",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Treasury_Building_(32648233951).jpg",
+        "story_relevance_score": 0.93,
+        "subject_correctness_score": 0.99,
+        "validation": {
+          "blockers": [],
+          "publication_authority": false,
+          "rights_verified": true,
+          "search_thumbnail_publishable": false,
+          "status": "PASS"
+        },
+        "visual_diversity_score": 0.95,
+        "visual_intent": "PERSON_OR_INSTITUTION_CONTEXT",
+        "width": 1908
+      }
+    ],
+    "selected_count": 1,
+    "semantic_ranking_grants_rights": false,
+    "status": "PASS"
+  }
+}

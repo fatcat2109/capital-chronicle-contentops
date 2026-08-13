@@ -412,6 +412,91 @@ def test_stale_official_primary_evidence_fails_closed():
     assert "official_evidence_document_0_stale_or_future" in receipt["blockers"]
 
 
+def test_stale_official_depth_is_excluded_before_bounded_secondary_enrichment():
+    registry = deepcopy(load_source_capability_registry())
+    registry["story_types"]["regulatory_fiscal_event"] = {
+        "required_evidence_capabilities": ["official_document"],
+        "market_context_required": False,
+        "article_mode": "straight_news",
+        "freshness_policy": "event_24h",
+        "freshness_requirements": {"max_age_hours": 24},
+        "source_adapter_families": ["official_regulatory_fiscal", "public_secondary"],
+    }
+    request = _request(
+        story_type="regulatory_fiscal_event",
+        required=["official_document"],
+        families=["official_regulatory_fiscal", "public_secondary"],
+    )
+    request["story_context"] = {
+        "leaf_summaries": ["Agency publishes current rule implementation update"],
+    }
+    request["request_logical_hash"] = _logical_hash(
+        {key: value for key, value in request.items() if key != "request_logical_hash"}
+    )
+    official = _packet(request)
+    official["status"] = "PASS"
+    official["provided_evidence_capabilities"] = ["official_document"]
+    official["official_source_documents"][0].update(
+        {
+            "title": "Agency publishes current rule implementation update",
+            "published_at_utc": "2026-08-01T00:00:00Z",
+            "canonical_content_text": " ".join(["stale official detail"] * 120),
+        }
+    )
+    enrichment_requests = []
+
+    def secondary_loader(enrichment_request):
+        enrichment_requests.append(enrichment_request)
+        return {
+            "status": "PASS",
+            "rolling_x_story_binding": {
+                "cluster_id": request["cluster_id"],
+                "headline_ids": request["headline_ids"],
+                "request_logical_hash": request["request_logical_hash"],
+            },
+            "evidence_documents": [
+                {
+                    "document_id": "fresh-professional-report",
+                    "title": "Agency publishes current rule implementation update",
+                    "publisher": "Reuters",
+                    "source_identity": "reuters.com",
+                    "source_authority_class": "reputable_secondary_source",
+                    "source_url": "https://www.reuters.com/world/current-rule-update/",
+                    "reader_source_url": "https://www.reuters.com/world/current-rule-update/",
+                    "published_at_utc": "2026-08-08T11:00:00Z",
+                    "canonical_content_sha256": "e" * 64,
+                    "canonical_content_text": " ".join(
+                        ["current implementation detail from the public report"] * 45
+                    ),
+                    "public_claim_allowed": True,
+                }
+            ],
+            "provided_evidence_capabilities": ["official_document"],
+            "provenance": {"retrieved_at_utc": AS_OF},
+            "blockers": [],
+        }
+
+    receipt = RollingXTargetedEvidenceAdapter(
+        official_evidence_loader=lambda _request: official,
+        public_secondary_loader=secondary_loader,
+        evaluation_as_of_utc=AS_OF,
+        capability_registry=registry,
+    )(request)
+
+    assert len(enrichment_requests) == 1
+    context = enrichment_requests[0]["evidence_enrichment_context"]
+    assert context["requested"] is True
+    assert context["existing_evidence_substance"]["usable_content_words"] == 0
+    assert receipt["status"] == "PASS"
+    assert [row["document_id"] for row in receipt["evidence_documents"]] == [
+        "fresh-professional-report"
+    ]
+    assert receipt["evidence_acquisition_provenance"]["public_secondary"][
+        "enrichment_requested"
+    ] is True
+    assert receipt["evidence_substance"]["enough_for_useful_article"] is True
+
+
 def test_fresh_professional_article_can_carry_ordinary_data_brief_when_official_page_is_undated():
     request = _request(story_type="data_release", article_mode="straight_news")
     request["story_context"] = {

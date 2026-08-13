@@ -16,6 +16,12 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, Iterator, Mapping, Sequence
 
+from live_contentops.article_rich_text_v1 import (
+    markdown_to_rich_text,
+    rich_text_to_html,
+    rich_text_to_plain_text,
+)
+
 from live_contentops.publishing_profile_registry_v1 import (
     CANONICAL_PROFILE_ID,
     PublishingProfileError,
@@ -303,8 +309,82 @@ def _append_editor_text(page: Any, editor: Any, text: str, *, clear: bool = Fals
         page.keyboard.press("Backspace")
     else:
         page.keyboard.press("Control+End")
-    # Real keyboard input lets Substack apply its normal paragraph and heading handling.
-    page.keyboard.type(text, delay=0)
+    if not text.strip():
+        page.keyboard.press("Enter")
+        return
+    _insert_editor_native_rich_text(editor, text)
+
+
+def _substack_native_segment_html(markdown: str) -> str:
+    """Serialize canonical article semantics, never Markdown source, for ProseMirror."""
+    return rich_text_to_html(markdown_to_rich_text(markdown))
+
+
+def _insert_editor_native_rich_text(editor: Any, markdown: str) -> None:
+    document = markdown_to_rich_text(markdown)
+    html_payload = rich_text_to_html(document)
+    plain_payload = rich_text_to_plain_text(document)
+    if not html_payload:
+        return
+    result = editor.evaluate(
+        """(element, payload) => {
+            element.focus();
+            const transfer = new DataTransfer();
+            transfer.setData('text/html', payload.html);
+            transfer.setData('text/plain', payload.plain);
+            const event = new ClipboardEvent('paste', {
+                clipboardData: transfer, bubbles: true, cancelable: true
+            });
+            const dispatched = element.dispatchEvent(event);
+            if (dispatched) {
+                document.execCommand('insertHTML', false, payload.html);
+                element.dispatchEvent(new InputEvent('input', {
+                    bubbles: true, inputType: 'insertFromPaste', data: payload.plain
+                }));
+            }
+            return {dispatched, defaultPrevented: event.defaultPrevented};
+        }""",
+        {"html": html_payload, "plain": plain_payload},
+    )
+    if not isinstance(result, Mapping):
+        raise RuntimeError("substack_native_rich_text_insert_unverified")
+
+
+def _editor_native_semantics_readback(editor: Any, body_markdown: str) -> dict[str, Any]:
+    state = editor.evaluate(
+        """element => ({
+            headingCount: element.querySelectorAll('h2,h3,h4').length,
+            linkCount: element.querySelectorAll('a[href]').length,
+            listCount: element.querySelectorAll('ul,ol').length,
+            text: element.innerText || '',
+            html: element.innerHTML || ''
+        })"""
+    )
+    visible = str((state or {}).get("text") or "")
+    expected_headings = len(re.findall(r"(?m)^#{2,4}\s+", body_markdown or ""))
+    expected_links = len(re.findall(r"\[[^\]\n]+\]\(https?://[^)\s]+\)", body_markdown or ""))
+    raw_markdown_visible = bool(
+        re.search(r"(?m)^#{2,4}\s+", visible)
+        or re.search(r"\[[^\]\n]+\]\(https?://[^)\s]+\)", visible)
+        or "[[VISUAL:" in visible
+    )
+    raw_html_visible = bool(re.search(r"<!DOCTYPE|<html\b|<script\b|<style\b", visible, re.I))
+    native_verified = bool(
+        not raw_markdown_visible
+        and not raw_html_visible
+        and int((state or {}).get("headingCount") or 0) >= expected_headings
+        and int((state or {}).get("linkCount") or 0) >= expected_links
+    )
+    return {
+        "native_semantics_verified": native_verified,
+        "expected_heading_count": expected_headings,
+        "editor_heading_count": int((state or {}).get("headingCount") or 0),
+        "expected_link_count": expected_links,
+        "editor_link_count": int((state or {}).get("linkCount") or 0),
+        "editor_list_count": int((state or {}).get("listCount") or 0),
+        "raw_markdown_visible": raw_markdown_visible,
+        "raw_html_visible": raw_html_visible,
+    }
 
 
 def _append_editor_tail_after_media(page: Any, editor: Any, text: str) -> None:
@@ -324,7 +404,7 @@ def _append_editor_tail_after_media(page: Any, editor: Any, text: str) -> None:
         }"""
     )
     page.keyboard.press("Enter")
-    page.keyboard.insert_text(text)
+    _insert_editor_native_rich_text(editor, text)
 
 
 def _normalise_editor_text(value: str) -> str:
@@ -2010,8 +2090,11 @@ def publish_substack_article_via_edge(
     public_screenshot_path: str | Path | None = None,
     existing_draft_id: str | None = None,
     existing_public_url: str | None = None,
+    publication_mode: str = "publish",
 ) -> dict[str, Any]:
     """Publish one canonical article with source-backed images embedded in order."""
+    if publication_mode not in {"publish", "draft_qa"}:
+        return {"status": "BLOCKED_SUBSTACK_PUBLICATION_MODE_INVALID", "platform": "substack"}
     assets = {str(item.get("asset_id") or ""): dict(item) for item in image_assets}
     expected_ids = _VISUAL_MARKER_RE.findall(body_markdown)
     if len(expected_ids) != len(set(expected_ids)) or list(assets) != expected_ids:
@@ -2172,6 +2255,42 @@ def publish_substack_article_via_edge(
                 "missing_caption_asset_ids": missing_captions,
                 "upload_rows": upload_rows,
             }
+        native_readback = _editor_native_semantics_readback(editor, body_markdown)
+        if not native_readback["native_semantics_verified"]:
+            return {
+                "status": "FAILED_SUBSTACK_NATIVE_RICH_TEXT_READBACK",
+                "platform": "substack",
+                "draft_id": _substack_draft_id(page.url),
+                "editor_body_image_count": editor_image_count,
+                "native_rich_text_readback": native_readback,
+                "upload_rows": upload_rows,
+            }
+        if publication_mode == "draft_qa":
+            draft_id = _substack_draft_id(page.url)
+            if not draft_id or not _substack_saved(page):
+                return {
+                    "status": "FAILED_SUBSTACK_DRAFT_QA_SAVE_READBACK",
+                    "platform": "substack",
+                    "draft_id": draft_id,
+                    "editor_body_image_count": editor_image_count,
+                    "native_rich_text_readback": native_readback,
+                    "public_write_attempted": False,
+                    "public_transition_performed": False,
+                    "upload_rows": upload_rows,
+                }
+            return {
+                "status": "SUCCESS_DRAFT_QA",
+                "platform": "substack",
+                "action": "compose_draft_qa",
+                "draft_id": draft_id,
+                "editor_body_image_count": editor_image_count,
+                "in_body_visual_asset_ids": expected_ids,
+                "native_rich_text_readback": native_readback,
+                "public_write_attempted": False,
+                "public_transition_performed": False,
+                "publication_state": "draft_nonpublic",
+                "upload_rows": upload_rows,
+            }
         time.sleep(3)
         draft_id = _substack_draft_id(page.url)
         publish_transition = _complete_substack_editor_publication_transition(
@@ -2250,6 +2369,7 @@ def publish_substack_article_via_edge(
             "editor_body_image_count": editor_image_count,
             "in_body_visual_asset_ids": expected_ids,
             "upload_rows": upload_rows,
+            "native_rich_text_readback": native_readback,
             "readback": readback,
             "publish_transition": publish_transition,
         }

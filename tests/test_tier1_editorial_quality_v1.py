@@ -65,7 +65,7 @@ def test_rendered_body_removes_visual_markers() -> None:
     assert "[[VISUAL:" not in rendered_body("Opening\n\n[[VISUAL:primary]]\n\nClose")
 
 
-def test_optional_seo_context_and_visual_findings_are_advisory() -> None:
+def test_optional_seo_remains_advisory_but_reader_value_is_hard() -> None:
     article = {
         "title": "Agency Confirms A New Public Notice",
         "editorial_mode": "straight_news",
@@ -77,11 +77,12 @@ def test_optional_seo_context_and_visual_findings_are_advisory() -> None:
 
     audit = audit_tier1_article(article, media_assets=[])
 
-    assert audit["classification"] == "PASS"
+    assert audit["classification"] == "NEEDS_REVISION"
     assert audit["seo_score"] < 85
     assert audit["seo_blockers"]
     assert audit["seo_findings_are_advisory"] is True
-    assert audit["hard_editorial_blockers"] == []
+    assert audit["hard_editorial_blockers"] == ["reader_value_floor"]
+    assert audit["reader_value_gate"]["classification"] == "INSUFFICIENT_READER_VALUE"
 
 
 def test_semantic_review_advisory_only_revision_is_normalized_to_pass() -> None:

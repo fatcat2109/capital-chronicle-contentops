@@ -80,7 +80,11 @@ def _claim_candidates(request: Mapping[str, Any]) -> list[str]:
         for sentence in re.split(r"(?<=[.!?])\s+|\s+\|\s+", protected):
             sentence = sentence.replace("<PERIOD>", ".")
             sentence = sentence.strip(" -")
-            if len(sentence) >= 24 and sentence not in candidates:
+            # Compact newsroom labels such as ``US CPI July 2026 Report`` are legitimate event
+            # identities even when they fall just below a prose-sentence threshold. Twelve
+            # characters still excludes empty/vague fragments while letting evidence ranking bind
+            # the label to a fuller accepted source title. Reader-value remains a later hard gate.
+            if len(sentence) >= 12 and sentence not in candidates:
                 candidates.append(sentence[:600])
     return candidates[:20]
 
@@ -217,6 +221,73 @@ def requires_enhanced_evidence_review(request: Mapping[str, Any]) -> bool:
     )
 
 
+def summarize_evidence_substance(
+    request: Mapping[str, Any],
+    documents: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Measure usable writing depth without turning depth into factual eligibility.
+
+    A source-title/RSS record can prove an ordinary core proposition while still being too thin
+    for a useful article. This signal requests bounded enrichment; it never makes a second source
+    mandatory and never changes the minimum-evidence decision.
+    """
+    effective_mode = str(
+        request.get("effective_article_mode")
+        or request.get("resolved_article_mode")
+        or request.get("article_mode")
+        or ""
+    )
+    concise = effective_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
+    target_words = 90 if concise else 180
+    rows: list[dict[str, Any]] = []
+    total_words = 0
+    for document in documents:
+        if not isinstance(document, Mapping):
+            continue
+        authority = str(document.get("source_authority_class") or "")
+        if authority not in PRIMARY_AUTHORITY_CLASSES | SECONDARY_AUTHORITY_CLASSES:
+            continue
+        title = " ".join(str(document.get("title") or "").split())
+        content = unescape(str(document.get("canonical_content_text") or ""))
+        content = re.sub(r"<[^>]+>", " ", content)
+        content = " ".join(content.split())
+        words = re.findall(r"\b[A-Za-z0-9][A-Za-z0-9'’-]*\b", content)
+        # A listing whose content is only its title is factual evidence but contributes no
+        # article-depth beyond the proposition already counted by minimum eligibility.
+        title_only = bool(title) and content.casefold().strip(" .") == title.casefold().strip(" .")
+        usable_words = 0 if title_only else len(words)
+        total_words += usable_words
+        rows.append(
+            {
+                "document_id": str(
+                    document.get("document_id")
+                    or document.get("evidence_id")
+                    or document.get("source_id")
+                    or ""
+                ),
+                "usable_content_words": usable_words,
+                "title_only": title_only,
+                "source_authority_class": authority,
+            }
+        )
+    enough = total_words >= target_words
+    return {
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "article_mode": effective_mode,
+        "target_usable_content_words": target_words,
+        "usable_content_words": total_words,
+        "usable_document_count": len(rows),
+        "substantive_document_count": sum(
+            1 for row in rows if int(row["usable_content_words"]) >= 60
+        ),
+        "enough_for_useful_article": enough,
+        "enrichment_recommended": not enough,
+        "additional_source_is_eligibility_requirement": False,
+        "documents": rows,
+        "publication_authority": False,
+    }
+
+
 def build_minimum_trustworthy_evidence_packet(
     request: Mapping[str, Any],
     documents: Sequence[Mapping[str, Any]],
@@ -260,6 +331,22 @@ def build_minimum_trustworthy_evidence_packet(
         raw_title,
         flags=re.IGNORECASE,
     ).strip()
+    title_is_transport_filename = bool(
+        re.fullmatch(r"[^/\\]+\.(?:csv|json|pdf|txt|xml)", raw_title, re.IGNORECASE)
+    )
+    if selected is not None and (len(proposition) < 8 or title_is_transport_filename):
+        bound_candidates = sorted(
+            (
+                (_support_score(candidate, selected), -index, candidate)
+                for index, candidate in enumerate(candidates)
+                if _support_score(candidate, selected) >= 0.34
+                and _numbers_supported(candidate, selected)
+                and _quotes_supported(candidate, selected)
+            ),
+            reverse=True,
+        )
+        if bound_candidates:
+            proposition = bound_candidates[0][2]
     if selected is None or len(proposition) < 8:
         result = {
             "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
@@ -280,6 +367,12 @@ def build_minimum_trustworthy_evidence_packet(
         "source_title": raw_title,
         "publisher": str(selected.get("publisher") or selected.get("source_identity") or ""),
         "source_url": str(selected.get("source_url") or ""),
+        "reader_source_url": str(selected.get("reader_source_url") or "") or None,
+        "reader_attribution_mode": (
+            "BOUND_LINK" if selected.get("reader_source_url") else "ATTRIBUTION_ONLY"
+            if selected.get("secondary_listing_only") is True
+            else "BOUND_SOURCE_URL"
+        ),
         "published_at_utc": str(
             selected.get("published_at_utc") or selected.get("event_time_utc") or ""
         ),
