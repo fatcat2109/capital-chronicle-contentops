@@ -56,6 +56,23 @@ REQUIRED_HYPOTHESIS_KEYS = frozenset(
         "sound_design",
     }
 )
+REQUIRED_COMPACT_SHOT_KEYS = frozenset(
+    {
+        "id",
+        "t0",
+        "t1",
+        "narration_excerpt",
+        "purpose",
+        "visual",
+        "motion",
+        "asset_ids",
+        "claim_ids",
+        "evidence_ids",
+        "transition",
+        "audio",
+        "continuity",
+    }
+)
 
 
 def _logical_hash(value: Any) -> str:
@@ -143,6 +160,20 @@ def load_governed_story_packet(repo_root: Path) -> dict[str, Any]:
 
 def build_compact_hierarchical_prompt(governed: Mapping[str, Any]) -> str:
     """Request one coherent whole-story blueprint without a 55-row expanded schema."""
+    compact_governed = {
+        "story_id": governed["story_id"],
+        "story_version": governed["story_version"],
+        "title": governed["title"],
+        "subtitle": governed["subtitle"],
+        "market_mechanism": governed["market_mechanism"],
+        "policy_context": governed["policy_context"],
+        "cross_asset_implications": governed["cross_asset_implications"],
+        "named_catalysts": governed["named_catalysts"],
+        "claims": governed["claims"],
+        "evidence": governed["evidence"],
+        "assets": governed["assets"],
+        "authority": governed["authority"],
+    }
     shape = {
         "schema_version": BLUEPRINT_SCHEMA_VERSION,
         "story_id": governed["story_id"],
@@ -156,7 +187,7 @@ def build_compact_hierarchical_prompt(governed: Mapping[str, Any]) -> str:
         },
         "variants": {
             "short_9x16": {
-                "duration_seconds": "number 45..75",
+                "duration_seconds": "number 45..60",
                 "hook": "string",
                 "payoff_seconds": "number <=12",
                 "narration_script": "complete string",
@@ -174,7 +205,7 @@ def build_compact_hierarchical_prompt(governed: Mapping[str, Any]) -> str:
                 ],
             },
             "midform_16x9": {
-                "duration_seconds": "number 180..360",
+                "duration_seconds": "number 90..150",
                 "hook": "string",
                 "payoff_seconds": "number 30..60",
                 "narration_script": "complete string",
@@ -226,6 +257,7 @@ def build_compact_hierarchical_prompt(governed: Mapping[str, Any]) -> str:
             "Populate the compact hierarchical shape; do not repeat global fields per shot.",
             "Sequence times must be ordered, contiguous, and end at variant duration.",
             "Use unique sequence and shot IDs within each variant.",
+            "Be concise enough to fit within 6000 output tokens while preserving complete narration.",
         ],
         "required_shape": shape,
     }
@@ -233,8 +265,152 @@ def build_compact_hierarchical_prompt(governed: Mapping[str, Any]) -> str:
         "CREATIVE_EDITOR_REQUEST\n"
         + json.dumps(instructions, ensure_ascii=False, sort_keys=True)
         + "\nGOVERNED_STORY_PACKET\n"
-        + json.dumps(governed, ensure_ascii=False, sort_keys=True)
+        + json.dumps(compact_governed, ensure_ascii=False, sort_keys=True)
     )
+
+
+def build_minified_whole_video_prompt(governed: Mapping[str, Any]) -> str:
+    """One coherent whole-video request optimized for the gateway's response-time ceiling."""
+    packet = {
+        "story_id": governed["story_id"],
+        "title": governed["title"],
+        "subtitle": governed["subtitle"],
+        "mechanism": governed["market_mechanism"],
+        "policy": governed["policy_context"],
+        "cross_asset": governed["cross_asset_implications"],
+        "catalysts": governed["named_catalysts"],
+        "claims": governed["claims"],
+        "evidence": governed["evidence"],
+        "assets": [
+            {
+                "asset_id": row["asset_id"],
+                "media_class": row["media_class"],
+                "caption": row["caption"],
+                "sha256": row["sha256"],
+            }
+            for row in governed["assets"]
+        ],
+    }
+    shape = {
+        "schema_version": BLUEPRINT_SCHEMA_VERSION,
+        "story_id": governed["story_id"],
+        "viewer_promise": "string",
+        "visual_system": {
+            "metaphor": "string",
+            "type": "string",
+            "color": "string",
+            "texture": "string",
+            "transition_grammar": "string",
+        },
+        "variants": {
+            "short_9x16": {
+                "duration_seconds": "45..60",
+                "hook": "string",
+                "payoff_seconds": "<=12",
+                "narration": "complete spoken script",
+                "shots": [{key: "required" for key in sorted(REQUIRED_COMPACT_SHOT_KEYS)}],
+            },
+            "midform_16x9": {
+                "duration_seconds": "90..150",
+                "hook": "string",
+                "payoff_seconds": "30..60",
+                "narration": "complete spoken script",
+                "shots": [{key: "required" for key in sorted(REQUIRED_COMPACT_SHOT_KEYS)}],
+            },
+        },
+        "music": "string",
+        "rights_notes": ["string"],
+        "public_write": False,
+        "publication_authority": False,
+        "factual_authority": False,
+    }
+    rules = [
+        "Return one MINIFIED JSON object only; no markdown or commentary.",
+        "This is one coherent whole-video creative decision covering both native formats.",
+        "Write complete narration for both variants; bind facts only to supplied IDs.",
+        "Shots are contiguous, ordered, uniquely identified, and end at variant duration.",
+        "Aim for 12-20 short and 25-45 midform visual states when editorially justified; no padding.",
+        "Each shot must be visually specific, code-capable, and concise (short phrases, not essays).",
+        "Avoid card templates, repeated easing/transitions/layouts, chart crawl, and numeric-list narration.",
+        "Use supplied assets as documentary visuals; illustration proposals are metaphor only.",
+        "No invented fact, quote, number, event, forecast, source, or real-person image.",
+        "No browser, platform, upload, publication, or public-write authority.",
+        "Fit the complete object within 4500 output tokens.",
+    ]
+    return json.dumps(
+        {"role": "Capital Chronicle V2 Creative Editor", "rules": rules, "shape": shape, "packet": packet},
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+
+
+def minified_blueprint_validator(governed: Mapping[str, Any]):
+    allowed_assets = {str(row["asset_id"]) for row in governed["assets"]}
+    allowed_claims = {str(row["claim_id"]) for row in governed["claims"]}
+    allowed_evidence = {str(row["evidence_id"]) for row in governed["evidence"]}
+
+    def validate(text: str) -> tuple[bool, str | None, Any, str | None]:
+        parsed, diagnostic = _parse_single_json_object(text)
+        if parsed is None:
+            return False, "structured_output_malformed", None, diagnostic
+        required = {
+            "schema_version", "story_id", "viewer_promise", "visual_system", "variants",
+            "music", "rights_notes", "public_write", "publication_authority", "factual_authority",
+        }
+        if not required.issubset(parsed):
+            return False, "structured_output_schema_invalid", None, "schema_missing_top_level"
+        if parsed.get("schema_version") != BLUEPRINT_SCHEMA_VERSION:
+            return False, "structured_output_schema_invalid", None, "schema_version_invalid"
+        if parsed.get("story_id") != governed["story_id"]:
+            return False, "structured_output_schema_invalid", None, "story_binding_invalid"
+        if any(parsed.get(key) is not False for key in ("public_write", "publication_authority", "factual_authority")):
+            return False, "structured_output_schema_invalid", None, "authority_boundary_invalid"
+        variants = parsed.get("variants")
+        if not isinstance(variants, dict) or set(variants) != {"short_9x16", "midform_16x9"}:
+            return False, "structured_output_schema_invalid", None, "variant_set_invalid"
+        for variant_id, duration_bounds, payoff_bounds in (
+            ("short_9x16", (45.0, 60.0), (0.0, 12.0)),
+            ("midform_16x9", (90.0, 150.0), (30.0, 60.0)),
+        ):
+            variant = variants[variant_id]
+            if not isinstance(variant, dict) or not isinstance(variant.get("narration"), str) or not variant["narration"].strip():
+                return False, "structured_output_schema_invalid", None, "narration_missing"
+            try:
+                duration = float(variant["duration_seconds"])
+                payoff = float(variant["payoff_seconds"])
+            except (KeyError, TypeError, ValueError):
+                return False, "structured_output_schema_invalid", None, "duration_or_payoff_invalid"
+            if not duration_bounds[0] <= duration <= duration_bounds[1] or not payoff_bounds[0] <= payoff <= payoff_bounds[1]:
+                return False, "structured_output_schema_invalid", None, "duration_or_payoff_invalid"
+            shots = variant.get("shots")
+            if not isinstance(shots, list) or len(shots) < 3:
+                return False, "structured_output_schema_invalid", None, "hypothesis_shape_invalid"
+            prior_end = 0.0
+            seen: set[str] = set()
+            for shot in shots:
+                if not isinstance(shot, dict) or not REQUIRED_COMPACT_SHOT_KEYS.issubset(shot):
+                    return False, "structured_output_schema_invalid", None, "hypothesis_shape_invalid"
+                try:
+                    shot_id = str(shot["id"])
+                    start, end = float(shot["t0"]), float(shot["t1"])
+                except (KeyError, TypeError, ValueError):
+                    return False, "structured_output_schema_invalid", None, "sequence_timing_invalid"
+                if shot_id in seen or abs(start - prior_end) > 0.25 or end <= start:
+                    return False, "structured_output_schema_invalid", None, "sequence_timing_invalid"
+                seen.add(shot_id)
+                prior_end = end
+                for key, allowed in (
+                    ("asset_ids", allowed_assets), ("claim_ids", allowed_claims), ("evidence_ids", allowed_evidence)
+                ):
+                    values = shot.get(key)
+                    if not isinstance(values, list) or not set(map(str, values)).issubset(allowed):
+                        return False, "structured_output_schema_invalid", None, f"{key}_binding_invalid"
+            if abs(prior_end - duration) > 0.25:
+                return False, "structured_output_schema_invalid", None, "sequence_timing_invalid"
+        return True, None, parsed, None
+
+    return validate
 
 
 def validate_compact_blueprint(
@@ -272,8 +448,8 @@ def validate_compact_blueprint(
     all_claim_ids: set[str] = set()
     all_evidence_ids: set[str] = set()
     for variant_id, duration_bounds, payoff_bounds in (
-        ("short_9x16", (45.0, 75.0), (0.0, 12.0)),
-        ("midform_16x9", (180.0, 360.0), (30.0, 60.0)),
+        ("short_9x16", (45.0, 60.0), (0.0, 12.0)),
+        ("midform_16x9", (90.0, 150.0), (30.0, 60.0)),
     ):
         variant = variants.get(variant_id)
         if not isinstance(variant, dict):
@@ -551,6 +727,9 @@ def sanitized_diagnostic(summary: Mapping[str, Any], governed: Mapping[str, Any]
         "asset_binding_invalid",
         "claim_binding_invalid",
         "evidence_binding_invalid",
+        "asset_ids_binding_invalid",
+        "claim_ids_binding_invalid",
+        "evidence_ids_binding_invalid",
     }:
         diagnosis = "PROVEN_DETERMINISTIC_SCHEMA_CONTRACT_MISMATCH"
     elif last.get("structured_validation_diagnostic_code") in {
@@ -642,8 +821,8 @@ def run_compact_authorship(
     *, repo_root: Path, control_root: Path, evidence_path: Path
 ) -> dict[str, Any]:
     governed = load_governed_story_packet(repo_root)
-    prompt = build_compact_hierarchical_prompt(governed)
-    logical_id = "v2-creative-editor-compact-blueprint-v1"
+    prompt = build_minified_whole_video_prompt(governed)
+    logical_id = "v2-creative-editor-minified-whole-video-v2"
     # Retry transient provider failures up to the creative-role ceiling. A deterministic
     # parser/schema failure receives no identical blind retry; the contract must be repaired.
     budget = RetryBudget(
@@ -655,8 +834,21 @@ def run_compact_authorship(
         wall_clock_budget_seconds=900.0,
         per_model_max_attempts=(4,),
     )
+    from live_contentops.nine_router_provider_adapter_v2 import call_nine_router
+
+    def bounded_creative_provider(
+        provider_prompt: str, model: str, timeout_seconds: float
+    ):
+        return call_nine_router(
+            provider_prompt,
+            model,
+            timeout_seconds,
+            max_tokens=4500,
+            temperature=0.2,
+        )
+
     with llm_cycle_budget_scope(
-        "v2-creative-editor-compact-blueprint-v1",
+        "v2-creative-editor-minified-whole-video-v2",
         control_root=control_root,
     ):
         summary = routed_llm_invocation(
@@ -665,19 +857,20 @@ def run_compact_authorship(
             logical_invocation_id=logical_id,
             work_item_id=governed["story_id"],
             timeout_seconds=900.0,
-            validator=compact_blueprint_validator(governed),
+            validator=minified_blueprint_validator(governed),
             governed_input=governed,
-            prompt_template="retention_native_creative_editor_compact_hierarchical",
-            prompt_version="v2.1",
+            prompt_template="retention_native_creative_editor_minified_whole_video",
+            prompt_version="v2.2",
             budget=budget,
+            provider_call=bounded_creative_provider,
         )
     evidence = sanitized_diagnostic(summary, governed)
     evidence.update(
         {
             "schema_version": "contentops.retention_native.creative_editor_authorship.v2",
-            "request_shape": "compact_hierarchical_whole_story",
-            "prompt_template": "retention_native_creative_editor_compact_hierarchical",
-            "prompt_version": "v2.1",
+            "request_shape": "minified_hierarchical_whole_video",
+            "prompt_template": "retention_native_creative_editor_minified_whole_video",
+            "prompt_version": "v2.2",
         }
     )
     evidence_path.parent.mkdir(parents=True, exist_ok=True)

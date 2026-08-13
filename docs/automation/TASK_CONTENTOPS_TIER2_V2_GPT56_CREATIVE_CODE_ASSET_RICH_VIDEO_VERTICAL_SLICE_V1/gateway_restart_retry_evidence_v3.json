@@ -1,0 +1,126 @@
+{
+  "schema_version": "contentops.v2_gpt56_creative_code_vertical_slice.gateway_restart_retry.v3",
+  "task": "TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1",
+  "recorded_on": "2026-08-13",
+  "status": "BLOCKED_EXACT_CREATIVE_MODEL",
+  "branch": "task/tier2-v2-gpt56-creative-code-asset-rich-video-v1",
+  "starting_head": "7394dcff7bbcf3c1e3912ffa00d9acf419b07cc1",
+  "gateway_restart": {
+    "old_listener_pid": 11988,
+    "old_listener_created_on": "2026-08-12",
+    "new_listener_pid": 21980,
+    "new_listener_created_on": "2026-08-13T16:13:29+07:00",
+    "cli": "installed_9router_cli",
+    "browser_opened": false,
+    "models_endpoint_status": 200,
+    "configured_prefix": "new",
+    "configured_provider_host": "ai.api-cheap.site",
+    "connection_proxy_enabled": false
+  },
+  "corrected_contract": {
+    "creative_editor_calls_per_logical_invocation": 1,
+    "request_shape": "minified_hierarchical_whole_video",
+    "prompt_version": "v2.2",
+    "prompt_characters": 5746,
+    "estimated_prompt_tokens_before_gateway_overhead": 1436,
+    "max_output_tokens": 4500,
+    "short_duration_seconds": [45, 60],
+    "midform_duration_seconds": [90, 150],
+    "full_article_body_duplicated_in_prompt": false,
+    "complete_narration_required": true,
+    "shot_plan_required_for_both_variants": true,
+    "truth_evidence_asset_bindings_required": true,
+    "public_write_authority": false
+  },
+  "exact_model_invocation_after_restart": {
+    "logical_invocation_id": "v2-creative-editor-minified-whole-video-v2",
+    "role": "V2_CREATIVE_EDITOR",
+    "requested_model": "new/gpt-5.6-sol-xhigh",
+    "terminal_disposition": "BLOCKED_EXACT_CREATIVE_MODEL",
+    "provider_attempts": 4,
+    "same_model_retries": 3,
+    "fallback_transitions": 0,
+    "attempts": [
+      {
+        "attempt": 1,
+        "failure_class": "http_502_bad_gateway",
+        "provider_status_class": "5xx_server_502",
+        "latency_seconds": 251.304,
+        "output_present": false,
+        "output_bytes": 0,
+        "effective_identity_available": false,
+        "structured_validation_result": "NOT_EVALUATED"
+      },
+      {
+        "attempt": 2,
+        "failure_class": "http_502_bad_gateway",
+        "provider_status_class": "5xx_server_502",
+        "latency_seconds": 251.1343,
+        "output_present": false,
+        "output_bytes": 0,
+        "effective_identity_available": false,
+        "structured_validation_result": "NOT_EVALUATED"
+      },
+      {
+        "attempt": 3,
+        "failure_class": "http_502_bad_gateway",
+        "provider_status_class": "5xx_server_502",
+        "latency_seconds": 251.1575,
+        "output_present": false,
+        "output_bytes": 0,
+        "effective_identity_available": false,
+        "structured_validation_result": "NOT_EVALUATED"
+      },
+      {
+        "attempt": 4,
+        "failure_class": "http_502_bad_gateway",
+        "provider_status_class": "5xx_server_502",
+        "latency_seconds": 251.1143,
+        "output_present": false,
+        "output_bytes": 0,
+        "effective_identity_available": false,
+        "structured_validation_result": "NOT_EVALUATED"
+      }
+    ],
+    "provider_invocation_ids_available": false,
+    "provider_usage_available": false,
+    "provider_cost_available": false,
+    "accepted_output": false,
+    "authorship_evidence_sha256": "b4e9316a10d7c2226814fde216370dc16eca42a05a4c584d36cc356653196482",
+    "isolated_cost_governor_accounted_tokens": 69748,
+    "isolated_ledger_sha256": "014e32abadda8133bb6f205d7c8a23c7a8baac18ebf7d6309b6bb3703667cde6"
+  },
+  "sanitized_operational_readback": {
+    "connection_active": true,
+    "test_status": "unavailable",
+    "error_code": 502,
+    "last_error": "[502]: fetch connect timeout",
+    "last_error_at": "2026-08-13T09:32:28.747Z",
+    "dns_resolution": "PASS",
+    "tcp_443": "PASS",
+    "unauthenticated_https_reachability": "PASS_404_EXPECTED_FOR_ROOT_HEAD",
+    "credentials_or_session_material_read": false,
+    "credentials_or_session_material_recorded": false
+  },
+  "downstream_execution": {
+    "motion_code_author_called": false,
+    "creative_revision_author_called": false,
+    "accepted_screenplay_or_narration": false,
+    "accepted_motion_source": false,
+    "render_performed": false,
+    "critic_called": false,
+    "selective_rerender_performed": false,
+    "final_media_produced": false
+  },
+  "safety": {
+    "alternate_model_called": false,
+    "manual_visible_or_audible_creative_authorship": false,
+    "browser_or_cdp_actions": 0,
+    "video_platform_actions": 0,
+    "uploads": 0,
+    "public_writes": 0,
+    "v1_runtime_mutations": 0,
+    "publication_authority": false,
+    "factual_authority": false
+  }
+}

@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12322,
+    "edges": 12324,
     "entrypoints": 12,
-    "nodes": 6569,
+    "nodes": 6571,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 13,
@@ -33,7 +33,7 @@
       "instructions": 8,
       "manifest": 9,
       "python_class": 528,
-      "python_function": 3641,
+      "python_function": 3643,
       "python_method": 228,
       "python_module": 686,
       "schema": 162,
@@ -31613,6 +31613,12 @@
       "from": "live_contentops/retention_native_creative_editor_v2.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::build_minified_whole_video_prompt"
+    },
+    {
+      "from": "live_contentops/retention_native_creative_editor_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::compact_blueprint_validator"
     },
     {
@@ -31632,6 +31638,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::main"
+    },
+    {
+      "from": "live_contentops/retention_native_creative_editor_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::minified_blueprint_validator"
     },
     {
       "from": "live_contentops/retention_native_creative_editor_v2.py",
@@ -60041,19 +60053,19 @@
       "from": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::run_compact_authorship",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::build_compact_hierarchical_prompt"
-    },
-    {
-      "from": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::run_compact_authorship",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::compact_blueprint_validator"
+      "to": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::build_minified_whole_video_prompt"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::run_compact_authorship",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::load_governed_story_packet"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::run_compact_authorship",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::minified_blueprint_validator"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::run_compact_authorship",
@@ -74070,7 +74082,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-13T06:14:20Z",
+  "generation_timestamp_utc": "2026-08-13T07:20:10Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -77159,7 +77171,7 @@
     {
       "id": "live_contentops/retention_native_creative_editor_v2.py",
       "kind": "python_module",
-      "size_bytes": 30933
+      "size_bytes": 40096
     },
     {
       "id": "live_contentops/review_bundle_manifest.py",
@@ -103018,70 +103030,84 @@
     {
       "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::build_compact_hierarchical_prompt",
       "kind": "python_function",
-      "line": 144,
+      "line": 161,
       "path": "live_contentops/retention_native_creative_editor_v2.py",
       "symbol": "build_compact_hierarchical_prompt"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::build_legacy_monolithic_prompt",
       "kind": "python_function",
-      "line": 360,
+      "line": 536,
       "path": "live_contentops/retention_native_creative_editor_v2.py",
       "symbol": "build_legacy_monolithic_prompt"
     },
     {
+      "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::build_minified_whole_video_prompt",
+      "kind": "python_function",
+      "line": 272,
+      "path": "live_contentops/retention_native_creative_editor_v2.py",
+      "symbol": "build_minified_whole_video_prompt"
+    },
+    {
       "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::compact_blueprint_validator",
       "kind": "python_function",
-      "line": 335,
+      "line": 511,
       "path": "live_contentops/retention_native_creative_editor_v2.py",
       "symbol": "compact_blueprint_validator"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::load_governed_story_packet",
       "kind": "python_function",
-      "line": 68,
+      "line": 85,
       "path": "live_contentops/retention_native_creative_editor_v2.py",
       "symbol": "load_governed_story_packet"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::main",
       "kind": "python_function",
-      "line": 700,
+      "line": 893,
       "path": "live_contentops/retention_native_creative_editor_v2.py",
       "symbol": "main"
     },
     {
+      "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::minified_blueprint_validator",
+      "kind": "python_function",
+      "line": 348,
+      "path": "live_contentops/retention_native_creative_editor_v2.py",
+      "symbol": "minified_blueprint_validator"
+    },
+    {
       "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::run_compact_authorship",
       "kind": "python_function",
-      "line": 641,
+      "line": 820,
       "path": "live_contentops/retention_native_creative_editor_v2.py",
       "symbol": "run_compact_authorship"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::run_legacy_diagnostic",
       "kind": "python_function",
-      "line": 595,
+      "line": 774,
       "path": "live_contentops/retention_native_creative_editor_v2.py",
       "symbol": "run_legacy_diagnostic"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::sanitized_diagnostic",
       "kind": "python_function",
-      "line": 499,
+      "line": 675,
       "path": "live_contentops/retention_native_creative_editor_v2.py",
       "symbol": "sanitized_diagnostic"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::validate_compact_blueprint",
       "kind": "python_function",
-      "line": 240,
+      "line": 416,
       "path": "live_contentops/retention_native_creative_editor_v2.py",
       "symbol": "validate_compact_blueprint"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_editor_v2.py::validate_legacy_blueprint",
       "kind": "python_function",
-      "line": 447,
+      "line": 623,
       "path": "live_contentops/retention_native_creative_editor_v2.py",
       "symbol": "validate_legacy_blueprint"
     },
@@ -112208,7 +112234,7 @@
     {
       "id": "tests/test_retention_native_creative_editor_v2.py",
       "kind": "test",
-      "size_bytes": 4796
+      "size_bytes": 6787
     },
     {
       "id": "tests/test_review_bundle_manifest.py",
@@ -116703,6 +116729,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "33375406096eb261e8bebcc8839302c713a5e754",
-  "source_tree_digest": "7cebdb1395097c414b7bc242bfaa832998747fd274eb6396c9ece8e765460baa"
+  "source_head": "7394dcff7bbcf3c1e3912ffa00d9acf419b07cc1",
+  "source_tree_digest": "e77aeff23af1d74725ef351305edb5ab6207261311bdcfeb5938a16e0a62b162"
 }

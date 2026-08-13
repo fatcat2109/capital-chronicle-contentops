@@ -8,7 +8,9 @@ from live_contentops.retention_native_creative_editor_v2 import (
     LEGACY_SHORT_BEATS,
     REQUIRED_BEAT_KEYS,
     REQUIRED_HYPOTHESIS_KEYS,
+    build_minified_whole_video_prompt,
     compact_blueprint_validator,
+    minified_blueprint_validator,
     sanitized_diagnostic,
     validate_legacy_blueprint,
 )
@@ -116,7 +118,7 @@ def test_compact_validator_rejects_ungoverned_asset_binding() -> None:
     }
     for variant_id, duration, payoff in (
         ("short_9x16", 60, 10),
-        ("midform_16x9", 210, 45),
+        ("midform_16x9", 120, 45),
     ):
         span = duration / 3
         payload["variants"][variant_id] = {
@@ -139,3 +141,44 @@ def test_compact_validator_rejects_ungoverned_asset_binding() -> None:
         {"story_id": "story", "assets": [], "claims": [], "evidence": []}
     )
     assert validator(json.dumps(payload))[3] == "asset_binding_invalid"
+
+
+def test_minified_prompt_omits_full_article_and_stays_small() -> None:
+    governed = {
+        "story_id": "story", "title": "Title", "subtitle": "Subtitle",
+        "market_mechanism": "Mechanism", "policy_context": "Policy",
+        "cross_asset_implications": "Cross asset", "named_catalysts": [],
+        "claims": [], "evidence": [], "assets": [], "article_body": "DO_NOT_INCLUDE",
+    }
+    prompt = build_minified_whole_video_prompt(governed)
+    assert "DO_NOT_INCLUDE" not in prompt
+    assert len(prompt) < 7000
+
+
+def test_minified_validator_accepts_bound_complete_whole_video() -> None:
+    governed = {
+        "story_id": "story",
+        "assets": [{"asset_id": "asset"}],
+        "claims": [{"claim_id": "claim"}],
+        "evidence": [{"evidence_id": "evidence"}],
+    }
+    shot = {
+        "id": "shot", "t0": 0, "t1": 1, "narration_excerpt": "line",
+        "purpose": "purpose", "visual": "visual", "motion": "motion",
+        "asset_ids": ["asset"], "claim_ids": ["claim"], "evidence_ids": ["evidence"],
+        "transition": "transition", "audio": "audio", "continuity": "continuity",
+    }
+    payload = {
+        "schema_version": BLUEPRINT_SCHEMA_VERSION, "story_id": "story",
+        "viewer_promise": "promise", "visual_system": {}, "music": "music",
+        "rights_notes": [], "public_write": False, "publication_authority": False,
+        "factual_authority": False, "variants": {},
+    }
+    for variant_id, duration, payoff in (("short_9x16", 45, 10), ("midform_16x9", 90, 45)):
+        span = duration / 3
+        payload["variants"][variant_id] = {
+            "duration_seconds": duration, "hook": "hook", "payoff_seconds": payoff,
+            "narration": "complete narration",
+            "shots": [dict(shot, id=f"{variant_id}_{i}", t0=i * span, t1=(i + 1) * span) for i in range(3)],
+        }
+    assert minified_blueprint_validator(governed)(json.dumps(payload))[0] is True

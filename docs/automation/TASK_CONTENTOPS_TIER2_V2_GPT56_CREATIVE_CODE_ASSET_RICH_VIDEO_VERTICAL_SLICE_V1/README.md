@@ -51,3 +51,34 @@ Continuation evidence:
 - `creative_editor_diagnostic_v2.json`
 - `creative_editor_authorship_v2.json`
 - `bounded_correction_evidence_v2.json`
+
+## Retry after operator-reported local gateway outage
+
+The task was resumed after the operator reported that the local 9Router server had been down.
+The existing listener answered `/v1/models`, but its process dated from August 12. It was stopped
+and restarted through the installed `9router` CLI with browser launch disabled. The listener PID
+changed from `11988` to `21980`, and the new process returned HTTP 200 from `/v1/models`.
+
+The whole-video Creative Editor contract was also corrected to the task's actual duration targets
+(45–60 seconds vertical and 90–150 seconds editorial), stripped of the full duplicated article
+body, minified to 5,746 characters (approximately 1,436 input tokens before gateway overhead), and
+bounded to 4,500 output tokens. It remained one coherent call covering both formats; it was not
+split into multiple Creative Editor calls. Focused tests passed after the correction.
+
+The actual exact-model invocation after the clean gateway restart still returned four consecutive
+HTTP 502 responses at 251.3040, 251.1343, 251.1575, and 251.1143 seconds. Every response had zero
+output bytes, no provider invocation ID, no effective model identity, no usage/cost, and no
+structured-validation evaluation. Sanitized 9Router operational telemetry recorded the active
+`new/` connection as unavailable with `errorCode=502` and `lastError="[502]: fetch connect
+timeout"`. DNS resolution, TCP 443, and unauthenticated HTTPS reachability to the configured host
+were independently healthy; the provider completion connection itself was not.
+
+The exact Creative Editor gate therefore remains `BLOCKED_EXACT_CREATIVE_MODEL`. Motion Code
+Author, render, critic, revision, and final media could not legally begin. No alternate model,
+manual creative authorship, browser/CDP action, upload, publication, public write, or V1 mutation
+was used.
+
+Final retry evidence:
+
+- `creative_editor_authorship_after_gateway_restart_v2.json`
+- `gateway_restart_retry_evidence_v3.json`
