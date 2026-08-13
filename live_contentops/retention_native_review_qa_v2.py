@@ -11,14 +11,12 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from live_contentops.media_manifest_authority_v1 import sha256_file
-from live_contentops.nine_router_llm_seam_v2 import (
-    ROLE_MULTIMODAL_VIDEO_CRITIC,
-    routed_llm_invocation,
-)
+from live_contentops.nine_router_llm_seam_v2 import ROLE_MULTIMODAL_VIDEO_CRITIC
 from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED, ProviderResult
-from live_contentops.nine_router_provider_adapter_v2 import call_nine_router
+from live_contentops.nine_router_provider_adapter_v2 import call_nine_router_v2_isolated
 from live_contentops.retention_native_concrete_first_v2 import canonical_json, logical_hash
 from live_contentops.retention_native_replacement_runner_v2 import DEFAULT_RUNTIME, VIDEO_ID
+from live_contentops.v2_isolated_llm_execution_v1 import routed_v2_isolated_invocation
 from live_contentops.retention_native_storyboard_v2 import contact_sheet
 
 SCHEMA_VERSION = "contentops.retention_native.review_qa.v2"
@@ -268,15 +266,21 @@ def run_final_critic(*, runtime: Path) -> dict[str, Any]:
     }
 
     def provider(prompt: str, model: str, timeout: float) -> ProviderResult:
-        return call_nine_router(
+        return call_nine_router_v2_isolated(
             [{"type": "text", "text": prompt + "\n\nTECHNICAL CONTEXT:\n" + json.dumps(technical, sort_keys=True)}, *image_content],
-            model, timeout, max_tokens=7000, temperature=0.1,
+            model, timeout,
+            role_task_id=ROLE_MULTIMODAL_VIDEO_CRITIC,
+            logical_invocation_id=logical_invocation_id,
+            component="CanonicalMultimodalCritic",
+            max_tokens=7000, temperature=0.1,
         )
 
-    invocation = routed_llm_invocation(
+    logical_invocation_id = f"inv_v2_final_critic_{logical_hash(technical)[:20]}"
+    invocation = routed_v2_isolated_invocation(
         prompt=FINAL_CRITIC_PROMPT,
         role_task_id=ROLE_MULTIMODAL_VIDEO_CRITIC,
-        logical_invocation_id=f"inv_v2_final_critic_{logical_hash(technical)[:20]}",
+        logical_invocation_id=logical_invocation_id,
+        component="CanonicalMultimodalCritic",
         work_item_id=VIDEO_ID,
         timeout_seconds=600.0,
         validator=_validate_final_critic,

@@ -14,16 +14,21 @@ from PIL import Image
 
 from live_contentops.media_manifest_authority_v1 import sha256_file
 from live_contentops.llm_operator_control_v1 import (
+    LLMOperatorPausedError,
+    assert_llm_operator_execution_enabled,
     llm_operator_pause_active,
     operator_pause_path,
 )
 from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_MULTIMODAL_VIDEO_CRITIC,
     ROLE_V2_CREATIVE_EDITOR,
-    routed_llm_invocation,
 )
-from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED, ProviderResult
-from live_contentops.nine_router_provider_adapter_v2 import call_nine_router
+from live_contentops.nine_router_ordered_model_router_v2 import (
+    ACCEPTED,
+    ProviderResult,
+    RetryBudget,
+)
+from live_contentops.nine_router_provider_adapter_v2 import call_nine_router_v2_isolated
 from live_contentops.retention_native_concrete_first_v2 import (
     AssetCandidate,
     CreativeBible,
@@ -53,6 +58,12 @@ from live_contentops.retention_native_storyboard_v2 import (
     render_native_document,
     render_native_map,
     render_storyboard_frame,
+)
+from live_contentops.v2_isolated_llm_execution_v1 import (
+    V2ExecutionLeaseError,
+    active_v2_execution_lease,
+    assert_v2_execution_authorized,
+    routed_v2_isolated_invocation,
 )
 
 SCHEMA_VERSION = "contentops.retention_native.replacement_runner.v2"
@@ -601,7 +612,13 @@ def run_premotion_critic(runtime: Path) -> dict[str, Any]:
 
     def provider(prompt: str, model: str, timeout: float) -> ProviderResult:
         content = [{"type": "text", "text": prompt}, *image_content]
-        return call_nine_router(content, model, timeout, max_tokens=5000, temperature=0.1)
+        return call_nine_router_v2_isolated(
+            content, model, timeout,
+            role_task_id=ROLE_MULTIMODAL_VIDEO_CRITIC,
+            logical_invocation_id=logical_invocation_id,
+            component="CanonicalMultimodalCritic",
+            max_tokens=5000, temperature=0.1,
+        )
 
     technical = {
         "video_id": VIDEO_ID,
@@ -609,10 +626,12 @@ def run_premotion_critic(runtime: Path) -> dict[str, Any]:
         "captions_hidden": True,
         "public_write_authority": False,
     }
-    invocation = routed_llm_invocation(
+    logical_invocation_id = f"inv_v2_premotion_critic_{logical_hash(technical)[:20]}"
+    invocation = routed_v2_isolated_invocation(
         prompt=instruction,
         role_task_id=ROLE_MULTIMODAL_VIDEO_CRITIC,
-        logical_invocation_id=f"inv_v2_premotion_critic_{logical_hash(technical)[:20]}",
+        logical_invocation_id=logical_invocation_id,
+        component="CanonicalMultimodalCritic",
         work_item_id=VIDEO_ID,
         timeout_seconds=600.0,
         validator=_validate_comprehension_output,
@@ -648,6 +667,164 @@ def run_premotion_critic(runtime: Path) -> dict[str, Any]:
     if gate["status"] != "PASS":
         raise RuntimeError("PREMOTION_COMPREHENSION_BLOCK_SYSTEMIC_STORYBOARD_REVISION_REQUIRED")
     return report
+
+
+def run_isolated_xhigh_preflight(runtime: Path) -> dict[str, Any]:
+    """Make exactly one real XHIGH request before the larger proof is authorized."""
+    logical_invocation_id = "inv_v2_isolated_xhigh_preflight_v1"
+    prompt = (
+        "Return exactly READY and nothing else. This is a zero-public-write V2 isolated "
+        "execution-domain attribution preflight."
+    )
+
+    def provider(current_prompt: str, model: str, timeout: float) -> ProviderResult:
+        return call_nine_router_v2_isolated(
+            current_prompt, model, timeout,
+            role_task_id=ROLE_V2_CREATIVE_EDITOR,
+            logical_invocation_id=logical_invocation_id,
+            component="NineRouterGPT56Brain",
+            max_tokens=16, temperature=0.0,
+        )
+
+    def validate(text: str) -> tuple[bool, str | None, Any, str | None]:
+        ok = text.strip() == "READY"
+        return ok, None if ok else "structured_output_schema_invalid", text.strip(), (
+            None if ok else "isolated_preflight_expected_READY"
+        )
+
+    invocation = routed_v2_isolated_invocation(
+        prompt=prompt, role_task_id=ROLE_V2_CREATIVE_EDITOR,
+        logical_invocation_id=logical_invocation_id, component="NineRouterGPT56Brain",
+        work_item_id=VIDEO_ID, timeout_seconds=180.0, validator=validate,
+        governed_input={"task": "isolated_v2_preflight", "public_write": False},
+        prompt_template="isolated_v2_xhigh_attribution_preflight", prompt_version="v1",
+        budget=RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=1, max_fallback_transitions=0,
+            max_same_model_retries=0, max_structured_output_repair_attempts=0,
+            max_cumulative_retry_sleep_seconds=0, wall_clock_budget_seconds=180,
+            per_model_max_attempts=(1, 0, 0),
+        ),
+    )
+    result = {
+        "schema_version": "contentops.v2_isolated_xhigh_preflight.v1",
+        "status": "PASS" if invocation.get("terminal_disposition") == ACCEPTED else "BLOCK",
+        "selected_model": invocation.get("selected_model"),
+        "models_attempted_in_order": invocation.get("models_attempted_in_order"),
+        "total_attempts": invocation.get("total_attempts"),
+        "router_evidence": invocation,
+        "public_write": False,
+    }
+    if result["status"] != "PASS" or result["selected_model"] != "new/gpt-5.6-sol-xhigh":
+        raise RuntimeError(f"isolated_xhigh_preflight_block:{result['status']}:{result['selected_model']}")
+    _write_json(runtime / "isolated_xhigh_preflight_v1.json", result)
+    return result
+
+
+def validate_isolation_before_provider(runtime: Path) -> dict[str, Any]:
+    """Persist the required zero-network proof before the first real V2 request."""
+    generic_blocked = False
+    try:
+        assert_llm_operator_execution_enabled()
+    except LLMOperatorPausedError:
+        generic_blocked = True
+    if not generic_blocked:
+        raise RuntimeError("generic_v1_traffic_not_blocked_by_shared_fuse")
+    assert_v2_execution_authorized(
+        role_task_id=ROLE_V2_CREATIVE_EDITOR,
+        logical_invocation_id="inv_v2_isolation_validation_v1",
+        component="NineRouterGPT56Brain",
+        model="new/gpt-5.6-sol-xhigh",
+    )
+    public_write_blocked = False
+    try:
+        assert_v2_execution_authorized(
+            role_task_id=ROLE_V2_CREATIVE_EDITOR,
+            logical_invocation_id="inv_v2_isolation_validation_v1",
+            component="NineRouterGPT56Brain",
+            public_write=True,
+        )
+    except V2ExecutionLeaseError:
+        public_write_blocked = True
+    if not public_write_blocked:
+        raise RuntimeError("v2_lease_public_write_not_blocked")
+    report = {
+        "schema_version": "contentops.v2_isolation_pre_provider_validation.v1",
+        "status": "PASS",
+        "shared_global_fuse_active": llm_operator_pause_active(),
+        "generic_v1_traffic_blocked": generic_blocked,
+        "exact_v2_runner_lease_active": True,
+        "xhigh_model_authorized_only_for_v2_role": True,
+        "public_write_authority": False,
+        "public_write_request_blocked": public_write_blocked,
+        "network_calls_during_validation": 0,
+        "v1_provider_calls_authorized_by_v2_lease": 0,
+    }
+    _write_json(runtime / "isolation_pre_provider_validation_v1.json", report)
+    return report
+
+
+def run_isolated_proof(
+    runtime: Path, *, repo_root: Path, ffmpeg: str, ffprobe: str, node: str,
+    tts_python: str,
+) -> dict[str, Any]:
+    """Execute the complete proof inside one runner-owned lease and revoke it on exit."""
+    prepare(runtime)
+    domain_id = ""
+    audit_path = ""
+    with active_v2_execution_lease(repo_root=repo_root, runtime=runtime) as lease:
+        domain_id = lease.domain_id
+        audit_path = str(lease.audit_path)
+        validate_isolation_before_provider(runtime)
+        run_isolated_xhigh_preflight(runtime)
+        author_director(runtime)
+        author_segments(runtime)
+        build_storyboards(runtime, ffmpeg=ffmpeg)
+        run_premotion_critic(runtime)
+        from live_contentops.retention_native_motion_pipeline_v2 import (
+            author_motion,
+            build_audio_and_mux,
+            probe_media,
+            render_motion,
+        )
+        from live_contentops.retention_native_review_qa_v2 import (
+            build_review_artifacts,
+            deterministic_qa,
+            run_final_critic,
+        )
+
+        author_motion(runtime=runtime, repo_root=repo_root)
+        render_motion(runtime=runtime, repo_root=repo_root, node=node)
+        build_review_artifacts(runtime=runtime, ffmpeg=ffmpeg)
+        deterministic_qa(runtime=runtime)
+        build_audio_and_mux(
+            runtime=runtime, tts_python=tts_python, ffmpeg=ffmpeg, ffprobe=ffprobe
+        )
+        probe_media(runtime=runtime, ffprobe=ffprobe)
+        critic = run_final_critic(runtime=runtime)
+    audit = _read_json(Path(audit_path))
+    result = {
+        "schema_version": "contentops.retention_native.isolated_proof_result.v1",
+        "status": (
+            "PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW"
+            if critic.get("status") in {"PASS", "PASS_WITH_NOTES"}
+            else "REQUIRES_BOUNDED_CREATIVE_REVISION"
+        ),
+        "isolated_execution_domain_id": domain_id,
+        "lease_audit_path": audit_path,
+        "lease_revoked": audit.get("state") == "REVOKED",
+        "shared_global_pause_unchanged": bool(
+            (audit.get("shared_global_pause_after") or {}).get("unchanged")
+        ),
+        "v1_daily_app_continuity": audit.get("v1_daily_app_continuity") is True,
+        "v1_provider_calls_authorized_by_v2_lease": 0,
+        "v2_provider_call_count": len(audit.get("provider_attempts") or []),
+        "public_writes": 0,
+        "critic_status": critic.get("status"),
+        "owner_acceptance": "PENDING",
+    }
+    _write_json(runtime / "isolated_proof_result_v1.json", result)
+    return result
 
 
 def provider_execution_blocker(runtime: Path) -> dict[str, Any]:
@@ -705,10 +882,14 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "stage",
-        choices=("prepare", "director", "segments", "storyboard", "critic", "premotion", "blocker"),
+        choices=("prepare", "director", "segments", "storyboard", "critic", "premotion", "blocker", "isolation", "isolated-preflight", "proof"),
     )
     parser.add_argument("--runtime", default=str(DEFAULT_RUNTIME))
     parser.add_argument("--ffmpeg", default="ffmpeg")
+    parser.add_argument("--ffprobe", default="ffprobe")
+    parser.add_argument("--node", default="node")
+    parser.add_argument("--repo-root", default=str(Path.cwd()))
+    parser.add_argument("--tts-python", default=r"A:\Capital Chronicle\Runtime\ContentOps\tier2\tts-kokoro-venv\Scripts\python.exe")
     args = parser.parse_args()
     runtime = Path(args.runtime).resolve()
     if args.stage == "prepare":
@@ -727,6 +908,17 @@ def main() -> int:
         author_segments(runtime)
         build_storyboards(runtime, ffmpeg=args.ffmpeg)
         result = run_premotion_critic(runtime)
+    elif args.stage in {"isolation", "isolated-preflight"}:
+        repo_root = Path(args.repo_root).resolve()
+        with active_v2_execution_lease(repo_root=repo_root, runtime=runtime):
+            result = validate_isolation_before_provider(runtime)
+            if args.stage == "isolated-preflight":
+                result = run_isolated_xhigh_preflight(runtime)
+    elif args.stage == "proof":
+        result = run_isolated_proof(
+            runtime, repo_root=Path(args.repo_root).resolve(), ffmpeg=args.ffmpeg,
+            ffprobe=args.ffprobe, node=args.node, tts_python=args.tts_python,
+        )
     else:
         result = provider_execution_blocker(runtime)
     print(

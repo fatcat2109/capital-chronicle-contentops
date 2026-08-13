@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12687,
+    "edges": 12745,
     "entrypoints": 14,
-    "nodes": 6746,
+    "nodes": 6761,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
@@ -32,12 +32,12 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 13,
-      "python_class": 544,
-      "python_function": 3734,
+      "python_class": 546,
+      "python_function": 3744,
       "python_method": 237,
-      "python_module": 704,
-      "schema": 173,
-      "test": 704,
+      "python_module": 705,
+      "schema": 174,
+      "test": 705,
       "typescript_export": 457,
       "typescript_or_javascript_module": 94
     }
@@ -19166,6 +19166,12 @@
       "to": "schema:contentops.llm_operator_control.v1"
     },
     {
+      "from": "live_contentops/llm_operator_control_v1.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_v2_isolated_llm_execution_v1.py"
+    },
+    {
       "from": "live_contentops/llm_summary_safety_validator_v6.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -22439,6 +22445,12 @@
       "from": "live_contentops/nine_router_provider_adapter_v2.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl"
+    },
+    {
+      "from": "live_contentops/nine_router_provider_adapter_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error"
     },
     {
@@ -22499,6 +22511,12 @@
       "from": "live_contentops/nine_router_provider_adapter_v2.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router_v2_isolated"
+    },
+    {
+      "from": "live_contentops/nine_router_provider_adapter_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::credential_presence"
     },
     {
@@ -22524,6 +22542,12 @@
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
       "to": "schema:contentops.nine_router_provider_adapter.v2"
+    },
+    {
+      "from": "live_contentops/nine_router_provider_adapter_v2.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_v2_isolated_llm_execution_v1.py"
     },
     {
       "from": "live_contentops/nonnumeric_story_authority_consumer_v1.py",
@@ -32387,7 +32411,25 @@
       "from": "live_contentops/retention_native_replacement_runner_v2.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof"
+    },
+    {
+      "from": "live_contentops/retention_native_replacement_runner_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_xhigh_preflight"
+    },
+    {
+      "from": "live_contentops/retention_native_replacement_runner_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic"
+    },
+    {
+      "from": "live_contentops/retention_native_replacement_runner_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider"
     },
     {
       "from": "live_contentops/retention_native_replacement_runner_v2.py",
@@ -37992,6 +38034,72 @@
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
       "to": "schema:contentops.cross_domain_assignment_canary.v1"
+    },
+    {
+      "from": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::V2ExecutionLease"
+    },
+    {
+      "from": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::V2ExecutionLeaseError"
+    },
+    {
+      "from": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::active_v2_execution_lease"
+    },
+    {
+      "from": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::assert_v2_execution_authorized"
+    },
+    {
+      "from": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::issue_v2_execution_lease"
+    },
+    {
+      "from": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::record_provider_attempt"
+    },
+    {
+      "from": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation"
+    },
+    {
+      "from": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v2_isolated_llm_execution.v1"
+    },
+    {
+      "from": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_v2_isolated_llm_execution_v1.py"
+    },
+    {
+      "from": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_v2_isolated_llm_execution_v1.py"
     },
     {
       "from": "live_contentops/v6_platform_registry_contract.py",
@@ -55172,6 +55280,84 @@
       "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::credential_presence"
     },
     {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ProviderResult"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::classify_failure"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::NineRouterAdapterError"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_cost"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_text"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_usage"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_load_json_body"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_observed_model"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_parse_sse_full"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_retry_after_from_headers"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::resolve_base_url"
+    },
+    {
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::split_model_and_effort"
+    },
+    {
       "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -55187,79 +55373,13 @@
       "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::ProviderResult"
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl"
     },
     {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
+      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router_v2_isolated",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::classify_failure"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::NineRouterAdapterError"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_cost"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_text"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_usage"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_load_json_body"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_observed_model"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_parse_sse_full"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_retry_after_from_headers"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::resolve_base_url"
-    },
-    {
-      "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::split_model_and_effort"
+      "to": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl"
     },
     {
       "from": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::credential_presence",
@@ -61535,7 +61655,31 @@
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_xhigh_preflight"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::active_v2_execution_lease"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::prepare",
@@ -61604,16 +61748,70 @@
       "to": "python_symbol:live_contentops/llm_operator_control_v1.py::operator_pause_path"
     },
     {
-      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic",
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/media_manifest_authority_v1.py::sha256_file"
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_director"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_segments"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_storyboards"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::prepare"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_xhigh_preflight"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::active_v2_execution_lease"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_xhigh_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_xhigh_preflight",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_invocation"
+      "to": "python_symbol:live_contentops/media_manifest_authority_v1.py::sha256_file"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic",
@@ -61626,6 +61824,30 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/retention_native_concrete_first_v2.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/llm_operator_control_v1.py::assert_llm_operator_execution_enabled"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/llm_operator_control_v1.py::llm_operator_pause_active"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::assert_v2_execution_authorized"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_review_qa_v2.py::build_review_artifacts",
@@ -61673,13 +61895,13 @@
       "from": "python_symbol:live_contentops/retention_native_review_qa_v2.py::run_final_critic",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/nine_router_llm_seam_v2.py::routed_llm_invocation"
+      "to": "python_symbol:live_contentops/retention_native_concrete_first_v2.py::logical_hash"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_review_qa_v2.py::run_final_critic",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/retention_native_concrete_first_v2.py::logical_hash"
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_storyboard_v2.py::contact_sheet",
@@ -64626,6 +64848,90 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/universal_news_candidate_fabric_v2.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::active_v2_execution_lease",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/llm_operator_control_v1.py::operator_pause_path"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::active_v2_execution_lease",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::issue_v2_execution_lease"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::assert_v2_execution_authorized",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::model_pool_for_role"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::assert_v2_execution_authorized",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::V2ExecutionLeaseError"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::issue_v2_execution_lease",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/llm_operator_control_v1.py::operator_pause_path"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::issue_v2_execution_lease",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::model_pool_for_role"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::issue_v2_execution_lease",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::V2ExecutionLease"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::issue_v2_execution_lease",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::V2ExecutionLeaseError"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/llm_cost_governor_v1.py::llm_cycle_budget_scope"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/llm_cost_governor_v1.py::reserve_logical_invocation"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::model_pool_for_role"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::retry_budget_for_role"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::route_llm_invocation"
+    },
+    {
+      "from": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::assert_v2_execution_authorized"
     },
     {
       "from": "python_symbol:live_contentops/v6_platform_registry_contract.py::build_registry",
@@ -70592,6 +70898,48 @@
       "to": "live_contentops/universal_news_candidate_fabric_v2.py"
     },
     {
+      "from": "tests/test_v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/llm_operator_control_v1.py"
+    },
+    {
+      "from": "tests/test_v2_isolated_llm_execution_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/llm_operator_control_v1.py"
+    },
+    {
+      "from": "tests/test_v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/nine_router_provider_adapter_v2.py"
+    },
+    {
+      "from": "tests/test_v2_isolated_llm_execution_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/nine_router_provider_adapter_v2.py"
+    },
+    {
+      "from": "tests/test_v2_isolated_llm_execution_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/v2_isolated_llm_execution_v1.py"
+    },
+    {
+      "from": "tests/test_v2_isolated_llm_execution_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/v2_isolated_llm_execution_v1.py"
+    },
+    {
+      "from": "tests/test_v2_isolated_llm_execution_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/v2_isolated_llm_execution_v1.py"
+    },
+    {
       "from": "tests/test_v6_platform_registry_contract.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -76270,7 +76618,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-13T16:31:13Z",
+  "generation_timestamp_utc": "2026-08-13T17:19:04Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -78569,7 +78917,7 @@
     {
       "id": "live_contentops/nine_router_provider_adapter_v2.py",
       "kind": "python_module",
-      "size_bytes": 16424
+      "size_bytes": 18201
     },
     {
       "id": "live_contentops/nonnumeric_story_authority_consumer_v1.py",
@@ -79404,7 +79752,7 @@
     {
       "id": "live_contentops/retention_native_creative_brain_v2.py",
       "kind": "python_module",
-      "size_bytes": 11223
+      "size_bytes": 11487
     },
     {
       "id": "live_contentops/retention_native_motion_pipeline_v2.py",
@@ -79419,12 +79767,12 @@
     {
       "id": "live_contentops/retention_native_replacement_runner_v2.py",
       "kind": "python_module",
-      "size_bytes": 38872
+      "size_bytes": 47370
     },
     {
       "id": "live_contentops/retention_native_review_qa_v2.py",
       "kind": "python_module",
-      "size_bytes": 18230
+      "size_bytes": 18585
     },
     {
       "id": "live_contentops/retention_native_storyboard_v2.py",
@@ -79940,6 +80288,11 @@
       "id": "live_contentops/universal_news_cross_domain_canary_v1.py",
       "kind": "python_module",
       "size_bytes": 4363
+    },
+    {
+      "id": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "kind": "python_module",
+      "size_bytes": 14814
     },
     {
       "id": "live_contentops/v6_platform_registry_contract.py",
@@ -97915,105 +98268,119 @@
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::NineRouterAdapterError",
       "kind": "python_class",
-      "line": 51,
+      "line": 50,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "NineRouterAdapterError"
     },
     {
+      "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_call_nine_router_impl",
+      "kind": "python_function",
+      "line": 239,
+      "path": "live_contentops/nine_router_provider_adapter_v2.py",
+      "symbol": "_call_nine_router_impl"
+    },
+    {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_classify_http_error",
       "kind": "python_function",
-      "line": 375,
+      "line": 429,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_classify_http_error"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_cost",
       "kind": "python_function",
-      "line": 86,
+      "line": 85,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_extract_cost"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_text",
       "kind": "python_function",
-      "line": 101,
+      "line": 100,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_extract_text"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_extract_usage",
       "kind": "python_function",
-      "line": 77,
+      "line": 76,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_extract_usage"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_load_json_body",
       "kind": "python_function",
-      "line": 172,
+      "line": 171,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_load_json_body"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_observed_model",
       "kind": "python_function",
-      "line": 227,
+      "line": 226,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_observed_model"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_parse_sse",
       "kind": "python_function",
-      "line": 112,
+      "line": 111,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_parse_sse"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_parse_sse_full",
       "kind": "python_function",
-      "line": 123,
+      "line": 122,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_parse_sse_full"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::_retry_after_from_headers",
       "kind": "python_function",
-      "line": 391,
+      "line": 445,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "_retry_after_from_headers"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router",
       "kind": "python_function",
-      "line": 240,
+      "line": 354,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "call_nine_router"
     },
     {
+      "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::call_nine_router_v2_isolated",
+      "kind": "python_function",
+      "line": 373,
+      "path": "live_contentops/nine_router_provider_adapter_v2.py",
+      "symbol": "call_nine_router_v2_isolated"
+    },
+    {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::credential_presence",
       "kind": "python_function",
-      "line": 55,
+      "line": 54,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "credential_presence"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::normalize_model_identity",
       "kind": "python_function",
-      "line": 187,
+      "line": 186,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "normalize_model_identity"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::resolve_base_url",
       "kind": "python_function",
-      "line": 64,
+      "line": 63,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "resolve_base_url"
     },
     {
       "id": "python_symbol:live_contentops/nine_router_provider_adapter_v2.py::split_model_and_effort",
       "kind": "python_function",
-      "line": 208,
+      "line": 207,
       "path": "live_contentops/nine_router_provider_adapter_v2.py",
       "symbol": "split_model_and_effort"
     },
@@ -105797,7 +106164,7 @@
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::CodexLocalBrain",
       "kind": "python_class",
-      "line": 271,
+      "line": 275,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "CodexLocalBrain"
     },
@@ -105825,7 +106192,7 @@
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::active_brain",
       "kind": "python_function",
-      "line": 281,
+      "line": 285,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "active_brain"
     },
@@ -105909,77 +106276,98 @@
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_director",
       "kind": "python_function",
-      "line": 369,
+      "line": 380,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "author_director"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_segments",
       "kind": "python_function",
-      "line": 414,
+      "line": 425,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "author_segments"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_storyboards",
       "kind": "python_function",
-      "line": 508,
+      "line": 519,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "build_storyboards"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main",
       "kind": "python_function",
-      "line": 704,
+      "line": 881,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::prepare",
       "kind": "python_function",
-      "line": 182,
+      "line": 193,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "prepare"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::provider_execution_blocker",
       "kind": "python_function",
-      "line": 653,
+      "line": 830,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "provider_execution_blocker"
     },
     {
+      "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
+      "kind": "python_function",
+      "line": 767,
+      "path": "live_contentops/retention_native_replacement_runner_v2.py",
+      "symbol": "run_isolated_proof"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_xhigh_preflight",
+      "kind": "python_function",
+      "line": 672,
+      "path": "live_contentops/retention_native_replacement_runner_v2.py",
+      "symbol": "run_isolated_xhigh_preflight"
+    },
+    {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic",
       "kind": "python_function",
-      "line": 588,
+      "line": 599,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "run_premotion_critic"
     },
     {
+      "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider",
+      "kind": "python_function",
+      "line": 724,
+      "path": "live_contentops/retention_native_replacement_runner_v2.py",
+      "symbol": "validate_isolation_before_provider"
+    },
+    {
       "id": "python_symbol:live_contentops/retention_native_review_qa_v2.py::build_review_artifacts",
       "kind": "python_function",
-      "line": 63,
+      "line": 61,
       "path": "live_contentops/retention_native_review_qa_v2.py",
       "symbol": "build_review_artifacts"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_review_qa_v2.py::deterministic_qa",
       "kind": "python_function",
-      "line": 101,
+      "line": 99,
       "path": "live_contentops/retention_native_review_qa_v2.py",
       "symbol": "deterministic_qa"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_review_qa_v2.py::main",
       "kind": "python_function",
-      "line": 312,
+      "line": 316,
       "path": "live_contentops/retention_native_review_qa_v2.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_review_qa_v2.py::run_final_critic",
       "kind": "python_function",
-      "line": 226,
+      "line": 224,
       "path": "live_contentops/retention_native_review_qa_v2.py",
       "symbol": "run_final_critic"
     },
@@ -110324,6 +110712,55 @@
       "symbol": "build_real_cross_domain_canary"
     },
     {
+      "id": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::V2ExecutionLease",
+      "kind": "python_class",
+      "line": 118,
+      "path": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "symbol": "V2ExecutionLease"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::V2ExecutionLeaseError",
+      "kind": "python_class",
+      "line": 56,
+      "path": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "symbol": "V2ExecutionLeaseError"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::active_v2_execution_lease",
+      "kind": "python_function",
+      "line": 310,
+      "path": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "symbol": "active_v2_execution_lease"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::assert_v2_execution_authorized",
+      "kind": "python_function",
+      "line": 211,
+      "path": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "symbol": "assert_v2_execution_authorized"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::issue_v2_execution_lease",
+      "kind": "python_function",
+      "line": 133,
+      "path": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "symbol": "issue_v2_execution_lease"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::record_provider_attempt",
+      "kind": "python_function",
+      "line": 239,
+      "path": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "symbol": "record_provider_attempt"
+    },
+    {
+      "id": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation",
+      "kind": "python_function",
+      "line": 259,
+      "path": "live_contentops/v2_isolated_llm_execution_v1.py",
+      "symbol": "routed_v2_isolated_invocation"
+    },
+    {
       "id": "python_symbol:live_contentops/v6_platform_registry_contract.py::PlatformRegistryEntry",
       "kind": "python_class",
       "line": 53,
@@ -112400,6 +112837,11 @@
       "id": "schema:contentops.universal_news_claim.v2",
       "kind": "schema",
       "schema_id": "contentops.universal_news_claim.v2"
+    },
+    {
+      "id": "schema:contentops.v2_isolated_llm_execution.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v2_isolated_llm_execution.v1"
     },
     {
       "id": "schema:contentops.verified_aggregation_receipt.v1",
@@ -115955,6 +116397,11 @@
       "id": "tests/test_v1_throughput_architecture_v1.py",
       "kind": "test",
       "size_bytes": 8847
+    },
+    {
+      "id": "tests/test_v2_isolated_llm_execution_v1.py",
+      "kind": "test",
+      "size_bytes": 5023
     },
     {
       "id": "tests/test_v6_north_star_authority_consistency.py",
@@ -120044,6 +120491,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "4db6a01bfd5cb8bf9a39aa19766903c6199505e1",
-  "source_tree_digest": "49838e2fd337e9ea59f24a5bc54dc9071740e3115b154799df785d19166b3f1d"
+  "source_head": "d9b06171d8896ccd882e47ab3efc4a1073464aa7",
+  "source_tree_digest": "c462e015633aa34b746a5db087e544545e12b58e4f00d92f1e3dcfb74d505ac0"
 }

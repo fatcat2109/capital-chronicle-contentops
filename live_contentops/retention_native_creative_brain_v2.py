@@ -13,10 +13,9 @@ from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_V2_CREATIVE_EDITOR,
     ROLE_V2_CREATIVE_REVISION_AUTHOR,
     ROLE_V2_MOTION_CODE_AUTHOR,
-    routed_llm_invocation,
 )
 from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED, ProviderResult
-from live_contentops.nine_router_provider_adapter_v2 import call_nine_router
+from live_contentops.nine_router_provider_adapter_v2 import call_nine_router_v2_isolated
 from live_contentops.retention_native_concrete_first_v2 import (
     CREATIVE_MODEL,
     CreativeBible,
@@ -24,6 +23,7 @@ from live_contentops.retention_native_concrete_first_v2 import (
     logical_hash,
     validate_segment_graph,
 )
+from live_contentops.v2_isolated_llm_execution_v1 import routed_v2_isolated_invocation
 
 SCHEMA_VERSION = "contentops.retention_native.creative_brain.v2"
 ACTIVE_BRAIN = "NineRouterGPT56Brain"
@@ -222,18 +222,22 @@ class NineRouterGPT56Brain(CreativeBrain):
                     uri = f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode('ascii')}"
                     content.append({"type": "image_url", "image_url": {"url": uri, "detail": "high"}})
                 provider_prompt = content
-            return call_nine_router(
+            return call_nine_router_v2_isolated(
                 provider_prompt,
                 model,
                 timeout,
+                role_task_id=role,
+                logical_invocation_id=logical_invocation_id,
+                component=ACTIVE_BRAIN,
                 max_tokens=12000,
                 temperature=0.2,
             )
 
-        invocation = routed_llm_invocation(
+        invocation = routed_v2_isolated_invocation(
             prompt=prompt,
             role_task_id=role,
             logical_invocation_id=logical_invocation_id,
+            component=ACTIVE_BRAIN,
             work_item_id=logical_hash(prompt_payload)[:32],
             timeout_seconds=600.0,
             validator=validator,

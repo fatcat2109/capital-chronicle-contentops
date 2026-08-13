@@ -29,7 +29,6 @@ from urllib.parse import urlparse
 from live_contentops.credential_redaction_policy import redacted_presence
 from live_contentops.nine_router_ordered_model_router_v2 import (
     AUTHORIZED_MODELS,
-    GATEWAY,
     ProviderResult,
     classify_failure,
 )
@@ -237,7 +236,7 @@ def _observed_model(payload: Mapping[str, Any]) -> str | None:
     return None
 
 
-def call_nine_router(
+def _call_nine_router_impl(
     prompt: str,
     model: str,
     timeout_seconds: float = 60.0,
@@ -252,13 +251,6 @@ def call_nine_router(
     :class:`ProviderResult` so the router owns the decision. Only configuration problems
     (missing credential, disallowed host, unauthorized model) raise.
     """
-    # Direct adapter callers (notably the bounded preflight) must obey the same persistent
-    # operator fuse as routed newsroom calls, before credentials or network I/O are touched.
-    from live_contentops.llm_operator_control_v1 import (
-        assert_llm_operator_execution_enabled,
-    )
-
-    assert_llm_operator_execution_enabled()
     if model not in AUTHORIZED_MODELS:
         raise NineRouterAdapterError(f"unauthorized_model:{model}")
 
@@ -357,6 +349,68 @@ def call_nine_router(
         usage=usage or _extract_usage(payload),
         cost=_extract_cost(payload),
     )
+
+
+def call_nine_router(
+    prompt: str,
+    model: str,
+    timeout_seconds: float = 60.0,
+    *,
+    max_tokens: int = 16000,
+    temperature: float = 0.2,
+    base_url: str | None = None,
+) -> ProviderResult:
+    """Canonical adapter; the shared/global operator fuse remains authoritative."""
+    from live_contentops.llm_operator_control_v1 import assert_llm_operator_execution_enabled
+
+    assert_llm_operator_execution_enabled()
+    return _call_nine_router_impl(
+        prompt, model, timeout_seconds, max_tokens=max_tokens,
+        temperature=temperature, base_url=base_url,
+    )
+
+
+def call_nine_router_v2_isolated(
+    prompt: str,
+    model: str,
+    timeout_seconds: float = 60.0,
+    *,
+    role_task_id: str,
+    logical_invocation_id: str,
+    component: str,
+    max_tokens: int = 16000,
+    temperature: float = 0.2,
+    base_url: str | None = None,
+) -> ProviderResult:
+    """Explicit V2-only lease consumer; never a generic fuse override."""
+    from live_contentops.v2_isolated_llm_execution_v1 import (
+        assert_v2_execution_authorized,
+        record_provider_attempt,
+    )
+
+    lease = assert_v2_execution_authorized(
+        role_task_id=role_task_id, logical_invocation_id=logical_invocation_id,
+        component=component, model=model, public_write=False,
+    )
+    prompt_sha256 = __import__("hashlib").sha256(str(prompt).encode("utf-8")).hexdigest()
+    try:
+        result = _call_nine_router_impl(
+            prompt, model, timeout_seconds, max_tokens=max_tokens,
+            temperature=temperature, base_url=base_url,
+        )
+    except BaseException as exc:
+        record_provider_attempt(
+            lease=lease, logical_invocation_id=logical_invocation_id,
+            role_task_id=role_task_id, component=component, requested_model=model,
+            prompt_sha256=prompt_sha256, error_class=type(exc).__name__,
+        )
+        raise
+    record_provider_attempt(
+        lease=lease, logical_invocation_id=logical_invocation_id,
+        role_task_id=role_task_id, component=component, requested_model=model,
+        prompt_sha256=prompt_sha256, result=result,
+    )
+    return result
 
 
 #: Gateway error markers that scope a 403/404 to *one model* rather than the credential.
