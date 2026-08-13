@@ -218,6 +218,21 @@ def _make_generator(source_url, asset_ids):
     return generator
 
 
+def _handle_generator(asset_ids=()):
+    def generator(prompt):
+        governed = json.loads(prompt.split("GOVERNED_INPUT:\n", 1)[1])
+        handle = governed["evidence_documents"][0]["source_handle"]
+        body = _passing_body(FR_URL, list(asset_ids))
+        for label in ("Federal Register", "rule", "register", "timeline"):
+            body = body.replace(f"[{label}]({FR_URL})", label)
+        body += f"\n\nSource: [[SOURCE:{handle}]]"
+        result = _make_generator(FR_URL, list(asset_ids))(prompt)
+        result["substack_body_markdown"] = body
+        return result
+
+    return generator
+
+
 def _regulatory_asset_ids():
     return [
         "official_source_document_card",
@@ -369,6 +384,68 @@ def test_controlled_build_produces_grounded_article_and_media(tmp_path, story_ty
     assert len(assets) == 3
     for asset in assets:
         assert Path(asset["path"]).is_file()
+
+
+def test_writer_receives_stable_source_handle_and_serialization_resolves_bound_url(tmp_path):
+    prompts = []
+
+    def generator(prompt):
+        prompts.append(prompt)
+        return _handle_generator()(prompt)
+
+    result = build_rolling_x_grounded_article_and_media(
+        _viability(), output_dir=tmp_path, article_generator=generator
+    )
+
+    assert len(prompts) == 1
+    governed = json.loads(prompts[0].split("GOVERNED_INPUT:\n", 1)[1])
+    assert governed["evidence_documents"][0]["source_handle"] == "SOURCE_1"
+    assert "source_url" not in governed["evidence_documents"][0]
+    assert FR_URL not in prompts[0]
+    article = result["article"]
+    assert "[[SOURCE:" not in article["substack_body_markdown"]
+    assert f"[www.federalregister.gov]({FR_URL})" in article["substack_body_markdown"]
+    assert article["source_binding_ids_referenced"] == [
+        article["source_bindings"][0]["source_id"]
+    ]
+
+
+def test_unknown_writer_url_fails_closed_in_normal_bound_path(tmp_path):
+    generator = _handle_generator()
+
+    def unbound_generator(prompt):
+        result = generator(prompt)
+        result["substack_body_markdown"] += "\n\nUnknown: https://invented.example/story"
+        return result
+
+    with pytest.raises(GroundedArticleBuilderError, match="unbound_source_url"):
+        build_rolling_x_grounded_article_and_media(
+            _viability(), output_dir=tmp_path, article_generator=unbound_generator
+        )
+
+
+def test_unresolved_discovery_url_serializes_truthful_attribution_without_link(tmp_path):
+    discovery_url = "https://news.google.com/rss/articles/opaque-discovery-path"
+    document = _official_document(source_url=discovery_url)
+    document.update(
+        {
+            "publisher": "Reuters",
+            "source_identity": "reuters.com",
+            "source_authority_class": "reputable_secondary_source",
+            "secondary_listing_only": True,
+            "reader_source_url": None,
+        }
+    )
+    result = build_rolling_x_grounded_article_and_media(
+        _viability(evidence=_evidence([document])),
+        output_dir=tmp_path,
+        article_generator=_handle_generator(),
+    )
+    article = result["article"]
+    assert "Reuters (attribution: Treasury Stress Testing Rule)" in article["substack_body_markdown"]
+    assert discovery_url not in article["substack_body_markdown"]
+    assert article["source_trail"] == []
+    assert article["source_attributions"][0]["reader_attribution_mode"] == "ATTRIBUTION_ONLY"
 
 
 def test_analytical_mode_blocks_without_capital_chronicle_authority(tmp_path):
@@ -536,6 +613,16 @@ def test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review(
     evidence = _evidence([document])
     evidence.update({
         "evidence_review_tier": "ORDINARY_MINIMUM",
+        "evidence_substance": {
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "article_mode": "BREAKING_BRIEF",
+            "target_usable_content_words": 90,
+            "usable_content_words": 240,
+            "enough_for_useful_article": True,
+            "enrichment_recommended": False,
+            "additional_source_is_eligibility_requirement": False,
+            "publication_authority": False,
+        },
         "minimum_trustworthy_evidence_packet": {
             "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
             "status": "PASS",
@@ -565,7 +652,22 @@ def test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review(
         article_generator=counted_quality_writer,
     )
     assert len(writer_calls) == 1
+    governed = json.loads(writer_calls[0].split("GOVERNED_INPUT:\n", 1)[1])
+    assert governed["supported_claims"] == [
+        {
+            "additional_source_is_eligibility_requirement": False,
+            "attribution_required": False,
+            "claim_id": "ordinary-core-proposition",
+            "claim_text": "Treasury Stress Testing Rule",
+            "evidence_document_ids": [document["document_id"]],
+            "support_status": "SUPPORTED_MINIMUM_TRUSTWORTHY_EVIDENCE",
+        }
+    ]
+    assert governed["evidence_substance"]["enough_for_useful_article"] is True
+    assert "at least 3 meaningful paragraphs and 90 words" in writer_calls[0]
     assert built["article"]["article_generation_method"] == "ROUTED_LLM_GROUNDED_ARTICLE"
+    assert built["article"]["supported_claim_count"] == 1
+    assert built["article"]["supported_claims"] == governed["supported_claims"]
     assert built["critical_path_telemetry"]["article_writer_semantic_calls"] == 1
     assert built["media"]["media_asset_count"] == 0
     payloads = implementation.build_native_derivative_payloads(

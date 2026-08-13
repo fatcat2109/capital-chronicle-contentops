@@ -17,7 +17,7 @@ FDA-G is not accepted. `v1.1.0` is not authorized.
 
 ## V1 latest completed builder lane
 
-`TASK_CONTENTOPS_V1_REAL_MEDIA_DISCOVERY_AND_EVIDENCE_FRICTION_CALIBRATION_V1`
+`TASK_CONTENTOPS_V1_GOLDEN_INTEGRATION_AND_REAL_CURRENT_ARTICLE_YIELD_CLOSEOUT_V1`
 
 Fresh-session authority/handoff:
 
@@ -45,10 +45,13 @@ The protected `v1.0` Treasury release is the immutable Golden Product capability
 Completed execution result:
 
 1. `JIM_CHATGPT_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE=PASS`;
-2. repeated Treasury conclusion removed deterministically with zero mandatory semantic review;
-3. Commons/Openverse real-media discovery and a non-Treasury Strait of Hormuz proof completed;
-4. approximately three current-newsroom opportunities replayed under KILL_SWITCH with zero public/unknown writes;
-5. do not merge to master until Jim gives the next exact integration instruction.
+2. the Golden recovery and current throughput architecture are integrated cleanly;
+3. writer-visible sources use stable handles and exact accepted reader links are resolved deterministically;
+4. ordinary evidence depth is enriched only when needed, with bounded official-PDF extraction and no second-source quota;
+5. a deterministic replay of genuine current newsroom input produced one Golden-ready BLS CPI brief with one writer call, zero mandatory semantic review, a purposeful media attempt, and nine zero-write packages;
+6. no `POLICY_CEREMONY_BLOCK` was observed and no core truth, reader-value, rights, destination-identity, KILL_SWITCH, or UNKNOWN_WRITE gate was weakened.
+
+Next V1 action: keep the genuine calendar-time soak active. Controlled `AUTONOMOUS_DEFAULT` operation is permitted only from an exact deployed master/runtime SHA with one healthy supervisor, correct canonical identity, `UNKNOWN_WRITE=0`, and zero pending ambiguous reconciliation. Only currently READY existing V1 destinations are eligible; a destination-local reauthentication failure excludes that destination without broadening authority or blocking the canonical-ready surfaces.
 
 Only true hard blockers should stop the phase: secret/session exposure, wrong-account public-write risk, fabricated core truth that cannot be removed, unresolved UNKNOWN_WRITE/public-object ambiguity, destructive production-store risk, protected `v1.0` mutation, irreconcilable merge conflict, or genuinely required operator credential/reauthentication input.
 

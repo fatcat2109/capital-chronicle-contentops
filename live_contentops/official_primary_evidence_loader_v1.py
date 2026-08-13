@@ -6,7 +6,12 @@ from email.utils import parsedate_to_datetime
 from hashlib import sha256
 import html
 import json
+import os
 import re
+import shutil
+import subprocess
+import tempfile
+from pathlib import Path
 from typing import Any, Callable, Mapping
 from urllib.parse import urlsplit
 import urllib.request
@@ -56,6 +61,54 @@ USER_AGENT = (
     "CapitalChronicleContentOps/1.0 "
     "(bounded public-primary evidence acquisition; contact: repository maintainer)"
 )
+PDF_TEXT_MAX_CHARS = 100_000
+
+
+def _pdftotext_executable() -> str | None:
+    discovered = shutil.which("pdftotext")
+    if discovered:
+        return discovered
+    # Git for Windows bundles Poppler's pdftotext outside the normal interactive PATH. The
+    # canonical Windows Daily App already depends on Git for repository deployment, but this
+    # remains optional: absence returns no text and the evidence path fails closed as before.
+    program_files = Path(os.environ.get("ProgramFiles") or r"C:\Program Files")
+    bundled = program_files / "Git" / "mingw64" / "bin" / "pdftotext.exe"
+    return str(bundled) if bundled.is_file() else None
+
+
+def _bounded_pdf_text(body: bytes) -> str:
+    """Extract a bounded text prefix through an isolated, automatically deleted temp file."""
+    executable = _pdftotext_executable()
+    if not executable:
+        return ""
+    try:
+        with tempfile.TemporaryDirectory(prefix="contentops_pdf_text_") as temp_dir:
+            source_path = Path(temp_dir) / "source.pdf"
+            source_path.write_bytes(body)
+            completed = subprocess.run(
+                [
+                    executable,
+                    "-f",
+                    "1",
+                    "-l",
+                    "20",
+                    "-layout",
+                    str(source_path),
+                    "-",
+                ],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.DEVNULL,
+                timeout=8.0,
+                check=False,
+            )
+    except (OSError, subprocess.SubprocessError):
+        return ""
+    if completed.returncode != 0 or not completed.stdout:
+        return ""
+    text = completed.stdout.decode("utf-8", errors="replace")
+    text = "\n".join(" ".join(line.split()) for line in text.splitlines())
+    text = re.sub(r"\n{3,}", "\n\n", text).strip()
+    return text[:PDF_TEXT_MAX_CHARS]
 
 
 def _iso_utc(value: datetime) -> str:
@@ -206,9 +259,18 @@ def _default_http_get(url: str, timeout_seconds: float, max_bytes: int) -> dict[
 
 
 def _verified_capabilities(
-    *, family: str, url: str, content_type: str, body: bytes
+    *,
+    family: str,
+    url: str,
+    content_type: str,
+    body: bytes,
+    pdf_text_extractor: Callable[[bytes], str] | None = None,
 ) -> tuple[set[str], Any, str]:
-    text = body.decode("utf-8", errors="replace") if content_type != "application/pdf" else ""
+    text = (
+        (pdf_text_extractor or _bounded_pdf_text)(body)
+        if content_type == "application/pdf"
+        else body.decode("utf-8", errors="replace")
+    )
     parsed: Any = None
     if content_type == "application/json" or text.lstrip().startswith(("{", "[")):
         try:
@@ -300,6 +362,7 @@ class BoundedOfficialPrimaryEvidenceLoader:
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
         clock: Callable[[], datetime] | None = None,
         source_locator: Callable[[Mapping[str, Any]], Mapping[str, Any]] | None = None,
+        pdf_text_extractor: Callable[[bytes], str] | None = None,
     ) -> None:
         evaluation_as_of = datetime.fromisoformat(
             evaluation_as_of_utc.replace("Z", "+00:00")
@@ -312,6 +375,7 @@ class BoundedOfficialPrimaryEvidenceLoader:
         self._max_response_bytes = max_response_bytes
         self._http_get = http_get or _default_http_get
         self._clock = clock or (lambda: datetime.now(timezone.utc))
+        self._pdf_text_extractor = pdf_text_extractor or _bounded_pdf_text
         if source_locator is None:
             from live_contentops.official_primary_source_locator_v1 import (
                 BoundedOfficialPrimarySourceLocator,
@@ -441,7 +505,11 @@ class BoundedOfficialPrimaryEvidenceLoader:
                 retrieved_at_utc = _iso_utc(retrieved_at)
                 content_truncated = bool(response.get("content_truncated"))
                 verified, parsed, text = _verified_capabilities(
-                    family=family, url=final_url, content_type=content_type, body=body
+                    family=family,
+                    url=final_url,
+                    content_type=content_type,
+                    body=body,
+                    pdf_text_extractor=self._pdf_text_extractor,
                 )
                 published_at = (
                     (_first_json_timestamp(parsed) if parsed is not None else None)

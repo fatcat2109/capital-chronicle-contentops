@@ -15,7 +15,7 @@ Current fresh-session handoff:
 
 Current completed continuation task:
 
-`TASK_CONTENTOPS_V1_REAL_MEDIA_DISCOVERY_AND_EVIDENCE_FRICTION_CALIBRATION_V1`
+`TASK_CONTENTOPS_V1_GOLDEN_INTEGRATION_AND_REAL_CURRENT_ARTICLE_YIELD_CLOSEOUT_V1`
 
 Parent task:
 
@@ -26,6 +26,8 @@ The accepted throughput architecture remains: prepared-candidate reuse, one qual
 Jim/ChatGPT visually accepted the Treasury Golden Product recovery on 2026-08-13. The concise EIA render is accepted only as a `CONCISE_UPDATE` regression proof. The one identified repeated Treasury conclusion is now removed by a bounded deterministic cleanup with zero mandatory semantic-review calls.
 
 Article-mode-aware purposeful visuals replace both exactly-three media ceremony and generic weak source cards. Articles must remain useful without images. The provider-neutral Visual Asset Discovery seam now has real credential-free Wikimedia Commons and Openverse adapters: story-specific intent planning, multiple narrow queries, original source/asset resolution, deterministic rights/provenance, semantic/visual ranking, series/perceptual deduplication, and explicit rejection of unknown rights, search thumbnails, and low-resolution candidates. A zero-write Strait of Hormuz proof selected a genuinely contextual documentary photograph and geography context. New V1 public writes stayed disabled throughout this task; all three genuine newsroom opportunities ran under `KILL_SWITCH`.
+
+The accepted Golden Product recovery is integrated with the current throughput architecture. Normal writer prompts now receive stable source handles rather than publication URLs; deterministic serialization alone resolves those handles to exact accepted reader links or truthful plain-text attribution. Ordinary factual eligibility remains separate from article-depth measurement: bounded public/official enrichment runs only when accepted evidence is too thin, official PDFs can contribute bounded extracted text, and an additional source is never an ordinary publication quota. A deterministic replay of a genuine current 1,102-headline opportunity produced a three-paragraph BLS CPI brief that passed factual and reader-value gates with one writer call and zero mandatory semantic-review calls. Purposeful rights-aware visual discovery ran and selected no asset; all nine zero-write destination packages were still prepared. No policy-ceremony-only blocker was observed, and the shadow performed no public or unknown write.
 
 The broader approximately 5–8 useful articles/day target remains a portfolio goal, never filler permission.
 

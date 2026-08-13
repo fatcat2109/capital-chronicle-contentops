@@ -708,6 +708,16 @@ def review_minimum_evidence_news_brief(article: Mapping[str, Any]) -> dict[str, 
     proposition = " ".join(str(packet.get("core_factual_proposition") or "").split())
     source_url = str(packet.get("source_url") or "")
     evidence_id = str(packet.get("evidence_document_id") or "")
+    bound_source_ids = {
+        str(row.get("source_id") or "")
+        for row in (article.get("source_bindings") or [])
+        if isinstance(row, Mapping)
+        and str(row.get("evidence_document_id") or "") == evidence_id
+    }
+    referenced_source_ids = {
+        str(value) for value in (article.get("source_binding_ids_referenced") or [])
+    }
+    source_identity_bound = bool(bound_source_ids.intersection(referenced_source_ids))
     proposition_terms = set(re.findall(r"[a-z0-9]{4,}", proposition.casefold()))
     body_terms = set(re.findall(r"[a-z0-9]{4,}", body.casefold()))
     proposition_bound = bool(
@@ -723,7 +733,7 @@ def review_minimum_evidence_news_brief(article: Mapping[str, Any]) -> dict[str, 
         and proposition
         and proposition_bound
         and source_url.startswith("https://")
-        and source_url in body
+        and source_identity_bound
         and evidence_id in {str(value) for value in article.get("evidence_document_ids") or []}
         and article.get("x_content_grants_factual_authority") is False
     )

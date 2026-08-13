@@ -75,9 +75,9 @@ Status:
 
 Latest completed V1 builder lane:
 
-`TASK_CONTENTOPS_V1_REAL_MEDIA_DISCOVERY_AND_EVIDENCE_FRICTION_CALIBRATION_V1`
+`TASK_CONTENTOPS_V1_GOLDEN_INTEGRATION_AND_REAL_CURRENT_ARTICLE_YIELD_CLOSEOUT_V1`
 
-Status: `PASS`; `JIM_CHATGPT_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE=PASS`. The Treasury render is the accepted recovered V1 direction, the EIA render is concise-update-only, and the repeated Treasury conclusion is removed without semantic-review ceremony. Real Wikimedia Commons/Openverse discovery and a Strait of Hormuz contextual-media proof are committed. Three genuine newsroom opportunities remained KILL_SWITCH/zero-write and correctly abstained at intake, source binding, or reader-value gates.
+Status: `PASS`; `JIM_CHATGPT_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE=PASS`. The accepted Golden recovery is integrated with the current prepared-candidate/one-writer architecture. Publication links are now deterministically serialized from stable accepted source identities, while evidence depth is measured independently from factual eligibility and enriched only when necessary. A frozen replay of a genuine current 1,102-headline opportunity produced a useful three-paragraph BLS CPI brief, factual/reader-value PASS, one writer call, zero mandatory semantic-review calls, a purposeful rights-aware media attempt, and nine zero-write packages. No policy-ceremony-only block was observed; public writes and unknown writes remained zero throughout correction/shadow work.
 
 The latest real production day legitimately ended `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`; zero publication was correct. The 5–8 article/day band remains a target, not filler permission.
 
