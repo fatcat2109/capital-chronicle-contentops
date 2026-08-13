@@ -1,6 +1,6 @@
 # ContentOps V2 — GPT-5.6 Creative-Code + Asset-Density Owner Override V1
 
-Authority date: 2026-08-12
+Authority date: 2026-08-13
 Status: `CURRENT_V2_OWNER_OVERRIDE`
 Owner direction: Jim
 
@@ -93,13 +93,11 @@ Remotion is the deterministic renderer/compiler. It does not own creative direct
 
 After deterministic QA and independent multimodal review, `new/gpt-5.6-sol-xhigh` receives only localized defect evidence and patches the affected shot/code where possible. Revisions should be selective rather than regenerating the full video.
 
-### Degraded fallback
+### Exact-model retry and blocker policy
 
-Infrastructure fallback may remain bounded for availability, but if any creative-author role resolves to a different model, the package must record:
+Each creative-author role uses the exact singleton pool `("new/gpt-5.6-sol-xhigh",)`. It receives one initial attempt plus at most three same-model retries. `requested_model_temporarily_unavailable` remains same-model retry eligible and bounded `Retry-After` must be honored. Incident routing, cost/latency preference, generic pool ordering, and cycle availability cache cannot replace or skip the exact creative model. There is no creative fallback. Four failed attempts end as `BLOCKED_EXACT_CREATIVE_MODEL`.
 
-`DEGRADED_CREATIVE_MODEL`
-
-A degraded-model package may be rendered for diagnosis but cannot self-advance to `PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`. Jim/ChatGPT actual media review remains required.
+The owner-updated generic 9Router pool is ordered `new/gpt-5.6-sol-xhigh`, `new/qwen3.8-max-preview`, `new/claude-opus-5`, `vx/gemini-3.1-pro-preview(high)`. Each receives one initial attempt plus three same-model retries before fallback, for a 16-call global maximum and three fallback transitions. `new/claude-fable-5` is removed from the generic pool.
 
 ## 3. Creative-code sandbox
 

@@ -56,12 +56,25 @@ GATEWAY = "9router"
 #: The exact ordered model pool. Every entry is an opaque exact string; the router never
 #: parses, normalises, or "corrects" a model ID. P0 remains the primary preference.
 ORDERED_MODEL_POOL: tuple[str, ...] = (
-    "new/claude-fable-5",
     "new/gpt-5.6-sol-xhigh",
+    "new/qwen3.8-max-preview",
     "new/claude-opus-5",
     "vx/gemini-3.1-pro-preview(high)",
 )
 PRIMARY_MODEL = ORDERED_MODEL_POOL[0]
+
+V2_CREATIVE_MODEL = "new/gpt-5.6-sol-xhigh"
+V2_CREATIVE_EDITOR_ROLE = "V2_CREATIVE_EDITOR"
+V2_MOTION_CODE_AUTHOR_ROLE = "V2_MOTION_CODE_AUTHOR"
+V2_CREATIVE_REVISION_AUTHOR_ROLE = "V2_CREATIVE_REVISION_AUTHOR"
+V2_CREATIVE_ROLES: frozenset[str] = frozenset(
+    {
+        V2_CREATIVE_EDITOR_ROLE,
+        V2_MOTION_CODE_AUTHOR_ROLE,
+        V2_CREATIVE_REVISION_AUTHOR_ROLE,
+    }
+)
+V2_CREATIVE_MODEL_POOL: tuple[str, ...] = (V2_CREATIVE_MODEL,)
 
 #: Cheap leaf semantic labour may prefer the exact high-throughput Flash model without
 #: changing the quality-first pool above. Final editorial and article-writing roles retain
@@ -82,6 +95,9 @@ ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     # Article prose is final editorial work, so it uses the exact quality-first order. Flash
     # remains authorized only for the cheap semantic leaf role above.
     ARTICLE_WRITING_ROLE: ARTICLE_WRITING_MODEL_POOL,
+    V2_CREATIVE_EDITOR_ROLE: V2_CREATIVE_MODEL_POOL,
+    V2_MOTION_CODE_AUTHOR_ROLE: V2_CREATIVE_MODEL_POOL,
+    V2_CREATIVE_REVISION_AUTHOR_ROLE: V2_CREATIVE_MODEL_POOL,
 }
 AUTHORIZED_MODELS = frozenset(
     model
@@ -148,22 +164,24 @@ def _incident_model_pool_for_role(role_task_id: str, mode: str) -> tuple[str, ..
         return (GEMINI_PRO_MODEL,)
     return (NEWSROOM_LEAF_SCAN_MODEL,)
 
-#: Per-model attempt ceilings, indexed by priority. P0/P1 get one retry each; P2/P3 get a
-#: single attempt, because by the time the router reaches them the invocation has already
-#: spent most of its global budget and a further same-model retry buys little.
-PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 2, 1, 1)
-NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (2, 1, 1, 1, 1)
-NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (1, 1, 1, 2)
+#: Every fallback-capable model receives one initial attempt plus up to three retries.
+#: The specialized leaf pool contains Flash plus the four-model global pool, so its
+#: declared absolute ceiling is twenty while the canonical global pool remains sixteen.
+PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (4, 4, 4, 4)
+NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = (4, 4, 4, 4, 4)
+NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS: tuple[int, ...] = PER_MODEL_MAX_ATTEMPTS
 
-MAX_TOTAL_PROVIDER_ATTEMPTS = 6
+MAX_TOTAL_PROVIDER_ATTEMPTS = 16
+MAX_DECLARED_PROVIDER_ATTEMPTS = 20
 MAX_FALLBACK_TRANSITIONS = 3
-MAX_SAME_MODEL_RETRIES = 1
+MAX_SAME_MODEL_RETRIES = 3
 MAX_STRUCTURED_OUTPUT_REPAIR_ATTEMPTS = 1
-MAX_CUMULATIVE_RETRY_SLEEP_SECONDS = 45.0
-DEFAULT_WALL_CLOCK_BUDGET_SECONDS = 300.0
+MAX_CUMULATIVE_RETRY_SLEEP_SECONDS = 1800.0
+DEFAULT_WALL_CLOCK_BUDGET_SECONDS = 2400.0
 NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS = 4
-NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS = 1200.0
-NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS = 1200.0
+NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS = 3000.0
+NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS = DEFAULT_WALL_CLOCK_BUDGET_SECONDS
+V2_CREATIVE_WALL_CLOCK_BUDGET_SECONDS = 900.0
 
 # --- terminal dispositions -------------------------------------------------------------
 ACCEPTED = "ACCEPTED"
@@ -172,6 +190,7 @@ POOL_EXHAUSTED = "BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED"
 TERMINAL_NON_RETRYABLE = "LLM_TERMINAL_NON_RETRYABLE_FAILURE"
 IDENTITY_REJECTED = "BLOCKED_MODEL_IDENTITY_MISMATCH"
 IDENTITY_NOT_VERIFIABLE = "MODEL_IDENTITY_NOT_PROVIDER_VERIFIABLE"
+BLOCKED_EXACT_CREATIVE_MODEL = "BLOCKED_EXACT_CREATIVE_MODEL"
 
 # --- failure classes -------------------------------------------------------------------
 #: Infrastructure failures. Retry the same model, or advance to the next authorized model.
@@ -224,11 +243,10 @@ STRUCTURED_OUTPUT_CLASSES: frozenset[str] = frozenset(
 #: told us it will not honour the exact request — but the pool may still be walked.
 IDENTITY_MISMATCH_CLASS = "resolved_model_mismatch"
 
-#: Quota-style failures where a same-model retry is pointless. The router skips straight to
-#: the next authorized model rather than burning an attempt it knows will fail.
-SKIP_SAME_MODEL_RETRY_CLASSES: frozenset[str] = frozenset(
-    {"quota_exhausted", "requested_model_temporarily_unavailable"}
-)
+#: Owner policy requires model-scoped availability and quota failures to consume the same
+#: model's bounded retry budget before fallback. Identity mismatch remains a separate
+#: immediate-advance invariant in the router loop.
+SKIP_SAME_MODEL_RETRY_CLASSES: frozenset[str] = frozenset()
 
 
 class ModelRouterError(RuntimeError):
@@ -256,7 +274,7 @@ def authority_packet() -> dict[str, Any]:
         "gateway": GATEWAY,
         "ordered_model_pool": list(ORDERED_MODEL_POOL),
         "primary_model": PRIMARY_MODEL,
-        "global_quality_first_pool_unchanged": True,
+        "global_quality_first_pool_owner_updated": True,
         "role_specific_model_pools": {
             role: list(pool) for role, pool in ROLE_MODEL_POOLS.items()
         },
@@ -269,9 +287,9 @@ def authority_packet() -> dict[str, Any]:
         "temporary_build_acceptance_gemini_incident": incident,
         "production_launch_uses_incident_override_by_default": False,
         "newsroom_global_editor_retry_policy": {
-            "max_total_provider_attempts": 5,
+            "max_total_provider_attempts": MAX_TOTAL_PROVIDER_ATTEMPTS,
             "max_fallback_transitions": 3,
-            "max_same_model_retries": 0,
+            "max_same_model_retries": MAX_SAME_MODEL_RETRIES,
             "max_structured_output_repair_attempts": 1,
             "per_model_max_attempts": list(
                 NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS
@@ -317,6 +335,9 @@ def retry_budget_policy() -> dict[str, Any]:
 
 def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
     """Return the one canonical model ordering for a semantic role."""
+    if str(role_task_id) in V2_CREATIVE_ROLES:
+        # The hard creative pin resolves before every generic/incident/cost override.
+        return V2_CREATIVE_MODEL_POOL
     incident = build_acceptance_gemini_incident()
     if incident is not None:
         return _incident_model_pool_for_role(role_task_id, str(incident["mode"]))
@@ -325,6 +346,15 @@ def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
 
 def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "RetryBudget":
     """Allocate one immutable bounded budget appropriate to the canonical role pool."""
+    if str(role_task_id) in V2_CREATIVE_ROLES:
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=4,
+            max_fallback_transitions=0,
+            max_same_model_retries=3,
+            wall_clock_budget_seconds=V2_CREATIVE_WALL_CLOCK_BUDGET_SECONDS,
+            per_model_max_attempts=(4,),
+        )
     if build_acceptance_gemini_incident() is not None:
         wall_clock_budget_seconds = DEFAULT_WALL_CLOCK_BUDGET_SECONDS
         if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE:
@@ -333,15 +363,16 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
             wall_clock_budget_seconds = NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=2,
+            max_total_provider_attempts=4,
             max_fallback_transitions=0,
-            max_same_model_retries=1,
+            max_same_model_retries=3,
             wall_clock_budget_seconds=wall_clock_budget_seconds,
-            per_model_max_attempts=(2,),
+            per_model_max_attempts=(4,),
         )
     if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE:
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=20,
             max_fallback_transitions=NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS,
             wall_clock_budget_seconds=NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS,
             per_model_max_attempts=NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS,
@@ -349,11 +380,7 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
     if str(role_task_id) == NEWSROOM_GLOBAL_EDITOR_ROLE:
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=5,
-            max_fallback_transitions=3,
-            max_same_model_retries=0,
             wall_clock_budget_seconds=NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS,
-            per_model_max_attempts=NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS,
         )
     return RetryBudget(logical_invocation_id=logical_invocation_id)
 
@@ -466,7 +493,7 @@ class RetryBudget:
     def __post_init__(self) -> None:
         if self.max_total_provider_attempts < 1:
             raise ModelRouterError("max_total_provider_attempts_must_be_positive")
-        if self.max_total_provider_attempts > MAX_TOTAL_PROVIDER_ATTEMPTS:
+        if self.max_total_provider_attempts > MAX_DECLARED_PROVIDER_ATTEMPTS:
             # Tightening is allowed; widening the declared launch policy is not.
             raise ModelRouterError(
                 f"max_total_provider_attempts_exceeds_declared_policy:{self.max_total_provider_attempts}"
@@ -695,6 +722,8 @@ def route_llm_invocation(
                 "requested_model": model,
                 "attempt_number_global": budget.consumed_attempts,
                 "attempt_number_for_model": attempt_number_for_model,
+                "attempt_kind": "initial" if attempt_number_for_model == 1 else "retry",
+                "retry_number": max(0, attempt_number_for_model - 1),
                 "fallback_from": fallback_from,
                 "fallback_reason": fallback_reason,
                 "prompt_template": prompt_template,
@@ -826,6 +855,12 @@ def route_llm_invocation(
             if failure_class in SKIP_SAME_MODEL_RETRY_CLASSES:
                 break  # a same-model retry is known-futile; advance the pool
 
+            # Never sleep after the model has consumed its final authorized attempt.
+            if budget.model_attempts_remaining(priority_index, model) <= 0:
+                break
+            if budget.attempts_for(model) > budget.max_same_model_retries:
+                break
+
             retry_after = float(result.retry_after_seconds or 0.0)
             if retry_after > 0.0:
                 if retry_after > budget.remaining_sleep_seconds() or retry_after > budget.remaining_wall_clock_seconds(now=clock):
@@ -834,13 +869,15 @@ def route_llm_invocation(
                 budget.record_sleep(retry_after)
                 sleeper(retry_after)
 
-            if budget.model_attempts_remaining(priority_index, model) <= 0:
-                break
-            if budget.attempts_for(model) > budget.max_same_model_retries:
-                break
-
         if disposition in (ACCEPTED, TERMINAL_NON_RETRYABLE, RETRY_BUDGET_EXHAUSTED):
             break
+
+    if str(role_task_id) in V2_CREATIVE_ROLES and disposition != ACCEPTED and attempts:
+        last_failure = str(attempts[-1].get("failure_class") or "")
+        if last_failure == IDENTITY_MISMATCH_CLASS:
+            disposition = IDENTITY_REJECTED
+        elif last_failure in RETRYABLE_CLASSES or last_failure in STRUCTURED_OUTPUT_CLASSES:
+            disposition = BLOCKED_EXACT_CREATIVE_MODEL
 
     if disposition == ACCEPTED and not identity_verifiable:
         # Honest downgrade: connectivity and output are fine, identity is not provable.

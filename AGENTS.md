@@ -78,7 +78,9 @@ Roles:
 - `V2_MOTION_CODE_AUTHOR`
 - `V2_CREATIVE_REVISION_AUTHOR`
 
-GPT-5.6 authors presentation-layer screenplay/narration, shot/edit strategy, motion timing, and bounded per-shot creative code. Remotion is deterministic renderer/compiler, not creative authority. Fallback creative output must be labeled `DEGRADED_CREATIVE_MODEL` and cannot self-advance through professional acceptance.
+GPT-5.6 authors presentation-layer screenplay/narration, shot/edit strategy, motion timing, and bounded per-shot creative code. Remotion is deterministic renderer/compiler, not creative authority. These three creative roles are hard-pinned to the exact singleton model with one initial attempt plus three same-model retries and zero fallback. Exhaustion is `BLOCKED_EXACT_CREATIVE_MODEL`.
+
+The owner-updated generic 9Router quality pool is exact and ordered: `new/gpt-5.6-sol-xhigh`, `new/qwen3.8-max-preview`, `new/claude-opus-5`, `vx/gemini-3.1-pro-preview(high)`. `new/claude-fable-5` is not in the generic pool. Each generic model receives one initial attempt plus three same-model retries before fallback; the four-model global ceiling is 16 provider calls and three fallback transitions.
 
 ### Existing media/provider authority remains
 

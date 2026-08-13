@@ -48,7 +48,7 @@ The model directly authors the presentation-layer screenplay, narration/pacing, 
 
 Remotion is the deterministic renderer/compiler. Remotion is not the creative director.
 
-If a fallback model is used because the exact model is unavailable, the package must be marked `DEGRADED_CREATIVE_MODEL`. Such output may be rendered for diagnosis, but it cannot self-advance through the professional visual/audio gate.
+For these roles the model pool is the exact singleton `("new/gpt-5.6-sol-xhigh",)`. The canonical router permits one initial attempt plus three same-model retries, honors bounded `Retry-After`, and permits no fallback. Exhaustion is `BLOCKED_EXACT_CREATIVE_MODEL`.
 
 This model authority does not grant factual authority. Every factual or numeric statement remains bound to governed ContentOps/Capital Chronicle evidence.
 

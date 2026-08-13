@@ -396,7 +396,7 @@ def test_leaf_scan_injection_is_data_and_cannot_change_authority_or_trigger_tool
     assert all("publish now" not in call["prompt"] for call in provider.calls[-1:])
 
 
-def test_leaf_flash_unavailable_falls_back_bounded_then_global_editor_stays_quality_first():
+def test_leaf_flash_unavailable_retries_same_model_then_global_editor_stays_quality_first():
     provider = HierarchicalProvider(fail_flash_once=True)
     result = assign_rolling_x_headlines_with_nine_router(
         rolling_input=_small_input(),
@@ -406,9 +406,9 @@ def test_leaf_flash_unavailable_falls_back_bounded_then_global_editor_stays_qual
 
     assert result["status"] == "SUCCESS"
     assert provider.calls[0]["model"] == NEWSROOM_LEAF_SCAN_MODEL
-    assert provider.calls[1]["model"] == ORDERED_MODEL_POOL[0]
+    assert provider.calls[1]["model"] == NEWSROOM_LEAF_SCAN_MODEL
     assert provider.calls[-1]["model"] == ORDERED_MODEL_POOL[0]
-    assert result["telemetry"]["fallback_transitions"] == 1
+    assert result["telemetry"]["fallback_transitions"] == 0
     assert model_pool_for_role("rolling_x_newsroom_leaf_scan")[0] == NEWSROOM_LEAF_SCAN_MODEL
     assert model_pool_for_role("tier1_editorial_review") == ORDERED_MODEL_POOL
 

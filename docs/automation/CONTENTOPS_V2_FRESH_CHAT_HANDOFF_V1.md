@@ -64,7 +64,7 @@ GPT-5.6 authors screenplay/narration/edit intent, shot-by-shot visual/motion str
 
 Remotion is deterministic renderer/compiler, not creative authority.
 
-If a creative role falls back to another model, mark output `DEGRADED_CREATIVE_MODEL`; it cannot self-advance through professional acceptance.
+Creative role routing is the exact singleton `("new/gpt-5.6-sol-xhigh",)`. Make one initial attempt plus at most three same-model retries, honor bounded `Retry-After`, never fall back, and stop as `BLOCKED_EXACT_CREATIVE_MODEL` if exhausted.
 
 ## Current image / asset / voice / audio authority
 

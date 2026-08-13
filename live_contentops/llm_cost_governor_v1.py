@@ -24,7 +24,10 @@ LEDGER_FILENAME = "llm_cost_ledger_v1.json"
 
 TARGET_LOGICAL_CALLS_PER_CYCLE = 3
 HARD_MAX_LOGICAL_CALLS_PER_CYCLE = 6
-HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE = 12
+# The generic four-model pool remains capped at 16 attempts by the router. This broader
+# cycle ceiling exists solely so the authorized five-model leaf pool (Flash + global pool)
+# can consume its declared 4x5 worst case without a contradictory lower shared cap.
+HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE = 20
 HARD_MAX_TOKENS_PER_CYCLE = 250_000
 CANONICAL_MAX_OUTPUT_TOKEN_RESERVATION = 16_000
 

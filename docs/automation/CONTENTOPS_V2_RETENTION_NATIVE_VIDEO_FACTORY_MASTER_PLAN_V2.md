@@ -219,7 +219,7 @@ Outputs:
 - optionally updated shot timing or asset assignment;
 - revision rationale and source hash.
 
-A fallback model is allowed only for infrastructure continuity. Any fallback creative output must be labeled `DEGRADED_CREATIVE_MODEL` and cannot self-pass the professional gate.
+The three creative-author roles are exact-model singleton lanes. They permit one initial `new/gpt-5.6-sol-xhigh` attempt plus three same-model retries, honor bounded `Retry-After`, and permit no fallback. Exhaustion is `BLOCKED_EXACT_CREATIVE_MODEL`.
 
 ## 4.2 Sanitized model receipts
 
@@ -665,7 +665,7 @@ These are hypotheses, not quotas.
 
 ### QA/validation
 
-- creative-model identity/fallback tests;
+- creative-model exact-identity/no-fallback/exhaustion tests;
 - sandbox/path/import/AST tests;
 - TypeScript/Remotion typecheck;
 - collision/overflow tests;

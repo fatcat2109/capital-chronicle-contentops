@@ -58,7 +58,7 @@ Do not merge or continue their creative designs.
 6. Build a much richer rights-safe candidate asset universe and select many purposeful visual states.
 7. Add text-collision and motion-repetition diagnostics beyond static-run counts.
 8. Do not default to slow left-to-right chart reveals or repeated same-speed text motion.
-9. Any creative-model fallback is `DEGRADED_CREATIVE_MODEL` and cannot self-pass.
+9. Creative roles are exact GPT-5.6 singleton lanes with four total attempts, zero fallback, and `BLOCKED_EXACT_CREATIVE_MODEL` on exhaustion.
 10. Jim/ChatGPT must inspect actual MP4/audio before V2-01 passes.
 
 ## Advancement rules

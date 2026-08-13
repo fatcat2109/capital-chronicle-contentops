@@ -79,7 +79,7 @@ GPT-5.6 directly authors presentation-layer screenplay, narration/pacing, shot/e
 
 Remotion is deterministic execution/rendering infrastructure, not creative authority.
 
-If a creative role falls back to a different model, mark the package `DEGRADED_CREATIVE_MODEL`; it cannot self-advance through professional visual/audio acceptance.
+All three creative roles are hard-pinned to the exact singleton `("new/gpt-5.6-sol-xhigh",)`. The canonical router makes at most four exact-model attempts, respects bounded `Retry-After`, and never falls back. Exhaustion is `BLOCKED_EXACT_CREATIVE_MODEL`.
 
 ## Current V2 architecture
 

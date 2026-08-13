@@ -32,7 +32,7 @@ Mandatory primary roles:
 - `V2_MOTION_CODE_AUTHOR`
 - `V2_CREATIVE_REVISION_AUTHOR`
 
-If fallback is required for availability, record `DEGRADED_CREATIVE_MODEL`. Fallback output may be rendered diagnostically but cannot self-pass the professional creative gate.
+The three creative roles use the exact singleton pool `("new/gpt-5.6-sol-xhigh",)`. Availability failures receive one initial attempt plus three same-model retries, honoring bounded `Retry-After`; fallback is forbidden. Exhaustion is `BLOCKED_EXACT_CREATIVE_MODEL`.
 
 ## Creative/renderer contract
 

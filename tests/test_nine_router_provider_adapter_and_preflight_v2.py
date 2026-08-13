@@ -164,7 +164,7 @@ def _fake(text="READY", model=P0, **kw):
 
 
 def test_preflight_marks_a_verified_model_healthy() -> None:
-    row = preflight_model(P0, provider_call=_fake(model="claude-fable-5"))
+    row = preflight_model(P0, provider_call=_fake(model="gpt-5.6-sol-xhigh"))
     assert row["health"] == HEALTHY
     assert row["model_identity_provider_verified"] is True
     assert row["response_matched_expected_token"] is True
@@ -241,7 +241,7 @@ def test_run_summary_declares_authority_pool_and_policy() -> None:
     assert summary["supersedes_authority_id"] == "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1"
     assert summary["ordered_model_pool"] == list(ORDERED_MODEL_POOL)
     assert summary["primary_model"] == P0
-    assert summary["retry_budget_policy"]["max_total_provider_attempts"] == 6
+    assert summary["retry_budget_policy"]["max_total_provider_attempts"] == 16
     assert summary["authority_logical_hash"]
 
 
@@ -308,8 +308,8 @@ def test_seam_declares_one_router_one_pool_and_no_per_module_retries() -> None:
     assert manifest["per_module_retry_implementations"] == 0
     assert manifest["distinct_model_lists"] == 1
     assert manifest["ordered_model_pool"] == list(ORDERED_MODEL_POOL)
-    assert len(manifest["integrated_call_sites"]) == 8
-    assert manifest["global_quality_first_pool_unchanged"] is True
+    assert len(manifest["integrated_call_sites"]) == 11
+    assert manifest["global_quality_first_pool_owner_updated"] is True
     assert manifest["role_specific_model_pools"]["rolling_x_newsroom_leaf_scan"][0] == (
         "vx/gemini-3.5-flash(high)"
     )
@@ -338,7 +338,7 @@ def test_seam_returns_text_and_records_evidence() -> None:
 
     drain_invocation_log()
     text = routed_llm_text(
-        "prompt", "9router", 5.0, provider_call=_fake(model="claude-fable-5")
+        "prompt", "9router", 5.0, provider_call=_fake(model="gpt-5.6-sol-xhigh")
     )
     assert text == "READY"
     log = drain_invocation_log()

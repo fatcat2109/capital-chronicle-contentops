@@ -181,6 +181,8 @@ shared cheap intelligence
 
 Do not hardcode temporary provider pricing, subscription quotas, or token assumptions into architecture. Measure actual provider cost and manage a portfolio budget.
 
+Current exact canonical 9Router ordering is `new/gpt-5.6-sol-xhigh`, `new/qwen3.8-max-preview`, `new/claude-opus-5`, then `vx/gemini-3.1-pro-preview(high)`. Each generic model receives one initial attempt plus three same-model retries before fallback; the global ceiling is 16 provider calls and three fallback transitions. `new/claude-fable-5` is removed. The V2 creative editor, motion-code author, and creative-revision author are separate exact GPT-5.6 singleton lanes with four total attempts and no fallback; exhaustion is `BLOCKED_EXACT_CREATIVE_MODEL`.
+
 ## 7. V2 accepted image direction
 
 - dedicated direct `https://ai.api-cheap.site/v1/images/generations` boundary;

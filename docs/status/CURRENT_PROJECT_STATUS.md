@@ -18,6 +18,16 @@ probabilities, forecasts, numeric truth, realized-outcome comparison, and analyt
 attribution. ContentOps faithfully transforms governed Capital Chronicle packets and must
 not originate analytical truth.
 
+### Current V2-01 exact-creative-model blocker
+
+The owner-updated generic 9Router order/retry policy is implemented and focused regressions
+pass. Exact GPT-5.6 creative-role availability preflight passed with provider-verified identity,
+but the subsequent full `V2_CREATIVE_EDITOR` invocation exhausted its four authorized exact-model
+attempts without an accepted governed blueprint. Result: `BLOCKED_EXACT_CREATIVE_MODEL`.
+Fallback transitions were forbidden and remained zero; Motion Code Author, rendering, critic,
+upload, and public write did not run. V2-02 must not begin. Sanitized evidence is under
+`docs/automation/TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1/`.
+
 ### Current V1 preselection-intelligence correction
 
 `TASK_CONTENTOPS_V1_PRESELECTION_INTELLIGENCE_PUBLISHED_MEMORY_AND_BREAKING_WAKE_CLOSEOUT_V1`
@@ -241,13 +251,14 @@ evidence within 24 hours; owner authorization is already satisfied.
 `CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2` is integrated from the accepted lineage
 through `ae60da22b9a155d25dc783f10285eecd875b9d0f`; single-model V1 is historical only.
 
-The authorized ordered pool remains `new/claude-fable-5`, `new/gpt-5.6-sol-xhigh`,
-`new/claude-opus-5`, and `vx/gemini-3.1-pro-preview(high)`. Latest committed bounded
-no-write preflight evidence records 4/4 `HEALTHY` and provider-verified identity. Current
-operator-reported availability may be degraded; execution may continue through whichever
-authorized pool members remain healthy, within the one non-resetting retry budget. Fallback
-never bypasses evidence, factual, numeric-authority, permission, freshness, policy, or
-publication gates.
+The owner-updated ordered pool is `new/gpt-5.6-sol-xhigh`, `new/qwen3.8-max-preview`,
+`new/claude-opus-5`, and `vx/gemini-3.1-pro-preview(high)`. `new/claude-fable-5` is removed.
+Each generic model receives one initial attempt plus three same-model retries before fallback,
+for a 16-call global ceiling and three fallback transitions. Fallback never bypasses evidence,
+factual, numeric-authority, permission, freshness, policy, or publication gates. The three V2
+creative-author roles are exact GPT-5.6 singleton lanes with four total attempts, zero fallback,
+and `BLOCKED_EXACT_CREATIVE_MODEL` on exhaustion. Historical preflight results for the prior
+pool do not prove current availability.
 
 ### Accepted and merged: CORE V0 repeated shadow soak and recovery
 

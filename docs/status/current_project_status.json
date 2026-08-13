@@ -2111,26 +2111,34 @@
   "nine_router_ordered_model_authority_v2": {
     "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
     "authority_version": "v2",
-    "authority_logical_hash": "7e69954eb5a237b714e214b3d3954a13469786a5f70e237e82b8349abac31cc0",
+    "authority_logical_hash": "82c82f85c959cc52a7ae1cbac00d6b81e6a1c7409a55df4d59514ddbedaa025a",
     "supersedes": "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1",
     "owner": "Jim (product owner)",
     "gateway": "9router",
     "ordered_model_pool": [
-      "new/claude-fable-5",
       "new/gpt-5.6-sol-xhigh",
+      "new/qwen3.8-max-preview",
       "new/claude-opus-5",
       "vx/gemini-3.1-pro-preview(high)"
     ],
-    "primary_model": "new/claude-fable-5",
-    "p0_remains_claude_fable_5": true,
-    "global_quality_first_pool_unchanged": true,
+    "primary_model": "new/gpt-5.6-sol-xhigh",
+    "global_quality_first_pool_owner_updated": true,
     "role_specific_model_pools": {
       "rolling_x_newsroom_leaf_scan": [
         "vx/gemini-3.5-flash(high)",
-        "new/claude-fable-5",
         "new/gpt-5.6-sol-xhigh",
+        "new/qwen3.8-max-preview",
         "new/claude-opus-5",
         "vx/gemini-3.1-pro-preview(high)"
+      ],
+      "V2_CREATIVE_EDITOR": [
+        "new/gpt-5.6-sol-xhigh"
+      ],
+      "V2_MOTION_CODE_AUTHOR": [
+        "new/gpt-5.6-sol-xhigh"
+      ],
+      "V2_CREATIVE_REVISION_AUTHOR": [
+        "new/gpt-5.6-sol-xhigh"
       ]
     },
     "newsroom_leaf_scan_model": "vx/gemini-3.5-flash(high)",
@@ -2147,31 +2155,32 @@
     "retry_budget_policy": {
       "budget_resets_on_model_change": false,
       "budget_resets_on_reconstruction": false,
-      "default_wall_clock_budget_seconds": 300.0,
-      "max_cumulative_retry_sleep_seconds": 45.0,
+      "default_wall_clock_budget_seconds": 2400.0,
+      "max_cumulative_retry_sleep_seconds": 1800.0,
       "max_fallback_transitions": 3,
-      "max_same_model_retries": 1,
+      "max_same_model_retries": 3,
       "max_structured_output_repair_attempts": 1,
-      "max_total_provider_attempts": 6,
+      "max_total_provider_attempts": 16,
       "per_model_max_attempts": {
-        "new/claude-fable-5": 2,
-        "new/claude-opus-5": 1,
-        "new/gpt-5.6-sol-xhigh": 2,
-        "vx/gemini-3.1-pro-preview(high)": 1
+        "new/claude-opus-5": 4,
+        "new/gpt-5.6-sol-xhigh": 4,
+        "new/qwen3.8-max-preview": 4,
+        "vx/gemini-3.1-pro-preview(high)": 4
       },
       "structured_repair_counts_against_total_attempts": true
     },
     "newsroom_global_editor_retry_policy": {
-      "model_pool": "UNCHANGED_GLOBAL_QUALITY_FIRST_POOL",
-      "max_total_provider_attempts": 4,
+      "model_pool": "OWNER_UPDATED_GLOBAL_QUALITY_FIRST_POOL",
+      "max_total_provider_attempts": 16,
       "max_fallback_transitions": 3,
       "per_model_max_attempts": [
-        1,
-        1,
-        1,
-        1
+        4,
+        4,
+        4,
+        4
       ],
-      "wall_clock_budget_seconds": 1200.0,
+      "max_same_model_retries": 3,
+      "wall_clock_budget_seconds": 2400.0,
       "budget_resets_on_model_change": false,
       "budget_resets_on_reconstruction": false,
       "bounded": true
@@ -2370,8 +2379,8 @@
     "evidence_path": "docs/automation/CONTENTOPS_PROMOTE_AUTONOMOUS_RUN_AND_RERUN_ON_FRESH_GOVERNED_PACKET_V1/"
   },
   "final_prelaunch_llm_ordered_model_pool": [
-    "new/claude-fable-5",
     "new/gpt-5.6-sol-xhigh",
+    "new/qwen3.8-max-preview",
     "new/claude-opus-5",
     "vx/gemini-3.1-pro-preview(high)"
   ],

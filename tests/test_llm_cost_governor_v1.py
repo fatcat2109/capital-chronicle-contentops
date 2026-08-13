@@ -12,9 +12,11 @@ from live_contentops.llm_cost_governor_v1 import (
     LLMCostBudgetExceededError,
     budget_snapshot,
     llm_cycle_budget_scope,
+    record_cycle_unavailable_models,
 )
 from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_ARTICLE_WRITING,
+    ROLE_V2_CREATIVE_EDITOR,
     routed_llm_invocation,
 )
 from live_contentops.nine_router_ordered_model_router_v2 import ProviderResult
@@ -34,7 +36,7 @@ def _invoke(invocation_id, provider):
 
 def test_authorized_hard_ceiling_values_are_exact():
     assert HARD_MAX_LOGICAL_CALLS_PER_CYCLE == 6
-    assert HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE == 12
+    assert HARD_MAX_PROVIDER_ATTEMPTS_PER_CYCLE == 20
     assert HARD_MAX_TOKENS_PER_CYCLE == 250_000
 
 
@@ -112,14 +114,14 @@ def test_proven_pre_generation_model_rejections_release_only_token_reservations(
         after_rejections = budget_snapshot("cycle-pre-generation", control_root=tmp_path)
         success = _invoke("quality-fallback-still-funded", accepted)
 
-    assert exhausted["terminal_disposition"] == "BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED"
+    assert exhausted["terminal_disposition"] == "LLM_RETRY_BUDGET_EXHAUSTED"
     assert after_rejections["cycle"]["accounted_tokens"] == 0
-    assert after_rejections["cycle"]["provider_attempts"] == 4
+    assert after_rejections["cycle"]["provider_attempts"] == 16
     assert success["terminal_disposition"] == "ACCEPTED"
-    assert provider_calls == 5
+    assert provider_calls == 17
     final = budget_snapshot("cycle-pre-generation", control_root=tmp_path)
     assert final["cycle"]["accounted_tokens"] == 10
-    assert final["cycle"]["provider_attempts"] == 5
+    assert final["cycle"]["provider_attempts"] == 17
 
 
 def test_accepted_fallback_caches_model_scoped_unavailability_for_same_cycle(tmp_path):
@@ -142,16 +144,15 @@ def test_accepted_fallback_caches_model_scoped_unavailability_for_same_cycle(tmp
 
     assert first["terminal_disposition"] == "ACCEPTED"
     assert second["terminal_disposition"] == "ACCEPTED"
-    assert provider_models == [
-        "new/claude-fable-5",
-        "new/gpt-5.6-sol-xhigh",
-        "new/claude-opus-5",
-        "vx/gemini-3.1-pro-preview(high)",
-        "vx/gemini-3.1-pro-preview(high)",
-    ]
+    assert provider_models == (
+        ["new/gpt-5.6-sol-xhigh"] * 4
+        + ["new/qwen3.8-max-preview"] * 4
+        + ["new/claude-opus-5"] * 4
+        + ["vx/gemini-3.1-pro-preview(high)"] * 2
+    )
     assert second["cycle_cached_unavailable_models_skipped"] == [
-        "new/claude-fable-5",
         "new/gpt-5.6-sol-xhigh",
+        "new/qwen3.8-max-preview",
         "new/claude-opus-5",
     ]
     assert second["models_attempted_in_order"] == [
@@ -159,7 +160,7 @@ def test_accepted_fallback_caches_model_scoped_unavailability_for_same_cycle(tmp
     ]
     assert second["provider_network_calls_skipped_by_cycle_unavailability_cache"] == 3
     snapshot = budget_snapshot("cycle-model-cache", control_root=tmp_path)
-    assert snapshot["cycle"]["provider_attempts"] == 5
+    assert snapshot["cycle"]["provider_attempts"] == 14
 
 
 def test_terminal_pool_exhaustion_does_not_poison_later_invocation(tmp_path):
@@ -183,10 +184,31 @@ def test_terminal_pool_exhaustion_does_not_poison_later_invocation(tmp_path):
         accept = True
         recovered = _invoke("later-recovered", provider)
 
-    assert exhausted["terminal_disposition"] == "BLOCKED_AUTHORIZED_MODEL_POOL_EXHAUSTED"
+    assert exhausted["terminal_disposition"] == "LLM_RETRY_BUDGET_EXHAUSTED"
     assert recovered["terminal_disposition"] == "ACCEPTED"
     assert recovered["cycle_cached_unavailable_models_skipped"] == []
-    assert provider_calls == 5
+    assert provider_calls == 17
+
+
+def test_creative_exact_model_pin_ignores_cycle_unavailability_cache(tmp_path):
+    provider_models = []
+
+    def provider(prompt, model, timeout):
+        provider_models.append(model)
+        return ProviderResult(text="accepted", resolved_model=model, usage={"total_tokens": 10})
+
+    with llm_cycle_budget_scope("cycle-creative-pin", control_root=tmp_path, now=NOW):
+        record_cycle_unavailable_models(["new/gpt-5.6-sol-xhigh"])
+        result = routed_llm_invocation(
+            prompt="creative governed prompt",
+            role_task_id=ROLE_V2_CREATIVE_EDITOR,
+            logical_invocation_id="creative-exact-cache-bypass",
+            provider_call=provider,
+        )
+
+    assert result["terminal_disposition"] == "ACCEPTED"
+    assert provider_models == ["new/gpt-5.6-sol-xhigh"]
+    assert result["cycle_cached_unavailable_models_skipped"] == []
 
 
 def test_untrusted_transport_failure_without_usage_retains_reservation(tmp_path):
@@ -275,4 +297,4 @@ def test_active_day_telemetry_does_not_weaken_cycle_caps(tmp_path):
     assert provider_calls == 9
     snapshot = budget_snapshot("telemetry-cycle-continued", control_root=tmp_path)
     assert snapshot["limits"]["hard_max_cycle_tokens"] == 250_000
-    assert snapshot["limits"]["hard_max_provider_attempts"] == 12
+    assert snapshot["limits"]["hard_max_provider_attempts"] == 20

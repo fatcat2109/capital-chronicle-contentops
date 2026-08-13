@@ -1,0 +1,90 @@
+{
+  "schema_version": "contentops.v2_gpt56_creative_code_vertical_slice.blocked_evidence.v1",
+  "task": "TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1",
+  "recorded_on": "2026-08-13",
+  "status": "BLOCKED_EXACT_CREATIVE_MODEL",
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "branch": "task/tier2-v2-gpt56-creative-code-asset-rich-video-v1",
+  "pre_sync_local_head": "5e844c93b031ba981feca9b5b0880e958b62b60c",
+  "fresh_starting_origin_master": "f36738bb97c019f70c96ab89ec10026aeac32556",
+  "generic_router_policy": {
+    "ordered_model_pool": [
+      "new/gpt-5.6-sol-xhigh",
+      "new/qwen3.8-max-preview",
+      "new/claude-opus-5",
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "fable_in_generic_pool": false,
+    "same_model_retries_per_model": 3,
+    "max_provider_attempts": 16,
+    "max_fallback_transitions": 3
+  },
+  "creative_role_policy": {
+    "roles": [
+      "V2_CREATIVE_EDITOR",
+      "V2_MOTION_CODE_AUTHOR",
+      "V2_CREATIVE_REVISION_AUTHOR"
+    ],
+    "model_pool": [
+      "new/gpt-5.6-sol-xhigh"
+    ],
+    "max_provider_attempts": 4,
+    "same_model_retries": 3,
+    "max_fallback_transitions": 0,
+    "exhaustion_disposition": "BLOCKED_EXACT_CREATIVE_MODEL"
+  },
+  "availability_preflight": {
+    "role": "V2_CREATIVE_EDITOR",
+    "terminal_disposition": "ACCEPTED",
+    "requested_model": "new/gpt-5.6-sol-xhigh",
+    "effective_model": "gpt-5.6-sol-xhigh",
+    "identity_provider_verified": true,
+    "provider_attempts": 1,
+    "fallback_transitions": 0,
+    "retry_sleep_seconds": 0.0,
+    "provider_status_class": "2xx_success",
+    "provider_invocation_id": "resp_0811babef291ece8016a7d566eb8708191933f0a2a5825eb3b",
+    "prompt_logical_hash": "298b903843b8e57ba3b122c3a9a16060e95d76f5648489c56b83e165f6756f74",
+    "governed_input_hash": "f7d8f77ddaf3f6f4e214e20b4b15387cf736c55358e0975e23b1ad53694c17c2",
+    "output_hash": "3a7a3db8e2262c3f8927d6fcb19ed78e53b11685e57d6a7e35584eb5715d7811"
+  },
+  "creative_editor_authorship": {
+    "role": "V2_CREATIVE_EDITOR",
+    "requested_model": "new/gpt-5.6-sol-xhigh",
+    "terminal_disposition": "BLOCKED_EXACT_CREATIVE_MODEL",
+    "provider_attempts": 4,
+    "same_model_retries": 3,
+    "fallback_transitions": 0,
+    "accepted_output": false,
+    "per_attempt_effective_identity_available_from_terminal_summary": false,
+    "per_attempt_failure_classes_available_from_terminal_summary": false,
+    "per_attempt_retry_after_available_from_terminal_summary": false,
+    "isolated_cost_governor_accounted_tokens": 78876,
+    "isolated_cost_ledger_sha256": "52785908fb3c3c4c778e90d1e80660ee1ef70a103a67399d6104b15d9d5e59b9",
+    "terminal_command_elapsed_seconds": 969.3
+  },
+  "downstream_execution": {
+    "motion_code_author_called": false,
+    "creative_revision_author_called": false,
+    "accepted_screenplay_or_narration": false,
+    "accepted_motion_source": false,
+    "render_performed": false,
+    "critic_called": false,
+    "v2_02_started": false
+  },
+  "validation": {
+    "focused_router_and_shared_regressions": "136 passed",
+    "codegraph_status_before_runtime_probe": "CODEGRAPH_CURRENT",
+    "known_windows_pytest_cleanup_caveat": "PermissionError while cleaning pytest-current after pytest exit 0"
+  },
+  "safety": {
+    "secret_material_recorded": false,
+    "browser_or_cdp_actions": 0,
+    "video_platform_actions": 0,
+    "uploads": 0,
+    "public_writes": 0,
+    "v1_runtime_mutations": 0,
+    "publication_authority": false,
+    "factual_authority": false
+  }
+}

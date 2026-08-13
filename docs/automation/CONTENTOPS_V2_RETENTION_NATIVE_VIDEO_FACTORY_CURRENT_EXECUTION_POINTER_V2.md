@@ -41,7 +41,11 @@ Required primary roles:
 
 GPT-5.6 directly authors screenplay/narration/edit decisions and bounded per-shot creative code. Remotion is deterministic renderer/compiler.
 
-Fallback creative output is `DEGRADED_CREATIVE_MODEL` and cannot self-pass.
+Creative role routing is the exact singleton `("new/gpt-5.6-sol-xhigh",)`: one initial attempt plus three same-model retries, zero fallback, and `BLOCKED_EXACT_CREATIVE_MODEL` on exhaustion.
+
+## Current execution state
+
+The 2026-08-13 replacement V2-01 run is `BLOCKED_EXACT_CREATIVE_MODEL`. Exact-model availability preflight passed, but the full `V2_CREATIVE_EDITOR` structured-authorship invocation exhausted all four exact GPT-5.6 attempts without an accepted output. No fallback, Motion Code Author call, render, critic call, upload, or public write occurred. Evidence is under `docs/automation/TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1/`. Resume this same V2-01 only when the exact creative role can produce an accepted governed blueprint; do not advance to V2-02.
 
 ## Current failed reference
 

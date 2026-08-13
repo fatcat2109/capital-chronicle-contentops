@@ -34,6 +34,10 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     ORDERED_MODEL_POOL,
     ProviderResult,
     RetryBudget,
+    V2_CREATIVE_EDITOR_ROLE,
+    V2_CREATIVE_REVISION_AUTHOR_ROLE,
+    V2_CREATIVE_ROLES,
+    V2_MOTION_CODE_AUTHOR_ROLE,
     model_pool_for_role,
     retry_budget_for_role,
     route_llm_invocation,
@@ -51,6 +55,9 @@ ROLE_NEWSROOM_ASSIGNMENT = "rolling_x_newsroom_assignment"
 ROLE_NEWSROOM_LEAF_SCAN = "rolling_x_newsroom_leaf_scan"
 ROLE_EDITORIAL_REVISION = "rolling_x_editorial_revision"
 ROLE_STRUCTURED_REPAIR = "structured_output_repair"
+ROLE_V2_CREATIVE_EDITOR = V2_CREATIVE_EDITOR_ROLE
+ROLE_V2_MOTION_CODE_AUTHOR = V2_MOTION_CODE_AUTHOR_ROLE
+ROLE_V2_CREATIVE_REVISION_AUTHOR = V2_CREATIVE_REVISION_AUTHOR_ROLE
 
 INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_ARTICLE_WRITING,
@@ -61,6 +68,9 @@ INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_NEWSROOM_LEAF_SCAN,
     ROLE_EDITORIAL_REVISION,
     ROLE_STRUCTURED_REPAIR,
+    ROLE_V2_CREATIVE_EDITOR,
+    ROLE_V2_MOTION_CODE_AUTHOR,
+    ROLE_V2_CREATIVE_REVISION_AUTHOR,
 )
 
 #: Stages that are deliberately deterministic. Listed explicitly so a future change that
@@ -138,8 +148,19 @@ def routed_llm_invocation(
     cached_models = cycle_unavailable_models()
     unavailable_models_this_invocation: set[str] = set()
     original_role_pool = model_pool_for_role(role_task_id)
-    role_pool = tuple(model for model in original_role_pool if model not in cached_models)
-    cached_model_skips = [model for model in original_role_pool if model in cached_models]
+    creative_role = str(role_task_id) in V2_CREATIVE_ROLES
+    # A cycle cache is an optimization, not route authority. The three creative roles must
+    # always make their bounded exact-model attempts and may never skip or replace GPT-5.6.
+    role_pool = (
+        original_role_pool
+        if creative_role
+        else tuple(model for model in original_role_pool if model not in cached_models)
+    )
+    cached_model_skips = (
+        []
+        if creative_role
+        else [model for model in original_role_pool if model in cached_models]
+    )
     if not role_pool:
         # Promotion happens only after an accepted fallback, so this is not expected. If an
         # invariant changes later, fail open to the authorized pool rather than letting stale
@@ -255,7 +276,7 @@ def integration_manifest() -> dict[str, Any]:
         "role_specific_model_pools": {
             role: list(model_pool_for_role(role)) for role in INTEGRATED_ROLES
         },
-        "global_quality_first_pool_unchanged": True,
+        "global_quality_first_pool_owner_updated": True,
         "integrated_roles": list(INTEGRATED_ROLES),
         "integrated_call_sites": {
             ROLE_ARTICLE_WRITING: "ai_research_canonical_article_engine_v6.run_article_engine",
@@ -275,6 +296,15 @@ def integration_manifest() -> dict[str, Any]:
             ),
             ROLE_STRUCTURED_REPAIR: (
                 "nine_router_ordered_model_router_v2 bounded same-model repair (in-router)"
+            ),
+            ROLE_V2_CREATIVE_EDITOR: (
+                "retention-native V2 story/hook/narration/screenplay/shot-concept authorship"
+            ),
+            ROLE_V2_MOTION_CODE_AUTHOR: (
+                "retention-native V2 final per-shot Remotion code authorship"
+            ),
+            ROLE_V2_CREATIVE_REVISION_AUTHOR: (
+                "retention-native V2 bounded creative revision authorship"
             ),
         },
         "deterministic_stages_not_model_assisted": list(
