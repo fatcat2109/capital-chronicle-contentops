@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12745,
+    "edges": 12746,
     "entrypoints": 14,
-    "nodes": 6761,
+    "nodes": 6762,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
@@ -33,7 +33,7 @@
       "instructions": 8,
       "manifest": 13,
       "python_class": 546,
-      "python_function": 3744,
+      "python_function": 3745,
       "python_method": 237,
       "python_module": 705,
       "schema": 174,
@@ -32411,6 +32411,12 @@
       "from": "live_contentops/retention_native_replacement_runner_v2.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::require_accepted_isolated_xhigh_preflight"
+    },
+    {
+      "from": "live_contentops/retention_native_replacement_runner_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof"
     },
     {
@@ -61775,7 +61781,7 @@
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_xhigh_preflight"
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::require_accepted_isolated_xhigh_preflight"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
@@ -76618,7 +76624,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-13T17:19:04Z",
+  "generation_timestamp_utc": "2026-08-13T18:01:33Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -79752,7 +79758,7 @@
     {
       "id": "live_contentops/retention_native_creative_brain_v2.py",
       "kind": "python_module",
-      "size_bytes": 11487
+      "size_bytes": 11558
     },
     {
       "id": "live_contentops/retention_native_motion_pipeline_v2.py",
@@ -79767,7 +79773,7 @@
     {
       "id": "live_contentops/retention_native_replacement_runner_v2.py",
       "kind": "python_module",
-      "size_bytes": 47370
+      "size_bytes": 49618
     },
     {
       "id": "live_contentops/retention_native_review_qa_v2.py",
@@ -106164,7 +106170,7 @@
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::CodexLocalBrain",
       "kind": "python_class",
-      "line": 275,
+      "line": 277,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "CodexLocalBrain"
     },
@@ -106185,14 +106191,14 @@
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::NineRouterGPT56Brain",
       "kind": "python_class",
-      "line": 193,
+      "line": 194,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "NineRouterGPT56Brain"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::active_brain",
       "kind": "python_function",
-      "line": 285,
+      "line": 287,
       "path": "live_contentops/retention_native_creative_brain_v2.py",
       "symbol": "active_brain"
     },
@@ -106283,21 +106289,21 @@
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_segments",
       "kind": "python_function",
-      "line": 425,
+      "line": 428,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "author_segments"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_storyboards",
       "kind": "python_function",
-      "line": 519,
+      "line": 527,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "build_storyboards"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main",
       "kind": "python_function",
-      "line": 881,
+      "line": 926,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "main"
     },
@@ -106311,35 +106317,42 @@
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::provider_execution_blocker",
       "kind": "python_function",
-      "line": 830,
+      "line": 875,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "provider_execution_blocker"
     },
     {
+      "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::require_accepted_isolated_xhigh_preflight",
+      "kind": "python_function",
+      "line": 776,
+      "path": "live_contentops/retention_native_replacement_runner_v2.py",
+      "symbol": "require_accepted_isolated_xhigh_preflight"
+    },
+    {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
       "kind": "python_function",
-      "line": 767,
+      "line": 790,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "run_isolated_proof"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_xhigh_preflight",
       "kind": "python_function",
-      "line": 672,
+      "line": 680,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "run_isolated_xhigh_preflight"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic",
       "kind": "python_function",
-      "line": 599,
+      "line": 607,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "run_premotion_critic"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider",
       "kind": "python_function",
-      "line": 724,
+      "line": 733,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "validate_isolation_before_provider"
     },
@@ -120491,6 +120504,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "d9b06171d8896ccd882e47ab3efc4a1073464aa7",
-  "source_tree_digest": "c462e015633aa34b746a5db087e544545e12b58e4f00d92f1e3dcfb74d505ac0"
+  "source_head": "a82c493717f666cda73ff068aeb6d6aa7c858081",
+  "source_tree_digest": "9930be8601ab9aaa684a7df37788c8e11487ff2bc62e6c5871add1a20013f311"
 }
