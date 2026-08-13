@@ -187,6 +187,17 @@ def test_hourly_audit_has_no_browser_navigation_or_active_probe_path():
         assert forbidden not in source
 
 
+def test_sanitized_browser_target_keys_pass_daily_snapshot_secret_guard():
+    from live_contentops.browser_interaction_budget_v1 import sanitize_browser_target_metadata
+    from live_contentops.daily_app_ui_read_model_v1 import _assert_nonsecret
+
+    safe = sanitize_browser_target_metadata({
+        "type": "page",
+        "url": "http://127.0.0.1/callback?access_token=fixture&client_secret=fixture",
+    })
+    _assert_nonsecret(safe)
+
+
 def test_loopback_shutdown_requires_origin_exact_payload_and_reuses_fallback(tmp_path, monkeypatch):
     store = ContentOpsDurableStore(tmp_path / "daily.sqlite3")
     spawned = []

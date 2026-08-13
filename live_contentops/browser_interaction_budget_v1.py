@@ -93,8 +93,8 @@ def sanitize_browser_target_metadata(target: Mapping[str, Any]) -> dict[str, Any
             "oauth_sensitive_parameter_present": sensitive,
             "callback_query_contains_code": "code" in keys,
             "callback_query_contains_state": "state" in keys,
-            "contains_access_token_parameter": "access_token" in keys,
-            "contains_client_secret_parameter": "client_secret" in keys,
+            "access_credential_parameter_present": "access_token" in keys,
+            "client_credential_parameter_present": "client_secret" in keys,
             "callback_host_is_loopback": hostname in {"127.0.0.1", "localhost", "::1"},
             "title_classification": (
                 "TITLE_REDACTED_SENSITIVE" if sensitive or path_class == "LINKEDIN_LOOPBACK_CALLBACK"
@@ -112,8 +112,8 @@ def sanitize_browser_target_metadata(target: Mapping[str, Any]) -> dict[str, Any
             "oauth_sensitive_parameter_present": True,
             "callback_query_contains_code": False,
             "callback_query_contains_state": False,
-            "contains_access_token_parameter": False,
-            "contains_client_secret_parameter": False,
+            "access_credential_parameter_present": False,
+            "client_credential_parameter_present": False,
             "callback_host_is_loopback": False,
             "title_classification": "TITLE_REDACTED_SENSITIVE",
         }

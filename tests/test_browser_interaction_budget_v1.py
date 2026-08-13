@@ -42,8 +42,8 @@ def test_target_diagnostics_never_emit_synthetic_oauth_or_token_values():
     callback = sanitize_browser_target_metadata({"type": "page", "url": fixtures[0]})
     assert callback["callback_query_contains_code"] is True
     assert callback["callback_query_contains_state"] is True
-    assert callback["contains_access_token_parameter"] is False
-    assert callback["contains_client_secret_parameter"] is False
+    assert callback["access_credential_parameter_present"] is False
+    assert callback["client_credential_parameter_present"] is False
     assert callback["title_classification"] == "TITLE_REDACTED_SENSITIVE"
 
 

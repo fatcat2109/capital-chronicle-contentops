@@ -75346,7 +75346,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-13T16:29:58Z",
+  "generation_timestamp_utc": "2026-08-13T16:31:13Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -76050,7 +76050,7 @@
     {
       "id": "live_contentops/browser_interaction_budget_v1.py",
       "kind": "python_module",
-      "size_bytes": 11287
+      "size_bytes": 11301
     },
     {
       "id": "live_contentops/browser_safety_policy_v6.py",
@@ -111613,7 +111613,7 @@
     {
       "id": "tests/test_browser_interaction_budget_v1.py",
       "kind": "test",
-      "size_bytes": 4398
+      "size_bytes": 4405
     },
     {
       "id": "tests/test_browser_lab_paths_gitignore.py",
@@ -113323,7 +113323,7 @@
     {
       "id": "tests/test_operator_control_plane_hourly_audit_v1.py",
       "kind": "test",
-      "size_bytes": 10626
+      "size_bytes": 11068
     },
     {
       "id": "tests/test_operator_dashboard.py",
@@ -118612,6 +118612,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "a3b3d545ee8a14497b4df7f832b5ba613c2ad3de",
-  "source_tree_digest": "baca10778d0eab76493ff04e344137b219ca28cbfd2bcb8ce82a58ebde119e46"
+  "source_head": "4db6a01bfd5cb8bf9a39aa19766903c6199505e1",
+  "source_tree_digest": "8ee3169bb1d8ac81676f10cc6c28bb190632ab8bf0a3824c9822386646c15aca"
 }

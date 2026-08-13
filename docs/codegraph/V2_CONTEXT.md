@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `a3b3d545ee8a14497b4df7f832b5ba613c2ad3de`. Source tree digest: `baca10778d0eab76493ff04e344137b219ca28cbfd2bcb8ce82a58ebde119e46`.
+Generated from source HEAD `4db6a01bfd5cb8bf9a39aa19766903c6199505e1`. Source tree digest: `8ee3169bb1d8ac81676f10cc6c28bb190632ab8bf0a3824c9822386646c15aca`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This map is descriptive repository state, not product authority. Jim's current direction and
