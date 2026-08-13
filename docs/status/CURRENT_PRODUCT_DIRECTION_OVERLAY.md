@@ -75,9 +75,27 @@ Status:
 
 Latest completed V1 builder lane:
 
+`TASK_CONTENTOPS_V1_OPERATOR_CONTROL_PLANE_AND_HOURLY_RUNTIME_AUDIT_V1`
+
+Status: `PASS`; Jim/ChatGPT visually accepted the operator-control-plane product. The canonical
+master launcher is `A:\Capital Chronicle\ContentOps\Start_ContentOps_Daily_App.cmd`, and the
+hourly read-only audit is bound to that canonical checkout. Headline operational data is stable at
+`A:\Capital Chronicle\Runtime\ContentOps\headline_ingestion\data`, independent of Git worktrees.
+Historical incident evidence remains preserved but no longer inflates current active truth. Known
+DEP0169 dependency deprecation noise is informational. LinkedIn is explicitly excluded/not READY
+pending its official member API migration and does not perform periodic CDP navigation. Idle
+`KILL_SWITCH` pauses default background browser intake while preserving required lifecycle
+readback/reconciliation.
+
+Previous completed V1 builder lane:
+
 `TASK_CONTENTOPS_V1_GOLDEN_INTEGRATION_AND_REAL_CURRENT_ARTICLE_YIELD_CLOSEOUT_V1`
 
 Status: `PASS`; `JIM_CHATGPT_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE=PASS`. The accepted Golden recovery is integrated with the current prepared-candidate/one-writer architecture. Publication links are now deterministically serialized from stable accepted source identities, while evidence depth is measured independently from factual eligibility and enriched only when necessary. A frozen replay of a genuine current 1,102-headline opportunity produced a useful three-paragraph BLS CPI brief, factual/reader-value PASS, one writer call, zero mandatory semantic-review calls, a purposeful rights-aware media attempt, and nine zero-write packages. No policy-ceremony-only block was observed; public writes and unknown writes remained zero throughout correction/shadow work.
+
+Next V1 builder lane:
+
+`TASK_CONTENTOPS_V1_LINKEDIN_OFFICIAL_MEMBER_API_TRANSPORT_V1`
 
 The latest real production day legitimately ended `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`; zero publication was correct. The 5–8 article/day band remains a target, not filler permission.
 

@@ -17,6 +17,31 @@ FDA-G is not accepted. `v1.1.0` is not authorized.
 
 ## V1 latest completed builder lane
 
+`TASK_CONTENTOPS_V1_OPERATOR_CONTROL_PLANE_AND_HOURLY_RUNTIME_AUDIT_V1`
+
+Result:
+
+`PASS_OPERATOR_CONTROL_PLANE_CANONICAL_MASTER_BOUND`
+
+The accepted Today/Controls/Shutdown All/Background Logs/hourly-audit UI is canonical. The only
+permanent launcher is `A:\Capital Chronicle\ContentOps\Start_ContentOps_Daily_App.cmd`; the hourly
+Scheduled Task is installed from that checkout. All current headline capture/read paths use the
+stable runtime root `A:\Capital Chronicle\Runtime\ContentOps\headline_ingestion\data`, never the
+active worktree. Active incidents are separated from immutable recent history. LinkedIn remains
+`EXCLUDED_PENDING_OFFICIAL_API_MIGRATION`, not READY, and receives no periodic CDP navigation.
+Idle `KILL_SWITCH` keeps public writes blocked and pauses default background browser intake without
+disabling required readback/reconciliation.
+
+## V1 next builder lane
+
+`TASK_CONTENTOPS_V1_LINKEDIN_OFFICIAL_MEMBER_API_TRANSPORT_V1`
+
+This task owns the official personal-member OAuth transport, member identity resolution,
+posting/readback, secure token handling, and final retirement of LinkedIn CDP publication polling.
+No OAuth/token exchange was performed by the operator-control-plane task.
+
+## Previous V1 completed builder lane
+
 `TASK_CONTENTOPS_V1_GOLDEN_INTEGRATION_AND_REAL_CURRENT_ARTICLE_YIELD_CLOSEOUT_V1`
 
 Fresh-session authority/handoff:

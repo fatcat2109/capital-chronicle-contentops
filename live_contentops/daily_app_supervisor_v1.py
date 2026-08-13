@@ -1317,6 +1317,18 @@ class ContentOpsDailyAppSupervisor:
                 return dict(self._intake_housekeeping_override(self._store, now=now))
             except Exception as exc:  # noqa: BLE001 - intake lane is best-effort, never fatal
                 return {"lane_state": "DEGRADED", "detail": f"INTAKE_LANE_ERROR:{type(exc).__name__}", "llm_or_provider_calls": 0}
+        if self._refresh_operating_mode() == "KILL_SWITCH":
+            # KILL_SWITCH is an operator-requested quiet posture. Local read-model refreshes
+            # and required lifecycle readback/reconciliation continue elsewhere, but the
+            # default intake lane must not navigate/reload X in the background. One bounded
+            # proof can still be invoked explicitly through the ingestion seam.
+            return {
+                "lane_state": "PAUSED_KILL_SWITCH",
+                "detail": "NETWORK_INTAKE_PAUSED_BY_OPERATOR_KILL_SWITCH",
+                "capture_attempted": False,
+                "llm_or_provider_calls": 0,
+                "public_write_performed": False,
+            }
         try:
             from live_contentops.continuous_headline_ingest_v1 import (
                 run_ingestion_housekeeping_iteration,

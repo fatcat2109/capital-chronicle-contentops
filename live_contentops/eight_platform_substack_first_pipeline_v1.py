@@ -8,6 +8,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
 from live_contentops.production_orchestrator_v1 import ContentOpsProductionOrchestrator
 
 TASK_LABEL = "TASK_CONTENTOPS_FINAL_TEXT_IMAGE_PLATFORM_LIVE_LOCK_AND_V1_0_RELEASE_V1"
@@ -82,7 +83,7 @@ def run_rolling_x_newsroom_cycle(
     run_id: str,
     output_dir: Path,
     cutoff_utc: str,
-    sidecar_glob: str = "headline_ingestion/data/intake/headline_sidecars/*.jsonl",
+    sidecar_glob: str = canonical_headline_sidecar_glob(),
     window_hours: float = 24.0,
     cdp_port: int = 9223,
     assignment_timeout_seconds: float = 120.0,

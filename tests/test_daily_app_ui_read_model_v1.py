@@ -115,6 +115,64 @@ def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     assert {name for name in after if name.endswith(".sqlite3")} == {"daily.sqlite3"}
 
 
+def test_historical_unlinked_and_terminal_incidents_are_not_active(tmp_path):
+    store = _store(tmp_path)
+    store.upsert_heartbeat("daily-supervisor")
+    store.register_incident(
+        incident_id="historical-unlinked", work_item_id=None, severity="HIGH",
+        description="Historical safe failure",
+    )
+    store.create_work_item(
+        story_id="story-terminal", title="Terminal", target_surface="substack",
+        work_item_id="work-terminal",
+    )
+    with store.get_connection() as conn:
+        conn.execute(
+            "UPDATE work_items SET current_state='COMPLETE' WHERE work_item_id='work-terminal'"
+        )
+    store.register_incident(
+        incident_id="historical-terminal", work_item_id="work-terminal", severity="MEDIUM",
+        description="Resolved lifecycle incident",
+    )
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    assert snapshot["incidents"]["active_count"] == 0
+    assert snapshot["incidents"]["items"] == []
+    assert snapshot["incidents"]["history_count"] == 2
+    assert all(not row["current_actionable"] for row in snapshot["incidents"]["recent_history"])
+
+
+def test_linkedin_persisted_browser_readiness_is_overridden_by_official_api_exclusion(tmp_path):
+    store = _store(tmp_path)
+    store.upsert_destination_readiness(row={
+        "surface": "LINKEDIN_POST",
+        "platform": "linkedin",
+        "transport_registry_version": "contentops.destination_transport_registry.v1",
+        "transport_type": "EDGE_CDP",
+        "readiness_state": "READY_AUTHENTICATED",
+        "destination_identity": "historical-browser-identity",
+        "identity_match": True,
+        "write_eligible": True,
+        "probe_kind": "EDGE_CDP_IDENTITY",
+        "probed_at_utc": "2026-08-10T11:00:00Z",
+        "sanitized_detail": {},
+    })
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    linkedin = next(
+        row for row in snapshot["platforms"]["destinations"]
+        if row["platform_id"] == "linkedin"
+    )
+    assert linkedin["readiness"] == "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION"
+    assert linkedin["transport_type"] == "OFFICIAL_API_DEFERRED"
+    assert linkedin["write_eligible"] is False
+    incident = next(
+        row["incident_id"] == "derived:readiness:LINKEDIN_POST"
+        and row
+        for row in snapshot["incidents"]["items"]
+    )
+    assert incident["what_happened"] == "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION"
+    assert "No reauthentication" in incident["operator_action"]
+
+
 def test_publication_lifecycle_classes_are_exact(tmp_path):
     store = _store(tmp_path)
     real = _seed_dispatch(
@@ -171,7 +229,7 @@ def test_no_publication_and_platform_unavailable_are_truthful(tmp_path):
     assert snapshot["published"]["empty_reason"] == "NO_REAL_PUBLICATIONS_YET"
     assert snapshot["published"]["real_publication_count"] == 0
     assert {row["readiness"] for row in snapshot["platforms"]["destinations"]} == {
-        "READINESS_NOT_PROBED"
+        "READINESS_NOT_PROBED", "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
     }
     assert not any(row["write_eligible"] for row in snapshot["platforms"]["destinations"])
 

@@ -3663,7 +3663,7 @@ def _run_rolling_x_newsroom_cycle(
     run_id: str,
     output_dir: Path,
     cutoff_utc: str,
-    sidecar_glob: str = "headline_ingestion/data/intake/headline_sidecars/*.jsonl",
+    sidecar_glob: str | None = None,
     window_hours: float = 24.0,
     cdp_port: int = 9223,
     assignment_timeout_seconds: float = 120.0,
@@ -3687,6 +3687,10 @@ def _run_rolling_x_newsroom_cycle(
     cc_catalog: Mapping[str, Any] | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
+    if sidecar_glob is None:
+        from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
+
+        sidecar_glob = canonical_headline_sidecar_glob()
     """Run the rolling-X route through the one canonical production boundary."""
     from live_contentops.newsroom_assignment_scheduler_v1 import (
         assign_rolling_x_headlines_with_nine_router,

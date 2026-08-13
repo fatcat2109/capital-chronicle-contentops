@@ -18,7 +18,9 @@ from pathlib import Path
 from typing import Any
 
 SCHEMA_VERSION = "daily_editorial_scheduler_v6.0"
-DEFAULT_SIDECAR_GLOB = "headline_ingestion/data/intake/headline_sidecars/*.jsonl"
+from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
+
+DEFAULT_SIDECAR_GLOB = canonical_headline_sidecar_glob()
 DEFAULT_OUTPUT_DIR = Path("docs/automation/V6_DAILY_EDITORIAL_SCHEDULE")
 DEFAULT_SLOT_COUNT = 6
 

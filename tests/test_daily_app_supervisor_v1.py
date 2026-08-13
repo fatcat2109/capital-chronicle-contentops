@@ -199,13 +199,23 @@ def test_tick_refreshes_one_stable_durable_supervisor_heartbeat_across_restart(t
     }]
 
 
-def test_kill_switch_blocks_dispatch_but_allows_safe_recovery(tmp_path):
+def test_kill_switch_blocks_dispatch_allows_recovery_and_pauses_default_browser_intake(
+    tmp_path, monkeypatch,
+):
+    monkeypatch.delenv("CONTENTOPS_DAILY_APP_DISABLE_INTAKE_LANE", raising=False)
     clock_dt = datetime(2026, 8, 9, 14, 0, tzinfo=timezone.utc)
     supervisor, calls = _supervisor(tmp_path, mode="KILL_SWITCH", clock=_fixed_clock(clock_dt))
     report = supervisor.tick(now=clock_dt)
     assert report["kill_switch_active"] is True
     assert report["newsroom_cycle_invocations"] == 0
     assert len(calls) == 0
+    assert report["headline_ingestion"] == {
+        "lane_state": "PAUSED_KILL_SWITCH",
+        "detail": "NETWORK_INTAKE_PAUSED_BY_OPERATOR_KILL_SWITCH",
+        "capture_attempted": False,
+        "llm_or_provider_calls": 0,
+        "public_write_performed": False,
+    }
     assert "next_wake_utc" in report  # supervision/recovery continue
 
 

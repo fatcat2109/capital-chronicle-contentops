@@ -19,6 +19,7 @@ from typing import Any, Mapping, Sequence
 from urllib.parse import urlsplit
 
 from live_contentops.daily_x_cdp_headline_capture_packet_v0 import parse_timestamp
+from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
 
 SCHEMA_VERSION = "capital_chronicle.newsroom_schedule_decision.v1"
 
@@ -50,7 +51,7 @@ ALLOWED_EVIDENCE_CLASSES = frozenset({"exact", "proxy"})
 EXPECTED_UPSTREAM_REPOSITORY = "fatcat2109/Headline-Raw-data-json"
 EXPECTED_UPSTREAM_BRANCH = "main"
 EXPECTED_CANDIDATE_POOL_PRODUCER_COMMIT_SHA = "8c63faca0603f81bebfbb68380a0dc4ad51ab87d"
-DEFAULT_X_SIDECAR_GLOB = "headline_ingestion/data/intake/headline_sidecars/*.jsonl"
+DEFAULT_X_SIDECAR_GLOB = canonical_headline_sidecar_glob()
 ROLLING_X_INPUT_SCHEMA_VERSION = "capital_chronicle.rolling_x_headline_input.v1"
 UNTRUSTED_EXTERNAL_CONTENT = "UNTRUSTED_EXTERNAL_CONTENT"
 ROLLING_X_SOURCE_TIMESTAMP_FIELDS = (

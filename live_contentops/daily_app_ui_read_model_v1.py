@@ -69,7 +69,7 @@ TIER1_DESTINATIONS = (
     ("telegram", "Telegram", "NON_BROWSER_BINDING"),
     ("discord", "Discord", "NON_BROWSER_BINDING"),
     ("x", "X", "BROWSER_AUTHENTICATED"),
-    ("linkedin", "LinkedIn", "BROWSER_AUTHENTICATED"),
+    ("linkedin", "LinkedIn", "OFFICIAL_API_DEFERRED"),
     ("facebook_page", "Facebook Page", "NON_BROWSER_BINDING"),
     ("instagram_business", "Instagram Business", "NON_BROWSER_BINDING"),
     ("threads", "Threads", "NON_BROWSER_BINDING"),
@@ -446,17 +446,34 @@ def build_daily_app_snapshot(
     else:
         cycle_outcome = "NO_CYCLE_RECORDED"
 
-    incidents: list[dict[str, Any]] = [{
-        "incident_id": row["incident_id"],
-        "severity": row["severity"],
-        "what_happened": row["description"],
-        "safe_now": "New public writes remain governed by canonical gates.",
-        "automatic_action": "The supervisor continues bounded readback and recovery when available.",
-        "operator_action": "Inspect the linked lifecycle and follow the exact recovery state.",
-        "work_item_id": row["work_item_id"],
-        "created_at_utc": row["created_at"],
-        "source": "durable.incidents",
-    } for row in incident_rows]
+    terminal_work_states = {"CLOSED", "REJECTED", "COMPLETE"}
+    work_state_by_id = {
+        str(row["work_item_id"]): str(row["current_state"]) for row in work_items
+    }
+    durable_incident_history: list[dict[str, Any]] = []
+    for row in incident_rows:
+        linked_work_item = str(row.get("work_item_id") or "")
+        current_actionable = bool(
+            linked_work_item
+            and linked_work_item in work_state_by_id
+            and work_state_by_id[linked_work_item] not in terminal_work_states
+        )
+        durable_incident_history.append({
+            "incident_id": row["incident_id"],
+            "severity": row["severity"],
+            "what_happened": row["description"],
+            "safe_now": "New public writes remain governed by canonical gates.",
+            "automatic_action": "The supervisor continues bounded readback and recovery when available.",
+            "operator_action": "Inspect the linked lifecycle and follow the exact recovery state.",
+            "work_item_id": row["work_item_id"],
+            "created_at_utc": row["created_at"],
+            "source": "durable.incidents",
+            "current_actionable": current_actionable,
+            "lifecycle_state": work_state_by_id.get(linked_work_item),
+        })
+    incidents: list[dict[str, Any]] = [
+        dict(row) for row in durable_incident_history if row["current_actionable"]
+    ]
     readiness_operator_action = {
         "REAUTH_REQUIRED": "Sign in again in the canonical destination session.",
         "AUTH_INVALID": "Renew or correct the configured destination authorization.",
@@ -469,6 +486,23 @@ def build_daily_app_snapshot(
     }
     for row in readiness_rows:
         state = str(row["readiness_state"])
+        if str(row["surface"]) == "LINKEDIN_POST":
+            # LinkedIn browser transport is intentionally excluded pending the official
+            # member API migration. Persisted historical CDP readiness is not current
+            # authority; expose one current destination-local exclusion without asking the
+            # operator to reauthenticate or allowing it to block other destinations.
+            incidents.append({
+                "incident_id": "derived:readiness:LINKEDIN_POST",
+                "severity": "MEDIUM",
+                "what_happened": "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
+                "safe_now": "LinkedIn is ineligible for new writes; other exact READY destinations remain independent.",
+                "automatic_action": "No periodic LinkedIn browser navigation or automated login is performed.",
+                "operator_action": "No reauthentication action is required; complete the dedicated official member API migration task.",
+                "work_item_id": None,
+                "created_at_utc": row["probed_at_utc"],
+                "source": "derived.destination_readiness",
+            })
+            continue
         if state in READY_STATES:
             continue
         incidents.append({
@@ -506,7 +540,7 @@ def build_daily_app_snapshot(
             "created_at_utc": row["dispatched_at_utc"],
             "source": "derived.reconciliations",
         })
-    if controller_health == "OFFLINE":
+    if controller_health == "OFFLINE" and controls["operating_mode"] != "KILL_SWITCH":
         incidents.append({
             "incident_id": "derived:controller-offline",
             "severity": "HIGH",
@@ -532,6 +566,15 @@ def build_daily_app_snapshot(
         last = next((dispatch_by_platform[a] for a in aliases if a in dispatch_by_platform), None)
         readiness = readiness_by_surface.get(DESTINATION_TO_SURFACE.get(platform_id, ""), {})
         readiness_state = str(readiness.get("readiness_state") or "READINESS_NOT_PROBED")
+        if platform_id == "linkedin":
+            readiness_state = "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION"
+            readiness = {
+                **readiness,
+                "destination_identity": None,
+                "identity_match": False,
+                "probe_kind": "REGISTRY_EXCLUSION_NO_NETWORK",
+                "transport_type": "OFFICIAL_API_DEFERRED",
+            }
         platform_models.append({
             "platform_id": platform_id,
             "display_name": display_name,
@@ -618,8 +661,14 @@ def build_daily_app_snapshot(
             ),
             "rows_last_iteration": checkpoint["rows_last_iteration"],
         }
+        if controls["operating_mode"] == "KILL_SWITCH":
+            headline_ingestion_state["checkpoint_lane_state"] = headline_ingestion_state["lane_state"]
+            headline_ingestion_state["lane_state"] = "PAUSED_KILL_SWITCH"
+            headline_ingestion_state["pause_reason"] = "OPERATOR_KILL_SWITCH_NO_BACKGROUND_BROWSER_NAVIGATION"
+        from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
+
         rolling_24h_unique_headlines = rolling_24h_unique_headline_count(
-            sidecar_glob="headline_ingestion/data/intake/headline_sidecars/*.jsonl", now=generated
+            sidecar_glob=canonical_headline_sidecar_glob(), now=generated
         )
     except Exception:  # noqa: BLE001 - truth stays explicit when intelligence is unavailable
         rolling_24h_unique_headlines = None
@@ -864,6 +913,8 @@ def build_daily_app_snapshot(
             "items": incidents,
             "active_count": len(incidents),
             "empty_reason": "NO_ACTIVE_INCIDENTS" if not incidents else None,
+            "recent_history": durable_incident_history,
+            "history_count": len(durable_incident_history),
         },
         "hourly_audit": hourly_audit,
         "controls": {

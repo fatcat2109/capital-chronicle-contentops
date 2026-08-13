@@ -10,7 +10,11 @@ from urllib.request import Request, urlopen
 import pytest
 
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
-from live_contentops.hourly_runtime_audit_v1 import _classify, write_audit_artifacts
+from live_contentops.hourly_runtime_audit_v1 import (
+    _classify,
+    _recent_stderr_signal,
+    write_audit_artifacts,
+)
 from live_contentops import server as loopback_server
 from live_contentops.operator_control_plane_v1 import (
     MAX_LOG_LINES,
@@ -74,7 +78,7 @@ def test_shutdown_preflight_fails_closed_on_unknown_write(tmp_path):
     assert store.get_operating_control()["operating_mode"] == "AUTONOMOUS_DEFAULT"
 
 
-def _audit_report(*, reauth=False, duplicate=False, ambiguity=False):
+def _audit_report(*, reauth=False, reauth_platform="linkedin", duplicate=False, ambiguity=False):
     return {
         "runtime": {
             "supervisor_count": 2 if duplicate else 1,
@@ -90,7 +94,10 @@ def _audit_report(*, reauth=False, duplicate=False, ambiguity=False):
             "pending_readback_count": 0,
             "pending_lifecycle_recovery_count": 0,
         },
-        "destinations": [{"readiness": "REAUTH_REQUIRED" if reauth else "READY_AUTHENTICATED"}],
+        "destinations": [{
+            "platform_id": reauth_platform,
+            "readiness": "REAUTH_REQUIRED" if reauth else "READY_AUTHENTICATED",
+        }],
         "browsers": {"chrome_9222": {"state": "READY"}, "edge_9223": {"state": "READY"}},
         "stderr_signal": {"error_lines": 0, "warning_lines": 0},
     }
@@ -98,9 +105,52 @@ def _audit_report(*, reauth=False, duplicate=False, ambiguity=False):
 
 def test_hourly_classification_is_deterministic_and_fail_visible():
     assert _classify(_audit_report())[0] == "PASS"
-    assert _classify(_audit_report(reauth=True))[0] == "ACTION_REQUIRED"
+    assert _classify(_audit_report(reauth=True))[0] == "DEGRADED"
+    assert _classify(_audit_report(reauth=True, reauth_platform="substack"))[0] == "ACTION_REQUIRED"
     assert _classify(_audit_report(duplicate=True)) == ("ACTION_REQUIRED", ["DUPLICATE_CANONICAL_SUPERVISOR"])
     assert _classify(_audit_report(ambiguity=True)) == ("ACTION_REQUIRED", ["WRITE_OR_READBACK_AMBIGUITY_PRESENT"])
+
+
+def test_kill_switch_paused_ingestion_and_linkedin_exclusion_are_degraded_not_blocked():
+    report = _audit_report(reauth=True)
+    report["runtime"].update({
+        "operating_mode": "KILL_SWITCH",
+        "headline_lane_state": "PAUSED_KILL_SWITCH",
+        "headline_ingest_age_seconds": 10_000,
+    })
+    classification, reasons = _classify(report)
+    assert classification == "DEGRADED"
+    assert "HEADLINE_INGESTION_PAUSED_BY_KILL_SWITCH" in reasons
+
+
+def test_known_node_dep0169_warning_is_informational_not_warning(tmp_path):
+    store = ContentOpsDurableStore(tmp_path / "daily.sqlite3")
+    logs = tmp_path / "one_click_launcher"
+    logs.mkdir()
+    (logs / "daily_app.supervisor.stderr.log").write_text(
+        "(node:42) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized\n",
+        encoding="utf-8",
+    )
+    signal = _recent_stderr_signal(store.db_path)
+    assert signal["error_lines"] == 0
+    assert signal["warning_lines"] == 0
+    assert signal["informational_noise_lines"] == 1
+
+
+def test_real_exception_and_unknown_warning_remain_actionable_or_degraded(tmp_path):
+    store = ContentOpsDurableStore(tmp_path / "daily.sqlite3")
+    logs = tmp_path / "one_click_launcher"
+    logs.mkdir()
+    stderr = logs / "daily_app.supervisor.stderr.log"
+    stderr.write_text(
+        "RuntimeError: controlled fixture failure\n"
+        "Warning: destination clock drift requires review\n",
+        encoding="utf-8",
+    )
+    signal = _recent_stderr_signal(store.db_path)
+    assert signal["error_lines"] == 1
+    assert signal["warning_lines"] == 1
+    assert signal["informational_noise_lines"] == 0
 
 
 def test_hourly_artifacts_are_compact_latest_plus_bounded_jsonl(tmp_path):

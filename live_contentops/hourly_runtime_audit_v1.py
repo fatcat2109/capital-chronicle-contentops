@@ -29,6 +29,9 @@ DEFAULT_API_PORT = 5174
 MAX_HISTORY_RECORDS = 24 * 14
 RETENTION_DAYS = 14
 _SHA_LOG = re.compile(r"^daily_app\.supervisor\.([0-9a-f]{40})\.stderr\.log$", re.IGNORECASE)
+_BENIGN_STDERR_PATTERNS = (
+    re.compile(r"\[DEP0169\].*DeprecationWarning:.*url\.parse\(\)", re.IGNORECASE),
+)
 
 
 def _utc_now() -> datetime:
@@ -113,8 +116,11 @@ def _scheduled_task_state() -> dict[str, Any]:
     command = (
         "$t=Get-ScheduledTask -TaskName '" + TASK_NAME + "' -ErrorAction Stop;"
         "$i=Get-ScheduledTaskInfo -TaskName '" + TASK_NAME + "' -ErrorAction Stop;"
+        "$a=$t.Actions | Select-Object -First 1;"
         "[ordered]@{state=[string]$t.State;next_run_time=$i.NextRunTime.ToUniversalTime().ToString('o');"
-        "last_run_time=$i.LastRunTime.ToUniversalTime().ToString('o');last_result=$i.LastTaskResult}|ConvertTo-Json -Compress"
+        "last_run_time=$i.LastRunTime.ToUniversalTime().ToString('o');last_result=$i.LastTaskResult;"
+        "action_execute=[string]$a.Execute;action_arguments=[string]$a.Arguments;"
+        "working_directory=[string]$a.WorkingDirectory}|ConvertTo-Json -Compress"
     )
     try:
         result = subprocess.run(
@@ -130,6 +136,9 @@ def _scheduled_task_state() -> dict[str, Any]:
         "next_run_utc": value.get("next_run_time"),
         "last_run_utc": value.get("last_run_time"),
         "last_result": value.get("last_result"),
+        "action_execute": value.get("action_execute"),
+        "action_arguments": value.get("action_arguments"),
+        "working_directory": value.get("working_directory"),
     }
 
 
@@ -137,51 +146,136 @@ def _recent_stderr_signal(store_path: Path) -> dict[str, Any]:
     try:
         tail = read_allowlisted_log(store_path, stream="supervisor_stderr", lines=200)
     except OperatorControlError:
-        return {"status": "UNAVAILABLE", "error_lines": 0, "warning_lines": 0}
+        return {
+            "status": "UNAVAILABLE", "error_lines": 0, "warning_lines": 0,
+            "informational_noise_lines": 0,
+        }
     lines = str(tail.get("content") or "").splitlines()
-    errors = sum(1 for line in lines if re.search(r"(?i)\b(error|exception|traceback|critical)\b", line))
-    warnings = sum(1 for line in lines if re.search(r"(?i)\bwarn(?:ing)?\b", line))
+    informational = [
+        line for line in lines if any(pattern.search(line) for pattern in _BENIGN_STDERR_PATTERNS)
+    ]
+    actionable = [line for line in lines if line not in informational]
+    errors = sum(
+        1 for line in actionable
+        if re.search(
+            r"(?i)(?:\b(?:error|exception|traceback|critical)\b|\b[A-Za-z_][A-Za-z0-9_]*Error\b)",
+            line,
+        )
+    )
+    warnings = sum(1 for line in actionable if re.search(r"(?i)\bwarn(?:ing)?\b", line))
     return {
         "status": tail.get("status"),
         "sampled_lines": len(lines),
         "error_lines": errors,
         "warning_lines": warnings,
+        "informational_noise_lines": len(informational),
+        "informational_noise_classes": ["NODE_DEP0169_URL_PARSE_DEPRECATION"] if informational else [],
         "truncated": bool(tail.get("truncated")),
     }
 
 
+def _headline_runtime_signal(now: datetime) -> dict[str, Any]:
+    from live_contentops.headline_data_root_v1 import (
+        canonical_headline_data_root,
+        canonical_headline_sidecar_glob,
+    )
+    from live_contentops.newsroom_assignment_scheduler_v1 import (
+        load_rolling_x_headline_sidecars,
+    )
+
+    data_root = canonical_headline_data_root()
+    try:
+        intake = load_rolling_x_headline_sidecars(
+            cutoff_utc=now, sidecar_glob=canonical_headline_sidecar_glob(), window_hours=24.0
+        )
+        headlines = intake.get("headlines") or []
+        newest = max(
+            (str(row.get("source_timestamp_utc") or "") for row in headlines),
+            default=None,
+        )
+        counts = intake.get("counts") if isinstance(intake.get("counts"), Mapping) else {}
+        return {
+            "canonical_data_root": str(data_root),
+            "canonical_sidecar_glob": canonical_headline_sidecar_glob(),
+            "data_root_exists": data_root.is_dir(),
+            "source_file_count": int(counts.get("source_files") or 0),
+            "source_row_count": int(counts.get("source_rows") or 0),
+            "rolling_24h_unique_count": len(headlines),
+            "newest_source_event_utc": newest,
+            "canonical_input_hash": intake.get("canonical_input_hash"),
+            "status": "READY",
+        }
+    except Exception as exc:
+        return {
+            "canonical_data_root": str(data_root),
+            "canonical_sidecar_glob": canonical_headline_sidecar_glob(),
+            "data_root_exists": data_root.is_dir(),
+            "source_file_count": 0,
+            "source_row_count": 0,
+            "rolling_24h_unique_count": None,
+            "newest_source_event_utc": None,
+            "canonical_input_hash": None,
+            "status": "UNAVAILABLE:" + type(exc).__name__,
+        }
+
+
 def _classify(report: Mapping[str, Any]) -> tuple[str, list[str]]:
     reasons: list[str] = []
+    action_required = False
     runtime = report["runtime"]
     safety = report["safety"]
     if runtime["supervisor_count"] > 1:
         return "ACTION_REQUIRED", ["DUPLICATE_CANONICAL_SUPERVISOR"]
     if safety["unknown_write_count"] or safety["pending_readback_count"] or safety["pending_lifecycle_recovery_count"]:
         return "ACTION_REQUIRED", ["WRITE_OR_READBACK_AMBIGUITY_PRESENT"]
-    if any(row.get("readiness") == "REAUTH_REQUIRED" for row in report["destinations"]):
-        reasons.append("DESTINATION_REAUTH_REQUIRED")
+    critical_auth_states = {
+        "REAUTH_REQUIRED", "AUTH_INVALID", "IDENTITY_MISMATCH", "PERMISSION_MISSING",
+    }
+    for row in report["destinations"]:
+        platform = str(row.get("platform_id") or "")
+        readiness = str(row.get("readiness") or "")
+        if platform == "linkedin" and readiness in {
+            *critical_auth_states, "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
+        }:
+            reasons.append("LINKEDIN_EXCLUDED_PENDING_OFFICIAL_API_MIGRATION")
+        elif readiness in critical_auth_states:
+            reasons.append(f"DESTINATION_AUTH_REQUIRED:{platform or 'unknown'}")
+            action_required = True
     if runtime["supervisor_count"] != 1 or runtime["api_health"] != "LOOPBACK_API_HEALTHY":
         reasons.append("CANONICAL_RUNTIME_UNAVAILABLE")
+        action_required = True
     if runtime["source_sha_match"] is not True:
         reasons.append("RUNTIME_SOURCE_SHA_UNPROVEN_OR_MISMATCH")
+        action_required = True
     if runtime["controller_health"] != "HEALTHY":
         reasons.append("CONTROLLER_NOT_HEALTHY")
+        action_required = True
     heartbeat_age = runtime.get("heartbeat_age_seconds")
     if heartbeat_age is None or heartbeat_age > 180:
         reasons.append("HEARTBEAT_STALE_OR_UNAVAILABLE")
+        action_required = True
     headline_age = runtime.get("headline_ingest_age_seconds")
-    if runtime.get("headline_lane_state") != "RUNNING" or headline_age is None or headline_age > 900:
+    if (
+        runtime.get("headline_lane_state") == "PAUSED_KILL_SWITCH"
+        and runtime.get("operating_mode") == "KILL_SWITCH"
+    ):
+        reasons.append("HEADLINE_INGESTION_PAUSED_BY_KILL_SWITCH")
+    elif runtime.get("headline_lane_state") != "RUNNING" or headline_age is None or headline_age > 900:
         reasons.append("HEADLINE_INGESTION_DEGRADED_OR_STALE")
+        action_required = True
     if report["browsers"]["chrome_9222"]["state"] != "READY":
         reasons.append("CHROME_9222_UNAVAILABLE")
+        action_required = True
     if report["browsers"]["edge_9223"]["state"] != "READY":
         reasons.append("EDGE_9223_UNAVAILABLE")
+        action_required = True
     if report["stderr_signal"]["error_lines"]:
         reasons.append("RECENT_SUPERVISOR_STDERR_ERROR_SIGNAL")
+        action_required = True
     elif report["stderr_signal"].get("warning_lines"):
         reasons.append("RECENT_SUPERVISOR_STDERR_WARNING_SIGNAL")
     if reasons:
-        return ("ACTION_REQUIRED" if "DESTINATION_REAUTH_REQUIRED" in reasons else "DEGRADED"), reasons
+        return ("ACTION_REQUIRED" if action_required else "DEGRADED"), reasons
     return "PASS", ["ALL_REQUIRED_READ_ONLY_CHECKS_PASS"]
 
 
@@ -214,6 +308,7 @@ def build_hourly_audit(
     current_cycle = today.get("current_cycle") if isinstance(today.get("current_cycle"), Mapping) else {}
     headline = runtime.get("headline_ingestion") if isinstance(runtime.get("headline_ingestion"), Mapping) else {}
     destinations = (snapshot.get("platforms") or {}).get("destinations", []) if isinstance(snapshot.get("platforms"), Mapping) else []
+    headline_runtime = _headline_runtime_signal(generated)
     report: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "generated_at_utc": _iso(generated),
@@ -256,6 +351,7 @@ def build_hourly_audit(
             "pending_lifecycle_recovery_count": int(today.get("pending_lifecycle_recovery_count") or 0),
         },
         "stderr_signal": _recent_stderr_signal(store),
+        "headline_operational_data": headline_runtime,
         "scheduled_task": _scheduled_task_state(),
         "side_effects": "AUDIT_ARTIFACT_WRITES_ONLY",
     }

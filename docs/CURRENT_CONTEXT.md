@@ -15,6 +15,36 @@ Current fresh-session handoff:
 
 Current completed continuation task:
 
+`TASK_CONTENTOPS_V1_OPERATOR_CONTROL_PLANE_AND_HOURLY_RUNTIME_AUDIT_V1`
+
+The visually accepted V1 operator control plane is integrated with the canonical Daily App:
+Today, Controls, safe Shutdown All, bounded redacted Background Logs, and an independent hourly
+read-only audit. The permanent launcher is
+`A:\Capital Chronicle\ContentOps\Start_ContentOps_Daily_App.cmd`; the scheduled audit must be
+installed from that canonical master checkout and remain bound beneath the same root.
+
+Headline operational truth is now checkout-independent. Capture, the rolling-X loader, Daily App
+read model, shadow/zero-write path, and hourly audit share
+`A:\Capital Chronicle\Runtime\ContentOps\headline_ingestion\data`. Split historical worktree
+corpora were reconciled additively by existing governed identity; source artifacts remain
+preserved. Durable incident rows remain immutable history, while only lifecycle-proven current
+failures contribute to active incidents. Known Node DEP0169 `url.parse()` deprecation noise is
+informational and does not mask arbitrary warnings or exceptions.
+
+Under `KILL_SWITCH`, default background browser intake is paused and LinkedIn is explicitly
+`EXCLUDED_PENDING_OFFICIAL_API_MIGRATION`; no periodic LinkedIn CDP navigation or automated login
+is allowed. LinkedIn remains not READY and destination-local, so it degrades rather than blocks
+overall canonical health. Required readback/reconciliation safety remains active.
+
+Next V1 builder lane:
+
+`TASK_CONTENTOPS_V1_LINKEDIN_OFFICIAL_MEMBER_API_TRANSPORT_V1`
+
+That task exclusively owns OAuth/token exchange, official member identity, posting/readback, and
+retirement of the historical LinkedIn CDP transport. It must not inspect browser session storage.
+
+Previous completed product/yield task:
+
 `TASK_CONTENTOPS_V1_GOLDEN_INTEGRATION_AND_REAL_CURRENT_ARTICLE_YIELD_CLOSEOUT_V1`
 
 Parent task:

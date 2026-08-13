@@ -23,6 +23,8 @@ import time
 from pathlib import Path
 from typing import Any, Mapping, Optional
 
+from live_contentops.headline_data_root_v1 import canonical_headline_data_root
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 HEADLINE_INGESTION_DIR = REPO_ROOT / "headline_ingestion"
 DATA_INGESTION_MODULE_PATH = HEADLINE_INGESTION_DIR / "Data_Ingestion.py"
@@ -74,7 +76,8 @@ def load_data_ingestion_module() -> Any:
         import os
 
         os.chdir(original_cwd)
-    data_dir = HEADLINE_INGESTION_DIR / "data"
+    data_dir = canonical_headline_data_root()
+    data_dir.mkdir(parents=True, exist_ok=True)
     module.DATA_DIR = str(data_dir)
     module.STATE_DIR = str(data_dir / "state" / "current")
     module.SIDECAR_DIR = str(data_dir / "intake" / "headline_sidecars")
@@ -139,7 +142,7 @@ def append_deduped_sidecar_rows(
     """Append ONLY new headlines to the canonical single-folder per-day sidecar files.
 
     Headline-file consistency invariant (owner decision 2026-08-10): one folder
-    (`headline_ingestion/data/intake/headline_sidecars`), one file per day with the fixed
+    (the stable runtime root's `intake/headline_sidecars`), one file per day with the fixed
     `step1_headline_sidecar_<YYYY>_<MM>_<DD>.jsonl` name format, and zero duplicate headlines
     across captures. No other headline file families are created by this capture path.
     """

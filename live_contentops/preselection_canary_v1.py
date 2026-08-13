@@ -26,7 +26,9 @@ from live_contentops.published_corpus_read_model_v1 import load_published_corpus
 from live_contentops.preselection_intelligence_v1 import apply_preselection_intelligence
 
 SCHEMA_VERSION = "contentops.preselection_read_only_canary.v2"
-DEFAULT_SIDECAR_GLOB = "headline_ingestion/data/intake/headline_sidecars/*.jsonl"
+from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
+
+DEFAULT_SIDECAR_GLOB = canonical_headline_sidecar_glob()
 _STOPWORDS = {
     "about", "after", "again", "against", "also", "been", "before", "being", "between",
     "could", "from", "have", "into", "just", "more", "most", "over", "says", "than",

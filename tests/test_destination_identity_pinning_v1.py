@@ -43,7 +43,7 @@ def test_registry_contains_owner_pins_without_changing_transport_routing():
     expected_routing = {
         "SUBSTACK_ARTICLE": ("EDGE_CDP", 9223),
         "X_THREAD": ("EDGE_CDP", 9223),
-        "LINKEDIN_POST": ("EDGE_CDP", 9223),
+        "LINKEDIN_POST": ("OFFICIAL_API_DEFERRED", None),
         "YOUTUBE_COMMUNITY_POST": ("EDGE_CDP", 9223),
         "TELEGRAM_CHANNEL_POST": ("BOT_API", None),
         "DISCORD_ANNOUNCEMENT": ("WEBHOOK_API", None),
@@ -147,10 +147,7 @@ def test_cases_f_g_h_graph_env_id_equal_provider_id_is_not_authority(
 
 @pytest.mark.parametrize(
     "surface,key,identity",
-    [
-        ("X_THREAD", "x", "@WrongCapitalAccount"),
-        ("LINKEDIN_POST", "linkedin", "linkedin:wrong-owner"),
-    ],
+    [("X_THREAD", "x", "@WrongCapitalAccount")],
 )
 def test_cases_i_j_wrong_authenticated_browser_account_is_mismatch(
     monkeypatch, surface, key, identity,
@@ -160,6 +157,25 @@ def test_cases_i_j_wrong_authenticated_browser_account_is_mismatch(
     })
     row = DestinationReadinessManager(env={}).probe_surface(surface)
     assert row["readiness_state"] == "IDENTITY_MISMATCH"
+    assert row["write_eligible"] is False
+
+
+def test_linkedin_is_excluded_without_browser_doctor_or_cdp_navigation(monkeypatch):
+    import live_contentops.edge_cdp_publishing_adapter_v1 as adapter
+    import live_contentops.publishing_profile_registry_v1 as profiles
+
+    monkeypatch.setattr(
+        profiles, "browser_doctor",
+        lambda **_kwargs: pytest.fail("LinkedIn exclusion must not inspect or recover Edge"),
+    )
+    monkeypatch.setattr(
+        adapter, "probe_authenticated_platform_session",
+        lambda *_args, **_kwargs: pytest.fail("LinkedIn exclusion must not navigate CDP"),
+    )
+    row = DestinationReadinessManager(env={}).probe_surface("LINKEDIN_POST")
+    assert row["readiness_state"] == "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION"
+    assert row["probe_kind"] == "REGISTRY_EXCLUSION_NO_NETWORK"
+    assert row["sanitized_detail"]["cdp_navigation_performed"] is False
     assert row["write_eligible"] is False
 
 

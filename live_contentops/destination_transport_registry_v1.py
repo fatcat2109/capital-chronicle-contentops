@@ -34,6 +34,7 @@ READINESS_STATES = frozenset({
     "TRANSPORT_UNAVAILABLE",
     "TRANSIENT_DEGRADED",
     "CAPABILITY_UNSUPPORTED",
+    "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
 })
 
 
@@ -73,8 +74,9 @@ _SURFACES = (
         expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@Capitalnicle",
     ),
     SurfaceTransport(
-        "LINKEDIN_POST", "linkedin", "EDGE_CDP", "edge_cdp_publishing_adapter_v1.publish_linkedin_post_via_edge",
-        "linkedin", "linkedin:jimcc", PUBLISHING_CDP_PORT, canonical_url_dependency="SUBSTACK_ARTICLE",
+        "LINKEDIN_POST", "linkedin", "OFFICIAL_API_DEFERRED", "future:linkedin.official_member_api",
+        "linkedin", "linkedin:jimcc", tier1_write_enabled=False,
+        canonical_url_dependency="SUBSTACK_ARTICLE",
         expected_identity_kind="PUBLIC_IDENTITY", expected_public_handle="linkedin:jimcc",
     ),
     SurfaceTransport(
@@ -157,6 +159,8 @@ def canonical_transport_registry() -> dict[str, Any]:
         "silent_transport_fallback_allowed": False,
         "runtime_binding_is_identity_authority": False,
         "youtube_community_is_video_surface": False,
+        "linkedin_edge_cdp_probe_allowed": False,
+        "linkedin_runtime_state": "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
     }
 
 
@@ -499,6 +503,21 @@ class DestinationReadinessManager:
 
     def probe_surface(self, surface: str) -> dict[str, Any]:
         registration = SURFACE_REGISTRY[surface]
+        if registration.surface == "LINKEDIN_POST":
+            # Owner decision: periodic readiness must never navigate LinkedIn via CDP.  The
+            # next authorized transport is the official member API and is not implemented in
+            # this task, so the destination remains explicitly fail-closed and write-ineligible.
+            return _base_row(
+                registration,
+                state="EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
+                identity=None,
+                identity_match=False,
+                probe_kind="REGISTRY_EXCLUSION_NO_NETWORK",
+                detail={
+                    "cdp_navigation_performed": False,
+                    "official_api_transport_ready": False,
+                },
+            )
         if not registration.tier1_write_enabled:
             return _base_row(registration, state="CAPABILITY_UNSUPPORTED", identity=None,
                              identity_match=False, probe_kind="REGISTRY_CAPABILITY",
