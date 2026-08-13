@@ -58,11 +58,18 @@ The prior `NORTH_STAR_V1`, `MASTER_PLAN_V1`, `TASK_GRAPH_V1`, and `CURRENT_EXECU
 
 Current next V2 task:
 
-`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_CONCRETE_FIRST_XHIGH_REPLACEMENT_VERTICAL_SLICE_V1`
 
 Required result:
 
-`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
+`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+
+The replacement V2-01 proof must use `CONCRETE_FIRST_ABSTRACT_SECOND`, an XHIGH
+Director/Decomposer, immutable Creative Bible, adaptive Segment Graph, deterministic bounded
+child prompts, concrete visual-grounding contracts, a rights-safe asset broker, native
+chart/map/document compilers, and a blocking captions-hidden storyboard/animatic comprehension
+gate before motion code. R4 remains a systemic negative reference only. V2-02 stays blocked
+until Jim/ChatGPT reviews and explicitly accepts the actual replacement media.
 
 The target is an autonomous evidence-governed media growth engine for YouTube hero/mid/long-form, YouTube Shorts, and TikTok native short-form. It should maximize repeatable qualified audience growth and breakout/trending potential without claiming virality can be guaranteed.
 

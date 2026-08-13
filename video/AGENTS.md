@@ -14,11 +14,15 @@ For V2/video work, read first:
 
 Current next task:
 
-`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_CONCRETE_FIRST_XHIGH_REPLACEMENT_VERTICAL_SLICE_V1`
 
 Required result:
 
-`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
+`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+
+Do not continue R4's creative blueprint. The active replacement is concrete-first and must
+pass a captions-hidden storyboard/animatic comprehension gate before bounded motion authorship.
+V2-02 remains blocked pending Jim/ChatGPT actual-media acceptance.
 
 ## Exact creative-code model
 

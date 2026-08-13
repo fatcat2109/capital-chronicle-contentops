@@ -175,7 +175,8 @@ def test_exact_ordered_pool_is_the_four_authorized_models() -> None:
     )
     assert PRIMARY_MODEL == "new/claude-fable-5"
     assert len(ORDERED_MODEL_POOL) == 4
-    assert len(AUTHORIZED_MODELS) == 5
+    assert len(AUTHORIZED_MODELS) == 7
+    assert {"new/gpt-5.6-sol-high", "new/gpt-5.6-sol-medium"} <= AUTHORIZED_MODELS
     assert "vx/gemini-3.5-flash(high)" in AUTHORIZED_MODELS
     assert ARTICLE_WRITING_MODEL_POOL is ORDERED_MODEL_POOL
     assert model_pool_for_role(ARTICLE_WRITING_ROLE) is ORDERED_MODEL_POOL

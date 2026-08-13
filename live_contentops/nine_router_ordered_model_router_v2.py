@@ -63,11 +63,29 @@ ORDERED_MODEL_POOL: tuple[str, ...] = (
 )
 PRIMARY_MODEL = ORDERED_MODEL_POOL[0]
 
+# Retention-native V2 creative authorship is a role-scoped hard pin.  It does not alter
+# V1's global quality pool.  HIGH/MEDIUM are evidenced availability fallbacks only.
+V2_CREATIVE_MODEL = "new/gpt-5.6-sol-xhigh"
+V2_CREATIVE_HIGH_MODEL = "new/gpt-5.6-sol-high"
+V2_CREATIVE_MEDIUM_MODEL = "new/gpt-5.6-sol-medium"
+V2_CREATIVE_EDITOR_ROLE = "V2_CREATIVE_EDITOR"
+V2_MOTION_CODE_AUTHOR_ROLE = "V2_MOTION_CODE_AUTHOR"
+V2_CREATIVE_REVISION_AUTHOR_ROLE = "V2_CREATIVE_REVISION_AUTHOR"
+V2_CREATIVE_ROLES = frozenset(
+    {V2_CREATIVE_EDITOR_ROLE, V2_MOTION_CODE_AUTHOR_ROLE, V2_CREATIVE_REVISION_AUTHOR_ROLE}
+)
+V2_CREATIVE_MODEL_POOL = (
+    V2_CREATIVE_MODEL,
+    V2_CREATIVE_HIGH_MODEL,
+    V2_CREATIVE_MEDIUM_MODEL,
+)
+
 #: Cheap leaf semantic labour may prefer the exact high-throughput Flash model without
 #: changing the quality-first pool above. Final editorial and article-writing roles retain
 #: the canonical quality ordering. Keeping this registry beside the canonical pool means the
 #: provider adapter and router still share one authority surface.
 NEWSROOM_LEAF_SCAN_ROLE = "rolling_x_newsroom_leaf_scan"
+MULTIMODAL_VIDEO_CRITIC_ROLE = "tier2_multimodal_video_critic"
 NEWSROOM_GLOBAL_EDITOR_ROLE = "rolling_x_newsroom_assignment"
 ARTICLE_WRITING_ROLE = "article_writing"
 NEWSROOM_LEAF_SCAN_MODEL = "vx/gemini-3.5-flash(high)"
@@ -77,11 +95,19 @@ NEWSROOM_LEAF_SCAN_MODEL_POOL: tuple[str, ...] = (
     *ORDERED_MODEL_POOL,
 )
 ARTICLE_WRITING_MODEL_POOL: tuple[str, ...] = ORDERED_MODEL_POOL
+MULTIMODAL_VIDEO_CRITIC_MODEL_POOL: tuple[str, ...] = (
+    NEWSROOM_LEAF_SCAN_MODEL,
+    GEMINI_PRO_MODEL,
+)
 ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     NEWSROOM_LEAF_SCAN_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
     # Article prose is final editorial work, so it uses the exact quality-first order. Flash
     # remains authorized only for the cheap semantic leaf role above.
     ARTICLE_WRITING_ROLE: ARTICLE_WRITING_MODEL_POOL,
+    MULTIMODAL_VIDEO_CRITIC_ROLE: MULTIMODAL_VIDEO_CRITIC_MODEL_POOL,
+    V2_CREATIVE_EDITOR_ROLE: V2_CREATIVE_MODEL_POOL,
+    V2_MOTION_CODE_AUTHOR_ROLE: V2_CREATIVE_MODEL_POOL,
+    V2_CREATIVE_REVISION_AUTHOR_ROLE: V2_CREATIVE_MODEL_POOL,
 }
 AUTHORIZED_MODELS = frozenset(
     model
@@ -317,6 +343,8 @@ def retry_budget_policy() -> dict[str, Any]:
 
 def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
     """Return the one canonical model ordering for a semantic role."""
+    if str(role_task_id) in V2_CREATIVE_ROLES:
+        return V2_CREATIVE_MODEL_POOL
     incident = build_acceptance_gemini_incident()
     if incident is not None:
         return _incident_model_pool_for_role(role_task_id, str(incident["mode"]))
@@ -325,6 +353,24 @@ def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
 
 def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "RetryBudget":
     """Allocate one immutable bounded budget appropriate to the canonical role pool."""
+    if str(role_task_id) in V2_CREATIVE_ROLES:
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=3,
+            max_fallback_transitions=2,
+            max_same_model_retries=0,
+            wall_clock_budget_seconds=900.0,
+            per_model_max_attempts=(1, 1, 1),
+        )
+    if str(role_task_id) == MULTIMODAL_VIDEO_CRITIC_ROLE:
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=3,
+            max_fallback_transitions=1,
+            max_same_model_retries=1,
+            wall_clock_budget_seconds=600.0,
+            per_model_max_attempts=(2, 1),
+        )
     if build_acceptance_gemini_incident() is not None:
         wall_clock_budget_seconds = DEFAULT_WALL_CLOCK_BUDGET_SECONDS
         if str(role_task_id) == NEWSROOM_LEAF_SCAN_ROLE:
