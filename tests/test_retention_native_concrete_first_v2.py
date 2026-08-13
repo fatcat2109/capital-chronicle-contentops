@@ -43,7 +43,8 @@ from live_contentops.retention_native_motion_sandbox_v2 import (
     validate_revision_accounting,
 )
 from live_contentops.retention_native_replacement_runner_v2 import (
-    minimal_raw_director_retry_budget,
+    build_progressive_xhigh_cases,
+    one_shot_xhigh_retry_budget,
 )
 from live_contentops.retention_native_storyboard_v2 import (
     contact_sheet,
@@ -169,12 +170,64 @@ def test_creative_roles_start_xhigh_and_fallback_only_within_gpt56() -> None:
 
 
 def test_minimal_raw_director_experiment_is_exactly_one_xhigh_attempt() -> None:
-    budget = minimal_raw_director_retry_budget("inv_v2_director_test")
+    budget = one_shot_xhigh_retry_budget("inv_v2_director_test")
     assert budget.max_total_provider_attempts == 1
     assert budget.max_fallback_transitions == 0
     assert budget.max_same_model_retries == 0
     assert budget.max_structured_output_repair_attempts == 0
     assert budget.per_model_max_attempts == (1, 0, 0)
+
+
+def test_progressive_xhigh_cases_increase_workload_without_generation_config(
+    tmp_path: Path,
+) -> None:
+    contracts = tmp_path / "contracts"
+    contracts.mkdir()
+    compact = {
+        "story_id": "story",
+        "claims": {"claim-a": {"text": "A governed forecast."}},
+        "evidence": {"evidence-a": {"source": "EIA"}},
+        "forecast_boundary": "Forecast, not certainty.",
+        "price_observation_boundary": "Observation is not proof.",
+    }
+    assets = {
+        "candidates": [
+            {
+                "asset_id": "map",
+                "visual_class": "native_data_visual",
+                "semantic_purposes": ["Hormuz geography"],
+                "recognizable_focal_object": "Strait of Hormuz",
+                "documentary": False,
+                "illustrative": True,
+                "orientation": "portrait",
+                "width": 1080,
+                "height": 1920,
+                "crop_suitability": {"short_9x16": 1.0},
+                "rights_status": "PUBLIC_DOMAIN",
+                "attribution": "EIA",
+            }
+        ]
+    }
+    (contracts / "compact_evidence_v2.json").write_text(
+        __import__("json").dumps(compact), encoding="utf-8"
+    )
+    (contracts / "asset_candidate_universe_v2.json").write_text(
+        __import__("json").dumps(assets), encoding="utf-8"
+    )
+    cases = build_progressive_xhigh_cases(
+        tmp_path, expected_director_prompt_sha256=None
+    )
+    assert [row["case_id"] for row in cases] == [
+        "tiny_exact_ready",
+        "small_exact_json",
+        "medium_governed_digest",
+        "large_input_short_output",
+        "large_input_medium_outline",
+        "exact_full_director",
+    ]
+    assert len(cases[0]["prompt"]) < len(cases[1]["prompt"])
+    assert len(cases[1]["prompt"]) < len(cases[2]["prompt"])
+    assert len(cases[2]["prompt"]) < len(cases[3]["prompt"])
 
 
 def test_codex_local_brain_is_inert() -> None:

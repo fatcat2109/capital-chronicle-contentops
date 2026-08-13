@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12779,
+    "edges": 12792,
     "entrypoints": 14,
-    "nodes": 6769,
+    "nodes": 6772,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
@@ -33,7 +33,7 @@
       "instructions": 8,
       "manifest": 13,
       "python_class": 546,
-      "python_function": 3752,
+      "python_function": 3755,
       "python_method": 237,
       "python_module": 705,
       "schema": 174,
@@ -32423,6 +32423,18 @@
       "from": "live_contentops/retention_native_replacement_runner_v2.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_director_prompt"
+    },
+    {
+      "from": "live_contentops/retention_native_replacement_runner_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_progressive_xhigh_cases"
+    },
+    {
+      "from": "live_contentops/retention_native_replacement_runner_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_storyboards"
     },
     {
@@ -32441,7 +32453,7 @@
       "from": "live_contentops/retention_native_replacement_runner_v2.py",
       "inference": "python_ast_definition",
       "kind": "defines",
-      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::minimal_raw_director_retry_budget"
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::one_shot_xhigh_retry_budget"
     },
     {
       "from": "live_contentops/retention_native_replacement_runner_v2.py",
@@ -32478,6 +32490,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic"
+    },
+    {
+      "from": "live_contentops/retention_native_replacement_runner_v2.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_progressive_xhigh_diagnostic"
     },
     {
       "from": "live_contentops/retention_native_replacement_runner_v2.py",
@@ -61739,7 +61757,13 @@
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_director",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
-      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::minimal_raw_director_retry_budget"
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_director_prompt"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_director",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::one_shot_xhigh_retry_budget"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_segments",
@@ -61770,6 +61794,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/retention_native_creative_brain_v2.py::NineRouterGPT56Brain"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_progressive_xhigh_cases",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_director_prompt"
     },
     {
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_storyboards",
@@ -61859,6 +61889,12 @@
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_progressive_xhigh_diagnostic"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider"
     },
     {
@@ -61868,7 +61904,7 @@
       "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::active_v2_execution_lease"
     },
     {
-      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::minimal_raw_director_retry_budget",
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::one_shot_xhigh_retry_budget",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/nine_router_ordered_model_router_v2.py::RetryBudget"
@@ -62019,6 +62055,48 @@
     },
     {
       "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_progressive_xhigh_diagnostic",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_concrete_first_v2.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_progressive_xhigh_diagnostic",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_progressive_xhigh_cases"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_progressive_xhigh_diagnostic",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::one_shot_xhigh_retry_budget"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_progressive_xhigh_diagnostic",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::prepare"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_progressive_xhigh_diagnostic",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_progressive_xhigh_diagnostic",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::active_v2_execution_lease"
+    },
+    {
+      "from": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_progressive_xhigh_diagnostic",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/v2_isolated_llm_execution_v1.py::routed_v2_isolated_invocation"
@@ -79971,7 +80049,7 @@
     {
       "id": "live_contentops/retention_native_replacement_runner_v2.py",
       "kind": "python_module",
-      "size_bytes": 55062
+      "size_bytes": 71194
     },
     {
       "id": "live_contentops/retention_native_review_qa_v2.py",
@@ -106522,84 +106600,105 @@
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_director",
       "kind": "python_function",
-      "line": 394,
+      "line": 420,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "author_director"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::author_segments",
       "kind": "python_function",
-      "line": 519,
+      "line": 889,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "author_segments"
     },
     {
+      "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_director_prompt",
+      "kind": "python_function",
+      "line": 401,
+      "path": "live_contentops/retention_native_replacement_runner_v2.py",
+      "symbol": "build_director_prompt"
+    },
+    {
+      "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_progressive_xhigh_cases",
+      "kind": "python_function",
+      "line": 616,
+      "path": "live_contentops/retention_native_replacement_runner_v2.py",
+      "symbol": "build_progressive_xhigh_cases"
+    },
+    {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::build_storyboards",
       "kind": "python_function",
-      "line": 619,
+      "line": 989,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "build_storyboards"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::main",
       "kind": "python_function",
-      "line": 1029,
+      "line": 1399,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "main"
     },
     {
-      "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::minimal_raw_director_retry_budget",
+      "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::one_shot_xhigh_retry_budget",
       "kind": "python_function",
-      "line": 381,
+      "line": 388,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
-      "symbol": "minimal_raw_director_retry_budget"
+      "symbol": "one_shot_xhigh_retry_budget"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::prepare",
       "kind": "python_function",
-      "line": 194,
+      "line": 201,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "prepare"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::provider_execution_blocker",
       "kind": "python_function",
-      "line": 978,
+      "line": 1348,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "provider_execution_blocker"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::require_accepted_isolated_xhigh_preflight",
       "kind": "python_function",
-      "line": 868,
+      "line": 1238,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "require_accepted_isolated_xhigh_preflight"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_proof",
       "kind": "python_function",
-      "line": 882,
+      "line": 1252,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "run_isolated_proof"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_isolated_xhigh_preflight",
       "kind": "python_function",
-      "line": 772,
+      "line": 1142,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "run_isolated_xhigh_preflight"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_premotion_critic",
       "kind": "python_function",
-      "line": 699,
+      "line": 1069,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "run_premotion_critic"
     },
     {
+      "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::run_progressive_xhigh_diagnostic",
+      "kind": "python_function",
+      "line": 732,
+      "path": "live_contentops/retention_native_replacement_runner_v2.py",
+      "symbol": "run_progressive_xhigh_diagnostic"
+    },
+    {
       "id": "python_symbol:live_contentops/retention_native_replacement_runner_v2.py::validate_isolation_before_provider",
       "kind": "python_function",
-      "line": 825,
+      "line": 1195,
       "path": "live_contentops/retention_native_replacement_runner_v2.py",
       "symbol": "validate_isolation_before_provider"
     },
@@ -116126,7 +116225,7 @@
     {
       "id": "tests/test_retention_native_concrete_first_v2.py",
       "kind": "test",
-      "size_bytes": 17719
+      "size_bytes": 19623
     },
     {
       "id": "tests/test_review_bundle_manifest.py",
@@ -120752,5 +120851,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "9acf99d409101182af1bb9f608c6a84d363018ea",
-  "source_tree_digest": "9efd6d5b9850a82e63d01ddc6b13901f0af551cf455588adafe768bbde484656"
+  "source_tree_digest": "4744309a23cc76c77a7398093c55acdaa48b268230a58a59b25167872c6ec93b"
 }

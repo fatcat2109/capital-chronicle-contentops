@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import hashlib
 import json
 import mimetypes
 import shutil
@@ -28,7 +29,10 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     ProviderResult,
     RetryBudget,
 )
-from live_contentops.nine_router_provider_adapter_v2 import call_nine_router_v2_isolated
+from live_contentops.nine_router_provider_adapter_v2 import (
+    call_nine_router_v2_isolated,
+    call_nine_router_v2_isolated_minimal_raw,
+)
 from live_contentops.retention_native_concrete_first_v2 import (
     AssetCandidate,
     CreativeBible,
@@ -72,6 +76,9 @@ VIDEO_ID = "cc-v2-eia-hormuz-concrete-first-2026-v1"
 STORY_ID = "eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume"
 EXPECTED_ARTICLE_HASH = "4a61bb93b43a7fb1d2fd016cbec048ddf9460f1de8731e9ba81241c7a1a3cf9e"
 EXPECTED_HISTORICAL_EIA_HASH = "1e87b1815912a3fdf3a59b56a17d343c39204b3b200527fc099771563c93a44a"
+EXPECTED_DIRECTOR_PROMPT_SHA256 = (
+    "9f39fd6fff3b9b43e9ee8cdd065de74058bc7441b04aff7e06c4cfcc58478f55"
+)
 DEFAULT_RUNTIME = Path(
     r"A:\Capital Chronicle\Runtime\ContentOps\v2_concrete_first_xhigh_replacement_20260813"
 )
@@ -378,7 +385,7 @@ DIRECTOR_INSTRUCTION = """You are the XHIGH Creative Director and semantic Decom
 Return ONLY JSON with exactly two top-level keys: creative_bible and segment_graph. creative_bible requires: core_viewer_promise, hook, central_question, narrative_arc, tone, pacing_profile, evidence_hierarchy (list), concrete_visual_strategy, documentary_broll_strategy, data_document_strategy, abstraction_policy, audio_intent, short_strategy, midform_strategy, forbidden_motifs_repetition (list). Each segment_graph row requires: segment_id, purpose, narrative_question, dependencies (only earlier segment IDs), allowed_claim_ids, allowed_evidence_ids, viewer_knowledge_entering, viewer_knowledge_leaving, open_loops, payoff_rehook_responsibility, target_timing_envelope with short_9x16 and midform_16x9 each containing min_seconds/max_seconds, asset_needs, continuity_constraints. Across segment envelopes, make a 45-60s short and a 90-150s midform feasible. Every claim/evidence ID must exist in the input. Preserve the forecast/observation distinction."""
 
 
-def minimal_raw_director_retry_budget(logical_invocation_id: str) -> RetryBudget:
+def one_shot_xhigh_retry_budget(logical_invocation_id: str) -> RetryBudget:
     return RetryBudget(
         logical_invocation_id=logical_invocation_id,
         max_total_provider_attempts=1,
@@ -391,10 +398,10 @@ def minimal_raw_director_retry_budget(logical_invocation_id: str) -> RetryBudget
     )
 
 
-def author_director(runtime: Path) -> dict[str, Any]:
+def build_director_prompt(runtime: Path) -> dict[str, Any]:
     compact = _read_json(runtime / "contracts" / "compact_evidence_v2.json")
     assets = _read_json(runtime / "contracts" / "asset_candidate_universe_v2.json")
-    prompt = {
+    return {
         "instruction": DIRECTOR_INSTRUCTION,
         "video_id": VIDEO_ID,
         "governed_story": compact,
@@ -408,6 +415,10 @@ def author_director(runtime: Path) -> dict[str, Any]:
         ],
         "public_write_authority": False,
     }
+
+
+def author_director(runtime: Path) -> dict[str, Any]:
+    prompt = build_director_prompt(runtime)
     logical_invocation_id = f"inv_v2_director_{logical_hash(prompt)[:20]}"
     evidence_dir = runtime / "provider_evidence" / "minimal_raw_xhigh_director_v1"
     try:
@@ -420,7 +431,7 @@ def author_director(runtime: Path) -> dict[str, Any]:
             prompt_version="v3_same_prompt_minimal_raw_wire",
             wire_mode="minimal_raw",
             evidence_dir=evidence_dir,
-            retry_budget=minimal_raw_director_retry_budget(logical_invocation_id),
+            retry_budget=one_shot_xhigh_retry_budget(logical_invocation_id),
         )
     except RuntimeError:
         raw_receipt_path = evidence_dir / "minimal_raw_provider_receipt_v1.json"
@@ -511,6 +522,365 @@ def author_director(runtime: Path) -> dict[str, Any]:
     _write_json(runtime / "contracts" / "creative_director_v2.json", director)
     _write_json(runtime / "receipts" / "creative_director_router_v2.json", _receipt_summary(receipt))
     return director
+
+
+def _validate_exact_ready(text: str) -> tuple[bool, str | None, Any, str | None]:
+    value = text.strip()
+    ok = value == "READY"
+    return ok, None if ok else "structured_output_schema_invalid", value, (
+        None if ok else "progressive_tiny_expected_READY"
+    )
+
+
+def _validate_small_json(text: str) -> tuple[bool, str | None, Any, str | None]:
+    try:
+        value = json.loads(text.strip())
+        if value != {"result": 323, "status": "OK"}:
+            raise ValueError("exact_small_payload")
+    except (ValueError, TypeError, json.JSONDecodeError) as exc:
+        return False, "structured_output_schema_invalid", None, f"small_json_{exc}"
+    return True, None, value, None
+
+
+def _validate_medium_digest(
+    text: str, *, claim_ids: set[str], evidence_ids: set[str]
+) -> tuple[bool, str | None, Any, str | None]:
+    try:
+        value = json.loads(text.strip())
+        if not isinstance(value, Mapping):
+            raise ValueError("object")
+        if value.get("story_id") != STORY_ID:
+            raise ValueError("story_id")
+        if set(value.get("claim_ids") or []) != claim_ids:
+            raise ValueError("claim_ids")
+        if set(value.get("evidence_ids") or []) != evidence_ids:
+            raise ValueError("evidence_ids")
+        if not str(value.get("forecast_boundary") or "").strip():
+            raise ValueError("forecast_boundary")
+        if not str(value.get("observation_boundary") or "").strip():
+            raise ValueError("observation_boundary")
+    except (ValueError, TypeError, json.JSONDecodeError) as exc:
+        return False, "structured_output_schema_invalid", None, f"medium_digest_{exc}"
+    return True, None, value, None
+
+
+def _validate_large_short(
+    text: str, *, claim_count: int, evidence_count: int, asset_count: int
+) -> tuple[bool, str | None, Any, str | None]:
+    expected = {
+        "asset_count": asset_count,
+        "claim_count": claim_count,
+        "evidence_count": evidence_count,
+        "status": "READY",
+        "story_id": STORY_ID,
+    }
+    try:
+        value = json.loads(text.strip())
+        if value != expected:
+            raise ValueError("exact_large_short_payload")
+    except (ValueError, TypeError, json.JSONDecodeError) as exc:
+        return False, "structured_output_schema_invalid", None, f"large_short_{exc}"
+    return True, None, value, None
+
+
+def _validate_large_outline(
+    text: str, *, claim_ids: set[str], evidence_ids: set[str]
+) -> tuple[bool, str | None, Any, str | None]:
+    try:
+        value = json.loads(text.strip())
+        if not isinstance(value, Mapping):
+            raise ValueError("object")
+        if not str(value.get("core_promise") or "").strip():
+            raise ValueError("core_promise")
+        if not str(value.get("forecast_boundary") or "").strip():
+            raise ValueError("forecast_boundary")
+        outline = value.get("segment_outline")
+        if not isinstance(outline, list) or not 3 <= len(outline) <= 5:
+            raise ValueError("segment_outline")
+        for row in outline:
+            if not isinstance(row, Mapping):
+                raise ValueError("segment_row")
+            if not str(row.get("segment_id") or "").strip() or not str(
+                row.get("purpose") or ""
+            ).strip():
+                raise ValueError("segment_identity")
+            if not set(row.get("claim_ids") or []) <= claim_ids:
+                raise ValueError("unknown_claim_id")
+            if not set(row.get("evidence_ids") or []) <= evidence_ids:
+                raise ValueError("unknown_evidence_id")
+    except (ValueError, TypeError, json.JSONDecodeError) as exc:
+        return False, "structured_output_schema_invalid", None, f"large_outline_{exc}"
+    return True, None, value, None
+
+
+def build_progressive_xhigh_cases(
+    runtime: Path,
+    *,
+    expected_director_prompt_sha256: str | None = EXPECTED_DIRECTOR_PROMPT_SHA256,
+) -> list[dict[str, Any]]:
+    compact = _read_json(runtime / "contracts" / "compact_evidence_v2.json")
+    assets = _read_json(runtime / "contracts" / "asset_candidate_universe_v2.json")
+    director_payload = build_director_prompt(runtime)
+    exact_director_prompt = json.dumps(
+        director_payload, sort_keys=True, ensure_ascii=False
+    )
+    if expected_director_prompt_sha256 and hashlib.sha256(
+        exact_director_prompt.encode("utf-8")
+    ).hexdigest() != expected_director_prompt_sha256:
+        raise RuntimeError("progressive_exact_director_prompt_drift")
+
+    claim_ids = set(str(item) for item in compact["claims"])
+    evidence_ids = set(str(item) for item in compact["evidence"])
+    asset_count = len(assets["candidates"])
+    medium_prompt = json.dumps(
+        {
+            "instruction": (
+                "Read the governed story and return ONLY compact JSON with keys story_id, "
+                "claim_ids, evidence_ids, forecast_boundary, observation_boundary. Copy every "
+                "claim/evidence ID exactly once. Do not add analysis or prose outside JSON."
+            ),
+            "governed_story": compact,
+        },
+        sort_keys=True,
+        ensure_ascii=False,
+    )
+    large_short_prompt = json.dumps(
+        {
+            "instruction": (
+                "Treat reference_director_payload as input to read, but do not perform the "
+                "Director task. Return ONLY the exact compact JSON object requested in "
+                "expected_output. No prose."
+            ),
+            "expected_output": {
+                "asset_count": asset_count,
+                "claim_count": len(claim_ids),
+                "evidence_count": len(evidence_ids),
+                "status": "READY",
+                "story_id": STORY_ID,
+            },
+            "reference_director_payload": director_payload,
+        },
+        sort_keys=True,
+        ensure_ascii=False,
+    )
+    large_outline_prompt = json.dumps(
+        {
+            "instruction": (
+                "Read the full reference Director payload. Return ONLY JSON with core_promise, "
+                "forecast_boundary, and segment_outline. segment_outline must contain 3-5 rows "
+                "with only segment_id, purpose, claim_ids, evidence_ids. Use only supplied IDs. "
+                "Keep the entire response under roughly 1200 words. Do not write the full "
+                "Creative Bible or timing/dependency schema."
+            ),
+            "reference_director_payload": director_payload,
+        },
+        sort_keys=True,
+        ensure_ascii=False,
+    )
+    return [
+        {
+            "case_id": "tiny_exact_ready",
+            "scale": "TINY_INPUT_TINY_OUTPUT",
+            "prompt": "Return exactly READY and nothing else.",
+            "validator": _validate_exact_ready,
+        },
+        {
+            "case_id": "small_exact_json",
+            "scale": "SMALL_INPUT_TINY_STRUCTURED_OUTPUT",
+            "prompt": (
+                "Compute 17 multiplied by 19. Return ONLY this exact JSON object with no "
+                'Markdown or prose: {"result":323,"status":"OK"}'
+            ),
+            "validator": _validate_small_json,
+        },
+        {
+            "case_id": "medium_governed_digest",
+            "scale": "MEDIUM_INPUT_SMALL_STRUCTURED_OUTPUT",
+            "prompt": medium_prompt,
+            "validator": lambda text: _validate_medium_digest(
+                text, claim_ids=claim_ids, evidence_ids=evidence_ids
+            ),
+        },
+        {
+            "case_id": "large_input_short_output",
+            "scale": "LARGE_INPUT_TINY_STRUCTURED_OUTPUT",
+            "prompt": large_short_prompt,
+            "validator": lambda text: _validate_large_short(
+                text,
+                claim_count=len(claim_ids),
+                evidence_count=len(evidence_ids),
+                asset_count=asset_count,
+            ),
+        },
+        {
+            "case_id": "large_input_medium_outline",
+            "scale": "LARGE_INPUT_MEDIUM_CREATIVE_OUTPUT",
+            "prompt": large_outline_prompt,
+            "validator": lambda text: _validate_large_outline(
+                text, claim_ids=claim_ids, evidence_ids=evidence_ids
+            ),
+        },
+        {
+            "case_id": "exact_full_director",
+            "scale": "EXACT_FULL_DIRECTOR_INPUT_AND_OUTPUT",
+            "prompt": exact_director_prompt,
+            "validator": validate_director_output,
+        },
+    ]
+
+
+def run_progressive_xhigh_diagnostic(runtime: Path, *, repo_root: Path) -> dict[str, Any]:
+    """Run one minimal-wire XHIGH request per increasing task scale, stopping at first block."""
+    prepare(runtime)
+    diagnostic_root = runtime / "progressive_xhigh_diagnostic_v1"
+    aggregate_path = diagnostic_root / "progressive_xhigh_result_v1.json"
+    cases = build_progressive_xhigh_cases(runtime)
+    results: list[dict[str, Any]] = []
+    domain_id = ""
+    audit_path = ""
+    with active_v2_execution_lease(repo_root=repo_root, runtime=runtime) as lease:
+        domain_id = lease.domain_id
+        audit_path = str(lease.audit_path)
+        validate_isolation_before_provider(runtime)
+        for index, case in enumerate(cases, start=1):
+            case_id = str(case["case_id"])
+            case_result_path = diagnostic_root / "cases" / case_id / "case_result_v1.json"
+            if case_result_path.is_file():
+                prior = _read_json(case_result_path)
+                results.append(prior)
+                if prior.get("status") != "PASS":
+                    break
+                continue
+            prompt = str(case["prompt"])
+            prompt_sha256 = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+            logical_invocation_id = f"inv_v2_progressive_{case_id}_{prompt_sha256[:16]}"
+            evidence_dir = diagnostic_root / "cases" / case_id / "provider"
+
+            def provider(
+                current_prompt: str, model: str, timeout: float,
+                *, _evidence_dir: Path = evidence_dir,
+                _logical_id: str = logical_invocation_id,
+            ) -> ProviderResult:
+                return call_nine_router_v2_isolated_minimal_raw(
+                    current_prompt,
+                    model,
+                    timeout,
+                    role_task_id=ROLE_V2_CREATIVE_EDITOR,
+                    logical_invocation_id=_logical_id,
+                    component="NineRouterGPT56Brain",
+                    evidence_dir=_evidence_dir,
+                )
+
+            invocation = routed_v2_isolated_invocation(
+                prompt=prompt,
+                role_task_id=ROLE_V2_CREATIVE_EDITOR,
+                logical_invocation_id=logical_invocation_id,
+                component="NineRouterGPT56Brain",
+                provider_call=provider,
+                work_item_id=f"{VIDEO_ID}:{case_id}",
+                timeout_seconds=600.0,
+                validator=case["validator"],
+                governed_input={
+                    "case_id": case_id,
+                    "scale": case["scale"],
+                    "prompt_sha256": prompt_sha256,
+                    "public_write": False,
+                },
+                prompt_template="progressive_minimal_raw_xhigh_diagnostic",
+                prompt_version="v1",
+                budget=one_shot_xhigh_retry_budget(logical_invocation_id),
+            )
+            receipt_path = evidence_dir / "minimal_raw_provider_receipt_v1.json"
+            receipt = _read_json(receipt_path) if receipt_path.is_file() else {}
+            accepted = invocation.get("terminal_disposition") == ACCEPTED
+            provider_failed = (
+                receipt.get("http_status") not in (None, 200)
+                or receipt.get("failure_class")
+                not in (None, "structured_output_malformed", "structured_output_schema_invalid")
+            )
+            row = {
+                "schema_version": "contentops.v2.progressive_xhigh_case.v1",
+                "case_index": index,
+                "case_id": case_id,
+                "scale": case["scale"],
+                "status": (
+                    "PASS"
+                    if accepted
+                    else (
+                        "BLOCKED_PROVIDER_EXECUTION"
+                        if provider_failed
+                        else "BLOCKED_OUTPUT_VALIDATION"
+                    )
+                ),
+                "logical_invocation_id": logical_invocation_id,
+                "prompt_sha256": prompt_sha256,
+                "prompt_character_size": len(prompt),
+                "prompt_byte_size": len(prompt.encode("utf-8")),
+                "request_body_field_names": receipt.get("request_body_field_names"),
+                "optional_generation_fields_absent": receipt.get(
+                    "optional_generation_fields_absent"
+                ),
+                "requested_model": receipt.get("requested_model"),
+                "effective_model": receipt.get("effective_model"),
+                "http_status": receipt.get("http_status"),
+                "failure_class": receipt.get("failure_class"),
+                "latency_seconds": receipt.get("latency_seconds"),
+                "usage": receipt.get("usage"),
+                "cost": receipt.get("cost"),
+                "provider_invocation_id": receipt.get("provider_invocation_id"),
+                "raw_response_sha256": receipt.get("raw_response_sha256"),
+                "raw_response_byte_size": receipt.get("raw_response_byte_size"),
+                "raw_model_output_sha256": receipt.get("raw_model_output_sha256"),
+                "raw_model_output_byte_size": receipt.get("raw_model_output_byte_size"),
+                "terminal_disposition": invocation.get("terminal_disposition"),
+                "models_attempted_in_order": invocation.get("models_attempted_in_order"),
+                "total_attempts": invocation.get("total_attempts"),
+                "output_logical_hash": (
+                    logical_hash(invocation.get("output")) if accepted else None
+                ),
+                "isolated_execution_domain_id": domain_id,
+                "public_write": False,
+            }
+            _write_json(case_result_path, row)
+            results.append(row)
+            partial = {
+                "schema_version": "contentops.v2.progressive_xhigh_diagnostic.v1",
+                "status": "RUNNING" if accepted else row["status"],
+                "isolated_execution_domain_id": domain_id,
+                "cases": results,
+                "stopped_after_case": None if accepted else case_id,
+                "public_write": False,
+            }
+            _write_json(aggregate_path, partial)
+            if not accepted:
+                break
+
+    audit = _read_json(Path(audit_path))
+    all_pass = len(results) == len(cases) and all(row["status"] == "PASS" for row in results)
+    final = {
+        "schema_version": "contentops.v2.progressive_xhigh_diagnostic.v1",
+        "status": (
+            "PASS_PROGRESSIVE_XHIGH_THROUGH_FULL_DIRECTOR"
+            if all_pass
+            else "BLOCKED_PROGRESSIVE_XHIGH_AT_FIRST_FAILED_RUNG"
+        ),
+        "isolated_execution_domain_id": domain_id,
+        "lease_audit_path": audit_path,
+        "lease_revoked": audit.get("state") == "REVOKED",
+        "shared_global_pause_unchanged": bool(
+            (audit.get("shared_global_pause_after") or {}).get("unchanged")
+        ),
+        "v1_provider_calls_authorized_by_v2_lease": 0,
+        "public_writes": 0,
+        "cases": results,
+        "stopped_after_case": (
+            None if all_pass else next(
+                (row["case_id"] for row in results if row["status"] != "PASS"), None
+            )
+        ),
+    }
+    _write_json(aggregate_path, final)
+    return final
 
 
 SEGMENT_INSTRUCTION = """You are the XHIGH Segment Author. Author only this semantic segment, in separately composed short 9:16 and midform 16:9 forms. Return JSON only. Each beat must include every VisualGroundingContract field plus: narration, storyboard_frame, focal_object, source_label, asset_ids, asset_placement, crop_anchor, onscreen_label, data_callout (may be empty), motion_intent, transition_intent, timing_easing, audio_state (one of cold_open,tension,evidence,mechanism,consequence,boundary,resolution,outro), sfx_intent (may be empty), sfx_kind (one of none,whoosh,riser,hit,data_tick), sfx_at_fraction (0..1), duration_seconds. Required real assets must appear in asset_ids and may never be silently replaced by SVG/geometry. Use only provided asset, claim, and evidence IDs. The first short beat must identify oil/Hormuz within one second when this segment owns the hook. Native portrait chart/map/document assets must be used for 9:16; never letterbox a landscape chart. Main visuals must tell the story with narration captions hidden. Avoid generic cards, unexplained symbols, decorative parallax, universal zoom, repeated movement, and tiny source text. Keep each beat 2.5-10 seconds. Use concise natural narration and no unsupported claim."""
@@ -1030,7 +1400,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "stage",
-        choices=("prepare", "director", "segments", "storyboard", "critic", "premotion", "blocker", "isolation", "isolated-preflight", "proof"),
+        choices=("prepare", "director", "segments", "storyboard", "critic", "premotion", "blocker", "isolation", "isolated-preflight", "progressive-xhigh", "proof"),
     )
     parser.add_argument("--runtime", default=str(DEFAULT_RUNTIME))
     parser.add_argument("--ffmpeg", default="ffmpeg")
@@ -1066,6 +1436,10 @@ def main() -> int:
         result = run_isolated_proof(
             runtime, repo_root=Path(args.repo_root).resolve(), ffmpeg=args.ffmpeg,
             ffprobe=args.ffprobe, node=args.node, tts_python=args.tts_python,
+        )
+    elif args.stage == "progressive-xhigh":
+        result = run_progressive_xhigh_diagnostic(
+            runtime, repo_root=Path(args.repo_root).resolve()
         )
     else:
         result = provider_execution_blocker(runtime)
