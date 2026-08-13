@@ -128,13 +128,14 @@ def test_known_node_dep0169_warning_is_informational_not_warning(tmp_path):
     logs = tmp_path / "one_click_launcher"
     logs.mkdir()
     (logs / "daily_app.supervisor.stderr.log").write_text(
-        "(node:42) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized\n",
+        "(node:42) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized\n"
+        "(Use `node --trace-deprecation ...` to show where the warning was created)\n",
         encoding="utf-8",
     )
     signal = _recent_stderr_signal(store.db_path)
     assert signal["error_lines"] == 0
     assert signal["warning_lines"] == 0
-    assert signal["informational_noise_lines"] == 1
+    assert signal["informational_noise_lines"] == 2
 
 
 def test_real_exception_and_unknown_warning_remain_actionable_or_degraded(tmp_path):

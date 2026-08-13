@@ -31,6 +31,10 @@ RETENTION_DAYS = 14
 _SHA_LOG = re.compile(r"^daily_app\.supervisor\.([0-9a-f]{40})\.stderr\.log$", re.IGNORECASE)
 _BENIGN_STDERR_PATTERNS = (
     re.compile(r"\[DEP0169\].*DeprecationWarning:.*url\.parse\(\)", re.IGNORECASE),
+    re.compile(
+        r"Use\s+`?node\s+--trace-deprecation.*to show where the warning was created",
+        re.IGNORECASE,
+    ),
 )
 
 
