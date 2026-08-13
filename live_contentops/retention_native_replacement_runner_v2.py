@@ -765,6 +765,20 @@ def validate_isolation_before_provider(runtime: Path) -> dict[str, Any]:
     return report
 
 
+def require_accepted_isolated_xhigh_preflight(runtime: Path) -> dict[str, Any]:
+    path = runtime / "isolated_xhigh_preflight_v1.json"
+    report = _read_json(path)
+    if (
+        report.get("status") != "PASS"
+        or report.get("selected_model") != "new/gpt-5.6-sol-xhigh"
+        or report.get("models_attempted_in_order") != ["new/gpt-5.6-sol-xhigh"]
+        or report.get("total_attempts") != 1
+        or report.get("public_write") is not False
+    ):
+        raise RuntimeError("accepted_isolated_xhigh_preflight_receipt_required")
+    return report
+
+
 def run_isolated_proof(
     runtime: Path, *, repo_root: Path, ffmpeg: str, ffprobe: str, node: str,
     tts_python: str,
@@ -777,7 +791,7 @@ def run_isolated_proof(
         domain_id = lease.domain_id
         audit_path = str(lease.audit_path)
         validate_isolation_before_provider(runtime)
-        run_isolated_xhigh_preflight(runtime)
+        require_accepted_isolated_xhigh_preflight(runtime)
         author_director(runtime)
         author_segments(runtime)
         build_storyboards(runtime, ffmpeg=ffmpeg)
