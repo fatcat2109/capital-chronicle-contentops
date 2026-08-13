@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V2 — Retention-Native Video Factory North Star V2
 
-Authority date: 2026-08-12
+Authority date: 2026-08-13
 Product authority: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_OWNER_DIRECTION_V2`
 Status: `CURRENT_CANONICAL_V2_PRODUCT_CONSTITUTION`
 Supersedes: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1` where this document conflicts.
@@ -52,6 +52,29 @@ If a fallback model is used because the exact model is unavailable, the package 
 
 This model authority does not grant factual authority. Every factual or numeric statement remains bound to governed ContentOps/Capital Chronicle evidence.
 
+The canonical creative-brain abstraction is defined, but only one implementation is active:
+
+- `NineRouterGPT56Brain` — **DEFAULT**, with every fresh creative invocation starting `new/gpt-5.6-sol-xhigh`;
+- `CodexLocalBrain` — **OWNER-CONTROLLED FALLBACK, NOT ACTIVE**.
+
+Shared evidence, asset brokerage, visual-grounding contracts, storyboard/animatic, renderer, QA, and package state should remain brain-independent where practical. Jim alone may later activate `CodexLocalBrain`, and only after a correctly exercised concrete-first XHIGH replacement proof still demonstrates systemic creative/comprehension failure. Defining the seam grants Codex no present runtime, scheduling, provider, or public-write authority.
+
+## Controlling visual-storytelling doctrine
+
+`CONCRETE_FIRST_ABSTRACT_SECOND`
+
+The viewer should normally see the clearest recognizable real-world object, location, primary evidence, or native data visualization before an abstract metaphor. Real documentary/contextual media, primary documents, maps, native charts, and concrete explanatory illustration must not be silently replaced by convenient SVG geometry. Abstract diagrams and metaphors remain valid only when they clarify a relationship that concrete evidence cannot show as directly.
+
+Default visual priority:
+
+1. real documentary/contextual media;
+2. primary source/document;
+3. native data visualization/map;
+4. concrete explanatory illustration;
+5. abstract diagram/metaphor.
+
+A lower-priority choice requires an explicit editorial reason. It must not dominate merely because code generation makes it cheap.
+
 ## Canonical creative architecture
 
 ```text
@@ -63,29 +86,37 @@ SELECTED | SHORT_ONLY | MIDFORM | HERO | DEFERRED | BLOCKED | NOT_SELECTED
             ↓
 COMPACT GOVERNED STORY / EVIDENCE PACKET
             ↓
-new/gpt-5.6-sol-xhigh — V2_CREATIVE_EDITOR
+new/gpt-5.6-sol-xhigh — CREATIVE DIRECTOR / ADAPTIVE DECOMPOSER
             ↓
-ENGAGEMENT BRIEF + NARRATIVE SCREENPLAY + NARRATION + SHOT/EDIT INTENT
+CREATIVE BIBLE + STORY-SPECIFIC SEMANTIC SEGMENT GRAPH
             ↓
-RENDERER-NEUTRAL SEMANTIC CONTRACTS
+DETERMINISTIC BOUNDED CHILD-PROMPT CONSTRUCTION
             ↓
-RIGHTS-AWARE ASSET PLAN + AUDIO PLAN
+BOUNDED XHIGH SEGMENT AUTHORSHIP
             ↓
-new/gpt-5.6-sol-xhigh — V2_MOTION_CODE_AUTHOR
+CONCRETE VISUAL-GROUNDING CONTRACTS + RIGHTS-SAFE ASSET BROKER
+            ↓
+RESOLVED ASSETS + NATIVE CHART/MAP/DOCUMENT COMPILERS
+            ↓
+KEYFRAME STORYBOARD + CAPTIONS-HIDDEN ANIMATIC / PROXY
+            ↓
+COMPREHENSION ACCEPTANCE OR PLAN-LEVEL REVISION
+            ↓
+new/gpt-5.6-sol-xhigh — BOUNDED V2_MOTION_CODE_AUTHOR CALLS
             ↓
 SANDBOXED PER-VIDEO / PER-SHOT CREATIVE CODE
             ↓
 STATIC / IMPORT / AST / TYPE VALIDATION
             ↓
-REMOTION DETERMINISTIC RENDER
+REMOTION PROXY RENDER
             ↓
-DETERMINISTIC MEDIA / RETENTION / COLLISION / REPETITION QA
+TEMPORAL / COMPREHENSION CRITIC
+            ↓
+BOUNDED CREATIVE REVISION
+            ↓
+FINAL RENDER + DETERMINISTIC MEDIA / RIGHTS / AUDIO / PACKAGE QA
             ↓
 INDEPENDENT MULTIMODAL CRITIC
-            ↓
-new/gpt-5.6-sol-xhigh — V2_CREATIVE_REVISION_AUTHOR
-            ↓
-LOCALIZED CODE PATCH + SELECTIVE RERENDER
             ↓
 JIM / CHATGPT ACTUAL MEDIA ACCEPTANCE
             ↓
@@ -111,6 +142,12 @@ That failure is classified:
 It must not be merged or polished as the creative baseline.
 
 The controlling lesson is that creative decisions cannot be compressed into a small generic grammar such as `TextReveal`, `ChartReveal`, and a few transition presets. Structured contracts remain essential for truth, rights, identity, timing, cache, and auditability, but the final creative implementation must be free to vary per story and per shot.
+
+R4 at `task/tier2-v2-gpt56-creative-code-asset-rich-video-v1` / `2289eb1382e65474207b50d27c0b87626d30728f` is also rejected, with the deeper classification:
+
+`FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE / NEGATIVE_CREATIVE_REFERENCE_ONLY`
+
+R4 proved that technical QA, motion diversity, asset-class counts, and model-authored Remotion code can all pass while a normal viewer still struggles to recognize the subject or reconstruct the story. Its abstract opening geometry, unexplained metaphors, landscape-chart-in-vertical treatment, and silent substitution of planned real/contextual assets with SVG abstractions must not be reused. Its governed evidence, rights/provenance, Remotion sandbox, audio, caching/selective-rerender, package-locking, and machine-QA engineering remain selectively reusable.
 
 ## Story first
 
@@ -206,6 +243,34 @@ Recoloring or moving the same card does not create a new meaningful visual state
 
 Generated real-person documentary imagery is forbidden.
 
+Each important beat must carry a concrete visual-grounding contract as applicable:
+
+- viewer takeaway;
+- primary visual type;
+- recognizable object, location, or evidence required;
+- must-use asset IDs;
+- whether abstract substitution is allowed and why;
+- recognition deadline;
+- captions-hidden takeaway;
+- native aspect-ratio variant.
+
+If the accepted director contract requires a real/contextual asset, a Motion Code Author may not silently replace it with unrelated SVG abstraction. The rights-safe asset broker must build a story-specific candidate universe and evaluate semantic fit, rights/license, source quality, orientation, resolution, focal-object visibility, crop viability, documentary versus illustrative role, attribution, and duplicate concentration. Asset richness means recognizable editorial coverage, not a count of schematic classes.
+
+## Storyboard and comprehension before final motion code
+
+Do not generate the full final motion layer directly from a prose shot list. First create format-specific keyframes/storyboard and a cheap captions-hidden animatic or proxy. Inspect recognition, continuity, narrative reconstruction, and asset adequacy before expensive final code/render.
+
+The comprehension gate must answer:
+
+- what does the viewer recognize, and by what deadline?;
+- what story or mechanism can be reconstructed with captions hidden?;
+- does the first second establish the subject, location, or object?;
+- are consecutive visuals semantically coherent?;
+- does each important visual explain rather than merely move?;
+- is the viewer forced to decode unexplained symbols?
+
+Machine counts of visual changes cannot self-pass this gate. Weak comprehension must revise or stop the asset/storyboard plan before final motion authorship.
+
 ## Existing image, asset, voice, and audio authority remains
 
 The creative-code change does not justify rebuilding working provider infrastructure.
@@ -288,6 +353,8 @@ Short-form should normally reach value faster, use denser meaningful visual stat
 
 Longer YouTube work should use sustained arcs, chapter re-hooks, richer evidence sequences, evolving asset/audio states, and deliberate pacing. Long duration is never a license for static filler.
 
+Charts, maps, and documents require native visual compilers for each target format. A landscape chart screenshot may not simply be letterboxed into 9:16. Support portrait chart compositions, direct labels, focused comparisons, highlighted primary-source excerpts, recognizable geographic treatments, and format-specific crop/layout rules.
+
 ## Machine QA is screening, not aesthetics
 
 Required diagnostics should increasingly cover:
@@ -314,11 +381,15 @@ Required diagnostics should increasingly cover:
 
 No diagnostic score may override actual Jim/ChatGPT review during creative-proof stages.
 
+Technical and motion metrics also cannot establish comprehension. Storyboard/animatic and proxy review must separately attest first-second recognition, captions-hidden reconstruction, semantic continuity, unexplained-symbol burden, and narration/visual agreement.
+
 ## Independent critique and revision
 
 The primary creative model should not be its only judge. Use an independent strong multimodal critic for actual media review where available. The critic should report defects by `video_id`, `scene_id`, `shot_id`/`beat_id`, and time range.
 
 GPT-5.6 then receives localized defects and patches the affected shot/code. Revisions should be selective. Maximum two bounded creative revision rounds per implementation attempt unless owner authority explicitly changes the rule.
+
+Revision accounting is typed. Deterministic mechanical/schema/audio/path/safe-zone/serialization corrections do not consume creative revision budget when they preserve authored meaning. Storyboard/systemic creative revision and rendered localized creative revision do consume that budget and must be recorded separately.
 
 If one implementation plus bounded correction still fails because the underlying creative architecture is wrong, do not enter an audit loop. Reconsider the architecture.
 
@@ -357,9 +428,9 @@ Small samples must not trigger large policy changes. Trends guide selection, fra
 
 The failed `b6f50029...` branch does not satisfy V2-01.
 
-Current replacement task:
+Current controlled replacement task:
 
-`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_CONCRETE_FIRST_XHIGH_REPLACEMENT_VERTICAL_SLICE_V1`
 
 Required result:
 
@@ -370,6 +441,11 @@ Proof scope is deliberately smaller than the rejected 3–6 minute attempt:
 - one native 45–60 second 9:16 short;
 - one 90–150 second 16:9 editorial proof;
 - exact sanitized GPT-5.6 creative-author receipts;
+- adaptive Creative Bible and semantic Segment Graph with deterministic child prompts;
+- concrete visual-grounding contracts and a richer rights-safe story-specific asset universe;
+- format-native chart/map/document treatments;
+- keyframe storyboard and captions-hidden animatic before final motion code;
+- explicit comprehension acceptance before expensive final rendering;
 - sandboxed per-shot code;
 - a rich rights-safe candidate asset universe;
 - many purposeful selected visual states;

@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V2 — Task Graph V2
 
-Authority date: 2026-08-12
+Authority date: 2026-08-13
 Status: `CURRENT_CANONICAL_V2_TASK_GRAPH`
 Companion plan: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 
@@ -8,7 +8,7 @@ Companion plan: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 
 Current V2 replacement task:
 
-`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_CONCRETE_FIRST_XHIGH_REPLACEMENT_VERTICAL_SLICE_V1`
 
 Required result:
 
@@ -22,6 +22,7 @@ Rejected creative references:
 
 - `task/tier2-v2-creative-system-rebuild-v1` / `d231b54e026570442d9fd9269b61e55c3de31d21` — `REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
 - `task/tier2-v2-retention-native-video-factory-vertical-slice-v1` / `b6f5002903fba65a668506e4ca38ae61b907ab18` — `FAIL_CREATIVE_MOTION_ARCHITECTURE / REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
+- `task/tier2-v2-gpt56-creative-code-asset-rich-video-v1` / `2289eb1382e65474207b50d27c0b87626d30728f` — `FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE / NEGATIVE_CREATIVE_REFERENCE_ONLY`
 
 Do not merge or continue their creative designs.
 
@@ -29,7 +30,7 @@ Do not merge or continue their creative designs.
 
 | # | Task | Core capability | Required visible result | Required result to advance | Owner/external dependency | Next |
 |---|---|---|---|---|---|---|
-| V2-01 | `TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1` | exact GPT-5.6 Creative Editor + Motion Code Author + Revision Author; sandboxed per-shot code; asset-rich edit; collision/repetition QA | native 45–60s short + 90–150s 16:9 proof; exact model receipts; rich rights-safe assets; captions-hidden motion proof; music/SFX; zero accepted collisions | `PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED` | existing 9Router/image/asset/audio authority; no public-write authority | V2-02 |
+| V2-01 | `TASK_CONTENTOPS_V2_CONCRETE_FIRST_XHIGH_REPLACEMENT_VERTICAL_SLICE_V1` | XHIGH adaptive decomposition; concrete visual grounding; rights-safe asset broker; native chart/map/document compilers; storyboard/animatic and comprehension gate before bounded motion code | controlled EIA/Hormuz replacement: native 45–60s short + 90–150s 16:9 proof; exact model/prompt lineage; recognizable assets; captions-hidden reconstruction; professional visual/audio review | `PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED` | existing 9Router/image/asset/audio authority; no public-write authority | V2-02 |
 | V2-02 | `TASK_CONTENTOPS_TIER2_V2_PREMIUM_AUDIO_AND_ASSET_INTELLIGENCE_V1` | premium voice/audio routing and systematic rights-aware entity/document/location asset intelligence | blind voice bundle; accepted primary/fallback voice; reusable music/SFX; 3 rights-cleared asset packs; rerendered proof | `PASS_PREMIUM_AUDIO_AND_ASSET_ENGINE_ACCEPTED` | Jim only if a paid provider purchase becomes justified | V2-03 |
 | V2-03 | `TASK_CONTENTOPS_TIER2_V2_DIVERSE_STORY_MODE_CORPUS_AND_MOTION_ACCEPTANCE_V1` | repeated professional quality across story modes without template sameness | ≥3 shorts; ≥2 mid-form; ≥4 story-mode examples; one `VIDEO_NOT_SELECTED`; optional 8–15m hero only if earned | `PASS_REPEATED_PROFESSIONAL_CREATIVE_QUALITY` | governed story supply | V2-04 |
 |  |  |  | **MILESTONE: PROFESSIONAL_CREATIVE_PROOF** |  |  |  |
@@ -55,11 +56,17 @@ Do not merge or continue their creative designs.
 3. Keep existing image, rights, voice, music/SFX, and mastering providers unless a concrete blocker demands change.
 4. Use official `remotion-dev/skills` technical baseline pinned in `CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`.
 5. Community Remotion skills are craft reference only.
-6. Build a much richer rights-safe candidate asset universe and select many purposeful visual states.
-7. Add text-collision and motion-repetition diagnostics beyond static-run counts.
-8. Do not default to slow left-to-right chart reveals or repeated same-speed text motion.
-9. Any creative-model fallback is `DEGRADED_CREATIVE_MODEL` and cannot self-pass.
-10. Jim/ChatGPT must inspect actual MP4/audio before V2-01 passes.
+6. `CONCRETE_FIRST_ABSTRACT_SECOND`: prefer recognizable documentary/contextual media, primary evidence, native chart/map, then concrete illustration before abstract metaphor.
+7. Every important beat carries a visual-grounding contract; required real/contextual assets cannot be silently replaced by SVG abstractions.
+8. Build a richer rights-safe story-specific asset universe using semantic, rights, orientation, resolution, focal-object, crop, role, attribution, and duplicate-concentration evaluation.
+9. Use adaptive story-specific semantic decomposition and deterministic child-prompt construction; never fixed first-half/second-half splitting.
+10. Storyboard and captions-hidden animatic/proxy must pass comprehension before full motion-code generation.
+11. Charts, maps, and documents are compiled natively for each aspect ratio; no letterboxed landscape chart in 9:16.
+12. Add semantic/comprehension gates beyond text-collision, motion-repetition, and static-run counts.
+13. Mechanical corrections do not consume creative revision budget; storyboard/systemic and rendered localized creative revisions do.
+14. `NineRouterGPT56Brain` remains default/active; `CodexLocalBrain` is an inactive owner-controlled fallback seam only.
+15. Any creative-model fallback is `DEGRADED_CREATIVE_MODEL` and cannot self-pass.
+16. Jim/ChatGPT must inspect actual MP4/audio before V2-01 passes.
 
 ## Advancement rules
 

@@ -75052,7 +75052,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-13T12:54:45Z",
+  "generation_timestamp_utc": "2026-08-13T15:01:55Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -75225,7 +75225,7 @@
     {
       "id": "docs/CURRENT_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 15095
+      "size_bytes": 15110
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
@@ -75240,27 +75240,27 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 4021
+      "size_bytes": 6689
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 44246
+      "size_bytes": 50490
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 18480
+      "size_bytes": 24182
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 7535
+      "size_bytes": 8749
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
       "kind": "authority_doc",
-      "size_bytes": 9748
+      "size_bytes": 9760
     },
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
@@ -75285,7 +75285,7 @@
     {
       "id": "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
       "kind": "authority_doc",
-      "size_bytes": 13686
+      "size_bytes": 13696
     },
     {
       "id": "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -76296,7 +76296,7 @@
     {
       "id": "live_contentops/daily_app_ui_read_model_v1.py",
       "kind": "python_module",
-      "size_bytes": 58488
+      "size_bytes": 58541
     },
     {
       "id": "live_contentops/daily_article_brief_generation_v0.py",
@@ -76401,12 +76401,12 @@
     {
       "id": "live_contentops/destination_transport_registry_v1.py",
       "kind": "python_module",
-      "size_bytes": 28862
+      "size_bytes": 28924
     },
     {
       "id": "live_contentops/direct_image_api_v1.py",
       "kind": "python_module",
-      "size_bytes": 21896
+      "size_bytes": 21281
     },
     {
       "id": "live_contentops/discord_feedback_summary_v6.py",
@@ -76526,12 +76526,12 @@
     {
       "id": "live_contentops/durable_operational_store_v1.py",
       "kind": "python_module",
-      "size_bytes": 123884
+      "size_bytes": 123886
     },
     {
       "id": "live_contentops/edge_cdp_publishing_adapter_v1.py",
       "kind": "python_module",
-      "size_bytes": 216092
+      "size_bytes": 216157
     },
     {
       "id": "live_contentops/editorial_brief_ai_writer_output_contract.py",
@@ -76831,7 +76831,7 @@
     {
       "id": "live_contentops/hourly_runtime_audit_v1.py",
       "kind": "python_module",
-      "size_bytes": 19589
+      "size_bytes": 19591
     },
     {
       "id": "live_contentops/ide_cli_document_bundle.py",
@@ -76971,7 +76971,7 @@
     {
       "id": "live_contentops/linkedin_official_member_api_v1.py",
       "kind": "python_module",
-      "size_bytes": 24461
+      "size_bytes": 25025
     },
     {
       "id": "live_contentops/linkedin_publication_audit_review_metrics_summary_v6.py",
@@ -77951,7 +77951,7 @@
     {
       "id": "live_contentops/production_runtime_v1.py",
       "kind": "python_module",
-      "size_bytes": 5205
+      "size_bytes": 5211
     },
     {
       "id": "live_contentops/project_sources_upload_bundle_v6.py",
@@ -78031,7 +78031,7 @@
     {
       "id": "live_contentops/publication_coordinator_v1.py",
       "kind": "python_module",
-      "size_bytes": 43012
+      "size_bytes": 43048
     },
     {
       "id": "live_contentops/publish_adapter_credential_secret_policy.py",
@@ -110849,7 +110849,7 @@
     {
       "id": "scripts/authorize_linkedin_official_member_api_v1.py",
       "kind": "python_module",
-      "size_bytes": 2487
+      "size_bytes": 2562
     },
     {
       "id": "scripts/build_daily_article_brief_generation_v0.py",
@@ -110944,7 +110944,7 @@
     {
       "id": "scripts/run_direct_image_bakeoff_v1.py",
       "kind": "python_module",
-      "size_bytes": 21161
+      "size_bytes": 20645
     },
     {
       "id": "scripts/run_eight_platform_substack_first_pipeline_v1.py",
@@ -111419,7 +111419,7 @@
     {
       "id": "tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py",
       "kind": "test",
-      "size_bytes": 23300
+      "size_bytes": 23265
     },
     {
       "id": "tests/test_canonical_substack_article_v6.py",
@@ -111719,7 +111719,7 @@
     {
       "id": "tests/test_daily_app_ui_read_model_v1.py",
       "kind": "test",
-      "size_bytes": 20818
+      "size_bytes": 20864
     },
     {
       "id": "tests/test_daily_article_brief_generation_v0.py",
@@ -111829,12 +111829,12 @@
     {
       "id": "tests/test_destination_identity_pinning_v1.py",
       "kind": "test",
-      "size_bytes": 9238
+      "size_bytes": 9246
     },
     {
       "id": "tests/test_direct_image_api_v1.py",
       "kind": "test",
-      "size_bytes": 15156
+      "size_bytes": 14722
     },
     {
       "id": "tests/test_discord_feedback_summary_v6.py",
@@ -112394,7 +112394,7 @@
     {
       "id": "tests/test_linkedin_official_member_api_v1.py",
       "kind": "test",
-      "size_bytes": 15968
+      "size_bytes": 16340
     },
     {
       "id": "tests/test_linkedin_publication_audit_review_metrics_summary_v6.py",
@@ -118002,7 +118002,7 @@
     {
       "id": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 31686
+      "size_bytes": 31687
     },
     {
       "id": "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx",
@@ -118193,6 +118193,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "9f4099cbff3ebdbf51f695f6b8afeaadf9520b27",
-  "source_tree_digest": "af6183cdac50999236b86ea0cdd1883b2b76bdbd6541c8fd3008d3af0fb996fa"
+  "source_head": "f78e4e0b6ca0535a52c82daaa7cd653135a99358",
+  "source_tree_digest": "7090da34b532150151a740cfbba9088bc64c492bce0a8d61f603a323ea4b221c"
 }
