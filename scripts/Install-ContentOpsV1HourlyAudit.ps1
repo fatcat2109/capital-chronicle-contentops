@@ -11,9 +11,9 @@ if (-not (Test-Path -LiteralPath $auditScript)) { throw 'HOURLY_AUDIT_SCRIPT_MIS
 $operator = [Security.Principal.WindowsIdentity]::GetCurrent().Name
 $actionArguments = '-NoProfile -ExecutionPolicy Bypass -File "' + $auditScript + '"'
 $action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument $actionArguments -WorkingDirectory (Split-Path -Parent $PSScriptRoot)
-$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(2)
-$trigger.Repetition.Interval = 'PT1H'
-$trigger.Repetition.Duration = 'P3650D'
+$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(2) `
+    -RepetitionInterval (New-TimeSpan -Hours 1) `
+    -RepetitionDuration (New-TimeSpan -Days 3650)
 $principal = New-ScheduledTaskPrincipal -UserId $operator -LogonType Interactive -RunLevel Limited
 $settings = New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Minutes 10)
 
