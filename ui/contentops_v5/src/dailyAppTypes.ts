@@ -13,7 +13,32 @@ export type DailyView =
   | 'platforms'
   | 'incidents'
   | 'controls'
+  | 'background_logs'
   | 'audit';
+
+export interface HourlyAudit {
+  schema_version: string;
+  generated_at_utc: string | null;
+  classification: string;
+  classification_reasons?: string[];
+  runtime?: Record<string, unknown>;
+  browsers?: Record<string, unknown>;
+  safety?: Record<string, unknown>;
+  stderr_signal?: Record<string, unknown>;
+  scheduled_task?: Record<string, unknown>;
+  status?: string;
+}
+
+export interface BackgroundLogTail {
+  schema_version: string;
+  stream: string;
+  label: string;
+  status: string;
+  line_count: number;
+  truncated: boolean;
+  latest_timestamp_utc: string | null;
+  content: string;
+}
 
 export interface DailyAppSnapshot {
   schema_version: string;
@@ -105,6 +130,7 @@ export interface DailyAppSnapshot {
     active_count: number;
     empty_reason: string | null;
   };
+  hourly_audit?: HourlyAudit;
   controls: {
     current_mode: OperatingMode;
     state_version: number;
@@ -115,6 +141,12 @@ export interface DailyAppSnapshot {
     run_now_endpoint: string;
     run_now_allowed: boolean;
     run_now_mode_consequence: string;
+    shutdown_endpoint?: string;
+    shutdown_allowed?: boolean;
+    shutdown_blockers?: string[];
+    background_logs_endpoint?: string;
+    background_log_streams?: Array<{ stream: string; label: string }>;
+    hourly_audit_endpoint?: string;
     semantics: Record<OperatingMode, string>;
     unsafe_controls_available: boolean;
   };

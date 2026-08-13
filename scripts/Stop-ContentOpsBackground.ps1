@@ -7,10 +7,12 @@ $ErrorActionPreference = 'Stop'
 $controlRoot = 'A:\Capital Chronicle\Runtime\ContentOps\control'
 $pauseMarker = Join-Path $controlRoot 'llm_operator_pause.flag'
 $productionStore = 'A:\Capital Chronicle\Runtime\ContentOps\contentops_daily_app_v1.sqlite3'
+$repoRoot = Split-Path -Parent $PSScriptRoot
 $canonicalRoots = @(
     'A:\Capital Chronicle\ContentOps',
     'A:\Capital Chronicle\Worktrees\ContentOps',
-    'A:\Capital Chronicle\Runtime\ContentOps'
+    'A:\Capital Chronicle\Runtime\ContentOps',
+    $repoRoot
 )
 
 # COST-SAFETY ORDERING INVARIANT: activate the durable fuse before inventory or termination.
@@ -28,6 +30,30 @@ Move-Item -LiteralPath $temporaryMarker -Destination $pauseMarker -Force
 if (-not (Test-Path -LiteralPath $pauseMarker)) {
     throw 'LLM_PAUSE_ACTIVATION_FAILED: no process termination was attempted.'
 }
+
+# SAFETY ORDERING INVARIANT: after pausing new model work, refuse all termination if the
+# canonical store reports an active cycle, pending trigger/readback/recovery, or unknown write.
+$python = Get-Command python -ErrorAction SilentlyContinue
+if (-not $python) {
+    Write-Output 'CONTENTOPS BACKGROUND: NOT STOPPED'
+    Write-Output 'REASON: PYTHON_NOT_FOUND_FOR_SAFE_SHUTDOWN_PREFLIGHT'
+    exit 2
+}
+Push-Location $repoRoot
+try {
+    $preflight = & $python.Source -m live_contentops.operator_control_plane_v1 shutdown-preflight --store $productionStore
+    $preflightExit = $LASTEXITCODE
+} finally {
+    Pop-Location
+}
+if ($preflightExit -ne 0) {
+    Write-Output 'CONTENTOPS BACKGROUND: NOT STOPPED'
+    Write-Output ('SAFE SHUTDOWN PREFLIGHT: ' + ($preflight -join ' '))
+    Write-Output 'LLM NETWORK CALLS: PAUSED BY OPERATOR'
+    Write-Output 'AMBIGUOUS OR ACTIVE WORK: FAIL CLOSED'
+    exit 2
+}
+Write-Output ('SAFE SHUTDOWN PREFLIGHT: ' + ($preflight -join ' '))
 
 function Test-CanonicalPathMarker([string]$commandLine) {
     foreach ($root in $canonicalRoots) {
@@ -136,7 +162,6 @@ $v5Listeners = @(
 
 $sqliteIntegrity = 'UNAVAILABLE'
 if (Test-Path -LiteralPath $productionStore) {
-    $python = Get-Command python -ErrorAction SilentlyContinue
     if ($python) {
         $sqliteIntegrity = & $python.Source -c "import sqlite3; c=sqlite3.connect(r'$productionStore'); print(c.execute('PRAGMA integrity_check').fetchone()[0]); c.close()"
         if ($LASTEXITCODE -ne 0) { $sqliteIntegrity = 'CHECK_FAILED' }

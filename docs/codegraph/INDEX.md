@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `78d924aa852f8dd4db9e1d8ea1efedd421a9ee0f`
-Source tree digest: `a277e753cefb89e733e165db1e5fb090f587d79ed519afb38528146817cf87c5`
+Source HEAD: `31b9a4941e891ccd4eae7b7c419b1fe011a8c704`
+Source tree digest: `20a05f3362d927ca10f7c77d8b493474324122219552ddb2697a03be30e4315f`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.2.0`
 
 This generated map is descriptive, not product authority.
@@ -30,6 +30,8 @@ Open current direction/next-task authority only when product direction matters: 
 | `daily_app_supervisor` | `live_contentops/daily_app_supervisor_v1.py` | `ContentOpsDailyAppSupervisor` |
 | `production_orchestrator` | `live_contentops/production_orchestrator_v1.py` | `ContentOpsProductionOrchestrator` |
 | `tier2_local_factory` | `live_contentops/tier2_video_factory_v1.py` | `python -m live_contentops.cli tier2-video-local` |
+| `operator_script` | `scripts/Audit-ContentOpsV1Hourly.ps1` | `scripts/Audit-ContentOpsV1Hourly.ps1` |
+| `operator_script` | `scripts/Install-ContentOpsV1HourlyAudit.ps1` | `scripts/Install-ContentOpsV1HourlyAudit.ps1` |
 | `operator_script` | `scripts/Resume-ContentOpsLLM.ps1` | `scripts/Resume-ContentOpsLLM.ps1` |
 | `operator_script` | `scripts/Start-ContentOpsDailyApp.ps1` | `scripts/Start-ContentOpsDailyApp.ps1` |
 | `operator_script` | `scripts/Stop-ContentOpsBackground.ps1` | `scripts/Stop-ContentOpsBackground.ps1` |
@@ -142,4 +144,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`6595` nodes and `12381` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`6626` nodes and `12435` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.

@@ -259,6 +259,14 @@ body {
 .daily-run-now-button { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 10px 18px; border: 1px solid color-mix(in srgb, var(--daily-accent) 55%, var(--daily-line)); border-radius: 8px; background: color-mix(in srgb, var(--daily-accent) 14%, #0f1216); color: var(--daily-text); font-size: 13px; font-weight: 700; cursor: pointer; }
 .daily-run-now-button:hover:not(:disabled) { background: color-mix(in srgb, var(--daily-accent) 22%, #0f1216); }
 .daily-run-now-button:disabled { cursor: not-allowed; opacity: .72; }
+.daily-shutdown-button { min-height: 44px; padding: 10px 18px; border: 1px solid color-mix(in srgb, var(--daily-bad) 62%, var(--daily-line)); border-radius: 8px; color: #ffe5e7; background: color-mix(in srgb, var(--daily-bad) 15%, #0f1216); font-size: 13px; font-weight: 700; }
+.daily-shutdown-button:hover:not(:disabled) { background: color-mix(in srgb, var(--daily-bad) 24%, #0f1216); }
+.daily-shutdown-button:disabled { cursor: not-allowed; opacity: .55; }
+.daily-log-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.daily-log-toolbar label { color: var(--daily-subtle); font: 600 10px "JetBrains Mono"; letter-spacing: .06em; text-transform: uppercase; }
+.daily-log-toolbar select, .daily-log-toolbar button { min-height: 38px; padding: 8px 11px; border: 1px solid var(--daily-line); border-radius: 7px; color: var(--daily-text); background: #0f1216; }
+.daily-log-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; color: var(--daily-subtle); font: 500 10px "JetBrains Mono"; }
+.daily-log-output { min-height: 340px; max-height: 62vh; margin: 0; padding: 16px; overflow: auto; border: 1px solid var(--daily-line); border-radius: 7px; color: #cbd2dd; background: #090b0e; white-space: pre-wrap; overflow-wrap: anywhere; font: 500 11px/1.55 "JetBrains Mono", monospace; }
 .daily-loading { min-height: 58vh; display: grid; place-items: center; align-content: center; gap: 14px; color: var(--daily-muted); font: 500 12px "JetBrains Mono"; }
 .daily-loading svg { width: 25px; animation: daily-pulse 1.5s ease-in-out infinite; }
 .daily-scrim { display: none; }

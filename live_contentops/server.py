@@ -26,6 +26,17 @@ from live_contentops.durable_operational_store_v1 import (
     OperatorTriggerAlreadyPendingError,
 )
 from live_contentops.live_entrypoint_registry_v1 import HTTP_LAUNCH_QUARANTINED
+from live_contentops.operator_control_plane_v1 import (
+    HOURLY_AUDIT_ENDPOINT,
+    LOGS_ENDPOINT,
+    SHUTDOWN_ENDPOINT,
+    OperatorControlError,
+    available_log_streams,
+    prepare_safe_shutdown,
+    read_allowlisted_log,
+    read_latest_hourly_audit,
+    spawn_shutdown_fallback,
+)
 
 TASKS: dict[str, dict[str, object]] = {}
 SERVER_SCHEMA_VERSION = "contentops.daily_app_loopback_api.v1"
@@ -42,6 +53,7 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
     """Request handler configured by ``make_handler`` with an explicit store path."""
 
     store_path: Path | None = None
+    repo_root: Path = Path(__file__).resolve().parents[1]
 
     def log_message(self, format: str, *args: object) -> None:  # noqa: A002
         # Do not put request query/body data into a durable log by default.
@@ -104,6 +116,34 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
                 return
             self._send_json(200, snapshot)
             return
+        if route == LOGS_ENDPOINT:
+            params = parse_qs(parsed_url.query, keep_blank_values=True)
+            if set(params) - {"stream", "lines"} or len(params.get("stream", [])) != 1:
+                self._send_json(400, {"error": "EXACT_LOG_QUERY_REQUIRED", "streams": available_log_streams()})
+                return
+            stream = params["stream"][0]
+            raw_lines = params.get("lines", ["160"])
+            if len(raw_lines) != 1 or not raw_lines[0].isdigit():
+                self._send_json(400, {"error": "LOG_LINE_LIMIT_INVALID"})
+                return
+            try:
+                result = read_allowlisted_log(self._require_store(), stream=stream, lines=int(raw_lines[0]))
+            except OperatorControlError as exc:
+                self._send_json(400, {"error": str(exc), "streams": available_log_streams()})
+                return
+            self._send_json(200, result)
+            return
+        if route == HOURLY_AUDIT_ENDPOINT:
+            if parsed_url.query:
+                self._send_json(400, {"error": "QUERY_PARAMETERS_NOT_SUPPORTED"})
+                return
+            try:
+                result = read_latest_hourly_audit(self._require_store())
+            except OperatorControlError as exc:
+                self._send_json(503, {"error": str(exc)})
+                return
+            self._send_json(200, result)
+            return
         if route == "/api/pipeline-status":
             task_id = parse_qs(parsed_url.query).get("task_id", [""])[0]
             if not task_id or task_id not in TASKS:
@@ -161,6 +201,29 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
             raise ValueError("EXPECTED_STATE_VERSION_MUST_BE_POSITIVE")
         return payload
 
+    def _read_shutdown_payload(self) -> dict[str, Any]:
+        content_type = self.headers.get("Content-Type", "").split(";", 1)[0].strip().lower()
+        if content_type != "application/json":
+            raise ValueError("CONTENT_TYPE_MUST_BE_APPLICATION_JSON")
+        raw_length = self.headers.get("Content-Length")
+        if raw_length is None or not raw_length.isdigit():
+            raise ValueError("VALID_CONTENT_LENGTH_REQUIRED")
+        length = int(raw_length)
+        if length <= 0 or length > MAX_CONTROL_BODY_BYTES:
+            raise ValueError("CONTROL_BODY_SIZE_INVALID")
+        try:
+            payload = json.loads(self.rfile.read(length))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise ValueError("MALFORMED_JSON") from exc
+        if not isinstance(payload, dict) or set(payload) != {"action", "expected_state_version"}:
+            raise ValueError("EXACT_CONTROL_FIELDS_REQUIRED")
+        if payload["action"] != "SHUTDOWN_ALL_BACKGROUND":
+            raise ValueError("ACTION_MUST_BE_SHUTDOWN_ALL_BACKGROUND")
+        version = payload["expected_state_version"]
+        if isinstance(version, bool) or not isinstance(version, int) or version < 1:
+            raise ValueError("EXPECTED_STATE_VERSION_MUST_BE_POSITIVE_INTEGER")
+        return payload
+
     def do_POST(self) -> None:
         route = urlparse(self.path).path
         if route == "/api/run-pipeline":
@@ -204,6 +267,36 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
             } else 503
             self._send_json(http_code, result)
             return
+        if route == SHUTDOWN_ENDPOINT:
+            if self.headers.get("Origin") not in ALLOWED_ORIGINS:
+                self._send_json(403, {"error": "ORIGIN_NOT_ALLOWED"})
+                return
+            try:
+                payload = self._read_shutdown_payload()
+                preflight = prepare_safe_shutdown(
+                    self._require_store(),
+                    expected_state_version=payload["expected_state_version"],
+                )
+                shutdown_pid = spawn_shutdown_fallback(
+                    repo_root=self.repo_root,
+                    store_path=self._require_store(),
+                )
+            except ValueError as exc:
+                self._send_json(400, {"error": str(exc)})
+                return
+            except (OperatorControlError, DailyAppReadModelError) as exc:
+                self._send_json(409, {"error": str(exc), "background_processes_stopped": False})
+                return
+            except OSError as exc:
+                self._send_json(503, {"error": f"SHUTDOWN_FALLBACK_SPAWN_FAILED:{type(exc).__name__}", "background_processes_stopped": False})
+                return
+            self._send_json(202, {
+                "status": "SAFE_SHUTDOWN_STARTED",
+                "kill_switch_active": preflight["kill_switch_active"],
+                "background_processes_stopped": "PENDING_VERIFICATION",
+                "shutdown_worker_pid": shutdown_pid,
+            })
+            return
         if route != "/api/daily-app/control/mode":
             self._send_json(404, {"error": "Route not found", "route": route})
             return
@@ -229,7 +322,7 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
         self._send_json(200, {"status": "OPERATING_MODE_UPDATED", "control": control})
 
 
-def make_handler(store_path: str | Path) -> Type[PipelineServerHandler]:
+def make_handler(store_path: str | Path, *, repo_root: str | Path | None = None) -> Type[PipelineServerHandler]:
     """Bind a handler class to one canonical store without exposing the path over HTTP."""
     resolved = Path(store_path).resolve(strict=True)
 
@@ -237,6 +330,7 @@ def make_handler(store_path: str | Path) -> Type[PipelineServerHandler]:
         pass
 
     ConfiguredPipelineServerHandler.store_path = resolved
+    ConfiguredPipelineServerHandler.repo_root = Path(repo_root).resolve(strict=True) if repo_root else Path(__file__).resolve().parents[1]
     return ConfiguredPipelineServerHandler
 
 

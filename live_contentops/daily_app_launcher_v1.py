@@ -522,6 +522,8 @@ def render_summary(
     store_exists: bool,
     schema_version: Any,
     inventory_report: str,
+    log_root: Path | None = None,
+    source_sha: str | None = None,
 ) -> str:
     runtime = (snapshot or {}).get("runtime") or {}
     published = (snapshot or {}).get("published") or {}
@@ -558,6 +560,9 @@ def render_summary(
         f"X Ingestion Session: {browser_state['x_ingestion_session']}",
         f"Edge 9223 Publishing: {browser_state['edge_9223_publishing_only']}",
         f"V5 UI: {ui_state['status']}" + (f" ({ui_state['url']})" if ui_state.get("url") else ""),
+        f"Started Runtime Source SHA: {source_sha or 'PRESERVED_EXISTING_RUNTIME_SEE_HOURLY_AUDIT'}",
+        f"Background Logs: {(log_root or LAUNCHER_LOG_ROOT_DEFAULT)}",
+        f"Hourly Audit: {(log_root or LAUNCHER_LOG_ROOT_DEFAULT).parent / 'hourly_audit' / 'latest.json'}",
         f"Unknown Write: {unknown_write_count}",
         f"Pending Reconciliation: {pending_count}",
         "",
@@ -588,6 +593,46 @@ def _redaction_guard(text: str, env: Optional[Mapping[str, str]] = None) -> str:
         if value and len(value) >= 12 and value in text:
             raise LauncherError(f"refusing to emit output containing material resembling env value for {name}")
     return text
+
+
+def _current_source_sha() -> str | None:
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=str(REPO_ROOT), capture_output=True,
+            text=True, timeout=10, check=True,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    value = result.stdout.strip().lower()
+    return value if re.fullmatch(r"[0-9a-f]{40}", value) else None
+
+
+def _append_launcher_log(log_root: Path, summary: str) -> None:
+    log_root.mkdir(parents=True, exist_ok=True)
+    timestamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    with (log_root / "launcher.log").open("a", encoding="utf-8") as handle:
+        handle.write(f"\n===== one-click launcher {timestamp} =====\n{summary}\n")
+
+
+def _write_runtime_identity(
+    *, log_root: Path, source_sha: str | None, supervisor_pid: int,
+    store_path: Path, stdout_log: Path, stderr_log: Path,
+) -> None:
+    """Record source identity only for a process this exact launcher just started."""
+    log_root.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "schema_version": "contentops.daily_app_runtime_identity.v1",
+        "source_sha": source_sha,
+        "supervisor_pid": int(supervisor_pid),
+        "store_identity": store_path.name,
+        "stdout_log": stdout_log.name,
+        "stderr_log": stderr_log.name,
+        "started_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "contains_secrets": False,
+    }
+    temporary = log_root / "runtime_identity_v1.json.tmp"
+    temporary.write_text(json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8")
+    temporary.replace(log_root / "runtime_identity_v1.json")
 
 
 def run_launcher(argv: list[str] | None = None) -> int:
@@ -621,6 +666,9 @@ def run_launcher(argv: list[str] | None = None) -> int:
     spawned_pid: Optional[int] = None
     snapshot: Optional[dict[str, Any]] = None
     schema_version: Any = None
+    source_sha = _current_source_sha()
+    stdout_log = log_root / "daily_app.supervisor.stdout.log"
+    stderr_log = log_root / "daily_app.supervisor.stderr.log"
 
     if decision.outcome == "START_REQUIRED" and decision.may_spawn:
         command = build_canonical_daily_app_command(
@@ -630,8 +678,6 @@ def run_launcher(argv: list[str] | None = None) -> int:
             api_port=args.api_port,
             skip_edge_bootstrap=bool(args.shadow_smoke),
         )
-        stdout_log = log_root / "daily_app.supervisor.stdout.log"
-        stderr_log = log_root / "daily_app.supervisor.stderr.log"
         spawned_pid = spawn_detached_daily_app(
             command,
             working_directory=REPO_ROOT,
@@ -656,6 +702,14 @@ def run_launcher(argv: list[str] | None = None) -> int:
                 canonical_supervisor_count=max(len(post_canonical), 1),
                 kill_switch_active=bool((snapshot or {}).get("runtime", {}).get("kill_switch_active")),
                 store_identity_canonical=True,
+            )
+            _write_runtime_identity(
+                log_root=log_root,
+                source_sha=source_sha,
+                supervisor_pid=spawned_pid,
+                store_path=store_path,
+                stdout_log=stdout_log,
+                stderr_log=stderr_log,
             )
         else:
             print(_redaction_guard(
@@ -691,8 +745,12 @@ def run_launcher(argv: list[str] | None = None) -> int:
         store_exists=store_path.exists(),
         schema_version=schema_version,
         inventory_report=inventory_report,
+        log_root=log_root,
+        source_sha=source_sha if decision.outcome.startswith("STARTED") else None,
     )
-    print(_redaction_guard(summary))
+    safe_summary = _redaction_guard(summary)
+    _append_launcher_log(log_root, safe_summary)
+    print(safe_summary)
     return 0 if decision.outcome in {
         "ALREADY_RUNNING",
         "ALREADY_RUNNING_KILL_SWITCH_ACTIVE",

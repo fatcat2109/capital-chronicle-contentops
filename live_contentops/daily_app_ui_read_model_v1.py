@@ -248,6 +248,14 @@ def build_daily_app_snapshot(
     if not path.is_file():
         raise DailyAppReadModelError("configured durable store does not exist")
     store = ContentOpsDurableStore(path, auto_migrate=False)
+    hourly_audit = _read_json_file(path.parent / "hourly_audit" / "latest.json")
+    if not hourly_audit:
+        hourly_audit = {
+            "schema_version": "contentops.hourly_runtime_audit.latest_pointer.v1",
+            "status": "AUDIT_NOT_YET_AVAILABLE",
+            "classification": "UNKNOWN",
+            "generated_at_utc": None,
+        }
     try:
         with store.get_read_only_connection() as conn:
             if str(conn.execute("PRAGMA integrity_check").fetchone()[0]).lower() != "ok":
@@ -738,6 +746,15 @@ def build_daily_app_snapshot(
         if pending_material_events
         else "READY_NO_PENDING_MATERIAL_EVENT"
     )
+    shutdown_blockers: list[str] = []
+    if active_cycle_windows:
+        shutdown_blockers.append("ACTIVE_EDITORIAL_CYCLE")
+    if latest_operator_trigger and str(latest_operator_trigger.get("state") or "").upper() == "PENDING":
+        shutdown_blockers.append("OPERATOR_TRIGGER_PENDING")
+    if unknown:
+        shutdown_blockers.append("UNKNOWN_WRITE_PRESENT")
+    if pending_recovery:
+        shutdown_blockers.append("PENDING_READBACK_OR_LIFECYCLE_RECOVERY_PRESENT")
 
     snapshot = {
         "schema_version": SNAPSHOT_SCHEMA_VERSION,
@@ -848,6 +865,7 @@ def build_daily_app_snapshot(
             "active_count": len(incidents),
             "empty_reason": "NO_ACTIVE_INCIDENTS" if not incidents else None,
         },
+        "hourly_audit": hourly_audit,
         "controls": {
             "current_mode": controls["operating_mode"],
             "state_version": controls["state_version"],
@@ -858,6 +876,19 @@ def build_daily_app_snapshot(
             "run_now_endpoint": RUN_NOW_ENDPOINT,
             "run_now_allowed": controls["operating_mode"] != "KILL_SWITCH",
             "run_now_mode_consequence": RUN_NOW_MODE_CONSEQUENCES[controls["operating_mode"]],
+            "shutdown_endpoint": "/api/daily-app/control/shutdown-all-background",
+            "shutdown_allowed": not shutdown_blockers,
+            "shutdown_blockers": shutdown_blockers,
+            "background_logs_endpoint": "/api/daily-app/background-logs",
+            "background_log_streams": [
+                {"stream": "supervisor_stdout", "label": "Supervisor stdout"},
+                {"stream": "supervisor_stderr", "label": "Supervisor stderr"},
+                {"stream": "v5_ui", "label": "V5 UI server"},
+                {"stream": "launcher", "label": "One-click launcher"},
+                {"stream": "operator_shutdown", "label": "Operator shutdown"},
+                {"stream": "hourly_audit", "label": "Hourly runtime audit"},
+            ],
+            "hourly_audit_endpoint": "/api/daily-app/hourly-audit/latest",
             "semantics": {
                 "AUTONOMOUS_DEFAULT": "Routine automation; every public write still requires every canonical gate.",
                 "SUPERVISED_OPERATOR_GATE": "Pause before new public writes; recovery continues.",

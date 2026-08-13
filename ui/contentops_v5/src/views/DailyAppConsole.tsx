@@ -2,9 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Activity, AlertTriangle, Archive, BarChart3, BookOpenCheck, CalendarClock,
   ChevronRight, CircleOff, Database, Gauge, Menu, PanelLeftClose, RefreshCw,
-  Shield, ShieldAlert, SlidersHorizontal, Sparkles,
+  ScrollText, Shield, ShieldAlert, SlidersHorizontal, Sparkles,
 } from 'lucide-react';
-import type { DailyAppSnapshot, DailyView, LoadState, OperatingMode } from '../dailyAppTypes';
+import type { BackgroundLogTail, DailyAppSnapshot, DailyView, HourlyAudit, LoadState, OperatingMode } from '../dailyAppTypes';
 
 const API_ROOT = 'http://127.0.0.1:5174';
 const POLL_MS = 15_000;
@@ -21,6 +21,7 @@ const NAV: Array<{ group: string; items: Array<{ id: DailyView; label: string; i
     { id: 'platforms', label: 'Platforms', icon: Database },
     { id: 'incidents', label: 'Incidents', icon: ShieldAlert },
     { id: 'controls', label: 'Controls', icon: SlidersHorizontal },
+    { id: 'background_logs', label: 'Background logs', icon: ScrollText },
   ] },
   { group: 'Reference', items: [{ id: 'audit', label: 'Evidence / Audit', icon: BookOpenCheck }] },
 ];
@@ -155,7 +156,7 @@ function RunEditorialNow({ data, refresh }: { data: DailyAppSnapshot; refresh: (
   </Panel>;
 }
 
-function Today({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Promise<void> }) {
+function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh: () => Promise<void>; hourlyAudit: HourlyAudit | null }) {
   const cycle = data.today.current_cycle;
   const nextAction = data.incidents.active_count > 0
     ? 'Review the active incident lifecycle before any intervention.'
@@ -164,6 +165,7 @@ function Today({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Promi
     <div className="daily-first-fold">
       <Panel title="Operating mode" eyebrow="Control posture"><Status value={data.runtime.operating_mode} /><p>{data.controls.semantics[data.runtime.operating_mode]}</p><Status value={data.runtime.kill_switch_active ? 'KILL_SWITCH_ACTIVE' : 'KILL_SWITCH_DISENGAGED'} /></Panel>
       <Panel title="Controller health" eyebrow="Runtime"><Status value={data.runtime.controller_health} /><p>Last heartbeat: {formatUtcDateTime(data.runtime.latest_heartbeat_at_utc)}</p></Panel>
+      <Panel title="Hourly audit" eyebrow="Independent readback"><Status value={hourlyAudit?.classification ?? 'AUDIT_NOT_YET_AVAILABLE'} /><p>Last run: {formatUtcDateTime(hourlyAudit?.generated_at_utc)}</p></Panel>
       <RunEditorialNow data={data} refresh={refresh} />
       <Panel title="Next safe action" eyebrow="Operator"><p className="daily-callout">{nextAction}</p><p>Next wake: {formatUtcDateTime(data.runtime.next_wake_utc)}</p><Status value={data.runtime.next_editorial_window?.provenance ?? 'WINDOW_PROVENANCE_UNAVAILABLE'} /></Panel>
       <Panel title="Active incidents" eyebrow="Safety"><strong className="daily-big-number">{data.incidents.active_count}</strong><Status value={data.incidents.active_count ? 'ATTENTION_REQUIRED' : 'NO_ACTIVE_INCIDENTS'} /></Panel>
@@ -251,9 +253,37 @@ function Incidents({ data }: { data: DailyAppSnapshot }) {
   </div>;
 }
 
+function BackgroundLogs({ data }: { data: DailyAppSnapshot }) {
+  const streams = data.controls.background_log_streams ?? [];
+  const [stream, setStream] = useState(streams[0]?.stream ?? 'supervisor_stderr');
+  const [tail, setTail] = useState<BackgroundLogTail | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const refresh = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_ROOT}${data.controls.background_logs_endpoint ?? '/api/daily-app/background-logs'}?stream=${encodeURIComponent(stream)}&lines=200`, { headers: { Accept: 'application/json' }, cache: 'no-store' });
+      const result = await response.json() as BackgroundLogTail & { error?: string };
+      if (!response.ok) throw new Error(result.error ?? `Log unavailable (${response.status})`);
+      setTail(result); setError(null);
+    } catch (caught) { setError(caught instanceof Error ? caught.message : 'Log unavailable'); }
+  }, [data.controls.background_logs_endpoint, stream]);
+  useEffect(() => {
+    void refresh();
+    const timer = window.setInterval(() => { if (document.visibilityState === 'visible') void refresh(); }, 5_000);
+    return () => window.clearInterval(timer);
+  }, [refresh]);
+  return <div className="daily-view"><ViewTitle title="Background logs" detail="Sanitized, bounded tails from a fixed server-side allowlist. No caller-selected path is accepted." />
+    <Panel title="Log stream" eyebrow="Auto-refresh · 5 seconds">
+      <div className="daily-log-toolbar"><label htmlFor="daily-log-stream">Allowlisted stream</label><select id="daily-log-stream" value={stream} onChange={event => setStream(event.target.value)}>{streams.map(item => <option key={item.stream} value={item.stream}>{item.label}</option>)}</select><button type="button" onClick={() => void refresh()}>Refresh</button></div>
+      {error && <p role="alert" className="daily-control-message">{error}</p>}
+      {tail && <><div className="daily-log-meta"><Status value={tail.status} /><span>{tail.line_count} lines</span><span>Updated {formatUtcDateTime(tail.latest_timestamp_utc)}</span>{tail.truncated && <span>Bounded tail</span>}</div><pre className="daily-log-output">{tail.content || 'No log content recorded yet.'}</pre></>}
+    </Panel>
+  </div>;
+}
+
 function Controls({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Promise<void> }) {
   const [pending, setPending] = useState<OperatingMode | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [shutdownPending, setShutdownPending] = useState(false);
   const changeMode = async (mode: OperatingMode) => {
     setPending(mode); setMessage(null);
     try {
@@ -268,14 +298,32 @@ function Controls({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Pr
     } catch (error) { setMessage(error instanceof Error ? error.message : 'Control update failed'); }
     finally { setPending(null); }
   };
+  const shutdown = async () => {
+    if (data.controls.shutdown_allowed !== true || shutdownPending) return;
+    const confirmed = window.confirm('Shutdown every proven ContentOps background process? The canonical store and Chrome/Edge profiles are preserved. The dashboard will go offline after verification starts.');
+    if (!confirmed) return;
+    setShutdownPending(true); setMessage(null);
+    try {
+      const response = await fetch(`${API_ROOT}${data.controls.shutdown_endpoint ?? '/api/daily-app/control/shutdown-all-background'}`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'SHUTDOWN_ALL_BACKGROUND', expected_state_version: data.controls.state_version }),
+      });
+      const result = await response.json() as { status?: string; error?: string };
+      if (!response.ok) throw new Error(result.error ?? `Shutdown rejected (${response.status})`);
+      setMessage('Safe shutdown started. KILL_SWITCH and the durable model pause are active; only proven ContentOps background processes will stop. Store and browser profiles are preserved.');
+    } catch (error) { setMessage(error instanceof Error ? error.message : 'Shutdown failed closed'); setShutdownPending(false); }
+  };
   return <div className="daily-view"><ViewTitle title="Controls" detail="The console writes are a CAS mode change and a durable run-now trigger. Neither launches a pipeline directly, changes a gate, nor clears the kill switch." />
     {data.runtime.kill_switch_active && <div className="daily-kill-banner"><ShieldAlert />Kill switch is active. New public writes are blocked.</div>}
-    <Panel title="Operating mode" eyebrow={`State version ${data.controls.state_version}`}><div className="daily-control-list">{data.controls.allowed_modes.map(mode => <button type="button" key={mode} className={mode === data.controls.current_mode ? 'is-active' : mode === 'KILL_SWITCH' ? 'is-kill' : ''} disabled={pending !== null || mode === data.controls.current_mode} onClick={() => void changeMode(mode)}><span><strong>{words(mode)}</strong><small>{data.controls.semantics[mode]}</small></span>{mode === data.controls.current_mode ? <Status value="CURRENT" /> : <ChevronRight />}</button>)}</div>{message && <p role="status" className="daily-control-message">{message}</p>}</Panel>
+    <Panel title="Operating mode" eyebrow={`State version ${data.controls.state_version}`}><div className="daily-control-list">{data.controls.allowed_modes.map(mode => <button type="button" key={mode} className={mode === data.controls.current_mode ? 'is-active' : mode === 'KILL_SWITCH' ? 'is-kill' : ''} disabled={pending !== null || mode === data.controls.current_mode} onClick={() => void changeMode(mode)}><span><strong>{words(mode)}</strong><small>{data.controls.semantics[mode]}</small></span>{mode === data.controls.current_mode ? <Status value="CURRENT" /> : <ChevronRight />}</button>)}</div></Panel>
+    <Panel title="Shutdown all background" eyebrow="Fail-closed emergency control"><p>Activates KILL_SWITCH and the persistent model pause, then reuses the standalone shutdown fallback. It stops only proven ContentOps background processes and preserves the production store plus Chrome/Edge profiles.</p>{(data.controls.shutdown_blockers?.length ?? 0) > 0 && <p>Blocked: {(data.controls.shutdown_blockers ?? []).map(words).join(', ')}</p>}<button type="button" className="daily-shutdown-button" disabled={data.controls.shutdown_allowed !== true || shutdownPending} onClick={() => void shutdown()}>{shutdownPending ? 'Shutdown verification started…' : 'Shutdown all background'}</button></Panel>
+    {message && <p role="status" className="daily-control-message">{message}</p>}
   </div>;
 }
 
-function Audit({ data }: { data: DailyAppSnapshot }) {
+function Audit({ data, hourlyAudit }: { data: DailyAppSnapshot; hourlyAudit: HourlyAudit | null }) {
   return <div className="daily-view"><ViewTitle title="Evidence / Audit" detail="Read-model provenance and durable counts; no credential or raw browser state." />
+    <Panel title="Latest independent hourly audit" eyebrow={formatUtcDateTime(hourlyAudit?.generated_at_utc)}>{hourlyAudit ? <><Status value={hourlyAudit.classification} /><DefinitionRows object={{ classification_reasons: hourlyAudit.classification_reasons, runtime: hourlyAudit.runtime, browsers: hourlyAudit.browsers, safety: hourlyAudit.safety, stderr_signal: hourlyAudit.stderr_signal, scheduled_task: hourlyAudit.scheduled_task }} /></> : <Empty title="Audit not yet available" detail="Run or install the independent hourly audit to create the first compact artifact." />}</Panel>
     <div className="daily-grid-4"><Metric label="Work items" value={data.audit.work_item_count} /><Metric label="Transitions" value={data.audit.transition_event_count} /><Metric label="Artifacts" value={data.audit.artifact_reference_count} /><Metric label="Reviews" value={data.audit.review_record_count} /></div>
     <Panel title="Authority"><DefinitionRows object={data.authority} /></Panel>
     <Panel title="Recent transition events">{data.audit.recent_events.length ? <CardList items={data.audit.recent_events} titleKey="event_kind" statusKey="to_state" /> : <Empty title="No transition evidence recorded" detail="The canonical store has no transition event rows." />}</Panel>
@@ -314,7 +362,7 @@ export function DailyAppConsole() {
         {state.kind === 'loading' && <div className="daily-loading"><Gauge /><span>Reading canonical operating state…</span></div>}
         {!snapshot && state.kind === 'offline' && <Empty title="Operating state unavailable" detail="Start the loopback API with an explicit canonical store binding. This surface has no fixture fallback." />}
         {snapshot && <>
-          {view === 'today' && <Today data={snapshot} refresh={refresh} />}
+          {view === 'today' && <Today data={snapshot} refresh={refresh} hourlyAudit={snapshot.hourly_audit ?? null} />}
           {view === 'queue' && <Queue data={snapshot} />}
           {view === 'published' && <Published data={snapshot} />}
           {view === 'performance' && <Performance data={snapshot} />}
@@ -322,7 +370,8 @@ export function DailyAppConsole() {
           {view === 'platforms' && <Platforms data={snapshot} />}
           {view === 'incidents' && <Incidents data={snapshot} />}
           {view === 'controls' && <Controls data={snapshot} refresh={refresh} />}
-          {view === 'audit' && <Audit data={snapshot} />}
+          {view === 'background_logs' && <BackgroundLogs data={snapshot} />}
+          {view === 'audit' && <Audit data={snapshot} hourlyAudit={snapshot.hourly_audit ?? null} />}
         </>}
       </main>
     </div>
