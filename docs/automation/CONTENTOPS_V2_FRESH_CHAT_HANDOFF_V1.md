@@ -64,7 +64,7 @@ GPT-5.6 authors screenplay/narration/edit intent, shot-by-shot visual/motion str
 
 Remotion is deterministic renderer/compiler, not creative authority.
 
-Creative role routing is the exact singleton `("new/gpt-5.6-sol-xhigh",)`. Make one initial attempt plus at most three same-model retries, honor bounded `Retry-After`, never fall back, and stop as `BLOCKED_EXACT_CREATIVE_MODEL` if exhausted.
+Every new creative invocation starts `new/gpt-5.6-sol-xhigh`; HIGH and then MEDIUM are execution fallbacks only after an evidenced blocker. Fallback creative output is `DEGRADED_CREATIVE_MODEL` and cannot self-advance through professional acceptance. Fresh runs use adaptive semantic decomposition with deterministic downstream prompt construction, never fixed first-half/second-half splits or a permanent MEDIUM pin.
 
 ## Current image / asset / voice / audio authority
 

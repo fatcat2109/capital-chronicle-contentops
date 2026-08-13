@@ -32,7 +32,9 @@ Mandatory primary roles:
 - `V2_MOTION_CODE_AUTHOR`
 - `V2_CREATIVE_REVISION_AUTHOR`
 
-The three creative roles use the exact singleton pool `("new/gpt-5.6-sol-xhigh",)`. Availability failures receive one initial attempt plus three same-model retries, honoring bounded `Retry-After`; fallback is forbidden. Exhaustion is `BLOCKED_EXACT_CREATIVE_MODEL`.
+Every new creative invocation starts `new/gpt-5.6-sol-xhigh`. `new/gpt-5.6-sol-high` and then `new/gpt-5.6-sol-medium` are execution fallbacks only after an evidenced provider, latency, or output-risk blocker. Fallback output is `DEGRADED_CREATIVE_MODEL` and cannot self-advance through professional acceptance; never permanently pin the pipeline to MEDIUM.
+
+For fresh runs, an XHIGH Creative Director/Decomposer chooses story-specific semantic segments and emits a compact Creative Bible plus Segment Manifest. Deterministic orchestration constructs each bounded downstream prompt from governed evidence, segment/continuity state, assets, and the output contract. Do not hard-code first-half/second-half splits or use another LLM to invent prompts.
 
 ## Creative/renderer contract
 

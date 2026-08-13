@@ -8,7 +8,36 @@ Task:
 
 Current result:
 
-`IN_PROGRESS_CHECKPOINT_FINAL_MEDIA_PENDING`
+`PASS_MEDIA_MACHINE_QA_AWAITING_INDEPENDENT_CRITIC_OPERATOR_RESUME`
+
+## Final isolated R4 media and current stop boundary
+
+The fresh isolated `r4` factory run completed both final candidate variants and all deterministic
+package gates. It made zero provider calls, browser/CDP actions, uploads, platform actions, public
+writes, or V1 mutations. The final outputs are:
+
+- `short_9x16.mp4`: 1080x1920, H.264/AAC stereo 48 kHz, 30 fps, 57.9 seconds,
+  SHA-256 `b7918e6af1a2962635a884b58cd9478abcc62d11604198bee16aa45333c071ac`,
+  -16.01 LUFS integrated and -2.47 dBTP true peak;
+- `midform_16x9.mp4`: 1920x1080, H.264/AAC stereo 48 kHz, 30 fps, 122.4 seconds,
+  SHA-256 `bbee23cbf5bd5f6b33705cd336289896b8659f809ca8a608483060c35b9de226`,
+  -16.05 LUFS integrated and -2.25 dBTP true peak.
+
+Both variants pass caption-safe-zone, two-line-caption, claim/evidence coverage, rights coverage,
+music/SFX coverage, open-loop/payoff, and static-primary-visual-run gates. Rights/provenance,
+selective one-beat rerender, and zero-public-write safety reports are `PASS`. Captions-hidden review
+proxies are hash-bound in `r4_machine_media_evidence_v1.json`. Sampled contact sheets and motion
+strips showed no observed collision, but this observation is not a claim of exhaustive all-frame
+DOM-box collision measurement or professional aesthetic acceptance.
+
+The canonical independent critic was invoked against this package and failed closed before any
+provider call because the operator-owned `EMERGENCY_COST_SAFETY_STOP` marker is active. The marker
+was not cleared or changed. No critic result is inferred or fabricated. Work stops at
+`PASS_MEDIA_MACHINE_QA_AWAITING_INDEPENDENT_CRITIC_OPERATOR_RESUME`; this is not
+`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW` and not
+`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`. Do not advance to V2-02.
+
+Machine-readable evidence: `r4_machine_media_evidence_v1.json`.
 
 ## Preserved proof checkpoint
 

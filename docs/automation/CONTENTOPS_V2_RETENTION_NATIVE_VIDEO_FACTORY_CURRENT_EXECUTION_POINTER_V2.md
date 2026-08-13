@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V2 — Current Execution Pointer V2
 
-Authority date: 2026-08-12
+Authority date: 2026-08-13
 Status: `CURRENT_V2_EXECUTION_POINTER`
 
 ## Canonical V2 read order
@@ -41,11 +41,13 @@ Required primary roles:
 
 GPT-5.6 directly authors screenplay/narration/edit decisions and bounded per-shot creative code. Remotion is deterministic renderer/compiler.
 
-Creative role routing is the exact singleton `("new/gpt-5.6-sol-xhigh",)`: one initial attempt plus three same-model retries, zero fallback, and `BLOCKED_EXACT_CREATIVE_MODEL` on exhaustion.
+Every new creative invocation starts `new/gpt-5.6-sol-xhigh`. HIGH and then MEDIUM are execution fallbacks only after an evidenced blocker; fallback output is `DEGRADED_CREATIVE_MODEL` and cannot self-advance through professional acceptance. Fresh runs use story-specific semantic decomposition and deterministic downstream prompt construction rather than monolithic creative requests or fixed half-splits.
 
 ## Current execution state
 
-The 2026-08-13 replacement V2-01 run is `BLOCKED_EXACT_CREATIVE_MODEL`. Exact-model availability preflight passed, but the full `V2_CREATIVE_EDITOR` structured-authorship invocation exhausted all four exact GPT-5.6 attempts without an accepted output. No fallback, Motion Code Author call, render, critic call, upload, or public write occurred. Evidence is under `docs/automation/TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1/`. Resume this same V2-01 only when the exact creative role can produce an accepted governed blueprint; do not advance to V2-02.
+The 2026-08-13 replacement V2-01 has final isolated `r4` short and midform media with passing deterministic render, audio, retention-contract, rights/provenance, selective-rerender, and safety gates. Both authorized creative-revision rounds are consumed. The canonical independent critic was then invoked, but it failed closed before any provider call because the operator-owned `EMERGENCY_COST_SAFETY_STOP` marker is active. Current state is `PASS_MEDIA_MACHINE_QA_AWAITING_INDEPENDENT_CRITIC_OPERATOR_RESUME`.
+
+Do not clear the operator marker implicitly, invent a critic result, claim professional or owner acceptance, or advance to V2-02. Resume this same V2-01 only after explicit operator authorization, run the canonical independent critic against the hash-bound final media, and then hand the actual MP4/audio to Jim/ChatGPT. Evidence is under `docs/automation/TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1/`.
 
 ## Current failed reference
 

@@ -219,7 +219,9 @@ Outputs:
 - optionally updated shot timing or asset assignment;
 - revision rationale and source hash.
 
-The three creative-author roles are exact-model singleton lanes. They permit one initial `new/gpt-5.6-sol-xhigh` attempt plus three same-model retries, honor bounded `Retry-After`, and permit no fallback. Exhaustion is `BLOCKED_EXACT_CREATIVE_MODEL`.
+Every new creative-author invocation starts `new/gpt-5.6-sol-xhigh`. The ordered execution fallback ladder is then `new/gpt-5.6-sol-high`, followed by `new/gpt-5.6-sol-medium`, only after an evidenced provider, latency, or output-risk blocker. A fallback result is labeled `DEGRADED_CREATIVE_MODEL` and cannot self-advance through professional acceptance. No role may be permanently pinned to HIGH or MEDIUM.
+
+Large monolithic creative requests are not the production granularity. A fresh run begins with a bounded XHIGH Creative Director/Decomposer call that chooses story-specific semantic units and returns a compact Creative Bible plus Segment Manifest. Deterministic code—not another LLM—constructs each bounded downstream prompt from that global bible, governed evidence, the relevant segment, continuity state, asset inventory, and output contract. Fixed first-half/second-half segmentation is forbidden.
 
 ## 4.2 Sanitized model receipts
 

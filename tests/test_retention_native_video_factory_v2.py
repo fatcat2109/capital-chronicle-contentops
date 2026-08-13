@@ -5,6 +5,7 @@ import math
 from dataclasses import asdict, replace
 from hashlib import sha256
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -100,6 +101,93 @@ def test_contract_fails_closed_for_public_authority_and_unaccepted_rights() -> N
     bad_plan = AssetPlan(video_id=bundle.asset_plan.video_id, assets=(bad_asset, *bundle.asset_plan.assets[1:]))
     with pytest.raises(ValueError, match="asset_rights_not_accepted"):
         replace(bundle, asset_plan=bad_plan).validate()
+
+
+def test_audio_mastering_keeps_codec_safe_true_peak_headroom(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    bundle = _bundle()
+    graph = next(row for row in bundle.beat_graphs if row.variant_id == "short_9x16")
+    narration = tmp_path / "narration.wav"
+    music = tmp_path / "music.wav"
+    sfx = tmp_path / "sfx.wav"
+    for path in (narration, music, sfx):
+        path.write_bytes(b"audio")
+    timeline = []
+    cursor = 0.0
+    for beat in graph.beats:
+        timeline.append({
+            "beat_id": beat.beat_id,
+            "start_seconds": cursor,
+            "end_seconds": cursor + beat.target_duration_seconds,
+        })
+        cursor += beat.target_duration_seconds
+    cue_ids = {
+        str(row["cue_id"])
+        for row in bundle.audio_plan.sfx_cues
+        if str(row["beat_id"]) in {beat.beat_id for beat in graph.beats}
+    }
+    monkeypatch.setattr(factory, "render_owned_score", lambda **_kwargs: {
+        "duration_seconds": cursor,
+        "music": {"path": str(music)},
+        "sfx": {"path": str(sfx)},
+        "sfx_execution_receipts": [
+            {
+                "cue_id": cue_id,
+                "energy_verified": True,
+                "frame_count": 1,
+                "measured_mean_square_energy": 0.01,
+            }
+            for cue_id in sorted(cue_ids)
+        ],
+    })
+    commands: list[list[str]] = []
+    loudnorm = json.dumps({
+        "input_i": "-18.0",
+        "input_lra": "2.0",
+        "input_tp": "-1.0",
+        "input_thresh": "-28.0",
+        "target_offset": "0.0",
+    })
+
+    def fake_run(command, **_kwargs):
+        command = [str(value) for value in command]
+        commands.append(command)
+        output = Path(command[-1])
+        if output.suffix == ".wav":
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_bytes(b"mastered-audio")
+        return SimpleNamespace(stderr=loudnorm)
+
+    monkeypatch.setattr(factory, "_run", fake_run)
+    monkeypatch.setattr(factory, "_loudness_measure", lambda *_args, **_kwargs: {
+        "integrated_lufs": -16.0,
+        "true_peak_dbtp": -2.0,
+    })
+
+    result = factory._score_and_mix_variant(
+        bundle,
+        {
+            "variant_id": graph.variant_id,
+            "duration_seconds": cursor,
+            "narration_path": str(narration),
+            "beat_timeline": timeline,
+        },
+        graph=graph,
+        output_root=tmp_path,
+        ffmpeg="ffmpeg",
+    )
+
+    loudnorm_filters = [
+        command[command.index("-af") + 1]
+        for command in commands
+        if "-af" in command and "loudnorm=" in command[command.index("-af") + 1]
+    ]
+    assert factory.MASTERING_TRUE_PEAK_DBTP == -2.5
+    assert len(loudnorm_filters) == 2
+    assert all("TP=-2.5" in value for value in loudnorm_filters)
+    assert result["processing_true_peak_dbtp"] == -2.5
+    assert result["contract_true_peak_dbtp_max"] == -1.5
 
 
 def test_compiler_consumes_every_beat_and_preserves_caption_limits(tmp_path: Path) -> None:

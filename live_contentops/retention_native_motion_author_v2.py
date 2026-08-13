@@ -18,11 +18,16 @@ from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_V2_MOTION_CODE_AUTHOR,
     routed_llm_invocation,
 )
-from live_contentops.nine_router_ordered_model_router_v2 import RetryBudget
+from live_contentops.nine_router_ordered_model_router_v2 import (
+    RetryBudget,
+    V2_CREATIVE_MODEL,
+    V2_CREATIVE_MODEL_POOL,
+)
 from live_contentops.nine_router_provider_adapter_v2 import call_nine_router
 
 SCHEMA_VERSION = "contentops.retention_native.motion_code_batch.v2"
-SELECTED_MODEL = "new/gpt-5.6-sol-medium"
+PRIMARY_MODEL = V2_CREATIVE_MODEL
+MODEL_POOL = V2_CREATIVE_MODEL_POOL
 UNSAFE_SOURCE_MARKERS = (
     "fetch(", "xmlhttprequest", "websocket", "document.", "window.", "process.",
     "require(", "import(", "eval(", "new function", "dangerouslysetinnerhtml",
@@ -181,13 +186,27 @@ def _asset_ids_for_shot(shot: Mapping[str, Any]) -> list[str]:
 
 
 def compile_director_source(
-    blueprint: Mapping[str, Any], base: Mapping[str, Any], *, blueprint_hash: str
+    blueprint: Mapping[str, Any],
+    base: Mapping[str, Any],
+    *,
+    blueprint_hash: str,
+    motion_author_models: Sequence[str] = (PRIMARY_MODEL,),
 ) -> dict[str, Any]:
     source = json.loads(json.dumps(base))
+    selected_motion_models = tuple(dict.fromkeys(str(model) for model in motion_author_models))
+    if not selected_motion_models or any(model not in MODEL_POOL for model in selected_motion_models):
+        raise ValueError("motion_author_model_outside_owner_ladder")
     source["director_identity"] = {
         "kind": "canonical_9router_gpt56_creative_code",
-        "creative_editor_model": SELECTED_MODEL,
-        "motion_code_author_model": SELECTED_MODEL,
+        "creative_editor_primary_model": PRIMARY_MODEL,
+        "creative_editor_model_provenance": "BOUND_BY_CREATIVE_EDITOR_RECEIPT",
+        "motion_code_author_primary_model": PRIMARY_MODEL,
+        "motion_code_author_models": list(selected_motion_models),
+        "creative_execution_state": (
+            "PRIMARY_CREATIVE_MODEL"
+            if selected_motion_models == (PRIMARY_MODEL,)
+            else "DEGRADED_CREATIVE_MODEL"
+        ),
         "creative_blueprint_sha256": blueprint_hash,
         "authority": "presentation_only",
         "facts_may_be_added": False,
@@ -281,10 +300,10 @@ def run(
             )
             iid = f"v2-motion-author-{variant_id}-batch-{offset // batch_size + 1:02d}"
             budget = RetryBudget(
-                logical_invocation_id=iid, max_total_provider_attempts=2,
-                max_fallback_transitions=0, max_same_model_retries=1,
+                logical_invocation_id=iid, max_total_provider_attempts=3,
+                max_fallback_transitions=2, max_same_model_retries=0,
                 max_structured_output_repair_attempts=1,
-                wall_clock_budget_seconds=600.0, per_model_max_attempts=(2,),
+                wall_clock_budget_seconds=900.0, per_model_max_attempts=(1, 1, 1),
             )
 
             def provider(p: str, model: str, timeout: float):
@@ -300,7 +319,6 @@ def run(
                     governed_input={"blueprint_sha256": blueprint_hash, "shots": batch, "neighbors": neighbors},
                     prompt_template="retention_native_motion_code_small_batch",
                     prompt_version="v2.0", budget=budget,
-                    model_pool_override=(SELECTED_MODEL,),
                 )
             receipt = {key: value for key, value in summary.items() if key != "output"}
             receipt.update({
@@ -326,13 +344,25 @@ def run(
     authored_path = renderer_root / "src/generated/authored_shots.tsx"
     authored_path.parent.mkdir(parents=True, exist_ok=True)
     authored_path.write_text(source_text, encoding="utf-8")
-    director = compile_director_source(blueprint, base, blueprint_hash=blueprint_hash)
+    selected_models = tuple(dict.fromkeys(str(row["selected_model"]) for row in receipts))
+    director = compile_director_source(
+        blueprint,
+        base,
+        blueprint_hash=blueprint_hash,
+        motion_author_models=selected_models,
+    )
     director_path = evidence_root / "director_source_from_accepted_blueprint_v2.json"
     director_path.write_text(json.dumps(director, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     result = {
         "schema_version": "contentops.retention_native.motion_code_authorship.v2",
         "status": "PASS",
-        "selected_model": SELECTED_MODEL,
+        "primary_model": PRIMARY_MODEL,
+        "selected_models": list(selected_models),
+        "creative_execution_state": (
+            "PRIMARY_CREATIVE_MODEL"
+            if selected_models == (PRIMARY_MODEL,)
+            else "DEGRADED_CREATIVE_MODEL"
+        ),
         "creative_blueprint_path": str(blueprint_path.resolve()),
         "creative_blueprint_sha256": blueprint_hash,
         "authored_shot_count": len(accepted_rows),

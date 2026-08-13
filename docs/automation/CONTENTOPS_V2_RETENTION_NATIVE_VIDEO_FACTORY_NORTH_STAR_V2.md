@@ -48,9 +48,13 @@ The model directly authors the presentation-layer screenplay, narration/pacing, 
 
 Remotion is the deterministic renderer/compiler. Remotion is not the creative director.
 
-For these roles the model pool is the exact singleton `("new/gpt-5.6-sol-xhigh",)`. The canonical router permits one initial attempt plus three same-model retries, honors bounded `Retry-After`, and permits no fallback. Exhaustion is `BLOCKED_EXACT_CREATIVE_MODEL`.
+For every new invocation the exact priority is `new/gpt-5.6-sol-xhigh`, then `new/gpt-5.6-sol-high`, then `new/gpt-5.6-sol-medium`. XHIGH is always primary; HIGH/MEDIUM are execution fallbacks only after an evidenced provider, latency, or output-risk blocker. A fallback result is `DEGRADED_CREATIVE_MODEL` and cannot self-advance through professional acceptance. The pipeline must never permanently pin a creative role to HIGH or MEDIUM.
 
 This model authority does not grant factual authority. Every factual or numeric statement remains bound to governed ContentOps/Capital Chronicle evidence.
+
+Large monolithic creative requests are not the production granularity for fresh runs. An XHIGH Creative Director/Decomposer chooses the minimum coherent story-specific semantic segments and emits a compact Creative Bible plus Segment Manifest. Each segment records purpose, narrative question, dependencies, allowed claim/evidence IDs, viewer knowledge entering/leaving, open loops, payoff/re-hook responsibility, target duration, asset needs, and continuity constraints. Deterministic orchestration—not another LLM—constructs downstream prompts from that bible, governed evidence, the relevant segment, continuity state, assets, and the output contract. Fixed first-half/second-half splitting is forbidden.
+
+Structured-output repair is semantic-preserving. First use deterministic parsing/normalization for fences, whitespace, escaping, and canonical serialization; then use a small same-tier GPT-5.6 repair call when semantic schema repair is required. A cheap model may later normalize format only under explicit hard constraints, but it may never add facts, narration, timing, assets, layouts, motion, or missing creative decisions. If normalization would require invention, fail back to the GPT-5.6 author/repair lane.
 
 ## Canonical creative architecture
 

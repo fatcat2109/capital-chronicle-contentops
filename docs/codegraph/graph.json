@@ -75612,7 +75612,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-13T11:04:27Z",
+  "generation_timestamp_utc": "2026-08-13T14:18:59Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -75645,7 +75645,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 10317
+      "size_bytes": 10899
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -75785,7 +75785,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 8482
+      "size_bytes": 8658
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -75795,22 +75795,22 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 4753
+      "size_bytes": 5331
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 44336
+      "size_bytes": 45001
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 18508
+      "size_bytes": 19910
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 7595
+      "size_bytes": 7844
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -78721,7 +78721,7 @@
     {
       "id": "live_contentops/retention_native_motion_author_v2.py",
       "kind": "python_module",
-      "size_bytes": 18263
+      "size_bytes": 19382
     },
     {
       "id": "live_contentops/retention_native_narration_revision_v2.py",
@@ -104825,35 +104825,35 @@
     {
       "id": "python_symbol:live_contentops/retention_native_motion_author_v2.py::batch_validator",
       "kind": "python_function",
-      "line": 67,
+      "line": 72,
       "path": "live_contentops/retention_native_motion_author_v2.py",
       "symbol": "batch_validator"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_motion_author_v2.py::compile_director_source",
       "kind": "python_function",
-      "line": 183,
+      "line": 188,
       "path": "live_contentops/retention_native_motion_author_v2.py",
       "symbol": "compile_director_source"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_motion_author_v2.py::logical_hash",
       "kind": "python_function",
-      "line": 49,
+      "line": 54,
       "path": "live_contentops/retention_native_motion_author_v2.py",
       "symbol": "logical_hash"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_motion_author_v2.py::main",
       "kind": "python_function",
-      "line": 352,
+      "line": 382,
       "path": "live_contentops/retention_native_motion_author_v2.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:live_contentops/retention_native_motion_author_v2.py::run",
       "kind": "python_function",
-      "line": 260,
+      "line": 279,
       "path": "live_contentops/retention_native_motion_author_v2.py",
       "symbol": "run"
     },
@@ -114444,7 +114444,7 @@
     {
       "id": "tests/test_retention_native_motion_author_v2.py",
       "kind": "test",
-      "size_bytes": 3542
+      "size_bytes": 5862
     },
     {
       "id": "tests/test_retention_native_narration_revision_v2.py",
@@ -114459,7 +114459,7 @@
     {
       "id": "tests/test_retention_native_video_factory_v2.py",
       "kind": "test",
-      "size_bytes": 62273
+      "size_bytes": 65216
     },
     {
       "id": "tests/test_review_bundle_manifest.py",
@@ -118959,7 +118959,7 @@
     {
       "id": "video/AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 7902
+      "size_bytes": 8386
     },
     {
       "id": "video/retention_native_v2/package.json",
@@ -119065,6 +119065,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "8be74b131d3df6e7df9406910edc653d9dfda2f2",
-  "source_tree_digest": "f5fcdb32ecdfe48c3f3dfc5de679fe4a41577d3d9a22f0f51bd3557b3f36773e"
+  "source_head": "bc33c6e4f15dff1605149c09fcc301e8087a4351",
+  "source_tree_digest": "3df7eae28d6d356df9bf3dbbf987dc152d155a2f774777e11012ff36c913b400"
 }
