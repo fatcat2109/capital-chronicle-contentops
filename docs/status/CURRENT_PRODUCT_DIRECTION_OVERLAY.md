@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Product Direction Overlay
 
-Authority date: 2026-08-13
+Authority date: 2026-08-14
 Status: `CURRENT_DUAL_PRODUCT_DIRECTION_OVERLAY`
 
 GitHub remote refs/commits/diffs/exact fetched bytes remain repo-state authority. Jim's latest explicit instruction remains product-direction authority. This overlay supersedes conflicting sequencing/scope text in older plans while preserving verified historical evidence and safety invariants.
@@ -13,7 +13,7 @@ ContentOps now has two concurrent product lanes:
 
 `CONTENTOPS_FINAL_DAILY_APP_V1_OWNER_DIRECTION`
 
-V1 continues the genuine calendar-time FDA-G soak and the evidence-gate calibration/publication-unblock work. It remains the canonical live newsroom/publication runtime.
+V1 continues the genuine calendar-time FDA-G soak and the evidence-gate calibration/publication-unblock work. It remains the canonical live newsroom/publication runtime. Its accepted browser policy is `IDLE_PUBLISHING_BROWSER_ACTIVITY_ZERO / PUBLISH_AND_RECONCILE_JIT_ONLY / X_30M_15M_ONCE_60M_BACKOFF`.
 
 Jim's 2026-08-13 Golden Product correction is a hard publication invariant: factual/write safety and reader-facing product value are independent release floors. The protected `v1.0` Treasury release is the immutable capability reference. Reducing ceremony may never reduce substantial professional prose, native headings/links, clean source text, purposeful evidence-supported visuals, or nine-surface package compatibility. Transport PASS is not product-quality PASS.
 
@@ -71,21 +71,23 @@ Continuous lane:
 
 Status:
 
-`SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`
+`SOAK_ACTIVE_CONTROLLED_AUTONOMOUS_DEFAULT_AWAITING_FIRST_GENUINE_OPPORTUNITY_TERMINAL_EVIDENCE`
 
 Latest completed V1 builder lane:
 
-`TASK_CONTENTOPS_V1_OPERATOR_CONTROL_PLANE_AND_HOURLY_RUNTIME_AUDIT_V1`
+`TASK_CONTENTOPS_V1_EVENT_DRIVEN_BROWSER_BUDGET_AND_LOW_FREQUENCY_INGESTION_V1`
 
-Status: `PASS`; Jim/ChatGPT visually accepted the operator-control-plane product. The canonical
-master launcher is `A:\Capital Chronicle\ContentOps\Start_ContentOps_Daily_App.cmd`, and the
-hourly read-only audit is bound to that canonical checkout. Headline operational data is stable at
-`A:\Capital Chronicle\Runtime\ContentOps\headline_ingestion\data`, independent of Git worktrees.
-Historical incident evidence remains preserved but no longer inflates current active truth. Known
-DEP0169 dependency deprecation noise is informational. LinkedIn is explicitly excluded/not READY
-pending its official member API migration and does not perform periodic CDP navigation. Idle
-`KILL_SWITCH` pauses default background browser intake while preserving required lifecycle
-readback/reconciliation.
+Status: `PASS_ACCEPTED`. Idle publishing-browser readiness is passive; only an exact publication or
+reconciliation attempt owns destination-local JIT interaction. X intake is bounded to 30 minutes
+normally, one 15-minute hot follow-up, and a 60-minute empty-result backoff. Startup, Run Now, and
+the hourly audit remain passive. The canonical runtime passed the exact pre-resume gates at
+`df971a0a3a13c4be7e6842139101b5c67530aa1d`, then CAS-transitioned from `KILL_SWITCH` state version
+4 to `AUTONOMOUS_DEFAULT` state version 5 without Run Now or a new operator trigger. The next
+genuine calendar/material opportunity must occur naturally and be observed to terminal state.
+
+The previously accepted operator control plane and stable headline data root remain canonical.
+LinkedIn is `READY_OFFICIAL_MEMBER_API` through its official member API and has no CDP publication
+or readiness authority.
 
 Previous completed V1 builder lane:
 

@@ -1,6 +1,6 @@
 # ContentOps — Current Next Task Pointer
 
-Authority date: 2026-08-13
+Authority date: 2026-08-14
 Status: `CURRENT_DUAL_LANE_EXECUTION_POINTER`
 
 This file is a compact routing pointer. Detailed V1 history remains in task evidence/current status; detailed V2 execution authority is in the V2 retention-native plan set.
@@ -11,17 +11,23 @@ This file is a compact routing pointer. Detailed V1 history remains in task evid
 
 Result:
 
-`SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`
+`SOAK_ACTIVE_CONTROLLED_AUTONOMOUS_DEFAULT_AWAITING_FIRST_GENUINE_OPPORTUNITY_TERMINAL_EVIDENCE`
 
 FDA-G is not accepted. `v1.1.0` is not authorized.
 
 ## V1 latest completed builder lane
 
-`TASK_CONTENTOPS_V1_OPERATOR_CONTROL_PLANE_AND_HOURLY_RUNTIME_AUDIT_V1`
+`TASK_CONTENTOPS_V1_EVENT_DRIVEN_BROWSER_BUDGET_AND_LOW_FREQUENCY_INGESTION_V1`
 
 Result:
 
-`PASS_OPERATOR_CONTROL_PLANE_CANONICAL_MASTER_BOUND`
+`PASS_ACCEPTED`
+
+The accepted canonical invariant is
+`IDLE_PUBLISHING_BROWSER_ACTIVITY_ZERO / PUBLISH_AND_RECONCILE_JIT_ONLY / X_30M_15M_ONCE_60M_BACKOFF`.
+Idle readiness is passive, publishing and reconciliation interact with Edge only just in time for
+the exact destination attempt, and X intake is bounded to 30 minutes normally, one 15-minute hot
+follow-up, then a 60-minute empty-result backoff. Startup, Run Now, and hourly audit remain passive.
 
 The accepted Today/Controls/Shutdown All/Background Logs/hourly-audit UI is canonical. The only
 permanent launcher is `A:\Capital Chronicle\ContentOps\Start_ContentOps_Daily_App.cmd`; the hourly
@@ -32,8 +38,10 @@ structurally migrated to `OFFICIAL_MEMBER_API`; historical CDP entrypoints fail 
 navigation and local sanitized auth metadata is the readiness authority. Bounded OAuth is complete,
 the exact authenticated member is `Jim Pham`, and readiness is `READY_OFFICIAL_MEMBER_API` with
 truthful `READBACK_CAPABILITY_LIMITED` classification.
-Idle `KILL_SWITCH` keeps public writes blocked and pauses default background browser intake without
-disabling required readback/reconciliation.
+The previously accepted operator control plane, stable headline data root, hourly passive audit,
+and official LinkedIn member API remain canonical. LinkedIn readiness is
+`READY_OFFICIAL_MEMBER_API` with truthful `READBACK_CAPABILITY_LIMITED` classification and no
+LinkedIn CDP authority.
 
 ## V1 completed builder lane
 
@@ -82,7 +90,13 @@ Completed execution result:
 5. a deterministic replay of genuine current newsroom input produced one Golden-ready BLS CPI brief with one writer call, zero mandatory semantic review, a purposeful media attempt, and nine zero-write packages;
 6. no `POLICY_CEREMONY_BLOCK` was observed and no core truth, reader-value, rights, destination-identity, KILL_SWITCH, or UNKNOWN_WRITE gate was weakened.
 
-Next V1 action: keep the genuine calendar-time soak active. Controlled `AUTONOMOUS_DEFAULT` operation is permitted only from an exact deployed master/runtime SHA with one healthy supervisor, correct canonical identity, `UNKNOWN_WRITE=0`, and zero pending ambiguous reconciliation. Only currently READY existing V1 destinations are eligible; a destination-local reauthentication failure excludes that destination without broadening authority or blocking the canonical-ready surfaces.
+Next V1 action: keep the genuine calendar-time soak active and observe the first genuine eligible
+editorial opportunity to its truthful terminal result. The exact pre-resume gates passed at
+`df971a0a3a13c4be7e6842139101b5c67530aa1d`; the canonical CAS moved from `KILL_SWITCH` state
+version 4 to `AUTONOMOUS_DEFAULT` state version 5 without Run Now or a new operator trigger. Let the
+natural calendar/material wake execute. Only currently READY existing V1 destinations are eligible;
+a destination-local reauthentication failure excludes that destination without broadening
+authority or blocking the canonical-ready surfaces.
 
 Only true hard blockers should stop the phase: secret/session exposure, wrong-account public-write risk, fabricated core truth that cannot be removed, unresolved UNKNOWN_WRITE/public-object ambiguity, destructive production-store risk, protected `v1.0` mutation, irreconcilable merge conflict, or genuinely required operator credential/reauthentication input.
 

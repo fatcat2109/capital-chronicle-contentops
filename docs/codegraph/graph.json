@@ -75346,7 +75346,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-13T16:31:13Z",
+  "generation_timestamp_utc": "2026-08-13T17:01:40Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -75519,7 +75519,7 @@
     {
       "id": "docs/CURRENT_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 15110
+      "size_bytes": 16095
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
@@ -75554,7 +75554,7 @@
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
       "kind": "authority_doc",
-      "size_bytes": 9760
+      "size_bytes": 10490
     },
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
@@ -75579,7 +75579,7 @@
     {
       "id": "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md",
       "kind": "authority_doc",
-      "size_bytes": 13696
+      "size_bytes": 13972
     },
     {
       "id": "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -118612,6 +118612,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "4db6a01bfd5cb8bf9a39aa19766903c6199505e1",
-  "source_tree_digest": "8ee3169bb1d8ac81676f10cc6c28bb190632ab8bf0a3824c9822386646c15aca"
+  "source_head": "df971a0a3a13c4be7e6842139101b5c67530aa1d",
+  "source_tree_digest": "88985227aae1be4713133ecc95d6f5f12cf7cfaacbb2694743735d41878ff40c"
 }

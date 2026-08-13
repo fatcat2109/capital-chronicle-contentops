@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > GitHub remote evidence is repo-state authority. Jim's latest explicit product instruction is product-direction authority. Older plans/status are historical/reference material when they conflict with current V1/V2 direction.
 
-Authority date: 2026-08-13
+Authority date: 2026-08-14
 
 ## Current product lanes
 
@@ -13,9 +13,16 @@ Current fresh-session handoff:
 
 `docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md`
 
-Current completed continuation task:
+Latest accepted continuation task:
 
-`TASK_CONTENTOPS_V1_OPERATOR_CONTROL_PLANE_AND_HOURLY_RUNTIME_AUDIT_V1`
+`TASK_CONTENTOPS_V1_EVENT_DRIVEN_BROWSER_BUDGET_AND_LOW_FREQUENCY_INGESTION_V1`
+
+Status: `PASS_ACCEPTED`. The canonical invariant is
+`IDLE_PUBLISHING_BROWSER_ACTIVITY_ZERO / PUBLISH_AND_RECONCILE_JIT_ONLY / X_30M_15M_ONCE_60M_BACKOFF`.
+Idle readiness is local/passive; exact publication and reconciliation own destination-local JIT
+browser interaction; X intake uses a 30-minute normal cadence, at most one 15-minute hot follow-up,
+and a 60-minute empty-result backoff. Startup, Run Now, and the hourly audit do not create global
+social probes or idle publishing-browser navigation.
 
 The visually accepted V1 operator control plane is integrated with the canonical Daily App:
 Today, Controls, safe Shutdown All, bounded redacted Background Logs, and an independent hourly
@@ -31,7 +38,14 @@ preserved. Durable incident rows remain immutable history, while only lifecycle-
 failures contribute to active incidents. Known Node DEP0169 `url.parse()` deprecation noise is
 informational and does not mask arbitrary warnings or exceptions.
 
-Under `KILL_SWITCH`, default background browser intake is paused. LinkedIn is structurally migrated
+The accepted runtime was verified at exact deployed SHA
+`df971a0a3a13c4be7e6842139101b5c67530aa1d` with one healthy supervisor, zero unknown writes,
+zero pending ambiguous reconciliation, and zero active or stale editorial cycles. The canonical
+CAS control moved from `KILL_SWITCH` state version 4 to `AUTONOMOUS_DEFAULT` state version 5 on
+2026-08-13 UTC. No Run Now/operator trigger was created; the continuing FDA-G soak must consume
+the next genuine calendar/material opportunity naturally.
+
+LinkedIn is structurally migrated
 to `OFFICIAL_MEMBER_API`; historical LinkedIn CDP publish/readback entrypoints fail closed before
 browser navigation. Readiness comes from local DPAPI-backed auth metadata without periodic API
 polling. Jim completed bounded official OAuth with `openid`, `profile`, and `w_member_social`;
@@ -40,7 +54,7 @@ the exact authenticated member identity is `Jim Pham`, and readiness is
 readback is truthfully `READBACK_CAPABILITY_LIMITED`; exact create-response identity and required
 reconciliation safety remain authoritative.
 
-Completed V1 builder lane:
+Previous completed V1 builder lane:
 
 `TASK_CONTENTOPS_V1_LINKEDIN_OFFICIAL_MEMBER_API_TRANSPORT_V1`
 
@@ -48,7 +62,7 @@ Status: `PASS`. The code path owns OAuth/token exchange, official member identit
 posting/readback, and retirement of the historical LinkedIn CDP transport without inspecting
 browser session storage. The access token is held only in the Windows DPAPI Current User store;
 no refresh token was issued. No public LinkedIn write occurred during acceptance;
-`AUTONOMOUS_DEFAULT` remains off.
+its official write path remains governed by the same ordinary publication gates.
 
 Previous completed product/yield task:
 
