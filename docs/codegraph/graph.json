@@ -75796,7 +75796,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-13T20:47:24Z",
+  "generation_timestamp_utc": "2026-08-13T22:05:43Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -118457,14 +118457,14 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/views/DailyAppConsole.tsx::DailyAppConsole",
       "kind": "typescript_export",
-      "line": 545,
+      "line": 569,
       "path": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
       "symbol": "DailyAppConsole"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/views/DailyAppConsole.tsx::formatUtcDateTime",
       "kind": "typescript_export",
-      "line": 114,
+      "line": 138,
       "path": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
       "symbol": "formatUtcDateTime"
     },
@@ -118935,7 +118935,7 @@
     {
       "id": "ui/contentops_v5/src/test/daily_app_runtime_cockpit.test.tsx",
       "kind": "test",
-      "size_bytes": 10679
+      "size_bytes": 10883
     },
     {
       "id": "ui/contentops_v5/src/test/draft_eligibility_gate_precheck.test.tsx",
@@ -119105,7 +119105,7 @@
     {
       "id": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 49729
+      "size_bytes": 51604
     },
     {
       "id": "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx",
@@ -119296,6 +119296,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "8be7cb29ce0ba3cffcb7132870987518526f1a02",
-  "source_tree_digest": "f3c3e1de30b0000668d561b5d2624b5031dde0fc0195ef0584508282e61c7b34"
+  "source_head": "b345e4547903fcc2064d7b0a6881af181549e120",
+  "source_tree_digest": "026d189abf8c36c57bab5dca73798ae3da015c6ec9bff52ab8952a235efe16dc"
 }

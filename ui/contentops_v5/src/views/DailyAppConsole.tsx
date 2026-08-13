@@ -67,6 +67,29 @@ function applyRuntimeQaFixture(snapshot: DailyAppSnapshot): DailyAppSnapshot {
   const source = snapshot.runtime.operator_cockpit ?? legacyCockpit(snapshot);
   if (!fixture) return snapshot;
   const cockpit: RuntimeCockpit = structuredClone(source);
+  const fixtureTimeline = cockpit.timeline.length ? cockpit.timeline : [
+    { stage: 'HEADLINE_INGESTION', label: 'Intake', state: 'pending' as const },
+    { stage: 'CANDIDATE_SELECTION', label: 'Selection', state: 'pending' as const },
+    { stage: 'CC_CONTEXT', label: 'Context', state: 'pending' as const },
+    { stage: 'GROUNDED_RESEARCH', label: 'Research', state: 'pending' as const },
+    { stage: 'ARTICLE_WRITING', label: 'Write', state: 'pending' as const },
+    { stage: 'MEDIA_BUILD', label: 'Media', state: 'pending' as const },
+    { stage: 'PACKAGE_BUILD', label: 'Package', state: 'pending' as const },
+    { stage: 'CANONICAL_DISPATCH', label: 'Publish', state: 'pending' as const },
+    { stage: 'CANONICAL_READBACK', label: 'Readback', state: 'pending' as const },
+  ];
+  cockpit.runtime_sha_short = 'QA-FIXTURE';
+  cockpit.operating_mode = 'AUTONOMOUS_DEFAULT';
+  cockpit.publication_runtime_health = 'HEALTHY';
+  cockpit.heartbeat_age_seconds = 3;
+  cockpit.schedule.operator_trigger_pending = false;
+  cockpit.intake.lane_state = 'RUNNING';
+  cockpit.intake.latest_capture_result = 'CAPTURED_NEW';
+  cockpit.safety = { active_public_write: false, pending_reconciliation_count: 0,
+    pending_readback_recovery_count: 0, unknown_write_count: 0,
+    kill_switch_active: false, new_public_writes_blocked: false };
+  cockpit.browser = { state: 'IDLE', external_browser_activity_active: false,
+    last_active_at_utc: null, last_reason: null, last_destination: null };
   cockpit.schedule.next_editorial_wake_utc = new Date(Date.now() + 38 * 60_000).toISOString();
   cockpit.schedule.next_editorial_wake_reason = 'CORE_DAILY';
   cockpit.schedule.next_x_eligible_capture_utc = new Date(Date.now() + 12 * 60_000).toISOString();
@@ -77,7 +100,7 @@ function applyRuntimeQaFixture(snapshot: DailyAppSnapshot): DailyAppSnapshot {
   if (fixture === 'idle') {
     cockpit.primary_state = 'RUNNING_IDLE'; cockpit.supervisor_state = 'RUNNING';
     cockpit.controller_health = 'HEALTHY'; cockpit.schedule.idle_healthy = true;
-    cockpit.current_activity = null; cockpit.timeline = cockpit.timeline.map(step => ({ ...step, state: 'pending' }));
+    cockpit.current_activity = null; cockpit.timeline = [];
   } else if (fixture === 'researching') {
     cockpit.primary_state = 'RESEARCHING'; cockpit.supervisor_state = 'RUNNING';
     cockpit.controller_health = 'HEALTHY'; cockpit.schedule.idle_healthy = false;
@@ -89,20 +112,21 @@ function applyRuntimeQaFixture(snapshot: DailyAppSnapshot): DailyAppSnapshot {
       instrumentation_state: 'DETERMINISTIC_LOCAL_QA_FIXTURE',
     };
     const order = ['HEADLINE_INGESTION', 'CANDIDATE_SELECTION', 'CC_CONTEXT'];
-    cockpit.timeline = cockpit.timeline.map(step => ({ ...step, state: step.stage === 'GROUNDED_RESEARCH' ? 'current' : order.includes(step.stage) ? 'completed' : 'pending' }));
+    cockpit.timeline = fixtureTimeline.map(step => ({ ...step, state: step.stage === 'GROUNDED_RESEARCH' ? 'current' : order.includes(step.stage) ? 'completed' : 'pending' }));
   } else if (fixture === 'degraded') {
     cockpit.primary_state = 'DEGRADED'; cockpit.supervisor_state = 'RUNNING';
     cockpit.controller_health = 'HEALTHY'; cockpit.publication_runtime_health = 'HEALTHY';
     cockpit.intake.lane_state = 'DEGRADED'; cockpit.intake.latest_capture_result = 'CDP_UNAVAILABLE';
     cockpit.intake.cadence_state = 'TRANSIENT_BACKOFF_30M_PLUS'; cockpit.schedule.x_cadence_state = 'TRANSIENT_BACKOFF_30M_PLUS';
-    cockpit.current_activity = null;
+    cockpit.current_activity = null; cockpit.timeline = [];
   } else {
     cockpit.primary_state = 'STOPPED'; cockpit.supervisor_state = 'STOPPED';
     cockpit.controller_health = 'OFFLINE'; cockpit.operating_mode = 'KILL_SWITCH';
     cockpit.safety.kill_switch_active = true; cockpit.safety.new_public_writes_blocked = true;
-    cockpit.current_activity = null; cockpit.heartbeat_age_seconds = 437;
+    cockpit.current_activity = null; cockpit.timeline = []; cockpit.heartbeat_age_seconds = 437;
   }
-  return { ...snapshot, runtime: { ...snapshot.runtime, operator_cockpit: cockpit } };
+  return { ...snapshot, freshness: { ...snapshot.freshness, state: 'LIVE_CURRENT', source_age_seconds: 0 },
+    runtime: { ...snapshot.runtime, operator_cockpit: cockpit } };
 }
 
 function words(value: unknown): string {
@@ -325,10 +349,10 @@ function RuntimeCockpitView({ data }: { data: DailyAppSnapshot }) {
       </header>
       <div className="daily-cockpit-core">
         <div className="daily-primary-state"><span>Runtime state</span><h1>{words(cockpit.primary_state)}</h1><p>{PRIMARY_STATE_COPY[cockpit.primary_state]}</p><div className="daily-heartbeat">Heartbeat age <b>{cockpit.heartbeat_age_seconds === null ? 'Unavailable' : `${cockpit.heartbeat_age_seconds}s`}</b></div></div>
-        <div className="daily-schedule-block"><div><span>Next editorial wake</span><strong>{formatCountdown(cockpit.schedule.next_editorial_wake_utc, nowMs)}</strong><small>{words(cockpit.schedule.next_editorial_wake_reason)} · {formatUtcDateTime(cockpit.schedule.next_editorial_wake_utc)}</small></div><div><span>Next X eligibility</span><strong>{formatCountdown(cockpit.schedule.next_x_eligible_capture_utc, nowMs)}</strong><small>{words(cockpit.schedule.x_cadence_state)} · no countdown is shown as active work</small></div></div>
+        <div className="daily-schedule-block"><div><span>Next editorial wake</span><strong>{formatCountdown(cockpit.schedule.next_editorial_wake_utc, nowMs)}</strong><small>{words(cockpit.schedule.next_editorial_wake_reason)} · {formatLocalDateTime(cockpit.schedule.next_editorial_wake_utc, cockpit.local_timezone)} Jim local</small></div><div><span>Next X eligibility</span><strong>{formatCountdown(cockpit.schedule.next_x_eligible_capture_utc, nowMs)}</strong><small>{words(cockpit.schedule.x_cadence_state)} · no countdown is shown as active work</small></div></div>
       </div>
       <div className="daily-timeline" aria-label="Current canonical cycle timeline">
-        {cockpit.timeline.length ? cockpit.timeline.map(step => <div key={step.stage} className={`daily-timeline-step is-${step.state}`}><i /><span>{step.label}</span></div>) : <span className="daily-timeline-empty">Timeline activates only when an exact canonical cycle stage is recorded.</span>}
+        {cockpit.timeline.length ? cockpit.timeline.map(step => <div key={step.stage} className={`daily-timeline-step is-${step.state}`}><i /><span>{step.label}</span></div>) : <span className="daily-timeline-empty">{cockpit.primary_state === 'RUNNING_IDLE' ? `Waiting → next editorial opportunity at ${formatLocalDateTime(cockpit.schedule.next_editorial_wake_utc, cockpit.local_timezone)} Jim local` : cockpit.primary_state === 'STOPPED' ? 'Timeline paused · supervisor is stopped.' : 'Timeline activates only when an exact canonical cycle stage is recorded.'}</span>}
       </div>
       <div className="daily-safety-strip">
         {safetyClear ? <span className="daily-safety-clear"><b>Publication safety</b> Clear · no active public write, unknown write, readback, or reconciliation backlog</span> : <>

@@ -13,7 +13,7 @@ function cockpit(primary: RuntimePrimaryState): RuntimeCockpit {
     publication_runtime_health: primary === 'STOPPED' ? 'STOPPED' : 'HEALTHY', operating_mode: primary === 'STOPPED' ? 'KILL_SWITCH' : 'AUTONOMOUS_DEFAULT',
     runtime_sha_short: 'c8f578c1a2c7', local_timezone: 'Asia/Ho_Chi_Minh', current_time_utc: '2026-08-14T04:00:00Z', heartbeat_age_seconds: primary === 'STOPPED' ? 430 : 3,
     current_activity: researching ? { work_item_id: 'cycle-1', cycle_started_at_utc: '2026-08-14T03:55:00Z', stage_started_at_utc: '2026-08-14T03:58:00Z', current_stage: 'GROUNDED_RESEARCH', story_label: 'Fed policy signals reshape the rate-cut path', candidate_rank: 1, candidate_count: 6, grounding: 'latest-web source-bound evidence', destination: null, trigger: 'SCHEDULED', instrumentation_state: 'EXPLICIT_STAGE_RECORDED' } : null,
-    timeline: stages.map(stage => ({ stage, label: stage, state: stage === 'GROUNDED_RESEARCH' && researching ? 'current' : ['HEADLINE_INGESTION', 'CANDIDATE_SELECTION', 'CC_CONTEXT'].includes(stage) && researching ? 'completed' : 'pending' })),
+    timeline: researching ? stages.map(stage => ({ stage, label: stage, state: stage === 'GROUNDED_RESEARCH' ? 'current' : ['HEADLINE_INGESTION', 'CANDIDATE_SELECTION', 'CC_CONTEXT'].includes(stage) ? 'completed' : 'pending' })) : [],
     schedule: { idle_healthy: primary === 'RUNNING_IDLE', next_editorial_wake_utc: '2026-08-14T06:00:00Z', next_editorial_wake_reason: 'CORE_DAILY', operator_trigger_pending: false, next_x_eligible_capture_utc: '2026-08-14T04:30:00Z', x_cadence_state: 'NORMAL_30M' },
     last_completed_editorial: null,
     intake: { lane_state: primary === 'DEGRADED' ? 'DEGRADED' : 'RUNNING', last_ingest_utc: '2026-08-14T03:59:00Z', latest_capture_at_utc: '2026-08-14T03:59:00Z', latest_capture_result: primary === 'DEGRADED' ? 'CDP_UNAVAILABLE' : 'RUNNING', rows_last_iteration: 3, newest_source_event_at_utc: '2026-08-14T03:58:00Z', newest_source_event_age_seconds: 120, next_eligible_capture_utc: '2026-08-14T04:30:00Z', cadence_state: primary === 'DEGRADED' ? 'TRANSIENT_BACKOFF_30M_PLUS' : 'NORMAL_30M', rolling_24h_unique_headlines: 581 },
@@ -50,6 +50,8 @@ it('renders a healthy idle cockpit without presenting countdowns as active work'
   respond('RUNNING_IDLE'); render(<DailyAppConsole />);
   expect(await screen.findByRole('heading', { name: 'Running Idle' })).toBeInTheDocument();
   expect(screen.getByText('Waiting')).toBeInTheDocument();
+  expect(document.querySelector('.daily-timeline-empty')).toHaveTextContent(/Waiting → next editorial opportunity at .* Jim local/i);
+  expect(screen.getByText(/Core Daily · .* Jim local/i)).toBeInTheDocument();
   expect(screen.getByText(/no countdown is shown as active work/i)).toBeInTheDocument();
   expect(screen.getByText(/no active public write/i)).toBeInTheDocument();
 });
