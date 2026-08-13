@@ -126,7 +126,7 @@ def test_explicit_story_type_beats_legacy_market_sensitive_default():
     assert seen[0]["capital_chronicle_numeric_or_analytical_authority_required"] is False
 
 
-def test_registry_market_context_requires_capital_chronicle_authority():
+def test_registry_ordinary_market_reporting_does_not_require_capital_chronicle_authority():
     seen = []
 
     result = select_first_viable_rolling_x_cluster(
@@ -138,7 +138,8 @@ def test_registry_market_context_requires_capital_chronicle_authority():
     )
 
     assert result["status"] == "SUCCESS"
-    assert seen[0]["capital_chronicle_numeric_or_analytical_authority_required"] is True
+    assert seen[0]["capital_chronicle_numeric_or_analytical_authority_required"] is False
+    assert seen[0]["effective_article_mode"] == "BREAKING_BRIEF"
 
 
 def test_unknown_explicit_story_type_fails_closed():

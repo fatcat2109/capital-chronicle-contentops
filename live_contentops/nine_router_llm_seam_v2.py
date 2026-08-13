@@ -49,6 +49,7 @@ ROLE_EDITORIAL_REVIEW = "tier1_editorial_review"
 ROLE_IDEA_RANKING = "substack_idea_ranking"
 ROLE_NEWSROOM_ASSIGNMENT = "rolling_x_newsroom_assignment"
 ROLE_NEWSROOM_LEAF_SCAN = "rolling_x_newsroom_leaf_scan"
+ROLE_GROUNDED_RESEARCH = "v1_grounded_researcher"
 ROLE_EDITORIAL_REVISION = "rolling_x_editorial_revision"
 ROLE_STRUCTURED_REPAIR = "structured_output_repair"
 
@@ -59,6 +60,7 @@ INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_IDEA_RANKING,
     ROLE_NEWSROOM_ASSIGNMENT,
     ROLE_NEWSROOM_LEAF_SCAN,
+    ROLE_GROUNDED_RESEARCH,
     ROLE_EDITORIAL_REVISION,
     ROLE_STRUCTURED_REPAIR,
 )
@@ -269,6 +271,9 @@ def integration_manifest() -> dict[str, Any]:
             ),
             ROLE_NEWSROOM_LEAF_SCAN: (
                 "newsroom_assignment_scheduler_v1 partitioned semantic leaf scan"
+            ),
+            ROLE_GROUNDED_RESEARCH: (
+                "grounded_news_research_v1 bounded query planning and source synthesis"
             ),
             ROLE_EDITORIAL_REVISION: (
                 "_eight_platform_substack_first_pipeline_impl_v1 rolling-X bounded revision"

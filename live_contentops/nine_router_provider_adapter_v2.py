@@ -52,6 +52,26 @@ class NineRouterAdapterError(RuntimeError):
     """Fail-closed 9router adapter error. Never carries credential material."""
 
 
+def grounding_capability_manifest() -> dict[str, Any]:
+    """Describe the auditable provider request/response surface without a network probe.
+
+    The adapter sends only ``messages`` to ``/chat/completions`` and extracts completion text,
+    model identity, usage, and cost.  It has no tools/search/citation request field and no
+    citation-result normalizer, so provider-native grounding is not a supported capability.
+    """
+    return {
+        "schema_version": "contentops.nine_router_grounding_capability.v1",
+        "endpoint": "/chat/completions",
+        "native_web_search_supported": False,
+        "native_grounded_citations_supported": False,
+        "tool_calls_supported": False,
+        "citation_metadata_visible_to_caller": False,
+        "effective_grounding_path": "LLM_QUERY_PLANNING_PLUS_BOUNDED_RETRIEVAL",
+        "capability_basis": "STATIC_CANONICAL_ADAPTER_CONTRACT",
+        "network_probe_required": False,
+    }
+
+
 def credential_presence() -> dict[str, str]:
     """Presence-only credential report. Never returns or hints at a value."""
     env = getattr(os, "environ")

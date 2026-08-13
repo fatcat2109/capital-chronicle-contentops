@@ -463,7 +463,10 @@ def test_decision5_rss_query_removes_desk_metadata_and_recovers_corroboration():
         summaries=["Exclusive | U.S. Fires on Ship Breaking Its Blockade of Iran - WSJ"],
     )
     packet = loader(request)
-    query = parse_qs(urlsplit(requested_urls[-1]).query)["q"][0]
+    search_url = next(
+        url for url in requested_urls if "q" in parse_qs(urlsplit(url).query)
+    )
+    query = parse_qs(urlsplit(search_url).query)["q"][0]
     contract = build_claim_evidence_contract(request, packet["evidence_documents"])
 
     assert query == "US Fires Ship Breaking Blockade Iran"

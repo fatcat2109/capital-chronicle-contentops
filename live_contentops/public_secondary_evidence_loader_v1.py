@@ -290,75 +290,85 @@ class BoundedPublicSecondaryEvidenceLoader:
         *,
         existing_documents: list[dict[str, Any]],
     ) -> list[dict[str, Any]]:
-        summaries = [
+        context = request.get("story_context") or {}
+        planned_queries = [
             " ".join(str(value).split())
-            for value in ((request.get("story_context") or {}).get("leaf_summaries") or [])
+            for value in context.get("grounded_research_queries") or []
+            if str(value).strip()
+        ][:3]
+        summaries = planned_queries or [
+            " ".join(str(value).split())
+            for value in (context.get("leaf_summaries") or [])
             if str(value).strip()
         ]
-        terms = _rss_query_terms(summaries[0] if summaries else "")
-        if not terms:
-            return []
-        url = NEWS_RSS_ENDPOINT + "?" + urlencode(
-            {"q": " ".join(terms), "hl": "en-US", "gl": "US", "ceid": "US:en"}
-        )
-        response = self._get(url)
-        body = response.get("body")
-        if int(response.get("status") or 0) != 200 or not isinstance(body, bytes) or not body:
-            return []
-        try:
-            root = ET.fromstring(body)
-        except ET.ParseError:
+        query_terms = [
+            terms for terms in (_rss_query_terms(value) for value in summaries[:3]) if terms
+        ]
+        if not query_terms:
             return []
         cutoff = datetime.fromisoformat(
             self._evaluation_as_of_utc.replace("Z", "+00:00")
         )
         candidates: dict[str, tuple[float, datetime, dict[str, Any]]] = {}
-        for item in root.findall(".//item"):
-            source = item.find("source")
-            publisher = " ".join(str(source.text or "").split()) if source is not None else ""
-            if publisher.casefold() not in REPUTABLE_SECONDARY_NAMES:
+        for terms in query_terms:
+            url = NEWS_RSS_ENDPOINT + "?" + urlencode(
+                {"q": " ".join(terms), "hl": "en-US", "gl": "US", "ceid": "US:en"}
+            )
+            response = self._get(url)
+            body = response.get("body")
+            if int(response.get("status") or 0) != 200 or not isinstance(body, bytes) or not body:
                 continue
             try:
-                source_host = _public_host(
-                    str(source.get("url") or ""), resolve_dns=False
-                )
-            except ValueError:
+                root = ET.fromstring(body)
+            except ET.ParseError:
                 continue
-            if source_host not in REPUTABLE_SECONDARY_HOSTS:
-                continue
-            identity = source_host.removeprefix("www.")
-            title = " ".join(str(item.findtext("title") or "").rsplit(" - ", 1)[0].split())
-            link = str(item.findtext("link") or "")
-            published = _parse_timestamp(item.findtext("pubDate"))
-            if not title or not link or not published:
-                continue
-            observed = datetime.fromisoformat(published.replace("Z", "+00:00"))
-            relevance = _rss_relevance_score(terms, title)
-            if observed > cutoff or relevance < 0.34:
-                continue
-            item_bytes = ET.tostring(item, encoding="utf-8")
-            document = {
-                "document_id": "public-news-listing-" + sha256(item_bytes).hexdigest()[:20],
-                "title": title,
-                "publisher": publisher,
-                "source_identity": identity,
-                "source_authority_class": "reputable_secondary_source",
-                "source_url": link,
-                "published_at_utc": published,
-                "event_time_utc": published,
-                "raw_sha256": sha256(item_bytes).hexdigest(),
-                "canonical_content_sha256": sha256(title.encode("utf-8")).hexdigest(),
-                "canonical_content_text": title,
-                "content_type": "application/rss+xml",
-                "byte_length": len(item_bytes),
-                "public_claim_allowed": True,
-                "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
-                "secondary_listing_only": True,
-            }
-            existing = candidates.get(identity)
-            candidate = (relevance, observed, document)
-            if existing is None or (observed, relevance) > (existing[1], existing[0]):
-                candidates[identity] = candidate
+            for item in root.findall(".//item"):
+                source = item.find("source")
+                publisher = " ".join(str(source.text or "").split()) if source is not None else ""
+                if publisher.casefold() not in REPUTABLE_SECONDARY_NAMES:
+                    continue
+                try:
+                    source_host = _public_host(
+                        str(source.get("url") or ""), resolve_dns=False
+                    )
+                except ValueError:
+                    continue
+                if source_host not in REPUTABLE_SECONDARY_HOSTS:
+                    continue
+                identity = source_host.removeprefix("www.")
+                title = " ".join(str(item.findtext("title") or "").rsplit(" - ", 1)[0].split())
+                link = str(item.findtext("link") or "")
+                published = _parse_timestamp(item.findtext("pubDate"))
+                if not title or not link or not published:
+                    continue
+                observed = datetime.fromisoformat(published.replace("Z", "+00:00"))
+                relevance = _rss_relevance_score(terms, title)
+                if observed > cutoff or relevance < 0.34:
+                    continue
+                item_bytes = ET.tostring(item, encoding="utf-8")
+                document = {
+                    "document_id": "public-news-listing-" + sha256(item_bytes).hexdigest()[:20],
+                    "title": title,
+                    "publisher": publisher,
+                    "source_identity": identity,
+                    "source_authority_class": "reputable_secondary_source",
+                    "source_url": link,
+                    "published_at_utc": published,
+                    "event_time_utc": published,
+                    "raw_sha256": sha256(item_bytes).hexdigest(),
+                    "canonical_content_sha256": sha256(title.encode("utf-8")).hexdigest(),
+                    "canonical_content_text": title,
+                    "content_type": "application/rss+xml",
+                    "byte_length": len(item_bytes),
+                    "public_claim_allowed": True,
+                    "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+                    "secondary_listing_only": True,
+                    "research_query_terms": terms,
+                }
+                existing = candidates.get(identity)
+                candidate = (relevance, observed, document)
+                if existing is None or (observed, relevance) > (existing[1], existing[0]):
+                    candidates[identity] = candidate
         ranked = sorted(
             candidates.values(),
             key=lambda row: (
@@ -448,6 +458,12 @@ class BoundedPublicSecondaryEvidenceLoader:
                 "paywall_or_access_control_bypass": False,
                 "bounded_enrichment_requested": bool(
                     (request.get("evidence_enrichment_context") or {}).get("requested")
+                ),
+                "llm_directed_grounded_query_count": len(
+                    (request.get("story_context") or {}).get(
+                        "grounded_research_queries"
+                    )
+                    or []
                 ),
                 "acquisition_sequence": [
                     "EXACT_BOUND_PUBLIC_SOURCE",

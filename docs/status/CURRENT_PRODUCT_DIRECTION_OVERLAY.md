@@ -15,6 +15,16 @@ ContentOps now has two concurrent product lanes:
 
 V1 continues the genuine calendar-time FDA-G soak and the evidence-gate calibration/publication-unblock work. It remains the canonical live newsroom/publication runtime. Its accepted browser policy is `IDLE_PUBLISHING_BROWSER_ACTIVITY_ZERO / PUBLISH_AND_RECONCILE_JIT_ONLY / X_30M_15M_ONCE_60M_BACKOFF`.
 
+Current V1 owner decision (2026-08-14): the primary latest-facts lane is story-first,
+LLM-directed grounded public-web research normalized into exact source records. Capital Chronicle
+context enriches ordinary reporting but is not a universal evidence prerequisite. Exact Capital
+Chronicle authority remains required for CC-owned proprietary analysis, models, calculations,
+scenarios/probabilities, forecasts, regimes, Bayesian outputs, and internal numeric conclusions.
+Source-bound facts—not model assertions—are publishable authority. One reputable source may
+satisfy ordinary factual eligibility; allegations, disputed/conflict-sensitive claims, accusations,
+severe unconfirmed geopolitical claims, and other materially high-harm claims retain stronger
+evidence. The accepted Golden media/rights/provenance system remains unchanged.
+
 Jim's 2026-08-13 Golden Product correction is a hard publication invariant: factual/write safety and reader-facing product value are independent release floors. The protected `v1.0` Treasury release is the immutable capability reference. Reducing ceremony may never reduce substantial professional prose, native headings/links, clean source text, purposeful evidence-supported visuals, or nine-surface package compatibility. Transport PASS is not product-quality PASS.
 
 ### V2 — Retention-Native Video Factory
@@ -71,9 +81,15 @@ Continuous lane:
 
 Status:
 
-`SOAK_ACTIVE_CONTROLLED_AUTONOMOUS_DEFAULT_AWAITING_FIRST_GENUINE_OPPORTUNITY_TERMINAL_EVIDENCE`
+`SOAK_ACTIVE_FIRST_GENUINE_OPPORTUNITY_COMPLETED_ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`
 
 Latest completed V1 builder lane:
+
+`TASK_CONTENTOPS_V1_LLM_GROUNDED_RESEARCH_AND_ADDITIVE_CC_CONTEXT_VERTICAL_SLICE_V1`
+
+Status: `PASS_GROUNDED_RESEARCH_VERTICAL_SLICE_ZERO_WRITE`.
+
+Prior completed V1 builder lane:
 
 `TASK_CONTENTOPS_V1_EVENT_DRIVEN_BROWSER_BUDGET_AND_LOW_FREQUENCY_INGESTION_V1`
 
@@ -82,8 +98,14 @@ reconciliation attempt owns destination-local JIT interaction. X intake is bound
 normally, one 15-minute hot follow-up, and a 60-minute empty-result backoff. Startup, Run Now, and
 the hourly audit remain passive. The canonical runtime passed the exact pre-resume gates at
 `df971a0a3a13c4be7e6842139101b5c67530aa1d`, then CAS-transitioned from `KILL_SWITCH` state version
-4 to `AUTONOMOUS_DEFAULT` state version 5 without Run Now or a new operator trigger. The next
-genuine calendar/material opportunity must occur naturally and be observed to terminal state.
+4 to `AUTONOMOUS_DEFAULT` state version 5 without Run Now or a new operator trigger. The first
+genuine post-resume opportunity then completed over 636 rolling headlines and 12 ranked candidates
+as `NO_PUBLICATION / ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`, with zero writer calls and zero public
+writes. The grounded-research vertical slice replayed that exact frozen set and passed zero-write
+acceptance: old eligible 0, new eligible 1 at rank 8, two reputable source records, factual and
+Golden reader-value gates PASS, nine native derivatives, and zero public/unknown writes. The next
+live blocker is canonical publication-coordinator advancement and Substack confirmation on a
+publication-qualified natural opportunity. Later opportunities must still occur naturally.
 
 The previously accepted operator control plane and stable headline data root remain canonical.
 LinkedIn is `READY_OFFICIAL_MEMBER_API` through its official member API and has no CDP publication

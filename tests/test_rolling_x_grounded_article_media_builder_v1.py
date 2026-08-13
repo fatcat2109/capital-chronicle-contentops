@@ -793,9 +793,13 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
     assert len(result["media"]["assets"]) == 0
     # Editorial review ran and passed (semantic reviewer invoked).
     assert result["editorial_cycle"]["status"] == "PASS"
-    # Release preparation ran and evaluated destination readiness -> blocked, no public write.
+    # Cached readiness is passive; the coordinator owns exact JIT verification at publication.
+    # The newsroom therefore returns a plan while still performing no public write here.
     assert "release_candidate_preparation" in result
-    assert result["classification"] == "NO_PUBLICATION"
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    assert result["publication_lifecycle_plan"]["destinations"][0][
+        "jit_verification_required"
+    ] is True
     assert result["publishing_adapter_called"] is False
     assert result["public_write_performed"] is False
     assert result["unknown_write_detected"] is False
@@ -995,6 +999,88 @@ def test_builder_fail_closed_surfaces_as_no_publication_not_crash(monkeypatch, t
         "article_untraceable_numeric_claim"
     ]
     assert result["public_write_performed"] is False
+
+
+def test_deterministic_outage_brief_uses_ordinary_minimum_evidence_claim():
+    document = _official_document(document_id="ordinary-source-1")
+    evidence = _evidence([document])
+    evidence["minimum_trustworthy_evidence_packet"] = {
+        "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+        "status": "PASS",
+        "risk_tier": "ORDINARY",
+        "core_factual_proposition": "Treasury published a final stress testing rule.",
+        "evidence_document_id": "ordinary-source-1",
+        "publisher": "Federal Register",
+        "published_at_utc": "2026-08-08T09:00:00Z",
+        "attribution_required": True,
+        "publication_authority": False,
+    }
+    context = extract_governed_story_context(_viability(evidence=evidence))
+
+    generated = builder._deterministic_supported_claim_brief(context, [])
+
+    assert generated["article_generation_method"] == "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF"
+    assert "treasury published a final stress testing rule" in generated[
+        "substack_body_markdown"
+    ].casefold()
+    assert "[[SOURCE:" in generated["substack_body_markdown"]
+
+
+def test_writer_validator_rejects_used_fact_without_its_bound_source():
+    governed_input = {
+        "evidence_documents": [
+            {"document_id": "d1", "source_handle": "SOURCE_1"},
+            {"document_id": "d2", "source_handle": "SOURCE_2"},
+        ],
+        "supported_claims": [
+            {
+                "claim_id": "F3",
+                "claim_text": "Low Danube water forced the second reactor shutdown.",
+                "evidence_document_ids": ["d2"],
+            }
+        ],
+    }
+    article = {
+        "substack_body_markdown": (
+            "Low Danube water forced the second reactor shutdown. [[SOURCE:SOURCE_1]]"
+        )
+    }
+
+    assert builder._writer_response_source_coverage_blockers(
+        article, governed_input
+    ) == ["grounded_fact_used_without_bound_source_reference:F3"]
+
+    article["substack_body_markdown"] += " [[SOURCE:SOURCE_2]]"
+    assert builder._writer_response_source_coverage_blockers(article, governed_input) == []
+
+
+def test_writer_validator_rejects_uncovered_connective_paragraph():
+    governed_input = {
+        "evidence_documents": [
+            {
+                "document_id": "d1",
+                "source_handle": "SOURCE_1",
+                "canonical_content_text": "Danube water levels remain low.",
+            }
+        ],
+        "supported_claims": [
+            {
+                "claim_id": "F1",
+                "claim_text": "Danube water levels remain low.",
+                "evidence_document_ids": ["d1"],
+            }
+        ],
+    }
+    article = {
+        "substack_body_markdown": (
+            "Danube water levels remain low. [[SOURCE:SOURCE_1]]\n\n"
+            "This sweeping transformation definitively reshapes every strategic calculation."
+        )
+    }
+
+    assert builder._writer_response_source_coverage_blockers(
+        article, governed_input
+    ) == ["grounded_paragraph_source_coverage_incomplete:1"]
 
 
 # --- Phase 2: media factual provenance (framing/X cannot become evidence facts) ---

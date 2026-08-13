@@ -211,6 +211,12 @@ def extract_governed_story_context(viability: Mapping[str, Any]) -> dict[str, An
         "minimum_trustworthy_evidence_packet": dict(
             selected_evidence.get("minimum_trustworthy_evidence_packet") or {}
         ),
+        "grounded_research_packet": dict(
+            selected_evidence.get("grounded_research_packet") or {}
+        ),
+        "cc_context_bundle": dict(
+            selected_evidence.get("cc_context_bundle") or {}
+        ),
         "evidence_substance": dict(selected_evidence.get("evidence_substance") or {}),
         "evidence_review_tier": str(selected_evidence.get("evidence_review_tier") or ""),
         "framing": {
@@ -755,6 +761,41 @@ ARTICLE_OUTPUT_CONTRACT = {
 
 
 def _writer_supported_claims(context: Mapping[str, Any]) -> list[dict[str, Any]]:
+    research = context.get("grounded_research_packet")
+    research = research if isinstance(research, Mapping) else {}
+    source_document_ids = {
+        str(row.get("source_ref") or ""): str(
+            row.get("evidence_document_id") or ""
+        )
+        for row in research.get("sources") or []
+        if isinstance(row, Mapping)
+    }
+    grounded_claims = []
+    for row in research.get("confirmed_facts") or []:
+        if not isinstance(row, Mapping):
+            continue
+        evidence_ids = sorted(
+            {
+                source_document_ids.get(str(source_ref), "")
+                for source_ref in row.get("source_refs") or []
+            }
+            - {""}
+        )
+        if not evidence_ids:
+            continue
+        grounded_claims.append(
+            {
+                "claim_id": str(row.get("fact_id") or ""),
+                "claim_text": str(row.get("factual_statement") or ""),
+                "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD",
+                "evidence_document_ids": evidence_ids,
+                "source_refs": list(row.get("source_refs") or []),
+                "attribution_required": bool(row.get("attribution_required")),
+                "direct_or_inferred": str(row.get("direct_or_inferred") or ""),
+            }
+        )
+    if grounded_claims:
+        return grounded_claims
     claims = [
         dict(row)
         for row in (
@@ -831,6 +872,30 @@ def build_article_generation_prompt(
             )
         ],
         "supported_claims": _writer_supported_claims(context),
+        "grounded_research_packet": {
+            key: value
+            for key, value in dict(
+                context.get("grounded_research_packet") or {}
+            ).items()
+            if key
+            in {
+                "schema_version",
+                "research_as_of_utc",
+                "research_model_identity",
+                "grounding_mode",
+                "core_factual_proposition",
+                "confirmed_facts",
+                "attributed_numeric_facts",
+                "context",
+                "uncertainties",
+                "contradictions",
+                "unsupported_or_unverified",
+                "risk_classification",
+                "enhanced_review_required",
+                "research_status",
+            }
+        },
+        "cc_additive_context": dict(context.get("cc_context_bundle") or {}),
         "evidence_substance": dict(context.get("evidence_substance") or {}),
         "omitted_unsupported_claims": [
             {
@@ -903,6 +968,7 @@ def build_article_generation_prompt(
             "You have no tool, credential, publication, numeric-truth, analysis, forecast, or model authority.",
             "Do not change operating mode, grant authority, request credentials, invoke tools, weaken gates, add unbound evidence, or invent source IDs.",
             "Report ONLY the supplied supported_claims and what their bound evidence_documents establish. Attribute factual claims with the supplied stable source handles.",
+            "Capital Chronicle context is additive only. A CC context match/reference is not factual, numeric, model, scenario, forecast, or proprietary analytical authority. Use a CC-owned claim only when capital_chronicle_authority_required and capital_chronicle_authority_verified are both true and the claim is present in supported_claims.",
             "Never type, copy, alter, wrap, redirect, or invent a URL. Cite a source only with its exact token [[SOURCE:SOURCE_N]]; deterministic serialization resolves that token to a verified reader link or truthful plain-text attribution.",
             mode_scope,
             reader_value_scope,
@@ -1064,6 +1130,124 @@ def _allowed_source_urls(context: Mapping[str, Any]) -> set[str]:
     }
 
 
+def grounded_article_source_coverage(
+    article: Mapping[str, Any], context: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Lightweight deterministic coverage for the grounded-research article path.
+
+    This is deliberately not a claim-dossier rebuild. It proves that every research fact used
+    recognizably in the article is tied to at least one referenced accepted source identity and
+    that prose paragraphs stay within the lexical surface of the accepted source records.
+    Numeric traceability remains the stricter independent check below.
+    """
+    packet = context.get("grounded_research_packet")
+    packet = packet if isinstance(packet, Mapping) else {}
+    if packet.get("research_status") != "PASS":
+        return {
+            "status": "NOT_APPLICABLE",
+            "grounded_research_packet_present": False,
+            "blockers": [],
+        }
+
+    body = str(article.get("substack_body_markdown") or "")
+    body_tokens = {
+        token.casefold()
+        for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", body)
+        if token.casefold() not in _AUDIT_STOPWORDS
+    }
+    bindings = {
+        str(row.get("evidence_document_id") or ""): str(row.get("source_id") or "")
+        for row in article.get("source_bindings") or []
+        if isinstance(row, Mapping)
+    }
+    referenced_source_ids = {
+        str(value) for value in article.get("source_binding_ids_referenced") or []
+    }
+    source_documents = {
+        str(row.get("source_ref") or ""): str(row.get("evidence_document_id") or "")
+        for row in packet.get("sources") or []
+        if isinstance(row, Mapping)
+    }
+    fact_rows: list[dict[str, Any]] = []
+    blockers: list[str] = []
+    for fact in packet.get("confirmed_facts") or []:
+        if not isinstance(fact, Mapping):
+            continue
+        statement = str(fact.get("factual_statement") or "")
+        fact_tokens = {
+            token.casefold()
+            for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", statement)
+            if token.casefold() not in _AUDIT_STOPWORDS
+        }
+        overlap = (
+            len(fact_tokens.intersection(body_tokens)) / len(fact_tokens)
+            if fact_tokens
+            else 0.0
+        )
+        used = overlap >= 0.45
+        bound_source_ids = {
+            bindings.get(source_documents.get(str(source_ref), ""), "")
+            for source_ref in fact.get("source_refs") or []
+        } - {""}
+        referenced = bool(bound_source_ids.intersection(referenced_source_ids))
+        if used and not referenced:
+            blockers.append(
+                "grounded_fact_used_without_bound_source_reference:"
+                + str(fact.get("fact_id") or "unknown")
+            )
+        fact_rows.append(
+            {
+                "fact_id": fact.get("fact_id"),
+                "recognizably_used": used,
+                "body_token_overlap": round(overlap, 4),
+                "bound_source_identity_referenced": referenced,
+            }
+        )
+
+    evidence_tokens = {
+        token.casefold()
+        for token in re.findall(
+            r"[A-Za-z][A-Za-z0-9'-]{2,}", _evidence_text_bundle(context)
+        )
+        if token.casefold() not in _AUDIT_STOPWORDS
+    }
+    paragraph_rows: list[dict[str, Any]] = []
+    for index, raw in enumerate(re.split(r"\n\s*\n", body)):
+        paragraph = re.sub(r"\[[^\]]+\]\([^\)]+\)", " ", raw)
+        paragraph = re.sub(r"\[\[(?:SOURCE|VISUAL):[^\]]+\]\]", " ", paragraph)
+        paragraph = re.sub(r"^#{1,6}\s+", "", paragraph.strip())
+        tokens = {
+            token.casefold()
+            for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", paragraph)
+            if token.casefold() not in _AUDIT_STOPWORDS
+        }
+        if len(tokens) < 5:
+            continue
+        overlap = len(tokens.intersection(evidence_tokens)) / len(tokens)
+        labeled_inference = bool(
+            re.search(r"\b(?:capital chronicle inference|may|could|suggests?)\b", paragraph, re.I)
+        ) and not _quantitative_numeric_claims(paragraph)
+        covered = overlap >= 0.18 or labeled_inference
+        if not covered:
+            blockers.append(f"grounded_paragraph_source_coverage_incomplete:{index}")
+        paragraph_rows.append(
+            {
+                "paragraph_index": index,
+                "source_token_overlap": round(overlap, 4),
+                "labeled_supported_inference": labeled_inference,
+                "covered": covered,
+            }
+        )
+    return {
+        "status": "PASS" if not blockers else "BLOCKED",
+        "grounded_research_packet_present": True,
+        "fact_rows": fact_rows,
+        "paragraph_rows": paragraph_rows,
+        "blockers": list(dict.fromkeys(blockers)),
+        "publication_authority": False,
+    }
+
+
 def validate_generated_article(
     article: Mapping[str, Any],
     *,
@@ -1141,6 +1325,10 @@ def validate_generated_article(
         blockers.append("article_headline_binding_mismatch")
     if article.get("x_content_grants_factual_authority") is not False:
         blockers.append("article_must_deny_x_factual_authority")
+
+    coverage = grounded_article_source_coverage(article, context)
+    if coverage.get("status") == "BLOCKED":
+        blockers.extend(coverage.get("blockers") or [])
 
     return list(dict.fromkeys(blockers))
 
@@ -1220,6 +1408,89 @@ def _article_audit_metadata(context: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
+def _writer_response_source_coverage_blockers(
+    article: Mapping[str, Any], governed_input: Mapping[str, Any]
+) -> list[str]:
+    """Reject writer output that uses a supplied fact without citing its bound source."""
+    body = str(article.get("substack_body_markdown") or "")
+    referenced_handles = {
+        str(value).casefold() for value in SOURCE_HANDLE_RE.findall(body)
+    }
+    referenced_document_ids = {
+        str(row.get("document_id") or "")
+        for row in governed_input.get("evidence_documents") or []
+        if isinstance(row, Mapping)
+        and str(row.get("source_handle") or "").casefold() in referenced_handles
+    } - {""}
+    body_tokens = {
+        token.casefold()
+        for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", body)
+        if token.casefold() not in _AUDIT_STOPWORDS
+    }
+    blockers: list[str] = []
+    for claim in governed_input.get("supported_claims") or []:
+        if not isinstance(claim, Mapping):
+            continue
+        claim_tokens = {
+            token.casefold()
+            for token in re.findall(
+                r"[A-Za-z][A-Za-z0-9'-]{2,}", str(claim.get("claim_text") or "")
+            )
+            if token.casefold() not in _AUDIT_STOPWORDS
+        }
+        overlap = (
+            len(claim_tokens.intersection(body_tokens)) / len(claim_tokens)
+            if claim_tokens
+            else 0.0
+        )
+        bound_ids = {
+            str(value) for value in claim.get("evidence_document_ids") or []
+        } - {""}
+        if overlap >= 0.45 and not bound_ids.intersection(referenced_document_ids):
+            blockers.append(
+                "grounded_fact_used_without_bound_source_reference:"
+                + str(claim.get("claim_id") or "unknown")
+            )
+    evidence_text = " ".join(
+        [
+            str(row.get("canonical_content_text") or "")
+            for row in governed_input.get("evidence_documents") or []
+            if isinstance(row, Mapping)
+        ]
+        + [
+            str(row.get("claim_text") or "")
+            for row in governed_input.get("supported_claims") or []
+            if isinstance(row, Mapping)
+        ]
+    )
+    evidence_tokens = {
+        token.casefold()
+        for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", evidence_text)
+        if token.casefold() not in _AUDIT_STOPWORDS
+    }
+    for index, raw in enumerate(re.split(r"\n\s*\n", body)):
+        paragraph = re.sub(r"\[\[(?:SOURCE|VISUAL):[^\]]+\]\]", " ", raw)
+        paragraph = re.sub(r"^#{1,6}\s+", "", paragraph.strip())
+        tokens = {
+            token.casefold()
+            for token in re.findall(r"[A-Za-z][A-Za-z0-9'-]{2,}", paragraph)
+            if token.casefold() not in _AUDIT_STOPWORDS
+        }
+        if len(tokens) < 5:
+            continue
+        overlap = len(tokens.intersection(evidence_tokens)) / len(tokens)
+        labeled_inference = bool(
+            re.search(
+                r"\b(?:capital chronicle inference|may|could|suggests?)\b",
+                paragraph,
+                re.I,
+            )
+        ) and not _quantitative_numeric_claims(paragraph)
+        if overlap < 0.18 and not labeled_inference:
+            blockers.append(f"grounded_paragraph_source_coverage_incomplete:{index}")
+    return list(dict.fromkeys(blockers))
+
+
 def _default_article_generator(prompt: str) -> dict[str, Any]:
     """Route article generation through the canonical 9Router quality-first pool."""
     from live_contentops.nine_router_llm_seam_v2 import (
@@ -1228,6 +1499,12 @@ def _default_article_generator(prompt: str) -> dict[str, Any]:
         routed_llm_invocation,
     )
     from live_contentops.nine_router_ordered_model_router_v2 import ACCEPTED
+
+    governed_input: dict[str, Any] = {}
+    try:
+        governed_input = json.loads(str(prompt).rsplit("\nGOVERNED_INPUT:\n", 1)[1])
+    except (IndexError, json.JSONDecodeError, TypeError, ValueError):
+        pass
 
     def validator(raw: str) -> tuple[bool, str | None, Any]:
         try:
@@ -1240,6 +1517,11 @@ def _default_article_generator(prompt: str) -> dict[str, Any]:
                 return False, "article_generation_not_object", None
             if not str(parsed.get("title") or "").strip():
                 return False, "article_generation_title_missing", None
+            coverage_blockers = _writer_response_source_coverage_blockers(
+                parsed, governed_input
+            )
+            if coverage_blockers:
+                return False, ";".join(coverage_blockers), None
             return True, None, parsed
         except Exception as exc:  # noqa: BLE001 - classified by router
             return False, f"article_generation_invalid:{type(exc).__name__}", None
@@ -1272,7 +1554,10 @@ def _deterministic_supported_claim_brief(
     of the canonical builder, adds no new facts, and remains subject to the same article, media,
     editorial, package, and publication gates.
     """
-    claims = list((context.get("claim_evidence_contract") or {}).get("supported_claims") or [])
+    # Ordinary reporting carries a compact minimum-trustworthy-evidence packet instead of
+    # the enhanced-risk claim contract.  Use the same normalized, source-bound claim view
+    # supplied to the quality writer so the outage brief cannot lose a valid ordinary claim.
+    claims = _writer_supported_claims(context)
     documents = [dict(row) for row in (context.get("evidence_documents") or [])]
     if not claims or not documents:
         raise GroundedArticleBuilderError("deterministic_brief_supported_claim_or_source_missing")
@@ -1579,9 +1864,32 @@ def build_rolling_x_grounded_article_and_media(
         "minimum_trustworthy_evidence_packet": dict(
             context.get("minimum_trustworthy_evidence_packet") or {}
         ),
+        "grounded_research": {
+            key: value
+            for key, value in dict(
+                context.get("grounded_research_packet") or {}
+            ).items()
+            if key
+            in {
+                "schema_version",
+                "research_as_of_utc",
+                "research_model_identity",
+                "grounding_mode",
+                "research_status",
+                "research_logical_hash",
+                "risk_classification",
+                "enhanced_review_required",
+                "suggested_article_mode",
+            }
+        },
+        "cc_context_bundle": dict(context.get("cc_context_bundle") or {}),
         "evidence_review_tier": str(context.get("evidence_review_tier") or ""),
         **audit_metadata,
     }
+
+    article["grounded_source_coverage"] = grounded_article_source_coverage(
+        article, context
+    )
 
     blockers = validate_generated_article(
         article, context=context, visual_asset_ids=visual_asset_ids
@@ -1627,6 +1935,8 @@ def build_rolling_x_grounded_article_and_media(
             "minimum_trustworthy_evidence_packet": context.get(
                 "minimum_trustworthy_evidence_packet"
             ),
+            "grounded_research_packet": context.get("grounded_research_packet"),
+            "cc_context_bundle": context.get("cc_context_bundle"),
             "editorial_classification": context.get("editorial_classification"),
             "update_chain_identity": context.get("update_chain_identity"),
             "provided_evidence_capabilities": context["provided_evidence_capabilities"],

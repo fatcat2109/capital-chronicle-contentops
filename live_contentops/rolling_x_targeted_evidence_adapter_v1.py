@@ -1,7 +1,9 @@
 """Targeted governed evidence receipts for ranked rolling-X stories."""
 from __future__ import annotations
 
+import json
 from datetime import datetime, timezone
+from hashlib import sha256
 from pathlib import Path
 from typing import Any, Callable, Mapping
 from urllib.parse import urlsplit
@@ -29,6 +31,80 @@ EVIDENCE_LOADER_BUDGET_BLOCKERS = frozenset({
     "public_source_request_budget_exhausted",
 })
 TRUSTED_PROFESSIONAL_FEED_HANDLES = frozenset({"financialjuice"})
+
+
+def _restrict_grounded_packet_to_documents(
+    packet: Mapping[str, Any], documents: list[dict[str, Any]]
+) -> dict[str, Any]:
+    """Keep model research facts only when every bound source survived hard filtering."""
+    from live_contentops.grounded_news_research_v1 import _statement_supported
+
+    allowed_document_ids = {
+        str(row.get("document_id") or row.get("evidence_id") or "")
+        for row in documents
+    } - {""}
+    sources = [
+        dict(row)
+        for row in packet.get("sources") or []
+        if isinstance(row, Mapping)
+        and str(row.get("evidence_document_id") or "") in allowed_document_ids
+    ]
+    allowed_refs = {str(row.get("source_ref") or "") for row in sources} - {""}
+    documents_by_id = {
+        str(row.get("document_id") or row.get("evidence_id") or ""): row
+        for row in documents
+    }
+    documents_by_ref = {
+        str(row.get("source_ref") or ""): documents_by_id[
+            str(row.get("evidence_document_id") or "")
+        ]
+        for row in sources
+        if str(row.get("evidence_document_id") or "") in documents_by_id
+    }
+    facts: list[dict[str, Any]] = []
+    for row in packet.get("confirmed_facts") or []:
+        if not isinstance(row, Mapping):
+            continue
+        refs = {str(value) for value in row.get("source_refs") or []} - {""}
+        surviving_refs = sorted(refs.intersection(allowed_refs))
+        surviving_documents = [
+            documents_by_ref[ref]
+            for ref in surviving_refs
+            if ref in documents_by_ref
+        ]
+        if surviving_documents and _statement_supported(
+            str(row.get("factual_statement") or ""), surviving_documents
+        ):
+            facts.append({**dict(row), "source_refs": surviving_refs})
+    numeric = [
+        dict(row)
+        for row in packet.get("attributed_numeric_facts") or []
+        if isinstance(row, Mapping)
+        and str(row.get("source_ref") or "") in allowed_refs
+    ]
+    result = dict(packet)
+    result["sources"] = sources
+    result["confirmed_facts"] = facts
+    result["attributed_numeric_facts"] = numeric
+    result["post_filter_accepted_evidence_document_ids"] = sorted(
+        allowed_document_ids
+    )
+    result["post_filter_removed_fact_count"] = max(
+        0, len(list(packet.get("confirmed_facts") or [])) - len(facts)
+    )
+    if facts:
+        result["core_factual_proposition"] = str(
+            facts[0].get("factual_statement") or ""
+        )
+        result["research_status"] = "PASS"
+    else:
+        result["core_factual_proposition"] = ""
+        result["research_status"] = "BLOCKED"
+    unhashed = {key: value for key, value in result.items() if key != "research_logical_hash"}
+    result["research_logical_hash"] = sha256(
+        json.dumps(unhashed, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    return result
 
 
 def _minimum_or_enhanced_evidence(
@@ -320,11 +396,16 @@ class RollingXTargetedEvidenceAdapter:
         packet_loader: Callable[[Mapping[str, Any]], Mapping[str, Any]] | None = None,
         official_evidence_loader: Callable[[Mapping[str, Any]], Mapping[str, Any]] | None = None,
         public_secondary_loader: Callable[[Mapping[str, Any]], Mapping[str, Any]] | None = None,
+        grounded_researcher: Any = None,
         capability_registry: Mapping[str, Any] | None = None,
     ) -> None:
         self._root = Path(capital_chronicle_root) if capital_chronicle_root else None
         self._evaluation_as_of_utc = evaluation_as_of_utc or _utc_now()
         self._packet_loader = packet_loader
+        injected_acquisition_boundary = any(
+            value is not None
+            for value in (packet_loader, official_evidence_loader, public_secondary_loader)
+        )
         if official_evidence_loader is None:
             from live_contentops.official_primary_evidence_loader_v1 import (
                 BoundedOfficialPrimaryEvidenceLoader,
@@ -343,11 +424,50 @@ class RollingXTargetedEvidenceAdapter:
                 evaluation_as_of_utc=self._evaluation_as_of_utc
             )
         self._public_secondary_loader = public_secondary_loader
+        if grounded_researcher is None and not injected_acquisition_boundary:
+            from live_contentops.grounded_news_research_v1 import GroundedNewsResearchV1
+
+            grounded_researcher = GroundedNewsResearchV1(
+                evaluation_as_of_utc=self._evaluation_as_of_utc,
+                public_retriever=self._public_secondary_loader,
+            )
+        self._grounded_researcher = grounded_researcher
         self._registry = dict(
             capability_registry or load_source_capability_registry()
         )
         self._packet: dict[str, Any] | None = None
         self._load_error: str | None = None
+
+    def _run_grounded_research(
+        self,
+        request: Mapping[str, Any],
+        documents: list[dict[str, Any]],
+    ) -> dict[str, Any] | None:
+        if self._grounded_researcher is None:
+            return None
+        try:
+            raw = self._grounded_researcher(
+                request, initial_documents=list(documents)
+            )
+        except (OSError, RuntimeError, TypeError, ValueError) as exc:
+            return {
+                "status": "BLOCKED",
+                "blockers": [
+                    _sanitized_evidence_loader_error(
+                        "grounded_research_unavailable", exc
+                    )
+                ],
+                "evidence_documents": list(documents),
+                "publication_authority": False,
+            }
+        if not isinstance(raw, Mapping):
+            return {
+                "status": "BLOCKED",
+                "blockers": ["grounded_research_result_not_object"],
+                "evidence_documents": list(documents),
+                "publication_authority": False,
+            }
+        return dict(raw)
 
     def _load_packet(self, request: Mapping[str, Any]) -> dict[str, Any] | None:
         if self._packet_loader is not None:
@@ -504,7 +624,76 @@ class RollingXTargetedEvidenceAdapter:
                     pre_enrichment_fresh_documents.append(document)
             documents = pre_enrichment_fresh_documents
 
-            if "public_secondary" in families:
+            grounded = self._run_grounded_research(request, documents)
+            grounded_attempted = grounded is not None
+            grounded_packet: dict[str, Any] = {}
+            grounded_minimum_packet: dict[str, Any] = {}
+            grounded_claim_contract: dict[str, Any] = {}
+            grounded_evidence_substance: dict[str, Any] = {}
+            if grounded is not None:
+                diagnostics["grounded_research"] = {
+                    "status": grounded.get("status"),
+                    "blockers": list(grounded.get("blockers") or []),
+                    "research_calls": int(grounded.get("research_calls") or 0),
+                    "public_retrieval_requests": int(
+                        grounded.get("public_retrieval_requests") or 0
+                    ),
+                    "elapsed_seconds": grounded.get("elapsed_seconds"),
+                    "telemetry": list(grounded.get("telemetry") or []),
+                    "grounding_mode": (
+                        (grounded.get("research_packet") or {}).get(
+                            "grounding_mode"
+                        )
+                    ),
+                }
+                grounded_packet = dict(grounded.get("research_packet") or {})
+                grounded_minimum_packet = dict(
+                    grounded.get("minimum_trustworthy_evidence_packet") or {}
+                )
+                grounded_claim_contract = dict(
+                    grounded.get("claim_evidence_contract") or {}
+                )
+                grounded_evidence_substance = dict(
+                    grounded.get("evidence_substance") or {}
+                )
+                if grounded.get("status") == "PASS":
+                    documents = [
+                        dict(row)
+                        for row in grounded.get("evidence_documents") or []
+                        if isinstance(row, Mapping)
+                    ]
+                    supplied.update(
+                        {"credible_event_confirmation", "basic_attributed_facts"}
+                    )
+                    suggested_mode = str(
+                        grounded_packet.get("suggested_article_mode") or ""
+                    )
+                    requested_mode = str(
+                        request.get("effective_article_mode")
+                        or request.get("resolved_article_mode")
+                        or ""
+                    )
+                    depth = {
+                        "BREAKING_BRIEF": 1,
+                        "FOLLOW_UP_UPDATE": 1,
+                        "STANDARD_NEWS_ANALYSIS": 2,
+                        "EVERGREEN_EXPLAINER": 2,
+                        "CAPITAL_CHRONICLE_DEEP_DIVE": 3,
+                    }
+                    if depth.get(requested_mode, 1) > depth.get(suggested_mode, 1):
+                        blockers.append(
+                            "grounded_research_recommends_article_mode_downgrade:"
+                            + suggested_mode
+                        )
+                else:
+                    blockers.extend(
+                        str(value)
+                        for value in grounded.get("blockers") or [
+                            "grounded_research_blocked"
+                        ]
+                    )
+
+            if "public_secondary" in families and not grounded_attempted:
                 pre_secondary_depth = summarize_evidence_substance(request, documents)
                 secondary_needed = not bool(
                     pre_secondary_depth.get("enough_for_useful_article")
@@ -616,7 +805,40 @@ class RollingXTargetedEvidenceAdapter:
             evidence_sufficient, ordinary_packet, claim_contract = (
                 _minimum_or_enhanced_evidence(request, documents)
             )
-            evidence_substance = summarize_evidence_substance(request, documents)
+            if grounded_packet:
+                grounded_packet = _restrict_grounded_packet_to_documents(
+                    grounded_packet, documents
+                )
+                grounded_fact_request = {
+                    **dict(request),
+                    "story_context": {
+                        **dict(request.get("story_context") or {}),
+                        "leaf_summaries": [
+                            str(row.get("factual_statement") or "")
+                            for row in grounded_packet.get("confirmed_facts") or []
+                            if isinstance(row, Mapping)
+                        ],
+                    },
+                }
+                evidence_sufficient, ordinary_packet, claim_contract = (
+                    _minimum_or_enhanced_evidence(
+                        grounded_fact_request, documents
+                    )
+                )
+                evidence_sufficient = bool(
+                    evidence_sufficient
+                    and grounded is not None
+                    and grounded.get("status") == "PASS"
+                    and grounded_packet.get("research_status") == "PASS"
+                )
+                if grounded_packet.get("research_status") != "PASS":
+                    blockers.append(
+                        "grounded_research_facts_removed_by_hard_evidence_filter"
+                    )
+            evidence_substance = (
+                grounded_evidence_substance
+                or summarize_evidence_substance(request, documents)
+            )
             diagnostics["evidence_substance"] = evidence_substance
             if evidence_sufficient:
                 supplied.update({"credible_event_confirmation", "basic_attributed_facts"})
@@ -638,6 +860,11 @@ class RollingXTargetedEvidenceAdapter:
                     receipt["minimum_trustworthy_evidence_packet"] = ordinary_packet
                 if claim_contract:
                     receipt["claim_evidence_contract"] = claim_contract
+                if grounded_packet:
+                    receipt["grounded_research_packet"] = grounded_packet
+                    receipt["cc_context_bundle"] = dict(
+                        grounded_packet.get("cc_context") or {}
+                    )
                 receipt["evidence_substance"] = evidence_substance
                 return receipt
             return {
@@ -653,6 +880,10 @@ class RollingXTargetedEvidenceAdapter:
                 ),
                 "evidence_review_tier": "ORDINARY_MINIMUM" if ordinary_packet else "ENHANCED",
                 "evidence_substance": evidence_substance,
+                "grounded_research_packet": grounded_packet,
+                "cc_context_bundle": dict(
+                    grounded_packet.get("cc_context") or {}
+                ),
                 "unsupported_claims_removed": int(claim_contract.get("omitted_claim_count") or 0),
                 "capital_chronicle_authority_verified": False,
                 "numeric_evidence_required": False,
@@ -707,9 +938,84 @@ class RollingXTargetedEvidenceAdapter:
             packet, request, freshness_state=freshness_state
         )
         blockers.extend(document_blockers)
+        research_request = {
+            **dict(request),
+            "capital_chronicle_authority_verified_for_research": bool(
+                packet.get("status") == PUBLICATION_AUTHORIZED
+                and permissions.get("decision") == "ALLOW"
+                and permissions.get("reporting_allowed") is True
+                and not _exact_binding_blockers(packet, request)
+            ),
+        }
+        grounded = self._run_grounded_research(research_request, documents)
+        grounded_packet: dict[str, Any] = {}
+        grounded_minimum_packet: dict[str, Any] = {}
+        grounded_claim_contract: dict[str, Any] = {}
+        grounded_evidence_substance: dict[str, Any] = {}
+        grounded_diagnostics: dict[str, Any] = {}
+        if grounded is not None:
+            grounded_diagnostics = {
+                "status": grounded.get("status"),
+                "blockers": list(grounded.get("blockers") or []),
+                "research_calls": int(grounded.get("research_calls") or 0),
+                "public_retrieval_requests": int(
+                    grounded.get("public_retrieval_requests") or 0
+                ),
+                "elapsed_seconds": grounded.get("elapsed_seconds"),
+                "telemetry": list(grounded.get("telemetry") or []),
+            }
+            grounded_packet = dict(grounded.get("research_packet") or {})
+            grounded_minimum_packet = dict(
+                grounded.get("minimum_trustworthy_evidence_packet") or {}
+            )
+            grounded_claim_contract = dict(
+                grounded.get("claim_evidence_contract") or {}
+            )
+            grounded_evidence_substance = dict(
+                grounded.get("evidence_substance") or {}
+            )
+            if grounded.get("status") == "PASS":
+                documents = [
+                    dict(row)
+                    for row in grounded.get("evidence_documents") or []
+                    if isinstance(row, Mapping)
+                ]
+                suggested_mode = str(
+                    grounded_packet.get("suggested_article_mode") or ""
+                )
+                requested_mode = str(
+                    request.get("effective_article_mode")
+                    or request.get("resolved_article_mode")
+                    or ""
+                )
+                depth = {
+                    "BREAKING_BRIEF": 1,
+                    "FOLLOW_UP_UPDATE": 1,
+                    "STANDARD_NEWS_ANALYSIS": 2,
+                    "EVERGREEN_EXPLAINER": 2,
+                    "CAPITAL_CHRONICLE_DEEP_DIVE": 3,
+                }
+                if depth.get(requested_mode, 1) > depth.get(suggested_mode, 1):
+                    blockers.append(
+                        "grounded_research_recommends_article_mode_downgrade:"
+                        + suggested_mode
+                    )
+            else:
+                blockers.extend(
+                    str(value)
+                    for value in grounded.get("blockers") or [
+                        "grounded_research_blocked"
+                    ]
+                )
         evidence_sufficient, ordinary_packet, claim_contract = (
             _minimum_or_enhanced_evidence(request, documents)
         )
+        if grounded_packet:
+            ordinary_packet = grounded_minimum_packet
+            claim_contract = grounded_claim_contract
+            evidence_sufficient = bool(
+                grounded is not None and grounded.get("status") == "PASS"
+            )
         if not evidence_sufficient:
             blockers.append("minimum_trustworthy_evidence_missing")
 
@@ -772,6 +1078,14 @@ class RollingXTargetedEvidenceAdapter:
                 receipt["minimum_trustworthy_evidence_packet"] = ordinary_packet
             if claim_contract:
                 receipt["claim_evidence_contract"] = claim_contract
+            if grounded_packet:
+                receipt["grounded_research_packet"] = grounded_packet
+                receipt["cc_context_bundle"] = dict(
+                    grounded_packet.get("cc_context") or {}
+                )
+                receipt["evidence_acquisition_provenance"] = {
+                    "grounded_research": grounded_diagnostics
+                }
             return receipt
         return {
             "status": "PASS",
@@ -787,6 +1101,17 @@ class RollingXTargetedEvidenceAdapter:
                 else {"claim_evidence_contract": claim_contract}
             ),
             "evidence_review_tier": "ORDINARY_MINIMUM" if ordinary_packet else "ENHANCED",
+            "evidence_substance": (
+                grounded_evidence_substance
+                or summarize_evidence_substance(request, documents)
+            ),
+            "grounded_research_packet": grounded_packet,
+            "cc_context_bundle": dict(
+                grounded_packet.get("cc_context") or {}
+            ),
+            "evidence_acquisition_provenance": {
+                "grounded_research": grounded_diagnostics
+            },
             "unsupported_claims_removed": int(claim_contract.get("omitted_claim_count") or 0),
             "capital_chronicle_authority_verified": authority_verified,
             "numeric_evidence_required": market_required,

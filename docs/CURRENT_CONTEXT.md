@@ -9,15 +9,41 @@ Authority date: 2026-08-14
 
 ### V1 — Final Daily App / Nine-Surface Live Closeout
 
+Current owner-authorized builder lane:
+
+`TASK_CONTENTOPS_V1_LLM_GROUNDED_RESEARCH_AND_ADDITIVE_CC_CONTEXT_VERTICAL_SLICE_V1`
+
+Jim's 2026-08-14 research direction is current authority. Story discovery now proceeds to
+bounded LLM-directed latest-web research and a normalized source-bound factual packet before the
+existing one-writer/article/media/publication path. Capital Chronicle context is additive for
+ordinary externally sourced reporting; it remains mandatory only when ContentOps would emit a
+Capital Chronicle-owned model, calculation, scenario probability, forecast, regime, Bayesian
+output, or proprietary analytical/numeric conclusion. The research model is never a factual
+source. One credible source may satisfy an ordinary, non-disputed core proposition; enhanced-risk
+claims retain stronger primary and/or independent corroboration. The accepted Golden
+article-mode-aware media and rights/provenance system is unchanged.
+
+The first genuine post-resume opportunity has already completed, so V1 is not awaiting its first
+opportunity. That cycle evaluated a 636-headline rolling universe and 12 ranked candidates and
+truthfully ended `NO_PUBLICATION / ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`, with zero writer calls,
+zero public writes, and zero unknown writes. The grounded-research vertical slice replayed that
+exact frozen set and reached `PASS_GROUNDED_RESEARCH_VERTICAL_SLICE_ZERO_WRITE`: old eligible 0,
+new eligible 1, with frozen rank 8 supported by two reputable secondary source records. Its
+130-word breaking brief passed factual and Golden reader-value gates, built nine native
+derivatives, and retained zero public writes, unknown writes, and pending reconciliation. The next
+real product blocker belongs to the parent live lane: a publication-qualified natural opportunity
+must advance through the durable publication coordinator and canonical Substack confirmation.
+
 Current fresh-session handoff:
 
 `docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md`
 
-Latest accepted continuation task:
+Latest accepted builder task:
 
-`TASK_CONTENTOPS_V1_EVENT_DRIVEN_BROWSER_BUDGET_AND_LOW_FREQUENCY_INGESTION_V1`
+`TASK_CONTENTOPS_V1_LLM_GROUNDED_RESEARCH_AND_ADDITIVE_CC_CONTEXT_VERTICAL_SLICE_V1`
 
-Status: `PASS_ACCEPTED`. The canonical invariant is
+Status: `PASS_GROUNDED_RESEARCH_VERTICAL_SLICE_ZERO_WRITE`. The prior accepted browser invariant
+remains
 `IDLE_PUBLISHING_BROWSER_ACTIVITY_ZERO / PUBLISH_AND_RECONCILE_JIT_ONLY / X_30M_15M_ONCE_60M_BACKOFF`.
 Idle readiness is local/passive; exact publication and reconciliation own destination-local JIT
 browser interaction; X intake uses a 30-minute normal cadence, at most one 15-minute hot follow-up,
@@ -42,8 +68,9 @@ The accepted runtime was verified at exact deployed SHA
 `df971a0a3a13c4be7e6842139101b5c67530aa1d` with one healthy supervisor, zero unknown writes,
 zero pending ambiguous reconciliation, and zero active or stale editorial cycles. The canonical
 CAS control moved from `KILL_SWITCH` state version 4 to `AUTONOMOUS_DEFAULT` state version 5 on
-2026-08-13 UTC. No Run Now/operator trigger was created; the continuing FDA-G soak must consume
-the next genuine calendar/material opportunity naturally.
+2026-08-13 UTC. No Run Now/operator trigger was created. The first subsequent genuine opportunity
+completed with the governed all-candidates-evidence-blocked result above; future opportunities
+remain natural calendar/material wakes only.
 
 LinkedIn is structurally migrated
 to `OFFICIAL_MEMBER_API`; historical LinkedIn CDP publish/readback entrypoints fail closed before

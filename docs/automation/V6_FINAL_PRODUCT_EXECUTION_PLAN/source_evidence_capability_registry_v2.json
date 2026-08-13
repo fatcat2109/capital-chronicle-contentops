@@ -92,7 +92,12 @@
       "article_mode": "market_move",
       "freshness_policy": "market_session",
       "visual_roles": ["lead_contextual", "primary_quantitative_chart", "cross_asset_chart"],
-      "source_adapter_families": ["capital_chronicle_market_state", "official_catalyst"]
+      "source_adapter_families": ["capital_chronicle_market_state", "official_catalyst"],
+      "article_mode_profiles": {
+        "straight_news": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["current_market_snapshot", "prior_close", "catalyst_evidence"], "market_context_required": false, "capital_chronicle_authority_required": false, "source_adapter_families": ["official_catalyst", "public_secondary"]},
+        "analysis": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"], "optional_evidence_capabilities": ["current_market_snapshot", "prior_close", "catalyst_evidence", "governed_analytical_context"], "market_context_required": false, "capital_chronicle_authority_required": false, "source_adapter_families": ["official_catalyst", "public_secondary"]},
+        "deep_analysis": {"required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts", "current_market_snapshot", "prior_close", "governed_analytical_context"], "optional_evidence_capabilities": ["catalyst_evidence"], "market_context_required": true, "capital_chronicle_authority_required": true, "source_adapter_families": ["official_catalyst", "public_secondary", "capital_chronicle_market_state"]}
+      }
     },
     "supply_chain_event": {
       "required_evidence_capabilities": ["credible_event_confirmation", "basic_attributed_facts"],

@@ -11,11 +11,38 @@ This file is a compact routing pointer. Detailed V1 history remains in task evid
 
 Result:
 
-`SOAK_ACTIVE_CONTROLLED_AUTONOMOUS_DEFAULT_AWAITING_FIRST_GENUINE_OPPORTUNITY_TERMINAL_EVIDENCE`
+`SOAK_ACTIVE_FIRST_GENUINE_OPPORTUNITY_COMPLETED_ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`
 
 FDA-G is not accepted. `v1.1.0` is not authorized.
 
-## V1 latest completed builder lane
+## V1 current builder lane
+
+`TASK_CONTENTOPS_V1_LLM_GROUNDED_RESEARCH_AND_ADDITIVE_CC_CONTEXT_VERTICAL_SLICE_V1`
+
+Required result:
+
+`PASS_GROUNDED_RESEARCH_VERTICAL_SLICE_ZERO_WRITE`
+
+Jim's current direction is story-first LLM-directed latest-web research normalized to exact source
+records, with Capital Chronicle context additive for ordinary reporting and mandatory only for
+CC-owned proprietary analytical/numeric claims. Model assertions never become source authority;
+one reputable source can satisfy an ordinary core proposition, while enhanced-risk claims retain
+stronger evidence. The accepted Golden media system remains unchanged. The exact frozen replay is
+the genuine 636-headline, 12-ranked-candidate opportunity that ended
+`ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`.
+
+Accepted result (2026-08-14):
+
+`PASS_GROUNDED_RESEARCH_VERTICAL_SLICE_ZERO_WRITE`
+
+The exact frozen replay moved from old eligible 0 to new eligible 1 at rank 8 using two reputable
+secondary source records. The resulting 130-word breaking brief passed deterministic factual and
+Golden reader-value gates, produced nine native derivatives, and performed zero public writes.
+The exact next live blocker remains with the parent lane: prove advancement through the durable
+publication coordinator and canonical Substack confirmation on a publication-qualified natural
+opportunity.
+
+## V1 prior completed builder lane
 
 `TASK_CONTENTOPS_V1_EVENT_DRIVEN_BROWSER_BUDGET_AND_LOW_FREQUENCY_INGESTION_V1`
 
