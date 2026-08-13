@@ -186,6 +186,7 @@ class CreativeBrain:
         prompt_template: str,
         prompt_version: str,
         image_paths: tuple[str, ...] = (),
+        max_tokens: int = 12000,
     ) -> tuple[Mapping[str, Any], CreativeReceipt]:
         raise NotImplementedError
 
@@ -203,6 +204,7 @@ class NineRouterGPT56Brain(CreativeBrain):
         prompt_template: str,
         prompt_version: str,
         image_paths: tuple[str, ...] = (),
+        max_tokens: int = 12000,
     ) -> tuple[Mapping[str, Any], CreativeReceipt]:
         if role not in {
             ROLE_V2_CREATIVE_EDITOR,
@@ -229,7 +231,7 @@ class NineRouterGPT56Brain(CreativeBrain):
                 role_task_id=role,
                 logical_invocation_id=logical_invocation_id,
                 component=ACTIVE_BRAIN,
-                max_tokens=12000,
+                max_tokens=max_tokens,
                 temperature=0.2,
             )
 

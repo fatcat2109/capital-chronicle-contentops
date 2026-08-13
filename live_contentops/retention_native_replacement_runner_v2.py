@@ -400,8 +400,11 @@ def author_director(runtime: Path) -> dict[str, Any]:
         validator=validate_director_output,
         logical_invocation_id=f"inv_v2_director_{logical_hash(prompt)[:20]}",
         prompt_template="concrete_first_xhigh_director",
-        prompt_version="v1",
+        prompt_version="v2_bounded_5000_output_envelope",
+        max_tokens=5000,
     )
+    if not receipt.professional_candidate_eligible:
+        raise RuntimeError("professional_director_candidate_degraded_creative_model")
     bible = CreativeBible.from_mapping(output["creative_bible"]).freeze()
     graph = validate_segment_graph(output["segment_graph"])
     director = {
@@ -470,8 +473,13 @@ def author_segments(runtime: Path) -> dict[str, Any]:
             validator=validate_segment_output,
             logical_invocation_id=f"inv_v2_segment_{segment.segment_id}_{logical_hash(prompt)[:16]}",
             prompt_template="concrete_first_xhigh_segment_author",
-            prompt_version="v1",
+            prompt_version="v2_bounded_7000_output_envelope",
+            max_tokens=7000,
         )
+        if not receipt.professional_candidate_eligible:
+            raise RuntimeError(
+                f"professional_segment_candidate_degraded_creative_model:{segment.segment_id}"
+            )
         output = dict(output)
         output["segment_id"] = segment.segment_id
         output["input_sha256"] = built["input_sha256"]
@@ -787,36 +795,58 @@ def run_isolated_proof(
     prepare(runtime)
     domain_id = ""
     audit_path = ""
-    with active_v2_execution_lease(repo_root=repo_root, runtime=runtime) as lease:
-        domain_id = lease.domain_id
-        audit_path = str(lease.audit_path)
-        validate_isolation_before_provider(runtime)
-        require_accepted_isolated_xhigh_preflight(runtime)
-        author_director(runtime)
-        author_segments(runtime)
-        build_storyboards(runtime, ffmpeg=ffmpeg)
-        run_premotion_critic(runtime)
-        from live_contentops.retention_native_motion_pipeline_v2 import (
-            author_motion,
-            build_audio_and_mux,
-            probe_media,
-            render_motion,
-        )
-        from live_contentops.retention_native_review_qa_v2 import (
-            build_review_artifacts,
-            deterministic_qa,
-            run_final_critic,
-        )
+    try:
+        with active_v2_execution_lease(repo_root=repo_root, runtime=runtime) as lease:
+            domain_id = lease.domain_id
+            audit_path = str(lease.audit_path)
+            validate_isolation_before_provider(runtime)
+            require_accepted_isolated_xhigh_preflight(runtime)
+            author_director(runtime)
+            author_segments(runtime)
+            build_storyboards(runtime, ffmpeg=ffmpeg)
+            run_premotion_critic(runtime)
+            from live_contentops.retention_native_motion_pipeline_v2 import (
+                author_motion,
+                build_audio_and_mux,
+                probe_media,
+                render_motion,
+            )
+            from live_contentops.retention_native_review_qa_v2 import (
+                build_review_artifacts,
+                deterministic_qa,
+                run_final_critic,
+            )
 
-        author_motion(runtime=runtime, repo_root=repo_root)
-        render_motion(runtime=runtime, repo_root=repo_root, node=node)
-        build_review_artifacts(runtime=runtime, ffmpeg=ffmpeg)
-        deterministic_qa(runtime=runtime)
-        build_audio_and_mux(
-            runtime=runtime, tts_python=tts_python, ffmpeg=ffmpeg, ffprobe=ffprobe
-        )
-        probe_media(runtime=runtime, ffprobe=ffprobe)
-        critic = run_final_critic(runtime=runtime)
+            author_motion(runtime=runtime, repo_root=repo_root)
+            render_motion(runtime=runtime, repo_root=repo_root, node=node)
+            build_review_artifacts(runtime=runtime, ffmpeg=ffmpeg)
+            deterministic_qa(runtime=runtime)
+            build_audio_and_mux(
+                runtime=runtime, tts_python=tts_python, ffmpeg=ffmpeg, ffprobe=ffprobe
+            )
+            probe_media(runtime=runtime, ffprobe=ffprobe)
+            critic = run_final_critic(runtime=runtime)
+    except BaseException as exc:
+        audit = _read_json(Path(audit_path)) if audit_path else {}
+        failure = {
+            "schema_version": "contentops.retention_native.isolated_proof_result.v1",
+            "status": "BLOCKED_ISOLATED_V2_PROOF_EXECUTION",
+            "failure_class": type(exc).__name__,
+            "failure_message": str(exc)[:500],
+            "isolated_execution_domain_id": domain_id,
+            "lease_audit_path": audit_path,
+            "lease_revoked": audit.get("state") == "REVOKED",
+            "shared_global_pause_unchanged": bool(
+                (audit.get("shared_global_pause_after") or {}).get("unchanged")
+            ),
+            "v1_daily_app_continuity": audit.get("v1_daily_app_continuity") is True,
+            "v1_provider_calls_authorized_by_v2_lease": 0,
+            "v2_provider_call_count": len(audit.get("provider_attempts") or []),
+            "public_writes": 0,
+            "owner_acceptance": "PENDING",
+        }
+        _write_json(runtime / "isolated_proof_result_v1.json", failure)
+        raise
     audit = _read_json(Path(audit_path))
     result = {
         "schema_version": "contentops.retention_native.isolated_proof_result.v1",
