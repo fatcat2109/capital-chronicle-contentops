@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V2 — Retention-Native Video Factory Master Plan V2
 
-Authority date: 2026-08-12
+Authority date: 2026-08-13
 Product authority: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_OWNER_DIRECTION_V2`
 Plan status: `CURRENT_CANONICAL_V2_EXECUTION_PLAN`
 Supersedes: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V1` where this document conflicts.
@@ -27,7 +27,9 @@ The exact owner observations that control this rewrite are:
 
 This plan keeps the existing image-generation, asset-rights, voice-over, music/SFX, and mastering foundations unless a concrete blocker justifies changing them. `gpt-5.5` remains the provisional generated-illustration default through the accepted direct image boundary. Generated media is illustrative only; real-person documentary imagery must be real and rights-cleared.
 
-The plan remains a twelve-task product sequence. V2-01 is replaced by the GPT-5.6 creative-code proof but occupies the same milestone slot. No later task may advance until actual media passes Jim/ChatGPT review.
+R4 at `task/tier2-v2-gpt56-creative-code-asset-rich-video-v1` / `2289eb1382e65474207b50d27c0b87626d30728f` is a failed proof and negative creative reference. Its critic-localized defects are evidence, but the owner finding is broader: `FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE`. Technical QA, motion diversity, asset-class counts, and model-authored Remotion code did not make the story easy for a normal viewer to understand. The controlling replacement doctrine is `CONCRETE_FIRST_ABSTRACT_SECOND`.
+
+The plan remains a twelve-task product sequence. V2-01 is replaced in place by a concrete-first XHIGH controlled proof and occupies the same milestone slot. No later task may advance until actual media passes Jim/ChatGPT review.
 
 Milestones:
 
@@ -145,6 +147,26 @@ Rejected because actual media still showed:
 
 This is the key evidence that static-run counts and transition counts are necessary but not sufficient.
 
+## 3.5 R4 / `2289eb13...`
+
+Useful engineering:
+
+- governed EIA/Hormuz benchmark evidence;
+- rights/provenance;
+- Remotion sandbox;
+- audio;
+- cache/selective rerender;
+- package lock and machine-QA infrastructure.
+
+Rejected creative behavior:
+
+- abstract visual grammar and unexplained geometry;
+- landscape charts letterboxed into portrait;
+- silent replacement of planned real/contextual assets with SVG metaphors;
+- visual change without sufficient recognition or narrative reconstruction.
+
+Classification: `FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE / NEGATIVE_CREATIVE_REFERENCE_ONLY`. Do not patch R4 or reuse its blueprint/generated shot source. The next proof should preferably reuse the same governed EIA/Hormuz story only to provide a controlled comparison.
+
 # 4. Exact GPT-5.6 creative-code architecture
 
 ## 4.1 Primary model
@@ -220,6 +242,42 @@ Outputs:
 - revision rationale and source hash.
 
 A fallback model is allowed only for infrastructure continuity. Any fallback creative output must be labeled `DEGRADED_CREATIVE_MODEL` and cannot self-pass the professional gate.
+
+### Creative-brain seam
+
+Define a brain-neutral orchestration boundary:
+
+- `NineRouterGPT56Brain` — default and active; every fresh creative invocation begins `new/gpt-5.6-sol-xhigh`;
+- `CodexLocalBrain` — owner-controlled fallback architecture only; not active and not authorized for runtime use.
+
+Jim may later activate `CodexLocalBrain` only if the next correctly exercised concrete-first XHIGH replacement proof still demonstrates systemic creative/comprehension failure. Evidence, asset broker, visual-grounding contracts, storyboard, renderer, QA, and package state should not depend on which brain is active.
+
+### Adaptive hierarchical decomposition
+
+Fresh production must follow:
+
+```text
+governed story
+→ XHIGH Creative Director / Decomposer
+→ Creative Bible + story-specific semantic Segment Graph
+→ deterministic child-prompt construction
+→ bounded XHIGH segment authorship
+→ resolved visual grounding/assets
+→ storyboard + captions-hidden animatic
+→ comprehension acceptance
+→ bounded XHIGH Motion Code Author calls
+→ proxy render + temporal/comprehension critic
+→ bounded creative revision
+→ final media
+```
+
+The director chooses the minimum coherent semantic segments for the story. Never hard-code first-half/second-half splitting, and never ask another model to invent downstream prompts. Deterministic orchestration constructs each bounded prompt from the Creative Bible, governed evidence, segment/continuity state, resolved assets, and output contract.
+
+### Concrete visual-grounding contract
+
+Each important beat declares as applicable: viewer takeaway, primary visual type, recognizable object/location/evidence required, must-use asset IDs, abstract-substitution permission, recognition deadline, captions-hidden takeaway, and native aspect-ratio variant. A Motion Code Author may not silently substitute unrelated SVG abstraction for a required real/contextual asset.
+
+Default priority is real documentary/contextual media, primary document, native chart/map, concrete explanatory illustration, then abstract diagram/metaphor. Lower-priority abstraction requires explicit justification.
 
 ## 4.2 Sanitized model receipts
 
@@ -328,6 +386,8 @@ The editor should request assets by editorial purpose:
 
 The asset system then acquires or generates candidates before final shot composition.
 
+The rights-safe asset broker evaluates semantic fit, rights/license, source quality, orientation, resolution, focal-object visibility, crop viability, documentary versus illustrative role, attribution, and duplicate concentration. Candidate coverage must include contextual B-roll/stills when the story warrants them. Multiple schematic classes alone do not constitute asset richness.
+
 Initial planning target for sufficiently rich stories:
 
 - 25–60 viable candidate assets/visual states.
@@ -431,6 +491,21 @@ Required checks include bounding-box intersections at critical frames and repres
 
 Captions remain important but must not become the only visible motion. They should normally stay within two lines and preserve platform safe zones.
 
+## 9.1 Storyboard, animatic, and comprehension gate
+
+Before authoring all final motion code, create format-specific keyframes/storyboard and a cheap captions-hidden animatic/proxy. Fail or revise the creative/asset plan before expensive final rendering when the viewer cannot recognize the subject, reconstruct the story, follow semantic continuity, or understand the visual without decoding unexplained symbols.
+
+Required comprehension questions:
+
+- what does the viewer recognize?;
+- does the first second establish the subject/location/object?;
+- what story or mechanism survives with captions hidden?;
+- are consecutive visuals semantically coherent?;
+- does each important visual explain rather than merely move?;
+- is narration/visual alignment clear?
+
+Visual-change counts and other machine metrics cannot self-pass this gate.
+
 # 10. Audio architecture
 
 Preserve current provider abstraction and current local/Kokoro baseline unless a direct blocker appears.
@@ -483,6 +558,8 @@ Critic should explicitly inspect:
 - weak hook/payoff visualization.
 
 Critic output is evidence for revision, not final authority. Jim/ChatGPT owns professional acceptance during creative-proof stages.
+
+Revision accounting must distinguish deterministic mechanical/schema/audio/path/safe-zone/serialization corrections from storyboard/systemic creative revisions and rendered localized creative revisions. Meaning-preserving deterministic corrections do not consume creative revision budget; both creative categories do.
 
 # 12. Machine diagnostics
 
@@ -573,13 +650,15 @@ Optimize for:
 
 Do not resize one master blindly.
 
+Use native visual compilers for charts, maps, and documents. They must support portrait chart compositions, direct labels, focused comparisons, highlighted source excerpts, recognizable geographic map treatments, and aspect-ratio-specific crop/layout rules. Never treat a letterboxed landscape chart as a native 9:16 solution.
+
 # 15. TASK ROADMAP
 
-## V2-01 — GPT-5.6 Creative-Code Asset-Rich Video Vertical Slice
+## V2-01 — Concrete-First XHIGH Replacement Vertical Slice
 
 **Task label**
 
-`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_CONCRETE_FIRST_XHIGH_REPLACEMENT_VERTICAL_SLICE_V1`
 
 **Required result**
 
@@ -587,15 +666,22 @@ Do not resize one master blindly.
 
 ### User problem
 
-The first retention-native attempt passed many machine checks but still looked repetitive, slow, template-driven, and occasionally visually broken. Generic motion primitives remain too much of the creative authority.
+R4 passed extensive technical and motion checks while remaining difficult for a normal viewer to understand. Abstract code-native metaphors displaced recognizable geography, evidence, and native data presentation.
 
 ### Why now
 
-Before investing in longer videos, provider breadth, uploads, analytics, or a daily factory, V2 must prove the central hypothesis: a strong model directly authoring screenplay/edit/motion code can produce a material creative-quality jump while deterministic Remotion retains reproducibility and safety.
+Before later milestones, V2 must prove that the XHIGH creative brain plus concrete visual grounding, story-specific asset brokerage, storyboard/animatic review, native visual compilers, and comprehension QA can produce an understandable professional edit while deterministic Remotion retains reproducibility and safety.
 
 ### Capability delivered
 
 - exact role-specific GPT-5.6 routing;
+- adaptive Creative Bible and semantic Segment Graph;
+- deterministic bounded child-prompt construction;
+- concrete visual-grounding contracts;
+- rights-safe story-specific asset broker;
+- native portrait/landscape chart, map, and document treatments;
+- keyframe storyboard and captions-hidden animatic;
+- comprehension acceptance before final motion code;
 - sanitized model receipts;
 - compact governed story packet;
 - integrated narration/edit screenplay;
@@ -609,7 +695,7 @@ Before investing in longer videos, provider breadth, uploads, analytics, or a da
 
 ### Controlled benchmark
 
-Prefer reusing the governed EIA/Hormuz story/evidence from the failed `b6f50029...` package, after revalidating every imported evidence/right/asset reference. Do not reuse its creative plan or motion code. Reusing the story controls the experiment: old generic grammar versus GPT-5.6-authored creative code.
+Prefer the governed EIA/Hormuz benchmark used by R4, after revalidating every evidence/right/asset reference. Do not reuse the R4 creative blueprint or generated shot source. Reusing only the story controls the experiment: failed abstract-first R4 versus concrete-first XHIGH architecture.
 
 If that governed story cannot be safely reconstructed from accepted repo/runtime evidence, choose another qualified non-Treasury governed story with institution/person, change/conflict, source document, geography/timeline, data, and multiple asset classes.
 
@@ -633,6 +719,11 @@ Produce:
 - motion strips;
 - representative high-motion sequences;
 - creative screenplay/shot plan;
+- Creative Bible, semantic Segment Graph, and prompt-lineage receipts;
+- beat-level visual-grounding contracts;
+- story-specific asset broker evaluation;
+- keyframe storyboard and captions-hidden animatic/proxy;
+- comprehension-gate report;
 - generated-code manifest;
 - sanitized GPT-5.6 role receipts;
 - asset candidate manifest;
@@ -666,6 +757,10 @@ These are hypotheses, not quotas.
 ### QA/validation
 
 - creative-model identity/fallback tests;
+- adaptive-decomposition and deterministic-prompt-lineage tests;
+- required-asset/no-silent-substitution tests;
+- storyboard/animatic and comprehension-gate tests;
+- native portrait chart/map/document compiler tests;
 - sandbox/path/import/AST tests;
 - TypeScript/Remotion typecheck;
 - collision/overflow tests;
@@ -1418,7 +1513,7 @@ One implementation receives one independent audit and at most one bounded correc
 
 Current task:
 
-`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_CONCRETE_FIRST_XHIGH_REPLACEMENT_VERTICAL_SLICE_V1`
 
 Current required result:
 
@@ -1435,6 +1530,10 @@ Current exact creative model:
 Current image/asset/voice/audio policy:
 
 preserve the accepted existing paths; expand asset richness; do not churn providers without a blocker.
+
+Current creative-brain policy:
+
+`NineRouterGPT56Brain` is default/active and XHIGH-first; `CodexLocalBrain` is defined but inactive pending a later explicit owner decision.
 
 Current renderer policy:
 

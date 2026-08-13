@@ -75346,7 +75346,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-13T15:01:55Z",
+  "generation_timestamp_utc": "2026-08-13T16:29:58Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -75534,22 +75534,22 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 4021
+      "size_bytes": 6735
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 44246
+      "size_bytes": 50607
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 18480
+      "size_bytes": 24295
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 7535
+      "size_bytes": 8765
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -118612,6 +118612,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "f78e4e0b6ca0535a52c82daaa7cd653135a99358",
-  "source_tree_digest": "f76e7a624e51f84d90aafe237811924d200759adc0fdf185d189763b863cf779"
+  "source_head": "a3b3d545ee8a14497b4df7f832b5ba613c2ad3de",
+  "source_tree_digest": "baca10778d0eab76493ff04e344137b219ca28cbfd2bcb8ce82a58ebde119e46"
 }

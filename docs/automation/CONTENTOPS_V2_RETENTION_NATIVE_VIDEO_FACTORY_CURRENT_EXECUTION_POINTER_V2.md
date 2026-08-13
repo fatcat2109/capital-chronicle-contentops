@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V2 — Current Execution Pointer V2
 
-Authority date: 2026-08-12
+Authority date: 2026-08-13
 Status: `CURRENT_V2_EXECUTION_POINTER`
 
 ## Canonical V2 read order
@@ -19,7 +19,7 @@ Older `...NORTH_STAR_V1`, `...MASTER_PLAN_V1`, `...TASK_GRAPH_V1`, and `...CURRE
 
 ## Current next task
 
-`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_CONCRETE_FIRST_XHIGH_REPLACEMENT_VERTICAL_SLICE_V1`
 
 Required result:
 
@@ -41,9 +41,23 @@ Required primary roles:
 
 GPT-5.6 directly authors screenplay/narration/edit decisions and bounded per-shot creative code. Remotion is deterministic renderer/compiler.
 
-Fallback creative output is `DEGRADED_CREATIVE_MODEL` and cannot self-pass.
+Every fresh creative invocation is XHIGH-first. Fallback creative output is `DEGRADED_CREATIVE_MODEL` and cannot self-pass.
 
-## Current failed reference
+Default/active creative brain: `NineRouterGPT56Brain`.
+
+Defined but inactive owner-controlled fallback: `CodexLocalBrain`. It has no current runtime authority and may be activated only by a later explicit Jim decision after a correctly exercised concrete-first XHIGH replacement still shows systemic failure.
+
+## Current architecture direction
+
+`CONCRETE_FIRST_ABSTRACT_SECOND`
+
+Use adaptive XHIGH decomposition into a Creative Bible and story-specific semantic Segment Graph, deterministic bounded child prompts, beat-level visual-grounding contracts, a rights-safe story-specific asset broker, native chart/map/document compilers, and storyboard/captions-hidden animatic comprehension acceptance before bounded motion-code calls. Never hard-code first-half/second-half segmentation. Required real/contextual assets may not be silently replaced by abstract SVG metaphors.
+
+## Current execution state
+
+R4's canonical independent critic returned `REVISE` with two `MAJOR` short-form findings: the opening did not establish recognizable Hormuz context, and a landscape WTI chart was illegible when letterboxed into 9:16. These localized findings support—but do not fully define—the owner classification `FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE`. Do not merely patch those shots. The active work is a clean controlled replacement proof under the new concrete-first architecture.
+
+## Current failed references
 
 `task/tier2-v2-retention-native-video-factory-vertical-slice-v1`
 
@@ -56,6 +70,20 @@ Classification:
 `FAIL_CREATIVE_MOTION_ARCHITECTURE / REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
 
 Do not merge or continue its creative grammar.
+
+R4 negative reference:
+
+`task/tier2-v2-gpt56-creative-code-asset-rich-video-v1`
+
+HEAD:
+
+`2289eb1382e65474207b50d27c0b87626d30728f`
+
+Classification:
+
+`FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE / NEGATIVE_CREATIVE_REFERENCE_ONLY`
+
+Do not patch or reuse its creative blueprint, generated shot source, abstract visual grammar, unexplained geometry, landscape-chart-in-vertical treatment, or silent real-asset-to-SVG substitution. Preserve only useful governed evidence, rights/provenance, sandbox, audio, caching/selective-rerender, package-locking, and machine-QA engineering.
 
 ## Current provider/asset direction
 
@@ -84,12 +112,18 @@ Community skills are selective craft references only.
 - exact sanitized GPT-5.6 creative-author receipts;
 - sandboxed per-shot source;
 - rich rights-safe candidate assets;
+- concrete visual-grounding contracts and recognizable story-specific assets;
+- Creative Bible + adaptive semantic Segment Graph + deterministic prompt lineage;
+- native portrait/landscape chart, map, and document treatments;
+- keyframe storyboard and captions-hidden animatic/proxy;
+- comprehension-gate evidence before final motion code;
 - roughly 12–20 purposeful short visual states and 25–45 proof states when story supply justifies them;
 - current narration/music/SFX;
 - zero accepted text collisions;
 - motion repetition/chart-crawl diagnostics;
 - independent multimodal critic;
 - maximum two localized creative revision rounds;
+- mechanical corrections accounted separately from creative revisions;
 - actual Jim/ChatGPT media review.
 
 ## Public-write authority
@@ -97,6 +131,10 @@ Community skills are selective craft references only.
 `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
 
 No YouTube/TikTok public or private upload is authorized by the current task.
+
+## Advancement state
+
+V2-01 remains active. V2-02 is blocked until the controlled concrete-first replacement media earns Jim/ChatGPT acceptance. Prefer the same governed EIA/Hormuz benchmark for direct R4 comparison, but do not reuse R4 creative artifacts.
 
 ## Local sync requirement
 
