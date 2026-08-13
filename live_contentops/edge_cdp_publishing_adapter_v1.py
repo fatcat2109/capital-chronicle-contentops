@@ -3036,6 +3036,14 @@ def readback_linkedin_post_via_edge(
     public_screenshot_path: str | Path | None = None,
 ) -> dict[str, Any]:
     """Find an already-published LinkedIn post without performing a write."""
+    return {
+        "status": "READBACK_CAPABILITY_LIMITED",
+        "platform": "linkedin",
+        "reason_code": "LINKEDIN_CDP_TRANSPORT_RETIRED_OFFICIAL_MEMBER_API_REQUIRED",
+        "browser_navigation_performed": False,
+        "browser_write_performed": False,
+    }
+    # Historical implementation below is intentionally preserved as evidence but unreachable.
     with canonical_edge_page(cdp_port) as page:
         public_url = None
         title_line = next((line.strip() for line in expected_text.splitlines() if line.strip()), expected_text)
@@ -3107,6 +3115,14 @@ def reconcile_existing_linkedin_post_via_edge(
     public_screenshot_path: str | Path | None = None,
 ) -> dict[str, Any]:
     """Identify the existing chart post before any edit; this function never writes."""
+    return {
+        "status": "READBACK_CAPABILITY_LIMITED",
+        "platform": "linkedin",
+        "reason_code": "LINKEDIN_CDP_TRANSPORT_RETIRED_OFFICIAL_MEMBER_API_REQUIRED",
+        "browser_navigation_performed": False,
+        "browser_write_performed": False,
+    }
+    # Historical implementation below is intentionally preserved as evidence but unreachable.
     with canonical_edge_page(cdp_port) as page:
         candidate: dict[str, Any] | None = None
         candidate_card = None
@@ -3215,6 +3231,14 @@ def readback_linkedin_activity_via_edge(
     public_screenshot_path: str | Path | None = None,
 ) -> dict[str, Any]:
     """Read one exact LinkedIn activity; never search, retry, or write."""
+    return {
+        "status": "READBACK_CAPABILITY_LIMITED",
+        "platform": "linkedin",
+        "reason_code": "LINKEDIN_CDP_TRANSPORT_RETIRED_OFFICIAL_MEMBER_API_REQUIRED",
+        "browser_navigation_performed": False,
+        "browser_write_performed": False,
+    }
+    # Historical implementation below is intentionally preserved as evidence but unreachable.
     if not post_id or f"urn:li:activity:{post_id}" not in public_url:
         return {"status": "BLOCKED_LINKEDIN_ACTIVITY_TARGET_MISMATCH", "platform": "linkedin", "browser_write_performed": False}
     with canonical_edge_page(cdp_port) as page:
@@ -3272,6 +3296,14 @@ def edit_existing_linkedin_post_via_edge(
     public_screenshot_path: str | Path | None = None,
 ) -> dict[str, Any]:
     """Edit a reconciled LinkedIn post in place. It can never create a post."""
+    return {
+        "status": "BLOCKED_LINKEDIN_CDP_TRANSPORT_RETIRED",
+        "platform": "linkedin",
+        "reason_code": "OFFICIAL_MEMBER_API_REQUIRED",
+        "browser_navigation_performed": False,
+        "browser_write_performed": False,
+    }
+    # Historical implementation below is intentionally preserved as evidence but unreachable.
     if not post_id or f"urn:li:activity:{post_id}" not in public_url:
         return {"status": "BLOCKED_LINKEDIN_EDIT_TARGET_MISMATCH", "platform": "linkedin", "public_url": public_url}
     if not text.strip() or canonical_url not in text or _TECHNICAL_PUBLIC_TEXT_RE.search(text):
@@ -3393,6 +3425,14 @@ def comment_existing_linkedin_post_via_edge(
     public_screenshot_path: str | Path | None = None,
 ) -> dict[str, Any]:
     """Add an author comment to a reconciled image-only post; never create a root."""
+    return {
+        "status": "BLOCKED_LINKEDIN_CDP_TRANSPORT_RETIRED",
+        "platform": "linkedin",
+        "reason_code": "OFFICIAL_MEMBER_API_REQUIRED",
+        "browser_navigation_performed": False,
+        "browser_write_performed": False,
+    }
+    # Historical implementation below is intentionally preserved as evidence but unreachable.
     if not post_id or canonical_url not in text or _TECHNICAL_PUBLIC_TEXT_RE.search(text):
         return {"status": "BLOCKED_LINKEDIN_COMMENT_PAYLOAD_INVALID", "platform": "linkedin"}
     with canonical_edge_page(cdp_port) as page:
@@ -3737,6 +3777,14 @@ def publish_linkedin_post_via_edge(
     canonical_url: str | None = None,
     public_screenshot_path: str | Path | None = None,
 ) -> dict[str, Any]:
+    return {
+        "status": "BLOCKED_LINKEDIN_CDP_TRANSPORT_RETIRED",
+        "platform": "linkedin",
+        "reason_code": "OFFICIAL_MEMBER_API_REQUIRED",
+        "browser_navigation_performed": False,
+        "browser_write_performed": False,
+    }
+    # Historical implementation below is intentionally preserved as evidence but unreachable.
     with canonical_edge_page(cdp_port) as page:
         page.goto("https://www.linkedin.com/feed/", wait_until="domcontentloaded", timeout=45000)
         time.sleep(4)

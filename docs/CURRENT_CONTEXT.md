@@ -31,17 +31,24 @@ preserved. Durable incident rows remain immutable history, while only lifecycle-
 failures contribute to active incidents. Known Node DEP0169 `url.parse()` deprecation noise is
 informational and does not mask arbitrary warnings or exceptions.
 
-Under `KILL_SWITCH`, default background browser intake is paused and LinkedIn is explicitly
-`EXCLUDED_PENDING_OFFICIAL_API_MIGRATION`; no periodic LinkedIn CDP navigation or automated login
-is allowed. LinkedIn remains not READY and destination-local, so it degrades rather than blocks
-overall canonical health. Required readback/reconciliation safety remains active.
+Under `KILL_SWITCH`, default background browser intake is paused. LinkedIn is structurally migrated
+to `OFFICIAL_MEMBER_API`; historical LinkedIn CDP publish/readback entrypoints fail closed before
+browser navigation. Readiness comes from local DPAPI-backed auth metadata without periodic API
+polling. Jim completed bounded official OAuth with `openid`, `profile`, and `w_member_social`;
+the exact authenticated member identity is `Jim Pham`, and readiness is
+`READY_OFFICIAL_MEMBER_API`. The granted product surface does not include `r_member_social`, so
+readback is truthfully `READBACK_CAPABILITY_LIMITED`; exact create-response identity and required
+reconciliation safety remain authoritative.
 
-Next V1 builder lane:
+Completed V1 builder lane:
 
 `TASK_CONTENTOPS_V1_LINKEDIN_OFFICIAL_MEMBER_API_TRANSPORT_V1`
 
-That task exclusively owns OAuth/token exchange, official member identity, posting/readback, and
-retirement of the historical LinkedIn CDP transport. It must not inspect browser session storage.
+Status: `PASS`. The code path owns OAuth/token exchange, official member identity,
+posting/readback, and retirement of the historical LinkedIn CDP transport without inspecting
+browser session storage. The access token is held only in the Windows DPAPI Current User store;
+no refresh token was issued. No public LinkedIn write occurred during acceptance;
+`AUTONOMOUS_DEFAULT` remains off.
 
 Previous completed product/yield task:
 

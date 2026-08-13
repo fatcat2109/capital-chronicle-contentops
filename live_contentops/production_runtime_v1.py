@@ -17,8 +17,8 @@ from live_contentops.destination_transport_registry_v1 import (
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.production_orchestrator_v1 import ContentOpsProductionOrchestrator
 from live_contentops.publication_coordinator_v1 import (
+    CanonicalDestinationTransportRuntimeV1,
     DurablePublicationCoordinator,
-    HistoricalAdapterTransportRuntime,
 )
 from live_contentops.server import make_handler
 
@@ -28,7 +28,7 @@ class FinalDailyAppProductionRuntime:
     store: ContentOpsDurableStore
     orchestrator: ContentOpsProductionOrchestrator
     readiness_manager: DestinationReadinessManager
-    transport_runtime: HistoricalAdapterTransportRuntime
+    transport_runtime: CanonicalDestinationTransportRuntimeV1
     publication_coordinator: DurablePublicationCoordinator
     supervisor: ContentOpsDailyAppSupervisor
     api_server: Optional[HTTPServer] = None
@@ -91,7 +91,7 @@ def build_final_daily_app_production_runtime(
     )
     if run_readiness_probes:
         readiness.probe_all(persist=True)
-    transport = HistoricalAdapterTransportRuntime()
+    transport = CanonicalDestinationTransportRuntimeV1()
     readiness_by_destination = lambda destination: (  # noqa: E731
         next((
             row for row in store.list_destination_readiness()

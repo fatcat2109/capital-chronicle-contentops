@@ -43,7 +43,7 @@ def test_registry_contains_owner_pins_without_changing_transport_routing():
     expected_routing = {
         "SUBSTACK_ARTICLE": ("EDGE_CDP", 9223),
         "X_THREAD": ("EDGE_CDP", 9223),
-        "LINKEDIN_POST": ("OFFICIAL_API_DEFERRED", None),
+        "LINKEDIN_POST": ("OFFICIAL_MEMBER_API", None),
         "YOUTUBE_COMMUNITY_POST": ("EDGE_CDP", 9223),
         "TELEGRAM_CHANNEL_POST": ("BOT_API", None),
         "DISCORD_ANNOUNCEMENT": ("WEBHOOK_API", None),
@@ -160,21 +160,22 @@ def test_cases_i_j_wrong_authenticated_browser_account_is_mismatch(
     assert row["write_eligible"] is False
 
 
-def test_linkedin_is_excluded_without_browser_doctor_or_cdp_navigation(monkeypatch):
+def test_linkedin_official_api_readiness_never_uses_browser_doctor_or_cdp(monkeypatch, tmp_path):
     import live_contentops.edge_cdp_publishing_adapter_v1 as adapter
     import live_contentops.publishing_profile_registry_v1 as profiles
 
     monkeypatch.setattr(
         profiles, "browser_doctor",
-        lambda **_kwargs: pytest.fail("LinkedIn exclusion must not inspect or recover Edge"),
+        lambda **_kwargs: pytest.fail("LinkedIn official API must not inspect or recover Edge"),
     )
     monkeypatch.setattr(
         adapter, "probe_authenticated_platform_session",
-        lambda *_args, **_kwargs: pytest.fail("LinkedIn exclusion must not navigate CDP"),
+        lambda *_args, **_kwargs: pytest.fail("LinkedIn official API must not navigate CDP"),
     )
-    row = DestinationReadinessManager(env={}).probe_surface("LINKEDIN_POST")
-    assert row["readiness_state"] == "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION"
-    assert row["probe_kind"] == "REGISTRY_EXCLUSION_NO_NETWORK"
+    row = DestinationReadinessManager(env={}, linkedin_auth_root=tmp_path).probe_surface("LINKEDIN_POST")
+    assert row["readiness_state"] == "SESSION_UNAVAILABLE"
+    assert row["sanitized_detail"]["official_api_state"] == "AUTH_UNAVAILABLE"
+    assert row["probe_kind"] == "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA"
     assert row["sanitized_detail"]["cdp_navigation_performed"] is False
     assert row["write_eligible"] is False
 

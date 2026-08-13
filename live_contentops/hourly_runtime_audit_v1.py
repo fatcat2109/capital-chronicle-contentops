@@ -238,10 +238,8 @@ def _classify(report: Mapping[str, Any]) -> tuple[str, list[str]]:
     for row in report["destinations"]:
         platform = str(row.get("platform_id") or "")
         readiness = str(row.get("readiness") or "")
-        if platform == "linkedin" and readiness in {
-            *critical_auth_states, "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
-        }:
-            reasons.append("LINKEDIN_EXCLUDED_PENDING_OFFICIAL_API_MIGRATION")
+        if platform == "linkedin" and readiness in {"TOKEN_EXPIRING", "AUTH_UNAVAILABLE", *critical_auth_states}:
+            reasons.append(f"LINKEDIN_OFFICIAL_MEMBER_API:{readiness}")
         elif readiness in critical_auth_states:
             reasons.append(f"DESTINATION_AUTH_REQUIRED:{platform or 'unknown'}")
             action_required = True

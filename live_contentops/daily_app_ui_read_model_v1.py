@@ -69,7 +69,7 @@ TIER1_DESTINATIONS = (
     ("telegram", "Telegram", "NON_BROWSER_BINDING"),
     ("discord", "Discord", "NON_BROWSER_BINDING"),
     ("x", "X", "BROWSER_AUTHENTICATED"),
-    ("linkedin", "LinkedIn", "OFFICIAL_API_DEFERRED"),
+    ("linkedin", "LinkedIn", "OFFICIAL_MEMBER_API"),
     ("facebook_page", "Facebook Page", "NON_BROWSER_BINDING"),
     ("instagram_business", "Instagram Business", "NON_BROWSER_BINDING"),
     ("threads", "Threads", "NON_BROWSER_BINDING"),
@@ -483,35 +483,38 @@ def build_daily_app_snapshot(
         "SESSION_UNAVAILABLE": "Configure or restore the exact destination binding.",
         "TRANSIENT_DEGRADED": "Allow bounded automatic health checks; inspect the provider if degradation persists.",
         "CAPABILITY_UNSUPPORTED": "Do not publish to this surface from the Tier-1 runtime.",
+        "TOKEN_EXPIRING": "Reauthorize LinkedIn before the displayed expiry time.",
+        "AUTH_UNAVAILABLE": "Complete the bounded LinkedIn official-member OAuth flow.",
     }
     for row in readiness_rows:
         state = str(row["readiness_state"])
-        if str(row["surface"]) == "LINKEDIN_POST":
-            # LinkedIn browser transport is intentionally excluded pending the official
-            # member API migration. Persisted historical CDP readiness is not current
-            # authority; expose one current destination-local exclusion without asking the
-            # operator to reauthenticate or allowing it to block other destinations.
-            incidents.append({
-                "incident_id": "derived:readiness:LINKEDIN_POST",
-                "severity": "MEDIUM",
-                "what_happened": "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
-                "safe_now": "LinkedIn is ineligible for new writes; other exact READY destinations remain independent.",
-                "automatic_action": "No periodic LinkedIn browser navigation or automated login is performed.",
-                "operator_action": "No reauthentication action is required; complete the dedicated official member API migration task.",
-                "work_item_id": None,
-                "created_at_utc": row["probed_at_utc"],
-                "source": "derived.destination_readiness",
-            })
-            continue
+        row_detail = _json(row.get("sanitized_detail_json"), {})
+        if str(row["surface"]) == "LINKEDIN_POST" and (
+            str(row.get("transport_type") or "") != "OFFICIAL_MEMBER_API"
+            or str(row.get("probe_kind") or "") != "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA"
+        ):
+            # Historical browser readiness is never authority after the official API cutover.
+            state = "AUTH_UNAVAILABLE"
+        elif str(row["surface"]) == "LINKEDIN_POST":
+            state = str(row_detail.get("official_api_state") or "AUTH_UNAVAILABLE")
         if state in READY_STATES:
             continue
         incidents.append({
             "incident_id": f"derived:readiness:{row['surface']}",
-            "severity": "HIGH" if state in {"REAUTH_REQUIRED", "AUTH_INVALID", "IDENTITY_MISMATCH", "PERMISSION_MISSING"} else "MEDIUM",
+            "severity": "HIGH" if state in {"REAUTH_REQUIRED", "AUTH_INVALID", "AUTH_UNAVAILABLE", "IDENTITY_MISMATCH", "PERMISSION_MISSING"} else "MEDIUM",
             "what_happened": state,
             "safe_now": "This destination is excluded from new writes; other exact READY destinations remain independent.",
-            "automatic_action": "The Daily App continues bounded read-only health checks and safe recovery.",
-            "operator_action": readiness_operator_action.get(state, "Inspect the exact destination readiness state."),
+            "automatic_action": (
+                "No periodic LinkedIn browser navigation or automated login is performed."
+                if str(row["surface"]) == "LINKEDIN_POST"
+                else "The Daily App continues bounded read-only health checks and safe recovery."
+            ),
+            "operator_action": (
+                "Run the bounded LinkedIn official-member OAuth helper and authorize Jim Pham."
+                if str(row["surface"]) == "LINKEDIN_POST"
+                and state in {"REAUTH_REQUIRED", "TOKEN_EXPIRING", "AUTH_UNAVAILABLE"}
+                else readiness_operator_action.get(state, "Inspect the exact destination readiness state.")
+            ),
             "work_item_id": None,
             "created_at_utc": row["probed_at_utc"],
             "source": "derived.destination_readiness",
@@ -566,15 +569,22 @@ def build_daily_app_snapshot(
         last = next((dispatch_by_platform[a] for a in aliases if a in dispatch_by_platform), None)
         readiness = readiness_by_surface.get(DESTINATION_TO_SURFACE.get(platform_id, ""), {})
         readiness_state = str(readiness.get("readiness_state") or "READINESS_NOT_PROBED")
-        if platform_id == "linkedin":
-            readiness_state = "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION"
+        if platform_id == "linkedin" and readiness and (
+            str(readiness.get("transport_type") or "") != "OFFICIAL_MEMBER_API"
+            or str(readiness.get("probe_kind") or "") != "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA"
+        ):
+            readiness_state = "AUTH_UNAVAILABLE"
             readiness = {
                 **readiness,
                 "destination_identity": None,
                 "identity_match": False,
-                "probe_kind": "REGISTRY_EXCLUSION_NO_NETWORK",
-                "transport_type": "OFFICIAL_API_DEFERRED",
+                "probe_kind": "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA",
+                "transport_type": "OFFICIAL_MEMBER_API",
+                "sanitized_detail_json": "{}",
             }
+        sanitized_detail = _json(readiness.get("sanitized_detail_json"), {})
+        if platform_id == "linkedin" and readiness:
+            readiness_state = str(sanitized_detail.get("official_api_state") or "AUTH_UNAVAILABLE")
         platform_models.append({
             "platform_id": platform_id,
             "display_name": display_name,
@@ -589,6 +599,10 @@ def build_daily_app_snapshot(
             "probe_kind": readiness.get("probe_kind"),
             "probed_at_utc": readiness.get("probed_at_utc"),
             "transport_type": readiness.get("transport_type"),
+            "authenticated": bool(sanitized_detail.get("authenticated")) if platform_id == "linkedin" else None,
+            "auth_expiry_at_utc": sanitized_detail.get("expiry_at_utc") if platform_id == "linkedin" else None,
+            "auth_days_remaining": sanitized_detail.get("days_remaining") if platform_id == "linkedin" else None,
+            "readback_capability": sanitized_detail.get("readback_capability") if platform_id == "linkedin" else None,
             "last_dispatch_state": last["lifecycle_classification"] if last else "NO_DISPATCH_RECORDED",
             "last_successful_readback_at_utc": (
                 max((rb["read_at_utc"] for rb in readbacks_by_dispatch[str(last["dispatch_id"])]), default=None)

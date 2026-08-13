@@ -122,7 +122,7 @@ def normalize_readback_result(
         "public_object_url", "public_url", "post_url", "permalink", "url", "root_url",
     ) if raw.get(k) not in (None, "")), None)
     absent = raw.get("write_absent") is True or str(raw.get("status") or "").upper() in {
-        "NOT_FOUND", "ABSENT", "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "NOT_FOUND", "ABSENT", "ABSENT_SAFE_TO_RETRY", "RECONCILED_ABSENT_SAFE_TO_RETRY",
     }
     verified_flag = any(raw.get(k) is True for k in (
         "verified", "readback_verified", "public_readback_verified", "strict_readback_verified",
@@ -784,14 +784,24 @@ class DurablePublicationCoordinator:
         return collector(*args, **kwargs) if callable(collector) else {"status": "METRICS_UNAVAILABLE"}
 
 
-class HistoricalAdapterTransportRuntime:
-    """Thin production wrapper over the accepted adapter family; no alternate transports."""
+class CanonicalDestinationTransportRuntimeV1:
+    """Single coordinator transport router; LinkedIn is official-member API only."""
 
-    def __init__(self) -> None:
+    def __init__(self, *, linkedin_transport: Any = None) -> None:
         self._strict_publish_readbacks: dict[tuple[str, str], Mapping[str, Any]] = {}
+        if linkedin_transport is None:
+            from live_contentops.linkedin_official_member_api_v1 import (
+                LinkedInOfficialMemberApiTransportV1,
+            )
+            linkedin_transport = LinkedInOfficialMemberApiTransportV1()
+        self._linkedin_transport = linkedin_transport
 
     def publish(self, *, destination: str, intent: Mapping[str, Any],
                 authorization_context: Mapping[str, Any]) -> Mapping[str, Any]:
+        if destination == "linkedin":
+            return self._linkedin_transport.publish(
+                intent=intent, authorization_context=authorization_context,
+            )
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import (
             _publish_one_destination_from_durable_intent,
         )
@@ -828,6 +838,12 @@ class HistoricalAdapterTransportRuntime:
 
     def readback(self, *, destination: str, public_object_id: Optional[str],
                  public_object_url: Optional[str], intent: Mapping[str, Any]) -> Mapping[str, Any]:
+        if destination == "linkedin":
+            return self._linkedin_transport.readback(
+                public_object_id=public_object_id,
+                public_object_url=public_object_url,
+                intent=intent,
+            )
         cached = self._strict_publish_readbacks.get((destination, str(public_object_id or "")))
         if cached is not None:
             return {
@@ -846,3 +862,8 @@ class HistoricalAdapterTransportRuntime:
 
     def collect_metrics(self, *args: Any, **kwargs: Any) -> Mapping[str, Any]:
         return {"status": "BOUNDED_PLATFORM_METRICS_ROUTER_AVAILABLE", "observations": []}
+
+
+# Compatibility import only. Runtime composition uses the canonical name above; the alias does
+# not restore or route LinkedIn to the historical CDP implementation.
+HistoricalAdapterTransportRuntime = CanonicalDestinationTransportRuntimeV1

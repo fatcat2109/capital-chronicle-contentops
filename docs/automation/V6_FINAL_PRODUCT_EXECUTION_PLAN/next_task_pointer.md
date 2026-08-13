@@ -27,18 +27,24 @@ The accepted Today/Controls/Shutdown All/Background Logs/hourly-audit UI is cano
 permanent launcher is `A:\Capital Chronicle\ContentOps\Start_ContentOps_Daily_App.cmd`; the hourly
 Scheduled Task is installed from that checkout. All current headline capture/read paths use the
 stable runtime root `A:\Capital Chronicle\Runtime\ContentOps\headline_ingestion\data`, never the
-active worktree. Active incidents are separated from immutable recent history. LinkedIn remains
-`EXCLUDED_PENDING_OFFICIAL_API_MIGRATION`, not READY, and receives no periodic CDP navigation.
+active worktree. Active incidents are separated from immutable recent history. LinkedIn is
+structurally migrated to `OFFICIAL_MEMBER_API`; historical CDP entrypoints fail closed before
+navigation and local sanitized auth metadata is the readiness authority. Bounded OAuth is complete,
+the exact authenticated member is `Jim Pham`, and readiness is `READY_OFFICIAL_MEMBER_API` with
+truthful `READBACK_CAPABILITY_LIMITED` classification.
 Idle `KILL_SWITCH` keeps public writes blocked and pauses default background browser intake without
 disabling required readback/reconciliation.
 
-## V1 next builder lane
+## V1 completed builder lane
 
 `TASK_CONTENTOPS_V1_LINKEDIN_OFFICIAL_MEMBER_API_TRANSPORT_V1`
 
 This task owns the official personal-member OAuth transport, member identity resolution,
-posting/readback, secure token handling, and final retirement of LinkedIn CDP publication polling.
-No OAuth/token exchange was performed by the operator-control-plane task.
+posting/readback, DPAPI token handling, and final retirement of LinkedIn CDP publication polling.
+Status: `PASS`. OAuth, DPAPI storage, and exact member-identity confirmation are proven with
+`openid`, `profile`, and `w_member_social`; no refresh token was issued. Acceptance performed zero
+public write. The official write path is reserved for the first natural real article after all
+ordinary canonical publication gates authorize it; no synthetic LinkedIn test post is required.
 
 ## Previous V1 completed builder lane
 

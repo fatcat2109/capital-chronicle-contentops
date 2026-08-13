@@ -1,0 +1,44 @@
+{
+  "schema_version": "contentops.linkedin_official_member_api_acceptance.v1",
+  "task": "TASK_CONTENTOPS_V1_LINKEDIN_OFFICIAL_MEMBER_API_TRANSPORT_V1",
+  "accepted_at_utc": "2026-08-13T14:56:06.815403Z",
+  "result": "PASS",
+  "zero_public_write": true,
+  "kill_switch_active": true,
+  "autonomous_default_enabled": false,
+  "environment_name_presence": {
+    "LINKEDIN_CLIENT_ID": true,
+    "LINKEDIN_CLIENT_SECRET": true,
+    "LINKEDIN_OAUTH_REDIRECT_URI": true
+  },
+  "oauth": {
+    "callback_received": true,
+    "access_token_issued": true,
+    "access_token_expires_at_utc": "2026-10-12T14:54:01.757677Z",
+    "refresh_token_issued": false,
+    "granted_scopes": [
+      "openid",
+      "profile",
+      "w_member_social"
+    ],
+    "secure_token_store": "WINDOWS_DPAPI_CURRENT_USER:contentops.linkedin.member.v1"
+  },
+  "authenticated_member": {
+    "display_name": "Jim Pham",
+    "person_urn": "urn:li:person:woQvypKRGB",
+    "identity_match": true
+  },
+  "transport": {
+    "type": "OFFICIAL_MEMBER_API",
+    "registry_version": "contentops.destination_transport_registry.v2",
+    "official_api_state": "READY_OFFICIAL_MEMBER_API",
+    "registry_readiness_state": "READY_NON_BROWSER_BINDING",
+    "readback_capability": "READBACK_CAPABILITY_LIMITED",
+    "cdp_navigation_performed": false,
+    "network_probe_performed": false,
+    "historical_linkedin_cdp_entrypoints_fail_closed": true
+  },
+  "contains_secrets": false,
+  "contains_authorization_code": false,
+  "contains_token_value": false
+}

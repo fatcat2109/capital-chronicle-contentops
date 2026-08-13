@@ -93,9 +93,17 @@ Previous completed V1 builder lane:
 
 Status: `PASS`; `JIM_CHATGPT_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE=PASS`. The accepted Golden recovery is integrated with the current prepared-candidate/one-writer architecture. Publication links are now deterministically serialized from stable accepted source identities, while evidence depth is measured independently from factual eligibility and enriched only when necessary. A frozen replay of a genuine current 1,102-headline opportunity produced a useful three-paragraph BLS CPI brief, factual/reader-value PASS, one writer call, zero mandatory semantic-review calls, a purposeful rights-aware media attempt, and nine zero-write packages. No policy-ceremony-only block was observed; public writes and unknown writes remained zero throughout correction/shadow work.
 
-Next V1 builder lane:
+Completed V1 builder lane:
 
 `TASK_CONTENTOPS_V1_LINKEDIN_OFFICIAL_MEMBER_API_TRANSPORT_V1`
+
+LinkedIn is structurally routed through the official personal-member API; its historical CDP
+publish/readback entrypoints fail closed before navigation. Local sanitized auth metadata is the
+readiness authority. Bounded OAuth succeeded with `openid`, `profile`, and `w_member_social`; the
+authenticated identity is exactly `Jim Pham`, Windows DPAPI Current User is the secure token-store
+binding, and readiness is `READY_OFFICIAL_MEMBER_API`. No refresh token was issued. Readback remains
+explicitly `READBACK_CAPABILITY_LIMITED` because `r_member_social` was not granted. Status: `PASS`;
+no public LinkedIn acceptance post occurred or was authorized.
 
 The latest real production day legitimately ended `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`; zero publication was correct. The 5–8 article/day band remains a target, not filler permission.
 

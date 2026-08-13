@@ -16,14 +16,17 @@ from datetime import datetime, timezone
 from typing import Any, Mapping, Optional, Sequence
 
 
-REGISTRY_VERSION = "contentops.destination_transport_registry.v1"
-IDENTITY_AUTHORITY_VERSION = "contentops.destination_identity_authority.v1"
+REGISTRY_VERSION = "contentops.destination_transport_registry.v2"
+IDENTITY_AUTHORITY_VERSION = "contentops.destination_identity_authority.v2"
 PUBLISHING_CDP_PORT = 9223
 INGESTION_ONLY_CDP_PORT = 9222
 
 READY_AUTHENTICATED = "READY_AUTHENTICATED"
 READY_NON_BROWSER_BINDING = "READY_NON_BROWSER_BINDING"
-READY_STATES = frozenset({READY_AUTHENTICATED, READY_NON_BROWSER_BINDING})
+READY_OFFICIAL_MEMBER_API = "READY_OFFICIAL_MEMBER_API"
+READY_STATES = frozenset({
+    READY_AUTHENTICATED, READY_NON_BROWSER_BINDING, READY_OFFICIAL_MEMBER_API,
+})
 READINESS_STATES = frozenset({
     *READY_STATES,
     "REAUTH_REQUIRED",
@@ -34,7 +37,8 @@ READINESS_STATES = frozenset({
     "TRANSPORT_UNAVAILABLE",
     "TRANSIENT_DEGRADED",
     "CAPABILITY_UNSUPPORTED",
-    "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
+    "TOKEN_EXPIRING",
+    "AUTH_UNAVAILABLE",
 })
 
 
@@ -74,8 +78,9 @@ _SURFACES = (
         expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@Capitalnicle",
     ),
     SurfaceTransport(
-        "LINKEDIN_POST", "linkedin", "OFFICIAL_API_DEFERRED", "future:linkedin.official_member_api",
-        "linkedin", "linkedin:jimcc", tier1_write_enabled=False,
+        "LINKEDIN_POST", "linkedin", "OFFICIAL_MEMBER_API",
+        "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "linkedin", "linkedin:jimcc",
         canonical_url_dependency="SUBSTACK_ARTICLE",
         expected_identity_kind="PUBLIC_IDENTITY", expected_public_handle="linkedin:jimcc",
     ),
@@ -160,7 +165,7 @@ def canonical_transport_registry() -> dict[str, Any]:
         "runtime_binding_is_identity_authority": False,
         "youtube_community_is_video_surface": False,
         "linkedin_edge_cdp_probe_allowed": False,
-        "linkedin_runtime_state": "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
+        "linkedin_runtime_state": "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA",
     }
 
 
@@ -297,11 +302,51 @@ class DestinationReadinessManager:
     """Bounded read-only current identity probes with optional schema-v8 persistence."""
 
     def __init__(self, *, store: Any = None, env: Mapping[str, str] | None = None,
-                 edge_runtime_ensurer: Any = None) -> None:
+                 edge_runtime_ensurer: Any = None, linkedin_auth_root: Any = None,
+                 linkedin_transport: Any = None) -> None:
         validate_registry()
         self.store = store
         self.env = os.environ if env is None else env
         self.edge_runtime_ensurer = edge_runtime_ensurer
+        self.linkedin_auth_root = linkedin_auth_root
+        self.linkedin_transport = linkedin_transport
+
+    def _linkedin_probe(self, registration: SurfaceTransport) -> dict[str, Any]:
+        """Use secure local auth metadata only; never navigate or poll linkedin.com."""
+        if self.linkedin_transport is None:
+            from live_contentops.linkedin_official_member_api_v1 import (
+                DEFAULT_AUTH_ROOT,
+                LinkedInOfficialMemberApiTransportV1,
+            )
+            self.linkedin_transport = LinkedInOfficialMemberApiTransportV1(
+                auth_root=self.linkedin_auth_root or DEFAULT_AUTH_ROOT
+            )
+        result = dict(self.linkedin_transport.readiness())
+        official_state = str(result.get("state") or "AUTH_UNAVAILABLE")
+        state = {
+            "READY_OFFICIAL_MEMBER_API": READY_NON_BROWSER_BINDING,
+            "TOKEN_EXPIRING": "TRANSIENT_DEGRADED",
+            "REAUTH_REQUIRED": "REAUTH_REQUIRED",
+            "AUTH_UNAVAILABLE": "SESSION_UNAVAILABLE",
+        }.get(official_state, "SESSION_UNAVAILABLE")
+        authenticated = bool(result.get("authenticated"))
+        return _base_row(
+            registration,
+            state=state,
+            identity=str(result.get("safe_identity") or "") or None,
+            identity_match=authenticated,
+            probe_kind="OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA",
+            detail={
+                "authenticated": authenticated,
+                "official_api_state": official_state,
+                "expiry_at_utc": result.get("expiry_at_utc"),
+                "days_remaining": result.get("days_remaining"),
+                "readback_capability": result.get("readback_capability"),
+                "secure_store_binding": result.get("secure_store_binding"),
+                "cdp_navigation_performed": False,
+                "network_probe_performed": False,
+            },
+        )
 
     def _browser_probe(self, registration: SurfaceTransport) -> dict[str, Any]:
         from live_contentops.edge_cdp_publishing_adapter_v1 import (
@@ -504,20 +549,7 @@ class DestinationReadinessManager:
     def probe_surface(self, surface: str) -> dict[str, Any]:
         registration = SURFACE_REGISTRY[surface]
         if registration.surface == "LINKEDIN_POST":
-            # Owner decision: periodic readiness must never navigate LinkedIn via CDP.  The
-            # next authorized transport is the official member API and is not implemented in
-            # this task, so the destination remains explicitly fail-closed and write-ineligible.
-            return _base_row(
-                registration,
-                state="EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
-                identity=None,
-                identity_match=False,
-                probe_kind="REGISTRY_EXCLUSION_NO_NETWORK",
-                detail={
-                    "cdp_navigation_performed": False,
-                    "official_api_transport_ready": False,
-                },
-            )
+            return self._linkedin_probe(registration)
         if not registration.tier1_write_enabled:
             return _base_row(registration, state="CAPABILITY_UNSUPPORTED", identity=None,
                              identity_match=False, probe_kind="REGISTRY_CAPABILITY",

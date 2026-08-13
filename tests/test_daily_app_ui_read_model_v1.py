@@ -141,7 +141,7 @@ def test_historical_unlinked_and_terminal_incidents_are_not_active(tmp_path):
     assert all(not row["current_actionable"] for row in snapshot["incidents"]["recent_history"])
 
 
-def test_linkedin_persisted_browser_readiness_is_overridden_by_official_api_exclusion(tmp_path):
+def test_linkedin_persisted_browser_readiness_is_overridden_by_official_api_auth_state(tmp_path):
     store = _store(tmp_path)
     store.upsert_destination_readiness(row={
         "surface": "LINKEDIN_POST",
@@ -161,16 +161,52 @@ def test_linkedin_persisted_browser_readiness_is_overridden_by_official_api_excl
         row for row in snapshot["platforms"]["destinations"]
         if row["platform_id"] == "linkedin"
     )
-    assert linkedin["readiness"] == "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION"
-    assert linkedin["transport_type"] == "OFFICIAL_API_DEFERRED"
+    assert linkedin["readiness"] == "AUTH_UNAVAILABLE"
+    assert linkedin["transport_type"] == "OFFICIAL_MEMBER_API"
     assert linkedin["write_eligible"] is False
     incident = next(
         row["incident_id"] == "derived:readiness:LINKEDIN_POST"
         and row
         for row in snapshot["incidents"]["items"]
     )
-    assert incident["what_happened"] == "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION"
-    assert "No reauthentication" in incident["operator_action"]
+    assert incident["what_happened"] == "AUTH_UNAVAILABLE"
+    assert "official-member OAuth" in incident["operator_action"]
+
+
+def test_linkedin_official_member_api_auth_projection_is_sanitized(tmp_path):
+    store = _store(tmp_path)
+    store.upsert_destination_readiness(row={
+        "surface": "LINKEDIN_POST",
+        "platform": "linkedin",
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "OFFICIAL_MEMBER_API",
+        "readiness_state": "READY_NON_BROWSER_BINDING",
+        "destination_identity": "Jim Pham",
+        "identity_match": True,
+        "write_eligible": True,
+        "probe_kind": "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA",
+        "probed_at_utc": "2026-08-13T11:00:00Z",
+        "sanitized_detail": {
+            "authenticated": True,
+            "official_api_state": "READY_OFFICIAL_MEMBER_API",
+            "expiry_at_utc": "2026-10-12T11:00:00Z",
+            "days_remaining": 60,
+            "readback_capability": "READBACK_CAPABILITY_LIMITED",
+            "secure_store_binding": "WINDOWS_DPAPI_CURRENT_USER:contentops.linkedin.member.v1",
+            "cdp_navigation_performed": False,
+            "network_probe_performed": False,
+        },
+    })
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    linkedin = next(row for row in snapshot["platforms"]["destinations"] if row["platform_id"] == "linkedin")
+    assert linkedin["readiness"] == "READY_OFFICIAL_MEMBER_API"
+    assert linkedin["write_eligible"] is True
+    assert linkedin["authenticated"] is True
+    assert linkedin["auth_expiry_at_utc"] == "2026-10-12T11:00:00Z"
+    assert linkedin["auth_days_remaining"] == 60
+    assert linkedin["safe_identity"] == "Jim Pham"
+    assert linkedin["transport_type"] == "OFFICIAL_MEMBER_API"
+    assert linkedin["readback_capability"] == "READBACK_CAPABILITY_LIMITED"
 
 
 def test_publication_lifecycle_classes_are_exact(tmp_path):
@@ -229,7 +265,7 @@ def test_no_publication_and_platform_unavailable_are_truthful(tmp_path):
     assert snapshot["published"]["empty_reason"] == "NO_REAL_PUBLICATIONS_YET"
     assert snapshot["published"]["real_publication_count"] == 0
     assert {row["readiness"] for row in snapshot["platforms"]["destinations"]} == {
-        "READINESS_NOT_PROBED", "EXCLUDED_PENDING_OFFICIAL_API_MIGRATION",
+        "READINESS_NOT_PROBED",
     }
     assert not any(row["write_eligible"] for row in snapshot["platforms"]["destinations"])
 
