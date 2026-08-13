@@ -1,0 +1,202 @@
+{
+  "candidate_count": 54,
+  "current_story_rejected_render": "docs/automation/CONTENTOPS_V1_REAL_MEDIA_DISCOVERY_AND_EVIDENCE_FRICTION_CALIBRATION_V1/shadow_opportunity_3/current_story_rejected_render.png",
+  "documentary_article_html": "docs/automation/CONTENTOPS_V1_REAL_MEDIA_DISCOVERY_AND_EVIDENCE_FRICTION_CALIBRATION_V1/strait_of_hormuz_media_proof/strait_of_hormuz_contextual_article.html",
+  "documentary_article_png": "docs/automation/CONTENTOPS_V1_REAL_MEDIA_DISCOVERY_AND_EVIDENCE_FRICTION_CALIBRATION_V1/strait_of_hormuz_media_proof/strait_of_hormuz_contextual_article.png",
+  "eligible_count": 17,
+  "operating_mode": "KILL_SWITCH",
+  "provider_failures": [
+    {
+      "discovery_provider": "wikimedia_commons",
+      "failure_class": "HTTPError",
+      "visual_intent": "INFRASTRUCTURE_CONTEXT"
+    }
+  ],
+  "providers_exercised": [
+    "openverse",
+    "wikimedia_commons"
+  ],
+  "public_write_authority": false,
+  "public_write_performed": false,
+  "schema_version": "contentops.real_media_discovery_and_friction_proof.v1",
+  "search_thumbnails_selected_for_delivery": false,
+  "selected_assets": [
+    {
+      "asset_series_key": "port view the guided missile frigate uss taylor ffg passes tanker after going through the strait hormuz during operation desert shield dpla 1fb70620034c5304df096b4526972ace",
+      "attribution": "Department of Defense. American Forces Information Service. Defense Visual Information Center. 1994",
+      "candidate_description": "The original finding aid described this photograph as: Subject Operation/Series: DESERT SHIELD Country: Unknown Scene Camera Operator: Unknown Release Status: Released to Public",
+      "candidate_mime_type": "image/jpeg",
+      "candidate_title": "File:A port view of the guided missile frigate USS TAYLOR (FFG-50) as it passes a tanker after going through the Strait of Hormuz during Operation Desert Shield - DPLA - 1fb70620034c5304df096b4526972ace.jpeg",
+      "composition_score": 0.65,
+      "content_hash": "sha1:4b6cf6b365565b1218f5faf2300bca233b81d1e8",
+      "content_hash_basis": "WIKIMEDIA_ORIGINAL_ASSET_SHA1",
+      "contextual_incident_mismatch": false,
+      "creator_publisher": "Department of Defense. American Forces Information Service. Defense Visual Information Center. 1994",
+      "delivery_verification": {
+        "delivery_basis": "WIKIMEDIA_HIGH_RESOLUTION_DERIVATIVE_OF_RESOLVED_ORIGINAL",
+        "delivery_content_type": "image/jpeg",
+        "delivery_height": 1275,
+        "delivery_is_discovery_thumbnail": false,
+        "delivery_sha256": "1ec916de57af673ec2d56171ddbf7afffaf57e47412e3d47636ba155fc638701",
+        "delivery_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/A_port_view_of_the_guided_missile_frigate_USS_TAYLOR_%28FFG-50%29_as_it_passes_a_tanker_after_going_through_the_Strait_of_Hormuz_during_Operation_Desert_Shield_-_DPLA_-_1fb70620034c5304df096b4526972ace.jpeg/1920px-thumbnail.jpeg",
+        "delivery_width": 1920,
+        "local_path": "docs/automation/CONTENTOPS_V1_REAL_MEDIA_DISCOVERY_AND_EVIDENCE_FRICTION_CALIBRATION_V1/strait_of_hormuz_media_proof/selected_documentary_original.jpg"
+      },
+      "discovery_provider": "wikimedia_commons",
+      "discovery_thumbnail_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/A_port_view_of_the_guided_missile_frigate_USS_TAYLOR_%28FFG-50%29_as_it_passes_a_tanker_after_going_through_the_Strait_of_Hormuz_during_Operation_Desert_Shield_-_DPLA_-_1fb70620034c5304df096b4526972ace.jpeg/960px-thumbnail.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "documentary_generated_classification": "DOCUMENTARY",
+      "editorial_usefulness_score": 0.95,
+      "height": 1880,
+      "license_url": "",
+      "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/1/15/A_port_view_of_the_guided_missile_frigate_USS_TAYLOR_%28FFG-50%29_as_it_passes_a_tanker_after_going_through_the_Strait_of_Hormuz_during_Operation_Desert_Shield_-_DPLA_-_1fb70620034c5304df096b4526972ace.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "perceptual_hash": "ffffff1818000000",
+      "perceptual_hash_basis": "DISCOVERY_THUMBNAIL_NOT_DELIVERY_ASSET",
+      "query": "Strait of Hormuz tanker",
+      "ranking_score": 0.87,
+      "reuse_basis": "Public domain; Public domain",
+      "rights_status": "PUBLIC_DOMAIN",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:A_port_view_of_the_guided_missile_frigate_USS_TAYLOR_(FFG-50)_as_it_passes_a_tanker_after_going_through_the_Strait_of_Hormuz_during_Operation_Desert_Shield_-_DPLA_-_1fb70620034c5304df096b4526972ace.jpeg",
+      "story_relevance_score": 1.0,
+      "subject_correctness_score": 1.0,
+      "validation": {
+        "blockers": [],
+        "publication_authority": false,
+        "rights_verified": true,
+        "search_thumbnail_publishable": false,
+        "status": "PASS"
+      },
+      "visual_diversity_score": 0.75,
+      "visual_intent": "HERO_DOCUMENTARY",
+      "width": 2830
+    },
+    {
+      "asset_series_key": "panoramio",
+      "attribution": "Ali khodabakhsh",
+      "candidate_description": "Strait of Hormuz near Bandar Abbas, Iran",
+      "candidate_mime_type": "image/jpeg",
+      "candidate_title": "File:\u062a\u0627\u0628\u0634 \u0622\u0641\u062a\u0627\u0628 \u0627\u0632 \u0628\u06cc\u0646 \u0627\u0628\u0631\u0647\u0627 - panoramio.jpg",
+      "composition_score": 0.65,
+      "content_hash": "sha1:863aff0ef5470f47e1309195bd4d86c6b780ff41",
+      "content_hash_basis": "WIKIMEDIA_ORIGINAL_ASSET_SHA1",
+      "contextual_incident_mismatch": false,
+      "creator_publisher": "Ali khodabakhsh",
+      "discovery_provider": "wikimedia_commons",
+      "discovery_thumbnail_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/%D8%AA%D8%A7%D8%A8%D8%B4_%D8%A2%D9%81%D8%AA%D8%A7%D8%A8_%D8%A7%D8%B2_%D8%A8%DB%8C%D9%86_%D8%A7%D8%A8%D8%B1%D9%87%D8%A7_-_panoramio.jpg/960px-%D8%AA%D8%A7%D8%A8%D8%B4_%D8%A2%D9%81%D8%AA%D8%A7%D8%A8_%D8%A7%D8%B2_%D8%A8%DB%8C%D9%86_%D8%A7%D8%A8%D8%B1%D9%87%D8%A7_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "documentary_generated_classification": "DOCUMENTARY",
+      "editorial_usefulness_score": 0.95,
+      "height": 768,
+      "license_url": "https://creativecommons.org/licenses/by/3.0",
+      "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/5/58/%D8%AA%D8%A7%D8%A8%D8%B4_%D8%A2%D9%81%D8%AA%D8%A7%D8%A8_%D8%A7%D8%B2_%D8%A8%DB%8C%D9%86_%D8%A7%D8%A8%D8%B1%D9%87%D8%A7_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "perceptual_hash": "fcfcf8f0fef00000",
+      "perceptual_hash_basis": "DISCOVERY_THUMBNAIL_NOT_DELIVERY_ASSET",
+      "query": "Strait of Hormuz",
+      "ranking_score": 0.87,
+      "reuse_basis": "CC BY 3.0; Creative Commons Attribution 3.0",
+      "rights_status": "OPEN_LICENSED",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:%D8%AA%D8%A7%D8%A8%D8%B4_%D8%A2%D9%81%D8%AA%D8%A7%D8%A8_%D8%A7%D8%B2_%D8%A8%DB%8C%D9%86_%D8%A7%D8%A8%D8%B1%D9%87%D8%A7_-_panoramio.jpg",
+      "story_relevance_score": 1.0,
+      "subject_correctness_score": 1.0,
+      "validation": {
+        "blockers": [],
+        "publication_authority": false,
+        "rights_verified": true,
+        "search_thumbnail_publishable": false,
+        "status": "PASS"
+      },
+      "visual_diversity_score": 0.75,
+      "visual_intent": "LOCATION_CONTEXT",
+      "width": 1024
+    }
+  ],
+  "selected_count": 2,
+  "shadow_opportunities": {
+    "aggregate_blocker_taxonomy_counts": {
+      "DATA_NOT_AVAILABLE": 21,
+      "FACTUAL_OR_RISK_BLOCK": 19,
+      "POLICY_CEREMONY_BLOCK": 0,
+      "SYSTEM_OR_BINDING_BLOCK": 47
+    },
+    "opportunities": [
+      {
+        "article_title": null,
+        "article_writer_semantic_calls": null,
+        "blocker_taxonomy_counts": {},
+        "builder_blockers": [],
+        "classification": "NO_PUBLICATION",
+        "exact_next_blocker": "ASSIGNMENT_RETURNED_NO_PUBLICATION",
+        "mandatory_semantic_review_calls": null,
+        "operating_mode": "KILL_SWITCH",
+        "opportunity": 1,
+        "ordinary_policy_ceremony_reductions": [],
+        "public_write_performed": false,
+        "publishing_adapter_called": false,
+        "rank_attempt_count": 0,
+        "ranked_viability_status": "NO_PUBLICATION",
+        "selected_cluster_id": null,
+        "unknown_write_detected": false
+      },
+      {
+        "article_title": null,
+        "article_writer_semantic_calls": null,
+        "blocker_taxonomy_counts": {
+          "DATA_NOT_AVAILABLE": 13,
+          "FACTUAL_OR_RISK_BLOCK": 12,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 30
+        },
+        "builder_blockers": [
+          "article_references_unbound_source_url"
+        ],
+        "classification": "NO_PUBLICATION",
+        "exact_next_blocker": "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED",
+        "mandatory_semantic_review_calls": null,
+        "operating_mode": "KILL_SWITCH",
+        "opportunity": 2,
+        "ordinary_policy_ceremony_reductions": [
+          "supported_claims_missing"
+        ],
+        "public_write_performed": false,
+        "publishing_adapter_called": false,
+        "rank_attempt_count": 12,
+        "ranked_viability_status": "SUCCESS",
+        "selected_cluster_id": "rolling-x-semantic-reserve-277a0f709928b42a8334",
+        "unknown_write_detected": false
+      },
+      {
+        "article_title": "India's Tamil Nadu to sign pacts for $1.58 billion in new projects, Reuters reports",
+        "article_writer_semantic_calls": 1,
+        "blocker_taxonomy_counts": {
+          "DATA_NOT_AVAILABLE": 8,
+          "FACTUAL_OR_RISK_BLOCK": 7,
+          "POLICY_CEREMONY_BLOCK": 0,
+          "SYSTEM_OR_BINDING_BLOCK": 17
+        },
+        "builder_blockers": [],
+        "classification": "NO_PUBLICATION",
+        "exact_next_blocker": "INSUFFICIENT_READER_VALUE",
+        "mandatory_semantic_review_calls": 0,
+        "operating_mode": "KILL_SWITCH",
+        "opportunity": 3,
+        "ordinary_policy_ceremony_reductions": [
+          "supported_claims_missing"
+        ],
+        "public_write_performed": false,
+        "publishing_adapter_called": false,
+        "rank_attempt_count": 7,
+        "ranked_viability_status": "SUCCESS",
+        "selected_cluster_id": "rolling-x-deterministic-cluster-c0e13ace9e86361fe90a",
+        "unknown_write_detected": false
+      }
+    ],
+    "policy_ceremony_reductions": {
+      "supported_claims_missing": 2
+    },
+    "reduced_policy_ceremony_count": 2,
+    "schema_version": "contentops.real_newsroom_shadow_taxonomy.v1",
+    "unknown_writes": false,
+    "zero_public_writes": true
+  },
+  "status": "PASS",
+  "unknown_rights_rejected_count": 2,
+  "unknown_write_detected": false
+}

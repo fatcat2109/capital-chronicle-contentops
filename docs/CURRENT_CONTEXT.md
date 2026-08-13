@@ -13,9 +13,9 @@ Current fresh-session handoff:
 
 `docs/status/CONTENTOPS_V1_FULL_AUTOMATION_NINE_SURFACE_HANDOFF_V1.md`
 
-Current continuation task:
+Current completed continuation task:
 
-`TASK_CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1`
+`TASK_CONTENTOPS_V1_REAL_MEDIA_DISCOVERY_AND_EVIDENCE_FRICTION_CALIBRATION_V1`
 
 Parent task:
 
@@ -23,7 +23,9 @@ Parent task:
 
 The accepted throughput architecture remains: prepared-candidate reuse, one quality-writer call and zero mandatory semantic-review calls for ordinary reporting, deterministic hard gates, canonical-first confirmation, and asynchronous destination-local derivatives. Jim's Golden Product correction adds an independent hard reader-facing product-value floor. Transport/readback success, valid evidence, media count, and a nonempty body cannot rescue thin or malformed copy. The immutable `v1.0` Treasury release at `6983bfb3ef300414b744f3f8f97ca81ff699348b` is the capability reference, not code to restore.
 
-Article-mode-aware purposeful visuals replace both exactly-three media ceremony and generic weak source cards. Articles must remain useful without images. A provider-neutral Visual Asset Discovery seam now supports story-specific intent, deterministic rights/provenance resolution, semantic ranking without copyright authority, and real documentary/contextual media alongside governed charts, maps, tables, timelines, source documents, and conceptual illustration. Unknown rights fail closed. New V1 public writes remain disabled pending Jim/ChatGPT visual acceptance of the zero-write Golden Product proof.
+Jim/ChatGPT visually accepted the Treasury Golden Product recovery on 2026-08-13. The concise EIA render is accepted only as a `CONCISE_UPDATE` regression proof. The one identified repeated Treasury conclusion is now removed by a bounded deterministic cleanup with zero mandatory semantic-review calls.
+
+Article-mode-aware purposeful visuals replace both exactly-three media ceremony and generic weak source cards. Articles must remain useful without images. The provider-neutral Visual Asset Discovery seam now has real credential-free Wikimedia Commons and Openverse adapters: story-specific intent planning, multiple narrow queries, original source/asset resolution, deterministic rights/provenance, semantic/visual ranking, series/perceptual deduplication, and explicit rejection of unknown rights, search thumbnails, and low-resolution candidates. A zero-write Strait of Hormuz proof selected a genuinely contextual documentary photograph and geography context. New V1 public writes stayed disabled throughout this task; all three genuine newsroom opportunities ran under `KILL_SWITCH`.
 
 The broader approximately 5–8 useful articles/day target remains a portfolio goal, never filler permission.
 

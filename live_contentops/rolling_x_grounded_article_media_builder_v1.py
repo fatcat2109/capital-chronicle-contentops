@@ -1296,6 +1296,13 @@ def build_rolling_x_grounded_article_and_media(
         }
         generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
 
+    from live_contentops.tier1_editorial_quality_v1 import remove_repeated_conclusion
+
+    conclusion_deduplication = remove_repeated_conclusion(
+        str(generated.get("substack_body_markdown") or "")
+    )
+    generated["substack_body_markdown"] = conclusion_deduplication["body_markdown"]
+
     evidence_document_ids = sorted(
         {
             str(
@@ -1355,6 +1362,7 @@ def build_rolling_x_grounded_article_and_media(
             generated.get("article_generation_method") or "ROUTED_LLM_GROUNDED_ARTICLE"
         ),
         "article_generation_router_failure": article_router_failure,
+        "conclusion_deduplication": conclusion_deduplication,
         "claim_evidence_contract_sha256": str(
             (context.get("claim_evidence_contract") or {}).get("claim_contract_sha256") or ""
         ),

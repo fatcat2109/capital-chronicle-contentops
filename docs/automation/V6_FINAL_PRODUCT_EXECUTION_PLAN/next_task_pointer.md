@@ -15,9 +15,9 @@ Result:
 
 FDA-G is not accepted. `v1.1.0` is not authorized.
 
-## V1 next builder lane
+## V1 latest completed builder lane
 
-`TASK_CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1`
+`TASK_CONTENTOPS_V1_REAL_MEDIA_DISCOVERY_AND_EVIDENCE_FRICTION_CALIBRATION_V1`
 
 Fresh-session authority/handoff:
 
@@ -40,13 +40,15 @@ Jim's current publish-correctly-then-improve owner override supersedes older dos
 - canonical confirmation requires exact destination identity, public `/p/...` URL, sufficient article identity/content match, and no unresolved unknown write;
 - derivatives are asynchronous coordinator-owned destination-local work and do not hold the canonical newsroom or retroactively erase confirmed publication.
 
-The protected `v1.0` Treasury release is the immutable Golden Product capability reference. Visuals are article-mode and evidence aware, with no fixed quota: real rights-cleared documentary/contextual media, maps, governed charts/tables/comparisons, timelines, source documents, and appropriate conceptual illustration may be selected through the provider-neutral Visual Asset Discovery contract. Search discovery never grants reuse authority; unknown rights are rejected. The smallest next external integration seam, after visual acceptance and explicit provider authorization, is a Wikimedia Commons/Openverse discovery provider that resolves original asset pages/bytes and license metadata into the existing broker contract. Do not build a crawler.
+The protected `v1.0` Treasury release is the immutable Golden Product capability reference. Jim/ChatGPT accepted the recovered Treasury visual direction. Visuals are article-mode and evidence aware, with no fixed quota: real rights-cleared documentary/contextual media, maps, governed charts/tables/comparisons, timelines, source documents, and appropriate conceptual illustration may be selected through the provider-neutral Visual Asset Discovery contract. Real credential-free Wikimedia Commons and Openverse adapters now resolve original source/asset identity and deterministic license metadata into that contract. Search discovery never grants reuse authority; unknown rights and search thumbnails are rejected.
 
-Immediate execution order:
+Completed execution result:
 
-1. obtain Jim/ChatGPT visual acceptance of the committed zero-write Treasury and ordinary-news render proof; keep V1 new public writes disabled until then;
-2. after acceptance, integrate the Golden Product recovery to fresh remote master without changing protected `v1.0` or the accepted throughput architecture;
-3. resume real throughput soak toward approximately 5–8 useful canonical articles/day while measuring derivative transport, published-memory, SEO, reader value, and purposeful visuals.
+1. `JIM_CHATGPT_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE=PASS`;
+2. repeated Treasury conclusion removed deterministically with zero mandatory semantic review;
+3. Commons/Openverse real-media discovery and a non-Treasury Strait of Hormuz proof completed;
+4. approximately three current-newsroom opportunities replayed under KILL_SWITCH with zero public/unknown writes;
+5. do not merge to master until Jim gives the next exact integration instruction.
 
 Only true hard blockers should stop the phase: secret/session exposure, wrong-account public-write risk, fabricated core truth that cannot be removed, unresolved UNKNOWN_WRITE/public-object ambiguity, destructive production-store risk, protected `v1.0` mutation, irreconcilable merge conflict, or genuinely required operator credential/reauthentication input.
 

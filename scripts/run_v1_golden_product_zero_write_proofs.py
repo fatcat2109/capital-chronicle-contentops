@@ -30,7 +30,10 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import _split_substack_body
 from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     build_rolling_x_grounded_article_and_media,
 )
-from live_contentops.tier1_editorial_quality_v1 import evaluate_reader_value
+from live_contentops.tier1_editorial_quality_v1 import (
+    evaluate_reader_value,
+    remove_repeated_conclusion,
+)
 from live_contentops.visual_asset_discovery_v1 import (
     AssetDiscoveryProvider,
     build_visual_intent_plan,
@@ -334,6 +337,9 @@ def run(output_dir: Path) -> dict[str, Any]:
     fixture_article = json.loads((GOLDEN / "article_manifest_v1.json").read_text(encoding="utf-8"))
     media_manifest = json.loads((GOLDEN / "media_manifest_v1.json").read_text(encoding="utf-8"))
     fixture_article["article_generation_method"] = "ROUTED_LLM_GROUNDED_ARTICLE"
+    cleaned_fixture_body = remove_repeated_conclusion(
+        str(fixture_article["substack_body_markdown"])
+    )["body_markdown"]
     writer_article = dict(fixture_article)
     writer_article["substack_body_markdown"] = re.sub(
         r"\n*\[\[VISUAL:[^\]]+\]\]\n*",
@@ -372,7 +378,12 @@ def run(output_dir: Path) -> dict[str, Any]:
     treasury_html = treasury_dir / "treasury_golden_replay.html"
     treasury_html.write_text(
         _render_article_html(
-            article={**article, "substack_body_markdown": fixture_article["substack_body_markdown"]},
+            article={
+                **article,
+                # Preserve the immutable accepted fixture; render its deterministic bounded
+                # conclusion cleanup so the proof does not reintroduce the known repetition.
+                "substack_body_markdown": cleaned_fixture_body,
+            },
             visual_paths=visual_paths,
             documentary=documentary_path if documentary_selected else None,
         ),
@@ -434,7 +445,7 @@ def run(output_dir: Path) -> dict[str, Any]:
     native_plain = rich_text_to_plain_text(rich)
     summary = {
         "schema_version": "contentops.v1_golden_product_zero_write_proof.v1",
-        "classification": "PASS_IMPLEMENTED_AWAITING_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE",
+        "classification": "PASS_GOLDEN_PRODUCT_VISUALLY_ACCEPTED",
         "public_write_performed": False,
         "provider_write_performed": False,
         "browser_public_transition_performed": False,
@@ -444,6 +455,9 @@ def run(output_dir: Path) -> dict[str, Any]:
             "writer_call_count": treasury_build["critical_path_telemetry"]["article_writer_semantic_calls"],
             "writer_call_kind": "CONTROLLED_GOLDEN_FIXTURE_THROUGH_CURRENT_BUILDER",
             "actual_semantic_review_call_count": 0,
+            "repeated_conclusion_removed": cleaned_fixture_body != str(
+                fixture_article["substack_body_markdown"]
+            ),
             "visual_count": len(visual_paths) + (1 if documentary_selected else 0),
             "quantitative_or_table_visual_count": len(visual_paths),
             "documentary_visual_selected": documentary_selected,
@@ -474,18 +488,20 @@ def run(output_dir: Path) -> dict[str, Any]:
             "writes": 0,
         },
         "visual_asset_discovery": discovery,
-        "exact_remaining_blocker": "JIM_CHATGPT_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE",
+        "exact_remaining_blocker": None,
     }
     (output_dir / "proof_summary_v1.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8"
     )
     (output_dir / "README.md").write_text(
         "# V1 Golden Product regression recovery — zero-write proof\n\n"
-        "Classification: `PASS_IMPLEMENTED_AWAITING_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE`\n\n"
+        "Classification: `PASS_GOLDEN_PRODUCT_VISUALLY_ACCEPTED`\n\n"
         "This evidence was generated entirely in zero-public-write mode. It replays the immutable "
         "Treasury capability fixture through the current reader-value, native-rich-text, visual "
         "discovery/composition, and destination-package seams. It also proves that the malformed "
-        "one-sentence/three-card ordinary case is rejected while a useful text-only brief passes.\n",
+        "one-sentence/three-card ordinary case is rejected while a useful text-only brief passes. "
+        "The owner-identified repeated Treasury conclusion is removed deterministically with no "
+        "mandatory semantic-review call.\n",
         encoding="utf-8",
     )
     return summary

@@ -35,6 +35,7 @@
   ],
   "eligible_count": 1,
   "fixed_visual_quota": false,
+  "provider_failures": [],
   "publication_authority": false,
   "rights_gate_deterministic": true,
   "schema_version": "contentops.visual_asset_discovery.v1",

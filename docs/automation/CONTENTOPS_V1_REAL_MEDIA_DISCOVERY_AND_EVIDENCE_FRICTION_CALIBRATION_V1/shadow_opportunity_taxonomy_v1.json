@@ -1,0 +1,87 @@
+{
+  "aggregate_blocker_taxonomy_counts": {
+    "DATA_NOT_AVAILABLE": 21,
+    "FACTUAL_OR_RISK_BLOCK": 19,
+    "POLICY_CEREMONY_BLOCK": 0,
+    "SYSTEM_OR_BINDING_BLOCK": 47
+  },
+  "opportunities": [
+    {
+      "article_title": null,
+      "article_writer_semantic_calls": null,
+      "blocker_taxonomy_counts": {},
+      "builder_blockers": [],
+      "classification": "NO_PUBLICATION",
+      "exact_next_blocker": "ASSIGNMENT_RETURNED_NO_PUBLICATION",
+      "mandatory_semantic_review_calls": null,
+      "operating_mode": "KILL_SWITCH",
+      "opportunity": 1,
+      "ordinary_policy_ceremony_reductions": [],
+      "public_write_performed": false,
+      "publishing_adapter_called": false,
+      "rank_attempt_count": 0,
+      "ranked_viability_status": "NO_PUBLICATION",
+      "selected_cluster_id": null,
+      "unknown_write_detected": false
+    },
+    {
+      "article_title": null,
+      "article_writer_semantic_calls": null,
+      "blocker_taxonomy_counts": {
+        "DATA_NOT_AVAILABLE": 13,
+        "FACTUAL_OR_RISK_BLOCK": 12,
+        "POLICY_CEREMONY_BLOCK": 0,
+        "SYSTEM_OR_BINDING_BLOCK": 30
+      },
+      "builder_blockers": [
+        "article_references_unbound_source_url"
+      ],
+      "classification": "NO_PUBLICATION",
+      "exact_next_blocker": "GROUNDED_ARTICLE_BUILDER_FAIL_CLOSED",
+      "mandatory_semantic_review_calls": null,
+      "operating_mode": "KILL_SWITCH",
+      "opportunity": 2,
+      "ordinary_policy_ceremony_reductions": [
+        "supported_claims_missing"
+      ],
+      "public_write_performed": false,
+      "publishing_adapter_called": false,
+      "rank_attempt_count": 12,
+      "ranked_viability_status": "SUCCESS",
+      "selected_cluster_id": "rolling-x-semantic-reserve-277a0f709928b42a8334",
+      "unknown_write_detected": false
+    },
+    {
+      "article_title": "India's Tamil Nadu to sign pacts for $1.58 billion in new projects, Reuters reports",
+      "article_writer_semantic_calls": 1,
+      "blocker_taxonomy_counts": {
+        "DATA_NOT_AVAILABLE": 8,
+        "FACTUAL_OR_RISK_BLOCK": 7,
+        "POLICY_CEREMONY_BLOCK": 0,
+        "SYSTEM_OR_BINDING_BLOCK": 17
+      },
+      "builder_blockers": [],
+      "classification": "NO_PUBLICATION",
+      "exact_next_blocker": "INSUFFICIENT_READER_VALUE",
+      "mandatory_semantic_review_calls": 0,
+      "operating_mode": "KILL_SWITCH",
+      "opportunity": 3,
+      "ordinary_policy_ceremony_reductions": [
+        "supported_claims_missing"
+      ],
+      "public_write_performed": false,
+      "publishing_adapter_called": false,
+      "rank_attempt_count": 7,
+      "ranked_viability_status": "SUCCESS",
+      "selected_cluster_id": "rolling-x-deterministic-cluster-c0e13ace9e86361fe90a",
+      "unknown_write_detected": false
+    }
+  ],
+  "policy_ceremony_reductions": {
+    "supported_claims_missing": 2
+  },
+  "reduced_policy_ceremony_count": 2,
+  "schema_version": "contentops.real_newsroom_shadow_taxonomy.v1",
+  "unknown_writes": false,
+  "zero_public_writes": true
+}

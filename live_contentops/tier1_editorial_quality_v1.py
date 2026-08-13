@@ -137,6 +137,76 @@ def _paragraph_redundancy(markdown: str) -> list[dict[str, Any]]:
     return findings
 
 
+def remove_repeated_conclusion(markdown: str) -> dict[str, Any]:
+    """Remove only a conclusion paragraph whose every sentence repeats its own section."""
+    blocks = str(markdown or "").split("\n\n")
+    section_start = 0
+    removed: list[dict[str, Any]] = []
+    conclusion_heading = re.compile(
+        r"^#{2,4}\s+.*(?:confirm|challenge|conclusion|outlook|what comes next)", re.I
+    )
+    stop = {
+        "about", "after", "again", "alongside", "also", "another", "before",
+        "being", "could", "from", "into", "latest", "more", "other", "rather",
+        "should", "than", "that", "their", "these", "this", "those", "through",
+        "under", "were", "what", "when", "where", "which", "while", "with",
+        "would",
+    }
+
+    def terms(value: str) -> set[str]:
+        return {
+            word for word in re.findall(r"[a-z0-9]{3,}", value.casefold())
+            if word not in stop
+        }
+
+    for index, block in enumerate(blocks + ["## __END__"]):
+        if not block.startswith("##"):
+            continue
+        if index > section_start and conclusion_heading.match(blocks[section_start]):
+            candidates = [
+                position for position in range(section_start + 1, index)
+                if blocks[position].strip()
+                and not VISUAL_RE.fullmatch(blocks[position].strip())
+                and not blocks[position].lstrip().startswith(("- ", "* "))
+            ]
+            if len(candidates) >= 3:
+                target_index = candidates[-1]
+                prior = [blocks[position] for position in candidates[:-1]]
+                sentences = [
+                    value.strip() for value in re.split(r"(?<=[.!?])\s+", blocks[target_index])
+                    if len(terms(value)) >= 4
+                ]
+                sentence_coverages = []
+                for sentence in sentences:
+                    sentence_terms = terms(sentence)
+                    coverage = max(
+                        (
+                            len(sentence_terms.intersection(terms(previous)))
+                            / max(1, len(sentence_terms))
+                            for previous in prior
+                        ),
+                        default=0.0,
+                    )
+                    sentence_coverages.append(coverage)
+                if sentences and all(value >= 0.40 for value in sentence_coverages):
+                    removed.append({
+                        "block_index": target_index,
+                        "paragraph_sha256": _sha256(blocks[target_index]),
+                        "sentence_coverages": [round(value, 3) for value in sentence_coverages],
+                        "reason": "CONCLUSION_REPEATS_PRIOR_SECTION",
+                    })
+                    blocks[target_index] = ""
+        section_start = index
+    cleaned = "\n\n".join(value for value in blocks if value.strip())
+    return {
+        "body_markdown": cleaned,
+        "removed_paragraphs": removed,
+        "removed_count": len(removed),
+        "semantic_review_calls": 0,
+        "publication_authority": False,
+    }
+
+
 def evaluate_reader_value(
     article: Mapping[str, Any],
     *,

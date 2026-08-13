@@ -2410,6 +2410,100 @@ def _evidence_request_budget_blockers(
     return sorted(candidates.intersection(ROLLING_X_EVIDENCE_REQUEST_BUDGET_BLOCKERS))
 
 
+def classify_evidence_friction(
+    blockers: Sequence[str], *, receipt: Mapping[str, Any] | None = None,
+    request: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Separate unavailable evidence from removable ceremony and hard safety/risk blocks."""
+    receipt = dict(receipt or {})
+    documents_available = bool(receipt.get("evidence_documents"))
+    ordinary_packet = dict(receipt.get("minimum_trustworthy_evidence_packet") or {})
+    enhanced_required = False
+    if request:
+        from live_contentops.claim_evidence_contract_v1 import (
+            requires_enhanced_evidence_review,
+        )
+
+        enhanced_required = requires_enhanced_evidence_review(request)
+    ordinary_bound = (
+        _ordinary_minimum_packet_is_exactly_bound(request, receipt)
+        if request
+        else bool(
+            documents_available
+            and ordinary_packet.get("status") == "PASS"
+            and ordinary_packet.get("risk_tier") == "ORDINARY"
+            and not enhanced_required
+        )
+    )
+    rows: list[dict[str, str]] = []
+    for raw in sorted(set(str(value) for value in blockers if str(value))):
+        lowered = raw.casefold()
+        if ordinary_bound and (
+            lowered.startswith("required_evidence_capability_missing:")
+            or lowered == "supported_claims_missing"
+            or lowered == "evidence_receipt_not_pass"
+        ):
+            category = "POLICY_CEREMONY_BLOCK"
+        elif any(token in lowered for token in (
+            "unavailable", "documents_missing", "request_budget_exhausted",
+            "source_not_found", "no_documents", "retrieval_failed", "http_",
+            "freshness_missing", "stale_",
+        )):
+            category = "DATA_NOT_AVAILABLE"
+        elif any(token in lowered for token in (
+            "corroboration", "unsupported", "fabricated", "numeric", "claim",
+            "authority_required", "permission", "high_risk", "enhanced_evidence",
+        )):
+            category = "FACTUAL_OR_RISK_BLOCK"
+        else:
+            category = "SYSTEM_OR_BINDING_BLOCK"
+        rows.append({"blocker": raw, "category": category})
+    counts = {
+        category: sum(row["category"] == category for row in rows)
+        for category in (
+            "DATA_NOT_AVAILABLE", "POLICY_CEREMONY_BLOCK",
+            "FACTUAL_OR_RISK_BLOCK", "SYSTEM_OR_BINDING_BLOCK",
+        )
+    }
+    return {
+        "schema_version": "contentops.evidence_friction_taxonomy.v1",
+        "rows": rows,
+        "counts": counts,
+        "ordinary_minimum_packet_directly_bound": ordinary_bound,
+        "publication_authority": False,
+    }
+
+
+def _ordinary_minimum_packet_is_exactly_bound(
+    request: Mapping[str, Any], receipt: Mapping[str, Any]
+) -> bool:
+    """Trust the calibration only when its ordinary packet names an exact returned source."""
+    from live_contentops.claim_evidence_contract_v1 import (
+        requires_enhanced_evidence_review,
+    )
+
+    packet = receipt.get("minimum_trustworthy_evidence_packet") or {}
+    documents = receipt.get("evidence_documents") or []
+    if not isinstance(packet, Mapping) or not isinstance(documents, list):
+        return False
+    if (
+        packet.get("status") != "PASS"
+        or packet.get("risk_tier") != "ORDINARY"
+        or requires_enhanced_evidence_review(request)
+        or not str(packet.get("core_factual_proposition") or "").strip()
+    ):
+        return False
+    packet_document_id = str(packet.get("evidence_document_id") or "")
+    packet_source_url = str(packet.get("source_url") or "")
+    return any(
+        isinstance(document, Mapping)
+        and str(document.get("document_id") or "") == packet_document_id
+        and str(document.get("source_url") or "") == packet_source_url
+        and bool(document.get("public_claim_allowed"))
+        for document in documents
+    )
+
+
 def _default_rolling_x_story_type(cluster: Mapping[str, Any]) -> str:
     """Resolve the legacy default for callers that have no semantic routing result."""
     if cluster.get("market_sensitive") is True:
@@ -2761,6 +2855,7 @@ def select_first_viable_rolling_x_cluster(
         capability: dict[str, Any] = {}
         blockers: list[str] = []
         cluster_budget_blockers: set[str] = set()
+        cluster_ceremony_reductions: set[str] = set()
         for effective_product_mode in product_mode_downgrade_path(requested_product_mode):
             requested_mode = (
                 capability_mode_for_product_mode(effective_product_mode)
@@ -2862,6 +2957,9 @@ def select_first_viable_rolling_x_cluster(
                     receipt = {}
                 else:
                     receipt = dict(raw_receipt)
+                    ordinary_minimum_bound = _ordinary_minimum_packet_is_exactly_bound(
+                        request, receipt
+                    )
                     if str(receipt.get("cluster_id") or "") != cluster_id:
                         blockers.append("evidence_cluster_id_mismatch")
                     returned_ids = [str(value) for value in (receipt.get("headline_ids") or [])]
@@ -2869,19 +2967,46 @@ def select_first_viable_rolling_x_cluster(
                         blockers.append("evidence_headline_id_binding_mismatch")
                     supplied = set(str(value) for value in (receipt.get("provided_evidence_capabilities") or []))
                     for missing in sorted(set(required) - supplied):
-                        blockers.append(f"required_evidence_capability_missing:{missing}")
+                        code = f"required_evidence_capability_missing:{missing}"
+                        if ordinary_minimum_bound:
+                            cluster_ceremony_reductions.add(code)
+                        else:
+                            blockers.append(code)
                     documents = receipt.get("evidence_documents")
                     if not isinstance(documents, list) or not documents:
                         blockers.append("evidence_documents_missing")
                     claims = receipt.get("claim_evidence_contract") or {}
-                    if claims.get("status") != "PASS" or int(claims.get("supported_claim_count") or 0) < 1:
+                    if not ordinary_minimum_bound and (
+                        claims.get("status") != "PASS"
+                        or int(claims.get("supported_claim_count") or 0) < 1
+                    ):
                         blockers.append("supported_claims_missing")
+                    elif ordinary_minimum_bound and (
+                        claims.get("status") != "PASS"
+                        or int(claims.get("supported_claim_count") or 0) < 1
+                    ):
+                        cluster_ceremony_reductions.add("supported_claims_missing")
                     if int(claims.get("fabricated_claim_count") or 0) != 0:
                         blockers.append("fabricated_claim_count_nonzero")
                     if receipt.get("status") != "PASS":
-                        blockers.extend(str(value) for value in (receipt.get("blockers") or []))
-                        if not receipt.get("blockers"):
+                        receipt_blockers = [
+                            str(value) for value in (receipt.get("blockers") or [])
+                        ]
+                        if ordinary_minimum_bound:
+                            retained_receipt_blockers = []
+                            for code in receipt_blockers:
+                                if code.startswith("required_evidence_capability_missing:"):
+                                    cluster_ceremony_reductions.add(code)
+                                elif code == "supported_claims_missing":
+                                    cluster_ceremony_reductions.add(code)
+                                else:
+                                    retained_receipt_blockers.append(code)
+                            receipt_blockers = retained_receipt_blockers
+                        blockers.extend(receipt_blockers)
+                        if not receipt_blockers and not ordinary_minimum_bound:
                             blockers.append("evidence_receipt_not_pass")
+                        elif not receipt_blockers and ordinary_minimum_bound:
+                            cluster_ceremony_reductions.add("evidence_receipt_not_pass")
                     if request["capital_chronicle_numeric_or_analytical_authority_required"] and (
                         receipt.get("capital_chronicle_authority_verified") is not True
                     ):
@@ -2912,6 +3037,12 @@ def select_first_viable_rolling_x_cluster(
                     "downgrade_reason": request.get("mode_downgrade_reason"),
                     "blockers": blockers,
                     "evidence_request_budget_blockers": mode_budget_blockers,
+                    "evidence_friction_taxonomy": classify_evidence_friction(
+                        blockers, receipt=receipt, request=request
+                    ),
+                    "ordinary_policy_ceremony_reductions": sorted(
+                        cluster_ceremony_reductions
+                    ),
                     "request_logical_hash": request.get("request_logical_hash"),
                 }
             )
@@ -2933,6 +3064,12 @@ def select_first_viable_rolling_x_cluster(
             "status": "VIABLE" if not blockers else "BLOCKED",
             "blockers": sorted(set(blockers)),
             "evidence_request_budget_blockers": sorted(cluster_budget_blockers),
+            "evidence_friction_taxonomy": classify_evidence_friction(
+                blockers, receipt=receipt, request=request
+            ),
+            "ordinary_policy_ceremony_reductions": sorted(
+                cluster_ceremony_reductions
+            ),
         }
         attempts.append(attempt)
         if not blockers:
@@ -2970,6 +3107,21 @@ def select_first_viable_rolling_x_cluster(
         "publishability_pool_exhausted": pool_exhausted,
         "evidence_request_budget_exhausted": bool(acquisition_budget_blockers),
         "evidence_request_budget_blockers": sorted(acquisition_budget_blockers),
+        "evidence_friction_taxonomy": {
+            "schema_version": "contentops.evidence_friction_taxonomy.v1",
+            "attempts": [
+                {
+                    "cluster_id": row["cluster_id"],
+                    "status": row["status"],
+                    "taxonomy": row["evidence_friction_taxonomy"],
+                    "ordinary_policy_ceremony_reductions": row[
+                        "ordinary_policy_ceremony_reductions"
+                    ],
+                }
+                for row in attempts
+            ],
+            "publication_authority": False,
+        },
         "evidence_acquired_after_ranking": True,
         "x_content_grants_evidence_authority": False,
         "publication_authority_granted": False,

@@ -73,11 +73,11 @@ Status:
 
 `SOAK_ACTIVE_AWAITING_GENUINE_CALENDAR_TIME_EVIDENCE`
 
-Next V1 builder lane:
+Latest completed V1 builder lane:
 
-`TASK_CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1`
+`TASK_CONTENTOPS_V1_REAL_MEDIA_DISCOVERY_AND_EVIDENCE_FRICTION_CALIBRATION_V1`
 
-Status: `PASS_IMPLEMENTED_AWAITING_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE`; keep new V1 public writes disabled until owner visual acceptance.
+Status: `PASS`; `JIM_CHATGPT_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE=PASS`. The Treasury render is the accepted recovered V1 direction, the EIA render is concise-update-only, and the repeated Treasury conclusion is removed without semantic-review ceremony. Real Wikimedia Commons/Openverse discovery and a Strait of Hormuz contextual-media proof are committed. Three genuine newsroom opportunities remained KILL_SWITCH/zero-write and correctly abstained at intake, source binding, or reader-value gates.
 
 The latest real production day legitimately ended `ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED`; zero publication was correct. The 5–8 article/day band remains a target, not filler permission.
 

@@ -1,6 +1,6 @@
 {
   "browser_public_transition_performed": false,
-  "classification": "PASS_IMPLEMENTED_AWAITING_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE",
+  "classification": "PASS_GOLDEN_PRODUCT_VISUALLY_ACCEPTED",
   "destination_packages": {
     "all_nine_surfaces_generatable": true,
     "canonical_substack_rich_document": true,
@@ -16,7 +16,7 @@
     ],
     "writes": 0
   },
-  "exact_remaining_blocker": "JIM_CHATGPT_GOLDEN_PRODUCT_VISUAL_ACCEPTANCE",
+  "exact_remaining_blocker": null,
   "native_serialization": {
     "heading_elements": 5,
     "link_elements": 6,
@@ -148,10 +148,10 @@
       "heading_count": 5,
       "list_item_count": 0,
       "markup_findings": [],
-      "meaningful_paragraph_count": 16,
+      "meaningful_paragraph_count": 15,
       "paragraph_redundancy_findings": [],
       "publication_authority": false,
-      "reader_prose_word_count": 992,
+      "reader_prose_word_count": 940,
       "reason_code": null,
       "schema_version": "contentops.reader_value_release_gate.v1",
       "visual_count": 3,
@@ -159,6 +159,7 @@
     },
     "render_html": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-golden-product-regression-recovery-v1\\docs\\automation\\CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1\\treasury_golden_replay\\treasury_golden_replay.html",
     "render_screenshot": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v1-golden-product-regression-recovery-v1\\docs\\automation\\CONTENTOPS_V1_GOLDEN_PRODUCT_REGRESSION_RECOVERY_V1\\treasury_golden_replay\\treasury_golden_replay.png",
+    "repeated_conclusion_removed": true,
     "visual_count": 4,
     "writer_call_count": 1,
     "writer_call_kind": "CONTROLLED_GOLDEN_FIXTURE_THROUGH_CURRENT_BUILDER"
@@ -200,6 +201,7 @@
     ],
     "eligible_count": 1,
     "fixed_visual_quota": false,
+    "provider_failures": [],
     "publication_authority": false,
     "rights_gate_deterministic": true,
     "schema_version": "contentops.visual_asset_discovery.v1",

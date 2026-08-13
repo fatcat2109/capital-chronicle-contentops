@@ -156,7 +156,7 @@ def _treasury_documentary_candidate(**overrides) -> dict:
         "attribution": "U.S. Department of the Treasury",
         "width": 1908,
         "height": 1266,
-        "content_hash": "sha256:fixture-bound-at-proof-generation",
+        "content_hash": "sha256:" + "a" * 64,
         "perceptual_hash": "0123456789abcdef",
         "documentary_generated_classification": "DOCUMENTARY",
         "rights_status": "PUBLIC_DOMAIN",
