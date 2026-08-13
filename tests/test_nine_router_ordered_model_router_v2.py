@@ -899,6 +899,13 @@ def test_every_attempt_binds_the_required_evidence_fields() -> None:
         "prompt_logical_hash",
         "governed_input_hash",
         "structured_validation_result",
+        "structured_validation_failure_class",
+        "output_present",
+        "output_character_length",
+        "output_utf8_byte_length",
+        "output_hash",
+        "provider_finish_reason",
+        "provider_truncation_indicated",
         "latency_seconds",
         "disposition",
     )
@@ -908,6 +915,41 @@ def test_every_attempt_binds_the_required_evidence_fields() -> None:
     assert result["attempts"][-1]["usage"] == {"total_tokens": 10}
     assert result["attempts"][-1]["provider_invocation_id"] == f"inv_{P1}"
     assert result["attempts"][-1]["output_hash"]
+
+
+def test_attempt_diagnostics_record_output_shape_finish_reason_and_schema_category() -> None:
+    provider = scripted({P0: [ProviderResult(
+        text='{"partial":', resolved_model=P0, status_code=200,
+        finish_reason="length", usage={"completion_tokens": 16000},
+    )]})
+
+    def validator(text: str):
+        del text
+        return False, "structured_output_schema_invalid", None, "json_truncated"
+
+    result = run(provider, validator=validator)
+    row = result["attempts"][0]
+    assert row["output_present"] is True
+    assert row["output_character_length"] == len('{"partial":')
+    assert row["output_utf8_byte_length"] == len('{"partial":'.encode("utf-8"))
+    assert row["output_hash"]
+    assert row["provider_finish_reason"] == "length"
+    assert row["provider_truncation_indicated"] is True
+    assert row["structured_validation_result"] == "FAIL"
+    assert row["structured_validation_failure_class"] == "structured_output_schema_invalid"
+    assert row["structured_validation_diagnostic_code"] == "json_truncated"
+    assert row["parser_or_schema_failure_category"] == "json_truncated"
+
+
+def test_validator_parse_exception_becomes_sanitized_attempt_diagnostic() -> None:
+    def validator(text: str):
+        return True, None, json.loads(text)
+
+    result = run(scripted({P0: [good(P0, text="not-json")]}), validator=validator)
+    row = result["attempts"][0]
+    assert row["structured_validation_result"] == "FAIL"
+    assert row["failure_class"] == "structured_output_schema_invalid"
+    assert row["structured_validation_diagnostic_code"] == "validator_exception_jsondecodeerror"
 
 
 def test_completed_invocation_records_required_totals() -> None:

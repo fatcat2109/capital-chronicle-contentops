@@ -612,6 +612,7 @@ class ProviderResult:
     retry_after_seconds: float | None = None
     usage: Mapping[str, Any] | None = None
     cost: Mapping[str, Any] | None = None
+    finish_reason: str | None = None
     error: BaseException | None = None
     failure_class: str | None = None
 
@@ -753,6 +754,19 @@ def route_llm_invocation(
                     "latency_seconds": latency,
                     "usage": dict(result.usage) if result.usage else None,
                     "cost": dict(result.cost) if result.cost else None,
+                    "provider_finish_reason": result.finish_reason,
+                    "provider_truncation_indicated": (
+                        str(result.finish_reason).lower() in {"length", "max_tokens"}
+                        if result.finish_reason is not None
+                        else None
+                    ),
+                    "output_present": result.text is not None,
+                    "output_character_length": (
+                        len(result.text) if result.text is not None else 0
+                    ),
+                    "output_utf8_byte_length": (
+                        len(result.text.encode("utf-8")) if result.text is not None else 0
+                    ),
                     "remaining_attempt_budget": budget.remaining_attempts(),
                 }
             )
@@ -782,25 +796,43 @@ def route_llm_invocation(
             parsed: Any = None
             validation_diagnostic_code: str | None = None
             if failure_class is None:
-                validation_result = validate(result.text or "")
-                if len(validation_result) == 3:
-                    ok, validation_failure, parsed = validation_result
-                elif len(validation_result) == 4:
-                    ok, validation_failure, parsed, validation_diagnostic_code = validation_result
-                else:
-                    raise ModelRouterError("validator_result_shape_invalid")
+                try:
+                    validation_result = validate(result.text or "")
+                    if len(validation_result) == 3:
+                        ok, validation_failure, parsed = validation_result
+                    elif len(validation_result) == 4:
+                        ok, validation_failure, parsed, validation_diagnostic_code = validation_result
+                    else:
+                        raise ModelRouterError("validator_result_shape_invalid")
+                except ModelRouterError:
+                    raise
+                except (ValueError, TypeError, KeyError, json.JSONDecodeError) as exc:
+                    ok = False
+                    validation_failure = "structured_output_schema_invalid"
+                    validation_diagnostic_code = (
+                        f"validator_exception_{type(exc).__name__.lower()}"
+                    )
                 record["structured_validation_result"] = "PASS" if ok else "FAIL"
+                record["structured_validation_failure_class"] = (
+                    None if ok else validation_failure or "structured_output_malformed"
+                )
                 if validation_diagnostic_code is not None:
                     record["structured_validation_diagnostic_code"] = str(
+                        validation_diagnostic_code
+                    )
+                    record["parser_or_schema_failure_category"] = str(
                         validation_diagnostic_code
                     )
                 if not ok:
                     failure_class = validation_failure or "structured_output_malformed"
             else:
                 record["structured_validation_result"] = "NOT_EVALUATED"
+                record["structured_validation_failure_class"] = None
 
             if result.text is not None:
                 record["output_hash"] = _hash(result.text)
+            else:
+                record["output_hash"] = None
 
             record["failure_class"] = failure_class
             record["disposition"] = "accepted" if failure_class is None else "rejected"

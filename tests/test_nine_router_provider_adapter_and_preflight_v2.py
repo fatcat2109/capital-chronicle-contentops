@@ -33,6 +33,7 @@ from live_contentops.nine_router_provider_adapter_v2 import (
     ENV_BASE_URL,
     NineRouterAdapterError,
     _classify_http_error,
+    _extract_finish_reason,
     _load_json_body,
     _parse_sse,
     call_nine_router,
@@ -60,6 +61,7 @@ def test_gateway_body_with_trailing_done_sentinel_parses_as_json() -> None:
     assert payload["model"] == "claude-fable-5"
     assert payload["choices"][0]["message"]["content"] == "READY"
     assert payload["usage"]["total_tokens"] == 2563
+    assert _extract_finish_reason(payload) == "stop"
 
 
 def test_true_sse_stream_still_accumulates() -> None:
@@ -70,6 +72,20 @@ def test_true_sse_stream_still_accumulates() -> None:
     )
     assert _load_json_body(stream) is None
     assert _parse_sse(stream) == "READY"
+
+
+def test_true_sse_retains_finish_reason() -> None:
+    from live_contentops.nine_router_provider_adapter_v2 import _parse_sse_full
+
+    stream = (
+        'data: {"id":"resp-1","model":"gpt-5.6-sol-xhigh","choices":[{"delta":{"content":"{"}}]}\n'
+        'data: {"usage":{"completion_tokens":16000},"choices":[{"delta":{"content":"}"},"finish_reason":"length"}]}\n'
+        "data: [DONE]\n"
+    )
+    parsed = _parse_sse_full(stream)
+    assert parsed is not None
+    assert parsed["text"] == "{}"
+    assert parsed["finish_reason"] == "length"
 
 
 def test_split_model_and_effort_extracts_the_trailing_selector() -> None:

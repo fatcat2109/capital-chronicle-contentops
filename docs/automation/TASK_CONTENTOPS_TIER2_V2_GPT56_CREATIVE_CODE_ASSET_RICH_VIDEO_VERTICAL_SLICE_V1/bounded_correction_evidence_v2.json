@@ -1,0 +1,108 @@
+{
+  "schema_version": "contentops.v2_gpt56_creative_code_vertical_slice.bounded_correction_evidence.v2",
+  "task": "TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1",
+  "recorded_on": "2026-08-13",
+  "status": "BLOCKED_EXACT_CREATIVE_MODEL",
+  "branch": "task/tier2-v2-gpt56-creative-code-asset-rich-video-v1",
+  "starting_head": "6ac95edc76d8eb3940210352a4123c800f6a5148",
+  "policy_unchanged": {
+    "generic_ordered_pool": [
+      "new/gpt-5.6-sol-xhigh",
+      "new/qwen3.8-max-preview",
+      "new/claude-opus-5",
+      "vx/gemini-3.1-pro-preview(high)"
+    ],
+    "generic_max_provider_attempts": 16,
+    "generic_max_fallback_transitions": 3,
+    "creative_role": "V2_CREATIVE_EDITOR",
+    "creative_model_pool": [
+      "new/gpt-5.6-sol-xhigh"
+    ],
+    "creative_max_provider_attempts": 4,
+    "creative_max_fallback_transitions": 0
+  },
+  "diagnostic_hardening": {
+    "provider_finish_reason_retained": true,
+    "output_presence_length_and_hash_retained": true,
+    "provider_truncation_indication_retained": true,
+    "safe_parser_or_schema_category_retained": true,
+    "raw_rejected_output_persisted": false,
+    "router_policy_changed": false,
+    "provider_host_changed": false
+  },
+  "legacy_monolithic_diagnostic": {
+    "request_shape": "legacy_monolithic_exact_55_beats",
+    "logical_invocation_id": "v2-creative-editor-legacy-55-beat-diagnostic-v1",
+    "requested_model": "new/gpt-5.6-sol-xhigh",
+    "provider_attempts": 1,
+    "terminal_disposition": "BLOCKED_EXACT_CREATIVE_MODEL",
+    "exact_failure_class": "http_502_bad_gateway",
+    "provider_status_class": "5xx_server_502",
+    "latency_seconds": 251.1806,
+    "output_present": false,
+    "output_character_length": 0,
+    "effective_identity_available": false,
+    "structured_validation_evaluated": false,
+    "schema_failure_proven": false,
+    "truncation_proven": false,
+    "diagnosis": "PROVIDER_HTTP_502_NO_OUTPUT",
+    "isolated_cost_governor_accounted_tokens": 24444,
+    "diagnostic_evidence_sha256": "ac91228d42fd4e701fdd9577224a513342246765a07fd46e3c803b39d35bdc65",
+    "isolated_ledger_sha256": "c5268cafa0418911f854193203d0940e85143a2565793249a32d88d14a980629"
+  },
+  "compact_hierarchical_correction": {
+    "request_shape": "compact_hierarchical_whole_story",
+    "logical_invocation_id": "v2-creative-editor-compact-blueprint-v1",
+    "requested_model": "new/gpt-5.6-sol-xhigh",
+    "provider_attempts": 4,
+    "same_model_retries": 3,
+    "fallback_transitions": 0,
+    "terminal_disposition": "BLOCKED_EXACT_CREATIVE_MODEL",
+    "attempt_failure_classes": [
+      "http_502_bad_gateway",
+      "http_502_bad_gateway",
+      "http_502_bad_gateway",
+      "http_502_bad_gateway"
+    ],
+    "attempt_latency_seconds": [
+      251.1905,
+      251.1136,
+      251.118,
+      251.1325
+    ],
+    "all_outputs_present": false,
+    "effective_identity_available": false,
+    "structured_validation_evaluated": false,
+    "schema_failure_proven": false,
+    "truncation_proven": false,
+    "diagnosis": "FOUR_CONSECUTIVE_PROVIDER_HTTP_502_RESPONSES_NO_OUTPUT",
+    "isolated_cost_governor_accounted_tokens": 78660,
+    "authorship_evidence_sha256": "fe0f90bcf1fa70b1a45a4ea0ee011f5ecefff9582ff39c697a0e78694fcbce84",
+    "isolated_ledger_sha256": "8763b85ab77bf9666c014fa2d78f74d1d140e457eae68370a61de7f753d158fd"
+  },
+  "continuation_totals": {
+    "logical_invocations": 2,
+    "provider_attempts": 5,
+    "isolated_cost_governor_accounted_tokens": 103104,
+    "accepted_creative_outputs": 0
+  },
+  "downstream_execution": {
+    "accepted_screenplay_or_narration": false,
+    "motion_code_author_called": false,
+    "creative_revision_author_called": false,
+    "render_performed": false,
+    "critic_called": false,
+    "selective_rerender_performed": false,
+    "final_media_produced": false
+  },
+  "safety": {
+    "secret_material_recorded": false,
+    "browser_or_cdp_actions": 0,
+    "video_platform_actions": 0,
+    "uploads": 0,
+    "public_writes": 0,
+    "v1_runtime_mutations": 0,
+    "publication_authority": false,
+    "factual_authority": false
+  }
+}

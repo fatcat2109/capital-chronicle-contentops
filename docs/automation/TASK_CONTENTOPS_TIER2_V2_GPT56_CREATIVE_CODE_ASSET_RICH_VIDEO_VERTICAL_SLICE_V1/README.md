@@ -21,3 +21,33 @@ Incomplete imported factory/renderer files and the unaccepted creative harness w
 No V2-02 work began. No video platform action, browser/CDP action, upload, publication, V1 runtime mutation, secret readback, or public write occurred.
 
 Machine-readable evidence: `blocked_evidence_v1.json`.
+
+## Bounded correction continuation
+
+The requested diagnostic hardening was added without changing model ordering, retry/fallback
+authority, provider host, or any runtime/publication boundary. Provider `finish_reason`, output
+presence/length/hash, truncation indication, and safe parser/schema diagnostic codes are now
+retained per attempt. Focused router/provider/cost/Creative Editor regressions pass.
+
+One legacy-shape diagnostic call reproduced the 55-beat monolithic request under a one-attempt
+ceiling. Its exact result was HTTP 502 after 251.1806 seconds, with no response body, effective
+model identity, invocation ID, usage, cost, or structured-validation evaluation. This disproves
+neither schema mismatch nor output truncation; the only proven cause for that call is the gateway
+502.
+
+The Creative Editor contract was then corrected to a compact hierarchical whole-story blueprint:
+global direction is declared once, each variant owns sequences, and sequences own small visual
+hypotheses bound to governed claim, evidence, and asset IDs. Transient provider failures retained
+the exact-role four-attempt ceiling; deterministic parser/schema failure had zero blind repair
+attempts. All four exact-role requests returned HTTP 502 after approximately 251 seconds each,
+again with no output or effective identity. No schema validator ran because no output arrived.
+
+The continuation therefore remains `BLOCKED_EXACT_CREATIVE_MODEL`. It did not manually author or
+retain a screenplay, narration, shot plan, motion source, render, or revision. No browser/CDP,
+upload, publication, platform, public-write, or V1 runtime action occurred.
+
+Continuation evidence:
+
+- `creative_editor_diagnostic_v2.json`
+- `creative_editor_authorship_v2.json`
+- `bounded_correction_evidence_v2.json`

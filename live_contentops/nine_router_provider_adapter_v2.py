@@ -29,7 +29,6 @@ from urllib.parse import urlparse
 from live_contentops.credential_redaction_policy import redacted_presence
 from live_contentops.nine_router_ordered_model_router_v2 import (
     AUTHORIZED_MODELS,
-    GATEWAY,
     ProviderResult,
     classify_failure,
 )
@@ -109,6 +108,15 @@ def _extract_text(payload: Mapping[str, Any]) -> str | None:
     return None
 
 
+def _extract_finish_reason(payload: Mapping[str, Any]) -> str | None:
+    choices = payload.get("choices")
+    if isinstance(choices, list) and choices and isinstance(choices[0], Mapping):
+        value = choices[0].get("finish_reason")
+        if isinstance(value, str) and value:
+            return value
+    return None
+
+
 def _parse_sse(text: str) -> str | None:
     """Accumulate an SSE delta stream's text content, matching the accepted gateway shape.
 
@@ -132,6 +140,7 @@ def _parse_sse_full(text: str) -> "dict[str, Any] | None":
     observed_model: str | None = None
     observed_usage: Mapping[str, Any] | None = None
     observed_id: str | None = None
+    observed_finish_reason: str | None = None
     saw_any_chunk = False
     for line in text.splitlines():
         line = line.strip()
@@ -156,6 +165,9 @@ def _parse_sse_full(text: str) -> "dict[str, Any] | None":
         if not choices:
             continue
         delta = choices[0].get("delta") or {}
+        finish_reason = choices[0].get("finish_reason")
+        if isinstance(finish_reason, str) and finish_reason:
+            observed_finish_reason = finish_reason
         content = delta.get("content") or (choices[0].get("message") or {}).get("content")
         if content:
             tokens.append(str(content))
@@ -166,6 +178,7 @@ def _parse_sse_full(text: str) -> "dict[str, Any] | None":
         "model": observed_model,
         "usage": observed_usage,
         "id": observed_id,
+        "finish_reason": observed_finish_reason,
     }
 
 
@@ -339,6 +352,11 @@ def call_nine_router(
         str(payload.get("id")) if payload.get("id") else None
     )
     usage = (sse or {}).get("usage") if sse is not None else _extract_usage(payload)
+    finish_reason = (
+        (sse or {}).get("finish_reason")
+        if sse is not None
+        else _extract_finish_reason(payload)
+    )
     if isinstance(usage, Mapping) and not isinstance(usage, dict):
         usage = dict(usage)
 
@@ -347,6 +365,7 @@ def call_nine_router(
             status_code=status,
             resolved_model=resolved_model,
             failure_class="structured_output_malformed",
+            finish_reason=finish_reason,
         )
 
     return ProviderResult(
@@ -356,6 +375,7 @@ def call_nine_router(
         status_code=status,
         usage=usage or _extract_usage(payload),
         cost=_extract_cost(payload),
+        finish_reason=finish_reason,
     )
 
 
