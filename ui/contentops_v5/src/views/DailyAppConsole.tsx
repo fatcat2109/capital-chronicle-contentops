@@ -2,12 +2,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Activity, AlertTriangle, Archive, BarChart3, BookOpenCheck, CalendarClock,
   ChevronRight, CircleOff, Database, Gauge, Menu, PanelLeftClose, RefreshCw,
-  ScrollText, Shield, ShieldAlert, SlidersHorizontal, Sparkles,
+  ScrollText, Shield, ShieldAlert, SlidersHorizontal, Sparkles, ExternalLink,
 } from 'lucide-react';
-import type { BackgroundLogTail, DailyAppSnapshot, DailyView, HourlyAudit, LoadState, OperatingMode } from '../dailyAppTypes';
+import type { BackgroundLogTail, DailyAppSnapshot, DailyView, HourlyAudit, LoadState, OperatingMode, RuntimeCockpit, RuntimePrimaryState } from '../dailyAppTypes';
 
 const API_ROOT = 'http://127.0.0.1:5174';
-const POLL_MS = 15_000;
+const POLL_MS = 3_000;
 
 const NAV: Array<{ group: string; items: Array<{ id: DailyView; label: string; icon: typeof Activity }> }> = [
   { group: 'Daily app', items: [
@@ -34,7 +34,7 @@ function useDailyAppSnapshot(): [LoadState, () => Promise<void>] {
         headers: { Accept: 'application/json' }, cache: 'no-store',
       });
       if (!response.ok) throw new Error(`Snapshot unavailable (${response.status})`);
-      const snapshot = await response.json() as DailyAppSnapshot;
+      const snapshot = applyRuntimeQaFixture(await response.json() as DailyAppSnapshot);
       if (snapshot.schema_version !== 'contentops.daily_app_ui_snapshot.v1') {
         throw new Error('Snapshot schema is not supported');
       }
@@ -55,6 +55,56 @@ function useDailyAppSnapshot(): [LoadState, () => Promise<void>] {
   return [state, refresh];
 }
 
+function runtimeQaFixtureName(): string | null {
+  const env = (import.meta as unknown as { env: Record<string, string | undefined> }).env;
+  if (env.VITE_ENABLE_RUNTIME_QA_FIXTURES !== '1') return null;
+  const fixture = new URLSearchParams(window.location.search).get('runtime_fixture');
+  return fixture && ['idle', 'researching', 'degraded', 'stopped'].includes(fixture) ? fixture : null;
+}
+
+function applyRuntimeQaFixture(snapshot: DailyAppSnapshot): DailyAppSnapshot {
+  const fixture = runtimeQaFixtureName();
+  const source = snapshot.runtime.operator_cockpit ?? legacyCockpit(snapshot);
+  if (!fixture) return snapshot;
+  const cockpit: RuntimeCockpit = structuredClone(source);
+  cockpit.schedule.next_editorial_wake_utc = new Date(Date.now() + 38 * 60_000).toISOString();
+  cockpit.schedule.next_editorial_wake_reason = 'CORE_DAILY';
+  cockpit.schedule.next_x_eligible_capture_utc = new Date(Date.now() + 12 * 60_000).toISOString();
+  cockpit.schedule.x_cadence_state = 'NORMAL_30M';
+  cockpit.intake.next_eligible_capture_utc = cockpit.schedule.next_x_eligible_capture_utc;
+  cockpit.intake.cadence_state = cockpit.schedule.x_cadence_state;
+  cockpit.intake.newest_source_event_age_seconds = 94;
+  if (fixture === 'idle') {
+    cockpit.primary_state = 'RUNNING_IDLE'; cockpit.supervisor_state = 'RUNNING';
+    cockpit.controller_health = 'HEALTHY'; cockpit.schedule.idle_healthy = true;
+    cockpit.current_activity = null; cockpit.timeline = cockpit.timeline.map(step => ({ ...step, state: 'pending' }));
+  } else if (fixture === 'researching') {
+    cockpit.primary_state = 'RESEARCHING'; cockpit.supervisor_state = 'RUNNING';
+    cockpit.controller_health = 'HEALTHY'; cockpit.schedule.idle_healthy = false;
+    cockpit.current_activity = {
+      work_item_id: 'qa-fixture-researching', cycle_started_at_utc: new Date(Date.now() - 247_000).toISOString(),
+      stage_started_at_utc: new Date(Date.now() - 81_000).toISOString(), current_stage: 'GROUNDED_RESEARCH',
+      story_label: 'Fed policy signals reshape the rate-cut path', candidate_rank: 1, candidate_count: 6,
+      grounding: 'latest-web source-bound evidence', destination: null, trigger: 'SCHEDULED',
+      instrumentation_state: 'DETERMINISTIC_LOCAL_QA_FIXTURE',
+    };
+    const order = ['HEADLINE_INGESTION', 'CANDIDATE_SELECTION', 'CC_CONTEXT'];
+    cockpit.timeline = cockpit.timeline.map(step => ({ ...step, state: step.stage === 'GROUNDED_RESEARCH' ? 'current' : order.includes(step.stage) ? 'completed' : 'pending' }));
+  } else if (fixture === 'degraded') {
+    cockpit.primary_state = 'DEGRADED'; cockpit.supervisor_state = 'RUNNING';
+    cockpit.controller_health = 'HEALTHY'; cockpit.publication_runtime_health = 'HEALTHY';
+    cockpit.intake.lane_state = 'DEGRADED'; cockpit.intake.latest_capture_result = 'CDP_UNAVAILABLE';
+    cockpit.intake.cadence_state = 'TRANSIENT_BACKOFF_30M_PLUS'; cockpit.schedule.x_cadence_state = 'TRANSIENT_BACKOFF_30M_PLUS';
+    cockpit.current_activity = null;
+  } else {
+    cockpit.primary_state = 'STOPPED'; cockpit.supervisor_state = 'STOPPED';
+    cockpit.controller_health = 'OFFLINE'; cockpit.operating_mode = 'KILL_SWITCH';
+    cockpit.safety.kill_switch_active = true; cockpit.safety.new_public_writes_blocked = true;
+    cockpit.current_activity = null; cockpit.heartbeat_age_seconds = 437;
+  }
+  return { ...snapshot, runtime: { ...snapshot.runtime, operator_cockpit: cockpit } };
+}
+
 function words(value: unknown): string {
   if (value === null || value === undefined || value === '') return 'Unavailable';
   return String(value).replace(/_/g, ' ').toLowerCase().replace(/(^|\s)\S/g, (c: string) => c.toUpperCase());
@@ -73,9 +123,9 @@ export function formatUtcDateTime(value: unknown): string {
 
 function statusTone(value: unknown): 'good' | 'warn' | 'bad' | 'neutral' {
   const status = String(value ?? '').toUpperCase();
-  if (/UNKNOWN|KILL|CRITICAL|FAILED|BLOCKED|OFFLINE/.test(status)) return 'bad';
-  if (/PENDING|STALE|DUE|REVIEW|UNAVAILABLE|HELD|SUPERVISED/.test(status)) return 'warn';
-  if (/HEALTHY|READY|CONFIRMED|PUBLISHED|CURRENT|ACTIVE|RECONCILED|AVAILABLE/.test(status)) return 'good';
+  if (/UNKNOWN|KILL|CRITICAL|FAILED|BLOCKED|OFFLINE|STOPPED|ACTION_REQUIRED/.test(status)) return 'bad';
+  if (/PENDING|STALE|DUE|REVIEW|UNAVAILABLE|HELD|SUPERVISED|DEGRADED/.test(status)) return 'warn';
+  if (/HEALTHY|READY|CONFIRMED|PUBLISHED|CURRENT|ACTIVE|RECONCILED|AVAILABLE|RUNNING|INGESTING|PREPARING|RESEARCHING|WRITING|MEDIA_BUILDING|PACKAGING|PUBLISHING|READING_BACK|RECONCILING/.test(status)) return 'good';
   return 'neutral';
 }
 
@@ -156,20 +206,165 @@ function RunEditorialNow({ data, refresh }: { data: DailyAppSnapshot; refresh: (
   </Panel>;
 }
 
+const PRIMARY_STATE_COPY: Record<RuntimePrimaryState, string> = {
+  STOPPED: 'The persistent supervisor is not reporting a current heartbeat.',
+  STARTING: 'The supervisor is starting and has not yet reached its steady loop.',
+  RUNNING_IDLE: 'Idle is healthy. V1 is waiting for the next governed opportunity.',
+  INGESTING: 'Refreshing the durable rolling X headline universe.',
+  PREPARING: 'Selecting and binding the next governed story candidate.',
+  RESEARCHING: 'Obtaining minimum trustworthy, source-bound evidence.',
+  WRITING: 'Writing and checking the selected evidence-bound article.',
+  MEDIA_BUILDING: 'Preparing rights-safe, source-backed article media.',
+  PACKAGING: 'Building the locked canonical and derivative packages.',
+  PUBLISHING: 'A governed destination dispatch is active.',
+  READING_BACK: 'Reading back the exact canonical public object identity.',
+  RECONCILING: 'Reconciling durable lifecycle truth before any retry.',
+  DEGRADED: 'A durable runtime input is degraded; publication safety remains intact.',
+  ACTION_REQUIRED: 'A durable safety or operator condition requires attention.',
+};
+
+function legacyCockpit(data: DailyAppSnapshot): RuntimeCockpit {
+  const primary: RuntimePrimaryState = data.runtime.controller_health === 'OFFLINE'
+    ? 'STOPPED' : data.runtime.kill_switch_active || data.incidents.active_count > 0
+      ? 'ACTION_REQUIRED' : data.runtime.headline_ingestion.lane_state === 'RUNNING'
+        ? 'RUNNING_IDLE' : 'DEGRADED';
+  return {
+    schema_version: 'contentops.daily_app_runtime_cockpit.v1', primary_state: primary,
+    supervisor_state: primary === 'STOPPED' ? 'STOPPED' : 'RUNNING', controller_health: data.runtime.controller_health,
+    publication_runtime_health: primary === 'STOPPED' ? 'STOPPED' : 'HEALTHY', operating_mode: data.runtime.operating_mode,
+    runtime_sha_short: 'UNAVAILABLE', local_timezone: 'Asia/Ho_Chi_Minh', current_time_utc: data.generated_at_utc,
+    heartbeat_age_seconds: null, current_activity: null, timeline: [],
+    schedule: { idle_healthy: primary === 'RUNNING_IDLE', next_editorial_wake_utc: data.runtime.next_wake_utc,
+      next_editorial_wake_reason: 'SCHEDULED_EDITORIAL_WINDOW', operator_trigger_pending: Boolean(data.runtime.operator_cycle_trigger),
+      next_x_eligible_capture_utc: data.runtime.headline_ingestion.next_eligible_capture_utc ?? null,
+      x_cadence_state: data.runtime.headline_ingestion.cadence_state ?? 'UNAVAILABLE' },
+    last_completed_editorial: null,
+    intake: { lane_state: data.runtime.headline_ingestion.lane_state, last_ingest_utc: data.runtime.headline_ingestion.last_ingest_utc,
+      latest_capture_at_utc: data.runtime.headline_ingestion.last_ingest_utc, latest_capture_result: data.runtime.headline_ingestion.lane_state,
+      rows_last_iteration: data.runtime.headline_ingestion.rows_last_iteration, newest_source_event_at_utc: null,
+      newest_source_event_age_seconds: null, next_eligible_capture_utc: data.runtime.headline_ingestion.next_eligible_capture_utc,
+      cadence_state: data.runtime.headline_ingestion.cadence_state, rolling_24h_unique_headlines: data.runtime.rolling_24h_unique_headlines },
+    safety: { active_public_write: false, pending_reconciliation_count: data.today.pending_lifecycle_recovery_count,
+      pending_readback_recovery_count: data.today.pending_lifecycle_recovery_count,
+      unknown_write_count: data.published.unknown_write_count, kill_switch_active: data.runtime.kill_switch_active,
+      new_public_writes_blocked: data.runtime.operating_mode !== 'AUTONOMOUS_DEFAULT' },
+    browser: { state: data.runtime.browser_automation?.state ?? 'IDLE', external_browser_activity_active: false,
+      last_active_at_utc: data.runtime.browser_automation?.last_active_browser_interaction_at_utc ?? null,
+      last_reason: data.runtime.browser_automation?.last_reason ?? null,
+      last_destination: data.runtime.browser_automation?.last_destination ?? null }, recent_activity: [],
+  };
+}
+
+function formatLocalClock(value: string, timezone: string): string {
+  const date = new Date(value);
+  if (Number.isNaN(date.valueOf())) return 'Unavailable';
+  return new Intl.DateTimeFormat('en-GB', { timeZone: timezone, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(date);
+}
+
+function formatLocalDateTime(value: string | null, timezone: string): string {
+  if (!value) return 'Unavailable';
+  const date = new Date(value);
+  if (Number.isNaN(date.valueOf())) return 'Unavailable';
+  return new Intl.DateTimeFormat('en-GB', {
+    timeZone: timezone, day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+  }).format(date);
+}
+
+function formatCountdown(target: string | null, nowMs: number): string {
+  if (!target) return 'Not scheduled';
+  const remaining = new Date(target).valueOf() - nowMs;
+  if (Number.isNaN(remaining)) return 'Unavailable';
+  if (remaining <= 0) return 'Due now';
+  const total = Math.ceil(remaining / 1000); const hours = Math.floor(total / 3600); const minutes = Math.floor((total % 3600) / 60); const seconds = total % 60;
+  return `${hours ? `${hours}h ` : ''}${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+}
+
+function formatDuration(seconds: number | null): string {
+  if (seconds === null) return 'Unavailable';
+  const minutes = Math.floor(seconds / 60); const rest = seconds % 60;
+  return minutes ? `${minutes}m ${rest}s` : `${rest}s`;
+}
+
+function elapsedSince(value: string | null, nowMs: number): string {
+  if (!value) return 'Unavailable';
+  const seconds = Math.max(0, Math.floor((nowMs - new Date(value).valueOf()) / 1000));
+  return Number.isFinite(seconds) ? formatDuration(seconds) : 'Unavailable';
+}
+
+function ActivitySummary({ cockpit, nowMs }: { cockpit: RuntimeCockpit; nowMs: number }) {
+  const active = cockpit.current_activity;
+  const last = cockpit.last_completed_editorial;
+  if (active) return <>
+    <div className="daily-activity-heading"><div><span>Current activity</span><strong>{words(active.current_stage)}</strong></div><Status value="ACTIVE" /></div>
+    <h3>{active.story_label ?? 'Story label not yet selected'}</h3>
+    <div className="daily-activity-facts"><span>Elapsed <b>{elapsedSince(active.cycle_started_at_utc, nowMs)}</b></span><span>Candidate <b>{active.candidate_rank ?? '—'} / {active.candidate_count ?? '—'}</b></span><span>Grounding <b>{active.grounding ?? 'Unavailable'}</b></span><span>Cycle start <b>{formatLocalDateTime(active.cycle_started_at_utc, cockpit.local_timezone)}</b></span><span>Stage start <b>{formatLocalDateTime(active.stage_started_at_utc, cockpit.local_timezone)}</b></span><span>Cycle ID <b>{active.work_item_id.slice(0, 24)}</b></span></div>
+  </>;
+  if (last) return <>
+    <div className="daily-activity-heading"><div><span>Last completed cycle</span><strong>{words(last.result)}</strong></div><Status value={last.result} /></div>
+    <h3>{last.story_label ?? 'No selected story label recorded'}</h3>
+    <div className="daily-activity-facts"><span>Duration <b>{formatDuration(last.duration_seconds)}</b></span><span>Research <b>{words(last.research_result)}</b></span><span>Result <b>{words(last.exact_reason ?? last.result)}</b></span></div>
+    {last.canonical_public_url && <a className="daily-public-link" href={last.canonical_public_url} target="_blank" rel="noreferrer">Open canonical Substack article <ExternalLink /></a>}
+  </>;
+  return <div className="daily-waiting"><span>Current activity</span><strong>{cockpit.primary_state === 'STOPPED' ? 'Supervisor stopped' : 'Waiting'}</strong><p>{PRIMARY_STATE_COPY[cockpit.primary_state]}</p></div>;
+}
+
+function RuntimeCockpitView({ data }: { data: DailyAppSnapshot }) {
+  const cockpit = data.runtime.operator_cockpit ?? legacyCockpit(data);
+  const [nowMs, setNowMs] = useState(Date.now());
+  useEffect(() => { const timer = window.setInterval(() => setNowMs(Date.now()), 1_000); return () => window.clearInterval(timer); }, []);
+  const safetyClear = !cockpit.safety.active_public_write
+    && cockpit.safety.pending_reconciliation_count === 0
+    && cockpit.safety.pending_readback_recovery_count === 0
+    && cockpit.safety.unknown_write_count === 0
+    && !cockpit.safety.kill_switch_active;
+  return <>
+    <section className={`daily-cockpit daily-cockpit--${statusTone(cockpit.primary_state)}`} data-primary-state={cockpit.primary_state}>
+      <header className="daily-cockpit-rail">
+        <div><span className="daily-live-mark"><i />V1 LIVE</span><Status value={cockpit.supervisor_state} label={`Supervisor ${words(cockpit.supervisor_state)}`} /><Status value={cockpit.controller_health} label={`Controller ${words(cockpit.controller_health)}`} /><Status value={cockpit.operating_mode} /></div>
+        <div><span>SHA {cockpit.runtime_sha_short}</span><strong>{formatLocalClock(new Date(nowMs).toISOString(), cockpit.local_timezone)}</strong><small>Jim local</small></div>
+      </header>
+      <div className="daily-cockpit-core">
+        <div className="daily-primary-state"><span>Runtime state</span><h1>{words(cockpit.primary_state)}</h1><p>{PRIMARY_STATE_COPY[cockpit.primary_state]}</p><div className="daily-heartbeat">Heartbeat age <b>{cockpit.heartbeat_age_seconds === null ? 'Unavailable' : `${cockpit.heartbeat_age_seconds}s`}</b></div></div>
+        <div className="daily-schedule-block"><div><span>Next editorial wake</span><strong>{formatCountdown(cockpit.schedule.next_editorial_wake_utc, nowMs)}</strong><small>{words(cockpit.schedule.next_editorial_wake_reason)} · {formatUtcDateTime(cockpit.schedule.next_editorial_wake_utc)}</small></div><div><span>Next X eligibility</span><strong>{formatCountdown(cockpit.schedule.next_x_eligible_capture_utc, nowMs)}</strong><small>{words(cockpit.schedule.x_cadence_state)} · no countdown is shown as active work</small></div></div>
+      </div>
+      <div className="daily-timeline" aria-label="Current canonical cycle timeline">
+        {cockpit.timeline.length ? cockpit.timeline.map(step => <div key={step.stage} className={`daily-timeline-step is-${step.state}`}><i /><span>{step.label}</span></div>) : <span className="daily-timeline-empty">Timeline activates only when an exact canonical cycle stage is recorded.</span>}
+      </div>
+      <div className="daily-safety-strip">
+        {safetyClear ? <span className="daily-safety-clear"><b>Publication safety</b> Clear · no active public write, unknown write, readback, or reconciliation backlog</span> : <>
+          <span><b>Write</b> {cockpit.safety.active_public_write ? 'ACTIVE' : 'No active public write'}</span>
+          <span><b>Reconciliation</b> {cockpit.safety.pending_reconciliation_count} pending</span>
+          <span><b>Readback / recovery</b> {cockpit.safety.pending_readback_recovery_count} pending</span>
+          <span><b>Unknown write</b> {cockpit.safety.unknown_write_count}</span>
+          <span className={cockpit.safety.kill_switch_active ? 'is-alert' : ''}><b>Kill switch</b> {cockpit.safety.kill_switch_active ? 'ACTIVE' : 'Disengaged'}</span>
+        </>}
+        <span><b>Publication runtime</b> {words(cockpit.publication_runtime_health)}</span>
+        <span><b>External browser activity</b> {cockpit.browser.external_browser_activity_active ? 'YES' : 'NO'} · {words(cockpit.browser.state)}{cockpit.browser.last_destination ? ` · ${cockpit.browser.last_destination}` : ''}</span>
+        <span><b>Last browser interaction</b> {formatLocalDateTime(cockpit.browser.last_active_at_utc, cockpit.local_timezone)} · {words(cockpit.browser.last_reason ?? 'NONE')}</span>
+        <span><b>Operator trigger</b> {cockpit.schedule.operator_trigger_pending ? 'PENDING' : 'None'}</span>
+      </div>
+    </section>
+    <div className="daily-cockpit-support">
+      <Panel title="Activity" eyebrow="Current or last completed" className="daily-activity-panel"><ActivitySummary cockpit={cockpit} nowMs={nowMs} /></Panel>
+      <Panel title="X intake" eyebrow="Continuous intelligence" className={cockpit.intake.lane_state === 'DEGRADED' ? 'daily-intake-degraded' : ''}>
+        <div className="daily-intake-head"><Status value={cockpit.intake.lane_state} /><strong>{cockpit.intake.rolling_24h_unique_headlines ?? '—'}<small>unique / 24h</small></strong></div>
+        <dl className="daily-compact-facts"><div><dt>Newest source event</dt><dd>{cockpit.intake.newest_source_event_age_seconds === null ? 'Unavailable' : `${formatDuration(cockpit.intake.newest_source_event_age_seconds)} ago`}</dd></div><div><dt>Latest capture</dt><dd>{formatLocalDateTime(cockpit.intake.latest_capture_at_utc, cockpit.local_timezone)} · {words(cockpit.intake.latest_capture_result)}</dd></div><div><dt>Next eligible</dt><dd>{formatLocalDateTime(cockpit.intake.next_eligible_capture_utc ?? null, cockpit.local_timezone)}</dd></div><div><dt>Cadence</dt><dd>{words(cockpit.intake.cadence_state)}</dd></div></dl>
+      </Panel>
+    </div>
+    <Panel title="Recent runtime activity" eyebrow="Editorial cycles + X intake">
+      {cockpit.recent_activity.length ? <div className="daily-history-table" role="table"><div className="daily-history-row daily-history-header" role="row"><span>Time / type</span><span>Story or lane</span><span>Duration</span><span>Result</span></div>{cockpit.recent_activity.map((row, index) => <div className="daily-history-row" role="row" key={`${row.activity_type}:${row.work_item_id ?? row.started_at_utc}:${index}`}><span><b>{formatLocalDateTime(row.started_at_utc, cockpit.local_timezone)}</b><small>{words(row.activity_type)}</small></span><span>{row.story_label ?? 'No story label recorded'}<small>{row.candidate_rank ? `Candidate ${row.candidate_rank} / ${row.candidate_count ?? '—'} · ` : ''}{row.grounding ?? ''}</small></span><span>{formatDuration(row.duration_seconds)}</span><span><Status value={row.result} />{row.canonical_public_url && <a href={row.canonical_public_url} target="_blank" rel="noreferrer" aria-label="Open canonical Substack article"><ExternalLink /></a>}</span></div>)}</div> : <Empty title="No runtime history recorded" detail="The durable store has no completed editorial cycle or X capture timestamp to show." />}
+    </Panel>
+  </>;
+}
+
 function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh: () => Promise<void>; hourlyAudit: HourlyAudit | null }) {
   const cycle = data.today.current_cycle;
   const nextAction = data.incidents.active_count > 0
     ? 'Review the active incident lifecycle before any intervention.'
     : data.queue.items.length > 0 ? 'The next governed queue item is scheduled.' : 'No operator action is currently recorded.';
   return <div className="daily-view">
-    <div className="daily-first-fold">
-      <Panel title="Operating mode" eyebrow="Control posture"><Status value={data.runtime.operating_mode} /><p>{data.controls.semantics[data.runtime.operating_mode]}</p><Status value={data.runtime.kill_switch_active ? 'KILL_SWITCH_ACTIVE' : 'KILL_SWITCH_DISENGAGED'} /></Panel>
-      <Panel title="Controller health" eyebrow="Runtime"><Status value={data.runtime.controller_health} /><p>Last heartbeat: {formatUtcDateTime(data.runtime.latest_heartbeat_at_utc)}</p></Panel>
-      <Panel title="Hourly audit" eyebrow="Independent readback"><Status value={hourlyAudit?.classification ?? 'AUDIT_NOT_YET_AVAILABLE'} /><p>Last run: {formatUtcDateTime(hourlyAudit?.generated_at_utc)}</p></Panel>
-      <RunEditorialNow data={data} refresh={refresh} />
-      <Panel title="Next safe action" eyebrow="Operator"><p className="daily-callout">{nextAction}</p><p>Next wake: {formatUtcDateTime(data.runtime.next_wake_utc)}</p><Status value={data.runtime.next_editorial_window?.provenance ?? 'WINDOW_PROVENANCE_UNAVAILABLE'} /></Panel>
-      <Panel title="Active incidents" eyebrow="Safety"><strong className="daily-big-number">{data.incidents.active_count}</strong><Status value={data.incidents.active_count ? 'ATTENTION_REQUIRED' : 'NO_ACTIVE_INCIDENTS'} /></Panel>
-    </div>
+    <RuntimeCockpitView data={data} />
+    <div className="daily-grid-3"><Panel title="Hourly audit" eyebrow="Independent readback"><Status value={hourlyAudit?.classification ?? 'AUDIT_NOT_YET_AVAILABLE'} /><p>Last run: {formatUtcDateTime(hourlyAudit?.generated_at_utc)}</p></Panel><Panel title="Next safe action" eyebrow="Operator"><p className="daily-callout">{nextAction}</p><Status value={data.incidents.active_count ? 'ATTENTION_REQUIRED' : 'NO_ACTION_REQUIRED'} /></Panel><RunEditorialNow data={data} refresh={refresh} /></div>
     <Panel title="Current cycle" eyebrow="Today">
       {cycle ? <DefinitionRows object={cycle} /> : <Empty title="No governed cycle recorded" detail="The durable store has no current cycle. The console will not invent one." />}
     </Panel>
@@ -353,6 +548,7 @@ export function DailyAppConsole() {
   const [navOpen, setNavOpen] = useState(false);
   const [state, refresh] = useDailyAppSnapshot();
   const snapshot = state.snapshot;
+  const qaFixture = runtimeQaFixtureName();
   const activeLabel = useMemo(() => NAV.flatMap(group => group.items).find(item => item.id === view)?.label ?? 'Today', [view]);
 
   return <div className="daily-shell" data-theme="daily-dark">
@@ -363,8 +559,9 @@ export function DailyAppConsole() {
       <div className="daily-nav-foot"><Shield /><span><b>Local control plane</b><small>No public-write launcher</small></span></div>
     </aside>
     <div className="daily-main">
-      <header className="daily-topbar"><button type="button" className="daily-menu" onClick={() => setNavOpen(true)} aria-label="Open navigation"><Menu /></button><div><span>{activeLabel}</span>{snapshot && <Status value={snapshot.runtime.operating_mode} />}</div><div className="daily-top-actions">{snapshot && <Status value={state.kind === 'online' ? snapshot.freshness.state : 'OFFLINE_STALE_VIEW'} />}<button type="button" onClick={() => void refresh()} aria-label="Refresh snapshot"><RefreshCw /></button></div></header>
+      <header className="daily-topbar"><button type="button" className="daily-menu" onClick={() => setNavOpen(true)} aria-label="Open navigation"><Menu /></button><div><span>{activeLabel}</span>{snapshot && <Status value={snapshot.runtime.operator_cockpit?.primary_state ?? snapshot.runtime.operating_mode} />}</div><div className="daily-top-actions">{snapshot && <Status value={state.kind === 'online' ? snapshot.freshness.state : 'OFFLINE_STALE_VIEW'} />}<button type="button" onClick={() => void refresh()} aria-label="Refresh snapshot"><RefreshCw /></button></div></header>
       {state.kind === 'offline' && <div className="daily-offline" role="alert"><AlertTriangle /> <span><strong>Live snapshot unavailable.</strong> {snapshot ? 'Showing the last received snapshot; it may be stale.' : 'No fixture or fallback data is shown.'} {state.error}</span></div>}
+      {qaFixture && <div className="daily-qa-banner" role="status">Deterministic local browser-QA fixture · {words(qaFixture)} · not runtime authority</div>}
       <main id="daily-workspace">
         {state.kind === 'loading' && <div className="daily-loading"><Gauge /><span>Reading canonical operating state…</span></div>}
         {!snapshot && state.kind === 'offline' && <Empty title="Operating state unavailable" detail="Start the loopback API with an explicit canonical store binding. This surface has no fixture fallback." />}

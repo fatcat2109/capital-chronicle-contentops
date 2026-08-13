@@ -41,6 +41,92 @@ export interface BackgroundLogTail {
   content: string;
 }
 
+export type RuntimePrimaryState =
+  | 'STOPPED' | 'STARTING' | 'RUNNING_IDLE' | 'INGESTING' | 'PREPARING'
+  | 'RESEARCHING' | 'WRITING' | 'MEDIA_BUILDING' | 'PACKAGING'
+  | 'PUBLISHING' | 'READING_BACK' | 'RECONCILING' | 'DEGRADED'
+  | 'ACTION_REQUIRED';
+
+export interface RuntimeActivityRow {
+  activity_type: string;
+  work_item_id: string | null;
+  started_at_utc: string | null;
+  completed_at_utc: string | null;
+  duration_seconds: number | null;
+  story_label: string | null;
+  candidate_rank: number | null;
+  candidate_count: number | null;
+  grounding: string | null;
+  research_result: string | null;
+  result: string;
+  exact_reason: string | null;
+  canonical_public_url: string | null;
+}
+
+export interface RuntimeCockpit {
+  schema_version: 'contentops.daily_app_runtime_cockpit.v1';
+  primary_state: RuntimePrimaryState;
+  supervisor_state: string;
+  controller_health: string;
+  publication_runtime_health: string;
+  operating_mode: OperatingMode;
+  runtime_sha_short: string;
+  local_timezone: string;
+  current_time_utc: string;
+  heartbeat_age_seconds: number | null;
+  current_activity: null | {
+    work_item_id: string;
+    cycle_started_at_utc: string | null;
+    stage_started_at_utc: string | null;
+    current_stage: string;
+    story_label: string | null;
+    candidate_rank: number | null;
+    candidate_count: number | null;
+    grounding: string | null;
+    destination: string | null;
+    trigger: string | null;
+    instrumentation_state: string;
+  };
+  timeline: Array<{ stage: string; label: string; state: 'completed' | 'current' | 'pending' }>;
+  schedule: {
+    idle_healthy: boolean;
+    next_editorial_wake_utc: string | null;
+    next_editorial_wake_reason: string;
+    operator_trigger_pending: boolean;
+    next_x_eligible_capture_utc: string | null;
+    x_cadence_state: string;
+  };
+  last_completed_editorial: RuntimeActivityRow | null;
+  intake: {
+    lane_state: string;
+    last_ingest_utc: string | null;
+    latest_capture_at_utc: string | null;
+    latest_capture_result: string;
+    rows_last_iteration: number;
+    newest_source_event_at_utc: string | null;
+    newest_source_event_age_seconds: number | null;
+    next_eligible_capture_utc?: string | null;
+    cadence_state?: string;
+    rolling_24h_unique_headlines: number | null;
+  };
+  safety: {
+    active_public_write: boolean;
+    pending_reconciliation_count: number;
+    pending_readback_recovery_count: number;
+    unknown_write_count: number;
+    kill_switch_active: boolean;
+    new_public_writes_blocked: boolean;
+  };
+  browser: {
+    state: string;
+    external_browser_activity_active: boolean;
+    last_active_at_utc: string | null;
+    last_reason: string | null;
+    last_destination: string | null;
+  };
+  recent_activity: RuntimeActivityRow[];
+}
+
 export interface DailyAppSnapshot {
   schema_version: string;
   generated_at_utc: string;
@@ -79,6 +165,7 @@ export interface DailyAppSnapshot {
       state: string;
       last_active_browser_interaction_at_utc: string | null;
       last_reason: string | null;
+      last_destination?: string | null;
     };
     rolling_24h_unique_headlines: number | null;
     capital_chronicle_read_model: string;
@@ -86,6 +173,7 @@ export interface DailyAppSnapshot {
     prompt_tokens: number;
     completion_tokens: number;
     cost_metadata: string;
+    operator_cockpit?: RuntimeCockpit;
   };
   today: {
     current_cycle: null | Record<string, unknown>;

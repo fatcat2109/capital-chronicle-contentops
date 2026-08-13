@@ -1706,6 +1706,21 @@ def build_rolling_x_grounded_article_and_media(
     :class:`GroundedArticleBuilderError` on any binding/authority/numeric/provenance violation.
     """
     context = extract_governed_story_context(viability)
+    from live_contentops.runtime_activity_projection_v1 import (
+        ACTIVITY_FILE_NAME,
+        RuntimeActivityRecorderV1,
+        load_runtime_activity,
+    )
+
+    existing_activity = load_runtime_activity(output_dir / ACTIVITY_FILE_NAME)
+    activity = RuntimeActivityRecorderV1(
+        output_dir=output_dir,
+        work_item_id=str(
+            existing_activity.get("work_item_id")
+            or viability.get("work_item_id")
+            or output_dir.name
+        ),
+    )
     authority_blockers = _authority_blockers(context)
     if authority_blockers:
         raise GroundedArticleBuilderError(";".join(authority_blockers))
@@ -1724,6 +1739,12 @@ def build_rolling_x_grounded_article_and_media(
         if required_asset_count is not None
         else 0
     )
+    activity.record(
+        "MEDIA_BUILD",
+        candidate_rank=int(context.get("selected_rank") or 1),
+        story_label=(context.get("framing") or {}).get("selection_case"),
+        grounding="source-backed visual preparation",
+    )
     try:
         media_assets = build_source_backed_media_assets(
             context,
@@ -1740,6 +1761,12 @@ def build_rolling_x_grounded_article_and_media(
     # writing.  The normal ordinary path therefore makes the same single quality-first writer
     # invocation as every other publishable article.  Deterministic copy remains an explicitly
     # degraded provider-outage recovery and is never silently treated as the normal product.
+    activity.record(
+        "ARTICLE_WRITING",
+        candidate_rank=int(context.get("selected_rank") or 1),
+        story_label=(context.get("framing") or {}).get("selection_case"),
+        grounding="accepted source-bound evidence",
+    )
     prompt = build_article_generation_prompt(context, visual_asset_ids)
     generator = article_generator or _default_article_generator
     try:

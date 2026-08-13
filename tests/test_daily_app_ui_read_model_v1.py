@@ -28,7 +28,7 @@ def _store(tmp_path, name="daily.sqlite3"):
     return ContentOpsDurableStore(tmp_path / name, now_fn=lambda: NOW)
 
 
-def _seed_dispatch(store, *, suffix, status, object_id=None, reconciliation=None):
+def _seed_dispatch(store, *, suffix, status, object_id=None, reconciliation=None, public_url=None):
     work_id = f"work_{suffix}"
     message_id = f"outbox_{suffix}"
     dispatch_id = f"dispatch_{suffix}"
@@ -42,7 +42,7 @@ def _seed_dispatch(store, *, suffix, status, object_id=None, reconciliation=None
     )
     store.register_platform_dispatch(
         dispatch_id=dispatch_id, message_id=message_id, platform="substack",
-        status=status, public_object_id=object_id,
+        status=status, public_object_id=object_id, public_object_url=public_url,
     )
     if reconciliation:
         store.register_reconciliation(
@@ -103,16 +103,209 @@ def _lifecycle_counts(store):
 def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     store = _store(tmp_path)
     store.upsert_heartbeat("daily-supervisor")
+    from live_contentops.continuous_headline_ingest_v1 import (
+        OUTCOME_CAPTURED_NONE,
+        write_ingestion_checkpoint,
+    )
+    write_ingestion_checkpoint(
+        store, now=NOW, last_success_epoch=NOW.timestamp(),
+        last_attempt_epoch=NOW.timestamp(), outcome_code=OUTCOME_CAPTURED_NONE,
+        consecutive_empty=1, rows_iteration=0,
+    )
     before = {path.name for path in tmp_path.iterdir()}
     snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
     after = {path.name for path in tmp_path.iterdir()}
     assert snapshot["runtime"]["controller_health"] == "HEALTHY"
+    cockpit = snapshot["runtime"]["operator_cockpit"]
+    assert cockpit["primary_state"] == "RUNNING_IDLE"
+    assert cockpit["schedule"]["idle_healthy"] is True
+    assert cockpit["schedule"]["next_editorial_wake_utc"] == "2026-08-10T12:00:00Z"
+    assert cockpit["schedule"]["next_x_eligible_capture_utc"] == "2026-08-10T13:00:00Z"
+    assert cockpit["schedule"]["x_cadence_state"] == "EMPTY_BACKOFF_60M"
+    assert cockpit["safety"]["active_public_write"] is False
+    assert cockpit["projection_authority"]["stage_file_presentation_only"] is True
+    assert cockpit["projection_authority"]["grants_publication_authority"] is False
     assert snapshot["authority"]["fixture_fallback"] is False
     assert snapshot["authority"]["snapshot_mutates_lifecycle"] is False
     # SQLite may materialize its own WAL companions while another collected test keeps a
     # connection alive; those files are part of daily.sqlite3, not a second authority store.
     assert after - before <= {"daily.sqlite3-wal", "daily.sqlite3-shm"}
     assert {name for name in after if name.endswith(".sqlite3")} == {"daily.sqlite3"}
+
+
+def test_cockpit_active_researching_requires_exact_active_durable_cycle(tmp_path):
+    store = _store(tmp_path)
+    store.upsert_heartbeat("daily-supervisor")
+    work_id = "editorial-active-research"
+    owner = "supervisor-test-owner"
+    store.create_work_item(
+        story_id=work_id, title="Daily App editorial window",
+        target_surface="daily_app_editorial_window", work_item_id=work_id,
+    )
+    lease = store.acquire_lease(
+        lease_key=work_id, owner_ref=owner, ttl_seconds=900, work_item_id=work_id,
+    )
+    store.transition_state(
+        work_item_id=work_id, expected_from_state="DISCOVERED", to_state="EVIDENCE_PENDING",
+        expected_state_version=1, actor_class="SYSTEM", actor_ref=owner,
+        reason_code="EDITORIAL_WINDOW_DUE", explanation="test active research",
+        lease_key=work_id, fencing_token=int(lease["fencing_token"]),
+        input_artifact_ids=[], output_artifact_ids=[], correlation_id="test-active-research",
+    )
+    # The read model reopens the store with the real host clock, so keep this synthetic lease
+    # unambiguously live across the test authority date.
+    with store.get_connection() as conn:
+        conn.execute(
+            "UPDATE leases SET expires_at='2030-01-01T00:00:00+00:00' WHERE lease_key=?",
+            (work_id,),
+        )
+    from live_contentops.runtime_activity_projection_v1 import RuntimeActivityRecorderV1
+    RuntimeActivityRecorderV1(
+        output_dir=tmp_path / "daily_app_outputs" / work_id,
+        work_item_id=work_id,
+        now_fn=lambda: NOW,
+    ).record(
+        "GROUNDED_RESEARCH", candidate_rank=1, candidate_count=6,
+        story_label="Fed policy signals reshape the rate-cut path",
+        grounding="latest-web source-bound evidence",
+    )
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    cockpit = snapshot["runtime"]["operator_cockpit"]
+    assert cockpit["primary_state"] == "RESEARCHING"
+    assert cockpit["current_activity"]["current_stage"] == "GROUNDED_RESEARCH"
+    assert cockpit["current_activity"]["candidate_rank"] == 1
+    assert cockpit["current_activity"]["candidate_count"] == 6
+    assert cockpit["current_activity"]["story_label"] == (
+        "Fed policy signals reshape the rate-cut path"
+    )
+    assert next(row for row in cockpit["timeline"] if row["stage"] == "GROUNDED_RESEARCH")["state"] == "current"
+
+
+def test_cockpit_degraded_intake_does_not_overstate_publication_runtime(tmp_path):
+    store = _store(tmp_path)
+    store.upsert_heartbeat("daily-supervisor")
+    cockpit = build_daily_app_snapshot(store.db_path, now=NOW)["runtime"]["operator_cockpit"]
+    assert cockpit["primary_state"] == "DEGRADED"
+    assert cockpit["intake"]["lane_state"] == "DEGRADED"
+    assert cockpit["publication_runtime_health"] == "HEALTHY"
+
+
+def test_cockpit_browser_interaction_is_sanitized_current_truth(tmp_path):
+    store = _store(tmp_path)
+    store.upsert_heartbeat("daily-supervisor")
+    telemetry = tmp_path / "control" / "browser_interaction_budget_v1"
+    telemetry.mkdir(parents=True)
+    (telemetry / "current_state.json").write_text(
+        json.dumps({
+            "schema_version": "contentops.browser_interaction_telemetry.v1",
+            "state": "PUBLICATION_ACTIVE",
+            "reason": "EXACT_DESTINATION_PUBLICATION",
+            "destination": "substack",
+            "started_at_utc": "2026-08-10T11:59:30Z",
+            "last_active_browser_interaction_at_utc": "2026-08-10T11:59:30Z",
+        }),
+        encoding="utf-8",
+    )
+    cockpit = build_daily_app_snapshot(store.db_path, now=NOW)["runtime"]["operator_cockpit"]
+    assert cockpit["primary_state"] == "PUBLISHING"
+    assert cockpit["browser"] == {
+        "state": "PUBLICATION_ACTIVE",
+        "external_browser_activity_active": True,
+        "last_active_at_utc": "2026-08-10T11:59:30Z",
+        "last_reason": "EXACT_DESTINATION_PUBLICATION",
+        "last_destination": "substack",
+    }
+
+
+def test_cockpit_stopped_and_kill_switch_are_both_explicit(tmp_path):
+    store = _store(tmp_path)
+    control = store.get_operating_control()
+    store.update_operating_control(
+        expected_state_version=control["state_version"], operating_mode="KILL_SWITCH",
+        control_source="TEST",
+    )
+    cockpit = build_daily_app_snapshot(store.db_path, now=NOW)["runtime"]["operator_cockpit"]
+    assert cockpit["primary_state"] == "STOPPED"
+    assert cockpit["supervisor_state"] == "STOPPED"
+    assert cockpit["safety"]["kill_switch_active"] is True
+    assert cockpit["safety"]["new_public_writes_blocked"] is True
+
+
+def test_cockpit_latest_completed_no_publication_and_published_history(tmp_path):
+    store = _store(tmp_path)
+    store.upsert_heartbeat("daily-supervisor")
+    no_pub = "editorial-no-publication"
+    published = "editorial-published"
+    for work_id in (no_pub, published):
+        store.create_work_item(
+            story_id=work_id, title=f"Daily App editorial window {work_id}",
+            target_surface="daily_app_editorial_window", work_item_id=work_id,
+        )
+    with store.get_connection() as conn:
+        conn.execute(
+            "UPDATE work_items SET current_state='REJECTED', updated_at='2026-08-10T11:59:00+00:00' WHERE work_item_id=?",
+            (no_pub,),
+        )
+        conn.execute(
+            "UPDATE work_items SET current_state='COMPLETE', updated_at='2026-08-10T11:58:00+00:00' WHERE work_item_id=?",
+            (published,),
+        )
+    no_pub_dir = tmp_path / "daily_app_outputs" / no_pub
+    no_pub_dir.mkdir(parents=True)
+    (no_pub_dir / "rolling_x_newsroom_cycle_evidence_v1.json").write_text(
+        json.dumps({
+            "classification": "NO_PUBLICATION",
+            "exact_next_blocker": "MINIMUM_TRUSTWORTHY_EVIDENCE_NOT_MET",
+            "ranked_viability": {
+                "selected_rank": 2,
+                "selected_cluster": {"selection_case": "Held candidate topic"},
+                "selected_evidence": {"status": "BLOCKED"},
+            },
+            "ranked_assignment": {"ranked_clusters": [{}, {}, {}]},
+        }),
+        encoding="utf-8",
+    )
+    published_dir = tmp_path / "daily_app_outputs" / published
+    published_dir.mkdir(parents=True)
+    (published_dir / "rolling_x_newsroom_cycle_evidence_v1.json").write_text(
+        json.dumps({
+            "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+            "article": {"title": "Published evidence-bound story"},
+            "ranked_viability": {
+                "selected_rank": 1,
+                "selected_cluster": {"selection_case": "Published candidate"},
+                "selected_evidence": {"status": "PASS"},
+            },
+            "ranked_assignment": {"ranked_clusters": [{}, {}]},
+        }),
+        encoding="utf-8",
+    )
+    store.register_outbox_message(
+        message_id="outbox_history", work_item_id=published, destination="substack",
+        payload="{}", status="DISPATCH_CONFIRMED",
+    )
+    store.register_platform_dispatch(
+        dispatch_id="dispatch_history", message_id="outbox_history", platform="substack",
+        status="DISPATCH_CONFIRMED", public_object_id="post-history",
+        public_object_url="https://capitalchronicle.substack.com/p/published-history",
+    )
+    store.register_reconciliation(
+        reconciliation_id="reconciliation_history", work_item_id=published,
+        status="RECONCILED_CONFIRMED",
+    )
+    cockpit = build_daily_app_snapshot(store.db_path, now=NOW)["runtime"]["operator_cockpit"]
+    assert cockpit["last_completed_editorial"]["result"] == "NO_PUBLICATION"
+    assert cockpit["last_completed_editorial"]["exact_reason"] == (
+        "MINIMUM_TRUSTWORTHY_EVIDENCE_NOT_MET"
+    )
+    published_row = next(
+        row for row in cockpit["recent_activity"] if row["work_item_id"] == published
+    )
+    assert published_row["result"] == "REAL_PUBLICATION_CONFIRMED"
+    assert published_row["canonical_public_url"] == (
+        "https://capitalchronicle.substack.com/p/published-history"
+    )
+    assert published_row["research_result"] == "PASS"
 
 
 def test_historical_unlinked_and_terminal_incidents_are_not_active(tmp_path):
@@ -245,7 +438,30 @@ def test_publication_lifecycle_classes_are_exact(tmp_path):
     # The pending dispatch and UNKNOWN_WRITE require recovery; the terminal incomplete object
     # does not.
     assert snapshot["published"]["pending_readback_count"] == 2
+    assert snapshot["runtime"]["operator_cockpit"]["safety"]["unknown_write_count"] == 1
+    assert snapshot["runtime"]["operator_cockpit"]["primary_state"] == "ACTION_REQUIRED"
     assert any(item["what_happened"] == "UNKNOWN_WRITE" for item in snapshot["incidents"]["items"])
+
+
+def test_only_safe_canonical_substack_article_url_is_exposed(tmp_path):
+    store = _store(tmp_path)
+    safe = _seed_dispatch(
+        store, suffix="safe-url", status="DISPATCH_CONFIRMED", object_id="public-safe",
+        public_url="https://capitalchronicle.substack.com/p/a-safe-slug",
+        reconciliation="RECONCILED_CONFIRMED",
+    )
+    unsafe = _seed_dispatch(
+        store, suffix="unsafe-url", status="DISPATCH_CONFIRMED", object_id="public-unsafe",
+        public_url="https://capitalchronicle.substack.com/p/unsafe?session=do-not-expose",
+        reconciliation="RECONCILED_CONFIRMED",
+    )
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    assert _publication(snapshot, safe)["canonical_public_url"] == (
+        "https://capitalchronicle.substack.com/p/a-safe-slug"
+    )
+    assert _publication(snapshot, unsafe)["canonical_public_url"] is None
+    encoded = json.dumps(snapshot)
+    assert "session=do-not-expose" not in encoded
 
 
 def test_confirmed_dispatch_without_readback_is_counted_for_recovery(tmp_path):

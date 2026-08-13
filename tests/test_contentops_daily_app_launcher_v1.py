@@ -337,6 +337,52 @@ def test_ui_bootstrap_is_local_only():
     assert "0.0.0.0" not in source
 
 
+def test_dashboard_opens_once_in_normal_default_browser_after_ui_health(tmp_path):
+    opened: list[str] = []
+    ui_state = {
+        "status": "READY",
+        "url": "http://127.0.0.1:4173/",
+        "mechanism": "npm_run_preview_detached",
+        "pid": 123,
+    }
+    first = launcher.open_operator_dashboard(
+        ui_state=ui_state,
+        log_root=tmp_path,
+        opener=opened.append,
+        now_epoch=1_000.0,
+    )
+    second = launcher.open_operator_dashboard(
+        ui_state=ui_state,
+        log_root=tmp_path,
+        opener=opened.append,
+        now_epoch=1_010.0,
+    )
+    assert first == {
+        "status": "OPENED", "url": "http://127.0.0.1:4173/", "deduplicated": False,
+    }
+    assert second == {
+        "status": "SUPPRESSED_RECENT_OPEN",
+        "url": "http://127.0.0.1:4173/",
+        "deduplicated": True,
+    }
+    assert opened == ["http://127.0.0.1:4173/"]
+    marker = (tmp_path / launcher.DASHBOARD_OPEN_MARKER).read_text(encoding="utf-8")
+    assert '"browser_mechanism":"NORMAL_DEFAULT_BROWSER"' in marker
+    assert '"cdp_used":false' in marker
+    assert "9222" not in marker and "9223" not in marker
+
+
+def test_dashboard_never_opens_before_runtime_or_ui_health(tmp_path):
+    opened: list[str] = []
+    result = launcher.open_operator_dashboard(
+        ui_state={"status": "WAITING_FOR_RUNTIME_HEALTH", "url": None},
+        log_root=tmp_path,
+        opener=opened.append,
+    )
+    assert result["status"] == "NOT_OPENED_UI_NOT_HEALTHY"
+    assert opened == []
+
+
 def test_browser_role_separation_is_hardcoded():
     assert launcher.INGESTION_CDP_PORT == 9222
     assert launcher.PUBLISHING_CDP_PORT == 9223

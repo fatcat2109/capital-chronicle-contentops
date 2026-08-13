@@ -30,6 +30,12 @@ _SENSITIVE_URL_ARGUMENT_RE = re.compile(
     r"https?://\S*[?&](?:code|state|access_token|refresh_token|client_secret|token)=",
     re.IGNORECASE,
 )
+_SAFE_TELEMETRY_LABEL_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.:-]{0,79}$")
+
+
+def _safe_telemetry_label(value: Any) -> str | None:
+    text = str(value or "").strip()
+    return text if text and _SAFE_TELEMETRY_LABEL_RE.fullmatch(text) else None
 
 
 @dataclass(frozen=True)
@@ -265,6 +271,7 @@ def browser_interaction_summary(
         "schema_version": TELEMETRY_SCHEMA_VERSION,
         "state": str(state.get("state") or "IDLE"),
         "last_active_browser_interaction_at_utc": state.get("last_active_browser_interaction_at_utc"),
-        "last_reason": state.get("reason"),
+        "last_reason": _safe_telemetry_label(state.get("reason")),
+        "last_destination": _safe_telemetry_label(state.get("destination")),
         **counts,
     }

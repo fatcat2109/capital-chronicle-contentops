@@ -13,6 +13,7 @@ from collections import Counter, defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Optional
+from urllib.parse import urlsplit
 
 from live_contentops.daily_app_supervisor_v1 import (
     OPERATING_MODES,
@@ -237,6 +238,125 @@ def _assert_nonsecret(value: Any, path: str = "snapshot") -> None:
             _assert_nonsecret(child, f"{path}[{index}]")
 
 
+_COCKPIT_STAGE_TO_STATE = {
+    "HEADLINE_INGESTION": "INGESTING",
+    "CANDIDATE_SELECTION": "PREPARING",
+    "CC_CONTEXT": "PREPARING",
+    "GROUNDED_RESEARCH": "RESEARCHING",
+    "ARTICLE_WRITING": "WRITING",
+    "FACTUAL_CHECK": "WRITING",
+    "READER_VALUE_CHECK": "WRITING",
+    "VISUAL_DISCOVERY": "MEDIA_BUILDING",
+    "MEDIA_BUILD": "MEDIA_BUILDING",
+    "PACKAGE_BUILD": "PACKAGING",
+    "PUBLICATION_JIT": "PUBLISHING",
+    "CANONICAL_DISPATCH": "PUBLISHING",
+    "DERIVATIVE_DISPATCH": "PUBLISHING",
+    "CANONICAL_READBACK": "READING_BACK",
+    "RECONCILIATION": "RECONCILING",
+}
+_COCKPIT_TIMELINE = (
+    ("HEADLINE_INGESTION", "Intake"),
+    ("CANDIDATE_SELECTION", "Select"),
+    ("CC_CONTEXT", "CC context"),
+    ("GROUNDED_RESEARCH", "Research"),
+    ("ARTICLE_WRITING", "Write"),
+    ("MEDIA_BUILD", "Media"),
+    ("FACTUAL_CHECK", "Fact check"),
+    ("READER_VALUE_CHECK", "Reader value"),
+    ("PACKAGE_BUILD", "Package"),
+    ("PUBLICATION_JIT", "JIT ready"),
+    ("CANONICAL_DISPATCH", "Publish"),
+    ("CANONICAL_READBACK", "Readback"),
+    ("DERIVATIVE_DISPATCH", "Derivatives"),
+    ("RECONCILIATION", "Reconcile"),
+)
+_EDITORIAL_SURFACES = frozenset({
+    "daily_app_editorial_window", "daily_app_material_event_window",
+})
+
+
+def _safe_substack_public_url(value: Any) -> Optional[str]:
+    """Expose only Capital Chronicle canonical article URLs, never arbitrary/raw URLs."""
+    try:
+        parsed = urlsplit(str(value or "").strip())
+    except ValueError:
+        return None
+    slug = parsed.path.rstrip("/").removeprefix("/p/")
+    if not (
+        parsed.scheme == "https"
+        and (parsed.hostname or "").casefold() == "capitalchronicle.substack.com"
+        and parsed.path.rstrip("/").startswith("/p/")
+        and slug
+        and slug != "pending-publication"
+        and not parsed.username
+        and not parsed.password
+        and not parsed.query
+        and not parsed.fragment
+    ):
+        return None
+    return f"https://capitalchronicle.substack.com/p/{slug}"
+
+
+def _bounded_operator_text(value: Any, *, limit: int = 160) -> Optional[str]:
+    from live_contentops.runtime_activity_projection_v1 import safe_operator_label
+
+    return safe_operator_label(value, limit=limit)
+
+
+def _cycle_display_summary(output_dir: Path) -> dict[str, Any]:
+    """Extract only bounded operator-facing facts from canonical cycle artifacts."""
+    evidence = _read_json_file(output_dir / "rolling_x_newsroom_cycle_evidence_v1.json")
+    viability = evidence.get("ranked_viability")
+    viability = viability if isinstance(viability, Mapping) else {}
+    selected = viability.get("selected_cluster")
+    selected = selected if isinstance(selected, Mapping) else {}
+    article = evidence.get("article")
+    article = article if isinstance(article, Mapping) else {}
+    selected_evidence = viability.get("selected_evidence")
+    selected_evidence = selected_evidence if isinstance(selected_evidence, Mapping) else {}
+    ranked = evidence.get("ranked_assignment")
+    ranked = ranked if isinstance(ranked, Mapping) else {}
+    story_label = (
+        _bounded_operator_text(article.get("title"))
+        or _bounded_operator_text(selected.get("selection_case"))
+        or _bounded_operator_text(selected.get("why_now"))
+    )
+    return {
+        "story_label": story_label,
+        "candidate_rank": viability.get("selected_rank"),
+        "candidate_count": len(ranked.get("ranked_clusters") or []),
+        "grounding": (
+            "source-bound evidence"
+            if selected_evidence.get("status") == "PASS"
+            else "grounding unavailable"
+        ),
+        "research_result": str(
+            selected_evidence.get("status")
+            or evidence.get("exact_next_blocker")
+            or "NOT_RECORDED"
+        ),
+        "classification": str(evidence.get("classification") or "NOT_RECORDED"),
+        "exact_reason": _bounded_operator_text(evidence.get("exact_next_blocker"), limit=180),
+    }
+
+
+def _runtime_sha_short(store_path: Path) -> str:
+    identity = _read_json_file(
+        store_path.parent / "one_click_launcher" / "runtime_identity_v1.json"
+    )
+    source_sha = str(identity.get("source_sha") or "").strip().lower()
+    return source_sha[:12] if re.fullmatch(r"[0-9a-f]{7,64}", source_sha) else "UNAVAILABLE"
+
+
+def _duration_seconds(start: Any, end: Any) -> Optional[int]:
+    started = _parse_time(start)
+    finished = _parse_time(end)
+    if started is None or finished is None:
+        return None
+    return max(0, int((finished - started).total_seconds()))
+
+
 def build_daily_app_snapshot(
     store_path: str | Path,
     *,
@@ -330,6 +450,10 @@ def build_daily_app_snapshot(
             "dispatch_id": dispatch["dispatch_id"],
             "public_object_id": dispatch.get("public_object_id"),
             "public_object_url_hash": dispatch.get("public_object_url_hash"),
+            "canonical_public_url": (
+                _safe_substack_public_url(dispatch.get("public_object_url"))
+                if str(dispatch.get("platform") or "") == "substack" else None
+            ),
             "dispatch_status": dispatch.get("status"),
             "readback_status": (
                 readbacks_by_dispatch[str(dispatch["dispatch_id"])][0]["status"]
@@ -657,14 +781,21 @@ def build_daily_app_snapshot(
     prompt_tokens = sum(int(row.get("prompt_tokens") or 0) for row in invocations)
     completion_tokens = sum(int(row.get("completion_tokens") or 0) for row in invocations)
 
-    headline_ingestion_state = {"lane_state": "UNAVAILABLE", "last_ingest_utc": None, "rows_last_iteration": 0}
+    headline_ingestion_state = {
+        "lane_state": "UNAVAILABLE",
+        "last_ingest_utc": None,
+        "latest_capture_at_utc": None,
+        "latest_capture_result": "UNAVAILABLE",
+        "rows_last_iteration": 0,
+        "newest_source_event_at_utc": None,
+        "newest_source_event_age_seconds": None,
+    }
     rolling_24h_unique_headlines: Optional[int] = None
     try:
         from live_contentops.continuous_headline_ingest_v1 import (
             ingestion_lane_state,
             next_due_interval_seconds,
             read_ingestion_checkpoint,
-            rolling_24h_unique_headline_count,
         )
 
         checkpoint = read_ingestion_checkpoint(store)
@@ -675,22 +806,29 @@ def build_daily_app_snapshot(
             last_outcome_code=checkpoint["last_outcome_code"],
             hot_followup_pending=checkpoint["hot_followup_pending"],
         )
+        lane_state = ingestion_lane_state(checkpoint["last_outcome_code"])
         headline_ingestion_state = {
-            "lane_state": ingestion_lane_state(checkpoint["last_outcome_code"]),
+            "lane_state": lane_state,
             "last_ingest_utc": (
                 _iso(datetime.fromtimestamp(float(last_epoch), tz=timezone.utc)) if last_epoch else None
             ),
+            "latest_capture_at_utc": (
+                _iso(datetime.fromtimestamp(float(last_attempt), tz=timezone.utc))
+                if last_attempt is not None else None
+            ),
+            "latest_capture_result": lane_state,
             "rows_last_iteration": checkpoint["rows_last_iteration"],
             "next_eligible_capture_utc": (
                 _iso(datetime.fromtimestamp(float(last_attempt) + interval, tz=timezone.utc))
                 if last_attempt is not None and checkpoint["last_outcome_code"] != 2.0 else None
             ),
             "cadence_state": (
-                "REAUTH_WAIT" if checkpoint["last_outcome_code"] == 2.0 else
-                "HOT_FOLLOWUP" if checkpoint["hot_followup_pending"] else
-                "EMPTY_BACKOFF" if checkpoint["last_outcome_code"] == 1.0 else
-                "TRANSIENT_RETRY" if checkpoint["last_outcome_code"] in {3.0, 4.0, 5.0, 6.0}
-                else "NORMAL"
+                "REAUTH_REQUIRED" if checkpoint["last_outcome_code"] == 2.0 else
+                "HOT_FOLLOWUP_15M" if checkpoint["hot_followup_pending"] else
+                "EMPTY_BACKOFF_60M" if checkpoint["last_outcome_code"] == 1.0 else
+                "TRANSIENT_BACKOFF_30M_PLUS"
+                if checkpoint["last_outcome_code"] in {3.0, 4.0, 5.0, 6.0}
+                else "NORMAL_30M"
             ),
         }
         if controls["operating_mode"] == "KILL_SWITCH":
@@ -698,9 +836,27 @@ def build_daily_app_snapshot(
             headline_ingestion_state["lane_state"] = "PAUSED_KILL_SWITCH"
             headline_ingestion_state["pause_reason"] = "OPERATOR_KILL_SWITCH_NO_BACKGROUND_BROWSER_NAVIGATION"
         from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
+        from live_contentops.newsroom_assignment_scheduler_v1 import (
+            load_rolling_x_headline_sidecars,
+        )
 
-        rolling_24h_unique_headlines = rolling_24h_unique_headline_count(
-            sidecar_glob=canonical_headline_sidecar_glob(), now=generated
+        intake = load_rolling_x_headline_sidecars(
+            cutoff_utc=generated,
+            sidecar_glob=canonical_headline_sidecar_glob(),
+            window_hours=24.0,
+        )
+        intake_headlines = list(intake.get("headlines") or [])
+        rolling_24h_unique_headlines = len(intake_headlines)
+        newest_source_time = max(
+            (_parse_time(row.get("source_timestamp_utc")) for row in intake_headlines),
+            default=None,
+        )
+        headline_ingestion_state["newest_source_event_at_utc"] = (
+            _iso(newest_source_time) if newest_source_time else None
+        )
+        headline_ingestion_state["newest_source_event_age_seconds"] = (
+            max(0, int((generated - newest_source_time).total_seconds()))
+            if newest_source_time else None
         )
     except Exception:  # noqa: BLE001 - truth stays explicit when intelligence is unavailable
         rolling_24h_unique_headlines = None
@@ -842,6 +998,254 @@ def build_daily_app_snapshot(
     if pending_recovery:
         shutdown_blockers.append("PENDING_READBACK_OR_LIFECYCLE_RECOVERY_PRESENT")
 
+    # V1 cockpit projection: current-stage telemetry is accepted only when the durable store
+    # says the exact editorial work item has an active lease. Everything else below comes from
+    # canonical durable rows or bounded, already-written local artifacts.
+    editorial_items = [
+        row for row in work_items if str(row.get("target_surface") or "") in _EDITORIAL_SURFACES
+    ]
+    active_editorial_id = active_cycle_windows[0] if active_cycle_windows else None
+    active_editorial_item = next(
+        (row for row in editorial_items if row.get("work_item_id") == active_editorial_id),
+        None,
+    )
+    from live_contentops.runtime_activity_projection_v1 import (
+        ACTIVITY_FILE_NAME,
+        load_runtime_activity,
+    )
+
+    active_activity: dict[str, Any] = {}
+    active_cycle_summary: dict[str, Any] = {}
+    if active_editorial_item:
+        active_output = path.parent / "daily_app_outputs" / str(active_editorial_id)
+        candidate_activity = load_runtime_activity(active_output / ACTIVITY_FILE_NAME)
+        if (
+            str(candidate_activity.get("work_item_id") or "") == str(active_editorial_id)
+            and candidate_activity.get("active") is True
+        ):
+            active_activity = candidate_activity
+        active_cycle_summary = _cycle_display_summary(active_output)
+
+    browser_state = str(browser_automation.get("state") or "IDLE")
+    current_stage = str(active_activity.get("current_stage") or "") or None
+    heartbeat_status = str(latest_heartbeat.get("status") or "") if latest_heartbeat else ""
+    pending_trigger = bool(
+        latest_operator_trigger
+        and str(latest_operator_trigger.get("state") or "").upper() == "PENDING"
+    )
+    if unknown or any(
+        row.get("reconciliation_status") == RECONCILE_PENDING_OPERATOR
+        for row in pending_recovery
+    ):
+        cockpit_primary_state = "ACTION_REQUIRED"
+    elif controller_health == "OFFLINE":
+        cockpit_primary_state = "STOPPED"
+    elif heartbeat_status and heartbeat_status != "ALIVE":
+        cockpit_primary_state = "STARTING"
+    elif active_editorial_item:
+        cockpit_primary_state = _COCKPIT_STAGE_TO_STATE.get(current_stage or "", "PREPARING")
+    elif browser_state == "PUBLICATION_ACTIVE":
+        cockpit_primary_state = "PUBLISHING"
+    elif browser_state == "RECONCILIATION_ACTIVE":
+        cockpit_primary_state = "RECONCILING"
+    elif browser_state == "INGESTION_ACTIVE":
+        cockpit_primary_state = "INGESTING"
+    elif pending_recovery:
+        cockpit_primary_state = "RECONCILING"
+    elif controls["operating_mode"] == "KILL_SWITCH" or pending_trigger:
+        cockpit_primary_state = "ACTION_REQUIRED"
+    elif str(headline_ingestion_state.get("lane_state") or "") in {
+        "DEGRADED", "UNAVAILABLE", "REAUTH_REQUIRED",
+    }:
+        cockpit_primary_state = "DEGRADED"
+    else:
+        cockpit_primary_state = "RUNNING_IDLE"
+
+    completed_stages = {
+        str(stage) for stage in (active_activity.get("completed_stages") or [])
+    }
+    cockpit_timeline = [
+        {
+            "stage": stage,
+            "label": label,
+            "state": (
+                "current" if stage == current_stage
+                else "completed" if stage in completed_stages
+                else "pending"
+            ),
+        }
+        for stage, label in _COCKPIT_TIMELINE
+    ]
+
+    publication_by_work_item: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for publication in publications:
+        publication_by_work_item[str(publication.get("work_item_id") or "")].append(publication)
+
+    def editorial_history_row(item: Mapping[str, Any]) -> dict[str, Any]:
+        item_id = str(item.get("work_item_id") or "")
+        summary = _cycle_display_summary(path.parent / "daily_app_outputs" / item_id)
+        item_publications = publication_by_work_item.get(item_id, [])
+        canonical = next(
+            (
+                row for row in item_publications
+                if row.get("destination") == "substack" and row.get("canonical_public_url")
+            ),
+            None,
+        )
+        result = (
+            str(canonical.get("lifecycle_classification")) if canonical
+            else str(summary.get("classification") or "NOT_RECORDED")
+        )
+        if result == "NOT_RECORDED":
+            result = str(item.get("current_state") or "NOT_RECORDED")
+        return {
+            "activity_type": "EDITORIAL_CYCLE",
+            "work_item_id": item_id,
+            "started_at_utc": item.get("created_at"),
+            "completed_at_utc": item.get("updated_at"),
+            "duration_seconds": _duration_seconds(item.get("created_at"), item.get("updated_at")),
+            "story_label": summary.get("story_label"),
+            "candidate_rank": summary.get("candidate_rank"),
+            "candidate_count": summary.get("candidate_count"),
+            "grounding": summary.get("grounding"),
+            "research_result": summary.get("research_result"),
+            "result": result,
+            "exact_reason": summary.get("exact_reason"),
+            "canonical_public_url": canonical.get("canonical_public_url") if canonical else None,
+        }
+
+    completed_editorial_items = [
+        row for row in editorial_items
+        if row.get("work_item_id") != active_editorial_id
+        and str(row.get("current_state") or "") not in {"DISCOVERED", "EVIDENCE_PENDING"}
+    ]
+    last_completed_editorial = (
+        editorial_history_row(completed_editorial_items[0])
+        if completed_editorial_items else None
+    )
+    recent_activity = [editorial_history_row(row) for row in completed_editorial_items[:9]]
+    if headline_ingestion_state.get("latest_capture_at_utc"):
+        recent_activity.append({
+            "activity_type": "X_INTAKE",
+            "work_item_id": None,
+            "started_at_utc": headline_ingestion_state.get("latest_capture_at_utc"),
+            "completed_at_utc": headline_ingestion_state.get("latest_capture_at_utc"),
+            "duration_seconds": None,
+            "story_label": "Rolling X headline intake",
+            "candidate_rank": None,
+            "candidate_count": rolling_24h_unique_headlines,
+            "grounding": "discovery and ranking only",
+            "research_result": None,
+            "result": headline_ingestion_state.get("latest_capture_result"),
+            "exact_reason": None,
+            "canonical_public_url": None,
+        })
+    recent_activity.sort(
+        key=lambda row: str(row.get("completed_at_utc") or row.get("started_at_utc") or ""),
+        reverse=True,
+    )
+    recent_activity = recent_activity[:10]
+
+    active_public_write = browser_state == "PUBLICATION_ACTIVE"
+    next_window = future_windows[0] if future_windows else None
+    cockpit_current_activity = None
+    if active_editorial_item:
+        cockpit_current_activity = {
+            "work_item_id": active_editorial_id,
+            "cycle_started_at_utc": (
+                active_activity.get("cycle_started_at_utc")
+                or active_editorial_item.get("created_at")
+            ),
+            "stage_started_at_utc": active_activity.get("stage_started_at_utc"),
+            "current_stage": current_stage or "DURABLE_CYCLE_CLAIMED",
+            "story_label": (
+                active_activity.get("safe_story_label")
+                or active_cycle_summary.get("story_label")
+            ),
+            "candidate_rank": (
+                active_activity.get("candidate_rank")
+                or active_cycle_summary.get("candidate_rank")
+            ),
+            "candidate_count": (
+                active_activity.get("candidate_count")
+                or active_cycle_summary.get("candidate_count")
+            ),
+            "grounding": (
+                active_activity.get("grounding")
+                or active_cycle_summary.get("grounding")
+            ),
+            "destination": active_activity.get("destination"),
+            "trigger": active_activity.get("trigger"),
+            "instrumentation_state": (
+                "EXPLICIT_STAGE_RECORDED" if current_stage else "DURABLE_ACTIVE_LEASE_ONLY"
+            ),
+        }
+
+    cockpit = {
+        "schema_version": "contentops.daily_app_runtime_cockpit.v1",
+        "primary_state": cockpit_primary_state,
+        "supervisor_state": (
+            "STOPPED" if controller_health == "OFFLINE"
+            else "STARTING" if cockpit_primary_state == "STARTING"
+            else "RUNNING"
+        ),
+        "controller_health": controller_health,
+        "publication_runtime_health": (
+            "STOPPED" if controller_health == "OFFLINE"
+            else "ACTION_REQUIRED" if unknown
+            else "HEALTHY"
+        ),
+        "operating_mode": controls["operating_mode"],
+        "runtime_sha_short": _runtime_sha_short(path),
+        "local_timezone": "Asia/Ho_Chi_Minh",
+        "current_time_utc": _iso(generated),
+        "heartbeat_age_seconds": (
+            max(0, int(heartbeat_age)) if heartbeat_age is not None else None
+        ),
+        "current_activity": cockpit_current_activity,
+        "timeline": cockpit_timeline,
+        "schedule": {
+            "idle_healthy": cockpit_primary_state == "RUNNING_IDLE",
+            "next_editorial_wake_utc": next_window.get("window_start_utc") if next_window else None,
+            "next_editorial_wake_reason": (
+                str(next_window.get("editorial_session") or "SCHEDULED_EDITORIAL_WINDOW")
+                if next_window else "NO_EDITORIAL_WINDOW_AVAILABLE"
+            ),
+            "operator_trigger_pending": pending_trigger,
+            "next_x_eligible_capture_utc": headline_ingestion_state.get("next_eligible_capture_utc"),
+            "x_cadence_state": headline_ingestion_state.get("cadence_state") or "UNAVAILABLE",
+        },
+        "last_completed_editorial": last_completed_editorial,
+        "intake": {
+            **headline_ingestion_state,
+            "rolling_24h_unique_headlines": rolling_24h_unique_headlines,
+        },
+        "safety": {
+            "active_public_write": active_public_write,
+            "pending_reconciliation_count": len(pending_recovery),
+            "pending_readback_recovery_count": len(pending_recovery),
+            "unknown_write_count": len(unknown),
+            "kill_switch_active": controls["operating_mode"] == "KILL_SWITCH",
+            "new_public_writes_blocked": controls["operating_mode"] in {
+                "SUPERVISED_OPERATOR_GATE", "SHADOW_ONLY", "KILL_SWITCH",
+            },
+        },
+        "browser": {
+            "state": browser_state,
+            "external_browser_activity_active": browser_state != "IDLE",
+            "last_active_at_utc": browser_automation.get("last_active_browser_interaction_at_utc"),
+            "last_reason": browser_automation.get("last_reason"),
+            "last_destination": browser_automation.get("last_destination"),
+        },
+        "recent_activity": recent_activity,
+        "projection_authority": {
+            "durable_store_authoritative": True,
+            "stage_file_presentation_only": True,
+            "grants_publication_authority": False,
+            "browser_interaction_performed": False,
+        },
+    }
+
     snapshot = {
         "schema_version": SNAPSHOT_SCHEMA_VERSION,
         "generated_at_utc": _iso(generated),
@@ -877,6 +1281,7 @@ def build_daily_app_snapshot(
             "prompt_tokens": prompt_tokens,
             "completion_tokens": completion_tokens,
             "cost_metadata": "COST_METADATA_UNAVAILABLE",
+            "operator_cockpit": cockpit,
         },
         "today": {
             "published_today_count": published_today_count,

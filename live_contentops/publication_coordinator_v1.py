@@ -197,6 +197,25 @@ class DurablePublicationCoordinator:
         # A plan may carry a freshly probed readiness decision.  Unknown is never READY.
         return str(planned.get("readiness_state") or "")
 
+    @staticmethod
+    def _record_runtime_activity(
+        intent: Mapping[str, Any], stage: str, *, destination: str | None = None
+    ) -> None:
+        """Best-effort presentation telemetry; durable publication truth stays authoritative."""
+        output_dir = str(intent.get("output_dir") or "").strip()
+        work_item_id = str(intent.get("work_item_id") or "").strip()
+        if not output_dir or not work_item_id:
+            return
+        try:
+            from live_contentops.runtime_activity_projection_v1 import RuntimeActivityRecorderV1
+
+            RuntimeActivityRecorderV1(
+                output_dir=Path(output_dir), work_item_id=work_item_id
+            ).record(stage, destination=destination)
+        except (OSError, TypeError, ValueError):
+            # Cockpit telemetry can never interrupt a canonical publication or recovery path.
+            return
+
     def register_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         if str(plan.get("transport_registry_version") or "") != REGISTRY_VERSION:
             raise ValueError("publication_plan_transport_registry_version_mismatch")
@@ -254,6 +273,11 @@ class DurablePublicationCoordinator:
         object_id = str(dispatch.get("public_object_id") or "") or None
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         registration = registration_for_destination(destination)
+        self._record_runtime_activity(
+            intent,
+            "CANONICAL_READBACK" if destination == "substack" else "RECONCILIATION",
+            destination=destination,
+        )
         try:
             if registration.transport_type == "EDGE_CDP" and self.readiness_manager is not None:
                 self.readiness_manager.ensure_destination_runtime_for_readback(destination)
@@ -279,6 +303,7 @@ class DurablePublicationCoordinator:
                 "observed_public_object_id": None, "observed_public_object_url": None,
                 "error_class": type(exc).__name__,
             }
+        self._record_runtime_activity(intent, "RECONCILIATION", destination=destination)
         observed_url = str(
             normalized.get("observed_public_object_url")
             or dispatch.get("public_object_url")
@@ -398,6 +423,7 @@ class DurablePublicationCoordinator:
         mode = self._mode()
         if mode != "AUTONOMOUS_DEFAULT":
             return {"destination": destination, "status": f"WRITE_BLOCKED_{mode}", "publish_called": False}
+        self._record_runtime_activity(intent, "PUBLICATION_JIT", destination=destination)
         if self.readiness_manager is not None:
             cached_failure = None
             cached_failure_fn = getattr(self.readiness_manager, "cached_failed_jit_attempt", None)
@@ -431,6 +457,11 @@ class DurablePublicationCoordinator:
             "dispatch_attempt_identity": ids["dispatch_id"],
         }
         registration = registration_for_destination(destination)
+        self._record_runtime_activity(
+            intent,
+            "CANONICAL_DISPATCH" if destination == "substack" else "DERIVATIVE_DISPATCH",
+            destination=destination,
+        )
         try:
             activity = (
                 browser_activity(

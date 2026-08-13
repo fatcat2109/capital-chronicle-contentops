@@ -2490,6 +2490,18 @@ class ContentOpsDailyAppSupervisor:
                 novelty_decision=novelty_decision,
                 lifecycle=lifecycle,
             )
+            try:
+                from live_contentops.runtime_activity_projection_v1 import RuntimeActivityRecorderV1
+
+                RuntimeActivityRecorderV1(
+                    output_dir=output_dir, work_item_id=window_id
+                ).finish(
+                    terminal_result=self._window_state(window_id) or classification,
+                    exact_reason=result.get("exact_next_blocker"),
+                )
+            except (OSError, TypeError, ValueError):
+                # Presentation telemetry is deliberately non-authoritative and best-effort.
+                pass
             return {
                 "executed": True,
                 "classification": classification,

@@ -3706,6 +3706,10 @@ def _run_rolling_x_newsroom_cycle(
         validate_prepared_rolling_x_candidate_state,
     )
     from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
+    from live_contentops.runtime_activity_projection_v1 import (
+        RuntimeActivityRecorderV1,
+        safe_story_label,
+    )
 
     output_dir.mkdir(parents=True, exist_ok=True)
     critical_path_started = time.monotonic()
@@ -3714,6 +3718,8 @@ def _run_rolling_x_newsroom_cycle(
         evidence = _read_json(evidence_path)
         evidence["reentry_guard"] = "existing_cycle_evidence_detected_no_automatic_retry"
         return evidence
+    activity = RuntimeActivityRecorderV1(output_dir=output_dir, work_item_id=run_id)
+    activity.record("HEADLINE_INGESTION")
 
     prepared_state_path = output_dir / "rolling_x_prepared_candidate_state_v1.json"
     if prepared_state_path.exists():
@@ -3793,6 +3799,7 @@ def _run_rolling_x_newsroom_cycle(
         output_dir / "rolling_x_assignment_compaction_v1.json",
         assignment_compaction,
     )
+    activity.record("CANDIDATE_SELECTION")
     try:
         assignment = (
             {
@@ -3865,6 +3872,13 @@ def _run_rolling_x_newsroom_cycle(
         assignment["semantic_assignment_failure"] = semantic_failure
     assignment["pre_assignment_compaction"] = assignment_compaction
     _write_json(output_dir / "rolling_x_assignment_v1.json", assignment)
+    activity.record(
+        "CANDIDATE_SELECTION",
+        candidate_count=len(assignment.get("ranked_clusters") or []),
+        story_label=safe_story_label(
+            next(iter(assignment.get("ranked_clusters") or []), {})
+        ),
+    )
     story_routing: Mapping[str, Any] | None = None
     preselection: Mapping[str, Any] | None = None
     ranked_assignment = assignment
@@ -3921,6 +3935,12 @@ def _run_rolling_x_newsroom_cycle(
                     "root_exists": False,
                 }
             )
+        )
+        activity.record(
+            "CC_CONTEXT",
+            candidate_count=len(enriched_clusters),
+            story_label=safe_story_label(enriched_clusters[0] if enriched_clusters else {}),
+            grounding="Capital Chronicle additive context",
         )
         preselection = apply_preselection_intelligence(
             enriched_clusters,
@@ -4060,15 +4080,35 @@ def _run_rolling_x_newsroom_cycle(
             "rank_attempts": [],
         }
     else:
+        ranked_clusters_for_activity = [
+            dict(row) for row in (ranked_assignment.get("ranked_clusters") or [])
+            if isinstance(row, Mapping)
+        ]
+        cluster_by_id_for_activity = {
+            str(row.get("cluster_id") or ""): row for row in ranked_clusters_for_activity
+        }
+        base_evidence_acquirer = (
+            evidence_acquirer
+            or _default_rolling_x_evidence_acquirer(
+                capital_chronicle_root=capital_chronicle_root,
+                evaluation_as_of_utc=cutoff_utc,
+            )
+        )
+
+        def tracked_evidence_acquirer(request: Mapping[str, Any]) -> Any:
+            cluster = cluster_by_id_for_activity.get(str(request.get("cluster_id") or ""), {})
+            activity.record(
+                "GROUNDED_RESEARCH",
+                candidate_rank=int(request.get("rank") or 1),
+                candidate_count=len(ranked_clusters_for_activity),
+                story_label=safe_story_label(cluster),
+                grounding="latest-web source-bound research",
+            )
+            return base_evidence_acquirer(dict(request))
+
         viability = select_first_viable_rolling_x_cluster(
             assignment=ranked_assignment,
-            acquire_evidence=(
-                evidence_acquirer
-                or _default_rolling_x_evidence_acquirer(
-                    capital_chronicle_root=capital_chronicle_root,
-                    evaluation_as_of_utc=cutoff_utc,
-                )
-            ),
+            acquire_evidence=tracked_evidence_acquirer,
             story_type_by_cluster=story_type_by_cluster,
         )
         if (
@@ -4208,6 +4248,13 @@ def _run_rolling_x_newsroom_cycle(
     )
 
     built_checkpoint_path = output_dir / "rolling_x_grounded_article_media_v1.json"
+    activity.record(
+        "ARTICLE_WRITING",
+        candidate_rank=int(viability.get("selected_rank") or 1),
+        candidate_count=len(ranked_assignment.get("ranked_clusters") or []),
+        story_label=safe_story_label(viability.get("selected_cluster") or {}),
+        grounding="accepted source-bound evidence",
+    )
     try:
         if built_checkpoint_path.exists():
             built = _read_json(built_checkpoint_path)
@@ -4268,6 +4315,7 @@ def _run_rolling_x_newsroom_cycle(
         evidence["public_write_performed"] = False
         _persist_cycle_evidence()
         return evidence
+    activity.record("FACTUAL_CHECK", story_label=article.get("title"))
     editorial = _run_bounded_rolling_x_editorial_cycle(
         article=article,
         media_assets=media_assets,
@@ -4282,6 +4330,7 @@ def _run_rolling_x_newsroom_cycle(
         evidence["exact_next_blocker"] = editorial.get("reason_code")
         _persist_cycle_evidence()
         return evidence
+    activity.record("READER_VALUE_CHECK", story_label=(editorial.get("article") or {}).get("title"))
     readiness = (
         dict(destination_readiness_override)
         if destination_readiness_override is not None
@@ -4296,6 +4345,7 @@ def _run_rolling_x_newsroom_cycle(
     )
     evidence["destination_readiness"] = readiness
     final_article = dict(editorial.get("article") or {})
+    activity.record("PACKAGE_BUILD", story_label=final_article.get("title"))
     preparation = _prepare_rolling_x_release_candidate(
         run_id=run_id,
         output_dir=output_dir,

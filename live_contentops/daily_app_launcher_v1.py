@@ -20,7 +20,8 @@ import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Mapping, Optional
+from typing import Any, Callable, Mapping, Optional
+from urllib.parse import urlsplit
 
 from live_contentops.ingestion_bootstrap_v1 import (
     BINDING_LOCKED,
@@ -54,6 +55,8 @@ SNAPSHOT_SCHEMA = "contentops.daily_app_ui_snapshot.v1"
 UI_PREVIEW_PORT = 4173
 UI_DEV_PORT = 5173
 UI_DIR = REPO_ROOT / "ui" / "contentops_v5"
+DASHBOARD_OPEN_MARKER = "dashboard_open_v1.json"
+DASHBOARD_OPEN_DEDUPE_SECONDS = 300.0
 REAUTH_READINESS_STATES = frozenset({
     "REAUTH_REQUIRED",
     "AUTH_INVALID",
@@ -464,6 +467,13 @@ def ensure_ui(
 ) -> dict[str, Any]:
     if not enabled:
         return {"status": "SKIPPED", "url": None, "mechanism": None, "pid": None}
+    if not snapshot_available:
+        return {
+            "status": "WAITING_FOR_RUNTIME_HEALTH",
+            "url": None,
+            "mechanism": "snapshot_health_required_before_ui",
+            "pid": None,
+        }
     for port in (UI_PREVIEW_PORT, UI_DEV_PORT):
         if _http_get_json(f"http://127.0.0.1:{port}/", timeout=2.0) is not None or _url_ok(f"http://127.0.0.1:{port}/"):
             return {"status": "ALREADY_READY", "url": f"http://127.0.0.1:{port}/", "mechanism": "existing_loopback_server", "pid": None}
@@ -501,6 +511,73 @@ def ensure_ui(
             return {"status": "READY", "url": url, "mechanism": f"npm_run_{script}_detached", "pid": process.pid}
         time.sleep(1.0)
     return {"status": "UNAVAILABLE", "url": url, "mechanism": f"npm_run_{script}_not_ready_within_30s", "pid": process.pid}
+
+
+def open_operator_dashboard(
+    *,
+    ui_state: Mapping[str, Any],
+    log_root: Path,
+    opener: Callable[[str], Any] | None = None,
+    now_epoch: float | None = None,
+    dedupe_seconds: float = DASHBOARD_OPEN_DEDUPE_SECONDS,
+) -> dict[str, Any]:
+    """Open one normal default-browser tab after UI health, suppressing tab storms.
+
+    This function never attaches to CDP 9222/9223 and never navigates the ingestion or
+    publication browser profiles. The small local marker only remembers a recent successful
+    open of the exact loopback dashboard URL; it grants no runtime or publication authority.
+    """
+    status = str(ui_state.get("status") or "")
+    url = str(ui_state.get("url") or "")
+    if status not in {"READY", "ALREADY_READY"} or not url:
+        return {"status": "NOT_OPENED_UI_NOT_HEALTHY", "url": None, "deduplicated": False}
+    parsed = urlsplit(url)
+    if not (
+        parsed.scheme == "http"
+        and (parsed.hostname or "").casefold() in {"127.0.0.1", "localhost"}
+        and parsed.port in {UI_PREVIEW_PORT, UI_DEV_PORT}
+        and not parsed.username
+        and not parsed.password
+        and not parsed.query
+        and not parsed.fragment
+    ):
+        return {"status": "NOT_OPENED_NONCANONICAL_URL", "url": None, "deduplicated": False}
+    moment = float(time.time() if now_epoch is None else now_epoch)
+    marker_path = log_root / DASHBOARD_OPEN_MARKER
+    marker = {}
+    try:
+        value = json.loads(marker_path.read_text(encoding="utf-8"))
+        marker = dict(value) if isinstance(value, Mapping) else {}
+    except (OSError, TypeError, ValueError):
+        marker = {}
+    try:
+        last_open = float(marker.get("opened_at_epoch"))
+    except (TypeError, ValueError):
+        last_open = 0.0
+    if marker.get("url") == url and 0.0 <= moment - last_open < max(0.0, dedupe_seconds):
+        return {"status": "SUPPRESSED_RECENT_OPEN", "url": url, "deduplicated": True}
+    launch = opener or os.startfile
+    try:
+        launch(url)
+        log_root.mkdir(parents=True, exist_ok=True)
+        payload = {
+            "schema_version": "contentops.daily_app_dashboard_open.v1",
+            "url": url,
+            "opened_at_epoch": moment,
+            "opened_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(moment)),
+            "browser_mechanism": "NORMAL_DEFAULT_BROWSER",
+            "cdp_used": False,
+            "contains_secrets": False,
+        }
+        temporary = log_root / f"{DASHBOARD_OPEN_MARKER}.tmp"
+        temporary.write_text(
+            json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n",
+            encoding="utf-8",
+        )
+        temporary.replace(marker_path)
+        return {"status": "OPENED", "url": url, "deduplicated": False}
+    except OSError:
+        return {"status": "BROWSER_OPEN_FAILED", "url": url, "deduplicated": False}
 
 
 def _url_ok(url: str, *, timeout: float = 2.5) -> bool:
@@ -559,6 +636,7 @@ def render_summary(
         f"X Ingestion Session: {browser_state['x_ingestion_session']}",
         f"Edge 9223 Publishing: {browser_state['edge_9223_publishing_only']}",
         f"V5 UI: {ui_state['status']}" + (f" ({ui_state['url']})" if ui_state.get("url") else ""),
+        f"Dashboard Open: {(ui_state.get('dashboard_open') or {}).get('status', 'NOT_REQUESTED')}",
         f"Started Runtime Source SHA: {source_sha or 'PRESERVED_EXISTING_RUNTIME_SEE_HOURLY_AUDIT'}",
         f"Background Logs: {(log_root or LAUNCHER_LOG_ROOT_DEFAULT)}",
         f"Hourly Audit: {(log_root or LAUNCHER_LOG_ROOT_DEFAULT).parent / 'hourly_audit' / 'latest.json'}",
@@ -728,11 +806,11 @@ def run_launcher(argv: list[str] | None = None) -> int:
         ingestion_runtime = passive_canonical_ingestion_readiness()
     browser_state = summarize_browser_state(snapshot, ingestion_runtime=ingestion_runtime)
     ui_state = ensure_ui(enabled=not args.no_ui, log_root=log_root, snapshot_available=snapshot is not None)
-    if ui_state["status"] in {"READY", "ALREADY_READY"} and ui_state["url"] and not args.no_open_browser:
-        try:
-            os.startfile(ui_state["url"])  # noqa: S606 - local URL in operator default browser
-        except OSError:
-            ui_state["status"] = f"{ui_state['status']}_BROWSER_OPEN_FAILED"
+    ui_state["dashboard_open"] = (
+        {"status": "DISABLED_BY_FLAG", "url": None, "deduplicated": False}
+        if args.no_open_browser
+        else open_operator_dashboard(ui_state=ui_state, log_root=log_root)
+    )
 
     inventory_report = render_credential_inventory(build_credential_inventory())
     summary = render_summary(
