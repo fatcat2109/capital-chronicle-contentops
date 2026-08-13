@@ -35,8 +35,7 @@ from live_contentops.ingestion_bootstrap_v1 import (
     STATE_REAUTH_REQUIRED,
     STATE_RUNNING_WITHOUT_CDP,
     STATE_UNAVAILABLE,
-    canonical_ingestion_readiness,
-    one_click_ingestion_bootstrap,
+    passive_canonical_ingestion_readiness,
     probe_cdp,
 )
 
@@ -726,7 +725,7 @@ def run_launcher(argv: list[str] | None = None) -> int:
     if args.no_ingestion_bootstrap:
         ingestion_runtime: Optional[dict[str, Any]] = None
     else:
-        ingestion_runtime: Optional[dict[str, Any]] = canonical_ingestion_readiness()
+        ingestion_runtime = passive_canonical_ingestion_readiness()
     browser_state = summarize_browser_state(snapshot, ingestion_runtime=ingestion_runtime)
     ui_state = ensure_ui(enabled=not args.no_ui, log_root=log_root, snapshot_available=snapshot is not None)
     if ui_state["status"] in {"READY", "ALREADY_READY"} and ui_state["url"] and not args.no_open_browser:

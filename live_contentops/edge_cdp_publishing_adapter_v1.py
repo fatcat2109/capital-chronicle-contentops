@@ -27,6 +27,7 @@ from live_contentops.publishing_profile_registry_v1 import (
     PublishingProfileError,
     assert_canonical_edge_cdp,
 )
+from live_contentops.browser_interaction_budget_v1 import record_browser_interaction_event
 
 
 _VISUAL_MARKER_RE = re.compile(r"\[\[VISUAL:([A-Za-z0-9_-]+)\]\]")
@@ -661,26 +662,73 @@ def _upload_substack_image(
     }
 
 
+class _InstrumentedPersistentPage:
+    """Transparent Playwright page proxy that records only sanitized interaction classes."""
+
+    def __init__(self, page: Any) -> None:
+        self._page = page
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._page, name)
+
+    def goto(self, *args: Any, **kwargs: Any) -> Any:
+        record_browser_interaction_event(
+            "navigation", reason="EDGE_DESTINATION_NAVIGATION", destination=None
+        )
+        return self._page.goto(*args, **kwargs)
+
+    def reload(self, *args: Any, **kwargs: Any) -> Any:
+        record_browser_interaction_event(
+            "navigation", reason="EDGE_DESTINATION_RELOAD", destination=None
+        )
+        return self._page.reload(*args, **kwargs)
+
+    def close(self, *args: Any, **kwargs: Any) -> Any:
+        record_browser_interaction_event(
+            "tab_closed", reason="EXPLICIT_EDGE_TAB_CLOSE", destination=None
+        )
+        return self._page.close(*args, **kwargs)
+
+
+def _reusable_canonical_page(context: Any) -> Any | None:
+    allowed_hosts = {
+        "capitalchronicle.substack.com", "substack.com", "x.com",
+        "studio.youtube.com", "www.youtube.com", "youtube.com",
+    }
+    internal_schemes = {"about", "edge", "chrome"}
+    for candidate in context.pages:
+        try:
+            parsed = urllib.parse.urlparse(str(candidate.url or ""))
+            if parsed.hostname in allowed_hosts or parsed.scheme in internal_schemes:
+                return candidate
+        except Exception:
+            continue
+    return None
+
+
 @contextmanager
 def canonical_edge_page(cdp_port: int) -> Iterator[Any]:
-    """Yield a fresh tab attached to validated Edge without closing Edge itself."""
+    """Reuse one safe canonical tab and leave it open for probe → publish → readback."""
     assert_canonical_edge_cdp(cdp_port)
     from playwright.sync_api import sync_playwright
 
     playwright = sync_playwright().start()
-    page = None
     try:
         browser = playwright.chromium.connect_over_cdp(f"http://127.0.0.1:{cdp_port}", timeout=15000)
         if not browser.contexts:
             raise PublishingProfileError("canonical_edge_has_no_browser_context")
-        page = browser.contexts[0].new_page()
-        yield page
+        context = browser.contexts[0]
+        page = _reusable_canonical_page(context)
+        if page is None:
+            page = context.new_page()
+            record_browser_interaction_event(
+                "tab_created", reason="NO_REUSABLE_CANONICAL_DESTINATION_TAB", destination=None
+            )
+        yield _InstrumentedPersistentPage(page)
     finally:
-        try:
-            if page:
-                page.close()
-        finally:
-            playwright.stop()
+        # Detach only. The destination tab and operator-owned Edge process are intentionally
+        # preserved so one bounded session can cover probe → publish → exact readback.
+        playwright.stop()
 
 
 def capture_public_destination_via_edge(
@@ -1208,6 +1256,10 @@ def _public_substack_url_from_view_post(page: Any) -> str | None:
         return None
     candidates = [str(page.url or "")]
     new_pages = [candidate for candidate in page.context.pages if candidate not in existing_pages]
+    for _candidate in new_pages:
+        record_browser_interaction_event(
+            "tab_created", reason="SUBSTACK_VIEW_POST_POPUP", destination="substack"
+        )
     candidates.extend(str(candidate.url or "") for candidate in new_pages)
     public_urls = sorted(
         {
@@ -1218,6 +1270,9 @@ def _public_substack_url_from_view_post(page: Any) -> str | None:
     )
     for candidate in new_pages:
         try:
+            record_browser_interaction_event(
+                "tab_closed", reason="SUBSTACK_VIEW_POST_POPUP_CLEANUP", destination="substack"
+            )
             candidate.close()
         except Exception:
             pass

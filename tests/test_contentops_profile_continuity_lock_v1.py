@@ -157,10 +157,10 @@ def _shadow_store(tmp_path: Path) -> Path:
     return store_path
 
 
-def test_run_now_rejects_reauth_required_with_zero_durable_trigger(tmp_path, monkeypatch):
+def test_run_now_is_passive_and_does_not_probe_reauth_or_bypass_cadence(tmp_path, monkeypatch):
     store_path = _shadow_store(tmp_path)
     monkeypatch.setattr(
-        "live_contentops.ingestion_bootstrap_v1.canonical_ingestion_readiness",
+        "live_contentops.ingestion_bootstrap_v1.passive_canonical_ingestion_readiness",
         lambda **kwargs: {
             "chrome_profile_binding": bootstrap.BINDING_LOCKED,
             "chrome_9222_ingestion": bootstrap.STATE_REAUTH_REQUIRED,
@@ -170,16 +170,17 @@ def test_run_now_rejects_reauth_required_with_zero_durable_trigger(tmp_path, mon
     )
     control = ContentOpsDurableStore(store_path, auto_migrate=False).get_operating_control()
     result = request_operator_cycle(store_path, expected_state_version=int(control["state_version"]))
-    assert result["status"] == "INGESTION_REAUTH_REQUIRED"
-    assert result["governed_cycle_requested"] is False
+    assert result["status"] == "OPERATOR_TRIGGER_ACCEPTED"
+    assert result["governed_cycle_requested"] is True
     assert result["publication_claimed"] is False
-    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is None
+    assert result["ingestion_browser_interaction_performed"] is False
+    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is not None
 
 
-def test_run_now_rejects_unverified_session_with_zero_durable_trigger(tmp_path, monkeypatch):
+def test_run_now_accepts_durable_cycle_without_active_ingestion_session_probe(tmp_path, monkeypatch):
     store_path = _shadow_store(tmp_path)
     monkeypatch.setattr(
-        "live_contentops.ingestion_bootstrap_v1.canonical_ingestion_readiness",
+        "live_contentops.ingestion_bootstrap_v1.passive_canonical_ingestion_readiness",
         lambda **kwargs: {
             "chrome_profile_binding": bootstrap.BINDING_LOCKED,
             "chrome_9222_ingestion": bootstrap.STATE_AUTH_UNVERIFIED,
@@ -189,14 +190,15 @@ def test_run_now_rejects_unverified_session_with_zero_durable_trigger(tmp_path, 
     )
     control = ContentOpsDurableStore(store_path, auto_migrate=False).get_operating_control()
     result = request_operator_cycle(store_path, expected_state_version=int(control["state_version"]))
-    assert result["status"] == "INGESTION_SESSION_UNVERIFIED"
-    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is None
+    assert result["status"] == "OPERATOR_TRIGGER_ACCEPTED"
+    assert result["ingestion_browser_interaction_performed"] is False
+    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is not None
 
 
 def test_run_now_accepts_ready_ingestion(tmp_path, monkeypatch):
     store_path = _shadow_store(tmp_path)
     monkeypatch.setattr(
-        "live_contentops.ingestion_bootstrap_v1.canonical_ingestion_readiness",
+        "live_contentops.ingestion_bootstrap_v1.passive_canonical_ingestion_readiness",
         lambda **kwargs: {
             "chrome_profile_binding": bootstrap.BINDING_LOCKED,
             "chrome_9222_ingestion": bootstrap.STATE_READY,

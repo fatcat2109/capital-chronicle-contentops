@@ -420,10 +420,13 @@ def test_run_now_kill_switch_blocks_and_never_clears(server_env, monkeypatch):
     assert store.fetch_pending_operator_trigger() is None
 
 
-def test_run_now_ingestion_unavailable_records_no_trigger(server_env, monkeypatch):
+def test_run_now_ingestion_unavailable_stays_passive_and_records_trigger(server_env, monkeypatch):
     monkeypatch.setattr(
-        "live_contentops.ingestion_bootstrap_v1.ensure_ingestion_runtime",
-        lambda **kwargs: {"status": "LAUNCH_FAILED", "state": "UNAVAILABLE", "detail": "CDP_9222_NOT_READY"},
+        "live_contentops.ingestion_bootstrap_v1.passive_canonical_ingestion_readiness",
+        lambda **kwargs: {
+            "chrome_9222_ingestion": "UNAVAILABLE", "detail": "CDP_9222_NOT_READY",
+            "launched": False, "browser_navigation_performed": False,
+        },
     )
     base, _, store = server_env
     control = store.get_operating_control()
@@ -431,9 +434,10 @@ def test_run_now_ingestion_unavailable_records_no_trigger(server_env, monkeypatc
         base, "/api/daily-app/control/run-now",
         payload={"trigger": "OPERATOR_REQUESTED", "expected_state_version": int(control["state_version"])},
     )
-    assert status == 503
-    assert body["status"] == "INGESTION_UNAVAILABLE"
-    assert store.fetch_pending_operator_trigger() is None
+    assert status == 200
+    assert body["status"] == "OPERATOR_TRIGGER_ACCEPTED"
+    assert body["ingestion_browser_interaction_performed"] is False
+    assert store.fetch_pending_operator_trigger() is not None
 
 
 def test_snapshot_exposes_operator_trigger_and_run_now_controls(tmp_path):

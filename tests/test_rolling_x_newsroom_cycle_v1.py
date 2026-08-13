@@ -544,7 +544,7 @@ def test_rolling_x_release_candidate_builds_and_verifies_canonical_lock(tmp_path
     assert payloads["threads"]["quality_metrics"]["reply_count"] == 2
 
 
-def test_release_candidate_isolates_unready_derivative_destination(tmp_path: Path):
+def test_release_candidate_defers_unready_derivative_to_exact_jit_verification(tmp_path: Path):
     assignment, viability, article, media, editorial, readiness = _release_inputs(tmp_path)
     readiness["all_required_destinations_ready"] = False
     readiness["destinations"]["x"] = {"write_eligible": False, "status": "BLOCKED"}
@@ -569,13 +569,43 @@ def test_release_candidate_isolates_unready_derivative_destination(tmp_path: Pat
         preparation=result,
         readiness=readiness,
     )
-    assert "x" not in {row["destination"] for row in plan["destinations"]}
-    skipped_x = next(
-        row for row in plan["skipped_derivative_destinations"]
-        if row["destination"] == "x"
+    planned_x = next(row for row in plan["destinations"] if row["destination"] == "x")
+    assert planned_x["readiness_state"] == "BLOCKED"
+    assert planned_x["jit_verification_required"] is True
+    assert not any(
+        row["destination"] == "x" for row in plan["skipped_derivative_destinations"]
     )
-    assert skipped_x["disposition"] == "SKIPPED_NOT_READY"
-    assert skipped_x["canonical_truth_affected"] is False
+
+
+def test_passive_substack_state_reaches_coordinator_jit_boundary(tmp_path: Path):
+    assignment, viability, article, media, editorial, readiness = _release_inputs(tmp_path)
+    readiness["destinations"]["substack"] = {
+        "write_eligible": False,
+        "status": "TRANSPORT_UNAVAILABLE",
+    }
+    result = implementation._prepare_rolling_x_release_candidate(
+        run_id="rolling-substack-jit",
+        output_dir=tmp_path,
+        intake={"schema_version": "capital_chronicle.rolling_x_headline_input.v1"},
+        assignment=assignment,
+        viability=viability,
+        article=article,
+        media=media,
+        editorial_cycle=editorial,
+        destination_readiness=readiness,
+    )
+    assert result["classification"] == "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
+    assert "destination_not_ready:substack" not in result["blockers"]
+    assert "substack_jit_readiness_required" in result["distribution_warnings"]
+    plan = implementation._build_rolling_x_publication_plan(
+        run_id="rolling-substack-jit",
+        output_dir=tmp_path,
+        viability=viability,
+        preparation=result,
+        readiness=readiness,
+    )
+    planned = next(row for row in plan["destinations"] if row["destination"] == "substack")
+    assert planned["jit_verification_required"] is True
 
 
 def test_optional_seo_and_visual_absence_do_not_rescue_one_sentence_copy(tmp_path: Path):

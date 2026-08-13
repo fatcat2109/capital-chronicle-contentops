@@ -7,6 +7,7 @@ import pytest
 
 from live_contentops.destination_transport_registry_v1 import (
     REGISTRY_VERSION,
+    READY_STATES,
     DestinationReadinessManager,
     canonical_transport_registry,
     registration_for_destination,
@@ -105,7 +106,7 @@ def _plan(*destinations: str):
     }
 
 
-def _coordinator(tmp_path: Path, runtime=None, readiness=None):
+def _coordinator(tmp_path: Path, runtime=None, readiness=None, readiness_manager=None):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     store.create_work_item(
         story_id="story-1", title="Controlled publication coordinator fixture",
@@ -123,6 +124,7 @@ def _coordinator(tmp_path: Path, runtime=None, readiness=None):
     }
     return store, transport, DurablePublicationCoordinator(
         store=store, transport_runtime=transport, readiness_provider=provider,
+        readiness_manager=readiness_manager,
     )
 
 
@@ -658,3 +660,134 @@ def test_real_production_composition_has_no_fixture_or_none_wiring(tmp_path):
     assert smoke["performance_wiring_not_none"] is True
     assert smoke["learning_enabled"] is True
     assert smoke["public_write_performed"] is False
+
+
+def test_default_production_startup_does_not_ensure_or_navigate_edge(tmp_path, monkeypatch):
+    import live_contentops.production_runtime_v1 as production
+
+    monkeypatch.setattr(
+        production.ContentOpsProductionOrchestrator,
+        "execute",
+        lambda *_args, **_kwargs: pytest.fail("startup attempted Edge/browser operation"),
+    )
+    runtime = production.build_final_daily_app_production_runtime(
+        store_path=tmp_path / "store.sqlite3",
+        output_root=tmp_path / "output",
+    )
+    assert runtime.smoke_snapshot()["public_write_performed"] is False
+
+
+class _ExactJitReadiness:
+    def __init__(self, *, state=None):
+        self.jit_destinations = []
+        self.readback_destinations = []
+        self.probe_all_calls = 0
+        self.state = state
+        self.failed_attempts = {}
+
+    def cached_failed_jit_attempt(self, destination, *, attempt_identity):
+        return self.failed_attempts.get((destination, attempt_identity))
+
+    def verify_destination_jit(
+        self, destination, *, reason, persist=True, attempt_identity=None
+    ):
+        self.jit_destinations.append((destination, reason, persist, attempt_identity))
+        row = {"readiness_state": self.state or (
+            "READY_AUTHENTICATED"
+            if registration_for_destination(destination).transport_type == "EDGE_CDP"
+            else "READY_NON_BROWSER_BINDING"
+        )}
+        if row["readiness_state"] not in READY_STATES and attempt_identity:
+            self.failed_attempts[(destination, attempt_identity)] = row
+        return row
+
+    def ensure_destination_runtime_for_readback(self, destination):
+        self.readback_destinations.append(destination)
+        return {"status": "ATTACHED_CANONICAL_EDGE", "external_probe_performed": False}
+
+    def probe_all(self, **_kwargs):
+        self.probe_all_calls += 1
+        raise AssertionError("global probe_all must never be used by coordinator recovery")
+
+
+def test_idle_recovery_performs_no_global_or_destination_probe(tmp_path):
+    readiness = _ExactJitReadiness()
+    _store_value, transport, coordinator = _coordinator(
+        tmp_path, readiness_manager=readiness
+    )
+
+    recovery = coordinator.recover_pending()
+
+    assert recovery["readiness_probe_performed"] is False
+    assert recovery["readbacks"] == 0
+    assert readiness.probe_all_calls == 0
+    assert readiness.jit_destinations == []
+    assert readiness.readback_destinations == []
+    assert transport.publish_calls == []
+    assert transport.readback_calls == []
+
+
+def test_browser_publication_uses_exact_destination_jit_only(tmp_path):
+    readiness = _ExactJitReadiness()
+    _store_value, transport, coordinator = _coordinator(
+        tmp_path, readiness_manager=readiness
+    )
+
+    result = coordinator.execute_plan("work-1", _plan("substack"))
+
+    assert result["canonical_article_real_published"] is True
+    assert len(readiness.jit_destinations) == 1
+    assert readiness.jit_destinations[0][:3] == ("substack", "PUBLICATION", True)
+    assert readiness.jit_destinations[0][3].startswith("dispatch_")
+    assert readiness.readback_destinations == ["substack"]
+    assert readiness.probe_all_calls == 0
+    assert transport.publish_calls == ["substack"]
+    assert transport.readback_calls == ["substack"]
+
+
+def test_kill_switch_blocks_before_jit_and_run_now_cannot_bypass(tmp_path):
+    readiness = _ExactJitReadiness()
+    store, transport, coordinator = _coordinator(tmp_path, readiness_manager=readiness)
+    _set_mode(store, "KILL_SWITCH")
+
+    result = coordinator.execute_plan("work-1", _plan("substack"))
+
+    assert result["per_destination"]["substack"]["status"] == "WRITE_BLOCKED_KILL_SWITCH"
+    assert readiness.jit_destinations == []
+    assert readiness.readback_destinations == []
+    assert readiness.probe_all_calls == 0
+    assert transport.publish_calls == []
+
+
+def test_failed_jit_is_not_reprobed_on_every_recovery_tick(tmp_path):
+    readiness = _ExactJitReadiness(state="REAUTH_REQUIRED")
+    store, transport, coordinator = _coordinator(tmp_path, readiness_manager=readiness)
+    coordinator.register_plan("work-1", _plan("substack"))
+
+    first = coordinator.recover_pending()
+    second = coordinator.recover_pending()
+
+    assert first["publish_calls"] == 0
+    assert second["publish_calls"] == 0
+    assert len(readiness.jit_destinations) == 1
+    assert store.list_platform_dispatches() == []
+    assert transport.publish_calls == []
+
+
+def test_pending_unknown_write_uses_exact_destination_readback_only(tmp_path):
+    readiness = _ExactJitReadiness()
+    store, transport, coordinator = _coordinator(tmp_path, readiness_manager=readiness)
+    registered = coordinator.register_plan("work-1", _plan("x"))["registered"][0]
+    store.register_platform_dispatch(
+        dispatch_id=registered["dispatch_id"], message_id=registered["message_id"],
+        platform="x", status=UNKNOWN_WRITE, public_object_id="x-object-1",
+    )
+    store.set_outbox_status(registered["message_id"], UNKNOWN_WRITE)
+
+    recovery = coordinator.recover_pending()
+
+    assert recovery["readbacks"] == 1
+    assert readiness.readback_destinations == ["x"]
+    assert readiness.jit_destinations == []
+    assert readiness.probe_all_calls == 0
+    assert transport.readback_calls == ["x"]

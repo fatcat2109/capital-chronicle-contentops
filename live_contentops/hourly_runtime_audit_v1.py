@@ -22,6 +22,10 @@ from typing import Any, Mapping
 from live_contentops.daily_app_launcher_v1 import collect_port_inventory, is_canonical_daily_app_command_line
 from live_contentops.daily_app_ui_read_model_v1 import DailyAppReadModelError, build_daily_app_snapshot
 from live_contentops.operator_control_plane_v1 import OperatorControlError, read_allowlisted_log
+from live_contentops.browser_interaction_budget_v1 import (
+    browser_interaction_summary,
+    sanitize_browser_target_metadata,
+)
 
 SCHEMA_VERSION = "contentops.hourly_runtime_audit.v1"
 TASK_NAME = "CapitalChronicle_ContentOps_V1_Hourly_Audit"
@@ -113,6 +117,26 @@ def _cdp_status(port: int) -> dict[str, Any]:
         "state": "READY" if value else "UNAVAILABLE",
         "browser_family": browser.split("/", 1)[0] if browser else None,
         "protocol_version": (value or {}).get("Protocol-Version"),
+    }
+
+
+def _cdp_target_status(port: int) -> dict[str, Any]:
+    # urllib JSON arrays are not returned by _get_json; fetch separately and sanitize each row.
+    try:
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}/json/list", timeout=2.0) as response:
+            raw = json.loads(response.read().decode("utf-8"))
+    except (urllib.error.URLError, TimeoutError, OSError, json.JSONDecodeError, UnicodeDecodeError):
+        raw = []
+    targets = [
+        sanitize_browser_target_metadata(row)
+        for row in (raw if isinstance(raw, list) else [])
+        if isinstance(row, Mapping)
+    ]
+    return {
+        "target_count": len(targets),
+        "page_target_count": sum(1 for row in targets if row.get("target_type") == "page"),
+        "targets": targets,
+        "passive_metadata_only": True,
     }
 
 
@@ -262,15 +286,13 @@ def _classify(report: Mapping[str, Any]) -> tuple[str, list[str]]:
         and runtime.get("operating_mode") == "KILL_SWITCH"
     ):
         reasons.append("HEADLINE_INGESTION_PAUSED_BY_KILL_SWITCH")
-    elif runtime.get("headline_lane_state") != "RUNNING" or headline_age is None or headline_age > 900:
+    elif runtime.get("headline_lane_state") not in {"RUNNING", "READY"} or headline_age is None or headline_age > 3900:
         reasons.append("HEADLINE_INGESTION_DEGRADED_OR_STALE")
         action_required = True
     if report["browsers"]["chrome_9222"]["state"] != "READY":
         reasons.append("CHROME_9222_UNAVAILABLE")
         action_required = True
-    if report["browsers"]["edge_9223"]["state"] != "READY":
-        reasons.append("EDGE_9223_UNAVAILABLE")
-        action_required = True
+    # Edge is intentionally absent while idle and is ensured JIT for exact publication/readback.
     if report["stderr_signal"]["error_lines"]:
         reasons.append("RECENT_SUPERVISOR_STDERR_ERROR_SIGNAL")
         action_required = True
@@ -337,7 +359,13 @@ def build_hourly_audit(
             "last_headline_ingest_utc": headline.get("last_ingest_utc"),
             "headline_ingest_age_seconds": _age_seconds(headline.get("last_ingest_utc"), generated),
         },
-        "browsers": {"chrome_9222": _cdp_status(9222), "edge_9223": _cdp_status(9223)},
+        "browsers": {
+            "chrome_9222": {**_cdp_status(9222), **_cdp_target_status(9222)},
+            "edge_9223": {**_cdp_status(9223), **_cdp_target_status(9223)},
+        },
+        "browser_interaction": browser_interaction_summary(
+            runtime_root / "control" / "browser_interaction_budget_v1", now=generated
+        ),
         "destinations": [
             {
                 "platform_id": row.get("platform_id"),

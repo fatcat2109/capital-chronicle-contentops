@@ -45,6 +45,24 @@ def test_ensure_reuses_existing_canonical_ingestion_runtime(tmp_path, monkeypatc
     assert launches == []
 
 
+def test_passive_startup_readiness_never_launches_or_navigates(tmp_path, monkeypatch):
+    monkeypatch.setattr(bootstrap, "canonical_ingestion_user_data_dir", lambda env=None: tmp_path)
+    monkeypatch.setattr(
+        bootstrap,
+        "ingestion_process_state",
+        lambda **kwargs: {"state": bootstrap.STATE_UNAVAILABLE, "detail": "CDP_9222_NOT_READY", "pid": None},
+    )
+    monkeypatch.setattr(
+        bootstrap,
+        "_launch_canonical_ingestion_browser",
+        lambda **kwargs: (_ for _ in ()).throw(AssertionError("passive startup launched Chrome")),
+    )
+    result = bootstrap.passive_canonical_ingestion_readiness(env=FAKE_ENV)
+    assert result["chrome_9222_ingestion"] == bootstrap.STATE_UNAVAILABLE
+    assert result["launched"] is False
+    assert result["browser_navigation_performed"] is False
+
+
 def test_ensure_launches_exact_profile_once_when_absent(tmp_path, monkeypatch):
     state = {"current": bootstrap.STATE_UNAVAILABLE}
 

@@ -1057,8 +1057,8 @@ def daily_app_command(argv: list[str] | None = None):
     parser.add_argument("--now", help="ISO datetime override for the supervisor clock (controlled/test)")
     parser.add_argument("--sidecar-glob", default=None, help="Optional rolling-X headline sidecar glob")
     parser.add_argument("--api-port", type=int, default=5174)
-    parser.add_argument("--skip-edge-bootstrap", action="store_true", help="Controlled no-write smoke only")
-    parser.add_argument("--readiness-probes", action="store_true", help="Run bounded read-only identity probes")
+    parser.add_argument("--skip-edge-bootstrap", action="store_true", help="Deprecated compatibility flag; startup is always passive")
+    parser.add_argument("--readiness-probes", action="store_true", help="Refresh passive local readiness only; no provider/browser probe")
     args = parser.parse_args(command_args)
 
     if action == "once":
@@ -1085,7 +1085,7 @@ def daily_app_command(argv: list[str] | None = None):
         operating_mode=args.mode,
         clock=clock,
         sidecar_glob=args.sidecar_glob,
-        ensure_edge_runtime=not args.skip_edge_bootstrap,
+        ensure_edge_runtime=False,
         run_readiness_probes=args.readiness_probes,
     )
     supervisor = runtime.supervisor

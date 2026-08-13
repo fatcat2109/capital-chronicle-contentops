@@ -360,3 +360,26 @@ def canonical_ingestion_readiness(
     result["session_detail"] = session.get("detail")
     result["launched"] = bool(runtime.get("launched"))
     return result
+
+
+def passive_canonical_ingestion_readiness(
+    *, env: Optional[Mapping[str, str]] = None
+) -> dict[str, Any]:
+    """Startup/audit readiness from process/profile/CDP metadata only.
+
+    Never launches Chrome, opens a tab, classifies a page URL, navigates, reloads, or captures.
+    The due low-frequency ingestion iteration owns the JIT ensure/session/capture sequence.
+    """
+
+    profile_dir = canonical_ingestion_user_data_dir(env)
+    state = ingestion_process_state(env=env)
+    return {
+        "canonical_ingestion_binding": dict(CANONICAL_INGESTION_BINDING),
+        "chrome_profile_binding": BINDING_LOCKED if profile_dir.exists() else STATE_PROFILE_BINDING_MISSING,
+        "chrome_9222_ingestion": str(state.get("state") or STATE_UNAVAILABLE),
+        "x_ingestion_session": "PASSIVE_NOT_PROBED",
+        "detail": str(state.get("detail") or STATE_UNAVAILABLE),
+        "launched": False,
+        "browser_navigation_performed": False,
+        "capture_performed": False,
+    }

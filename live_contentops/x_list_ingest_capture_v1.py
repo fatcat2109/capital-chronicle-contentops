@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Any, Mapping, Optional
 
 from live_contentops.headline_data_root_v1 import canonical_headline_data_root
+from live_contentops.browser_interaction_budget_v1 import record_browser_interaction_event
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 HEADLINE_INGESTION_DIR = REPO_ROOT / "headline_ingestion"
@@ -233,6 +234,21 @@ def probe_session_visible_state(
     return {"session_state": "INCONCLUSIVE", "detail": "x_target_open_not_canonical_route"}
 
 
+def select_reusable_x_page(context: Any) -> Any | None:
+    """Prefer the exact locked list tab, then another existing X tab; never create here."""
+
+    return next(
+        (candidate for candidate in context.pages if TARGET_LIST_ID in str(candidate.url or "")),
+        None,
+    ) or next(
+        (
+            candidate for candidate in context.pages
+            if "x.com" in str(candidate.url or "") or "twitter.com" in str(candidate.url or "")
+        ),
+        None,
+    )
+
+
 def run_bounded_x_list_capture(
     *,
     max_seconds: float = MAX_CAPTURE_SECONDS_DEFAULT,
@@ -254,6 +270,9 @@ def run_bounded_x_list_capture(
         "duration_seconds": 0.0,
         "login_automation": False,
         "browser_closed": False,
+        "tab_created": False,
+        "tab_closed": False,
+        "navigation_count": 0,
         "detail": None,
     }
     module = load_data_ingestion_module()
@@ -289,20 +308,31 @@ def run_bounded_x_list_capture(
                 result["capture_state"] = CAPTURE_STATE_NO_CONTEXT
                 result["detail"] = "no_browser_context_on_cdp"
                 return result
-            page = next(
-                (candidate for candidate in context.pages if "x.com" in candidate.url or "twitter.com" in candidate.url),
-                None,
-            )
+            # Prefer the exact locked list tab. Fall back to another existing X tab; only create
+            # one page when no reusable X page exists at all.
+            page = select_reusable_x_page(context)
             if page is None:
                 page = context.new_page()
+                result["tab_created"] = True
+                record_browser_interaction_event(
+                    "tab_created", reason="NO_REUSABLE_X_LIST_TAB", destination="x_ingestion"
+                )
             page.on("response", _on_response)
             try:
                 if TARGET_LIST_ID not in page.url:
+                    result["navigation_count"] += 1
+                    record_browser_interaction_event(
+                        "navigation", reason="X_CANONICAL_LIST_ROUTE", destination="x_ingestion"
+                    )
                     page.goto(TARGET_LIST_URL, timeout=30_000, wait_until="domcontentloaded")
                 if _visible_url_is_login_redirect(page.url):
                     result["capture_state"] = CAPTURE_STATE_REAUTH_REQUIRED
                     result["detail"] = "LOGIN_REDIRECT_OBSERVED"
                     return result
+                result["navigation_count"] += 1
+                record_browser_interaction_event(
+                    "navigation", reason="X_DUE_CAPTURE_RELOAD", destination="x_ingestion"
+                )
                 page.reload(timeout=30_000)
                 page.wait_for_timeout(RELOAD_SETTLE_MS)
                 empty_scrolls = 0

@@ -9,10 +9,11 @@ so every editorial decision can reconstruct the complete rolling 24-hour headlin
 
 Cadence policy (versioned configuration, not universal truth):
 
-- active interval ~4 minutes while fresh rows keep appearing (freshness-lag target <= ~5 min);
-- adaptive idle backoff (x2, capped) when captures keep adding nothing new;
+- normal interval 30 minutes;
+- after CAPTURED_NEW, at most one 15-minute follow-up before returning to normal;
+- CAPTURED_NO_NEW_HEADLINES backs off to 60 minutes and stays there while empty;
 - one bounded capture per due iteration; no parallel captures (single-flight per supervisor);
-- immediate safe retry after transient failure on the next due iteration;
+- transient failure retries no sooner than 30 minutes;
 - REAUTH_REQUIRED is reported when the exact locked X session expires; the lane never
   automates login and never substitutes another profile.
 """
@@ -20,23 +21,36 @@ from __future__ import annotations
 
 import hashlib
 import json
+import threading
 import time
 from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Mapping, Optional
 
+from live_contentops.browser_interaction_budget_v1 import (
+    BROWSER_INTERACTION_BUDGET_V1,
+    browser_activity,
+    record_browser_interaction_event,
+)
+
 LANE_SCHEMA_VERSION = "contentops.continuous_headline_ingest.v2"
 
-ACTIVE_INTERVAL_SECONDS = 240.0
-IDLE_BACKOFF_MULTIPLIER = 2.0
-MAX_INTERVAL_SECONDS = 300.0
+NORMAL_INTERVAL_SECONDS = BROWSER_INTERACTION_BUDGET_V1.x_normal_interval_seconds
+HOT_FOLLOWUP_INTERVAL_SECONDS = BROWSER_INTERACTION_BUDGET_V1.x_hot_followup_interval_seconds
+EMPTY_INTERVAL_SECONDS = BROWSER_INTERACTION_BUDGET_V1.x_empty_interval_seconds
+TRANSIENT_RETRY_INTERVAL_SECONDS = BROWSER_INTERACTION_BUDGET_V1.x_transient_retry_min_seconds
+# Compatibility names now expose the sustainable normal/max policy.
+ACTIVE_INTERVAL_SECONDS = NORMAL_INTERVAL_SECONDS
+MAX_INTERVAL_SECONDS = EMPTY_INTERVAL_SECONDS
 CAPTURE_MAX_SECONDS = 60.0
 CAPTURE_MAX_EMPTY_SCROLLS = 1
-STALE_SYNC_THRESHOLD_SECONDS = 300.0
+STALE_SYNC_THRESHOLD_SECONDS = NORMAL_INTERVAL_SECONDS
 
 METRIC_LAST_SUCCESS_EPOCH = "metric_headline_ingest_last_success_epoch"
 METRIC_LAST_OUTCOME_CODE = "metric_headline_ingest_last_outcome_code"
 METRIC_CONSECUTIVE_EMPTY = "metric_headline_ingest_consecutive_empty"
 METRIC_ROWS_LAST_ITERATION = "metric_headline_ingest_rows_last_iteration"
+METRIC_LAST_ATTEMPT_EPOCH = "metric_headline_ingest_last_attempt_epoch"
+METRIC_HOT_FOLLOWUP_PENDING = "metric_headline_ingest_hot_followup_pending"
 
 OUTCOME_CAPTURED_NEW = 0.0
 OUTCOME_CAPTURED_NONE = 1.0
@@ -53,6 +67,8 @@ LANE_STATE_REAUTH_REQUIRED = "REAUTH_REQUIRED"
 LANE_STATE_DEGRADED = "DEGRADED"
 LANE_STATE_UNAVAILABLE = "UNAVAILABLE"
 
+_INGESTION_CAPTURE_LOCK = threading.Lock()
+
 
 def _utc_now() -> datetime:
     return datetime.now(timezone.utc)
@@ -68,12 +84,14 @@ def read_ingestion_checkpoint(store: Any) -> dict[str, Any]:
         rows = {
             str(row["metric_id"]): float(row["metric_value"])
             for row in conn.execute(
-                "SELECT metric_id, metric_value FROM metrics WHERE metric_id IN (?,?,?,?)",
+                "SELECT metric_id, metric_value FROM metrics WHERE metric_id IN (?,?,?,?,?,?)",
                 (
                     METRIC_LAST_SUCCESS_EPOCH,
                     METRIC_LAST_OUTCOME_CODE,
                     METRIC_CONSECUTIVE_EMPTY,
                     METRIC_ROWS_LAST_ITERATION,
+                    METRIC_LAST_ATTEMPT_EPOCH,
+                    METRIC_HOT_FOLLOWUP_PENDING,
                 ),
             ).fetchall()
         }
@@ -82,6 +100,8 @@ def read_ingestion_checkpoint(store: Any) -> dict[str, Any]:
         "last_outcome_code": rows.get(METRIC_LAST_OUTCOME_CODE),
         "consecutive_empty": int(rows.get(METRIC_CONSECUTIVE_EMPTY) or 0),
         "rows_last_iteration": int(rows.get(METRIC_ROWS_LAST_ITERATION) or 0),
+        "last_attempt_epoch": rows.get(METRIC_LAST_ATTEMPT_EPOCH),
+        "hot_followup_pending": bool(rows.get(METRIC_HOT_FOLLOWUP_PENDING) or 0),
     }
 
 
@@ -93,6 +113,8 @@ def write_ingestion_checkpoint(
     outcome_code: float,
     consecutive_empty: int,
     rows_iteration: int,
+    last_attempt_epoch: Optional[float] = None,
+    hot_followup_pending: bool = False,
 ) -> None:
     iso_now = now.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
     with store.get_connection() as conn:
@@ -115,6 +137,15 @@ def write_ingestion_checkpoint(
                     "INSERT OR REPLACE INTO metrics VALUES (?,?,?,?)",
                     (METRIC_LAST_SUCCESS_EPOCH, "headline_ingest_last_success_epoch", float(last_success_epoch), iso_now),
                 )
+            if last_attempt_epoch is not None:
+                conn.execute(
+                    "INSERT OR REPLACE INTO metrics VALUES (?,?,?,?)",
+                    (METRIC_LAST_ATTEMPT_EPOCH, "headline_ingest_last_attempt_epoch", float(last_attempt_epoch), iso_now),
+                )
+            conn.execute(
+                "INSERT OR REPLACE INTO metrics VALUES (?,?,?,?)",
+                (METRIC_HOT_FOLLOWUP_PENDING, "headline_ingest_hot_followup_pending", 1.0 if hot_followup_pending else 0.0, iso_now),
+            )
             conn.execute("COMMIT")
         except Exception:
             try:
@@ -124,9 +155,25 @@ def write_ingestion_checkpoint(
             raise
 
 
-def next_due_interval_seconds(consecutive_empty: int) -> float:
-    interval = ACTIVE_INTERVAL_SECONDS * (IDLE_BACKOFF_MULTIPLIER ** max(0, int(consecutive_empty)))
-    return min(interval, MAX_INTERVAL_SECONDS)
+def next_due_interval_seconds(
+    consecutive_empty: int = 0,
+    *,
+    last_outcome_code: Optional[float] = None,
+    hot_followup_pending: bool = False,
+) -> float:
+    del consecutive_empty  # retained for compatibility; repeated empty captures stay at 60m.
+    if hot_followup_pending and last_outcome_code == OUTCOME_CAPTURED_NEW:
+        return HOT_FOLLOWUP_INTERVAL_SECONDS
+    if last_outcome_code == OUTCOME_CAPTURED_NONE:
+        return EMPTY_INTERVAL_SECONDS
+    if last_outcome_code in {
+        OUTCOME_CDP_UNAVAILABLE,
+        OUTCOME_CAPTURE_FAILED,
+        OUTCOME_BROWSER_BINDING_MISSING,
+        OUTCOME_PORT_OWNER_UNPROVEN,
+    }:
+        return TRANSIENT_RETRY_INTERVAL_SECONDS
+    return NORMAL_INTERVAL_SECONDS
 
 
 def ingestion_lane_state(outcome_code: Optional[float], cdp_alive: bool = True) -> str:
@@ -167,10 +214,14 @@ def run_ingestion_housekeeping_iteration(
         "detail": None,
         "llm_or_provider_calls": 0,
         "cadence_policy": {
-            "active_interval_seconds": ACTIVE_INTERVAL_SECONDS,
-            "idle_max_interval_seconds": MAX_INTERVAL_SECONDS,
-            "freshness_lag_target_seconds": 300.0,
+            "normal_interval_seconds": NORMAL_INTERVAL_SECONDS,
+            "hot_followup_interval_seconds": HOT_FOLLOWUP_INTERVAL_SECONDS,
+            "hot_followup_max": BROWSER_INTERACTION_BUDGET_V1.x_hot_followup_max,
+            "empty_interval_seconds": EMPTY_INTERVAL_SECONDS,
+            "transient_retry_min_seconds": TRANSIENT_RETRY_INTERVAL_SECONDS,
         },
+        "cadence_state": None,
+        "next_eligible_capture_utc": None,
         "material_event_due": False,
         "new_material_event_count": 0,
         "new_material_event_identity": None,
@@ -184,6 +235,7 @@ def run_ingestion_housekeeping_iteration(
         last_success: Optional[float] = None,
         rows: int = 0,
         consecutive_empty: Optional[int] = None,
+        hot_followup_pending: bool = False,
     ) -> dict[str, Any]:
         empty_count = checkpoint["consecutive_empty"] if consecutive_empty is None else consecutive_empty
         try:
@@ -194,25 +246,76 @@ def run_ingestion_housekeeping_iteration(
                 outcome_code=outcome_code,
                 consecutive_empty=empty_count,
                 rows_iteration=rows,
+                last_attempt_epoch=_epoch(moment),
+                hot_followup_pending=hot_followup_pending,
             )
         except Exception as exc:  # noqa: BLE001 - checkpoint persistence is best-effort
             result["detail"] = f"checkpoint_write_failed:{type(exc).__name__}"
         result["lane_state"] = ingestion_lane_state(outcome_code)
+        interval = next_due_interval_seconds(
+            empty_count,
+            last_outcome_code=outcome_code,
+            hot_followup_pending=hot_followup_pending,
+        )
+        result["cadence_state"] = (
+            "HOT_FOLLOWUP" if hot_followup_pending and outcome_code == OUTCOME_CAPTURED_NEW
+            else "EMPTY_BACKOFF" if outcome_code == OUTCOME_CAPTURED_NONE
+            else "TRANSIENT_RETRY" if outcome_code in {
+                OUTCOME_CDP_UNAVAILABLE, OUTCOME_CAPTURE_FAILED,
+                OUTCOME_BROWSER_BINDING_MISSING, OUTCOME_PORT_OWNER_UNPROVEN,
+            }
+            else "REAUTH_WAIT" if outcome_code == OUTCOME_REAUTH_REQUIRED
+            else "NORMAL"
+        )
+        if outcome_code != OUTCOME_REAUTH_REQUIRED:
+            result["next_eligible_capture_utc"] = (
+                moment + timedelta(seconds=interval)
+            ).isoformat().replace("+00:00", "Z")
         return result
 
-    if not force:
-        last_success = checkpoint["last_success_epoch"]
-        elapsed = (_epoch(moment) - float(last_success)) if last_success is not None else None
-        if checkpoint["last_outcome_code"] == OUTCOME_REAUTH_REQUIRED and (
-            elapsed is None or elapsed < MAX_INTERVAL_SECONDS
-        ):
-            result["lane_state"] = LANE_STATE_REAUTH_REQUIRED
-            result["detail"] = "reauth_required_waiting_for_operator"
-            return result
-        if elapsed is not None and elapsed < next_due_interval_seconds(checkpoint["consecutive_empty"]):
-            result["lane_state"] = ingestion_lane_state(checkpoint["last_outcome_code"])
-            result["detail"] = "not_due"
-            return result
+    try:
+        operating_mode = str(store.get_operating_control().get("operating_mode") or "KILL_SWITCH")
+    except Exception:
+        operating_mode = "KILL_SWITCH"
+    if operating_mode == "KILL_SWITCH":
+        result.update({
+            "lane_state": "PAUSED_KILL_SWITCH",
+            "detail": "NETWORK_INTAKE_PAUSED_BY_OPERATOR_KILL_SWITCH",
+            "cadence_state": "KILL_SWITCH",
+        })
+        return result
+
+    # ``force`` means the caller requested a freshness check, not permission to bypass the
+    # browser budget. Run Now therefore observes the same next-eligible boundary.
+    last_attempt = checkpoint["last_attempt_epoch"]
+    if last_attempt is None:
+        last_attempt = checkpoint["last_success_epoch"]
+    elapsed = (_epoch(moment) - float(last_attempt)) if last_attempt is not None else None
+    if checkpoint["last_outcome_code"] == OUTCOME_REAUTH_REQUIRED:
+        result["lane_state"] = LANE_STATE_REAUTH_REQUIRED
+        result["detail"] = "reauth_required_waiting_for_operator"
+        result["cadence_state"] = "REAUTH_WAIT"
+        return result
+    due_interval = next_due_interval_seconds(
+        checkpoint["consecutive_empty"],
+        last_outcome_code=checkpoint["last_outcome_code"],
+        hot_followup_pending=checkpoint["hot_followup_pending"],
+    )
+    if elapsed is not None and elapsed < due_interval:
+        result["lane_state"] = ingestion_lane_state(checkpoint["last_outcome_code"])
+        result["detail"] = "not_due"
+        result["cadence_state"] = (
+            "HOT_FOLLOWUP" if checkpoint["hot_followup_pending"] else
+            "EMPTY_BACKOFF" if checkpoint["last_outcome_code"] == OUTCOME_CAPTURED_NONE else
+            "TRANSIENT_RETRY" if checkpoint["last_outcome_code"] in {
+                OUTCOME_CDP_UNAVAILABLE, OUTCOME_CAPTURE_FAILED,
+                OUTCOME_BROWSER_BINDING_MISSING, OUTCOME_PORT_OWNER_UNPROVEN,
+            } else "NORMAL"
+        )
+        result["next_eligible_capture_utc"] = datetime.fromtimestamp(
+            float(last_attempt) + due_interval, tz=timezone.utc
+        ).isoformat().replace("+00:00", "Z")
+        return result
     result["due"] = True
 
     if state_fn is not None:
@@ -253,26 +356,47 @@ def run_ingestion_housekeeping_iteration(
             result["detail"] = f"CDP_UNAVAILABLE:{ensured_state}"
             return _finish(OUTCOME_CDP_UNAVAILABLE, consecutive_empty=checkpoint["consecutive_empty"] + 1)
 
-    if session_fn is not None:
-        session_state = dict(session_fn())
-    else:
-        from live_contentops.x_list_ingest_capture_v1 import probe_session_visible_state
+    if not _INGESTION_CAPTURE_LOCK.acquire(blocking=False):
+        result.update({
+            "lane_state": LANE_STATE_READY,
+            "detail": "parallel_capture_suppressed",
+            "due": False,
+            "cadence_state": "SINGLE_FLIGHT_ACTIVE",
+        })
+        return result
+    try:
+        if session_fn is not None:
+            session_state = dict(session_fn())
+        else:
+            from live_contentops.x_list_ingest_capture_v1 import probe_session_visible_state
 
-        session_state = dict(probe_session_visible_state(timeout_seconds=10.0))
+            session_state = dict(probe_session_visible_state(timeout_seconds=10.0))
+        if session_state.get("session_state") != "REAUTH_REQUIRED":
+            record_browser_interaction_event(
+                "x_capture", reason="DUE_LOW_FREQUENCY_X_INGESTION", destination="x_ingestion"
+            )
+            with browser_activity(
+                "INGESTION_ACTIVE",
+                reason="DUE_LOW_FREQUENCY_X_INGESTION",
+                destination="x_ingestion",
+            ):
+                if capture_fn is not None:
+                    capture = dict(capture_fn(max_seconds=CAPTURE_MAX_SECONDS, max_empty_scrolls=CAPTURE_MAX_EMPTY_SCROLLS))
+                else:
+                    from live_contentops.x_list_ingest_capture_v1 import run_bounded_x_list_capture
+
+                    capture = dict(
+                        run_bounded_x_list_capture(
+                            max_seconds=CAPTURE_MAX_SECONDS, max_empty_scrolls=CAPTURE_MAX_EMPTY_SCROLLS
+                        )
+                    )
+        else:
+            capture = {}
+    finally:
+        _INGESTION_CAPTURE_LOCK.release()
     if session_state.get("session_state") == "REAUTH_REQUIRED":
         result["detail"] = "LOGIN_REDIRECT_OBSERVED"
         return _finish(OUTCOME_REAUTH_REQUIRED, consecutive_empty=checkpoint["consecutive_empty"] + 1)
-
-    if capture_fn is not None:
-        capture = dict(capture_fn(max_seconds=CAPTURE_MAX_SECONDS, max_empty_scrolls=CAPTURE_MAX_EMPTY_SCROLLS))
-    else:
-        from live_contentops.x_list_ingest_capture_v1 import run_bounded_x_list_capture
-
-        capture = dict(
-            run_bounded_x_list_capture(
-                max_seconds=CAPTURE_MAX_SECONDS, max_empty_scrolls=CAPTURE_MAX_EMPTY_SCROLLS
-            )
-        )
     result["capture_attempted"] = True
     capture_state = str(capture.get("capture_state") or "CAPTURE_FAILED")
     rows_added = int(capture.get("new_headlines") or 0)
@@ -343,13 +467,22 @@ def run_ingestion_housekeeping_iteration(
         else:
             result["material_event_detail"] = "NO_SOURCE_EVENT_TIME_VALID_NEW_HEADLINES"
         result["detail"] = f"CAPTURED_NEW:{rows_added}"
-        return _finish(OUTCOME_CAPTURED_NEW, last_success=_epoch(moment), rows=rows_added, consecutive_empty=0)
+        # A normal capture may arm one 15-minute follow-up. A follow-up can never re-arm itself.
+        arm_hot_followup = not checkpoint["hot_followup_pending"]
+        return _finish(
+            OUTCOME_CAPTURED_NEW,
+            last_success=_epoch(moment),
+            rows=rows_added,
+            consecutive_empty=0,
+            hot_followup_pending=arm_hot_followup,
+        )
     result["detail"] = "CAPTURED_NO_NEW_HEADLINES"
     return _finish(
         OUTCOME_CAPTURED_NONE,
         last_success=_epoch(moment),
         rows=0,
         consecutive_empty=checkpoint["consecutive_empty"] + 1,
+        hot_followup_pending=False,
     )
 
 

@@ -23,6 +23,7 @@ export interface HourlyAudit {
   classification_reasons?: string[];
   runtime?: Record<string, unknown>;
   browsers?: Record<string, unknown>;
+  browser_interaction?: Record<string, unknown>;
   safety?: Record<string, unknown>;
   stderr_signal?: Record<string, unknown>;
   scheduled_task?: Record<string, unknown>;
@@ -71,6 +72,13 @@ export interface DailyAppSnapshot {
       lane_state: string;
       last_ingest_utc: string | null;
       rows_last_iteration: number;
+      next_eligible_capture_utc?: string | null;
+      cadence_state?: string;
+    };
+    browser_automation?: {
+      state: string;
+      last_active_browser_interaction_at_utc: string | null;
+      last_reason: string | null;
     };
     rolling_24h_unique_headlines: number | null;
     capital_chronicle_read_model: string;

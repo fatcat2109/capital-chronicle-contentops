@@ -2291,10 +2291,11 @@ def _rolling_x_destination_readiness(
     account_preflight: Mapping[str, Any] | None = None,
     capability_presence: Mapping[str, bool] | None = None,
 ) -> dict[str, Any]:
-    """Normalize bounded exact identity probes into dynamic write eligibility.
+    """Normalize passive planning readiness without touching external destinations.
 
-    Boolean credential/env presence is retained only as diagnostic input and can never produce
-    READY.  Controlled callers may inject fully verified probe rows for deterministic tests.
+    Planning readiness is advisory: the durable coordinator performs the exact destination JIT
+    verification at the publication boundary.  Controlled callers may inject fully verified
+    rows for deterministic tests.
     """
     from live_contentops.destination_transport_registry_v1 import (
         DESTINATION_TO_SURFACE,
@@ -2312,6 +2313,9 @@ def _rolling_x_destination_readiness(
                 "destination_identity": by_surface[surface].get("destination_identity"),
                 "identity_verified": bool(by_surface[surface].get("identity_match")),
                 "probe_kind": by_surface[surface].get("probe_kind"),
+                "jit_verification_required": (
+                    by_surface[surface]["readiness_state"] not in READY_STATES
+                ),
             }
             for destination, surface in DESTINATION_TO_SURFACE.items()
         }
@@ -2871,12 +2875,16 @@ def _prepare_rolling_x_release_candidate(
     context["distribution_warnings"] = distribution_warnings
     context["derivative_package_ready"] = bool(payloads)
     _write_json(output_dir / "run_context_v1.json", context)
-    # The canonical Substack article remains the true root dependency.  Derivative
-    # destinations are independently skippable when unavailable; requiring every historical
-    # account to be READY would incorrectly turn one expired session into a global stop.
+    # Cached/passive readiness is deliberately not a release-preparation gate.  The canonical
+    # coordinator performs one exact Substack JIT verification only when this package actually
+    # crosses the publication boundary.  Blocking here would either require idle active probes
+    # or prevent the JIT path from ever running when Edge is intentionally closed.
     substack_readiness = dict((destination_readiness.get("destinations") or {}).get("substack") or {})
     if not substack_readiness.get("write_eligible"):
-        blockers.append("destination_not_ready:substack")
+        distribution_warnings.append("substack_jit_readiness_required")
+        distribution_warnings = list(dict.fromkeys(distribution_warnings))
+        context["distribution_warnings"] = distribution_warnings
+        _write_json(output_dir / "run_context_v1.json", context)
     locked_artifacts = _release_lock_artifacts(output_dir)
     for name, row in locked_artifacts.items():
         if not row.get("exists"):
@@ -2966,9 +2974,7 @@ def _build_rolling_x_publication_plan(
             and not media_available
         )
         if destination != "substack" and (
-            state not in READY_STATES
-            or not derivative_payload_ready
-            or media_required_and_unavailable
+            not derivative_payload_ready or media_required_and_unavailable
         ):
             skipped_derivatives.append(
                 {
@@ -2976,9 +2982,7 @@ def _build_rolling_x_publication_plan(
                     "surface": registration.surface,
                     "readiness_state": state,
                     "disposition": (
-                        "SKIPPED_NOT_READY"
-                        if state not in READY_STATES
-                        else "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE"
+                        "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE"
                         if media_required_and_unavailable
                         else "SKIPPED_PACKAGE_UNAVAILABLE"
                     ),
@@ -2986,8 +2990,6 @@ def _build_rolling_x_publication_plan(
                     "canonical_truth_affected": False,
                 }
             )
-            continue
-        if state not in READY_STATES:
             continue
         payload_hash = (
             str(lock.get("article_body_sha256") or "")
@@ -3013,6 +3015,7 @@ def _build_rolling_x_publication_plan(
             "canonical_url_dependency": registration.canonical_url_dependency,
             "expected_destination_identity": registration.expected_identity,
             "readiness_state": state,
+            "jit_verification_required": state not in READY_STATES,
         })
     plan_core = {
         "schema_version": "contentops.publication_plan.v1",

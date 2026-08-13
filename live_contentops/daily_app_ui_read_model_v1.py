@@ -662,18 +662,36 @@ def build_daily_app_snapshot(
     try:
         from live_contentops.continuous_headline_ingest_v1 import (
             ingestion_lane_state,
+            next_due_interval_seconds,
             read_ingestion_checkpoint,
             rolling_24h_unique_headline_count,
         )
 
         checkpoint = read_ingestion_checkpoint(store)
         last_epoch = checkpoint["last_success_epoch"]
+        last_attempt = checkpoint["last_attempt_epoch"]
+        interval = next_due_interval_seconds(
+            checkpoint["consecutive_empty"],
+            last_outcome_code=checkpoint["last_outcome_code"],
+            hot_followup_pending=checkpoint["hot_followup_pending"],
+        )
         headline_ingestion_state = {
             "lane_state": ingestion_lane_state(checkpoint["last_outcome_code"]),
             "last_ingest_utc": (
                 _iso(datetime.fromtimestamp(float(last_epoch), tz=timezone.utc)) if last_epoch else None
             ),
             "rows_last_iteration": checkpoint["rows_last_iteration"],
+            "next_eligible_capture_utc": (
+                _iso(datetime.fromtimestamp(float(last_attempt) + interval, tz=timezone.utc))
+                if last_attempt is not None and checkpoint["last_outcome_code"] != 2.0 else None
+            ),
+            "cadence_state": (
+                "REAUTH_WAIT" if checkpoint["last_outcome_code"] == 2.0 else
+                "HOT_FOLLOWUP" if checkpoint["hot_followup_pending"] else
+                "EMPTY_BACKOFF" if checkpoint["last_outcome_code"] == 1.0 else
+                "TRANSIENT_RETRY" if checkpoint["last_outcome_code"] in {3.0, 4.0, 5.0, 6.0}
+                else "NORMAL"
+            ),
         }
         if controls["operating_mode"] == "KILL_SWITCH":
             headline_ingestion_state["checkpoint_lane_state"] = headline_ingestion_state["lane_state"]
@@ -686,6 +704,11 @@ def build_daily_app_snapshot(
         )
     except Exception:  # noqa: BLE001 - truth stays explicit when intelligence is unavailable
         rolling_24h_unique_headlines = None
+
+    from live_contentops.browser_interaction_budget_v1 import browser_interaction_summary
+    browser_automation = browser_interaction_summary(
+        path.parent / "control" / "browser_interaction_budget_v1", now=generated
+    )
 
     capital_chronicle_read_model_state = "UNAVAILABLE"
     try:
@@ -847,6 +870,7 @@ def build_daily_app_snapshot(
             "next_editorial_window": future_windows[0] if future_windows else None,
             "headline_freshness": "HEADLINE_FRESHNESS_METADATA_UNAVAILABLE",
             "headline_ingestion": headline_ingestion_state,
+            "browser_automation": browser_automation,
             "rolling_24h_unique_headlines": rolling_24h_unique_headlines,
             "capital_chronicle_read_model": capital_chronicle_read_model_state,
             "provider_invocation_count": len(invocations),
@@ -1040,12 +1064,7 @@ def request_operator_cycle(
     """
     from uuid import uuid4
 
-    from live_contentops.ingestion_bootstrap_v1 import (
-        STATE_AUTH_UNVERIFIED,
-        STATE_READY,
-        STATE_REAUTH_REQUIRED,
-        canonical_ingestion_readiness,
-    )
+    from live_contentops.ingestion_bootstrap_v1 import passive_canonical_ingestion_readiness
 
     store = ContentOpsDurableStore(Path(store_path), auto_migrate=False)
     if store.get_current_schema_version() != REQUIRED_STORE_SCHEMA_VERSION:
@@ -1082,39 +1101,11 @@ def request_operator_cycle(
             "publication_claimed": False,
             "note": "A canonical editorial cycle is executing; no parallel cycle is started.",
         }
-    readiness = canonical_ingestion_readiness(session_timeout_seconds=20.0)
-    chrome_state = str(readiness.get("chrome_9222_ingestion") or "")
-    if chrome_state == STATE_REAUTH_REQUIRED:
-        return {
-            "status": "INGESTION_REAUTH_REQUIRED",
-            "governed_cycle_requested": False,
-            "operating_mode": mode,
-            "publication_claimed": False,
-            "chrome_profile_binding": readiness.get("chrome_profile_binding"),
-            "detail": readiness.get("session_detail") or "LOGIN_REDIRECT_OBSERVED",
-            "note": (
-                "The exact CapitalChronicleBot profile is open but the X session requires "
-                "operator reauthentication. No durable trigger was created. Profile continuity "
-                "is locked; reauthenticate in that same profile only."
-            ),
-        }
-    if chrome_state != STATE_READY:
-        if chrome_state == STATE_AUTH_UNVERIFIED:
-            status_name = "INGESTION_SESSION_UNVERIFIED"
-        elif chrome_state == "PROFILE_BINDING_MISSING":
-            status_name = "INGESTION_PROFILE_BINDING_MISSING"
-        else:
-            status_name = "INGESTION_UNAVAILABLE"
-        return {
-            "status": status_name,
-            "governed_cycle_requested": False,
-            "operating_mode": mode,
-            "publication_claimed": False,
-            "chrome_profile_binding": readiness.get("chrome_profile_binding"),
-            "ingestion_state": chrome_state,
-            "detail": readiness.get("detail") or readiness.get("session_detail"),
-            "note": "Canonical Chrome 9222 ingestion could not be proven READY; no cycle was requested.",
-        }
+    # Run Now is editorial-window authority only. Its control path is passive and cannot launch,
+    # attach, navigate, reload, or capture X. The supervisor's normal due-cadence intake seam may
+    # refresh later; the cycle can still consume the durable rolling headline universe.
+    readiness = passive_canonical_ingestion_readiness()
+    chrome_state = str(readiness.get("chrome_9222_ingestion") or "UNAVAILABLE")
     trigger_id = "operator-trigger-" + uuid4().hex[:24]
     try:
         record = store.record_operator_cycle_trigger(
@@ -1137,6 +1128,8 @@ def request_operator_cycle(
         "governed_cycle_requested": True,
         "operating_mode": mode,
         "publication_claimed": False,
+        "ingestion_state_at_request": chrome_state,
+        "ingestion_browser_interaction_performed": False,
         "note": (
             "One governed editorial cycle was requested. It bypasses only the wait for the "
             "scheduled window; every evidence/review/readiness/publication gate remains "

@@ -85,7 +85,7 @@ def test_three_iterations_append_only_genuinely_new_headlines(tmp_path):
     assert all(row["headline_timestamp"] for row in rows)
 
 
-def test_checkpoint_roundtrip_and_adaptive_backoff(tmp_path):
+def test_checkpoint_roundtrip_and_low_frequency_cadence(tmp_path):
     store = _store(tmp_path)
     checkpoint = intake.read_ingestion_checkpoint(store)
     assert checkpoint["last_success_epoch"] is None
@@ -101,10 +101,16 @@ def test_checkpoint_roundtrip_and_adaptive_backoff(tmp_path):
     checkpoint = intake.read_ingestion_checkpoint(store)
     assert checkpoint["last_success_epoch"] == FIXED_NOW.timestamp()
     assert checkpoint["rows_last_iteration"] == 12
-    assert intake.next_due_interval_seconds(0) == intake.ACTIVE_INTERVAL_SECONDS
-    assert intake.next_due_interval_seconds(1) <= 300
-    assert intake.next_due_interval_seconds(10) <= intake.MAX_INTERVAL_SECONDS
-    assert intake.MAX_INTERVAL_SECONDS <= 300
+    assert intake.next_due_interval_seconds(0) == 1800
+    assert intake.next_due_interval_seconds(
+        last_outcome_code=intake.OUTCOME_CAPTURED_NEW, hot_followup_pending=True
+    ) == 900
+    assert intake.next_due_interval_seconds(
+        last_outcome_code=intake.OUTCOME_CAPTURED_NONE
+    ) == 3600
+    assert intake.next_due_interval_seconds(
+        last_outcome_code=intake.OUTCOME_CAPTURE_FAILED
+    ) >= 1800
     assert intake.ingestion_lane_state(intake.OUTCOME_REAUTH_REQUIRED) == "REAUTH_REQUIRED"
     assert intake.ingestion_lane_state(intake.OUTCOME_PORT_OWNER_UNPROVEN) == "UNAVAILABLE"
     assert intake.ingestion_lane_state(intake.OUTCOME_CAPTURED_NEW) == "RUNNING"
@@ -187,6 +193,116 @@ def test_housekeeping_iteration_zero_llm_calls(tmp_path):
     assert result["llm_or_provider_calls"] == 0
     assert result["rows_added"] == 2
     assert result["lane_state"] == "RUNNING"
+
+
+def test_fake_clock_proves_30m_15m_one_shot_and_60m_cadence(tmp_path):
+    store = _store(tmp_path)
+    outcomes = iter((
+        {"capture_state": "CAPTURED", "new_headlines": 2},
+        {"capture_state": "CAPTURED", "new_headlines": 1},
+        {"capture_state": "CAPTURED_NO_NEW_HEADLINES", "new_headlines": 0},
+        {"capture_state": "CAPTURED_NO_NEW_HEADLINES", "new_headlines": 0},
+    ))
+    calls = []
+
+    def capture_due(**kwargs):
+        calls.append(kwargs)
+        return next(outcomes)
+
+    kwargs = {
+        "state_fn": lambda: {"state": "READY"},
+        "session_fn": lambda: {"session_state": "READY"},
+        "capture_fn": capture_due,
+    }
+    first = intake.run_ingestion_housekeeping_iteration(store, now=FIXED_NOW, **kwargs)
+    assert first["cadence_state"] == "HOT_FOLLOWUP"
+    assert first["next_eligible_capture_utc"] == (
+        FIXED_NOW + timedelta(seconds=900)
+    ).isoformat().replace("+00:00", "Z")
+
+    # Run Now/force is not browser-budget authority.
+    early_hot = intake.run_ingestion_housekeeping_iteration(
+        store, now=FIXED_NOW + timedelta(seconds=899), force=True, **kwargs
+    )
+    assert early_hot["detail"] == "not_due"
+    assert len(calls) == 1
+
+    followup = intake.run_ingestion_housekeeping_iteration(
+        store, now=FIXED_NOW + timedelta(seconds=900), **kwargs
+    )
+    assert followup["cadence_state"] == "NORMAL"
+    assert intake.read_ingestion_checkpoint(store)["hot_followup_pending"] is False
+
+    early_normal = intake.run_ingestion_housekeeping_iteration(
+        store, now=FIXED_NOW + timedelta(seconds=2699), **kwargs
+    )
+    assert early_normal["detail"] == "not_due"
+    empty = intake.run_ingestion_housekeeping_iteration(
+        store, now=FIXED_NOW + timedelta(seconds=2700), **kwargs
+    )
+    assert empty["cadence_state"] == "EMPTY_BACKOFF"
+
+    early_empty = intake.run_ingestion_housekeeping_iteration(
+        store, now=FIXED_NOW + timedelta(seconds=6299), **kwargs
+    )
+    assert early_empty["detail"] == "not_due"
+    repeated_empty = intake.run_ingestion_housekeeping_iteration(
+        store, now=FIXED_NOW + timedelta(seconds=6300), **kwargs
+    )
+    assert repeated_empty["cadence_state"] == "EMPTY_BACKOFF"
+    assert len(calls) == 4
+
+
+def test_kill_switch_suppresses_even_forced_x_capture(tmp_path):
+    store = _store(tmp_path)
+    control = store.get_operating_control()
+    store.update_operating_control(
+        expected_state_version=control["state_version"],
+        operating_mode="KILL_SWITCH",
+        control_source="CONTROLLED_TEST",
+    )
+
+    result = intake.run_ingestion_housekeeping_iteration(
+        store,
+        now=FIXED_NOW,
+        force=True,
+        state_fn=lambda: pytest.fail("KILL_SWITCH inspected browser process state"),
+        session_fn=lambda: pytest.fail("KILL_SWITCH attached CDP"),
+        capture_fn=lambda **_kwargs: pytest.fail("KILL_SWITCH captured X"),
+    )
+
+    assert result["lane_state"] == "PAUSED_KILL_SWITCH"
+    assert result["capture_attempted"] is False
+    assert result["cadence_state"] == "KILL_SWITCH"
+
+
+def test_parallel_x_capture_is_suppressed(tmp_path):
+    store = _store(tmp_path)
+    assert intake._INGESTION_CAPTURE_LOCK.acquire(blocking=False)
+    try:
+        result = intake.run_ingestion_housekeeping_iteration(
+            store,
+            now=FIXED_NOW,
+            state_fn=lambda: {"state": "READY"},
+            session_fn=lambda: pytest.fail("parallel capture attached CDP"),
+            capture_fn=lambda **_kwargs: pytest.fail("parallel capture ran"),
+        )
+    finally:
+        intake._INGESTION_CAPTURE_LOCK.release()
+    assert result["detail"] == "parallel_capture_suppressed"
+    assert result["capture_attempted"] is False
+
+
+def test_x_capture_prefers_existing_exact_locked_list_tab():
+    class Page:
+        def __init__(self, url):
+            self.url = url
+
+    other = Page("https://x.com/home")
+    exact = Page(f"https://x.com/i/lists/{capture.TARGET_LIST_ID}")
+    context = type("Context", (), {"pages": [other, exact]})()
+
+    assert capture.select_reusable_x_page(context) is exact
 
 
 # --- B. Restart safety: checkpoint durable, no duplicate headlines ---------------------------

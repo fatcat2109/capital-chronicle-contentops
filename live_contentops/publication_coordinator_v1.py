@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import datetime, timezone
+from contextlib import nullcontext
 from pathlib import Path
 from typing import Any, Callable, Mapping, Optional
 from urllib.parse import urlsplit
@@ -19,6 +19,7 @@ from live_contentops.destination_transport_registry_v1 import (
     REGISTRY_VERSION,
     registration_for_destination,
 )
+from live_contentops.browser_interaction_budget_v1 import browser_activity
 
 
 ATTEMPT_STARTED = "DISPATCH_ATTEMPT_STARTED"
@@ -165,22 +166,8 @@ class DurablePublicationCoordinator:
         self.readiness_refresh_seconds = max(30.0, float(readiness_refresh_seconds))
 
     def _refresh_readiness_if_due(self) -> bool:
-        if self.readiness_manager is None:
-            return False
-        rows = self.store.list_destination_readiness()
-        latest = None
-        for row in rows:
-            try:
-                value = datetime.fromisoformat(str(row["probed_at_utc"]).replace("Z", "+00:00"))
-                value = value.replace(tzinfo=value.tzinfo or timezone.utc).astimezone(timezone.utc)
-                latest = value if latest is None or value > latest else latest
-            except Exception:
-                continue
-        now = datetime.now(timezone.utc)
-        if latest is not None and (now - latest).total_seconds() < self.readiness_refresh_seconds:
-            return False
-        self.readiness_manager.probe_all(persist=True)
-        return True
+        """Compatibility seam: periodic active/global readiness refresh is disabled."""
+        return False
 
     @staticmethod
     def _ids(work_item_id: str, plan_hash: str, destination: str) -> dict[str, str]:
@@ -266,13 +253,25 @@ class DurablePublicationCoordinator:
         destination = str(dispatch["platform"])
         object_id = str(dispatch.get("public_object_id") or "") or None
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
+        registration = registration_for_destination(destination)
         try:
-            raw = self.transport_runtime.readback(
-                destination=destination,
-                public_object_id=object_id,
-                public_object_url=str(dispatch.get("public_object_url") or "") or None,
-                intent=intent,
+            if registration.transport_type == "EDGE_CDP" and self.readiness_manager is not None:
+                self.readiness_manager.ensure_destination_runtime_for_readback(destination)
+            activity = (
+                browser_activity(
+                    "RECONCILIATION_ACTIVE",
+                    reason="EXACT_DESTINATION_READBACK",
+                    destination=destination,
+                )
+                if registration.transport_type == "EDGE_CDP" else nullcontext()
             )
+            with activity:
+                raw = self.transport_runtime.readback(
+                    destination=destination,
+                    public_object_id=object_id,
+                    public_object_url=str(dispatch.get("public_object_url") or "") or None,
+                    intent=intent,
+                )
             normalized = normalize_readback_result(raw or {}, public_object_id=object_id)
         except Exception as exc:
             normalized = {
@@ -395,13 +394,28 @@ class DurablePublicationCoordinator:
                 message_id=ids["message_id"], payload=finalized_payload, status="READY",
             )
             item = dict(intent["destination_plan"])
-        readiness = self._readiness(destination, item)
-        if readiness not in READY_STATES:
-            return {"destination": destination, "status": readiness or "READINESS_UNKNOWN", "publish_called": False}
         # Re-read durable mode immediately before every new adapter write.
         mode = self._mode()
         if mode != "AUTONOMOUS_DEFAULT":
             return {"destination": destination, "status": f"WRITE_BLOCKED_{mode}", "publish_called": False}
+        if self.readiness_manager is not None:
+            cached_failure = None
+            cached_failure_fn = getattr(self.readiness_manager, "cached_failed_jit_attempt", None)
+            if callable(cached_failure_fn):
+                cached_failure = cached_failure_fn(
+                    destination, attempt_identity=ids["dispatch_id"]
+                )
+            readiness_row = cached_failure or self.readiness_manager.verify_destination_jit(
+                destination,
+                reason="PUBLICATION",
+                persist=True,
+                attempt_identity=ids["dispatch_id"],
+            )
+            readiness = str(readiness_row.get("readiness_state") or "")
+        else:
+            readiness = self._readiness(destination, item)
+        if readiness not in READY_STATES:
+            return {"destination": destination, "status": readiness or "READINESS_UNKNOWN", "publish_called": False}
         self.store.register_platform_dispatch(
             dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
             platform=destination, status=ATTEMPT_STARTED,
@@ -416,13 +430,22 @@ class DurablePublicationCoordinator:
             "policy_version": intent.get("policy_mode_version"),
             "dispatch_attempt_identity": ids["dispatch_id"],
         }
+        registration = registration_for_destination(destination)
         try:
-            raw = self.transport_runtime.publish(
-                destination=destination,
-                intent={**intent, "canonical_url": canonical_url or intent.get("canonical_url")},
-                authorization_context=authorization,
+            activity = (
+                browser_activity(
+                    "PUBLICATION_ACTIVE",
+                    reason="EXACT_DESTINATION_PUBLICATION",
+                    destination=destination,
+                )
+                if registration.transport_type == "EDGE_CDP" else nullcontext()
             )
-            registration = registration_for_destination(destination)
+            with activity:
+                raw = self.transport_runtime.publish(
+                    destination=destination,
+                    intent={**intent, "canonical_url": canonical_url or intent.get("canonical_url")},
+                    authorization_context=authorization,
+                )
             result = normalize_dispatch_result(
                 raw or {}, destination=destination, surface=registration.surface,
                 transport_type=registration.transport_type,
@@ -695,12 +718,6 @@ class DurablePublicationCoordinator:
         """Reconcile ambiguous writes, then advance at most one durable queued write."""
         summary = {"safe_resumes": 0, "marked_unknown": 0, "readbacks": 0, "publish_calls": 0,
                    "readiness_probe_performed": False}
-        try:
-            summary["readiness_probe_performed"] = self._refresh_readiness_if_due()
-        except Exception:
-            # Destination-health failure never creates write authority and does not stop exact
-            # durable UNKNOWN_WRITE recovery for other destinations.
-            summary["readiness_probe_performed"] = False
         messages = self.store.list_outbox_messages()
         dispatch_by_message = {str(d["message_id"]): d for d in self.store.list_platform_dispatches()}
         ready_messages: list[Mapping[str, Any]] = []

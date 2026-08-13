@@ -4,6 +4,7 @@ import json
 import threading
 from datetime import datetime, timezone
 from http.server import HTTPServer
+from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
@@ -15,6 +16,7 @@ from live_contentops.hourly_runtime_audit_v1 import (
     _recent_stderr_signal,
     write_audit_artifacts,
 )
+from live_contentops import hourly_runtime_audit_v1 as hourly_audit
 from live_contentops import server as loopback_server
 from live_contentops.operator_control_plane_v1 import (
     MAX_LOG_LINES,
@@ -169,6 +171,20 @@ def test_hourly_artifacts_are_compact_latest_plus_bounded_jsonl(tmp_path):
     assert latest["generated_at_utc"].endswith("03:00:00Z")
     # Historical fixture timestamps older than retention are pruned; current writes stay bounded.
     assert len(history) <= 4
+
+
+def test_hourly_audit_has_no_browser_navigation_or_active_probe_path():
+    source = Path(hourly_audit.__file__).read_text(encoding="utf-8")
+    for forbidden in (
+        "connect_over_cdp",
+        ".new_page(",
+        ".goto(",
+        ".reload(",
+        "probe_surface(",
+        "probe_all(",
+        "ensure_canonical_edge_runtime",
+    ):
+        assert forbidden not in source
 
 
 def test_loopback_shutdown_requires_origin_exact_payload_and_reuses_fallback(tmp_path, monkeypatch):

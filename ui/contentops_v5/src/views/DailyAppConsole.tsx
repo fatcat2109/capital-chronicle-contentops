@@ -177,8 +177,15 @@ function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh
       <div className="daily-grid-4">
         <Metric label="Headline ingestion" value={words(data.runtime.headline_ingestion?.lane_state ?? 'UNAVAILABLE')} status={data.runtime.headline_ingestion?.lane_state} />
         <Metric label="Last headline ingest" value={formatUtcDateTime(data.runtime.headline_ingestion?.last_ingest_utc)} />
+        <Metric label="Next eligible X capture" value={formatUtcDateTime(data.runtime.headline_ingestion?.next_eligible_capture_utc)} />
+        <Metric label="X cadence" value={words(data.runtime.headline_ingestion?.cadence_state ?? 'UNAVAILABLE')} />
         <Metric label="Rolling 24h unique headlines" value={data.runtime.rolling_24h_unique_headlines ?? 'Unavailable'} />
         <Metric label="Capital Chronicle read model" value={words(data.runtime.capital_chronicle_read_model)} status={data.runtime.capital_chronicle_read_model} />
+      </div>
+      <div className="daily-grid-3">
+        <Metric label="Browser automation" value={words(data.runtime.browser_automation?.state ?? 'IDLE')} status={data.runtime.browser_automation?.state ?? 'IDLE'} />
+        <Metric label="Last browser interaction" value={formatUtcDateTime(data.runtime.browser_automation?.last_active_browser_interaction_at_utc)} />
+        <Metric label="Browser reason" value={words(data.runtime.browser_automation?.last_reason ?? 'NONE')} />
       </div>
       <div className="daily-grid-3">
         <Metric label="Published today" value={data.today.published_today_count} status={data.today.published_today_count ? 'PUBLISHED' : 'NONE_TODAY'} />
@@ -323,7 +330,7 @@ function Controls({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Pr
 
 function Audit({ data, hourlyAudit }: { data: DailyAppSnapshot; hourlyAudit: HourlyAudit | null }) {
   return <div className="daily-view"><ViewTitle title="Evidence / Audit" detail="Read-model provenance and durable counts; no credential or raw browser state." />
-    <Panel title="Latest independent hourly audit" eyebrow={formatUtcDateTime(hourlyAudit?.generated_at_utc)}>{hourlyAudit ? <><Status value={hourlyAudit.classification} /><DefinitionRows object={{ classification_reasons: hourlyAudit.classification_reasons, runtime: hourlyAudit.runtime, browsers: hourlyAudit.browsers, safety: hourlyAudit.safety, stderr_signal: hourlyAudit.stderr_signal, scheduled_task: hourlyAudit.scheduled_task }} /></> : <Empty title="Audit not yet available" detail="Run or install the independent hourly audit to create the first compact artifact." />}</Panel>
+    <Panel title="Latest independent hourly audit" eyebrow={formatUtcDateTime(hourlyAudit?.generated_at_utc)}>{hourlyAudit ? <><Status value={hourlyAudit.classification} /><DefinitionRows object={{ classification_reasons: hourlyAudit.classification_reasons, runtime: hourlyAudit.runtime, browsers: hourlyAudit.browsers, browser_interaction: hourlyAudit.browser_interaction, safety: hourlyAudit.safety, stderr_signal: hourlyAudit.stderr_signal, scheduled_task: hourlyAudit.scheduled_task }} /></> : <Empty title="Audit not yet available" detail="Run or install the independent hourly audit to create the first compact artifact." />}</Panel>
     <div className="daily-grid-4"><Metric label="Work items" value={data.audit.work_item_count} /><Metric label="Transitions" value={data.audit.transition_event_count} /><Metric label="Artifacts" value={data.audit.artifact_reference_count} /><Metric label="Reviews" value={data.audit.review_record_count} /></div>
     <Panel title="Authority"><DefinitionRows object={data.authority} /></Panel>
     <Panel title="Recent transition events">{data.audit.recent_events.length ? <CardList items={data.audit.recent_events} titleKey="event_kind" statusKey="to_state" /> : <Empty title="No transition evidence recorded" detail="The canonical store has no transition event rows." />}</Panel>

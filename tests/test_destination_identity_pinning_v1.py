@@ -207,6 +207,86 @@ def test_youtube_public_handle_page_cannot_self_authorize_wrong_studio_channel(m
     assert row["write_eligible"] is False
 
 
+def test_global_probe_all_is_passive_and_never_calls_browser_or_provider(monkeypatch, tmp_path):
+    import live_contentops.edge_cdp_publishing_adapter_v1 as adapter
+    import live_contentops.publishing_profile_registry_v1 as profiles
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+
+    monkeypatch.setattr(
+        profiles,
+        "browser_doctor",
+        lambda **_kwargs: {"status": "READY_TO_LAUNCH", "recommended_cdp_port": 9223},
+    )
+    monkeypatch.setattr(
+        adapter,
+        "probe_authenticated_platform_session",
+        lambda *_args, **_kwargs: pytest.fail("passive probe_all navigated a browser"),
+    )
+    monkeypatch.setattr(
+        registry,
+        "_json_get",
+        lambda *_args, **_kwargs: pytest.fail("passive probe_all polled a provider"),
+    )
+    manager = DestinationReadinessManager(
+        store=ContentOpsDurableStore(tmp_path / "store.sqlite3"), env={},
+        linkedin_auth_root=tmp_path / "linkedin-auth",
+        edge_runtime_ensurer=lambda **_kwargs: pytest.fail("passive probe_all launched Edge"),
+    )
+
+    result = manager.probe_all(persist=True)
+
+    assert result["active_browser_probe_performed"] is False
+    assert result["external_provider_health_poll_performed"] is False
+    assert result["ready_surfaces"] == []
+    assert all(
+        row["readiness_state"] in {
+            "TRANSPORT_UNAVAILABLE", "STALE_NEEDS_JIT_VERIFICATION", "SESSION_UNAVAILABLE",
+        }
+        for row in result["surfaces"].values()
+    )
+
+
+def test_failed_jit_attempt_marker_is_durable_and_survives_passive_snapshot(
+    monkeypatch, tmp_path
+):
+    import live_contentops.publishing_profile_registry_v1 as profiles
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    manager = DestinationReadinessManager(store=store, env={})
+    registration = registry.registration_for_destination("substack")
+    monkeypatch.setattr(
+        manager,
+        "probe_surface",
+        lambda _surface: registry._base_row(
+            registration,
+            state="REAUTH_REQUIRED",
+            identity=None,
+            identity_match=False,
+            probe_kind="EDGE_CDP_IDENTITY",
+            detail={"authenticated": False},
+        ),
+    )
+    row = manager.verify_destination_jit(
+        "substack", reason="PUBLICATION", attempt_identity="dispatch_fixture"
+    )
+    assert row["readiness_state"] == "REAUTH_REQUIRED"
+    assert manager.cached_failed_jit_attempt(
+        "substack", attempt_identity="dispatch_fixture"
+    )["readiness_state"] == "REAUTH_REQUIRED"
+
+    monkeypatch.setattr(
+        profiles,
+        "browser_doctor",
+        lambda **_kwargs: {"status": "READY_TO_ATTACH", "recommended_cdp_port": 9223},
+    )
+    passive = manager.passive_surface("SUBSTACK_ARTICLE", persist=True)
+    assert passive["readiness_state"] == "REAUTH_REQUIRED"
+    assert manager.cached_failed_jit_attempt(
+        "substack", attempt_identity="dispatch_fixture"
+    )["readiness_state"] == "REAUTH_REQUIRED"
+
+
 @pytest.mark.parametrize("readiness", ["IDENTITY_MISMATCH", "REAUTH_REQUIRED", "AUTH_INVALID"])
 def test_nonready_identity_or_auth_state_never_calls_publisher(tmp_path, readiness):
     _store, transport, coordinator = _coordinator(

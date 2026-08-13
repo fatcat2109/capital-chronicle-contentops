@@ -15,6 +15,12 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from typing import Any, Mapping, Optional, Sequence
 
+from live_contentops.browser_interaction_budget_v1 import (
+    BROWSER_INTERACTION_BUDGET_V1,
+    browser_activity,
+    record_browser_interaction_event,
+)
+
 
 REGISTRY_VERSION = "contentops.destination_transport_registry.v2"
 IDENTITY_AUTHORITY_VERSION = "contentops.destination_identity_authority.v2"
@@ -39,6 +45,8 @@ READINESS_STATES = frozenset({
     "CAPABILITY_UNSUPPORTED",
     "TOKEN_EXPIRING",
     "AUTH_UNAVAILABLE",
+    "LAST_VERIFIED_READY",
+    "STALE_NEEDS_JIT_VERIFICATION",
 })
 
 
@@ -299,7 +307,7 @@ def _error_state(error: _ProbeHTTPError) -> str:
 
 
 class DestinationReadinessManager:
-    """Bounded read-only current identity probes with optional schema-v8 persistence."""
+    """Passive idle readiness plus exact destination-only JIT verification."""
 
     def __init__(self, *, store: Any = None, env: Mapping[str, str] | None = None,
                  edge_runtime_ensurer: Any = None, linkedin_auth_root: Any = None,
@@ -362,7 +370,12 @@ class DestinationReadinessManager:
             and callable(self.edge_runtime_ensurer)
         ):
             try:
-                recovered = dict(self.edge_runtime_ensurer() or {})
+                # Launch a blank canonical window only. The exact destination probe below owns
+                # the sole platform navigation for this attempt.
+                try:
+                    recovered = dict(self.edge_runtime_ensurer(urls=()) or {})
+                except TypeError:
+                    recovered = dict(self.edge_runtime_ensurer() or {})
                 recovery_status = str(recovered.get("status") or "UNKNOWN")
                 doctor = browser_doctor(env=self.env)
             except Exception as exc:
@@ -547,6 +560,7 @@ class DestinationReadinessManager:
                              detail={"error_class": exc.error_class, "http_status": exc.status_code})
 
     def probe_surface(self, surface: str) -> dict[str, Any]:
+        """Active exact-surface verification. Never call this from idle/global refresh."""
         registration = SURFACE_REGISTRY[surface]
         if registration.surface == "LINKEDIN_POST":
             return self._linkedin_probe(registration)
@@ -562,12 +576,201 @@ class DestinationReadinessManager:
             return self._discord_probe(registration)
         return self._graph_probe(registration)
 
-    def probe_all(self, *, surfaces: Sequence[str] = TIER1_SURFACES,
-                  persist: bool = True) -> dict[str, Any]:
-        rows = {surface: self.probe_surface(surface) for surface in surfaces}
+    def _persist(self, row: Mapping[str, Any], *, persist: bool) -> dict[str, Any]:
+        result = dict(row)
         if persist and self.store is not None:
-            for row in rows.values():
-                self.store.upsert_destination_readiness(row=row)
+            self.store.upsert_destination_readiness(row=result)
+        return result
+
+    def _previous_readiness(self, surface: str) -> dict[str, Any]:
+        if self.store is None:
+            return {}
+        return next(
+            (dict(row) for row in self.store.list_destination_readiness() if row["surface"] == surface),
+            {},
+        )
+
+    def passive_surface(self, surface: str, *, persist: bool = True) -> dict[str, Any]:
+        """Local/process/cached-metadata readiness only; never opens or navigates a page."""
+
+        registration = SURFACE_REGISTRY[surface]
+        previous = self._previous_readiness(surface)
+        previous_detail = previous.get("sanitized_detail") or previous.get("sanitized_detail_json")
+        if isinstance(previous_detail, str):
+            try:
+                previous_detail = json.loads(previous_detail)
+            except (TypeError, ValueError):
+                previous_detail = {}
+        previous_detail = dict(previous_detail) if isinstance(previous_detail, Mapping) else {}
+        previous_kind = str(previous.get("probe_kind") or "")
+        last_active_proof = (
+            previous_detail.get("last_active_proof_at_utc")
+            if previous_kind == "PASSIVE_LOCAL_AND_CACHED_METADATA"
+            else previous.get("probed_at_utc")
+        )
+        previous_state = str(previous.get("readiness_state") or "")
+        prior_jit_attempt_identity = previous_detail.get("jit_attempt_identity")
+
+        if registration.surface == "LINKEDIN_POST":
+            # This implementation reads DPAPI-backed metadata/expiry only and performs no
+            # provider call or CDP navigation.
+            row = self._linkedin_probe(registration)
+            if prior_jit_attempt_identity:
+                row["sanitized_detail"]["jit_attempt_identity"] = prior_jit_attempt_identity
+            return self._persist(row, persist=persist)
+
+        if registration.transport_type == "EDGE_CDP":
+            from live_contentops.publishing_profile_registry_v1 import browser_doctor
+
+            doctor = browser_doctor(env=self.env)
+            transport_available = bool(
+                doctor.get("status") == "READY_TO_ATTACH"
+                and doctor.get("recommended_cdp_port") == PUBLISHING_CDP_PORT
+            )
+            if previous_state in {"REAUTH_REQUIRED", "AUTH_INVALID", "IDENTITY_MISMATCH"}:
+                state = previous_state
+            elif not transport_available:
+                state = "TRANSPORT_UNAVAILABLE"
+            elif last_active_proof:
+                state = "LAST_VERIFIED_READY"
+            else:
+                state = "STALE_NEEDS_JIT_VERIFICATION"
+            return self._persist(_base_row(
+                registration,
+                state=state,
+                identity=str(previous.get("destination_identity") or "") or None,
+                identity_match=False,
+                probe_kind="PASSIVE_LOCAL_AND_CACHED_METADATA",
+                detail={
+                    "edge_process_profile_cdp_available": transport_available,
+                    "last_active_proof_at_utc": last_active_proof,
+                    "active_probe_performed": False,
+                    "navigation_performed": False,
+                    "jit_attempt_identity": prior_jit_attempt_identity,
+                },
+            ), persist=persist)
+
+        binding_configured = False
+        if registration.surface == "TELEGRAM_CHANNEL_POST":
+            binding_configured = bool(
+                self.env.get("TELEGRAM_BOT_TOKEN")
+                and (self.env.get("TELEGRAM_TARGET_CHAT_ID") or self.env.get("TELEGRAM_CHAT_ID") or self.env.get("TELEGRAM_CHANNEL_ID"))
+            )
+        elif registration.surface == "DISCORD_ANNOUNCEMENT":
+            binding_configured = bool(
+                self.env.get("DISCORD_ANNOUNCEMENTS_WEBHOOK_URL")
+                or self.env.get("DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK")
+                or self.env.get("DISCORD_WEBHOOK_URL")
+            )
+        elif registration.surface == "FACEBOOK_PAGE_POST":
+            binding_configured = bool(
+                self.env.get("FACEBOOK_PAGE_ID")
+                and (self.env.get("FACEBOOK_PAGE_ACCESS_TOKEN") or self.env.get("META_ACCESS_TOKEN"))
+            )
+        elif registration.surface == "INSTAGRAM_BUSINESS_POST":
+            binding_configured = bool(
+                (self.env.get("INSTAGRAM_BUSINESS_ACCOUNT_ID") or self.env.get("INSTAGRAM_IG_ID"))
+                and (self.env.get("INSTAGRAM_ACCESS_TOKEN") or self.env.get("META_ACCESS_TOKEN"))
+            )
+        elif registration.surface == "THREADS_POST":
+            binding_configured = bool(
+                self.env.get("THREADS_USER_ID")
+                and (self.env.get("THREADS_USER_ACCESS_TOKEN") or self.env.get("THREADS_ACCESS_TOKEN"))
+            )
+        state = (
+            "LAST_VERIFIED_READY" if binding_configured and last_active_proof
+            else "STALE_NEEDS_JIT_VERIFICATION" if binding_configured
+            else "TRANSPORT_UNAVAILABLE"
+        )
+        return self._persist(_base_row(
+            registration,
+            state=state,
+            identity=str(previous.get("destination_identity") or "") or None,
+            identity_match=False,
+            probe_kind="PASSIVE_LOCAL_AND_CACHED_METADATA",
+            detail={
+                "binding_configured": binding_configured,
+                "last_active_proof_at_utc": last_active_proof,
+                "network_probe_performed": False,
+                "jit_attempt_identity": prior_jit_attempt_identity,
+            },
+        ), persist=persist)
+
+    def cached_failed_jit_attempt(
+        self, destination: str, *, attempt_identity: str
+    ) -> dict[str, Any] | None:
+        """Return a local failed JIT result already consumed by this exact durable intent."""
+
+        previous = self._previous_readiness(registration_for_destination(destination).surface)
+        detail: Any = previous.get("sanitized_detail") or previous.get("sanitized_detail_json")
+        if isinstance(detail, str):
+            try:
+                detail = json.loads(detail)
+            except (TypeError, ValueError):
+                detail = {}
+        detail = dict(detail) if isinstance(detail, Mapping) else {}
+        state = str(previous.get("readiness_state") or "")
+        if detail.get("jit_attempt_identity") == str(attempt_identity) and state not in READY_STATES:
+            return dict(previous)
+        return None
+
+    def verify_destination_jit(
+        self,
+        destination: str,
+        *,
+        reason: str,
+        persist: bool = True,
+        attempt_identity: str | None = None,
+    ) -> dict[str, Any]:
+        """Perform at most one active probe for the exact destination attempt."""
+
+        if reason not in {"PUBLICATION", "MANUAL_DESTINATION_VERIFICATION"}:
+            raise ValueError("jit_destination_probe_reason_not_authorized")
+        registration = registration_for_destination(destination)
+        if registration.transport_type == "EDGE_CDP":
+            record_browser_interaction_event(
+                "active_probe", reason=f"{reason}_JIT_READINESS", destination=destination
+            )
+            activity_state = "PUBLICATION_ACTIVE" if reason == "PUBLICATION" else "RECONCILIATION_ACTIVE"
+            with browser_activity(
+                activity_state,
+                reason=f"{reason}_JIT_READINESS",
+                destination=destination,
+            ):
+                row = self.probe_surface(registration.surface)
+        else:
+            row = self.probe_surface(registration.surface)
+        if attempt_identity:
+            row["sanitized_detail"] = {
+                **dict(row.get("sanitized_detail") or {}),
+                "jit_attempt_identity": str(attempt_identity),
+            }
+        return self._persist(row, persist=persist)
+
+    def ensure_destination_runtime_for_readback(self, destination: str) -> dict[str, Any]:
+        """Ensure Edge only for exact browser readback; do not perform an auth/global probe."""
+
+        registration = registration_for_destination(destination)
+        if registration.transport_type != "EDGE_CDP":
+            return {"status": "NON_BROWSER_DESTINATION", "external_probe_performed": False}
+        if not callable(self.edge_runtime_ensurer):
+            return {"status": "TRANSPORT_UNAVAILABLE", "external_probe_performed": False}
+        try:
+            recovered = dict(self.edge_runtime_ensurer(urls=()) or {})
+        except TypeError:
+            recovered = dict(self.edge_runtime_ensurer() or {})
+        return {
+            "status": str(recovered.get("status") or "TRANSPORT_UNAVAILABLE"),
+            "external_probe_performed": False,
+            "destination": destination,
+        }
+
+    def probe_all(self, *, surfaces: Sequence[str] = TIER1_SURFACES,
+                   persist: bool = True) -> dict[str, Any]:
+        """Compatibility name for a passive snapshot; global active social probing is forbidden."""
+        if BROWSER_INTERACTION_BUDGET_V1.edge_global_social_probe_allowed:
+            raise RuntimeError("browser_budget_invalid_global_social_probe_enabled")
+        rows = {surface: self.passive_surface(surface, persist=persist) for surface in surfaces}
         return {
             "schema_version": "contentops.destination_readiness_matrix.v1",
             "transport_registry_version": REGISTRY_VERSION,
@@ -578,6 +781,8 @@ class DestinationReadinessManager:
             ),
             "public_write_performed": False,
             "secret_values_exposed": False,
+            "active_browser_probe_performed": False,
+            "external_provider_health_poll_performed": False,
         }
 
 

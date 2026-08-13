@@ -8,6 +8,9 @@ from pathlib import Path
 from typing import Any, Optional
 
 from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
+from live_contentops.browser_interaction_budget_v1 import (
+    configure_browser_interaction_telemetry,
+)
 from live_contentops.destination_transport_registry_v1 import (
     DestinationReadinessManager,
     REGISTRY_VERSION,
@@ -75,18 +78,23 @@ def build_final_daily_app_production_runtime(
     operating_mode: Optional[str] = None,
     sidecar_glob: Optional[str] = None,
     clock: Any = None,
-    ensure_edge_runtime: bool = True,
+    ensure_edge_runtime: bool = False,
     run_readiness_probes: bool = False,
 ) -> FinalDailyAppProductionRuntime:
     validate_registry()
     store = ContentOpsDurableStore(store_path)
+    configure_browser_interaction_telemetry(
+        Path(store_path).resolve().parent / "control" / "browser_interaction_budget_v1"
+    )
     orchestrator = ContentOpsProductionOrchestrator()
+    # Compatibility-only explicit bootstrap.  The permanent Daily App path leaves this false;
+    # Edge is ensured only by an exact destination JIT publication/reconciliation request.
     if ensure_edge_runtime:
-        orchestrator.execute("ensure_canonical_edge_publishing_runtime")
+        orchestrator.execute("ensure_canonical_edge_publishing_runtime", urls=())
     readiness = DestinationReadinessManager(
         store=store,
-        edge_runtime_ensurer=lambda: orchestrator.execute(
-            "ensure_canonical_edge_publishing_runtime"
+        edge_runtime_ensurer=lambda **kwargs: orchestrator.execute(
+            "ensure_canonical_edge_publishing_runtime", urls=tuple(kwargs.get("urls") or ())
         ),
     )
     if run_readiness_probes:
