@@ -687,6 +687,7 @@ def sanitized_diagnostic(summary: Mapping[str, Any], governed: Mapping[str, Any]
                     "provider_status_class",
                     "provider_finish_reason",
                     "provider_truncation_indicated",
+                    "transport_telemetry",
                     "latency_seconds",
                     "usage",
                     "cost",
@@ -827,12 +828,12 @@ def run_compact_authorship(
     # parser/schema failure receives no identical blind retry; the contract must be repaired.
     budget = RetryBudget(
         logical_invocation_id=logical_id,
-        max_total_provider_attempts=4,
-        max_fallback_transitions=0,
-        max_same_model_retries=3,
+        max_total_provider_attempts=3,
+        max_fallback_transitions=2,
+        max_same_model_retries=0,
         max_structured_output_repair_attempts=0,
-        wall_clock_budget_seconds=900.0,
-        per_model_max_attempts=(4,),
+        wall_clock_budget_seconds=1200.0,
+        per_model_max_attempts=(1, 1, 1),
     )
     from live_contentops.nine_router_provider_adapter_v2 import call_nine_router
 
@@ -845,6 +846,7 @@ def run_compact_authorship(
             timeout_seconds,
             max_tokens=4500,
             temperature=0.2,
+            stream=True,
         )
 
     with llm_cycle_budget_scope(

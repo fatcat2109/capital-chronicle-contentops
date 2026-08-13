@@ -1,0 +1,826 @@
+{
+  "schema_version": "contentops.retention_native.creative_blueprint.v2",
+  "story_id": "eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+  "viewer_promise": "See why reopened Hormuz transit may shift oil markets from disruption to inventories, demand and restored supply.",
+  "music": "Tense low-frequency pulse at open; restrained percussion enters with the supply-recovery turn; resolve into sparse, measured tones.",
+  "rights_notes": [
+    "Use only the supplied FRED/EIA data charts and the supplied EIA evidence for factual visuals.",
+    "Illustrated elements are original metaphor proposals, not documentary depictions."
+  ],
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false,
+  "visual_system": {
+    "type": "Editorial market documentary: condensed grotesk headlines, monospaced data labels, restrained lower-thirds.",
+    "color": "Charcoal, off-white, signal amber and desaturated ocean blue; red appears only for disruption or downside pressure.",
+    "texture": "Fine newsprint grain, faint grid lines, restrained scanline shimmer and hard-edged map-like contours.",
+    "metaphor": "A narrow blue channel widening into an amber inventory basin as supply routes reopen.",
+    "transition_grammar": "Hard cuts for factual turns; directional wipes follow the route motif; one slow dissolve into the payoff; no repeated card template."
+  },
+  "variants": {
+    "short_9x16": {
+      "duration_seconds": 56,
+      "hook": "The oil shock may be entering a different phase: not blockage, but recovery.",
+      "payoff_seconds": 10,
+      "narration": "The oil shock may be entering a different phase: not blockage, but recovery. The EIA says global oil output could move near pre-conflict levels by year-end as Strait of Hormuz flows resume. It expects most shut-in production to be restored by the first quarter of 2027. That is a major shift in the market test. Instead of asking only how much supply is missing, traders now watch whether restored barrels rebuild inventories and meet demand. The agency sees Brent averaging 85 dollars a barrel in June, then 74 dollars in the third quarter of 2026, and 65 dollars in 2027. Gasoline is forecast at 3 dollars 80 in the third quarter and 3 dollars 40 in the fourth. Lower gasoline prices can ease headline inflation, but they do not settle the Federal Reserve's broader policy questions. The next checkpoints are the July 15 Weekly Petroleum Status Report and the August 11 Short-Term Energy Outlook. The headline is recovery. The proof will be barrels, inventories and demand.",
+      "shots": [
+        {
+          "id": "s01",
+          "t0": 0,
+          "t1": 4,
+          "visual": "Vertical black field; thin amber line threads through a narrow blue channel.",
+          "motion": "Line advances toward camera, then stalls at a red obstruction mark.",
+          "transition": "hard cut",
+          "audio": "Pulse begins; low metallic click at stall.",
+          "narration_excerpt": "The oil shock may be shifting from blockage toward recovery.",
+          "purpose": "Hook the viewer with a visual change from blockage to reopening.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [],
+          "continuity": "Amber route begins as the visual spine."
+        },
+        {
+          "id": "s02",
+          "t0": 4,
+          "t1": 8,
+          "visual": "Tight crop of supplied primary chart; latest section framed by a moving amber bracket.",
+          "motion": "Bracket slides across the recent price and volatility area.",
+          "transition": "vertical wipe",
+          "audio": "Muted tick bed.",
+          "narration_excerpt": "The oil shock may be entering a new phase.",
+          "purpose": "Establish the supplied market evidence without inventing a price reading.",
+          "asset_ids": [
+            "primary"
+          ],
+          "claim_ids": [],
+          "evidence_ids": [],
+          "continuity": "Route line becomes chart bracket."
+        },
+        {
+          "id": "s03",
+          "t0": 8,
+          "t1": 12,
+          "visual": "Minimal Strait-of-Hormuz route metaphor: two dark landforms, blue channel, amber tanker dots.",
+          "motion": "Dots pass through the channel in both directions.",
+          "transition": "directional wipe",
+          "audio": "Water-like hiss under pulse.",
+          "narration_excerpt": "EIA: global oil output may approach pre-conflict levels by year-end.",
+          "purpose": "Introduce the central supply-recovery claim.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:global_output_near_pre_conflict_by_year_end"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Amber route now carries supply dots."
+        },
+        {
+          "id": "s04",
+          "t0": 12,
+          "t1": 16,
+          "visual": "Evidence lower-third: EIA press release title and date, over the route metaphor.",
+          "motion": "Title types on in two short lines; date locks beneath.",
+          "transition": "hard cut",
+          "audio": "Single dry typewriter hit.",
+          "narration_excerpt": "EIA projects global oil output near pre-conflict levels by year-end.",
+          "purpose": "Attribute the forecast directly to supplied evidence.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:global_output_near_pre_conflict_by_year_end",
+            "eia:release_date"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Source treatment stabilizes the route scene."
+        },
+        {
+          "id": "s05",
+          "t0": 16,
+          "t1": 20,
+          "visual": "Seven amber production valves; several are dark, then relight in sequence.",
+          "motion": "Valves relight from left to right; final valve remains dim.",
+          "transition": "match cut",
+          "audio": "Seven restrained valve clicks.",
+          "narration_excerpt": "It expects most shut-in production restored by first quarter 2027.",
+          "purpose": "Make the restoration timeline legible without a numeric list.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:most_shut_in_output_restored_by"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Relit valves feed the route line."
+        },
+        {
+          "id": "s06",
+          "t0": 20,
+          "t1": 24,
+          "visual": "Supplied recent price path, isolated as a tall vertical ribbon with no added values.",
+          "motion": "Ribbon scrolls upward slowly while an amber recovery line crosses it.",
+          "transition": "soft dissolve",
+          "audio": "Pulse thins; one bass note.",
+          "narration_excerpt": "The market test marks a major shift.",
+          "purpose": "Shift from disruption narrative to market-test framing.",
+          "asset_ids": [
+            "recent_price"
+          ],
+          "claim_ids": [],
+          "evidence_ids": [],
+          "continuity": "Recovery line crosses from route into price ribbon."
+        },
+        {
+          "id": "s07",
+          "t0": 24,
+          "t1": 28,
+          "visual": "Split-screen metaphor: empty pipeline on left, inventory basin on right receiving amber droplets.",
+          "motion": "Droplets begin sparse, then form a steady stream.",
+          "transition": "center split",
+          "audio": "Droplets become rhythmic clicks.",
+          "narration_excerpt": "Trader focus shifts: will restored barrels refill inventories, satisfy demand?",
+          "purpose": "Explain the mechanism supplied in the packet.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Amber droplets represent restored barrels, not a measured volume."
+        },
+        {
+          "id": "s08",
+          "t0": 28,
+          "t1": 32,
+          "visual": "Three words appear along one horizontal gauge: SUPPLY, INVENTORIES, DEMAND.",
+          "motion": "Gauge needle moves between the words, never settling.",
+          "transition": "hard cut",
+          "audio": "Three low ticks, one per word.",
+          "narration_excerpt": "Will restored barrels rebuild inventories and meet demand? Traders watch.",
+          "purpose": "Compress the mechanism into a memorable visual.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [],
+          "continuity": "Gauge is the editorial abstraction of the market test."
+        },
+        {
+          "id": "s09",
+          "t0": 32,
+          "t1": 36,
+          "visual": "Supplied multi-year range chart; a clean amber contour traces the annual bands without adding labels.",
+          "motion": "Contour draws from older bands toward the latest area.",
+          "transition": "diagonal wipe",
+          "audio": "Strings rise briefly.",
+          "narration_excerpt": "Brent's forecast average falls from June through 2027.",
+          "purpose": "Introduce the supplied Brent forecast sequence.",
+          "asset_ids": [
+            "multi_year_range"
+          ],
+          "claim_ids": [
+            "eia:brent_june_average_usd_per_barrel",
+            "eia:brent_q3_2026_forecast_usd_per_barrel",
+            "eia:brent_2027_forecast_usd_per_barrel"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Chart contour becomes a descending forecast path."
+        },
+        {
+          "id": "s10",
+          "t0": 36,
+          "t1": 40,
+          "visual": "Descending amber path crosses three unlabeled forecast windows; labels appear one at a time: JUNE, Q3 2026, 2027.",
+          "motion": "Windows slide backward along the path; no numeric crawl.",
+          "transition": "hard cut",
+          "audio": "Three soft tonal drops.",
+          "narration_excerpt": "Forecast prices decline from June through 2027.",
+          "purpose": "Give the forecast time structure while avoiding a numeric-list visual.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:brent_june_average_usd_per_barrel",
+            "eia:brent_q3_2026_forecast_usd_per_barrel",
+            "eia:brent_2027_forecast_usd_per_barrel"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Forecast path remains continuous."
+        },
+        {
+          "id": "s11",
+          "t0": 40,
+          "t1": 44,
+          "visual": "Two amber fuel-pump silhouettes; the second fills to a visibly lower mark.",
+          "motion": "First fill pauses high; second settles lower.",
+          "transition": "liquid wipe",
+          "audio": "Pump hum softens.",
+          "narration_excerpt": "Gasoline is forecast lower in the fourth quarter.",
+          "purpose": "Connect crude outlook to consumer fuel pricing.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:gasoline_q3_2026_forecast_usd_per_gallon",
+            "eia:gasoline_q4_2026_forecast_usd_per_gallon"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Fuel silhouette echoes the inventory basin."
+        },
+        {
+          "id": "s12",
+          "t0": 44,
+          "t1": 48,
+          "visual": "Off-white inflation gauge eases downward; a separate dark rate-policy needle stays unresolved.",
+          "motion": "Inflation needle drops; policy needle oscillates once.",
+          "transition": "crossfade",
+          "audio": "Pulse returns with an unresolved suspended tone.",
+          "narration_excerpt": "Gasoline prices can ease headline inflation, not settle Fed questions.",
+          "purpose": "Deliver the supplied policy caveat.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Two needles distinguish headline relief from broader policy."
+        },
+        {
+          "id": "s13",
+          "t0": 48,
+          "t1": 52,
+          "visual": "Editorial calendar strip with two amber pins: JUL 15 and AUG 11.",
+          "motion": "Pins land on separate dates; route line connects them.",
+          "transition": "calendar tear",
+          "audio": "Two clean marker taps.",
+          "narration_excerpt": "Next: July 15 report, then August 11 energy outlook.",
+          "purpose": "Set the immediate catalysts.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:next_weekly_petroleum_status_report_date",
+            "eia:next_steo_release_date"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Route line becomes calendar connector."
+        },
+        {
+          "id": "s14",
+          "t0": 52,
+          "t1": 56,
+          "visual": "The blue channel widens into a calm amber basin; final text: RECOVERY NEEDS PROOF.",
+          "motion": "Last tanker dot enters; basin ripples once and holds.",
+          "transition": "slow dissolve to black",
+          "audio": "Music resolves into three sparse notes.",
+          "narration_excerpt": "Recovery is the headline; watch barrels, inventories, and demand.",
+          "purpose": "Pay off with the test viewers should watch.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "All prior motifs settle into one basin."
+        }
+      ]
+    },
+    "midform_16x9": {
+      "duration_seconds": 120,
+      "hook": "Oil's next test is not whether the shock happened. It is whether the recovery can hold.",
+      "payoff_seconds": 40,
+      "narration": "Oil's next test is not whether the shock happened. It is whether the recovery can hold. The EIA says the reopening of Strait of Hormuz flows and the return of shut-in production could take global oil output near pre-conflict levels by the end of the year. Most shut-in output is expected to be restored by the first quarter of 2027. That changes the question facing the market. The first phase was about disruption: blocked transit, missing barrels and the risk of a supply squeeze. The next phase is about normalization. Do restored barrels reach consumers? Do inventories rebuild? And does demand absorb the recovery? The price path in the supplied WTI data gives the story a market backdrop, but the forward-looking numbers come from the EIA's outlook. Brent averaged 85 dollars a barrel in June, is forecast at 74 dollars in the third quarter of 2026, and 65 dollars in 2027. Gasoline is forecast at 3 dollars 80 a gallon in the third quarter and 3 dollars 40 in the fourth. A sustained retreat in oil could reduce near-term inflation compensation, support large energy importers and pressure producer revenues. But cheaper gasoline is not a complete Federal Reserve signal. Broader price persistence, labor conditions and inflation expectations still matter. The next evidence arrives July 15 with the Weekly Petroleum Status Report, followed by the August 11 Short-Term Energy Outlook. The recovery story is clear. The durable-price story is not. Watch the barrels, the inventories and the demand.",
+      "shots": [
+        {
+          "id": "m01",
+          "t0": 0,
+          "t1": 4,
+          "visual": "Wide charcoal field; a narrow blue channel cuts diagonally through amber dust.",
+          "motion": "Dust clears from the channel in a single forward push.",
+          "transition": "hard cut",
+          "audio": "Low pulse and distant wind.",
+          "narration_excerpt": "Oil's next test is not whether the shock happened.",
+          "purpose": "Open with a question rather than a headline card.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [],
+          "continuity": "Channel is the persistent route motif."
+        },
+        {
+          "id": "m02",
+          "t0": 4,
+          "t1": 8,
+          "visual": "Channel pinches between two dark forms; amber route line stops at the pinch.",
+          "motion": "Line flickers against the obstruction.",
+          "transition": "match cut",
+          "audio": "Pulse stalls; dry scrape.",
+          "narration_excerpt": "It is whether the recovery can hold.",
+          "purpose": "Visualize fragility before reopening.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [],
+          "continuity": "Obstruction is abstract, not a documentary map."
+        },
+        {
+          "id": "m03",
+          "t0": 8,
+          "t1": 12,
+          "visual": "Supplied primary chart appears in a wide frame with latest segment highlighted by a thin amber rail.",
+          "motion": "Rail tracks the latest segment without revealing extra values.",
+          "transition": "chart reveal",
+          "audio": "Muted data ticks.",
+          "narration_excerpt": "The supplied WTI data gives the story a market backdrop.",
+          "purpose": "Ground the piece in the supplied documentary asset.",
+          "asset_ids": [
+            "primary"
+          ],
+          "claim_ids": [],
+          "evidence_ids": [],
+          "continuity": "Amber rail inherits the blocked route line."
+        },
+        {
+          "id": "m04",
+          "t0": 12,
+          "t1": 16,
+          "visual": "Two-way tanker-dot metaphor enters the blue channel from opposite edges.",
+          "motion": "Dots pass one another cleanly; obstruction fades.",
+          "transition": "directional wipe",
+          "audio": "Water hiss; pulse resumes.",
+          "narration_excerpt": "The reopening of Strait of Hormuz flows",
+          "purpose": "Introduce the reopening mechanism.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Route now has bidirectional movement."
+        },
+        {
+          "id": "m05",
+          "t0": 16,
+          "t1": 20,
+          "visual": "EIA source line appears beside the route: press release title, date, and source mark.",
+          "motion": "Source line types on; route continues behind it.",
+          "transition": "hard cut",
+          "audio": "Typewriter taps.",
+          "narration_excerpt": "The EIA says",
+          "purpose": "Attribute the central forecast to the supplied evidence.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:release_date"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Source mark stays small and documentary."
+        },
+        {
+          "id": "m06",
+          "t0": 20,
+          "t1": 24,
+          "visual": "World-output metaphor: a ring of amber segments, several dark, gradually reconnects.",
+          "motion": "Segments reconnect around the ring; one gap remains until the final beat.",
+          "transition": "radial wipe",
+          "audio": "Layered clicks resolve into a hum.",
+          "narration_excerpt": "global oil output near pre-conflict levels by the end of the year.",
+          "purpose": "Show the year-end recovery claim without fabricated geography.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:global_output_near_pre_conflict_by_year_end"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Ring becomes a production gauge."
+        },
+        {
+          "id": "m07",
+          "t0": 24,
+          "t1": 28,
+          "visual": "Production gauge with amber valves in staggered rows; dark valves relight progressively.",
+          "motion": "Relighting travels diagonally through the rows.",
+          "transition": "match cut",
+          "audio": "Valve clicks in a diagonal rhythm.",
+          "narration_excerpt": "Most shut-in output is expected to be restored by the first quarter of 2027.",
+          "purpose": "Make the restoration horizon visual and temporal.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:most_shut_in_output_restored_by"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Gauge rows echo the ring segments."
+        },
+        {
+          "id": "m08",
+          "t0": 28,
+          "t1": 32,
+          "visual": "Calendar pages marked Q3 2026 and Q1 2027 slide past a fixed amber restoration marker.",
+          "motion": "Pages slide left; marker stays fixed.",
+          "transition": "page wipe",
+          "audio": "Paper flicks, no whoosh.",
+          "narration_excerpt": "by the first quarter of 2027.",
+          "purpose": "Clarify the forecast window without adding detail.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:most_shut_in_output_restored_by"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Marker becomes the pivot into market mechanics."
+        },
+        {
+          "id": "m09",
+          "t0": 32,
+          "t1": 36,
+          "visual": "Three empty pipeline lanes labeled TRANSIT, PRODUCTION, INVENTORIES.",
+          "motion": "Amber flow starts in transit and pauses before inventories.",
+          "transition": "three-lane split",
+          "audio": "Three low pulses, last one absent.",
+          "narration_excerpt": "That changes the question facing the market.",
+          "purpose": "Turn the story from event recap to testable mechanism.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Amber flow is deliberately incomplete."
+        },
+        {
+          "id": "m10",
+          "t0": 36,
+          "t1": 40,
+          "visual": "Red disruption marks peel away from the TRANSIT lane.",
+          "motion": "Marks lift off like tape; lane clears.",
+          "transition": "tape peel",
+          "audio": "Adhesive tear followed by open air.",
+          "narration_excerpt": "The first phase was about disruption: blocked transit, missing barrels and the risk of a supply squeeze.",
+          "purpose": "Summarize the prior market phase using supplied context.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Cleared lane feeds the next mechanism."
+        },
+        {
+          "id": "m11",
+          "t0": 40,
+          "t1": 44,
+          "visual": "Amber flow enters PRODUCTION lane; several valve icons open.",
+          "motion": "Flow widens as valves open, with no scale implied.",
+          "transition": "pipe match cut",
+          "audio": "Low mechanical opening.",
+          "narration_excerpt": "The next phase is about normalization.",
+          "purpose": "Mark the narrative turn.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Flow widens but has not reached inventory."
+        },
+        {
+          "id": "m12",
+          "t0": 44,
+          "t1": 48,
+          "visual": "Inventory basin viewed from above; first droplets land in a dry concentric basin.",
+          "motion": "Ripples expand but water level remains low.",
+          "transition": "top-down dissolve",
+          "audio": "Sparse droplets.",
+          "narration_excerpt": "Do inventories rebuild?",
+          "purpose": "Pose the first market test as a visual question.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Basin introduced as the payoff container."
+        },
+        {
+          "id": "m13",
+          "t0": 48,
+          "t1": 52,
+          "visual": "Demand gauge pulls against the incoming amber flow from the opposite side.",
+          "motion": "Gauge needle oscillates around center.",
+          "transition": "opposed slide",
+          "audio": "Pulse splits into two alternating tones.",
+          "narration_excerpt": "And does demand absorb the recovery?",
+          "purpose": "Show that restored supply does not automatically determine price.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Demand gauge remains unresolved."
+        },
+        {
+          "id": "m14",
+          "t0": 52,
+          "t1": 56,
+          "visual": "Supplied recent price path fills the frame; a clean vertical crop isolates the latest movement.",
+          "motion": "Crop tracks rightward; no added annotation.",
+          "transition": "hard cut",
+          "audio": "Data ticks return.",
+          "narration_excerpt": "The price path in the supplied WTI data gives the story a market backdrop.",
+          "purpose": "Return to documentary data after the metaphor sequence.",
+          "asset_ids": [
+            "recent_price"
+          ],
+          "claim_ids": [],
+          "evidence_ids": [],
+          "continuity": "Latest-data crop becomes the forecast bridge."
+        },
+        {
+          "id": "m15",
+          "t0": 56,
+          "t1": 60,
+          "visual": "Supplied multi-year range chart beside a blank forecast corridor.",
+          "motion": "Chart remains static while corridor opens to its right.",
+          "transition": "side-by-side reveal",
+          "audio": "Measured piano-like tone.",
+          "narration_excerpt": "The forward-looking numbers come from the EIA's outlook.",
+          "purpose": "Separate observed chart context from supplied forecast claims.",
+          "asset_ids": [
+            "multi_year_range"
+          ],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Blank corridor receives the forecast path."
+        },
+        {
+          "id": "m16",
+          "t0": 60,
+          "t1": 64,
+          "visual": "Forecast corridor labeled JUNE; amber marker settles at 85.",
+          "motion": "Marker drops from above and locks.",
+          "transition": "vertical drop",
+          "audio": "Single tonal impact.",
+          "narration_excerpt": "Brent averaged 85 dollars a barrel in June",
+          "purpose": "Show the first supplied Brent figure with attribution.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:brent_june_average_usd_per_barrel"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Marker connects to descending path."
+        },
+        {
+          "id": "m17",
+          "t0": 64,
+          "t1": 68,
+          "visual": "Corridor extends to Q3 2026; path descends and marker settles at 74.",
+          "motion": "Path draws left to right, then marker locks.",
+          "transition": "line draw",
+          "audio": "Two descending notes.",
+          "narration_excerpt": "is forecast at 74 dollars in the third quarter of 2026",
+          "purpose": "Show the near-term EIA forecast.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:brent_q3_2026_forecast_usd_per_barrel"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Same path, new time horizon."
+        },
+        {
+          "id": "m18",
+          "t0": 68,
+          "t1": 72,
+          "visual": "Corridor reaches 2027; amber path bends lower to a final marker at 65.",
+          "motion": "Path slows before the marker; marker glows once.",
+          "transition": "slow pan",
+          "audio": "Low note resolves downward.",
+          "narration_excerpt": "and 65 dollars in 2027.",
+          "purpose": "Complete the supplied Brent outlook sequence.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:brent_2027_forecast_usd_per_barrel"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Forecast path ends above the inventory basin motif."
+        },
+        {
+          "id": "m19",
+          "t0": 72,
+          "t1": 76,
+          "visual": "Two fuel-pump silhouettes on a dark petrol-blue ground, separated by a thin amber divider.",
+          "motion": "Left fill level rises to 3.80; right fill level settles at 3.40.",
+          "transition": "liquid split",
+          "audio": "Pump hum; softer second fill.",
+          "narration_excerpt": "Gasoline is forecast at 3 dollars 80 a gallon in the third quarter and 3 dollars 40 in the fourth.",
+          "purpose": "Translate the gasoline forecast into a single comparative visual.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:gasoline_q3_2026_forecast_usd_per_gallon",
+            "eia:gasoline_q4_2026_forecast_usd_per_gallon"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Fuel levels echo the falling forecast path."
+        },
+        {
+          "id": "m20",
+          "t0": 76,
+          "t1": 80,
+          "visual": "Off-white inflation gauge with amber headline needle moving lower.",
+          "motion": "Needle eases down; background grid stays fixed.",
+          "transition": "needle match cut",
+          "audio": "Music opens into a warmer chord.",
+          "narration_excerpt": "A sustained retreat in oil could reduce near-term inflation compensation",
+          "purpose": "Introduce cross-asset implications supplied in the packet.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Gauge inherits the forecast palette."
+        },
+        {
+          "id": "m21",
+          "t0": 80,
+          "t1": 84,
+          "visual": "Large importer silhouette receives amber arrows; producer silhouette loses a small amber edge.",
+          "motion": "Arrows brighten on importer side; producer edge dims.",
+          "transition": "opposed wipe",
+          "audio": "Two directional swells.",
+          "narration_excerpt": "support large energy importers and pressure producer revenues.",
+          "purpose": "Show the cross-asset channel without naming unsupplied entities.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Arrows feed back toward the basin."
+        },
+        {
+          "id": "m22",
+          "t0": 84,
+          "t1": 88,
+          "visual": "Second policy gauge appears beside inflation gauge; its needle remains suspended between marks.",
+          "motion": "Inflation needle settles lower; policy needle stays in motion.",
+          "transition": "parallel dissolve",
+          "audio": "Suspended tone returns.",
+          "narration_excerpt": "But cheaper gasoline is not a complete Federal Reserve signal.",
+          "purpose": "Prevent a simplistic inflation-to-policy conclusion.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Two-gauge distinction carries the caveat."
+        },
+        {
+          "id": "m23",
+          "t0": 88,
+          "t1": 92,
+          "visual": "Three unlabeled policy inputs orbit the policy gauge: PRICE PERSISTENCE, LABOR, EXPECTATIONS.",
+          "motion": "Inputs rotate at different speeds; gauge needle remains unresolved.",
+          "transition": "orbital cut",
+          "audio": "Three soft clicks, unevenly spaced.",
+          "narration_excerpt": "Broader price persistence, labor conditions and inflation expectations still matter.",
+          "purpose": "Name the supplied broader policy variables.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Orbit tightens into a calendar ring."
+        },
+        {
+          "id": "m24",
+          "t0": 92,
+          "t1": 96,
+          "visual": "Calendar ring clears to two amber date pins, JUL 15 and AUG 11.",
+          "motion": "Ring rotates; first pin lands in foreground.",
+          "transition": "calendar spin",
+          "audio": "Calendar click.",
+          "narration_excerpt": "The next evidence arrives July 15",
+          "purpose": "Set the first catalyst.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:next_weekly_petroleum_status_report_date"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Policy orbit becomes event calendar."
+        },
+        {
+          "id": "m25",
+          "t0": 96,
+          "t1": 100,
+          "visual": "JUL 15 pin expands into a narrow document strip labeled WEEKLY PETROLEUM STATUS REPORT.",
+          "motion": "Strip slides forward; date remains anchored.",
+          "transition": "document slide",
+          "audio": "Paper slide and low tick.",
+          "narration_excerpt": "with the Weekly Petroleum Status Report",
+          "purpose": "Identify the first supplied checkpoint.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:next_weekly_petroleum_status_report_date"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Document strip points to the inventory basin."
+        },
+        {
+          "id": "m26",
+          "t0": 100,
+          "t1": 104,
+          "visual": "Second amber pin advances to AUG 11; route line connects both dates.",
+          "motion": "Line draws between pins, then continues off-frame.",
+          "transition": "route wipe",
+          "audio": "Pulse resumes with a brighter top note.",
+          "narration_excerpt": "followed by the August 11 Short-Term Energy Outlook.",
+          "purpose": "Identify the second supplied checkpoint.",
+          "asset_ids": [],
+          "claim_ids": [
+            "eia:next_steo_release_date"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Calendar connector becomes final route."
+        },
+        {
+          "id": "m27",
+          "t0": 104,
+          "t1": 108,
+          "visual": "Inventory basin now receives steady amber droplets; a demand line crosses its surface.",
+          "motion": "Water level rises slightly; demand line remains active.",
+          "transition": "slow dissolve",
+          "audio": "Droplets form a steady ostinato.",
+          "narration_excerpt": "Watch the barrels, the inventories and the demand.",
+          "purpose": "Begin the payoff by recombining the mechanism.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "All three market tests occupy one frame."
+        },
+        {
+          "id": "m28",
+          "t0": 108,
+          "t1": 112,
+          "visual": "Route, valves and basin align in one continuous amber line across the frame.",
+          "motion": "Line pulses from route to basin, then back toward demand.",
+          "transition": "continuous line wipe",
+          "audio": "Full but restrained pulse.",
+          "narration_excerpt": "The recovery story is clear.",
+          "purpose": "State the first half of the conclusion.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Every major motif is visibly connected."
+        },
+        {
+          "id": "m29",
+          "t0": 112,
+          "t1": 116,
+          "visual": "The line splits at a fork labeled PRICE and DURABILITY; PRICE glows, DURABILITY remains dim.",
+          "motion": "Price branch brightens briefly; durability branch waits.",
+          "transition": "fork split",
+          "audio": "Chord separates into two notes.",
+          "narration_excerpt": "The durable-price story is not.",
+          "purpose": "Make the payoff tension visually explicit.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "Fork prepares the final hold."
+        },
+        {
+          "id": "m30",
+          "t0": 116,
+          "t1": 120,
+          "visual": "Wide calm basin, last tanker dot arrives; final text: WATCH BARRELS. INVENTORIES. DEMAND.",
+          "motion": "Single ripple expands and freezes on the final frame.",
+          "transition": "slow dissolve to black",
+          "audio": "Music resolves; one final low tick.",
+          "narration_excerpt": "Watch the barrels, the inventories and the demand.",
+          "purpose": "Deliver the durable viewer takeaway.",
+          "asset_ids": [],
+          "claim_ids": [],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "continuity": "The basin closes the route motif and holds for recall."
+        }
+      ]
+    }
+  }
+}

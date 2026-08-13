@@ -45,6 +45,8 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     TERMINAL_NON_RETRYABLE,
     BLOCKED_EXACT_CREATIVE_MODEL,
     V2_CREATIVE_EDITOR_ROLE,
+    V2_CREATIVE_HIGH_MODEL,
+    V2_CREATIVE_MEDIUM_MODEL,
     V2_CREATIVE_MODEL,
     V2_CREATIVE_MODEL_POOL,
     V2_CREATIVE_REVISION_AUTHOR_ROLE,
@@ -183,7 +185,7 @@ def test_exact_ordered_pool_is_the_four_authorized_models() -> None:
     assert PRIMARY_MODEL == "new/gpt-5.6-sol-xhigh"
     assert "new/claude-fable-5" not in AUTHORIZED_MODELS
     assert len(ORDERED_MODEL_POOL) == 4
-    assert len(AUTHORIZED_MODELS) == 5
+    assert len(AUTHORIZED_MODELS) == 7
     assert "vx/gemini-3.5-flash(high)" in AUTHORIZED_MODELS
     assert ARTICLE_WRITING_MODEL_POOL is ORDERED_MODEL_POOL
     assert model_pool_for_role(ARTICLE_WRITING_ROLE) is ORDERED_MODEL_POOL
@@ -266,14 +268,20 @@ def test_gemini_incident_invalid_or_expired_configuration_restores_canonical_poo
     "role",
     (V2_CREATIVE_EDITOR_ROLE, V2_MOTION_CODE_AUTHOR_ROLE, V2_CREATIVE_REVISION_AUTHOR_ROLE),
 )
-def test_creative_roles_are_exact_gpt56_singletons_even_during_incident(monkeypatch, role) -> None:
+def test_creative_roles_use_owner_authorized_gpt56_tier_ladder_even_during_incident(
+    monkeypatch, role
+) -> None:
     _enable_gemini_incident(monkeypatch, "FLASH_ONLY")
-    assert model_pool_for_role(role) == V2_CREATIVE_MODEL_POOL == (V2_CREATIVE_MODEL,)
+    assert model_pool_for_role(role) == V2_CREATIVE_MODEL_POOL == (
+        V2_CREATIVE_MODEL,
+        V2_CREATIVE_HIGH_MODEL,
+        V2_CREATIVE_MEDIUM_MODEL,
+    )
     budget = retry_budget_for_role(role_task_id=role, logical_invocation_id=f"creative-{role}")
-    assert budget.max_total_provider_attempts == 4
-    assert budget.max_fallback_transitions == 0
-    assert budget.max_same_model_retries == 3
-    assert budget.per_model_max_attempts == (4,)
+    assert budget.max_total_provider_attempts == 3
+    assert budget.max_fallback_transitions == 2
+    assert budget.max_same_model_retries == 0
+    assert budget.per_model_max_attempts == (1, 1, 1)
 
 
 def test_declared_retry_budget_defaults() -> None:
@@ -718,8 +726,14 @@ def test_leaf_models_get_bounded_retries_under_the_twenty_attempt_leaf_ceiling()
     "role",
     (V2_CREATIVE_EDITOR_ROLE, V2_MOTION_CODE_AUTHOR_ROLE, V2_CREATIVE_REVISION_AUTHOR_ROLE),
 )
-def test_creative_role_retries_exact_model_four_times_then_blocks(role) -> None:
-    provider = scripted({V2_CREATIVE_MODEL: [fail("requested_model_temporarily_unavailable")]})
+def test_creative_role_walks_exact_gpt56_tiers_once_then_blocks(role) -> None:
+    provider = scripted(
+        {
+            V2_CREATIVE_MODEL: [fail("requested_model_temporarily_unavailable")],
+            V2_CREATIVE_HIGH_MODEL: [fail("requested_model_temporarily_unavailable")],
+            V2_CREATIVE_MEDIUM_MODEL: [fail("requested_model_temporarily_unavailable")],
+        }
+    )
     iid = f"creative-exhaustion-{role}"
     result = run(
         provider,
@@ -729,12 +743,12 @@ def test_creative_role_retries_exact_model_four_times_then_blocks(role) -> None:
         budget=retry_budget_for_role(role_task_id=role, logical_invocation_id=iid),
     )
     assert result["terminal_disposition"] == BLOCKED_EXACT_CREATIVE_MODEL
-    assert result["models_attempted_in_order"] == [V2_CREATIVE_MODEL]
-    assert result["total_attempts"] == 4
-    assert result["total_fallback_transitions"] == 0
-    assert [row["retry_number"] for row in result["attempts"]] == [0, 1, 2, 3]
+    assert result["models_attempted_in_order"] == list(V2_CREATIVE_MODEL_POOL)
+    assert result["total_attempts"] == 3
+    assert result["total_fallback_transitions"] == 2
+    assert [row["retry_number"] for row in result["attempts"]] == [0, 0, 0]
     assert [row["attempt_kind"] for row in result["attempts"]] == [
-        "initial", "retry", "retry", "retry"
+        "initial", "initial", "initial"
     ]
 
 
@@ -915,6 +929,11 @@ def test_every_attempt_binds_the_required_evidence_fields() -> None:
     assert result["attempts"][-1]["usage"] == {"total_tokens": 10}
     assert result["attempts"][-1]["provider_invocation_id"] == f"inv_{P1}"
     assert result["attempts"][-1]["output_hash"]
+    assert result["attempts"][-1]["validated_output_sha256"]
+    assert (
+        result["accepted_validated_output_sha256"]
+        == result["attempts"][-1]["validated_output_sha256"]
+    )
 
 
 def test_attempt_diagnostics_record_output_shape_finish_reason_and_schema_category() -> None:

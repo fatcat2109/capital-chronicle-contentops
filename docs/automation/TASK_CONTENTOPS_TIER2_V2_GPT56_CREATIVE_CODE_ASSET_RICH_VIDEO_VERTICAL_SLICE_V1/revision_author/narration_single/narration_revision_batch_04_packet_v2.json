@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s04",
+      "narration_text": "EIA projects global oil output near pre-conflict levels by year-end."
+    }
+  ],
+  "revision_rationale": "Condensed to ten words while preserving attribution, forecast framing, scope, and timing.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

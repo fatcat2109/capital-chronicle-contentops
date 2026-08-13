@@ -1,0 +1,157 @@
+{
+  "schema_version": "contentops.retention_native.motion_code_receipt.v2",
+  "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+  "gateway": "9router",
+  "logical_invocation_id": "v2-motion-author-midform_16x9-batch-06",
+  "work_item_id": "midform_16x9:m26,m27,m28,m29,m30",
+  "role_task_id": "V2_MOTION_CODE_AUTHOR",
+  "terminal_disposition": "ACCEPTED",
+  "selected_model": "new/gpt-5.6-sol-medium",
+  "models_attempted_in_order": [
+    "new/gpt-5.6-sol-medium"
+  ],
+  "total_attempts": 1,
+  "total_fallback_transitions": 0,
+  "total_structured_repair_attempts": 0,
+  "total_retry_sleep_seconds": 0.0,
+  "total_elapsed_seconds": 137.7481,
+  "total_usage": {
+    "prompt_tokens": 7614.0,
+    "completion_tokens": 7438.0,
+    "total_tokens": 15052.0
+  },
+  "total_cost": null,
+  "budget_exhausted": false,
+  "budget_exhausted_reason": null,
+  "model_identity_provider_verifiable": true,
+  "model_identity_note": null,
+  "retry_budget_policy": {
+    "max_total_provider_attempts": 2,
+    "max_fallback_transitions": 0,
+    "max_same_model_retries": 1,
+    "per_model_max_attempts": {
+      "new/gpt-5.6-sol-medium": 2
+    },
+    "max_structured_output_repair_attempts": 1,
+    "structured_repair_counts_against_total_attempts": true,
+    "max_cumulative_retry_sleep_seconds": 1800.0,
+    "default_wall_clock_budget_seconds": 600.0,
+    "budget_resets_on_model_change": false,
+    "budget_resets_on_reconstruction": false
+  },
+  "final_retry_budget_snapshot": {
+    "logical_invocation_id": "v2-motion-author-midform_16x9-batch-06",
+    "max_total_provider_attempts": 2,
+    "max_fallback_transitions": 0,
+    "max_same_model_retries": 1,
+    "max_structured_output_repair_attempts": 1,
+    "max_cumulative_retry_sleep_seconds": 1800.0,
+    "wall_clock_budget_seconds": 600.0,
+    "per_model_max_attempts": [
+      2
+    ],
+    "consumed_attempts": 1,
+    "consumed_fallback_transitions": 0,
+    "consumed_repair_attempts": 0,
+    "consumed_sleep_seconds": 0.0,
+    "attempts_by_model": {
+      "new/gpt-5.6-sol-medium": 1
+    },
+    "remaining_attempt_budget": 1
+  },
+  "attempts": [
+    {
+      "logical_invocation_id": "v2-motion-author-midform_16x9-batch-06",
+      "work_item_id": "midform_16x9:m26,m27,m28,m29,m30",
+      "role_task_id": "V2_MOTION_CODE_AUTHOR",
+      "gateway": "9router",
+      "model_priority_index": 0,
+      "requested_model": "new/gpt-5.6-sol-medium",
+      "attempt_number_global": 1,
+      "attempt_number_for_model": 1,
+      "attempt_kind": "initial",
+      "retry_number": 0,
+      "fallback_from": null,
+      "fallback_reason": null,
+      "prompt_template": "retention_native_motion_code_small_batch",
+      "prompt_version": "v2.0",
+      "prompt_logical_hash": "66a370ce9d003b1139690d0ead84d616685e52a3ab4da83bd50ea4059e3a506d",
+      "governed_input_hash": "3357dc9985e6618fac39abdc0f183e9f2ce44726fb6acccf9329af0060912b71",
+      "retry_budget_snapshot": {
+        "logical_invocation_id": "v2-motion-author-midform_16x9-batch-06",
+        "max_total_provider_attempts": 2,
+        "max_fallback_transitions": 0,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_cumulative_retry_sleep_seconds": 1800.0,
+        "wall_clock_budget_seconds": 600.0,
+        "per_model_max_attempts": [
+          2
+        ],
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "attempts_by_model": {
+          "new/gpt-5.6-sol-medium": 1
+        },
+        "remaining_attempt_budget": 1
+      },
+      "resolved_model": "gpt-5.6-sol-medium",
+      "provider_invocation_id": "chatcmpl-1786621416064",
+      "provider_status_class": "2xx_success",
+      "retry_after_seconds": null,
+      "latency_seconds": 137.7475,
+      "usage": {
+        "prompt_tokens": 7614,
+        "completion_tokens": 7438,
+        "total_tokens": 15052
+      },
+      "cost": null,
+      "provider_finish_reason": "stop",
+      "transport_telemetry": {
+        "stream_requested": true,
+        "stream_response_detected": true,
+        "stream_complete": true,
+        "time_to_first_byte_seconds": 37.614,
+        "time_to_first_content_chunk_seconds": 37.6141,
+        "chunk_count": 6026,
+        "content_chunk_count": 6017,
+        "maximum_inter_chunk_gap_seconds": 2.5721,
+        "transport_total_latency_seconds": 137.6989,
+        "accumulated_response_characters": 1162737,
+        "accumulated_response_utf8_bytes": 1162737,
+        "accumulated_response_sha256": "3672850aa4630776ffea566c54853ca259545a12504e39fc5fc89a2f636bae8f"
+      },
+      "provider_truncation_indicated": false,
+      "output_present": true,
+      "output_character_length": 17225,
+      "output_utf8_byte_length": 17225,
+      "remaining_attempt_budget": 1,
+      "model_identity_provider_verified": true,
+      "structured_validation_result": "PASS",
+      "structured_validation_failure_class": null,
+      "output_hash": "b0b63ae3f42161dffad585318e6dd6ded2418cac7ec2c023b497f466fd882340",
+      "failure_class": null,
+      "disposition": "accepted"
+    }
+  ],
+  "fallback_grants_publication_authority": false,
+  "fallback_output_uses_same_downstream_gates": true,
+  "cycle_cached_unavailable_models_skipped": [],
+  "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+  "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+  "status": "ACCEPTED",
+  "variant_id": "midform_16x9",
+  "shot_ids": [
+    "m26",
+    "m27",
+    "m28",
+    "m29",
+    "m30"
+  ],
+  "creative_blueprint_sha256": "522ae3c708d843e48be9671e9298e45e1da8a27bcc247f7938d7656e85361cd4",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

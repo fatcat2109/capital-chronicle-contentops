@@ -7,7 +7,9 @@ evidence.
 """
 from __future__ import annotations
 
+import io
 import json
+import urllib.request
 
 import pytest
 
@@ -44,6 +46,25 @@ from live_contentops.nine_router_provider_adapter_v2 import (
 )
 
 P0, P1, P2, P3 = ORDERED_MODEL_POOL
+
+
+class _FakeHTTPResponse:
+    status = 200
+
+    def __init__(self, body: bytes) -> None:
+        self._body = io.BytesIO(body)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *_args) -> None:
+        return None
+
+    def read(self) -> bytes:
+        return self._body.read()
+
+    def readline(self) -> bytes:
+        return self._body.readline()
 
 #: A real gateway body: plain JSON with a trailing SSE sentinel appended.
 REAL_BODY = (
@@ -86,6 +107,71 @@ def test_true_sse_retains_finish_reason() -> None:
     assert parsed is not None
     assert parsed["text"] == "{}"
     assert parsed["finish_reason"] == "length"
+
+
+def test_explicit_streaming_accumulates_complete_result_and_metrics(monkeypatch) -> None:
+    observed: dict[str, object] = {}
+    body = (
+        'data: {"id":"resp-stream","model":"gpt-5.6-sol-xhigh",'
+        '"choices":[{"delta":{"content":"SMALL_"}}]}\n'
+        'data: {"usage":{"prompt_tokens":4,"completion_tokens":2,"total_tokens":6},'
+        '"choices":[{"delta":{"content":"OK"},"finish_reason":"stop"}]}\n'
+        'data: [DONE]\n'
+    ).encode()
+
+    def fake_urlopen(request, timeout):
+        observed["payload"] = json.loads(request.data.decode())
+        observed["timeout"] = timeout
+        return _FakeHTTPResponse(body)
+
+    monkeypatch.setenv(ENV_API_KEY, "dummy")
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    result = call_nine_router("tiny", P0, 9.0, max_tokens=32, stream=True)
+
+    assert observed["payload"]["stream"] is True
+    assert result.text == "SMALL_OK"
+    assert result.resolved_model == "gpt-5.6-sol-xhigh"
+    assert result.provider_invocation_id == "resp-stream"
+    assert result.finish_reason == "stop"
+    assert result.failure_class is None
+    assert result.transport_telemetry["stream_complete"] is True
+    assert result.transport_telemetry["chunk_count"] == 2
+    assert result.transport_telemetry["content_chunk_count"] == 2
+    assert result.transport_telemetry["time_to_first_byte_seconds"] is not None
+    assert result.transport_telemetry["time_to_first_content_chunk_seconds"] is not None
+
+
+def test_explicit_streaming_fails_closed_without_done_sentinel(monkeypatch) -> None:
+    body = (
+        'data: {"id":"resp-stream","model":"gpt-5.6-sol-xhigh",'
+        '"choices":[{"delta":{"content":"PARTIAL"},"finish_reason":"stop"}]}\n'
+    ).encode()
+    monkeypatch.setenv(ENV_API_KEY, "dummy")
+    monkeypatch.setattr(
+        urllib.request, "urlopen", lambda *_args, **_kwargs: _FakeHTTPResponse(body)
+    )
+
+    result = call_nine_router("tiny", P0, 9.0, stream=True)
+
+    assert result.failure_class == "incomplete_provider_stream"
+    assert result.transport_telemetry["stream_complete"] is False
+
+
+def test_non_streaming_request_remains_the_default(monkeypatch) -> None:
+    observed: dict[str, object] = {}
+
+    def fake_urlopen(request, timeout):
+        assert timeout == 9.0
+        observed.update(json.loads(request.data.decode()))
+        return _FakeHTTPResponse(REAL_BODY.encode())
+
+    monkeypatch.setenv(ENV_API_KEY, "dummy")
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    result = call_nine_router("tiny", P0, 9.0)
+
+    assert "stream" not in observed
+    assert result.text == "READY"
+    assert result.transport_telemetry is None
 
 
 def test_split_model_and_effort_extracts_the_trailing_selector() -> None:

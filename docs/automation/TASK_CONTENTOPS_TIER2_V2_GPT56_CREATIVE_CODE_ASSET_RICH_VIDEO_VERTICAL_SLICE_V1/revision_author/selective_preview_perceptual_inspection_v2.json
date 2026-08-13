@@ -1,0 +1,27 @@
+{
+  "schema_version": "contentops.retention_native.selective_preview_perceptual_inspection.v2",
+  "status": "PASS",
+  "variant_id": "short_9x16",
+  "shot_id": "s08",
+  "captions_visible": false,
+  "sample_phases": [0.12, 0.25, 0.5, 0.75, 0.9],
+  "contact_sheet_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_gpt56_preview_first_20260813\\review\\selective_revision\\selective_revision_contact_sheet.jpg",
+  "contact_sheet_sha256": "8115bebead411ea9a7ec76f6541512e99bb79a91baa16e6257390bf9aba648d5",
+  "midpoint_still_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_gpt56_preview_first_20260813\\review\\selective_revision\\s08_phase_0.50.jpg",
+  "midpoint_still_sha256": "3336f62b303f46e4760f3820bc3f094e6221edd621e2f889fbdc505bd644313a",
+  "inspection": {
+    "text_collision_count": 0,
+    "source_label_collision_count": 0,
+    "internal_source_label_visible_count": 0,
+    "canonical_outer_attribution_visible_count": 1,
+    "safe_margin_status": "PASS",
+    "typography_legibility_status": "PASS",
+    "phase_coverage_status": "PASS",
+    "notes": "SUPPLY, INVENTORIES, and DEMAND remain in separate stable rows across all five sampled phases. The animated needle stays below the typography block. Only canonical outer-chrome attribution is visible."
+  },
+  "observer": "ChatGPT_Codex_visual_inspection",
+  "owner_media_acceptance": "NOT_GRANTED",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

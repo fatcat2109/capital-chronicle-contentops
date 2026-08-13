@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s14",
+      "narration_text": "Recovery is the headline; watch barrels, inventories, and demand."
+    }
+  ],
+  "revision_rationale": "Condensed to nine words while preserving the recovery hook and evidence test.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

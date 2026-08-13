@@ -1,0 +1,411 @@
+{
+  "schema_version": "contentops.retention_native.director_source.v1",
+  "public_write_authority": false,
+  "director_identity": {
+    "kind": "bounded_model_director_output",
+    "author": "OpenAI Codex / GPT-5",
+    "authority": "presentation_only",
+    "facts_may_be_added": false,
+    "renderer_may_invent_edits": false,
+    "revision_round": 2
+  },
+  "revision_history": [
+    {
+      "revision_id": "rev-01-real-timing-gate",
+      "trigger": "First real short render measured 82.33 seconds and first full payoff at 15.03 seconds.",
+      "structural_changes": [
+        "Raised short delivery speed from 1.06 to 1.18 while retaining urgent-controlled prosody.",
+        "Tightened the first three short narration beats without changing governed claims.",
+        "Preserved the short payoff at beat short-b04 and its evidence binding."
+      ],
+      "acceptance_targets": [
+        "45–75 second final duration",
+        "first full payoff no later than 12 seconds",
+        "natural intelligible narration"
+      ],
+      "factual_authority_changed": false,
+      "public_write": false
+    },
+    {
+      "revision_id": "rev-02-independent-critic-structure",
+      "trigger": "Independent 9Router multimodal critic vx/gemini-3.5-flash(high) returned REVISE after reviewing both contact sheets plus hook and payoff stills; it identified two MAJOR visual issues and one MINOR edit issue.",
+      "critic_evidence": {
+        "report": "critic_round1_attempt2_v2.json",
+        "router_attempts": 1,
+        "fallback_transitions": 0,
+        "material_beat_ids": [
+          "mid-b03",
+          "mid-b05",
+          "mid-b11",
+          "mid-b18",
+          "mid-b22",
+          "short-b03",
+          "short-b09",
+          "short-b12"
+        ],
+        "minor_beat_ids": ["mid-b13", "mid-b14", "mid-b15"]
+      },
+      "structural_changes": [
+        "Replaced the flat kinetic-text background treatment with asset-class-specific animated motifs while preserving all governed copy and evidence bindings.",
+        "Reframed the short-form source chart as a portrait-native axis-to-path pan with a mobile reading guide.",
+        "Changed the mechanism diagram from stepwise static states to continuous node, connector, translation, scale, opacity, and border animation.",
+        "Versioned only the affected renderer components so the cache preserves every unaffected beat and invalidates the changed operations deterministically."
+      ],
+      "acceptance_targets": [
+        "no BLOCKER or MAJOR issue in the second independent review",
+        "mobile-legible short-form chart treatment",
+        "less repetitive kinetic typography",
+        "visible mechanism evolution without new factual claims"
+      ],
+      "factual_authority_changed": false,
+      "public_write": false
+    }
+  ],
+  "opportunity": {
+    "video_id": "cc-v2-eia-hormuz-recovery-2026-v1",
+    "story_id": "eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+    "story_version": "2026-07-10T20:31:27Z",
+    "title": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume",
+    "story_mode": "CONFLICT_TIMELINE",
+    "selection_status": "VIDEO_SELECTED",
+    "evidence_hashes": [
+      "1e87b1815912a3fdf3a59b56a17d343c39204b3b200527fc099771563c93a44a",
+      "4a61bb93b43a7fb1d2fd016cbec048ddf9460f1de8731e9ba81241c7a1a3cf9e",
+      "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50"
+    ],
+    "eligible_formats": ["short_9x16", "midform_16x9"],
+    "scores": {
+      "evidence_readiness": 1.0,
+      "materiality": 0.86,
+      "human_or_institutional_stakes": 0.78,
+      "conflict_or_change": 0.94,
+      "narrative_depth": 0.9,
+      "visualizability": 0.96,
+      "asset_availability": 0.9,
+      "shelf_life": 0.74
+    },
+    "selection_reasons": [
+      "Material EIA forecast revision tied to a geopolitical chokepoint",
+      "Clear conflict-to-recovery timeline and falsifiable consequences",
+      "Official primary release plus source-backed price data",
+      "Supports document, map, timeline, chart, comparison, and location imagery"
+    ],
+    "estimated_production_cost": "bounded_local_render_plus_one_public_domain_asset_retrieval",
+    "test_only_non_public": false
+  },
+  "engagement_brief": {
+    "video_id": "cc-v2-eia-hormuz-recovery-2026-v1",
+    "target_audience": "Economically curious viewers who saw an oil-war headline but want the physical mechanism and evidence boundary.",
+    "viewer_question": "Did reopening the Strait of Hormuz actually change the oil-supply story, and what would prove the forecast right or wrong?",
+    "why_now": "The governed July 2026 EIA release explicitly raised global production expectations after traffic increased through Hormuz.",
+    "core_promise": "In one evidence-bound sequence, show what changed at the chokepoint, how EIA's forecast path changed, and which physical signals still have to confirm it.",
+    "hook": "The war premium did not vanish. The physical route changed.",
+    "pattern_interrupt": "Open over a real orbital view of the Persian Gulf, then cut immediately into the primary EIA document instead of a presenter intro.",
+    "central_tension": "A supply-recovery forecast is measurable but not self-proving: flows, restored output, inventories, and prices must move together.",
+    "open_loops": [
+      {"loop_id": "loop-route-recovery", "question": "What changed at Hormuz enough to alter EIA's supply forecast?"},
+      {"loop_id": "loop-price-proof", "question": "Does a lower oil price prove the supply forecast?"},
+      {"loop_id": "loop-policy-boundary", "question": "Would cheaper crude settle the inflation and Fed story?"}
+    ],
+    "payoff_checkpoints": [
+      {"loop_id": "loop-route-recovery", "payoff": "EIA expects crude output and trade near pre-conflict levels by year-end."},
+      {"loop_id": "loop-price-proof", "payoff": "Price is context, not proof; traffic, production, and inventories must confirm together."},
+      {"loop_id": "loop-policy-boundary", "payoff": "Cheaper fuel can ease headline inflation without determining Federal Reserve policy."}
+    ],
+    "rehooks": [
+      {"after": "document reveal", "copy": "But a forecast is not a cargo count."},
+      {"after": "forecast comparison", "copy": "Now compare the forecast with the manifest-bound market price."},
+      {"after": "price chart", "copy": "The decisive test is physical, not graphical."}
+    ],
+    "pacing_map": [
+      {"phase": "hook", "short_seconds": "0-9", "midform_seconds": "0-24"},
+      {"phase": "document_and_timeline", "short_seconds": "9-20", "midform_seconds": "24-78"},
+      {"phase": "mechanism_and_prices", "short_seconds": "20-44", "midform_seconds": "78-154"},
+      {"phase": "confirmation_and_boundary", "short_seconds": "44-65", "midform_seconds": "154-230"}
+    ],
+    "emotional_register": "urgent but controlled; geopolitical stakes without alarmism; resolution through evidence",
+    "prohibited_overclaims": [
+      "Do not claim Hormuz risk is permanently gone",
+      "Do not present forecasts as realized outcomes",
+      "Do not claim a lower oil price proves restored supply",
+      "Do not turn energy-price relief into a Federal Reserve prediction",
+      "Do not imply the archival NASA image depicts 2026 traffic"
+    ],
+    "cta": "Follow the flows, the stocks, and the next official release—not the loudest headline.",
+    "binge_target": "Capital Chronicle Evidence Boundary series",
+    "platform_hooks": {
+      "short_9x16": "The war premium did not vanish. The physical route changed.",
+      "midform_16x9": "The EIA changed its oil-supply forecast after Hormuz traffic increased. Here is what that proves—and what it does not."
+    }
+  },
+  "asset_plan": {
+    "video_id": "cc-v2-eia-hormuz-recovery-2026-v1",
+    "assets": [
+      {
+        "asset_id": "nasa-persian-gulf-iss069-e-92132",
+        "asset_class": "real_location_imagery",
+        "editorial_purpose": "Establish the Persian Gulf and Strait of Hormuz as real geographic context without depicting current traffic.",
+        "source_label": "NASA/JSC Gateway to Astronaut Photography of Earth",
+        "source_url": "https://eol.jsc.nasa.gov/DatabaseImages/ESC/large/ISS069/ISS069-E-92132.JPG",
+        "rights_status": "NASA_MEDIA_GUIDELINES_EDITORIAL",
+        "license_or_terms": "NASA Images and Media Usage Guidelines; factual editorial use with NASA attribution and no endorsement implication.",
+        "attribution": "NASA astronaut photograph ISS069-E-92132, ISS Crew Earth Observations Facility / JSC.",
+        "sha256": "12d85ddefde2c17a221c41c25202914640cfaeb7683133344a1499acb0929845",
+        "source_path": null,
+        "synthetic": false,
+        "documentary": true,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "eia-release-press590-document",
+        "asset_class": "official_source_document",
+        "editorial_purpose": "Reveal the July 7 EIA release and highlight only governed facts.",
+        "source_label": "U.S. Energy Information Administration",
+        "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+        "rights_status": "US_GOVERNMENT_PUBLIC_INFORMATION",
+        "license_or_terms": "EIA Copyright and Reuse policy; U.S. government public information used with source attribution.",
+        "attribution": "Source: U.S. Energy Information Administration, July 7, 2026 press release.",
+        "sha256": "1e87b1815912a3fdf3a59b56a17d343c39204b3b200527fc099771563c93a44a",
+        "source_path": null,
+        "synthetic": false,
+        "documentary": true,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "hormuz-context-map",
+        "asset_class": "deterministic_map",
+        "editorial_purpose": "Trace the chokepoint mechanism without claiming live ship positions.",
+        "source_label": "Capital Chronicle deterministic context map from governed place names",
+        "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Original vector schematic; no basemap tiles or third-party geometry.",
+        "attribution": "Capital Chronicle context map; factual source: U.S. EIA.",
+        "sha256": null,
+        "source_path": null,
+        "synthetic": false,
+        "documentary": false,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "recovery-timeline",
+        "asset_class": "deterministic_timeline",
+        "editorial_purpose": "Stage June 18, July 7, year-end, and early-2027 milestones.",
+        "source_label": "U.S. EIA release and governed ContentOps source packet",
+        "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Original vector timeline from governed facts.",
+        "attribution": "Timeline: Capital Chronicle; dates and forecasts: U.S. EIA.",
+        "sha256": null,
+        "source_path": null,
+        "synthetic": false,
+        "documentary": false,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "forecast-comparison",
+        "asset_class": "deterministic_comparison",
+        "editorial_purpose": "Compare EIA's June Brent average with its Q3 and 2027 forecast averages.",
+        "source_label": "U.S. EIA July 2026 Short-Term Energy Outlook release",
+        "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Original data comparison from governed EIA facts.",
+        "attribution": "Source: U.S. EIA; comparison render: Capital Chronicle.",
+        "sha256": null,
+        "source_path": null,
+        "synthetic": false,
+        "documentary": false,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "supply-recovery-mechanism",
+        "asset_class": "deterministic_diagram",
+        "editorial_purpose": "Explain the bounded chain from increased transit through output restoration and inventory rebuilding to price pressure.",
+        "source_label": "Governed article mechanism and U.S. EIA release",
+        "source_url": "https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Original Capital Chronicle explanatory diagram.",
+        "attribution": "Capital Chronicle mechanism diagram; evidence sources listed in package.",
+        "sha256": null,
+        "source_path": null,
+        "synthetic": false,
+        "documentary": false,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "wti-current-volatility-chart",
+        "asset_class": "source_backed_data_chart",
+        "editorial_purpose": "Show manifest-bound WTI endpoint and volatility context.",
+        "source_label": "FRED DCOILWTICO / U.S. EIA",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Capital Chronicle render from public FRED/EIA data; source attribution required.",
+        "attribution": "Source: FRED DCOILWTICO; underlying source: U.S. EIA.",
+        "sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+        "source_path": "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/media_assets/slot_4/wti_current_volatility_context_9302511000fa.png",
+        "synthetic": false,
+        "documentary": true,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "wti-recent-price-chart",
+        "asset_class": "source_backed_data_chart",
+        "editorial_purpose": "Show the recent WTI path into the manifest-bound July 6 endpoint.",
+        "source_label": "FRED DCOILWTICO / U.S. EIA",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Capital Chronicle render from public FRED/EIA data; source attribution required.",
+        "attribution": "Source: FRED DCOILWTICO; underlying source: U.S. EIA.",
+        "sha256": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076",
+        "source_path": "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/media_assets/slot_4/wti_recent_price_context_9302511000fa.png",
+        "synthetic": false,
+        "documentary": true,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "wti-multi-year-range-chart",
+        "asset_class": "source_backed_data_chart",
+        "editorial_purpose": "Separate a normalization of risk premium from a claim of historically low oil.",
+        "source_label": "FRED DCOILWTICO / U.S. EIA",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Capital Chronicle render from public FRED/EIA data; source attribution required.",
+        "attribution": "Source: FRED DCOILWTICO; underlying source: U.S. EIA.",
+        "sha256": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+        "source_path": "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/media_assets/slot_4/wti_multi_year_range_context_9302511000fa.png",
+        "synthetic": false,
+        "documentary": true,
+        "contains_real_person": false
+      }
+    ]
+  },
+  "audio_plan": {
+    "video_id": "cc-v2-eia-hormuz-recovery-2026-v1",
+    "narrator_provider": "kokoro",
+    "narrator_model": "Kokoro-82M",
+    "narrator_voice": "af_heart",
+    "narrator_license": "Apache-2.0",
+    "pronunciation_overrides": {
+      "EIA": "E I A",
+      "Hormuz": "hor-MOOZ",
+      "WTI": "W T I",
+      "Brent": "Brent"
+    },
+    "prosody_by_variant": {
+      "short_9x16": {"speed": 1.18, "style": "urgent_controlled", "pause_after_payoff_seconds": 0.18},
+      "midform_16x9": {"speed": 1.0, "style": "documentary_explainer", "pause_after_payoff_seconds": 0.24}
+    },
+    "music": {
+      "generator": "contentops.retention_native.score.v2.2",
+      "title": "Chokepoint / Recovery",
+      "rights_status": "CAPITAL_CHRONICLE_OWNED",
+      "license_or_terms": "Original deterministic local oscillator score with no samples or model output.",
+      "states": ["cold_open", "tension", "evidence", "mechanism", "consequence", "boundary", "resolution", "outro"]
+    },
+    "sfx_cues": [
+      {"cue_id": "sfx-short-document", "beat_id": "short-b02", "kind": "whoosh"},
+      {"cue_id": "sfx-short-payoff", "beat_id": "short-b04", "kind": "hit"},
+      {"cue_id": "sfx-short-forecast", "beat_id": "short-b07", "kind": "riser"},
+      {"cue_id": "sfx-short-chart", "beat_id": "short-b11", "kind": "data_tick"},
+      {"cue_id": "sfx-short-boundary", "beat_id": "short-b16", "kind": "hit"},
+      {"cue_id": "sfx-mid-document", "beat_id": "mid-b06", "kind": "whoosh"},
+      {"cue_id": "sfx-mid-timeline", "beat_id": "mid-b08", "kind": "data_tick"},
+      {"cue_id": "sfx-mid-payoff", "beat_id": "mid-b12", "kind": "hit"},
+      {"cue_id": "sfx-mid-mechanism", "beat_id": "mid-b15", "kind": "riser"},
+      {"cue_id": "sfx-mid-forecast", "beat_id": "mid-b20", "kind": "whoosh"},
+      {"cue_id": "sfx-mid-chart", "beat_id": "mid-b23", "kind": "data_tick"},
+      {"cue_id": "sfx-mid-policy", "beat_id": "mid-b28", "kind": "hit"},
+      {"cue_id": "sfx-mid-test", "beat_id": "mid-b33", "kind": "riser"},
+      {"cue_id": "sfx-mid-close", "beat_id": "mid-b37", "kind": "hit"}
+    ],
+    "ducking": {"enabled": true, "threshold": 0.025, "ratio": 8.0, "attack_ms": 20, "release_ms": 260},
+    "integrated_lufs_target": -16.0,
+    "true_peak_dbtp_max": -1.5
+  },
+  "variants": [
+    {
+      "variant_id": "short_9x16",
+      "platform": "youtube_shorts_and_tiktok_review_only",
+      "aspect_ratio": "9:16",
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "min_duration_seconds": 45.0,
+      "max_duration_seconds": 75.0,
+      "caption_safe_zone": {"top": 0.08, "right": 0.06, "bottom": 0.10, "left": 0.06},
+      "caption_max_lines": 2,
+      "hook_copy": "The war premium did not vanish. The physical route changed.",
+      "beats": [
+        {"beat_id":"short-b01","scene_id":"short-hook","chapter_id":"short-open","narrative_role":"hook","narration_text":"The war premium did not vanish. The physical route changed.","claim_ids":["article:mechanism"],"evidence_ids":["governed-article"],"viewer_takeaway":"The hook is a change in the physical mechanism, not a price prediction.","visual_purpose":"Establish real geography, then interrupt with the claim.","asset_ids":["nasa-persian-gulf-iss069-e-92132"],"audio_state":"cold_open","transition_intent":"hard geographic cut","target_duration_seconds":3.2,"open_loop_id":"loop-route-recovery","edits":[{"operation":"LOCATION_CUTAWAY","asset_id":"nasa-persian-gulf-iss069-e-92132","at_seconds":0.0,"narrative_purpose":"Real archival location establishes the chokepoint.","parameters":{"focus_x":72,"focus_y":50,"zoom_bias":0.02}},{"operation":"KINETIC_TEXT","asset_id":"nasa-persian-gulf-iss069-e-92132","at_seconds":1.8,"narrative_purpose":"State the truthful pattern interrupt.","parameters":{"kicker":"HORMUZ • THE PHYSICAL STORY","headline":"THE ROUTE CHANGED","subline":"Archival NASA context — not live 2026 traffic."}}]},
+        {"beat_id":"short-b02","scene_id":"short-hook","chapter_id":"short-open","narrative_role":"evidence","narration_text":"On July seventh, EIA raised its global oil forecast.","claim_ids":["eia:release_date"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"This story begins with an official forecast revision.","visual_purpose":"Punch into the primary document.","asset_ids":["eia-release-press590-document"],"audio_state":"evidence","transition_intent":"paper snap","target_duration_seconds":3.3,"edits":[{"operation":"DOCUMENT_FOCUS","asset_id":"eia-release-press590-document","at_seconds":0.0,"narrative_purpose":"Reveal source authority.","parameters":{"document_date":"JULY 7, 2026","document_title":"EIA increases global oil production forecast","document_lines":["Traffic through Hormuz increased","Global production expectations raised","Forecast — not realized outcome"]}}]},
+        {"beat_id":"short-b03","scene_id":"short-hook","chapter_id":"short-open","narrative_role":"setup","narration_text":"Hormuz traffic increased after a June eighteenth memorandum.","claim_ids":["eia:hormuz_traffic_mou"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The forecast revision was tied to increased traffic after the memorandum.","visual_purpose":"Trace the chokepoint and sequence.","asset_ids":["hormuz-context-map","recovery-timeline"],"audio_state":"tension","transition_intent":"map trace","target_duration_seconds":3.5,"edits":[{"operation":"MAP_TRACE","asset_id":"hormuz-context-map","at_seconds":0.0,"narrative_purpose":"Show the route as context, never live traffic.","parameters":{"map_points":[{"x":180,"y":360,"label":"Persian Gulf"},{"x":650,"y":326,"label":"Hormuz"},{"x":890,"y":410,"label":"Gulf of Oman"}]}}]},
+        {"beat_id":"short-b04","scene_id":"short-hook","chapter_id":"short-open","narrative_role":"payoff","narration_text":"EIA now expects output and trade near pre-conflict levels by year-end.","claim_ids":["eia:pre_conflict_year_end"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The first payoff is EIA's explicit year-end recovery forecast.","visual_purpose":"Land the forecast as a document-bound payoff.","asset_ids":["recovery-timeline"],"audio_state":"resolution","transition_intent":"payoff hit","target_duration_seconds":3.5,"payoff_for":["loop-route-recovery"],"edits":[{"operation":"PAYOFF_REVEAL","asset_id":"recovery-timeline","at_seconds":0.0,"narrative_purpose":"Deliver the promised first payoff.","parameters":{"kicker":"EIA FORECAST • NOT A CERTAINTY","headline":"NEAR PRE-CONFLICT LEVELS BY YEAR-END","subline":"Crude output and trade flows."}}]},
+        {"beat_id":"short-b05","scene_id":"short-timeline","chapter_id":"short-recovery","narrative_role":"evidence","narration_text":"Most previously shut-in production is expected back by early twenty twenty-seven.","claim_ids":["eia:shut_in_2027_q1"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The recovery forecast extends into early 2027.","visual_purpose":"Advance the timeline.","asset_ids":["recovery-timeline"],"audio_state":"evidence","transition_intent":"timeline step","target_duration_seconds":3.7,"edits":[{"operation":"TIMELINE_STEP","asset_id":"recovery-timeline","at_seconds":0.0,"narrative_purpose":"Stage the governed milestones.","parameters":{"timeline_items":[{"date":"JUN 18","label":"Memorandum"},{"date":"JUL 7","label":"EIA raises forecast"},{"date":"YEAR-END","label":"Near pre-conflict flows"},{"date":"EARLY 2027","label":"Most shut-in output restored"}]}}]},
+        {"beat_id":"short-b06","scene_id":"short-timeline","chapter_id":"short-recovery","narrative_role":"mechanism","narration_text":"That changes the market test from disruption to inventories and restored output.","claim_ids":["article:mechanism"],"evidence_ids":["governed-article","eia-release-press590"],"viewer_takeaway":"The test moves from route closure to the pace of physical normalization.","visual_purpose":"Build the causal chain without overstating it.","asset_ids":["supply-recovery-mechanism"],"audio_state":"mechanism","transition_intent":"flow build","target_duration_seconds":3.5,"open_loop_id":"loop-price-proof","edits":[{"operation":"MECHANISM_FLOW","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Explain the bounded test.","parameters":{"mechanism_nodes":[{"label":"More transit","note":"Observed by EIA"},{"label":"Restored output","note":"Forecast path"},{"label":"Inventory builds","note":"Confirmation"},{"label":"Price pressure","note":"Possible consequence"}]}}]},
+        {"beat_id":"short-b07","scene_id":"short-prices","chapter_id":"short-recovery","narrative_role":"evidence","narration_text":"Brent averaged eighty-five dollars a barrel in June.","claim_ids":["eia:brent_june_85"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The forecast path starts from EIA's June average.","visual_purpose":"Begin the three-point comparison.","asset_ids":["forecast-comparison"],"audio_state":"tension","transition_intent":"number cut","target_duration_seconds":3.0,"edits":[{"operation":"COMPARISON_REVEAL","asset_id":"forecast-comparison","at_seconds":0.0,"narrative_purpose":"Stage the June average before forecasts.","parameters":{"kicker":"BRENT • EIA PATH","comparison_items":[{"label":"JUNE AVERAGE","value":"$85","note":"Observed average"},{"label":"Q3 FORECAST","value":"$74","note":"Forecast"},{"label":"2027 FORECAST","value":"$65","note":"Forecast"}]}}]},
+        {"beat_id":"short-b08","scene_id":"short-prices","chapter_id":"short-recovery","narrative_role":"evidence","narration_text":"Its third-quarter forecast was seventy-four dollars.","claim_ids":["eia:brent_q3_74"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The Q3 number is explicitly a forecast.","visual_purpose":"Reveal the middle waypoint.","asset_ids":["forecast-comparison"],"audio_state":"tension","transition_intent":"comparison step","target_duration_seconds":2.8,"edits":[{"operation":"COMPARISON_REVEAL","asset_id":"forecast-comparison","at_seconds":0.0,"narrative_purpose":"Advance to the Q3 forecast.","parameters":{"kicker":"FORECAST — NOT CERTAINTY","comparison_items":[{"label":"JUNE AVERAGE","value":"$85"},{"label":"Q3 FORECAST","value":"$74"}]}}]},
+        {"beat_id":"short-b09","scene_id":"short-prices","chapter_id":"short-recovery","narrative_role":"payoff","narration_text":"And its twenty twenty-seven average forecast was sixty-five.","claim_ids":["eia:brent_2027_65"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The full EIA path extends to a $65 2027 average forecast.","visual_purpose":"Complete the comparison path.","asset_ids":["forecast-comparison"],"audio_state":"resolution","transition_intent":"comparison payoff","target_duration_seconds":3.0,"edits":[{"operation":"PAYOFF_REVEAL","asset_id":"forecast-comparison","at_seconds":0.0,"narrative_purpose":"Land the end of the EIA path.","parameters":{"kicker":"EIA 2027 AVERAGE FORECAST","headline":"$65 A BARREL","subline":"A forecast path, not a guaranteed outcome."}}]},
+        {"beat_id":"short-b10","scene_id":"short-prices","chapter_id":"short-recovery","narrative_role":"boundary","narration_text":"Those are forecasts, not certainties.","claim_ids":["eia:forecast_boundary"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"Forecasts must remain distinct from observations.","visual_purpose":"Break the numerical momentum with a source boundary.","asset_ids":["eia-release-press590-document"],"audio_state":"boundary","transition_intent":"silence cut","target_duration_seconds":2.4,"edits":[{"operation":"SOURCE_HIGHLIGHT","asset_id":"eia-release-press590-document","at_seconds":0.0,"narrative_purpose":"Label forecast authority exactly.","parameters":{"document_date":"EVIDENCE BOUNDARY","document_title":"FORECAST ≠ REALIZED OUTCOME","document_lines":["Official EIA forecast","Measurable baseline","Not a guarantee"]}}]},
+        {"beat_id":"short-b11","scene_id":"short-proof","chapter_id":"short-test","narrative_role":"evidence","narration_text":"Manifest-bound W T I was sixty-nine dollars sixty cents on July sixth.","claim_ids":["fred:wti_2026_07_06_69_60"],"evidence_ids":["fred-dcoilwtico-manifest"],"viewer_takeaway":"The governed market observation is a separate source-bound fact.","visual_purpose":"Trace the chart to its endpoint.","asset_ids":["wti-recent-price-chart"],"audio_state":"evidence","transition_intent":"chart trace","target_duration_seconds":3.8,"edits":[{"operation":"CHART_TRACE","asset_id":"wti-recent-price-chart","at_seconds":0.0,"narrative_purpose":"Reveal the manifest-bound endpoint.","parameters":{"annotation":"WTI endpoint: $69.60 • July 6, 2026"}}]},
+        {"beat_id":"short-b12","scene_id":"short-proof","chapter_id":"short-test","narrative_role":"boundary","narration_text":"That price gives context. It does not prove the forecast.","claim_ids":["article:price_not_proof"],"evidence_ids":["governed-article","fred-dcoilwtico-manifest"],"viewer_takeaway":"Price context and forecast verification are different jobs.","visual_purpose":"Annotate the chart with the boundary.","asset_ids":["wti-current-volatility-chart"],"audio_state":"boundary","transition_intent":"annotation lock","target_duration_seconds":3.4,"edits":[{"operation":"POINT_ANNOTATION","asset_id":"wti-current-volatility-chart","at_seconds":0.0,"narrative_purpose":"Prevent the chart from becoming proof by implication.","parameters":{"annotation":"CONTEXT, NOT CONFIRMATION"}}]},
+        {"beat_id":"short-b13","scene_id":"short-proof","chapter_id":"short-test","narrative_role":"payoff","narration_text":"Confirmation needs recovering traffic, output, and inventory builds together.","claim_ids":["article:confirmation_conditions"],"evidence_ids":["governed-article","eia-release-press590"],"viewer_takeaway":"Three physical signals close the price-proof loop.","visual_purpose":"Return to the three-part mechanism.","asset_ids":["supply-recovery-mechanism"],"audio_state":"mechanism","transition_intent":"three-step payoff","target_duration_seconds":3.8,"payoff_for":["loop-price-proof"],"edits":[{"operation":"MECHANISM_FLOW","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Close the loop with confirmation conditions.","parameters":{"mechanism_nodes":[{"label":"Traffic","note":"Keeps normalizing"},{"label":"Output","note":"Returns"},{"label":"Inventories","note":"Build"}]}}]},
+        {"beat_id":"short-b14","scene_id":"short-proof","chapter_id":"short-test","narrative_role":"tension","narration_text":"Renewed disruption or persistent inventory draws would challenge it.","claim_ids":["article:challenge_conditions"],"evidence_ids":["governed-article"],"viewer_takeaway":"The thesis has explicit failure conditions.","visual_purpose":"Reverse the mechanism under a red risk state.","asset_ids":["hormuz-context-map","supply-recovery-mechanism"],"audio_state":"tension","transition_intent":"risk reversal","target_duration_seconds":3.5,"edits":[{"operation":"KINETIC_TEXT","asset_id":"hormuz-context-map","at_seconds":0.0,"narrative_purpose":"Name the challenge without sensationalism.","parameters":{"kicker":"WHAT WOULD CHALLENGE IT","headline":"DISRUPTION OR PERSISTENT DRAWS","subline":"The thesis is falsifiable."}}]},
+        {"beat_id":"short-b15","scene_id":"short-boundary","chapter_id":"short-close","narrative_role":"consequence","narration_text":"Cheaper crude can ease gasoline and headline inflation.","claim_ids":["eia:gasoline_forecast","article:policy_boundary"],"evidence_ids":["eia-release-press590","governed-article"],"viewer_takeaway":"Energy relief can matter for households and headline inflation.","visual_purpose":"Show the bounded household consequence.","asset_ids":["forecast-comparison"],"audio_state":"consequence","transition_intent":"consequence reveal","target_duration_seconds":3.4,"open_loop_id":"loop-policy-boundary","edits":[{"operation":"COMPARISON_REVEAL","asset_id":"forecast-comparison","at_seconds":0.0,"narrative_purpose":"Show governed gasoline forecasts as consequence, not policy call.","parameters":{"kicker":"U.S. GASOLINE • EIA FORECAST","comparison_items":[{"label":"Q3 2026","value":"$3.80","note":"per gallon"},{"label":"Q4 2026","value":"$3.40","note":"per gallon"}]}}]},
+        {"beat_id":"short-b16","scene_id":"short-boundary","chapter_id":"short-close","narrative_role":"payoff","narration_text":"But cheaper fuel does not settle Federal Reserve policy.","claim_ids":["article:policy_boundary"],"evidence_ids":["governed-article","fomc-june-statement"],"viewer_takeaway":"Headline energy relief is not independent monetary-policy authority.","visual_purpose":"Land the policy boundary with a sharp typographic cut.","asset_ids":["eia-release-press590-document"],"audio_state":"boundary","transition_intent":"boundary hit","target_duration_seconds":3.2,"payoff_for":["loop-policy-boundary"],"edits":[{"operation":"PAYOFF_REVEAL","asset_id":"eia-release-press590-document","at_seconds":0.0,"narrative_purpose":"Close the policy loop without predicting the Fed.","parameters":{"kicker":"THE POLICY BOUNDARY","headline":"CHEAPER FUEL ≠ A FED CALL","subline":"Broader inflation, labor, and expectations still matter."}}]},
+        {"beat_id":"short-b17","scene_id":"short-boundary","chapter_id":"short-close","narrative_role":"boundary","narration_text":"The headline is recovery. The evidence boundary is what makes it useful.","claim_ids":["article:evidence_boundary"],"evidence_ids":["governed-article"],"viewer_takeaway":"Trust comes from preserving what the evidence can and cannot establish.","visual_purpose":"Turn the evidence boundary into the brand payoff.","asset_ids":["eia-release-press590-document","hormuz-context-map"],"audio_state":"resolution","transition_intent":"brand payoff","target_duration_seconds":3.4,"edits":[{"operation":"KINETIC_TEXT","asset_id":"eia-release-press590-document","at_seconds":0.0,"narrative_purpose":"Make evidence discipline memorable.","parameters":{"kicker":"CAPITAL CHRONICLE","headline":"RECOVERY — WITH AN EVIDENCE BOUNDARY","subline":"Forecasts stay forecasts. Observations stay observations."}}]},
+        {"beat_id":"short-b18","scene_id":"short-boundary","chapter_id":"short-close","narrative_role":"cta","narration_text":"Follow the flows, the stocks, and the next official data.","claim_ids":["article:confirmation_conditions"],"evidence_ids":["governed-article","eia-release-press590"],"viewer_takeaway":"The next action is evidence monitoring, not a trade instruction.","visual_purpose":"Close on the three evidence rails.","asset_ids":["supply-recovery-mechanism"],"audio_state":"outro","transition_intent":"loopable close","target_duration_seconds":3.2,"edits":[{"operation":"PAYOFF_REVEAL","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Leave a repeatable evidence checklist.","parameters":{"kicker":"THE NEXT READ","headline":"FLOWS • OUTPUT • STOCKS","subline":"Official evidence before the loudest headline."}}]}
+      ]
+    },
+    {
+      "variant_id": "midform_16x9",
+      "platform": "youtube_midform_review_only",
+      "aspect_ratio": "16:9",
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "min_duration_seconds": 180.0,
+      "max_duration_seconds": 360.0,
+      "caption_safe_zone": {"top": 0.04, "right": 0.05, "bottom": 0.07, "left": 0.05},
+      "caption_max_lines": 2,
+      "hook_copy": "The EIA changed its oil-supply forecast after Hormuz traffic increased. Here is what that proves—and what it does not.",
+      "beats": [
+        {"beat_id":"mid-b01","scene_id":"mid-hook","chapter_id":"ch01-the-change","narrative_role":"hook","narration_text":"The oil story changed before every field, tanker, or inventory series fully normalized. The trigger was a route.","claim_ids":["article:mechanism"],"evidence_ids":["governed-article"],"viewer_takeaway":"The physical route is the hook.","visual_purpose":"Open on real geography with no title-card delay.","asset_ids":["nasa-persian-gulf-iss069-e-92132"],"audio_state":"cold_open","transition_intent":"geographic hard cut","target_duration_seconds":6.0,"open_loop_id":"loop-route-recovery","edits":[{"operation":"LOCATION_CUTAWAY","asset_id":"nasa-persian-gulf-iss069-e-92132","at_seconds":0.0,"narrative_purpose":"Archival orbital context.","parameters":{"focus_x":70,"focus_y":50,"zoom_bias":0.01}},{"operation":"KINETIC_TEXT","asset_id":"nasa-persian-gulf-iss069-e-92132","at_seconds":3.0,"narrative_purpose":"State the hook over changing geography.","parameters":{"kicker":"THE ROUTE BEHIND THE FORECAST","headline":"THE OIL STORY CHANGED AT A CHOKEPOINT","subline":"Archival NASA context — not live traffic."}}]},
+        {"beat_id":"mid-b02","scene_id":"mid-hook","chapter_id":"ch01-the-change","narrative_role":"evidence","narration_text":"On July seventh, twenty twenty-six, the U.S. Energy Information Administration raised its expectations for global oil production.","claim_ids":["eia:release_date"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"An official EIA revision anchors the story.","visual_purpose":"Reveal the source and date.","asset_ids":["eia-release-press590-document"],"audio_state":"evidence","transition_intent":"document punch-in","target_duration_seconds":6.2,"edits":[{"operation":"DOCUMENT_FOCUS","asset_id":"eia-release-press590-document","at_seconds":0.0,"narrative_purpose":"Make primary-source authority visible.","parameters":{"document_date":"JULY 7, 2026","document_title":"EIA increases global oil production forecast","document_lines":["Official press release","Global production expectations increased","Independent statistical and analytical agency"]}}]},
+        {"beat_id":"mid-b03","scene_id":"mid-hook","chapter_id":"ch01-the-change","narrative_role":"setup","narration_text":"EIA tied the change to increased shipping traffic through the Strait of Hormuz after a June eighteenth memorandum between the United States and Iran.","claim_ids":["eia:hormuz_traffic_mou"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The revision has a named route and sequence.","visual_purpose":"Trace the chokepoint and label the sequence.","asset_ids":["hormuz-context-map","recovery-timeline"],"audio_state":"tension","transition_intent":"map trace","target_duration_seconds":7.2,"edits":[{"operation":"MAP_TRACE","asset_id":"hormuz-context-map","at_seconds":0.0,"narrative_purpose":"Show the route without simulating traffic.","parameters":{"map_points":[{"x":170,"y":350,"label":"Persian Gulf"},{"x":650,"y":322,"label":"Strait of Hormuz"},{"x":900,"y":408,"label":"Gulf of Oman"}]}},{"operation":"TIMELINE_STEP","asset_id":"recovery-timeline","at_seconds":3.8,"narrative_purpose":"Connect the memorandum to the forecast date.","parameters":{"timeline_items":[{"date":"JUN 18","label":"Memorandum"},{"date":"JUL 7","label":"EIA forecast raised"}]}}]},
+        {"beat_id":"mid-b04","scene_id":"mid-hook","chapter_id":"ch01-the-change","narrative_role":"promise_checkpoint","narration_text":"The agency now expects crude output and trade flows to rebound near pre-conflict levels by year-end.","claim_ids":["eia:pre_conflict_year_end"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The opening promise sharpens into EIA's year-end forecast.","visual_purpose":"State the forecast, then make the viewer inspect the governed sequence behind it.","asset_ids":["recovery-timeline"],"audio_state":"resolution","transition_intent":"promise checkpoint hit","target_duration_seconds":6.0,"edits":[{"operation":"PAYOFF_REVEAL","asset_id":"recovery-timeline","at_seconds":0.0,"narrative_purpose":"State the forecast checkpoint without closing the evidence loop.","parameters":{"kicker":"EIA YEAR-END FORECAST","headline":"OUTPUT + TRADE NEAR PRE-CONFLICT LEVELS","subline":"Now inspect the sequence behind the forecast."}}]},
+        {"beat_id":"mid-b05","scene_id":"mid-hook","chapter_id":"ch01-the-change","narrative_role":"rehook","narration_text":"That is the headline. The harder question is what would actually prove the recovery instead of merely repeating it.","claim_ids":["article:confirmation_conditions"],"evidence_ids":["governed-article"],"viewer_takeaway":"The video will test, not simply repeat, the forecast.","visual_purpose":"Open the price-proof loop.","asset_ids":["supply-recovery-mechanism"],"audio_state":"tension","transition_intent":"question cut","target_duration_seconds":6.5,"open_loop_id":"loop-price-proof","edits":[{"operation":"KINETIC_TEXT","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Renew curiosity with a factual test.","parameters":{"kicker":"THE HARDER QUESTION","headline":"WHAT WOULD PROVE RECOVERY?","subline":"Flows, output, inventories, and prices must agree."}}]},
+        {"beat_id":"mid-b06","scene_id":"mid-document","chapter_id":"ch02-the-record","narrative_role":"evidence","narration_text":"Start with the release itself. It is an official EIA forecast document, dated July seventh, with clear statements and clear limits.","claim_ids":["eia:release_date","eia:forecast_boundary"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The primary document distinguishes forecast from outcome.","visual_purpose":"Inspect source structure and wording.","asset_ids":["eia-release-press590-document"],"audio_state":"evidence","transition_intent":"source punch-in","target_duration_seconds":6.8,"edits":[{"operation":"DOCUMENT_FOCUS","asset_id":"eia-release-press590-document","at_seconds":0.0,"narrative_purpose":"Treat the source as evidence, not decoration.","parameters":{"document_date":"FOR IMMEDIATE RELEASE • JUL 7","document_title":"What the official record says","document_lines":["Production forecast increased","Hormuz traffic increased","Near pre-conflict flows by year-end","Most shut-in output back by early 2027"]}}]},
+        {"beat_id":"mid-b07","scene_id":"mid-document","chapter_id":"ch02-the-record","narrative_role":"evidence","narration_text":"The release says shipping traffic increased after the June eighteenth memorandum. It does not say logistics risk vanished permanently.","claim_ids":["eia:hormuz_traffic_mou","article:evidence_boundary"],"evidence_ids":["eia-release-press590","governed-article"],"viewer_takeaway":"Increased traffic and permanent normalization are not the same claim.","visual_purpose":"Highlight the exact source boundary.","asset_ids":["eia-release-press590-document"],"audio_state":"boundary","transition_intent":"highlight lock","target_duration_seconds":7.0,"edits":[{"operation":"SOURCE_HIGHLIGHT","asset_id":"eia-release-press590-document","at_seconds":0.0,"narrative_purpose":"Separate supported claim from overclaim.","parameters":{"document_date":"SUPPORTED / NOT SUPPORTED","document_title":"INCREASED TRAFFIC","document_lines":["Supported: traffic increased","Supported: forecast raised","Not supported: risk permanently gone"]}}]},
+        {"beat_id":"mid-b08","scene_id":"mid-document","chapter_id":"ch02-the-record","narrative_role":"payoff","narration_text":"The sequence runs from the June memorandum, to the July release, to a year-end flow forecast, and then to early twenty twenty-seven restoration.","claim_ids":["eia:hormuz_traffic_mou","eia:release_date","eia:pre_conflict_year_end","eia:shut_in_2027_q1"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"Four milestones close the route-recovery loop while preserving forecast boundaries.","visual_purpose":"Deliver the first full payoff by revealing the governed sequence.","asset_ids":["recovery-timeline"],"audio_state":"resolution","transition_intent":"timeline payoff progression","target_duration_seconds":7.5,"payoff_for":["loop-route-recovery"],"edits":[{"operation":"TIMELINE_STEP","asset_id":"recovery-timeline","at_seconds":0.0,"narrative_purpose":"Pay off the opening route question through staged milestones.","parameters":{"timeline_items":[{"date":"JUN 18","label":"Memorandum"},{"date":"JUL 7","label":"Forecast raised"},{"date":"YEAR-END","label":"Near pre-conflict flows"},{"date":"EARLY 2027","label":"Most shut-in output restored"}]}}]},
+        {"beat_id":"mid-b09","scene_id":"mid-document","chapter_id":"ch02-the-record","narrative_role":"boundary","narration_text":"Every point after July seventh is a forecast checkpoint. None should be edited as if it had already happened.","claim_ids":["eia:forecast_boundary"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"Future checkpoints remain forecasts.","visual_purpose":"Turn forecast grammar into a visual boundary.","asset_ids":["recovery-timeline","eia-release-press590-document"],"audio_state":"boundary","transition_intent":"forecast stamp","target_duration_seconds":5.8,"edits":[{"operation":"KINETIC_TEXT","asset_id":"recovery-timeline","at_seconds":0.0,"narrative_purpose":"Prevent timeline animation from implying completion.","parameters":{"kicker":"SOURCE GRAMMAR MATTERS","headline":"FORECAST CHECKPOINTS — NOT COMPLETED EVENTS","subline":"The video preserves the tense of the evidence."}}]},
+        {"beat_id":"mid-b10","scene_id":"mid-document","chapter_id":"ch02-the-record","narrative_role":"evidence","narration_text":"EIA expects most previously shut-in production to return by the first quarter of twenty twenty-seven, extending the recovery beyond the route itself.","claim_ids":["eia:shut_in_2027_q1"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"Restoring output is a separate step from reopening transit.","visual_purpose":"Split route recovery from production recovery.","asset_ids":["hormuz-context-map","supply-recovery-mechanism"],"audio_state":"mechanism","transition_intent":"split mechanism","target_duration_seconds":7.0,"edits":[{"operation":"MECHANISM_FLOW","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Separate transit and production steps.","parameters":{"mechanism_nodes":[{"label":"Route","note":"Traffic increases"},{"label":"Fields","note":"Shut-in output returns"},{"label":"Trade","note":"Flows normalize"}]}}]},
+        {"beat_id":"mid-b11","scene_id":"mid-document","chapter_id":"ch02-the-record","narrative_role":"rehook","narration_text":"That distinction matters because barrels cannot rebuild inventories merely by existing underground or behind a damaged logistics chain.","claim_ids":["article:mechanism"],"evidence_ids":["governed-article"],"viewer_takeaway":"Production and deliverable supply are different stages.","visual_purpose":"Use movement to explain deliverability.","asset_ids":["supply-recovery-mechanism"],"audio_state":"mechanism","transition_intent":"flow interruption","target_duration_seconds":6.5,"edits":[{"operation":"MECHANISM_FLOW","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Explain why logistics remains material.","parameters":{"mechanism_nodes":[{"label":"Production","note":"Barrels available"},{"label":"Transit","note":"Barrels move"},{"label":"Refiners","note":"Barrels arrive"},{"label":"Inventories","note":"Stocks rebuild"}]}}]},
+        {"beat_id":"mid-b12","scene_id":"mid-document","chapter_id":"ch02-the-record","narrative_role":"payoff","narration_text":"The first full payoff is therefore physical: increased transit, restored output, and rebuilding inventories have to persist together.","claim_ids":["article:confirmation_conditions"],"evidence_ids":["governed-article","eia-release-press590"],"viewer_takeaway":"The recovery claim has a physical confirmation stack.","visual_purpose":"Land the confirmation stack.","asset_ids":["supply-recovery-mechanism"],"audio_state":"resolution","transition_intent":"stack payoff","target_duration_seconds":7.0,"edits":[{"operation":"PAYOFF_REVEAL","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Make the physical test memorable.","parameters":{"kicker":"THE PHYSICAL CONFIRMATION STACK","headline":"TRANSIT • OUTPUT • INVENTORIES","subline":"All three have to persist."}}]},
+        {"beat_id":"mid-b13","scene_id":"mid-mechanism","chapter_id":"ch03-how-it-transmits","narrative_role":"mechanism","narration_text":"The Strait of Hormuz is a transit constraint as much as a production story. Reopening the route reconnects supply with refiners.","claim_ids":["article:mechanism"],"evidence_ids":["governed-article","eia-release-press590"],"viewer_takeaway":"The chokepoint affects deliverable supply.","visual_purpose":"Trace route into the supply chain.","asset_ids":["hormuz-context-map","supply-recovery-mechanism"],"audio_state":"mechanism","transition_intent":"map-to-flow","target_duration_seconds":7.2,"edits":[{"operation":"MAP_TRACE","asset_id":"hormuz-context-map","at_seconds":0.0,"narrative_purpose":"Show the geographic constraint.","parameters":{"map_points":[{"x":160,"y":350,"label":"Supply inside Gulf"},{"x":650,"y":322,"label":"Hormuz"},{"x":920,"y":420,"label":"Refinery routes"}]}},{"operation":"MECHANISM_FLOW","asset_id":"supply-recovery-mechanism","at_seconds":3.7,"narrative_purpose":"Translate geography into deliverability.","parameters":{"mechanism_nodes":[{"label":"Barrels"},{"label":"Chokepoint"},{"label":"Refiners"}]}}]},
+        {"beat_id":"mid-b14","scene_id":"mid-mechanism","chapter_id":"ch03-how-it-transmits","narrative_role":"mechanism","narration_text":"The governed article says higher transit can reduce freight and insurance pressure and make restored fields commercially useful again.","claim_ids":["article:mechanism"],"evidence_ids":["governed-article"],"viewer_takeaway":"Logistics changes the economics of restored supply.","visual_purpose":"Reveal intermediate mechanism states.","asset_ids":["supply-recovery-mechanism"],"audio_state":"mechanism","transition_intent":"mechanism reveal","target_duration_seconds":7.0,"edits":[{"operation":"MECHANISM_FLOW","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Show bounded intermediate links.","parameters":{"mechanism_nodes":[{"label":"Transit resumes","note":"Route"},{"label":"Freight pressure eases","note":"Mechanism"},{"label":"Restored fields matter","note":"Deliverable supply"}]}}]},
+        {"beat_id":"mid-b15","scene_id":"mid-mechanism","chapter_id":"ch03-how-it-transmits","narrative_role":"mechanism","narration_text":"Supply can therefore recover before every idled or damaged facility is fully normalized. That is a sequence, not a guarantee.","claim_ids":["article:mechanism","article:evidence_boundary"],"evidence_ids":["governed-article"],"viewer_takeaway":"Partial normalization can still change deliverable supply.","visual_purpose":"Animate partial recovery while preserving uncertainty.","asset_ids":["supply-recovery-mechanism","recovery-timeline"],"audio_state":"mechanism","transition_intent":"partial fill","target_duration_seconds":7.0,"edits":[{"operation":"TIMELINE_STEP","asset_id":"recovery-timeline","at_seconds":0.0,"narrative_purpose":"Show staged rather than instant recovery.","parameters":{"timeline_items":[{"date":"1","label":"Transit improves"},{"date":"2","label":"Output returns"},{"date":"3","label":"Facilities normalize"}]}}]},
+        {"beat_id":"mid-b16","scene_id":"mid-mechanism","chapter_id":"ch03-how-it-transmits","narrative_role":"evidence","narration_text":"EIA's forecast then depends on inventory withdrawals slowing and inventories rebuilding as more supply reaches the market.","claim_ids":["eia:inventory_builds"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"Inventories are the bridge between supply recovery and price pressure.","visual_purpose":"Center inventories in the mechanism.","asset_ids":["supply-recovery-mechanism"],"audio_state":"evidence","transition_intent":"inventory emphasis","target_duration_seconds":6.4,"edits":[{"operation":"MECHANISM_FLOW","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Make the inventory checkpoint explicit.","parameters":{"mechanism_nodes":[{"label":"More supply"},{"label":"Slower withdrawals"},{"label":"Inventory builds"},{"label":"Downward price pressure"}]}}]},
+        {"beat_id":"mid-b17","scene_id":"mid-mechanism","chapter_id":"ch03-how-it-transmits","narrative_role":"boundary","narration_text":"A price decline without those physical signals would be weaker evidence because demand or sentiment could also move the price.","claim_ids":["article:price_not_proof"],"evidence_ids":["governed-article"],"viewer_takeaway":"Price alone is ambiguous.","visual_purpose":"Break the flow into competing explanations.","asset_ids":["supply-recovery-mechanism","wti-recent-price-chart"],"audio_state":"boundary","transition_intent":"fork reveal","target_duration_seconds":7.0,"edits":[{"operation":"KINETIC_TEXT","asset_id":"wti-recent-price-chart","at_seconds":0.0,"narrative_purpose":"State the inference boundary.","parameters":{"kicker":"PRICE ALONE IS AMBIGUOUS","headline":"SUPPLY REPAIR — OR WEAKER DEMAND?","subline":"The physical data decides which story survives."}}]},
+        {"beat_id":"mid-b18","scene_id":"mid-mechanism","chapter_id":"ch03-how-it-transmits","narrative_role":"rehook","narration_text":"So now compare the official forecast path with the market observation the governed package can actually verify.","claim_ids":["eia:forecast_boundary","fred:wti_2026_07_06_69_60"],"evidence_ids":["eia-release-press590","fred-dcoilwtico-manifest"],"viewer_takeaway":"Forecast and observation are about to be compared without conflation.","visual_purpose":"Rehook into price evidence.","asset_ids":["forecast-comparison","wti-recent-price-chart"],"audio_state":"tension","transition_intent":"comparison rehook","target_duration_seconds":6.0,"edits":[{"operation":"KINETIC_TEXT","asset_id":"forecast-comparison","at_seconds":0.0,"narrative_purpose":"Set up the forecast-versus-observation distinction.","parameters":{"kicker":"FORECAST vs OBSERVATION","headline":"TWO SOURCES — TWO KINDS OF AUTHORITY","subline":"Keep the labels attached."}}]},
+        {"beat_id":"mid-b19","scene_id":"mid-prices","chapter_id":"ch04-the-price-test","narrative_role":"evidence","narration_text":"EIA said Brent averaged eighty-five dollars a barrel in June, the observed starting point for its published forecast path.","claim_ids":["eia:brent_june_85"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"$85 is the June observed average cited by EIA.","visual_purpose":"Reveal the observed base.","asset_ids":["forecast-comparison"],"audio_state":"evidence","transition_intent":"number reveal","target_duration_seconds":6.5,"edits":[{"operation":"COMPARISON_REVEAL","asset_id":"forecast-comparison","at_seconds":0.0,"narrative_purpose":"Establish the observed base before forecasts.","parameters":{"kicker":"BRENT • EIA PUBLISHED PATH","comparison_items":[{"label":"JUNE AVERAGE","value":"$85","note":"Observed average"},{"label":"Q3 2026","value":"$74","note":"Forecast"},{"label":"2027","value":"$65","note":"Forecast"}]}}]},
+        {"beat_id":"mid-b20","scene_id":"mid-prices","chapter_id":"ch04-the-price-test","narrative_role":"evidence","narration_text":"For the third quarter of twenty twenty-six, EIA forecast a seventy-four dollar average. That number is directional evidence, not a target price.","claim_ids":["eia:brent_q3_74","eia:forecast_boundary"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The $74 value is an average forecast.","visual_purpose":"Advance the forecast comparison with a label lock.","asset_ids":["forecast-comparison"],"audio_state":"tension","transition_intent":"forecast step","target_duration_seconds":7.0,"edits":[{"operation":"COMPARISON_REVEAL","asset_id":"forecast-comparison","at_seconds":0.0,"narrative_purpose":"Reveal the Q3 forecast distinctly.","parameters":{"kicker":"AVERAGE FORECAST • NOT TARGET PRICE","comparison_items":[{"label":"JUNE","value":"$85","note":"Observed"},{"label":"Q3","value":"$74","note":"Forecast"}]}}]},
+        {"beat_id":"mid-b21","scene_id":"mid-prices","chapter_id":"ch04-the-price-test","narrative_role":"payoff","narration_text":"For twenty twenty-seven, EIA forecast Brent averaging sixty-five dollars a barrel as continued inventory builds push prices lower.","claim_ids":["eia:brent_2027_65","eia:inventory_builds"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The long forecast path links inventory builds to a $65 average.","visual_purpose":"Land the three-point forecast path.","asset_ids":["forecast-comparison","supply-recovery-mechanism"],"audio_state":"resolution","transition_intent":"forecast payoff","target_duration_seconds":7.0,"edits":[{"operation":"PAYOFF_REVEAL","asset_id":"forecast-comparison","at_seconds":0.0,"narrative_purpose":"Complete the EIA forecast path.","parameters":{"kicker":"EIA 2027 BRENT AVERAGE FORECAST","headline":"$65","subline":"Linked to expected inventory builds — not guaranteed."}}]},
+        {"beat_id":"mid-b22","scene_id":"mid-prices","chapter_id":"ch04-the-price-test","narrative_role":"boundary","narration_text":"The same governed package carries a different kind of number: an observed W T I price from a manifest-bound FRED series.","claim_ids":["fred:wti_2026_07_06_69_60"],"evidence_ids":["fred-dcoilwtico-manifest"],"viewer_takeaway":"WTI is a separate observed series, not the Brent forecast.","visual_purpose":"Switch source and visual grammar.","asset_ids":["wti-recent-price-chart"],"audio_state":"evidence","transition_intent":"source switch","target_duration_seconds":6.5,"edits":[{"operation":"CHART_TRACE","asset_id":"wti-recent-price-chart","at_seconds":0.0,"narrative_purpose":"Reveal the observed WTI source path.","parameters":{"annotation":"OBSERVATION • WTI / FRED DCOILWTICO"}}]},
+        {"beat_id":"mid-b23","scene_id":"mid-prices","chapter_id":"ch04-the-price-test","narrative_role":"evidence","narration_text":"The latest authorized observation was sixty-nine dollars sixty cents a barrel on July sixth, twenty twenty-six.","claim_ids":["fred:wti_2026_07_06_69_60"],"evidence_ids":["fred-dcoilwtico-manifest"],"viewer_takeaway":"The exact WTI endpoint is $69.60 on July 6.","visual_purpose":"Trace and annotate the endpoint.","asset_ids":["wti-recent-price-chart"],"audio_state":"evidence","transition_intent":"endpoint annotation","target_duration_seconds":6.2,"edits":[{"operation":"POINT_ANNOTATION","asset_id":"wti-recent-price-chart","at_seconds":0.0,"narrative_purpose":"Pin the manifest-bound endpoint.","parameters":{"annotation":"$69.60 • JULY 6, 2026"}}]},
+        {"beat_id":"mid-b24","scene_id":"mid-prices","chapter_id":"ch04-the-price-test","narrative_role":"boundary","narration_text":"That observation does not prove the Brent forecast, and it should not be edited as if the two instruments were identical.","claim_ids":["article:price_not_proof","eia:forecast_boundary"],"evidence_ids":["governed-article","fred-dcoilwtico-manifest","eia-release-press590"],"viewer_takeaway":"Instrument and authority labels must stay visible.","visual_purpose":"Force the evidence boundary over the chart.","asset_ids":["wti-current-volatility-chart","forecast-comparison"],"audio_state":"boundary","transition_intent":"label lock","target_duration_seconds":6.8,"edits":[{"operation":"KINETIC_TEXT","asset_id":"wti-current-volatility-chart","at_seconds":0.0,"narrative_purpose":"Prevent false equivalence.","parameters":{"kicker":"DO NOT COLLAPSE THE SOURCES","headline":"WTI OBSERVATION ≠ BRENT FORECAST","subline":"Context is useful only when the labels remain attached."}}]},
+        {"beat_id":"mid-b25","scene_id":"mid-prices","chapter_id":"ch04-the-price-test","narrative_role":"context","narration_text":"The multi-year chart adds another boundary: a forecast decline can still leave oil above prior-cycle averages and inside a wide historical range.","claim_ids":["article:historical_context"],"evidence_ids":["governed-article","fred-dcoilwtico-manifest"],"viewer_takeaway":"Falling does not automatically mean historically cheap.","visual_purpose":"Reveal the range around the average.","asset_ids":["wti-multi-year-range-chart"],"audio_state":"evidence","transition_intent":"range reveal","target_duration_seconds":7.0,"edits":[{"operation":"CHART_TRACE","asset_id":"wti-multi-year-range-chart","at_seconds":0.0,"narrative_purpose":"Put the forecast narrative into range context.","parameters":{"annotation":"A DECLINE CAN REMAIN INSIDE A WIDE RANGE"}}]},
+        {"beat_id":"mid-b26","scene_id":"mid-prices","chapter_id":"ch04-the-price-test","narrative_role":"payoff","narration_text":"The disciplined read is therefore normalization of a disruption premium, unless weaker demand or another mechanism earns a different conclusion.","claim_ids":["article:price_not_proof","article:evidence_boundary"],"evidence_ids":["governed-article"],"viewer_takeaway":"Do not convert one price move into an unsupported causal story.","visual_purpose":"Close the price-proof loop.","asset_ids":["supply-recovery-mechanism","wti-multi-year-range-chart"],"audio_state":"resolution","transition_intent":"evidence payoff","target_duration_seconds":7.0,"payoff_for":["loop-price-proof"],"edits":[{"operation":"PAYOFF_REVEAL","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Land the inference boundary.","parameters":{"kicker":"THE DISCIPLINED READ","headline":"NORMALIZATION — PENDING PHYSICAL CONFIRMATION","subline":"A price move alone cannot choose the mechanism."}}]},
+        {"beat_id":"mid-b27","scene_id":"mid-consequences","chapter_id":"ch05-why-it-matters","narrative_role":"consequence","narration_text":"EIA also forecast U.S. gasoline averaging about three dollars eighty cents in the third quarter and three dollars forty cents in the fourth.","claim_ids":["eia:gasoline_q3_3_80","eia:gasoline_q4_3_40"],"evidence_ids":["eia-release-press590"],"viewer_takeaway":"The forecast has a visible household channel.","visual_purpose":"Compare the gasoline forecast quarters.","asset_ids":["forecast-comparison"],"audio_state":"consequence","transition_intent":"household consequence","target_duration_seconds":7.4,"open_loop_id":"loop-policy-boundary","edits":[{"operation":"COMPARISON_REVEAL","asset_id":"forecast-comparison","at_seconds":0.0,"narrative_purpose":"Show the household forecast channel.","parameters":{"kicker":"U.S. GASOLINE • EIA FORECAST","comparison_items":[{"label":"Q3 2026","value":"$3.80","note":"per gallon"},{"label":"Q4 2026","value":"$3.40","note":"per gallon"}]}}]},
+        {"beat_id":"mid-b28","scene_id":"mid-consequences","chapter_id":"ch05-why-it-matters","narrative_role":"boundary","narration_text":"Lower fuel costs can ease a visible part of household inflation. They do not settle core services, labor conditions, expectations, or Federal Reserve policy.","claim_ids":["article:policy_boundary"],"evidence_ids":["governed-article","fomc-june-statement"],"viewer_takeaway":"Energy relief has a narrower policy meaning.","visual_purpose":"Separate household relief from a Fed call.","asset_ids":["eia-release-press590-document"],"audio_state":"boundary","transition_intent":"policy boundary hit","target_duration_seconds":7.5,"payoff_for":["loop-policy-boundary"],"edits":[{"operation":"PAYOFF_REVEAL","asset_id":"eia-release-press590-document","at_seconds":0.0,"narrative_purpose":"Close the policy loop without a prediction.","parameters":{"kicker":"THE POLICY BOUNDARY","headline":"HEADLINE RELIEF ≠ A FED DECISION","subline":"Broader inflation, labor conditions, and expectations still matter."}}]},
+        {"beat_id":"mid-b29","scene_id":"mid-consequences","chapter_id":"ch05-why-it-matters","narrative_role":"consequence","narration_text":"Large energy importers can gain purchasing-power relief, while producers and exporters face softer revenue if the forecast path persists.","claim_ids":["article:cross_asset_implications"],"evidence_ids":["governed-article"],"viewer_takeaway":"The consequences differ by exposure.","visual_purpose":"Reveal a balanced importer-exporter comparison.","asset_ids":["forecast-comparison"],"audio_state":"consequence","transition_intent":"split consequence","target_duration_seconds":6.8,"edits":[{"operation":"COMPARISON_REVEAL","asset_id":"forecast-comparison","at_seconds":0.0,"narrative_purpose":"Show opposing exposure without advice.","parameters":{"kicker":"IF THE FORECAST PATH PERSISTS","comparison_items":[{"label":"ENERGY IMPORTERS","value":"RELIEF","note":"Purchasing-power channel"},{"label":"PRODUCERS / EXPORTERS","value":"PRESSURE","note":"Revenue channel","tone":"risk"}]}}]},
+        {"beat_id":"mid-b30","scene_id":"mid-consequences","chapter_id":"ch05-why-it-matters","narrative_role":"boundary","narration_text":"Those are conditional implications, not portfolio instructions. ContentOps can explain the mechanism without creating independent analytical authority.","claim_ids":["article:evidence_boundary"],"evidence_ids":["governed-article"],"viewer_takeaway":"Explanation does not become advice.","visual_purpose":"Return consequences to the product boundary.","asset_ids":["eia-release-press590-document"],"audio_state":"boundary","transition_intent":"authority lock","target_duration_seconds":6.5,"edits":[{"operation":"KINETIC_TEXT","asset_id":"eia-release-press590-document","at_seconds":0.0,"narrative_purpose":"State the non-advice and authority boundary.","parameters":{"kicker":"PRESENTATION AUTHORITY ONLY","headline":"MECHANISM — NOT PORTFOLIO INSTRUCTION","subline":"Conditional implications remain conditional."}}]},
+        {"beat_id":"mid-b31","scene_id":"mid-test","chapter_id":"ch06-the-test","narrative_role":"rehook","narration_text":"The final question is the one a useful video should leave open: what evidence would confirm or break the recovery thesis?","claim_ids":["article:confirmation_conditions","article:challenge_conditions"],"evidence_ids":["governed-article"],"viewer_takeaway":"The close is a falsifiable evidence checklist.","visual_purpose":"Open the final test with kinetic text.","asset_ids":["supply-recovery-mechanism"],"audio_state":"tension","transition_intent":"final rehook","target_duration_seconds":6.5,"edits":[{"operation":"KINETIC_TEXT","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Rehook around falsifiability.","parameters":{"kicker":"THE FINAL TEST","headline":"WHAT WOULD CONFIRM — OR BREAK — THE THESIS?","subline":"A useful story carries both conditions."}}]},
+        {"beat_id":"mid-b32","scene_id":"mid-test","chapter_id":"ch06-the-test","narrative_role":"evidence","narration_text":"First, traffic through Hormuz would need to keep normalizing rather than reverse after the initial increase cited by EIA.","claim_ids":["article:confirmation_conditions","eia:hormuz_traffic_mou"],"evidence_ids":["governed-article","eia-release-press590"],"viewer_takeaway":"Persistent traffic normalization is confirmation condition one.","visual_purpose":"Trace the route again with a confirmation label.","asset_ids":["hormuz-context-map"],"audio_state":"evidence","transition_intent":"map confirmation","target_duration_seconds":6.5,"edits":[{"operation":"MAP_TRACE","asset_id":"hormuz-context-map","at_seconds":0.0,"narrative_purpose":"Return geography as a measurable condition.","parameters":{"map_points":[{"x":180,"y":360,"label":"Persian Gulf"},{"x":650,"y":326,"label":"Persistent transit"},{"x":890,"y":410,"label":"Open routes"}]}}]},
+        {"beat_id":"mid-b33","scene_id":"mid-test","chapter_id":"ch06-the-test","narrative_role":"evidence","narration_text":"Second, shut-in production would need to return. Third, inventory withdrawals would need to slow enough for stocks to rebuild.","claim_ids":["article:confirmation_conditions","eia:inventory_builds"],"evidence_ids":["governed-article","eia-release-press590"],"viewer_takeaway":"Output and inventory conditions complete the stack.","visual_purpose":"Build the final physical checklist.","asset_ids":["supply-recovery-mechanism"],"audio_state":"mechanism","transition_intent":"checklist build","target_duration_seconds":7.0,"edits":[{"operation":"MECHANISM_FLOW","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Stage conditions two and three.","parameters":{"mechanism_nodes":[{"label":"1 • Transit","note":"Keeps normalizing"},{"label":"2 • Output","note":"Returns"},{"label":"3 • Stocks","note":"Rebuild"}]}}]},
+        {"beat_id":"mid-b34","scene_id":"mid-test","chapter_id":"ch06-the-test","narrative_role":"tension","narration_text":"Renewed disruption, slower field restarts, persistent inventory draws, or prices holding above the path despite recovering volumes would challenge it.","claim_ids":["article:challenge_conditions"],"evidence_ids":["governed-article"],"viewer_takeaway":"The thesis has four explicit challenge conditions.","visual_purpose":"Reverse the checklist into risk states.","asset_ids":["hormuz-context-map","supply-recovery-mechanism","wti-recent-price-chart"],"audio_state":"tension","transition_intent":"risk reversal","target_duration_seconds":7.5,"edits":[{"operation":"COMPARISON_REVEAL","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Show failure conditions without alarmism.","parameters":{"kicker":"WHAT WOULD CHALLENGE IT","comparison_items":[{"label":"ROUTE","value":"DISRUPTION","tone":"risk"},{"label":"OUTPUT","value":"SLOW RESTARTS","tone":"risk"},{"label":"STOCKS","value":"DRAWS","tone":"risk"},{"label":"PRICE","value":"STAYS HIGH","tone":"risk"}]}}]},
+        {"beat_id":"mid-b35","scene_id":"mid-test","chapter_id":"ch06-the-test","narrative_role":"context","narration_text":"In the historical governed package, the named tests were the July fifteenth petroleum report and the August eleventh Short-Term Energy Outlook.","claim_ids":["eia:named_catalysts"],"evidence_ids":["eia-release-press590","governed-article"],"viewer_takeaway":"The original story named concrete official checkpoints.","visual_purpose":"Label historical review dates clearly.","asset_ids":["recovery-timeline","eia-release-press590-document"],"audio_state":"evidence","transition_intent":"historical timestamp","target_duration_seconds":7.0,"edits":[{"operation":"TIMELINE_STEP","asset_id":"recovery-timeline","at_seconds":0.0,"narrative_purpose":"Preserve historical context rather than pretend the proof is live.","parameters":{"timeline_items":[{"date":"JUL 15, 2026","label":"Petroleum status report"},{"date":"AUG 11, 2026","label":"Short-Term Energy Outlook"}]}}]},
+        {"beat_id":"mid-b36","scene_id":"mid-close","chapter_id":"ch07-close","narrative_role":"payoff","narration_text":"The durable takeaway is not that risk disappeared. It is that an official forecast changed after the physical route began to recover.","claim_ids":["eia:hormuz_traffic_mou","eia:pre_conflict_year_end","article:evidence_boundary"],"evidence_ids":["eia-release-press590","governed-article"],"viewer_takeaway":"The result preserves change and uncertainty together.","visual_purpose":"Return to the source and route for synthesis.","asset_ids":["nasa-persian-gulf-iss069-e-92132","eia-release-press590-document"],"audio_state":"resolution","transition_intent":"synthesis payoff","target_duration_seconds":7.2,"edits":[{"operation":"LOCATION_CUTAWAY","asset_id":"nasa-persian-gulf-iss069-e-92132","at_seconds":0.0,"narrative_purpose":"Return to real geographic context.","parameters":{"focus_x":72,"focus_y":48,"zoom_bias":0.04}},{"operation":"PAYOFF_REVEAL","asset_id":"eia-release-press590-document","at_seconds":3.6,"narrative_purpose":"Land the qualified conclusion.","parameters":{"kicker":"THE DURABLE TAKEAWAY","headline":"THE ROUTE RECOVERED ENOUGH TO CHANGE THE FORECAST","subline":"Risk did not disappear."}}]},
+        {"beat_id":"mid-b37","scene_id":"mid-close","chapter_id":"ch07-close","narrative_role":"cta","narration_text":"Follow the flows, restored output, and inventories. Keep forecasts labeled. And let the next official evidence change the story again.","claim_ids":["article:confirmation_conditions","article:evidence_boundary"],"evidence_ids":["governed-article","eia-release-press590"],"viewer_takeaway":"The call to action is a repeatable evidence discipline.","visual_purpose":"Close on the evidence rails and brand promise.","asset_ids":["supply-recovery-mechanism","eia-release-press590-document"],"audio_state":"outro","transition_intent":"brand close","target_duration_seconds":7.0,"edits":[{"operation":"PAYOFF_REVEAL","asset_id":"supply-recovery-mechanism","at_seconds":0.0,"narrative_purpose":"Leave an evidence checklist, not a trade instruction.","parameters":{"kicker":"CAPITAL CHRONICLE • EVIDENCE BOUNDARY","headline":"FLOWS • OUTPUT • INVENTORIES","subline":"The next official evidence gets the final word."}}]}
+      ]
+    }
+  ]
+}

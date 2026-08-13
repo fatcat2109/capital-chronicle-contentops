@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s13",
+      "narration_text": "Next: July 15 report, then August 11 energy outlook."
+    }
+  ],
+  "revision_rationale": "Condensed both named checkpoints into a natural nine-word beat.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

@@ -38,6 +38,7 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     V2_CREATIVE_REVISION_AUTHOR_ROLE,
     V2_CREATIVE_ROLES,
     V2_MOTION_CODE_AUTHOR_ROLE,
+    MULTIMODAL_VIDEO_CRITIC_ROLE,
     model_pool_for_role,
     retry_budget_for_role,
     route_llm_invocation,
@@ -58,6 +59,7 @@ ROLE_STRUCTURED_REPAIR = "structured_output_repair"
 ROLE_V2_CREATIVE_EDITOR = V2_CREATIVE_EDITOR_ROLE
 ROLE_V2_MOTION_CODE_AUTHOR = V2_MOTION_CODE_AUTHOR_ROLE
 ROLE_V2_CREATIVE_REVISION_AUTHOR = V2_CREATIVE_REVISION_AUTHOR_ROLE
+ROLE_MULTIMODAL_VIDEO_CRITIC = MULTIMODAL_VIDEO_CRITIC_ROLE
 
 INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_ARTICLE_WRITING,
@@ -71,6 +73,7 @@ INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_V2_CREATIVE_EDITOR,
     ROLE_V2_MOTION_CODE_AUTHOR,
     ROLE_V2_CREATIVE_REVISION_AUTHOR,
+    ROLE_MULTIMODAL_VIDEO_CRITIC,
 )
 
 #: Stages that are deliberately deterministic. Listed explicitly so a future change that
@@ -138,6 +141,7 @@ def routed_llm_invocation(
     prompt_version: str = "v1",
     budget: RetryBudget | None = None,
     repair_prompt_builder: Callable[[str, str, str | None], str] | None = None,
+    model_pool_override: tuple[str, ...] | None = None,
 ) -> dict[str, Any]:
     """Run one logical invocation through the canonical router and record its evidence."""
     # Check once before routing and again immediately before every provider attempt. The second
@@ -149,6 +153,12 @@ def routed_llm_invocation(
     unavailable_models_this_invocation: set[str] = set()
     original_role_pool = model_pool_for_role(role_task_id)
     creative_role = str(role_task_id) in V2_CREATIVE_ROLES
+    if model_pool_override is not None:
+        if not creative_role or not model_pool_override:
+            raise ValueError("model_pool_override_requires_creative_role")
+        if any(model not in original_role_pool for model in model_pool_override):
+            raise ValueError("model_pool_override_outside_creative_authority")
+        original_role_pool = tuple(model_pool_override)
     # A cycle cache is an optimization, not route authority. The three creative roles must
     # always make their bounded exact-model attempts and may never skip or replace GPT-5.6.
     role_pool = (

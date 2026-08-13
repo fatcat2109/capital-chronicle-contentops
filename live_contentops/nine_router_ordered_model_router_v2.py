@@ -64,6 +64,8 @@ ORDERED_MODEL_POOL: tuple[str, ...] = (
 PRIMARY_MODEL = ORDERED_MODEL_POOL[0]
 
 V2_CREATIVE_MODEL = "new/gpt-5.6-sol-xhigh"
+V2_CREATIVE_HIGH_MODEL = "new/gpt-5.6-sol-high"
+V2_CREATIVE_MEDIUM_MODEL = "new/gpt-5.6-sol-medium"
 V2_CREATIVE_EDITOR_ROLE = "V2_CREATIVE_EDITOR"
 V2_MOTION_CODE_AUTHOR_ROLE = "V2_MOTION_CODE_AUTHOR"
 V2_CREATIVE_REVISION_AUTHOR_ROLE = "V2_CREATIVE_REVISION_AUTHOR"
@@ -74,13 +76,18 @@ V2_CREATIVE_ROLES: frozenset[str] = frozenset(
         V2_CREATIVE_REVISION_AUTHOR_ROLE,
     }
 )
-V2_CREATIVE_MODEL_POOL: tuple[str, ...] = (V2_CREATIVE_MODEL,)
+V2_CREATIVE_MODEL_POOL: tuple[str, ...] = (
+    V2_CREATIVE_MODEL,
+    V2_CREATIVE_HIGH_MODEL,
+    V2_CREATIVE_MEDIUM_MODEL,
+)
 
 #: Cheap leaf semantic labour may prefer the exact high-throughput Flash model without
 #: changing the quality-first pool above. Final editorial and article-writing roles retain
 #: the canonical quality ordering. Keeping this registry beside the canonical pool means the
 #: provider adapter and router still share one authority surface.
 NEWSROOM_LEAF_SCAN_ROLE = "rolling_x_newsroom_leaf_scan"
+MULTIMODAL_VIDEO_CRITIC_ROLE = "tier2_multimodal_video_critic"
 NEWSROOM_GLOBAL_EDITOR_ROLE = "rolling_x_newsroom_assignment"
 ARTICLE_WRITING_ROLE = "article_writing"
 NEWSROOM_LEAF_SCAN_MODEL = "vx/gemini-3.5-flash(high)"
@@ -89,12 +96,17 @@ NEWSROOM_LEAF_SCAN_MODEL_POOL: tuple[str, ...] = (
     NEWSROOM_LEAF_SCAN_MODEL,
     *ORDERED_MODEL_POOL,
 )
+MULTIMODAL_VIDEO_CRITIC_MODEL_POOL: tuple[str, ...] = (
+    NEWSROOM_LEAF_SCAN_MODEL,
+    "vx/gemini-3.1-pro-preview(high)",
+)
 ARTICLE_WRITING_MODEL_POOL: tuple[str, ...] = ORDERED_MODEL_POOL
 ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     NEWSROOM_LEAF_SCAN_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
     # Article prose is final editorial work, so it uses the exact quality-first order. Flash
     # remains authorized only for the cheap semantic leaf role above.
     ARTICLE_WRITING_ROLE: ARTICLE_WRITING_MODEL_POOL,
+    MULTIMODAL_VIDEO_CRITIC_ROLE: MULTIMODAL_VIDEO_CRITIC_MODEL_POOL,
     V2_CREATIVE_EDITOR_ROLE: V2_CREATIVE_MODEL_POOL,
     V2_MOTION_CODE_AUTHOR_ROLE: V2_CREATIVE_MODEL_POOL,
     V2_CREATIVE_REVISION_AUTHOR_ROLE: V2_CREATIVE_MODEL_POOL,
@@ -209,6 +221,8 @@ RETRYABLE_CLASSES: frozenset[str] = frozenset(
         "http_504_gateway_timeout",
         "provider_temporarily_unavailable",
         "requested_model_temporarily_unavailable",
+        "incomplete_provider_stream",
+        "provider_output_truncated",
     }
 )
 
@@ -349,11 +363,19 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
     if str(role_task_id) in V2_CREATIVE_ROLES:
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=4,
-            max_fallback_transitions=0,
-            max_same_model_retries=3,
+            max_total_provider_attempts=3,
+            max_fallback_transitions=2,
+            max_same_model_retries=0,
             wall_clock_budget_seconds=V2_CREATIVE_WALL_CLOCK_BUDGET_SECONDS,
-            per_model_max_attempts=(4,),
+            per_model_max_attempts=(1, 1, 1),
+        )
+    if str(role_task_id) == MULTIMODAL_VIDEO_CRITIC_ROLE:
+        return RetryBudget(
+            logical_invocation_id=logical_invocation_id,
+            max_total_provider_attempts=3,
+            max_fallback_transitions=1,
+            wall_clock_budget_seconds=600.0,
+            per_model_max_attempts=(2, 1),
         )
     if build_acceptance_gemini_incident() is not None:
         wall_clock_budget_seconds = DEFAULT_WALL_CLOCK_BUDGET_SECONDS
@@ -613,6 +635,7 @@ class ProviderResult:
     usage: Mapping[str, Any] | None = None
     cost: Mapping[str, Any] | None = None
     finish_reason: str | None = None
+    transport_telemetry: Mapping[str, Any] | None = None
     error: BaseException | None = None
     failure_class: str | None = None
 
@@ -679,6 +702,7 @@ def route_llm_invocation(
     disposition = POOL_EXHAUSTED
     selected_model: str | None = None
     accepted_output: Any = None
+    accepted_validated_output_sha256: str | None = None
     budget_exhausted_reason: str | None = None
     identity_verifiable = True
     previous_model: str | None = None
@@ -755,6 +779,11 @@ def route_llm_invocation(
                     "usage": dict(result.usage) if result.usage else None,
                     "cost": dict(result.cost) if result.cost else None,
                     "provider_finish_reason": result.finish_reason,
+                    "transport_telemetry": (
+                        dict(result.transport_telemetry)
+                        if result.transport_telemetry
+                        else None
+                    ),
                     "provider_truncation_indicated": (
                         str(result.finish_reason).lower() in {"length", "max_tokens"}
                         if result.finish_reason is not None
@@ -825,6 +854,10 @@ def route_llm_invocation(
                     )
                 if not ok:
                     failure_class = validation_failure or "structured_output_malformed"
+                else:
+                    record["validated_output_sha256"] = _hash(
+                        parsed if parsed is not None else result.text or ""
+                    )
             else:
                 record["structured_validation_result"] = "NOT_EVALUATED"
                 record["structured_validation_failure_class"] = None
@@ -842,6 +875,7 @@ def route_llm_invocation(
                 disposition = ACCEPTED
                 selected_model = model
                 accepted_output = parsed if parsed is not None else result.text
+                accepted_validated_output_sha256 = record.get("validated_output_sha256")
                 break
 
             # --- terminal: never rotate models to bypass a gate -------------------------
@@ -964,6 +998,9 @@ def route_llm_invocation(
         "final_retry_budget_snapshot": budget.snapshot(),
         "attempts": attempts,
         "output": accepted_output if disposition == ACCEPTED else None,
+        "accepted_validated_output_sha256": (
+            accepted_validated_output_sha256 if disposition == ACCEPTED else None
+        ),
         "fallback_grants_publication_authority": False,
         "fallback_output_uses_same_downstream_gates": True,
     }

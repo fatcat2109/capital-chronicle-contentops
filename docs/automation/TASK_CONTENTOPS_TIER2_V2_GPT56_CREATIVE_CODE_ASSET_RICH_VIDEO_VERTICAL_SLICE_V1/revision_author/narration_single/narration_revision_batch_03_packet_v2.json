@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s03",
+      "narration_text": "EIA: global oil output may approach pre-conflict levels by year-end."
+    }
+  ],
+  "revision_rationale": "Condensed the attribution, timeframe, and central supply-recovery claim into a natural ten-word line.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s06",
+      "narration_text": "The market test marks a major shift."
+    }
+  ],
+  "revision_rationale": "Condensed for natural four-second delivery while preserving the market-test shift framing.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

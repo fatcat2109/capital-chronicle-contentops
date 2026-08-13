@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s02",
+      "narration_text": "The oil shock may be entering a new phase."
+    }
+  ],
+  "revision_rationale": "Tightened phrasing while preserving the qualified market interpretation.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

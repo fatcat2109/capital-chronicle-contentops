@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s12",
+      "narration_text": "Gasoline prices can ease headline inflation, not settle Fed questions."
+    }
+  ],
+  "revision_rationale": "Condensed the caveat while preserving the inflation mechanism and Federal Reserve policy boundary.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

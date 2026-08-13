@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s05",
+      "narration_text": "It expects most shut-in production restored by first quarter 2027."
+    }
+  ],
+  "revision_rationale": "Removed excess function words while preserving the expectation and timeline.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

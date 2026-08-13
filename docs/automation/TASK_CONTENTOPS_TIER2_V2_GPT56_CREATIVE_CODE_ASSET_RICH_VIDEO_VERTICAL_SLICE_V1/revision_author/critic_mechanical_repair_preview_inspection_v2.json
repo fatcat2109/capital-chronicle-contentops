@@ -1,0 +1,23 @@
+{
+  "schema_version": "contentops.retention_native.critic_mechanical_repair_preview_inspection.v2",
+  "status": "PASS",
+  "repair_kind": "DETERMINISTIC_RENDERER_INFRASTRUCTURE",
+  "model_authored_revision_count_added": 0,
+  "affected_shot_ids": ["s02", "s03", "s09"],
+  "captions_visible": true,
+  "sample_phases": [0.25, 0.5, 0.75],
+  "contact_sheet_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_gpt56_critic_mechanical_repairs_preview_20260813\\review\\selective_revision\\selective_revision_contact_sheet.jpg",
+  "contact_sheet_sha256": "89b6853240c1f698532c5f4b391a5e306312bf714d7512973e0ace7f3ee1f7de",
+  "inspection": {
+    "caption_source_collision_count": 0,
+    "s09_chart_crop_count": 0,
+    "s09_title_visible": true,
+    "s09_axes_visible": true,
+    "s09_data_series_visible": true,
+    "notes": "Canonical portrait source attribution now remains below the caption zone. The existing source-backed landscape chart is contained rather than cover-cropped; no facts, labels, data, asset choice, narration, or transition intent were changed."
+  },
+  "owner_media_acceptance": "NOT_GRANTED",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

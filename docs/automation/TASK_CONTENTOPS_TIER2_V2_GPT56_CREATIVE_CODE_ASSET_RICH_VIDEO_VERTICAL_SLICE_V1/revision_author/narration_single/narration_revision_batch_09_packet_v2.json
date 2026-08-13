@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s09",
+      "narration_text": "Brent's forecast average falls from June through 2027."
+    }
+  ],
+  "revision_rationale": "Condensed the displayed forecast sequence into an eight-word directional summary.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

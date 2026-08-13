@@ -19,6 +19,7 @@ module closes that gap and fails closed.
 """
 from __future__ import annotations
 
+import hashlib
 import importlib
 import json
 import os
@@ -258,6 +259,7 @@ def call_nine_router(
     max_tokens: int = 16000,
     temperature: float = 0.2,
     base_url: str | None = None,
+    stream: bool = False,
 ) -> ProviderResult:
     """Perform one bounded 9router chat completion and report what was observed.
 
@@ -292,6 +294,8 @@ def call_nine_router(
     }
     if effort:
         request_payload["reasoning_effort"] = effort
+    if stream:
+        request_payload["stream"] = True
     body = json.dumps(request_payload).encode("utf-8")
     request = url_request.Request(
         f"{resolved_base}/chat/completions",
@@ -307,8 +311,15 @@ def call_nine_router(
     started = time.monotonic()
     try:
         with url_request.urlopen(request, timeout=timeout_seconds) as response:
-            raw = response.read().decode("utf-8")
             status = int(getattr(response, "status", 200) or 200)
+            if stream:
+                raw, stream_telemetry, stream_complete = _read_streaming_body(
+                    response, started=started
+                )
+            else:
+                raw = response.read().decode("utf-8")
+                stream_telemetry = None
+                stream_complete = True
     except url_error.HTTPError as exc:  # noqa: PERF203 - distinct handling per class
         retry_after = _retry_after_from_headers(getattr(exc, "headers", None))
         code = int(getattr(exc, "code", 0) or 0)
@@ -321,11 +332,18 @@ def call_nine_router(
             status_code=code,
             retry_after_seconds=retry_after,
             failure_class=_classify_http_error(code, detail),
+            transport_telemetry={"stream_requested": stream},
         )
     except url_error.URLError as exc:
-        return ProviderResult(failure_class=classify_failure(getattr(exc, "reason", exc)))
+        return ProviderResult(
+            failure_class=classify_failure(getattr(exc, "reason", exc)),
+            transport_telemetry={"stream_requested": stream},
+        )
     except (TimeoutError, OSError) as exc:
-        return ProviderResult(failure_class=classify_failure(exc))
+        return ProviderResult(
+            failure_class=classify_failure(exc),
+            transport_telemetry={"stream_requested": stream},
+        )
 
     del started  # latency is measured by the router around this call
 
@@ -344,7 +362,10 @@ def call_nine_router(
         text = sse["text"] if sse is not None else None
     if text is None and sse is None and not payload:
         return ProviderResult(
-            status_code=status, failure_class="structured_output_malformed", text=raw[:2000]
+            status_code=status,
+            failure_class="structured_output_malformed",
+            text=raw[:2000],
+            transport_telemetry=stream_telemetry,
         )
 
     resolved_model = sse["model"] if sse is not None else _observed_model(payload)
@@ -357,6 +378,29 @@ def call_nine_router(
         if sse is not None
         else _extract_finish_reason(payload)
     )
+    if stream and stream_telemetry and stream_telemetry.get("stream_response_detected"):
+        if not stream_complete or finish_reason is None:
+            return ProviderResult(
+                text=text,
+                resolved_model=resolved_model,
+                provider_invocation_id=invocation_id,
+                status_code=status,
+                usage=usage,
+                finish_reason=finish_reason,
+                failure_class="incomplete_provider_stream",
+                transport_telemetry=stream_telemetry,
+            )
+        if str(finish_reason).lower() in {"length", "max_tokens"}:
+            return ProviderResult(
+                text=text,
+                resolved_model=resolved_model,
+                provider_invocation_id=invocation_id,
+                status_code=status,
+                usage=usage,
+                finish_reason=finish_reason,
+                failure_class="provider_output_truncated",
+                transport_telemetry=stream_telemetry,
+            )
     if isinstance(usage, Mapping) and not isinstance(usage, dict):
         usage = dict(usage)
 
@@ -366,6 +410,7 @@ def call_nine_router(
             resolved_model=resolved_model,
             failure_class="structured_output_malformed",
             finish_reason=finish_reason,
+            transport_telemetry=stream_telemetry,
         )
 
     return ProviderResult(
@@ -376,7 +421,83 @@ def call_nine_router(
         usage=usage or _extract_usage(payload),
         cost=_extract_cost(payload),
         finish_reason=finish_reason,
+        transport_telemetry=stream_telemetry,
     )
+
+
+def _read_streaming_body(
+    response: Any, *, started: float
+) -> tuple[str, dict[str, Any], bool]:
+    """Read one SSE response incrementally and retain only sanitized transport metrics."""
+    lines: list[str] = []
+    first_byte_seconds: float | None = None
+    first_content_seconds: float | None = None
+    last_chunk_at: float | None = None
+    maximum_gap = 0.0
+    chunk_count = 0
+    content_chunk_count = 0
+    done_seen = False
+    stream_response_detected = False
+
+    while True:
+        raw_line = response.readline()
+        observed_at = time.monotonic()
+        if not raw_line:
+            break
+        if first_byte_seconds is None:
+            first_byte_seconds = round(observed_at - started, 4)
+        line = raw_line.decode("utf-8", errors="replace")
+        lines.append(line)
+        stripped = line.strip()
+        if not stripped.startswith("data:"):
+            continue
+        stream_response_detected = True
+        payload_text = stripped[5:].strip()
+        if payload_text == "[DONE]":
+            done_seen = True
+            break
+        try:
+            chunk = json.loads(payload_text)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(chunk, Mapping):
+            continue
+        chunk_count += 1
+        if last_chunk_at is not None:
+            maximum_gap = max(maximum_gap, observed_at - last_chunk_at)
+        last_chunk_at = observed_at
+        choices = chunk.get("choices") or []
+        content: Any = None
+        if choices and isinstance(choices[0], Mapping):
+            delta = choices[0].get("delta") or {}
+            if isinstance(delta, Mapping):
+                content = delta.get("content")
+            if content is None:
+                message = choices[0].get("message") or {}
+                if isinstance(message, Mapping):
+                    content = message.get("content")
+        if content:
+            content_chunk_count += 1
+            if first_content_seconds is None:
+                first_content_seconds = round(observed_at - started, 4)
+
+    raw = "".join(lines)
+    total_latency = round(time.monotonic() - started, 4)
+    telemetry = {
+        "stream_requested": True,
+        "stream_response_detected": stream_response_detected,
+        "stream_complete": done_seen if stream_response_detected else True,
+        "time_to_first_byte_seconds": first_byte_seconds,
+        "time_to_first_content_chunk_seconds": first_content_seconds,
+        "chunk_count": chunk_count,
+        "content_chunk_count": content_chunk_count,
+        "maximum_inter_chunk_gap_seconds": round(maximum_gap, 4),
+        "transport_total_latency_seconds": total_latency,
+        "accumulated_response_characters": len(raw),
+        "accumulated_response_utf8_bytes": len(raw.encode("utf-8")),
+        "accumulated_response_sha256": hashlib.sha256(raw.encode("utf-8")).hexdigest(),
+    }
+    return raw, telemetry, bool(telemetry["stream_complete"])
 
 
 #: Gateway error markers that scope a 403/404 to *one model* rather than the credential.

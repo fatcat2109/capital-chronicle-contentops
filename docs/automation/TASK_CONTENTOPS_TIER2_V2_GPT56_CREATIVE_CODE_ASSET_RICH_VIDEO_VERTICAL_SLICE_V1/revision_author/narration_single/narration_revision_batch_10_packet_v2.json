@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s10",
+      "narration_text": "Forecast prices decline from June through 2027."
+    }
+  ],
+  "revision_rationale": "Condensed the numeric sequence into its displayed downward time relationship.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

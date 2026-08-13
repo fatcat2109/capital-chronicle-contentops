@@ -1,0 +1,13 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s11",
+      "narration_text": "Gasoline is forecast lower in the fourth quarter."
+    }
+  ],
+  "revision_rationale": "Condensed the numeric forecast into its displayed directional takeaway while preserving timing and meaning.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

@@ -1,4 +1,4 @@
-# V2 GPT-5.6 Creative-Code Vertical Slice — Blocked Evidence
+# V2 GPT-5.6 Creative-Code Vertical Slice — Task Evidence
 
 Authority date: 2026-08-13
 
@@ -8,7 +8,35 @@ Task:
 
 Current result:
 
-`BLOCKED_EXACT_CREATIVE_MODEL`
+`IN_PROGRESS_CHECKPOINT_FINAL_MEDIA_PENDING`
+
+## Preserved proof checkpoint
+
+The exact task was resumed without regenerating the accepted creative work. The accepted
+Creative Editor blueprint and 44/44 Motion Code Author shots remain bound to their sanitized
+receipts. Localized creative revision #1 fixed the `s08` typography/source-label defect, and
+selective preview evidence records zero remaining collision for that defect.
+
+Creative revision #2 was decomposed into fourteen one-row narration packets. All 14/14 packets
+were accepted by `new/gpt-5.6-sol-xhigh` with zero fallback, and the applied short narration was
+reduced from 219 words to 127 words. Both authorized creative revision rounds are consumed.
+
+The latest `r3` factory process was allowed to terminate without duplication or interruption. It
+produced both assembled MP4s plus captions-hidden review variants but stopped before final
+machine-gate manifests, so it is not a final package and grants no product acceptance. The next
+proof run must use a fresh isolated root and may apply only deterministic/mechanical corrections;
+no further viewer-visible creative revision is authorized.
+
+Checkpoint validation:
+
+- 181 focused Python tests passed;
+- Remotion TypeScript validation passed;
+- `CODEGRAPH_CURRENT`;
+- `git diff --check` passed;
+- zero browser/CDP actions, uploads, platform writes, public writes, or V1 runtime mutation.
+
+This checkpoint is not `PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`. Only
+Jim/ChatGPT may grant that result after actual final MP4/audio inspection.
 
 The owner-updated canonical 9Router policy was implemented and validated first. An initial zero-public-write preflight shell lost its terminal stdout when the harness timed out; isolated ledger readback records one reconciled provider attempt, but no terminal disposition or effective identity is inferred from it. A separate clean preflight through `V2_CREATIVE_EDITOR` then accepted on its first exact `new/gpt-5.6-sol-xhigh` attempt with provider-reported effective identity `gpt-5.6-sol-xhigh`.
 

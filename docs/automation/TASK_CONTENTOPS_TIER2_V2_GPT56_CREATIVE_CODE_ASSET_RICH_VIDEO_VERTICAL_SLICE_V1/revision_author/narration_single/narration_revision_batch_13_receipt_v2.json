@@ -1,0 +1,162 @@
+{
+  "schema_version": "contentops.retention_native.narration_revision_batch_receipt.v2",
+  "authority_id": "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2",
+  "gateway": "9router",
+  "logical_invocation_id": "v2-creative-revision-short-narration-timing-batch_13-v1",
+  "work_item_id": "short_9x16:narration-timing:batch_13",
+  "role_task_id": "V2_CREATIVE_REVISION_AUTHOR",
+  "terminal_disposition": "ACCEPTED",
+  "selected_model": "new/gpt-5.6-sol-xhigh",
+  "models_attempted_in_order": [
+    "new/gpt-5.6-sol-xhigh"
+  ],
+  "total_attempts": 1,
+  "total_fallback_transitions": 0,
+  "total_structured_repair_attempts": 0,
+  "total_retry_sleep_seconds": 0.0,
+  "total_elapsed_seconds": 14.529,
+  "total_usage": {
+    "prompt_tokens": 6850.0,
+    "completion_tokens": 413.0,
+    "total_tokens": 7263.0
+  },
+  "total_cost": null,
+  "budget_exhausted": false,
+  "budget_exhausted_reason": null,
+  "model_identity_provider_verifiable": true,
+  "model_identity_note": null,
+  "retry_budget_policy": {
+    "max_total_provider_attempts": 6,
+    "max_fallback_transitions": 2,
+    "max_same_model_retries": 1,
+    "per_model_max_attempts": {
+      "new/gpt-5.6-sol-xhigh": 2,
+      "new/gpt-5.6-sol-high": 2,
+      "new/gpt-5.6-sol-medium": 2
+    },
+    "max_structured_output_repair_attempts": 1,
+    "structured_repair_counts_against_total_attempts": true,
+    "max_cumulative_retry_sleep_seconds": 1800.0,
+    "default_wall_clock_budget_seconds": 900.0,
+    "budget_resets_on_model_change": false,
+    "budget_resets_on_reconstruction": false
+  },
+  "final_retry_budget_snapshot": {
+    "logical_invocation_id": "v2-creative-revision-short-narration-timing-batch_13-v1",
+    "max_total_provider_attempts": 6,
+    "max_fallback_transitions": 2,
+    "max_same_model_retries": 1,
+    "max_structured_output_repair_attempts": 1,
+    "max_cumulative_retry_sleep_seconds": 1800.0,
+    "wall_clock_budget_seconds": 900.0,
+    "per_model_max_attempts": [
+      2,
+      2,
+      2
+    ],
+    "consumed_attempts": 1,
+    "consumed_fallback_transitions": 0,
+    "consumed_repair_attempts": 0,
+    "consumed_sleep_seconds": 0.0,
+    "attempts_by_model": {
+      "new/gpt-5.6-sol-xhigh": 1
+    },
+    "remaining_attempt_budget": 5
+  },
+  "attempts": [
+    {
+      "logical_invocation_id": "v2-creative-revision-short-narration-timing-batch_13-v1",
+      "work_item_id": "short_9x16:narration-timing:batch_13",
+      "role_task_id": "V2_CREATIVE_REVISION_AUTHOR",
+      "gateway": "9router",
+      "model_priority_index": 0,
+      "requested_model": "new/gpt-5.6-sol-xhigh",
+      "attempt_number_global": 1,
+      "attempt_number_for_model": 1,
+      "attempt_kind": "initial",
+      "retry_number": 0,
+      "fallback_from": null,
+      "fallback_reason": null,
+      "prompt_template": "retention_native_narration_timing_revision",
+      "prompt_version": "v2.1-owner-xhigh-first",
+      "prompt_logical_hash": "b180b40c147b50a93e210345c0359f62dbe1b4ab2ce20a2184f0a88653255880",
+      "governed_input_hash": "d94816a37974d2868e64dff2d643dd48b9c9f43334f17795fe5e3d94ccb3741c",
+      "retry_budget_snapshot": {
+        "logical_invocation_id": "v2-creative-revision-short-narration-timing-batch_13-v1",
+        "max_total_provider_attempts": 6,
+        "max_fallback_transitions": 2,
+        "max_same_model_retries": 1,
+        "max_structured_output_repair_attempts": 1,
+        "max_cumulative_retry_sleep_seconds": 1800.0,
+        "wall_clock_budget_seconds": 900.0,
+        "per_model_max_attempts": [
+          2,
+          2,
+          2
+        ],
+        "consumed_attempts": 1,
+        "consumed_fallback_transitions": 0,
+        "consumed_repair_attempts": 0,
+        "consumed_sleep_seconds": 0.0,
+        "attempts_by_model": {
+          "new/gpt-5.6-sol-xhigh": 1
+        },
+        "remaining_attempt_budget": 5
+      },
+      "resolved_model": "gpt-5.6-sol-xhigh",
+      "provider_invocation_id": "chatcmpl-1786627967839",
+      "provider_status_class": "2xx_success",
+      "retry_after_seconds": null,
+      "latency_seconds": 14.5288,
+      "usage": {
+        "prompt_tokens": 6850,
+        "completion_tokens": 413,
+        "total_tokens": 7263,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "cost": null,
+      "provider_finish_reason": "stop",
+      "transport_telemetry": {
+        "stream_requested": true,
+        "stream_response_detected": true,
+        "stream_complete": true,
+        "time_to_first_byte_seconds": 14.3967,
+        "time_to_first_content_chunk_seconds": 14.3968,
+        "chunk_count": 89,
+        "content_chunk_count": 86,
+        "maximum_inter_chunk_gap_seconds": 0.0131,
+        "transport_total_latency_seconds": 14.512,
+        "accumulated_response_characters": 17429,
+        "accumulated_response_utf8_bytes": 17429,
+        "accumulated_response_sha256": "f240bd6ac47f91cc78be47224eac98d5fcdf506bd88ad5b7061e22c0a0e18355"
+      },
+      "provider_truncation_indicated": false,
+      "output_present": true,
+      "output_character_length": 355,
+      "output_utf8_byte_length": 355,
+      "remaining_attempt_budget": 5,
+      "model_identity_provider_verified": true,
+      "structured_validation_result": "PASS",
+      "structured_validation_failure_class": null,
+      "output_hash": "ffb18ca20ffced9db12f8f6da5fe6ce3d9aa263409708754aa4767f7a09a285e",
+      "failure_class": null,
+      "disposition": "accepted"
+    }
+  ],
+  "fallback_grants_publication_authority": false,
+  "fallback_output_uses_same_downstream_gates": true,
+  "cycle_cached_unavailable_models_skipped": [],
+  "cycle_unavailable_models_promoted_after_accepted_fallback": [],
+  "provider_network_calls_skipped_by_cycle_unavailability_cache": 0,
+  "status": "ACCEPTED",
+  "batch_id": "batch_13",
+  "shot_ids": [
+    "s13"
+  ],
+  "governed_input_hash": "d94816a37974d2868e64dff2d643dd48b9c9f43334f17795fe5e3d94ccb3741c",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

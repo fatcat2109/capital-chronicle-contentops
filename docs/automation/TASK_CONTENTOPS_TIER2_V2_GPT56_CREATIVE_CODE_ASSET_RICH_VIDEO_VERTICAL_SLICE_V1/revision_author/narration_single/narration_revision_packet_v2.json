@@ -1,0 +1,65 @@
+{
+  "schema_version": "contentops.retention_native.narration_timing_revision.v2",
+  "narration_revisions": [
+    {
+      "shot_id": "s01",
+      "narration_text": "The oil shock may be shifting from blockage toward recovery."
+    },
+    {
+      "shot_id": "s02",
+      "narration_text": "The oil shock may be entering a new phase."
+    },
+    {
+      "shot_id": "s03",
+      "narration_text": "EIA: global oil output may approach pre-conflict levels by year-end."
+    },
+    {
+      "shot_id": "s04",
+      "narration_text": "EIA projects global oil output near pre-conflict levels by year-end."
+    },
+    {
+      "shot_id": "s05",
+      "narration_text": "It expects most shut-in production restored by first quarter 2027."
+    },
+    {
+      "shot_id": "s06",
+      "narration_text": "The market test marks a major shift."
+    },
+    {
+      "shot_id": "s07",
+      "narration_text": "Trader focus shifts: will restored barrels refill inventories, satisfy demand?"
+    },
+    {
+      "shot_id": "s08",
+      "narration_text": "Will restored barrels rebuild inventories and meet demand? Traders watch."
+    },
+    {
+      "shot_id": "s09",
+      "narration_text": "Brent's forecast average falls from June through 2027."
+    },
+    {
+      "shot_id": "s10",
+      "narration_text": "Forecast prices decline from June through 2027."
+    },
+    {
+      "shot_id": "s11",
+      "narration_text": "Gasoline is forecast lower in the fourth quarter."
+    },
+    {
+      "shot_id": "s12",
+      "narration_text": "Gasoline prices can ease headline inflation, not settle Fed questions."
+    },
+    {
+      "shot_id": "s13",
+      "narration_text": "Next: July 15 report, then August 11 energy outlook."
+    },
+    {
+      "shot_id": "s14",
+      "narration_text": "Recovery is the headline; watch barrels, inventories, and demand."
+    }
+  ],
+  "revision_rationale": "Three bounded contiguous model-authored batches preserve natural pace within the accepted 56-second short.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

@@ -1,0 +1,62 @@
+{
+  "schema_version": "contentops.retention_native.creative_revision_packet.v2",
+  "shot_replacements": [
+    {
+      "shot_id": "s08",
+      "component_name": "Shot_s08",
+      "component_source": "const Shot_s08: React.FC<AuthoredShotProps> = ({frame,fps,width,height,progress,assetPath,assetClass,narration,sourceLabel}) => {\n  const intro = spring({frame,fps,config:{damping:18,stiffness:95,mass:0.9}});\n  const needlePhase = progress*Math.PI*3.2;\n  const needleX = width*0.5+Math.sin(needlePhase)*width*0.324;\n  const lineY = height*0.59;\n  const rowHeight = height*0.068;\n  const rowGap = height*0.018;\n  const wordOpacity = (start:number)=>interpolate(progress,[start,start+0.1],[0,1],{extrapolateLeft:'clamp',extrapolateRight:'clamp'});\n  const supplyOpacity = wordOpacity(0.03);\n  const inventoriesOpacity = wordOpacity(0.2);\n  const demandOpacity = wordOpacity(0.37);\n  const typeface = '\"Franklin Gothic Medium\", \"Arial Narrow\", sans-serif';\n  const rowStyle: React.CSSProperties = {\n    position:'absolute',\n    left:0,\n    right:0,\n    height:rowHeight,\n    display:'flex',\n    alignItems:'center',\n    overflow:'hidden',\n    borderTop:'1px solid rgba(245,239,226,0.16)',\n    borderBottom:'1px solid rgba(245,239,226,0.08)',\n    background:'linear-gradient(90deg,rgba(255,255,255,0.025),rgba(255,255,255,0.065) 50%,rgba(255,255,255,0.025))'\n  };\n  return <AbsoluteFill style={{background:'#071114',color:'#f5efe2',overflow:'hidden'}}>\n    <div style={{position:'absolute',inset:0,background:'radial-gradient(ellipse at 50% 50%,rgba(39,65,65,0.52),transparent 58%), repeating-linear-gradient(90deg,transparent 0,transparent 89px,rgba(255,255,255,0.018) 90px)'}} />\n    <div style={{position:'absolute',left:width*0.08,right:width*0.08,top:height*0.215,height:rowHeight*3+rowGap*2,transform:`translateY(${(1-intro)*height*0.035}px)`,opacity:intro}}>\n      <div style={{...rowStyle,top:0,justifyContent:'flex-start'}}>\n        <div style={{width:10,height:10,borderRadius:'50%',background:'#9aa8a6',marginLeft:4,marginRight:30,flex:'0 0 auto'}} />\n        <div style={{fontFamily:typeface,fontWeight:700,fontSize:width*0.057,lineHeight:1,letterSpacing:width*0.0048,color:'#dfe4df',whiteSpace:'nowrap',opacity:supplyOpacity,transform:`translateX(${(1-supplyOpacity)*-28}px)`}}>SUPPLY</div>\n      </div>\n      <div style={{...rowStyle,top:rowHeight+rowGap,justifyContent:'center',borderTop:'1px solid rgba(239,164,55,0.42)',borderBottom:'1px solid rgba(239,164,55,0.25)',background:'linear-gradient(90deg,rgba(239,164,55,0.015),rgba(239,164,55,0.13) 50%,rgba(239,164,55,0.015))'}}>\n        <div style={{fontFamily:typeface,fontWeight:700,fontSize:width*0.063,lineHeight:1,letterSpacing:width*0.0038,color:'#ffd17a',whiteSpace:'nowrap',opacity:inventoriesOpacity}}>INVENTORIES</div>\n      </div>\n      <div style={{...rowStyle,top:(rowHeight+rowGap)*2,justifyContent:'flex-end'}}>\n        <div style={{fontFamily:typeface,fontWeight:700,fontSize:width*0.057,lineHeight:1,letterSpacing:width*0.0048,color:'#dfe4df',whiteSpace:'nowrap',opacity:demandOpacity,transform:`translateX(${(1-demandOpacity)*28}px)`}}>DEMAND</div>\n        <div style={{width:10,height:10,borderRadius:'50%',background:'#9aa8a6',marginLeft:30,marginRight:4,flex:'0 0 auto'}} />\n      </div>\n    </div>\n    <div style={{position:'absolute',left:width*0.08,right:width*0.08,top:lineY,height:8,borderRadius:8,background:'linear-gradient(90deg,#405054,#efa437 50%,#405054)',boxShadow:'0 0 28px rgba(239,164,55,0.16)',opacity:intro}} />\n    {[0,0.5,1].map((x,i)=><div key={i} style={{position:'absolute',left:width*0.08+(width*0.84)*x-2,top:lineY-height*0.012,width:4,height:height*0.024,background:i===1?'#efa437':'#647276',opacity:intro}} />)}\n    <svg viewBox={`0 0 ${width} ${height}`} style={{position:'absolute',inset:0,width:'100%',height:'100%',opacity:intro}}>\n      <defs><filter id=\"s08glow\"><feGaussianBlur stdDeviation=\"8\" result=\"b\"/><feMerge><feMergeNode in=\"b\"/><feMergeNode in=\"SourceGraphic\"/></feMerge></filter></defs>\n      <path d={`M ${needleX} ${lineY-height*0.085} L ${needleX-width*0.028} ${lineY-2} L ${needleX+width*0.028} ${lineY-2} Z`} fill=\"#efa437\" filter=\"url(#s08glow)\" />\n      <circle cx={needleX} cy={lineY} r={width*0.016} fill=\"#ffd17a\" />\n    </svg>\n  </AbsoluteFill>;\n};"
+    }
+  ],
+  "suppress_internal_source_label_shot_ids": [
+    "s01",
+    "s02",
+    "s03",
+    "s05",
+    "s06",
+    "s07",
+    "s08",
+    "s09",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "m01",
+    "m02",
+    "m03",
+    "m04",
+    "m05",
+    "m06",
+    "m07",
+    "m08",
+    "m09",
+    "m10",
+    "m11",
+    "m12",
+    "m13",
+    "m14",
+    "m15",
+    "m16",
+    "m17",
+    "m18",
+    "m19",
+    "m20",
+    "m21",
+    "m22",
+    "m23",
+    "m24",
+    "m25",
+    "m26",
+    "m27",
+    "m28",
+    "m29",
+    "m30"
+  ],
+  "retain_internal_source_label_shot_ids": [
+    "s04"
+  ],
+  "revision_rationale": "Separates the three terms into fixed, vertically spaced typographic rows while preserving the animated balance-gauge metaphor and removing duplicated internal attribution.",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}

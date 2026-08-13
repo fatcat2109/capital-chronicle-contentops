@@ -1,0 +1,1968 @@
+{
+  "schema_version": "contentops.retention_native.director_source.v1",
+  "public_write_authority": false,
+  "director_identity": {
+    "kind": "canonical_9router_gpt56_creative_code",
+    "creative_editor_model": "new/gpt-5.6-sol-medium",
+    "motion_code_author_model": "new/gpt-5.6-sol-medium",
+    "creative_revision_author_model": "new/gpt-5.6-sol-high",
+    "creative_blueprint_sha256": "522ae3c708d843e48be9671e9298e45e1da8a27bcc247f7938d7656e85361cd4",
+    "authority": "presentation_only",
+    "facts_may_be_added": false,
+    "renderer_may_invent_edits": false,
+    "public_write": false,
+    "narration_revision_author_model": "new/gpt-5.6-sol-xhigh",
+    "narration_revision_author_models_by_batch": {
+      "batch_01": "new/gpt-5.6-sol-xhigh",
+      "batch_02": "new/gpt-5.6-sol-xhigh",
+      "batch_03": "new/gpt-5.6-sol-xhigh",
+      "batch_04": "new/gpt-5.6-sol-xhigh",
+      "batch_05": "new/gpt-5.6-sol-xhigh",
+      "batch_06": "new/gpt-5.6-sol-xhigh",
+      "batch_07": "new/gpt-5.6-sol-xhigh",
+      "batch_08": "new/gpt-5.6-sol-xhigh",
+      "batch_09": "new/gpt-5.6-sol-xhigh",
+      "batch_10": "new/gpt-5.6-sol-xhigh",
+      "batch_11": "new/gpt-5.6-sol-xhigh",
+      "batch_12": "new/gpt-5.6-sol-xhigh",
+      "batch_13": "new/gpt-5.6-sol-xhigh",
+      "batch_14": "new/gpt-5.6-sol-xhigh"
+    }
+  },
+  "revision_history": [
+    {
+      "revision_number": 1,
+      "kind": "MODEL_AUTHORED_LOCALIZED_VISUAL_REVISION",
+      "variant_id": "short_9x16",
+      "shot_ids": [
+        "s08"
+      ],
+      "issues_resolved": [
+        "s08-primary-typography-collision",
+        "authored-internal-source-label-duplication"
+      ],
+      "selected_model": "new/gpt-5.6-sol-high",
+      "xhigh_first_attempt_failure_class": "http_502_bad_gateway",
+      "revision_packet_sha256": "3568c6cb79fc394b4242bf1de67c364fa8c172d9f0fd47a94a33b934075b0620",
+      "revision_receipt_sha256": "f55a75df1922339de4e041fcaf9d14c2599d956489be61f9dbd5896accc908f8",
+      "selective_preview_contact_sheet_sha256": "8115bebead411ea9a7ec76f6541512e99bb79a91baa16e6257390bf9aba648d5",
+      "collision_count_after_revision": 0,
+      "public_write": false,
+      "publication_authority": false,
+      "factual_authority": false
+    },
+    {
+      "revision_number": 2,
+      "kind": "MODEL_AUTHORED_NARRATION_TIMING_REVISION",
+      "variant_id": "short_9x16",
+      "shot_ids": [
+        "s01",
+        "s02",
+        "s03",
+        "s04",
+        "s05",
+        "s06",
+        "s07",
+        "s08",
+        "s09",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14"
+      ],
+      "issue_resolved": "authored_narration_exceeded_authored_short_duration",
+      "revision_packet_sha256": "adecc02af166eefe2ab7b845abc8d878318f537cfba94ed8b58389078a903117",
+      "revision_receipt_sha256": "af1d4de3c4b62adccaddaffa5fe86f5b8ac2e69e4bf01ab99226b348e948f703",
+      "public_write": false,
+      "publication_authority": false,
+      "factual_authority": false,
+      "selected_model": "new/gpt-5.6-sol-xhigh",
+      "selected_models_by_batch": {
+        "batch_01": "new/gpt-5.6-sol-xhigh",
+        "batch_02": "new/gpt-5.6-sol-xhigh",
+        "batch_03": "new/gpt-5.6-sol-xhigh",
+        "batch_04": "new/gpt-5.6-sol-xhigh",
+        "batch_05": "new/gpt-5.6-sol-xhigh",
+        "batch_06": "new/gpt-5.6-sol-xhigh",
+        "batch_07": "new/gpt-5.6-sol-xhigh",
+        "batch_08": "new/gpt-5.6-sol-xhigh",
+        "batch_09": "new/gpt-5.6-sol-xhigh",
+        "batch_10": "new/gpt-5.6-sol-xhigh",
+        "batch_11": "new/gpt-5.6-sol-xhigh",
+        "batch_12": "new/gpt-5.6-sol-xhigh",
+        "batch_13": "new/gpt-5.6-sol-xhigh",
+        "batch_14": "new/gpt-5.6-sol-xhigh"
+      }
+    }
+  ],
+  "opportunity": {
+    "video_id": "cc-v2-eia-hormuz-recovery-2026-v1",
+    "story_id": "eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+    "story_version": "2026-07-10T20:31:27Z",
+    "title": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume",
+    "story_mode": "CONFLICT_TIMELINE",
+    "selection_status": "VIDEO_SELECTED",
+    "evidence_hashes": [
+      "1e87b1815912a3fdf3a59b56a17d343c39204b3b200527fc099771563c93a44a",
+      "4a61bb93b43a7fb1d2fd016cbec048ddf9460f1de8731e9ba81241c7a1a3cf9e",
+      "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50"
+    ],
+    "eligible_formats": [
+      "short_9x16",
+      "midform_16x9"
+    ],
+    "scores": {
+      "evidence_readiness": 1.0,
+      "materiality": 0.86,
+      "human_or_institutional_stakes": 0.78,
+      "conflict_or_change": 0.94,
+      "narrative_depth": 0.9,
+      "visualizability": 0.96,
+      "asset_availability": 0.9,
+      "shelf_life": 0.74
+    },
+    "selection_reasons": [
+      "Material EIA forecast revision tied to a geopolitical chokepoint",
+      "Clear conflict-to-recovery timeline and falsifiable consequences",
+      "Official primary release plus source-backed price data",
+      "Supports document, map, timeline, chart, comparison, and location imagery"
+    ],
+    "estimated_production_cost": "bounded_local_render_plus_one_public_domain_asset_retrieval",
+    "test_only_non_public": false
+  },
+  "engagement_brief": {
+    "video_id": "cc-v2-eia-hormuz-recovery-2026-v1",
+    "target_audience": "Economically curious viewers who saw an oil-war headline but want the physical mechanism and evidence boundary.",
+    "viewer_question": "Did reopening the Strait of Hormuz actually change the oil-supply story, and what would prove the forecast right or wrong?",
+    "why_now": "The governed July 2026 EIA release explicitly raised global production expectations after traffic increased through Hormuz.",
+    "core_promise": "See why reopened Hormuz transit may shift oil markets from disruption to inventories, demand and restored supply.",
+    "hook": "The war premium did not vanish. The physical route changed.",
+    "pattern_interrupt": "Open over a real orbital view of the Persian Gulf, then cut immediately into the primary EIA document instead of a presenter intro.",
+    "central_tension": "A supply-recovery forecast is measurable but not self-proving: flows, restored output, inventories, and prices must move together.",
+    "open_loops": [
+      {
+        "loop_id": "loop-route-recovery",
+        "question": "What changed at Hormuz enough to alter EIA's supply forecast?"
+      },
+      {
+        "loop_id": "loop-price-proof",
+        "question": "Does a lower oil price prove the supply forecast?"
+      },
+      {
+        "loop_id": "loop-policy-boundary",
+        "question": "Would cheaper crude settle the inflation and Fed story?"
+      }
+    ],
+    "payoff_checkpoints": [
+      {
+        "loop_id": "loop-route-recovery",
+        "payoff": "EIA expects crude output and trade near pre-conflict levels by year-end."
+      },
+      {
+        "loop_id": "loop-price-proof",
+        "payoff": "Price is context, not proof; traffic, production, and inventories must confirm together."
+      },
+      {
+        "loop_id": "loop-policy-boundary",
+        "payoff": "Cheaper fuel can ease headline inflation without determining Federal Reserve policy."
+      }
+    ],
+    "rehooks": [
+      {
+        "after": "document reveal",
+        "copy": "But a forecast is not a cargo count."
+      },
+      {
+        "after": "forecast comparison",
+        "copy": "Now compare the forecast with the manifest-bound market price."
+      },
+      {
+        "after": "price chart",
+        "copy": "The decisive test is physical, not graphical."
+      }
+    ],
+    "pacing_map": [
+      {
+        "phase": "hook",
+        "short_seconds": "0-9",
+        "midform_seconds": "0-24"
+      },
+      {
+        "phase": "document_and_timeline",
+        "short_seconds": "9-20",
+        "midform_seconds": "24-78"
+      },
+      {
+        "phase": "mechanism_and_prices",
+        "short_seconds": "20-44",
+        "midform_seconds": "78-154"
+      },
+      {
+        "phase": "confirmation_and_boundary",
+        "short_seconds": "44-65",
+        "midform_seconds": "154-230"
+      }
+    ],
+    "emotional_register": "urgent but controlled; geopolitical stakes without alarmism; resolution through evidence",
+    "prohibited_overclaims": [
+      "Do not claim Hormuz risk is permanently gone",
+      "Do not present forecasts as realized outcomes",
+      "Do not claim a lower oil price proves restored supply",
+      "Do not turn energy-price relief into a Federal Reserve prediction",
+      "Do not imply the archival NASA image depicts 2026 traffic"
+    ],
+    "cta": "Follow the flows, the stocks, and the next official release—not the loudest headline.",
+    "binge_target": "Capital Chronicle Evidence Boundary series",
+    "platform_hooks": {
+      "short_9x16": "The war premium did not vanish. The physical route changed.",
+      "midform_16x9": "The EIA changed its oil-supply forecast after Hormuz traffic increased. Here is what that proves—and what it does not."
+    }
+  },
+  "asset_plan": {
+    "video_id": "cc-v2-eia-hormuz-recovery-2026-v1",
+    "assets": [
+      {
+        "asset_id": "nasa-persian-gulf-iss069-e-92132",
+        "asset_class": "real_location_imagery",
+        "editorial_purpose": "Establish the Persian Gulf and Strait of Hormuz as real geographic context without depicting current traffic.",
+        "source_label": "NASA/JSC Gateway to Astronaut Photography of Earth",
+        "source_url": "https://eol.jsc.nasa.gov/DatabaseImages/ESC/large/ISS069/ISS069-E-92132.JPG",
+        "rights_status": "NASA_MEDIA_GUIDELINES_EDITORIAL",
+        "license_or_terms": "NASA Images and Media Usage Guidelines; factual editorial use with NASA attribution and no endorsement implication.",
+        "attribution": "NASA astronaut photograph ISS069-E-92132, ISS Crew Earth Observations Facility / JSC.",
+        "sha256": "12d85ddefde2c17a221c41c25202914640cfaeb7683133344a1499acb0929845",
+        "source_path": null,
+        "synthetic": false,
+        "documentary": true,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "eia-release-press590-document",
+        "asset_class": "official_source_document",
+        "editorial_purpose": "Reveal the July 7 EIA release and highlight only governed facts.",
+        "source_label": "U.S. Energy Information Administration",
+        "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+        "rights_status": "US_GOVERNMENT_PUBLIC_INFORMATION",
+        "license_or_terms": "EIA Copyright and Reuse policy; U.S. government public information used with source attribution.",
+        "attribution": "Source: U.S. Energy Information Administration, July 7, 2026 press release.",
+        "sha256": "1e87b1815912a3fdf3a59b56a17d343c39204b3b200527fc099771563c93a44a",
+        "source_path": null,
+        "synthetic": false,
+        "documentary": true,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "hormuz-context-map",
+        "asset_class": "deterministic_map",
+        "editorial_purpose": "Trace the chokepoint mechanism without claiming live ship positions.",
+        "source_label": "Capital Chronicle deterministic context map from governed place names",
+        "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Original vector schematic; no basemap tiles or third-party geometry.",
+        "attribution": "Capital Chronicle context map; factual source: U.S. EIA.",
+        "sha256": null,
+        "source_path": null,
+        "synthetic": false,
+        "documentary": false,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "recovery-timeline",
+        "asset_class": "deterministic_timeline",
+        "editorial_purpose": "Stage June 18, July 7, year-end, and early-2027 milestones.",
+        "source_label": "U.S. EIA release and governed ContentOps source packet",
+        "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Original vector timeline from governed facts.",
+        "attribution": "Timeline: Capital Chronicle; dates and forecasts: U.S. EIA.",
+        "sha256": null,
+        "source_path": null,
+        "synthetic": false,
+        "documentary": false,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "forecast-comparison",
+        "asset_class": "deterministic_comparison",
+        "editorial_purpose": "Compare EIA's June Brent average with its Q3 and 2027 forecast averages.",
+        "source_label": "U.S. EIA July 2026 Short-Term Energy Outlook release",
+        "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Original data comparison from governed EIA facts.",
+        "attribution": "Source: U.S. EIA; comparison render: Capital Chronicle.",
+        "sha256": null,
+        "source_path": null,
+        "synthetic": false,
+        "documentary": false,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "supply-recovery-mechanism",
+        "asset_class": "deterministic_diagram",
+        "editorial_purpose": "Explain the bounded chain from increased transit through output restoration and inventory rebuilding to price pressure.",
+        "source_label": "Governed article mechanism and U.S. EIA release",
+        "source_url": "https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Original Capital Chronicle explanatory diagram.",
+        "attribution": "Capital Chronicle mechanism diagram; evidence sources listed in package.",
+        "sha256": null,
+        "source_path": null,
+        "synthetic": false,
+        "documentary": false,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "wti-current-volatility-chart",
+        "asset_class": "source_backed_data_chart",
+        "editorial_purpose": "Show manifest-bound WTI endpoint and volatility context.",
+        "source_label": "FRED DCOILWTICO / U.S. EIA",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Capital Chronicle render from public FRED/EIA data; source attribution required.",
+        "attribution": "Source: FRED DCOILWTICO; underlying source: U.S. EIA.",
+        "sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+        "source_path": "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/media_assets/slot_4/wti_current_volatility_context_9302511000fa.png",
+        "synthetic": false,
+        "documentary": true,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "wti-recent-price-chart",
+        "asset_class": "source_backed_data_chart",
+        "editorial_purpose": "Show the recent WTI path into the manifest-bound July 6 endpoint.",
+        "source_label": "FRED DCOILWTICO / U.S. EIA",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Capital Chronicle render from public FRED/EIA data; source attribution required.",
+        "attribution": "Source: FRED DCOILWTICO; underlying source: U.S. EIA.",
+        "sha256": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076",
+        "source_path": "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/media_assets/slot_4/wti_recent_price_context_9302511000fa.png",
+        "synthetic": false,
+        "documentary": true,
+        "contains_real_person": false
+      },
+      {
+        "asset_id": "wti-multi-year-range-chart",
+        "asset_class": "source_backed_data_chart",
+        "editorial_purpose": "Separate a normalization of risk premium from a claim of historically low oil.",
+        "source_label": "FRED DCOILWTICO / U.S. EIA",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "rights_status": "CAPITAL_CHRONICLE_OWNED",
+        "license_or_terms": "Capital Chronicle render from public FRED/EIA data; source attribution required.",
+        "attribution": "Source: FRED DCOILWTICO; underlying source: U.S. EIA.",
+        "sha256": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+        "source_path": "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/media_assets/slot_4/wti_multi_year_range_context_9302511000fa.png",
+        "synthetic": false,
+        "documentary": true,
+        "contains_real_person": false
+      }
+    ]
+  },
+  "audio_plan": {
+    "video_id": "cc-v2-eia-hormuz-recovery-2026-v1",
+    "narrator_provider": "kokoro",
+    "narrator_model": "Kokoro-82M",
+    "narrator_voice": "af_heart",
+    "narrator_license": "Apache-2.0",
+    "pronunciation_overrides": {
+      "EIA": "E I A",
+      "Hormuz": "hor-MOOZ",
+      "WTI": "W T I",
+      "Brent": "Brent"
+    },
+    "prosody_by_variant": {
+      "short_9x16": {
+        "speed": 1.18,
+        "style": "urgent_controlled",
+        "pause_after_payoff_seconds": 0.18
+      },
+      "midform_16x9": {
+        "speed": 1.0,
+        "style": "documentary_explainer",
+        "pause_after_payoff_seconds": 0.24
+      }
+    },
+    "music": {
+      "generator": "contentops.retention_native.score.v2.2",
+      "title": "Chokepoint / Recovery",
+      "rights_status": "CAPITAL_CHRONICLE_OWNED",
+      "license_or_terms": "Original deterministic local oscillator score with no samples or model output.",
+      "states": [
+        "cold_open",
+        "tension",
+        "evidence",
+        "mechanism",
+        "consequence",
+        "boundary",
+        "resolution",
+        "outro"
+      ]
+    },
+    "sfx_cues": [
+      {
+        "cue_id": "sfx-s02",
+        "beat_id": "s02",
+        "kind": "whoosh"
+      },
+      {
+        "cue_id": "sfx-s08",
+        "beat_id": "s08",
+        "kind": "data_tick"
+      },
+      {
+        "cue_id": "sfx-s13",
+        "beat_id": "s13",
+        "kind": "hit"
+      },
+      {
+        "cue_id": "sfx-m02",
+        "beat_id": "m02",
+        "kind": "whoosh"
+      },
+      {
+        "cue_id": "sfx-m16",
+        "beat_id": "m16",
+        "kind": "data_tick"
+      },
+      {
+        "cue_id": "sfx-m29",
+        "beat_id": "m29",
+        "kind": "hit"
+      }
+    ],
+    "ducking": {
+      "enabled": true,
+      "threshold": 0.025,
+      "ratio": 8.0,
+      "attack_ms": 20,
+      "release_ms": 260
+    },
+    "integrated_lufs_target": -16.0,
+    "true_peak_dbtp_max": -1.5
+  },
+  "variants": [
+    {
+      "variant_id": "short_9x16",
+      "platform": "youtube_shorts_and_tiktok_review_only",
+      "aspect_ratio": "9:16",
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "min_duration_seconds": 45.0,
+      "max_duration_seconds": 60.0,
+      "caption_safe_zone": {
+        "top": 0.08,
+        "right": 0.06,
+        "bottom": 0.1,
+        "left": 0.06
+      },
+      "caption_max_lines": 2,
+      "hook_copy": "The oil shock may be entering a different phase: not blockage, but recovery.",
+      "beats": [
+        {
+          "beat_id": "s01",
+          "scene_id": "short_9x16-scene-01",
+          "chapter_id": "short_9x16-chapter-01",
+          "narrative_role": "hook",
+          "narration_text": "The oil shock may be shifting from blockage toward recovery.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "governed-article"
+          ],
+          "viewer_takeaway": "Hook the viewer with a visual change from blockage to reopening.",
+          "visual_purpose": "Vertical black field; thin amber line threads through a narrow blue channel.",
+          "asset_ids": [
+            "hormuz-context-map"
+          ],
+          "audio_state": "cold_open",
+          "transition_intent": "hard cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Hook the viewer with a visual change from blockage to reopening.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s01"
+              }
+            }
+          ],
+          "open_loop_id": "loop-route-recovery"
+        },
+        {
+          "beat_id": "s02",
+          "scene_id": "short_9x16-scene-01",
+          "chapter_id": "short_9x16-chapter-01",
+          "narrative_role": "evidence",
+          "narration_text": "The oil shock may be entering a new phase.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "governed-article"
+          ],
+          "viewer_takeaway": "Establish the supplied market evidence without inventing a price reading.",
+          "visual_purpose": "Tight crop of supplied primary chart; latest section framed by a moving amber bracket.",
+          "asset_ids": [
+            "wti-current-volatility-chart"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "vertical wipe",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "wti-current-volatility-chart",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Establish the supplied market evidence without inventing a price reading.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s02"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "s03",
+          "scene_id": "short_9x16-scene-01",
+          "chapter_id": "short_9x16-chapter-01",
+          "narrative_role": "payoff",
+          "narration_text": "EIA: global oil output may approach pre-conflict levels by year-end.",
+          "claim_ids": [
+            "eia:pre_conflict_year_end"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Introduce the central supply-recovery claim.",
+          "visual_purpose": "Minimal Strait-of-Hormuz route metaphor: two dark landforms, blue channel, amber tanker dots.",
+          "asset_ids": [
+            "hormuz-context-map",
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "resolution",
+          "transition_intent": "directional wipe",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Introduce the central supply-recovery claim.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s03"
+              }
+            }
+          ],
+          "payoff_for": [
+            "loop-route-recovery"
+          ]
+        },
+        {
+          "beat_id": "s04",
+          "scene_id": "short_9x16-scene-02",
+          "chapter_id": "short_9x16-chapter-01",
+          "narrative_role": "evidence",
+          "narration_text": "EIA projects global oil output near pre-conflict levels by year-end.",
+          "claim_ids": [
+            "eia:pre_conflict_year_end",
+            "eia:release_date"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Attribute the forecast directly to supplied evidence.",
+          "visual_purpose": "Evidence lower-third: EIA press release title and date, over the route metaphor.",
+          "asset_ids": [
+            "hormuz-context-map",
+            "eia-release-press590-document",
+            "forecast-comparison"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "hard cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Attribute the forecast directly to supplied evidence.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s04"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "s05",
+          "scene_id": "short_9x16-scene-02",
+          "chapter_id": "short_9x16-chapter-01",
+          "narrative_role": "evidence",
+          "narration_text": "It expects most shut-in production restored by first quarter 2027.",
+          "claim_ids": [
+            "eia:shut_in_2027_q1"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Make the restoration timeline legible without a numeric list.",
+          "visual_purpose": "Seven amber production valves; several are dark, then relight in sequence.",
+          "asset_ids": [
+            "recovery-timeline"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "match cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "recovery-timeline",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Make the restoration timeline legible without a numeric list.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s05"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "s06",
+          "scene_id": "short_9x16-scene-02",
+          "chapter_id": "short_9x16-chapter-02",
+          "narrative_role": "evidence",
+          "narration_text": "The market test marks a major shift.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "governed-article"
+          ],
+          "viewer_takeaway": "Shift from disruption narrative to market-test framing.",
+          "visual_purpose": "Supplied recent price path, isolated as a tall vertical ribbon with no added values.",
+          "asset_ids": [
+            "wti-recent-price-chart"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "soft dissolve",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "wti-recent-price-chart",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Shift from disruption narrative to market-test framing.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s06"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "s07",
+          "scene_id": "short_9x16-scene-03",
+          "chapter_id": "short_9x16-chapter-02",
+          "narrative_role": "evidence",
+          "narration_text": "Trader focus shifts: will restored barrels refill inventories, satisfy demand?",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Explain the mechanism supplied in the packet.",
+          "visual_purpose": "Split-screen metaphor: empty pipeline on left, inventory basin on right receiving amber droplets.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "center split",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Explain the mechanism supplied in the packet.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s07"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "s08",
+          "scene_id": "short_9x16-scene-03",
+          "chapter_id": "short_9x16-chapter-02",
+          "narrative_role": "evidence",
+          "narration_text": "Will restored barrels rebuild inventories and meet demand? Traders watch.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "governed-article"
+          ],
+          "viewer_takeaway": "Compress the mechanism into a memorable visual.",
+          "visual_purpose": "Three words appear along one horizontal gauge: SUPPLY, INVENTORIES, DEMAND.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "hard cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Compress the mechanism into a memorable visual.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s08"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "s09",
+          "scene_id": "short_9x16-scene-03",
+          "chapter_id": "short_9x16-chapter-02",
+          "narrative_role": "evidence",
+          "narration_text": "Brent's forecast average falls from June through 2027.",
+          "claim_ids": [
+            "eia:brent_june_85",
+            "eia:brent_q3_74",
+            "eia:brent_2027_65"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Introduce the supplied Brent forecast sequence.",
+          "visual_purpose": "Supplied multi-year range chart; a clean amber contour traces the annual bands without adding labels.",
+          "asset_ids": [
+            "wti-multi-year-range-chart",
+            "forecast-comparison"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "diagonal wipe",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "wti-multi-year-range-chart",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Introduce the supplied Brent forecast sequence.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s09"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "s10",
+          "scene_id": "short_9x16-scene-04",
+          "chapter_id": "short_9x16-chapter-02",
+          "narrative_role": "evidence",
+          "narration_text": "Forecast prices decline from June through 2027.",
+          "claim_ids": [
+            "eia:brent_june_85",
+            "eia:brent_q3_74",
+            "eia:brent_2027_65"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Give the forecast time structure while avoiding a numeric-list visual.",
+          "visual_purpose": "Descending amber path crosses three unlabeled forecast windows; labels appear one at a time: JUNE, Q3 2026, 2027.",
+          "asset_ids": [
+            "forecast-comparison"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "hard cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "forecast-comparison",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Give the forecast time structure while avoiding a numeric-list visual.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s10"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "s11",
+          "scene_id": "short_9x16-scene-04",
+          "chapter_id": "short_9x16-chapter-03",
+          "narrative_role": "evidence",
+          "narration_text": "Gasoline is forecast lower in the fourth quarter.",
+          "claim_ids": [
+            "eia:gasoline_q3_3_80",
+            "eia:gasoline_q4_3_40"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Connect crude outlook to consumer fuel pricing.",
+          "visual_purpose": "Two amber fuel-pump silhouettes; the second fills to a visibly lower mark.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "liquid wipe",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Connect crude outlook to consumer fuel pricing.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s11"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "s12",
+          "scene_id": "short_9x16-scene-04",
+          "chapter_id": "short_9x16-chapter-03",
+          "narrative_role": "evidence",
+          "narration_text": "Gasoline prices can ease headline inflation, not settle Fed questions.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Deliver the supplied policy caveat.",
+          "visual_purpose": "Off-white inflation gauge eases downward; a separate dark rate-policy needle stays unresolved.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "crossfade",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Deliver the supplied policy caveat.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s12"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "s13",
+          "scene_id": "short_9x16-scene-05",
+          "chapter_id": "short_9x16-chapter-03",
+          "narrative_role": "evidence",
+          "narration_text": "Next: July 15 report, then August 11 energy outlook.",
+          "claim_ids": [
+            "eia:named_catalysts"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Set the immediate catalysts.",
+          "visual_purpose": "Editorial calendar strip with two amber pins: JUL 15 and AUG 11.",
+          "asset_ids": [
+            "hormuz-context-map",
+            "recovery-timeline"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "calendar tear",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Set the immediate catalysts.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s13"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "s14",
+          "scene_id": "short_9x16-scene-05",
+          "chapter_id": "short_9x16-chapter-03",
+          "narrative_role": "evidence",
+          "narration_text": "Recovery is the headline; watch barrels, inventories, and demand.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Pay off with the test viewers should watch.",
+          "visual_purpose": "The blue channel widens into a calm amber basin; final text: RECOVERY NEEDS PROOF.",
+          "asset_ids": [
+            "hormuz-context-map"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "slow dissolve to black",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Pay off with the test viewers should watch.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "s14"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "variant_id": "midform_16x9",
+      "platform": "youtube_midform_review_only",
+      "aspect_ratio": "16:9",
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "min_duration_seconds": 90.0,
+      "max_duration_seconds": 150.0,
+      "caption_safe_zone": {
+        "top": 0.04,
+        "right": 0.05,
+        "bottom": 0.07,
+        "left": 0.05
+      },
+      "caption_max_lines": 2,
+      "hook_copy": "Oil's next test is not whether the shock happened. It is whether the recovery can hold.",
+      "beats": [
+        {
+          "beat_id": "m01",
+          "scene_id": "midform_16x9-scene-01",
+          "chapter_id": "midform_16x9-chapter-01",
+          "narrative_role": "hook",
+          "narration_text": "Oil's next test is not whether the shock happened.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "governed-article"
+          ],
+          "viewer_takeaway": "Open with a question rather than a headline card.",
+          "visual_purpose": "Wide charcoal field; a narrow blue channel cuts diagonally through amber dust.",
+          "asset_ids": [
+            "hormuz-context-map"
+          ],
+          "audio_state": "cold_open",
+          "transition_intent": "hard cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Open with a question rather than a headline card.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m01"
+              }
+            }
+          ],
+          "open_loop_id": "loop-route-recovery"
+        },
+        {
+          "beat_id": "m02",
+          "scene_id": "midform_16x9-scene-01",
+          "chapter_id": "midform_16x9-chapter-01",
+          "narrative_role": "evidence",
+          "narration_text": "It is whether the recovery can hold.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "governed-article"
+          ],
+          "viewer_takeaway": "Visualize fragility before reopening.",
+          "visual_purpose": "Channel pinches between two dark forms; amber route line stops at the pinch.",
+          "asset_ids": [
+            "hormuz-context-map"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "match cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Visualize fragility before reopening.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m02"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m03",
+          "scene_id": "midform_16x9-scene-01",
+          "chapter_id": "midform_16x9-chapter-01",
+          "narrative_role": "evidence",
+          "narration_text": "The supplied WTI data gives the story a market backdrop.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "governed-article"
+          ],
+          "viewer_takeaway": "Ground the piece in the supplied documentary asset.",
+          "visual_purpose": "Supplied primary chart appears in a wide frame with latest segment highlighted by a thin amber rail.",
+          "asset_ids": [
+            "wti-current-volatility-chart",
+            "eia-release-press590-document"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "chart reveal",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "wti-current-volatility-chart",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Ground the piece in the supplied documentary asset.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m03"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m04",
+          "scene_id": "midform_16x9-scene-02",
+          "chapter_id": "midform_16x9-chapter-01",
+          "narrative_role": "evidence",
+          "narration_text": "The reopening of Strait of Hormuz flows",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Introduce the reopening mechanism.",
+          "visual_purpose": "Two-way tanker-dot metaphor enters the blue channel from opposite edges.",
+          "asset_ids": [
+            "hormuz-context-map",
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "directional wipe",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Introduce the reopening mechanism.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m04"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m05",
+          "scene_id": "midform_16x9-scene-02",
+          "chapter_id": "midform_16x9-chapter-01",
+          "narrative_role": "evidence",
+          "narration_text": "The EIA says",
+          "claim_ids": [
+            "eia:release_date"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Attribute the central forecast to the supplied evidence.",
+          "visual_purpose": "EIA source line appears beside the route: press release title, date, and source mark.",
+          "asset_ids": [
+            "hormuz-context-map",
+            "eia-release-press590-document",
+            "forecast-comparison"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "hard cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Attribute the central forecast to the supplied evidence.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m05"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m06",
+          "scene_id": "midform_16x9-scene-02",
+          "chapter_id": "midform_16x9-chapter-02",
+          "narrative_role": "evidence",
+          "narration_text": "global oil output near pre-conflict levels by the end of the year.",
+          "claim_ids": [
+            "eia:pre_conflict_year_end"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Show the year-end recovery claim without fabricated geography.",
+          "visual_purpose": "World-output metaphor: a ring of amber segments, several dark, gradually reconnects.",
+          "asset_ids": [
+            "recovery-timeline",
+            "nasa-persian-gulf-iss069-e-92132"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "radial wipe",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "recovery-timeline",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Show the year-end recovery claim without fabricated geography.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m06"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m07",
+          "scene_id": "midform_16x9-scene-03",
+          "chapter_id": "midform_16x9-chapter-02",
+          "narrative_role": "evidence",
+          "narration_text": "Most shut-in output is expected to be restored by the first quarter of 2027.",
+          "claim_ids": [
+            "eia:shut_in_2027_q1"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Make the restoration horizon visual and temporal.",
+          "visual_purpose": "Production gauge with amber valves in staggered rows; dark valves relight progressively.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "match cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Make the restoration horizon visual and temporal.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m07"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m08",
+          "scene_id": "midform_16x9-scene-03",
+          "chapter_id": "midform_16x9-chapter-02",
+          "narrative_role": "evidence",
+          "narration_text": "by the first quarter of 2027.",
+          "claim_ids": [
+            "eia:shut_in_2027_q1"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Clarify the forecast window without adding detail.",
+          "visual_purpose": "Calendar pages marked Q3 2026 and Q1 2027 slide past a fixed amber restoration marker.",
+          "asset_ids": [
+            "recovery-timeline",
+            "forecast-comparison"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "page wipe",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "recovery-timeline",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Clarify the forecast window without adding detail.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m08"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m09",
+          "scene_id": "midform_16x9-scene-03",
+          "chapter_id": "midform_16x9-chapter-02",
+          "narrative_role": "evidence",
+          "narration_text": "That changes the question facing the market.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Turn the story from event recap to testable mechanism.",
+          "visual_purpose": "Three empty pipeline lanes labeled TRANSIT, PRODUCTION, INVENTORIES.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "three-lane split",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Turn the story from event recap to testable mechanism.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m09"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m10",
+          "scene_id": "midform_16x9-scene-04",
+          "chapter_id": "midform_16x9-chapter-02",
+          "narrative_role": "evidence",
+          "narration_text": "The first phase was about disruption: blocked transit, missing barrels and the risk of a supply squeeze.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Summarize the prior market phase using supplied context.",
+          "visual_purpose": "Red disruption marks peel away from the TRANSIT lane.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "tape peel",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Summarize the prior market phase using supplied context.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m10"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m11",
+          "scene_id": "midform_16x9-scene-04",
+          "chapter_id": "midform_16x9-chapter-03",
+          "narrative_role": "payoff",
+          "narration_text": "The next phase is about normalization.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Mark the narrative turn.",
+          "visual_purpose": "Amber flow enters PRODUCTION lane; several valve icons open.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "resolution",
+          "transition_intent": "pipe match cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Mark the narrative turn.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m11"
+              }
+            }
+          ],
+          "payoff_for": [
+            "loop-route-recovery"
+          ]
+        },
+        {
+          "beat_id": "m12",
+          "scene_id": "midform_16x9-scene-04",
+          "chapter_id": "midform_16x9-chapter-03",
+          "narrative_role": "evidence",
+          "narration_text": "Do inventories rebuild?",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Pose the first market test as a visual question.",
+          "visual_purpose": "Inventory basin viewed from above; first droplets land in a dry concentric basin.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "top-down dissolve",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Pose the first market test as a visual question.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m12"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m13",
+          "scene_id": "midform_16x9-scene-05",
+          "chapter_id": "midform_16x9-chapter-03",
+          "narrative_role": "evidence",
+          "narration_text": "And does demand absorb the recovery?",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Show that restored supply does not automatically determine price.",
+          "visual_purpose": "Demand gauge pulls against the incoming amber flow from the opposite side.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "opposed slide",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Show that restored supply does not automatically determine price.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m13"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m14",
+          "scene_id": "midform_16x9-scene-05",
+          "chapter_id": "midform_16x9-chapter-03",
+          "narrative_role": "evidence",
+          "narration_text": "The price path in the supplied WTI data gives the story a market backdrop.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "governed-article"
+          ],
+          "viewer_takeaway": "Return to documentary data after the metaphor sequence.",
+          "visual_purpose": "Supplied recent price path fills the frame; a clean vertical crop isolates the latest movement.",
+          "asset_ids": [
+            "wti-recent-price-chart",
+            "eia-release-press590-document"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "hard cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "wti-recent-price-chart",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Return to documentary data after the metaphor sequence.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m14"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m15",
+          "scene_id": "midform_16x9-scene-05",
+          "chapter_id": "midform_16x9-chapter-03",
+          "narrative_role": "evidence",
+          "narration_text": "The forward-looking numbers come from the EIA's outlook.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Separate observed chart context from supplied forecast claims.",
+          "visual_purpose": "Supplied multi-year range chart beside a blank forecast corridor.",
+          "asset_ids": [
+            "wti-multi-year-range-chart",
+            "forecast-comparison"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "side-by-side reveal",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "wti-multi-year-range-chart",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Separate observed chart context from supplied forecast claims.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m15"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m16",
+          "scene_id": "midform_16x9-scene-06",
+          "chapter_id": "midform_16x9-chapter-04",
+          "narrative_role": "evidence",
+          "narration_text": "Brent averaged 85 dollars a barrel in June",
+          "claim_ids": [
+            "eia:brent_june_85"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Show the first supplied Brent figure with attribution.",
+          "visual_purpose": "Forecast corridor labeled JUNE; amber marker settles at 85.",
+          "asset_ids": [
+            "forecast-comparison"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "vertical drop",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "forecast-comparison",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Show the first supplied Brent figure with attribution.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m16"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m17",
+          "scene_id": "midform_16x9-scene-06",
+          "chapter_id": "midform_16x9-chapter-04",
+          "narrative_role": "evidence",
+          "narration_text": "is forecast at 74 dollars in the third quarter of 2026",
+          "claim_ids": [
+            "eia:brent_q3_74"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Show the near-term EIA forecast.",
+          "visual_purpose": "Corridor extends to Q3 2026; path descends and marker settles at 74.",
+          "asset_ids": [
+            "forecast-comparison"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "line draw",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "forecast-comparison",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Show the near-term EIA forecast.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m17"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m18",
+          "scene_id": "midform_16x9-scene-06",
+          "chapter_id": "midform_16x9-chapter-04",
+          "narrative_role": "evidence",
+          "narration_text": "and 65 dollars in 2027.",
+          "claim_ids": [
+            "eia:brent_2027_65"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Complete the supplied Brent outlook sequence.",
+          "visual_purpose": "Corridor reaches 2027; amber path bends lower to a final marker at 65.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "slow pan",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Complete the supplied Brent outlook sequence.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m18"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m19",
+          "scene_id": "midform_16x9-scene-07",
+          "chapter_id": "midform_16x9-chapter-04",
+          "narrative_role": "evidence",
+          "narration_text": "Gasoline is forecast at 3 dollars 80 a gallon in the third quarter and 3 dollars 40 in the fourth.",
+          "claim_ids": [
+            "eia:gasoline_q3_3_80",
+            "eia:gasoline_q4_3_40"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Translate the gasoline forecast into a single comparative visual.",
+          "visual_purpose": "Two fuel-pump silhouettes on a dark petrol-blue ground, separated by a thin amber divider.",
+          "asset_ids": [
+            "forecast-comparison"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "liquid split",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "forecast-comparison",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Translate the gasoline forecast into a single comparative visual.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m19"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m20",
+          "scene_id": "midform_16x9-scene-07",
+          "chapter_id": "midform_16x9-chapter-04",
+          "narrative_role": "evidence",
+          "narration_text": "A sustained retreat in oil could reduce near-term inflation compensation",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Introduce cross-asset implications supplied in the packet.",
+          "visual_purpose": "Off-white inflation gauge with amber headline needle moving lower.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "needle match cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Introduce cross-asset implications supplied in the packet.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m20"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m21",
+          "scene_id": "midform_16x9-scene-07",
+          "chapter_id": "midform_16x9-chapter-05",
+          "narrative_role": "evidence",
+          "narration_text": "support large energy importers and pressure producer revenues.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Show the cross-asset channel without naming unsupplied entities.",
+          "visual_purpose": "Large importer silhouette receives amber arrows; producer silhouette loses a small amber edge.",
+          "asset_ids": [
+            "hormuz-context-map"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "opposed wipe",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Show the cross-asset channel without naming unsupplied entities.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m21"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m22",
+          "scene_id": "midform_16x9-scene-08",
+          "chapter_id": "midform_16x9-chapter-05",
+          "narrative_role": "evidence",
+          "narration_text": "But cheaper gasoline is not a complete Federal Reserve signal.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Prevent a simplistic inflation-to-policy conclusion.",
+          "visual_purpose": "Second policy gauge appears beside inflation gauge; its needle remains suspended between marks.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "parallel dissolve",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Prevent a simplistic inflation-to-policy conclusion.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m22"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m23",
+          "scene_id": "midform_16x9-scene-08",
+          "chapter_id": "midform_16x9-chapter-05",
+          "narrative_role": "evidence",
+          "narration_text": "Broader price persistence, labor conditions and inflation expectations still matter.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Name the supplied broader policy variables.",
+          "visual_purpose": "Three unlabeled policy inputs orbit the policy gauge: PRICE PERSISTENCE, LABOR, EXPECTATIONS.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "orbital cut",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Name the supplied broader policy variables.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m23"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m24",
+          "scene_id": "midform_16x9-scene-08",
+          "chapter_id": "midform_16x9-chapter-05",
+          "narrative_role": "evidence",
+          "narration_text": "The next evidence arrives July 15",
+          "claim_ids": [
+            "eia:named_catalysts"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Set the first catalyst.",
+          "visual_purpose": "Calendar ring clears to two amber date pins, JUL 15 and AUG 11.",
+          "asset_ids": [
+            "recovery-timeline"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "calendar spin",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "recovery-timeline",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Set the first catalyst.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m24"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m25",
+          "scene_id": "midform_16x9-scene-09",
+          "chapter_id": "midform_16x9-chapter-05",
+          "narrative_role": "evidence",
+          "narration_text": "with the Weekly Petroleum Status Report",
+          "claim_ids": [
+            "eia:named_catalysts"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Identify the first supplied checkpoint.",
+          "visual_purpose": "JUL 15 pin expands into a narrow document strip labeled WEEKLY PETROLEUM STATUS REPORT.",
+          "asset_ids": [
+            "eia-release-press590-document"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "document slide",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "eia-release-press590-document",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Identify the first supplied checkpoint.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m25"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m26",
+          "scene_id": "midform_16x9-scene-09",
+          "chapter_id": "midform_16x9-chapter-06",
+          "narrative_role": "evidence",
+          "narration_text": "followed by the August 11 Short-Term Energy Outlook.",
+          "claim_ids": [
+            "eia:named_catalysts"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Identify the second supplied checkpoint.",
+          "visual_purpose": "Second amber pin advances to AUG 11; route line connects both dates.",
+          "asset_ids": [
+            "hormuz-context-map"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "route wipe",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Identify the second supplied checkpoint.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m26"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m27",
+          "scene_id": "midform_16x9-scene-09",
+          "chapter_id": "midform_16x9-chapter-06",
+          "narrative_role": "evidence",
+          "narration_text": "Watch the barrels, the inventories and the demand.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Begin the payoff by recombining the mechanism.",
+          "visual_purpose": "Inventory basin now receives steady amber droplets; a demand line crosses its surface.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "slow dissolve",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Begin the payoff by recombining the mechanism.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m27"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m28",
+          "scene_id": "midform_16x9-scene-10",
+          "chapter_id": "midform_16x9-chapter-06",
+          "narrative_role": "evidence",
+          "narration_text": "The recovery story is clear.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "State the first half of the conclusion.",
+          "visual_purpose": "Route, valves and basin align in one continuous amber line across the frame.",
+          "asset_ids": [
+            "hormuz-context-map",
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "continuous line wipe",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "State the first half of the conclusion.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m28"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m29",
+          "scene_id": "midform_16x9-scene-10",
+          "chapter_id": "midform_16x9-chapter-06",
+          "narrative_role": "evidence",
+          "narration_text": "The durable-price story is not.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Make the payoff tension visually explicit.",
+          "visual_purpose": "The line splits at a fork labeled PRICE and DURABILITY; PRICE glows, DURABILITY remains dim.",
+          "asset_ids": [
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "fork split",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "supply-recovery-mechanism",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Make the payoff tension visually explicit.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m29"
+              }
+            }
+          ]
+        },
+        {
+          "beat_id": "m30",
+          "scene_id": "midform_16x9-scene-10",
+          "chapter_id": "midform_16x9-chapter-06",
+          "narrative_role": "evidence",
+          "narration_text": "Watch the barrels, the inventories and the demand.",
+          "claim_ids": [
+            "article:mechanism"
+          ],
+          "evidence_ids": [
+            "eia-release-press590"
+          ],
+          "viewer_takeaway": "Deliver the durable viewer takeaway.",
+          "visual_purpose": "Wide calm basin, last tanker dot arrives; final text: WATCH BARRELS. INVENTORIES. DEMAND.",
+          "asset_ids": [
+            "hormuz-context-map",
+            "supply-recovery-mechanism"
+          ],
+          "audio_state": "evidence",
+          "transition_intent": "slow dissolve to black",
+          "target_duration_seconds": 4.0,
+          "edits": [
+            {
+              "operation": "KINETIC_TEXT",
+              "asset_id": "hormuz-context-map",
+              "at_seconds": 0.0,
+              "narrative_purpose": "Deliver the durable viewer takeaway.",
+              "parameters": {
+                "authored_motion_code": true,
+                "shot_id": "m30"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

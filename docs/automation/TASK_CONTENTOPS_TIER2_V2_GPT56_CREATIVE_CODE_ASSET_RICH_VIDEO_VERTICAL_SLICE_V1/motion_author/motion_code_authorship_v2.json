@@ -1,0 +1,126 @@
+{
+  "schema_version": "contentops.retention_native.motion_code_authorship.v2",
+  "status": "PASS",
+  "selected_model": "new/gpt-5.6-sol-medium",
+  "creative_blueprint_path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\docs\\automation\\TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1\\creative_blueprint_v2.json",
+  "creative_blueprint_sha256": "522ae3c708d843e48be9671e9298e45e1da8a27bcc247f7938d7656e85361cd4",
+  "authored_shot_count": 44,
+  "authored_source_path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\video\\retention_native_v2\\src\\generated\\authored_shots.tsx",
+  "authored_source_sha256": "22e0f72efbfebe1ca6dc3ed32125719d5c275d7aa85ad8929d728834d1ed4559",
+  "director_source_path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\docs\\automation\\TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1\\motion_author\\director_source_from_accepted_blueprint_v2.json",
+  "director_source_sha256": "d4ebf134c7882f41a01812c3350dde2df4e99f6515b64f42fb23981520e0f4bd",
+  "receipts": [
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\docs\\automation\\TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1\\motion_author\\motion_code_short_9x16_batch_01_receipt_v2.json",
+      "sha256": "3b45294452af14c8631fd717ae64515b747e700133993e2d2e2ec3e9542d7735",
+      "shot_ids": [
+        "s01",
+        "s02",
+        "s03",
+        "s04",
+        "s05"
+      ],
+      "selected_model": "new/gpt-5.6-sol-medium"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\docs\\automation\\TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1\\motion_author\\motion_code_short_9x16_batch_02_receipt_v2.json",
+      "sha256": "4f0f86cfc5d7197a95d507ebf11800cf29df2376bef458d82e883c852870052d",
+      "shot_ids": [
+        "s06",
+        "s07",
+        "s08",
+        "s09",
+        "s10"
+      ],
+      "selected_model": "new/gpt-5.6-sol-medium"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\docs\\automation\\TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1\\motion_author\\motion_code_short_9x16_batch_03_receipt_v2.json",
+      "sha256": "0891c7efef154f7d3f2379ad0cc6557d54513e20b2145d8972e42000113a80fe",
+      "shot_ids": [
+        "s11",
+        "s12",
+        "s13",
+        "s14"
+      ],
+      "selected_model": "new/gpt-5.6-sol-medium"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\docs\\automation\\TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1\\motion_author\\motion_code_midform_16x9_batch_01_receipt_v2.json",
+      "sha256": "52d0bb88d7939abda410b1c6397956844b44f5c17640fda5561cea939f077566",
+      "shot_ids": [
+        "m01",
+        "m02",
+        "m03",
+        "m04",
+        "m05"
+      ],
+      "selected_model": "new/gpt-5.6-sol-medium"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\docs\\automation\\TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1\\motion_author\\motion_code_midform_16x9_batch_02_receipt_v2.json",
+      "sha256": "4c9e337192c133e6c7f3a57b1f28386e68f92728419701a1b2e79a9d35b47197",
+      "shot_ids": [
+        "m06",
+        "m07",
+        "m08",
+        "m09",
+        "m10"
+      ],
+      "selected_model": "new/gpt-5.6-sol-medium"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\docs\\automation\\TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1\\motion_author\\motion_code_midform_16x9_batch_03_receipt_v2.json",
+      "sha256": "56b5328cf5ec66ccfcde63f5a80dc6871e6f7cbc19a068f4f18a13549ce7a468",
+      "shot_ids": [
+        "m11",
+        "m12",
+        "m13",
+        "m14",
+        "m15"
+      ],
+      "selected_model": "new/gpt-5.6-sol-medium"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\docs\\automation\\TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1\\motion_author\\motion_code_midform_16x9_batch_04_receipt_v2.json",
+      "sha256": "dd7c2be89be98b9da2d52665fddd0471fd4474b914046ad07fd679795bc9b17b",
+      "shot_ids": [
+        "m16",
+        "m17",
+        "m18",
+        "m19",
+        "m20"
+      ],
+      "selected_model": "new/gpt-5.6-sol-medium"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\docs\\automation\\TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1\\motion_author\\motion_code_midform_16x9_batch_05_receipt_v2.json",
+      "sha256": "06c0c6c1410a55521b63a3c13217bb414b7a86cf697f5f28548dbecd729e5181",
+      "shot_ids": [
+        "m21",
+        "m22",
+        "m23",
+        "m24",
+        "m25"
+      ],
+      "selected_model": "new/gpt-5.6-sol-medium"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps-tier2-v2-gpt56-creative-code-asset-rich-video-v1\\docs\\automation\\TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1\\motion_author\\motion_code_midform_16x9_batch_06_receipt_v2.json",
+      "sha256": "f05b4cd2e7e40a8346bdf55a333b32e0731264e111020e177281b8bed2fe6419",
+      "shot_ids": [
+        "m26",
+        "m27",
+        "m28",
+        "m29",
+        "m30"
+      ],
+      "selected_model": "new/gpt-5.6-sol-medium"
+    }
+  ],
+  "browser_or_cdp_actions": 0,
+  "uploads": 0,
+  "public_writes": 0,
+  "publication_authority": false,
+  "factual_authority": false
+}

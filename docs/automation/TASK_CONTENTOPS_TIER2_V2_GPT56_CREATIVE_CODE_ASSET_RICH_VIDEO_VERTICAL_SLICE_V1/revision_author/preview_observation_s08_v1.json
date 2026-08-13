@@ -1,0 +1,26 @@
+{
+  "schema_version": "contentops.retention_native.preview_observation.v2",
+  "status": "REVISION_REQUIRED",
+  "variant_id": "short_9x16",
+  "shot_id": "s08",
+  "sample_phase": "midpoint",
+  "contact_sheet_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_gpt56_preview_first_20260813\\review\\short_9x16_preview_contact_sheet.jpg",
+  "contact_sheet_sha256": "94a31b6be6be346458a7aa0ac2ef380e6c49a7293d8bdb9e566b611d39a13b9d",
+  "issues": [
+    {
+      "issue_id": "s08-primary-typography-collision",
+      "severity": "BLOCKER",
+      "description": "SUPPLY, INVENTORIES, and DEMAND overlap at the sampled midpoint and are not professionally legible."
+    },
+    {
+      "issue_id": "authored-internal-source-label-duplication",
+      "severity": "MAJOR",
+      "description": "Authored components repeat sourceLabel while canonical outer chrome already renders attribution, creating competing source labels."
+    }
+  ],
+  "captions_visible": false,
+  "observer": "ChatGPT_Codex_visual_inspection",
+  "public_write": false,
+  "publication_authority": false,
+  "factual_authority": false
+}
