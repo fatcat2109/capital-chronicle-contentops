@@ -1,0 +1,104 @@
+{
+  "schema_version": "contentops.v2.minimal_raw_xhigh_experiment_evidence.v1",
+  "task": "TASK_CONTENTOPS_V2_MINIMAL_RAW_XHIGH_CALL_AND_PROOF_RESUME_V1",
+  "status": "BLOCKED_MINIMAL_RAW_XHIGH_DIRECTOR_PROVIDER_EXECUTION",
+  "branch": "task/v2-concrete-first-xhigh-replacement-vertical-slice-v1",
+  "implementation_commit": "9acf99d409101182af1bb9f608c6a84d363018ea",
+  "same_prompt_control": {
+    "logical_invocation_id": "inv_v2_director_785c613781be4706cf39",
+    "prompt_sha256": "9f39fd6fff3b9b43e9ee8cdd065de74058bc7441b04aff7e06c4cfcc58478f55",
+    "prompt_character_size": 14307,
+    "prompt_byte_size": 14307,
+    "prior_configured_audit_sha256": "788fcb57d4f0e755cb36f7d8c789e3f96840fa8d456f4c222777c3944abb7e7a",
+    "prior_xhigh_prompt_sha256_matches": true
+  },
+  "minimal_request": {
+    "requested_model": "new/gpt-5.6-sol-xhigh",
+    "wire_model": "new/gpt-5.6-sol-xhigh",
+    "request_body_field_names": [
+      "messages",
+      "model"
+    ],
+    "optional_generation_fields_absent": true,
+    "optional_generation_fields_checked": [
+      "frequency_penalty",
+      "max_tokens",
+      "presence_penalty",
+      "reasoning_effort",
+      "response_format",
+      "seed",
+      "stop",
+      "temperature",
+      "tool_choice",
+      "tools",
+      "top_p"
+    ],
+    "request_body_sha256": "7b44b585b58098b24883942f940e6d28a98a08e3208fa68166664324e6def01e",
+    "request_body_byte_size": 15304,
+    "messages_count": 1,
+    "message_roles": [
+      "user"
+    ],
+    "transport_header_names": [
+      "Authorization",
+      "Content-Type"
+    ],
+    "contains_credentials": false
+  },
+  "provider_result": {
+    "effective_model": null,
+    "http_status": 502,
+    "failure_class": "http_502_bad_gateway",
+    "retry_after_seconds": 30.0,
+    "latency_seconds": 251.1454,
+    "provider_invocation_id": null,
+    "usage": null,
+    "cost": null,
+    "raw_response_sha256": "336d2d5506f9fac641d5fa0f93042a21951faf55e701054ff3c702cc68db047e",
+    "raw_response_byte_size": 150,
+    "raw_model_output_sha256": null,
+    "raw_model_output_byte_size": 0
+  },
+  "execution": {
+    "isolated_execution_domain_id": "v2-01-b4e4b6c031ea4f31aaa57351e8006c5f",
+    "provider_attempt_count": 1,
+    "logical_invocation_count": 1,
+    "models_attempted_in_order": [
+      "new/gpt-5.6-sol-xhigh"
+    ],
+    "terminal_disposition": "LLM_RETRY_BUDGET_EXHAUSTED",
+    "fallback_transitions": 0,
+    "same_model_retries": 0,
+    "format_normalizer_calls": 0,
+    "execution_audit_state": "REVOKED",
+    "execution_audit_sha256": "c27f609c19e2225a0940e58249c7d7de12e0e92e1590bf99698ad45de222f89a"
+  },
+  "runtime_evidence_sha256": {
+    "minimal_raw_experiment": "7da6a12f7db20af83abd65ba540781db996fd85c17a015dc1a513934290c53f3",
+    "isolated_proof_result": "c56b3c44e6a8796ac616d5495f7a4e01ad2c6d4f60e609277902fe4232c10069",
+    "sanitized_provider_receipt": "68d45d13041a56c846bf2a974be79666141320c71dce6e8214e2015a342d5344",
+    "sanitized_request_metadata": "5bf39b39ce2bfe054b03c0bdee72741236c631431fc4bb2b2b42d6090b56e55d"
+  },
+  "safety": {
+    "shared_global_pause_unchanged": true,
+    "shared_global_pause_sha256": "fe1829bc68b18112184b93f7d4612f67a134518ce35b43adcfa3c53777faac8d",
+    "v1_daily_app_continuity": true,
+    "v1_provider_calls_authorized_by_v2_lease": 0,
+    "public_writes": 0,
+    "codex_local_brain_active": false,
+    "v2_02_started": false
+  },
+  "downstream": {
+    "director_artifact": null,
+    "format_normalizer_route": null,
+    "segment_authorship": null,
+    "storyboard": null,
+    "animatic": null,
+    "motion_author_calls": 0,
+    "media": null,
+    "critic": null,
+    "owner_acceptance": "PENDING"
+  },
+  "raw_provider_response_committed": false,
+  "public_write": false
+}
