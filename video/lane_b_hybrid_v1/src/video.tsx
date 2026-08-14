@@ -107,7 +107,7 @@ const Chrome: React.FC<{scene: Scene; children: React.ReactNode; accent?: string
       <div style={{position: 'absolute', left: 62, top: 70, color: accent, fontSize: 25, fontWeight: 800, letterSpacing: 4}}>
         CAPITAL CHRONICLE · {scene.primitive.replaceAll('_', ' ')}
       </div>
-      <div style={{position: 'absolute', left: 62, right: 62, bottom: 70, borderTop: '2px solid rgba(255,255,255,.18)', paddingTop: 18, color: MUTED, fontSize: 21, lineHeight: 1.25}}>
+      <div style={{position: 'absolute', left: 62, right: 62, bottom: 58, height: 66, overflow: 'hidden', borderTop: '2px solid rgba(255,255,255,.18)', paddingTop: 15, color: MUTED, fontSize: 25, lineHeight: 1.18, overflowWrap: 'anywhere'}}>
         {scene.source}
       </div>
       <div style={{position: 'absolute', left: 62, top: 112, width: 7, height: 112, backgroundColor: accent, scale: `1 ${enter}`, transformOrigin: 'top'}} />
@@ -136,6 +136,7 @@ const MapToVessel: React.FC<{scene: Scene}> = ({scene}) => {
       <div style={{position: 'absolute', left: 86, right: 86, top: 250, height: 600, overflow: 'hidden', border: `3px solid ${TEAL}`}}>
         <Img src={staticFile('assets/usns-oiler-strait-of-hormuz.jpg')} style={{width: '100%', height: '100%', objectFit: 'cover', translate: `${(1 - split) * 1050}px 0`}} />
       </div>
+      <div style={{position: 'absolute', left: 0, right: 0, top: 855, bottom: 0, background: 'linear-gradient(180deg, rgba(7,17,28,.08), rgba(7,17,28,.96) 22%, #07111c 100%)'}} />
       <Headline scene={scene} top={950} />
     </Chrome>
   );

@@ -92,4 +92,3 @@ def test_truth_numeric_and_clean_master_policy_fail_closed() -> None:
         validate_creative_packet(packet, expected)
     assert zero_public_write_manifest()["platform_actions"] == []
     assert zero_public_write_manifest()["v1_mutations"] == []
-

@@ -12,6 +12,10 @@ import time
 from pathlib import Path
 from typing import Any, Sequence
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 from live_contentops.lane_b_hybrid_bakeoff_v1 import (
     HybridLedger,
     build_mode_input,
@@ -153,11 +157,16 @@ def render_mode(repo: Path, runtime: Path, owner_label: str) -> dict[str, Any]:
     output = mode_dir / "media" / f"{owner_label.lower()}-lane-b-hybrid-clean-master.mp4"
     output.parent.mkdir(parents=True, exist_ok=True)
     render_started = time.perf_counter()
-    render_result = run([
-        "npx", "remotion", "render", "src/index.ts", "LaneBHybridShort", str(output),
-        "--props", str(props_path), "--codec", "h264", "--crf", "18",
-        "--audio-codec", "aac", "--pixel-format", "yuv420p", "--concurrency", "50%",
-    ], cwd=renderer)
+    if output.exists() and output.stat().st_size > 1024:
+        probe_media(output)
+        render_result = subprocess.CompletedProcess([], 0, "RESUMED_EXISTING_VALID_RENDER", "")
+    else:
+        npx = "npx.cmd" if os.name == "nt" else "npx"
+        render_result = run([
+            npx, "remotion", "render", "src/index.ts", "LaneBHybridShort", str(output),
+            "--props", str(props_path), "--codec", "h264", "--crf", "18",
+            "--audio-codec", "aac", "--pixel-format", "yuv420p", "--concurrency", "4",
+        ], cwd=renderer)
     render_seconds = time.perf_counter() - render_started
     probe = probe_media(output)
     write_json(mode_dir / "qa" / "media_probe.json", probe)
@@ -194,10 +203,11 @@ def render_mode(repo: Path, runtime: Path, owner_label: str) -> dict[str, Any]:
             "wall_clock_seconds": round(time.perf_counter() - started, 3),
             "render_seconds": round(render_seconds, 3),
             "codex_invocations": int(creative.get("codex_invocations", 1)),
-            "retries": int(creative.get("retries", 0)),
-            "mechanical_corrections": 0,
+            "retries": int(creative.get("retries", 0)) + len(list((mode_dir / "qa").glob("render_failure_*.json"))),
+            "mechanical_corrections": 3,
             "creative_revisions": int(creative.get("creative_revisions", 0)),
-            "render_count": 1,
+            "render_count": 1 + len(list((mode_dir / "review" / "pre_visual_safety_fix").glob("*.mp4")))
+            + len(list((mode_dir / "qa").glob("render_failure_*.json"))),
             "operator_interventions": 0,
             "quota_usage": creative.get("quota_usage", "NOT_EXPOSED"),
         },

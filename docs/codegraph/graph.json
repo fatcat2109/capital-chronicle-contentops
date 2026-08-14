@@ -76456,7 +76456,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-14T09:27:55Z",
+  "generation_timestamp_utc": "2026-08-14T09:55:05Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -78335,7 +78335,7 @@
     {
       "id": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
       "kind": "python_module",
-      "size_bytes": 14880
+      "size_bytes": 14879
     },
     {
       "id": "live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -111844,63 +111844,63 @@
     {
       "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::audio_qa",
       "kind": "python_function",
-      "line": 116,
+      "line": 120,
       "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
       "symbol": "audio_qa"
     },
     {
       "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::engine_head",
       "kind": "python_function",
-      "line": 41,
+      "line": 45,
       "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
       "symbol": "engine_head"
     },
     {
       "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::main",
       "kind": "python_function",
-      "line": 222,
+      "line": 232,
       "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::media_review",
       "kind": "python_function",
-      "line": 99,
+      "line": 103,
       "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
       "symbol": "media_review"
     },
     {
       "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::parse_args",
       "kind": "python_function",
-      "line": 212,
+      "line": 222,
       "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
       "symbol": "parse_args"
     },
     {
       "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::prepare",
       "kind": "python_function",
-      "line": 45,
+      "line": 49,
       "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
       "symbol": "prepare"
     },
     {
       "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
       "kind": "python_function",
-      "line": 123,
+      "line": 127,
       "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
       "symbol": "render_mode"
     },
     {
       "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::run",
       "kind": "python_function",
-      "line": 34,
+      "line": 38,
       "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
       "symbol": "run"
     },
     {
       "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::synthesize_voice",
       "kind": "python_function",
-      "line": 77,
+      "line": 81,
       "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
       "symbol": "synthesize_voice"
     },
@@ -112973,7 +112973,7 @@
     {
       "id": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
       "kind": "python_module",
-      "size_bytes": 10476
+      "size_bytes": 11069
     },
     {
       "id": "scripts/run_operator_approved_supervised_live_daily_run_v0.py",
@@ -114348,7 +114348,7 @@
     {
       "id": "tests/test_lane_b_hybrid_bakeoff_v1.py",
       "kind": "test",
-      "size_bytes": 4117
+      "size_bytes": 4116
     },
     {
       "id": "tests/test_lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -119566,7 +119566,7 @@
     {
       "id": "typescript_export:video/lane_b_hybrid_v1/src/video.tsx::HybridShort",
       "kind": "typescript_export",
-      "line": 252,
+      "line": 253,
       "path": "video/lane_b_hybrid_v1/src/video.tsx",
       "symbol": "HybridShort"
     },
@@ -120234,7 +120234,7 @@
     {
       "id": "video/lane_b_hybrid_v1/src/video.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 13164
+      "size_bytes": 13402
     },
     {
       "id": "video/lane_b_hybrid_v1/tsconfig.json",
@@ -120305,6 +120305,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "1ce4276ee7cdcdae741917bbbdcfe3a5b4c3d029",
-  "source_tree_digest": "e4c7d4a1b3cc1b4d7a5176075962d66ef4a39ee254c50e1335d445b1a3486dfb"
+  "source_head": "f9d2362a2307eff18d4ba05b501b14a14dd4cb62",
+  "source_tree_digest": "34d5789a916e1b767737e8f2ea611944262899af5ec6e7f927fe8f0db9ea9e2f"
 }

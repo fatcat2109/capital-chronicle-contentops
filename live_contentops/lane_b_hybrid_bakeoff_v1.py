@@ -344,4 +344,3 @@ def zero_public_write_manifest() -> dict[str, Any]:
         "v1_mutations": [],
         "authority": "ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY",
     }
-
