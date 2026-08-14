@@ -17,11 +17,12 @@ Safety boundary:
 """
 from __future__ import annotations
 
+import base64
 import importlib.util
 import json
 import time
 from pathlib import Path
-from typing import Any, Mapping, Optional
+from typing import Any, Mapping
 
 from live_contentops.headline_data_root_v1 import canonical_headline_data_root
 from live_contentops.browser_interaction_budget_v1 import record_browser_interaction_event
@@ -37,6 +38,7 @@ MAX_CAPTURE_SECONDS_DEFAULT = 120.0
 MAX_EMPTY_SCROLLS_DEFAULT = 3
 RELOAD_SETTLE_MS = 4000
 SCROLL_WAIT_MS = 4200
+DIRECT_CDP_COMMAND_TIMEOUT_SECONDS = 10.0
 
 CAPTURE_STATE_CAPTURED = "CAPTURED"
 CAPTURE_STATE_REAUTH_REQUIRED = "REAUTH_REQUIRED"
@@ -295,6 +297,392 @@ def select_reusable_x_page(context: Any) -> Any | None:
     )
 
 
+def list_cdp_page_targets(
+    *, cdp_url: str = CDP_URL_DEFAULT, timeout_seconds: float = 10.0
+) -> list[dict[str, Any]]:
+    """Return the visible page-target catalog without reading browser session material."""
+
+    import urllib.request as _urllib_request
+
+    with _urllib_request.urlopen(
+        f"{cdp_url}/json/list", timeout=min(timeout_seconds, 15.0)
+    ) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+    if not isinstance(payload, list):
+        raise IngestCaptureError("CDP_TARGET_CATALOG_NOT_A_LIST")
+    return [
+        dict(row)
+        for row in payload
+        if isinstance(row, dict) and str(row.get("type") or "") == "page"
+    ]
+
+
+def select_reusable_x_target(targets: list[Mapping[str, Any]]) -> dict[str, Any] | None:
+    """Prefer an existing exact list target, then another existing X page target."""
+
+    exact = next(
+        (
+            row
+            for row in targets
+            if TARGET_LIST_ID in str(row.get("url") or "")
+            and str(row.get("webSocketDebuggerUrl") or "")
+        ),
+        None,
+    )
+    fallback = exact or next(
+        (
+            row
+            for row in targets
+            if (
+                "x.com" in str(row.get("url") or "")
+                or "twitter.com" in str(row.get("url") or "")
+            )
+            and str(row.get("webSocketDebuggerUrl") or "")
+        ),
+        None,
+    )
+    return dict(fallback) if fallback is not None else None
+
+
+class _DirectCDPPageClient:
+    """Small target-scoped CDP client.
+
+    Browser-level Playwright attachment initializes every open target. That is needlessly
+    expensive for this lane and can stall when the operator profile has several X tabs. This
+    client attaches only to the one already-visible X page selected above.
+    """
+
+    def __init__(self, websocket_url: str, *, timeout_seconds: float) -> None:
+        import websocket
+
+        self._websocket_module = websocket
+        self._socket = websocket.create_connection(
+            websocket_url,
+            timeout=timeout_seconds,
+            suppress_origin=True,
+        )
+        self._next_id = 0
+        self._queued_events: list[dict[str, Any]] = []
+
+    def close(self) -> None:
+        self._socket.close()
+
+    def command(
+        self,
+        method: str,
+        params: Mapping[str, Any] | None = None,
+        *,
+        timeout_seconds: float = DIRECT_CDP_COMMAND_TIMEOUT_SECONDS,
+    ) -> dict[str, Any]:
+        self._next_id += 1
+        command_id = self._next_id
+        self._socket.send(json.dumps({
+            "id": command_id,
+            "method": method,
+            "params": dict(params or {}),
+        }))
+        deadline = time.monotonic() + timeout_seconds
+        while True:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError(f"CDP_COMMAND_TIMEOUT:{method}")
+            self._socket.settimeout(remaining)
+            row = json.loads(self._socket.recv())
+            if row.get("id") != command_id:
+                if row.get("method"):
+                    self._queued_events.append(row)
+                continue
+            if row.get("error"):
+                raise IngestCaptureError(f"CDP_COMMAND_FAILED:{method}")
+            result = row.get("result")
+            return dict(result) if isinstance(result, dict) else {}
+
+    def event(self, *, timeout_seconds: float) -> dict[str, Any] | None:
+        if self._queued_events:
+            return self._queued_events.pop(0)
+        self._socket.settimeout(max(0.01, timeout_seconds))
+        try:
+            row = json.loads(self._socket.recv())
+        except self._websocket_module.WebSocketTimeoutException:
+            return None
+        if row.get("method"):
+            return row
+        return None
+
+
+def _new_capture_result() -> dict[str, Any]:
+    return {
+        "capture_state": CAPTURE_STATE_FAILED,
+        "target_list_id": TARGET_LIST_ID,
+        "timeline_responses_observed": 0,
+        "new_headlines": 0,
+        "sidecar_rows_before": 0,
+        "sidecar_rows_after": 0,
+        "duration_seconds": 0.0,
+        "login_automation": False,
+        "browser_closed": False,
+        "tab_created": False,
+        "tab_closed": False,
+        "navigation_count": 0,
+        "detail": None,
+        "capture_phase": "LOAD_DATA_MODULE",
+        "timeline_responses_seen": 0,
+        "failure_class": None,
+        "failure_detail": None,
+        "cdp_transport": "TARGET_SCOPED_DIRECT_CDP",
+    }
+
+
+def _finish_direct_capture_result(
+    result: dict[str, Any], module: Any, state: Mapping[str, Any], started: float
+) -> dict[str, Any]:
+    result["timeline_responses_observed"] = int(state.get("responses") or 0)
+    result["timeline_responses_seen"] = int(state.get("responses_seen") or 0)
+    if state.get("failure_class"):
+        result["failure_class"] = state["failure_class"]
+        result["failure_detail"] = state.get("failure_detail")
+        result["detail"] = state.get("failure_detail")
+    result["sidecar_rows_after"] = count_sidecar_rows(module)
+    result["new_headlines"] = max(
+        0, result["sidecar_rows_after"] - result["sidecar_rows_before"]
+    )
+    appended_rows = list(state.get("appended_rows") or [])
+    result["new_headline_ids"] = sorted({
+        str(row.get("headline_id") or "")
+        for row in appended_rows
+        if str(row.get("headline_id") or "")
+    })
+    result["new_headline_source_refs"] = sorted(
+        (
+            {
+                "headline_id": str(row.get("headline_id") or ""),
+                "dedup_key": str(row.get("dedup_key") or ""),
+                "headline_timestamp": str(row.get("headline_timestamp") or ""),
+                "source_platform": str(row.get("source_platform") or ""),
+            }
+            for row in appended_rows
+            if str(row.get("headline_id") or "")
+        ),
+        key=lambda row: row["headline_id"],
+    )
+    result["duration_seconds"] = round(time.monotonic() - started, 2)
+    if result["capture_state"] == CAPTURE_STATE_REAUTH_REQUIRED:
+        return result
+    if result["failure_class"]:
+        return result
+    if result["timeline_responses_observed"] > 0:
+        result["capture_phase"] = "COMPLETE"
+        result["capture_state"] = (
+            CAPTURE_STATE_CAPTURED if result["new_headlines"] > 0 else CAPTURE_STATE_NO_NEW_DATA
+        )
+    else:
+        result["failure_class"] = FAILURE_MALFORMED_RESPONSE
+        result["failure_detail"] = "NO_TIMELINE_RESPONSE_OBSERVED_AFTER_RELOAD"
+        result["detail"] = result["failure_detail"]
+    return result
+
+
+def _run_direct_cdp_capture(
+    *,
+    max_seconds: float,
+    max_empty_scrolls: int,
+    cdp_url: str,
+    client_factory: Any = _DirectCDPPageClient,
+) -> dict[str, Any]:
+    """Capture through one existing X page target, bypassing browser-wide target init."""
+
+    started = time.monotonic()
+    result = _new_capture_result()
+    try:
+        module = load_data_ingestion_module()
+    except Exception as exc:  # noqa: BLE001
+        failure_class, failure_detail = classify_capture_exception(exc, phase="LOAD_DATA_MODULE")
+        result.update({
+            "failure_class": failure_class,
+            "failure_detail": failure_detail,
+            "detail": failure_detail,
+            "duration_seconds": round(time.monotonic() - started, 2),
+        })
+        return result
+    result["sidecar_rows_before"] = count_sidecar_rows(module)
+    state: dict[str, Any] = {
+        "responses": 0,
+        "responses_seen": 0,
+        "appended_rows": [],
+        "pending_responses": {},
+        "failure_class": None,
+        "failure_detail": None,
+    }
+
+    result["capture_phase"] = "CDP_TARGET_DISCOVERY"
+    try:
+        target = select_reusable_x_target(
+            list_cdp_page_targets(cdp_url=cdp_url, timeout_seconds=10.0)
+        )
+    except Exception as exc:  # noqa: BLE001
+        _classified, failure_detail = classify_capture_exception(
+            exc, phase="CDP_TARGET_DISCOVERY"
+        )
+        result.update({
+            "capture_state": CAPTURE_STATE_CDP_UNAVAILABLE,
+            "failure_class": FAILURE_CDP_BROWSER_UNAVAILABLE,
+            "failure_detail": failure_detail,
+            "detail": failure_detail,
+            "duration_seconds": round(time.monotonic() - started, 2),
+        })
+        return result
+    if target is None:
+        result.update({
+            "failure_class": FAILURE_PAGE_LIST_NOT_READY,
+            "failure_detail": "NO_REUSABLE_X_PAGE_TARGET",
+            "detail": "NO_REUSABLE_X_PAGE_TARGET",
+        })
+        return _finish_direct_capture_result(result, module, state, started)
+
+    result["capture_phase"] = "CDP_TARGET_CONNECT"
+    try:
+        client = client_factory(
+            str(target["webSocketDebuggerUrl"]),
+            timeout_seconds=DIRECT_CDP_COMMAND_TIMEOUT_SECONDS,
+        )
+    except Exception as exc:  # noqa: BLE001
+        _classified, failure_detail = classify_capture_exception(
+            exc, phase="CDP_TARGET_CONNECT"
+        )
+        result.update({
+            "capture_state": CAPTURE_STATE_CDP_UNAVAILABLE,
+            "failure_class": FAILURE_CDP_BROWSER_UNAVAILABLE,
+            "failure_detail": failure_detail,
+            "detail": failure_detail,
+        })
+        return _finish_direct_capture_result(result, module, state, started)
+
+    capture_deadline = started + max_seconds
+
+    def _consume_event(event: Mapping[str, Any]) -> None:
+        method = str(event.get("method") or "")
+        params = event.get("params") if isinstance(event.get("params"), dict) else {}
+        if method == "Network.responseReceived":
+            response = params.get("response") if isinstance(params.get("response"), dict) else {}
+            if TIMELINE_RESPONSE_MARKER not in str(response.get("url") or ""):
+                return
+            state["responses_seen"] += 1
+            status = int(float(response.get("status") or 0))
+            if status != 200:
+                status_class = "HTTP_4XX" if 400 <= status < 500 else (
+                    "HTTP_5XX" if 500 <= status < 600 else "HTTP_NON_200"
+                )
+                state["failure_class"] = FAILURE_PAGE_LIST_NOT_READY
+                state["failure_detail"] = f"TIMELINE_RESPONSE_{status_class}"
+                return
+            request_id = str(params.get("requestId") or "")
+            if request_id:
+                state["pending_responses"][request_id] = str(response.get("url") or "")
+            return
+        if method != "Network.loadingFinished":
+            return
+        request_id = str(params.get("requestId") or "")
+        source_url = state["pending_responses"].pop(request_id, None)
+        if source_url is None:
+            return
+        try:
+            body_result = client.command(
+                "Network.getResponseBody", {"requestId": request_id}, timeout_seconds=10.0
+            )
+            body = str(body_result.get("body") or "")
+            if body_result.get("base64Encoded"):
+                body = base64.b64decode(body).decode("utf-8")
+            payload = json.loads(body)
+            raw_metadata = module.archive_raw_payload(payload, source_url)
+            tweets = module.recursive_tweet_extractor(payload)
+            state["responses"] += 1
+            if tweets:
+                append_deduped_sidecar_rows(
+                    module, tweets, raw_metadata, state["appended_rows"]
+                )
+        except Exception as exc:  # noqa: BLE001
+            failure_class, failure_detail = classify_capture_exception(
+                exc, phase="RESPONSE_EXTRACTION"
+            )
+            state["failure_class"] = failure_class
+            state["failure_detail"] = failure_detail
+
+    def _drain_for(seconds: float) -> None:
+        deadline = min(capture_deadline, time.monotonic() + seconds)
+        while time.monotonic() < deadline:
+            event = client.event(timeout_seconds=min(0.5, deadline - time.monotonic()))
+            if event is not None:
+                _consume_event(event)
+
+    def _visible_page_url() -> str:
+        evaluated = client.command("Runtime.evaluate", {
+            "expression": "window.location.href",
+            "returnByValue": True,
+        })
+        value = evaluated.get("result") if isinstance(evaluated.get("result"), dict) else {}
+        return str(value.get("value") or "")
+
+    try:
+        result["capture_phase"] = "CDP_ENABLE"
+        client.command("Page.enable")
+        client.command("Runtime.enable")
+        client.command("Network.enable")
+        visible_url = str(target.get("url") or "")
+        if _visible_url_is_login_redirect(visible_url):
+            result["capture_state"] = CAPTURE_STATE_REAUTH_REQUIRED
+            result["detail"] = "LOGIN_REDIRECT_OBSERVED"
+            return _finish_direct_capture_result(result, module, state, started)
+        if TARGET_LIST_ID not in visible_url:
+            result["capture_phase"] = "NAVIGATION"
+            result["navigation_count"] += 1
+            record_browser_interaction_event(
+                "navigation", reason="X_CANONICAL_LIST_ROUTE", destination="x_ingestion"
+            )
+            client.command("Page.navigate", {"url": TARGET_LIST_URL}, timeout_seconds=30.0)
+            _drain_for(RELOAD_SETTLE_MS / 1000.0)
+            visible_url = _visible_page_url()
+            if _visible_url_is_login_redirect(visible_url):
+                result["capture_state"] = CAPTURE_STATE_REAUTH_REQUIRED
+                result["detail"] = "LOGIN_REDIRECT_OBSERVED"
+                return _finish_direct_capture_result(result, module, state, started)
+            if TARGET_LIST_ID not in visible_url:
+                result["failure_class"] = FAILURE_PAGE_LIST_NOT_READY
+                result["failure_detail"] = "CANONICAL_LIST_ROUTE_NOT_ACTIVE_AFTER_NAVIGATION"
+                result["detail"] = result["failure_detail"]
+                return _finish_direct_capture_result(result, module, state, started)
+        result["capture_phase"] = "RELOAD"
+        result["navigation_count"] += 1
+        record_browser_interaction_event(
+            "navigation", reason="X_DUE_CAPTURE_RELOAD", destination="x_ingestion"
+        )
+        client.command("Page.reload", timeout_seconds=30.0)
+        _drain_for(RELOAD_SETTLE_MS / 1000.0)
+        empty_scrolls = 0
+        while empty_scrolls < max_empty_scrolls and time.monotonic() < capture_deadline:
+            result["capture_phase"] = "EXTRACTION_SCROLL"
+            before = count_sidecar_rows(module)
+            client.command("Runtime.evaluate", {
+                "expression": "window.scrollTo(0, document.body.scrollHeight)",
+                "returnByValue": True,
+            })
+            _drain_for(SCROLL_WAIT_MS / 1000.0)
+            after = count_sidecar_rows(module)
+            empty_scrolls = 0 if after > before else empty_scrolls + 1
+    except Exception as exc:  # noqa: BLE001
+        failure_class, failure_detail = classify_capture_exception(
+            exc, phase=str(result.get("capture_phase") or "CAPTURE")
+        )
+        result["failure_class"] = failure_class
+        result["failure_detail"] = failure_detail
+        result["detail"] = failure_detail
+    finally:
+        try:
+            client.close()
+        except Exception:  # noqa: BLE001 - detachment cleanup must not erase capture truth
+            pass
+    return _finish_direct_capture_result(result, module, state, started)
+
+
 def run_bounded_x_list_capture(
     *,
     max_seconds: float = MAX_CAPTURE_SECONDS_DEFAULT,
@@ -303,6 +691,13 @@ def run_bounded_x_list_capture(
     playwright: Any = None,
 ) -> dict[str, Any]:
     """One bounded capture. Returns a nonsecret summary; never closes the operator browser."""
+    if playwright is None:
+        return _run_direct_cdp_capture(
+            max_seconds=max_seconds,
+            max_empty_scrolls=max_empty_scrolls,
+            cdp_url=cdp_url,
+        )
+
     from playwright.sync_api import sync_playwright
 
     started = time.monotonic()

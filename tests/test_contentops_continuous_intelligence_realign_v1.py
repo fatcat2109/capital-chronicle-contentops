@@ -443,6 +443,110 @@ def test_x_capture_prefers_existing_exact_locked_list_tab():
     assert capture.select_reusable_x_page(context) is exact
 
 
+def test_direct_cdp_target_selection_ignores_unrelated_and_prefers_exact_list():
+    targets = [
+        {"type": "page", "url": "https://example.test", "webSocketDebuggerUrl": "ws://example"},
+        {"type": "page", "url": "https://x.com/home", "webSocketDebuggerUrl": "ws://home"},
+        {
+            "type": "page",
+            "url": capture.TARGET_LIST_URL,
+            "webSocketDebuggerUrl": "ws://exact",
+        },
+    ]
+
+    assert capture.select_reusable_x_target(targets)["webSocketDebuggerUrl"] == "ws://exact"
+
+
+def test_direct_target_cdp_capture_reuses_canonical_extractor_without_browser_wide_attach(
+    tmp_path, monkeypatch,
+):
+    sidecar_dir = tmp_path / "sidecars"
+    sidecar_dir.mkdir()
+    module = type("Module", (), {
+        "SIDECAR_DIR": str(sidecar_dir),
+        "archive_raw_payload": staticmethod(
+            lambda _payload, _url: {"raw_payload_ref": "raw", "raw_payload_sha256": "a" * 64}
+        ),
+        "recursive_tweet_extractor": staticmethod(
+            lambda _payload: [{"tweet_id": "7", "timestamp": "2026-08-14", "text": "headline"}]
+        ),
+    })()
+    monkeypatch.setattr(capture, "load_data_ingestion_module", lambda: module)
+    monkeypatch.setattr(
+        capture,
+        "list_cdp_page_targets",
+        lambda **_kwargs: [{
+            "type": "page",
+            "url": capture.TARGET_LIST_URL,
+            "webSocketDebuggerUrl": "ws://exact",
+        }],
+    )
+    monkeypatch.setattr(capture, "RELOAD_SETTLE_MS", 10)
+    monkeypatch.setattr(capture, "SCROLL_WAIT_MS", 10)
+
+    def append_rows(_module, _tweets, _raw, summaries):
+        (sidecar_dir / "step1_headline_sidecar_2026_08_14.jsonl").write_text(
+            '{"headline_id":"headline-7"}\n', encoding="utf-8"
+        )
+        summaries.append({
+            "headline_id": "headline-7",
+            "dedup_key": "tweet_id:7",
+            "headline_timestamp": "2026-08-14",
+            "source_platform": "x_cdp_list_latest_tweets_timeline",
+        })
+        return 1
+
+    monkeypatch.setattr(capture, "append_deduped_sidecar_rows", append_rows)
+
+    clients = []
+
+    class Client:
+        def __init__(self, websocket_url, **_kwargs):
+            self.websocket_url = websocket_url
+            self.commands = []
+            self.events = [
+                {
+                    "method": "Network.responseReceived",
+                    "params": {
+                        "requestId": "request-1",
+                        "response": {
+                            "url": f"https://x.com/graphql/{capture.TIMELINE_RESPONSE_MARKER}",
+                            "status": 200,
+                        },
+                    },
+                },
+                {"method": "Network.loadingFinished", "params": {"requestId": "request-1"}},
+            ]
+            clients.append(self)
+
+        def command(self, method, _params=None, **_kwargs):
+            self.commands.append(method)
+            if method == "Network.getResponseBody":
+                return {"body": '{"data":{"timeline":[]}}', "base64Encoded": False}
+            return {}
+
+        def event(self, **_kwargs):
+            return self.events.pop(0) if self.events else None
+
+        def close(self):
+            return None
+
+    result = capture._run_direct_cdp_capture(
+        max_seconds=0.1,
+        max_empty_scrolls=1,
+        cdp_url="http://127.0.0.1:9222",
+        client_factory=Client,
+    )
+
+    assert result["capture_state"] == capture.CAPTURE_STATE_CAPTURED
+    assert result["cdp_transport"] == "TARGET_SCOPED_DIRECT_CDP"
+    assert result["timeline_responses_observed"] == 1
+    assert result["new_headlines"] == 1
+    assert clients[0].websocket_url == "ws://exact"
+    assert "Page.reload" in clients[0].commands
+    assert "Network.getResponseBody" in clients[0].commands
+
+
 # --- B. Restart safety: checkpoint durable, no duplicate headlines ---------------------------
 
 
