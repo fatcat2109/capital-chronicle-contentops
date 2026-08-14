@@ -21,25 +21,25 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12642,
+    "edges": 12718,
     "entrypoints": 14,
-    "nodes": 6717,
+    "nodes": 6757,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
       "directory_scope": 8,
-      "durable_table": 34,
+      "durable_table": 38,
       "http_endpoint": 6,
       "instructions": 8,
-      "manifest": 11,
-      "python_class": 539,
-      "python_function": 3722,
+      "manifest": 13,
+      "python_class": 541,
+      "python_function": 3742,
       "python_method": 241,
-      "python_module": 699,
-      "schema": 172,
-      "test": 705,
-      "typescript_export": 453,
-      "typescript_or_javascript_module": 89
+      "python_module": 701,
+      "schema": 173,
+      "test": 706,
+      "typescript_export": 458,
+      "typescript_or_javascript_module": 92
     }
   },
   "edges": [
@@ -12111,6 +12111,12 @@
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:artifacts"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
       "inference": "sql_create_table_regex",
       "kind": "owns_table_definition",
       "to": "durable_table:assignments"
@@ -12120,6 +12126,12 @@
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
       "to": "durable_table:assignments"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:candidates"
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
@@ -12168,6 +12180,12 @@
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
       "to": "durable_table:incidents"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:jobs"
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
@@ -12372,6 +12390,12 @@
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
       "to": "durable_table:schema_migrations"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:stages"
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
@@ -17106,6 +17130,126 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_kill_switch_policy.py"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:artifacts"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:candidates"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:jobs"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:stages"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::BenchmarkIdentity"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::HybridLedger"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::build_mode_input"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::canonical_json"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::logical_hash"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::prepare_benchmark"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::probe_media"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::read_json"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::sha256_file"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::validate_creative_packet"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::write_json"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::write_srt"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::zero_public_write_manifest"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.lane_b_hybrid_bakeoff.v1"
+    },
+    {
+      "from": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_lane_b_hybrid_bakeoff_v1.py"
     },
     {
       "from": "live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -51266,6 +51410,42 @@
       "to": "python_symbol:live_contentops/kill_switch_policy.py::is_kill_switch_blocking_platform"
     },
     {
+      "from": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::logical_hash",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::prepare_benchmark",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::BenchmarkIdentity"
+    },
+    {
+      "from": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::prepare_benchmark",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::prepare_benchmark",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::read_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::prepare_benchmark",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::prepare_benchmark",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::write_json"
+    },
+    {
       "from": "python_symbol:live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py::build_contract_packet",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -65822,6 +66002,174 @@
       "to": "python_symbol:live_contentops/full_pipeline_north_star_debug_and_live_run_v0.py::run_full_pipeline_north_star_debug_and_live_run"
     },
     {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::audio_qa",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::engine_head",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::parse_args"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::prepare"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::media_review",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::media_review",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::HybridLedger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::build_mode_input"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::prepare_benchmark"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::zero_public_write_manifest"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::engine_head"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::read_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::validate_creative_packet"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::write_srt"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::audio_qa"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::engine_head"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::media_review"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::synthesize_voice"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::synthesize_voice",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::synthesize_voice",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::run"
+    },
+    {
       "from": "python_symbol:scripts/run_operator_approved_supervised_live_daily_run_v0.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -66450,6 +66798,66 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/run_full_pipeline_north_star_debug_and_live_run_v0.py::main"
+    },
+    {
+      "from": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::audio_qa"
+    },
+    {
+      "from": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::engine_head"
+    },
+    {
+      "from": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::main"
+    },
+    {
+      "from": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::main"
+    },
+    {
+      "from": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::media_review"
+    },
+    {
+      "from": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::parse_args"
+    },
+    {
+      "from": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::prepare"
+    },
+    {
+      "from": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode"
+    },
+    {
+      "from": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::run"
+    },
+    {
+      "from": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::synthesize_voice"
     },
     {
       "from": "scripts/run_operator_approved_supervised_live_daily_run_v0.py",
@@ -68184,6 +68592,12 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/kill_switch_policy.py"
+    },
+    {
+      "from": "tests/test_lane_b_hybrid_bakeoff_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/lane_b_hybrid_bakeoff_v1.py"
     },
     {
       "from": "tests/test_lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -75894,6 +76308,48 @@
       "inference": "agents_directory_scope",
       "kind": "governs",
       "to": "directory:video"
+    },
+    {
+      "from": "video/lane_b_hybrid_v1/src/index.ts",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/lane_b_hybrid_v1/src/root.tsx"
+    },
+    {
+      "from": "video/lane_b_hybrid_v1/src/root.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/lane_b_hybrid_v1/src/root.tsx::Root"
+    },
+    {
+      "from": "video/lane_b_hybrid_v1/src/root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/lane_b_hybrid_v1/src/video.tsx"
+    },
+    {
+      "from": "video/lane_b_hybrid_v1/src/video.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/lane_b_hybrid_v1/src/video.tsx::HybridShort"
+    },
+    {
+      "from": "video/lane_b_hybrid_v1/src/video.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/lane_b_hybrid_v1/src/video.tsx::HybridVideoProps"
+    },
+    {
+      "from": "video/lane_b_hybrid_v1/src/video.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/lane_b_hybrid_v1/src/video.tsx::Primitive"
+    },
+    {
+      "from": "video/lane_b_hybrid_v1/src/video.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/lane_b_hybrid_v1/src/video.tsx::Scene"
     }
   ],
   "entrypoints": [
@@ -76000,7 +76456,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-14T08:21:54Z",
+  "generation_timestamp_utc": "2026-08-14T09:27:55Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -76033,7 +76489,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 9845
+      "size_bytes": 13357
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -76178,7 +76634,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 8384
+      "size_bytes": 17952
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -76188,22 +76644,22 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 6735
+      "size_bytes": 11285
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 50607
+      "size_bytes": 30631
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 24295
+      "size_bytes": 31181
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 8765
+      "size_bytes": 18240
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -76256,9 +76712,19 @@
       "table": "artifact_references"
     },
     {
+      "id": "durable_table:artifacts",
+      "kind": "durable_table",
+      "table": "artifacts"
+    },
+    {
       "id": "durable_table:assignments",
       "kind": "durable_table",
       "table": "assignments"
+    },
+    {
+      "id": "durable_table:candidates",
+      "kind": "durable_table",
+      "table": "candidates"
     },
     {
       "id": "durable_table:destination_readiness",
@@ -76284,6 +76750,11 @@
       "id": "durable_table:incidents",
       "kind": "durable_table",
       "table": "incidents"
+    },
+    {
+      "id": "durable_table:jobs",
+      "kind": "durable_table",
+      "table": "jobs"
     },
     {
       "id": "durable_table:learning_policy_versions",
@@ -76389,6 +76860,11 @@
       "id": "durable_table:schema_migrations",
       "kind": "durable_table",
       "table": "schema_migrations"
+    },
+    {
+      "id": "durable_table:stages",
+      "kind": "durable_table",
+      "table": "stages"
     },
     {
       "id": "durable_table:story_versions",
@@ -77104,7 +77580,7 @@
     {
       "id": "live_contentops/continuous_headline_ingest_v1.py",
       "kind": "python_module",
-      "size_bytes": 32362
+      "size_bytes": 32593
     },
     {
       "id": "live_contentops/contract_validation.py",
@@ -77249,7 +77725,7 @@
     {
       "id": "live_contentops/daily_app_ui_read_model_v1.py",
       "kind": "python_module",
-      "size_bytes": 78871
+      "size_bytes": 78898
     },
     {
       "id": "live_contentops/daily_article_brief_generation_v0.py",
@@ -77855,6 +78331,11 @@
       "id": "live_contentops/kill_switch_policy.py",
       "kind": "python_module",
       "size_bytes": 11016
+    },
+    {
+      "id": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "kind": "python_module",
+      "size_bytes": 14880
     },
     {
       "id": "live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -79774,7 +80255,7 @@
     {
       "id": "live_contentops/x_list_ingest_capture_v1.py",
       "kind": "python_module",
-      "size_bytes": 38344
+      "size_bytes": 38917
     },
     {
       "id": "live_contentops/x_manual_approval_export_evidence_v6.py",
@@ -93271,6 +93752,97 @@
       "line": 243,
       "path": "live_contentops/kill_switch_policy.py",
       "symbol": "no_auto_retry_policy"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::BenchmarkIdentity",
+      "kind": "python_class",
+      "line": 88,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "BenchmarkIdentity"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::HybridLedger",
+      "kind": "python_class",
+      "line": 95,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "HybridLedger"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::build_mode_input",
+      "kind": "python_function",
+      "line": 236,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "build_mode_input"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::canonical_json",
+      "kind": "python_function",
+      "line": 59,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "canonical_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::logical_hash",
+      "kind": "python_function",
+      "line": 63,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "logical_hash"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::prepare_benchmark",
+      "kind": "python_function",
+      "line": 192,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "prepare_benchmark"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::probe_media",
+      "kind": "python_function",
+      "line": 330,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "probe_media"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::read_json",
+      "kind": "python_function",
+      "line": 75,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "read_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::sha256_file",
+      "kind": "python_function",
+      "line": 67,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "sha256_file"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::validate_creative_packet",
+      "kind": "python_function",
+      "line": 260,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "validate_creative_packet"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::write_json",
+      "kind": "python_function",
+      "line": 82,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "write_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::write_srt",
+      "kind": "python_function",
+      "line": 316,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "write_srt"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_hybrid_bakeoff_v1.py::zero_public_write_manifest",
+      "kind": "python_function",
+      "line": 338,
+      "path": "live_contentops/lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "zero_public_write_manifest"
     },
     {
       "id": "python_symbol:live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py::LaneCApprovalPacketToPlatformPreviewPrecheckPacket",
@@ -111270,6 +111842,69 @@
       "symbol": "main"
     },
     {
+      "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::audio_qa",
+      "kind": "python_function",
+      "line": 116,
+      "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "audio_qa"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::engine_head",
+      "kind": "python_function",
+      "line": 41,
+      "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "engine_head"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::main",
+      "kind": "python_function",
+      "line": 222,
+      "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::media_review",
+      "kind": "python_function",
+      "line": 99,
+      "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "media_review"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::parse_args",
+      "kind": "python_function",
+      "line": 212,
+      "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "parse_args"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::prepare",
+      "kind": "python_function",
+      "line": 45,
+      "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "prepare"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::render_mode",
+      "kind": "python_function",
+      "line": 123,
+      "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "render_mode"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::run",
+      "kind": "python_function",
+      "line": 34,
+      "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "run"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_hybrid_bakeoff_v1.py::synthesize_voice",
+      "kind": "python_function",
+      "line": 77,
+      "path": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "symbol": "synthesize_voice"
+    },
+    {
       "id": "python_symbol:scripts/run_operator_approved_supervised_live_daily_run_v0.py::main",
       "kind": "python_function",
       "line": 18,
@@ -111674,6 +112309,11 @@
       "id": "schema:contentops.kill_switch_evaluation",
       "kind": "schema",
       "schema_id": "contentops.kill_switch_evaluation"
+    },
+    {
+      "id": "schema:contentops.lane_b_hybrid_bakeoff.v1",
+      "kind": "schema",
+      "schema_id": "contentops.lane_b_hybrid_bakeoff.v1"
     },
     {
       "id": "schema:contentops.learning_decision.v2",
@@ -112331,6 +112971,11 @@
       "size_bytes": 2791
     },
     {
+      "id": "scripts/run_lane_b_hybrid_bakeoff_v1.py",
+      "kind": "python_module",
+      "size_bytes": 10476
+    },
+    {
       "id": "scripts/run_operator_approved_supervised_live_daily_run_v0.py",
       "kind": "python_module",
       "size_bytes": 1608
@@ -112963,7 +113608,7 @@
     {
       "id": "tests/test_contentops_continuous_intelligence_realign_v1.py",
       "kind": "test",
-      "size_bytes": 36110
+      "size_bytes": 36321
     },
     {
       "id": "tests/test_contentops_daily_app_launcher_v1.py",
@@ -113098,7 +113743,7 @@
     {
       "id": "tests/test_daily_app_ui_read_model_v1.py",
       "kind": "test",
-      "size_bytes": 35070
+      "size_bytes": 35103
     },
     {
       "id": "tests/test_daily_article_brief_generation_v0.py",
@@ -113699,6 +114344,11 @@
       "id": "tests/test_kill_switch_policy.py",
       "kind": "test",
       "size_bytes": 2641
+    },
+    {
+      "id": "tests/test_lane_b_hybrid_bakeoff_v1.py",
+      "kind": "test",
+      "size_bytes": 4117
     },
     {
       "id": "tests/test_lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -118907,6 +119557,41 @@
       "symbol": "WriterStudio"
     },
     {
+      "id": "typescript_export:video/lane_b_hybrid_v1/src/root.tsx::Root",
+      "kind": "typescript_export",
+      "line": 16,
+      "path": "video/lane_b_hybrid_v1/src/root.tsx",
+      "symbol": "Root"
+    },
+    {
+      "id": "typescript_export:video/lane_b_hybrid_v1/src/video.tsx::HybridShort",
+      "kind": "typescript_export",
+      "line": 252,
+      "path": "video/lane_b_hybrid_v1/src/video.tsx",
+      "symbol": "HybridShort"
+    },
+    {
+      "id": "typescript_export:video/lane_b_hybrid_v1/src/video.tsx::HybridVideoProps",
+      "kind": "typescript_export",
+      "line": 36,
+      "path": "video/lane_b_hybrid_v1/src/video.tsx",
+      "symbol": "HybridVideoProps"
+    },
+    {
+      "id": "typescript_export:video/lane_b_hybrid_v1/src/video.tsx::Primitive",
+      "kind": "typescript_export",
+      "line": 13,
+      "path": "video/lane_b_hybrid_v1/src/video.tsx",
+      "symbol": "Primitive"
+    },
+    {
+      "id": "typescript_export:video/lane_b_hybrid_v1/src/video.tsx::Scene",
+      "kind": "typescript_export",
+      "line": 23,
+      "path": "video/lane_b_hybrid_v1/src/video.tsx",
+      "symbol": "Scene"
+    },
+    {
       "id": "ui/contentops_v5/AGENTS.md",
       "kind": "instructions",
       "size_bytes": 1697
@@ -119530,6 +120215,31 @@
       "id": "video/AGENTS.md",
       "kind": "instructions",
       "size_bytes": 7813
+    },
+    {
+      "id": "video/lane_b_hybrid_v1/package.json",
+      "kind": "manifest",
+      "size_bytes": 486
+    },
+    {
+      "id": "video/lane_b_hybrid_v1/src/index.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 89
+    },
+    {
+      "id": "video/lane_b_hybrid_v1/src/root.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 819
+    },
+    {
+      "id": "video/lane_b_hybrid_v1/src/video.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 13164
+    },
+    {
+      "id": "video/lane_b_hybrid_v1/tsconfig.json",
+      "kind": "manifest",
+      "size_bytes": 225
     }
   ],
   "protected_boundaries": [
@@ -119595,6 +120305,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "8c60d3e184c457af56b7a894806cdfc21f7f568b",
-  "source_tree_digest": "cf1789a492a0c32e0f4bfc56119a1410ccb13d797413ea6e438c6bafd9d1afe8"
+  "source_head": "1ce4276ee7cdcdae741917bbbdcfe3a5b4c3d029",
+  "source_tree_digest": "e4c7d4a1b3cc1b4d7a5176075962d66ef4a39ee254c50e1335d445b1a3486dfb"
 }

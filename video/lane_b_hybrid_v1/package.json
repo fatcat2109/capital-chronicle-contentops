@@ -1,0 +1,21 @@
+{
+  "name": "contentops-lane-b-hybrid-v1",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "render": "remotion render src/index.ts LaneBHybridShort"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.508",
+    "@remotion/media": "4.0.508",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "remotion": "4.0.508"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.10",
+    "@types/react-dom": "19.1.7",
+    "typescript": "5.9.2"
+  }
+}

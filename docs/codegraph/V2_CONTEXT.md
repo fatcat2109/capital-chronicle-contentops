@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `8c60d3e184c457af56b7a894806cdfc21f7f568b`. Source tree digest: `cf1789a492a0c32e0f4bfc56119a1410ccb13d797413ea6e438c6bafd9d1afe8`.
+Generated from source HEAD `1ce4276ee7cdcdae741917bbbdcfe3a5b4c3d029`. Source tree digest: `e4c7d4a1b3cc1b4d7a5176075962d66ef4a39ee254c50e1335d445b1a3486dfb`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This map is descriptive repository state, not product authority. Jim's current direction and
@@ -66,8 +66,8 @@ targets `render-job.mjs`.
 
 ## Graph inventory
 
-- Nodes: `6717`
-- Edges: `12642`
+- Nodes: `6757`
+- Edges: `12718`
 - Entrypoints: `14`
 - Python import edges, TypeScript/JavaScript relative import edges, and determinable test-to-
   implementation edges are included.
