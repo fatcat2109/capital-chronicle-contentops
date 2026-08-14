@@ -98,4 +98,3 @@ Audio uses local Kokoro-82M, voice `af_heart`; `SAPI=false`, network calls 0. Bo
 ## Caveats and owner gate
 
 Jim/ChatGPT must watch and listen to both MP4s before any creative-quality acceptance. The candidate universe intentionally omits decorative geography. The future MAX-vs-ULTRA bakeoff remains blocked until the owner accepts this shared evidence/asset substrate.
-
