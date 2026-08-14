@@ -29,6 +29,7 @@ differs from the exact requested model, the output is rejected regardless of how
 looks. If the gateway does not report identity at all, that is recorded honestly as
 ``MODEL_IDENTITY_NOT_PROVIDER_VERIFIABLE`` rather than being upgraded to a pass.
 """
+
 from __future__ import annotations
 
 import json
@@ -68,16 +69,22 @@ PRIMARY_MODEL = ORDERED_MODEL_POOL[0]
 V2_CREATIVE_MODEL = "new/gpt-5.6-sol-xhigh"
 V2_CREATIVE_HIGH_MODEL = "new/gpt-5.6-sol-high"
 V2_CREATIVE_MEDIUM_MODEL = "new/gpt-5.6-sol-medium"
+V2_CREATIVE_CX_XHIGH_MODEL = "cx/gpt-5.6-sol(xhigh)"
 V2_CREATIVE_EDITOR_ROLE = "V2_CREATIVE_EDITOR"
 V2_MOTION_CODE_AUTHOR_ROLE = "V2_MOTION_CODE_AUTHOR"
 V2_CREATIVE_REVISION_AUTHOR_ROLE = "V2_CREATIVE_REVISION_AUTHOR"
 V2_CREATIVE_ROLES = frozenset(
-    {V2_CREATIVE_EDITOR_ROLE, V2_MOTION_CODE_AUTHOR_ROLE, V2_CREATIVE_REVISION_AUTHOR_ROLE}
+    {
+        V2_CREATIVE_EDITOR_ROLE,
+        V2_MOTION_CODE_AUTHOR_ROLE,
+        V2_CREATIVE_REVISION_AUTHOR_ROLE,
+    }
 )
 V2_CREATIVE_MODEL_POOL = (
     V2_CREATIVE_MODEL,
     V2_CREATIVE_HIGH_MODEL,
     V2_CREATIVE_MEDIUM_MODEL,
+    V2_CREATIVE_CX_XHIGH_MODEL,
 )
 
 #: Cheap leaf semantic labour may prefer the exact high-throughput Flash model without
@@ -110,9 +117,7 @@ ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     V2_CREATIVE_REVISION_AUTHOR_ROLE: V2_CREATIVE_MODEL_POOL,
 }
 AUTHORIZED_MODELS = frozenset(
-    model
-    for pool in (ORDERED_MODEL_POOL, *ROLE_MODEL_POOLS.values())
-    for model in pool
+    model for pool in (ORDERED_MODEL_POOL, *ROLE_MODEL_POOLS.values()) for model in pool
 )
 
 # Temporary, process-only pre-launch incident seam. The canonical quality order above stays
@@ -131,7 +136,8 @@ MAX_BUILD_ACCEPTANCE_GEMINI_INCIDENT_DURATION = timedelta(hours=24)
 
 
 def build_acceptance_gemini_incident(
-    *, now_utc: datetime | None = None,
+    *,
+    now_utc: datetime | None = None,
 ) -> dict[str, Any] | None:
     """Return a validated, short-lived Gemini incident override or ``None``.
 
@@ -140,7 +146,9 @@ def build_acceptance_gemini_incident(
     quality-first routing.
     """
     mode = os.environ.get(BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODE_ENV, "").strip()
-    raw_expiry = os.environ.get(BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_ENV, "").strip()
+    raw_expiry = os.environ.get(
+        BUILD_ACCEPTANCE_GEMINI_INCIDENT_EXPIRES_ENV, ""
+    ).strip()
     if mode not in BUILD_ACCEPTANCE_GEMINI_INCIDENT_MODES or not raw_expiry:
         return None
     try:
@@ -173,6 +181,7 @@ def _incident_model_pool_for_role(role_task_id: str, mode: str) -> tuple[str, ..
     if mode == "PRO_ONLY":
         return (GEMINI_PRO_MODEL,)
     return (NEWSROOM_LEAF_SCAN_MODEL,)
+
 
 #: Per-model attempt ceilings, indexed by priority. P0/P1 get one retry each; P2/P3 get a
 #: single attempt, because by the time the router reaches them the invocation has already
@@ -267,7 +276,9 @@ def _hash(value: Any) -> str:
     if isinstance(value, str):
         return sha256(value.encode("utf-8")).hexdigest()
     return sha256(
-        json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("utf-8")
+        json.dumps(
+            value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
+        ).encode("utf-8")
     ).hexdigest()
 
 
@@ -351,16 +362,18 @@ def model_pool_for_role(role_task_id: str) -> tuple[str, ...]:
     return ROLE_MODEL_POOLS.get(str(role_task_id), ORDERED_MODEL_POOL)
 
 
-def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "RetryBudget":
+def retry_budget_for_role(
+    *, role_task_id: str, logical_invocation_id: str
+) -> "RetryBudget":
     """Allocate one immutable bounded budget appropriate to the canonical role pool."""
     if str(role_task_id) in V2_CREATIVE_ROLES:
         return RetryBudget(
             logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=3,
-            max_fallback_transitions=2,
+            max_total_provider_attempts=4,
+            max_fallback_transitions=3,
             max_same_model_retries=0,
             wall_clock_budget_seconds=900.0,
-            per_model_max_attempts=(1, 1, 1),
+            per_model_max_attempts=(1, 1, 1, 1),
         )
     if str(role_task_id) == MULTIMODAL_VIDEO_CRITIC_ROLE:
         return RetryBudget(
@@ -409,8 +422,12 @@ def retry_budget_for_role(*, role_task_id: str, logical_invocation_id: str) -> "
 # ---------------------------------------------------------------------------
 
 
-def classify_failure(exc: BaseException | None = None, *, status_code: int | None = None,
-                     explicit_class: str | None = None) -> str:
+def classify_failure(
+    exc: BaseException | None = None,
+    *,
+    status_code: int | None = None,
+    explicit_class: str | None = None,
+) -> str:
     """Map an exception or HTTP status onto exactly one declared failure class.
 
     An unrecognised failure is deliberately **not** treated as retryable. Defaulting to
@@ -531,9 +548,13 @@ class RetryBudget:
         return max(0, self.max_total_provider_attempts - self.consumed_attempts)
 
     def remaining_sleep_seconds(self) -> float:
-        return max(0.0, self.max_cumulative_retry_sleep_seconds - self.consumed_sleep_seconds)
+        return max(
+            0.0, self.max_cumulative_retry_sleep_seconds - self.consumed_sleep_seconds
+        )
 
-    def remaining_wall_clock_seconds(self, *, now: Callable[[], float] = time.monotonic) -> float:
+    def remaining_wall_clock_seconds(
+        self, *, now: Callable[[], float] = time.monotonic
+    ) -> float:
         return max(0.0, self.wall_clock_budget_seconds - self.elapsed_seconds(now=now))
 
     def attempts_for(self, model: str) -> int:
@@ -547,7 +568,9 @@ class RetryBudget:
         )
         return max(0, ceiling - self.attempts_for(model))
 
-    def exhausted_reason(self, *, now: Callable[[], float] = time.monotonic) -> str | None:
+    def exhausted_reason(
+        self, *, now: Callable[[], float] = time.monotonic
+    ) -> str | None:
         """The first hard budget this invocation has hit, if any."""
         if self.remaining_attempts() <= 0:
             return "max_total_provider_attempts"
@@ -608,7 +631,9 @@ class RetryBudget:
             per_model_max_attempts=tuple(snapshot["per_model_max_attempts"]),
         )
         budget.consumed_attempts = int(snapshot["consumed_attempts"])
-        budget.consumed_fallback_transitions = int(snapshot["consumed_fallback_transitions"])
+        budget.consumed_fallback_transitions = int(
+            snapshot["consumed_fallback_transitions"]
+        )
         budget.consumed_repair_attempts = int(snapshot["consumed_repair_attempts"])
         budget.consumed_sleep_seconds = float(snapshot["consumed_sleep_seconds"])
         budget.attempts_by_model = dict(snapshot.get("attempts_by_model") or {})
@@ -713,7 +738,9 @@ def route_llm_invocation(
             budget.record_fallback_transition()
 
         fallback_from = previous_model
-        fallback_reason = attempts[-1]["failure_class"] if attempts and previous_model else None
+        fallback_reason = (
+            attempts[-1]["failure_class"] if attempts and previous_model else None
+        )
         previous_model = model
         repair_used_for_model = False
 
@@ -793,7 +820,9 @@ def route_llm_invocation(
                 identity_verifiable = False
                 record["model_identity_provider_verified"] = False
             else:
-                record["model_identity_provider_verified"] = failure_class != IDENTITY_MISMATCH_CLASS
+                record["model_identity_provider_verified"] = (
+                    failure_class != IDENTITY_MISMATCH_CLASS
+                )
 
             # --- structured validation -------------------------------------------------
             parsed: Any = None
@@ -803,7 +832,9 @@ def route_llm_invocation(
                 if len(validation_result) == 3:
                     ok, validation_failure, parsed = validation_result
                 elif len(validation_result) == 4:
-                    ok, validation_failure, parsed, validation_diagnostic_code = validation_result
+                    ok, validation_failure, parsed, validation_diagnostic_code = (
+                        validation_result
+                    )
                 else:
                     raise ModelRouterError("validator_result_shape_invalid")
                 record["structured_validation_result"] = "PASS" if ok else "FAIL"
@@ -874,7 +905,10 @@ def route_llm_invocation(
 
             retry_after = float(result.retry_after_seconds or 0.0)
             if retry_after > 0.0:
-                if retry_after > budget.remaining_sleep_seconds() or retry_after > budget.remaining_wall_clock_seconds(now=clock):
+                if (
+                    retry_after > budget.remaining_sleep_seconds()
+                    or retry_after > budget.remaining_wall_clock_seconds(now=clock)
+                ):
                     # Waiting would blow the budget: advance instead of sleeping.
                     break
                 budget.record_sleep(retry_after)
@@ -944,7 +978,9 @@ def route_llm_invocation(
         "fallback_grants_publication_authority": False,
         "fallback_output_uses_same_downstream_gates": True,
     }
-    assert_no_secret_shaped_text(json.dumps(sanitize_for_output(_summary_without_output(summary))))
+    assert_no_secret_shaped_text(
+        json.dumps(sanitize_for_output(_summary_without_output(summary)))
+    )
     return summary
 
 

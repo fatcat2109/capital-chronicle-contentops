@@ -46,10 +46,12 @@ const receipt = {
   composition_id: compositionId,
   output_path: output,
   captions_visible: inputProps.captionsVisible,
+  authorship_sha256: inputProps.authorshipSha256 || null,
   scale,
   elapsed_ms: Date.now() - started,
   network_calls: 0,
   uploads: 0,
   browser_profile_used: false,
 };
+fs.mkdirSync(path.dirname(receiptPath), {recursive: true});
 fs.writeFileSync(receiptPath, JSON.stringify(receipt, null, 2) + '\n');

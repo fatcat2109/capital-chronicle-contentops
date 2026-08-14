@@ -44,8 +44,12 @@ def validate_generated_motion_files(
             continue
         for package in _imports(source):
             if package.startswith("."):
-                resolved = PurePosixPath(path).parent.joinpath(package)
-                if ".." in resolved.parts:
+                # Generated components have one deliberately shared, type-only contract.
+                # No other parent traversal is authorized.
+                if ".." in PurePosixPath(package).parts and package not in {
+                    "../types",
+                    "../types.ts",
+                }:
                     violations.append({"path": path, "code": "relative_import_escape"})
             elif package not in ALLOWED_BARE_IMPORTS:
                 violations.append({"path": path, "code": f"import_not_allowed:{package}"})

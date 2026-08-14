@@ -4,6 +4,7 @@ Generic and V1 traffic continue through the canonical shared pause marker. Only 
 replacement runner can issue this process-local capability, and only explicitly named V2
 entry points consume it.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -47,6 +48,12 @@ RUNNER_MODULE = "live_contentops.retention_native_replacement_runner_v2"
 RUNNER_RELATIVE_PATH = Path("live_contentops/retention_native_replacement_runner_v2.py")
 ALLOWED_COMPONENTS = frozenset({BRAIN, "CanonicalMultimodalCritic"})
 ALLOWED_ROLES = frozenset({*V2_CREATIVE_ROLES, MULTIMODAL_VIDEO_CRITIC_ROLE})
+ALLOWED_RUNTIME_NAMES = frozenset(
+    {
+        "v2_concrete_first_xhigh_replacement_20260813",
+        "v2_codex_builder_ab_20260814",
+    }
+)
 _ACTIVE_LEASE: ContextVar["V2ExecutionLease | None"] = ContextVar(
     "contentops_v2_isolated_execution_lease", default=None
 )
@@ -101,17 +108,33 @@ def _v1_daily_app_processes() -> list[dict[str, Any]]:
     )
     observed = subprocess.run(
         ["powershell", "-NoProfile", "-Command", command],
-        capture_output=True, text=True, timeout=30,
+        capture_output=True,
+        text=True,
+        timeout=30,
     )
     if observed.returncode != 0 or not observed.stdout.strip():
         return []
     value = json.loads(observed.stdout)
     rows = [value] if isinstance(value, dict) else list(value)
     return [
-        {"process_id": int(row["ProcessId"]), "name": str(row["Name"]),
-         "creation_date": str(row.get("CreationDate") or "")}
+        {
+            "process_id": int(row["ProcessId"]),
+            "name": str(row["Name"]),
+            "creation_date": str(row.get("CreationDate") or ""),
+        }
         for row in rows
     ]
+
+
+def _v1_process_state(rows: list[dict[str, Any]]) -> str:
+    return "ACTIVE_OBSERVED" if rows else "NOT_RUNNING_OBSERVED"
+
+
+def _v1_process_state_stable(
+    before: list[dict[str, Any]], after: list[dict[str, Any]]
+) -> bool:
+    """Require the V1 process set to remain exactly stable, including stable absence."""
+    return {row["process_id"] for row in before} == {row["process_id"] for row in after}
 
 
 @dataclass(frozen=True)
@@ -144,42 +167,68 @@ def issue_v2_execution_lease(*, repo_root: Path, runtime: Path) -> V2ExecutionLe
         raise V2ExecutionLeaseError("lease_worktree_identity_mismatch")
     if _git(repo_root, "branch", "--show-current") != BRANCH:
         raise V2ExecutionLeaseError("lease_branch_identity_mismatch")
-    if runtime.name != "v2_concrete_first_xhigh_replacement_20260813":
+    if runtime.name not in ALLOWED_RUNTIME_NAMES:
         raise V2ExecutionLeaseError("lease_run_root_mismatch")
     shared_marker = operator_pause_path()
     if not shared_marker.is_file():
         raise V2ExecutionLeaseError("shared_global_pause_must_remain_active")
     processes = _v1_daily_app_processes()
-    if not processes:
-        raise V2ExecutionLeaseError("active_v1_daily_app_continuity_not_observed")
     now = _utc_now()
     nonce = uuid.uuid4().hex + uuid.uuid4().hex
     domain_id = f"v2-01-{uuid.uuid4().hex}"
     control_root = runtime / "v2_control" / domain_id
     lease = V2ExecutionLease(
-        domain_id=domain_id, task_id=TASK_ID, branch=BRANCH, worktree=str(repo_root),
-        run_id=RUN_ID, brain=BRAIN, control_root=control_root,
+        domain_id=domain_id,
+        task_id=TASK_ID,
+        branch=BRANCH,
+        worktree=str(repo_root),
+        run_id=RUN_ID,
+        brain=BRAIN,
+        control_root=control_root,
         lease_path=control_root / "execution_lease_v1.json",
         audit_path=control_root / "execution_audit_v1.json",
-        nonce=nonce, created_at_utc=_iso(now),
+        nonce=nonce,
+        created_at_utc=_iso(now),
         expires_at_utc=_iso(now + timedelta(hours=12)),
     )
     common = {
-        "schema_version": SCHEMA_VERSION, "domain_id": domain_id, "task_id": TASK_ID,
-        "branch": BRANCH, "worktree": str(repo_root), "run_id": RUN_ID, "brain": BRAIN,
-        "allowed_components": sorted(ALLOWED_COMPONENTS), "allowed_roles": sorted(ALLOWED_ROLES),
-        "allowed_models_by_role": {role: list(model_pool_for_role(role)) for role in sorted(ALLOWED_ROLES)},
-        "zero_public_write": True, "nonce_sha256": _hash_bytes(nonce.encode()),
-        "created_at_utc": lease.created_at_utc, "expires_at_utc": lease.expires_at_utc,
-        "shared_global_pause": {"path": str(shared_marker), "present": True,
-                                "sha256": _hash_file(shared_marker)},
-        "v1_daily_app_before": processes, "contains_secrets": False,
+        "schema_version": SCHEMA_VERSION,
+        "domain_id": domain_id,
+        "task_id": TASK_ID,
+        "branch": BRANCH,
+        "worktree": str(repo_root),
+        "run_id": RUN_ID,
+        "brain": BRAIN,
+        "allowed_components": sorted(ALLOWED_COMPONENTS),
+        "allowed_roles": sorted(ALLOWED_ROLES),
+        "allowed_models_by_role": {
+            role: list(model_pool_for_role(role)) for role in sorted(ALLOWED_ROLES)
+        },
+        "zero_public_write": True,
+        "nonce_sha256": _hash_bytes(nonce.encode()),
+        "created_at_utc": lease.created_at_utc,
+        "expires_at_utc": lease.expires_at_utc,
+        "shared_global_pause": {
+            "path": str(shared_marker),
+            "present": True,
+            "sha256": _hash_file(shared_marker),
+        },
+        "v1_daily_app_before": processes,
+        "v1_daily_app_state_before": _v1_process_state(processes),
+        "contains_secrets": False,
     }
     _atomic_json(lease.lease_path, common | {"state": "ACTIVE"})
-    _atomic_json(lease.audit_path, common | {
-        "state": "ACTIVE", "provider_attempts": [], "logical_invocations": [],
-        "v1_provider_calls_authorized_by_v2_lease": 0, "public_writes": 0,
-    })
+    _atomic_json(
+        lease.audit_path,
+        common
+        | {
+            "state": "ACTIVE",
+            "provider_attempts": [],
+            "logical_invocations": [],
+            "v1_provider_calls_authorized_by_v2_lease": 0,
+            "public_writes": 0,
+        },
+    )
     return lease
 
 
@@ -189,14 +238,22 @@ def _read_active_payload(lease: V2ExecutionLease) -> dict[str, Any]:
     except (FileNotFoundError, OSError, ValueError, TypeError) as exc:
         raise V2ExecutionLeaseError("v2_execution_lease_absent_or_malformed") from exc
     expected = {
-        "state": "ACTIVE", "domain_id": lease.domain_id, "task_id": TASK_ID,
-        "branch": BRANCH, "worktree": lease.worktree, "run_id": RUN_ID, "brain": BRAIN,
-        "zero_public_write": True, "nonce_sha256": _hash_bytes(lease.nonce.encode()),
+        "state": "ACTIVE",
+        "domain_id": lease.domain_id,
+        "task_id": TASK_ID,
+        "branch": BRANCH,
+        "worktree": lease.worktree,
+        "run_id": RUN_ID,
+        "brain": BRAIN,
+        "zero_public_write": True,
+        "nonce_sha256": _hash_bytes(lease.nonce.encode()),
     }
     if any(payload.get(key) != value for key, value in expected.items()):
         raise V2ExecutionLeaseError("v2_execution_lease_identity_mismatch")
     try:
-        expiry = datetime.fromisoformat(str(payload["expires_at_utc"]).replace("Z", "+00:00"))
+        expiry = datetime.fromisoformat(
+            str(payload["expires_at_utc"]).replace("Z", "+00:00")
+        )
     except (KeyError, ValueError) as exc:
         raise V2ExecutionLeaseError("v2_execution_lease_expiry_malformed") from exc
     if _utc_now() >= expiry:
@@ -209,15 +266,21 @@ def _read_active_payload(lease: V2ExecutionLease) -> dict[str, Any]:
 
 
 def assert_v2_execution_authorized(
-    *, role_task_id: str, logical_invocation_id: str, component: str,
-    model: str | None = None, public_write: bool = False,
+    *,
+    role_task_id: str,
+    logical_invocation_id: str,
+    component: str,
+    model: str | None = None,
+    public_write: bool = False,
 ) -> V2ExecutionLease:
     lease = _ACTIVE_LEASE.get()
     if lease is None:
         raise V2ExecutionLeaseError("v2_execution_lease_not_active_in_runner")
     _read_active_payload(lease)
     if public_write:
-        raise V2ExecutionLeaseError("v2_execution_lease_has_zero_public_write_authority")
+        raise V2ExecutionLeaseError(
+            "v2_execution_lease_has_zero_public_write_authority"
+        )
     if component not in ALLOWED_COMPONENTS:
         raise V2ExecutionLeaseError("v2_execution_component_not_authorized")
     if role_task_id not in ALLOWED_ROLES:
@@ -237,44 +300,72 @@ def _append_audit(lease: V2ExecutionLease, key: str, row: Mapping[str, Any]) -> 
 
 
 def record_provider_attempt(
-    *, lease: V2ExecutionLease, logical_invocation_id: str, role_task_id: str,
-    component: str, requested_model: str, prompt_sha256: str,
-    result: ProviderResult | None = None, error_class: str | None = None,
+    *,
+    lease: V2ExecutionLease,
+    logical_invocation_id: str,
+    role_task_id: str,
+    component: str,
+    requested_model: str,
+    prompt_sha256: str,
+    result: ProviderResult | None = None,
+    error_class: str | None = None,
 ) -> None:
-    _append_audit(lease, "provider_attempts", {
-        "attempt_id": uuid.uuid4().hex, "at_utc": _iso(_utc_now()),
-        "logical_invocation_id": logical_invocation_id, "role": role_task_id,
-        "component": component, "requested_model": requested_model,
-        "effective_model": result.resolved_model if result else None,
-        "provider_invocation_id_sha256": (
-            _hash_bytes(str(result.provider_invocation_id).encode())
-            if result and result.provider_invocation_id else None
-        ),
-        "prompt_sha256": prompt_sha256, "status_code": result.status_code if result else None,
-        "failure_class": error_class or (result.failure_class if result else None),
-        "public_write": False,
-    })
+    _append_audit(
+        lease,
+        "provider_attempts",
+        {
+            "attempt_id": uuid.uuid4().hex,
+            "at_utc": _iso(_utc_now()),
+            "logical_invocation_id": logical_invocation_id,
+            "role": role_task_id,
+            "component": component,
+            "requested_model": requested_model,
+            "effective_model": result.resolved_model if result else None,
+            "provider_invocation_id_sha256": (
+                _hash_bytes(str(result.provider_invocation_id).encode())
+                if result and result.provider_invocation_id
+                else None
+            ),
+            "prompt_sha256": prompt_sha256,
+            "status_code": result.status_code if result else None,
+            "failure_class": error_class or (result.failure_class if result else None),
+            "public_write": False,
+        },
+    )
 
 
 def routed_v2_isolated_invocation(
-    *, prompt: str, role_task_id: str, logical_invocation_id: str,
-    component: str, provider_call: Callable[[str, str, float], ProviderResult],
-    work_item_id: str | None = None, timeout_seconds: float = 60.0,
-    validator: Callable[[str], Any] | None = None, governed_input: Any = None,
-    prompt_template: str = "unspecified", prompt_version: str = "v1",
+    *,
+    prompt: str,
+    role_task_id: str,
+    logical_invocation_id: str,
+    component: str,
+    provider_call: Callable[[str, str, float], ProviderResult],
+    work_item_id: str | None = None,
+    timeout_seconds: float = 60.0,
+    validator: Callable[[str], Any] | None = None,
+    governed_input: Any = None,
+    prompt_template: str = "unspecified",
+    prompt_version: str = "v1",
     budget: RetryBudget | None = None,
+    model_pool_override: tuple[str, ...] | None = None,
 ) -> dict[str, Any]:
     lease = assert_v2_execution_authorized(
-        role_task_id=role_task_id, logical_invocation_id=logical_invocation_id,
+        role_task_id=role_task_id,
+        logical_invocation_id=logical_invocation_id,
         component=component,
     )
     with llm_cycle_budget_scope(logical_invocation_id, control_root=lease.control_root):
         reserve_logical_invocation(logical_invocation_id)
 
-        def governed_provider(current_prompt: str, model: str, timeout: float) -> ProviderResult:
+        def governed_provider(
+            current_prompt: str, model: str, timeout: float
+        ) -> ProviderResult:
             assert_v2_execution_authorized(
-                role_task_id=role_task_id, logical_invocation_id=logical_invocation_id,
-                component=component, model=model,
+                role_task_id=role_task_id,
+                logical_invocation_id=logical_invocation_id,
+                component=component,
+                model=model,
             )
             try:
                 reservation = reserve_provider_attempt(
@@ -283,31 +374,55 @@ def routed_v2_isolated_invocation(
             except LLMCostBudgetExceededError as exc:
                 return ProviderResult(error=exc, failure_class=exc.failure_class)
             result = provider_call(current_prompt, model, timeout)
-            reconcile_provider_attempt(reservation, result.usage, failure_class=result.failure_class)
+            reconcile_provider_attempt(
+                reservation, result.usage, failure_class=result.failure_class
+            )
             return result
 
+        role_model_pool = model_pool_for_role(role_task_id)
+        selected_model_pool = model_pool_override or role_model_pool
+        if any(model not in role_model_pool for model in selected_model_pool):
+            raise V2ExecutionLeaseError(
+                "v2_model_pool_override_not_authorized_for_role"
+            )
         summary = route_llm_invocation(
-            logical_invocation_id=logical_invocation_id, role_task_id=role_task_id,
-            work_item_id=work_item_id, prompt=prompt, provider_call=governed_provider,
-            validator=validator, governed_input=governed_input,
-            prompt_template=prompt_template, prompt_version=prompt_version,
+            logical_invocation_id=logical_invocation_id,
+            role_task_id=role_task_id,
+            work_item_id=work_item_id,
+            prompt=prompt,
+            provider_call=governed_provider,
+            validator=validator,
+            governed_input=governed_input,
+            prompt_template=prompt_template,
+            prompt_version=prompt_version,
             timeout_seconds=timeout_seconds,
-            budget=budget or retry_budget_for_role(role_task_id=role_task_id,
-                                                    logical_invocation_id=logical_invocation_id),
-            model_pool=model_pool_for_role(role_task_id),
+            budget=budget
+            or retry_budget_for_role(
+                role_task_id=role_task_id, logical_invocation_id=logical_invocation_id
+            ),
+            model_pool=selected_model_pool,
         )
-    _append_audit(lease, "logical_invocations", {
-        "logical_invocation_id": logical_invocation_id, "role": role_task_id,
-        "component": component, "terminal_disposition": summary.get("terminal_disposition"),
-        "requested_models": summary.get("models_attempted_in_order"),
-        "effective_model": summary.get("selected_model"),
-        "output_sha256": summary.get("output_hash"), "public_write": False,
-    })
+    _append_audit(
+        lease,
+        "logical_invocations",
+        {
+            "logical_invocation_id": logical_invocation_id,
+            "role": role_task_id,
+            "component": component,
+            "terminal_disposition": summary.get("terminal_disposition"),
+            "requested_models": summary.get("models_attempted_in_order"),
+            "effective_model": summary.get("selected_model"),
+            "output_sha256": summary.get("output_hash"),
+            "public_write": False,
+        },
+    )
     return summary
 
 
 @contextmanager
-def active_v2_execution_lease(*, repo_root: Path, runtime: Path) -> Iterator[V2ExecutionLease]:
+def active_v2_execution_lease(
+    *, repo_root: Path, runtime: Path
+) -> Iterator[V2ExecutionLease]:
     lease = issue_v2_execution_lease(repo_root=repo_root, runtime=runtime)
     token = _ACTIVE_LEASE.set(lease)
     try:
@@ -317,17 +432,29 @@ def active_v2_execution_lease(*, repo_root: Path, runtime: Path) -> Iterator[V2E
         marker = operator_pause_path()
         processes = _v1_daily_app_processes()
         audit = json.loads(lease.audit_path.read_text(encoding="utf-8"))
-        unchanged = marker.is_file() and _hash_file(marker) == audit["shared_global_pause"]["sha256"]
-        audit.update({
-            "state": "REVOKED", "revoked_at_utc": _iso(_utc_now()),
-            "shared_global_pause_after": {"path": str(marker), "present": marker.is_file(),
-                                           "sha256": _hash_file(marker), "unchanged": unchanged},
-            "v1_daily_app_after": processes,
-            "v1_daily_app_continuity": bool(processes) and
-                {row["process_id"] for row in processes}
-                == {row["process_id"] for row in audit["v1_daily_app_before"]},
-            "v1_provider_calls_authorized_by_v2_lease": 0, "public_writes": 0,
-        })
+        unchanged = (
+            marker.is_file()
+            and _hash_file(marker) == audit["shared_global_pause"]["sha256"]
+        )
+        audit.update(
+            {
+                "state": "REVOKED",
+                "revoked_at_utc": _iso(_utc_now()),
+                "shared_global_pause_after": {
+                    "path": str(marker),
+                    "present": marker.is_file(),
+                    "sha256": _hash_file(marker),
+                    "unchanged": unchanged,
+                },
+                "v1_daily_app_after": processes,
+                "v1_daily_app_state_after": _v1_process_state(processes),
+                "v1_daily_app_continuity": _v1_process_state_stable(
+                    list(audit["v1_daily_app_before"]), processes
+                ),
+                "v1_provider_calls_authorized_by_v2_lease": 0,
+                "public_writes": 0,
+            }
+        )
         _atomic_json(lease.audit_path, audit)
         payload = json.loads(lease.lease_path.read_text(encoding="utf-8"))
         payload.update({"state": "REVOKED", "revoked_at_utc": audit["revoked_at_utc"]})

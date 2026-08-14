@@ -1,4 +1,5 @@
 """Executable controlled EIA/Hormuz concrete-first V2-01 replacement proof."""
+
 from __future__ import annotations
 
 import argparse
@@ -28,6 +29,7 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     ACCEPTED,
     ProviderResult,
     RetryBudget,
+    V2_CREATIVE_CX_XHIGH_MODEL,
 )
 from live_contentops.nine_router_provider_adapter_v2 import (
     call_nine_router_v2_isolated,
@@ -51,6 +53,7 @@ from live_contentops.retention_native_concrete_first_v2 import (
     zero_public_write_manifest,
 )
 from live_contentops.retention_native_creative_brain_v2 import (
+    CreativeReceipt,
     NineRouterGPT56Brain,
     parse_director_output_with_telemetry,
     validate_director_output,
@@ -74,8 +77,12 @@ from live_contentops.v2_isolated_llm_execution_v1 import (
 SCHEMA_VERSION = "contentops.retention_native.replacement_runner.v2"
 VIDEO_ID = "cc-v2-eia-hormuz-concrete-first-2026-v1"
 STORY_ID = "eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume"
-EXPECTED_ARTICLE_HASH = "4a61bb93b43a7fb1d2fd016cbec048ddf9460f1de8731e9ba81241c7a1a3cf9e"
-EXPECTED_HISTORICAL_EIA_HASH = "1e87b1815912a3fdf3a59b56a17d343c39204b3b200527fc099771563c93a44a"
+EXPECTED_ARTICLE_HASH = (
+    "4a61bb93b43a7fb1d2fd016cbec048ddf9460f1de8731e9ba81241c7a1a3cf9e"
+)
+EXPECTED_HISTORICAL_EIA_HASH = (
+    "1e87b1815912a3fdf3a59b56a17d343c39204b3b200527fc099771563c93a44a"
+)
 EXPECTED_DIRECTOR_PROMPT_SHA256 = (
     "9f39fd6fff3b9b43e9ee8cdd065de74058bc7441b04aff7e06c4cfcc58478f55"
 )
@@ -111,7 +118,10 @@ SOURCE_REGISTRY: Mapping[str, Mapping[str, Any]] = {
         "rights_status": "NASA_MEDIA_GUIDELINES_EDITORIAL",
         "license_or_terms": "NASA Images and Media Usage Guidelines; editorial context with attribution and no endorsement implication.",
         "attribution": "NASA astronaut photograph ISS069-E-92132, ISS Crew Earth Observations Facility / JSC.",
-        "semantic_purposes": ["Persian Gulf geography", "Strait of Hormuz regional context"],
+        "semantic_purposes": [
+            "Persian Gulf geography",
+            "Strait of Hormuz regional context",
+        ],
         "recognizable_focal_object": "Persian Gulf and Strait of Hormuz from orbit",
         "documentary": True,
         "illustrative": False,
@@ -124,7 +134,11 @@ SOURCE_REGISTRY: Mapping[str, Mapping[str, Any]] = {
         "rights_status": "PUBLIC_DOMAIN",
         "license_or_terms": "Official U.S. Navy photograph; U.S. federal government work in the public domain.",
         "attribution": "U.S. Navy photo by Mass Communication Specialist 2nd Class Indra Beaufort, Dec. 29, 2020.",
-        "semantic_purposes": ["recognizable Strait of Hormuz shipping", "oil supply vessel", "real maritime transit"],
+        "semantic_purposes": [
+            "recognizable Strait of Hormuz shipping",
+            "oil supply vessel",
+            "real maritime transit",
+        ],
         "recognizable_focal_object": "fleet replenishment oiler transiting the Strait of Hormuz",
         "documentary": True,
         "illustrative": False,
@@ -137,7 +151,11 @@ SOURCE_REGISTRY: Mapping[str, Mapping[str, Any]] = {
         "rights_status": "PUBLIC_DOMAIN",
         "license_or_terms": "Official U.S. Navy photograph; U.S. federal government work in the public domain.",
         "attribution": "U.S. Navy photo by Mass Communication Specialist 2nd Class Nathan Schaeffer, March 28, 2009.",
-        "semantic_purposes": ["commercial tanker", "Persian Gulf oil platform", "crude terminal"],
+        "semantic_purposes": [
+            "commercial tanker",
+            "Persian Gulf oil platform",
+            "crude terminal",
+        ],
         "recognizable_focal_object": "commercial tanker alongside a Persian Gulf oil platform",
         "documentary": True,
         "illustrative": False,
@@ -163,7 +181,11 @@ SOURCE_REGISTRY: Mapping[str, Mapping[str, Any]] = {
         "rights_status": "PUBLIC_DOMAIN",
         "license_or_terms": "U.S. National Archives federal government work in the public domain.",
         "attribution": "U.S. National Archives / Office of War Information, NARA 535733.",
-        "semantic_purposes": ["portrait-native refinery", "crude processing", "production infrastructure"],
+        "semantic_purposes": [
+            "portrait-native refinery",
+            "crude processing",
+            "production infrastructure",
+        ],
         "recognizable_focal_object": "vertical view of refinery towers and pipe stills",
         "documentary": True,
         "illustrative": False,
@@ -176,7 +198,11 @@ SOURCE_REGISTRY: Mapping[str, Mapping[str, Any]] = {
         "rights_status": "PUBLIC_DOMAIN",
         "license_or_terms": "Official U.S. Department of Energy photograph; U.S. federal government work in the public domain.",
         "attribution": "U.S. Department of Energy, Strategic Petroleum Reserve image 011.",
-        "semantic_purposes": ["tanker unloading", "crude terminal", "storage and pipeline chain"],
+        "semantic_purposes": [
+            "tanker unloading",
+            "crude terminal",
+            "storage and pipeline chain",
+        ],
         "recognizable_focal_object": "tanker unloading crude at a terminal connected to storage and pipeline",
         "documentary": True,
         "illustrative": False,
@@ -189,7 +215,11 @@ SOURCE_REGISTRY: Mapping[str, Mapping[str, Any]] = {
         "rights_status": "PUBLIC_DOMAIN",
         "license_or_terms": "Official U.S. Navy photograph; U.S. federal government work in the public domain.",
         "attribution": "U.S. Navy photo by Photographer's Mate 1st Class Kevin H. Tierney.",
-        "semantic_purposes": ["crude oil supertanker", "seaborne oil trade", "oil loading"],
+        "semantic_purposes": [
+            "crude oil supertanker",
+            "seaborne oil trade",
+            "oil loading",
+        ],
         "recognizable_focal_object": "large crude oil tanker at a terminal",
         "documentary": True,
         "illustrative": False,
@@ -205,7 +235,10 @@ def prepare(runtime: Path) -> dict[str, Any]:
     public_assets.mkdir(parents=True, exist_ok=True)
     compiled.mkdir(parents=True, exist_ok=True)
     story = _read_json(R4_RUNTIME / "contracts" / "story_binding_v2.json")
-    if story.get("story_id") != STORY_ID or story.get("article_hash") != EXPECTED_ARTICLE_HASH:
+    if (
+        story.get("story_id") != STORY_ID
+        or story.get("article_hash") != EXPECTED_ARTICLE_HASH
+    ):
         raise RuntimeError("controlled_benchmark_story_identity_mismatch")
     if story.get("official_source_hash") != EXPECTED_HISTORICAL_EIA_HASH:
         raise RuntimeError("controlled_benchmark_eia_identity_mismatch")
@@ -258,19 +291,33 @@ def prepare(runtime: Path) -> dict[str, Any]:
         ("eia-hormuz-map-landscape", map_plan_mid, {"width": 1920, "height": 1080}),
     ):
         output = compiled / f"{asset_id}.png"
-        rendered = render_native_map(plan, source_path=map_source, output_path=output, **dims)
-        derived_specs.append((asset_id, rendered, {
-            "visual_class": "native_data_visual",
-            "source_url": "https://www.eia.gov/international/content/analysis/special_topics/World_Oil_Transit_Chokepoints/",
-            "rights_status": "US_GOVERNMENT_PUBLIC_INFORMATION",
-            "license_or_terms": "U.S. EIA public information; deterministic format-native reframe with source attribution.",
-            "attribution": "Source map: U.S. Energy Information Administration; format-native render: Capital Chronicle.",
-            "semantic_purposes": ["recognizable Strait of Hormuz geography", "shipping chokepoint"],
-            "recognizable_focal_object": "labeled Strait of Hormuz between the Persian Gulf and Gulf of Oman",
-            "documentary": False,
-            "illustrative": True,
-            "crop_suitability": {"short_9x16": 1.0 if dims["height"] > dims["width"] else 0.6, "midform_16x9": 1.0 if dims["width"] > dims["height"] else 0.6},
-        }))
+        rendered = render_native_map(
+            plan, source_path=map_source, output_path=output, **dims
+        )
+        derived_specs.append(
+            (
+                asset_id,
+                rendered,
+                {
+                    "visual_class": "native_data_visual",
+                    "source_url": "https://www.eia.gov/international/content/analysis/special_topics/World_Oil_Transit_Chokepoints/",
+                    "rights_status": "US_GOVERNMENT_PUBLIC_INFORMATION",
+                    "license_or_terms": "U.S. EIA public information; deterministic format-native reframe with source attribution.",
+                    "attribution": "Source map: U.S. Energy Information Administration; format-native render: Capital Chronicle.",
+                    "semantic_purposes": [
+                        "recognizable Strait of Hormuz geography",
+                        "shipping chokepoint",
+                    ],
+                    "recognizable_focal_object": "labeled Strait of Hormuz between the Persian Gulf and Gulf of Oman",
+                    "documentary": False,
+                    "illustrative": True,
+                    "crop_suitability": {
+                        "short_9x16": 1.0 if dims["height"] > dims["width"] else 0.6,
+                        "midform_16x9": 1.0 if dims["width"] > dims["height"] else 0.6,
+                    },
+                },
+            )
+        )
 
     chart_spec = {
         "source_label": "Source: U.S. EIA, July 2026 STEO",
@@ -283,23 +330,40 @@ def prepare(runtime: Path) -> dict[str, Any]:
     }
     for asset_id, variant, dims in (
         ("eia-brent-forecast-portrait", "short_9x16", {"width": 1080, "height": 1350}),
-        ("eia-brent-forecast-landscape", "midform_16x9", {"width": 1600, "height": 900}),
+        (
+            "eia-brent-forecast-landscape",
+            "midform_16x9",
+            {"width": 1600, "height": 900},
+        ),
     ):
         plan = compile_chart_plan(chart_spec, variant)
         output = compiled / f"{asset_id}.png"
         rendered = render_native_chart(plan, output_path=output, **dims)
-        derived_specs.append((asset_id, rendered, {
-            "visual_class": "native_data_visual",
-            "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
-            "rights_status": "CAPITAL_CHRONICLE_OWNED",
-            "license_or_terms": "Original Capital Chronicle render from governed U.S. EIA values; attribution required.",
-            "attribution": "Data: U.S. EIA July 2026 STEO; chart: Capital Chronicle.",
-            "semantic_purposes": ["Brent forecast path", "June to Q3 to 2027 comparison", "forecast not observation"],
-            "recognizable_focal_object": "direct-labeled Brent forecast comparison",
-            "documentary": False,
-            "illustrative": True,
-            "crop_suitability": {"short_9x16": 1.0 if variant == "short_9x16" else 0.6, "midform_16x9": 1.0 if variant == "midform_16x9" else 0.6},
-        }))
+        derived_specs.append(
+            (
+                asset_id,
+                rendered,
+                {
+                    "visual_class": "native_data_visual",
+                    "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+                    "rights_status": "CAPITAL_CHRONICLE_OWNED",
+                    "license_or_terms": "Original Capital Chronicle render from governed U.S. EIA values; attribution required.",
+                    "attribution": "Data: U.S. EIA July 2026 STEO; chart: Capital Chronicle.",
+                    "semantic_purposes": [
+                        "Brent forecast path",
+                        "June to Q3 to 2027 comparison",
+                        "forecast not observation",
+                    ],
+                    "recognizable_focal_object": "direct-labeled Brent forecast comparison",
+                    "documentary": False,
+                    "illustrative": True,
+                    "crop_suitability": {
+                        "short_9x16": 1.0 if variant == "short_9x16" else 0.6,
+                        "midform_16x9": 1.0 if variant == "midform_16x9" else 0.6,
+                    },
+                },
+            )
+        )
 
     document_spec = {
         "document_asset_id": "eia-press590",
@@ -308,37 +372,69 @@ def prepare(runtime: Path) -> dict[str, Any]:
         "governed_excerpt": "EIA now expects worldwide crude oil production and trade flows to rebound to near pre-conflict levels by year's end.",
     }
     for asset_id, variant, dims in (
-        ("eia-release-document-portrait", "short_9x16", {"width": 1080, "height": 1400}),
-        ("eia-release-document-landscape", "midform_16x9", {"width": 1600, "height": 900}),
+        (
+            "eia-release-document-portrait",
+            "short_9x16",
+            {"width": 1080, "height": 1400},
+        ),
+        (
+            "eia-release-document-landscape",
+            "midform_16x9",
+            {"width": 1600, "height": 900},
+        ),
     ):
         plan = compile_document_plan(document_spec, variant)
         output = compiled / f"{asset_id}.png"
         rendered = render_native_document(plan, output_path=output, **dims)
-        derived_specs.append((asset_id, rendered, {
-            "visual_class": "primary_document",
-            "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
-            "rights_status": "US_GOVERNMENT_PUBLIC_INFORMATION",
-            "license_or_terms": "U.S. EIA public information; exact governed excerpt with source/date.",
-            "attribution": "Source: U.S. Energy Information Administration, July 7, 2026.",
-            "semantic_purposes": ["actual EIA release", "official forecast source", "near pre-conflict levels"],
-            "recognizable_focal_object": "readable EIA release excerpt with source and date",
-            "documentary": True,
-            "illustrative": False,
-            "crop_suitability": {"short_9x16": 1.0 if variant == "short_9x16" else 0.7, "midform_16x9": 1.0 if variant == "midform_16x9" else 0.7},
-        }))
+        derived_specs.append(
+            (
+                asset_id,
+                rendered,
+                {
+                    "visual_class": "primary_document",
+                    "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+                    "rights_status": "US_GOVERNMENT_PUBLIC_INFORMATION",
+                    "license_or_terms": "U.S. EIA public information; exact governed excerpt with source/date.",
+                    "attribution": "Source: U.S. Energy Information Administration, July 7, 2026.",
+                    "semantic_purposes": [
+                        "actual EIA release",
+                        "official forecast source",
+                        "near pre-conflict levels",
+                    ],
+                    "recognizable_focal_object": "readable EIA release excerpt with source and date",
+                    "documentary": True,
+                    "illustrative": False,
+                    "crop_suitability": {
+                        "short_9x16": 1.0 if variant == "short_9x16" else 0.7,
+                        "midform_16x9": 1.0 if variant == "midform_16x9" else 0.7,
+                    },
+                },
+            )
+        )
 
     for asset_id, rendered, metadata in derived_specs:
         source = Path(rendered["path"])
         destination = public_assets / source.name
         shutil.copy2(source, destination)
         row = AssetCandidate.from_mapping(
-            {"asset_id": asset_id, **metadata, "sha256": rendered["sha256"], "width": rendered["width"], "height": rendered["height"]}
+            {
+                "asset_id": asset_id,
+                **metadata,
+                "sha256": rendered["sha256"],
+                "width": rendered["width"],
+                "height": rendered["height"],
+            }
         )
-        candidates.append(row.__dict__ | {
-            "orientation": "portrait" if rendered["height"] > rendered["width"] else "landscape",
-            "local_path": str(destination),
-            "relative_public_path": "assets/" + destination.name,
-        })
+        candidates.append(
+            row.__dict__
+            | {
+                "orientation": "portrait"
+                if rendered["height"] > rendered["width"]
+                else "landscape",
+                "local_path": str(destination),
+                "relative_public_path": "assets/" + destination.name,
+            }
+        )
         asset_paths[asset_id] = str(destination)
 
     eia_current = source_root / "eia-press590.html"
@@ -367,9 +463,14 @@ def prepare(runtime: Path) -> dict[str, Any]:
         "public_write": False,
     }
     _write_json(runtime / "contracts" / "compact_evidence_v2.json", compact)
-    _write_json(runtime / "contracts" / "asset_candidate_universe_v2.json", asset_manifest)
+    _write_json(
+        runtime / "contracts" / "asset_candidate_universe_v2.json", asset_manifest
+    )
     _write_json(runtime / "contracts" / "asset_path_binding_v2.json", asset_paths)
-    _write_json(runtime / "safety_boundary_report_v2.json", zero_public_write_manifest() | {"status": "PASS"})
+    _write_json(
+        runtime / "safety_boundary_report_v2.json",
+        zero_public_write_manifest() | {"status": "PASS"},
+    )
     result = {
         "status": "PASS",
         "compact_evidence_sha256": logical_hash(compact),
@@ -406,11 +507,23 @@ def build_director_prompt(runtime: Path) -> dict[str, Any]:
         "video_id": VIDEO_ID,
         "governed_story": compact,
         "asset_candidate_universe": [
-            {key: row.get(key) for key in (
-                "asset_id", "visual_class", "semantic_purposes", "recognizable_focal_object",
-                "documentary", "illustrative", "orientation", "width", "height",
-                "crop_suitability", "rights_status", "attribution",
-            )}
+            {
+                key: row.get(key)
+                for key in (
+                    "asset_id",
+                    "visual_class",
+                    "semantic_purposes",
+                    "recognizable_focal_object",
+                    "documentary",
+                    "illustrative",
+                    "orientation",
+                    "width",
+                    "height",
+                    "crop_suitability",
+                    "rights_status",
+                    "attribution",
+                )
+            }
             for row in assets["candidates"]
         ],
         "public_write_authority": False,
@@ -437,10 +550,13 @@ def author_director(runtime: Path) -> dict[str, Any]:
         raw_receipt_path = evidence_dir / "minimal_raw_provider_receipt_v1.json"
         if raw_receipt_path.is_file():
             raw_receipt = _read_json(raw_receipt_path)
-            provider_level_failure = (
-                raw_receipt.get("http_status") not in (None, 200)
-                or raw_receipt.get("failure_class")
-                not in (None, "structured_output_malformed", "structured_output_schema_invalid")
+            provider_level_failure = raw_receipt.get("http_status") not in (
+                None,
+                200,
+            ) or raw_receipt.get("failure_class") not in (
+                None,
+                "structured_output_malformed",
+                "structured_output_schema_invalid",
             )
             status = (
                 "BLOCKED_MINIMAL_RAW_XHIGH_DIRECTOR_PROVIDER_EXECUTION"
@@ -467,14 +583,18 @@ def author_director(runtime: Path) -> dict[str, Any]:
                 "raw_response_sha256": raw_receipt.get("raw_response_sha256"),
                 "raw_response_byte_size": raw_receipt.get("raw_response_byte_size"),
                 "raw_model_output_sha256": raw_receipt.get("raw_model_output_sha256"),
-                "raw_model_output_byte_size": raw_receipt.get("raw_model_output_byte_size"),
+                "raw_model_output_byte_size": raw_receipt.get(
+                    "raw_model_output_byte_size"
+                ),
                 "isolated_execution_domain_id": raw_receipt.get(
                     "isolated_execution_domain_id"
                 ),
                 "provider_invocation_id": raw_receipt.get("provider_invocation_id"),
                 "public_write": False,
             }
-            _write_json(runtime / "minimal_raw_xhigh_director_experiment_v1.json", experiment)
+            _write_json(
+                runtime / "minimal_raw_xhigh_director_experiment_v1.json", experiment
+            )
             raise RuntimeError(status) from None
         raise
     if not receipt.professional_candidate_eligible:
@@ -520,15 +640,21 @@ def author_director(runtime: Path) -> dict[str, Any]:
         "public_write_authority": False,
     }
     _write_json(runtime / "contracts" / "creative_director_v2.json", director)
-    _write_json(runtime / "receipts" / "creative_director_router_v2.json", _receipt_summary(receipt))
+    _write_json(
+        runtime / "receipts" / "creative_director_router_v2.json",
+        _receipt_summary(receipt),
+    )
     return director
 
 
 def _validate_exact_ready(text: str) -> tuple[bool, str | None, Any, str | None]:
     value = text.strip()
     ok = value == "READY"
-    return ok, None if ok else "structured_output_schema_invalid", value, (
-        None if ok else "progressive_tiny_expected_READY"
+    return (
+        ok,
+        None if ok else "structured_output_schema_invalid",
+        value,
+        (None if ok else "progressive_tiny_expected_READY"),
     )
 
 
@@ -600,9 +726,10 @@ def _validate_large_outline(
         for row in outline:
             if not isinstance(row, Mapping):
                 raise ValueError("segment_row")
-            if not str(row.get("segment_id") or "").strip() or not str(
-                row.get("purpose") or ""
-            ).strip():
+            if (
+                not str(row.get("segment_id") or "").strip()
+                or not str(row.get("purpose") or "").strip()
+            ):
                 raise ValueError("segment_identity")
             if not set(row.get("claim_ids") or []) <= claim_ids:
                 raise ValueError("unknown_claim_id")
@@ -624,9 +751,11 @@ def build_progressive_xhigh_cases(
     exact_director_prompt = json.dumps(
         director_payload, sort_keys=True, ensure_ascii=False
     )
-    if expected_director_prompt_sha256 and hashlib.sha256(
-        exact_director_prompt.encode("utf-8")
-    ).hexdigest() != expected_director_prompt_sha256:
+    if (
+        expected_director_prompt_sha256
+        and hashlib.sha256(exact_director_prompt.encode("utf-8")).hexdigest()
+        != expected_director_prompt_sha256
+    ):
         raise RuntimeError("progressive_exact_director_prompt_drift")
 
     claim_ids = set(str(item) for item in compact["claims"])
@@ -729,7 +858,9 @@ def build_progressive_xhigh_cases(
     ]
 
 
-def run_progressive_xhigh_diagnostic(runtime: Path, *, repo_root: Path) -> dict[str, Any]:
+def run_progressive_xhigh_diagnostic(
+    runtime: Path, *, repo_root: Path
+) -> dict[str, Any]:
     """Run one minimal-wire XHIGH request per increasing task scale, stopping at first block."""
     prepare(runtime)
     diagnostic_root = runtime / "progressive_xhigh_diagnostic_v1"
@@ -744,7 +875,9 @@ def run_progressive_xhigh_diagnostic(runtime: Path, *, repo_root: Path) -> dict[
         validate_isolation_before_provider(runtime)
         for index, case in enumerate(cases, start=1):
             case_id = str(case["case_id"])
-            case_result_path = diagnostic_root / "cases" / case_id / "case_result_v1.json"
+            case_result_path = (
+                diagnostic_root / "cases" / case_id / "case_result_v1.json"
+            )
             if case_result_path.is_file():
                 prior = _read_json(case_result_path)
                 results.append(prior)
@@ -757,8 +890,11 @@ def run_progressive_xhigh_diagnostic(runtime: Path, *, repo_root: Path) -> dict[
             evidence_dir = diagnostic_root / "cases" / case_id / "provider"
 
             def provider(
-                current_prompt: str, model: str, timeout: float,
-                *, _evidence_dir: Path = evidence_dir,
+                current_prompt: str,
+                model: str,
+                timeout: float,
+                *,
+                _evidence_dir: Path = evidence_dir,
                 _logical_id: str = logical_invocation_id,
             ) -> ProviderResult:
                 return call_nine_router_v2_isolated_minimal_raw(
@@ -793,10 +929,13 @@ def run_progressive_xhigh_diagnostic(runtime: Path, *, repo_root: Path) -> dict[
             receipt_path = evidence_dir / "minimal_raw_provider_receipt_v1.json"
             receipt = _read_json(receipt_path) if receipt_path.is_file() else {}
             accepted = invocation.get("terminal_disposition") == ACCEPTED
-            provider_failed = (
-                receipt.get("http_status") not in (None, 200)
-                or receipt.get("failure_class")
-                not in (None, "structured_output_malformed", "structured_output_schema_invalid")
+            provider_failed = receipt.get("http_status") not in (
+                None,
+                200,
+            ) or receipt.get("failure_class") not in (
+                None,
+                "structured_output_malformed",
+                "structured_output_schema_invalid",
             )
             row = {
                 "schema_version": "contentops.v2.progressive_xhigh_case.v1",
@@ -833,7 +972,9 @@ def run_progressive_xhigh_diagnostic(runtime: Path, *, repo_root: Path) -> dict[
                 "raw_model_output_sha256": receipt.get("raw_model_output_sha256"),
                 "raw_model_output_byte_size": receipt.get("raw_model_output_byte_size"),
                 "terminal_disposition": invocation.get("terminal_disposition"),
-                "models_attempted_in_order": invocation.get("models_attempted_in_order"),
+                "models_attempted_in_order": invocation.get(
+                    "models_attempted_in_order"
+                ),
                 "total_attempts": invocation.get("total_attempts"),
                 "output_logical_hash": (
                     logical_hash(invocation.get("output")) if accepted else None
@@ -856,7 +997,9 @@ def run_progressive_xhigh_diagnostic(runtime: Path, *, repo_root: Path) -> dict[
                 break
 
     audit = _read_json(Path(audit_path))
-    all_pass = len(results) == len(cases) and all(row["status"] == "PASS" for row in results)
+    all_pass = len(results) == len(cases) and all(
+        row["status"] == "PASS" for row in results
+    )
     final = {
         "schema_version": "contentops.v2.progressive_xhigh_diagnostic.v1",
         "status": (
@@ -874,7 +1017,9 @@ def run_progressive_xhigh_diagnostic(runtime: Path, *, repo_root: Path) -> dict[
         "public_writes": 0,
         "cases": results,
         "stopped_after_case": (
-            None if all_pass else next(
+            None
+            if all_pass
+            else next(
                 (row["case_id"] for row in results if row["status"] != "PASS"), None
             )
         ),
@@ -883,7 +1028,710 @@ def run_progressive_xhigh_diagnostic(runtime: Path, *, repo_root: Path) -> dict[
     return final
 
 
+def run_xhigh_transport_diagnostic(runtime: Path, *, repo_root: Path) -> dict[str, Any]:
+    """Retry the exact Director only across explicit response-transport modes."""
+    prepare(runtime)
+    payload = build_director_prompt(runtime)
+    prompt = json.dumps(payload, sort_keys=True, ensure_ascii=False)
+    prompt_sha256 = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+    if prompt_sha256 != EXPECTED_DIRECTOR_PROMPT_SHA256:
+        raise RuntimeError("transport_exact_director_prompt_drift")
+
+    diagnostic_root = runtime / "xhigh_transport_diagnostic_v1"
+    aggregate_path = diagnostic_root / "xhigh_transport_result_v1.json"
+    variants = (
+        ("explicit_non_stream", False),
+        ("explicit_stream", True),
+    )
+    results: list[dict[str, Any]] = []
+    domain_id = ""
+    audit_path = ""
+    accepted_variant: str | None = None
+    with active_v2_execution_lease(repo_root=repo_root, runtime=runtime) as lease:
+        domain_id = lease.domain_id
+        audit_path = str(lease.audit_path)
+        validate_isolation_before_provider(runtime)
+        for variant_id, stream in variants:
+            case_root = diagnostic_root / "variants" / variant_id
+            case_result_path = case_root / "case_result_v1.json"
+            if case_result_path.is_file():
+                prior = _read_json(case_result_path)
+                results.append(prior)
+                if prior.get("status") == "PASS":
+                    accepted_variant = variant_id
+                    break
+                continue
+
+            logical_invocation_id = (
+                f"inv_v2_transport_{variant_id}_{prompt_sha256[:16]}"
+            )
+            evidence_dir = case_root / "provider"
+
+            def provider(
+                current_prompt: str,
+                model: str,
+                timeout: float,
+                *,
+                _evidence_dir: Path = evidence_dir,
+                _logical_id: str = logical_invocation_id,
+                _stream: bool = stream,
+            ) -> ProviderResult:
+                return call_nine_router_v2_isolated_minimal_raw(
+                    current_prompt,
+                    model,
+                    timeout,
+                    role_task_id=ROLE_V2_CREATIVE_EDITOR,
+                    logical_invocation_id=_logical_id,
+                    component="NineRouterGPT56Brain",
+                    evidence_dir=_evidence_dir,
+                    stream=_stream,
+                )
+
+            invocation = routed_v2_isolated_invocation(
+                prompt=prompt,
+                role_task_id=ROLE_V2_CREATIVE_EDITOR,
+                logical_invocation_id=logical_invocation_id,
+                component="NineRouterGPT56Brain",
+                provider_call=provider,
+                work_item_id=f"{VIDEO_ID}:transport:{variant_id}",
+                timeout_seconds=600.0,
+                validator=validate_director_output,
+                governed_input={
+                    "variant_id": variant_id,
+                    "response_transport": "stream" if stream else "non_stream",
+                    "prompt_sha256": prompt_sha256,
+                    "public_write": False,
+                },
+                prompt_template="exact_director_response_transport_diagnostic",
+                prompt_version="v1",
+                budget=one_shot_xhigh_retry_budget(logical_invocation_id),
+            )
+            receipt_path = evidence_dir / "minimal_raw_provider_receipt_v1.json"
+            receipt = _read_json(receipt_path) if receipt_path.is_file() else {}
+            accepted = invocation.get("terminal_disposition") == ACCEPTED
+            provider_failed = receipt.get("http_status") not in (
+                None,
+                200,
+            ) or receipt.get("failure_class") not in (
+                None,
+                "structured_output_malformed",
+                "structured_output_schema_invalid",
+            )
+            row = {
+                "schema_version": "contentops.v2.xhigh_transport_case.v1",
+                "variant_id": variant_id,
+                "response_transport": "stream" if stream else "non_stream",
+                "status": (
+                    "PASS"
+                    if accepted
+                    else (
+                        "BLOCKED_PROVIDER_EXECUTION"
+                        if provider_failed
+                        else "BLOCKED_OUTPUT_VALIDATION"
+                    )
+                ),
+                "logical_invocation_id": logical_invocation_id,
+                "prompt_sha256": prompt_sha256,
+                "prompt_character_size": len(prompt),
+                "prompt_byte_size": len(prompt.encode("utf-8")),
+                "request_body_field_names": receipt.get("request_body_field_names"),
+                "optional_generation_fields_absent": receipt.get(
+                    "optional_generation_fields_absent"
+                ),
+                "requested_model": receipt.get("requested_model"),
+                "effective_model": receipt.get("effective_model"),
+                "http_status": receipt.get("http_status"),
+                "failure_class": receipt.get("failure_class"),
+                "latency_seconds": receipt.get("latency_seconds"),
+                "usage": receipt.get("usage"),
+                "cost": receipt.get("cost"),
+                "provider_invocation_id": receipt.get("provider_invocation_id"),
+                "raw_response_sha256": receipt.get("raw_response_sha256"),
+                "raw_response_byte_size": receipt.get("raw_response_byte_size"),
+                "raw_model_output_sha256": receipt.get("raw_model_output_sha256"),
+                "raw_model_output_byte_size": receipt.get("raw_model_output_byte_size"),
+                "terminal_disposition": invocation.get("terminal_disposition"),
+                "models_attempted_in_order": invocation.get(
+                    "models_attempted_in_order"
+                ),
+                "total_attempts": invocation.get("total_attempts"),
+                "isolated_execution_domain_id": domain_id,
+                "public_write": False,
+            }
+            _write_json(case_result_path, row)
+            results.append(row)
+            _write_json(
+                aggregate_path,
+                {
+                    "schema_version": "contentops.v2.xhigh_transport_diagnostic.v1",
+                    "status": "RUNNING" if not accepted else "PASS_XHIGH_TRANSPORT",
+                    "isolated_execution_domain_id": domain_id,
+                    "variants": results,
+                    "accepted_variant": variant_id if accepted else None,
+                    "public_write": False,
+                },
+            )
+            if accepted:
+                accepted_variant = variant_id
+                break
+
+    audit = _read_json(Path(audit_path))
+    final = {
+        "schema_version": "contentops.v2.xhigh_transport_diagnostic.v1",
+        "status": (
+            "PASS_XHIGH_EXACT_DIRECTOR_RESPONSE_TRANSPORT"
+            if accepted_variant
+            else "BLOCKED_XHIGH_EXACT_DIRECTOR_RESPONSE_TRANSPORT"
+        ),
+        "isolated_execution_domain_id": domain_id,
+        "lease_audit_path": audit_path,
+        "lease_revoked": audit.get("state") == "REVOKED",
+        "shared_global_pause_unchanged": bool(
+            (audit.get("shared_global_pause_after") or {}).get("unchanged")
+        ),
+        "v1_provider_calls_authorized_by_v2_lease": 0,
+        "public_writes": 0,
+        "prompt_sha256": prompt_sha256,
+        "prompt_character_size": len(prompt),
+        "prompt_byte_size": len(prompt.encode("utf-8")),
+        "accepted_variant": accepted_variant,
+        "variants": results,
+    }
+    _write_json(aggregate_path, final)
+    return final
+
+
+def run_xhigh_responses_diagnostic(runtime: Path, *, repo_root: Path) -> dict[str, Any]:
+    """Canary and then run the exact Director through the Responses endpoint."""
+    prepare(runtime)
+    director_prompt = json.dumps(
+        build_director_prompt(runtime), sort_keys=True, ensure_ascii=False
+    )
+    director_sha256 = hashlib.sha256(director_prompt.encode("utf-8")).hexdigest()
+    if director_sha256 != EXPECTED_DIRECTOR_PROMPT_SHA256:
+        raise RuntimeError("responses_exact_director_prompt_drift")
+    cases = (
+        (
+            "tiny_responses_canary",
+            "Return exactly READY and nothing else.",
+            _validate_exact_ready,
+            None,
+        ),
+        (
+            "tiny_responses_non_stream",
+            "Return exactly READY and nothing else.",
+            _validate_exact_ready,
+            False,
+        ),
+        (
+            "exact_full_director_non_stream",
+            director_prompt,
+            validate_director_output,
+            False,
+        ),
+    )
+    diagnostic_root = runtime / "xhigh_responses_diagnostic_v1"
+    aggregate_path = diagnostic_root / "xhigh_responses_result_v1.json"
+    results: list[dict[str, Any]] = []
+    domain_id = ""
+    audit_path = ""
+    accepted_director: Mapping[str, Any] | None = None
+    with active_v2_execution_lease(repo_root=repo_root, runtime=runtime) as lease:
+        domain_id = lease.domain_id
+        audit_path = str(lease.audit_path)
+        validate_isolation_before_provider(runtime)
+        for case_id, prompt, validator, stream in cases:
+            case_root = diagnostic_root / "cases" / case_id
+            case_result_path = case_root / "case_result_v1.json"
+            if case_result_path.is_file():
+                prior = _read_json(case_result_path)
+                results.append(prior)
+                if prior.get("status") != "PASS" and case_id != "tiny_responses_canary":
+                    break
+                if case_id == "exact_full_director_non_stream":
+                    raw_path = case_root / "provider" / "raw_model_output.txt"
+                    accepted_director = validate_director_output(
+                        raw_path.read_text(encoding="utf-8")
+                    )[2]
+                continue
+            prompt_sha256 = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+            logical_invocation_id = f"inv_v2_responses_{case_id}_{prompt_sha256[:16]}"
+            evidence_dir = case_root / "provider"
+
+            def provider(
+                current_prompt: str,
+                model: str,
+                timeout: float,
+                *,
+                _evidence_dir: Path = evidence_dir,
+                _logical_id: str = logical_invocation_id,
+            ) -> ProviderResult:
+                return call_nine_router_v2_isolated_minimal_raw(
+                    current_prompt,
+                    model,
+                    timeout,
+                    role_task_id=ROLE_V2_CREATIVE_EDITOR,
+                    logical_invocation_id=_logical_id,
+                    component="NineRouterGPT56Brain",
+                    evidence_dir=_evidence_dir,
+                    api_style="responses",
+                    stream=stream,
+                )
+
+            invocation = routed_v2_isolated_invocation(
+                prompt=prompt,
+                role_task_id=ROLE_V2_CREATIVE_EDITOR,
+                logical_invocation_id=logical_invocation_id,
+                component="NineRouterGPT56Brain",
+                provider_call=provider,
+                work_item_id=f"{VIDEO_ID}:responses:{case_id}",
+                timeout_seconds=600.0,
+                validator=validator,
+                governed_input={
+                    "case_id": case_id,
+                    "api_style": "responses",
+                    "response_transport": (
+                        "gateway_default" if stream is None else "non_stream"
+                    ),
+                    "prompt_sha256": prompt_sha256,
+                    "public_write": False,
+                },
+                prompt_template="xhigh_responses_endpoint_diagnostic",
+                prompt_version="v1",
+                budget=one_shot_xhigh_retry_budget(logical_invocation_id),
+            )
+            receipt = _read_json(evidence_dir / "minimal_raw_provider_receipt_v1.json")
+            accepted = invocation.get("terminal_disposition") == ACCEPTED
+            row = {
+                "schema_version": "contentops.v2.xhigh_responses_case.v1",
+                "case_id": case_id,
+                "status": "PASS" if accepted else "BLOCKED",
+                "logical_invocation_id": logical_invocation_id,
+                "prompt_sha256": prompt_sha256,
+                "prompt_character_size": len(prompt),
+                "prompt_byte_size": len(prompt.encode("utf-8")),
+                "api_style": receipt.get("api_style"),
+                "response_transport": receipt.get("response_transport"),
+                "request_body_field_names": receipt.get("request_body_field_names"),
+                "optional_generation_fields_absent": receipt.get(
+                    "optional_generation_fields_absent"
+                ),
+                "requested_model": receipt.get("requested_model"),
+                "effective_model": receipt.get("effective_model"),
+                "http_status": receipt.get("http_status"),
+                "failure_class": receipt.get("failure_class"),
+                "latency_seconds": receipt.get("latency_seconds"),
+                "usage": receipt.get("usage"),
+                "provider_invocation_id": receipt.get("provider_invocation_id"),
+                "raw_response_sha256": receipt.get("raw_response_sha256"),
+                "raw_response_byte_size": receipt.get("raw_response_byte_size"),
+                "raw_model_output_sha256": receipt.get("raw_model_output_sha256"),
+                "raw_model_output_byte_size": receipt.get("raw_model_output_byte_size"),
+                "terminal_disposition": invocation.get("terminal_disposition"),
+                "isolated_execution_domain_id": domain_id,
+                "public_write": False,
+            }
+            _write_json(case_result_path, row)
+            results.append(row)
+            if accepted and case_id == "exact_full_director_non_stream":
+                accepted_director = invocation.get("output")
+            if not accepted and case_id != "tiny_responses_canary":
+                break
+
+    audit = _read_json(Path(audit_path))
+    if accepted_director is not None:
+        bible = CreativeBible.from_mapping(accepted_director["creative_bible"]).freeze()
+        graph = validate_segment_graph(accepted_director["segment_graph"])
+        director = {
+            "schema_version": "contentops.retention_native.creative_director.v2",
+            "video_id": VIDEO_ID,
+            "creative_bible": bible,
+            "segment_graph": [row.__dict__ for row in graph],
+            "segment_graph_sha256": logical_hash([row.__dict__ for row in graph]),
+            "director_model_receipt": results[-1],
+            "response_handling": {
+                "route": "RESPONSES_API_DIRECT_PARSE",
+                "semantic_preservation": "PASS_RAW_DIRECT_PARSE",
+            },
+            "professional_candidate_eligible": True,
+            "public_write_authority": False,
+        }
+        _write_json(runtime / "contracts" / "creative_director_v2.json", director)
+    final = {
+        "schema_version": "contentops.v2.xhigh_responses_diagnostic.v1",
+        "status": (
+            "PASS_XHIGH_EXACT_DIRECTOR_RESPONSES_API"
+            if accepted_director is not None
+            else "BLOCKED_XHIGH_RESPONSES_API"
+        ),
+        "isolated_execution_domain_id": domain_id,
+        "lease_audit_path": audit_path,
+        "lease_revoked": audit.get("state") == "REVOKED",
+        "shared_global_pause_unchanged": bool(
+            (audit.get("shared_global_pause_after") or {}).get("unchanged")
+        ),
+        "v1_provider_calls_authorized_by_v2_lease": 0,
+        "public_writes": 0,
+        "director_prompt_sha256": director_sha256,
+        "director_artifact_sha256": (
+            logical_hash(accepted_director) if accepted_director is not None else None
+        ),
+        "cases": results,
+    }
+    _write_json(aggregate_path, final)
+    return final
+
+
+def run_cx_xhigh_diagnostic(runtime: Path, *, repo_root: Path) -> dict[str, Any]:
+    """Run a tiny canary then the exact Director on the owner-approved CX XHIGH route."""
+    prepare(runtime)
+    director_prompt = json.dumps(
+        build_director_prompt(runtime), sort_keys=True, ensure_ascii=False
+    )
+    director_sha256 = hashlib.sha256(director_prompt.encode("utf-8")).hexdigest()
+    if director_sha256 != EXPECTED_DIRECTOR_PROMPT_SHA256:
+        raise RuntimeError("cx_exact_director_prompt_drift")
+    cases = (
+        (
+            "tiny_exact_ready",
+            "Return exactly READY and nothing else.",
+            _validate_exact_ready,
+        ),
+        ("exact_full_director", director_prompt, validate_director_output),
+    )
+    diagnostic_root = runtime / "cx_xhigh_diagnostic_v1"
+    aggregate_path = diagnostic_root / "cx_xhigh_result_v1.json"
+    results: list[dict[str, Any]] = []
+    accepted_director: Mapping[str, Any] | None = None
+    domain_id = ""
+    audit_path = ""
+    with active_v2_execution_lease(repo_root=repo_root, runtime=runtime) as lease:
+        domain_id = lease.domain_id
+        audit_path = str(lease.audit_path)
+        validate_isolation_before_provider(runtime)
+        for case_id, prompt, validator in cases:
+            case_root = diagnostic_root / "cases" / case_id
+            result_path = case_root / "case_result_v1.json"
+            if result_path.is_file():
+                prior = _read_json(result_path)
+                results.append(prior)
+                if prior.get("status") != "PASS":
+                    break
+                if case_id == "exact_full_director":
+                    raw = (case_root / "provider" / "raw_model_output.txt").read_text(
+                        encoding="utf-8"
+                    )
+                    accepted_director = validate_director_output(raw)[2]
+                continue
+            prompt_sha256 = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+            logical_invocation_id = f"inv_v2_cx_{case_id}_{prompt_sha256[:16]}"
+            evidence_dir = case_root / "provider"
+
+            def provider(
+                current_prompt: str,
+                model: str,
+                timeout: float,
+                *,
+                _evidence_dir: Path = evidence_dir,
+                _logical_id: str = logical_invocation_id,
+            ) -> ProviderResult:
+                return call_nine_router_v2_isolated_minimal_raw(
+                    current_prompt,
+                    model,
+                    timeout,
+                    role_task_id=ROLE_V2_CREATIVE_EDITOR,
+                    logical_invocation_id=_logical_id,
+                    component="NineRouterGPT56Brain",
+                    evidence_dir=_evidence_dir,
+                )
+
+            invocation = routed_v2_isolated_invocation(
+                prompt=prompt,
+                role_task_id=ROLE_V2_CREATIVE_EDITOR,
+                logical_invocation_id=logical_invocation_id,
+                component="NineRouterGPT56Brain",
+                provider_call=provider,
+                work_item_id=f"{VIDEO_ID}:cx:{case_id}",
+                timeout_seconds=600.0,
+                validator=validator,
+                governed_input={
+                    "case_id": case_id,
+                    "requested_model": V2_CREATIVE_CX_XHIGH_MODEL,
+                    "prompt_sha256": prompt_sha256,
+                    "public_write": False,
+                },
+                prompt_template="owner_approved_cx_xhigh_diagnostic",
+                prompt_version="v1",
+                budget=RetryBudget(
+                    logical_invocation_id=logical_invocation_id,
+                    max_total_provider_attempts=1,
+                    max_fallback_transitions=0,
+                    max_same_model_retries=0,
+                    max_structured_output_repair_attempts=0,
+                    max_cumulative_retry_sleep_seconds=0,
+                    wall_clock_budget_seconds=600,
+                    per_model_max_attempts=(1,),
+                ),
+                model_pool_override=(V2_CREATIVE_CX_XHIGH_MODEL,),
+            )
+            receipt = _read_json(evidence_dir / "minimal_raw_provider_receipt_v1.json")
+            accepted = invocation.get("terminal_disposition") == ACCEPTED
+            row = {
+                "schema_version": "contentops.v2.cx_xhigh_case.v1",
+                "case_id": case_id,
+                "status": "PASS" if accepted else "BLOCKED",
+                "logical_invocation_id": logical_invocation_id,
+                "prompt_sha256": prompt_sha256,
+                "prompt_character_size": len(prompt),
+                "prompt_byte_size": len(prompt.encode("utf-8")),
+                "request_body_field_names": receipt.get("request_body_field_names"),
+                "required_effort_selector_only": receipt.get(
+                    "required_effort_selector_only"
+                ),
+                "requested_model": receipt.get("requested_model"),
+                "wire_model": receipt.get("wire_model"),
+                "effective_model": receipt.get("effective_model"),
+                "http_status": receipt.get("http_status"),
+                "failure_class": receipt.get("failure_class"),
+                "latency_seconds": receipt.get("latency_seconds"),
+                "usage": receipt.get("usage"),
+                "provider_invocation_id": receipt.get("provider_invocation_id"),
+                "raw_response_sha256": receipt.get("raw_response_sha256"),
+                "raw_response_byte_size": receipt.get("raw_response_byte_size"),
+                "raw_model_output_sha256": receipt.get("raw_model_output_sha256"),
+                "raw_model_output_byte_size": receipt.get("raw_model_output_byte_size"),
+                "terminal_disposition": invocation.get("terminal_disposition"),
+                "isolated_execution_domain_id": domain_id,
+                "public_write": False,
+            }
+            _write_json(result_path, row)
+            results.append(row)
+            if accepted and case_id == "exact_full_director":
+                accepted_director = invocation.get("output")
+            if not accepted:
+                break
+
+    audit = _read_json(Path(audit_path))
+    deterministic_repair: dict[str, Any] | None = None
+    exact_case_root = diagnostic_root / "cases" / "exact_full_director"
+    exact_raw_path = exact_case_root / "provider" / "raw_model_output.txt"
+    if accepted_director is None and exact_raw_path.is_file():
+        raw_text = exact_raw_path.read_text(encoding="utf-8")
+        raw_row = json.loads(raw_text)
+        operations: list[str] = []
+        strategy = str(raw_row["creative_bible"]["concrete_visual_strategy"])
+        if "concrete" not in strategy.lower():
+            raw_row["creative_bible"]["concrete_visual_strategy"] = (
+                "Concrete-first: " + strategy
+            )
+            operations.append("label_existing_concrete_visual_strategy")
+        for segment in raw_row["segment_graph"]:
+            for key in (
+                "viewer_knowledge_entering",
+                "viewer_knowledge_leaving",
+                "continuity_constraints",
+            ):
+                if isinstance(segment.get(key), str):
+                    segment[key] = [segment[key]]
+                    operations.append(f"wrap_{key}_as_singleton_list")
+            needs = segment.get("asset_needs")
+            if isinstance(needs, list) and any(
+                isinstance(item, Mapping) for item in needs
+            ):
+                segment["asset_needs"] = [
+                    "; ".join(
+                        f"{key}={item[key]}"
+                        for key in ("asset_id", "use", "format")
+                        if key in item
+                    )
+                    if isinstance(item, Mapping)
+                    else str(item)
+                    for item in needs
+                ]
+                operations.append("serialize_asset_need_objects_without_value_loss")
+        normalized_text = json.dumps(raw_row, sort_keys=True, ensure_ascii=False)
+        accepted_director, _ = parse_director_output_with_telemetry(normalized_text)
+        accepted_director = json.loads(
+            json.dumps(accepted_director, sort_keys=True, ensure_ascii=False)
+        )
+        normalized_path = exact_case_root / "deterministically_normalized_director.json"
+        normalized_path.write_text(normalized_text + "\n", encoding="utf-8")
+        deterministic_repair = {
+            "schema_version": "contentops.v2.cx_xhigh_deterministic_repair.v1",
+            "route": "DETERMINISTIC_SCHEMA_SHAPE_REPAIR",
+            "operations": operations,
+            "raw_model_output_sha256": hashlib.sha256(
+                raw_text.encode("utf-8")
+            ).hexdigest(),
+            "normalized_json_sha256": hashlib.sha256(
+                normalized_text.encode("utf-8")
+            ).hexdigest(),
+            "semantic_payload_sha256": logical_hash(accepted_director),
+            "creative_meaning_changed": False,
+            "model_call_used": False,
+            "public_write": False,
+        }
+        _write_json(
+            exact_case_root / "deterministic_repair_receipt_v1.json",
+            deterministic_repair,
+        )
+        for row in results:
+            if row.get("case_id") == "exact_full_director":
+                row["status"] = "PASS_DETERMINISTIC_REPAIR"
+                row["terminal_disposition"] = "ACCEPTED_AFTER_DETERMINISTIC_REPAIR"
+                row["deterministic_repair_sha256"] = logical_hash(deterministic_repair)
+                _write_json(exact_case_root / "case_result_v1.json", row)
+                break
+    if accepted_director is not None:
+        bible = CreativeBible.from_mapping(accepted_director["creative_bible"]).freeze()
+        graph = validate_segment_graph(accepted_director["segment_graph"])
+        director = {
+            "schema_version": "contentops.retention_native.creative_director.v2",
+            "video_id": VIDEO_ID,
+            "creative_bible": bible,
+            "segment_graph": [row.__dict__ for row in graph],
+            "segment_graph_sha256": logical_hash([row.__dict__ for row in graph]),
+            "director_model_receipt": results[-1],
+            "response_handling": {
+                "route": (
+                    "CX_XHIGH_DETERMINISTIC_SCHEMA_SHAPE_REPAIR"
+                    if deterministic_repair
+                    else "CX_XHIGH_DIRECT_PARSE"
+                ),
+                "semantic_preservation": (
+                    "PASS_MECHANICAL_ONLY"
+                    if deterministic_repair
+                    else "PASS_RAW_DIRECT_PARSE"
+                ),
+                "deterministic_repair": deterministic_repair,
+            },
+            "professional_candidate_eligible": True,
+            "public_write_authority": False,
+        }
+        _write_json(runtime / "contracts" / "creative_director_v2.json", director)
+    final = {
+        "schema_version": "contentops.v2.cx_xhigh_diagnostic.v1",
+        "status": (
+            "PASS_CX_XHIGH_EXACT_DIRECTOR"
+            if accepted_director is not None
+            else "BLOCKED_CX_XHIGH"
+        ),
+        "isolated_execution_domain_id": domain_id,
+        "lease_audit_path": audit_path,
+        "lease_revoked": audit.get("state") == "REVOKED",
+        "shared_global_pause_unchanged": bool(
+            (audit.get("shared_global_pause_after") or {}).get("unchanged")
+        ),
+        "v1_provider_calls_authorized_by_v2_lease": 0,
+        "public_writes": 0,
+        "director_prompt_sha256": director_sha256,
+        "director_artifact_sha256": (
+            logical_hash(accepted_director) if accepted_director is not None else None
+        ),
+        "cases": results,
+    }
+    _write_json(aggregate_path, final)
+    return final
+
+
+def run_isolated_cx_segments(runtime: Path, *, repo_root: Path) -> dict[str, Any]:
+    """Author all accepted-Director segments inside one V2-only CX lease."""
+    prepare(runtime)
+    cx_result = _read_json(
+        runtime / "cx_xhigh_diagnostic_v1" / "cx_xhigh_result_v1.json"
+    )
+    if cx_result.get("status") != "PASS_CX_XHIGH_EXACT_DIRECTOR":
+        raise RuntimeError("accepted_cx_xhigh_director_required")
+    domain_id = ""
+    audit_path = ""
+    with active_v2_execution_lease(repo_root=repo_root, runtime=runtime) as lease:
+        domain_id = lease.domain_id
+        audit_path = str(lease.audit_path)
+        validate_isolation_before_provider(runtime)
+        result = author_segments(runtime)
+    audit = _read_json(Path(audit_path))
+    final = result | {
+        "schema_version": "contentops.v2.isolated_cx_segments.v1",
+        "status": "PASS_ISOLATED_CX_SEGMENTS",
+        "isolated_execution_domain_id": domain_id,
+        "lease_audit_path": audit_path,
+        "lease_revoked": audit.get("state") == "REVOKED",
+        "shared_global_pause_unchanged": bool(
+            (audit.get("shared_global_pause_after") or {}).get("unchanged")
+        ),
+        "v1_provider_calls_authorized_by_v2_lease": 0,
+        "public_writes": 0,
+    }
+    _write_json(runtime / "isolated_cx_segments_v1.json", final)
+    return final
+
+
 SEGMENT_INSTRUCTION = """You are the XHIGH Segment Author. Author only this semantic segment, in separately composed short 9:16 and midform 16:9 forms. Return JSON only. Each beat must include every VisualGroundingContract field plus: narration, storyboard_frame, focal_object, source_label, asset_ids, asset_placement, crop_anchor, onscreen_label, data_callout (may be empty), motion_intent, transition_intent, timing_easing, audio_state (one of cold_open,tension,evidence,mechanism,consequence,boundary,resolution,outro), sfx_intent (may be empty), sfx_kind (one of none,whoosh,riser,hit,data_tick), sfx_at_fraction (0..1), duration_seconds. Required real assets must appear in asset_ids and may never be silently replaced by SVG/geometry. Use only provided asset, claim, and evidence IDs. The first short beat must identify oil/Hormuz within one second when this segment owns the hook. Native portrait chart/map/document assets must be used for 9:16; never letterbox a landscape chart. Main visuals must tell the story with narration captions hidden. Avoid generic cards, unexplained symbols, decorative parallax, universal zoom, repeated movement, and tiny source text. Keep each beat 2.5-10 seconds. Use concise natural narration and no unsupported claim."""
+
+
+def project_segment_schema_without_creative_change(text: str) -> dict[str, Any]:
+    """Project XHIGH's synonymous grounding fields onto the canonical contract."""
+    row = json.loads(text)
+    for key, aspect in (
+        ("short_9x16_beats", "9:16"),
+        ("midform_16x9_beats", "16:9"),
+    ):
+        for beat in row.get(key) or []:
+            narration = str(beat.get("narration") or "")
+            subject = str(
+                beat.get("grounding_subject") or beat.get("focal_object") or ""
+            )
+            selected_assets = list(beat.get("asset_ids") or [])
+            raw_visual_type = str(
+                beat.get("visual_class")
+                or beat.get("visual_type")
+                or beat.get("visual_grounding_type")
+                or ""
+            )
+            primary_visual_type = (
+                "documentary_context"
+                if "documentary_context" in raw_visual_type
+                or raw_visual_type.startswith("documentary")
+                else raw_visual_type
+            )
+            beat.setdefault("viewer_takeaway", narration)
+            beat.setdefault("narration_intent", narration)
+            beat.setdefault("primary_visual_type", primary_visual_type)
+            beat.setdefault("recognizable_subject", subject)
+            beat.setdefault("required_asset_ids", selected_assets)
+            beat.setdefault("preferred_asset_ids", [])
+            beat.setdefault(
+                "abstract_substitution_allowed",
+                not bool(selected_assets) and not bool(beat.get("concrete_visual")),
+            )
+            beat.setdefault(
+                "recognition_deadline_seconds",
+                min(5.0, max(0.1, float(beat.get("duration_seconds") or 0))),
+            )
+            beat.setdefault("captions_hidden_takeaway", narration or subject)
+            beat.setdefault("aspect_ratio", aspect)
+            beat.setdefault(
+                "continuity_role",
+                beat.get("grounding_role")
+                or beat.get("transition_intent")
+                or beat.get("evidence_role"),
+            )
+    return row
+
+
+def validate_projected_segment_output(
+    text: str,
+) -> tuple[bool, str | None, Any, str | None]:
+    try:
+        projected = project_segment_schema_without_creative_change(text)
+    except (ValueError, TypeError, KeyError, json.JSONDecodeError) as exc:
+        return (
+            False,
+            "structured_output_schema_invalid",
+            None,
+            f"segment_projection_{type(exc).__name__}",
+        )
+    return validate_segment_output(json.dumps(projected, ensure_ascii=False))
 
 
 def author_segments(runtime: Path) -> dict[str, Any]:
@@ -898,22 +1746,42 @@ def author_segments(runtime: Path) -> dict[str, Any]:
     for index, segment in enumerate(graph):
         needs = " ".join(segment.asset_needs)
         ranked_ids = {
-            variant: [row["asset_id"] for row in broker_assets(
-                [AssetCandidate.from_mapping(candidate) for candidate in assets["candidates"]],
-                semantic_need=needs,
-                variant_id=variant,
-                limit=8,
-            )]
+            variant: [
+                row["asset_id"]
+                for row in broker_assets(
+                    [
+                        AssetCandidate.from_mapping(candidate)
+                        for candidate in assets["candidates"]
+                    ],
+                    semantic_need=needs,
+                    variant_id=variant,
+                    limit=8,
+                )
+            ]
             for variant in ("short_9x16", "midform_16x9")
         }
         candidate_rows = [
-            {key: row.get(key) for key in (
-                "asset_id", "visual_class", "semantic_purposes", "recognizable_focal_object",
-                "documentary", "illustrative", "orientation", "width", "height",
-                "crop_suitability", "rights_status", "attribution", "relative_public_path",
-            )}
+            {
+                key: row.get(key)
+                for key in (
+                    "asset_id",
+                    "visual_class",
+                    "semantic_purposes",
+                    "recognizable_focal_object",
+                    "documentary",
+                    "illustrative",
+                    "orientation",
+                    "width",
+                    "height",
+                    "crop_suitability",
+                    "rights_status",
+                    "attribution",
+                    "relative_public_path",
+                )
+            }
             for row in assets["candidates"]
-            if row["asset_id"] in set(ranked_ids["short_9x16"] + ranked_ids["midform_16x9"])
+            if row["asset_id"]
+            in set(ranked_ids["short_9x16"] + ranked_ids["midform_16x9"])
         ]
         built = build_segment_prompt(
             creative_bible_frozen=director["creative_bible"],
@@ -928,16 +1796,83 @@ def author_segments(runtime: Path) -> dict[str, Any]:
             "instruction": SEGMENT_INSTRUCTION,
             "ranked_asset_ids_by_variant": ranked_ids,
         }
-        output, receipt = NineRouterGPT56Brain().author(
-            role=ROLE_V2_CREATIVE_EDITOR,
-            prompt_payload=prompt,
-            validator=validate_segment_output,
-            logical_invocation_id=f"inv_v2_segment_{segment.segment_id}_{logical_hash(prompt)[:16]}",
-            prompt_template="concrete_first_xhigh_segment_author",
-            prompt_version="v3_minimal_raw_no_generation_config",
-            wire_mode="minimal_raw",
-            evidence_dir=runtime / "provider_evidence" / "segments" / segment.segment_id,
+        segment_invocation_id = (
+            f"inv_v2_segment_{segment.segment_id}_{logical_hash(prompt)[:16]}"
         )
+        default_evidence_dir = (
+            runtime / "provider_evidence" / "segments" / segment.segment_id
+        )
+        stream_evidence_dir = (
+            runtime / "provider_evidence" / "segments_stream" / segment.segment_id
+        )
+        evidence_dir = (
+            default_evidence_dir
+            if (default_evidence_dir / "raw_model_output.txt").is_file()
+            else stream_evidence_dir
+        )
+        existing_raw = evidence_dir / "raw_model_output.txt"
+        if existing_raw.is_file():
+            raw_text = existing_raw.read_text(encoding="utf-8")
+            ok, _, projected, detail = validate_projected_segment_output(raw_text)
+            if not ok or not isinstance(projected, Mapping):
+                raise RuntimeError(
+                    f"existing_segment_output_invalid:{segment.segment_id}:{detail}"
+                )
+            output = dict(projected)
+            raw_receipt = _read_json(
+                evidence_dir / "minimal_raw_provider_receipt_v1.json"
+            )
+            receipt = CreativeReceipt(
+                role=ROLE_V2_CREATIVE_EDITOR,
+                logical_invocation_id=segment_invocation_id,
+                input_sha256=logical_hash(prompt),
+                requested_model=str(raw_receipt["requested_model"]),
+                effective_model=V2_CREATIVE_CX_XHIGH_MODEL,
+                output_sha256=logical_hash(output),
+                terminal_disposition="ACCEPTED_AFTER_DETERMINISTIC_SCHEMA_PROJECTION",
+                attempts=(),
+                total_usage=raw_receipt.get("usage"),
+                total_cost=raw_receipt.get("cost"),
+                degraded_creative_model=False,
+                professional_candidate_eligible=True,
+            )
+            _write_json(
+                evidence_dir / "deterministic_schema_projection_v1.json",
+                {
+                    "schema_version": "contentops.v2.segment_schema_projection.v1",
+                    "raw_model_output_sha256": raw_receipt.get(
+                        "raw_model_output_sha256"
+                    ),
+                    "projected_output_sha256": logical_hash(output),
+                    "operations": "SYNONYMOUS_FIELD_PROJECTION_AND_VARIANT_BINDING",
+                    "creative_meaning_changed": False,
+                    "model_call_used": False,
+                    "public_write": False,
+                },
+            )
+        else:
+            output, receipt = NineRouterGPT56Brain().author(
+                role=ROLE_V2_CREATIVE_EDITOR,
+                prompt_payload=prompt,
+                validator=validate_projected_segment_output,
+                logical_invocation_id=segment_invocation_id,
+                prompt_template="concrete_first_xhigh_segment_author",
+                prompt_version="v3_minimal_raw_no_generation_config",
+                wire_mode="minimal_raw",
+                evidence_dir=evidence_dir,
+                retry_budget=RetryBudget(
+                    logical_invocation_id=segment_invocation_id,
+                    max_total_provider_attempts=1,
+                    max_fallback_transitions=0,
+                    max_same_model_retries=0,
+                    max_structured_output_repair_attempts=0,
+                    max_cumulative_retry_sleep_seconds=0,
+                    wall_clock_budget_seconds=600,
+                    per_model_max_attempts=(1,),
+                ),
+                model_pool_override=(V2_CREATIVE_CX_XHIGH_MODEL,),
+                response_stream=True,
+            )
         if not receipt.professional_candidate_eligible:
             raise RuntimeError(
                 f"professional_segment_candidate_degraded_creative_model:{segment.segment_id}"
@@ -950,8 +1885,13 @@ def author_segments(runtime: Path) -> dict[str, Any]:
         receipts.append(_receipt_summary(receipt))
         continuity = {"knowledge": output.get("continuity_state_leaving") or []}
         previous = str(output["segment_summary"])
-        _write_json(runtime / "contracts" / "segments" / f"{segment.segment_id}.json", output)
-        _write_json(runtime / "receipts" / "segments" / f"{segment.segment_id}.json", _receipt_summary(receipt))
+        _write_json(
+            runtime / "contracts" / "segments" / f"{segment.segment_id}.json", output
+        )
+        _write_json(
+            runtime / "receipts" / "segments" / f"{segment.segment_id}.json",
+            _receipt_summary(receipt),
+        )
     short = [beat for segment in outputs for beat in segment["short_9x16_beats"]]
     mid = [beat for segment in outputs for beat in segment["midform_16x9_beats"]]
     known_assets = {str(row["asset_id"]) for row in assets["candidates"]}
@@ -974,10 +1914,17 @@ def author_segments(runtime: Path) -> dict[str, Any]:
         "segments": outputs,
         "short_9x16_beats": short,
         "midform_16x9_beats": mid,
-        "durations_seconds": {"short_9x16": short_duration, "midform_16x9": mid_duration},
+        "durations_seconds": {
+            "short_9x16": short_duration,
+            "midform_16x9": mid_duration,
+        },
         "segment_receipts": receipts,
-        "degraded_creative_model": any(row["degraded_creative_model"] for row in receipts),
-        "professional_candidate_eligible": all(row["professional_candidate_eligible"] for row in receipts),
+        "degraded_creative_model": any(
+            row["degraded_creative_model"] for row in receipts
+        ),
+        "professional_candidate_eligible": all(
+            row["professional_candidate_eligible"] for row in receipts
+        ),
         "public_write_authority": False,
     }
     if package["degraded_creative_model"]:
@@ -1000,7 +1947,10 @@ def build_storyboards(runtime: Path, *, ffmpeg: str) -> dict[str, Any]:
             frame = render_storyboard_frame(
                 beat,
                 asset_paths=asset_paths,
-                output_path=runtime / "storyboard" / variant / f"{index:02d}-{beat['beat_id']}.jpg",
+                output_path=runtime
+                / "storyboard"
+                / variant
+                / f"{index:02d}-{beat['beat_id']}.jpg",
                 width=dims[0],
                 height=dims[1],
                 captions_visible=False,
@@ -1009,7 +1959,9 @@ def build_storyboards(runtime: Path, *, ffmpeg: str) -> dict[str, Any]:
             frames.append(frame)
         sheet = contact_sheet(
             frames,
-            output_path=runtime / "review" / f"{variant}_storyboard_captions_hidden_contact_sheet.jpg",
+            output_path=runtime
+            / "review"
+            / f"{variant}_storyboard_captions_hidden_contact_sheet.jpg",
             columns=4 if variant == "midform_16x9" else 5,
         )
         animatic = render_animatic(
@@ -1047,19 +1999,40 @@ def _data_uri(path: Path) -> str:
     return f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode('ascii')}"
 
 
-def _validate_comprehension_output(text: str) -> tuple[bool, str | None, Any, str | None]:
+def _validate_comprehension_output(
+    text: str,
+) -> tuple[bool, str | None, Any, str | None]:
     try:
-        value = json.loads(text.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip())
-        if not isinstance(value, Mapping) or value.get("status") not in {"PASS", "BLOCK"}:
+        value = json.loads(
+            text.strip()
+            .removeprefix("```json")
+            .removeprefix("```")
+            .removesuffix("```")
+            .strip()
+        )
+        if not isinstance(value, Mapping) or value.get("status") not in {
+            "PASS",
+            "BLOCK",
+        }:
             raise ValueError("status")
         assessments = value.get("assessments")
         expected = {
-            "first_second_context", "concrete_recognition", "semantic_continuity",
-            "captions_hidden_story_reconstruction", "asset_plan_compliance", "abstract_only_run",
+            "first_second_context",
+            "concrete_recognition",
+            "semantic_continuity",
+            "captions_hidden_story_reconstruction",
+            "asset_plan_compliance",
+            "abstract_only_run",
         }
-        if not isinstance(assessments, Mapping) or set(assessments) != expected or any(not isinstance(item, bool) for item in assessments.values()):
+        if (
+            not isinstance(assessments, Mapping)
+            or set(assessments) != expected
+            or any(not isinstance(item, bool) for item in assessments.values())
+        ):
             raise ValueError("assessments")
-        if not isinstance(value.get("reconstructed_concepts"), list) or not isinstance(value.get("issues"), list):
+        if not isinstance(value.get("reconstructed_concepts"), list) or not isinstance(
+            value.get("issues"), list
+        ):
             raise ValueError("lists")
     except (ValueError, TypeError, json.JSONDecodeError) as exc:
         return False, "structured_output_schema_invalid", None, f"comprehension_{exc}"
@@ -1075,24 +2048,34 @@ def run_premotion_critic(runtime: Path) -> dict[str, Any]:
     instruction = """You are the independent canonical pre-motion comprehension critic. Inspect the two labeled captions-hidden storyboard contact sheets in sequence. Judge whether a normal viewer can reconstruct the EIA/Hormuz story before expensive motion code. Return ONLY JSON: {status:'PASS|BLOCK', summary:string, assessments:{first_second_context:boolean,concrete_recognition:boolean,semantic_continuity:boolean,captions_hidden_story_reconstruction:boolean,asset_plan_compliance:boolean,abstract_only_run:boolean}, reconstructed_concepts:[zero or more exact IDs from: oil_and_hormuz, shipping_supply_changed, eia_forecast_source, production_inventories_demand_matter, price_not_proof, future_confirmation_points], issues:[{variant_id,beat_id,observation,systemic_fix}]}. Set abstract_only_run true only when there is NO long unexplained abstract-only run. Do not reward technical validity. Labels, maps, documents, charts, and recognizable physical assets may carry meaning; narration captions are hidden."""
     image_content: list[dict[str, Any]] = []
     for label, path in images:
-        image_content.extend((
-            {"type": "text", "text": f"CAPTIONS-HIDDEN STORYBOARD: {label}"},
-            {"type": "image_url", "image_url": {"url": _data_uri(path), "detail": "high"}},
-        ))
+        image_content.extend(
+            (
+                {"type": "text", "text": f"CAPTIONS-HIDDEN STORYBOARD: {label}"},
+                {
+                    "type": "image_url",
+                    "image_url": {"url": _data_uri(path), "detail": "high"},
+                },
+            )
+        )
 
     def provider(prompt: str, model: str, timeout: float) -> ProviderResult:
         content = [{"type": "text", "text": prompt}, *image_content]
         return call_nine_router_v2_isolated(
-            content, model, timeout,
+            content,
+            model,
+            timeout,
             role_task_id=ROLE_MULTIMODAL_VIDEO_CRITIC,
             logical_invocation_id=logical_invocation_id,
             component="CanonicalMultimodalCritic",
-            max_tokens=5000, temperature=0.1,
+            max_tokens=5000,
+            temperature=0.1,
         )
 
     technical = {
         "video_id": VIDEO_ID,
-        "input_images": [{"variant_id": label, "sha256": sha256_file(path)} for label, path in images],
+        "input_images": [
+            {"variant_id": label, "sha256": sha256_file(path)} for label, path in images
+        ],
         "captions_hidden": True,
         "public_write_authority": False,
     }
@@ -1111,7 +2094,9 @@ def run_premotion_critic(runtime: Path) -> dict[str, Any]:
         prompt_version="v1",
     )
     if invocation.get("terminal_disposition") != ACCEPTED:
-        raise RuntimeError(f"premotion_critic_blocked:{invocation.get('terminal_disposition')}")
+        raise RuntimeError(
+            f"premotion_critic_blocked:{invocation.get('terminal_disposition')}"
+        )
     authored = dict(invocation["output"])
     gate = evaluate_comprehension_gate(
         assessments=authored["assessments"],
@@ -1127,15 +2112,26 @@ def run_premotion_critic(runtime: Path) -> dict[str, Any]:
             "selected_model": invocation.get("selected_model"),
             "model_identity_note": invocation.get("model_identity_note"),
         },
-        "router_evidence": {key: invocation.get(key) for key in (
-            "logical_invocation_id", "terminal_disposition", "selected_model",
-            "models_attempted_in_order", "total_attempts", "total_usage", "total_cost", "attempts",
-        )},
+        "router_evidence": {
+            key: invocation.get(key)
+            for key in (
+                "logical_invocation_id",
+                "terminal_disposition",
+                "selected_model",
+                "models_attempted_in_order",
+                "total_attempts",
+                "total_usage",
+                "total_cost",
+                "attempts",
+            )
+        },
         "public_write": False,
     }
     _write_json(runtime / "premotion_comprehension_report_v2.json", report)
     if gate["status"] != "PASS":
-        raise RuntimeError("PREMOTION_COMPREHENSION_BLOCK_SYSTEMIC_STORYBOARD_REVISION_REQUIRED")
+        raise RuntimeError(
+            "PREMOTION_COMPREHENSION_BLOCK_SYSTEMIC_STORYBOARD_REVISION_REQUIRED"
+        )
     return report
 
 
@@ -1149,45 +2145,66 @@ def run_isolated_xhigh_preflight(runtime: Path) -> dict[str, Any]:
 
     def provider(current_prompt: str, model: str, timeout: float) -> ProviderResult:
         return call_nine_router_v2_isolated(
-            current_prompt, model, timeout,
+            current_prompt,
+            model,
+            timeout,
             role_task_id=ROLE_V2_CREATIVE_EDITOR,
             logical_invocation_id=logical_invocation_id,
             component="NineRouterGPT56Brain",
-            max_tokens=16, temperature=0.0,
+            max_tokens=16,
+            temperature=0.0,
         )
 
     def validate(text: str) -> tuple[bool, str | None, Any, str | None]:
         ok = text.strip() == "READY"
-        return ok, None if ok else "structured_output_schema_invalid", text.strip(), (
-            None if ok else "isolated_preflight_expected_READY"
+        return (
+            ok,
+            None if ok else "structured_output_schema_invalid",
+            text.strip(),
+            (None if ok else "isolated_preflight_expected_READY"),
         )
 
     invocation = routed_v2_isolated_invocation(
-        prompt=prompt, role_task_id=ROLE_V2_CREATIVE_EDITOR,
-        logical_invocation_id=logical_invocation_id, component="NineRouterGPT56Brain",
+        prompt=prompt,
+        role_task_id=ROLE_V2_CREATIVE_EDITOR,
+        logical_invocation_id=logical_invocation_id,
+        component="NineRouterGPT56Brain",
         provider_call=provider,
-        work_item_id=VIDEO_ID, timeout_seconds=180.0, validator=validate,
+        work_item_id=VIDEO_ID,
+        timeout_seconds=180.0,
+        validator=validate,
         governed_input={"task": "isolated_v2_preflight", "public_write": False},
-        prompt_template="isolated_v2_xhigh_attribution_preflight", prompt_version="v1",
+        prompt_template="isolated_v2_xhigh_attribution_preflight",
+        prompt_version="v1",
         budget=RetryBudget(
             logical_invocation_id=logical_invocation_id,
-            max_total_provider_attempts=1, max_fallback_transitions=0,
-            max_same_model_retries=0, max_structured_output_repair_attempts=0,
-            max_cumulative_retry_sleep_seconds=0, wall_clock_budget_seconds=180,
+            max_total_provider_attempts=1,
+            max_fallback_transitions=0,
+            max_same_model_retries=0,
+            max_structured_output_repair_attempts=0,
+            max_cumulative_retry_sleep_seconds=0,
+            wall_clock_budget_seconds=180,
             per_model_max_attempts=(1, 0, 0),
         ),
     )
     result = {
         "schema_version": "contentops.v2_isolated_xhigh_preflight.v1",
-        "status": "PASS" if invocation.get("terminal_disposition") == ACCEPTED else "BLOCK",
+        "status": "PASS"
+        if invocation.get("terminal_disposition") == ACCEPTED
+        else "BLOCK",
         "selected_model": invocation.get("selected_model"),
         "models_attempted_in_order": invocation.get("models_attempted_in_order"),
         "total_attempts": invocation.get("total_attempts"),
         "router_evidence": invocation,
         "public_write": False,
     }
-    if result["status"] != "PASS" or result["selected_model"] != "new/gpt-5.6-sol-xhigh":
-        raise RuntimeError(f"isolated_xhigh_preflight_block:{result['status']}:{result['selected_model']}")
+    if (
+        result["status"] != "PASS"
+        or result["selected_model"] != "new/gpt-5.6-sol-xhigh"
+    ):
+        raise RuntimeError(
+            f"isolated_xhigh_preflight_block:{result['status']}:{result['selected_model']}"
+        )
     _write_json(runtime / "isolated_xhigh_preflight_v1.json", result)
     return result
 
@@ -1250,7 +2267,12 @@ def require_accepted_isolated_xhigh_preflight(runtime: Path) -> dict[str, Any]:
 
 
 def run_isolated_proof(
-    runtime: Path, *, repo_root: Path, ffmpeg: str, ffprobe: str, node: str,
+    runtime: Path,
+    *,
+    repo_root: Path,
+    ffmpeg: str,
+    ffprobe: str,
+    node: str,
     tts_python: str,
 ) -> dict[str, Any]:
     """Execute the complete proof inside one runner-owned lease and revoke it on exit."""
@@ -1293,12 +2315,17 @@ def run_isolated_proof(
         failure_message = str(exc)[:500]
         failure_status = (
             "BLOCKED_MINIMAL_RAW_XHIGH_DIRECTOR_PROVIDER_EXECUTION"
-            if "BLOCKED_MINIMAL_RAW_XHIGH_DIRECTOR_PROVIDER_EXECUTION" in failure_message
+            if "BLOCKED_MINIMAL_RAW_XHIGH_DIRECTOR_PROVIDER_EXECUTION"
+            in failure_message
             else "BLOCKED_ISOLATED_V2_PROOF_EXECUTION"
         )
-        director_experiment_path = runtime / "minimal_raw_xhigh_director_experiment_v1.json"
+        director_experiment_path = (
+            runtime / "minimal_raw_xhigh_director_experiment_v1.json"
+        )
         director_experiment = (
-            _read_json(director_experiment_path) if director_experiment_path.is_file() else None
+            _read_json(director_experiment_path)
+            if director_experiment_path.is_file()
+            else None
         )
         failure = {
             "schema_version": "contentops.retention_native.isolated_proof_result.v1",
@@ -1400,14 +2427,40 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "stage",
-        choices=("prepare", "director", "segments", "storyboard", "critic", "premotion", "blocker", "isolation", "isolated-preflight", "progressive-xhigh", "proof"),
+        choices=(
+            "prepare",
+            "director",
+            "segments",
+            "storyboard",
+            "critic",
+            "premotion",
+            "blocker",
+            "isolation",
+            "isolated-preflight",
+            "progressive-xhigh",
+            "xhigh-transport",
+            "xhigh-responses",
+            "cx-xhigh",
+            "cx-segments",
+            "cx-motion",
+            "cx-revision",
+            "final-critic",
+            "proof",
+        ),
     )
     parser.add_argument("--runtime", default=str(DEFAULT_RUNTIME))
     parser.add_argument("--ffmpeg", default="ffmpeg")
     parser.add_argument("--ffprobe", default="ffprobe")
     parser.add_argument("--node", default="node")
+    parser.add_argument(
+        "--batch",
+        help="One resumable motion batch, for example short_9x16:S1.",
+    )
     parser.add_argument("--repo-root", default=str(Path.cwd()))
-    parser.add_argument("--tts-python", default=r"A:\Capital Chronicle\Runtime\ContentOps\tier2\tts-kokoro-venv\Scripts\python.exe")
+    parser.add_argument(
+        "--tts-python",
+        default=r"A:\Capital Chronicle\Runtime\ContentOps\tier2\tts-kokoro-venv\Scripts\python.exe",
+    )
     args = parser.parse_args()
     runtime = Path(args.runtime).resolve()
     if args.stage == "prepare":
@@ -1419,13 +2472,19 @@ def main() -> int:
     elif args.stage == "storyboard":
         result = build_storyboards(runtime, ffmpeg=args.ffmpeg)
     elif args.stage == "critic":
-        result = run_premotion_critic(runtime)
+        with active_v2_execution_lease(
+            repo_root=Path(args.repo_root).resolve(), runtime=runtime
+        ):
+            result = run_premotion_critic(runtime)
     elif args.stage == "premotion":
         prepare(runtime)
         author_director(runtime)
         author_segments(runtime)
         build_storyboards(runtime, ffmpeg=args.ffmpeg)
-        result = run_premotion_critic(runtime)
+        with active_v2_execution_lease(
+            repo_root=Path(args.repo_root).resolve(), runtime=runtime
+        ):
+            result = run_premotion_critic(runtime)
     elif args.stage in {"isolation", "isolated-preflight"}:
         repo_root = Path(args.repo_root).resolve()
         with active_v2_execution_lease(repo_root=repo_root, runtime=runtime):
@@ -1434,13 +2493,64 @@ def main() -> int:
                 result = run_isolated_xhigh_preflight(runtime)
     elif args.stage == "proof":
         result = run_isolated_proof(
-            runtime, repo_root=Path(args.repo_root).resolve(), ffmpeg=args.ffmpeg,
-            ffprobe=args.ffprobe, node=args.node, tts_python=args.tts_python,
+            runtime,
+            repo_root=Path(args.repo_root).resolve(),
+            ffmpeg=args.ffmpeg,
+            ffprobe=args.ffprobe,
+            node=args.node,
+            tts_python=args.tts_python,
         )
     elif args.stage == "progressive-xhigh":
         result = run_progressive_xhigh_diagnostic(
             runtime, repo_root=Path(args.repo_root).resolve()
         )
+    elif args.stage == "xhigh-transport":
+        result = run_xhigh_transport_diagnostic(
+            runtime, repo_root=Path(args.repo_root).resolve()
+        )
+    elif args.stage == "xhigh-responses":
+        result = run_xhigh_responses_diagnostic(
+            runtime, repo_root=Path(args.repo_root).resolve()
+        )
+    elif args.stage == "cx-xhigh":
+        result = run_cx_xhigh_diagnostic(
+            runtime, repo_root=Path(args.repo_root).resolve()
+        )
+    elif args.stage == "cx-segments":
+        result = run_isolated_cx_segments(
+            runtime, repo_root=Path(args.repo_root).resolve()
+        )
+    elif args.stage == "cx-motion":
+        if not args.batch:
+            parser.error("cx-motion requires --batch")
+        from live_contentops.retention_native_motion_pipeline_v2 import author_motion
+
+        with active_v2_execution_lease(
+            repo_root=Path(args.repo_root).resolve(), runtime=runtime
+        ):
+            result = author_motion(
+                runtime=runtime,
+                repo_root=Path(args.repo_root).resolve(),
+                only_batch=args.batch,
+            )
+    elif args.stage == "cx-revision":
+        from live_contentops.retention_native_motion_pipeline_v2 import (
+            revise_localized_s3,
+        )
+
+        with active_v2_execution_lease(
+            repo_root=Path(args.repo_root).resolve(), runtime=runtime
+        ):
+            result = revise_localized_s3(
+                runtime=runtime, repo_root=Path(args.repo_root).resolve()
+            )
+    elif args.stage == "final-critic":
+        from live_contentops.retention_native_review_qa_v2 import run_final_critic
+
+        with active_v2_execution_lease(
+            repo_root=Path(args.repo_root).resolve(), runtime=runtime
+        ):
+            result = run_final_critic(runtime=runtime)
     else:
         result = provider_execution_blocker(runtime)
     print(

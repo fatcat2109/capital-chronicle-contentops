@@ -17,6 +17,7 @@ allowed 9router host. There was previously no allowlist covering AI providers, s
 untrusted ``NINE_ROUTER_BASE_URL`` could have redirected model traffic anywhere; this
 module closes that gap and fails closed.
 """
+
 from __future__ import annotations
 
 import importlib
@@ -52,6 +53,7 @@ MINIMAL_RAW_REQUEST_FIELDS: frozenset[str] = frozenset({"model", "messages"})
 OPTIONAL_GENERATION_FIELDS: frozenset[str] = frozenset(
     {
         "max_tokens",
+        "max_output_tokens",
         "temperature",
         "reasoning_effort",
         "response_format",
@@ -96,7 +98,14 @@ def _extract_usage(payload: Mapping[str, Any]) -> dict[str, Any] | None:
     usage = payload.get("usage")
     if not isinstance(usage, Mapping):
         return None
-    keep = ("prompt_tokens", "completion_tokens", "total_tokens", "reasoning_tokens")
+    keep = (
+        "prompt_tokens",
+        "completion_tokens",
+        "input_tokens",
+        "output_tokens",
+        "total_tokens",
+        "reasoning_tokens",
+    )
     out = {k: usage[k] for k in keep if isinstance(usage.get(k), (int, float))}
     return out or None
 
@@ -125,6 +134,29 @@ def _extract_text(payload: Mapping[str, Any]) -> str | None:
         if isinstance(choices[0], Mapping) and isinstance(choices[0].get("text"), str):
             return choices[0]["text"]
     return None
+
+
+def _extract_responses_text(payload: Mapping[str, Any]) -> str | None:
+    output_text = payload.get("output_text")
+    if isinstance(output_text, str) and output_text:
+        return output_text
+    pieces: list[str] = []
+    output = payload.get("output")
+    if not isinstance(output, list):
+        return None
+    for item in output:
+        if not isinstance(item, Mapping):
+            continue
+        content = item.get("content")
+        if not isinstance(content, list):
+            continue
+        for part in content:
+            if not isinstance(part, Mapping):
+                continue
+            text = part.get("text")
+            if isinstance(text, str) and text:
+                pieces.append(text)
+    return "".join(pieces) or None
 
 
 def _parse_sse(text: str) -> str | None:
@@ -174,7 +206,9 @@ def _parse_sse_full(text: str) -> "dict[str, Any] | None":
         if not choices:
             continue
         delta = choices[0].get("delta") or {}
-        content = delta.get("content") or (choices[0].get("message") or {}).get("content")
+        content = delta.get("content") or (choices[0].get("message") or {}).get(
+            "content"
+        )
         if content:
             tokens.append(str(content))
     if not saw_any_chunk:
@@ -321,7 +355,9 @@ def _call_nine_router_impl(
             failure_class=_classify_http_error(code, detail),
         )
     except url_error.URLError as exc:
-        return ProviderResult(failure_class=classify_failure(getattr(exc, "reason", exc)))
+        return ProviderResult(
+            failure_class=classify_failure(getattr(exc, "reason", exc))
+        )
     except (TimeoutError, OSError) as exc:
         return ProviderResult(failure_class=classify_failure(exc))
 
@@ -342,7 +378,9 @@ def _call_nine_router_impl(
         text = sse["text"] if sse is not None else None
     if text is None and sse is None and not payload:
         return ProviderResult(
-            status_code=status, failure_class="structured_output_malformed", text=raw[:2000]
+            status_code=status,
+            failure_class="structured_output_malformed",
+            text=raw[:2000],
         )
 
     resolved_model = sse["model"] if sse is not None else _observed_model(payload)
@@ -396,17 +434,23 @@ def _call_nine_router_minimal_raw_impl(
     evidence_dir: Path,
     isolated_execution_domain_id: str,
     base_url: str | None = None,
+    stream: bool | None = None,
+    api_style: str = "chat_completions",
 ) -> ProviderResult:
-    """Send exactly ``model`` + ``messages`` and preserve response bytes before parsing.
+    """Send the minimal creative request and preserve response bytes before parsing.
 
     This is the controlled V2 XHIGH experiment boundary. It deliberately does not share
     the configured request builder above, so optional generation fields cannot leak onto
-    this wire request through defaults or a future refactor.
+    this wire request through defaults or a future refactor. ``stream`` is optional and,
+    when explicitly supplied by a follow-up diagnostic, changes only response transport;
+    the original controlled call continues to contain exactly ``model`` + ``messages``.
     """
     if model not in AUTHORIZED_MODELS:
         raise NineRouterAdapterError(f"unauthorized_model:{model}")
+    if api_style not in {"chat_completions", "responses"}:
+        raise NineRouterAdapterError(f"minimal_raw_api_style_invalid:{api_style}")
     wire_model, effort = split_model_and_effort(model)
-    if effort is not None:
+    if effort is not None and model != "cx/gpt-5.6-sol(xhigh)":
         raise NineRouterAdapterError("minimal_raw_model_requires_optional_effort_field")
 
     evidence_dir = Path(evidence_dir).resolve()
@@ -420,13 +464,31 @@ def _call_nine_router_minimal_raw_impl(
         raise NineRouterAdapterError(f"{ENV_API_KEY}_missing")
     resolved_base = resolve_base_url(base_url)
     prompt_bytes = _prompt_bytes(prompt)
-    request_payload: dict[str, Any] = {
-        "model": wire_model,
-        "messages": [{"role": "user", "content": prompt}],
-    }
-    if set(request_payload) != MINIMAL_RAW_REQUEST_FIELDS:
+    request_payload: dict[str, Any] = (
+        {"model": wire_model, "input": prompt}
+        if api_style == "responses"
+        else {
+            "model": wire_model,
+            "messages": [{"role": "user", "content": prompt}],
+        }
+    )
+    if stream is not None:
+        request_payload["stream"] = stream
+    if effort is not None:
+        request_payload["reasoning_effort"] = effort
+    expected_fields = (
+        {"model", "input"}
+        if api_style == "responses"
+        else set(MINIMAL_RAW_REQUEST_FIELDS)
+    ) | ({"stream"} if stream is not None else set())
+    if effort is not None:
+        expected_fields.add("reasoning_effort")
+    if set(request_payload) != expected_fields:
         raise NineRouterAdapterError("minimal_raw_request_field_set_invalid")
-    leaked = sorted(set(request_payload) & OPTIONAL_GENERATION_FIELDS)
+    allowed_required_fields = {"reasoning_effort"} if effort is not None else set()
+    leaked = sorted(
+        (set(request_payload) & OPTIONAL_GENERATION_FIELDS) - allowed_required_fields
+    )
     if leaked:
         raise NineRouterAdapterError(
             f"minimal_raw_optional_generation_fields_present:{','.join(leaked)}"
@@ -439,31 +501,47 @@ def _call_nine_router_minimal_raw_impl(
         "isolated_execution_domain_id": isolated_execution_domain_id,
         "requested_model": model,
         "wire_model": wire_model,
+        "api_style": api_style,
         "request_body_field_names": sorted(request_payload),
-        "optional_generation_fields_absent": True,
+        "optional_generation_fields_absent": effort is None,
+        "required_effort_selector_only": effort,
         "optional_generation_fields_checked": sorted(OPTIONAL_GENERATION_FIELDS),
-        "messages_count": 1,
-        "message_roles": ["user"],
+        "response_transport": (
+            "gateway_default"
+            if stream is None
+            else ("stream" if stream else "non_stream")
+        ),
+        "messages_count": 1 if api_style == "chat_completions" else 0,
+        "message_roles": ["user"] if api_style == "chat_completions" else [],
         "prompt_sha256": sha256(prompt_bytes).hexdigest(),
         "prompt_character_size": len(prompt) if isinstance(prompt, str) else None,
         "prompt_byte_size": len(prompt_bytes),
         "request_body_sha256": sha256(body).hexdigest(),
         "request_body_byte_size": len(body),
-        "transport_header_names": ["Authorization", "Content-Type"],
+        "transport_header_names": (
+            ["Accept", "Authorization", "Content-Type"]
+            if stream is True
+            else ["Authorization", "Content-Type"]
+        ),
         "contains_credentials": False,
         "public_write": False,
     }
-    _write_minimal_raw_receipt(evidence_dir / "request_metadata_v1.json", request_metadata)
+    _write_minimal_raw_receipt(
+        evidence_dir / "request_metadata_v1.json", request_metadata
+    )
 
     url_request = importlib.import_module("urllib.request")
     url_error = importlib.import_module("urllib.error")
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}",
+    }
+    if stream is True:
+        headers["Accept"] = "text/event-stream"
     request = url_request.Request(
-        f"{resolved_base}/chat/completions",
+        f"{resolved_base}/{'responses' if api_style == 'responses' else 'chat/completions'}",
         data=body,
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}",
-        },
+        headers=headers,
         method="POST",
     )
 
@@ -534,7 +612,11 @@ def _call_nine_router_minimal_raw_impl(
     parsed = _load_json_body(raw)
     if parsed is not None:
         payload = parsed
-        text = _extract_text(payload)
+        text = (
+            _extract_responses_text(payload)
+            if api_style == "responses"
+            else _extract_text(payload)
+        )
     elif "data:" in raw:
         sse = _parse_sse_full(raw)
         text = sse["text"] if sse is not None else None
@@ -605,12 +687,18 @@ def call_nine_router(
     base_url: str | None = None,
 ) -> ProviderResult:
     """Canonical adapter; the shared/global operator fuse remains authoritative."""
-    from live_contentops.llm_operator_control_v1 import assert_llm_operator_execution_enabled
+    from live_contentops.llm_operator_control_v1 import (
+        assert_llm_operator_execution_enabled,
+    )
 
     assert_llm_operator_execution_enabled()
     return _call_nine_router_impl(
-        prompt, model, timeout_seconds, max_tokens=max_tokens,
-        temperature=temperature, base_url=base_url,
+        prompt,
+        model,
+        timeout_seconds,
+        max_tokens=max_tokens,
+        temperature=temperature,
+        base_url=base_url,
     )
 
 
@@ -633,26 +721,43 @@ def call_nine_router_v2_isolated(
     )
 
     lease = assert_v2_execution_authorized(
-        role_task_id=role_task_id, logical_invocation_id=logical_invocation_id,
-        component=component, model=model, public_write=False,
+        role_task_id=role_task_id,
+        logical_invocation_id=logical_invocation_id,
+        component=component,
+        model=model,
+        public_write=False,
     )
-    prompt_sha256 = __import__("hashlib").sha256(str(prompt).encode("utf-8")).hexdigest()
+    prompt_sha256 = (
+        __import__("hashlib").sha256(str(prompt).encode("utf-8")).hexdigest()
+    )
     try:
         result = _call_nine_router_impl(
-            prompt, model, timeout_seconds, max_tokens=max_tokens,
-            temperature=temperature, base_url=base_url,
+            prompt,
+            model,
+            timeout_seconds,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            base_url=base_url,
         )
     except BaseException as exc:
         record_provider_attempt(
-            lease=lease, logical_invocation_id=logical_invocation_id,
-            role_task_id=role_task_id, component=component, requested_model=model,
-            prompt_sha256=prompt_sha256, error_class=type(exc).__name__,
+            lease=lease,
+            logical_invocation_id=logical_invocation_id,
+            role_task_id=role_task_id,
+            component=component,
+            requested_model=model,
+            prompt_sha256=prompt_sha256,
+            error_class=type(exc).__name__,
         )
         raise
     record_provider_attempt(
-        lease=lease, logical_invocation_id=logical_invocation_id,
-        role_task_id=role_task_id, component=component, requested_model=model,
-        prompt_sha256=prompt_sha256, result=result,
+        lease=lease,
+        logical_invocation_id=logical_invocation_id,
+        role_task_id=role_task_id,
+        component=component,
+        requested_model=model,
+        prompt_sha256=prompt_sha256,
+        result=result,
     )
     return result
 
@@ -667,8 +772,10 @@ def call_nine_router_v2_isolated_minimal_raw(
     component: str,
     evidence_dir: Path,
     base_url: str | None = None,
+    stream: bool | None = None,
+    api_style: str = "chat_completions",
 ) -> ProviderResult:
-    """Lease-bound V2 call whose request body contains only ``model`` and ``messages``."""
+    """Lease-bound V2 minimal call, optionally selecting response transport only."""
     from live_contentops.v2_isolated_llm_execution_v1 import (
         assert_v2_execution_authorized,
         record_provider_attempt,
@@ -691,6 +798,8 @@ def call_nine_router_v2_isolated_minimal_raw(
             evidence_dir=Path(evidence_dir),
             isolated_execution_domain_id=lease.domain_id,
             base_url=base_url,
+            stream=stream,
+            api_style=api_style,
         )
     except BaseException as exc:
         record_provider_attempt(

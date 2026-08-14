@@ -4,6 +4,7 @@ This module is deliberately renderer neutral.  GPT-5.6 owns viewer-visible creat
 decisions; this code validates, binds, hashes, scores, and blocks unsafe/incomprehensible
 plans.  It grants no publication authority.
 """
+
 from __future__ import annotations
 
 import json
@@ -38,7 +39,9 @@ ACCEPTED_RIGHTS = frozenset(
 
 
 def logical_hash(value: Any) -> str:
-    payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    payload = json.dumps(
+        value, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+    )
     return sha256(payload.encode("utf-8")).hexdigest()
 
 
@@ -53,9 +56,24 @@ def _required_text(row: Mapping[str, Any], key: str, owner: str) -> str:
     return value
 
 
-def _required_string_list(row: Mapping[str, Any], key: str, owner: str) -> tuple[str, ...]:
+def _required_string_list(
+    row: Mapping[str, Any], key: str, owner: str
+) -> tuple[str, ...]:
     value = row.get(key)
-    if not isinstance(value, list) or not value or any(not str(item).strip() for item in value):
+    if (
+        not isinstance(value, list)
+        or not value
+        or any(not str(item).strip() for item in value)
+    ):
+        raise ValueError(f"{owner}_invalid:{key}")
+    return tuple(str(item) for item in value)
+
+
+def _required_string_list_allow_empty(
+    row: Mapping[str, Any], key: str, owner: str
+) -> tuple[str, ...]:
+    value = row.get(key)
+    if not isinstance(value, list) or any(not str(item).strip() for item in value):
         raise ValueError(f"{owner}_invalid:{key}")
     return tuple(str(item) for item in value)
 
@@ -134,7 +152,10 @@ class SegmentContract:
     def from_mapping(cls, row: Mapping[str, Any]) -> "SegmentContract":
         owner = f"segment:{row.get('segment_id') or 'unknown'}"
         envelope = row.get("target_timing_envelope")
-        if not isinstance(envelope, Mapping) or set(envelope) != {"short_9x16", "midform_16x9"}:
+        if not isinstance(envelope, Mapping) or set(envelope) != {
+            "short_9x16",
+            "midform_16x9",
+        }:
             raise ValueError(f"{owner}_timing_envelope_invalid")
         normalized: dict[str, dict[str, float]] = {}
         for variant, limits in envelope.items():
@@ -151,7 +172,9 @@ class SegmentContract:
             narrative_question=_required_text(row, "narrative_question", owner),
             dependencies=tuple(str(item) for item in row.get("dependencies") or ()),
             allowed_claim_ids=_required_string_list(row, "allowed_claim_ids", owner),
-            allowed_evidence_ids=_required_string_list(row, "allowed_evidence_ids", owner),
+            allowed_evidence_ids=_required_string_list(
+                row, "allowed_evidence_ids", owner
+            ),
             viewer_knowledge_entering=tuple(
                 str(item) for item in row.get("viewer_knowledge_entering") or ()
             ),
@@ -170,7 +193,9 @@ class SegmentContract:
         )
 
 
-def validate_segment_graph(rows: Sequence[Mapping[str, Any]]) -> tuple[SegmentContract, ...]:
+def validate_segment_graph(
+    rows: Sequence[Mapping[str, Any]],
+) -> tuple[SegmentContract, ...]:
     if not 2 <= len(rows) <= 8:
         raise ValueError("segment_graph_dynamic_but_bounded_2_to_8")
     graph = tuple(SegmentContract.from_mapping(row) for row in rows)
@@ -218,7 +243,9 @@ class AssetCandidate:
             sha256=_required_text(row, "sha256", "asset"),
             width=int(row.get("width") or 0),
             height=int(row.get("height") or 0),
-            semantic_purposes=tuple(str(item) for item in row.get("semantic_purposes") or ()),
+            semantic_purposes=tuple(
+                str(item) for item in row.get("semantic_purposes") or ()
+            ),
             recognizable_focal_object=_required_text(
                 row, "recognizable_focal_object", "asset"
             ),
@@ -238,7 +265,9 @@ class AssetCandidate:
     def validate(self) -> None:
         if self.rights_status not in ACCEPTED_RIGHTS:
             raise ValueError(f"asset_rights_not_accepted:{self.asset_id}")
-        if len(self.sha256) != 64 or any(character not in "0123456789abcdef" for character in self.sha256):
+        if len(self.sha256) != 64 or any(
+            character not in "0123456789abcdef" for character in self.sha256
+        ):
             raise ValueError(f"asset_sha256_invalid:{self.asset_id}")
         if self.width <= 0 or self.height <= 0:
             raise ValueError(f"asset_dimensions_invalid:{self.asset_id}")
@@ -257,13 +286,24 @@ def score_asset(
     variant_id: str,
     selected_duplicate_groups: Iterable[str] = (),
 ) -> float:
-    words = {word for word in semantic_need.lower().replace("/", " ").split() if len(word) > 2}
-    corpus = " ".join((candidate.recognizable_focal_object, *candidate.semantic_purposes)).lower()
+    words = {
+        word
+        for word in semantic_need.lower().replace("/", " ").split()
+        if len(word) > 2
+    }
+    corpus = " ".join(
+        (candidate.recognizable_focal_object, *candidate.semantic_purposes)
+    ).lower()
     relevance = sum(1 for word in words if word in corpus) / max(1, len(words))
     rights = 1.0 if candidate.rights_status in ACCEPTED_RIGHTS else 0.0
     crop = max(0.0, min(1.0, float(candidate.crop_suitability.get(variant_id, 0))))
     resolution = min(1.0, math.sqrt(candidate.width * candidate.height) / 1800)
-    duplicate_penalty = 0.3 if candidate.duplicate_group in set(selected_duplicate_groups) and candidate.duplicate_group else 0.0
+    duplicate_penalty = (
+        0.3
+        if candidate.duplicate_group in set(selected_duplicate_groups)
+        and candidate.duplicate_group
+        else 0.0
+    )
     concentration_penalty = min(0.25, candidate.prior_use_count * 0.04)
     return round(
         max(
@@ -281,13 +321,24 @@ def score_asset(
 
 
 def broker_assets(
-    candidates: Sequence[AssetCandidate], *, semantic_need: str, variant_id: str, limit: int = 5
+    candidates: Sequence[AssetCandidate],
+    *,
+    semantic_need: str,
+    variant_id: str,
+    limit: int = 5,
 ) -> list[dict[str, Any]]:
     scored = [
-        {"asset_id": row.asset_id, "score": score_asset(row, semantic_need=semantic_need, variant_id=variant_id)}
+        {
+            "asset_id": row.asset_id,
+            "score": score_asset(
+                row, semantic_need=semantic_need, variant_id=variant_id
+            ),
+        }
         for row in candidates
     ]
-    return sorted(scored, key=lambda row: (-float(row["score"]), str(row["asset_id"])))[:limit]
+    return sorted(scored, key=lambda row: (-float(row["score"]), str(row["asset_id"])))[
+        :limit
+    ]
 
 
 @dataclass(frozen=True)
@@ -314,28 +365,48 @@ class VisualGroundingContract:
             viewer_takeaway=_required_text(row, "viewer_takeaway", "grounding"),
             narration_intent=_required_text(row, "narration_intent", "grounding"),
             primary_visual_type=_required_text(row, "primary_visual_type", "grounding"),
-            recognizable_subject=_required_text(row, "recognizable_subject", "grounding"),
-            required_asset_ids=tuple(str(item) for item in row.get("required_asset_ids") or ()),
-            preferred_asset_ids=tuple(str(item) for item in row.get("preferred_asset_ids") or ()),
-            abstract_substitution_allowed=bool(row.get("abstract_substitution_allowed")),
-            recognition_deadline_seconds=float(row.get("recognition_deadline_seconds", 0)),
-            captions_hidden_takeaway=_required_text(row, "captions_hidden_takeaway", "grounding"),
+            recognizable_subject=_required_text(
+                row, "recognizable_subject", "grounding"
+            ),
+            required_asset_ids=tuple(
+                str(item) for item in row.get("required_asset_ids") or ()
+            ),
+            preferred_asset_ids=tuple(
+                str(item) for item in row.get("preferred_asset_ids") or ()
+            ),
+            abstract_substitution_allowed=bool(
+                row.get("abstract_substitution_allowed")
+            ),
+            recognition_deadline_seconds=float(
+                row.get("recognition_deadline_seconds", 0)
+            ),
+            captions_hidden_takeaway=_required_text(
+                row, "captions_hidden_takeaway", "grounding"
+            ),
             aspect_ratio=_required_text(row, "aspect_ratio", "grounding"),
-            claim_ids=_required_string_list(row, "claim_ids", "grounding"),
-            evidence_ids=_required_string_list(row, "evidence_ids", "grounding"),
+            claim_ids=_required_string_list_allow_empty(row, "claim_ids", "grounding"),
+            evidence_ids=_required_string_list_allow_empty(
+                row, "evidence_ids", "grounding"
+            ),
             continuity_role=_required_text(row, "continuity_role", "grounding"),
         )
         if value.primary_visual_type not in VISUAL_HIERARCHY:
             raise ValueError(f"grounding_visual_type_invalid:{value.beat_id}")
-        if value.recognition_deadline_seconds <= 0 or value.recognition_deadline_seconds > 5:
+        if (
+            value.recognition_deadline_seconds <= 0
+            or value.recognition_deadline_seconds > 5
+        ):
             raise ValueError(f"grounding_recognition_deadline_invalid:{value.beat_id}")
         if value.required_asset_ids and value.abstract_substitution_allowed:
-            raise ValueError(f"grounding_required_asset_cannot_allow_abstract_substitution:{value.beat_id}")
+            raise ValueError(
+                f"grounding_required_asset_cannot_allow_abstract_substitution:{value.beat_id}"
+            )
         return value
 
 
 def enforce_must_use_assets(
-    contracts: Sequence[VisualGroundingContract], actual_assets_by_beat: Mapping[str, Sequence[str]]
+    contracts: Sequence[VisualGroundingContract],
+    actual_assets_by_beat: Mapping[str, Sequence[str]],
 ) -> dict[str, Any]:
     missing: dict[str, list[str]] = {}
     for contract in contracts:
@@ -360,7 +431,9 @@ def compile_chart_plan(spec: Mapping[str, Any], variant_id: str) -> dict[str, An
     return {
         "compiler": "native_chart.v1",
         "variant_id": variant_id,
-        "composition": "portrait_stacked_direct_labels" if portrait else "landscape_focused_direct_labels",
+        "composition": "portrait_stacked_direct_labels"
+        if portrait
+        else "landscape_focused_direct_labels",
         "direct_labels": True,
         "legend_required": False,
         "focused_range": spec.get("focused_range"),
@@ -401,7 +474,9 @@ def compile_document_plan(spec: Mapping[str, Any], variant_id: str) -> dict[str,
         "source_label": _required_text(spec, "source_label", "document"),
         "source_date": _required_text(spec, "source_date", "document"),
         "governed_excerpt": excerpt,
-        "focus_mode": "portrait_sentence_crop" if variant_id == "short_9x16" else "document_crop_plus_enlarged_excerpt",
+        "focus_mode": "portrait_sentence_crop"
+        if variant_id == "short_9x16"
+        else "document_crop_plus_enlarged_excerpt",
         "full_page_tiny_render_forbidden": True,
         "sha256": logical_hash({"variant_id": variant_id, "spec": spec}),
     }
@@ -420,8 +495,14 @@ def build_segment_prompt(
     claims = dict(governed_evidence.get("claims") or {})
     evidence = dict(governed_evidence.get("evidence") or {})
     bounded = {
-        "claims": {key: claims[key] for key in segment.allowed_claim_ids if key in claims},
-        "evidence": {key: evidence[key] for key in segment.allowed_evidence_ids if key in evidence},
+        "claims": {
+            key: claims[key] for key in segment.allowed_claim_ids if key in claims
+        },
+        "evidence": {
+            key: evidence[key]
+            for key in segment.allowed_evidence_ids
+            if key in evidence
+        },
     }
     if set(bounded["claims"]) != set(segment.allowed_claim_ids):
         raise ValueError(f"segment_claim_binding_missing:{segment.segment_id}")
@@ -440,8 +521,12 @@ def build_segment_prompt(
         "output_contract": {
             "segment_summary": "string",
             "continuity_state_leaving": ["string"],
-            "short_9x16_beats": ["VisualGroundingContract plus narration and storyboard frame"],
-            "midform_16x9_beats": ["VisualGroundingContract plus narration and storyboard frame"],
+            "short_9x16_beats": [
+                "VisualGroundingContract plus narration and storyboard frame"
+            ],
+            "midform_16x9_beats": [
+                "VisualGroundingContract plus narration and storyboard frame"
+            ],
             "rules": [
                 "concrete-first; abstraction only when explanatory",
                 "use exact asset IDs and governed claim/evidence IDs",
@@ -496,7 +581,10 @@ def visual_mix_summary(beats: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
             raise ValueError(f"visual_mix_unknown_class:{visual_class}")
         totals[visual_class] += float(beat.get("duration_seconds") or 0)
     duration = sum(totals.values())
-    ratios = {key: round(value / duration, 6) if duration else 0.0 for key, value in totals.items()}
+    ratios = {
+        key: round(value / duration, 6) if duration else 0.0
+        for key, value in totals.items()
+    }
     abstraction = ratios["pure_abstraction"] + ratios["typography_only"]
     return {
         "seconds": totals,

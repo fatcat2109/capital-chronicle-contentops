@@ -67,6 +67,55 @@ def _fit_text(
     return _font(minimum, bold=bold), textwrap.wrap(text, width=max(8, int((x1 - x0) / (minimum * 0.54))))
 
 
+def _display_callout(value: Any) -> str:
+    """Render structured authored facts without leaking Python/JSON repr to viewers."""
+    if isinstance(value, Mapping):
+        value = [value]
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        parts: list[str] = []
+        for row in value:
+            if not isinstance(row, Mapping):
+                parts.append(str(row).strip())
+                continue
+            label = str(row.get("label") or "").strip()
+            fact = str(row.get("value") or "").strip()
+            status = str(row.get("status") or "").strip()
+            primary = " ".join(item for item in (label, fact) if item)
+            if status and status.casefold() not in primary.casefold():
+                primary = f"{primary} · {status}" if primary else status
+            if primary:
+                parts.append(primary)
+        return "  •  ".join(parts)
+    return str(value or "").strip()
+
+
+def _draw_fitted_lines(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    *,
+    box: tuple[int, int, int, int],
+    maximum: int,
+    minimum: int,
+    bold: bool,
+    fill: tuple[int, ...],
+    centered: bool = False,
+) -> None:
+    font, lines = _fit_text(
+        draw, text, box=box, maximum=maximum, minimum=minimum, bold=bold
+    )
+    x0, y0, x1, _ = box
+    y = y0
+    for line in lines:
+        draw.text(
+            ((x0 + x1) // 2 if centered else x0, y),
+            line,
+            font=font,
+            fill=fill,
+            anchor="ma" if centered else None,
+        )
+        y += int(font.size * 1.12)
+
+
 def render_native_chart(
     plan: Mapping[str, Any], *, output_path: str | Path, width: int, height: int
 ) -> dict[str, Any]:
@@ -183,19 +232,49 @@ def render_storyboard_frame(
     draw = ImageDraw.Draw(canvas)
     margin = int(width * 0.07)
     label = str(beat.get("onscreen_label") or beat["viewer_takeaway"])
-    box = (margin, int(height * 0.57), width - margin, int(height * 0.79))
-    font, lines = _fit_text(draw, label, box=box, maximum=max(42, width // 14), minimum=max(28, width // 28), bold=True)
-    y = box[1]
-    for line in lines[:4]:
-        draw.text((margin, y), line, font=font, fill=INK)
-        y += int(font.size * 1.12)
-    callout = str(beat.get("data_callout") or "").strip()
+    box = (margin, int(height * 0.58), width - margin, int(height * 0.86))
+    _draw_fitted_lines(
+        draw,
+        label,
+        box=box,
+        maximum=max(42, width // 14),
+        minimum=max(24, width // 34),
+        bold=True,
+        fill=INK,
+    )
+    callout = _display_callout(beat.get("data_callout"))
     if callout:
-        callout_font = _font(max(28, width // 24), bold=True)
-        draw.rounded_rectangle((margin, int(height * 0.47), width - margin, int(height * 0.55)), radius=16, fill=(24, 128, 112, 235))
-        draw.text((width // 2, int(height * 0.51)), callout, font=callout_font, fill=INK, anchor="mm")
+        callout_box = (
+            margin + 12,
+            int(height * 0.465),
+            width - margin - 12,
+            int(height * 0.565),
+        )
+        draw.rounded_rectangle(
+            (margin, int(height * 0.45), width - margin, int(height * 0.575)),
+            radius=16,
+            fill=(24, 128, 112, 235),
+        )
+        _draw_fitted_lines(
+            draw,
+            callout,
+            box=callout_box,
+            maximum=max(28, width // 24),
+            minimum=max(18, width // 50),
+            bold=True,
+            fill=INK,
+            centered=True,
+        )
     source = str(beat.get("source_label") or "")
-    draw.text((margin, int(height * 0.92)), source, font=_font(max(18, width // 42)), fill=SOURCE)
+    _draw_fitted_lines(
+        draw,
+        source,
+        box=(margin, int(height * 0.90), width - margin, int(height * 0.965)),
+        maximum=max(18, width // 42),
+        minimum=max(13, width // 72),
+        bold=False,
+        fill=SOURCE,
+    )
     if captions_visible:
         caption = str(beat.get("narration") or "")
         cfont, clines = _fit_text(draw, caption, box=(margin, int(height * 0.80), width - margin, int(height * 0.91)), maximum=max(26, width // 30), minimum=max(20, width // 44), bold=True)

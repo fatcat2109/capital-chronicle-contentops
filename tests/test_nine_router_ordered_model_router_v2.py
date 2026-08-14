@@ -6,6 +6,7 @@ manufacture paid failures to prove the retry algorithm.
 
 Cases A–N map one-to-one onto the authorized validation matrix.
 """
+
 from __future__ import annotations
 
 import json
@@ -129,7 +130,9 @@ def good(model: str, text: str = '{"ok": true}') -> ProviderResult:
 
 def fail(klass: str, *, status: int | None = None, retry_after: float | None = None):
     return ProviderResult(
-        failure_class=klass, status_code=status, retry_after_seconds=retry_after,
+        failure_class=klass,
+        status_code=status,
+        retry_after_seconds=retry_after,
         resolved_model=None,
     )
 
@@ -155,7 +158,11 @@ def run(provider, **kwargs):
 
 def test_authority_declares_v2_and_supersedes_v1() -> None:
     packet = authority_packet()
-    assert packet["authority_id"] == AUTHORITY_ID == "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2"
+    assert (
+        packet["authority_id"]
+        == AUTHORITY_ID
+        == "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2"
+    )
     assert packet["supersedes"] == SUPERSEDES_AUTHORITY_ID
     assert packet["gateway"] == GATEWAY == "9router"
     assert packet["fallback_is_owner_authorized"] is True
@@ -175,15 +182,18 @@ def test_exact_ordered_pool_is_the_four_authorized_models() -> None:
     )
     assert PRIMARY_MODEL == "new/claude-fable-5"
     assert len(ORDERED_MODEL_POOL) == 4
-    assert len(AUTHORIZED_MODELS) == 7
+    assert len(AUTHORIZED_MODELS) == 8
     assert {"new/gpt-5.6-sol-high", "new/gpt-5.6-sol-medium"} <= AUTHORIZED_MODELS
     assert "vx/gemini-3.5-flash(high)" in AUTHORIZED_MODELS
+    assert "cx/gpt-5.6-sol(xhigh)" in AUTHORIZED_MODELS
     assert ARTICLE_WRITING_MODEL_POOL is ORDERED_MODEL_POOL
     assert model_pool_for_role(ARTICLE_WRITING_ROLE) is ORDERED_MODEL_POOL
     assert authority_packet()["article_writing_uses_quality_first_pool"] is True
 
 
-def test_temporary_gemini_incident_routes_leaf_to_flash_and_quality_to_pro(monkeypatch) -> None:
+def test_temporary_gemini_incident_routes_leaf_to_flash_and_quality_to_pro(
+    monkeypatch,
+) -> None:
     _enable_gemini_incident(monkeypatch)
 
     assert model_pool_for_role(NEWSROOM_LEAF_SCAN_ROLE) == (NEWSROOM_LEAF_SCAN_MODEL,)
@@ -198,7 +208,9 @@ def test_temporary_gemini_incident_routes_leaf_to_flash_and_quality_to_pro(monke
     assert budget.per_model_max_attempts == (2,)
     packet = authority_packet()
     assert packet["ordered_model_pool"] == list(ORDERED_MODEL_POOL)
-    assert packet["temporary_build_acceptance_gemini_incident"]["mode"] == "PRO_AND_FLASH"
+    assert (
+        packet["temporary_build_acceptance_gemini_incident"]["mode"] == "PRO_AND_FLASH"
+    )
     assert packet["production_launch_uses_incident_override_by_default"] is False
 
     provider = scripted({GEMINI_PRO_MODEL: [good(GEMINI_PRO_MODEL)]})
@@ -222,7 +234,9 @@ def test_temporary_gemini_incident_routes_leaf_to_flash_and_quality_to_pro(monke
     (("PRO_ONLY", GEMINI_PRO_MODEL), ("FLASH_ONLY", NEWSROOM_LEAF_SCAN_MODEL)),
 )
 def test_single_verified_gemini_incident_uses_that_exact_model_for_all_roles(
-    monkeypatch, mode: str, expected: str,
+    monkeypatch,
+    mode: str,
+    expected: str,
 ) -> None:
     _enable_gemini_incident(monkeypatch, mode)
     assert model_pool_for_role(NEWSROOM_LEAF_SCAN_ROLE) == (expected,)
@@ -269,8 +283,12 @@ def test_declared_retry_budget_defaults() -> None:
     assert policy["budget_resets_on_reconstruction"] is False
 
 
-def test_role_specific_wall_clock_budgets_are_finite_and_do_not_change_attempt_bounds() -> None:
-    from live_contentops.nine_router_ordered_model_router_v2 import retry_budget_for_role
+def test_role_specific_wall_clock_budgets_are_finite_and_do_not_change_attempt_bounds() -> (
+    None
+):
+    from live_contentops.nine_router_ordered_model_router_v2 import (
+        retry_budget_for_role,
+    )
 
     leaf = retry_budget_for_role(
         role_task_id="rolling_x_newsroom_leaf_scan",
@@ -284,17 +302,33 @@ def test_role_specific_wall_clock_budgets_are_finite_and_do_not_change_attempt_b
         role_task_id="article_writing",
         logical_invocation_id="generic-budget-test",
     )
-    assert leaf.wall_clock_budget_seconds == NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS == 1200.0
-    assert editor.wall_clock_budget_seconds == NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS == 1200.0
+    assert (
+        leaf.wall_clock_budget_seconds
+        == NEWSROOM_LEAF_SCAN_WALL_CLOCK_BUDGET_SECONDS
+        == 1200.0
+    )
+    assert (
+        editor.wall_clock_budget_seconds
+        == NEWSROOM_GLOBAL_EDITOR_WALL_CLOCK_BUDGET_SECONDS
+        == 1200.0
+    )
     assert generic.wall_clock_budget_seconds == 300.0
     assert leaf.max_total_provider_attempts == MAX_TOTAL_PROVIDER_ATTEMPTS
     assert leaf.max_fallback_transitions == NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS
-    assert leaf.per_model_max_attempts == NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS == (2, 1, 1, 1, 1)
+    assert (
+        leaf.per_model_max_attempts
+        == NEWSROOM_LEAF_SCAN_PER_MODEL_MAX_ATTEMPTS
+        == (2, 1, 1, 1, 1)
+    )
     assert editor.max_total_provider_attempts == 5
     assert editor.max_fallback_transitions == 3
     assert editor.max_same_model_retries == 0
     assert editor.max_structured_output_repair_attempts == 1
-    assert editor.per_model_max_attempts == NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS == (1, 1, 1, 2)
+    assert (
+        editor.per_model_max_attempts
+        == NEWSROOM_GLOBAL_EDITOR_PER_MODEL_MAX_ATTEMPTS
+        == (1, 1, 1, 2)
+    )
     assert generic.max_total_provider_attempts == MAX_TOTAL_PROVIDER_ATTEMPTS
     assert generic.max_same_model_retries == 1
     assert generic.per_model_max_attempts == (2, 2, 1, 1)
@@ -320,7 +354,9 @@ def test_router_refuses_an_unauthorized_model_in_the_pool() -> None:
 
 
 def test_budget_cannot_be_widened_beyond_declared_policy() -> None:
-    RetryBudget(logical_invocation_id="i", max_total_provider_attempts=3)  # tightening is fine
+    RetryBudget(
+        logical_invocation_id="i", max_total_provider_attempts=3
+    )  # tightening is fine
     with pytest.raises(ModelRouterError, match="exceeds_declared_policy"):
         RetryBudget(logical_invocation_id="i", max_total_provider_attempts=7)
 
@@ -391,7 +427,9 @@ def test_case_b_p0_timeout_then_p0_retry_succeeds() -> None:
     assert result["terminal_disposition"] == ACCEPTED
     assert result["selected_model"] == P0
     assert result["total_attempts"] == 2
-    assert result["total_fallback_transitions"] == 0, "a same-model retry is not a fallback"
+    assert result["total_fallback_transitions"] == 0, (
+        "a same-model retry is not a fallback"
+    )
     assert result["models_attempted_in_order"] == [P0]
 
 
@@ -480,7 +518,9 @@ def test_case_g_budget_is_not_reset_by_a_model_change() -> None:
     result = run(provider)
     globals_seen = [row["attempt_number_global"] for row in result["attempts"]]
     assert globals_seen == sorted(globals_seen)
-    assert globals_seen == list(range(1, len(globals_seen) + 1)), "counter must be continuous"
+    assert globals_seen == list(range(1, len(globals_seen) + 1)), (
+        "counter must be continuous"
+    )
 
 
 def test_case_h_retry_sleep_budget_stops_without_further_sleep_or_call() -> None:
@@ -505,7 +545,9 @@ def test_case_h_retry_sleep_budget_stops_without_further_sleep_or_call() -> None
 def test_retry_after_within_budget_is_honoured() -> None:
     clock = FakeClock()
     sleeper = RecordingSleeper(clock)
-    provider = scripted({P0: [fail("http_429_rate_limited", retry_after=2.0), good(P0)]})
+    provider = scripted(
+        {P0: [fail("http_429_rate_limited", retry_after=2.0), good(P0)]}
+    )
     result = run(provider, clock=clock, sleeper=sleeper)
     assert sleeper.slept == [2.0]
     assert result["terminal_disposition"] == ACCEPTED
@@ -520,7 +562,9 @@ def _json_validator(text: str):
 
 
 def test_case_i_malformed_then_one_repair_attempt_succeeds() -> None:
-    provider = scripted({P0: [good(P0, text="not json at all"), good(P0, text='{"ok": 1}')]})
+    provider = scripted(
+        {P0: [good(P0, text="not json at all"), good(P0, text='{"ok": 1}')]}
+    )
     result = run(provider, validator=_json_validator)
     assert result["terminal_disposition"] == ACCEPTED
     assert result["selected_model"] == P0
@@ -536,11 +580,15 @@ def test_case_i_failed_attempt_is_never_discarded_from_evidence() -> None:
     provider = scripted({P0: [good(P0, text="broken"), good(P0, text='{"ok": 1}')]})
     result = run(provider, validator=_json_validator)
     assert len(result["attempts"]) == 2
-    assert result["attempts"][0]["output_hash"], "failed raw response must still be hashed"
+    assert result["attempts"][0]["output_hash"], (
+        "failed raw response must still be hashed"
+    )
     assert result["attempts"][0]["disposition"] == "rejected"
 
 
-def test_safe_structured_validation_diagnostic_is_recorded_and_given_to_one_repair() -> None:
+def test_safe_structured_validation_diagnostic_is_recorded_and_given_to_one_repair() -> (
+    None
+):
     prompts = []
 
     def provider(prompt: str, model: str, timeout: float) -> ProviderResult:
@@ -549,7 +597,12 @@ def test_safe_structured_validation_diagnostic_is_recorded_and_given_to_one_repa
 
     def validator(text: str):
         if text == "invalid":
-            return False, "structured_output_schema_invalid", None, "global_rank_invalid"
+            return (
+                False,
+                "structured_output_schema_invalid",
+                None,
+                "global_rank_invalid",
+            )
         return True, None, {"ok": True}, None
 
     def repair(prompt: str, invalid_output: str, diagnostic_code: str | None) -> str:
@@ -561,13 +614,18 @@ def test_safe_structured_validation_diagnostic_is_recorded_and_given_to_one_repa
     assert result["terminal_disposition"] == ACCEPTED
     assert result["total_attempts"] == 2
     assert result["total_structured_repair_attempts"] == 1
-    assert result["attempts"][0]["structured_validation_diagnostic_code"] == "global_rank_invalid"
+    assert (
+        result["attempts"][0]["structured_validation_diagnostic_code"]
+        == "global_rank_invalid"
+    )
     assert '"invalid"' not in json.dumps(result["attempts"])
     assert "previous_validation_failure_code=global_rank_invalid" in prompts[1]
 
 
 def _run_leaf(provider):
-    from live_contentops.nine_router_ordered_model_router_v2 import retry_budget_for_role
+    from live_contentops.nine_router_ordered_model_router_v2 import (
+        retry_budget_for_role,
+    )
 
     return run(
         provider,
@@ -583,7 +641,9 @@ def _run_leaf(provider):
 
 
 def _run_global_editor(provider):
-    from live_contentops.nine_router_ordered_model_router_v2 import retry_budget_for_role
+    from live_contentops.nine_router_ordered_model_router_v2 import (
+        retry_budget_for_role,
+    )
 
     return run(
         provider,
@@ -599,7 +659,9 @@ def _run_global_editor(provider):
 
 
 def test_global_editor_infrastructure_failures_do_not_get_same_model_retries() -> None:
-    provider = scripted({model: [fail("http_503_unavailable")] for model in ORDERED_MODEL_POOL})
+    provider = scripted(
+        {model: [fail("http_503_unavailable")] for model in ORDERED_MODEL_POOL}
+    )
 
     result = _run_global_editor(provider)
 
@@ -611,12 +673,14 @@ def test_global_editor_infrastructure_failures_do_not_get_same_model_retries() -
 
 
 def test_global_editor_final_model_gets_exactly_one_structured_repair() -> None:
-    provider = scripted({
-        P0: [fail("http_503_unavailable")],
-        P1: [fail("http_502_bad_gateway")],
-        P2: [fail("requested_model_temporarily_unavailable")],
-        P3: [good(P3, text="broken"), good(P3, text='{"ok": 1}')],
-    })
+    provider = scripted(
+        {
+            P0: [fail("http_503_unavailable")],
+            P1: [fail("http_502_bad_gateway")],
+            P2: [fail("requested_model_temporarily_unavailable")],
+            P3: [good(P3, text="broken"), good(P3, text='{"ok": 1}')],
+        }
+    )
 
     result = _run_global_editor(provider)
 
@@ -629,10 +693,9 @@ def test_global_editor_final_model_gets_exactly_one_structured_repair() -> None:
 
 
 def test_global_editor_structured_repair_cannot_loop_past_fifth_attempt() -> None:
-    provider = scripted({
-        model: [good(model, text="broken")]
-        for model in ORDERED_MODEL_POOL
-    })
+    provider = scripted(
+        {model: [good(model, text="broken")] for model in ORDERED_MODEL_POOL}
+    )
 
     result = _run_global_editor(provider)
 
@@ -643,13 +706,17 @@ def test_global_editor_structured_repair_cannot_loop_past_fifth_attempt() -> Non
     assert provider.calls[-2:] == [(P3, 0), (P3, 1)]
 
 
-def test_leaf_flash_structured_failure_gets_one_same_model_repair_without_fallback() -> None:
-    provider = scripted({
-        NEWSROOM_LEAF_SCAN_MODEL: [
-            good(NEWSROOM_LEAF_SCAN_MODEL, text="broken"),
-            good(NEWSROOM_LEAF_SCAN_MODEL, text='{"ok": 1}'),
-        ],
-    })
+def test_leaf_flash_structured_failure_gets_one_same_model_repair_without_fallback() -> (
+    None
+):
+    provider = scripted(
+        {
+            NEWSROOM_LEAF_SCAN_MODEL: [
+                good(NEWSROOM_LEAF_SCAN_MODEL, text="broken"),
+                good(NEWSROOM_LEAF_SCAN_MODEL, text='{"ok": 1}'),
+            ],
+        }
+    )
 
     result = _run_leaf(provider)
 
@@ -667,13 +734,15 @@ def test_leaf_flash_structured_failure_gets_one_same_model_repair_without_fallba
 def test_leaf_fable_has_one_attempt_and_all_failures_remain_globally_bounded() -> None:
     flash = NEWSROOM_LEAF_SCAN_MODEL
     fable, gpt, opus, gemini_pro = ORDERED_MODEL_POOL
-    provider = scripted({
-        flash: [good(flash, text="broken"), good(flash, text="still broken")],
-        fable: [fail("http_503_unavailable"), good(fable)],
-        gpt: [fail("http_502_bad_gateway")],
-        opus: [fail("requested_model_temporarily_unavailable")],
-        gemini_pro: [good(gemini_pro, text="also broken")],
-    })
+    provider = scripted(
+        {
+            flash: [good(flash, text="broken"), good(flash, text="still broken")],
+            fable: [fail("http_503_unavailable"), good(fable)],
+            gpt: [fail("http_502_bad_gateway")],
+            opus: [fail("requested_model_temporarily_unavailable")],
+            gemini_pro: [good(gemini_pro, text="also broken")],
+        }
+    )
 
     result = _run_leaf(provider)
 
@@ -682,7 +751,10 @@ def test_leaf_fable_has_one_attempt_and_all_failures_remain_globally_bounded() -
     assert result["total_attempts"] == 6
     assert result["total_attempts"] <= MAX_TOTAL_PROVIDER_ATTEMPTS
     assert result["total_fallback_transitions"] == 4
-    assert result["total_fallback_transitions"] <= NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS
+    assert (
+        result["total_fallback_transitions"]
+        <= NEWSROOM_LEAF_SCAN_MAX_FALLBACK_TRANSITIONS
+    )
     assert result["terminal_disposition"] == RETRY_BUDGET_EXHAUSTED
 
 
@@ -720,7 +792,9 @@ def test_case_k_evidence_failure_never_rotates_models() -> None:
 
 def test_case_l_401_and_403_fail_closed_without_a_model_carousel() -> None:
     for status, klass in ((401, "http_401_unauthorized"), (403, "http_403_forbidden")):
-        provider = scripted({m: [fail(klass, status=status)] for m in ORDERED_MODEL_POOL})
+        provider = scripted(
+            {m: [fail(klass, status=status)] for m in ORDERED_MODEL_POOL}
+        )
         result = run(provider, iid=f"inv_{status}")
         assert result["terminal_disposition"] == TERMINAL_NON_RETRYABLE
         assert result["total_attempts"] == 1
@@ -731,7 +805,10 @@ def test_case_l_401_and_403_fail_closed_without_a_model_carousel() -> None:
 def test_case_m_silent_substitution_to_another_model_is_rejected() -> None:
     """P0 'succeeds' but the gateway resolved a different model: reject the output."""
     substituted = ProviderResult(
-        text='{"ok": true}', resolved_model=P2, status_code=200, provider_invocation_id="inv_x"
+        text='{"ok": true}',
+        resolved_model=P2,
+        status_code=200,
+        provider_invocation_id="inv_x",
     )
     provider = scripted({P0: [substituted], P1: [good(P1)]})
     result = run(provider)
@@ -745,7 +822,9 @@ def test_case_m_silent_substitution_to_another_model_is_rejected() -> None:
 
 
 def test_case_m_resolution_to_an_unlisted_model_is_rejected() -> None:
-    rogue = ProviderResult(text='{"ok": true}', resolved_model="vendor/secret-cheap-model", status_code=200)
+    rogue = ProviderResult(
+        text='{"ok": true}', resolved_model="vendor/secret-cheap-model", status_code=200
+    )
     provider = scripted({m: [rogue] for m in ORDERED_MODEL_POOL})
     result = run(provider)
     assert result["terminal_disposition"] in (POOL_EXHAUSTED, RETRY_BUDGET_EXHAUSTED)
@@ -766,7 +845,9 @@ def test_identity_not_verifiable_is_recorded_honestly_not_upgraded_to_pass() -> 
 
 
 def test_case_n_reconstruction_does_not_reset_the_consumed_budget() -> None:
-    provider = scripted({P0: [fail("read_timeout"), fail("read_timeout")], P1: [fail("read_timeout")]})
+    provider = scripted(
+        {P0: [fail("read_timeout"), fail("read_timeout")], P1: [fail("read_timeout")]}
+    )
     first = run(provider, budget=RetryBudget(logical_invocation_id="inv_durable"))
     snapshot = first["final_retry_budget_snapshot"]
     consumed = snapshot["consumed_attempts"]
@@ -777,11 +858,16 @@ def test_case_n_reconstruction_does_not_reset_the_consumed_budget() -> None:
     assert rehydrated.consumed_attempts == consumed
     assert rehydrated.remaining_attempts() == MAX_TOTAL_PROVIDER_ATTEMPTS - consumed
 
-    resumed_provider = scripted({m: [fail("read_timeout")] * 9 for m in ORDERED_MODEL_POOL})
+    resumed_provider = scripted(
+        {m: [fail("read_timeout")] * 9 for m in ORDERED_MODEL_POOL}
+    )
     second = run(resumed_provider, budget=rehydrated, iid="inv_durable")
     # Total across both halves must still respect the single global ceiling.
     assert consumed + len(resumed_provider.calls) <= MAX_TOTAL_PROVIDER_ATTEMPTS
-    assert second["final_retry_budget_snapshot"]["consumed_attempts"] <= MAX_TOTAL_PROVIDER_ATTEMPTS
+    assert (
+        second["final_retry_budget_snapshot"]["consumed_attempts"]
+        <= MAX_TOTAL_PROVIDER_ATTEMPTS
+    )
 
 
 def test_reconstruction_with_budget_already_spent_makes_no_call_at_all() -> None:
@@ -789,7 +875,9 @@ def test_reconstruction_with_budget_already_spent_makes_no_call_at_all() -> None
     spent.consumed_attempts = MAX_TOTAL_PROVIDER_ATTEMPTS
     provider = scripted({m: [good(m)] for m in ORDERED_MODEL_POOL})
     result = run(provider, budget=spent)
-    assert len(provider.calls) == 0, "an exhausted budget must not authorize a fresh call"
+    assert len(provider.calls) == 0, (
+        "an exhausted budget must not authorize a fresh call"
+    )
     assert result["terminal_disposition"] == RETRY_BUDGET_EXHAUSTED
     assert result["budget_exhausted"] is True
 
@@ -823,7 +911,9 @@ def test_fallback_transition_ceiling_is_enforced() -> None:
 
 def test_every_attempt_binds_the_required_evidence_fields() -> None:
     provider = scripted({P0: [fail("read_timeout")], P1: [good(P1)]})
-    result = run(provider, work_item_id="wi_1", role="article_writing", governed_input={"a": 1})
+    result = run(
+        provider, work_item_id="wi_1", role="article_writing", governed_input={"a": 1}
+    )
     required = (
         "logical_invocation_id",
         "work_item_id",

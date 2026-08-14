@@ -1,4 +1,5 @@
 """Brain-neutral V2 creative boundary with NineRouterGPT56Brain active by default."""
+
 from __future__ import annotations
 
 import json
@@ -19,6 +20,7 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     ACCEPTED,
     ProviderResult,
     RetryBudget,
+    V2_CREATIVE_CX_XHIGH_MODEL,
 )
 from live_contentops.nine_router_provider_adapter_v2 import (
     call_nine_router_v2_isolated,
@@ -120,7 +122,9 @@ def _extract_json(text: str) -> Mapping[str, Any]:
     return value
 
 
-def parse_director_output_with_telemetry(text: str) -> tuple[dict[str, Any], dict[str, Any]]:
+def parse_director_output_with_telemetry(
+    text: str,
+) -> tuple[dict[str, Any], dict[str, Any]]:
     normalized, operations = deterministic_json_normalization(text)
     row = json.loads(normalized)
     if not isinstance(row, Mapping):
@@ -150,7 +154,12 @@ def validate_director_output(text: str) -> tuple[bool, str | None, Any, str | No
     try:
         payload, _ = parse_director_output_with_telemetry(text)
     except (ValueError, TypeError, KeyError, json.JSONDecodeError) as exc:
-        return False, "structured_output_schema_invalid", None, f"director_{type(exc).__name__}"
+        return (
+            False,
+            "structured_output_schema_invalid",
+            None,
+            f"director_{type(exc).__name__}",
+        )
     return True, None, payload, None
 
 
@@ -178,8 +187,14 @@ def _validate_beat(row: Mapping[str, Any], expected_aspect: str) -> None:
     if not set(contract.required_asset_ids) <= {str(item) for item in asset_ids}:
         raise ValueError(f"segment_beat_required_asset_not_selected:{contract.beat_id}")
     if row.get("audio_state") not in {
-        "cold_open", "tension", "evidence", "mechanism", "consequence", "boundary",
-        "resolution", "outro",
+        "cold_open",
+        "tension",
+        "evidence",
+        "mechanism",
+        "consequence",
+        "boundary",
+        "resolution",
+        "outro",
     }:
         raise ValueError(f"segment_beat_audio_state_invalid:{contract.beat_id}")
     if row.get("sfx_kind") not in {"none", "whoosh", "riser", "hit", "data_tick"}:
@@ -197,7 +212,10 @@ def validate_segment_output(text: str) -> tuple[bool, str | None, Any, str | Non
         row = dict(_extract_json(text))
         if not str(row.get("segment_summary") or "").strip():
             raise ValueError("segment_summary_missing")
-        for key, aspect in (("short_9x16_beats", "9:16"), ("midform_16x9_beats", "16:9")):
+        for key, aspect in (
+            ("short_9x16_beats", "9:16"),
+            ("midform_16x9_beats", "16:9"),
+        ):
             beats = row.get(key)
             if not isinstance(beats, list) or not beats:
                 raise ValueError(f"{key}_missing")
@@ -208,7 +226,12 @@ def validate_segment_output(text: str) -> tuple[bool, str | None, Any, str | Non
         if not isinstance(row.get("continuity_state_leaving"), list):
             raise ValueError("continuity_state_leaving_invalid")
     except (ValueError, TypeError, KeyError, json.JSONDecodeError) as exc:
-        return False, "structured_output_schema_invalid", None, f"segment_{type(exc).__name__}"
+        return (
+            False,
+            "structured_output_schema_invalid",
+            None,
+            f"segment_{type(exc).__name__}",
+        )
     return True, None, row, None
 
 
@@ -225,7 +248,9 @@ def validate_motion_output(text: str) -> tuple[bool, str | None, Any, str | None
                 raise ValueError("motion_file_invalid")
             path = str(file.get("path") or "")
             source = str(file.get("source") or "")
-            if not path.startswith("src/generated/") or not path.endswith((".tsx", ".ts")):
+            if not path.startswith("src/generated/") or not path.endswith(
+                (".tsx", ".ts")
+            ):
                 raise ValueError("motion_file_path_outside_generated_root")
             if not source.strip():
                 raise ValueError("motion_file_source_missing")
@@ -233,7 +258,12 @@ def validate_motion_output(text: str) -> tuple[bool, str | None, Any, str | None
         if not isinstance(beat_ids, list) or not beat_ids:
             raise ValueError("motion_beat_ids_missing")
     except (ValueError, TypeError, KeyError, json.JSONDecodeError) as exc:
-        return False, "structured_output_schema_invalid", None, f"motion_{type(exc).__name__}"
+        return (
+            False,
+            "structured_output_schema_invalid",
+            None,
+            f"motion_{type(exc).__name__}",
+        )
     return True, None, row, None
 
 
@@ -276,6 +306,8 @@ class CreativeBrain:
         wire_mode: str = "configured",
         evidence_dir: Path | None = None,
         retry_budget: RetryBudget | None = None,
+        model_pool_override: tuple[str, ...] | None = None,
+        response_stream: bool | None = None,
     ) -> tuple[Mapping[str, Any], CreativeReceipt]:
         raise NotImplementedError
 
@@ -297,6 +329,8 @@ class NineRouterGPT56Brain(CreativeBrain):
         wire_mode: str = "configured",
         evidence_dir: Path | None = None,
         retry_budget: RetryBudget | None = None,
+        model_pool_override: tuple[str, ...] | None = None,
+        response_stream: bool | None = None,
     ) -> tuple[Mapping[str, Any], CreativeReceipt]:
         if role not in {
             ROLE_V2_CREATIVE_EDITOR,
@@ -313,12 +347,19 @@ class NineRouterGPT56Brain(CreativeBrain):
         def provider(current_prompt: str, model: str, timeout: float) -> ProviderResult:
             provider_prompt: Any = current_prompt
             if image_paths:
-                content: list[dict[str, Any]] = [{"type": "text", "text": current_prompt}]
+                content: list[dict[str, Any]] = [
+                    {"type": "text", "text": current_prompt}
+                ]
                 for raw_path in image_paths:
                     path = Path(raw_path)
                     mime = mimetypes.guess_type(path.name)[0] or "image/jpeg"
                     uri = f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode('ascii')}"
-                    content.append({"type": "image_url", "image_url": {"url": uri, "detail": "high"}})
+                    content.append(
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": uri, "detail": "high"},
+                        }
+                    )
                 provider_prompt = content
             if wire_mode == "minimal_raw":
                 return call_nine_router_v2_isolated_minimal_raw(
@@ -329,6 +370,7 @@ class NineRouterGPT56Brain(CreativeBrain):
                     logical_invocation_id=logical_invocation_id,
                     component=ACTIVE_BRAIN,
                     evidence_dir=Path(evidence_dir),
+                    stream=response_stream,
                 )
             return call_nine_router_v2_isolated(
                 provider_prompt,
@@ -354,6 +396,7 @@ class NineRouterGPT56Brain(CreativeBrain):
             prompt_template=prompt_template,
             prompt_version=prompt_version,
             budget=retry_budget,
+            model_pool_override=model_pool_override,
         )
         if invocation.get("terminal_disposition") != ACCEPTED:
             raise RuntimeError(
@@ -363,12 +406,13 @@ class NineRouterGPT56Brain(CreativeBrain):
         if not isinstance(output, Mapping):
             raise RuntimeError("creative_router_accepted_non_object")
         effective = str(invocation.get("selected_model") or "") or None
-        degraded = effective != CREATIVE_MODEL
+        professional_models = {CREATIVE_MODEL, V2_CREATIVE_CX_XHIGH_MODEL}
+        degraded = effective not in professional_models
         receipt = CreativeReceipt(
             role=role,
             logical_invocation_id=logical_invocation_id,
             input_sha256=logical_hash(prompt_payload),
-            requested_model=CREATIVE_MODEL,
+            requested_model=(model_pool_override or (CREATIVE_MODEL,))[0],
             effective_model=effective,
             output_sha256=logical_hash(output),
             terminal_disposition=str(invocation["terminal_disposition"]),

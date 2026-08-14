@@ -42,17 +42,80 @@ from live_contentops.retention_native_motion_sandbox_v2 import (
     validate_generated_motion_files,
     validate_revision_accounting,
 )
+from live_contentops.retention_native_motion_pipeline_v2 import (
+    _composition_id,
+    _normalize_motion_batch_identity,
+)
 from live_contentops.retention_native_replacement_runner_v2 import (
     build_progressive_xhigh_cases,
     one_shot_xhigh_retry_budget,
 )
 from live_contentops.retention_native_storyboard_v2 import (
+    _display_callout,
     contact_sheet,
     render_native_chart,
     render_native_document,
     render_native_map,
     render_storyboard_frame,
 )
+
+
+def test_structured_fact_callout_is_viewer_text_not_object_repr() -> None:
+    rendered = _display_callout(
+        [
+            {
+                "claim_id": "eia:q3",
+                "label": "Q3",
+                "status": "FORECAST",
+                "value": "$74",
+            },
+            {
+                "claim_id": "eia:2027",
+                "label": "2027",
+                "status": "FORECAST",
+                "value": "$65",
+            },
+        ]
+    )
+    assert rendered == "Q3 $74 · FORECAST  •  2027 $65 · FORECAST"
+    assert "claim_id" not in rendered
+
+
+def test_qualified_motion_batch_identity_projects_without_creative_change() -> None:
+    output, projected_from = _normalize_motion_batch_identity(
+        {
+            "batch_id": (
+                "cc-v2-eia-hormuz-concrete-first-2026-v1:"
+                "S1_CHOKEPOINT_IN_VIEW:short_9x16"
+            ),
+            "beat_ids": ["beat-1"],
+            "files": [{"path": "src/generated/a.tsx", "source": "export {};"}],
+        },
+        variant="short_9x16",
+        segment_id="S1_CHOKEPOINT_IN_VIEW",
+    )
+    assert projected_from == (
+        "cc-v2-eia-hormuz-concrete-first-2026-v1:S1_CHOKEPOINT_IN_VIEW:short_9x16"
+    )
+    assert output["batch_id"] == "short_9x16:S1_CHOKEPOINT_IN_VIEW"
+
+    filesystem_output, filesystem_from = _normalize_motion_batch_identity(
+        {
+            "batch_id": "short_9x16_S1_CHOKEPOINT_IN_VIEW",
+            "beat_ids": ["beat-1"],
+            "files": [{"path": "src/generated/a.tsx", "source": "export {};"}],
+        },
+        variant="short_9x16",
+        segment_id="S1_CHOKEPOINT_IN_VIEW",
+    )
+    assert filesystem_from == "short_9x16_S1_CHOKEPOINT_IN_VIEW"
+    assert filesystem_output["batch_id"] == "short_9x16:S1_CHOKEPOINT_IN_VIEW"
+
+
+def test_motion_composition_id_is_remotion_registry_safe() -> None:
+    composition_id = _composition_id("short_9x16", "S1_CHOKEPOINT_IN_VIEW")
+    assert composition_id == "Seg-short-9x16-S1-CHOKEPOINT-IN-VIEW"
+    assert __import__("re").fullmatch(r"[a-zA-Z0-9-]+", composition_id)
 
 
 def _bible() -> dict:
@@ -163,9 +226,10 @@ def test_creative_roles_start_xhigh_and_fallback_only_within_gpt56() -> None:
             "new/gpt-5.6-sol-xhigh",
             "new/gpt-5.6-sol-high",
             "new/gpt-5.6-sol-medium",
+            "cx/gpt-5.6-sol(xhigh)",
         )
         budget = retry_budget_for_role(role_task_id=role, logical_invocation_id="inv")
-        assert budget.max_total_provider_attempts == 3
+        assert budget.max_total_provider_attempts == 4
         assert budget.max_same_model_retries == 0
 
 
@@ -288,6 +352,14 @@ def test_required_real_asset_cannot_allow_abstract_substitution() -> None:
         )
 
 
+def test_context_only_grounding_may_explicitly_bind_no_claim_or_evidence() -> None:
+    contract = VisualGroundingContract.from_mapping(
+        _grounding(claim_ids=[], evidence_ids=[])
+    )
+    assert contract.claim_ids == ()
+    assert contract.evidence_ids == ()
+
+
 def test_must_use_asset_enforcement_blocks_silent_substitution() -> None:
     contract = VisualGroundingContract.from_mapping(_grounding())
     assert enforce_must_use_assets([contract], {"b1": ["tanker"]})["status"] == "PASS"
@@ -302,20 +374,27 @@ def test_asset_broker_prefers_semantic_relevance_and_viable_crop() -> None:
         _asset("refinery", "oil refinery", 1200, 800),
     ]
     ranked = broker_assets(
-        candidates, semantic_need="recognizable oil tanker shipping", variant_id="short_9x16"
+        candidates,
+        semantic_need="recognizable oil tanker shipping",
+        variant_id="short_9x16",
     )
     assert ranked[0]["asset_id"] == "tanker"
 
 
 def test_native_compilers_reject_landscape_drop_and_generic_map() -> None:
     chart = compile_chart_plan(
-        {"points": [{"x": "June", "y": 85}, {"x": "Q3", "y": 74}], "source_label": "EIA"},
+        {
+            "points": [{"x": "June", "y": 85}, {"x": "Q3", "y": 74}],
+            "source_label": "EIA",
+        },
         "short_9x16",
     )
     assert chart["composition"] == "portrait_stacked_direct_labels"
     assert chart["letterboxed_landscape_source"] is False
     with pytest.raises(ValueError, match="recognizable_geography"):
-        compile_map_plan({"labels": ["Strait of Hormuz"], "geography_source": "EIA"}, "short_9x16")
+        compile_map_plan(
+            {"labels": ["Strait of Hormuz"], "geography_source": "EIA"}, "short_9x16"
+        )
     map_plan = compile_map_plan(
         {
             "labels": ["Persian Gulf", "Strait of Hormuz", "Gulf of Oman"],
@@ -353,13 +432,19 @@ def test_comprehension_gate_is_blocking() -> None:
         "price_not_proof",
         "future_confirmation_points",
     ]
-    assert evaluate_comprehension_gate(assessments=all_pass, reconstructed_concepts=concepts)[
-        "motion_code_authorized"
-    ] is True
+    assert (
+        evaluate_comprehension_gate(
+            assessments=all_pass, reconstructed_concepts=concepts
+        )["motion_code_authorized"]
+        is True
+    )
     all_pass["first_second_context"] = False
-    assert evaluate_comprehension_gate(assessments=all_pass, reconstructed_concepts=concepts)[
-        "status"
-    ] == "BLOCK"
+    assert (
+        evaluate_comprehension_gate(
+            assessments=all_pass, reconstructed_concepts=concepts
+        )["status"]
+        == "BLOCK"
+    )
 
 
 def test_visual_mix_blocks_abstract_dominance() -> None:
@@ -371,14 +456,19 @@ def test_visual_mix_blocks_abstract_dominance() -> None:
         ]
     )
     assert passing["status"] == "PASS"
-    assert visual_mix_summary(
-        [{"primary_visual_type": "pure_abstraction", "duration_seconds": 10}]
-    )["status"] == "BLOCK"
+    assert (
+        visual_mix_summary(
+            [{"primary_visual_type": "pure_abstraction", "duration_seconds": 10}]
+        )["status"]
+        == "BLOCK"
+    )
 
 
 def test_director_and_segment_validators_accept_contract_shape() -> None:
     director = {"creative_bible": _bible(), "segment_graph": _segments()}
-    ok, failure, parsed, _ = validate_director_output(__import__("json").dumps(director))
+    ok, failure, parsed, _ = validate_director_output(
+        __import__("json").dumps(director)
+    )
     assert ok is True and failure is None and parsed
     beat = {
         **_grounding(),
@@ -438,11 +528,41 @@ def test_motion_validator_and_sandbox_block_unsafe_source() -> None:
         ],
     }
     assert validate_motion_output(__import__("json").dumps(payload))[0] is True
-    assert validate_generated_motion_files(payload["files"], expected_beat_ids=["b1"])[
-        "status"
-    ] == "PASS"
+    assert (
+        validate_generated_motion_files(payload["files"], expected_beat_ids=["b1"])[
+            "status"
+        ]
+        == "PASS"
+    )
     unsafe = [{"path": "src/generated/x.tsx", "source": "fetch('https://x'); // b1"}]
-    assert validate_generated_motion_files(unsafe, expected_beat_ids=["b1"])["status"] == "BLOCK"
+    assert (
+        validate_generated_motion_files(unsafe, expected_beat_ids=["b1"])["status"]
+        == "BLOCK"
+    )
+    shared_types = [
+        {
+            "path": "src/generated/x.tsx",
+            "source": "import type {VariantProps} from '../types'; // b1",
+        }
+    ]
+    assert (
+        validate_generated_motion_files(shared_types, expected_beat_ids=["b1"])[
+            "status"
+        ]
+        == "PASS"
+    )
+    parent_escape = [
+        {
+            "path": "src/generated/x.tsx",
+            "source": "import '../../secrets' ; // b1",
+        }
+    ]
+    assert (
+        validate_generated_motion_files(parent_escape, expected_beat_ids=["b1"])[
+            "status"
+        ]
+        == "BLOCK"
+    )
 
 
 def test_revision_accounting_and_public_safety() -> None:

@@ -7,6 +7,12 @@ import {
   midformDurationFrames,
   shortDurationFrames,
 } from './generated';
+import {
+  CodexBuilderMidform,
+  CodexBuilderShort,
+  codexBuilderMidformFrames,
+  codexBuilderShortFrames,
+} from './CodexBuilder';
 
 export const ConcreteFirstRoot: React.FC = () => (
   <>
@@ -17,6 +23,24 @@ export const ConcreteFirstRoot: React.FC = () => (
       fps={30}
       width={1080}
       height={1920}
+      defaultProps={{captionsVisible: true, assetBase: ''}}
+    />
+    <Composition
+      id="CodexBuilderShort"
+      component={CodexBuilderShort}
+      durationInFrames={codexBuilderShortFrames}
+      fps={30}
+      width={1080}
+      height={1920}
+      defaultProps={{captionsVisible: true, assetBase: ''}}
+    />
+    <Composition
+      id="CodexBuilderMidform"
+      component={CodexBuilderMidform}
+      durationInFrames={codexBuilderMidformFrames}
+      fps={30}
+      width={1920}
+      height={1080}
       defaultProps={{captionsVisible: true, assetBase: ''}}
     />
     <Composition

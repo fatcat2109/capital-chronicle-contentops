@@ -5,6 +5,7 @@ against synthetic responses shaped like the real gateway's. No network call is m
 the real four-model preflight is executed separately and its result is committed as
 evidence.
 """
+
 from __future__ import annotations
 
 import json
@@ -92,7 +93,10 @@ def test_model_identity_normalisation_strips_the_routing_prefix() -> None:
     assert normalize_model_identity("claude-fable-5") == "claude-fable-5"
     # The trailing "(high)" selects a request-time reasoning-effort parameter, not a
     # distinct model, so it is stripped along with the gateway prefix.
-    assert normalize_model_identity("vx/gemini-3.1-pro-preview(high)") == "gemini-3.1-pro-preview"
+    assert (
+        normalize_model_identity("vx/gemini-3.1-pro-preview(high)")
+        == "gemini-3.1-pro-preview"
+    )
     assert normalize_model_identity(None) is None
     # A genuine substitution still differs after normalisation.
     assert normalize_model_identity("new/claude-opus-5") != normalize_model_identity(
@@ -194,6 +198,182 @@ def test_minimal_raw_request_has_only_model_and_messages_and_preserves_response(
         )
 
 
+@pytest.mark.parametrize("stream", [False, True])
+def test_minimal_raw_transport_variant_changes_only_response_transport(
+    tmp_path, monkeypatch, stream
+) -> None:
+    monkeypatch.setenv(ENV_API_KEY, "dummy-test-key")
+    captured = {}
+    raw_body = (
+        b'data: {"id":"chatcmpl-stream","model":"gpt-5.6-sol-xhigh",'
+        b'"choices":[{"delta":{"content":"READY"}}]}\n\n'
+        b"data: [DONE]\n\n"
+        if stream
+        else (
+            b'{"id":"chatcmpl-non-stream","model":"gpt-5.6-sol-xhigh",'
+            b'"choices":[{"message":{"content":"READY"}}]}'
+        )
+    )
+
+    class Response:
+        status = 200
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+        def read(self):
+            return raw_body
+
+    def fake_urlopen(request, timeout):
+        captured["payload"] = json.loads(request.data.decode("utf-8"))
+        captured["headers"] = {
+            key.lower(): value for key, value in request.header_items()
+        }
+        return Response()
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    evidence_dir = tmp_path / f"stream-{stream}"
+    result = adapter._call_nine_router_minimal_raw_impl(
+        "same director prompt",
+        "new/gpt-5.6-sol-xhigh",
+        600,
+        evidence_dir=evidence_dir,
+        isolated_execution_domain_id="v2-01-test",
+        base_url="http://localhost:20128/v1",
+        stream=stream,
+    )
+
+    assert set(captured["payload"]) == {"messages", "model", "stream"}
+    assert captured["payload"]["stream"] is stream
+    assert not (set(captured["payload"]) & adapter.OPTIONAL_GENERATION_FIELDS)
+    assert ("accept" in captured["headers"]) is stream
+    assert result.status_code == 200
+    assert result.text == "READY"
+    receipt = json.loads(
+        (evidence_dir / "minimal_raw_provider_receipt_v1.json").read_text()
+    )
+    assert receipt["request_body_field_names"] == ["messages", "model", "stream"]
+    assert receipt["optional_generation_fields_absent"] is True
+    assert receipt["response_transport"] == ("stream" if stream else "non_stream")
+
+
+def test_minimal_responses_api_uses_only_model_and_input_and_preserves_response(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setenv(ENV_API_KEY, "dummy-test-key")
+    captured = {}
+    raw_body = (
+        b'{"id":"resp-minimal","model":"gpt-5.6-sol-xhigh",'
+        b'"output":[{"type":"message","content":'
+        b'[{"type":"output_text","text":"READY"}]}],'
+        b'"usage":{"input_tokens":9,"output_tokens":5,"total_tokens":14}}'
+    )
+
+    class Response:
+        status = 200
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+        def read(self):
+            return raw_body
+
+    def fake_urlopen(request, timeout):
+        captured["url"] = request.full_url
+        captured["payload"] = json.loads(request.data.decode("utf-8"))
+        return Response()
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    evidence_dir = tmp_path / "responses"
+    result = adapter._call_nine_router_minimal_raw_impl(
+        "same director prompt",
+        "new/gpt-5.6-sol-xhigh",
+        600,
+        evidence_dir=evidence_dir,
+        isolated_execution_domain_id="v2-01-test",
+        base_url="http://localhost:20128/v1",
+        api_style="responses",
+    )
+
+    assert captured["url"].endswith("/v1/responses")
+    assert captured["payload"] == {
+        "model": "new/gpt-5.6-sol-xhigh",
+        "input": "same director prompt",
+    }
+    assert not (set(captured["payload"]) & adapter.OPTIONAL_GENERATION_FIELDS)
+    assert result.status_code == 200
+    assert result.text == "READY"
+    assert result.usage == {"input_tokens": 9, "output_tokens": 5, "total_tokens": 14}
+    receipt = json.loads(
+        (evidence_dir / "minimal_raw_provider_receipt_v1.json").read_text()
+    )
+    assert receipt["api_style"] == "responses"
+    assert receipt["request_body_field_names"] == ["input", "model"]
+    assert receipt["raw_response_sha256"]
+
+
+def test_cx_xhigh_minimal_request_splits_required_effort_selector_only(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setenv(ENV_API_KEY, "dummy-test-key")
+    captured = {}
+    raw_body = (
+        b'{"id":"chatcmpl-cx","model":"gpt-5.6-sol",'
+        b'"choices":[{"message":{"content":"READY"}}]}'
+    )
+
+    class Response:
+        status = 200
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+        def read(self):
+            return raw_body
+
+    def fake_urlopen(request, timeout):
+        captured["payload"] = json.loads(request.data.decode("utf-8"))
+        return Response()
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    evidence_dir = tmp_path / "cx-xhigh"
+    result = adapter._call_nine_router_minimal_raw_impl(
+        "Return READY",
+        "cx/gpt-5.6-sol(xhigh)",
+        600,
+        evidence_dir=evidence_dir,
+        isolated_execution_domain_id="v2-01-test",
+        base_url="http://localhost:20128/v1",
+    )
+
+    assert captured["payload"] == {
+        "model": "cx/gpt-5.6-sol",
+        "messages": [{"role": "user", "content": "Return READY"}],
+        "reasoning_effort": "xhigh",
+    }
+    assert result.text == "READY"
+    receipt = json.loads(
+        (evidence_dir / "minimal_raw_provider_receipt_v1.json").read_text()
+    )
+    assert receipt["requested_model"] == "cx/gpt-5.6-sol(xhigh)"
+    assert receipt["wire_model"] == "cx/gpt-5.6-sol"
+    assert receipt["required_effort_selector_only"] == "xhigh"
+    assert receipt["request_body_field_names"] == [
+        "messages",
+        "model",
+        "reasoning_effort",
+    ]
+
+
 def test_credential_presence_reports_presence_only(monkeypatch) -> None:
     monkeypatch.setenv(ENV_API_KEY, "sk-super-secret-value-abcdefghijklmnop")
     presence = credential_presence()
@@ -216,7 +396,9 @@ def test_model_scoped_403_is_fallback_eligible_but_credential_403_is_terminal() 
     assert credential == "http_403_forbidden"
     assert is_terminal(credential), "an ambiguous 403 must stay fail-closed"
 
-    assert is_terminal(_classify_http_error(401, "anything at all, including invalid_model"))
+    assert is_terminal(
+        _classify_http_error(401, "anything at all, including invalid_model")
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -226,8 +408,12 @@ def test_model_scoped_403_is_fallback_eligible_but_credential_403_is_terminal() 
 
 def _fake(text="READY", model=P0, **kw):
     return lambda prompt, m, t: ProviderResult(
-        text=text, resolved_model=model, status_code=200,
-        usage={"total_tokens": 7}, provider_invocation_id="inv_1", **kw
+        text=text,
+        resolved_model=model,
+        status_code=200,
+        usage={"total_tokens": 7},
+        provider_invocation_id="inv_1",
+        **kw,
     )
 
 
@@ -276,12 +462,16 @@ def test_run_preflight_summarises_all_four_models() -> None:
     assert result["scheduler_mutated"] is False
 
 
-def test_run_preflight_allows_degraded_pool_when_authorized_models_remain_healthy() -> None:
+def test_run_preflight_allows_degraded_pool_when_authorized_models_remain_healthy() -> (
+    None
+):
     unavailable_models = {P1, P3}
 
     def mixed_health(prompt, model, timeout):
         if model in unavailable_models:
-            return ProviderResult(failure_class="requested_model_temporarily_unavailable")
+            return ProviderResult(
+                failure_class="requested_model_temporarily_unavailable"
+            )
         return ProviderResult(text="READY", resolved_model=model, status_code=200)
 
     result = run_preflight(provider_call=mixed_health)
@@ -306,7 +496,10 @@ def test_preflight_prompt_is_tiny_and_deterministic() -> None:
 def test_run_summary_declares_authority_pool_and_policy() -> None:
     summary = build_run_summary()
     assert summary["authority_id"] == "CONTENTOPS_9ROUTER_ORDERED_MODEL_AUTHORITY_V2"
-    assert summary["supersedes_authority_id"] == "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1"
+    assert (
+        summary["supersedes_authority_id"]
+        == "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1"
+    )
     assert summary["ordered_model_pool"] == list(ORDERED_MODEL_POOL)
     assert summary["primary_model"] == P0
     assert summary["retry_budget_policy"]["max_total_provider_attempts"] == 6
@@ -432,9 +625,13 @@ def test_seam_raises_when_the_router_terminates_without_acceptance() -> None:
         return ProviderResult(failure_class="evidence_failure")
 
     drain_invocation_log()
-    with pytest.raises(RoutedInvocationError, match="LLM_TERMINAL_NON_RETRYABLE_FAILURE"):
+    with pytest.raises(
+        RoutedInvocationError, match="LLM_TERMINAL_NON_RETRYABLE_FAILURE"
+    ):
         routed_llm_text("prompt", "9router", 5.0, provider_call=blocked)
     log = drain_invocation_log()
     from live_contentops.nine_router_ordered_model_router_v2 import model_pool_for_role
 
-    assert log[0]["models_attempted_in_order"] == [model_pool_for_role("article_writing")[0]], "a gate failure must not rotate models"
+    assert log[0]["models_attempted_in_order"] == [
+        model_pool_for_role("article_writing")[0]
+    ], "a gate failure must not rotate models"

@@ -34,6 +34,16 @@ def _write_json(path: Path, value: Any) -> None:
     path.write_text(canonical_json(value), encoding="utf-8")
 
 
+def _runtime_video_id(runtime: Path) -> str:
+    """Use the rendered lane identity while retaining the legacy V2-01 default."""
+    manifest_path = runtime / "motion_render_manifest_v2.json"
+    if manifest_path.is_file():
+        value = str(_read_json(manifest_path).get("video_id") or "").strip()
+        if value:
+            return value
+    return VIDEO_ID
+
+
 def _run(command: Sequence[str], *, timeout: float = 1800) -> subprocess.CompletedProcess[str]:
     result = subprocess.run(list(command), capture_output=True, text=True, timeout=timeout, check=False)
     if result.returncode:
@@ -59,6 +69,7 @@ def _motion_strip(ffmpeg: str, video: Path, duration: float, output: Path) -> di
 
 
 def build_review_artifacts(*, runtime: Path, ffmpeg: str) -> dict[str, Any]:
+    video_id = _runtime_video_id(runtime)
     renders = _read_json(runtime / "motion_render_manifest_v2.json")
     segments = _read_json(runtime / "contracts" / "segment_authorship_v2.json")
     rows: dict[str, Any] = {}
@@ -83,7 +94,7 @@ def build_review_artifacts(*, runtime: Path, ffmpeg: str) -> dict[str, Any]:
         rows[variant] = {"stills": frames, "contact_sheet": sheet, "motion_strip": strip, "phone_scale": phone}
     manifest = {
         "schema_version": "contentops.retention_native.review_artifacts.v2",
-        "video_id": VIDEO_ID,
+        "video_id": video_id,
         "captions_hidden": True,
         "variants": rows,
         "derived_from_proxy_hashes": {
@@ -97,6 +108,7 @@ def build_review_artifacts(*, runtime: Path, ffmpeg: str) -> dict[str, Any]:
 
 
 def deterministic_qa(*, runtime: Path) -> dict[str, Any]:
+    video_id = _runtime_video_id(runtime)
     segments = _read_json(runtime / "contracts" / "segment_authorship_v2.json")
     storyboard = _read_json(runtime / "storyboard_animatic_manifest_v2.json")
     renders = _read_json(runtime / "motion_render_manifest_v2.json")
@@ -157,7 +169,7 @@ def deterministic_qa(*, runtime: Path) -> dict[str, Any]:
         }
     report = {
         "schema_version": "contentops.retention_native.deterministic_temporal_qa.v2",
-        "video_id": VIDEO_ID,
+        "video_id": video_id,
         "variants": variants,
         "status": "PASS" if all(row["status"] == "PASS" for row in variants.values()) else "BLOCK",
         "machine_metrics_grant_aesthetic_acceptance": False,
@@ -222,6 +234,7 @@ Return ONLY JSON: {status:'PASS|PASS_WITH_NOTES|REVISE|BLOCK',summary:string,sco
 
 
 def run_final_critic(*, runtime: Path) -> dict[str, Any]:
+    video_id = _runtime_video_id(runtime)
     review = _read_json(runtime / "review_media_manifest_v2.json")
     qa = _read_json(runtime / "deterministic_media_qa.json")
     segments = _read_json(runtime / "contracts" / "segment_authorship_v2.json")
@@ -256,7 +269,7 @@ def run_final_critic(*, runtime: Path) -> dict[str, Any]:
                 at += duration
         timeline[variant] = rows
     technical = {
-        "video_id": VIDEO_ID,
+        "video_id": video_id,
         "timeline": timeline,
         "deterministic_qa": qa,
         "technical_audio": audio,
@@ -281,7 +294,7 @@ def run_final_critic(*, runtime: Path) -> dict[str, Any]:
         role_task_id=ROLE_MULTIMODAL_VIDEO_CRITIC,
         logical_invocation_id=logical_invocation_id,
         component="CanonicalMultimodalCritic",
-        work_item_id=VIDEO_ID,
+        work_item_id=video_id,
         timeout_seconds=600.0,
         validator=_validate_final_critic,
         provider_call=provider,
@@ -294,7 +307,7 @@ def run_final_critic(*, runtime: Path) -> dict[str, Any]:
     report = dict(invocation["output"])
     report.update({
         "schema_version": "contentops.retention_native.final_independent_critic.v2",
-        "video_id": VIDEO_ID,
+        "video_id": video_id,
         "critic_identity": {
             "route": ROLE_MULTIMODAL_VIDEO_CRITIC,
             "selected_model": invocation.get("selected_model"),
