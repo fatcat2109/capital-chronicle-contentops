@@ -21,25 +21,25 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12655,
+    "edges": 12850,
     "entrypoints": 14,
-    "nodes": 6722,
+    "nodes": 6805,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
       "directory_scope": 8,
-      "durable_table": 34,
+      "durable_table": 38,
       "http_endpoint": 6,
       "instructions": 8,
-      "manifest": 11,
-      "python_class": 539,
-      "python_function": 3724,
+      "manifest": 13,
+      "python_class": 541,
+      "python_function": 3769,
       "python_method": 241,
-      "python_module": 700,
+      "python_module": 702,
       "schema": 173,
-      "test": 706,
-      "typescript_export": 453,
-      "typescript_or_javascript_module": 89
+      "test": 707,
+      "typescript_export": 475,
+      "typescript_or_javascript_module": 94
     }
   },
   "edges": [
@@ -12111,6 +12111,12 @@
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:artifacts"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
       "inference": "sql_create_table_regex",
       "kind": "owns_table_definition",
       "to": "durable_table:assignments"
@@ -12120,6 +12126,12 @@
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
       "to": "durable_table:assignments"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:defects"
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
@@ -12168,6 +12180,12 @@
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
       "to": "durable_table:incidents"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:jobs"
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
@@ -12372,6 +12390,12 @@
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
       "to": "durable_table:schema_migrations"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:stages"
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
@@ -17106,6 +17130,174 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_kill_switch_policy.py"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:artifacts"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:defects"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:jobs"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:stages"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::AssetFirstLedger"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::ExecutionProvenance"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::canonical_json"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::copy_selected_assets"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::logical_hash"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::measure_loudness"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::probe_media"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::read_json"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::timed"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_asset_board"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_audio_provider"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_creative_source"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_dependencies"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_editorial_layers"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_layout"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_microbeats"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_visual_needs"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_zero_public_write"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_srt"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::zero_public_write_manifest"
+    },
+    {
+      "from": "live_contentops/lane_b_asset_first_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_lane_b_asset_first_v1.py"
     },
     {
       "from": "live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -51302,6 +51494,30 @@
       "to": "python_symbol:live_contentops/kill_switch_policy.py::is_kill_switch_blocking_platform"
     },
     {
+      "from": "python_symbol:live_contentops/lane_b_asset_first_v1.py::copy_selected_assets",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:live_contentops/lane_b_asset_first_v1.py::logical_hash",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_creative_source",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_creative_source",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
       "from": "python_symbol:live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py::build_contract_packet",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -65894,6 +66110,648 @@
       "to": "python_symbol:live_contentops/full_pipeline_north_star_debug_and_live_run_v0.py::run_full_pipeline_north_star_debug_and_live_run"
     },
     {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asset_board",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asset_board",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::copy_selected_assets"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asset_board",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asset_board",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_asset_board"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asset_board",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asset_board",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asset_board",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::make_asset_contact_sheet"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asset_board",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::native_candidates"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::measure_loudness"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_audio_provider"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_srt"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::identity"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::ledger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::read_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_creative_source"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_dependencies"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::zero_public_write_manifest"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::dependency_manifest"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::identity"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::ledger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::selective_verification"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::identity",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::ledger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::AssetFirstLedger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asset_board"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::audio"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::parse_args"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_motion"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::ExecutionProvenance"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::read_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_editorial_layers"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_visual_needs"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_zero_public_write"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::zero_public_write_manifest"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asdict_safe"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::editorial_artifact"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::identity"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::ledger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_motion",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_motion",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::read_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_motion",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_motion",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_motion",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_motion",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_one"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_one",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::read_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_one",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_creative_source"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_dependencies"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::dependency_manifest"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::identity"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::ledger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_one"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_media",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_media",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_media",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::make_image_sheet"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_media",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_creative_source"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::identity"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::ledger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::make_image_sheet"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_one"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::selective_verification",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::selective_verification",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_creative_source"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::selective_verification",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::selective_verification",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_one"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::read_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_creative_source"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_dependencies"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_layout"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_microbeats"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::dependency_manifest"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::layout_report"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::make_image_sheet"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::microbeat_report"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_one"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::run"
+    },
+    {
       "from": "python_symbol:scripts/run_operator_approved_supervised_live_daily_run_v0.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -66522,6 +67380,162 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/run_full_pipeline_north_star_debug_and_live_run_v0.py::main"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asdict_safe"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asset_board"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::audio"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::dependency_manifest"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::editorial_artifact"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::identity"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::layout_report"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::ledger"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::make_asset_contact_sheet"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::make_image_sheet"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::microbeat_report"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::native_candidates"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::parse_args"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_motion"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_one"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_media"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::run"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::selective_verification"
+    },
+    {
+      "from": "scripts/run_lane_b_asset_first_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard"
     },
     {
       "from": "scripts/run_operator_approved_supervised_live_daily_run_v0.py",
@@ -68256,6 +69270,12 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/kill_switch_policy.py"
+    },
+    {
+      "from": "tests/test_lane_b_asset_first_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/lane_b_asset_first_v1.py"
     },
     {
       "from": "tests/test_lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -75972,6 +76992,156 @@
       "inference": "agents_directory_scope",
       "kind": "governs",
       "to": "directory:video"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/assetFirstTreasury.tsx::AssetFirstTreasuryMidform"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/assetFirstTreasury.tsx::AssetFirstTreasuryShort"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/assetFirstTreasury.tsx::MIDFORM_FRAMES"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/assetFirstTreasury.tsx::SHORT_FRAMES"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/asset_first_v1/src/lowLevel.tsx"
+    },
+    {
+      "from": "video/asset_first_v1/src/index.ts",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/asset_first_v1/src/root.tsx"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::BRAND"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Brand"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Canvas"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::CurvePoint"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Enter"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Eyebrow"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Grid"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Photo"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Pill"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Scrim"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Source"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::SplitMechanism"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Title"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::YieldCurve"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::asset"
+    },
+    {
+      "from": "video/asset_first_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::clamp"
+    },
+    {
+      "from": "video/asset_first_v1/src/root.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/root.tsx::ProofProps"
+    },
+    {
+      "from": "video/asset_first_v1/src/root.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/root.tsx::Root"
+    },
+    {
+      "from": "video/asset_first_v1/src/root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx"
     }
   ],
   "entrypoints": [
@@ -76078,7 +77248,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-14T09:41:06Z",
+  "generation_timestamp_utc": "2026-08-14T12:21:35Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -76111,7 +77281,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 13357
+      "size_bytes": 18844
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -76256,7 +77426,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 17952
+      "size_bytes": 19367
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -76266,7 +77436,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 11285
+      "size_bytes": 12051
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
@@ -76281,7 +77451,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 18240
+      "size_bytes": 16544
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -76334,9 +77504,19 @@
       "table": "artifact_references"
     },
     {
+      "id": "durable_table:artifacts",
+      "kind": "durable_table",
+      "table": "artifacts"
+    },
+    {
       "id": "durable_table:assignments",
       "kind": "durable_table",
       "table": "assignments"
+    },
+    {
+      "id": "durable_table:defects",
+      "kind": "durable_table",
+      "table": "defects"
     },
     {
       "id": "durable_table:destination_readiness",
@@ -76362,6 +77542,11 @@
       "id": "durable_table:incidents",
       "kind": "durable_table",
       "table": "incidents"
+    },
+    {
+      "id": "durable_table:jobs",
+      "kind": "durable_table",
+      "table": "jobs"
     },
     {
       "id": "durable_table:learning_policy_versions",
@@ -76467,6 +77652,11 @@
       "id": "durable_table:schema_migrations",
       "kind": "durable_table",
       "table": "schema_migrations"
+    },
+    {
+      "id": "durable_table:stages",
+      "kind": "durable_table",
+      "table": "stages"
     },
     {
       "id": "durable_table:story_versions",
@@ -77933,6 +79123,11 @@
       "id": "live_contentops/kill_switch_policy.py",
       "kind": "python_module",
       "size_bytes": 11016
+    },
+    {
+      "id": "live_contentops/lane_b_asset_first_v1.py",
+      "kind": "python_module",
+      "size_bytes": 21578
     },
     {
       "id": "live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -93354,6 +94549,160 @@
       "line": 243,
       "path": "live_contentops/kill_switch_policy.py",
       "symbol": "no_auto_retry_policy"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::AssetFirstLedger",
+      "kind": "python_class",
+      "line": 84,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "AssetFirstLedger"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::ExecutionProvenance",
+      "kind": "python_class",
+      "line": 67,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "ExecutionProvenance"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::canonical_json",
+      "kind": "python_function",
+      "line": 38,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "canonical_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::copy_selected_assets",
+      "kind": "python_function",
+      "line": 403,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "copy_selected_assets"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::logical_hash",
+      "kind": "python_function",
+      "line": 42,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "logical_hash"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::measure_loudness",
+      "kind": "python_function",
+      "line": 352,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "measure_loudness"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::probe_media",
+      "kind": "python_function",
+      "line": 345,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "probe_media"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::read_json",
+      "kind": "python_function",
+      "line": 54,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "read_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file",
+      "kind": "python_function",
+      "line": 46,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "sha256_file"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::timed",
+      "kind": "python_function",
+      "line": 425,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "timed"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_asset_board",
+      "kind": "python_function",
+      "line": 209,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "validate_asset_board"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_audio_provider",
+      "kind": "python_function",
+      "line": 340,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "validate_audio_provider"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_creative_source",
+      "kind": "python_function",
+      "line": 247,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "validate_creative_source"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_dependencies",
+      "kind": "python_function",
+      "line": 280,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "validate_dependencies"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_editorial_layers",
+      "kind": "python_function",
+      "line": 365,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "validate_editorial_layers"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_layout",
+      "kind": "python_function",
+      "line": 331,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "validate_layout"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_microbeats",
+      "kind": "python_function",
+      "line": 319,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "validate_microbeats"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_visual_needs",
+      "kind": "python_function",
+      "line": 196,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "validate_visual_needs"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::validate_zero_public_write",
+      "kind": "python_function",
+      "line": 383,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "validate_zero_public_write"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_json",
+      "kind": "python_function",
+      "line": 61,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "write_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::write_srt",
+      "kind": "python_function",
+      "line": 391,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "write_srt"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_asset_first_v1.py::zero_public_write_manifest",
+      "kind": "python_function",
+      "line": 419,
+      "path": "live_contentops/lane_b_asset_first_v1.py",
+      "symbol": "zero_public_write_manifest"
     },
     {
       "id": "python_symbol:live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py::LaneCApprovalPacketToPlatformPreviewPrecheckPacket",
@@ -111367,6 +112716,181 @@
       "symbol": "main"
     },
     {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asdict_safe",
+      "kind": "python_function",
+      "line": 195,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "asdict_safe"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::asset_board",
+      "kind": "python_function",
+      "line": 199,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "asset_board"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::audio",
+      "kind": "python_function",
+      "line": 350,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "audio"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::checkpoint",
+      "kind": "python_function",
+      "line": 161,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "checkpoint"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::dependency_manifest",
+      "kind": "python_function",
+      "line": 116,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "dependency_manifest"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::editorial_artifact",
+      "kind": "python_function",
+      "line": 104,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "editorial_artifact"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::finalize",
+      "kind": "python_function",
+      "line": 370,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "finalize"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::identity",
+      "kind": "python_function",
+      "line": 153,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "identity"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::layout_report",
+      "kind": "python_function",
+      "line": 144,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "layout_report"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::ledger",
+      "kind": "python_function",
+      "line": 157,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "ledger"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::main",
+      "kind": "python_function",
+      "line": 414,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::make_asset_contact_sheet",
+      "kind": "python_function",
+      "line": 218,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "make_asset_contact_sheet"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::make_image_sheet",
+      "kind": "python_function",
+      "line": 296,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "make_image_sheet"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::microbeat_report",
+      "kind": "python_function",
+      "line": 134,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "microbeat_report"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::native_candidates",
+      "kind": "python_function",
+      "line": 83,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "native_candidates"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::parse_args",
+      "kind": "python_function",
+      "line": 410,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "parse_args"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::prepare",
+      "kind": "python_function",
+      "line": 165,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "prepare"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_motion",
+      "kind": "python_function",
+      "line": 288,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "render_motion"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::render_one",
+      "kind": "python_function",
+      "line": 233,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "render_one"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::repair_proxy",
+      "kind": "python_function",
+      "line": 327,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "repair_proxy"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_media",
+      "kind": "python_function",
+      "line": 303,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "review_media"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::review_storyboard",
+      "kind": "python_function",
+      "line": 267,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "review_storyboard"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::run",
+      "kind": "python_function",
+      "line": 149,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "run"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::selective_verification",
+      "kind": "python_function",
+      "line": 365,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "selective_verification"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_asset_first_v1.py::storyboard",
+      "kind": "python_function",
+      "line": 240,
+      "path": "scripts/run_lane_b_asset_first_v1.py",
+      "symbol": "storyboard"
+    },
+    {
       "id": "python_symbol:scripts/run_operator_approved_supervised_live_daily_run_v0.py::main",
       "kind": "python_function",
       "line": 18,
@@ -112431,6 +113955,11 @@
       "id": "scripts/run_full_pipeline_north_star_debug_and_live_run_v0.py",
       "kind": "python_module",
       "size_bytes": 2791
+    },
+    {
+      "id": "scripts/run_lane_b_asset_first_v1.py",
+      "kind": "python_module",
+      "size_bytes": 57492
     },
     {
       "id": "scripts/run_operator_approved_supervised_live_daily_run_v0.py",
@@ -113801,6 +115330,11 @@
       "id": "tests/test_kill_switch_policy.py",
       "kind": "test",
       "size_bytes": 2641
+    },
+    {
+      "id": "tests/test_lane_b_asset_first_v1.py",
+      "kind": "test",
+      "size_bytes": 5463
     },
     {
       "id": "tests/test_lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -119014,6 +120548,160 @@
       "symbol": "WriterStudio"
     },
     {
+      "id": "typescript_export:video/asset_first_v1/src/generated/assetFirstTreasury.tsx::AssetFirstTreasuryMidform",
+      "kind": "typescript_export",
+      "line": 99,
+      "path": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx",
+      "symbol": "AssetFirstTreasuryMidform"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/generated/assetFirstTreasury.tsx::AssetFirstTreasuryShort",
+      "kind": "typescript_export",
+      "line": 91,
+      "path": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx",
+      "symbol": "AssetFirstTreasuryShort"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/generated/assetFirstTreasury.tsx::MIDFORM_FRAMES",
+      "kind": "typescript_export",
+      "line": 8,
+      "path": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx",
+      "symbol": "MIDFORM_FRAMES"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/generated/assetFirstTreasury.tsx::SHORT_FRAMES",
+      "kind": "typescript_export",
+      "line": 7,
+      "path": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx",
+      "symbol": "SHORT_FRAMES"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::BRAND",
+      "kind": "typescript_export",
+      "line": 3,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "BRAND"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Brand",
+      "kind": "typescript_export",
+      "line": 9,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "Brand"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Canvas",
+      "kind": "typescript_export",
+      "line": 7,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "Canvas"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::CurvePoint",
+      "kind": "typescript_export",
+      "line": 18,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "CurvePoint"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Enter",
+      "kind": "typescript_export",
+      "line": 13,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "Enter"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Eyebrow",
+      "kind": "typescript_export",
+      "line": 11,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "Eyebrow"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Grid",
+      "kind": "typescript_export",
+      "line": 17,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "Grid"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Photo",
+      "kind": "typescript_export",
+      "line": 14,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "Photo"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Pill",
+      "kind": "typescript_export",
+      "line": 16,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "Pill"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Scrim",
+      "kind": "typescript_export",
+      "line": 15,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "Scrim"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Source",
+      "kind": "typescript_export",
+      "line": 10,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "Source"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::SplitMechanism",
+      "kind": "typescript_export",
+      "line": 21,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "SplitMechanism"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::Title",
+      "kind": "typescript_export",
+      "line": 12,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "Title"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::YieldCurve",
+      "kind": "typescript_export",
+      "line": 20,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "YieldCurve"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::asset",
+      "kind": "typescript_export",
+      "line": 6,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "asset"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::clamp",
+      "kind": "typescript_export",
+      "line": 5,
+      "path": "video/asset_first_v1/src/lowLevel.tsx",
+      "symbol": "clamp"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/root.tsx::ProofProps",
+      "kind": "typescript_export",
+      "line": 4,
+      "path": "video/asset_first_v1/src/root.tsx",
+      "symbol": "ProofProps"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/root.tsx::Root",
+      "kind": "typescript_export",
+      "line": 7,
+      "path": "video/asset_first_v1/src/root.tsx",
+      "symbol": "Root"
+    },
+    {
       "id": "ui/contentops_v5/AGENTS.md",
       "kind": "instructions",
       "size_bytes": 1697
@@ -119637,6 +121325,41 @@
       "id": "video/AGENTS.md",
       "kind": "instructions",
       "size_bytes": 7813
+    },
+    {
+      "id": "video/asset_first_v1/package.json",
+      "kind": "manifest",
+      "size_bytes": 441
+    },
+    {
+      "id": "video/asset_first_v1/scripts/render.mjs",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 2410
+    },
+    {
+      "id": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 19494
+    },
+    {
+      "id": "video/asset_first_v1/src/index.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 88
+    },
+    {
+      "id": "video/asset_first_v1/src/lowLevel.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 6473
+    },
+    {
+      "id": "video/asset_first_v1/src/root.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 821
+    },
+    {
+      "id": "video/asset_first_v1/tsconfig.json",
+      "kind": "manifest",
+      "size_bytes": 292
     }
   ],
   "protected_boundaries": [
@@ -119702,6 +121425,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "9f6f670601e7e1f85bf7f1124a1f9d8aab5e22c7",
-  "source_tree_digest": "6c079d3459d4cb336956a7a783d7633b6e1b8a23ea4be24876b9f1b290da02cd"
+  "source_head": "70987dfe83e1c623a19b86e58ede20be6d584e09",
+  "source_tree_digest": "eb70513f38b81debbe104f3cbc3c950275e18037585344a43636eae832b588ae"
 }
