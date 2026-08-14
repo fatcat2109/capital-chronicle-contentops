@@ -47,12 +47,13 @@ For V2, read in this order:
 1. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 2. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 3. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
-4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
-5. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
-6. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
-7. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
-8. `video/AGENTS.md`
-9. exact task code/tests/evidence.
+4. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
+5. `docs/automation/CONTENTOPS_V2_CODEX_56_SOL_MODE_BAKEOFF_OWNER_OVERRIDE_V1.md`
+6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
+7. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+8. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
+9. `video/AGENTS.md`
+10. exact task code/tests/evidence.
 
 Older V2 plan/status/model-override docs remain historical/reference where they conflict with this authority chain.
 
@@ -70,15 +71,56 @@ Do not maintain separate Lane A and Lane B renderer/control stacks.
 
 Lane A / `cx/gpt-5.6-sol(xhigh)` remains a lower-cost shadow benchmark and possible future alternative brain only after the shared Hybrid engine is hardened and measured fairly.
 
+### Codex 5.6 Sol mode authority
+
+The **Codex operating mode is intentionally not yet locked**.
+
+Owner-specified bakeoff labels:
+
+- `HIGH`
+- `XHIGH / EXTRA_HIGH`
+- `ULTRA`
+
+The builder must discover and record the exact supported local Codex mode/config identifiers non-secretly. Do not guess identifiers and do not expose session/auth material.
+
+H1 must make the Codex execution seam mode-selectable and run a fair controlled media bakeoff using the same immutable story/evidence input and the same deterministic Hybrid engine.
+
+Preferred first owner comparison:
+
+- one 45–60 second native 9:16 clean master per viable mode;
+- actual MP4s, not prose-only comparisons;
+- same evidence, design-system version, asset universe, revision budget, and QA;
+- separate fresh isolated run/thread per mode;
+- comparable quota/usage/wall-clock/retry/revision evidence.
+
+No mode wins by assumption. ULTRA is not automatically canonical because it has the highest capability ceiling; HIGH/XHIGH are not automatically canonical because they consume less quota.
+
+Jim + ChatGPT select the daily/default and any escalation policy after actual-media review.
+
+Valid eventual policy may be one default mode or a tiered policy such as daily/default plus ULTRA escalation for flagship/complex jobs, but only if evidence supports it.
+
+The builder may not self-advance through this owner mode gate.
+
 ### Current exact V2 task
 
 `TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
 
-Required implementation result before owner review:
+The task now has three bounded stages:
+
+- `H1-A`: shared Hybrid engine sufficient for fair mode comparison;
+- `H1-B`: HIGH/XHIGH/ULTRA short-form actual-media bakeoff;
+- `OWNER MODE GATE`: Jim + ChatGPT choose mode policy;
+- `H1-C`: finish the full Hybrid vertical slice using the owner-selected mode policy.
+
+Required H1-B result before owner mode review:
+
+`PASS_CODEX_MODE_BAKEOFF_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+
+Required H1-C implementation result before final owner review:
 
 `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
 
-The task must produce actual media. It should minimally combine the institutional editorial engine, durable candidate/outbox contract, fresh isolated/headless Codex job seam, Lane B visual primitives, visual-safety compiler, storyboard/comprehension gate, durable stage resume, Remotion render, actual-media QA, and measured cost/runtime in one bounded vertical slice.
+The task must produce actual media. It should combine the institutional editorial engine, durable candidate/outbox contract, fresh isolated/headless Codex job seam, Lane B visual primitives, visual-safety compiler, storyboard/comprehension gate, durable stage resume, Remotion render, actual-media QA, and measured cost/runtime.
 
 ### V2 editorial doctrine
 
