@@ -3,8 +3,9 @@
 Authority date: 2026-08-14
 Status: `CURRENT_V2_FRESH_SESSION_HANDOFF`
 Product direction: `LANE_B_HYBRID`
+Codex mode state: `OWNER_BAKEOFF_REQUIRED / NO_CANONICAL_MODE_SELECTED`
 
-Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or this owner's chat history.
+Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or the owner's chat history.
 
 Repository-state authority is always fresh GitHub refs/commits/diffs/exact bytes. Jim's latest explicit instruction is product-direction authority. Fetch current `master` and relevant task branch before acting; SHAs in this handoff are historical clues only.
 
@@ -30,13 +31,14 @@ Do not trust local branch state until fetched and reconciled.
 4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 5. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
-7. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
-8. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
-9. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
-10. nearest scoped `AGENTS.md`
-11. exact task code/tests/evidence.
+7. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
+8. `docs/automation/CONTENTOPS_V2_CODEX_56_SOL_MODE_BAKEOFF_OWNER_OVERRIDE_V1.md`
+9. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
+10. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+11. nearest scoped `AGENTS.md`
+12. exact task code/tests/evidence.
 
-Because ChatGPT wrote the new authority directly to remote `master`, local CodeGraph/generated context may temporarily be stale. Regenerate/check CodeGraph after syncing and require `CODEGRAPH_CURRENT` before implementation commit.
+Because ChatGPT wrote current authority directly to remote `master`, local CodeGraph/generated context may temporarily be stale. Regenerate/check CodeGraph after syncing and require `CODEGRAPH_CURRENT` before implementation commit.
 
 # 3. What happened before this handoff
 
@@ -84,7 +86,7 @@ Jim authorized testing:
 
 The CX route successfully returned large Director/segment/motion outputs and completed the controlled Lane A proof.
 
-This was an important provider lesson but is no longer the primary product architecture decision.
+This provider lesson remains useful, but the product architecture is no longer model-first Lane A.
 
 ## 3.4 A/B proof was completed
 
@@ -163,7 +165,7 @@ The proof required too many interactive builder repair cycles to be considered p
 
 # 4. Owner decision after authentic four-video review
 
-Canonical direction is now:
+Canonical architecture is:
 
 `LANE_B_HYBRID`
 
@@ -173,9 +175,106 @@ It is:
 
 > **Fresh per-video Codex execution owns high-entropy creative/editorial intelligence and actual-media review; deterministic local V2 infrastructure owns durable orchestration, evidence, visual safety, reusable primitives, rendering, QA, recovery, cost, and publication boundaries.**
 
-Lane A/CX is retained as a low-cost shadow benchmark and possible alternative brain after the shared Hybrid engine exists.
+Lane A/CX is retained as a lower-cost shadow benchmark and possible alternative brain after the shared Hybrid engine exists.
 
-# 5. Canonical creative/control responsibility
+# 5. New owner instruction: Codex mode is NOT locked
+
+The architecture decision above is final for now, but the exact Codex 5.6 Sol operating mode has deliberately not been selected.
+
+Jim requires a controlled bakeoff across owner-specified modes:
+
+- `HIGH`
+- `XHIGH / EXTRA_HIGH`
+- `ULTRA`
+
+ULTRA is expected by the owner to consume the most quota and to have the highest nominal capability ceiling, but that does **not** make it the automatic production default.
+
+The objective is to determine which mode gives the best **reproducible public-quality value**.
+
+The builder must first discover the exact locally supported Codex mode/config identifiers and explicitly map them to the owner labels. Do not guess names. Do not inspect or expose authentication/session material.
+
+## 5.1 Fair comparison rules
+
+Hold constant across modes:
+
+- exact governed article/story;
+- exact evidence snapshot;
+- immutable creative input packet;
+- exact shared Hybrid engine commit/version;
+- same design tokens/primitives;
+- same asset candidate universe available at run start;
+- same visual-safety compiler;
+- same output format;
+- same revision budget;
+- same audio/tooling policy;
+- same zero-public-write boundary;
+- same evaluation rubric.
+
+Each mode must run in a **fresh isolated execution/thread**.
+
+A mode may not see another mode's creative output before the owner comparison is complete.
+
+## 5.2 First-stage media bakeoff
+
+Preferred bounded experiment:
+
+1. stabilize the shared Hybrid engine to the point where mode is the main changed variable;
+2. choose one identical qualified benchmark story/job packet;
+3. run HIGH independently;
+4. run XHIGH independently;
+5. run ULTRA independently;
+6. produce one native 45–60 second 9:16 clean master per viable mode;
+7. create contact sheets/motion strips/phone-scale evidence;
+8. capture quota/usage/wall-clock/retries/revision burden;
+9. stop for Jim + ChatGPT actual-media review.
+
+If a mode fails a blocking deterministic/storyboard/comprehension gate, it does not need an expensive final render just to fill the comparison table. Preserve the failure evidence.
+
+Do not automatically render three midforms. If the short comparison is inconclusive, Jim may authorize a second-stage midform comparison only between finalists.
+
+## 5.3 Owner selection gate
+
+Builder/critic may not self-select the winner.
+
+Jim + ChatGPT decide after actual-media review whether the production policy should be:
+
+- one universal default mode;
+- HIGH or XHIGH daily/default with ULTRA escalation for flagship/complex jobs;
+- ULTRA default if the quality/revision benefit materially justifies quota/TCO;
+- another evidence-backed tiered policy.
+
+Quality and efficiency should be scored separately.
+
+Quality dimensions include:
+
+- one-watch comprehension;
+- hook/retention;
+- institutional analytical depth;
+- conversational pacing;
+- truth/evidence discipline;
+- visual composition;
+- motion craft;
+- typography/readability;
+- document/chart treatment;
+- asset diversity;
+- template feel;
+- wit quality where used;
+- Capital Chronicle brand fit;
+- publication potential.
+
+Efficiency dimensions include:
+
+- quota/usage;
+- wall-clock;
+- Codex invocation count;
+- retries/failures;
+- storyboard/proxy/full render count;
+- mechanical corrections;
+- creative revision count;
+- owner/operator intervention;
+- total TCO where measurable.
+
+# 6. Canonical creative/control responsibility
 
 ## Codex owns
 
@@ -212,7 +311,7 @@ Lane A/CX is retained as a low-cost shadow benchmark and possible alternative br
 - final package identity;
 - publication authority.
 
-# 6. No persistent Codex session
+# 7. No persistent Codex session
 
 Do not implement a 24/7 Codex conversation.
 
@@ -228,7 +327,9 @@ durable qualified job
 
 State lives in artifacts/ledger, not hidden conversation history.
 
-# 7. Institutional editorial target
+The HIGH/XHIGH/ULTRA comparison must also use one fresh isolated run/thread per mode.
+
+# 8. Institutional editorial target
 
 V2 must become deeper than the A/B oil proof without becoming an academic lecture.
 
@@ -255,7 +356,7 @@ Midform should ask, where supported:
 
 Select only the highest-value mechanisms rather than filling a rigid checklist.
 
-# 8. Financial wit target
+# 9. Financial wit target
 
 Desired:
 
@@ -274,7 +375,7 @@ Do not use meme slang, cheap jokes, insensitive humor, unsupported facts, or adv
 
 Use a bounded wit candidate + truth/relevance/tone validator. Zero jokes is valid.
 
-# 9. Visual target
+# 10. Visual target
 
 The **entire** video should be as strong as the best second-half Lane B scenes.
 
@@ -295,7 +396,7 @@ Positive primitives to generalize:
 
 They are not a frozen template.
 
-# 10. Visual defects that must be engineered out
+# 11. Visual defects that must be engineered out
 
 Both A/B work exposed recurring defects that must move from manual fixes into the visual-safety system:
 
@@ -311,7 +412,7 @@ Both A/B work exposed recurring defects that must move from manual fixes into th
 
 Canonical master should be clean without a permanent large subtitle card. Produce platform/sidecar captions and optional social-caption derivative separately.
 
-# 11. V1 -> V2 future operating loop
+# 12. V1 -> V2 future operating loop
 
 Expected daily flow:
 
@@ -330,18 +431,20 @@ Candidate scoring should combine engagement quality and video opportunity.
 
 Engagement may influence priority/packaging only.
 
-# 12. Current exact next task
+# 13. Current exact H1 task and owner gate
+
+Current task:
 
 `TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
 
-This is the current next V2 task.
+It remains the active V2 task, but now has three bounded stages.
 
-It must produce real media, not just infrastructure.
+## H1-A — shared Hybrid engine
 
-Minimum capability:
+Build enough shared deterministic production capability to make the model-mode comparison fair:
 
 - durable candidate/outbox fixture or read-only V1-style input;
-- fresh isolated/headless Codex seam;
+- fresh isolated/headless Codex seam with selectable mode;
 - institutional analytical map;
 - conversational script;
 - bounded wit pass;
@@ -349,27 +452,53 @@ Minimum capability:
 - visual-safety compiler;
 - asset diversity tracking;
 - storyboard/animatic comprehension gate;
-- Remotion proxy/final render;
-- Codex actual-media review;
-- bounded revision;
+- Remotion proxy/final render capability;
+- actual-media review artifacts;
 - stage ledger/resume;
 - cost/runtime telemetry;
-- clean final media;
 - zero public write.
+
+## H1-B — HIGH/XHIGH/ULTRA actual-media bakeoff
+
+Run one identical benchmark through all three owner-specified modes under the fair-comparison contract.
+
+Required pre-owner result:
+
+`PASS_CODEX_MODE_BAKEOFF_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+
+Return actual short MP4 candidates and comparable evidence.
+
+Then STOP for the owner mode gate.
+
+## OWNER MODE GATE
+
+Jim + ChatGPT inspect actual media and cost/quota evidence.
+
+They decide:
+
+- daily/default mode;
+- any ULTRA escalation policy;
+- whether a second-stage midform comparison is required.
+
+The builder may not self-advance.
+
+## H1-C — full Hybrid vertical slice
+
+Only after owner mode selection should H1 resume to the full institutional/editorial/headless proof.
 
 Pre-owner ceiling result:
 
 `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
 
-# 13. Next phases after H1
+# 14. Next phases after H1
 
 - H2: cross-domain/non-oil generalization.
 - H3: live read-only V1 performance shadow trigger.
 - H4: roughly ten-job Hybrid shadow soak.
-- H5: fair Codex-vs-CX cost/quality benchmark through the same engine.
+- H5: fair Codex-vs-CX cost/quality benchmark through the same shared engine.
 - V2-02: platform/publication expansion only after Hybrid quality/reliability proof and explicit Jim authorization.
 
-# 14. Public-write boundary
+# 15. Public-write boundary
 
 Current invariant:
 
@@ -379,7 +508,7 @@ No current V2 task may upload, draft, schedule, or otherwise mutate YouTube/TikT
 
 V2 must not mutate/reset V1 runtime/store/scheduler/coordinator/browser/publication authority.
 
-# 15. Builder workflow for the next task
+# 16. Builder workflow for the next task
 
 Before editing:
 
@@ -388,16 +517,18 @@ Before editing:
 3. fetch origin;
 4. verify fresh remote master;
 5. fast-forward a clean checkout or create a new dedicated V2 worktree/branch from fresh master;
-6. regenerate/check CodeGraph because this authority synchronization was written directly through GitHub;
+6. regenerate/check CodeGraph because current authority synchronization was written directly through GitHub;
 7. use CodeGraph and nearest AGENTS;
 8. inspect A/B proof source only as reference;
-9. implement one heavy bounded vertical slice;
-10. explicit staging only;
-11. commit/push task branch;
-12. return actual media/evidence for owner review.
+9. implement H1-A and H1-B as one bounded build-to-owner-gate slice;
+10. use a fresh isolated Codex run/thread for each HIGH/XHIGH/ULTRA candidate;
+11. explicit staging only;
+12. commit/push task branch;
+13. return actual mode-bakeoff media/evidence for owner review;
+14. STOP at the mode-selection gate.
 
 Do not hard-reset unrelated V1 work.
 
-# 16. Durable summary
+# 17. Durable summary
 
-**V2 is Lane B Hybrid. Codex is the fresh episodic creative/editorial brain and actual-media reviewer. Deterministic local infrastructure is the durable production/control system. Institutional analytical depth, conversational retention pacing, controlled financial wit, concrete-first visual storytelling, and Lane B visual craft are the target. Lane A/CX remains a lower-cost shadow benchmark. Do not run a persistent Codex session, do not start V2-02, and do not grant public write. Build the Hybrid vertical slice next.**
+**V2 is Lane B Hybrid. Codex is the fresh episodic creative/editorial brain and actual-media reviewer. Deterministic local infrastructure is the durable production/control system. Institutional analytical depth, conversational retention pacing, controlled financial wit, concrete-first visual storytelling, and Lane B visual craft are the target. Lane A/CX remains a lower-cost shadow benchmark. The exact Codex 5.6 Sol operating mode is NOT selected: H1 must fairly compare owner-specified HIGH, XHIGH/EXTRA_HIGH, and ULTRA using the same shared engine and actual short-form MP4s. Jim + ChatGPT choose the daily/default and any escalation policy after seeing media plus quota/TCO evidence. Do not run a persistent Codex session, do not start V2-02, and do not grant public write.**
