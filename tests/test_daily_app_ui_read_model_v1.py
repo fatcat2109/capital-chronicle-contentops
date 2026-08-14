@@ -9,7 +9,12 @@ from urllib.request import Request, urlopen
 
 import pytest
 
-from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
+from live_contentops.daily_app_supervisor_v1 import (
+    TRIGGER_SCHEDULED,
+    ContentOpsDailyAppSupervisor,
+    build_bootstrap_editorial_window_policy,
+    editorial_window_id,
+)
 from live_contentops.daily_app_ui_read_model_v1 import (
     DailyAppReadModelError,
     build_daily_app_snapshot,
@@ -122,6 +127,7 @@ def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     assert cockpit["schedule"]["next_editorial_wake_utc"] == "2026-08-10T12:00:00Z"
     assert cockpit["schedule"]["next_x_eligible_capture_utc"] == "2026-08-10T13:00:00Z"
     assert cockpit["schedule"]["x_cadence_state"] == "EMPTY_BACKOFF_60M"
+    assert cockpit["timeline"] == []
     assert cockpit["safety"]["active_public_write"] is False
     assert cockpit["projection_authority"]["stage_file_presentation_only"] is True
     assert cockpit["projection_authority"]["grants_publication_authority"] is False
@@ -131,6 +137,51 @@ def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     # connection alive; those files are part of daily.sqlite3, not a second authority store.
     assert after - before <= {"daily.sqlite3-wal", "daily.sqlite3-shm"}
     assert {name for name in after if name.endswith(".sqlite3")} == {"daily.sqlite3"}
+
+
+def test_next_wake_skips_a_current_window_already_claimed_by_the_scheduler(tmp_path):
+    store = _store(tmp_path)
+    store.upsert_heartbeat("daily-supervisor")
+    policy = build_bootstrap_editorial_window_policy()
+    current = next(window for window in policy.core_windows if window.start_hour_utc == 12)
+    start = NOW.replace(hour=current.start_hour_utc, minute=0, second=0, microsecond=0)
+    end = NOW.replace(hour=current.end_hour_utc, minute=0, second=0, microsecond=0)
+    window_id = editorial_window_id(
+        policy_version=policy.policy_version,
+        window_start_utc=start,
+        window_end_utc=end,
+        session=current.session,
+        trigger_kind=TRIGGER_SCHEDULED,
+    )
+    store.create_work_item(
+        story_id=window_id, title="Claimed scheduled window",
+        target_surface="daily_app_editorial_window", work_item_id=window_id,
+    )
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    assert snapshot["runtime"]["next_wake_utc"] == "2026-08-10T15:00:00Z"
+    assert snapshot["runtime"]["operator_cockpit"]["schedule"]["next_editorial_wake_utc"] == (
+        "2026-08-10T15:00:00Z"
+    )
+
+
+def test_degraded_capture_preserves_exact_durable_outcome_label(tmp_path):
+    from live_contentops.continuous_headline_ingest_v1 import (
+        OUTCOME_CAPTURE_FAILED,
+        write_ingestion_checkpoint,
+    )
+
+    store = _store(tmp_path)
+    store.upsert_heartbeat("daily-supervisor")
+    write_ingestion_checkpoint(
+        store, now=NOW, last_success_epoch=(NOW.timestamp() - 3600),
+        last_attempt_epoch=NOW.timestamp(), outcome_code=OUTCOME_CAPTURE_FAILED,
+        consecutive_empty=4, rows_iteration=0,
+    )
+    cockpit = build_daily_app_snapshot(store.db_path, now=NOW)["runtime"]["operator_cockpit"]
+    assert cockpit["primary_state"] == "DEGRADED"
+    assert cockpit["intake"]["lane_state"] == "DEGRADED"
+    assert cockpit["intake"]["latest_capture_result"] == "CAPTURE_FAILED"
+    assert cockpit["intake"]["cadence_state"] == "TRANSIENT_BACKOFF_30M_PLUS"
 
 
 def test_cockpit_active_researching_requires_exact_active_durable_cycle(tmp_path):

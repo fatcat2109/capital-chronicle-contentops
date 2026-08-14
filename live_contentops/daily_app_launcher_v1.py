@@ -10,6 +10,7 @@ compact redacted operator summary.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -55,6 +56,9 @@ SNAPSHOT_SCHEMA = "contentops.daily_app_ui_snapshot.v1"
 UI_PREVIEW_PORT = 4173
 UI_DEV_PORT = 5173
 UI_DIR = REPO_ROOT / "ui" / "contentops_v5"
+UI_EPOCH_SCHEMA = "contentops.v5_ui_source_epoch.v1"
+UI_EPOCH_FILE = "contentops-ui-epoch.json"
+UI_BUILD_TIMEOUT_SECONDS = 180.0
 DASHBOARD_OPEN_MARKER = "dashboard_open_v1.json"
 DASHBOARD_OPEN_DEDUPE_SECONDS = 300.0
 REAUTH_READINESS_STATES = frozenset({
@@ -146,6 +150,163 @@ def _http_get_json(url: str, *, timeout: float) -> Optional[dict[str, Any]]:
             return json.loads(response.read().decode("utf-8"))
     except (urllib.error.URLError, TimeoutError, OSError, ValueError):
         return None
+
+
+def _ui_source_files(ui_dir: Path) -> list[Path]:
+    """Return the deterministic, build-relevant V5 source universe."""
+    roots = [
+        ui_dir / "index.html",
+        ui_dir / "package.json",
+        ui_dir / "package-lock.json",
+        ui_dir / "postcss.config.js",
+        ui_dir / "tailwind.config.js",
+        ui_dir / "tsconfig.json",
+        ui_dir / "tsconfig.app.json",
+        ui_dir / "tsconfig.node.json",
+        ui_dir / "vite.config.ts",
+    ]
+    files = [path for path in roots if path.is_file()]
+    source_root = ui_dir / "src"
+    if source_root.is_dir():
+        files.extend(
+            path for path in source_root.rglob("*")
+            if path.is_file()
+            and "test" not in path.relative_to(source_root).parts
+            and ".test." not in path.name
+        )
+    return sorted(set(files), key=lambda path: path.relative_to(ui_dir).as_posix())
+
+
+def compute_ui_source_epoch(ui_dir: Path | None = None) -> str:
+    """Hash current V5 source bytes; ignored dist/runtime markers are never authority."""
+    root = Path(ui_dir or UI_DIR)
+    digest = hashlib.sha256()
+    files = _ui_source_files(root)
+    if not files:
+        raise LauncherError("V5_UI_SOURCE_UNAVAILABLE")
+    for path in files:
+        relative = path.relative_to(root).as_posix().encode("utf-8")
+        digest.update(len(relative).to_bytes(4, "big"))
+        digest.update(relative)
+        payload = path.read_bytes()
+        digest.update(len(payload).to_bytes(8, "big"))
+        digest.update(payload)
+    return digest.hexdigest()
+
+
+def _ui_epoch_payload(*, source_epoch: str, source_sha: str | None) -> dict[str, Any]:
+    return {
+        "schema_version": UI_EPOCH_SCHEMA,
+        "source_epoch": source_epoch,
+        "source_sha": source_sha,
+        "contains_secrets": False,
+    }
+
+
+def _write_json_atomic(path: Path, payload: Mapping[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(path.name + ".tmp")
+    temporary.write_text(
+        json.dumps(dict(payload), sort_keys=True, separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )
+    temporary.replace(path)
+
+
+def _read_ui_epoch(path: Path) -> dict[str, Any]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError):
+        return {}
+    return dict(value) if isinstance(value, Mapping) else {}
+
+
+def ensure_current_ui_build(
+    *,
+    log_root: Path,
+    ui_dir: Path | None = None,
+    source_sha: str | None = None,
+) -> dict[str, Any]:
+    """Build V5 exactly when its deterministic source epoch changed.
+
+    The ignored public marker lets both Vite preview and a source-direct Vite dev server prove
+    which checkout they serve.  An existing preview process can stay alive while ``dist`` is
+    atomically refreshed; no second dashboard server is needed.
+    """
+    root = Path(ui_dir or UI_DIR)
+    try:
+        source_epoch = compute_ui_source_epoch(root)
+    except (LauncherError, OSError) as exc:
+        return {
+            "status": "UNAVAILABLE",
+            "reason": f"UI_SOURCE_EPOCH_FAILED:{type(exc).__name__}",
+            "source_epoch": None,
+            "source_sha": source_sha,
+        }
+    payload = _ui_epoch_payload(source_epoch=source_epoch, source_sha=source_sha)
+    public_marker = root / "public" / UI_EPOCH_FILE
+    dist_marker = root / "dist" / UI_EPOCH_FILE
+    dist_index = root / "dist" / "index.html"
+    try:
+        _write_json_atomic(public_marker, payload)
+    except OSError as exc:
+        return {
+            "status": "UNAVAILABLE",
+            "reason": f"UI_PUBLIC_EPOCH_WRITE_FAILED:{type(exc).__name__}",
+            "source_epoch": source_epoch,
+            "source_sha": source_sha,
+        }
+    existing = _read_ui_epoch(dist_marker)
+    build_required = not (
+        dist_index.is_file()
+        and existing.get("schema_version") == UI_EPOCH_SCHEMA
+        and existing.get("source_epoch") == source_epoch
+    )
+    if build_required:
+        log_root.mkdir(parents=True, exist_ok=True)
+        build_log = log_root / "v5_ui_build.log"
+        try:
+            with build_log.open("a", encoding="utf-8") as out:
+                out.write(
+                    f"\n===== one-click UI build {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())} "
+                    f"epoch={source_epoch[:12]} =====\n"
+                )
+                completed = subprocess.run(
+                    ["cmd", "/c", "npm", "run", "build"],
+                    cwd=str(root), stdin=subprocess.DEVNULL, stdout=out,
+                    stderr=subprocess.STDOUT, timeout=UI_BUILD_TIMEOUT_SECONDS,
+                )
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return {
+                "status": "UNAVAILABLE",
+                "reason": f"UI_BUILD_FAILED:{type(exc).__name__}",
+                "source_epoch": source_epoch,
+                "source_sha": source_sha,
+            }
+        if completed.returncode != 0 or not dist_index.is_file():
+            return {
+                "status": "UNAVAILABLE",
+                "reason": f"UI_BUILD_EXIT_{completed.returncode}",
+                "source_epoch": source_epoch,
+                "source_sha": source_sha,
+            }
+    try:
+        # Vite copies the public marker during a rebuild.  Refresh it without rebuilding when
+        # only the repository SHA changed while the UI source bytes stayed identical.
+        _write_json_atomic(dist_marker, payload)
+    except OSError as exc:
+        return {
+            "status": "UNAVAILABLE",
+            "reason": f"UI_DIST_EPOCH_WRITE_FAILED:{type(exc).__name__}",
+            "source_epoch": source_epoch,
+            "source_sha": source_sha,
+        }
+    return {
+        "status": "READY",
+        "reason": "BUILT_CURRENT_SOURCE_EPOCH" if build_required else "REUSED_CURRENT_SOURCE_EPOCH",
+        "source_epoch": source_epoch,
+        "source_sha": source_sha,
+    }
 
 
 def probe_health(api_base: str, *, timeout: float = 4.0) -> Optional[dict[str, Any]]:
@@ -464,6 +625,7 @@ def ensure_ui(
     enabled: bool,
     log_root: Path,
     snapshot_available: bool,
+    source_sha: str | None = None,
 ) -> dict[str, Any]:
     if not enabled:
         return {"status": "SKIPPED", "url": None, "mechanism": None, "pid": None}
@@ -474,16 +636,44 @@ def ensure_ui(
             "mechanism": "snapshot_health_required_before_ui",
             "pid": None,
         }
-    for port in (UI_PREVIEW_PORT, UI_DEV_PORT):
-        if _http_get_json(f"http://127.0.0.1:{port}/", timeout=2.0) is not None or _url_ok(f"http://127.0.0.1:{port}/"):
-            return {"status": "ALREADY_READY", "url": f"http://127.0.0.1:{port}/", "mechanism": "existing_loopback_server", "pid": None}
     if not UI_DIR.exists():
         return {"status": "UNAVAILABLE", "url": None, "mechanism": "UI_DIR_MISSING", "pid": None}
-    dist_marker = UI_DIR / "dist" / "index.html"
-    if dist_marker.exists():
-        script, port = "preview", UI_PREVIEW_PORT
-    else:
-        script, port = "dev", UI_DEV_PORT
+    build_state = ensure_current_ui_build(
+        log_root=log_root, ui_dir=UI_DIR, source_sha=source_sha,
+    )
+    if build_state.get("status") != "READY":
+        return {
+            **build_state,
+            "status": "UNAVAILABLE", "url": None,
+            "mechanism": str(build_state.get("reason") or "UI_BUILD_UNAVAILABLE"),
+            "pid": None,
+        }
+    source_epoch = str(build_state["source_epoch"])
+    for port in (UI_PREVIEW_PORT, UI_DEV_PORT):
+        url = f"http://127.0.0.1:{port}/"
+        if not _url_ok(url):
+            continue
+        served = _http_get_json(f"{url}{UI_EPOCH_FILE}", timeout=2.0) or {}
+        if (
+            served.get("schema_version") == UI_EPOCH_SCHEMA
+            and served.get("source_epoch") == source_epoch
+        ):
+            return {
+                **build_state,
+                "status": "ALREADY_READY", "url": url,
+                "mechanism": (
+                    "existing_preview_current_source_epoch"
+                    if port == UI_PREVIEW_PORT else "existing_dev_current_source_epoch"
+                ),
+                "pid": None,
+            }
+        return {
+            **build_state,
+            "status": "UNAVAILABLE", "url": url,
+            "mechanism": "EXISTING_UI_SOURCE_EPOCH_MISMATCH",
+            "pid": None,
+        }
+    script, port = "preview", UI_PREVIEW_PORT
     command = [
         "cmd", "/c", "npm", "run", script, "--",
         "--host", "127.0.0.1", "--port", str(port), "--strictPort",
@@ -508,9 +698,24 @@ def ensure_ui(
     deadline = time.monotonic() + 30.0
     while time.monotonic() < deadline:
         if _url_ok(url):
-            return {"status": "READY", "url": url, "mechanism": f"npm_run_{script}_detached", "pid": process.pid}
+            served = _http_get_json(f"{url}{UI_EPOCH_FILE}", timeout=2.0) or {}
+            if served.get("source_epoch") != source_epoch:
+                return {
+                    **build_state,
+                    "status": "UNAVAILABLE", "url": url,
+                    "mechanism": "STARTED_UI_SOURCE_EPOCH_MISMATCH", "pid": process.pid,
+                }
+            return {
+                **build_state,
+                "status": "READY", "url": url,
+                "mechanism": f"npm_run_{script}_detached", "pid": process.pid,
+            }
         time.sleep(1.0)
-    return {"status": "UNAVAILABLE", "url": url, "mechanism": f"npm_run_{script}_not_ready_within_30s", "pid": process.pid}
+    return {
+        **build_state,
+        "status": "UNAVAILABLE", "url": url,
+        "mechanism": f"npm_run_{script}_not_ready_within_30s", "pid": process.pid,
+    }
 
 
 def open_operator_dashboard(
@@ -636,6 +841,9 @@ def render_summary(
         f"X Ingestion Session: {browser_state['x_ingestion_session']}",
         f"Edge 9223 Publishing: {browser_state['edge_9223_publishing_only']}",
         f"V5 UI: {ui_state['status']}" + (f" ({ui_state['url']})" if ui_state.get("url") else ""),
+        f"V5 UI Mode: {ui_state.get('mechanism') or 'UNAVAILABLE'}",
+        f"V5 UI Source Epoch: {str(ui_state.get('source_epoch') or 'UNAVAILABLE')[:12]}",
+        f"V5 UI Build: {ui_state.get('reason') or 'UNAVAILABLE'}",
         f"Dashboard Open: {(ui_state.get('dashboard_open') or {}).get('status', 'NOT_REQUESTED')}",
         f"Started Runtime Source SHA: {source_sha or 'PRESERVED_EXISTING_RUNTIME_SEE_HOURLY_AUDIT'}",
         f"Background Logs: {(log_root or LAUNCHER_LOG_ROOT_DEFAULT)}",
@@ -805,7 +1013,10 @@ def run_launcher(argv: list[str] | None = None) -> int:
     else:
         ingestion_runtime = passive_canonical_ingestion_readiness()
     browser_state = summarize_browser_state(snapshot, ingestion_runtime=ingestion_runtime)
-    ui_state = ensure_ui(enabled=not args.no_ui, log_root=log_root, snapshot_available=snapshot is not None)
+    ui_state = ensure_ui(
+        enabled=not args.no_ui, log_root=log_root,
+        snapshot_available=snapshot is not None, source_sha=source_sha,
+    )
     ui_state["dashboard_open"] = (
         {"status": "DISABLED_BY_FLAG", "url": None, "deduplicated": False}
         if args.no_open_browser

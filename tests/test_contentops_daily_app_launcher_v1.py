@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import inspect
+import json
 import os
 import sys
 import time
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -335,6 +337,73 @@ def test_ui_bootstrap_is_local_only():
     source = Path(launcher.__file__).read_text(encoding="utf-8")
     assert '"--host", "127.0.0.1"' in source
     assert "0.0.0.0" not in source
+
+
+def test_ui_build_epoch_rebuilds_stale_dist_then_reuses_current_source(tmp_path, monkeypatch):
+    ui_dir = tmp_path / "ui"
+    (ui_dir / "src").mkdir(parents=True)
+    (ui_dir / "src" / "main.tsx").write_text("export const cockpit = 'V1 LIVE';\n", encoding="utf-8")
+    (ui_dir / "package.json").write_text('{"scripts":{"build":"vite build"}}\n', encoding="utf-8")
+    (ui_dir / "dist").mkdir()
+    (ui_dir / "dist" / "index.html").write_text("stale", encoding="utf-8")
+    calls: list[list[str]] = []
+
+    def fake_run(command, **kwargs):
+        calls.append(list(command))
+        (ui_dir / "dist" / "index.html").write_text("current", encoding="utf-8")
+        return SimpleNamespace(returncode=0)
+
+    monkeypatch.setattr(launcher.subprocess, "run", fake_run)
+    first = launcher.ensure_current_ui_build(
+        log_root=tmp_path / "logs", ui_dir=ui_dir, source_sha="a" * 40,
+    )
+    assert first["status"] == "READY"
+    assert first["reason"] == "BUILT_CURRENT_SOURCE_EPOCH"
+    assert calls == [["cmd", "/c", "npm", "run", "build"]]
+    marker = json.loads((ui_dir / "dist" / launcher.UI_EPOCH_FILE).read_text(encoding="utf-8"))
+    assert marker["source_epoch"] == launcher.compute_ui_source_epoch(ui_dir)
+    assert marker["source_sha"] == "a" * 40
+
+    second = launcher.ensure_current_ui_build(
+        log_root=tmp_path / "logs", ui_dir=ui_dir, source_sha="b" * 40,
+    )
+    assert second["reason"] == "REUSED_CURRENT_SOURCE_EPOCH"
+    assert len(calls) == 1
+    refreshed = json.loads((ui_dir / "dist" / launcher.UI_EPOCH_FILE).read_text(encoding="utf-8"))
+    assert refreshed["source_sha"] == "b" * 40
+
+
+def test_existing_ui_is_reused_only_for_the_current_source_epoch(tmp_path, monkeypatch):
+    ui_dir = tmp_path / "ui"
+    ui_dir.mkdir()
+    epoch = "c" * 64
+    monkeypatch.setattr(launcher, "UI_DIR", ui_dir)
+    monkeypatch.setattr(
+        launcher, "ensure_current_ui_build",
+        lambda **_: {"status": "READY", "reason": "BUILT_CURRENT_SOURCE_EPOCH", "source_epoch": epoch, "source_sha": "d" * 40},
+    )
+    monkeypatch.setattr(launcher, "_url_ok", lambda url, **_: url.endswith(":4173/"))
+    monkeypatch.setattr(
+        launcher, "_http_get_json",
+        lambda url, **_: {"schema_version": launcher.UI_EPOCH_SCHEMA, "source_epoch": epoch},
+    )
+    current = launcher.ensure_ui(
+        enabled=True, log_root=tmp_path / "logs", snapshot_available=True,
+        source_sha="d" * 40,
+    )
+    assert current["status"] == "ALREADY_READY"
+    assert current["mechanism"] == "existing_preview_current_source_epoch"
+
+    monkeypatch.setattr(
+        launcher, "_http_get_json",
+        lambda url, **_: {"schema_version": launcher.UI_EPOCH_SCHEMA, "source_epoch": "stale"},
+    )
+    stale = launcher.ensure_ui(
+        enabled=True, log_root=tmp_path / "logs", snapshot_available=True,
+        source_sha="d" * 40,
+    )
+    assert stale["status"] == "UNAVAILABLE"
+    assert stale["mechanism"] == "EXISTING_UI_SOURCE_EPOCH_MISMATCH"
 
 
 def test_dashboard_opens_once_in_normal_default_browser_after_ui_health(tmp_path):

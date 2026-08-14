@@ -59,11 +59,11 @@ function runtimeQaFixtureName(): string | null {
   const env = (import.meta as unknown as { env: Record<string, string | undefined> }).env;
   if (env.VITE_ENABLE_RUNTIME_QA_FIXTURES !== '1') return null;
   const fixture = new URLSearchParams(window.location.search).get('runtime_fixture');
-  return fixture && ['idle', 'researching', 'degraded', 'stopped'].includes(fixture) ? fixture : null;
+  return fixture && ['idle', 'researching', 'degraded', 'stopped', 'action_required'].includes(fixture) ? fixture : null;
 }
 
-function applyRuntimeQaFixture(snapshot: DailyAppSnapshot): DailyAppSnapshot {
-  const fixture = runtimeQaFixtureName();
+export function applyRuntimeQaFixture(snapshot: DailyAppSnapshot, fixtureOverride?: string | null): DailyAppSnapshot {
+  const fixture = fixtureOverride === undefined ? runtimeQaFixtureName() : fixtureOverride;
   const source = snapshot.runtime.operator_cockpit ?? legacyCockpit(snapshot);
   if (!fixture) return snapshot;
   const cockpit: RuntimeCockpit = structuredClone(source);
@@ -119,14 +119,26 @@ function applyRuntimeQaFixture(snapshot: DailyAppSnapshot): DailyAppSnapshot {
     cockpit.intake.lane_state = 'DEGRADED'; cockpit.intake.latest_capture_result = 'CDP_UNAVAILABLE';
     cockpit.intake.cadence_state = 'TRANSIENT_BACKOFF_30M_PLUS'; cockpit.schedule.x_cadence_state = 'TRANSIENT_BACKOFF_30M_PLUS';
     cockpit.current_activity = null; cockpit.timeline = [];
-  } else {
+  } else if (fixture === 'stopped') {
     cockpit.primary_state = 'STOPPED'; cockpit.supervisor_state = 'STOPPED';
-    cockpit.controller_health = 'OFFLINE'; cockpit.operating_mode = 'KILL_SWITCH';
+    cockpit.controller_health = 'OFFLINE'; cockpit.publication_runtime_health = 'STOPPED';
+    cockpit.operating_mode = 'KILL_SWITCH';
     cockpit.safety.kill_switch_active = true; cockpit.safety.new_public_writes_blocked = true;
     cockpit.current_activity = null; cockpit.timeline = []; cockpit.heartbeat_age_seconds = 437;
+  } else {
+    cockpit.primary_state = 'ACTION_REQUIRED'; cockpit.supervisor_state = 'RUNNING';
+    cockpit.controller_health = 'HEALTHY'; cockpit.publication_runtime_health = 'ACTION_REQUIRED';
+    cockpit.schedule.idle_healthy = false; cockpit.current_activity = null; cockpit.timeline = [];
+    cockpit.safety.unknown_write_count = 1; cockpit.safety.new_public_writes_blocked = true;
   }
+  const stopped = cockpit.primary_state === 'STOPPED';
   return { ...snapshot, freshness: { ...snapshot.freshness, state: 'LIVE_CURRENT', source_age_seconds: 0 },
-    runtime: { ...snapshot.runtime, operator_cockpit: cockpit } };
+    runtime: { ...snapshot.runtime, operating_mode: cockpit.operating_mode,
+      kill_switch_active: cockpit.safety.kill_switch_active, controller_health: cockpit.controller_health,
+      operator_cockpit: cockpit },
+    controls: { ...snapshot.controls, current_mode: cockpit.operating_mode,
+      run_now_allowed: stopped ? false : snapshot.controls.run_now_allowed,
+      run_now_mode_consequence: stopped ? 'Run now blocked by KILL_SWITCH.' : snapshot.controls.run_now_mode_consequence } };
 }
 
 function words(value: unknown): string {
@@ -349,19 +361,18 @@ function RuntimeCockpitView({ data }: { data: DailyAppSnapshot }) {
       </header>
       <div className="daily-cockpit-core">
         <div className="daily-primary-state"><span>Runtime state</span><h1>{words(cockpit.primary_state)}</h1><p>{PRIMARY_STATE_COPY[cockpit.primary_state]}</p><div className="daily-heartbeat">Heartbeat age <b>{cockpit.heartbeat_age_seconds === null ? 'Unavailable' : `${cockpit.heartbeat_age_seconds}s`}</b></div></div>
-        <div className="daily-schedule-block"><div><span>Next editorial wake</span><strong>{formatCountdown(cockpit.schedule.next_editorial_wake_utc, nowMs)}</strong><small>{words(cockpit.schedule.next_editorial_wake_reason)} · {formatLocalDateTime(cockpit.schedule.next_editorial_wake_utc, cockpit.local_timezone)} Jim local</small></div><div><span>Next X eligibility</span><strong>{formatCountdown(cockpit.schedule.next_x_eligible_capture_utc, nowMs)}</strong><small>{words(cockpit.schedule.x_cadence_state)} · no countdown is shown as active work</small></div></div>
+        <div className="daily-schedule-block"><div><span>Next editorial wake</span><strong>{formatCountdown(cockpit.schedule.next_editorial_wake_utc, nowMs)}</strong><small>{words(cockpit.schedule.next_editorial_wake_reason)} · {formatLocalDateTime(cockpit.schedule.next_editorial_wake_utc, cockpit.local_timezone)} Jim local</small></div><div><span>Next X eligibility</span><strong>{formatCountdown(cockpit.schedule.next_x_eligible_capture_utc, nowMs)}</strong><small>{formatLocalDateTime(cockpit.schedule.next_x_eligible_capture_utc, cockpit.local_timezone)} Jim local · {words(cockpit.schedule.x_cadence_state)} · no countdown is shown as active work</small></div></div>
       </div>
       <div className="daily-timeline" aria-label="Current canonical cycle timeline">
         {cockpit.timeline.length ? cockpit.timeline.map(step => <div key={step.stage} className={`daily-timeline-step is-${step.state}`}><i /><span>{step.label}</span></div>) : <span className="daily-timeline-empty">{cockpit.primary_state === 'RUNNING_IDLE' ? `Waiting → next editorial opportunity at ${formatLocalDateTime(cockpit.schedule.next_editorial_wake_utc, cockpit.local_timezone)} Jim local` : cockpit.primary_state === 'STOPPED' ? 'Timeline paused · supervisor is stopped.' : 'Timeline activates only when an exact canonical cycle stage is recorded.'}</span>}
       </div>
       <div className="daily-safety-strip">
-        {safetyClear ? <span className="daily-safety-clear"><b>Publication safety</b> Clear · no active public write, unknown write, readback, or reconciliation backlog</span> : <>
-          <span><b>Write</b> {cockpit.safety.active_public_write ? 'ACTIVE' : 'No active public write'}</span>
-          <span><b>Reconciliation</b> {cockpit.safety.pending_reconciliation_count} pending</span>
-          <span><b>Readback / recovery</b> {cockpit.safety.pending_readback_recovery_count} pending</span>
-          <span><b>Unknown write</b> {cockpit.safety.unknown_write_count}</span>
-          <span className={cockpit.safety.kill_switch_active ? 'is-alert' : ''}><b>Kill switch</b> {cockpit.safety.kill_switch_active ? 'ACTIVE' : 'Disengaged'}</span>
-        </>}
+        <span className={safetyClear ? 'daily-safety-clear' : 'is-alert'}><b>Publication safety</b> {safetyClear ? 'Clear' : 'Attention required'}</span>
+        <span><b>Write</b> {cockpit.safety.active_public_write ? 'ACTIVE' : 'No active public write'}</span>
+        <span><b>Reconciliation</b> {cockpit.safety.pending_reconciliation_count} pending</span>
+        <span><b>Readback / recovery</b> {cockpit.safety.pending_readback_recovery_count} pending</span>
+        <span><b>Unknown write</b> {cockpit.safety.unknown_write_count}</span>
+        <span className={cockpit.safety.kill_switch_active ? 'is-alert' : ''}><b>Kill switch</b> {cockpit.safety.kill_switch_active ? 'ACTIVE' : 'Disengaged'}</span>
         <span><b>Publication runtime</b> {words(cockpit.publication_runtime_health)}</span>
         <span><b>External browser activity</b> {cockpit.browser.external_browser_activity_active ? 'YES' : 'NO'} · {words(cockpit.browser.state)}{cockpit.browser.last_destination ? ` · ${cockpit.browser.last_destination}` : ''}</span>
         <span><b>Last browser interaction</b> {formatLocalDateTime(cockpit.browser.last_active_at_utc, cockpit.local_timezone)} · {words(cockpit.browser.last_reason ?? 'NONE')}</span>

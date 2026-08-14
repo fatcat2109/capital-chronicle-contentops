@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { afterEach, expect, it, vi } from 'vitest';
 import type { DailyAppSnapshot, RuntimeCockpit, RuntimePrimaryState } from '../dailyAppTypes';
-import { DailyAppConsole } from '../views/DailyAppConsole';
+import { DailyAppConsole, applyRuntimeQaFixture } from '../views/DailyAppConsole';
 
 const stages = ['HEADLINE_INGESTION', 'CANDIDATE_SELECTION', 'CC_CONTEXT', 'GROUNDED_RESEARCH', 'ARTICLE_WRITING', 'MEDIA_BUILD', 'FACTUAL_CHECK', 'READER_VALUE_CHECK', 'PACKAGE_BUILD', 'PUBLICATION_JIT', 'CANONICAL_DISPATCH', 'CANONICAL_READBACK', 'DERIVATIVE_DISPATCH', 'RECONCILIATION'];
 
@@ -44,7 +44,10 @@ function respondWith(data: DailyAppSnapshot) {
   vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => data }));
 }
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => {
+  vi.unstubAllGlobals(); vi.unstubAllEnvs();
+  window.history.replaceState({}, '', '/');
+});
 
 it('renders a healthy idle cockpit without presenting countdowns as active work', async () => {
   respond('RUNNING_IDLE'); render(<DailyAppConsole />);
@@ -52,6 +55,7 @@ it('renders a healthy idle cockpit without presenting countdowns as active work'
   expect(screen.getByText('Waiting')).toBeInTheDocument();
   expect(document.querySelector('.daily-timeline-empty')).toHaveTextContent(/Waiting → next editorial opportunity at .* Jim local/i);
   expect(screen.getByText(/Core Daily · .* Jim local/i)).toBeInTheDocument();
+  expect(screen.getByText(/14 Aug, 11:30:00 Jim local/i)).toBeInTheDocument();
   expect(screen.getByText(/no countdown is shown as active work/i)).toBeInTheDocument();
   expect(screen.getByText(/no active public write/i)).toBeInTheDocument();
 });
@@ -88,6 +92,15 @@ it('renders stopped supervisor and kill-switch safety truth together', async () 
   expect(screen.getByText('Supervisor Stopped')).toBeInTheDocument();
   expect(screen.getByText('Kill switch').parentElement).toHaveTextContent('ACTIVE');
   expect(screen.getByRole('button', { name: /run now unavailable/i })).toBeDisabled();
+});
+
+it('supports a visibly non-production deterministic action-required QA state', async () => {
+  const data = applyRuntimeQaFixture(snapshot('RUNNING_IDLE'), 'action_required');
+  respondWith(data); render(<DailyAppConsole />);
+  expect(await screen.findByRole('heading', { name: 'Action Required' })).toBeInTheDocument();
+  expect(screen.getByText(/SHA QA-FIXTURE/i)).toBeInTheDocument();
+  expect(screen.getByText('Unknown write').parentElement).toHaveTextContent('1');
+  expect(screen.getByText('Publication runtime').parentElement).toHaveTextContent('Action Required');
 });
 
 it('keeps recent published and no-publication cycles distinct with a safe canonical link', async () => {

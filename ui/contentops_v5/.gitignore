@@ -1,5 +1,6 @@
 node_modules
 dist
+public/contentops-ui-epoch.json
 *.local
 .vite
 coverage

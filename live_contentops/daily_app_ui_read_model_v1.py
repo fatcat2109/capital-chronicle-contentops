@@ -25,7 +25,9 @@ from live_contentops.daily_app_supervisor_v1 import (
     STATUS_CONTROLLED_NO_WRITE,
     STATUS_DISPATCH_CONFIRMED,
     STATUS_UNKNOWN_WRITE,
+    TRIGGER_SCHEDULED,
     build_bootstrap_editorial_window_policy,
+    editorial_window_id,
 )
 from live_contentops.durable_operational_store_v1 import (
     ContentOpsDurableStore,
@@ -171,8 +173,14 @@ def _policy_timing_offset_minutes(payload: Mapping[str, Any]) -> int:
         return 0
 
 
-def _next_windows(now: datetime, active_policy: Optional[Mapping[str, Any]]) -> list[dict[str, Any]]:
+def _next_windows(
+    now: datetime,
+    active_policy: Optional[Mapping[str, Any]],
+    *,
+    consumed_window_ids: Iterable[str] = (),
+) -> list[dict[str, Any]]:
     policy = build_bootstrap_editorial_window_policy()
+    consumed = {str(value) for value in consumed_window_ids}
     offset = int(active_policy.get("timing_offset_minutes") or 0) if active_policy else 0
     active_provenance = str(active_policy.get("provenance") or "") if active_policy else ""
     windows: list[dict[str, Any]] = []
@@ -190,6 +198,15 @@ def _next_windows(now: datetime, active_policy: Optional[Mapping[str, Any]]) -> 
             if end <= start:
                 end += timedelta(days=1)
             if end > now:
+                window_id = editorial_window_id(
+                    policy_version=policy.policy_version,
+                    window_start_utc=start,
+                    window_end_utc=end,
+                    session=window.session,
+                    trigger_kind=TRIGGER_SCHEDULED,
+                )
+                if window_id in consumed:
+                    continue
                 windows.append({
                     "window_start_utc": _iso(start),
                     "window_end_utc": _iso(end),
@@ -521,7 +538,11 @@ def build_daily_app_snapshot(
             "evaluation_window": row["evaluation_window"],
         })
     active_policy = next((row for row in policy_models if row["status"] == "ACTIVE"), None)
-    future_windows = _next_windows(generated, active_policy)
+    future_windows = _next_windows(
+        generated,
+        active_policy,
+        consumed_window_ids=(row.get("work_item_id") for row in work_items),
+    )
 
     latest_heartbeat = heartbeats[0] if heartbeats else None
     heartbeat_time = _parse_time(latest_heartbeat.get("last_seen_at") if latest_heartbeat else None)
@@ -793,6 +814,13 @@ def build_daily_app_snapshot(
     rolling_24h_unique_headlines: Optional[int] = None
     try:
         from live_contentops.continuous_headline_ingest_v1 import (
+            OUTCOME_BROWSER_BINDING_MISSING,
+            OUTCOME_CAPTURED_NEW,
+            OUTCOME_CAPTURED_NONE,
+            OUTCOME_CAPTURE_FAILED,
+            OUTCOME_CDP_UNAVAILABLE,
+            OUTCOME_PORT_OWNER_UNPROVEN,
+            OUTCOME_REAUTH_REQUIRED,
             ingestion_lane_state,
             next_due_interval_seconds,
             read_ingestion_checkpoint,
@@ -807,6 +835,15 @@ def build_daily_app_snapshot(
             hot_followup_pending=checkpoint["hot_followup_pending"],
         )
         lane_state = ingestion_lane_state(checkpoint["last_outcome_code"])
+        outcome_label = {
+            OUTCOME_CAPTURED_NEW: "CAPTURED_NEW",
+            OUTCOME_CAPTURED_NONE: "CAPTURED_NO_NEW_HEADLINES",
+            OUTCOME_REAUTH_REQUIRED: "REAUTH_REQUIRED",
+            OUTCOME_CDP_UNAVAILABLE: "CDP_UNAVAILABLE",
+            OUTCOME_CAPTURE_FAILED: "CAPTURE_FAILED",
+            OUTCOME_BROWSER_BINDING_MISSING: "BROWSER_BINDING_MISSING",
+            OUTCOME_PORT_OWNER_UNPROVEN: "PORT_OWNER_UNPROVEN",
+        }.get(checkpoint["last_outcome_code"], "UNAVAILABLE")
         headline_ingestion_state = {
             "lane_state": lane_state,
             "last_ingest_utc": (
@@ -816,7 +853,7 @@ def build_daily_app_snapshot(
                 _iso(datetime.fromtimestamp(float(last_attempt), tz=timezone.utc))
                 if last_attempt is not None else None
             ),
-            "latest_capture_result": lane_state,
+            "latest_capture_result": outcome_label,
             "rows_last_iteration": checkpoint["rows_last_iteration"],
             "next_eligible_capture_utc": (
                 _iso(datetime.fromtimestamp(float(last_attempt) + interval, tz=timezone.utc))
@@ -1075,7 +1112,7 @@ def build_daily_app_snapshot(
             ),
         }
         for stage, label in _COCKPIT_TIMELINE
-    ]
+    ] if active_editorial_item else []
 
     publication_by_work_item: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for publication in publications:
