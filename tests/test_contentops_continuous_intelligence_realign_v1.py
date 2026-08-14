@@ -271,13 +271,19 @@ def test_capture_exception_persists_30m_transient_retry_boundary(tmp_path):
 
     assert first["lane_state"] == "DEGRADED"
     assert first["cadence_state"] == "TRANSIENT_RETRY"
-    assert first["detail"] == "CAPTURE_FAILED:RuntimeError"
+    assert first["detail"] == "CAPTURE_FAILED:OTHER_CAPTURE_FAILURE"
+    assert first["failure_class"] == "OTHER_CAPTURE_FAILURE"
+    assert first["failure_detail"] == "CAPTURE_CALL_FAILED:RUNTIMEERROR"
+    assert first["attempt_detail_persisted"] is True
     assert first["next_eligible_capture_utc"] == (
         FIXED_NOW + timedelta(seconds=1800)
     ).isoformat().replace("+00:00", "Z")
     checkpoint = intake.read_ingestion_checkpoint(store)
     assert checkpoint["last_attempt_epoch"] == FIXED_NOW.timestamp()
     assert checkpoint["last_outcome_code"] == intake.OUTCOME_CAPTURE_FAILED
+    assert checkpoint["last_attempt_detail"]["failure_class"] == "OTHER_CAPTURE_FAILURE"
+    assert checkpoint["last_attempt_detail"]["eligibility_reason"] == "NO_PRIOR_ATTEMPT"
+    assert checkpoint["last_attempt_detail"]["browser_role"] == "CHROME_CDP_9222_INGESTION_ONLY"
 
     early = intake.run_ingestion_housekeeping_iteration(
         store,
@@ -288,6 +294,101 @@ def test_capture_exception_persists_30m_transient_retry_boundary(tmp_path):
     )
     assert early["detail"] == "not_due"
     assert len(capture_calls) == 1
+
+
+def test_sanitized_capture_failure_detail_is_bounded_durable_and_restart_safe(tmp_path):
+    store_path = tmp_path / "store.sqlite3"
+    store = ContentOpsDurableStore(store_path)
+    result = intake.run_ingestion_housekeeping_iteration(
+        store,
+        now=FIXED_NOW,
+        state_fn=lambda: {"state": "READY"},
+        session_fn=lambda: {"session_state": "READY"},
+        capture_fn=lambda **_kwargs: {
+            "capture_state": "CAPTURE_FAILED",
+            "capture_phase": "RELOAD",
+            "timeline_responses_observed": 0,
+            "new_headlines": 0,
+            "failure_class": "PLAYWRIGHT_TRANSPORT_FAILURE",
+            "failure_detail": "RELOAD_TRANSPORT_CLOSED:Error",
+        },
+    )
+    assert result["detail"] == "CAPTURE_FAILED:PLAYWRIGHT_TRANSPORT_FAILURE"
+    assert result["attempt_detail_persisted"] is True
+    detail_path = tmp_path / "headline_ingestion" / intake.ATTEMPT_DETAIL_FILENAME
+    raw = detail_path.read_bytes()
+    assert len(raw) <= intake.ATTEMPT_DETAIL_MAX_BYTES
+    assert b"cookie" not in raw.lower()
+    assert b"token" not in raw.lower()
+
+    reopened = ContentOpsDurableStore(store_path)
+    detail = intake.read_ingestion_checkpoint(reopened)["last_attempt_detail"]
+    assert detail["failure_class"] == "PLAYWRIGHT_TRANSPORT_FAILURE"
+    assert detail["failure_detail"] == "RELOAD_TRANSPORT_CLOSED:ERROR"
+    assert detail["capture_phase"] == "RELOAD"
+    assert detail["chrome_9222_readiness"] == "READY"
+    assert detail["auth_classification"] == "READY"
+    assert detail["rows_captured"] == 0
+    assert detail["next_eligible_capture_utc"] == (
+        FIXED_NOW + timedelta(seconds=1800)
+    ).isoformat().replace("+00:00", "Z")
+
+
+def test_capture_exception_classifier_never_returns_raw_sensitive_message():
+    failure_class, failure_detail = capture.classify_capture_exception(
+        RuntimeError("EPIPE authorization=Bearer token-secret-cookie"), phase="RELOAD"
+    )
+    assert failure_class == "PLAYWRIGHT_TRANSPORT_FAILURE"
+    assert failure_detail == "RELOAD_TRANSPORT_CLOSED:RuntimeError"
+    assert "token" not in failure_detail.casefold()
+    assert "cookie" not in failure_detail.casefold()
+
+
+def test_bounded_x_capture_classifies_no_timeline_response_without_raw_browser_data(
+    tmp_path, monkeypatch,
+):
+    class Page:
+        url = capture.TARGET_LIST_URL
+
+        def on(self, *_args):
+            return None
+
+        def remove_listener(self, *_args):
+            return None
+
+        def reload(self, **_kwargs):
+            return None
+
+        def wait_for_timeout(self, _milliseconds):
+            return None
+
+        def evaluate(self, _script):
+            return None
+
+    page = Page()
+    browser = type("Browser", (), {"contexts": [type("Context", (), {"pages": [page]})()]})()
+    chromium = type("Chromium", (), {"connect_over_cdp": lambda self, *_args, **_kwargs: browser})()
+    driver = type("Driver", (), {"chromium": chromium})()
+
+    class DriverContext:
+        def __enter__(self):
+            return driver
+
+        def __exit__(self, *_args):
+            return False
+
+    module = type("Module", (), {"SIDECAR_DIR": str(tmp_path / "sidecars")})()
+    monkeypatch.setattr(capture, "load_data_ingestion_module", lambda: module)
+    result = capture.run_bounded_x_list_capture(
+        max_seconds=1,
+        max_empty_scrolls=1,
+        playwright=DriverContext(),
+    )
+    assert result["capture_state"] == "CAPTURE_FAILED"
+    assert result["failure_class"] == "MALFORMED_EMPTY_CAPTURE_RESPONSE"
+    assert result["failure_detail"] == "NO_TIMELINE_RESPONSE_OBSERVED_AFTER_RELOAD"
+    assert result["timeline_responses_observed"] == 0
+    assert result["capture_phase"] == "EXTRACTION_SCROLL"
 
 
 def test_kill_switch_suppresses_even_forced_x_capture(tmp_path):

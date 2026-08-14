@@ -185,6 +185,37 @@ def test_degraded_capture_preserves_exact_durable_outcome_label(tmp_path):
     assert cockpit["intake"]["cadence_state"] == "TRANSIENT_BACKOFF_30M_PLUS"
 
 
+def test_degraded_capture_projects_bounded_sanitized_attempt_detail(tmp_path):
+    from live_contentops.continuous_headline_ingest_v1 import run_ingestion_housekeeping_iteration
+
+    store = _store(tmp_path)
+    store.upsert_heartbeat("daily-supervisor")
+    run_ingestion_housekeeping_iteration(
+        store,
+        now=NOW,
+        state_fn=lambda: {"state": "READY"},
+        session_fn=lambda: {"session_state": "READY"},
+        capture_fn=lambda **_kwargs: {
+            "capture_state": "CAPTURE_FAILED",
+            "capture_phase": "EXTRACTION_SCROLL",
+            "timeline_responses_observed": 0,
+            "new_headlines": 0,
+            "failure_class": "MALFORMED_EMPTY_CAPTURE_RESPONSE",
+            "failure_detail": "NO_TIMELINE_RESPONSE_OBSERVED_AFTER_RELOAD",
+        },
+    )
+    intake = build_daily_app_snapshot(store.db_path, now=NOW)["runtime"]["operator_cockpit"]["intake"]
+    assert intake["latest_capture_result"] == "CAPTURE_FAILED"
+    assert intake["failure_class"] == "MALFORMED_EMPTY_CAPTURE_RESPONSE"
+    assert intake["failure_detail"] == "NO_TIMELINE_RESPONSE_OBSERVED_AFTER_RELOAD"
+    assert intake["eligibility_reason"] == "NO_PRIOR_ATTEMPT"
+    assert intake["browser_role"] == "CHROME_CDP_9222_INGESTION_ONLY"
+    assert intake["chrome_9222_readiness"] == "READY"
+    assert intake["auth_classification"] == "READY"
+    assert intake["capture_phase"] == "EXTRACTION_SCROLL"
+    assert intake["timeline_responses_observed"] == 0
+
+
 def test_cockpit_active_researching_requires_exact_active_durable_cycle(tmp_path):
     store = _store(tmp_path)
     store.upsert_heartbeat("daily-supervisor")

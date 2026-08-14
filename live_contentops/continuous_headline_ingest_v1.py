@@ -21,9 +21,12 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import tempfile
 import threading
 import time
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import Any, Callable, Mapping, Optional
 
 from live_contentops.browser_interaction_budget_v1 import (
@@ -32,7 +35,12 @@ from live_contentops.browser_interaction_budget_v1 import (
     record_browser_interaction_event,
 )
 
-LANE_SCHEMA_VERSION = "contentops.continuous_headline_ingest.v2"
+LANE_SCHEMA_VERSION = "contentops.continuous_headline_ingest.v3"
+ATTEMPT_DETAIL_SCHEMA_VERSION = "contentops.x_capture_attempt_detail.v1"
+ATTEMPT_DETAIL_FILENAME = "last_capture_attempt_v1.json"
+ATTEMPT_DETAIL_MAX_BYTES = 4096
+FAILURE_DETAIL_MAX_LENGTH = 160
+X_INGESTION_BROWSER_ROLE = "CHROME_CDP_9222_INGESTION_ONLY"
 
 NORMAL_INTERVAL_SECONDS = BROWSER_INTERACTION_BUDGET_V1.x_normal_interval_seconds
 HOT_FOLLOWUP_INTERVAL_SECONDS = BROWSER_INTERACTION_BUDGET_V1.x_hot_followup_interval_seconds
@@ -70,6 +78,72 @@ LANE_STATE_UNAVAILABLE = "UNAVAILABLE"
 _INGESTION_CAPTURE_LOCK = threading.Lock()
 
 
+def _safe_diagnostic_label(value: Any, *, fallback: str) -> str:
+    text = str(value or "").strip().upper()
+    if any(marker in text for marker in (
+        "TOKEN", "COOKIE", "AUTHORIZATION", "BEARER", "PASSWORD", "LOCALSTORAGE",
+        "SESSIONSTORAGE", "CLIENT_SECRET", "ACCESS_KEY",
+    )):
+        return fallback
+    safe = "".join(character for character in text if character.isalnum() or character in "_.:-")
+    return (safe[:FAILURE_DETAIL_MAX_LENGTH] or fallback)
+
+
+def _attempt_detail_path(store: Any) -> Path:
+    return Path(store.db_path).resolve().parent / "headline_ingestion" / ATTEMPT_DETAIL_FILENAME
+
+
+def _write_attempt_detail(store: Any, payload: Mapping[str, Any]) -> None:
+    path = _attempt_detail_path(store)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    body = json.dumps(dict(payload), sort_keys=True, separators=(",", ":"), ensure_ascii=True) + "\n"
+    if len(body.encode("utf-8")) > ATTEMPT_DETAIL_MAX_BYTES:
+        raise ValueError("attempt_detail_exceeds_bounded_size")
+    handle, temporary = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=path.parent)
+    try:
+        with os.fdopen(handle, "w", encoding="utf-8", newline="\n") as stream:
+            stream.write(body)
+        os.replace(temporary, path)
+    finally:
+        try:
+            os.unlink(temporary)
+        except FileNotFoundError:
+            pass
+
+
+def _read_attempt_detail(store: Any, *, last_attempt_epoch: Optional[float]) -> dict[str, Any] | None:
+    if last_attempt_epoch is None:
+        return None
+    try:
+        raw = _attempt_detail_path(store).read_bytes()
+        if len(raw) > ATTEMPT_DETAIL_MAX_BYTES:
+            return None
+        value = json.loads(raw.decode("utf-8"))
+        if not isinstance(value, Mapping) or value.get("schema_version") != ATTEMPT_DETAIL_SCHEMA_VERSION:
+            return None
+        if abs(float(value.get("attempt_epoch")) - float(last_attempt_epoch)) > 0.001:
+            return None
+        return dict(value)
+    except (OSError, TypeError, ValueError, json.JSONDecodeError):
+        return None
+
+
+def _eligibility_reason(checkpoint: Mapping[str, Any]) -> str:
+    outcome = checkpoint.get("last_outcome_code")
+    if checkpoint.get("last_attempt_epoch") is None and checkpoint.get("last_success_epoch") is None:
+        return "NO_PRIOR_ATTEMPT"
+    if checkpoint.get("hot_followup_pending") and outcome == OUTCOME_CAPTURED_NEW:
+        return "HOT_FOLLOWUP_DUE"
+    if outcome == OUTCOME_CAPTURED_NONE:
+        return "EMPTY_BACKOFF_DUE"
+    if outcome in {
+        OUTCOME_CDP_UNAVAILABLE, OUTCOME_CAPTURE_FAILED,
+        OUTCOME_BROWSER_BINDING_MISSING, OUTCOME_PORT_OWNER_UNPROVEN,
+    }:
+        return "TRANSIENT_RETRY_DUE"
+    return "NORMAL_INTERVAL_DUE"
+
+
 def _utc_now() -> datetime:
     return datetime.now(timezone.utc)
 
@@ -95,7 +169,7 @@ def read_ingestion_checkpoint(store: Any) -> dict[str, Any]:
                 ),
             ).fetchall()
         }
-    return {
+    checkpoint = {
         "last_success_epoch": rows.get(METRIC_LAST_SUCCESS_EPOCH),
         "last_outcome_code": rows.get(METRIC_LAST_OUTCOME_CODE),
         "consecutive_empty": int(rows.get(METRIC_CONSECUTIVE_EMPTY) or 0),
@@ -103,6 +177,10 @@ def read_ingestion_checkpoint(store: Any) -> dict[str, Any]:
         "last_attempt_epoch": rows.get(METRIC_LAST_ATTEMPT_EPOCH),
         "hot_followup_pending": bool(rows.get(METRIC_HOT_FOLLOWUP_PENDING) or 0),
     }
+    checkpoint["last_attempt_detail"] = _read_attempt_detail(
+        store, last_attempt_epoch=checkpoint["last_attempt_epoch"]
+    )
+    return checkpoint
 
 
 def write_ingestion_checkpoint(
@@ -227,6 +305,16 @@ def run_ingestion_housekeeping_iteration(
         "new_material_event_identity": None,
         "new_headline_ids": [],
         "new_headline_source_refs": [],
+        "eligibility_reason": None,
+        "browser_role": X_INGESTION_BROWSER_ROLE,
+        "chrome_9222_readiness": "NOT_EVALUATED",
+        "auth_classification": "NOT_EVALUATED",
+        "capture_state": None,
+        "capture_phase": None,
+        "timeline_responses_observed": 0,
+        "failure_class": None,
+        "failure_detail": None,
+        "attempt_detail_persisted": False,
     }
 
     def _finish(
@@ -238,6 +326,7 @@ def run_ingestion_housekeeping_iteration(
         hot_followup_pending: bool = False,
     ) -> dict[str, Any]:
         empty_count = checkpoint["consecutive_empty"] if consecutive_empty is None else consecutive_empty
+        checkpoint_persisted = True
         try:
             write_ingestion_checkpoint(
                 store,
@@ -250,7 +339,11 @@ def run_ingestion_housekeeping_iteration(
                 hot_followup_pending=hot_followup_pending,
             )
         except Exception as exc:  # noqa: BLE001 - checkpoint persistence is best-effort
-            result["detail"] = f"checkpoint_write_failed:{type(exc).__name__}"
+            checkpoint_persisted = False
+            exception_type = _safe_diagnostic_label(type(exc).__name__, fallback="EXCEPTION")
+            result["detail"] = f"CHECKPOINT_WRITE_FAILED:{exception_type}"
+            result["failure_class"] = "CHECKPOINT_PERSISTENCE_FAILURE"
+            result["failure_detail"] = result["detail"]
         result["lane_state"] = ingestion_lane_state(outcome_code)
         interval = next_due_interval_seconds(
             empty_count,
@@ -271,6 +364,43 @@ def run_ingestion_housekeeping_iteration(
             result["next_eligible_capture_utc"] = (
                 moment + timedelta(seconds=interval)
             ).isoformat().replace("+00:00", "Z")
+        if result.get("failure_class"):
+            result["failure_class"] = _safe_diagnostic_label(
+                result["failure_class"], fallback="OTHER_CAPTURE_FAILURE"
+            )
+        if result.get("failure_detail"):
+            result["failure_detail"] = _safe_diagnostic_label(
+                result["failure_detail"], fallback="REDACTED_UNSAFE_DIAGNOSTIC"
+            )
+        attempt_payload = {
+            "schema_version": ATTEMPT_DETAIL_SCHEMA_VERSION,
+            "attempt_at_utc": result["iteration_at_utc"],
+            "attempt_epoch": _epoch(moment),
+            "eligibility_reason": result.get("eligibility_reason"),
+            "browser_role": X_INGESTION_BROWSER_ROLE,
+            "chrome_9222_readiness": result.get("chrome_9222_readiness"),
+            "auth_classification": result.get("auth_classification"),
+            "capture_state": result.get("capture_state"),
+            "capture_phase": result.get("capture_phase"),
+            "timeline_responses_observed": int(result.get("timeline_responses_observed") or 0),
+            "failure_class": result.get("failure_class"),
+            "failure_detail": result.get("failure_detail"),
+            "outcome_code": float(outcome_code),
+            "rows_captured": int(rows),
+            "newest_source_event_at_utc": result.get("newest_source_event_at_utc"),
+            "lane_state": result.get("lane_state"),
+            "cadence_state": result.get("cadence_state"),
+            "next_eligible_capture_utc": result.get("next_eligible_capture_utc"),
+            "checkpoint_persisted": checkpoint_persisted,
+            "contains_secrets_or_session_material": False,
+        }
+        try:
+            _write_attempt_detail(store, attempt_payload)
+            result["attempt_detail_persisted"] = True
+        except Exception as exc:  # noqa: BLE001 - result still truthfully exposes persistence loss
+            exception_type = _safe_diagnostic_label(type(exc).__name__, fallback="EXCEPTION")
+            result["attempt_detail_persisted"] = False
+            result["attempt_detail_persistence_error"] = f"ATTEMPT_DETAIL_WRITE_FAILED:{exception_type}"
         return result
 
     try:
@@ -317,6 +447,7 @@ def run_ingestion_housekeeping_iteration(
         ).isoformat().replace("+00:00", "Z")
         return result
     result["due"] = True
+    result["eligibility_reason"] = _eligibility_reason(checkpoint)
 
     if state_fn is not None:
         process_state = dict(state_fn())
@@ -325,6 +456,7 @@ def run_ingestion_housekeeping_iteration(
 
         process_state = dict(ingestion_process_state())
     state_name = str(process_state.get("state") or "")
+    result["chrome_9222_readiness"] = state_name or "UNKNOWN"
 
     if state_name not in {"READY"}:
         from live_contentops.ingestion_bootstrap_v1 import (
@@ -335,12 +467,18 @@ def run_ingestion_housekeeping_iteration(
 
         if state_name == STATE_PROFILE_BINDING_MISSING:
             result["detail"] = "PROFILE_BINDING_MISSING_FAIL_CLOSED"
+            result["failure_class"] = "PROFILE_PORT_OWNERSHIP_PROBLEM"
+            result["failure_detail"] = result["detail"]
             return _finish(OUTCOME_BROWSER_BINDING_MISSING, consecutive_empty=checkpoint["consecutive_empty"] + 1)
         if state_name == STATE_PORT_OWNER_UNPROVEN:
             result["detail"] = "PORT_OWNER_UNPROVEN_FAIL_CLOSED"
+            result["failure_class"] = "PROFILE_PORT_OWNERSHIP_PROBLEM"
+            result["failure_detail"] = result["detail"]
             return _finish(OUTCOME_PORT_OWNER_UNPROVEN, consecutive_empty=checkpoint["consecutive_empty"] + 1)
         if state_name == STATE_RUNNING_WITHOUT_CDP:
             result["detail"] = "CANONICAL_PROFILE_RUNNING_WITHOUT_CDP"
+            result["failure_class"] = "CDP_BROWSER_UNAVAILABLE"
+            result["failure_detail"] = result["detail"]
             return _finish(OUTCOME_CDP_UNAVAILABLE, consecutive_empty=checkpoint["consecutive_empty"] + 1)
         if ensure_fn is not None:
             ensured = dict(ensure_fn())
@@ -349,11 +487,17 @@ def run_ingestion_housekeeping_iteration(
 
             ensured = dict(canonical_ingestion_readiness(session_timeout_seconds=8.0))
         ensured_state = str(ensured.get("chrome_9222_ingestion") or "")
+        result["chrome_9222_readiness"] = ensured_state or state_name or "UNKNOWN"
         if ensured_state == "REAUTH_REQUIRED":
             result["detail"] = "LOGIN_REDIRECT_OBSERVED"
+            result["auth_classification"] = "REAUTH_REQUIRED"
+            result["failure_class"] = "AUTH_REAUTH_REQUIRED"
+            result["failure_detail"] = result["detail"]
             return _finish(OUTCOME_REAUTH_REQUIRED, consecutive_empty=checkpoint["consecutive_empty"] + 1)
         if ensured_state not in {"READY", "READY_AUTH_UNVERIFIED"}:
             result["detail"] = f"CDP_UNAVAILABLE:{ensured_state}"
+            result["failure_class"] = "CDP_BROWSER_UNAVAILABLE"
+            result["failure_detail"] = result["detail"]
             return _finish(OUTCOME_CDP_UNAVAILABLE, consecutive_empty=checkpoint["consecutive_empty"] + 1)
 
     if not _INGESTION_CAPTURE_LOCK.acquire(blocking=False):
@@ -372,6 +516,7 @@ def run_ingestion_housekeeping_iteration(
             from live_contentops.x_list_ingest_capture_v1 import probe_session_visible_state
 
             session_state = dict(probe_session_visible_state(timeout_seconds=10.0))
+        result["auth_classification"] = str(session_state.get("session_state") or "INCONCLUSIVE")
         if session_state.get("session_state") != "REAUTH_REQUIRED":
             record_browser_interaction_event(
                 "x_capture", reason="DUE_LOW_FREQUENCY_X_INGESTION", destination="x_ingestion"
@@ -399,17 +544,31 @@ def run_ingestion_housekeeping_iteration(
     finally:
         _INGESTION_CAPTURE_LOCK.release()
     if capture_error is not None:
+        from live_contentops.x_list_ingest_capture_v1 import classify_capture_exception
+
+        failure_class, failure_detail = classify_capture_exception(capture_error, phase="CAPTURE_CALL")
         result["capture_attempted"] = True
-        result["detail"] = f"CAPTURE_FAILED:{type(capture_error).__name__}"
+        result["capture_state"] = "CAPTURE_FAILED"
+        result["capture_phase"] = "CAPTURE_CALL"
+        result["failure_class"] = failure_class
+        result["failure_detail"] = failure_detail
+        result["detail"] = f"CAPTURE_FAILED:{failure_class}"
         return _finish(
             OUTCOME_CAPTURE_FAILED,
             consecutive_empty=checkpoint["consecutive_empty"] + 1,
         )
     if session_state.get("session_state") == "REAUTH_REQUIRED":
         result["detail"] = "LOGIN_REDIRECT_OBSERVED"
+        result["failure_class"] = "AUTH_REAUTH_REQUIRED"
+        result["failure_detail"] = result["detail"]
         return _finish(OUTCOME_REAUTH_REQUIRED, consecutive_empty=checkpoint["consecutive_empty"] + 1)
     result["capture_attempted"] = True
     capture_state = str(capture.get("capture_state") or "CAPTURE_FAILED")
+    result["capture_state"] = capture_state
+    result["capture_phase"] = capture.get("capture_phase")
+    result["timeline_responses_observed"] = int(capture.get("timeline_responses_observed") or 0)
+    result["failure_class"] = capture.get("failure_class")
+    result["failure_detail"] = capture.get("failure_detail") or capture.get("detail")
     rows_added = int(capture.get("new_headlines") or 0)
     result["rows_added"] = rows_added
     result["new_headline_ids"] = sorted({
@@ -419,11 +578,28 @@ def run_ingestion_housekeeping_iteration(
         dict(value) for value in (capture.get("new_headline_source_refs") or [])
         if isinstance(value, Mapping)
     ]
+    source_times = sorted(
+        str(value.get("headline_timestamp") or "")
+        for value in result["new_headline_source_refs"]
+        if str(value.get("headline_timestamp") or "")
+    )
+    result["newest_source_event_at_utc"] = source_times[-1] if source_times else None
     if capture_state == "REAUTH_REQUIRED":
         result["detail"] = "LOGIN_REDIRECT_OBSERVED"
+        result["auth_classification"] = "REAUTH_REQUIRED"
+        result["failure_class"] = "AUTH_REAUTH_REQUIRED"
+        result["failure_detail"] = result["detail"]
         return _finish(OUTCOME_REAUTH_REQUIRED, rows=rows_added, consecutive_empty=checkpoint["consecutive_empty"] + 1)
     if capture_state not in {"CAPTURED", "CAPTURED_NO_NEW_HEADLINES"}:
-        result["detail"] = f"CAPTURE_FAILED:{capture_state}"
+        failure_class = _safe_diagnostic_label(
+            result.get("failure_class"), fallback="MALFORMED_EMPTY_CAPTURE_RESPONSE"
+        )
+        failure_detail = _safe_diagnostic_label(
+            result.get("failure_detail"), fallback="CAPTURE_RETURNED_NO_SUCCESS_STATE"
+        )
+        result["failure_class"] = failure_class
+        result["failure_detail"] = failure_detail
+        result["detail"] = f"CAPTURE_FAILED:{failure_class}"
         return _finish(OUTCOME_CAPTURE_FAILED, rows=rows_added, consecutive_empty=checkpoint["consecutive_empty"] + 1)
     if rows_added > 0:
         valid_source_refs: list[dict[str, Any]] = []

@@ -813,6 +813,12 @@ def build_daily_app_snapshot(
         "rows_last_iteration": 0,
         "newest_source_event_at_utc": None,
         "newest_source_event_age_seconds": None,
+        "failure_class": None,
+        "failure_detail": None,
+        "eligibility_reason": None,
+        "browser_role": "CHROME_CDP_9222_INGESTION_ONLY",
+        "chrome_9222_readiness": "UNAVAILABLE",
+        "auth_classification": "UNAVAILABLE",
     }
     rolling_24h_unique_headlines: Optional[int] = None
     try:
@@ -847,6 +853,7 @@ def build_daily_app_snapshot(
             OUTCOME_BROWSER_BINDING_MISSING: "BROWSER_BINDING_MISSING",
             OUTCOME_PORT_OWNER_UNPROVEN: "PORT_OWNER_UNPROVEN",
         }.get(checkpoint["last_outcome_code"], "UNAVAILABLE")
+        attempt_detail = checkpoint.get("last_attempt_detail") or {}
         headline_ingestion_state = {
             "lane_state": lane_state,
             "last_ingest_utc": (
@@ -870,6 +877,15 @@ def build_daily_app_snapshot(
                 if checkpoint["last_outcome_code"] in {3.0, 4.0, 5.0, 6.0}
                 else "NORMAL_30M"
             ),
+            "failure_class": attempt_detail.get("failure_class"),
+            "failure_detail": attempt_detail.get("failure_detail"),
+            "eligibility_reason": attempt_detail.get("eligibility_reason"),
+            "browser_role": attempt_detail.get("browser_role") or "CHROME_CDP_9222_INGESTION_ONLY",
+            "chrome_9222_readiness": attempt_detail.get("chrome_9222_readiness") or "UNAVAILABLE",
+            "auth_classification": attempt_detail.get("auth_classification") or "UNAVAILABLE",
+            "capture_phase": attempt_detail.get("capture_phase"),
+            "timeline_responses_observed": int(attempt_detail.get("timeline_responses_observed") or 0),
+            "attempt_detail_schema_version": attempt_detail.get("schema_version"),
         }
         if controls["operating_mode"] == "KILL_SWITCH":
             headline_ingestion_state["checkpoint_lane_state"] = headline_ingestion_state["lane_state"]
@@ -1177,7 +1193,7 @@ def build_daily_app_snapshot(
             "grounding": "discovery and ranking only",
             "research_result": None,
             "result": headline_ingestion_state.get("latest_capture_result"),
-            "exact_reason": None,
+            "exact_reason": headline_ingestion_state.get("failure_class"),
             "canonical_public_url": None,
         })
     recent_activity.sort(
