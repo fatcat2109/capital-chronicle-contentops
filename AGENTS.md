@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Codex Root Contract
 
-Authority date: 2026-08-12
+Authority date: 2026-08-14
 
 This is the compact repository-wide contract. A nearer `AGENTS.md` adds local routing without overriding these boundaries.
 
@@ -10,7 +10,7 @@ Read only:
 
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
-3. `docs/codegraph/V1_CONTEXT.md` for V1 work, or the current V2 authority below for V2 work
+3. `docs/codegraph/V1_CONTEXT.md` for V1 work, or `docs/codegraph/V2_CONTEXT.md` plus the current V2 authority below for V2 work
 4. the nearest scoped `AGENTS.md`
 5. exact task implementation, focused tests, and task evidence
 
@@ -48,66 +48,116 @@ For V2, read in this order:
 2. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 3. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
 4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
-5. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
-6. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
-7. `docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md` only for historical rationale/details already folded into V2 authority
+5. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
+6. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+7. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
 8. `video/AGENTS.md`
-9. exact task code/tests/evidence
+9. exact task code/tests/evidence.
 
-The prior `NORTH_STAR_V1`, `MASTER_PLAN_V1`, `TASK_GRAPH_V1`, and `CURRENT_EXECUTION_POINTER_V1` are historical/reference once V2 documents exist. V2 controls where they conflict.
+Older V2 plan/status/model-override docs remain historical/reference where they conflict with this authority chain.
 
-Current next V2 task:
+### Canonical V2 direction
 
-`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+`LANE_B_HYBRID`
 
-Required result:
+Codex is the **fresh per-video creative/editorial brain and visual reviewer**. Deterministic local V2 infrastructure is the **durable control plane, evidence/rights binder, visual design system, renderer, QA/recovery system, cost ledger, and publication gate**.
 
-`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
+Do not keep a persistent 24/7 Codex conversation.
 
-The target is an autonomous evidence-governed media growth engine for YouTube hero/mid/long-form, YouTube Shorts, and TikTok native short-form. It should maximize repeatable qualified audience growth and breakout/trending potential without claiming virality can be guaranteed.
+Do not let Codex become factual/numeric authority.
 
-### Exact V2 creative-code model
+Do not maintain separate Lane A and Lane B renderer/control stacks.
 
-Primary through the canonical 9Router seam for all three creative-author roles:
+Lane A / `cx/gpt-5.6-sol(xhigh)` remains a lower-cost shadow benchmark and possible future alternative brain only after the shared Hybrid engine is hardened and measured fairly.
 
-`new/gpt-5.6-sol-xhigh`
+### Current exact V2 task
 
-Roles:
+`TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
 
-- `V2_CREATIVE_EDITOR`
-- `V2_MOTION_CODE_AUTHOR`
-- `V2_CREATIVE_REVISION_AUTHOR`
+Required implementation result before owner review:
 
-GPT-5.6 authors presentation-layer screenplay/narration, shot/edit strategy, motion timing, and bounded per-shot creative code. Remotion is deterministic renderer/compiler, not creative authority. Fallback creative output must be labeled `DEGRADED_CREATIVE_MODEL` and cannot self-advance through professional acceptance.
+`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+
+The task must produce actual media. It should minimally combine the institutional editorial engine, durable candidate/outbox contract, fresh isolated/headless Codex job seam, Lane B visual primitives, visual-safety compiler, storyboard/comprehension gate, durable stage resume, Remotion render, actual-media QA, and measured cost/runtime in one bounded vertical slice.
+
+### V2 editorial doctrine
+
+V2 should combine:
+
+- institutional-grade analytical depth;
+- real physical/market mechanics;
+- useful second-order transmission;
+- balance-sheet/cash-flow consequences where relevant;
+- hard data and primary evidence;
+- explicit confirmation/invalidation conditions;
+- conversational high-retention pacing;
+- restrained insider financial wit;
+- no textbook/academic narration style;
+- no unsupported facts or proprietary numeric conclusions.
+
+Truth, Analysis, and Engagement layers remain distinct. Engagement may alter priority/packaging, never factual/numeric truth.
+
+### V2 visual doctrine
+
+`CONCRETE_FIRST_ABSTRACT_SECOND` remains mandatory.
+
+Positive Lane B patterns include:
+
+- `MapToVessel`;
+- `PhysicalChain`;
+- `DocumentEvidence`;
+- `NativeForecastChart`;
+- `Transmission`;
+- `Consequence`;
+- `ConfirmChallenge`;
+- `CheckpointTimeline`.
+
+These are composable primitives, not a frozen template.
+
+The visual system must eliminate recurring A/B defects:
+
+- duplicate native/overlay labels;
+- bad alignment;
+- guessed document highlight boxes;
+- source/caption collisions;
+- excessive subtitle clutter;
+- repeated background assets;
+- phone-illegible chart/document text.
+
+Canonical master is clean; sidecar/platform captions and optional social-caption derivatives are separate outputs.
+
+### V1 -> V2 operating direction
+
+V1 article performance may conditionally trigger V2 candidates. V2 should normally process only the top one or two genuinely qualified daily opportunities when they exist, never a forced quota.
+
+Performance signals influence priority/packaging only. They cannot alter truth, Capital Chronicle analysis, permissions, or numeric authority.
 
 ### Existing media/provider authority remains
 
-- dedicated direct image boundary uses only `AI_API_CHEAP_API_KEY`;
-- `gpt-5.5` remains provisional generated-illustration default;
+- dedicated direct image boundary remains separate;
 - generated imagery is illustrative only, never factual/documentary authority;
 - current rights/provenance/hash controls remain;
 - real-person documentary media must be real and rights-cleared;
 - current voice/TTS abstraction and local/Kokoro baseline remain;
-- current music/SFX/mastering infrastructure remains unless a later dedicated task proves a better path.
-
-V2 should increase asset richness through a large rights-safe candidate universe and many purposeful selected visual states rather than provider churn or random asset spam.
+- current music/SFX/mastering infrastructure remains unless a direct product blocker justifies change.
 
 ### Current Remotion reference baseline
 
-Primary technical reference is official:
+Primary technical reference remains official:
 
 `remotion-dev/skills@b12104ef5f1b1ca2ca5590fcc7c1804fbc85556f`
 
-Community Remotion skills are selective craft reference only and never override official APIs, repo safety, V2 truth/rights rules, or Jim's quality direction.
+Community Remotion skills are selective craft references only.
 
-### Rejected V2 creative branches
+### Rejected/negative V2 references
 
-Reference only; do not merge or continue their creative designs:
+Reference only; do not continue their creative designs:
 
 - `task/tier2-b-remotion-multimodal-bakeoff-v1`;
-- `task/tier2-v2-creative-system-rebuild-v1` at `d231b54e026570442d9fd9269b61e55c3de31d21` — `REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`;
-- `task/tier2-v2-retention-native-video-factory-vertical-slice-v1` at `b6f5002903fba65a668506e4ca38ae61b907ab18` — `FAIL_CREATIVE_MOTION_ARCHITECTURE / REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`;
-- `task/tier2-image-generation-9router-contract-correction-v1` at `8b043a5` — rejected provider-contract implementation.
+- `task/tier2-v2-creative-system-rebuild-v1` at `d231b54e026570442d9fd9269b61e55c3de31d21` — rejected creative product;
+- `task/tier2-v2-retention-native-video-factory-vertical-slice-v1` at `b6f5002903fba65a668506e4ca38ae61b907ab18` — `FAIL_CREATIVE_MOTION_ARCHITECTURE`;
+- `task/tier2-v2-gpt56-creative-code-asset-rich-video-v1` at `2289eb1382e65474207b50d27c0b87626d30728f` — `FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE`;
+- rejected provider-contract experiments remain reference only unless explicitly reauthorized.
 
 ## Canonical boundaries
 
@@ -131,7 +181,7 @@ Capital Chronicle main owns analytical/numeric truth; ContentOps reads it throug
 - Never weaken evidence, permission, freshness, rights, readiness, KILL_SWITCH, or publication gates.
 - Capital Chronicle is read-only; never fabricate claims, numbers, sources, events, or readback.
 - Generated real-person documentary imagery is forbidden.
-- V2 has zero video public-write authority unless the exact later task and Jim explicitly grant it.
+- V2 has `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` unless a later exact task and Jim explicitly grant scope.
 - `v1.0` is immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`; never rerun, mutate, move, or retag its accepted evidence.
 
 ## Working discipline
