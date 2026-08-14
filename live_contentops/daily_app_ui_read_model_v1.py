@@ -44,6 +44,10 @@ from live_contentops.destination_transport_registry_v1 import (
     READY_STATES,
     REGISTRY_VERSION as TRANSPORT_REGISTRY_VERSION,
 )
+from live_contentops.daily_app_performance_v1 import (
+    QUALIFIED_ENGAGEMENT_FORMULA_VERSION,
+    qualified_engagement_score,
+)
 
 SNAPSHOT_SCHEMA_VERSION = "contentops.daily_app_ui_snapshot.v1"
 REQUIRED_STORE_SCHEMA_VERSION = 9
@@ -495,11 +499,16 @@ def build_daily_app_snapshot(
     for row in observations:
         native = _json(row.get("metrics_native_json"), {})
         availability = _json(row.get("metric_availability_json"), {})
+        score = qualified_engagement_score(
+            native if isinstance(native, Mapping) else {},
+            availability if isinstance(availability, Mapping) else {},
+        )
         observation_models.append({
             "observation_id": row["observation_id"],
             "platform": row["platform"],
             "dispatch_id": row["dispatch_id"],
             "public_object_id": row["public_object_id"],
+            "public_object_url_hash": row["public_object_url_hash"],
             "observation_window": row["observation_window"],
             "scheduled_for_utc": row["scheduled_for_utc"],
             "collected_at_utc": row["collected_at_utc"],
@@ -509,6 +518,8 @@ def build_daily_app_snapshot(
             "learning_eligible": bool(row["learning_eligible"]),
             "collector_capability_version": row["collector_capability_version"],
             "source_identity": row["source_identity"],
+            "qualified_engagement_score": score if score is not None else "NO_SCORE",
+            "qualified_engagement_formula_version": QUALIFIED_ENGAGEMENT_FORMULA_VERSION,
             "limitations": [
                 str(key) for key, state in (availability.items() if isinstance(availability, Mapping) else [])
                 if str(state).upper() not in {"AVAILABLE", "SUPPORTED"}

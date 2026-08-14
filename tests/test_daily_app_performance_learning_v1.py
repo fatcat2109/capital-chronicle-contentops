@@ -178,6 +178,65 @@ def test_identity_chain_exact(tmp_path):
         assert obs["platform"] == dispatch["platform"]
 
 
+def test_coordinator_shared_suffix_lineage_is_learning_eligible_and_persists_source(tmp_path):
+    source = "substack.first_party_post_stats.visible_dom.v1#sha256:evidence"
+
+    def collector(_dispatch_id, _public_object_id, _window):
+        return {
+            "status": "COLLECTED",
+            "metrics": {"total_views": 41, "shares": 2},
+            "availability": {
+                "total_views": "AVAILABLE",
+                "shares": "AVAILABLE",
+                "meaningful_reads": "NOT_EXPOSED",
+            },
+            "source_identity": source,
+        }
+
+    sup = _supervisor(tmp_path, collector=collector)
+    store = sup._store
+    suffix = "coordinator-lineage"
+    work_item_id = "wi-coordinator-lineage"
+    message_id = "outbox_" + suffix
+    dispatch_id = "dispatch_" + suffix
+    with store.get_connection() as conn:
+        conn.execute(
+            "INSERT INTO work_items VALUES (?,?,?,?,?,?,?,?)",
+            (work_item_id, "story-coordinator", "Coordinator lineage", "EVIDENCE_READY", 2,
+             "surf", "2026-08-09T13:00:00Z", "2026-08-09T14:00:00Z"),
+        )
+        conn.execute(
+            "INSERT INTO outbox_messages VALUES (?,?,?,?,?,?)",
+            (message_id, work_item_id, "substack", json.dumps({"package_identity": "pkg"}),
+             "DISPATCH_CONFIRMED", "2026-08-09T14:00:00Z"),
+        )
+        url = "https://capitalchronicle.substack.com/p/coordinator-lineage"
+        conn.execute(
+            "INSERT INTO platform_dispatches (dispatch_id,message_id,platform,status,dispatched_at,"
+            "public_object_id,public_object_url,public_object_url_hash) VALUES (?,?,?,?,?,?,?,?)",
+            (dispatch_id, message_id, "substack", "DISPATCH_CONFIRMED", T0.isoformat(),
+             "210915784", url, compute_sha256(url)),
+        )
+        conn.execute(
+            "INSERT INTO readbacks VALUES (?,?,?,?)",
+            ("readback_" + suffix, dispatch_id, json.dumps({"verified": True}),
+             "2026-08-09T14:01:00Z"),
+        )
+    store.register_reconciliation(
+        reconciliation_id="reconciliation_" + suffix,
+        work_item_id=work_item_id,
+        status="RECONCILED_CONFIRMED",
+    )
+
+    sup._run_performance_observations(AFTER_ALL_WINDOWS)
+
+    rows = store.list_performance_observations(dispatch_id=dispatch_id)
+    assert len(rows) == len(perf.OBSERVATION_WINDOWS)
+    assert all(row["learning_eligible"] == 1 for row in rows)
+    assert all(row["source_identity"] == source for row in rows)
+    assert all(json.loads(row["metrics_native_json"])["total_views"] == 41 for row in rows)
+
+
 # ---------------------------------------------------------------------------
 # Observation contract (tests 6,7,8,9,10,11,12,13)
 # ---------------------------------------------------------------------------

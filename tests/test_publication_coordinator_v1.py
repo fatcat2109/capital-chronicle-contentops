@@ -32,6 +32,7 @@ class FixtureTransport:
     def __init__(self, *, raise_after_write: bool = False, ambiguous: bool = False) -> None:
         self.publish_calls: list[str] = []
         self.readback_calls: list[str] = []
+        self.metrics_calls: list[dict] = []
         self.raise_after_write = raise_after_write
         self.ambiguous = ambiguous
 
@@ -65,7 +66,13 @@ class FixtureTransport:
         }
 
     def collect_metrics(self, *args, **kwargs):
-        return {"status": "FIXTURE_READ_ONLY", "observations": []}
+        self.metrics_calls.append(dict(kwargs))
+        return {
+            "status": "COLLECTED",
+            "metrics": {"shares": 1},
+            "availability": {"shares": "AVAILABLE"},
+            "source_identity": "fixture.first_party.visible_dom.v1",
+        }
 
 
 def _sha(value: str) -> str:
@@ -144,6 +151,32 @@ def test_registry_locks_surface_transport_and_browser_roles():
     assert registry["silent_transport_fallback_allowed"] is False
     assert registration_for_destination("youtube").surface == "YOUTUBE_COMMUNITY_POST"
     assert registration_for_destination("youtube").transport_type == "EDGE_CDP"
+
+
+def test_metrics_collection_requires_exact_confirmed_reconciled_dispatch_binding(tmp_path):
+    store, transport, coordinator = _coordinator(tmp_path)
+    coordinator.execute_plan("work-1", _plan("substack"))
+    dispatch = next(row for row in store.list_platform_dispatches() if row["platform"] == "substack")
+
+    result = coordinator.collect_metrics(
+        dispatch["dispatch_id"], dispatch["public_object_id"], "DAILY"
+    )
+
+    assert result["status"] == "COLLECTED"
+    assert transport.metrics_calls == [{
+        "destination": "substack",
+        "dispatch_id": dispatch["dispatch_id"],
+        "public_object_id": dispatch["public_object_id"],
+        "public_object_url": dispatch["public_object_url"],
+        "public_object_url_hash": dispatch["public_object_url_hash"],
+        "observation_window": "DAILY",
+    }]
+
+    blocked = coordinator.collect_metrics(
+        dispatch["dispatch_id"], "wrong-object", "DAILY"
+    )
+    assert blocked["status"] == "UNAVAILABLE"
+    assert len(transport.metrics_calls) == 1
 
 
 def test_case_a_api_success_and_case_b_cdp_success(tmp_path):

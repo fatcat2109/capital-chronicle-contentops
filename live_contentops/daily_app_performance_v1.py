@@ -35,7 +35,7 @@ OBSERVATION_SCHEMA_VERSION = "contentops.performance_observation.v1"
 #: formula change is explicit and never silently rewrites history.
 QUALIFIED_ENGAGEMENT_FORMULA_VERSION = "qualified_engagement.formula.v1"
 
-COLLECTOR_CAPABILITY_VERSION = "contentops.performance_collector.v1"
+COLLECTOR_CAPABILITY_VERSION = "contentops.performance_collector.v2"
 
 # Observation windows (offset from the dispatch/publish instant). Platforms that do not expose
 # useful metrics at a given window record UNAVAILABLE/NOT_EXPOSED rather than being skipped.
@@ -217,7 +217,10 @@ def build_scheduled_observations(
             "collection_status": "SCHEDULED",
             "metrics_native_json": json.dumps({}, sort_keys=True),
             "metric_availability_json": json.dumps({}, sort_keys=True),
-            "source_identity": "contentops.daily_app_performance.v1",
+            "source_identity": (
+                "substack.first_party_post_stats.visible_dom.v1"
+                if platform == "substack" else "contentops.daily_app_performance.v1"
+            ),
             "learning_eligible": 1 if learning_eligible else 0,
         }
         observation["observation_hash"] = observation_hash(observation)
@@ -269,17 +272,22 @@ def collect_observation(
             metrics = dict(result.get("metrics") or {})
             availability = dict(result.get("availability") or {})
             collection_status = str(result.get("status") or "COLLECTED")
+            source_identity = str(result.get("source_identity") or observation["source_identity"])
         except Exception as exc:  # noqa: BLE001 - read-only collection must fail closed
             metrics = {}
             availability = {}
             collection_status = "COLLECTION_ERROR"
+            source_identity = str(observation["source_identity"])
             _ = exc
+    if not callable(collector):
+        source_identity = str(observation["source_identity"])
     return store.mark_performance_observation_collected(
         observation_id=observation_id,
         collection_status=collection_status,
         collected_at_utc=_iso_utc(now),
         metrics_native_json=json.dumps(metrics, sort_keys=True),
         metric_availability_json=json.dumps(availability, sort_keys=True),
+        source_identity=source_identity,
     )
 
 

@@ -204,7 +204,10 @@ def record_browser_interaction_event(
 
 @contextmanager
 def browser_activity(state: str, *, reason: str, destination: str | None = None) -> Iterator[None]:
-    if state not in {"PUBLICATION_ACTIVE", "RECONCILIATION_ACTIVE", "INGESTION_ACTIVE"}:
+    if state not in {
+        "PUBLICATION_ACTIVE", "RECONCILIATION_ACTIVE", "INGESTION_ACTIVE",
+        "PERFORMANCE_OBSERVATION_ACTIVE",
+    }:
         raise ValueError("browser_activity_state_invalid")
     root = _configured_root
     started = _iso_now()

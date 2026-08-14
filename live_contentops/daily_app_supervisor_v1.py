@@ -1179,6 +1179,19 @@ class ContentOpsDailyAppSupervisor:
         message = self._store.get_outbox_message(str(dispatch["message_id"]))
         if not message:
             return None
+        reconciliations = self._store.get_reconciliations_for_work_item(
+            str(message["work_item_id"])
+        )
+        # The canonical DurablePublicationCoordinator uses one shared deterministic suffix for
+        # outbox, dispatch, and reconciliation identities. Follow that exact durable lineage
+        # first; reconstructing the older supervisor-local lifecycle basis incorrectly marked
+        # real coordinator publications learning-ineligible.
+        exact_reconciliation_id = (
+            "reconciliation_" + str(dispatch["dispatch_id"]).removeprefix("dispatch_")
+        )
+        for row in reconciliations:
+            if str(row["reconciliation_id"]) == exact_reconciliation_id:
+                return str(row["status"])
         try:
             package_identity = str(json.loads(message["payload"]).get("package_identity") or "")
         except Exception:  # noqa: BLE001 - unreadable payload stays fail-closed
@@ -1187,7 +1200,7 @@ class ContentOpsDailyAppSupervisor:
             str(message["work_item_id"]), str(dispatch["platform"]), package_identity
         )
         reconciliation_id = ids["reconciliation_id"]
-        for row in self._store.get_reconciliations_for_work_item(str(message["work_item_id"])):
+        for row in reconciliations:
             if row["reconciliation_id"] == reconciliation_id:
                 return row["status"]
         return None
@@ -1229,7 +1242,9 @@ class ContentOpsDailyAppSupervisor:
             if existing:
                 continue  # already scheduled for this dispatch (idempotent)
             reconciliation_status = self._reconciliation_status_for_dispatch(dispatch)
-            readback_count = 1 if reconciliation_status == perf.RECONCILE_CONFIRMED else 0
+            readback_count = len(
+                self._store.list_readbacks_for_dispatch(str(dispatch["dispatch_id"]))
+            )
             eligibility = perf.assess_learning_eligibility(
                 dispatch_status=dispatch["status"],
                 public_object_id=dispatch.get("public_object_id"),

@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12642,
+    "edges": 12655,
     "entrypoints": 14,
-    "nodes": 6717,
+    "nodes": 6722,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
@@ -33,11 +33,11 @@
       "instructions": 8,
       "manifest": 11,
       "python_class": 539,
-      "python_function": 3722,
+      "python_function": 3724,
       "python_method": 241,
-      "python_module": 699,
-      "schema": 172,
-      "test": 705,
+      "python_module": 700,
+      "schema": 173,
+      "test": 706,
       "typescript_export": 453,
       "typescript_or_javascript_module": 89
     }
@@ -35708,6 +35708,36 @@
       "to": "tests/test_substack_newsletter_manual_export_contract.py"
     },
     {
+      "from": "live_contentops/substack_performance_observer_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/substack_performance_observer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/substack_performance_observer_v1.py::collect_substack_post_metrics_via_edge"
+    },
+    {
+      "from": "live_contentops/substack_performance_observer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/substack_performance_observer_v1.py::parse_substack_post_stats_visible_text"
+    },
+    {
+      "from": "live_contentops/substack_performance_observer_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.substack_performance_observer.v1"
+    },
+    {
+      "from": "live_contentops/substack_performance_observer_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_substack_performance_observer_v1.py"
+    },
+    {
       "from": "live_contentops/substack_publication_audit_review_metrics_summary_v6.py",
       "inference": "test_filename_convention",
       "kind": "covered_by",
@@ -46230,6 +46260,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_read_json_file"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_performance_v1.py::qualified_engagement_score"
     },
     {
       "from": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot",
@@ -60344,6 +60380,24 @@
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::normalize_readback_result"
     },
     {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.collect_metrics",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/browser_interaction_budget_v1.py::browser_activity"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.collect_metrics",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_hash"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.collect_metrics",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_valid_substack_canonical_url"
+    },
+    {
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.execute_plan",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -62988,6 +63042,24 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/substack_newsletter_manual_export_contract.py::render_runbook"
+    },
+    {
+      "from": "python_symbol:live_contentops/substack_performance_observer_v1.py::collect_substack_post_metrics_via_edge",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/browser_interaction_budget_v1.py::record_browser_interaction_event"
+    },
+    {
+      "from": "python_symbol:live_contentops/substack_performance_observer_v1.py::collect_substack_post_metrics_via_edge",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publishing_profile_registry_v1.py::assert_canonical_edge_cdp"
+    },
+    {
+      "from": "python_symbol:live_contentops/substack_performance_observer_v1.py::collect_substack_post_metrics_via_edge",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/substack_performance_observer_v1.py::parse_substack_post_stats_visible_text"
     },
     {
       "from": "python_symbol:live_contentops/supervised_dispatch_contract_v6.py::main",
@@ -70124,6 +70196,12 @@
       "to": "live_contentops/substack_newsletter_manual_export_contract.py"
     },
     {
+      "from": "tests/test_substack_performance_observer_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/substack_performance_observer_v1.py"
+    },
+    {
       "from": "tests/test_substack_publication_audit_review_metrics_summary_v6.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -76000,7 +76078,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-14T08:21:54Z",
+  "generation_timestamp_utc": "2026-08-14T09:41:06Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -76033,7 +76111,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 9845
+      "size_bytes": 13357
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -76178,7 +76256,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 8384
+      "size_bytes": 17952
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -76188,22 +76266,22 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 6735
+      "size_bytes": 11285
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 50607
+      "size_bytes": 30631
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 24295
+      "size_bytes": 31181
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 8765
+      "size_bytes": 18240
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -76704,7 +76782,7 @@
     {
       "id": "live_contentops/browser_interaction_budget_v1.py",
       "kind": "python_module",
-      "size_bytes": 11925
+      "size_bytes": 11985
     },
     {
       "id": "live_contentops/browser_safety_policy_v6.py",
@@ -77104,7 +77182,7 @@
     {
       "id": "live_contentops/continuous_headline_ingest_v1.py",
       "kind": "python_module",
-      "size_bytes": 32362
+      "size_bytes": 32593
     },
     {
       "id": "live_contentops/contract_validation.py",
@@ -77239,17 +77317,17 @@
     {
       "id": "live_contentops/daily_app_performance_v1.py",
       "kind": "python_module",
-      "size_bytes": 28850
+      "size_bytes": 29286
     },
     {
       "id": "live_contentops/daily_app_supervisor_v1.py",
       "kind": "python_module",
-      "size_bytes": 124979
+      "size_bytes": 125728
     },
     {
       "id": "live_contentops/daily_app_ui_read_model_v1.py",
       "kind": "python_module",
-      "size_bytes": 78871
+      "size_bytes": 79469
     },
     {
       "id": "live_contentops/daily_article_brief_generation_v0.py",
@@ -77479,7 +77557,7 @@
     {
       "id": "live_contentops/durable_operational_store_v1.py",
       "kind": "python_module",
-      "size_bytes": 123946
+      "size_bytes": 124128
     },
     {
       "id": "live_contentops/edge_cdp_publishing_adapter_v1.py",
@@ -78989,7 +79067,7 @@
     {
       "id": "live_contentops/publication_coordinator_v1.py",
       "kind": "python_module",
-      "size_bytes": 45315
+      "size_bytes": 49914
     },
     {
       "id": "live_contentops/publish_adapter_credential_secret_policy.py",
@@ -79462,6 +79540,11 @@
       "size_bytes": 27767
     },
     {
+      "id": "live_contentops/substack_performance_observer_v1.py",
+      "kind": "python_module",
+      "size_bytes": 13696
+    },
+    {
       "id": "live_contentops/substack_publication_audit_review_metrics_summary_v6.py",
       "kind": "python_module",
       "size_bytes": 11455
@@ -79774,7 +79857,7 @@
     {
       "id": "live_contentops/x_list_ingest_capture_v1.py",
       "kind": "python_module",
-      "size_bytes": 38344
+      "size_bytes": 38917
     },
     {
       "id": "live_contentops/x_manual_approval_export_evidence_v6.py",
@@ -82516,7 +82599,7 @@
     {
       "id": "python_symbol:live_contentops/browser_interaction_budget_v1.py::browser_interaction_summary",
       "kind": "python_function",
-      "line": 237,
+      "line": 240,
       "path": "live_contentops/browser_interaction_budget_v1.py",
       "symbol": "browser_interaction_summary"
     },
@@ -87087,7 +87170,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_performance_v1.py::active_policy_timing_offset_minutes",
       "kind": "python_function",
-      "line": 605,
+      "line": 613,
       "path": "live_contentops/daily_app_performance_v1.py",
       "symbol": "active_policy_timing_offset_minutes"
     },
@@ -87108,21 +87191,21 @@
     {
       "id": "python_symbol:live_contentops/daily_app_performance_v1.py::collect_observation",
       "kind": "python_function",
-      "line": 238,
+      "line": 241,
       "path": "live_contentops/daily_app_performance_v1.py",
       "symbol": "collect_observation"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_performance_v1.py::ensure_bootstrap_policy",
       "kind": "python_function",
-      "line": 580,
+      "line": 588,
       "path": "live_contentops/daily_app_performance_v1.py",
       "symbol": "ensure_bootstrap_policy"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_performance_v1.py::evaluate_learning_decision",
       "kind": "python_function",
-      "line": 371,
+      "line": 379,
       "path": "live_contentops/daily_app_performance_v1.py",
       "symbol": "evaluate_learning_decision"
     },
@@ -87143,7 +87226,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_performance_v1.py::qualified_engagement_score",
       "kind": "python_function",
-      "line": 291,
+      "line": 299,
       "path": "live_contentops/daily_app_performance_v1.py",
       "symbol": "qualified_engagement_score"
     },
@@ -87164,42 +87247,42 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._build_editorial_portfolio_context",
       "kind": "python_method",
-      "line": 2058,
+      "line": 2073,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._build_editorial_portfolio_context"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._capture_detail_suffix",
       "kind": "python_method",
-      "line": 1436,
+      "line": 1451,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._capture_detail_suffix"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._consume_pending_operator_trigger",
       "kind": "python_method",
-      "line": 1443,
+      "line": 1458,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._consume_pending_operator_trigger"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._due_windows",
       "kind": "python_method",
-      "line": 1826,
+      "line": 1841,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._due_windows"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._editorial_opportunity_checkpoint_path",
       "kind": "python_method",
-      "line": 1889,
+      "line": 1904,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._editorial_opportunity_checkpoint_path"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._execute_window",
       "kind": "python_method",
-      "line": 2308,
+      "line": 2323,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._execute_window"
     },
@@ -87220,21 +87303,21 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._load_editorial_intelligence_runtime",
       "kind": "python_method",
-      "line": 2027,
+      "line": 2042,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._load_editorial_intelligence_runtime"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._load_editorial_opportunity_checkpoint",
       "kind": "python_method",
-      "line": 1921,
+      "line": 1936,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._load_editorial_opportunity_checkpoint"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._load_prepared_candidate_checkpoint",
       "kind": "python_method",
-      "line": 1398,
+      "line": 1413,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._load_prepared_candidate_checkpoint"
     },
@@ -87248,14 +87331,14 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._maybe_drive_publication_lifecycle",
       "kind": "python_method",
-      "line": 1276,
+      "line": 1291,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._maybe_drive_publication_lifecycle"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._next_observation_wake",
       "kind": "python_method",
-      "line": 1195,
+      "line": 1208,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._next_observation_wake"
     },
@@ -87269,14 +87352,14 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._next_wake",
       "kind": "python_method",
-      "line": 2524,
+      "line": 2539,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._next_wake"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._pending_material_event_windows",
       "kind": "python_method",
-      "line": 1798,
+      "line": 1813,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._pending_material_event_windows"
     },
@@ -87290,21 +87373,21 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._persist_editorial_opportunity_checkpoint",
       "kind": "python_method",
-      "line": 1892,
+      "line": 1907,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._persist_editorial_opportunity_checkpoint"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._prepared_candidate_checkpoint_path",
       "kind": "python_method",
-      "line": 1344,
+      "line": 1359,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._prepared_candidate_checkpoint_path"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._published_memory_projection",
       "kind": "python_method",
-      "line": 2131,
+      "line": 2146,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._published_memory_projection"
     },
@@ -87318,7 +87401,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._record_editorial_novelty_decision",
       "kind": "python_method",
-      "line": 2106,
+      "line": 2121,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._record_editorial_novelty_decision"
     },
@@ -87332,14 +87415,14 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._record_published_memory_cycle_proof",
       "kind": "python_method",
-      "line": 2155,
+      "line": 2170,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._record_published_memory_cycle_proof"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._recover_stale_pending",
       "kind": "python_method",
-      "line": 1979,
+      "line": 1994,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._recover_stale_pending"
     },
@@ -87360,7 +87443,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._refresh_prepared_candidate_checkpoint",
       "kind": "python_method",
-      "line": 1347,
+      "line": 1362,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._refresh_prepared_candidate_checkpoint"
     },
@@ -87374,21 +87457,21 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._run_continuous_intake_housekeeping",
       "kind": "python_method",
-      "line": 1309,
+      "line": 1324,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._run_continuous_intake_housekeeping"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._run_operator_trigger_intake_sync",
       "kind": "python_method",
-      "line": 1417,
+      "line": 1432,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._run_operator_trigger_intake_sync"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._run_performance_observations",
       "kind": "python_method",
-      "line": 1208,
+      "line": 1221,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._run_performance_observations"
     },
@@ -87402,21 +87485,21 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._stage_material_event",
       "kind": "python_method",
-      "line": 1772,
+      "line": 1787,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._stage_material_event"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._timing_policy_offset_minutes",
       "kind": "python_method",
-      "line": 1758,
+      "line": 1773,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._timing_policy_offset_minutes"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._transition",
       "kind": "python_method",
-      "line": 1952,
+      "line": 1967,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._transition"
     },
@@ -87430,14 +87513,14 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._window_for_day",
       "kind": "python_method",
-      "line": 1750,
+      "line": 1765,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._window_for_day"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._window_state",
       "kind": "python_method",
-      "line": 1878,
+      "line": 1893,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._window_state"
     },
@@ -87486,7 +87569,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.run_forever",
       "kind": "python_method",
-      "line": 1707,
+      "line": 1722,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.run_forever"
     },
@@ -87500,7 +87583,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor.tick",
       "kind": "python_method",
-      "line": 1521,
+      "line": 1536,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor.tick"
     },
@@ -87591,161 +87674,161 @@
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::DailyAppReadModelError",
       "kind": "python_class",
-      "line": 88,
+      "line": 92,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "DailyAppReadModelError"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_assert_nonsecret",
       "kind": "python_function",
-      "line": 247,
+      "line": 251,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_assert_nonsecret"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_bounded_operator_text",
       "kind": "python_function",
-      "line": 318,
+      "line": 322,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_bounded_operator_text"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_cycle_display_summary",
       "kind": "python_function",
-      "line": 324,
+      "line": 328,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_cycle_display_summary"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_dispatch_classification",
       "kind": "python_function",
-      "line": 226,
+      "line": 230,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_dispatch_classification"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_duration_seconds",
       "kind": "python_function",
-      "line": 369,
+      "line": 373,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_duration_seconds"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_iso",
       "kind": "python_function",
-      "line": 96,
+      "line": 100,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_iso"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_json",
       "kind": "python_function",
-      "line": 112,
+      "line": 116,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_json"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_latest_time",
       "kind": "python_function",
-      "line": 132,
+      "line": 136,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_latest_time"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_next_windows",
       "kind": "python_function",
-      "line": 176,
+      "line": 180,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_next_windows"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_parse_time",
       "kind": "python_function",
-      "line": 100,
+      "line": 104,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_parse_time"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_policy_provenance",
       "kind": "python_function",
-      "line": 142,
+      "line": 146,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_policy_provenance"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_policy_timing_offset_minutes",
       "kind": "python_function",
-      "line": 164,
+      "line": 168,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_policy_timing_offset_minutes"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_read_json_file",
       "kind": "python_function",
-      "line": 120,
+      "line": 124,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_read_json_file"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_rows",
       "kind": "python_function",
-      "line": 128,
+      "line": 132,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_rows"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_runtime_sha_short",
       "kind": "python_function",
-      "line": 361,
+      "line": 365,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_runtime_sha_short"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_safe_substack_public_url",
       "kind": "python_function",
-      "line": 296,
+      "line": 300,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_safe_substack_public_url"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_sanitize_operator_trigger",
       "kind": "python_function",
-      "line": 1501,
+      "line": 1512,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_sanitize_operator_trigger"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_utc_now",
       "kind": "python_function",
-      "line": 92,
+      "line": 96,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_utc_now"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot",
       "kind": "python_function",
-      "line": 377,
+      "line": 381,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "build_daily_app_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot.editorial_history_row",
       "kind": "python_method",
-      "line": 1140,
+      "line": 1151,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "build_daily_app_snapshot.editorial_history_row"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::request_operator_cycle",
       "kind": "python_function",
-      "line": 1515,
+      "line": 1526,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "request_operator_cycle"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::update_daily_app_mode",
       "kind": "python_function",
-      "line": 1477,
+      "line": 1488,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "update_daily_app_mode"
     },
@@ -89747,7 +89830,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.active_editorial_cycle_window_ids",
       "kind": "python_method",
-      "line": 1858,
+      "line": 1861,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.active_editorial_cycle_window_ids"
     },
@@ -89761,7 +89844,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.consume_operator_cycle_trigger",
       "kind": "python_method",
-      "line": 1822,
+      "line": 1825,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.consume_operator_cycle_trigger"
     },
@@ -89796,7 +89879,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.fetch_pending_operator_trigger",
       "kind": "python_method",
-      "line": 1806,
+      "line": 1809,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.fetch_pending_operator_trigger"
     },
@@ -89810,7 +89893,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_active_learning_policy",
       "kind": "python_method",
-      "line": 1677,
+      "line": 1680,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.get_active_learning_policy"
     },
@@ -89845,14 +89928,14 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_learning_policy",
       "kind": "python_method",
-      "line": 1664,
+      "line": 1667,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.get_learning_policy"
     },
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_operating_control",
       "kind": "python_method",
-      "line": 1690,
+      "line": 1693,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.get_operating_control"
     },
@@ -89866,7 +89949,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.get_performance_observation",
       "kind": "python_method",
-      "line": 1566,
+      "line": 1569,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.get_performance_observation"
     },
@@ -89901,7 +89984,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.latest_operator_cycle_trigger",
       "kind": "python_method",
-      "line": 1814,
+      "line": 1817,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.latest_operator_cycle_trigger"
     },
@@ -89915,7 +89998,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.list_learning_policies",
       "kind": "python_method",
-      "line": 1671,
+      "line": 1674,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.list_learning_policies"
     },
@@ -89929,7 +90012,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.list_performance_observations",
       "kind": "python_method",
-      "line": 1573,
+      "line": 1576,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.list_performance_observations"
     },
@@ -89978,7 +90061,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.record_operator_cycle_trigger",
       "kind": "python_method",
-      "line": 1746,
+      "line": 1749,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.record_operator_cycle_trigger"
     },
@@ -90006,7 +90089,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.register_learning_policy",
       "kind": "python_method",
-      "line": 1592,
+      "line": 1595,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.register_learning_policy"
     },
@@ -90097,7 +90180,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.set_learning_policy_status",
       "kind": "python_method",
-      "line": 1638,
+      "line": 1641,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.set_learning_policy_status"
     },
@@ -90118,7 +90201,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.stale_editorial_cycle_window_ids",
       "kind": "python_method",
-      "line": 1871,
+      "line": 1874,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.stale_editorial_cycle_window_ids"
     },
@@ -90132,7 +90215,7 @@
     {
       "id": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore.update_operating_control",
       "kind": "python_method",
-      "line": 1699,
+      "line": 1702,
       "path": "live_contentops/durable_operational_store_v1.py",
       "symbol": "ContentOpsDurableStore.update_operating_control"
     },
@@ -104188,42 +104271,42 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1",
       "kind": "python_class",
-      "line": 835,
+      "line": 906,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.__init__",
       "kind": "python_method",
-      "line": 838,
+      "line": 909,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.__init__"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.collect_metrics",
       "kind": "python_method",
-      "line": 911,
+      "line": 982,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.collect_metrics"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.finalize_intent",
       "kind": "python_method",
-      "line": 871,
+      "line": 942,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.finalize_intent"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.publish",
       "kind": "python_method",
-      "line": 847,
+      "line": 918,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.publish"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.readback",
       "kind": "python_method",
-      "line": 887,
+      "line": 958,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.readback"
     },
@@ -108330,6 +108413,20 @@
       "symbol": "write_artifacts"
     },
     {
+      "id": "python_symbol:live_contentops/substack_performance_observer_v1.py::collect_substack_post_metrics_via_edge",
+      "kind": "python_function",
+      "line": 200,
+      "path": "live_contentops/substack_performance_observer_v1.py",
+      "symbol": "collect_substack_post_metrics_via_edge"
+    },
+    {
+      "id": "python_symbol:live_contentops/substack_performance_observer_v1.py::parse_substack_post_stats_visible_text",
+      "kind": "python_function",
+      "line": 105,
+      "path": "live_contentops/substack_performance_observer_v1.py",
+      "symbol": "parse_substack_post_stats_visible_text"
+    },
+    {
       "id": "python_symbol:live_contentops/supervised_dispatch_contract_v6.py::main",
       "kind": "python_function",
       "line": 192,
@@ -111911,6 +112008,11 @@
       "schema_id": "contentops.substack_first_north_star_pipeline.v1"
     },
     {
+      "id": "schema:contentops.substack_performance_observer.v1",
+      "kind": "schema",
+      "schema_id": "contentops.substack_performance_observer.v1"
+    },
+    {
       "id": "schema:contentops.substack_supervised_browser_readback.v1",
       "kind": "schema",
       "schema_id": "contentops.substack_supervised_browser_readback.v1"
@@ -112963,7 +113065,7 @@
     {
       "id": "tests/test_contentops_continuous_intelligence_realign_v1.py",
       "kind": "test",
-      "size_bytes": 36110
+      "size_bytes": 36321
     },
     {
       "id": "tests/test_contentops_daily_app_launcher_v1.py",
@@ -113083,7 +113185,7 @@
     {
       "id": "tests/test_daily_app_performance_learning_v1.py",
       "kind": "test",
-      "size_bytes": 23806
+      "size_bytes": 26442
     },
     {
       "id": "tests/test_daily_app_publication_lifecycle_v1.py",
@@ -113098,7 +113200,7 @@
     {
       "id": "tests/test_daily_app_ui_read_model_v1.py",
       "kind": "test",
-      "size_bytes": 35070
+      "size_bytes": 35290
     },
     {
       "id": "tests/test_daily_article_brief_generation_v0.py",
@@ -114888,7 +114990,7 @@
     {
       "id": "tests/test_publication_coordinator_v1.py",
       "kind": "test",
-      "size_bytes": 34546
+      "size_bytes": 35859
     },
     {
       "id": "tests/test_publish_adapter_credential_secret_policy.py",
@@ -115384,6 +115486,11 @@
       "id": "tests/test_substack_newsletter_manual_export_contract.py",
       "kind": "test",
       "size_bytes": 11316
+    },
+    {
+      "id": "tests/test_substack_performance_observer_v1.py",
+      "kind": "test",
+      "size_bytes": 5964
     },
     {
       "id": "tests/test_substack_publication_audit_review_metrics_summary_v6.py",
@@ -119595,6 +119702,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "8c60d3e184c457af56b7a894806cdfc21f7f568b",
-  "source_tree_digest": "cf1789a492a0c32e0f4bfc56119a1410ccb13d797413ea6e438c6bafd9d1afe8"
+  "source_head": "9f6f670601e7e1f85bf7f1124a1f9d8aab5e22c7",
+  "source_tree_digest": "6c079d3459d4cb336956a7a783d7633b6e1b8a23ea4be24876b9f1b290da02cd"
 }

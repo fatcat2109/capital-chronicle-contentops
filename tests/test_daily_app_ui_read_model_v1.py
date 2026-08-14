@@ -589,6 +589,10 @@ def test_due_observation_preserves_unavailable_metric_not_zero(tmp_path):
     observation = snapshot["performance"]["observations"][0]
     assert observation["metric_availability"]["shares"] == "UNAVAILABLE"
     assert "shares" not in observation["native_metrics"]
+    assert observation["qualified_engagement_score"] == "NO_SCORE"
+    assert observation["qualified_engagement_formula_version"] == (
+        "qualified_engagement.formula.v1"
+    )
     assert snapshot["queue"]["due_performance_observation_count"] == 1
 
 

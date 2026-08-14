@@ -1534,6 +1534,7 @@ class ContentOpsDurableStore:
     def mark_performance_observation_collected(
         self, *, observation_id: str, collection_status: str, collected_at_utc: str,
         metrics_native_json: str, metric_availability_json: str,
+        source_identity: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Record the collection outcome for a scheduled observation (read-only collection)."""
         conn = self.get_connection()
@@ -1544,11 +1545,13 @@ class ContentOpsDurableStore:
             ).fetchone()
             if row is None:
                 raise WorkItemNotFoundError(f"performance_observation {observation_id} not found")
+            resolved_source = str(source_identity or row["source_identity"])
             conn.execute(
                 "UPDATE performance_observations SET collection_status=?, collected_at_utc=?,"
-                " metrics_native_json=?, metric_availability_json=? WHERE observation_id=?",
+                " metrics_native_json=?, metric_availability_json=?, source_identity=?"
+                " WHERE observation_id=?",
                 (collection_status, collected_at_utc, metrics_native_json,
-                 metric_availability_json, observation_id),
+                 metric_availability_json, resolved_source, observation_id),
             )
             conn.execute("COMMIT")
             return dict(conn.execute(

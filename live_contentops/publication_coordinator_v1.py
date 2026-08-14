@@ -828,8 +828,79 @@ class DurablePublicationCoordinator:
         return self.transport_runtime.readback(*args, **kwargs)
 
     def collect_metrics(self, *args: Any, **kwargs: Any) -> Mapping[str, Any]:
+        """Resolve one exact durable public object before destination-local read-only collection."""
+        dispatch_id = str(args[0] if len(args) > 0 else kwargs.get("dispatch_id") or "")
+        public_object_id = str(args[1] if len(args) > 1 else kwargs.get("public_object_id") or "")
+        observation_window = str(
+            args[2] if len(args) > 2 else kwargs.get("observation_window") or ""
+        )
+        unavailable = {
+            "status": "UNAVAILABLE",
+            "metrics": {},
+            "availability": {name: "UNAVAILABLE" for name in (
+                "total_views", "free_subscriptions", "paid_subscriptions", "recipients",
+                "open_rate", "delivery_rate", "likes", "comments", "shares", "restacks",
+                "reposts", "subscriber_conversions", "meaningful_reads", "completion_rate",
+            )},
+            "source_identity": "contentops.destination_metrics_router.v1",
+            "limitations": ["exact_confirmed_reconciled_public_object_required"],
+        }
+        dispatch = self.store.get_platform_dispatch(dispatch_id)
+        if not dispatch:
+            return unavailable
+        if (
+            str(dispatch.get("status") or "") != DISPATCH_CONFIRMED
+            or str(dispatch.get("public_object_id") or "") != public_object_id
+        ):
+            return unavailable
+        message = self.store.get_outbox_message(str(dispatch["message_id"]))
+        if not message:
+            return unavailable
+        expected_reconciliation_id = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
+        reconciliation = next((
+            row for row in self.store.get_reconciliations_for_work_item(str(message["work_item_id"]))
+            if str(row.get("reconciliation_id") or "") == expected_reconciliation_id
+        ), None)
+        if not reconciliation or str(reconciliation.get("status") or "") != RECONCILED_CONFIRMED:
+            return unavailable
+        public_object_url = str(dispatch.get("public_object_url") or "")
+        if str(dispatch.get("platform") or "") == "substack":
+            if (
+                not _valid_substack_canonical_url(public_object_url)
+                or str(dispatch.get("public_object_url_hash") or "") != _hash(public_object_url)
+            ):
+                return unavailable
         collector = getattr(self.transport_runtime, "collect_metrics", None)
-        return collector(*args, **kwargs) if callable(collector) else {"status": "METRICS_UNAVAILABLE"}
+        if not callable(collector):
+            return unavailable
+        destination = str(dispatch["platform"])
+        if destination == "substack" and self.readiness_manager is not None:
+            try:
+                self.readiness_manager.ensure_destination_runtime_for_readback(destination)
+            except Exception as exc:
+                return {
+                    **unavailable,
+                    "status": "AUTH_REQUIRED",
+                    "availability": {name: "AUTH_REQUIRED" for name in (
+                        "total_views", "free_subscriptions", "paid_subscriptions", "recipients",
+                        "open_rate", "delivery_rate", "likes", "comments", "shares", "restacks",
+                        "reposts", "subscriber_conversions", "meaningful_reads", "completion_rate",
+                    )},
+                    "limitations": [f"canonical_edge_readiness:{type(exc).__name__}"],
+                }
+        with browser_activity(
+            "PERFORMANCE_OBSERVATION_ACTIVE",
+            reason="DUE_DESTINATION_LOCAL_PERFORMANCE_OBSERVATION",
+            destination=destination,
+        ):
+            return collector(
+                destination=destination,
+                dispatch_id=dispatch_id,
+                public_object_id=public_object_id,
+                public_object_url=public_object_url,
+                public_object_url_hash=str(dispatch.get("public_object_url_hash") or "") or None,
+                observation_window=observation_window,
+            )
 
 
 class CanonicalDestinationTransportRuntimeV1:
@@ -908,8 +979,33 @@ class CanonicalDestinationTransportRuntimeV1:
             public_object_url=public_object_url, intent=intent,
         )
 
-    def collect_metrics(self, *args: Any, **kwargs: Any) -> Mapping[str, Any]:
-        return {"status": "BOUNDED_PLATFORM_METRICS_ROUTER_AVAILABLE", "observations": []}
+    def collect_metrics(
+        self,
+        *,
+        destination: str,
+        dispatch_id: str,
+        public_object_id: str,
+        public_object_url: str,
+        public_object_url_hash: Optional[str],
+        observation_window: str,
+    ) -> Mapping[str, Any]:
+        if destination != "substack":
+            return {
+                "status": "UNSUPPORTED",
+                "metrics": {},
+                "availability": {},
+                "source_identity": f"contentops.{destination}.metrics.unsupported.v1",
+                "limitations": ["destination_local_real_metrics_collector_not_implemented"],
+            }
+        from live_contentops.substack_performance_observer_v1 import (
+            collect_substack_post_metrics_via_edge,
+        )
+
+        return collect_substack_post_metrics_via_edge(
+            cdp_port=9223,
+            public_object_id=public_object_id,
+            canonical_public_url=public_object_url,
+        )
 
 
 # Compatibility import only. Runtime composition uses the canonical name above; the alias does
