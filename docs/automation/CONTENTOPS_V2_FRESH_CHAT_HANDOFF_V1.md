@@ -2,12 +2,12 @@
 
 Authority date: 2026-08-14
 Status: `CURRENT_V2_FRESH_SESSION_HANDOFF`
-Product direction: `LANE_B_HYBRID`
-Codex mode state: `OWNER_BAKEOFF_REQUIRED / NO_CANONICAL_MODE_SELECTED`
+Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
+Codex mode state: `UNSELECTED / MAX_VS_ULTRA_DEFERRED_UNTIL_QUALITY_SUBSTRATE_ACCEPTED`
 
-Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or the owner's chat history.
+Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or owner chat history.
 
-Repository-state authority is always fresh GitHub refs/commits/diffs/exact bytes. Jim's latest explicit instruction is product-direction authority. Fetch current `master` and relevant task branch before acting; SHAs in this handoff are historical clues only.
+Repository-state authority is always fresh GitHub refs/commits/diffs/exact bytes. Jim's latest explicit instruction is product-direction authority. Fetch current `master` and relevant task branch before acting; SHAs below are historical/verification anchors only until re-fetched.
 
 # 1. Repository
 
@@ -19,9 +19,7 @@ Canonical Windows checkout historically used:
 
 `A:\Capital Chronicle\ContentOps`
 
-V1 and V2 may run concurrently but must remain isolated.
-
-Do not trust local branch state until fetched and reconciled.
+V1 and V2 execute concurrently but must remain isolated. Preserve unrelated V1 work and live soak state.
 
 # 2. Fresh read order
 
@@ -32,23 +30,25 @@ Do not trust local branch state until fetched and reconciled.
 5. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
 7. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
-8. `docs/automation/CONTENTOPS_V2_CODEX_56_SOL_MODE_BAKEOFF_OWNER_OVERRIDE_V1.md`
+8. `docs/automation/CONTENTOPS_V2_CREATIVE_AUTHORITY_QUALITY_HARDENING_OWNER_AUDIT_V1.md`
 9. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
 10. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
 11. nearest scoped `AGENTS.md`
 12. exact task code/tests/evidence.
 
-Because ChatGPT wrote current authority directly to remote `master`, local CodeGraph/generated context may temporarily be stale. Regenerate/check CodeGraph after syncing and require `CODEGRAPH_CURRENT` before implementation commit.
+The older `CONTENTOPS_V2_CODEX_56_SOL_MODE_BAKEOFF_OWNER_OVERRIDE_V1.md` remains historical input for mode semantics, but its original HIGH/XHIGH/ULTRA bakeoff sequencing was superseded by actual-media evidence and the current Task Graph/Pointer.
 
-# 3. What happened before this handoff
+Because ChatGPT has written current authority directly to remote `master`, local CodeGraph/generated context can lag. Regenerate/check after synchronization and require `CODEGRAPH_CURRENT` before implementation commit.
 
-## 3.1 R4 failed systemically
+# 3. Durable history
 
-R4 branch:
+## 3.1 R4 — systemic visual failure
+
+Branch:
 
 `task/tier2-v2-gpt56-creative-code-asset-rich-video-v1`
 
-R4 reference HEAD:
+Reference HEAD:
 
 `2289eb1382e65474207b50d27c0b87626d30728f`
 
@@ -56,479 +56,466 @@ Classification:
 
 `FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE / NEGATIVE_CREATIVE_REFERENCE_ONLY`
 
-R4 had technically valid media but relied too heavily on bespoke abstract geometry and symbolic grammar. Jim could not quickly understand what many visuals represented. Examples included abstract Hormuz/opening treatment, valves/droplets/basins, and weak native chart composition.
+R4 proved that technical QA, many moving states, and model-authored code do not guarantee viewer comprehension. It overused bespoke abstract geometry/symbolic grammar and produced weak concrete recognition.
 
-Do not patch or reuse R4 creative blueprint/generated shot grammar. Reuse only useful engineering such as evidence, rights/provenance, audio, sandbox, cache/selective rerender, and QA where still compatible.
-
-## 3.2 Concrete-first replacement was built
-
-The replacement task introduced:
+Durable lesson:
 
 `CONCRETE_FIRST_ABSTRACT_SECOND`
 
-It added/strengthened:
+Do not reuse R4 creative blueprint/generated shot grammar.
 
-- real/contextual geography and oil infrastructure;
-- primary EIA evidence;
-- native chart/map/document treatment;
-- storyboards/captions-hidden comprehension;
-- asset brokerage;
-- model-authored motion code;
-- isolated V2 provider execution.
+## 3.2 Concrete-first A/B proof
 
-## 3.3 9Router `new/...` XHIGH route was unreliable for large creative outputs
-
-A minimal/raw-call experiment proved that tiny/small calls could work but exact large Director calls repeatedly hit gateway/response-bridge failures on the `new/gpt-5.6-sol-xhigh` route.
-
-Jim authorized testing:
-
-`cx/gpt-5.6-sol(xhigh)`
-
-The CX route successfully returned large Director/segment/motion outputs and completed the controlled Lane A proof.
-
-This provider lesson remains useful, but the product architecture is no longer model-first Lane A.
-
-## 3.4 A/B proof was completed
-
-A/B task branch:
+A/B branch:
 
 `task/v2-concrete-first-xhigh-replacement-vertical-slice-v1`
 
-A/B proof commit:
+Proof commit:
 
 `29c604ff5c920a78dca43578c8d1c503a5c0277e`
 
-Commit message:
+Lane A used `cx/gpt-5.6-sol(xhigh)` through 9Router. It was materially better than R4 and cheaper, but remained visually weaker and more cluttered than the strongest Lane B output.
 
-`v2: prove cx xhigh and codex builder video lanes`
+Authentic Lane B used Codex Builder to author story-specific Remotion composition/motion. It demonstrated the highest early visual ceiling. Its strongest second-half scenes approached public quality.
 
-Two lanes were produced on the same EIA/Hormuz benchmark.
-
-### Lane A — CX XHIGH
-
-Creative brain:
-
-`cx/gpt-5.6-sol(xhigh)` via 9Router.
-
-Strengths:
-
-- lower direct generation cost;
-- strong analytical density;
-- evidence-grounded Director/segments;
-- generated motion code;
-- much better than R4.
-
-Weaknesses:
-
-- subtitle clutter;
-- alignment/annotation/layout defects;
-- asset repetition;
-- dense scenes;
-- lower final visual polish than the best Lane B scenes;
-- compatibility/projection work around model output.
-
-Jim estimated Lane A generation cost around half Lane B in this controlled comparison. Treat that as owner-observed benchmark context, not a permanent price guarantee.
-
-### Lane B — Codex Builder
-
-Creative brain:
-
-Codex Builder.
-
-Authentic Lane B visual signatures included:
-
-Short:
-
-- `ONE CHOKEPOINT. FOUR TESTS.`
-- `MapToVessel`
-- `THE PHYSICAL CHAIN`
-- `UNLOAD / RESTORE / REBUILD`
-- `FORECAST. NOT A RESULT.`
-- native forecast chart
-- illustrative transmission
-- consequence cards
-- confirm/challenge test
-- checkpoint close.
-
-Midform:
-
-- `THE PERSIAN GULF HAS ONE NARROW EXIT.`
-- map/vessel transition
-- physical chain
-- `A SHIP PAST HORMUZ IS NOT RESTORED SUPPLY.`
-- evidence/document/chart
-- transmission/consequence/test/checkpoints.
-
-Lane B produced the highest current visual ceiling. Jim judged its latter half close to publishable, while the first half and some earlier iterations still exposed layout/crop/alignment problems.
-
-The proof required too many interactive builder repair cycles to be considered production architecture.
-
-# 4. Owner decision after authentic four-video review
-
-Canonical architecture is:
+Owner decision:
 
 `LANE_B_HYBRID`
 
-The decision is not “Codex manually does everything forever.”
+Lane A/CX remains a lower-cost shadow benchmark only.
 
-It is:
+## 3.3 Failed fixed-renderer H1 mode bakeoff
 
-> **Fresh per-video Codex execution owns high-entropy creative/editorial intelligence and actual-media review; deterministic local V2 infrastructure owns durable orchestration, evidence, visual safety, reusable primitives, rendering, QA, recovery, cost, and publication boundaries.**
+Reference branch:
 
-Lane A/CX is retained as a lower-cost shadow benchmark and possible alternative brain after the shared Hybrid engine exists.
+`codex/task-contentops-v2-lane-b-h1-v1`
 
-# 5. New owner instruction: Codex mode is NOT locked
+Reference HEAD:
 
-The architecture decision above is final for now, but the exact Codex 5.6 Sol operating mode has deliberately not been selected.
+`03087d19c7e18bea6f3812c63a871f33659b6312`
 
-Jim requires a controlled bakeoff across owner-specified modes:
+HIGH/XHIGH/ULTRA were real distinct Codex reasoning-effort executions, but all final videos used the same high-level fixed renderer/source. Codex was largely reduced to choosing fields such as primitive/title/body/callouts while local code dictated final layout/motion.
 
-- `HIGH`
-- `XHIGH / EXTRA_HIGH`
-- `ULTRA`
+Result:
 
-ULTRA is expected by the owner to consume the most quota and to have the highest nominal capability ceiling, but that does **not** make it the automatic production default.
+`PASS_EXECUTION_EVIDENCE / FAIL_VISUAL_MODE_BAKEOFF_VALIDITY_DUE_TO_FIXED_RENDERER_CEILING`
 
-The objective is to determine which mode gives the best **reproducible public-quality value**.
+Observed failures included generic template/card feel, weak scene-specific composition, poor map framing, empty `CHALLENGE IF` states passing QA, asset-observability mismatch, and SAPI narration.
 
-The builder must first discover the exact locally supported Codex mode/config identifiers and explicitly map them to the owner labels. Do not guess names. Do not inspect or expose authentication/session material.
+Do not choose HIGH/XHIGH/ULTRA from that visual comparison.
 
-## 5.1 Fair comparison rules
+Do not restore the fixed high-level compositor as the professional final path.
 
-Hold constant across modes:
+## 3.4 Creative-Authority Hybrid recovery proof
 
-- exact governed article/story;
-- exact evidence snapshot;
-- immutable creative input packet;
-- exact shared Hybrid engine commit/version;
-- same design tokens/primitives;
-- same asset candidate universe available at run start;
-- same visual-safety compiler;
-- same output format;
-- same revision budget;
-- same audio/tooling policy;
-- same zero-public-write boundary;
-- same evaluation rubric.
+Branch:
 
-Each mode must run in a **fresh isolated execution/thread**.
+`task/v2-codex-creative-authority-visual-repair-loop-v1`
 
-A mode may not see another mode's creative output before the owner comparison is complete.
+Verified proof tip:
 
-## 5.2 First-stage media bakeoff
+`e977f9637b5c461991b1ad76707e7b7d3c9ff917`
 
-Preferred bounded experiment:
+Product commit:
 
-1. stabilize the shared Hybrid engine to the point where mode is the main changed variable;
-2. choose one identical qualified benchmark story/job packet;
-3. run HIGH independently;
-4. run XHIGH independently;
-5. run ULTRA independently;
-6. produce one native 45–60 second 9:16 clean master per viable mode;
-7. create contact sheets/motion strips/phone-scale evidence;
-8. capture quota/usage/wall-clock/retries/revision burden;
-9. stop for Jim + ChatGPT actual-media review.
+`c4fe1e5bc12ff13cf09c9d9152bfe6414d7bdd09`
 
-If a mode fails a blocking deterministic/storyboard/comprehension gate, it does not need an expensive final render just to fill the comparison table. Preserve the failure evidence.
+Owner-review media:
 
-Do not automatically render three midforms. If the short comparison is inconclusive, Jim may authorize a second-stage midform comparison only between finalists.
+- short ~54s, SHA-256 `0b457b2ba29172ba09292053ffb8960bb14559080e10fd3b84b77243527db4b5`;
+- midform ~106s, SHA-256 `ac031e45c14d091f72cfc5915a2131d299b5aec7cca102e5eb3e2438e21fe462`.
 
-## 5.3 Owner selection gate
+The proof restored Codex ownership of actual viewer-facing Remotion code and materially recovered visual quality.
 
-Builder/critic may not self-select the winner.
+Recorded provenance:
 
-Jim + ChatGPT decide after actual-media review whether the production policy should be:
+- execution plane: `CODEX_TASK_SESSION`;
+- model: `gpt-5.6-sol`;
+- reasoning effort: `not_exposed_to_task_session`;
+- `nine_router_route = null`.
 
-- one universal default mode;
-- HIGH or XHIGH daily/default with ULTRA escalation for flagship/complex jobs;
-- ULTRA default if the quality/revision benefit materially justifies quota/TCO;
-- another evidence-backed tiered policy.
+Therefore the quality recovery proves the **architecture correction**, not any reasoning-effort mode winner.
 
-Quality and efficiency should be scored separately.
+Owner/operator classification:
 
-Quality dimensions include:
+`PASS_CREATIVE_AUTHORITY_ARCHITECTURE / PASS_MAJOR_QUALITY_RECOVERY / BLOCKED_BELOW_FINAL_PUBLIC_BAR_BY_ASSET_AND_EDITORIAL_VISUAL_DEPTH`
 
-- one-watch comprehension;
-- hook/retention;
-- institutional analytical depth;
-- conversational pacing;
-- truth/evidence discipline;
-- visual composition;
-- motion craft;
-- typography/readability;
-- document/chart treatment;
-- asset diversity;
-- template feel;
-- wit quality where used;
-- Capital Chronicle brand fit;
-- publication potential.
+# 4. Canonical architecture now
 
-Efficiency dimensions include:
+## Codex owns the viewer-facing creative surface
 
-- quota/usage;
-- wall-clock;
-- Codex invocation count;
-- retries/failures;
-- storyboard/proxy/full render count;
-- mechanical corrections;
-- creative revision count;
-- owner/operator intervention;
-- total TCO where measurable.
+Codex owns:
 
-# 6. Canonical creative/control responsibility
-
-## Codex owns
-
-- video angle after article qualification;
-- institutional analytical map;
+- institutional analytical decomposition;
+- story angle;
 - narrative architecture;
 - narration;
-- hook/re-hooks/payoff;
+- hooks/re-hooks/payoff;
 - controlled financial wit;
-- asset-purpose strategy;
-- storyboard strategy;
-- novel scene/motion code where primitives are insufficient;
-- actual proxy/full-media review;
-- bounded localized creative revision.
+- visual concepts;
+- asset-to-scene editorial choices;
+- storyboard/micro-beat design;
+- typography hierarchy;
+- composition;
+- timing/easing/transitions;
+- viewer-facing React/Remotion source;
+- actual-media visual review;
+- bounded creative repairs.
 
-## Deterministic local engine owns
+## Deterministic local engine owns production truth and safety
 
-- V1 candidate intake;
-- durable outbox/job state;
+Local infrastructure owns:
+
+- V1 candidate intake/outbox;
+- durable stage state;
 - evidence/numeric authority;
 - rights/provenance;
-- visual design tokens;
-- reusable scene primitives;
-- visual-safety compiler;
-- native chart/map/document compilers;
-- caption policy;
-- asset diversity policy;
-- TTS/music/SFX tool execution;
-- Remotion render;
+- source sandbox;
+- low-level safe components;
+- asset resolver;
+- rendering;
 - deterministic QA;
 - cache/selective rerender;
-- stage resume;
+- recovery/resume;
+- audio/tool execution;
 - cost/runtime telemetry;
 - final package identity;
 - publication authority.
 
-# 7. No persistent Codex session
+The correct Hybrid rule is:
 
-Do not implement a 24/7 Codex conversation.
+**deterministic safety validates and mechanically protects Codex creative intent; it does not replace Codex composition with a generic high-level template.**
 
-Canonical execution:
+# 5. Current quality diagnosis after actual-media review
 
-```text
-durable qualified job
-→ fresh isolated Codex run/thread
-→ explicit stage artifacts
-→ bounded revision within same job
-→ terminate when complete/blocked/failed
-```
+The fixed renderer is no longer the primary bottleneck.
 
-State lives in artifacts/ledger, not hidden conversation history.
+Current dominant blockers:
 
-The HIGH/XHIGH/ULTRA comparison must also use one fresh isolated run/thread per mode.
+1. the asset universe is narrow and repeatedly reuses older tanker/refinery/storage imagery;
+2. rights-safe but visually poor assets can still reach storyboard/final media;
+3. the legacy EIA Hormuz raster map is ugly/cluttered and has been reused too often;
+4. file-count diversity does not adequately measure visual-family/semantic repetition;
+5. internal review catches mechanical defects better than taste/novelty/publishability;
+6. several 8–12 second scenes need richer micro-beat progression;
+7. second-order institutional analysis often needs additional hard-data anchors;
+8. map/data visualization craft has not reached the final institutional bar.
 
-# 8. Institutional editorial target
+# 6. Legacy Hormuz map status
 
-V2 must become deeper than the A/B oil proof without becoming an academic lecture.
+The current legacy EIA Hormuz raster is:
 
-Every story should separate:
+`REFERENCE_EVIDENCE_ONLY`
 
-- **Truth Layer** — facts, observations, forecasts, exact data, sources;
-- **Analytical Layer** — mechanisms, second-order transmission, balance-sheet/cash-flow effects, scenarios, confirm/challenge logic;
-- **Engagement Layer** — hook, pacing, contrast, re-hooks, analogy, controlled wit.
+for professional media unless Jim explicitly reverses this decision.
 
-Engagement never alters truth.
+Problems:
 
-Midform should ask, where supported:
+- baked-in typography;
+- irrelevant pipeline labels;
+- excessive visual clutter;
+- native label competition;
+- weak crop/aspect flexibility;
+- report-screenshot aesthetic.
 
-- what changed?;
-- what has not changed?;
-- what mechanism matters?;
-- what is priced/expected?;
-- who gains/loses?;
-- what balance sheet/cash flow changes?;
-- what second-order channels matter?;
-- what confirms?;
-- what challenges?;
-- what to watch next?
+Future Hormuz/geography scenes should use a Capital Chronicle native map treatment from geographically truthful/rights-safe inputs, with controlled typography/labels/route overlays. A satellite/geographic base plus clean vector overlays is a valid pattern.
 
-Select only the highest-value mechanisms rather than filling a rigid checklist.
+# 7. Asset-first doctrine
 
-# 9. Financial wit target
+Fresh story-specific asset discovery must happen **before final storyboard composition**.
 
-Desired:
+Canonical order:
 
-- dry;
-- subtle;
-- market-literate;
-- mechanism-related;
-- sparse.
+`Governed Story -> Institutional Analytical Map -> Evidence Expansion -> Visual Entity/Asset Needs -> Fresh Rights-Safe Asset Discovery -> Candidate Asset Board -> ASSET_VISUAL_FIT Gate -> Codex Asset Selection -> Storyboard -> Source -> Render`
 
-Examples of tone only:
+Do not default to selecting whatever happens to be in the old local asset folder.
 
-- “Markets can price a reopening in minutes. Inventories are less cooperative.”
-- “Forecasts travel faster than crude.”
+## Candidate Asset Board
 
-Do not use meme slang, cheap jokes, insensitive humor, unsupported facts, or advice-like language.
+For major beats, include multiple candidates where practical with:
 
-Use a bounded wit candidate + truth/relevance/tone validator. Zero jokes is valid.
+- source;
+- rights;
+- dimensions/resolution;
+- orientation;
+- focal object;
+- crop viability;
+- embedded text;
+- semantic match;
+- visual family;
+- prior/recent use;
+- documentary versus illustrative status;
+- attribution requirements.
 
-# 10. Visual target
+The board must be visually inspectable through contact sheets/thumbnails or equivalent.
 
-The **entire** video should be as strong as the best second-half Lane B scenes.
+## ASSET_VISUAL_FIT
 
-Permanent doctrine:
+Rights-safe is necessary, not sufficient.
 
-`CONCRETE_FIRST_ABSTRACT_SECOND`
+Reject assets that fail professional fitness because of:
 
-Positive primitives to generalize:
+- poor resolution;
+- weak focal clarity;
+- clutter;
+- baked-in text;
+- bad crop flexibility;
+- wrong visual tone;
+- orientation problems;
+- excessive recent reuse;
+- weak editorial quality.
 
-- `MapToVessel`;
-- `PhysicalChain`;
-- `DocumentEvidence`;
-- `NativeForecastChart`;
-- `Transmission`;
-- `Consequence`;
-- `ConfirmChallenge`;
-- `CheckpointTimeline`.
+# 8. Asset-diversity truth
 
-They are not a frozen template.
+Measure from **actual rendered dependencies**.
 
-# 11. Visual defects that must be engineered out
+Track:
 
-Both A/B work exposed recurring defects that must move from manual fixes into the visual-safety system:
+- exact-file reuse;
+- visual-family concentration;
+- semantic-purpose reuse;
+- consecutive reuse;
+- recent-video reuse;
+- cumulative screen time by visual family.
 
-- duplicate native asset text plus overlay text;
-- bad title/box alignment;
-- guessed document highlight rectangles;
-- source/footer overlap;
-- caption clutter;
-- phone-small text;
-- crop/focal-object mistakes;
-- repeated background imagery;
-- excessive information density.
+Eleven asset IDs are not automatically diverse if most are tankers/refineries/storage.
 
-Canonical master should be clean without a permanent large subtitle card. Produce platform/sidecar captions and optional social-caption derivative separately.
+# 9. Native map/data/document direction
 
-# 12. V1 -> V2 future operating loop
+## Native map
 
-Expected daily flow:
+Build the minimum useful Capital Chronicle map compiler/treatment:
 
-```text
-V1 publishes useful articles
-→ analytics/performance snapshots
-→ candidate scorer
-→ top qualified video opportunities
-→ durable V2 outbox
-→ Hybrid production
-```
+- geographically truthful base/outline;
+- only story-relevant labels;
+- controlled CC typography;
+- semantic route/flow overlays;
+- native 9:16/16:9;
+- optional rights-safe satellite/geographic base.
 
-The goal is roughly the top one or two genuinely qualified daily opportunities when they exist, not forced conversion of every article.
+Do not build a giant GIS platform before a real media need exists.
 
-Candidate scoring should combine engagement quality and video opportunity.
+## Data visualization
 
-Engagement may influence priority/packaging only.
+Where evidence supports it, improve beyond a decorative three-point line by using:
 
-# 13. Current exact H1 task and owner gate
+- observed-history context;
+- explicit observed/forecast boundary;
+- real date anchors;
+- direct labels;
+- useful comparison/range;
+- aspect-native layout.
 
-Current task:
+Keep charts simple when extra detail adds no explanatory value.
 
-`TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
+## Documents
 
-It remains the active V2 task, but now has three bounded stages.
+Use readable relevant excerpt/crop, controlled highlight, source/date, and no competing native/overlay annotation systems.
 
-## H1-A — shared Hybrid engine
+# 10. Institutional Evidence Expansion
 
-Build enough shared deterministic production capability to make the model-mode comparison fair:
+Institutional depth must come from evidence, not more on-screen prose.
 
-- durable candidate/outbox fixture or read-only V1-style input;
-- fresh isolated/headless Codex seam with selectable mode;
-- institutional analytical map;
-- conversational script;
-- bounded wit pass;
-- minimal Lane B primitives;
-- visual-safety compiler;
-- asset diversity tracking;
-- storyboard/animatic comprehension gate;
-- Remotion proxy/final render capability;
-- actual-media review artifacts;
-- stage ledger/resume;
-- cost/runtime telemetry;
-- zero public write.
+For roughly two to four highest-value analytical channels:
 
-## H1-B — HIGH/XHIGH/ULTRA actual-media bakeoff
+- seek additional strong/primary evidence and hard-data anchors where useful;
+- bind quantitative statements exactly;
+- distinguish observations/forecasts/analysis;
+- keep weakly supported implications qualitative in narration or omit them;
+- never invent Capital Chronicle proprietary numbers/probabilities/scenarios.
 
-Run one identical benchmark through all three owner-specified modes under the fair-comparison contract.
+Narration carries nuance. Screen carries the visual thesis.
 
-Required pre-owner result:
+# 11. Micro-beat editing
 
-`PASS_CODEX_MODE_BAKEOFF_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+A long scene should not remain one visual state simply because the analytical topic lasts ten seconds.
 
-Return actual short MP4 candidates and comparable evidence.
+Starting heuristic:
 
-Then STOP for the owner mode gate.
+- meaningful visual-state change roughly every 2–4 seconds;
+- longer evidence/data holds only when reading/comprehension requires them;
+- visual change follows information change, not arbitrary motion/cut counts.
 
-## OWNER MODE GATE
+Example:
 
-Jim + ChatGPT inspect actual media and cost/quota evidence.
+`tanker -> unloading -> terminal/pipe -> production -> storage -> mechanism resolve`.
 
-They decide:
+# 12. Material rhythm
 
-- daily/default mode;
-- any ULTRA escalation policy;
-- whether a second-stage midform comparison is required.
+Maintain Capital Chronicle identity while varying materials:
 
-The builder may not self-advance.
+- full-bleed documentary media;
+- clean native map;
+- bright primary-source document;
+- dark data scene;
+- micro-montage;
+- minimal thesis frame;
+- chart;
+- physical-mechanism sequence.
 
-## H1-C — full Hybrid vertical slice
+Do not make every scene the same navy card.
 
-Only after owner mode selection should H1 resume to the full institutional/editorial/headless proof.
+# 13. Severe visual-editor gate
 
-Pre-owner ceiling result:
+Before expensive final motion, answer:
+
+`Would an institutional media editor approve this exact asset and composition for publication?`
+
+Judge:
+
+- visual quality;
+- taste;
+- novelty;
+- visual richness;
+- professional polish;
+- hierarchy;
+- crop/focal subject;
+- embedded-text clutter;
+- visual-family repetition;
+- asset fatigue;
+- template feel;
+- evidence clarity;
+- Capital Chronicle feel.
+
+If not clearly yes, revise before final motion even when deterministic collision QA passes.
+
+Worker/critic visual PASS remains evidence, not owner authority.
+
+# 14. Bounded visual repair
+
+Canonical high-quality proof loop:
+
+1. storyboard/keyframes -> up to one systemic creative revision;
+2. motion proxy -> up to two creative visual repair rounds;
+3. final master -> at most one final localized material-defect repair;
+4. mechanical fixes preserving creative intent do not consume creative budget;
+5. stop early once quality passes.
+
+Persist exact scene/time/frame/defect/before-after evidence.
+
+# 15. Audio
+
+Professional candidates must not use Windows SAPI.
+
+The Creative-Authority proof used Kokoro-82M successfully at the technical level. Kokoro is not yet declared the final voice ceiling.
+
+A separate Kokoro-versus-ElevenLabs quality/cost comparison may be valuable later, but do not mix it into the current asset-first quality task or the future Codex reasoning-effort bakeoff.
+
+Clean master + sidecar/platform captions remains preferred.
+
+# 16. Codex reasoning-effort state
+
+No canonical mode exists.
+
+The old fixed-renderer HIGH/XHIGH/ULTRA bakeoff is not a valid visual-capability comparison.
+
+The Creative-Authority proof does not expose its reasoning effort.
+
+Jim intends a future high-bar comparison with at least:
+
+- `MAX`;
+- `ULTRA`;
+
+subject to non-secret rediscovery of supported capabilities.
+
+Do not spend MAX/ULTRA quota until the asset/evidence/visual substrate is accepted.
+
+Future comparison should use more difficult, longer and more analytically abundant content, preferably ~150–210 seconds for the midform challenge where evidence supports it.
+
+Each mode must independently author:
+
+- analysis;
+- narration;
+- storyboard;
+- asset selection;
+- viewer-facing Remotion code;
+- micro-beat editing;
+- localized repairs.
+
+Hold starting story/evidence/assets/safety/audio/revision budget constant. No cross-mode creative leakage. Jim + ChatGPT select the default/escalation policy from actual media and quota/TCO evidence.
+
+# 17. Current exact next task
+
+`TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`
+
+This is the only active V2 product task unless Jim explicitly changes direction.
+
+Required real-media proof:
+
+`Fresh non-Hormuz governed story -> Evidence Expansion -> Visual Entity/Asset Needs -> Fresh Asset Discovery -> Candidate Asset Board -> ASSET_VISUAL_FIT -> Native Map/Data/Document as needed -> Codex Micro-Beat Storyboard -> Codex-Authored Remotion Source -> Severe Visual Gate -> Proxy -> Bounded Repair -> Professional Audio -> Native Short + Midform -> Jim/ChatGPT Review`
+
+The task must produce actual media. Infrastructure-only completion is not PASS.
+
+Recommended proof targets:
+
+- short approximately 55–70 seconds if story supports it;
+- midform approximately 130–180 seconds for this generalization/quality proof when evidence supports it;
+- no padding merely to reach duration.
+
+Maximum builder result:
 
 `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
 
-# 14. Next phases after H1
+# 18. Next after current owner gate
 
-- H2: cross-domain/non-oil generalization.
-- H3: live read-only V1 performance shadow trigger.
-- H4: roughly ten-job Hybrid shadow soak.
-- H5: fair Codex-vs-CX cost/quality benchmark through the same shared engine.
-- V2-02: platform/publication expansion only after Hybrid quality/reliability proof and explicit Jim authorization.
+Only after Jim/ChatGPT accept the asset-first quality-hardening media should the product proceed to a corrected high-bar reasoning-effort bakeoff.
 
-# 15. Public-write boundary
+Likely next task:
 
-Current invariant:
+`MAX vs ULTRA` on the accepted substrate, with a longer/more abundant analytical challenge.
+
+Then follow with:
+
+- repeated cross-domain production validation;
+- live read-only V1 performance trigger integration;
+- roughly ten-job unattended shadow soak;
+- optional fair CX cost-quality benchmark through the same accepted substrate;
+- only later V2-02/publication expansion.
+
+# 19. V1 -> V2 future operating loop
+
+`V1 publishes useful articles -> performance metrics -> candidate scorer -> top genuinely qualified video opportunities -> durable V2 outbox -> fresh Codex job`
+
+Target roughly the top one or two genuinely qualified opportunities when available, never a forced quota.
+
+Engagement affects priority/packaging only. It never changes facts, Capital Chronicle analytical/numeric authority, rights, permissions, or publication scope.
+
+# 20. No persistent Codex session
+
+Do not implement a 24/7 Codex conversation.
+
+Canonical production shape remains:
+
+`durable qualified job -> fresh isolated Codex execution -> explicit artifacts/checkpoints -> bounded same-job revision -> terminate`
+
+State lives in durable artifacts/ledger, not hidden chat memory.
+
+# 21. Public-write boundary
 
 `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
 
-No current V2 task may upload, draft, schedule, or otherwise mutate YouTube/TikTok/platform state.
+No current V2 task may upload, draft, schedule, or mutate YouTube/TikTok/platform state.
 
-V2 must not mutate/reset V1 runtime/store/scheduler/coordinator/browser/publication authority.
+Do not mutate/reset V1 runtime/store/scheduler/coordinator/browser/publication authority.
 
-# 16. Builder workflow for the next task
+V2-02 remains blocked.
 
-Before editing:
+# 22. Builder workflow for the current task
 
-1. inspect local status;
-2. preserve unrelated work;
-3. fetch origin;
-4. verify fresh remote master;
-5. fast-forward a clean checkout or create a new dedicated V2 worktree/branch from fresh master;
-6. regenerate/check CodeGraph because current authority synchronization was written directly through GitHub;
-7. use CodeGraph and nearest AGENTS;
-8. inspect A/B proof source only as reference;
-9. implement H1-A and H1-B as one bounded build-to-owner-gate slice;
-10. use a fresh isolated Codex run/thread for each HIGH/XHIGH/ULTRA candidate;
-11. explicit staging only;
-12. commit/push task branch;
-13. return actual mode-bakeoff media/evidence for owner review;
-14. STOP at the mode-selection gate.
+1. inspect local status and preserve unrelated work;
+2. fetch origin and verify fresh remote master;
+3. create a clean dedicated V2 worktree/branch from fresh master;
+4. regenerate/check CodeGraph after direct GitHub authority writes;
+5. read current authority including `CONTENTOPS_V2_CREATIVE_AUTHORITY_QUALITY_HARDENING_OWNER_AUDIT_V1.md`;
+6. inspect `e977f963...` as positive architecture proof and `03087d19...` only as negative fixed-renderer evidence;
+7. choose/fetch a fresh governed non-Hormuz benchmark or fail honestly if authority cannot support one;
+8. implement the asset-first quality-hardening vertical slice and actual media;
+9. do not run MAX/ULTRA bakeoff;
+10. explicit staging only;
+11. commit/push task branch;
+12. return actual media/evidence;
+13. STOP for Jim/ChatGPT owner review.
 
-Do not hard-reset unrelated V1 work.
+# 23. Durable summary
 
-# 17. Durable summary
-
-**V2 is Lane B Hybrid. Codex is the fresh episodic creative/editorial brain and actual-media reviewer. Deterministic local infrastructure is the durable production/control system. Institutional analytical depth, conversational retention pacing, controlled financial wit, concrete-first visual storytelling, and Lane B visual craft are the target. Lane A/CX remains a lower-cost shadow benchmark. The exact Codex 5.6 Sol operating mode is NOT selected: H1 must fairly compare owner-specified HIGH, XHIGH/EXTRA_HIGH, and ULTRA using the same shared engine and actual short-form MP4s. Jim + ChatGPT choose the daily/default and any escalation policy after seeing media plus quota/TCO evidence. Do not run a persistent Codex session, do not start V2-02, and do not grant public write.**
+**V2 is Lane B Creative-Authority Hybrid. Codex owns the viewer-facing creative surface and actual-media repair; deterministic local code owns truth/safety/execution, not high-level creative composition. The fixed renderer bakeoff is negative evidence. The latest architecture proof recovered visual quality but exposed the next bottleneck: stale/narrow assets, weak asset visual-fitness/taste gating, the poor legacy Hormuz map, insufficient semantic asset diversity, long scene-level holds, and second-order analysis without enough hard-data anchors. The exact next task is `TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`: use a fresh non-Hormuz story, actively discover better rights-safe assets before storyboard, build a candidate asset board and visual-fit gate, create native map/data/document treatments as needed, author micro-beats and story-specific Remotion source, run severe visual review and bounded repairs, and deliver real short/midform media. Do not run MAX/ULTRA yet. After this quality substrate is accepted, run a corrected MAX-versus-ULTRA high-bar bakeoff on longer/more analytically abundant content. Zero video public-write authority remains in force.**
