@@ -1,0 +1,201 @@
+{
+  "schema_version": "contentops.v2.microbeat_timeline.v2",
+  "source": "duration-derived editorial state changes; no fixed beat-count quota",
+  "beats": [
+    {
+      "beat_id": "alert-1",
+      "scene_id": "alert",
+      "start_seconds": 0.0,
+      "end_seconds": 2.7333,
+      "evidence_function": "state the event"
+    },
+    {
+      "beat_id": "alert-2",
+      "scene_id": "alert",
+      "start_seconds": 2.7333,
+      "end_seconds": 5.4667,
+      "evidence_function": "reveal exact monthly change"
+    },
+    {
+      "beat_id": "alert-3",
+      "scene_id": "alert",
+      "start_seconds": 5.4667,
+      "end_seconds": 8.2,
+      "evidence_function": "anchor exact dollar level"
+    },
+    {
+      "beat_id": "what_hit-1",
+      "scene_id": "what_hit",
+      "start_seconds": 8.2,
+      "end_seconds": 10.3222,
+      "evidence_function": "locate the retail setting"
+    },
+    {
+      "beat_id": "what_hit-2",
+      "scene_id": "what_hit",
+      "start_seconds": 10.3222,
+      "end_seconds": 12.4444,
+      "evidence_function": "state statistical significance"
+    },
+    {
+      "beat_id": "what_hit-3",
+      "scene_id": "what_hit",
+      "start_seconds": 12.4444,
+      "end_seconds": 14.5667,
+      "evidence_function": "open category divergence"
+    },
+    {
+      "beat_id": "first_reaction-1",
+      "scene_id": "first_reaction",
+      "start_seconds": 14.5667,
+      "end_seconds": 16.9833,
+      "evidence_function": "introduce category comparison"
+    },
+    {
+      "beat_id": "first_reaction-2",
+      "scene_id": "first_reaction",
+      "start_seconds": 16.9833,
+      "end_seconds": 19.4,
+      "evidence_function": "isolate negative contributors"
+    },
+    {
+      "beat_id": "first_reaction-3",
+      "scene_id": "first_reaction",
+      "start_seconds": 19.4,
+      "end_seconds": 21.8167,
+      "evidence_function": "resolve positive offsets"
+    },
+    {
+      "beat_id": "first_reaction-4",
+      "scene_id": "first_reaction",
+      "start_seconds": 21.8167,
+      "end_seconds": 24.2333,
+      "evidence_function": "sustain legibility of resolve positive offsets with active motion"
+    },
+    {
+      "beat_id": "primary_document-1",
+      "scene_id": "primary_document",
+      "start_seconds": 24.2333,
+      "end_seconds": 26.2778,
+      "evidence_function": "establish primary-source identity"
+    },
+    {
+      "beat_id": "primary_document-2",
+      "scene_id": "primary_document",
+      "start_seconds": 26.2778,
+      "end_seconds": 28.3222,
+      "evidence_function": "bind highlight to measured text"
+    },
+    {
+      "beat_id": "primary_document-3",
+      "scene_id": "primary_document",
+      "start_seconds": 28.3222,
+      "end_seconds": 30.3667,
+      "evidence_function": "extract exact headline metrics"
+    },
+    {
+      "beat_id": "headline_misses-1",
+      "scene_id": "headline_misses",
+      "start_seconds": 30.3667,
+      "end_seconds": 32.5444,
+      "evidence_function": "label the print nominal"
+    },
+    {
+      "beat_id": "headline_misses-2",
+      "scene_id": "headline_misses",
+      "start_seconds": 32.5444,
+      "end_seconds": 34.7222,
+      "evidence_function": "separate quantity from price"
+    },
+    {
+      "beat_id": "headline_misses-3",
+      "scene_id": "headline_misses",
+      "start_seconds": 34.7222,
+      "end_seconds": 36.9,
+      "evidence_function": "state the unresolved decomposition"
+    },
+    {
+      "beat_id": "why_matters-1",
+      "scene_id": "why_matters",
+      "start_seconds": 36.9,
+      "end_seconds": 38.6778,
+      "evidence_function": "start revenue transmission"
+    },
+    {
+      "beat_id": "why_matters-2",
+      "scene_id": "why_matters",
+      "start_seconds": 38.6778,
+      "end_seconds": 40.4556,
+      "evidence_function": "advance inventory consequence"
+    },
+    {
+      "beat_id": "why_matters-3",
+      "scene_id": "why_matters",
+      "start_seconds": 40.4556,
+      "end_seconds": 42.2333,
+      "evidence_function": "land on real-consumption interpretation"
+    },
+    {
+      "beat_id": "wit-1",
+      "scene_id": "wit",
+      "start_seconds": 42.2333,
+      "end_seconds": 43.8556,
+      "evidence_function": "compress the headline"
+    },
+    {
+      "beat_id": "wit-2",
+      "scene_id": "wit",
+      "start_seconds": 43.8556,
+      "end_seconds": 45.4778,
+      "evidence_function": "contrast alert with evidence"
+    },
+    {
+      "beat_id": "wit-3",
+      "scene_id": "wit",
+      "start_seconds": 45.4778,
+      "end_seconds": 47.1,
+      "evidence_function": "hold the restrained analytical line"
+    },
+    {
+      "beat_id": "checkpoint-1",
+      "scene_id": "checkpoint",
+      "start_seconds": 47.1,
+      "end_seconds": 49.875,
+      "evidence_function": "name revisions"
+    },
+    {
+      "beat_id": "checkpoint-2",
+      "scene_id": "checkpoint",
+      "start_seconds": 49.875,
+      "end_seconds": 52.65,
+      "evidence_function": "name category breadth"
+    },
+    {
+      "beat_id": "checkpoint-3",
+      "scene_id": "checkpoint",
+      "start_seconds": 52.65,
+      "end_seconds": 55.425,
+      "evidence_function": "name real-consumption confirmation"
+    },
+    {
+      "beat_id": "checkpoint-4",
+      "scene_id": "checkpoint",
+      "start_seconds": 55.425,
+      "end_seconds": 58.2,
+      "evidence_function": "state next release and thesis"
+    },
+    {
+      "beat_id": "resolve-1",
+      "scene_id": "resolve",
+      "start_seconds": 58.2,
+      "end_seconds": 60.2,
+      "evidence_function": "close on reporting doctrine"
+    }
+  ],
+  "duration_seconds": 60.2,
+  "validation": {
+    "status": "PASS",
+    "errors": [],
+    "beat_count": 27
+  }
+}

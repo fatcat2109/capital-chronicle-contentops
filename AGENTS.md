@@ -103,17 +103,21 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_BREAKING_NEWS_OWNER_DEFECT_REPAIR_V2`
 
 This is the only active V2 product task unless Jim explicitly changes direction.
 
 The task must produce actual owner-review media. Infrastructure-only completion is not PASS.
 
-Canonical product path:
+The QH1 Asset-First proof completed and supplied the implementation substrate, but owner review did not accept its media as the public bar. Breaking Retail V1 then proved the crisp 4K/1080 path, brighter breaking-news material direction, and ElevenLabs integration, while failing owner acceptance on document annotation geometry, voice identity/prosody, temporal micro-editing, and repository durability.
 
-`Fresh Governed Story -> Evidence Expansion -> Visual Entity/Asset Needs -> Fresh Rights-Safe Asset Discovery -> Candidate Asset Board -> ASSET_VISUAL_FIT Gate -> Institutional Analytical Map -> Codex Micro-Beat Storyboard -> Native Map/Data/Document Treatments -> Codex-Authored Remotion Source -> Severe Visual Editor Gate -> Proxy -> Bounded Creative Repairs -> Professional Audio -> Native Short + Midform -> QA -> Jim/ChatGPT Review`
+The current bounded repair preserves the same Retail Sales truth packet and Creative-Authority Hybrid. Its maximum result is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`; Jim/ChatGPT must review the actual corrected MP4s. MAX/ULTRA, HeyGen, rights-governed authority footage expansion, V2-02, and every video public write remain deferred.
 
-Prefer a fresh non-oil/non-Hormuz governed story so the task proves cross-domain generalization and cannot pass merely by reusing the old oil asset universe.
+Canonical repair path:
+
+`QH1 accepted implementation lineage -> exact Breaking Retail V1 import -> measured primary-document compiler -> bounded ElevenLabs identity search -> semantic-segment TTS -> micro-edit pass -> 4K/1080 crisp render -> deterministic QA -> Jim/ChatGPT review`
+
+Do not change story, run a reasoning-mode bakeoff, start V2-02, add HeyGen, upload media, or mutate V1 in this repair.
 
 ### Current dominant V2 quality blockers
 

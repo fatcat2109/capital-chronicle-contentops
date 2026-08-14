@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V2 — Current Execution Pointer V2
 
-Authority date: 2026-08-14
+Authority date: 2026-08-15
 Status: `CURRENT_CANONICAL_EXECUTION_POINTER`
 Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
 Codex mode state: `UNSELECTED / FUTURE_HIGH_BAR_MAX_VS_ULTRA_AFTER_QUALITY_HARDENING`
@@ -73,15 +73,17 @@ Do not use it as a professional-final presentation map in a new owner-review can
 
 # Exact next task
 
-`TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_BREAKING_NEWS_OWNER_DEFECT_REPAIR_V2`
 
-This is the only active V2 product task unless Jim explicitly changes direction.
+This is the only active V2 product task unless Jim explicitly changes direction. Implementation has produced corrected actual media and is awaiting Jim/ChatGPT review; the builder result ceiling remains `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`.
 
-The task must produce actual owner-review media; infrastructure-only completion is not PASS.
+QH1 completed and supplied a useful asset/evidence/Creative-Authority substrate, but did not itself reach the final public bar. Breaking Retail V1 subsequently proved the crisp 4K/1080 path, brighter breaking-news direction, and ElevenLabs integration, while owner review found four bounded defects: primary-document annotation geometry, voice identity/prosody, long scene-level holds, and non-durable local-only source.
 
-Canonical proof flow:
+Canonical bounded repair flow:
 
-`Fresh Governed Story -> Evidence Expansion -> Visual Entity / Asset Needs -> Fresh Rights-Safe Asset Discovery -> Candidate Asset Board -> ASSET_VISUAL_FIT Gate -> Institutional Analytical Map -> Codex Micro-Beat Storyboard -> Native Map/Data/Document Treatments -> Codex-Authored Viewer-Facing Remotion Source -> Severe Visual Editor Gate -> Proxy -> Bounded Visual Repairs -> Professional Audio -> Native Short + Midform -> QA -> Jim/ChatGPT Review`
+`Exact Breaking Retail V1 import -> deterministic document geometry -> bounded ElevenLabs identity audition -> semantic-segment audio timing -> evidence-bearing micro-edits -> 2160/1080 crisp render -> actual-frame QA -> durable branch -> Jim/ChatGPT review`
+
+MAX/ULTRA remains deferred and unselected. HeyGen remains deferred. Real authority footage remains an optional future rights-governed capability. `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains unchanged.
 
 # Story selection
 

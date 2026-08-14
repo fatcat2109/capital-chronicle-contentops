@@ -25,9 +25,9 @@ The controlled A/B and subsequent architecture-recovery proofs establish the fol
 
 # 2. Current exact next task
 
-`TASK_CONTENTOPS_V2_ASSET_FIRST_EDITORIAL_VISUAL_QUALITY_HARDENING_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_BREAKING_NEWS_OWNER_DEFECT_REPAIR_V2`
 
-This is the only active V2 product task unless Jim explicitly changes direction.
+This is the only active V2 product task unless Jim explicitly changes direction. QH1 is completed implementation history and the current correction is at actual-media owner review.
 
 The task must be a heavy bounded real-media vertical slice, not a documentation or generic infrastructure program.
 
@@ -200,13 +200,33 @@ Required implementation and proof:
 
 Only Jim/ChatGPT can grant owner visual/audio acceptance.
 
-# 7. Owner gate after V2-QH1
+# 6.1 Breaking Retail owner-defect repair
+
+Status: `IMPLEMENTATION_MEDIA_READY / REQUIRES_JIM_CHATGPT_ACTUAL_MEDIA_REVIEW`
+
+Task label:
+
+`TASK_CONTENTOPS_V2_BREAKING_NEWS_OWNER_DEFECT_REPAIR_V2`
+
+Durable history:
+
+- V2-QH1 completed and supplied useful evidence, rights, asset, rendering, and Creative-Authority substrate, but its actual media remained below the final public bar.
+- Breaking Retail V1 proved the 2160×3840/1080×1920 crisp BT.709 path, brighter breaking-news material direction, and ElevenLabs integration.
+- Owner review rejected that V1 media on four bounded defects: hand-placed document annotation geometry crossing `$763.6B`/`-0.6%`, unacceptable voice identity/prosody, long scene-level holds, and local-only/non-durable source.
+- The repair preserves the same Retail Sales truth packet and implements measured annotation geometry, a bounded voice-identity search, semantic-segment timing, evidence-bearing micro-edits, actual 4K/1080 rerenders, and a writable pushed task branch.
+- MAX/ULTRA remains deferred and unselected. HeyGen and rights-governed real authority footage remain future/optional capabilities. V2-02 and every video public write remain blocked.
+
+Maximum builder result:
+
+`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+
+# 7. Owner gate after V2-QH1 / Breaking Retail repair
 
 Status: `REQUIRES_JIM_CHATGPT_ACTUAL_MEDIA_REVIEW`
 
 Jim + ChatGPT must inspect the actual short/midform and evidence.
 
-If QH1 is accepted, the next likely capability is the corrected high-bar Codex reasoning-effort bakeoff.
+Jim/ChatGPT must review the corrected Retail actual media. Do not infer owner acceptance or start the corrected high-bar Codex reasoning-effort bakeoff automatically.
 
 # 8. Future V2-QH2 — Corrected MAX vs ULTRA High-Bar Bakeoff
 

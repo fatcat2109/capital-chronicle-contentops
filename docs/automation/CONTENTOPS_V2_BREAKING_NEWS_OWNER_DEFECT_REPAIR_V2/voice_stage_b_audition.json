@@ -1,0 +1,99 @@
+{
+  "status": "AWAITING_CODEX_FINAL_ACTUAL_AUDIO_SELECTION",
+  "same_spoken_text": true,
+  "stage_b_finalists": [
+    {
+      "model_id": "eleven_v3",
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.78,
+        "style": 0.08,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "latency_seconds": 7.053340100013884,
+      "request_id": "lzCP4OyUnDEcV79YZP4N",
+      "bytes": 317275,
+      "sha256": "00b5d460751cd1a6a448d04d0dc66f3c1eb1e0aee320b7f0ed3cd33b7774140e",
+      "output_format": "mp3_44100_128",
+      "api_key_serialized": false,
+      "name": "River - Relaxed, Neutral, Informative",
+      "gender": "neutral",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "conversational",
+      "description": "A relaxed, neutral voice ready for narrations or conversational projects.",
+      "candidate_id": "finalist-01",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\audio\\voice-stage-b\\01-SAz9YHcvj6GT2YYXdXww.mp3",
+      "duration_seconds": 19.800816,
+      "spoken_text_sha256": "c0abc465ab9fc5057a57e4e72bd656142a4151a875dd9e46c3ed9976eff8120c",
+      "estimated_cost_usd": 0.0288
+    },
+    {
+      "model_id": "eleven_v3",
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.78,
+        "style": 0.08,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "latency_seconds": 7.5729625999811105,
+      "request_id": "JQB0YDx8RY0aRJA7R7QU",
+      "bytes": 319782,
+      "sha256": "089356972b70ea00a646a1940358f55df10ba7069ebee593b9585c5944aae71b",
+      "output_format": "mp3_44100_128",
+      "api_key_serialized": false,
+      "name": "Eric - Smooth, Trustworthy",
+      "gender": "male",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "conversational",
+      "description": "A smooth tenor pitch from a man in his 40s - perfect for agentic use cases.",
+      "candidate_id": "finalist-02",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\audio\\voice-stage-b\\02-cjVigY5qzO86Huf0OWal.mp3",
+      "duration_seconds": 19.957551,
+      "spoken_text_sha256": "c0abc465ab9fc5057a57e4e72bd656142a4151a875dd9e46c3ed9976eff8120c",
+      "estimated_cost_usd": 0.0288
+    },
+    {
+      "model_id": "eleven_v3",
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.78,
+        "style": 0.08,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "latency_seconds": 8.79682909999974,
+      "request_id": "rRJJI6hp4TWy9r1kbUXt",
+      "bytes": 328559,
+      "sha256": "0e06d50bc8ceb8ec87cc28e84367c6228ce58e9b453f2852c44b02bc993162d4",
+      "output_format": "mp3_44100_128",
+      "api_key_serialized": false,
+      "name": "Brian - Deep, Resonant and Comforting",
+      "gender": "male",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "social_media",
+      "description": "Middle-aged man with a resonant and comforting tone. Great for narrations and advertisements.",
+      "candidate_id": "finalist-03",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\audio\\voice-stage-b\\03-nPczCjzI2devNBz1zQrb.mp3",
+      "duration_seconds": 20.506122,
+      "spoken_text_sha256": "c0abc465ab9fc5057a57e4e72bd656142a4151a875dd9e46c3ed9976eff8120c",
+      "estimated_cost_usd": 0.0288
+    }
+  ],
+  "output_format_probe": {
+    "status": "TIER_BLOCKED_FALLBACK",
+    "requested_format": "pcm_44100",
+    "http_status": null,
+    "receipt_parse_note": "The single probe was tier-blocked, but the first-pass parser retained a request-id fragment instead of the HTTP code. The parser is repaired for future runs; the probe was not repeated.",
+    "selected_full_synthesis_format": "mp3_44100_128",
+    "api_key_serialized": false
+  },
+  "api_key_serialized": false
+}

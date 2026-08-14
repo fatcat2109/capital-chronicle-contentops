@@ -1,0 +1,253 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "gates": {
+    "annotation_geometry": {
+      "status": "PASS",
+      "errors": [],
+      "target_containment_fraction": 1.0,
+      "annotation_to_target_area_ratio": 1.1147451950638139
+    },
+    "audio_contract": {
+      "status": "PASS",
+      "errors": []
+    },
+    "microbeat_timeline": {
+      "status": "PASS",
+      "errors": [],
+      "beat_count": 27
+    },
+    "zero_public_write": {
+      "status": "PASS",
+      "errors": []
+    },
+    "master_4k": {
+      "status": "PASS",
+      "errors": [],
+      "actual_bitrate": 40052142,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "profile": "High",
+            "codec_type": "video",
+            "width": 2160,
+            "height": 3840,
+            "pix_fmt": "yuv420p",
+            "color_range": "tv",
+            "color_space": "bt709",
+            "color_transfer": "bt709",
+            "color_primaries": "bt709",
+            "avg_frame_rate": "30/1",
+            "bit_rate": "39867363",
+            "side_data_list": [
+              {}
+            ]
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "profile": "LC",
+            "codec_type": "audio",
+            "avg_frame_rate": "0/0",
+            "bit_rate": "184533"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "60.080000",
+          "size": "300791591",
+          "bit_rate": "40052142"
+        }
+      }
+    },
+    "derivative_1080": {
+      "status": "PASS",
+      "errors": [],
+      "actual_bitrate": 10160253,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "profile": "High",
+            "codec_type": "video",
+            "width": 1080,
+            "height": 1920,
+            "pix_fmt": "yuv420p",
+            "color_range": "tv",
+            "color_space": "bt709",
+            "color_transfer": "bt709",
+            "color_primaries": "bt709",
+            "avg_frame_rate": "30/1",
+            "bit_rate": "9967253"
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "profile": "LC",
+            "codec_type": "audio",
+            "avg_frame_rate": "0/0",
+            "bit_rate": "184011"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "60.066667",
+          "size": "76286574",
+          "bit_rate": "10160253"
+        }
+      }
+    }
+  },
+  "voice": {
+    "selected_voice_id": "cjVigY5qzO86Huf0OWal",
+    "banned_voice_ids": [
+      "pNInz6obpgDQGcFmaJgB"
+    ],
+    "segment_count": 8
+  },
+  "audio_measurement": {
+    "integrated_lufs": -16.2,
+    "lra_lu": 3.6,
+    "true_peak_dbtp": -1.5
+  },
+  "media": {
+    "master": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\media\\breaking-retail-v2-2160x3840-master.mp4",
+      "sha256": "551efc4c5200036eac5560f1b7a7f2a5e1bcbec6fa3032d11e7f7290feca24ce",
+      "gate": {
+        "status": "PASS",
+        "errors": [],
+        "actual_bitrate": 40052142,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "profile": "High",
+              "codec_type": "video",
+              "width": 2160,
+              "height": 3840,
+              "pix_fmt": "yuv420p",
+              "color_range": "tv",
+              "color_space": "bt709",
+              "color_transfer": "bt709",
+              "color_primaries": "bt709",
+              "avg_frame_rate": "30/1",
+              "bit_rate": "39867363",
+              "side_data_list": [
+                {}
+              ]
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "profile": "LC",
+              "codec_type": "audio",
+              "avg_frame_rate": "0/0",
+              "bit_rate": "184533"
+            }
+          ],
+          "format": {
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "duration": "60.080000",
+            "size": "300791591",
+            "bit_rate": "40052142"
+          }
+        }
+      }
+    },
+    "derivative": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\media\\breaking-retail-v2-1080x1920.mp4",
+      "sha256": "baf1bfa5f77d01763b6a666dd0b9fc952a204c0aa593561df45dd80161b5b24b",
+      "gate": {
+        "status": "PASS",
+        "errors": [],
+        "actual_bitrate": 10160253,
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "profile": "High",
+              "codec_type": "video",
+              "width": 1080,
+              "height": 1920,
+              "pix_fmt": "yuv420p",
+              "color_range": "tv",
+              "color_space": "bt709",
+              "color_transfer": "bt709",
+              "color_primaries": "bt709",
+              "avg_frame_rate": "30/1",
+              "bit_rate": "9967253"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "profile": "LC",
+              "codec_type": "audio",
+              "avg_frame_rate": "0/0",
+              "bit_rate": "184011"
+            }
+          ],
+          "format": {
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "duration": "60.066667",
+            "size": "76286574",
+            "bit_rate": "10160253"
+          }
+        }
+      }
+    },
+    "proxy_lineage": false
+  },
+  "frames": {
+    "before_sizes": {
+      "1080x1920": [
+        1080,
+        1920
+      ],
+      "2160x3840": [
+        2160,
+        3840
+      ]
+    },
+    "after_sizes": {
+      "1080x1920": [
+        1080,
+        1920
+      ],
+      "2160x3840": [
+        2160,
+        3840
+      ]
+    }
+  },
+  "captions": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\captions\\breaking-retail.srt",
+    "sha256": "6cd1b6070deddee5b47c613181cbd10ab9dab7504c9d7ae6377c1a5ff7118214"
+  },
+  "codex_execution_plane": {
+    "creative_author": "Codex current task session",
+    "model": "not_exposed",
+    "reasoning_effort": "not_exposed",
+    "nine_router_route": null
+  },
+  "safety": {
+    "v1_mutations": 0,
+    "uploads": 0,
+    "browser_publication_calls": 0,
+    "mode_bakeoff_runs": 0,
+    "v2_02_runs": 0
+  }
+}

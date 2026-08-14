@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "action": "DELETE_TASK_ADDED_SHARED_VOICE",
+  "voice_id": "xnE95MBpjoyVGssERCrJ",
+  "verified_name": "CC audition Alan - Deep & Relaxing",
+  "provider_response": {
+    "status": "ok"
+  },
+  "existing_account_voices_touched": 0,
+  "api_key_serialized": false
+}

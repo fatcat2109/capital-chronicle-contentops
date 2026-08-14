@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "kind": "document_frames",
+  "outputs": [
+    {
+      "label": "1080x1920",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\document-after-1080x1920.png",
+      "sha256": "d04a9a4627ef8b8ffb392fe979cb0e2855c7fc19f8ac798ce97a456cb41e6d37",
+      "frame": 834
+    },
+    {
+      "label": "2160x3840",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\document-after-2160x3840.png",
+      "sha256": "3d6092f7e8e4154eb347dd22f3e0f5f5831fd01d4da22ef5170ee28fa38359e0",
+      "frame": 834
+    }
+  ],
+  "receipts": [
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\receipts\\render-document-1080x1920.json",
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\receipts\\render-document-2160x3840.json"
+  ],
+  "geometry_validation": {
+    "status": "PASS",
+    "errors": [],
+    "target_containment_fraction": 1.0,
+    "annotation_to_target_area_ratio": 1.1147451950638139
+  },
+  "runtime_seconds": 67.83606270002201
+}

@@ -1,0 +1,147 @@
+{
+  "source_kind": "OFFICIAL_HTML_EXACT_SOURCE_DERIVATIVE",
+  "source_document_sha256": "1b76d901730e8024d0c8884deb962852fb250fc31018b6cfa690cce19f19d1e4",
+  "source_page": 1,
+  "source_url": "https://www.census.gov/retail/sales.html",
+  "canonical_pdf_url": "https://www.census.gov/retail/marts/www/marts_current.pdf",
+  "exact_target_text": "Advance estimates of U.S. retail and food services sales for July 2026, adjusted for seasonal variation and holiday and trading-day differences, but not for price changes, were $763.6 billion, down 0.6 percent (±0.4 percent) from the previous month, but up 5.0 percent (±0.5 percent) from July 2025.",
+  "document_target_bbox": [
+    54.0,
+    344.0,
+    840.0,
+    597.0
+  ],
+  "asset_target_bbox": [
+    54.0,
+    344.0,
+    840.0,
+    597.0
+  ],
+  "asset_annotation_bbox": [
+    41.0,
+    334.0,
+    853.0,
+    607.0
+  ],
+  "asset_unrelated_glyph_bboxes": [
+    {
+      "label": "$763.6B",
+      "bbox": [
+        54.0,
+        665.0,
+        519.0,
+        835.0
+      ]
+    },
+    {
+      "label": "−0.6%",
+      "bbox": [
+        541.0,
+        665.0,
+        846.0,
+        835.0
+      ]
+    }
+  ],
+  "annotation_padding": {
+    "x": 13,
+    "y": 10
+  },
+  "font_files": [
+    {
+      "path": "C:\\Windows\\Fonts\\arial.ttf",
+      "sha256": "b3658eadae55e682b5f69eb64c439c1ecc8f196c0bb8d4756d145d13bc86476a"
+    },
+    {
+      "path": "C:\\Windows\\Fonts\\arialbd.ttf",
+      "sha256": "e8f4e3baf6cc35fed6fcce3a540e8b39e8f6cda1d22a28f2ec8f526fef7a43f5"
+    }
+  ],
+  "source_constraint": "Census returned an edge-policy block to direct local byte retrieval; no blocked or synthetic PDF was treated as source evidence.",
+  "schema_version": "contentops.v2.document_annotation_geometry.v2",
+  "compiled_asset": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-breaking-news-owner-defect-repair-v2\\video\\breaking_news_v1\\public\\assets\\census-document.png",
+  "compiled_asset_sha256": "229109e0953ce66a98001a0d1c02f1f965f811459a67441c2f4ec90dd20c676e",
+  "asset_size": [
+    900,
+    1120
+  ],
+  "frame_size": [
+    1080,
+    1920
+  ],
+  "frame_placement": {
+    "x": 70.0,
+    "y": 300.0,
+    "width": 940.0
+  },
+  "rendered_target_bbox": [
+    126.4,
+    659.2888888888889,
+    947.3333333333334,
+    923.5333333333334
+  ],
+  "annotation_bbox": [
+    112.82222222222222,
+    648.8444444444444,
+    960.9111111111112,
+    933.9777777777778
+  ],
+  "unrelated_glyph_bboxes": [
+    {
+      "label": "$763.6B",
+      "bbox": [
+        126.4,
+        994.5555555555555,
+        612.0666666666667,
+        1172.1111111111113
+      ]
+    },
+    {
+      "label": "−0.6%",
+      "bbox": [
+        635.0444444444445,
+        994.5555555555555,
+        953.6,
+        1172.1111111111113
+      ]
+    }
+  ],
+  "transform_identity": {
+    "kind": "AFFINE",
+    "scale_x": 1.0444444444444445,
+    "scale_y": 1.0444444444444445,
+    "translate_x": 70.0,
+    "translate_y": 300.0
+  },
+  "settled_frames": {
+    "1080x1920": {
+      "annotation_bbox": [
+        112.82222222222222,
+        648.8444444444444,
+        960.9111111111112,
+        933.9777777777778
+      ]
+    },
+    "2160x3840": {
+      "annotation_bbox": [
+        225.64444444444445,
+        1297.6888888888889,
+        1921.8222222222223,
+        1867.9555555555555
+      ]
+    }
+  },
+  "rendered_document_bbox": [
+    70.0,
+    300.0,
+    1010.0,
+    1469.7777777777778
+  ],
+  "validation": {
+    "status": "PASS",
+    "errors": [],
+    "target_containment_fraction": 1.0,
+    "annotation_to_target_area_ratio": 1.1147451950638139
+  },
+  "runtime_seconds": 0.5539647999976296
+}

@@ -1,0 +1,74 @@
+{
+  "status": "PASS",
+  "sample_count": 9,
+  "pixels_below_luma_64_fraction": 0.40418006258573386,
+  "qh1_negative_benchmark_fraction": 0.8,
+  "relative_dark_pixel_reduction": 0.49477492176783266,
+  "mean_edge_variance": 820.7208486070281,
+  "material_family_count": 6,
+  "material_families": [
+    "minimal_dark_alert",
+    "documentary_still",
+    "bright_native_data",
+    "primary_document",
+    "mid_key_mechanic",
+    "branded_dark_thesis"
+  ],
+  "max_equivalent_dark_run": 1,
+  "css_blur_used": false,
+  "per_frame": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\keyframes\\frame_0153.png",
+      "pixels_below_luma_64_fraction": 0.9642717978395061,
+      "edge_variance": 578.4812263496722
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\keyframes\\frame_0364.png",
+      "pixels_below_luma_64_fraction": 0.5826369598765432,
+      "edge_variance": 1418.5282181117009
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\keyframes\\frame_0617.png",
+      "pixels_below_luma_64_fraction": 0.016166087962962962,
+      "edge_variance": 830.6445857806652
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\keyframes\\frame_0841.png",
+      "pixels_below_luma_64_fraction": 0.02626736111111111,
+      "edge_variance": 1463.8112483813227
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\keyframes\\frame_1033.png",
+      "pixels_below_luma_64_fraction": 0.014173900462962963,
+      "edge_variance": 671.6565201559126
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\keyframes\\frame_1206.png",
+      "pixels_below_luma_64_fraction": 0.014719810956790123,
+      "edge_variance": 630.8921577890785
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\keyframes\\frame_1358.png",
+      "pixels_below_luma_64_fraction": 0.9582445987654321,
+      "edge_variance": 569.236940419715
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\keyframes\\frame_1619.png",
+      "pixels_below_luma_64_fraction": 0.08980227623456791,
+      "edge_variance": 848.5155124175667
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\keyframes\\frame_1783.png",
+      "pixels_below_luma_64_fraction": 0.9713377700617284,
+      "edge_variance": 374.7212280576183
+    }
+  ],
+  "contact_sheet": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\storyboard-contact-sheet.png",
+    "sha256": "cb0c7add629348a159b6069f387b561f3d6f38e75c018543631a5929662007a1"
+  },
+  "validation": {
+    "status": "PASS",
+    "errors": []
+  }
+}

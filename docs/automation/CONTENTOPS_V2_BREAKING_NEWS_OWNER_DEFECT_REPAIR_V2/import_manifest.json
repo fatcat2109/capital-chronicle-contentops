@@ -1,0 +1,23 @@
+{
+  "schema_version": "contentops.v2.source_import_manifest.v1",
+  "task_id": "TASK_CONTENTOPS_V2_BREAKING_NEWS_OWNER_DEFECT_REPAIR_V2",
+  "imported_at": "2026-08-15T00:02:00+07:00",
+  "source_root": "A:\\Capital Chronicle\\ContentOps\\artifacts\\v2_breaking_retail_20260814\\source_snapshot",
+  "destination_root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-breaking-news-owner-defect-repair-v2",
+  "validation_at_import": "PASS_EXACT_BYTE_PARITY",
+  "note": "Hashes capture the clean import boundary before the bounded V2 repair edits. Generated __pycache__ files and the snapshot root AGENTS.md were deliberately excluded.",
+  "files": [
+    {"source": "docs/automation/CONTENTOPS_V2_QH1_OWNER_AUDIT_AND_BREAKING_NEWS_HANDOFF_V1.md", "destination": "docs/automation/CONTENTOPS_V2_QH1_OWNER_AUDIT_AND_BREAKING_NEWS_HANDOFF_V1.md", "source_sha256": "dbe20e337c873ebb8d79eba5e1cb13fe72c0811f8f41bd1131cc49c6aeffadbd", "after_import_sha256": "dbe20e337c873ebb8d79eba5e1cb13fe72c0811f8f41bd1131cc49c6aeffadbd"},
+    {"source": "live_contentops/breaking_news_crisp_v1.py", "destination": "live_contentops/breaking_news_crisp_v1.py", "source_sha256": "f4766f8425de41c9d755a0d9ae03d509565a25879c0f6ba482911125ee777879", "after_import_sha256": "f4766f8425de41c9d755a0d9ae03d509565a25879c0f6ba482911125ee777879"},
+    {"source": "scripts/run_v2_breaking_news_crisp_v1.py", "destination": "scripts/run_v2_breaking_news_crisp_v1.py", "source_sha256": "10adf42fcc4adcf5c9beb558a066130d62c0af4170c6a6c6594162ba77010097", "after_import_sha256": "10adf42fcc4adcf5c9beb558a066130d62c0af4170c6a6c6594162ba77010097"},
+    {"source": "tests/test_breaking_news_crisp_v1.py", "destination": "tests/test_breaking_news_crisp_v1.py", "source_sha256": "bb14630d3a02eb54ff02fcbaed31a2ad152b4b74e1c1cb70863013bd9ca90d9b", "after_import_sha256": "bb14630d3a02eb54ff02fcbaed31a2ad152b4b74e1c1cb70863013bd9ca90d9b"},
+    {"source": "video/breaking_news_v1/package-lock.json", "destination": "video/breaking_news_v1/package-lock.json", "source_sha256": "a4ad0bc8709ee3d5c09e5d3c11af58d42b547c9318c85a7629c72a96927166e5", "after_import_sha256": "a4ad0bc8709ee3d5c09e5d3c11af58d42b547c9318c85a7629c72a96927166e5"},
+    {"source": "video/breaking_news_v1/package.json", "destination": "video/breaking_news_v1/package.json", "source_sha256": "02f403f6aa9fa023384ef85100c4e7d90c0f00bf4f6fe94805a903b7fdbe1f06", "after_import_sha256": "02f403f6aa9fa023384ef85100c4e7d90c0f00bf4f6fe94805a903b7fdbe1f06"},
+    {"source": "video/breaking_news_v1/tsconfig.json", "destination": "video/breaking_news_v1/tsconfig.json", "source_sha256": "37a10d7c71a3ac23052a1558a48adbbe8f2e835307577a18cabdb5813c79cc35", "after_import_sha256": "37a10d7c71a3ac23052a1558a48adbbe8f2e835307577a18cabdb5813c79cc35"},
+    {"source": "video/breaking_news_v1/public/assets/mall.jpg", "destination": "video/breaking_news_v1/public/assets/mall.jpg", "source_sha256": "f9bc4e9cf4255e899419fdfca890eee8b78cc462615d711c95ada4c2140595e7", "after_import_sha256": "f9bc4e9cf4255e899419fdfca890eee8b78cc462615d711c95ada4c2140595e7"},
+    {"source": "video/breaking_news_v1/scripts/render.mjs", "destination": "video/breaking_news_v1/scripts/render.mjs", "source_sha256": "23e4e5bb5d4f619d5717f42b91492797f5eaddc98243f4e40c8ad9a7fbe736a7", "after_import_sha256": "23e4e5bb5d4f619d5717f42b91492797f5eaddc98243f4e40c8ad9a7fbe736a7"},
+    {"source": "video/breaking_news_v1/src/index.ts", "destination": "video/breaking_news_v1/src/index.ts", "source_sha256": "364c9b4222d1f3ef4deb14eb49865dbaea662953b7e309376a97a3519466ccdf", "after_import_sha256": "364c9b4222d1f3ef4deb14eb49865dbaea662953b7e309376a97a3519466ccdf"},
+    {"source": "video/breaking_news_v1/src/root.tsx", "destination": "video/breaking_news_v1/src/root.tsx", "source_sha256": "d8f342ac9508633ff1dbd941a08909835c28b4198e75480f32e021facc507518", "after_import_sha256": "d8f342ac9508633ff1dbd941a08909835c28b4198e75480f32e021facc507518"},
+    {"source": "video/breaking_news_v1/src/generated/retailBreaking.tsx", "destination": "video/breaking_news_v1/src/generated/retailBreaking.tsx", "source_sha256": "d5e6f74f6acd0b5be8deb1a534ccef8279f411876353e261f7b426892ae5675a", "after_import_sha256": "d5e6f74f6acd0b5be8deb1a534ccef8279f411876353e261f7b426892ae5675a"}
+  ]
+}

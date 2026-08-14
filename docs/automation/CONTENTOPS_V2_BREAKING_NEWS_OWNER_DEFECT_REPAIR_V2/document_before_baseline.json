@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "defect": "manual annotation rectangle crosses primary metrics and is not bound to text geometry",
+  "frames": [
+    {
+      "label": "1080x1920",
+      "source": "A:\\Capital Chronicle\\ContentOps\\artifacts\\v2_breaking_retail_20260814\\media\\breaking-retail-1080x1920.mp4",
+      "source_sha256": "781a244e63ccba7aea8d41731ce2e031e7bfb6d92a01bf8a7f1ec72ecfbc49a4",
+      "frame_seconds": 26.0,
+      "screenshot": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\document-before-1080x1920.png",
+      "screenshot_sha256": "6f0f9a20122e4a1e75ac63272c805e6fdb568a3a7b69c4b378267943bb6656f0"
+    },
+    {
+      "label": "2160x3840",
+      "source": "A:\\Capital Chronicle\\ContentOps\\artifacts\\v2_breaking_retail_20260814\\media\\breaking-retail-2160x3840-master.mp4",
+      "source_sha256": "04bb6dc5614642efeb82fcefa9816b0f096db86c68c4bc12db566d67643f5a7a",
+      "frame_seconds": 26.0,
+      "screenshot": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\document-before-2160x3840.png",
+      "screenshot_sha256": "9f4333bd8859e127d22340ba8dc740444ae4f3c551ac11d7638b2b797b8b41d1"
+    }
+  ]
+}

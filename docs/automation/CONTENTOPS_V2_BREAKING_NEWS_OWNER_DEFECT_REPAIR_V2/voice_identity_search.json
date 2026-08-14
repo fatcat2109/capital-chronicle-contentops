@@ -1,0 +1,95 @@
+{
+  "status": "PASS",
+  "stage_a_candidates": [
+    {
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "name": "River - Relaxed, Neutral, Informative",
+      "gender": "neutral",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "conversational",
+      "category": "premade",
+      "description": "A relaxed, neutral voice ready for narrations or conversational projects.",
+      "metadata_score": 5,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+      "name": "Roger - Laid-Back, Casual, Resonant",
+      "gender": "male",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "conversational",
+      "category": "premade",
+      "description": "Easy going and perfect for casual conversations.",
+      "metadata_score": 4,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "name": "Matilda - Knowledgable, Professional",
+      "gender": "female",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "informative_educational",
+      "category": "premade",
+      "description": "A professional woman with a pleasing alto pitch. Suitable for many use cases.",
+      "metadata_score": 3,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "name": "Eric - Smooth, Trustworthy",
+      "gender": "male",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "conversational",
+      "category": "premade",
+      "description": "A smooth tenor pitch from a man in his 40s - perfect for agentic use cases.",
+      "metadata_score": 3,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "name": "Brian - Deep, Resonant and Comforting",
+      "gender": "male",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "social_media",
+      "category": "premade",
+      "description": "Middle-aged man with a resonant and comforting tone. Great for narrations and advertisements.",
+      "metadata_score": 3,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "name": "Bill - Wise, Mature, Balanced",
+      "gender": "male",
+      "age": "old",
+      "accent": "american",
+      "use_case": "advertisement",
+      "category": "premade",
+      "description": "Friendly and comforting voice ready to narrate your stories.",
+      "metadata_score": 3,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "iP95p4xoKVk53GoZ742B",
+      "name": "Chris - Charming, Down-to-Earth",
+      "gender": "male",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "conversational",
+      "category": "premade",
+      "description": "Natural and real, this down-to-earth voice is great across many use-cases.",
+      "metadata_score": 2,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    }
+  ],
+  "banned_voice_ids": [
+    "pNInz6obpgDQGcFmaJgB"
+  ],
+  "selection_rule": "eight distinct API-eligible mature American identities; character/social/brash voices and the banned prior identity excluded",
+  "shared_library_constraint": "Account tier returned paid_plan_required for shared-library API synthesis; no settings-only reuse of the banned voice was permitted.",
+  "api_key_serialized": false
+}

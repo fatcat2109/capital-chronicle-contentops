@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "geometry_validation": {
+    "status": "PASS",
+    "errors": [],
+    "target_containment_fraction": 1.0,
+    "annotation_to_target_area_ratio": 1.1147451950638139
+  },
+  "delivery_extracts": [
+    {
+      "label": "1080x1920",
+      "media": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\media\\breaking-retail-v2-1080x1920.mp4",
+      "media_sha256": "baf1bfa5f77d01763b6a666dd0b9fc952a204c0aa593561df45dd80161b5b24b",
+      "frame": 834,
+      "seconds": 27.8,
+      "screenshot": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\document-after-final-1080x1920.png",
+      "screenshot_sha256": "f880a102aa812bb057af981acf3707d70bcdb39fea06a9c06b553a508b450275"
+    },
+    {
+      "label": "2160x3840",
+      "media": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\media\\breaking-retail-v2-2160x3840-master.mp4",
+      "media_sha256": "551efc4c5200036eac5560f1b7a7f2a5e1bcbec6fa3032d11e7f7290feca24ce",
+      "frame": 834,
+      "seconds": 27.8,
+      "screenshot": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\review\\document-after-final-2160x3840.png",
+      "screenshot_sha256": "643a632cab9d98350bed24847d894fa34c82bd016f6a3c00d804118e1e49e89f"
+    }
+  ]
+}

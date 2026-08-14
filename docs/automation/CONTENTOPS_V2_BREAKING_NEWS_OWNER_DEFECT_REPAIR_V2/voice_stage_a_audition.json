@@ -1,0 +1,297 @@
+{
+  "status": "AWAITING_CODEX_ACTUAL_AUDIO_REVIEW",
+  "same_spoken_text": true,
+  "stage_a_candidates": [
+    {
+      "model_id": "eleven_flash_v2_5",
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "settings": {
+        "stability": 0.56,
+        "similarity_boost": 0.76,
+        "style": 0.04,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "latency_seconds": 0.6474903000053018,
+      "request_id": "kL8BmVO5bM3u9CDV2ZXJ",
+      "bytes": 165137,
+      "sha256": "45613e1d8488f14f1f1febcd67351084fe7d116df39772227445a8cbab96218d",
+      "output_format": "mp3_44100_128",
+      "api_key_serialized": false,
+      "name": "River - Relaxed, Neutral, Informative",
+      "gender": "neutral",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "conversational",
+      "category": "premade",
+      "description": "A relaxed, neutral voice ready for narrations or conversational projects.",
+      "metadata_score": 5,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE",
+      "library_receipt": {
+        "voice_id": "SAz9YHcvj6GT2YYXdXww",
+        "added_by_task": false,
+        "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+      },
+      "candidate_id": "identity-01",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\audio\\voice-stage-a\\01-SAz9YHcvj6GT2YYXdXww.mp3",
+      "duration_seconds": 10.292245,
+      "spoken_text_sha256": "d12dd1e82f011036b290376c4b409b82b8481d57c4eb5a0e3d107c6969533f65",
+      "estimated_cost_usd": 0.00948
+    },
+    {
+      "model_id": "eleven_flash_v2_5",
+      "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+      "settings": {
+        "stability": 0.56,
+        "similarity_boost": 0.76,
+        "style": 0.04,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "latency_seconds": 0.6458206000097562,
+      "request_id": "WuzN8YRjjyXaQCJFxpdF",
+      "bytes": 174333,
+      "sha256": "deee3ca6fb0e4dd410d9c49a7d78a61dbf1b8b111741ad74ee4af81c5da725b8",
+      "output_format": "mp3_44100_128",
+      "api_key_serialized": false,
+      "name": "Roger - Laid-Back, Casual, Resonant",
+      "gender": "male",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "conversational",
+      "category": "premade",
+      "description": "Easy going and perfect for casual conversations.",
+      "metadata_score": 4,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE",
+      "library_receipt": {
+        "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+        "added_by_task": false,
+        "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+      },
+      "candidate_id": "identity-02",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\audio\\voice-stage-a\\02-CwhRBWXzGAHq8TQ4Fs17.mp3",
+      "duration_seconds": 10.866939,
+      "spoken_text_sha256": "d12dd1e82f011036b290376c4b409b82b8481d57c4eb5a0e3d107c6969533f65",
+      "estimated_cost_usd": 0.00948
+    },
+    {
+      "model_id": "eleven_flash_v2_5",
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "settings": {
+        "stability": 0.56,
+        "similarity_boost": 0.76,
+        "style": 0.04,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "latency_seconds": 0.8507634999987204,
+      "request_id": "JdOCxv5eVyr4GRXU9jN5",
+      "bytes": 166809,
+      "sha256": "f2feacbe927819f0dca109bc862496c22949a3c2cdf1dbe2570588bb342d68ad",
+      "output_format": "mp3_44100_128",
+      "api_key_serialized": false,
+      "name": "Matilda - Knowledgable, Professional",
+      "gender": "female",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "informative_educational",
+      "category": "premade",
+      "description": "A professional woman with a pleasing alto pitch. Suitable for many use cases.",
+      "metadata_score": 3,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE",
+      "library_receipt": {
+        "voice_id": "XrExE9yKIg1WjnnlVkGX",
+        "added_by_task": false,
+        "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+      },
+      "candidate_id": "identity-03",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\audio\\voice-stage-a\\03-XrExE9yKIg1WjnnlVkGX.mp3",
+      "duration_seconds": 10.396735,
+      "spoken_text_sha256": "d12dd1e82f011036b290376c4b409b82b8481d57c4eb5a0e3d107c6969533f65",
+      "estimated_cost_usd": 0.00948
+    },
+    {
+      "model_id": "eleven_flash_v2_5",
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "settings": {
+        "stability": 0.56,
+        "similarity_boost": 0.76,
+        "style": 0.04,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "latency_seconds": 0.6389831000124104,
+      "request_id": "5oewZHvdEXgd25bISRx6",
+      "bytes": 167645,
+      "sha256": "c42abd58ba9f95b224a06570e003f0f5ae3e1c9829841ae9f423a5d46410bbc7",
+      "output_format": "mp3_44100_128",
+      "api_key_serialized": false,
+      "name": "Eric - Smooth, Trustworthy",
+      "gender": "male",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "conversational",
+      "category": "premade",
+      "description": "A smooth tenor pitch from a man in his 40s - perfect for agentic use cases.",
+      "metadata_score": 3,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE",
+      "library_receipt": {
+        "voice_id": "cjVigY5qzO86Huf0OWal",
+        "added_by_task": false,
+        "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+      },
+      "candidate_id": "identity-04",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\audio\\voice-stage-a\\04-cjVigY5qzO86Huf0OWal.mp3",
+      "duration_seconds": 10.44898,
+      "spoken_text_sha256": "d12dd1e82f011036b290376c4b409b82b8481d57c4eb5a0e3d107c6969533f65",
+      "estimated_cost_usd": 0.00948
+    },
+    {
+      "model_id": "eleven_flash_v2_5",
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "settings": {
+        "stability": 0.56,
+        "similarity_boost": 0.76,
+        "style": 0.04,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "latency_seconds": 0.7240417000139132,
+      "request_id": "HLh5J6bRhw1QgQAJrSWa",
+      "bytes": 176422,
+      "sha256": "762e7ecd4e51720e051d8862477094e36e51add666285a64a5da1753181942d9",
+      "output_format": "mp3_44100_128",
+      "api_key_serialized": false,
+      "name": "Brian - Deep, Resonant and Comforting",
+      "gender": "male",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "social_media",
+      "category": "premade",
+      "description": "Middle-aged man with a resonant and comforting tone. Great for narrations and advertisements.",
+      "metadata_score": 3,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE",
+      "library_receipt": {
+        "voice_id": "nPczCjzI2devNBz1zQrb",
+        "added_by_task": false,
+        "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+      },
+      "candidate_id": "identity-05",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\audio\\voice-stage-a\\05-nPczCjzI2devNBz1zQrb.mp3",
+      "duration_seconds": 10.997551,
+      "spoken_text_sha256": "d12dd1e82f011036b290376c4b409b82b8481d57c4eb5a0e3d107c6969533f65",
+      "estimated_cost_usd": 0.00948
+    },
+    {
+      "model_id": "eleven_flash_v2_5",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "settings": {
+        "stability": 0.56,
+        "similarity_boost": 0.76,
+        "style": 0.04,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "latency_seconds": 0.6828006000141613,
+      "request_id": "cV1xHtNnAJfk32nZXVBC",
+      "bytes": 201082,
+      "sha256": "1238a4c810c1115f109f4973e78f783c2ef8c37a10ee91c3dd889e90c261f5c8",
+      "output_format": "mp3_44100_128",
+      "api_key_serialized": false,
+      "name": "Bill - Wise, Mature, Balanced",
+      "gender": "male",
+      "age": "old",
+      "accent": "american",
+      "use_case": "advertisement",
+      "category": "premade",
+      "description": "Friendly and comforting voice ready to narrate your stories.",
+      "metadata_score": 3,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE",
+      "library_receipt": {
+        "voice_id": "pqHfZKP75CvOlQylNhV4",
+        "added_by_task": false,
+        "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+      },
+      "candidate_id": "identity-06",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\audio\\voice-stage-a\\06-pqHfZKP75CvOlQylNhV4.mp3",
+      "duration_seconds": 12.538776,
+      "spoken_text_sha256": "d12dd1e82f011036b290376c4b409b82b8481d57c4eb5a0e3d107c6969533f65",
+      "estimated_cost_usd": 0.00948
+    },
+    {
+      "model_id": "eleven_flash_v2_5",
+      "voice_id": "iP95p4xoKVk53GoZ742B",
+      "settings": {
+        "stability": 0.56,
+        "similarity_boost": 0.76,
+        "style": 0.04,
+        "use_speaker_boost": true,
+        "speed": 1.0
+      },
+      "latency_seconds": 0.7564038999844342,
+      "request_id": "4tZ4VL5MWOjyEwrMTpIW",
+      "bytes": 151763,
+      "sha256": "83fa29c00bcb625393bc30a8c0fd5849bbd13817383a0f2f605f9539a8bf621c",
+      "output_format": "mp3_44100_128",
+      "api_key_serialized": false,
+      "name": "Chris - Charming, Down-to-Earth",
+      "gender": "male",
+      "age": "middle_aged",
+      "accent": "american",
+      "use_case": "conversational",
+      "category": "premade",
+      "description": "Natural and real, this down-to-earth voice is great across many use-cases.",
+      "metadata_score": 2,
+      "eligibility": "ACCOUNT_PREMADE_API_ELIGIBLE",
+      "library_receipt": {
+        "voice_id": "iP95p4xoKVk53GoZ742B",
+        "added_by_task": false,
+        "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+      },
+      "candidate_id": "identity-07",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v2_breaking_retail_owner_repair_20260815\\audio\\voice-stage-a\\07-iP95p4xoKVk53GoZ742B.mp3",
+      "duration_seconds": 9.456327,
+      "spoken_text_sha256": "d12dd1e82f011036b290376c4b409b82b8481d57c4eb5a0e3d107c6969533f65",
+      "estimated_cost_usd": 0.00948
+    }
+  ],
+  "library_receipts": [
+    {
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "added_by_task": false,
+      "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+      "added_by_task": false,
+      "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "added_by_task": false,
+      "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "added_by_task": false,
+      "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "added_by_task": false,
+      "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "added_by_task": false,
+      "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    },
+    {
+      "voice_id": "iP95p4xoKVk53GoZ742B",
+      "added_by_task": false,
+      "status": "ACCOUNT_PREMADE_API_ELIGIBLE"
+    }
+  ],
+  "selection_authority": "Codex actual-audio editorial review",
+  "api_key_serialized": false
+}

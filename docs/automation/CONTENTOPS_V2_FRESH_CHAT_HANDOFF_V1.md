@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps V2 — Fresh Chat / Builder Handoff V1
 
-Authority date: 2026-08-14
+Authority date: 2026-08-15
 Status: `CURRENT_V2_FRESH_SESSION_HANDOFF`
 Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
 Codex mode state: `UNSELECTED / MAX_VS_ULTRA_DEFERRED_UNTIL_QUALITY_SUBSTRATE_ACCEPTED`
@@ -20,6 +20,16 @@ Canonical Windows checkout historically used:
 `A:\Capital Chronicle\ContentOps`
 
 V1 and V2 execute concurrently but must remain isolated. Preserve unrelated V1 work and live soak state.
+
+## Current V2 continuation
+
+Active task: `TASK_CONTENTOPS_V2_BREAKING_NEWS_OWNER_DEFECT_REPAIR_V2`
+
+QH1 Asset-First completed and remains the useful implementation substrate, not the accepted public bar. Breaking Retail V1 then proved crisp 4K/1080 BT.709 rendering, a brighter breaking-news material direction, and ElevenLabs integration. Jim/ChatGPT rejected that V1 media on four bounded defects: document annotation geometry, voice identity/prosody, insufficient intra-scene micro-editing, and repository durability.
+
+The current branch preserves the same Retail Sales truth packet and repairs those four defects. Corrected actual media is at the Jim/ChatGPT review gate; maximum builder status is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`, never owner acceptance.
+
+Mode remains unselected; MAX/ULTRA is deferred. HeyGen is deferred. Real authority footage remains an optional future rights-governed capability. V2-02 and all video public writes remain blocked.
 
 # 2. Fresh read order
 
