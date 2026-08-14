@@ -21,25 +21,25 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12655,
+    "edges": 12795,
     "entrypoints": 14,
-    "nodes": 6722,
+    "nodes": 6791,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
       "directory_scope": 8,
-      "durable_table": 34,
+      "durable_table": 39,
       "http_endpoint": 6,
       "instructions": 8,
-      "manifest": 11,
-      "python_class": 539,
-      "python_function": 3724,
+      "manifest": 13,
+      "python_class": 541,
+      "python_function": 3755,
       "python_method": 241,
-      "python_module": 700,
-      "schema": 173,
-      "test": 706,
-      "typescript_export": 453,
-      "typescript_or_javascript_module": 89
+      "python_module": 702,
+      "schema": 174,
+      "test": 707,
+      "typescript_export": 473,
+      "typescript_or_javascript_module": 94
     }
   },
   "edges": [
@@ -12111,6 +12111,12 @@
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:artifacts"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
       "inference": "sql_create_table_regex",
       "kind": "owns_table_definition",
       "to": "durable_table:assignments"
@@ -12120,6 +12126,18 @@
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
       "to": "durable_table:assignments"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:candidates"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:defects"
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
@@ -12168,6 +12186,12 @@
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
       "to": "durable_table:incidents"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:jobs"
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
@@ -12372,6 +12396,12 @@
       "inference": "curated_canonical_store_plus_embedded_migrations",
       "kind": "state_owner",
       "to": "durable_table:schema_migrations"
+    },
+    {
+      "from": "live_contentops/durable_operational_store_v1.py",
+      "inference": "curated_canonical_store_plus_embedded_migrations",
+      "kind": "state_owner",
+      "to": "durable_table:stages"
     },
     {
       "from": "live_contentops/durable_operational_store_v1.py",
@@ -17106,6 +17136,162 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_kill_switch_policy.py"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:artifacts"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:candidates"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:defects"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:jobs"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:stages"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeAuthorityLedger"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeExecutionProvenance"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::canonical_json"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::copy_governed_assets"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::logical_hash"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::measure_loudness"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::probe_media"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::read_json"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::sha256_file"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::timed_stage"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_audio_eligibility"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_creative_source"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_render_dependencies"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_semantics"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_visual_safety"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_json"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_srt"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::zero_public_write_manifest"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v2.creative_authority_hybrid.v1"
+    },
+    {
+      "from": "live_contentops/lane_b_creative_authority_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_lane_b_creative_authority_v1.py"
     },
     {
       "from": "live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -51302,6 +51488,24 @@
       "to": "python_symbol:live_contentops/kill_switch_policy.py::is_kill_switch_blocking_platform"
     },
     {
+      "from": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::copy_governed_assets",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::logical_hash",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_creative_source",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::sha256_file"
+    },
+    {
       "from": "python_symbol:live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py::build_contract_packet",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -65894,6 +66098,396 @@
       "to": "python_symbol:live_contentops/full_pipeline_north_star_debug_and_live_run_v0.py::run_full_pipeline_north_star_debug_and_live_run"
     },
     {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeAuthorityLedger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::read_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::zero_public_write_manifest"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::job_identity"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::job_identity",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::read_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::finalize"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::parse_args"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_motion"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_storyboard"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::repair_and_resume_evidence"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::review_artifacts"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::synthesize_and_mux"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeAuthorityLedger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeExecutionProvenance"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::copy_governed_assets"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::read_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_creative_source"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_render_dependencies"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_semantics"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_visual_safety"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_srt"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::zero_public_write_manifest"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::dependency_manifest"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::editorial_artifact"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::layout_report"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_motion",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeAuthorityLedger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_motion",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_motion",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_motion",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::job_identity"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_motion",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_one"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_one",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::read_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_one",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_one",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_one",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeAuthorityLedger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::job_identity"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_storyboard",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_one"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::repair_and_resume_evidence",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeAuthorityLedger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::repair_and_resume_evidence",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::repair_and_resume_evidence",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::repair_and_resume_evidence",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::job_identity"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::repair_and_resume_evidence",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_one"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::review_artifacts",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeAuthorityLedger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::review_artifacts",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::logical_hash"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::review_artifacts",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::review_artifacts",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::review_artifacts",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::job_identity"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::review_artifacts",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::run"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::synthesize_and_mux",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeAuthorityLedger"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::synthesize_and_mux",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::measure_loudness"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::synthesize_and_mux",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::synthesize_and_mux",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::synthesize_and_mux",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_audio_eligibility"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::synthesize_and_mux",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_json"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::synthesize_and_mux",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::job_identity"
+    },
+    {
+      "from": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::synthesize_and_mux",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::run"
+    },
+    {
       "from": "python_symbol:scripts/run_operator_approved_supervised_live_daily_run_v0.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -66522,6 +67116,102 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/run_full_pipeline_north_star_debug_and_live_run_v0.py::main"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::dependency_manifest"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::editorial_artifact"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::finalize"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::job_identity"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::layout_report"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::parse_args"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_motion"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_one"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_storyboard"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::repair_and_resume_evidence"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::review_artifacts"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::run"
+    },
+    {
+      "from": "scripts/run_lane_b_creative_authority_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::synthesize_and_mux"
     },
     {
       "from": "scripts/run_operator_approved_supervised_live_daily_run_v0.py",
@@ -68256,6 +68946,12 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/kill_switch_policy.py"
+    },
+    {
+      "from": "tests/test_lane_b_creative_authority_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/lane_b_creative_authority_v1.py"
     },
     {
       "from": "tests/test_lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -75972,6 +76668,150 @@
       "inference": "agents_directory_scope",
       "kind": "governs",
       "to": "directory:video"
+    },
+    {
+      "from": "video/creative_authority_v1/src/generated/architectureProof.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/generated/architectureProof.tsx::ArchitectureProofMidform"
+    },
+    {
+      "from": "video/creative_authority_v1/src/generated/architectureProof.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/generated/architectureProof.tsx::ArchitectureProofShort"
+    },
+    {
+      "from": "video/creative_authority_v1/src/generated/architectureProof.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/generated/architectureProof.tsx::MIDFORM_FRAMES"
+    },
+    {
+      "from": "video/creative_authority_v1/src/generated/architectureProof.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/generated/architectureProof.tsx::SHORT_FRAMES"
+    },
+    {
+      "from": "video/creative_authority_v1/src/generated/architectureProof.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/creative_authority_v1/src/lowLevel.tsx"
+    },
+    {
+      "from": "video/creative_authority_v1/src/generated/architectureProof.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/creative_authority_v1/src/root.tsx"
+    },
+    {
+      "from": "video/creative_authority_v1/src/index.ts",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/creative_authority_v1/src/root.tsx"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::BRAND"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::BrandBug"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::DarkFrame"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::DocumentaryImage"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::EditorialCaption"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::Eyebrow"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::GridTexture"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::NumberTag"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::Rule"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::SafeText"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::SceneIn"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::SourceAttribution"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::asset"
+    },
+    {
+      "from": "video/creative_authority_v1/src/lowLevel.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::clamp"
+    },
+    {
+      "from": "video/creative_authority_v1/src/root.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/root.tsx::ProofProps"
+    },
+    {
+      "from": "video/creative_authority_v1/src/root.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/creative_authority_v1/src/root.tsx::Root"
+    },
+    {
+      "from": "video/creative_authority_v1/src/root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/creative_authority_v1/src/generated/architectureProof.tsx"
     }
   ],
   "entrypoints": [
@@ -76078,7 +76918,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-14T09:41:06Z",
+  "generation_timestamp_utc": "2026-08-14T11:49:23Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -76111,7 +76951,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 13357
+      "size_bytes": 13766
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -76256,7 +77096,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 17952
+      "size_bytes": 18847
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -76266,22 +77106,22 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 11285
+      "size_bytes": 12252
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 30631
+      "size_bytes": 31479
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 31181
+      "size_bytes": 32079
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 18240
+      "size_bytes": 18982
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -76334,9 +77174,24 @@
       "table": "artifact_references"
     },
     {
+      "id": "durable_table:artifacts",
+      "kind": "durable_table",
+      "table": "artifacts"
+    },
+    {
       "id": "durable_table:assignments",
       "kind": "durable_table",
       "table": "assignments"
+    },
+    {
+      "id": "durable_table:candidates",
+      "kind": "durable_table",
+      "table": "candidates"
+    },
+    {
+      "id": "durable_table:defects",
+      "kind": "durable_table",
+      "table": "defects"
     },
     {
       "id": "durable_table:destination_readiness",
@@ -76362,6 +77217,11 @@
       "id": "durable_table:incidents",
       "kind": "durable_table",
       "table": "incidents"
+    },
+    {
+      "id": "durable_table:jobs",
+      "kind": "durable_table",
+      "table": "jobs"
     },
     {
       "id": "durable_table:learning_policy_versions",
@@ -76467,6 +77327,11 @@
       "id": "durable_table:schema_migrations",
       "kind": "durable_table",
       "table": "schema_migrations"
+    },
+    {
+      "id": "durable_table:stages",
+      "kind": "durable_table",
+      "table": "stages"
     },
     {
       "id": "durable_table:story_versions",
@@ -77933,6 +78798,11 @@
       "id": "live_contentops/kill_switch_policy.py",
       "kind": "python_module",
       "size_bytes": 11016
+    },
+    {
+      "id": "live_contentops/lane_b_creative_authority_v1.py",
+      "kind": "python_module",
+      "size_bytes": 27190
     },
     {
       "id": "live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -93354,6 +94224,132 @@
       "line": 243,
       "path": "live_contentops/kill_switch_policy.py",
       "symbol": "no_auto_retry_policy"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeAuthorityLedger",
+      "kind": "python_class",
+      "line": 157,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "CreativeAuthorityLedger"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::CreativeExecutionProvenance",
+      "kind": "python_class",
+      "line": 109,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "CreativeExecutionProvenance"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::canonical_json",
+      "kind": "python_function",
+      "line": 80,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "canonical_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::copy_governed_assets",
+      "kind": "python_function",
+      "line": 661,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "copy_governed_assets"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::logical_hash",
+      "kind": "python_function",
+      "line": 84,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "logical_hash"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::measure_loudness",
+      "kind": "python_function",
+      "line": 615,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "measure_loudness"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::probe_media",
+      "kind": "python_function",
+      "line": 605,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "probe_media"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::read_json",
+      "kind": "python_function",
+      "line": 96,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "read_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::sha256_file",
+      "kind": "python_function",
+      "line": 88,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "sha256_file"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::timed_stage",
+      "kind": "python_function",
+      "line": 679,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "timed_stage"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_audio_eligibility",
+      "kind": "python_function",
+      "line": 596,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "validate_audio_eligibility"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_creative_source",
+      "kind": "python_function",
+      "line": 431,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "validate_creative_source"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_render_dependencies",
+      "kind": "python_function",
+      "line": 513,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "validate_render_dependencies"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_semantics",
+      "kind": "python_function",
+      "line": 465,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "validate_semantics"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::validate_visual_safety",
+      "kind": "python_function",
+      "line": 574,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "validate_visual_safety"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_json",
+      "kind": "python_function",
+      "line": 103,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "write_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::write_srt",
+      "kind": "python_function",
+      "line": 632,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "write_srt"
+    },
+    {
+      "id": "python_symbol:live_contentops/lane_b_creative_authority_v1.py::zero_public_write_manifest",
+      "kind": "python_function",
+      "line": 648,
+      "path": "live_contentops/lane_b_creative_authority_v1.py",
+      "symbol": "zero_public_write_manifest"
     },
     {
       "id": "python_symbol:live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py::LaneCApprovalPacketToPlatformPreviewPrecheckPacket",
@@ -111367,6 +112363,111 @@
       "symbol": "main"
     },
     {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::dependency_manifest",
+      "kind": "python_function",
+      "line": 139,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "dependency_manifest"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::editorial_artifact",
+      "kind": "python_function",
+      "line": 80,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "editorial_artifact"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::finalize",
+      "kind": "python_function",
+      "line": 485,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "finalize"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::job_identity",
+      "kind": "python_function",
+      "line": 184,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "job_identity"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::layout_report",
+      "kind": "python_function",
+      "line": 171,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "layout_report"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::main",
+      "kind": "python_function",
+      "line": 562,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::parse_args",
+      "kind": "python_function",
+      "line": 552,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "parse_args"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::prepare",
+      "kind": "python_function",
+      "line": 188,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "prepare"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_motion",
+      "kind": "python_function",
+      "line": 280,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "render_motion"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_one",
+      "kind": "python_function",
+      "line": 249,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "render_one"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::render_storyboard",
+      "kind": "python_function",
+      "line": 259,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "render_storyboard"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::repair_and_resume_evidence",
+      "kind": "python_function",
+      "line": 331,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "repair_and_resume_evidence"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::review_artifacts",
+      "kind": "python_function",
+      "line": 300,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "review_artifacts"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::run",
+      "kind": "python_function",
+      "line": 177,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "run"
+    },
+    {
+      "id": "python_symbol:scripts/run_lane_b_creative_authority_v1.py::synthesize_and_mux",
+      "kind": "python_function",
+      "line": 451,
+      "path": "scripts/run_lane_b_creative_authority_v1.py",
+      "symbol": "synthesize_and_mux"
+    },
+    {
       "id": "python_symbol:scripts/run_operator_approved_supervised_live_daily_run_v0.py::main",
       "kind": "python_function",
       "line": 18,
@@ -112098,6 +113199,11 @@
       "schema_id": "contentops.universal_news_claim.v2"
     },
     {
+      "id": "schema:contentops.v2.creative_authority_hybrid.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v2.creative_authority_hybrid.v1"
+    },
+    {
       "id": "schema:contentops.v5_ui_source_epoch.v1",
       "kind": "schema",
       "schema_id": "contentops.v5_ui_source_epoch.v1"
@@ -112431,6 +113537,11 @@
       "id": "scripts/run_full_pipeline_north_star_debug_and_live_run_v0.py",
       "kind": "python_module",
       "size_bytes": 2791
+    },
+    {
+      "id": "scripts/run_lane_b_creative_authority_v1.py",
+      "kind": "python_module",
+      "size_bytes": 39491
     },
     {
       "id": "scripts/run_operator_approved_supervised_live_daily_run_v0.py",
@@ -113801,6 +114912,11 @@
       "id": "tests/test_kill_switch_policy.py",
       "kind": "test",
       "size_bytes": 2641
+    },
+    {
+      "id": "tests/test_lane_b_creative_authority_v1.py",
+      "kind": "test",
+      "size_bytes": 9595
     },
     {
       "id": "tests/test_lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -119014,6 +120130,146 @@
       "symbol": "WriterStudio"
     },
     {
+      "id": "typescript_export:video/creative_authority_v1/src/generated/architectureProof.tsx::ArchitectureProofMidform",
+      "kind": "typescript_export",
+      "line": 553,
+      "path": "video/creative_authority_v1/src/generated/architectureProof.tsx",
+      "symbol": "ArchitectureProofMidform"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/generated/architectureProof.tsx::ArchitectureProofShort",
+      "kind": "typescript_export",
+      "line": 318,
+      "path": "video/creative_authority_v1/src/generated/architectureProof.tsx",
+      "symbol": "ArchitectureProofShort"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/generated/architectureProof.tsx::MIDFORM_FRAMES",
+      "kind": "typescript_export",
+      "line": 552,
+      "path": "video/creative_authority_v1/src/generated/architectureProof.tsx",
+      "symbol": "MIDFORM_FRAMES"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/generated/architectureProof.tsx::SHORT_FRAMES",
+      "kind": "typescript_export",
+      "line": 317,
+      "path": "video/creative_authority_v1/src/generated/architectureProof.tsx",
+      "symbol": "SHORT_FRAMES"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::BRAND",
+      "kind": "typescript_export",
+      "line": 11,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "BRAND"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::BrandBug",
+      "kind": "typescript_export",
+      "line": 185,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "BrandBug"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::DarkFrame",
+      "kind": "typescript_export",
+      "line": 203,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "DarkFrame"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::DocumentaryImage",
+      "kind": "typescript_export",
+      "line": 142,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "DocumentaryImage"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::EditorialCaption",
+      "kind": "typescript_export",
+      "line": 114,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "EditorialCaption"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::Eyebrow",
+      "kind": "typescript_export",
+      "line": 67,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "Eyebrow"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::GridTexture",
+      "kind": "typescript_export",
+      "line": 246,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "GridTexture"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::NumberTag",
+      "kind": "typescript_export",
+      "line": 225,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "NumberTag"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::Rule",
+      "kind": "typescript_export",
+      "line": 221,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "Rule"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::SafeText",
+      "kind": "typescript_export",
+      "line": 28,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "SafeText"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::SceneIn",
+      "kind": "typescript_export",
+      "line": 169,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "SceneIn"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::SourceAttribution",
+      "kind": "typescript_export",
+      "line": 87,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "SourceAttribution"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::asset",
+      "kind": "typescript_export",
+      "line": 26,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "asset"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/lowLevel.tsx::clamp",
+      "kind": "typescript_export",
+      "line": 21,
+      "path": "video/creative_authority_v1/src/lowLevel.tsx",
+      "symbol": "clamp"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/root.tsx::ProofProps",
+      "kind": "typescript_export",
+      "line": 9,
+      "path": "video/creative_authority_v1/src/root.tsx",
+      "symbol": "ProofProps"
+    },
+    {
+      "id": "typescript_export:video/creative_authority_v1/src/root.tsx::Root",
+      "kind": "typescript_export",
+      "line": 21,
+      "path": "video/creative_authority_v1/src/root.tsx",
+      "symbol": "Root"
+    },
+    {
       "id": "ui/contentops_v5/AGENTS.md",
       "kind": "instructions",
       "size_bytes": 1697
@@ -119637,6 +120893,41 @@
       "id": "video/AGENTS.md",
       "kind": "instructions",
       "size_bytes": 7813
+    },
+    {
+      "id": "video/creative_authority_v1/package.json",
+      "kind": "manifest",
+      "size_bytes": 476
+    },
+    {
+      "id": "video/creative_authority_v1/scripts/render.mjs",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 2328
+    },
+    {
+      "id": "video/creative_authority_v1/src/generated/architectureProof.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 37938
+    },
+    {
+      "id": "video/creative_authority_v1/src/index.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 89
+    },
+    {
+      "id": "video/creative_authority_v1/src/lowLevel.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 6413
+    },
+    {
+      "id": "video/creative_authority_v1/src/root.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 971
+    },
+    {
+      "id": "video/creative_authority_v1/tsconfig.json",
+      "kind": "manifest",
+      "size_bytes": 278
     }
   ],
   "protected_boundaries": [
@@ -119702,6 +120993,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "9f6f670601e7e1f85bf7f1124a1f9d8aab5e22c7",
-  "source_tree_digest": "6c079d3459d4cb336956a7a783d7633b6e1b8a23ea4be24876b9f1b290da02cd"
+  "source_head": "c4fe1e5bc12ff13cf09c9d9152bfe6414d7bdd09",
+  "source_tree_digest": "45402b59fedd5d276a8fcddbc8640064ec913228eb73bccaa4093de1232255f0"
 }

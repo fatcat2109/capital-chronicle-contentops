@@ -4,6 +4,12 @@ Authority date: 2026-08-14
 Status: `CURRENT_OWNER_DECISION / CANONICAL_V2_PRODUCT_DIRECTION`
 Owner: Jim
 
+## 2026-08-14 owner correction to the implementation boundary
+
+The initial H1 fixed-renderer implementation is a negative architecture reference. It assigned deterministic infrastructure viewer-facing composition authority and reduced Codex to parameter generation, which is not the approved Lane B Hybrid. Corrected Hybrid means: fresh Codex authors the viewer-facing creative source and performs bounded actual-media review/repair; deterministic local infrastructure supplies governed inputs, a source sandbox and low-level safe toolkit, executes tools, enforces truth/rights/layout/audio/media safety, persists recovery evidence, and owns publication boundaries. The current proof is `ARCHITECTURE_PROOF_ONLY`; it does not select a Codex mode or authorize H1-C/V2-02.
+
+`MAX` is a future candidate only, not a current-task mode, and must be rediscovered before any owner-authorized bakeoff.
+
 > This document records the owner-level product decision reached after direct review of the authentic Lane A and Lane B short/midform masters, GitHub verification of the A/B implementation branch, and review of the builder execution history. It exists so that future ChatGPT sessions, Codex sessions, local workers, and worktrees do not lose the decisive context that previously lived only in chat.
 
 ## 1. Decision in one sentence

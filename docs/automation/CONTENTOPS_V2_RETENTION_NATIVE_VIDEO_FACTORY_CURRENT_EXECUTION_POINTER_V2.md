@@ -5,6 +5,14 @@ Status: `CURRENT_V2_EXECUTION_POINTER`
 Product direction: `LANE_B_HYBRID`
 Codex mode state: `OWNER_BAKEOFF_REQUIRED / NO_CANONICAL_MODE_SELECTED`
 
+# Immediate owner override
+
+Active task: `TASK_CONTENTOPS_V2_CODEX_CREATIVE_AUTHORITY_RESTORE_AND_VISUAL_REPAIR_LOOP_V1`.
+
+The previous fixed-renderer H1 result is a negative architecture reference, not the shared engine for an immediate mode bakeoff. The current task restores Codex viewer-facing source authorship plus bounded actual-media repair while retaining deterministic truth, sandbox, rights, tool execution, QA, recovery, and publication boundaries. Produce `ARCHITECTURE_PROOF_ONLY` short and midform masters, stop at `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`, and await Jim + ChatGPT. Do not run the mode bakeoff, select a mode, begin H1-C, or start V2-02. Any future bakeoff must compare separate fresh Codex-authored creative-source outputs under constant governed inputs and deterministic constraints.
+
+`MAX` remains an unverified future candidate subject to non-secret identifier/availability rediscovery; do not test it in this task.
+
 # Canonical V2 read order
 
 Fresh ChatGPT/Codex sessions working on V2 should read, in order:

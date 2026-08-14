@@ -83,7 +83,7 @@ Owner-specified bakeoff labels:
 
 The builder must discover and record the exact supported local Codex mode/config identifiers non-secretly. Do not guess identifiers and do not expose session/auth material.
 
-H1 must make the Codex execution seam mode-selectable and run a fair controlled media bakeoff using the same immutable story/evidence input and the same deterministic Hybrid engine.
+A future corrected bakeoff must make the Codex execution seam mode-selectable and compare fresh Codex-authored creative-source outputs using the same immutable story/evidence input and the same deterministic safety/tooling boundary. The current architecture-proof task must not run that bakeoff.
 
 Preferred first owner comparison:
 
@@ -101,22 +101,15 @@ Valid eventual policy may be one default mode or a tiered policy such as daily/d
 
 The builder may not self-advance through this owner mode gate.
 
+`MAX` is not authorized in the current task; it remains only a future candidate whose exact local identifier and availability must be rediscovered non-secretly if Jim later requests it.
+
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
+`TASK_CONTENTOPS_V2_CODEX_CREATIVE_AUTHORITY_RESTORE_AND_VISUAL_REPAIR_LOOP_V1`
 
-The task now has three bounded stages:
+This bounded correction task restores the intended Hybrid boundary after the prior H1 fixed-renderer approach proved a negative creative reference. Codex owns viewer-facing creative authorship and actual-media visual review; local infrastructure owns governed truth/evidence, source sandboxing, rights, deterministic tools, rendering, QA, recovery, and zero-public-write enforcement. The task session itself is the architecture-proof author. Its media is `ARCHITECTURE_PROOF_ONLY`; the Codex mode policy remains unselected; no mode bakeoff or H1-C auto-advance is authorized.
 
-- `H1-A`: shared Hybrid engine sufficient for fair mode comparison;
-- `H1-B`: HIGH/XHIGH/ULTRA short-form actual-media bakeoff;
-- `OWNER MODE GATE`: Jim + ChatGPT choose mode policy;
-- `H1-C`: finish the full Hybrid vertical slice using the owner-selected mode policy.
-
-Required H1-B result before owner mode review:
-
-`PASS_CODEX_MODE_BAKEOFF_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
-
-Required H1-C implementation result before final owner review:
+Maximum implementation result before Jim + ChatGPT review:
 
 `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
 

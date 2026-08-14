@@ -7,6 +7,12 @@ Companion North Star: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V
 Owner decision: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 Codex mode override: `CONTENTOPS_V2_CODEX_56_SOL_MODE_BAKEOFF_OWNER_OVERRIDE_V1.md`
 
+## 2026-08-14 current-task override
+
+The active task is `TASK_CONTENTOPS_V2_CODEX_CREATIVE_AUTHORITY_RESTORE_AND_VISUAL_REPAIR_LOOP_V1`. It replaces the immediate H1-A/H1-B sequence because the fixed-renderer H1 implementation failed the creative-authority boundary. Required order is now: corrected Creative-Authority Hybrid architecture proof -> Jim + ChatGPT actual-media review -> separately authorized corrected bakeoff, if requested -> owner mode gate -> H1-C. The current task must not run HIGH/XHIGH/ULTRA, select a mode, begin H1-C, or start V2-02. Its maximum result is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`.
+
+`MAX` remains a future, unverified candidate subject to rediscovery; it is not an implicit fourth run.
+
 # 1. Current position
 
 The controlled A/B creative proof is complete enough to route the product.

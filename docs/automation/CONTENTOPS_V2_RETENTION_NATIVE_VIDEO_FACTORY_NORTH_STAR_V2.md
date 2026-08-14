@@ -6,6 +6,12 @@ Status: `CURRENT_CANONICAL_V2_PRODUCT_CONSTITUTION`
 Supersedes: all prior V2 North Star directions where they conflict, including the prior model-centric `NineRouterGPT56Brain`-default direction.
 Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
+## 2026-08-14 creative-authority correction
+
+The prior H1 fixed-renderer implementation is a negative architecture reference: it preserved control-plane safety but collapsed Codex into parameter generation for a generic compositor. The corrected Hybrid boundary makes fresh Codex execution the author of viewer-facing creative source and the actual-media visual reviewer. Deterministic local infrastructure remains authoritative for truth/evidence, source sandboxing, rights, tool execution, rendering, QA, recovery, and publication safety. Current proof media is `ARCHITECTURE_PROOF_ONLY`; the mode policy remains unselected. A future mode bakeoff must compare genuinely separate Codex-authored source outputs, and neither H1-C nor V2-02 may auto-advance.
+
+`MAX` is a future candidate only and requires fresh non-secret capability/identifier discovery before any separately authorized comparison.
+
 # 1. Mission
 
 Capital Chronicle ContentOps V2 exists to turn the strongest Capital Chronicle journalism and analysis into **institutional-grade, retention-native financial video** that is useful enough for sophisticated viewers, clear enough for a cold audience, visually strong enough to build a premium media brand, and automated enough to operate repeatedly at bounded cost.

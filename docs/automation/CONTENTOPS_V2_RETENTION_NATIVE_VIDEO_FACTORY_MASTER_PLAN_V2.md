@@ -6,6 +6,12 @@ Plan status: `CURRENT_CANONICAL_V2_EXECUTION_PLAN`
 Companion constitution: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
+## 2026-08-14 execution correction
+
+Do not implement Hybrid as “Codex emits fields, fixed renderer decides the video.” That H1 interpretation is a negative reference. The durable engine supplies governed evidence, a constrained creative-source sandbox, low-level safe primitives, tools, rights, layout/audio/media QA, recovery, and zero-public-write enforcement; a fresh Codex job authors the viewer-facing source, composition, timing, hierarchy, motion, and localized repair. The current task proves that boundary with `ARCHITECTURE_PROOF_ONLY` media and stops at `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. Mode selection and a corrected source-authorship bakeoff remain future owner-gated work.
+
+`MAX` is not part of this proof; treat it only as a future candidate subject to non-secret rediscovery and explicit authorization.
+
 # 0. Executive summary
 
 Capital Chronicle V2 will be completed as a **Lane B Hybrid** system.

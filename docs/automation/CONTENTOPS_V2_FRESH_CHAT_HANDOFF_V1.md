@@ -5,6 +5,12 @@ Status: `CURRENT_V2_FRESH_SESSION_HANDOFF`
 Product direction: `LANE_B_HYBRID`
 Codex mode state: `OWNER_BAKEOFF_REQUIRED / NO_CANONICAL_MODE_SELECTED`
 
+## 2026-08-14 immediate handoff correction
+
+The active task is `TASK_CONTENTOPS_V2_CODEX_CREATIVE_AUTHORITY_RESTORE_AND_VISUAL_REPAIR_LOOP_V1`, not the stale fixed-renderer H1-A/H1-B sequence below. Fixed-renderer H1 is a negative architecture reference. Corrected Hybrid assigns viewer-facing creative-source authorship and bounded actual-media review/repair to fresh Codex execution, while local deterministic infrastructure retains governed truth/evidence, source sandboxing, rights, tool execution, QA/recovery, rendering, and publication safety. Current outputs are `ARCHITECTURE_PROOF_ONLY`; mode policy remains unselected. Stop at `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. Do not run a bakeoff, self-select a mode, enter H1-C, or start V2-02 without a later owner instruction.
+
+`MAX` is a future candidate subject to rediscovery, not authorized work for the current task.
+
 Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or the owner's chat history.
 
 Repository-state authority is always fresh GitHub refs/commits/diffs/exact bytes. Jim's latest explicit instruction is product-direction authority. Fetch current `master` and relevant task branch before acting; SHAs in this handoff are historical clues only.
