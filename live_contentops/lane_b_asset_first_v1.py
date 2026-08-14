@@ -343,8 +343,8 @@ def validate_audio_provider(provider: str) -> dict[str, Any]:
 
 
 def probe_media(path: Path) -> dict[str, Any]:
-    command = ["ffprobe", "-v", "error", "-show_entries", "format=duration,format_name,size", "-show_entries",
-               "stream=index,codec_type,codec_name,width,height,avg_frame_rate", "-of", "json", str(path)]
+    command = ["ffprobe", "-v", "error", "-show_entries", "format=duration,format_name,size,bit_rate", "-show_entries",
+               "stream=index,codec_type,codec_name,width,height,avg_frame_rate,pix_fmt,color_range,color_space,color_transfer,color_primaries,bit_rate", "-of", "json", str(path)]
     completed = subprocess.run(command, check=True, capture_output=True, text=True)
     return json.loads(completed.stdout)
 

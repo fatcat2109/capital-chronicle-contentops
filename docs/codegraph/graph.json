@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 13033,
+    "edges": 13086,
     "entrypoints": 14,
-    "nodes": 6875,
+    "nodes": 6896,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
@@ -32,14 +32,14 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 15,
-      "python_class": 542,
-      "python_function": 3822,
+      "python_class": 544,
+      "python_function": 3833,
       "python_method": 241,
-      "python_module": 706,
+      "python_module": 708,
       "schema": 173,
-      "test": 708,
-      "typescript_export": 480,
-      "typescript_or_javascript_module": 98
+      "test": 709,
+      "typescript_export": 484,
+      "typescript_or_javascript_module": 99
     }
   },
   "edges": [
@@ -35072,6 +35072,78 @@
       "to": "tests/test_server.py"
     },
     {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:artifacts"
+    },
+    {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:jobs"
+    },
+    {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "sql_create_table_regex",
+      "kind": "owns_table_definition",
+      "to": "durable_table:stages"
+    },
+    {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::AudioBackend"
+    },
+    {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::AudioBackend"
+    },
+    {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::FormatAudioLedger"
+    },
+    {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::build_missing_segment_request"
+    },
+    {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::segment_cache_key"
+    },
+    {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::validate_format_contract"
+    },
+    {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::validate_zero_write"
+    },
+    {
+      "from": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_short_longform_low_cost_audio_v1.py"
+    },
+    {
       "from": "live_contentops/social_account_binding_model.py",
       "inference": "python_ast_definition",
       "kind": "defines",
@@ -63062,6 +63134,18 @@
       "to": "python_symbol:live_contentops/server.py::make_handler"
     },
     {
+      "from": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::build_missing_segment_request",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::segment_cache_key"
+    },
+    {
+      "from": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::segment_cache_key",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::logical_hash"
+    },
+    {
       "from": "python_symbol:live_contentops/social_account_binding_model.py::build_packet",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -67694,6 +67778,150 @@
       "to": "python_symbol:scripts/run_v2_breaking_news_crisp_v1.py::run"
     },
     {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::measure_loudness"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::build_missing_segment_request"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::author",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::author",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::validate_format_contract"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::author",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::lock_evidence"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::measure_loudness"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::build_missing_segment_request"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::finalize",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::validate_zero_write"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::lock_evidence",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::FormatAudioLedger"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::audio"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::author"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::finalize"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::remaster_audio"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::render"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::remaster_audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::measure_loudness"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::remaster_audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::remaster_audio",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::render",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::measure_loudness"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::render",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::render",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/lane_b_asset_first_v1.py::sha256_file"
+    },
+    {
       "from": "python_symbol:scripts/validate_v2_breaking_news_owner_repair_v2.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -68646,6 +68874,54 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/run_v2_breaking_news_crisp_v1.py::srt_time"
+    },
+    {
+      "from": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::audio"
+    },
+    {
+      "from": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::author"
+    },
+    {
+      "from": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::finalize"
+    },
+    {
+      "from": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::lock_evidence"
+    },
+    {
+      "from": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::main"
+    },
+    {
+      "from": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::main"
+    },
+    {
+      "from": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::remaster_audio"
+    },
+    {
+      "from": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::render"
     },
     {
       "from": "scripts/validate_v2_breaking_news_owner_repair_v2.py",
@@ -72132,6 +72408,12 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/server.py"
+    },
+    {
+      "from": "tests/test_short_longform_low_cost_audio_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/short_longform_low_cost_audio_v1.py"
     },
     {
       "from": "tests/test_social_credential_setup_workbench.py",
@@ -78080,6 +78362,36 @@
       "to": "video/asset_first_v1/src/lowLevel.tsx"
     },
     {
+      "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::PositioningProps"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::PositioningScene"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TreasuryPositioningLongform"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TreasuryPositioningShort"
+    },
+    {
+      "from": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/asset_first_v1/src/lowLevel.tsx"
+    },
+    {
       "from": "video/asset_first_v1/src/index.ts",
       "inference": "typescript_relative_import_regex",
       "kind": "imports",
@@ -78198,6 +78510,12 @@
       "inference": "typescript_relative_import_regex",
       "kind": "imports",
       "to": "video/asset_first_v1/src/generated/assetFirstTreasury.tsx"
+    },
+    {
+      "from": "video/asset_first_v1/src/root.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "video/asset_first_v1/src/generated/treasuryPositioning.tsx"
     },
     {
       "from": "video/breaking_news_v1/src/generated/retailBreaking.tsx",
@@ -78346,7 +78664,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-14T13:56:00Z",
+  "generation_timestamp_utc": "2026-08-14T18:24:48Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -78379,7 +78697,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 19348
+      "size_bytes": 18996
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -78524,7 +78842,7 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 20347
+      "size_bytes": 21026
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md",
@@ -78534,22 +78852,22 @@
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 12542
+      "size_bytes": 13293
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 30631
+      "size_bytes": 31073
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 31181
+      "size_bytes": 31766
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md",
       "kind": "authority_doc",
-      "size_bytes": 17971
+      "size_bytes": 18415
     },
     {
       "id": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
@@ -79065,7 +79383,7 @@
     {
       "id": "live_contentops/breaking_news_crisp_v1.py",
       "kind": "python_module",
-      "size_bytes": 19258
+      "size_bytes": 19679
     },
     {
       "id": "live_contentops/browser_compose_qa_v6.py",
@@ -80230,7 +80548,7 @@
     {
       "id": "live_contentops/lane_b_asset_first_v1.py",
       "kind": "python_module",
-      "size_bytes": 22005
+      "size_bytes": 22084
     },
     {
       "id": "live_contentops/lane_c_approval_packet_to_platform_preview_precheck_contract.py",
@@ -81235,7 +81553,7 @@
     {
       "id": "live_contentops/primary_document_compiler_v2.py",
       "kind": "python_module",
-      "size_bytes": 10850
+      "size_bytes": 11081
     },
     {
       "id": "live_contentops/primary_payload_classes_contract.py",
@@ -81716,6 +82034,11 @@
       "id": "live_contentops/server.py",
       "kind": "python_module",
       "size_bytes": 16687
+    },
+    {
+      "id": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "kind": "python_module",
+      "size_bytes": 7974
     },
     {
       "id": "live_contentops/social_account_binding_model.py",
@@ -110303,6 +110626,48 @@
       "symbol": "run_server"
     },
     {
+      "id": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::AudioBackend",
+      "kind": "python_class",
+      "line": 30,
+      "path": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "symbol": "AudioBackend"
+    },
+    {
+      "id": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::FormatAudioLedger",
+      "kind": "python_class",
+      "line": 54,
+      "path": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "symbol": "FormatAudioLedger"
+    },
+    {
+      "id": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::build_missing_segment_request",
+      "kind": "python_function",
+      "line": 111,
+      "path": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "symbol": "build_missing_segment_request"
+    },
+    {
+      "id": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::segment_cache_key",
+      "kind": "python_function",
+      "line": 106,
+      "path": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "symbol": "segment_cache_key"
+    },
+    {
+      "id": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::validate_format_contract",
+      "kind": "python_function",
+      "line": 126,
+      "path": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "symbol": "validate_format_contract"
+    },
+    {
+      "id": "python_symbol:live_contentops/short_longform_low_cost_audio_v1.py::validate_zero_write",
+      "kind": "python_function",
+      "line": 141,
+      "path": "live_contentops/short_longform_low_cost_audio_v1.py",
+      "symbol": "validate_zero_write"
+    },
+    {
       "id": "python_symbol:live_contentops/social_account_binding_model.py::BindingStatus",
       "kind": "python_class",
       "line": 65,
@@ -114405,6 +114770,55 @@
       "symbol": "srt_time"
     },
     {
+      "id": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::audio",
+      "kind": "python_function",
+      "line": 133,
+      "path": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "symbol": "audio"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::author",
+      "kind": "python_function",
+      "line": 100,
+      "path": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "symbol": "author"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::finalize",
+      "kind": "python_function",
+      "line": 227,
+      "path": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "symbol": "finalize"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::lock_evidence",
+      "kind": "python_function",
+      "line": 86,
+      "path": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "symbol": "lock_evidence"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::main",
+      "kind": "python_function",
+      "line": 247,
+      "path": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::remaster_audio",
+      "kind": "python_function",
+      "line": 214,
+      "path": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "symbol": "remaster_audio"
+    },
+    {
+      "id": "python_symbol:scripts/run_v2_short_longform_low_cost_audio_v1.py::render",
+      "kind": "python_function",
+      "line": 195,
+      "path": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "symbol": "render"
+    },
+    {
       "id": "python_symbol:scripts/validate_v2_breaking_news_owner_repair_v2.py::main",
       "kind": "python_function",
       "line": 122,
@@ -115485,12 +115899,17 @@
     {
       "id": "scripts/run_v2_breaking_news_crisp_v1.py",
       "kind": "python_module",
-      "size_bytes": 52385
+      "size_bytes": 53096
+    },
+    {
+      "id": "scripts/run_v2_short_longform_low_cost_audio_v1.py",
+      "kind": "python_module",
+      "size_bytes": 39874
     },
     {
       "id": "scripts/validate_v2_breaking_news_owner_repair_v2.py",
       "kind": "python_module",
-      "size_bytes": 5409
+      "size_bytes": 5541
     },
     {
       "id": "tests/AGENTS.md",
@@ -115695,7 +116114,7 @@
     {
       "id": "tests/test_breaking_news_crisp_v1.py",
       "kind": "test",
-      "size_bytes": 9398
+      "size_bytes": 9570
     },
     {
       "id": "tests/test_browser_compose_qa_v6.py",
@@ -118391,6 +118810,11 @@
       "id": "tests/test_server.py",
       "kind": "test",
       "size_bytes": 2087
+    },
+    {
+      "id": "tests/test_short_longform_low_cost_audio_v1.py",
+      "kind": "test",
+      "size_bytes": 7388
     },
     {
       "id": "tests/test_social_account_binding_model_and_fake_provider_contract.py",
@@ -122077,6 +122501,34 @@
       "symbol": "SHORT_FRAMES"
     },
     {
+      "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::PositioningProps",
+      "kind": "typescript_export",
+      "line": 7,
+      "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "symbol": "PositioningProps"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::PositioningScene",
+      "kind": "typescript_export",
+      "line": 5,
+      "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "symbol": "PositioningScene"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TreasuryPositioningLongform",
+      "kind": "typescript_export",
+      "line": 52,
+      "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "symbol": "TreasuryPositioningLongform"
+    },
+    {
+      "id": "typescript_export:video/asset_first_v1/src/generated/treasuryPositioning.tsx::TreasuryPositioningShort",
+      "kind": "typescript_export",
+      "line": 50,
+      "path": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "symbol": "TreasuryPositioningShort"
+    },
+    {
       "id": "typescript_export:video/asset_first_v1/src/lowLevel.tsx::BRAND",
       "kind": "typescript_export",
       "line": 3,
@@ -122191,14 +122643,14 @@
     {
       "id": "typescript_export:video/asset_first_v1/src/root.tsx::ProofProps",
       "kind": "typescript_export",
-      "line": 4,
+      "line": 5,
       "path": "video/asset_first_v1/src/root.tsx",
       "symbol": "ProofProps"
     },
     {
       "id": "typescript_export:video/asset_first_v1/src/root.tsx::Root",
       "kind": "typescript_export",
-      "line": 7,
+      "line": 8,
       "path": "video/asset_first_v1/src/root.tsx",
       "symbol": "Root"
     },
@@ -122878,6 +123330,11 @@
       "size_bytes": 19593
     },
     {
+      "id": "video/asset_first_v1/src/generated/treasuryPositioning.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 9190
+    },
+    {
       "id": "video/asset_first_v1/src/index.ts",
       "kind": "typescript_or_javascript_module",
       "size_bytes": 91
@@ -122890,7 +123347,7 @@
     {
       "id": "video/asset_first_v1/src/root.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 832
+      "size_bytes": 1730
     },
     {
       "id": "video/asset_first_v1/tsconfig.json",
@@ -122905,22 +123362,22 @@
     {
       "id": "video/breaking_news_v1/scripts/render.mjs",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 2373
+      "size_bytes": 2390
     },
     {
       "id": "video/breaking_news_v1/src/generated/retailBreaking.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 15648
+      "size_bytes": 15897
     },
     {
       "id": "video/breaking_news_v1/src/index.ts",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 88
+      "size_bytes": 91
     },
     {
       "id": "video/breaking_news_v1/src/root.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 618
+      "size_bytes": 637
     },
     {
       "id": "video/breaking_news_v1/tsconfig.json",
@@ -122991,6 +123448,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "cfaa504bcbccce454f90016e5b79417a509e435d",
-  "source_tree_digest": "0fb30f0e3f96c6b162ac1bfc34a403ae1b6c055b7241dce015823920e4447adc"
+  "source_head": "edec326e62576db0278b05a3eb41bcb2286be6c5",
+  "source_tree_digest": "012d6db259f02f34bdcb1442e35d24c9e002b70366069cb70abe2a1cb792254f"
 }

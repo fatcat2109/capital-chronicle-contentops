@@ -6,6 +6,8 @@ Status: `CURRENT_CANONICAL_V2_PRODUCT_CONSTITUTION`
 Supersedes: all prior V2 North Star directions where they conflict, including the prior model-centric `NineRouterGPT56Brain`-default direction.
 Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
+Current format/audio overlay (2026-08-15): canonical outputs are an independently authored `30–60s` native `9:16` short and an independently authored `5–45m` native `16:9` longform. The earlier approximately two-minute `midform` is historical proof terminology, not the final product. `BUILD_TTS != PUBLICATION_TTS`: Kokoro is the local build baseline; Parler is a local challenger; Chatterbox is conditional/no-cloning; ElevenLabs is optional premium finalization only after owner authorization; SAPI and non-commercial F5 pretrained weights are excluded from owner/public media.
+
 # 1. Mission
 
 Capital Chronicle ContentOps V2 exists to turn the strongest Capital Chronicle journalism and analysis into **institutional-grade, retention-native financial video** that is useful enough for sophisticated viewers, clear enough for a cold audience, visually strong enough to build a premium media brand, and automated enough to operate repeatedly at bounded cost.

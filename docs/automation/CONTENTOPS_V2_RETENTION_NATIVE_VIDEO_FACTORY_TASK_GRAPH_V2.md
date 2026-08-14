@@ -6,6 +6,8 @@ Companion plan: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 Companion North Star: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 Owner decision: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
+Current task overlay (2026-08-15): `TASK_CONTENTOPS_V2_SHORT_LONGFORM_LOW_COST_AUDIO_VERTICAL_SLICE_V1` has reached `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. Actual 56.739s native short and 559.300s native longform media, local build-audio auditions, cache/resume/selective-render evidence, and safety receipts await owner review. No mode bakeoff or V2-02 begins until Jim/ChatGPT accepts the substrate.
+
 # 1. Current position
 
 The controlled A/B and subsequent architecture-recovery proofs establish the following durable product conclusions:

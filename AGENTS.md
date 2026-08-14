@@ -103,21 +103,13 @@ The HIGH/XHIGH/ULTRA executions in that bakeoff are useful execution/editorial e
 
 ### Current exact V2 task
 
-`TASK_CONTENTOPS_V2_BREAKING_NEWS_OWNER_DEFECT_REPAIR_V2`
+`TASK_CONTENTOPS_V2_SHORT_LONGFORM_LOW_COST_AUDIO_VERTICAL_SLICE_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction.
+The implementation result is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. It produced an independently authored 56.739s native 9:16 short and 559.300s native 16:9 longform from a fresh governed CFTC Treasury-positioning story, using immutable semantic-segment local Kokoro build audio at zero marginal API-credit cost. Jim/ChatGPT must review both MP4s and the Kokoro/Chatterbox audition artifacts; this is not public or voice acceptance.
 
-The task must produce actual owner-review media. Infrastructure-only completion is not PASS.
+Canonical formats are `SHORT` (`30–60s`) and `LONGFORM` (`5–45m`). Approximately two-minute `midform` is historical proof terminology only. `BUILD_TTS != PUBLICATION_TTS`: Kokoro is the current local build baseline; Parler is a local challenger; Chatterbox is conditional with no unauthorized cloning; ElevenLabs is premium-final only after explicit owner authority; SAPI is forbidden for owner media.
 
-The QH1 Asset-First proof completed and supplied the implementation substrate, but owner review did not accept its media as the public bar. Breaking Retail V1 then proved the crisp 4K/1080 path, brighter breaking-news material direction, and ElevenLabs integration, while failing owner acceptance on document annotation geometry, voice identity/prosody, temporal micro-editing, and repository durability.
-
-The current bounded repair preserves the same Retail Sales truth packet and Creative-Authority Hybrid. Its maximum result is `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`; Jim/ChatGPT must review the actual corrected MP4s. MAX/ULTRA, HeyGen, rights-governed authority footage expansion, V2-02, and every video public write remain deferred.
-
-Canonical repair path:
-
-`QH1 accepted implementation lineage -> exact Breaking Retail V1 import -> measured primary-document compiler -> bounded ElevenLabs identity search -> semantic-segment TTS -> micro-edit pass -> 4K/1080 crisp render -> deterministic QA -> Jim/ChatGPT review`
-
-Do not change story, run a reasoning-mode bakeoff, start V2-02, add HeyGen, upload media, or mutate V1 in this repair.
+Do not run a mode bakeoff, start V2-02, upload/publish media, enable premium TTS, or mutate V1 before the owner gate.
 
 ### Current dominant V2 quality blockers
 

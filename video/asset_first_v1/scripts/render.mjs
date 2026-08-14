@@ -13,6 +13,6 @@ const batch=stillFrames?stillFrames.split(',').map(Number):[];
 const outputPaths=[];
 if(batch.length){fs.mkdirSync(output,{recursive:true});for(const frame of batch){const target=path.join(output,`frame_${String(frame).padStart(4,'0')}.png`);await renderStill({serveUrl,composition,frame,imageFormat:'png',scale,output:target,inputProps});outputPaths.push(target)}}
 else if(stillFrame!==null){await renderStill({serveUrl,composition,frame:Number(stillFrame),imageFormat:'png',scale,output,inputProps});outputPaths.push(output)}
-else{await renderMedia({serveUrl,composition,codec:'h264',crf:scale<1?25:18,scale,concurrency:2,outputLocation:output,inputProps,muted:true});outputPaths.push(output)}
+else{await renderMedia({serveUrl,composition,codec:'h264',crf:scale<1?25:18,scale,concurrency:6,outputLocation:output,inputProps,muted:false});outputPaths.push(output)}
 const receipt={status:'PASS',renderer:'remotion',renderer_version:'4.0.508',composition_id:compositionId,output_path:output,output_paths:outputPaths,creative_source_sha256:inputProps.creativeSourceSha256,proof_id:inputProps.proofId,captions_visible:inputProps.captionsVisible,scale,still_frame:stillFrame===null?null:Number(stillFrame),still_frames:batch,elapsed_ms:Date.now()-started,network_calls:0,uploads:0,browser_profile_used:false};
 fs.mkdirSync(path.dirname(receiptPath),{recursive:true});fs.writeFileSync(receiptPath,JSON.stringify(receipt,null,2)+'\n');

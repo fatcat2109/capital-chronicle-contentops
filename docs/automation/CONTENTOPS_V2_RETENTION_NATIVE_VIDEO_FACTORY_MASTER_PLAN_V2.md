@@ -6,6 +6,8 @@ Plan status: `CURRENT_CANONICAL_V2_EXECUTION_PLAN`
 Companion constitution: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
+Current execution overlay (2026-08-15): build the canonical `30–60s` vertical short plus evidence-earned `5–45m` landscape longform as separate editorial products. The first actual substrate proof produced 56.739s 4K vertical and 559.300s 1080p landscape owner-review media with segment-cached local Kokoro build audio. Premium publication voice selection remains a later owner gate; two-minute midform is retired as a final deliverable.
+
 # 0. Executive summary
 
 Capital Chronicle V2 will be completed as a **Lane B Hybrid** system.

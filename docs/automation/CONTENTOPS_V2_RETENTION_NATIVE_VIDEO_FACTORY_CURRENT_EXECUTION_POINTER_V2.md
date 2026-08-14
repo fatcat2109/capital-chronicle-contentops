@@ -5,6 +5,12 @@ Status: `CURRENT_CANONICAL_EXECUTION_POINTER`
 Product direction: `LANE_B_HYBRID / CREATIVE_AUTHORITY_HYBRID`
 Codex mode state: `UNSELECTED / FUTURE_HIGH_BAR_MAX_VS_ULTRA_AFTER_QUALITY_HARDENING`
 
+Current exact task: `TASK_CONTENTOPS_V2_SHORT_LONGFORM_LOW_COST_AUDIO_VERTICAL_SLICE_V1`.
+
+Builder state: `PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`. Actual 56.739s 2160×3840 short and 559.300s 1920×1080 longform masters are complete with local segment-cached Kokoro build audio, sidecar captions, audition/cost evidence, and zero public writes. Jim/ChatGPT must inspect the media and voice auditions. `MAX/ULTRA`, V2-02, publication, and permanent publication-voice selection remain blocked behind that owner gate.
+
+Canonical product terminology is now `SHORT` (`30–60s`, native 9:16) plus `LONGFORM` (`5–45m`, native 16:9). Earlier `midform` references below are historical evidence only. `BUILD_TTS != PUBLICATION_TTS`.
+
 # Canonical V2 read order
 
 Fresh ChatGPT/Codex sessions working on V2 should read, in order:
