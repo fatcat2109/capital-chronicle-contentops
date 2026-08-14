@@ -3,6 +3,7 @@
 Authority date: 2026-08-14
 Status: `CURRENT_V2_EXECUTION_POINTER`
 Product direction: `LANE_B_HYBRID`
+Codex mode state: `OWNER_BAKEOFF_REQUIRED / NO_CANONICAL_MODE_SELECTED`
 
 # Canonical V2 read order
 
@@ -14,22 +15,23 @@ Fresh ChatGPT/Codex sessions working on V2 should read, in order:
 4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 5. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
-7. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
-8. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
-9. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
-10. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
-11. nearest scoped `AGENTS.md`
-12. exact task implementation/tests/evidence.
+7. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
+8. `docs/automation/CONTENTOPS_V2_CODEX_56_SOL_MODE_BAKEOFF_OWNER_OVERRIDE_V1.md`
+9. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
+10. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+11. `docs/automation/CONTENTOPS_V2_FRESH_CHAT_HANDOFF_V1.md`
+12. nearest scoped `AGENTS.md`
+13. exact task implementation/tests/evidence.
 
 Repository refs/commits/fetched bytes remain repo-state authority. Jim's latest explicit direction remains product authority.
 
-If local CodeGraph reports stale after these direct GitHub authority updates, regenerate it before implementation rather than treating stale generated context as authority.
+If local CodeGraph reports stale after direct GitHub authority updates, regenerate it before implementation rather than treating stale generated context as authority.
 
 # Current product decision
 
 The controlled A/B proof is complete enough to choose architecture.
 
-Canonical direction:
+Canonical architecture:
 
 **Lane B Hybrid**
 
@@ -55,48 +57,111 @@ Negative reference:
 
 Do not restore R4 abstract-symbol grammar.
 
-# Current exact next task
+# Current Codex mode decision
+
+The V2 architecture is locked, but the Codex 5.6 Sol operating mode is **not** locked.
+
+Owner-specified bakeoff modes:
+
+- `HIGH`
+- `XHIGH / EXTRA_HIGH`
+- `ULTRA`
+
+These are owner labels. The builder must discover and record the exact supported local Codex mode/config identifiers non-secretly and map them explicitly.
+
+Do not assume ULTRA is the production default merely because it has the highest nominal capability ceiling. Do not assume HIGH/XHIGH wins merely because it uses less quota.
+
+The product objective is the best reproducible **public-quality value**, measured using actual media plus quota/TCO evidence.
+
+The fair comparison must hold constant:
+
+- governed story/evidence;
+- immutable input packet;
+- deterministic Hybrid engine version;
+- design-system/primitives;
+- asset universe available at run start;
+- visual-safety rules;
+- revision budget;
+- zero-public-write scope;
+- evaluation rubric.
+
+Each mode gets a fresh isolated run/thread and may not see the other modes' creative output before owner review.
+
+Preferred first-stage comparison:
+
+- one identical qualified benchmark story;
+- one 45–60 second native 9:16 clean master per viable mode;
+- actual MP4s;
+- contact sheets/motion strips/phone-scale evidence;
+- quota/usage/wall-clock/retry/revision evidence.
+
+If the short comparison is inconclusive, Jim may authorize a second-stage midform comparison between finalists only.
+
+Jim + ChatGPT own the final mode-policy decision. Builder/critic may not self-select the winner.
+
+Possible final policies include:
+
+- one canonical default mode;
+- daily/default mode plus ULTRA escalation for flagship/complex jobs;
+- another tiered policy justified by evidence.
+
+# Current exact task
 
 `TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
 
-This is the only active V2 implementation task unless Jim changes direction.
+This remains the active H1 product task, but it now has an explicit owner-gated mode-selection checkpoint.
 
-# Required product result
+## H1-A — shared Hybrid engine
 
-Before owner review:
-
-`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
-
-After actual Jim/ChatGPT media acceptance, the vertical slice may earn:
-
-`PASS_LANE_B_HYBRID_VERTICAL_SLICE_ACCEPTED`
-
-One accepted proof does not grant unattended production or publication authority.
-
-# What the next task must deliver
-
-The task must be one heavy end-to-end product slice, not a stack of planning tasks.
-
-Required capabilities:
+Build enough of the common deterministic engine to support a fair mode comparison:
 
 1. durable V1-style candidate/outbox contract;
-2. fresh isolated/headless Codex creative job seam;
+2. fresh isolated/headless Codex execution seam with selectable mode;
 3. institutional analytical map with Truth/Analysis/Engagement separation;
 4. conversational retention-native script;
 5. bounded financial-wit pass;
-6. minimal reusable Lane B design primitives needed for the selected story;
+6. minimal reusable Lane B design primitives required by the benchmark;
 7. visual-safety compiler for layout/text/source/caption/native-label collisions;
 8. asset diversity tracking and rights-safe brokerage;
 9. native chart/map/document treatment;
 10. storyboard + captions-hidden animatic/comprehension gate;
-11. Codex novel-scene authorship only where primitives are insufficient;
-12. actual Remotion proxy/full render;
-13. deterministic QA + Codex actual-media review;
-14. bounded localized revision;
-15. durable stage ledger/resume after interruption;
-16. clean final media package;
-17. measured cost/runtime;
-18. zero public/platform writes.
+11. actual Remotion proxy/full render capability;
+12. deterministic QA + actual-media review artifacts;
+13. durable stage ledger/resume;
+14. measured cost/runtime;
+15. zero public/platform writes.
+
+## H1-B — HIGH/XHIGH/ULTRA short-form bakeoff
+
+Run the same immutable benchmark through all three owner-specified modes under the fair-comparison contract.
+
+Maximum result before owner review:
+
+`PASS_CODEX_MODE_BAKEOFF_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+
+Then STOP.
+
+Jim + ChatGPT inspect the actual videos and cost/quota evidence and select:
+
+- daily/default mode;
+- whether ULTRA escalation exists;
+- whether a second-stage midform comparison is necessary.
+
+Do not self-advance through this owner gate.
+
+## H1-C — full Hybrid vertical slice after mode selection
+
+Only after explicit owner selection should H1 resume to produce the full institutional/editorial/headless vertical-slice owner-review package under the selected mode policy.
+
+Pre-owner implementation result for H1-C remains:
+
+`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+
+After Jim/ChatGPT actual-media acceptance, H1 may earn:
+
+`PASS_LANE_B_HYBRID_VERTICAL_SLICE_ACCEPTED`
+
+One accepted proof does not grant unattended production or publication authority.
 
 # Editorial target
 
@@ -135,7 +200,7 @@ Hard quality priorities:
 
 Do not keep one Codex session alive 24/7.
 
-Canonical model:
+Canonical execution:
 
 `durable job -> fresh isolated Codex run/thread -> explicit stage artifacts -> bounded revision -> terminate`
 
@@ -196,12 +261,15 @@ Preserve:
 
 # Advancement path
 
-1. V2-H1 — Hybrid institutional/editorial/headless vertical slice — **NEXT**.
-2. V2-H2 — non-oil cross-domain generalization — blocked by H1 acceptance.
-3. V2-H3 — live read-only V1 performance shadow trigger — blocked by H1/H2.
-4. V2-H4 — roughly ten-job shadow soak — blocked by H3.
-5. V2-H5 — fair Codex-vs-CX brain benchmark through the same engine — may run during/after H4.
-6. V2-02 — platform/publication expansion — blocked until Hybrid production quality is proven and Jim grants exact public-write authority.
+1. V2-H1-A — shared Hybrid engine for controlled Codex-mode comparison — **NEXT**.
+2. V2-H1-B — HIGH/XHIGH/ULTRA short media bakeoff — same active H1, blocked only by H1-A readiness.
+3. OWNER MODE GATE — Jim + ChatGPT choose default/escalation policy.
+4. V2-H1-C — finish full Hybrid vertical slice using selected mode policy.
+5. V2-H2 — non-oil cross-domain generalization — blocked by H1 acceptance.
+6. V2-H3 — live read-only V1 performance shadow trigger — blocked by H1/H2.
+7. V2-H4 — roughly ten-job shadow soak — blocked by H3.
+8. V2-H5 — fair Codex-vs-CX brain benchmark through the same engine — may run during/after H4.
+9. V2-02 — platform/publication expansion — blocked until Hybrid production quality is proven and Jim grants exact public-write authority.
 
 # Stop conditions for next builder
 
@@ -210,14 +278,11 @@ Stop only for a true hard blocker:
 - factual/numeric authority cannot be preserved;
 - rights cannot be resolved;
 - safe fresh Codex execution cannot be established;
+- owner-specified HIGH/XHIGH/ULTRA mode identifiers cannot be mapped safely from the current Codex environment;
 - secret/session exposure would be required;
 - V1/public state mutation would be required;
 - irreconcilable ref conflict;
-- final media remains materially unacceptable after bounded creative revision;
+- mode candidate media remains materially invalid after the shared deterministic correction budget;
 - required credential/operator input cannot safely be inferred.
 
 Do not stop for unrelated V1 work, stale historical docs, absent CI, cache noise, or reversible mechanics.
-
-# Durable next-session summary
-
-**V2 is no longer an XHIGH-first model experiment. It is a Lane B Hybrid product. Use fresh Codex per video for creative/editorial intelligence and actual-media review; use deterministic local infrastructure for durable jobs, evidence/rights, design-system safety, rendering, QA, recovery, cost, and publication gates. Lane A/CX remains a lower-cost shadow benchmark. Build the next Hybrid vertical slice now; do not start V2-02 and do not grant public write.**
