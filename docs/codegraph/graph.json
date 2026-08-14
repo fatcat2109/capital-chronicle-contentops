@@ -75892,7 +75892,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-14T06:12:07Z",
+  "generation_timestamp_utc": "2026-08-14T06:18:59Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -77141,7 +77141,7 @@
     {
       "id": "live_contentops/daily_app_ui_read_model_v1.py",
       "kind": "python_module",
-      "size_bytes": 77651
+      "size_bytes": 77701
     },
     {
       "id": "live_contentops/daily_article_brief_generation_v0.py",
@@ -87567,7 +87567,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_sanitize_operator_trigger",
       "kind": "python_function",
-      "line": 1482,
+      "line": 1485,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_sanitize_operator_trigger"
     },
@@ -87588,21 +87588,21 @@
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot.editorial_history_row",
       "kind": "python_method",
-      "line": 1121,
+      "line": 1124,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "build_daily_app_snapshot.editorial_history_row"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::request_operator_cycle",
       "kind": "python_function",
-      "line": 1496,
+      "line": 1499,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "request_operator_cycle"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::update_daily_app_mode",
       "kind": "python_function",
-      "line": 1458,
+      "line": 1461,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "update_daily_app_mode"
     },
@@ -112929,7 +112929,7 @@
     {
       "id": "tests/test_daily_app_ui_read_model_v1.py",
       "kind": "test",
-      "size_bytes": 33481
+      "size_bytes": 33540
     },
     {
       "id": "tests/test_daily_article_brief_generation_v0.py",
@@ -119446,6 +119446,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "a31af7dbd1d1a56a5b7c5d3c265ecf8cde491d64",
-  "source_tree_digest": "be1c2be372c48a590e762fafe6abe6b1a16423df1a708ca1d70aa6b9fc2788d4"
+  "source_head": "84f9adc3a7bb2610717e6fabe7d2c4f5ea6dc620",
+  "source_tree_digest": "688d1a11fc30fa1e08cadfd333bc17a5a1bf7218a15b0725af1dea0317b66573"
 }
