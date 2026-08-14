@@ -21,9 +21,9 @@
     "docs/status/current_project_status.json"
   ],
   "counts": {
-    "edges": 12639,
+    "edges": 12642,
     "entrypoints": 14,
-    "nodes": 6715,
+    "nodes": 6717,
     "nodes_by_kind": {
       "authority_doc": 16,
       "cli_command": 14,
@@ -33,7 +33,7 @@
       "instructions": 8,
       "manifest": 11,
       "python_class": 539,
-      "python_function": 3720,
+      "python_function": 3722,
       "python_method": 241,
       "python_module": 699,
       "schema": 172,
@@ -38885,6 +38885,12 @@
       "from": "live_contentops/x_list_ingest_capture_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::list_cdp_page_targets"
+    },
+    {
+      "from": "live_contentops/x_list_ingest_capture_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::load_data_ingestion_module"
     },
     {
@@ -38904,6 +38910,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::select_reusable_x_page"
+    },
+    {
+      "from": "live_contentops/x_list_ingest_capture_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::select_reusable_x_target"
     },
     {
       "from": "live_contentops/x_manual_approval_export_evidence_v6.py",
@@ -65108,6 +65120,12 @@
       "to": "python_symbol:live_contentops/x_cdp_supervised_post_command_prelive_dry_run_v6.py::build_fixture_evidence_bundle"
     },
     {
+      "from": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::list_cdp_page_targets",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::IngestCaptureError"
+    },
+    {
       "from": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::load_data_ingestion_module",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -75982,7 +76000,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-14T07:34:11Z",
+  "generation_timestamp_utc": "2026-08-14T08:21:54Z",
   "generator_version": "2.2.0",
   "included_roots": [
     "live_contentops/",
@@ -79756,7 +79774,7 @@
     {
       "id": "live_contentops/x_list_ingest_capture_v1.py",
       "kind": "python_module",
-      "size_bytes": 22664
+      "size_bytes": 38344
     },
     {
       "id": "live_contentops/x_manual_approval_export_evidence_v6.py",
@@ -110603,65 +110621,79 @@
     {
       "id": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::IngestCaptureError",
       "kind": "python_class",
-      "line": 69,
+      "line": 71,
       "path": "live_contentops/x_list_ingest_capture_v1.py",
       "symbol": "IngestCaptureError"
     },
     {
       "id": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::append_deduped_sidecar_rows",
       "kind": "python_function",
-      "line": 183,
+      "line": 185,
       "path": "live_contentops/x_list_ingest_capture_v1.py",
       "symbol": "append_deduped_sidecar_rows"
     },
     {
       "id": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::classify_capture_exception",
       "kind": "python_function",
-      "line": 78,
+      "line": 80,
       "path": "live_contentops/x_list_ingest_capture_v1.py",
       "symbol": "classify_capture_exception"
     },
     {
       "id": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::count_all_data_rows",
       "kind": "python_function",
-      "line": 135,
+      "line": 137,
       "path": "live_contentops/x_list_ingest_capture_v1.py",
       "symbol": "count_all_data_rows"
     },
     {
       "id": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::count_sidecar_rows",
       "kind": "python_function",
-      "line": 145,
+      "line": 147,
       "path": "live_contentops/x_list_ingest_capture_v1.py",
       "symbol": "count_sidecar_rows"
     },
     {
+      "id": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::list_cdp_page_targets",
+      "kind": "python_function",
+      "line": 300,
+      "path": "live_contentops/x_list_ingest_capture_v1.py",
+      "symbol": "list_cdp_page_targets"
+    },
+    {
       "id": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::load_data_ingestion_module",
       "kind": "python_function",
-      "line": 107,
+      "line": 109,
       "path": "live_contentops/x_list_ingest_capture_v1.py",
       "symbol": "load_data_ingestion_module"
     },
     {
       "id": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::probe_session_visible_state",
       "kind": "python_function",
-      "line": 252,
+      "line": 254,
       "path": "live_contentops/x_list_ingest_capture_v1.py",
       "symbol": "probe_session_visible_state"
     },
     {
       "id": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::run_bounded_x_list_capture",
       "kind": "python_function",
-      "line": 298,
+      "line": 686,
       "path": "live_contentops/x_list_ingest_capture_v1.py",
       "symbol": "run_bounded_x_list_capture"
     },
     {
       "id": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::select_reusable_x_page",
       "kind": "python_function",
-      "line": 283,
+      "line": 285,
       "path": "live_contentops/x_list_ingest_capture_v1.py",
       "symbol": "select_reusable_x_page"
+    },
+    {
+      "id": "python_symbol:live_contentops/x_list_ingest_capture_v1.py::select_reusable_x_target",
+      "kind": "python_function",
+      "line": 320,
+      "path": "live_contentops/x_list_ingest_capture_v1.py",
+      "symbol": "select_reusable_x_target"
     },
     {
       "id": "python_symbol:live_contentops/x_manual_approval_export_evidence_v6.py::XManualApprovalExportEvidenceError",
@@ -112931,7 +112963,7 @@
     {
       "id": "tests/test_contentops_continuous_intelligence_realign_v1.py",
       "kind": "test",
-      "size_bytes": 32311
+      "size_bytes": 36110
     },
     {
       "id": "tests/test_contentops_daily_app_launcher_v1.py",
@@ -119563,6 +119595,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "02f884760ee64dc71072128ab148612bbf81b751",
-  "source_tree_digest": "1e84e38d9755ff72697b7bebe9dc91ad9165b7d6ffa88c0d1f1da3fcfdc33314"
+  "source_head": "8c60d3e184c457af56b7a894806cdfc21f7f568b",
+  "source_tree_digest": "cf1789a492a0c32e0f4bfc56119a1410ccb13d797413ea6e438c6bafd9d1afe8"
 }
