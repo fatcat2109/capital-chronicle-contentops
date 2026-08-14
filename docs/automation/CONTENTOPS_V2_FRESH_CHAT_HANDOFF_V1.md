@@ -1,216 +1,403 @@
 # Capital Chronicle ContentOps V2 — Fresh Chat / Builder Handoff V1
 
-Authority date: 2026-08-12
+Authority date: 2026-08-14
 Status: `CURRENT_V2_FRESH_SESSION_HANDOFF`
+Product direction: `LANE_B_HYBRID`
 
-Purpose: allow a fresh ChatGPT/Codex session to continue V2 without the long prior chat history.
+Purpose: allow a completely fresh ChatGPT/Codex session to continue V2 correctly without access to prior conversations, local builder memory, or this owner's chat history.
 
-Repository-state authority is always fresh GitHub refs/commits/diffs/exact bytes. Jim's latest explicit instruction is product-direction authority. Fetch current `master` and relevant task branch before acting; SHAs below are clues only.
+Repository-state authority is always fresh GitHub refs/commits/diffs/exact bytes. Jim's latest explicit instruction is product-direction authority. Fetch current `master` and relevant task branch before acting; SHAs in this handoff are historical clues only.
 
-## Repository
+# 1. Repository
 
 GitHub:
 
 `fatcat2109/capital-chronicle-contentops`
 
-Canonical local repo:
+Canonical Windows checkout historically used:
 
 `A:\Capital Chronicle\ContentOps`
 
-The local Windows checkout does not update automatically when ChatGPT writes remote GitHub authority. A builder must fetch/fast-forward or create its task worktree from fresh `origin/master` before implementation.
+V1 and V2 may run concurrently but must remain isolated.
 
-## Fresh-session read order
+Do not trust local branch state until fetched and reconciled.
 
-Read only:
+# 2. Fresh read order
 
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
-3. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
-4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
-5. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
-6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
-7. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
-8. `docs/status/CONTENTOPS_V2_GPT56_CREATIVE_CODE_AND_ASSET_DENSITY_OWNER_OVERRIDE_V1.md` only for historical rationale/details not already folded into V2 docs
-9. `video/AGENTS.md`
-10. exact current task branch/code/tests/evidence when it exists
+3. `docs/codegraph/V2_CONTEXT.md`
+4. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
+5. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
+6. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`
+7. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
+8. `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
+9. `docs/automation/CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md`
+10. nearest scoped `AGENTS.md`
+11. exact task code/tests/evidence.
 
-Do not broadly reread historical V2 archives unless resolving a concrete conflict.
+Because ChatGPT wrote the new authority directly to remote `master`, local CodeGraph/generated context may temporarily be stale. Regenerate/check CodeGraph after syncing and require `CODEGRAPH_CURRENT` before implementation commit.
 
-## Current V2 product
+# 3. What happened before this handoff
 
-Build an autonomous evidence-governed media growth factory for:
+## 3.1 R4 failed systemically
 
-- YouTube hero/mid/long-form;
-- YouTube Shorts;
-- TikTok native short-form.
+R4 branch:
 
-The ambition is repeatable qualified audience growth and breakout/trending potential, not a guarantee of virality.
+`task/tier2-v2-gpt56-creative-code-asset-rich-video-v1`
 
-No-publication and `VIDEO_NOT_SELECTED` remain valid.
+R4 reference HEAD:
 
-## Exact creative-code authority
-
-Primary through the canonical 9Router seam:
-
-`new/gpt-5.6-sol-xhigh`
-
-Required primary roles:
-
-- `V2_CREATIVE_EDITOR`
-- `V2_MOTION_CODE_AUTHOR`
-- `V2_CREATIVE_REVISION_AUTHOR`
-
-GPT-5.6 authors screenplay/narration/edit intent, shot-by-shot visual/motion strategy, and bounded per-shot Remotion code.
-
-Remotion is deterministic renderer/compiler, not creative authority.
-
-If a creative role falls back to another model, mark output `DEGRADED_CREATIVE_MODEL`; it cannot self-advance through professional acceptance.
-
-## Current image / asset / voice / audio authority
-
-Keep existing provider choices unless a concrete blocker justifies changing them.
-
-- accepted dedicated direct image route remains separate from generic 9Router;
-- `gpt-5.5` remains provisional generated-illustration default;
-- generated imagery is illustrative only;
-- real people require real rights-cleared documentary assets;
-- current rights/provenance/hash controls remain;
-- current voice/TTS abstraction and local/Kokoro baseline remain;
-- existing music/SFX/mastering infrastructure remains until V2-02 proves a better path.
-
-The next task should spend effort on creative authorship, shot-specific code, asset richness, and visual quality rather than provider churn.
-
-## Current Remotion reference baseline
-
-Primary technical reference:
-
-`remotion-dev/skills@b12104ef5f1b1ca2ca5590fcc7c1804fbc85556f`
-
-Use official skill/docs for API craft. Community skills are selective reference only. Do not adopt universal visual recipes such as stagger-everything, Ken-Burns-every-image, always-breathe, or cross-dissolve-every-scene.
-
-## Rejected creative branches
-
-### Prior creative-system rebuild
-
-Branch:
-
-`task/tier2-v2-creative-system-rebuild-v1`
-
-HEAD:
-
-`d231b54e026570442d9fd9269b61e55c3de31d21`
+`2289eb1382e65474207b50d27c0b87626d30728f`
 
 Classification:
 
-`REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
+`FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE / NEGATIVE_CREATIVE_REFERENCE_ONLY`
 
-### First retention-native V2-01 attempt
+R4 had technically valid media but relied too heavily on bespoke abstract geometry and symbolic grammar. Jim could not quickly understand what many visuals represented. Examples included abstract Hormuz/opening treatment, valves/droplets/basins, and weak native chart composition.
 
-Branch:
+Do not patch or reuse R4 creative blueprint/generated shot grammar. Reuse only useful engineering such as evidence, rights/provenance, audio, sandbox, cache/selective rerender, and QA where still compatible.
 
-`task/tier2-v2-retention-native-video-factory-vertical-slice-v1`
+## 3.2 Concrete-first replacement was built
 
-HEAD:
+The replacement task introduced:
 
-`b6f5002903fba65a668506e4ca38ae61b907ab18`
+`CONCRETE_FIRST_ABSTRACT_SECOND`
 
-Classification:
+It added/strengthened:
 
-`FAIL_CREATIVE_MOTION_ARCHITECTURE / REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
+- real/contextual geography and oil infrastructure;
+- primary EIA evidence;
+- native chart/map/document treatment;
+- storyboards/captions-hidden comprehension;
+- asset brokerage;
+- model-authored motion code;
+- isolated V2 provider execution.
 
-Jim's controlling media feedback on `b6f50029...`:
+## 3.3 9Router `new/...` XHIGH route was unreliable for large creative outputs
 
-- repeated text-transition patterns;
-- near-identical transition speed/easing across the video;
-- transitions feel too slow;
-- repeated slow left-to-right chart reveals;
-- visual text overlaps/collides in several places;
-- motion-count/static-run metrics passed but did not capture perceptual repetition;
-- output still feels generated/template-driven;
-- asset richness is still insufficient.
+A minimal/raw-call experiment proved that tiny/small calls could work but exact large Director calls repeatedly hit gateway/response-bridge failures on the `new/gpt-5.6-sol-xhigh` route.
 
-Do not merge or continue its creative grammar. Reuse only compatible engineering such as governed EIA/Hormuz evidence, rights/provenance, asset acquisition, current audio/music/SFX/mastering, package locking, cache/selective rerender, and useful QA.
+Jim authorized testing:
 
-## Current next task
+`cx/gpt-5.6-sol(xhigh)`
 
-`TASK_CONTENTOPS_TIER2_V2_GPT56_CREATIVE_CODE_ASSET_RICH_VIDEO_VERTICAL_SLICE_V1`
+The CX route successfully returned large Director/segment/motion outputs and completed the controlled Lane A proof.
 
-Required advancement result:
+This was an important provider lesson but is no longer the primary product architecture decision.
 
-`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
+## 3.4 A/B proof was completed
 
-This is the replacement V2-01 and occupies the same milestone slot.
+A/B task branch:
 
-## Current proof hypothesis
+`task/v2-concrete-first-xhigh-replacement-vertical-slice-v1`
 
-Test whether quality materially improves when the strongest creative model directly authors edit/motion code while Remotion only executes it.
+A/B proof commit:
 
-Prefer a controlled A/B using the same governed EIA/Hormuz story/evidence if it can be safely reconstructed and revalidated. Do not reuse the old creative plan or motion code.
+`29c604ff5c920a78dca43578c8d1c503a5c0277e`
 
-Proof scope:
+Commit message:
 
-- one native 45–60s 9:16 short;
-- one 90–150s 16:9 editorial proof;
-- exact sanitized GPT-5.6 creative-author receipts;
-- sandboxed per-video/per-shot code;
-- rights-safe candidate asset universe roughly 25–60 when story supply supports it;
-- roughly 12–20 purposeful visual states in the short and 25–45 in the 90–150s proof when justified;
-- current narration/music/SFX path;
-- text collision/repetition/chart-crawl diagnostics;
-- independent strong multimodal critique;
-- maximum two localized GPT-5.6 creative revisions;
-- actual Jim/ChatGPT MP4/audio acceptance.
+`v2: prove cx xhigh and codex builder video lanes`
 
-Do not build another 5.5-minute proof before this architecture passes.
+Two lanes were produced on the same EIA/Hormuz benchmark.
 
-## Creative-code sandbox
+### Lane A — CX XHIGH
 
-Generated code must be bounded to a task/video-owned path and validated before execution.
+Creative brain:
 
-Forbidden:
+`cx/gpt-5.6-sol(xhigh)` via 9Router.
 
-- env/secret reads;
-- render-time network;
-- arbitrary filesystem mutation;
-- child process/shell;
-- dynamic dependency installation;
-- browser/session/profile access;
-- platform/publication action;
-- evidence/factual mutation.
+Strengths:
 
-## Current public-write authority
+- lower direct generation cost;
+- strong analytical density;
+- evidence-grounded Director/segments;
+- generated motion code;
+- much better than R4.
+
+Weaknesses:
+
+- subtitle clutter;
+- alignment/annotation/layout defects;
+- asset repetition;
+- dense scenes;
+- lower final visual polish than the best Lane B scenes;
+- compatibility/projection work around model output.
+
+Jim estimated Lane A generation cost around half Lane B in this controlled comparison. Treat that as owner-observed benchmark context, not a permanent price guarantee.
+
+### Lane B — Codex Builder
+
+Creative brain:
+
+Codex Builder.
+
+Authentic Lane B visual signatures included:
+
+Short:
+
+- `ONE CHOKEPOINT. FOUR TESTS.`
+- `MapToVessel`
+- `THE PHYSICAL CHAIN`
+- `UNLOAD / RESTORE / REBUILD`
+- `FORECAST. NOT A RESULT.`
+- native forecast chart
+- illustrative transmission
+- consequence cards
+- confirm/challenge test
+- checkpoint close.
+
+Midform:
+
+- `THE PERSIAN GULF HAS ONE NARROW EXIT.`
+- map/vessel transition
+- physical chain
+- `A SHIP PAST HORMUZ IS NOT RESTORED SUPPLY.`
+- evidence/document/chart
+- transmission/consequence/test/checkpoints.
+
+Lane B produced the highest current visual ceiling. Jim judged its latter half close to publishable, while the first half and some earlier iterations still exposed layout/crop/alignment problems.
+
+The proof required too many interactive builder repair cycles to be considered production architecture.
+
+# 4. Owner decision after authentic four-video review
+
+Canonical direction is now:
+
+`LANE_B_HYBRID`
+
+The decision is not “Codex manually does everything forever.”
+
+It is:
+
+> **Fresh per-video Codex execution owns high-entropy creative/editorial intelligence and actual-media review; deterministic local V2 infrastructure owns durable orchestration, evidence, visual safety, reusable primitives, rendering, QA, recovery, cost, and publication boundaries.**
+
+Lane A/CX is retained as a low-cost shadow benchmark and possible alternative brain after the shared Hybrid engine exists.
+
+# 5. Canonical creative/control responsibility
+
+## Codex owns
+
+- video angle after article qualification;
+- institutional analytical map;
+- narrative architecture;
+- narration;
+- hook/re-hooks/payoff;
+- controlled financial wit;
+- asset-purpose strategy;
+- storyboard strategy;
+- novel scene/motion code where primitives are insufficient;
+- actual proxy/full-media review;
+- bounded localized creative revision.
+
+## Deterministic local engine owns
+
+- V1 candidate intake;
+- durable outbox/job state;
+- evidence/numeric authority;
+- rights/provenance;
+- visual design tokens;
+- reusable scene primitives;
+- visual-safety compiler;
+- native chart/map/document compilers;
+- caption policy;
+- asset diversity policy;
+- TTS/music/SFX tool execution;
+- Remotion render;
+- deterministic QA;
+- cache/selective rerender;
+- stage resume;
+- cost/runtime telemetry;
+- final package identity;
+- publication authority.
+
+# 6. No persistent Codex session
+
+Do not implement a 24/7 Codex conversation.
+
+Canonical execution:
+
+```text
+durable qualified job
+→ fresh isolated Codex run/thread
+→ explicit stage artifacts
+→ bounded revision within same job
+→ terminate when complete/blocked/failed
+```
+
+State lives in artifacts/ledger, not hidden conversation history.
+
+# 7. Institutional editorial target
+
+V2 must become deeper than the A/B oil proof without becoming an academic lecture.
+
+Every story should separate:
+
+- **Truth Layer** — facts, observations, forecasts, exact data, sources;
+- **Analytical Layer** — mechanisms, second-order transmission, balance-sheet/cash-flow effects, scenarios, confirm/challenge logic;
+- **Engagement Layer** — hook, pacing, contrast, re-hooks, analogy, controlled wit.
+
+Engagement never alters truth.
+
+Midform should ask, where supported:
+
+- what changed?;
+- what has not changed?;
+- what mechanism matters?;
+- what is priced/expected?;
+- who gains/loses?;
+- what balance sheet/cash flow changes?;
+- what second-order channels matter?;
+- what confirms?;
+- what challenges?;
+- what to watch next?
+
+Select only the highest-value mechanisms rather than filling a rigid checklist.
+
+# 8. Financial wit target
+
+Desired:
+
+- dry;
+- subtle;
+- market-literate;
+- mechanism-related;
+- sparse.
+
+Examples of tone only:
+
+- “Markets can price a reopening in minutes. Inventories are less cooperative.”
+- “Forecasts travel faster than crude.”
+
+Do not use meme slang, cheap jokes, insensitive humor, unsupported facts, or advice-like language.
+
+Use a bounded wit candidate + truth/relevance/tone validator. Zero jokes is valid.
+
+# 9. Visual target
+
+The **entire** video should be as strong as the best second-half Lane B scenes.
+
+Permanent doctrine:
+
+`CONCRETE_FIRST_ABSTRACT_SECOND`
+
+Positive primitives to generalize:
+
+- `MapToVessel`;
+- `PhysicalChain`;
+- `DocumentEvidence`;
+- `NativeForecastChart`;
+- `Transmission`;
+- `Consequence`;
+- `ConfirmChallenge`;
+- `CheckpointTimeline`.
+
+They are not a frozen template.
+
+# 10. Visual defects that must be engineered out
+
+Both A/B work exposed recurring defects that must move from manual fixes into the visual-safety system:
+
+- duplicate native asset text plus overlay text;
+- bad title/box alignment;
+- guessed document highlight rectangles;
+- source/footer overlap;
+- caption clutter;
+- phone-small text;
+- crop/focal-object mistakes;
+- repeated background imagery;
+- excessive information density.
+
+Canonical master should be clean without a permanent large subtitle card. Produce platform/sidecar captions and optional social-caption derivative separately.
+
+# 11. V1 -> V2 future operating loop
+
+Expected daily flow:
+
+```text
+V1 publishes useful articles
+→ analytics/performance snapshots
+→ candidate scorer
+→ top qualified video opportunities
+→ durable V2 outbox
+→ Hybrid production
+```
+
+The goal is roughly the top one or two genuinely qualified daily opportunities when they exist, not forced conversion of every article.
+
+Candidate scoring should combine engagement quality and video opportunity.
+
+Engagement may influence priority/packaging only.
+
+# 12. Current exact next task
+
+`TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
+
+This is the current next V2 task.
+
+It must produce real media, not just infrastructure.
+
+Minimum capability:
+
+- durable candidate/outbox fixture or read-only V1-style input;
+- fresh isolated/headless Codex seam;
+- institutional analytical map;
+- conversational script;
+- bounded wit pass;
+- minimal Lane B primitives;
+- visual-safety compiler;
+- asset diversity tracking;
+- storyboard/animatic comprehension gate;
+- Remotion proxy/final render;
+- Codex actual-media review;
+- bounded revision;
+- stage ledger/resume;
+- cost/runtime telemetry;
+- clean final media;
+- zero public write.
+
+Pre-owner ceiling result:
+
+`PASS_IMPLEMENTATION_MEDIA_READY_FOR_JIM_CHATGPT_REVIEW`
+
+# 13. Next phases after H1
+
+- H2: cross-domain/non-oil generalization.
+- H3: live read-only V1 performance shadow trigger.
+- H4: roughly ten-job Hybrid shadow soak.
+- H5: fair Codex-vs-CX cost/quality benchmark through the same engine.
+- V2-02: platform/publication expansion only after Hybrid quality/reliability proof and explicit Jim authorization.
+
+# 14. Public-write boundary
+
+Current invariant:
 
 `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
 
-No YouTube/TikTok public or private upload is authorized in the current V2-01 replacement task.
+No current V2 task may upload, draft, schedule, or otherwise mutate YouTube/TikTok/platform state.
 
-## V1 concurrency
+V2 must not mutate/reset V1 runtime/store/scheduler/coordinator/browser/publication authority.
 
-V1 continues independently. Current V1 routing may advance while V2 is built. A fresh session must not infer V1 state from this file; read current V1 handoff/pointer if V1 matters.
+# 15. Builder workflow for the next task
 
-V2 must not reset or mutate V1 live runtime/store, browser bindings, publication state, or protected `v1.0`.
+Before editing:
 
-## Local-worktree synchronization rule
+1. inspect local status;
+2. preserve unrelated work;
+3. fetch origin;
+4. verify fresh remote master;
+5. fast-forward a clean checkout or create a new dedicated V2 worktree/branch from fresh master;
+6. regenerate/check CodeGraph because this authority synchronization was written directly through GitHub;
+7. use CodeGraph and nearest AGENTS;
+8. inspect A/B proof source only as reference;
+9. implement one heavy bounded vertical slice;
+10. explicit staging only;
+11. commit/push task branch;
+12. return actual media/evidence for owner review.
 
-Before starting a fresh V2 builder task:
+Do not hard-reset unrelated V1 work.
 
-1. inspect local status and preserve unrelated work;
-2. `git fetch origin`;
-3. verify current `origin/master` against GitHub;
-4. do not hard reset a dirty canonical checkout;
-5. create a clean dedicated task worktree/branch from fresh `origin/master`, or safely fast-forward the canonical checkout only when clean and appropriate;
-6. regenerate/check CodeGraph before implementation commit when current authority changed directly on GitHub;
-7. require `CODEGRAPH_CURRENT`.
+# 16. Durable summary
 
-The fresh ChatGPT session does not need the local worktree to be pre-synced to understand product direction; GitHub is repo-state authority. The builder does need a fresh local base before modifying code.
-
-## Fresh ChatGPT instruction
-
-A fresh ChatGPT session should:
-
-1. use GitHub first;
-2. verify fresh `master`;
-3. read the V2 V2 North Star/Master Plan/Task Graph/Execution Pointer listed above;
-4. confirm the current next V2 task and rejected branches;
-5. do not issue a different task unless fresh repo authority or Jim's new instruction requires it;
-6. when Codex evidence arrives, audit GitHub branch/commit/diff and actual media before accepting creative quality.
+**V2 is Lane B Hybrid. Codex is the fresh episodic creative/editorial brain and actual-media reviewer. Deterministic local infrastructure is the durable production/control system. Institutional analytical depth, conversational retention pacing, controlled financial wit, concrete-first visual storytelling, and Lane B visual craft are the target. Lane A/CX remains a lower-cost shadow benchmark. Do not run a persistent Codex session, do not start V2-02, and do not grant public write. Build the Hybrid vertical slice next.**
