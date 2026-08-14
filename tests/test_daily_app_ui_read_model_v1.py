@@ -121,6 +121,7 @@ def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
     after = {path.name for path in tmp_path.iterdir()}
     assert snapshot["runtime"]["controller_health"] == "HEALTHY"
+    assert snapshot["freshness"]["state"] == "LIVE_CURRENT"
     cockpit = snapshot["runtime"]["operator_cockpit"]
     assert cockpit["primary_state"] == "RUNNING_IDLE"
     assert cockpit["schedule"]["idle_healthy"] is True

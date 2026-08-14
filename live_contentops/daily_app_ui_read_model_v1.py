@@ -551,10 +551,13 @@ def build_daily_app_snapshot(
         "HEALTHY" if heartbeat_age is not None and heartbeat_age <= HEARTBEAT_TTL_SECONDS
         and latest_heartbeat.get("status") == "ALIVE" else "OFFLINE"
     )
-    all_state_rows = [*work_items, *dispatch_rows, *readbacks, *reconciliations, *observations, *policies, *readiness_rows]
+    all_state_rows = [
+        *heartbeats, *work_items, *dispatch_rows, *readbacks, *reconciliations,
+        *observations, *policies, *readiness_rows,
+    ]
     source_updated = _latest_time(
         all_state_rows,
-        ("updated_at", "created_at", "dispatched_at", "read_at", "reconciled_at", "collected_at_utc", "created_at_utc", "probed_at_utc"),
+        ("last_seen_at", "updated_at", "created_at", "dispatched_at", "read_at", "reconciled_at", "collected_at_utc", "created_at_utc", "probed_at_utc"),
     )
     source_age = (generated - source_updated).total_seconds() if source_updated else None
     freshness_state = (
