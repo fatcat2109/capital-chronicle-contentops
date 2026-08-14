@@ -13,7 +13,7 @@ This result is an implementation/media-readiness handoff only. It is not owner a
 - Issuance and actual starting master: `70987dfe83e1c623a19b86e58ede20be6d584e09`
 - Product commit: `cfaa504bcbccce454f90016e5b79417a509e435d`
 - Full runtime evidence: `A:\Capital Chronicle\Runtime\ContentOps\v2_asset_first_treasury_20260814\acceptance\final_evidence_packet.json`
-- Runtime evidence SHA-256: `3aa354af9f8dce0a24bbf07c2d48c04f6fe757b2f6e6ba49b0bbdbb4a61f8b93`
+- Runtime evidence SHA-256: `d60c439d0adab1a610df5742c84522d79c8e567c47ba28f37f82a6397f1dc327`
 
 ## Authority and story
 
