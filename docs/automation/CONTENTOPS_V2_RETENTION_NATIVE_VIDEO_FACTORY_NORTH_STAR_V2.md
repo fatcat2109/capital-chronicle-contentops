@@ -1,476 +1,930 @@
 # Capital Chronicle ContentOps V2 — Retention-Native Video Factory North Star V2
 
-Authority date: 2026-08-13
-Product authority: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_OWNER_DIRECTION_V2`
+Authority date: 2026-08-14
+Product authority: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1`
 Status: `CURRENT_CANONICAL_V2_PRODUCT_CONSTITUTION`
-Supersedes: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V1` where this document conflicts.
+Supersedes: all prior V2 North Star directions where they conflict, including the prior model-centric `NineRouterGPT56Brain`-default direction.
+Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
-## Mission
+# 1. Mission
 
-Build Capital Chronicle ContentOps V2 into an autonomous, evidence-governed media growth engine for YouTube hero/mid/long-form, YouTube Shorts, and TikTok-native short-form. The system must repeatedly select stories that deserve video, turn them into high-retention editorial experiences, package them for discovery, publish only under exact authorization, read back the resulting platform state, measure real audience behavior, and improve future story selection, packaging, pacing, visuals, and audio without weakening factual truth, rights discipline, or Capital Chronicle analytical authority.
+Capital Chronicle ContentOps V2 exists to turn the strongest Capital Chronicle journalism and analysis into **institutional-grade, retention-native financial video** that is useful enough for sophisticated viewers, clear enough for a cold audience, visually strong enough to build a premium media brand, and automated enough to operate repeatedly at bounded cost.
 
-The ambition is to make Capital Chronicle capable of becoming a breakout or trending financial/economic media channel. That is a product aspiration, not a guaranteed outcome. The system must optimize the probability of durable audience growth and breakout distribution through better story choice, stronger truthful hooks, richer asset use, professional edit craft, platform-native packaging, and retention learning. It must never manufacture controversy, FOMO, or unsupported claims merely to chase views.
+The product is not a generic “article-to-video” converter. It is not a slideshow generator. It is not a motion-template factory. It is not a financial meme account. It is not an LLM allowed to improvise facts, numbers, probabilities, forecasts, or investment advice.
 
-## Product promise
+V2 should feel like a sharp institutional macro desk that understands modern social-video craft: evidence-first, analytically deep, visually concrete, fast-moving, skeptical, occasionally dryly funny, and disciplined about what the record does and does not prove.
 
-The finished V2 product should answer, every day:
+The north-star outcome is:
 
-1. Which current story is actually worth producing as video?
-2. Why would a viewer care now?
-3. What truthful promise makes the story compelling without clickbait?
-4. What narrative arc, open loops, payoffs, and re-hooks will sustain attention?
-5. What people, institutions, locations, primary documents, charts, maps, timelines, comparisons, B-roll, diagrams, and generated conceptual imagery are required to make the story visually alive?
-6. What should the viewer see at each spoken phrase, not merely at each scene boundary?
-7. What should be cut, held, punched in, highlighted, traced, reframed, or replaced at each editorial beat?
-8. What narration, music, SFX, pauses, emphasis, and sonic transitions support the story?
-9. What edit is native to YouTube, Shorts, and TikTok rather than being a resize?
-10. Is the package factual, rights-safe, visually legible, non-repetitive, professionally paced, and technically sound?
-11. Should it publish, defer, block, or abstain?
-12. What did real viewers do after publication, and what bounded policy change is justified by that evidence?
-
-`VIDEO_NOT_SELECTED`, `VIDEO_BLOCKED`, `DEFERRED`, and no-publication are valid outputs. No content quota may force filler.
-
-## Exact creative model authority
-
-The primary creative-code model for V2 is exact:
-
-`new/gpt-5.6-sol-xhigh`
-
-through the canonical 9Router API/seam.
-
-It is mandatory as the primary model for:
-
-- `V2_CREATIVE_EDITOR`
-- `V2_MOTION_CODE_AUTHOR`
-- `V2_CREATIVE_REVISION_AUTHOR`
+> **A durable, evidence-governed media growth engine that conditionally selects the best V1 stories, builds high-retention short and mid/long-form video through a fresh per-job Codex creative brain plus deterministic local production infrastructure, and learns from real audience behavior without weakening truth, rights, safety, or Capital Chronicle analytical authority.**
 
-The model directly authors the presentation-layer screenplay, narration/pacing, shot-by-shot edit strategy, motion timing, transition strategy, chart and text choreography, asset-purpose requests, audio cue intent, and bounded per-shot Remotion React/TypeScript/SVG/Canvas implementation.
+No-publication and no-video remain valid outcomes. V2 must never manufacture filler to satisfy a daily quota.
 
-Remotion is the deterministic renderer/compiler. Remotion is not the creative director.
+# 2. Owner decision locked on 2026-08-14
 
-If a fallback model is used because the exact model is unavailable, the package must be marked `DEGRADED_CREATIVE_MODEL`. Such output may be rendered for diagnosis, but it cannot self-advance through the professional visual/audio gate.
+The controlled A/B proof compared two creative approaches on the same governed EIA/Hormuz story.
 
-This model authority does not grant factual authority. Every factual or numeric statement remains bound to governed ContentOps/Capital Chronicle evidence.
+## Lane A
 
-The canonical creative-brain abstraction is defined, but only one implementation is active:
+Lane A used `cx/gpt-5.6-sol(xhigh)` through 9Router as the creative brain for Director, semantic segments, motion-code authorship, and localized revision.
 
-- `NineRouterGPT56Brain` — **DEFAULT**, with every fresh creative invocation starting `new/gpt-5.6-sol-xhigh`;
-- `CodexLocalBrain` — **OWNER-CONTROLLED FALLBACK, NOT ACTIVE**.
+It proved:
 
-Shared evidence, asset brokerage, visual-grounding contracts, storyboard/animatic, renderer, QA, and package state should remain brain-independent where practical. Jim alone may later activate `CodexLocalBrain`, and only after a correctly exercised concrete-first XHIGH replacement proof still demonstrates systemic creative/comprehension failure. Defining the seam grants Codex no present runtime, scheduling, provider, or public-write authority.
+- strong evidence grounding;
+- much better visual comprehension than R4;
+- lower direct generation cost than the Codex lane;
+- viable provider-authored Remotion code;
+- strong analytical density;
+- useful economics if a shared deterministic visual engine can remove recurring layout defects.
 
-## Controlling visual-storytelling doctrine
+It also showed recurring weaknesses:
 
-`CONCRETE_FIRST_ABSTRACT_SECOND`
+- subtitle clutter;
+- inconsistent alignment and annotation geometry;
+- visually dense scenes;
+- repeated documentary/background assets;
+- lower overall visual polish than the strongest Lane B scenes;
+- compatibility/projection work around provider response schemas;
+- provider/gateway fragility on large outputs.
 
-The viewer should normally see the clearest recognizable real-world object, location, primary evidence, or native data visualization before an abstract metaphor. Real documentary/contextual media, primary documents, maps, native charts, and concrete explanatory illustration must not be silently replaced by convenient SVG geometry. Abstract diagrams and metaphors remain valid only when they clarify a relationship that concrete evidence cannot show as directly.
-
-Default visual priority:
-
-1. real documentary/contextual media;
-2. primary source/document;
-3. native data visualization/map;
-4. concrete explanatory illustration;
-5. abstract diagram/metaphor.
-
-A lower-priority choice requires an explicit editorial reason. It must not dominate merely because code generation makes it cheap.
+Lane A is retained as a **low-cost benchmark and alternative creative-brain experiment**, not the canonical final-media architecture.
 
-## Canonical creative architecture
+## Lane B
 
-```text
-CANONICAL CONTENTOPS STORY UNIVERSE
-            ↓
-VIDEO OPPORTUNITY / PORTFOLIO SELECTION
-            ↓
-SELECTED | SHORT_ONLY | MIDFORM | HERO | DEFERRED | BLOCKED | NOT_SELECTED
-            ↓
-COMPACT GOVERNED STORY / EVIDENCE PACKET
-            ↓
-new/gpt-5.6-sol-xhigh — CREATIVE DIRECTOR / ADAPTIVE DECOMPOSER
-            ↓
-CREATIVE BIBLE + STORY-SPECIFIC SEMANTIC SEGMENT GRAPH
-            ↓
-DETERMINISTIC BOUNDED CHILD-PROMPT CONSTRUCTION
-            ↓
-BOUNDED XHIGH SEGMENT AUTHORSHIP
-            ↓
-CONCRETE VISUAL-GROUNDING CONTRACTS + RIGHTS-SAFE ASSET BROKER
-            ↓
-RESOLVED ASSETS + NATIVE CHART/MAP/DOCUMENT COMPILERS
-            ↓
-KEYFRAME STORYBOARD + CAPTIONS-HIDDEN ANIMATIC / PROXY
-            ↓
-COMPREHENSION ACCEPTANCE OR PLAN-LEVEL REVISION
-            ↓
-new/gpt-5.6-sol-xhigh — BOUNDED V2_MOTION_CODE_AUTHOR CALLS
-            ↓
-SANDBOXED PER-VIDEO / PER-SHOT CREATIVE CODE
-            ↓
-STATIC / IMPORT / AST / TYPE VALIDATION
-            ↓
-REMOTION PROXY RENDER
-            ↓
-TEMPORAL / COMPREHENSION CRITIC
-            ↓
-BOUNDED CREATIVE REVISION
-            ↓
-FINAL RENDER + DETERMINISTIC MEDIA / RIGHTS / AUDIO / PACKAGE QA
-            ↓
-INDEPENDENT MULTIMODAL CRITIC
-            ↓
-JIM / CHATGPT ACTUAL MEDIA ACCEPTANCE
-            ↓
-PLATFORM-NATIVE PACKAGE
-            ↓
-LATER EXACT-AUTHORIZED UPLOAD / READBACK / RECONCILIATION
-            ↓
-REAL RETENTION / PERFORMANCE ATTRIBUTION
-            ↓
-BOUNDED CREATIVE / PACKAGING / TIMING LEARNING
-            ↓
-NEXT PORTFOLIO DECISION
-```
-
-## Why this architecture exists
-
-The rejected V2 prototypes established that a strong renderer and a large number of measured visual changes do not guarantee good motion design. The first retention-native V2-01 implementation at `b6f5002903fba65a668506e4ca38ae61b907ab18` passed static-run, rights, package, and audio metrics yet still failed Jim's actual review because the video repeated the same text-transition motifs, reused near-identical speed/easing behavior, used slow chart reveals, showed text collisions, and retained a template-generated feel.
-
-That failure is classified:
-
-`FAIL_CREATIVE_MOTION_ARCHITECTURE / REJECTED_CREATIVE_PRODUCT_REFERENCE_ONLY`
-
-It must not be merged or polished as the creative baseline.
-
-The controlling lesson is that creative decisions cannot be compressed into a small generic grammar such as `TextReveal`, `ChartReveal`, and a few transition presets. Structured contracts remain essential for truth, rights, identity, timing, cache, and auditability, but the final creative implementation must be free to vary per story and per shot.
-
-R4 at `task/tier2-v2-gpt56-creative-code-asset-rich-video-v1` / `2289eb1382e65474207b50d27c0b87626d30728f` is also rejected, with the deeper classification:
-
-`FAIL_SYSTEMIC_VISUAL_STORYTELLING_ARCHITECTURE / NEGATIVE_CREATIVE_REFERENCE_ONLY`
-
-R4 proved that technical QA, motion diversity, asset-class counts, and model-authored Remotion code can all pass while a normal viewer still struggles to recognize the subject or reconstruct the story. Its abstract opening geometry, unexplained metaphors, landscape-chart-in-vertical treatment, and silent substitution of planned real/contextual assets with SVG abstractions must not be reused. Its governed evidence, rights/provenance, Remotion sandbox, audio, caching/selective-rerender, package-locking, and machine-QA engineering remain selectively reusable.
-
-## Story first
-
-A renderer cannot rescue a weak story. `VideoOpportunity` must consider:
-
-- evidence strength and freshness;
-- novelty/update-chain state;
-- materiality;
-- human or institutional stakes;
-- meaningful conflict, decision, change, consequence, or mechanism;
-- narrative depth;
-- visualizability;
-- availability of primary documents and deterministic data;
-- availability of rights-safe people, place, institution, historical, or contextual imagery;
-- shelf life and search longevity;
-- current demand/trend context;
-- recent topic/series concentration;
-- platform fit;
-- expected qualified engagement;
-- estimated production effort and provider cost.
-
-A story should be the length it earns. Long-form targets do not authorize padding. A narrow story may justify only a short. A genuinely deep story may justify 15–45 minutes.
-
-## Engagement without truth degradation
-
-The creative system may optimize:
-
-- curiosity;
-- sequencing;
-- open loops;
-- tension;
-- consequence;
-- payoff timing;
-- re-hooks;
-- visual rhythm;
-- audio rhythm;
-- packaging;
-- CTA and binge path.
-
-It may never create unsupported facts, causes, quotes, numbers, human stakes, predictions, recommendations, controversy, fear, greed, or FOMO.
-
-Preferred truthful engagement mechanisms include:
+Lane B used Codex Builder as the creative/editorial brain while preserving governed evidence and using the same underlying benchmark facts/assets.
 
-- contradiction between headline and underlying record;
-- consequence;
-- mechanism;
-- uncertainty;
-- evidence reveal;
-- what changed;
-- what matters next;
-- what the record proves;
-- what the record does not prove.
-
-## Motion doctrine
+The authentic Lane B masters produced the highest V2 visual ceiling so far. Particularly strong patterns included:
 
-The primary creative unit is a narration-linked shot/beat, not a static scene/card.
+- `ONE CHOKEPOINT. FOUR TESTS.`;
+- orbital geography into a real map/vessel transition;
+- the physical chain `UNLOAD -> RESTORE -> REBUILD`;
+- primary-source document treatment with `FORECAST. NOT A RESULT.`;
+- a native direct-label forecast chart;
+- a short, explicitly disclosed illustrative transmission bridge;
+- conditional consequence cards;
+- `CONFIRM IF / CHALLENGE IF` thesis testing;
+- a clean checkpoint/timeline brand resolve.
 
-A beat may use hard cuts, snap reveals, document punch-ins, focused chart deltas, annotations, map movement, timelines, image/B-roll cutaways, masks, reframes, comparisons, quote treatments, kinetic typography, diagrams, generated conceptual bridges, intentional holds, or silence. Motion must follow narrative meaning.
+The latter half of Lane B was judged close to publishable quality. The failure was not the creative ceiling. The failure was **operational repeatability**: too many pixel-level fixes, rerenders, crop/matte iterations, layout repairs, and interactive builder decisions were needed to turn the one-off proof into final media.
 
-The system must avoid defaulting to the same transition family, easing profile, duration, direction, chart reveal, layout, or primitive repeatedly. More motion is not automatically better. Editorially motivated variation is the goal.
-
-With captions hidden, the primary visual must still tell the story.
-
-## Asset-rich editorial doctrine
-
-V2 should acquire a large rights-safe candidate universe before final editing when the story supports it. This does not mean random asset spam. Each selected asset or visual state must have an editorial purpose.
-
-Useful asset classes include:
-
-- real rights-cleared people;
-- institutions and buildings;
-- relevant locations and geography;
-- primary documents, releases, filings, tables, and source excerpts;
-- deterministic charts;
-- maps and routes;
-- timelines;
-- before/after and scenario comparisons;
-- diagrams and mechanism graphics;
-- quote/source treatments;
-- historical/context imagery;
-- rights-cleared B-roll or stills;
-- generated conceptual illustration;
-- icons, labels, and textures only where meaningful.
+Therefore the canonical decision is **Lane B Hybrid**, not “manual Full Codex forever.”
 
-Initial planning hypotheses for sufficiently rich stories:
+# 3. Canonical architecture: Lane B Hybrid
 
-- candidate universe: roughly 25–60 viable assets/visual states;
-- 45–75 second short: roughly 12–20 distinct purposeful visual states;
-- 90–150 second proof: roughly 25–45 distinct purposeful visual states;
-- longer video: density scales by narrative beats and evidence depth, not a fixed quota.
+## 3.1 Codex is the episodic creative brain
 
-Recoloring or moving the same card does not create a new meaningful visual state.
+Codex owns high-entropy decisions where judgment and creative codecraft materially improve viewer value:
 
-Generated real-person documentary imagery is forbidden.
+- choosing the video angle after a V1 article has qualified;
+- constructing the institutional analytical map;
+- deciding which mechanisms and second-order channels deserve screen time;
+- writing narration;
+- proposing restrained financial wit;
+- designing the narrative architecture, hook, re-hooks, tension, and payoff;
+- choosing how evidence and assets should serve each beat;
+- creating storyboard strategy;
+- authoring novel scene composition or motion where reusable primitives are insufficient;
+- inspecting actual proxy/full media;
+- performing bounded localized creative revision.
 
-Each important beat must carry a concrete visual-grounding contract as applicable:
+Codex must operate as a **fresh isolated execution/thread per qualified video job**. One video job may resume its own bounded thread during revision, but a general Codex conversation must not remain alive indefinitely waiting for future work.
 
-- viewer takeaway;
-- primary visual type;
-- recognizable object, location, or evidence required;
-- must-use asset IDs;
-- whether abstract substitution is allowed and why;
-- recognition deadline;
-- captions-hidden takeaway;
-- native aspect-ratio variant.
+## 3.2 Deterministic local V2 engine is the control plane
 
-If the accepted director contract requires a real/contextual asset, a Motion Code Author may not silently replace it with unrelated SVG abstraction. The rights-safe asset broker must build a story-specific candidate universe and evaluate semantic fit, rights/license, source quality, orientation, resolution, focal-object visibility, crop viability, documentary versus illustrative role, attribution, and duplicate concentration. Asset richness means recognizable editorial coverage, not a count of schematic classes.
+The local V2 engine owns all durable/repeatable responsibilities:
 
-## Storyboard and comprehension before final motion code
-
-Do not generate the full final motion layer directly from a prose shot list. First create format-specific keyframes/storyboard and a cheap captions-hidden animatic or proxy. Inspect recognition, continuity, narrative reconstruction, and asset adequacy before expensive final code/render.
-
-The comprehension gate must answer:
-
-- what does the viewer recognize, and by what deadline?;
-- what story or mechanism can be reconstructed with captions hidden?;
-- does the first second establish the subject, location, or object?;
-- are consecutive visuals semantically coherent?;
-- does each important visual explain rather than merely move?;
-- is the viewer forced to decode unexplained symbols?
-
-Machine counts of visual changes cannot self-pass this gate. Weak comprehension must revise or stop the asset/storyboard plan before final motion authorship.
-
-## Existing image, asset, voice, and audio authority remains
-
-The creative-code change does not justify rebuilding working provider infrastructure.
-
-Preserve:
-
-- the dedicated direct image-generation boundary using `AI_API_CHEAP_API_KEY`;
-- `gpt-5.5` as the current provisional generated-illustration default;
-- generated imagery as illustrative enrichment only, never factual/documentary authority;
-- rights/provenance/hash controls;
-- real-person documentary imagery through real rights-cleared assets only;
-- the current provider-neutral voice/TTS abstraction;
-- Kokoro/local narration as an available baseline/fallback;
-- existing music/SFX/mastering infrastructure until the dedicated audio task justifies a change.
-
-Provider experimentation should occur only when it removes a direct quality blocker.
-
-## Creative-code sandbox
-
-GPT-5.6 creative authorship is bounded. Generated code should live under a per-video owned surface such as:
-
-```text
-video/generated/<video_id>/
-  composition.tsx
-  shots/
-  shared/
-  manifest.json
-```
-
-Allowed dependencies are explicit. They may include React, approved compatible Remotion packages, approved deterministic helpers, local resolved assets, SVG, Canvas, and bounded WebGL/Three.js only where justified.
-
-Generated code must not:
-
-- read environment variables or secrets;
-- make network calls during render;
-- mutate arbitrary filesystem paths;
-- spawn shell commands or child processes;
-- install dependencies dynamically;
-- access browser/session/profile state;
-- perform provider/platform/publication actions;
-- alter factual/evidence authority.
-
-Before execution, source must pass path/import/static/AST checks, TypeScript validation, and bounded render limits.
-
-## Remotion technical authority
-
-The primary technical reference is the official `remotion-dev/skills` repository, pinned in `CONTENTOPS_V2_REMOTION_AGENT_SKILL_BASELINE_V1.md` at authority creation to:
-
-`b12104ef5f1b1ca2ca5590fcc7c1804fbc85556f`
-
-Official skills guide current API usage, frame-driven animation, sequencing, transitions, text measurement, assets, captions, audio, maps, rendering, and other implementation details.
-
-Community Remotion skills may supply craft ideas only. No third-party visual recipe becomes Capital Chronicle product authority. Universal rules such as “stagger everything,” “Ken Burns every still,” “idle elements always breathe,” or “cross-dissolve every scene” are explicitly rejected because they can produce the same repetitive AI-motion signature the product is trying to eliminate.
-
-## Audio doctrine
-
-Audio is a first-class creative layer. V2 should plan:
-
-- voice/provider;
-- pronunciation;
-- prosody and emphasis;
-- pause structure;
-- phrase/word timing;
-- music bed by beat/chapter;
-- tension/resolution arc;
-- restrained SFX;
-- ducking;
-- fades;
-- loudness normalization;
-- true-peak control;
-- audio rights/provenance.
-
-The initial mastering target remains approximately -16 LUFS ±1 with true peak at or below approximately -1.5 dBTP, subject to later platform/channel calibration. Narration-only may be diagnostically safe but is not automatically a professional engagement PASS.
-
-## Platform-native doctrine
-
-YouTube hero/mid/long-form, YouTube Shorts, and TikTok are independent editorial variants sharing story/evidence authority, not one composition resized three ways.
-
-Short-form should normally reach value faster, use denser meaningful visual states, shorter caption groups, portrait-native framing, and early payoff.
-
-Longer YouTube work should use sustained arcs, chapter re-hooks, richer evidence sequences, evolving asset/audio states, and deliberate pacing. Long duration is never a license for static filler.
-
-Charts, maps, and documents require native visual compilers for each target format. A landscape chart screenshot may not simply be letterboxed into 9:16. Support portrait chart compositions, direct labels, focused comparisons, highlighted primary-source excerpts, recognizable geographic treatments, and format-specific crop/layout rules.
-
-## Machine QA is screening, not aesthetics
-
-Required diagnostics should increasingly cover:
-
-- claim/evidence coverage;
+- intake from V1 performance signals;
+- durable job/outbox state;
+- immutable run IDs and checkpoints;
+- evidence and numeric bindings;
 - rights/provenance;
-- asset hashes;
-- dimensions/codecs/FPS/audio;
-- text collision and bounding-box overlap;
-- caption safe-zone/line violations;
-- transition-family repetition;
-- easing repetition;
-- duration repetition;
-- reveal-direction repetition;
-- layout/primitive repetition;
-- chart-reveal duration and perceived crawl risk;
-- asset reuse concentration;
-- hook and payoff timing;
-- static primary-visual runs excluding captions;
-- captions-hidden visual evolution;
-- audio loudness/peak;
-- package identity;
-- selective rerender correctness.
+- asset candidate manifests;
+- design tokens and layout rules;
+- visual-safety compiler;
+- reusable scene primitives;
+- native chart/map/document compilers;
+- typography and safe zones;
+- caption policies;
+- asset-reuse policy;
+- TTS, music, SFX, and media-tool execution;
+- Remotion rendering;
+- technical and semantic QA;
+- cache and selective rerender;
+- stage-level retries/resume;
+- cost/runtime telemetry;
+- final package identity;
+- publication authority and destination boundaries.
 
-No diagnostic score may override actual Jim/ChatGPT review during creative-proof stages.
+The engine must survive process restart and machine restart without depending on hidden agent memory.
 
-Technical and motion metrics also cannot establish comprehension. Storyboard/animatic and proxy review must separately attest first-second recognition, captions-hidden reconstruction, semantic continuity, unexplained-symbol burden, and narration/visual agreement.
+## 3.3 Shared creative-brain seam
 
-## Independent critique and revision
+The production design should preserve a stable brain interface so different creative brains can be compared without duplicating the renderer/control plane.
 
-The primary creative model should not be its only judge. Use an independent strong multimodal critic for actual media review where available. The critic should report defects by `video_id`, `scene_id`, `shot_id`/`beat_id`, and time range.
-
-GPT-5.6 then receives localized defects and patches the affected shot/code. Revisions should be selective. Maximum two bounded creative revision rounds per implementation attempt unless owner authority explicitly changes the rule.
-
-Revision accounting is typed. Deterministic mechanical/schema/audio/path/safe-zone/serialization corrections do not consume creative revision budget when they preserve authored meaning. Storyboard/systemic creative revision and rendered localized creative revision do consume that budget and must be recorded separately.
-
-If one implementation plus bounded correction still fails because the underlying creative architecture is wrong, do not enter an audit loop. Reconsider the architecture.
-
-## Cost doctrine
-
-ContentOps remains the production system; Codex is the repository builder. A frontier model must not rediscover the full newsroom for every video.
-
-The product amortizes continuous intelligence, clustering, novelty, evidence, and published memory across all output formats, then uses compact governed story packets downstream.
-
-The exact GPT-5.6 creative model is intentionally used at the highest-value presentation decisions. Rendering, deterministic transforms, caching, package verification, and routine QA remain local/deterministic where practical.
-
-Do not hardcode temporary provider prices or subscription economics into the constitution. Measure actual tokens, calls, asset generations, render cost, retry overhead, and portfolio spend.
-
-## Growth and learning doctrine
-
-The channel should develop repeatable series and a coherent audience promise rather than disconnected one-offs. Candidate series may include Breaking Explained, What the Headline Misses, One Chart One Consequence, Power & Policy, Big Tech/Earnings Breakdown, Capital Chronicle Deep Dive, and The Evidence Boundary. These are hypotheses, not quotas.
-
-After controlled publication, platform data should map back to production decisions:
+Conceptually:
 
 ```text
-platform metric / retention timestamp
-→ video_id
-→ shot/beat/scene
-→ asset state
-→ motion state
-→ caption state
-→ audio state
-→ hook/open-loop/payoff identity
-→ bounded hypothesis
-→ versioned policy change or NO_POLICY_CHANGE
+CreativeBrain
+├── CodexJobBrain          [CANONICAL PRIMARY]
+└── NineRouterCXBrain      [SHADOW / COST BENCHMARK]
 ```
 
-Small samples must not trigger large policy changes. Trends guide selection, framing, packaging, and timing; they never become factual authority.
+The exact implementation mechanism may evolve, but both brains must consume and emit explicit artifacts rather than hidden state.
 
-## Current task and milestone
+Codex is canonical because it demonstrated the highest current visual ceiling. CX remains strategically useful because Jim observed approximately half the generation cost in the controlled comparison. Once the shared Hybrid engine is hardened, CX should be rerun through the same deterministic visual system to measure true quality/cost parity.
 
-The failed `b6f50029...` branch does not satisfy V2-01.
+# 4. Product promise
 
-Current controlled replacement task:
+For every qualified story, V2 should be able to answer:
 
-`TASK_CONTENTOPS_V2_CONCRETE_FIRST_XHIGH_REPLACEMENT_VERTICAL_SLICE_V1`
+1. Why does this story deserve video rather than text only?
+2. What is the single viewer promise?
+3. What changed?
+4. What has not changed yet?
+5. What physical, institutional, or financial mechanism explains the change?
+6. Which facts are observations, which are forecasts, and which are Capital Chronicle analysis?
+7. What is already expected or priced, when supported by authority?
+8. Who gains, loses, pays, or absorbs the balance-sheet effect?
+9. What second-order macro channels matter?
+10. What would confirm the thesis?
+11. What would challenge it?
+12. What should the viewer see at each beat to understand this without captions?
+13. Which real assets, documents, charts, maps, and illustrations are necessary?
+14. What motion conveys information instead of merely moving pixels?
+15. What can be cut because it adds cognitive load without explanatory value?
+16. Is the visual composition safe at phone scale?
+17. Is the package rights-safe, technically sound, and clearly Capital Chronicle?
+18. Should it publish, defer, abstain, or block?
+19. After publication, which scene/beat/hook choices correlate with actual viewer behavior?
 
-Required result:
+# 5. Editorial constitution: institutional depth without lecture behavior
 
-`PASS_RETENTION_NATIVE_VERTICAL_SLICE_VISUAL_AUDIO_ACCEPTED`
+## 5.1 Three-layer authority model
 
-Proof scope is deliberately smaller than the rejected 3–6 minute attempt:
+Every V2 product separates **Truth**, **Analysis**, and **Engagement**.
 
-- one native 45–60 second 9:16 short;
-- one 90–150 second 16:9 editorial proof;
-- exact sanitized GPT-5.6 creative-author receipts;
-- adaptive Creative Bible and semantic Segment Graph with deterministic child prompts;
-- concrete visual-grounding contracts and a richer rights-safe story-specific asset universe;
-- format-native chart/map/document treatments;
-- keyframe storyboard and captions-hidden animatic before final motion code;
-- explicit comprehension acceptance before expensive final rendering;
-- sandboxed per-shot code;
-- a rich rights-safe candidate asset universe;
-- many purposeful selected visual states;
-- current narration/music/SFX path;
-- collision and repetition diagnostics;
-- independent multimodal critique;
-- at most two localized creative revisions;
-- actual MP4/audio inspection by Jim/ChatGPT.
+### Truth Layer
 
-Do not advance to V2-02 until the actual media is accepted.
+Only governed factual material belongs here:
 
-## Final V2 success condition
+- observations;
+- source-backed historical facts;
+- primary-source statements;
+- dated forecasts;
+- exact numeric values;
+- evidence references;
+- explicit uncertainty/status.
 
-V2 is complete only when Capital Chronicle has demonstrated:
+No creative brain may change truth to improve retention.
 
-- repeated professional visual/audio quality across multiple story modes;
-- disciplined story/video abstention;
-- strong packaging and repeatable series identity;
-- daily video portfolio selection without filler;
-- safe controlled YouTube/Shorts/TikTok delivery under exact authority;
-- strict upload/readback/reconciliation;
-- real retention/performance observability;
-- beat/shot-level attribution;
-- bounded data-driven creative learning;
-- reliable autonomous operation;
-- low measured marginal operating cost;
-- zero truth/rights/secret/public-write incidents;
-- owner acceptance of the final V2 product.
+### Analytical Layer
+
+This layer explains what the facts mean through mechanisms, scenarios, and channels.
+
+Possible content includes:
+
+- physical flow constraints;
+- market mechanics;
+- balance-sheet effects;
+- rates/FX/inflation transmission;
+- fiscal/external-account consequences;
+- corporate or sovereign cash-flow implications;
+- substitution;
+- second-order effects;
+- scenario boundaries;
+- confirmation and invalidation logic.
+
+Capital Chronicle-owned proprietary models, calculations, scenarios, probabilities, forecasts, regimes, Bayesian outputs, and numeric conclusions require exact Capital Chronicle authority. Codex can explain them; it may not invent them.
+
+### Engagement Layer
+
+This layer controls presentation:
+
+- hook;
+- sequencing;
+- rhetorical question;
+- pacing;
+- contrast;
+- open loop;
+- payoff;
+- re-hook;
+- analogy;
+- restrained wit;
+- visual/audio packaging.
+
+Engagement changes how the story is consumed, not what is true.
+
+## 5.2 Institutional Analytical Spine
+
+A strong midform should answer as many of these as the evidence justifies:
+
+1. **What changed?**
+2. **What has not changed yet?**
+3. **What is the physical or institutional mechanism?**
+4. **What is already priced or expected?** Only when evidence exists.
+5. **Who gains or loses economically?**
+6. **Which balance sheet or cash flow changes?**
+7. **What are the most important second-order macro channels?**
+8. **What countervailing force could offset the first-order story?**
+9. **What would confirm the thesis?**
+10. **What would challenge or invalidate it?**
+11. **What should the viewer watch next?**
+
+The goal is not to mechanically fill eleven slots. Codex should select the two to four mechanisms with the highest marginal explanatory value.
+
+## 5.3 Domain analytical packs
+
+V2 should build domain-specific analytical libraries over time.
+
+### Energy/oil
+
+Potential channels:
+
+- chokepoint throughput;
+- tanker movement;
+- terminal unloading;
+- production restart;
+- storage/inventory rebuild;
+- spare capacity;
+- freight and insurance premia;
+- refining throughput and crack spreads;
+- futures curve versus spot;
+- producer cash flow;
+- fiscal breakevens;
+- importer current account;
+- gasoline and inflation transmission;
+- rates/FX effects;
+- demand response/substitution.
+
+### Central banks/rates
+
+Potential channels:
+
+- reaction function;
+- inflation composition;
+- labor slack/tightness;
+- real rates;
+- curve repricing;
+- term premium;
+- credit conditions;
+- FX transmission;
+- balance-sheet/liquidity effects.
+
+### Labor
+
+Potential channels:
+
+- payroll versus household measures;
+- participation;
+- hours;
+- wages;
+- quits/turnover;
+- sector mix;
+- productivity;
+- income/consumption transmission;
+- policy implications.
+
+### Fiscal/policy
+
+Potential channels:
+
+- direct spending/tax impulse;
+- financing requirement;
+- issuance mix;
+- crowding/term premium;
+- distributional effects;
+- corporate/household cash flows;
+- FX/import response;
+- implementation timing.
+
+Additional packs may cover housing, semiconductors, shipping, commodities, elections, credit/liquidity, geopolitics, and corporate balance sheets.
+
+## 5.4 Density budgets
+
+### Short 45–60 seconds
+
+A short should generally contain:
+
+- one core question;
+- one mechanism;
+- around two hard evidence/data anchors;
+- one second-order implication;
+- one uncertainty/counter-case;
+- one watch condition;
+- zero or one wit line.
+
+Do not compress an entire institutional memo into 60 seconds.
+
+### Midform 90–150 seconds
+
+A midform should generally contain:
+
+- one core thesis/question;
+- two to three mechanism layers;
+- around three to five hard evidence/data anchors;
+- physical + financial + macro transmission where justified;
+- one meaningful counter-case;
+- pricing/positioning only when evidence is available;
+- three to five confirmation/watch signals;
+- at most two to three wit lines.
+
+Longer formats may scale depth, but depth must come from evidence and mechanisms rather than narration padding.
+
+## 5.5 Conversational analytical voice
+
+V2 should sound like a highly competent analyst explaining something important to another intelligent person, not a lecturer reading section headers.
+
+Preferred narrative tension:
+
+- “Movement is back. Is supply back?”
+- “What has to happen between a ship crossing Hormuz and a barrel showing up in inventory?”
+- “The forecast is clear. The evidence is not finished.”
+- “What would prove this wrong?”
+
+Avoid textbook phrasing such as:
+
+- “First, we examine…”
+- “Second, we analyze…”
+- “In conclusion…”
+
+# 6. Financial wit doctrine
+
+Capital Chronicle may use dry, subtle, insider-aware financial wit when it increases retention and brand character without reducing authority.
+
+Desired characteristics:
+
+- deadpan rather than loud;
+- tied to the mechanism;
+- intelligible to financially literate viewers;
+- optional;
+- brief;
+- never substitutes for evidence.
+
+Desired tone examples, not reusable mandatory copy:
+
+- “Markets can price a reopening in minutes. Inventories are less cooperative.”
+- “Forecasts travel faster than crude.”
+- “The market has a view. The balance sheet still gets a vote.”
+
+Forbidden:
+
+- meme slang as the default voice;
+- cheap dunking;
+- humor around deaths, war casualties, or human hardship;
+- invented facts to support a punchline;
+- jokes inside primary-evidence presentation;
+- jokes that imply trading advice;
+- wit density high enough to make the product feel unserious.
+
+Recommended pipeline:
+
+```text
+Analytical script
+→ bounded wit candidates
+→ truth/relevance/tone validation
+→ zero to N accepted lines
+```
+
+Zero accepted wit lines is valid.
+
+# 7. Visual constitution
+
+## 7.1 Concrete-first remains permanent
+
+Canonical visual priority:
+
+1. real documentary/context media;
+2. primary evidence/document;
+3. native chart/map/data visual;
+4. concrete explanatory illustration;
+5. abstract explanatory diagram/metaphor.
+
+Generated or abstract media must never masquerade as documentary evidence.
+
+## 7.2 Positive visual reference
+
+The current Lane B A/B proof is the first positive V2 visual reference with a sufficiently high ceiling. It is a source of **patterns**, not a frozen template.
+
+Promote and generalize the strongest concepts:
+
+- `MapToVessel`;
+- `PhysicalChain`;
+- `DocumentEvidence`;
+- `NativeForecastChart`;
+- `Transmission`;
+- `Consequence`;
+- `ConfirmChallenge`;
+- `CheckpointTimeline`.
+
+A primitive defines safe structure and behavior. It must not force every future story into the same visual identity or semantic sequence.
+
+## 7.3 Visual Safety Compiler
+
+The common root cause of remaining Lane A/Lane B first-half defects is not model intelligence alone. It is uncontrolled interaction between:
+
+- text already embedded in source assets;
+- creative overlays;
+- source/attribution rails;
+- captions;
+- phone/platform safe zones;
+- arbitrary absolute positioning.
+
+The visual safety compiler must centralize these decisions.
+
+Where practical, every source asset should carry:
+
+- focal-object bounds;
+- native text regions;
+- native logo/source regions;
+- recommended crop by aspect ratio;
+- forbidden overlay regions;
+- semantic labels already visible;
+- minimum readable crop;
+- source/rights metadata.
+
+The compiler owns:
+
+- title slot;
+- eyebrow slot;
+- source slot;
+- caption slot;
+- evidence/highlight slot;
+- visual focal area;
+- measured text bounds;
+- z-order;
+- collision detection;
+- min/max type sizes;
+- safe-zone enforcement.
+
+Codex can ask for an editorial effect, but routine text geometry should be implemented through safe primitives rather than freehand pixel coordinates.
+
+## 7.4 Native-text duplication rule
+
+If an asset already visibly contains the semantic label needed by the viewer, the system must not blindly add a duplicate overlay.
+
+Allowed choices:
+
+- use the native label and add only a small eyebrow/context cue;
+- crop/mask the native label and replace it with a single controlled overlay;
+- choose a different asset.
+
+Forbidden default:
+
+- native label + large overlay of the same phrase + subtitle repeating the same phrase.
+
+## 7.5 Document compiler
+
+Primary-document scenes require a dedicated component/compiler.
+
+Requirements:
+
+- source/date remain visible;
+- selected excerpt is readable;
+- one semantic highlight at a time by default;
+- highlight geometry is derived from known/measured text regions, not guessed boxes;
+- no duplicate source headers;
+- no source rail covering native source identity;
+- forecast/result, preliminary/final, estimate/observation or equivalent status is explicit;
+- 9:16 and 16:9 use native composition rather than letterboxing.
+
+## 7.6 Chart compiler
+
+Charts should derive from structured data whenever possible.
+
+Requirements:
+
+- direct labels;
+- phone-readable type;
+- limited legend dependence;
+- selected relevant window;
+- clear observation/forecast distinction;
+- native 9:16 and 16:9 layouts;
+- semantic motion such as reveal, comparison, or delta;
+- no endless chart crawl.
+
+## 7.7 Caption doctrine
+
+The canonical editorial master is **clean**.
+
+For each final video, create:
+
+1. clean master;
+2. sidecar/platform caption track where supported;
+3. optional social-caption derivative.
+
+Social captions:
+
+- maximum two lines;
+- bounded screen occupation;
+- do not repeat the visible headline;
+- automatically hide/reposition on document/chart/text-heavy scenes;
+- respect platform safe zones;
+- must not obscure source attribution or primary evidence.
+
+Lane A’s persistent subtitle card is not the canonical visual direction.
+
+## 7.8 Asset diversity
+
+The A/B proof overused some storage/refinery/tanker imagery. Asset fatigue is now a first-class QA concern.
+
+Track:
+
+- reuse count;
+- cumulative screen time;
+- repeated semantic role;
+- consecutive background reuse;
+- near-duplicate similarity;
+- crop/orientation variation.
+
+Initial design targets:
+
+- a single asset should normally not exceed roughly 15% of visual screen time without explicit motif justification;
+- avoid consecutive scenes sharing the same background asset;
+- repeat use must have a genuinely distinct semantic purpose or composition;
+- major concepts should have alternate candidates whenever rights-safe media exists.
+
+These are calibration targets, not permanent immutable thresholds.
+
+# 8. Motion constitution
+
+Motion exists to express information state change.
+
+Preferred:
+
+- hard cut on semantic change;
+- evidence reveal;
+- map route/progression;
+- physical-chain sequencing;
+- line/data draw;
+- comparison;
+- state transition;
+- purposeful reframe;
+- controlled hold;
+- restrained brand resolve.
+
+Avoid:
+
+- constant parallax;
+- idle animation everywhere;
+- unrelated simultaneous movement;
+- universal zoom;
+- repeated easing family across the whole video;
+- PowerPoint/card-deck grammar;
+- movement used only to satisfy a motion-count metric.
+
+The visual should remain understandable with captions hidden.
+
+# 9. Brand doctrine
+
+Capital Chronicle V2 should gradually become recognizable before the logo appears.
+
+Desired qualities:
+
+- institutional financial authority;
+- matte/dark premium surfaces when appropriate;
+- restrained teal/copper/ivory accents rather than decorative rainbow palettes;
+- large disciplined typography;
+- evidence-forward layout;
+- confident whitespace;
+- real assets before abstract graphics;
+- calm, intentional motion;
+- dry analytical voice;
+- visible distinction between fact, forecast, and analysis.
+
+Avoid:
+
+- generic AI-video aesthetics;
+- cyberpunk glow;
+- meme-finance styling;
+- overly glossy crypto-ad visual language;
+- generic SaaS cards;
+- cheap stock-footage montage;
+- permanent lower-third clutter.
+
+# 10. Story selection: V1 performance is a trigger, not truth authority
+
+V1 remains the canonical article/newsroom lane.
+
+V2 should conditionally select top opportunities from V1 rather than convert every article.
+
+## Engagement qualification may include
+
+- unique readers;
+- completion/read depth;
+- dwell time;
+- shares;
+- comments;
+- saves;
+- subscriber conversion;
+- velocity normalized by article age.
+
+## Video-opportunity qualification may include
+
+- visual entities;
+- concrete mechanism;
+- primary evidence;
+- hard data;
+- rights-safe asset supply;
+- meaningful secondary analytical channel;
+- narrative tension;
+- novelty versus recent video portfolio;
+- expected production cost.
+
+Engagement affects priority and packaging. It may never change facts, permissions, Capital Chronicle analysis, or numeric authority.
+
+## Initial ranking hypothesis
+
+A starting calibration may weight approximately:
+
+- 40% engagement quality;
+- 20% velocity;
+- 15% video opportunity;
+- 10% evidence freshness;
+- 10% portfolio diversity;
+- 5% expected production cost.
+
+These are experimental weights, not doctrine.
+
+## Trigger windows
+
+Possible initial behavior:
+
+- early short trigger around 60–120 minutes after publication for exceptional performers;
+- later 6–12 hour or end-of-day selection for more stable midform ranking.
+
+No forced quota. The target is top one or two **qualified** opportunities when they exist.
+
+# 11. Unattended execution constitution
+
+The production loop should be event-driven and durable.
+
+```text
+V1 publication + analytics
+→ candidate scorer
+→ durable V2 outbox
+→ V2 supervisor claims one job
+→ fresh isolated Codex execution
+→ evidence lock
+→ institutional editorial engine
+→ asset broker
+→ storyboard/proxy
+→ Codex visual review
+→ deterministic compiler + Remotion
+→ machine QA
+→ localized Codex revision
+→ final masters
+→ owner/publication gate
+```
+
+## Durable job states
+
+Recommended states:
+
+- `DISCOVERED`
+- `QUALIFIED`
+- `CLAIMED`
+- `EVIDENCE_LOCKED`
+- `EDITORIAL_READY`
+- `ASSETS_READY`
+- `STORYBOARD_READY`
+- `PROXY_READY`
+- `QA_REVISE`
+- `MASTER_READY`
+- `OWNER_REVIEW`
+- `PUBLICATION_ELIGIBLE`
+- `ABSTAINED`
+- `BLOCKED`
+- `FAILED`
+
+Each transition records:
+
+- input hashes;
+- output hashes;
+- model/tool identity;
+- sanitized receipt;
+- duration;
+- measured cost where available;
+- retry count;
+- failure class;
+- next legal transition.
+
+A process restart resumes from the latest valid immutable stage rather than rerunning completed expensive work.
+
+## Scheduler doctrine
+
+A local scheduler may wake the supervisor. The scheduler is not the product brain.
+
+Preferred shape:
+
+```text
+Task Scheduler / equivalent wakeup
+→ run-once V2 supervisor
+→ atomically claim durable outbox row
+→ spawn one fresh Codex job
+→ monitor stage ledger
+→ finalize or quarantine
+```
+
+Do not keep a 24/7 Codex conversation alive waiting for events.
+
+# 12. Tool ownership
+
+- Capital Chronicle/V1: factual/numeric truth and governed article input.
+- Codex: creative/editorial reasoning, storyboard strategy, novel scene code, visual review, localized revision.
+- Asset broker: documentary/contextual media and rights.
+- Image-generation tool: illustrative enrichment only when justified.
+- Chart/map/document compilers: evidence-native deterministic visuals.
+- Voice provider/tool: waveform generation.
+- Codex: script, pronunciation guidance, voice direction; not false claims that Codex generated the audio waveform itself.
+- Music/SFX engine: owned/procedural/provider audio execution.
+- Remotion: deterministic render compiler.
+- Machine QA: technical, legibility, rights, provenance, asset-reuse, package safety.
+- Codex visual review: actual media coherence and bounded creative correction.
+- Publication coordinator: separate explicit public-write authority.
+
+# 13. QA hierarchy
+
+V2 quality gates are layered.
+
+## Level 1 — Technical
+
+- duration;
+- dimensions;
+- FPS;
+- codecs;
+- media probe;
+- render completeness;
+- audio loudness/true peak;
+- package identity;
+- rights/provenance.
+
+## Level 2 — Layout and legibility
+
+- clipping;
+- text overflow;
+- safe zones;
+- source readability;
+- caption collisions;
+- duplicate native/overlay text;
+- highlight geometry;
+- chart phone readability.
+
+## Level 3 — Semantic grounding
+
+- required asset use;
+- real-object recognition;
+- evidence/narration alignment;
+- forecast/observation boundaries;
+- abstraction concentration;
+- asset reuse/fatigue.
+
+## Level 4 — Narrative comprehension
+
+- first-second context;
+- captions-hidden story reconstruction;
+- continuity;
+- mechanism comprehension;
+- hook/payoff clarity.
+
+## Level 5 — Editorial craft
+
+Requires actual media inspection. Machine tests cannot self-pass this level.
+
+Assess:
+
+- pacing;
+- hierarchy;
+- visual polish;
+- motion meaning;
+- brand coherence;
+- retention risk;
+- whether the video feels templated;
+- whether the story earns its duration.
+
+# 14. Cost/value doctrine
+
+Optimize total cost of ownership:
+
+```text
+TCO =
+creative brain cost
++ asset/image/TTS/audio cost
++ render compute
++ failed rerenders
++ operator review time
++ recovery/retry overhead
++ opportunity cost
+```
+
+The A/B proved a meaningful trade-off:
+
+- Lane B has the highest demonstrated visual ceiling.
+- Lane A can be materially cheaper.
+
+The Hybrid engine should reduce Lane B marginal cost by turning recurring visual repairs into reusable primitives and deterministic compilers.
+
+After hardening, run fair shadow comparisons where Codex and CX drive the **same** production/control plane. The owner may later change primary brain if measured quality/cost evidence justifies it.
+
+Do not preserve duplicate renderer stacks merely to protect sunk work.
+
+# 15. Post-publication learning
+
+When publication authority is later granted, preserve timeline attribution:
+
+```text
+elapsed time
+→ scene ID
+→ beat ID
+→ visual primitive
+→ asset class
+→ analytical channel
+→ hook type
+→ wit presence
+```
+
+Learning may change:
+
+- timing;
+- hook style;
+- beat order;
+- visual primitive preference;
+- asset selection;
+- caption packaging;
+- candidacy thresholds.
+
+Learning may not change factual truth or Capital Chronicle numeric authority.
+
+# 16. Safety and isolation
+
+Current state remains:
+
+`ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
+
+No YouTube/TikTok upload, private upload, unlisted upload, draft, browser/CDP publication, scheduler publication, or equivalent platform write is authorized by this North Star.
+
+V2 must not mutate/reset V1 runtime, store, scheduler, publication coordinator, browser profile, or canonical destination state.
+
+V1 and V2 may run concurrently only through explicit isolated execution domains.
+
+Generated media is not documentary authority.
+
+Real-person documentary imagery must be real and rights-cleared.
+
+No raw secrets may be printed, logged, committed, or placed in creative prompts/evidence.
+
+# 17. Current proof target before publication
+
+The next major milestone is not V2-02 distribution expansion. It is proving the Lane B Hybrid engine can repeatedly produce the demonstrated Lane B quality without interactive babysitting.
+
+Initial shadow acceptance hypotheses:
+
+- roughly 10 consecutive qualified jobs;
+- at least ~90% successful pipeline completion;
+- no unresolved MAJOR visual defect;
+- most jobs require no manual source-code edit;
+- bounded operator review time;
+- measured end-to-end cost and wall-clock;
+- at least one non-oil domain proving generalization;
+- quality at least equal to the strongest current Lane B scenes;
+- clean rights/provenance on every final package.
+
+These are proof thresholds, not public-write permission.
+
+# 18. Exact next product task
+
+`TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
+
+The task must be a heavy bounded vertical slice, not a documentation project.
+
+It must minimally produce:
+
+1. reusable Lane B visual primitives and visual-safety compiler necessary for one real proof;
+2. institutional editorial/analytical contract;
+3. controlled financial-wit layer;
+4. durable V1-to-V2 candidate/outbox contract;
+5. fresh isolated/headless Codex creative-brain seam;
+6. durable stage ledger and resume behavior;
+7. one actual zero-public-write shadow video from qualified input through final media;
+8. actual media review evidence;
+9. cost/runtime telemetry;
+10. exact remaining blocker to unattended production.
+
+# 19. Anti-drift rules
+
+Future sessions must not:
+
+- reactivate R4 creative grammar;
+- treat `new/gpt-5.6-sol-xhigh` as still canonical merely because older docs said so;
+- make CX the primary final-media lane solely because it is cheaper;
+- keep a permanent Codex conversation alive 24/7;
+- let Codex become truth/numeric authority;
+- let deterministic infrastructure replace creative judgment with rigid templates;
+- rebuild working asset/audio/provider infrastructure without a direct blocker;
+- convert every V1 article into video;
+- start V2-02 platform expansion before Hybrid production quality is proven;
+- grant public write implicitly;
+- optimize engagement by weakening truth, uncertainty, rights, or safety.
+
+# 20. Durable one-paragraph summary
+
+**Capital Chronicle V2 is now a Lane B Hybrid product. Fresh per-video Codex execution provides institutional editorial reasoning, narration, restrained wit, storyboard/motion strategy, novel scene code, actual media review, and bounded creative revision. A deterministic local V2 engine owns V1-trigger intake, evidence/numeric authority, durable job state, rights, assets, visual design primitives, chart/map/document compilers, layout safety, captions, rendering, QA, recovery, package identity, and publication boundaries. V1 performance selects only truly qualified video opportunities. Lane A/CX remains a lower-cost shadow benchmark. The quality target is the best second-half Lane B visual craft applied consistently across the whole video, with deeper institutional mechanics and conversational high-retention pacing. No persistent 24/7 Codex session and no V2 public write authority.**
