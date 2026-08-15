@@ -158,6 +158,30 @@ def test_completed_job_is_reused_without_duplicate_execution(tmp_path):
     assert second["completed_receipt_reused"] is True
     assert first["receipt"]["governed_input_sha256"] == _job()["governed_input_sha256"]
     assert first["receipt"]["revision_count"] == 0
+    assert calls[0].requested_model == "gpt-5.6-sol"
+    assert calls[0].requested_reasoning_effort == "xhigh"
+    assert first["receipt"]["requested_model"] == "gpt-5.6-sol"
+    assert first["receipt"]["requested_reasoning_effort"] == "xhigh"
+
+
+def test_effective_model_or_effort_mismatch_blocks_without_substitution(tmp_path):
+    def adapter(_request):
+        execution = _execution(_output())
+        execution["effective_model"] = "gpt-5.4"
+        execution["effective_reasoning_effort"] = "high"
+        return execution
+
+    with pytest.raises(
+        brain.CodexEditorialBrainError,
+        match=brain.AUTONOMOUS_SEAM_BLOCKER,
+    ):
+        brain.run_codex_editorial_brain_job(
+            job=_job(),
+            opportunity_output_dir=tmp_path / "opportunity",
+            runtime_root=tmp_path / "runtime",
+            deterministic_validator=_pass_validator,
+            execution_adapter=adapter,
+        )
 
 
 def test_second_job_for_same_opportunity_is_blocked(tmp_path):

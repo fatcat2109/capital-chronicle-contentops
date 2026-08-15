@@ -306,7 +306,11 @@ def test_generation_prompt_matches_reader_facing_semantic_gate():
     assert "state the core news once" in prompt
     assert "Do not add a generic financial-advice" in prompt
     assert "End the body with the exact line" not in prompt
-    assert "A concise breaking brief may use no section headings" in prompt
+    assert "No word count, heading count" in prompt
+    assert "Select only the subset that materially improves understanding" in prompt
+    assert "canonical_content_text fields are governed factual evidence" in prompt
+    assert "supported_claims_highlight_core_expected_claims_but_are_not_exhaustive" in prompt
+    assert "never calculate or infer a new number" in prompt
 
 
 # --- media primitives -------------------------------------------------------------
@@ -694,7 +698,7 @@ def test_ordinary_story_uses_one_quality_writer_and_skips_semantic_review(
         }
     ]
     assert governed["evidence_substance"]["enough_for_useful_article"] is True
-    assert "normally lands around 120-220 words" in writer_calls[0]
+    assert "never truncate useful evidence-rich reporting" in writer_calls[0]
     assert "three distinct kinds of value" in writer_calls[0]
     assert "Do not chain source-title restatements" in writer_calls[0]
     assert built["article"]["article_generation_method"] == "ROUTED_LLM_GROUNDED_ARTICLE"
@@ -781,12 +785,30 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
         "live_contentops.newsroom_assignment_scheduler_v1.select_first_viable_rolling_x_cluster",
         lambda **kwargs: viability,
     )
-    # Default article generator (deterministic fixture) used by the default builder.
+    # Production default reaches the exact XHIGH editorial seam before any legacy writer.
+    legacy_writer_calls = []
     monkeypatch.setattr(
         builder,
         "_default_article_generator",
-        _make_generator(FR_URL, []),
+        lambda _prompt: legacy_writer_calls.append(_prompt),
     )
+    xhigh_calls = []
+
+    def fake_xhigh(**kwargs):
+        xhigh_calls.append(kwargs)
+        generated = _codex_output_from_useful()
+        generated.update({
+            "article_generation_method": "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN",
+            "editorial_brain_status": "CODEX_XHIGH_DEFAULT",
+            "_writer_router_telemetry": {
+                "logical_invocations": 1,
+                "nine_router_writer_called_before_xhigh": False,
+                "degraded_editorial_brain": False,
+            },
+        })
+        return generated
+
+    monkeypatch.setattr(builder, "_run_codex_editorial_fallback", fake_xhigh)
     # Deterministic audit passes so the editorial cycle proves semantic review.
     monkeypatch.setattr(
         "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
@@ -821,6 +843,9 @@ def test_default_builder_invoked_and_path_reaches_release_gate_with_zero_public_
 
     # Default builder produced a grounded article without forcing generic source cards.
     assert result["article"] is not None
+    assert len(xhigh_calls) == 1
+    assert legacy_writer_calls == []
+    assert result["article"]["editorial_brain_status"] == "CODEX_XHIGH_DEFAULT"
     assert result["article"]["cluster_id"] == "c1"
     assert len(result["media"]["assets"]) == 0
     # Editorial review ran and passed (semantic reviewer invoked).
@@ -1393,8 +1418,11 @@ def test_accepted_codex_trigger_routes_to_one_isolated_job_and_existing_gates(tm
     assert len(calls) == 1
     assert calls[0].job_dir.parent.parent == tmp_path / "runtime"
     assert built["article"]["article_generation_method"] == (
-        "FRESH_ISOLATED_CODEX_EDITORIAL_BRAIN"
+        "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN"
     )
+    assert calls[0].requested_model == "gpt-5.6-sol"
+    assert calls[0].requested_reasoning_effort == "xhigh"
+    assert built["article"]["editorial_brain_status"] == "CODEX_XHIGH_DEFAULT"
     assert built["article"]["codex_editorial_brain_receipt"]["status"] == "COMPLETED"
     assert built["article"]["writer_reader_value_preflight"]["classification"] == "PASS"
     assert "[[SOURCE:" not in built["article"]["substack_body_markdown"]
@@ -1426,35 +1454,37 @@ def test_codex_is_not_invoked_for_authority_ineligible_story(tmp_path):
     assert calls == []
 
 
-def test_codex_is_not_invoked_after_material_factual_writer_failure(
+def test_default_xhigh_runs_before_legacy_writer_and_factual_rejection_does_not_fallback(
     tmp_path, monkeypatch
 ):
     codex_calls = []
+    legacy_calls = []
 
-    def prohibited_trigger(_prompt):
+    def prohibited_legacy(_prompt):
+        legacy_calls.append(_prompt)
+        raise AssertionError("legacy writer must not run after XHIGH factual rejection")
+
+    def rejected_xhigh(**kwargs):
+        codex_calls.append(kwargs)
         raise GroundedArticleBuilderError(
-            CODEX_EDITORIAL_BRAIN_TRIGGER,
+            "CODEX_EDITORIAL_OUTPUT_REJECTED",
             writer_router_telemetry={
-                "logical_invocations": 2,
-                "cx_rescue": {
-                    "terminal_disposition": "LLM_TERMINAL_NON_RETRYABLE_FAILURE",
-                    "requested_effective_models": [{
-                        "failure_class": "factual_validation_failure"
-                    }],
+                "logical_invocations": 1,
+                "codex_editorial_brain": {
+                    "validation_result": {
+                        "classification": "FAIL_FORBIDDEN",
+                        "forbidden_failure_codes": ["article_untraceable_numeric_claim"],
+                    }
                 },
             },
         )
 
-    def codex_fallback(**kwargs):
-        codex_calls.append(kwargs)
-        return _codex_output_from_useful()
-
-    monkeypatch.setattr(builder, "_default_article_generator", prohibited_trigger)
-    monkeypatch.setattr(builder, "_run_codex_editorial_fallback", codex_fallback)
+    monkeypatch.setattr(builder, "_default_article_generator", prohibited_legacy)
+    monkeypatch.setattr(builder, "_run_codex_editorial_fallback", rejected_xhigh)
 
     with pytest.raises(
         GroundedArticleBuilderError,
-        match=CODEX_EDITORIAL_BRAIN_TRIGGER,
+        match="CODEX_EDITORIAL_OUTPUT_REJECTED",
     ):
         build_rolling_x_grounded_article_and_media(
             _codex_eligible_viability(),
@@ -1462,7 +1492,8 @@ def test_codex_is_not_invoked_after_material_factual_writer_failure(
             codex_runtime_root=tmp_path / "runtime",
         )
 
-    assert codex_calls == []
+    assert len(codex_calls) == 1
+    assert legacy_calls == []
 
 
 def test_codex_unsupported_numeric_output_is_rejected_without_revision(tmp_path):

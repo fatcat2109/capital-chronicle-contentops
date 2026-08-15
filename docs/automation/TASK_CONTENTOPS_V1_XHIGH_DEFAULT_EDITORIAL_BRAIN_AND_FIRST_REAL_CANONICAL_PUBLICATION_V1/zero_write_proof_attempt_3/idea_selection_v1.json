@@ -1,0 +1,139 @@
+{
+  "article_mode": "breaking",
+  "capability_article_mode": "straight_news",
+  "capital_chronicle_context": {
+    "all_discovered_stores_considered": true,
+    "candidate_table_count": 0,
+    "catalog_fingerprint": null,
+    "cc_context_richness": 0.0,
+    "deep_query_selected_tables": [],
+    "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+    "deep_query_table_limit": 8,
+    "grants_factual_or_numeric_authority": false,
+    "matched_store_count": 0,
+    "matched_store_ids": [],
+    "matched_table_count": 0,
+    "matches": [],
+    "mutated_upstream": false,
+    "queried_entities": [],
+    "queried_table_count": 0,
+    "richness_components": {
+      "bounded_row_density": 0.0,
+      "entity_coverage": 0.0,
+      "matched_freshness_metadata_coverage": 0.0,
+      "matched_store_diversity": 0.0,
+      "quality_lineage_surface_coverage": 0.0
+    },
+    "schema_version": "contentops.story_scoped_cc_context.v2"
+  },
+  "cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+  "cross_asset_implications": "",
+  "dek": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+  "duplicate_hotspot_decision": {
+    "decision": "PASS_FIRST_VIABLE_RANKED_CLUSTER",
+    "publish_allowed": true
+  },
+  "editorial_classification": "BREAKING_NEW_STORY",
+  "entities_topics": [],
+  "evidence_reachability": {
+    "capital_chronicle_relevant_context": false,
+    "factual_authority_granted": false,
+    "known_official_path": true,
+    "mode_downgrade_viable": true,
+    "public_source_candidate_count": 1,
+    "reputable_public_secondary_path": false,
+    "score": 0.65,
+    "unregistered_official_suffix_candidate": false
+  },
+  "headline_ids": [
+    "cc-x-headline-01809264e79e9a6b7d69ce5b"
+  ],
+  "leaf_cluster_ids": [
+    "rolling-x-deterministic-leaf-9180508e22ca1459a4a5"
+  ],
+  "leaf_summaries": [
+    "US CPI July 2026 Report"
+  ],
+  "market_mechanism": "Shelter accounted for roughly two-thirds of the monthly all-items increase. Energy declined 1.5 percent, including a 2.9 percent fall in gasoline.",
+  "market_sensitive": false,
+  "material_follow_up_context": null,
+  "needed_evidence": [
+    "Corroborate the limited factual claim from public evidence."
+  ],
+  "official_source_url_bindings": [
+    {
+      "feed_published_at_utc": "2026-08-12T12:31:23Z",
+      "feed_publisher_handle": "financialjuice",
+      "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+      "headline_id": "cc-x-headline-01809264e79e9a6b7d69ce5b",
+      "url": "https://www.bls.gov/news.release/pdf/cpi.pdf"
+    }
+  ],
+  "official_source_urls": [
+    "https://www.bls.gov/news.release/pdf/cpi.pdf"
+  ],
+  "policy_context": "",
+  "portfolio_concentration_penalty": 0.0,
+  "portfolio_concentration_penalty_effective": 0.0,
+  "preselection_novelty": {
+    "best_prior_article": null,
+    "best_prior_title": null,
+    "cc_context_richness": 0.0,
+    "decision": "BREAKING_NEW_STORY",
+    "entity_overlap": 0.0,
+    "grants_factual_or_numeric_authority": false,
+    "matched_article_age_hours": null,
+    "material_delta_evaluation": {
+      "delta_summary": "No prior article matched.",
+      "marker_hits": [],
+      "new_official_source_candidate_count": 0,
+      "reason_codes": [],
+      "signal_count": 0,
+      "x_content_grants_factual_authority": false
+    },
+    "material_delta_signals": 0,
+    "recommended_article_mode": "BREAKING_BRIEF",
+    "schema_version": "contentops.editorial_story_novelty.v1",
+    "update_chain_match": false
+  },
+  "preselection_occurs_before_article_generation": true,
+  "preselection_occurs_before_targeted_evidence": true,
+  "preselection_original_rank": 1,
+  "preselection_score": 130.2,
+  "public_source_url_bindings": [
+    {
+      "feed_published_at_utc": "2026-08-12T12:31:23Z",
+      "feed_publisher_handle": "financialjuice",
+      "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+      "headline_id": "cc-x-headline-01809264e79e9a6b7d69ce5b",
+      "url": "https://www.bls.gov/news.release/pdf/cpi.pdf"
+    }
+  ],
+  "public_source_urls": [
+    "https://www.bls.gov/news.release/pdf/cpi.pdf"
+  ],
+  "publication_authority": false,
+  "rank": 1,
+  "resolved_article_mode": "BREAKING_BRIEF",
+  "selection_case": "Fresh discovery item with a bounded public evidence path.",
+  "selection_method": "rolling_x_ranked_targeted_evidence_first_viable",
+  "seo_intent": "",
+  "seo_title": "US CPI Rises 0.1% in July 2026; Annual Rate Eases to 3.4%",
+  "slug": "us-cpi-rises-0-1-in-july-as-annual-inflation-eases-to-3-4",
+  "story_mode": "reporting",
+  "thesis": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+  "title": "US CPI Rises 0.1% in July as Annual Inflation Eases to 3.4%",
+  "topic_hash": "ab9ebee7123522bf6ebea672",
+  "update_chain": {
+    "canonical_headline_id": "cc-x-headline-01809264e79e9a6b7d69ce5b",
+    "ordered_headline_ids": [
+      "cc-x-headline-01809264e79e9a6b7d69ce5b"
+    ],
+    "relationship": "distinct"
+  },
+  "update_chain_identity": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+  "visual_strategy": "Deterministic source-backed title card.",
+  "why_now": "US CPI July 2026 Report",
+  "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false,
+  "x_content_is_discovery_and_ranking_only": true
+}

@@ -1,0 +1,80 @@
+{
+  "article_body_sha256": "1de4ae8c74d3ad1f483f34344b221a62c9da3a8c15a5ca24ba9615284204452c",
+  "artifacts": {
+    "article_manifest_v1.json": {
+      "exists": true,
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\article_manifest_v1.json",
+      "sha256": "ca62f37dff82981eb447e30aa9243cd5e1da6852966f2680dbf24628270bacea"
+    },
+    "editorial_quality_gate_v1.json": {
+      "exists": true,
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\editorial_quality_gate_v1.json",
+      "sha256": "d52f71de358924a5202e33682e66ad118019c39db562f486857eb1a72117c99f"
+    },
+    "grounded_support_v1.json": {
+      "exists": true,
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\grounded_support_v1.json",
+      "sha256": "c2d38e66b66eec143f9d26affb59d981573dc2dfaca0fcd0e6dd4125a436fdab"
+    },
+    "headline_intake_v1.json": {
+      "exists": true,
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\headline_intake_v1.json",
+      "sha256": "87341b203832be62c2774c57a0b118f52c91b401d6fd0162b7a8ed3bd356e33c"
+    },
+    "idea_selection_v1.json": {
+      "exists": true,
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\idea_selection_v1.json",
+      "sha256": "cf952df052c905292668e91b116447708891033fa4518bf69f373453f9de0c64"
+    },
+    "llm_idea_ranking_v1.json": {
+      "exists": true,
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\llm_idea_ranking_v1.json",
+      "sha256": "82f7ce8fc042637cdde93ec0760bd24c6948eb452a0db923b9579d8a8cf0335d"
+    },
+    "media_manifest_v1.json": {
+      "exists": true,
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\media_manifest_v1.json",
+      "sha256": "d92e8c20469c796c0c4f06efd2deaeb6a50f7af47ffaaff11fb9ffcc4ecb3978"
+    },
+    "native_payloads_rehearsal_v1.json": {
+      "exists": true,
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\native_payloads_rehearsal_v1.json",
+      "sha256": "d98638180ef7aa5d863b404852b95cbb6a7f45d86855c1f28e4ee233f6dcfe39"
+    },
+    "run_context_v1.json": {
+      "exists": true,
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\run_context_v1.json",
+      "sha256": "fcfc9630fa05309bf634ca0d3861a762eb91c8b0867e168ecb9b7ed71590fffa"
+    },
+    "substack_browser_request_v1.json": {
+      "exists": true,
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\substack_browser_request_v1.json",
+      "sha256": "9524b3ce22c87b8cbab8aac196a4f0dd2e96dfebb3c01ee866db041341f930e5"
+    }
+  },
+  "duplicate_hotspot_decision": {
+    "decision": "PASS_FIRST_VIABLE_RANKED_CLUSTER",
+    "publish_allowed": true
+  },
+  "lock_sha256": "75ff1958be0ef130b2a242016b347e3a2116b2c0dc8ab3e127f2e2dc60c426a7",
+  "media_sha256": {},
+  "payload_sha256": {
+    "discord": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd",
+    "facebook_page": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd",
+    "instagram_business": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd",
+    "linkedin": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd",
+    "telegram": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd",
+    "threads": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd",
+    "tiktok": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd",
+    "x": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd",
+    "youtube": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd"
+  },
+  "prepared_canonical_url": "SUBSTACK_ASSIGNED_AT_PUBLISH",
+  "public_write_performed": false,
+  "rolling_x_live_path_used": true,
+  "run_id": "v1-xhigh-default-editorial-brain-zero-write-proof",
+  "schema_version": "contentops.text_image_release_candidate_lock.v1",
+  "source_packet_sha256": "d25dd54f2e0e3a7a29cbb55361eba5bfdca52c5ba998f245885455d4b3a41214",
+  "task_label": "TASK_CONTENTOPS_ROLLING_24H_X_HEADLINES_TO_AUTONOMOUS_NEWSROOM_LIVE_V1",
+  "x_content_is_discovery_and_ranking_only": true
+}

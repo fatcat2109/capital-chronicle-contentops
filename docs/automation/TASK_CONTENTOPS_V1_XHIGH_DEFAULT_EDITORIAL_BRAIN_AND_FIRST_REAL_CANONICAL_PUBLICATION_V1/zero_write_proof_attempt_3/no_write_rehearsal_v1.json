@@ -1,0 +1,22 @@
+{
+  "blockers": [],
+  "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+  "destination_readiness": {
+    "destinations": {},
+    "fixture_bound": false,
+    "public_write_authority": false,
+    "schema_version": "contentops.destination_readiness.shadow.v1"
+  },
+  "distribution_warnings": [
+    "x_semantic_layout_failed",
+    "threads_semantic_layout_failed",
+    "substack_jit_readiness_required"
+  ],
+  "public_write_performed": false,
+  "publishing_adapter_called": false,
+  "release_candidate_lock_path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\release_candidate_lock_v1.json",
+  "release_candidate_lock_sha256": "951832ce187d3abd3b3fa1530e1d99cb9daf201e38feade8e22fdb4b4165075a",
+  "run_id": "v1-xhigh-default-editorial-brain-zero-write-proof",
+  "schema_version": "contentops.rolling_x_text_image_release_rehearsal.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5"
+}

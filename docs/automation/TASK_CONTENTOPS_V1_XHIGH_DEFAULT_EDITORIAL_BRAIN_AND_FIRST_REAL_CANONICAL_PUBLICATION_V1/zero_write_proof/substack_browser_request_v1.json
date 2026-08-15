@@ -1,0 +1,29 @@
+{
+  "article_markdown_path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\canonical_article.md",
+  "article_markdown_sha256": "d111973fa16193c3133f9e1b6b246a5d0a97675e35709ddc480b4efd63b0bab6",
+  "body_markdown": "U.S. retail sales declined in July, the first drop in nine months, Reuters reported.\n\nMarketWatch identified cheaper gas and an \u201cAmazon Prime hangover\u201d as the chief culprits behind the slump. CNN separately reported that U.S. consumers cut retail spending last month.\n\nThe exact percentage or dollar amount of the decline is not specified, leaving the scale of the pullback unresolved.",
+  "body_markdown_sha256": "1de4ae8c74d3ad1f483f34344b221a62c9da3a8c15a5ca24ba9615284204452c",
+  "image_assets": [],
+  "publication_mode": "publish",
+  "publication_url": "https://capitalchronicle.substack.com/publish/post",
+  "required_readback": {
+    "in_body_visual_asset_ids": [],
+    "matching_body_markdown_sha256": "1de4ae8c74d3ad1f483f34344b221a62c9da3a8c15a5ca24ba9615284204452c",
+    "matching_title": "U.S. Retail Sales Post First Decline in Nine Months",
+    "minimum_editor_body_image_count": 0,
+    "publication_state": "publish",
+    "url_kind": "public_url"
+  },
+  "run_id": "v1-xhigh-default-editorial-brain-zero-write-proof",
+  "safety": {
+    "browser_profile_values_recorded": false,
+    "cookies_recorded": false,
+    "raw_credentials_recorded": false,
+    "session_storage_recorded": false
+  },
+  "schema_version": "contentops.substack_supervised_browser_request.v1",
+  "status": "READY_FOR_SUPERVISED_BROWSER_ASSIST",
+  "subtitle": "Cheaper gas and an \u201cAmazon Prime hangover\u201d were identified as the chief culprits, while the exact size of the decline remains unspecified.",
+  "title": "U.S. Retail Sales Post First Decline in Nine Months",
+  "visual_marker_order": []
+}

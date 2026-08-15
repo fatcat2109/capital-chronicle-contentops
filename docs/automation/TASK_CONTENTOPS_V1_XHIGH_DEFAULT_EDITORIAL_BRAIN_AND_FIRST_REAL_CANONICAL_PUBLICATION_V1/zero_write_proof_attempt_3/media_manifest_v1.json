@@ -1,0 +1,56 @@
+{
+  "ai_generated_image": false,
+  "assets": [],
+  "contentops_built_or_source_backed_media": true,
+  "external_asset_discovery_status": "NOT_RUN_NO_PROVIDER_REQUIRED_FOR_BUILD",
+  "media_asset_count": 0,
+  "schema_version": "contentops.rolling_x_media_manifest.v1",
+  "status": "PASS",
+  "visual_intent_plan": {
+    "article_identity": "da4b3770f62986ce5ca1e7bc84af1639d2a560eb5c8e2c64ad0416ccaeb0e7e4",
+    "intents": [
+      {
+        "editorial_rationale": "Show the real institution, place, or infrastructure at the center of the story.",
+        "publication_authority": false,
+        "queries": [
+          "CPI Rises July Annual Inflation Eases official photograph",
+          "CPI Rises July Annual Inflation Eases documentary context",
+          "CPI Rises July Annual Inflation Eases documentary photograph"
+        ],
+        "rights_required": true,
+        "visual_intent": "HERO_DOCUMENTARY"
+      },
+      {
+        "editorial_rationale": "Show a supported quantitative relationship.",
+        "publication_authority": false,
+        "queries": [
+          "CPI Rises July Annual Inflation Eases governed data chart"
+        ],
+        "rights_required": true,
+        "visual_intent": "QUANTITATIVE_CHART"
+      },
+      {
+        "editorial_rationale": "Make a supported comparison legible.",
+        "publication_authority": false,
+        "queries": [
+          "CPI Rises July Annual Inflation Eases latest versus previous comparison"
+        ],
+        "rights_required": true,
+        "visual_intent": "COMPARISON"
+      }
+    ],
+    "provider_priority": [
+      "first_party_official",
+      "wikimedia_commons",
+      "openverse",
+      "general_image_search_discovery",
+      "licensed_contextual_library",
+      "generated_conceptual_illustration"
+    ],
+    "publication_authority": false,
+    "schema_version": "contentops.visual_asset_discovery.v1",
+    "semantic_model_may_grant_rights": false,
+    "unknown_rights_disposition": "REJECT"
+  },
+  "visual_optional_failure": null
+}

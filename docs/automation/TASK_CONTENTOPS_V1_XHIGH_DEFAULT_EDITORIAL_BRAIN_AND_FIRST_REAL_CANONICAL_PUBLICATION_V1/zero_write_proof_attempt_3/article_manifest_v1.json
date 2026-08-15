@@ -1,0 +1,355 @@
+{
+  "article_export_path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\canonical_article.md",
+  "article_generation_method": "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN",
+  "article_generation_router_failure": null,
+  "article_markdown_sha256": "4ab8d04911d863515eae8f79b99254a78dbe3c75db8f259f08f37ec9c1e222c8",
+  "article_mode": "straight_news",
+  "as_of_utc": "2026-08-13T07:06:03.572251Z",
+  "canonical_rich_text": {
+    "blocks": [
+      {
+        "content": [
+          {
+            "text": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "content": [
+          {
+            "text": "The Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. ",
+            "type": "text"
+          },
+          {
+            "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+            "text": "www.bls.gov",
+            "type": "link"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "content": [
+          {
+            "text": "Shelter leads the monthly increase",
+            "type": "text"
+          }
+        ],
+        "level": 2,
+        "type": "heading"
+      },
+      {
+        "content": [
+          {
+            "text": "Shelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. ",
+            "type": "text"
+          },
+          {
+            "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+            "text": "www.bls.gov",
+            "type": "link"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "content": [
+          {
+            "text": "Core CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. ",
+            "type": "text"
+          },
+          {
+            "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+            "text": "www.bls.gov",
+            "type": "link"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "content": [
+          {
+            "text": "The component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. ",
+            "type": "text"
+          },
+          {
+            "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+            "text": "www.bls.gov",
+            "type": "link"
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "schema_version": "contentops.article_rich_text.v1"
+  },
+  "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication",
+  "cc_context_bundle": {},
+  "claim_evidence_contract_sha256": "",
+  "cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+  "codex_editorial_brain_receipt": {
+    "browser_use_count": 0,
+    "completed_at_utc": "2026-08-15T18:51:52.725398Z",
+    "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+    "executions": [
+      {
+        "attempt": 0,
+        "browser_use_count": 0,
+        "catalog_entry_proof_sha256": "4461ab81b27db7a31f74fafa8787f9758a2323f41072db0900f114ac036d26e3",
+        "cli_sha256": "f29f609375f3731d8db507a95124862a84e306982e30ba4300ddce5638bc6946",
+        "cli_version": "codex-cli 0.148.0-alpha.9",
+        "command_execution_count": 0,
+        "diagnostic_code": null,
+        "effective_model": null,
+        "effective_reasoning_effort": null,
+        "exact_model_capability_verified": true,
+        "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+        "exit_classification": "SUCCESS",
+        "exit_code": 0,
+        "external_model_service_network": true,
+        "external_research_network": false,
+        "fresh_execution_id": "01a006c3-38d2-74f2-ad93-4e56a8f0ad6b",
+        "materialized_runtime_copy": true,
+        "non_interactive_headless": true,
+        "requested_model": "gpt-5.6-sol",
+        "requested_reasoning_effort": "xhigh",
+        "supported_reasoning_efforts": [
+          "low",
+          "medium",
+          "high",
+          "xhigh",
+          "max",
+          "ultra"
+        ],
+        "timeout_seconds": 420.0,
+        "tool_event_counts": {
+          "browser_calls": 0,
+          "command_executions": 0,
+          "file_changes": 0,
+          "mcp_tool_calls": 0,
+          "web_searches": 0
+        },
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 14484,
+          "output_tokens": 2173,
+          "reasoning_output_tokens": 1471
+        },
+        "wall_time_seconds": 60.464,
+        "web_search_count": 0
+      }
+    ],
+    "external_research_network": false,
+    "governed_input_sha256": "46f5ee99ee32c7dc645f13d24655d2163b04ba195f3129d3e73c97338663997d",
+    "instruction_sha256": "ab2a786d54814555176ff74b2bab99ad03823dcbce3faac39aafe590016b6110",
+    "job_id": "codex-editorial-46f5ee99ee32c7dc645f13d2",
+    "output_schema_sha256": "95f9574042597f3bdefaa309e5770a22f928462a92b5d658e05845a21efb092c",
+    "output_sha256": "60e274944f567ddb328204c76dafb65b1ed0258d64bfd8922f90a714ad8d1b15",
+    "public_write_performed": false,
+    "publication_authority": false,
+    "requested_model": "gpt-5.6-sol",
+    "requested_reasoning_effort": "xhigh",
+    "result_classification": "PASS",
+    "revision_count": 0,
+    "schema_version": "contentops.v1_codex_editorial_brain.v1",
+    "started_at_utc": "2026-08-15T18:50:52.210486Z",
+    "status": "COMPLETED",
+    "total_wall_time_seconds": 60.464,
+    "validation_result": {
+      "classification": "PASS",
+      "editorial_failure_codes": [],
+      "forbidden_failure_codes": []
+    }
+  },
+  "conclusion_deduplication": {
+    "body_markdown": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.\n\nThe Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\n## Shelter leads the monthly increase\n\nShelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nCore CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nThe component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)",
+    "publication_authority": false,
+    "removed_count": 0,
+    "removed_paragraphs": [],
+    "semantic_review_calls": 0
+  },
+  "cross_asset_implications": "",
+  "degraded_editorial_brain": false,
+  "dek": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+  "editorial_brain_status": "CODEX_XHIGH_DEFAULT",
+  "editorial_classification": "BREAKING_NEW_STORY",
+  "editorial_mode": "straight_news",
+  "effective_article_mode": "BREAKING_BRIEF",
+  "evidence_document_ids": [
+    "official-primary-6b22335813df900e7c37"
+  ],
+  "evidence_review_tier": "ORDINARY_MINIMUM",
+  "grounded_research": {},
+  "grounded_source_coverage": {
+    "blockers": [],
+    "grounded_research_packet_present": false,
+    "status": "NOT_APPLICABLE"
+  },
+  "headline_ids": [
+    "cc-x-headline-01809264e79e9a6b7d69ce5b"
+  ],
+  "market_consequence_terms": [
+    "policy",
+    "compliance",
+    "implementation"
+  ],
+  "market_mechanism": "Shelter accounted for roughly two-thirds of the monthly all-items increase. Energy declined 1.5 percent, including a 2.9 percent fall in gasoline.",
+  "mechanism_terms": [
+    "policy",
+    "implementation"
+  ],
+  "meta_description": "US CPI rose 0.1 percent in July 2026, while annual inflation eased to 3.4 percent. Shelter drove most of the monthly increase as energy fell.",
+  "minimum_trustworthy_evidence_packet": {
+    "attribution_required": false,
+    "core_factual_proposition": "US CPI July 2026 Report",
+    "directly_attributed_numbers_permitted": true,
+    "evidence_document_id": "official-primary-6b22335813df900e7c37",
+    "evidence_packet_sha256": "48dc0600b02945ddd076930b73079aae6129acd1e8d90c1de9ed6b5c067a0616",
+    "publication_authority": false,
+    "published_at_utc": "2026-08-12T11:08:11Z",
+    "publisher": "www.bls.gov",
+    "reader_attribution_mode": "BOUND_SOURCE_URL",
+    "reader_source_url": null,
+    "risk_tier": "ORDINARY",
+    "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+    "source_authority_class": "official_public_primary_source",
+    "source_title": "cpi.pdf",
+    "source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+    "status": "PASS",
+    "unsupported_optional_claims_must_be_omitted": true,
+    "x_content_grants_factual_authority": false
+  },
+  "mode_downgrade_reason": null,
+  "named_catalyst_terms": [
+    "official notice",
+    "effective date",
+    "official register"
+  ],
+  "news_peg_terms": [
+    "www.bls.gov",
+    "2026-08-12"
+  ],
+  "numeric_claims_from_llm": false,
+  "numeric_claims_from_x": false,
+  "omitted_unsupported_claims": [],
+  "policy_context": "",
+  "primary_topic": "cpi.pdf",
+  "publication_authority": false,
+  "quote_source_records": [],
+  "requested_article_mode": "BREAKING_BRIEF",
+  "resolved_article_mode": "BREAKING_BRIEF",
+  "seo_primary_keyword": "cpi",
+  "seo_semantic_terms": [
+    "cpi",
+    "www.bls.gov"
+  ],
+  "seo_title": "US CPI Rises 0.1% in July 2026; Annual Rate Eases to 3.4%",
+  "slug": "us-cpi-rises-0-1-in-july-as-annual-inflation-eases-to-3-4",
+  "social_cross_asset_summary": "",
+  "social_lede": "US CPI-U rose 0.1 percent in July after falling 0.4 percent in June. The annual rate eased to 3.4 percent from 3.5 percent. [[SOURCE:SOURCE_1]]",
+  "social_mechanism_summary": "Shelter supplied roughly two-thirds of July's monthly CPI increase, while the energy index fell 1.5 percent. [[SOURCE:SOURCE_1]]",
+  "social_og_media_asset_id": null,
+  "social_policy_summary": "",
+  "source_attributions": [
+    {
+      "publisher": "www.bls.gov",
+      "reader_attribution_mode": "BOUND_LINK",
+      "reader_source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+      "source_id": "source-e264d36acf4cd89d",
+      "title": "cpi.pdf"
+    }
+  ],
+  "source_binding_ids_referenced": [
+    "source-e264d36acf4cd89d"
+  ],
+  "source_bindings": [
+    {
+      "discovery_path_is_reader_authority": false,
+      "evidence_document_id": "official-primary-6b22335813df900e7c37",
+      "publisher": "www.bls.gov",
+      "reader_attribution_mode": "BOUND_LINK",
+      "reader_source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+      "source_handle": "SOURCE_1",
+      "source_id": "source-e264d36acf4cd89d",
+      "title": "cpi.pdf"
+    }
+  ],
+  "source_trail": [
+    "https://www.bls.gov/news.release/pdf/cpi.pdf"
+  ],
+  "story_type": "data_release",
+  "substack_body_markdown": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.\n\nThe Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\n## Shelter leads the monthly increase\n\nShelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nCore CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nThe component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)",
+  "substack_body_markdown_sha256": "264d57522f284ee268610dc108c541cb6f6a73ca43e66f99b6de6d1b8a52e85c",
+  "subtitle": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+  "supported_claim_count": 1,
+  "supported_claims": [
+    {
+      "additional_source_is_eligibility_requirement": false,
+      "attribution_required": false,
+      "claim_id": "ordinary-core-proposition",
+      "claim_text": "US CPI July 2026 Report",
+      "evidence_document_ids": [
+        "official-primary-6b22335813df900e7c37"
+      ],
+      "support_status": "SUPPORTED_MINIMUM_TRUSTWORTHY_EVIDENCE"
+    }
+  ],
+  "title": "US CPI Rises 0.1% in July as Annual Inflation Eases to 3.4%",
+  "unsupported_claims_removed": 0,
+  "update_chain_identity": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+  "visual_asset_ids_expected": [],
+  "word_count": 249,
+  "writer_reader_value_preflight": {
+    "attribution_chain_dominant": false,
+    "attribution_marker_count": 0,
+    "blockers": [],
+    "checks": {
+      "captions_and_source_metadata_not_dominant": true,
+      "mode_appropriate_structure": true,
+      "mode_appropriate_substance": true,
+      "multiple_meaningful_reader_paragraphs": true,
+      "native_rich_text_serializable": true,
+      "no_process_or_pipeline_language": true,
+      "no_repetitive_filler": true,
+      "not_attribution_chain_copy": true,
+      "professional_writer_output": true,
+      "reader_value_independent_of_media": true,
+      "title_not_body": true
+    },
+    "classification": "PASS",
+    "duplicated_sentence_count": 0,
+    "floor": {
+      "minimum_headings": 0,
+      "minimum_paragraphs": 3,
+      "minimum_words": 90
+    },
+    "floor_class": "CONCISE_UPDATE",
+    "formatting_targets": {
+      "heading_target_met": true,
+      "paragraph_target_met": true,
+      "word_target_met": true
+    },
+    "formatting_targets_are_advisory": true,
+    "heading_count": 1,
+    "list_item_count": 0,
+    "markup_findings": [],
+    "meaningful_paragraph_count": 5,
+    "paragraph_redundancy_findings": [],
+    "process_language_hits": [],
+    "publication_authority": false,
+    "reader_prose_word_count": 208,
+    "reader_sentence_count": 7,
+    "reason_code": null,
+    "schema_version": "contentops.reader_value_release_gate.v1",
+    "utility_floor": {
+      "minimum_reader_sentences": 3,
+      "minimum_words": 60
+    },
+    "visual_count": 0,
+    "visual_quantity_is_fixed_quota": false
+  },
+  "x_content_grants_factual_authority": false
+}

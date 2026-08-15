@@ -1,0 +1,182 @@
+{
+  "article_mode": "straight_news",
+  "capability_article_mode": "straight_news",
+  "capital_chronicle_context": {
+    "all_discovered_stores_considered": true,
+    "candidate_table_count": 176,
+    "catalog_fingerprint": "30cf01bd7cb331e58efcf04643efef00f37781793da41eabca18eac756414b37",
+    "cc_context_richness": 0.0,
+    "deep_query_selected_tables": [
+      {
+        "score": 9.85,
+        "store_id": "public_free_event_text_entity_history_v1",
+        "table": "dbh2_documents"
+      },
+      {
+        "score": 9.85,
+        "store_id": "public_free_event_text_entity_history_v1",
+        "table": "dbh2_events"
+      },
+      {
+        "score": 9.85,
+        "store_id": "public_free_event_text_entity_history_v1",
+        "table": "dbh2_records"
+      },
+      {
+        "score": 9.5,
+        "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+        "table": "dbh2_documents"
+      },
+      {
+        "score": 9.5,
+        "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+        "table": "dbh2_events"
+      },
+      {
+        "score": 9.5,
+        "store_id": "public_free_event_text_entity_history_integrity_repair_v1",
+        "table": "dbh2_records"
+      },
+      {
+        "score": 9.1,
+        "store_id": "unified_historical_lakehouse_hb10_v1",
+        "table": "unified_event"
+      },
+      {
+        "score": 8.7,
+        "store_id": "unified_historical_lakehouse_hb10_v1",
+        "table": "unified_document"
+      }
+    ],
+    "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+    "deep_query_table_limit": 8,
+    "grants_factual_or_numeric_authority": false,
+    "matched_store_count": 0,
+    "matched_store_ids": [],
+    "matched_table_count": 0,
+    "matches": [],
+    "mutated_upstream": false,
+    "queried_entities": [],
+    "queried_table_count": 0,
+    "richness_components": {
+      "bounded_row_density": 0.0,
+      "entity_coverage": 0.0,
+      "matched_freshness_metadata_coverage": 0.0,
+      "matched_store_diversity": 0.0,
+      "quality_lineage_surface_coverage": 0.0
+    },
+    "schema_version": "contentops.story_scoped_cc_context.v2"
+  },
+  "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+  "cross_asset_implications": "",
+  "dek": "Cheaper gas and an \u201cAmazon Prime hangover\u201d were identified as the chief culprits, while the exact size of the decline remains unspecified.",
+  "duplicate_hotspot_decision": {
+    "decision": "PASS_FIRST_VIABLE_RANKED_CLUSTER",
+    "publish_allowed": true
+  },
+  "editorial_classification": "BREAKING_NEW_STORY",
+  "effective_article_mode": "BREAKING_BRIEF",
+  "entities_topics": [],
+  "evidence_reachability": {
+    "capital_chronicle_relevant_context": false,
+    "factual_authority_granted": false,
+    "known_official_path": true,
+    "mode_downgrade_viable": true,
+    "public_source_candidate_count": 1,
+    "reputable_public_secondary_path": false,
+    "score": 0.65,
+    "unregistered_official_suffix_candidate": false
+  },
+  "headline_ids": [
+    "cc-x-headline-c1b06e8a2872d18745f952fc"
+  ],
+  "leaf_cluster_ids": [
+    "rolling-x-deterministic-leaf-979eb7a35a06c8f647d9"
+  ],
+  "leaf_summaries": [
+    "US Retail Sales July 2026 Report"
+  ],
+  "market_mechanism": "MarketWatch identified cheaper gas and an \u201cAmazon Prime hangover\u201d as the chief culprits behind the retail sales slump. [[SOURCE:SOURCE_2]]",
+  "market_sensitive": false,
+  "material_follow_up_context": null,
+  "needed_evidence": [
+    "Corroborate the limited factual claim from public evidence."
+  ],
+  "official_source_url_bindings": [
+    {
+      "feed_published_at_utc": "2026-08-14T12:34:26Z",
+      "feed_publisher_handle": "financialjuice",
+      "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+      "headline_id": "cc-x-headline-c1b06e8a2872d18745f952fc",
+      "url": "https://www.census.gov/retail/sales.html"
+    }
+  ],
+  "official_source_urls": [
+    "https://www.census.gov/retail/sales.html"
+  ],
+  "policy_context": "",
+  "portfolio_concentration_penalty": 0.0,
+  "portfolio_concentration_penalty_effective": 0.0,
+  "preselection_novelty": {
+    "best_prior_article": null,
+    "best_prior_title": null,
+    "cc_context_richness": 0.0,
+    "decision": "BREAKING_NEW_STORY",
+    "entity_overlap": 0.0,
+    "grants_factual_or_numeric_authority": false,
+    "matched_article_age_hours": null,
+    "material_delta_evaluation": {
+      "delta_summary": "No prior article matched.",
+      "marker_hits": [],
+      "new_official_source_candidate_count": 0,
+      "reason_codes": [],
+      "signal_count": 0,
+      "x_content_grants_factual_authority": false
+    },
+    "material_delta_signals": 0,
+    "recommended_article_mode": "BREAKING_BRIEF",
+    "schema_version": "contentops.editorial_story_novelty.v1",
+    "update_chain_match": false
+  },
+  "preselection_occurs_before_article_generation": true,
+  "preselection_occurs_before_targeted_evidence": true,
+  "preselection_original_rank": 1,
+  "preselection_score": 130.2,
+  "public_source_url_bindings": [
+    {
+      "feed_published_at_utc": "2026-08-14T12:34:26Z",
+      "feed_publisher_handle": "financialjuice",
+      "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+      "headline_id": "cc-x-headline-c1b06e8a2872d18745f952fc",
+      "url": "https://www.census.gov/retail/sales.html"
+    }
+  ],
+  "public_source_urls": [
+    "https://www.census.gov/retail/sales.html"
+  ],
+  "publication_authority": false,
+  "rank": 1,
+  "requested_article_mode": "BREAKING_BRIEF",
+  "resolved_article_mode": "BREAKING_BRIEF",
+  "selection_case": "Fresh discovery item with a bounded public evidence path.",
+  "selection_method": "rolling_x_ranked_targeted_evidence_first_viable",
+  "seo_intent": "",
+  "seo_title": "U.S. Retail Sales Post First Drop in Nine Months",
+  "slug": "u-s-retail-sales-post-first-decline-in-nine-months",
+  "story_mode": "reporting",
+  "thesis": "Cheaper gas and an \u201cAmazon Prime hangover\u201d were identified as the chief culprits, while the exact size of the decline remains unspecified.",
+  "title": "U.S. Retail Sales Post First Decline in Nine Months",
+  "topic_hash": "0ea5d287e7f7a223f7507527",
+  "update_chain": {
+    "canonical_headline_id": "cc-x-headline-c1b06e8a2872d18745f952fc",
+    "ordered_headline_ids": [
+      "cc-x-headline-c1b06e8a2872d18745f952fc"
+    ],
+    "relationship": "distinct"
+  },
+  "update_chain_identity": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+  "visual_strategy": "Deterministic source-backed title card.",
+  "why_now": "US Retail Sales July 2026 Report",
+  "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false,
+  "x_content_is_discovery_and_ranking_only": true
+}

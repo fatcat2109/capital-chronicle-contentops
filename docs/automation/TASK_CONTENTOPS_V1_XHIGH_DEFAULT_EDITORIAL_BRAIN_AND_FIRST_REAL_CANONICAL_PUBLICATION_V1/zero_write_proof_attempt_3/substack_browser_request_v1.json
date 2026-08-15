@@ -1,0 +1,29 @@
+{
+  "article_markdown_path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\canonical_article.md",
+  "article_markdown_sha256": "4ab8d04911d863515eae8f79b99254a78dbe3c75db8f259f08f37ec9c1e222c8",
+  "body_markdown": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.\n\nThe Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\n## Shelter leads the monthly increase\n\nShelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nCore CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nThe component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)",
+  "body_markdown_sha256": "264d57522f284ee268610dc108c541cb6f6a73ca43e66f99b6de6d1b8a52e85c",
+  "image_assets": [],
+  "publication_mode": "publish",
+  "publication_url": "https://capitalchronicle.substack.com/publish/post",
+  "required_readback": {
+    "in_body_visual_asset_ids": [],
+    "matching_body_markdown_sha256": "264d57522f284ee268610dc108c541cb6f6a73ca43e66f99b6de6d1b8a52e85c",
+    "matching_title": "US CPI Rises 0.1% in July as Annual Inflation Eases to 3.4%",
+    "minimum_editor_body_image_count": 0,
+    "publication_state": "publish",
+    "url_kind": "public_url"
+  },
+  "run_id": "v1-xhigh-default-editorial-brain-zero-write-proof",
+  "safety": {
+    "browser_profile_values_recorded": false,
+    "cookies_recorded": false,
+    "raw_credentials_recorded": false,
+    "session_storage_recorded": false
+  },
+  "schema_version": "contentops.substack_supervised_browser_request.v1",
+  "status": "READY_FOR_SUPERVISED_BROWSER_ASSIST",
+  "subtitle": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+  "title": "US CPI Rises 0.1% in July as Annual Inflation Eases to 3.4%",
+  "visual_marker_order": []
+}

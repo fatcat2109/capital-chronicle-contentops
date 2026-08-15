@@ -76,7 +76,29 @@ def test_zero_write_prepared_candidate_to_canonical_plan_smoke(monkeypatch, tmp_
             "substack_body_markdown": body,
         }
 
-    monkeypatch.setattr(article_builder, "_default_article_generator", quality_writer)
+    def controlled_xhigh(**kwargs):
+        prompt = article_builder.build_article_generation_prompt(
+            kwargs["context"],
+            kwargs["visual_asset_ids"],
+            kwargs["visual_candidates"],
+        )
+        generated = quality_writer(prompt)
+        generated.update({
+            "article_generation_method": (
+                "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN"
+            ),
+            "editorial_brain_status": "CODEX_XHIGH_DEFAULT",
+            "_writer_router_telemetry": {
+                "logical_invocations": 1,
+                "nine_router_writer_called_before_xhigh": False,
+                "degraded_editorial_brain": False,
+            },
+        })
+        return generated
+
+    monkeypatch.setattr(
+        article_builder, "_run_codex_editorial_fallback", controlled_xhigh
+    )
 
     def acquire_evidence(request):
         proposition = " ".join(
@@ -169,7 +191,11 @@ def test_zero_write_prepared_candidate_to_canonical_plan_smoke(monkeypatch, tmp_
 
     telemetry = result["critical_path_telemetry"]
     assert len(writer_calls) == 1
-    assert result["article"]["article_generation_method"] == "ROUTED_LLM_GROUNDED_ARTICLE"
+    assert telemetry["nine_router_writer_called_before_xhigh"] is False
+    assert telemetry["xhigh_default_editorial_brain"] is True
+    assert result["article"]["article_generation_method"] == (
+        "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN"
+    )
     assert result["editorial_cycle"]["status"] == "PASS"
     assert result["editorial_cycle"]["mandatory_semantic_review_calls"] == 0
     assert result["shadow_publication_plan_ready"] is True

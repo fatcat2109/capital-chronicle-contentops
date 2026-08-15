@@ -1,0 +1,27 @@
+{
+  "abstain_reason": null,
+  "cross_asset_implications": "",
+  "evidence_document_ids": [
+    "public-news-listing-58f4eac22670931ba463",
+    "public-news-listing-d3b70f798c5e4fe8f63b",
+    "public-news-listing-6e7cd95f14205ff02412"
+  ],
+  "explicit_inferences": [],
+  "market_mechanism": "MarketWatch identified cheaper gas and an \u201cAmazon Prime hangover\u201d as the chief culprits behind the retail sales slump. [[SOURCE:SOURCE_2]]",
+  "meta_description": "U.S. retail sales declined in July for the first time in nine months, with cheaper gas and an \u201cAmazon Prime hangover\u201d identified as chief culprits.",
+  "policy_context": "",
+  "self_review_summary": "All four supported claims are attributed, and the unspecified magnitude is stated as a material limit. No unsupported implications or figures were added.",
+  "seo_title": "U.S. Retail Sales Post First Drop in Nine Months",
+  "social_cross_asset_summary": "",
+  "social_lede": "U.S. retail sales declined in July, marking the first drop in nine months. [[SOURCE:SOURCE_1]]",
+  "social_mechanism_summary": "Cheaper gas and an \u201cAmazon Prime hangover\u201d were identified as the chief culprits behind the slump. [[SOURCE:SOURCE_2]]",
+  "social_policy_summary": "",
+  "source_handles_used": [
+    "SOURCE_1",
+    "SOURCE_2",
+    "SOURCE_3"
+  ],
+  "substack_body_markdown": "U.S. retail sales declined in July, the first drop in nine months, Reuters reported. [[SOURCE:SOURCE_1]]\n\nMarketWatch identified cheaper gas and an \u201cAmazon Prime hangover\u201d as the chief culprits behind the slump. [[SOURCE:SOURCE_2]] CNN separately reported that U.S. consumers cut retail spending last month. [[SOURCE:SOURCE_3]]\n\nThe exact percentage or dollar amount of the decline is not specified, leaving the scale of the pullback unresolved.",
+  "subtitle": "Cheaper gas and an \u201cAmazon Prime hangover\u201d were identified as the chief culprits, while the exact size of the decline remains unspecified.",
+  "title": "U.S. Retail Sales Post First Decline in Nine Months"
+}

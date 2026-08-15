@@ -1,0 +1,979 @@
+{
+  "article": {
+    "article_generation_method": "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN",
+    "article_generation_router_failure": null,
+    "article_mode": "straight_news",
+    "as_of_utc": "",
+    "canonical_rich_text": {
+      "blocks": [
+        {
+          "content": [
+            {
+              "text": "U.S. retail sales declined in July, the first drop in nine months, Reuters reported.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "text": "MarketWatch identified cheaper gas and an \u201cAmazon Prime hangover\u201d as the chief culprits behind the slump. CNN separately reported that U.S. consumers cut retail spending last month.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "text": "The exact percentage or dollar amount of the decline is not specified, leaving the scale of the pullback unresolved.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "schema_version": "contentops.article_rich_text.v1"
+    },
+    "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication",
+    "cc_context_bundle": {
+      "cc_context_refs": [],
+      "cc_context_richness": 0.0,
+      "factual_or_numeric_authority_granted": false,
+      "mutated_upstream": false,
+      "ordinary_reporting_blocked_when_unavailable": false,
+      "proprietary_claim_authority_granted": false,
+      "queried_entities": [],
+      "schema_version": "contentops.additive_cc_story_context.v1",
+      "state": "CC_CONTEXT_NOT_RELEVANT"
+    },
+    "claim_evidence_contract_sha256": "",
+    "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+    "codex_editorial_brain_receipt": {
+      "browser_use_count": 0,
+      "completed_at_utc": "2026-08-15T18:43:38.052745Z",
+      "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+      "executions": [
+        {
+          "attempt": 0,
+          "browser_use_count": 0,
+          "catalog_entry_proof_sha256": "4461ab81b27db7a31f74fafa8787f9758a2323f41072db0900f114ac036d26e3",
+          "cli_sha256": "f29f609375f3731d8db507a95124862a84e306982e30ba4300ddce5638bc6946",
+          "cli_version": "codex-cli 0.148.0-alpha.9",
+          "command_execution_count": 0,
+          "diagnostic_code": null,
+          "effective_model": null,
+          "effective_reasoning_effort": null,
+          "exact_model_capability_verified": true,
+          "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+          "exit_classification": "SUCCESS",
+          "exit_code": 0,
+          "external_model_service_network": true,
+          "external_research_network": false,
+          "fresh_execution_id": "01a006bb-df6a-76f3-8c90-5db0fbe9175b",
+          "materialized_runtime_copy": true,
+          "non_interactive_headless": true,
+          "requested_model": "gpt-5.6-sol",
+          "requested_reasoning_effort": "xhigh",
+          "supported_reasoning_efforts": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max",
+            "ultra"
+          ],
+          "timeout_seconds": 420.0,
+          "tool_event_counts": {
+            "browser_calls": 0,
+            "command_executions": 0,
+            "file_changes": 0,
+            "mcp_tool_calls": 0,
+            "web_searches": 0
+          },
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 15009,
+            "output_tokens": 2006,
+            "reasoning_output_tokens": 1549
+          },
+          "wall_time_seconds": 47.494,
+          "web_search_count": 0
+        }
+      ],
+      "external_research_network": false,
+      "governed_input_sha256": "a65291dd14d379d5a6b68bdb3e40369bc7ae25a734c8cd864838dbd4159bee0c",
+      "instruction_sha256": "fca05b48b27a11ef56b1b76605c24e24e2b69b6487b44188702ce0c72542804e",
+      "job_id": "codex-editorial-a65291dd14d379d5a6b68bdb",
+      "output_schema_sha256": "95f9574042597f3bdefaa309e5770a22f928462a92b5d658e05845a21efb092c",
+      "output_sha256": "d99c7842ef43dde91ac6546f3418d8bd88e1e57872eb894463a16fa7b045f8c6",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "requested_model": "gpt-5.6-sol",
+      "requested_reasoning_effort": "xhigh",
+      "result_classification": "PASS",
+      "revision_count": 0,
+      "schema_version": "contentops.v1_codex_editorial_brain.v1",
+      "started_at_utc": "2026-08-15T18:42:50.524184Z",
+      "status": "COMPLETED",
+      "total_wall_time_seconds": 47.494,
+      "validation_result": {
+        "classification": "PASS",
+        "editorial_failure_codes": [],
+        "forbidden_failure_codes": []
+      }
+    },
+    "conclusion_deduplication": {
+      "body_markdown": "U.S. retail sales declined in July, the first drop in nine months, Reuters reported.\n\nMarketWatch identified cheaper gas and an \u201cAmazon Prime hangover\u201d as the chief culprits behind the slump. CNN separately reported that U.S. consumers cut retail spending last month.\n\nThe exact percentage or dollar amount of the decline is not specified, leaving the scale of the pullback unresolved.",
+      "publication_authority": false,
+      "removed_count": 0,
+      "removed_paragraphs": [],
+      "semantic_review_calls": 0
+    },
+    "cross_asset_implications": "",
+    "degraded_editorial_brain": false,
+    "dek": "Cheaper gas and an \u201cAmazon Prime hangover\u201d were identified as the chief culprits, while the exact size of the decline remains unspecified.",
+    "editorial_brain_status": "CODEX_XHIGH_DEFAULT",
+    "editorial_classification": "BREAKING_NEW_STORY",
+    "editorial_mode": "straight_news",
+    "effective_article_mode": "BREAKING_BRIEF",
+    "evidence_document_ids": [
+      "public-news-listing-58f4eac22670931ba463",
+      "public-news-listing-6e7cd95f14205ff02412",
+      "public-news-listing-d3b70f798c5e4fe8f63b"
+    ],
+    "evidence_review_tier": "ORDINARY_MINIMUM",
+    "grounded_research": {
+      "enhanced_review_required": false,
+      "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+      "research_as_of_utc": "2026-08-15T10:00:00.000529Z",
+      "research_logical_hash": "4ce635837d9fc628721b2701f30a97d3332f39bf052ea30ce794416f087b0f45",
+      "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+      "research_status": "PASS",
+      "risk_classification": "ORDINARY",
+      "schema_version": "contentops.grounded_news_research.v1",
+      "suggested_article_mode": "BREAKING_BRIEF"
+    },
+    "grounded_source_coverage": {
+      "blockers": [],
+      "fact_rows": [
+        {
+          "body_token_overlap": 0.8,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f1",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.8889,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f2",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.8333,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f3",
+          "recognizably_used": true
+        },
+        {
+          "body_token_overlap": 0.8571,
+          "bound_source_identity_referenced": true,
+          "fact_id": "f4",
+          "recognizably_used": true
+        }
+      ],
+      "grounded_research_packet_present": true,
+      "paragraph_rows": [
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 0,
+          "source_token_overlap": 0.8
+        },
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 1,
+          "source_token_overlap": 0.8095
+        },
+        {
+          "covered": true,
+          "labeled_supported_inference": false,
+          "paragraph_index": 2,
+          "source_token_overlap": 0.6364
+        }
+      ],
+      "publication_authority": false,
+      "status": "PASS"
+    },
+    "headline_ids": [
+      "cc-x-headline-c1b06e8a2872d18745f952fc"
+    ],
+    "market_consequence_terms": [
+      "policy",
+      "compliance",
+      "implementation"
+    ],
+    "market_mechanism": "MarketWatch identified cheaper gas and an \u201cAmazon Prime hangover\u201d as the chief culprits behind the retail sales slump. [[SOURCE:SOURCE_2]]",
+    "mechanism_terms": [
+      "policy",
+      "implementation"
+    ],
+    "meta_description": "U.S. retail sales declined in July for the first time in nine months, with cheaper gas and an \u201cAmazon Prime hangover\u201d identified as chief culprits.",
+    "minimum_trustworthy_evidence_packet": {
+      "attribution_required": true,
+      "core_factual_proposition": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.",
+      "directly_attributed_numbers_permitted": true,
+      "evidence_document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+      "evidence_packet_sha256": "e94945f9937695fd258ee08437baf30e49b37d943cc1a10cc60bfcdb77ddf887",
+      "publication_authority": false,
+      "published_at_utc": "2026-08-14T13:27:00Z",
+      "publisher": "MarketWatch",
+      "reader_attribution_mode": "ATTRIBUTION_ONLY",
+      "reader_source_url": null,
+      "risk_tier": "ORDINARY",
+      "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+      "source_authority_class": "reputable_secondary_source",
+      "source_title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.",
+      "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPM1VURVZzSWo1MFhuajJEbXJscEQycW1ZMDBxLVFoOGVLYy11Q0VKeEFwemlGTGlLanJoWWRGa0VVSmQ2ZVpGUlFVM05JZ19JYTlUMzZDc3FLeENsVzVVb0xxM19xdHdnLTNWa1lJVjhjaW1IOU02bzBPdTVaUng4T1VycjNxclBLQW5aS1J3c2FlUWlxSV9yS2k5QVN3ZFhrQjVEeXpkd0M2dUJvWG9JX3dkT1JZRGRuY2NNZ0lpVDh1VjE2bFNtTXZB?oc=5",
+      "status": "PASS",
+      "unsupported_optional_claims_must_be_omitted": true,
+      "x_content_grants_factual_authority": false
+    },
+    "mode_downgrade_reason": null,
+    "named_catalyst_terms": [
+      "official notice",
+      "effective date",
+      "official register"
+    ],
+    "news_peg_terms": [
+      "Reuters",
+      "2026-08-14"
+    ],
+    "numeric_claims_from_llm": false,
+    "omitted_unsupported_claims": [],
+    "policy_context": "",
+    "primary_topic": "US retail sales post first decline in nine months in July",
+    "publication_authority": false,
+    "quote_source_records": [
+      {
+        "binding_method": "EXACT_GOVERNED_CLAIM_SUBSTRING",
+        "claim_ids": [
+          "f3"
+        ],
+        "evidence_document_ids": [
+          "public-news-listing-d3b70f798c5e4fe8f63b"
+        ],
+        "publication_authority": false,
+        "quote_text": "Amazon Prime hangover",
+        "source_binding_ids": [
+          "source-4a31dd33ea3b34da"
+        ]
+      }
+    ],
+    "requested_article_mode": "BREAKING_BRIEF",
+    "resolved_article_mode": "BREAKING_BRIEF",
+    "seo_primary_keyword": "retail",
+    "seo_semantic_terms": [
+      "retail",
+      "Reuters"
+    ],
+    "seo_title": "U.S. Retail Sales Post First Drop in Nine Months",
+    "slug": "u-s-retail-sales-post-first-decline-in-nine-months",
+    "social_cross_asset_summary": "",
+    "social_lede": "U.S. retail sales declined in July, marking the first drop in nine months. [[SOURCE:SOURCE_1]]",
+    "social_mechanism_summary": "Cheaper gas and an \u201cAmazon Prime hangover\u201d were identified as the chief culprits behind the slump. [[SOURCE:SOURCE_2]]",
+    "social_og_media_asset_id": null,
+    "social_policy_summary": "",
+    "source_attributions": [
+      {
+        "publisher": "Reuters",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "source_id": "source-d9d7ce4f7636ac54",
+        "title": "US retail sales post first decline in nine months in July"
+      },
+      {
+        "publisher": "MarketWatch",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "source_id": "source-4a31dd33ea3b34da",
+        "title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits."
+      },
+      {
+        "publisher": "CNN",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "source_id": "source-e96efcfe6f407346",
+        "title": "Frustrated US consumers cut their retail spending last month"
+      }
+    ],
+    "source_binding_ids_referenced": [
+      "source-d9d7ce4f7636ac54",
+      "source-4a31dd33ea3b34da",
+      "source-e96efcfe6f407346"
+    ],
+    "source_bindings": [
+      {
+        "discovery_path_is_reader_authority": false,
+        "evidence_document_id": "public-news-listing-58f4eac22670931ba463",
+        "publisher": "Reuters",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "source_handle": "SOURCE_1",
+        "source_id": "source-d9d7ce4f7636ac54",
+        "title": "US retail sales post first decline in nine months in July"
+      },
+      {
+        "discovery_path_is_reader_authority": false,
+        "evidence_document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+        "publisher": "MarketWatch",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "source_handle": "SOURCE_2",
+        "source_id": "source-4a31dd33ea3b34da",
+        "title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits."
+      },
+      {
+        "discovery_path_is_reader_authority": false,
+        "evidence_document_id": "public-news-listing-6e7cd95f14205ff02412",
+        "publisher": "CNN",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "source_handle": "SOURCE_3",
+        "source_id": "source-e96efcfe6f407346",
+        "title": "Frustrated US consumers cut their retail spending last month"
+      }
+    ],
+    "source_trail": [],
+    "story_type": "supply_chain_event",
+    "substack_body_markdown": "U.S. retail sales declined in July, the first drop in nine months, Reuters reported.\n\nMarketWatch identified cheaper gas and an \u201cAmazon Prime hangover\u201d as the chief culprits behind the slump. CNN separately reported that U.S. consumers cut retail spending last month.\n\nThe exact percentage or dollar amount of the decline is not specified, leaving the scale of the pullback unresolved.",
+    "subtitle": "Cheaper gas and an \u201cAmazon Prime hangover\u201d were identified as the chief culprits, while the exact size of the decline remains unspecified.",
+    "supported_claim_count": 4,
+    "supported_claims": [
+      {
+        "attribution_required": true,
+        "claim_id": "f1",
+        "claim_text": "U.S. retail sales posted a decline in July.",
+        "direct_or_inferred": "DIRECT",
+        "evidence_document_ids": [
+          "public-news-listing-58f4eac22670931ba463",
+          "public-news-listing-d3b70f798c5e4fe8f63b"
+        ],
+        "source_refs": [
+          "SRC_4A31DD33EA3B34DA",
+          "SRC_D9D7CE4F7636AC54"
+        ],
+        "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "f2",
+        "claim_text": "The July decline in retail sales was the first drop in nine months.",
+        "direct_or_inferred": "DIRECT",
+        "evidence_document_ids": [
+          "public-news-listing-58f4eac22670931ba463"
+        ],
+        "source_refs": [
+          "SRC_D9D7CE4F7636AC54"
+        ],
+        "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "f3",
+        "claim_text": "Cheaper gas and an 'Amazon Prime hangover' were identified as the chief culprits for the retail sales slump.",
+        "direct_or_inferred": "DIRECT",
+        "evidence_document_ids": [
+          "public-news-listing-d3b70f798c5e4fe8f63b"
+        ],
+        "source_refs": [
+          "SRC_4A31DD33EA3B34DA"
+        ],
+        "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "f4",
+        "claim_text": "U.S. consumers cut their retail spending last month.",
+        "direct_or_inferred": "DIRECT",
+        "evidence_document_ids": [
+          "public-news-listing-6e7cd95f14205ff02412"
+        ],
+        "source_refs": [
+          "SRC_E96EFCFE6F407346"
+        ],
+        "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD"
+      }
+    ],
+    "title": "U.S. Retail Sales Post First Decline in Nine Months",
+    "unsupported_claims_removed": 0,
+    "update_chain_identity": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+    "visual_asset_ids_expected": [],
+    "writer_reader_value_preflight": {
+      "attribution_chain_dominant": false,
+      "attribution_marker_count": 0,
+      "blockers": [],
+      "checks": {
+        "captions_and_source_metadata_not_dominant": true,
+        "mode_appropriate_structure": true,
+        "mode_appropriate_substance": true,
+        "multiple_meaningful_reader_paragraphs": true,
+        "native_rich_text_serializable": true,
+        "no_process_or_pipeline_language": true,
+        "no_repetitive_filler": true,
+        "not_attribution_chain_copy": true,
+        "professional_writer_output": true,
+        "reader_value_independent_of_media": true,
+        "title_not_body": true
+      },
+      "classification": "PASS",
+      "duplicated_sentence_count": 0,
+      "floor": {
+        "minimum_headings": 0,
+        "minimum_paragraphs": 3,
+        "minimum_words": 90
+      },
+      "floor_class": "CONCISE_UPDATE",
+      "formatting_targets": {
+        "heading_target_met": true,
+        "paragraph_target_met": true,
+        "word_target_met": false
+      },
+      "formatting_targets_are_advisory": true,
+      "heading_count": 0,
+      "list_item_count": 0,
+      "markup_findings": [],
+      "meaningful_paragraph_count": 3,
+      "paragraph_redundancy_findings": [],
+      "process_language_hits": [],
+      "publication_authority": false,
+      "reader_prose_word_count": 62,
+      "reader_sentence_count": 4,
+      "reason_code": null,
+      "schema_version": "contentops.reader_value_release_gate.v1",
+      "utility_floor": {
+        "minimum_reader_sentences": 3,
+        "minimum_words": 60
+      },
+      "visual_count": 0,
+      "visual_quantity_is_fixed_quota": false
+    },
+    "x_content_grants_factual_authority": false
+  },
+  "article_word_count": 62,
+  "browser_use": 0,
+  "charts_data_authority": {
+    "chart_count": 0,
+    "deterministic_renderer_required": true,
+    "model_numeric_authority": false
+  },
+  "classification": "FAIL_BELOW_PUBLICATION_GRADE",
+  "codex_execution": {
+    "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+    "executions": [
+      {
+        "attempt": 0,
+        "browser_use_count": 0,
+        "catalog_entry_proof_sha256": "4461ab81b27db7a31f74fafa8787f9758a2323f41072db0900f114ac036d26e3",
+        "cli_sha256": "f29f609375f3731d8db507a95124862a84e306982e30ba4300ddce5638bc6946",
+        "cli_version": "codex-cli 0.148.0-alpha.9",
+        "command_execution_count": 0,
+        "diagnostic_code": null,
+        "effective_model": null,
+        "effective_reasoning_effort": null,
+        "exact_model_capability_verified": true,
+        "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+        "exit_classification": "SUCCESS",
+        "exit_code": 0,
+        "external_model_service_network": true,
+        "external_research_network": false,
+        "fresh_execution_id": "01a006bb-df6a-76f3-8c90-5db0fbe9175b",
+        "materialized_runtime_copy": true,
+        "non_interactive_headless": true,
+        "requested_model": "gpt-5.6-sol",
+        "requested_reasoning_effort": "xhigh",
+        "supported_reasoning_efforts": [
+          "low",
+          "medium",
+          "high",
+          "xhigh",
+          "max",
+          "ultra"
+        ],
+        "timeout_seconds": 420.0,
+        "tool_event_counts": {
+          "browser_calls": 0,
+          "command_executions": 0,
+          "file_changes": 0,
+          "mcp_tool_calls": 0,
+          "web_searches": 0
+        },
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 15009,
+          "output_tokens": 2006,
+          "reasoning_output_tokens": 1549
+        },
+        "wall_time_seconds": 47.494,
+        "web_search_count": 0
+      }
+    ],
+    "job_id": "codex-editorial-a65291dd14d379d5a6b68bdb",
+    "revision_count": 0,
+    "status": "COMPLETED",
+    "total_wall_time_seconds": 47.494
+  },
+  "codex_input_packet": {
+    "governed_input_sha256": "a65291dd14d379d5a6b68bdb3e40369bc7ae25a734c8cd864838dbd4159bee0c",
+    "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\codex_governed_article_job_v1.json",
+    "sha256": "00d1abd1a158e4eed252b9848eac39199f00cdd5f4c291f5c5893b9d36a08d2e"
+  },
+  "codex_structured_output": {
+    "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\codex_structured_article_result_v1.json",
+    "sha256": "d99c7842ef43dde91ac6546f3418d8bd88e1e57872eb894463a16fa7b045f8c6"
+  },
+  "exact_model_capability_verified": true,
+  "external_research": false,
+  "factual_safety_result": {
+    "advisory_failed_checks": [],
+    "checks": {
+      "clear_news_peg": true,
+      "concise_nut_graf": true,
+      "high_information_density": true,
+      "material_claims_supported": true,
+      "material_evidence_matches": true,
+      "material_market_consequence": true,
+      "mode_consistent": true,
+      "no_fabricated_numbers": true,
+      "no_fabricated_quotes": true,
+      "no_factual_contradiction": true,
+      "no_financial_advice": true,
+      "no_misleading_framing": true,
+      "no_unsupported_certainty": true,
+      "reader_facing_prose": true,
+      "relevant_context": true,
+      "severe_coherence_ok": true,
+      "source_backed_mechanism": true,
+      "specific_confirmation_condition": true,
+      "specific_falsification_condition": true,
+      "why_now": true
+    },
+    "decision": "PASS",
+    "failed_checks": [],
+    "issues": [],
+    "material_failed_checks": [],
+    "missing_or_invalid_checks": [],
+    "mode": "straight_news",
+    "provider": "deterministic_minimum_evidence",
+    "publication_authority": false,
+    "review_sha256": "da9630c33768a3422cd4802713e58c76ed507d1bc29904b657babf464d48b3c1",
+    "review_type": "HARD_FACTUAL_SAFETY_ONLY",
+    "semantic_review_required": false,
+    "status": "SUCCESS",
+    "summary": "Ordinary article passed deterministic factual and source binding checks."
+  },
+  "fixed_input": {
+    "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_GROUNDED_RESEARCH_YIELD_AND_BUDGET_AWARE_EVIDENCE_RECOVERY_V1\\exact_1700_zero_write_replay_final\\candidate_checkpoints\\rank_01.json",
+    "rank": 1,
+    "sha256": "511688bf124bbcd703aa076d2bc90e0efee2c4bee54c71b84b91c7a1ce39e37c",
+    "synthetic_facts": false
+  },
+  "new_research": false,
+  "public_writes": 0,
+  "publication_coordinator_called": false,
+  "publication_plan": {
+    "adapter_callables_persisted": false,
+    "article_identity": "1de4ae8c74d3ad1f483f34344b221a62c9da3a8c15a5ca24ba9615284204452c",
+    "artifact_refs": {
+      "article_manifest_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\article_manifest_v1.json",
+        "sha256": "ca62f37dff82981eb447e30aa9243cd5e1da6852966f2680dbf24628270bacea"
+      },
+      "editorial_quality_gate_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\editorial_quality_gate_v1.json",
+        "sha256": "d52f71de358924a5202e33682e66ad118019c39db562f486857eb1a72117c99f"
+      },
+      "grounded_support_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\grounded_support_v1.json",
+        "sha256": "c2d38e66b66eec143f9d26affb59d981573dc2dfaca0fcd0e6dd4125a436fdab"
+      },
+      "headline_intake_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\headline_intake_v1.json",
+        "sha256": "87341b203832be62c2774c57a0b118f52c91b401d6fd0162b7a8ed3bd356e33c"
+      },
+      "idea_selection_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\idea_selection_v1.json",
+        "sha256": "cf952df052c905292668e91b116447708891033fa4518bf69f373453f9de0c64"
+      },
+      "llm_idea_ranking_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\llm_idea_ranking_v1.json",
+        "sha256": "82f7ce8fc042637cdde93ec0760bd24c6948eb452a0db923b9579d8a8cf0335d"
+      },
+      "media_manifest_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\media_manifest_v1.json",
+        "sha256": "d92e8c20469c796c0c4f06efd2deaeb6a50f7af47ffaaff11fb9ffcc4ecb3978"
+      },
+      "native_payloads_rehearsal_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\native_payloads_rehearsal_v1.json",
+        "sha256": "d98638180ef7aa5d863b404852b95cbb6a7f45d86855c1f28e4ee233f6dcfe39"
+      },
+      "run_context_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\run_context_v1.json",
+        "sha256": "fcfc9630fa05309bf634ca0d3861a762eb91c8b0867e168ecb9b7ed71590fffa"
+      },
+      "substack_browser_request_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\substack_browser_request_v1.json",
+        "sha256": "9524b3ce22c87b8cbab8aac196a4f0dd2e96dfebb3c01ee866db041341f930e5"
+      }
+    },
+    "destinations": [
+      {
+        "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "destination": "linkedin",
+        "expected_destination_identity": "linkedin:jimcc",
+        "jit_verification_required": true,
+        "media_artifact_refs": [
+          "media_manifest_v1.json"
+        ],
+        "payload_hash": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "linkedin",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "LINKEDIN_POST",
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "OFFICIAL_MEMBER_API"
+      },
+      {
+        "adapter": "edge_cdp_publishing_adapter_v1.publish_substack_article_via_edge",
+        "canonical_url_dependency": null,
+        "destination": "substack",
+        "expected_destination_identity": "capitalchronicle.substack.com",
+        "jit_verification_required": true,
+        "media_artifact_refs": [
+          "media_manifest_v1.json"
+        ],
+        "payload_hash": "1de4ae8c74d3ad1f483f34344b221a62c9da3a8c15a5ca24ba9615284204452c",
+        "payload_hash_kind": "FINAL_ARTICLE_BYTES",
+        "platform": "substack",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "SUBSTACK_ARTICLE",
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "EDGE_CDP"
+      },
+      {
+        "adapter": "threads_adapter_v6.execute_threads_post",
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "destination": "threads",
+        "expected_destination_identity": "official.capitalchronicle",
+        "jit_verification_required": true,
+        "media_artifact_refs": [
+          "media_manifest_v1.json"
+        ],
+        "payload_hash": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "threads",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "THREADS_POST",
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "THREADS_API"
+      },
+      {
+        "adapter": "edge_cdp_publishing_adapter_v1.publish_x_post_via_edge+publish_x_reply_via_edge",
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "destination": "x",
+        "expected_destination_identity": "@Capitalnicle",
+        "jit_verification_required": true,
+        "media_artifact_refs": [
+          "media_manifest_v1.json"
+        ],
+        "payload_hash": "27f4615cea7d3b471e9f0b15f95937f54e24ae8085c9a16e7970d5ecc06604dd",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "x",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "X_THREAD",
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "EDGE_CDP"
+      }
+    ],
+    "editorial_classification": "BREAKING_NEW_STORY",
+    "output_dir": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof",
+    "package_identity": "75ff1958be0ef130b2a242016b347e3a2116b2c0dc8ab3e127f2e2dc60c426a7",
+    "plan_hash": "dd29abf497c7e2a0b2896843e42bc8b30189142d28ffff7fa4c230fbc67759e8",
+    "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+    "publication_window": {
+      "window_identity": "v1-xhigh-default-editorial-brain-zero-write-proof"
+    },
+    "resolved_article_mode": "BREAKING_BRIEF",
+    "run_id": "v1-xhigh-default-editorial-brain-zero-write-proof",
+    "schema_version": "contentops.publication_plan.v1",
+    "secrets_persisted": false,
+    "skipped_derivative_destinations": [
+      {
+        "attempted": false,
+        "canonical_truth_affected": false,
+        "destination": "discord",
+        "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "DISCORD_ANNOUNCEMENT"
+      },
+      {
+        "attempted": false,
+        "canonical_truth_affected": false,
+        "destination": "facebook_page",
+        "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "FACEBOOK_PAGE_POST"
+      },
+      {
+        "attempted": false,
+        "canonical_truth_affected": false,
+        "destination": "instagram_business",
+        "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "INSTAGRAM_BUSINESS_POST"
+      },
+      {
+        "attempted": false,
+        "canonical_truth_affected": false,
+        "destination": "telegram",
+        "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "TELEGRAM_CHANNEL_POST"
+      },
+      {
+        "attempted": false,
+        "canonical_truth_affected": false,
+        "destination": "youtube",
+        "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "YOUTUBE_COMMUNITY_POST"
+      }
+    ],
+    "story_identity": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+    "substack_first_dependency": true,
+    "transport_registry_version": "contentops.destination_transport_registry.v2",
+    "update_chain_identity": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9"
+  },
+  "publishing_adapter_called": false,
+  "reader_value_result": {
+    "attribution_chain_dominant": false,
+    "attribution_marker_count": 0,
+    "blockers": [],
+    "checks": {
+      "captions_and_source_metadata_not_dominant": true,
+      "mode_appropriate_structure": true,
+      "mode_appropriate_substance": true,
+      "multiple_meaningful_reader_paragraphs": true,
+      "native_rich_text_serializable": true,
+      "no_process_or_pipeline_language": true,
+      "no_repetitive_filler": true,
+      "not_attribution_chain_copy": true,
+      "professional_writer_output": true,
+      "reader_value_independent_of_media": true,
+      "title_not_body": true
+    },
+    "classification": "PASS",
+    "duplicated_sentence_count": 0,
+    "floor": {
+      "minimum_headings": 0,
+      "minimum_paragraphs": 3,
+      "minimum_words": 90
+    },
+    "floor_class": "CONCISE_UPDATE",
+    "formatting_targets": {
+      "heading_target_met": true,
+      "paragraph_target_met": true,
+      "word_target_met": false
+    },
+    "formatting_targets_are_advisory": true,
+    "heading_count": 0,
+    "list_item_count": 0,
+    "markup_findings": [],
+    "meaningful_paragraph_count": 3,
+    "paragraph_redundancy_findings": [],
+    "process_language_hits": [],
+    "publication_authority": false,
+    "reader_prose_word_count": 62,
+    "reader_sentence_count": 4,
+    "reason_code": null,
+    "schema_version": "contentops.reader_value_release_gate.v1",
+    "utility_floor": {
+      "minimum_reader_sentences": 3,
+      "minimum_words": 60
+    },
+    "visual_count": 0,
+    "visual_quantity_is_fixed_quota": false
+  },
+  "release_preparation": {
+    "blockers": [],
+    "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+    "lock_verification": {
+      "artifacts": {
+        "article_manifest_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\article_manifest_v1.json",
+          "sha256": "ca62f37dff82981eb447e30aa9243cd5e1da6852966f2680dbf24628270bacea"
+        },
+        "editorial_quality_gate_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\editorial_quality_gate_v1.json",
+          "sha256": "d52f71de358924a5202e33682e66ad118019c39db562f486857eb1a72117c99f"
+        },
+        "grounded_support_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\grounded_support_v1.json",
+          "sha256": "c2d38e66b66eec143f9d26affb59d981573dc2dfaca0fcd0e6dd4125a436fdab"
+        },
+        "headline_intake_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\headline_intake_v1.json",
+          "sha256": "87341b203832be62c2774c57a0b118f52c91b401d6fd0162b7a8ed3bd356e33c"
+        },
+        "idea_selection_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\idea_selection_v1.json",
+          "sha256": "cf952df052c905292668e91b116447708891033fa4518bf69f373453f9de0c64"
+        },
+        "llm_idea_ranking_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\llm_idea_ranking_v1.json",
+          "sha256": "82f7ce8fc042637cdde93ec0760bd24c6948eb452a0db923b9579d8a8cf0335d"
+        },
+        "media_manifest_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\media_manifest_v1.json",
+          "sha256": "d92e8c20469c796c0c4f06efd2deaeb6a50f7af47ffaaff11fb9ffcc4ecb3978"
+        },
+        "native_payloads_rehearsal_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\native_payloads_rehearsal_v1.json",
+          "sha256": "d98638180ef7aa5d863b404852b95cbb6a7f45d86855c1f28e4ee233f6dcfe39"
+        },
+        "run_context_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\run_context_v1.json",
+          "sha256": "fcfc9630fa05309bf634ca0d3861a762eb91c8b0867e168ecb9b7ed71590fffa"
+        },
+        "substack_browser_request_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\substack_browser_request_v1.json",
+          "sha256": "9524b3ce22c87b8cbab8aac196a4f0dd2e96dfebb3c01ee866db041341f930e5"
+        }
+      },
+      "blockers": [],
+      "lock_sha256": "75ff1958be0ef130b2a242016b347e3a2116b2c0dc8ab3e127f2e2dc60c426a7",
+      "prepared_canonical_url": "SUBSTACK_ASSIGNED_AT_PUBLISH",
+      "status": "PASS_RELEASE_CANDIDATE_LOCK"
+    }
+  },
+  "render": {
+    "full_page_screenshot_path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\xhigh_default_article_full_page_v1.png",
+    "full_page_screenshot_sha256": "a0aab654a6eb2376d0fa4fb48c4f1bc56a220d48e367087b616b9871cf324cf9",
+    "html_path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof\\xhigh_default_article_full_page_v1.html",
+    "html_sha256": "eb32bc49fe01abce313092ceb926a6d6cd6d98e976ba6f0f727d5d2875f40af4"
+  },
+  "requested_model": "gpt-5.6-sol",
+  "requested_reasoning_effort": "xhigh",
+  "schema_version": "contentops.v1_xhigh_default_zero_write_proof.v1",
+  "selected_media": [],
+  "selected_media_count": 0,
+  "source_binding_result": {
+    "blockers": [],
+    "fact_rows": [
+      {
+        "body_token_overlap": 0.8,
+        "bound_source_identity_referenced": true,
+        "fact_id": "f1",
+        "recognizably_used": true
+      },
+      {
+        "body_token_overlap": 0.8889,
+        "bound_source_identity_referenced": true,
+        "fact_id": "f2",
+        "recognizably_used": true
+      },
+      {
+        "body_token_overlap": 0.8333,
+        "bound_source_identity_referenced": true,
+        "fact_id": "f3",
+        "recognizably_used": true
+      },
+      {
+        "body_token_overlap": 0.8571,
+        "bound_source_identity_referenced": true,
+        "fact_id": "f4",
+        "recognizably_used": true
+      }
+    ],
+    "grounded_research_packet_present": true,
+    "paragraph_rows": [
+      {
+        "covered": true,
+        "labeled_supported_inference": false,
+        "paragraph_index": 0,
+        "source_token_overlap": 0.8
+      },
+      {
+        "covered": true,
+        "labeled_supported_inference": false,
+        "paragraph_index": 1,
+        "source_token_overlap": 0.8095
+      },
+      {
+        "covered": true,
+        "labeled_supported_inference": false,
+        "paragraph_index": 2,
+        "source_token_overlap": 0.6364
+      }
+    ],
+    "publication_authority": false,
+    "status": "PASS"
+  },
+  "synthetic_editorial_triggers": 0,
+  "synthetic_x_captures": 0,
+  "unknown_write": 0,
+  "v2_mutations": 0,
+  "visual_intent_plan": {
+    "article_identity": "cd28d5354d87823440215f8113821f562d0fe1b8f49310526a109f0062eccca9",
+    "intents": [
+      {
+        "editorial_rationale": "Show the real institution, place, or infrastructure at the center of the story.",
+        "publication_authority": false,
+        "queries": [
+          "Retail Sales Post First Decline Nine official photograph",
+          "Retail Sales Post First Decline Nine documentary context",
+          "Retail Sales Post First Decline Nine documentary photograph"
+        ],
+        "rights_required": true,
+        "visual_intent": "HERO_DOCUMENTARY"
+      }
+    ],
+    "provider_priority": [
+      "first_party_official",
+      "wikimedia_commons",
+      "openverse",
+      "general_image_search_discovery",
+      "licensed_contextual_library",
+      "generated_conceptual_illustration"
+    ],
+    "publication_authority": false,
+    "schema_version": "contentops.visual_asset_discovery.v1",
+    "semantic_model_may_grant_rights": false,
+    "unknown_rights_disposition": "REJECT"
+  }
+}

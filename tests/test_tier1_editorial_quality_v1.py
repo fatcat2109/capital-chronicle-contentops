@@ -67,6 +67,35 @@ def test_minimum_evidence_review_accepts_fresh_isolated_codex_method() -> None:
     assert review["material_failed_checks"] == []
 
 
+def test_minimum_evidence_review_binds_core_proposition_across_article_metadata() -> None:
+    article = {
+        "article_generation_method": (
+            "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN"
+        ),
+        "title": "US CPI Rises in July",
+        "seo_title": "US CPI July 2026 Report",
+        "substack_body_markdown": (
+            "The official release shows the monthly inflation reading and component mix."
+        ),
+        "minimum_trustworthy_evidence_packet": {
+            "status": "PASS",
+            "risk_tier": "ORDINARY",
+            "core_factual_proposition": "US CPI July 2026 Report",
+            "source_url": "https://example.test/cpi",
+            "evidence_document_id": "doc-cpi",
+        },
+        "source_bindings": [{
+            "source_id": "source-cpi",
+            "evidence_document_id": "doc-cpi",
+        }],
+        "source_binding_ids_referenced": ["source-cpi"],
+        "evidence_document_ids": ["doc-cpi"],
+        "x_content_grants_factual_authority": False,
+    }
+
+    assert review_minimum_evidence_news_brief(article)["decision"] == "PASS"
+
+
 def _media() -> list[dict]:
     return [
         {"asset_id": "primary", "caption": "Primary", "alt_text": "Primary chart", "sha256": "a" * 64},

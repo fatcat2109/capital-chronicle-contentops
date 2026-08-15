@@ -1,7 +1,7 @@
 """Canonical grounded article + source-backed media builder for the rolling-X Daily Live path.
 
 This is the ONE canonical Tier-1 subsystem that turns an accepted, evidence-viable ranked
-cluster into a grounded article plus three source-backed media assets.  It is:
+cluster into a grounded article plus optional source-backed media assets.  It is:
 
 * not a second newsroom (it consumes the accepted canonical story/evidence state);
 * not an analytical authority (every analytical/numeric claim must already be backed by
@@ -35,6 +35,7 @@ from live_contentops.visual_asset_discovery_v1 import build_visual_intent_plan
 
 SCHEMA_VERSION = "contentops.rolling_x_grounded_article_media_builder.v1"
 CODEX_EDITORIAL_BRAIN_TRIGGER = "TRIGGER_V1_CODEX_EDITORIAL_BRAIN_VERTICAL_SLICE"
+DEGRADED_EDITORIAL_BRAIN = "DEGRADED_EDITORIAL_BRAIN"
 
 #: Provenance states recognised by the rolling-X release validator.
 ALLOWED_PROVENANCE_STATES = frozenset(
@@ -226,6 +227,8 @@ def extract_governed_story_context(viability: Mapping[str, Any]) -> dict[str, An
             selected_evidence.get("cc_context_bundle") or {}
         ),
         "evidence_substance": dict(selected_evidence.get("evidence_substance") or {}),
+        "governed_data_series": list(selected_evidence.get("governed_data_series") or [])[:12],
+        "governed_table_rows": list(selected_evidence.get("governed_table_rows") or [])[:100],
         "evidence_review_tier": str(selected_evidence.get("evidence_review_tier") or ""),
         "framing": {
             "why_now": str(selected_cluster.get("why_now") or ""),
@@ -846,7 +849,9 @@ def _writer_supported_claims(context: Mapping[str, Any]) -> list[dict[str, Any]]
 
 
 def _build_writer_governed_input(
-    context: Mapping[str, Any], visual_asset_ids: Sequence[str]
+    context: Mapping[str, Any],
+    visual_asset_ids: Sequence[str],
+    visual_candidates: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
     """Return the single governed writer packet shared by 9Router/CX and Codex."""
     framing = context.get("framing") if isinstance(context.get("framing"), Mapping) else {}
@@ -893,6 +898,14 @@ def _build_writer_governed_input(
             )
         ],
         "supported_claims": _writer_supported_claims(context),
+        "canonical_evidence_usage_contract": {
+            "canonical_content_text_is_governed_factual_evidence": True,
+            "supported_claims_highlight_core_expected_claims_but_are_not_exhaustive_when_canonical_content_is_present": True,
+            "exact_facts_and_numbers_may_be_extracted_only_when_explicit_in_canonical_content": True,
+            "every_used_fact_remains_bound_to_its_document_source_handle": True,
+            "omitted_unsupported_claims_remain_forbidden": True,
+            "model_has_no_independent_factual_or_numeric_authority": True,
+        },
         "grounded_research_packet": {
             key: value
             for key, value in dict(
@@ -933,6 +946,34 @@ def _build_writer_governed_input(
             if isinstance(row, Mapping)
         ],
         "visual_asset_ids": list(visual_asset_ids),
+        "governed_visual_candidates": [
+            {
+                key: row.get(key)
+                for key in (
+                    "asset_id",
+                    "modality",
+                    "purpose",
+                    "caption",
+                    "alt_text",
+                    "publisher",
+                    "provenance_status",
+                    "rights_status",
+                    "render_rights_status",
+                    "underlying_source_rights_status",
+                    "source_reuse_basis",
+                )
+                if row.get(key) not in (None, "")
+            }
+            for row in visual_candidates
+            if isinstance(row, Mapping)
+            and str(row.get("asset_id") or "") in set(str(value) for value in visual_asset_ids)
+        ],
+        "governed_numeric_inputs": {
+            "data_series": list(context.get("governed_data_series") or [])[:12],
+            "table_rows": list(context.get("governed_table_rows") or [])[:100],
+            "model_may_invent_or_calculate_values": False,
+            "deterministic_renderer_required_for_any_chart": True,
+        },
         "audit_metadata_editorial_only": _article_audit_metadata(context),
         "output_contract": ARTICLE_OUTPUT_CONTRACT,
     }
@@ -941,9 +982,12 @@ def _build_writer_governed_input(
 def build_article_generation_prompt(
     context: Mapping[str, Any],
     visual_asset_ids: Sequence[str],
+    visual_candidates: Sequence[Mapping[str, Any]] = (),
 ) -> str:
     """Bounded article-generation request. All external text is untrusted data."""
-    governed_input = _build_writer_governed_input(context, visual_asset_ids)
+    governed_input = _build_writer_governed_input(
+        context, visual_asset_ids, visual_candidates
+    )
     visual_marker_instruction = ", ".join(
         f"[[VISUAL:{asset_id}]]" for asset_id in visual_asset_ids
     )
@@ -960,7 +1004,6 @@ def build_article_generation_prompt(
     )
     effective_mode = str(context.get("effective_article_mode") or "BREAKING_BRIEF")
     brief = effective_mode in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
-    minimum_headings = 0 if brief else 2
     substance = (
         context.get("evidence_substance")
         if isinstance(context.get("evidence_substance"), Mapping)
@@ -969,7 +1012,7 @@ def build_article_generation_prompt(
     evidence_has_depth = bool(substance.get("enough_for_useful_article"))
     reader_value_scope = (
         "The accepted evidence has sufficient writing depth. Write a compact professional brief "
-        "that normally lands around 120-220 words. Give readers three distinct kinds of value: "
+        "with three distinct kinds of value when the evidence supports them: "
         "what changed, the most useful directly evidenced detail, and why the event matters or "
         "what remains unresolved. Organize those ideas into natural paragraphs only when that "
         "improves readability. Do not chain source-title restatements or use repetition, headings, "
@@ -1021,13 +1064,25 @@ def build_article_generation_prompt(
             + ". If the evidence supports a closing watch section, naturally name relevant observable catalysts from: "
             + catalyst_terms
             + ". Include at least one exact source-handle token. Additional distinct sources are useful only when they add supported substance; they are not a publication quota.",
-            f"The body must open with a clear news peg, explain only directly-evidenced facts, and embed exactly these visual markers, each once, in this order: "
-            + visual_marker_instruction
-            + (
-                ". A concise breaking brief may use no section headings when headings would make it read like a template."
-                if minimum_headings == 0
-                else f". Use at least {minimum_headings} natural '##' headings and no '# ' heading."
+            (
+                "The body must open with a clear news peg and explain only directly-evidenced "
+                "facts. The following governed, rights-cleared visual candidates are optional: "
+                + visual_marker_instruction
+                + ". Select only the subset that materially improves understanding, place each "
+                "selected marker at most once, and use none when no candidate earns space."
+                if visual_asset_ids
+                else "The body must open with a clear news peg and explain only directly-evidenced "
+                "facts. No governed visual candidate is available; do not invent a visual marker."
             ),
+            "Use natural headings only when they improve navigation. No word count, heading count, "
+            "section count, paragraph count, or visual count is mandatory; never truncate useful "
+            "evidence-rich reporting to fit a legacy short-copy ceiling.",
+            "The canonical_content_text fields are governed factual evidence. Supported_claims "
+            "identify the expected core but are not an exhaustive list when substantive canonical "
+            "content is present. Extract only facts and exact numbers explicitly present there, "
+            "bind them to that document's source handle, never calculate or infer a new number, "
+            "and never reintroduce an omitted_unsupported_claim. Do not repeat the article title "
+            "as a '# ' heading inside the body.",
             "Return one JSON object only, with exactly these keys and string values:",
             json.dumps(ARTICLE_OUTPUT_CONTRACT, sort_keys=True),
             "GOVERNED_INPUT:",
@@ -1789,8 +1844,12 @@ def _codex_editorial_output_validation(
     if len(grounded_quotes) != len(material_quotes):
         forbidden.append("article_untraceable_quotation")
     body_visual_ids = VISUAL_RE.findall(body)
-    if sorted(body_visual_ids) != sorted(str(value) for value in visual_asset_ids):
-        editorial.append("CODEX_OUTPUT_VISUAL_MARKERS_INVALID")
+    allowed_visual_ids = {str(value) for value in visual_asset_ids}
+    if (
+        len(body_visual_ids) != len(set(body_visual_ids))
+        or set(body_visual_ids) - allowed_visual_ids
+    ):
+        forbidden.append("CODEX_OUTPUT_VISUAL_MARKERS_INVALID")
     normalized_body = " ".join(body.casefold().split())
     for row in (context.get("claim_evidence_contract") or {}).get(
         "omitted_unsupported_claims"
@@ -1826,6 +1885,8 @@ def _compact_codex_receipt(receipt: Mapping[str, Any]) -> dict[str, Any]:
             "instruction_sha256",
             "output_schema_sha256",
             "execution_plane",
+            "requested_model",
+            "requested_reasoning_effort",
             "started_at_utc",
             "completed_at_utc",
             "revision_count",
@@ -1847,6 +1908,7 @@ def _run_codex_editorial_fallback(
     *,
     context: Mapping[str, Any],
     visual_asset_ids: Sequence[str],
+    visual_candidates: Sequence[Mapping[str, Any]],
     output_dir: Path,
     work_item_id: str,
     prior_writer_telemetry: Mapping[str, Any],
@@ -1869,7 +1931,9 @@ def _run_codex_editorial_fallback(
     if authority_blockers or not evidence_qualified or not _writer_supported_claims(context):
         raise GroundedArticleBuilderError("CODEX_EDITORIAL_BRAIN_EVIDENCE_INELIGIBLE")
 
-    governed_input = _build_writer_governed_input(context, visual_asset_ids)
+    governed_input = _build_writer_governed_input(
+        context, visual_asset_ids, visual_candidates
+    )
     evaluation_cutoff = str(
         (context.get("grounded_research_packet") or {}).get("research_as_of_utc")
         or _primary_document(context).get("known_at_utc")
@@ -1924,7 +1988,10 @@ def _run_codex_editorial_fallback(
         "codex_editorial_brain": _compact_codex_receipt(receipt),
         "codex_completed_receipt_reused": bool(result.get("completed_receipt_reused")),
     }
-    generated["article_generation_method"] = "FRESH_ISOLATED_CODEX_EDITORIAL_BRAIN"
+    generated["article_generation_method"] = (
+        "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN"
+    )
+    generated["editorial_brain_status"] = "CODEX_XHIGH_DEFAULT"
     return generated
 
 
@@ -2400,8 +2467,9 @@ def build_rolling_x_grounded_article_and_media(
         story_label=(context.get("framing") or {}).get("selection_case"),
         grounding="accepted source-bound evidence",
     )
-    prompt = build_article_generation_prompt(context, visual_asset_ids)
-    generator = article_generator or _default_article_generator
+    prompt = build_article_generation_prompt(
+        context, visual_asset_ids, media_assets
+    )
     using_default_generator = article_generator is None
     if accepted_codex_trigger_receipt is not None and not using_default_generator:
         raise GroundedArticleBuilderError("CODEX_TRIGGER_RECEIPT_WITH_CUSTOM_GENERATOR_FORBIDDEN")
@@ -2416,6 +2484,7 @@ def build_rolling_x_grounded_article_and_media(
         generated = _run_codex_editorial_fallback(
             context=context,
             visual_asset_ids=visual_asset_ids,
+            visual_candidates=media_assets,
             output_dir=output_dir,
             work_item_id=effective_work_item_id,
             prior_writer_telemetry=dict(
@@ -2427,55 +2496,116 @@ def build_rolling_x_grounded_article_and_media(
             timeout_seconds=codex_timeout_seconds,
         )
         codex_used = True
+    elif not using_default_generator:
+        if article_generator is None:  # pragma: no cover - narrowed above
+            raise AssertionError("custom article generator unexpectedly missing")
+        generated = dict(article_generator(prompt))
     else:
+        # The evidence-qualified production default is one fresh, isolated exact
+        # gpt-5.6-sol/xhigh execution.  The older 9Router/CX chain is deliberately not called
+        # before this point; it is available only as a labelled temporary-outage recovery for
+        # concise ordinary reporting.
+        xhigh_prior_telemetry = {
+            "logical_invocations": 0,
+            "editorial_path": "CODEX_XHIGH_DEFAULT",
+            "nine_router_writer_called_before_xhigh": False,
+            "degraded_editorial_brain": False,
+        }
         try:
-            generated = dict(generator(prompt))
-        except Exception as exc:
+            generated = _run_codex_editorial_fallback(
+                context=context,
+                visual_asset_ids=visual_asset_ids,
+                visual_candidates=media_assets,
+                output_dir=output_dir,
+                work_item_id=effective_work_item_id,
+                prior_writer_telemetry=xhigh_prior_telemetry,
+                execution_adapter=codex_execution_adapter,
+                executable_path=codex_executable_path,
+                runtime_root=codex_runtime_root,
+                timeout_seconds=codex_timeout_seconds,
+            )
+            codex_used = True
+        except GroundedArticleBuilderError as xhigh_exc:
             from live_contentops.nine_router_llm_seam_v2 import RoutedInvocationError
 
-            prior_writer_telemetry: dict[str, Any] | None = None
             if (
-                using_default_generator
-                and isinstance(exc, GroundedArticleBuilderError)
-                and str(exc) == CODEX_EDITORIAL_BRAIN_TRIGGER
+                str(xhigh_exc) != "CODEX_EDITORIAL_EXECUTION_FAILED"
+                or not ordinary_story
+                or effective_mode not in {"BREAKING_BRIEF", "FOLLOW_UP_UPDATE"}
             ):
-                prior_writer_telemetry = dict(exc.writer_router_telemetry)
-            elif using_default_generator and isinstance(exc, RoutedInvocationError):
-                prior_writer_telemetry = {
+                # Autonomous seam absence and every factual/numeric/source/editorial rejection
+                # remain terminal.  There is no model shopping after a safety failure.
+                raise
+            xhigh_failure_telemetry = dict(xhigh_exc.writer_router_telemetry)
+            xhigh_receipt = dict(
+                xhigh_failure_telemetry.get("codex_editorial_brain") or {}
+            )
+            xhigh_invocations = len(xhigh_receipt.get("executions") or [])
+            try:
+                generated = dict(_default_article_generator(prompt))
+            except RoutedInvocationError as degraded_exc:
+                degraded_summary = {
                     "logical_invocations": 1,
-                    "normal": _compact_writer_router_telemetry(exc.summary),
+                    "normal": _compact_writer_router_telemetry(degraded_exc.summary),
                     "normal_repair_attempted": bool(
-                        exc.summary.get("total_structured_repair_attempts")
+                        degraded_exc.summary.get("total_structured_repair_attempts")
                     ),
                     "cx_provider_fallback_attempted": False,
                     "cx_utility_rescue_attempted": False,
                 }
-            if prior_writer_telemetry is not None and _codex_trigger_telemetry_is_eligible(
-                prior_writer_telemetry
-            ):
-                generated = _run_codex_editorial_fallback(
-                    context=context,
-                    visual_asset_ids=visual_asset_ids,
-                    output_dir=output_dir,
-                    work_item_id=effective_work_item_id,
-                    prior_writer_telemetry=prior_writer_telemetry,
-                    execution_adapter=codex_execution_adapter,
-                    executable_path=codex_executable_path,
-                    runtime_root=codex_runtime_root,
-                    timeout_seconds=codex_timeout_seconds,
-                )
-                codex_used = True
-            elif isinstance(exc, GroundedArticleBuilderError):
-                raise
-            elif not isinstance(exc, RoutedInvocationError) or effective_mode not in {
-                "BREAKING_BRIEF", "FOLLOW_UP_UPDATE"
-            }:
-                raise
-            else:
+                if not _codex_trigger_telemetry_is_eligible(degraded_summary):
+                    raise
                 article_router_failure = {
-                    key: value for key, value in exc.summary.items() if key != "output"
+                    key: value
+                    for key, value in degraded_exc.summary.items()
+                    if key != "output"
                 }
                 generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
+                generated["_writer_router_telemetry"] = degraded_summary
+            except GroundedArticleBuilderError as degraded_exc:
+                degraded_summary = dict(degraded_exc.writer_router_telemetry)
+                if (
+                    str(degraded_exc) != CODEX_EDITORIAL_BRAIN_TRIGGER
+                    or not _codex_trigger_telemetry_is_eligible(degraded_summary)
+                ):
+                    raise
+                article_router_failure = {
+                    "terminal_disposition": "DEGRADED_WRITER_UTILITY_UNAVAILABLE",
+                    "failure_code": str(degraded_exc),
+                }
+                generated = _deterministic_supported_claim_brief(context, visual_asset_ids)
+                generated["_writer_router_telemetry"] = degraded_summary
+            degraded_writer_telemetry = dict(
+                generated.get("_writer_router_telemetry") or {}
+            )
+            generated["_writer_router_telemetry"] = {
+                **xhigh_failure_telemetry,
+                "logical_invocations": xhigh_invocations
+                + int(degraded_writer_telemetry.get("logical_invocations") or 0),
+                "editorial_path": DEGRADED_EDITORIAL_BRAIN,
+                "nine_router_writer_called_before_xhigh": False,
+                "degraded_editorial_brain": True,
+                "xhigh_invocation_result": "TEMPORARILY_UNAVAILABLE",
+                "degraded_writer_router": degraded_writer_telemetry,
+            }
+            generated["article_generation_method"] = DEGRADED_EDITORIAL_BRAIN
+            generated["editorial_brain_status"] = DEGRADED_EDITORIAL_BRAIN
+
+    candidate_assets_by_id = {
+        str(row.get("asset_id") or ""): dict(row)
+        for row in media_assets
+        if isinstance(row, Mapping) and str(row.get("asset_id") or "")
+    }
+    selected_visual_ids = VISUAL_RE.findall(
+        str(generated.get("substack_body_markdown") or "")
+    )
+    if (
+        len(selected_visual_ids) != len(set(selected_visual_ids))
+        or set(selected_visual_ids) - set(candidate_assets_by_id)
+    ):
+        raise GroundedArticleBuilderError("article_visual_markers_invalid")
+    media_assets = [candidate_assets_by_id[value] for value in selected_visual_ids]
+    visual_asset_ids = selected_visual_ids
 
     resolved_body, referenced_source_ids, source_reference_blockers = (
         _resolve_generated_source_references(
@@ -2565,6 +2695,15 @@ def build_rolling_x_grounded_article_and_media(
         "numeric_claims_from_llm": False,
         "article_generation_method": str(
             generated.get("article_generation_method") or "ROUTED_LLM_GROUNDED_ARTICLE"
+        ),
+        "editorial_brain_status": str(
+            generated.get("editorial_brain_status")
+            or ("CODEX_XHIGH_DEFAULT" if codex_used else "CUSTOM_EDITORIAL_GENERATOR")
+        ),
+        "degraded_editorial_brain": bool(
+            (generated.get("_writer_router_telemetry") or {}).get(
+                "degraded_editorial_brain"
+            )
         ),
         "codex_editorial_brain_receipt": dict(
             generated.get("_codex_editorial_brain_receipt") or {}
@@ -2698,6 +2837,17 @@ def build_rolling_x_grounded_article_and_media(
             ),
             "ordinary_story": ordinary_story,
             "deterministic_outage_recovery_used": article_router_failure is not None,
+            "xhigh_default_editorial_brain": bool(codex_used),
+            "degraded_editorial_brain": bool(
+                (generated.get("_writer_router_telemetry") or {}).get(
+                    "degraded_editorial_brain"
+                )
+            ),
+            "nine_router_writer_called_before_xhigh": bool(
+                (generated.get("_writer_router_telemetry") or {}).get(
+                    "nine_router_writer_called_before_xhigh"
+                )
+            ),
             "mandatory_semantic_review_calls": 0 if ordinary_story else 1,
             "writer_router": dict(generated.get("_writer_router_telemetry") or {}),
         },

@@ -1,0 +1,195 @@
+{
+  "allowed_evidence_document_ids": [
+    "official-primary-6b22335813df900e7c37"
+  ],
+  "allowed_source_handles": [
+    "SOURCE_1"
+  ],
+  "browser_authority": false,
+  "candidate_rank": 1,
+  "cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+  "evaluation_cutoff": "2026-08-13T07:06:03.572251Z",
+  "governed_input_sha256": "46f5ee99ee32c7dc645f13d24655d2163b04ba195f3129d3e73c97338663997d",
+  "governed_writer_input": {
+    "article_mode": "straight_news",
+    "audit_metadata_editorial_only": {
+      "market_consequence_terms": [
+        "policy",
+        "compliance",
+        "implementation"
+      ],
+      "mechanism_terms": [
+        "policy",
+        "implementation"
+      ],
+      "named_catalyst_terms": [
+        "official notice",
+        "effective date",
+        "official register"
+      ],
+      "news_peg_terms": [
+        "www.bls.gov",
+        "2026-08-12"
+      ],
+      "primary_topic": "cpi.pdf",
+      "seo_primary_keyword": "cpi",
+      "seo_semantic_terms": [
+        "cpi",
+        "www.bls.gov"
+      ]
+    },
+    "canonical_evidence_usage_contract": {
+      "canonical_content_text_is_governed_factual_evidence": true,
+      "every_used_fact_remains_bound_to_its_document_source_handle": true,
+      "exact_facts_and_numbers_may_be_extracted_only_when_explicit_in_canonical_content": true,
+      "model_has_no_independent_factual_or_numeric_authority": true,
+      "omitted_unsupported_claims_remain_forbidden": true,
+      "supported_claims_highlight_core_expected_claims_but_are_not_exhaustive_when_canonical_content_is_present": true
+    },
+    "cc_additive_context": {},
+    "cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+    "editorial_classification": "BREAKING_NEW_STORY",
+    "effective_article_mode": "BREAKING_BRIEF",
+    "evidence_documents": [
+      {
+        "canonical_content_text": "Transmission of material in this release is embargoed until USDL-26-1378 8:30 a.m. (ET) Wednesday, August 12, 2026 Technical information: (202) 691-7000 \ufffd cpi_info@bls.gov \ufffd www.bls.gov/cpi Media contact: (202) 691-5902 \ufffd PressOffice@bls.gov CONSUMER PRICE INDEX \ufffd JULY 2026 The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.1 percent on a seasonally adjusted basis in July after falling 0.4 percent in June, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.4 percent before seasonal adjustment. The index for shelter rose 0.1 percent in July, accounting for roughly two-thirds of the monthly all items increase. The index for food also increased 0.1 percent over the month, as the index for food away from home increased 0.3 percent. In contrast, the energy index declined 1.5 percent in July. The index for all items less food and energy rose 0.2 percent after being unchanged in June. Indexes that increased over the month include medical care, airline fares, communication, education, and recreation. Conversely, the index for motor vehicle insurance was among the major indexes that decreased in July. The all items index rose 3.4 percent for the 12 months ending July after rising 3.5 percent for the 12 months ending June. The all items less food and energy index rose 2.5 percent over the year, following a 2.6-percent increase over the 12 months ending June. The energy index increased 14.7 percent for the 12 months ending July. The food index increased 3.0 percent over the last year. NOTE: The Oct and Nov 2025 data values are not available due to the 2025 lapse in appropriations. NOTE: The Oct 2025 data values are not available due to the 2025 lapse in appropriations. Table A. Percent changes in CPI for All Urban Consumers (CPI-U): U.S. city average 1 N o t s e a s o n a l l y adjusted. -2- Food The food index rose 0.1 percent in July, after rising 0.2 percent in June. The index for food at home decreased 0.1 percent over the month. Three of the six major grocery store food group indexes decreased in July. The meats, poultry, fish, and eggs index decreased 0.7 percent over the month as the pork index declined 1.5 percent. The index for fruits and vegetables decreased 0.1 percent in July as the index for lettuce fell 16.4 percent. The dairy and related products index decreased 0.1 percent over the month. The index for other food at home was unchanged in July. In contrast, the nonalcoholic beverages index rose 0.9 percent in July after falling 1.5 percent in June. The index for cereals and bakery products increased 0.2 percent over the month. The food away from home index rose 0.3 percent in July. The index for limited service meals rose 0.4 percent, and the index for full service meals rose 0.2 percent over the month. The index for food at home rose 2.7 percent over the 12 months ending in July. The fruits and vegetables index rose 5.1 percent over the last 12 months. The index for other food at home increased 2.5 percent, and the index for nonalcoholic beverages rose 4.1 percent over the year. The meats, poultry, fish, and eggs index increased 1.9 percent over the 12 months ending in July, and the cereals and bakery products index rose 2.7 percent over the same period. In contrast, the index for dairy and related products fell 0.5 percent over the year. The food away from home index rose 3.4 percent over the last year. The index for full service meals rose 3.4 percent, and the index for limited service meals rose 3.3 percent over the 12 months ending in July. Energy The index for energy decreased 1.5 percent in July, after falling 5.7 percent in June. The gasoline index decreased 2.9 percent over the month. (Before seasonal adjustment, gasoline prices decreased 2.1 percent in July.) Conversely, the index for natural gas increased 0.7 percent in July, and the index for electricity rose 0.1 percent. The index for energy increased 14.7 percent over the past 12 mon\u2026",
+        "document_id": "official-primary-6b22335813df900e7c37",
+        "event_time_utc": "2026-08-12T11:08:11Z",
+        "published_at_utc": "2026-08-12T11:08:11Z",
+        "publisher": "www.bls.gov",
+        "source_authority_class": "official_public_primary_source",
+        "source_handle": "SOURCE_1",
+        "title": "cpi.pdf"
+      }
+    ],
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "BREAKING_BRIEF",
+      "documents": [
+        {
+          "document_id": "official-primary-6b22335813df900e7c37",
+          "source_authority_class": "official_public_primary_source",
+          "title_only": false,
+          "usable_content_words": 11979
+        }
+      ],
+      "enough_for_useful_article": true,
+      "enrichment_recommended": false,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 1,
+      "target_usable_content_words": 90,
+      "usable_content_words": 11979,
+      "usable_document_count": 1
+    },
+    "framing_editorial_context_only": {
+      "capital_chronicle_context": {
+        "all_discovered_stores_considered": true,
+        "candidate_table_count": 0,
+        "catalog_fingerprint": null,
+        "cc_context_richness": 0.0,
+        "deep_query_selected_tables": [],
+        "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+        "deep_query_table_limit": 8,
+        "grants_factual_or_numeric_authority": false,
+        "matched_store_count": 0,
+        "matched_store_ids": [],
+        "matched_table_count": 0,
+        "matches": [],
+        "mutated_upstream": false,
+        "queried_entities": [],
+        "queried_table_count": 0,
+        "richness_components": {
+          "bounded_row_density": 0.0,
+          "entity_coverage": 0.0,
+          "matched_freshness_metadata_coverage": 0.0,
+          "matched_store_diversity": 0.0,
+          "quality_lineage_surface_coverage": 0.0
+        },
+        "schema_version": "contentops.story_scoped_cc_context.v2"
+      },
+      "entities_topics": [],
+      "leaf_summaries": [
+        "US CPI July 2026 Report"
+      ],
+      "material_follow_up_context": {},
+      "selection_case": "Fresh discovery item with a bounded public evidence path.",
+      "seo_intent": "",
+      "why_now": "US CPI July 2026 Report"
+    },
+    "governed_numeric_inputs": {
+      "data_series": [],
+      "deterministic_renderer_required_for_any_chart": true,
+      "model_may_invent_or_calculate_values": false,
+      "table_rows": []
+    },
+    "governed_visual_candidates": [],
+    "grounded_research_packet": {},
+    "headline_ids": [
+      "cc-x-headline-01809264e79e9a6b7d69ce5b"
+    ],
+    "mode_downgrade_reason": null,
+    "omitted_unsupported_claims": [],
+    "output_contract": {
+      "cross_asset_implications": "optional; include only implications directly grounded in evidence",
+      "market_mechanism": "optional; include only a mechanism directly grounded in evidence",
+      "meta_description": "optional SEO description; empty string is permitted",
+      "policy_context": "optional; include only context directly grounded in evidence",
+      "seo_title": "optional SEO title; empty string is permitted",
+      "social_cross_asset_summary": "optional derivative copy; empty string is permitted",
+      "social_lede": "optional derivative copy; empty string is permitted",
+      "social_mechanism_summary": "optional derivative copy; empty string is permitted",
+      "social_policy_summary": "optional derivative copy; empty string is permitted",
+      "substack_body_markdown": "natural reader-facing markdown with native semantic headings/links and only the supplied [[VISUAL:...]] markers",
+      "subtitle": "optional reader-facing dek; empty string when unsupported or unnecessary",
+      "title": "non-empty string"
+    },
+    "requested_article_mode": "BREAKING_BRIEF",
+    "resolved_article_mode": "BREAKING_BRIEF",
+    "schema_version": "contentops.rolling_x_grounded_article_media_builder.v1",
+    "story_type": "data_release",
+    "supported_claims": [
+      {
+        "additional_source_is_eligibility_requirement": false,
+        "attribution_required": false,
+        "claim_id": "ordinary-core-proposition",
+        "claim_text": "US CPI July 2026 Report",
+        "evidence_document_ids": [
+          "official-primary-6b22335813df900e7c37"
+        ],
+        "support_status": "SUPPORTED_MINIMUM_TRUSTWORTHY_EVIDENCE"
+      }
+    ],
+    "update_chain_identity": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+    "visual_asset_ids": []
+  },
+  "headline_ids": [
+    "cc-x-headline-01809264e79e9a6b7d69ce5b"
+  ],
+  "instruction_sha256": "ab2a786d54814555176ff74b2bab99ad03823dcbce3faac39aafe590016b6110",
+  "job_id": "codex-editorial-46f5ee99ee32c7dc645f13d2",
+  "output_schema_sha256": "95f9574042597f3bdefaa309e5770a22f928462a92b5d658e05845a21efb092c",
+  "output_schema_version": "contentops.v1_codex_editorial_article_result.v1",
+  "publication_authority": false,
+  "research_authority": false,
+  "schema_version": "contentops.v1_codex_editorial_article_job.v1",
+  "style_and_reader_value_objective": {
+    "answer": [
+      "what_changed",
+      "strongest_useful_supported_detail",
+      "why_it_matters_or_what_remains_unresolved",
+      "what_to_watch_only_when_supported"
+    ],
+    "avoid": [
+      "source_title_chaining",
+      "attribution_chain_copy",
+      "filler",
+      "generic_finance_commentary",
+      "pipeline_language",
+      "unsupported_facts_numbers_motives_or_implications"
+    ],
+    "evidence_qualified_for_codex_default": true,
+    "supported_claim_count": 1
+  },
+  "work_item_id": "v1-xhigh-default-editorial-brain-zero-write-proof"
+}

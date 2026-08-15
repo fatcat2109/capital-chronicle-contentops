@@ -4221,6 +4221,15 @@ def _run_rolling_x_newsroom_cycle(
             "mandatory_semantic_review_calls": review_calls,
             "candidates_attempted": len(walk_rows),
             "routine_semantic_calls": assignment_calls + story_calls + writer_calls + review_calls,
+            "xhigh_default_editorial_brain": bool(
+                article_telemetry.get("xhigh_default_editorial_brain")
+            ),
+            "degraded_editorial_brain": bool(
+                article_telemetry.get("degraded_editorial_brain")
+            ),
+            "nine_router_writer_called_before_xhigh": bool(
+                article_telemetry.get("nine_router_writer_called_before_xhigh")
+            ),
             "public_write_performed": bool(evidence.get("public_write_performed")),
         }
         _write_json(evidence_path, evidence)

@@ -1,0 +1,861 @@
+{
+  "article": {
+    "article_generation_method": "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN",
+    "article_generation_router_failure": null,
+    "article_mode": "straight_news",
+    "as_of_utc": "2026-08-13T07:06:03.572251Z",
+    "canonical_rich_text": {
+      "blocks": [
+        {
+          "content": [
+            {
+              "text": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "text": "The Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. ",
+              "type": "text"
+            },
+            {
+              "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+              "text": "www.bls.gov",
+              "type": "link"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "text": "Shelter leads the monthly increase",
+              "type": "text"
+            }
+          ],
+          "level": 2,
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "text": "Shelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. ",
+              "type": "text"
+            },
+            {
+              "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+              "text": "www.bls.gov",
+              "type": "link"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "text": "Core CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. ",
+              "type": "text"
+            },
+            {
+              "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+              "text": "www.bls.gov",
+              "type": "link"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "text": "The component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. ",
+              "type": "text"
+            },
+            {
+              "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+              "text": "www.bls.gov",
+              "type": "link"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "schema_version": "contentops.article_rich_text.v1"
+    },
+    "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication",
+    "cc_context_bundle": {},
+    "claim_evidence_contract_sha256": "",
+    "cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+    "codex_editorial_brain_receipt": {
+      "browser_use_count": 0,
+      "completed_at_utc": "2026-08-15T18:51:52.725398Z",
+      "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+      "executions": [
+        {
+          "attempt": 0,
+          "browser_use_count": 0,
+          "catalog_entry_proof_sha256": "4461ab81b27db7a31f74fafa8787f9758a2323f41072db0900f114ac036d26e3",
+          "cli_sha256": "f29f609375f3731d8db507a95124862a84e306982e30ba4300ddce5638bc6946",
+          "cli_version": "codex-cli 0.148.0-alpha.9",
+          "command_execution_count": 0,
+          "diagnostic_code": null,
+          "effective_model": null,
+          "effective_reasoning_effort": null,
+          "exact_model_capability_verified": true,
+          "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+          "exit_classification": "SUCCESS",
+          "exit_code": 0,
+          "external_model_service_network": true,
+          "external_research_network": false,
+          "fresh_execution_id": "01a006c3-38d2-74f2-ad93-4e56a8f0ad6b",
+          "materialized_runtime_copy": true,
+          "non_interactive_headless": true,
+          "requested_model": "gpt-5.6-sol",
+          "requested_reasoning_effort": "xhigh",
+          "supported_reasoning_efforts": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max",
+            "ultra"
+          ],
+          "timeout_seconds": 420.0,
+          "tool_event_counts": {
+            "browser_calls": 0,
+            "command_executions": 0,
+            "file_changes": 0,
+            "mcp_tool_calls": 0,
+            "web_searches": 0
+          },
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 14484,
+            "output_tokens": 2173,
+            "reasoning_output_tokens": 1471
+          },
+          "wall_time_seconds": 60.464,
+          "web_search_count": 0
+        }
+      ],
+      "external_research_network": false,
+      "governed_input_sha256": "46f5ee99ee32c7dc645f13d24655d2163b04ba195f3129d3e73c97338663997d",
+      "instruction_sha256": "ab2a786d54814555176ff74b2bab99ad03823dcbce3faac39aafe590016b6110",
+      "job_id": "codex-editorial-46f5ee99ee32c7dc645f13d2",
+      "output_schema_sha256": "95f9574042597f3bdefaa309e5770a22f928462a92b5d658e05845a21efb092c",
+      "output_sha256": "60e274944f567ddb328204c76dafb65b1ed0258d64bfd8922f90a714ad8d1b15",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "requested_model": "gpt-5.6-sol",
+      "requested_reasoning_effort": "xhigh",
+      "result_classification": "PASS",
+      "revision_count": 0,
+      "schema_version": "contentops.v1_codex_editorial_brain.v1",
+      "started_at_utc": "2026-08-15T18:50:52.210486Z",
+      "status": "COMPLETED",
+      "total_wall_time_seconds": 60.464,
+      "validation_result": {
+        "classification": "PASS",
+        "editorial_failure_codes": [],
+        "forbidden_failure_codes": []
+      }
+    },
+    "conclusion_deduplication": {
+      "body_markdown": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.\n\nThe Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\n## Shelter leads the monthly increase\n\nShelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nCore CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nThe component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)",
+      "publication_authority": false,
+      "removed_count": 0,
+      "removed_paragraphs": [],
+      "semantic_review_calls": 0
+    },
+    "cross_asset_implications": "",
+    "degraded_editorial_brain": false,
+    "dek": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+    "editorial_brain_status": "CODEX_XHIGH_DEFAULT",
+    "editorial_classification": "BREAKING_NEW_STORY",
+    "editorial_mode": "straight_news",
+    "effective_article_mode": "BREAKING_BRIEF",
+    "evidence_document_ids": [
+      "official-primary-6b22335813df900e7c37"
+    ],
+    "evidence_review_tier": "ORDINARY_MINIMUM",
+    "grounded_research": {},
+    "grounded_source_coverage": {
+      "blockers": [],
+      "grounded_research_packet_present": false,
+      "status": "NOT_APPLICABLE"
+    },
+    "headline_ids": [
+      "cc-x-headline-01809264e79e9a6b7d69ce5b"
+    ],
+    "market_consequence_terms": [
+      "policy",
+      "compliance",
+      "implementation"
+    ],
+    "market_mechanism": "Shelter accounted for roughly two-thirds of the monthly all-items increase. Energy declined 1.5 percent, including a 2.9 percent fall in gasoline.",
+    "mechanism_terms": [
+      "policy",
+      "implementation"
+    ],
+    "meta_description": "US CPI rose 0.1 percent in July 2026, while annual inflation eased to 3.4 percent. Shelter drove most of the monthly increase as energy fell.",
+    "minimum_trustworthy_evidence_packet": {
+      "attribution_required": false,
+      "core_factual_proposition": "US CPI July 2026 Report",
+      "directly_attributed_numbers_permitted": true,
+      "evidence_document_id": "official-primary-6b22335813df900e7c37",
+      "evidence_packet_sha256": "48dc0600b02945ddd076930b73079aae6129acd1e8d90c1de9ed6b5c067a0616",
+      "publication_authority": false,
+      "published_at_utc": "2026-08-12T11:08:11Z",
+      "publisher": "www.bls.gov",
+      "reader_attribution_mode": "BOUND_SOURCE_URL",
+      "reader_source_url": null,
+      "risk_tier": "ORDINARY",
+      "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+      "source_authority_class": "official_public_primary_source",
+      "source_title": "cpi.pdf",
+      "source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+      "status": "PASS",
+      "unsupported_optional_claims_must_be_omitted": true,
+      "x_content_grants_factual_authority": false
+    },
+    "mode_downgrade_reason": null,
+    "named_catalyst_terms": [
+      "official notice",
+      "effective date",
+      "official register"
+    ],
+    "news_peg_terms": [
+      "www.bls.gov",
+      "2026-08-12"
+    ],
+    "numeric_claims_from_llm": false,
+    "omitted_unsupported_claims": [],
+    "policy_context": "",
+    "primary_topic": "cpi.pdf",
+    "publication_authority": false,
+    "quote_source_records": [],
+    "requested_article_mode": "BREAKING_BRIEF",
+    "resolved_article_mode": "BREAKING_BRIEF",
+    "seo_primary_keyword": "cpi",
+    "seo_semantic_terms": [
+      "cpi",
+      "www.bls.gov"
+    ],
+    "seo_title": "US CPI Rises 0.1% in July 2026; Annual Rate Eases to 3.4%",
+    "slug": "us-cpi-rises-0-1-in-july-as-annual-inflation-eases-to-3-4",
+    "social_cross_asset_summary": "",
+    "social_lede": "US CPI-U rose 0.1 percent in July after falling 0.4 percent in June. The annual rate eased to 3.4 percent from 3.5 percent. [[SOURCE:SOURCE_1]]",
+    "social_mechanism_summary": "Shelter supplied roughly two-thirds of July's monthly CPI increase, while the energy index fell 1.5 percent. [[SOURCE:SOURCE_1]]",
+    "social_og_media_asset_id": null,
+    "social_policy_summary": "",
+    "source_attributions": [
+      {
+        "publisher": "www.bls.gov",
+        "reader_attribution_mode": "BOUND_LINK",
+        "reader_source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+        "source_id": "source-e264d36acf4cd89d",
+        "title": "cpi.pdf"
+      }
+    ],
+    "source_binding_ids_referenced": [
+      "source-e264d36acf4cd89d"
+    ],
+    "source_bindings": [
+      {
+        "discovery_path_is_reader_authority": false,
+        "evidence_document_id": "official-primary-6b22335813df900e7c37",
+        "publisher": "www.bls.gov",
+        "reader_attribution_mode": "BOUND_LINK",
+        "reader_source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+        "source_handle": "SOURCE_1",
+        "source_id": "source-e264d36acf4cd89d",
+        "title": "cpi.pdf"
+      }
+    ],
+    "source_trail": [
+      "https://www.bls.gov/news.release/pdf/cpi.pdf"
+    ],
+    "story_type": "data_release",
+    "substack_body_markdown": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.\n\nThe Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\n## Shelter leads the monthly increase\n\nShelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nCore CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nThe component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)",
+    "subtitle": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+    "supported_claim_count": 1,
+    "supported_claims": [
+      {
+        "additional_source_is_eligibility_requirement": false,
+        "attribution_required": false,
+        "claim_id": "ordinary-core-proposition",
+        "claim_text": "US CPI July 2026 Report",
+        "evidence_document_ids": [
+          "official-primary-6b22335813df900e7c37"
+        ],
+        "support_status": "SUPPORTED_MINIMUM_TRUSTWORTHY_EVIDENCE"
+      }
+    ],
+    "title": "US CPI Rises 0.1% in July as Annual Inflation Eases to 3.4%",
+    "unsupported_claims_removed": 0,
+    "update_chain_identity": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+    "visual_asset_ids_expected": [],
+    "writer_reader_value_preflight": {
+      "attribution_chain_dominant": false,
+      "attribution_marker_count": 0,
+      "blockers": [],
+      "checks": {
+        "captions_and_source_metadata_not_dominant": true,
+        "mode_appropriate_structure": true,
+        "mode_appropriate_substance": true,
+        "multiple_meaningful_reader_paragraphs": true,
+        "native_rich_text_serializable": true,
+        "no_process_or_pipeline_language": true,
+        "no_repetitive_filler": true,
+        "not_attribution_chain_copy": true,
+        "professional_writer_output": true,
+        "reader_value_independent_of_media": true,
+        "title_not_body": true
+      },
+      "classification": "PASS",
+      "duplicated_sentence_count": 0,
+      "floor": {
+        "minimum_headings": 0,
+        "minimum_paragraphs": 3,
+        "minimum_words": 90
+      },
+      "floor_class": "CONCISE_UPDATE",
+      "formatting_targets": {
+        "heading_target_met": true,
+        "paragraph_target_met": true,
+        "word_target_met": true
+      },
+      "formatting_targets_are_advisory": true,
+      "heading_count": 1,
+      "list_item_count": 0,
+      "markup_findings": [],
+      "meaningful_paragraph_count": 5,
+      "paragraph_redundancy_findings": [],
+      "process_language_hits": [],
+      "publication_authority": false,
+      "reader_prose_word_count": 208,
+      "reader_sentence_count": 7,
+      "reason_code": null,
+      "schema_version": "contentops.reader_value_release_gate.v1",
+      "utility_floor": {
+        "minimum_reader_sentences": 3,
+        "minimum_words": 60
+      },
+      "visual_count": 0,
+      "visual_quantity_is_fixed_quota": false
+    },
+    "x_content_grants_factual_authority": false
+  },
+  "article_word_count": 249,
+  "charts_data_authority": {
+    "chart_count": 0,
+    "deterministic_renderer_required": true,
+    "model_numeric_authority": false
+  },
+  "classification": "PASS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_ZERO_WRITE_PROVEN",
+  "codex_browser_use": 0,
+  "codex_execution": {
+    "completed_receipt_reused_during_final_revalidation": true,
+    "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+    "executions": [
+      {
+        "attempt": 0,
+        "browser_use_count": 0,
+        "catalog_entry_proof_sha256": "4461ab81b27db7a31f74fafa8787f9758a2323f41072db0900f114ac036d26e3",
+        "cli_sha256": "f29f609375f3731d8db507a95124862a84e306982e30ba4300ddce5638bc6946",
+        "cli_version": "codex-cli 0.148.0-alpha.9",
+        "command_execution_count": 0,
+        "diagnostic_code": null,
+        "effective_model": null,
+        "effective_reasoning_effort": null,
+        "exact_model_capability_verified": true,
+        "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+        "exit_classification": "SUCCESS",
+        "exit_code": 0,
+        "external_model_service_network": true,
+        "external_research_network": false,
+        "fresh_execution_id": "01a006c3-38d2-74f2-ad93-4e56a8f0ad6b",
+        "materialized_runtime_copy": true,
+        "non_interactive_headless": true,
+        "requested_model": "gpt-5.6-sol",
+        "requested_reasoning_effort": "xhigh",
+        "supported_reasoning_efforts": [
+          "low",
+          "medium",
+          "high",
+          "xhigh",
+          "max",
+          "ultra"
+        ],
+        "timeout_seconds": 420.0,
+        "tool_event_counts": {
+          "browser_calls": 0,
+          "command_executions": 0,
+          "file_changes": 0,
+          "mcp_tool_calls": 0,
+          "web_searches": 0
+        },
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 14484,
+          "output_tokens": 2173,
+          "reasoning_output_tokens": 1471
+        },
+        "wall_time_seconds": 60.464,
+        "web_search_count": 0
+      }
+    ],
+    "job_id": "codex-editorial-46f5ee99ee32c7dc645f13d2",
+    "revision_count": 0,
+    "status": "COMPLETED",
+    "total_wall_time_seconds": 60.464
+  },
+  "codex_input_packet": {
+    "governed_input_sha256": "46f5ee99ee32c7dc645f13d24655d2163b04ba195f3129d3e73c97338663997d",
+    "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\codex_governed_article_job_v1.json",
+    "sha256": "0ab7759bcbbf30040cd4f98cd1cecad929f4f02bcc44692aef66e6dd5f617dbb"
+  },
+  "codex_structured_output": {
+    "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\codex_structured_article_result_v1.json",
+    "sha256": "60e274944f567ddb328204c76dafb65b1ed0258d64bfd8922f90a714ad8d1b15"
+  },
+  "exact_model_capability_verified": true,
+  "external_research": false,
+  "factual_safety_result": {
+    "advisory_failed_checks": [],
+    "checks": {
+      "clear_news_peg": true,
+      "concise_nut_graf": true,
+      "high_information_density": true,
+      "material_claims_supported": true,
+      "material_evidence_matches": true,
+      "material_market_consequence": true,
+      "mode_consistent": true,
+      "no_fabricated_numbers": true,
+      "no_fabricated_quotes": true,
+      "no_factual_contradiction": true,
+      "no_financial_advice": true,
+      "no_misleading_framing": true,
+      "no_unsupported_certainty": true,
+      "reader_facing_prose": true,
+      "relevant_context": true,
+      "severe_coherence_ok": true,
+      "source_backed_mechanism": true,
+      "specific_confirmation_condition": true,
+      "specific_falsification_condition": true,
+      "why_now": true
+    },
+    "decision": "PASS",
+    "failed_checks": [],
+    "issues": [],
+    "material_failed_checks": [],
+    "missing_or_invalid_checks": [],
+    "mode": "straight_news",
+    "provider": "deterministic_minimum_evidence",
+    "publication_authority": false,
+    "review_sha256": "da9630c33768a3422cd4802713e58c76ed507d1bc29904b657babf464d48b3c1",
+    "review_type": "HARD_FACTUAL_SAFETY_ONLY",
+    "semantic_review_required": false,
+    "status": "SUCCESS",
+    "summary": "Ordinary article passed deterministic factual and source binding checks."
+  },
+  "fixed_input": {
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "BREAKING_BRIEF",
+      "documents": [
+        {
+          "document_id": "official-primary-6b22335813df900e7c37",
+          "source_authority_class": "official_public_primary_source",
+          "title_only": false,
+          "usable_content_words": 11979
+        }
+      ],
+      "enough_for_useful_article": true,
+      "enrichment_recommended": false,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 1,
+      "target_usable_content_words": 90,
+      "usable_content_words": 11979,
+      "usable_document_count": 1
+    },
+    "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\frozen_governed_viability_v1.json",
+    "rank": 1,
+    "sha256": "a2224daaa3d803fb6f2b103a9df50879fc5a1f7e1c89737998205939289ef0a2",
+    "source_cycle_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\v1_yield_closeout_shadow_replay7_20260813\\shadow_opportunity_1\\rolling_x_newsroom_cycle_evidence_v1.json",
+    "source_cycle_sha256": "85a541a96f0a3a9be66ae3c65f27def273f7d8df394eb58f22850ce330cf68a0",
+    "synthetic_facts": false
+  },
+  "local_render_browser_use": 1,
+  "new_research": false,
+  "public_destination_browser_use": 0,
+  "public_writes": 0,
+  "publication_coordinator_called": false,
+  "publication_plan": {
+    "adapter_callables_persisted": false,
+    "article_identity": "264d57522f284ee268610dc108c541cb6f6a73ca43e66f99b6de6d1b8a52e85c",
+    "artifact_refs": {
+      "article_manifest_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\article_manifest_v1.json",
+        "sha256": "d314d5bb6ccf30f711a433fece8e3f352513e923795c0f9cea485ee85a4d52d3"
+      },
+      "editorial_quality_gate_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\editorial_quality_gate_v1.json",
+        "sha256": "6a02f87036e1fceff49ed01b18fc0d2b77503874c110414e8a40cfdd2e2f12a5"
+      },
+      "grounded_support_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\grounded_support_v1.json",
+        "sha256": "288cf9527a715045327d16205653edcbc6c2fe780200fb1603ba2a9ea34d4844"
+      },
+      "headline_intake_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\headline_intake_v1.json",
+        "sha256": "87341b203832be62c2774c57a0b118f52c91b401d6fd0162b7a8ed3bd356e33c"
+      },
+      "idea_selection_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\idea_selection_v1.json",
+        "sha256": "64a2e2ff46302c19e9a7c64a55f732a98efc4238705f7cb1ab4b97039f47db8a"
+      },
+      "llm_idea_ranking_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\llm_idea_ranking_v1.json",
+        "sha256": "47a46bf17f3d767683b1182b182e6111abf26fcd3ab1b31e39c4f1efe3ce6bd3"
+      },
+      "media_manifest_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\media_manifest_v1.json",
+        "sha256": "4567c3b5ff281eb30fb7e6d38376f4d6116101ee8431bf24d51ca779fa45006b"
+      },
+      "native_payloads_rehearsal_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\native_payloads_rehearsal_v1.json",
+        "sha256": "c6c0850e3efb1ca8321b53b8af2cffb2e6be09b0b70f498470935b6fd625b4a0"
+      },
+      "run_context_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\run_context_v1.json",
+        "sha256": "cad1bd685712fbdaf535015ba86132bb291ea0d21b5abe2482fcb464ca1cd00d"
+      },
+      "substack_browser_request_v1.json": {
+        "exists": true,
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\substack_browser_request_v1.json",
+        "sha256": "e3c188035c6283eb7c8c46686b89509eb02b320d098817503c021f853f57d0e2"
+      }
+    },
+    "destinations": [
+      {
+        "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "destination": "linkedin",
+        "expected_destination_identity": "linkedin:jimcc",
+        "jit_verification_required": true,
+        "media_artifact_refs": [
+          "media_manifest_v1.json"
+        ],
+        "payload_hash": "928d51b8e54ce261cc158435033cadd3d12d2279534699f2b1cca7f93706207c",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "linkedin",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "LINKEDIN_POST",
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "OFFICIAL_MEMBER_API"
+      },
+      {
+        "adapter": "edge_cdp_publishing_adapter_v1.publish_substack_article_via_edge",
+        "canonical_url_dependency": null,
+        "destination": "substack",
+        "expected_destination_identity": "capitalchronicle.substack.com",
+        "jit_verification_required": true,
+        "media_artifact_refs": [
+          "media_manifest_v1.json"
+        ],
+        "payload_hash": "264d57522f284ee268610dc108c541cb6f6a73ca43e66f99b6de6d1b8a52e85c",
+        "payload_hash_kind": "FINAL_ARTICLE_BYTES",
+        "platform": "substack",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "SUBSTACK_ARTICLE",
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "EDGE_CDP"
+      },
+      {
+        "adapter": "threads_adapter_v6.execute_threads_post",
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "destination": "threads",
+        "expected_destination_identity": "official.capitalchronicle",
+        "jit_verification_required": true,
+        "media_artifact_refs": [
+          "media_manifest_v1.json"
+        ],
+        "payload_hash": "928d51b8e54ce261cc158435033cadd3d12d2279534699f2b1cca7f93706207c",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "threads",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "THREADS_POST",
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "THREADS_API"
+      },
+      {
+        "adapter": "edge_cdp_publishing_adapter_v1.publish_x_post_via_edge+publish_x_reply_via_edge",
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "destination": "x",
+        "expected_destination_identity": "@Capitalnicle",
+        "jit_verification_required": true,
+        "media_artifact_refs": [
+          "media_manifest_v1.json"
+        ],
+        "payload_hash": "928d51b8e54ce261cc158435033cadd3d12d2279534699f2b1cca7f93706207c",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "x",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "X_THREAD",
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "EDGE_CDP"
+      }
+    ],
+    "editorial_classification": "BREAKING_NEW_STORY",
+    "output_dir": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3",
+    "package_identity": "951832ce187d3abd3b3fa1530e1d99cb9daf201e38feade8e22fdb4b4165075a",
+    "plan_hash": "4ee3d5e91fea90dde1c67e17daddbd562d6990e95c00571a834d7cfedfc8b403",
+    "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+    "publication_window": {
+      "window_identity": "v1-xhigh-default-editorial-brain-zero-write-proof"
+    },
+    "resolved_article_mode": "BREAKING_BRIEF",
+    "run_id": "v1-xhigh-default-editorial-brain-zero-write-proof",
+    "schema_version": "contentops.publication_plan.v1",
+    "secrets_persisted": false,
+    "skipped_derivative_destinations": [
+      {
+        "attempted": false,
+        "canonical_truth_affected": false,
+        "destination": "discord",
+        "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "DISCORD_ANNOUNCEMENT"
+      },
+      {
+        "attempted": false,
+        "canonical_truth_affected": false,
+        "destination": "facebook_page",
+        "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "FACEBOOK_PAGE_POST"
+      },
+      {
+        "attempted": false,
+        "canonical_truth_affected": false,
+        "destination": "instagram_business",
+        "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "INSTAGRAM_BUSINESS_POST"
+      },
+      {
+        "attempted": false,
+        "canonical_truth_affected": false,
+        "destination": "telegram",
+        "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "TELEGRAM_CHANNEL_POST"
+      },
+      {
+        "attempted": false,
+        "canonical_truth_affected": false,
+        "destination": "youtube",
+        "disposition": "SKIPPED_OPTIONAL_MEDIA_UNAVAILABLE",
+        "readiness_state": "READINESS_MISSING",
+        "surface": "YOUTUBE_COMMUNITY_POST"
+      }
+    ],
+    "story_identity": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+    "substack_first_dependency": true,
+    "transport_registry_version": "contentops.destination_transport_registry.v2",
+    "update_chain_identity": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5"
+  },
+  "publishing_adapter_called": false,
+  "reader_value_result": {
+    "attribution_chain_dominant": false,
+    "attribution_marker_count": 0,
+    "blockers": [],
+    "checks": {
+      "captions_and_source_metadata_not_dominant": true,
+      "mode_appropriate_structure": true,
+      "mode_appropriate_substance": true,
+      "multiple_meaningful_reader_paragraphs": true,
+      "native_rich_text_serializable": true,
+      "no_process_or_pipeline_language": true,
+      "no_repetitive_filler": true,
+      "not_attribution_chain_copy": true,
+      "professional_writer_output": true,
+      "reader_value_independent_of_media": true,
+      "title_not_body": true
+    },
+    "classification": "PASS",
+    "duplicated_sentence_count": 0,
+    "floor": {
+      "minimum_headings": 0,
+      "minimum_paragraphs": 3,
+      "minimum_words": 90
+    },
+    "floor_class": "CONCISE_UPDATE",
+    "formatting_targets": {
+      "heading_target_met": true,
+      "paragraph_target_met": true,
+      "word_target_met": true
+    },
+    "formatting_targets_are_advisory": true,
+    "heading_count": 1,
+    "list_item_count": 0,
+    "markup_findings": [],
+    "meaningful_paragraph_count": 5,
+    "paragraph_redundancy_findings": [],
+    "process_language_hits": [],
+    "publication_authority": false,
+    "reader_prose_word_count": 208,
+    "reader_sentence_count": 7,
+    "reason_code": null,
+    "schema_version": "contentops.reader_value_release_gate.v1",
+    "utility_floor": {
+      "minimum_reader_sentences": 3,
+      "minimum_words": 60
+    },
+    "visual_count": 0,
+    "visual_quantity_is_fixed_quota": false
+  },
+  "release_preparation": {
+    "blockers": [],
+    "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+    "lock_verification": {
+      "artifacts": {
+        "article_manifest_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\article_manifest_v1.json",
+          "sha256": "d314d5bb6ccf30f711a433fece8e3f352513e923795c0f9cea485ee85a4d52d3"
+        },
+        "editorial_quality_gate_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\editorial_quality_gate_v1.json",
+          "sha256": "6a02f87036e1fceff49ed01b18fc0d2b77503874c110414e8a40cfdd2e2f12a5"
+        },
+        "grounded_support_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\grounded_support_v1.json",
+          "sha256": "288cf9527a715045327d16205653edcbc6c2fe780200fb1603ba2a9ea34d4844"
+        },
+        "headline_intake_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\headline_intake_v1.json",
+          "sha256": "87341b203832be62c2774c57a0b118f52c91b401d6fd0162b7a8ed3bd356e33c"
+        },
+        "idea_selection_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\idea_selection_v1.json",
+          "sha256": "64a2e2ff46302c19e9a7c64a55f732a98efc4238705f7cb1ab4b97039f47db8a"
+        },
+        "llm_idea_ranking_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\llm_idea_ranking_v1.json",
+          "sha256": "47a46bf17f3d767683b1182b182e6111abf26fcd3ab1b31e39c4f1efe3ce6bd3"
+        },
+        "media_manifest_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\media_manifest_v1.json",
+          "sha256": "4567c3b5ff281eb30fb7e6d38376f4d6116101ee8431bf24d51ca779fa45006b"
+        },
+        "native_payloads_rehearsal_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\native_payloads_rehearsal_v1.json",
+          "sha256": "c6c0850e3efb1ca8321b53b8af2cffb2e6be09b0b70f498470935b6fd625b4a0"
+        },
+        "run_context_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\run_context_v1.json",
+          "sha256": "cad1bd685712fbdaf535015ba86132bb291ea0d21b5abe2482fcb464ca1cd00d"
+        },
+        "substack_browser_request_v1.json": {
+          "exists": true,
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\substack_browser_request_v1.json",
+          "sha256": "e3c188035c6283eb7c8c46686b89509eb02b320d098817503c021f853f57d0e2"
+        }
+      },
+      "blockers": [],
+      "lock_sha256": "951832ce187d3abd3b3fa1530e1d99cb9daf201e38feade8e22fdb4b4165075a",
+      "prepared_canonical_url": "SUBSTACK_ASSIGNED_AT_PUBLISH",
+      "status": "PASS_RELEASE_CANDIDATE_LOCK"
+    }
+  },
+  "render": {
+    "full_page_screenshot_path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\xhigh_default_article_full_page_v1.png",
+    "full_page_screenshot_sha256": "6fe43e516a14e324a10070ebfe23431dc54fc50a5cbb1826a455a05f98322421",
+    "html_path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\xhigh_default_article_full_page_v1.html",
+    "html_sha256": "0c6f2d8e99f7cd45b3aa8c807309e3bb42f338e8efad00fd7e329370a0a7939c"
+  },
+  "requested_model": "gpt-5.6-sol",
+  "requested_reasoning_effort": "xhigh",
+  "schema_version": "contentops.v1_xhigh_default_zero_write_proof.v1",
+  "selected_media": [],
+  "selected_media_count": 0,
+  "source_binding_result": {
+    "blockers": [],
+    "grounded_research_packet_present": false,
+    "status": "NOT_APPLICABLE"
+  },
+  "synthetic_editorial_triggers": 0,
+  "synthetic_x_captures": 0,
+  "unknown_write": 0,
+  "v2_mutations": 0,
+  "visual_intent_plan": {
+    "article_identity": "da4b3770f62986ce5ca1e7bc84af1639d2a560eb5c8e2c64ad0416ccaeb0e7e4",
+    "intents": [
+      {
+        "editorial_rationale": "Show the real institution, place, or infrastructure at the center of the story.",
+        "publication_authority": false,
+        "queries": [
+          "CPI Rises July Annual Inflation Eases official photograph",
+          "CPI Rises July Annual Inflation Eases documentary context",
+          "CPI Rises July Annual Inflation Eases documentary photograph"
+        ],
+        "rights_required": true,
+        "visual_intent": "HERO_DOCUMENTARY"
+      },
+      {
+        "editorial_rationale": "Show a supported quantitative relationship.",
+        "publication_authority": false,
+        "queries": [
+          "CPI Rises July Annual Inflation Eases governed data chart"
+        ],
+        "rights_required": true,
+        "visual_intent": "QUANTITATIVE_CHART"
+      },
+      {
+        "editorial_rationale": "Make a supported comparison legible.",
+        "publication_authority": false,
+        "queries": [
+          "CPI Rises July Annual Inflation Eases latest versus previous comparison"
+        ],
+        "rights_required": true,
+        "visual_intent": "COMPARISON"
+      }
+    ],
+    "provider_priority": [
+      "first_party_official",
+      "wikimedia_commons",
+      "openverse",
+      "general_image_search_discovery",
+      "licensed_contextual_library",
+      "generated_conceptual_illustration"
+    ],
+    "publication_authority": false,
+    "schema_version": "contentops.visual_asset_discovery.v1",
+    "semantic_model_may_grant_rights": false,
+    "unknown_rights_disposition": "REJECT"
+  }
+}

@@ -1,0 +1,1384 @@
+{
+  "article": {
+    "article_export_path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\canonical_article.md",
+    "article_generation_method": "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN",
+    "article_generation_router_failure": null,
+    "article_markdown_sha256": "4ab8d04911d863515eae8f79b99254a78dbe3c75db8f259f08f37ec9c1e222c8",
+    "article_mode": "straight_news",
+    "as_of_utc": "2026-08-13T07:06:03.572251Z",
+    "canonical_rich_text": {
+      "blocks": [
+        {
+          "content": [
+            {
+              "text": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.",
+              "type": "text"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "text": "The Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. ",
+              "type": "text"
+            },
+            {
+              "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+              "text": "www.bls.gov",
+              "type": "link"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "text": "Shelter leads the monthly increase",
+              "type": "text"
+            }
+          ],
+          "level": 2,
+          "type": "heading"
+        },
+        {
+          "content": [
+            {
+              "text": "Shelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. ",
+              "type": "text"
+            },
+            {
+              "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+              "text": "www.bls.gov",
+              "type": "link"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "text": "Core CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. ",
+              "type": "text"
+            },
+            {
+              "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+              "text": "www.bls.gov",
+              "type": "link"
+            }
+          ],
+          "type": "paragraph"
+        },
+        {
+          "content": [
+            {
+              "text": "The component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. ",
+              "type": "text"
+            },
+            {
+              "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+              "text": "www.bls.gov",
+              "type": "link"
+            }
+          ],
+          "type": "paragraph"
+        }
+      ],
+      "schema_version": "contentops.article_rich_text.v1"
+    },
+    "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication",
+    "cc_context_bundle": {},
+    "claim_evidence_contract_sha256": "",
+    "cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+    "codex_editorial_brain_receipt": {
+      "browser_use_count": 0,
+      "completed_at_utc": "2026-08-15T18:51:52.725398Z",
+      "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+      "executions": [
+        {
+          "attempt": 0,
+          "browser_use_count": 0,
+          "catalog_entry_proof_sha256": "4461ab81b27db7a31f74fafa8787f9758a2323f41072db0900f114ac036d26e3",
+          "cli_sha256": "f29f609375f3731d8db507a95124862a84e306982e30ba4300ddce5638bc6946",
+          "cli_version": "codex-cli 0.148.0-alpha.9",
+          "command_execution_count": 0,
+          "diagnostic_code": null,
+          "effective_model": null,
+          "effective_reasoning_effort": null,
+          "exact_model_capability_verified": true,
+          "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+          "exit_classification": "SUCCESS",
+          "exit_code": 0,
+          "external_model_service_network": true,
+          "external_research_network": false,
+          "fresh_execution_id": "01a006c3-38d2-74f2-ad93-4e56a8f0ad6b",
+          "materialized_runtime_copy": true,
+          "non_interactive_headless": true,
+          "requested_model": "gpt-5.6-sol",
+          "requested_reasoning_effort": "xhigh",
+          "supported_reasoning_efforts": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max",
+            "ultra"
+          ],
+          "timeout_seconds": 420.0,
+          "tool_event_counts": {
+            "browser_calls": 0,
+            "command_executions": 0,
+            "file_changes": 0,
+            "mcp_tool_calls": 0,
+            "web_searches": 0
+          },
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 14484,
+            "output_tokens": 2173,
+            "reasoning_output_tokens": 1471
+          },
+          "wall_time_seconds": 60.464,
+          "web_search_count": 0
+        }
+      ],
+      "external_research_network": false,
+      "governed_input_sha256": "46f5ee99ee32c7dc645f13d24655d2163b04ba195f3129d3e73c97338663997d",
+      "instruction_sha256": "ab2a786d54814555176ff74b2bab99ad03823dcbce3faac39aafe590016b6110",
+      "job_id": "codex-editorial-46f5ee99ee32c7dc645f13d2",
+      "output_schema_sha256": "95f9574042597f3bdefaa309e5770a22f928462a92b5d658e05845a21efb092c",
+      "output_sha256": "60e274944f567ddb328204c76dafb65b1ed0258d64bfd8922f90a714ad8d1b15",
+      "public_write_performed": false,
+      "publication_authority": false,
+      "requested_model": "gpt-5.6-sol",
+      "requested_reasoning_effort": "xhigh",
+      "result_classification": "PASS",
+      "revision_count": 0,
+      "schema_version": "contentops.v1_codex_editorial_brain.v1",
+      "started_at_utc": "2026-08-15T18:50:52.210486Z",
+      "status": "COMPLETED",
+      "total_wall_time_seconds": 60.464,
+      "validation_result": {
+        "classification": "PASS",
+        "editorial_failure_codes": [],
+        "forbidden_failure_codes": []
+      }
+    },
+    "conclusion_deduplication": {
+      "body_markdown": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.\n\nThe Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\n## Shelter leads the monthly increase\n\nShelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nCore CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nThe component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)",
+      "publication_authority": false,
+      "removed_count": 0,
+      "removed_paragraphs": [],
+      "semantic_review_calls": 0
+    },
+    "cross_asset_implications": "",
+    "degraded_editorial_brain": false,
+    "dek": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+    "editorial_brain_status": "CODEX_XHIGH_DEFAULT",
+    "editorial_classification": "BREAKING_NEW_STORY",
+    "editorial_mode": "straight_news",
+    "effective_article_mode": "BREAKING_BRIEF",
+    "evidence_document_ids": [
+      "official-primary-6b22335813df900e7c37"
+    ],
+    "evidence_review_tier": "ORDINARY_MINIMUM",
+    "grounded_research": {},
+    "grounded_source_coverage": {
+      "blockers": [],
+      "grounded_research_packet_present": false,
+      "status": "NOT_APPLICABLE"
+    },
+    "headline_ids": [
+      "cc-x-headline-01809264e79e9a6b7d69ce5b"
+    ],
+    "market_consequence_terms": [
+      "policy",
+      "compliance",
+      "implementation"
+    ],
+    "market_mechanism": "Shelter accounted for roughly two-thirds of the monthly all-items increase. Energy declined 1.5 percent, including a 2.9 percent fall in gasoline.",
+    "mechanism_terms": [
+      "policy",
+      "implementation"
+    ],
+    "meta_description": "US CPI rose 0.1 percent in July 2026, while annual inflation eased to 3.4 percent. Shelter drove most of the monthly increase as energy fell.",
+    "minimum_trustworthy_evidence_packet": {
+      "attribution_required": false,
+      "core_factual_proposition": "US CPI July 2026 Report",
+      "directly_attributed_numbers_permitted": true,
+      "evidence_document_id": "official-primary-6b22335813df900e7c37",
+      "evidence_packet_sha256": "48dc0600b02945ddd076930b73079aae6129acd1e8d90c1de9ed6b5c067a0616",
+      "publication_authority": false,
+      "published_at_utc": "2026-08-12T11:08:11Z",
+      "publisher": "www.bls.gov",
+      "reader_attribution_mode": "BOUND_SOURCE_URL",
+      "reader_source_url": null,
+      "risk_tier": "ORDINARY",
+      "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+      "source_authority_class": "official_public_primary_source",
+      "source_title": "cpi.pdf",
+      "source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+      "status": "PASS",
+      "unsupported_optional_claims_must_be_omitted": true,
+      "x_content_grants_factual_authority": false
+    },
+    "mode_downgrade_reason": null,
+    "named_catalyst_terms": [
+      "official notice",
+      "effective date",
+      "official register"
+    ],
+    "news_peg_terms": [
+      "www.bls.gov",
+      "2026-08-12"
+    ],
+    "numeric_claims_from_llm": false,
+    "numeric_claims_from_x": false,
+    "omitted_unsupported_claims": [],
+    "policy_context": "",
+    "primary_topic": "cpi.pdf",
+    "publication_authority": false,
+    "quote_source_records": [],
+    "requested_article_mode": "BREAKING_BRIEF",
+    "resolved_article_mode": "BREAKING_BRIEF",
+    "seo_primary_keyword": "cpi",
+    "seo_semantic_terms": [
+      "cpi",
+      "www.bls.gov"
+    ],
+    "seo_title": "US CPI Rises 0.1% in July 2026; Annual Rate Eases to 3.4%",
+    "slug": "us-cpi-rises-0-1-in-july-as-annual-inflation-eases-to-3-4",
+    "social_cross_asset_summary": "",
+    "social_lede": "US CPI-U rose 0.1 percent in July after falling 0.4 percent in June. The annual rate eased to 3.4 percent from 3.5 percent. [[SOURCE:SOURCE_1]]",
+    "social_mechanism_summary": "Shelter supplied roughly two-thirds of July's monthly CPI increase, while the energy index fell 1.5 percent. [[SOURCE:SOURCE_1]]",
+    "social_og_media_asset_id": null,
+    "social_policy_summary": "",
+    "source_attributions": [
+      {
+        "publisher": "www.bls.gov",
+        "reader_attribution_mode": "BOUND_LINK",
+        "reader_source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+        "source_id": "source-e264d36acf4cd89d",
+        "title": "cpi.pdf"
+      }
+    ],
+    "source_binding_ids_referenced": [
+      "source-e264d36acf4cd89d"
+    ],
+    "source_bindings": [
+      {
+        "discovery_path_is_reader_authority": false,
+        "evidence_document_id": "official-primary-6b22335813df900e7c37",
+        "publisher": "www.bls.gov",
+        "reader_attribution_mode": "BOUND_LINK",
+        "reader_source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+        "source_handle": "SOURCE_1",
+        "source_id": "source-e264d36acf4cd89d",
+        "title": "cpi.pdf"
+      }
+    ],
+    "source_trail": [
+      "https://www.bls.gov/news.release/pdf/cpi.pdf"
+    ],
+    "story_type": "data_release",
+    "substack_body_markdown": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.\n\nThe Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\n## Shelter leads the monthly increase\n\nShelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nCore CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nThe component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)",
+    "substack_body_markdown_sha256": "264d57522f284ee268610dc108c541cb6f6a73ca43e66f99b6de6d1b8a52e85c",
+    "subtitle": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+    "supported_claim_count": 1,
+    "supported_claims": [
+      {
+        "additional_source_is_eligibility_requirement": false,
+        "attribution_required": false,
+        "claim_id": "ordinary-core-proposition",
+        "claim_text": "US CPI July 2026 Report",
+        "evidence_document_ids": [
+          "official-primary-6b22335813df900e7c37"
+        ],
+        "support_status": "SUPPORTED_MINIMUM_TRUSTWORTHY_EVIDENCE"
+      }
+    ],
+    "title": "US CPI Rises 0.1% in July as Annual Inflation Eases to 3.4%",
+    "unsupported_claims_removed": 0,
+    "update_chain_identity": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+    "visual_asset_ids_expected": [],
+    "word_count": 249,
+    "writer_reader_value_preflight": {
+      "attribution_chain_dominant": false,
+      "attribution_marker_count": 0,
+      "blockers": [],
+      "checks": {
+        "captions_and_source_metadata_not_dominant": true,
+        "mode_appropriate_structure": true,
+        "mode_appropriate_substance": true,
+        "multiple_meaningful_reader_paragraphs": true,
+        "native_rich_text_serializable": true,
+        "no_process_or_pipeline_language": true,
+        "no_repetitive_filler": true,
+        "not_attribution_chain_copy": true,
+        "professional_writer_output": true,
+        "reader_value_independent_of_media": true,
+        "title_not_body": true
+      },
+      "classification": "PASS",
+      "duplicated_sentence_count": 0,
+      "floor": {
+        "minimum_headings": 0,
+        "minimum_paragraphs": 3,
+        "minimum_words": 90
+      },
+      "floor_class": "CONCISE_UPDATE",
+      "formatting_targets": {
+        "heading_target_met": true,
+        "paragraph_target_met": true,
+        "word_target_met": true
+      },
+      "formatting_targets_are_advisory": true,
+      "heading_count": 1,
+      "list_item_count": 0,
+      "markup_findings": [],
+      "meaningful_paragraph_count": 5,
+      "paragraph_redundancy_findings": [],
+      "process_language_hits": [],
+      "publication_authority": false,
+      "reader_prose_word_count": 208,
+      "reader_sentence_count": 7,
+      "reason_code": null,
+      "schema_version": "contentops.reader_value_release_gate.v1",
+      "utility_floor": {
+        "minimum_reader_sentences": 3,
+        "minimum_words": 60
+      },
+      "visual_count": 0,
+      "visual_quantity_is_fixed_quota": false
+    },
+    "x_content_grants_factual_authority": false
+  },
+  "derivative_package_ready": true,
+  "distribution_warnings": [
+    "x_semantic_layout_failed",
+    "threads_semantic_layout_failed",
+    "substack_jit_readiness_required"
+  ],
+  "editorial_gate": {
+    "bounded_revision_cycle": {
+      "article": {
+        "article_generation_method": "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN",
+        "article_generation_router_failure": null,
+        "article_mode": "straight_news",
+        "as_of_utc": "2026-08-13T07:06:03.572251Z",
+        "canonical_rich_text": {
+          "blocks": [
+            {
+              "content": [
+                {
+                  "text": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.",
+                  "type": "text"
+                }
+              ],
+              "type": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "text": "The Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. ",
+                  "type": "text"
+                },
+                {
+                  "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+                  "text": "www.bls.gov",
+                  "type": "link"
+                }
+              ],
+              "type": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "text": "Shelter leads the monthly increase",
+                  "type": "text"
+                }
+              ],
+              "level": 2,
+              "type": "heading"
+            },
+            {
+              "content": [
+                {
+                  "text": "Shelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. ",
+                  "type": "text"
+                },
+                {
+                  "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+                  "text": "www.bls.gov",
+                  "type": "link"
+                }
+              ],
+              "type": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "text": "Core CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. ",
+                  "type": "text"
+                },
+                {
+                  "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+                  "text": "www.bls.gov",
+                  "type": "link"
+                }
+              ],
+              "type": "paragraph"
+            },
+            {
+              "content": [
+                {
+                  "text": "The component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. ",
+                  "type": "text"
+                },
+                {
+                  "href": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+                  "text": "www.bls.gov",
+                  "type": "link"
+                }
+              ],
+              "type": "paragraph"
+            }
+          ],
+          "schema_version": "contentops.article_rich_text.v1"
+        },
+        "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication",
+        "cc_context_bundle": {},
+        "claim_evidence_contract_sha256": "",
+        "cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+        "codex_editorial_brain_receipt": {
+          "browser_use_count": 0,
+          "completed_at_utc": "2026-08-15T18:51:52.725398Z",
+          "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+          "executions": [
+            {
+              "attempt": 0,
+              "browser_use_count": 0,
+              "catalog_entry_proof_sha256": "4461ab81b27db7a31f74fafa8787f9758a2323f41072db0900f114ac036d26e3",
+              "cli_sha256": "f29f609375f3731d8db507a95124862a84e306982e30ba4300ddce5638bc6946",
+              "cli_version": "codex-cli 0.148.0-alpha.9",
+              "command_execution_count": 0,
+              "diagnostic_code": null,
+              "effective_model": null,
+              "effective_reasoning_effort": null,
+              "exact_model_capability_verified": true,
+              "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+              "exit_classification": "SUCCESS",
+              "exit_code": 0,
+              "external_model_service_network": true,
+              "external_research_network": false,
+              "fresh_execution_id": "01a006c3-38d2-74f2-ad93-4e56a8f0ad6b",
+              "materialized_runtime_copy": true,
+              "non_interactive_headless": true,
+              "requested_model": "gpt-5.6-sol",
+              "requested_reasoning_effort": "xhigh",
+              "supported_reasoning_efforts": [
+                "low",
+                "medium",
+                "high",
+                "xhigh",
+                "max",
+                "ultra"
+              ],
+              "timeout_seconds": 420.0,
+              "tool_event_counts": {
+                "browser_calls": 0,
+                "command_executions": 0,
+                "file_changes": 0,
+                "mcp_tool_calls": 0,
+                "web_searches": 0
+              },
+              "usage": {
+                "cache_write_input_tokens": 0,
+                "cached_input_tokens": 0,
+                "input_tokens": 14484,
+                "output_tokens": 2173,
+                "reasoning_output_tokens": 1471
+              },
+              "wall_time_seconds": 60.464,
+              "web_search_count": 0
+            }
+          ],
+          "external_research_network": false,
+          "governed_input_sha256": "46f5ee99ee32c7dc645f13d24655d2163b04ba195f3129d3e73c97338663997d",
+          "instruction_sha256": "ab2a786d54814555176ff74b2bab99ad03823dcbce3faac39aafe590016b6110",
+          "job_id": "codex-editorial-46f5ee99ee32c7dc645f13d2",
+          "output_schema_sha256": "95f9574042597f3bdefaa309e5770a22f928462a92b5d658e05845a21efb092c",
+          "output_sha256": "60e274944f567ddb328204c76dafb65b1ed0258d64bfd8922f90a714ad8d1b15",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "requested_model": "gpt-5.6-sol",
+          "requested_reasoning_effort": "xhigh",
+          "result_classification": "PASS",
+          "revision_count": 0,
+          "schema_version": "contentops.v1_codex_editorial_brain.v1",
+          "started_at_utc": "2026-08-15T18:50:52.210486Z",
+          "status": "COMPLETED",
+          "total_wall_time_seconds": 60.464,
+          "validation_result": {
+            "classification": "PASS",
+            "editorial_failure_codes": [],
+            "forbidden_failure_codes": []
+          }
+        },
+        "conclusion_deduplication": {
+          "body_markdown": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.\n\nThe Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\n## Shelter leads the monthly increase\n\nShelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nCore CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nThe component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)",
+          "publication_authority": false,
+          "removed_count": 0,
+          "removed_paragraphs": [],
+          "semantic_review_calls": 0
+        },
+        "cross_asset_implications": "",
+        "degraded_editorial_brain": false,
+        "dek": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+        "editorial_brain_status": "CODEX_XHIGH_DEFAULT",
+        "editorial_classification": "BREAKING_NEW_STORY",
+        "editorial_mode": "straight_news",
+        "effective_article_mode": "BREAKING_BRIEF",
+        "evidence_document_ids": [
+          "official-primary-6b22335813df900e7c37"
+        ],
+        "evidence_review_tier": "ORDINARY_MINIMUM",
+        "grounded_research": {},
+        "grounded_source_coverage": {
+          "blockers": [],
+          "grounded_research_packet_present": false,
+          "status": "NOT_APPLICABLE"
+        },
+        "headline_ids": [
+          "cc-x-headline-01809264e79e9a6b7d69ce5b"
+        ],
+        "market_consequence_terms": [
+          "policy",
+          "compliance",
+          "implementation"
+        ],
+        "market_mechanism": "Shelter accounted for roughly two-thirds of the monthly all-items increase. Energy declined 1.5 percent, including a 2.9 percent fall in gasoline.",
+        "mechanism_terms": [
+          "policy",
+          "implementation"
+        ],
+        "meta_description": "US CPI rose 0.1 percent in July 2026, while annual inflation eased to 3.4 percent. Shelter drove most of the monthly increase as energy fell.",
+        "minimum_trustworthy_evidence_packet": {
+          "attribution_required": false,
+          "core_factual_proposition": "US CPI July 2026 Report",
+          "directly_attributed_numbers_permitted": true,
+          "evidence_document_id": "official-primary-6b22335813df900e7c37",
+          "evidence_packet_sha256": "48dc0600b02945ddd076930b73079aae6129acd1e8d90c1de9ed6b5c067a0616",
+          "publication_authority": false,
+          "published_at_utc": "2026-08-12T11:08:11Z",
+          "publisher": "www.bls.gov",
+          "reader_attribution_mode": "BOUND_SOURCE_URL",
+          "reader_source_url": null,
+          "risk_tier": "ORDINARY",
+          "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+          "source_authority_class": "official_public_primary_source",
+          "source_title": "cpi.pdf",
+          "source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+          "status": "PASS",
+          "unsupported_optional_claims_must_be_omitted": true,
+          "x_content_grants_factual_authority": false
+        },
+        "mode_downgrade_reason": null,
+        "named_catalyst_terms": [
+          "official notice",
+          "effective date",
+          "official register"
+        ],
+        "news_peg_terms": [
+          "www.bls.gov",
+          "2026-08-12"
+        ],
+        "numeric_claims_from_llm": false,
+        "omitted_unsupported_claims": [],
+        "policy_context": "",
+        "primary_topic": "cpi.pdf",
+        "publication_authority": false,
+        "quote_source_records": [],
+        "requested_article_mode": "BREAKING_BRIEF",
+        "resolved_article_mode": "BREAKING_BRIEF",
+        "seo_primary_keyword": "cpi",
+        "seo_semantic_terms": [
+          "cpi",
+          "www.bls.gov"
+        ],
+        "seo_title": "US CPI Rises 0.1% in July 2026; Annual Rate Eases to 3.4%",
+        "slug": "us-cpi-rises-0-1-in-july-as-annual-inflation-eases-to-3-4",
+        "social_cross_asset_summary": "",
+        "social_lede": "US CPI-U rose 0.1 percent in July after falling 0.4 percent in June. The annual rate eased to 3.4 percent from 3.5 percent. [[SOURCE:SOURCE_1]]",
+        "social_mechanism_summary": "Shelter supplied roughly two-thirds of July's monthly CPI increase, while the energy index fell 1.5 percent. [[SOURCE:SOURCE_1]]",
+        "social_og_media_asset_id": null,
+        "social_policy_summary": "",
+        "source_attributions": [
+          {
+            "publisher": "www.bls.gov",
+            "reader_attribution_mode": "BOUND_LINK",
+            "reader_source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+            "source_id": "source-e264d36acf4cd89d",
+            "title": "cpi.pdf"
+          }
+        ],
+        "source_binding_ids_referenced": [
+          "source-e264d36acf4cd89d"
+        ],
+        "source_bindings": [
+          {
+            "discovery_path_is_reader_authority": false,
+            "evidence_document_id": "official-primary-6b22335813df900e7c37",
+            "publisher": "www.bls.gov",
+            "reader_attribution_mode": "BOUND_LINK",
+            "reader_source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+            "source_handle": "SOURCE_1",
+            "source_id": "source-e264d36acf4cd89d",
+            "title": "cpi.pdf"
+          }
+        ],
+        "source_trail": [
+          "https://www.bls.gov/news.release/pdf/cpi.pdf"
+        ],
+        "story_type": "data_release",
+        "substack_body_markdown": "US consumer inflation turned higher in July after declining in June, although the annual rate moved below its prior reading.\n\nThe Consumer Price Index for All Urban Consumers rose 0.1 percent on a seasonally adjusted basis after falling 0.4 percent in June. Over the 12 months ending in July, the all-items index increased 3.4 percent, following a 3.5 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\n## Shelter leads the monthly increase\n\nShelter rose 0.1 percent and accounted for roughly two-thirds of the monthly all-items increase. Food also advanced 0.1 percent, with food away from home up 0.3 percent. Energy moved in the opposite direction, declining 1.5 percent as gasoline fell 2.9 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nCore CPI, which excludes food and energy, increased 0.2 percent after being unchanged in June. Its 12-month increase was 2.5 percent, following a 2.6 percent rise for the period ending in June. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)\n\nThe component mix leaves a clear distinction between the headline number and its drivers: shelter supplied most of the monthly increase, while falling energy costs restrained it. On an annual basis, energy was still up 14.7 percent and food was up 3.0 percent. [www.bls.gov](https://www.bls.gov/news.release/pdf/cpi.pdf)",
+        "subtitle": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+        "supported_claim_count": 1,
+        "supported_claims": [
+          {
+            "additional_source_is_eligibility_requirement": false,
+            "attribution_required": false,
+            "claim_id": "ordinary-core-proposition",
+            "claim_text": "US CPI July 2026 Report",
+            "evidence_document_ids": [
+              "official-primary-6b22335813df900e7c37"
+            ],
+            "support_status": "SUPPORTED_MINIMUM_TRUSTWORTHY_EVIDENCE"
+          }
+        ],
+        "title": "US CPI Rises 0.1% in July as Annual Inflation Eases to 3.4%",
+        "unsupported_claims_removed": 0,
+        "update_chain_identity": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+        "visual_asset_ids_expected": [],
+        "writer_reader_value_preflight": {
+          "attribution_chain_dominant": false,
+          "attribution_marker_count": 0,
+          "blockers": [],
+          "checks": {
+            "captions_and_source_metadata_not_dominant": true,
+            "mode_appropriate_structure": true,
+            "mode_appropriate_substance": true,
+            "multiple_meaningful_reader_paragraphs": true,
+            "native_rich_text_serializable": true,
+            "no_process_or_pipeline_language": true,
+            "no_repetitive_filler": true,
+            "not_attribution_chain_copy": true,
+            "professional_writer_output": true,
+            "reader_value_independent_of_media": true,
+            "title_not_body": true
+          },
+          "classification": "PASS",
+          "duplicated_sentence_count": 0,
+          "floor": {
+            "minimum_headings": 0,
+            "minimum_paragraphs": 3,
+            "minimum_words": 90
+          },
+          "floor_class": "CONCISE_UPDATE",
+          "formatting_targets": {
+            "heading_target_met": true,
+            "paragraph_target_met": true,
+            "word_target_met": true
+          },
+          "formatting_targets_are_advisory": true,
+          "heading_count": 1,
+          "list_item_count": 0,
+          "markup_findings": [],
+          "meaningful_paragraph_count": 5,
+          "paragraph_redundancy_findings": [],
+          "process_language_hits": [],
+          "publication_authority": false,
+          "reader_prose_word_count": 208,
+          "reader_sentence_count": 7,
+          "reason_code": null,
+          "schema_version": "contentops.reader_value_release_gate.v1",
+          "utility_floor": {
+            "minimum_reader_sentences": 3,
+            "minimum_words": 60
+          },
+          "visual_count": 0,
+          "visual_quantity_is_fixed_quota": false
+        },
+        "x_content_grants_factual_authority": false
+      },
+      "mandatory_semantic_review_calls": 0,
+      "publication_authority_granted": false,
+      "reason_code": null,
+      "review_history": [
+        {
+          "article_sha256": "d5954f258264884e43363c07517983fbefd9f9ec02acfb09c1498613b003f1c0",
+          "combined_editorial_gate": {
+            "blockers": [],
+            "classification": "PASS",
+            "deterministic_pass": true,
+            "llm_cannot_override_deterministic_blockers": true,
+            "llm_semantic_pass": true,
+            "publication_authority": false
+          },
+          "deterministic_review": {
+            "advisory_editorial_findings": [
+              "lede_what_changed",
+              "lede_why_now",
+              "concise_nut_graf"
+            ],
+            "caveat_count": 0,
+            "classification": "PASS",
+            "duplicated_sentence_count": 0,
+            "editorial_blockers": [
+              "lede_what_changed",
+              "lede_why_now",
+              "concise_nut_graf"
+            ],
+            "editorial_checks": {
+              "concise_nut_graf": false,
+              "confirmation_condition": true,
+              "context_present": true,
+              "falsification_condition": true,
+              "high_information_density": true,
+              "lede_market_consequence": true,
+              "lede_what_changed": false,
+              "lede_why_now": false,
+              "mechanism_present": true,
+              "mode_declared": true,
+              "mode_rubric": true,
+              "named_next_catalysts": true,
+              "no_fabricated_quotes": true,
+              "no_financial_advice": true,
+              "no_process_language": true,
+              "original_value_claim_support": true,
+              "reader_value_floor": true,
+              "single_caveat": true
+            },
+            "editorial_score": 83,
+            "filler_hits": [],
+            "hard_editorial_blockers": [],
+            "headline_desk": {
+              "publication_authority": false,
+              "rejected_variant_count": 3,
+              "schema_version": "contentops.tier1_editorial_quality.v2",
+              "variants": [
+                {
+                  "channel": "reader",
+                  "checks": {
+                    "length": true,
+                    "no_clickbait": true,
+                    "no_mismatch": true,
+                    "present": true,
+                    "search_intent": true,
+                    "specificity": true
+                  },
+                  "rejection_reasons": [],
+                  "score": 100,
+                  "text": "US CPI Rises 0.1% in July as Annual Inflation Eases to 3.4%"
+                },
+                {
+                  "channel": "seo",
+                  "checks": {
+                    "length": true,
+                    "no_clickbait": true,
+                    "no_mismatch": true,
+                    "present": true,
+                    "search_intent": true,
+                    "specificity": true
+                  },
+                  "rejection_reasons": [],
+                  "score": 100,
+                  "text": "US CPI Rises 0.1% in July 2026; Annual Rate Eases to 3.4%"
+                },
+                {
+                  "channel": "social",
+                  "checks": {
+                    "length": false,
+                    "no_clickbait": true,
+                    "no_mismatch": true,
+                    "present": false,
+                    "search_intent": true,
+                    "specificity": false
+                  },
+                  "rejection_reasons": [
+                    "present",
+                    "length",
+                    "specificity"
+                  ],
+                  "score": 50,
+                  "text": ""
+                },
+                {
+                  "channel": "push",
+                  "checks": {
+                    "length": false,
+                    "no_clickbait": true,
+                    "no_mismatch": true,
+                    "present": false,
+                    "search_intent": true,
+                    "specificity": false
+                  },
+                  "rejection_reasons": [
+                    "present",
+                    "length",
+                    "specificity"
+                  ],
+                  "score": 50,
+                  "text": ""
+                },
+                {
+                  "channel": "youtube_community",
+                  "checks": {
+                    "length": false,
+                    "no_clickbait": true,
+                    "no_mismatch": true,
+                    "present": false,
+                    "search_intent": true,
+                    "specificity": false
+                  },
+                  "rejection_reasons": [
+                    "present",
+                    "length",
+                    "specificity"
+                  ],
+                  "score": 50,
+                  "text": ""
+                }
+              ]
+            },
+            "paragraph_redundancy_findings": [],
+            "process_language_hits": [],
+            "reader_value_gate": {
+              "attribution_chain_dominant": false,
+              "attribution_marker_count": 0,
+              "blockers": [],
+              "checks": {
+                "captions_and_source_metadata_not_dominant": true,
+                "mode_appropriate_structure": true,
+                "mode_appropriate_substance": true,
+                "multiple_meaningful_reader_paragraphs": true,
+                "native_rich_text_serializable": true,
+                "no_process_or_pipeline_language": true,
+                "no_repetitive_filler": true,
+                "not_attribution_chain_copy": true,
+                "professional_writer_output": true,
+                "reader_value_independent_of_media": true,
+                "title_not_body": true
+              },
+              "classification": "PASS",
+              "duplicated_sentence_count": 0,
+              "floor": {
+                "minimum_headings": 0,
+                "minimum_paragraphs": 3,
+                "minimum_words": 90
+              },
+              "floor_class": "CONCISE_UPDATE",
+              "formatting_targets": {
+                "heading_target_met": true,
+                "paragraph_target_met": true,
+                "word_target_met": true
+              },
+              "formatting_targets_are_advisory": true,
+              "heading_count": 1,
+              "list_item_count": 0,
+              "markup_findings": [],
+              "meaningful_paragraph_count": 5,
+              "paragraph_redundancy_findings": [],
+              "process_language_hits": [],
+              "publication_authority": false,
+              "reader_prose_word_count": 208,
+              "reader_sentence_count": 7,
+              "reason_code": null,
+              "schema_version": "contentops.reader_value_release_gate.v1",
+              "utility_floor": {
+                "minimum_reader_sentences": 3,
+                "minimum_words": 60
+              },
+              "visual_count": 0,
+              "visual_quantity_is_fixed_quota": false
+            },
+            "rendered_body_sha256": "2c3cab0683e78f9ec32ff7c7454a4c76eebcc2e922310c4b062b22b084df0962",
+            "schema_version": "contentops.tier1_editorial_quality.v2",
+            "seo_blockers": [
+              "primary_topic_in_opening",
+              "heading_hierarchy",
+              "chart_metadata",
+              "social_og_lead_media",
+              "visual_markers_complete"
+            ],
+            "seo_checks": {
+              "canonical_url_metadata": true,
+              "chart_metadata": false,
+              "clean_rendered_body": true,
+              "heading_hierarchy": false,
+              "meta_description": true,
+              "primary_topic_in_opening": false,
+              "reader_headline": true,
+              "semantic_keyword_coverage": true,
+              "seo_title": true,
+              "slug": true,
+              "social_og_lead_media": false,
+              "source_reference_links": true,
+              "title_dek_not_duplicated": true,
+              "visual_markers_complete": false
+            },
+            "seo_findings_are_advisory": true,
+            "seo_hygiene_is_observed_search_performance": false,
+            "seo_hygiene_score": 64,
+            "seo_score": 64,
+            "source_urls": [
+              "https://www.bls.gov/news.release/pdf/cpi.pdf"
+            ],
+            "visual_asset_ids": [],
+            "word_count": 213
+          },
+          "hard_factual_safety_review": {
+            "advisory_failed_checks": [],
+            "checks": {
+              "clear_news_peg": true,
+              "concise_nut_graf": true,
+              "high_information_density": true,
+              "material_claims_supported": true,
+              "material_evidence_matches": true,
+              "material_market_consequence": true,
+              "mode_consistent": true,
+              "no_fabricated_numbers": true,
+              "no_fabricated_quotes": true,
+              "no_factual_contradiction": true,
+              "no_financial_advice": true,
+              "no_misleading_framing": true,
+              "no_unsupported_certainty": true,
+              "reader_facing_prose": true,
+              "relevant_context": true,
+              "severe_coherence_ok": true,
+              "source_backed_mechanism": true,
+              "specific_confirmation_condition": true,
+              "specific_falsification_condition": true,
+              "why_now": true
+            },
+            "decision": "PASS",
+            "failed_checks": [],
+            "issues": [],
+            "material_failed_checks": [],
+            "missing_or_invalid_checks": [],
+            "mode": "straight_news",
+            "provider": "deterministic_minimum_evidence",
+            "publication_authority": false,
+            "review_sha256": "da9630c33768a3422cd4802713e58c76ed507d1bc29904b657babf464d48b3c1",
+            "review_type": "HARD_FACTUAL_SAFETY_ONLY",
+            "semantic_review_required": false,
+            "status": "SUCCESS",
+            "summary": "Ordinary article passed deterministic factual and source binding checks."
+          },
+          "llm_semantic_review": {
+            "decision": "NOT_RUN",
+            "publication_authority": false,
+            "status": "NOT_REQUIRED_ORDINARY_STORY"
+          },
+          "review_index": 0,
+          "revision_rounds_completed": 0
+        }
+      ],
+      "revision_rounds_completed": 0,
+      "semantic_review_required": false,
+      "status": "PASS"
+    },
+    "classification": "PASS",
+    "publication_authority": false,
+    "revision_round_limit": 1
+  },
+  "generic_live_path_used": false,
+  "legacy_topic_adapter_used": false,
+  "media": {
+    "ai_generated_image": false,
+    "assets": [],
+    "contentops_built_or_source_backed_media": true,
+    "external_asset_discovery_status": "NOT_RUN_NO_PROVIDER_REQUIRED_FOR_BUILD",
+    "media_asset_count": 0,
+    "schema_version": "contentops.rolling_x_media_manifest.v1",
+    "status": "PASS",
+    "visual_intent_plan": {
+      "article_identity": "da4b3770f62986ce5ca1e7bc84af1639d2a560eb5c8e2c64ad0416ccaeb0e7e4",
+      "intents": [
+        {
+          "editorial_rationale": "Show the real institution, place, or infrastructure at the center of the story.",
+          "publication_authority": false,
+          "queries": [
+            "CPI Rises July Annual Inflation Eases official photograph",
+            "CPI Rises July Annual Inflation Eases documentary context",
+            "CPI Rises July Annual Inflation Eases documentary photograph"
+          ],
+          "rights_required": true,
+          "visual_intent": "HERO_DOCUMENTARY"
+        },
+        {
+          "editorial_rationale": "Show a supported quantitative relationship.",
+          "publication_authority": false,
+          "queries": [
+            "CPI Rises July Annual Inflation Eases governed data chart"
+          ],
+          "rights_required": true,
+          "visual_intent": "QUANTITATIVE_CHART"
+        },
+        {
+          "editorial_rationale": "Make a supported comparison legible.",
+          "publication_authority": false,
+          "queries": [
+            "CPI Rises July Annual Inflation Eases latest versus previous comparison"
+          ],
+          "rights_required": true,
+          "visual_intent": "COMPARISON"
+        }
+      ],
+      "provider_priority": [
+        "first_party_official",
+        "wikimedia_commons",
+        "openverse",
+        "general_image_search_discovery",
+        "licensed_contextual_library",
+        "generated_conceptual_illustration"
+      ],
+      "publication_authority": false,
+      "schema_version": "contentops.visual_asset_discovery.v1",
+      "semantic_model_may_grant_rights": false,
+      "unknown_rights_disposition": "REJECT"
+    },
+    "visual_optional_failure": null
+  },
+  "rolling_x_live_path_used": true,
+  "run_id": "v1-xhigh-default-editorial-brain-zero-write-proof",
+  "schema_version": "contentops.rolling_x_run_context.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+  "selection": {
+    "article_mode": "breaking",
+    "capability_article_mode": "straight_news",
+    "capital_chronicle_context": {
+      "all_discovered_stores_considered": true,
+      "candidate_table_count": 0,
+      "catalog_fingerprint": null,
+      "cc_context_richness": 0.0,
+      "deep_query_selected_tables": [],
+      "deep_query_selection_method": "DETERMINISTIC_SCHEMA_RELEVANCE_SCORE",
+      "deep_query_table_limit": 8,
+      "grants_factual_or_numeric_authority": false,
+      "matched_store_count": 0,
+      "matched_store_ids": [],
+      "matched_table_count": 0,
+      "matches": [],
+      "mutated_upstream": false,
+      "queried_entities": [],
+      "queried_table_count": 0,
+      "richness_components": {
+        "bounded_row_density": 0.0,
+        "entity_coverage": 0.0,
+        "matched_freshness_metadata_coverage": 0.0,
+        "matched_store_diversity": 0.0,
+        "quality_lineage_surface_coverage": 0.0
+      },
+      "schema_version": "contentops.story_scoped_cc_context.v2"
+    },
+    "cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+    "cross_asset_implications": "",
+    "dek": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+    "duplicate_hotspot_decision": {
+      "decision": "PASS_FIRST_VIABLE_RANKED_CLUSTER",
+      "publish_allowed": true
+    },
+    "editorial_classification": "BREAKING_NEW_STORY",
+    "entities_topics": [],
+    "evidence_reachability": {
+      "capital_chronicle_relevant_context": false,
+      "factual_authority_granted": false,
+      "known_official_path": true,
+      "mode_downgrade_viable": true,
+      "public_source_candidate_count": 1,
+      "reputable_public_secondary_path": false,
+      "score": 0.65,
+      "unregistered_official_suffix_candidate": false
+    },
+    "headline_ids": [
+      "cc-x-headline-01809264e79e9a6b7d69ce5b"
+    ],
+    "leaf_cluster_ids": [
+      "rolling-x-deterministic-leaf-9180508e22ca1459a4a5"
+    ],
+    "leaf_summaries": [
+      "US CPI July 2026 Report"
+    ],
+    "market_mechanism": "Shelter accounted for roughly two-thirds of the monthly all-items increase. Energy declined 1.5 percent, including a 2.9 percent fall in gasoline.",
+    "market_sensitive": false,
+    "material_follow_up_context": null,
+    "needed_evidence": [
+      "Corroborate the limited factual claim from public evidence."
+    ],
+    "official_source_url_bindings": [
+      {
+        "feed_published_at_utc": "2026-08-12T12:31:23Z",
+        "feed_publisher_handle": "financialjuice",
+        "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+        "headline_id": "cc-x-headline-01809264e79e9a6b7d69ce5b",
+        "url": "https://www.bls.gov/news.release/pdf/cpi.pdf"
+      }
+    ],
+    "official_source_urls": [
+      "https://www.bls.gov/news.release/pdf/cpi.pdf"
+    ],
+    "policy_context": "",
+    "portfolio_concentration_penalty": 0.0,
+    "portfolio_concentration_penalty_effective": 0.0,
+    "preselection_novelty": {
+      "best_prior_article": null,
+      "best_prior_title": null,
+      "cc_context_richness": 0.0,
+      "decision": "BREAKING_NEW_STORY",
+      "entity_overlap": 0.0,
+      "grants_factual_or_numeric_authority": false,
+      "matched_article_age_hours": null,
+      "material_delta_evaluation": {
+        "delta_summary": "No prior article matched.",
+        "marker_hits": [],
+        "new_official_source_candidate_count": 0,
+        "reason_codes": [],
+        "signal_count": 0,
+        "x_content_grants_factual_authority": false
+      },
+      "material_delta_signals": 0,
+      "recommended_article_mode": "BREAKING_BRIEF",
+      "schema_version": "contentops.editorial_story_novelty.v1",
+      "update_chain_match": false
+    },
+    "preselection_occurs_before_article_generation": true,
+    "preselection_occurs_before_targeted_evidence": true,
+    "preselection_original_rank": 1,
+    "preselection_score": 130.2,
+    "public_source_url_bindings": [
+      {
+        "feed_published_at_utc": "2026-08-12T12:31:23Z",
+        "feed_publisher_handle": "financialjuice",
+        "feed_source_platform": "x_cdp_list_latest_tweets_timeline",
+        "headline_id": "cc-x-headline-01809264e79e9a6b7d69ce5b",
+        "url": "https://www.bls.gov/news.release/pdf/cpi.pdf"
+      }
+    ],
+    "public_source_urls": [
+      "https://www.bls.gov/news.release/pdf/cpi.pdf"
+    ],
+    "publication_authority": false,
+    "rank": 1,
+    "resolved_article_mode": "BREAKING_BRIEF",
+    "selection_case": "Fresh discovery item with a bounded public evidence path.",
+    "selection_method": "rolling_x_ranked_targeted_evidence_first_viable",
+    "seo_intent": "",
+    "seo_title": "US CPI Rises 0.1% in July 2026; Annual Rate Eases to 3.4%",
+    "slug": "us-cpi-rises-0-1-in-july-as-annual-inflation-eases-to-3-4",
+    "story_mode": "reporting",
+    "thesis": "Shelter accounted for most of the monthly increase, while energy prices declined.",
+    "title": "US CPI Rises 0.1% in July as Annual Inflation Eases to 3.4%",
+    "topic_hash": "ab9ebee7123522bf6ebea672",
+    "update_chain": {
+      "canonical_headline_id": "cc-x-headline-01809264e79e9a6b7d69ce5b",
+      "ordered_headline_ids": [
+        "cc-x-headline-01809264e79e9a6b7d69ce5b"
+      ],
+      "relationship": "distinct"
+    },
+    "update_chain_identity": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+    "visual_strategy": "Deterministic source-backed title card.",
+    "why_now": "US CPI July 2026 Report",
+    "x_and_cc_editorial_context_grant_factual_or_numeric_authority": false,
+    "x_content_is_discovery_and_ranking_only": true
+  },
+  "substack_browser_request_path": "C:\\Users\\bullw\\.codex\\worktrees\\7dc9\\ContentOps\\docs\\automation\\TASK_CONTENTOPS_V1_XHIGH_DEFAULT_EDITORIAL_BRAIN_AND_FIRST_REAL_CANONICAL_PUBLICATION_V1\\zero_write_proof_attempt_3\\substack_browser_request_v1.json",
+  "substack_browser_request_sha256": "d2f1e40af56d8da96daaa74d36985fb6e8edbd672754e40c84f83d67ddae0347",
+  "support": {
+    "evidence_acquired_after_ranking": true,
+    "publication_authority": false,
+    "schema_version": "contentops.rolling_x_grounded_support.v1",
+    "selected_cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+    "selected_headline_ids": [
+      "cc-x-headline-01809264e79e9a6b7d69ce5b"
+    ],
+    "status": "PASS",
+    "targeted_evidence": {
+      "blockers": [],
+      "capital_chronicle_authority_verified": false,
+      "cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+      "evidence_acquisition_provenance": {
+        "evidence_substance": {
+          "additional_source_is_eligibility_requirement": false,
+          "article_mode": "BREAKING_BRIEF",
+          "documents": [
+            {
+              "document_id": "official-primary-6b22335813df900e7c37",
+              "source_authority_class": "official_public_primary_source",
+              "title_only": false,
+              "usable_content_words": 11979
+            }
+          ],
+          "enough_for_useful_article": true,
+          "enrichment_recommended": false,
+          "publication_authority": false,
+          "schema_version": "contentops.evidence_substance_summary.v1",
+          "substantive_document_count": 1,
+          "target_usable_content_words": 90,
+          "usable_content_words": 11979,
+          "usable_document_count": 1
+        },
+        "official": {
+          "blockers": [],
+          "exact_bound_host_authorized_families": [
+            "official_macro"
+          ],
+          "provenance": {
+            "bounded_truncation_allowed": true,
+            "evaluation_as_of_utc": "2026-08-13T07:06:03.238378Z",
+            "locator": null,
+            "locator_request_count": 0,
+            "official_evidence_get_count": 1,
+            "read_only_http_get_only": true,
+            "request_count": 1,
+            "request_limit": 24,
+            "retrieved_at_utc": "2026-08-13T07:06:03.572251Z",
+            "timeout_seconds": 12.0
+          },
+          "registry_authorized_families": [
+            "official_macro"
+          ],
+          "status": "PASS"
+        },
+        "public_secondary": {
+          "binding_blockers": [
+            "governed_rolling_x_story_binding_missing"
+          ],
+          "blockers": [],
+          "enrichment_requested": false,
+          "pre_acquisition_substance": {
+            "additional_source_is_eligibility_requirement": false,
+            "article_mode": "BREAKING_BRIEF",
+            "documents": [
+              {
+                "document_id": "official-primary-6b22335813df900e7c37",
+                "source_authority_class": "official_public_primary_source",
+                "title_only": false,
+                "usable_content_words": 11979
+              }
+            ],
+            "enough_for_useful_article": true,
+            "enrichment_recommended": false,
+            "publication_authority": false,
+            "schema_version": "contentops.evidence_substance_summary.v1",
+            "substantive_document_count": 1,
+            "target_usable_content_words": 90,
+            "usable_content_words": 11979,
+            "usable_document_count": 1
+          },
+          "provenance": {
+            "request_count": 0
+          },
+          "status": "NOT_NEEDED_EVIDENCE_DEPTH_SUFFICIENT"
+        }
+      },
+      "evidence_documents": [
+        {
+          "bounded_section_byte_length": 532325,
+          "byte_length": 532325,
+          "canonical_content_sha256": "6b22335813df900e7c379e8db8d2459463744d6530f28626dfd377a314c0c0ab",
+          "canonical_content_text": "Transmission of material in this release is embargoed until USDL-26-1378\n8:30 a.m. (ET) Wednesday, August 12, 2026\n\nTechnical information: (202) 691-7000 \ufffd cpi_info@bls.gov \ufffd www.bls.gov/cpi\n\nMedia contact: (202) 691-5902 \ufffd PressOffice@bls.gov\n\nCONSUMER PRICE INDEX \ufffd JULY 2026\n\nThe Consumer Price Index for All Urban Consumers (CPI-U) increased 0.1 percent on a seasonally\nadjusted basis in July after falling 0.4 percent in June, the U.S. Bureau of Labor Statistics reported\ntoday. Over the last 12 months, the all items index increased 3.4 percent before seasonal adjustment.\n\nThe index for shelter rose 0.1 percent in July, accounting for roughly two-thirds of the monthly all items\nincrease. The index for food also increased 0.1 percent over the month, as the index for food away from\nhome increased 0.3 percent. In contrast, the energy index declined 1.5 percent in July.\n\nThe index for all items less food and energy rose 0.2 percent after being unchanged in June. Indexes that\nincreased over the month include medical care, airline fares, communication, education, and recreation.\nConversely, the index for motor vehicle insurance was among the major indexes that decreased in July.\n\nThe all items index rose 3.4 percent for the 12 months ending July after rising 3.5 percent for the 12\nmonths ending June. The all items less food and energy index rose 2.5 percent over the year, following a\n2.6-percent increase over the 12 months ending June. The energy index increased 14.7 percent for the 12\nmonths ending July. The food index increased 3.0 percent over the last year.\n\nNOTE: The Oct and Nov 2025 data values are not available due to the 2025 lapse in appropriations.\n\nNOTE: The Oct 2025 data values are not available due to the 2025 lapse in appropriations.\n\nTable A. Percent changes in CPI for All Urban Consumers (CPI-U): U.S. city average\n\n1 N o t s e a s o n a l l y adjusted.\n\n-2-\n\nFood\n\nThe food index rose 0.1 percent in July, after rising 0.2 percent in June. The index for food at home\ndecreased 0.1 percent over the month. Three of the six major grocery store food group indexes decreased\nin July. The meats, poultry, fish, and eggs index decreased 0.7 percent over the month as the pork index\ndeclined 1.5 percent. The index for fruits and vegetables decreased 0.1 percent in July as the index for\nlettuce fell 16.4 percent. The dairy and related products index decreased 0.1 percent over the month. The\nindex for other food at home was unchanged in July.\n\nIn contrast, the nonalcoholic beverages index rose 0.9 percent in July after falling 1.5 percent in June.\nThe index for cereals and bakery products increased 0.2 percent over the month.\n\nThe food away from home index rose 0.3 percent in July. The index for limited service meals rose 0.4\npercent, and the index for full service meals rose 0.2 percent over the month.\n\nThe index for food at home rose 2.7 percent over the 12 months ending in July. The fruits and\nvegetables index rose 5.1 percent over the last 12 months. The index for other food at home increased\n2.5 percent, and the index for nonalcoholic beverages rose 4.1 percent over the year. The meats, poultry,\nfish, and eggs index increased 1.9 percent over the 12 months ending in July, and the cereals and bakery\nproducts index rose 2.7 percent over the same period. In contrast, the index for dairy and related\nproducts fell 0.5 percent over the year.\n\nThe food away from home index rose 3.4 percent over the last year. The index for full service meals\nrose 3.4 percent, and the index for limited service meals rose 3.3 percent over the 12 months ending in\nJuly.\n\nEnergy\n\nThe index for energy decreased 1.5 percent in July, after falling 5.7 percent in June. The gasoline index\ndecreased 2.9 percent over the month. (Before seasonal adjustment, gasoline prices decreased 2.1\npercent in July.) Conversely, the index for natural gas increased 0.7 percent in July, and the index for\nelectricity rose 0.1 percent.\n\nThe index for energy increased 14.7 percent over the past 12 months due in large part to the index for\ngasoline rising 24.6 percent over the same period. The natural gas index increased 4.3 percent over the\n12 months ending in July, and the electricity index rose 4.2 percent.\n\nAll items less food and energy\n\nThe index for all items less food and energy rose 0.2 percent in July after being unchanged in June. The\nshelter index increased 0.1 percent over the month, as it did in June. The index for owners' equivalent\nrent rose 0.3 percent in July as did the index for rent. The lodging away from home index fell 2.8\npercent over the month.\n\nThe medical care index increased 0.4 percent in July after falling 0.1 percent in June. The index for\nhospital services increased 0.5 percent over the month, and the index for physicians' services increased\n0.2 percent. Conversely, the prescription drugs index decreased 0.8 percent in July.\n\n-3-\n\nThe index for airline fares increased 2.2 percent over the month after rising 0.2 percent in June. The\ncommunication index rose 0.6 percent in July, and the education index increased 0.5 percent. The index\nfor recreation increased 0.2 percent in July, and the index for used cars and trucks rose 0.4 percent. The\nindexes for new vehicles, household furnishings and operations, and apparel also increased over the\nmonth.\nThe motor vehicle insurance index declined 0.3 percent in July after falling 2.0 percent in June. The\nindex for personal care was unchanged in July.\nThe index for all items less food and energy rose 2.5 percent over the past 12 months. The shelter index\nincreased 3.2 percent over the last year. Other indexes with notable increases over the last year include\nairline fares (+25.5 percent), medical care (+1.7 percent), recreation (+2.6 percent), and household\nfurnishings and operations (+2.2 percent).\nNot seasonally adjusted CPI measures\nThe Consumer Price Index for All Urban Consumers (CPI-U) increased 3.4 percent over the last 12\nmonths to an index level of 333.918 (1982-84=100). For the month, the index was unchanged prior to\nseasonal adjustment.\nThe Consumer Price Index for Urban Wage Earners and Clerical Workers (CPI-W) increased 3.4\npercent over the last 12 months to an index level of 327.104 (1982-84=100). For the month, the index\nwas unchanged prior to seasonal adjustment.\nThe Chained Consumer Price Index for All Urban Consumers (C-CPI-U) increased 3.3 percent over the\nlast 12 months. For the month, the index was unchanged on a not seasonally adjusted basis. Please note\nthat the indexes for the past 10 to 12 months are subject to revision.\n_______________\nThe Consumer Price Index news release for August 2026 is scheduled to be published on Friday,\nSeptember 11, 2026, at 8:30 a.m. (ET).\n\n-4 -\n\nTechnical Note\n\nBrief Explanation of the CPI\n\nThe Consumer Price Index (CPI) measures the change in prices paid by consumers for goods and\nservices. The CPI reflects spending patterns for each of two population groups: all urban consumers and\nurban wage earners and clerical workers. The all urban consumer group represents over 90 percent of\nthe total U.S. population. It is based on the expenditures of almost all residents of urban or metropolitan\nareas, including professionals, the self-employed, the poor, the unemployed, and retired people, as well\nas urban wage earners and clerical workers. Not included in the CPI are the spending patterns of people\nliving in rural nonmetropolitan areas, farming families, people in the Armed Forces, and those in\ninstitutions, such as prisons and mental hospitals. Consumer inflation for all urban consumers is\nmeasured by two indexes, namely, the Consumer Price Index for All Urban Consumers (CPI-U) and the\nChained Consumer Price Index for All Urban Consumers (C-CPI-U).\n\nThe Consumer Price Index for Urban Wage Earners and Clerical Workers (CPI-W) is based on the\nexpenditures of households included in the CPI-U definition that meet two requirements: more than one-\nhalf of the household's income must come from clerical or wage occupations, and at least one of the\nhousehold's earners must have been employed for at least 37 weeks during the previous 12 months. The\nCPI-W population represents approximately 30 percent of the total U.S. population and is a subset of the\nCPI-U population.\n\nThe CPIs are based on prices of food, clothing, shelter, fuels, transportation, doctors' and dentists'\nservices, drugs, and other goods and services that people buy for day-to-day living. Prices are collected\neach month in 75 urban areas across the country from about 6,000 housing units and approximately\n22,000 retail establishments (department stores, supermarkets, hospitals, and other types of stores and\nservice establishments). All taxes directly associated with the purchase and use of items are included in\nthe index. Prices of fuels and a few other items are obtained every month in all 75 locations. Prices of\nmost other commodities and services are collected every month in the three largest geographic areas and\nevery other month in other areas. Prices of most goods and services are obtained by personal visit,\ntelephone call, web, or app collection by the Bureau's trained representatives.\n\nIn calculating the index, price changes for the various items in each location are aggregated using\nweights, which represent their importance in the spending of the appropriate population group. Local\ndata are then combined to obtain a U.S. city average. For the CPI-U and CPI-W, separate indexes are\nalso published by size of city, by region of the country, for cross-classifications of regions and\npopulation-size classes, and for 23 selected local areas. Area indexes do not measure differences in the\nlevel of prices among cities; they only measure the average change in prices for each area since the base\nperiod. For the C-CPI-U, data are issued only at the national level. The CPI-U and CPI-W are\nconsidered final when released, but the C-CPI-U is issued in preliminary form and subject to three\nsubsequent quarterly revisions.\n\nThe index measures price change from a designed reference date. For most of the CPI-U and the CPI-W,\nthe reference base is 1982-84 equals 100. The reference base for the C-CPI-U is December 1999 equals\n100. An increase of 7 percent from the reference base, for example, is shown as 107.000. Alternatively,\nthat relationship can also be expressed as the price of a base period market basket of goods and services\nrising from $100 to $107.\n\n-5-\n\nSampling Error in the CPI\n\nThe CPI is a statistical estimate that is subject to sampling error because it is based upon a sample of\nretail prices and not the complete universe of all prices. BLS calculates and publishes estimates of the 1-\nmonth, 2-month, 6-month, and 12-month percent change standard errors annually for the CPI-U. These\nstandard error estimates can be used to construct confidence intervals for hypothesis testing. For\nexample, the estimated standard error of the 1-month percent change is 0.04 percent for the U.S. all\nitems CPI. This means that if we repeatedly sample from the universe of all retail prices using the same\nmethodology, and estimate a percentage change for each sample, then 95 percent of these estimates will\nbe within 0.08 percent of the 1-month percentage change based on all retail prices. For example, for a 1-\nmonth change of 0.2 percent in the all items CPI-U, we are 95 percent confident that the actual percent\nchange based on all retail prices would fall between 0.12 and 0.28 percent. For the latest data, including\ninformation on how to use the estimates of standard error, see www.bls.gov/cpi/tables/variance-\nestimates/home.htm.\n\nCalculating Index Changes\n\nMovements of the indexes from 1 month to another are usually expressed as percent changes rather than\nchanges in index points, because index point changes are affected by the level of the index in relation to\nits base period, while percent changes are not. The following table shows an example of using index\nvalues to calculate percent changes:\n\nItem A Item B Item C\n\nYear I 112.500 225.000 110.000\n\nYear II 121.500 243.000 128.000\n\nChange in index 9.000 18.000 18.000\npoints\n\nPercent change 9.0/112.500 x 100 = 8.0 18.0/225.000 x 100 = 8.0 18.0/110.000 x 100 = 16.4\n\nUse of Seasonally Adjusted and Unadjusted Data\n\nThe Consumer Price Index (CPI) program produces both unadjusted and seasonally adjusted data.\nSeasonally adjusted data are computed using seasonal factors derived by the X-13ARIMA-SEATS\nseasonal adjustment method. These factors are updated each February, and the new factors are used to\nrevise the previous 5 years of seasonally adjusted data. The factors are available at\nwww.bls.gov/web/cpi/cpi-seasonal-factors.xlsx. For more information on data revision scheduling,\nplease see the Seasonal Adjustment questions and answers page at www.bls.gov/cpi/seasonal-\nadjustment/questions-and-answers.htm and the Timeline of Seasonal Adjustment Methodological\nChanges at www.bls.gov/cpi/seasonal-adjustment/timeline-seasonal-adjustment-methodology-\nchanges.htm.\n\nHow to Use Seasonally Adjusted and Unadjusted Data\n\nFor analyzing short-term price trends in the economy, seasonally adjusted changes are usually preferred\nsince they eliminate the effect of changes that normally occur at the same time and in about the same\nmagnitude every year--such as price movements resulting from weather events, production cycles,\nmodel changeovers, holidays, and sales. This allows data users to focus on changes that are not typical\nfor the time of year.\n\n-6 -\n\nThe unadjusted data are of primary interest to consumers concerned about the prices they actually pay.\nUnadjusted data are also used extensively for escalation purposes. Many collective bargaining contract\nagreements and pension plans, for example, tie compensation changes to the Consumer Price Index\nbefore adjustment for seasonal variation. BLS advises against the use of seasonally adjusted data in\nescalation agreements because seasonally adjusted series are revised annually for five years.\n\nIntervention Analysis\n\nThe Bureau of Labor Statistics uses intervention analysis seasonal adjustment (IASA) for some CPI\nseries. Sometimes extreme values or sharp movements can distort the underlying seasonal pattern of\nprice change. Intervention analysis seasonal adjustment is a process by which the distortions caused by\nsuch unusual events are estimated and removed from the data prior to calculation of seasonal factors.\nThe resulting seasonal factors, which more accurately represent the seasonal pattern, are then applied to\nthe unadjusted data.\n\nFor example, this procedure was used for the motor fuel series to offset the effects of the 2009 return to\nnormal pricing after the worldwide economic downturn in 2008. Retaining this outlier data during\nseasonal factor calculation would distort the computation of the seasonal portion of the time series data\nfor motor fuel, so it was estimated and removed from the data prior to seasonal adjustment. Following\nthat, seasonal factors were calculated based on this \"prior adjusted\" data. These seasonal factors\nrepresent a clearer picture of the seasonal pattern in the data. The last step is for motor fuel seasonal\nfactors to be applied to the unadjusted data.\n\nFor the seasonal factors introduced for January 2026, BLS adjusted 57 series using intervention analysis\nseasonal adjustment, including selected food and beverage items, motor fuels and vehicles.\n\nRevision of Seasonally Adjusted Indexes\n\nSeasonally adjusted data, including the U.S. city average all items index levels, are subject to revision\nfor up to 5 years after their original release. Every year, economists in the CPI calculate new seasonal\nfactors for seasonally adjusted series and apply them to the last 5 years of data. Seasonally adjusted\nindexes beyond the last 5 years of data are considered to be final and not subject to revision. For January\n2026, revised seasonal factors and seasonally adjusted indexes for 2021 to 2025 were calculated and\npublished. For series which are directly adjusted using the Census X-13ARIMA-SEATS seasonal\nadjustment software, the seasonal factors for 2025 will be applied to data for 2026 to produce the\nseasonally adjusted 2026 indexes. Series which are indirectly seasonally adjusted by summing\nseasonally adjusted component series have seasonal factors which are derived and are therefore not\navailable in advance.\n\nDetermining Seasonal Status\n\nEach year the seasonal status of every series is reevaluated based upon certain statistical criteria. Using\nthese criteria, BLS economists determine whether a series should change its status from \"not seasonally\nadjusted\" to \"seasonally adjusted\", or vice versa. If any of the 81 components of the U.S. city average all\nitems index change their seasonal adjustment status from seasonally adjusted to not seasonally adjusted,\nnot seasonally adjusted data will be used in the aggregation of the dependent series for the last 5 years,\nbut the seasonally adjusted indexes before that period will not be changed. For 2026, 36 of the 81\ncomponents of the U.S. city average all items index are not seasonally adjusted.\n\n-7-\n\nContact Information\nFor additional information about the CPI visit www.bls.gov/cpi or contact the CPI Information and\nAnalysis Section at 202-691-7000 or cpi_info@bls.gov.\nFor additional information on seasonal adjustment in the CPI visit www.bls.gov/cpi/seasonal-\nadjustment/home.htm\nIf you are deaf, hard of hearing, or have a speech disability, please dial 7-1-1 to access\ntelecommunications relay services.\n\n-8 -\n\nTable 1. Consumer Price Index for All Urban Consumers (CPI-U): U.S. city average, by expenditure category,\nJuly 2026\n\n[1982-84=100, unless otherwise noted]\n\nRelative Unadjusted indexes Unadjusted percent Seasonally adjusted percent\nimpor- change change\ntance\nExpenditure category Jun. Jul. Jun. Jul. Jul. Jun. Apr. May Jun.\n2026 2025 2026 2026 2025- 2026- 2026- 2026- 2026-\nMay Jun.\nJul. Jul. 2026 2026 Jul.\n2026 2026 2026\n\nAll items............................................ . 100.000 323.048 333.952 333.918 3.4 0.0 0.5 -0.4 0.1\n\nFood. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13.522 340.036 349.731 350.164 3.0 0.1 0.2 0.2 0.1\n\nFood at home. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8.231 313.263 321.631 321.643 2.7 0.0 0.1 0.2 -0.1\n\nCereals and bakery products. . . . . . . . . . . . 1.023 360.048 368.800 369.882 2.7 0.3 0.4 0.3 0.2\n\nMeats, poultry, fish, and eggs. . . . . . . . . . . . 1.959 344.155 350.974 350.612 1.9 -0.1 -0.2 0.6 -0.7\n\nDairy and related products1. . . . . . . . . . . . . . 0.743 272.586 271.683 271.337 -0.5 -0.1 -0.6 1.2 -0.1\n\nFruits and vegetables. . . . . . . . . . . . . . . . . . . . . 1.283 351.764 370.090 369.550 5.1 -0.1 0.2 -0.2 -0.1\n\nNonalcoholic beverages and beverage\n\nmaterials................................. . 0.981 228.011 235.793 237.393 4.1 0.7 0.6 -1.5 0.9\n\nOther food at home....................... . 2.242 277.002 284.373 283.803 2.5 -0.2 0.0 0.5 0.0\n\nFood away from home1..................... . 5.290 383.808 395.633 396.859 3.4 0.3 0.3 0.2 0.3\n\nEnergy. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7.432 283.395 328.950 325.150 14.7 -1.2 3.9 -5.7 -1.5\n\nEnergy commodities. . . . . . . . . . . . . . . . . . . . . . . . . 4.132 288.425 367.630 359.754 24.7 -2.1 6.7 -9.5 -2.9\n\nFuel oil. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.106 352.435 485.387 490.083 39.1 1.0 3.8 -9.2 -1.7\n\nMotor fuel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.971 282.696 360.912 352.826 24.8 -2.2 6.8 -9.6 -3.0\n\nGasoline (all types). . . . . . . . . . . . . . . . . . . . . 3.852 281.490 358.518 350.846 24.6 -2.1 7.0 -9.7 -2.9\n\nEnergy services.............................. . 3.300 290.131 302.347 302.594 4.3 0.1 0.4 -0.7 0.3\n\nElectricity................................... . 2.552 299.107 311.818 311.672 4.2 0.0 0.6 -1.0 0.1\n\nUtility (piped) gas service. . . . . . . . . . . . . . . . . 0.748 257.867 267.609 268.999 4.3 0.5 -0.5 0.5 0.7\n\nAll items less food and energy. . . . . . . . . . . . . . . . 79.047 328.980 336.882 337.133 2.5 0.1 0.2 0.0 0.2\n\nCommodities less food and energy\n\ncommodities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18.829 166.766 168.019 168.112 0.8 0.1 -0.1 -0.1 0.2\n\nApparel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.437 129.190 135.917 134.182 3.9 -1.3 0.3 -0.6 0.1\n\nNew vehicles. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.751 178.569 179.338 179.541 0.5 0.1 -0.3 0.0 0.1\n\nUsed cars and trucks..................... . 2.679 188.183 183.360 184.661 -1.9 0.7 0.1 -0.2 0.4\n\nMedical care commodities1. . . . . . . . . . . . . . . 1.412 417.800 408.974 406.462 -2.7 -0.6 -0.7 -0.2 -0.6\n\nAlcoholic beverages1. . . . . . . . . . . . . . . . . . . . . . 0.823 295.176 300.824 301.367 2.1 0.2 0.1 0.0 0.2\n\nTobacco and smoking products1, 2. . . . . . 0.445 103.643 110.045 110.593 6.7 0.5 1.0 -0.7 0.5\n\nServices less energy services. . . . . . . . . . . . . . 60.217 432.778 445.448 445.809 3.0 0.1 0.3 0.0 0.2\n\nShelter...................................... . 35.304 416.271 429.062 429.491 3.2 0.1 0.3 0.1 0.1\n\nRent of primary residence. . . . . . . . . . . . . 7.716 435.489 446.945 447.963 2.9 0.2 0.4 0.1 0.3\n\nOwners' equivalent rent of\n\nresidences3. . . . . . . . . . . . . . . . . . . . . . . . . . . . 25.849 428.640 441.365 442.503 3.2 0.3 0.3 0.2 0.3\n\nMedical care services. . . . . . . . . . . . . . . . . . . . . 6.840 637.425 652.152 654.347 2.7 0.3 0.5 -0.1 0.6\n\nPhysicians' services1. . . . . . . . . . . . . . . . . . . 1.660 429.279 438.626 439.443 2.4 0.2 0.0 -0.2 0.2\n\nHospital services1, 4. . . . . . . . . . . . . . . . . . . . . 2.156 437.053 457.320 459.820 5.2 0.5 0.7 0.1 0.5\n\nTransportation services. . . . . . . . . . . . . . . . . . . 6.352 446.417 462.494 459.354 2.9 -0.7 -0.6 -0.3 0.3\n\nMotor vehicle maintenance and\n\nrepair1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.048 431.604 457.313 460.185 6.6 0.6 0.8 1.1 0.6\n\nMotor vehicle insurance. . . . . . . . . . . . . . . . 2.570 896.018 858.481 856.080 -4.5 -0.3 -1.7 -2.0 -0.3\n\nAirline fares. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.091 247.859 323.758 311.176 25.5 -3.9 2.7 0.2 2.2\n\n1 Not seasonally adjusted.\n2 Indexes on a December 2024=100 base.\n3 Indexes on a December 1982=100 base.\n4 Indexes on a December 1996=100 base.\n\nTable 2. Consumer Price Index for All Urban Consumers (CPI-U): U.S. city average, by detailed expenditure\ncategory, July 2026\n\n[1982-84=100, unless otherwise noted]\n\nRelative Unadjusted percent Seasonally adjusted percent change\nimportance change\n\nExpenditure category Jun. Jul. Jun. Apr. May Jun.\n2026 2025- 2026- 2026- 2026- 2026-\nMay Jun. Jul.\nJul. Jul. 2026 2026 2026\n2026 2026\n\nAll items................................................................ . 100.000 3.4 0.0 0.5 -0.4 0.1\n\nFood. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13.522 3.0 0.1 0.2 0.2 0.1\n\nFood at home. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8.231 2.7 0.0 0.1 0.2 -0.1\n\nCereals and bakery products................................ . 1.023 2.7 0.3 0.4 0.3 0.2\n\nCereals and cereal products.............................. . 0.311 3.6 0.7 -0.6 0.7 0.4\n\nFlour and prepared flour mixes. . . . . . . . . . . . . . . . . . . . . . . . . 0.038 -0.4 0.0 2.6 -1.1 -0.2\n\nBreakfast cereal1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.133 4.1 1.0 -0.5 0.8 1.0\n\nRice, pasta, cornmeal................................... . 0.140 3.9 0.6 -1.2 1.6 0.3\n\nRice1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 6.2 0.9 -1.1 0.6 0.9\n\nBakery products1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.713 2.4 0.1 0.9 0.1 0.1\n\nBread1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.172 3.7 0.2 -0.7 0.5 0.2\n\nWhite bread1, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 4.0 0.0 -0.9 0.9 0.0\n\nBread other than white1, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 3.4 0.3 -0.4 0.0 0.3\n\nFresh biscuits, rolls, muffins1, 2. . . . . . . . . . . . . . . . . . . . . . . . . 0.116 1.6 -0.2 4.7 -1.2 -0.2\n\nCakes, cupcakes, and cookies1. . . . . . . . . . . . . . . . . . . . . . . . 0.206 3.4 1.6 -0.4 -0.6 1.6\n\nCookies1, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 2.0 1.1 0.4 -1.0 1.1\n\nFresh cakes and cupcakes1, 3. . . . . . . . . . . . . . . . . . . . . . . . \ufffd 4.4 2.8 -1.0 -0.9 2.8\n\nOther bakery products. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.218 1.3 -1.2 1.0 1.2 -1.3\n\nFresh sweetrolls, coffeecakes, doughnuts1, 3. . . . . . \ufffd 2.6 -1.5 -2.8 2.0 -1.5\n\nCrackers, bread, and cracker products3. . . . . . . . . . . . \ufffd 4.5 0.5 0.8 3.2 0.8\n\nFrozen and refrigerated bakery products, pies,\n\ntarts, turnovers3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd -1.8 -2.3 2.0 -0.1 -2.1\n\nMeats, poultry, fish, and eggs............................... . 1.959 1.9 -0.1 -0.2 0.6 -0.7\n\nMeats, poultry, and fish. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.847 4.5 -0.1 -0.4 0.4 -0.7\n\nMeats. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.174 5.4 -0.1 -1.1 0.9 -1.0\n\nBeef and veal. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.640 9.4 0.2 -1.6 1.2 -0.8\n\nUncooked ground beef. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.239 9.0 -0.7 -1.3 1.3 -1.6\n\nUncooked beef roasts2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.087 13.5 1.9 -3.6 1.7 1.1\n\nUncooked beef steaks2............................ . 0.239 9.6 1.2 -1.9 0.5 0.4\n\nUncooked other beef and veal1, 2. . . . . . . . . . . . . . . . . 0.074 5.6 -1.9 -0.2 1.8 -1.9\n\nPork..................................................... . 0.339 0.5 -0.6 0.3 -0.3 -1.5\n\nBacon, breakfast sausage, and related\n\nproducts2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.130 -1.2 0.7 0.0 -1.4 -0.2\n\nBacon and related products3................... . \ufffd -2.8 0.6 0.1 -1.8 -0.8\n\nBreakfast sausage and related products2, 3. . . \ufffd 2.3 0.9 0.8 0.0 0.3\n\nHam.................................................. . 0.068 1.6 0.1 2.0 0.0 -0.8\n\nHam, excluding canned3. . . . . . . . . . . . . . . . . . . . . . . . \ufffd 1.3 0.0 1.8 0.6 -2.1\n\nPork chops1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.046 0.7 -2.8 1.2 1.8 -2.8\n\nOther pork including roasts, steaks, and\n\nribs1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.095 0.5 -1.9 -0.2 0.2 -1.9\n\nOther meats. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.195 2.1 -0.3 -1.8 1.9 -0.8\n\nFrankfurters3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 6.3 -1.7 -3.0 6.7 -1.7\n\nLunchmeats1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 0.8 0.9 -1.5 0.3 0.9\n\nPoultry.................................................. . 0.356 -0.5 -0.5 0.6 -1.0 -0.4\n\nChicken2............................................. . 0.280 -2.7 -0.7 -0.1 -0.8 -0.7\n\nFresh whole chicken3. . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd -3.2 -1.1 -0.3 -0.6 -0.8\n\nFresh and frozen chicken parts3. . . . . . . . . . . . . . . \ufffd -2.5 -0.5 0.3 -1.1 -0.3\n\nOther uncooked poultry including turkey2. . . . . . . . 0.076 8.4 0.4 2.4 -0.3 -0.1\n\nFish and seafood1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.317 7.0 0.4 1.2 0.1 0.4\n\nFresh fish and seafood1, 2. ........................ . 0.168 7.8 1.0 1.8 -0.5 1.0\n\nProcessed fish and seafood2. . . . . . . . . . . . . . . . . . . . . . 0.149 6.4 -0.2 -0.8 1.1 -0.2\n\nShelf stable fish and seafood1, 3. . . . . . . . . . . . . . . . \ufffd 6.1 -0.9 0.2 1.4 -0.9\n\nFrozen fish and seafood3....................... . \ufffd 7.8 -0.4 -1.6 0.2 0.1\n\nSee footnotes at end of table.\n\nTable 2. Consumer Price Index for All Urban Consumers (CPI-U): U.S. city average, by detailed expenditure\ncategory, July 2026 -- Continued\n\n[1982-84=100, unless otherwise noted]\n\nRelative Unadjusted percent Seasonally adjusted percent change\nimportance change\n\nExpenditure category Jun. Jul. Jun. Apr. May Jun.\n2026 2025- 2026- 2026- 2026- 2026-\nMay Jun. Jul.\nJul. Jul. 2026 2026 2026\n2026 2026\n\nEggs....................................................... . 0.112 -25.7 -0.4 4.0 4.3 -0.5\n\nDairy and related products1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.743 -0.5 -0.1 -0.6 1.2 -0.1\n\nMilk1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.195 5.1 0.5 2.2 2.0 0.5\n\nFresh whole milk1, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 6.0 -0.3 2.5 3.3 -0.3\n\nFresh milk other than whole1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . \ufffd 4.8 0.7 2.2 1.4 0.7\n\nCheese and related products1............................ . 0.250 -4.2 -1.0 -2.9 2.8 -1.0\n\nIce cream and related products. . . . . . . . . . . . . . . . . . . . . . . . . . . 0.108 -1.2 -0.6 0.0 -2.1 -0.1\n\nOther dairy and related products2. . . . . . . . . . . . . . . . . . . . . . . . 0.189 -1.1 0.7 -0.3 0.1 -0.4\n\nFruits and vegetables. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.283 5.1 -0.1 0.2 -0.2 -0.1\n\nFresh fruits and vegetables. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.016 5.5 -0.2 0.3 -0.5 -0.1\n\nFresh fruits. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.525 4.9 1.1 0.1 0.4 2.2\n\nApples. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.079 11.1 2.4 2.4 1.8 2.2\n\nBananas1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.058 0.6 0.0 -1.8 1.3 0.0\n\nCitrus fruits2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.080 3.8 0.5 -0.2 3.4 -1.2\n\nOranges, including tangerines3................... . \ufffd -0.5 2.7 -0.4 1.7 0.1\n\nOther fresh fruits2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.308 4.8 1.2 0.8 0.7 2.9\n\nFresh vegetables. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.492 6.3 -1.6 0.5 -1.4 -2.6\n\nPotatoes................................................ . 0.069 3.4 1.8 2.5 2.2 0.2\nLettuce. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.050 7.5 -15.1 16.4 6.5 -16.4\nTomatoes. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.068 12.8 -6.1 -10.0\n-3.9 -4.3\n\nOther fresh vegetables. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.305 5.0 0.3 -0.3 -1.6 -0.4\nProcessed fruits and vegetables2. . . . . . . . . . . . . . . . . . . . . . 0.267\n0.101 2.4 0.0 -0.2 0.6 -0.3\nCanned fruits and vegetables2. . . . . . . . . . . . . . . . . . . . . . . \ufffd\nCanned fruits1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 3.7 -0.8 0.0 0.3 -1.2\nCanned vegetables2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.085\n\ufffd 4.0 -2.9 0.5 1.3 -2.9\nFrozen fruits and vegetables2. . . . . . . . . . . . . . . . . . . . . . . .\nFrozen vegetables3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.2 0.1 0.4 -0.2 -0.4\n\n1.2 -0.1 -0.9 1.5 -0.3\n\n1.2 0.4 -2.1 2.1 0.0\n\nOther processed fruits and vegetables including\n\ndried2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.080 2.3 1.3 -0.7 0.5 0.9\n\nDried beans, peas, and lentils1, 2, 3. . . . . . . . . . . . . . . \ufffd 1.4 1.5 0.1 0.7 1.5\n\nNonalcoholic beverages and beverage materials. . . . . . . . . 0.981 4.1 0.7 0.6 -1.5 0.9\n\nJuices and nonalcoholic drinks2. . . . . . . . . . . . . . . . . . . . . . . . . . . 0.663 2.9 0.8 0.3 -1.2 0.9\n\nCarbonated drinks. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.325 3.0 0.1 0.4 -0.7 0.2\n\nFrozen noncarbonated juices and drinks1, 2. . . . . . . . . . 0.004 -0.1 -0.3 0.0 0.1 -0.3\n\nNonfrozen noncarbonated juices and drinks2. . . . . . . . . 0.334 3.2 1.4 0.3 -1.7 1.5\n\nBeverage materials including coffee and tea2. . . . . . . . . . . 0.318 6.7 0.5 1.1 -2.0 0.3\n\nCoffee. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.224 10.3 0.3 0.6 -2.0 -0.1\n\nRoasted coffee3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 9.4 0.1 0.7 -2.1 -0.4\n\nInstant coffee1, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 15.8 1.6 0.4 -1.8 1.6\n\nOther beverage materials including tea1, 2. . . . . . . . . . . . 0.094 0.8 1.1 2.1 -2.3 1.1\n\nOther food at home........................................... . 2.242 2.5 -0.2 0.0 0.5 0.0\n\nSugar and sweets.......................................... . 0.330 7.4 0.1 1.4 0.6 0.5\n\nSugar and sugar substitutes. . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.032 0.5 0.8 -0.1 -0.7 1.0\n\nCandy and chewing gum2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.243 9.6 -0.1 2.1 0.9 0.1\n\nOther sweets1, 2.......................................... . 0.055 2.7 0.6 0.4 -0.8 0.6\n\nFats and oils. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.219 -1.5 -0.2 -2.4 1.5 -0.3\n\nButter and margarine2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.062 -5.8 1.0 -2.2 -0.2 0.8\n\nButter3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd -8.1 0.7 -2.1 -1.4 -0.2\n\nMargarine3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd -1.7 1.3 -2.3 1.8 2.9\n\nSalad dressing1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . ............. . 0.050 -4.3 -2.7 -4.9 3.4 -2.7\n\nOther fats and oils including peanut butter2. . . . . . . . . . 0.107 1.6 0.3 -1.0 1.4 0.5\n\nPeanut butter1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 1.8 0.0 -2.2 1.9 0.0\n\nOther foods............................................... . 1.693 2.1 -0.3 0.1 0.3 -0.1\n\nSoups................................................... . 0.089 2.8 0.1 1.0 -0.1 0.2\n\nSee footnotes at end of table.\n\nTable 2. Consumer Price Index for All Urban Consumers (CPI-U): U.S. city average, by detailed expenditure\ncategory, July 2026 -- Continued\n\n[1982-84=100, unless otherwise noted]\n\nRelative Unadjusted percent Seasonally adjusted percent change\nimportance change\n\nExpenditure category Jun. Jul. Jun. Apr. May Jun.\n2026 2025- 2026- 2026- 2026- 2026-\nMay Jun. Jul.\nJul. Jul. 2026 2026 2026\n2026 2026\n\nFrozen and freeze dried prepared foods. . . . . . . . . . . 0.296 -0.4 -0.1 -1.0 1.6 -0.7\n\nSnacks. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.365 1.9 -0.5 -0.3 0.1 0.3\n\nSpices, seasonings, condiments, sauces. . . . . . . . . . . 0.320 3.7 0.6 0.0 0.5 0.4\n\nSalt and other seasonings and spices2, 3. . . . . . . . \ufffd 5.4 -0.2 -0.6 2.0 -0.4\n\nOlives, pickles, relishes2, 3. . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 2.6 1.1 0.2 -1.6 1.4\n\nSauces and gravies2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 2.4 1.1 0.7 -0.8 1.0\n\nOther condiments3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 4.7 0.6 5.5 -3.0 0.7\n\nBaby food and formula1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.052 1.8 0.7 1.6 1.8 0.7\n\nOther miscellaneous foods1, 2. . . . . . . . . . . . . . . . . . . . . . . . 0.572 2.8 -0.8 0.3 0.3 -0.8\n\nPrepared salads3, 4................................. . \ufffd 0.2 -0.6 0.4 -0.8 -1.0\n\nFood away from home1......................................... . 5.290 3.4 0.3 0.3 0.2 0.3\n\nFull service meals and snacks1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.346 3.4 0.2 0.3 0.4 0.2\n\nLimited service meals and snacks1, 2. . . . . . . . . . . . . . . . . . . . . . . 2.645 3.3 0.4 0.3 0.1 0.4\n\nFood at employee sites and schools1, 2. . . . . . . . . . . . . . . . . . . . 0.064 1.6 0.5 0.0 0.9 0.5\n\nFood at elementary and secondary schools1, 3, 5. . . . . . . \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd\n\nFood from vending machines and mobile vendors1, 2. . . . 0.052 2.6 0.3 0.4 -0.1 0.3\n\nOther food away from home2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.183 5.2 0.8 0.1 -0.1 1.0\n\nEnergy............................................................... . 7.432 14.7 -1.2 3.9 -5.7 -1.5\n\nEnergy commodities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4.132 24.7 -2.1 6.7 -9.5 -2.9\n\nFuel oil and other fuels....................................... . 0.161 22.4 0.3 3.3 -6.6 -0.8\n\nFuel oil....................................................... . 0.106 39.1 1.0 3.8 -9.2 -1.7\n\nPropane, kerosene, and firewood6....................... . 0.055 -0.5 -1.0 2.5 -1.5 0.1\n\nMotor fuel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.971 24.8 -2.2 6.8 -9.6 -3.0\n\nGasoline (all types). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.852 24.6 -2.1 7.0 -9.7 -2.9\n\nGasoline, unleaded regular3. . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 25.3 -2.1 7.4 -10.1 -2.9\n\nGasoline, unleaded midgrade3, 7. . . . . . . . . . . . . . . . . . . . . . . \ufffd 23.0 -1.9 6.2 -8.4 -2.8\n\nGasoline, unleaded premium3. . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 21.5 -2.2 5.5 -7.3 -2.7\n\nOther motor fuels1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.119 30.7 -5.5 0.8 -7.2 -5.5\n\nEnergy services.................................................. . 3.300 4.3 0.1 0.4 -0.7 0.3\n\nElectricity....................................................... . 2.552 4.2 0.0 0.6 -1.0 0.1\n\nUtility (piped) gas service. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.748 4.3 0.5 -0.5 0.5 0.7\n\nAll items less food and energy. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 79.047 2.5 0.1 0.2 0.0 0.2\n\nCommodities less food and energy commodities. . . . . . . . . . . . 18.829 0.8 0.1 -0.1 -0.1 0.2\n\nHousehold furnishings and supplies8. . . . . . . . . . . . . . . . . . . . . . . 3.328 0.8 -0.2 -0.2 -0.1 0.1\n\nWindow and floor coverings and other linens2. . . . . . . . . . 0.233 -2.5 -0.8 -0.7 -0.2 0.5\n\nFloor coverings1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.067 -1.7 -1.5 -1.3 -0.3 -1.5\n\nWindow coverings1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.045 4.6 -1.8 -1.6 2.6 -1.8\n\nOther linens2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.121 -5.7 0.0 -0.9 -0.7 1.6\n\nFurniture and bedding1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.856 0.5 0.0 -0.7 0.5 0.0\n\nBedroom furniture1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.291 -0.2 1.0 -1.1 -0.5 1.0\n\nLiving room, kitchen, and dining room furniture1, 2. . . 0.432 1.1 -0.5 -0.5 1.5 -0.5\n\nOther furniture2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.128 -0.2 -0.9 -1.3 -0.8 1.0\n\nAppliances2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.196 -1.0 0.7 0.5 -1.5 0.8\n\nMajor appliances2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.065 -4.1 -2.2 2.1 -0.8 -1.9\n\nLaundry equipment1, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd -0.1 -1.7 5.6 1.3 -1.7\n\nOther appliances2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.129 0.8 2.1 -0.3 -1.7 2.2\n\nOther household equipment and furnishings2. . . . . . . . . . . 0.543 -0.1 -1.3 -0.7 -0.4 -1.0\n\nClocks, lamps, and decorator items1. . . . . . . . . . . . . . . . . . 0.309 -4.5 -1.1 -2.1 -1.2 -1.1\n\nIndoor plants and flowers9. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.117 4.7 -0.6 0.2 0.5 0.2\n\nDishes and flatware1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.046 10.4 -1.0 -1.9 0.5 -1.0\n\nNonelectric cookware and tableware2. . . . . . . . . . . . . . . . . 0.072 6.4 -3.5 0.8 0.7 -3.5\n\nTools, hardware, outdoor equipment and supplies1, 2.. . 0.669 1.6 0.2 -0.6 -0.6 0.2\n\nTools, hardware and supplies2. . . . . . . . . . . . . . . . . . . . . . . . . 0.210 3.5 -0.5 0.2 1.2 -0.4\n\nSee footnotes at end of table.\n\nTable 2. Consumer Price Index for All Urban Consumers (CPI-U): U.S. city average, by detailed expenditure\ncategory, July 2026 -- Continued\n\n[1982-84=100, unless otherwise noted]\n\nRelative Unadjusted percent Seasonally adjusted percent change\nimportance change\n\nExpenditure category Jun. Jul. Jun. Apr. May Jun.\n2026 2025- 2026- 2026- 2026- 2026-\nMay Jun. Jul.\nJul. Jul. 2026 2026 2026\n2026 2026\n\nOutdoor equipment and supplies1, 2. . . . . . . . . . . . . . . . . . . 0.283 0.0 0.7 -1.0 -1.6 0.7\n\nHousekeeping supplies1................................... . 0.831 2.5 0.1 0.5 0.3 0.1\n\nHousehold cleaning products1, 2. . . . . . . . . . . . . . . . . . . . . . . . 0.302 3.2 0.3 1.1 1.1 0.3\n\nHousehold paper products1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . 0.170 0.8 0.9 -0.3 -1.1 0.9\n\nMiscellaneous household products1, 2. . . . . . . . . . . . . . . . . 0.358 2.8 -0.5 0.4 0.4 -0.5\n\nApparel......................................................... . 2.437 3.9 -1.3 0.3 -0.6 0.1\n\nMen's and boys' apparel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.605 3.5 -1.1 0.4 -0.1 0.7\n\nMen's apparel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..... . 0.485 3.5 -1.4 0.4 0.1 0.1\n\nMen's suits, sport coats, and outerwear. . . . . . . . . . . . 0.099 -1.3 -2.8 1.2 0.3 -0.3\n\nMen's underwear, nightwear, swimwear, and\n\naccessories. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.135 6.2 -0.5 -0.5 1.2 0.5\n\nMen's shirts and sweaters2. . . . . . . . . . . . . . . . . . . . . . . . . . . 0.128 3.6 -2.3 -1.1 -1.0 -0.5\n\nMen's pants and shorts. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.119 4.2 -0.4 1.3 0.3 0.2\n\nBoys' apparel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.119 3.3 0.3 -0.6 -0.2 1.6\n\nWomen's and girls' apparel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.969 3.2 -2.9 -0.5 0.0 -0.7\n\nWomen's apparel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.822 2.9 -2.9 -0.6 0.0 -0.8\n\nWomen's outerwear. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.066 3.0 0.4 -2.9 -2.1 2.9\n\nWomen's dresses..................................... . 0.110 -4.9 -6.6 -3.2 0.0 -2.7\n\nWomen's suits and separates2...................... . 0.385 5.2 -3.8 0.1 0.9 -1.0\n\nWomen's underwear, nightwear, swimwear, and\n\naccessories2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.245 3.8 -0.7 0.8 0.5 -0.1\n\nGirls' apparel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.147 5.3 -2.9 0.2 -0.2 -0.2\n\nFootwear. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.591 3.4 -0.2 0.6 -0.3 0.5\n\nMen's footwear........................................... . 0.192 2.8 0.8 -0.2 0.1 1.1\n\nBoys' and girls' footwear1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.126 2.1 -1.9 -0.1 0.7 -1.9\n\nWomen's footwear....................................... . 0.273 4.5 -0.1 1.3 -1.0 0.5\n\nInfants' and toddlers' apparel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.097 -1.7 -1.8 1.0 -1.4 -1.4\n\nJewelry and watches6. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.175 14.4 3.6 2.9 -5.2 2.2\n\nWatches1, 6. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.035 10.6 3.6 -1.2 -1.0 3.6\n\nJewelry6................................................... . 0.140 15.2 3.7 3.7 -6.0 1.7\n\nTransportation commodities less motor fuel8. . . . . . . . . . . . . . 6.842 -0.2 0.4 -0.1 -0.1 0.2\n\nNew vehicles................................................ . 3.751 0.5 0.1 -0.3 0.0 0.1\n\nNew cars3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 1.1 0.1 -0.1 -0.2 0.0\n\nNew trucks3, 10. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 0.5 0.1 -0.3 0.0 0.1\n\nUsed cars and trucks. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.679 -1.9 0.7 0.1 -0.2 0.4\n\nMotor vehicle parts and equipment1. . . . . . . . . . . . . . . . . . . . . . 0.338 1.5 0.6 -0.7 0.2 0.6\n\nTires1...................................................... . 0.283 0.7 0.2 -0.8 0.1 0.2\n\nVehicle accessories other than tires1, 2. . . . . . . . . . . . . . . . 0.055 5.5 2.5 -0.3 1.0 2.5\n\nVehicle parts and equipment other than tires1, 3. . . \ufffd 6.6 2.4 -0.3 1.2 2.4\n\nMotor oil, coolant, and fluids1, 3. . . . . . . . . . . . . . . . . . . . . . \ufffd 4.3 5.5 \ufffd 1.3 5.5\n\nMedical care commodities1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.412 -2.7 -0.6 -0.7 -0.2 -0.6\n\nMedicinal drugs1, 8. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.282 -2.7 -0.5 -0.8 0.0 -0.5\n\nPrescription drugs1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.919 -3.1 -0.8 -0.9 -0.1 -0.8\n\nNonprescription drugs8. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.362 -1.7 0.2 -0.8 0.1 -0.3\n\nMedical equipment and supplies1, 8. . . . . . . . .............. . 0.130 -2.7 -1.6 0.0 -1.4 -1.6\n\nRecreation commodities8. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.916 3.1 0.6 -0.1 0.9 0.6\n\nVideo and audio products8................................ . 0.259 2.4 1.5 -0.6 0.7 1.2\n\nTelevisions11. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.105 -0.8 2.4 -1.5 0.1 1.7\n\nOther video equipment11. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.019 10.0 2.1 0.6 7.7 2.1\n\nAudio equipment1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.045 -1.5 0.3 -0.7 0.0 0.3\n\nRecorded music and music subscriptions1, 2. . . . . . . . . 0.084 8.0 0.8 0.4 0.5 0.8\n\nPets and pet products1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.600 1.7 0.7 -0.7 0.1 0.7\n\nPet food and treats1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 1.3 0.5 -0.4 0.2 0.5\n\nPurchase of pets, pet supplies, accessories1, 2, 3. . . . \ufffd 1.7 0.8 -1.3 0.0 0.8\n\nSee footnotes at end of table.\n\nTable 2. Consumer Price Index for All Urban Consumers (CPI-U): U.S. city average, by detailed expenditure\ncategory, July 2026 -- Continued\n\n[1982-84=100, unless otherwise noted]\n\nRelative Unadjusted percent Seasonally adjusted percent change\nimportance change\n\nExpenditure category Jun. Jul. Jun. Apr. May Jun.\n2026 2025- 2026- 2026- 2026- 2026-\nMay Jun. Jul.\nJul. Jul. 2026 2026 2026\n2026 2026\n\nSporting goods1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.531 4.3 0.1 0.7 1.6 0.1\n\nSports vehicles including bicycles1. . . . . . . . . . . . . . . . . . . . . 0.285 5.6 0.5 0.9 2.5 0.5\n\nSports equipment1....................................... . 0.234 2.9 -0.3 0.6 0.4 -0.3\n\nPhotographic equipment and supplies1. . . . . . . . . . . . . . . . . . 0.025 0.0 -1.4 -0.2 -2.7 -1.4\n\nPhotographic equipment1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd -0.7 -1.4 -0.4 -2.8 -1.4\n\nRecreational reading materials1. . . . . . . . . . . . . . . . . . . . . . . . . . . 0.110 2.2 2.2 1.6 0.0 2.2\n\nNewspapers and magazines1, 2. . . . . . . . . . . . . . . . . . . . . . . . 0.055 6.0 -0.5 2.5 2.2 -0.5\n\nRecreational books1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.055 -1.2 4.9 0.7 -2.2 4.9\n\nOther recreational goods2................................. . 0.391 4.5 0.0 -0.2 1.9 0.5\n\nToys. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.305 4.0 0.2 0.0 2.5 0.8\n\nToys, games, hobbies and playground\n\nequipment2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 3.8 0.0 0.3 3.3 0.7\n\nSewing machines, fabric and supplies1, 2. . . . . . . . . . . . . 0.028 12.9 -0.9 -1.9 -1.6 -0.9\n\nMusic instruments and accessories1, 2. . . . . . . . . . . . . . . . 0.043 3.8 -0.6 -0.2 0.1 -0.6\n\nEducation and communication commodities8. . . . . . . . . . . . . . 0.774 -4.5 1.8 0.0 -0.8 1.3\n\nEducational books and supplies1. . . . . . . . . . . . . . . . . . . . . . . . . 0.037 1.2 0.8 \ufffd 1.0 0.8\n\nCollege textbooks1, 3, 12. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd -0.4 0.7 1.7 1.2 0.7\n\nInformation technology commodities8. . . . . . . . . . . . . . . . . . . . 0.736 -4.8 1.9 -0.1 -0.9 1.4\n\nComputers, peripherals, and smart home\n\nassistants1, 4. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.298 3.9 3.5 0.2 -0.7 3.5\n\nComputer software and accessories1, 2. . . . . . . . . . . . . . . 0.031 21.2 0.5 0.0 2.3 0.5\n\nTelephone hardware, calculators, and other\n\nconsumer information items11. . . . . . . . . . . . . . . . . . . . . . . . 0.407 -11.8 0.8 -0.2 -1.3 -0.1\n\nSmartphones1, 3, 13. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd -10.9 1.1 -0.1 -0.8 1.1\n\nAlcoholic beverages1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.823 2.1 0.2 0.1 0.0 0.2\n\nAlcoholic beverages at home. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.386 0.6 -0.1 0.1 -0.2 0.0\n\nBeer, ale, and other malt beverages at home1. . . . . . . 0.134 2.8 -0.1 0.3 0.0 -0.1\n\nDistilled spirits at home1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.087 0.2 0.6 -0.5 0.0 0.6\n\nWhiskey at home1, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 1.7 0.9 0.0 0.2 0.9\n\nDistilled spirits, excluding whiskey, at home1, 3. . . . \ufffd -0.1 0.6 -0.9 -0.1 0.6\n\nWine at home. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.165 -0.9 -0.4 0.1 -0.5 -0.1\n\nAlcoholic beverages away from home1. . . . . . . . . . . . . . . . . . 0.437 3.6 0.4 0.1 0.3 0.4\n\nBeer, ale, and other malt beverages away from\n\nhome1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 3.2 0.4 -0.1 0.2 0.4\n\nWine away from home1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 1.8 0.3 0.5 0.5 0.3\n\nDistilled spirits away from home1, 2, 3. . . . . . . . . . . . . . . . . . \ufffd 3.6 0.7 0.1 0.6 0.7\n\nOther goods8. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.297 4.2 0.3 0.1 -0.2 0.4\n\nTobacco and smoking products1, 11. . . . . . . . . . . . . . . . . . . . . . 0.445 6.7 0.5 1.0 -0.7 0.5\n\nCigarettes1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.327 7.3 0.4 1.2 -0.5 0.4\n\nTobacco products other than cigarettes1, 2. . . . . . . . . . . . 0.114 4.7 0.9 0.4 -1.2 0.9\n\nPersonal care products.................................... . 0.670 3.1 0.4 -0.1 0.2 0.2\n\nHair, dental, shaving, and miscellaneous personal\n\ncare products1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.320 3.4 0.1 -0.1 0.3 0.1\n\nCosmetics, perfume, bath, nail preparations and\n\nimplements1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.340 3.0 0.6 -0.4 0.1 0.6\n\nMiscellaneous personal goods2. . . . . . . . . . . . . . . . . . . . . . . . . . . 0.182 1.2 -0.6 -1.0 -0.6 0.5\n\nStationery, stationery supplies, gift wrap3. . . . . . . . . . . . . \ufffd 1.1 -2.9 -0.1 -0.7 -0.9\n\nServices less energy services. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60.217 3.0 0.1 0.3 0.0 0.2\n\nShelter.......................................................... . 35.304 3.2 0.1 0.3 0.1 0.1\nRent of shelter14............................................ . 35.016\n3.2 0.1 0.3 0.1 0.1\nRent of primary residence. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7.716\nLodging away from home2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.450 2.9 0.2 0.4 0.1 0.3\n0.215\nLodging while at school14. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.0 -3.4 0.4 -2.3 -2.8\n\n3.0 0.6 0.2 0.1 0.3\n\nOther lodging away from home including hotels 1.236 2.6 -4.0 0.5 -2.8 -3.3\nand motels. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n\nSee footnotes at end of table.\n\nTable 2. Consumer Price Index for All Urban Consumers (CPI-U): U.S. city average, by detailed expenditure\ncategory, July 2026 -- Continued\n\n[1982-84=100, unless otherwise noted]\n\nRelative Unadjusted percent Seasonally adjusted percent change\nimportance change\n\nExpenditure category Jun. Jul. Jun. Apr. May Jun.\n2026 2025- 2026- 2026- 2026- 2026-\nMay Jun. Jul.\nJul. Jul. 2026 2026 2026\n2026 2026\n\nOwners' equivalent rent of residences14. . . . . . . . . . . . . . 25.849 3.2 0.3 0.3 0.2 0.3\n\nOwners' equivalent rent of primary residence14. . . 24.886 3.2 0.3 0.3 0.2 0.3\n\nTenants' and household insurance1, 2. . . . . . . . . . . . . . . . . . 0.288 4.8 -0.1 0.5 0.2 -0.1\n\nWater and sewer and trash collection services2. . . . . . . . . . . 1.140 4.6 0.4 0.2 0.3 0.4\n\nWater and sewerage maintenance1. . . . . . . . . . . . . . . . . . . . . . 0.783 5.0 0.2 0.2 0.4 0.2\n\nGarbage and trash collection1, 10. . . . . . . . . . . . . . . . . . . . . . . . . 0.357 3.9 0.9 0.2 0.1 0.9\n\nHousehold operations1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd\n\nDomestic services1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd\n\nGardening and lawncare services1, 2. . . . . . . . . . . . . . . . . . . . . 0.390 12.3 0.5 -2.6 4.3 0.5\n\nMoving, storage, freight expense2. . . . . . . . . . . . . . . . . . . . . . . . 0.078 -3.9 -0.6 -0.7 -0.2 -1.2\n\nRepair of household items1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd\n\nMedical care services. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6.840 2.7 0.3 0.5 -0.1 0.6\n\nProfessional services1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.408 3.4 0.4 0.5 -0.1 0.4\n\nPhysicians' services1.................................... . 1.660 2.4 0.2 0.0 -0.2 0.2\n\nDental services1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.917 5.1 0.5 1.9 0.0 0.5\n\nEyeglasses and eye care1, 6. . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.317 1.8 0.3 0.0 0.0 0.3\n\nServices by other medical professionals1, 6. . . . . . . . . . . \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd\n\nHospital and related services1, 11. . . . . . . . . . . . . . . . . . . . . . . . . 2.607 5.4 0.4 0.6 0.1 0.4\n\nHospital services1, 15. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.156 5.2 0.5 0.7 0.1 0.5\n\nInpatient hospital services1, 3, 15. . . . . . . . . . . . . . . . . . . . . \ufffd 5.2 \ufffd \ufffd \ufffd \ufffd\n\nOutpatient hospital services1, 3, 6. . . . . . . . . . . . . . . . . . . . \ufffd 5.8 0.4 0.6 0.2 0.4\n\nNursing homes and adult day services1, 15. . . . . . . . . . . 0.221 4.2 -0.1 0.5 0.0 -0.1\n\nHome health care1, 5. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.229 9.7 -0.5 0.4 0.0 -0.5\n\nHealth insurance1, 5. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.826 -8.0 -0.2 -0.1 -0.5 -0.2\n\nTransportation services. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6.352 2.9 -0.7 -0.6 -0.3 0.3\n\nLeased cars and trucks1, 12. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.384 -1.1 0.3 0.0 -0.2 0.3\n\nCar and truck rental2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.157 -3.9 2.8 -4.2 5.1 -3.0\n\nMotor vehicle maintenance and repair1. . . . . . . . . . . . . . . . . . 1.048 6.6 0.6 0.8 1.1 0.6\n\nMotor vehicle body work1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.058 3.6 \ufffd \ufffd \ufffd \ufffd\n\nMotor vehicle maintenance and servicing1. . . . . . . . . . . . 0.519 7.3 0.6 0.5 0.6 0.6\n\nMotor vehicle repair1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.403 6.2 1.0 1.0 1.9 1.0\n\nMotor vehicle insurance. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.570 -4.5 -0.3 -1.7 -2.0 -0.3\n\nMotor vehicle fees1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.510 2.5 -1.0 0.2 -0.4 -1.0\n\nState motor vehicle registration and license\n\nfees1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.296 3.5 -0.4 0.0 0.0 -0.4\n\nParking and other fees1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.194 1.2 -1.8 0.7 -0.9 -1.8\n\nParking fees and tolls2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 3.5 0.4 1.0 -0.2 0.1\n\nPublic transportation. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.683 16.1 -2.6 0.3 0.9 1.7\n\nAirline fares............................................... . 1.091 25.5 -3.9 2.7 0.2 2.2\n\nOther intercity transportation. . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.232 -4.4 -2.1 -0.7 -1.6 -2.1\n\nShip fare1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd -8.4 -4.2 -1.8 -1.7 -4.2\n\nIntracity transportation1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.355 7.0 1.2 -2.3 1.6 1.2\n\nIntracity mass transit1, 3, 8. . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd\n\nRecreation services8. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.154 2.2 0.0 0.5 0.3 0.0\n\nVideo and audio services8. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.777 3.7 0.7 -0.1 0.5 0.8\n\nCable, satellite, and live streaming television\n\nservice10. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.595 2.8 0.3 0.4 0.7 0.4\n\nPurchase, subscription, and rental of video1, 2. . . . . . . 0.181 7.8 2.0 -1.7 -0.3 2.0\n\nVideo discs and other media1, 2, 3. . . . . . . . . . . . . . . . . . . \ufffd 9.2 7.2 -3.8 -6.6 7.2\n\nSubscription and rental of video and video\n\ngames1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 13.4 -0.2 -1.3 -0.5 -0.2\n\nPet services including veterinary2. . . . . . . . . . . . . . . ......... . 0.543 4.5 -0.2 0.5 0.6 -0.1\n\nPet services2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 5.1 -0.1 1.4 0.5 -0.3\n\nVeterinarian services1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd 4.7 -0.2 -0.1 0.2 -0.2\n\nSee footnotes at end of table.\n\nTable 2. Consumer Price Index for All Urban Consumers (CPI-U): U.S. city average, by detailed expenditure\ncategory, July 2026 -- Continued\n\n[1982-84=100, unless otherwise noted]\n\nRelative Unadjusted percent Seasonally adjusted percent change\nimportance change\n\nExpenditure category Jun. Jul. Jun. Apr. May Jun.\n2026 2025- 2026- 2026- 2026- 2026-\nMay Jun. Jul.\nJul. Jul. 2026 2026 2026\n2026 2026\n\nPhotographers and photo processing1, 2. . . . . . . . . . . . . . . . . 0.036 0.9 -0.1 1.0 -3.1 -0.1\n\nOther recreation services2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.798 1.0 -0.3 0.7 0.2 -0.3\n\nClub membership for shopping clubs, fraternal, or\n\nother organizations, or participant sports fees2. . . . 0.740 -1.1 0.3 0.5 0.0 0.2\n\nAdmissions1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.695 3.0 -0.9 1.1 0.4 -0.9\n\nAdmission to movies, theaters, and 2.3 -0.4 -0.4 -1.0 -0.4\nconcerts1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd\n\nAdmission to sporting events1, 2, 3. . . . . . . . . . . . . . . . . . . \ufffd 2.1 -2.0 2.8 3.3 -2.0\n\nFees for lessons or instructions1, 6. . . . . . . . . . . . . . . . . . . . . 0.155 1.3 0.1 0.3 -0.3 0.1\n\nEducation and communication services8. . . . . . . . . . . . . . . . . . . 4.904 1.3 0.5 0.9 -0.8 0.5\n\nTuition, other school fees, and childcare................ . 2.499 2.7 0.6 0.0 0.1 0.5\n\nCollege tuition and fees. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.313 2.2 0.8 0.0 0.1 0.7\n\nElementary and high school tuition and fees11. . . . . . . 0.400 3.4 0.7 0.0 -0.2 0.5\n\nDay care and preschool9. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.683 3.4 0.3 0.1 0.4 0.3\n\nTechnical and vocational school tuition and fixed\n\nfees2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.045 1.4 0.4 0.0 -0.1 0.0\n\nPostage and delivery services2. . . . . . . . . . . . . . . . . . . . . . . . . . . 0.067 13.3 -0.1 5.2 0.4 0.2\n\nPostage. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.062 13.3 0.0 5.4 0.5 0.3\n\nDelivery services2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.005 12.6 -1.0 2.6 -0.3 -1.1\n\nTelephone services1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.413 -3.0 0.6 2.0 -3.0 0.6\n\nWireless telephone services1, 2. . . . . . . . . . . . . . . . . . . . . . . . . 1.289 -3.6 0.6 2.2 -3.3 0.6\n\nResidential telephone services1, 8. . . . . . . . . . . . . . . . . . . . . . 0.124 2.4 0.1 -0.6 0.6 0.1\n\nInternet services and electronic information\n\nproviders1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.915 3.5 0.1 1.2 0.2 0.1\n\nOther personal services1, 8. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.608 4.4 -0.2 1.4 0.5 -0.2\n\nPersonal care services1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.667 4.4 0.1 0.5 1.3 0.1\n\nHaircuts and other personal care services1, 2. . . . . . . . 0.667 4.4 0.1 0.5 1.3 0.1\n\nMiscellaneous personal services1. . . . . . . . . . . . . . . ......... . 0.941 4.5 -0.3 2.1 -0.1 -0.3\n\nLegal services1, 6. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd\n\nFuneral expenses1, 6. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.164 3.0 -0.1 -1.1 -0.1 -0.1\n\nLaundry and dry cleaning services1, 2. . . . . . . . . . . . . . . . . 0.130 5.3 0.4 0.1 0.5 0.4\n\nApparel services other than laundry and dry\n\ncleaning1, 2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.029 6.6 0.3 0.9 0.6 0.3\n\nFinancial services1, 6. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.241 1.8 -1.3 8.3 -0.8 -1.3\n\nChecking account and other bank services1, 2, 3. . . \ufffd -1.4 -2.0 0.4 -0.1 -2.0\n\nTax return preparation and other accounting 4.1 -0.4 11.8 -1.4 -0.4\nfees1, 2, 3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . \ufffd\n\n1 Not seasonally adjusted.\n2 Indexes on a December 1997=100 base.\n3 Special index based on a substantially smaller sample.\n4 Indexes on a December 2007=100 base.\n5 Indexes on a December 2005=100 base.\n6 Indexes on a December 1986=100 base.\n7 Indexes on a December 1993=100 base.\n8 Indexes on a December 2009=100 base.\n9 Indexes on a December 1990=100 base.\n10 Indexes on a December 1983=100 base.\n11 Indexes on a December 2024=100 base.\n12 Indexes on a December 2001=100 base.\n13 Indexes on a December 2019=100 base.\n14 Indexes on a December 1982=100 base.\n15 Indexes on a December 1996=100 base.\n\nTable 3. Consumer Price Index for All Urban Consumers (CPI-U): U.S. city average, special aggregate indexes,\nJuly 2026\n\n[1982-84=100, unless otherwise noted]\n\nRelative Unadjusted indexes Unadjusted percent Seasonally adjusted percent\nimpor- change change\ntance\nSpecial aggregate indexes Jun. Jul. Jun. Jul. Jul. Jun. Apr. May Jun.\n2026 2025 2026 2026 2025- 2026- 2026- 2026- 2026-\nJul. Jul. May Jun.\n2026 2026 2026 2026 Jul.\n2026\n\nAll items less food.................................. . 86.478 320.408 331.486 331.383 3.4 0.0 0.5 -0.5 0.1\n\nAll items less shelter. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 64.696 290.116 300.389 300.178 3.5 -0.1 0.6 -0.7 0.0\n\nAll items less food and shelter.................... . 51.174 277.922 288.270 287.920 3.6 -0.1 0.7 -1.0 0.0\n\nAll items less food, shelter, and energy. . . . . . . . . . 43.743 280.601 285.840 285.996 1.9 0.1 0.1 -0.1 0.3\n\nAll items less food, shelter, energy, and used\n\ncars and trucks................................... . 41.064 285.703 291.821 291.855 2.2 0.0 0.1 -0.1 0.3\n\nAll items less medical care........................ . 91.748 310.451 321.458 321.373 3.5 0.0 0.5 -0.4 0.0\n\nAll items less energy. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 92.568 329.713 337.847 338.124 2.6 0.1 0.2 0.0 0.2\n\nCommodities. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36.483 225.508 234.622 234.227 3.9 -0.2 0.8 -1.1 -0.2\n\nCommodities less food, energy, and used\n\ncars and trucks. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16.151 164.380 166.453 166.364 1.2 -0.1 -0.1 -0.1 0.2\n\nCommodities less food. . . . . . . . . . . . . . . . . . . . . . . . . . . 22.961 178.144 186.595 185.960 4.4 -0.3 1.1 -1.9 -0.3\n\nCommodities less food and beverages. . . . . . . . 22.138 174.234 182.688 182.031 4.5 -0.4 1.1 -1.9 -0.4\n\nServices. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 63.517 419.436 431.993 432.343 3.1 0.1 0.3 0.0 0.2\n\nServices less rent of shelter1................... . 28.502 433.583 446.283 446.532 3.0 0.1 0.5 -0.2 0.2\n\nServices less medical care services. . . . . . . . . . . 56.677 402.699 415.089 415.297 3.1 0.1 0.4 0.0 0.1\n\nDurables. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10.542 124.252 123.592 124.046 -0.2 0.4 -0.1 0.0 0.3\n\nNondurables......................................... . 25.941 279.927 296.787 295.642 5.6 -0.4 1.2 -1.5 -0.3\n\nNondurables less food. . . . . . . . . . . . . . . . . . . . . . . . . . . 12.419 230.255 252.530 250.155 8.6 -0.9 2.2 -3.2 -0.8\n\nNondurables less food and beverages. . . . . . . . 11.596 226.293 249.531 246.986 9.1 -1.0 2.4 -3.4 -0.9\n\nNondurables less food, beverages, and\n\napparel. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9.159 291.647 325.707 322.607 10.6 -1.0 2.9 -4.2 -1.2\n\nNondurables less food and apparel. . . . . . . . . . . . 9.982 290.413 321.803 319.040 9.9 -0.9 2.7 -3.9 -1.1\n\nHousing. . . . . . . . . . . . . . . . . . . . . . . ....................... . 44.149 348.210 359.189 359.556 3.3 0.1 0.2 0.0 0.1\n\nEducation and communication2................... . 5.677 146.696 146.505 147.498 0.5 0.7 0.8 -0.8 0.6\n\nEducation2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.537 309.439 315.867 317.815 2.7 0.6 0.0 0.1 0.5\n\nCommunication2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.141 73.029 71.613 72.134 -1.2 0.7 1.3 -1.5 0.6\n\nInformation and information processing2. . . . 3.074 68.619 67.098 67.598 -1.5 0.7 1.2 -1.5 0.6\n\nInformation technology, hardware and\n\nservices3. . . . . . . . . . . . . . ....................... . 1.661 100.744 99.663 100.538 -0.2 0.9 0.6 -0.3 0.7\n\nRecreation2.......................................... . 5.070 141.587 144.945 145.242 2.6 0.2 0.3 0.5 0.2\n\nVideo and audio2. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.036 120.103 123.181 124.278 3.5 0.9 -0.2 0.5 0.9\n\nPets, pet products and services2. . . . . . . . . . . . . . . 1.143 229.728 236.007 236.640 3.0 0.3 -0.1 0.4 0.3\n\nPhotography2. . . . . . . . ............................. . 0.061 85.459 86.488 85.938 0.6 -0.6 0.5 -2.9 -0.6\n\nFood and beverages. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14.345 337.077 346.505 346.945 2.9 0.1 0.2 0.2 0.1\n\nDomestically produced farm food.............. . 6.875 323.572 331.439 331.066 2.3 -0.1 0.0 0.4 -0.1\n\nOther services. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9.665 427.263 435.418 436.379 2.1 0.2 0.8 -0.2 0.2\n\nApparel less footwear.............................. . 1.846 120.649 127.576 125.492 4.0 -1.6 0.2 -0.6 0.0\n\nFuels and utilities................................... . 4.602 337.149 353.080 353.712 4.9 0.2 0.4 -0.7 0.3\n\nHousehold energy. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.461 283.847 297.827 298.097 5.0 0.1 0.5 -1.0 0.2\n\nMedical care. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8.252 583.856 592.750 593.781 1.7 0.2 0.3 -0.1 0.4\n\nTransportation. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17.165 273.452 291.226 289.420 5.8 -0.6 1.3 -2.5 -0.5\n\nPrivate transportation. . . . . . . . . . . . . . . . . . . . . . . . . . . . 15.482 274.289 288.841 287.661 4.9 -0.4 1.4 -2.8 -0.7\n\nNew and used motor vehicles2. . . . . . . . . . . . . . . 7.045 126.914 125.880 126.403 -0.4 0.4 -0.2 0.0 0.2\n\nUtilities and public transportation. . . . . . . . . . . . . . . . . . 8.131 268.500 282.891 282.010 5.0 -0.3 1.1 -0.7 0.3\n\nHousehold furnishings and operations. . . . . . . . . . . 4.243 152.865 156.168 156.223 2.2 0.0 -0.6 0.2 0.1\n\nOther goods and services. . . . . . . . . . . . . . . . . . . . . . . . . . 2.905 582.371 607.199 607.421 4.3 0.0 1.0 0.1 0.1\n\nPersonal care. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.460 292.613 303.969 303.827 3.8 0.0 1.0 0.2 0.0\n\n1 Indexes on a December 1982=100 base.\n2 Indexes on a December 1997=100 base.\n3 Indexes on a December 2024=100 base.\n\nTable 4. Consumer Price Index for All Urban Consumers (CPI-U): Selected areas, all items index, July 2026\n[1982-84=100, unless otherwise noted]\n\nPricing Percent change to Jul. 2026 from: Percent change to Jun. 2026 from:\nSchedule1\nArea Jul. May Jun. Jun. Apr. May\n2025 2026 2026 2025 2026 2026\n\nU.S. city average. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M 3.4 -0.4 0.0 3.5 0.3 -0.3\n\nRegion and area size2 4.1 -0.3 0.0 4.3 0.6 -0.2\n\nNortheast..................................................... . M 4.3 -0.1 0.2 4.1 0.4 -0.2\nNortheast - Size Class A. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M\nNortheast - Size Class B/C3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . M 3.9 -0.5 -0.3 4.6 0.7 -0.2\nNew England4. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M\nMiddle Atlantic4. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M 3.9 -0.3 -0.1 4.2 0.6 -0.2\n\nMidwest. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M 4.2 -0.2 0.0 4.4 0.5 -0.2\nMidwest - Size Class A.................................. . M\nMidwest - Size Class B/C3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M 3.5 -0.7 -0.2 3.8 0.7 -0.5\nEast North Central4. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M\nWest North Central4...................................... . M 3.0 -0.7 -0.2 3.3 0.7 -0.4\n\nSouth. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M 3.8 -0.7 -0.2 4.2 0.7 -0.5\nSouth - Size Class A..................................... . M\nSouth - Size Class B/C3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M 3.4 -0.6 -0.1 3.6 0.6 -0.5\nSouth Atlantic4. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M\nEast South Central4. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M 3.7 -0.8 -0.5 4.4 0.9 -0.3\nWest South Central4. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M\n3.2 -0.3 0.1 3.2 0.0 -0.4\nWest. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M\nWest - Size Class A. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M 2.8 -0.3 0.2 2.7 -0.2 -0.5\nWest - Size Class B/C3.................................. . M\nMountain4.................................................. . M 3.4 -0.3 0.1 3.5 0.2 -0.4\nPacific4..................................................... . M\n3.4 -0.2 0.1 3.5 0.4 -0.2\nSize classes\n3.5 -0.3 0.1 3.8 0.2 -0.3\nSize Class A5................................................ . M\nSize Class B/C3. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . M 2.5 -0.6 0.3 2.3 -0.7 -0.9\n\nSelected local areas 3.0 -0.3 0.0 3.2 0.1 -0.2\n\nChicago-Naperville-Elgin, IL-IN-WI. . . . . . . . . . . . . . . . . . . . . . . . M 3.4 -0.2 0.1 3.5 0.2 -0.3\nLos Angeles-Long Beach-Anaheim, CA. . . . . . . . . . . . . . . . . . M\nNew York-Newark-Jersey City, NY-NJ-PA. . . . . . . . . . . . . . . M 2.6 -0.4 -0.2 2.9 0.1 -0.2\n\nAtlanta-Sandy Springs-Roswell, GA. . . . . . . . . . . . . . . . . . . . . . . 2 2.7 -0.5 0.0 3.0 0.0 -0.5\nBaltimore-Columbia-Towson, MD6. . . . . . . . . . . . . . . . . . . . . . . . . 2\nDetroit-Warren-Dearborn, MI. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 3.1 -0.2 0.0 3.3 0.2 -0.2\nHouston-The Woodlands-Sugar Land, TX. . . . . . . . . . . . . . . . 2\nMiami-Fort Lauderdale-West Palm Beach, FL. . . . . . . . . . . 2 3.3 -0.3 0.1 3.3 0.2 -0.4\nPhiladelphia-Camden-Wilmington, PA-NJ-DE-MD. . . . . . . 2\nPhoenix-Mesa-Scottsdale, AZ7. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 3.4 -0.4 -0.1 3.7 0.4 -0.3\nSan Francisco-Oakland-Hayward, CA.................... . 2\nSeattle-Tacoma-Bellevue, WA. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 2.5 -1.1 -0.1 2.5 0.2 -0.9\nSt. Louis, MO-IL............................................. . 2\nUrban Alaska. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 3.4 0.0 0.3 3.3 -0.2 -0.3\n\nBoston-Cambridge-Newton, MA-NH. . . . . . . . . . . . . . . . . . . . . . . 1 4.6 0.2 0.5 4.1 0.2 -0.2\nDallas-Fort Worth-Arlington, TX. . . . . . . . . . . . . . . . . . . . . . . . . . . . 1\nDenver-Aurora-Lakewood, CO. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 \ufffd \ufffd \ufffd 2.8 0.5 \ufffd\nMinneapolis-St.Paul-Bloomington, MN-WI. . . . . . . . . . . . . . . . 1\nRiverside-San Bernardino-Ontario, CA4.................. . 1 \ufffd \ufffd \ufffd 2.7 -0.6 \ufffd\nSan Diego-Carlsbad, CA. . . . . . . . . . . ........................ . 1\nTampa-St. Petersburg-Clearwater, FL8. . . . . . . . . . . . . . . . . . . 1 \ufffd \ufffd \ufffd 4.0 0.7 \ufffd\nUrban Hawaii. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1\nWashington-Arlington-Alexandria, DC-VA-MD-WV6. . . . . 1 \ufffd \ufffd \ufffd 0.8 -1.6 \ufffd\n\n\ufffd \ufffd \ufffd 3.4 0.1 \ufffd\n\n\ufffd \ufffd \ufffd 5.4 1.3 \ufffd\n\n\ufffd \ufffd \ufffd 2.8 0.0 \ufffd\n\n\ufffd \ufffd \ufffd 3.8 0.2 \ufffd\n\n\ufffd \ufffd \ufffd 4.5 1.0 \ufffd\n\n\ufffd \ufffd \ufffd 2.9 0.5 \ufffd\n\n\ufffd \ufffd \ufffd 3.3 -0.8 \ufffd\n\n3.7 0.2 \ufffd \ufffd \ufffd \ufffd\n\n2.9 -0.1 \ufffd \ufffd \ufffd \ufffd\n\n3.9 -0.7 \ufffd \ufffd \ufffd \ufffd\n\n3.2 -0.6 \ufffd \ufffd \ufffd \ufffd\n\n3.2 -0.1 \ufffd \ufffd \ufffd \ufffd\n\n2.7 -0.2 \ufffd \ufffd \ufffd \ufffd\n\n1.9 -0.1 \ufffd \ufffd \ufffd \ufffd\n\n5.6 0.1 \ufffd \ufffd \ufffd \ufffd\n\n4.0 0.3 \ufffd \ufffd \ufffd \ufffd\n\n1 Foods, fuels, and several other items are priced every month in all areas. Most other goods and services are priced as indicated: M - Every month.\n1 - January, March, May, July, September, and November. 2 - February, April, June, August, October, and December.\n\n2 Regions defined as the four Census regions.\n\n3 Indexes on a December 1996=100 base.\n4 Indexes on a December 2017=100 base.\n5 Indexes on a December 1986=100 base.\n6 1998 - 2017 indexes based on substantially smaller sample.\n7 Indexes on a December 2001=100 base.\n8 Indexes on a 1987=100 base.\n\nNOTE: Local area indexes are byproducts of the national CPI program. Each local index has a smaller sample size than the national index and is,\ntherefore, subject to substantially more sampling and other measurement error. As a result, local area indexes show greater volatility than the national\nindex, although their long-term trends are similar. Therefore, the Bureau of Labor Statistics strongly urges users to consider adopting the national\naverage CPI for use in their escalator clauses.\n\nTable 5. Chained Consumer Price Index for All Urban Consumers (C-CPI-U) and the Consumer Price Index for\nAll Urban Consumers (CPI-U): U.S. city average, all items index, July 2026\n\n[Percent changes]\n\nMonth Year Unadjusted 1-month percent change Unadjusted 12-month percent change\n\nC-CPI-U1 CPI-U C-CPI-U1 CPI-U\n\nDecember 2013............................ . 1.3 1.5\nDecember 2014............................ .\nDecember 2015............................ . 0.5 0.8\nDecember 2016............................ .\nDecember 2017............................ . 0.4 0.7\nDecember 2018............................ .\nDecember 2019............................ . 1.8 2.1\nDecember 2020............................ .\nDecember 2021............................ . 1.7 2.1\nDecember 2022............................ .\nDecember 2023............................ . 1.5 1.9\n\n1.8 2.3\n\n1.5 1.4\n\n6.5 7.0\n\n6.4 6.5\n\n2.9 3.4\n\nJanuary 2024. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.5 0.5 2.6 3.1\n\nFebruary 2024. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.6 0.6 2.8 3.2\n\nMarch 2024................................. . 0.6 0.6 3.1 3.5\n\nApril 2024................................... . 0.4 0.4 3.0 3.4\n\nMay 2024. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.1 0.2 2.9 3.3\n\nJune 2024. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.0 0.0 2.6 3.0\n\nJuly 2024. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.0 0.1 2.5 2.9\n\nAugust 2024................................ . 0.0 0.1 2.2 2.5\n\nSeptember 2024. . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.1 0.2 2.1 2.4\n\nOctober 2024. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.1 0.1 2.3 2.6\n\nNovember 2024............................ . -0.1 -0.1 2.5 2.7\n\nDecember 2024............................ . 0.0 0.0 2.6 2.9\n\nJanuary 2025. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.7 0.7 2.7 3.0\n\nFebruary 2025. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.4 0.4 2.6 2.8\n\nMarch 2025................................. . 0.2 0.2 2.1 2.4\n\nApril 2025................................... . 0.3 0.3 2.1 2.3\n\nMay 2025. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.2 0.2 2.1 2.4\n\nJune 2025. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.3 0.3 2.4 2.7\n\nJuly 2025. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.2 0.2 2.6 2.7\n\nAugust 2025................................ . 0.3 0.3 2.9 2.9\n\nSeptember 2025. . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.3 0.3 3.0 3.0\n\nNovember 2025............................ . \ufffd \ufffd 2.7 2.7\n\nDecember 2025............................ . -0.1 0.0 2.6 2.7\n\nJanuary 2026. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.4 0.4 2.3 2.4\n\nFebruary 2026. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.5 0.5 2.3 2.4\n\nMarch 2026................................. . 1.1 1.0 3.2 3.3\n\nApril 2026................................... . 0.8 0.9 3.7 3.8\n\nMay 2026. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.6 0.6 4.1 4.2\n\nJune 2026. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . -0.3 -0.3 3.5 3.5\n\nJuly 2026. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 0.0 0.0 3.3 3.4\n\n1 The C-CPI-U is designed to be a closer approximation to a cost-of-living index in that it, in its final form, accounts for any substitution that\nconsumers make across item categories in response to changes in relative prices. Since the expenditure data required for the calculation of the\nC-CPI-U are available only with a time lag, the C-CPI-U is issued first in preliminary form using the latest available expenditure data at that time and\nis subject to four revisions.\n\nIndexes are issued as initial estimates. Indexes are revised each quarter with the publication of January, April, July, and October data as updated\nexpenditure estimates become available. The C-CPI-U indexes are updated quarterly until they become final. January-March indexes are final in\nJanuary of the following year; April-June indexes are final in April of the following year; July-September indexes are final in July of the following year;\nOctober-December indexes are final in October of the following year.",
+          "cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+          "content_sha256": "6b22335813df900e7c379e8db8d2459463744d6530f28626dfd377a314c0c0ab",
+          "content_truncated": false,
+          "content_type": "application/pdf",
+          "document_id": "official-primary-6b22335813df900e7c37",
+          "event_time_utc": "2026-08-12T11:08:11Z",
+          "freshness_state": "FRESH_CURRENT_OPERATOR_READINESS",
+          "freshness_timestamp_source": "EXACT_BOUND_PROFESSIONAL_FEED",
+          "headline_ids": [
+            "cc-x-headline-01809264e79e9a6b7d69ce5b"
+          ],
+          "known_at_utc": "2026-08-13T07:06:03.572251Z",
+          "permission_state": "PUBLIC_CLAIM_ALLOWED",
+          "professional_feed_grants_factual_authority": false,
+          "professional_feed_published_at_utc": "2026-08-12T12:31:23Z",
+          "professional_feed_publisher_handle": "financialjuice",
+          "public_claim_allowed": true,
+          "published_at_utc": "2026-08-12T11:08:11Z",
+          "publisher": "www.bls.gov",
+          "raw_sha256": "6b22335813df900e7c379e8db8d2459463744d6530f28626dfd377a314c0c0ab",
+          "request_logical_hash": "eeb2564e44412dff70cd87ffaa8b7a2fea0a7095850f25d2424e58166dd2ccfa",
+          "requested_source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+          "retrieval_method": "READ_ONLY_HTTP_GET",
+          "source_adapter_family": "official_macro",
+          "source_artifact_ref": "packet:None#official_source_documents/0",
+          "source_authority_class": "official_public_primary_source",
+          "source_headline_id": "cc-x-headline-01809264e79e9a6b7d69ce5b",
+          "source_identity": "www.bls.gov",
+          "source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+          "title": "cpi.pdf"
+        }
+      ],
+      "evidence_review_tier": "ORDINARY_MINIMUM",
+      "evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "BREAKING_BRIEF",
+        "documents": [
+          {
+            "document_id": "official-primary-6b22335813df900e7c37",
+            "source_authority_class": "official_public_primary_source",
+            "title_only": false,
+            "usable_content_words": 11979
+          }
+        ],
+        "enough_for_useful_article": true,
+        "enrichment_recommended": false,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 1,
+        "target_usable_content_words": 90,
+        "usable_content_words": 11979,
+        "usable_document_count": 1
+      },
+      "headline_ids": [
+        "cc-x-headline-01809264e79e9a6b7d69ce5b"
+      ],
+      "minimum_trustworthy_evidence_packet": {
+        "attribution_required": false,
+        "core_factual_proposition": "US CPI July 2026 Report",
+        "directly_attributed_numbers_permitted": true,
+        "evidence_document_id": "official-primary-6b22335813df900e7c37",
+        "evidence_packet_sha256": "48dc0600b02945ddd076930b73079aae6129acd1e8d90c1de9ed6b5c067a0616",
+        "publication_authority": false,
+        "published_at_utc": "2026-08-12T11:08:11Z",
+        "publisher": "www.bls.gov",
+        "reader_attribution_mode": "BOUND_SOURCE_URL",
+        "reader_source_url": null,
+        "risk_tier": "ORDINARY",
+        "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+        "source_authority_class": "official_public_primary_source",
+        "source_title": "cpi.pdf",
+        "source_url": "https://www.bls.gov/news.release/pdf/cpi.pdf",
+        "status": "PASS",
+        "unsupported_optional_claims_must_be_omitted": true,
+        "x_content_grants_factual_authority": false
+      },
+      "numeric_evidence_required": false,
+      "provided_evidence_capabilities": [
+        "authorized_release_values",
+        "basic_attributed_facts",
+        "credible_event_confirmation",
+        "official_release",
+        "release_definitions"
+      ],
+      "publication_authority": false,
+      "status": "PASS",
+      "unsupported_claims_removed": 0
+    },
+    "targeted_evidence_sha256": "43bb1a25667ac708199d14ed2c6092f8a85c894420071be9275973945864aa1a",
+    "x_content_grants_factual_or_numeric_authority": false
+  }
+}

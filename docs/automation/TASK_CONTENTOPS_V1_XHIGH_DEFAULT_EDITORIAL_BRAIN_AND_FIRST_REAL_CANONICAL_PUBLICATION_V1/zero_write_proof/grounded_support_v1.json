@@ -1,0 +1,452 @@
+{
+  "evidence_acquired_after_ranking": true,
+  "publication_authority": false,
+  "schema_version": "contentops.rolling_x_grounded_support.v1",
+  "selected_cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+  "selected_headline_ids": [
+    "cc-x-headline-c1b06e8a2872d18745f952fc"
+  ],
+  "status": "PASS",
+  "targeted_evidence": {
+    "blockers": [],
+    "capital_chronicle_authority_verified": false,
+    "cc_context_bundle": {
+      "cc_context_refs": [],
+      "cc_context_richness": 0.0,
+      "factual_or_numeric_authority_granted": false,
+      "mutated_upstream": false,
+      "ordinary_reporting_blocked_when_unavailable": false,
+      "proprietary_claim_authority_granted": false,
+      "queried_entities": [],
+      "schema_version": "contentops.additive_cc_story_context.v1",
+      "state": "CC_CONTEXT_NOT_RELEVANT"
+    },
+    "cluster_id": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+    "evidence_acquisition_provenance": {
+      "evidence_substance": {
+        "additional_source_is_eligibility_requirement": false,
+        "article_mode": "BREAKING_BRIEF",
+        "documents": [
+          {
+            "document_id": "public-news-listing-58f4eac22670931ba463",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": true,
+            "usable_content_words": 0
+          },
+          {
+            "document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": true,
+            "usable_content_words": 0
+          },
+          {
+            "document_id": "public-news-listing-6e7cd95f14205ff02412",
+            "source_authority_class": "reputable_secondary_source",
+            "title_only": true,
+            "usable_content_words": 0
+          }
+        ],
+        "enough_for_useful_article": false,
+        "enrichment_recommended": true,
+        "publication_authority": false,
+        "schema_version": "contentops.evidence_substance_summary.v1",
+        "substantive_document_count": 0,
+        "target_usable_content_words": 90,
+        "usable_content_words": 0,
+        "usable_document_count": 3
+      },
+      "grounded_research": {
+        "blockers": [],
+        "elapsed_seconds": 42.433,
+        "global_infrastructure_exhausted": false,
+        "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+        "infrastructure_failure_class": null,
+        "public_retrieval_requests": 5,
+        "research_calls": 1,
+        "retrieval_result": {
+          "accepted_document_count": 3,
+          "blockers": [],
+          "status": "PASS"
+        },
+        "status": "PASS",
+        "telemetry": [
+          {
+            "attempts": [
+              {
+                "failure_class": "structured_output_schema_invalid",
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_diagnostic_code": "grounded_research_source_synthesis_research_numeric_fact_binding_invalid",
+                "structured_validation_result": "FAIL"
+              },
+              {
+                "provider_status_class": "2xx_success",
+                "requested_model": "vx/gemini-3.1-pro-preview(high)",
+                "resolved_model": "gemini-3.1-pro-preview",
+                "structured_validation_result": "PASS"
+              }
+            ],
+            "budget_exhausted_reason": null,
+            "cost": {},
+            "logical_invocation_id": "v1_research_synthesis_0c47a8b8f2726bfed5cb",
+            "logical_invocation_reserved": true,
+            "models_attempted_in_order": [
+              "vx/gemini-3.1-pro-preview(high)"
+            ],
+            "phase": "source_synthesis",
+            "provider_attempt_count": 2,
+            "recoverable_failure_classes": [
+              "structured_output_schema_invalid"
+            ],
+            "resolved_model": "vx/gemini-3.1-pro-preview(high)",
+            "terminal_disposition": "ACCEPTED",
+            "terminal_failure_class": null,
+            "token_usage": {
+              "completion_tokens": 4952.0,
+              "prompt_tokens": 6339.0,
+              "total_tokens": 11291.0
+            },
+            "wall_clock_elapsed_seconds": 39.8088
+          }
+        ]
+      },
+      "official": {
+        "blockers": [
+          "HTTP Error 403: Forbidden"
+        ],
+        "exact_bound_host_authorized_families": [
+          "official_macro"
+        ],
+        "provenance": {
+          "bounded_truncation_allowed": true,
+          "evaluation_as_of_utc": "2026-08-15T10:00:00.000529Z",
+          "locator": null,
+          "locator_request_count": 0,
+          "official_evidence_get_count": 1,
+          "read_only_http_get_only": true,
+          "request_count": 1,
+          "request_limit": 24,
+          "retrieved_at_utc": null,
+          "timeout_seconds": 12.0
+        },
+        "registry_authorized_families": [],
+        "status": "BLOCKED"
+      }
+    },
+    "evidence_documents": [
+      {
+        "byte_length": 1098,
+        "canonical_content_sha256": "d13790001d3814ce279411588e2bba8291e6acf80f6f53c06edb4ee5189f2ade",
+        "canonical_content_text": "US retail sales post first decline in nine months in July",
+        "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+        "content_type": "application/rss+xml",
+        "discovery_path_is_reader_authority": false,
+        "document_id": "public-news-listing-58f4eac22670931ba463",
+        "event_time_utc": "2026-08-14T19:08:50Z",
+        "grounded_source_ref": "SRC_D9D7CE4F7636AC54",
+        "public_claim_allowed": true,
+        "published_at_utc": "2026-08-14T19:08:50Z",
+        "publisher": "Reuters",
+        "raw_sha256": "58f4eac22670931ba463474927a61bf437c6e239ba8340d2390a80826c95b196",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "research_query_terms": [
+          "US",
+          "Retail",
+          "Sales",
+          "July",
+          "Report"
+        ],
+        "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+        "secondary_listing_only": true,
+        "source_authority_class": "reputable_secondary_source",
+        "source_identity": "reuters.com",
+        "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQSUpsdlVVb2FPYVpWSk4wT3hkMFo0eHhoZDBfemp1cVJ5b0pVeUREcVRMRE8yQjlYVE9NdDQ2VmlVbEt0RHZXYUgwYlZGNnVuMUgxUW9FdDRORnU1TGI5b0xWZGdTNzNQQXlzb1pfdDNkejhDX1RqZmpoamstRXZoYjExRnZ0WWdVMVRR?oc=5",
+        "title": "US retail sales post first decline in nine months in July"
+      },
+      {
+        "byte_length": 1420,
+        "canonical_content_sha256": "fb9b7bf5727a7806114d15eff442294546f9039471be057b26780b3ef36977e5",
+        "canonical_content_text": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.",
+        "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+        "content_type": "application/rss+xml",
+        "discovery_path_is_reader_authority": false,
+        "document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+        "event_time_utc": "2026-08-14T13:27:00Z",
+        "grounded_source_ref": "SRC_4A31DD33EA3B34DA",
+        "public_claim_allowed": true,
+        "published_at_utc": "2026-08-14T13:27:00Z",
+        "publisher": "MarketWatch",
+        "raw_sha256": "d3b70f798c5e4fe8f63b6508b38c5e136f881f16c46aaad70f68f628e99d33f5",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "research_query_terms": [
+          "US",
+          "Retail",
+          "Sales",
+          "July",
+          "Report"
+        ],
+        "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+        "secondary_listing_only": true,
+        "source_authority_class": "reputable_secondary_source",
+        "source_identity": "marketwatch.com",
+        "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPM1VURVZzSWo1MFhuajJEbXJscEQycW1ZMDBxLVFoOGVLYy11Q0VKeEFwemlGTGlLanJoWWRGa0VVSmQ2ZVpGUlFVM05JZ19JYTlUMzZDc3FLeENsVzVVb0xxM19xdHdnLTNWa1lJVjhjaW1IOU02bzBPdTVaUng4T1VycjNxclBLQW5aS1J3c2FlUWlxSV9yS2k5QVN3ZFhrQjVEeXpkd0M2dUJvWG9JX3dkT1JZRGRuY2NNZ0lpVDh1VjE2bFNtTXZB?oc=5",
+        "title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits."
+      },
+      {
+        "byte_length": 956,
+        "canonical_content_sha256": "e2e9a5bcb80fcc4a469033ba92a69f67e6f220423329e7e3b4eed1fcb2fd8b7c",
+        "canonical_content_text": "Frustrated US consumers cut their retail spending last month",
+        "canonical_resolution_status": "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY",
+        "content_type": "application/rss+xml",
+        "discovery_path_is_reader_authority": false,
+        "document_id": "public-news-listing-6e7cd95f14205ff02412",
+        "event_time_utc": "2026-08-14T12:39:24Z",
+        "grounded_source_ref": "SRC_E96EFCFE6F407346",
+        "public_claim_allowed": true,
+        "published_at_utc": "2026-08-14T12:39:24Z",
+        "publisher": "CNN",
+        "raw_sha256": "6e7cd95f14205ff024121ee9b493af2f5f40df3549484400725ac985109793c8",
+        "reader_attribution_mode": "ATTRIBUTION_ONLY",
+        "reader_source_url": null,
+        "research_query_terms": [
+          "US",
+          "Retail",
+          "Sales",
+          "July",
+          "Report"
+        ],
+        "retrieval_method": "READ_ONLY_PUBLIC_NEWS_RSS",
+        "secondary_listing_only": true,
+        "source_authority_class": "reputable_secondary_source",
+        "source_identity": "cnn.com",
+        "source_url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9BLVZTc2xhMmE4SVMxaElXbDg3VmRuaWcyUndNcDNBT0RLLWJTR1dZVVJzWkEwMmVuSVFZNEhiR25WZHFmblhmRzhMVG5hUUQ0QnVMR2x2R2N2RDZ0ZFdYUmpzbUprYkdUeTgw?oc=5",
+        "title": "Frustrated US consumers cut their retail spending last month"
+      }
+    ],
+    "evidence_review_tier": "ORDINARY_MINIMUM",
+    "evidence_substance": {
+      "additional_source_is_eligibility_requirement": false,
+      "article_mode": "BREAKING_BRIEF",
+      "documents": [
+        {
+          "document_id": "public-news-listing-58f4eac22670931ba463",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": true,
+          "usable_content_words": 0
+        },
+        {
+          "document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": true,
+          "usable_content_words": 0
+        },
+        {
+          "document_id": "public-news-listing-6e7cd95f14205ff02412",
+          "source_authority_class": "reputable_secondary_source",
+          "title_only": true,
+          "usable_content_words": 0
+        }
+      ],
+      "enough_for_useful_article": false,
+      "enrichment_recommended": true,
+      "publication_authority": false,
+      "schema_version": "contentops.evidence_substance_summary.v1",
+      "substantive_document_count": 0,
+      "target_usable_content_words": 90,
+      "usable_content_words": 0,
+      "usable_document_count": 3
+    },
+    "grounded_research_packet": {
+      "attributed_numeric_facts": [],
+      "cc_context": {
+        "cc_context_refs": [],
+        "cc_context_richness": 0.0,
+        "factual_or_numeric_authority_granted": false,
+        "mutated_upstream": false,
+        "ordinary_reporting_blocked_when_unavailable": false,
+        "proprietary_claim_authority_granted": false,
+        "queried_entities": [],
+        "schema_version": "contentops.additive_cc_story_context.v1",
+        "state": "CC_CONTEXT_NOT_RELEVANT"
+      },
+      "cc_context_refs": [],
+      "confirmed_facts": [
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f1",
+          "factual_statement": "U.S. retail sales posted a decline in July.",
+          "source_refs": [
+            "SRC_4A31DD33EA3B34DA",
+            "SRC_D9D7CE4F7636AC54"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f2",
+          "factual_statement": "The July decline in retail sales was the first drop in nine months.",
+          "source_refs": [
+            "SRC_D9D7CE4F7636AC54"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f3",
+          "factual_statement": "Cheaper gas and an 'Amazon Prime hangover' were identified as the chief culprits for the retail sales slump.",
+          "source_refs": [
+            "SRC_4A31DD33EA3B34DA"
+          ]
+        },
+        {
+          "attribution_required": true,
+          "confidence_class": "HIGH",
+          "direct_or_inferred": "DIRECT",
+          "fact_id": "f4",
+          "factual_statement": "U.S. consumers cut their retail spending last month.",
+          "source_refs": [
+            "SRC_E96EFCFE6F407346"
+          ]
+        }
+      ],
+      "context": [
+        "T",
+        "h",
+        "e",
+        "",
+        "r",
+        "e",
+        "p",
+        "o",
+        "r",
+        "t"
+      ],
+      "contradictions": [],
+      "core_factual_proposition": "U.S. retail sales posted a decline in July.",
+      "enhanced_review_required": false,
+      "grounding_mode": "DETERMINISTIC_LOCATOR_PLUS_BOUNDED_RETRIEVAL_THEN_SOURCE_SYNTHESIS",
+      "model_assertion_grants_factual_authority": false,
+      "model_suggested_article_mode": "BREAKING_BRIEF",
+      "post_filter_accepted_evidence_document_ids": [
+        "public-news-listing-58f4eac22670931ba463",
+        "public-news-listing-6e7cd95f14205ff02412",
+        "public-news-listing-d3b70f798c5e4fe8f63b"
+      ],
+      "post_filter_removed_fact_count": 0,
+      "publication_authority": false,
+      "research_as_of_utc": "2026-08-15T10:00:00.000529Z",
+      "research_logical_hash": "4ce635837d9fc628721b2701f30a97d3332f39bf052ea30ce794416f087b0f45",
+      "research_model_identity": "vx/gemini-3.1-pro-preview(high)",
+      "research_status": "PASS",
+      "risk_classification": "ORDINARY",
+      "schema_version": "contentops.grounded_news_research.v1",
+      "sources": [
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "d13790001d3814ce279411588e2bba8291e6acf80f6f53c06edb4ee5189f2ade",
+          "evidence_document_id": "public-news-listing-58f4eac22670931ba463",
+          "published_at": "2026-08-14T19:08:50Z",
+          "publisher": "Reuters",
+          "reader_source_url": null,
+          "retrieved_at": "2026-08-15T10:58:32.853014Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_D9D7CE4F7636AC54",
+          "source_type": "application/rss+xml",
+          "source_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQSUpsdlVVb2FPYVpWSk4wT3hkMFo0eHhoZDBfemp1cVJ5b0pVeUREcVRMRE8yQjlYVE9NdDQ2VmlVbEt0RHZXYUgwYlZGNnVuMUgxUW9FdDRORnU1TGI5b0xWZGdTNzNQQXlzb1pfdDNkejhDX1RqZmpoamstRXZoYjExRnZ0WWdVMVRR?oc=5",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": true,
+            "source_record_bound": true
+          },
+          "title": "US retail sales post first decline in nine months in July"
+        },
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "fb9b7bf5727a7806114d15eff442294546f9039471be057b26780b3ef36977e5",
+          "evidence_document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+          "published_at": "2026-08-14T13:27:00Z",
+          "publisher": "MarketWatch",
+          "reader_source_url": null,
+          "retrieved_at": "2026-08-15T10:58:32.853014Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_4A31DD33EA3B34DA",
+          "source_type": "application/rss+xml",
+          "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPM1VURVZzSWo1MFhuajJEbXJscEQycW1ZMDBxLVFoOGVLYy11Q0VKeEFwemlGTGlLanJoWWRGa0VVSmQ2ZVpGUlFVM05JZ19JYTlUMzZDc3FLeENsVzVVb0xxM19xdHdnLTNWa1lJVjhjaW1IOU02bzBPdTVaUng4T1VycjNxclBLQW5aS1J3c2FlUWlxSV9yS2k5QVN3ZFhrQjVEeXpkd0M2dUJvWG9JX3dkT1JZRGRuY2NNZ0lpVDh1VjE2bFNtTXZB?oc=5",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": true,
+            "source_record_bound": true
+          },
+          "title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits."
+        },
+        {
+          "access_status": "ACCESSIBLE_SOURCE_RECORD",
+          "content_hash": "e2e9a5bcb80fcc4a469033ba92a69f67e6f220423329e7e3b4eed1fcb2fd8b7c",
+          "evidence_document_id": "public-news-listing-6e7cd95f14205ff02412",
+          "published_at": "2026-08-14T12:39:24Z",
+          "publisher": "CNN",
+          "reader_source_url": null,
+          "retrieved_at": "2026-08-15T10:58:32.853014Z",
+          "source_authority_class": "reputable_secondary_source",
+          "source_ref": "SRC_E96EFCFE6F407346",
+          "source_type": "application/rss+xml",
+          "source_url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9BLVZTc2xhMmE4SVMxaElXbDg3VmRuaWcyUndNcDNBT0RLLWJTR1dZVVJzWkEwMmVuSVFZNEhiR25WZHFmblhmRzhMVG5hUUQ0QnVMR2x2R2N2RDZ0ZFdYUmpzbUprYkdUeTgw?oc=5",
+          "support_metadata": {
+            "retrieved_content_available": true,
+            "secondary_listing_only": true,
+            "source_record_bound": true
+          },
+          "title": "Frustrated US consumers cut their retail spending last month"
+        }
+      ],
+      "story_identity": "rolling-x-deterministic-cluster-979eb7a35a06c8f647d9",
+      "suggested_article_mode": "BREAKING_BRIEF",
+      "uncertainties": [
+        "The exact percentage or dollar amount of the retail sales decline is not specified in the provided text."
+      ],
+      "unsupported_or_unverified": [
+        "Specific statistical data from the Census Bureau report is not detailed in the provided source snippets."
+      ]
+    },
+    "headline_ids": [
+      "cc-x-headline-c1b06e8a2872d18745f952fc"
+    ],
+    "minimum_trustworthy_evidence_packet": {
+      "attribution_required": true,
+      "core_factual_proposition": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.",
+      "directly_attributed_numbers_permitted": true,
+      "evidence_document_id": "public-news-listing-d3b70f798c5e4fe8f63b",
+      "evidence_packet_sha256": "e94945f9937695fd258ee08437baf30e49b37d943cc1a10cc60bfcdb77ddf887",
+      "publication_authority": false,
+      "published_at_utc": "2026-08-14T13:27:00Z",
+      "publisher": "MarketWatch",
+      "reader_attribution_mode": "ATTRIBUTION_ONLY",
+      "reader_source_url": null,
+      "risk_tier": "ORDINARY",
+      "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
+      "source_authority_class": "reputable_secondary_source",
+      "source_title": "Retail sales slump. Cheaper gas and an Amazon Prime hangover are the chief culprits.",
+      "source_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPM1VURVZzSWo1MFhuajJEbXJscEQycW1ZMDBxLVFoOGVLYy11Q0VKeEFwemlGTGlLanJoWWRGa0VVSmQ2ZVpGUlFVM05JZ19JYTlUMzZDc3FLeENsVzVVb0xxM19xdHdnLTNWa1lJVjhjaW1IOU02bzBPdTVaUng4T1VycjNxclBLQW5aS1J3c2FlUWlxSV9yS2k5QVN3ZFhrQjVEeXpkd0M2dUJvWG9JX3dkT1JZRGRuY2NNZ0lpVDh1VjE2bFNtTXZB?oc=5",
+      "status": "PASS",
+      "unsupported_optional_claims_must_be_omitted": true,
+      "x_content_grants_factual_authority": false
+    },
+    "numeric_evidence_required": false,
+    "provided_evidence_capabilities": [
+      "basic_attributed_facts",
+      "credible_event_confirmation"
+    ],
+    "publication_authority": false,
+    "status": "PASS",
+    "unsupported_claims_removed": 0
+  },
+  "targeted_evidence_sha256": "d25dd54f2e0e3a7a29cbb55361eba5bfdca52c5ba998f245885455d4b3a41214",
+  "x_content_grants_factual_or_numeric_authority": false
+}

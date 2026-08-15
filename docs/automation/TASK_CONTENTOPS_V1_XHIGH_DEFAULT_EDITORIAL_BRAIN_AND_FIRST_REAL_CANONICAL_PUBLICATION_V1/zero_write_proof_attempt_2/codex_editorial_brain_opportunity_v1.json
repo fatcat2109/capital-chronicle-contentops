@@ -1,0 +1,87 @@
+{
+  "browser_use_count": 0,
+  "candidate_rank": 1,
+  "cluster_id": "rolling-x-deterministic-cluster-9180508e22ca1459a4a5",
+  "completed_at_utc": "2026-08-15T18:48:33.096970Z",
+  "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+  "executions": [
+    {
+      "attempt": 0,
+      "browser_use_count": 0,
+      "catalog_entry_proof_sha256": "4461ab81b27db7a31f74fafa8787f9758a2323f41072db0900f114ac036d26e3",
+      "cli_sha256": "f29f609375f3731d8db507a95124862a84e306982e30ba4300ddce5638bc6946",
+      "cli_version": "codex-cli 0.148.0-alpha.9",
+      "command_execution_count": 0,
+      "diagnostic_code": null,
+      "effective_model": null,
+      "effective_reasoning_effort": null,
+      "exact_model_capability_verified": true,
+      "execution_plane": "LOCAL_CODEX_EXEC_NON_INTERACTIVE_EPHEMERAL",
+      "exit_classification": "SUCCESS",
+      "exit_code": 0,
+      "external_model_service_network": true,
+      "external_research_network": false,
+      "fresh_execution_id": "01a006c0-3767-7691-a65a-bfdd42634e52",
+      "materialized_runtime_copy": true,
+      "non_interactive_headless": true,
+      "requested_model": "gpt-5.6-sol",
+      "requested_reasoning_effort": "xhigh",
+      "supported_reasoning_efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max",
+        "ultra"
+      ],
+      "timeout_seconds": 420.0,
+      "tool_event_counts": {
+        "browser_calls": 0,
+        "command_executions": 0,
+        "file_changes": 0,
+        "mcp_tool_calls": 0,
+        "web_searches": 0
+      },
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 14313,
+        "output_tokens": 1961,
+        "reasoning_output_tokens": 1717
+      },
+      "wall_time_seconds": 57.737,
+      "web_search_count": 0
+    }
+  ],
+  "external_research_network": false,
+  "governed_input_sha256": "037c74b4c7969eaf70c5cc59d9c5977b2b6e0ffd056577c730c09ce16090bdda",
+  "headline_ids": [
+    "cc-x-headline-01809264e79e9a6b7d69ce5b"
+  ],
+  "instruction_sha256": "fca05b48b27a11ef56b1b76605c24e24e2b69b6487b44188702ce0c72542804e",
+  "job_id": "codex-editorial-037c74b4c7969eaf70c5cc59",
+  "job_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\contentops_v1_xhigh_default_proof_7dc9\\jobs\\codex-editorial-037c74b4c7969eaf70c5cc59\\governed_article_job.json",
+  "last_output_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\contentops_v1_xhigh_default_proof_7dc9\\jobs\\codex-editorial-037c74b4c7969eaf70c5cc59\\article_result.json",
+  "last_output_sha256": "777242b66a283d35aa5c346461b890801180246c91e1e0b2e6fd16b47847a201",
+  "output_schema_sha256": "95f9574042597f3bdefaa309e5770a22f928462a92b5d658e05845a21efb092c",
+  "public_write_performed": false,
+  "publication_authority": false,
+  "requested_model": "gpt-5.6-sol",
+  "requested_reasoning_effort": "xhigh",
+  "result_classification": "FAIL_FORBIDDEN",
+  "revision_count": 0,
+  "schema_version": "contentops.v1_codex_editorial_brain.v1",
+  "started_at_utc": "2026-08-15T18:47:35.300749Z",
+  "status": "FAILED",
+  "validation_result": {
+    "classification": "FAIL_FORBIDDEN",
+    "editorial_failure_codes": [
+      "WRITER_UTILITY_UNPROFESSIONAL_OUTPUT",
+      "WRITER_UTILITY_INSUFFICIENT_READER_SUBSTANCE"
+    ],
+    "forbidden_failure_codes": [
+      "grounded_paragraph_source_coverage_incomplete:2"
+    ]
+  },
+  "work_item_id": "v1-xhigh-default-editorial-brain-zero-write-proof"
+}

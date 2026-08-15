@@ -305,6 +305,7 @@ def evaluate_reader_value(
     degraded_copy = str(article.get("article_generation_method") or "") in {
         "MINIMUM_EVIDENCE_NEWS_BRIEF",
         "DETERMINISTIC_SUPPORTED_CLAIM_BRIEF",
+        "DEGRADED_EDITORIAL_BRAIN",
     }
     process_hits = _pattern_hits(prose, PROCESS_LANGUAGE_PATTERNS)
     attribution_markers = len(re.findall(r"\(attribution\s*:", prose, re.I))
@@ -754,6 +755,16 @@ def review_minimum_evidence_news_brief(article: Mapping[str, Any]) -> dict[str, 
     """Run only hard factual/binding checks for an ordinary minimum-evidence article."""
     packet = dict(article.get("minimum_trustworthy_evidence_packet") or {})
     body = str(article.get("substack_body_markdown") or "")
+    proposition_surface = " ".join(
+        str(article.get(key) or "")
+        for key in (
+            "title",
+            "subtitle",
+            "seo_title",
+            "meta_description",
+            "substack_body_markdown",
+        )
+    )
     proposition = " ".join(str(packet.get("core_factual_proposition") or "").split())
     source_url = str(packet.get("source_url") or "")
     evidence_id = str(packet.get("evidence_document_id") or "")
@@ -768,7 +779,7 @@ def review_minimum_evidence_news_brief(article: Mapping[str, Any]) -> dict[str, 
     }
     source_identity_bound = bool(bound_source_ids.intersection(referenced_source_ids))
     proposition_terms = set(re.findall(r"[a-z0-9]{4,}", proposition.casefold()))
-    body_terms = set(re.findall(r"[a-z0-9]{4,}", body.casefold()))
+    body_terms = set(re.findall(r"[a-z0-9]{4,}", proposition_surface.casefold()))
     proposition_bound = bool(
         proposition_terms
         and len(proposition_terms.intersection(body_terms))
@@ -780,6 +791,8 @@ def review_minimum_evidence_news_brief(article: Mapping[str, Any]) -> dict[str, 
             "ROUTED_LLM_GROUNDED_ARTICLE",
             "MINIMUM_EVIDENCE_NEWS_BRIEF",
             "FRESH_ISOLATED_CODEX_EDITORIAL_BRAIN",
+            "FRESH_ISOLATED_CODEX_XHIGH_DEFAULT_EDITORIAL_BRAIN",
+            "DEGRADED_EDITORIAL_BRAIN",
         }
         and packet.get("status") == "PASS"
         and packet.get("risk_tier") == "ORDINARY"
